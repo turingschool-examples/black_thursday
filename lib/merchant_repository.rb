@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 require 'csv'
 
 class MerchantRepository
@@ -27,4 +28,7 @@ attr_accessor :file
 
 
 
+=======
+class MerchantRepository
+>>>>>>> e0e0dc985ae77f2d09336d1b83c614e1dd723f5b
 end
