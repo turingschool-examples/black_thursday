@@ -18,8 +18,9 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_load_the_merchant_csv_file
+    expected = "../data/merchant.csv"
+    submitted = @mr.load_data(expected)
 
-    expected = "./data/merchant.csv"
     assert_equal expected, @mr.load_data
   end
 end

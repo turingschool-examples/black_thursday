@@ -13,10 +13,10 @@ class MerchantRepository
 
   def load_data(filename)
     contents = CSV.open filename, headers: true, header_converters: :symbol
-    contents.each do |row|
-      name = row[:name]
-      puts name
-    end
+    # contents.each do |row|
+    #   name = row[:name]
+    #   puts name
+    # end
   end
 
 
