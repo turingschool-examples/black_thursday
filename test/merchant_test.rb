@@ -3,7 +3,6 @@ require 'minitest/pride'
 require_relative '../lib/merchant'
 
 class MerchantTest < Minitest::Test
-
   def test_merchant_can_be_initialized
     merch = Merchant.new({:name => "test name", :merchant_id => 3, :created_at => "2012-03-27 14:53:59 UTC", :updated_at => "2012-03-27 14:53:59 UTC"})
 
