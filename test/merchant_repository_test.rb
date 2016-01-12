@@ -4,7 +4,7 @@ require_relative '../lib/merchant_repository'
 class MerchantRepositoryTest < Minitest::Test
 
   def setup
-    @mr = MerchantRepository.new()
+    @mr = MerchantRepository.new('./data/merchants.csv')
   end
 
   def test_merchant_instance_can_be_created
@@ -19,22 +19,25 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_can_load_the_merchant_csv_file
     skip
-    # binding.pry
-    load_file = "./data/merchant.csv"
+    load_file = './data/merchant.csv'
     submitted = @mr.load_data(load_file)
 
-    assert submitted
+    assert_equal load_file, submitted
   end
-  
+
   def test_merchant_can_be_found_by_id
-    skip
-    submitted = @mr.find_id()
+    id = 12334105
+    submitted = @mr.parse_data(id)
+
+    assert_equal id, submitted
   end
 
   def test_merchant_can_return_nil_when_searched_by_id
-    skip
-    submitted = @mr.find_id()
-    assert_equal nil, submitted
+    id = 12334104
+    submitted = @mr.parse_data(id)
+
+    # assert_nil submitted
+    assert_equal "nil", submitted
   end
 
   def test_merchant_can_be_found_by_name

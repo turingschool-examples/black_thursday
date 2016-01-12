@@ -12,7 +12,7 @@ class MerchantRepository
     CSV.open file, headers: true, header_converters: :symbol
   end
 
-  def parse_data(file, id)
+  def parse_data(id)
     contents = load_data(file)
     contents.each do |row|
       @id_column = row[:id]
@@ -20,11 +20,11 @@ class MerchantRepository
 
       # binding.pry
 
-
       if @id_column.include?(id.to_s)
-        puts id
-      elsif id.nil?
-        puts "nil"
+        return id
+      else
+        # return nil
+        return "nil"
       end
     end
   end
@@ -49,5 +49,5 @@ if __FILE__ == $0
 mr = MerchantRepository.new('./data/merchants.csv')
 merchant_list = mr.load_data('./data/merchants.csv')
 # mr.find_id(12334105)
-mr.parse_data('./data/merchants.csv', 12334105)
+puts mr.parse_data(12334104)
 end
