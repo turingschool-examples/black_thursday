@@ -6,18 +6,18 @@ class Merchant
   end
 
   def name
-    @merchant[:name]
+    merchant[:name]
   end
 
   def id
-    @merchant[:id]
+    merchant[:id]
   end
 
   def created_at
-    @merchant[:created_at]
+    merchant[:created_at]
   end
 
   def updated_at
-    @merchant[:updated_at]
+    merchant[:updated_at]
   end
 end
