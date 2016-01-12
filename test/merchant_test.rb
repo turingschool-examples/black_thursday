@@ -1,4 +1,3 @@
-
 require 'minitest'
 require 'minitest/pride'
 require_relative '../lib/merchant'
