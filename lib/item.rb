@@ -1,3 +1,4 @@
+require 'bigdecimal'
 class Item
   attr_reader :item
 
@@ -15,7 +16,7 @@ class Item
 
   def merchant_id
     item[:merchant_id]
-  end  
+  end
 
   def created_at
     item[:created_at]
@@ -30,6 +31,7 @@ class Item
   end
 
   def unit_price
-    item[:unit_price]
+    unit_price = item[:unit_price]
+    BigDecimal.new(unit_price.insert(-3, "."))
   end
 end
