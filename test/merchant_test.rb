@@ -11,9 +11,9 @@ class MerchantTest < Minitest::Test
   end
 
   def test_merchant_can_generate_an_id
-    merch = Merchant.new({:name => "test name", :merchant_id => 3, :created_at => "2012-03-27 14:53:59 UTC", :updated_at => "2012-03-27 14:53:59 UTC"})
+    merch = Merchant.new({:name => "test name", :id => 3, :created_at => "2012-03-27 14:53:59 UTC", :updated_at => "2012-03-27 14:53:59 UTC"})
 
-    assert_equal 3, merch.merchant_id
+    assert_equal 3, merch.id
   end
 
   def test_merchant_can_pull_a_name
