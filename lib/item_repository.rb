@@ -2,15 +2,16 @@ require 'csv'
 require 'item'
 
 class ItemRepository
-attr_reader :data, :all_items
-attr_accessor :file
-  def initialize
+attr_reader :data, :all_items, :file
+
+  def initialize(file)
     @all_items = []
-    
+    @file = file
+    data_into_hash(load_data(file))
   end
 
   def load_data(file)
-    @data = CSV.open "#{file}", headers: true, header_converters:
+    @data = CSV.open (file), headers: true, header_converters:
     :symbol
   end
 

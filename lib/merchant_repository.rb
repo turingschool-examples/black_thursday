@@ -2,11 +2,12 @@ require 'csv'
 require 'merchant'
 
 class MerchantRepository
-attr_reader :data, :all_merchants
-attr_accessor :file
+attr_reader :data, :all_merchants, :file
 
-  def initialize
+  def initialize(file)
     @all_merchants = []
+    @file = file
+    data_into_hash(load_data(file))
   end
 
   def load_data(file)
@@ -20,7 +21,6 @@ attr_accessor :file
       name = row[:name]
       created_at = row[:created_at]
       updated_at = row[:updated_at]
-
       hash = {:id => merchant_id,
               :name => name, :created_at => created_at, :updated_at => updated_at}
       merchant = Merchant.new(hash)
