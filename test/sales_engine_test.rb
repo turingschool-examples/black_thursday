@@ -15,16 +15,42 @@ attr_reader :se_hash
     assert se.instance_of?(SalesEngine)
   end
 
-  def test_items_can_be_retrieved_from_the_hash
-    skip
+  def test_self_from_csv_loads_file_names
     se = SalesEngine.from_csv(se_hash)
-    assert_equal './data/test_items.csv', se.merchants
+
+    assert_equal "./data/test_items.csv", se.items_file
+    assert_equal "./data/test_merchant.csv", se.merchants_file
   end
 
-  def test_from_csv_can_be_call_on_itself
-    skip
+  def test_items_instantiates_items_repo
     se = SalesEngine.from_csv(se_hash)
-    merchant = se.merchants
-    assert_equal './data/test_items.csv', merchant.all_merchants
+    item = se.items
+    assert item.instance_of?(ItemRepository)
   end
+
+  def test_items_instantiates_merchants_repo
+    se = SalesEngine.from_csv(se_hash)
+    merchants = se.merchants
+    assert merchants.instance_of?(MerchantRepository)
+  end
+
+  def test_items_returns_item_repo_instance
+    se = SalesEngine.from_csv(se_hash)
+    item = se.items
+    assert_equal 5, item.all_items.count
+  end
+
+  def test_merchants_returns_merchant_repo_instance
+    se = SalesEngine.from_csv(se_hash)
+    merchants = se.merchants
+    assert_equal 5, merchants.all_merchants.count
+  end
+
+  def test_sales_engine_can_find_by_id
+    se = SalesEngine.from_csv(se_hash)
+    merchants = se.merchants
+    found = merchants.find_by_id("1")
+    assert_equal "Schroeder-Jerde", found.name
+  end
+
 end
