@@ -1,30 +1,38 @@
-# require 'controller'
+require './lib/merchant_repository'
 require 'csv'
 
 class SalesEngine
   attr_reader :file, :command, :value
 
-  def initialize(command = nil, value = nil, *file)
+  def initialize(*file)
     @file = file
-    @command = command
-    @value = value
+    # @command = command
+    # @value = value
   end
 
-  def parse_request
+  def delegate(command, value)
+    # assign controller variable to Controller.new
+    # give controller [file, command and value]
+    # controller uses those to:
+        # load file
+        # initialize relevant class
+        # finds the relevant method in said class
+        # gives method the provided value
+        # returns method result
 
+    controller = MerchantRepository.new
+    # finder = command(value)
+
+    content = controller.find_id(value)
+    puts content
   end
 
-  def all
-  end
 end
 
-
-#
-# a method that parses request, that then sends to controller. class
-# on this method, initialize Controller.new
-#
-
-
-
-# se = SalesEngine.new(*files, find_by_id, 10)
-# se.saleanalysis.top_performers
+if __FILE__ == $0
+se = SalesEngine.new('./data/merchants.csv')
+puts se.delegate(find_id, 12334105)
+# mr.find_id(12334105)
+# puts mr.find_id(12334104)
+# puts se.merchants.find_id("CJsDecor")
+end
