@@ -1,6 +1,6 @@
 require 'pry'
 require 'csv'
-# require_relative './lib/merchant'
+require './lib/merchant'
 
 class MerchantRepository
   attr_reader :merchants
@@ -10,13 +10,16 @@ class MerchantRepository
   end
 
   def parse_merchants
+    merchant_array = []
     @merchants[0].each do |row|
       @id = row[:id]
       @name = row[:name]
-      merchants = Hash[:id, @id, :name, @name]
-
-      puts merchants
+      # merchants = Hash[:id, @id, :name, @name]
+      merchant_array << Merchant.new({:id => @id}, {:name => @name})
     end
+    puts merchant_array[0]
+    puts merchant_array[0].id
+    puts merchant_array[0].name
   end
 
   # def find_by_id(id)
