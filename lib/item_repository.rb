@@ -3,12 +3,14 @@ require_relative 'item'
 require_relative 'merchant_repository'
 
 class ItemRepository
-attr_reader :data, :file, :all_items, :item
-attr_accessor :merchant_repository
+attr_reader :data, :file, :all, :item, :repo
+
+  def inspect
+      "#<#{self.class} #{@all.size} rows>"
+  end
 
   def initialize(file)
-    @merchant_repository = merchant_repository
-    @all_items = []
+    @all = []
     @file = file
     data_into_hash(load_data(file))
   end
@@ -32,31 +34,30 @@ attr_accessor :merchant_repository
               :name => name,
               :created_at => created_at, :updated_at => updated_at}
       @item = Item.new(hash)
-      item.merchant = merchant_id
-      # assign_item_its_merchant
-      @all_items << item
+      @all << item
     end
   end
-
+  #
   # def assign_item_its_merchant
-  #   item.merchant = merchant_repository.find_by_id(item.merchant_id)
+  #   item.merchant = repo.items.find_by_id(merchant_id)
+  #
   # end
 
   def find_by_id(number)
-    all_items = @all_items
-    all_items.find do |x|
+    all = @all
+    all.find do |x|
       x.id == number
     end
   end
 
   def find_by_name(name)
-    @all_items.find do |x|
+    @all.find do |x|
       x.name.downcase == name.downcase
     end
   end
 
   def find_all_with_description(description)
-    @all_items.find_all do |x|
+    @all.find_all do |x|
       x.description.downcase == description.downcase
     end
   end
@@ -70,7 +71,7 @@ attr_accessor :merchant_repository
   end
 
   def find_all_by_merchant_id(id)
-    @all_items.find_all do |x|
+    @all.find_all do |x|
       x.merchant_id == id
     end
   end

@@ -12,7 +12,7 @@ class Merchant
   end
 
   def id
-    merchant[:id]
+    merchant[:id].to_i
   end
 
   def created_at

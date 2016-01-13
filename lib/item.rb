@@ -13,11 +13,11 @@ class Item
   end
 
   def id
-    item[:id]
+    item[:id].to_i
   end
 
   def merchant_id
-    item[:merchant_id]
+    item[:merchant_id].to_i
   end
 
   def created_at

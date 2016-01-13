@@ -2,24 +2,36 @@ require_relative "item_repository"
 require_relative "merchant_repository"
 
 class SalesEngine
-attr_reader :items_file, :merchants_file, :items_data
+attr_reader :files, :items, :merchants
 
-  def initialize(list_of_csv_files)
-    @items_file = list_of_csv_files[:items]
-    @merchants_file = list_of_csv_files[:merchants]
-    merchants
-    items
+  def self.from_csv(files)
+    SalesEngine.new(files)
   end
 
-  def self.from_csv(list_of_csv_files)
-    SalesEngine.new(list_of_csv_files)
+  def initialize(files)
+    load_data(files)
+    relationships
   end
 
-  def items
-    merchants.item_repository
+  def load_data(files)
+    @merchants = MerchantRepository.new(files[:merchants])
+    @items = ItemRepository.new(files[:items])
   end
 
-  def merchants
-    MerchantRepository.new(merchants_file, items_file)
+  def relationships
+    merchant_to_item_relationship
+    item_to_merchant_relationship
+  end
+
+  def merchant_to_item_relationship
+    merchants.all.each do |merchant|
+      merchant.item = items.find_all_by_merchant_id(merchant.id)
+    end
+  end
+
+  def item_to_merchant_relationship
+    items.all.each do |item|
+      item.merchant = merchants.find_by_id(item.merchant_id)
+    end
   end
 end
