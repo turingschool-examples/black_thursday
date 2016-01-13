@@ -11,6 +11,7 @@ attr_reader :data, :all_merchants, :merchant_file, :item_repository, :items_file
     @merchant_file = merchant_file
     @items_file = items_file
     data_into_merchant_hash(load_merchant_data(merchant_file))
+    #item_repository.merchant_repository = self
   end
 
   def load_merchant_data(merchant_file)

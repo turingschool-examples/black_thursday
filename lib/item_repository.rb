@@ -1,8 +1,10 @@
 require 'csv'
 require_relative 'item'
+require_relative 'merchant_repository'
 
 class ItemRepository
 attr_reader :data, :file, :all_items
+attr_accessor :merchant_repository
 
   def initialize(file)
     @all_items = []
