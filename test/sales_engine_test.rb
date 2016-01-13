@@ -39,7 +39,7 @@ attr_reader :se_hash
   def test_items_returns_item_repo_instance
     se = SalesEngine.from_csv(se_hash)
     item = se.items
-    assert_equal 5, item.all.count
+    assert_equal 10, item.all.count
   end
 
   def test_merchants_returns_merchant_repo_instance

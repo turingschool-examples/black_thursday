@@ -70,7 +70,6 @@ attr_reader :data, :file, :all, :item, :repo
 
   def find_all_by_price_in_range(range)
     @all.find_all do |x|
-
       range.include?(x.unit_price.to_f)
     end
   end
