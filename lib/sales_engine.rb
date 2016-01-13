@@ -1,18 +1,16 @@
 require './lib/merchant_repository'
+require 'pry'
 require 'csv'
 
 class SalesEngine
-  # attr_reader :file, :command, :value
-
-  def initialize
-
-  end
 
   def from_csv(hash_of_csv_files)
-    key_list = hash_of_csv_files.keys
-    puts key_list
-    value_list = hash_of_csv_files.values
-    puts value_list
+    puts hash_of_csv_files
+    puts hash_of_csv_files.keys
+    puts hash_of_csv_files.values
+    # if loop on count, to split out the different key/value pairs
+    puts hash_of_csv_files.count
+    # => create (.count) many arrays, named after keys
 
     contents = [] # map?
     hash_of_csv_files.each do |key, value|
@@ -59,7 +57,10 @@ if __FILE__ == $0
 
 se = SalesEngine.new
 se.from_csv({:merchants => './data/merchants.csv',
-            :items => './data/items.csv'})
+             :items => './data/items.csv'})
+
+# se = SalesEngine.new
+# se.from_csv({:merchants => './data/merchants.csv'})
 # mr.find_id(12334105)
 # puts mr.find_id(12334104)
 # puts se.merchants.find_id("CJsDecor")
