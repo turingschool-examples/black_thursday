@@ -10,39 +10,25 @@ class MerchantRepository
   end
 
   def parse_merchants
-    merchant_array = []
+    @merchant_array = []
     @merchants[0].each do |row|
       @id = row[:id]
       @name = row[:name]
       # merchants = Hash[:id, @id, :name, @name]
-      merchant_array << Merchant.new({:id => @id}, {:name => @name})
+      @merchant_array << Merchant.new({:id => @id}, {:name => @name})
     end
-    puts merchant_array[0]
-    puts merchant_array[0].id
-    puts merchant_array[0].name
+    puts @merchant_array[0]
+    puts @merchant_array[0].id
+    puts @merchant_array[0].name
   end
 
-  # def find_by_id(id)
-  #   if @id_column.include?(id.to_s)
-  #     return id
-  #   else
-  #     return "nil"
-  #   end
-  # end
+  def all
+    puts @merchant_array
+  end
 
-  # def all
-  #   ['name_one', 'name_two']
-  # end
+  def find_by_id
 
-  # def find_id(id)
-  #   @id_column.include?(id.to_s)
-  #   if id.nil?
-  #     nil
-  #   else
-  #     puts id
-  #   end
-  # end
-
+  end
 
 end
 
