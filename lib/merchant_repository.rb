@@ -14,15 +14,10 @@ class MerchantRepository
     merchants.each do |row|
       @id   = row[:id]
       @name = row[:name]
-      # puts merchants = Hash[:id, @id, :name, @name]
-      merchants = Hash[:id, @id, :name, @name]
+      # merchants = Hash[:id, @id, :name, @name]
 
-      # puts @name
       @merchant_array << Merchant.new({:id => @id, :name => @name})
     end
-    # puts @merchant_array[0]
-    # puts @merchant_array[0].id
-    # puts @merchant_array[0].name
   end
 
   def all

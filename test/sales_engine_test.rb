@@ -11,6 +11,18 @@ class SalesEngineTest < Minitest::Test
     assert_kind_of SalesEngine, se
   end
 
+  def test_sales_engine_can_create_CSV_objects
+
+  end
+
+  def test_sales_engine_can_create_Merchant_Repos
+    # self.merchants
+  end
+
+  def test_sales_engine_can_create_Items_Repos
+    # self.items
+  end
+
   # def test_if_two_files_are_entered_returns_files
   #   skip
   #   file_one = "./data/merchants.csv"
