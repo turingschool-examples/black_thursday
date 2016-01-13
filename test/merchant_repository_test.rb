@@ -29,6 +29,14 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal expected, submitted.name
   end
 
+  def test_find_by_name_insensitve_search
+    merchant_name = "Shopin1901"
+    expected      = merchant_name
+    submitted     = @mr.find_by_name(merchant_name.upcase)
+
+    assert_equal expected, submitted.name
+  end
+
   def test_find_by_name_rejects_bad_name
     merchant_name = "BurgerKing"
     submitted     = @mr.find_by_name(merchant_name)
