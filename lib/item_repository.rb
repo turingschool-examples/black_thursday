@@ -1,8 +1,8 @@
 require 'csv'
-require 'item'
+require_relative 'item'
 
 class ItemRepository
-attr_reader :data, :all_items, :file
+attr_reader :data, :file, :all_items
 
   def initialize(file)
     @all_items = []

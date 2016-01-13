@@ -1,17 +1,20 @@
 require 'csv'
-require 'merchant'
+require_relative 'merchant'
+require_relative 'item_repository'
 
 class MerchantRepository
-attr_reader :data, :all_merchants, :file
+attr_reader :data, :all_merchants, :merchant_file, :item_repository, :items_file
 
-  def initialize(file)
+  def initialize(merchant_file, items_file)
+    @item_repository = ItemRepository.new(items_file)
     @all_merchants = []
-    @file = file
-    data_into_hash(load_data(file))
+    @merchant_file = merchant_file
+    @items_file = items_file
+    data_into_hash(load_data(merchant_file))
   end
 
-  def load_data(file)
-    @data = CSV.open (file), headers: true, header_converters:
+  def load_data(merchant_file)
+    @data = CSV.open (merchant_file), headers: true, header_converters:
     :symbol
   end
 
@@ -24,6 +27,7 @@ attr_reader :data, :all_merchants, :file
       hash = {:id => merchant_id,
               :name => name, :created_at => created_at, :updated_at => updated_at}
       merchant = Merchant.new(hash)
+      merchant.item = @item_repository.find_all_by_merchant_id(merchant.id)
       @all_merchants << merchant
     end
   end

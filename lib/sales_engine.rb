@@ -1,3 +1,6 @@
+require_relative "item_repository"
+require_relative "merchant_repository"
+
 class SalesEngine
 attr_reader :items_file, :merchants_file, :items_data
 
@@ -11,10 +14,10 @@ attr_reader :items_file, :merchants_file, :items_data
   end
 
   def items
-    ItemRepository.new(items_file)
+    merchants.item_repository
   end
 
   def merchants
-    MerchantRepository.new(merchants_file)
+    MerchantRepository.new(merchants_file, items_file)
   end
 end

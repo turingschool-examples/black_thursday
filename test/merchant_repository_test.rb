@@ -3,11 +3,12 @@ require 'minitest/pride'
 require './lib/merchant_repository'
 
 class MerchantRepositoryTest < Minitest::Test
-attr_reader :repo, :file, :data
+attr_reader :repo, :merchant_file, :data, :item_file
 
   def setup
-    @file = './data/test_merchant.csv'
-    @repo = MerchantRepository.new(file)
+    @merchant_file = './data/test_merchant.csv'
+    @item_file = './data/test_items.csv'
+    @repo = MerchantRepository.new(merchant_file, item_file)
   end
 
   def test_an_instance_merchant_repo_exists
