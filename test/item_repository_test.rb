@@ -75,29 +75,44 @@ class ItemRepositoryTest < Minitest::Test
     assert_nil submitted
   end
 
+  def test_find_all_with_description_single_char
+    description_fragment = "a"
+    expected             = 1348
+    submitted            = @ir.find_all_with_description(description_fragment)
 
-  # def test_find_all_by_name_given_case_insensitive_fragment
-  #   name_fragment = "SHOP"
-  #   expected      = 26
-  #   submitted     = @ir.find_all_by_name(name_fragment)
-  #
-  #   assert_equal expected, submitted.count
-  # end
-  #
-  # def test_find_all_by_name_with_special_char
-  #   name_fragment = "!"
-  #   expected      = []
-  #   submitted     = @ir.find_all_by_name(name_fragment)
-  #
-  #   assert_equal expected, submitted
-  # end
-  #
-  # def test_find_all_by_name_with_exact_match
-  #   name_fragment = "Shopin1901"
-  #   expected      = 1
-  #   submitted     = @ir.find_all_by_name(name_fragment)
-  #
-  #   assert_equal expected, submitted.count
-  # end
+    assert_equal expected, submitted.count
+  end
+
+  def test_find_all_with_description_specific_word
+    description_fragment = "Paypal"
+    expected             = 7
+    submitted            = @ir.find_all_with_description(description_fragment)
+
+    assert_equal expected, submitted.count
+  end
+
+  def test_find_all_with_description_partial_word
+    description_fragment = "Pa"
+    expected             = 572
+    submitted            = @ir.find_all_with_description(description_fragment)
+
+    assert_equal expected, submitted.count
+  end
+
+  def test_find_all_with_description_special_char_present
+    description_fragment = "ö"
+    expected             = 19
+    submitted            = @ir.find_all_with_description(description_fragment)
+
+    assert_equal expected, submitted.count
+  end
+
+  def test_find_all_with_description_foreign_char_returns_empty_array
+    description_fragment = "繋"
+    expected             = []
+    submitted            = @ir.find_all_with_description(description_fragment)
+
+    assert_equal expected, submitted
+  end
 
 end

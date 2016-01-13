@@ -32,14 +32,14 @@ class ItemRepository
     @items_array
   end
 
-  # def find_all_by_name(fragment)
-  #   fragment = fragment.downcase
-  #   @items_array.select do |merchant|
-  #     if merchant.name.downcase.include?(fragment)
-  #       merchant.name
-  #     end
-  #   end
-  # end
+  def find_all_with_description(fragment)
+    fragment = fragment.downcase
+    @items_array.select do |item|
+      if item.description.downcase.include?(fragment)
+        item.description
+      end
+    end
+  end
 
   def find_by_name(item_name)
     if name_object = @items_array.find { |n| n.name.downcase == item_name.downcase}
@@ -61,7 +61,7 @@ end
 
 if __FILE__ == $0
 # mr = MerchantRepository.new('./data/items.csv')
-# merchant_list = mr.load_data('./data/merchants.csv')
+# item_list = mr.load_data('./data/merchants.csv')
 # mr.find_id(12334105)
 # puts mr.parse_data(12334105)
 end
