@@ -1,5 +1,6 @@
 require 'pry'
 require 'csv'
+# require_relative './lib/merchant'
 
 class MerchantRepository
   attr_reader :merchants
@@ -9,13 +10,11 @@ class MerchantRepository
   end
 
   def parse_merchants
-    # binding.pry
     @merchants[0].each do |row|
       @id = row[:id]
       @name = row[:name]
-      # puts "#{@id_column}: #{@name_column}"
-      merchants = Hash[@id, @name]
-      # create Merchant.new(#id, #column)
+      merchants = Hash[:id, @id, :name, @name]
+
       puts merchants
     end
   end
