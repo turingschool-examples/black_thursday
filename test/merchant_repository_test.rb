@@ -42,4 +42,21 @@ attr_reader :repo, :merchant_file, :data, :item_file
   def test_find_by_all_name_works
     assert_equal 2, repo.find_all_by_name("Williamson Group").count
   end
+
+  def test_an_instance_of_item_repo_exists
+
+    assert repo.item_repository.instance_of?(ItemRepository)
+  end
+
+  def test_items_can_be_accessed_by_merchant
+    merchant = repo.item_repository
+    items = merchant.find_all_by_merchant_id("1")
+    assert_equal 2, items.count
+  end
+
+  def test_merchant_with_no_items_returns_empty_array
+    merchant = repo.item_repository
+    items = merchant.find_all_by_merchant_id("6")
+    assert_equal [], items
+  end
 end

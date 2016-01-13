@@ -51,6 +51,6 @@ attr_reader :repo, :file, :data
   end
 
   def test_find_all_by_merchant_id_returns_an_empty_array
-    assert_equal 5, repo.find_all_by_merchant_id("1").count
+    assert_equal 2, repo.find_all_by_merchant_id("1").count
   end
 end

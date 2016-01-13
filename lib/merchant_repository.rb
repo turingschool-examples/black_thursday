@@ -10,15 +10,15 @@ attr_reader :data, :all_merchants, :merchant_file, :item_repository, :items_file
     @all_merchants = []
     @merchant_file = merchant_file
     @items_file = items_file
-    data_into_hash(load_data(merchant_file))
+    data_into_merchant_hash(load_merchant_data(merchant_file))
   end
 
-  def load_data(merchant_file)
+  def load_merchant_data(merchant_file)
     @data = CSV.open (merchant_file), headers: true, header_converters:
     :symbol
   end
 
-  def data_into_hash(data)
+  def data_into_merchant_hash(data)
     data.each do |row|
       merchant_id = row[:id]
       name = row[:name]
