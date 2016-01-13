@@ -1,5 +1,6 @@
 require 'pry'
 require 'csv'
+require 'set'
 require_relative 'merchant'
 
 class MerchantRepository
@@ -11,15 +12,15 @@ class MerchantRepository
   def parse_merchants(merchants)
     @merchant_array = []
     merchants.each do |row|
-      @id = row[:id]
+      @id   = row[:id]
       @name = row[:name]
-      # merchants = Hash[:id, @id, :name, @name]
-
+      puts merchants = Hash[:id, @id, :name, @name]
+      # puts @name
       @merchant_array << Merchant.new({:id => @id}, {:name => @name})
     end
-    puts @merchant_array[0]
-    puts @merchant_array[0].id
-    puts @merchant_array[0].name
+    # puts @merchant_array[0]
+    # puts @merchant_array[0].id
+    # puts @merchant_array[0].name
   end
 
   def all
@@ -27,7 +28,10 @@ class MerchantRepository
   end
 
   def find_by_name(merchant_name)
-
+    puts @name
+    Set[@name].detect  {|n| n == merchant_name}
+    # name = Set.new [@name]
+    # name.map {|n| puts n}
   end
 
 end

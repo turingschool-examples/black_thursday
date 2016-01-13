@@ -18,9 +18,6 @@ class SalesEngine
     mr = MerchantRepository.new(@csv_files[:merchants])
   end
 
-  def self.items
-  end
-
 end
 
 if __FILE__ == $0
@@ -30,8 +27,8 @@ if __FILE__ == $0
 
 se = SalesEngine.from_csv({:merchants => './data/merchants.csv'})
 mr = SalesEngine.merchants
-# all = mr.all
-# puts all
-# puts mr.find_by_name("CJsDecor")
+puts mr.all
+puts mr.find_by_name("Shopin1901")
+# puts mr.find_by_name("jejum")
 
 end
