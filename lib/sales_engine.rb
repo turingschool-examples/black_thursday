@@ -1,4 +1,4 @@
-require './lib/merchant_repository'
+require_relative 'merchant_repository'
 require 'pry'
 require 'csv'
 
@@ -6,21 +6,19 @@ class SalesEngine
   attr_reader :contents
 
   def self.from_csv(hash_of_csv_files)
-    # puts hash_of_csv_files.count
-    # => create (.count) many arrays, named after keys
-    @contents = [] # map?
+    @csv_files = {}
     hash_of_csv_files.each do |key, value|
-      key = CSV.open value, headers: true, header_converters: :symbol
-      @contents << key
+      csv_file_object = CSV.open value, headers: true, header_converters: :symbol
+      @csv_files[key] = csv_file_object
     end
 
-    # mr = MerchantRepository.new(contents)
-    # mr.parse_merchants
   end
 
   def self.merchants
-    mr = MerchantRepository.new(@contents)
-    # mr.parse_merchants
+    mr = MerchantRepository.new(@csv_files[:merchants])
+  end
+
+  def self.items
   end
 
 end
@@ -32,8 +30,8 @@ if __FILE__ == $0
 
 se = SalesEngine.from_csv({:merchants => './data/merchants.csv'})
 mr = SalesEngine.merchants
-mr.parse_merchants
-all = mr.all
-puts all
-# binding.pry
+# all = mr.all
+# puts all
+# puts mr.find_by_name("CJsDecor")
+
 end

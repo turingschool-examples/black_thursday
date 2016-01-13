@@ -1,20 +1,20 @@
 require 'pry'
 require 'csv'
-require './lib/merchant'
+require_relative 'merchant'
 
 class MerchantRepository
-  attr_reader :merchants
 
   def initialize(merchants)
-    @merchants = merchants
+    parse_merchants(merchants)
   end
 
-  def parse_merchants
+  def parse_merchants(merchants)
     @merchant_array = []
-    @merchants[0].each do |row|
+    merchants.each do |row|
       @id = row[:id]
       @name = row[:name]
       # merchants = Hash[:id, @id, :name, @name]
+
       @merchant_array << Merchant.new({:id => @id}, {:name => @name})
     end
     puts @merchant_array[0]
@@ -23,10 +23,10 @@ class MerchantRepository
   end
 
   def all
-    puts @merchant_array
+    @merchant_array
   end
 
-  def find_by_id
+  def find_by_name(merchant_name)
 
   end
 
@@ -37,5 +37,4 @@ if __FILE__ == $0
 # merchant_list = mr.load_data('./data/merchants.csv')
 # mr.find_id(12334105)
 # puts mr.parse_data(12334105)
-
 end
