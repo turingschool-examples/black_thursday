@@ -31,6 +31,10 @@ class SalesEngine
     mr = MerchantRepository.new(@csv_files[:merchants])
   end
 
+  def self.items
+    ir = ItemsRepository.new(@csv_files[:items])
+  end
+
 end
 
 if __FILE__ == $0
