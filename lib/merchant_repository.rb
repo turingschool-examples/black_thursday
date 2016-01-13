@@ -14,7 +14,6 @@ class MerchantRepository
     merchants.each do |row|
       @id   = row[:id]
       @name = row[:name]
-      # merchants = Hash[:id, @id, :name, @name]
 
       @merchant_array << Merchant.new({:id => @id, :name => @name})
     end
@@ -25,7 +24,6 @@ class MerchantRepository
   end
 
   def find_all_by_name(fragment)
-    #name fragment
     fragment = fragment.downcase
     @merchant_array.select do |merchant|
       if merchant.name.downcase.include?(fragment)
@@ -33,18 +31,6 @@ class MerchantRepository
       end
     end
   end
-
-  # def find_all_by_name(merchant_name)
-  #   #name fragment
-  #   fragment = merchant_name.downcase
-  #   matching_merchants = []
-  #   @merchant_array.each do |merchant|
-  #     if merchant.name.downcase.include?(fragment)
-  #       matching_merchants << merchant.name
-  #     end
-  #   end
-  #   matching_merchants
-  # end
 
   def find_by_name(merchant_name)
     if name_object = @merchant_array.find { |n| n.name.downcase == merchant_name.downcase}

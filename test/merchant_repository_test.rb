@@ -34,12 +34,20 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal expected, submitted.name
   end
 
-  def test_find_by_name_insensitve_search
+  def test_find_by_name_case_insensitve_search
     merchant_name = "Shopin1901"
     expected      = merchant_name
     submitted     = @mr.find_by_name(merchant_name.upcase)
 
     assert_equal expected, submitted.name
+  end
+
+  def test_find_by_name_case_incomplete_name
+    merchant_name = "Shop"
+    expected      = merchant_name
+    submitted     = @mr.find_by_name(merchant_name.upcase)
+
+    assert_nil submitted
   end
 
   def test_find_by_name_rejects_bad_name
@@ -49,7 +57,7 @@ class MerchantRepositoryTest < Minitest::Test
     assert_nil submitted
   end
 
-  def test_find_by_id
+  def test_find_by_given_merchant_id
     merchant_id = 12334132
     expected    = merchant_id
     submitted   = @mr.find_by_id(merchant_id)
@@ -65,12 +73,36 @@ class MerchantRepositoryTest < Minitest::Test
     assert_nil submitted
   end
 
-  def test_find_all_by_name
-    name_fragment = "Shopin"
-    expected      = name_fragment
+  def test_find_all_by_name_given_single_character
+    name_fragment = "S"
+    expected      = 328
+    submitted     = @mr.find_all_by_name(name_fragment)
+
+    assert_equal expected, submitted.count
+  end
+
+  def test_find_all_by_name_given_case_insensitive_fragment
+    name_fragment = "SHOP"
+    expected      = 26
+    submitted     = @mr.find_all_by_name(name_fragment)
+
+    assert_equal expected, submitted.count
+  end
+
+  def test_find_all_by_name_with_special_char
+    name_fragment = "!"
+    expected      = []
     submitted     = @mr.find_all_by_name(name_fragment)
 
     assert_equal expected, submitted
+  end
+
+  def test_find_all_by_name_with_exact_match
+    name_fragment = "Shopin1901"
+    expected      = 1
+    submitted     = @mr.find_all_by_name(name_fragment)
+
+    assert_equal expected, submitted.count
   end
 
 end
