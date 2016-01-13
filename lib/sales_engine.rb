@@ -5,13 +5,17 @@ require 'csv'
 class SalesEngine
   attr_reader :contents
 
+  def initialize
+    #takes Repos as args
+  end
+
   def self.from_csv(hash_of_csv_files)
     #create the needed CSV objects
     #create MerchRepo
     #create ItemRepo
 
     SalesEngine.new#(merchrepo, itemrepo)
-    
+
     # create instance of Sales Engine
     # make sure the sales engine that I'm returning has a merchant repo and a items repo
 
@@ -32,7 +36,9 @@ end
 if __FILE__ == $0
 
 se = SalesEngine.from_csv({:merchants => './data/merchants.csv'})
+binding.pry
 mr = SalesEngine.merchants
+# mr = se.merchants
 # puts mr.all
 puts mr.find_by_name("Shopin1901")
 # puts mr.find_by_name("jejum")

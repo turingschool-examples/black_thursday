@@ -25,10 +25,24 @@ class MerchantRepository
   end
 
   def find_by_name(merchant_name)
-    puts @name
-    Set[@name].detect  {|n| n == merchant_name}
-    # name = Set.new [@name]
-    # name.map {|n| puts n}
+    if name_object = @merchant_array.find { |n| n.name.downcase == merchant_name.downcase}
+      name_object
+    else
+      nil
+    end
+  end
+
+  def find_by_id(merchant_id)
+    if id_object = @merchant_array.find { |i| i.id == merchant_id}
+      id_object
+    else
+      nil
+    end
+  end
+
+  def find_all_by_name
+
+
   end
 
 end

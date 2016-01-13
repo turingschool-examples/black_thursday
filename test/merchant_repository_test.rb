@@ -3,71 +3,53 @@ require_relative '../lib/merchant_repository'
 
 class MerchantRepositoryTest < Minitest::Test
 
-  # def setup
-  #   @mr = MerchantRepository.new('./data/merchants.csv')
-  # end
-
-  def test_can_create_a_repo_of_merchants
-    #mr = MerchantRepository.new('./data/merchants.csv')
+  def setup
     csv_object_of_merchants = CSV.open './data/merchants.csv', headers: true, header_converters: :symbol
-    mr = MerchantRepository.new(csv_object_of_merchants)
-    #see that we're getting a full array of all merchants
-    assert_equal 475, mr.all.count
-    assert_equal 12334105, mr.all[0].id
+    @mr = MerchantRepository.new(csv_object_of_merchants)
   end
 
-  def test_parse_merchants
-
+  def test_can_create_a_repo_of_merchants
+    # confirm we're getting objects for all 475 merchants
+    assert_equal 475, @mr.all.count
+    # confirm we have the id for the first merchant
+    assert_equal 12334105, @mr.all[0].id
+    # confirm we have the id for the last merchant
+    assert_equal 12337411, @mr.all[-1].id
   end
 
   def test_all_merchants
-
+    assert_equal 475, @mr.all.count
   end
 
-  # def test_merchant_instance_can_be_created
-  #   skip
-  #   merchant_1 = mock('name_one')
-  #   merchant_2 = mock('name_two')
-  #   expected = ['name_one', 'name_two']
-  #   submitted = @mr.all
-  #
-  #   assert_equal expected, submitted
-  # end
-  #
-  # def test_it_can_load_the_merchant_csv_file
-  #   skip
-  #   load_file = './data/merchant.csv'
-  #   submitted = @mr.load_data(load_file)
-  #
-  #   assert_equal load_file, submitted
-  # end
-  #
-  # def test_merchant_can_be_found_by_id
-  #   skip
-  #   id = 12334105
-  #   submitted = @mr.parse_data(id)
-  #
-  #   assert_equal id, submitted
-  # end
-  #
-  # def test_merchant_can_return_nil_when_searched_by_id
-  #   skip
-  #   id = 12334104
-  #   submitted = @mr.parse_data(id)
-  #
-  #   # assert_nil submitted
-  #   assert_equal "nil", submitted
-  # end
-  #
-  # def test_merchant_can_be_found_by_name
-  #   skip
-  #   submitted = @mr.find_name()
-  #
-  # end
-  #
-  # def test_merchant_can_return_nil_when_searched_by_name
-  #   skip
-  #   submitted = @mr.find_name()
-  # end
+  def test_find_by_name
+    merchant_name = "Shopin1901"
+    expected      = merchant_name
+    submitted     = @mr.find_by_name(merchant_name)
+
+    assert_equal expected, submitted.name
+  end
+
+  def test_find_by_name_rejects_bad_name
+    merchant_name = "BurgerKing"
+    submitted     = @mr.find_by_name(merchant_name)
+
+    assert_nil submitted
+  end
+
+  def test_find_by_id
+    merchant_id = 12334132
+    expected    = merchant_id
+    submitted   = @mr.find_by_id(merchant_id)
+
+    assert_equal expected, submitted.id
+  end
+
+  def test_find_by_id_rejects_bad_id
+    merchant_id = 1
+    expected    = merchant_id
+    submitted   = @mr.find_by_id(merchant_id)
+
+    assert_nil submitted
+  end
 
 end
