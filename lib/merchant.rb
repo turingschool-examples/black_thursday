@@ -3,7 +3,7 @@ class Merchant
   attr_reader :merchant
   attr_accessor :item
 
-  def initialize (merchant)
+  def initialize(merchant)
     @merchant = merchant
   end
 

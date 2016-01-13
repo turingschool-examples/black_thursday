@@ -1,13 +1,19 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/item_repository'
+require './lib/merchant_repository'
 
 class ItemRepositoryTest < Minitest::Test
-attr_reader :repo, :file, :data
+attr_reader :repo, :item_file, :merch_file, :data, :se
 
   def setup
-    @file = './data/test_items.csv'
-    @repo = ItemRepository.new(file)
+    @item_file = './data/test_items.csv'
+    @merch_file = './data/test_merchant.csv'
+    @se = SalesEngine.from_csv({
+          :items     => item_file,
+          :merchants => merch_file,
+          })
+    @repo = se.items
   end
 
   def test_an_instance_of_item_repo_exists
@@ -53,4 +59,5 @@ attr_reader :repo, :file, :data
   def test_find_all_by_merchant_id_returns_an_empty_array
     assert_equal 2, repo.find_all_by_merchant_id("1").count
   end
+
 end

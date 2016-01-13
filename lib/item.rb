@@ -1,6 +1,8 @@
 require 'bigdecimal'
+
 class Item
   attr_reader :item
+  attr_accessor :merchant
 
   def initialize(item)
     @item = item

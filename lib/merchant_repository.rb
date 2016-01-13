@@ -3,23 +3,23 @@ require_relative 'merchant'
 require_relative 'item_repository'
 
 class MerchantRepository
-attr_reader :data, :all_merchants, :merchant_file, :item_repository, :items_file
+attr_reader :data, :all_merchants, :merchant_file, :item_repository, :items_file, :merchant
 
   def initialize(merchant_file, items_file)
     @item_repository = ItemRepository.new(items_file)
     @all_merchants = []
     @merchant_file = merchant_file
     @items_file = items_file
-    data_into_merchant_hash(load_merchant_data(merchant_file))
-    #item_repository.merchant_repository = self
+    data_into_hash(load_data(merchant_file))
+    @item_repository.merchant_repository = self
   end
 
-  def load_merchant_data(merchant_file)
+  def load_data(merchant_file)
     @data = CSV.open (merchant_file), headers: true, header_converters:
     :symbol
   end
 
-  def data_into_merchant_hash(data)
+  def data_into_hash(data)
     data.each do |row|
       merchant_id = row[:id]
       name = row[:name]
@@ -27,10 +27,14 @@ attr_reader :data, :all_merchants, :merchant_file, :item_repository, :items_file
       updated_at = row[:updated_at]
       hash = {:id => merchant_id,
               :name => name, :created_at => created_at, :updated_at => updated_at}
-      merchant = Merchant.new(hash)
-      merchant.item = @item_repository.find_all_by_merchant_id(merchant.id)
+      @merchant = Merchant.new(hash)
       @all_merchants << merchant
+      assign_merchant_item(merchant)
     end
+  end
+
+  def assign_merchant_item(merchant)
+    merchant.item = @item_repository.find_all_by_merchant_id(merchant.id)
   end
 
   def find_by_id(number)

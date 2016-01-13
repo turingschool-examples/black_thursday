@@ -3,10 +3,11 @@ require_relative 'item'
 require_relative 'merchant_repository'
 
 class ItemRepository
-attr_reader :data, :file, :all_items
+attr_reader :data, :file, :all_items, :item
 attr_accessor :merchant_repository
 
   def initialize(file)
+    @merchant_repository = merchant_repository
     @all_items = []
     @file = file
     data_into_hash(load_data(file))
@@ -30,10 +31,16 @@ attr_accessor :merchant_repository
               :description => description, :merchant_id => merchant_id,
               :name => name,
               :created_at => created_at, :updated_at => updated_at}
-      item = Item.new(hash)
+      @item = Item.new(hash)
+      item.merchant = merchant_id
+      # assign_item_its_merchant
       @all_items << item
     end
   end
+
+  # def assign_item_its_merchant
+  #   item.merchant = merchant_repository.find_by_id(item.merchant_id)
+  # end
 
   def find_by_id(number)
     all_items = @all_items
