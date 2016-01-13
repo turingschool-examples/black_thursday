@@ -1,7 +1,7 @@
 
 class Merchant
   attr_reader :merchant
-  attr_accessor :item
+  attr_accessor :items
 
   def initialize(merchant)
     @merchant = merchant

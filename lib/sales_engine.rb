@@ -25,7 +25,7 @@ attr_reader :files, :items, :merchants
 
   def merchant_to_item_relationship
     merchants.all.each do |merchant|
-      merchant.item = items.find_all_by_merchant_id(merchant.id)
+      merchant.items = items.find_all_by_merchant_id(merchant.id)
     end
   end
 

@@ -25,11 +25,11 @@ attr_reader :item_repo, :item_file, :merch_file, :data, :se
   end
 
   def test_find_by_id_defaults_nil
-    assert_equal nil, item_repo.find_by_id("7")
+    assert_equal nil, item_repo.find_by_id(7)
   end
 
   def test_find_by_id_works
-    assert item_repo.find_by_id("1")
+    assert item_repo.find_by_id(1)
   end
 
   def test_find_by_name_defaults_nil
@@ -52,8 +52,24 @@ attr_reader :item_repo, :item_file, :merch_file, :data, :se
     assert_equal 1, item_repo.find_all_with_description(description).count
   end
 
+  def test_find_all_by_price_defaults_to_empty_array
+    assert_equal [], item_repo.find_all_by_price(243534)
+  end
+
+  def test_find_all_by_price_returns_array_of_items
+    assert_equal 1, item_repo.find_all_by_price(75107).count
+  end
+
+  def test_find_all_by_price_in_range_defaults_empty_array
+    assert_equal [], item_repo.find_all_by_price_in_range(7567800..752897897)
+  end
+
+  def test_find_all_by_price_in_range_returns_array_of_items
+    assert_equal 5, item_repo.find_all_by_price_in_range(1..100000).count
+  end
+
   def test_find_all_by_merchant_id_returns_an_empty_array
-    assert_equal [], item_repo.find_all_by_merchant_id("65")
+    assert_equal [], item_repo.find_all_by_merchant_id(65)
   end
 
   def test_item_can_find_its_merchant

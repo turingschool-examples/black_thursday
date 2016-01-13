@@ -21,11 +21,11 @@ class Item
   end
 
   def created_at
-    Time.parse(item[:created_at])
+    Time.new(item[:created_at])
   end
 
   def updated_at
-    Time.parse(item[:updated_at])
+    Time.new(item[:updated_at])
   end
 
   def description
@@ -33,7 +33,6 @@ class Item
   end
 
   def unit_price
-    unit_price = item[:unit_price]
-    BigDecimal.new(unit_price.insert(-3, "."))
+    item[:unit_price]
   end
 end
