@@ -2,22 +2,13 @@ require_relative 'test_helper'
 require_relative '../lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test
-  def setup
-    @se = SalesEngine.new()
-  end
 
-  def test_if_no_file_is_entered_return_nil
-    submitted = @se.file
-    assert_equal [], submitted
-  end
-
-  def test_if_one_file_is_entered_returns_file
-    skip
-    file = "./data/merchants.csv"
-    @se = SalesEngine.new(file)
-    submitted = @se.file
-
-    assert_equal [file], submitted
+  def test_to_create_a_sales_engine_object_we_use_the_factory
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      })
+    assert_kind_of SalesEngine, se
   end
 
   # def test_if_two_files_are_entered_returns_files

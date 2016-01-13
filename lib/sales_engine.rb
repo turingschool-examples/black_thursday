@@ -6,12 +6,21 @@ class SalesEngine
   attr_reader :contents
 
   def self.from_csv(hash_of_csv_files)
-    @csv_files = {}
-    hash_of_csv_files.each do |key, value|
-      csv_file_object = CSV.open value, headers: true, header_converters: :symbol
-      @csv_files[key] = csv_file_object
-    end
+    #create the needed CSV objects
+    #create MerchRepo
+    #create ItemRepo
 
+    SalesEngine.new#(merchrepo, itemrepo)
+    
+    # create instance of Sales Engine
+    # make sure the sales engine that I'm returning has a merchant repo and a items repo
+
+    # @csv_files = {}
+    # hash_of_csv_files.each do |key, value|
+    #   csv_file_object = CSV.open value, headers: true, header_converters: :symbol
+    #   @csv_files[key] = csv_file_object
+    # end
+    #return an instance of the SalesEngine
   end
 
   def self.merchants
@@ -21,13 +30,10 @@ class SalesEngine
 end
 
 if __FILE__ == $0
-# se = SalesEngine.new
-# se.from_csv({:merchants => './data/merchants.csv',
-#              :items => './data/items.csv'})
 
 se = SalesEngine.from_csv({:merchants => './data/merchants.csv'})
 mr = SalesEngine.merchants
-puts mr.all
+# puts mr.all
 puts mr.find_by_name("Shopin1901")
 # puts mr.find_by_name("jejum")
 
