@@ -36,7 +36,15 @@ class ItemRepository
     fragment = fragment.downcase
     @items_array.select do |item|
       if item.description.downcase.include?(fragment)
-        item.description
+        item
+      end
+    end
+  end
+
+  def find_all_by_price(price)
+    @items_array.select do |item|
+      if item.unit_price == price
+        item
       end
     end
   end

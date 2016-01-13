@@ -115,4 +115,20 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal expected, submitted
   end
 
+  def test_find_all_by_price
+    price     = "9500"
+    expected  = 9
+    submitted = @ir.find_all_by_price(price)
+
+    assert_equal expected, submitted.count
+  end
+
+  def test_find_all_by_price_empty_array
+    price     = "0"
+    expected  = []
+    submitted = @ir.find_all_by_price(price)
+
+    assert_equal expected, submitted
+  end
+
 end
