@@ -24,7 +24,7 @@ class SalesEngine
   end
 
   def merchants
-    MerchantRepository.new(repo_rows[:merchants])
+    MerchantRepository.new(repo_rows[:merchants], items)
   end
 
 end

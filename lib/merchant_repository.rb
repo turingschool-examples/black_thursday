@@ -3,10 +3,11 @@ require          'csv'
 require          'pry'
 
 class MerchantRepository
-  attr_reader :all
+  attr_reader :all, :items_repo
 
-  def initialize(all)
-    @all = all
+  def initialize(all, items_repo)
+    @all        = all
+    @items_repo = items_repo
   end
 
   def find_by_id(merchant_id_inputed)
@@ -21,7 +22,7 @@ class MerchantRepository
 
   def what_to_find_within_csv(type, standard_info)
     merchant_info = @all.find {|line| line[type].downcase  == standard_info}
-    merchant_info.nil? ? merchant = nil : merchant = Merchant.new(merchant_info)
+    merchant_info.nil? ? merchant = nil : merchant = Merchant.new(merchant_info, items_repo)
     merchant
   end
 
