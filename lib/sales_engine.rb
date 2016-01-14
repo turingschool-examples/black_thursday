@@ -21,6 +21,7 @@ attr_reader :files, :items, :merchants
   def relationships
     merchant_to_item_relationship
     item_to_merchant_relationship
+    
   end
 
   def merchant_to_item_relationship
