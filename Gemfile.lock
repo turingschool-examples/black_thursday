@@ -1,0 +1,103 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    abstract_type (0.0.7)
+    adamantium (0.2.0)
+      ice_nine (~> 0.11.0)
+      memoizable (~> 0.4.0)
+    ast (2.2.0)
+    axiom-types (0.1.1)
+      descendants_tracker (~> 0.0.4)
+      ice_nine (~> 0.11.0)
+      thread_safe (~> 0.3, >= 0.3.1)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
+    cane (2.6.2)
+      parallel
+    codeclimate-engine-rb (0.1.0)
+      virtus (~> 1.0)
+    codeclimate-test-reporter (0.4.8)
+      simplecov (>= 0.7.1, < 1.0.0)
+    coderay (1.1.0)
+    coercible (1.0.0)
+      descendants_tracker (~> 0.0.1)
+    concord (0.1.5)
+      adamantium (~> 0.2.0)
+      equalizer (~> 0.0.9)
+    debug_inspector (0.0.2)
+    descendants_tracker (0.0.4)
+      thread_safe (~> 0.3, >= 0.3.1)
+    diff-lcs (1.2.5)
+    docile (1.1.5)
+    equalizer (0.0.11)
+    ice_nine (0.11.1)
+    interception (0.5)
+    json (1.8.3)
+    memoizable (0.4.2)
+      thread_safe (~> 0.3, >= 0.3.1)
+    method_source (0.8.2)
+    minitest (5.8.3)
+    mrspec (0.2.3)
+      minitest (~> 5.0)
+      rspec-core (~> 3.0)
+      what_weve_got_here_is_an_error_to_communicate (~> 0.0.7)
+    parallel (1.6.1)
+    parser (2.2.3.0)
+      ast (>= 1.1, < 3.0)
+    private_attr (1.1.0)
+    procto (0.0.2)
+    pry (0.10.3)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+    rainbow (2.0.0)
+    rake (10.5.0)
+    reek (3.8.2)
+      codeclimate-engine-rb (~> 0.1.0)
+      parser (~> 2.2, >= 2.2.2.5)
+      private_attr (~> 1.1)
+      rainbow (~> 2.0)
+      unparser (~> 0.2.2)
+    rouge (1.10.1)
+    rspec-core (3.4.1)
+      rspec-support (~> 3.4.0)
+    rspec-support (3.4.1)
+    simplecov (0.11.1)
+      docile (~> 1.1.0)
+      json (~> 1.8)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.0)
+    slop (3.6.0)
+    thread_safe (0.3.5)
+    unparser (0.2.4)
+      abstract_type (~> 0.0.7)
+      adamantium (~> 0.2.0)
+      concord (~> 0.1.5)
+      diff-lcs (~> 1.2.5)
+      equalizer (~> 0.0.9)
+      parser (~> 2.2.2)
+      procto (~> 0.0.2)
+    virtus (1.0.5)
+      axiom-types (~> 0.1)
+      coercible (~> 1.0)
+      descendants_tracker (~> 0.0, >= 0.0.3)
+      equalizer (~> 0.0, >= 0.0.9)
+    what_weve_got_here_is_an_error_to_communicate (0.0.7)
+      binding_of_caller (~> 0.7.2)
+      interception (~> 0.5)
+      rouge (~> 1.8, != 1.9.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  cane
+  codeclimate-test-reporter
+  minitest
+  mrspec
+  pry
+  rake
+  reek
+
+BUNDLED WITH
+   1.10.6

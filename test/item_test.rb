@@ -36,8 +36,7 @@ attr_reader :item
   end
 
   def test_item_can_pull_unit_price
-    skip
-    assert_equal 12.99, item.unit_price
+    assert_equal 1299, item.unit_price
   end
 
   def test_unit_price_is_instance_of_big_decimal
