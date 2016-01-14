@@ -77,9 +77,7 @@ class ItemRepositoryTest < Minitest::Test
     repo = ItemRepository.new([
         {id: 1, description: "abc"},
         {id: 2, description: "a1c"},
-        {id: 3, description: "1b2"},
-      ],merchants: [{:id=>"1", :name=>"Shopin1901", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"}]
-    ).items
+        {id: 3, description: "1b2"}])
 
 
     item = repo.find_by_id(1)
