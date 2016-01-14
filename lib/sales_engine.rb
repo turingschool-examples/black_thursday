@@ -1,50 +1,45 @@
 require_relative 'merchant_repository'
+require_relative 'item_repository'
 require 'pry'
 require 'csv'
 
+
 class SalesEngine
-  attr_reader :contents
+  attr_reader :opened_csv_files
 
-  def initialize
-    #takes Repos as args
+  def initialize(csv_repo)
+    @csv_repo = csv_repo
   end
 
-  def self.from_csv(hash_of_csv_files)
-    #create the needed CSV objects
-    #create MerchRepo
-    #create ItemRepo
-
-    SalesEngine.new#(merchrepo, itemrepo)
-
-    # create instance of Sales Engine
-    # make sure the sales engine that I'm returning has a merchant repo and a items repo
-
-    # @csv_files = {}
-    # hash_of_csv_files.each do |key, value|
-    #   csv_file_object = CSV.open value, headers: true, header_converters: :symbol
-    #   @csv_files[key] = csv_file_object
-    # end
-    #return an instance of the SalesEngine
+  def self.from_csv(file_path)
+    @csv_files = {}
+    file_path.each do |key, value|
+      csv_file_object = CSV.open value, headers: true, header_converters: :symbol
+      @csv_files[key] = csv_file_object
+    end
+    SalesEngine.new(@csv_files)
   end
 
-  def self.merchants
-    mr = MerchantRepository.new(@csv_files[:merchants])
+
+  def merchants
+    MerchantRepository.new(@csv_repo[:merchants])
   end
 
-  def self.items
-    ir = ItemsRepository.new(@csv_files[:items])
+  def items
+    ItemRepository.new(@csv_repo[:items])
   end
 
 end
 
 if __FILE__ == $0
 
-se = SalesEngine.from_csv({:merchants => './data/merchants.csv'})
+# se = SalesEngine.from_csv({:merchants => './data/merchants.csv'})
+se = SalesEngine.from_csv({:merchants => './data/merchants.csv',
+                           :items => './data/items.csv'})
 binding.pry
-mr = SalesEngine.merchants
-# mr = se.merchants
+# mr = SalesEngine.merchants
+mr = se.merchants
 # puts mr.all
 puts mr.find_by_name("Shopin1901")
 # puts mr.find_by_name("jejum")
-
 end

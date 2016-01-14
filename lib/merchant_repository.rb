@@ -51,8 +51,5 @@ class MerchantRepository
 end
 
 if __FILE__ == $0
-# mr = MerchantRepository.new('./data/merchants.csv')
-# merchant_list = mr.load_data('./data/merchants.csv')
-# mr.find_id(12334105)
-# puts mr.parse_data(12334105)
+
 end
