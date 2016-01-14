@@ -252,21 +252,20 @@ class ItemRepositoryTest < Minitest::Test
         {id: 3, description: "1b2"},
       ],
     ).items
-    binding.pry
+
     assert_equal [1, 2], ir.find_all_with_description("a").map(&:id)
   end
 
   def test_edge_that_fragment_string_returns_all_matching_descriptions_even_when_typed_weird_with_spaces_for_find_all_with_description_method
-    #case insensitive test
-    skip
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
-    })
-    ir          = se.items
-    description = ir.find_all_with_description("AcrY lique s Ur to Ile ex écuTée")
-    #this should return a couple matches, so run the test to see the real answer
-    assert_equal ["a"], description
+    ir = SalesEngine.new(
+      items: [
+        {id: 1, description: "AcrYlique sUr "},
+        {id: 2, description: "AcrYlique exécuTée"},
+        {id: 3, description: "1b2"},
+      ],
+    ).items
+
+    assert_equal [1,2], ir.find_all_with_description("AcrY lique ").map(&:id)
   end
 
   def test_that_find_all_by_price_is_an_array
@@ -290,22 +289,31 @@ class ItemRepositoryTest < Minitest::Test
     ).items
     result = ir.find_all_by_price(10.99)
 
-
     assert_equal [2], result.map(&:id)
-
   end
 
   def test_that_find_all_by_price_returns_empty_array_for_absurd_price
-    skip
-    #im not too sure how this will work with the BigDecimal so be cautious
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
-    })
-    ir    = se.items
-    price = ir.find_all_by_price(12345678.99)
+    ir = SalesEngine.new(
+      items: [
+        {id: 1, unit_price: "1186"},
+        {id: 2, unit_price: "1099"},
+        {id: 3, unit_price: "11099"},
+      ],
+    ).items
 
-    assert_equal [], price
+    assert_equal [],  ir.find_all_by_price(12345678.99)
+  end
+
+  def test_that_find_all_by_price_will_work_with_dollar_signs_and_decimals
+    ir = SalesEngine.new(
+      items: [
+        {id: 1, unit_price: "1186"},
+        {id: 2, unit_price: "1099"},
+        {id: 3, unit_price: "11099"},
+      ],
+    ).items
+
+    assert_equal ["1099"], ir.find_all_by_price("$10.99").map(&:unit_price)
   end
 
   def test_that_find_all_by_price_in_range_is_an_array

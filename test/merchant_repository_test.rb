@@ -142,7 +142,6 @@ class MerchantRepositoryTest < Minitest::Test
                               :merchants => "./data/merchant_sample.csv",
                               })
     mr       = se.merchants
-    binding.pry
     merchant = mr.find_all_by_name("Mini")
 
     assert_equal ["MiniatureBikez","Shopinmini", "heyMiniWheels", "MiniatureTights"], merchant

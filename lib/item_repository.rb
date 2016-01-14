@@ -80,7 +80,7 @@ end
   def find_all_by_price_in_range(range_input)
     range_begin = std_price(range_input.first)
     range_end   = std_price(range_input.last)
-    
+
 
 
   end
