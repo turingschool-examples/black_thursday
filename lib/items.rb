@@ -11,7 +11,7 @@ class Items
     @unit_price  = args_hash[:unit_price].insert(-3, ".").to_i
     @created_at  = args_hash[:created_at]
     @updated_at  = args_hash[:updated_at]
-    @merchant_id = args_hash[:merchant_id]
+    @merchant_id = args_hash[:merchant_id].to_i
   end
 
 end

@@ -141,31 +141,31 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_price_in_range_lower
-    range     = ("1".."100")
+    range     = (0.1..1)
     expected  = 6
     submitted = @ir.find_all_by_price_in_range(range)
 
     assert_equal expected, submitted.count
   end
 
-  def test_find_all_by_price_in_range_lowest
-    range     = ("0".."1")
-    expected  = []
-    submitted = @ir.find_all_by_price_in_range(range)
-
-    assert_equal expected, submitted
-  end
-
   def test_find_all_by_price_in_range_middle
-    range     = ("1000".."10000")
+    range     = (10..100)
     expected  = 853
     submitted = @ir.find_all_by_price_in_range(range)
 
     assert_equal expected, submitted.count
   end
 
+  def test_find_all_by_price_in_range_upper
+    range     = (100..1000)
+    expected  = 263
+    submitted = @ir.find_all_by_price_in_range(range)
+
+    assert_equal expected, submitted.count
+  end
+
   def test_find_all_by_merchant_id_real_merchant
-    merchant_id = "12334105"
+    merchant_id = 12334105
     expected    = 3
     submitted   = @ir.find_all_by_merchant_id(merchant_id)
 
@@ -173,7 +173,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_merchant_id_second_real_merchant
-    merchant_id = "12334123"
+    merchant_id = 12334123
     expected    = 25
     submitted   = @ir.find_all_by_merchant_id(merchant_id)
 
@@ -181,7 +181,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_merchant_id_fake_merchant
-    merchant_id = "1"
+    merchant_id = 1
     expected    = []
     submitted   = @ir.find_all_by_merchant_id(merchant_id)
 
