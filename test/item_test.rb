@@ -70,4 +70,10 @@ class ItemTest < Minitest::Test
 
     assert_equal "1993-09-29 11:56:40 UTC", i.updated_at
   end
+
+  def test_that_merchant_id_can_be_called
+    i = Item.new(id: 1, merchant_id: "10990", name: "Pencil", description: "You can use it to write things", unit_price: 1000, updated_at: "1993-09-29 11:56:40 UTC")
+
+    assert_equal "10990", i.merchant_id
+  end
 end
