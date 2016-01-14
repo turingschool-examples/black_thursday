@@ -7,8 +7,6 @@ class SalesAnalystTest < Minitest::Test
     @se = SalesEngine.from_csv({:merchants => './data/merchants.csv',
                                :items => './data/items.csv'})
     @sa = SalesAnalyst.new(@se)
-    #create instance of SalesEngine
-    #SalesAnalyst takes SalesEngine as it's initializing argument
   end
 
   def test_sales_analyst_exists

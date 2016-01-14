@@ -1,6 +1,4 @@
 require_relative 'sales_engine'
-# require 'bigdecimal'
-# require 'enumerable/standard_deviation'
 
 class SalesAnalyst
   attr_reader :sales_engine
