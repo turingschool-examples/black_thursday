@@ -3,7 +3,8 @@ require          'pry'
 require_relative 'item'
 
 class ItemRepository
-  attr_reader :all
+  attr_reader   :all
+  attr_accessor :merchant_repo
 
   def initialize(all)
     @all = all
@@ -16,14 +17,14 @@ class ItemRepository
   def find_by_id(item_id_inputed)
     stdrd_item_id = stdrd(item_id_inputed)
     item_info = @all.find {|line| stdrd(line[:id]) == stdrd_item_id}
-    item_info.nil? ? item = nil : item = Item.new(item_info)
+    item_info.nil? ? item = nil : item = Item.new(item_info, merchant_repo)
     item
   end
 
   def find_by_name(item_name_inputed)
     stdrd_item_name = stdrd(item_name_inputed)
     item_info = @all.find {|line| stdrd(line[:name]) == stdrd_item_name}
-    item_info.nil? ? item = nil : item = Item.new(item_info)
+    item_info.nil? ? item = nil : item = Item.new(item_info, merchant_repo)
     item
   end
 
@@ -66,7 +67,7 @@ class ItemRepository
     if items_info.nil?
       []
     else
-      items_info.map {|item_info| Item.new(item_info)}
+      items_info.map {|item_info| Item.new(item_info, merchant_repo)}
     end
   end
 

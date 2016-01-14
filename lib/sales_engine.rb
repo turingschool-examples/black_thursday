@@ -4,11 +4,16 @@ require_relative 'load_data'
 require          'csv'
 
 class SalesEngine
-  attr_reader :repo_rows
+  attr_reader :repo_rows, :items, :merchants
 
   def initialize(repo_rows)
     # {:merchants => [{:id => 1, :name => "pizza"}], :items => [{:id => 1, :price => 3}]}
-    @repo_rows = repo_rows
+    @repo_rows            = repo_rows
+    @items                = ItemRepository.new(repo_rows[:items])
+    @merchants            = MerchantRepository.new(repo_rows[:merchants])
+    @items.merchant_repo  = @merchants
+    @merchants.items_repo = @items
+
   end
 
   def self.from_csv(csv_hash)
@@ -17,14 +22,6 @@ class SalesEngine
     end.to_h
 
     SalesEngine.new(repo_rows)
-  end
-
-  def items
-    ItemRepository.new(repo_rows[:items])
-  end
-
-  def merchants
-    MerchantRepository.new(repo_rows[:merchants], items)
   end
 
 end

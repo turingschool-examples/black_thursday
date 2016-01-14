@@ -3,11 +3,11 @@ require          'csv'
 require          'pry'
 
 class MerchantRepository
-  attr_reader :all, :items_repo
+  attr_reader   :all
+  attr_accessor :items_repo
 
-  def initialize(all, items_repo)
-    @all        = all
-    @items_repo = items_repo
+  def initialize(all, items_repo = nil)
+    @all = all
   end
 
   def find_by_id(merchant_id_inputed)
