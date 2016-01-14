@@ -7,7 +7,6 @@ class SalesEngine
   attr_reader :repo_rows, :items, :merchants
 
   def initialize(repo_rows)
-    # {:merchants => [{:id => 1, :name => "pizza"}], :items => [{:id => 1, :price => 3}]}
     @repo_rows            = repo_rows
     @items                = ItemRepository.new(repo_rows[:items])
     @merchants            = MerchantRepository.new(repo_rows[:merchants])
