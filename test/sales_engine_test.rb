@@ -15,15 +15,6 @@ attr_reader :se_hash
     assert se.instance_of?(SalesEngine)
   end
 
-  def test_self_from_csv_loads_file_names
-    skip
-
-    se = SalesEngine.from_csv(se_hash)
-
-    assert_equal "./data/test_items.csv", se.items
-    assert_equal "./data/test_merchant.csv", se.merchants
-  end
-
   def test_items_instantiates_items_repo
     se = SalesEngine.from_csv(se_hash)
     item = se.items
@@ -39,7 +30,7 @@ attr_reader :se_hash
   def test_items_returns_item_repo_instance
     se = SalesEngine.from_csv(se_hash)
     item = se.items
-    assert_equal 10, item.all.count
+    assert_equal 5, item.all.count
   end
 
   def test_merchants_returns_merchant_repo_instance
