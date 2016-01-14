@@ -14,7 +14,7 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2016-01-13T18:48:09-07:00">2016-01-13T18:48:09-07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2016-01-13T19:20:58-07:00">2016-01-13T19:20:58-07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -63,7 +63,7 @@
       <tr>
         <td class="strong"><a href="#8081709b3fc7ac42999e6e3e5426732965e85260" class="src_link" title="test/merchant_repository_test.rb">test/merchant_repository_test.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>159</td>
+        <td>160</td>
         <td>80</td>
         <td>80</td>
         <td>0</td>
@@ -1456,517 +1456,523 @@
           <code class="ruby">    mr       = se.merchants</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="74">
+        <li class="never" data-hits="" data-linenumber="74">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="75">
           <span class="hits">1</span>
           
           <code class="ruby">    merchant = mr.find_by_name(&quot;Miniature B i kez&quot;)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="75">
+        <li class="never" data-hits="" data-linenumber="76">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="76">
+        <li class="covered" data-hits="1" data-linenumber="77">
           <span class="hits">1</span>
           
           <code class="ruby">    assert_equal &quot;MiniatureBikez&quot;, merchant.name</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="77">
-          
-          
-          <code class="ruby">  end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="78">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">  end</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="79">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="79">
           
-          <code class="ruby">  def test_edge_that_find_by_name_works_when_not_case_sensitive</code>
+          
+          <code class="ruby"></code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="80">
           <span class="hits">1</span>
           
-          <code class="ruby">    se = SalesEngine.from_csv({</code>
+          <code class="ruby">  def test_edge_that_find_by_name_works_when_not_case_sensitive</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="81">
+        <li class="covered" data-hits="1" data-linenumber="81">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">                              :merchants =&gt; &quot;./data/merchant_sample.csv&quot;,</code>
+          <code class="ruby">    se = SalesEngine.from_csv({</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="82">
           
           
-          <code class="ruby">                              })</code>
+          <code class="ruby">                              :merchants =&gt; &quot;./data/merchant_sample.csv&quot;,</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="83">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="83">
           
-          <code class="ruby">    mr       = se.merchants</code>
+          
+          <code class="ruby">                              })</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="84">
           <span class="hits">1</span>
           
+          <code class="ruby">    mr       = se.merchants</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="85">
+          <span class="hits">1</span>
+          
           <code class="ruby">    merchant = mr.find_by_name(&quot;mInIaTuRebIKez&quot;)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="85">
+        <li class="never" data-hits="" data-linenumber="86">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="86">
+        <li class="covered" data-hits="1" data-linenumber="87">
           <span class="hits">1</span>
           
           <code class="ruby">    assert_equal &quot;MiniatureBikez&quot;, merchant.name</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="87">
+        <li class="never" data-hits="" data-linenumber="88">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="88">
+        <li class="never" data-hits="" data-linenumber="89">
           
           
           <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="89">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  def test_edge_that_find_by_name_returns_nil_for_unknown_merchant_name</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="90">
           <span class="hits">1</span>
           
-          <code class="ruby">    se = SalesEngine.from_csv({</code>
+          <code class="ruby">  def test_edge_that_find_by_name_returns_nil_for_unknown_merchant_name</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="91">
+        <li class="covered" data-hits="1" data-linenumber="91">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">                              :merchants =&gt; &quot;./data/merchant_sample.csv&quot;,</code>
+          <code class="ruby">    se = SalesEngine.from_csv({</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="92">
           
           
-          <code class="ruby">                              })</code>
+          <code class="ruby">                              :merchants =&gt; &quot;./data/merchant_sample.csv&quot;,</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="93">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="93">
           
-          <code class="ruby">    mr       = se.merchants</code>
+          
+          <code class="ruby">                              })</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="94">
           <span class="hits">1</span>
           
+          <code class="ruby">    mr       = se.merchants</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="95">
+          <span class="hits">1</span>
+          
           <code class="ruby">    merchant = mr.find_by_name(&quot;Turing School&quot;)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="95">
+        <li class="never" data-hits="" data-linenumber="96">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="96">
+        <li class="covered" data-hits="1" data-linenumber="97">
           <span class="hits">1</span>
           
           <code class="ruby">    assert_equal nil, merchant</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="97">
-          
-          
-          <code class="ruby">  end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="98">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">  end</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="99">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="99">
           
-          <code class="ruby">  def test_that_find_by_id_returns_known_id</code>
+          
+          <code class="ruby"></code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="100">
           <span class="hits">1</span>
           
-          <code class="ruby">    se = SalesEngine.from_csv({</code>
+          <code class="ruby">  def test_that_find_by_id_returns_known_id</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="101">
+        <li class="covered" data-hits="1" data-linenumber="101">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">                              :merchants =&gt; &quot;./data/merchant_sample.csv&quot;,</code>
+          <code class="ruby">    se = SalesEngine.from_csv({</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="102">
           
           
-          <code class="ruby">                              })</code>
+          <code class="ruby">                              :merchants =&gt; &quot;./data/merchant_sample.csv&quot;,</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="103">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="103">
           
-          <code class="ruby">    mr = se.merchants</code>
+          
+          <code class="ruby">                              })</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="104">
           <span class="hits">1</span>
           
+          <code class="ruby">    mr = se.merchants</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="105">
+          <span class="hits">1</span>
+          
           <code class="ruby">    merchant = mr.find_by_id(12334105)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="105">
+        <li class="never" data-hits="" data-linenumber="106">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="106">
+        <li class="covered" data-hits="1" data-linenumber="107">
           <span class="hits">1</span>
           
           <code class="ruby">    assert_equal &quot;12334105&quot;, merchant.id</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="107">
-          
-          
-          <code class="ruby">  end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="108">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">  end</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="109">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="109">
           
-          <code class="ruby">  def test_that_find_by_id_returns_nil_for_unknown_id</code>
+          
+          <code class="ruby"></code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="110">
           <span class="hits">1</span>
           
-          <code class="ruby">    se = SalesEngine.from_csv({</code>
+          <code class="ruby">  def test_that_find_by_id_returns_nil_for_unknown_id</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="111">
+        <li class="covered" data-hits="1" data-linenumber="111">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">                              :merchants =&gt; &quot;./data/merchant_sample.csv&quot;,</code>
+          <code class="ruby">    se = SalesEngine.from_csv({</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="112">
           
           
-          <code class="ruby">                              })</code>
+          <code class="ruby">                              :merchants =&gt; &quot;./data/merchant_sample.csv&quot;,</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="113">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="113">
           
-          <code class="ruby">    mr = se.merchants</code>
+          
+          <code class="ruby">                              })</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="114">
           <span class="hits">1</span>
           
+          <code class="ruby">    mr = se.merchants</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="115">
+          <span class="hits">1</span>
+          
           <code class="ruby">    merchant = mr.find_by_id(000023412)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="115">
+        <li class="never" data-hits="" data-linenumber="116">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="116">
+        <li class="covered" data-hits="1" data-linenumber="117">
           <span class="hits">1</span>
           
           <code class="ruby">    assert_equal nil, merchant</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="117">
+        <li class="never" data-hits="" data-linenumber="118">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="118">
+        <li class="never" data-hits="" data-linenumber="119">
           
           
           <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="119">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  def test_that_find_by_id_with_input_as_a_string_works</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="120">
           <span class="hits">1</span>
           
-          <code class="ruby">    se = SalesEngine.from_csv({</code>
+          <code class="ruby">  def test_that_find_by_id_with_input_as_a_string_works</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="121">
+        <li class="covered" data-hits="1" data-linenumber="121">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">                              :merchants =&gt; &quot;./data/merchant_sample.csv&quot;,</code>
+          <code class="ruby">    se = SalesEngine.from_csv({</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="122">
           
           
-          <code class="ruby">                              })</code>
+          <code class="ruby">                              :merchants =&gt; &quot;./data/merchant_sample.csv&quot;,</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="123">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="123">
           
-          <code class="ruby">    mr = se.merchants</code>
+          
+          <code class="ruby">                              })</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="124">
           <span class="hits">1</span>
           
+          <code class="ruby">    mr = se.merchants</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="125">
+          <span class="hits">1</span>
+          
           <code class="ruby">    merchant = mr.find_by_id(&quot;12334105&quot;)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="125">
+        <li class="never" data-hits="" data-linenumber="126">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="126">
+        <li class="covered" data-hits="1" data-linenumber="127">
           <span class="hits">1</span>
           
           <code class="ruby">    assert_equal &quot;12334105&quot;, merchant.id</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="127">
-          
-          
-          <code class="ruby">  end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="128">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">  end</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="129">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="129">
           
-          <code class="ruby">  def test_edge_that_even_when_searching_for_correct_id_with_spaces_it_will_still_return</code>
+          
+          <code class="ruby"></code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="130">
           <span class="hits">1</span>
           
-          <code class="ruby">    se = SalesEngine.from_csv({</code>
+          <code class="ruby">  def test_edge_that_even_when_searching_for_correct_id_with_spaces_it_will_still_return</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="131">
+        <li class="covered" data-hits="1" data-linenumber="131">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">                              :merchants =&gt; &quot;./data/merchant_sample.csv&quot;,</code>
+          <code class="ruby">    se = SalesEngine.from_csv({</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="132">
           
           
-          <code class="ruby">                              })</code>
+          <code class="ruby">                              :merchants =&gt; &quot;./data/merchant_sample.csv&quot;,</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="133">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="133">
           
-          <code class="ruby">    mr = se.merchants</code>
+          
+          <code class="ruby">                              })</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="134">
           <span class="hits">1</span>
           
+          <code class="ruby">    mr = se.merchants</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="135">
+          <span class="hits">1</span>
+          
           <code class="ruby">    merchant = mr.find_by_id(&quot;12334 105&quot;)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="135">
+        <li class="never" data-hits="" data-linenumber="136">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="136">
+        <li class="covered" data-hits="1" data-linenumber="137">
           <span class="hits">1</span>
           
           <code class="ruby">    assert_equal &quot;12334105&quot;, merchant.id</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="137">
+        <li class="never" data-hits="" data-linenumber="138">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="138">
+        <li class="never" data-hits="" data-linenumber="139">
           
           
           <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="139">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  def test_that_find_all_by_name_returns_known_merchant_with_fragment_input</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="140">
           <span class="hits">1</span>
           
-          <code class="ruby">    se = SalesEngine.from_csv({</code>
+          <code class="ruby">  def test_that_find_all_by_name_returns_known_merchant_with_fragment_input</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="141">
+        <li class="covered" data-hits="1" data-linenumber="141">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">                              :merchants =&gt; &quot;./data/merchant_sample.csv&quot;,</code>
+          <code class="ruby">    se = SalesEngine.from_csv({</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="142">
           
           
-          <code class="ruby">                              })</code>
+          <code class="ruby">                              :merchants =&gt; &quot;./data/merchant_sample.csv&quot;,</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="143">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="143">
           
-          <code class="ruby">    mr       = se.merchants</code>
+          
+          <code class="ruby">                              })</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="144">
           <span class="hits">1</span>
           
+          <code class="ruby">    mr       = se.merchants</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="145">
+          <span class="hits">1</span>
+          
           <code class="ruby">    merchant = mr.find_all_by_name(&quot;Mini&quot;)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="145">
+        <li class="never" data-hits="" data-linenumber="146">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="146">
+        <li class="covered" data-hits="1" data-linenumber="147">
           <span class="hits">1</span>
           
           <code class="ruby">    assert_equal [&quot;MiniatureBikez&quot;,&quot;Shopinmini&quot;, &quot;heyMiniWheels&quot;, &quot;MiniatureTights&quot;], merchant</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="147">
+        <li class="never" data-hits="" data-linenumber="148">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="148">
+        <li class="never" data-hits="" data-linenumber="149">
           
           
           <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="149">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  def test_that_find_all_by_name_returns_nil_for_unknown_merchant_with_fragment_input</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="150">
           <span class="hits">1</span>
           
-          <code class="ruby">    se = SalesEngine.from_csv({</code>
+          <code class="ruby">  def test_that_find_all_by_name_returns_nil_for_unknown_merchant_with_fragment_input</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="151">
+        <li class="covered" data-hits="1" data-linenumber="151">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">                              :merchants =&gt; &quot;./data/merchant_sample.csv&quot;,</code>
+          <code class="ruby">    se = SalesEngine.from_csv({</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="152">
           
           
-          <code class="ruby">                              })</code>
+          <code class="ruby">                              :merchants =&gt; &quot;./data/merchant_sample.csv&quot;,</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="153">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="153">
           
-          <code class="ruby">    mr       = se.merchants</code>
+          
+          <code class="ruby">                              })</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="154">
           <span class="hits">1</span>
           
+          <code class="ruby">    mr       = se.merchants</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="155">
+          <span class="hits">1</span>
+          
           <code class="ruby">    merchant = mr.find_all_by_name(&quot;turing&quot;)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="155">
+        <li class="never" data-hits="" data-linenumber="156">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="156">
+        <li class="covered" data-hits="1" data-linenumber="157">
           <span class="hits">1</span>
           
           <code class="ruby">    assert_equal [], merchant</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="157">
+        <li class="never" data-hits="" data-linenumber="158">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="158">
+        <li class="never" data-hits="" data-linenumber="159">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="159">
+        <li class="never" data-hits="" data-linenumber="160">
           
           
           <code class="ruby">end</code>
