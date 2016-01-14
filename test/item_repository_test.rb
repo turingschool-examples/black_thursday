@@ -25,12 +25,10 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_that_find_all_with_description_method_exist
-    skip
     assert ItemRepository.method_defined? :find_all_with_description
   end
 
   def test_that_find_all_by_price_method_exist
-    skip
     assert ItemRepository.method_defined? :find_all_by_price
   end
 
@@ -45,7 +43,6 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_that_the_all_method_returns_an_array
-    skip
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv"

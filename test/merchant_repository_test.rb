@@ -1,9 +1,9 @@
 require_relative './../lib/merchant_repository'
 require_relative '../lib/sales_engine'
 require_relative './test_helper'
-require 'pry'
-require 'minitest/autorun'
-require 'minitest/pride'
+require          'pry'
+require          'minitest/autorun'
+require          'minitest/pride'
 
 
 class MerchantRepositoryTest < Minitest::Test
@@ -33,7 +33,7 @@ class MerchantRepositoryTest < Minitest::Test
                               :merchants => "./data/merchant_sample.csv",
                               })
     mr = se.merchants
-    binding.pry
+
     assert_kind_of(Array, mr.all)
   end
 
