@@ -293,7 +293,7 @@ class ItemRepositoryTest < Minitest::Test
       ],
     ).items
     result = ir.find_all_by_price(10.99)
-
+  
     assert_equal [2,3], result.map(&:id)
   end
 

@@ -43,10 +43,14 @@ class ItemRepository
     input_price.to_s.gsub(/\D/,"")
   end
 
+  def significant_digits(std_input_price)
+    std_input_price.length
+  end
+
   def find_all_by_price(input_price)
       std_input_price = stdprice(input_price)
       item_price = @all.find_all do |line|
-        line[:unit_price].end_with?(std_input_price) && 
+        line[:unit_price].end_with?(std_input_price) && line[:unit_price].length == significant_digits(std_input_price)
       end
       if item_price.nil?
         []
