@@ -1,5 +1,6 @@
 require 'merchant'
-require './lib/csv_loader'
+require 'csv_loader'
+require 'finder'
 
 class MerchantRepository
 include CsvLoader

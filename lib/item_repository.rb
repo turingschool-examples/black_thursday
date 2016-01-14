@@ -1,6 +1,7 @@
 require 'bigdecimal'
 require 'item'
-require './lib/csv_loader'
+require 'csv_loader'
+require 'finder'
 
 class ItemRepository
 include CsvLoader
