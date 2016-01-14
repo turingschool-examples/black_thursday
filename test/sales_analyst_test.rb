@@ -109,6 +109,16 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 277.95, sa.items_standard_deviation
   end
 
+  def test_golden_items_returns_item_object_instance
+    se_hash = {:items => './data/test_items_sd.csv',
+            :merchants => './data/test_merchant_sd.csv'}
+    se = SalesEngine.new(se_hash)
+    sa = SalesAnalyst.new(se)
+
+    assert sa.golden_items[0].instance_of?(Item)
+  end
+
+
   def test_golden_items_returns_items_two_sd_above_avg
     se_hash = {:items => './data/test_items_sd.csv',
             :merchants => './data/test_merchant_sd.csv'}
