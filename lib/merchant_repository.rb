@@ -9,6 +9,10 @@ class MerchantRepository
     parse_merchants(merchants)
   end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
   def parse_merchants(merchants)
     @merchant_array = []
     merchants.each do |row|

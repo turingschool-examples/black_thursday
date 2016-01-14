@@ -9,6 +9,10 @@ class ItemRepository
     parse_items(items)
   end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
   def parse_items(items)
     @items_array = []
     items.each do |row|
@@ -44,6 +48,7 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
+    # binding.pry
     @items_array.select do |item|
       if item.unit_price == price
         item
