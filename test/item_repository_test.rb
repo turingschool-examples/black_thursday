@@ -273,7 +273,6 @@ class ItemRepositoryTest < Minitest::Test
     })
     ir    = se.items
     price = ir.find_all_by_price(10.99)
-
     assert_equal Array, price.class
   end
 

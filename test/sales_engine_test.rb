@@ -38,6 +38,4 @@ class SalesEngineTest < Minitest::Test
 
     assert_kind_of SalesEngine, se
   end
-
-
 end

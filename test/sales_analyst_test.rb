@@ -35,4 +35,22 @@ class SalesAnalystTest < Minitest::Test
       assert SalesAnalyst.method_defined? :golden_items
   end
 
+  def test_that_will_start_the_relationship_function
+    se = SalesEngine.new(
+    {
+      items:     [ {id: "263396209", merchant_id: "12334105", name: "Vogue Paris 2307", unit_price: "2999"},
+                   {id: "2332424309", merchant_id: "12334105", name: "Givenchy 2307", unit_price: "2999"},
+                   {id: "2332424309", merchant_id: "12334105", name: "Givenchy 2307", unit_price: "2999"}],
+
+      merchants: [{:id=>"12334105", :name=>"Shopin1901", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"}]
+      })
+
+    merchant = se.merchants.find_by_id("12334105")
+    # merchant.items
+    # => [<item>, <item>, <item>]
+    item = se.items.find_all_by_merchant_id("12334105")
+    # item.merchant
+    # => <merchant>
+  end
+
 end
