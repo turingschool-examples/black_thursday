@@ -33,12 +33,10 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_that_find_all_by_price_in_range_method_exist
-    skip
     assert ItemRepository.method_defined? :find_all_by_price_in_range
   end
 
   def test_that_find_all_by_merchant_id_exist
-    skip
     assert ItemRepository.method_defined? :find_all_by_merchant_id
   end
 
@@ -328,70 +326,66 @@ class ItemRepositoryTest < Minitest::Test
     ).items
     num   = (1..10)
     price = ir.find_all_by_price_in_range(num)
-    binding.pry
+
     assert_equal Array, price.class
   end
 
   def test_that_find_all_by_price_in_range_returns_items_within_inputted_price_range
-    # skip
     ir = SalesEngine.new(items: [
         {id: 1, unit_price: "1186"},
         {id: 2, unit_price: "1099"},
         {id: 3, unit_price: "11099"},
         {id: 4, unit_price: "10990"},
       ]).items
+
     result = ir.find_all_by_price_in_range(Range.new(10.01,12))
 
     assert_equal [1,2], result.map(&:id)
   end
 
   def test_that_find_all_by_price_in_range_returns_empty_array_for_unknown_price_range
-    skip
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
-    })
-    ir    = se.items
-    #reread readme to figure this out
-    num   = (1..2)
-    price = ir.find_all_by_price_in_range(num)
-    #we will need to require the BigDecimal class from Item
-    assert_equal [], price
+    ir = SalesEngine.new(items: [
+        {id: 1, unit_price: "1186"},
+        {id: 2, unit_price: "1099"},
+        {id: 3, unit_price: "11099"},
+        {id: 4, unit_price: "10990"},
+      ]).items
+
+    assert_equal [], ir.find_all_by_price_in_range(1..10)
   end
 
   def test_that_find_all_by_merchant_id_is_an_array
-    skip
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
-    })
-    ir    = se.items
-    price = ir.find_all_by_merchant_id(263395)
-    #given the supplied fragment of an id it should output matches
+    ir = SalesEngine.new(items: [
+        {id: 1, merchant_id: "11860"},
+        {id: 2, merchant_id: "10990"},
+        {id: 3, merchant_id: "110990"},
+        {id: 4, merchant_id: "109900"},
+      ]).items
+    price = ir.find_all_by_merchant_id(10)
+
     assert_equal Array, price.class
   end
 
   def test_that_find_all_by_merchant_id_returns_id_matches
-    skip
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
-    })
-    ir    = se.items
-    price = ir.find_all_by_merchant_id(263395)
-    #given the supplied fragment of an id it should output matches
-    assert_equal ["here a couple of id matches will pop up"], price
+    ir = SalesEngine.new(items: [
+        {id: 1, merchant_id: "11860"},
+        {id: 2, merchant_id: "10990"},
+        {id: 3, merchant_id: "110990"},
+        {id: 4, merchant_id: "109900"},
+      ]).items
+    price = ir.find_all_by_merchant_id(10)
+
+    assert_equal [2,4], price.map(&:id)
   end
 
   def test_that_find_all_by_merchant_id_returns_empty_array_when_no_matches_are_found
-    skip
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
-    })
-    ir    = se.items
+    ir = SalesEngine.new(items: [
+        {id: 1, merchant_id: "11860"},
+        {id: 2, merchant_id: "10990"},
+        {id: 3, merchant_id: "110990"},
+        {id: 4, merchant_id: "109900"},
+      ]).items
     price = ir.find_all_by_merchant_id(00000)
-    #given the supplied fragment of an id it should output matches
     assert_equal [], price
   end
 

@@ -58,18 +58,10 @@ class ItemRepository
     std_input_price = std_price(input_price)
     item_price = @all.find_all do |line|
       line[:unit_price].to_i == std_input_price.to_i
-      # item_price_matches_the_inputed_price(line, std_input_price)
     end
     array_of_items_found_that_match(item_price)
   end
 
-  # def item_price_matches_the_inputed_price(line, std_input_price)
-  #   line[:unit_price].end_with?(std_input_price) && unit_price_length_matches_significant_digits(line, std_input_price)
-  # end
-  #
-  # def unit_price_length_matches_significant_digits(line, std_input_price)
-  #   line[:unit_price].length == significant_digits(std_input_price)
-  # end
 
   def array_of_items_found_that_match(items_info)
     if items_info.nil?
@@ -89,14 +81,3 @@ class ItemRepository
   end
 
 end
-
-
-
-
-  #notes for find_all_by_price_in_range
-  #within the argument for our tests have the range like this
-  #ex: (700..900) => which will be a range object check methods on ruby docs
-  #use the method include? to check through given range!
-  #call the method .to_i to the BigDecimal objects to compare the classes
-  #range is a collection of integers that need BigDecimal to turn to one in order
-  #to compare it with each other
