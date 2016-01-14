@@ -14,8 +14,9 @@ attr_reader :sales_engine
   end
 
   def average_items_per_merchant
-    total_items/total_merchants
+    (total_items/total_merchants).round(2)
   end
   
+
 
 end
