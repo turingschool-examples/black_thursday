@@ -43,187 +43,159 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_that_the_all_method_returns_an_array
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
-    })
-    ir   = se.items
+    se = SalesEngine.new(
+            items: [
+              {id: 1, description: "abc"},
+              {id: 2, description: "a1c"},
+              {id: 3, description: "1b2"},
+            ],
+          ).items
 
-    assert_kind_of(Array, ir.all)
+    assert_kind_of(Array, se.all)
   end
 
   def test_that_array_has_all_elements_from_item_csv_file
-    skip
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
-    })
+    se = SalesEngine.new(
+      items: [
+        {id: 1, description: "abc"},
+        {id: 2, description: "a1c"},
+        {id: 3, description: "1b2"},
+      ],
+    ).items
 
-    ir   = se.items
-
-    #let the test run at first to fail to get the correct number
-    #since it's too long to count manually
-    assert_equal 0, ir.all.count
+    assert_equal 3, se.all.count
   end
 
   def test_that_it_will_return_an_instance_of_an_item
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv"
-    })
+    }).items
 
-    ir   = se.items
-    item = ir.find_by_name("510+ RealPush Icon Set")
+    item = se.find_by_name("510+ RealPush Icon Set")
 
     assert_equal Item, item.class
   end
 
   def test_that_find_by_id_returns_known_item
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
-    })
+    se = SalesEngine.new(
+      items: [
+        {id: 1, description: "abc"},
+        {id: 2, description: "a1c"},
+        {id: 3, description: "1b2"},
+      ],
+    ).items
 
-    ir   = se.items
-    #//FROM ITEM.CSV FILE//
-    #//HEADERS//
-    #id,name,description,unit_price,merchant_id,created_at,updated_at
-    #//ITEM LINE//
-    #263395237,510+ RealPush Icon Set,"You&#39;ve got a total socialmedia iconset! Almost every social icon on the planet earth.
+    item = se.find_by_id(1)
 
-    item = ir.find_by_id(263395237)
-
-    assert_equal "263395237", item.id
+    assert_equal 1, item.id
   end
 
   def test_edge_that_find_by_id_returns_known_item_even_when_inputted_as_string
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv"
-    })
+    }).items
 
-    ir   = se.items
-    #//FROM ITEM.CSV FILE//
-    #//HEADERS//
-    #id,name,description,unit_price,merchant_id,created_at,updated_at
-    #//ITEM LINE//
-    #263395237,510+ RealPush Icon Set,"You&#39;ve got a total socialmedia iconset! Almost every social icon on the planet earth.
-    item = ir.find_by_id("263395237")
+    item = se.find_by_id("263395237")
 
     assert_equal "263395237", item.id
   end
 
   def test_edge_that_find_by_id_returns_nil_for_unknown_id
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
-    })
+    se = SalesEngine.new(
+      items: [
+        {id: 1, description: "abc"},
+        {id: 2, description: "a1c"},
+        {id: 3, description: "1b2"},
+      ],
+    ).items
 
-    ir   = se.items
-    #//FROM ITEM.CSV FILE//
-    #//HEADERS//
-    #id,name,description,unit_price,merchant_id,created_at,updated_at
-    #//ITEM LINE//
-    #263395237,510+ RealPush Icon Set,"You&#39;ve got a total socialmedia iconset! Almost every social icon on the planet earth.
-
-    item = ir.find_by_id(000000000)
+    item = se.find_by_id(000000000)
 
     assert_equal nil, item
   end
 
   def test_find_by_name_returns_a_known_item
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
-    })
+    se = SalesEngine.new(
+      items: [
+        {id: 1, name: "Necklace", description: "abc"},
+        {id: 2, name: "Bracelet", description: "a1c"},
+        {id: 3, name: "Rings"   , description: "1b2"},
+      ],
+    ).items
 
-    ir   = se.items
-    #//FROM ITEM.CSV FILE//
-    #//HEADERS//
-    #id,name,description,unit_price,merchant_id,created_at,updated_at
-    #//ITEM LINE//
-    #263395237,510+ RealPush Icon Set,"You&#39;ve got a total socialmedia iconset! Almost every social icon on the planet earth.
-    item = ir.find_by_name("510+ RealPush Icon Set")
+    item = se.find_by_name("Necklace")
 
-    assert_equal "510+ RealPush Icon Set", item.name
+    assert_equal "Necklace", item.name
   end
 
   def test_find_by_name_returns_nil_for_unknown_item
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
-    })
+    se = SalesEngine.new(
+      items: [
+        {id: 1, description: "abc"},
+        {id: 2, description: "a1c"},
+        {id: 3, description: "1b2"},
+      ],
+    ).items
 
-    ir   = se.items
-    #//FROM ITEM.CSV FILE//
-    #//HEADERS//
-    #id,name,description,unit_price,merchant_id,created_at,updated_at
-    #//ITEM LINE//
-    #263395237,510+ RealPush Icon Set,"You&#39;ve got a total socialmedia iconset! Almost every social icon on the planet earth.
-    item = ir.find_by_name("Turing School")
+    item = se.find_by_name("acdc")
 
     assert_equal nil, item
   end
 
   def test_edge_that_no_matter_where_spaces_are_placed_find_by_name_returns_known_item
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
-    })
+    se = SalesEngine.new(
+      items: [
+        {id: 1, name:   "Nothing to find Here"},
+        {id: 2, name:       "Will Get Ignored"},
+        {id: 3, name:   "Searched With Spaces"},
+      ],
+    ).items
 
-    ir   = se.items
-    #//FROM ITEM.CSV FILE//
-    #//HEADERS//
-    #id,name,description,unit_price,merchant_id,created_at,updated_at
-    #//ITEM LINE//
-    #263395237,510+ RealPush Icon Set,"You&#39;ve got a total socialmedia iconset! Almost every social icon on the planet earth.
-    item = ir.find_by_name("51 0+ R ealP ush Ic on Se t")
+    item = se.find_by_name( "S e a r c h e d W i t h S p a c e s")
 
-    assert_equal "510+ RealPush Icon Set", item.name
+    assert_equal "Searched With Spaces", item.name
   end
 
   def test_edge_that_find_by_name_will_find_capitalized_known_item_name
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
-    })
+    se = SalesEngine.new(
+      items: [
+        {id: 1, name: "Basketball"},
+        {id: 2, name:     "Soccer"},
+        {id: 3, name:   "Football"},
+      ],
+    ).items
 
-    ir   = se.items
-    #//FROM ITEM.CSV FILE//
-    #//HEADERS//
-    #id,name,description,unit_price,merchant_id,created_at,updated_at
-    #//ITEM LINE//
-    #263395237,510+ RealPush Icon Set,"You&#39;ve got a total socialmedia iconset! Almost every social icon on the planet earth.
-    item = ir.find_by_name("510+ REALPUSH ICON SET")
+    item = se.find_by_name("FOOTBALL")
 
-    assert_equal "510+ RealPush Icon Set", item.name
+    assert_equal "Football", item.name
   end
 
   def test_edge_that_find_by_name_will_find_known_item_typed_with_lowercase_and_upcase_letters
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
-    })
+    se = SalesEngine.new(
+      items: [
+        {id: 1, name: "Basketball"},
+        {id: 2, name:     "Soccer"},
+        {id: 3, name:   "Football"},
+      ],
+    ).items
+    item = se.find_by_name("S o C c E r")
 
-    ir   = se.items
-    #//FROM ITEM.CSV FILE//
-    #//HEADERS//
-    #id,name,description,unit_price,merchant_id,created_at,updated_at
-    #//ITEM LINE//
-    #263395237,510+ RealPush Icon Set,"You&#39;ve got a total socialmedia iconset! Almost every social icon on the planet earth.
-    item = ir.find_by_name("510+ ReaLPuSh iCoN SeT")
-
-    assert_equal "510+ RealPush Icon Set", item.name
+    assert_equal "Soccer", item.name
+    assert_equal        2, item.id
   end
 
   def test_that_find_all_with_description_is_an_array
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
-    })
+    se = SalesEngine.new(
+      items: [
+        {id: 1, description: "abc"},
+        {id: 2, description: "a1c"},
+        {id: 3, description: "1b2"},
+      ],
+    ).items
 
-    ir          = se.items
-    description = ir.find_all_with_description("You&#39;ve got a total socialmedia iconset! Almost every social icon on the planet earth.")
+    description = se.find_all_with_description("abc")
 
     assert_equal Array, description.class
   end
@@ -241,23 +213,22 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_that_fragment_string_returns_all_matching_descriptions_for_find_all_with_description_method
-    se = SalesEngine.from_csv({
-      items: "./data/items.csv",
-      :merchants => "./data/merchants.csv"
-    })
+    se = SalesEngine.new(
+      items: [
+        {id: 1, description: "abc"},
+        {id: 2, description: "a1c"},
+        {id: 3, description: "1b2"},
+      ],
+    ).items
 
-    ir    = se.items
-    items = ir.find_all_with_description("Acrylique sur toile exécutée")
+    items = se.find_all_with_description("a")
 
-    result = "Acrylique sur toile exécutée en 2011\nFormat : 46 x 55 cm\nToile sur châssis en bois - non encadré\nArtiste : Flavien Couche - Artiste côté Akoun\n\nTABLEAU VENDU AVEC FACTURE ET CERTIFICAT D&#39;AUTHETICITE\n\nwww.flavien-couche.com"
-
-    assert_equal result, items[0].description
+    assert_equal "abc", items[0].description
     assert_equal   Item, items.last.class
-    assert_equal     19, items.count
+    assert_equal     2, items.count
   end
 
   def test_that_fragment_string_returns_all_matching_descriptions_for_find_all_with_description_method_v2
-    # skip 'This is where we want to be'
     ir = SalesEngine.new(
       items: [
         {id: 1, description: "abc"},
