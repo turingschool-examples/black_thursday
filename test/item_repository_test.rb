@@ -61,16 +61,19 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 3, se.all.count
   end
 
-  def test_that_it_will_return_an_instance_of_an_item
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
-    }).items
 
-    item = se.find_by_name("510+ RealPush Icon Set")
+  def test_that_it_will_return_an_instance_of_an_item
+    repo = ItemRepository.new([
+      {id: 1, description: "abc"},
+      {id: 2, description: "a1c"},
+      {id: 3, description: "1b2"},
+    ])
+
+    item = repo.find_by_id(1)
 
     assert_equal Item, item.class
   end
+
 
   def test_that_find_by_id_returns_known_item
     se = SalesEngine.new(
@@ -86,6 +89,7 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 1, item.id
   end
 
+
   def test_edge_that_find_by_id_returns_known_item_even_when_inputted_as_string
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
@@ -96,6 +100,7 @@ class ItemRepositoryTest < Minitest::Test
 
     assert_equal "263395237", item.id
   end
+
 
   def test_edge_that_find_by_id_returns_nil_for_unknown_id
     se = SalesEngine.new(
@@ -111,7 +116,7 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal nil, item
   end
 
-  def test_find_by_name_returns_a_known_item
+  def test_that_find_by_name_returns_a_known_item
     se = SalesEngine.new(
       items: [
         {id: 1, name: "Necklace", description: "abc"},
@@ -237,8 +242,6 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal [2, 3], ir.find_all_with_description("1").map(&:id)
   end
 
-
-
   def test_edge_that_fragment_string_returns_all_matching_descriptions_even_when_typed_weird_for_find_all_with_description_method
     ir = SalesEngine.new(
       items: [
@@ -273,6 +276,7 @@ class ItemRepositoryTest < Minitest::Test
 
     assert_equal Array, price.class
   end
+
 
   def test_that_find_all_by_price_returns_values
     ir = SalesEngine.new(
