@@ -34,4 +34,5 @@ attr_reader :files, :items, :merchants
       item.merchant = merchants.find_by_id(item.merchant_id)
     end
   end
+
 end

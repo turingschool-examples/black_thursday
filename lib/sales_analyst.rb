@@ -93,4 +93,18 @@ attr_reader :sales_engine
     Math.sqrt(variance_divide_total_items).round(2)
   end
 
+  def golden_items
+    sd = Math.sqrt(variance_divide_total_items).round(2)
+    avg = average_price_of_all_items
+    items = sales_engine.items.all
+    golden = []
+    items.each do |item|
+      if item.unit_price >= (avg + (sd * 3))
+      golden << item
+      end
+    end
+    golden
+  end
+
+
 end
