@@ -9,6 +9,10 @@ class InvoiceRepository
     parse_invoices(invoices)
   end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
   def parse_invoices(invoices)
     @invoice_array = []
     invoices.each do |row|
