@@ -16,5 +16,6 @@ attr_reader :sales_engine
   def average_items_per_merchant
     total_items/total_merchants
   end
+  
 
 end
