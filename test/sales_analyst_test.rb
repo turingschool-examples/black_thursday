@@ -34,9 +34,9 @@ class SalesAnalystTest < Minitest::Test
   def test_that_golden_items_method_exist
       assert SalesAnalyst.method_defined? :golden_items
   end
-
+meta run:true
   def test_that_will_start_the_relationship_function
-    skip
+    # skip
     se = SalesEngine.new(
     {
       items:     [ {id: "1", merchant_id:  "1", name: "Vogue Paris 2307", unit_price: "2999"},
@@ -46,7 +46,7 @@ class SalesAnalystTest < Minitest::Test
       merchants: [{:id=>"1", :name=>"Shopin1901", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"}]
       })
     merchant = se.merchants.find_by_id("1")
-
+    binding.pry
     assert_equal 2, merchant.items
   end
 
