@@ -29,21 +29,23 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_that_all_method_returns_an_array
-    se = SalesEngine.from_csv({
-                              :merchants => "./data/merchant_sample.csv",
-                              })
-    mr = se.merchants
+    repo = MerchantRepository.new([
+        {id: 1, name: "11860"},
+        {id: 2, name: "10990"},
+        {id: 3, name: "10"},
+        {id: 4, name: "10"},
+      ])
 
-    assert_kind_of(Array, mr.all)
+    assert_kind_of(Array, repo.all)
   end
 
   def test_that_the_all_method_returns_the_three_sample_merchant_stores_info
     se = SalesEngine.from_csv({
                               :merchants => "./data/merchant_sample.csv",
+                              :items     => "./data/items.csv"
                               })
-    mr = se.merchants
-
-    assert_equal 6, mr.all.count
+                              binding.pry
+    assert_equal 6, se.all.count
   end
 
   def test_that_find_by_name_method_is_an_instance_of_merchant
