@@ -7,7 +7,7 @@ class ItemRepositoryTest < Minitest::Test
     csv_object_of_items = CSV.open './data/items.csv', headers: true, header_converters: :symbol
     @ir = ItemRepository.new(csv_object_of_items)
     #expected
-    #expected buy weird
+    #expected but weird
     #2nd kind of weird
     #totally wrong
   end
@@ -127,6 +127,62 @@ class ItemRepositoryTest < Minitest::Test
     price     = "0"
     expected  = []
     submitted = @ir.find_all_by_price(price)
+
+    assert_equal expected, submitted
+  end
+
+  def test_find_all_by_price_correct_unit_price_but_with_symbol
+    price     = "$9500"
+    expected  = []
+    submitted = @ir.find_all_by_price(price)
+
+    assert_equal expected, submitted
+  end
+
+  def test_find_all_by_price_in_range_lower
+    range     = ("1".."100")
+    expected  = 6
+    submitted = @ir.find_all_by_price_in_range(range)
+
+    assert_equal expected, submitted.count
+  end
+
+  def test_find_all_by_price_in_range_lowest
+    range     = ("0".."1")
+    expected  = []
+    submitted = @ir.find_all_by_price_in_range(range)
+
+    assert_equal expected, submitted
+  end
+
+  def test_find_all_by_price_in_range_middle
+    range     = ("1000".."10000")
+    expected  = 853
+    submitted = @ir.find_all_by_price_in_range(range)
+
+    assert_equal expected, submitted.count
+  end
+
+  def test_find_all_by_merchant_id_real_merchant
+    merchant_id = "12334105"
+    expected    = 3
+    submitted   = @ir.find_all_by_merchant_id(merchant_id)
+
+    assert_equal expected, submitted.count
+  end
+
+  def test_find_all_by_merchant_id_second_real_merchant
+    merchant_id = "12334123"
+    expected    = 25
+    submitted   = @ir.find_all_by_merchant_id(merchant_id)
+
+    assert_equal expected, submitted.count
+  end
+
+  def test_find_all_by_merchant_id_fake_merchant
+    merchant_id = "1"
+    expected    = []
+    submitted   = @ir.find_all_by_merchant_id(merchant_id)
 
     assert_equal expected, submitted
   end
