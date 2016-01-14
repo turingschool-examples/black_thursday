@@ -1,7 +1,11 @@
 {
   "RSpec": {
     "coverage": {
+<<<<<<< HEAD
       "/Users/AlexNavarrete/Turing/1module/Project/black_thursday/test/item_test.rb": [
+=======
+      "/Users/matt/Turing/1module/projects/black_thursday/test/item_test.rb": [
+>>>>>>> origin/iteration0
         1,
         1,
         1,
@@ -148,7 +152,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/Users/AlexNavarrete/Turing/1module/Project/black_thursday/test/merchant_repository_test.rb": [
+=======
+      "/Users/matt/Turing/1module/projects/black_thursday/test/merchant_repository_test.rb": [
+>>>>>>> origin/iteration0
         1,
         1,
         1,
@@ -184,7 +192,11 @@
         null,
         null,
         1,
+<<<<<<< HEAD
         null,
+=======
+        1,
+>>>>>>> origin/iteration0
         1,
         null,
         null,
@@ -222,7 +234,10 @@
         null,
         null,
         1,
+<<<<<<< HEAD
         null,
+=======
+>>>>>>> origin/iteration0
         1,
         null,
         1,
@@ -310,7 +325,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/Users/AlexNavarrete/Turing/1module/Project/black_thursday/test/merchant_test.rb": [
+=======
+      "/Users/matt/Turing/1module/projects/black_thursday/test/merchant_test.rb": [
+>>>>>>> origin/iteration0
         1,
         1,
         1,
@@ -346,7 +365,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/Users/AlexNavarrete/Turing/1module/Project/black_thursday/test/sales_engine_test.rb": [
+=======
+      "/Users/matt/Turing/1module/projects/black_thursday/test/sales_engine_test.rb": [
+>>>>>>> origin/iteration0
         1,
         1,
         1,
@@ -391,11 +414,24 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/Users/AlexNavarrete/Turing/1module/Project/black_thursday/test/test_helper.rb": [
+=======
+      "/Users/matt/Turing/1module/projects/black_thursday/test/test_helper.rb": [
+>>>>>>> origin/iteration0
         1,
         1
       ]
     },
+<<<<<<< HEAD
     "timestamp": 1452738058
+=======
+    "timestamp": 1452733534
+  },
+  "Unit Tests": {
+    "coverage": {
+    },
+    "timestamp": 1452738733
+>>>>>>> origin/iteration0
   }
 }

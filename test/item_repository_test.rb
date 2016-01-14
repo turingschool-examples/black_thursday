@@ -272,7 +272,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_that_find_all_by_price_is_an_array
-    skip
+    skip #works
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv"
@@ -284,16 +284,17 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_that_find_all_by_price_returns_value
-    skip
     #im not too sure how this will work with the BigDecimal so be cautious
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
-    })
-    ir    = se.items
-    price = ir.find_all_by_price(10.99)
+    ir = SalesEngine.new(
+      items: [
+        {id: 1, unit_price: "1186"},
+        {id: 2, unit_price: "1099"},
+        {id: 3, unit_price: "11099"},
+      ],
+    ).items
+    result = ir.find_all_by_price(10.99)
 
-    assert_equal 10.99, price.unit_price
+    assert_equal [2,3], result.map(&:id)
   end
 
   def test_that_find_all_by_price_returns_empty_array_for_absurd_price
