@@ -41,15 +41,12 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_that_the_all_method_returns_an_array
-    se = SalesEngine.new(
-            items: [
-              {id: 1, description: "abc"},
-              {id: 2, description: "a1c"},
-              {id: 3, description: "1b2"},
-            ],
-          ).items
-
-    assert_kind_of(Array, se.all)
+    repo = ItemRepository.new([
+      {id: 1, description: "abc"},
+      {id: 2, description: "a1c"},
+      {id: 3, description: "1b2"},
+    ])
+    assert_kind_of(Array, repo.all)
   end
 
   def test_that_array_has_all_elements_from_item_csv_file
