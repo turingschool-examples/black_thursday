@@ -23,14 +23,20 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_combine_merchant_item_count
-    binding.pry
-    submitted = @sa.combine_merchant_item_count
+    std_deviation = 3.3
+
+    testing = @sa.average_items_per_merchant_standard_deviation
+
+    assert_equal std_deviation, testing
 
     # result of inject
     # => 5035.149999999971
 
     # result of above divided by .count
     # => 10.600315789473624
+
+    # std_deviation
+    # => 3.25581261584165
 
   end
 

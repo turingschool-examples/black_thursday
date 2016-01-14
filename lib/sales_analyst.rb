@@ -1,4 +1,5 @@
 require_relative 'sales_engine'
+# require 'bigdecimal'
 # require 'enumerable/standard_deviation'
 
 class SalesAnalyst
@@ -46,12 +47,17 @@ class SalesAnalyst
     # subtract the mean from each item & square result
     # => .combine_merchant_item_count
     # find mean of resulting numbers (the result of .combine_merchant_item_count)
+
     element = combine_merchant_item_count
     element_mean = element.inject(0,:+) / element.count
+    final_mean = (element_mean ** 0.5)
+    final_mean.round(1)
+
+    # element = BigDecimal.new("combine_merchant_item_count")
+    # element_mean = BigDecimal.new("element.inject(0,:+) / element.count")
+
     # => calc the square root of the mean
 
-
-    #array of items.merchant_id.uniq
   end
 
 
