@@ -14,12 +14,12 @@ class Item
   #example of how time should be passed in similar to our item csv data file
 
   def initialize(item_info)
-    @name = item_info[:name]
-    @id = item_info[:id]
+    @name        = item_info[:name]
+    @id          = item_info[:id]
     @description = item_info[:description]
-    @unit_price = item_info[:unit_price]
-    @created_at = item_info[:created_at]
-    @updated_at = item_info[:updated_at]
+    @unit_price  = item_info[:unit_price]
+    @created_at  = item_info[:created_at]
+    @updated_at  = item_info[:updated_at]
   end
 
   # def exact_price(not_exact_price)
