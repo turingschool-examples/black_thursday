@@ -32,7 +32,7 @@ class ItemRepository
     item_info = @all.find_all do |line|
       stdrd(line[:description]).gsub("\n","").include?(stdrd_inputed_description)
     end
-    item_price_info_on_whether_it_exist(item_info)
+    array_of_items_found_that_match(item_info)
   end
 
   def make_sure_decimal_was_put_in(input_price)
@@ -45,7 +45,7 @@ class ItemRepository
     end
   end
 
-  def stdprice(input_price)
+  def std_price(input_price)
     input_price_in_cents = make_sure_decimal_was_put_in(input_price)
     input_price_in_cents.to_s.gsub(/\D/,"")
   end
@@ -55,37 +55,42 @@ class ItemRepository
   end
 
   def find_all_by_price(input_price)
-    std_input_price = stdprice(input_price)
+    std_input_price = std_price(input_price)
     item_price = @all.find_all do |line|
-      line[:unit_price].end_with?(std_input_price) && unit_price_length_matches_significant_digits(line, std_input_price)
+      line[:unit_price].to_i == std_input_price.to_i
+      # item_price_matches_the_inputed_price(line, std_input_price)
     end
-    item_price_info_on_whether_it_exist(item_price)
+    array_of_items_found_that_match(item_price)
   end
 
-  def unit_price_length_matches_significant_digits(line, std_input_price)
-    line[:unit_price].length == significant_digits(std_input_price)
+  # def item_price_matches_the_inputed_price(line, std_input_price)
+  #   line[:unit_price].end_with?(std_input_price) && unit_price_length_matches_significant_digits(line, std_input_price)
+  # end
+  #
+  # def unit_price_length_matches_significant_digits(line, std_input_price)
+  #   line[:unit_price].length == significant_digits(std_input_price)
+  # end
+
+  def array_of_items_found_that_match(items_info)
+    if items_info.nil?
+      []
+    else
+      items_info.map {|item_info| Item.new(item_info)}
+    end
   end
 
-   def item_price_info_on_whether_it_exist(items_info)
-     if items_info.nil?
-       []
-     else
-       items_info.map {|item_info| Item.new(item_info)}
-     end
-   end
+  def find_all_by_price_in_range(range_input)
+    std_range_begin = std_price(range_input.first)
+    std_range_end   = std_price(range_input.last)
+    items_within_range = @all.find_all do |line|
+      line[:unit_price].to_i > std_range_begin.to_i && line[:unit_price].to_i < std_range_end.to_i
+    end
+    array_of_items_found_that_match(items_within_range)
+  end
 
 end
 
 
-  def find_all_by_price_in_range(range_input)
-    # range = (range_input).to_a
-    # e = []
-    # e << @all.select {|x| range.include?(range)}
-    # binding.pry
-    # range_begin = std_price(range_input.first)
-    # range_end   = std_price(range_input.last)
-
-  end
 
 
   #notes for find_all_by_price_in_range
