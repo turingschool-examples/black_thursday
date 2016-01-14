@@ -32,11 +32,7 @@ class ItemRepository
     item_info = @all.find_all do |line|
       stdrd(line[:description]).gsub("\n","").include?(stdrd_inputed_description)
     end
-    if item_info.nil?
-      []
-    else
-      item_info.map {|item_info| Item.new(item_info)}
-    end
+    item_price_info_on_whether_it_exist(item_info)
   end
 
   def stdprice(input_price)
@@ -48,16 +44,26 @@ class ItemRepository
   end
 
   def find_all_by_price(input_price)
-      std_input_price = stdprice(input_price)
-      item_price = @all.find_all do |line|
-        line[:unit_price].end_with?(std_input_price) && line[:unit_price].length == significant_digits(std_input_price)
-      end
-      if item_price.nil?
-        []
-      else
-        item_price.map {|item_info| Item.new(item_info)}
-      end
+    std_input_price = stdprice(input_price)
+    item_price = @all.find_all do |line|
+      line[:unit_price].end_with?(std_input_price) && unit_price_length_matches_significant_digits(line, std_input_price)
+    end
+    item_price_info_on_whether_it_exist(item_price)
   end
+
+  def unit_price_length_matches_significant_digits(line, std_input_price)
+    line[:unit_price].length == significant_digits(std_input_price)
+  end
+
+   def item_price_info_on_whether_it_exist(items_info)
+     if items_info.nil?
+       []
+     else
+       items_info.map {|item_info| Item.new(item_info)}
+     end
+   end
+
+end
 
 
   #notes for find_all_by_price_in_range
@@ -67,9 +73,3 @@ class ItemRepository
   #call the method .to_i to the BigDecimal objects to compare the classes
   #range is a collection of integers that need BigDecimal to turn to one in order
   #to compare it with each other
-
-
-
-  def find_all
-  end
-end

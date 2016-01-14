@@ -223,9 +223,9 @@ class ItemRepositoryTest < Minitest::Test
 
     items = se.find_all_with_description("a")
 
-    assert_equal "abc", items[0].description
+    assert_equal  "abc", items[0].description
     assert_equal   Item, items.last.class
-    assert_equal     2, items.count
+    assert_equal      2, items.count
   end
 
   def test_that_fragment_string_returns_all_matching_descriptions_for_find_all_with_description_method_v2
@@ -245,17 +245,15 @@ class ItemRepositoryTest < Minitest::Test
 
 
   def test_edge_that_fragment_string_returns_all_matching_descriptions_even_when_typed_weird_for_find_all_with_description_method
-    skip
-    #case insensitive test
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
-    })
-
-    ir          = se.items
-    description = ir.find_all_with_description("AcrYlique sUr toIle exécuTée")
-    #this should return a couple matches, so run the test to see the real answer
-    assert_equal ["a"], description
+    ir = SalesEngine.new(
+      items: [
+        {id: 1, description: "AcrYlique sUr "},
+        {id: 2, description: "AcrYlique exécuTée"},
+        {id: 3, description: "1b2"},
+      ],
+    ).items
+    binding.pry
+    assert_equal [1, 2], ir.find_all_with_description("a").map(&:id)
   end
 
   def test_edge_that_fragment_string_returns_all_matching_descriptions_even_when_typed_weird_with_spaces_for_find_all_with_description_method
@@ -272,19 +270,17 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_that_find_all_by_price_is_an_array
-    skip #works
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv"
     })
     ir    = se.items
     price = ir.find_all_by_price(10.99)
-    #we will need to require the BigDecimal class from Item
+
     assert_equal Array, price.class
   end
 
   def test_that_find_all_by_price_returns_value
-    #im not too sure how this will work with the BigDecimal so be cautious
     ir = SalesEngine.new(
       items: [
         {id: 1, unit_price: "1186"},
@@ -293,8 +289,8 @@ class ItemRepositoryTest < Minitest::Test
       ],
     ).items
     result = ir.find_all_by_price(10.99)
-  
-    assert_equal [2,3], result.map(&:id)
+
+    assert_equal [2], result.map(&:id)
   end
 
   def test_that_find_all_by_price_returns_empty_array_for_absurd_price
