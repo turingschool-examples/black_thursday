@@ -38,16 +38,17 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_find_percentage_of_those_who_fall_one_std_dev_below
-    expected = 75 #remove the hardcode
+    # need to remove hardcoded expected values
+    expected = 75
     submitted = @sa.find_percentage_of_those_who_fall_one_std_dev_below
 
     assert_equal expected, submitted.round(0)
   end
 
   def test_merchants_below_one_std_dev
-    # expected = 75 Ask Horace re: second pass through returning 0
-    binding.pry
-    expected = @sa.find_percentage_of_those_who_fall_one_std_dev_below
+    # Ask Horace re: second pass through returning 0
+    # expected = @sa.find_percentage_of_those_who_fall_one_std_dev_below
+    expected = 75
     submitted = @sa.merchants_below_one_std_dev
 
     assert_equal expected.round(0), submitted.count
@@ -61,7 +62,7 @@ class SalesAnalystTest < Minitest::Test
     # original = @sa.combine_merchant_item_count
     # original.sort!
     # less_than_one_sd = original[0..74]
-    binding.pry
+    # binding.pry
     fifteen_percent = @sa.find_percentage_of_those_who_fall_one_std_dev_below
     # binding.pry
 
@@ -74,6 +75,7 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal expected, submitted
   end
+
 
   def test_merchants_with_low_item_count
     skip

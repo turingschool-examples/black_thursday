@@ -8,20 +8,24 @@ class SalesAnalyst
   end
 
   def total_number_of_merchants
+    # returns total count of all merchants in Merchant Repository
     # use enum .inject instead of .count
     @sales_engine.merchants.all.count
   end
 
   def total_number_of_items
+    # returns total count of all items in Item Repository
     @sales_engine.items.all.count
   end
 
   def average_items_per_merchant
+    # returns the average number of items offered by each merchant
     average = total_number_of_items / total_number_of_merchants.to_f
     average.round(1)
   end
 
   def all_merchant_id_numbers
+    # searches through Item Repo and returns array of all merchant_id strings
     all_items = @sales_engine.items.all
     all_items.map do |item|
       item.merchant_id
@@ -30,7 +34,8 @@ class SalesAnalyst
 
   def item_counts_for_each_merchants
     id_count_pairs = all_merchant_id_numbers
-    id_count_pairs.inject(Hash.new(0)) { |hash, item| hash[item] += 1; hash }#e.values
+    # id_count_pairs.inject(Hash.new(0)) { |hash, item| hash[item] += 1; hash }.values
+    id_count_pairs.inject(Hash.new(0)) { |hash, item| hash[item] += 1; hash }
   end
 
   def combine_merchant_item_count
@@ -61,10 +66,34 @@ class SalesAnalyst
   end
 
   def merchants_below_one_std_dev
+    # this returns the merchant_ids with the item counts
     # takes sorted nested array of merchants, and extracts those below one std dev
     sorted = sort_merchants_based_on_the_number_of_listings
     below_avg = find_percentage_of_those_who_fall_one_std_dev_below
     sorted.first(below_avg)
+  end
+
+  def merchants_with_low_item_count
+    # take array of merchants_below_one_std_dev
+    # extract merchant_ids
+    # map over standard merchants.all
+    # push the merchant.name of any matching merchants
+    merchants = merchants_below_one_std_dev.to_h
+    merchant_ids = merchants.keys
+    # binding.pry
+
+    merch_repo = @sales_engine.merchants
+    # binding.pry
+    merchant_ids.map do |id|
+      id = id.to_i
+      merch_repo.find_by_id(id)
+    end
+
+
+    # merchant_ids.select do |id|
+    #     @sales_engine.items.find_by_id(id)
+    #     binding.pry
+    # end
   end
 
 
