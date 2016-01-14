@@ -47,4 +47,14 @@ class SalesAnalyst
     standard_deviation.round(1)
   end
 
+  def find_one_standard_deviation_value
+    #(standard_deviation - mean) / 4
+    std_deviation = calc_items_per_merchant_standard_deviation
+    mean = average_items_per_merchant
+# binding.pry
+    puts (std_deviation - mean) / 4
+    #this will give one standard deviation to calculate
+    #who falls one sd down below.
+  end
+
 end
