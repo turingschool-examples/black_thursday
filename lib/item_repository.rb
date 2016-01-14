@@ -35,26 +35,28 @@ class ItemRepository
     if item_info.nil?
       []
     else
-      x = item_info.map {|item_info| Item.new(item_info)}
+      item_info.map {|item_info| Item.new(item_info)}
     end
   end
 
   def stdprice(input_price)
-    input_price.gsub(/\D/)
+    input_price.gsub(/\D/,"")
   end
 
-  def match_sig_digits(std_input_price, data_price)
-    significantstd_input_price.length
+  def only_search_sig_digits(std_input_price, data_price)
+    significant_digits = std_input_price.length
+    data_price.chars.drop(significant_digits).join
   end
 
   def find_all_by_price(input_price)
       std_input_price = stdprice(input_price)
-      item_price = @all.find_all do |line| (line[:unit_price]).include?(std_input_price)
+      item_price = @all.find_all do |line|
+        only_search_sig_digits(std_input_price, line[:unit_price]) == std_input_price
       end
-      if item_info.nil?
+      if item_price.nil?
         []
       else
-        item_info.map {|item_info| Item.new(item_info).description}
+        item_price.map {|item_info| Item.new(item_info).description}
       end
   end
 
