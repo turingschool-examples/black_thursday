@@ -82,5 +82,30 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 533.31, sa.average_price_of_all_items
   end
 
+  def test_variance_of_all_item_prices_from_mean
+    se_hash = {:items => './data/test_items_sd.csv',
+            :merchants => './data/test_merchant_sd.csv'}
+    se = SalesEngine.new(se_hash)
+    sa = SalesAnalyst.new(se)
+    # items_variance = variance_of_all_item_prices_from_mean
+    assert_equal 4326479.81, sa.variance_of_all_item_prices_from_mean
+  end
 
+  def test_items_variance_divide_total_items
+    se_hash = {:items => './data/test_items_sd.csv',
+            :merchants => './data/test_merchant_sd.csv'}
+    se = SalesEngine.new(se_hash)
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 77258.57, sa.variance_divide_total_items
+  end
+
+  def test_items_standard_deviation_returns_sd_in_big_d
+    se_hash = {:items => './data/test_items_sd.csv',
+            :merchants => './data/test_merchant_sd.csv'}
+    se = SalesEngine.new(se_hash)
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 277.95, sa.items_standard_deviation
+  end
 end

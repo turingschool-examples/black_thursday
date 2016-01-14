@@ -75,5 +75,22 @@ attr_reader :sales_engine
     (items_price_total/total_items).to_f.round(2)
   end
 
+  def variance_of_all_item_prices_from_mean
+    items = sales_engine.items.all
+    variances = []
+    items.each do |item|
+      variances << (item.unit_price.to_f - average_price_of_all_items) ** 2
+  end
+    variances.inject(:+).round(2)
+  end
+
+  def variance_divide_total_items
+    variance = variance_of_all_item_prices_from_mean
+    (variance/(total_items - 1)).round(2)
+  end
+
+  def items_standard_deviation
+    Math.sqrt(variance_divide_total_items).round(2)
+  end
 
 end
