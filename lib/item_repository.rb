@@ -52,7 +52,4 @@ attr_reader :all
     BigDecimal.new("#{price[0..-3]}.#{price[-2..-1]}")
   end
 
-  def find_all_by_merchant_id(id)
-    all.find_all { |x| x.merchant_id == id }
-  end
 end

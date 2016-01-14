@@ -3,7 +3,6 @@ attr_reader :sales_engine, :items, :merchants
 
   def initialize(sales_engine)
     @sales_engine = sales_engine
-
     @items = sales_engine.items
     @merchants = sales_engine.merchants
   end
@@ -45,7 +44,7 @@ attr_reader :sales_engine, :items, :merchants
     count = found_items.count
     (found_items.reduce(0) { |sum, item| item.unit_price + sum }/count).round(2)
   end
-  
+
 
   def average_price_per_merchant
     (merchants.all.map { |merchant| average_item_price_for_merchant(merchant.id) }.inject(:+)/total_merchants).round(2)

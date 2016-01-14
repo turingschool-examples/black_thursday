@@ -1,14 +1,16 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/sales_analyst'
+require './lib/sales_engine'
 
 class SalesAnalystTest < Minitest::Test
   attr_reader :se_hash, :se, :sa
 
   def setup
-    @se_hash = {:items => './data/test_items.csv',
-            :merchants => './data/test_merchant.csv'}
-    @se = SalesEngine.new(se_hash)
+    se_hash = {:items => './data/test_items.csv',
+            :merchants => './data/test_merchant.csv',
+             :invoices => './data/test_invoices.csv'}
+    se = SalesEngine.new(se_hash)
     @sa = SalesAnalyst.new(se)
   end
 
@@ -41,8 +43,9 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_merchants_with_low_item_count_returns_instance_of_merchants
-    se_hash = {:items => './data/test_items_sd.csv',
-            :merchants => './data/test_merchant_sd.csv'}
+    se_hash = { :items => './data/test_items_sd.csv',
+                :merchants => './data/test_merchant_sd.csv',
+                :invoices => './data/test_invoices.csv'}
     se = SalesEngine.new(se_hash)
     sa = SalesAnalyst.new(se)
     low_item = sa.merchants_with_low_item_count
@@ -51,7 +54,8 @@ class SalesAnalystTest < Minitest::Test
 
   def test_merchants_with_low_item_count
     se_hash = {:items => './data/test_items_sd.csv',
-            :merchants => './data/test_merchant_sd.csv'}
+            :merchants => './data/test_merchant_sd.csv',
+            :invoices => './data/test_invoices.csv'}
     se = SalesEngine.new(se_hash)
     sa = SalesAnalyst.new(se)
     assert_equal 1, sa.merchants_with_low_item_count.count
@@ -59,7 +63,8 @@ class SalesAnalystTest < Minitest::Test
 
   def test_average_price_for_merchant
     se_hash = {:items => './data/test_items_sd.csv',
-            :merchants => './data/test_merchant_sd.csv'}
+            :merchants => './data/test_merchant_sd.csv',
+            :invoices => './data/test_invoices.csv'}
     se = SalesEngine.new(se_hash)
     sa = SalesAnalyst.new(se)
     assert_equal 705.24, sa.average_item_price_for_merchant(1)
@@ -67,7 +72,8 @@ class SalesAnalystTest < Minitest::Test
 
   def test_average_price_per_merchant
     se_hash = {:items => './data/test_items_sd.csv',
-            :merchants => './data/test_merchant_sd.csv'}
+            :merchants => './data/test_merchant_sd.csv',
+            :invoices => './data/test_invoices.csv'}
     se = SalesEngine.new(se_hash)
     sa = SalesAnalyst.new(se)
     assert_equal 439.20, sa.average_price_per_merchant
@@ -76,7 +82,8 @@ class SalesAnalystTest < Minitest::Test
 
   def test_average_price_of_all_items
     se_hash = {:items => './data/test_items_sd.csv',
-            :merchants => './data/test_merchant_sd.csv'}
+            :merchants => './data/test_merchant_sd.csv',
+            :invoices => './data/test_invoices.csv'}
     se = SalesEngine.new(se_hash)
     sa = SalesAnalyst.new(se)
     assert_equal 533.31, sa.average_price_of_all_items
@@ -84,7 +91,8 @@ class SalesAnalystTest < Minitest::Test
 
   def test_variance_of_all_item_prices_from_mean
     se_hash = {:items => './data/test_items_sd.csv',
-            :merchants => './data/test_merchant_sd.csv'}
+            :merchants => './data/test_merchant_sd.csv',
+            :invoices => './data/test_invoices.csv'}
     se = SalesEngine.new(se_hash)
     sa = SalesAnalyst.new(se)
     # items_variance = variance_of_all_item_prices_from_mean
@@ -93,7 +101,8 @@ class SalesAnalystTest < Minitest::Test
 
   def test_items_variance_divide_total_items
     se_hash = {:items => './data/test_items_sd.csv',
-            :merchants => './data/test_merchant_sd.csv'}
+            :merchants => './data/test_merchant_sd.csv',
+            :invoices => './data/test_invoices.csv'}
     se = SalesEngine.new(se_hash)
     sa = SalesAnalyst.new(se)
 
@@ -102,7 +111,8 @@ class SalesAnalystTest < Minitest::Test
 
   def test_items_standard_deviation_returns_sd_in_big_d
     se_hash = {:items => './data/test_items_sd.csv',
-            :merchants => './data/test_merchant_sd.csv'}
+            :merchants => './data/test_merchant_sd.csv',
+            :invoices => './data/test_invoices.csv'}
     se = SalesEngine.new(se_hash)
     sa = SalesAnalyst.new(se)
 
@@ -111,7 +121,8 @@ class SalesAnalystTest < Minitest::Test
 
   def test_golden_items_returns_item_object_instance
     se_hash = {:items => './data/test_items_sd.csv',
-            :merchants => './data/test_merchant_sd.csv'}
+            :merchants => './data/test_merchant_sd.csv',
+            :invoices => './data/test_invoices.csv'}
     se = SalesEngine.new(se_hash)
     sa = SalesAnalyst.new(se)
 
@@ -121,7 +132,8 @@ class SalesAnalystTest < Minitest::Test
 
   def test_golden_items_returns_items_two_sd_above_avg
     se_hash = {:items => './data/test_items_sd.csv',
-            :merchants => './data/test_merchant_sd.csv'}
+            :merchants => './data/test_merchant_sd.csv',
+            :invoices => './data/test_invoices.csv'}
     se = SalesEngine.new(se_hash)
     sa = SalesAnalyst.new(se)
 

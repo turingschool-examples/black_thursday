@@ -7,7 +7,8 @@ attr_reader :se_hash
 
   def setup
     @se_hash = {:items => './data/test_items.csv',
-            :merchants => './data/test_merchant.csv'}
+            :merchants => './data/test_merchant.csv',
+            :invoices => './data/test_invoices.csv'}
   end
 
   def test_an_instance_of_sales_engine_exists

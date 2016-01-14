@@ -11,5 +11,9 @@ module Finder
       x.name.downcase == name.downcase
     end
   end
-  
+
+  def find_all_by_merchant_id(id)
+    all.find_all { |x| x.merchant_id == id }
+  end
+
 end

@@ -6,13 +6,15 @@ class MerchantRepositoryTest < Minitest::Test
 attr_reader :merchant_repo, :merch_file, :item_file, :data, :item_file, :se
 
   def setup
-    @item_file = './data/test_items.csv'
-    @merch_file = './data/test_merchant.csv'
-    @se = SalesEngine.from_csv({
-          :items     => item_file,
-          :merchants => merch_file,
-          })
-    @merchant_repo = se.merchants
+    # item_file = './data/test_items.csv'
+    merch_file = './data/test_merchant.csv'
+    # invoice_file = './data/test_invoices.csv'
+    # @se = SalesEngine.from_csv({
+    #       :items     => item_file,
+    #       :merchants => merch_file,
+    #       :invoices => invoice_file
+    #       })
+    @merchant_repo = MerchantRepository.new(merch_file)
   end
 
   def test_an_instance_merchant_repo_exists
@@ -47,20 +49,20 @@ attr_reader :merchant_repo, :merch_file, :item_file, :data, :item_file, :se
     assert_equal 2, merchant_repo.find_all_by_name("Williamson Group").count
   end
 
-  def test_an_instance_of_item_repo_exists
+  # def test_an_instance_of_item_repo_exists
+  #
+  #   assert se.items.instance_of?(ItemRepository)
+  # end
 
-    assert se.items.instance_of?(ItemRepository)
-  end
-
-  def test_items_can_be_accessed_by_merchant
-    merchant = se.items
-    items = merchant.find_all_by_merchant_id(1)
-    assert_equal 2, items.count
-  end
-
-  def test_merchant_with_no_items_returns_empty_array
-    merchant = se.items
-    items = merchant.find_all_by_merchant_id("6")
-    assert_equal [], items
-  end
+  # def test_items_can_be_accessed_by_merchant
+  #   merchant = se.items
+  #   items = merchant.find_all_by_merchant_id(1)
+  #   assert_equal 2, items.count
+  # end
+  #
+  # def test_merchant_with_no_items_returns_empty_array
+  #   merchant = se.items
+  #   items = merchant.find_all_by_merchant_id("6")
+  #   assert_equal [], items
+  # end
 end

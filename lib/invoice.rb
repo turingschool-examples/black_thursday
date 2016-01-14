@@ -1,0 +1,32 @@
+class Invoice
+  attr_reader :invoice
+  attr_accessor :merchant
+
+  def initialize(invoice)
+    @invoice = invoice
+  end
+
+  def customer_id
+    invoice[:customer_id]
+  end
+
+  def id
+    invoice[:id].to_i
+  end
+
+  def merchant_id
+    invoice[:merchant_id].to_i
+  end
+
+  def created_at
+    Time.new(invoice[:created_at])
+  end
+
+  def updated_at
+    Time.new(invoice[:updated_at])
+  end
+
+  def status
+    invoice[:status]
+  end
+end
