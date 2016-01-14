@@ -12,7 +12,6 @@ class SalesEngine
     @merchants            = MerchantRepository.new(repo_rows[:merchants])
     @items.merchant_repo  = @merchants
     @merchants.items_repo = @items
-
   end
 
   def self.from_csv(csv_hash)
