@@ -6,7 +6,7 @@ require 'csv'
 
 
 class SalesEngine
-  attr_reader :opened_csv_files
+  # attr_reader :csv_repo
 
   def initialize(csv_repo)
     @csv_repo = csv_repo
@@ -16,12 +16,13 @@ class SalesEngine
     @csv_files = {}
     file_path.each do |key, value|
       csv_file_object = CSV.open value, headers: true, header_converters: :symbol
-      @csv_files[key] = csv_file_object
+      @csv_files[key] = csv_file_object.map { |row| row.to_h }
     end
     SalesEngine.new(@csv_files)
   end
 
   def merchants
+    # save as an ivar?
     MerchantRepository.new(@csv_repo[:merchants])
   end
 
@@ -36,8 +37,8 @@ end
 
 if __FILE__ == $0
 sales_engine = SalesEngine.from_csv({:merchants => './data/merchants.csv',
-                                     :items => './data/items.csv',
-                                     :invoices => './data/invoices.csv'})
+                                     :items     => './data/items.csv',
+                                     :invoices  => './data/invoices.csv'})
 merch_repo = sales_engine.merchants
 merchant = merch_repo.find_by_name("CJsDecor")
 puts merchant

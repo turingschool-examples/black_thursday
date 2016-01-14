@@ -54,9 +54,9 @@ class SalesAnalystTest < Minitest::Test
 
   def test_merchants_below_one_std_dev
     # Ask Horace re: second pass through returning 0
-    # binding.pry
-    # expected = @sa.find_percentage_of_those_who_fall_one_std_dev_below.round(0)
-    expected = 75
+    expected = @sa.find_percentage_of_those_who_fall_one_std_dev_below.round(0)
+    # expected = 75
+    binding.pry
     submitted = @sa.merchants_below_one_std_dev
 
     assert_equal expected.round(0), submitted.count
@@ -96,7 +96,7 @@ class SalesAnalystTest < Minitest::Test
     skip
     # argument has you provide a specific merchant_id
     # average_item_price_for_merchant(merchant_id)
-    # => 
+    # =>
     # => BigDecimal of average price is returned for that specific merchant
   end
 

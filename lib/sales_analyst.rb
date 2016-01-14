@@ -81,22 +81,22 @@ class SalesAnalyst
 
     merch_repo = @sales_engine.merchants
     merchants = merchants_below_one_std_dev
-    binding.pry
     merchant_ids = merchants.keys
-    # binding.pry
-
-    # merch_repo = @sales_engine.merchants
-    binding.pry
-    merchant_ids.map do |id|
-      id = id.to_i
-      merch_repo.find_by_id(id)
-    end
-
-
-    # merchant_ids.select do |id|
-    #     @sales_engine.items.find_by_id(id)
-    #     binding.pry
+    
+    # # binding.pry
+    #
+    # # merch_repo = @sales_engine.merchants
+    # # binding.pry
+    # merchant_ids.map do |id|
+    #   id = id.to_i
+    #   merch_repo.find_by_id(id)
     # end
+
+
+    merchant_ids.select do |id|
+        @sales_engine.items.find_by_id(id)
+        binding.pry
+    end
   end
 
 
