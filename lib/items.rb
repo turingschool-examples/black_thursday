@@ -7,7 +7,8 @@ class Items
     @id          = args_hash[:id].to_i
     @name        = args_hash[:name]
     @description = args_hash[:description]
-    @unit_price  = args_hash[:unit_price]
+    # @unit_price  = args_hash[:unit_price]
+    @unit_price  = args_hash[:unit_price].insert(-3, ".").to_i
     @created_at  = args_hash[:created_at]
     @updated_at  = args_hash[:updated_at]
     @merchant_id = args_hash[:merchant_id]

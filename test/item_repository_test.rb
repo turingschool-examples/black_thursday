@@ -116,7 +116,8 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_price
-    price     = "9500"
+    # price     = "9500"
+    price     = 95.00
     expected  = 9
     submitted = @ir.find_all_by_price(price)
 
