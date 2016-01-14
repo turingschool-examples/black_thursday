@@ -6,3 +6,4 @@ gem 'rake'
 gem 'minitest'
 gem "mrspec"
 gem "pry"
+gem "codeclimate-test-reporter", group: :test, require: nil
