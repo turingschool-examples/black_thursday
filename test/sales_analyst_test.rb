@@ -27,4 +27,16 @@ class SalesAnalystTest < Minitest::Test
   def test_average_items_per_merchant
     assert_equal 1, sa.average_items_per_merchant
   end
+
+  def test_variance_of_average_and_times
+    assert_equal 2, sa.variance_of_average_and_items
+  end
+
+  def test_variance_divided_by_merchants
+    assert_equal 1.0, sa.variance_divided_merchants
+  end
+
+  def test_average_items_per_merchant_standard_deviation
+    assert_equal 4.0, sa.test_average_items_per_merchant_standard_deviation
+  end
 end
