@@ -20,7 +20,6 @@ class SalesEngine
     SalesEngine.new(@csv_files)
   end
 
-
   def merchants
     MerchantRepository.new(@csv_repo[:merchants])
   end
@@ -28,18 +27,16 @@ class SalesEngine
   def items
     ItemRepository.new(@csv_repo[:items])
   end
-
 end
 
 if __FILE__ == $0
-
-# se = SalesEngine.from_csv({:merchants => './data/merchants.csv'})
 se = SalesEngine.from_csv({:merchants => './data/merchants.csv',
                            :items => './data/items.csv'})
-binding.pry
-# mr = SalesEngine.merchants
 mr = se.merchants
-# puts mr.all
-puts mr.find_by_name("Shopin1901")
-# puts mr.find_by_name("jejum")
+merchant = mr.find_by_name("CJsDecor")
+puts merchant
+
+ir   = se.items
+item = ir.find_by_name("510+ RealPush Icon Set")
+puts item
 end
