@@ -4,16 +4,16 @@ require_relative 'item'
 require_relative 'merchant_repository'
 
 class ItemRepository
-attr_reader :data, :file, :all, :item, :repo
+
+
+attr_reader :data, :file, :all, :item
 
   def inspect
       "#<#{self.class} #{@all.size} rows>"
   end
 
-  def initialize(file)
-    @all = []
-    @file = file
-    data_into_hash(load_data(file))
+  def initialize(item_file)
+    data_into_hash(load_data(item_file))
   end
 
   def load_data(file)
@@ -22,7 +22,7 @@ attr_reader :data, :file, :all, :item, :repo
   end
 
   def data_into_hash(data)
-    data.each do |row|
+    @all ||= data.map do |row|
       item_id = row[:id]
       name = row[:name]
       unit_price = convert_to_big_decimal((row[:unit_price]).to_s)
@@ -35,13 +35,11 @@ attr_reader :data, :file, :all, :item, :repo
               :description => description, :merchant_id => merchant_id,
               :name => name,
               :created_at => created_at, :updated_at => updated_at, :unit_price => unit_price}
-      @item = Item.new(hash)
-      @all << item
+      Item.new(hash)
     end
   end
 
   def find_by_id(number)
-    all = @all
     all.find do |x|
       x.id == number
     end

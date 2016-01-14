@@ -1,16 +1,19 @@
 class SalesAnalyst
-attr_reader :sales_engine
+attr_reader :sales_engine, :items, :merchants
 
   def initialize(sales_engine)
     @sales_engine = sales_engine
+
+    @items = sales_engine.items
+    @merchants = sales_engine.merchants
   end
 
   def total_merchants
-    sales_engine.merchants.all.count.to_f
+    merchants.all.count.to_f
   end
 
   def total_items
-    sales_engine.items.all.count.to_f
+    items.all.count.to_f
   end
 
   def average_items_per_merchant
@@ -18,10 +21,7 @@ attr_reader :sales_engine
   end
 
   def variance_of_average_and_items
-    merchants = sales_engine.merchants.all
-    variances = []
-    merchants.each do |merchant|
-      variances <<
+    variances = merchants.all.map do |merchant|
       (merchant.items.count - average_items_per_merchant) **2
     end
     variances.inject(:+)
@@ -39,48 +39,41 @@ attr_reader :sales_engine
   def merchants_with_low_item_count
     sd = average_items_per_merchant_standard_deviation
     avg = average_items_per_merchant
-    low_item_count = []
-    sales_engine.merchants.all.each do |merchant|
+    low_item_count = merchants.all.map do |merchant|
       if merchant.items.count <= avg - sd
-        low_item_count << merchant
+        merchant
       end
     end
-    low_item_count
+    low_item_count.compact
   end
 
   def average_item_price_for_merchant(merchant_id)
-    items = sales_engine.items.find_all_by_merchant_id(merchant_id)
-    count = items.count
-    item_total = items.reduce(0) do |sum, item|
+    found_items = items.find_all_by_merchant_id(merchant_id)
+    count = found_items.count
+    item_total = found_items.reduce(0) do |sum, item|
       item.unit_price + sum
     end
     (item_total/count).round(2)
   end
 
   def average_price_per_merchant
-    all_merchants_average = []
-    merchants = sales_engine.merchants.all
-    merchants.each do |merchant|
-      averages = average_item_price_for_merchant(merchant.id)
-      all_merchants_average << averages
+    all_merchants_average = merchants.all.map do |merchant|
+      average_item_price_for_merchant(merchant.id)
     end
     (all_merchants_average.inject(:+)/total_merchants).round(2)
   end
 
   def average_price_of_all_items
-    items = sales_engine.items.all
-    items_price_total = items.reduce(0) do |sum, item|
+    items_price_total = items.all.reduce(0) do |sum, item|
       item.unit_price + sum
     end
     (items_price_total/total_items).to_f.round(2)
   end
 
   def variance_of_all_item_prices_from_mean
-    items = sales_engine.items.all
-    variances = []
-    items.each do |item|
-      variances << (item.unit_price.to_f - average_price_of_all_items) ** 2
-  end
+    variances = items.all.map do |item|
+      (item.unit_price.to_f - average_price_of_all_items) ** 2
+    end
     variances.inject(:+).round(2)
   end
 
@@ -94,17 +87,8 @@ attr_reader :sales_engine
   end
 
   def golden_items
-    sd = Math.sqrt(variance_divide_total_items).round(2)
+    sd = items_standard_deviation
     avg = average_price_of_all_items
-    items = sales_engine.items.all
-    golden = []
-    items.each do |item|
-      if item.unit_price >= (avg + (sd * 3))
-      golden << item
-      end
-    end
-    golden
+    items.all.map { |item| item if item.unit_price >= (avg + (sd*2)) }.compact
   end
-
-
 end

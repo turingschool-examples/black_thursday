@@ -9,11 +9,11 @@ attr_reader :files, :items, :merchants
   end
 
   def initialize(files)
-    load_data(files)
+    load_files(files)
     relationships
   end
 
-  def load_data(files)
+  def load_files(files)
     @merchants = MerchantRepository.new(files[:merchants])
     @items = ItemRepository.new(files[:items])
   end

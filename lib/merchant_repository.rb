@@ -1,27 +1,21 @@
-require 'csv'
-require_relative 'merchant'
-require_relative 'item_repository'
+require 'merchant'
+require './lib/csv_loader'
 
 class MerchantRepository
-attr_reader :data, :all, :merchant_file, :item_repository, :merchant, :repo
+include CsvLoader
+
+attr_reader  :all, :item_repository, :merchant
 
   def inspect
-      "#<#{self.class} #{@all_merchants.size} rows>"
+    "#<#{self.class} #{@all_merchants.size} rows>"
   end
 
   def initialize(merchant_file)
-    @all = []
-    @merchant_file = merchant_file
     data_into_hash(load_data(merchant_file))
   end
 
-  def load_data(merchant_file)
-    @data = CSV.open (merchant_file), headers: true, header_converters:
-    :symbol
-  end
-
   def data_into_hash(data)
-    data.each do |row|
+    @all ||= data.map do |row|
       merchant_id = row[:id]
       name = row[:name]
       created_at = row[:created_at]
@@ -30,15 +24,9 @@ attr_reader :data, :all, :merchant_file, :item_repository, :merchant, :repo
               :name => name,
               :created_at => created_at,
               :updated_at => updated_at}
-      @merchant = Merchant.new(hash)
-      @all << merchant
-    #  assign_merchant_item(merchant)
+      Merchant.new(hash)
     end
   end
-  #
-  # def assign_merchant_item(merchant)
-  #   merchant.item = repo.items.find_all_by_merchant_id(merchant.id)
-  # end
 
   def find_by_id(number)
     all.find do |x|
