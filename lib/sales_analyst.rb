@@ -1,4 +1,5 @@
 require_relative 'sales_engine'
+require 'bigdecimal'
 
 class SalesAnalyst
   attr_reader :sales_engine
@@ -82,7 +83,7 @@ class SalesAnalyst
     merch_repo = @sales_engine.merchants
     merchants = merchants_below_one_std_dev
     merchant_ids = merchants.keys
-    
+
     # # binding.pry
     #
     # # merch_repo = @sales_engine.merchants
@@ -99,6 +100,11 @@ class SalesAnalyst
     end
   end
 
+
+  def average_item_price_for_merchant(merchant_id)
+    # merchant = @sales_engine.merchants.find_by_id(merchant_id)
+    merchant = @sales_engine.items.find_all_by_merchant_id(merchant_id)
+  end
 
   # def find_one_standard_deviation_value
   #   #(standard_deviation - mean) / 4

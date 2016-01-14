@@ -1,5 +1,6 @@
 require_relative 'test_helper'
 require_relative '../lib/sales_analyst'
+# require 'bigdecimal'
 
 class SalesAnalystTest < Minitest::Test
 
@@ -44,19 +45,16 @@ class SalesAnalystTest < Minitest::Test
     # everyone below == 2.9 - 0.15 = 2.7ish
     #BETH
 
-    # should be about 15.8 % of 475 = 75
-    # need to remove hardcoded expected values
-    expected = 75
+    total = @sa.total_number_of_merchants
+    percentage = 0.158
+    expected = total * percentage
     submitted = @sa.find_percentage_of_those_who_fall_one_std_dev_below
 
-    assert_equal expected, submitted.round(0)
+    assert_equal expected, submitted
   end
 
   def test_merchants_below_one_std_dev
-    # Ask Horace re: second pass through returning 0
     expected = @sa.find_percentage_of_those_who_fall_one_std_dev_below.round(0)
-    # expected = 75
-    binding.pry
     submitted = @sa.merchants_below_one_std_dev
 
     assert_equal expected.round(0), submitted.count
@@ -64,20 +62,11 @@ class SalesAnalystTest < Minitest::Test
 
   def test_calc_items_per_merchant_standard_deviation
     skip
-    # 71.25 - 75.05 is 15.8 percent of 475
-    # one_std_deviation = 0.4
 
     @sa.merchants_with_low_item_count
-    # binding.pry
-
 
     fifteen_percent = @sa.find_percentage_of_those_who_fall_one_std_dev_below
-    # binding.pry
 
-    # original.select do |item|
-    #   item < 2.5
-    # end
-    #
     expected = 2.9
     submitted = @sa.calc_items_per_merchant_standard_deviation
 
@@ -95,9 +84,16 @@ class SalesAnalystTest < Minitest::Test
   def test_average_item_price_for_merchant
     skip
     # argument has you provide a specific merchant_id
+    merchant_id = 12334194
+    submitted = "nope"
+    # binding.pry
+    expected = @sa.average_item_price_for_merchant(merchant_id.to_s)
+
     # average_item_price_for_merchant(merchant_id)
     # =>
     # => BigDecimal of average price is returned for that specific merchant
+
+    assert_equal first, first
   end
 
   def test_average_price_per_merchant
