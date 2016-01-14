@@ -36,4 +36,44 @@ attr_reader :sales_engine
     Math.sqrt(variance_divided_merchants).round(2)
   end
 
+  def merchants_with_low_item_count
+    sd = average_items_per_merchant_standard_deviation
+    avg = average_items_per_merchant
+    low_item_count = []
+    sales_engine.merchants.all.each do |merchant|
+      if merchant.items.count <= avg - sd
+        low_item_count << merchant
+      end
+    end
+    low_item_count
+  end
+
+  def average_item_price_for_merchant(merchant_id)
+    items = sales_engine.items.find_all_by_merchant_id(merchant_id)
+    count = items.count
+    item_total = items.reduce(0) do |sum, item|
+      item.unit_price + sum
+    end
+    (item_total/count).round(2)
+  end
+
+  def average_price_per_merchant
+    all_merchants_average = []
+    merchants = sales_engine.merchants.all
+    merchants.each do |merchant|
+      averages = average_item_price_for_merchant(merchant.id)
+      all_merchants_average << averages
+    end
+    (all_merchants_average.inject(:+)/total_merchants).round(2)
+  end
+
+  def average_price_of_all_items
+    items = sales_engine.items.all
+    items_price_total = items.reduce(0) do |sum, item|
+      item.unit_price + sum
+    end
+    (items_price_total/total_items).to_f.round(2)
+  end
+
+
 end

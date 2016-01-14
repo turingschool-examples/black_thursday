@@ -25,12 +25,11 @@ attr_reader :data, :file, :all, :item, :repo
     data.each do |row|
       item_id = row[:id]
       name = row[:name]
-      unit_price = convert_to_big_decimal(row[:unit_price])
+      unit_price = convert_to_big_decimal((row[:unit_price]).to_s)
       created_at = row[:created_at]
       updated_at = row[:updated_at]
       description = row[:description]
       merchant_id = row[:merchant_id]
-
 
       hash = {:id => item_id,
               :description => description, :merchant_id => merchant_id,
