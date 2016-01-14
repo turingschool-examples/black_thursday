@@ -279,17 +279,19 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal Array, price.class
   end
 
-  def test_that_find_all_by_price_returns_value
+  def test_that_find_all_by_price_returns_values
     ir = SalesEngine.new(
       items: [
         {id: 1, unit_price: "1186"},
         {id: 2, unit_price: "1099"},
         {id: 3, unit_price: "11099"},
+        {id: 4, unit_price: "11099"},
+        {id: 5, unit_price: "11099"},
       ],
     ).items
-    result = ir.find_all_by_price(10.99)
+    result = ir.find_all_by_price(110.99)
 
-    assert_equal [2], result.map(&:id)
+    assert_equal [3, 4, 5], result.map(&:id)
   end
 
   def test_that_find_all_by_price_returns_empty_array_for_absurd_price
@@ -317,16 +319,16 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_that_find_all_by_price_in_range_is_an_array
-    skip
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
-    })
-    ir    = se.items
+    ir = SalesEngine.new(
+      items: [
+        {id: 1, unit_price: "1186"},
+        {id: 2, unit_price: "1099"},
+        {id: 3, unit_price: "11099"},
+      ],
+    ).items
     num   = (1..10)
-    #reread readme to figure this out
     price = ir.find_all_by_price_in_range(num)
-    #we will need to require the BigDecimal class from Item
+    binding.pry
     assert_equal Array, price.class
   end
 
