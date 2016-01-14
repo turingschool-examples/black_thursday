@@ -74,14 +74,13 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal Item, item.class
   end
 
-
   def test_that_find_by_id_returns_known_item
     se = SalesEngine.new(
       items: [
         {id: 1, description: "abc"},
         {id: 2, description: "a1c"},
         {id: 3, description: "1b2"},
-      ],
+      ],merchants: [{:id=>"1", :name=>"Shopin1901", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"}]
     ).items
 
     item = se.find_by_id(1)

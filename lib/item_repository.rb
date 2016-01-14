@@ -11,19 +11,21 @@ class ItemRepository
     @all = item_instances
   end
 
-  def stdrd(item_name_inputed)
-    item_name_inputed.to_s.downcase.gsub(" ", "")
+  def stdrd(data_to_be_standardized)
+    data_to_be_standardized.to_s.downcase.gsub(" ", "")
   end
 
   def find_by_id(item_id_inputed)
     stdrd_item_id = stdrd(item_id_inputed)
-    found_item_instances = item_instances.find {|item| stdrd(item.id) == stdrd_item_id}
+    found_item_instances =
+      item_instances.find {|item| stdrd(item.id) == stdrd_item_id}
     found_item_instances.nil? ? nil : found_item_instances
   end
 
   def find_by_name(item_name_inputed)
     stdrd_item_name = stdrd(item_name_inputed)
-    found_item_instances = item_instances.find {|item| stdrd(item.name) == stdrd_item_name}
+    found_item_instances =
+      item_instances.find {|item| stdrd(item.name) == stdrd_item_name}
     found_item_instances.nil? ? nil : found_item_instances
   end
 
