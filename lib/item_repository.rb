@@ -39,8 +39,19 @@ class ItemRepository
     end
   end
 
+  def make_sure_decimal_was_put_in(input_price)
+    check_for_decimal = input_price.to_s.chars
+    if check_for_decimal[-3] != "."
+      check_for_decimal << ["0","0"]
+      check_for_decimal.join
+    else
+      check_for_decimal
+    end
+  end
+
   def stdprice(input_price)
-    input_price.to_s.gsub(/\D/,"")
+    input_price_in_cents = make_sure_decimal_was_put_in(input_price)
+    input_price_in_cents.to_s.gsub(/\D/,"")
   end
 
   def significant_digits(std_input_price)
@@ -57,6 +68,15 @@ class ItemRepository
       else
         item_price.map {|item_info| Item.new(item_info)}
       end
+  end
+
+
+  def find_all_by_price_in_range(range_input)
+    range_begin = std_price(range_input.first)
+    range_end   = std_price(range_input.last)
+    
+
+
   end
 
 
