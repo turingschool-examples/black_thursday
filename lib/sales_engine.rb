@@ -7,23 +7,14 @@ class SalesEngine
   attr_reader :repo_rows
 
   def initialize(repo_rows)
+    # {:merchants => [{:id => 1, :name => "pizza"}], :items => [{:id => 1, :price => 3}]}
     @repo_rows = repo_rows
   end
 
   def self.from_csv(csv_hash)
-    repo_rows = {}
-
-    if csv_hash[:merchants]
-      filename = csv_hash[:merchants]
-      rows = LoadData.load_data(filename)
-      repo_rows[:merchants] = rows
-    end
-
-    if csv_hash[:items]
-      filename = csv_hash[:items]
-      rows = LoadData.load_data(filename)
-      repo_rows[:items] = rows
-    end
+    repo_rows = csv_hash.map do |type, filename|
+      [type, LoadData.load_data(filename)]
+    end.to_h
 
     SalesEngine.new(repo_rows)
   end
