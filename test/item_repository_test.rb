@@ -252,7 +252,7 @@ class ItemRepositoryTest < Minitest::Test
         {id: 3, description: "1b2"},
       ],
     ).items
-    binding.pry
+
     assert_equal [1, 2], ir.find_all_with_description("a").map(&:id)
   end
 
@@ -323,14 +323,14 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_that_find_all_by_price_in_range_returns_items_within_inputted_price_range
-    skip
+    # skip
     ir = SalesEngine.new(items: [
         {id: 1, unit_price: "1186"},
         {id: 2, unit_price: "1099"},
         {id: 3, unit_price: "11099"},
         {id: 4, unit_price: "10990"},
       ]).items
-    result = ir.find_all_by_price_in_range(Range.new(10.01..12))
+    result = ir.find_all_by_price_in_range(Range.new(10.01,12))
 
     assert_equal [1,2], result.map(&:id)
   end
