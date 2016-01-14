@@ -30,13 +30,13 @@ class SalesEngine
 end
 
 if __FILE__ == $0
-se = SalesEngine.from_csv({:merchants => './data/merchants.csv',
+sales_engine = SalesEngine.from_csv({:merchants => './data/merchants.csv',
                            :items => './data/items.csv'})
-mr = se.merchants
-merchant = mr.find_by_name("CJsDecor")
+merch_repo = sales_engine.merchants
+merchant = merch_repo.find_by_name("CJsDecor")
 puts merchant
 
-ir   = se.items
-item = ir.find_by_name("510+ RealPush Icon Set")
+item_repo   = sales_engine.items
+item = item_repo.find_by_name("510+ RealPush Icon Set")
 puts item
 end

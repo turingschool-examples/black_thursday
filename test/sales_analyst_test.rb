@@ -38,6 +38,13 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_find_percentage_of_those_who_fall_one_std_dev_below
+    #BETH
+    # standard error: standard_deviation / square root of (count of items)
+    # standard error == 0.15
+    # everyone below == 2.9 - 0.15 = 2.7ish
+    #BETH
+
+    # should be about 15.8 % of 475 = 75
     # need to remove hardcoded expected values
     expected = 75
     submitted = @sa.find_percentage_of_those_who_fall_one_std_dev_below
@@ -47,7 +54,8 @@ class SalesAnalystTest < Minitest::Test
 
   def test_merchants_below_one_std_dev
     # Ask Horace re: second pass through returning 0
-    # expected = @sa.find_percentage_of_those_who_fall_one_std_dev_below
+    # binding.pry
+    # expected = @sa.find_percentage_of_those_who_fall_one_std_dev_below.round(0)
     expected = 75
     submitted = @sa.merchants_below_one_std_dev
 
@@ -59,10 +67,10 @@ class SalesAnalystTest < Minitest::Test
     # 71.25 - 75.05 is 15.8 percent of 475
     # one_std_deviation = 0.4
 
-    # original = @sa.combine_merchant_item_count
-    # original.sort!
-    # less_than_one_sd = original[0..74]
+    @sa.merchants_with_low_item_count
     # binding.pry
+
+
     fifteen_percent = @sa.find_percentage_of_those_who_fall_one_std_dev_below
     # binding.pry
 
@@ -84,9 +92,11 @@ class SalesAnalystTest < Minitest::Test
     # the average number of products
   end
 
-  def test_average_items_price_for_merchant
+  def test_average_item_price_for_merchant
     skip
     # argument has you provide a specific merchant_id
+    # average_item_price_for_merchant(merchant_id)
+    # => 
     # => BigDecimal of average price is returned for that specific merchant
   end
 

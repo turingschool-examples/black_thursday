@@ -47,7 +47,7 @@ class SalesAnalyst
 
   def calc_items_per_merchant_standard_deviation
     element = combine_merchant_item_count
-    element_mean = element.inject(0,:+) / element.count
+    element_mean = element.inject(0,:+) / (element.count - 1)
     standard_deviation = (element_mean ** 0.5)
     standard_deviation.round(1)
   end
@@ -78,12 +78,15 @@ class SalesAnalyst
     # extract merchant_ids
     # map over standard merchants.all
     # push the merchant.name of any matching merchants
-    merchants = merchants_below_one_std_dev.to_h
+
+    merch_repo = @sales_engine.merchants
+    merchants = merchants_below_one_std_dev
+    binding.pry
     merchant_ids = merchants.keys
     # binding.pry
 
-    merch_repo = @sales_engine.merchants
-    # binding.pry
+    # merch_repo = @sales_engine.merchants
+    binding.pry
     merchant_ids.map do |id|
       id = id.to_i
       merch_repo.find_by_id(id)
