@@ -37,30 +37,16 @@ class SalesAnalyst
 
   def combine_merchant_item_count
     item_counts = item_counts_for_each_merchants
+    # avg = average_items_per_merchant
     avg = 2.9
     item_counts.map {|item| (item - avg) ** 2}
   end
 
-  def average_items_per_merchant_standard_deviation
-    # calc the mean
-    # => .average_items_per_merchant
-    # subtract the mean from each item & square result
-    # => .combine_merchant_item_count
-    # find mean of resulting numbers (the result of .combine_merchant_item_count)
-
+  def calc_items_per_merchant_standard_deviation
     element = combine_merchant_item_count
     element_mean = element.inject(0,:+) / element.count
-    final_mean = (element_mean ** 0.5)
-    final_mean.round(1)
-
-    # element = BigDecimal.new("combine_merchant_item_count")
-    # element_mean = BigDecimal.new("element.inject(0,:+) / element.count")
-
-    # => calc the square root of the mean
-
+    standard_deviation = (element_mean ** 0.5)
+    standard_deviation.round(1)
   end
-
-
-  # Which are our 'Golden Items'?
 
 end

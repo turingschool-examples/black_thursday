@@ -22,10 +22,9 @@ class SalesAnalystTest < Minitest::Test
     assert_equal expected, submitted
   end
 
-  def test_combine_merchant_item_count
+  def test_calc_items_per_merchant_standard_deviation
     std_deviation = 3.3
-
-    testing = @sa.average_items_per_merchant_standard_deviation
+    testing = @sa.calc_items_per_merchant_standard_deviation
 
     assert_equal std_deviation, testing
 
@@ -37,7 +36,6 @@ class SalesAnalystTest < Minitest::Test
 
     # std_deviation
     # => 3.25581261584165
-
   end
 
   def test_average_items_per_merchant_standard_deviation
@@ -67,12 +65,5 @@ class SalesAnalystTest < Minitest::Test
   def test_golden_items
     # find items that are two standard_deviations ABOVE the average_item_price
   end
-
-    #find  unique number of merchants
-    #find how many each items each unique merchant sells.
-    #then find the average number, so total items/number of unique merchants.
-    # number of unique items each of those merchants has
-    #
-    # total items / unique merchants
 
 end
