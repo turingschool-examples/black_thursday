@@ -1,5 +1,6 @@
 require 'pry'
 
+
 class Item
   attr_reader :name, :id, :description, :unit_price, :created_at, :updated_at
 
@@ -20,4 +21,10 @@ class Item
     @created_at = item_info[:created_at]
     @updated_at = item_info[:updated_at]
   end
+
+  # def exact_price(not_exact_price)
+  #   price_with_decimal = not_exact_price.insert(-3, ".")
+  #   significant_digits = not_exact_price.length
+  #   BigDecimal.new(price_with_decimal, significant_digits)
+  # end
 end
