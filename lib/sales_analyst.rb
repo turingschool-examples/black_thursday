@@ -21,10 +21,8 @@ attr_reader :sales_engine, :items, :merchants
   end
 
   def variance_of_average_and_items
-    variances = merchants.all.map do |merchant|
-      (merchant.items.count - average_items_per_merchant) **2
-    end
-    variances.inject(:+)
+    avg = average_items_per_merchant
+    merchants.all.map { |merchant| (merchant.items.count - avg) **2 }.inject(:+)
   end
 
   def variance_divided_merchants
@@ -39,42 +37,26 @@ attr_reader :sales_engine, :items, :merchants
   def merchants_with_low_item_count
     sd = average_items_per_merchant_standard_deviation
     avg = average_items_per_merchant
-    low_item_count = merchants.all.map do |merchant|
-      if merchant.items.count <= avg - sd
-        merchant
-      end
-    end
-    low_item_count.compact
+    merchants.all.map { |merchant| merchant if merchant.items.count <= avg-sd }.compact
   end
 
   def average_item_price_for_merchant(merchant_id)
     found_items = items.find_all_by_merchant_id(merchant_id)
     count = found_items.count
-    item_total = found_items.reduce(0) do |sum, item|
-      item.unit_price + sum
-    end
-    (item_total/count).round(2)
+    (found_items.reduce(0) { |sum, item| item.unit_price + sum }/count).round(2)
   end
 
   def average_price_per_merchant
-    all_merchants_average = merchants.all.map do |merchant|
-      average_item_price_for_merchant(merchant.id)
-    end
-    (all_merchants_average.inject(:+)/total_merchants).round(2)
+    (merchants.all.map { |merchant| average_item_price_for_merchant(merchant.id) }.inject(:+)/total_merchants).round(2)
   end
 
   def average_price_of_all_items
-    items_price_total = items.all.reduce(0) do |sum, item|
-      item.unit_price + sum
-    end
-    (items_price_total/total_items).to_f.round(2)
+    (items.all.reduce(0) { |sum, item| item.unit_price + sum}/total_items).to_f.round(2)
   end
 
   def variance_of_all_item_prices_from_mean
-    variances = items.all.map do |item|
-      (item.unit_price.to_f - average_price_of_all_items) ** 2
-    end
-    variances.inject(:+).round(2)
+    avg = average_price_of_all_items
+    (items.all.map { |item| (item.unit_price.to_f - avg) ** 2 }.inject(:+)).round(2)
   end
 
   def variance_divide_total_items

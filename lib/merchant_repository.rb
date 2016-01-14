@@ -3,8 +3,9 @@ require './lib/csv_loader'
 
 class MerchantRepository
 include CsvLoader
+include Finder
 
-attr_reader  :all, :item_repository, :merchant
+attr_reader  :all
 
   def inspect
     "#<#{self.class} #{@all_merchants.size} rows>"
@@ -28,21 +29,7 @@ attr_reader  :all, :item_repository, :merchant
     end
   end
 
-  def find_by_id(number)
-    all.find do |x|
-      x.id == number
-    end
-  end
-
-  def find_by_name(name)
-    all.find do |x|
-      x.name.downcase == name.downcase
-    end
-  end
-
   def find_all_by_name(name)
-    all.find_all do |x|
-      x.name.downcase == name.downcase
-    end
+    all.find_all { |x| x.name.downcase == name.downcase }
   end
 end

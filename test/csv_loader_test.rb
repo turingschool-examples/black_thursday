@@ -1,7 +1,5 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/item_repository'
-require './lib/merchant_repository'
 require './lib/csv_loader'
 
 class CsvLoaderTest < Minitest::Test
