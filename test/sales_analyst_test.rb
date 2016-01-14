@@ -14,14 +14,14 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_items_per_merchant
-    expected = 2.9
+    expected = 2.9 #remove the hardcode
     submitted = @sa.average_items_per_merchant
 
     assert_equal expected, submitted
   end
 
   def test_calc_items_per_merchant_standard_deviation
-    std_deviation = 3.3
+    std_deviation = 3.3 #remove the hardcode
     testing = @sa.calc_items_per_merchant_standard_deviation
 
     assert_equal std_deviation, testing
@@ -30,37 +30,72 @@ class SalesAnalystTest < Minitest::Test
     # => 5035.149999999971
 
     # result of above divided by .count
+    # => Variance (Population Standard Deviation)
     # => 10.600315789473624
 
     # std_deviation
     # => 3.25581261584165
   end
 
-  def test_average_items_per_merchant_standard_deviation
+  def test_find_percentage_of_those_who_fall_one_std_dev_below
+    expected = 75 #remove the hardcode
+    submitted = @sa.find_percentage_of_those_who_fall_one_std_dev_below
+
+    assert_equal expected, submitted.round(0)
+  end
+
+  def test_merchants_below_one_std_dev
+    # expected = 75 Ask Horace re: second pass through returning 0
+    binding.pry
+    expected = @sa.find_percentage_of_those_who_fall_one_std_dev_below
+    submitted = @sa.merchants_below_one_std_dev
+
+    assert_equal expected.round(0), submitted.count
+  end
+
+  def test_calc_items_per_merchant_standard_deviation
     skip
+    # 71.25 - 75.05 is 15.8 percent of 475
+    # one_std_deviation = 0.4
+
+    # original = @sa.combine_merchant_item_count
+    # original.sort!
+    # less_than_one_sd = original[0..74]
+    binding.pry
+    fifteen_percent = @sa.find_percentage_of_those_who_fall_one_std_dev_below
+    # binding.pry
+
+    # original.select do |item|
+    #   item < 2.5
+    # end
+    #
     expected = 2.9
-    submitted = @sa.combine_merchant_item_count
-    ok = @sa.average_items_per_merchant_standard_deviation
+    submitted = @sa.calc_items_per_merchant_standard_deviation
 
     assert_equal expected, submitted
   end
 
   def test_merchants_with_low_item_count
-    # returns array of merchants that are more than one standard_deviation below
+    skip
+    # returns array of merchants
+    # that are more than one standard_deviation (0.825) below
     # the average number of products
   end
 
   def test_average_items_price_for_merchant
+    skip
     # argument has you provide a specific merchant_id
     # => BigDecimal of average price is returned for that specific merchant
   end
 
   def test_average_price_per_merchant
+    skip
     # no arg
     # => BigDecipmal of the average price across ALL merchants
   end
 
   def test_golden_items
+    skip
     # find items that are two standard_deviations ABOVE the average_item_price
   end
 

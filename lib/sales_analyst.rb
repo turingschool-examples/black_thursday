@@ -30,7 +30,7 @@ class SalesAnalyst
 
   def item_counts_for_each_merchants
     id_count_pairs = all_merchant_id_numbers
-    id_count_pairs.inject(Hash.new(0)) { |hash, item| hash[item] += 1; hash }.values
+    id_count_pairs.inject(Hash.new(0)) { |hash, item| hash[item] += 1; hash }#e.values
   end
 
   def combine_merchant_item_count
@@ -47,14 +47,36 @@ class SalesAnalyst
     standard_deviation.round(1)
   end
 
-  def find_one_standard_deviation_value
-    #(standard_deviation - mean) / 4
-    std_deviation = calc_items_per_merchant_standard_deviation
-    mean = average_items_per_merchant
-# binding.pry
-    puts (std_deviation - mean) / 4
-    #this will give one standard deviation to calculate
-    #who falls one sd down below.
+  def find_percentage_of_those_who_fall_one_std_dev_below
+    #find those below one std dev based on normal distribution graph, which is 15.8%
+    total = total_number_of_merchants
+    percentage = 0.158
+    total * percentage
   end
+
+  def sort_merchants_based_on_the_number_of_listings
+    # creates nested array, in order, of merchant_id and avg items sold
+    items = item_counts_for_each_merchants
+    items.sort_by { |key, value| value }
+  end
+
+  def merchants_below_one_std_dev
+    # takes sorted nested array of merchants, and extracts those below one std dev
+    sorted = sort_merchants_based_on_the_number_of_listings
+    below_avg = find_percentage_of_those_who_fall_one_std_dev_below
+    sorted.first(below_avg)
+  end
+
+
+  # def find_one_standard_deviation_value
+  #   #(standard_deviation - mean) / 4
+  #   std_deviation = calc_items_per_merchant_standard_deviation
+  #   mean = average_items_per_merchant
+  #   # binding.pry
+  #   return (std_deviation - mean) / 4
+  #
+  #   #this will give one standard deviation to calculate
+  #   #who falls one sd down below.
+  # end
 
 end
