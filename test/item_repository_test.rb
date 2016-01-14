@@ -50,15 +50,13 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_that_array_has_all_elements_from_item_csv_file
-    se = SalesEngine.new(
-      items: [
+    repo = ItemRepository.new([
         {id: 1, description: "abc"},
         {id: 2, description: "a1c"},
         {id: 3, description: "1b2"},
-      ],
-    ).items
+      ])
 
-    assert_equal 3, se.all.count
+    assert_equal 3, repo.all.count
   end
 
 

@@ -8,7 +8,7 @@ class ItemRepository
 
   def initialize(csv_hash)
     @item_instances = csv_hash.map {|csv_hash| Item.new(csv_hash, merchant_repo)}
-    @all = item_instances
+    @all            = item_instances
   end
 
   def stdrd(item_name_inputed)
