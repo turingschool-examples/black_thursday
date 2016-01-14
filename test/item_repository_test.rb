@@ -370,12 +370,12 @@ class ItemRepositoryTest < Minitest::Test
     ir = SalesEngine.new(items: [
         {id: 1, merchant_id: "11860"},
         {id: 2, merchant_id: "10990"},
-        {id: 3, merchant_id: "110990"},
-        {id: 4, merchant_id: "109900"},
+        {id: 3, merchant_id: "10"},
+        {id: 4, merchant_id: "10"},
       ]).items
     price = ir.find_all_by_merchant_id(10)
 
-    assert_equal [2,4], price.map(&:id)
+    assert_equal ["10", "10"], price.map(&:merchant_id)
   end
 
   def test_that_find_all_by_merchant_id_returns_empty_array_when_no_matches_are_found
