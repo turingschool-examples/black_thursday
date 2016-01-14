@@ -21,16 +21,19 @@ class ItemTest < Minitest::Test
   end
 
   def test_item_initializes_with_name
+    skip
     name = "Pencil"
     assert_equal name, @i.name
   end
 
   def test_item_initializes_with_description
+    skip
     description = "You can use it to write things"
     assert_equal description, @i.description
   end
 
   def test_item_initializes_with_unit_price
+    skip
     unit_price  = BigDecimal.new(10.99,4)
     assert_equal unit_price, @i.unit_price
   end
