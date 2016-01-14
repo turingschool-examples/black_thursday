@@ -43,14 +43,14 @@ class SalesAnalystTest < Minitest::Test
                    {id: "3", merchant_id: "2", name: "Givenchy 2307", unit_price: "2999"}],
 
       merchants: [{:id=>"1", :name=>"Shopin1901", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"}]
-      })q
-      binding.pry
+      })
     merchant = se.merchants.find_by_id("1")
 
-    assert_equal 2, merchant.items.count
+    assert_equal 2, merchant.items
   end
 
   def test_that_will_start_the_function
+    skip
     se = SalesEngine.new(
     {
       items:     [ {id: "1", merchant_id:  "1", name: "Vogue Paris 2307", unit_price: "2999"},
