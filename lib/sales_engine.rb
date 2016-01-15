@@ -9,10 +9,7 @@ class SalesEngine
   def initialize(repo_rows)
     @repo_rows            = repo_rows
     @items                = ItemRepository.new(repo_rows[:items])
-    @merchants            = MerchantRepository.new(repo_rows[:merchants])
-    binding.pry
-    # @items.merchant_repo  = @merchants
-    # @merchants.items_repo = @items
+    @merchants            = MerchantRepository.new(repo_rows[:merchants], @items)
   end
 
   def self.from_csv(csv_hash)

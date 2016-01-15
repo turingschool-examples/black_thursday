@@ -7,7 +7,14 @@ class MerchantRepository
   attr_accessor :items_repo
 
   def initialize(csv_hash, items_repo = nil)
-    @item_instances = csv_hash.map { |csv_hash| Merchant.new(csv_hash, items_repo)}
+    @items_repo = items_repo
+
+    @item_instances = csv_hash.map do |csv_hash|
+      merchant = Merchant.new(csv_hash)
+      merchant.items = @items_repo.find_all_by_merchant_id(merchant.id)
+      merchant
+    end
+
     @all = item_instances
   end
 
