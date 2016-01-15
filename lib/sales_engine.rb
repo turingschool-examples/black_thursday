@@ -10,6 +10,10 @@ class SalesEngine
     @repo_rows            = repo_rows
     @items                = ItemRepository.new(repo_rows[:items])
     @merchants            = MerchantRepository.new(repo_rows[:merchants], items)
+
+    # MerchantRepository.new(repo_rows[:merchants], SalesEngine.new)
+    # That will allow me to call sales engine anywhere within the branching
+    #
   end
 
   def self.from_csv(csv_hash)
@@ -18,6 +22,7 @@ class SalesEngine
     end.to_h
 
     SalesEngine.new(repo_rows)
+    #pass in self to each one of the repos as its second argument 
   end
 
 end

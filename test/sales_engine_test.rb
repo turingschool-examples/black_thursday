@@ -12,7 +12,6 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_that_class_has_an_item_repository_instance
-    skip
     se = SalesEngine.from_csv({
                               :items     => "./data/items.csv",
                               :merchants => "./data/merchants.csv"
@@ -58,7 +57,8 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_that_will_start_the_function
-    skip
+    #these tests only use the .new since they are already converted into a hash
+    #we only want to use the .from_csv when we are actually loading the data
     se = SalesEngine.new(
     {
       items:     [ {id: "1", merchant_id:  "1", name: "Vogue Paris 2307", unit_price: "2999"},
@@ -67,10 +67,14 @@ class SalesEngineTest < Minitest::Test
 
       merchants: [{:id=>"1", :name=>"Shopin1901", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"}]
       })
-      item = se.items.find_by_id("1")
+
+    merchant = se.merchants.find_by_id("1")
+
+    binding.pry
+    item = se.items.find_by_id("1")
       # binding.pry
       #BY ITEM ID COMPARED TO MERCHANT ID
-      assert_equal "1", item.merchant
+    assert_equal 1, item.merchant
       # => <merchant>
   end
 end
