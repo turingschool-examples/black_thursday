@@ -8,9 +8,9 @@ class MerchantRepository
 
   def initialize(csv_hash, items_repo = nil)
     @merchant_instances = csv_hash.map do |csv_hash|
-      merchant = Merchant.new(csv_hash)
+      merchant = Merchant.new(csv_hash, items_repo)
     end
-    @items_repo = items_repo
+    # merchant.items = items_repo
   end
 
   def all

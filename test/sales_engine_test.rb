@@ -41,6 +41,7 @@ class SalesEngineTest < Minitest::Test
     assert_kind_of SalesEngine, se
   end
 
+
   def test_that_merchant_knows_its_items
     se = SalesEngine.new(
     {
@@ -52,8 +53,8 @@ class SalesEngineTest < Minitest::Test
       })
 
     merchant = se.merchants.find_by_id("1")
-    binding.pry
-    assert_equal 2, merchant.items
+
+    assert_equal  ["Vogue Paris 2307", "Givenchy 2307"], merchant.items.map(&:name)
   end
 
   def test_that_will_start_the_function

@@ -2,7 +2,7 @@ require 'pry'
 
 class Merchant
   attr_reader   :name, :id
-  attr_accessor :items
+  attr_accessor :items_repo
 
   def initialize(merchant_info, items_repo = nil)
     @name       = merchant_info[:name]
@@ -11,7 +11,7 @@ class Merchant
   end
 
   def items
-    @items_repo.find_all_by_merchant_id(merchant.id)
+    @items_repo.find_all_by_merchant_id(self.id)
     #connects the merchant with his Etsy shop items by matching Merchant class id
     #with Items class merchant ID
   end

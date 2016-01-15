@@ -44,7 +44,7 @@ class MerchantRepositoryTest < Minitest::Test
                       {id: "134", name: "10990"},
                       {id: "345", name: "10"},
                       {id: "457", name: "10"},
-                    ], items_repo)
+                    ])
 
     assert_kind_of(Array, merchant_repo.all)
   end
@@ -214,7 +214,7 @@ end
 
 # ===================================================================>>>>>
 #we cannot have tests like this in here because our
-#sales engine class when using this method needes to initialize
+#sales engine class when using this method needs to initialize
 #both the item repo and merchant repo, if any of the two are missing it
 #will input nil for when loading up @items and @merchants, therefore
 #we need to use the shortcut way like so
