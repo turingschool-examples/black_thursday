@@ -237,7 +237,7 @@ class ItemRepositoryTest < Minitest::Test
         {id: 2, description: "AcrYlique exécuTée"},
         {id: 3, description: "1b2"},
       ])
-      binding.pry
+
     assert_equal [1,2], repo.find_all_with_description("AcrYlique ").map(&:id)
   end
 

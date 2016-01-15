@@ -36,13 +36,6 @@ class ItemRepository
 
   def find_all_by_price(input_price)
     items.find_all { |item| item.unit_price == input_price.to_f }
-    # binding.pry
-    # std_input_price = std_price(input_price)
-    #
-    # found_item_instances = items.find_all {|item|
-    #   item.unit_price.to_i == std_input_price.to_i}
-    #
-    #   found_item_instances.nil? ? [] : found_item_instances
   end
 
   def find_all_by_price_in_range(range_input)
