@@ -22,7 +22,6 @@ class SalesEngine
   end
 
   def merchants
-    # save as an ivar?
     MerchantRepository.new(@csv_repo[:merchants])
   end
 
