@@ -11,7 +11,7 @@ class Item
     @unit_price    = BigDecimal.new((item_info[:unit_price].to_f / 100).to_s).to_f
     @created_at    = item_info[:created_at]
     @updated_at    = item_info[:updated_at]
-    @merchant_id   = item_info[:merchant_id]
+    @merchant_id   = item_info[:merchant_id].to_i
     @merchant_repo = merchant_repo
   end
 

@@ -39,21 +39,12 @@ class ItemRepository
   end
 
   def find_all_by_price_in_range(range_input)
-    std_range_begin = std_price(range_input.first)
-    std_range_end   = std_price(range_input.last)
-
-    found_item_instances = items.find_all {|item|
-      item.unit_price.to_i > std_range_begin.to_i &&
-      item.unit_price.to_i < std_range_end.to_i}
-
-    found_item_instances.nil? ? [] : found_item_instances
+    range = (range_input).to_a
+    items.find_all {|item| range_input.include?(item.unit_price)}
   end
 
-  def find_all_by_merchant_id(inputed_merchant_id)
-    found_item_instances = items.find_all { |item|
-      item.merchant_id.to_i == inputed_merchant_id.to_i}
-
-    found_item_instances.nil? ? [] : found_item_instances
+  def find_all_by_merchant_id(merchant_id)
+    items.find_all { |item| item.merchant_id == merchant_id.to_i}
   end
 
   def inspect

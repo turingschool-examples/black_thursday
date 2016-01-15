@@ -277,14 +277,15 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal [], repo.find_all_by_price(12345678.99)
   end
 
-  def test_that_find_all_by_price_will_work_with_dollar_signs_and_decimals
+  def test_that_find_all_by_price_will_work_as_a_string_with_decimals
     repo = ItemRepository.new([
         {id: 1, unit_price: "1186"},
         {id: 2, unit_price: "1099"},
         {id: 3, unit_price: "11099"},
       ])
-
-    assert_equal ["1099"], repo.find_all_by_price("$10.99").map(&:unit_price)
+    #no dollar signs needed if the csv file never had any to begin with
+    #nor will we waste our time creating edge cases that will not happen
+    assert_equal [10.99], repo.find_all_by_price("10.99").map(&:unit_price)
   end
 
   def test_that_find_all_by_price_in_range_is_an_array
@@ -308,7 +309,7 @@ class ItemRepositoryTest < Minitest::Test
         {id: 3, unit_price: "11099"},
       ])
 
-    result = repo.find_all_by_price_in_range(Range.new(10.01,12))
+    result = repo.find_all_by_price_in_range(10..12)
 
     assert_equal [1,2], result.map(&:id)
   end
@@ -345,7 +346,7 @@ class ItemRepositoryTest < Minitest::Test
 
     price = repo.find_all_by_merchant_id(10)
 
-    assert_equal ["10", "10"], price.map(&:merchant_id)
+    assert_equal [3, 4], price.map(&:id)
   end
 
   def test_that_find_all_by_merchant_id_returns_empty_array_when_no_matches_are_found
