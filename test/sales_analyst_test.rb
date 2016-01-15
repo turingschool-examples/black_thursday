@@ -1,5 +1,5 @@
 require_relative './../lib/sales_analyst'
-require_relative './test_helper'
+require_relative './spec_helper'
 require          'pry'
 require          'minitest/autorun'
 require          'minitest/pride'
@@ -34,6 +34,7 @@ class SalesAnalystTest < Minitest::Test
   def test_that_golden_items_method_exist
       assert SalesAnalyst.method_defined? :golden_items
   end
+<<<<<<< HEAD
 meta run:true
   def test_that_will_start_the_relationship_function
     # skip
@@ -66,4 +67,7 @@ meta run:true
       assert_equal "1", item.merchant
       # => <merchant>
     end
+=======
+
+>>>>>>> master
 end

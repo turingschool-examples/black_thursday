@@ -1,13 +1,21 @@
 require_relative './../lib/merchant_repository'
 require_relative './../lib/item_repository'
 require_relative '../lib/sales_engine'
-require_relative './test_helper'
+require_relative '../lib/load_data'
+require_relative 'spec_helper'
 require          'pry'
 require          'minitest/autorun'
 require          'minitest/pride'
 
 
 class MerchantRepositoryTest < Minitest::Test
+  include LoadData
+
+  def load_csv(csv_filepath)
+    repo_rows = csv_filepath.map do |type, filename|
+      [type, LoadData.load_data(filename)]
+    end.to_h
+  end
 
   def test_that_class_exist
     assert MerchantRepository
@@ -28,27 +36,20 @@ class MerchantRepositoryTest < Minitest::Test
   def test_that_all_by_name_method_exist
     assert MerchantRepository.method_defined? :find_all_by_name
   end
-meta run:true
-  def test_that_all_method_returns_an_array
-    items_repo = ItemRepository.new([
-      {id: 1, merchant_id: "122"},
-      {id: 2, merchant_id: "134"},
-      {id: 3, merchant_id: "345"},
-      {id: 4, merchant_id: "457"},
-    ])
 
+  def test_that_all_method_returns_an_array
     merchant_repo = MerchantRepository.new(
                     [
                       {id: "122", name: "11860"},
                       {id: "134", name: "10990"},
                       {id: "345", name: "10"},
                       {id: "457", name: "10"},
-                    ], items_repo)
+                    ])
 
     assert_kind_of(Array, merchant_repo.all)
   end
 
-  def test_that_the_all_method_returns_the_three_sample_merchant_stores_info
+  def test_that_the_all_method_returns_the_four_sample_merchant_stores_info
     repo = MerchantRepository.new([
         {id: 1, name: "11860"},
         {id: 2, name: "10990"},
@@ -58,7 +59,6 @@ meta run:true
 
     assert_equal 4, repo.all.count
   end
-
   def test_that_find_by_name_method_is_an_instance_of_merchant
     repo = MerchantRepository.new([
         {id: 1, name: "MiniatureBikez"},
@@ -91,7 +91,7 @@ meta run:true
         {id: 4, name: "10"},
       ])
 
-    merchant = repo.find_by_name("Miniature B i kez")
+    merchant = repo.find_by_name("Miniature Bikez")
 
     assert_equal "MiniatureBikez", merchant.name
   end
@@ -160,39 +160,71 @@ meta run:true
     assert_equal 10, merchant.id
   end
 
-  def test_edge_that_even_when_searching_for_correct_id_with_spaces_it_will_still_return
-    repo = MerchantRepository.new([
-        {id: 1000, name: "MiniatureBikez"},
-        {id: 2000, name: "10990"},
-        {id: 3000, name: "10"},
-        {id: 4000, name: "10"},
-      ])
-
-    merchant = repo.find_by_id("4 0 0 0 ")
-
-    assert_equal 4000, merchant.id
-  end
-
   def test_that_find_all_by_name_returns_known_merchant_with_fragment_input
-    skip
-    se = SalesEngine.from_csv({
-                              :merchants => "./data/merchant_sample.csv",
-                              })
-    mr       = se.merchants
-    merchant = mr.find_all_by_name("Mini")
+    repo = MerchantRepository.new([
+        {:id=>"12334105", :name=>"Shopin1901", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {:id=>"12334112", :name=>"Candisart", :created_at=>"2016-01-11 14:23:09 UTC", :updated_at=>"2016-01-11 14:23:09 UTC"},
+        {:id=>"12334113", :name=>"MiniatureBikez", :created_at=>"2016-01-11 11:33:39 UTC", :updated_at=>"2016-01-11 18:30:35 UTC"},
+        {:id=>"12334342", :name=>"Shopinmini", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {:id=>"12334452", :name=>"heyMiniWheels", :created_at=>"2016-01-11 14:23:09 UTC", :updated_at=>"2016-01-11 14:23:09 UTC"},
+        {:id=>"12332423", :name=>"MiniatureTights", :created_at=>"2016-01-11 11:33:39 UTC", :updated_at=>"2016-01-11 18:30:35 UTC"},
+     ])
 
-    assert_equal ["MiniatureBikez","Shopinmini", "heyMiniWheels", "MiniatureTights"], merchant
+    assert_equal ["MiniatureBikez","Shopinmini", "heyMiniWheels", "MiniatureTights"], repo.find_all_by_name("Mini").map(&:name)
   end
 
-  def test_that_find_all_by_name_returns_nil_for_unknown_merchant_with_fragment_input
-    skip
-    se = SalesEngine.from_csv({
-                              :merchants => "./data/merchant_sample.csv",
-                              })
-    mr       = se.merchants
-    merchant = mr.find_all_by_name("turing")
+  def test_that_find_all_by_name_returns_empty_array_for_unknown_merchant
+    repo = MerchantRepository.new([
+        {:id=>"12334105", :name=>"Shopin1901", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {:id=>"12334112", :name=>"Candisart", :created_at=>"2016-01-11 14:23:09 UTC", :updated_at=>"2016-01-11 14:23:09 UTC"},
+        {:id=>"12334113", :name=>"MiniatureBikez", :created_at=>"2016-01-11 11:33:39 UTC", :updated_at=>"2016-01-11 18:30:35 UTC"},
+        {:id=>"12334342", :name=>"Shopinmini", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {:id=>"12334452", :name=>"heyMiniWheels", :created_at=>"2016-01-11 14:23:09 UTC", :updated_at=>"2016-01-11 14:23:09 UTC"},
+        {:id=>"12332423", :name=>"MiniatureTights", :created_at=>"2016-01-11 11:33:39 UTC", :updated_at=>"2016-01-11 18:30:35 UTC"},
+     ])
 
-    assert_equal [], merchant
+    assert_equal [], repo.find_all_by_name("Candy").map(&:name)
   end
 
 end
+
+# se = SalesEngine.from_csv({
+#                           :merchants => "./data/merchant_sample.csv",
+#                           })
+# class SalesEngine
+#   attr_reader :repo_rows, :items, :merchants
+#
+#   def initialize(repo_rows)
+#     @repo_rows            = repo_rows
+#     @items                = ItemRepository.new(repo_rows[:items])
+#     @merchants            = MerchantRepository.new(repo_rows[:merchants], @items)
+#   end
+#
+#   def self.from_csv(csv_hash)
+#     repo_rows = csv_hash.map do |type, filename|
+#       [type, LoadData.load_data(filename)]
+#     end.to_h
+#
+#     SalesEngine.new(repo_rows)
+        # HERE IS WHERE THE PROBLEM WILL BEGIN
+        #Since it'll go to the top w/o anything to add to the items class
+#   end
+#
+# end
+
+# ===================================================================>>>>>
+#we cannot have tests like this in here because our
+#sales engine class when using this method needs to initialize
+#both the item repo and merchant repo, if any of the two are missing it
+#will input nil for when loading up @items and @merchants, therefore
+#we need to use the shortcut way like so
+# <<<<====================================================================
+
+# =============================================
+#    repo = MerchantRepository.new([
+      #   {id: 1, name: "MiniatureBikez"},
+      #   {id: 2, name: "10990"},
+      #   {id: 3, name: "10"},
+      #   {id: 10, name: "10"},
+      # ])
+# =============================================

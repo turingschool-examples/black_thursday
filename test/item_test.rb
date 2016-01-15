@@ -1,5 +1,5 @@
 require_relative './../lib/item'
-require_relative './test_helper'
+require_relative 'spec_helper'
 require 'pry'
 require 'minitest/autorun'
 require 'minitest/pride'
@@ -56,7 +56,7 @@ class ItemTest < Minitest::Test
   def test_that_unit_price_method_returns_price
     i = Item.new(id: 1, merchant_id: "10990", name: "Pencil", description: "You can use it to write things", unit_price: 1000)
 
-    assert_equal 1000, i.unit_price
+    assert_equal 10.0, i.unit_price
   end
 
   def test_that_created_at_method_returns_time_when_item_was_created
@@ -74,6 +74,7 @@ class ItemTest < Minitest::Test
   def test_that_merchant_id_can_be_called
     i = Item.new(id: 1, merchant_id: "10990", name: "Pencil", description: "You can use it to write things", unit_price: 1000, updated_at: "1993-09-29 11:56:40 UTC")
 
-    assert_equal "10990", i.merchant_id
+
+    assert_equal 10990, i.merchant_id
   end
 end
