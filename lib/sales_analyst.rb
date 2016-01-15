@@ -22,7 +22,7 @@ class SalesAnalyst
     average.round(1)
   end
 
-  def all_merchant_id_numbers
+  def get_all_merchant_id_numbers
     # searches through Item Repo and returns array of all merchant_id strings
     all_items = @sales_engine.items.all
     all_items.map do |item|
@@ -30,12 +30,12 @@ class SalesAnalyst
     end
   end
 
-  def item_counts_for_each_merchants
+  def get_item_counts_for_each_merchants
     id_count_pairs = all_merchant_id_numbers
     id_count_pairs.inject(Hash.new(0)) { |hash, item| hash[item] += 1; hash }
   end
 
-  def combine_merchant_item_count
+  def combined_merchant_item_count
     item_counts = item_counts_for_each_merchants
     # avg = average_items_per_merchant
     avg = 2.9
@@ -98,19 +98,37 @@ class SalesAnalyst
     (item_prices.inject(:+)/item_prices.count)#.to_s
   end
 
-  def get_total_price_for_all_items
+  def average_price_per_merchant #required
     all_items = @sales_engine.items.all
     all_items.map {|item| item.unit_price}.inject(:+)/all_items.count
     #result need to be .to_s??
   end
-
-  def average_price_per_merchant #required
-
+#finished relationship question 3 above, start question 4 below.
+  def sort_price_for_all_items
+    all_items = @sales_engine.items.all
+    all_items.map {|item| item.unit_price}.sort.reverse
+    #MAKE SURE THE SORT IS CORRECT
   end
 
-#finished question2 above, start question 3 below.
-end
+  def get_number_of_items_that_fall_2_stdv_above
+    percentage_for_two_stdv_abv = 0.022
+    (total_number_of_items * 0.022).round(0)  #=>30
+  end
 
+  def items_with_2_std_dev_above_avg_price
+    sorted_prices = sort_price_for_all_items
+    top_priced = get_number_of_items_that_fall_2_stdv_above
+    sorted_prices.first(top_priced)
+  end  #THIS RETURNS 30 ITEMS
+
+  def golden_items
+    top_priced = items_with_2_std_dev_above_avg_price
+    @sales_engine.items.all.select do |item|
+      top_priced.include?(item.unit_price)
+    end.first(top_priced.count)
+  end  #THIS RETURNS 32 ITEMS INSTEAD OF 30. NEEDED TO ADD .FIRST()
+end
+ #finished iteration 1
 
 
 if __FILE__ == $0
@@ -120,5 +138,9 @@ se = SalesEngine.from_csv({:merchants => './data/merchants.csv',
 sa = SalesAnalyst.new(se)
 # sa.get_hash_of_merchants_to_items
 # sa.average_item_price_for_merchants(12334275)
-sa.get_total_price_for_all_items
+# sa.get_total_price_for_all_items
+# sa.sort_price_for_all_items
+# sa.get_number_of_items_that_fall_2_stdv_above
+# puts sa.items_with_2_std_dev_above_avg_price.count
+# puts sa.golden_items.count
 end
