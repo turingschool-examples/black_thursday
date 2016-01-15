@@ -99,15 +99,15 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_invoice_status_returns_percentage_of_invoices_with_shipped_status
-    assert_equal 59.0, sa.invoice_status(:shipped)
+    assert_equal 59.02, sa.invoice_status(:shipped)
   end
 
   def test_invoice_status_returns_percentage_of_invoices_with_pending_status
-    assert_equal 34.4, sa.invoice_status(:pending)
+    assert_equal 34.43, sa.invoice_status(:pending)
   end
 
   def test_invoice_status_returns_percentage_of_invoices_with_returned_status
-    assert_equal 6.6, sa.invoice_status(:returned)
+    assert_equal 6.56, sa.invoice_status(:returned)
   end
 
   def test_invoice_status_returns_zero_of_invoices_with_other_status

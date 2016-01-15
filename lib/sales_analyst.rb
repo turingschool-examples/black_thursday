@@ -111,7 +111,7 @@ attr_reader :sales_engine, :items, :merchants, :invoices
   end
 
   def invoice_status(status)
-    ((total_invoices_with_common_status(status)/total_invoices) * 100).round(1)
+    ((total_invoices_with_common_status(status)/total_invoices) * 100).round(2)
   end
 
   def average_invoices_of_all_merchants
