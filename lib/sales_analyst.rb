@@ -90,7 +90,9 @@ class SalesAnalyst
 
 end
 
+if __FILE__ == $0
 se = SalesEngine.from_csv({:merchants => './data/merchants.csv',
                            :items => './data/items.csv'})
 
 sa = SalesAnalyst.new(se).merchants_with_low_item_count
+end
