@@ -3,36 +3,35 @@ require          'pry'
 require_relative 'item'
 
 class ItemRepository
-  attr_reader   :all, :item_instances
-  attr_accessor :merchant_repo
+  attr_reader   :all, :items
 
   def initialize(csv_hash)
-    @item_instances = csv_hash.map {|csv_hash| Item.new(csv_hash, merchant_repo)}
-    @all            = item_instances
+    @items = csv_hash.map {|csv_hash| Item.new(csv_hash)}
   end
 
-  def stdrd(data_to_be_standardized)
-    data_to_be_standardized.to_s.downcase.gsub(" ", "")
+  def all
+    items
   end
 
-  def find_by_id(item_id_inputed)
-    stdrd_item_id = stdrd(item_id_inputed)
-    found_item_instances =
-      item_instances.find {|item| stdrd(item.id) == stdrd_item_id}
-    found_item_instances.nil? ? nil : found_item_instances
+  def stdrd(standardized_data)
+    standardized_data.to_s.downcase.gsub(" ", "")
+  end
+
+  def find_by_id(item_id)
+    items.find { |item| item.id == item_id.to_i}
   end
 
   def find_by_name(item_name_inputed)
     stdrd_item_name = stdrd(item_name_inputed)
     found_item_instances =
-      item_instances.find {|item| stdrd(item.name) == stdrd_item_name}
+      items.find {|item| stdrd(item.name) == stdrd_item_name}
     found_item_instances.nil? ? nil : found_item_instances
   end
 
   def find_all_with_description(inputed_description)
     stdrd_inputed_description = stdrd(inputed_description)
 
-    found_item_instances = item_instances.find_all { |item|
+    found_item_instances = items.find_all { |item|
       stdrd(item.description).gsub("\n","").include?(stdrd_inputed_description)}
 
     found_item_instances.nil? ? [] : found_item_instances
@@ -56,7 +55,7 @@ class ItemRepository
   def find_all_by_price(input_price)
     std_input_price = std_price(input_price)
 
-    found_item_instances = item_instances.find_all {|item|
+    found_item_instances = items.find_all {|item|
       item.unit_price.to_i == std_input_price.to_i}
 
       found_item_instances.nil? ? [] : found_item_instances
@@ -66,7 +65,7 @@ class ItemRepository
     std_range_begin = std_price(range_input.first)
     std_range_end   = std_price(range_input.last)
 
-    found_item_instances = item_instances.find_all {|item|
+    found_item_instances = items.find_all {|item|
       item.unit_price.to_i > std_range_begin.to_i &&
       item.unit_price.to_i < std_range_end.to_i}
 
@@ -74,7 +73,7 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(inputed_merchant_id)
-    found_item_instances = item_instances.find_all { |item|
+    found_item_instances = items.find_all { |item|
       item.merchant_id.to_i == inputed_merchant_id.to_i}
 
     found_item_instances.nil? ? [] : found_item_instances

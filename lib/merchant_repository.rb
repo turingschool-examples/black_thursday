@@ -15,9 +15,12 @@ class MerchantRepository
       merchant
     end
 
-    @all = item_instances
   end
 
+  def all
+    item_instances
+  end
+  
   def stdrd(data_to_be_standardized)
     data_to_be_standardized.to_s.downcase.gsub(" ", "")
   end

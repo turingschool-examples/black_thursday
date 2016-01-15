@@ -6,7 +6,7 @@ class Item
 
   def initialize(item_info)
     @name          = item_info[:name]
-    @id            = item_info[:id]
+    @id            = item_info[:id].to_i
     @description   = item_info[:description]
     @unit_price    = BigDecimal.new((item_info[:unit_price].to_f / 100).to_s).to_f
     @created_at    = item_info[:created_at]

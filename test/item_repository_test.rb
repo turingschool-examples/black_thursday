@@ -1,9 +1,9 @@
 require_relative '../lib/item_repository'
 require_relative '../lib/sales_engine'
-require_relative './test_helper'
-require 'pry'
-require 'minitest/autorun'
-require 'minitest/pride'
+require_relative 'spec_helper'
+require          'pry'
+require          'minitest/autorun'
+require          'minitest/pride'
 
 
 class ItemRepositoryTest < Minitest::Test
@@ -79,7 +79,6 @@ class ItemRepositoryTest < Minitest::Test
         {id: 2, description: "a1c"},
         {id: 3, description: "1b2"}])
 
-
     item = repo.find_by_id(1)
 
     assert_equal 1, item.id
@@ -93,8 +92,8 @@ class ItemRepositoryTest < Minitest::Test
     }).items
 
     item = se.find_by_id("263395237")
-
-    assert_equal "263395237", item.id
+    #respect the item.csv data format, notice how it's always an integer 
+    assert_equal 263395237, item.id
   end
 
 
@@ -245,15 +244,10 @@ class ItemRepositoryTest < Minitest::Test
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv"
-<<<<<<< HEAD
     })
     ir    = se.items
     price = ir.find_all_by_price(10.99)
-=======
-    }).items
-    price = se.find_all_by_price(10.99)
 
->>>>>>> iteration1
     assert_equal Array, price.class
   end
 
