@@ -44,6 +44,7 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(merchant_id)
+    #gives us every single item that the merchant has in his online Etsy shop
     items.find_all { |item| item.merchant_id == merchant_id.to_i}
   end
 

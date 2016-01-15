@@ -28,15 +28,8 @@ class MerchantRepositoryTest < Minitest::Test
   def test_that_all_by_name_method_exist
     assert MerchantRepository.method_defined? :find_all_by_name
   end
-meta run:true
-  def test_that_all_method_returns_an_array
-    items_repo = ItemRepository.new([
-      {id: 1, merchant_id: "122"},
-      {id: 2, merchant_id: "134"},
-      {id: 3, merchant_id: "345"},
-      {id: 4, merchant_id: "457"},
-    ])
 
+  def test_that_all_method_returns_an_array
     merchant_repo = MerchantRepository.new(
                     [
                       {id: "122", name: "11860"},
@@ -47,7 +40,8 @@ meta run:true
 
     assert_kind_of(Array, merchant_repo.all)
   end
-
+  
+  meta run:true
   def test_that_the_all_method_returns_the_three_sample_merchant_stores_info
     repo = MerchantRepository.new([
         {id: 1, name: "11860"},
