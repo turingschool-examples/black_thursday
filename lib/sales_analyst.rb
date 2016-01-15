@@ -56,8 +56,8 @@ attr_reader :sales_engine, :items, :merchants, :invoices
     count = found_items.count
     (found_items.reduce(0) { |sum, item| item.unit_price + sum }/count).round(2)
   end
-
-  def average_price_per_merchant
+#THIS NEEDS CHANGE
+  def average_average_price_per_merchant
     (merchants.all.map { |merchant| average_item_price_for_merchant(merchant.id) }.inject(:+)/total_merchants).round(2)
   end
 

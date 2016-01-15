@@ -41,7 +41,7 @@ attr_reader :all
   def find_all_by_price(price)
     price = price.to_s
     price = convert_to_big_decimal(price)
-    all.find_all { |x| x.unit_price == price }
+    all.find_all { |x| x.unit_price == price.to_f }
   end
 
   def find_all_by_price_in_range(range)
