@@ -1,5 +1,4 @@
 require_relative 'sales_engine'
-require          'descriptive_statistics'
 
 class SalesAnalyst
   attr_reader :se
@@ -10,7 +9,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    
+
   end
 
   def average_items_per_merchant_standard_deviation

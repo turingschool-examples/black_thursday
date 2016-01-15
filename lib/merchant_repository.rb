@@ -3,41 +3,48 @@ require          'csv'
 require          'pry'
 
 class MerchantRepository
-  attr_reader :all
+  attr_reader   :all, :item_instances
+  attr_accessor :items_repo
 
-  def initialize(all)
-    @all = all
+  def initialize(csv_hash, items_repo = nil)
+    @items_repo = items_repo
+
+    @item_instances = csv_hash.map do |csv_hash|
+      merchant = Merchant.new(csv_hash)
+      merchant.items = @items_repo.find_all_by_merchant_id(merchant.id)
+      merchant
+    end
+
+    @all = item_instances
+  end
+
+  def stdrd(data_to_be_standardized)
+    data_to_be_standardized.to_s.downcase.gsub(" ", "")
   end
 
   def find_by_id(merchant_id_inputed)
-    standard_info =  merchant_id_inputed.to_s.gsub(" ", "")
-    what_to_find_within_csv(:id, standard_info)
+    stdrd_merchant_id = stdrd(merchant_id_inputed)
+    found_item_instances =
+      item_instances.find {|item| stdrd(item.id) == stdrd_merchant_id}
+    found_item_instances.nil? ? nil : found_item_instances
   end
 
   def find_by_name(merchant_name_inputed)
-    standard_info = merchant_name_inputed.downcase.gsub(" ", "")
-    what_to_find_within_csv(:name, standard_info)
-  end
-
-  def what_to_find_within_csv(type, standard_info)
-    merchant_info = @all.find {|line| line[type].downcase  == standard_info}
-    merchant_info.nil? ? merchant = nil : merchant = Merchant.new(merchant_info)
-    merchant
+    stdrd_merchant_name = stdrd(merchant_name_inputed)
+    found_item_instances =
+      item_instances.find {|item| stdrd(item.name) == stdrd_merchant_name}
+    found_item_instances.nil? ? nil : found_item_instances
   end
 
   def find_all_by_name(merchant_name_inputed)
-    standard_merchant_name = merchant_name_inputed.downcase.gsub(" ", "")
-    merchant_info = @all.find_all do |line|
-      line[:name].downcase.include?(standard_merchant_name)
-    end
-    merchants_info_on_whether_it_exist(merchant_info)
+    stdrd_merchant_name = stdrd(merchant_name_inputed)
+    found_item_instances =
+      item_instances.find_all {|item| item.name.downcase.include?(standard_merchant_name)}
+    found_item_instances.nil? ? [] : found_item_instances
   end
 
-  def merchants_info_on_whether_it_exist(merchant_info)
-    if merchant_info.nil?
-      []
-    else
-      merchant_info.map {|merchant_info| Merchant.new(merchant_info).name}
-    end
+  def inspect
+  "#<#{self.class} #{@merchants.size} rows>"
   end
+
 end

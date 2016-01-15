@@ -1,5 +1,5 @@
 require_relative './../lib/item'
-require_relative './test_helper'
+require_relative 'spec_helper'
 require 'pry'
 require 'minitest/autorun'
 require 'minitest/pride'
