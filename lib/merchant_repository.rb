@@ -11,13 +11,14 @@ class MerchantRepository
     @all = item_instances
   end
 
+  def 
+
   def stdrd(data_to_be_standardized)
     data_to_be_standardized.to_s.downcase.gsub(" ", "")
   end
 
   def find_by_id(merchant_id_inputed)
     stdrd_merchant_id = stdrd(merchant_id_inputed)
-    # binding.pry
     found_item_instances =
       item_instances.find {|item| stdrd(item.id) == stdrd_merchant_id}
     found_item_instances.nil? ? nil : found_item_instances
