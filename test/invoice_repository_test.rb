@@ -37,8 +37,35 @@ attr_reader :se, :invoice_repo
     assert invoice_repo.find_by_id(1)
   end
 
+  def test_find_all_by_customer_id_defaults_to_empty_array
+    assert_equal [], invoice_repo.find_all_by_customer_id(99)
+  end
+
+  def test_find_all_by_customer_id_returns_matching_invoices
+    assert_equal 8, invoice_repo.find_all_by_customer_id(1).count
+  end
+
   def test_find_all_by_merchant_id_returns_an_empty_array
     assert_equal [], invoice_repo.find_all_by_merchant_id(65)
   end
 
+  def test_find_all_by_merchant_id_returns_matching_invoices
+    assert_equal 2, invoice_repo.find_all_by_merchant_id(12335955).count
+  end
+
+  def test_find_all_by_status_returns_an_empty_array_when_status_unknown
+    assert_equal [], invoice_repo.find_all_by_status(:none)
+  end
+
+  def test_find_all_by_status_returns_array_of_shipped_invoices
+      assert_equal 9, invoice_repo.find_all_by_status(:shipped).count
+  end
+
+  def test_find_all_by_status_returns_array_of_pending_invoices
+    assert_equal 9, invoice_repo.find_all_by_status(:pending).count
+  end
+
+  def test_find_all_by_status_returns_array_of_returned_invoices
+    assert_equal 1, invoice_repo.find_all_by_status(:returned).count
+  end
 end

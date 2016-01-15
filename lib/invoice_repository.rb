@@ -33,4 +33,13 @@ attr_reader :all
     end
   end
 
+  def find_all_by_customer_id(id)
+    all.find_all { |x| x.customer_id == id }
+  end
+
+  def find_all_by_status(status)
+    all.find_all { |x| x.status == status }
+  end
+
+
 end

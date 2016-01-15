@@ -23,7 +23,20 @@ attr_reader :files, :items, :merchants, :invoices
   def relationships
     merchant_to_item_relationship
     item_to_merchant_relationship
+    invoice_to_merchant_relationship
+    merchant_to_invoice_relationship
+  end
 
+  def invoice_to_merchant_relationship
+    invoices.all.each do |invoice|
+      invoice.merchant = merchants.find_by_id(invoice.merchant_id)
+    end
+  end
+
+  def merchant_to_invoice_relationship
+    merchants.all.each do |merchant|
+      merchant.invoice = invoices.find_all_by_merchant_id(merchant.id)
+    end
   end
 
   def merchant_to_item_relationship

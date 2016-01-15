@@ -140,4 +140,27 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 1, sa.golden_items.count
   end
 
+  def test_average_invoices_per_merchant
+    assert_equal 3.8, sa.average_invoices_per_merchant
+  end
+
+  def test_total_invoices_returned
+    assert_equal 9, sa.total_invoices_with_common_status(:shipped)
+  end
+
+  def test_invoice_status_returns_percentage_of_invoices_with_shipped_status
+    assert_equal 47.4, sa.invoice_status(:shipped)
+  end
+
+  def test_invoice_status_returns_percentage_of_invoices_with_pending_status
+    assert_equal 47.4, sa.invoice_status(:pending)
+  end
+
+  def test_invoice_status_returns_percentage_of_invoices_with_returned_status
+    assert_equal 5.3, sa.invoice_status(:returned)
+  end
+
+  def test_invoice_status_returns_zero_of_invoices_with_other_status
+    assert_equal 0.0, sa.invoice_status(:other)
+  end
 end

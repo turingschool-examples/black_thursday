@@ -1,10 +1,11 @@
 class SalesAnalyst
-attr_reader :sales_engine, :items, :merchants
+attr_reader :sales_engine, :items, :merchants, :invoices
 
   def initialize(sales_engine)
     @sales_engine = sales_engine
     @items = sales_engine.items
     @merchants = sales_engine.merchants
+    @invoices = sales_engine.invoices
   end
 
   def total_merchants
@@ -13,6 +14,10 @@ attr_reader :sales_engine, :items, :merchants
 
   def total_items
     items.all.count.to_f
+  end
+
+  def total_invoices
+    invoices.all.count.to_f
   end
 
   def average_items_per_merchant
@@ -64,6 +69,9 @@ attr_reader :sales_engine, :items, :merchants
     (variance/(total_items - 1)).round(2)
   end
 
+  # def standard_deviation(something)
+  #   Math.sqrt(something).round(2)
+  # end
   def items_standard_deviation
     Math.sqrt(variance_divide_total_items).round(2)
   end
@@ -72,5 +80,17 @@ attr_reader :sales_engine, :items, :merchants
     sd = items_standard_deviation
     avg = average_price_of_all_items
     items.all.map { |item| item if item.unit_price >= (avg + (sd*2)) }.compact
+  end
+
+  def average_invoices_per_merchant
+    (total_invoices/total_merchants).round(2)
+  end
+
+  def total_invoices_with_common_status(status)
+    invoices.all.map { |invoice| invoice if invoice.status == status }.compact.count
+  end
+
+  def invoice_status(status)
+    ((total_invoices_with_common_status(status)/total_invoices) * 100).round(1) 
   end
 end

@@ -7,7 +7,7 @@ class Invoice
   end
 
   def customer_id
-    invoice[:customer_id]
+    invoice[:customer_id].to_i
   end
 
   def id
@@ -27,6 +27,6 @@ class Invoice
   end
 
   def status
-    invoice[:status]
+    invoice[:status].to_sym
   end
 end
