@@ -48,13 +48,13 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 1.0, sa.average_items_per_merchant_standard_deviation
   end
 
-  def test_merchants_with_low_item_count_returns_instance_of_merchants
-    low_item = sasd.merchants_with_low_item_count
-    assert low_item.first.instance_of?(Merchant)
+  def test_merchants_with_high_item_count_returns_instance_of_merchants
+    high_item = sasd.merchants_with_high_item_count
+    assert high_item.first.instance_of?(Merchant)
   end
 
-  def test_merchants_with_low_item_count
-    assert_equal 1, sasd.merchants_with_low_item_count.count
+  def test_merchants_with_high_item_count
+    assert_equal 1, sasd.merchants_with_high_item_count.count
   end
 
   def test_average_price_for_merchant
@@ -62,7 +62,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_average_price_per_merchant
-    assert_equal 439.20, sasd.average_average_price_per_merchant
+    assert_equal 439.2, sasd.average_average_price_per_merchant.to_f
     assert_equal BigDecimal, sasd.average_average_price_per_merchant.class
   end
 

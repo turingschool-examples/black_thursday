@@ -45,22 +45,22 @@ attr_reader :sales_engine, :items, :merchants, :invoices
     standard_deviation(variance_of_average_and_items_divided_merchants)
   end
 
-  def merchants_with_low_item_count
+  def merchants_with_high_item_count
     sd = average_items_per_merchant_standard_deviation
     avg = average_items_per_merchant
-    merchants.all.map { |merchant| merchant if merchant.items.count <= avg-sd }.compact
+    merchants.all.map { |merchant| merchant if merchant.items.count >= avg + sd }.compact
   end
 
   def average_item_price_for_merchant(merchant_id)
     found_items = items.find_all_by_merchant_id(merchant_id)
     count = found_items.count
-    (found_items.reduce(0) { |sum, item| item.unit_price + sum }/count).round(2)
+    (found_items.reduce(0) { |sum, item| item.unit_price + sum } / count).round(2)
   end
-#THIS NEEDS CHANGE
+#THIS NEEDS CHANGE###################################
   def average_average_price_per_merchant
-    (merchants.all.map { |merchant| average_item_price_for_merchant(merchant.id) }.inject(:+)/total_merchants).round(2)
+    ((merchants.all.map { |merchant| average_item_price_for_merchant(merchant.id) }.inject(:+))/total_merchants).round(2)
   end
-
+#####################################################
   def average_price_of_all_items
     (items.all.reduce(0) { |sum, item| item.unit_price + sum}/total_items).to_f.round(2)
   end
