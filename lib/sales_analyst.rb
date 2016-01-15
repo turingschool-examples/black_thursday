@@ -75,28 +75,10 @@ class SalesAnalyst
   end
 
   def merchants_with_low_item_count
-    # take array of merchants_below_one_std_dev
-    # extract merchant_ids
-    # map over standard merchants.all
-    # push the merchant.name of any matching merchants
+    merchant_ids = merchants_below_one_std_dev.to_h.keys
 
-    merch_repo = @sales_engine.merchants
-    merchants = merchants_below_one_std_dev
-    merchant_ids = merchants.keys
-
-    # # binding.pry
-    #
-    # # merch_repo = @sales_engine.merchants
-    # # binding.pry
-    # merchant_ids.map do |id|
-    #   id = id.to_i
-    #   merch_repo.find_by_id(id)
-    # end
-
-
-    merchant_ids.select do |id|
-        @sales_engine.items.find_by_id(id)
-        binding.pry
+    @sales_engine.merchants.all.select do |m|
+      merchant_ids.include?(m.id)
     end
   end
 
@@ -106,15 +88,9 @@ class SalesAnalyst
     merchant = @sales_engine.items.find_all_by_merchant_id(merchant_id)
   end
 
-  # def find_one_standard_deviation_value
-  #   #(standard_deviation - mean) / 4
-  #   std_deviation = calc_items_per_merchant_standard_deviation
-  #   mean = average_items_per_merchant
-  #   # binding.pry
-  #   return (std_deviation - mean) / 4
-  #
-  #   #this will give one standard deviation to calculate
-  #   #who falls one sd down below.
-  # end
-
 end
+
+se = SalesEngine.from_csv({:merchants => './data/merchants.csv',
+                           :items => './data/items.csv'})
+
+sa = SalesAnalyst.new(se).merchants_with_low_item_count
