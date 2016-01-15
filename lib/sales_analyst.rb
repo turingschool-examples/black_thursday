@@ -5,7 +5,7 @@ class SalesAnalyst
   attr_reader :sales_engine
 
   def initialize(sales_engine)
-    @sales_engine = sales_enginegi
+    @sales_engine = sales_engine
   end
 
   def total_number_of_merchants
@@ -90,22 +90,35 @@ class SalesAnalyst
       end
     end
     merchant_to_items
-    # binding.pry
   end
 
   def average_item_price_for_merchants(merchant_id) #required method
     merchant_to_items = get_hash_of_merchants_to_items
     item_prices = merchant_to_items[merchant_id].map {|x| x.unit_price}
-    item_prices.inject(:+)/item_prices.count
+    (item_prices.inject(:+)/item_prices.count)#.to_s
   end
 
+  def get_total_price_for_all_items
+    all_items = @sales_engine.items.all
+    all_items.map {|item| item.unit_price}.inject(:+)/all_items.count
+    #result need to be .to_s??
+  end
+
+  def average_price_per_merchant #required
+
+  end
+
+#finished question2 above, start question 3 below.
 end
+
+
 
 if __FILE__ == $0
 se = SalesEngine.from_csv({:merchants => './data/merchants.csv',
                            :items => './data/items.csv'})
 
-sa = SalesAnalyst.new(se).get_hash_of_merchants_to_items
+sa = SalesAnalyst.new(se)
 # sa.get_hash_of_merchants_to_items
 # sa.average_item_price_for_merchants(12334275)
+sa.get_total_price_for_all_items
 end
