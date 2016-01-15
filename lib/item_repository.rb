@@ -13,7 +13,7 @@ class ItemRepository
     items
   end
 
-  def stdrd(standardized_data)
+  def standard(standardized_data)
     standardized_data.to_s.downcase.gsub(" ", "")
   end
 
@@ -21,44 +21,28 @@ class ItemRepository
     items.find { |item| item.id == item_id.to_i}
   end
 
-  def find_by_name(item_name_inputed)
-    stdrd_item_name = stdrd(item_name_inputed)
-    found_item_instances =
-      items.find {|item| stdrd(item.name) == stdrd_item_name}
-    found_item_instances.nil? ? nil : found_item_instances
+  def find_by_name(item_name)
+    #added the to_s to not have the nil class error when downcasing
+    #iterated item names
+    items.find { |item| item.name.to_s.downcase == item_name.downcase}
   end
 
-  def find_all_with_description(inputed_description)
-    stdrd_inputed_description = stdrd(inputed_description)
-
-    found_item_instances = items.find_all { |item|
-      stdrd(item.description).gsub("\n","").include?(stdrd_inputed_description)}
-
-    found_item_instances.nil? ? [] : found_item_instances
-  end
-
-  def make_sure_decimal_was_put_in(input_price)
-    check_for_decimal = input_price.to_s.chars
-    if check_for_decimal[-3] == "."
-      input_price
-    else
-      added_decimal = check_for_decimal << ["0","0"]
-      added_decimal.join
-    end
-  end
-
-  def std_price(input_price)
-    input_price_in_cents = make_sure_decimal_was_put_in(input_price)
-    input_price_in_cents.to_s.gsub(/\D/,"")
+  def find_all_with_description(description)
+    #finds full/fragment item descriptions
+    #notice the method name for this class and the method
+    #being used below to find stuff... "find_all"
+    items.find_all { |item| item.description.downcase.include?(description.downcase)}
   end
 
   def find_all_by_price(input_price)
-    std_input_price = std_price(input_price)
-
-    found_item_instances = items.find_all {|item|
-      item.unit_price.to_i == std_input_price.to_i}
-
-      found_item_instances.nil? ? [] : found_item_instances
+    items.find_all { |item| item.unit_price == input_price.to_f }
+    # binding.pry
+    # std_input_price = std_price(input_price)
+    #
+    # found_item_instances = items.find_all {|item|
+    #   item.unit_price.to_i == std_input_price.to_i}
+    #
+    #   found_item_instances.nil? ? [] : found_item_instances
   end
 
   def find_all_by_price_in_range(range_input)
