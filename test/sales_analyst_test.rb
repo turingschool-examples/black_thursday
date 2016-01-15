@@ -61,9 +61,9 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 705.24, sasd.average_item_price_for_merchant(1)
   end
 
-  def test_average_price_per_merchant
-    assert_equal 439.20, sasd.average_price_per_merchant
-    assert_equal BigDecimal, sasd.average_price_per_merchant.class
+  def test_average_average_price_per_merchant
+    assert_equal 439.20, sasd.average_average_price_per_merchant
+    assert_equal BigDecimal, sasd.average_average_price_per_merchant.class
   end
 
   def test_average_price_of_all_items
