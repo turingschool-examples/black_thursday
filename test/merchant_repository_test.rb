@@ -1,4 +1,5 @@
 require_relative './../lib/merchant_repository'
+require_relative './../lib/item_repository'
 require_relative '../lib/sales_engine'
 require_relative './test_helper'
 require          'pry'
@@ -27,16 +28,24 @@ class MerchantRepositoryTest < Minitest::Test
   def test_that_all_by_name_method_exist
     assert MerchantRepository.method_defined? :find_all_by_name
   end
-
+meta run:true
   def test_that_all_method_returns_an_array
-    repo = MerchantRepository.new([
-        {id: 1, name: "11860"},
-        {id: 2, name: "10990"},
-        {id: 3, name: "10"},
-        {id: 4, name: "10"},
-      ])
+    items_repo = ItemRepository.new([
+      {id: 1, merchant_id: "122"},
+      {id: 2, merchant_id: "134"},
+      {id: 3, merchant_id: "345"},
+      {id: 4, merchant_id: "457"},
+    ])
 
-    assert_kind_of(Array, repo.all)
+    merchant_repo = MerchantRepository.new(
+                    [
+                      {id: "122", name: "11860"},
+                      {id: "134", name: "10990"},
+                      {id: "345", name: "10"},
+                      {id: "457", name: "10"},
+                    ], items_repo)
+
+    assert_kind_of(Array, merchant_repo.all)
   end
 
   def test_that_the_all_method_returns_the_three_sample_merchant_stores_info

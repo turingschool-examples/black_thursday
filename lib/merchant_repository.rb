@@ -7,7 +7,14 @@ class MerchantRepository
   attr_accessor :items_repo
 
   def initialize(csv_hash, items_repo = nil)
-    @item_instances = csv_hash.map { |csv_hash| Merchant.new(csv_hash, items_repo)}
+    @items_repo = items_repo
+
+    @item_instances = csv_hash.map do |csv_hash|
+      merchant = Merchant.new(csv_hash)
+      merchant.items = @items_repo.find_all_by_merchant_id(merchant.id)
+      merchant
+    end
+
     @all = item_instances
   end
 
@@ -17,7 +24,6 @@ class MerchantRepository
 
   def find_by_id(merchant_id_inputed)
     stdrd_merchant_id = stdrd(merchant_id_inputed)
-    # binding.pry
     found_item_instances =
       item_instances.find {|item| stdrd(item.id) == stdrd_merchant_id}
     found_item_instances.nil? ? nil : found_item_instances
