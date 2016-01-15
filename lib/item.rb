@@ -21,11 +21,11 @@ class Item
   end
 
   def created_at
-    Time.new(item[:created_at])
+    Time.parse(item[:created_at])
   end
 
   def updated_at
-    Time.new(item[:updated_at])
+    Time.parse(item[:updated_at])
   end
 
   def description

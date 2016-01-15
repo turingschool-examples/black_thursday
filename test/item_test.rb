@@ -22,12 +22,12 @@ attr_reader :item
   end
 
   def test_item_can_pull_updated_at
-    expected = Time.new("2012-03-27 14:53:59 UTC")
+    expected = Time.parse("2012-03-27 14:53:59 UTC")
     assert_equal expected, item.updated_at
   end
 
   def test_item_can_pull_created_at
-    expected = Time.new("2012-03-27 14:53:59 UTC")
+    expected = Time.parse("2012-03-27 14:53:59 UTC")
     assert_equal expected , item.created_at
   end
 

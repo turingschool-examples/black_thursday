@@ -51,7 +51,7 @@ attr_reader :se_hash, :se
 
   def test_merchant_to_invoice_relationship
     merchants = se.merchants.all
-    merchants_invoice = merchants[0].invoice[0]
+    merchants_invoice = merchants[0].invoices[0]
     assert_equal Invoice, merchants_invoice.class
   end
 

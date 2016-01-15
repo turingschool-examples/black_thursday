@@ -4,7 +4,7 @@ require './lib/sales_analyst'
 require './lib/sales_engine'
 
 class SalesAnalystTest < Minitest::Test
-  attr_reader :se_hash, :se, :sa
+  attr_reader :sa
 
   def setup
     se_hash = {:items => './data/test_items.csv',
@@ -35,7 +35,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_variance_divided_by_merchants
-    assert_equal 1.0, sa.variance_divided_merchants
+    assert_equal 1.0, sa.variance_of_average_and_items_divided_merchants
   end
 
   def test_average_items_per_merchant_standard_deviation
@@ -95,7 +95,7 @@ class SalesAnalystTest < Minitest::Test
             :invoices => './data/test_invoices.csv'}
     se = SalesEngine.new(se_hash)
     sa = SalesAnalyst.new(se)
-    # items_variance = variance_of_all_item_prices_from_mean
+
     assert_equal 4326479.81, sa.variance_of_all_item_prices_from_mean
   end
 
@@ -140,26 +140,43 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_invoices_per_merchant
-    assert_equal 3.8, sa.average_invoices_per_merchant
+    assert_equal 12.2, sa.average_invoices_per_merchant
   end
 
   def test_total_invoices_returned
-    assert_equal 9, sa.total_invoices_with_common_status(:shipped)
+    assert_equal 36, sa.total_invoices_with_common_status(:shipped)
   end
 
   def test_invoice_status_returns_percentage_of_invoices_with_shipped_status
-    assert_equal 47.4, sa.invoice_status(:shipped)
+    assert_equal 59.0, sa.invoice_status(:shipped)
   end
 
   def test_invoice_status_returns_percentage_of_invoices_with_pending_status
-    assert_equal 47.4, sa.invoice_status(:pending)
+    assert_equal 34.4, sa.invoice_status(:pending)
   end
 
   def test_invoice_status_returns_percentage_of_invoices_with_returned_status
-    assert_equal 5.3, sa.invoice_status(:returned)
+    assert_equal 6.6, sa.invoice_status(:returned)
   end
 
   def test_invoice_status_returns_zero_of_invoices_with_other_status
     assert_equal 0.0, sa.invoice_status(:other)
   end
+
+  def test_average_invoices_per_merchant_standard_deviation
+    assert_equal 4.97, sa.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_top_merchants_by_invoice_count
+    assert_equal [], sa.top_merchants_by_invoice_count
+  end
+
+  def test_bottom_merchants_by_invoice_count
+    assert_equal [], sa.bottom_merchants_by_invoice_count
+  end
+
+  def test_top_days_by_invoice_count
+
+  end
+  
 end

@@ -1,7 +1,5 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/item_repository'
-require './lib/merchant_repository'
 require './lib/invoice_repository'
 
 class InvoiceRepositoryTest < Minitest::Test
@@ -18,10 +16,9 @@ attr_reader :se, :invoice_repo
   end
 
   def test_invoice_repo_can_load_data
-    assert_equal 19, invoice_repo.all.count
+    assert_equal 61, invoice_repo.all.count
   end
 
-  #replicate this test in all repos
   def test_invoice_repo_all_method_always_returns_instance_of_invoice
     expected = invoice_repo.all
     expected.each do |invoice|
@@ -42,7 +39,7 @@ attr_reader :se, :invoice_repo
   end
 
   def test_find_all_by_customer_id_returns_matching_invoices
-    assert_equal 8, invoice_repo.find_all_by_customer_id(1).count
+    assert_equal 40, invoice_repo.find_all_by_customer_id(1).count
   end
 
   def test_find_all_by_merchant_id_returns_an_empty_array
@@ -50,7 +47,7 @@ attr_reader :se, :invoice_repo
   end
 
   def test_find_all_by_merchant_id_returns_matching_invoices
-    assert_equal 2, invoice_repo.find_all_by_merchant_id(12335955).count
+    assert_equal 13, invoice_repo.find_all_by_merchant_id(1).count
   end
 
   def test_find_all_by_status_returns_an_empty_array_when_status_unknown
@@ -58,14 +55,14 @@ attr_reader :se, :invoice_repo
   end
 
   def test_find_all_by_status_returns_array_of_shipped_invoices
-      assert_equal 9, invoice_repo.find_all_by_status(:shipped).count
+      assert_equal 36, invoice_repo.find_all_by_status(:shipped).count
   end
 
   def test_find_all_by_status_returns_array_of_pending_invoices
-    assert_equal 9, invoice_repo.find_all_by_status(:pending).count
+    assert_equal 21, invoice_repo.find_all_by_status(:pending).count
   end
 
   def test_find_all_by_status_returns_array_of_returned_invoices
-    assert_equal 1, invoice_repo.find_all_by_status(:returned).count
+    assert_equal 4, invoice_repo.find_all_by_status(:returned).count
   end
 end

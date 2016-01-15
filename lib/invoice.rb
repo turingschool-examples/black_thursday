@@ -19,11 +19,11 @@ class Invoice
   end
 
   def created_at
-    Time.new(invoice[:created_at])
+    Time.parse(invoice[:created_at])
   end
 
   def updated_at
-    Time.new(invoice[:updated_at])
+    Time.parse(invoice[:updated_at])
   end
 
   def status

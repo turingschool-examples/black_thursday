@@ -3,22 +3,22 @@ require 'minitest/pride'
 require './lib/merchant_repository'
 
 class MerchantRepositoryTest < Minitest::Test
-attr_reader :merchant_repo, :merch_file, :item_file, :data, :item_file, :se
+attr_reader :merchant_repo
 
   def setup
-    # item_file = './data/test_items.csv'
     merch_file = './data/test_merchant.csv'
-    # invoice_file = './data/test_invoices.csv'
-    # @se = SalesEngine.from_csv({
-    #       :items     => item_file,
-    #       :merchants => merch_file,
-    #       :invoices => invoice_file
-    #       })
     @merchant_repo = MerchantRepository.new(merch_file)
   end
 
   def test_an_instance_merchant_repo_exists
     assert merchant_repo.instance_of?(MerchantRepository)
+  end
+
+  def test_merch_repo_all_method_always_returns_instance_of_invoice
+    expected = merchant_repo.all
+    expected.each do |merchant|
+      assert_equal Merchant, merchant.class
+    end
   end
 
   def test_merchant_repo_can_load_data

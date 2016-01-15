@@ -17,12 +17,12 @@ attr_reader :invoice
   end
 
   def test_invoice_can_pull_updated_at
-    expected = Time.new("2012-03-27 14:53:59 UTC")
+    expected = Time.parse("2012-03-27 14:53:59 UTC")
     assert_equal expected, invoice.updated_at
   end
 
   def test_invoice_can_pull_created_at
-    expected = Time.new("2012-03-27 14:53:59 UTC")
+    expected = Time.parse("2012-03-27 14:53:59 UTC")
     assert_equal expected , invoice.created_at
   end
 

@@ -1,10 +1,9 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/item_repository'
-require './lib/merchant_repository'
 
 class ItemRepositoryTest < Minitest::Test
-attr_reader :item_repo, :item_file, :merch_file, :data, :se
+attr_reader :item_repo
 
   def setup
     item_file = './data/test_items.csv'
@@ -13,6 +12,13 @@ attr_reader :item_repo, :item_file, :merch_file, :data, :se
 
   def test_an_instance_of_item_repo_exists
     assert item_repo.instance_of?(ItemRepository)
+  end
+
+  def test_item_repo_all_method_always_returns_instance_of_item
+    expected = item_repo.all
+    expected.each do |item|
+      assert_equal Item, item.class
+    end
   end
 
   def test_item_repo_can_load_data
@@ -66,13 +72,4 @@ attr_reader :item_repo, :item_file, :merch_file, :data, :se
   def test_find_all_by_merchant_id_returns_an_empty_array
     assert_equal [], item_repo.find_all_by_merchant_id(65)
   end
-
-  # def test_item_can_find_its_merchant
-  #   item = item_repo.find_by_name("Item Qui Esse")
-  #
-  #   assert item.merchant
-  # end
-
-
-
 end
