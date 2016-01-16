@@ -36,43 +36,43 @@ class ItemTest < Minitest::Test
   end
 
   def test_that_id_method_returns_item_id
-    i = Item.new(id: 1, merchant_id: "10990")
+    i = Item.new(id: 1, merchant_id: "10990", unit_price: 1000, :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC")
 
     assert_equal 1, i.id
   end
 
   def test_that_name_method_returns_item_id
-    i = Item.new(id: 1, merchant_id: "10990", name: "Pencil")
+    i = Item.new(id: 1, merchant_id: "10990", name: "Pencil", unit_price: 1000, :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC")
 
     assert_equal "Pencil", i.name
   end
 
   def test_that_description_method_exist__returns_description
-    i = Item.new(id: 1, merchant_id: "10990", name: "Pencil", description: "You can use it to write things")
+    i = Item.new(id: 1, merchant_id: "10990", name: "Pencil", description: "You can use it to write things", unit_price: 1000, :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC")
 
     assert_equal "You can use it to write things", i.description
   end
 
   def test_that_unit_price_method_returns_price
-    i = Item.new(id: 1, merchant_id: "10990", name: "Pencil", description: "You can use it to write things", unit_price: 1000)
+    i = Item.new(id: 1, merchant_id: "10990", name: "Pencil", description: "You can use it to write things", unit_price: 1000, :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC")
 
-    assert_equal 10.0, i.unit_price
+    assert_equal 10.0, i.unit_price_to_dollars
   end
 
   def test_that_created_at_method_returns_time_when_item_was_created
-    i = Item.new(id: 1, merchant_id: "10990", name: "Pencil", description: "You can use it to write things", unit_price: 1000, created_at: "1993-09-29 11:56:40 UTC")
+    i = Item.new(id: 1, merchant_id: "10990", name: "Pencil", description: "You can use it to write things", unit_price: 1000, :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC")
 
-    assert_equal "1993-09-29 11:56:40 UTC", i.created_at
+    assert_equal Time.parse("2016-01-11 10:37:09 UTC"), i.created_at
   end
 
   def test_that_updated_at_method_returns_time_when_item_was_updated
-    i = Item.new(id: 1, merchant_id: "10990", name: "Pencil", description: "You can use it to write things", unit_price: 1000, updated_at: "1993-09-29 11:56:40 UTC")
+    i = Item.new(id: 1, merchant_id: "10990", name: "Pencil", description: "You can use it to write things", unit_price: 1000, :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC")
 
-    assert_equal "1993-09-29 11:56:40 UTC", i.updated_at
+    assert_equal Time.parse("2016-01-11 10:37:09 UTC"), i.updated_at
   end
 
   def test_that_merchant_id_can_be_called
-    i = Item.new(id: 1, merchant_id: "10990", name: "Pencil", description: "You can use it to write things", unit_price: 1000, updated_at: "1993-09-29 11:56:40 UTC")
+    i = Item.new(id: 1, merchant_id: "10990", name: "Pencil", description: "You can use it to write things", unit_price: 1000, :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC")
 
 
     assert_equal 10990, i.merchant_id

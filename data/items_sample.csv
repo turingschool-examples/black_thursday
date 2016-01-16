@@ -1,10 +1,10 @@
 id,name,description,unit_price,merchant_id,created_at,updated_at
-1111,First Name,First Description,11,1,2016-01-11 09:34:06 UTC,2007-06-04 21:35:10 UTC
-2222,Second Name,Second Description,22,22,2016-01-11 11:51:37 UTC,1993-09-29 11:56:40 UTC
-3333,Third Name,Third Description,33,22,2016-01-11 11:51:37 UTC,2008-04-02 13:48:57 UTC
-4444,Fourth Name,Fourth sample data,444,22,2016-01-11 11:51:36 UTC,2001-09-17 15:28:43 UTC
-5555,Fifth Name,Fifth sample data,5555,33,2016-01-11 10:37:09 UTC,1995-03-19 10:02:43 UTC
-6666,Sixth Name,Sixth,6666,33,2016-01-11 11:30:36 UTC,1998-09-11 21:34:04 UTC
-7777,Seventh Name,7 Handmade in Germany,7777,44,2016-01-11 10:06:10 UTC,1995-03-08 17:49:21 UTC
-8888,Eighth Name,8 Handmade in Germany,88888,44,2016-01-11 10:06:10 UTC,1988-10-07 19:47:45 UTC
-9999,Ninth Name,9 Made in America,999999,555,2016-01-11 11:30:35 UTC,1994-05-07 23:38:43 UTC
+1111,First Item Name,First Description,111,11,2016-01-11 09:34:06 UTC,2007-06-04 21:35:10 UTC
+2222,Second Item Name,Second Description,222,22,2016-01-11 11:51:37 UTC,1993-09-29 11:56:40 UTC
+3333,Third Item Name,Third Description,33,22,2016-01-11 11:51:37 UTC,2008-04-02 13:48:57 UTC
+4444,Fourth Item Name,Fourth sample data,444,22,2016-01-11 11:51:36 UTC,2001-09-17 15:28:43 UTC
+5555,Fifth Item Name,Fifth sample data,5555,33,2016-01-11 10:37:09 UTC,1995-03-19 10:02:43 UTC
+6666,Sixth Item Name,Sixth,666,33,2016-01-11 11:30:36 UTC,1998-09-11 21:34:04 UTC
+7777,Seventh Item Name,7 Handmade in Germany,7777,44,2016-01-11 10:06:10 UTC,1995-03-08 17:49:21 UTC
+8888,Eighth Item Name,8 Handmade in Germany,8888,44,2016-01-11 10:06:10 UTC,1988-10-07 19:47:45 UTC
+9999,Ninth Item Name,9 Made in America,19999,55,2016-01-11 11:30:35 UTC,1994-05-07 23:38:43 UTC

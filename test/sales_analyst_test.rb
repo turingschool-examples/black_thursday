@@ -6,6 +6,14 @@ require          'minitest/pride'
 
 
 class SalesAnalystTest < Minitest::Test
+  attr_reader :se
+
+  def setup
+    @se = SalesEngine.from_csv({
+              :items     => "./data/items_sample.csv",
+              :merchants => "./data/merchants_sample.csv",
+                              })
+  end
 
   def test_that_class_exist
     assert SalesAnalyst
@@ -34,40 +42,24 @@ class SalesAnalystTest < Minitest::Test
   def test_that_golden_items_method_exist
       assert SalesAnalyst.method_defined? :golden_items
   end
-<<<<<<< HEAD
-meta run:true
-  def test_that_will_start_the_relationship_function
-    # skip
-    se = SalesEngine.new(
-    {
-      items:     [ {id: "1", merchant_id:  "1", name: "Vogue Paris 2307", unit_price: "2999"},
-                   {id: "2", merchant_id: "1", name: "Givenchy 2307", unit_price: "2999"},
-                   {id: "3", merchant_id: "2", name: "Givenchy 2307", unit_price: "2999"}],
 
-      merchants: [{:id=>"1", :name=>"Shopin1901", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"}]
-      })
-    merchant = se.merchants.find_by_id("1")
-    binding.pry
-    assert_equal 2, merchant.items
+  def test_that_items_are_attached_to_merchant
+    merchant = se.merchants.find_by_id(22)
+
+
+    assert_equal [2222, 3333, 4444], merchant.items.map(&:id)
   end
 
-  def test_that_will_start_the_function
-    skip
-    se = SalesEngine.new(
-    {
-      items:     [ {id: "1", merchant_id:  "1", name: "Vogue Paris 2307", unit_price: "2999"},
-                   {id: "2", merchant_id: "1", name: "Givenchy 2307", unit_price: "2999"},
-                   {id: "3", merchant_id: "2", name: "Givenchy 2307", unit_price: "2999"}],
+  def test_that_merchant_are_attached_to_merchant
+    item = se.items.find_by_id("1111")
 
-      merchants: [{:id=>"1", :name=>"Shopin1901", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"}]
-      })
-      item = se.items.find_by_id("1")
-      # binding.pry
-      #BY ITEM ID COMPARED TO MERCHANT ID
-      assert_equal "1", item.merchant
-      # => <merchant>
-    end
-=======
+    assert_equal "Store One", item.merchant.name
+  end
+meta run:true
+  def test_that_average_items_per_merchant_works
+    sa = SalesAnalyst.new(se)
+    
+    assert_equal 1.8, sa.average_items_per_merchant
+  end
 
->>>>>>> master
 end

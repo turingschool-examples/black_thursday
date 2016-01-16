@@ -1,19 +1,27 @@
 require_relative 'sales_engine'
+require          'pry'
 
 class SalesAnalyst
   attr_reader :se
-  include Enumerable
 
-  def initialize(se = SalesEngine.new)
+  def initialize(se)
     @se = se
   end
 
   def average_items_per_merchant
-
+    number_of_merchants = se.merchants.all.count
+    items_per_merchant = se.merchants.all.map {|merchant| merchant.items.count}
+    items_per_merchant.inject(0.0) {|sum, items| sum + items} / number_of_merchants
+     #=> Gives me the total amount of merchants
+    # binding.pry
+    #array of merchants
+    #somehow iterate through the damn
+    # arr.inject(0.0) { |sum, el| sum + el } / arr.size
+    #
   end
 
   def average_items_per_merchant_standard_deviation
-    #this gem will allow us to use the standard deviation
+
   end
 
   def merchants_with_low_item_count
