@@ -67,9 +67,13 @@ class SalesEngineTest < Minitest::Test
       })
 
     merchant = se.merchants.find_by_id("1")
+    #merchant is asking for an input that will connect its "1" with the merchant id
     assert_equal ["Vogue Paris 2307", "Givenchy 2307"], merchant.items.map(&:name)
+    #from here, all I'm getting is the merchant items that matched in line 69 to
+    #the merchant's own ID
     item = se.items.find_by_id(1)
-
+    #here I'm inputting the item's ID
+    #item.merchant.name connects me to the merchant_id and gets me its name "Shopin1901"
     assert_equal "Shopin1901", item.merchant.name
   end
 end
