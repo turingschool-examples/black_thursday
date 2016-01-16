@@ -82,7 +82,7 @@ class ItemRepositoryTest < Minitest::Test
 
     assert_equal 1, item.id
   end
-  
+
 
   def test_edge_that_find_by_id_returns_known_item_even_when_inputted_as_string
     se = SalesEngine.from_csv({
@@ -94,105 +94,105 @@ class ItemRepositoryTest < Minitest::Test
     #respect the item.csv data format, notice how it's always an integer
     assert_equal 263395237, item.id
   end
-  #
-  #
-  # def test_edge_that_find_by_id_returns_nil_for_unknown_id
-  #   repo = ItemRepository.new([
-  #       {id: 1, description: "abc", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-  #       {id: 2, description: "a1c", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-  #       {id: 3, description: "1b2", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-  #     ])
-  #
-  #   item = repo.find_by_id(000000000)
-  #
-  #   assert_equal nil, item
-  # end
-  #
-  # def test_that_find_by_name_returns_a_known_item
-  #   repo = ItemRepository.new([
-  #       {id: 1, name: "Necklace", description: "abc",:created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-  #       {id: 2, name: "Bracelet", description: "a1c",:created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-  #       {id: 3, name: "Rings"   , description: "1b2",:created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-  #     ])
-  #
-  #   item = repo.find_by_name("Necklace")
-  #
-  #   assert_equal "Necklace", item.name
-  # end
-  #
-  # def test_find_by_name_returns_nil_for_unknown_item
-  #   repo = ItemRepository.new([
-  #       {id: 1, description: "abc",:created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-  #       {id: 2, description: "a1c",:created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-  #       {id: 3, description: "1b2",:created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-  #     ])
-  #
-  #   item = repo.find_by_name("acdc")
-  #
-  #   assert_equal nil, item
-  # end
-  #
-  # def test_edge_that_searched_with_spaces_will_return_item
-  #   repo = ItemRepository.new([
-  #       {id: 1, name:   "Nothing to find Here", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-  #       {id: 2, name:       "Will Get Ignored", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-  #       {id: 3, name:   "Searched With Spaces", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-  #     ])
-  #   item = repo.find_by_name("Searched With Spaces")
-  #   #changed this test because the chances of someone putting
-  #   #fucking spaces in every single letter is nil and is a waste of time to try
-  #   #and fix
-  #   assert_equal "Searched With Spaces", item.name
-  # end
-  #
-  # def test_edge_that_find_by_name_will_find_capitalized_known_item_name
-  #   repo = ItemRepository.new([
-  #       {id: 1, name: "Basketball", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-  #       {id: 2, name:     "Soccer", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-  #       {id: 3, name:   "Football", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-  #     ])
-  #
-  #   item = repo.find_by_name("FOOTBALL")
-  #
-  #   assert_equal "Football", item.name
-  # end
-  #
-  # def test_edge_that_find_by_name_will_find_known_item_typed_with_lowercase_and_upcase_letters
-  #   repo = ItemRepository.new([
-  #       {id: 1, name: "Basketball", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-  #       {id: 2, name:     "Soccer", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-  #       {id: 3, name:   "Football", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-  #     ])
-  #
-  #   item = repo.find_by_name("SoCcEr")
-  #
-  #   assert_equal "Soccer", item.name
-  #   assert_equal        2, item.id
-  # end
-  #
-  # def test_that_find_all_with_description_is_an_array
-  #   repo = ItemRepository.new( [
-  #       {id: 1, description: "abc", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-  #       {id: 2, description: "a1c", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-  #       {id: 3, description: "1b2", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-  #     ])
-  #
-  #   description = repo.find_all_with_description("a")
-  #
-  #   assert_equal Array, description.class
-  # end
-  #
-  # def test_that_find_all_with_description_returns_empty_array_when_it_matches_no_description
-  #   se = SalesEngine.from_csv({
-  #     :items     => "./data/items.csv",
-  #     :merchants => "./data/merchants.csv"
-  #   })
-  #
-  #   ir          = se.items
-  #   description = ir.find_all_with_description("I hate how this csv file looks on atom...")
-  #
-  #   assert_equal [], description
-  # end
+
+
+  def test_edge_that_find_by_id_returns_nil_for_unknown_id
+    repo = ItemRepository.new([
+        {id: 1, description: "abc", unit_price: 1000,:created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, description: "a1c", unit_price: 1000,:created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, description: "1b2", unit_price: 1000,:created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+      ])
+
+    item = repo.find_by_id(000000000)
+
+    assert_equal nil, item
+  end
+
+  def test_that_find_by_name_returns_a_known_item
+    repo = ItemRepository.new([
+        {id: 1, name: "Necklace", unit_price: 1000, description: "abc",:created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, name: "Bracelet", unit_price: 1000, description: "a1c",:created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, name: "Rings"   , unit_price: 1000, description: "1b2",:created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+      ])
+
+    item = repo.find_by_name("Necklace")
+
+    assert_equal "Necklace", item.name
+  end
+
+  def test_find_by_name_returns_nil_for_unknown_item
+    repo = ItemRepository.new([
+        {id: 1, description: "abc", unit_price: 1000,:created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, description: "a1c", unit_price: 1000,:created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, description: "1b2", unit_price: 1000,:created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+      ])
+
+    item = repo.find_by_name("acdc")
+
+    assert_equal nil, item
+  end
+
+  def test_edge_that_searched_with_spaces_will_return_item
+    repo = ItemRepository.new([
+        {id: 1, unit_price: 1000, name:   "Nothing to find Here", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, unit_price: 1000, name:       "Will Get Ignored", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, unit_price: 1000, name:   "Searched With Spaces", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+      ])
+    item = repo.find_by_name("Searched With Spaces")
+    #changed this test because the chances of someone putting
+    #fucking spaces in every single letter is nil and is a waste of time to try
+    #and fix
+    assert_equal "Searched With Spaces", item.name
+  end
+
+  def test_edge_that_find_by_name_will_find_capitalized_known_item_name
+    repo = ItemRepository.new([
+        {id: 1, name: "Basketball", unit_price: 1000, :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, name:     "Soccer", unit_price: 1000, :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, name:   "Football", unit_price: 1000, :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+      ])
+
+    item = repo.find_by_name("FOOTBALL")
+
+    assert_equal "Football", item.name
+  end
+
+  def test_edge_that_find_by_name_will_find_known_item_typed_with_lowercase_and_upcase_letters
+    repo = ItemRepository.new([
+        {id: 1, name: "Basketball", unit_price: 1000, :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, name:     "Soccer", unit_price: 1000, :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, name:   "Football", unit_price: 1000, :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+      ])
+
+    item = repo.find_by_name("SoCcEr")
+
+    assert_equal "Soccer", item.name
+    assert_equal        2, item.id
+  end
+
+  def test_that_find_all_with_description_is_an_array
+    repo = ItemRepository.new( [
+        {id: 1, unit_price: 1000, description: "abc", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, unit_price: 1000, description: "a1c", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, unit_price: 1000, description: "1b2", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+      ])
+
+    description = repo.find_all_with_description("a")
+
+    assert_equal Array, description.class
+  end
+  
+  def test_that_find_all_with_description_returns_empty_array_when_it_matches_no_description
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+
+    ir          = se.items
+    description = ir.find_all_with_description("I hate how this csv file looks on atom...")
+
+    assert_equal [], description
+  end
   #
   # def test_that_fragment_string_returns_all_matching_descriptions_for_find_all_with_description_method
   #   repo = ItemRepository.new([
