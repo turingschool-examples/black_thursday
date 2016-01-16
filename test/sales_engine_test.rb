@@ -12,17 +12,14 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_that_class_has_an_item_repository_instance
-    skip
     se = SalesEngine.from_csv({
                               :items     => "./data/items.csv",
                               :merchants => "./data/merchants.csv"
                               })
-
     assert_equal ItemRepository, se.items.class
   end
 
   def test_that_class_has_a_merchant_repository_instance
-    skip
     se = SalesEngine.from_csv({
                               :items     => "./data/items.csv",
                               :merchants => "./data/merchants.csv"
@@ -43,7 +40,6 @@ class SalesEngineTest < Minitest::Test
 
 
   def test_that_merchant_knows_its_items
-    skip
     se = SalesEngine.new(
     {
       items:     [ {id: "1", merchant_id:  "1", name: "Vogue Paris 2307", unit_price: "2999",  :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
@@ -55,7 +51,7 @@ class SalesEngineTest < Minitest::Test
 
     merchant = se.merchants.find_by_id("1")
 
-    assert_equal  ["Vogue Paris 2307", "Givenchy 2307"], merchant.items.map(&:name)
+    assert_equal "Vogue Paris 2307", merchant.items.name
   end
 
   def test_that_will_start_the_function

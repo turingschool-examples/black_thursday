@@ -4,7 +4,8 @@ require_relative 'load_data'
 require          'csv'
 
 class SalesEngine
-  attr_reader :repo_rows, :items, :merchants
+  attr_reader :repo_rows
+  attr_accessor :items, :merchants
 
   def initialize(repo_rows)
     @repo_rows            = repo_rows
