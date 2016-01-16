@@ -10,13 +10,17 @@ class SalesAnalystTest < Minitest::Test
 
   def setup
     @se = SalesEngine.new (
-     {  items:    [{id: 1, merchant_id: 1, name: "Louis Wallet", unit_price: "2999",  :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-                    {id: 2, merchant_id: 2, name: "Yeezys", unit_price: "1000",  :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-                    {id: 3, merchant_id: 3, name: "Los Angeles Cap", unit_price: "40",  :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"}],
+     {  items:    [ {id: 10, merchant_id: 1, name:       "Louis Wallet", unit_price:    "600",  :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+                    {id: 11, merchant_id: 1, name:         "Louis Belt", unit_price:    "300",  :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+                    {id: 12, merchant_id: 1, name:     "Louis Backpack", unit_price:   "2800",  :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+                    {id: 13, merchant_id: 1, name: "Louis PALLAS Purse", unit_price:   "2500",  :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+                    {id: 20, merchant_id: 2, name: "Air Yeezys Red Octobers", unit_price: "5500",  :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+                    {id: 21, merchant_id: 2, name: "Jordan Melo M12", unit_price:    "135",  :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+                    {id: 22, merchant_id: 2, name: "AIR JORDAN 6 RETRO", unit_price: "400",  :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+                    {id: 23, merchant_id: 2, name:  "NIKE AIR HUARACHE", unit_price: "120",  :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"}],
 
       merchants: [{:id=>"1", :name=>"Louis Vuitton", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-                  {:id=>"2", :name=>"Nike", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-                  {:id=>"2", :name=>"New Era", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"}]})
+                  {:id=>"2", :name=>"Nike", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"}]})
   end
 
   def test_that_class_exist
@@ -48,8 +52,9 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_that_sales_engine_runs
+    skip
     a = SalesAnalyst.new(se)
-
+    binding.pry
     assert_equal SalesAnalyst, a.class
   end
 

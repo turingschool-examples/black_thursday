@@ -63,7 +63,7 @@ class SalesEngineTest < Minitest::Test
       merchants: [{:id=>"1", :name=>"Louis Vuitton", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
                   {:id=>"2", :name=>"Nike", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
                   {:id=>"2", :name=>"New Era", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"}]})
-
+    binding.pry
     merchant = se.merchants.find_by_id(1)
 
     assert_equal ["Louis Wallet"], merchant.items.map(&:name)

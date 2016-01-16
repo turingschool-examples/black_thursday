@@ -8,11 +8,7 @@ class SalesEngine
   attr_accessor :items, :merchants
 
   def initialize(repo_rows)
-    @items                = ItemRepository.new(repo_rows[:items], self)
-    @merchants            = MerchantRepository.new(repo_rows[:merchants], self)
-    @repo_rows            = repo_rows
-    # MerchantRepository.new(repo_rows[:merchants], SalesEngine.new)
-    # That will allow me to call sales engine anywhere within the branching
+    start_up_engine(repo_rows)
   end
 
   def self.from_csv(csv_hash)
@@ -21,7 +17,10 @@ class SalesEngine
     end.to_h
 
     SalesEngine.new(repo_rows)
-    #pass in self to each one of the repos as its second argument
   end
 
+  def start_up_engine(repo_rows)
+    @items                = ItemRepository.new(repo_rows[:items], self)
+    @merchants            = MerchantRepository.new(repo_rows[:merchants], self)
+  end
 end
