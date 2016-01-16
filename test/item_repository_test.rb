@@ -58,42 +58,42 @@ class ItemRepositoryTest < Minitest::Test
 
     assert_equal 3, repo.all.count
   end
-  #
-  #
-  # def test_that_it_will_return_an_instance_of_an_item
-  #   repo = ItemRepository.new([
-  #     {id: 1, description: "abc", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-  #     {id: 2, description: "a1c", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-  #     {id: 3, description: "1b2", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-  #   ])
-  #
-  #   item = repo.find_by_id(1)
-  #
-  #   assert_equal Item, item.class
-  # end
-  #
-  # def test_that_find_by_id_returns_known_item
-  #   repo = ItemRepository.new([
-  #       {id: 1, description: "abc", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-  #       {id: 2, description: "a1c", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-  #       {id: 3, description: "1b2", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"}])
-  #
-  #   item = repo.find_by_id(1)
-  #
-  #   assert_equal 1, item.id
-  # end
-  #
-  #
-  # def test_edge_that_find_by_id_returns_known_item_even_when_inputted_as_string
-  #   se = SalesEngine.from_csv({
-  #     :items     => "./data/items.csv",
-  #     :merchants => "./data/merchants.csv"
-  #   }).items
-  #
-  #   item = se.find_by_id("263395237")
-  #   #respect the item.csv data format, notice how it's always an integer
-  #   assert_equal 263395237, item.id
-  # end
+
+
+  def test_that_it_will_return_an_instance_of_an_item
+    repo = ItemRepository.new([
+      {id: 1, description: "abc", unit_price: 1000, :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+      {id: 2, description: "a1c", unit_price: 1000, :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+      {id: 3, description: "1b2", unit_price: 1000, :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+    ])
+
+    item = repo.find_by_id(1)
+
+    assert_equal Item, item.class
+  end
+
+  def test_that_find_by_id_returns_known_item
+    repo = ItemRepository.new([
+        {id: 1, description: "abc", unit_price: 1000, :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, description: "a1c", unit_price: 1000, :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, description: "1b2", unit_price: 1000, :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"}])
+
+    item = repo.find_by_id(1)
+
+    assert_equal 1, item.id
+  end
+  
+
+  def test_edge_that_find_by_id_returns_known_item_even_when_inputted_as_string
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    }).items
+
+    item = se.find_by_id("263395237")
+    #respect the item.csv data format, notice how it's always an integer
+    assert_equal 263395237, item.id
+  end
   #
   #
   # def test_edge_that_find_by_id_returns_nil_for_unknown_id
