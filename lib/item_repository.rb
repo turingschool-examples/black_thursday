@@ -18,7 +18,7 @@ class ItemRepository
   end
 
   def find_by_id(item_id)
-    items.find { |item| item.id == item_id.to_i}
+    items.find { |item| item.id.to_i == item_id.to_i}
   end
 
   def find_by_name(item_name)

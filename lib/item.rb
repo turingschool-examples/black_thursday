@@ -21,7 +21,6 @@ class Item
   end
 
   def merchant
-    binding.pry
     #Etsy owner's merchant ID needs to pop up here per every item made
     engine.merchants.find_by_id(self.merchant_id)
   end

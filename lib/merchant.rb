@@ -11,7 +11,7 @@ class Merchant
   end
 
   def items
-    engine.items.find_by_id(self.id)
+    engine.items.find_all_by_merchant_id(self.id)
     #connects the merchant with his Etsy shop items by matching Merchant class id
     #with Items class merchant ID
   end
