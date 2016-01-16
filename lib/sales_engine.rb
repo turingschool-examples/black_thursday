@@ -8,10 +8,9 @@ class SalesEngine
   attr_accessor :items, :merchants
 
   def initialize(repo_rows)
-    @repo_rows            = repo_rows
     @items                = ItemRepository.new(repo_rows[:items], self)
     @merchants            = MerchantRepository.new(repo_rows[:merchants], self)
-
+    @repo_rows            = repo_rows
     # MerchantRepository.new(repo_rows[:merchants], SalesEngine.new)
     # That will allow me to call sales engine anywhere within the branching
   end

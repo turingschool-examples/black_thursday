@@ -6,6 +6,18 @@ require          'minitest/pride'
 
 
 class SalesAnalystTest < Minitest::Test
+  attr_reader :se
+
+  def setup
+    @se = SalesEngine.new (
+     {  items:    [{id: 1, merchant_id: 1, name: "Louis Wallet", unit_price: "2999",  :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+                    {id: 2, merchant_id: 2, name: "Yeezys", unit_price: "1000",  :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+                    {id: 3, merchant_id: 3, name: "Los Angeles Cap", unit_price: "40",  :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"}],
+
+      merchants: [{:id=>"1", :name=>"Louis Vuitton", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+                  {:id=>"2", :name=>"Nike", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+                  {:id=>"2", :name=>"New Era", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"}]})
+  end
 
   def test_that_class_exist
     assert SalesAnalyst
@@ -33,6 +45,12 @@ class SalesAnalystTest < Minitest::Test
 
   def test_that_golden_items_method_exist
       assert SalesAnalyst.method_defined? :golden_items
+  end
+
+  def test_that_sales_engine_runs
+    a = SalesAnalyst.new(se)
+
+    assert_equal SalesAnalyst, a.class
   end
 
 end

@@ -1,10 +1,8 @@
 require_relative 'sales_engine'
 
-class SalesAnalyst
-  attr_reader :se
-  include Enumerable
+class SalesAnalyst < SalesEngine
 
-  def initialize(se = SalesEngine.new)
+  def initialize(se = nil)
     @se = se
   end
 
