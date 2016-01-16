@@ -9,7 +9,8 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    @se.merchants
+    @se.merchants.all.count #=> Gives me the total amount of merchants
+    
     #array of merchants
     #somehow iterate through the damn
     # arr.inject(0.0) { |sum, el| sum + el } / arr.size

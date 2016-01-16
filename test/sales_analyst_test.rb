@@ -52,9 +52,16 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_that_sales_engine_runs
-    a = SalesAnalyst.new(se)
+    sa = SalesAnalyst.new(se)
 
     assert_equal SalesAnalyst, a.class
+    assert_equal SalesEngine, a.se.class
+  end
+
+  def test_that_average_items_per_merchant_works
+    sa = SalesAnalyst.new(se)
+    binding.pry
+    assert_equal 4, sa.average_items_per_merchant
   end
 
 end
