@@ -21,6 +21,17 @@ class SalesEngine
   def start_up_engine(repo_rows)
     @items                = ItemRepository.new(repo_rows[:items])
     @merchants            = MerchantRepository.new(repo_rows[:merchants])
-    @merchants 
+    items_to_merchants
+    merchants_to_items
+  end
+
+  def items_to_merchants
+    @merchants.all.map { |merchant|
+      merchant.items = @items.find_all_by_merchant_id(merchant.id)}
+  end
+
+  def merchants_to_items
+    @items.all.map { |item|
+      item.merchant = @merchants.find_by_id(item.merchant_id)}
   end
 end
