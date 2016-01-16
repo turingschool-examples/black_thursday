@@ -56,7 +56,7 @@ class ItemTest < Minitest::Test
   def test_that_unit_price_method_returns_price
     i = Item.new(id: 1, merchant_id: "10990", name: "Pencil", description: "You can use it to write things", unit_price: 1000, :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC")
 
-    assert_equal 10.0, i.unit_price
+    assert_equal 10.0, i.unit_price_to_dollars
   end
 
   def test_that_created_at_method_returns_time_when_item_was_created

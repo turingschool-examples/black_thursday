@@ -284,7 +284,8 @@ class ItemRepositoryTest < Minitest::Test
       ])
     #no dollar signs needed if the csv file never had any to begin with
     #nor will we waste our time creating edge cases that will not happen
-    assert_equal [10.99], repo.find_all_by_price("10.99").map(&:unit_price)
+
+    assert_equal [2], repo.find_all_by_price("10.99").map(&:id)
   end
   #
   def test_that_find_all_by_price_in_range_is_an_array
