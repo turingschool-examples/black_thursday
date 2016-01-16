@@ -256,12 +256,12 @@ class ItemRepositoryTest < Minitest::Test
     repo = ItemRepository.new([
         {id: 1, unit_price: "1186", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
         {id: 2, unit_price: "1099", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-        {id: 3, unit_price: "11099", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-        {id: 4, unit_price: "11099", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-        {id: 5, unit_price: "11099", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, unit_price: "11000", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 4, unit_price: "11000", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 5, unit_price: "11000", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
       ])
 
-    result = repo.find_all_by_price(110.99)
+    result = repo.find_all_by_price(110)
 
     assert_equal [3, 4, 5], result.map(&:id)
   end
