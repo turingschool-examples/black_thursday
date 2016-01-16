@@ -8,8 +8,9 @@ class SalesEngine
 
   def initialize(repo_rows)
     @repo_rows            = repo_rows
-    @items                = ItemRepository.new(repo_rows[:items])
-    @merchants            = MerchantRepository.new(repo_rows[:merchants], items)
+    @items                = ItemRepository.new(repo_rows[:items], self)
+    @merchants            = MerchantRepository.new(repo_rows[:merchants], self)
+    # @items.merchant_repo = @items
 
     # MerchantRepository.new(repo_rows[:merchants], SalesEngine.new)
     # That will allow me to call sales engine anywhere within the branching
@@ -22,7 +23,7 @@ class SalesEngine
     end.to_h
 
     SalesEngine.new(repo_rows)
-    #pass in self to each one of the repos as its second argument 
+    #pass in self to each one of the repos as its second argument
   end
 
 end

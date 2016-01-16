@@ -42,9 +42,9 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_that_the_all_method_returns_an_array
     repo = ItemRepository.new([
-      {id: 1, description: "abc"},
-      {id: 2, description: "a1c"},
-      {id: 3, description: "1b2"},
+      {id: 1, description: "abc", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+      {id: 2, description: "a1c", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+      {id: 3, description: "1b2", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
     ])
 
     assert_kind_of(Array, repo.all)
@@ -52,9 +52,9 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_that_array_has_all_elements_from_item_csv_file
     repo = ItemRepository.new([
-        {id: 1, description: "abc"},
-        {id: 2, description: "a1c"},
-        {id: 3, description: "1b2"},
+        {id: 1, description: "abc", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, description: "a1c", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, description: "1b2", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
       ])
 
     assert_equal 3, repo.all.count
@@ -63,9 +63,9 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_that_it_will_return_an_instance_of_an_item
     repo = ItemRepository.new([
-      {id: 1, description: "abc"},
-      {id: 2, description: "a1c"},
-      {id: 3, description: "1b2"},
+      {id: 1, description: "abc", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+      {id: 2, description: "a1c", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+      {id: 3, description: "1b2", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
     ])
 
     item = repo.find_by_id(1)
@@ -75,9 +75,9 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_that_find_by_id_returns_known_item
     repo = ItemRepository.new([
-        {id: 1, description: "abc"},
-        {id: 2, description: "a1c"},
-        {id: 3, description: "1b2"}])
+        {id: 1, description: "abc", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, description: "a1c", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, description: "1b2", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"}])
 
     item = repo.find_by_id(1)
 
@@ -99,9 +99,9 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_edge_that_find_by_id_returns_nil_for_unknown_id
     repo = ItemRepository.new([
-        {id: 1, description: "abc"},
-        {id: 2, description: "a1c"},
-        {id: 3, description: "1b2"},
+        {id: 1, description: "abc", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, description: "a1c", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, description: "1b2", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
       ])
 
     item = repo.find_by_id(000000000)
@@ -111,9 +111,9 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_that_find_by_name_returns_a_known_item
     repo = ItemRepository.new([
-        {id: 1, name: "Necklace", description: "abc"},
-        {id: 2, name: "Bracelet", description: "a1c"},
-        {id: 3, name: "Rings"   , description: "1b2"},
+        {id: 1, name: "Necklace", description: "abc",:created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, name: "Bracelet", description: "a1c",:created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, name: "Rings"   , description: "1b2",:created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
       ])
 
     item = repo.find_by_name("Necklace")
@@ -123,9 +123,9 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_find_by_name_returns_nil_for_unknown_item
     repo = ItemRepository.new([
-        {id: 1, description: "abc"},
-        {id: 2, description: "a1c"},
-        {id: 3, description: "1b2"},
+        {id: 1, description: "abc",:created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, description: "a1c",:created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, description: "1b2",:created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
       ])
 
     item = repo.find_by_name("acdc")
@@ -135,9 +135,9 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_edge_that_searched_with_spaces_will_return_item
     repo = ItemRepository.new([
-        {id: 1, name:   "Nothing to find Here"},
-        {id: 2, name:       "Will Get Ignored"},
-        {id: 3, name:   "Searched With Spaces"},
+        {id: 1, name:   "Nothing to find Here", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, name:       "Will Get Ignored", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, name:   "Searched With Spaces", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
       ])
     item = repo.find_by_name("Searched With Spaces")
     #changed this test because the chances of someone putting
@@ -148,9 +148,9 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_edge_that_find_by_name_will_find_capitalized_known_item_name
     repo = ItemRepository.new([
-        {id: 1, name: "Basketball"},
-        {id: 2, name:     "Soccer"},
-        {id: 3, name:   "Football"},
+        {id: 1, name: "Basketball", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, name:     "Soccer", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, name:   "Football", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
       ])
 
     item = repo.find_by_name("FOOTBALL")
@@ -160,9 +160,9 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_edge_that_find_by_name_will_find_known_item_typed_with_lowercase_and_upcase_letters
     repo = ItemRepository.new([
-        {id: 1, name: "Basketball"},
-        {id: 2, name:     "Soccer"},
-        {id: 3, name:   "Football"},
+        {id: 1, name: "Basketball", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, name:     "Soccer", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, name:   "Football", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
       ])
 
     item = repo.find_by_name("SoCcEr")
@@ -173,9 +173,9 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_that_find_all_with_description_is_an_array
     repo = ItemRepository.new( [
-        {id: 1, description: "abc"},
-        {id: 2, description: "a1c"},
-        {id: 3, description: "1b2"},
+        {id: 1, description: "abc", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, description: "a1c", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, description: "1b2", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
       ])
 
     description = repo.find_all_with_description("a")
@@ -197,9 +197,9 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_that_fragment_string_returns_all_matching_descriptions_for_find_all_with_description_method
     repo = ItemRepository.new([
-        {id: 1, description: "abc"},
-        {id: 2, description: "a1c"},
-        {id: 3, description: "1b2"},
+        {id: 1, description: "abc", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, description: "a1c", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, description: "1b2", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
       ])
 
     items = repo.find_all_with_description("a")
