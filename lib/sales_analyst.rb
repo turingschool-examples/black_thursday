@@ -8,15 +8,29 @@ class SalesAnalyst
     @se = se
   end
 
-  def average_items_per_merchant
-    number_of_merchants = se.merchants.all.count
-    items_per_merchant = se.merchants.all.map {|merchant| merchant.items.count}
+  def number_of_merchants
+    se.merchants.all.count
+  end
 
+  def items_per_merchant
+    se.merchants.all.map {|merchant| merchant.items.count}
+  end
+
+  def average_items_per_merchant
     (items_per_merchant.inject(0.0) {|sum, items| sum + items} / number_of_merchants).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
+    Math.sqrt(variance).round(2)
+  end
 
+  def variance
+    sum_deviations_from_the_mean / (number_of_merchants - 1)
+  end
+
+  def sum_deviations_from_the_mean
+    items_per_merchant.inject(0) { |accum, items|
+      accum + (items - average_items_per_merchant) ** 2 }
   end
 
   def merchants_with_low_item_count
