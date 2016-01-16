@@ -11,13 +11,8 @@ class SalesAnalyst
   def average_items_per_merchant
     number_of_merchants = se.merchants.all.count
     items_per_merchant = se.merchants.all.map {|merchant| merchant.items.count}
-    items_per_merchant.inject(0.0) {|sum, items| sum + items} / number_of_merchants
-     #=> Gives me the total amount of merchants
-    # binding.pry
-    #array of merchants
-    #somehow iterate through the damn
-    # arr.inject(0.0) { |sum, el| sum + el } / arr.size
-    #
+
+    (items_per_merchant.inject(0.0) {|sum, items| sum + items} / number_of_merchants).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
