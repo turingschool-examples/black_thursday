@@ -5,7 +5,7 @@ require_relative 'item'
 class ItemRepository
   attr_reader   :all, :items
 
-  def initialize(csv_hash, engine)
+  def initialize(csv_hash, engine = nil)
     @items = csv_hash.map {|csv_hash| Item.new(csv_hash, engine)}
   end
 

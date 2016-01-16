@@ -9,8 +9,7 @@ class Item
     @name          = item_info[:name]
     @id            = item_info[:id].to_i
     @description   = item_info[:description]
-    @unit_price    = BigDecimal.new((item_info[:unit_price].to_f / 100).to_s).to_f
-    # binding.pry
+    @unit_price    = BigDecimal.new((item_info[:unit_price].to_f / 100).to_s, 4).to_f
     @created_at    = Time.parse(item_info[:created_at])
     @updated_at    = Time.parse(item_info[:updated_at])
     @merchant_id   = item_info[:merchant_id].to_i
@@ -19,6 +18,6 @@ class Item
 
   def merchant
     #Etsy owner's merchant ID needs to pop up here per every item made
-    merchant_repo.find_by_id(self.merchant_id)
+    @engine.merchants.find_by_id(self.merchant_id)
   end
 end

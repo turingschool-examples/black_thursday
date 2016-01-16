@@ -211,9 +211,9 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_that_fragment_string_returns_all_matching_descriptions_for_find_all_with_description_method_v2
     repo = ItemRepository.new([
-        {id: 1, description: "abc"},
-        {id: 2, description: "a1c"},
-        {id: 3, description: "1b2"},
+        {id: 1, description: "abc", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, description: "a1c", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, description: "1b2", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
       ])
 
     assert_equal [1, 2], repo.find_all_with_description("a").map(&:id)
@@ -223,9 +223,9 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_edge_that_fragment_string_returns_all_matching_descriptions_even_when_typed_weird_for_find_all_with_description_method
     repo = ItemRepository.new([
-        {id: 1, description: "AcrYlique sUr "},
-        {id: 2, description: "AcrYlique exécuTée"},
-        {id: 3, description: "1b2"},
+        {id: 1, description: "AcrYlique sUr ", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, description: "AcrYlique exécuTée", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, description: "1b2", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
       ])
 
     assert_equal [1, 2], repo.find_all_with_description("a").map(&:id)
@@ -233,9 +233,9 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_edge_that_fragment_string_returns_all_matching_descriptions_with_uppercase_and_lowercase_letters
     repo = ItemRepository.new([
-        {id: 1, description: "AcrYlique sUr "},
-        {id: 2, description: "AcrYlique exécuTée"},
-        {id: 3, description: "1b2"},
+        {id: 1, description: "AcrYlique sUr ", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, description: "AcrYlique exécuTée", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, description: "1b2", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
       ])
 
     assert_equal [1,2], repo.find_all_with_description("AcrYlique ").map(&:id)
@@ -255,11 +255,11 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_that_find_all_by_price_returns_values
     repo = ItemRepository.new([
-        {id: 1, unit_price: "1186"},
-        {id: 2, unit_price: "1099"},
-        {id: 3, unit_price: "11099"},
-        {id: 4, unit_price: "11099"},
-        {id: 5, unit_price: "11099"},
+        {id: 1, unit_price: "1186", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, unit_price: "1099", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, unit_price: "11099", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 4, unit_price: "11099", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 5, unit_price: "11099", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
       ])
 
     result = repo.find_all_by_price(110.99)
@@ -269,9 +269,9 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_that_find_all_by_price_returns_empty_array_for_absurd_price
     repo = ItemRepository.new([
-        {id: 1, unit_price: "1186"},
-        {id: 2, unit_price: "1099"},
-        {id: 3, unit_price: "11099"},
+        {id: 1, unit_price: "1186", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, unit_price: "1099", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, unit_price: "11099", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
       ])
 
     assert_equal [], repo.find_all_by_price(12345678.99)
@@ -279,9 +279,9 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_that_find_all_by_price_will_work_as_a_string_with_decimals
     repo = ItemRepository.new([
-        {id: 1, unit_price: "1186"},
-        {id: 2, unit_price: "1099"},
-        {id: 3, unit_price: "11099"},
+        {id: 1, unit_price: "1186", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, unit_price: "1099", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, unit_price: "11099", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
       ])
     #no dollar signs needed if the csv file never had any to begin with
     #nor will we waste our time creating edge cases that will not happen
@@ -290,9 +290,9 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_that_find_all_by_price_in_range_is_an_array
     repo = ItemRepository.new([
-        {id: 1, unit_price: "1186"},
-        {id: 2, unit_price: "1099"},
-        {id: 3, unit_price: "11099"},
+        {id: 1, unit_price: "1186", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, unit_price: "1099", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, unit_price: "11099", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
       ])
 
     num   = (1..10)
@@ -304,9 +304,9 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_that_find_all_by_price_in_range_returns_items_within_inputted_price_range
     repo = ItemRepository.new([
-        {id: 1, unit_price: "1186"},
-        {id: 2, unit_price: "1099"},
-        {id: 3, unit_price: "11099"},
+        {id: 1, unit_price: "1186", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, unit_price: "1099", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, unit_price: "11099", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
       ])
 
     result = repo.find_all_by_price_in_range(10..12)
@@ -316,9 +316,9 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_that_find_all_by_price_in_range_returns_empty_array_for_unknown_price_range
     repo = ItemRepository.new([
-        {id: 1, unit_price: "1186"},
-        {id: 2, unit_price: "1099"},
-        {id: 3, unit_price: "11099"},
+        {id: 1, unit_price: "1186", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, unit_price: "1099", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, unit_price: "11099", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
       ])
 
     assert_equal [], repo.find_all_by_price_in_range(1..10)
@@ -326,9 +326,9 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_that_find_all_by_merchant_id_is_an_array
     repo = ItemRepository.new([
-        {id: 1, unit_price: "1186"},
-        {id: 2, unit_price: "1099"},
-        {id: 3, unit_price: "11099"},
+        {id: 1, unit_price: "1186", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, unit_price: "1099", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, unit_price: "11099", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
       ])
 
     price = repo.find_all_by_merchant_id(10)
@@ -338,10 +338,10 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_that_find_all_by_merchant_id_returns_id_matches
     repo = ItemRepository.new([
-        {id: 1, merchant_id: "11860"},
-        {id: 2, merchant_id: "10990"},
-        {id: 3, merchant_id: "10"},
-        {id: 4, merchant_id: "10"},
+        {id: 1, merchant_id: "11860", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, merchant_id: "10990", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, merchant_id: "10", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 4, merchant_id: "10", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
       ])
 
     price = repo.find_all_by_merchant_id(10)
@@ -351,10 +351,10 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_that_find_all_by_merchant_id_returns_empty_array_when_no_matches_are_found
     repo = ItemRepository.new([
-        {id: 1, merchant_id: "11860"},
-        {id: 2, merchant_id: "10990"},
-        {id: 3, merchant_id: "110990"},
-        {id: 4, merchant_id: "109900"},
+        {id: 1, merchant_id: "11860",:created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, merchant_id: "10990",:created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, merchant_id: "110990",:created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 4, merchant_id: "109900",:created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
       ])
 
     price = repo.find_all_by_merchant_id(00000)

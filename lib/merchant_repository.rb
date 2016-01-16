@@ -4,19 +4,21 @@ require          'pry'
 
 class MerchantRepository
   attr_reader   :all, :merchant_instances
-  attr_accessor :items_repo
 
-  def initialize(csv_hash, items_repo = nil)
+  def initialize(csv_hash, engine = nil)
     @merchant_instances = csv_hash.map do |csv_hash|
-      merchant = Merchant.new(csv_hash, items_repo)
+      merchant = Merchant.new(csv_hash, engine)
     end
-    # merchant.items = items_repo
   end
 
   def all
     merchant_instances
   end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+  
   def standard(data_to_be_standardized)
     data_to_be_standardized.to_s.downcase.gsub(" ", "")
   end
@@ -33,8 +35,5 @@ class MerchantRepository
     merchant_instances.find_all { |merchant| merchant.name.downcase.include? standard(merchant_name) }
   end
 
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
-  end
 
 end
