@@ -38,7 +38,7 @@ class SalesEngineTest < Minitest::Test
     assert_kind_of SalesEngine, se
   end
 
-  def test_that_will_merchant_and_items_relationship_works! 
+  def test_that_will_merchant_and_items_relationship_works!
     se = SalesEngine.new(
     {
       items:     [ {id: 1, merchant_id: 1, name: "Vogue Paris 2307", unit_price: "2999",  :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
@@ -49,13 +49,9 @@ class SalesEngineTest < Minitest::Test
       })
 
     merchant = se.merchants.find_by_id("1")
-    #merchant is asking for an input that will connect its "1" with the merchant id
     assert_equal ["Vogue Paris 2307", "Givenchy 2307"], merchant.items.map(&:name)
-    #from here, all I'm getting is the merchant items that matched in line 69 to
-    #the merchant's own ID
+
     item = se.items.find_by_id(1)
-    #here I'm inputting the item's ID
-    #item.merchant.name connects me to the merchant_id and gets me its name "Shopin1901"
     assert_equal "Shopin1901", item.merchant.name
   end
 end
