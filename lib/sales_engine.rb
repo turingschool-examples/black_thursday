@@ -19,7 +19,8 @@ class SalesEngine
   end
 
   def start_up_engine(repo_rows)
-    @items                = ItemRepository.new(repo_rows[:items], self)
-    @merchants            = MerchantRepository.new(repo_rows[:merchants], self)
+    @items                = ItemRepository.new(repo_rows[:items])
+    @merchants            = MerchantRepository.new(repo_rows[:merchants])
+    @merchants 
   end
 end

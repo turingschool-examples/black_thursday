@@ -28,7 +28,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_that_merchants_with_low_item_count_method_exist
-      assert SalesAnalyst.method_defined? :merchants_with_low_item_count
+      assert SalesAnalyst.method_defined? :merchants_with_high_item_count
   end
 
   def test_that_average_item_price_for_merchant_method_exist
@@ -55,11 +55,23 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal "Store One", item.merchant.name
   end
-meta run:true
+
   def test_that_average_items_per_merchant_works
     sa = SalesAnalyst.new(se)
-    
+
     assert_equal 1.8, sa.average_items_per_merchant
+  end
+
+  def test_that_the_standard_deviation_is_calculated
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 0.84, sa.average_items_per_merchant_standard_deviation
+  end
+meta run:true
+  def test_which_merchants_sell_the_most_items
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 1, sa.merchants_with_high_item_count.length
   end
 
 end

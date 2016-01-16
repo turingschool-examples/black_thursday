@@ -33,15 +33,24 @@ class SalesAnalyst
       accum + (items - average_items_per_merchant) ** 2 }
   end
 
-  def merchants_with_low_item_count
-
+  def one_standard_dev_above_mean_value
+    average_items_per_merchant + average_items_per_merchant_standard_deviation
   end
 
-  def average_item_price_for_merchant
+  def merchants_with_high_item_count
+    se.merchants.all.find_all { |merchant|
+       merchant.items.count > one_standard_dev_above_mean_value }
+  end
+
+  def average_item_price_for_merchant(price)
 
   end
 
   def average_price_per_merchant
+
+  end
+
+  def average_average_price_per_merchant
 
   end
 
