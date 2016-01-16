@@ -10,7 +10,7 @@ class Item
     @id            = item_info[:id].to_i
     @description   = item_info[:description]
     @unit_price    = BigDecimal.new(item_info[:unit_price]/100).to_f
-    # binding.pry 
+    # binding.pry
     # @unit_price    = BigDecimal.new((item_info[:unit_price].to_f / 100).to_s, 4).to_f
     @created_at    = Time.parse(item_info[:created_at])
     @updated_at    = Time.parse(item_info[:updated_at])
