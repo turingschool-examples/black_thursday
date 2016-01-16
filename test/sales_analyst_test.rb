@@ -52,9 +52,8 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_that_sales_engine_runs
-    skip
     a = SalesAnalyst.new(se)
-    binding.pry
+
     assert_equal SalesAnalyst, a.class
   end
 
