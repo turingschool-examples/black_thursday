@@ -5,9 +5,9 @@ require          'pry'
 class MerchantRepository
   attr_reader   :all, :merchant_instances
 
-  def initialize(csv_hash, engine = nil)
+  def initialize(csv_hash)
     @merchant_instances = csv_hash.map do |csv_hash|
-      merchant = Merchant.new(csv_hash, engine)
+      merchant = Merchant.new(csv_hash)
     end
   end
 
