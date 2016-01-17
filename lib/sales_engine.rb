@@ -31,24 +31,20 @@ class SalesEngine
   end
 
   def load_items_repo(repo_rows)
-=======
->>>>>>> parent of c690b71... linked between accounts made
     @items      = ItemRepository.new(repo_rows[:items])
-    @merchants  = MerchantRepository.new(repo_rows[:merchants])
+    if repo_rows[:merchants]
+      items_to_merchants
+      merchants_to_items
+    end
+  end
+
+  def load_invoice_repo(repo_rows)
     @invoices   = InvoiceRepository.new(repo_rows[:invoices])
-<<<<<<< HEAD
     if repo_rows[:merchants]
       invoices_to_merchants
       merchants_to_invoices
     end
-=======
-    items_to_merchants
-    merchants_to_items
-    invoices_to_merchants
-    merchants_to_invoices
->>>>>>> parent of c690b71... linked between accounts made
   end
-
 
   def items_to_merchants
     @merchants.all.map { |merchant|
