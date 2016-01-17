@@ -35,10 +35,6 @@ class SalesAnalystTest < Minitest::Test
       assert SalesAnalyst.method_defined? :average_item_price_for_merchant
   end
 
-  def test_that_average_price_per_merchant_method_exist
-      assert SalesAnalyst.method_defined? :average_price_per_merchant
-  end
-
   def test_that_golden_items_method_exist
       assert SalesAnalyst.method_defined? :golden_items
   end
@@ -59,12 +55,13 @@ class SalesAnalystTest < Minitest::Test
   def test_that_average_items_per_merchant_works
     sa = SalesAnalyst.new(se)
 
-    assert_equal 1.8, sa.average_items_per_merchant
-  e
+    assert_equal 1.5, sa.average_items_per_merchant
+  end
+
   def test_that_the_standard_deviation_is_calculated
     sa = SalesAnalyst.new(se)
 
-    assert_equal 0.84, sa.average_items_per_merchant_standard_deviation
+    assert_equal 1.05, sa.average_items_per_merchant_standard_deviation
   end
 
   def test_which_merchants_sell_the_most_items
@@ -75,7 +72,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_average_item_price_for_merchant
     sa = SalesAnalyst.new(se)
-    average = sa.average_item_price_for_merchant(66)
+    average = sa.average_item_price_for_merchant(22)
     # binding.pry
     assert_equal 2.33, average.to_f
   end
@@ -85,6 +82,6 @@ class SalesAnalystTest < Minitest::Test
     sa = SalesAnalyst.new(se)
     average = sa.average_average_price_per_merchant
     # binding.pry
-    assert_equal 63.58, average.to_f
+    assert_equal 52.98, average.to_f
   end
 end
