@@ -16,9 +16,8 @@ class SalesEngineTest < Minitest::Test
     @se = SalesEngine.from_csv({
                               :items     => "./data/items_sample.csv",
                               :merchants => "./data/merchants_sample.csv",
-                              :invoices  => "./data/invoice_sample.csv"
+                              :invoices  => "./data/sample/invoice_sample.csv"
                               })
-                              binding.pry
   end
 
   def test_that_class_has_an_item_repository_instance
