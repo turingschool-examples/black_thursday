@@ -1,5 +1,6 @@
 require          'csv'
 require          'pry'
+require          'bigdecimal'
 require_relative 'item'
 
 class ItemRepository
