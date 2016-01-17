@@ -51,6 +51,7 @@ class SalesEngine
     end
   end
 
+
   def items_to_merchants
     @merchants.all.map { |merchant|
       merchant.items = @items.find_all_by_merchant_id(merchant.id)}
