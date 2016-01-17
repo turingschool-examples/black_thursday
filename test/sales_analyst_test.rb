@@ -60,8 +60,7 @@ class SalesAnalystTest < Minitest::Test
     sa = SalesAnalyst.new(se)
 
     assert_equal 1.8, sa.average_items_per_merchant
-  end
-
+  e
   def test_that_the_standard_deviation_is_calculated
     sa = SalesAnalyst.new(se)
 
