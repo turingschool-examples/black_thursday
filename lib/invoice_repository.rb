@@ -31,6 +31,6 @@ class InvoiceRepository
 
   def find_all_by_status(status)
     invoices.find_all { |invoice| invoice.status == status.to_sym }
-  end     
+  end
 
 end
