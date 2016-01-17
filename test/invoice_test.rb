@@ -58,4 +58,8 @@ class InvoiceTest < Minitest::Test
     assert_equal Time.parse("2014-03-15"), invoice.updated_at
   end
 
+  def test_find_by_id
+
+  end
+
 end

@@ -2,6 +2,13 @@ require_relative 'invoice'
 require          'pry'
 
 class InvoiceRepository
+  
+
+  def initialize(csv_hash)
+    @invoice_instances = csv_hash.map do |csv_hash|
+      merchant = Item.new(csv_hash)
+    end
+  end
 
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
