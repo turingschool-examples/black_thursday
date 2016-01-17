@@ -1,14 +1,20 @@
 require_relative 'invoice'
+require          'csv'
 require          'pry'
 
 class InvoiceRepository
+  attr_reader :all, :invoices
+
+  # def initialize(csv_hash)
+  #   @invoices = csv_hash.map {|csv_hash| Invoice.new(csv_hash)}
+  # end
 
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
 
   def all
-
+    
   end
 
   def find_by_id

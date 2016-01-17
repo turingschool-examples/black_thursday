@@ -5,7 +5,7 @@ require          'csv'
 
 class SalesEngine
   attr_reader :repo_rows
-  attr_accessor :items, :merchants
+  attr_accessor :items, :merchants, :invoices
 
   def initialize(repo_rows)
     start_up_engine(repo_rows)
