@@ -22,11 +22,11 @@ class InvoiceRepository
   end
 
   def find_all_by_customer_id(customer_id)
-    invoices.find_all { |invoice| invoice.customer_id == customer_id.to_i } 
+    invoices.find_all { |invoice| invoice.customer_id == customer_id.to_i }
   end
 
-  def find_all_by_merchant_id
-
+  def find_all_by_merchant_id(merchant_id)
+    invoices.find_all { |invoice| invoice.merchant_id == merchant_id.to_i}
   end
 
   def find_all_by_status

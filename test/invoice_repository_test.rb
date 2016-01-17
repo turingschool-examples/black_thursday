@@ -19,6 +19,8 @@ class InvoiceRepositoryTest < Minitest::Test
         {id: 3, customer_id: 33, merchant_id: 3333, status: :pending, :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
         {id: 4, customer_id: 44, merchant_id: 4444, status: :shipped, :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
         {id: 5, customer_id: 55, merchant_id: 5555, status: :pending, :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 6, customer_id: 55, merchant_id: 5555, status: :shipped, :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 7, customer_id: 55, merchant_id: 5555, status: :pending, :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
         ])
   end
 
@@ -57,9 +59,13 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_that_customer_id_works
-    assert_equal   [Invoice], repo.find_all_by_customer_id(55).map(&:class)
-    assert_equal         [5], repo.find_all_by_customer_id(55).map(&:id)
-    assert_equal [:pending], repo.find_all_by_customer_id(55).map(&:status)
+    assert_equal   [Invoice, Invoice, Invoice], repo.find_all_by_customer_id(55).map(&:class)
+    assert_equal                     [5, 6, 7], repo.find_all_by_customer_id(55).map(&:id)
+    assert_equal [:pending, :shipped, :pending], repo.find_all_by_customer_id(55).map(&:status)
+  end
+
+  def test_that_customer_id_returns_empty_array_when_no_matches_found
+    assert_equal [], repo.find_all_by_customer_id(000)
   end
 
 end
