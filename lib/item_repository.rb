@@ -36,13 +36,13 @@ class ItemRepository
   end
 
   def find_all_by_price(input_price)
-    items.find_all { |item| item.unit_price_to_dollars == input_price.to_f }
+    items.find_all { |item| item.unit_price.to_f == input_price.to_f }
   end
 
   def find_all_by_price_in_range(range_input)
     range = (range_input).to_a
 
-    items.find_all {|item| range_input.include?(item.unit_price_to_dollars)}
+    items.find_all {|item| range_input.include?(item.unit_price.to_f)}
   end
 
   def find_all_by_merchant_id(merchant_id)
