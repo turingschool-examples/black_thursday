@@ -78,6 +78,6 @@ meta run:true
     sa = SalesAnalyst.new(se)
     a = sa.average_item_price_for_merchant(22)
     # binding.pry
-    assert_equal 233, a
+    assert_equal 2.33, a.to_f
   end
 end

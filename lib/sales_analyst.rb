@@ -1,5 +1,6 @@
 require_relative 'sales_engine'
 require          'pry'
+require          'pry'
 
 class SalesAnalyst
   attr_reader :se
@@ -18,17 +19,14 @@ class SalesAnalyst
 
   def merchants_items_prices(merchant_id)
     se.merchants.find_by_id(merchant_id).items.map do |item|
-      item.unit_price.to_f
+      item.unit_price
     end
   end
-  #
-  # def merchants_items
-  #   s = se.merchants.all.map { |merchant| merchant.items}
-  #   binding.pry
-  # end
 
   def average_item_price_for_merchant(merchant_id)
-    merchants_items_prices(merchant_id).reduce(0.0) { |sum, price| sum + price } / merchants_items_prices(merchant_id).count
+    float_answer = merchants_items_prices(merchant_id).reduce(0.0) { |sum, price|
+       sum + price } / merchants_items_prices(merchant_id).count
+    (float_answer / 100).round(2)
   end
 
   def average_items_per_merchant
