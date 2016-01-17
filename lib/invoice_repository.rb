@@ -14,7 +14,7 @@ class InvoiceRepository
   end
 
   def all
-
+    invoices
   end
 
   def find_by_id

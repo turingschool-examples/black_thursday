@@ -6,14 +6,20 @@ require          'minitest/pride'
 
 
 class InvoiceRepositoryTest < Minitest::Test
-  attr_reader :sample
+  attr_reader :repo
 
   def test_class_exist
     assert InvoiceRepository
   end
 
   def setup
-    @sample = SalesEngine.from_csv({:invoices => "./data/invoice_sample.csv"})
+    @repo = InvoiceRepository.new([
+        {id: 1, customer_id: 11, merchant_id: 1111, status: "pending", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, customer_id: 22, merchant_id: 2222, status: "shipped", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, customer_id: 33, merchant_id: 3333, status: "pending", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 4, customer_id: 44, merchant_id: 4444, status: "shipped", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 5, customer_id: 55, merchant_id: 5555, status: "pending", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
+        ])
   end
 
   def test_that_all_method_exist
@@ -37,12 +43,6 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_that_the_all_method_returns_an_array
-    repo = InvoiceRepository.new([
-      {id: 1, description: "abc", unit_price: 1000, :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-      {id: 2, description: "a1c", unit_price: 1000, :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-      {id: 3, description: "1b2", unit_price: 1000, :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
-    ])
-    binding.pry
     assert_kind_of(Array, repo.all)
   end
 
