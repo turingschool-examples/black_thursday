@@ -13,9 +13,6 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def setup
-<<<<<<< HEAD
-  @se = SalesEngine.from_csv({:invoices => "./data/invoice_sample.csv"})
-=======
     @repo = InvoiceRepository.new([
         {id: 1, customer_id: 11, merchant_id: 1111, status: :pending, :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
         {id: 2, customer_id: 22, merchant_id: 2222, status: :shipped, :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
@@ -25,7 +22,6 @@ class InvoiceRepositoryTest < Minitest::Test
         {id: 6, customer_id: 55, merchant_id: 5555, status: :shipped, :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
         {id: 7, customer_id: 55, merchant_id: 5555, status: :pending, :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
         ])
->>>>>>> master
   end
 
   def test_that_all_method_exist
