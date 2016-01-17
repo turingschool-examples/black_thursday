@@ -47,7 +47,6 @@ class SalesEngine
     if repo_rows[:merchants]
       invoices_to_merchants
       merchants_to_invoices
-      binding.pry
     end
   end
 
