@@ -1,3 +1,4 @@
+
 module LoadData
   extend self
   def load_data(data)

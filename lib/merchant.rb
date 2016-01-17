@@ -1,3 +1,4 @@
+
 require 'pry'
 
 class Merchant

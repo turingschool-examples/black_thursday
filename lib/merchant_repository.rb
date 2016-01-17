@@ -1,3 +1,4 @@
+
 require_relative 'merchant'
 require          'csv'
 require          'pry'

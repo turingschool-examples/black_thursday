@@ -8,4 +8,5 @@ id,invoice_id,credit_card_number,credit_card_expiration_date,result,created_at,u
 7,7,4.61325E+15,314,success,2012-02-26 20:56:57 UTC,2012-02-26 20:56:57 UTC
 8,8,4.83951E+15,213,success,2012-02-26 20:56:57 UTC,2012-02-26 20:56:57 UTC
 9,9,4.46353E+15,618,failed,2012-02-26 20:56:57 UTC,2012-02-26 20:56:57 UTC
+
 10,10,4.14965E+15,420,success,2012-02-26 20:56:57 UTC,2012-02-26 20:56:57 UTC

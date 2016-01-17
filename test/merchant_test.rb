@@ -1,3 +1,4 @@
+
 require_relative './../lib/merchant'
 require_relative 'spec_helper'
 require          'pry'
