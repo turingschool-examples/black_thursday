@@ -76,4 +76,13 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal [], repo.find_all_by_merchant_id(0000)
   end
 
+  def test_that_find_all_by_status_works
+    assert_equal    [2, 4, 6], repo.find_all_by_status("shipped").map(&:id)
+    assert_equal [1, 3, 5, 7], repo.find_all_by_status("pending").map(&:id)
+  end
+
+  def test_that_find_all_by_status_returns_an_empty_array_when_no_matches
+    assert_equal [], repo.find_all_by_status("waiting")
+  end
+
 end
