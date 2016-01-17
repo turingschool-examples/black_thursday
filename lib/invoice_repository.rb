@@ -7,7 +7,6 @@ class InvoiceRepository
 
   def initialize(csv_hash)
     @invoices = csv_hash.map {|csv_hash| Invoice.new(csv_hash)}
-
   end
 
   def inspect

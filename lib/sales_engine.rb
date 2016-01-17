@@ -12,6 +12,7 @@ class SalesEngine
     start_up_engine(repo_rows)
   end
 
+
   def self.from_csv(csv_hash)
     repo_rows = csv_hash.map do |type, filename|
       [type, LoadData.load_data(filename)]
@@ -20,11 +21,6 @@ class SalesEngine
   end
 
   def start_up_engine(repo_rows)
-    @items                = ItemRepository.new(repo_rows[:items])
-    @merchants            = MerchantRepository.new(repo_rows[:merchants])
-    @invoices             = InvoiceRepository.new(repo_rows[:invoices])
-    items_to_merchants
-    merchants_to_items
     load_merchants_repo(repo_rows) if repo_rows[:merchants]
     load_items_repo(repo_rows) if repo_rows[:items]
     load_invoice_repo(repo_rows) if repo_rows[:invoices]
