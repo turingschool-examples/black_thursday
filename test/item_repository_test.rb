@@ -261,7 +261,7 @@ class ItemRepositoryTest < Minitest::Test
         {id: 5, unit_price: "11000", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
       ])
 
-    result = repo.find_all_by_price(110)
+    result = repo.find_all_by_price(11000)
 
     assert_equal [3, 4, 5], result.map(&:id)
   end
@@ -285,7 +285,7 @@ class ItemRepositoryTest < Minitest::Test
     #no dollar signs needed if the csv file never had any to begin with
     #nor will we waste our time creating edge cases that will not happen
 
-    assert_equal [2], repo.find_all_by_price("10.99").map(&:id)
+    assert_equal [2], repo.find_all_by_price("1099").map(&:id)
   end
   #
   def test_that_find_all_by_price_in_range_is_an_array
@@ -309,7 +309,7 @@ class ItemRepositoryTest < Minitest::Test
         {id: 3, unit_price: "11099", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
       ])
 
-    result = repo.find_all_by_price_in_range(10..12)
+    result = repo.find_all_by_price_in_range(1000..1200)
 
     assert_equal [1,2], result.map(&:id)
   end
