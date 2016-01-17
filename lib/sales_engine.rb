@@ -1,5 +1,6 @@
 require_relative 'merchant_repository'
 require_relative 'item_repository'
+require_relative 'invoice_repository'
 require_relative 'load_data'
 require          'csv'
 
@@ -19,8 +20,9 @@ class SalesEngine
   end
 
   def start_up_engine(repo_rows)
-    @items                = ItemRepository.new(repo_rows[:items])
-    @merchants            = MerchantRepository.new(repo_rows[:merchants])
+    @items      = ItemRepository.new(repo_rows[:items])
+    @merchants  = MerchantRepository.new(repo_rows[:merchants])
+    @invoices   = InvoiceRepository.new(repo_rows[:invoices])
     items_to_merchants
     merchants_to_items
   end
