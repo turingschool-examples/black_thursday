@@ -86,8 +86,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_edge_that_find_by_id_returns_known_item_even_when_inputted_as_string
     se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
+      :items     => "./data/items.csv"
     }).items
 
     item = se.find_by_id("263395237")
@@ -139,9 +138,7 @@ class ItemRepositoryTest < Minitest::Test
         {id: 3, unit_price: 1000, name:   "Searched With Spaces", :created_at=>"2016-01-11 10:37:09 UTC", :updated_at=>"2016-01-11 10:37:09 UTC"},
       ])
     item = repo.find_by_name("Searched With Spaces")
-    #changed this test because the chances of someone putting
-    #fucking spaces in every single letter is nil and is a waste of time to try
-    #and fix
+
     assert_equal "Searched With Spaces", item.name
   end
 
@@ -184,8 +181,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_that_find_all_with_description_returns_empty_array_when_it_matches_no_description
     se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
+      :items     => "./data/items.csv"
     })
 
     ir          = se.items
@@ -242,8 +238,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_that_find_all_by_price_is_an_array
     se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
+      :items     => "./data/items.csv"
     })
     ir    = se.items
     price = ir.find_all_by_price(10.99)

@@ -9,9 +9,11 @@ class SalesAnalystTest < Minitest::Test
   attr_reader :se
 
   def setup
+    # binding.pry
     @se = SalesEngine.from_csv({
-              :items     => "./data/items_sample.csv",
-              :merchants => "./data/merchants_sample.csv",
+              :items     => "./data/sample/items_sample.csv",
+              :merchants => "./data/sample/merchants_sample.csv",
+              :invoices  => "./data/sample/items_sample.csv"
                               })
   end
 

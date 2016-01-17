@@ -17,7 +17,7 @@ class InvoiceTest < Minitest::Test
                 :id          => 6,
                 :customer_id => 7,
                 :merchant_id => 8,
-                :status      => "pending",
+                :status      => :pending,
                 :created_at  => "2009-02-07",
                 :updated_at  => "2014-03-15",
                                           })
@@ -53,7 +53,7 @@ class InvoiceTest < Minitest::Test
     assert_equal         6, invoice.id
     assert_equal         7, invoice.customer_id
     assert_equal         8, invoice.merchant_id
-    assert_equal "pending", invoice.status
+    assert_equal  :pending, invoice.status
     assert_equal Time.parse("2009-02-07"), invoice.created_at
     assert_equal Time.parse("2014-03-15"), invoice.updated_at
   end
