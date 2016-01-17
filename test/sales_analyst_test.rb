@@ -85,7 +85,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 52.98, average.to_f
   end
 
-meta run:true
   def test_golden_items
     sa = SalesAnalyst.new(se)
 

@@ -12,4 +12,31 @@ class InvoiceRepositoryTest < Minitest::Test
     assert InvoiceRepository
   end
 
+  # def setup
+  #   @se = SalesEngine.from_csv({
+  #             :items     => "./data/items_sample.csv",
+  #             :merchants => "./data/merchants_sample.csv",
+  #                             })
+  # end
+
+  def test_that_all_method_exist
+    assert InvoiceRepository.method_defined? :all
+  end
+
+  def test_that_find_by_id_method_exist
+    assert InvoiceRepository.method_defined? :find_by_id
+  end
+
+  def test_that_find_all_by_customer_id_method_exist
+    assert InvoiceRepository.method_defined? :find_all_by_customer_id
+  end
+
+  def test_that_find_all_by_merchant_id_method_exist
+    assert InvoiceRepository.method_defined? :find_all_by_merchant_id
+  end
+
+  def test_that_find_all_by_status_method_exist
+    assert InvoiceRepository.method_defined? :find_all_by_status
+  end
+
 end
