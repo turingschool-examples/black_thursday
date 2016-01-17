@@ -16,8 +16,9 @@ class SalesEngineTest < Minitest::Test
     @se = SalesEngine.from_csv({
                               :items     => "./data/items_sample.csv",
                               :merchants => "./data/merchants_sample.csv",
-                              :invoices  => "./data/items_sample.csv"
+                              :invoices  => "./data/invoice_sample.csv"
                               })
+                              binding.pry
   end
 
   def test_that_class_has_an_item_repository_instance
@@ -38,8 +39,11 @@ class SalesEngineTest < Minitest::Test
 
   def test_that_will_merchant_and_items_relationship_works_on_getting_the_unit_prices
     merchant = se.merchants.find_by_id(22)
-
     assert_equal ["Second Item Name", "Third Item Name", "Fourth Item Name"], merchant.items.map(&:name)
     assert_equal [222.0, 33.0, 444.0], merchant.items.map(&:unit_price).map{ |x| x.to_f }
+  end
+
+  def test_that_the_relationship_between_the_invoices_and_merchants_exist
+
   end
 end
