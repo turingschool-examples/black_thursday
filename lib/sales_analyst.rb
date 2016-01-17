@@ -54,17 +54,17 @@ class SalesAnalyst
     end
   end
 
-  def average_item_price_for_merchant_raw(merchant_id)
-    total = merchants_items_prices(merchant_id)
-    if total.count == 0
+  def account_for_zero_items(total_items)
+    if total_items.count == 0
       0
     else
-      total.reduce(:+) / total.count
+      total_items.reduce(:+) / total_items.count
     end
   end
 
   def average_item_price_for_merchant(merchant_id)
-    (average_item_price_for_merchant_raw(merchant_id) / 100).round(2)
+    total = merchants_items_prices(merchant_id)
+    (account_for_zero_items(total) / 100).round(2)
   end
 
   def all_merchants_averages
