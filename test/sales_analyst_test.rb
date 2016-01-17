@@ -66,11 +66,25 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal 0.84, sa.average_items_per_merchant_standard_deviation
   end
-meta run:true
+
   def test_which_merchants_sell_the_most_items
     sa = SalesAnalyst.new(se)
 
     assert_equal 1, sa.merchants_with_high_item_count.length
   end
 
+  def test_average_item_price_for_merchant
+    sa = SalesAnalyst.new(se)
+    average = sa.average_item_price_for_merchant(66)
+    # binding.pry
+    assert_equal 2.33, average.to_f
+  end
+
+  meta run:true
+  def test_average_average_price_per_merchant
+    sa = SalesAnalyst.new(se)
+    average = sa.average_average_price_per_merchant
+    # binding.pry
+    assert_equal 63.58, average.to_f
+  end
 end
