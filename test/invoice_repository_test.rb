@@ -68,4 +68,12 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal [], repo.find_all_by_customer_id(000)
   end
 
+  def test_that_find_all_by_merchant_id_method_works
+    assert_equal [5,6,7], repo.find_all_by_merchant_id(5555).map(&:id)
+  end
+
+  def test_that_find_all_by_merchant_id_method_returns_empty_array_when_no_matches_found
+    assert_equal [], repo.find_all_by_merchant_id(0000)
+  end
+
 end
