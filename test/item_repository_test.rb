@@ -86,7 +86,9 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_edge_that_find_by_id_returns_known_item_even_when_inputted_as_string
     se = SalesEngine.from_csv({
-      :items     => "./data/items.csv"
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/sample/invoice_sample.csv"
     }).items
 
     item = se.find_by_id("263395237")
@@ -181,7 +183,9 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_that_find_all_with_description_returns_empty_array_when_it_matches_no_description
     se = SalesEngine.from_csv({
-      :items     => "./data/items.csv"
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/sample/invoice_sample.csv"
     })
 
     ir          = se.items
@@ -238,7 +242,9 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_that_find_all_by_price_is_an_array
     se = SalesEngine.from_csv({
-      :items     => "./data/items.csv"
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/sample/invoice_sample.csv"
     })
     ir    = se.items
     price = ir.find_all_by_price(10.99)
