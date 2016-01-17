@@ -25,6 +25,8 @@ class SalesEngine
     @invoices   = InvoiceRepository.new(repo_rows[:invoices])
     items_to_merchants
     merchants_to_items
+    invoices_to_merchants
+    merchants_to_invoices
   end
 
   def items_to_merchants
@@ -35,5 +37,15 @@ class SalesEngine
   def merchants_to_items
     @items.all.map { |item|
       item.merchant = @merchants.find_by_id(item.merchant_id)}
+  end
+
+  def invoices_to_merchants
+    @merchants.all.map { |merchant|
+      merchant.invoices = @invoices.find_all_by_merchant_id(merchant.id)}
+  end
+
+  def merchants_to_invoices
+    @items.all.map { |invoice|
+      invoice.merchant = @merchants.find_by_id(invoice.merchant_id)}
   end
 end

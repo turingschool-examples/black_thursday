@@ -88,7 +88,7 @@ class ItemRepositoryTest < Minitest::Test
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices  => "./data/items_sample.csv"
+      :invoices  => "./data/sample/invoice_sample.csv"
     }).items
 
     item = se.find_by_id("263395237")
@@ -185,7 +185,7 @@ class ItemRepositoryTest < Minitest::Test
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices  => "./data/items_sample.csv"
+      :invoices  => "./data/sample/invoice_sample.csv"
     })
 
     ir          = se.items
@@ -244,7 +244,7 @@ class ItemRepositoryTest < Minitest::Test
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices  => "./data/items_sample.csv"
+      :invoices  => "./data/sample/invoice_sample.csv"
     })
     ir    = se.items
     price = ir.find_all_by_price(10.99)

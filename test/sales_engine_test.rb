@@ -14,8 +14,8 @@ class SalesEngineTest < Minitest::Test
 
   def setup
     @se = SalesEngine.from_csv({
-                              :items     => "./data/items_sample.csv",
-                              :merchants => "./data/merchants_sample.csv",
+                              :items     => "./data/sample/items_sample.csv",
+                              :merchants => "./data/sample/merchants_sample.csv",
                               :invoices  => "./data/sample/invoice_sample.csv"
                               })
   end
@@ -43,6 +43,12 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_that_the_relationship_between_the_invoices_and_merchants_exist
-
+    # binding.pry
+    merchant = se.merchants.find_by_id(22)
+    merchant.invoices
+    # => [<invoice>, <invoice>, <invoice>]
+    # binding.pry
+    invoice = se.invoices.find_by_id(1)
+    invoice.merchant
   end
 end
