@@ -73,7 +73,7 @@ class SalesAnalystTest < Minitest::Test
   def test_average_item_price_for_merchant
     sa = SalesAnalyst.new(se)
     average = sa.average_item_price_for_merchant(22)
-    # binding.pry
+
     assert_equal 2.33, average.to_f
   end
 
@@ -81,13 +81,12 @@ class SalesAnalystTest < Minitest::Test
   def test_average_average_price_per_merchant
     sa = SalesAnalyst.new(se)
     average = sa.average_average_price_per_merchant
-    # binding.pry
+
     assert_equal 52.98, average.to_f
   end
 
   def test_golden_items
     sa = SalesAnalyst.new(se)
-
 
     assert_equal 1, sa.golden_items.count
   end
