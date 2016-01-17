@@ -46,4 +46,10 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_kind_of(Array, repo.all)
   end
 
+  def test_that_find_by_id_works
+    assert_equal      5555, repo.find_by_id(5).merchant_id
+    assert_equal "pending", repo.find_by_id(5).status
+    assert_equal        55, repo.find_by_id(5).customer_id
+  end
+
 end

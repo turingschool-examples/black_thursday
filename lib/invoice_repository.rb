@@ -17,8 +17,8 @@ class InvoiceRepository
     invoices
   end
 
-  def find_by_id
-
+  def find_by_id(invoice_id)
+    invoices.find { |invoice| invoice.id == invoice_id.to_i}
   end
 
   def find_all_by_customer_id
