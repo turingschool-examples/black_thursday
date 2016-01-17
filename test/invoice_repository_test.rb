@@ -6,11 +6,12 @@ require          'minitest/pride'
 
 
 class InvoiceRepositoryTest < Minitest::Test
+  attr_reader :sample
 
   def test_class_exist
     assert InvoiceRepository
   end
-  
+
   def test_that_all_method_exist
     assert InvoiceRepository.method_defined? :all
   end
