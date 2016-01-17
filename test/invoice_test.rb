@@ -12,5 +12,28 @@ class InvoiceTest < Minitest::Test
     assert Invoice
   end
 
+  def test_that_id_method_exist
+    assert Invoice.method_defined? :id
+  end
+
+  def test_that_customer_id_method_exist
+    assert Invoice.method_defined? :customer_id
+  end
+
+  def test_that_merchant_id_method_exist
+    assert Invoice.method_defined? :merchant_id
+  end
+
+  def test_that_status_method_exist
+    assert Invoice.method_defined? :status
+  end
+
+  def test_that_created_at_method_exist
+    assert Invoice.method_defined? :created_at
+  end
+
+  def test_that_updated_at_method_exist
+    assert Invoice.method_defined? :updated_at
+  end
 
 end
