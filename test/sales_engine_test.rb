@@ -18,6 +18,7 @@ class SalesEngineTest < Minitest::Test
                               :merchants => "./data/sample/merchants_sample.csv",
                               :invoices  => "./data/sample/invoice_sample.csv"
                               })
+
   end
 
   def test_that_class_has_an_item_repository_instance

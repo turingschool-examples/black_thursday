@@ -20,13 +20,29 @@ class SalesEngine
   end
 
   def start_up_engine(repo_rows)
-    @items      = ItemRepository.new(repo_rows[:items])
+    load_merchants_repo(repo_rows) if repo_rows[:merchants]
+    load_items_repo(repo_rows) if repo_rows[:items]
+    load_invoice_repo(repo_rows) if repo_rows[:invoices]
+  end
+
+  def load_merchants_repo(repo_rows)
     @merchants  = MerchantRepository.new(repo_rows[:merchants])
+  end
+
+  def load_items_repo(repo_rows)
+    @items      = ItemRepository.new(repo_rows[:items])
+    if repo_rows[:merchants]
+      items_to_merchants
+      merchants_to_items
+    end
+  end
+
+  def load_invoice_repo(repo_rows)
     @invoices   = InvoiceRepository.new(repo_rows[:invoices])
-    items_to_merchants
-    merchants_to_items
-    invoices_to_merchants
-    merchants_to_invoices
+    if repo_rows[:merchants]
+      invoices_to_merchants
+      merchants_to_invoices
+    end
   end
 
   def items_to_merchants
