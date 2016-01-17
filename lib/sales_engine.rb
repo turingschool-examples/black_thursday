@@ -38,7 +38,7 @@ class SalesEngine
     end
   end
 
-  def load_invoice_repo(repo_rows)  
+  def load_invoice_repo(repo_rows)
     @invoices   = InvoiceRepository.new(repo_rows[:invoices])
     if repo_rows[:merchants]
       invoices_to_merchants
@@ -63,7 +63,7 @@ class SalesEngine
   end
 
   def merchants_to_invoices
-    @items.all.map { |invoice|
+    @invoices.all.map { |invoice|
       invoice.merchant = @merchants.find_by_id(invoice.merchant_id)}
   end
 end
