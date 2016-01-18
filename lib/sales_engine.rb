@@ -3,12 +3,13 @@ require_relative 'item_repository'
 require_relative 'invoice_repository'
 require_relative 'invoice_item_repository'
 require_relative 'transaction_repository'
+require_relative 'customer_repository'
 require_relative 'load_data'
 require          'csv'
 
 class SalesEngine
   attr_reader :repo_rows
-  attr_accessor :items, :merchants, :invoices, :invoice_items, :transactions
+  attr_accessor :items, :merchants, :invoices, :invoice_items, :transactions, :customers
 
   def initialize(repo_rows)
     start_up_engine(repo_rows)
@@ -27,7 +28,8 @@ class SalesEngine
     load_items_repo(repo_rows) if repo_rows[:items]
     load_invoice_repo(repo_rows) if repo_rows[:invoices]
     load_invoice_item_repo(repo_rows) if repo_rows[:invoice_items]
-    load_transaction_item_repo(repo_rows) if repo_rows[:transactions]
+    load_transaction_repo(repo_rows) if repo_rows[:transactions]
+    load_customer_repo(repo_rows) if repo_rows[:customers]
   end
 
   def load_merchants_repo(repo_rows)
@@ -59,9 +61,16 @@ class SalesEngine
   end
     #double check if the way I used BigDecimal for credit card number
     #in the TransactionRepository/Transaction class is correct
-  def load_transaction_item_repo(repo_rows)
+  def load_transaction_repo(repo_rows)
     @transactions = TransactionRepository.new(repo_rows[:transactions])
     if repo_rows[:transactions]
+      #most likely where the relationship will be added !
+    end
+  end
+
+  def load_customer_repo(repo_rows)
+    @customers = CustomerRepository.new(repo_rows[:customers])
+    if repo_rows[:customers]
       #most likely where the relationship will be added !
     end
   end
