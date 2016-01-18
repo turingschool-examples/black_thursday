@@ -122,7 +122,7 @@ class SalesAnalystTest < Minitest::Test
   def test_top_days_by_invoice_count
     sa = SalesAnalyst.new(se)
 #need to use stubs on this test
-    assert_equal [:Friday], sa.top_days_by_invoice_count
+    assert_equal ["Friday"], sa.top_days_by_invoice_count
   end
 
   def test_percentage_of_invoices_pending
