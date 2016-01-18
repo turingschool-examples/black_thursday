@@ -38,7 +38,7 @@ class SalesEngine
 
   def load_items_repo(repo_rows)
     @items      = ItemRepository.new(repo_rows[:items])
-    if repo_rows[:items]
+    if repo_rows[:merchants]
       items_to_merchants
       merchants_to_items
     end
@@ -55,7 +55,8 @@ class SalesEngine
 #ITERATION 3 STUFF=================================================
   def load_invoice_item_repo(repo_rows)
     @invoice_items = InvoiceItemRepository.new(repo_rows[:invoice_items])
-    if repo_rows[:invoice_items]
+    if repo_rows[:items] && repo_rows[:invoices]
+      items_to_invoice
       #most likely where the relationship will be added !
     end
   end
@@ -95,4 +96,30 @@ class SalesEngine
     @invoices.all.map { |invoice|
       invoice.merchant = @merchants.find_by_id(invoice.merchant_id)}
   end
+
+  def invoice_item
+    @invoice_items.all.map { |invoice_item|
+      invoice_item.item = @items.find_by_id(invoice_item.item_id)}
+  end
+
+  def items_to_invoice
+    invoice_item
+    @invoices.all.map do |invoice|
+      invoice.items = @invoice_items.find_all_by_invoice_id(invoice.id).map(&:item)
+    end
+  end
+
+
+  # def items_to_invoice
+  #   @invoices.all.map do |invoice|
+  #   invoice.items = all_items_linked_to_invoice(invoice.id)
+  #   end
+  # end
+  #
+  # def all_items_linked_to_invoice(invoice_id)
+  #   @invoice_items.find_all_by_invoice_id(invoice_id).map do |each_item|
+  #     @items.find_by_id(each_item.item_id)
+  #   end
+  # end
+
 end
