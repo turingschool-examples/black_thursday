@@ -21,11 +21,11 @@ class CustomerRepository
   end
 
   def find_all_by_first_name(customer)
-    customers.find_all {|cust| cust.first_name == customer.to_s}
+    customers.find_all {|cust| cust.first_name== customer}
   end
 
   def find_all_by_last_name(customer)
-    customers.find_all { |cust| cust.last_name == customer.to_s.capitalize}
+    customers.find_all { |cust| cust.last_name == customer}
   end
 
 end
