@@ -3,17 +3,17 @@ require_relative './spec_helper'
 require          'pry'
 require          'minitest/autorun'
 require          'minitest/pride'
+require          'mocha/mini_test'
 
 
 class SalesAnalystTest < Minitest::Test
   attr_reader :se
 
   def setup
-    # binding.pry
     @se = SalesEngine.from_csv({
               :items     => "./data/sample/items_sample.csv",
               :merchants => "./data/sample/merchants_sample.csv",
-              :invoices  => "./data/sample/items_sample.csv"
+              :invoices  => "./data/sample/invoice_sample.csv"
                               })
   end
 
@@ -92,4 +92,39 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal 1, sa.golden_items.count
   end
+
+  def test_average_invoices_per_merchant
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 1.67, sa.average_invoices_per_merchant
+  end
+
+  def test_average_invoices_per_merchant_standard_deviation
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 1.21, sa.average_invoices_per_merchant_standard_deviation
+  end
+# meta run: true
+  def test_top_merchants_by_invoice_count
+    skip
+    sa = SalesAnalyst.new(se)
+    sa.stubs(:two_standard_dev_above_mean_invoices).returns(2.5)
+
+    assert_equal 1, sa.top_merchants_by_invoice_count.count
+  end
+
+  def test_bottom_merchants_by_invoice_count
+    skip
+    sa = SalesAnalyst.new(se)
+    sa.stubs(:two_standard_dev_below_mean_invoices).returns(1.5)
+
+    assert_equal 4, sa.bottom_merchants_by_invoice_count.count
+  end
+
+  def test_top_days_by_invoice_count
+    sa = SalesAnalyst.new(se)
+#need to use stubs on this test
+    assert_equal ["Monday", "Friday", "Saturday"], sa.top_days_by_invoice_count
+  end
+
 end

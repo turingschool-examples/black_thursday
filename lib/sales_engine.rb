@@ -67,3 +67,64 @@ class SalesEngine
       invoice.merchant = @merchants.find_by_id(invoice.merchant_id)}
   end
 end
+# 
+# #Top Days by Invoice Count =====================================
+# def top_days_by_invoice_count
+#   hash_of_invoices_to_day_of_the_week
+#   x = return_weekday_hash_and_key_for_top_days.map(&:key)
+#   binding.pry
+# end
+#
+# def return_weekday_hash_and_key_for_top_days
+#   benchmark = average_invoices_per_merchant_standard_deviation
+#   @wday_created.find_all { |wday_invoices|
+#     wday_invoice.value > benchmark }
+# end
+#
+# def hash_of_invoices_to_day_of_the_week
+#   days_of_the_week_hash
+#   se.invoices.all.each do |invoice|
+#     day = invoice.created_at.strftime('%A').to_sym
+#     @wday_created[day] = @wday_created[day] += 1
+#   end
+#   @wday_created
+# end
+#
+# def days_of_the_week_hash
+#   @wday_created = { Sunday: 0,
+#                     Monday: 0,
+#                    Tuesday: 0,
+#                  Wednesday: 0,
+#                   Thursday: 0,
+#                     Friday: 0,
+#                   Saturday: 0
+#                 }
+# end
+#
+#
+# # Standard deviation for top days by invoice ================
+# def average_invoices_per_merchant_standard_deviation #can't change
+#   x =Math.sqrt(variance_days).round(2)
+# end
+#
+# def variance_days
+#   sum_deviations_from_the_mean_invoices / (number_of_invoices - 1)
+# end
+#
+# def sum_deviations_from_the_mean_invoices
+#   invoices_per_day_of_the_week.inject(0) { |accum, invoices|
+#     accum + (invoices - average_invoices_per_day) ** 2 }
+# end
+#
+# def invoices_per_day_of_the_week
+#   @wday_created.map(&:values)
+# end
+#
+# # Average invoices per day for top days by invoice============
+# def average_invoices_per_day
+#   (number_of_invoices / 7).round(2)
+# end
+#
+# def number_of_invoices
+#   se.invoices.all.count
+# end
