@@ -17,7 +17,8 @@ class SalesEngineTest < Minitest::Test
                               :items     => "./data/sample/items_sample.csv",
                               :merchants => "./data/sample/merchants_sample.csv",
                               :invoices  => "./data/sample/invoice_sample.csv",
-                              :invoice_items => "./data/sample/invoice_items_samples.csv"
+                              :invoice_items => "./data/sample/invoice_items_samples.csv",
+                              :transactions  => "./data/sample/transaction_sample.csv"
                               })
   end
 

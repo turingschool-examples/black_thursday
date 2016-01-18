@@ -2,12 +2,13 @@ require_relative 'merchant_repository'
 require_relative 'item_repository'
 require_relative 'invoice_repository'
 require_relative 'invoice_item_repository'
+require_relative 'transaction_repository'
 require_relative 'load_data'
 require          'csv'
 
 class SalesEngine
   attr_reader :repo_rows
-  attr_accessor :items, :merchants, :invoices, :invoice_items
+  attr_accessor :items, :merchants, :invoices, :invoice_items, :transactions
 
   def initialize(repo_rows)
     start_up_engine(repo_rows)
@@ -26,6 +27,7 @@ class SalesEngine
     load_items_repo(repo_rows) if repo_rows[:items]
     load_invoice_repo(repo_rows) if repo_rows[:invoices]
     load_invoice_item_repo(repo_rows) if repo_rows[:invoice_items]
+    load_transaction_item_repo(repo_rows) if repo_rows[:transactions]
   end
 
   def load_merchants_repo(repo_rows)
@@ -48,13 +50,22 @@ class SalesEngine
     end
   end
 
+#ITERATION 3 STUFF=================================================
   def load_invoice_item_repo(repo_rows)
     @invoice_items = InvoiceItemRepository.new(repo_rows[:invoice_items])
     if repo_rows[:invoice_items]
+      #most likely where the relationship will be added !
     end
   end
 
+  def load_transaction_item_repo(repo_rows)
+    @transactions = TransactionRepository.new(repo_rows[:transactions])
+    if repo_rows[:transactions]
+      #most likely where the relationship will be added !
+    end
+  end
 
+#=====================================================================
   def items_to_merchants
     @merchants.all.map { |merchant|
       merchant.items = @items.find_all_by_merchant_id(merchant.id)}
