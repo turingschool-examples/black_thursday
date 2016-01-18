@@ -57,7 +57,8 @@ class SalesEngine
       #most likely where the relationship will be added !
     end
   end
-
+    #double check if the way I used BigDecimal for credit card number
+    #in the TransactionRepository/Transaction class is correct
   def load_transaction_item_repo(repo_rows)
     @transactions = TransactionRepository.new(repo_rows[:transactions])
     if repo_rows[:transactions]
