@@ -1,12 +1,13 @@
 require_relative 'merchant_repository'
 require_relative 'item_repository'
 require_relative 'invoice_repository'
+require_relative 'invoice_item_repository'
 require_relative 'load_data'
 require          'csv'
 
 class SalesEngine
   attr_reader :repo_rows
-  attr_accessor :items, :merchants, :invoices
+  attr_accessor :items, :merchants, :invoices, :invoice_items
 
   def initialize(repo_rows)
     start_up_engine(repo_rows)
@@ -24,6 +25,7 @@ class SalesEngine
     load_merchants_repo(repo_rows) if repo_rows[:merchants]
     load_items_repo(repo_rows) if repo_rows[:items]
     load_invoice_repo(repo_rows) if repo_rows[:invoices]
+    load_invoice_item_repo(repo_rows) if repo_rows[:invoice_items]
   end
 
   def load_merchants_repo(repo_rows)
@@ -43,6 +45,12 @@ class SalesEngine
     if repo_rows[:merchants]
       invoices_to_merchants
       merchants_to_invoices
+    end
+  end
+
+  def load_invoice_item_repo(repo_rows)
+    @invoice_items = InvoiceItemRepository.new(repo_rows[:invoice_items])
+    if repo_rows[:invoice_items]
     end
   end
 

@@ -3,7 +3,7 @@ require          'csv'
 require          'pry'
 
 class MerchantRepository
-attr_reader   :all, :merchant_instances
+attr_reader :merchant_instances
 
   def initialize(csv_hash)
     @merchant_instances = csv_hash.map do |csv_hash|
