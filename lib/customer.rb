@@ -11,5 +11,4 @@ class Customer
     @created_at = Time.parse(cust_info[:created_at])
     @updated_at = Time.parse(cust_info[:updated_at])
   end
-
 end
