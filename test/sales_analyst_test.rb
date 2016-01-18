@@ -124,7 +124,40 @@ class SalesAnalystTest < Minitest::Test
   def test_top_days_by_invoice_count
     sa = SalesAnalyst.new(se)
 #need to use stubs on this test
-    assert_equal ["Monday", "Friday", "Saturday"], sa.top_days_by_invoice_count
+    assert_equal [:Friday], sa.top_days_by_invoice_count
+  end
+
+  def test_percentage_of_invoices_pending
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 60.0, sa.invoice_status(:pending)
+  end
+
+  def test_percentage_of_invoices_shipped
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 40.0, sa.invoice_status(:shipped)
+  end
+
+  def test_percentage_of_invoices_shipped_vs_pending_vs_returned
+    sa = SalesAnalyst.new(se)
+    pending = sa.invoice_status(:pending)
+    shipped = sa.invoice_status(:shipped)
+    returned = sa.invoice_status(:returned)
+
+    assert_equal 100.0, pending + shipped + returned
+  end
+
+  def test_print_percentage_of_invoice_percentages
+    sa = SalesAnalyst.new(se)
+    pending = sa.invoice_status(:pending)
+    shipped = sa.invoice_status(:shipped)
+    returned = sa.invoice_status(:returned)
+
+    printed = "Percentage of invoices shipped: 40.0% vs.
+    pending 60.0% vs. returned 0.0%"
+
+    assert_equal printed, sa.percentage_of_invoices_shipped_vs_pending_vs_returned
   end
 
 end

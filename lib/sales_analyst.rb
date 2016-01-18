@@ -224,4 +224,24 @@ class SalesAnalyst
   def days_of_the_week
     7.0
   end
+
+  # Percentage of invoices not shipped ========================
+
+  def percentage_of_invoices_shipped_vs_pending_vs_returned
+    pending = invoice_status(:pending)
+    shipped = invoice_status(:shipped)
+    returned = invoice_status(:returned)
+    "Percentage of invoices shipped: #{shipped}% vs.
+    pending #{pending}% vs. returned #{returned}%"
+  end
+
+  def invoice_status(status)
+    (percentage_of_invoice_pending(status).count / number_of_invoices.to_f * 100.0).round(2)
+  end
+
+  def percentage_of_invoice_pending(status)
+    se.invoices.all.find_all do |invoice|
+      invoice.status == status
+    end
+  end
 end
