@@ -157,7 +157,7 @@ class SalesAnalyst
   def top_days_by_invoice_count
     hash_of_invoices_to_day_of_the_week
     return_weekday_hash_and_key_for_top_days.map do |days|
-      days[0]
+      days[0].to_s
     end
   end
 
