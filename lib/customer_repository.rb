@@ -16,13 +16,16 @@ class CustomerRepository
     "#<#{self.class} #{@merchants.size} rows>"
   end
 
+  def find_by_id(customer)
+    customers.find {|cust| cust.id == customer.to_i}
+  end
 
+  def find_all_by_first_name(customer)
+    customers.find_all {|cust| cust.first_name == customer.to_s}
+  end
 
+  def find_all_by_last_name(customer)
+    customers.find_all { |cust| cust.last_name == customer.to_s.capitalize}
+  end
 
 end
-
-
-# all - returns an array of all known Customers instances
-# find_by_id - returns either nil or an instance of InvoiceItem with a matching ID
-# find_all_by_first_name - returns either [] or one or more matches which have a first name matching the substring fragment supplied
-# find_all_by_last_name - returns either [] or one or more matches which have a last name matching the substring fragment supplied

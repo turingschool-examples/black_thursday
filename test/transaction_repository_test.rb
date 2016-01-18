@@ -9,7 +9,6 @@ require          'minitest/pride'
 class TransactionRepositoryTest < Minitest::Test
   attr_reader :repo
 
-
   def test_class_exist
     assert TransactionRepository
   end
