@@ -4,16 +4,31 @@ require          'pry'
 require          'bigdecimal'
 
 class InvoiceItemRepository
-  attr_reader :invoice_item_instances
+  attr_reader :invoice_items
 
   def initialize(csv_hash)
-    @invoice_item_instances = csv_hash.map do |csv_hash|
-      item_invoice = InvoiceItem.new(csv_hash)
+    @invoice_items = csv_hash.map do |csv_hash|
+      invoice_item = InvoiceItem.new(csv_hash)
     end
   end
 
   def all
-    @invoice_item_instances
+    invoice_items
   end
-  
+
+  def find_by_id(inv_item_id)
+    invoice_items.find {|invoice_item| invoice_item.id == inv_item_id.to_i}
+  end
+
+  def find_all_by_item_id(inv_item_id)
+    invoice_items.find_all {|invoice_item| invoice_item.item_id == inv_item_id.to_i}
+  end
+
+
+
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
 end
