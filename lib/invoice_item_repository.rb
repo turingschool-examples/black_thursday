@@ -16,15 +16,17 @@ class InvoiceItemRepository
     invoice_items
   end
 
-  def find_by_id(inv_item_id)
-    invoice_items.find {|invoice_item| invoice_item.id == inv_item_id.to_i}
+  def find_by_id(invoice_id)
+    invoice_items.find {|invoice_item| invoice_item.id == invoice_id.to_i}
   end
 
-  def find_all_by_item_id(inv_item_id)
-    invoice_items.find_all {|invoice_item| invoice_item.item_id == inv_item_id.to_i}
+  def find_all_by_item_id(invoice_id)
+    invoice_items.find_all {|invoice_item| invoice_item.item_id == invoice_id.to_i}
   end
 
-
+  def find_all_by_invoice_id(invoice_id)
+    invoice_items.find_all { |invoice_item| invoice_item.invoice_id == invoice_id.to_i}
+  end
 
 
   def inspect
