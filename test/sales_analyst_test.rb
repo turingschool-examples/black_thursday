@@ -3,7 +3,7 @@ require_relative './spec_helper'
 require          'pry'
 require          'minitest/autorun'
 require          'minitest/pride'
-require          'mocha/mini_test'
+RSpec.configure { |c| c.mock_with :mocha }
 
 
 class SalesAnalystTest < Minitest::Test
@@ -106,7 +106,6 @@ class SalesAnalystTest < Minitest::Test
   end
 # meta run: true
   def test_top_merchants_by_invoice_count
-    skip
     sa = SalesAnalyst.new(se)
     sa.stubs(:two_standard_dev_above_mean_invoices).returns(2.5)
 
@@ -114,7 +113,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_bottom_merchants_by_invoice_count
-    skip
     sa = SalesAnalyst.new(se)
     sa.stubs(:two_standard_dev_below_mean_invoices).returns(1.5)
 
