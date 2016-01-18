@@ -4,6 +4,7 @@ require 'bigdecimal'
 
 class Transaction
   attr_reader :id, :invoice_id, :credit_card_number, :credit_card_expiration_date, :result, :created_at, :updated_at
+  attr_accessor :invoice
 
   def initialize(trans_info)
     @id                          = trans_info[:id].to_i

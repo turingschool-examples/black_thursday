@@ -3,6 +3,7 @@ require 'time'
 
 class Customer
   attr_reader :id, :first_name, :last_name, :created_at, :updated_at
+  attr_accessor :merchants
 
   def initialize(cust_info)
     @id         = cust_info[:id].to_i

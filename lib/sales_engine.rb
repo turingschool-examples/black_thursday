@@ -56,7 +56,7 @@ class SalesEngine
   def load_invoice_item_repo(repo_rows)
     @invoice_items = InvoiceItemRepository.new(repo_rows[:invoice_items])
     if repo_rows[:items] && repo_rows[:invoices]
-      items_to_invoice
+      # items_to_invoice
       #most likely where the relationship will be added !
     end
   end
@@ -64,14 +64,17 @@ class SalesEngine
     #in the TransactionRepository/Transaction class is correct
   def load_transaction_repo(repo_rows)
     @transactions = TransactionRepository.new(repo_rows[:transactions])
-    if repo_rows[:transactions]
-      #most likely where the relationship will be added !
+    if repo_rows[:transactions] && repo_rows[:invoices]
+      transactions_to_invoice
+      invoice_to_transaction
     end
   end
 
   def load_customer_repo(repo_rows)
     @customers = CustomerRepository.new(repo_rows[:customers])
-    if repo_rows[:customers]
+    if repo_rows[:customers] && repo_rows[:invoices]
+      customers_to_invoice
+      # customers_to_merchants
       #most likely where the relationship will be added !
     end
   end
@@ -102,12 +105,42 @@ class SalesEngine
       invoice_item.item = @items.find_by_id(invoice_item.item_id)}
   end
 
-  def items_to_invoice
+  def transaction_to_invoice
     invoice_item
     @invoices.all.map do |invoice|
       invoice.items = @invoice_items.find_all_by_invoice_id(invoice.id).map(&:item)
     end
   end
+
+  def transactions_to_invoice
+    @invoices.all.map do |invoice|
+      invoice.transactions =  @transactions.find_all_by_invoice_id(invoice.id)
+    end
+  end
+
+  def invoice_to_transaction
+    @transactions.all.map do |transaction|
+      transaction.invoice =  @invoices.find_by_id(transaction.invoice_id)
+    end
+  end
+
+  def customers_to_invoice
+    @invoices.all.map do |invoice|
+      invoice.customer =  @customers.find_by_id(invoice.customer_id)
+    end
+  end
+
+  # def customers_to_merchants
+  #
+  #   @customers.all.map do |customer|
+  #     customer.merchants = @invoices.customer do |invoice|
+  #        @merchants.find_by_id(invoice.merchant_id)
+  #     end
+  #   end
+  # end
+  #
+  # def invoice_customer
+  #   @invoices.find_all_by_customer_id(customer.id)
 
 
   # def items_to_invoice
