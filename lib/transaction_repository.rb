@@ -29,7 +29,8 @@ class TransactionRepository
     transactions.find_all { |trans| trans.credit_card_number == trans_id.to_i}
   end
 
-# find_all_by_credit_card_number - returns either [] or one or more matches which have a matching credit card number
-# find_all_by_result - returns either [] or one or more matches which have a matching status
+  def find_all_by_result(trans_id)
+    transactions.find_all {|trans| trans.result == trans_id.downcase}
+  end
 
 end

@@ -49,11 +49,21 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_that_find_by_credit_card_number_works
-    assert_equal [1],  repo.find_all_by_credit_card_number(4068630000000000).map(&:id)
+    assert_equal [1], repo.find_all_by_credit_card_number(4068630000000000).map(&:id)
   end
 
+  def test_that_find_by_credit_card_number_returns_empty_array_when_no_matches_found
+    assert_equal [], repo.find_all_by_credit_card_number(00000000)
+  end
 
+  def test_find_all_by_result_works
+    assert_equal [1, 2, 3, 4, 5, 6, 7, 8, 10], repo.find_all_by_result("success").map(&:id)
+    assert_equal [9], repo.find_all_by_result("failed").map(&:id)
+  end
 
+  def test_find_all_by_result_returns_empty_array_when_no_matches_found
+    assert_equal [], repo.find_all_by_result("nooo")
+  end
 
 
 end
