@@ -99,7 +99,8 @@ class SalesEngineTest < Minitest::Test
 
   def test_total_gets_both_the_item_price_and_quantity_and_adds_it_up
     invoice = se.invoices.find_by_id(1)
-    
+
+    assert_equal      true, invoice.is_paid_in_full?
     assert_equal    681.75, invoice.total.to_f
     assert_equal BigDecimal, invoice.total.class
   end
