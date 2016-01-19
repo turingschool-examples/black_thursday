@@ -85,6 +85,7 @@ class SalesEngineTest < Minitest::Test
   def test_merchant_has_customer_information
     merchant = se.merchants.find_by_id(11)
 
+    assert_equal                       [Customer], merchant.customers.map(&:class)
     assert_equal                         ["Joey"], merchant.customers.map(&:first_name)
     assert_equal [11, 11, 11, 11, 22, 22, 33, 44], merchant.customers.map(&:merchants).flatten.map(&:id)
   end
