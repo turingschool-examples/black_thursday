@@ -97,9 +97,10 @@ class SalesEngineTest < Minitest::Test
     assert_equal   "Store One", customer.merchants.map(&:name)[0]
   end
 
-  def test_item_price_quantity
-    skip
+  def test_total_gets_both_the_item_price_and_quantity_and_adds_it_up
     invoice = se.invoices.find_by_id(1)
-    invoice.item_price_quantity
+    
+    assert_equal    681.75, invoice.total.to_f
+    assert_equal BigDecimal, invoice.total.class
   end
 end
