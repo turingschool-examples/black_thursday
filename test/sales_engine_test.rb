@@ -42,17 +42,20 @@ class SalesEngineTest < Minitest::Test
 
   def test_that_will_merchant_and_items_relationship_works_on_getting_the_unit_prices
     merchant = se.merchants.find_by_id(22)
+
     assert_equal ["Second Item Name", "Third Item Name", "Fourth Item Name"], merchant.items.map(&:name)
     assert_equal [222.0, 33.0, 444.0], merchant.items.map(&:unit_price).map{ |x| x.to_f }
   end
 
   def test_that_merchant_has_invoices
     merchant = se.merchants.find_by_id(22)
+
     assert_equal [5, 6], merchant.invoices.map(&:id)
   end
 
   def test_that_invoices_has_a_merchant
     invoice = se.invoices.find_by_id(1)
+
     assert_equal 11, invoice.merchant.id
   end
 
@@ -79,11 +82,11 @@ class SalesEngineTest < Minitest::Test
     assert_equal :pending,  transaction.invoice.status
   end
 
-  def test_merchant_has_customers
-    skip
+  def test_merchant_has_customer_information
     merchant = se.merchants.find_by_id(11)
-    merchant.customers
-    binding.pry
+
+    assert_equal                         ["Joey"], merchant.customers.map(&:first_name)
+    assert_equal [11, 11, 11, 11, 22, 22, 33, 44], merchant.customers.map(&:merchants).flatten.map(&:id)
   end
 
   def test_customer_has_merchants
