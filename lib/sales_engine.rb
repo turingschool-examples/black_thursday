@@ -5,7 +5,6 @@ require_relative 'invoice_item_repository'
 require_relative 'transaction_repository'
 require_relative 'customer_repository'
 require_relative 'load_data'
-require          'csv'
 
 class SalesEngine
   attr_reader :repo_rows
@@ -58,11 +57,9 @@ class SalesEngine
     if repo_rows[:items] && repo_rows[:invoices]
       items_to_invoice
       item_price_quantity
-      #most likely where the relationship will be added !
     end
   end
-    #double check if the way I used BigDecimal for credit card number
-    #in the TransactionRepository/Transaction class is correct
+
   def load_transaction_repo(repo_rows)
     @transactions = TransactionRepository.new(repo_rows[:transactions])
     if repo_rows[:invoices]
@@ -77,7 +74,6 @@ class SalesEngine
       customers_to_invoice
       merchants_to_customer
       customers_to_merchants
-      #most likely where the relationship will be added !
     end
   end
 
@@ -127,8 +123,6 @@ class SalesEngine
      end
   end
 
-
-
   def transactions_to_invoice
     invoices.all.map do |invoice|
       invoice.transactions =  transactions.find_all_by_invoice_id(invoice.id)
@@ -146,7 +140,7 @@ class SalesEngine
       customer.merchants = invoices.find_all_by_customer_id(customer.id).map(&:merchant)
     end
   end
-  #
+
   def customers_to_invoice
     invoices.all.map do |invoice|
       invoice.customer =  customers.find_by_id(invoice.customer_id)
