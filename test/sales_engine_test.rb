@@ -66,14 +66,17 @@ class SalesEngineTest < Minitest::Test
     assert_equal          ["success"], invoice.transactions.map(&:result)
 
     full_name = invoice.customer.first_name + " " + invoice.customer.last_name
+
+    assert_equal              Customer, invoice.customer.class
     assert_equal       "Joey Ondricka", full_name
   end
 
-  def test_that_transaction_has_invoice
-    skip
+  def test_that_a_transaction_has_invoice_information
     transaction = se.transactions.find_by_id(1)
-    transaction.invoice # => invoice
-    binding.pry
+
+    assert_equal  Invoice, transaction.invoice.class
+    assert_equal        1, transaction.invoice.customer_id
+    assert_equal :pending,  transaction.invoice.status
   end
 
   def test_merchant_has_customers
