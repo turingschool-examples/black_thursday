@@ -57,7 +57,7 @@ class SalesEngine
     @invoice_items = InvoiceItemRepository.new(repo_rows[:invoice_items])
     if repo_rows[:items] && repo_rows[:invoices]
       items_to_invoice
-      # item_price_quantity
+      item_price_quantity
       #most likely where the relationship will be added !
     end
   end
@@ -114,9 +114,21 @@ class SalesEngine
     end
   end
 
-  # def item_price_quantity
-  #   @invoice_items.find_all_by_price
-  # end
+  def item_to_price_array(all_items)
+    all_items.map do |invoice_item|
+      [invoice_item.unit_price, invoice_item.quantity]
+    end
+  end
+
+  def item_price_quantity
+     invoices.all.map do |invoice|
+       all_items = invoice_items.find_all_by_invoice_id(invoice.id)
+      #  binding.pry
+       invoice.item_price_quantity = item_to_price_array(all_items)
+     end
+  end
+
+
 
   def transactions_to_invoice
     invoices.all.map do |invoice|

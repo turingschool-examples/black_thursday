@@ -19,9 +19,16 @@ class Invoice
   end
 
   def total
-    items.reduce(0.0) do |sum, item|
-      sum + item.unit_price
+    if is_paid_in_full? == true
+      x = price_multiplied_by_quantity.reduce(:+) / 100
     end
   end
+
+  def price_multiplied_by_quantity
+    item_price_quantity.map do |item|
+      item.first * item.last
+    end
+  end
+
 
 end

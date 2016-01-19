@@ -85,4 +85,11 @@ class SalesEngineTest < Minitest::Test
     customer.merchants
     binding.pry
   end
+
+  def test_item_price_quantity
+    invoice = se.invoices.find_by_id(1)
+    invoice.item_price_quantity
+
+    binding.pry
+  end
 end
