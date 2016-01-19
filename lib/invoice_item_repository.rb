@@ -7,7 +7,7 @@ class InvoiceItemRepository
   attr_reader :invoice_items
 
   def initialize(csv_hash)
-    @invoice_items = csv_hash.map do |csv_hash|
+    @invoice_items ||= csv_hash.map do |csv_hash|
       invoice_item = InvoiceItem.new(csv_hash)
     end
   end

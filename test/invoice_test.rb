@@ -1,4 +1,5 @@
 require_relative '../lib/invoice'
+require_relative '../lib/sales_engine'
 require_relative 'spec_helper'
 require          'pry'
 require          'minitest/autorun'
@@ -55,6 +56,17 @@ class InvoiceTest < Minitest::Test
     assert_equal  :pending, invoice.status
     assert_equal Time.parse("2009-02-07"), invoice.created_at
     assert_equal Time.parse("2014-03-15"), invoice.updated_at
+  end
+
+  def test_that_is_paid_in_full
+    se = SalesEngine.from_csv({
+                              :invoices  => "./data/sample/invoice_sample.csv",
+                              :transactions  => "./data/sample/transaction_sample.csv"
+
+                              })
+      invoice = se.invoices.find_by_id(6)
+
+    assert_equal true, invoice.is_paid_in_full?
   end
 
 end

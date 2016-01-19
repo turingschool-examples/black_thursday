@@ -56,7 +56,8 @@ class SalesEngine
   def load_invoice_item_repo(repo_rows)
     @invoice_items = InvoiceItemRepository.new(repo_rows[:invoice_items])
     if repo_rows[:items] && repo_rows[:invoices]
-      # items_to_invoice
+      items_to_invoice
+      # item_price_quantity
       #most likely where the relationship will be added !
     end
   end
@@ -64,7 +65,7 @@ class SalesEngine
     #in the TransactionRepository/Transaction class is correct
   def load_transaction_repo(repo_rows)
     @transactions = TransactionRepository.new(repo_rows[:transactions])
-    if repo_rows[:transactions] && repo_rows[:invoices]
+    if repo_rows[:invoices]
       transactions_to_invoice
       invoice_to_transaction
     end
@@ -72,87 +73,79 @@ class SalesEngine
 
   def load_customer_repo(repo_rows)
     @customers = CustomerRepository.new(repo_rows[:customers])
-    if repo_rows[:customers] && repo_rows[:invoices]
+    if repo_rows[:invoices]
       customers_to_invoice
-      # customers_to_merchants
+      merchants_to_customer
+      customers_to_merchants
       #most likely where the relationship will be added !
     end
   end
 
 #=====================================================================
   def items_to_merchants
-    @merchants.all.map { |merchant|
-      merchant.items = @items.find_all_by_merchant_id(merchant.id)}
+    merchants.all.map { |merchant|
+      merchant.items = items.find_all_by_merchant_id(merchant.id)}
   end
 
   def merchants_to_items
-    @items.all.map { |item|
-      item.merchant = @merchants.find_by_id(item.merchant_id)}
+    items.all.map { |item|
+      item.merchant = merchants.find_by_id(item.merchant_id)}
   end
 
   def invoices_to_merchants
-    @merchants.all.map { |merchant|
-      merchant.invoices = @invoices.find_all_by_merchant_id(merchant.id)}
+    merchants.all.map { |merchant|
+      merchant.invoices = invoices.find_all_by_merchant_id(merchant.id)}
   end
 
   def merchants_to_invoices
-    @invoices.all.map { |invoice|
-      invoice.merchant = @merchants.find_by_id(invoice.merchant_id)}
+    invoices.all.map { |invoice|
+      invoice.merchant = merchants.find_by_id(invoice.merchant_id)}
   end
 
-  def invoice_item
-    @invoice_items.all.map { |invoice_item|
-      invoice_item.item = @items.find_by_id(invoice_item.item_id)}
+  def item_to_invoice_item
+    invoice_items.all.map { |invoice_item|
+      invoice_item.item = items.find_by_id(invoice_item.item_id)}
   end
 
-  def transaction_to_invoice
-    invoice_item
-    @invoices.all.map do |invoice|
-      invoice.items = @invoice_items.find_all_by_invoice_id(invoice.id).map(&:item)
+  def items_to_invoice
+    item_to_invoice_item
+    invoices.all.map do |invoice|
+      invoice.items = invoice_items.find_all_by_invoice_id(invoice.id).map(&:item)
     end
   end
 
+  # def item_price_quantity
+  #   @invoice_items.find_all_by_price
+  # end
+
   def transactions_to_invoice
-    @invoices.all.map do |invoice|
-      invoice.transactions =  @transactions.find_all_by_invoice_id(invoice.id)
+    invoices.all.map do |invoice|
+      invoice.transactions =  transactions.find_all_by_invoice_id(invoice.id)
     end
   end
 
   def invoice_to_transaction
-    @transactions.all.map do |transaction|
-      transaction.invoice =  @invoices.find_by_id(transaction.invoice_id)
+    transactions.all.map do |transaction|
+      transaction.invoice =  invoices.find_by_id(transaction.invoice_id)
     end
   end
 
+  def merchants_to_customer
+    customers.all.map do |customer|
+      customer.merchants = invoices.find_all_by_customer_id(customer.id).map(&:merchant)
+    end
+  end
+  #
   def customers_to_invoice
-    @invoices.all.map do |invoice|
-      invoice.customer =  @customers.find_by_id(invoice.customer_id)
+    invoices.all.map do |invoice|
+      invoice.customer =  customers.find_by_id(invoice.customer_id)
     end
   end
 
-  # def customers_to_merchants
-  #
-  #   @customers.all.map do |customer|
-  #     customer.merchants = @invoices.customer do |invoice|
-  #        @merchants.find_by_id(invoice.merchant_id)
-  #     end
-  #   end
-  # end
-  #
-  # def invoice_customer
-  #   @invoices.find_all_by_customer_id(customer.id)
-
-
-  # def items_to_invoice
-  #   @invoices.all.map do |invoice|
-  #   invoice.items = all_items_linked_to_invoice(invoice.id)
-  #   end
-  # end
-  #
-  # def all_items_linked_to_invoice(invoice_id)
-  #   @invoice_items.find_all_by_invoice_id(invoice_id).map do |each_item|
-  #     @items.find_by_id(each_item.item_id)
-  #   end
-  # end
+  def customers_to_merchants
+    merchants.all.map do |merchant|
+      merchant.customers = invoices.find_all_by_merchant_id(merchant.id).map(&:customer).uniq
+    end
+  end
 
 end

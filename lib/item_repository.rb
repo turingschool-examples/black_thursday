@@ -7,7 +7,7 @@ class ItemRepository
   attr_reader   :all, :items
 
   def initialize(csv_hash)
-    @items = csv_hash.map {|csv_hash| Item.new(csv_hash)}
+    @items ||= csv_hash.map {|csv_hash| Item.new(csv_hash)}
   end
 
   def all

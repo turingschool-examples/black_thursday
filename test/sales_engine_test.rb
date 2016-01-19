@@ -56,4 +56,33 @@ class SalesEngineTest < Minitest::Test
     assert_equal 11, invoice.merchant.id
   end
 
+  def test_that_invoice_has_items
+    skip
+    invoice = se.invoices.find_by_id(1)
+    invoice.items # => [item, item, item]
+    invoice.transactions # => [transaction, transaction]
+    invoice.customer # => customer
+    binding.pry
+  end
+
+  def test_that_transaction_has_invoice
+    skip
+    transaction = se.transactions.find_by_id(1)
+    transaction.invoice # => invoice
+    binding.pry
+  end
+
+  def test_merchant_has_customers
+    skip
+    merchant = se.merchants.find_by_id(11)
+    merchant.customers
+    binding.pry
+  end
+
+  def test_customer_has_merchants
+    skip
+    customer = se.customers.find_by_id(1)
+    customer.merchants
+    binding.pry
+  end
 end

@@ -6,7 +6,7 @@ class InvoiceRepository
   attr_reader :all, :invoices
 
   def initialize(csv_hash)
-    @invoices = csv_hash.map {|csv_hash| Invoice.new(csv_hash)}
+    @invoices ||= csv_hash.map {|csv_hash| Invoice.new(csv_hash)}
   end
 
   def inspect

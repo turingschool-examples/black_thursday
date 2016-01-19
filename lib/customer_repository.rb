@@ -5,7 +5,7 @@ class CustomerRepository
   attr_reader :customers
 
   def initialize(csv_hash)
-    @customers = csv_hash.map {|csv_hash| Customer.new(csv_hash) }
+    @customers ||= csv_hash.map {|csv_hash| Customer.new(csv_hash) }
   end
 
   def standard(data_to_be_standardized)

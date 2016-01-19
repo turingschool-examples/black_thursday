@@ -6,7 +6,7 @@ class MerchantRepository
 attr_reader :merchant_instances
 
   def initialize(csv_hash)
-    @merchant_instances = csv_hash.map do |csv_hash|
+    @merchant_instances ||= csv_hash.map do |csv_hash|
       merchant = Merchant.new(csv_hash)
     end
   end
