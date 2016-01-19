@@ -56,12 +56,17 @@ class SalesEngineTest < Minitest::Test
     assert_equal 11, invoice.merchant.id
   end
 
-  def test_that_invoice_has_items
-    binding.pry
+  def test_that_an_invoice_has_information_on_its_item_transaction_and_customer
     invoice = se.invoices.find_by_id(1)
-    invoice.items # => [item, item, item]
-    invoice.transactions # => [transaction, transaction]
-    invoice.customer # => customer
+
+    assert_equal               [Item], invoice.items.map(&:class)
+    assert_equal  ["First Item Name"], invoice.items.map(&:name)
+
+    assert_equal        [Transaction], invoice.transactions.map(&:class)
+    assert_equal          ["success"], invoice.transactions.map(&:result)
+
+    full_name = invoice.customer.first_name + " " + invoice.customer.last_name
+    assert_equal       "Joey Ondricka", full_name
   end
 
   def test_that_transaction_has_invoice
