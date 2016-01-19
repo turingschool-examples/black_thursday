@@ -1,6 +1,7 @@
 require_relative 'sales_engine'
 require          'pry'
 require          'pry'
+require 'time'
 
 class SalesAnalyst
   attr_reader :se
@@ -11,8 +12,7 @@ class SalesAnalyst
 
   def number_of_merchants
     se.merchants.all.count
-  end
-
+  f
   def number_of_items
     se.items.all.count
   end
@@ -242,6 +242,18 @@ class SalesAnalyst
   def percentage_of_invoice_pending(status)
     se.invoices.all.find_all do |invoice|
       invoice.status == status
+    end
+  end
+
+  #iteration4 Total Revenue=================================
+  def total_revenue_by_date(date)
+    se.invoices.all.reduce { |sum, invoice| sum + invoice.total }
+  end
+
+  def find_all_created_on_date(date)
+    # date = date
+    se.invoices.all.find_all do|invoice|
+      invoice.created_at == date
     end
   end
 end

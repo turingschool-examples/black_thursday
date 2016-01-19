@@ -3,6 +3,7 @@ require_relative './spec_helper'
 require          'pry'
 require          'minitest/autorun'
 require          'minitest/pride'
+require          'time'
 RSpec.configure { |c| c.mock_with :mocha }
 
 
@@ -16,6 +17,8 @@ class SalesAnalystTest < Minitest::Test
               :invoices  => "./data/sample/invoice_sample.csv"
                               })
   end
+
+  # @@sa = SalesAnalyst.new(@se)
 
   def test_that_class_exist
     assert SalesAnalyst
@@ -158,4 +161,15 @@ class SalesAnalystTest < Minitest::Test
     assert_equal printed, sa.percentage_of_invoices_shipped_vs_pending_vs_returned
   end
 
+  def test_total_revenue_by_date
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 10, sa.test_total_revenue_by_date(2012-02-26)
+  end
+meta run:true
+  def test_find_all_created_on_date
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 1, sa.find_all_created_on_date(Time.new("2009/02/07")).count
+  end
 end
