@@ -11,7 +11,6 @@ class Transaction
     @invoice_id                  = trans_info[:invoice_id].to_i
     @credit_card_number          = BigDecimal.new(trans_info[:credit_card_number]).to_i
     @credit_card_expiration_date = trans_info[:credit_card_expiration_date]
-    #Note that this one ^^^ stays as a string... check spec
     @result                      = trans_info[:result].to_s.downcase
     @created_at                  = Time.parse(trans_info[:created_at])
     @updated_at                  = Time.parse(trans_info[:updated_at])
