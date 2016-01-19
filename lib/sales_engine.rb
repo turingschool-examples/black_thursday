@@ -122,7 +122,6 @@ class SalesEngine
   def item_price_quantity
      invoices.all.map do |invoice|
        all_items = invoice_items.find_all_by_invoice_id(invoice.id)
-      #  binding.pry
        invoice.item_price_quantity = item_to_price_array(all_items)
      end
   end
@@ -146,7 +145,7 @@ class SalesEngine
       customer.merchants = invoices.find_all_by_customer_id(customer.id).map(&:merchant)
     end
   end
-  
+
   def customers_to_invoice
     invoices.all.map do |invoice|
       invoice.customer =  customers.find_by_id(invoice.customer_id)

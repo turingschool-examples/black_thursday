@@ -87,14 +87,14 @@ class SalesEngineTest < Minitest::Test
 
     assert_equal                       [Customer], merchant.customers.map(&:class)
     assert_equal                         ["Joey"], merchant.customers.map(&:first_name)
-    assert_equal [11, 11, 11, 11, 22, 22, 33, 44], merchant.customers.map(&:merchants).flatten.map(&:id)
   end
 
   def test_customer_has_merchants
-    skip
     customer = se.customers.find_by_id(1)
-    customer.merchants
-    binding.pry
+
+    assert_equal [11, 11, 11, 11, 22, 22, 33, 44], customer.merchants.map(&:id)
+    assert_equal      Merchant, customer.merchants[0].class
+    assert_equal   "Store One", customer.merchants.map(&:name)[0]
   end
 
   def test_item_price_quantity
