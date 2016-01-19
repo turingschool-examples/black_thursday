@@ -146,6 +146,7 @@ class SalesEngine
       customer.merchants = invoices.find_all_by_customer_id(customer.id).map(&:merchant)
     end
   end
+  
   def customers_to_invoice
     invoices.all.map do |invoice|
       invoice.customer =  customers.find_by_id(invoice.customer_id)
