@@ -57,11 +57,9 @@ class SalesEngine
     if repo_rows[:items] && repo_rows[:invoices]
       items_to_invoice
       item_price_quantity
-      #most likely where the relationship will be added !
     end
   end
-    #double check if the way I used BigDecimal for credit card number
-    #in the TransactionRepository/Transaction class is correct
+
   def load_transaction_repo(repo_rows)
     @transactions = TransactionRepository.new(repo_rows[:transactions])
     if repo_rows[:invoices]
@@ -76,7 +74,6 @@ class SalesEngine
       customers_to_invoice
       merchants_to_customer
       customers_to_merchants
-      #most likely where the relationship will be added !
     end
   end
 
@@ -125,8 +122,6 @@ class SalesEngine
        invoice.item_price_quantity = item_to_price_array(all_items)
      end
   end
-
-
 
   def transactions_to_invoice
     invoices.all.map do |invoice|

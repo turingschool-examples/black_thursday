@@ -30,5 +30,4 @@ class Invoice
     end
   end
 
-
 end
