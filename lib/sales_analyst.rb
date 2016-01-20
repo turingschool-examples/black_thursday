@@ -260,8 +260,44 @@ class SalesAnalyst
   def find_all_created_on_date(date)
     date = date.strftime("%Y-%m-%d")
     se.invoices.all.find_all do |invoice|
-      # binding.pry
       invoice.updated_at.to_s.include?(date)
+    end
+  end
+#Top revenue earners ===========================================
+  def top_revenue_earners(merchants = 20)
+    earners_with_rev.to_h.keys[0,merchants]
+  end
+
+  def earners_with_rev
+    sort_earners.reject {|k,v| v.to_f == 0.0}
+  end
+
+  def sort_earners
+    merchant_and_total_rev_array.to_h.sort_by{|k,v| -v}
+  end
+
+  def merchant_and_total_rev_array
+    se.merchants.all.map do |merchant|
+      [merchant, merchant.total_revenue]
+    end
+  end
+
+  def merchants_ranked_by_revenue
+    earners_with_rev.to_h.keys
+  end
+# ========================================================
+  #
+  def merchants_with_pending_invoices
+    se.merchants.all.reject do |merchant|
+      # binding.pry
+      merchant.invoice_status_pending
+    end
+  end
+
+  def merchants_with_only_one_item
+    se.merchants.all.find_all do |merchant|
+      # binding.pry
+      merchant.merchant_with_one_item
     end
   end
 end

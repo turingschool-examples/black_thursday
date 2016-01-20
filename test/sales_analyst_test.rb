@@ -167,14 +167,33 @@ meta run:true
   def test_total_revenue_by_date
     sa = SalesAnalyst.new(se)
 
-    date = Time.parse("2009-02-07")
-    assert_equal 681.75, sa.total_revenue_by_date(date).to_f
+    date = Time.parse("2014-06-06")
+    assert_equal 6588.0, sa.total_revenue_by_date(date).to_f
   end
 
-  def test_find_all_created_on_date
+  def test_find_all_updated_on_date
     sa = SalesAnalyst.new(se)
 
-    date = Time.parse("2009-02-07")
+    date = Time.parse("2014-06-06")
     assert_equal 1, sa.find_all_created_on_date(date).count
+  end
+
+  def test_top_revenue_earners
+    sa = SalesAnalyst.new(se)
+
+    assert_equal [11], sa.top_revenue_earners(1).map(&:id)
+    assert_equal [11, 22], sa.top_revenue_earners(2).map(&:id)
+  end
+
+  def test_merchants_with_pending_invoices
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 1, sa.merchants_with_pending_invoices.count
+  end
+
+  def test_merchants_with_only_one_item
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 2 , sa.merchants_with_only_one_item.count
   end
 end

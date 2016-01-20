@@ -32,11 +32,11 @@ class SalesEngine
   end
 
   def load_merchants_repo(repo_rows)
-    @merchants  = MerchantRepository.new(repo_rows[:merchants])
+    @merchants  ||= MerchantRepository.new(repo_rows[:merchants])
   end
 
   def load_items_repo(repo_rows)
-    @items      = ItemRepository.new(repo_rows[:items])
+    @items      ||= ItemRepository.new(repo_rows[:items])
     if repo_rows[:merchants]
       items_to_merchants
       merchants_to_items
@@ -44,7 +44,7 @@ class SalesEngine
   end
 
   def load_invoice_repo(repo_rows)
-    @invoices   = InvoiceRepository.new(repo_rows[:invoices])
+    @invoices   ||= InvoiceRepository.new(repo_rows[:invoices])
     if repo_rows[:merchants]
       invoices_to_merchants
       merchants_to_invoices
@@ -53,7 +53,7 @@ class SalesEngine
 
 #ITERATION 3 STUFF=================================================
   def load_invoice_item_repo(repo_rows)
-    @invoice_items = InvoiceItemRepository.new(repo_rows[:invoice_items])
+    @invoice_items ||= InvoiceItemRepository.new(repo_rows[:invoice_items])
     if repo_rows[:items] && repo_rows[:invoices]
       items_to_invoice
       item_price_quantity
@@ -61,7 +61,7 @@ class SalesEngine
   end
 
   def load_transaction_repo(repo_rows)
-    @transactions = TransactionRepository.new(repo_rows[:transactions])
+    @transactions ||= TransactionRepository.new(repo_rows[:transactions])
     if repo_rows[:invoices]
       transactions_to_invoice
       invoice_to_transaction
@@ -69,7 +69,7 @@ class SalesEngine
   end
 
   def load_customer_repo(repo_rows)
-    @customers = CustomerRepository.new(repo_rows[:customers])
+    @customers ||= CustomerRepository.new(repo_rows[:customers])
     if repo_rows[:invoices]
       customers_to_invoice
       merchants_to_customer
