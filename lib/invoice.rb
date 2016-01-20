@@ -19,8 +19,8 @@ class Invoice
   end
 
   def total
-    if is_paid_in_full?
-      x = price_multiplied_by_quantity.reduce(:+) / 100
+    if is_paid_in_full? == true
+      price_multiplied_by_quantity.reduce(:+) / 100
     end
   end
 

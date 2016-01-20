@@ -12,9 +12,12 @@ class SalesAnalystTest < Minitest::Test
 
   def setup
     @se = SalesEngine.from_csv({
-              :items     => "./data/sample/items_sample.csv",
-              :merchants => "./data/sample/merchants_sample.csv",
-              :invoices  => "./data/sample/invoice_sample.csv"
+                              :items     => "./data/sample/items_sample.csv",
+                              :merchants => "./data/sample/merchants_sample.csv",
+                              :invoices  => "./data/sample/invoice_sample.csv",
+                              :invoice_items => "./data/sample/invoice_items_samples.csv",
+                              :transactions  => "./data/sample/transaction_sample.csv",
+                              :customers    => "./data/customers.csv"
                               })
   end
 
@@ -160,18 +163,18 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal printed, sa.percentage_of_invoices_shipped_vs_pending_vs_returned
   end
-
+meta run:true
   def test_total_revenue_by_date
-    skip
     sa = SalesAnalyst.new(se)
 
-    assert_equal 10, sa.test_total_revenue_by_date(2012-02-26)
+    date = Time.parse("2009-02-07")
+    assert_equal 681.75, sa.total_revenue_by_date(date).to_f
   end
-# meta run:true
+
   def test_find_all_created_on_date
-    skip
     sa = SalesAnalyst.new(se)
 
-    assert_equal 1, sa.find_all_created_on_date(Time.new("2009/02/07")).count
+    date = Time.parse("2009-02-07")
+    assert_equal 1, sa.find_all_created_on_date(date).count
   end
 end

@@ -248,13 +248,20 @@ class SalesAnalyst
 
   #iteration4 Total Revenue=================================
   def total_revenue_by_date(date)
-    se.invoices.all.reduce { |sum, invoice| sum + invoice.total }
+    find_all_created_on_date(date).reduce(0.0) do |sum, invoice|
+      if invoice.total == nil
+        sum + 0
+      else
+       sum + invoice.total
+      end
+    end
   end
 
   def find_all_created_on_date(date)
-    # date = date
-    se.invoices.all.find_all do|invoice|
-      invoice.created_at == date
+    date = date.strftime("%Y-%m-%d")
+    se.invoices.all.find_all do |invoice|
+      # binding.pry
+      invoice.updated_at.to_s.include?(date)
     end
   end
 end
