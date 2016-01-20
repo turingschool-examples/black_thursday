@@ -12,7 +12,7 @@ class SalesAnalyst
 
   def number_of_merchants
     se.merchants.all.count
-  f
+  end
   def number_of_items
     se.items.all.count
   end
