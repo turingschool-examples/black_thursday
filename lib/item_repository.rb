@@ -53,4 +53,26 @@ class ItemRepository
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
+
+  def item_unit_price
+    all.reduce(0) {|sum, item|
+       sum + item.unit_price}
+  end
+
+  def number_of_items
+    all.count
+  end
+
+  def average_prices_of_all_items
+    item_unit_price / number_of_items
+  end
+
+  def sum_deviations_from_the_mean
+    all.inject(0) { |accum, items|
+      accum + (items.unit_price - average_prices_of_all_items) ** 2 }
+  end
+
+  def variance
+    sum_deviations_from_the_mean / (number_of_items - 1)
+  end
 end

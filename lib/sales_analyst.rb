@@ -19,24 +19,11 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant #can't change
-    (number_of_items_per_merchant.inject(0.0) {|sum, items| sum + items} / number_of_merchants).round(2)
+    se.merchants.average_items_per_merchant
   end
 
   def average_items_per_merchant_standard_deviation #can't change
-    Math.sqrt(variance_items).round(2)
-  end
-
-  def variance_items
-    sum_deviations_from_the_mean / (number_of_merchants - 1)
-  end
-
-  def number_of_items_per_merchant
-    se.merchants.all.map {|merchant| merchant.items.count}
-  end
-
-  def sum_deviations_from_the_mean
-    number_of_items_per_merchant.inject(0) { |accum, items|
-      accum + (items - average_items_per_merchant) ** 2 }
+    Math.sqrt(se.merchants.variance_items).round(2)
   end
 
   def one_standard_dev_above_mean_value
@@ -69,8 +56,7 @@ class SalesAnalyst
   end
 
   def all_merchants_averages
-    all_merchants_ids = se.merchants.all.map(&:id)
-    all_merchants_ids.map { |merchant_id|
+    se.merchants.all_merchants_ids.map { |merchant_id|
       average_item_price_for_merchant(merchant_id)}
   end
 
@@ -79,27 +65,16 @@ class SalesAnalyst
     (total_averages / all_merchants_averages.count).round(2)
   end
 
-  def average_prices_of_all_items_gi
-    total = se.items.all.reduce(0) {|sum, item|
-       sum + item.unit_price}
-    total / number_of_items
-  end
-
-  def sum_deviations_from_the_mean_gi
-    se.items.all.inject(0) { |accum, items|
-      accum + (items.unit_price - average_prices_of_all_items_gi) ** 2 }
-  end
-
-  def variance_gi
-    sum_deviations_from_the_mean_gi / (number_of_items - 1)
+  def average_prices_of_all_items
+    se.items.average_prices_of_all_items
   end
 
   def average_items_price_standard_deviation_gi
-    Math.sqrt(variance_gi).round(2)
+    Math.sqrt(se.items.variance).round(2)
   end
 
   def two_standard_dev_above_mean_value_gi
-     average_prices_of_all_items_gi + (average_items_price_standard_deviation_gi * 2)
+     average_prices_of_all_items + (average_items_price_standard_deviation_gi * 2)
   end
 
   def golden_items
@@ -111,12 +86,12 @@ class SalesAnalyst
 
   # Average invoices per merchant==================================
   def average_invoices_per_merchant #can't change
-    (number_of_invoices_per_merchant.inject(0.0,:+) / number_of_merchants).round(2)
+    (se.merchants.invoices_per_merchant.inject(0.0,:+) / number_of_merchants).round(2)
   end
 
-  def number_of_invoices_per_merchant
-    se.merchants.all.map {|merchant| merchant.invoices.count}
-  end
+  # def number_of_invoices_per_merchant
+  #   se.merchants.all.map {|merchant| merchant.invoices.count}
+  # end
 
   # Standard deviation invoices ====================================
   def average_invoices_per_merchant_standard_deviation #can't change
@@ -128,8 +103,9 @@ class SalesAnalyst
   end
 
   def sum_deviations_from_the_mean_invoices
-    number_of_invoices_per_merchant.inject(0) { |accum, invoices|
-      accum + (invoices - average_invoices_per_merchant) ** 2 }
+    se.merchants.invoices_per_merchant.inject(0) do |accum, invoices|
+      accum + (invoices - average_invoices_per_merchant) ** 2
+    end
   end
 
   #Top Merchants ==================================================
