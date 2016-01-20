@@ -162,12 +162,14 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_total_revenue_by_date
+    skip
     sa = SalesAnalyst.new(se)
 
     assert_equal 10, sa.test_total_revenue_by_date(2012-02-26)
   end
 # meta run:true
   def test_find_all_created_on_date
+    skip
     sa = SalesAnalyst.new(se)
 
     assert_equal 1, sa.find_all_created_on_date(Time.new("2009/02/07")).count
