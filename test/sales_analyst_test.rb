@@ -196,4 +196,6 @@ meta run:true
 
     assert_equal 2 , sa.merchants_with_only_one_item.count
   end
+
+  
 end

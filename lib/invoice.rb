@@ -30,4 +30,9 @@ class Invoice
     end
   end
 
+  def invoice_with_pending_transactions
+    transactions.find do |transaction|
+      transaction.result == "success"
+    end
+  end
 end
