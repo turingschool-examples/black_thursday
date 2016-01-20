@@ -166,7 +166,7 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal 10, sa.test_total_revenue_by_date(2012-02-26)
   end
-meta run:true
+# meta run:true
   def test_find_all_created_on_date
     sa = SalesAnalyst.new(se)
 
