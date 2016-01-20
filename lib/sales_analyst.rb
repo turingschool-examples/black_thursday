@@ -289,15 +289,19 @@ class SalesAnalyst
   #
   def merchants_with_pending_invoices
     se.merchants.all.reject do |merchant|
-      # binding.pry
       merchant.invoice_status_pending
     end
+
   end
 
   def merchants_with_only_one_item
     se.merchants.all.find_all do |merchant|
-      # binding.pry
       merchant.merchant_with_one_item
     end
+  end
+
+  def revenue_by_merchant(merchant_id)
+    merchant = se.merchants.find_by_id(merchant_id)
+    sort_earners.to_h[merchant]
   end
 end
