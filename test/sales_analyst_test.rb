@@ -21,8 +21,6 @@ class SalesAnalystTest < Minitest::Test
                               })
   end
 
-  # @@sa = SalesAnalyst.new(@se)
-
   def test_that_class_exist
     assert SalesAnalyst
   end
@@ -85,7 +83,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 2.33, average.to_f
   end
 
-
   def test_average_average_price_per_merchant
     sa = SalesAnalyst.new(se)
     average = sa.average_average_price_per_merchant
@@ -110,7 +107,7 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal 1.21, sa.average_invoices_per_merchant_standard_deviation
   end
-# meta run: true
+
   def test_top_merchants_by_invoice_count
     sa = SalesAnalyst.new(se)
     sa.stubs(:two_standard_dev_above_mean_invoices).returns(2.5)
