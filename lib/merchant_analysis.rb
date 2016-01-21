@@ -131,9 +131,7 @@ module MerchantAnalysis
 
     top_item = ties.map do |item_id|
       se.items.find_by_id(item_id)
-    end
-
-    top_item.first
+    end.first
   end
 
 end
