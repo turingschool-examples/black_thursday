@@ -1,8 +1,7 @@
 require_relative 'sales_engine'
 require_relative 'merchant_analysis'
 require          'pry'
-require          'pry'
-require 'time'
+require          'time'
 
 class SalesAnalyst
   include MerchantAnalysis
@@ -164,16 +163,25 @@ class SalesAnalyst
   end
 
   def most_sold_item_for_merchant(merchant_id)
-    invoices      = se.invoices.find_all_by_merchant_id(merchant_id)
-    paid_invoices = invoices.find_all { |invoice| invoice.is_paid_in_full? }
+    invoices       = se.invoices.find_all_by_merchant_id(merchant_id)
+    paid_invoices  = invoices.find_all { |invoice| invoice.is_paid_in_full? }
     invoice_items  = paid_invoices.flat_map do |invoice|
       se.invoice_items.find_all_by_invoice_id(invoice.id)
     end
 
+    most_paid_invoice_items(invoice_items)
+  end
+
+  def most_paid_invoice_items(invoice_items)
     item_quantity = Hash.new(0)
     invoice_item_quantity = invoice_items.each do |invoice_item|
       item_quantity[invoice_item.item_id] += invoice_item.quantity
     end
+
+    max_invoice_item_quantity(item_quantity)
+  end
+
+  def max_invoice_item_quantity(item_quantity)
     max_item = item_quantity.max_by { |k, v| v}
     ties = item_quantity.find_all do |key, value|
       value == max_item[1]

@@ -23,15 +23,10 @@ class ItemRepository
   end
 
   def find_by_name(item_name)
-    #added the to_s to not have the nil class error when downcasing
-    #iterated item names
     items.find { |item| item.name.to_s.downcase == item_name.downcase}
   end
 
   def find_all_with_description(description)
-    #finds full/fragment item descriptions
-    #notice the method name for this class and the method
-    #being used below to find stuff... "find_all"
     items.find_all { |item| item.description.downcase.include?(description.downcase)}
   end
 
@@ -46,20 +41,12 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(merchant_id)
-    #gives us every single item that the merchant has in his online Etsy shop
     items.find_all { |item| item.merchant_id == merchant_id.to_i}
   end
 
-  ##############
   def most_sold_item(merchant_id)
     items = find_all_by_merchant_id(merchant_id)
-
-    
-    ###every item for that merchant
-    ##now find the top item for that merchant
   end
-
-  ##############
 
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
@@ -86,4 +73,5 @@ class ItemRepository
   def variance
     sum_deviations_from_the_mean / (number_of_items - 1)
   end
+  
 end
