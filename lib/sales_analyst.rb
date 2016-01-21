@@ -16,15 +16,15 @@ class SalesAnalyst
     se.items.all.count
   end
 
-  def average_items_per_merchant #can't change
+  def average_items_per_merchant
     se.merchants.average_items_per_merchant
   end
 
-  def average_items_per_merchant_standard_deviation #can't change
+  def average_items_per_merchant_standard_deviation
     Math.sqrt(se.merchants.variance_items).round(2)
   end
 
-  def merchants_with_high_item_count #can't change
+  def merchants_with_high_item_count
     benchmark = one_standard_dev_above_mean_value
     se.merchants.all.find_all { |merchant|
        merchant.items.count > benchmark }
@@ -36,7 +36,7 @@ class SalesAnalyst
     end
   end
 
-  def average_item_price_for_merchant(merchant_id) #can't change
+  def average_item_price_for_merchant(merchant_id)
     total = merchants_items_prices(merchant_id)
     (account_for_zero_items(total) / 100).round(2)
   end
@@ -46,7 +46,7 @@ class SalesAnalyst
       average_item_price_for_merchant(merchant_id)}
   end
 
-  def average_average_price_per_merchant #can't change
+  def average_average_price_per_merchant
     total_averages = all_merchants_averages.reduce(:+)
     (total_averages / all_merchants_averages.count).round(2)
   end
@@ -68,11 +68,11 @@ class SalesAnalyst
     se.items.all.find_all { |item| item.unit_price > benchmark }
   end
 
-  def average_invoices_per_merchant #can't change
+  def average_invoices_per_merchant
     (se.merchants.invoices_per_merchant.inject(0.0,:+) / number_of_merchants).round(2)
   end
 
-  def average_invoices_per_merchant_standard_deviation #can't change
+  def average_invoices_per_merchant_standard_deviation
     Math.sqrt(variance_invoices).round(2)
   end
 
@@ -115,21 +115,8 @@ class SalesAnalyst
       wday_invoices[1] > benchmark }
   end
 
-  def hash_of_invoices_to_day_of_the_week
-    days_of_the_week_hash
-    se.invoices.all.each do |invoice|
-      day = invoice.created_at.strftime('%A').to_sym
-      @wday_created[day] = @wday_created[day] += 1
-    end
-    @wday_created
-  end
-
   def average_invoices_per_day_standard_deviation
     Math.sqrt(variance_days)
-  end
-
-  def variance_days
-    sum_deviations_from_the_mean_days / (7 - 1)
   end
 
   def sum_deviations_from_the_mean_days

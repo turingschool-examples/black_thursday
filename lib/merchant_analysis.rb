@@ -72,6 +72,15 @@ module MerchantAnalysis
                   }
   end
 
+  def hash_of_invoices_to_day_of_the_week
+    days_of_the_week_hash
+    se.invoices.all.each do |invoice|
+      day = invoice.created_at.strftime('%A').to_sym
+      @wday_created[day] = @wday_created[day] += 1
+    end
+    @wday_created
+  end
+
   def account_for_zero_items(total_items)
     if total_items.count == 0
       0
@@ -88,6 +97,10 @@ module MerchantAnalysis
     (number_of_invoices / 7).round(2)
   end
 
+  def variance_days
+    sum_deviations_from_the_mean_days / (7 - 1)
+  end
+
   def best_item_for_merchant(merchant_id)
     invoices      = se.invoices.find_all_by_merchant_id(merchant_id)
     paid_invoices = invoices.find_all { |invoice| invoice.is_paid_in_full? }
@@ -99,6 +112,7 @@ module MerchantAnalysis
     invoice_item_quantity = invoice_items.each do |invoice_item|
       item_quantity[invoice_item.item_id] += (invoice_item.revenue)
     end
+    
     max_item = item_quantity.max_by { |k, v| v}
     ties = item_quantity.find_all do |key, value|
       value == max_item[1]
