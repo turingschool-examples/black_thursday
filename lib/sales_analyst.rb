@@ -36,14 +36,6 @@ class SalesAnalyst
     end
   end
 
-  def account_for_zero_items(total_items)
-    if total_items.count == 0
-      0
-    else
-      total_items.reduce(:+) / total_items.count
-    end
-  end
-
   def average_item_price_for_merchant(merchant_id) #can't change
     total = merchants_items_prices(merchant_id)
     (account_for_zero_items(total) / 100).round(2)
@@ -145,14 +137,6 @@ class SalesAnalyst
       accum + ((invoices - average_invoices_per_day) ** 2.0) }.to_f
   end
 
-  def invoices_per_day_of_the_week
-    @wday_created.values
-  end
-
-  def average_invoices_per_day
-    (number_of_invoices / 7).round(2)
-  end
-
   def number_of_invoices
     se.invoices.all.count
   end
@@ -213,26 +197,4 @@ class SalesAnalyst
     end
   end
 
-  def best_item_for_merchant(merchant_id)
-    invoices      = se.invoices.find_all_by_merchant_id(merchant_id)
-    paid_invoices = invoices.find_all { |invoice| invoice.is_paid_in_full? }
-    invoice_items  = paid_invoices.flat_map do |invoice|
-      se.invoice_items.find_all_by_invoice_id(invoice.id)
-    end
-
-    item_quantity = Hash.new(0)
-    invoice_item_quantity = invoice_items.each do |invoice_item|
-      item_quantity[invoice_item.item_id] += (invoice_item.revenue)
-    end
-    max_item = item_quantity.max_by { |k, v| v}
-    ties = item_quantity.find_all do |key, value|
-      value == max_item[1]
-    end.map{|pair| pair[0]}
-
-    best = ties.map do |item_id|
-      se.items.find_by_id(item_id)
-    end
-
-    best.first
-  end
 end
