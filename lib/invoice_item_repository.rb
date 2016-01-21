@@ -29,6 +29,10 @@ class InvoiceItemRepository
   end
 
 
+  def item_total_rev
+    find_all_by_item_id
+  end
+
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end

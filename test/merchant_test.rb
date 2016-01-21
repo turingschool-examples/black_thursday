@@ -31,4 +31,6 @@ class MerchantTest < Minitest::Test
     assert_equal 12334105, m.id
   end
 
+  
+
 end

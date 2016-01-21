@@ -50,6 +50,17 @@ class ItemRepository
     items.find_all { |item| item.merchant_id == merchant_id.to_i}
   end
 
+  ##############
+  def most_sold_item(merchant_id)
+    items = find_all_by_merchant_id(merchant_id)
+
+    
+    ###every item for that merchant
+    ##now find the top item for that merchant
+  end
+
+  ##############
+
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end

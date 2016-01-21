@@ -30,5 +30,13 @@ class Merchant
     items.count == 1
   end
 
+  # def most_sold_items
+  #   invoices.map do |invoice|
+  #     binding.pry
+  #     invoice.item_price_quantity
+  #   end
+  # end
+
+
 
 end

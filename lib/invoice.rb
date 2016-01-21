@@ -35,4 +35,9 @@ class Invoice
       transaction.result == "success"
     end
   end
+
+  def most_sold_items
+      price_multiplied_by_quantity
+  end
+
 end

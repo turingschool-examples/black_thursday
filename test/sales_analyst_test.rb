@@ -196,6 +196,12 @@ meta run:true
 
     assert_equal 2 , sa.merchants_with_only_one_item.count
   end
+meta run:true
+  def test_most_sold_item_for_merchant
+    sa = SalesAnalyst.new(se)
 
-  
+    assert_equal 11, sa.most_sold_item_for_merchant
+  end
+
+
 end
