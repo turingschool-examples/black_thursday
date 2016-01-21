@@ -104,25 +104,36 @@ module MerchantAnalysis
   def best_item_for_merchant(merchant_id)
     invoices      = se.invoices.find_all_by_merchant_id(merchant_id)
     paid_invoices = invoices.find_all { |invoice| invoice.is_paid_in_full? }
+
     invoice_items  = paid_invoices.flat_map do |invoice|
       se.invoice_items.find_all_by_invoice_id(invoice.id)
     end
 
+    best_paid_invoice_items(invoice_items)
+  end
+
+  def best_paid_invoice_items(invoice_items)
     item_quantity = Hash.new(0)
+
     invoice_item_quantity = invoice_items.each do |invoice_item|
       item_quantity[invoice_item.item_id] += (invoice_item.revenue)
     end
-    
+
+    max_item_quantity(item_quantity)
+  end
+
+  def max_item_quantity(item_quantity)
     max_item = item_quantity.max_by { |k, v| v}
+
     ties = item_quantity.find_all do |key, value|
       value == max_item[1]
     end.map{|pair| pair[0]}
 
-    best = ties.map do |item_id|
+    top_item = ties.map do |item_id|
       se.items.find_by_id(item_id)
     end
 
-    best.first
+    top_item.first
   end
 
 end
