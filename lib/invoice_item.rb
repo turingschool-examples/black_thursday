@@ -24,6 +24,10 @@ class InvoiceItem
     (unit_price.to_f / 100).to_f
   end
 
+  def revenue
+    quantity * unit_price
+  end
+
 
 
 end

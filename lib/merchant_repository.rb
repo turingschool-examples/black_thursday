@@ -68,7 +68,6 @@ attr_reader :merchant_instances
 
   def most_sold_item_for_merchant(merchant_id)
     all.map do |merchant|
-      # binding.pry
       merchant.most_sold_items
     end
   end

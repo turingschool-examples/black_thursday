@@ -272,15 +272,17 @@ class SalesAnalyst
 
     item_quantity = Hash.new(0)
     invoice_item_quantity = invoice_items.each do |invoice_item|
-      item_quantity[invoice_item.item_id] += (invoice_item.quantity * invoice_item.unit_price)
+      item_quantity[invoice_item.item_id] += (invoice_item.revenue)
     end
     max_item = item_quantity.max_by { |k, v| v}
     ties = item_quantity.find_all do |key, value|
       value == max_item[1]
     end.map{|pair| pair[0]}
 
-    ties.map do |item_id|
+    best = ties.map do |item_id|
       se.items.find_by_id(item_id)
     end
+
+    best.first
   end
 end
