@@ -40,10 +40,10 @@ class MerchantRepositoryTest < Minitest::Test
   def test_that_all_method_returns_an_array
     merchant_repo = MerchantRepository.new(
                     [
-                      {id: "122", name: "11860"},
-                      {id: "134", name: "10990"},
-                      {id: "345", name: "10"},
-                      {id: "457", name: "10"},
+                      {id: "122", name: "11860", :created_at=>"2016-01-11 10:37:09 UTC"},
+                      {id: "134", name: "10990", :created_at=>"2016-01-11 10:37:09 UTC"},
+                      {id: "345", name: "10", :created_at=>"2016-01-11 10:37:09 UTC"},
+                      {id: "457", name: "10", :created_at=>"2016-01-11 10:37:09 UTC"},
                     ])
 
     assert_kind_of(Array, merchant_repo.all)
@@ -51,20 +51,20 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_that_the_all_method_returns_the_four_sample_merchant_stores_info
     repo = MerchantRepository.new([
-        {id: 1, name: "11860"},
-        {id: 2, name: "10990"},
-        {id: 3, name: "10"},
-        {id: 4, name: "10"},
+        {id: 1, name: "11860", :created_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, name: "10990", :created_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, name: "10", :created_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 4, name: "10", :created_at=>"2016-01-11 10:37:09 UTC"},
       ])
 
     assert_equal 4, repo.all.count
   end
   def test_that_find_by_name_method_is_an_instance_of_merchant
     repo = MerchantRepository.new([
-        {id: 1, name: "MiniatureBikez"},
-        {id: 2, name: "10990"},
-        {id: 3, name: "10"},
-        {id: 4, name: "10"},
+        {id: 1, name: "MiniatureBikez", :created_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, name: "10990", :created_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, name: "10", :created_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 4, name: "10", :created_at=>"2016-01-11 10:37:09 UTC"},
       ])
 
     assert_equal Merchant, repo.find_by_name("MiniatureBikez").class
@@ -72,10 +72,10 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_that_find_by_name_returns_a_known_merchant_name
     repo = MerchantRepository.new([
-        {id: 1, name: "MiniatureBikez"},
-        {id: 2, name: "10990"},
-        {id: 3, name: "10"},
-        {id: 4, name: "10"},
+        {id: 1, name: "MiniatureBikez", :created_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, name: "10990", :created_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, name: "10", :created_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 4, name: "10", :created_at=>"2016-01-11 10:37:09 UTC"},
       ])
 
     merchant = repo.find_by_name("MiniatureBikez")
@@ -85,10 +85,10 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_edge_that_find_by_name_works_when_spaces_are_included
     repo = MerchantRepository.new([
-        {id: 1, name: "MiniatureBikez"},
-        {id: 2, name: "10990"},
-        {id: 3, name: "10"},
-        {id: 4, name: "10"},
+        {id: 1, name: "MiniatureBikez", :created_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, name: "10990", :created_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, name: "10", :created_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 4, name: "10", :created_at=>"2016-01-11 10:37:09 UTC"},
       ])
 
     merchant = repo.find_by_name("Miniature Bikez")
@@ -98,10 +98,10 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_edge_that_find_by_name_works_when_not_case_sensitive
     repo = MerchantRepository.new([
-        {id: 1, name: "MiniatureBikez"},
-        {id: 2, name: "10990"},
-        {id: 3, name: "10"},
-        {id: 4, name: "10"},
+        {id: 1, name: "MiniatureBikez", :created_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, name: "10990", :created_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, name: "10", :created_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 4, name: "10", :created_at=>"2016-01-11 10:37:09 UTC"},
       ])
 
     merchant = repo.find_by_name("mInIaTuRebIKez")
@@ -111,10 +111,10 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_edge_that_find_by_name_returns_nil_for_unknown_merchant_name
     repo = MerchantRepository.new([
-        {id: 1, name: "MiniatureBikez"},
-        {id: 2, name: "10990"},
-        {id: 3, name: "10"},
-        {id: 4, name: "10"},
+        {id: 1, name: "MiniatureBikez", :created_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, name: "10990", :created_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, name: "10", :created_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 4, name: "10", :created_at=>"2016-01-11 10:37:09 UTC"},
       ])
     merchant = repo.find_by_name("Turing School")
 
@@ -123,10 +123,10 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_that_find_by_id_returns_known_id
     repo = MerchantRepository.new([
-        {id: 1, name: "MiniatureBikez"},
-        {id: 2, name: "10990"},
-        {id: 3, name: "10"},
-        {id: 4, name: "10"},
+        {id: 1, name: "MiniatureBikez", :created_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, name: "10990", :created_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, name: "10", :created_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 4, name: "10", :created_at=>"2016-01-11 10:37:09 UTC"},
       ])
 
     merchant = repo.find_by_id(4)
@@ -136,10 +136,10 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_that_find_by_id_returns_nil_for_unknown_id
     repo = MerchantRepository.new([
-        {id: 1, name: "MiniatureBikez"},
-        {id: 2, name: "10990"},
-        {id: 3, name: "10"},
-        {id: 4, name: "10"},
+        {id: 1, name: "MiniatureBikez", :created_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, name: "10990", :created_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, name: "10", :created_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 4, name: "10", :created_at=>"2016-01-11 10:37:09 UTC"},
       ])
 
     merchant = repo.find_by_id(000023412)
@@ -149,10 +149,10 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_that_find_by_id_with_input_as_a_string_works
     repo = MerchantRepository.new([
-        {id: 1, name: "MiniatureBikez"},
-        {id: 2, name: "10990"},
-        {id: 3, name: "10"},
-        {id: 10, name: "10"},
+        {id: 1, name: "MiniatureBikez", :created_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 2, name: "10990", :created_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 3, name: "10", :created_at=>"2016-01-11 10:37:09 UTC"},
+        {id: 10, name: "10", :created_at=>"2016-01-11 10:37:09 UTC"},
       ])
 
     merchant = repo.find_by_id("10")
@@ -187,44 +187,3 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
 end
-
-# se = SalesEngine.from_csv({
-#                           :merchants => "./data/merchant_sample.csv",
-#                           })
-# class SalesEngine
-#   attr_reader :repo_rows, :items, :merchants
-#
-#   def initialize(repo_rows)
-#     @repo_rows            = repo_rows
-#     @items                = ItemRepository.new(repo_rows[:items])
-#     @merchants            = MerchantRepository.new(repo_rows[:merchants], @items)
-#   end
-#
-#   def self.from_csv(csv_hash)
-#     repo_rows = csv_hash.map do |type, filename|
-#       [type, LoadData.load_data(filename)]
-#     end.to_h
-#
-#     SalesEngine.new(repo_rows)
-        # HERE IS WHERE THE PROBLEM WILL BEGIN
-        #Since it'll go to the top w/o anything to add to the items class
-#   end
-#
-# end
-
-# ===================================================================>>>>>
-#we cannot have tests like this in here because our
-#sales engine class when using this method needs to initialize
-#both the item repo and merchant repo, if any of the two are missing it
-#will input nil for when loading up @items and @merchants, therefore
-#we need to use the shortcut way like so
-# <<<<====================================================================
-
-# =============================================
-#    repo = MerchantRepository.new([
-      #   {id: 1, name: "MiniatureBikez"},
-      #   {id: 2, name: "10990"},
-      #   {id: 3, name: "10"},
-      #   {id: 10, name: "10"},
-      # ])
-# =============================================

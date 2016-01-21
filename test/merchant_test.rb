@@ -20,17 +20,17 @@ class MerchantTest < Minitest::Test
   end
 
   def test_that_name_will_return_the_store_name_hash_value
-    m = Merchant.new({:name => 'Shopin1901', :id => 12334105})
+    m = Merchant.new({:name => 'Shopin1901', :id => 12334105, :created_at=>"2016-01-11 10:37:09 UTC"})
 
     assert_equal 'Shopin1901', m.name
   end
 
   def test_that_id_will_return_the_id_hash_value
-    m = Merchant.new({:name => 'Shopin1901', :id => 12334105})
+    m = Merchant.new({:name => 'Shopin1901', :id => 12334105, :created_at=>"2016-01-11 10:37:09 UTC"})
 
     assert_equal 12334105, m.id
   end
 
-  
+
 
 end

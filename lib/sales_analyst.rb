@@ -279,7 +279,6 @@ class SalesAnalyst
       value == max_item[1]
     end.map{|pair| pair[0]}
 
-    # binding.pry
     ties.map do |item_id|
       se.items.find_by_id(item_id)
     end

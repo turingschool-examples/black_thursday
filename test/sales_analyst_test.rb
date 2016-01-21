@@ -164,20 +164,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal printed, sa.percentage_of_invoices_shipped_vs_pending_vs_returned
   end
 
-  def test_total_revenue_by_date
-    sa = SalesAnalyst.new(se)
-
-    date = Time.parse("2014-06-06")
-    assert_equal 6588.0, sa.total_revenue_by_date(date).to_f
-  end
-
-  def test_find_all_updated_on_date
-    sa = SalesAnalyst.new(se)
-
-    date = Time.parse("2014-06-06")
-    assert_equal 1, sa.find_all_created_on_date(date).count
-  end
-
   def test_top_revenue_earners
     sa = SalesAnalyst.new(se)
 
@@ -196,12 +182,5 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal 2 , sa.merchants_with_only_one_item.count
   end
-meta run:true
-  def test_most_sold_item_for_merchant
-    sa = SalesAnalyst.new(se)
-
-    assert_equal 11, sa.most_sold_item_for_merchant(11).first.id
-  end
-
 
 end
