@@ -163,7 +163,7 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal printed, sa.percentage_of_invoices_shipped_vs_pending_vs_returned
   end
-meta run:true
+
   def test_total_revenue_by_date
     sa = SalesAnalyst.new(se)
 
@@ -200,7 +200,7 @@ meta run:true
   def test_most_sold_item_for_merchant
     sa = SalesAnalyst.new(se)
 
-    assert_equal 11, sa.most_sold_item_for_merchant
+    assert_equal 11, sa.most_sold_item_for_merchant(11).first.id
   end
 
 

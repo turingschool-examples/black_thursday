@@ -243,10 +243,45 @@ class SalesAnalyst
   end
 #Top revenue earners ===========================================
   def most_sold_item_for_merchant(merchant_id)
-    se.find_all_by_merchant_id(merchant_id)
-    binding.pry
-    # se.invoices.all.map do |invoice|
-    #   invoice.most_sold_items
-    # end
+    invoices      = se.invoices.find_all_by_merchant_id(merchant_id)
+    paid_invoices = invoices.find_all { |invoice| invoice.is_paid_in_full? }
+    invoice_items  = paid_invoices.flat_map do |invoice|
+      se.invoice_items.find_all_by_invoice_id(invoice.id)
+    end
+
+    item_quantity = Hash.new(0)
+    invoice_item_quantity = invoice_items.each do |invoice_item|
+      item_quantity[invoice_item.item_id] += invoice_item.quantity
+    end
+    max_item = item_quantity.max_by { |k, v| v}
+    ties = item_quantity.find_all do |key, value|
+      value == max_item[1]
+    end.map{|pair| pair[0]}
+
+    ties.map do |item_id|
+      se.items.find_by_id(item_id)
+    end
+  end
+
+  def best_item_for_merchant(merchant_id)
+    invoices      = se.invoices.find_all_by_merchant_id(merchant_id)
+    paid_invoices = invoices.find_all { |invoice| invoice.is_paid_in_full? }
+    invoice_items  = paid_invoices.flat_map do |invoice|
+      se.invoice_items.find_all_by_invoice_id(invoice.id)
+    end
+
+    item_quantity = Hash.new(0)
+    invoice_item_quantity = invoice_items.each do |invoice_item|
+      item_quantity[invoice_item.item_id] += (invoice_item.quantity * invoice_item.unit_price)
+    end
+    max_item = item_quantity.max_by { |k, v| v}
+    ties = item_quantity.find_all do |key, value|
+      value == max_item[1]
+    end.map{|pair| pair[0]}
+
+    # binding.pry
+    ties.map do |item_id|
+      se.items.find_by_id(item_id)
+    end
   end
 end

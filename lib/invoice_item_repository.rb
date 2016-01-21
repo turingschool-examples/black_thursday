@@ -28,6 +28,13 @@ class InvoiceItemRepository
     invoice_items.find_all { |invoice_item| invoice_item.invoice_id == invoice_id.to_i}
   end
 
+  def most_items_sold
+    all.max_by do |invoice|
+      invoice.quantity
+      binding.pry
+    end
+  end
+
 
   def item_total_rev
     find_all_by_item_id
