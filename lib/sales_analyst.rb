@@ -12,10 +12,6 @@ class SalesAnalyst
     @se = se
   end
 
-  def number_of_merchants
-    se.merchants.all.count
-  end
-
   def number_of_items
     se.items.all.count
   end
@@ -26,10 +22,6 @@ class SalesAnalyst
 
   def average_items_per_merchant_standard_deviation #can't change
     Math.sqrt(se.merchants.variance_items).round(2)
-  end
-
-  def one_standard_dev_above_mean_value
-    average_items_per_merchant + average_items_per_merchant_standard_deviation
   end
 
   def merchants_with_high_item_count #can't change
@@ -83,19 +75,11 @@ class SalesAnalyst
     benchmark = two_standard_dev_above_mean_value_gi
     se.items.all.find_all { |item| item.unit_price > benchmark }
   end
-#======================================================
-#Invoices Analysis
 
-  # Average invoices per merchant==================================
   def average_invoices_per_merchant #can't change
     (se.merchants.invoices_per_merchant.inject(0.0,:+) / number_of_merchants).round(2)
   end
 
-  # def number_of_invoices_per_merchant
-  #   se.merchants.all.map {|merchant| merchant.invoices.count}
-  # end
-
-  # Standard deviation invoices ====================================
   def average_invoices_per_merchant_standard_deviation #can't change
     Math.sqrt(variance_invoices).round(2)
   end
@@ -110,7 +94,6 @@ class SalesAnalyst
     end
   end
 
-  #Top Merchants ==================================================
   def top_merchants_by_invoice_count
     benchmark = two_standard_dev_above_mean_invoices
     se.merchants.all.find_all { |merchant|
@@ -121,27 +104,17 @@ class SalesAnalyst
     average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2)
   end
 
-  #Bottom Merchants ==============================================
   def bottom_merchants_by_invoice_count
     benchmark = two_standard_dev_below_mean_invoices
     se.merchants.all.find_all { |merchant|
        merchant.invoices.count < benchmark }
   end
 
-  def two_standard_dev_below_mean_invoices
-    average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2)
-  end
-
-  #Top Days by Invoice Count =====================================
   def top_days_by_invoice_count
     hash_of_invoices_to_day_of_the_week
     return_weekday_hash_and_key_for_top_days.map do |days|
       days[0].to_s
     end
-  end
-
-  def one_standard_dev_above_mean_value_top_days
-    average_invoices_per_day_standard_deviation + average_invoices_per_day
   end
 
   def return_weekday_hash_and_key_for_top_days
@@ -159,52 +132,30 @@ class SalesAnalyst
     @wday_created
   end
 
-  def days_of_the_week_hash
-    @wday_created = { Sunday: 0,
-                      Monday: 0,
-                     Tuesday: 0,
-                   Wednesday: 0,
-                    Thursday: 0,
-                      Friday: 0,
-                    Saturday: 0
-                  }
-  end
-
-
-  # Standard deviation for top days by invoice ================
   def average_invoices_per_day_standard_deviation
     Math.sqrt(variance_days)
   end
 
   def variance_days
-    sum_deviations_from_the_mean_days / (days_of_the_week - 1)
+    sum_deviations_from_the_mean_days / (7 - 1)
   end
 
   def sum_deviations_from_the_mean_days
     invoices_per_day_of_the_week.inject(0) { |accum, invoices|
       accum + ((invoices - average_invoices_per_day) ** 2.0) }.to_f
-      # 1958.8572
   end
 
   def invoices_per_day_of_the_week
     @wday_created.values
-    # [708, 696, 692, 741, 718, 701, 729]
   end
 
-  # Average invoices per day for top days by invoice============
   def average_invoices_per_day
-    (number_of_invoices / days_of_the_week).round(2)
+    (number_of_invoices / 7).round(2)
   end
 
   def number_of_invoices
     se.invoices.all.count
   end
-
-  def days_of_the_week
-    7.0
-  end
-
-  # Percentage of invoices not shipped ========================
 
   def percentage_of_invoices_shipped_vs_pending_vs_returned
     pending = invoice_status(:pending)
@@ -224,7 +175,6 @@ class SalesAnalyst
     end
   end
 
-  #iteration4 Total Revenue=================================
   def total_revenue_by_date(date)
     find_all_created_on_date(date).reduce(0.0) do |sum, invoice|
       if invoice.total == nil
@@ -241,7 +191,7 @@ class SalesAnalyst
       invoice.created_at.to_s.include?(date)
     end
   end
-#Top revenue earners ===========================================
+
   def most_sold_item_for_merchant(merchant_id)
     invoices      = se.invoices.find_all_by_merchant_id(merchant_id)
     paid_invoices = invoices.find_all { |invoice| invoice.is_paid_in_full? }
