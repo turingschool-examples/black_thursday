@@ -1,11 +1,11 @@
-## Black Thursday
+### Black Thursday
 
 Find the [project spec here](https://github.com/turingschool/curriculum/blob/master/source/projects/black_thursday.markdown).
 
-#Overview
+##Overview
 Project builds a system able to load, parse, search, and execute business intelligence queries against the data from a typical e-commerece business.
 
-## Key Concepts
+##Key Concepts
 
 From a technical perspective, this project will emphasize:
 
