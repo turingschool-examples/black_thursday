@@ -45,7 +45,7 @@ class Item
   end
 
   def inspect
-    " id: #{id}
+    "  id: #{id}
     name: #{name}
     description: #{description}
     unit price: #{unit_price}
