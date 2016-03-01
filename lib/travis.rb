@@ -1,6 +1,9 @@
 class Travis
 
-  def initialize
+  attr_reader :number
+
+  def initialize(number)
+    @number = number
   end
 
 end
