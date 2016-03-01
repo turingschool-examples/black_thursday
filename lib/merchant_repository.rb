@@ -1,6 +1,12 @@
 class MerchantRepository
   #se.merchants -- merchants is salesengine method
-  def initialize
+  def initialize(hash)
+    hash.each do |row|
+      @id = row[:id]
+      @name = row[:name]
+      @created_at = row[:created_at]
+      @updated_at = row[:updated_at]
+    end
     @merchants = []
   end
   def all
