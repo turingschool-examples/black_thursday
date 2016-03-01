@@ -1,0 +1,8 @@
+language: ruby
+
+script: bundle exec mrspec --color
+
+rvm:
+ - "2.3.0"
+# uncomment this line if your project needs to run something other than `rake`:
+# script: bundle exec rspec spec

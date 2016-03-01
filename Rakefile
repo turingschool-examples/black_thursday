@@ -1,3 +1,8 @@
+# require 'minitest'
+# require 'minitest/autorun'
+#
+# task :default => :test
+
 namespace :sanitation do
   desc "Check line lengths & whitespace with Cane"
   task :lines do
