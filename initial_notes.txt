@@ -1,0 +1,34 @@
+Iteration Zero:
+- goal : "Data Access Layer" (DAL) for multiple CSV files; make accessible data that can be queried (items and merchants)
+- classes involved in DAL:
+1 SalesEngine: ties everything together
+  - items
+  - merchants
+2 MerchantRepository: holds and searches for Merchant instances
+3 Merchant: important in data hierarchy
+  -merchant id and name
+4 ItemRepository: holds and searches for Item instances
+  -one ITEM object reps one line of data from the items.csv
+5 Item
+
+Iteration One:
+- goal: build relationships between objects and derive some BI
+1 Relationships Layer
+  -Item#merchant_id = Merchant#id (common find_by_id method)
+2 Analysis Layer
+  - calculate information
+  -classes:
+  a - SalesAnalyst (sa) - answer questions (1) average_items_per_merchant (2) average_items_per_merchant_standard_deviation (3) merchants_with_high_item_count (4) average_item_price_per_merchant(merchant_id) (5) average_average_price_per_merchant (6)golden_items = anything that is two standard deviations away from the average item price
+
+Iteration Two:
+- goal: tie in all the DAL, relationships and BI
+- DAL classes:
+  -Invoice
+  -InvoiceRepository: holds and searches for Invoice instances
+- Relationship classes:
+  -use SalesEngine to connect invoices to merchants
+
+DESIGN layers per class beginning two?
+foundation: DAL
+Relationship Layer
+Analysis Layer
