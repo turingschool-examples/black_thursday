@@ -21,7 +21,7 @@ class ItemClassTest < Minitest::Test
 
   def test_can_send_in_item_information_and_it_is_a_part_of_the_item_and_can_be_inspected
     #Using the item created in setup
-    expected = "   id: 2342
+    expected = "  id: 2342
     name: MY Item
     description: Best item ever
     unit price: 1500

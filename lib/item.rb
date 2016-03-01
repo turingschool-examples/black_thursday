@@ -2,7 +2,6 @@
 
 class Item
 
-
   def initialize(item_info_hash)
     @id = item_info_hash[:id]
     @name = item_info_hash[:name]
@@ -46,7 +45,7 @@ class Item
   end
 
   def inspect
-    "   id: #{id}
+    " id: #{id}
     name: #{name}
     description: #{description}
     unit price: #{unit_price}
