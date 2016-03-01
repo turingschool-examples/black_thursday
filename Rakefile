@@ -1,3 +1,7 @@
+task :default => [] # Just in case it hasn't already been set
+Rake::Task[:default].clear
+task :default => "minitest"
+
 namespace :sanitation do
   desc "Check line lengths & whitespace with Cane"
   task :lines do
