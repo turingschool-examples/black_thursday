@@ -1,4 +1,5 @@
 require_relative 'test_helper'
+require_relative '../lib/item'
 require 'minitest/autorun'
 require 'bigdecimal'
 
@@ -11,9 +12,13 @@ class ItemTest < Minitest::Test
 			:description => "You can use it to write things",
 			:unit_price  => BigDecimal.new(10.99,4),
 			:merchant_id => "12334141",
-			:created_at  => Time.now,
-			:updated_at  => Time.now
+			:created_at  => @time,
+			:updated_at  => @time
 			})
+	end
+
+	def test_it_can_be_instantiated
+		assert @item.instance_of?(Item)
 	end
 
 	def test_it_returns_the_id_of_the_item_as_an_integer
