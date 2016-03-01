@@ -1,6 +1,6 @@
 language: ruby
 
-# script: bundle exec rake build
+script: bundle exec rake build
 
 rvm:
  - "2.3.0"
