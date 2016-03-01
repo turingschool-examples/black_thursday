@@ -45,4 +45,18 @@ class Item
     (@unit_price/100).to_f
   end
 
+  def inspect
+    "   id: #{id}
+    name: #{name}
+    description: #{description}
+    unit price: #{unit_price}
+    merchant id: #{merchant_id}
+    created at: #{created_at}
+    updated at: #{updated_at}"
+  end
+
+  def update_updated_at_time
+    @updated_at = Time.now
+  end
+
 end
