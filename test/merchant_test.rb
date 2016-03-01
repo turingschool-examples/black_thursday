@@ -11,7 +11,7 @@ class MerchantTest < Minitest::Test
   end
 
   def test_it_can_be_instantiated
-    assert @merchant.instance_of?(merchant)
+    assert @merchant.instance_of?(Merchant)
   end
 
   def test_it_can_return_its_id
