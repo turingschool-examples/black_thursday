@@ -1,5 +1,7 @@
 language: ruby
-script: bundle exec mrspec --color
+script:
+  - gem install rake -v 10.4.2
+  - bundle exec rake build
 rvm:
  - "2.2.2"
 # uncomment this line if your project needs to run something other than `rake`:
