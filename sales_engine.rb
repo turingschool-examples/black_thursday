@@ -1,18 +1,19 @@
 require 'csv'
 require 'pry'
 class SalesEngine
+  attr_reader :csv_content
+  def initialize
+    @csv_content = {}
+  end
 
   def from_csv(hash)
-
-    @csv_content = {}
      hash.each do |key, value|
       @csv_content[key] = CSV.read(value, headers: true, header_converters: :symbol)
     end
-    binding.pry
   end
 
   def merchants
-    MerchantRepository.new(@csv_contents[:merchants])
+    MerchantRepository.new(@csv_content[:merchants])
   end
 
 end

@@ -1,17 +1,31 @@
+require_relative '../sales_engine'
+require_relative 'merchant'
+require 'csv'
+require 'pry'
+
 class MerchantRepository
+  attr_reader :id, :name, :created_at, :updated_at
   #se.merchants -- merchants is salesengine method
-  def initialize(hash)
-    hash.each do |row|
-      @id = row[:id]
-      @name = row[:name]
-      @created_at = row[:created_at]
-      @updated_at = row[:updated_at]
-    end
-    @merchants = []
+  def initialize(value)
+    #binding.pry
+    @id = value[:id]
+    @name = value[:name]
+    @created_at = value[:created_at]
+    @updated_at = value[:updated_at]
+    # make_merchants(value)
   end
+
+  def make_merchants(value)
+    @merchants = []
+    value.each do |merchant|
+      @merchants << Merchants.new(merchant)
+    end
+  end
+
   def all
     @merchants
   end
+
   def find_by_id(id)
     @merchants.find { |hash| hash[:id] == id }
   end
@@ -20,13 +34,5 @@ class MerchantRepository
   end
   def find_all_by_name(name)
         @merchants.find_all { |hash| hash.value(:name) == name}
-  end
-end
-
-class Merchant
-  attr_reader :id, :name
-  def initialize(hash)
-    @id = hash[:id]
-    @name = hash[:name]
   end
 end
