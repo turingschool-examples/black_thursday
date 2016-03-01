@@ -7,12 +7,11 @@ class MerchantRepository
   attr_reader :id, :name, :created_at, :updated_at
   #se.merchants -- merchants is salesengine method
   def initialize(value)
-    #binding.pry
     @id = value[:id]
     @name = value[:name]
     @created_at = value[:created_at]
     @updated_at = value[:updated_at]
-    # make_merchants(value)
+    #make_merchants(value)
   end
 
   def make_merchants(value)

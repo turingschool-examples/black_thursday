@@ -7,11 +7,10 @@ require_relative '../sales_engine'
 
 class MerchantRepositoryTest < Minitest::Test
   def setup
-    sales_engine = SalesEngine.new
-    sales_engine.from_csv({:merchants => './fixtures/merchants_fixture.csv'})
+    #sales_engine = SalesEngine.new
+    se = SalesEngine.from_csv({:merchants => './test/fixtures/merchants_fixture.csv'})
     # @mr = MerchantRepository.new(sales_engine.csv_content[:merchants])
-    # binding.pry
-    @mr = sales_engine.merchants
+    @mr = se.merchants
   end
   def test_initalize_organizes_row_values
     expected_ids = ["12334105", "12334112", "12334113"]
