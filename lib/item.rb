@@ -5,7 +5,7 @@ class Item
      @id = item_hash[:id]
      @name = item_hash[:name]
      @description = item_hash[:description]
-    #  @unit_price = BigDecimal.new(item_hash[:unit_price]) => returns object instead of value
+     @unit_price = BigDecimal.new(item_hash[:unit_price]) # => returns object instead of value
      @merchant_id = item_hash[:merchant_id]
      @created_at = Time.now, # (item_hash[:created_at]) => doesn't take argument
      @updated_at = Time.now, # (item_hash[:updated_at]) => doesn't take argument
