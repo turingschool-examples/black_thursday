@@ -54,8 +54,4 @@ class Item
     updated at: #{updated_at}"
   end
 
-  def update_updated_at_time
-    @updated_at = Time.now
-  end
-
 end
