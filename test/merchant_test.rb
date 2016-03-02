@@ -7,6 +7,10 @@ class MerchantTest < Minitest::Test
     @m = Merchant.new({:id => 5, :name => "Turing School"})
   end
 
+  def test_it_creates_a_merchant_object
+    assert_equal Merchant, @m.class
+  end
+
   def test_id_returns_id_of_merchant
     assert_equal 5, @m.id
   end
