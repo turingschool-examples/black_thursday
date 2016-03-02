@@ -1,6 +1,7 @@
-require_relative 'sales_engine'
+require_relative '../lib/sales_engine'
 require 'csv'
 require 'pry'
+require 'bigdecimal'
 
 class SalesAnalyst
   def initialize(se)
@@ -35,15 +36,25 @@ class SalesAnalyst
     ((average_items_per_merchant_standard_deviation * 2) + average_items_per_merchant).round(2)
   end
 
-  def merchants_with_high_item_count # >= 1 std_dev or > 1 std_dev?
-    # display as an array merchants who have the most items for sale
-    # eligibility determined by std_dev > 1 above the average number of products offered; so want merchants with items numbering >= 9.40 = 3.26 (2 std_dev)+ 2.88(avg. items per merchant)
-    # more than 1 std_dev meaning > 6.14
-    merchants_with_high_item_count = item_count_per_merchant_hash.find_all do |merchant_id, item_count|
-                                        merchant_id if item_count > one_std_dev
-                                      end.map do |element|
-                                        @se.merchants.find_by_id(element[0])
-                                      end
+  def merchants_with_high_item_count
+    item_count_per_merchant_hash.find_all do |merchant_id, item_count|
+        merchant_id if item_count > one_std_dev
+      end.map do |element|
+        @se.merchants.find_by_id(element[0])
+      end
   end
 
+  def average_item_price_for_merchant(merchant_id)
+    x = items_per_merchant_hash
+    n = BigDecimal.new(x[merchant_id].reduce(0) do |sum, item|
+      sum += item.unit_price.to_i
+    end/x.count)
+  end
+
+  def average_average_price_per_merchant
+    x = items_per_merchant_hash
+    BigDecimal.new(x.map do |merchant, items|
+      average_item_price_for_merchant(merchant)
+    end.reduce(:+)/x.count)
+  end
 end
