@@ -1,4 +1,4 @@
-
+require 'bigdecimal'
 
 class Item
 
@@ -25,7 +25,7 @@ class Item
   end
 
   def unit_price
-    @unit_price
+    BigDecimal.new(@unit_price)
   end
 
   def merchant_id
@@ -33,15 +33,15 @@ class Item
   end
 
   def created_at
-    @created_at
+    Time.parse(@created_at)
   end
 
   def updated_at
-    @updated_at
+    Time.parse(@updated_at)
   end
 
   def unit_price_to_dollars
-    (@unit_price/100).to_f
+    "$#{sprintf "%.2f", (@unit_price).to_f/100}"
   end
 
   def inspect
