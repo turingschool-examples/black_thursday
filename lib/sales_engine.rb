@@ -10,7 +10,7 @@ class SalesEngine
 
   def initialize
     @items = ItemRepository.new
-    @merchants = MerchantsRepository.new
+    @merchants = MerchantRepository.new
   end
 
   def self.from_csv(loadpath_hash)
@@ -38,14 +38,19 @@ class SalesEngine
                          :description => row[:description],
                          :unit_price => row[:unit_price],
                          :merchant_id => row[:merchant_id],
-                         :created_at => Time.now,
-                         :updated_at => Time.now})
+                         :created_at => row[:created_at],
+                         :updated_at => row[:updated_at]})
     end
 
   end
 
   def load_merchants_into_repository(merchants)
     merchants.each do |row|
-      @merchants.repository << Merchant.new
+      @merchants.repository << Merchant.new({:id => row[:id],
+                                             :name => row[:name],
+                                             :created_at => row[:created_at],
+                                             :updated_at => row[:updated_at]})
+    end
+  end
 
   end
