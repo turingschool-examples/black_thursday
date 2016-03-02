@@ -1,4 +1,5 @@
 class Item
+<<<<<<< HEAD
   attr_reader :id, :name, :description, :unit_price, :created_at, :updated_at, :merchant_id
 
    def initialize(item_hash)
@@ -9,6 +10,20 @@ class Item
      @merchant_id = item_hash[:merchant_id]
      @created_at = Time.now, # (item_hash[:created_at]) => doesn't take argument
      @updated_at = Time.now, # (item_hash[:updated_at]) => doesn't take argument
+=======
+  #Time.parse(whatever time is in csv) - returns properly formatted time object
+  #can call on this when checking created at etc
+  # attr_reader :id, :name, :description, :unit_price, :created_at, :updated_at, :merchant_id
+   def initialize(hash)
+    #  (id, name, description, unit_price, created_at, updated_at, merchant_id)
+     @id
+     @name
+     @description
+     @unit_price
+     @created_at
+     @updated_at
+     @merchant_id
+>>>>>>> merchantshiz
    end
 
    def unit_price_per_dollars

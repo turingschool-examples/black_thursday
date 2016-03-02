@@ -3,24 +3,61 @@ require 'minitest/pride'
 require 'csv'
 require 'pry'
 require_relative '../lib/merchant_repository'
+require_relative '../lib/merchant'
 require_relative '../sales_engine'
 
 class MerchantRepositoryTest < Minitest::Test
+  #don't forget csv has created_at and updated_at
   def setup
-    #sales_engine = SalesEngine.new
-    se = SalesEngine.from_csv({:merchants => './test/fixtures/merchants_fixture.csv'})
-    # @mr = MerchantRepository.new(sales_engine.csv_content[:merchants])
-    @mr = se.merchants
+     se = SalesEngine.from_csv({:merchants => './fixtures/merchants_fixture.csv'})
+     @mr = se.merchants
+     
+     #can we run this test with values?
+     #@mr = MerchantRepository.new({id: "12334113", name: "MiniatureBikez"})
   end
-  def test_initalize_organizes_row_values
-    expected_ids = ["12334105", "12334112", "12334113"]
-    expected_names = ["Shopin1901", "Candisart", "MiniatureBikez"]
-    # expected_created_at = ["2010-12-10", "2009-05-30", "2010-03-30"]
-    # expected_updated_at = ["2011-12-04", "2010-08-29", "2013-01-21"]
-    assert_equal expected_ids, @mr.id
-    assert_equal expected_names, @mr.name
-    # assert_equal expected_created_at, @mr.created_at
-    # assert_equal expected_updated_at, @mr.updated_at
+
+  def test_all_returns_array_of_all_merchants
+  assert_equal Array, @mr.merchants.class
+  assert_equal 3, @mr.all.count
+  end
+
+  def test_find_by_id_returns_merchant_object
+    merchant = @mr.find_by_id("12334113")
+    assert_equal "MiniatureBikez", merchant.name
+    assert_equal Merchant, merchant.class
+    assert_equal "12334113", merchant.id
+  end
+
+  def test_find_by_id_returns_nil_when_id_doesnt_exist
+    assert_equal nil, @mr.find_by_id("123344342")
+  end
+
+  def test_find_by_name_finds_first_merchant
+      merchant = @mr.find_by_name("MiniatureBikez")
+      assert_equal "12334113", merchant.id
+      assert_equal Merchant, merchant.class
+      assert_equal "MiniatureBikez", merchant.name
+  end
+
+  def test_find_by_name_returns_nil_when_name_doesnt_exist
+    assert_equal nil, @mr.find_by_name("lolz")
+  end
+
+  def test_find_by_name_is_case_insensitive
+    merchant = @mr.find_by_name("CANDIsarT")
+    assert_equal "12334112", merchant.id
+  end
+
+  def test_find_all_by_name_finds_all_merchants_with_name
+    #arg passed in to make merchants is CSV table
+    #not sure how to make a new merchant in test
+    #we can just alter fixtures to add a name-repeat
+
+
+    # @mr.make_merchants({id: "12345", name: "Shopin1901"})
+    # merchants = @mr.find_all_by_name("Shopin1901")
+    # # binding.pry
+    # assert_equal 2, merchants.size
   end
 
 end
