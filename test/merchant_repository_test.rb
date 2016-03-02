@@ -11,6 +11,7 @@ class MerchantRepositoryTest < Minitest::Test
   def setup
      se = SalesEngine.from_csv({:merchants => './fixtures/merchants_fixture.csv'})
      @mr = se.merchants
+     
      #can we run this test with values?
      #@mr = MerchantRepository.new({id: "12334113", name: "MiniatureBikez"})
   end
