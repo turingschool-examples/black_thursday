@@ -1,11 +1,12 @@
 require 'pry'
 require 'minitest/autorun'
 require 'minitest/pride'
-require '../lib/merchant'
-require '../lib/merchant_repository'
-require '../lib/item'
-require '../lib/item_repository'
-require '../lib/sales_engine'
+
+require_relative '../lib/merchant'
+require_relative '../lib/merchant_repository'
+require_relative '../lib/item'
+require_relative '../lib/item_repository'
+require_relative '../lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test
   def setup
@@ -20,28 +21,28 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_can_load_file
-    file = SalesEngine.load_file('../data/items.csv')
+    file = SalesEngine.load_file('data/items.csv')
     assert file
   end
 
   def test_items_can_be_loaded_into_repository
     @items = ItemRepository.new
-    file = SalesEngine.load_file('../data/items.csv')
+    file = SalesEngine.load_file('data/items.csv')
     @sales_engine.load_items_into_repository(file)
     assert_equal 1367, @sales_engine.items.repository.count
   end
 
   def test_merchants_can_be_loaded_into_repository
     @merchants = MerchantRepository.new
-    file = SalesEngine.load_file('../data/merchants.csv')
+    file = SalesEngine.load_file('data/merchants.csv')
     @sales_engine.load_merchants_into_repository(file)
     assert_equal 475, @sales_engine.merchants.repository.count
   end
 
   def test_from_csv_will_create_Sales_Engine_object_and_add_files_into_repositories
     se = SalesEngine.from_csv({
-      :items     => "../data/items.csv",
-      :merchants => "../data/merchants.csv"
+      :items     => "data/items.csv",
+      :merchants => "data/merchants.csv"
       })
     assert_equal 1367, se.items.repository.count
     assert_equal 475, se.merchants.repository.count
@@ -62,7 +63,7 @@ Artiste : Flavien Couche - Artiste côté Akoun
 TABLEAU VENDU AVEC FACTURE ET CERTIFICAT D&#39;AUTHETICITE
 
 www.flavien-couche.com
-    unit price: 50000
+    unit price: 0.5E5
     merchant id: 12334195
     created at: 2016-01-11 11:30:34 UTC
     updated at: 2007-01-06 13:55:19 UTC', ir.find_by_id('263398179').inspect

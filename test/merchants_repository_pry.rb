@@ -1,6 +1,6 @@
 require 'pry'
-require '../lib/merchant'
-require '../lib/merchant_repository'
+require_relative '../lib/merchant'
+require_relative '../lib/merchant_repository'
 
 @sample = [{:id => 12334105, :name => "Shopin1901", :created_at => "2010-12-10", :updated_at => "2011-12-04" }, {:id => 12334112, :name => "Candisart", :created_at => "2009-05-30", :updated_at => "2010-08-29"}]
 
