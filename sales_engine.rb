@@ -20,4 +20,8 @@ class SalesEngine
     MerchantRepository.new(@csv_content[:merchants])
   end
 
+  def items
+    ItemRepository.new(@csv_content[:items])
+  end
+
 end
