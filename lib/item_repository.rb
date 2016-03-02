@@ -47,4 +47,7 @@ class ItemRepository
     end
   end
 
+  def inspect
+  end
+
 end

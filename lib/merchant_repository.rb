@@ -30,12 +30,15 @@ class MerchantRepository
   def find_by_name(name)
     @repository.find do |merchant|
       merchant.name.downcase == name.downcase
-    end
+    end.to_i
   end
 
   def find_all_by_name(name_fragment)
     found = @repository.find_all do |merchant|
       merchant.name.downcase.include?(name_fragment.downcase)
     end
+  end
+
+  def inspect
   end
 end
