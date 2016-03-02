@@ -36,6 +36,24 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 3.26, sa.average_items_per_merchant_standard_deviation
   end
 
+  def test_can_calculate_number_for_one_std_dev
+    se = SalesEngine.from_csv({
+      :items     => "../data/items.csv",
+      :merchants => "../data/merchants.csv",
+    })
+    sa = SalesAnalyst.new(se)
+    assert_equal 6.14, sa.one_std_dev
+  end
+
+  def test_can_calculate_number_for_two_std_dev
+    se = SalesEngine.from_csv({
+      :items     => "../data/items.csv",
+      :merchants => "../data/merchants.csv",
+    })
+    sa = SalesAnalyst.new(se)
+    assert_equal 9.40, sa.two_std_dev
+  end
+
   def test_can_calculate_merchants_more_than_one_std_dev_from_avg_number_of_products_offered
     se = SalesEngine.from_csv({
       :items     => "../data/items.csv",

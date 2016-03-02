@@ -8,7 +8,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    @average_items_per_merchant = (@se.items.repository.count.to_f/@se.merchants.repository.count.to_f).round(2)
+     (@se.items.repository.count.to_f/@se.merchants.repository.count.to_f).round(2)
   end
 
   def items_per_merchant_hash #need test?
@@ -24,15 +24,21 @@ class SalesAnalyst
           (value - average_items_per_merchant)**2
         end.reduce(:+)/(@se.merchants.repository.count.to_f - 1)
 
-    @std_dev = Math.sqrt(n).round(2)
+    Math.sqrt(n).round(2)
+  end
+
+  def one_std_dev
+    average_items_per_merchant_standard_deviation + average_items_per_merchant
+  end
+
+  def two_std_dev
+    ((average_items_per_merchant_standard_deviation * 2) + average_items_per_merchant).round(2)
   end
 
   def merchants_with_high_item_count # >= 1 std_dev or > 1 std_dev?
     # display as an array merchants who have the most items for sale
     # eligibility determined by std_dev > 1 above the average number of products offered; so want merchants with items numbering >= 9.40 = 3.26 (2 std_dev)+ 2.88(avg. items per merchant)
     # more than 1 std_dev meaning > 6.14
-    one_std_dev = @std_dev + @average_items_per_merchant
-
     merchants_with_high_item_count = item_count_per_merchant_hash.find_all do |merchant_id, item_count|
                                         merchant_id if item_count > one_std_dev
                                       end.map do |element|
