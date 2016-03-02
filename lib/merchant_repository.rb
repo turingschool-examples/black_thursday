@@ -4,22 +4,16 @@ require 'csv'
 require 'pry'
 
 class MerchantRepository
-  attr_reader :id, :name, :created_at, :updated_at
-  #se.merchants -- merchants is salesengine method
+  attr_reader :merchants
   def initialize(value_at_merchant)
+    @merchants = []
     make_merchants(value_at_merchant)
-    # @id = value[:id]
-    # @name = value[:name]
-    # @created_at = value[:created_at]
-    # @updated_at = value[:updated_at]
   end
 
   def make_merchants(merchant_hashes)
-    @merchants = []
     merchant_hashes.each do |merchant_hash|
       @merchants << Merchant.new(merchant_hash)
     end
-    @merchants
   end
 
   def all
@@ -27,13 +21,14 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    @merchants.find { |hash| hash[:id] == id }
+    @merchants.find { |object| object.id == id }
   end
+
   def find_by_name(name)
-    # @merchants[name]
-    @merchants.find { |hash| hash.value(:name) == name}
+    @merchants.find { |object| object.name.downcase == name.downcase}
   end
+
   def find_all_by_name(name)
-        @merchants.find_all { |hash| hash.value(:name) == name}
+    @merchants.find_all { |object| object.name.downcase == name.downcase}
   end
 end
