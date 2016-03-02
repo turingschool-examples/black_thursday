@@ -9,8 +9,10 @@ require_relative '../sales_engine'
 class MerchantRepositoryTest < Minitest::Test
   #don't forget csv has created_at and updated_at
   def setup
-    se = SalesEngine.from_csv({:merchants => './fixtures/merchants_fixture.csv'})
-    @mr = se.merchants
+     se = SalesEngine.from_csv({:merchants => './fixtures/merchants_fixture.csv'})
+     @mr = se.merchants
+     #can we run this test with values?
+     #@mr = MerchantRepository.new({id: "12334113", name: "MiniatureBikez"})
   end
 
   def test_all_returns_array_of_all_merchants

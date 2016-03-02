@@ -8,9 +8,9 @@ class SalesEngine
     @csv_content = csv_content
   end
 
-  def self.from_csv(hash)
+  def self.from_csv(data)
     csv_content = {}
-    hash.each do |key, value|
+    data.each do |key, value|
       csv_content[key] = CSV.read(value, headers: true, header_converters: :symbol)
     end
     SalesEngine.new(csv_content)
