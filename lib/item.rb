@@ -45,6 +45,10 @@ class Item
     "$#{sprintf "%.2f", (@unit_price).to_f/100}"
   end
 
+  def merchant
+    @sales_engine.merchants.find_by_id(merchant_id)
+  end
+
   def inspect
     # "  id: #{id}
     # name: #{name}
