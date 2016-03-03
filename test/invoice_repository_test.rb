@@ -9,7 +9,10 @@ class InvoiceRepositoryClassTest < Minitest::Test
 attr_accessor :invoices, :se, :invoice_1, :invoice_2, :invoice_3, :invoice_4, :invoice_5, :invoice_6, :invoice_7, :invoice_8, :invoice_9
 
   def setup
-    @se = SalesEngine.from_csv({
+
+    @salesengine = SalesEngine.new
+
+    @se = @salesengine.from_csv({
       :items     => "test/fake_items.csv",
       :merchants => "test/fake_merchants.csv",
       :invoices => "test/fake_invoices.csv"
@@ -86,7 +89,7 @@ attr_accessor :invoices, :se, :invoice_1, :invoice_2, :invoice_3, :invoice_4, :i
   end
 
   def test_can_find_an_invoice_by_its_id
-    skip
+    # skip
     assert_equal invoice_1, se.invoices.find_by_id(1)
     assert_equal invoice_2, se.invoices.find_by_id(2)
     assert_equal invoice_8, se.invoices.find_by_id(8)
@@ -95,7 +98,7 @@ attr_accessor :invoices, :se, :invoice_1, :invoice_2, :invoice_3, :invoice_4, :i
 
   def test_can_find_all_by_customer_id
     # skip
-    assert_equal [invoice_1, invoice_2, invoice_3, invoice_4, invoice_5, invoice_6, invoice_7, invoice_8] se.invoices.find_all_by_customer_id(1)
+    assert_equal [invoice_1, invoice_2, invoice_3, invoice_4, invoice_5, invoice_6, invoice_7, invoice_8], se.invoices.find_all_by_customer_id(1)
     assert_equal [], se.invoices.find_all_by_customer_id(100)
 
   end
