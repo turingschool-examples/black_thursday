@@ -4,16 +4,22 @@ require 'csv'
 require 'pry'
 
 class MerchantRepository
-  attr_reader :merchants
-  def initialize(value_at_merchant)
+  attr_reader :merchants, :sales_engine
+  def initialize(value_at_merchant, sales_engine)
+    @sales_engine = sales_engine
     @merchants = []
     make_merchants(value_at_merchant)
   end
 #@merchants = value_at_merchant.map { |merchant_row| Merchant.new(merchant_row)}
+
   def make_merchants(merchant_hashes)
     merchant_hashes.each do |merchant_hash|
-      @merchants << Merchant.new(merchant_hash)
+      @merchants << Merchant.new(merchant_hash, self)
     end
+  end
+
+  def find_items
+    sales_engine.items
   end
 
   def all
