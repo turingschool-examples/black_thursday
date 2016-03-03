@@ -24,23 +24,32 @@ class ItemRepository
     @items
   end
 
-  def find_by_id
-
+  def find_by_id(id)
+    @items.find { |object| object.id == id.to_i }
   end
 
-  def find_by_name
+  def find_by_name(expected_name)
+    @items.find { |object| object.name.downcase == expected_name.downcase }
   end
 
-  def find_all_with_description
+  def find_all_with_description(description_fragment)
+    @items.find_all { |object| object.description.downcase.include?(description_fragment.downcase) }
   end
 
-  def find_all_by_price
+  def find_all_by_price(price)
+    @items.find_all { |object| object.unit_price == price }
   end
 
-  def find_all_by_price_in_range
+  def find_all_by_price_in_range(range)
+    @items.find_all do |object|
+      if range === object.unit_price
+        @items
+      end
+    end
   end
 
-  def find_all_by_merchant_id
+  def find_all_by_merchant_id(id)
+    @items.find_all { |object| object.merchant_id == id }
   end
 
 end
