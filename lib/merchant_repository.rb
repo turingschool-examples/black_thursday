@@ -38,4 +38,8 @@ class MerchantRepository
       merchant.name.downcase.include?(name_fragment.downcase)
     end
   end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 end

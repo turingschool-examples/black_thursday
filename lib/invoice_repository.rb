@@ -5,7 +5,6 @@ class InvoiceRepository
   attr_accessor :repository
   def initialize
     @repository = []
-    
   end
 
   def all
