@@ -14,7 +14,7 @@ class InvoiceRepository
 
   def find_by_id(invoice_id)
     repository.find do |invoice|
-      invoice.id == invoice_id
+      invoice.id.to_i == invoice_id
     end
   end
 
@@ -36,7 +36,9 @@ class InvoiceRepository
     end
   end
 
+
   def inspect
+    "#<#{self.class} #{@invoic.size} rows>"
   end
 
 end

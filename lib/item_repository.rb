@@ -31,14 +31,14 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
-    repository.find_all do |item|
-      item.unit_price == price
+    x =repository.find_all do |item|
+      item.unit_price.to_f == price
     end
   end
 
   def find_all_by_price_in_range(price_range)
     repository.find_all do |item|
-      price_range.include?(item.unit_price)
+      price_range.include?(item.unit_price.to_f)
     end
   end
 

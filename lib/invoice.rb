@@ -13,19 +13,19 @@ class Invoice
   end
 
   def id
-    @id
+    @id.to_i
   end
 
   def customer_id
-    @customer_id
+    @customer_id.to_i
   end
 
   def merchant_id
-    @merchant_id
+    @merchant_id.to_i
   end
 
   def status
-    @status
+    @status.to_sym
   end
 
   def created_at
@@ -37,7 +37,16 @@ class Invoice
   end
 
   def merchant
-    @sales_engine.merchants.find_by_id(id)
+    @sales_engine.merchants.find_by_id(merchant_id)
+  end
+
+  def inspect
+    "  id: #{id}
+    customer id: #{customer_id}
+    merchant id: #{merchant_id}
+    status: #{status}
+    created at: #{@created_at}
+    updated at: #{@updated_at}"
   end
 
 end

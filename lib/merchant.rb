@@ -31,13 +31,13 @@ class Merchant
   end
 
   def invoices
-    @sales_engine.invoices.ffind_all_by_merchant_id(id)
+    @sales_engine.invoices.find_all_by_merchant_id(id)
   end
 
   def inspect
-#     "id: #{@id},
-# name: #{@name},
-# created_at: #{@created_at},
-# updated_at: #{@updated_at}"
+    "id: #{@id},
+name: #{@name},
+created_at: #{@created_at},
+updated_at: #{@updated_at}"
   end
 end
