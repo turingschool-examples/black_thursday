@@ -5,7 +5,7 @@ require 'time'
 require 'bigdecimal'
 require 'pry'
 require_relative '../lib/item_repository'
-require_relative '../sales_engine'
+require_relative '../lib/sales_engine'
 
 class ItemRepositoryTest < Minitest::Test
 
