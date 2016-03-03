@@ -22,4 +22,15 @@ module RepositoryLoaders
     end
   end
 
+  def load_invoices_into_repository(sales_engine, invoices)
+    invoices.each do |row|
+      @invoices.repository << Invoice.new(sales_engine, {:id => row[:id],
+                                          :customer_id => row[:customer_id],
+                                          :merchant_id => row[:merchant_id],
+                                          :status => row[:status],
+                                          :created_at => row[:created_at],
+                                          :updated_at => row[:updated_at]})
+    end
+  end
+
 end

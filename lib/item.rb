@@ -1,4 +1,5 @@
 require 'bigdecimal'
+require 'time'
 
 class Item
 
@@ -50,13 +51,13 @@ class Item
   end
 
   def inspect
-    # "  id: #{id}
-    # name: #{name}
-    # description: #{description}
-    # unit price: #{unit_price}
-    # merchant id: #{merchant_id}
-    # created at: #{created_at}
-    # updated at: #{updated_at}"
+    "  id: #{id}
+    name: #{name}
+    description: #{description}
+    unit price: #{unit_price}
+    merchant id: #{merchant_id}
+    created at: #{@created_at}
+    updated at: #{@updated_at}"
   end
 
 end

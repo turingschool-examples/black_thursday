@@ -16,7 +16,7 @@ class SalesEngine
   def initialize
     @items = ItemRepository.new(self)
     @merchants = MerchantRepository.new(self)
-    #@invoices = InvoiceRepository.new(self)
+    @invoices = InvoiceRepository.new(self)
   end
 
   def self.from_csv(loadpath_hash)
@@ -27,7 +27,7 @@ class SalesEngine
 
     @sales_engine.load_items_into_repository(@sales_engine, items)
     @sales_engine.load_merchants_into_repository(@sales_engine, merchants)
-    # @sales_engine.load_invoices_into_repository(@sales_engine, invoices)
+    @sales_engine.load_invoices_into_repository(@sales_engine, invoices)
 
 
 
