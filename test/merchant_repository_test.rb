@@ -14,14 +14,11 @@ class MerchantRepositoryTest < Minitest::Test
                 :items     => './fixtures/items_fixtures.csv'
                 })
      @mr = se.merchants
-
-     #can we run this test with values?
-     #@mr = MerchantRepository.new({id: "12334113", name: "MiniatureBikez"})
   end
 
   def test_all_returns_array_of_all_merchants
-  assert_equal Array, @mr.merchants.class
-  assert_equal 4, @mr.all.count
+    assert_equal Array, @mr.merchants.class
+    assert_equal 4, @mr.all.count
   end
 
   def test_find_by_id_returns_merchant_object

@@ -5,12 +5,16 @@ require 'csv'
 require 'pry'
 
 class SalesEngine
-  attr_reader :csv_content, :merchants, :items, :sales_analyst
+  attr_reader :data, :merchants, :items, :sales_analyst
 
-  def initialize(csv_content={})
-    @csv_content = csv_content
-    @merchants ||= MerchantRepository.new(@csv_content[:merchants], self)
-    @items ||= ItemRepository.new(@csv_content[:items])
+  def initialize(data={})
+    # takes in data as a hash containing keys like :merchants, :items, :etc
+    # generates and stores repos for each data type
+    # {:merchants => [{:some => "merchant data"}]}
+    @data = data
+    # only create this if the csv_content for :merchants is provided
+    @merchants = MerchantRepository.new(@data[:merchants], self)
+    @items     = ItemRepository.new(@data[:items])
     @sales_analyst ||= SalesAnalyst.new(self)
   end
 

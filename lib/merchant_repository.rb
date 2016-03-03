@@ -6,6 +6,9 @@ require 'pry'
 class MerchantRepository
   attr_reader :merchants, :sales_engine
   def initialize(value_at_merchant, sales_engine)
+    # takes in an array of hashes where each hash represents data
+    # for a single merchant
+    # merchants have [:id, :name, :......]
     @sales_engine = sales_engine
     @merchants = []
     make_merchants(value_at_merchant)
