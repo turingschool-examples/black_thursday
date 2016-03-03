@@ -28,11 +28,11 @@ class MerchantTest < Minitest::Test
   end
 
   def test_items_returns_of_merchants_items
-    assert_equal "", @m.items[0].name
-    assert_equal "", @m.items[1].name
-
-    # merchants id, match with merchants id in items files
-    # array of item objects
+    assert_equal "510+ RealPush Icon Set", @m.items[0].name
+    assert_equal "Glitter scrabble frames", @m.items[1].name
+    assert_equal nil, @m.items[2]
   end
+
+  
 
 end

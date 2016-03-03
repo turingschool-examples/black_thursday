@@ -13,7 +13,7 @@ class Merchant
     # match all item objects with current merchant by id
     # find_all
 
-    repository.find_items
+    @repository.find_items(@id)
 
 
 
