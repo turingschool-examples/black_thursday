@@ -2,7 +2,8 @@ require 'time'
 
 class Invoice
 
-  def initialize(invoice_info_hash)
+  def initialize(sales_engine, invoice_info_hash)
+    @sales_engine = sales_engine
     @id = invoice_info_hash[:id]
     @customer_id = invoice_info_hash[:customer_id]
     @merchant_id = invoice_info_hash[:merchant_id]
@@ -35,5 +36,8 @@ class Invoice
     Time.parse(@updated_at)
   end
 
+  def merchant
+    @sales_engine.merchants.find_by_id(id)
+  end
 
 end
