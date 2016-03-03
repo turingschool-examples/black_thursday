@@ -94,20 +94,20 @@ attr_accessor :invoices, :se, :invoice_1, :invoice_2, :invoice_3, :invoice_4, :i
   end
 
   def test_can_find_all_by_customer_id
-    skip
+    # skip
     assert_equal [invoice_1, invoice_2, invoice_3, invoice_4, invoice_5, invoice_6, invoice_7, invoice_8] se.invoices.find_all_by_customer_id(1)
     assert_equal [], se.invoices.find_all_by_customer_id(100)
 
   end
 
   def test_can_find_all_by_merchant_id
-    skip
+    # skip
     assert_equal [invoice_7, invoice_9], se.invoices.find_all_by_merchant_id(125)
     assert_equal [], se.invoices.find_all_by_merchant_id(150)
   end
 
   def test_can_find_all_by_status
-    skip
+    # skip
     assert_equal [invoice_2, invoice_3, invoice_8, invoice_9], se.invoices.find_all_by_status("shipped")
     assert_equal [], se.invoices.find_all_by_status("completed")
   end
