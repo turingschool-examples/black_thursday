@@ -2,19 +2,13 @@ require_relative '../lib/merchant'
 require 'csv'
 require 'pry'
 
-# contents = CSV.open '../merchants.csv', headers: true, header_converters: :symbol
 
 class MerchantRepository
   attr_accessor :repository
 
-  def initialize
+  def initialize(sales_engine)
+    @sales_engine = sales_engine
     @repository = []
-
-    # contents.each do |row|
-    #   row_from_csv = {:id => row[:id], :name => row[:name]}
-    #   m = Merchant.new(row_from_csv)
-    #   @merchants.push(m)
-    # end
   end
 
   def all

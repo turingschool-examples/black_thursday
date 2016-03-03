@@ -3,7 +3,8 @@
 class InvoiceRepository
 
   attr_accessor :repository
-  def initialize
+  def initialize(sales_engine)
+    @sales_engine = sales_engine
     @repository = []
   end
 
@@ -33,6 +34,9 @@ class InvoiceRepository
     repository.find_all do |invoice|
       invoice.status == status
     end
+  end
+
+  def inspect
   end
 
 end

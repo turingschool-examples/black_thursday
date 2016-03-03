@@ -13,7 +13,7 @@ class Item
   end
 
   def id
-    @id
+    @id.to_i
   end
 
   def name
@@ -25,11 +25,11 @@ class Item
   end
 
   def unit_price
-    BigDecimal.new(@unit_price)
+    BigDecimal.new(@unit_price)/100
   end
 
   def merchant_id
-    @merchant_id
+    @merchant_id.to_i
   end
 
   def created_at
@@ -45,13 +45,13 @@ class Item
   end
 
   def inspect
-    "  id: #{id}
-    name: #{name}
-    description: #{description}
-    unit price: #{unit_price}
-    merchant id: #{merchant_id}
-    created at: #{created_at}
-    updated at: #{updated_at}"
+    # "  id: #{id}
+    # name: #{name}
+    # description: #{description}
+    # unit price: #{unit_price}
+    # merchant id: #{merchant_id}
+    # created at: #{created_at}
+    # updated at: #{updated_at}"
   end
 
 end

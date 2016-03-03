@@ -14,8 +14,8 @@ class SalesEngine
   attr_reader :items, :merchants, :invoices
 
   def initialize
-    @items = ItemRepository.new
-    @merchants = MerchantRepository.new
+    @items = ItemRepository.new(self)
+    @merchants = MerchantRepository.new(self)
     #@invoices = InvoiceRepository.new
   end
 
