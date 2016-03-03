@@ -1,4 +1,4 @@
-require_relative 'merchant'
+require_relative '../lib/merchant'
 require 'csv'
 require 'pry'
 

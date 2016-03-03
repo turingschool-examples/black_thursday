@@ -5,7 +5,6 @@ class InvoiceRepository
   attr_accessor :repository
   def initialize
     @repository = []
-
   end
 
   def all
@@ -34,10 +33,6 @@ class InvoiceRepository
     repository.find_all do |invoice|
       invoice.status == status
     end
-  end
-
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
   end
 
 end
