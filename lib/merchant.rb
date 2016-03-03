@@ -1,7 +1,7 @@
 require 'pry'
 
 class Merchant
-  attr_reader :name, :create_at, :updated_at
+  attr_reader
 
   def initialize(row_from_csv)
     @id = row_from_csv[:id]
@@ -12,6 +12,18 @@ class Merchant
 
   def id
     @id.to_i
+  end
+
+  def name
+    @name
+  end
+
+  def created_at
+    Time.parse(@created_at)
+  end
+
+  def updated_at
+    Time.parse(@updated_at)
   end
 
   def inspect

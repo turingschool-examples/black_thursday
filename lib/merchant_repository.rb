@@ -7,7 +7,8 @@ require 'pry'
 class MerchantRepository
   attr_accessor :repository
 
-  def initialize
+  def initialize(sales_engine)
+    @sales_engine = sales_engine
     @repository = []
 
     # contents.each do |row|
@@ -30,7 +31,7 @@ class MerchantRepository
   def find_by_name(name)
     @repository.find do |merchant|
       merchant.name.downcase == name.downcase
-    end.to_i
+    end
   end
 
   def find_all_by_name(name_fragment)

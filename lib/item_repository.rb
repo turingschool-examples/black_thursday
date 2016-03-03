@@ -1,9 +1,10 @@
-
+require 'pry'
 
 class ItemRepository
 
   attr_accessor :repository
-  def initialize
+  def initialize(sales_engine)
+    @sales_engine = sales_engine
     @repository = []
   end
 
