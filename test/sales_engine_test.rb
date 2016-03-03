@@ -1,14 +1,17 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'csv'
-require_relative '../sales_engine'
+require_relative '../lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test
 
-  def test_from_csv_accepts_hash
-    sales_engine = SalesEngine.new.from_csv({:merchants => './fixtures/merchants_fixture.csv'})  
-    expected = ({merchants: {:id => nil }})
-    assert_equal expected, sales_engine
+  def test_from_csv_intializes_se_with_merchants_and_items
+    se = SalesEngine.from_csv({
+              :merchants => '../test/fixtures/merchants_fixtures.csv',
+              :items     => '../test/fixtures/items_fixtures.csv'
+              })
+    assert_equal MerchantRepository, se.merchants.class
+    assert_equal ItemRepository, se.items.class
   end
 
 end

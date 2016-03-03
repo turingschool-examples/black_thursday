@@ -1,10 +1,10 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require '../lib/merchant'
-require '../lib/merchant_repository'
-require '../lib/item'
-require '../lib/item_repository'
-require '../sales_engine'
+require_relative '../lib/merchant'
+require_relative '../lib/merchant_repository'
+require_relative '../lib/item'
+require_relative '../lib/item_repository'
+require_relative '../lib/sales_engine'
 
 class MerchantTest < Minitest::Test
   def setup
@@ -28,11 +28,10 @@ class MerchantTest < Minitest::Test
   end
 
   def test_items_returns_of_merchants_items
-    assert_equal "", @m.items[0].name
-    assert_equal "", @m.items[1].name
-
-    # merchants id, match with merchants id in items files
-    # array of item objects
+    assert_equal "Glitter scrabble frames", @m.items[0].name
+    assert_equal nil, @m.items[1]
   end
+
+
 
 end
