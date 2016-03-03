@@ -39,19 +39,13 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_price_deviation_returns_price_deviation_for_all_items
+    @sa.find_all_item_prices
     assert_equal 8.99, @sa.price_deviation
   end
 
   def test_golden_items_returns_items_that_are_two_standard_deviations_above_average
-    skip
-    assert_equal "", @sa.golden_items[0].name
-    assert_equal "", @sa.golden_items[1].name
-    assert_equal "", @sa.golden_items[2].name
-
-    # input is items - get them from mr.find_items by id
-    # put all items in items array
-    # iterate through the array with find_all that match:
-    # golden >= average_items_per_merchant_standard_deviation + 2
-    # return those items in array.
+    assert_equal "Vogue Paris Original Givenchy 2307", @sa.golden_items[0].name
+    assert_equal "Cache cache à la plage", @sa.golden_items[1].name
+    assert_equal nil, @sa.golden_items[2]
   end
 end

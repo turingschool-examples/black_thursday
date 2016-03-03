@@ -4,6 +4,7 @@ class SalesAnalyst
   def initialize(se)
     @se = se
     @mr = @se.merchants
+    @ir = @se.items
   end
 
   def average_items_per_merchant
@@ -42,8 +43,6 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(id)
-    #get items of one merchant by id
-    #find price of each and average
     items = @mr.find_items(id)
     prices = items.map do |item|
       item.unit_price
@@ -59,19 +58,24 @@ class SalesAnalyst
     prices / merchants_ids.count
   end
   def golden_items
-    price_deviation
+    @ir.all.find_all do |item|
+      item.unit_price >= price_deviation * 2
+    end
   end
-  def price_deviation
-    average = average_average_price_per_merchant
+
+  def find_all_item_prices
     merchant_ids = @mr.all.map { |merchant| merchant.id }
     item_prices = merchant_ids.map do |id|
       prices = @mr.find_items(id).map do |item|
         item.unit_price
       end
     end
+    item_prices.flatten
+  end
 
-    sum = item_prices.flatten.reduce(0) do |sum, price|
-      (price - average) ** 2
+  def price_deviation
+    sum = find_all_item_prices.reduce(0) do |sum, price|
+      (price - average_average_price_per_merchant) ** 2
     end
     deviation = Math.sqrt(sum / 2)
     (deviation * 100).floor / 100.0
