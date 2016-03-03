@@ -11,11 +11,8 @@ require_relative '../lib/sales_engine'
 class SalesEngineTest < Minitest::Test
   def setup
     @sales_engine = SalesEngine.new
-
     @merchant_1_inspect = "id: 12334105,\nname: Shopin1901,\ncreated_at: 2010-12-10,\nupdated_at: 2011-12-04"
-
     @merchant_2_inspect = "id: 12334112,\nname: Candisart,\ncreated_at: 2009-05-30,\nupdated_at: 2010-08-29"
-
     @merchant_1_inspect_find_all = "[id: 12334105,\nname: Shopin1901,\ncreated_at: 2010-12-10,\nupdated_at: 2011-12-04]"
 
   end

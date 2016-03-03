@@ -7,21 +7,21 @@ require_relative '../lib/item_repository'
 class ItemRepositoryClassTest < Minitest::Test
 
   def setup
-    item1 = Item.new({:id => 2342,
+    item1 = Item.new("", {:id => 2342,
                      :name => "MY Item",
                      :description => "Best item ever",
                      :unit_price => 1500,
                      :merchant_id => 23,
                      :created_at => Time.now,
                      :updated_at => Time.now})
-    item2 = Item.new({:id => 2341,
+    item2 = Item.new("", {:id => 2341,
                      :name => "Another item",
                      :description => "Mediocre item",
                      :unit_price => 1200,
                      :merchant_id => 22,
                      :created_at => Time.now,
                      :updated_at => Time.now})
-   item3 = Item.new({:id => 2438,
+   item3 = Item.new("", {:id => 2438,
                     :name => "Tertiary item",
                     :description => "This is an item",
                     :unit_price => 1100,
@@ -29,7 +29,7 @@ class ItemRepositoryClassTest < Minitest::Test
                     :created_at => Time.now,
                     :updated_at => Time.now})
     @items = [item1, item2, item3]
-    @item_repository = ItemRepository.new
+    @item_repository = ItemRepository.new("")
     @items.each { |item| @item_repository.repository << item }
   end
 

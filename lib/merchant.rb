@@ -1,9 +1,9 @@
 require 'pry'
 
 class Merchant
-  attr_reader
 
-  def initialize(row_from_csv)
+  def initialize(sales_engine, row_from_csv)
+    @sales_engine = sales_engine
     @id = row_from_csv[:id]
     @name = row_from_csv[:name]
     @created_at = row_from_csv[:created_at]
@@ -24,6 +24,11 @@ class Merchant
 
   def updated_at
     Time.parse(@updated_at)
+  end
+
+  def invoices
+
+
   end
 
   def inspect

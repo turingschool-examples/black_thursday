@@ -42,20 +42,19 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(merchant_id)
     x = items_per_merchant_hash
-    n = x[merchant_id].reduce(0) do |sum, item|
-      sum += item.unit_price.to_i
-    end/x[merchant_id].count
-
-    BigDecimal.new(n).truncate(2)
+    n = BigDecimal.new(x[merchant_id].reduce(0) do |sum, item|
+      sum += item.unit_price
+    end)/x[merchant_id].count
+    n.round(2)
   end
 
   def average_average_price_per_merchant
     x = items_per_merchant_hash
     n = x.map do |merchant, items|
       average_item_price_for_merchant(merchant)
-    end.reduce(:+)/x.count
+    end.reduce(:+)/x.count.to_f
 
-    BigDecimal.new(n).truncate(2)
+    BigDecimal.new("#{n}").round(2)
   end
 
   def average_item_price_for_merchant_hash # need to test hash
@@ -85,9 +84,9 @@ class SalesAnalyst
     ((average_item_price_standard_deviation * 2) + average_price_of_all_items).to_f.round(2)
   end
 
-  def golden_items
-    @se.items.repository.find_all do |item|
-      item if item.unit_price > two_std_dev_for_average_item_price
-    end
-  end
+  # def golden_items
+  #   @se.items.repository.find_all do |item|
+  #     item if item.unit_price > two_std_dev_for_average_item_price
+  #   end
+  # end
 end

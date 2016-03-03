@@ -22,12 +22,12 @@ class SalesEngine
   def self.from_csv(loadpath_hash)
     items = load_file(loadpath_hash[:items])
     merchants = load_file(loadpath_hash[:merchants])
-    #invoices = load_file(loadpath_hash[:invoices])
+    invoices = load_file(loadpath_hash[:invoices])
     sales_engine = SalesEngine.new
 
-    sales_engine.load_items_into_repository(items)
-    sales_engine.load_merchants_into_repository(merchants)
-    #sales_engine.load_invoices_into_repository(invoices)
+    sales_engine.load_items_into_repository(sales_engine, items)
+    sales_engine.load_merchants_into_repository(sales_engine, merchants)
+    # sales_engine.load_invoices_into_repository(sales_engine, invoices)
 
 
 

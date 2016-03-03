@@ -1,8 +1,8 @@
 module RepositoryLoaders
 
-  def load_items_into_repository(items)
+  def load_items_into_repository(sales_engine, items)
     items.each do |row|
-      @items.repository << Item.new({:id =>row[:id],
+      @items.repository << Item.new(sales_engine, {:id =>row[:id],
                          :name => row[:name],
                          :description => row[:description],
                          :unit_price => row[:unit_price],
@@ -13,9 +13,9 @@ module RepositoryLoaders
 
   end
 
-  def load_merchants_into_repository(merchants)
+  def load_merchants_into_repository(sales_engine, merchants)
     merchants.each do |row|
-      @merchants.repository << Merchant.new({:id => row[:id],
+      @merchants.repository << Merchant.new(sales_engine, {:id => row[:id],
                                              :name => row[:name],
                                              :created_at => row[:created_at],
                                              :updated_at => row[:updated_at]})

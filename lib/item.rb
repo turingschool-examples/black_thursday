@@ -2,7 +2,8 @@ require 'bigdecimal'
 
 class Item
 
-  def initialize(item_info_hash)
+  def initialize(sales_engine, item_info_hash)
+    @sales_engine = sales_engine
     @id = item_info_hash[:id]
     @name = item_info_hash[:name]
     @description = item_info_hash[:description]
