@@ -147,29 +147,34 @@ class SalesAnalyst
     @se.invoices.repository.count/number_of_week_days
   end
 
+  def invoices_for_day_hash
+    @se.invoices.repository.group_by { |invoice| invoice.created_at.strftime('%A')}
+  end
+
   def count_of_invoices_for_day_hash
-    # created_at.strftime('%A')
-    x = @se.invoices.repository.group_by { |invoice| invoice.created_at.strftime('%A')}
+    invoices_for_day_hash.map { |week_day, invoices| [week_day, invoices.count] }.to_h
   end
 
   def average_invoices_per_day_standard_deviation
+    variance = count_of_invoices_for_day_hash.values.map do |value|
+          (value - average_invoices_per_day) ** 2
+        end.reduce(:+)/(7.to_f - 1)
 
+    Math.sqrt(variance).round(2)
   end
 
-  def one_std_dev_for_average_invoices_per_day
-
-  end
 
   def one_std_dev_above_average_invoice_count
-
+    average_invoices_per_day_standard_deviation + average_invoices_per_day
   end
 
   def top_days_by_invoice_count
     # returns array of days of the week on which invoices are created at more than one std dev
-
-    # count of invoices for each week day - (average of invoice / day)
-
-
+    one_standard_deviation =  one_std_dev_above_average_invoice_count
+    top_days = count_of_invoices_for_day_hash.find_all do |week_day, invoice_count|
+      week_day if invoice_count > one_standard_deviation
+    end.to_h
+    top_days.keys
   end
 
   def invoice_status(status_symbol)

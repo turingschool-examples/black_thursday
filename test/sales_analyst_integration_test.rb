@@ -219,28 +219,46 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 712, expected
   end
 
+  def test_can_aggregate_invoices_for_each_week_day
+    sales_engine = SalesEngine.from_csv({
+      :items     => "data/items.csv",
+      :merchants => "data/merchants.csv",
+      :invoices => "data/invoices.csv"
+    })
+    sa = SalesAnalyst.new(sales_engine)
+
+    assert_equal Hash, sa.invoices_for_day_hash.class
+  end
+
   def test_can_calculate_count_of_invoices_for_each_week_day
-    expected = sa.count_of_invoices_for_day_hash
-    assert_equal Hash, expected.class
+    sales_engine = SalesEngine.from_csv({
+      :items     => "data/items.csv",
+      :merchants => "data/merchants.csv",
+      :invoices => "data/invoices.csv"
+    })
+    sa = SalesAnalyst.new(sales_engine)
+
+    assert_equal Hash, sa.count_of_invoices_for_day_hash.class
   end
 
   def test_can_calculate_average_invoices_per_day_standard_deviation
-    skip
-    expected = sa.average_invoices_per_day_standard_deviation
-    # assert_equal (some number), expected
-    assert_equal Float, expected.class
+    sales_engine = SalesEngine.from_csv({
+      :items     => "data/items.csv",
+      :merchants => "data/merchants.csv",
+      :invoices => "data/invoices.csv"
+    })
+    sa = SalesAnalyst.new(sales_engine)
+
+    assert_equal 0.63, sa.average_invoices_per_day_standard_deviation
+    assert_equal Float, sa.average_invoices_per_day_standard_deviation.class
   end
 
-  def test_can_calculate_one_std_dev_for_average_invoices_per_merchant
-    skip
-  end
 
   def test_can_calculate_one_std_dev_above_average_invoice_count_per_day
     skip
   end
 
   def test_can_calculate_which_days_of_the_week_see_the_most_sales
-    skip
     sales_engine = SalesEngine.from_csv({
       :items     => "data/items.csv",
       :merchants => "data/merchants.csv",
