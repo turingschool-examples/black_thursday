@@ -44,8 +44,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_golden_items_returns_items_that_are_two_standard_deviations_above_average
-    assert_equal "Vogue Paris Original Givenchy 2307", @sa.golden_items[0].name
-    assert_equal "Cache cache à la plage", @sa.golden_items[1].name
-    assert_equal nil, @sa.golden_items[2]
+    assert_equal "Cache cache à la plage", @sa.golden_items[0].name
+    assert_equal nil, @sa.golden_items[1]
   end
 end

@@ -17,6 +17,10 @@ class ItemRepositoryTest < Minitest::Test
     @ir = se.items
   end
 
+  def test_find_merchant_returns_items_merchant
+    assert_equal "MiniatureBikez", @ir.find_merchant(12334113).name
+  end
+
   def test_all_returns_array_of_all_items
     assert_equal Array, @ir.items.class
     assert_equal 7, @ir.all.count

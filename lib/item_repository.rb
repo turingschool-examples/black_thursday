@@ -6,16 +6,21 @@ require 'time'
 require 'pry'
 
 class ItemRepository
-  attr_reader :items
+  attr_reader :items, :sales_engine
 
-  def initialize(value_at_item)
+  def initialize(value_at_item, sales_engine)
+    @sales_engine = sales_engine
     make_items(value_at_item)
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 
   def make_items(item_hashes)
     @items = []
     item_hashes.each do |item_hash|
-      @items << Item.new(item_hash)
+      @items << Item.new(item_hash, self)
     end
     @items
   end
@@ -50,6 +55,10 @@ class ItemRepository
 
   def find_all_by_merchant_id(id)
     @items.find_all { |object| object.merchant_id == id }
+  end
+
+  def find_merchant(merchant_id)
+    @sales_engine.merchants.find_by_id(merchant_id)
   end
 
 end
