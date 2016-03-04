@@ -23,23 +23,24 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_items_can_be_loaded_into_repository
-    @items = ItemRepository.new
+    @items = ItemRepository.new(@sales_engine)
     file = SalesEngine.load_file('data/items.csv')
-    @sales_engine.load_items_into_repository(file)
+    @sales_engine.load_items_into_repository(@sales_engine, file)
     assert_equal 1367, @sales_engine.items.repository.count
   end
 
   def test_merchants_can_be_loaded_into_repository
-    @merchants = MerchantRepository.new
+    @merchants = MerchantRepository.new(@sales_engine)
     file = SalesEngine.load_file('data/merchants.csv')
-    @sales_engine.load_merchants_into_repository(file)
+    @sales_engine.load_merchants_into_repository(@sales_engine, file)
     assert_equal 475, @sales_engine.merchants.repository.count
   end
 
   def test_from_csv_will_create_Sales_Engine_object_and_add_files_into_repositories
     se = SalesEngine.from_csv({
       :items     => "data/items.csv",
-      :merchants => "data/merchants.csv"
+      :merchants => "data/merchants.csv",
+      :invoices => 'data/invoices.csv'
       })
     assert_equal 1367, se.items.repository.count
     assert_equal 475, se.merchants.repository.count
@@ -60,10 +61,10 @@ Artiste : Flavien Couche - Artiste côté Akoun
 TABLEAU VENDU AVEC FACTURE ET CERTIFICAT D&#39;AUTHETICITE
 
 www.flavien-couche.com
-    unit price: 0.5E5
+    unit price: 0.5E3
     merchant id: 12334195
     created at: 2016-01-11 11:30:34 UTC
-    updated at: 2007-01-06 13:55:19 UTC', ir.find_by_id('263398179').inspect
+    updated at: 2007-01-06 13:55:19 UTC', ir.find_by_id(263398179).inspect
 
 
   end

@@ -1,10 +1,11 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/merchant'
+require_relative '../lib/sales_engine'
 
 class MerchantTest < Minitest::Test
   def setup
-    @merchant = Merchant.new({:id => 12334105, :name => "Turing School", :created_at => "2016-02-29", :updated_at => "2016-03-01" })
+    @merchant = Merchant.new(SalesEngine.new,{:id => 12334105, :name => "Turing School", :created_at => "2016-02-29", :updated_at => "2016-03-01" })
   end
 
   def test_merchant_can_be_instantiated
