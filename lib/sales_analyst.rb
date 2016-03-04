@@ -13,7 +13,7 @@ class SalesAnalyst
     total_items = merchant_ids.reduce(0) do |sum, id|
       sum += @mr.find_items(id).count
     end
-    total_items/@mr.merchants.count.to_f
+    (total_items/@mr.merchants.count.to_f).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
@@ -24,18 +24,19 @@ class SalesAnalyst
     end
 
     sum = item_count.reduce(0) do |sum, count|
-      (count - average) ** 2
+      sum + ((count - average) ** 2).to_f
     end
-    deviation = Math.sqrt(sum / 2)
-    (deviation * 100).floor / 100.0
+    deviation = Math.sqrt(sum / @mr.all.count - 1).round(2)
+    # (deviation * 100).floor / 100.0
   end
 
   def merchants_with_high_item_count
+    threshold = average_items_per_merchant + average_items_per_merchant_standard_deviation + 1
     merchant_ids = @mr.all.map { |merchant| merchant.id }
     golden_merchants = []
     merchant_ids.each do |id|
       item_count = @mr.find_items(id).count
-      if item_count >= average_items_per_merchant_standard_deviation + 1
+      if item_count >= threshold
         golden_merchants << @mr.find_by_id(id)
       end
     end
@@ -47,7 +48,7 @@ class SalesAnalyst
     prices = items.map do |item|
       item.unit_price
     end
-    prices.reduce(:+)/items.count
+    (prices.reduce(:+)/items.count).round(2)
   end
 
   def average_average_price_per_merchant
@@ -55,11 +56,13 @@ class SalesAnalyst
     prices = merchants_ids.reduce(0) do |sum, id|
       sum += average_item_price_for_merchant(id)
     end
-    prices / merchants_ids.count
+    (prices / merchants_ids.count).round(2)
   end
+
   def golden_items
+    p_deviation = (price_deviation * 2) + average_average_price_per_merchant
     @ir.all.find_all do |item|
-      item.unit_price >= price_deviation * 2
+      item.unit_price >= p_deviation
     end
   end
 
@@ -75,9 +78,9 @@ class SalesAnalyst
 
   def price_deviation
     sum = find_all_item_prices.reduce(0) do |sum, price|
-      (price - average_average_price_per_merchant) ** 2
+      sum + ((price - average_average_price_per_merchant) ** 2)
     end
-    deviation = Math.sqrt(sum / 2)
-    (deviation * 100).floor / 100.0
+    deviation = Math.sqrt(sum / (@ir.all.count - 1)).round(2)
+    # (deviation * 100).floor / 100.0
   end
 end

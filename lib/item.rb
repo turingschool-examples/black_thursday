@@ -3,9 +3,11 @@ require 'bigdecimal'
 require 'pry'
 require 'date'
 class Item
-  attr_reader :id, :name, :description, :unit_price, :created_at, :updated_at, :merchant_id
+  attr_reader :id, :name, :description, :unit_price,
+              :created_at, :updated_at, :merchant_id, :repository
 
-   def initialize(item_hash)
+   def initialize(item_hash, repository)
+     @repository = repository
      @id = item_hash[:id].to_i
      @name = item_hash[:name]
      @description = item_hash[:description]
@@ -21,6 +23,10 @@ class Item
      # to only return 2 decimals:
      # output_n = ((output_n * 100).floor) / 100
      # sprintf to convert big floats into dollar amounts
+   end
+
+   def merchant
+     @repository.find_merchant(@merchant_id)
    end
 
 end

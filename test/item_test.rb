@@ -21,6 +21,10 @@ class ItemTest < Minitest::Test
       })
   end
 
+  # def test_merchant_finds_items_merchant
+  #will need to initialize item repo + merchant repo to test
+  # end
+
   def test_initalize_organizes_row_value_id
     assert_equal 4, @item.id
   end

@@ -14,7 +14,7 @@ class SalesEngine
     @data = data
     # only create this if the csv_content for :merchants is provided
     @merchants = MerchantRepository.new(@data[:merchants], self)
-    @items     = ItemRepository.new(@data[:items])
+    @items     = ItemRepository.new(@data[:items], self)
     @sales_analyst ||= SalesAnalyst.new(self)
   end
 

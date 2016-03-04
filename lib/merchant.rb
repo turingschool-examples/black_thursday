@@ -8,10 +8,6 @@ class Merchant
   end
 
   def items
-    # ask the thing that has item array (item_repo)
-    # iterate through it
-    # match all item objects with current merchant by id
-    # find_all
     @repository.find_items(@id)
   end
 

@@ -14,6 +14,10 @@ class MerchantRepository
     make_merchants(value_at_merchant)
   end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
   def make_merchants(merchant_hashes)
     #@merchants = value_at_merchant.map { |merchant_row| Merchant.new(merchant_row)}
     merchant_hashes.each do |merchant_hash|
