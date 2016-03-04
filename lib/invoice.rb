@@ -13,19 +13,19 @@ class Invoice
   end
 
   def id
-    @id.to_i
+    @id.nil? ? nil : @id.to_i
   end
 
   def customer_id
-    @customer_id.to_i
+    @customer_id.nil? ? @customer_id : @customer_id.to_i
   end
 
   def merchant_id
-    @merchant_id.to_i
+    @merchant_id.nil? ? @merchant_id : @merchant_id.to_i
   end
 
   def status
-    @status.to_sym
+    @status.nil? ? @status : @status.to_sym
   end
 
   def created_at

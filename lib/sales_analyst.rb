@@ -116,7 +116,7 @@ class SalesAnalyst
   end
 
   def invoice_status(status_symbol)
-
+    @se.invoices.percent_by_status(status_symbol)
   end
 
 
