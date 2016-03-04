@@ -20,6 +20,7 @@ class SalesEngine
   end
 
   def self.from_csv(loadpath_hash)
+
     items = load_file(loadpath_hash[:items])
     merchants = load_file(loadpath_hash[:merchants])
     invoices = load_file(loadpath_hash[:invoices])
@@ -36,7 +37,7 @@ class SalesEngine
   end
 
   def self.load_file(loadpath)
-    contents = CSV.open "#{loadpath}", headers: true, header_converters: :symbol
+    CSV.open loadpath, headers: true, header_converters: :symbol
   end
 
 

@@ -5,6 +5,8 @@ require_relative '../lib/invoice'
 require_relative '../lib/invoice_repository'
 require_relative '../lib/sales_engine'
 
+
+
 class InvoiceRepositoryClassTest < Minitest::Test
 
 attr_accessor :invoices, :se, :invoice_1, :invoice_2, :invoice_3, :invoice_4, :invoice_5, :invoice_6, :invoice_7, :invoice_8, :invoice_9
@@ -12,12 +14,12 @@ attr_accessor :invoices, :se, :invoice_1, :invoice_2, :invoice_3, :invoice_4, :i
   def setup
 
     @se = SalesEngine.from_csv({
-      :items     => "test/fake_items.csv",
-      :merchants => "test/fake_merchants.csv",
-      :invoices => "test/fake_invoices.csv"
+      :items     => "./test/fake_items.csv",
+      :merchants => "./test/fake_merchants.csv",
+      :invoices => "./test/fake_invoices.csv"
     })
 
-    @invoices = InvoiceRepository.new(@se)
+    @invoices = @se.invoices
 
     @invoice_1 = Invoice.new(@se, {:id => "1",
                             :customer_id => "1",
@@ -84,34 +86,39 @@ attr_accessor :invoices, :se, :invoice_1, :invoice_2, :invoice_3, :invoice_4, :i
   end
 
   def test_can_create_an_invoice_repository
-    assert InvoiceRepository.new
+    assert InvoiceRepository.new(SalesEngine.new)
   end
 
   def test_can_find_an_invoice_by_its_id
-    # skip
-    assert_equal invoice_1, se.invoices.find_by_id(1)
-    assert_equal invoice_2, se.invoices.find_by_id(2)
-    assert_equal invoice_8, se.invoices.find_by_id(8)
-    assert_equal nil, se.invoices,find_by_id(100)
+    assert_equal invoice_1.inspect, invoices.find_by_id(1).inspect
+    assert_equal invoice_2.inspect, invoices.find_by_id(2).inspect
+    assert_equal invoice_8.inspect, invoices.find_by_id(8).inspect
+    assert_equal "nil", invoices.find_by_id(100).inspect
   end
 
   def test_can_find_all_by_customer_id
-    # skip
-    assert_equal [invoice_1, invoice_2, invoice_3, invoice_4, invoice_5, invoice_6, invoice_7, invoice_8], se.invoices.find_all_by_customer_id(1)
-    assert_equal [], se.invoices.find_all_by_customer_id(100)
+    assert_equal [invoice_1.inspect, invoice_2.inspect, invoice_3.inspect, invoice_4.inspect, invoice_5.inspect, invoice_6.inspect, invoice_7.inspect, invoice_8.inspect], invoices.find_all_by_customer_id(1).map { |item| item.inspect }
+    assert_equal [], invoices.find_all_by_customer_id(100).map { |item| item.inspect }
 
   end
 
   def test_can_find_all_by_merchant_id
-    # skip
-    assert_equal [invoice_7, invoice_9], se.invoices.find_all_by_merchant_id(125)
-    assert_equal [], se.invoices.find_all_by_merchant_id(150)
+    assert_equal [invoice_7.inspect, invoice_9.inspect], invoices.find_all_by_merchant_id(125).map { |item| item.inspect }
+    assert_equal [], invoices.find_all_by_merchant_id(150).map { |item| item.inspect }
   end
 
   def test_can_find_all_by_status
-    # skip
-    assert_equal [invoice_2, invoice_3, invoice_8, invoice_9], se.invoices.find_all_by_status("shipped")
-    assert_equal [], se.invoices.find_all_by_status("completed")
+    # binding.pry
+
+    # se = SalesEngine.from_csv({
+    #   :items     => "./test/fake_items.csv",
+    #   :merchants => "./test/fake_merchants.csv",
+    #   :invoices => "./test/fake_invoices.csv"
+    # })
+    #
+    # invoices = se.invoices
+    assert_equal 5, invoices.find_all_by_status("shipped").count
+    assert_equal [], invoices.find_all_by_status("completed").map { |item| item.inspect }
   end
 
 end
