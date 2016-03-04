@@ -94,24 +94,81 @@ class SalesAnalyst
     end
   end
 
-
   def average_invoices_per_merchant
-
+    (@se.invoices.repository.count.to_f/@se.merchants.repository.count.to_f).round(2)
   end
 
-  def averate_invoices_per_merchant_standard_deviation
+  def invoices_per_merchant_hash #need test?
+    @se.invoices.repository.group_by { |invoice| invoice.merchant_id }
+  end
 
+  def invoice_count_per_merchant_hash # need test?
+    @se.merchants.repository.map { |merchant| [merchant.id, merchant.invoices.count] }.to_h
+    # invoices_per_merchant_hash.map { |merchant_id, invoices| [merchant_id, invoices.count] }.to_h
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    variance = invoice_count_per_merchant_hash.values.map do |value|
+          (value - average_invoices_per_merchant) ** 2
+        end.reduce(:+)/(@se.merchants.repository.count.to_f - 1)
+
+    Math.sqrt(variance).round(2)
+  end
+
+  def two_std_dev_average_invoice_count
+    average_invoices_per_merchant_standard_deviation * 2
+  end
+
+  def two_std_dev_above_average_invoice_count
+    (average_invoices_per_merchant + two_std_dev_average_invoice_count).to_f.round(2)
+  end
+
+  def two_std_dev_below_average_invoice_count
+    (average_invoices_per_merchant - two_std_dev_average_invoice_count).to_f.round(2)
   end
 
   def top_merchants_by_invoice_count
-
+    two_standard_deviations = two_std_dev_above_average_invoice_count
+    @se.merchants.repository.find_all do |merchant|
+      merchant if merchant.invoices.count > two_standard_deviations
+    end
   end
 
   def bottom_merchants_by_invoice_count
+    two_standard_deviations = two_std_dev_below_average_invoice_count
+    @se.merchants.repository.find_all do |merchant|
+      merchant if merchant.invoices.count < two_standard_deviations
+    end
+  end
+
+  def average_invoices_per_day
+    # average of invoice / day = total number of invoices / total number of days per week (7)
+    number_of_week_days = 7
+    @se.invoices.repository.count/number_of_week_days
+  end
+
+  def count_of_invoices_for_day_hash
+    # created_at.strftime('%A')
+    x = @se.invoices.repository.group_by { |invoice| invoice.created_at.strftime('%A')}
+  end
+
+  def average_invoices_per_day_standard_deviation
+
+  end
+
+  def one_std_dev_for_average_invoices_per_day
+
+  end
+
+  def one_std_dev_above_average_invoice_count
 
   end
 
   def top_days_by_invoice_count
+    # returns array of days of the week on which invoices are created at more than one std dev
+
+    # count of invoices for each week day - (average of invoice / day)
+
 
   end
 
