@@ -1,12 +1,13 @@
 require_relative 'merchant_repository'
 require_relative 'item_repository'
 require_relative 'invoice_repository'
+require_relative 'customer_repository'
 require_relative 'sales_analyst'
 require 'csv'
 require 'pry'
 
 class SalesEngine
-  attr_reader :data, :merchants, :items, :invoices, :sales_analyst
+  attr_reader :data, :merchants, :items, :invoices, :customers, :sales_analyst
 
   def initialize(data={})
     # takes in data as a hash containing keys like :merchants, :items, :etc
@@ -17,7 +18,8 @@ class SalesEngine
     @merchants = MerchantRepository.new(@data[:merchants], self)
     @items     = ItemRepository.new(@data[:items], self)
     @invoices  = InvoiceRepository.new(@data[:invoices], self)
-    @sales_analyst ||= SalesAnalyst.new(self)
+    @customers = CustomerRepository.new(@data[:customers], self)
+    @sales_analyst = SalesAnalyst.new(self)
   end
 
   def self.from_csv(data)
