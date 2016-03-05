@@ -12,7 +12,9 @@ class InvoiceRepositoryTest < Minitest::Test
     se = SalesEngine.from_csv({
             :merchants => './fixtures/merchants_fixtures.csv',
             :items     => './fixtures/items_fixtures.csv',
-            :invoices   => './fixtures/invoices_fixtures.csv'
+            :invoices   => './fixtures/invoices_fixtures.csv',
+            :invoice_items => './fixtures/invoice_items_fixtures.csv',
+            :transactions  => './fixtures/transactions_fixtures.csv'
             })
     @ir = se.invoices
   end
@@ -29,7 +31,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_find_by_id_returns_nil_if_id_does_not_exist
-    assert_equal 1, @ir.find_by_id(1).id
+    assert_equal nil, @ir.find_by_id(679)
   end
 
   def test_find_all_by_customer_id_returns_array_of_invoices_with_matching_custy_ids

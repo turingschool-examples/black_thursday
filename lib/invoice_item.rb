@@ -1,5 +1,5 @@
 class InvoiceItem
-  attr_reader :id, :item_id, :invoice_id, :quantity, :unit_price
+  attr_reader :id, :item_id, :invoice_id, :quantity, :unit_price,
               :created_at, :updated_at, :repository
 
   def initialize(invoice_item_hash, repository)
@@ -11,6 +11,11 @@ class InvoiceItem
     @unit_price = BigDecimal.new(invoice_item_hash[:unit_price]) / 100
     @created_at = Time.parse(invoice_item_hash[:created_at])
     @updated_at = Time.parse(invoice_item_hash[:updated_at])
+  end
+
+  def unit_price_per_dollars
+    @unit_price.to_f
+    # sprintf to convert big floats into dollar amounts
   end
 
   # def items

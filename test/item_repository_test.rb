@@ -12,7 +12,9 @@ class ItemRepositoryTest < Minitest::Test
     se = SalesEngine.from_csv({
             :merchants => './fixtures/merchants_fixtures.csv',
             :items     => './fixtures/items_fixtures.csv',
-            :invoices   => './fixtures/invoices_fixtures.csv'
+            :invoices      => './fixtures/invoices_fixtures.csv',
+            :invoice_items => './fixtures/invoice_items_fixtures.csv',
+            :transactions  => './fixtures/transactions_fixtures.csv'
             })
     @ir = se.items
   end
@@ -71,7 +73,6 @@ class ItemRepositoryTest < Minitest::Test
   def test_find_all_with_description_returns_empty_array_when_there_are_no_matches
     assert_equal [], @ir.find_all_with_description("fhghjdjaskj")
   end
-
 
   def test_find_all_by_price_finds_items_where_the_price_matches
     items = @ir.find_all_by_price(12.00)
