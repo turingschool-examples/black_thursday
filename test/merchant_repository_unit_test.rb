@@ -55,9 +55,5 @@ class MerchantRepositoryTest < Minitest::Test
   def test_merchant_repository_can_return_all_merchant_instances
     assert_equal @repository, @mr.all
   end
-  # test_data
-  # date = array of hash
-  #
-  # test_with_location
-  # file = some_path
+
 end
