@@ -59,13 +59,9 @@ class InvoiceItemTest < Minitest::Test
     assert_equal Time.parse("2012-03-27 14:54:09 UTC"), @invoice_item.updated_at
   end
 
-  def test_initalize_organizes_row_value_merchant
-    assert_equal 12334105, @invoice_item.merchant_id
-  end
-
   def test_returns_price_in_dollars_formatted_as_float
     assert_equal 7.00, @invoice_item.unit_price_per_dollars
-    assert_equal Float, @invoice_item.unit_price.class
+    assert_equal Float, @invoice_item.unit_price_per_dollars.class
   end
 
   # def test_merchant_returns_items_merchant

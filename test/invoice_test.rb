@@ -17,15 +17,15 @@ class InvoiceTest < Minitest::Test
       id: 1,
       costumer_id: 1,
       merchant_id: 14784142,
-      status: "pending",
+      status: :pending,
       created_at: '2009-02-07',
-      updated_at: '2014-03-15',
+      updated_at: '2014-03-15'
       },
       invoice_repository = nil)
   end
 
   def test_initalize_organizes_row_value_id
-    assert_equal 4, @invoice.id
+    assert_equal 1, @invoice.id
   end
 
   def test_initalize_organizes_row_value_merchant_id
@@ -33,7 +33,7 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_initalize_organizes_row_value_status
-    assert_equal "pending", @invoice.status
+    assert_equal :pending, @invoice.status
   end
 
   def test_initalize_organizes_row_value_created_at
