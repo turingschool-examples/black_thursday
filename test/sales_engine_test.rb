@@ -12,6 +12,7 @@ class SalesEngineTest < Minitest::Test
               })
     assert_equal MerchantRepository, se.merchants.class
     assert_equal ItemRepository, se.items.class
+    assert_equal SalesAnalyst, se.sales_analyst.class
   end
 
 end

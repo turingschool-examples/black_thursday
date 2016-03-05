@@ -40,7 +40,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_price_deviation_returns_price_deviation_for_all_items
     @sa.find_all_item_prices
-    assert_equal 8.99, @sa.price_deviation
+    assert_equal 52.17, @sa.price_deviation
   end
 
   def test_golden_items_returns_items_that_are_two_standard_deviations_above_average
