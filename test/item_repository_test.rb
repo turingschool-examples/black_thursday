@@ -72,7 +72,6 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal [], @ir.find_all_with_description("fhghjdjaskj")
   end
 
-
   def test_find_all_by_price_finds_items_where_the_price_matches
     items = @ir.find_all_by_price(12.00)
     assert_equal "510+ RealPush Icon Set", items[0].name

@@ -29,7 +29,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_find_by_id_returns_nil_if_id_does_not_exist
-    assert_equal 1, @ir.find_by_id(1).id
+    assert_equal nil, @ir.find_by_id(679)
   end
 
   def test_find_all_by_customer_id_returns_array_of_invoices_with_matching_custy_ids
