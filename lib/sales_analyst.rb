@@ -24,7 +24,7 @@ class SalesAnalyst
     end
 
     sum = item_count.reduce(0) do |sum, count|
-      sum + ((count - average) ** 2).to_f
+      sum + ((count - average) ** 2)
     end
     deviation = Math.sqrt(sum / @mr.all.count - 1).round(2)
     # (deviation * 100).floor / 100.0

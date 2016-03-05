@@ -27,7 +27,7 @@ class MerchantTest < Minitest::Test
     assert_equal "Shopin1901", @m.name
   end
 
-  def test_items_returns_of_merchants_items
+  def test_items_returns_merchants_items
     assert_equal "Glitter scrabble frames", @m.items[0].name
     assert_equal nil, @m.items[1]
   end

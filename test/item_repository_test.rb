@@ -2,7 +2,6 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'csv'
 require 'time'
-require 'bigdecimal'
 require 'pry'
 require_relative '../lib/item_repository'
 require_relative '../lib/sales_engine'
@@ -12,7 +11,8 @@ class ItemRepositoryTest < Minitest::Test
   def setup
     se = SalesEngine.from_csv({
             :merchants => './fixtures/merchants_fixtures.csv',
-            :items     => './fixtures/items_fixtures.csv'
+            :items     => './fixtures/items_fixtures.csv',
+            :invoices   => './fixtures/invoices_fixtures.csv'
             })
     @ir = se.items
   end
@@ -101,6 +101,10 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_find_all_by_merchant_id_returns_empty_array_if_no_item_matches
     assert_equal [], @ir.find_all_by_merchant_id(100000)
+  end
+
+  def test_find_merchant_finds_items_merchant_by_merchant_id
+    assert_equal "NatureDots", @ir.find_merchant(14784142).name
   end
 
   # def test_find_all_with_description_finds_all_items_with_description_fragment
