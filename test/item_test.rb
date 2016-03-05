@@ -65,13 +65,16 @@ class ItemTest < Minitest::Test
 
   def test_returns_price_in_dollars_formatted_as_float
     assert_equal 12.00, @item.unit_price_per_dollars
-    assert_equal Float, @item.unit_price.class
+    assert_equal Float, @item.unit_price_per_dollars.class
   end
 
   def test_merchant_returns_items_merchant
     se = SalesEngine.from_csv({
             :merchants => './fixtures/merchants_fixtures.csv',
-            :items     => './fixtures/items_fixtures.csv'
+            :items     => './fixtures/items_fixtures.csv',
+            :invoices      => './fixtures/invoices_fixtures.csv',
+            :invoice_items => './fixtures/invoice_items_fixtures.csv',
+            :transactions  => './fixtures/transactions_fixtures.csv'
             })
     ir = se.items
     item = ir.find_by_id(263395237)

@@ -11,7 +11,10 @@ class MerchantRepositoryTest < Minitest::Test
   def setup
      se = SalesEngine.from_csv({
                 :merchants => './fixtures/merchants_fixtures.csv',
-                :items     => './fixtures/items_fixtures.csv'
+                :items     => './fixtures/items_fixtures.csv',
+                :invoices      => './fixtures/invoices_fixtures.csv',
+                :invoice_items => './fixtures/invoice_items_fixtures.csv',
+                :transactions  => './fixtures/transactions_fixtures.csv'
                 })
      @mr = se.merchants
   end
