@@ -2,7 +2,6 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'csv'
 require 'time'
-require 'bigdecimal'
 require 'pry'
 require_relative '../lib/item_repository'
 require_relative '../lib/sales_engine'
@@ -12,7 +11,8 @@ class ItemRepositoryTest < Minitest::Test
   def setup
     se = SalesEngine.from_csv({
             :merchants => './fixtures/merchants_fixtures.csv',
-            :items     => './fixtures/items_fixtures.csv'
+            :items     => './fixtures/items_fixtures.csv',
+            :invoices   => './fixtures/invoices_fixtures.csv'
             })
     @ir = se.items
   end
