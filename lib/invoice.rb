@@ -40,6 +40,10 @@ class Invoice
     @sales_engine.merchants.find_by_id(merchant_id)
   end
 
+  def items
+    @sales_engine.invoice_items.find_all_by_invoice_id(id)
+  end
+
   def inspect
     "  id: #{id}
     customer id: #{customer_id}
