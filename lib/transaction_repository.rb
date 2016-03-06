@@ -9,7 +9,7 @@ class TransactionRepository
     @repository = []
   end
 
-  def all?
+  def all
     repository
   end
 
@@ -33,8 +33,11 @@ class TransactionRepository
 
   def find_all_by_result(result)
     repository.find_all do |transaction|
-      transaction.result == result.to_sym
+      transaction.result == result
     end
+  end
+
+  def inspect
   end
 
 end

@@ -30,7 +30,7 @@ class InvoiceItem
   end
 
   def unit_price
-    BigDecimal.new(@unit_price)
+    BigDecimal.new(@unit_price)/100.round(2)
   end
 
   def created_at

@@ -30,7 +30,7 @@ class Transaction
   end
 
   def result
-    @result.to_sym
+    @result
   end
 
   def created_at

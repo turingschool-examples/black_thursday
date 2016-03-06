@@ -9,16 +9,27 @@ require_relative '../lib/invoice_repository'
 require_relative '../lib/repository_loaders'
 require_relative '../lib/invoice_item'
 require_relative '../lib/invoice_item_repository'
+require_relative '../lib/transaction'
+require_relative '../lib/transaction_repository'
+require_relative '../lib/customer'
+require_relative '../lib/customer_repository'
 
 
 class SalesEngine
-  attr_accessor :items, :merchants, :invoices
+  attr_accessor :items,
+                :merchants,
+                :invoices,
+                :invoice_items,
+                :transactions,
+                :customers
 
   def initialize
     @items = nil
     @merchants = nil
     @invoices = nil
     @invoice_items = nil
+    @transactions = nil
+    @customers = nil
   end
 
   def self.from_csv(loadpath_hash)
@@ -37,8 +48,8 @@ class SalesEngine
     sales_engine.merchants = repository_loader.load_merchants_into_repository(merchants_rows)
     sales_engine.invoices = repository_loader.load_invoices_into_repository(invoices_rows)
     sales_engine.invoice_items = repository_loader.load_invoice_items_into_repository(invoice_items_rows)
-
-
+    sales_engine.transactions = repository_loader.load_transactions_into_repository(transactions_rows)
+    sales_engine.customers = repository_loader.load_customers_into_repository(customers_rows)
 
 
     sales_engine
