@@ -36,6 +36,14 @@ class InvoiceRepository
     end
   end
 
+  def invoices_for_day_hash
+    all.group_by { |invoice| invoice.created_at.strftime('%A')}
+  end
+
+  def count_of_invoices_for_day_hash
+    invoices_for_day_hash.map { |week_day, invoices| [week_day, invoices.count] }.to_h
+  end
+
   def percent_by_status(status_symbol)
     ((find_all_by_status(status_symbol).count/all.count.to_f)*100).round(2)
   end

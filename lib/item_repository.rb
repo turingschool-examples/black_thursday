@@ -48,6 +48,11 @@ class ItemRepository
     end
   end
 
+  def item_unit_price_hash
+    repository.each_with_object([]) {|item, array| array << [item.id, item.unit_price]}.to_h
+
+  end
+
   def inspect
   end
 
