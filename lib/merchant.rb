@@ -34,6 +34,7 @@ class Merchant
     @sales_engine.invoices.find_all_by_merchant_id(id)
   end
 
+
   def inspect
     "id: #{@id},
 name: #{@name},
