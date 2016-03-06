@@ -30,6 +30,12 @@ class Merchant
     @sales_engine.items.find_all_by_merchant_id(id)
   end
 
+  def customers
+    @sales_engine.invoices.find_all_by_merchant_id(id).map do |invoice|
+      invoice.customer
+    end.uniq  
+  end
+
   def invoices
     @sales_engine.invoices.find_all_by_merchant_id(id)
   end

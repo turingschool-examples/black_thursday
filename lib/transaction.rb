@@ -41,6 +41,10 @@ class Transaction
     Time.parse(@updated_at)
   end
 
+  def invoice
+    @sales_engine.invoices.find_by_id(invoice_id)
+  end
+
   def inspect
     "id: #{id}"
   end

@@ -31,8 +31,15 @@ class Customer
     Time.parse(@updated_at)
   end
 
+  def merchants
+    @sales_engine.invoices.find_all_by_customer_id(id).map do |invoice|
+      invoice.merchant
+    end.uniq
+  end
+
+
   def inspect
     "id: #{id}"
   end
-  
+
 end

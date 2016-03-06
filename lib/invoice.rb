@@ -41,8 +41,34 @@ class Invoice
   end
 
   def items
-    @sales_engine.invoice_items.find_all_by_invoice_id(id)
+    @sales_engine.invoice_items.find_all_by_invoice_id(id).map do |invoice_item|
+      @sales_engine.items.find_by_id(invoice_item.item_id)
+    end
   end
+
+  def transactions
+    @sales_engine.transactions.find_all_by_invoice_id(id)
+  end
+
+  def customer
+    @sales_engine.customers.find_by_id(customer_id)
+  end
+
+  def is_paid_in_full?
+    transactions == [] ? false : transactions.all? do |transaction|
+      transaction.result == "success"
+    end
+  end
+
+  def total
+    if is_paid_in_full?
+      @sales_engine.invoice_items.find_all_by_invoice_id(id).reduce(0) do |sum, invoice_item|
+        sum += invoice_item.unit_price * invoice_item.quantity
+      end
+    end
+  end
+
+
 
   def inspect
     "  id: #{id}
