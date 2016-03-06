@@ -8,6 +8,11 @@ class ItemRepository
     @repository = []
   end
 
+  def load_item(item)
+    repository << item
+  end
+
+
   def all
     repository
   end
