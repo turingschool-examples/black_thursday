@@ -36,6 +36,12 @@ class InvoiceRepository
     end
   end
 
+  def find_all_by_date(date)
+    all.find_all do |invoice|
+      invoice.updated_at.strftime("%D") == date.strftime("%D")
+    end
+  end
+
   def invoices_for_day_hash
     all.group_by { |invoice| invoice.created_at.strftime('%A')}
   end
