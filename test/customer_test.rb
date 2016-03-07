@@ -4,7 +4,7 @@ require 'minitest/pride'
 require_relative '../lib/customer'
 require_relative '../lib/sales_engine'
 
-class InvoiceItemClassTest < Minitest::Test
+class CustomerClassTest < Minitest::Test
 
   def setup
     sales_engine = "sales engine"
@@ -15,11 +15,11 @@ class InvoiceItemClassTest < Minitest::Test
       :created_at => "2012-03-27 14:54:09 UTC",
       :updated_at => "2012-03-27 14:54:09 UTC"})
 
-      @customer2 = Customer.new(sales_engine, {:id => "523",
-        :first_name => "John",
-        :last_name => "Doe",
-        :created_at => "2012-03-27 14:54:09 UTC",
-        :updated_at => "2012-03-27 14:54:09 UTC"})
+    @customer2 = Customer.new(sales_engine, {:id => "523",
+      :first_name => "John",
+      :last_name => "Doe",
+      :created_at => "2012-03-27 14:54:09 UTC",
+      :updated_at => "2012-03-27 14:54:09 UTC"})
   end
 
   def test_can_get_customer_id
