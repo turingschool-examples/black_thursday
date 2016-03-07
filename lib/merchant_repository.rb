@@ -34,7 +34,8 @@ class MerchantRepository
   end
 
   def items_per_merchant_hash #need test?
-    all.each_with_object([]) {|merchant, array| array << [merchant.id, merchant.items] }.to_h
+    # all.each_with_object([]) {|merchant, array| array << [merchant.id, merchant.items] }.to_h
+    all.map { |merchant| [merchant.id, merchant.items] }.to_h
   end
 
   def item_count_per_merchant_hash # need test?
@@ -42,7 +43,8 @@ class MerchantRepository
   end
 
   def invoices_per_merchant_hash # need test?
-    all.each_with_object([]) { |merchant, array| array << [merchant.id, merchant.invoices]}.to_h
+    # all.each_with_object([]) { |merchant, array| array << [merchant.id, merchant.invoices]}.to_h
+    all.map { |merchant| [merchant.id, merchant.invoices] }.to_h
   end
 
   def invoice_count_per_merchant_hash # need test?
