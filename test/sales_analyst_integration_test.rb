@@ -362,4 +362,21 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 56.95, sa.invoice_status(:shipped)
     assert_equal 13.5, sa.invoice_status(:returned)
   end
+
+  def test_can_calculate_total_rev_by_date
+    se = SalesEngine.from_csv({
+      :items     => "test/fake_items.csv",
+      :merchants => "test/fake_merchants.csv",
+      :invoices => "test/fake_invoices.csv",
+      :invoice_items => "test/fake_invoice_items.csv",
+      :transactions => "test/fake_transactions.csv",
+      :customers => "test/fake_customers.csv"
+    })
+    sa = SalesAnalyst.new(se)
+    assert_equal 29.55, sa.invoice_status(:pending)
+    assert_equal 56.95, sa.invoice_status(:shipped)
+    assert_equal 13.5, sa.invoice_status(:returned)
+    date = Time.parse("2014-03-15")
+    assert_equal 10.00, sa.total_revenue_by_date(date)
+  end
 end

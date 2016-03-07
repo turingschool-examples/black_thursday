@@ -68,6 +68,17 @@ class Invoice
     end
   end
 
+  # def rev_by_date_total
+  #   if is_paid_in_full?
+  #     @sales_engine.invoice_items.find_all_by_invoice_id(id).reduce(0) do |sum, invoice_item|
+  #       sum += invoice_item.unit_price * invoice_item.quantity
+  #       sum
+  #     end
+  #   else
+  #     0
+  #   end
+  # end
+
 
 
   def inspect
