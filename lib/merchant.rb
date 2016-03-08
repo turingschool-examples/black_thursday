@@ -33,12 +33,20 @@ class Merchant
   def customers
     @sales_engine.invoices.find_all_by_merchant_id(id).map do |invoice|
       invoice.customer
-    end.uniq  
+    end.uniq
   end
 
   def invoices
     @sales_engine.invoices.find_all_by_merchant_id(id)
   end
+
+  def all_revenue
+    invoices.map do |invoice|
+      invoice.total
+    end.compact.reduce(:+)
+  end
+
+
 
 
   def inspect
