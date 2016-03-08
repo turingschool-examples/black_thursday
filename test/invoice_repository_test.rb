@@ -130,4 +130,8 @@ attr_accessor :invoices, :se, :invoice_1, :invoice_2, :invoice_3, :invoice_4, :i
     assert_equal [12], invoices.find_all_by_date(date).map {|invoice| invoice.id}
   end
 
+  def test_can_find_by_id
+    assert_equal 8, invoices.find_by_id(8).id
+    assert_equal 12, invoices.find_by_id(12).id
+  end
 end
