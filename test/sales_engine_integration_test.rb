@@ -15,9 +15,9 @@ class SalesEngineTest < Minitest::Test
       :items     => 'data/items.csv',
       :merchants => 'data/merchants.csv',
       :invoices => 'data/invoices.csv',
-      :invoice_items => 'test/fake_invoice_items.csv',
-      :transactions => 'test/fake_transactions.csv',
-      :customers => 'test/fake_customers.csv'
+      :invoice_items => 'data/invoice_items.csv',
+      :transactions => 'data/transactions.csv',
+      :customers => 'data/customers.csv'
     })
   end
 
@@ -49,6 +49,20 @@ class SalesEngineTest < Minitest::Test
 
   def test_can_invoice_by_id
     assert_equal 12, @sales_engine.invoices.find_by_id(12).id
+  end
+
+  def test_can_find_invoice_by_transaction_id
+    assert_equal 46, @sales_engine.transactions.find_by_id(1370).invoice.id
+    assert_equal 2179, @sales_engine.transactions.find_by_id(1).invoice.id
+  end
+
+  def test_can_find_customers_by_merchant_id
+    assert_equal [51, 339, 500, 508, 811, 933, 949], @sales_engine.merchants.find_by_id(12334112).customers.map { |customer| customer.id }
+  end
+
+  def test_can_find_merchants_by_customer_id
+    assert_equal [12336801, 12335971, 12335853, 12334969, 12335846, 12335072, 12334628], @sales_engine.customers.find_by_id(523).merchants.map { |merchant| merchant.id }
+
   end
 
 end
