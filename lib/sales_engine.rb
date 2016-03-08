@@ -33,7 +33,6 @@ class SalesEngine
   end
 
   def self.from_csv(loadpath_hash)
-
     items_rows = load_file(loadpath_hash[:items])
     merchants_rows = load_file(loadpath_hash[:merchants])
     invoices_rows = load_file(loadpath_hash[:invoices])
@@ -50,7 +49,6 @@ class SalesEngine
     sales_engine.invoice_items = repository_loader.load_invoice_items_into_repository(invoice_items_rows)
     sales_engine.transactions = repository_loader.load_transactions_into_repository(transactions_rows)
     sales_engine.customers = repository_loader.load_customers_into_repository(customers_rows)
-
 
     sales_engine
   end

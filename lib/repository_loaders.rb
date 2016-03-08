@@ -5,8 +5,6 @@ class RepositoryLoaders
     @sales_engine = sales_engine
   end
 
-
-
   def load_items_into_repository(items_rows)
     items = ItemRepository.new(@sales_engine)
     items_rows.each do |row|

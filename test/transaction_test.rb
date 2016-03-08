@@ -55,5 +55,7 @@ class InvoiceItemClassTest < Minitest::Test
     assert_equal Time, @transaction1.updated_at.class
   end
 
-
+  def test_can_find_by_invoice_by_invoice_id
+    assert_equal , @transaction1.invoice.
+  end
 end
