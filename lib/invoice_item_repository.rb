@@ -31,6 +31,13 @@ class InvoiceItemRepository
     end
   end
 
+  def find_all_by_date(date)
+    @repository.find_all do |invoice_item|
+      date.strftime('%Y%m%d') == invoice_item.created_at.strftime("%Y%m%d")
+    end
+  end
+
+
   def inspect
   end
 

@@ -38,7 +38,7 @@ class InvoiceRepository
 
   def find_all_by_date(date)
     all.find_all do |invoice|
-      invoice.updated_at.strftime("%D") == date.strftime("%D")
+      invoice.created_at.strftime("%Y-%m-%d") == date.strftime("%Y-%m-%d")
     end
   end
 

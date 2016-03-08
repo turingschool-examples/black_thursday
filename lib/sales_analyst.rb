@@ -154,17 +154,16 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    # invoice_items.unit_price = final sale price of an item
-    # find invoice by date, then invoice.total, and reduce to get the sum
-
     @se.invoices.find_all_by_date(date).map do |invoice|
       invoice.total
-    end.reduce(0) do |result, invoice_total|
-      if invoice_total.nil?
-        result += 0
-      else
-        result += invoice_total
-      end
-    end
+    end.reduce(:+)
   end
+
+
+
+  def top_revenue_earners(number_of_earners = 20)
+    @se.merchants.sort_all_by_earned_revenue(number_of_earners)
+  end
+
+
 end

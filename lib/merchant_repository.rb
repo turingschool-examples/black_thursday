@@ -51,6 +51,13 @@ class MerchantRepository
     invoices_per_merchant_hash.map { |merchant, invoices| [merchant, invoices.count]}.to_h
   end
 
+  def sort_all_by_earned_revenue(number_of_earners)
+    all.max_by(number_of_earners) do |merchant|
+      merchant.all_revenue
+    end
+  end
+
+
   def inspect
   end
 end
