@@ -45,6 +45,10 @@ class InvoiceItem
     unit_price/100.to_f.round(2)
   end
 
+  def item
+    @sales_engine.items.find_by_id(item_id)
+  end
+
   def inspect
     "id: #{id}"
   end

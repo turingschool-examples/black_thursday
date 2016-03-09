@@ -46,7 +46,7 @@ class Invoice
     end
   end
 
-  def transactions
+  def invoice_transactions
     @sales_engine.transactions.find_all_by_invoice_id(id)
   end
 
@@ -55,11 +55,17 @@ class Invoice
   end
 
   def is_paid_in_full?
-    transactions == [] ? false : transactions.all? do |transaction|
+    invoice_transactions == [] ? false : invoice_transactions.any? do |transaction|
       transaction.result == "success"
     end
   end
 
+  # def total_revenue
+  #   @sales_engine.invoice_items.find_all_by_invoice_id(id).reduce(0) do |sum, invoice_item|
+  #     sum += invoice_item.unit_price * invoice_item.quantity
+  #   end
+  # end
+  #
   def total
     if is_paid_in_full?
       @sales_engine.invoice_items.find_all_by_invoice_id(id).reduce(0) do |sum, invoice_item|
@@ -70,18 +76,11 @@ class Invoice
     end
   end
 
-  # def rev_by_date_total
-  #   if is_paid_in_full?
-  #     @sales_engine.invoice_items.find_all_by_invoice_id(id).reduce(0) do |sum, invoice_item|
-  #       sum += invoice_item.unit_price * invoice_item.quantity
-  #       sum
-  #     end
-  #   else
-  #     0
-  #   end
-  # end
-
-
+  def any_failed_transactions?
+    @sales_engine.transactions.find_all_by_invoice_id(id).all? do |transaction|
+      transaction.result == "failed"
+    end
+  end
 
   def inspect
     "  id: #{id}

@@ -56,4 +56,8 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal @repository, @mr.all
   end
 
+  def test_can_find_merchants_with_pending_invoices
+    assert_equal 467, @mr.merchants_with_failed_transaction
+  end
+
 end

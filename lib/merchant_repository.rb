@@ -51,12 +51,26 @@ class MerchantRepository
     invoices_per_merchant_hash.map { |merchant, invoices| [merchant, invoices.count]}.to_h
   end
 
-  def sort_all_by_earned_revenue(number_of_earners)
+  def get_top_earners_by_earned_revenue(number_of_earners)
     all.max_by(number_of_earners) do |merchant|
       merchant.all_revenue
     end
   end
 
+  def sort_all_by_earned_revenue
+    all.sort_by do |merchant|
+      merchant.all_revenue
+    end
+  end
+
+
+  def merchants_with_failed_transaction
+    @sales_engine.invoices.all.map do |invoice|
+      invoice if invoice.any_failed_transactions?
+    end.compact.map do |invoice|
+      @sales_engine.merchants.find_by_id(invoice.merchant_id)
+    end.uniq
+  end
 
   def inspect
   end
