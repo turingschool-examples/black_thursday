@@ -52,13 +52,6 @@ class Merchant
     end.compact.reduce(:+)
   end
 
-
-
-
-
-
-
-
   def inspect
     "id: #{@id},
 name: #{@name},
