@@ -1,0 +1,79 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    ast (2.2.0)
+    axiom-types (0.1.1)
+      descendants_tracker (~> 0.0.4)
+      ice_nine (~> 0.11.0)
+      thread_safe (~> 0.3, >= 0.3.1)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
+    cane (2.6.2)
+      parallel
+    codeclimate-engine-rb (0.3.1)
+      virtus (~> 1.0)
+    coderay (1.1.1)
+    coercible (1.0.0)
+      descendants_tracker (~> 0.0.1)
+    debug_inspector (0.0.2)
+    descendants_tracker (0.0.4)
+      thread_safe (~> 0.3, >= 0.3.1)
+    docile (1.1.5)
+    equalizer (0.0.11)
+    ice_nine (0.11.2)
+    interception (0.5)
+    json (1.8.3)
+    method_source (0.8.2)
+    minitest (5.8.4)
+    mrspec (0.2.3)
+      minitest (~> 5.0)
+      rspec-core (~> 3.0)
+      what_weve_got_here_is_an_error_to_communicate (~> 0.0.7)
+    parallel (1.6.2)
+    parser (2.3.0.6)
+      ast (~> 2.2)
+    pry (0.10.3)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+    rainbow (2.1.0)
+    rake (10.5.0)
+    reek (3.11)
+      codeclimate-engine-rb (~> 0.3.1)
+      parser (~> 2.3, >= 2.3.0.6)
+      rainbow (~> 2.0)
+    rouge (1.10.1)
+    rspec-core (3.4.2)
+      rspec-support (~> 3.4.0)
+    rspec-support (3.4.1)
+    simplecov (0.11.2)
+      docile (~> 1.1.0)
+      json (~> 1.8)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.0)
+    slop (3.6.0)
+    thread_safe (0.3.5)
+    virtus (1.0.5)
+      axiom-types (~> 0.1)
+      coercible (~> 1.0)
+      descendants_tracker (~> 0.0, >= 0.0.3)
+      equalizer (~> 0.0, >= 0.0.9)
+    what_weve_got_here_is_an_error_to_communicate (0.0.7)
+      binding_of_caller (~> 0.7.2)
+      interception (~> 0.5)
+      rouge (~> 1.8, != 1.9.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  cane
+  minitest
+  mrspec
+  pry
+  rake
+  reek
+  simplecov
+
+BUNDLED WITH
+   1.11.2

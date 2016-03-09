@@ -1,0 +1,7 @@
+Connections from an invoice
+- invoice_id
+- find invoice in Invoice Repository (manual)
+- find in invoice_items with the invoice_id all the item_ids
+- take the item_ids and find the items in the items repository 
+
+- [items, items, items], retrieved via the invoice object
