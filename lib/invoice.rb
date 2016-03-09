@@ -68,9 +68,7 @@ class Invoice
 
   def total
     if is_paid_in_full?
-      @sales_engine.invoice_items.find_all_by_invoice_id(id).reduce(0) do |sum, invoice_item|
-        sum += invoice_item.unit_price * invoice_item.quantity
-      end
+      total_revenue
     else
       0
     end
