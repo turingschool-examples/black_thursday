@@ -1,3 +1,5 @@
+require 'simplecov'
+SimpleCov.start
 require 'pry'
 require 'minitest/autorun'
 require 'minitest/pride'
@@ -430,7 +432,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_find_item_that_generates_most_revenue_for_a_merchant
-    assert_equal 263516130, sa.best_item_for_merchant(12334189).id 
+    assert_equal 263516130, sa.best_item_for_merchant(12334189).id
 
   end
 
