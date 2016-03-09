@@ -76,12 +76,11 @@ class Invoice
     end
   end
 
-
-  def any_failed_transactions?
-    @sales_engine.transactions.find_all_by_invoice_id(id).all? do |transaction|
-      transaction.result == "failed"
-    end
-  end
+  # def any_failed_transactions?
+  #   @sales_engine.transactions.find_all_by_invoice_id(id).all? do |transaction|
+  #     transaction.result == "failed"
+  #   end
+  # end
 
   def inspect
     "  id: #{id}
