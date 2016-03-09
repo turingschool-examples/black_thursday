@@ -175,10 +175,9 @@ class SalesAnalyst
     @se.merchants.all.find_all { |merchant| merchant.items.count == 1 }
   end
 
+
   def merchants_with_only_one_item_registered_in_month(month)
-    @se.merchants.all.find_all do |merchant|
-      merchant.created_at.strftime("%B") == month
-    end.find_all do |merchant|
+    @se.merchants.find_merchants_created_in_month(month).find_all do |merchant|
       merchant.items.count == 1
     end.uniq
   end
@@ -188,33 +187,45 @@ class SalesAnalyst
   end
 
   def most_sold_item_for_merchant(merchant_id)
-    invoice_items = @se.invoices.find_all_by_merchant_id(merchant_id).map do |invoice|
-      invoice.is_paid_in_full? ? @se.invoice_items.find_all_by_invoice_id(invoice.id) : nil
-    end.compact.flatten
+    invoice_items_for_merchant = get_invoice_items_for_merchant(merchant_id)
+    max_quantity = get_highest_quantity_on_invoice_items(invoice_items_for_merchant)
 
-    max_quantity = invoice_items.max_by do |invoice_item|
-      invoice_item.quantity
-    end.quantity
-
-    invoice_items.map do |invoice_item|
+    invoice_items_for_merchant.map do |invoice_item|
       invoice_item.item if invoice_item.quantity == max_quantity
     end.compact
   end
 
-  def best_item_for_merchant(merchant_id)
-    invoice_items = @se.invoices.find_all_by_merchant_id(merchant_id).map do |invoice|
+  def get_highest_quantity_on_invoice_items(invoice_items_for_merchant)
+    invoice_items_for_merchant.max_by do |invoice_item|
+      invoice_item.quantity
+    end.quantity
+  end
+
+  def get_invoice_items_for_merchant(merchant_id)
+    @se.invoices.find_all_by_merchant_id(merchant_id).map do |invoice|
       invoice.is_paid_in_full? ? @se.invoice_items.find_all_by_invoice_id(invoice.id) : nil
     end.compact.flatten
+  end
 
-    items_and_invoice_items_hash = invoice_items.group_by do |invoice_item|
+  def make_items_and_invoice_items_hash(invoice_items_for_merchant)
+    invoice_items_for_merchant.group_by do |invoice_item|
       invoice_item.item_id
     end
+  end
 
+  def make_hash_of_items_and_revenue_per_item(items_and_invoice_items_hash)
     items_and_invoice_items_hash.map do |item_id, invoice_item|
       [@se.items.find_by_id(item_id), invoice_item.reduce(0) do |revenue, invoice_item|
         revenue += invoice_item.unit_price * invoice_item.quantity
       end]
-    end.max_by do |revenue|
+    end
+  end
+
+  def best_item_for_merchant(merchant_id)
+    invoice_items_for_merchant = get_invoice_items_for_merchant(merchant_id)
+    items_and_invoice_items_hash = make_items_and_invoice_items_hash(invoice_items_for_merchant)
+
+    make_hash_of_items_and_revenue_per_item(items_and_invoice_items_hash).max_by do |revenue|
       revenue[1]
     end.first
   end
