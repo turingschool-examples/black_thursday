@@ -40,11 +40,21 @@ class Merchant
     @sales_engine.invoices.find_all_by_merchant_id(id)
   end
 
+  def invoice_items
+    invoices.map do |invoice|
+      @sales_engine.invoice_items.find_all_by_invoice_id(invoice.id)
+    end
+  end
+
   def all_revenue
     invoices.map do |invoice|
       invoice.total
     end.compact.reduce(:+)
   end
+
+
+
+
 
 
 

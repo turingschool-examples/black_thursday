@@ -63,7 +63,7 @@ class InvoiceClassTest < Minitest::Test
 
   def test_an_invoice_can_return_the_time_it_was_created_and_updated
     assert_equal Time.new(2009, 02, 07), @invoice_one.created_at
-    assert_equal Time.new(2014, 03, 15), @invoice.updated_at
+    assert_equal Time.new(2014, 03, 15), @invoice_one.updated_at
   end
 
   def test_all_invoice_items_can_found_by_invoice_id
@@ -86,10 +86,15 @@ class InvoiceClassTest < Minitest::Test
 
   def test_can_determine_if_invoice_is_paid_in_full
     skip
-    # double check if #is_paid_in_full? method captures invoice_id? maybe that's why it's nil 
+    # double check if #is_paid_in_full? method captures invoice_id? maybe that's why it's nil
   end
 
   def test_can_calculate_total_dollar_amount_for_invoices_paid_in_full
     skip
+  end
+
+  def test_can_verify_if_invoice_has_any_failed_transactions?
+      assert @invoice_two.any_failed_transactions?
+    refute @invoice_one.any_failed_transactions?
   end
 end

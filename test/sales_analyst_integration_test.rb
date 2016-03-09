@@ -18,7 +18,7 @@ require_relative '../lib/invoice_item_repository'
 
 class SalesAnalystTest < Minitest::Test
 
-  attr_accessor :se, :sa
+  attr_reader :se, :sa
   def setup
     @se = SalesEngine.from_csv({
       :items     => "data/items.csv",
@@ -332,17 +332,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal Hash, sa.invoices_for_day_hash.class
   end
 
-  def test_can_calculate_count_of_invoices_for_each_week_day
-    # sales_engine = SalesEngine.from_csv({
-    #   :items     => "data/items.csv",
-    #   :merchants => "data/merchants.csv",
-    #   :invoices => "data/invoices.csv"
-    # })
-    # sa = SalesAnalyst.new(sales_engine)
-
-    assert_equal Hash, sa.count_of_invoices_for_day_hash.class
-  end
-
   def test_can_calculate_average_invoices_per_day_standard_deviation
     # sales_engine = SalesEngine.from_csv({
     #   :items     => "data/items.csv",
@@ -411,5 +400,39 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 21067.77, @sa.total_revenue_by_date(date).to_f.round(2)
   end
 
-  
+
+  def test_can_calculate_top_x_performing_merchants_in_terms_of_revenue
+    assert_equal 20, sa.top_revenue_earners.count
+    assert_equal 10, sa.top_revenue_earners(10).count
+  end
+
+  def test_can_find_merchants_with_pending_invoices
+    assert_equal 467, sa.merchants_with_pending_invoices.count
+  end
+
+  def test_can_find_merchants_with_only_one_item
+    assert_equal 243, sa.merchants_with_only_one_item.count
+  end
+
+  def test_can_find_merchants_with_only_one_item_registered_in_month
+    assert_equal 21, sa.merchants_with_only_one_item_registered_in_month("March").count
+    assert_equal 18, sa.merchants_with_only_one_item_registered_in_month("June").count
+  end
+
+  def test_can_find_revenue_by_merchant
+    assert_equal BigDecimal, sa.revenue_by_merchant(12334194).class
+  end
+
+  def test_can_find_most_sold_item_for_merchant
+    assert sa.most_sold_item_for_merchant(12334189).map { |item| item.id }.include?(263524984)
+    assert_equal  263426351, sa.most_sold_item_for_merchant(12334768)
+    assert_equal  263455959, sa.most_sold_item_for_merchant(12337105)
+  end
+
+  def test_can_find_item_that_generates_most_revenue_for_a_merchant
+    assert_equal 263516130, sa.best_item_for_merchant(12334189).id 
+
+  end
+
+
 end

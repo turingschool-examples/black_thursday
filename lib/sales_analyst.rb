@@ -159,11 +159,64 @@ class SalesAnalyst
     end.reduce(:+)
   end
 
-
-
   def top_revenue_earners(number_of_earners = 20)
-    @se.merchants.sort_all_by_earned_revenue(number_of_earners)
+    @se.merchants.get_top_earners_by_earned_revenue(number_of_earners)
   end
 
+  def merchants_ranked_by_revenue
+    @se.merchants.sort_all_by_earned_revenue.reverse
+  end
+
+  def merchants_with_pending_invoices
+    @se.merchants.merchants_with_failed_transaction
+  end
+
+  def merchants_with_only_one_item
+    @se.merchants.all.find_all { |merchant| merchant.items.count == 1 }
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    @se.merchants.all.find_all do |merchant|
+      merchant.created_at.strftime("%B") == month
+    end.find_all do |merchant|
+      merchant.items.count == 1
+    end.uniq
+  end
+
+  def revenue_by_merchant(merchant_id)
+    @se.merchants.find_by_id(merchant_id).all_revenue
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    invoice_items = @se.invoices.find_all_by_merchant_id(merchant_id).map do |invoice|
+      invoice.is_paid_in_full? ? @se.invoice_items.find_all_by_invoice_id(invoice.id) : nil
+    end.compact.flatten
+
+    max_quantity = invoice_items.max_by do |invoice_item|
+      invoice_item.quantity
+    end.quantity
+
+    invoice_items.map do |invoice_item|
+      invoice_item.item if invoice_item.quantity == max_quantity
+    end.compact
+  end
+
+  def best_item_for_merchant(merchant_id)
+    invoice_items = @se.invoices.find_all_by_merchant_id(merchant_id).map do |invoice|
+      invoice.is_paid_in_full? ? @se.invoice_items.find_all_by_invoice_id(invoice.id) : nil
+    end.compact.flatten
+
+    items_and_invoice_items_hash = invoice_items.group_by do |invoice_item|
+      invoice_item.item_id
+    end
+
+    items_and_invoice_items_hash.map do |item_id, invoice_item|
+      [@se.items.find_by_id(item_id), invoice_item.reduce(0) do |revenue, invoice_item|
+        revenue += invoice_item.unit_price * invoice_item.quantity
+      end]
+    end.max_by do |revenue|
+      revenue[1]
+    end.first
+  end
 
 end
