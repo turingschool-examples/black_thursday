@@ -88,6 +88,12 @@ class InvoiceClassTest < Minitest::Test
     refute @invoice_two.is_paid_in_full?
   end
 
+  def test_can_calculate_total_revenue_regardless_of_invoice_paid_status
+    assert_equal BigDecimal, @invoice_one.total.class
+    assert_equal 21067.77, @invoice_one.total_revenue.to_f
+    assert_equal 4036.08, @invoice_two.total_revenue.to_f
+  end
+
   def test_can_calculate_total_dollar_amount_for_invoices_paid_in_full
     assert_equal BigDecimal, @invoice_one.total.class
     assert_equal 21067.77, @invoice_one.total.to_f
