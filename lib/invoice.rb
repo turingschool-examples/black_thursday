@@ -46,7 +46,7 @@ class Invoice
     end
   end
 
-  def invoice_transactions
+  def transactions
     @sales_engine.transactions.find_all_by_invoice_id(id)
   end
 
@@ -55,7 +55,7 @@ class Invoice
   end
 
   def is_paid_in_full?
-    invoice_transactions == [] ? false : invoice_transactions.any? do |transaction|
+    transactions == [] ? false : transactions.any? do |transaction|
       transaction.result == "success"
     end
   end
@@ -75,6 +75,7 @@ class Invoice
       0
     end
   end
+
 
   def any_failed_transactions?
     @sales_engine.transactions.find_all_by_invoice_id(id).all? do |transaction|

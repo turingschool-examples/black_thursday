@@ -73,8 +73,8 @@ class InvoiceClassTest < Minitest::Test
   end
 
   def test_all_transactions_can_be_found_by_invoice_id
-    assert_equal 2650, @invoice_one.invoice_transactions.first.id
-    assert_equal 4351, @invoice_one.invoice_transactions.last.id
+    assert_equal 2650, @invoice_one.transactions.first.id
+    assert_equal 4351, @invoice_one.transactions.last.id
   end
 
   def test_customer_can_by_found_by_invoice_id

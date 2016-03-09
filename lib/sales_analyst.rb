@@ -191,12 +191,32 @@ class SalesAnalyst
     invoice_items = @se.invoices.find_all_by_merchant_id(merchant_id).map do |invoice|
       invoice.is_paid_in_full? ? @se.invoice_items.find_all_by_invoice_id(invoice.id) : nil
     end.compact.flatten
+
     max_quantity = invoice_items.max_by do |invoice_item|
       invoice_item.quantity
     end.quantity
+
     invoice_items.map do |invoice_item|
       invoice_item.item if invoice_item.quantity == max_quantity
     end.compact
+  end
+
+  def best_item_for_merchant(merchant_id)
+    invoice_items = @se.invoices.find_all_by_merchant_id(merchant_id).map do |invoice|
+      invoice.is_paid_in_full? ? @se.invoice_items.find_all_by_invoice_id(invoice.id) : nil
+    end.compact.flatten
+
+    items_and_invoice_items_hash = invoice_items.group_by do |invoice_item|
+      invoice_item.item_id
+    end
+
+    items_and_invoice_items_hash.map do |item_id, invoice_item|
+      [@se.items.find_by_id(item_id), invoice_item.reduce(0) do |revenue, invoice_item|
+        revenue += invoice_item.unit_price * invoice_item.quantity
+      end]
+    end.max_by do |revenue|
+      revenue[1]
+    end.first
   end
 
 end
