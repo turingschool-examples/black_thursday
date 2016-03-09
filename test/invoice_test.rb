@@ -67,9 +67,8 @@ class InvoiceClassTest < Minitest::Test
   end
 
   def test_all_invoice_items_can_found_by_invoice_id
-    skip
-    assert_equal 263519844, @invoice_one.items.first.item_id
-    # [263519844, 263454779, 263451719, 263542298, 263515158, 263539664, 263563764, 263432817]
+    assert_equal 263519844, @invoice_one.items.first.id
+    assert_equal [263519844, 263454779, 263451719, 263542298, 263515158, 263539664, 263563764, 263432817], @invoice_one.items.map { |item| item.id}
   end
 
   def test_all_transactions_can_be_found_by_invoice_id
@@ -85,16 +84,18 @@ class InvoiceClassTest < Minitest::Test
   end
 
   def test_can_determine_if_invoice_is_paid_in_full
-    skip
-    # double check if #is_paid_in_full? method captures invoice_id? maybe that's why it's nil
+    assert @invoice_one.is_paid_in_full?
+    refute @invoice_two.is_paid_in_full?
   end
 
   def test_can_calculate_total_dollar_amount_for_invoices_paid_in_full
-    skip
+    assert_equal BigDecimal, @invoice_one.total.class
+    assert_equal 21067.77, @invoice_one.total.to_f
+    assert_equal 0, @invoice_two.total
   end
 
   def test_can_verify_if_invoice_has_any_failed_transactions?
-      assert @invoice_two.any_failed_transactions?
+    assert @invoice_two.any_failed_transactions?
     refute @invoice_one.any_failed_transactions?
   end
 end
