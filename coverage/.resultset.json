@@ -1,15 +1,38 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/christinegamble/turing/1module/projects/black_thursday/lib/sales_engine.rb": [
+      "/Users/lucyfox/turing/1module/black_thursday/lib/item.rb": [
+        1,
         1,
         null,
         1,
-        1,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
         null,
         null
       ]
     },
-    "timestamp": 1461015850
+    "timestamp": 1461021207
   }
 }
