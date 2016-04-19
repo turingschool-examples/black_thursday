@@ -36,6 +36,16 @@ class TestHelper
         :merchant_id => 10293845,
         :created_at  => "2016-04-19 10:04:25 -0600",
         :updated_at  => "2016-04-19 11:04:25 -0600"
+      }),
+
+      Item.new({
+        :id          => 132457688,
+        :name        => "Stapler",
+        :description => "You can use it to staple things together",
+        :unit_price  => BigDecimal.new(9.99,4),
+        :merchant_id => 10293945,
+        :created_at  => "2016-04-19 10:04:25 -0600",
+        :updated_at  => "2016-04-19 11:04:25 -0600"
       })
     ]
   end
