@@ -1,0 +1,30 @@
+Black Thursday DTR Memo:
+Christine Gamble, Lucy Fox
+
+1. We both would like to improve our TDD. We would really like to focus on writing tests first.
+
+2. We both prefer afternoons/after school. Morning sucks! Christine cannot work much on Saturday.
+For now, the plan will be to split up work, but expect most of it is done by Sunday.
+We will also have Friday night be a no code night. If we need to we can come into Turing Sunday for pairing.
+
+3. Slack and in person. We will try to use Waffle to keep up on where the other is on their workload.
+We will use slack to communicate outside of turing. We will let each other know when we finish a task.
+
+4. Christine would like to improve TDD, she feels strong in debugging techniques. To assist with improving
+TDD skills we will try to write all our test first and improve test coverage. Lucy feels strong about
+debugging techniques and would like to work on refactoring. We will try to refactor as we go and improve these skills.
+
+5. We don't have any preferences regarding which pieces we work on. We just would like to improve
+the above stated areas as we work.
+
+6. We will do all our work on branches and review branches before merging to master.
+Person A will work on a branch. When they are done with that branch and ready to merge they will
+indicate that using waffle. Then they will create a pull request. Person B will review the request
+and merge to master. We will notify each other when we are ready to create pull requests via slack.
+
+7. When we run into any issues implementing a feature we will make sure to communicate with each other
+and help each other figure out the problem.
+
+8. We are both happy with open communication and feedback as we go.
+
+9. We are comfortable with remote pairing if we cannot both be at Turing during the day. We plan to talk a lot as we go!
