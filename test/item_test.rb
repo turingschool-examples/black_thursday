@@ -41,4 +41,22 @@ class ItemTest < Minitest::Test
     assert item1.updated_at.kind_of?(Time)
   end
 
+  def test_unit_price_is_bigdecimal_class
+    csv_filepath = "./data/items_small.csv"
+    ir = ItemRepository.new(csv_filepath)
+
+    item1 = ir.all[0]
+
+    assert item1.unit_price.kind_of?(BigDecimal)
+  end
+
+  def test_unit_price_to_dollars_is_float
+    csv_filepath = "./data/items_small.csv"
+    ir = ItemRepository.new(csv_filepath)
+
+    dollars_price = ir.all[0].unit_price_to_dollars
+
+    assert dollars_price.kind_of?(Float)
+  end
+
 end
