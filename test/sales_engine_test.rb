@@ -59,4 +59,56 @@ class SalesEngineTest < Minitest::Test
     assert_equal SalesEngine, se.merchant_repository.merchants[9].sales_engine.class
   end
 
+  def test_items_makes_item_repo_object
+    @se.items
+    refute se.item_repository.nil?
+  end
+
+  def test_items_populates_item_repo_with_item_objects
+    @se.items
+    assert_equal Item, se.item_repository.items[0].class
+  end
+
+  def test_items_populates_item_repo_with_all_items
+    @se.items
+    assert_equal 19, se.item_repository.items.length
+  end
+
+  def test_items_repo_item_objects_have_id
+    @se.items
+    assert_equal 263395721, se.item_repository.items[1].id
+  end
+
+  def test_item_repo_item_objects_have_name
+    @se.items
+    assert_equal "Glitter scrabble frames", se.item_repository.items[0].name
+  end
+
+  def test_item_repo_item_objects_have_description
+    @se.items
+    assert_equal true, se.item_repository.items[0].description.include?("Any colour glitter")
+  end
+
+  def test_item_repo_item_objects_have_price
+    @se.items
+    assert_equal "NOT SURE", se.item_repository.items[0].unit_price
+  end
+
+
+  def test_item_repo_item_objects_have_created_by_at
+    @se.items
+    assert_equal true, se.item_repository.items[1].created_at.include?("11:51:37")
+  end
+
+  def test_item_repo_item_objects_have_updated_at
+    @se.items
+    assert_equal true, se.item_repository.items[1].updated_at.include?("2008")
+  end
+
+  def test_items_repo_item_objects_have_ref_to_se
+    @se.items
+    assert_equal SalesEngine, se.item_repository.items[9].sales_engine.class
+  end
+
+
 end

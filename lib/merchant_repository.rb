@@ -36,7 +36,7 @@ class MerchantRepository
       []
     else
       matches
+    end
   end
-end
 
 end
