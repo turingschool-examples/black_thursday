@@ -27,5 +27,18 @@ class SalesEngineTest < MiniTest::Test
     assert se.merchants
   end
 
+  def test_it_finds_in_merchant_repository
+    mr = se.merchants
+    merchant = mr.find_by_name("CJsDecor")
+
+    assert_equal "CJsDecor", mr.find_by_name("CJsDecor").name
+  end
+
+  # def test_it_finds_in_item_repository
+  #   ir = se.items
+  #   item = ir.find_by_name("Item Repellat Dolorum")
+  #
+  #   assert_equal "Item Repellat Dolorum", ir.find_by_name("Item Repellat Dolorum")
+  # end
 
 end
