@@ -90,18 +90,20 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_values_within_a_range
-    skip
-
+    item_instance = @inventory.find_all_by_price_in_range(7..11)
+    assert_equal 2, item_instance.length
+    assert_equal "Pencil", item_instance[0].name
   end
 
   def test_it_can_find_one_value_in_the_range
-    skip
-
+    item_instance = @inventory.find_all_by_price_in_range(10..11)
+    assert_equal 1, item_instance.length
+    assert_equal "Pencil", item_instance[0].name
   end
 
   def test_it_will_not_find_any_values_in_given_range
-    skip
-
+    item_instance = @inventory.find_all_by_price_in_range(12..15)
+    assert_equal [], item_instance
   end
 
   def test_it_will_find_all_by_merchant_id

@@ -14,26 +14,26 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2016-04-19T10:05:34-06:00">2016-04-19T10:05:34-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2016-04-19T10:46:54-06:00">2016-04-19T10:46:54-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="green">96.67%</span></span>
+    (<span class="covered_percent"><span class="green">96.77%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         10.79
+         10.74
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>2</b> files in total.
-    <b>30</b> relevant lines. 
-    <span class="green"><b>29</b> lines covered</span> and
+    <b>31</b> relevant lines. 
+    <span class="green"><b>30</b> lines covered</span> and
     <span class="red"><b>1</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -64,10 +64,10 @@
         <td class="strong"><a href="#72d3731b2ef39f76556c5d7eeb1706e8d5c223cd" class="src_link" title="lib/item_repository.rb">lib/item_repository.rb</a></td>
         <td class="green strong">100.0 %</td>
         <td>38</td>
-        <td>17</td>
-        <td>17</td>
+        <td>18</td>
+        <td>18</td>
         <td>0</td>
-        <td>3.9</td>
+        <td>4.2</td>
       </tr>
       
     </tbody>
@@ -229,8 +229,8 @@
     <h3>lib/item_repository.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>17</b> relevant lines. 
-      <span class="green"><b>17</b> lines covered</span> and
+      <b>18</b> relevant lines. 
+      <span class="green"><b>18</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -295,7 +295,7 @@
         <li class="covered" data-hits="2" data-linenumber="10">
           <span class="hits">2</span>
           
-          <code class="ruby">    @inventory.empty? ?  nil : @inventory.to_a</code>
+          <code class="ruby">    @inventory.empty? ?  nil : @inventory</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="11">
@@ -391,7 +391,7 @@
         <li class="covered" data-hits="6" data-linenumber="26">
           <span class="hits">6</span>
           
-          <code class="ruby">    @inventory.find_all {|item| item.unit_price == price}# find_all_by_price - returns either [] or instances of Item where the supplied price exactly matches</code>
+          <code class="ruby">    @inventory.find_all {|item| item.unit_price == price}</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="27">
@@ -418,10 +418,10 @@
           <code class="ruby">  def find_all_by_price_in_range(range)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="31">
+        <li class="covered" data-hits="9" data-linenumber="31">
+          <span class="hits">9</span>
           
-          
-          <code class="ruby">    # find_all_by_price_in_range - returns either [] or instances of Item where the supplied price is in the supplied range (a single Ruby range instance is passed in)</code>
+          <code class="ruby">    @inventory.find_all {|item| range.include?(item.unit_price)}# find_all_by_price_in_range - returns either [] or instances of Item where the supplied price is in the supplied range (a single Ruby range instance is passed in)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="32">
@@ -445,7 +445,7 @@
         <li class="covered" data-hits="6" data-linenumber="35">
           <span class="hits">6</span>
           
-          <code class="ruby">    @inventory.find_all {|item| item.merchant_id == merchant_id}# find_all_by_merchant_id - returns either [] or instances of Item where the supplied merchant ID matches that supplied</code>
+          <code class="ruby">    @inventory.find_all {|item| item.merchant_id == merchant_id}</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="36">

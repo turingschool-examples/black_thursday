@@ -7,7 +7,7 @@ class ItemRepository
   end
 
   def all
-    @inventory.empty? ?  nil : @inventory.to_a
+    @inventory.empty? ?  nil : @inventory
   end
 
   def find_by_id(find_id)
@@ -28,7 +28,7 @@ class ItemRepository
   end
 
   def find_all_by_price_in_range(range)
-    # find_all_by_price_in_range - returns either [] or instances of Item where the supplied price is in the supplied range (a single Ruby range instance is passed in)
+    @inventory.find_all {|item| range.include?(item.unit_price)}# find_all_by_price_in_range - returns either [] or instances of Item where the supplied price is in the supplied range (a single Ruby range instance is passed in)
   end
 
   def find_all_by_merchant_id(merchant_id)
