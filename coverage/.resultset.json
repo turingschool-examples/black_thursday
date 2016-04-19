@@ -1,6 +1,7 @@
 {
   "Unit Tests": {
     "coverage": {
+<<<<<<< HEAD
       "/Users/lucyfox/turing/1module/black_thursday/lib/sales_engine.rb": [
         1,
         1,
@@ -13,6 +14,9 @@
         1,
         1,
         null,
+=======
+      "/Users/christinegamble/turing/1module/projects/black_thursday/lib/merchant_repository.rb": [
+>>>>>>> 4a955f9cc2922425b26686b891bf727b71d20d50
         1,
         475,
         475,
@@ -39,11 +43,31 @@
         1,
         null,
         1,
+        5,
+        null,
         null,
         1,
+        0,
+        null,
+        null,
         1,
+<<<<<<< HEAD
+        1,
+=======
+        5,
         null,
         null,
+        1,
+        5,
+        null,
+>>>>>>> 4a955f9cc2922425b26686b891bf727b71d20d50
+        null,
+        1,
+        4,
+        null,
+        null
+      ],
+      "/Users/christinegamble/turing/1module/projects/black_thursday/lib/merchant.rb": [
         1,
         0,
         null,
@@ -97,10 +121,23 @@
         1,
         0,
         null,
+        1,
+        11,
+        11,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
         null,
         null
       ]
     },
+<<<<<<< HEAD
     "timestamp": 1461084909
+=======
+    "timestamp": 1461083049
+>>>>>>> 4a955f9cc2922425b26686b891bf727b71d20d50
   }
 }
