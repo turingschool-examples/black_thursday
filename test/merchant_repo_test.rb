@@ -22,4 +22,22 @@ class MerchantRepoTest < Minitest::Test
     assert Merchant, merchants[0].class
   end
 
+  def test_it_finds_merchant_by_id
+    repo = MerchantRepo.new
+    repo.merchants
+    assert_equal "Shopin1901", repo.find_by_id(12334105)
+  end
+
+  def test_it_finds_id_by_merchant
+    repo = MerchantRepo.new
+    repo.merchants
+    assert_equal "Shopin1901", repo.find_by_id(12334105)
+  end
+
+  def test_it_finds_merchant_by_id
+    repo = MerchantRepo.new
+    repo.merchants
+    assert_equal "Shopin1901", repo.find_by_id(12334105)
+  end
+
 end
