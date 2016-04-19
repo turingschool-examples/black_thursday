@@ -11,7 +11,7 @@ class Item
     @updated_at = item_information[:updated_at]
   end
 
-  def unit_price
+  def unit_price_to_dollars
     BigDecimal.new(@unit_price).to_f
   end
 

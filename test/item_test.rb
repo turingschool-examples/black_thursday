@@ -25,7 +25,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_can_return_a_unit_price
-    assert_equal 10.99, i.unit_price
+    assert_equal 10.99, i.unit_price_to_dollars
   end
 
   def test_it_can_return_when_it_was_created
