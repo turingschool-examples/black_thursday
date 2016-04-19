@@ -1,4 +1,4 @@
-require './invoice'
+require './lib/invoice'
 
 class InvoiceRepository
 
