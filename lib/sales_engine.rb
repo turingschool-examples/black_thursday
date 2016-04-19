@@ -3,30 +3,30 @@ require './lib/item_repository'
 require './lib/merchant_repository'
 
 class SalesEngine
-  # attr_accessor :merchants
-
-  def self.from_csv(files_to_parse = {})
-    puts "Sales Enigne Initialized!"
-    item_file = files_to_parse.fetch(:items)
-    @item_contents = CSV.open item_file, headers: true, header_converters: :symbol
-
-    merchant_file = files_to_parse.fetch(:merchants)
-    @merchant_contents = CSV.open merchant_file, headers: true, header_converters: :symbol
-
-    create_item_repo(@item_contents)
-    create_merchant_repo(@merchant_contents)
-
+  def initialize(merchant_contents, item_contents)
+    @merchant_contents = merchant_contents
+    @item_contents = item_contents
   end
 
-  def self.create_merchant_repo(merchant_contents)
-    merchant_content = MerchantRepository.new ( merchant_contents.map do |column|
+  def self.from_csv(files_to_parse = {})
+    item_file = files_to_parse.fetch(:items)
+    item_contents = CSV.open item_file, headers: true, header_converters: :symbol
+
+    merchant_file = files_to_parse.fetch(:merchants)
+    merchant_contents = CSV.open merchant_file, headers: true, header_converters: :symbol
+
+    SalesEngine.new(merchant_contents, item_contents)
+  end
+
+  def merchants
+    merchant_content = MerchantRepository.new (@merchant_contents.map do |column|
       merchants = Merchant.new({:id => column[:id], :name => column[:name]})
     end)
     merchant_content
   end
 
-  def self.create_item_repo(item_contents)
-    store = ItemRepository.new( item_contents.map do |column|
+  def items
+    store = ItemRepository.new(@item_contents.map do |column|
       item = Item.new({
         :id => column[:id],
         :name => column[:name],
