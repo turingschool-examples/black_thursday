@@ -94,7 +94,6 @@ class SalesEngineTest < Minitest::Test
     assert_equal "NOT SURE", se.item_repository.items[0].unit_price
   end
 
-
   def test_item_repo_item_objects_have_created_by_at
     @se.items
     assert_equal true, se.item_repository.items[1].created_at.include?("11:51:37")

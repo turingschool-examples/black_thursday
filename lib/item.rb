@@ -2,7 +2,7 @@
 
 class Item
 
-  attr_reader :id, :name, :description, :unit_price, :created_at, :updated_at, :sales_engine
+  attr_reader :id, :name, :description, :unit_price, :created_at, :updated_at, :sales_engine, :merchant_id
 
   def initialize(data, sales_engine)
     @id = data[:id].to_i
@@ -12,7 +12,10 @@ class Item
     #BigDecimal.new(data[:unit_price].to_i/100, 4) #uncertain of 4 as param here
     @created_at = data[:created_at]  #need to reformat time
     @updated_at = data[:updated_at] #need to reformat time
+    @merchant_id = data[:merchant_id].to_i
     @sales_engine = sales_engine
   end
+
+
 
 end
