@@ -21,10 +21,17 @@ class ItemRepository
     end
   end
 
-  def find_by_name
+  def find_by_name(name)
+    index = @items.find_index {|item| item.name.downcase == name.downcase}
+    if index != nil
+      @items[index]
+    else
+      nil
+    end
   end
 
-  def find_all_with_description
+  def find_all_with_description(string)
+    @items.find_all {|item| item.description.include?(string)}
   end
 
   def find_all_by_price
@@ -33,7 +40,8 @@ class ItemRepository
   def find_all_by_price_in_range
   end
 
-  def find_all_by_merchant_id
+  def find_all_by_merchant_id(merchant_id)
+    @items.find_all {|item| item.merchant_id == merchant_id}
   end
 
 private
