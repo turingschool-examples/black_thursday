@@ -1,0 +1,5 @@
+require 'pry'
+require 'csv'
+require 'minitest/autorun'
+require 'minitest/pride'
+require 'simplecov'
