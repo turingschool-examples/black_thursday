@@ -24,23 +24,8 @@ class MerchantRepoTest < Minitest::Test
 
   def test_it_finds_merchant_by_id
     repo = MerchantRepo.new
-    repo.merchants
+    repo.read_csv
     assert_equal "Shopin1901", repo.find_by_id(12334105)
-  end
-
-  def test_it_finds_id_by_merchant
-    repo = MerchantRepo.new
-    repo.merchants
-    assert_equal "Shopin1901", repo.find_by_id(12334105)
-  end
-
-  def test_it_finds_merchant_by_id
-    repo = MerchantRepo.new
-    repo.merchants
-    assert_equal "Shopin1901", repo.find_by_id(12334105)
-  end
-
-  def
   end
 
 end

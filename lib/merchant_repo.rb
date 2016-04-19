@@ -21,19 +21,19 @@ class MerchantRepo
   def find_by_id(id)
     @all_merchants.find do |merchant|
       merchants.id == id
+    end
   end
 
   def find_by_name(name)
     @all_merchants.find do |merchant|
       merchants.name.downcase
+    end
   end
 
   def find_all_by_name(name)
     @all_merchants.find_all do |merchant|
       merchant.name.downcase
-  end
-
-  def
+    end
   end
 
 
