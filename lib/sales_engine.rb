@@ -5,7 +5,7 @@ require './lib/invoice_repository'
 require './lib/invoice_item_repository'
 require './lib/transaction_repository'
 require './lib/customer_repository'
-# require 'BigDecimal'
+require 'bigdecimal'
 
 class SalesEngine
 

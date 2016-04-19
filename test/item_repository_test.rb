@@ -56,6 +56,37 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal true, item_repo.find_all_with_description("Acrylique")[1].name.include?("Course")
   end
 
+
+
+
+  def test_find_all_by_price_returns_empty_array_for_no_matches
+    assert_equal [], item_repo.find_all_by_price(0.00)
+  end
+
+  def test_find_all_by_price_single_match
+    assert_equal "Free standing Woden letters", item_repo.find_all_by_price(7.00)[0].name
+  end
+
+  def test_find_all_by_price_multi_match
+    assert_equal true, item_repo.find_all_by_price(13.00)[0].name.include?("Glitter")
+    assert_equal true, item_repo.find_all_by_price(13.00)[1].name.include?("Disney")
+  end
+
+  def test_find_all_by_price_range_returns_empty_array_for_no_matches
+    assert_equal [], item_repo.find_all_by_price_in_range(10000.00..100000.00)
+  end
+
+  def test_find_all_by_price_in_range_single_match
+    assert_equal true, item_repo.find_all_by_price_in_range(0.00.. 4.00)[0].name.include?("Fragrance Oils")
+  end
+
+  def test_find_all_by_price_in_range_multi_match
+    assert_equal true, item_repo.find_all_by_price_in_range(150.00.. 10000.00)[1].name.include?("Custom Hand Made")
+    assert_equal true, item_repo.find_all_by_price_in_range(150.00.. 10000.00)[0].name.include?("Course")
+  end
+
+
+
   def test_find_by_id_returns_nil_for_a_unmatched_merchant_ID
     assert_equal nil, item_repo.find_by_merchant_id(6)
   end

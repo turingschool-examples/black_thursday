@@ -1,7 +1,7 @@
-require './test/test_helper'
-require './lib/customer_repository'
-require './lib/customer'
-require './lib/sales_engine'
+require_relative 'test_helper'
+require_relative '../lib/customer_repository'
+require_relative '../lib/customer'
+require_relative '../lib/sales_engine'
 
 
 
