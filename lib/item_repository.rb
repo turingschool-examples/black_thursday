@@ -3,6 +3,8 @@ require './lib/item'
 
 class ItemRepository
 
+  attr_reader :items
+
   def initialize(csv_filepath)
     @items = []
     create_items(csv_filepath)
