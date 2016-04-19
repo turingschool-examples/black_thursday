@@ -28,6 +28,11 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 2, test_array.length
   end
 
+  def test_it_will_return_nil_if_no_item_instances
+    new_inventory = ItemRepository.new({})
+    assert_equal nil, new_inventory.all
+  end
+
   def test_it_can_find_an_instance_of_an_item_by_the_item_id
     item_instance = @inventory.find_by_id(12093)
     assert item_instance
@@ -46,6 +51,12 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 12093, item_instance.id
   end
 
+  def test_it_will_work_if_given_name_is_uppercase
+    item_instance = @inventory.find_by_name("PEN")
+    assert item_instance
+    assert_equal 12093, item_instance.id
+  end
+
   def test_it_will_return_nil_if_item_name_does_not_exist
     item_instance = @inventory.find_by_name("Ball Point Pen")
     refute item_instance
@@ -54,6 +65,11 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_will_return_item_by_description
     item_instance = @inventory.find_all_with_description("You can use it to write all the things")
+    assert item_instance
+  end
+
+  def test_it_will_return_item_by_description_case_insensitive
+    item_instance = @inventory.find_all_with_description("YoU CaN uSe IT tO wRIte aLL THe ThINgs")
     assert item_instance
   end
 
