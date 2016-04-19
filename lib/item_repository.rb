@@ -1,9 +1,16 @@
 require './lib/item'
 
 class ItemRepository
+  attr_reader :inventory
 
-  def initialize(inventory_array)
-    @inventory = inventory_array
+  def initialize(parent)
+    @se = parent
+  end
+
+  def items(inventory)
+    inventory.map do |column|
+      item = Item.new(column, self)
+     end
   end
 
   def all

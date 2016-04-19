@@ -27,5 +27,18 @@ class SalesEngineTest < Minitest::Test
     assert_equal Item, item.class
   end
 
+  def test_it_can_return_item_if_items_is_called_on_merchants
+    mr = @se.merchants
+    merchant = mr.find_by_id("12337411")
+    item_instances = merchant.items
+    assert_equal Item, item_instances[0].class
+  end
+
+
+  # # => [<item>, <item>, <item>]
+  # item = se.items.find_by_id(20)
+  # item.merchant
+  # # => <merchant>
+
 
 end

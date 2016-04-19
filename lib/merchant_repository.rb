@@ -1,9 +1,17 @@
 require './lib/merchant'
+require './lib/item_repository'
+require 'pry'
 
 class MerchantRepository
 
-  def initialize(merchant_array)
-    @merchant_repo = merchant_array
+  def initialize(parent)
+    @se = parent
+  end
+
+  def merchants(merchant_contents)
+    merchant_contents.map do |column|
+      merchants = Merchant.new(column, self)
+    end
   end
 
   def all
@@ -21,4 +29,6 @@ class MerchantRepository
   def find_all_by_name(find_name)
     @merchant_repo.find_all {|item| item.name.downcase.include?(find_name.downcase)}
   end
+
+
 end

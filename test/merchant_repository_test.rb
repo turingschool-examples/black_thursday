@@ -1,5 +1,6 @@
 require './test/test_helper'
 require './lib/merchant_repository'
+require 'pry'
 
 class MerchantRepositoryTest < Minitest::Test
 
@@ -16,6 +17,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_returns_merchant_by_finding_id
     assert_equal "Shopin1901", @merchant_repo.find_by_id(12334105).name
+    binding.pry
     assert_equal "Candisart", @merchant_repo.find_by_id(12334112).name
   end
 

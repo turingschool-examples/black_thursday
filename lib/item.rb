@@ -4,14 +4,16 @@ class Item
   attr_reader :id,:name,:description,:merchant_id,:unit_price
   attr_reader :created_at, :updated_at
 
-  def initialize(item_hash = {})
-    @id = item_hash.fetch(:id)
-    @name = item_hash.fetch(:name)
-    @description = item_hash.fetch(:description)
-    @unit_price = item_hash.fetch(:unit_price)
-    @created_at = item_hash.fetch(:created_at)
-    @updated_at = item_hash.fetch(:updated_at)
-    @merchant_id = item_hash.fetch(:merchant_id)
+  def initialize(column, parent)
+    puts "WOOOOOOOOO"
+    @id = column.fetch(:id)
+    @name = column.fetch(:name)
+    @description = column.fetch(:description)
+    @unit_price = column.fetch(:unit_price)
+    @created_at = column.fetch(:created_at)
+    @updated_at = column.fetch(:updated_at)
+    @merchant_id = column.fetch(:merchant_id)
+    @item_repo = parent
   end
 
   def unit_price_to_dollars

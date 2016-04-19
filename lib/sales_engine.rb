@@ -1,11 +1,14 @@
 require 'csv'
 require './lib/item_repository'
 require './lib/merchant_repository'
+require 'pry'
 
 class SalesEngine
   def initialize(merchant_contents, item_contents)
     @merchant_contents = merchant_contents
     @item_contents = item_contents
+    @item_repo = ItemRepository.new(self)
+    @merchant_repo = MerchantRepository.new(self)
   end
 
   def self.from_csv(files_to_parse = {})
@@ -19,28 +22,14 @@ class SalesEngine
   end
 
   def merchants
-    merchant_content = MerchantRepository.new (@merchant_contents.map do |column|
-      merchants = Merchant.new({:id => column[:id], :name => column[:name]})
-    end)
-    merchant_content
+    @merchant_repo.merchants(@merchant_contents)
   end
 
   def items
-    store = ItemRepository.new(@item_contents.map do |column|
-      item = Item.new({
-        :id => column[:id],
-        :name => column[:name],
-        :description => column[:description],
-        :unit_price => column[:unit_price],
-        :merchant_id => column[:merchant_id],
-        :created_at => column[:created_at],
-        :updated_at => column[:updated_at]
-       })
-     end
-     )
-     store
+    @item_repo.items(@item_contents)
   end
 
 end
 
 s = SalesEngine.from_csv({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+s.items
