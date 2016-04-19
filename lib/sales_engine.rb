@@ -1,18 +1,24 @@
 require 'csv'
 require './lib/item_repository'
+require './lib/merchant_repository'
+require './lib/merchant'
 
 class SalesEngine
+  def initialize
+    m = Merchant.new(merchant_hash = {})
+  end
+
   def self.from_csv(files_to_parse = {})
     item_file = files_to_parse.fetch(:items)
     item_contents = CSV.open item_file, headers: true, header_converters: :symbol
 
     merchant_file = files_to_parse.fetch(:merchants)
-    merchants_contents = CSV.open merchant_file, headers: true, header_converters: :symbol
+    merchant_content = CSV.open merchant_file, headers: true, header_converters: :symbol
 
-    merchants_contents.each do |column|
-      id = column[:id]
-      name = column[:name]
+    contents = MerchantRepository.new ( merchant_content.map do |column|
+      merchant = Merchant.new({:id => column[:id], :name => column[:name]})
     end
+      )
 
     store = ItemRepository.new( item_contents.map do |column|
       item = Item.new({
@@ -26,6 +32,7 @@ class SalesEngine
        })
      end
      )
+    contents.all
     store.all
   end
 end

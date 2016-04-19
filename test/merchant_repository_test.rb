@@ -2,8 +2,37 @@ require './test/test_helper'
 require './lib/merchant_repository'
 
 class MerchantRepositoryTest < Minitest::Test
-  def test_it_created_instance_of_merchant_repo_class
-    i = MerchantRepository.new
-    assert_equal MerchantRepository, i.class
+
+  def setup
+    merchant1 = Merchant.new({:id => 12334105, :name => "Shopin1901"})
+    merchant2 = Merchant.new({:id => 12334112, :name => "Candisart"})
+
+    @merchant_repo = MerchantRepository.new([merchant1, merchant2])
   end
+
+  def test_it_created_instance_of_merchant_repo_class
+    assert_equal MerchantRepository, @merchant_repo.class
+  end
+
+  def test_it_returns_merchant_by_finding_id
+    assert_equal "Shopin1901", @merchant_repo.find_by_id(12334105).name
+    assert_equal "Candisart", @merchant_repo.find_by_id(12334112).name
+  end
+
+  def test_it_returns_merchant_by_finding_name
+    assert_equal 12334105, @merchant_repo.find_by_name("Shopin1901").id
+    assert_equal 12334112, @merchant_repo.find_by_name("Candisart").id
+  end
+
+  def test_it_finds_all_instances_with_given_name_fragment
+    skip
+    merchant1 = Merchant.new({:id => 12334105, :name => "Shopin1901"})
+    merchant2 = Merchant.new({:id => 12334112, :name => "Candisart"})
+    merchant3 = Merchant.new({:id => 12345678, :name => "ShopsRUs"})
+    @merchant_repo = MerchantRepository.new([merchant1, merchant2, merchant3])
+    output = @merchant_repo.find_all_by_name("shop")
+
+    assert_equal [Merchant:0xXXXXXX @id=12334105, @name="Shopin1901", @id=12345678, @name="ShopsRUs"]
+  end
+
 end
