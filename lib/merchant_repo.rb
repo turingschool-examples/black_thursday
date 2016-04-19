@@ -5,11 +5,11 @@ class MerchantRepo
   attr_reader :all_merchants
 
   def initialize
-    @all_merchants = load_csv
+    @all_merchants = load_csv("./data/merchants.csv")
   end
 
-  def load_csv #remove this method, initialize?
-    contents = CSV.open "./data/merchants.csv", headers: true, header_converters: :symbol
+  def load_csv(file_name) #remove this method, initialize?
+    contents = CSV.open file_name, headers: true, header_converters: :symbol
 
     result = contents.map do |row|
       Merchant.new({:id => row[:id], :name => row[:name]})
@@ -29,13 +29,13 @@ class MerchantRepo
 
   def find_by_name(name)
     @all_merchants.find do |merchant|
-      merchant.name.downcase
+      merchant.name.downcase == name.downcase
     end
   end
 
   def find_all_by_name(name)
     @all_merchants.find_all do |merchant|
-      merchant.name.downcase
+      merchant.name.downcase.include?(name.downcase)
     end
   end
 
