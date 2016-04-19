@@ -10,33 +10,31 @@ class CsvParser
       id << row[:id]
       name << row[:name]
     end
-    array = id.zip(name).to_h.map do |key, value|
-      { :id => key, :name => value }
+    array = id.zip(name).to_h.map do |id, name|
+      { :id => id, :name => name }
     end
     array
   end
-  # best to refactor - zip will break with bad data - id or name missing in any row
 
 
   def items(items)
     contents = CSV.open items, headers: true, header_converters: :symbol
-    arr = []
+    array = []
     contents.each do |row|
-      item = []
-      item << row[:id]
-      item << row[:name]
-      item << description = clean_item_description(row[:description])
-      item << row[:created_at]
-      item << row[:updated_at]
-      item << row[:merchant_id]
-      arr << item
+      hash = {:id => row[:id],
+      :name => row[:name],
+      :description => clean_item_description(row[:description]),
+      :created_at => row[:created_at],
+      :updated_at => row[:updated_at],
+      :merchant_id => row[:merchant_id]}
+      array << hash
     end
-  p  arr
+     array
   end
 
 
   def clean_item_description(description)
-    description.delete!("\n")
+    description.gsub!("\n", " ")
   end
 
 

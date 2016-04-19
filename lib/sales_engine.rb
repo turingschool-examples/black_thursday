@@ -1,11 +1,21 @@
+require './lib/item_repository'
+require './lib/merchant_repository'
+
 class SalesEngine
-  attr_reader :items, :merchants, :merchants_data, :items_data
+  attr_reader  :merchants_data, :items_data
+
+  def initialize(items_data, merchants_data)
+    @items_data = items_data
+    @merchants_data = merchants_data
+  end
+
 
   def self.from_csv(csv_content)
-    @items = csv_content[:items]
-    @merchants = csv_content[:merchants]
-    @items_data = CsvParser.new.items(items)
-    @merchants_data = CsvParser.new.merchants(merchants)
+    items_csv = csv_content[:items]
+    merchants_csv = csv_content[:merchants]
+    items_data = CsvParser.new.items(items_csv)
+    merchants_data = CsvParser.new.merchants(merchants_csv)
+    SalesEngine.new(items_data, merchants_data)
   end
 
   def items
