@@ -6,26 +6,28 @@ require "pp"
 
 class MerchantRepoTest < Minitest::Test
 
+  def setup
+    @repo = MerchantRepo.new
+  end
+
   def test_repo_exists
-    repo = MerchantRepo.new
-    assert repo
+    assert @repo
   end
 
   def test_if_merchants_array_created
-    repo = MerchantRepo.new
-    assert_equal Array, repo.merchants.class
+    @repo.load_csv
+    # puts @repo.all_merchants.inspect
+    assert_equal Array, @repo.all_merchants.class
   end
 
   def test_that_we_loaded_merchant_objects
-    repo = MerchantRepo.new
-    merchants = repo.merchants.class
-    assert Merchant, merchants[0].class
+    @repo.load_csv
+    assert Merchant, @repo.all_merchants[0].class
   end
 
   def test_it_finds_merchant_by_id
-    repo = MerchantRepo.new
-    repo.read_csv
-    assert_equal "Shopin1901", repo.find_by_id(12334105)
+    @repo.load_csv
+    assert_equal "Shopin1901", @repo.find_by_id("12334105").name
   end
 
 end

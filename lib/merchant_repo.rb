@@ -2,31 +2,34 @@ require "csv"
 require_relative "merchant"
 
 class MerchantRepo
+  attr_reader :all_merchants
+
   def initialize
-    @all_merchants = Array.new
+    @all_merchants = load_csv
   end
 
-  def merchants #remove this method, initialize?
+  def load_csv #remove this method, initialize?
     contents = CSV.open "./data/merchants.csv", headers: true, header_converters: :symbol
 
-    @all_merchants = contents.map do |row|
+    result = contents.map do |row|
       Merchant.new({:id => row[:id], :name => row[:name]})
     end
+    result
   end
 
   def all
-    merchants
+    @all_merchants
   end
 
   def find_by_id(id)
     @all_merchants.find do |merchant|
-      merchants.id == id
+      merchant.id == id
     end
   end
 
   def find_by_name(name)
     @all_merchants.find do |merchant|
-      merchants.name.downcase
+      merchant.name.downcase
     end
   end
 
