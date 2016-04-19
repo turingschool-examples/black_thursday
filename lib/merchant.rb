@@ -12,13 +12,15 @@ class Merchant
   end
 
   def name
-    @merchant_date[1]
+    @merchant_data[1]
   end
 
   def created_at
+    @merchant_data[2]
   end
 
   def updated_at
+    @merchant_data[3]
   end
 
 end
