@@ -1,6 +1,10 @@
 require './test/test_helper'
-require './lib/sales_engine'
 require './lib/customer_repository'
+require './lib/customer'
+require './lib/sales_engine'
+
+
+
 
 class CustomerRepositoryTest < Minitest::Test
 

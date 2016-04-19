@@ -1,5 +1,4 @@
 require './test/test_helper'
-require './lib/sales_engine'
 require './lib/item_repository'
 
 

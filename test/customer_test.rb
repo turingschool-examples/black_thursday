@@ -1,6 +1,6 @@
 require './test/test_helper'
 require './lib/sales_engine'
-require './lib/customer_test'
+require './lib/customer'
 
 class CustomerTest < Minitest::Test
 
