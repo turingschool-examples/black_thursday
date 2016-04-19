@@ -26,7 +26,6 @@ class SalesEngine
        })
      end
      )
-    store.all
   end
 end
 

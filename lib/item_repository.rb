@@ -23,7 +23,7 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
-    # find_all_by_price - returns either [] or instances of Item where the supplied price exactly matches
+    @inventory.find_all {|item| item.unit_price == price}
 
   end
 
@@ -32,7 +32,7 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(merchant_id)
-    # find_all_by_merchant_id - returns either [] or instances of Item where the supplied merchant ID matches that supplied
+    @inventory.find_all {|item| item.merchant_id == merchant_id}
   end
 
 end

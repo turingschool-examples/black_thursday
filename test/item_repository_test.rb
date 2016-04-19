@@ -79,19 +79,14 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_will_return_item_by_price
-    skip
-
-    item_instance = @inventory.find_by_price(8.99)
+    item_instance = @inventory.find_all_by_price(8.99)
     assert item_instance
-    assert_equal 12093, item_instance.id
+    assert_equal 12093, item_instance[0].id
   end
 
   def test_it_will_return_nil_if_item_price_does_not_exist
-    skip
-
-    item_instance = @inventory.find_by_price(80.99)
-    refute item_instance
-    assert_equal nil, item_instance.name
+    item_instance = @inventory.find_all_by_price(80.99)
+    assert_equal [], item_instance
   end
 
   def test_it_can_find_all_values_within_a_range
@@ -107,6 +102,17 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_will_not_find_any_values_in_given_range
     skip
 
+  end
+
+  def test_it_will_find_all_by_merchant_id
+    item_instance = @inventory.find_all_by_merchant_id(98765)
+    assert item_instance
+    assert_equal "Pencil", item_instance[0].name
+  end
+
+  def test_it_will_return_empty_array_if_merchant_id_doesnt_exist
+    item_instance = @inventory.find_all_by_merchant_id(120931235987)
+    assert_equal [], item_instance
   end
 
 end
