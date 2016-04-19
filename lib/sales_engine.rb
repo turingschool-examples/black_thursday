@@ -24,27 +24,20 @@ class SalesEngine
       @merchant_repository
     else
       @merchant_repository = MerchantRepository.new
-      contents = CSV.open(file_hash[:merchants], headers: true, header_converters: :symbol)
-      contents.each do |row|
-        @merchant_repository.merchants << Merchant.new(row, self)
-      end
-      @merchant_repository
+      data = get_data(file_hash[:merchants])
+      generate_instances(data, @merchant_repository, Merchant)
     end
   end
 
-  
-
-##for refactoring - to reuse these for all classes
   def get_data(file)
-
+    CSV.open(file, headers: true, header_converters: :symbol)
   end
 
   def generate_instances(data, repo, klass)
-
+    data.each do |row|
+      repo << klass.new(row, self)
+    end
+    repo
   end
-
-
-
-
 
 end
