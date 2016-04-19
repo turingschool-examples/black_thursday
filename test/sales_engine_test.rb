@@ -91,17 +91,37 @@ class SalesEngineTest < Minitest::Test
 
   def test_item_repo_item_objects_have_price
     @se.items
-    assert_equal "NOT SURE", se.item_repository.items[0].unit_price
+    assert_equal 13.00, se.item_repository.items[0].unit_price
+  end
+
+  def test_item_objects_have_price_as_big_decimal
+    @se.items
+    assert_equal BigDecimal, se.item_repository.items[0].unit_price.class
+  end
+
+  def test_item_objects_have_price_as_float_when_transformed
+    @se.items
+    assert_equal Float, se.item_repository.items[0].unit_price_to_dollars.class
   end
 
   def test_item_repo_item_objects_have_created_by_at
     @se.items
-    assert_equal true, se.item_repository.items[1].created_at.include?("11:51:37")
+    assert_equal Time.parse("2016-01-11 11:51:37 UTC"), se.item_repository.items[1].created_at
+  end
+
+  def test_item_repo_item_objects_have_created_by_as_time_object
+    @se.items
+    assert_equal Time, se.item_repository.items[1].created_at.class
   end
 
   def test_item_repo_item_objects_have_updated_at
     @se.items
-    assert_equal true, se.item_repository.items[1].updated_at.include?("2008")
+    assert_equal Time.parse("2008-04-02 13:48:57 UTC"), se.item_repository.items[1].updated_at
+  end
+
+  def test_item_repo_item_objects_have_updated_at_as_time_object
+    @se.items
+    assert_equal Time, se.item_repository.items[1].updated_at.class
   end
 
   def test_items_repo_item_objects_have_ref_to_se

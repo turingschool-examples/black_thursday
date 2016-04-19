@@ -39,6 +39,30 @@ class ItemRepository
     end
   end
 
+  def find_all_by_price(price)
+    matches = @items.find_all do |item|
+      item.unit_price_to_dollars == price
+    end
+    if matches.nil?
+      []
+    else
+      matches
+    end
+  end
+
+  def find_all_by_price_in_range(range)
+    matches = @items.find_all do |item|
+      item.unit_price_to_dollars >= range.begin &&
+      item.unit_price_to_dollars <= range.end
+    end
+    if matches.nil?
+      []
+    else
+      matches
+    end
+  end
+
+
   def find_by_merchant_id(id)
     @items.find do |item|
       item.merchant_id == id

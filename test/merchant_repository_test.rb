@@ -11,6 +11,8 @@ class MerchantRepositoryTest < Minitest::Test
     @se = SalesEngine.from_csv({
       :items     => "./data/small_items.csv",
       :merchants => "./data/small_merchants.csv",})
+
+    # require 'pry'; binding.pry
     @se.merchants
     @merch_repo = @se.merchant_repository
   end
