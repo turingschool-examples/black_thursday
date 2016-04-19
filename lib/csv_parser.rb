@@ -2,7 +2,7 @@ require 'csv'
 
 class CsvParser
 
-  def merchant(csv_content)
+  def merchants(csv_content)
     contents = CSV.open csv_content, headers: true, header_converters: :symbol
     id = []
     name = []
@@ -10,7 +10,10 @@ class CsvParser
       id << row[:id]
       name << row[:name]
     end
-    :id[id]
+    array = id.zip(name).to_h.map do |key, value|
+      { :id => key, :name => value }
+    end
+    array
   end
 
   # def items()
