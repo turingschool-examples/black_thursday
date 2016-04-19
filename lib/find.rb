@@ -2,27 +2,20 @@ module Find
 
   #hash is {:field => search_term}
   def find_by(search_hash)
-    # all.each do |instance|
-    #if instance.send(search_hash.keys[0]) == search_term
-    #return instance
+    # all.find do |instance|
+      #if instance.send(search_hash.keys[0]) == search_term
   end
 
   #works for strings only
   def find_all_by_fragment(search_hash)
-    #matches = []
-    # all.each do |instance|
-    #if instance.send(search_hash.keys[0]).downcase.include?( search_term.downcase)
-    # add instance to matches
-    #return matches
+    # all.find_all do |instance|
+      #instance.send(search_hash.keys[0]).downcase.include?( search_term.downcase)
   end
 
   #works for strings only
   def find_all_by_full(search_hash)
-    #matches = []
-    # all.each do |instance|
+    # all.find_all do |instance|
     #if instance.send(search_hash.keys[0]).downcase == search_term.downcase
-    # add instance to matches
-    #return matches
   end
 
 

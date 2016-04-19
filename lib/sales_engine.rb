@@ -20,30 +20,36 @@ class SalesEngine
     #intantiate a new se object(file_hash)
   end
 
-
   def merchants #similar for items
 
     #if merchants repo already exists
       #return it
 
     #else
-      #instantiate it - @merch_repo = merch repo.new(self)
-      #set source equal to data_files[:merchants]
 
+      #instantiate it - @merch_repo = merch repo.new(self)
+
+      ###MAY BE ABLE TO REPLACE ALL BELOW WITH GET_DATA & GENERATE INSTANCES
+
+      #set source equal to data_files[:merchants]
       #     contents = CSV.open(source, headers: true, header_converters: :symbol)
 
       #contents.each do |row|
-      #   @merch_repo << Merchant.new({:id => row[:id], :name => row[:name], :sales_engine => self})
+      #   @merch_repo << Merchant.new(row, self)
       # end
 
     #return merch_repo
 
   end
 
-  def load_file
+  # def get_data(source)
+  #     contents = CSV.open(source, headers: true, header_converters: :symbol)
+  #end
 
-
-
-
+  # def generate_instances(contents, repo, klass)
+  #contents.each do |row|
+  #   repo << klass.new(row, self})
+  # end
+  #end
 
 end
