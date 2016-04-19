@@ -29,4 +29,4 @@ class SalesEngine
   end
 end
 
-s = SalesEngine.from_csv({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+# s = SalesEngine.from_csv({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})

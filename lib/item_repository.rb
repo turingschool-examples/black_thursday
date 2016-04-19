@@ -19,7 +19,9 @@ class ItemRepository
   end
 
   def find_all_with_description(find_description)
-    @inventory.find_all {|item| item.description.downcase == find_description.downcase }
+    @inventory.find_all do |item|
+      item.description.downcase == find_description.downcase
+    end
   end
 
   def find_all_by_price(price)
@@ -28,7 +30,7 @@ class ItemRepository
   end
 
   def find_all_by_price_in_range(range)
-    @inventory.find_all {|item| range.include?(item.unit_price)}# find_all_by_price_in_range - returns either [] or instances of Item where the supplied price is in the supplied range (a single Ruby range instance is passed in)
+    @inventory.find_all {|item| range.include?(item.unit_price)}
   end
 
   def find_all_by_merchant_id(merchant_id)
