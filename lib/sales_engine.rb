@@ -1,6 +1,5 @@
 require 'csv'
 require './lib/item_repository'
-require './lib/item'
 
 class SalesEngine
   def self.from_csv(files_to_parse = {})
