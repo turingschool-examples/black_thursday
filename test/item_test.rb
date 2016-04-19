@@ -25,18 +25,14 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_can_return_a_unit_price
-    #figure out how big decimal works
-    skip
-    assert_equal "", i.unit_price
+    assert_equal 10.99, i.unit_price
   end
 
   def test_it_can_return_when_it_was_created
-    #need to figure out how to format time.
     assert_equal "2016-04-19 09:04:25 -0600", i.created_at
   end
 
   def test_it_can_return_when_it_was_updated
-    #need to figure out how to format time.
     assert_equal "2016-04-19 09:04:25 -0600", i.updated_at
   end
 
