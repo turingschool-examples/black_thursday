@@ -50,11 +50,13 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_merchants_repo_merch_objects_have_name
-
+    @se.merchants
+    assert_equal "Shopin1901", se.merchant_repository.merchants[0].name
   end
 
   def test_merchants_repo_merch_objects_have_ref_to_se
-
+    @se.merchants
+    assert_equal SalesEngine, se.merchant_repository.merchants[9].sales_engine.class
   end
 
 

@@ -20,20 +20,19 @@ class SalesEngine
   end
 
   def merchants
-    #RETURN VALUE IS MERCH REPO
-    #check if merch repo is nil or not
-    #if nil
-      #make a new merch repo object
-      #read the data from the csv file
-      #go through each row of the data
-        #make a new merch object passing in the row and self
-        #that new object gets pushed onto the merchant repo
-
-
-
+    if @merchant_repository != nil
+      @merchant_repository
+    else
+      @merchant_repository = MerchantRepository.new
+      contents = CSV.open(file_hash[:merchants], headers: true, header_converters: :symbol)
+      contents.each do |row|
+        @merchant_repository.merchants << Merchant.new(row, self)
+      end
+      @merchant_repository
+    end
   end
 
-
+  
 
 ##for refactoring - to reuse these for all classes
   def get_data(file)
