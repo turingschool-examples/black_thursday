@@ -8,7 +8,7 @@ class SalesEngine
   attr_accessor :merchants
 
   def initialize
-    @merchants = Merchant.new(merchant_hash = {})
+    merchants = Merchant.new(merchant_hash = {})
   end
 ​
   def self.from_csv(files_to_parse = {})
