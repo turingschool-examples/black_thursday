@@ -25,14 +25,14 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_finds_all_instances_with_given_name_fragment
-    skip
     merchant1 = Merchant.new({:id => 12334105, :name => "Shopin1901"})
     merchant2 = Merchant.new({:id => 12334112, :name => "Candisart"})
     merchant3 = Merchant.new({:id => 12345678, :name => "ShopsRUs"})
-    @merchant_repo = MerchantRepository.new([merchant1, merchant2, merchant3])
-    output = @merchant_repo.find_all_by_name("shop")
+    merchant_repo = MerchantRepository.new([merchant1, merchant2, merchant3])
+    output = merchant_repo.find_all_by_name("shop")
 
-    assert_equal [Merchant:0xXXXXXX @id=12334105, @name="Shopin1901", @id=12345678, @name="ShopsRUs"]
+    assert_equal 2, output.length
+    # [Merchant:0xXXXXXX id=12334105, name="Shopin1901", id=12345678, name="ShopsRUs"]
   end
 
 end

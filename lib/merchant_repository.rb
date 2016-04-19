@@ -7,7 +7,7 @@ class MerchantRepository
   end
 
   def all
-    @merchant_repo.empty? ?  nil : @merchant_repo.to_a
+    @merchant_repo.empty? ?  nil : @merchant_repo
   end
 
   def find_by_id(find_id)
