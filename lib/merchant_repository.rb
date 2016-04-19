@@ -10,34 +10,35 @@ class MerchantRepository
 
   def create_merchants(merchants_data)
     merchants = merchants_data.map do |name_id|
-      Merchant.new(name_id)
+    Merchant.new(name_id)
     end
+  p  merchants
   end
 
    def all
      merchants
    end
 
-  # def find_by_id(id)
-  # end
+   def find_by_id(id)
+    @id = id
+    find = merchants.find do |m|
+      m.id == id
+    end
+    find
+   end
+
+  def find_by_name
+    @name = name
+    find = merchants.find do |m|
+      m.downcase == name
+    end
+    find
+  end
+# find_by_name - returns either nil or an instance of Merchant having done a case insensitive search
+
+  def find_all_by_name
+  end
+
+# find_all_by_name - returns either [] or one or more matches which contain the supplied name fragment, case insensitive
 
 end
-
-
-
-# The MerchantRepository is responsible for holding and searching our Merchant instances. It offers the following methods:
-#
-# all - returns an array of all known Merchant instances
-# find_by_id - returns either nil or an instance of Merchant with a matching ID
-# find_by_name - returns either nil or an instance of Merchant having done a case insensitive search
-# find_all_by_name - returns either [] or one or more matches which contain the supplied name fragment, case insensitive
-# The data can be found in data/merchants.csv so the instance is created and used like this:
-#
-# se = SalesEngine.from_csv({
-#   :items     => "./data/items.csv",
-#   :merchants => "./data/merchants.csv",
-# })
-#
-# mr = se.merchants
-# merchant = mr.find_by_name("CJsDecor")
-# # => <Merchant>
