@@ -13,7 +13,7 @@ class MerchantRepositoryTest < MiniTest::Test
   end
 
   def test_it_initializes_with_correct_id
-    assert mr
+    assert_equal "", mr.merchants.id
   end
 
    def test_it_finds_all_by_id
