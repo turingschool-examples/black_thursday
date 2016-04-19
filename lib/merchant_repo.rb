@@ -33,5 +33,8 @@ class MerchantRepo
       merchant.name.downcase
   end
 
+  def
+  end
+
 
 end

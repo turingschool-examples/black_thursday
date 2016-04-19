@@ -40,4 +40,7 @@ class MerchantRepoTest < Minitest::Test
     assert_equal "Shopin1901", repo.find_by_id(12334105)
   end
 
+  def
+  end
+
 end
