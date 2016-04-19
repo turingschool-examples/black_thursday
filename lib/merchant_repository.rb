@@ -3,8 +3,9 @@ require './lib/merchant'
 
 class MerchantRepository
 
-  def initialize
+  def initialize(sales_engine)
     @merchants = []
+    @sales_engine = sales_engine
   end
 
   def <<(merchant_object)
