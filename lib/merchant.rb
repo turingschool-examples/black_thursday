@@ -4,6 +4,7 @@ class Merchant
   def initialize(merchant_hash = {})
     @id = merchant_hash.fetch(:id)
     @name = merchant_hash.fetch(:name)
-  end 
+
+  end
 
 end
