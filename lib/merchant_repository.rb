@@ -1,4 +1,6 @@
 require 'csv'
+require 'pry'
+require_relative 'merchant'
 
 class MerchantRepository
   attr_accessor :merchants
@@ -21,17 +23,20 @@ class MerchantRepository
 
   def find_by_name(name)
     @merchants.find do |merchant|
-      merchant.name == name
+      merchant.name == name.downcase
     end
   end
 # this will return the array if it matches more than one
 # how do we return a fragment if not found in the data
   def find_all_by_name(name)
-    name_array = []
-    @merchants.find do |merchant|
-      merchant.name == name
-      name_array << name
+    names = @merchants.select do |merchant|
+      merchant.name.include?(name.downcase)
     end
+    names
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 
 end
