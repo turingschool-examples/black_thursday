@@ -14,7 +14,7 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2016-04-19T13:55:31-06:00">2016-04-19T13:55:31-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2016-04-19T14:11:13-06:00">2016-04-19T14:11:13-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -25,15 +25,15 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         20.22
+         21.33
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>2</b> files in total.
-    <b>35</b> relevant lines. 
-    <span class="green"><b>35</b> lines covered</span> and
+    <b>38</b> relevant lines. 
+    <span class="green"><b>38</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -57,17 +57,17 @@
         <td>13</td>
         <td>13</td>
         <td>0</td>
-        <td>47.5</td>
+        <td>53.9</td>
       </tr>
       
       <tr>
         <td class="strong"><a href="#f523714aca6f28b22ad9b4a089db578ef28951f3" class="src_link" title="lib/item_repository.rb">lib/item_repository.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>46</td>
-        <td>22</td>
-        <td>22</td>
+        <td>52</td>
+        <td>25</td>
+        <td>25</td>
         <td>0</td>
-        <td>4.1</td>
+        <td>4.4</td>
       </tr>
       
     </tbody>
@@ -136,44 +136,44 @@
           <code class="ruby">  def initialize(item_information)</code>
         </li>
       
-        <li class="covered" data-hits="84" data-linenumber="7">
-          <span class="hits">84</span>
+        <li class="covered" data-hits="96" data-linenumber="7">
+          <span class="hits">96</span>
           
           <code class="ruby">    @id = item_information[:id]</code>
         </li>
       
-        <li class="covered" data-hits="84" data-linenumber="8">
-          <span class="hits">84</span>
+        <li class="covered" data-hits="96" data-linenumber="8">
+          <span class="hits">96</span>
           
           <code class="ruby">    @name = item_information[:name]</code>
         </li>
       
-        <li class="covered" data-hits="84" data-linenumber="9">
-          <span class="hits">84</span>
+        <li class="covered" data-hits="96" data-linenumber="9">
+          <span class="hits">96</span>
           
           <code class="ruby">    @description = item_information[:description]</code>
         </li>
       
-        <li class="covered" data-hits="84" data-linenumber="10">
-          <span class="hits">84</span>
+        <li class="covered" data-hits="96" data-linenumber="10">
+          <span class="hits">96</span>
           
           <code class="ruby">    @unit_price = item_information[:unit_price]</code>
         </li>
       
-        <li class="covered" data-hits="84" data-linenumber="11">
-          <span class="hits">84</span>
+        <li class="covered" data-hits="96" data-linenumber="11">
+          <span class="hits">96</span>
           
           <code class="ruby">    @merchant_id = item_information[:merchant_id]</code>
         </li>
       
-        <li class="covered" data-hits="84" data-linenumber="12">
-          <span class="hits">84</span>
+        <li class="covered" data-hits="96" data-linenumber="12">
+          <span class="hits">96</span>
           
           <code class="ruby">    @created_at = item_information[:created_at]</code>
         </li>
       
-        <li class="covered" data-hits="84" data-linenumber="13">
-          <span class="hits">84</span>
+        <li class="covered" data-hits="96" data-linenumber="13">
+          <span class="hits">96</span>
           
           <code class="ruby">    @updated_at = item_information[:updated_at]</code>
         </li>
@@ -229,8 +229,8 @@
     <h3>lib/item_repository.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>22</b> relevant lines. 
-      <span class="green"><b>22</b> lines covered</span> and
+      <b>25</b> relevant lines. 
+      <span class="green"><b>25</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -280,8 +280,8 @@
           <code class="ruby">  def initialize(items)</code>
         </li>
       
-        <li class="covered" data-hits="21" data-linenumber="8">
-          <span class="hits">21</span>
+        <li class="covered" data-hits="24" data-linenumber="8">
+          <span class="hits">24</span>
           
           <code class="ruby">    @items = items</code>
         </li>
@@ -508,7 +508,43 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="46">
+        <li class="covered" data-hits="1" data-linenumber="46">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def find_all_by_merchant_id(merchant_id)</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="47">
+          <span class="hits">3</span>
+          
+          <code class="ruby">    items.find_all do |item|</code>
+        </li>
+      
+        <li class="covered" data-hits="12" data-linenumber="48">
+          <span class="hits">12</span>
+          
+          <code class="ruby">      item.merchant_id == merchant_id</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="49">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="50">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="51">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="52">
           
           
           <code class="ruby">end</code>

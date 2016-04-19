@@ -91,7 +91,18 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal [], item_repo.find_all_by_price_in_range(0..1)
   end
 
+  def test_it_can_return_objects_with_a_matching_merchant_id
+    assert_equal "Paper", name_of_item_objects(item_repo.find_all_by_merchant_id(10293845))
+  end
 
+  def test_it_can_return_multiple_objects_with_a_matching_merchant_id
+    assert_equal "Pen, Stapler", name_of_item_objects(item_repo.find_all_by_merchant_id(12345678))
+  end
+
+  def test_it_returns_an_empty_array_if_no_matching_merchant_id_is_found
+    assert_equal [], item_repo.find_all_by_merchant_id(7)
+  end
+  
   private
 
   def name_of_item_objects(collection)
