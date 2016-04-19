@@ -37,7 +37,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_will_return_nil_if_item_id_does_not_exist
     item_instance = @inventory.find_by_id(120931235987)
     refute item_instance
-    assert_equal nil, item_instance.name
+    assert_equal nil, item_instance
   end
 
   def test_it_will_return_item_by_name
@@ -49,42 +49,48 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_will_return_nil_if_item_name_does_not_exist
     item_instance = @inventory.find_by_name("Ball Point Pen")
     refute item_instance
-    assert_equal nil, item_instance.name
+    assert_equal nil, item_instance
   end
 
   def test_it_will_return_item_by_description
-    item_instance = @inventory.find_by_description("You can use it to write all the things")
+    item_instance = @inventory.find_all_with_description("You can use it to write all the things")
     assert item_instance
-    assert_equal 12093, item_instance.id
   end
 
   def test_it_will_return_nil_if_item_description_does_not_exist
-    item_instance = @inventory.find_by_description("This is the best pen ever!")
-    refute item_instance
-    assert_equal nil, item_instance.name
+    item_instance = @inventory.find_all_with_description("This is the best pen ever!")
+    assert_equal [], item_instance
   end
 
   def test_it_will_return_item_by_price
+    skip
+
     item_instance = @inventory.find_by_price(8.99)
     assert item_instance
     assert_equal 12093, item_instance.id
   end
 
   def test_it_will_return_nil_if_item_price_does_not_exist
+    skip
+
     item_instance = @inventory.find_by_price(80.99)
     refute item_instance
     assert_equal nil, item_instance.name
   end
 
   def test_it_can_find_all_values_within_a_range
+    skip
+
   end
 
   def test_it_can_find_one_value_in_the_range
+    skip
+
   end
 
   def test_it_will_not_find_any_values_in_given_range
+    skip
+
   end
-
-
 
 end

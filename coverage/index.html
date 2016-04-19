@@ -14,26 +14,26 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2016-04-18T20:15:27-06:00">2016-04-18T20:15:27-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2016-04-18T20:47:07-06:00">2016-04-18T20:47:07-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="green">96.15%</span></span>
+    (<span class="covered_percent"><span class="green">96.77%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         1.85
+         7.61
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>2</b> files in total.
-    <b>26</b> relevant lines. 
-    <span class="green"><b>25</b> lines covered</span> and
+    <b>31</b> relevant lines. 
+    <span class="green"><b>30</b> lines covered</span> and
     <span class="red"><b>1</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -57,17 +57,17 @@
         <td>13</td>
         <td>12</td>
         <td>1</td>
-        <td>2.5</td>
+        <td>14.4</td>
       </tr>
       
       <tr>
         <td class="strong"><a href="#72d3731b2ef39f76556c5d7eeb1706e8d5c223cd" class="src_link" title="lib/item_repository.rb">lib/item_repository.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>52</td>
-        <td>13</td>
-        <td>13</td>
+        <td>45</td>
+        <td>18</td>
+        <td>18</td>
         <td>0</td>
-        <td>1.2</td>
+        <td>2.7</td>
       </tr>
       
     </tbody>
@@ -136,44 +136,44 @@
           <code class="ruby">  def initialize(item_hash = {})</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="7">
-          <span class="hits">4</span>
+        <li class="covered" data-hits="26" data-linenumber="7">
+          <span class="hits">26</span>
           
           <code class="ruby">    @id = item_hash.fetch(:id)</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="8">
-          <span class="hits">4</span>
+        <li class="covered" data-hits="26" data-linenumber="8">
+          <span class="hits">26</span>
           
           <code class="ruby">    @name = item_hash.fetch(:name)</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="9">
-          <span class="hits">4</span>
+        <li class="covered" data-hits="26" data-linenumber="9">
+          <span class="hits">26</span>
           
           <code class="ruby">    @description = item_hash.fetch(:description)</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="10">
-          <span class="hits">4</span>
+        <li class="covered" data-hits="26" data-linenumber="10">
+          <span class="hits">26</span>
           
           <code class="ruby">    @unit_price = item_hash.fetch(:unit_price)</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="11">
-          <span class="hits">4</span>
+        <li class="covered" data-hits="26" data-linenumber="11">
+          <span class="hits">26</span>
           
           <code class="ruby">    @created_at = item_hash.fetch(:created_at)</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="12">
-          <span class="hits">4</span>
+        <li class="covered" data-hits="26" data-linenumber="12">
+          <span class="hits">26</span>
           
           <code class="ruby">    @updated_at = item_hash.fetch(:updated_at)</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="13">
-          <span class="hits">4</span>
+        <li class="covered" data-hits="26" data-linenumber="13">
+          <span class="hits">26</span>
           
           <code class="ruby">    @merchant_id = item_hash.fetch(:merchant_id)</code>
         </li>
@@ -229,8 +229,8 @@
     <h3>lib/item_repository.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>13</b> relevant lines. 
-      <span class="green"><b>13</b> lines covered</span> and
+      <b>18</b> relevant lines. 
+      <span class="green"><b>18</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -268,8 +268,8 @@
           <code class="ruby">  def initialize(inventory_array)</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="6">
-          <span class="hits">2</span>
+        <li class="covered" data-hits="13" data-linenumber="6">
+          <span class="hits">13</span>
           
           <code class="ruby">    @inventory = inventory_array</code>
         </li>
@@ -325,91 +325,91 @@
         <li class="covered" data-hits="1" data-linenumber="15">
           <span class="hits">1</span>
           
-          <code class="ruby">  def find_by_id</code>
+          <code class="ruby">  def find_by_id(find_id)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="16">
+        <li class="covered" data-hits="6" data-linenumber="16">
+          <span class="hits">6</span>
           
-          
-          <code class="ruby">    # find_by_id - returns either nil or an instance of Item with a matching ID</code>
+          <code class="ruby">    @inventory.find {|item| item.id == find_id }</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="17">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby">    # find_by_id - returns either nil or an instance of Item with a matching ID</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="18">
           
           
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="19">
+          
+          
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="19">
+        <li class="covered" data-hits="1" data-linenumber="20">
           <span class="hits">1</span>
           
-          <code class="ruby">  def find_by_name</code>
+          <code class="ruby">  def find_by_name(find_name)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="20">
+        <li class="covered" data-hits="6" data-linenumber="21">
+          <span class="hits">6</span>
           
-          
-          <code class="ruby">    # find_by_name - returns either nil or an instance of Item having done a case insensitive search</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="21">
-          
-          
-          <code class="ruby">  end</code>
+          <code class="ruby">    @inventory.find {|item| item.name.downcase == find_name.downcase }</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="22">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">    # find_by_name - returns either nil or an instance of Item having done a case insensitive search</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="23">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  def find_all_with_description</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="24">
-          
-          
-          <code class="ruby">    # find_all_with_description - returns either [] or instances of Item where the supplied string appears in the item description (case insensitive)</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="25">
+        <li class="never" data-hits="" data-linenumber="23">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="26">
+        <li class="never" data-hits="" data-linenumber="24">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="27">
+        <li class="covered" data-hits="1" data-linenumber="25">
           <span class="hits">1</span>
           
-          <code class="ruby">  def find_all_by_price</code>
+          <code class="ruby">  def find_all_with_description(find_description)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="28">
+        <li class="covered" data-hits="2" data-linenumber="26">
+          <span class="hits">2</span>
           
+          <code class="ruby">    description_array = []</code>
+        </li>
+      
+        <li class="covered" data-hits="6" data-linenumber="27">
+          <span class="hits">6</span>
           
-          <code class="ruby">    # find_all_by_price - returns either [] or instances of Item where the supplied price exactly matches</code>
+          <code class="ruby">    instance = @inventory.find {|item| item.description.downcase == find_description.downcase }</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="28">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    instance ? description_array &lt;&lt; instance : description_array</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="29">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">    # find_all_with_description - returns either [] or instances of Item where the supplied string appears in the item description (case insensitive)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="30">
@@ -427,43 +427,43 @@
         <li class="covered" data-hits="1" data-linenumber="32">
           <span class="hits">1</span>
           
-          <code class="ruby">  def find_all_by_price_in_range</code>
+          <code class="ruby">  def find_all_by_price(price)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="33">
           
           
-          <code class="ruby">    # find_all_by_price_in_range - returns either [] or instances of Item where the supplied price is in the supplied range (a single Ruby range instance is passed in)</code>
+          <code class="ruby">    # find_all_by_price - returns either [] or instances of Item where the supplied price exactly matches</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="34">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby"></code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="35">
           
           
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="36">
+          
+          
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="36">
+        <li class="covered" data-hits="1" data-linenumber="37">
           <span class="hits">1</span>
           
-          <code class="ruby">  def find_all_by_merchant_id</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="37">
-          
-          
-          <code class="ruby">    # find_all_by_merchant_id - returns either [] or instances of Item where the supplied merchant ID matches that supplied</code>
+          <code class="ruby">  def find_all_by_price_in_range(range)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="38">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">    # find_all_by_price_in_range - returns either [] or instances of Item where the supplied price is in the supplied range (a single Ruby range instance is passed in)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="39">
@@ -478,73 +478,31 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="41">
+        <li class="covered" data-hits="1" data-linenumber="41">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby"># The ItemRepository is responsible for holding and searching our Item instances. This object represents one line of data from the file items.csv.</code>
+          <code class="ruby">  def find_all_by_merchant_id(merchant_id)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="42">
           
           
-          <code class="ruby"># It&#39;s initialized and used like this:</code>
+          <code class="ruby">    # find_all_by_merchant_id - returns either [] or instances of Item where the supplied merchant ID matches that supplied</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="43">
           
           
-          <code class="ruby">#</code>
+          <code class="ruby">  end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="44">
           
           
-          <code class="ruby"># se = SalesEngine.from_csv({</code>
+          <code class="ruby"></code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="45">
-          
-          
-          <code class="ruby">#   :items     =&gt; &quot;./data/items.csv&quot;,</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="46">
-          
-          
-          <code class="ruby">#   :merchants =&gt; &quot;./data/merchants.csv&quot;</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="47">
-          
-          
-          <code class="ruby"># })</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="48">
-          
-          
-          <code class="ruby">#</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="49">
-          
-          
-          <code class="ruby"># ir   = se.items</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="50">
-          
-          
-          <code class="ruby"># item = ir.find_by_name(&quot;Item Repellat Dolorum&quot;)</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="51">
-          
-          
-          <code class="ruby"># # =&gt; &lt;Item&gt;</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="52">
           
           
           <code class="ruby">end</code>
