@@ -7,8 +7,7 @@ require "pp"
 class MerchantRepoTest < Minitest::Test
 
   def setup
-    @repo = MerchantRepo.new
-    @repo.load_csv("./data/merchants.csv")
+    @repo = MerchantRepo.new("./data/merchants.csv")
   end
 
   def test_repo_exists

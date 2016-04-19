@@ -1,5 +1,5 @@
 class Item
-  attr_reader :id, :name
+  attr_reader :id, :name, :description, :unit_price, :created_at, :updated_at, :merchant_id
   def initialize(hash)
     @id = hash[:id]
     @name = hash[:name]
@@ -13,3 +13,4 @@ class Item
   def unit_price_to_dollars
     @unit_price.to_f
   end
+end

@@ -8,7 +8,6 @@ class SalesEngine
   #   merchants_file_name = hash[:merchants]
   # end
 
-
   def merchants
     contents = CSV.open "./data/merchants.csv", headers: true, header_converters: :symbol
     contents.each do |row|

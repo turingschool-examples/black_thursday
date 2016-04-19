@@ -4,8 +4,8 @@ require_relative "merchant"
 class MerchantRepo
   attr_reader :all_merchants
 
-  def initialize
-    @all_merchants = load_csv("./data/merchants.csv")
+  def initialize(file_name)
+    @all_merchants = load_csv(file_name)
   end
 
   def load_csv(file_name) #remove this method, initialize?
