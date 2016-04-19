@@ -28,7 +28,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_returns_price_of_item_formatted_as_big_decimal
-    assert_equal "0.1099E2", @i.unit_price.to_s
+    assert_equal 0.1099E2, @i.unit_price
   end
 
   def test_it_returns_created_time
