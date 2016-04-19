@@ -4,11 +4,11 @@ class Item
 
   def initialize(item_hash)
     item_hash = item_hash
-    @id = item_hash[:id]
+    @id = item_hash[:id].to_i
     @name = item_hash[:name]
     @description = item_hash[:description]
     @unit_price = item_hash[:unit_price]
-    @merchant_id = item_hash[:merchant_id]
+    @merchant_id = item_hash[:merchant_id].to_i
     @created_at = item_hash[:created_at]
     @updated_at = item_hash[:updated_at]
   end

@@ -12,7 +12,13 @@ class ItemRepository
     @items
   end
 
-  def find_by_id
+  def find_by_id(id)
+    index = @items.find_index {|item| item.id == id}
+    if index != nil
+      @items[index]
+    else
+      nil
+    end
   end
 
   def find_by_name

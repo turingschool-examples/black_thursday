@@ -25,4 +25,15 @@ class ItemRepositoryTest < Minitest::Test
     assert ir.all[0].kind_of?(Item)
   end
 
+  def test_can_find_an_item_by_id
+    csv_filepath = "./data/items_small.csv"
+    ir = ItemRepository.new(csv_filepath)
+
+    item = ir.find_by_id(263403749)
+
+    assert_equal 263403749, item.id
+  end
+
+  
+
 end
