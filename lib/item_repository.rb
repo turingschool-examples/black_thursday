@@ -34,10 +34,12 @@ class ItemRepository
     @items.find_all {|item| item.description.include?(string)}
   end
 
-  def find_all_by_price
+  def find_all_by_price(price)
+    @items.find_all {|item| item.unit_price_to_dollars == price}
   end
 
-  def find_all_by_price_in_range
+  def find_all_by_price_in_range(range)
+    @items.find_all {|item| range === item.unit_price_to_dollars}
   end
 
   def find_all_by_merchant_id(merchant_id)
