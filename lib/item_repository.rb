@@ -15,21 +15,11 @@ class ItemRepository
   end
 
   def find_by_id(id)
-    index = @items.find_index {|item| item.id == id}
-    if index != nil
-      @items[index]
-    else
-      nil
-    end
+    @items.find {|item| item.id == id}
   end
 
   def find_by_name(name)
-    index = @items.find_index {|item| item.name.downcase == name.downcase}
-    if index != nil
-      @items[index]
-    else
-      nil
-    end
+    @items.find {|item| item.name.downcase == name.downcase}
   end
 
   def find_all_with_description(string)
