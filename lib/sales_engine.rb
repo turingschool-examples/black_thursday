@@ -5,10 +5,11 @@ require './lib/invoice_repository'
 require './lib/invoice_item_repository'
 require './lib/transaction_repository'
 require './lib/customer_repository'
+# require 'BigDecimal'
 
 class SalesEngine
 
-  attr_reader :file_hash, :merchant_repository
+  attr_reader :file_hash, :merchant_repository, :item_repository
 
   def initialize(file_hash)
     @file_hash = file_hash
@@ -26,6 +27,16 @@ class SalesEngine
       @merchant_repository = MerchantRepository.new
       data = get_data(file_hash[:merchants])
       generate_instances(data, @merchant_repository, Merchant)
+    end
+  end
+
+  def items
+    if @item_repository != nil
+      @item_repository
+    else
+      @item_repository = ItemRepository.new
+      data = get_data(file_hash[:items])
+      generate_instances(data, @item_repository, Item)
     end
   end
 
