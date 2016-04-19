@@ -8,11 +8,13 @@ class ItemTest < Minitest::Test
 
   def setup
     @i = Item.new({
+      :id          => 263410303,
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(10.99,4),
+      :unit_price  => BigDecimal.new(10.99, 4),
+      :merchant_id => 12334261,
       :created_at  => "2016-04-19 09:04:25 -0600",
-      :updated_at  => "2016-04-19 09:04:25 -0600",
+      :updated_at  => "2016-04-19 09:04:25 -0600"
     })
   end
 
@@ -36,4 +38,11 @@ class ItemTest < Minitest::Test
     assert_equal "2016-04-19 09:04:25 -0600", i.updated_at
   end
 
+  def test_it_can_return_an_item_id
+    assert_equal 263410303, i.id
+  end
+
+  def test_it_can_return_merchant_id
+    assert_equal 12334261, i.merchant_id
+  end
 end

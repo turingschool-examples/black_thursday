@@ -39,6 +39,42 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal "Pencil, Pen, Paper", name_of_item_objects(item_repo.all)
   end
 
+  def test_it_can_find_an_item_id_and_return_that_item
+    assert_equal 263410303, item_repo.find_by_id(263410303).id
+  end
+
+  def test_it_can_find_an_a_different_item_id_and_return_that_item
+    assert_equal 123456789, item_repo.find_by_id(123456789).id
+  end
+
+  def test_it_returns_nil_if_id_is_not_found
+    assert_equal nil, item_repo.find_by_id(7)
+  end
+
+  def test_it_can_find_an_item_by_its_name
+    assert_equal "Pencil", item_repo.find_by_name("Pencil").name
+  end
+
+  def test_it_can_find_a_different_item_by_its_name
+    assert_equal "Paper", item_repo.find_by_name("Paper").name
+  end
+
+  def test_it_returns_nil_if_name_is_not_found
+    assert_equal nil, item_repo.find_by_name("Eraser")
+  end
+
+  def test_it_finds_all_instances_of_an_object_with_a_matching_description
+    assert_equal "Pencil, Paper", name_of_item_objects(item_repo.find_all_with_description("to write"))
+  end
+
+  def test_find_all_with_description_is_case_insensitive
+    assert_equal "Pencil, Paper", name_of_item_objects(item_repo.find_all_with_description("TO write"))
+  end
+
+  def test_it_returns_an_empty_array_if_description_does_not_match
+    assert_equal [], item_repo.find_all_with_description("hello")
+  end
+
   private
 
   def name_of_item_objects(collection)
