@@ -23,7 +23,7 @@ class MerchantRepositoryTest < MiniTest::Test
 
   def test_it_finds_by_id
     expected = #<Merchant:0xXXXXXX @id="12334115", @name="LolaMarleys">
-    assert_equal expected, mr.find_by_id("12334135")
+    assert_equal "12334135", mr.find_by_id("12334135").id
   end
 
 
