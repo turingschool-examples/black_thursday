@@ -6,7 +6,7 @@ class ItemTest < Minitest::Test
   def setup
     @i = Item.new({:id => 12345, :name => "Pencil",
       :description => "You can use it to write things",
-      # :unit_price => BigDecimal.new(10.99,4),
+      :unit_price => BigDecimal.new(10.99,4),
       :merchant_id => 98765,
       :created_at => Time.now, :updated_at => Time.now})
   end
@@ -28,8 +28,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_returns_price_of_item_formatted_as_big_decimal
-    skip
-    #figure out how big decimal works!
+    assert_equal "0.1099E2", @i.unit_price.to_s
   end
 
   def test_it_returns_updated_time_later_than_time_created_at
@@ -40,7 +39,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_can_return_unit_price_in_dollars
-    #again figure out what this data means
+    assert_equal 10.99, @i.unit_price_to_dollars
   end
 
 
