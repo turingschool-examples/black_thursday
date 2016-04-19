@@ -1,9 +1,12 @@
 class SalesEngine
-  attr_reader :items, :merchants
+  attr_reader :merchants_data
 
-  def self.from_csv(items_merchants_hash)
-    @items = items_merchants_hash[:items]
-    @merchants = items_merchants_hash[:merchants]
+  def self.from_csv(csv_content)
+    @merchants_data = CsvParser.new.merchants(csv_content)
+  end
+
+  def merchants
+    MerchantRepository.new(merchants_data)
   end
 
 end
