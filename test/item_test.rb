@@ -31,7 +31,18 @@ class ItemTest < Minitest::Test
     assert_equal "0.1099E2", @i.unit_price.to_s
   end
 
-  def test_it_returns_updated_time_later_than_time_created_at
+  def test_it_returns_created_time
+    time = @i.created_at
+    current_time = Time.new
+    assert_equal Time, time.class
+    assert_equal current_time.year, time.year
+  end
+
+  def test_it_returns_updated_time
+    time = @i.updated_at
+    current_time = Time.new
+    assert_equal Time, time.class
+    assert_equal current_time.year, time.year
   end
 
   def test_it_returns_merchant_id
