@@ -1,19 +1,34 @@
 require 'csv'
+require './lib/item_repository'
+require './lib/item'
 
 class SalesEngine
-  def from_csv
-    # item_contents = CSV.open '../data/items.csv'
-    merchants_contents = CSV.open './data/merchants.csv', headers: true, header_converters: :symbol
+  def self.from_csv(files_to_parse = {})
+    item_file = files_to_parse.fetch(:items)
+    item_contents = CSV.open item_file, headers: true, header_converters: :symbol
+
+    merchant_file = files_to_parse.fetch(:merchants)
+    merchants_contents = CSV.open merchant_file, headers: true, header_converters: :symbol
 
     merchants_contents.each do |column|
       id = column[:id]
       name = column[:name]
-
-      puts "#{id} and #{name}"
     end
+
+    store = ItemRepository.new( item_contents.map do |column|
+      item = Item.new({
+        :id => column[:id],
+        :name => column[:name],
+        :description => column[:description],
+        :unit_price => column[:unit_price],
+        :merchant_id => column[:merchant_id],
+        :created_at => column[:created_at],
+        :updated_at => column[:updated_at],
+       })
+     end
+     )
+    store.all
   end
 end
 
-s = SalesEngine.new
-s.from_csv
-puts s
+s = SalesEngine.from_csv({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
