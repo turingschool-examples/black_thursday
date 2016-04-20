@@ -1,6 +1,6 @@
 module StandardDeviation
 
-  def sum
+  def self.sum
     self.reduce(:+) { |sum, item| sum + item }
   end
 
@@ -10,7 +10,10 @@ module StandardDeviation
 
   def standard_deviation
     average = self.average
-    self.reduce(0) do |sum, item|
+    sum_squares = self.reduce(0) do |sum, item|
       sum + (item - average)**2
+    end
+    result = sum_squares/(self.length - 1).to_f
+    Math.sqrt(result)
   end
 end
