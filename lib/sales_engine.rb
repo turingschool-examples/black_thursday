@@ -25,8 +25,9 @@ class SalesEngine
     if @merchant_repo != nil
       @merchant_repo
     else
-      @merchant_repo = MerchantRepository.new
-      generate_instances(files[:merchants], @merchant_repo, Merchant)
+      @merchant_repo = MerchantRepository.new(files[:merchants], self)
+      @merchant_repo.load_csv_data
+      @merchant_repo
     end
   end
 
@@ -34,21 +35,10 @@ class SalesEngine
     if @item_repo != nil
       @item_repo
     else
-      @item_repo = ItemRepository.new
-      generate_instances(files[:items], @item_repo, Item)
+      @item_repo = ItemRepository.new(files[:items], self)
+      @item_repo.load_csv_data
+      @item_repo
     end
-  end
-
-  def get_data(file)
-    CSV.open(file, headers: true, header_converters: :symbol)
-  end
-
-  def generate_instances(file, repo, klass)
-    data = get_data(file)
-    data.each do |row|
-      repo << klass.new(row, self)
-    end
-    repo
   end
 
 end

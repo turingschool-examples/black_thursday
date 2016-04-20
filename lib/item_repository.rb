@@ -5,13 +5,23 @@ class ItemRepository
   include Find
 
   attr_accessor :items
+  attr_reader :file, :sales_engine
 
-  def initialize
+  def initialize(file, sales_engine)
+    @file = file
     @items = []
+    @sales_engine = sales_engine
   end
 
-  def <<(item_obj)
-    @items.push(item_obj)
+  def load_csv_data
+    data = get_csv_data
+    data.map do |row|
+      items << Item.new(row, sales_engine)
+    end
+  end
+
+  def get_csv_data
+    CSV.open(file, headers: true, header_converters: :symbol)
   end
 
   def all

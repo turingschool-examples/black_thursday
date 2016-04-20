@@ -66,17 +66,17 @@ class SalesEngineTest < Minitest::Test
 
   def test_items_populates_item_repo_with_item_objs
     @se.items
-    assert_equal Item, se.item_repo.items[0].class
+    assert_equal Item, se.items.items[0].class
   end
 
   def test_items_populates_item_repo_with_all
     @se.items
-    assert_equal 19, se.item_repo.items.length
+    assert_equal 19, se.items.items.length
   end
 
   def test_items_repo_item_objects_have_id
     @se.items
-    assert_equal 263395721, se.item_repo.items[1].id
+    assert_equal 263395721, se.items.items[1].id
   end
 
   def test_item_repo_item_objects_have_name
@@ -86,18 +86,18 @@ class SalesEngineTest < Minitest::Test
 
   def test_item_repo_item_objects_have_desc
     @se.items
-    assert_equal true, se.item_repo.items[0].description.include?("Any colour glitter")
+    assert_equal true, se.items.items[0].description.include?("Any colour glitter")
   end
 
   def test_item_repo_item_objects_have_price
     @se.items
     #why does this pass because its really a BD obj
-    assert_equal 13.00, se.item_repo.items[0].unit_price
+    assert_equal 13.00, se.items.items[0].unit_price
   end
 
   def test_item_objs_have_price_as_big_decimal
     @se.items
-    assert_equal BigDecimal, se.item_repo.items[0].unit_price.class
+    assert_equal BigDecimal, se.items.items[0].unit_price.class
   end
 
   def test_item_objs_have_price_as_float_when_transformed
@@ -122,7 +122,7 @@ class SalesEngineTest < Minitest::Test
 
   def test_item_objects_have_updated_at_as_time_obj
     @se.items
-    assert_equal Time, se.item_repo.items[1].updated_at.class
+    assert_equal Time, se.items.items[1].updated_at.class
   end
 
   def test_item_objects_have_ref_to_se

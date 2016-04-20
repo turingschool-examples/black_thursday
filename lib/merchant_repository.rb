@@ -7,13 +7,23 @@ class MerchantRepository
   include Find
 
   attr_accessor :merchants
+  attr_reader :file, :sales_engine
 
-  def initialize
+  def initialize(file, sales_engine)
+    @file = file
     @merchants = []
+    @sales_engine = sales_engine
   end
 
-  def <<(merch_obj)
-    @merchants.push(merch_obj)
+  def load_csv_data
+    data = get_csv_data
+    data.map do |row|
+      merchants << Merchant.new(row, sales_engine)
+    end
+  end
+
+  def get_csv_data
+    CSV.open(file, headers: true, header_converters: :symbol)
   end
 
   def all
