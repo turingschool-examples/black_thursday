@@ -16,7 +16,6 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_can_interact_with_merchants_class
     mr = @se.merchants
-    puts mr.class
     merchant = mr.find_by_name("CJsDecor")
     assert_equal Merchant, merchant.class
   end
@@ -28,18 +27,29 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_can_return_item_if_items_is_called_on_merchants
-    skip
-    mr = @se.merchants
-    merchant = mr.find_by_id("12337411")
+    merchant = @se.merchants.find_by_id(12337411)
+    ir = @se.items
+    p "THIS IS MY MERCHANT #{merchant}"
+
     item_instances = merchant.items
     assert_equal Item, item_instances[0].class
+    item_name = "Flower Kissing Balls Pomander Flower Balls/Pew Flower Balls"
+    assert_equal item_name, item_instances[0].name
   end
 
+  def test_it_can_return_merchant_if_items_is_called_on_merchants
+    mr = @se.merchants
+    item = @se.items.find_all_by_merchant_id(12337411)
+    p "THIS IS MY ITEM #{item}"
 
-  # # => [<item>, <item>, <item>]
-  # item = se.items.find_by_id(20)
-  # item.merchant
-  # # => <merchant>
+    merchant_instances = item.merchant
+    assert_equal Merchant, merchant_instances[0].class
+  end
+
+#this is the functionality I need to add for iteration1:
+
+# # => <merchant>
+
 
 
 end

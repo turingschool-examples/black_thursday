@@ -1,7 +1,7 @@
 require 'bigdecimal'
 
 class Item
-  attr_reader :id,:name,:description,:merchant_id,:unit_price
+  attr_reader :id,:name,:description,:unit_price, :merchant_id
   attr_reader :created_at, :updated_at
 
   def initialize(column, parent)
@@ -18,5 +18,10 @@ class Item
   def unit_price_to_dollars
     dollar_price = @unit_price.to_f
   end
+
+  def merchant
+    @item_repo.find_merchant_by_merch_id(merchant_id)
+  end
+
 
 end

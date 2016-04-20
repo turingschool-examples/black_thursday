@@ -35,6 +35,10 @@ class SalesEngine
     item_repo.find_all_by_merchant_id(merchant_id)
   end
 
+  def find_merchant_by_merch_id(merchant_id)
+    merchant_repo.find_merchant_by_merchant_id(merchant_id)
+  end
+
 
 end
 

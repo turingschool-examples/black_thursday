@@ -8,8 +8,8 @@ class ItemRepository
     @item_repository = []
   end
 
-  def items(item_repository)
-    item_repository.each do |column|
+  def items(item_repo)
+    item_repo.each do |column|
       @item_repository << Item.new(column, self)
     end
     self
@@ -42,8 +42,14 @@ class ItemRepository
     item_repository.find_all {|item| range.include?(item.unit_price)}
   end
 
-  def find_all_by_merchant_id(merchant_id)
-    item_repository.find_all {|item| item.merchant_id == merchant_id}
+  def find_all_by_merchant_id(find_merchant_id)
+    item_repository.find_all do |item|
+      item.merchant_id == find_merchant_id
+    end
+  end
+
+  def find_merchant_by_merch_id(merchant_id)
+    @se.find_merchant_by_merch_id(merchant_id)
   end
 
 end
