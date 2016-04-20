@@ -19,4 +19,19 @@ class SalesAnalystTest < Minitest::Test
   def test_average_items_per_merchant_gives_correct_average
     assert_equal 1.90, sa.average_items_per_merchant
   end
+
+  def test_sum_can_sum_array
+    assert_equal 6, sa.sum([1,2,3])
+  end
+
+  def test_average_an_array
+    assert_equal 2, sa.average([1,2,3])
+  end
+
+  def test_standard_deviation_works_on_an_array
+    assert_equal 1.0, sa.standard_deviation([1,2,3])
+    assert_equal 2.65, sa.standard_deviation([1,2,6])
+  end
+
+
 end
