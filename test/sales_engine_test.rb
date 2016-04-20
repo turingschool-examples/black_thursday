@@ -1,6 +1,9 @@
+require './test/test_helper'
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/sales_engine.rb'
+require './lib/csv_parser.rb'
+
 
 class SalesEngineTest < MiniTest::Test
    attr_reader :se
@@ -16,11 +19,26 @@ class SalesEngineTest < MiniTest::Test
     assert se
   end
 
-  def test_it_finds_merchant_method
-    assert_equal "./data/merchants.csv", se.merchants
+  def test_it_creates_item_repository_instance
+    assert se.items
   end
+
+  def test_it_creates_merchant_repository_instance
+    assert se.merchants
+  end
+
+  def test_it_finds_in_merchant_repository
+    mr = se.merchants
+    merchant = mr.find_by_name("CJsDecor")
+
+    assert_equal "CJsDecor", mr.find_by_name("CJsDecor").name
+  end
+
+  # def test_it_finds_in_item_repository
+  #   ir = se.items
+  #   item = ir.find_by_name("Item Repellat Dolorum")
   #
-  # undefined method `merchants' for "./data/merchants.csv":String
-  #   test/sales_engine_test.rb:20:in `test_it_finds_merchant_method'
+  #   assert_equal "Item Repellat Dolorum", ir.find_by_name("Item Repellat Dolorum")
+  # end
 
 end
