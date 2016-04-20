@@ -1,4 +1,5 @@
 require_relative 'item'
+require 'pry'
 
 class ItemRepository
   attr_reader :item_repository
@@ -38,7 +39,8 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
-    item_repository.find_all {|item| item.unit_price == price}
+    result = item_repository.find_all {|item| item.unit_price.to_f == price}
+    
 
   end
 

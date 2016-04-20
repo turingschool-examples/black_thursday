@@ -1,3 +1,4 @@
+require 'time'
 require 'bigdecimal'
 
 class Item
@@ -8,15 +9,15 @@ class Item
     @id = column.fetch(:id).to_i
     @name = column.fetch(:name)
     @description = column.fetch(:description)
-    @unit_price = BigDecimal(column.fetch(:unit_price).to_i)
-    @created_at = column.fetch(:created_at)
-    @updated_at = column.fetch(:updated_at)
+    @unit_price = BigDecimal(column.fetch(:unit_price).to_i)/BigDecimal(100)
+    @created_at = Time.parse(column.fetch(:created_at))
+    @updated_at = Time.parse(column.fetch(:updated_at))
     @merchant_id = column.fetch(:merchant_id).to_i
     @item_repo = parent
   end
 
   def unit_price_to_dollars
-    dollar_price = sprintf('%.02f', (@unit_price / 100.00))
+    dollar_price = sprintf('%.02f', @unit_price)
   end
 
   def merchant
