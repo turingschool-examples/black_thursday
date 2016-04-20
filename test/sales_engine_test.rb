@@ -16,35 +16,40 @@ class SalesEngineTest < MiniTest::Test
     })
   end
 
-  def test_it_creates_instance
-    assert se
-  end
-
-  def test_it_creates_item_repository_instance
-    assert se.items
-  end
-
-  def test_it_creates_merchant_repository_instance
-    assert se.merchants
-  end
-
-  def test_it_finds_in_merchant_repository
-    mr = se.merchants
-    merchant = mr.find_by_name("CJsDecor")
-
-    assert_equal "CJsDecor", mr.find_by_name("CJsDecor").name
-  end
-
-  def test_it_finds_in_item_repository
-    ir = se.items
-    item = ir.find_by_name("Item Repellat Dolorum")
-
-    assert_equal "510+ RealPush Icon Set", ir.find_by_name("510+ RealPush Icon Set").name
-  end
+  # def test_it_creates_instance
+  #   assert se
+  # end
+  #
+  # def test_it_creates_item_repository_instance
+  #   assert se.items
+  # end
+  #
+  # def test_it_creates_merchant_repository_instance
+  #   assert se.merchants
+  # end
+  #
+  # def test_it_finds_in_merchant_repository
+  #   mr = se.merchants
+  #   merchant = mr.find_by_name("CJsDecor")
+  #
+  #   assert_equal "CJsDecor", mr.find_by_name("CJsDecor").name
+  # end
+  #
+  # def test_it_finds_in_item_repository
+  #   ir = se.items
+  #   item = ir.find_by_name("Item Repellat Dolorum")
+  #
+  #   assert_equal "510+ RealPush Icon Set", ir.find_by_name("510+ RealPush Icon Set").name
+  # end
 
   def test_it_links_merchants_and_items
-    merchant = se.merchants.find_by_id("12334105")
-    assert_equal "", merchant #merchant.items
+    merchant = se.merchants.find_by_id(12334105)
+    assert_equal "", merchant.items
+        
   end
+
+  # def test_test
+  #   assert_equal "", se.items_by_merchant_id
+  # end
 
 end
