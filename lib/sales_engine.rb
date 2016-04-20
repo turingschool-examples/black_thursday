@@ -1,16 +1,16 @@
 require 'csv'
-require './lib/item_repository'
-require './lib/merchant_repository'
+require_relative 'item_repository'
+require_relative 'merchant_repository'
 require 'pry'
 
 class SalesEngine
-  attr_reader :merchant_repo, :item_repo, :merchant_contents, :item_contents
+  attr_reader :merchant_contents, :item_contents
 
   def initialize(merchant_contents, item_contents)
     @merchant_contents = merchant_contents
     @item_contents = item_contents
-    @item_repo = ItemRepository.new(self)
-    @merchant_repo = MerchantRepository.new(self)
+    @items = ItemRepository.new(self)
+    @merchants = MerchantRepository.new(self)
   end
 
   def self.from_csv(files_to_parse = {})
@@ -24,19 +24,19 @@ class SalesEngine
   end
 
   def merchants
-    merchant_repo.merchants(merchant_contents)
+    @merchants.merchant_repo(merchant_contents)
   end
 
   def items
-    item_repo.items(item_contents)
+    @items.item(item_contents)
   end
 
   def find_items_by_merch_id(merchant_id)
-    item_repo.find_all_by_merchant_id(merchant_id)
+    @items.find_all_by_merchant_id(merchant_id)
   end
 
-  def find_merchant_by_merch_id(merchant_id)
-    merchant_repo.find_merchant_by_merchant_id(merchant_id)
+  def find_merchant_by_merch_id(id)
+    @merchants.find_by_id(id)
   end
 
 
