@@ -3,6 +3,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/sales_engine.rb'
 require_relative '../lib/csv_parser.rb'
+require_relative'../lib/merchant_repository.rb'
 
 
 class SalesEngineTest < MiniTest::Test
@@ -34,11 +35,16 @@ class SalesEngineTest < MiniTest::Test
     assert_equal "CJsDecor", mr.find_by_name("CJsDecor").name
   end
 
-  # def test_it_finds_in_item_repository
-  #   ir = se.items
-  #   item = ir.find_by_name("Item Repellat Dolorum")
-  #
-  #   assert_equal "Item Repellat Dolorum", ir.find_by_name("Item Repellat Dolorum")
-  # end
+  def test_it_finds_in_item_repository
+    ir = se.items
+    item = ir.find_by_name("Item Repellat Dolorum")
+
+    assert_equal "510+ RealPush Icon Set", ir.find_by_name("510+ RealPush Icon Set").name
+  end
+
+  def test_it_links_merchants_and_items
+    merchant = se.merchants.find_by_id("12334105")
+    assert_equal "", merchant #merchant.items
+  end
 
 end
