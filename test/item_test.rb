@@ -18,7 +18,7 @@ class ItemTest < Minitest::Test
    end
 
    def test_name
-     assert_equal '510+ realpush icon set', @item.name
+     assert_equal '510+ RealPush Icon Set', @item.name
    end
 
    def test_description

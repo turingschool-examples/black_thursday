@@ -1,6 +1,5 @@
 require 'csv'
 require_relative 'item'
-require 'pry'
 
 class ItemRepository
   attr_accessor :items
@@ -23,13 +22,13 @@ class ItemRepository
 
   def find_by_name(name)
     items.find do |item|
-      item.name == name.downcase
+      item.name.downcase == name.downcase
     end
   end
 
   def find_all_with_description(description)
     descriptions = items.select do |item|
-      item.description.include? description.downcase
+      item.description.downcase.include? description.downcase
     end
     descriptions
   end

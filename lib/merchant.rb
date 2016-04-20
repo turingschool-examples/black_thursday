@@ -12,7 +12,7 @@ class Merchant
   end
 
   def name
-    @merchant_data[1].downcase
+    @merchant_data[1]
   end
 
   def created_at

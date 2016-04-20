@@ -1,5 +1,4 @@
 require 'csv'
-require 'pry'
 require_relative 'merchant'
 
 class MerchantRepository
@@ -23,13 +22,13 @@ class MerchantRepository
 
   def find_by_name(name)
     @merchants.find do |merchant|
-      merchant.name == name.downcase
+      merchant.name.downcase == name.downcase
     end
   end
 
   def find_all_by_name(name)
     names = @merchants.select do |merchant|
-      merchant.name.include?(name.downcase)
+      merchant.name.downcase.include?(name.downcase)
     end
     names
   end
