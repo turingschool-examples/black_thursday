@@ -4,6 +4,8 @@ require './lib/merchant_repository'
 require 'pry'
 
 class SalesEngine
+  attr_reader :merchant_repo, :item_repo, :merchant_contents, :item_contents
+
   def initialize(merchant_contents, item_contents)
     @merchant_contents = merchant_contents
     @item_contents = item_contents
@@ -22,12 +24,17 @@ class SalesEngine
   end
 
   def merchants
-    @merchant_repo.merchants(@merchant_contents)
+    merchant_repo.merchants(merchant_contents)
   end
 
   def items
-    @item_repo.items(@item_contents)
+    item_repo.items(item_contents)
   end
+
+  def find_items_by_merch_id(merchant_id)
+    item_repo.find_all_by_merchant_id(merchant_id)
+  end
+
 
 end
 

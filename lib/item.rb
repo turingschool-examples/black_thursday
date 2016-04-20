@@ -5,14 +5,13 @@ class Item
   attr_reader :created_at, :updated_at
 
   def initialize(column, parent)
-    puts "WOOOOOOOOO"
-    @id = column.fetch(:id)
+    @id = column.fetch(:id).to_i
     @name = column.fetch(:name)
     @description = column.fetch(:description)
     @unit_price = column.fetch(:unit_price)
     @created_at = column.fetch(:created_at)
     @updated_at = column.fetch(:updated_at)
-    @merchant_id = column.fetch(:merchant_id)
+    @merchant_id = column.fetch(:merchant_id).to_i
     @item_repo = parent
   end
 
