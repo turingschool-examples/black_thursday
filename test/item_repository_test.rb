@@ -1,6 +1,6 @@
-require './test/test_helper'
-require './lib/item_repository'
-require './lib/sales_engine'
+require_relative 'test_helper'
+require_relative '../lib/item_repository'
+require_relative '../lib/sales_engine'
 
 
 class ItemRepositoryTest < Minitest::Test
@@ -11,7 +11,7 @@ class ItemRepositoryTest < Minitest::Test
       :items     => "./data/small_items.csv",
       :merchants => "./data/small_merchants.csv",})
     @se.items
-    @item_repo = @se.item_repository
+    @item_repo = @se.item_repo
   end
 
   def test_all_returns_array
@@ -26,24 +26,24 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal Item, item_repo.all[7].class
   end
 
-  def test_find_by_id_returns_nil_for_a_unmatched_ID
+  def test_find_by_id_nil_for_a_unmatched_ID
     assert_equal nil, item_repo.find_by_id(6)
   end
 
-  def test_find_by_id_returns_a_item_object_upon_match
+  def test_find_by_id_returns_item_obj_upon_match
     assert_equal "Free standing Woden letters", item_repo.find_by_id(263396013).name
   end
 
-  def test_find_by_name_returns_nil_when_no_match
+  def test_find_by_name_nil_when_no_match
     assert_equal nil, item_repo.find_by_name("fake")
   end
 
-  def test_find_by_name_returns_merch_object_upon_match
+  def test_find_by_name_returns_merch_obj_upon_match
     assert_equal 263396013, item_repo.find_by_name("Free standing Woden letters").id
     assert_equal 263396013, item_repo.find_by_name("Free standing WODen letters").id
   end
 
-  def test_find_all_by_name_returns_empty_array_for_no_matches
+  def test_find_all_by_name_for_no_matches
     assert_equal [], item_repo.find_all_with_description("fake")
   end
 
@@ -51,15 +51,12 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal "Glitter scrabble frames", item_repo.find_all_with_description("Glitter scrabble")[0].name
   end
 
-  def test_find_all_with_description_multi_match
+  def test_find_all_with_desc_multi_match
     assert_equal true, item_repo.find_all_with_description("Acrylique")[0].name.include?("Cache cache")
     assert_equal true, item_repo.find_all_with_description("Acrylique")[1].name.include?("Course")
   end
 
-
-
-
-  def test_find_all_by_price_returns_empty_array_for_no_matches
+  def test_find_all_by_price_for_no_matches
     assert_equal [], item_repo.find_all_by_price(0.00)
   end
 
@@ -72,7 +69,7 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal true, item_repo.find_all_by_price(13.00)[1].name.include?("Disney")
   end
 
-  def test_find_all_by_price_range_returns_empty_array_for_no_matches
+  def test_find_all_by_price_range_for_no_matches
     assert_equal [], item_repo.find_all_by_price_in_range(10000.00..100000.00)
   end
 
@@ -85,14 +82,12 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal true, item_repo.find_all_by_price_in_range(150.00.. 10000.00)[0].name.include?("Course")
   end
 
-
-
-  def test_find_by_id_returns_nil_for_a_unmatched_merchant_ID
-    assert_equal nil, item_repo.find_by_merchant_id(6)
+  def test_find_all_by_merch_id_empty_unmatched
+    assert_equal [], item_repo.find_all_by_merchant_id(6)
   end
 
-  def test_find_by_merchant_id_returns_a_item_object_upon_match
-    assert_equal "Glitter scrabble frames", item_repo.find_by_merchant_id(12334185).name
+  def test_find_by_merch_id_returns_array_for_match
+    assert_equal "Glitter scrabble frames", item_repo.find_all_by_merchant_id(12334185)[0].name
   end
 
 end

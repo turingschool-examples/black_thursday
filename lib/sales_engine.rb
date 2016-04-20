@@ -1,42 +1,41 @@
-require './lib/merchant_repository'
-require './lib/item_repository'
-require './lib/merchant_repository'
-require './lib/invoice_repository'
-require './lib/invoice_item_repository'
-require './lib/transaction_repository'
-require './lib/customer_repository'
+require_relative 'merchant_repository'
+require_relative 'item_repository'
+require_relative 'invoice_repository'
+require_relative 'invoice_item_repository'
+require_relative 'transaction_repository'
+require_relative 'customer_repository'
 require 'bigdecimal'
+require 'csv'
 
 class SalesEngine
 
-  attr_reader :file_hash, :merchant_repository, :item_repository
+  attr_reader :files, :merchant_repo, :item_repo
 
-  def initialize(file_hash)
-    @file_hash = file_hash
-    @merchant_repository = nil
+  def initialize(files)
+    @files = files
+    @merchant_repo = nil
+    @item_repo = nil
   end
 
-  def self.from_csv(file_hash)
-    SalesEngine.new(file_hash)
+  def self.from_csv(files)
+    SalesEngine.new(files)
   end
 
   def merchants
-    if @merchant_repository != nil
-      @merchant_repository
+    if @merchant_repo != nil
+      @merchant_repo
     else
-      @merchant_repository = MerchantRepository.new
-      data = get_data(file_hash[:merchants])
-      generate_instances(data, @merchant_repository, Merchant)
+      @merchant_repo = MerchantRepository.new
+      generate_instances(files[:merchants], @merchant_repo, Merchant)
     end
   end
 
   def items
-    if @item_repository != nil
-      @item_repository
+    if @item_repo != nil
+      @item_repo
     else
-      @item_repository = ItemRepository.new
-      data = get_data(file_hash[:items])
-      generate_instances(data, @item_repository, Item)
+      @item_repo = ItemRepository.new
+      generate_instances(files[:items], @item_repo, Item)
     end
   end
 
@@ -44,7 +43,8 @@ class SalesEngine
     CSV.open(file, headers: true, header_converters: :symbol)
   end
 
-  def generate_instances(data, repo, klass)
+  def generate_instances(file, repo, klass)
+    data = get_data(file)
     data.each do |row|
       repo << klass.new(row, self)
     end

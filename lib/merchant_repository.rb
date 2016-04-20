@@ -1,7 +1,11 @@
-require './lib/merchant'
-require './lib/sales_engine'
+require_relative 'merchant'
+# require_relative 'sales_engine'
+require_relative 'find'
+# require 'pry'
 
 class MerchantRepository
+  include Find
+
   attr_accessor :merchants
 
   def initialize
@@ -17,26 +21,15 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    @merchants.find do |merchant|
-      merchant.id == id
-    end
+    find_by_num({:id => id})
   end
 
   def find_by_name(name)
-    @merchants.find do |merchant|
-      merchant.name.downcase == name.downcase
-    end
+    find_by_string({:name => name})
   end
 
   def find_all_by_name(partial)
-    matches = @merchants.find_all do |merchant|
-      merchant.name.downcase.include?(partial.downcase)
-    end
-    if matches.nil?
-      []
-    else
-      matches
-    end
+    find_all_by_string_fragment({:name => partial})
   end
 
 end

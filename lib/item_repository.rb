@@ -1,6 +1,8 @@
-require './lib/item'
+require_relative 'item'
+require_relative 'find'
 
 class ItemRepository
+  include Find
 
   attr_accessor :items
 
@@ -17,55 +19,33 @@ class ItemRepository
   end
 
   def find_by_id(id)
-    @items.find do |item|
-      item.id == id
-    end
+    find_by_num({:id => id})
   end
 
   def find_by_name(name)
-    @items.find do |item|
-      item.name.downcase == name.downcase
-    end
+    find_by_string({:name => name})
   end
 
   def find_all_with_description(partial)
-    matches = @items.find_all do |item|
-      item.description.downcase.include?(partial.downcase)
-    end
-    if matches.nil?
-      []
-    else
-      matches
-    end
+    find_all_by_string_fragment({:description => partial})
+  end
+
+  def find_all_by_merchant_id(id)
+    find_all_by_num({:merchant_id => id})
   end
 
   def find_all_by_price(price)
-    matches = @items.find_all do |item|
-      item.unit_price_to_dollars == price
-    end
-    if matches.nil?
-      []
-    else
-      matches
+    tolerance = 0.0000
+    @items.find_all do |item|
+      (item.unit_price_to_dollars - price).abs <= tolerance
     end
   end
 
   def find_all_by_price_in_range(range)
-    matches = @items.find_all do |item|
-      item.unit_price_to_dollars >= range.begin &&
-      item.unit_price_to_dollars <= range.end
-    end
-    if matches.nil?
-      []
-    else
-      matches
-    end
-  end
-
-
-  def find_by_merchant_id(id)
-    @items.find do |item|
-      item.merchant_id == id
+    tolerance = 0.0000
+    @items.find_all do |item|
+      item.unit_price_to_dollars >= (range.begin - tolerance) &&
+      item.unit_price_to_dollars <= (range.end + tolerance)
     end
   end
 
