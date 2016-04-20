@@ -40,7 +40,8 @@ class SalesEngineTest < Minitest::Test
   def test_it_can_return_merchant_if_items_is_called_on_merchants
     mr = @se.merchants
     item = @se.items.find_all_by_merchant_id(12337411)
-    p "THIS IS MY ITEM #{item}"
+    p item[0].merchant_id
+    #so the problem here is that I'm sending in an array of all the items with that merchant id as opposed to just an id.....that can be fixed! 
 
     merchant_instances = item.merchant
     assert_equal Merchant, merchant_instances[0].class
