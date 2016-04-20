@@ -39,5 +39,4 @@ class MerchantRepo
     end
   end
 
-
 end

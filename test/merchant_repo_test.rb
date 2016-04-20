@@ -1,8 +1,6 @@
 require "minitest/autorun"
 require "./lib/merchant_repo"
 require "csv"
-require "pp"
-
 
 class MerchantRepoTest < Minitest::Test
 
@@ -15,7 +13,6 @@ class MerchantRepoTest < Minitest::Test
   end
 
   def test_if_merchants_array_created
-    # puts @repo.all_merchants.inspect
     assert_equal Array, @repo.all_merchants.class
   end
 

@@ -19,4 +19,5 @@ class SalesEngineTest < Minitest::Test
     item = ir.find_by_name("Woodsy Sh!tz Spr!tz")
     assert_kind_of Item, item
   end
+  
 end

@@ -24,7 +24,6 @@ class ItemRepo
     result
   end
 
-
   def all
     @all_items
   end
@@ -70,4 +69,5 @@ class ItemRepo
       item.merchant_id == merchant_id
     end
   end
+  
 end

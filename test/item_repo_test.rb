@@ -51,32 +51,8 @@ class ItemRepoTest < Minitest::Test
   def test_it_finds_items_in_price_range
     result = @repo.find_all_by_price_in_range(6.40..6.75).map { |item| item.name}
     assert result.include?("Woodsy Sh!tz Spr!tz")
-      # puts "Name: #{item.name} #{item.unit_price_to_dollars}"
-
-    # assert @repo.find_all_by_price_in_range(500, 1000).any? do |item|
-      # item.name == "Custom Hand Made Miniature Bicycle"
-    # end
   end
 
-  # @repo.all.each do |item|
-  # puts item.name
-  # end
-  #
-  # def test_print_merchant_id
-  #   merchant_ids = @repo.all.map do |item|
-  #     item.merchant_id
-  #   end
-  #
-  #   grouping = merchant_ids.group_by do |thing|
-  #     thing
-  #   end
-  #   puts grouping
-  #   result = @repo.all.group_by do |item|
-  #     item.merchant_id
-  #   end
-  #
-  # end
-  #
   def test_it_finds_all_items_by_merchant_id
     result = @repo.find_all_by_merchant_id(12336642).map do |item|
       item.name
@@ -84,4 +60,5 @@ class ItemRepoTest < Minitest::Test
     assert result.include?("Picture Letters")
     assert result.include?("Wooden Picture Frames")
   end
+  
 end

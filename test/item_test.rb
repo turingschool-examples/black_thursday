@@ -2,6 +2,7 @@ require "minitest/autorun"
 require "./lib/item"
 require "csv"
 require "bigdecimal"
+
 class ItemTest < Minitest::Test
 
   def setup
