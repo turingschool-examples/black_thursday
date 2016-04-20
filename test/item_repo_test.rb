@@ -22,11 +22,11 @@ class ItemRepoTest < Minitest::Test
   end
 
   def test_it_finds_item_by_id
-    assert_equal "510+ RealPush Icon Set", @repo.find_by_id("263395237").name
+    assert_equal "510+ RealPush Icon Set", @repo.find_by_id(263395237).name
   end
 
   def test_it_finds_id_by_item_name
-    assert_equal "263396255", @repo.find_by_name("Cache cache à la plage").id
+    assert_equal 263396255, @repo.find_by_name("Cache cache à la plage").id
   end
 
   def test_it_finds_all_items_by_name_fragment
@@ -43,13 +43,13 @@ class ItemRepoTest < Minitest::Test
   end
 
   def test_it_finds_item_name_by_unit_price
-    assert @repo.find_all_by_price("15000").any? do |item|
+    assert @repo.find_all_by_price(150).any? do |item|
       item.name == "Custom Hand Made Miniature Bicycle"
     end
   end
 
   def test_it_finds_items_in_price_range
-    result = @repo.find_all_by_price_in_range(6.40, 6.75).map { |item| item.name}
+    result = @repo.find_all_by_price_in_range(6.40..6.75).map { |item| item.name}
     assert result.include?("Woodsy Sh!tz Spr!tz")
       # puts "Name: #{item.name} #{item.unit_price_to_dollars}"
 
@@ -78,7 +78,7 @@ class ItemRepoTest < Minitest::Test
   # end
   #
   def test_it_finds_all_items_by_merchant_id
-    result = @repo.find_all_by_merchant_id("12336642").map do |item|
+    result = @repo.find_all_by_merchant_id(12336642).map do |item|
       item.name
     end
     assert result.include?("Picture Letters")

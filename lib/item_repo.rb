@@ -55,14 +55,13 @@ class ItemRepo
 
   def find_all_by_price(unit_price)
     @all_items.find_all do |item|
-      item.unit_price
+      item.unit_price == unit_price
     end
   end
 
-  def find_all_by_price_in_range(price_one, price_two)
+  def find_all_by_price_in_range(range)
     @all_items.find_all do |item|
-      (price_one..price_two).include?(item.unit_price_to_dollars)
-      # item.unit_price.between?(price_one, price_two)
+      range.include?(item.unit_price)
     end
   end
 

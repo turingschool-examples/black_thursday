@@ -24,11 +24,11 @@ class MerchantRepoTest < Minitest::Test
   end
 
   def test_it_finds_merchant_by_id
-    assert_equal "Shopin1901", @repo.find_by_id("12334105").name
+    assert_equal "Shopin1901", @repo.find_by_id(12334105).name
   end
 
   def test_it_finds_by_id_by_merchant_name
-    assert_equal "12334105", @repo.find_by_name("Shopin1901").id
+    assert_equal 12334105, @repo.find_by_name("Shopin1901").id
   end
 
   def test_it_finds_all_merchants_by_name_fragment

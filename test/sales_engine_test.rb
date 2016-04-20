@@ -10,14 +10,13 @@ class SalesEngineTest < Minitest::Test
     mr = se.merchants
     merchant = mr.find_by_name("CJsDecor")
     assert_kind_of Merchant, merchant
-    # assert se.items.include?("id,name,description")
   end
 
-  def test_it_loads_merchants_csv
-    skip
-    se = SalesEngine.new
-    assert se
-    puts se.merchants.inspect
-    # assert se.merchants.include?("id,name,created_at,updated_at")
+  def test_it_loads_items_csv
+    se = SalesEngine.from_csv({:items     => "./data/items.csv",
+                               :merchants => "./data/merchants.csv"})
+    ir = se.items
+    item = ir.find_by_name("Woodsy Sh!tz Spr!tz")
+    assert_kind_of Item, item
   end
 end
