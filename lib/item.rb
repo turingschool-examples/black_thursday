@@ -19,7 +19,7 @@ class Item
   end
 
   def description
-    @item_data[2]
+    @item_data[2].downcase
   end
 
   def unit_price

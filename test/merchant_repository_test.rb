@@ -3,7 +3,6 @@ SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/merchant_repository'
-require './lib/merchant'
 
 class MerchantRepositoryTest < Minitest::Test
 
