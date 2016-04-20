@@ -8,7 +8,7 @@ class TestHelper
 
   def items
     [
-      Item.new({
+      ({
       :id          => 263410303,
       :name        => "Pencil",
       :description => "You can use it to write things",
@@ -18,7 +18,7 @@ class TestHelper
       :updated_at  => "2016-04-19 09:04:25 -0600"
       }),
 
-      Item.new({
+      ({
         :id          => 123456789,
         :name        => "Pen",
         :description => "You can use it to also write things",
@@ -28,7 +28,7 @@ class TestHelper
         :updated_at  => "2016-05-19 09:04:25 -0600"
       }),
 
-      Item.new({
+      ({
         :id          => 132457689,
         :name        => "Paper",
         :description => "You can use it to write things on",
@@ -38,7 +38,7 @@ class TestHelper
         :updated_at  => "2016-04-19 11:04:25 -0600"
       }),
 
-      Item.new({
+      ({
         :id          => 132457688,
         :name        => "Stapler",
         :description => "You can use it to staple things together",

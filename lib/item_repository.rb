@@ -4,9 +4,15 @@ class ItemRepository
 
   attr_reader :items
 
-  def initialize(items)
-    @items = items
-  end
+  def initialize(items_data)
+    @items = create_items(items_data)
+   end
+
+   def create_items(items_data)
+     items_data.map do |item|
+       Item.new(item)
+     end
+   end
 
   def all
     @items
