@@ -7,5 +7,5 @@ class Merchant
     @id = hash[:id].to_i
     @name = hash[:name]
   end
-  
+
 end

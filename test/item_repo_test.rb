@@ -2,7 +2,6 @@ require "minitest/autorun"
 require "./lib/item_repo"
 require "csv"
 
-
 class ItemRepoTest < Minitest::Test
 
   def setup
@@ -60,5 +59,5 @@ class ItemRepoTest < Minitest::Test
     assert result.include?("Picture Letters")
     assert result.include?("Wooden Picture Frames")
   end
-  
+
 end

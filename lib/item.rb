@@ -16,4 +16,5 @@ class Item
   def unit_price_to_dollars
     (@unit_price/100).to_f
   end
+
 end

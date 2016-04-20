@@ -8,7 +8,7 @@ class ItemRepo
     @all_items = load_csv(file_name)
   end
 
-  def load_csv(file_name) #remove this method, initialize?
+  def load_csv(file_name)
     contents = CSV.open file_name, headers: true, header_converters: :symbol
 
     result = contents.map do |row|
@@ -69,5 +69,5 @@ class ItemRepo
       item.merchant_id == merchant_id
     end
   end
-  
+
 end

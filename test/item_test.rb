@@ -32,5 +32,4 @@ class ItemTest < Minitest::Test
     assert_kind_of Float, @i.unit_price_to_dollars
   end
 
-
 end

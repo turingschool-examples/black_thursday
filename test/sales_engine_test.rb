@@ -1,7 +1,6 @@
 require "minitest/autorun"
 require "./lib/sales_engine"
 
-
 class SalesEngineTest < Minitest::Test
 
   def test_it_loads_items_csv
@@ -19,5 +18,5 @@ class SalesEngineTest < Minitest::Test
     item = ir.find_by_name("Woodsy Sh!tz Spr!tz")
     assert_kind_of Item, item
   end
-  
+
 end
