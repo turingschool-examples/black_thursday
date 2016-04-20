@@ -9,4 +9,8 @@ class Merchant
     @sales_engine = sales_engine
   end
 
+  def items
+    sales_engine.item_repo.find_all_by_merchant_id(id)
+  end
+
 end
