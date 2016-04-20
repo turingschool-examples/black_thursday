@@ -1,7 +1,7 @@
-require './test/test_helper'
+require_relative 'test_helper'
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/merchant.rb'
+require_relative '../lib/merchant.rb'
 
 class MerchantTest < MiniTest::Test
 

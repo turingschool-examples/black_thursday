@@ -1,5 +1,5 @@
-require './lib/merchant.rb'
-require './lib/sales_engine.rb'
+require_relative 'merchant.rb'
+require_relative 'sales_engine.rb'
 
 class MerchantRepository
   attr_reader :merchants, :id, :name
@@ -30,6 +30,10 @@ class MerchantRepository
 
   def find_all_by_name
     find = merchants.find_all {|m| m.name.downcase}
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 
 end

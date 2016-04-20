@@ -1,4 +1,4 @@
-require './lib/item'
+require_relative 'item'
 
 class ItemRepository
 
@@ -47,6 +47,10 @@ class ItemRepository
     items.find_all do |item|
       item.merchant_id == merchant_id
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
   end
 
 end

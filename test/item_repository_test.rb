@@ -1,6 +1,6 @@
-require './test/test_helper'
+require_relative 'test_helper'
 require 'minitest/autorun'
-require './lib/item_repository'
+require_relative '../lib/item_repository'
 
 class ItemRepositoryTest < Minitest::Test
 
@@ -102,7 +102,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_returns_an_empty_array_if_no_matching_merchant_id_is_found
     assert_equal [], item_repo.find_all_by_merchant_id(7)
   end
-  
+
   private
 
   def name_of_item_objects(collection)
