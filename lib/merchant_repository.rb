@@ -3,11 +3,13 @@ require_relative 'merchant'
 
 class MerchantRepository
   attr_accessor :merchants
+  attr_reader :sales_engine
 
-  def initialize(merchants_data)
+  def initialize(merchants_data, sales_engine)
     @merchants = merchants_data.map do |merchant_data|
-      Merchant.new(merchant_data)
+      Merchant.new(merchant_data, self)
     end
+    @sales_engine = sales_engine
   end
 
   def all

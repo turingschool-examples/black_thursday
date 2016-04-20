@@ -8,7 +8,7 @@ class MerchantTest < Minitest::Test
 
   def setup
     merchant_data = ["12334132","perlesemoi","2009-03-21","2014-05-19"]
-    @merchant = Merchant.new(merchant_data)
+    @merchant = Merchant.new(merchant_data, self)
   end
 
   def test_id
