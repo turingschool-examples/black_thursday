@@ -1,7 +1,7 @@
 require_relative 'merchant'
-require_relative 'sales_engine'
+# require_relative 'sales_engine'
 require_relative 'find'
-require 'pry'
+# require 'pry'
 
 class MerchantRepository
   include Find

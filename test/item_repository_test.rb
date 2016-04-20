@@ -82,12 +82,12 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal true, item_repo.find_all_by_price_in_range(150.00.. 10000.00)[0].name.include?("Course")
   end
 
-  def test_find_by_merch_id_nil_for_unmatched
-    assert_equal nil, item_repo.find_by_merchant_id(6)
+  def test_find_all_by_merch_id_empty_unmatched
+    assert_equal [], item_repo.find_all_by_merchant_id(6)
   end
 
-  def test_find_by_merch_id_returns_a_item_object
-    assert_equal "Glitter scrabble frames", item_repo.find_by_merchant_id(12334185).name
+  def test_find_by_merch_id_returns_array_for_match
+    assert_equal "Glitter scrabble frames", item_repo.find_all_by_merchant_id(12334185)[0].name
   end
 
 end
