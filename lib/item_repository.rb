@@ -1,4 +1,4 @@
-require './lib/item'
+require_relative 'item'
 require_relative 'find'
 
 class ItemRepository

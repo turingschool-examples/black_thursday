@@ -1,12 +1,12 @@
-require './test/test_helper'
-require './lib/sales_engine'
-# require './test/merchant_repository'
-# require './test/item_repository'
-# require './test/merchant_repository'
-# require './test/invoice_repository'
-# require './test/invoice_item_repository'
-# require './test/transaction_repository'
-# require './test/customer_repository'
+require_relative 'test_helper'
+require_relative '../lib/sales_engine'
+# require_relative 'merchant_repository'
+# require_relative 'item_repository'
+# require_relative 'merchant_repository'
+# require_relative 'invoice_repository'
+# require_relative 'invoice_item_repository'
+# require_relative 'transaction_repository'
+# require_relative 'customer_repository'
 
 
 class SalesEngineTest < Minitest::Test

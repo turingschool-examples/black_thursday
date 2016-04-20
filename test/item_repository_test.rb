@@ -1,6 +1,6 @@
-require './test/test_helper'
-require './lib/item_repository'
-require './lib/sales_engine'
+require_relative 'test_helper'
+require_relative '../lib/item_repository'
+require_relative '../lib/sales_engine'
 
 
 class ItemRepositoryTest < Minitest::Test
@@ -11,7 +11,7 @@ class ItemRepositoryTest < Minitest::Test
       :items     => "./data/small_items.csv",
       :merchants => "./data/small_merchants.csv",})
     @se.items
-    @item_repo = @se.item_repository
+    @item_repo = @se.item_repo
   end
 
   def test_all_returns_array

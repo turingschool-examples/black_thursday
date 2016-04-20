@@ -1,6 +1,6 @@
-require './test/test_helper'
-require './lib/sales_engine'
-require './lib/customer'
+require_relative 'test_helper'
+require_relative '../lib/sales_engine'
+require_relative '../lib/customer'
 
 class CustomerTest < Minitest::Test
 

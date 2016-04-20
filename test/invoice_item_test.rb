@@ -1,6 +1,6 @@
-require './test/test_helper'
-require './lib/invoice_item'
-require './lib/sales_engine'
+require_relative 'test_helper'
+require_relative '../lib/invoice_item'
+require_relative '../lib/sales_engine'
 
 
 

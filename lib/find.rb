@@ -1,6 +1,4 @@
-require 'pry'
 module Find
-
 
   #search_hash format is like: {:id => 23}
 
