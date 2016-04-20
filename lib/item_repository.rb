@@ -38,14 +38,16 @@ class ItemRepository
 
   def find_all_by_price(price)
     items.find_all do |item|
-      item.unit_price_to_dollars == price
+      # require 'pry' ; binding.pry
+      item.unit_price == price
     end
   end
 
   def find_all_by_price_in_range(range)
     items.find_all do |item|
-      item.unit_price_to_dollars > range.begin &&
-      item.unit_price_to_dollars < range.max
+      item.unit_price >= range.begin &&
+      item.unit_price <= range.max
+      #apparently theres a range.include?(price)
     end
   end
 

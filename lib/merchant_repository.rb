@@ -28,8 +28,8 @@ class MerchantRepository
     end
   end
 
-  def find_all_by_name
-    find = merchants.find_all {|m| m.name.downcase}
+  def find_all_by_name(name_fragment)
+    find = merchants.find_all {|m| m.name.downcase.include?(name_fragment.downcase)}
   end
 
   def inspect
