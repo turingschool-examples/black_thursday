@@ -8,7 +8,6 @@ class SalesEngineTest < Minitest::Test
     @se = SalesEngine.from_csv({
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv"})
-
   end
 
   def test_it_created_instance_of_sales_engine_class
@@ -22,10 +21,36 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_can_interact_with_items_class
-    ir   = @se.items
+    ir = @se.items
     item = ir.find_by_name("510+ RealPush Icon Set")
     assert_equal Item, item.class
   end
+
+  def test_it_can_return_item_if_items_is_called_on_merchants
+    merchant = @se.merchants.find_by_id(12337411)
+    ir = @se.items
+    p "THIS IS MY MERCHANT #{merchant}"
+
+    item_instances = merchant.items
+    assert_equal Item, item_instances[0].class
+    item_name = "Flower Kissing Balls Pomander Flower Balls/Pew Flower Balls"
+    assert_equal item_name, item_instances[0].name
+  end
+
+  def test_it_can_return_merchant_if_items_is_called_on_merchants
+    mr = @se.merchants
+    item = @se.items.find_all_by_merchant_id(12337411)
+    p item[0].merchant_id
+    #so the problem here is that I'm sending in an array of all the items with that merchant id as opposed to just an id.....that can be fixed! 
+
+    merchant_instances = item.merchant
+    assert_equal Merchant, merchant_instances[0].class
+  end
+
+#this is the functionality I need to add for iteration1:
+
+# # => <merchant>
+
 
 
 end
