@@ -30,4 +30,10 @@ class Item
     @unit_price.to_f
   end
 
+
+  def merchant
+    sales_engine.merchant_repo.find_by_id(merchant_id)
+  end
+
+
 end
