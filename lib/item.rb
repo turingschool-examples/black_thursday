@@ -20,7 +20,8 @@ class Item
   end
 
   def merchant
-    @item_repo.find_merchant_by_merch_id(merchant_id)
+    id = self.merchant_id
+    @item_repo.find_merchant_by_merch_id(id)
   end
 
 

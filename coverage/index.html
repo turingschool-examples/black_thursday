@@ -5,7 +5,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <script src='./assets/0.10.0/application.js' type='text/javascript'></script>    
     <link href='./assets/0.10.0/application.css' media='screen, projection, print' rel='stylesheet' type='text/css'>
-    <link rel="shortcut icon" type="image/png" href="./assets/0.10.0/favicon_yellow.png" />
+    <link rel="shortcut icon" type="image/png" href="./assets/0.10.0/favicon_green.png" />
     <link rel="icon" type="image/png" href="./assets/0.10.0/favicon.png" />
   </head>
   
@@ -14,27 +14,27 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2016-04-19T21:30:07-06:00">2016-04-19T21:30:07-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2016-04-20T09:47:26-06:00">2016-04-20T09:47:26-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="yellow">86.67%</span></span>
+    (<span class="covered_percent"><span class="green">91.26%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         559.59
+         575.1
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>5</b> files in total.
-    <b>105</b> relevant lines. 
-    <span class="green"><b>91</b> lines covered</span> and
-    <span class="red"><b>14</b> lines missed </span>
+    <b>103</b> relevant lines. 
+    <span class="green"><b>94</b> lines covered</span> and
+    <span class="red"><b>9</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -52,21 +52,21 @@
       
       <tr>
         <td class="strong"><a href="#c0bacd1a916fcf35b504307b72b7644a33275b51" class="src_link" title="lib/item.rb">lib/item.rb</a></td>
-        <td class="yellow strong">88.24 %</td>
-        <td>27</td>
+        <td class="green strong">94.44 %</td>
+        <td>28</td>
+        <td>18</td>
         <td>17</td>
-        <td>15</td>
-        <td>2</td>
-        <td>2573.6</td>
+        <td>1</td>
+        <td>2430.7</td>
       </tr>
       
       <tr>
         <td class="strong"><a href="#72d3731b2ef39f76556c5d7eeb1706e8d5c223cd" class="src_link" title="lib/item_repository.rb">lib/item_repository.rb</a></td>
-        <td class="red strong">75.0 %</td>
+        <td class="red strong">78.57 %</td>
         <td>55</td>
         <td>28</td>
-        <td>21</td>
-        <td>7</td>
+        <td>22</td>
+        <td>6</td>
         <td>294.3</td>
       </tr>
       
@@ -82,22 +82,22 @@
       
       <tr>
         <td class="strong"><a href="#9d8a6f3adbd2e396da10e0fa98d413e5c4153761" class="src_link" title="lib/merchant_repository.rb">lib/merchant_repository.rb</a></td>
-        <td class="yellow strong">84.0 %</td>
-        <td>47</td>
-        <td>25</td>
-        <td>21</td>
-        <td>4</td>
-        <td>96.4</td>
+        <td class="green strong">90.91 %</td>
+        <td>44</td>
+        <td>22</td>
+        <td>20</td>
+        <td>2</td>
+        <td>131.1</td>
       </tr>
       
       <tr>
         <td class="strong"><a href="#3766fd82288612046f1bae1b80726fda4935a378" class="src_link" title="lib/sales_engine.rb">lib/sales_engine.rb</a></td>
-        <td class="green strong">96.3 %</td>
+        <td class="green strong">100.0 %</td>
         <td>46</td>
         <td>27</td>
-        <td>26</td>
-        <td>1</td>
-        <td>2.8</td>
+        <td>27</td>
+        <td>0</td>
+        <td>2.9</td>
       </tr>
       
     </tbody>
@@ -119,11 +119,11 @@
         <div class="source_table" id="c0bacd1a916fcf35b504307b72b7644a33275b51">
   <div class="header">
     <h3>lib/item.rb</h3>
-    <h4><span class="yellow">88.24 %</span> covered</h4>
+    <h4><span class="green">94.44 %</span> covered</h4>
     <div>
-      <b>17</b> relevant lines. 
-      <span class="green"><b>15</b> lines covered</span> and
-      <span class="red"><b>2</b> lines missed.</span>
+      <b>18</b> relevant lines. 
+      <span class="green"><b>17</b> lines covered</span> and
+      <span class="red"><b>1</b> lines missed.</span>
     </div>
   </div>
   
@@ -262,22 +262,22 @@
           <code class="ruby">  def merchant</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="23">
+        <li class="covered" data-hits="1" data-linenumber="23">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">    @item_repo.find_merchant_by_merch_id(merchant_id)</code>
+          <code class="ruby">    id = self.merchant_id</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="24">
+        <li class="covered" data-hits="1" data-linenumber="24">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">  end</code>
+          <code class="ruby">    @item_repo.find_merchant_by_merch_id(id)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="25">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">  end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="26">
@@ -287,6 +287,12 @@
         </li>
       
         <li class="never" data-hits="" data-linenumber="27">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="28">
           
           
           <code class="ruby">end</code>
@@ -299,11 +305,11 @@
         <div class="source_table" id="72d3731b2ef39f76556c5d7eeb1706e8d5c223cd">
   <div class="header">
     <h3>lib/item_repository.rb</h3>
-    <h4><span class="red">75.0 %</span> covered</h4>
+    <h4><span class="red">78.57 %</span> covered</h4>
     <div>
       <b>28</b> relevant lines. 
-      <span class="green"><b>21</b> lines covered</span> and
-      <span class="red"><b>7</b> lines missed.</span>
+      <span class="green"><b>22</b> lines covered</span> and
+      <span class="red"><b>6</b> lines missed.</span>
     </div>
   </div>
   
@@ -616,8 +622,8 @@
           <code class="ruby">  def find_merchant_by_merch_id(merchant_id)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="52">
-          
+        <li class="covered" data-hits="1" data-linenumber="52">
+          <span class="hits">1</span>
           
           <code class="ruby">    @se.find_merchant_by_merch_id(merchant_id)</code>
         </li>
@@ -749,11 +755,11 @@
         <div class="source_table" id="9d8a6f3adbd2e396da10e0fa98d413e5c4153761">
   <div class="header">
     <h3>lib/merchant_repository.rb</h3>
-    <h4><span class="yellow">84.0 %</span> covered</h4>
+    <h4><span class="green">90.91 %</span> covered</h4>
     <div>
-      <b>25</b> relevant lines. 
-      <span class="green"><b>21</b> lines covered</span> and
-      <span class="red"><b>4</b> lines missed.</span>
+      <b>22</b> relevant lines. 
+      <span class="green"><b>20</b> lines covered</span> and
+      <span class="red"><b>2</b> lines missed.</span>
     </div>
   </div>
   
@@ -904,8 +910,8 @@
           <code class="ruby">  def find_by_id(find_id)</code>
         </li>
       
-        <li class="covered" data-hits="476" data-linenumber="25">
-          <span class="hits">476</span>
+        <li class="covered" data-hits="952" data-linenumber="25">
+          <span class="hits">952</span>
           
           <code class="ruby">    merchant_repository.find {|merchant| merchant.id == find_id }</code>
         </li>
@@ -994,49 +1000,31 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="40">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="40">
           
-          <code class="ruby">  def find_merchant_by_merchant_id(find_merchant)</code>
+          
+          <code class="ruby"></code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="41">
+        <li class="never" data-hits="" data-linenumber="41">
           
           
-          <code class="ruby">    merchant_repository.find_all do |merchant|</code>
+          <code class="ruby"></code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="42">
+        <li class="never" data-hits="" data-linenumber="42">
           
           
-          <code class="ruby">      merchant.id == find_merchant</code>
+          <code class="ruby"></code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="43">
           
           
-          <code class="ruby">    end</code>
+          <code class="ruby"></code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="44">
-          
-          
-          <code class="ruby">  end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="45">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="46">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="47">
           
           
           <code class="ruby">end</code>
@@ -1049,11 +1037,11 @@
         <div class="source_table" id="3766fd82288612046f1bae1b80726fda4935a378">
   <div class="header">
     <h3>lib/sales_engine.rb</h3>
-    <h4><span class="green">96.3 %</span> covered</h4>
+    <h4><span class="green">100.0 %</span> covered</h4>
     <div>
       <b>27</b> relevant lines. 
-      <span class="green"><b>26</b> lines covered</span> and
-      <span class="red"><b>1</b> lines missed.</span>
+      <span class="green"><b>27</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
   
@@ -1285,13 +1273,13 @@
         <li class="covered" data-hits="1" data-linenumber="38">
           <span class="hits">1</span>
           
-          <code class="ruby">  def find_merchant_by_merch_id(merchant_id)</code>
+          <code class="ruby">  def find_merchant_by_merch_id(id)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="39">
+        <li class="covered" data-hits="1" data-linenumber="39">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">    merchant_repo.find_merchant_by_merchant_id(merchant_id)</code>
+          <code class="ruby">    merchant_repo.find_by_id(id)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="40">

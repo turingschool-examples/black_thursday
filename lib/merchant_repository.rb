@@ -37,11 +37,8 @@ class MerchantRepository
     @se.find_items_by_merch_id(merchant_id)
   end
 
-  def find_merchant_by_merchant_id(find_merchant)
-    merchant_repository.find_all do |merchant|
-      merchant.id == find_merchant
-    end
-  end
+
+
 
 
 end

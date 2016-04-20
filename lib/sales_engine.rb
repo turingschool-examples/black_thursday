@@ -35,8 +35,8 @@ class SalesEngine
     item_repo.find_all_by_merchant_id(merchant_id)
   end
 
-  def find_merchant_by_merch_id(merchant_id)
-    merchant_repo.find_merchant_by_merchant_id(merchant_id)
+  def find_merchant_by_merch_id(id)
+    merchant_repo.find_by_id(id)
   end
 
 

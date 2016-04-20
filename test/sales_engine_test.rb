@@ -29,7 +29,6 @@ class SalesEngineTest < Minitest::Test
   def test_it_can_return_item_if_items_is_called_on_merchants
     merchant = @se.merchants.find_by_id(12337411)
     ir = @se.items
-    p "THIS IS MY MERCHANT #{merchant}"
 
     item_instances = merchant.items
     assert_equal Item, item_instances[0].class
@@ -39,17 +38,12 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_can_return_merchant_if_items_is_called_on_merchants
     mr = @se.merchants
-    item = @se.items.find_all_by_merchant_id(12337411)
-    p item[0].merchant_id
-    #so the problem here is that I'm sending in an array of all the items with that merchant id as opposed to just an id.....that can be fixed! 
-
-    merchant_instances = item.merchant
-    assert_equal Merchant, merchant_instances[0].class
+    ir = @se.items.find_all_by_merchant_id(12337411)
+    item = ir[0]
+    merchant_instance = item.merchant
+    
+    assert_equal Merchant, merchant_instance.class
   end
-
-#this is the functionality I need to add for iteration1:
-
-# # => <merchant>
 
 
 
