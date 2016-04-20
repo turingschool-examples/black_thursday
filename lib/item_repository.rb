@@ -1,14 +1,18 @@
-require './lib/item'
+require_relative 'item'
 
 class ItemRepository
   attr_reader :item_repository
 
-  def initialize(parent)
+  def initialize(parent = nil)
     @se = parent
     @item_repository = []
   end
 
-  def items(item_repo)
+  def inspect
+  "#<#{self.class} #{@items.size} rows>"
+  end
+
+  def item(item_repo)
     item_repo.each do |column|
       @item_repository << Item.new(column, self)
     end

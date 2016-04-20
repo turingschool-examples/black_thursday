@@ -1,5 +1,5 @@
-require './test/test_helper'
-require './lib/sales_engine'
+require_relative 'test_helper'
+require_relative '../lib/sales_engine'
 
 
 class SalesEngineTest < Minitest::Test
@@ -27,6 +27,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_can_return_item_if_items_is_called_on_merchants
+
     merchant = @se.merchants.find_by_id(12337411)
     ir = @se.items
 
@@ -41,7 +42,7 @@ class SalesEngineTest < Minitest::Test
     ir = @se.items.find_all_by_merchant_id(12337411)
     item = ir[0]
     merchant_instance = item.merchant
-    
+
     assert_equal Merchant, merchant_instance.class
   end
 

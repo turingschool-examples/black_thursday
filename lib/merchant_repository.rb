@@ -1,36 +1,39 @@
-require './lib/merchant'
-require './lib/item_repository'
+require_relative 'merchant'
 require 'pry'
 
 class MerchantRepository
-  attr_reader :merchant_repository
+  attr_reader :merchant_array
 
-  def initialize(parent)
+  def initialize(parent = nil)
     @se = parent
-    @merchant_repository = []
+    @merchant_array = []
   end
 
-  def merchants(merchant_contents)
+  def inspect
+  "#<#{self.class} #{@merchants.size} rows>"
+  end
+
+  def merchant_repo(merchant_contents)
     merchant_contents.each do |column|
-      @merchant_repository << Merchant.new(column, self)
+      @merchant_array << Merchant.new(column, self)
     end
     self
   end
 
   def all
-    merchant_repository.empty? ?  nil : merchant_repo
+    merchant_array.empty? ?  nil : merchant_array
   end
 
   def find_by_id(find_id)
-    merchant_repository.find {|merchant| merchant.id == find_id }
+    merchant_array.find {|merchant| merchant.id == find_id }
   end
 
   def find_by_name(find_name)
-    merchant_repository.find {|merchant| merchant.name.downcase == find_name.downcase }
+    merchant_array.find {|merchant| merchant.name.downcase == find_name.downcase }
   end
 
   def find_all_by_name(find_name)
-    merchant_repository.find_all {|merchant| merchant.name.downcase.include?(find_name.downcase)}
+    merchant_array.find_all {|merchant| merchant.name.downcase.include?(find_name.downcase)}
   end
 
   def find_items_by_merchant_id(merchant_id)

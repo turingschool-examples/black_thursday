@@ -1,7 +1,7 @@
 class Merchant
   attr_reader :id, :name, :merchant_repo
 
-  def initialize(line_of_merchant, parent)
+  def initialize(line_of_merchant, parent = nil)
     @id = line_of_merchant.fetch(:id).to_i
     @name = line_of_merchant.fetch(:name)
     @merchant_repo = parent
