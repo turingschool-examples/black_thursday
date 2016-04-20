@@ -4,7 +4,6 @@ require "csv"
 require "bigdecimal"
 class ItemTest < Minitest::Test
 
-
   def setup
     @time = Time.now
     @i = Item.new({
