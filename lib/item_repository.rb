@@ -1,12 +1,18 @@
-require './lib/item'
+require_relative 'item'
 
 class ItemRepository
 
   attr_reader :items
 
-  def initialize(items)
-    @items = items
-  end
+  def initialize(items_data)
+    @items = create_items(items_data)
+   end
+
+   def create_items(items_data)
+     items_data.map do |item|
+       Item.new(item)
+     end
+   end
 
   def all
     @items
@@ -32,14 +38,16 @@ class ItemRepository
 
   def find_all_by_price(price)
     items.find_all do |item|
-      item.unit_price_to_dollars == price
+      # require 'pry' ; binding.pry
+      item.unit_price == price
     end
   end
 
   def find_all_by_price_in_range(range)
     items.find_all do |item|
-      item.unit_price_to_dollars > range.begin &&
-      item.unit_price_to_dollars < range.max
+      item.unit_price >= range.begin &&
+      item.unit_price <= range.max
+      #apparently theres a range.include?(price)
     end
   end
 
@@ -47,6 +55,10 @@ class ItemRepository
     items.find_all do |item|
       item.merchant_id == merchant_id
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
   end
 
 end

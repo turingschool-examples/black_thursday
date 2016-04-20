@@ -1,6 +1,6 @@
-require './test/test_helper'
+require_relative 'test_helper'
 require 'minitest/autorun'
-require './lib/item'
+require_relative '../lib/item'
 
 class ItemTest < Minitest::Test
 
@@ -8,11 +8,11 @@ class ItemTest < Minitest::Test
 
   def setup
     @i = Item.new({
-      :id          => 263410303,
+      :id          => "263410303",
       :name        => "Pencil",
       :description => "You can use it to write things",
       :unit_price  => BigDecimal.new(10.99, 4),
-      :merchant_id => 12334261,
+      :merchant_id => "12334261",
       :created_at  => "2016-04-19 09:04:25 -0600",
       :updated_at  => "2016-04-19 09:04:25 -0600"
     })

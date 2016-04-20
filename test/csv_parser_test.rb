@@ -1,6 +1,6 @@
-require './test/test_helper'
+require_relative 'test_helper'
 require 'minitest/autorun'
-require './lib/csv_parser'
+require_relative '../lib/csv_parser'
 
 class CsvParserTest < Minitest::Test
 

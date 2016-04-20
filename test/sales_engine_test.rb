@@ -1,8 +1,8 @@
-require './test/test_helper'
+require_relative 'test_helper'
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/sales_engine.rb'
-require './lib/csv_parser.rb'
+require_relative '../lib/sales_engine.rb'
+require_relative '../lib/csv_parser.rb'
 
 
 class SalesEngineTest < MiniTest::Test
