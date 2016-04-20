@@ -2,7 +2,7 @@ require_relative 'item'
 require 'pry'
 
 class ItemRepository
-  attr_reader :item_repository
+  attr_accessor :item_repository
 
   def initialize(parent = nil)
     @se = parent
@@ -39,13 +39,13 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
-    result = item_repository.find_all {|item| item.unit_price.to_f == price}
-    
+    item_repository.find_all {|item| item.unit_price == price}
 
   end
 
   def find_all_by_price_in_range(range)
     item_repository.find_all {|item| range.include?(item.unit_price)}
+  
   end
 
   def find_all_by_merchant_id(find_merchant_id)

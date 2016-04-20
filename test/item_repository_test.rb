@@ -6,17 +6,20 @@ class ItemRepositoryTest < Minitest::Test
   def setup
     item1 = Item.new({:id => 12345, :name => "Pencil",
     :description => "You can use it to write things",
-    :unit_price => BigDecimal.new(10.99,4),
+    :unit_price => BigDecimal.new(1099,4),
     :merchant_id => 98765,
-    :created_at => Time.now, :updated_at => Time.now})
+    :created_at => Time.new.to_s, :updated_at => Time.new.to_s
+    })
 
     item2 = Item.new({:id => 12093, :name => "Pen",
     :description => "You can use it to write all the things",
-    :unit_price => BigDecimal.new(8.99,3),
+    :unit_price => BigDecimal.new(899,3),
     :merchant_id => 235467,
-    :created_at => Time.now, :updated_at => Time.now})
+    :created_at => Time.new.to_s, :updated_at => Time.new.to_s
+    })
 
-    @inventory = ItemRepository.new([item1, item2])
+    @inventory = ItemRepository.new
+    @inventory.item_repository = ([item1, item2])
   end
 
   def test_it_created_instance_of_item_repo_class
