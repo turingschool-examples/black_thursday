@@ -1,14 +1,33 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/Caelum/Turing/Projects/black_thursday/lib/merchant.rb": [
+      "/Users/Caelum/Turing/Projects/black_thursday/lib/item.rb": [
+        1,
+        1,
+        1,
         1,
         null,
         1,
         1,
         null,
         1,
-        4,
+        8,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        2,
         null,
         null,
         1,
@@ -30,6 +49,6 @@
         null
       ]
     },
-    "timestamp": 1461107724
+    "timestamp": 1461120947
   }
 }
