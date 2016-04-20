@@ -19,114 +19,115 @@ class SalesEngineTest < Minitest::Test
       :merchants => "./data/small_merchants.csv",})
   end
 
-  def test_sales_engine_from_csv_creates_a_se_object
+  def test_sales_engine_from_csv_creates_se_object
     assert_equal SalesEngine, se.class
   end
 
-  def test_sales_engine_from_csv_stores_hash_as_ivar
-      assert_equal ({
-        :items     => "./data/small_items.csv",
-        :merchants => "./data/small_merchants.csv"}), se.file_hash
+  def test_sales_engine_from_csv_stores_ivar
+    assert_equal ({
+      :items     => "./data/small_items.csv",
+      :merchants => "./data/small_merchants.csv"}), se.files
   end
 
   def test_merchants_makes_merch_repo_object
     @se.merchants
-    refute se.merchant_repository.nil?
+    refute se.merchant_repo.nil?
   end
 
-  def test_merchants_populates_merch_repo_with_merchants_objects
+  def test_merchants_populates_merch_repo_with_merch_objs
     @se.merchants
-    assert_equal Merchant, se.merchant_repository.merchants[0].class
+    assert_equal Merchant, se.merchant_repo.merchants[0].class
   end
 
-  def test_merchants_populates_merch_repo_with_all_merchants
+  def test_merchants_populates_merch_repo_with_all
     @se.merchants
-    assert_equal 10, se.merchant_repository.merchants.length
+    assert_equal 10, se.merchant_repo.merchants.length
   end
 
   def test_merchants_repo_merch_objects_have_id
     @se.merchants
-    assert_equal 12334112, se.merchant_repository.merchants[1].id
+    assert_equal 12334112, se.merchant_repo.merchants[1].id
   end
 
-  def test_merchants_repo_merch_objects_have_name
+  def test_merchants_repo_merch_objs_have_name
     @se.merchants
-    assert_equal "Shopin1901", se.merchant_repository.merchants[0].name
+    assert_equal "Shopin1901", se.merchant_repo.merchants[0].name
   end
 
-  def test_merchants_repo_merch_objects_have_ref_to_se
+  def test_merchants_repo_merch_objs_have_ref_to_se
     @se.merchants
-    assert_equal SalesEngine, se.merchant_repository.merchants[9].sales_engine.class
+    assert_equal SalesEngine, se.merchant_repo.merchants[9].sales_engine.class
   end
 
   def test_items_makes_item_repo_object
     @se.items
-    refute se.item_repository.nil?
+    refute se.item_repo.nil?
   end
 
-  def test_items_populates_item_repo_with_item_objects
+  def test_items_populates_item_repo_with_item_objs
     @se.items
-    assert_equal Item, se.item_repository.items[0].class
+    assert_equal Item, se.item_repo.items[0].class
   end
 
-  def test_items_populates_item_repo_with_all_items
+  def test_items_populates_item_repo_with_all
     @se.items
-    assert_equal 19, se.item_repository.items.length
+    assert_equal 19, se.item_repo.items.length
   end
 
   def test_items_repo_item_objects_have_id
     @se.items
-    assert_equal 263395721, se.item_repository.items[1].id
+    assert_equal 263395721, se.item_repo.items[1].id
   end
 
   def test_item_repo_item_objects_have_name
     @se.items
-    assert_equal "Glitter scrabble frames", se.item_repository.items[0].name
+    assert_equal "Glitter scrabble frames", se.item_repo.items[0].name
   end
 
-  def test_item_repo_item_objects_have_description
+  def test_item_repo_item_objects_have_desc
     @se.items
-    assert_equal true, se.item_repository.items[0].description.include?("Any colour glitter")
+    assert_equal true, se.item_repo.items[0].description.include?("Any colour glitter")
   end
 
   def test_item_repo_item_objects_have_price
     @se.items
-    assert_equal 13.00, se.item_repository.items[0].unit_price
+    #why does this pass because its really a BD obj
+    assert_equal 13.00, se.item_repo.items[0].unit_price
   end
 
-  def test_item_objects_have_price_as_big_decimal
+  def test_item_objs_have_price_as_big_decimal
     @se.items
-    assert_equal BigDecimal, se.item_repository.items[0].unit_price.class
+    assert_equal BigDecimal, se.item_repo.items[0].unit_price.class
   end
 
-  def test_item_objects_have_price_as_float_when_transformed
+  def test_item_objs_have_price_as_float_when_transformed
     @se.items
-    assert_equal Float, se.item_repository.items[0].unit_price_to_dollars.class
+    assert_equal Float, se.item_repo.items[0].unit_price_to_dollars.class
   end
 
-  def test_item_repo_item_objects_have_created_by_at
+  def test_item_repo_item_objs_have_created_at
     @se.items
-    assert_equal Time.parse("2016-01-11 11:51:37 UTC"), se.item_repository.items[1].created_at
+    assert_equal Time.parse("2016-01-11 11:51:37 UTC"), se.item_repo.items[1].created_at
   end
 
-  def test_item_repo_item_objects_have_created_by_as_time_object
+  def test_item_objs_have_created_by_as_time_obj
     @se.items
-    assert_equal Time, se.item_repository.items[1].created_at.class
+    assert_equal Time, se.item_repo.items[1].created_at.class
   end
 
-  def test_item_repo_item_objects_have_updated_at
+  def test_item_repo_item_objs_have_updated_at
     @se.items
-    assert_equal Time.parse("2008-04-02 13:48:57 UTC"), se.item_repository.items[1].updated_at
+    assert_equal Time.parse("2008-04-02 13:48:57 UTC"), se.item_repo.items[1].updated_at
   end
 
-  def test_item_repo_item_objects_have_updated_at_as_time_object
+  def test_item_objects_have_updated_at_as_time_obj
     @se.items
-    assert_equal Time, se.item_repository.items[1].updated_at.class
+    assert_equal Time, se.item_repo.items[1].updated_at.class
   end
 
-  def test_items_repo_item_objects_have_ref_to_se
+  def test_item_objects_have_ref_to_se
     @se.items
-    assert_equal SalesEngine, se.item_repository.items[9].sales_engine.class
+    assert_equal SalesEngine, se.item_repo.items[9].sales_engine.class
   end
 
 
