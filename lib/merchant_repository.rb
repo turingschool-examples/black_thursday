@@ -26,8 +26,7 @@ class MerchantRepository
       merchant.name == name.downcase
     end
   end
-# this will return the array if it matches more than one
-# how do we return a fragment if not found in the data
+
   def find_all_by_name(name)
     names = @merchants.select do |merchant|
       merchant.name.include?(name.downcase)

@@ -1,7 +1,7 @@
 require 'csv'
 
 class Merchant
-  attr_accessor :merchant_data, :merchant_repository
+  attr_accessor :merchant_data
 
   def initialize(merchant_data)
     @merchant_data = merchant_data
