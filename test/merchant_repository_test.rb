@@ -13,16 +13,16 @@ class MerchantRepositoryTest < MiniTest::Test
   end
 
   def test_it_initializes_with_correct_id
-    assert_equal "12334115", mr.merchants[0].id
-    assert_equal "12334135", mr.merchants[1].id
+    assert_equal 12334115, mr.merchants[0].id
+    assert_equal 12334135, mr.merchants[1].id
   end
 
    def test_it_finds_all_by_id
-    assert_equal ["12334115", "12334135"], all_ids
+    assert_equal [12334115, 12334135], all_ids
   end
 
   def test_it_finds_by_id
-    assert_equal "12334135", mr.find_by_id("12334135").id
+    assert_equal 12334135, mr.find_by_id(12334135).id
   end
 
   def test_it_finds_by_name

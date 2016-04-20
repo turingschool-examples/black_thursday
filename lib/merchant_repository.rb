@@ -1,5 +1,6 @@
 require_relative 'merchant.rb'
 require_relative 'sales_engine.rb'
+require_relative 'item_repository.rb'
 
 class MerchantRepository
   attr_reader :merchants, :id, :name
@@ -28,7 +29,7 @@ class MerchantRepository
     end
   end
 
-  def find_all_by_name(name_fragment)
+  def find_all_by_name(name_fragment="")
     find = merchants.find_all {|m| m.name.downcase.include?(name_fragment.downcase)}
   end
 

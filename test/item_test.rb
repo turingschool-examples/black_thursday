@@ -27,15 +27,16 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_can_return_a_unit_price
-    assert_equal 10.99, i.unit_price_to_dollars
+    assert_equal 10.99, i.unit_price.to_f*100
   end
+  # method returns big decimal
 
   def test_it_can_return_when_it_was_created
-    assert_equal "2016-04-19 09:04:25 -0600", i.created_at
+    assert_equal Time.parse("2016-04-19 09:04:25 -0600"), i.created_at
   end
 
   def test_it_can_return_when_it_was_updated
-    assert_equal "2016-04-19 09:04:25 -0600", i.updated_at
+    assert_equal Time.parse("2016-04-19 09:04:25 -0600"), i.updated_at
   end
 
   def test_it_can_return_an_item_id

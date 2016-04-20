@@ -19,7 +19,7 @@ class CsvParserTest < Minitest::Test
   end
 
   def test_it_parses_each_merchant_into_hash
-    assert_equal ({:id=>"12334105", :name=>"Shopin1901"}), parser.merchants("./data/merchants.csv")[0]
+    assert_equal "12334105", parser.merchants("./data/merchants.csv")[0][:id]
   end
 
   def test_it_parses_items_csv_into_array

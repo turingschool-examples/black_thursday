@@ -38,15 +38,15 @@ class ItemRepository
 
   def find_all_by_price(price)
     items.find_all do |item|
-      # require 'pry' ; binding.pry
-      item.unit_price == price
+      #  require 'pry' ; binding.pry
+      item.unit_price.to_f * 100 == price
     end
   end
 
   def find_all_by_price_in_range(range)
     items.find_all do |item|
-      item.unit_price >= range.begin &&
-      item.unit_price <= range.max
+      item.unit_price.to_f * 100 >= range.begin &&
+      item.unit_price.to_f * 100 <= range.max
       #apparently theres a range.include?(price)
     end
   end
