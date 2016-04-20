@@ -45,7 +45,6 @@ class ItemRepository
 
   def find_all_by_price_in_range(range)
     item_repository.find_all {|item| range.include?(item.unit_price)}
-  
   end
 
   def find_all_by_merchant_id(find_merchant_id)

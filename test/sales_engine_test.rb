@@ -27,10 +27,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_can_return_item_if_items_is_called_on_merchants
-
     merchant = @se.merchants.find_by_id(12337411)
-    ir = @se.items
-
     item_instances = merchant.items
     assert_equal Item, item_instances[0].class
     item_name = "Flower Kissing Balls Pomander Flower Balls/Pew Flower Balls"
@@ -38,7 +35,6 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_can_return_merchant_if_items_is_called_on_merchants
-    mr = @se.merchants
     ir = @se.items.find_all_by_merchant_id(12337411)
     item = ir[0]
     merchant_instance = item.merchant

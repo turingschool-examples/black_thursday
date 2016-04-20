@@ -13,7 +13,7 @@ class ItemRepositoryTest < Minitest::Test
 
     item2 = Item.new({:id => 12093, :name => "Pen",
     :description => "You can use it to write all the things",
-    :unit_price => BigDecimal.new(899,3),
+  :unit_price => BigDecimal.new(899,3),
     :merchant_id => 235467,
     :created_at => Time.new.to_s, :updated_at => Time.new.to_s
     })
