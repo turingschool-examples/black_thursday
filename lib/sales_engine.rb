@@ -22,8 +22,3 @@ class SalesEngine
   end
 
 end
-
-se = SalesEngine.from_csv({
-  :items     => "./data/items.csv",
-  :merchants => "./data/merchants.csv",
-   })
