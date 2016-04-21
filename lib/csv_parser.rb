@@ -17,4 +17,11 @@ class CsvParser
     end
   end
 
+  def invoices(invoices)
+    contents = CSV.open invoices, headers: true, header_converters: :symbol
+    contents.map do |row|
+      row.to_h
+    end
+  end
+
 end

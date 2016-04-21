@@ -13,6 +13,7 @@ class SalesEngineTest < MiniTest::Test
     @se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
     })
   end
 
@@ -45,6 +46,10 @@ class SalesEngineTest < MiniTest::Test
 
   def test_it_links_merchants_to_items
     refute se.items.all.first.merchant.nil?
+  end
+
+  def test_it_creates_invoices_repository
+    assert se.invoices
   end
 
 end
