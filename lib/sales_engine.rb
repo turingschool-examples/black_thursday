@@ -26,8 +26,8 @@ class SalesEngine
     merchant_file = files_to_parse.fetch(:merchants)
     merchant_contents = CSV.open merchant_file, headers: true, header_converters: :symbol
 
-    invoice_contents = files_to_parse.fetch(:invoices)
-    invoice_contents = CSV.open merchant_file, headers: true, header_converters: :symbol
+    invoice_file = files_to_parse.fetch(:invoices)
+    invoice_contents = CSV.open invoice_file, headers: true, header_converters: :symbol
 
     SalesEngine.new(merchant_contents, item_contents, invoice_contents)
   end
@@ -52,4 +52,9 @@ class SalesEngine
   def find_merchant_by_merch_id(id)
     @merchants.find_by_id(id)
   end
+
+  def find_invoices_by_merch_id(merchant_id)
+    @invoices.find_all_by_merchant_id(merchant_id)
+  end
+
 end

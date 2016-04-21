@@ -9,7 +9,7 @@ class SalesAnalyst
     @items_per_merchant = []
     @merchant_array = @mr.merchant_array
     @ir = sales_engine.items.item_repository
-
+    @invoices_per_merchant = []
   end
 
   def find_items_per_merchant_array
@@ -84,4 +84,22 @@ class SalesAnalyst
     std_dev = calculate_std_deviation(find_price_array, average)
     golden_price = average + ( 2 * std_dev)
   end
+
+  def average_invoices_per_merchant
+    invoice_array = find_invoice_per_merchant_array
+    avg = calculate_the_average(invoice_array).to_f
+  end
+
+  def find_invoice_per_merchant_array
+    @invoices_per_merchant = @merchant_array.map do |merch|
+      invoice_array = merch.invoices
+      invoice_array.length
+    end
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    std_dev = calculate_std_deviation(find_invoice_per_merchant_array, average_invoices_per_merchant)
+  end
+
+
 end

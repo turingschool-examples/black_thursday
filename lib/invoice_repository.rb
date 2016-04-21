@@ -39,6 +39,10 @@ class InvoiceRepository
     invoice_repository.find_all {|invoice| invoice.status.downcase == status.downcase }
   end
 
+  def find_merchant_by_invoice_merch_id(merchant_id)
+    @se.find_merchant_by_merch_id(merchant_id)
+  end
+
 
 end
 
