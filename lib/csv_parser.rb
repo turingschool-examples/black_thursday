@@ -17,10 +17,4 @@ class CsvParser
     end
   end
 
-
-  def clean_item_description(description)
-    description.gsub!("\n", " ")
-  end
-
-
 end

@@ -4,7 +4,6 @@ require 'minitest/pride'
 require_relative '../lib/merchant_repository.rb'
 require_relative '../lib/merchant.rb'
 
-
 class MerchantRepositoryTest < MiniTest::Test
   attr_reader :mr
 
@@ -17,7 +16,7 @@ class MerchantRepositoryTest < MiniTest::Test
     assert_equal 12334135, mr.merchants[1].id
   end
 
-   def test_it_finds_all_by_id
+  def test_it_finds_all_by_id
     assert_equal [12334115, 12334135], all_ids
   end
 
@@ -36,15 +35,14 @@ class MerchantRepositoryTest < MiniTest::Test
   private
 
   def all_names
-    all_names = mr.find_all_by_name.map do |merchant|
+    mr.find_all_by_name.map do |merchant|
       merchant.name
     end
   end
 
   def all_ids
-    all_ids = mr.all.map do |merchant|
+    mr.all.map do |merchant|
       merchant.id
     end
   end
-
 end

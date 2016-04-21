@@ -11,6 +11,7 @@ class SalesEngine
     @items_data = items_data
     @merchants_data = merchants_data
     set_merchant_items
+    set_item_merchant
   end
 
 
@@ -41,13 +42,12 @@ class SalesEngine
   end
 
   def merchant_by_item_id(item)
-    merchant.find_by_id(item.merchant_id)
+    merchants.find_by_id(item.merchant_id)
   end
 
   def set_item_merchant
     items.all.each do |item|
        item.merchant = merchant_by_item_id(item)
-    require 'pry' ; binding.pry
     end
   end
 

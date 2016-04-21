@@ -9,7 +9,7 @@ class SalesAnalyst
 
   def items_per_merchant
     merchants.all.map do |merchant|
-      merchant.items = se.items_by_merchant_id(merchant.id).count
+      merchant.items.count
     end
   end
 
@@ -35,21 +35,23 @@ class SalesAnalyst
 
   def merchants_with_item_counts
     merchants.all.map do |merchant|
-      [merchant, se.items_by_merchant_id(merchant.id).count]
+      [merchant, merchant.items.count]
     end
   end
 
   def average_item_price_for_merchant(merchant_id)
     merchant_items = merchants.find_by_id(merchant_id).items
-    merchant_items.reduce(0) do |sum, item|
+    rounding = merchant_items.reduce(0) do |sum, item|
       sum + item.unit_price
     end / merchant_items.length
+    rounding.round(2)
   end
 
   def average_average_price_per_merchant
-    merchants.all.reduce(0) do |sum, merchant|
+    rounding = merchants.all.reduce(0) do |sum, merchant|
       sum + average_item_price_for_merchant(merchant.id)
     end / merchants.all.length
+    rounding.round(2)
   end
 
   def all_items_unit_prices
@@ -74,7 +76,7 @@ class SalesAnalyst
   def golden_items
     isd = items_price_standard_deviation
     items.all.find_all do |item|
-      item.unit_price > isd*2
+      item.unit_price > isd * 2
     end
   end
 
