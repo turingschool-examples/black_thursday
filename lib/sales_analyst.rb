@@ -89,4 +89,37 @@ class SalesAnalyst
     Math.sqrt(result).round(2)
   end
 
+  def average_invoices_per_merchant
+    num_invoices = sales_engine.invoices.all.length.to_f
+    num_merchants = sales_engine.merchants.all.length
+    (num_invoices/num_merchants).round(2)
+  end
+
+  def invoice_count_by_merchant
+    sales_engine.merchants.all.map do |merchant|
+      merchant.invoices.length
+    end.sort
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    standard_deviation(invoice_count_by_merchant)
+  end
+
+  def top_merchants_by_invoice_count
+    threshold = average_invoices_per_merchant +
+            2 * average_invoices_per_merchant_standard_deviation
+    sales_engine.merchants.all.find_all do |merchant|
+      merchant.invoices.length >= threshold
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    threshold = average_invoices_per_merchant -
+            2 * average_invoices_per_merchant_standard_deviation
+    sales_engine.merchants.all.find_all do |merchant|
+      merchant.invoices.length <= threshold
+    end
+  end
+
+
 end

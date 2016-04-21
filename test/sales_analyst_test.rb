@@ -18,6 +18,7 @@ class SalesAnalystTest < Minitest::Test
 
     @se.merchant_repo = MerchantRepository.new(nil, se)
     @se.item_repo = ItemRepository.new(nil, se)
+    @se.invoice_repo = InvoiceRepository.new(nil, se)
 
     @se.merchant_repo.add_new({:id => 1, :name => "Merch1"}, @se)
     @se.merchant_repo.add_new({:id => 2, :name => "Merch2"}, @se)
@@ -32,6 +33,13 @@ class SalesAnalystTest < Minitest::Test
     @se.item_repo.add_new({:id => 5, :name => "Item5", :unit_price => 1000, :merchant_id => 3}, @se)
     @se.item_repo.add_new({:id => 6, :name => "Item6", :unit_price => 3000, :merchant_id => 3}, @se)
     @se.item_repo.add_new({:id => 7, :name => "Item7", :unit_price => 1250, :merchant_id => 3}, @se)
+    @se.invoice_repo.add_new({:id => 1, :customer_id => 1, :merchant_id => 1, :status => "shipped", :created_at => "2016-04-18"}, @se)
+    @se.invoice_repo.add_new({:id => 2, :customer_id => 1, :merchant_id => 1, :status => "pending", :created_at => "2016-04-19"}, @se)
+    @se.invoice_repo.add_new({:id => 3, :customer_id => 2, :merchant_id => 2, :status => "returned", :created_at => "2016-04-19"}, @se)
+    @se.invoice_repo.add_new({:id => 4, :customer_id => 3, :merchant_id => 3, :status => "shipped", :created_at => "2016-04-20"}, @se)
+    @se.invoice_repo.add_new({:id => 5, :customer_id => 1, :merchant_id => 1, :status => "shipped", :created_at => "2016-04-18"}, @se)
+    @se.invoice_repo.add_new({:id => 6, :customer_id => 1, :merchant_id => 1, :status => "shipped", :created_at => "2016-04-18"}, @se)
+    @se.invoice_repo.add_new({:id => 7, :customer_id => 1, :merchant_id => 1, :status => "shipped", :created_at => "2016-04-18"}, @se)
 
   end
 
@@ -104,6 +112,22 @@ class SalesAnalystTest < Minitest::Test
 
   def test_identifes_correct_golden_item
     assert_equal 6, sa.golden_items[0].id
+  end
+
+  def test_average_ivoices_per_merchant_gives_correct_average
+    assert_equal 2.33, sa.average_invoices_per_merchant
+  end
+
+  def test_standard_deviation_can_calc_for_invoices
+    assert_equal 2.31, sa.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_we_can_find_top_performing_merchants
+    assert_equal [], sa.top_merchants_by_invoice_count
+  end
+
+  def test_we_can_retrieve_the_lowest_performing_merchants
+    assert_equal [], sa.bottom_merchants_by_invoice_count
   end
 
 
