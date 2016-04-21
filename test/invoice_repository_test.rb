@@ -43,7 +43,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_we_can_identify_merchant_id_by_status
-    assert_equal 12335955, invoice_repo.find_all_by_status("shipped")[1].merchant_id
+    assert_equal 12334144, invoice_repo.find_all_by_status("shipped")[1].merchant_id
   end
 
 end

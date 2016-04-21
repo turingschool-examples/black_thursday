@@ -121,5 +121,48 @@ class SalesAnalyst
     end
   end
 
+  def find_day_of_week(date)
+    date.strftime("%A")
+  end
+
+# TODO Change back to sales_engine.invoices
+  def group_invoices_by_day
+    sales_engine.invoice_repo.invoices.group_by do |invoice|
+      find_day_of_week(invoice.created_at)
+    end
+  end
+
+  def group_invoices_by_day_count
+    hash = group_invoices_by_day
+    hash.each do | day, invoices |
+      hash[day] = invoices.length
+    end
+  end
+
+  def average_invoices_per_day
+    average(group_invoices_by_day_count.values).round(2)
+  end
+
+  def top_days_by_invoice_count
+    top_days = []
+    threshold = average_invoices_per_day + standard_deviation(group_invoices_by_day_count.values)
+    group_invoices_by_day_count.each do | key, value |
+      if value > threshold
+        top_days << key
+      end
+    end
+    top_days
+  end
+
+  def group_invoices_status
+    sales_engine.invoice_repo.invoices.group_by do |invoice|
+      invoice.status.to_sym
+    end
+  end
+
+  def invoice_status(status)
+    (group_invoices_status[status].length.to_f /
+    sales_engine.invoice_repo.invoices.length * 100).round(2)
+  end
 
 end
