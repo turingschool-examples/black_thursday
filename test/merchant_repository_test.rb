@@ -35,5 +35,4 @@ class MerchantRepositoryTest < Minitest::Test
 
     assert_equal 2, output.length
   end
-  #does this work 
 end
