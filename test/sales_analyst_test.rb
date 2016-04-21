@@ -11,9 +11,8 @@ class SalesAnalystTest < Minitest::Test
       :items     => "./data/small_items.csv",
       :merchants => "./data/small_merchants.csv",})
     @sa = SalesAnalyst.new(se)
-    @se.merchants
     @se.items
-    @merch_repo = @se.merchant_repo
+    @merch_repo = @se.merchants
   end
 
   def test_average_items_per_merchant_gives_correct_average
@@ -33,21 +32,24 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 2.65, sa.standard_deviation([1,2,6])
   end
 
-  def test_generates_array_of_item_counts_by_merchant
-
+  def test_generates_array_of_item_counts_per_merchant
     assert_equal  [1, 1, 1, 1, 1, 1, 2, 2, 3, 6], sa.item_count_by_merchant
   end
 
-  def test_calculates_sd_array_of_item_counts_by_merchant
-    assert_equal 1.60, sa.standard_deviation(sa.item_count_by_merchant)
+  def test_calculates_std_dev_of_item_counts
+    assert_equal 1.60, sa.average_items_per_merchant_standard_deviation
   end
 
-  def test_identifes_all_merchant_with_high_item_counts
-    assert_equal 1, sa.merchant_with_high_item_count.length
+  # def test_calculates_std_dev_item_counts
+  #   assert_equal 1.60, sa.standard_deviation(sa.item_count_by_merchant)
+  # end
+
+  def test_identifes_all_merchants_with_high_item_counts
+    assert_equal 1, sa.merchants_with_high_item_count.length
   end
 
-  def test_identifes_corrent_merchant_with_high_item_counts
-    assert_equal 12334185, sa.merchant_with_high_item_count[0].id
+  def test_identifes_corrent_merchants_with_high_item_counts
+    assert_equal 12334185, sa.merchants_with_high_item_count[0].id
   end
 
   def test_identifies_average_item_price_for_merchant

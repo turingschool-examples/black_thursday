@@ -10,8 +10,8 @@ class ItemRepositoryTest < Minitest::Test
     @se = SalesEngine.from_csv({
       :items     => "./data/small_items.csv",
       :merchants => "./data/small_merchants.csv",})
-    @se.items
-    @item_repo = @se.item_repo
+    @item_repo = @se.items
+    # @item_repo = @se.item_repo
   end
 
   def test_all_returns_array

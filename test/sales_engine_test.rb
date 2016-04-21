@@ -31,37 +31,37 @@ class SalesEngineTest < Minitest::Test
 
   def test_merchants_makes_merch_repo_object
     @se.merchants
-    refute se.merchant_repo.nil?
+    refute se.merchants.nil?
   end
 
   def test_merchants_populates_merch_repo_with_merch_objs
     @se.merchants
-    assert_equal Merchant, se.merchant_repo.merchants[0].class
+    assert_equal Merchant, se.merchants.merchants[0].class
   end
 
   def test_merchants_populates_merch_repo_with_all
     @se.merchants
-    assert_equal 10, se.merchant_repo.merchants.length
+    assert_equal 10, se.merchants.merchants.length
   end
 
   def test_merchants_repo_merch_objects_have_id
     @se.merchants
-    assert_equal 12334299, se.merchant_repo.merchants[1].id
+    assert_equal 12334299, se.merchants.merchants[1].id
   end
 
   def test_merchants_repo_merch_objs_have_name
     @se.merchants
-    assert_equal "Shopin1901", se.merchant_repo.merchants[0].name
+    assert_equal "Shopin1901", se.merchants.merchants[0].name
   end
 
   def test_merchants_repo_merch_objs_have_ref_to_se
     @se.merchants
-    assert_equal SalesEngine, se.merchant_repo.merchants[9].sales_engine.class
+    assert_equal SalesEngine, se.merchants.merchants[9].sales_engine.class
   end
 
   def test_items_makes_item_repo_object
     @se.items
-    refute se.item_repo.nil?
+    refute se.items.nil?
   end
 
   def test_items_populates_item_repo_with_item_objs
@@ -81,7 +81,7 @@ class SalesEngineTest < Minitest::Test
 
   def test_item_repo_item_objects_have_name
     @se.items
-    assert_equal "Glitter scrabble frames", se.item_repo.items[0].name
+    assert_equal "Glitter scrabble frames", se.items.items[0].name
   end
 
   def test_item_repo_item_objects_have_desc
@@ -102,22 +102,22 @@ class SalesEngineTest < Minitest::Test
 
   def test_item_objs_have_price_as_float_when_transformed
     @se.items
-    assert_equal Float, se.item_repo.items[0].unit_price_to_dollars.class
+    assert_equal Float, se.items.items[0].unit_price_to_dollars.class
   end
 
   def test_item_repo_item_objs_have_created_at
     @se.items
-    assert_equal Time.parse("2016-01-11 11:51:37 UTC"), se.item_repo.items[1].created_at
+    assert_equal Time.parse("2016-01-11 11:51:37 UTC"), se.items.items[1].created_at
   end
 
   def test_item_objs_have_created_by_as_time_obj
     @se.items
-    assert_equal Time, se.item_repo.items[1].created_at.class
+    assert_equal Time, se.items.items[1].created_at.class
   end
 
   def test_item_repo_item_objs_have_updated_at
     @se.items
-    assert_equal Time.parse("2008-04-02 13:48:57 UTC"), se.item_repo.items[1].updated_at
+    assert_equal Time.parse("2008-04-02 13:48:57 UTC"), se.items.items[1].updated_at
   end
 
   def test_item_objects_have_updated_at_as_time_obj
@@ -127,7 +127,7 @@ class SalesEngineTest < Minitest::Test
 
   def test_item_objects_have_ref_to_se
     @se.items
-    assert_equal SalesEngine, se.item_repo.items[9].sales_engine.class
+    assert_equal SalesEngine, se.items.items[9].sales_engine.class
   end
 
 

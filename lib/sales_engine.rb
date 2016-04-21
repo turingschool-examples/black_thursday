@@ -9,7 +9,7 @@ require 'csv'
 
 class SalesEngine
 
-  attr_reader :files, :merchant_repo, :item_repo
+  attr_reader :files
 
   def initialize(files)
     @files = files

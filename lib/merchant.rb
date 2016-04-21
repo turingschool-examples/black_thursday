@@ -10,7 +10,7 @@ class Merchant
   end
 
   def items
-    sales_engine.item_repo.find_all_by_merchant_id(id)
+    sales_engine.items.find_all_by_merchant_id(id)
   end
 
 end
