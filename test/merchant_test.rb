@@ -10,9 +10,8 @@ class MerchantTest < Minitest::Test
     @se = SalesEngine.from_csv({
       :items     => "./data/small_items.csv",
       :merchants => "./data/small_merchants.csv",})
-    @se.merchants
     @se.items
-    @merch_repo = @se.merchant_repo
+    @merch_repo = @se.merchants
     @merchant = @merch_repo.merchants[8]
   end
 

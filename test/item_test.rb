@@ -14,8 +14,9 @@ class ItemTest < Minitest::Test
       :merchants => "./data/small_merchants.csv",})
     @se.merchants
     @se.items
-    @item_repo = @se.item_repo
-    @item = @item_repo.items[18]
+    @item = @se.items.all[18]
+    # @item_repo = @se.items
+    # @item = @item_repo.items[18]
   end
 
   def test_we_can_retrieve_correct_secondary_item

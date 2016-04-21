@@ -9,16 +9,20 @@ class MerchantRepository
   attr_accessor :merchants
   attr_reader :file, :sales_engine
 
-  def initialize(file, sales_engine)
+  def initialize(file=nil, sales_engine)
     @file = file
     @merchants = []
     @sales_engine = sales_engine
   end
 
+  def add_new(data, sales_engine)
+    merchants << Merchant.new(data, sales_engine)
+  end
+
   def load_csv_data
-    data = get_csv_data
-    data.map do |row|
-      merchants << Merchant.new(row, sales_engine)
+    all_data = get_csv_data
+    all_data.map do |row|
+      add_new(row, sales_engine)
     end
   end
 

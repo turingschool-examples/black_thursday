@@ -9,7 +9,8 @@ require 'csv'
 
 class SalesEngine
 
-  attr_reader :files, :merchant_repo, :item_repo
+  attr_reader :files
+  attr_accessor :merchant_repo, :item_repo
 
   def initialize(files)
     @files = files
@@ -22,23 +23,19 @@ class SalesEngine
   end
 
   def merchants
-    if @merchant_repo != nil
-      @merchant_repo
-    else
+    if @merchant_repo.nil?
       @merchant_repo = MerchantRepository.new(files[:merchants], self)
       @merchant_repo.load_csv_data
-      @merchant_repo
     end
+    @merchant_repo
   end
 
   def items
-    if @item_repo != nil
-      @item_repo
-    else
+    if @item_repo.nil?
       @item_repo = ItemRepository.new(files[:items], self)
       @item_repo.load_csv_data
-      @item_repo
     end
+    @item_repo
   end
 
 end
