@@ -11,7 +11,6 @@ class ItemRepositoryTest < Minitest::Test
       :items     => "./data/small_items.csv",
       :merchants => "./data/small_merchants.csv",})
     @item_repo = @se.items
-    # @item_repo = @se.item_repo
   end
 
   def test_all_returns_array

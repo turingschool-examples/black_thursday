@@ -36,27 +36,27 @@ class SalesEngineTest < Minitest::Test
 
   def test_merchants_populates_merch_repo_with_merch_objs
     @se.merchants
-    assert_equal Merchant, se.merchants.merchants[0].class
+    assert_equal Merchant, se.merchants.all[0].class
   end
 
   def test_merchants_populates_merch_repo_with_all
     @se.merchants
-    assert_equal 10, se.merchants.merchants.length
+    assert_equal 10, se.merchants.all.length
   end
 
   def test_merchants_repo_merch_objects_have_id
     @se.merchants
-    assert_equal 12334299, se.merchants.merchants[1].id
+    assert_equal 12334299, se.merchants.all[1].id
   end
 
   def test_merchants_repo_merch_objs_have_name
     @se.merchants
-    assert_equal "Shopin1901", se.merchants.merchants[0].name
+    assert_equal "Shopin1901", se.merchants.all[0].name
   end
 
   def test_merchants_repo_merch_objs_have_ref_to_se
     @se.merchants
-    assert_equal SalesEngine, se.merchants.merchants[9].sales_engine.class
+    assert_equal SalesEngine, se.merchants.all[9].sales_engine.class
   end
 
   def test_items_makes_item_repo_object
