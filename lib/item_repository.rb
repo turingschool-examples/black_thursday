@@ -1,8 +1,10 @@
 require_relative 'item'
 require_relative 'find'
+require_relative 'csv_io'
 
 class ItemRepository
   include Find
+  include CSV_IO
 
   attr_accessor :items
   attr_reader :file, :sales_engine
@@ -15,17 +17,6 @@ class ItemRepository
 
   def add_new(data, sales_engine)
     items << Item.new(data, sales_engine)
-  end
-
-  def load_csv_data
-    all_data = get_csv_data
-    all_data.map do |row|
-      add_new(row, sales_engine)
-    end
-  end
-
-  def get_csv_data
-    CSV.open(file, headers: true, header_converters: :symbol)
   end
 
   def all

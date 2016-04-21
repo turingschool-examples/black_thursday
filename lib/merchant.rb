@@ -1,4 +1,3 @@
-require_relative 'sales_engine'
 
 class Merchant
   attr_reader :id, :name, :sales_engine

@@ -8,6 +8,7 @@ require_relative '../lib/sales_engine'
 # require_relative 'transaction_repository'
 # require_relative 'customer_repository'
 
+  # TODO Add isoloation test for CSV_IO
 
 class SalesEngineTest < Minitest::Test
 
@@ -91,7 +92,6 @@ class SalesEngineTest < Minitest::Test
 
   def test_item_repo_item_objects_have_price
     @se.items
-    #why does this pass because its really a BD obj
     assert_equal 13.00, se.items.items[0].unit_price
   end
 
@@ -130,5 +130,65 @@ class SalesEngineTest < Minitest::Test
     assert_equal SalesEngine, se.items.items[9].sales_engine.class
   end
 
+  def test_invoices_makes_invoice_repo_object
+    @se.invoices
+    refute se.invoices.nil?
+  end
+
+  def test_invoices_populates_invoice_repo_with_invoice_objs
+    @se.invoices
+    assert_equal Invoice, se.invoices.all[0].class
+  end
+
+  def test_invoices_populates_invoice_repo_with_all
+    @se.invoices
+    assert_equal 10, se.invoices.all.length
+  end
+
+  def test_invoices_repo_invoice_objects_have_id
+    @se.invoices
+    assert_equal 2, se.invoices.all[1].id
+  end
+
+  def test_invoice_repo_invoice_objects_have_customer_id
+    @se.invoices
+    assert_equal 1, se.invoices.all[0].customer_id
+  end
+
+  def test_invoice_repo_item_objects_have_merchant_Id
+    @se.invoices
+    assert_equal 12335938, se.invoices.all[0].merchant_id
+  end
+
+  def test_invoice_repo_invoice_objects_have_status
+    @se.invoices
+    assert_equal "shipped", se.invoices.all[2].status
+  end
+
+  def test_invoice_repo_invoice_objs_have_created_at
+    @se.invoices
+    assert_equal Time.parse("2012-11-23"), se.invoices.all[1].created_at
+  end
+
+  def test_invoice_objs_have_created_by_as_time_obj
+    @se.invoices
+    assert_equal Time, se.invoices.all[1].created_at.class
+  end
+
+  def test_invoice_repo_item_objs_have_updated_at
+    @se.invoices
+    assert_equal Time.parse("2013-04-14"), se.invoices.all[1].updated_at
+  end
+
+  def test_invoice_objects_have_updated_at_as_time_obj
+    @se.invoices
+    assert_equal Time, se.invoices.all[1].updated_at.class
+  end
+
+  def test_invoice_objects_have_ref_to_se
+    @se.invoices
+    assert_equal SalesEngine, se.invoices.all[9].sales_engine.class
+  end
+  
 
 end
