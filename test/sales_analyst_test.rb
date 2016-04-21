@@ -44,5 +44,13 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 475, sa.merchants_with_item_counts.count
   end
 
+  def test_it_makes_average_merchant_unit_price_for_one_item
+    assert_equal 150, sa.average_item_price_for_merchant(12334113).to_f
+  end
+
+  def test_it_can_average_item_prices_of_multiple_items
+    assert_equal "123.5", sa.average_item_price_for_merchant(12334228).to_f
+  end
+
 
 end
