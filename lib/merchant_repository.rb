@@ -40,6 +40,10 @@ class MerchantRepository
     @se.find_items_by_merch_id(merchant_id)
   end
 
+  def find_invoices_by_merchant_id(merchant_id)
+    @se.find_invoices_by_merch_id(merchant_id)
+  end
+
 
 
 

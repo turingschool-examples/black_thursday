@@ -7,7 +7,8 @@ class SalesEngineTest < Minitest::Test
   def setup
     @se = SalesEngine.from_csv({
       :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv"})
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"})
   end
 
   def test_it_created_instance_of_sales_engine_class
@@ -64,6 +65,20 @@ class SalesEngineTest < Minitest::Test
     ir = @se.items.find_all_by_merchant_id(12337411)
     item = ir[0]
     merchant_instance = item.merchant
+
+    assert_equal Merchant, merchant_instance.class
+  end
+
+  def test_it_will_return_invoices_by_merchant_id
+    merchant = @se.merchants.find_by_id(12337411)
+    invoice_instances = merchant.invoices
+    assert_equal Invoice, invoice_instances[0].class
+  end
+
+  def test_it_will_return_merchant_by_invoice_merchant_id
+    ir = @se.items.find_all_by_merchant_id(12337411)
+    invoice = ir[0]
+    merchant_instance = invoice.merchant
 
     assert_equal Merchant, merchant_instance.class
   end
