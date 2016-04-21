@@ -22,20 +22,21 @@ class SalesEngine
   end
 
   def items
-    ItemRepository.new(items_data)
+    @items ||= ItemRepository.new(items_data)
   end
 
   def merchants
-    MerchantRepository.new(merchants_data)
+    @merchants ||= MerchantRepository.new(merchants_data)
   end
 
   def items_by_merchant_id(merchant_id)
+    false || "banana"
     items.find_all_by_merchant_id(merchant_id)
   end
 
   def set_merchant_items
     merchants.all.each do |merchant|
-      merchant.items << items_by_merchant_id(merchant.id)
+      merchant.items = items_by_merchant_id(merchant.id)
     end
   end
 
