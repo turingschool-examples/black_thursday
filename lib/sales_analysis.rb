@@ -23,6 +23,15 @@ class SalesAnalysis
     deviation = Math.sqrt(num).round(2)
   end
 
+  def merchants_with_high_item_count
+    standard = (average_items_per_merchant +
+                average_items_per_merchant_standard_deviation)
+    high_item_merchants = all_merchants.find_all do |merchant|
+      merchant.items.count > standard
+    end
+    high_item_merchants
+  end
+
   private
 
   def items

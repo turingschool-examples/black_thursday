@@ -7,10 +7,13 @@ require 'bigdecimal'
 require './lib/sales_analysis'
 
 class Minitest::Test
+  attr_reader :engine
+              :analysis
   def setup
     @engine = SalesEngine.from_csv({
-  :items     => "./data/small_items.csv",
-  :merchants => "./data/small_merchants.csv",
-  })
+              :items     => "./data/small_items.csv",
+              :merchants => "./data/small_merchants.csv",
+               })
+    @analysis = SalesAnalysis.new(@engine)
   end
 end
