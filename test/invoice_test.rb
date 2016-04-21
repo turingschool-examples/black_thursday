@@ -11,7 +11,7 @@ class InvoiceTest < Minitest::Test
       :invoices  => "./data/small_invoices.csv"})
       @invoice_repo = @se.invoices
       @se.merchants
-    @invoice = Invoice.new({:created_at => "1988-10-18", :updated_at => "2011-04-09"}, se)
+    @invoice = Invoice.new({:created_at => "1988-10-18", :updated_at => "2011-04-09", :status => :shipped}, se)
     @invoice2 = @invoice_repo.invoices[2]
   end
 
