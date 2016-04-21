@@ -23,5 +23,21 @@ class InvoiceRepository
     @invoices
   end
 
+  def find_by_id(id)
+    find_by_num({:id => id})
+  end
+
+  def find_all_by_customer_id(customer_id)
+    find_all_by_num({:customer_id => customer_id})
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    find_all_by_num({:merchant_id => merchant_id})
+  end
+
+  def find_all_by_status(status)
+    find_all_by_string_full({:status => status})
+  end
+
 
 end
