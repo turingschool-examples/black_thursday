@@ -44,12 +44,8 @@ class SalesEngineTest < MiniTest::Test
 
   def test_it_links_merchants_and_items
     merchant = se.merchants.find_by_id(12334105)
+    # require 'pry'; binding.pry
     assert_equal "", merchant.items
-        
   end
-
-  # def test_test
-  #   assert_equal "", se.items_by_merchant_id
-  # end
 
 end
