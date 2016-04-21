@@ -15,7 +15,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_find_the_average
     average = @sa.average_items_per_merchant
-    assert average
+    assert average 
     assert_equal 2.88, average
   end
 

@@ -14,9 +14,35 @@ class SalesEngineTest < Minitest::Test
     assert_equal SalesEngine, @se.class
   end
 
+  def test_it_can_create_a_new_merchant_repo_with_instances_of_merchant
+    mr = @se.merchants
+    assert mr
+    assert_equal MerchantRepository, mr.class
+    assert_equal Merchant, mr.merchant_array[0].class
+  end
+
+  def test_it_can_create_a_new_item_repo_with_instances_of_items
+    ir = @se.items
+    assert ir
+    assert_equal ItemRepository, ir.class
+  end
+
   def test_it_can_interact_with_merchants_class
     mr = @se.merchants
     merchant = mr.find_by_name("CJsDecor")
+    assert_equal Merchant, merchant.class
+  end
+
+  def test_sales_engine_will_find_items_by_merchant_id
+    items = @se.find_items_by_merch_id(12337411)
+    assert items
+    assert_equal Array, items.class
+    assert_equal Item, items[0].class
+  end
+
+  def test_it_will_return_merchant_by_merchant_id
+    merchant = @se.find_merchant_by_merch_id(12337411)
+    assert merchant
     assert_equal Merchant, merchant.class
   end
 

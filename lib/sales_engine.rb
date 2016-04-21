@@ -41,9 +41,4 @@ class SalesEngine
   def find_merchant_by_merch_id(id)
     @merchants.find_by_id(id)
   end
-
-
 end
-
-# s = SalesEngine.from_csv({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
-# s.items
