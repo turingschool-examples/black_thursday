@@ -25,7 +25,7 @@ class Merchant
     merchant_data[3]
   end
 
-  def items(id)
+  def items
     engine = merchant_repo.sales_engine
     engine.items.find_all_by_merchant_id(id)
   end
