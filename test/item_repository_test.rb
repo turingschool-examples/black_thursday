@@ -1,93 +1,101 @@
-require 'simplecov'
-SimpleCov.start
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/item_repository'
+require './test/test_helper'
 
 class ItemRepositoryTest < Minitest::Test
 
-  def setup
-    item_data1 = ['263395237','510+ RealPush Icon Set',
-                  'this is a test description','1200',
-                  '12334141','2016-01-11 09:34:06 UTC',
-                  '2007-06-04 21:35:10 UTC']
-    item_data2 = ['263395617','Glitter scrabble frames',
-                  'this is a different description','1300',
-                  '12334185','2016-01-11 11:51:37 UTC',
-                  '1993-09-29 11:56:40 UTC']
-    item_data3 = ['263395721','Disney scrabble frames',
-                  'This is another description','1300',
-                  '12334185','2016-01-11 11:51:37 UTC',
-                  '2008-04-02 13:48:57 UTC']
-    @item1 = Item.new(item_data1)
-    @item2 = Item.new(item_data2)
-    @item3 = Item.new(item_data3)
-    @item_repository = ItemRepository.new([])
-    @item_repository.items = [@item1, @item2, @item3]
-  end
-
   def test_all
-    assert_equal [@item1, @item2, @item3], @item_repository.all
+    items = @engine.items.all.count
+    assert_equal 7, items
   end
 
   def test_find_by_id
-    assert_equal @item2, @item_repository.find_by_id(263395617)
+    item = @engine.items.find_by_id(263410021)
+    assert_equal "I Love You to the Moon and Back", item.name
   end
 
   def test_find_by_id_invalid
-    assert_equal nil, @item_repository.find_by_id(57394593)
+    item = @engine.items.find_by_id(57394593)
+    assert_equal nil, item
   end
 
   def test_find_by_name
-    assert_equal @item3, @item_repository.find_by_name("Disney scrabble Frames")
+    item = @engine.items.find_by_name("I Love You to the Moon and Back")
+    assert_equal "I Love You to the Moon and Back", item.name
   end
 
   def test_find_by_name_nil
-    assert_equal nil, @item_repository.find_by_name("wallapalooza")
+    item = @engine.items.find_by_name("Lane")
+    assert_equal nil, item
   end
 
   def test_find_all_with_description_multiple
-    assert_equal [@item1, @item2, @item3], @item_repository.find_all_with_description("description")
+    item_array = @engine.items.find_all_with_description("zipper")
+    item = item_array.map {|item| item.name}
+    assert_equal ['Vogue Paris Original Givenchy 2307', "French bulldog cushion cover 45x45cm *cover only, pad NOT included*"], item
   end
 
   def test_find_all_with_description_singular
-    assert_equal [@item3], @item_repository.find_all_with_description('another')
+    item = @engine.items.find_all_with_description("bicycle")
+    item = item.map {|item| item.name}
+    assert_equal ['Custom Hand Made Miniature Bicycle'], item
   end
 
   def test_find_all_with_description_empty
-    assert_equal [], @item_repository.find_all_with_description('aloha')
+    item = @engine.items.find_all_with_description("Phat")
+    assert_equal [], item
   end
 
   def test_all_by_price
-    assert_equal [@item1], @item_repository.find_all_by_price(12)
+    item = @engine.items.find_all_by_price(29.99)
+    item = item.map {|item| item.id}
+    assert_equal [263396209], item
   end
 
   def test_all_by_price_multiple
-    assert_equal [@item2, @item3], @item_repository.find_all_by_price(13)
+    item = @engine.items.find_all_by_price(9.99)
+    item = item.map {|item| item.id}
+    assert_equal [263500440, 263501394], item
+
   end
 
   def test_all_by_price_empty
-    assert_equal [], @item_repository.find_all_by_price(1900)
+    item = @engine.items.find_all_by_price(0.50)
+    assert_equal [], item
+  end
+
+  def test_view_all_prices
+    items = @engine.items.find_all_by_price_in_range(0..1030)
+    item = items.map {|item| item.unit_price_to_dollars}
+    assert_equal [29.99, 9.99, 9.99, 15.0, 150.0, 20.0, 14.0], item
   end
 
   def test_all_by_price_in_range
-    assert_equal [@item1, @item2, @item3], @item_repository.find_all_by_price_in_range(10..15)
+    items = @engine.items.find_all_by_price_in_range(10..19)
+    item = items.map {|item| item.id}
+    assert_equal [263410021, 263500620], item
   end
 
   def test_all_by_price_in_range_false
-    assert_equal [], @item_repository.find_all_by_price(20..40)
+    items = @engine.items.find_all_by_price_in_range(0..8)
+    item = items.map {|item| item.id}
+    assert_equal [], item
   end
 
   def test_find_all_by_merchant_id_single
-    assert_equal [@item1], @item_repository.find_all_by_merchant_id(12334141)
+    items = @engine.items.find_all_by_merchant_id(12334113)
+    item = items.map {|item| item.name}
+    assert_equal ['Custom Hand Made Miniature Bicycle'], item
   end
 
   def test_find_all_by_merchant_id_multiple
-    assert_equal [@item2, @item3], @item_repository.find_all_by_merchant_id(12334185)
+    items = @engine.items.find_all_by_merchant_id(12334105)
+    item = items.map {|item| item.id}
+    assert_equal [263396209, 263500440, 263501394], item
   end
 
   def test_find_all_by_merchant_id_nil
-    assert_equal [], @item_repository.find_all_by_merchant_id(729563930)
+    items = @engine.items.find_all_by_merchant_id(371948390)
+    item = items.map {|item| item.id}
+    assert_equal [], item
   end
 
 end

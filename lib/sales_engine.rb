@@ -6,7 +6,7 @@ class SalesEngine
   attr_reader :merchants, :items
 
   def initialize(merchants_data, items_data)
-    @merchants = MerchantRepository.new(merchants_data)
+    @merchants = MerchantRepository.new(merchants_data, self)
     @items = ItemRepository.new(items_data)
   end
 
@@ -18,7 +18,7 @@ class SalesEngine
   end
 
   def self.load_data(path)
-    CSV.open(path, headers: true, header_converters: :symbol )
+    CSV.open(path, headers: true)
   end
 
 end

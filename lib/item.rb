@@ -15,11 +15,11 @@ class Item
   end
 
   def name
-    @item_data[1].downcase
+    @item_data[1]
   end
 
   def description
-    @item_data[2].downcase
+    @item_data[2]
   end
 
   def unit_price
