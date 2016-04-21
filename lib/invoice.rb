@@ -20,4 +20,8 @@ class Invoice
     Time.parse(@updated_at)
   end
 
+  def merchant
+    sales_engine.merchant_repo.find_by_id(merchant_id)
+  end
+
 end

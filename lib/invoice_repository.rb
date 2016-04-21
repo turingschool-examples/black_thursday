@@ -39,5 +39,4 @@ class InvoiceRepository
     find_all_by_string_full({:status => status})
   end
 
-
 end
