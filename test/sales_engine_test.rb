@@ -17,7 +17,8 @@ class SalesEngineTest < Minitest::Test
   def setup
     @se = SalesEngine.from_csv({
       :items     => "./data/small_items.csv",
-      :merchants => "./data/small_merchants.csv",})
+      :merchants => "./data/small_merchants.csv",
+      :invoices  => "./data/small_invoices.csv"})
   end
 
   def test_sales_engine_from_csv_creates_se_object
@@ -27,7 +28,8 @@ class SalesEngineTest < Minitest::Test
   def test_sales_engine_from_csv_stores_ivar
     assert_equal ({
       :items     => "./data/small_items.csv",
-      :merchants => "./data/small_merchants.csv"}), se.files
+      :merchants => "./data/small_merchants.csv",
+      :invoices  => "./data/small_invoices.csv"}), se.files
   end
 
   def test_merchants_makes_merch_repo_object
@@ -189,6 +191,6 @@ class SalesEngineTest < Minitest::Test
     @se.invoices
     assert_equal SalesEngine, se.invoices.all[9].sales_engine.class
   end
-  
+
 
 end
