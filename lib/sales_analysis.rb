@@ -1,6 +1,6 @@
 require 'csv'
+require 'bigdecimal/util'
 require_relative 'sales_engine'
-require 'pry'
 
 class SalesAnalysis
   attr_reader :engine
@@ -10,7 +10,7 @@ class SalesAnalysis
   end
 
   def average_items_per_merchant
-    (items.all.count.to_f / @engine.merchants.all.count.to_f).round(2)
+    (items.all.count.to_f / all_merchants.count.to_f).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
@@ -29,7 +29,20 @@ class SalesAnalysis
     high_item_merchants = all_merchants.find_all do |merchant|
       merchant.items.count > standard
     end
-    high_item_merchants
+    merchants_names = high_item_merchants.map {|merchant| merchant.name}
+    merchants_names
+  end
+
+  def average_item_price_for_merchant(id)
+    #find the merchant
+    merchant = merchants.find_by_id(id)
+    #find the items of the merchant
+    items = merchant.items
+    #find the prices of those items
+    prices = items.map {|item| item.unit_price}
+    #find the averages of those prices
+    price = prices.reduce(:+)
+    average_price = (price / prices.count).round(2)
   end
 
   private

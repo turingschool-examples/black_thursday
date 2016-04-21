@@ -19,6 +19,15 @@ class SalesAnalysisTest < Minitest::Test
   end
 
   def test_merchants_with_high_item_count
+    assert_equal ["Shopin1901"], @analysis.merchants_with_high_item_count
+  end
+
+  def test_average_item_price_for_merchant
+    assert_equal "16.66", @analysis.average_item_price_for_merchant(12334105).to_digits
+  end
+
+  def test_average_item_price_for_merchant_still_bigdecimal
+    assert_equal BigDecimal, @analysis.average_item_price_for_merchant(12334105).class
   end
 
 end
