@@ -164,7 +164,7 @@ class SalesEngineTest < Minitest::Test
 
   def test_invoice_repo_invoice_objects_have_status
     @se.invoices
-    assert_equal "shipped", se.invoices.all[2].status
+    assert_equal :shipped, se.invoices.all[2].status
   end
 
   def test_invoice_repo_invoice_objs_have_created_at
