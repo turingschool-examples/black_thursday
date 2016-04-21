@@ -130,6 +130,38 @@ class SalesAnalystTest < Minitest::Test
     assert_equal [], sa.bottom_merchants_by_invoice_count
   end
 
+  def test_find_day_of_week
+    assert_equal "Thursday", sa.find_day_of_week(Time.parse("2016-04-21"))
+  end
+
+  def test_we_can_group_invoices_by_day
+    assert_equal 4, sa.group_invoices_by_day["Monday"].length
+    assert_equal 2, sa.group_invoices_by_day["Tuesday"].length
+  end
+
+  def test_we_can_group_invoices_by_day_count
+    assert_equal 4, sa.group_invoices_by_day_count["Monday"]
+    assert_equal 2, sa.group_invoices_by_day_count["Tuesday"]
+  end
+
+  def test_we_can_return_average_invoices_per_day
+    assert_equal 2.33, sa.average_invoices_per_day
+  end
+
+  def test_we_can_return_top_days_by_invoice_count
+    assert_equal ["Monday"], sa.top_days_by_invoice_count
+  end
+
+  def test_we_can_hash_by_invoice_status
+    assert_equal 5, sa.group_invoices_status[:shipped].length
+  end
+
+  def test_we_can_percentage_of_invoices_with_given_status
+    assert_equal 71.43, sa.invoice_status(:shipped)
+    assert_equal 14.29, sa.invoice_status(:returned)
+    assert_equal 14.29, sa.invoice_status(:pending)
+  end
+
 
   # def test_average_items_per_merchant_gives_correct_average
   #   assert_equal 1.90, sa.average_items_per_merchant
