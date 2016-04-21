@@ -39,4 +39,13 @@ class SalesAnalystTest < Minitest::Test
     assert_equal BigDecimal, @analyst.average_price_of_items.class
   end
 
+  def test_average_price_of_items_standard_deviation
+    assert_equal 50.93, @analyst.average_price_of_items_standard_deviation
+  end
+
+  def test_golden_items
+    golden_array = @analyst.golden_items.map {|item| item.name}
+    assert_equal ['Custom Hand Made Miniature Bicycle'], golden_array
+  end
+
 end

@@ -1,7 +1,6 @@
 require 'csv'
 require 'bigdecimal/util'
 require_relative 'sales_engine'
-require 'pry'
 
 class SalesAnalyst
   attr_reader :engine
@@ -28,8 +27,9 @@ class SalesAnalyst
     standard_deviation(merchant_items)
   end
 
-
   def average_price_of_items_standard_deviation
+    item_prices = items.map {|item| item.unit_price}
+    standard_deviation(item_prices)
   end
 
   def merchants_with_high_item_count
@@ -40,27 +40,29 @@ class SalesAnalyst
     end
   end
 
+  def golden_items
+    golden_price = average_price_of_items_standard_deviation*2 +
+                   average_price_of_items
+    golden = items.find_all do |item|
+      item.unit_price >= golden_price
+    end
+    golden
+  end
+
+
   def average_item_price_for_merchant(id)
-    #find the merchant
     merchant = merchant_repo.find_by_id(id)
-    #find the items of the merchant
     items = merchant.items
-    #find the prices of those items
     prices = items.map {|item| item.unit_price}
-    #find the averages of those prices
     price = prices.reduce(:+)
     average_price = (price / prices.count).round(2)
   end
 
   def average_average_price_per_merchant
-    #find the merchant id for every merchant
     merchant_ids = find_merchant_ids
-    #find the average price for every merchant
     average_prices = merchant_ids.map do |merch_id|
       average_item_price_for_merchant(merch_id)
     end.reduce(:+)
-    #add those prices together
-    #divide by total merchants
     (average_prices / merchants.size).round(2)
   end
 
