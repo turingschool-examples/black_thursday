@@ -3,13 +3,16 @@ require_relative 'merchant_repository'
 require_relative 'merchant'
 require_relative 'item'
 require_relative 'csv_parser'
+require_relative 'invoice_repository'
+require_relative 'invoice'
 
 class SalesEngine
-  attr_reader  :merchants_data, :items_data
+  attr_reader  :merchants_data, :items_data, :invoices_data
 
-  def initialize(items_data, merchants_data)
+  def initialize(items_data, merchants_data, invoices_data)
     @items_data = items_data
     @merchants_data = merchants_data
+    @invoices_data = invoices_data
     set_merchant_items
     set_item_merchant
   end
@@ -18,9 +21,11 @@ class SalesEngine
   def self.from_csv(csv_content)
     items_csv = csv_content[:items]
     merchants_csv = csv_content[:merchants]
+    invoices_csv = csv_content[:invoices]
     items_data = CsvParser.new.items(items_csv)
     merchants_data = CsvParser.new.merchants(merchants_csv)
-    SalesEngine.new(items_data, merchants_data)
+    invoices_data = CsvParser.new.invoices(invoices_csv)
+    SalesEngine.new(items_data, merchants_data, invoices_data)
   end
 
   def items
@@ -30,6 +35,10 @@ class SalesEngine
   def merchants
     @merchants ||= MerchantRepository.new(merchants_data)
   end
+
+  def invoices
+    @invoices ||= InvoiceRepository.new(invoices_data)
+  end 
 
   def items_by_merchant_id(merchant_id)
     items.find_all_by_merchant_id(merchant_id)
