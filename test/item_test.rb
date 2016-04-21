@@ -41,4 +41,11 @@ class ItemTest < Minitest::Test
     item = @engine.items.all.last
     assert_equal 12334135, item.merchant_id
   end
+
+  def test_item_can_find_its_merchant
+    item = @engine.items.all.first
+    assert_equal 263396209, item.id
+    merchant = item.merchant
+    assert_equal 'Shopin1901', merchant.name
+  end
 end

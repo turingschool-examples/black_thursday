@@ -22,4 +22,12 @@ class MerchantTest < Minitest::Test
     assert_equal "2011-12-04", merchant.updated_at
   end
 
+  def test_it_can_list_items_for_the_merchant
+    merchant = @engine.merchants.all.first
+    assert_equal "Shopin1901", merchant.name
+    items = merchant.items
+    items = items.map {|item| item.id}
+    assert_equal [263396209, 263500440, 263501394], items
+  end
+
 end

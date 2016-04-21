@@ -2,7 +2,7 @@ require 'csv'
 
 class Merchant
   attr_accessor :merchant_data
-  attr_reader :merchant_repo
+  attr_reader   :merchant_repo
 
   def initialize(merchant_data, merchant_repo)
     @merchant_data = merchant_data
@@ -25,7 +25,7 @@ class Merchant
     merchant_data[3]
   end
 
-  def items(id)
+  def items
     engine = merchant_repo.sales_engine
     engine.items.find_all_by_merchant_id(id)
   end

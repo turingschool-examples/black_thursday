@@ -3,11 +3,13 @@ require_relative 'item'
 
 class ItemRepository
   attr_accessor :items
+  attr_reader   :sales_engine
 
-  def initialize(items_data)
+  def initialize(items_data, sales_engine)
     @items = items_data.map do |item_data|
-      Item.new(item_data)
+      Item.new(item_data, self)
     end
+    @sales_engine = sales_engine
   end
 
   def all
