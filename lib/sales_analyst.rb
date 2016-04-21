@@ -35,7 +35,7 @@ class SalesAnalyst
   def merchants_with_high_item_count
     standard = (average_items_per_merchant +
                 average_items_per_merchant_standard_deviation)
-    high_item_merchants = merchants.find_all do |merchant|
+    merchants.find_all do |merchant|
       merchant.items.count > standard
     end
   end
@@ -52,10 +52,9 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(id)
     merchant = merchant_repo.find_by_id(id)
-    items = merchant.items
-    prices = items.map {|item| item.unit_price}
-    price = prices.reduce(:+)
-    average_price = (price / prices.count).round(2)
+    prices = merchant.items.map {|item| item.unit_price}
+    average_price = (prices.reduce(:+) / prices.count).round(2)
+    average_price
   end
 
   def average_average_price_per_merchant
@@ -97,6 +96,7 @@ class SalesAnalyst
     second_array = array.map {|number| (number - mean) ** 2}
     product = second_array.reduce(:+) / (array.count - 1)
     deviation = Math.sqrt(product).round(2)
+    deviation
   end
 
 end

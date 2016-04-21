@@ -38,4 +38,8 @@ class MerchantRepositoryTest < Minitest::Test
     merchant = @engine.merchants.find_all_by_name("Lane")
     assert_equal [], merchant
   end
+
+  def test_it_has_an_inspect
+    assert @engine.merchants.inspect
+  end
 end
