@@ -4,7 +4,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'csv'
 require 'bigdecimal'
-require './lib/sales_engine'
+require './lib/sales_analysis'
 
 class Minitest::Test
   def setup
