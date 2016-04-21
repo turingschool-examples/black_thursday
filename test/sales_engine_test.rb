@@ -46,7 +46,7 @@ class SalesEngineTest < Minitest::Test
 
   def test_merchants_repo_merch_objects_have_id
     @se.merchants
-    assert_equal 12334112, se.merchant_repo.merchants[1].id
+    assert_equal 12334299, se.merchant_repo.merchants[1].id
   end
 
   def test_merchants_repo_merch_objs_have_name

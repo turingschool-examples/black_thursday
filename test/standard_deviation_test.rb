@@ -5,6 +5,7 @@ class StandardDeviationTest < Minitest::Test
   include StandardDeviation
 
   def test_sum
+    skip
     assert_equal 6, [1,2,3].sum
   end
 
