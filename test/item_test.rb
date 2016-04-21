@@ -1,7 +1,6 @@
 require './test/test_helper'
 
 class ItemTest < Minitest::Test
-
   def test_id
     item = @engine.items.all.first
     assert_equal 263396209, item.id

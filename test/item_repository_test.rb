@@ -29,14 +29,14 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_find_all_with_description_multiple
     item_array = @engine.items.find_all_with_description("zipper")
-    item = item_array.map {|item| item.name}
-    assert_equal ['Vogue Paris Original Givenchy 2307', "French bulldog cushion cover 45x45cm *cover only, pad NOT included*"], item
+    result = item_array.map {|item| item.name}
+    assert_equal ['Vogue Paris Original Givenchy 2307', "French bulldog cushion cover 45x45cm *cover only, pad NOT included*"], result
   end
 
   def test_find_all_with_description_singular
-    item = @engine.items.find_all_with_description("bicycle")
-    item = item.map {|item| item.name}
-    assert_equal ['Custom Hand Made Miniature Bicycle'], item
+    item_array = @engine.items.find_all_with_description("bicycle")
+    result = item_array.map {|item| item.name}
+    assert_equal ['Custom Hand Made Miniature Bicycle'], result
   end
 
   def test_find_all_with_description_empty
@@ -45,15 +45,15 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_all_by_price
-    item = @engine.items.find_all_by_price(29.99)
-    item = item.map {|item| item.id}
-    assert_equal [263396209], item
+    item_array = @engine.items.find_all_by_price(29.99)
+    result = item_array.map {|item| item.id}
+    assert_equal [263396209], result
   end
 
   def test_all_by_price_multiple
-    item = @engine.items.find_all_by_price(9.99)
-    item = item.map {|item| item.id}
-    assert_equal [263500440, 263501394], item
+    item_array = @engine.items.find_all_by_price(9.99)
+    result = item_array.map {|item| item.id}
+    assert_equal [263500440, 263501394], result
 
   end
 
@@ -63,39 +63,43 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_view_all_prices
-    items = @engine.items.find_all_by_price_in_range(0..1030)
-    item = items.map {|item| item.unit_price_to_dollars}
-    assert_equal [29.99, 9.99, 9.99, 15.0, 150.0, 20.0, 14.0], item
+    item_array = @engine.items.find_all_by_price_in_range(0..1030)
+    result = item_array.map {|item| item.unit_price_to_dollars}
+    assert_equal [29.99, 9.99, 9.99, 15.0, 150.0, 20.0, 14.0], result
   end
 
   def test_all_by_price_in_range
-    items = @engine.items.find_all_by_price_in_range(10..19)
-    item = items.map {|item| item.id}
-    assert_equal [263410021, 263500620], item
+    item_array = @engine.items.find_all_by_price_in_range(10..19)
+    result = item_array.map {|item| item.id}
+    assert_equal [263410021, 263500620], result
   end
 
   def test_all_by_price_in_range_false
-    items = @engine.items.find_all_by_price_in_range(0..8)
-    item = items.map {|item| item.id}
-    assert_equal [], item
+    item_array = @engine.items.find_all_by_price_in_range(0..8)
+    result = item_array.map {|item| item.id}
+    assert_equal [], result
   end
 
   def test_find_all_by_merchant_id_single
-    items = @engine.items.find_all_by_merchant_id(12334113)
-    item = items.map {|item| item.name}
-    assert_equal ['Custom Hand Made Miniature Bicycle'], item
+    item_array = @engine.items.find_all_by_merchant_id(12334113)
+    result = item_array.map {|item| item.name}
+    assert_equal ['Custom Hand Made Miniature Bicycle'], result
   end
 
   def test_find_all_by_merchant_id_multiple
-    items = @engine.items.find_all_by_merchant_id(12334105)
-    item = items.map {|item| item.id}
-    assert_equal [263396209, 263500440, 263501394], item
+    item_array = @engine.items.find_all_by_merchant_id(12334105)
+    result = item_array.map {|item| item.id}
+    assert_equal [263396209, 263500440, 263501394], result
   end
 
   def test_find_all_by_merchant_id_nil
-    items = @engine.items.find_all_by_merchant_id(371948390)
-    item = items.map {|item| item.id}
-    assert_equal [], item
+    item_array = @engine.items.find_all_by_merchant_id(371948390)
+    result = item_array.map {|item| item.id}
+    assert_equal [], result
+  end
+
+  def test_it_has_an_inspect
+    assert @engine.items.inspect
   end
 
 end

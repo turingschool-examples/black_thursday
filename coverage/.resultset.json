@@ -1,7 +1,7 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/Caelum/Turing/Projects/black_thursday/lib/sales_analyst.rb": [
+      "/Users/Riizu/Turing/mod1/projects/black_thursday/lib/sales_analyst.rb": [
         1,
         1,
         1,
@@ -10,7 +10,7 @@
         1,
         null,
         1,
-        49,
+        51,
         null,
         null,
         1,
@@ -56,7 +56,6 @@
         null,
         1,
         12,
-        12,
         32,
         12,
         12,
@@ -101,11 +100,12 @@
         28,
         4,
         4,
+        4,
         null,
         null,
         null
       ],
-      "/Users/Caelum/Turing/Projects/black_thursday/lib/sales_engine.rb": [
+      "/Users/Riizu/Turing/mod1/projects/black_thursday/lib/sales_engine.rb": [
         1,
         1,
         1,
@@ -114,24 +114,24 @@
         1,
         null,
         1,
-        49,
-        49,
+        51,
+        51,
         null,
         null,
         1,
-        49,
-        49,
+        51,
+        51,
         null,
-        49,
+        51,
         null,
         null,
         1,
-        98,
+        102,
         null,
         null,
         null
       ],
-      "/Users/Caelum/Turing/Projects/black_thursday/lib/merchant_repository.rb": [
+      "/Users/Riizu/Turing/mod1/projects/black_thursday/lib/merchant_repository.rb": [
         1,
         1,
         null,
@@ -140,10 +140,10 @@
         1,
         null,
         1,
-        49,
-        245,
+        51,
+        255,
         null,
-        49,
+        51,
         null,
         null,
         1,
@@ -170,12 +170,12 @@
         null,
         null,
         1,
-        0,
+        1,
         null,
         null,
         null
       ],
-      "/Users/Caelum/Turing/Projects/black_thursday/lib/merchant.rb": [
+      "/Users/Riizu/Turing/mod1/projects/black_thursday/lib/merchant.rb": [
         1,
         null,
         1,
@@ -183,8 +183,8 @@
         1,
         null,
         1,
-        245,
-        245,
+        255,
+        255,
         null,
         null,
         1,
@@ -210,7 +210,7 @@
         null,
         null
       ],
-      "/Users/Caelum/Turing/Projects/black_thursday/lib/item_repository.rb": [
+      "/Users/Riizu/Turing/mod1/projects/black_thursday/lib/item_repository.rb": [
         1,
         1,
         null,
@@ -219,10 +219,10 @@
         1,
         null,
         1,
-        49,
-        343,
+        51,
+        357,
         null,
-        49,
+        51,
         null,
         null,
         1,
@@ -270,11 +270,11 @@
         null,
         null,
         1,
-        0,
+        1,
         null,
         null
       ],
-      "/Users/Caelum/Turing/Projects/black_thursday/lib/item.rb": [
+      "/Users/Riizu/Turing/mod1/projects/black_thursday/lib/item.rb": [
         1,
         1,
         1,
@@ -285,8 +285,8 @@
         1,
         null,
         1,
-        343,
-        343,
+        357,
+        357,
         null,
         null,
         1,
@@ -328,11 +328,10 @@
         null,
         null
       ],
-      "/Users/Caelum/Turing/Projects/black_thursday/test/item_test.rb": [
+      "/Users/Riizu/Turing/mod1/projects/black_thursday/test/item_test.rb": [
         1,
         null,
         1,
-        null,
         1,
         1,
         1,
@@ -381,7 +380,7 @@
         null,
         null
       ],
-      "/Users/Caelum/Turing/Projects/black_thursday/test/merchant_repository_test.rb": [
+      "/Users/Riizu/Turing/mod1/projects/black_thursday/test/merchant_repository_test.rb": [
         1,
         null,
         1,
@@ -422,9 +421,13 @@
         1,
         1,
         null,
+        null,
+        1,
+        1,
+        null,
         null
       ],
-      "/Users/Caelum/Turing/Projects/black_thursday/test/merchant_test.rb": [
+      "/Users/Riizu/Turing/mod1/projects/black_thursday/test/merchant_test.rb": [
         1,
         null,
         1,
@@ -459,7 +462,7 @@
         null,
         null
       ],
-      "/Users/Caelum/Turing/Projects/black_thursday/test/sales_analyst_test.rb": [
+      "/Users/Riizu/Turing/mod1/projects/black_thursday/test/sales_analyst_test.rb": [
         1,
         null,
         1,
@@ -512,7 +515,7 @@
         null,
         null
       ],
-      "/Users/Caelum/Turing/Projects/black_thursday/test/sales_engine_test.rb": [
+      "/Users/Riizu/Turing/mod1/projects/black_thursday/test/sales_engine_test.rb": [
         1,
         null,
         1,
@@ -525,6 +528,6 @@
         null
       ]
     },
-    "timestamp": 1461261269
+    "timestamp": 1461269837
   }
 }
