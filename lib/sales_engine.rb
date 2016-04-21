@@ -1,6 +1,7 @@
 require_relative 'item_repository'
 require_relative 'merchant_repository'
 require_relative 'merchant'
+require_relative 'item'
 require_relative 'csv_parser'
 
 class SalesEngine
@@ -36,6 +37,17 @@ class SalesEngine
   def set_merchant_items
     merchants.all.each do |merchant|
       merchant.items = items_by_merchant_id(merchant.id)
+    end
+  end
+
+  def merchant_by_item_id(item)
+    merchant.find_by_id(item.merchant_id)
+  end
+
+  def set_item_merchant
+    items.all.each do |item|
+       item.merchant = merchant_by_item_id(item)
+    require 'pry' ; binding.pry
     end
   end
 
