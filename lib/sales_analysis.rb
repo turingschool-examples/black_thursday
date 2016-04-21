@@ -10,7 +10,7 @@ class SalesAnalysis
   end
 
   def average_items_per_merchant
-    (items.all.count.to_f / all_merchants.count.to_f).round(2)
+    (item_repo.all.count.to_f / merchants.count.to_f).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
@@ -19,14 +19,14 @@ class SalesAnalysis
     end
     num = merchant_items.map do |item_count|
       (item_count - average_items_per_merchant) ** 2
-    end.reduce(:+) / (all_merchants.size - 1)
+    end.reduce(:+) / (merchants.size - 1)
     deviation = Math.sqrt(num).round(2)
   end
 
   def merchants_with_high_item_count
     standard = (average_items_per_merchant +
                 average_items_per_merchant_standard_deviation)
-    high_item_merchants = all_merchants.find_all do |merchant|
+    high_item_merchants = merchants.find_all do |merchant|
       merchant.items.count > standard
     end
     merchants_names = high_item_merchants.map {|merchant| merchant.name}
@@ -35,7 +35,7 @@ class SalesAnalysis
 
   def average_item_price_for_merchant(id)
     #find the merchant
-    merchant = merchants.find_by_id(id)
+    merchant = merchant_repo.find_by_id(id)
     #find the items of the merchant
     items = merchant.items
     #find the prices of those items
@@ -45,26 +45,38 @@ class SalesAnalysis
     average_price = (price / prices.count).round(2)
   end
 
+  def average_average_price_per_merchant
+    #find the merchant id for every merchant
+    merchant_ids = find_merchant_ids
+    #find the average price for every merchant
+    average_prices = merchant_ids.map do |merch_id|
+      average_item_price_for_merchant(merch_id)
+    end.reduce(:+)
+    #add those prices together
+    #divide by total merchants
+    (average_prices / merchants.size).round(2)
+  end
+
   private
 
-  def items
+  def item_repo
     engine.items
   end
 
-  def merchants
+  def merchant_repo
     engine.merchants
   end
 
-  def all_merchants
-    merchants.all
+  def merchants
+    merchant_repo.all
   end
 
   def items_by_merchant_id(id)
-    items.find_all_by_merchant_id(id)
+    item_repo.find_all_by_merchant_id(id)
   end
 
   def find_merchant_ids
-    all_merchants.map {|merch| merch.id}
+    merchants.map {|merch| merch.id}
   end
 
 end
