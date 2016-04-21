@@ -47,4 +47,8 @@ class SalesEngineTest < MiniTest::Test
     assert_equal 3, merchant.items.count
   end
 
+  def test_it_links_merchants_to_items
+    assert_equal "", se.set_item_merchant
+  end
+
 end

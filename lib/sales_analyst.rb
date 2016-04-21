@@ -46,5 +46,37 @@ class SalesAnalyst
     end / merchant_items.length
   end
 
+  def average_average_price_per_merchant
+    merchants.all.reduce(0) do |sum, merchant|
+      sum + average_item_price_for_merchant(merchant.id)
+    end / merchants.all.length
+  end
+
+  def all_items_unit_prices
+    items.all.map do |item|
+      item.unit_price
+    end
+  end
+
+  def average_items_price
+    all_items_unit_prices.reduce(:+)/all_items_unit_prices.length
+  end
+
+  def items_price_standard_deviation
+    all = all_items_unit_prices
+    av = average_items_price
+    sqdiff = all.map do |num|
+      (num - av) ** 2
+    end
+    Math.sqrt(sqdiff.reduce(:+) / (all.length - 1)).round(2)
+  end
+
+  def golden_items
+    isd = items_price_standard_deviation
+    items.all.find_all do |item|
+      item.unit_price > isd*2
+    end
+  end
+
 
 end
