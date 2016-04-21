@@ -30,7 +30,6 @@ class SalesEngine
   end
 
   def items_by_merchant_id(merchant_id)
-    false || "banana"
     items.find_all_by_merchant_id(merchant_id)
   end
 

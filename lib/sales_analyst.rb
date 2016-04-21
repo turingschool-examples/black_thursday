@@ -26,11 +26,25 @@ class SalesAnalyst
     Math.sqrt(sqdiff.reduce(:+) / (ipm.length - 1)).round(2)
   end
 
-  # def merchants_with_high_item_count
-  #   merchants.all.map do |merchant|
-  #      (merchant.items.length) > (average_items_per_merchant_standard_deviation + 1)
-  #   end
-  # end
+  def merchants_with_high_item_count
+    ave_std_dev = average_items_per_merchant_standard_deviation + average_items_per_merchant
+    merchants_with_item_counts.map do |merchant|
+      merchant[1] > ave_std_dev ? merchant[0] : []
+    end.flatten
+  end
+
+  def merchants_with_item_counts
+    merchants.all.map do |merchant|
+      [merchant, se.items_by_merchant_id(merchant.id).count]
+    end
+  end
+
+  def average_item_price_for_merchant(merchant_id)
+    merchant_items = merchants.find_by_id(merchant_id).items
+    merchant_items.reduce(0) do |sum, item|
+      sum + item.unit_price
+    end / merchant_items.length
+  end
 
 
 end
