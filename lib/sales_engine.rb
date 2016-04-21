@@ -11,6 +11,8 @@ class SalesEngine
     @item_contents = item_contents
     @items = ItemRepository.new(self)
     @merchants = MerchantRepository.new(self)
+    merchants
+    items
   end
 
   def self.from_csv(files_to_parse = {})
@@ -33,6 +35,7 @@ class SalesEngine
 
   def find_items_by_merch_id(merchant_id)
     @items.find_all_by_merchant_id(merchant_id)
+
   end
 
   def find_merchant_by_merch_id(id)
@@ -42,5 +45,5 @@ class SalesEngine
 
 end
 
-s = SalesEngine.from_csv({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
-s.items
+# s = SalesEngine.from_csv({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+# s.items

@@ -6,9 +6,9 @@ class ItemTest < Minitest::Test
   def setup
     @i = Item.new({:id => 12345, :name => "Pencil",
       :description => "You can use it to write things",
-      :unit_price => BigDecimal.new(10.99,4),
+      :unit_price => BigDecimal.new(1099,4),
       :merchant_id => 98765,
-      :created_at => Time.now, :updated_at => Time.now})
+      :created_at => Time.new.to_s, :updated_at => Time.new.to_s})
   end
 
   def test_it_created_instance_of_item_class

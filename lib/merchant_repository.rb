@@ -2,7 +2,7 @@ require_relative 'merchant'
 require 'pry'
 
 class MerchantRepository
-  attr_reader :merchant_array
+  attr_accessor :merchant_array
 
   def initialize(parent = nil)
     @se = parent

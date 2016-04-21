@@ -7,8 +7,8 @@ class MerchantRepositoryTest < Minitest::Test
   def setup
     merchant1 = Merchant.new({:id => 12334105, :name => "Shopin1901"})
     merchant2 = Merchant.new({:id => 12334112, :name => "Candisart"})
-
-    @merchant_repo = MerchantRepository.new([merchant1, merchant2])
+    @merchant_repo = MerchantRepository.new
+    @merchant_repo.merchant_array = ([merchant1, merchant2])
   end
 
   def test_it_created_instance_of_merchant_repo_class
@@ -17,7 +17,6 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_returns_merchant_by_finding_id
     assert_equal "Shopin1901", @merchant_repo.find_by_id(12334105).name
-    binding.pry
     assert_equal "Candisart", @merchant_repo.find_by_id(12334112).name
   end
 
@@ -30,7 +29,8 @@ class MerchantRepositoryTest < Minitest::Test
     merchant1 = Merchant.new({:id => 12334105, :name => "Shopin1901"})
     merchant2 = Merchant.new({:id => 12334112, :name => "Candisart"})
     merchant3 = Merchant.new({:id => 12345678, :name => "ShopsRUs"})
-    merchant_repo = MerchantRepository.new([merchant1, merchant2, merchant3])
+    merchant_repo = MerchantRepository.new
+    merchant_repo.merchant_array = ([merchant1, merchant2, merchant3])
     output = merchant_repo.find_all_by_name("shop")
 
     assert_equal 2, output.length

@@ -1,7 +1,8 @@
 require_relative 'item'
+require 'pry'
 
 class ItemRepository
-  attr_reader :item_repository
+  attr_accessor :item_repository
 
   def initialize(parent = nil)
     @se = parent
