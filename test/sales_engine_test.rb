@@ -192,5 +192,4 @@ class SalesEngineTest < Minitest::Test
     assert_equal SalesEngine, se.invoices.all[9].sales_engine.class
   end
 
-
 end
