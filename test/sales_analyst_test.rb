@@ -59,5 +59,17 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 3.29, std_dev
   end
 
+  def test_it_can_find_top_merchants_by_invoice_count
+    top_merchants = @sa.top_merchants_by_invoice_count
+    assert_equal Array, top_merchants.class
+    assert_equal Merchant, top_merchants[0].class
+  end
+
+  def test_it_can_find_bottom_merchants_by_invoice_count
+    bottom_merchants = @sa.bottom_merchants_by_invoice_count
+    assert_equal Array, bottom_merchants.class
+    assert_equal Merchant, bottom_merchants[0].class
+  end
+
 
 end

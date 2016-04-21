@@ -10,6 +10,7 @@ class SalesAnalyst
     @merchant_array = @mr.merchant_array
     @ir = sales_engine.items.item_repository
     @invoices_per_merchant = []
+    @invr = sales_engine.invoices.invoice_repository
   end
 
   def find_items_per_merchant_array
@@ -101,5 +102,62 @@ class SalesAnalyst
     std_dev = calculate_std_deviation(find_invoice_per_merchant_array, average_invoices_per_merchant)
   end
 
+  def top_merchants_by_invoice_count
+    avg = average_invoices_per_merchant
+    std_dev = average_invoices_per_merchant_standard_deviation
+    high_num = avg + 2* std_dev
+    @merchant_array.find_all do |merchant|
+      merchant.invoices.count > high_num
+    end
+  end
 
+  def bottom_merchants_by_invoice_count
+    avg = average_invoices_per_merchant
+    std_dev = average_invoices_per_merchant_standard_deviation
+    low_num = avg - 2* std_dev
+    @merchant_array.find_all do |merchant|
+      merchant.invoices.count < low_num
+    end
+  end
+
+  def create_weekday_array
+    wkday = Array.new(7) {|i| i = 0}
+    @invr.each do |invoice|
+      index = invoice.day_of_the_week.to_i
+      wkday[index] += 1
+    end
+    wkday
+  end
+
+  def top_days_by_invoice_count
+    array = create_weekday_array
+    avg = calculate_the_average(array)
+    std_dev = calculate_std_deviation(array, avg)
+    high_num = avg + std_dev
+    highest_days = array.find_all do |count|
+      count > high_num
+    end
+    result = highest_days.map {|num| array.index(num)}
+    format_days_of_the_week(result)
+  end
+  def format_days_of_the_week(highest_days)
+    days = highest_days.map do |day|
+      if day == 0
+        "Sunday"
+      elsif day == 1
+        "Monday"
+      elsif day == 2
+        "Tuesday"
+      elsif day == 3
+        "Wednesday"
+      elsif day == 4
+        "Thursday"
+      elsif day == 5
+        "Friday"
+      elsif day == 6
+        "Saturday"
+      end
+    end
+    days
+  end
 end

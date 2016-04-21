@@ -17,4 +17,8 @@ class Invoice
     merchant_id = self.merchant_id
     @invoice_repo.find_merchant_by_invoice_merch_id(merchant_id)
   end
+
+  def day_of_the_week
+    created_at.strftime("%w")
+  end
 end
