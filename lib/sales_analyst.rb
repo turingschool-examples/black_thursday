@@ -9,6 +9,64 @@ class SalesAnalyst
     (sales_engine.items.items.length.to_f/sales_engine.merchants.merchants.length).round(2)
   end
 
+  def merchant_with_high_item_count
+    high_count = average_items_per_merchant + standard_deviation(item_count_by_merchant)
+    sales_engine.merchants.merchants.find_all do |merchant|
+      merchant.items.length >= high_count
+    end
+  end
+
+  def average_item_price_for_merchant(merchant_id)
+    merchant = sales_engine.merchants.find_by_id(merchant_id)
+    total_price = merchant.items.reduce(0) do |sum, item|
+      sum + item.unit_price
+    end
+    total_price/BigDecimal.new(merchant.items.length)
+  end
+
+  def average_average_price_per_merchant
+    total = sales_engine.merchants.merchants.reduce(0) do |sum, merchant|
+      sum + average_item_price_for_merchant(merchant.id)
+    end
+    total/BigDecimal.new(sales_engine.merchants.merchants.length)
+  end
+
+  def golden_items
+    high_price = item_price_average + (2 * item_price_standard_deviation)
+    sales_engine.items.all.find_all do |item|
+      item.unit_price_to_dollars >= high_price
+    end
+  end
+
+
+  def item_price_array
+    sales_engine.items.items.map do |item|
+      item.unit_price_to_dollars
+    end.sort
+  end
+
+  def item_price_average
+    average(item_price_array).round(2)
+  end
+
+  def item_price_standard_deviation
+    standard_deviation(item_price_array)
+  end
+
+
+  def item_count_by_merchant
+    sales_engine.merchants.merchants.map do |merchant|
+      merchant.items.length
+    end.sort
+  end
+
+  def item_count_standard_deviation
+    standard_deviation(item_count_by_merchant)
+  end
+
+
+
+
   def sum(array)
     array.reduce(0) { |sum, item| sum + item }
   end
