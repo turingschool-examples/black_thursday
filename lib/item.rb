@@ -12,13 +12,9 @@ class Item
     @merchant_id = item_information[:merchant_id].to_i
     @created_at = Time.parse(item_information[:created_at])
     @updated_at = Time.parse(item_information[:updated_at])
-    @merchant
   end
 
   def unit_price_to_dollars(price)
     BigDecimal.new(price) / 100
   end
-
-
-
 end

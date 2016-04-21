@@ -6,7 +6,7 @@ class ItemRepository
 
   def initialize(items_data)
     @items = create_items(items_data)
-   end
+  end
 
    def create_items(items_data)
      items_data.map do |item|

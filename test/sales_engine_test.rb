@@ -30,15 +30,11 @@ class SalesEngineTest < MiniTest::Test
 
   def test_it_finds_in_merchant_repository
     mr = se.merchants
-    merchant = mr.find_by_name("CJsDecor")
-
     assert_equal "CJsDecor", mr.find_by_name("CJsDecor").name
   end
 
   def test_it_finds_in_item_repository
     ir = se.items
-    item = ir.find_by_name("Item Repellat Dolorum")
-
     assert_equal "510+ RealPush Icon Set", ir.find_by_name("510+ RealPush Icon Set").name
   end
 
@@ -48,7 +44,7 @@ class SalesEngineTest < MiniTest::Test
   end
 
   def test_it_links_merchants_to_items
-    assert_equal "", se.set_item_merchant
+    refute se.items.all.first.merchant.nil?
   end
 
 end
