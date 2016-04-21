@@ -1,8 +1,9 @@
 require 'csv'
 require 'bigdecimal/util'
 require_relative 'sales_engine'
+require 'pry'
 
-class SalesAnalysis
+class SalesAnalyst
   attr_reader :engine
 
   def initialize(sales_engine)
@@ -10,17 +11,25 @@ class SalesAnalysis
   end
 
   def average_items_per_merchant
-    (item_repo.all.count.to_f / merchants.count.to_f).round(2)
+    (items.count.to_f / merchants.count.to_f).round(2)
+  end
+
+  def average_price_of_items
+    prices = items.map {|item| item.unit_price}
+    total_price = prices.reduce(:+)
+    average_price = total_price / items.count
+    average_price.round(2)
   end
 
   def average_items_per_merchant_standard_deviation
     merchant_items = find_merchant_ids.map do |id|
       items_by_merchant_id(id).size.to_f
     end
-    num = merchant_items.map do |item_count|
-      (item_count - average_items_per_merchant) ** 2
-    end.reduce(:+) / (merchants.size - 1)
-    deviation = Math.sqrt(num).round(2)
+    standard_deviation(merchant_items)
+  end
+
+
+  def average_price_of_items_standard_deviation
   end
 
   def merchants_with_high_item_count
@@ -29,8 +38,6 @@ class SalesAnalysis
     high_item_merchants = merchants.find_all do |merchant|
       merchant.items.count > standard
     end
-    merchants_names = high_item_merchants.map {|merchant| merchant.name}
-    merchants_names
   end
 
   def average_item_price_for_merchant(id)
@@ -67,6 +74,10 @@ class SalesAnalysis
     engine.merchants
   end
 
+  def items
+    item_repo.all
+  end
+
   def merchants
     merchant_repo.all
   end
@@ -77,6 +88,13 @@ class SalesAnalysis
 
   def find_merchant_ids
     merchants.map {|merch| merch.id}
+  end
+
+  def standard_deviation(array)
+    mean = array.reduce(:+) / array.count
+    second_array = array.map {|number| (number - mean) ** 2}
+    product = second_array.reduce(:+) / (array.count - 1)
+    deviation = Math.sqrt(product).round(2)
   end
 
 end

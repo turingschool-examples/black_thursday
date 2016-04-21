@@ -4,7 +4,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'csv'
 require 'bigdecimal'
-require './lib/sales_analysis'
+require './lib/sales_analyst'
 
 class Minitest::Test
   attr_reader :engine
@@ -14,6 +14,6 @@ class Minitest::Test
               :items     => "./data/small_items.csv",
               :merchants => "./data/small_merchants.csv",
                })
-    @analysis = SalesAnalysis.new(@engine)
+    @analyst = SalesAnalyst.new(@engine)
   end
 end
