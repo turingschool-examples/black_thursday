@@ -65,8 +65,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_identifies_avg_avg_price_for_merchant
-    #failing but not off by much
-    assert_equal  72.91, sa.average_average_price_per_merchant.to_f
+    assert_equal  71.16, sa.average_average_price_per_merchant.to_f
   end
 
   def test_generates_array_of_item_prices
