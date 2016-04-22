@@ -28,6 +28,10 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 7, ir.find_by_id(7).id
   end
 
+  def test_it_can_find_all_invoices_by_merchant_id
+    assert_equal "", ir.find_all_by_merchant_id(9)
+  end
+
   def test_it_can_find_all_invoices_by_customer_id
     assert_equal 2, ir.find_all_by_customer_id(8).count
   end
