@@ -160,4 +160,10 @@ class SalesAnalyst
     end
     days
   end
+
+  def invoice_status(status)
+    result = @invr.find_all {|invoice| invoice.status == status}
+    percent = (result.count).to_f/(@invr.count) * 100
+    sprintf("%.02f", percent).to_f
+  end
 end
