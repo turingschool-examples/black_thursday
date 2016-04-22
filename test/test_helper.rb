@@ -50,4 +50,32 @@ class TestHelper
     ]
   end
 
+  def invoices
+    [
+    ({
+      :id          => 6,
+      :customer_id => 7,
+      :merchant_id => 8,
+      :status      => "pending",
+      :created_at  => Time.now,
+      :updated_at  => Time.now
+    }),
+    ({
+      :id          => 7,
+      :customer_id => 8,
+      :merchant_id => 9,
+      :status      => "shipped",
+      :created_at  => Time.now,
+      :updated_at  => Time.now
+    }),
+    ({  :id          => 9,
+      :customer_id => 8,
+      :merchant_id => 11,
+      :status      => "returned",
+      :created_at  => Time.now,
+      :updated_at  => Time.now
+    }) ]
+
+  end
+
 end

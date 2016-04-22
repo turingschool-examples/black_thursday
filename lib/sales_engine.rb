@@ -15,6 +15,8 @@ class SalesEngine
     @invoices_data = invoices_data
     set_merchant_items
     set_item_merchant
+    set_merchant_for_invoice
+    set_invoice_for_merchant
   end
 
 
@@ -38,7 +40,7 @@ class SalesEngine
 
   def invoices
     @invoices ||= InvoiceRepository.new(invoices_data)
-  end 
+  end
 
   def items_by_merchant_id(merchant_id)
     items.find_all_by_merchant_id(merchant_id)
@@ -57,6 +59,26 @@ class SalesEngine
   def set_item_merchant
     items.all.each do |item|
        item.merchant = merchant_by_item_id(item)
+    end
+  end
+
+  def invoice_by_merchant_id(merchant_id)
+    merchants.find_by_id(merchant_id)
+  end
+
+  def set_merchant_for_invoice
+    invoices.all.each do |invoice|
+      invoice.merchant = invoice_by_merchant_id(invoice.merchant_id)
+    end
+  end
+
+  def merchant_of_invoice(merchant_id)
+     invoices.find_all_by_merchant_id(merchant_id)
+  end
+
+  def set_invoice_for_merchant
+    merchants.all.each do |merchant|
+      merchant.invoices = merchant_of_invoice(merchant.id)
     end
   end
 

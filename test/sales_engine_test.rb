@@ -52,4 +52,16 @@ class SalesEngineTest < MiniTest::Test
     assert se.invoices
   end
 
+  def test_it_can_create_relationships_between_merchant_and_invoice
+    invoice = se.invoices.find_by_id("4")
+    assert_equal "TeeTeeTieDye", invoice.merchant.name
+  end
+
+  def test_it_can_create_relationships_between_invoice_and_merchant
+    merchant = se.merchants.find_by_id(12334105)
+    assert_equal 10, merchant.invoices.count
+  end
+
+
+
 end
