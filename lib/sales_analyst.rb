@@ -125,9 +125,8 @@ class SalesAnalyst
     date.strftime("%A")
   end
 
-# TODO Change back to sales_engine.invoices
   def group_invoices_by_day
-    sales_engine.invoice_repo.invoices.group_by do |invoice|
+    sales_engine.invoices.all.group_by do |invoice|
       find_day_of_week(invoice.created_at)
     end
   end
@@ -144,25 +143,21 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-    top_days = []
     threshold = average_invoices_per_day + standard_deviation(group_invoices_by_day_count.values)
-    group_invoices_by_day_count.each do | key, value |
-      if value > threshold
-        top_days << key
-      end
-    end
-    top_days
+    group_invoices_by_day_count.delete_if do | key, value |
+      value <= threshold
+    end.keys
   end
 
   def group_invoices_status
-    sales_engine.invoice_repo.invoices.group_by do |invoice|
-      invoice.status.to_sym
+    sales_engine.invoices.all.group_by do |invoice|
+      invoice.status
     end
   end
 
   def invoice_status(status)
     (group_invoices_status[status].length.to_f /
-    sales_engine.invoice_repo.invoices.length * 100).round(2)
+    sales_engine.invoices.all.length * 100).round(2)
   end
 
 end
