@@ -14,21 +14,13 @@ class SalesEngine
     @items = ItemRepository.new(self)
     @merchants = MerchantRepository.new(self)
     @invoices = InvoiceRepository.new(self)
-    merchants
-    items
-    invoices
+    load_repositories
   end
 
   def self.from_csv(files_to_parse = {})
     item_file = files_to_parse.fetch(:items)
-    # item_contents= CSV.open item_file, headers: true, header_converters: :symbol
-
     merchant_file = files_to_parse.fetch(:merchants)
-    # merchant_contents=CSV.open merch_file, headers: true, header_converters: :symbol
-
     invoice_file = files_to_parse.fetch(:invoices)
-    # invoice_contents = CSV.open invoice_file, headers: true, header_converters: :symbol
-
     SalesEngine.new(merchant_file, item_file, invoice_file)
   end
 
@@ -38,6 +30,12 @@ class SalesEngine
 
   def open_csv(file)
     CSV.open file, headers: true, header_converters: :symbol
+  end
+
+  def load_repositories
+    merchants
+    items
+    invoices
   end
 
   def items
