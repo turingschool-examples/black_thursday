@@ -162,6 +162,16 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 14.29, sa.invoice_status(:pending)
   end
 
+  def test_it_finds_threshold_for_postitive_std_devs
+    assert_equal 8.55, sa.threshold([10, 8, 3, 4, 5, 6, 7], 1)
+    assert_equal 10.96, sa.threshold([10, 8, 3, 4, 5, 6, 7], 2)
+  end
+
+  def test_it_finds_threshold_for_negative_std_devs
+    assert_equal 3.73, sa.threshold([10, 8, 3, 4, 5, 6, 7], -1)
+    assert_equal 1.32, sa.threshold([10, 8, 3, 4, 5, 6, 7], -2)
+  end
+
 
   # def test_average_items_per_merchant_gives_correct_average
   #   assert_equal 1.90, sa.average_items_per_merchant

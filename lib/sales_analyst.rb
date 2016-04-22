@@ -1,6 +1,9 @@
 require 'bigdecimal'
+require_relative 'standard_deviation'
 
 class SalesAnalyst
+  include StandardDeviation
+
   attr_reader :sales_engine
 
   def initialize(sales_engine)
@@ -18,8 +21,7 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    threshold = average_items_per_merchant +
-                average_items_per_merchant_standard_deviation
+    threshold = threshold(item_count_by_merchant, 1)
     sales_engine.merchants.all.find_all do |merchant|
       merchant.items.length >= threshold
     end
@@ -42,10 +44,46 @@ class SalesAnalyst
   end
 
   def golden_items
-    threshold = item_price_average + (2 * item_price_standard_deviation)
+    threshold = threshold(item_price_array, 2)
     sales_engine.items.all.find_all do |item|
       item.unit_price_to_dollars >= threshold
     end
+  end
+
+  def average_invoices_per_merchant
+    num_invoices = sales_engine.invoices.all.length.to_f
+    num_merchants = sales_engine.merchants.all.length
+    (num_invoices/num_merchants).round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    standard_deviation(invoice_count_by_merchant)
+  end
+
+  def top_merchants_by_invoice_count
+    threshold = threshold(invoice_count_by_merchant, 2)
+    sales_engine.merchants.all.find_all do |merchant|
+      merchant.invoices.length >= threshold
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    threshold = threshold(invoice_count_by_merchant, -2)
+    sales_engine.merchants.all.find_all do |merchant|
+      merchant.invoices.length <= threshold
+    end
+  end
+
+  def top_days_by_invoice_count
+    threshold = threshold(group_invoices_by_day_count.values, 1)
+    group_invoices_by_day_count.delete_if do | key, value |
+      value <= threshold
+    end.keys
+  end
+
+  def invoice_status(status)
+    (group_invoices_status[status].length.to_f /
+    sales_engine.invoices.all.length * 100).round(2)
   end
 
   def item_price_array
@@ -72,62 +110,18 @@ class SalesAnalyst
     standard_deviation(item_count_by_merchant)
   end
 
-  def sum(array)
-    array.reduce(0) { |sum, item| sum + item }
-  end
-
-  def average(array)
-    sum(array)/array.length.to_f
-  end
-
-  def standard_deviation(array)
-    average = average(array)
-    sum_squares = array.reduce(0) do |sum, item|
-      sum + (item - average)**2
-    end
-    result = sum_squares/(array.length - 1).to_f
-    Math.sqrt(result).round(2)
-  end
-
-  def average_invoices_per_merchant
-    num_invoices = sales_engine.invoices.all.length.to_f
-    num_merchants = sales_engine.merchants.all.length
-    (num_invoices/num_merchants).round(2)
-  end
-
   def invoice_count_by_merchant
     sales_engine.merchants.all.map do |merchant|
       merchant.invoices.length
     end.sort
   end
 
-  def average_invoices_per_merchant_standard_deviation
-    standard_deviation(invoice_count_by_merchant)
-  end
-
-  def top_merchants_by_invoice_count
-    threshold = average_invoices_per_merchant +
-            2 * average_invoices_per_merchant_standard_deviation
-    sales_engine.merchants.all.find_all do |merchant|
-      merchant.invoices.length >= threshold
-    end
-  end
-
-  def bottom_merchants_by_invoice_count
-    threshold = average_invoices_per_merchant -
-            2 * average_invoices_per_merchant_standard_deviation
-    sales_engine.merchants.all.find_all do |merchant|
-      merchant.invoices.length <= threshold
-    end
-  end
-
   def find_day_of_week(date)
     date.strftime("%A")
   end
 
-# TODO Change back to sales_engine.invoices
   def group_invoices_by_day
-    sales_engine.invoice_repo.invoices.group_by do |invoice|
+    sales_engine.invoices.all.group_by do |invoice|
       find_day_of_week(invoice.created_at)
     end
   end
@@ -143,26 +137,10 @@ class SalesAnalyst
     average(group_invoices_by_day_count.values).round(2)
   end
 
-  def top_days_by_invoice_count
-    top_days = []
-    threshold = average_invoices_per_day + standard_deviation(group_invoices_by_day_count.values)
-    group_invoices_by_day_count.each do | key, value |
-      if value > threshold
-        top_days << key
-      end
-    end
-    top_days
-  end
-
   def group_invoices_status
-    sales_engine.invoice_repo.invoices.group_by do |invoice|
-      invoice.status.to_sym
+    sales_engine.invoices.all.group_by do |invoice|
+      invoice.status
     end
-  end
-
-  def invoice_status(status)
-    (group_invoices_status[status].length.to_f /
-    sales_engine.invoice_repo.invoices.length * 100).round(2)
   end
 
 end
