@@ -18,8 +18,7 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    threshold = average_items_per_merchant +
-                average_items_per_merchant_standard_deviation
+    threshold = threshold(item_count_by_merchant, 1)
     sales_engine.merchants.all.find_all do |merchant|
       merchant.items.length >= threshold
     end
@@ -42,8 +41,7 @@ class SalesAnalyst
   end
 
   def golden_items
-    threshold = item_price_average +
-                (2 * item_price_standard_deviation)
+    threshold = threshold(item_price_array, 2)
     sales_engine.items.all.find_all do |item|
       item.unit_price_to_dollars >= threshold
     end
@@ -60,24 +58,21 @@ class SalesAnalyst
   end
 
   def top_merchants_by_invoice_count
-    threshold = average_invoices_per_merchant +
-            2 * average_invoices_per_merchant_standard_deviation
+    threshold = threshold(invoice_count_by_merchant, 2)
     sales_engine.merchants.all.find_all do |merchant|
       merchant.invoices.length >= threshold
     end
   end
 
   def bottom_merchants_by_invoice_count
-    threshold = average_invoices_per_merchant -
-            2 * average_invoices_per_merchant_standard_deviation
+    threshold = threshold(invoice_count_by_merchant, -2)
     sales_engine.merchants.all.find_all do |merchant|
       merchant.invoices.length <= threshold
     end
   end
 
   def top_days_by_invoice_count
-    threshold = average_invoices_per_day +
-          standard_deviation(group_invoices_by_day_count.values)
+    threshold = threshold(group_invoices_by_day_count.values, 1)
     group_invoices_by_day_count.delete_if do | key, value |
       value <= threshold
     end.keys
@@ -161,7 +156,7 @@ class SalesAnalyst
   end
 
   def threshold(array, num_std_devs)
-    average(array) + num_std_devs * standard_deviation(array)
+    (average(array) + num_std_devs * standard_deviation(array)).round(2)
   end
 
 end
