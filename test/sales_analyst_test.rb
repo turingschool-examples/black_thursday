@@ -71,5 +71,9 @@ class SalesAnalystTest < Minitest::Test
     assert_equal Merchant, bottom_merchants[0].class
   end
 
-
+  def test_it_can_find_percentage_of_invoices_by_status
+    assert_equal 29.55, @sa.invoice_status(:pending)
+    assert_equal 56.95, @sa.invoice_status(:shipped)
+    assert_equal 13.5, @sa.invoice_status(:returned)
+  end
 end
