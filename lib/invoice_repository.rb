@@ -36,7 +36,9 @@ class InvoiceRepository
   end
 
   def find_all_by_status(status)
-    invoice_repository.find_all {|invoice| invoice.status.downcase == status.downcase }
+    invoice_repository.find_all do |invoice|
+      invoice.status.downcase == status.downcase
+    end
   end
 
   def find_merchant_by_invoice_merch_id(merchant_id)
@@ -45,9 +47,3 @@ class InvoiceRepository
 
 
 end
-
-# The data can be found in data/invoices.csv so the instance is created and used like this:
-#
-# se = SalesEngine.from_csv({:invoices => "./data/invoices.csv"})
-# invoice = se.invoices.find_by_id(6)
-# # => <invoice>

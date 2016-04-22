@@ -44,7 +44,9 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    item_count = average_items_per_merchant + average_items_per_merchant_standard_deviation
+    avg = average_items_per_merchant
+    stdev = average_items_per_merchant_standard_deviation
+    item_count = avg + stdev
     merchants_highest_count_items(item_count)
   end
 
@@ -99,7 +101,8 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant_standard_deviation
-    std_dev = calculate_std_deviation(find_invoice_per_merchant_array, average_invoices_per_merchant)
+    avg = average_invoices_per_merchant
+    std_dev = calculate_std_deviation(find_invoice_per_merchant_array, avg)
   end
 
   def top_merchants_by_invoice_count
@@ -140,6 +143,7 @@ class SalesAnalyst
     result = highest_days.map {|num| array.index(num)}
     format_days_of_the_week(result)
   end
+
   def format_days_of_the_week(highest_days)
     days = highest_days.map do |day|
       if day == 0

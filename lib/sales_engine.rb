@@ -7,10 +7,10 @@ require 'pry'
 class SalesEngine
   attr_reader :merchant_contents, :item_contents, :invoice_contents
 
-  def initialize(merchant_contents, item_contents, invoice_contents)
-    @merchant_contents = merchant_contents
-    @item_contents = item_contents
-    @invoice_contents = invoice_contents
+  def initialize(merchant_file, item_file, invoice_file)
+    @merchant_contents = open_csv(merchant_file)
+    @item_contents = open_csv(item_file)
+    @invoice_contents = open_csv(invoice_file)
     @items = ItemRepository.new(self)
     @merchants = MerchantRepository.new(self)
     @invoices = InvoiceRepository.new(self)
@@ -21,19 +21,23 @@ class SalesEngine
 
   def self.from_csv(files_to_parse = {})
     item_file = files_to_parse.fetch(:items)
-    item_contents = CSV.open item_file, headers: true, header_converters: :symbol
+    # item_contents= CSV.open item_file, headers: true, header_converters: :symbol
 
     merchant_file = files_to_parse.fetch(:merchants)
-    merchant_contents = CSV.open merchant_file, headers: true, header_converters: :symbol
+    # merchant_contents=CSV.open merch_file, headers: true, header_converters: :symbol
 
     invoice_file = files_to_parse.fetch(:invoices)
-    invoice_contents = CSV.open invoice_file, headers: true, header_converters: :symbol
+    # invoice_contents = CSV.open invoice_file, headers: true, header_converters: :symbol
 
-    SalesEngine.new(merchant_contents, item_contents, invoice_contents)
+    SalesEngine.new(merchant_file, item_file, invoice_file)
   end
 
   def merchants
     @merchants.merchant_repo(merchant_contents)
+  end
+
+  def open_csv(file)
+    CSV.open file, headers: true, header_converters: :symbol
   end
 
   def items
