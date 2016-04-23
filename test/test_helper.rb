@@ -57,24 +57,28 @@ class TestHelper
       :customer_id => 7,
       :merchant_id => 8,
       :status      => "pending",
-      :created_at  => 2009-02-07,
-      :updated_at  => 2014-03-15
+      :created_at  => "2009-02-07",
+      :updated_at  => "2014-03-15"
     }),
     ({
       :id          => 7,
       :customer_id => 8,
       :merchant_id => 9,
       :status      => "shipped",
-      :created_at  => 2012-11-23,
-      :updated_at  => 2013-04-14
+      :created_at  => "2012-11-23",
+      :updated_at  => "2013-04-14"
     }),
     ({  :id          => 9,
       :customer_id => 8,
       :merchant_id => 11,
       :status      => "returned",
-      :created_at  => 2000-03-04,
-      :updated_at  => 2016-11-18
+      :created_at  => "2000-03-04",
+      :updated_at  => "2016-11-18"
     }) ]
+
+  end
+
+  def transactions
 
   end
 
