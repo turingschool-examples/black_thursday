@@ -33,7 +33,6 @@ class InvoiceRepository
   def find_all_by_merchant_id(merchant_id)
     invoices.find_all do |invoice|
       invoice.merchant_id == merchant_id.to_i
-      # require 'pry' ; binding.pry
     end
   end
 
@@ -46,6 +45,5 @@ class InvoiceRepository
   def inspect
     "#<#{self.class} #{@invoices.size} rows>"
   end
-
 
 end
