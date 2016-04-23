@@ -18,6 +18,8 @@ class TransactionRepository
   end
 
   def find_by_id(transaction_id)
+    transactions.find do |transaction|
+      transaction.id == transaction_id
   end
 
   def find_all_by_invoice_id(invoice_id)

@@ -17,5 +17,7 @@ class TransactionRepositoryTest < MiniTest::Test
     assert_equal 3, tr.all.count
   end
 
+  def test_it_can_find_by_transaction_id
+
 
 end
