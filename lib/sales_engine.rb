@@ -55,18 +55,14 @@ class SalesEngine
   def invoice_items
     @invoice_items ||= InvoiceItemRepository.new(invoice_item_data)
   end
-<<<<<<< HEAD
-=======
 
   def transactions
     @transactions ||= TransactionRepository.new(transactions_data)
   end
 
   def customers
-    @customers ||=
-    CustomerRepository.new(customers_data)
+    @customers ||= CustomerRepository.new(customers_data)
   end
->>>>>>> cd757ab63076d0f24e3b470dccb9b735a21f7d7b
 
   def items_by_merchant_id(merchant_id)
     items.find_all_by_merchant_id(merchant_id)
