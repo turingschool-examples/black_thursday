@@ -26,12 +26,33 @@ class TransactionRepositoryTest < MiniTest::Test
     assert_equal [10, 10], invoice_ids_from_transactions(tr.find_all_by_invoice_id(10))
   end
 
+  def test_it_can_find_all_instances_of_a_transaction_using_a_credit_card
+    assert_equal "6666666666666666", credit_card_numbers_from_transactions(tr.find_all_by_credit_card_number("6666666666666666"))
+  end
+
+  def test_it_can_find_all_by_result
+    assert_equal 2, tr.find_all_by_result("success").count
+    assert_equal "success, success", result_from_transactions(tr.find_all_by_result("success"))
+  end
+
   private
 
     def invoice_ids_from_transactions(transactions)
       transactions.map do |transaction|
         transaction.invoice_id
       end
+    end
+
+    def credit_card_numbers_from_transactions(transactions)
+      transactions.map do |transaction|
+        transaction.credit_card_number
+      end.join(", ")
+    end
+
+    def result_from_transactions(transactions)
+      transactions.map do |transaction|
+        transaction.result
+      end.join (", ")
     end
 
 end
