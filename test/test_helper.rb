@@ -104,7 +104,7 @@ class TestHelper
 
         ({
           :id => 13,
-          :invoice_id => 16,
+          :invoice_id => 10,
           :credit_card_number => "6666666666666666",
           :credit_card_expiration_date => "0622",
           :result => "failed",

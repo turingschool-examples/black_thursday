@@ -18,6 +18,20 @@ class TransactionRepositoryTest < MiniTest::Test
   end
 
   def test_it_can_find_by_transaction_id
+    assert_equal 7, tr.find_by_id(7).id
+  end
 
+  def test_it_can_find_all_by_invoice_id
+    assert_equal 2, tr.find_all_by_invoice_id(10).count
+    assert_equal [10, 10], invoice_ids_from_transactions(tr.find_all_by_invoice_id(10))
+  end
+
+  private
+
+    def invoice_ids_from_transactions(transactions)
+      transactions.map do |transaction|
+        transaction.invoice_id
+      end
+    end
 
 end
