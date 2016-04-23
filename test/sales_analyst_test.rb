@@ -5,14 +5,22 @@ require_relative '../lib/sales_analyst'
 require_relative '../lib/sales_engine'
 
 class SalesAnalystTest < MiniTest::Test
-  attr_reader :sa
+  attr_reader :sa, :sa2
 
   def setup
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
     })
     @sa = SalesAnalyst.new(se)
+
+    se2 = SalesEngine.from_csv({
+      :items     => "./data/items_test.csv",
+      :merchants => "./data/merchants_test.csv",
+      :invoices => "./data/invoices_test.csv"
+    })
+    @sa2 = SalesAnalyst.new(se2)
   end
 
   def test_it_itializes_sales_analyst
@@ -72,5 +80,48 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 5, sa.golden_items.count
   end
 
+  def test_it_finds_average_invoices_per_merchant_small_data_set
+    assert_equal 1.67, sa2.average_invoices_per_merchant
+  end
+
+  def test_it_finds_average_invoices_per_merchant_standard_deviation_small_data_set
+    assert_equal 0.58, sa2.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_it_finds_top_merchants_by_invoice_count_small_data_set
+    assert_equal 2, sa2.top_merchants_by_invoice_count.count
+  end
+
+  def test_it_finds_bottom_merchants_by_invoice_count_small_data_set
+    assert_equal 0, sa2.bottom_merchants_by_invoice_count.count
+  end
+
+  def test_it_finds_invoices_by_day_small_data_set
+    assert sa2.days_with_invoices
+  end
+
+  def test_it_counts_invoices_per_day_small_data_set
+    assert_equal [{"Saturday"=>1}, {"Friday"=>1}, {"Wednesday"=>1}, {"Monday"=>2}], sa2.days_with_count
+  end
+
+  def test_it_finds_invoices_by_week_day_small_data_set
+    assert_equal [1, 1, 1, 2],  sa2.invoices_by_day
+  end
+
+  def test_it_finds_average_invoices_per_week_day_small_data_set
+    assert_equal 1,  sa2.invoices_by_day_average
+  end
+
+  def test_it_finds_average_invoices_per_week_day
+    assert_equal 712,  sa.invoices_by_day_average
+  end
+
+  def test_it_finds_invoices_by_day_standard_deviation
+    assert_equal 18.06,  sa.invoices_by_day_standard_deviation
+  end
+
+  def test_it_finds_top_days
+    assert_equal ["Wednesday"], sa.top_days
+  end
 
 end

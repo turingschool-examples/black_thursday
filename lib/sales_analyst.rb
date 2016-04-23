@@ -1,10 +1,11 @@
 class SalesAnalyst
-  attr_reader :merchants, :items, :se
+  attr_reader :merchants, :items, :se, :invoices
 
   def initialize(se)
     @se = se
     @merchants = se.merchants
     @items = se.items
+    @invoices = se.invoices
   end
 
   def items_per_merchant
@@ -79,6 +80,85 @@ class SalesAnalyst
       item.unit_price > isd * 2
     end
   end
+
+  def invoices_per_merchant
+    merchants.all.map do |merchant|
+      merchant.invoices.count
+    end
+  end
+
+  def average_invoices_per_merchant
+    (invoices_per_merchant.reduce(:+)/invoices_per_merchant.length.to_f).round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    ipm = invoices_per_merchant
+    av = average_invoices_per_merchant
+    sqdiff = ipm.map do |num|
+      (num - av) ** 2
+    end
+    Math.sqrt(sqdiff.reduce(:+) / (ipm.length - 1)).round(2)
+  end
+
+  def top_merchants_by_invoice_count
+    aipm = average_invoices_per_merchant_standard_deviation
+    items.all.find_all do |item|
+      item.unit_price > aipm * 2
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    aipm = average_invoices_per_merchant_standard_deviation
+    items.all.find_all do |item|
+      item.unit_price < aipm * 2
+    end
+  end
+
+  def days_with_invoices
+    invoices.all.group_by do |invoice|
+    invoice.created_at.strftime("%A")
+    end
+  end
+
+  def days_with_count
+    days_with_invoices.map do |key, value|
+    { key => value.length }
+    end
+  end
+
+  def invoices_by_day
+    days_with_count.map do |hash|
+      hash.values
+    end.flatten
+  end
+
+  def invoices_by_day_average
+    invoices_by_day.reduce(:+) / invoices_by_day.length
+  end
+
+  def invoices_by_day_standard_deviation
+    ibd = invoices_by_day
+    av = invoices_by_day_average
+    sqdiff = ibd.map do |num|
+      (num - av) ** 2
+    end
+    Math.sqrt(sqdiff.reduce(:+) / (ibd.length - 1)).round(2)
+  end
+
+  def top_days
+    top_days = []
+    days_with_count.each do |hash|
+      hash.each do |key, value|
+        if value > (invoices_by_day_average + invoices_by_day_standard_deviation)
+        top_days << key
+        end
+      end
+    end
+    top_days
+  end
+  #
+  # def invoice_status
+  # end
 
 
 end
