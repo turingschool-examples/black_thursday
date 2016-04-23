@@ -1,6 +1,5 @@
 require_relative 'test_helper'
 require 'minitest/autorun'
-require 'minitest/emoji'
 require_relative '../lib/invoice_repository'
 
 class InvoiceRepositoryTest < Minitest::Test
@@ -32,12 +31,12 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 1, ir.find_all_by_merchant_id(9).count
   end
 
-  def test_it_can_find_all_invoices_by_customer_id
-    assert_equal 2, ir.find_all_by_customer_id(8).count
+  def test_it_can_find_invoices_by_customer_id
+    assert_equal 1, ir.find_all_by_merchant_id(11).count
   end
 
   def test_it_can_find_all_invoices_by_customer_id
-    assert_equal 1, ir.find_all_by_merchant_id(11).count
+    assert_equal 2, ir.find_all_by_customer_id(8).count
   end
 
   def test_it_can_find_all_invoices_by_status
