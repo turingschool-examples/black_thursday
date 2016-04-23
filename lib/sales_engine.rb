@@ -48,7 +48,8 @@ class SalesEngine
   end
 
   def invoice_items
-    @invoice_items || = InvoiceItemRepository.new(invoice_item_data)
+    @invoice_items ||= InvoiceItemRepository.new(invoice_item_data)
+  end
 
   def items_by_merchant_id(merchant_id)
     items.find_all_by_merchant_id(merchant_id)
