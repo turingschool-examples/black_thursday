@@ -1,4 +1,17 @@
+require_relative 'invoice_item'
+
 class InvoiceItemRepository
+  attr_reader :invoice_items
+
+  def initialize(invoice_items_data)
+    @invoice_items = create_invoice_items(invoice_items_data)
+  end
+
+  def create_invoice_items(invoice_items_data)
+    invoice_items_data.map do |invoice_item|
+      InvoiceItem.new(invoice_item)
+    end
+  end
 
   def all
   end
@@ -14,5 +27,6 @@ class InvoiceItemRepository
 
   def inspect
   "#<#{self.class} #{@invoice_items.size} rows>"
-end
+  end
+
 end

@@ -24,4 +24,25 @@ class CsvParser
     end
   end
 
+  def invoice_items(invoice_items)
+    contents = CSV.open invoice_items, headers: true, header_converters: :symbol
+    contents.map do |row|
+      row.to_h
+    end
+  end
+
+  def transactions(transactions)
+    contents = CSV.open transactions, headers: true, header_converters: :symbol
+    contents.map do |row|
+      row.to_h
+    end
+  end
+
+  def customers(customers)
+    contents = CSV.open customers, headers: true, header_converters: :symbol
+    contents.map do |row|
+      row.to_h
+    end
+  end
+
 end
