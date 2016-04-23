@@ -29,7 +29,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_invoices_by_merchant_id
-    assert_equal "", ir.find_all_by_merchant_id(9)
+    assert_equal 1, ir.find_all_by_merchant_id(9).count
   end
 
   def test_it_can_find_all_invoices_by_customer_id
@@ -41,7 +41,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_invoices_by_status
-    assert_equal "pending", ir.find_all_by_status(:pending)[0].status
+    assert_equal :pending, ir.find_all_by_status("pending")[0].status
   end
 
 
