@@ -3,8 +3,7 @@ require 'time'
 
 class InvoiceItem
 
-  attr_reader :id, :item_id, :invoice_id, :quantity, :unit_price,
-              :created_at, :updated_at, :sales_engine
+  attr_reader :id, :item_id, :invoice_id, :quantity, :unit_price, :sales_engine
 
   def initialize(data, sales_engine)
     @id = data[:id].to_i
@@ -28,18 +27,5 @@ class InvoiceItem
   def unit_price_to_dollars
     @unit_price.to_f
   end
-
-  def items
-
-  end
-
-  def is_paid_in_full?
-
-  end
-
-  def total
-
-  end
-
 
 end
