@@ -94,23 +94,23 @@ class SalesAnalyst
   def average_invoices_per_merchant_standard_deviation
     ipm = invoices_per_merchant
     av = average_invoices_per_merchant
-    sqdiff = ipm.map do |num|
-      (num - av) ** 2
-    end
+    sqdiff = ipm.map {|num| (num - av) ** 2}
     Math.sqrt(sqdiff.reduce(:+) / (ipm.length - 1)).round(2)
   end
 
   def top_merchants_by_invoice_count
-    aipm = average_invoices_per_merchant_standard_deviation
-    items.all.find_all do |item|
-      item.unit_price > aipm * 2
+    av = average_invoices_per_merchant
+    sd = average_invoices_per_merchant_standard_deviation
+    merchants.all.find_all do |merchant|
+      merchant.invoices.count > sd * 4
     end
   end
 
   def bottom_merchants_by_invoice_count
-    aipm = average_invoices_per_merchant_standard_deviation
-    items.all.find_all do |item|
-      item.unit_price < aipm * 2
+    av = average_invoices_per_merchant
+    sd = average_invoices_per_merchant_standard_deviation
+    merchants.all.find_all do |merchant|
+      merchant.invoices.count < sd * 2
     end
   end
 
@@ -136,29 +136,29 @@ class SalesAnalyst
     invoices_by_day.reduce(:+) / invoices_by_day.length
   end
 
-  def invoices_by_day_standard_deviation
-    ibd = invoices_by_day
-    av = invoices_by_day_average
-    sqdiff = ibd.map do |num|
-      (num - av) ** 2
-    end
-    Math.sqrt(sqdiff.reduce(:+) / (ibd.length - 1)).round(2)
+  def standard_deviation(elements, average)
+    sqdiff = elements.map {|num| (num - average) ** 2}
+    Math.sqrt(sqdiff.reduce(:+) / (elements.length - 1)).round(2)
   end
 
-  def top_days
+  def top_days_by_invoice_count
     top_days = []
     days_with_count.each do |hash|
       hash.each do |key, value|
-        if value > (invoices_by_day_average + invoices_by_day_standard_deviation)
+        if value > (invoices_by_day_average + standard_deviation(invoices_by_day, invoices_by_day_average))
         top_days << key
         end
       end
     end
     top_days
   end
-  #
-  # def invoice_status
-  # end
 
+  def invoice_status(status)
+    total = invoices.all.count {|invoice| invoice}
+    is = invoices.all.count do |invoice|
+      invoice.status == status
+    end
+  ((is / total.to_f) * 100).round(2)
+  end
 
 end

@@ -84,10 +84,6 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 1.67, sa2.average_invoices_per_merchant
   end
 
-  def test_it_finds_average_invoices_per_merchant_standard_deviation_small_data_set
-    assert_equal 0.58, sa2.average_invoices_per_merchant_standard_deviation
-  end
-
   def test_it_finds_top_merchants_by_invoice_count_small_data_set
     assert_equal 2, sa2.top_merchants_by_invoice_count.count
   end
@@ -116,12 +112,16 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 712,  sa.invoices_by_day_average
   end
 
-  def test_it_finds_invoices_by_day_standard_deviation
-    assert_equal 18.06,  sa.invoices_by_day_standard_deviation
+  def test_it_finds_top_days
+    assert_equal ["Wednesday"], sa.top_days_by_invoice_count
   end
 
-  def test_it_finds_top_days
-    assert_equal ["Wednesday"], sa.top_days
+  def test_it_returns_invoice_status_small_data_set
+    assert_equal 60, sa2.invoice_status(:pending)
+  end
+
+  def test_it_returns_invoice_status_actual_data_set
+    assert_equal 56.95, sa.invoice_status(:shipped)
   end
 
 end
