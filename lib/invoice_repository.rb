@@ -39,10 +39,13 @@ class InvoiceRepository
 
   def find_all_by_status(status)
     invoices.find_all do |invoice|
-      invoice.status == status.to_s
+      invoice.status == status.to_sym
     end
   end
 
+  def inspect
+    "#<#{self.class} #{@invoices.size} rows>"
+  end
 
 
 end
