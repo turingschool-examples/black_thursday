@@ -6,7 +6,17 @@ require_relative '../lib/sales_engine'
 
 class InvoiceItemTest < Minitest::Test
 
-  def test_setup
-    assert InvoiceItem.new.class
+  attr_reader :se, :invoice_item
+
+  def setup
+    @se = SalesEngine.from_csv({
+      :invoice_items     => "./data/small_invoice_items.csv",
+      :items => "./data/items.csv",})
+    @se.invoice_items
+    @se.items
+    @invoice_item = @se.invoice_items.all[6]
   end
+
+
+
 end

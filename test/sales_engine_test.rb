@@ -18,6 +18,9 @@ class SalesEngineTest < Minitest::Test
     @se = SalesEngine.from_csv({
       :items     => "./data/small_items.csv",
       :merchants => "./data/small_merchants.csv",
+      :invoice_items => "./data/small_invoice_items.csv",
+      :customers => "./data/small_customers_items.csv",
+      :transactions => "./data/small_transactions.csv",
       :invoices  => "./data/small_invoices.csv"})
   end
 
@@ -29,6 +32,9 @@ class SalesEngineTest < Minitest::Test
     assert_equal ({
       :items     => "./data/small_items.csv",
       :merchants => "./data/small_merchants.csv",
+      :invoice_items => "./data/small_invoice_items.csv",
+      :customers => "./data/small_customers_items.csv",
+      :transactions => "./data/small_transactions.csv",
       :invoices  => "./data/small_invoices.csv"}), se.files
   end
 
@@ -190,6 +196,65 @@ class SalesEngineTest < Minitest::Test
   def test_invoice_objects_have_ref_to_se
     @se.invoices
     assert_equal SalesEngine, se.invoices.all[9].sales_engine.class
+  end
+
+  #=======
+
+  def test_invoices_items_makes_invoice_item_repo_object
+    @se.invoice_items
+    refute se.invoice_items.nil?
+  end
+
+  def test_invoice_items_populates_repo
+    @se.invoice_items
+    assert_equal InvoiceItem, se.invoice_items.all[0].class
+  end
+
+  def test_invoice_items_populates_repo_with_all
+    @se.invoice_items
+    assert_equal 10, se.invoice_items.all.length
+  end
+
+  def test_invoice_items_repo_objects_have_id
+    @se.invoice_items
+    assert_equal 2, se.invoice_items.all[1].id
+  end
+
+  def test_invoice_repo_invoice_objects_have_item_id
+    @se.invoice_items
+    assert_equal 263519844, se.invoice_items.all[0].item_id
+  end
+
+  def test_invoice_item_repo_item_objects_have_unit_price
+    @se.invoice_items
+    assert_equal BigDecimal, se.invoice_items.all[0].unit_price.class
+  end
+
+  def test_invoice_item_repo_invoice_objs_have_created_at
+    @se.invoice_items
+    expected = Time.parse("2012-03-27 14:54:09 UTC")
+    assert_equal expected, se.invoice_items.all[1].created_at
+  end
+
+  def test_invoice_item_objs_have_created_by_as_time_obj
+    @se.invoice_items
+    assert_equal Time, se.invoice_items.all[1].created_at.class
+  end
+
+  def test_invoice_item_objs_have_updated_at
+    @se.invoice_items
+    expected = Time.parse("2012-03-27 14:54:09 UTC")
+    assert_equal expected, se.invoice_items.all[1].updated_at
+  end
+
+  def test_invoice_objects_have_updated_at_as_time_obj
+    @se.invoice_items
+    assert_equal Time, se.invoice_items.all[1].updated_at.class
+  end
+
+  def test_invoice_item_objects_have_ref_to_se
+    @se.invoice_items
+    assert_equal SalesEngine, se.invoice_items.all[9].sales_engine.class
   end
 
 end
