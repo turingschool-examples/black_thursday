@@ -85,9 +85,19 @@ class InvoiceTest < Minitest::Test
     assert_equal false, invoice2.is_paid_in_full?
   end
 
+  def total_returns_0_for_multi_item_paid_invoice
+    skip
+    assert_equal 0.00, invoice2.total
+  end
+
   def total_returns_correct_total_for_multi_item_invoice
     skip
-    assert_equal 1835.56, invoice2.total
+    assert_equal 21588.77, invoice.total
+  end
+
+  def total_returns_total_as_bd
+    skip
+    assert_equal BigDecimal, invoice.total.class
   end
 
 end
