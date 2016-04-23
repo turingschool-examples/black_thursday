@@ -3,7 +3,7 @@ require 'bigdecimal'
 require 'pry'
 
 class Item
-  attr_reader :id,:name,:description,:unit_price, :merchant_id
+  attr_reader :id, :name, :description, :unit_price, :merchant_id
   attr_reader :created_at, :updated_at
 
   def initialize(column, parent = nil)
