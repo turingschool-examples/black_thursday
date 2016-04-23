@@ -12,8 +12,6 @@ class InvoiceRepositoryTest < Minitest::Test
     :updated_at  => Time.new.to_s,
     })
 
-
-
     invoice2 = Invoice.new({
     :id          => 9,
     :customer_id => 38,
