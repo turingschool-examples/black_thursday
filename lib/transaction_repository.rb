@@ -1,6 +1,16 @@
-class TransactionRepository
+require_relative 'transaction'
 
-  def initialize
+class TransactionRepository
+  attr_reader :transactions
+
+  def initialize(transactions_data)
+    @transactions = create_transactions(transactions_data)
+  end
+
+  def create_transactions(transactions_data)
+    transactions_data.map do |trans|
+      Transaction.new(trans)
+    end
   end
 
   def all
