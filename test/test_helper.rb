@@ -85,7 +85,7 @@ class TestHelper
       ({
         :id => 6,
         :invoice_id => 8,
-        :credit_card_number => "4242424242424242",
+        :credit_card_number => 4242424242424242,
         :credit_card_expiration_date => "0220",
         :result => "success",
         :created_at => "2012-02-26 23:56:56 UTC",
@@ -95,7 +95,7 @@ class TestHelper
         ({
           :id => 7,
           :invoice_id => 10,
-          :credit_card_number => "1111111111111111",
+          :credit_card_number => 1111111111111111,
           :credit_card_expiration_date => "0321",
           :result => "success",
           :created_at => "2012-02-26 20:56:56 UTC",
@@ -105,7 +105,7 @@ class TestHelper
         ({
           :id => 13,
           :invoice_id => 10,
-          :credit_card_number => "6666666666666666",
+          :credit_card_number => 6666666666666666,
           :credit_card_expiration_date => "0622",
           :result => "failed",
           :created_at => "2012-02-26 20:56:57 UTC",

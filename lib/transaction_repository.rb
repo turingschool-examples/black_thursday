@@ -32,6 +32,7 @@ class TransactionRepository
   def find_all_by_credit_card_number(credit_card_number)
     transactions.find_all do |transaction|
       transaction.credit_card_number == credit_card_number
+      # require 'pry' ; binding.pry
     end
   end
 
@@ -39,6 +40,10 @@ class TransactionRepository
     transactions.find_all do |transaction|
       transaction.result == result
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@transactions.size} rows>"
   end
 
 end

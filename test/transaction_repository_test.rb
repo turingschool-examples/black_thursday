@@ -27,7 +27,7 @@ class TransactionRepositoryTest < MiniTest::Test
   end
 
   def test_it_can_find_all_instances_of_a_transaction_using_a_credit_card
-    assert_equal "6666666666666666", credit_card_numbers_from_transactions(tr.find_all_by_credit_card_number("6666666666666666"))
+    assert_equal [6666666666666666], credit_card_numbers_from_transactions(tr.find_all_by_credit_card_number(6666666666666666))
   end
 
   def test_it_can_find_all_by_result
@@ -46,7 +46,7 @@ class TransactionRepositoryTest < MiniTest::Test
     def credit_card_numbers_from_transactions(transactions)
       transactions.map do |transaction|
         transaction.credit_card_number
-      end.join(", ")
+      end
     end
 
     def result_from_transactions(transactions)
