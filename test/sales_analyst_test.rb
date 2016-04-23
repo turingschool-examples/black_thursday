@@ -84,12 +84,12 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 1.67, sa2.average_invoices_per_merchant
   end
 
-  def test_it_finds_top_merchants_by_invoice_count_small_data_set
-    assert_equal 2, sa2.top_merchants_by_invoice_count.count
+  def test_it_finds_top_merchants_by_invoice_count_actual_data_set
+    assert_equal 12, sa.top_merchants_by_invoice_count.count
   end
 
-  def test_it_finds_bottom_merchants_by_invoice_count_small_data_set
-    assert_equal 0, sa2.bottom_merchants_by_invoice_count.count
+  def test_it_finds_bottom_merchants_by_invoice_count_actual_data_set
+    assert_equal 4, sa.bottom_merchants_by_invoice_count.count
   end
 
   def test_it_finds_invoices_by_day_small_data_set

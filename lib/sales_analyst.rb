@@ -102,7 +102,7 @@ class SalesAnalyst
     av = average_invoices_per_merchant
     sd = average_invoices_per_merchant_standard_deviation
     merchants.all.find_all do |merchant|
-      merchant.invoices.count > sd * 4
+      merchant.invoices.count > (av + (sd * 2))
     end
   end
 
@@ -110,7 +110,7 @@ class SalesAnalyst
     av = average_invoices_per_merchant
     sd = average_invoices_per_merchant_standard_deviation
     merchants.all.find_all do |merchant|
-      merchant.invoices.count < sd * 2
+      merchant.invoices.count < (av - (sd * 2))
     end
   end
 
