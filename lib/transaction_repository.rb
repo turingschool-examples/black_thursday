@@ -14,6 +14,7 @@ class TransactionRepository
   end
 
   def all
+    transactions
   end
 
   def find_by_id(transaction_id)

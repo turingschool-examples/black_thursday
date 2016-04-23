@@ -51,7 +51,7 @@ class TestHelper
   end
 
   def invoices
-    [
+  [
     ({
       :id          => 6,
       :customer_id => 7,
@@ -60,6 +60,7 @@ class TestHelper
       :created_at  => "2009-02-07",
       :updated_at  => "2014-03-15"
     }),
+
     ({
       :id          => 7,
       :customer_id => 8,
@@ -68,18 +69,49 @@ class TestHelper
       :created_at  => "2012-11-23",
       :updated_at  => "2013-04-14"
     }),
+
     ({  :id          => 9,
       :customer_id => 8,
       :merchant_id => 11,
       :status      => "returned",
       :created_at  => "2000-03-04",
       :updated_at  => "2016-11-18"
-    }) ]
-
+    })
+  ]
   end
 
   def transactions
+    [
+      ({
+        :id => 6,
+        :invoice_id => 8,
+        :credit_card_number => "4242424242424242",
+        :credit_card_expiration_date => "0220",
+        :result => "success",
+        :created_at => "2012-02-26 23:56:56 UTC",
+        :updated_at => "2012-02-27 00:56:56 UTC"
+        }),
 
+        ({
+          :id => 7,
+          :invoice_id => 10,
+          :credit_card_number => "1111111111111111",
+          :credit_card_expiration_date => "0321",
+          :result => "success",
+          :created_at => "2012-02-26 20:56:56 UTC",
+          :updated_at => "2012-02-26 20:56:56 UTC"
+        }),
+
+        ({
+          :id => 13,
+          :invoice_id => 16,
+          :credit_card_number => "6666666666666666",
+          :credit_card_expiration_date => "0622",
+          :result => "failed",
+          :created_at => "2012-02-26 20:56:57 UTC",
+          :updated_at => "2012-02-26 20:56:57 UTC"
+        })
+      ]
   end
 
 end
