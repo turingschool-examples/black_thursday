@@ -24,6 +24,7 @@ class SalesEngine
     get_invoice_items_for_invoice
     set_items_for_invoice
     set_transactions_for_invoice
+    set_customer_for_invoice
     set_invoice_for_transaction
   end
 
@@ -110,5 +111,14 @@ class SalesEngine
     end
   end
 
+  def invoice_by_customer_id(customer_id)
+    customers.find_by_id(customer_id)
+  end
+
+  def set_customer_for_invoice
+    invoices.all.each do |invoice|
+      invoice.customer = invoice_by_customer_id(invoice.customer_id)
+    end
+  end
 
 end
