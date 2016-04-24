@@ -86,4 +86,29 @@ class SalesEngine
     @invoices.find_all_by_merchant_id(merchant_id)
   end
 
+  def find_invoice_items_with_invoice_id(invoice_id)
+    @invoice_items.find_all_by_invoice_id(invoice_id)
+  end
+
+  def find_customer_by_id(id)
+    @customers.find_by_id(id)
+  end
+
+  def find_transactions_by_invoice_id(invoice_id)
+    @transactions.find_all_by_invoice_id(invoice_id)
+  end
+
+  def find_items_by_invoice_item_id(item_id)
+    @items.find_by_id(item_id)
+  end
+
+  def find_invoice_with_transaction_invoice_id(id)
+    @invoices.find_by_id(id)
+  end
+
+  def find_customer_by_invoice_customer_id(customer_id)
+    @invoices.find_all_by_customer_id(customer_id)
+  end
+
+
 end

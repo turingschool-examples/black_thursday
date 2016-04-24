@@ -39,4 +39,8 @@ class TransactionRepository
     transaction_repository.find_all {|transaction| transaction.result.downcase ==  result.downcase}
   end
 
+  def find_invoice_by_transaction_invoice_id(id)
+    @se.find_invoice_with_transaction_invoice_id(id)
+  end
+
 end

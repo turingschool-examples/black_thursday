@@ -48,7 +48,9 @@ class MerchantRepository
     @se.find_invoices_by_merch_id(merchant_id)
   end
 
-
+  def find_customer_by_invoice_customer_id(customer_id)
+    @se.find_customer_by_invoice_customer_id(customer_id)
+  end
 
 
 

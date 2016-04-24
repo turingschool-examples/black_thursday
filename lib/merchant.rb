@@ -15,4 +15,11 @@ class Merchant
     merchant_repo.find_invoices_by_merchant_id(id)
   end
 
+  def customers
+    invoices_array = invoices
+    invoices_array.each do |invoice|
+      merchant_repo.find_customer_by_invoice_customer_id(invoice.customer_id)
+    end
+  end
+
 end

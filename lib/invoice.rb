@@ -26,4 +26,28 @@ class Invoice
   def day_of_the_week
     created_at.strftime("%w")
   end
+
+  def items
+    invoice = self.id
+    invoice_item_array = invoice_repo.find_invoice_items_by_invoice_id(invoice)
+    invoice_item_array.map do |invoice_item|
+      invoice_repo.find_items_by_invoice_id(invoice_item.item_id)
+    end
+  end
+
+  def customer
+    id = self.customer_id
+    invoice_repo.find_customer_by_invoice_customer_id(id)
+  end
+
+  def transactions
+    invoice_id = self.id
+    invoice_repo.find_transactions_by_invoice_id(invoice_id)
+  end
+
+  def is_paid_in_full?
+  end
+
+  def total
+  end
 end

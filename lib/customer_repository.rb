@@ -39,4 +39,12 @@ class CustomerRepository
       customer.last_name.downcase.include?(find_name.downcase)
     end
   end
+
+  def find_invoices_by_customer_id(customer_id)
+    @se.find_customer_by_invoice_customer_id(customer_id)
+  end
+
+  def find_merchants_by_invoice_merchant_id(merchant_id)
+    @se.find_merchant_by_merch_id(merchant_id)
+  end
 end
