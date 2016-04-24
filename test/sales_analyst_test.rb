@@ -23,9 +23,9 @@ class SalesAnalystTest < MiniTest::Test
     @sa2 = SalesAnalyst.new(se2)
   end
 
-  def test_it_itializes_sales_analyst
-    assert sa
-  end
+  # def test_it_itializes_sales_analyst
+  #   assert sa
+  # end
 #
 #   def test_it_finds_number_of_items_for_each_merchant
 #     assert_equal 475, sa.items_per_merchant.length
