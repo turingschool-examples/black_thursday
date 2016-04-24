@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<head>
+  <script src="js/Chart.min.js"></script>
+  <link href="css/style.css" text="text/css" rel="stylesheet"/>
+</head>
+
+<body>
+
+  <h1> Merchant: <i>Merchant Name</i></h1>
+
+  <!-- <h2>Merchant Characteristics</h2>
+
+    <table id="table">
+      <tr class="table-title">
+        <th></th>
+        <th>Items (#)</th>
+        <th>Orders (#)</th>
+        <th>Customers (#)</th>
+        <th>Item Price (Avg)</th>
+      </tr>
+
+      <% analytics.each do |comparison_group, results| %>
+      <tr>
+        <td><%= "#{comparison_group}" %></td>
+        <td><%= "#{results[0]}" %></td>
+        <td><%= "#{results[1]}" %></td>
+        <td><%= "#{results[2]}" %></td>
+        <td><%= "#{results[3]}" %></td>
+      </tr>
+    <% end %>
+  </table> -->
+
+  <h2>Merchant compared to All Merchants </h2>
+  <canvas id="radar_all" width="600" height="400"></canvas>
+
+  <h2>Merchant compared to Top Revenue Earners </h2>
+  <canvas id="radar_top" width="600" height="400"></canvas>
+
+  <h2>Merchant compared to Merchants with Similar Revenue </h2>
+  <canvas id="radar_like_rev" width="600" height="400"></canvas>
+
+  <h2>Merchant compared to Merchants with Similar Items (#) </h2>
+  <canvas id="radar_like_items" width="600" height="400"></canvas>
+
+  <h2>Merchant compared to Merchants with Similar Items (Avg Price) </h2>
+  <canvas id="radar_like_item_price" width="600" height="400"></canvas>
+
+<!-- All Merchants -->
+  <script>
+    var allData = {
+    labels: ["Items", "Customers", "Invoices", "Item Price"],
+    datasets: [
+        {
+            label: "MerchantName",
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: <%= [analytics["Merchant"][:items],
+                      analytics["Merchant"][:customers],
+                      analytics["Merchant"][:invoices],
+                      analytics["Merchant"][:average_price]] %>
+        },
+        {
+            label: "All Merchants",
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: <%= [analytics["All"][:items],
+                      analytics["All"][:customers],
+                      analytics["All"][:invoices],
+                      analytics["All"][:average_price]] %>
+        }
+    ]
+};
+    var all = document.getElementById('radar_all').getContext('2d');
+    new Chart(all).Radar(allData);
+  </script>
+
+<!-- Top Revenue Earners -->
+  <script>
+    var topData = {
+    labels: ["Items", "Customers", "Invoices", "Item Price"],
+    datasets: [
+        {
+            label: "MerchantName",
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: <%= [analytics["Merchant"][:items],
+                      analytics["Merchant"][:customers],
+                      analytics["Merchant"][:invoices],
+                      analytics["Merchant"][:average_price]] %>
+        },
+        {
+            label: "Top Earners",
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: <%= [analytics["Top Earners"][:items],
+                      analytics["Top Earners"][:customers],
+                      analytics["Top Earners"][:invoices],
+                      analytics["Top Earners"][:average_price]] %>
+        }
+      ]
+    };
+    var topX = document.getElementById('radar_top').getContext('2d');
+    new Chart(topX).Radar(topData);
+  </script>
+
+
+<!-- Similar Revenue Earners -->
+
+<script>
+  var likeRevData = {
+  labels: ["Items", "Customers", "Invoices", "Item Price"],
+  datasets: [
+      {
+          label: "MerchantName",
+          fillColor: "rgba(220,220,220,0.2)",
+          strokeColor: "rgba(220,220,220,1)",
+          pointColor: "rgba(220,220,220,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(220,220,220,1)",
+          data: <%= [analytics["Merchant"][:items],
+                    analytics["Merchant"][:customers],
+                    analytics["Merchant"][:invoices],
+                    analytics["Merchant"][:average_price]] %>
+      },
+      {
+          label: "Merchants with Similar Revenue",
+          fillColor: "rgba(151,187,205,0.2)",
+          strokeColor: "rgba(151,187,205,1)",
+          pointColor: "rgba(151,187,205,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(151,187,205,1)",
+          data: <%= [analytics["Like Merchants: Revenue"][:items],
+                    analytics["Like Merchants: Revenue"][:customers],
+                    analytics["Like Merchants: Revenue"][:invoices],
+                    analytics["Like Merchants: Revenue"][:average_price]] %>
+      }
+    ]
+    };
+    var likeRev = document.getElementById('radar_like_rev').getContext('2d');
+    new Chart(likeRev).Radar(likeRevData);
+  </script>
+
+
+<!-- Similar Items (#)-->
+  <script>
+    var likeItemsData = {
+    labels: ["Revenue", "Customers", "Invoices", "Item Price"],
+    datasets: [
+        {
+            label: "MerchantName",
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: <%= [analytics["Merchant"][:revenue],
+                      analytics["Merchant"][:customers],
+                      analytics["Merchant"][:invoices],
+                      analytics["Merchant"][:average_price]] %>
+        },
+        {
+            label: "Merchants with Similar Items (#)",
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: <%= [analytics["Like Merchants: Item Number"][:revenue],
+                      analytics["Like Merchants: Item Number"][:customers],
+                      analytics["Like Merchants: Item Number"][:invoices],
+                      analytics["Like Merchants: Item Number"][:average_price]] %>
+        }
+      ]
+    };
+    var likeItems = document.getElementById('radar_like_items').getContext('2d');
+    new Chart(likeItems).Radar(likeItemsData);
+  </script>
+
+
+<!-- Similar Items ($) -->
+
+  <script>
+    var likeItemPriceData = {
+    labels: ["Revenue", "Customers", "Invoices", "Items"],
+    datasets: [
+        {
+            label: "MerchantName",
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: <%= [analytics["Merchant"][:revenue],
+                      analytics["Merchant"][:customers],
+                      analytics["Merchant"][:invoices],
+                      analytics["Merchant"][:items]] %>
+        },
+        {
+            label: "Merchants with Similar Items (#)",
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: <%= [analytics["Like Merchants: Item Price"][:revenue],
+                      analytics["Like Merchants: Item Price"][:customers],
+                      analytics["Like Merchants: Item Price"][:invoices],
+                      analytics["Like Merchants: Item Price"][:items]] %>
+        }
+      ]
+    };
+    var likeItemPrice = document.getElementById('radar_like_item_price').getContext('2d');
+    new Chart(likeItemPrice).Radar(likeItemPriceData);
+  </script>
+
+
+
+
+</body>
