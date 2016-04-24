@@ -7,7 +7,7 @@
 
 <body>
 
-  <h1> Merchant: <i>Merchant Name</i></h1>
+  <h1> Merchant: <i>Merchant 1</i></h1>
 
   <!-- <h2>Merchant Characteristics</h2>
 
@@ -71,19 +71,19 @@
     
   </table> -->
 
-  <h2>Merchant compared to All Merchants </h2>
+  <h2>Merchant 1 (blue) compared to All Merchants (grey)</h2>
   <canvas id="radar_all" width="600" height="400"></canvas>
 
-  <h2>Merchant compared to Top Revenue Earners </h2>
+  <h2>Merchant 1 (blue) compared to Top Revenue Earners (grey) </h2>
   <canvas id="radar_top" width="600" height="400"></canvas>
 
-  <h2>Merchant compared to Merchants with Similar Revenue </h2>
+  <h2>Merchant 1 (blue) compared to Merchants with Similar Revenue (grey)</h2>
   <canvas id="radar_like_rev" width="600" height="400"></canvas>
 
-  <h2>Merchant compared to Merchants with Similar Items (#) </h2>
+  <h2>Merchant 1 (blue) compared to Merchants with Similar Items (#) (grey) </h2>
   <canvas id="radar_like_items" width="600" height="400"></canvas>
 
-  <h2>Merchant compared to Merchants with Similar Items (Avg Price) </h2>
+  <h2>Merchant 1 (blue) compared to Merchants with Similar Items (Avg Price) (Grey) </h2>
   <canvas id="radar_like_item_price" width="600" height="400"></canvas>
 
 <!-- All Merchants -->
@@ -93,22 +93,22 @@
     datasets: [
         {
             label: "MerchantName",
-            fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(220,220,220,1)",
-            data: [100, 10, 30, 50]
-        },
-        {
-            label: "All Merchants",
             fillColor: "rgba(151,187,205,0.2)",
             strokeColor: "rgba(151,187,205,1)",
             pointColor: "rgba(151,187,205,1)",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(151,187,205,1)",
+            data: [100, 10, 30, 50]
+        },
+        {
+            label: "All Merchants",
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
             data: [30, 15, 100, 30]
         }
     ]
@@ -124,22 +124,22 @@
     datasets: [
         {
             label: "MerchantName",
-            fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(220,220,220,1)",
-            data: [100, 10, 30, 50]
-        },
-        {
-            label: "Top Earners",
             fillColor: "rgba(151,187,205,0.2)",
             strokeColor: "rgba(151,187,205,1)",
             pointColor: "rgba(151,187,205,1)",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(151,187,205,1)",
+            data: [100, 10, 30, 50]
+        },
+        {
+            label: "Top Earners",
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
             data: [20, 10, 50, 100]
         }
       ]
@@ -157,22 +157,22 @@
   datasets: [
       {
           label: "MerchantName",
-          fillColor: "rgba(220,220,220,0.2)",
-          strokeColor: "rgba(220,220,220,1)",
-          pointColor: "rgba(220,220,220,1)",
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(220,220,220,1)",
-          data: [100, 10, 30, 50]
-      },
-      {
-          label: "Merchants with Similar Revenue",
           fillColor: "rgba(151,187,205,0.2)",
           strokeColor: "rgba(151,187,205,1)",
           pointColor: "rgba(151,187,205,1)",
           pointStrokeColor: "#fff",
           pointHighlightFill: "#fff",
           pointHighlightStroke: "rgba(151,187,205,1)",
+          data: [100, 10, 30, 50]
+      },
+      {
+          label: "Merchants with Similar Revenue",
+          fillColor: "rgba(220,220,220,0.2)",
+          strokeColor: "rgba(220,220,220,1)",
+          pointColor: "rgba(220,220,220,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(220,220,220,1)",
           data: [40, 40, 90, 80]
       }
     ]
@@ -189,22 +189,22 @@
     datasets: [
         {
             label: "MerchantName",
-            fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(220,220,220,1)",
-            data: [50, 10, 30, 50]
-        },
-        {
-            label: "Merchants with Similar Items (#)",
             fillColor: "rgba(151,187,205,0.2)",
             strokeColor: "rgba(151,187,205,1)",
             pointColor: "rgba(151,187,205,1)",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(151,187,205,1)",
+            data: [50, 10, 30, 50]
+        },
+        {
+            label: "Merchants with Similar Items (#)",
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
             data: [100, 40, 90, 70]
         }
       ]
@@ -222,22 +222,22 @@
     datasets: [
         {
             label: "MerchantName",
-            fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(220,220,220,1)",
-            data: [50, 10, 30, 100]
-        },
-        {
-            label: "Merchants with Similar Items (#)",
             fillColor: "rgba(151,187,205,0.2)",
             strokeColor: "rgba(151,187,205,1)",
             pointColor: "rgba(151,187,205,1)",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(151,187,205,1)",
+            data: [50, 10, 30, 100]
+        },
+        {
+            label: "Merchants with Similar Items (#)",
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
             data: [500, 40, 50, 20]
         }
       ]

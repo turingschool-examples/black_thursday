@@ -7,7 +7,7 @@
 
 <body>
 
-  <h1> Merchant: <i>Merchant Name</i></h1>
+  <h1> Merchant: <i><%=analytics["Merchant"][:name]%></i></h1>
 
   <!-- <h2>Merchant Characteristics</h2>
 
@@ -31,19 +31,19 @@
     <% end %>
   </table> -->
 
-  <h2>Merchant compared to All Merchants </h2>
+  <h2><%=analytics["Merchant"][:name]%> (blue) compared to All Merchants (grey)</h2>
   <canvas id="radar_all" width="600" height="400"></canvas>
 
-  <h2>Merchant compared to Top Revenue Earners </h2>
+  <h2><%=analytics["Merchant"][:name]%> (blue) compared to Top Revenue Earners (grey) </h2>
   <canvas id="radar_top" width="600" height="400"></canvas>
 
-  <h2>Merchant compared to Merchants with Similar Revenue </h2>
+  <h2><%=analytics["Merchant"][:name]%> (blue) compared to Merchants with Similar Revenue (grey)</h2>
   <canvas id="radar_like_rev" width="600" height="400"></canvas>
 
-  <h2>Merchant compared to Merchants with Similar Items (#) </h2>
+  <h2><%=analytics["Merchant"][:name]%> (blue) compared to Merchants with Similar Items (#) (grey) </h2>
   <canvas id="radar_like_items" width="600" height="400"></canvas>
 
-  <h2>Merchant compared to Merchants with Similar Items (Avg Price) </h2>
+  <h2><%=analytics["Merchant"][:name]%> (blue) compared to Merchants with Similar Items (Avg Price) (Grey) </h2>
   <canvas id="radar_like_item_price" width="600" height="400"></canvas>
 
 <!-- All Merchants -->
@@ -53,12 +53,12 @@
     datasets: [
         {
             label: "MerchantName",
-            fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(220,220,220,1)",
+            pointHighlightStroke: "rgba(151,187,205,1)",
             data: <%= [analytics["Merchant"][:items],
                       analytics["Merchant"][:customers],
                       analytics["Merchant"][:invoices],
@@ -66,12 +66,12 @@
         },
         {
             label: "All Merchants",
-            fillColor: "rgba(151,187,205,0.2)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "rgba(220,220,220,1)",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(151,187,205,1)",
+            pointHighlightStroke: "rgba(220,220,220,1)",
             data: <%= [analytics["All"][:items],
                       analytics["All"][:customers],
                       analytics["All"][:invoices],
@@ -90,12 +90,12 @@
     datasets: [
         {
             label: "MerchantName",
-            fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(220,220,220,1)",
+            pointHighlightStroke: "rgba(151,187,205,1)",
             data: <%= [analytics["Merchant"][:items],
                       analytics["Merchant"][:customers],
                       analytics["Merchant"][:invoices],
@@ -103,12 +103,12 @@
         },
         {
             label: "Top Earners",
-            fillColor: "rgba(151,187,205,0.2)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "rgba(220,220,220,1)",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(151,187,205,1)",
+            pointHighlightStroke: "rgba(220,220,220,1)",
             data: <%= [analytics["Top Earners"][:items],
                       analytics["Top Earners"][:customers],
                       analytics["Top Earners"][:invoices],
@@ -129,12 +129,12 @@
   datasets: [
       {
           label: "MerchantName",
-          fillColor: "rgba(220,220,220,0.2)",
-          strokeColor: "rgba(220,220,220,1)",
-          pointColor: "rgba(220,220,220,1)",
+          fillColor: "rgba(151,187,205,0.2)",
+          strokeColor: "rgba(151,187,205,1)",
+          pointColor: "rgba(151,187,205,1)",
           pointStrokeColor: "#fff",
           pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(220,220,220,1)",
+          pointHighlightStroke: "rgba(151,187,205,1)",
           data: <%= [analytics["Merchant"][:items],
                     analytics["Merchant"][:customers],
                     analytics["Merchant"][:invoices],
@@ -142,12 +142,12 @@
       },
       {
           label: "Merchants with Similar Revenue",
-          fillColor: "rgba(151,187,205,0.2)",
-          strokeColor: "rgba(151,187,205,1)",
-          pointColor: "rgba(151,187,205,1)",
+          fillColor: "rgba(220,220,220,0.2)",
+          strokeColor: "rgba(220,220,220,1)",
+          pointColor: "rgba(220,220,220,1)",
           pointStrokeColor: "#fff",
           pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(151,187,205,1)",
+          pointHighlightStroke: "rgba(220,220,220,1)",
           data: <%= [analytics["Like Merchants: Revenue"][:items],
                     analytics["Like Merchants: Revenue"][:customers],
                     analytics["Like Merchants: Revenue"][:invoices],
@@ -167,12 +167,12 @@
     datasets: [
         {
             label: "MerchantName",
-            fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(220,220,220,1)",
+            pointHighlightStroke: "rgba(151,187,205,1)",
             data: <%= [analytics["Merchant"][:revenue],
                       analytics["Merchant"][:customers],
                       analytics["Merchant"][:invoices],
@@ -180,12 +180,12 @@
         },
         {
             label: "Merchants with Similar Items (#)",
-            fillColor: "rgba(151,187,205,0.2)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "rgba(220,220,220,1)",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(151,187,205,1)",
+            pointHighlightStroke: "rgba(220,220,220,1)",
             data: <%= [analytics["Like Merchants: Item Number"][:revenue],
                       analytics["Like Merchants: Item Number"][:customers],
                       analytics["Like Merchants: Item Number"][:invoices],
@@ -206,12 +206,12 @@
     datasets: [
         {
             label: "MerchantName",
-            fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(220,220,220,1)",
+            pointHighlightStroke: "rgba(151,187,205,1)",
             data: <%= [analytics["Merchant"][:revenue],
                       analytics["Merchant"][:customers],
                       analytics["Merchant"][:invoices],
@@ -219,12 +219,12 @@
         },
         {
             label: "Merchants with Similar Items (#)",
-            fillColor: "rgba(151,187,205,0.2)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "rgba(220,220,220,1)",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(151,187,205,1)",
+            pointHighlightStroke: "rgba(220,220,220,1)",
             data: <%= [analytics["Like Merchants: Item Price"][:revenue],
                       analytics["Like Merchants: Item Price"][:customers],
                       analytics["Like Merchants: Item Price"][:invoices],
