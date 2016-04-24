@@ -1,4 +1,5 @@
 require_relative 'invoice_item'
+require 'pry'
 
 class InvoiceItemRepository
   attr_accessor :invoice_item_repository
@@ -9,12 +10,12 @@ class InvoiceItemRepository
   end
 
   def inspect
-  "#<#{self.class} #{@invoices.size} rows>"
+  "#<#{self.class} #{@invoice_items.size} rows>"
   end
 
   def invoice_item(contents)
     contents.each do |column|
-      @invoice_item_repository << Invoice.new(column, self)
+      @invoice_item_repository << InvoiceItem.new(column, self)
     end
     self
   end

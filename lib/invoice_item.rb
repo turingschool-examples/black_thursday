@@ -15,6 +15,7 @@ class InvoiceItem
     @created_at = Time.parse(column[:created_at])
     @updated_at = Time.parse(column[:updated_at])
     @invoice_item_repository = parent
+
   end
 
   def unit_price_in_dollars

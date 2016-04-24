@@ -9,7 +9,7 @@ class InvoiceRepository
   end
 
   def inspect
-  "#<#{self.class} #{@invoices.size} rows>"
+  "#<#{self.class} #{@invoice_repository.size} rows>"
   end
 
   def invoice(invoice_contents)

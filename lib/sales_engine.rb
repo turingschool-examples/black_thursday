@@ -4,23 +4,26 @@ require_relative 'merchant_repository'
 require_relative 'invoice_repository'
 require_relative 'transaction_repository'
 require_relative 'invoice_item_repository'
+require_relative 'customer_repository'
 require 'pry'
 
 class SalesEngine
   attr_reader :merchant_contents, :item_contents, :invoice_contents,
-              :invoice_item_contents, :transaction_contents
+              :invoice_item_contents, :transaction_contents, :customer_contents
 
-  def initialize(merchant_file, item_file, invoice_file, invoice_item_file, transaction_file)
+  def initialize(merchant_file, item_file, invoice_file, invoice_item_file, transaction_file, customer_file)
     @merchant_contents = open_csv(merchant_file)
     @item_contents = open_csv(item_file)
     @invoice_contents = open_csv(invoice_file)
     @invoice_item_contents = open_csv(invoice_item_file)
     @transaction_contents = open_csv(transaction_file)
+    @customer_contents = open_csv(customer_file)
     @items = ItemRepository.new(self)
     @merchants = MerchantRepository.new(self)
     @invoices = InvoiceRepository.new(self)
     @invoice_items = InvoiceItemRepository.new(self)
     @transactions = TransactionRepository.new(self)
+    @customers = CustomerRepository.new(self)
     load_repositories
   end
 
@@ -30,7 +33,8 @@ class SalesEngine
     invoice_file = files_to_parse.fetch(:invoices)
     invoice_item_file = files_to_parse.fetch(:invoice_items)
     transaction_file = files_to_parse.fetch(:transactions)
-    SalesEngine.new(merchant_file, item_file, invoice_file, invoice_item_file, transaction_file)
+    customer_file = files_to_parse.fetch(:customers)
+    SalesEngine.new(merchant_file, item_file, invoice_file, invoice_item_file, transaction_file, customer_file)
   end
 
   def open_csv(file)
@@ -43,6 +47,7 @@ class SalesEngine
     invoices
     invoice_items
     transactions
+    customers
   end
 
   def items
@@ -63,6 +68,10 @@ class SalesEngine
 
   def transactions
     @transactions.transaction(transaction_contents)
+  end
+
+  def customers
+    @customers.customer(customer_contents)
   end
 
   def find_items_by_merch_id(merchant_id)

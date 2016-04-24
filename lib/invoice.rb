@@ -1,16 +1,21 @@
 require 'pry'
 
 class Invoice
-  attr_reader :id, :customer_id, :merchant_id, :status, :created_at, :updated_at
+  attr_reader :id, :customer_id, :merchant_id, :created_at, :updated_at,
+              :invoice_repo
 
   def initialize(column, parent = nil)
     @id = column[:id].to_i
     @customer_id = column[:customer_id].to_i
     @merchant_id = column[:merchant_id].to_i
-    @status = column[:status].to_sym
+    @status = column[:status]
     @created_at = Time.parse(column[:created_at])
     @updated_at = Time.parse(column[:updated_at])
     @invoice_repo = parent
+  end
+
+  def status
+    @status.to_sym
   end
 
   def merchant
