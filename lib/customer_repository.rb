@@ -14,10 +14,11 @@ class CustomerRepository
   end
 
   def all
+    customers
   end
-#returns array of all known customer instances
 
-  def find_by_id(customer_id)
+  def find_by_id(id)
+    customers.find {|c| c.id == id}
   end
 
   def find_all_by_first_name(first_name_fragment)
@@ -26,5 +27,9 @@ class CustomerRepository
 
   def find_all_by_last_name(last_name_fragment)
   end
+
+  def inspect
+   "#<#{self.class} #{@customers.size} rows>"
+   end
 
 end
