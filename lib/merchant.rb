@@ -7,4 +7,8 @@ class Merchant
     @name = name_id[:name]
   end
 
+  def inspect
+    "#<#{self.class}"
+  end
+  
 end

@@ -7,63 +7,31 @@ require_relative 'transaction_repository'
 require_relative 'customer_repository'
 
 class SalesEngine
-  attr_reader  :merchants_data, :items_data, :invoices_data, :invoice_item_data, :transactions_data, :customers_data
+  attr_reader  :items, :merchants, :invoices, :invoice_items, :transactions, :customers
 
-  def initialize(items_data, merchants_data, invoices_data, invoice_item_data, transactions_data, customers_data)
-    @items_data = items_data
-    @merchants_data = merchants_data
-    @invoices_data = invoices_data
-    @invoice_item_data = invoice_item_data
-    @transactions_data = transactions_data
-    @customers_data = customers_data
+  def initialize(data)
+    @items ||= ItemRepository.new(data[:items])
+    @merchants ||= MerchantRepository.new(data[:merchants])
+    @invoices ||= InvoiceRepository.new(data[:invoices])
+    @invoice_items ||= InvoiceItemRepository.new(data[:invoice_items])
+    @transactions ||= TransactionRepository.new(data[:transactions])
+    @customers ||= CustomerRepository.new(data[:customers])
     set_merchant_items
     set_item_merchant
     set_merchant_for_invoice
     set_invoice_for_merchant
+    set_items_for_invoice_items
+    get_invoice_items_for_invoice
+    set_items_for_invoice
   end
 
   def self.from_csv(csv_content)
-    items_csv = csv_content[:items]
-    merchants_csv = csv_content[:merchants]
-    invoices_csv = csv_content[:invoices]
-    invoice_item_csv = csv_content[:invoice_items]
-    transactions_csv = csv_content[:transactions]
-    customers_csv = csv_content[:customers]
-    items_data = CsvParser.new.items(items_csv)
-    merchants_data = CsvParser.new.merchants(merchants_csv)
-    invoices_data = CsvParser.new.invoices(invoices_csv)
-    invoice_item_data = CsvParser.new.invoice_items(invoice_item_csv)
-    transactions_data = CsvParser.new.transactions(transactions_csv)
-    customers_data = CsvParser.new.customers(customers_csv)
-    SalesEngine.new(items_data, merchants_data, invoices_data, invoice_item_data, transactions_data, customers_data)
-  end
-
-  def items
-    @items ||= ItemRepository.new(items_data)
-  end
-
-  def merchants
-    @merchants ||= MerchantRepository.new(merchants_data)
-  end
-
-  def invoices
-    @invoices ||= InvoiceRepository.new(invoices_data)
-  end
-
-  def invoice_items
-    @invoice_items ||= InvoiceItemRepository.new(invoice_item_data)
-  end
-
-  def transactions
-    @transactions ||= TransactionRepository.new(transactions_data)
-  end
-
-  def customers
-    @customers ||= CustomerRepository.new(customers_data)
+    data = CsvParser.new.collect_data(csv_content)
+    SalesEngine.new(data)
   end
 
   def items_by_merchant_id(merchant_id)
-    items.find_all_by_merchant_id(merchant_id)
+    items.find_all_by_merchant_id(merchant_id).uniq
   end
 
   def set_merchant_items
@@ -102,4 +70,23 @@ class SalesEngine
     end
   end
 
+  def set_items_for_invoice_items
+    invoice_items.all.each do |invoice_item|
+      invoice_item.item = items.find_by_id(invoice_item.item_id)
+    end
+  end
+
+  def get_invoice_items_for_invoice
+    invoices.all.each do |invoice|
+      invoice.invoice_items = invoice_items.find_all_by_invoice_id(invoice.id).uniq
+    end
+  end
+
+  def set_items_for_invoice
+    invoices.all.each do |invoice|
+       invoice.items = invoice.invoice_items.map do |invoice_item|
+         invoice_item.item
+       end
+     end
+  end
 end

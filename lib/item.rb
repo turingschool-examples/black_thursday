@@ -17,4 +17,8 @@ class Item
   def unit_price_to_dollars(price)
     BigDecimal.new(price) / 100
   end
+
+  def inspect
+    "#<#{self.class}"
+  end
 end

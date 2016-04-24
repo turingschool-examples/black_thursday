@@ -9,4 +9,8 @@ class Customer
     @updated_at = Time.parse(customer_data[:updated_at])
   end
 
+  def inspect
+    "#<#{self.class}"
+  end
+
 end

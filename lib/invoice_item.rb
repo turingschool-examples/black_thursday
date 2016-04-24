@@ -2,6 +2,7 @@ require 'bigdecimal'
 
 class InvoiceItem
   attr_reader :id, :item_id, :invoice_id, :quantity, :unit_price, :created_at, :updated_at
+  attr_accessor :item
 
   def initialize(invoice_item_data)
     @id = invoice_item_data[:id].to_i
@@ -15,5 +16,9 @@ class InvoiceItem
 
   def unit_price_to_dollars(price)
     BigDecimal.new(price) / 100
+  end
+
+  def inspect
+    "#<#{self.class}"
   end
 end
