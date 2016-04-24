@@ -20,6 +20,7 @@ class SalesEngine
     set_item_merchant
     set_merchant_for_invoice
     set_invoice_for_merchant
+    set_items_for_invoice
   end
 
   def self.from_csv(csv_content)
@@ -101,5 +102,17 @@ class SalesEngine
       merchant.invoices = merchant_of_invoice(merchant.id)
     end
   end
+
+  def invoice_of_item(invoice_id)
+    invoice_items.find_all_by_invoice_id(invoice_id)
+  end
+
+  def set_items_for_invoice
+    invoices.all.each do |invoice|
+       invoice.items =
+     invoice_of_item(invoice.id)
+    end
+  end
+
 
 end

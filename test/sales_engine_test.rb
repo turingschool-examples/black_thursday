@@ -6,6 +6,7 @@ require_relative '../lib/csv_parser'
 require_relative'../lib/merchant_repository'
 require_relative'../lib/transaction_repository'
 require_relative'../lib/customer_repository.rb'
+require_relative'../lib/invoice_item_repository'
 
 class SalesEngineTest < MiniTest::Test
    attr_reader :se
@@ -78,6 +79,11 @@ class SalesEngineTest < MiniTest::Test
     assert_equal 10, merchant.invoices.count
   end
 
+  def test_it_can_create_relationships_between_invoice_and_item
+    invoice = se.invoices.find_by_id(7)
+
+    assert_equal 4, invoice.items.count
+  end
 
 
 end
