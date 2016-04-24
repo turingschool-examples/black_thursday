@@ -14,27 +14,27 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2016-04-24T13:46:41-06:00">2016-04-24T13:46:41-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2016-04-24T14:20:17-06:00">2016-04-24T14:20:17-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="yellow">86.11%</span></span>
+    (<span class="covered_percent"><span class="yellow">88.24%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         5.01
+         6.45
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>2</b> files in total.
-    <b>36</b> relevant lines. 
-    <span class="green"><b>31</b> lines covered</span> and
-    <span class="red"><b>5</b> lines missed </span>
+    <b>34</b> relevant lines. 
+    <span class="green"><b>30</b> lines covered</span> and
+    <span class="red"><b>4</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -51,23 +51,23 @@
     <tbody>
       
       <tr>
-        <td class="strong"><a href="#29fe5425cdd7e99c84d3d3c0621817febc433610" class="src_link" title="lib/invoice_item.rb">lib/invoice_item.rb</a></td>
-        <td class="green strong">93.75 %</td>
-        <td>24</td>
-        <td>16</td>
-        <td>15</td>
-        <td>1</td>
-        <td>8.4</td>
+        <td class="strong"><a href="#ae9610e7e0bb6a7d0a32ff9015177ef38acde39d" class="src_link" title="lib/transaction.rb">lib/transaction.rb</a></td>
+        <td class="green strong">100.0 %</td>
+        <td>17</td>
+        <td>12</td>
+        <td>12</td>
+        <td>0</td>
+        <td>13.7</td>
       </tr>
       
       <tr>
-        <td class="strong"><a href="#9f100bf6f829e1d2504a9480e03aae9ec0e996fc" class="src_link" title="lib/invoice_item_repository.rb">lib/invoice_item_repository.rb</a></td>
-        <td class="red strong">80.0 %</td>
-        <td>38</td>
-        <td>20</td>
-        <td>16</td>
+        <td class="strong"><a href="#a6f8a86df5a999006074e5d7150265378250455f" class="src_link" title="lib/transaction_repository.rb">lib/transaction_repository.rb</a></td>
+        <td class="yellow strong">81.82 %</td>
+        <td>42</td>
+        <td>22</td>
+        <td>18</td>
         <td>4</td>
-        <td>2.3</td>
+        <td>2.5</td>
       </tr>
       
     </tbody>
@@ -86,14 +86,14 @@
     
       <div class="source_files">
       
-        <div class="source_table" id="29fe5425cdd7e99c84d3d3c0621817febc433610">
+        <div class="source_table" id="ae9610e7e0bb6a7d0a32ff9015177ef38acde39d">
   <div class="header">
-    <h3>lib/invoice_item.rb</h3>
-    <h4><span class="green">93.75 %</span> covered</h4>
+    <h3>lib/transaction.rb</h3>
+    <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>16</b> relevant lines. 
-      <span class="green"><b>15</b> lines covered</span> and
-      <span class="red"><b>1</b> lines missed.</span>
+      <b>12</b> relevant lines. 
+      <span class="green"><b>12</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
   
@@ -101,171 +101,9 @@
     <ol>
       
         <li class="covered" data-hits="1" data-linenumber="1">
-          <span class="hits">1</span>
-          
-          <code class="ruby">require &#39;pry&#39;</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="2">
-          <span class="hits">1</span>
-          
-          <code class="ruby">require &#39;bigdecimal&#39;</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="3">
           <span class="hits">1</span>
           
           <code class="ruby">require &#39;time&#39;</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="4">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="5">
-          <span class="hits">1</span>
-          
-          <code class="ruby">class InvoiceItem</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="6">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  attr_reader :id, :item_id, :invoice_id, :quantity, :unit_price,</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="7">
-          
-          
-          <code class="ruby">              :created_at, :updated_at</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="8">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="9">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  def initialize(column, parent = nil)</code>
-        </li>
-      
-        <li class="covered" data-hits="16" data-linenumber="10">
-          <span class="hits">16</span>
-          
-          <code class="ruby">    @id = column[:id].to_i</code>
-        </li>
-      
-        <li class="covered" data-hits="16" data-linenumber="11">
-          <span class="hits">16</span>
-          
-          <code class="ruby">    @item_id = column[:item_id].to_i</code>
-        </li>
-      
-        <li class="covered" data-hits="16" data-linenumber="12">
-          <span class="hits">16</span>
-          
-          <code class="ruby">    @invoice_id = column[:invoice_id].to_i</code>
-        </li>
-      
-        <li class="covered" data-hits="16" data-linenumber="13">
-          <span class="hits">16</span>
-          
-          <code class="ruby">    @quantity = column[:quantity].to_i</code>
-        </li>
-      
-        <li class="covered" data-hits="16" data-linenumber="14">
-          <span class="hits">16</span>
-          
-          <code class="ruby">    @unit_price = BigDecimal.new(column[:unit_price].to_i)/BigDecimal(100)</code>
-        </li>
-      
-        <li class="covered" data-hits="16" data-linenumber="15">
-          <span class="hits">16</span>
-          
-          <code class="ruby">    @created_at = Time.parse(column[:created_at])</code>
-        </li>
-      
-        <li class="covered" data-hits="16" data-linenumber="16">
-          <span class="hits">16</span>
-          
-          <code class="ruby">    @updated_at = Time.parse(column[:updated_at])</code>
-        </li>
-      
-        <li class="covered" data-hits="16" data-linenumber="17">
-          <span class="hits">16</span>
-          
-          <code class="ruby">    @invoice_item_repository = parent</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="18">
-          
-          
-          <code class="ruby">  end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="19">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="20">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  def unit_price_in_dollars</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="21">
-          
-          
-          <code class="ruby">    dollar_price = sprintf(&#39;%.02f&#39;, unit_price).to_f</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="22">
-          
-          
-          <code class="ruby">  end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="23">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="24">
-          
-          
-          <code class="ruby">end</code>
-        </li>
-      
-    </ol>
-  </pre>
-</div>
-      
-        <div class="source_table" id="9f100bf6f829e1d2504a9480e03aae9ec0e996fc">
-  <div class="header">
-    <h3>lib/invoice_item_repository.rb</h3>
-    <h4><span class="red">80.0 %</span> covered</h4>
-    <div>
-      <b>20</b> relevant lines. 
-      <span class="green"><b>16</b> lines covered</span> and
-      <span class="red"><b>4</b> lines missed.</span>
-    </div>
-  </div>
-  
-  <pre>
-    <ol>
-      
-        <li class="covered" data-hits="1" data-linenumber="1">
-          <span class="hits">1</span>
-          
-          <code class="ruby">require_relative &#39;invoice_item&#39;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="2">
@@ -277,13 +115,133 @@
         <li class="covered" data-hits="1" data-linenumber="3">
           <span class="hits">1</span>
           
-          <code class="ruby">class InvoiceItemRepository</code>
+          <code class="ruby">class Transaction</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="4">
           <span class="hits">1</span>
           
-          <code class="ruby">  attr_accessor :invoice_item_repository</code>
+          <code class="ruby">  attr_reader :id, :invoice_id, :credit_card_number, :credit_card_expiration_date,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="5">
+          
+          
+          <code class="ruby">              :result, :created_at, :updated_at</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="6">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="7">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def initialize(column, parent = nil)</code>
+        </li>
+      
+        <li class="covered" data-hits="20" data-linenumber="8">
+          <span class="hits">20</span>
+          
+          <code class="ruby">    @id = column[:id].to_i</code>
+        </li>
+      
+        <li class="covered" data-hits="20" data-linenumber="9">
+          <span class="hits">20</span>
+          
+          <code class="ruby">    @invoice_id = column[:invoice_id].to_i</code>
+        </li>
+      
+        <li class="covered" data-hits="20" data-linenumber="10">
+          <span class="hits">20</span>
+          
+          <code class="ruby">    @credit_card_number = column[:credit_card_number]</code>
+        </li>
+      
+        <li class="covered" data-hits="20" data-linenumber="11">
+          <span class="hits">20</span>
+          
+          <code class="ruby">    @credit_card_expiration_date = column[:credit_card_expiration_date]</code>
+        </li>
+      
+        <li class="covered" data-hits="20" data-linenumber="12">
+          <span class="hits">20</span>
+          
+          <code class="ruby">    @result = column[:result]   #.to_sym</code>
+        </li>
+      
+        <li class="covered" data-hits="20" data-linenumber="13">
+          <span class="hits">20</span>
+          
+          <code class="ruby">    @created_at = Time.parse(column[:created_at])</code>
+        </li>
+      
+        <li class="covered" data-hits="20" data-linenumber="14">
+          <span class="hits">20</span>
+          
+          <code class="ruby">    @updated_at = Time.parse(column[:updated_at])</code>
+        </li>
+      
+        <li class="covered" data-hits="20" data-linenumber="15">
+          <span class="hits">20</span>
+          
+          <code class="ruby">    @transaction_repo = parent</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="16">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="17">
+          
+          
+          <code class="ruby">end</code>
+        </li>
+      
+    </ol>
+  </pre>
+</div>
+      
+        <div class="source_table" id="a6f8a86df5a999006074e5d7150265378250455f">
+  <div class="header">
+    <h3>lib/transaction_repository.rb</h3>
+    <h4><span class="yellow">81.82 %</span> covered</h4>
+    <div>
+      <b>22</b> relevant lines. 
+      <span class="green"><b>18</b> lines covered</span> and
+      <span class="red"><b>4</b> lines missed.</span>
+    </div>
+  </div>
+  
+  <pre>
+    <ol>
+      
+        <li class="covered" data-hits="1" data-linenumber="1">
+          <span class="hits">1</span>
+          
+          <code class="ruby">require_relative &#39;transaction&#39;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="2">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="3">
+          <span class="hits">1</span>
+          
+          <code class="ruby">class TransactionRepository</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="4">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  attr_accessor :transaction_repository</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="5">
@@ -298,16 +256,16 @@
           <code class="ruby">  def initialize(parent = nil)</code>
         </li>
       
-        <li class="covered" data-hits="8" data-linenumber="7">
-          <span class="hits">8</span>
+        <li class="covered" data-hits="10" data-linenumber="7">
+          <span class="hits">10</span>
           
           <code class="ruby">    @se = parent</code>
         </li>
       
-        <li class="covered" data-hits="8" data-linenumber="8">
-          <span class="hits">8</span>
+        <li class="covered" data-hits="10" data-linenumber="8">
+          <span class="hits">10</span>
           
-          <code class="ruby">    @invoice_item_repository = []</code>
+          <code class="ruby">    @transaction_repository = []</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="9">
@@ -331,7 +289,7 @@
         <li class="missed" data-hits="0" data-linenumber="12">
           
           
-          <code class="ruby">  &quot;#&lt;#{self.class} #{@invoices.size} rows&gt;&quot;</code>
+          <code class="ruby">  &quot;#&lt;#{self.class} #{@repository.size} rows&gt;&quot;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="13">
@@ -349,7 +307,7 @@
         <li class="covered" data-hits="1" data-linenumber="15">
           <span class="hits">1</span>
           
-          <code class="ruby">  def invoice_item(contents)</code>
+          <code class="ruby">  def transaction(contents)</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="16">
@@ -361,7 +319,7 @@
         <li class="missed" data-hits="0" data-linenumber="17">
           
           
-          <code class="ruby">      @invoice_item_repository &lt;&lt; Invoice.new(column, self)</code>
+          <code class="ruby">      @transaction_repository &lt;&lt; Transaction.new(column, self)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="18">
@@ -397,7 +355,7 @@
         <li class="covered" data-hits="1" data-linenumber="23">
           <span class="hits">1</span>
           
-          <code class="ruby">    invoice_item_repository.empty? ?  nil : invoice_item_repository</code>
+          <code class="ruby">    transaction_repository.empty? ?  nil : transaction_repository</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="24">
@@ -421,7 +379,7 @@
         <li class="covered" data-hits="6" data-linenumber="27">
           <span class="hits">6</span>
           
-          <code class="ruby">    invoice_item_repository.find {|invoice_item| invoice_item.id == find_id }</code>
+          <code class="ruby">    transaction_repository.find {|transaction| transaction.id == find_id }</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="28">
@@ -439,13 +397,13 @@
         <li class="covered" data-hits="1" data-linenumber="30">
           <span class="hits">1</span>
           
-          <code class="ruby">  def find_all_by_item_id(item_id)</code>
+          <code class="ruby">  def find_all_by_invoice_id(find_id)</code>
         </li>
       
         <li class="covered" data-hits="6" data-linenumber="31">
           <span class="hits">6</span>
           
-          <code class="ruby">    invoice_item_repository.find_all {|invoice_item| invoice_item.item_id == item_id }</code>
+          <code class="ruby">    transaction_repository.find_all {|transaction| transaction.invoice_id == find_id}</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="32">
@@ -463,13 +421,13 @@
         <li class="covered" data-hits="1" data-linenumber="34">
           <span class="hits">1</span>
           
-          <code class="ruby">  def find_all_by_invoice_id(find_id)</code>
+          <code class="ruby">  def find_all_by_credit_card_number(cc_number)</code>
         </li>
       
         <li class="covered" data-hits="6" data-linenumber="35">
           <span class="hits">6</span>
           
-          <code class="ruby">    invoice_item_repository.find_all {|invoice_item| invoice_item.invoice_id == find_id }</code>
+          <code class="ruby">    transaction_repository.find_all {|transaction| transaction.credit_card_number == cc_number}</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="36">
@@ -484,7 +442,31 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="38">
+        <li class="covered" data-hits="1" data-linenumber="38">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def find_all_by_result(result)</code>
+        </li>
+      
+        <li class="covered" data-hits="6" data-linenumber="39">
+          <span class="hits">6</span>
+          
+          <code class="ruby">    transaction_repository.find_all {|transaction| transaction.result.downcase ==  result.downcase}</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="40">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="41">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="42">
           
           
           <code class="ruby">end</code>

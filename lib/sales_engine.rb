@@ -2,18 +2,25 @@ require 'csv'
 require_relative 'item_repository'
 require_relative 'merchant_repository'
 require_relative 'invoice_repository'
+require_relative 'transaction_repository'
+require_relative 'invoice_item_repository'
 require 'pry'
 
 class SalesEngine
-  attr_reader :merchant_contents, :item_contents, :invoice_contents
+  attr_reader :merchant_contents, :item_contents, :invoice_contents,
+              :invoice_item_contents, :transaction_contents
 
-  def initialize(merchant_file, item_file, invoice_file)
+  def initialize(merchant_file, item_file, invoice_file, invoice_item_file, transaction_file)
     @merchant_contents = open_csv(merchant_file)
     @item_contents = open_csv(item_file)
     @invoice_contents = open_csv(invoice_file)
+    @invoice_item_contents = open_csv(invoice_item_file)
+    @transaction_contents = open_csv(transaction_file)
     @items = ItemRepository.new(self)
     @merchants = MerchantRepository.new(self)
     @invoices = InvoiceRepository.new(self)
+    @invoice_items = InvoiceItemRepository.new(self)
+    @transactions = TransactionRepository.new(self)
     load_repositories
   end
 
@@ -21,11 +28,9 @@ class SalesEngine
     item_file = files_to_parse.fetch(:items)
     merchant_file = files_to_parse.fetch(:merchants)
     invoice_file = files_to_parse.fetch(:invoices)
-    SalesEngine.new(merchant_file, item_file, invoice_file)
-  end
-
-  def merchants
-    @merchants.merchant_repo(merchant_contents)
+    invoice_item_file = files_to_parse.fetch(:invoice_items)
+    transaction_file = files_to_parse.fetch(:transactions)
+    SalesEngine.new(merchant_file, item_file, invoice_file, invoice_item_file, transaction_file)
   end
 
   def open_csv(file)
@@ -36,19 +41,32 @@ class SalesEngine
     merchants
     items
     invoices
+    invoice_items
+    transactions
   end
 
   def items
     @items.item(item_contents)
   end
 
+  def merchants
+    @merchants.merchant_repo(merchant_contents)
+  end
+
   def invoices
     @invoices.invoice(invoice_contents)
   end
 
+  def invoice_items
+    @invoice_items.invoice_item(invoice_item_contents)
+  end
+
+  def transactions
+    @transactions.transaction(transaction_contents)
+  end
+
   def find_items_by_merch_id(merchant_id)
     @items.find_all_by_merchant_id(merchant_id)
-
   end
 
   def find_merchant_by_merch_id(id)

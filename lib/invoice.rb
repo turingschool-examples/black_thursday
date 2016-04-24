@@ -4,7 +4,7 @@ class Invoice
   attr_reader :id, :customer_id, :merchant_id, :status, :created_at, :updated_at
 
   def initialize(column, parent = nil)
-    @id = column.fetch(:id).to_i
+    @id = column[:id].to_i
     @customer_id = column[:customer_id].to_i
     @merchant_id = column[:merchant_id].to_i
     @status = column[:status].to_sym
