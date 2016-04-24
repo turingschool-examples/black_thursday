@@ -34,12 +34,12 @@ class InvoiceItemTest < MiniTest::Test
     assert_equal 13.63, ii.unit_price.to_f*100
   end
 
-  # def test_it_can_return_when_it_was_created
-  #   assert_equal Time.parse("2012-03-27 14:54:09 UTC"), ii.created_at
-  # end
-  #
-  # def test_it_can_return_when_it_was_updated
-  #   assert_equal Time.parse("2012-03-28 15:54:09 UTC"), ii.updated_at
-  # end
+  def test_it_can_return_when_it_was_created
+    assert_equal Time.parse("2012-03-27 14:54:09 UTC"), ii.created_at
+  end
+
+  def test_it_can_return_when_it_was_updated
+    assert_equal Time.parse("2012-03-28 15:54:09 UTC"), ii.updated_at
+  end
 
 end

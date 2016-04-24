@@ -9,8 +9,8 @@ class InvoiceItem
     @invoice_id = invoice_item_data[:invoice_id].to_i
     @quantity = invoice_item_data[:quantity]
     @unit_price = unit_price_to_dollars(invoice_item_data[:unit_price])
-    @created_at = invoice_item_data[:created_at]
-    @updated_at = invoice_item_data[:updated_at]
+    @created_at = Time.parse(invoice_item_data[:created_at])
+    @updated_at = Time.parse(invoice_item_data[:updated_at])
   end
 
   def unit_price_to_dollars(price)

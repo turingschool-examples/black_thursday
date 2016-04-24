@@ -9,8 +9,8 @@ class TransactionTest < MiniTest::Test
 
   def setup
     @t = Transaction.new({
-                          :id => 6,
-                          :invoice_id => 8,
+                          :id => "6",
+                          :invoice_id => "8",
                           :credit_card_number => "4242424242424242",
                           :credit_card_expiration_date => "0220",
                           :result => "success",
@@ -28,7 +28,7 @@ class TransactionTest < MiniTest::Test
   end
 
   def test_it_returns_a_card_number_as_a_string
-    assert_equal "4242424242424242", t.credit_card_number
+    assert_equal 4242424242424242, t.credit_card_number
   end
 
   def test_returns_a_string_expiration_date_as_a_string
