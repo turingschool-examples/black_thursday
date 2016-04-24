@@ -4,37 +4,35 @@ require 'minitest/pride'
 require_relative '../lib/customer_repository'
 
 class CustomerRepositoryTest < MiniTest::Test
+
   attr_reader :cr
 
   def setup
-    @cr = CustomerRepository.new([
-      { :id => "1",
-        :first_name => "Helen",
-        :last_name => "Smith",
-        :created_at => "2012-03-27 14:54:09 UTC",
-        :updated_at => "2012-03-28 15:54:09 UTC"
-      },
-        { :id => "2",
-          :first_name => "Harry",
-          :last_name => "Wilson",
-          :created_at => "2014-03-27 14:54:09 UTC",
-          :updated_at => "2012-04-28 15:54:09 UTC"
-        }
-      ])
-    end
-
-  def test_it_returns_array_of_all_customers
-    assert_equal Array, cr.all.class
+    test_helper = TestHelper.new
+    @cr = CustomerRepository.new(test_helper.customers)
   end
 
-  def test_it_finds_invoice_item_by_id
-    assert_equal "Harry", cr.find_by_id(2).first_name
+  def test_it_can_return_an_array_of_all_customers
+    assert_equal 3, cr.all.size
   end
 
+  def test_it_returns_a_customer_for_a_given_id
+    assert_equal 8, cr.find_by_id(8).id
+  end
 
+  def test_it_can_find_customers_by_first_name
+    assert_equal 1, cr.find_all_by_first_name("Ann").count
+  end
 
+  def test_it_can_find_customers_by_first_name_in_an_array
+    assert_equal Array, cr.find_all_by_first_name("Ann").class
+  end
 
+  def test_it_can_find_customers_by_last_name
+    assert_equal 1, cr.find_all_by_last_name("Soden").count
+  end
 
-
-
+  def test_it_can_find_customers_by_last_name_in_an_array
+    assert_equal Array, cr.find_all_by_last_name("Soden").class
+  end
 end

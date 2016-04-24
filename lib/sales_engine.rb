@@ -4,6 +4,7 @@ require_relative 'csv_parser'
 require_relative 'invoice_repository'
 require_relative 'invoice_item_repository'
 require_relative 'transaction_repository'
+require_relative 'customer_repository'
 
 class SalesEngine
   attr_reader  :merchants_data, :items_data, :invoices_data, :invoice_item_data, :transactions_data, :customers_data

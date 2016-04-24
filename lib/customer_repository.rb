@@ -17,15 +17,24 @@ class CustomerRepository
     customers
   end
 
-  def find_by_id(id)
-    customers.find {|c| c.id == id}
+  def find_by_id(customer_id)
+    customers.find do |customer|
+      customer.id == customer_id
+    end
   end
+
 
   def find_all_by_first_name(first_name_fragment)
+    customers.find_all do |customer|
+      customer.first_name.downcase.include?(first_name_fragment.downcase)
+    end
   end
-#returns [] or match(es)
+
 
   def find_all_by_last_name(last_name_fragment)
+    customers.find_all do |customer|
+      customer.last_name.downcase.include?(last_name_fragment.downcase)
+    end
   end
 
   def inspect
