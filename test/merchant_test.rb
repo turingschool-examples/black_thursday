@@ -29,7 +29,6 @@ class MerchantTest < Minitest::Test
     assert_equal true, merchant.items[1].name.include?("Jamaica")
   end
 
-  # ======
   def test_we_can_retrieve_all_invoices_sold_by_a_merch
     assert_equal 2, merchant.invoices.length
   end
