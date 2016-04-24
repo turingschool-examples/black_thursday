@@ -23,6 +23,9 @@ class SalesEngine
     set_items_for_invoice_items
     get_invoice_items_for_invoice
     set_items_for_invoice
+    set_transactions_for_invoice
+    set_customer_for_invoice
+    set_invoice_for_transaction
   end
 
   def self.from_csv(csv_content)
@@ -89,4 +92,33 @@ class SalesEngine
        end
      end
   end
+
+  def invoice_for_transaction(invoice_id)
+    transactions.find_all_by_invoice_id(invoice_id)
+  end
+
+  def set_transactions_for_invoice
+    invoices.all.each do |invoice|
+      invoice.transactions = invoice_for_transaction(invoice.id)
+    end
+  end
+
+  def set_invoice_for_transaction
+    invoices.all.each do |invoice|
+      invoice.transactions.each do |transaction|
+        transaction.invoice = invoice
+      end
+    end
+  end
+
+  def invoice_by_customer_id(customer_id)
+    customers.find_by_id(customer_id)
+  end
+
+  def set_customer_for_invoice
+    invoices.all.each do |invoice|
+      invoice.customer = invoice_by_customer_id(invoice.customer_id)
+    end
+  end
+
 end
