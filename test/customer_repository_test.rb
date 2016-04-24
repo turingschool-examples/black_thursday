@@ -35,6 +35,4 @@ class CustomerRepositoryTest < MiniTest::Test
   def test_it_can_find_customers_by_last_name_in_an_array
     assert_equal Array, cr.find_all_by_last_name("Soden").class
   end
-
-
 end

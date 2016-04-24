@@ -21,7 +21,7 @@ class CustomerRepository
     customers.find do |customer|
       customer.id == customer_id
     end
-  end
+
 
   def find_all_by_first_name(first_name_fragment)
     customers.find_all do |customer|
@@ -37,7 +37,7 @@ class CustomerRepository
   end
 
   def inspect
-  "#<#{self.class} #{@customers.size} rows>"
-end
+   "#<#{self.class} #{@customers.size} rows>"
+   end
 
 end
