@@ -119,7 +119,7 @@ class TestHelper
       ({ :id => 6,
         :first_name => "Joan",
         :last_name  => "Clarke",
-        :created_a  => "2012-12-18 14:54:09 UTC",
+        :created_at  => "2012-12-18 14:54:09 UTC",
         :updated_at => "2012-03-27 14:54:09 UTC"
       }),
 

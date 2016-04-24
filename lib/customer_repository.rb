@@ -14,17 +14,30 @@ class CustomerRepository
   end
 
   def all
+    customers
   end
-#returns array of all known customer instances
 
   def find_by_id(customer_id)
+    customers.find do |customer|
+      customer.id == customer_id
+    end
   end
 
   def find_all_by_first_name(first_name_fragment)
+    customers.find_all do |customer|
+      customer.first_name.include?(first_name_fragment)
+    end
   end
-#returns [] or match(es)
+
 
   def find_all_by_last_name(last_name_fragment)
+    customers.find_all do |customer|
+      customer.last_name.include?(last_name_fragment)
+    end
   end
+
+  def inspect
+  "#<#{self.class} #{@customers.size} rows>"
+end
 
 end
