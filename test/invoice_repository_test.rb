@@ -7,8 +7,8 @@ class InvoiceRepositoryTest < Minitest::Test
   attr_reader :ir
 
   def setup
-    @test_helper = TestHelper.new.invoices
-    @ir = InvoiceRepository.new(@test_helper)
+    test_helper = TestHelper.new.invoices
+    @ir = InvoiceRepository.new(test_helper)
   end
 
   def test_it_can_be_instantiated

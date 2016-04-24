@@ -5,11 +5,11 @@ require_relative '../lib/item_repository'
 
 class ItemRepositoryTest < Minitest::Test
 
-  attr_reader :test_helper, :item_repo
+  attr_reader :item_repo
 
   def setup
-    @test_helper = TestHelper.new.items
-    @item_repo = ItemRepository.new(test_helper)
+    test_items = TestHelper.new.items
+    @item_repo = ItemRepository.new(test_items)
   end
 
   def test_it_can_hold_items

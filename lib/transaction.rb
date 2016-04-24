@@ -11,4 +11,8 @@ class Transaction
     @updated_at = Time.parse(transaction_data[:updated_at])
   end
 
+  def inspect
+    "#<#{self.class}"
+  end
+
 end
