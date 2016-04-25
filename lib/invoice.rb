@@ -13,10 +13,18 @@ class Invoice
   end
 
   def is_paid_in_full?
+    transactions.any? { |transaction| transaction.result == "success" }
   end
 
-  def total
-  end
+  # def total
+  #   paid_invoices.reduce(0) do |sum, paid_invoice|
+  #     sum + paid_invoice.items.unit_price
+  #   end
+  # end
+  #
+  # def paid_invoices
+  #   invoices.find_all { |invoice| invoice.is_paid_in_full? }
+  # end
 
   def inspect
     "#<#{self.class}"
