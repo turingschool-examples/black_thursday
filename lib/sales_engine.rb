@@ -10,7 +10,8 @@ require 'csv'
 class SalesEngine
 
   attr_reader :files
-  attr_accessor :merchant_repo, :item_repo, :invoice_repo, :invoice_item_repo, :customer_repository, :transaction_repo
+  attr_accessor :merchant_repo, :item_repo, :invoice_repo, :invoice_item_repo, :customer_repo,
+                :transaction_repo
 
   def initialize(files)
     @files = files
@@ -19,7 +20,7 @@ class SalesEngine
     @invoice_repo = nil
     @invoice_item_repo = nil
     @transaction_repo = nil
-    @cusomter_repo = nil
+    @customer_repo = nil
   end
 
   def self.from_csv(files)
@@ -58,5 +59,20 @@ class SalesEngine
     @invoice_item_repo
   end
 
+  def transactions
+    if @transaction_repo.nil?
+      @transaction_repo = TransactionRepository.new(files[:transactions], self)
+      @transaction_repo.load_csv_data
+    end
+    @transaction_repo
+  end
+
+  def customers
+    if @customer_repo.nil?
+      @customer_repo = CustomerRepository.new(files[:customers], self)
+      @customer_repo.load_csv_data
+    end
+    @customer_repo
+  end
 
 end
