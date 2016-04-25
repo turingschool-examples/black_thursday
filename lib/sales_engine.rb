@@ -16,21 +16,26 @@ class SalesEngine
     @invoice_items ||= InvoiceItemRepository.new(data[:invoice_items])
     @transactions ||= TransactionRepository.new(data[:transactions])
     @customers ||= CustomerRepository.new(data[:customers])
-    set_merchant_items
-    set_item_merchant
-    set_merchant_for_invoice
-    set_invoice_for_merchant
-    set_items_for_invoice_items
-    get_invoice_items_for_invoice
-    set_items_for_invoice
-    set_transactions_for_invoice
-    set_customer_for_invoice
-    set_invoice_for_transaction
+    set_all_relationships
   end
 
   def self.from_csv(csv_content)
     data = CsvParser.new.collect_data(csv_content)
     SalesEngine.new(data)
+  end
+
+  def set_all_relationships
+    set_merchant_items
+    set_item_merchant
+    set_merchant_for_invoice
+    set_invoice_for_merchant
+    set_items_for_invoice_items
+    set_invoice_items_for_invoice
+    set_items_for_invoice
+    set_transactions_for_invoice
+    set_customer_for_invoice
+    set_invoice_for_transaction
+    set_customer_for_merchant
   end
 
   def items_by_merchant_id(merchant_id)
@@ -79,7 +84,7 @@ class SalesEngine
     end
   end
 
-  def get_invoice_items_for_invoice
+  def set_invoice_items_for_invoice
     invoices.all.each do |invoice|
       invoice.invoice_items = invoice_items.find_all_by_invoice_id(invoice.id).uniq
     end
@@ -119,6 +124,19 @@ class SalesEngine
     invoices.all.each do |invoice|
       invoice.customer = invoice_by_customer_id(invoice.customer_id)
     end
+  end
+
+  def find_customer_by_merchant_id(merchant_id)
+    returned_invoices = invoices.find_all_by_merchant_id(merchant_id)
+    returned_invoices.map do |invoice|
+      invoice.customer_id
+    end
+  end
+
+  def set_customer_for_merchant
+    merchants.all.map do |merchant|
+      merchant.customers = find_customer_by_merchant_id(merchant.id)
+    end.uniq
   end
 
 end
