@@ -4,7 +4,7 @@ require 'time'
 
 class InvoiceItem
   attr_reader :id, :item_id, :invoice_id, :quantity, :unit_price,
-              :created_at, :updated_at
+              :created_at, :updated_at, :invoice_item_repository
 
   def initialize(column, parent = nil)
     @id = column[:id].to_i
@@ -15,7 +15,6 @@ class InvoiceItem
     @created_at = Time.parse(column[:created_at])
     @updated_at = Time.parse(column[:updated_at])
     @invoice_item_repository = parent
-
   end
 
   def unit_price_in_dollars

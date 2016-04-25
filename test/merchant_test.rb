@@ -18,7 +18,7 @@ class MerchantTest < Minitest::Test
     assert_equal 5, m.id
   end
 
-  def test_it_returns__the_name_of_the_merchant
+  def test_it_returns_the_name_of_the_merchant
     m = Merchant.new(test_data)
     assert_equal "Turing School", m.name
   end
