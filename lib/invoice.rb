@@ -12,6 +12,16 @@ class Invoice
     @updated_at = Time.parse(invoice_data[:updated_at])
   end
 
+  def is_paid_in_full?
+    transactions.any? { |transaction| transaction.result == "success" }
+  end
+
+  def total
+    invoice_items.reduce(0) do |sum, paid_invoice|
+      sum + (paid_invoice.unit_price * paid_invoice.quantity.to_i)
+    end
+  end
+
   def inspect
     "#<#{self.class}"
   end
