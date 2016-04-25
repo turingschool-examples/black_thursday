@@ -127,16 +127,19 @@ class SalesEngine
   end
 
   def find_customer_by_merchant_id(merchant_id)
-    returned_invoices = invoices.find_all_by_merchant_id(merchant_id)
-    returned_invoices.map do |invoice|
+    returned_invoices = invoices.find_all_by_merchant_id(merchant_id).uniq
+    returned_customer_id = returned_invoices.map do |invoice|
       invoice.customer_id
     end
+    returned_customer_id.map do |customer_id|
+      customers.find_by_id(customer_id)
+    end.uniq
   end
 
   def set_customer_for_merchant
     merchants.all.map do |merchant|
       merchant.customers = find_customer_by_merchant_id(merchant.id)
-    end.uniq
+    end
   end
 
 end
