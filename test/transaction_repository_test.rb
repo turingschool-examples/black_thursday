@@ -35,6 +35,10 @@ class TransactionRepositoryTest < MiniTest::Test
     assert_equal "success, success", result_from_transactions(tr.find_all_by_result("success"))
   end
 
+  def test_it_can_be_inspected
+    assert_equal "#<TransactionRepository 3 rows>", tr.inspect
+  end
+
   private
 
     def invoice_ids_from_transactions(transactions)

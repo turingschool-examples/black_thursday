@@ -137,7 +137,28 @@ class TestHelper
         :updated_at => "2016-04-23 04:54:49 UTC"
       })
     ]
+  end
 
+  def invoice_items
+    [(
+      { :id => "1",
+      :item_id => "263519844",
+      :invoice_id => "1",
+      :quantity => "5",
+      :unit_price => BigDecimal.new(13.63, 4),
+      :created_at => "2012-03-27 14:54:09 UTC",
+      :updated_at => "2012-03-27 14:54:09 UTC"
+    }),
+
+      ({ :id => "2",
+        :item_id => "263454779",
+        :invoice_id => "1",
+        :quantity => "9",
+        :unit_price => BigDecimal.new(13.63, 4),
+        :created_at => "2012-03-27 14:54:09 UTC",
+        :updated_at => "2012-03-27 14:54:09 UTC"
+      }
+    )]
   end
 
 end

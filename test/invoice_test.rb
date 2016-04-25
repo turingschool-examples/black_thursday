@@ -40,5 +40,4 @@ class InvoiceTest < Minitest::Test
   def test_it_can_return_the_time_it_was_last_updated
     assert_equal Time.parse("2016-04-19 09:04:25 -0600"), i.updated_at
   end
-
 end

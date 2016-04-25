@@ -32,6 +32,10 @@ class MerchantRepositoryTest < MiniTest::Test
     assert_equal ["LolaMarleys","GoldenRayPress"], all_names
   end
 
+  def test_it_can_be_inspected
+    assert_equal "#<MerchantRepository 2 rows>", mr.inspect
+  end
+
   private
 
   def all_names

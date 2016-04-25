@@ -12,5 +12,4 @@ class Customer
   def inspect
     "#<#{self.class}"
   end
-
 end

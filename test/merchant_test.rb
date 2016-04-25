@@ -23,4 +23,8 @@ class MerchantTest < MiniTest::Test
     assert_equal "Turing School", m.name
   end
 
+  def test_it_can_be_inspected
+    assert_equal "#<Merchant", m.inspect
+  end
+
 end

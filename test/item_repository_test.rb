@@ -105,6 +105,10 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal [], item_repo.find_all_by_merchant_id(7)
   end
 
+  def test_it_can_be_inspected
+    assert_equal "#<ItemRepository 4 rows>", item_repo.inspect
+  end
+
   private
 
   def name_of_item_objects(collection)

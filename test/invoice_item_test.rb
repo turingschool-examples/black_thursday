@@ -42,4 +42,8 @@ class InvoiceItemTest < MiniTest::Test
     assert_equal Time.parse("2012-03-28 15:54:09 UTC"), ii.updated_at
   end
 
+  def test_it_can_be_inspected
+    assert_equal "#<InvoiceItem", ii.inspect
+  end
+
 end
