@@ -49,4 +49,13 @@ class CustomerRepositoryTest < Minitest::Test
       assert_equal 9, customer[0].id
     end
 
+    def test_it_can_return_parent_when_invoices_is_called
+      skip
+      parent = Minitest::Mock.new
+      cr = CustomerRepository.new(c1, parent)
+      parent.expect(:find_customer_by_invoice_customer_id, nil, [6])
+      cr.find_invoices_by_customer_id
+      assert parent.verify
+    end
+
   end

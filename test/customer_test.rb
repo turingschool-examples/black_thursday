@@ -2,10 +2,18 @@ require_relative 'test_helper'
 require_relative '../lib/customer'
 
 class CustomerTest < Minitest::Test
-  attr_reader :c
+  attr_reader :c, :test_data
 
   def setup
     @c = Customer.new({
+    :id => 6,
+    :first_name => "Joan",
+    :last_name => "Clarke",
+    :created_at => Time.new.to_s,
+    :updated_at => Time.new.to_s
+    })
+
+    @test_data = ({
     :id => 6,
     :first_name => "Joan",
     :last_name => "Clarke",
@@ -43,4 +51,13 @@ class CustomerTest < Minitest::Test
     assert_equal Time, time.class
     assert_equal current_time.year, time.year
   end
+
+  def test_it_can_return_parent_when_merchants_is_called
+    skip
+    parent = Minitest::Mock.new
+    c = Customer.new(test_data, parent)
+    parent.expect(:find_merchant_by_merch_id, nil, [6])
+    c.merchants
+    assert parent.verify
+    end
 end
