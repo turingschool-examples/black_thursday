@@ -17,8 +17,9 @@ class Merchant
 
   def customers
     invoices_array = invoices
-    invoices_array.each do |invoice|
-      merchant_repo.find_customer_by_invoice_customer_id(invoice.customer_id)
+    invoice_customer_id = (invoices_array.map {|invoice| invoice.customer_id}).uniq
+    invoice_customer_id.map do |id|
+      merchant_repo.find_customer_by_invoice_customer_id(id)
     end
   end
 

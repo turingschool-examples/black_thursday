@@ -110,5 +110,9 @@ class SalesEngine
     @invoices.find_all_by_customer_id(customer_id)
   end
 
+  def find_customers_by_id(customer_id)
+    @customers.find_by_id(customer_id)
+  end
+
 
 end
