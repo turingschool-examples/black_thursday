@@ -37,7 +37,7 @@ class Invoice
   def invoice_items
     invoice = self.id
     invoice_repo.find_invoice_items_by_invoice_id(invoice)
-    num =
+    
   end
 
   def customer

@@ -86,4 +86,46 @@ class SalesEngineTest < Minitest::Test
     assert_equal Merchant, merchant_instance.class
   end
 
+  def test_it_can_create_a_new_invoice_repo_with_instances_of_invoice
+    invr = @se.invoices
+    assert invr
+    assert_equal InvoiceRepository, invr.class
+    assert_equal Invoice, invr.invoice_repository[0].class
+  end
+
+  def test_it_can_create_a_new_invoice_repo_with_instances_of_invoice
+    iir = @se.invoice_items
+    assert iir
+    assert_equal InvoiceItemRepository, iir.class
+    assert_equal InvoiceItem, iir.invoice_item_repository[0].class
+  end
+
+  def test_it_can_create_a_new_invoice_repo_with_instances_of_invoice
+    tr = @se.transactions
+    assert tr
+    assert_equal TransactionRepository, tr.class
+    assert_equal Transaction, tr.transaction_repository[0].class
+  end
+
+  def test_it_can_create_a_new_invoice_repo_with_instances_of_invoice
+    cr = @se.customers
+    assert cr
+    assert_equal CustomerRepository, cr.class
+    assert_equal Customer, cr.customer_repository[0].class
+  end
+
+  def test_it_can_find_invoice_items_by_invoice_id
+    invoice_items = @se.find_invoice_items_with_invoice_id(6)
+    assert invoice_items
+    assert_equal Array, invoice_items.class
+    assert_equal InvoiceItem, invoice_items[0].class
+  end
+
+  def test_it_can_find_customers_by_id
+    customer = @se.find_customer_by_id(6)
+    assert customer
+    assert_equal Customer, customer.class
+    assert_equal "Heber", customer.first_name
+  end
+
 end
