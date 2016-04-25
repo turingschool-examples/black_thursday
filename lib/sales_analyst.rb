@@ -106,17 +106,18 @@ class SalesAnalyst
 
 
 #=============
-#WRITE REVENU BY MERCHID FIRST
   def top_revenue_earners(num=20)
-    #get rid of nils if num is less than 20 - with compact?
-
+    hash = generate_merchant_revenue_hash
+    hash.sort_by {|merchant, revenue| revenue}.reverse.to_h
+    hash.keys[0..num]
   end
 
-
-
-  def generate_merchant_revenue_hash
-    #helper function, use rev by merchant function to do this
-
+  def generate_merchant_revenue_hash#helper function
+    merchant_revenue_hash = {}
+    sales_engine.merchants.all do |merchant|
+      merchant_revenue_hash[merchant] = revenue_by_merchant(merchant.id)
+    end
+    merchant_revenue_hash
   end
 
 #===========
@@ -141,10 +142,13 @@ class SalesAnalyst
 
   end
 
+#==============
 
-  ###WRITE THIS FIRST
   def revenue_by_merchant(merchant_id)
-
+    all_invoices = sales_engine.find_all_by_merchant_id(merchant_id)
+    all_invoices.reduce(0) do |cuml_total, invoice|
+      cuml_total += invoice.total
+    end
   end
 
   #================
