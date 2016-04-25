@@ -9,25 +9,19 @@ class ItemRepository
   end
 
    def create_items(items_data)
-     items_data.map do |item|
-       Item.new(item)
-     end
+     items_data.map { |item| Item.new(item) }
    end
 
   def all
-    @items
+    items
   end
 
   def find_by_id(item_id)
-    items.find do |item|
-      item.id == item_id
-    end
+    items.find { |item| item.id == item_id }
   end
 
   def find_by_name(item_name)
-    items.find do |item|
-      item.name == item_name
-    end
+    items.find { |item| item.name == item_name }
   end
 
   def find_all_with_description(string_description)
@@ -37,21 +31,15 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
-    items.find_all do |item|
-      item.unit_price == price
-    end
+    items.find_all { |item| item.unit_price == price }
   end
 
   def find_all_by_price_in_range(range)
-    items.find_all do |item|
-      range.include?(item.unit_price)
-    end
+    items.find_all { |item| range.include?(item.unit_price) }
   end
 
   def find_all_by_merchant_id(merchant_id)
-    items.find_all do |item|
-      item.merchant_id == merchant_id
-    end
+    items.find_all { |item| item.merchant_id == merchant_id }
   end
 
   def inspect

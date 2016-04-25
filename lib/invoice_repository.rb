@@ -1,7 +1,7 @@
 require_relative 'invoice'
 
 class InvoiceRepository
-  attr_reader :invoices
+  attr_reader   :invoices
   attr_accessor :merchant
 
   def initialize(invoices_data)
@@ -9,9 +9,7 @@ class InvoiceRepository
   end
 
   def create_invoices(invoices_data)
-    invoices_data.map do |invoice|
-      Invoice.new(invoice)
-    end
+    invoices_data.map { |invoice| Invoice.new(invoice) }
   end
 
   def all
@@ -19,27 +17,19 @@ class InvoiceRepository
   end
 
   def find_by_id(invoice_id)
-    invoices.find do |invoice|
-      invoice.id == invoice_id
-    end
+    invoices.find { |invoice| invoice.id == invoice_id }
   end
 
   def find_all_by_customer_id(customer_id)
-    invoices.find_all do |invoice|
-      invoice.customer_id == customer_id
-    end
+    invoices.find_all { |invoice| invoice.customer_id == customer_id }
   end
 
   def find_all_by_merchant_id(merchant_id)
-    invoices.find_all do |invoice|
-      invoice.merchant_id == merchant_id.to_i
-    end
+    invoices.find_all { |invoice| invoice.merchant_id == merchant_id.to_i }
   end
 
   def find_all_by_status(status)
-    invoices.find_all do |invoice|
-      invoice.status == status.to_sym
-    end
+    invoices.find_all { |invoice| invoice.status == status.to_sym }
   end
 
   def inspect

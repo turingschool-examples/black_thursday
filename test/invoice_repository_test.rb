@@ -1,5 +1,6 @@
 require_relative 'test_helper'
 require 'minitest/autorun'
+require 'minitest/pride'
 require_relative '../lib/invoice_repository'
 
 class InvoiceRepositoryTest < Minitest::Test
@@ -7,8 +8,8 @@ class InvoiceRepositoryTest < Minitest::Test
   attr_reader :ir
 
   def setup
-    test_helper = TestHelper.new.invoices
-    @ir = InvoiceRepository.new(test_helper)
+    invoice_helper = TestHelper.new.invoices
+    @ir = InvoiceRepository.new(invoice_helper)
   end
 
   def test_it_can_be_instantiated
@@ -41,6 +42,10 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_it_can_find_all_invoices_by_status
     assert_equal :pending, ir.find_all_by_status("pending")[0].status
+  end
+
+  def test_it_can_be_inspected
+    assert_equal "#<InvoiceRepository 3 rows>", ir.inspect
   end
 
 

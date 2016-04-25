@@ -1,5 +1,6 @@
 require_relative 'test_helper'
 require 'minitest/autorun'
+require 'minitest/pride'
 require_relative '../lib/item'
 
 class ItemTest < Minitest::Test
@@ -29,7 +30,6 @@ class ItemTest < Minitest::Test
   def test_it_can_return_a_unit_price
     assert_equal 10.99, i.unit_price.to_f*100
   end
-  # method returns big decimal
 
   def test_it_can_return_when_it_was_created
     assert_equal Time.parse("2016-04-19 09:04:25 -0600"), i.created_at
@@ -45,5 +45,9 @@ class ItemTest < Minitest::Test
 
   def test_it_can_return_merchant_id
     assert_equal 12334261, i.merchant_id
+  end
+
+  def test_it_can_be_inspected
+    assert_equal "#<Item", i.inspect
   end
 end

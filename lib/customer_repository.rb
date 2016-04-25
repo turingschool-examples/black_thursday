@@ -8,9 +8,7 @@ class CustomerRepository
   end
 
   def create_customers(customers_data)
-    customers_data.map do |cust|
-      Customer.new(cust)
-    end
+    customers_data.map { |customer| Customer.new(customer) }
   end
 
   def all
@@ -18,9 +16,7 @@ class CustomerRepository
   end
 
   def find_by_id(customer_id)
-    customers.find do |customer|
-      customer.id == customer_id
-    end
+    customers.find { |customer| customer.id == customer_id }
   end
 
 
@@ -39,6 +35,6 @@ class CustomerRepository
 
   def inspect
    "#<#{self.class} #{@customers.size} rows>"
-   end
+  end
 
 end

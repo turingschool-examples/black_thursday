@@ -52,5 +52,9 @@ class TransactionTest < MiniTest::Test
     assert_equal Time, t.updated_at.class
   end
 
+  def test_it_can_be_inspected
+    assert_equal "#<Transaction", t.inspect
+  end
+
 
 end
