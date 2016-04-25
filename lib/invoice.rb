@@ -5,7 +5,8 @@ class Invoice
                 :merchant_id,
                 :status,
                 :created_at,
-                :updated_at
+                :updated_at,
+                :total
   attr_accessor :merchant,
                 :items,
                 :invoice_items,
@@ -25,9 +26,17 @@ class Invoice
     transactions.any? { |transaction| transaction.result == "success" }
   end
 
+  def paid_total
+    if is_paid_in_full?
+      total
+    else
+      0
+    end
+  end
+
   def total
-    invoice_items.reduce(0) do |sum, paid_invoice|
-      sum + (paid_invoice.unit_price * paid_invoice.quantity.to_i)
+    invoice_items.reduce(0) do |sum, item_total|
+      sum + (item_total.unit_price * item_total.quantity.to_i)
     end
   end
 

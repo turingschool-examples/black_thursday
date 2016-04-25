@@ -166,11 +166,11 @@ class SalesAnalyst
   def total_revenue_by_date(date)
     ii = []
     invoice_items.all.each do |invoice_item|
-      if invoice_item.created_at <= Time.parse(date)
+      if Time.parse(invoice_item.created_at.strftime("%Y-%m-%d")) <= date
       ii << invoice_item.unit_price
       end
     end
-    ii.reduce(:+)
+    ii.reduce(:+).to_f
   end
 
   def merchants_with_pending_invoices
@@ -190,16 +190,26 @@ class SalesAnalyst
   def revenue_by_merchant(merchant_id)
     merchant = merchants.find_by_id(merchant_id)
       amounts = merchant.invoices.map do |invoice|
-      invoice.total
+      invoice.paid_total
     end
     amounts.reduce(:+)
   end
 
-  def top_revenue_earners(x=20)
-    rank = merchants.all.sort_by do |merchant|
-      revenue_by_merchant(merchant.id)
+  def merchants_ranked_by_revenue
+    mr = []
+    merchants.all.each do |merchant|
+      mr << [merchant, revenue_by_merchant(merchant.id)]
     end
-    rank.take(x)
+    merchant_rev = mr.sort_by do |merchant|
+      merchant[1]
+    end
+    merchant_rev.reverse.map do |mr|
+      mr[0]
+    end
+  end
+
+  def top_revenue_earners(x=20)
+    merchants_ranked_by_revenue.take(x)
   end
 
   def merchants_created_in_month(month)
@@ -210,7 +220,7 @@ class SalesAnalyst
 
   def merchants_with_only_one_item_registered_in_month(month)
     merchants_created_in_month(month).select do |merchant|
-      merchant.invoices.count == 1
+      merchant.items.count == 1
     end
   end
 
