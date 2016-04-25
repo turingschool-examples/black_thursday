@@ -12,6 +12,12 @@ class Invoice
     @updated_at = Time.parse(invoice_data[:updated_at])
   end
 
+  def is_paid_in_full?
+  end
+
+  def total
+  end
+
   def inspect
     "#<#{self.class}"
   end
