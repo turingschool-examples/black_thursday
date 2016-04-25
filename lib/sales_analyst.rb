@@ -171,13 +171,13 @@ class SalesAnalyst
   end
 
   def generate_item_hash_for_invoice(invoice_id)
-    hash = {}
     all_items = sales_engine.invoice_items.find_all_by_invoice_id(invoice.id)
+    hash = {}
     all_items.each do |invoice_item|
       hash[invoice_item] = [invoice_item.quantity, invoice_item.unit_price]
     end
     hash.inject({}) {|h, (k, v)| h[k] = [v[0], v[0]*v[1]]; h}
-    #{it1=>[5, 25.0], it2=>[4, 14.0]}
+    #{"it1"=>[5, 25.0], "it2"=>[4, 14.0]}
   end
 
   def generate_item_hash_for_merchant(merchant_id) #helper function {item => [quantity, revenue]}
@@ -185,7 +185,22 @@ class SalesAnalyst
     find_paid_invoices_by_merchant.each do |invoice|
       cuml_array.push(generate_item_hash_for_invoice(merchant_id))
     end
-    cuml_array.inject{|memo, hash| memo.merge(hash){|key, start, addl| [start, addl].transpose.map {|x| x.reduce(:+)}}}
+
+    #can above be:
+    # cuml_array = find_paid_invoices_by_merchant.reduce([]) do |cuml, invoice|
+    #   cuml.push(generate_item_hash_for_invoice(merchant_id))
+    # end
+
+
+    #this works below, but trying to break it up to be under 80
+    # cuml_array.inject{|cuml_hash, hash| cuml_hash.merge(hash){|key, start, addl| [start, addl].transpose.map {|x| x.reduce(:+)}}}
+
+    #could break this out into separate function
+    cuml_array.inject do |cuml_hash, hash|
+      cuml_hash.merge(hash) do |key, start, addl|
+        [start, addl].transpose.map {|x| x.reduce(:+)}
+      end
+    end
   end
 
 #OLD
