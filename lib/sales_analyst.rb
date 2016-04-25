@@ -106,8 +106,9 @@ class SalesAnalyst
 
 
 #=============
-  def top_revenue_earners(num=20) #test_written
-    #get rid of nils if num is less than 20
+#WRITE REVENU BY MERCHID FIRST
+  def top_revenue_earners(num=20)
+    #get rid of nils if num is less than 20 - with compact?
 
   end
 
@@ -120,7 +121,7 @@ class SalesAnalyst
 
 #===========
 
-  def merchants_with_pending_invoices #tests_written
+  def merchants_with_pending_invoices
 
   end
 
@@ -132,17 +133,17 @@ class SalesAnalyst
 
 #==============
 
-  def merchants_with_only_one_item #tests_written
+  def merchants_with_only_one_item
 
   end
 
-  def merchants_with_only_one_item_registered_in_month #tests_written
+  def merchants_with_only_one_item_registered_in_month
 
   end
 
 
   ###WRITE THIS FIRST
-  def revenue_by_merchant(merchant_id) #tests_written
+  def revenue_by_merchant(merchant_id)
 
   end
 
@@ -161,15 +162,16 @@ class SalesAnalyst
 
 
 
-  def most_sold_item_for_merchant(merchant_id) #tests_written
+  def most_sold_item_for_merchant(merchant_id)
 
   end
 
-  def best_item_for_merchant(merchant_id) #tests_written
+  def best_item_for_merchant(merchant_id)
 
   end
 
 
+#=======================DONE=====
 
   def item_price_array
     sales_engine.items.all.map do |item|

@@ -199,6 +199,7 @@ class SalesAnalystTest < Minitest::Test
   #MERCHANTS WITH PENDING INVOICES
 
   def test_it_finds_pending_invoices
+    skip
     assert_equal 3 sa.find_pending_invoices.length
     assert_equal Invoice, sa.find_pending_invoices[0].class
     assert_equal :pending, sa.find_pending_invoices[1].status
@@ -313,7 +314,7 @@ class SalesAnalystTest < Minitest::Test
     assert_equal true, sa.best_item_for_merchant(3).name.include?("Item6")
   end
 
-
+#======DONE HERE================
 
   def test_it_finds_threshold_for_postitive_std_devs
     assert_equal 8.55, sa.threshold([10, 8, 3, 4, 5, 6, 7], 1)
