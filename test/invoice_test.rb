@@ -92,7 +92,7 @@ class InvoiceTest < Minitest::Test
 
   def total_returns_correct_total_for_multi_item_invoice
     skip
-    assert_equal 21588.77, invoice.total
+    assert_equal 215.89, invoice.total
   end
 
   def total_returns_total_as_bd

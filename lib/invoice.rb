@@ -39,7 +39,7 @@ class Invoice
   end
 
   def is_paid_in_full?
-    transactions.any? {|transaction| transaction.status == "success"}
+    transactions.any? {|transaction| transaction.result == "success"}
   end
 
   def total
@@ -47,9 +47,10 @@ class Invoice
       0
     else
       items = sales_engine.invoice_items.find_all_by_invoice_id(id)
-      items.reduce(0) do |total, item|
+      result = items.reduce(0) do |total, item|
         total + item.unit_price * item.quantity
       end
+      (BigDecimal.new(result)/BigDecimal.new(100)).round(2)
     end
   end
 
