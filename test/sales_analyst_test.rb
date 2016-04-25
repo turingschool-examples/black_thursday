@@ -16,15 +16,15 @@ class SalesAnalystTest < Minitest::Test
     @se.item_repo = ItemRepository.new(nil, se)
     @se.invoice_repo = InvoiceRepository.new(nil, se)
     @se.invoice_item_repo = InvoiceItemRepository.new(nil, se)
-    # @se.transaction_repo = TransactionRepository.new(nil, se)
-    # @se.customer_repo = CustomerRepository.new(nil, se)
+    @se.transaction_repo = TransactionRepository.new(nil, se)
+    @se.customer_repo = CustomerRepository.new(nil, se)
 
     setup_merchants
     setup_items
     setup_invoices
     setup_invoice_items
-    # setup_transactions
-    # setup_customers
+    setup_transactions
+    setup_customers
   end
 
 
@@ -141,8 +141,8 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_we_can_percentage_of_invoices_with_given_status
-    assert_equal 42.86, sa.invoice_status(:pending)
-    assert_equal 42.86, sa.invoice_status(:shipped)
+    assert_equal 57.14, sa.invoice_status(:pending)
+    assert_equal 28.57, sa.invoice_status(:shipped)
     assert_equal 14.29, sa.invoice_status(:returned)
   end
 
@@ -193,17 +193,17 @@ class SalesAnalystTest < Minitest::Test
 
   def test_top_revenue_earners_doesnt_need_argument
     skip
-    assert_equal 3,  sa.top_revenue_earners.length
+    assert_equal 3, sa.top_revenue_earners.length
   end
 
   #MERCHANTS WITH PENDING INVOICES
 
-  def test_it_finds_pending_invoices
-    skip
-    assert_equal 3 sa.find_pending_invoices.length
-    assert_equal Invoice, sa.find_pending_invoices[0].class
-    assert_equal :pending, sa.find_pending_invoices[1].status
-  end
+  # def test_it_finds_pending_invoices
+  #   skip
+  #   assert_equal 2, sa.find_pending_invoices.length
+  #   assert_equal Invoice, sa.find_pending_invoices[0].class
+  #   assert_equal :pending, sa.find_pending_invoices[1].status
+  # end
 
 
   def test_merchants_with_pending_invoices_returns_array
@@ -213,8 +213,8 @@ class SalesAnalystTest < Minitest::Test
 
   def test_merchants_with_pending_invoices_returns_correct_list
     skip
-    assert_equal true, ma.merchants_with_pending_invoices[0].name.include?("Merch2")
-    assert_equal 2,  sa.merchant_with_pending_invoices.length
+    assert_equal 3, ma.merchants_with_pending_invoices[0].name.id
+    assert_equal 1,  sa.merchants_with_pending_invoices.length
   end
 
   #MERCHS WITH 1 ITEM
@@ -346,12 +346,12 @@ class SalesAnalystTest < Minitest::Test
 
   def setup_invoices
     @se.invoice_repo.add_new({:id => 1, :customer_id => 1, :merchant_id => 1, :status => "shipped", :created_at => "2016-04-18"}, @se)
-    @se.invoice_repo.add_new({:id => 2, :customer_id => 1, :merchant_id => 1, :status => "pending", :created_at => "2016-04-19"}, @se)
-    @se.invoice_repo.add_new({:id => 3, :customer_id => 2, :merchant_id => 2, :status => "returned", :created_at => "2016-04-19"}, @se)
-    @se.invoice_repo.add_new({:id => 4, :customer_id => 3, :merchant_id => 3, :status => "shipped", :created_at => "2016-04-20"}, @se)
-    @se.invoice_repo.add_new({:id => 5, :customer_id => 1, :merchant_id => 1, :status => "shipped", :created_at => "2016-04-18"}, @se)
-    @se.invoice_repo.add_new({:id => 6, :customer_id => 1, :merchant_id => 1, :status => "pending", :created_at => "2016-04-18"}, @se)
-    @se.invoice_repo.add_new({:id => 7, :customer_id => 1, :merchant_id => 1, :status => "pending", :created_at => "2016-04-18"}, @se)
+    @se.invoice_repo.add_new({:id => 2, :customer_id => 1, :merchant_id => 1, :status => "shipped", :created_at => "2016-04-19"}, @se)
+    @se.invoice_repo.add_new({:id => 3, :customer_id => 2, :merchant_id => 2, :status => "shipped", :created_at => "2016-04-19"}, @se)
+    @se.invoice_repo.add_new({:id => 4, :customer_id => 3, :merchant_id => 3, :status => "returned", :created_at => "2016-04-20"}, @se)
+    @se.invoice_repo.add_new({:id => 5, :customer_id => 1, :merchant_id => 3, :status => "shipped", :created_at => "2016-04-18"}, @se)
+    @se.invoice_repo.add_new({:id => 6, :customer_id => 1, :merchant_id => 3, :status => "pending", :created_at => "2016-04-18"}, @se)
+    @se.invoice_repo.add_new({:id => 7, :customer_id => 1, :merchant_id => 3, :status => "pending", :created_at => "2016-04-18"}, @se)
   end
 
   def setup_invoice_items
@@ -380,9 +380,9 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def setup_customers
-    @se.transaction_repo.add_new({:id => 1, :first_name => "Kerry"}, @se)
-    @se.transaction_repo.add_new({:id => 2, :first_name => "Colin"}, @se)
-    @se.transaction_repo.add_new({:id => 3, :first_name => "Fake"}, @se)
+    @se.customer_repo.add_new({:id => 1, :first_name => "Kerry"}, @se)
+    @se.customer_repo.add_new({:id => 2, :first_name => "Colin"}, @se)
+    @se.customer_repo.add_new({:id => 3, :first_name => "Fake"}, @se)
   end
 
 end

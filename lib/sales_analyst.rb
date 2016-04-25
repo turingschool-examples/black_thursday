@@ -88,8 +88,7 @@ class SalesAnalyst
 
   #======================
 
-  def total_revenue_by_date(date)
-    #not tested yet without trans
+  def total_revenue_by_date(date) #not tested yet
     invoices = find_all_invoices_by_date(date)
     invoices.reduce(0) do |sum, invoice|
       sum += invoice.total
@@ -106,68 +105,130 @@ class SalesAnalyst
 
 
 #=============
-#WRITE REVENU BY MERCHID FIRST
-  def top_revenue_earners(num=20)
-    #get rid of nils if num is less than 20 - with compact?
-
+  def top_revenue_earners(num=20)#not tested,test below first
+    hash = generate_merchant_revenue_hash
+    hash.sort_by {|merchant, revenue| revenue}.reverse.to_h
+    hash.keys[0..num]
   end
 
+  def merchants_ranked_by_revenue #not tested
+    top_revenue_earners(sales_engine.merchants.length)
+  end
 
-
-  def generate_merchant_revenue_hash
-    #helper function, use rev by merchant function to do this
-
+  def generate_merchant_revenue_hash#helper function, not tested, test revenue by merchant first
+    merchant_revenue_hash = {}
+    sales_engine.merchants.all do |merchant|
+      merchant_revenue_hash[merchant] = revenue_by_merchant(merchant.id)
+    end
+    merchant_revenue_hash
   end
 
 #===========
 
   def merchants_with_pending_invoices
-
+    sales_engine.merchants.all.select do |merchant|
+      merchant.invoices.any? {|invoice| !invoice.is_paid_in_full?}
+    end
   end
 
-  def find_pending_invoices #helper function
-
-  end
-
-
+  #NOT NEEDED?
+  # def find_pending_invoices #helper function
+  #
+  # end
 
 #==============
 
   def merchants_with_only_one_item
-
+    sales_engine.merchants.all.select do |merchant|
+      merchant.items.length == 1
+    end
   end
 
-  def merchants_with_only_one_item_registered_in_month
-
+  def merchants_with_only_one_item_registered_in_month(month)
+    all_with_one = merchants_with_only_one_item
+    all_with_one.select do |merchant|
+      merchant.created_at.strftime("%B") == month
+    end
   end
 
+#==============
 
-  ###WRITE THIS FIRST
   def revenue_by_merchant(merchant_id)
-
+    all_invoices = sales_engine.find_all_by_merchant_id(merchant_id)
+    all_invoices.reduce(0) do |cuml_total, invoice|
+      cuml_total += invoice.total
+    end
   end
 
   #================
 
   def find_paid_invoices_by_merchant(merchant_id)
     #helper function
-
+    merchant = sales_engine.merchants.find_by_id(merchant_id)
+    merchant.invoices.select do |invoice|
+      invoice.is_paid_in_full?
+    end
   end
 
-  def generate_item_hash_for_merchant(merchant_id)
-    #helper function
-    #{item => [quantity, revenue]}
-
+  def generate_item_hash_for_invoice(invoice_id)
+    all_items = sales_engine.invoice_items.find_all_by_invoice_id(invoice.id)
+    hash = {}
+    all_items.each do |invoice_item|
+      hash[invoice_item] = [invoice_item.quantity, invoice_item.unit_price]
+    end
+    hash.inject({}) {|h, (k, v)| h[k] = [v[0], v[0]*v[1]]; h}
+    #{"it1"=>[5, 25.0], "it2"=>[4, 14.0]}
   end
 
+  def generate_item_hash_for_merchant(merchant_id) #helper function {item => [quantity, revenue]}
+    cuml_array = []
+    find_paid_invoices_by_merchant.each do |invoice|
+      cuml_array.push(generate_item_hash_for_invoice(merchant_id))
+    end
 
+    #can above be:
+    # cuml_array = find_paid_invoices_by_merchant.reduce([]) do |cuml, invoice|
+    #   cuml.push(generate_item_hash_for_invoice(merchant_id))
+    # end
+
+
+    #this works below, but trying to break it up to be under 80
+    # cuml_array.inject{|cuml_hash, hash| cuml_hash.merge(hash){|key, start, addl| [start, addl].transpose.map {|x| x.reduce(:+)}}}
+
+    #could break this out into separate function
+    cuml_array.inject do |cuml_hash, hash|
+      cuml_hash.merge(hash) do |key, start, addl|
+        [start, addl].transpose.map {|x| x.reduce(:+)}
+      end
+    end
+  end
+
+#OLD
+#   invoices = find_paid_invoices_by_merchant
+#   cuml_hash = {}
+#   invoices.each do |invoice|
+#     item_hash = generate_item_hash_for_invoice(merchant_id)
+#     item_hash.each do |key, value|
+#       if cuml_hash[key]
+#         cuml_hash[key] = [cuml_hash[key][0] + value[0], cuml_hash[key][1] + value[1]]
+#       else
+#         cuml_hash[key] = [value[0], value[1]]
+#       end
+#     end
+#   end
+# end
 
   def most_sold_item_for_merchant(merchant_id)
-
+    merchant_hash = generate_item_hash_for_merchant(merchant_id)
+    sorted = merchant_hash.sort_by {|k, v| v[0]}
+    sorted.keys[0]
   end
 
   def best_item_for_merchant(merchant_id)
-
+    #may be dumb to redo this - could store it as merchant i_var
+    merchant_hash = generate_item_hash_for_merchant(merchant_id)
+    sorted = merchant_hash.sort_by {|k, v| v[1]}
+    sorted.keys[0]
   end
 
 
