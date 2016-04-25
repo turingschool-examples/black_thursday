@@ -173,21 +173,46 @@ class SalesAnalyst
     ii.reduce(:+)
   end
 
-  def top_revenue_earners(x=20)
-    tr = merchants.all.each do |merchant|
-      merchant.invoices.each do |invoice|
-        invoice.total
-      end
-    end
-    tr.take(x)
-  end
-
   def merchants_with_pending_invoices
     merchants.all.select do |merchant|
-      merchant.invoices.each do |invoice|
-        invoice.transactions.none? { |transaction| transaction.result == "success" }
+      merchant.invoices.any? do |invoice|
+         invoice.transactions.none? { |transaction| transaction.result == "success" }
       end
     end
   end
+
+  def merchants_with_only_one_item
+      merchants.all.select do |merchant|
+        merchant.items.count == 1
+      end
+  end
+
+  def revenue_by_merchant(merchant_id)
+    merchant = merchants.find_by_id(merchant_id)
+      amounts = merchant.invoices.map do |invoice|
+      invoice.total
+    end
+    amounts.reduce(:+)
+  end
+
+  def top_revenue_earners(x=20)
+    rank = merchants.all.sort_by do |merchant|
+      revenue_by_merchant(merchant.id)
+    end
+    rank.take(x)
+  end
+
+  def merchants_created_in_month(month)
+    merchants.all.select do |merchant|
+        merchant.created_at.strftime("%B") == month
+    end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants_created_in_month(month).select do |merchant|
+      merchant.invoices.count == 1
+    end
+  end
+
 
 end
