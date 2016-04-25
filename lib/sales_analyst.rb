@@ -86,6 +86,93 @@ class SalesAnalyst
     sales_engine.invoices.all.length * 100).round(2)
   end
 
+  #======================
+
+  def total_revenue_by_date(date)
+    #not tested yet without trans
+    invoices = find_all_invoices_by_date(date)
+    invoices.reduce(0) do |sum, invoice|
+      sum += invoice.total
+    end
+  end
+
+
+  def find_all_invoices_by_date(date)#helper_function, passing test
+    date = Time.parse(date).strftime('%D')
+    sales_engine.invoices.all.select do |invoice|
+      invoice.created_at.strftime('%D') == date
+    end
+  end
+
+
+#=============
+#WRITE REVENU BY MERCHID FIRST
+  def top_revenue_earners(num=20)
+    #get rid of nils if num is less than 20 - with compact?
+
+  end
+
+
+
+  def generate_merchant_revenue_hash
+    #helper function, use rev by merchant function to do this
+
+  end
+
+#===========
+
+  def merchants_with_pending_invoices
+
+  end
+
+  def find_pending_invoices #helper function
+
+  end
+
+
+
+#==============
+
+  def merchants_with_only_one_item
+
+  end
+
+  def merchants_with_only_one_item_registered_in_month
+
+  end
+
+
+  ###WRITE THIS FIRST
+  def revenue_by_merchant(merchant_id)
+
+  end
+
+  #================
+
+  def find_paid_invoices_by_merchant(merchant_id)
+    #helper function
+
+  end
+
+  def generate_item_hash_for_merchant(merchant_id)
+    #helper function
+    #{item => [quantity, revenue]}
+
+  end
+
+
+
+  def most_sold_item_for_merchant(merchant_id)
+
+  end
+
+  def best_item_for_merchant(merchant_id)
+
+  end
+
+
+#=======================DONE=====
+
   def item_price_array
     sales_engine.items.all.map do |item|
       item.unit_price_to_dollars
