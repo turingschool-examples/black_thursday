@@ -8,17 +8,21 @@ class SalesAnalystTest < MiniTest::Test
   attr_reader :sa, :sa2
 
   def setup
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv"
-    })
-    @sa = SalesAnalyst.new(se)
+    # se = SalesEngine.from_csv({
+    #   :items     => "./data/items.csv",
+    #   :merchants => "./data/merchants.csv",
+    #   :invoices => "./data/invoices.csv"
+    # })
+    # @sa = SalesAnalyst.new(se)
 
     se2 = SalesEngine.from_csv({
       :items     => "./data/items_test.csv",
       :merchants => "./data/merchants_test.csv",
-      :invoices => "./data/invoices_test.csv"
+      :invoices => "./data/invoices_test.csv",
+      :invoice_items =>
+      "./data/invoice_items_test.csv",
+      :transactions => "./data/transactions_test.csv",
+      :customers => "./data/customers_test.csv",
     })
     @sa2 = SalesAnalyst.new(se2)
   end
@@ -123,5 +127,21 @@ class SalesAnalystTest < MiniTest::Test
 #   def test_it_returns_invoice_status_actual_data_set
 #     assert_equal 56.95, sa.invoice_status(:shipped)
 #   end
-#
+
+  def test_it_finds_total_revenue_by_date_when_all_dates_included
+    assert_equal 71832.0, sa2.total_revenue_by_date("2013-03-27 14:54:09 UTC").to_f*100
+  end
+
+  def test_it_finds_total_revenue_by_date
+    assert_equal 13635.0, sa2.total_revenue_by_date("2012-04-27 14:54:09 UTC").to_f*100
+  end
+
+  def test_it_finds_top_x_merchants
+    assert_equal 1, sa2.top_revenue_earners(1).length
+  end
+
+  def test_it_finds_merchants_with_pending_invoices
+    assert_equal 3, sa2.merchants_with_pending_invoices.length
+  end
+
 end

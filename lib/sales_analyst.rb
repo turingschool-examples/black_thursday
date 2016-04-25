@@ -1,11 +1,13 @@
 class SalesAnalyst
-  attr_reader :merchants, :items, :se, :invoices
+  attr_reader :merchants, :items, :se, :invoices, :invoice_items
 
   def initialize(se)
     @se = se
     @merchants = se.merchants
     @items = se.items
     @invoices = se.invoices
+    @invoice_items =
+    se.invoice_items
   end
 
   def items_per_merchant
@@ -159,6 +161,33 @@ class SalesAnalyst
       invoice.status == status
     end
   ((is / total.to_f) * 100).round(2)
+  end
+
+  def total_revenue_by_date(date)
+    ii = []
+    invoice_items.all.each do |invoice_item|
+      if invoice_item.created_at <= Time.parse(date)
+      ii << invoice_item.unit_price
+      end
+    end
+    ii.reduce(:+)
+  end
+
+  def top_revenue_earners(x=20)
+    tr = merchants.all.each do |merchant|
+      merchant.invoices.each do |invoice|
+        invoice.total
+      end
+    end
+    tr.take(x)
+  end
+
+  def merchants_with_pending_invoices
+    merchants.all.select do |merchant|
+      merchant.invoices.each do |invoice|
+        invoice.transactions.none? { |transaction| transaction.result == "success" }
+      end
+    end
   end
 
 end
