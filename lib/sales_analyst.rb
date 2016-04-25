@@ -111,6 +111,10 @@ class SalesAnalyst
     hash.keys[0..num]
   end
 
+  def merchants_ranked_by_revenue #not tested
+    top_revenue_earners(sales_engine.merchants.length)
+  end
+
   def generate_merchant_revenue_hash#helper function, not tested, test revenue by merchant first
     merchant_revenue_hash = {}
     sales_engine.merchants.all do |merchant|
@@ -173,22 +177,31 @@ class SalesAnalyst
       hash[invoice_item] = [invoice_item.quantity, invoice_item.unit_price]
     end
     hash.inject({}) {|h, (k, v)| h[k] = [v[0], v[0]*v[1]]; h}
+    #{it1=>[5, 25.0], it2=>[4, 14.0]}
   end
 
   def generate_item_hash_for_merchant(merchant_id) #helper function {item => [quantity, revenue]}
-    invoices = find_paid_invoices_by_merchant
-    cuml_hash = {}
-    invoices.each do |invoice|
-      item_hash = generate_item_hash_for_invoice(merchant_id)
-      item_hash.each do |key, value|
-        if cuml_hash[key]
-          cuml_hash[key] = [cuml_hash[key][0] + value[0], cuml_hash[key][1] + value[1]]
-        else
-          cuml_hash[key] = [value[0], value[1]]
-        end
-      end
+    cuml_array = []
+    find_paid_invoices_by_merchant.each do |invoice|
+      cuml_array.push(generate_item_hash_for_invoice(merchant_id))
     end
+    cuml_array.inject{|memo, hash| memo.merge(hash){|key, start, addl| [start, addl].transpose.map {|x| x.reduce(:+)}}}
   end
+
+#OLD
+#   invoices = find_paid_invoices_by_merchant
+#   cuml_hash = {}
+#   invoices.each do |invoice|
+#     item_hash = generate_item_hash_for_invoice(merchant_id)
+#     item_hash.each do |key, value|
+#       if cuml_hash[key]
+#         cuml_hash[key] = [cuml_hash[key][0] + value[0], cuml_hash[key][1] + value[1]]
+#       else
+#         cuml_hash[key] = [value[0], value[1]]
+#       end
+#     end
+#   end
+# end
 
   def most_sold_item_for_merchant(merchant_id)
     merchant_hash = generate_item_hash_for_merchant(merchant_id)
@@ -197,7 +210,7 @@ class SalesAnalyst
   end
 
   def best_item_for_merchant(merchant_id)
-    #may be dumb to redo this
+    #may be dumb to redo this - could store it as merchant i_var
     merchant_hash = generate_item_hash_for_merchant(merchant_id)
     sorted = merchant_hash.sort_by {|k, v| v[1]}
     sorted.keys[0]

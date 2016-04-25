@@ -380,9 +380,9 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def setup_customers
-    @se.transaction_repo.add_new({:id => 1, :first_name => "Kerry"}, @se)
-    @se.transaction_repo.add_new({:id => 2, :first_name => "Colin"}, @se)
-    @se.transaction_repo.add_new({:id => 3, :first_name => "Fake"}, @se)
+    @se.customer_repo.add_new({:id => 1, :first_name => "Kerry"}, @se)
+    @se.customer_repo.add_new({:id => 2, :first_name => "Colin"}, @se)
+    @se.customer_repo.add_new({:id => 3, :first_name => "Fake"}, @se)
   end
 
 end
