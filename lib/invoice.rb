@@ -28,11 +28,16 @@ class Invoice
   end
 
   def items
-    invoice = self.id
-    invoice_item_array = invoice_repo.find_invoice_items_by_invoice_id(invoice)
+    invoice_item_array = invoice_items
     invoice_item_array.map do |invoice_item|
       invoice_repo.find_items_by_invoice_id(invoice_item.item_id)
     end
+  end
+
+  def invoice_items
+    invoice = self.id
+    invoice_repo.find_invoice_items_by_invoice_id(invoice)
+    num =
   end
 
   def customer
@@ -46,8 +51,24 @@ class Invoice
   end
 
   def is_paid_in_full?
+    transaction_array = transactions
+    transaction_array.any? do |transaction|
+      transaction.result == "success"
+    end
   end
 
   def total
+    if is_paid_in_full?
+      items_array = items
+      total = 0
+      items_array.each do |item|
+        price = item.unit_price
+        total += price
+      end
+    end
+    result = sprintf('%.02f', total).to_f
+    result
+    binding.pry
   end
+
 end
