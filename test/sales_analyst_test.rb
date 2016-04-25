@@ -198,12 +198,12 @@ class SalesAnalystTest < Minitest::Test
 
   #MERCHANTS WITH PENDING INVOICES
 
-  def test_it_finds_pending_invoices
-    skip
-    assert_equal 2, sa.find_pending_invoices.length
-    assert_equal Invoice, sa.find_pending_invoices[0].class
-    assert_equal :pending, sa.find_pending_invoices[1].status
-  end
+  # def test_it_finds_pending_invoices
+  #   skip
+  #   assert_equal 2, sa.find_pending_invoices.length
+  #   assert_equal Invoice, sa.find_pending_invoices[0].class
+  #   assert_equal :pending, sa.find_pending_invoices[1].status
+  # end
 
 
   def test_merchants_with_pending_invoices_returns_array
