@@ -166,7 +166,7 @@ class SalesAnalyst
   def total_revenue_by_date(date)
     ii = []
     invoice_items.all.each do |invoice_item|
-      if Time.parse(invoice_item.created_at.strftime("%Y-%m-%d")) <= date
+      if invoice_item.created_at.strftime("%Y-%m-%d") == date.strftime("%Y-%m-%d")
       ii << invoice_item.unit_price
       end
     end
@@ -224,5 +224,25 @@ class SalesAnalyst
     end
   end
 
+
+  def most_sold_item_for_merchant(merchant_id)
+    merchant = merchants.find_by_id(merchant_id)
+    itms = merchant.items.map {|item| item.id}
+    a = itms.each_with_object(Hash.new(0)){|key,hash|   hash[key] += 1}
+    b =   a.map {|k, v| [k, v]}
+    c = b.map {|arr| arr[1]}.max
+    d = b.find_all {|arr| arr[1] == c}
+    e = d.map {|id| id[0]}
+
+    e.map do |item_id|
+      items.find_by_id(item_id)
+    end
+
+  end
+
+
+# sa.most_sold_item_for_merchant(merchant_id) #=> [item] (in terms of quantity sold) or, if there is a tie, [item, item, item]
+#
+# sa.best_item_for_merchant(merchant_id) #=> item (in terms of revenue generated)
 
 end
