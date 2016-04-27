@@ -150,10 +150,14 @@ class SalesAnalystTest < MiniTest::Test
 
   def test_it_finds_most_sold_items_for_merchant
     assert_equal [], sa.most_sold_item_for_merchant(12334105)
-
-    assert_equal [], sa.most_sold_item_for_merchant(12334228)
   end
 
+  def test_it_finds_most_sold_items_for_merchant
+    assert_equal [], sa2.most_sold_item_for_merchant(12334105)
+  end
 
+  def test_it_finds_best_item_for_merchant
+    assert_equal 223456789, sa2.best_item_for_merchant(12334105).id
+  end
 
 end
