@@ -218,7 +218,7 @@ class SalesAnalyst
 
   def merchants_created_in_month(month)
     merchants.all.find_all do |merchant|
-        merchant.created_at.strftime("%B") == month
+        merchant.created_at.strftime("%B") == month.capitalize
     end
   end
 
@@ -243,12 +243,13 @@ class SalesAnalyst
   end
 
   def most_sold_item_for_merchant(merchant_id)
-    freq = invoice_items_quantity_merchant(merchant_id)
-    max = freq.map { |item, f| f }.max
-    most_sold = freq.find_all { |i, f| f == max }
-    most_sold_items = most_sold.map { |i, f| i.item }
+    invoice_frequencies = invoice_items_quantity_merchant(merchant_id)
+    max = invoice_frequencies.map { |invoice, frequency| frequency }.max
+    most_sold = invoice_frequencies.find_all do |invoice, frequency|
+      frequency == max
+    end
+    most_sold.map { |invoice, frequency| invoice.item }
   end
-  #we need to go through and approprately name variables in this nethod
 
   def invoice_items_price_merchant(merchant_id)
     paid = paid_items_for_merchant(merchant_id)
