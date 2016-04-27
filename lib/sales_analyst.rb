@@ -97,27 +97,21 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant_standard_deviation
-    merchant_invoice_count = invoices_per_merchant
-    average_merchant_invoices = average_invoices_per_merchant
-    difference_squared = merchant_invoice_count.reduce(0) do |sum, count|
-      sum + (count - average_merchant_invoices) ** 2
+    difference_squared = invoices_per_merchant.reduce(0) do |sum, count|
+      sum + (count - average_invoices_per_merchant) ** 2
     end
-    take_square_root_of(difference_squared, merchant_invoice_count.length - 1)
+    take_square_root_of(difference_squared, invoices_per_merchant.length - 1)
   end
 
   def top_merchants_by_invoice_count
-    average = average_invoices_per_merchant
-    standard_deviation = average_invoices_per_merchant_standard_deviation
     merchants.all.find_all do |merchant|
-      merchant.invoices.count > (average + (standard_deviation * 2))
+      merchant.invoices.count > (average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2))
     end
   end
 
   def bottom_merchants_by_invoice_count
-    average = average_invoices_per_merchant
-    standard_deviation = average_invoices_per_merchant_standard_deviation
     merchants.all.find_all do |merchant|
-      merchant.invoices.count < (average - (standard_deviation * 2))
+      merchant.invoices.count < (average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2))
     end
   end
 
@@ -169,12 +163,16 @@ class SalesAnalyst
     end.compact.reduce(:+)
   end
 
+  def pending_transaction?(invoice)
+    invoice.transactions.none? do |transaction|
+      transaction.result == "success"
+    end
+  end
+
   def merchants_with_pending_invoices
     merchants.all.find_all do |merchant|
       merchant.invoices.any? do |invoice|
-         invoice.transactions.none? do |transaction|
-           transaction.result == "success"
-         end
+        pending_transaction?(invoice)
       end
     end
   end
@@ -190,13 +188,19 @@ class SalesAnalyst
     end
   end
 
-  def merchants_ranked_by_revenue
+  def merchant_revenues
     merchant_revenues = merchants.all.map do |merchant|
       { :merchant => merchant, :revenue => revenue_by_merchant(merchant.id) }
     end
-    ranked_merchants = merchant_revenues.sort_by do |merchant_revenue_hash|
+  end
+
+  def ranked_merchants
+    merchant_revenues.sort_by do |merchant_revenue_hash|
       merchant_revenue_hash[:revenue]
     end
+  end
+
+  def merchants_ranked_by_revenue
     ranked_merchants.reverse.map do |ranked_merchant|
       ranked_merchant[:merchant]
     end
@@ -220,25 +224,33 @@ class SalesAnalyst
 
   def paid_items_for_merchant(merchant_id)
     merchant = merchants.find_by_id(merchant_id)
-    paid_invoices = merchant.invoices.find_all do |invoice|
+    paid = merchant.invoices.find_all do |invoice|
       invoice.is_paid_in_full?
     end
-    paid_invoices.map { |invoice| invoice.invoice_items }
+    paid.map { |invoice| invoice.invoice_items }
+  end
+
+  def invoice_items_quantity_merchant(merchant_id)
+    paid_items_for_merchant(merchant_id).flatten.map do |invoice_item| [invoice_item, invoice_item.quantity.to_i]
+    end
   end
 
   def most_sold_item_for_merchant(merchant_id)
-    paid_items = paid_items_for_merchant(merchant_id)
-    freq = paid_items.flatten.map { |invoice_item| [invoice_item, invoice_item.quantity.to_i] }
-    top = freq.map { |item, f| f }
-    max = top.max
+    freq = invoice_items_quantity_merchant(merchant_id)
+    max = freq.map { |item, f| f }.max
     most_sold = freq.find_all { |i, f| f == max }
     most_sold_items = most_sold.map { |i, f| i.item }
   end
 
-  def best_item_for_merchant(merchant_id)
+  def invoice_items_price_merchant(merchant_id)
     paid = paid_items_for_merchant(merchant_id)
-    prices = paid.flatten.map { |invoice_item| [invoice_item, invoice_item.unit_price * invoice_item.quantity.to_i] }
-    top = prices.max_by { |item, price| price }
-    top[0].item
+    paid.flatten.map do |invoice_item|
+      [invoice_item, invoice_item.unit_price * invoice_item.quantity.to_i]
+    end
+  end
+
+  def best_item_for_merchant(merchant_id)
+    prices = invoice_items_price_merchant(merchant_id)
+    top = prices.max_by { |item, price| price }[0].item
   end
 end
