@@ -116,11 +116,11 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_it_finds_total_revenue_by_date_when_all_dates_included
-    assert_equal 2106777, sa.total_revenue_by_date(Time.parse("2009-02-07")).to_f * 100
+    assert_equal 2117477, sa.total_revenue_by_date(Time.parse("2009-02-07")).to_f * 100
   end
 
   def test_it_finds_merchants_with_pending_invoices
-    assert_equal 6, sa.merchants_with_pending_invoices.length
+    assert_equal 3, sa.merchants_with_pending_invoices.length
   end
 
   # def test_it_finds_merchants_with_one_item
@@ -133,11 +133,15 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_it_finds_most_sold_items_for_a_different_merchant
-    assert_equal 1, sa.most_sold_item_for_merchant(12334105).length
+    assert_equal 2, sa.most_sold_item_for_merchant(12334105).length
   end
-  # 
+
+  def test_it_finds_best_item_for_merchant_with_no_paid_items
+    assert_equal nil, sa.best_item_for_merchant(12334113)
+  end
+
   # def test_it_finds_best_item_for_merchant
-  #   assert_equal "", sa.best_item_for_merchant(12334113)
+  #   assert_equal [], sa.best_item_for_merchant(12334105)
   # end
 
 
