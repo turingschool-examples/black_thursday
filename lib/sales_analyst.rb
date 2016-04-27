@@ -165,12 +165,12 @@ class SalesAnalyst
 
   def total_revenue_by_date(date)
     ii = []
-    invoice_items.all.each do |invoice_item|
-      if Time.parse(invoice_item.created_at.strftime("%Y-%m-%d")) <= date
-      ii << invoice_item.unit_price
+    invoices.all.each do |invoice|
+      if invoice.created_at.strftime("%Y-%m-%d") == date.strftime("%Y-%m-%d")
+      ii << invoice.paid_total
       end
     end
-    ii.reduce(:+).to_f
+    ii.reduce(:+)
   end
 
   def merchants_with_pending_invoices
@@ -225,4 +225,37 @@ class SalesAnalyst
   end
 
 
+  def most_sold_item_for_merchant(merchant_id)
+    merchant = merchants.find_by_id(merchant_id)
+
+    merchant_invoices = merchant.invoices
+    paid_invoices = merchant_invoices.find_all do |invoice|
+      invoice.is_paid_in_full?
+    end
+    items_paid = paid_invoices.map do |invoice|
+      invoice.invoice_items
+    end
+
+    freq = items_paid.flatten.map {|invoice_item| [invoice_item, invoice_item.quantity.to_i]}
+    top = freq.map {|item, f| f}
+    max = top.max
+    most_sold = freq.find_all {|i, f| f == max}
+    most_sold_items = most_sold.map {|i, f| i.item}
+  end
+
+  def best_item_for_merchant(merchant_id)
+    merchant = merchants.find_by_id(merchant_id)
+
+    merchant_invoices = merchant.invoices
+    paid_invoices = merchant_invoices.find_all do |invoice|
+      invoice.is_paid_in_full?
+    end
+    items_paid = paid_invoices.map do |invoice|
+      invoice.invoice_items
+    end
+
+    prices = items_paid.flatten.map {|invoice_item| [invoice_item, invoice_item.unit_price * invoice_item.quantity.to_i]}
+    top = prices.max_by {|item, price| price}
+    top[0].item
+  end
 end
