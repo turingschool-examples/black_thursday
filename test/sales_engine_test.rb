@@ -5,7 +5,7 @@ require_relative '../lib/sales_engine'
 require_relative '../lib/csv_parser'
 require_relative'../lib/merchant_repository'
 require_relative'../lib/transaction_repository'
-require_relative'../lib/customer_repository.rb'
+require_relative'../lib/customer_repository'
 require_relative'../lib/invoice_item_repository'
 
 class SalesEngineTest < MiniTest::Test
@@ -13,12 +13,12 @@ class SalesEngineTest < MiniTest::Test
 
   def setup
     @se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv",
-      :invoice_items => "./data/invoice_items.csv",
-      :transactions => "./data/transactions.csv",
-      :customers => "./data/customers.csv",
+      :items     => "./test/test_csvs/items_test.csv",
+      :merchants => "./test/test_csvs/merchants_test.csv",
+      :invoices  => "./test/test_csvs/invoices_test.csv",
+      :invoice_items => "./test/test_csvs/invoice_items_test.csv",
+      :transactions => "./test/test_csvs/transactions_test.csv",
+      :customers => "./test/test_csvs/customers_test.csv",
     })
   end
 
@@ -46,42 +46,51 @@ class SalesEngineTest < MiniTest::Test
     assert se.customers
   end
 
+  def test_it_creates_invoice_repository_instance
+    assert se.invoices
+  end
+
+  def test_it_finds_items_by_merchant_id
+    assert_equal 7, se.items_by_merchant_id(12334113).length
+  end
+
   def test_it_finds_in_merchant_repository
     mr = se.merchants
-    assert_equal "CJsDecor", mr.find_by_name("CJsDecor").name
+    assert_equal "Shopin1901", mr.find_by_name("Shopin1901").name
   end
 
   def test_it_finds_in_item_repository
     ir = se.items
-    assert_equal "510+ RealPush Icon Set", ir.find_by_name("510+ RealPush Icon Set").name
-  end
-
-  def test_it_links_merchants_and_items
-    merchant = se.merchants.find_by_id(12334105)
-    assert_equal 3, merchant.items.count
+    assert_equal "Glitter scrabble frames", ir.find_by_name("Glitter scrabble frames").name
   end
 
   def test_it_links_merchants_to_items
     refute se.items.all.first.merchant.nil?
   end
 
-  def test_it_creates_invoices_repository
-    assert se.invoices
+  def test_it_finds_items_for_merchant
+    merchant = se.merchants.find_by_id(12334105)
+    assert_equal 12, merchant.items.count
+  end
+
+  def test_it_finds_merchant_of_item
+    item = se.items.find_by_id(223456789)
+    assert_equal 12334105, item.merchant.id
   end
 
   def test_it_can_create_relationships_between_merchant_and_invoice
     invoice = se.invoices.find_by_id(4)
-    assert_equal "TeeTeeTieDye", invoice.merchant.name
+
+    assert_equal "MiniatureBikez", invoice.merchant.name
   end
 
   def test_it_can_create_relationships_between_invoice_and_merchant
     merchant = se.merchants.find_by_id(12334105)
-    assert_equal 10, merchant.invoices.count
+    assert_equal 2, merchant.invoices.count
   end
 
   def test_it_can_create_relationships_between_invoice_and_item
     invoice = se.invoices.find_by_id(7)
-
     assert_equal 4, invoice.items.count
   end
 
