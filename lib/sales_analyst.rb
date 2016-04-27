@@ -104,14 +104,18 @@ class SalesAnalyst
   end
 
   def top_merchants_by_invoice_count
+    average = average_invoices_per_merchant
+    standard_deviation = average_invoices_per_merchant_standard_deviation
     merchants.all.find_all do |merchant|
-      merchant.invoices.count > (average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2))
+      merchant.invoices.count > (average + (standard_deviation * 2))
     end
   end
 
   def bottom_merchants_by_invoice_count
+    average = average_invoices_per_merchant
+    standard_deviation = average_invoices_per_merchant_standard_deviation
     merchants.all.find_all do |merchant|
-      merchant.invoices.count < (average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2))
+      merchant.invoices.count < (average - (standard_deviation * 2))
     end
   end
 
@@ -231,7 +235,8 @@ class SalesAnalyst
   end
 
   def invoice_items_quantity_merchant(merchant_id)
-    paid_items_for_merchant(merchant_id).flatten.map do |invoice_item| [invoice_item, invoice_item.quantity.to_i]
+    paid_items_for_merchant(merchant_id).flatten.map do |invoice_item|
+      [invoice_item, invoice_item.quantity.to_i]
     end
   end
 
@@ -241,6 +246,7 @@ class SalesAnalyst
     most_sold = freq.find_all { |i, f| f == max }
     most_sold_items = most_sold.map { |i, f| i.item }
   end
+  #we need to go through and approprately name variables in this nethod
 
   def invoice_items_price_merchant(merchant_id)
     paid = paid_items_for_merchant(merchant_id)
@@ -251,6 +257,6 @@ class SalesAnalyst
 
   def best_item_for_merchant(merchant_id)
     prices = invoice_items_price_merchant(merchant_id)
-    top = prices.max_by { |item, price| price }[0].item
+    prices.max_by { |item, price| price }[0].item
   end
 end
