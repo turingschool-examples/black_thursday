@@ -261,6 +261,6 @@ class SalesAnalyst
   def best_item_for_merchant(merchant_id)
     prices = invoice_items_price_merchant(merchant_id)
     return 0 if prices == []
-    lulwut = prices.max_by { |item, price| price }[0].item
+    prices.max_by { |item, price| price }[0].item
   end
 end
