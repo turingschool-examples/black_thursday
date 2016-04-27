@@ -91,7 +91,7 @@ class SalesEngine
 
   def set_invoice_items_for_invoice
     invoices.all.each do |invoice|
-      invoice.invoice_items = invoice_items.find_all_by_invoice_id(invoice.id).uniq
+      invoice.invoice_items = invoice_items.find_all_by_invoice_id(invoice.id)
     end
   end
 

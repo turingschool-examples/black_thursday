@@ -8,7 +8,7 @@ class MerchantTest < MiniTest::Test
   attr_reader :m
 
   def setup
-    @m = Merchant.new({:id => "5", :name => "Turing School"})
+    @m = Merchant.new({:id => "5", :name => "Turing School", :created_at => "2010-12-10"})
   end
 
   def test_it_is_a_merchant_object

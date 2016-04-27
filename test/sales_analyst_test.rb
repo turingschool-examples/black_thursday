@@ -87,7 +87,7 @@ class SalesAnalystTest < MiniTest::Test
     assert sa.days_with_invoices
   end
 
-  def test_it_counts_invoices_per_day_small_data_set
+  def test_it_counts_invoices_per_day
     assert_equal ({"Saturday"=>8}), sa.days_with_count[0]
   end
 
@@ -138,11 +138,6 @@ class SalesAnalystTest < MiniTest::Test
   def test_it_finds_best_item_for_merchant_with_no_paid_items
     assert_equal nil, sa.best_item_for_merchant(12334113)
   end
-
-  # def test_it_finds_best_item_for_merchant
-  #   assert_equal [], sa.best_item_for_merchant(12334105)
-  # end
-#need to find a merchant with a best item, returns nil or 0 as far as I've seen
 
   def test_it_can_find_revenue_of_a_given_merchant
     assert_equal 1964.05, sa.revenue_by_merchant(12334113).to_f
