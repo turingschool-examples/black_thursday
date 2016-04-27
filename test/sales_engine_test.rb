@@ -78,21 +78,39 @@ class SalesEngineTest < MiniTest::Test
     assert_equal 12334105, item.merchant.id
   end
 
-  def test_it_can_create_relationships_between_merchant_and_invoice
+  def test_it_finds_merchant_of_invoice
     invoice = se.invoices.find_by_id(4)
-
     assert_equal "MiniatureBikez", invoice.merchant.name
   end
 
-  def test_it_can_create_relationships_between_invoice_and_merchant
+  def test_it_finds_invoices_for_merchant
     merchant = se.merchants.find_by_id(12334105)
     assert_equal 2, merchant.invoices.count
   end
 
-  def test_it_can_create_relationships_between_invoice_and_item
+  def test_it_finds_invoice_items_for_invoice
+    invoice = se.invoices.find_by_id(7)
+    assert_equal 4, invoice.invoice_items.count
+  end
+
+  def test_it_finds_items_for_invoice
     invoice = se.invoices.find_by_id(7)
     assert_equal 4, invoice.items.count
   end
 
+  def test_it_finds_transactions_for_invoice
+    invoice = se.invoices.find_by_id(1)
+    assert_equal 2, invoice.transactions.count
+  end
+
+  def test_it_finds_customer_for_invoice
+    invoice = se.invoices.find_by_id(5)
+    assert_equal "Joey", invoice.customer.first_name
+  end
+
+  def test_it_finds_customers_for_merchants
+    merchant = se.merchants.find_by_id(12334113)
+    assert_equal 1, merchant.customers.count
+  end
 
 end
