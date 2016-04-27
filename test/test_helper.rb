@@ -161,4 +161,14 @@ class TestHelper
     )]
   end
 
+  def merchants
+    [{ :id => "12334115",
+       :name => "LolaMarleys",
+       :created_at => "2010-12-10" },
+       
+     { :id => "12334135",
+       :name => "GoldenRayPress",
+       :created_at => "2014-12-10" }]
+  end
+
 end

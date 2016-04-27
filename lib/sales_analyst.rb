@@ -195,7 +195,7 @@ class SalesAnalyst
   end
 
   def merchant_revenues
-    merchant_revenues = merchants.all.map do |merchant|
+    merchants.all.map do |merchant|
       { :merchant => merchant, :revenue => revenue_by_merchant(merchant.id) }
     end
   end
@@ -259,6 +259,7 @@ class SalesAnalyst
 
   def best_item_for_merchant(merchant_id)
     prices = invoice_items_price_merchant(merchant_id)
-    prices.max_by { |item, price| price }[0].item
+    return 0 if prices == []
+    lulwut = prices.max_by { |item, price| price }[0].item
   end
 end
