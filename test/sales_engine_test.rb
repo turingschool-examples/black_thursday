@@ -100,7 +100,7 @@ class SalesEngineTest < MiniTest::Test
 
   def test_it_finds_transactions_for_invoice
     invoice = se.invoices.find_by_id(1)
-    assert_equal 2, invoice.transactions.count
+    assert_equal 3, invoice.transactions.count
   end
 
   def test_it_finds_customer_for_invoice
