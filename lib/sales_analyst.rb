@@ -224,10 +224,8 @@ class SalesAnalyst
     end
   end
 
-
-  def most_sold_item_for_merchant(merchant_id)
+  def paid_items_for_merchant(merchant_id)
     merchant = merchants.find_by_id(merchant_id)
-
     merchant_invoices = merchant.invoices
     paid_invoices = merchant_invoices.find_all do |invoice|
       invoice.is_paid_in_full?
@@ -235,8 +233,11 @@ class SalesAnalyst
     items_paid = paid_invoices.map do |invoice|
       invoice.invoice_items
     end
+  end
 
-    freq = items_paid.flatten.map {|invoice_item| [invoice_item, invoice_item.quantity.to_i]}
+  def most_sold_item_for_merchant(merchant_id)
+    paid = paid_items_for_merchant(merchant_id)
+    freq = paid.flatten.map {|invoice_item| [invoice_item, invoice_item.quantity.to_i]}
     top = freq.map {|item, f| f}
     max = top.max
     most_sold = freq.find_all {|i, f| f == max}
@@ -244,17 +245,8 @@ class SalesAnalyst
   end
 
   def best_item_for_merchant(merchant_id)
-    merchant = merchants.find_by_id(merchant_id)
-
-    merchant_invoices = merchant.invoices
-    paid_invoices = merchant_invoices.find_all do |invoice|
-      invoice.is_paid_in_full?
-    end
-    items_paid = paid_invoices.map do |invoice|
-      invoice.invoice_items
-    end
-
-    prices = items_paid.flatten.map {|invoice_item| [invoice_item, invoice_item.unit_price * invoice_item.quantity.to_i]}
+    paid = paid_items_for_merchant(merchant_id)
+    prices = paid.flatten.map {|invoice_item| [invoice_item, invoice_item.unit_price * invoice_item.quantity.to_i]}
     top = prices.max_by {|item, price| price}
     top[0].item
   end
