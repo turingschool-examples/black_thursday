@@ -6,8 +6,7 @@ class SalesAnalyst
     @merchants = se.merchants
     @items = se.items
     @invoices = se.invoices
-    @invoice_items =
-    se.invoice_items
+    @invoice_items = se.invoice_items
   end
 
   def items_per_merchant
@@ -17,115 +16,117 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    (items_per_merchant.reduce(:+)/items_per_merchant.length.to_f).round(2)
+    (items_per_merchant.reduce(:+) / items_per_merchant.length.to_f).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
-    ipm = items_per_merchant
-    av = average_items_per_merchant
-    sqdiff = ipm.map do |num|
-      (num - av) ** 2
+    item_counts = items_per_merchant
+    average = average_items_per_merchant
+    difference_squared = item_counts.reduce(0) do |sum, item_count|
+      sum + (item_count - average) ** 2
     end
-    Math.sqrt(sqdiff.reduce(:+) / (ipm.length - 1)).round(2)
+    take_square_root_of(difference_squared, item_counts.length - 1)
+  end
+
+  def take_square_root_of(difference_squared, count)
+    Math.sqrt(difference_squared / (count)).round(2)
   end
 
   def merchants_with_high_item_count
-    ave_std_dev = average_items_per_merchant_standard_deviation + average_items_per_merchant
-    merchants_with_item_counts.map do |merchant|
-      merchant[1] > ave_std_dev ? merchant[0] : []
-    end.flatten
+    merchants_with_item_counts.map do |merchant_hash|
+      merchant_hash[:merchant] if merchant_hash[:item_count] > avg_std_dev
+    end.compact
+  end
+
+  def avg_std_dev
+   average_items_per_merchant_standard_deviation + average_items_per_merchant
   end
 
   def merchants_with_item_counts
     merchants.all.map do |merchant|
-      [merchant, merchant.items.count]
+      { :merchant => merchant, :item_count => merchant.items.count }
     end
   end
 
   def average_item_price_for_merchant(merchant_id)
     merchant_items = merchants.find_by_id(merchant_id).items
-    rounding = merchant_items.reduce(0) do |sum, item|
+    summed_item_price = merchant_items.reduce(0) do |sum, item|
       sum + item.unit_price
-    end / merchant_items.length
-    rounding.round(2)
+    end
+    (summed_item_price / merchant_items.length).round(2)
   end
 
   def average_average_price_per_merchant
-    rounding = merchants.all.reduce(0) do |sum, merchant|
+    sum_of_averages = merchants.all.reduce(0) do |sum, merchant|
       sum + average_item_price_for_merchant(merchant.id)
-    end / merchants.all.length
-    rounding.round(2)
+    end
+    (sum_of_averages / merchants.all.length).round(2)
   end
 
   def all_items_unit_prices
-    items.all.map do |item|
-      item.unit_price
-    end
+    items.all.map { |item| item.unit_price }
   end
 
   def average_items_price
-    all_items_unit_prices.reduce(:+)/all_items_unit_prices.length
+    all_items_unit_prices.reduce(:+) / all_items_unit_prices.length
   end
 
   def items_price_standard_deviation
-    all = all_items_unit_prices
-    av = average_items_price
-    sqdiff = all.map do |num|
-      (num - av) ** 2
+    all_unit_prices = all_items_unit_prices
+    average_price_of_items = average_items_price
+    difference_squared = all_unit_prices.reduce(0) do |sum, item_price|
+      sum + (item_price - average_price_of_items) ** 2
     end
-    Math.sqrt(sqdiff.reduce(:+) / (all.length - 1)).round(2)
+    take_square_root_of(difference_squared, all_unit_prices.length - 1)
   end
 
   def golden_items
-    isd = items_price_standard_deviation
+    items_standard_deviation = items_price_standard_deviation
     items.all.find_all do |item|
-      item.unit_price > isd * 2
+      item.unit_price > items_standard_deviation * 2
     end
   end
 
   def invoices_per_merchant
-    merchants.all.map do |merchant|
-      merchant.invoices.count
-    end
+    merchants.all.map { |merchant| merchant.invoices.count }
   end
 
   def average_invoices_per_merchant
-    (invoices_per_merchant.reduce(:+)/invoices_per_merchant.length.to_f).round(2)
+    invoice_count = invoices_per_merchant.length
+    (invoices_per_merchant.reduce(:+) / invoice_count.to_f).round(2)
   end
 
   def average_invoices_per_merchant_standard_deviation
-    ipm = invoices_per_merchant
-    av = average_invoices_per_merchant
-    sqdiff = ipm.map {|num| (num - av) ** 2}
-    Math.sqrt(sqdiff.reduce(:+) / (ipm.length - 1)).round(2)
+    merchant_invoice_count = invoices_per_merchant
+    average_merchant_invoices = average_invoices_per_merchant
+    difference_squared = merchant_invoice_count.reduce(0) do |sum, count|
+      sum + (count - average_merchant_invoices) ** 2
+    end
+    take_square_root_of(difference_squared, merchant_invoice_count.length - 1)
   end
 
   def top_merchants_by_invoice_count
-    av = average_invoices_per_merchant
-    sd = average_invoices_per_merchant_standard_deviation
+    average = average_invoices_per_merchant
+    standard_deviation = average_invoices_per_merchant_standard_deviation
     merchants.all.find_all do |merchant|
-      merchant.invoices.count > (av + (sd * 2))
+      merchant.invoices.count > (average + (standard_deviation * 2))
     end
   end
 
   def bottom_merchants_by_invoice_count
-    av = average_invoices_per_merchant
-    sd = average_invoices_per_merchant_standard_deviation
+    average = average_invoices_per_merchant
+    standard_deviation = average_invoices_per_merchant_standard_deviation
     merchants.all.find_all do |merchant|
-      merchant.invoices.count < (av - (sd * 2))
+      merchant.invoices.count < (average - (standard_deviation * 2))
     end
   end
 
   def days_with_invoices
-    invoices.all.group_by do |invoice|
-    invoice.created_at.strftime("%A")
-    end
+    invoices.all.group_by { |invoice| invoice.created_at.strftime("%A") }
   end
 
   def days_with_count
-    days_with_invoices.map do |key, value|
-    { key => value.length }
-    end
+    days_with_invoices.map { |key, value| ({ key => value.length }) }
   end
 
   def invoices_by_day
@@ -139,44 +140,41 @@ class SalesAnalyst
   end
 
   def standard_deviation(elements, average)
-    sqdiff = elements.map {|num| (num - average) ** 2}
-    Math.sqrt(sqdiff.reduce(:+) / (elements.length - 1)).round(2)
+    square_difference = elements.map { |number| (number - average) ** 2 }
+    take_square_root_of(square_difference.reduce(:+), elements.length - 1)
   end
 
   def top_days_by_invoice_count
     top_days = []
+    day_deviation = standard_deviation(invoices_by_day, invoices_by_day_average)
     days_with_count.each do |hash|
       hash.each do |key, value|
-        if value > (invoices_by_day_average + standard_deviation(invoices_by_day, invoices_by_day_average))
-        top_days << key
-        end
+      top_days << key if value > (invoices_by_day_average + day_deviation)
       end
     end
     top_days
   end
 
   def invoice_status(status)
-    total = invoices.all.count {|invoice| invoice}
-    is = invoices.all.count do |invoice|
-      invoice.status == status
-    end
-  ((is / total.to_f) * 100).round(2)
+    total = invoices.all.count { |invoice| invoice }
+    invoice_statuses = invoices.all.count { |invoice| invoice.status == status }
+    ((invoice_statuses / total.to_f) * 100).round(2)
   end
 
   def total_revenue_by_date(date)
-    ii = []
-    invoices.all.each do |invoice|
+    invoices.all.map do |invoice|
       if invoice.created_at.strftime("%Y-%m-%d") == date.strftime("%Y-%m-%d")
-      ii << invoice.paid_total
+        invoice.paid_total
       end
-    end
-    ii.reduce(:+)
+    end.compact.reduce(:+)
   end
 
   def merchants_with_pending_invoices
     merchants.all.select do |merchant|
       merchant.invoices.any? do |invoice|
-         invoice.transactions.none? { |transaction| transaction.result == "success" }
+         invoice.transactions.none? do |transaction|
+           transaction.result == "success"
+         end
       end
     end
   end

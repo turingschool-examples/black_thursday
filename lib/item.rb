@@ -1,7 +1,7 @@
 require 'bigdecimal'
 
 class Item
-  attr_reader   :id, 
+  attr_reader   :id,
                 :name,
                 :description,
                 :unit_price,
