@@ -131,6 +131,9 @@ class SalesEngine
     end
   end
 
+  def invoices_for_merchant(merchant_id)
+  end
+
   def find_customer_by_merchant_id(merchant_id)
     returned_invoices = invoices.find_all_by_merchant_id(merchant_id).uniq
     returned_customer_id = returned_invoices.map do |invoice|
