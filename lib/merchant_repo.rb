@@ -1,3 +1,4 @@
+require "csv"
 require_relative "merchant"
 
 class MerchantsRepo
@@ -10,8 +11,15 @@ class MerchantsRepo
   end
 
   def all
-    puts "#all"
-    @merchant_objects # [Merchant{name: bob}, Merchant{name: frank}]
+    @merchant_objects
+  end
+
+  def find_by_id(merch_id)
+    # binding.pry
+    @merchant_objects.select do |merchant|
+      if merchant.include?(merch_id)
+      end
+    end
   end
 
 end
