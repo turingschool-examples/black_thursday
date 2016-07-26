@@ -1,5 +1,46 @@
+require 'pry'
+require 'bigdecimal'
+require './lib/item'
+
 class ItemRepository
-  def initialize(path)
-    path
+  attr_reader :item_contents, :items
+
+  def initialize(item_contents)
+    @items = make_items(item_contents)
   end
+
+  def make_items(item_contents)
+    item_contents.map { |row| make_item(row) }
+  end
+
+  def make_item(row)
+    data = make_prepared_data(row)
+    Item.new(data)
+  end
+
+  def make_prepared_data(row)
+    {
+      id:           row[:id].to_i,
+      name:         row[:name],
+      description:  row[:description],
+      unit_price:   prepare_unit_price(row[:unit_price]),
+      merchant_id:  row[:merchant_id].to_i,
+      created_at:   prepare_time(row[:created_at]),
+      updated_at:   prepare_time(row[:updated_at])
+    }
+  end
+
+  def prepare_unit_price(unit_price)
+    digits = unit_price.to_s.length - 1
+    BigDecimal.new(unit_price, digits)
+  end
+
+  def prepare_time(time)
+    Time.parse(time)
+  end
+
+  def all
+    @items
+  end
+
 end
