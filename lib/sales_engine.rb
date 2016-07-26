@@ -16,6 +16,9 @@ class SalesEngine
     MerchantsRepo.new(@files[:merchants])
   end
 
+  def items
+    ItemsRepo.new(@files[:items])
+  end
 end
 
   # se = SalesEngine.new({merchant: filename})
