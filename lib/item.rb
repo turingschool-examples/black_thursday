@@ -1,15 +1,20 @@
 class Item
-  attr_reader :name, :description, :unit_price, :created_at, :updated_at, :id,
-              :merchant_id
+  attr_reader :id,
+              :name,
+              :description,
+              :unit_price,
+              :merchant_id,
+              :created_at,
+              :updated_at
 
-  def initialize(properties = Hash.new)
-    @id =           properties[:id]
-    @name =         properties[:name]
-    @description =  properties[:description]
-    @unit_price =   properties[:unit_price]
-    @created_at =   properties[:created_at]
-    @updated_at =   properties[:updated_at]
-    @merchant_id =  properties[:merchant_id]
+  def initialize(data)
+    @id =           data[:id]
+    @name =         data[:name]
+    @description =  data[:description]
+    @unit_price =   data[:unit_price]
+    @merchant_id =  data[:merchant_id]
+    @created_at =   data[:created_at]
+    @updated_at =   data[:updated_at]
   end
 
 end
