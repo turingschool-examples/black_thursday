@@ -1,6 +1,7 @@
 require 'bigdecimal'
 require './test/test_helper'
 require './lib/item'
+require './lib/merchant'
 
 class ItemTest < Minitest::Test
   def setup
@@ -8,8 +9,8 @@ class ItemTest < Minitest::Test
       name: "Pencil",
       description: "You can use it to write things",
       unit_price: BigDecimal.new(10.99,4),
-      created_at: Time.now,
-      updated_at: Time.now,
+      created_at: "2016-07-26 13:59:43 -0600",
+      updated_at: "2016-07-26 13:59:43 -0600",
       merchant_id: 1
  })
   end
@@ -42,15 +43,16 @@ class ItemTest < Minitest::Test
   end
 
   def test_gives_time_created
-    skip
+
     time = Time.now
     item = Item.new({  id: 1,
       name: "Pencil",
       description: "You can use it to write things",
       unit_price: BigDecimal.new(10.99,4),
-      created_at: time,
-      updated_at: time,
+      created_at: time.to_s,
+      updated_at: time.to_s,
       merchant_id: 1})
+      binding.pry
       assert_equal time, @item.created_at
   end
 
@@ -69,5 +71,9 @@ class ItemTest < Minitest::Test
 
   def test_gives_owners_merchant_id
     assert_equal 1, @item.merchant_id
+  end
+
+  def test_it_finds_the_merchant_it_belongs_to
+    assert_kind_of Merchant, @item.merchant 
   end
 end

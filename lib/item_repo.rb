@@ -4,11 +4,16 @@ class ItemRepo
 
   attr_reader :items
 
-  def initialize(source_file)
+  def initialize(source_file, parent = nil)
+    @parent = parent
     contents = CSV.open source_file, headers: true, header_converters: :symbol
     @items = contents.map do |row|
       Item.new(row)
     end
+  end
+  
+  def all
+    @items
   end
 
   def find_by_id(item_id)
@@ -47,4 +52,9 @@ class ItemRepo
       item.merchant_id == merchant_id
     end
   end
+
+  def find_merchant_by_id(merchant_id)
+    @parent.find_merchant_by_id(merchant_id)
+  end
+
 end
