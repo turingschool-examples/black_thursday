@@ -15,6 +15,7 @@ class MerchantsRepo
   end
 
   def find_by_id(merchant_id)
+    merchant_id = merchant_id.to_i
     merchant = find_merchant_id(merchant_id)
     if merchant != nil
       merchant
