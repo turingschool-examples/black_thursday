@@ -8,7 +8,7 @@ class MerchantRepositoryTest < Minitest::Test
     mr = se.merchants
     assert_equal true, mr.all.is_a?(Array)
   end
-  
+
   def test_it_populates_the_correct_number_of_merchants
     se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv" })
     mr = se.merchants
@@ -48,6 +48,13 @@ class MerchantRepositoryTest < Minitest::Test
     mr = se.merchants
 
     assert_equal "12334266", mr.find_by_name("fLyInGlOaF").id
+  end
+
+  def test_it_returns_nil_for_invalid_names
+    se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv" })
+    mr = se.merchants
+
+    assert_equal nil, mr.find_by_name("WEEOOOWEEEOOOWEEOOO")
   end
 
   def test_find_all_by_name_returns_an_array
