@@ -3,7 +3,7 @@ require 'bigdecimal'
 require './lib/item'
 
 class ItemRepository
-  attr_reader :item_contents, :items
+  attr_reader :items
 
   def initialize(item_contents)
     @items = make_items(item_contents)
@@ -41,6 +41,18 @@ class ItemRepository
 
   def all
     @items
+  end
+
+  def find_by_id(id)
+    @items.find { |item| item.id == id }
+  end
+
+  def find_by_name(name)
+    @items.find { |item| item.name.upcase == name.upcase }
+  end
+
+  def find_all_with_description(description_excerpt)
+    @items.find_all { |item| item.description.upcase.include? description_excerpt.upcase }
   end
 
 end
