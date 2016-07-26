@@ -1,15 +1,17 @@
-require './lib/merchant'
+require_relative 'merchant'
 class MerchantRepository
-  attr_reader :list_of_merchants
+  attr_reader :list_of_merchants,
+              :parent_engine
 
-  def initialize(merchants_data)
+  def initialize(merchants_data, parent_engine)
+    @parent_engine = parent_engine
     @list_of_merchants = []
     populate_merchants(merchants_data)
   end
 
   def populate_merchants(merchants_data)
     @list_of_merchants = merchants_data.map do |datum|
-      Merchant.new(datum)
+      Merchant.new(datum, self)
     end
   end
 

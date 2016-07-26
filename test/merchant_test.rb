@@ -15,4 +15,11 @@ class MerchantTest < Minitest::Test
     assert_equal "Bill", merchant.name
   end
 
+  def test_that_an_merchant_points_to_its_items
+    se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv" })
+    merchant = se.merchants.find_by_id("12334185")
+
+    assert_equal "Glitter scrabble frames", merchant.items[0].name
+  end
+
 end

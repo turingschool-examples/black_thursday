@@ -1,6 +1,6 @@
 require 'CSV'
-require './lib/merchant_repository'
-require './lib/item_repository'
+require_relative 'merchant_repository'
+require_relative 'item_repository'
 
 class SalesEngine
   attr_reader :items,
@@ -8,8 +8,8 @@ class SalesEngine
 
   def initialize(list_of_paths)
     @list_of_paths = list_of_paths
-    @items = ItemRepository.new(read_items_data)
-    @merchants = MerchantRepository.new(read_merchants_data)
+    @items = ItemRepository.new(read_items_data, self)
+    @merchants = MerchantRepository.new(read_merchants_data, self)
   end
 
   def self.from_csv(list_of_paths)
