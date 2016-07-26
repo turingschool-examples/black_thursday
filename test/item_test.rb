@@ -21,7 +21,7 @@ class ItemTest < Minitest::Test
       assert_respond_to item, :updated_at
   end
 
-  def test_pass_it_a_few_things
+  def test_it_accepts_partial_data
     item = Item.new({:id => 1, :name => "Tiny store"})
     assert_equal 1, item.id
     assert_equal nil, item.description
