@@ -1,40 +1,22 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/david/turing/1mod/projects/black_thursday/lib/sales_engine.rb": [
+      "/Users/david/turing/1mod/projects/black_thursday/lib/item.rb": [
         1,
         1,
         null,
-        1,
-        1,
         null,
         1,
-        2,
-        2,
+        7,
+        7,
+        7,
+        7,
+        7,
         null,
-        null,
-        1,
-        2,
-        2,
-        2,
-        null,
-        null
-      ],
-      "/Users/david/turing/1mod/projects/black_thursday/lib/item_repository.rb": [
-        1,
-        1,
-        2,
-        null,
-        null
-      ],
-      "/Users/david/turing/1mod/projects/black_thursday/lib/merchant_repository.rb": [
-        1,
-        1,
-        2,
         null,
         null
       ]
     },
-    "timestamp": 1469501163
+    "timestamp": 1469503193
   }
 }
