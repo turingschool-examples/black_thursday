@@ -14,11 +14,44 @@ class MerchantsRepo
     @merchant_objects
   end
 
-  def find_by_id(merch_id)
-    # binding.pry
+  def find_by_id(merchant_id)
+    merchant = find_merchant_id(merchant_id)
+    if merchant != nil
+      merchant.name
+    else
+      nil
+    end
+  end
+
+  def find_merchant_id(merchant_id)
+    @merchant_objects.detect do |merchant|
+      merchant.id == merchant_id
+    end
+  end
+
+  def find_by_name(merchant_name)
+    merchant = find_merchant_name(merchant_name)
+    if merchant != nil
+      merchant.name
+    else
+      nil
+    end
+  end
+
+  def find_merchant_name(merchant_name)
+    @merchant_objects.detect do |merchant|
+      merchant.name.upcase == merchant_name.upcase
+    end
+  end
+
+  def find_all_by_name(name_fragment)
+    find_all_merchants(name_fragment)
+  end
+
+  def find_all_merchants(name_fragment)
+    name_fragment = name_fragment.upcase
     @merchant_objects.select do |merchant|
-      if merchant.include?(merch_id)
-      end
+      merchant.name.upcase.to_s.include?(name_fragment)
     end
   end
 
