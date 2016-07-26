@@ -1,4 +1,4 @@
-
+require 'bigdecimal'
 
 class Item
   attr_reader :name,
@@ -15,7 +15,7 @@ class Item
     @id          = item_details[:id].to_i
     @name        = item_details[:name]
     @description = item_details[:description]
-    @unit_price  = item_details[:unit_price]
+    @unit_price  = BigDecimal.new(item_details[:unit_price].to_f, 4)
     @merchant_id = item_details[:merchant_id]
     # @created_at  = item_details[:created_at]
     @created_at  = format_time(item_details[:created_at].to_s)
