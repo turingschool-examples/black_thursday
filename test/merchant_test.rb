@@ -15,12 +15,14 @@ class MerchantsRepoTest < Minitest::Test
 
   def test_it_can_find_the_date_created
     merch = {:created_at => "2006-08-07", :id => "12334347", :name => "EkaterinaPa", :updated_at =>"2015-10-11"}
-    assert_equal "2006-08-07", Merchant.new(merch).created_at
+    time = Time.strptime("2006-08-07", "%Y-%m-%d")
+    assert_equal time, Merchant.new(merch).created_at
   end
 
   def test_it_can_find_the_date_updated
     merch = {:created_at => "2006-08-07", :id => "12334347", :name => "EkaterinaPa", :updated_at =>"2015-10-11"}
-    assert_equal "2015-10-11", Merchant.new(merch).updated_at
+    time = Time.strptime("2015-10-11", "%Y-%m-%d")
+    assert_equal time, Merchant.new(merch).updated_at
   end
 
 end
