@@ -8,8 +8,8 @@ class MerchantRepository
   end
 
   def populate_merchants(merchants_data)
-    merchants_data.each do |datum|
-      @list_of_merchants << Merchant.new(datum)
+    @list_of_merchants = merchants_data.map do |datum|
+      Merchant.new(datum)
     end
   end
 
