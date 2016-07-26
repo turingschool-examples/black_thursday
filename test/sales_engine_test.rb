@@ -15,6 +15,8 @@ class SalesEngineTest < Minitest::Test
     se.from_csv({
       :merchants => './test/support/single_merchant.csv'
       })
+    assert_equal 1, se.merchants.all.count
+    assert_equal 12334105, se.merchants.all.first.id
   end
 
   def test_add_small_merchant_csv
@@ -24,5 +26,22 @@ class SalesEngineTest < Minitest::Test
       })
 
     assert_equal 9, se.merchants.all.count
+  end
+
+  def test_single_line_csv_item
+    se = SalesEngine.new
+    se.from_csv({
+      :items => './test/support/single_item.csv'
+      })
+    assert_equal 1, se.items.all.count
+    assert_equal 263395237, se.items.all.first.id
+  end
+
+  def test_small_item_csv
+    se = SalesEngine.new
+    se.from_csv({
+      :items => './test/support/small_item_list.csv'
+      })
+    assert_equal 9, se.items.all.count
   end
 end

@@ -8,33 +8,41 @@ class SalesEngine
               :items
 
   def initialize
-    @merchants     = MerchantRepo.new
-    @items         = ItemRepo.new
+    @merchants = MerchantRepo.new
+    @items     = ItemRepo.new
   end
 
   def from_csv(csv_path_info)
-    # consider doing this as a CSV for each, but not sure how
-    # to do this and create the merchant detail hash
-    merchant_data = CSV.read(csv_path_info[:merchants], headers:true)
-    header_symbols = get_header_symbols(merchant_data.headers)
+    if csv_path_info[:merchants]
+      merchant_data = CSV.read(csv_path_info[:merchants], headers:true)
+      add_merchants_to_repo(merchant_data)
+    end
+    if csv_path_info[:items]
+      item_data = CSV.read(csv_path_info[:items], headers:true)
+      add_items_to_repo(item_data)
+    end
+  end
+
+  def add_merchants_to_repo(merchant_data)
+    headers = merchant_data.headers
     merchant_data.each do |row|
-      new_merchant = create_merchant_details(row, header_symbols)
+      new_merchant = create_initializing_details(row, headers)
       @merchants.add_merchant(new_merchant)
     end
   end
 
-  def create_merchant_details(merchant, header_symbols)
-    merchant_details = {}
-    header_symbols.each_with_index do |detail, index|
-      merchant_details[detail] = merchant[index]
+  def add_items_to_repo(item_data)
+    headers = item_data.headers
+    item_data.each do |row|
+      new_item = create_initializing_details(row, headers)
+      @items.add_item(new_item)
     end
-    merchant_details
   end
 
-  def get_header_symbols(headers)
-    header_symbols = headers.map do |header|
-      header.to_sym
-    end
+  def create_initializing_details(entry, headers)
+    Hash[headers.collect.with_index do |header, index|
+      [header.to_sym, entry[index]]
+    end]
   end
 
 end
