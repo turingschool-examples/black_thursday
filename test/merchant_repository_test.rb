@@ -8,7 +8,7 @@ class MerchantRepositoryTest < Minitest::Test
     mr = se.merchants
     assert_equal true, mr.all.is_a?(Array)
   end
-
+  
   def test_it_populates_the_correct_number_of_merchants
     se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv" })
     mr = se.merchants
