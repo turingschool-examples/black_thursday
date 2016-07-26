@@ -57,10 +57,12 @@ class ItemTest < Minitest::Test
     assert_equal 10.00, item.unit_price_to_dollars
   end
 
+  def test_that_an_item_points_to_its_merchant
+    se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv" })
+    item = se.items.find_by_id("263395617")
 
-
-
-
+    assert_equal "Madewithgitterxx", item.merchant.name
+  end
 
 
 end

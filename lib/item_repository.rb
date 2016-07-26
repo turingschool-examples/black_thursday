@@ -1,18 +1,19 @@
-require './lib/item'
-require 'pry'
+require_relative 'item'
 class ItemRepository
   include TypeConversion
 
-  attr_reader :list_of_items
+  attr_reader :list_of_items,
+              :parent_engine
 
-  def initialize(items_data)
+  def initialize(items_data, parent_engine)
+    @parent_engine = parent_engine
     @list_of_items = []
     populate_items(items_data)
   end
 
   def populate_items(items_data)
     @list_of_items = items_data.map do |datum|
-      Item.new(datum)
+      Item.new(datum, self)
     end
   end
 

@@ -1,5 +1,5 @@
 require 'bigdecimal'
-require './lib/type_conversion'
+require_relative 'type_conversion'
 
 class Item
 
@@ -10,9 +10,10 @@ class Item
               :unit_price,
               :merchant_id,
               :created_at,
-              :updated_at
+              :updated_at,
+              :parent_repo
 
-  def initialize(datum)
+  def initialize(datum, parent_repo = nil)
     @id = datum[:id]
     @name = datum[:name]
     @description = datum[:description]
@@ -20,10 +21,15 @@ class Item
     @merchant_id = datum[:merchant_id]
     @created_at = datum[:created_at]
     @updated_at = datum[:updated_at]
+    @parent_repo = parent_repo
   end
 
   def unit_price_to_dollars
     @unit_price.to_f
+  end
+
+  def merchant
+    parent_repo.parent_engine.merchants.find_by_id(@merchant_id)
   end
 
 end
