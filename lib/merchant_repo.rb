@@ -3,11 +3,12 @@ require_relative "merchant"
 
 class MerchantsRepo
 
-  def initialize(csv_filepath)
+  def initialize(csv_filepath, parent = nil)
     contents = CSV.open csv_filepath, headers: true, header_converters: :symbol
     @merchant_objects = contents.map do |row|
       Merchant.new(row)
     end
+    @parent = parent
   end
 
   def all
@@ -51,5 +52,8 @@ class MerchantsRepo
     end
   end
 
+  def find_items_by_merchant_id(merchant_id)
+    @parent.find_items_by_merchant_id(merchant_id)
+  end
 
 end
