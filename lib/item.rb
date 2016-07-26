@@ -1,14 +1,14 @@
 
 
 class Item
-  attr_reader :name, 
-              :id, 
-              :description, 
+  attr_reader :name,
+              :id,
+              :description,
               :unit_price,
               :merchant_id,
               :created_at,
               :updated_at
-  
+
   def initialize(item_details)
     @id          = item_details[:id]
     @name        = item_details[:name]
