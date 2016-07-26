@@ -5,8 +5,8 @@ class Merchant
   def initialize(row)
     @id = row[:id].to_i
     @name = row[:name]
-    @created_at = row[:created_at]
-    @updated_at = row[:updated_at]
+    @created_at = Time.strptime(row[:created_at], "%Y-%m-%d")
+    @updated_at = Time.strptime(row[:updated_at], "%Y-%m-%d")
   end
 
 end
