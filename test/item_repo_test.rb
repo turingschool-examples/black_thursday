@@ -161,4 +161,39 @@ class ItemRepoTest < Minitest::Test
     assert_equal 2, ir.find_all_by_merchant_id(4).count
   end
 
+  def test_item_has_repo
+    item_details = {:id => 2663713,
+                    :name => "Jean",
+                    :description => "Whatever",
+                    :unit_price => 10.997,
+                    :merchant_id => 5,
+                    :created_at => Time.now,
+                    :updated_at => Time.now}
+    item_repo = ItemRepo.new
+    item_repo.add_item(item_details)
+    item = item_repo.all.first
+    assert_equal item_repo, item.repo
+  end
+
+  def test_item_has_time_as_object
+    item_details = {:id => 263396517,
+                    :name => "Course contre la montre",
+                    :description => "Acrylique sur toile exécutée en 2013
+                    Format : 46 x 38 cm
+                    Toile sur châssis en bois - non encadré
+                    Artiste : Flavien Couche - Artiste côté Akoun
+
+                    TABLEAU VENDU AVEC FACTURE ET CERTIFICAT D&#39;AUTHETICITE
+
+                    www.flavien-couche.com",
+                    :unit_price => 40000,
+                    :merchant_id => 12334195,
+                    :created_at => "1994-05-07 23:38:43 UTC",
+                    :updated_at => "2016-01-11 11:30:35 UTC"}
+    item_repo = ItemRepo.new
+    item_repo.add_item(item_details)
+    item = item_repo.all.first
+    assert_equal DateTime, item.created_at.class
+    assert_equal DateTime, item.updated_at.class
+  end
 end

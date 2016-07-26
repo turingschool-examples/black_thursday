@@ -1,9 +1,11 @@
 require './lib/merchant'
 
 class MerchantRepo
+  attr_reader :sales_engine
 
-  def initialize
+  def initialize(sales_engine = nil)
     @merchants = []
+    @sales_engine = sales_engine
   end
 
   def all
@@ -11,7 +13,7 @@ class MerchantRepo
   end
 
   def add_merchant(merchant_details)
-    @merchants << Merchant.new(merchant_details)
+    @merchants << Merchant.new(merchant_details, self)
   end
 
   def find_by_id(id)
@@ -23,7 +25,7 @@ class MerchantRepo
   def find_by_name(name)
     name.downcase!
     @merchants.find do |merchant|
-      merchant.name.downcase == name
+      merchant.name.downcase == name.downcase
     end
   end
 
@@ -33,5 +35,7 @@ class MerchantRepo
       merchant.name.downcase.include?(name)
     end
   end
+
+
 
 end

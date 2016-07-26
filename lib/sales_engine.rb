@@ -4,12 +4,12 @@ require 'CSV'
 require 'pry'
 
 class SalesEngine
-  attr_reader :merchants,
-              :items
+  attr_reader :merchant_repo,
+              :item_repo
 
   def initialize
-    @merchants = MerchantRepo.new
-    @items     = ItemRepo.new
+    @merchant_repo = MerchantRepo.new(self)
+    @item_repo     = ItemRepo.new(self)
   end
 
   def from_csv(csv_path_info)
@@ -27,7 +27,7 @@ class SalesEngine
     headers = merchant_data.headers
     merchant_data.each do |row|
       new_merchant = create_initializing_details(row, headers)
-      @merchants.add_merchant(new_merchant)
+      @merchant_repo.add_merchant(new_merchant)
     end
   end
 
@@ -35,14 +35,14 @@ class SalesEngine
     headers = item_data.headers
     item_data.each do |row|
       new_item = create_initializing_details(row, headers)
-      @items.add_item(new_item)
+      @item_repo.add_item(new_item)
     end
   end
 
   def create_initializing_details(entry, headers)
-    Hash[headers.collect.with_index do |header, index|
+    headers.collect.with_index do |header, index|
       [header.to_sym, entry[index]]
-    end]
+    end.to_h
   end
 
 end

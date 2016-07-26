@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/merchant_repo'
+require "pry"
 
 class MerchantRepoTest < Minitest::Test
   def test_can_add_and_access_merchants
@@ -58,5 +59,13 @@ class MerchantRepoTest < Minitest::Test
     mr.add_merchant({:name => "Trump store of Fail", :id => 666})
     mr.add_merchant({:name => "Trump bank of Fail", :id => 667})
     assert_equal [], mr.find_all_by_name("Joe")
+  end
+
+  def test_merchant_has_repo
+    merchant_details = {:name => "String store", :id => 24}
+    mr = MerchantRepo.new
+    mr.add_merchant(merchant_details)
+    merchant = mr.all.first
+    assert_equal mr, merchant.repo
   end
 end

@@ -1,8 +1,11 @@
 require './lib/item'
 
 class ItemRepo
-  def initialize
+  attr_reader :sales_engine
+
+  def initialize(sales_engine = nil)
     @items = []
+    @sales_engine = sales_engine
   end
 
   def all
@@ -10,7 +13,7 @@ class ItemRepo
   end
 
   def add_item(item_details)
-    @items << Item.new(item_details)
+    @items << Item.new(item_details, self)
   end
 
   def find_by_id(id)
@@ -50,4 +53,5 @@ class ItemRepo
       item.merchant_id == id
     end
   end
+
 end
