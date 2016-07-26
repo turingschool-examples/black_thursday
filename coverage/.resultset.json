@@ -8,13 +8,33 @@
         1,
         1,
         null,
+        1,
+        2,
+        2,
+        null,
         null,
         1,
+        2,
+        2,
+        2,
+        null,
+        null
+      ],
+      "/Users/david/turing/1mod/projects/black_thursday/lib/item_repository.rb": [
         1,
+        1,
+        2,
+        null,
+        null
+      ],
+      "/Users/david/turing/1mod/projects/black_thursday/lib/merchant_repository.rb": [
+        1,
+        1,
+        2,
         null,
         null
       ]
     },
-    "timestamp": 1469497980
+    "timestamp": 1469501163
   }
 }
