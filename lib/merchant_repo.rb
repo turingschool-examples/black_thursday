@@ -46,14 +46,10 @@ class MerchantsRepo
   end
 
   def find_all_by_name(name_fragment)
-    find_all_merchants(name_fragment)
-  end
-
-  def find_all_merchants(name_fragment)
-    name_fragment = name_fragment.upcase
     @merchant_objects.select do |merchant|
-      merchant.name.upcase.to_s.include?(name_fragment)
+      merchant.name.upcase.include?(name_fragment.upcase)
     end
   end
+
 
 end
