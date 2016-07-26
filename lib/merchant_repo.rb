@@ -17,7 +17,7 @@ class MerchantsRepo
   def find_by_id(merchant_id)
     merchant = find_merchant_id(merchant_id)
     if merchant != nil
-      merchant.name
+      merchant
     else
       nil
     end
@@ -32,7 +32,7 @@ class MerchantsRepo
   def find_by_name(merchant_name)
     merchant = find_merchant_name(merchant_name)
     if merchant != nil
-      merchant.name
+      merchant
     else
       nil
     end

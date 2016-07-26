@@ -12,7 +12,7 @@ class MerchantsRepoTest < Minitest::Test
   def test_it_can_find_a_merchant_via_id_number
     filepath = "./data/support/merchant_support.csv"
     merch_repo = MerchantsRepo.new(filepath)
-    assert_equal "FrenchiezShop", merch_repo.find_by_id("12334473")
+    assert_equal "FrenchiezShop", merch_repo.find_by_id("12334473").name
   end
 
   def test_nil_is_returned_when_id_doesnt_match
@@ -24,7 +24,7 @@ class MerchantsRepoTest < Minitest::Test
   def test_it_can_find_a_merchant_by_name
     filepath = "./data/support/merchant_support.csv"
     merch_repo = MerchantsRepo.new(filepath)
-    assert_equal "byMarieinLondon", merch_repo.find_by_name("byMarieinLondon")
+    assert_equal "byMarieinLondon", merch_repo.find_by_name("byMarieinLondon").name
   end
 
   def test_it_returns_nil_if_name_doesnt_match
@@ -37,7 +37,7 @@ class MerchantsRepoTest < Minitest::Test
     filepath = "./data/support/merchant_support.csv"
     merch_repo = MerchantsRepo.new(filepath)
     name = "byMarieinLondon".downcase
-    assert_equal "byMarieinLondon", merch_repo.find_by_name(name)
+    assert_equal "byMarieinLondon", merch_repo.find_by_name(name).name
   end
 
   def test_it_can_find_merchants_by_name_fragment
@@ -52,6 +52,11 @@ class MerchantsRepoTest < Minitest::Test
     assert_equal 11, merch_repo.find_all_by_name("to").count
   end
 
+  def test_an_emprty_array_is_returned_if_not_fragment_id_present
+    filepath = "./data/support/merchant_support.csv"
+    merch_repo = MerchantsRepo.new(filepath)
+    assert_equal [], merch_repo.find_all_by_name("ejwdf")
 
+  end
 
 end
