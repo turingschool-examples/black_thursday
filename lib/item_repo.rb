@@ -6,6 +6,11 @@ class ItemRepo
   def initialize(sales_engine = nil)
     @items = []
     @sales_engine = sales_engine
+    @@data = self
+  end
+
+  def self.data
+    @@data
   end
 
   def all

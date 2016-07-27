@@ -45,4 +45,8 @@ class SalesEngine
     end.to_h
   end
 
+  def find_all_items_by_merchant_id(id)
+    @item_repo.find_all_by_merchant_id(id)
+  end
+
 end

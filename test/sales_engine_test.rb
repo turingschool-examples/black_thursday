@@ -56,4 +56,46 @@ class SalesEngineTest < Minitest::Test
     merchant_repo = se.merchant_repo
     assert_equal se, merchant_repo.sales_engine
   end
+
+  def test_merchant_can_find_items
+    se = SalesEngine.new
+    ir = se.item_repo
+    mr = se.merchant_repo
+    item_1_details = {
+      :id => 20,
+      :name => "A thing that you want",
+      :merchant_id => 21
+    }
+    item_2_details = {
+      :id =>22,
+      :name => "A thing you sorta want",
+      :merchant_id => 21
+    }
+    item_3_details = {
+      :id => 30,
+      :name => "A thing you don't want",
+      :merchant_id => 31
+    }
+    items = [item_1_details, item_2_details, item_3_details]
+    merchant_1_details = {
+      :name => "The awesome store",
+      :id   => 21
+    }
+    merchant_2_details = {
+      :name => "Trump Store of Fail",
+      :id   => 666
+    }
+    merchants = [merchant_1_details, merchant_2_details]
+
+    items.each do |item|
+      ir.add_item(item)
+    end
+    merchants.each do |merchant|
+      mr.add_merchant(merchant)
+    end
+    merchant = mr.find_by_id(21)
+    item_1 = ir.find_by_name("A thing that you want")
+    item_2 = ir.find_by_name("A thing you sorta want")
+    assert_equal [item_1, item_2], merchant.items
+  end
 end

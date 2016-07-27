@@ -17,7 +17,6 @@ class Item
     @description = item_details[:description]
     @unit_price  = BigDecimal.new(item_details[:unit_price].to_f, 4)
     @merchant_id = item_details[:merchant_id]
-    # @created_at  = item_details[:created_at]
     @created_at  = format_time(item_details[:created_at].to_s)
     @updated_at  = format_time(item_details[:updated_at].to_s)
     @repo        = repo
