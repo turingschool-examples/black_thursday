@@ -1,4 +1,4 @@
-require "./lib/merchant_repo"
+require_relative "../lib/merchant_repo"
 
 class Merchant
 

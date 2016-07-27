@@ -22,7 +22,6 @@ class Item
     @unit_price.to_f
   end
 
-  #convert time to time by using Time.new(formatted list of strings)
   def convert_string_to_time(time_input)
     return Time.now if time_input == nil
     Time.strptime(time_input, "%Y-%m-%d %H:%M:%S %z")
