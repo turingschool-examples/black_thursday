@@ -25,13 +25,13 @@ class ItemRepoTest < Minitest::Test
     assert_equal nil, ir.find_by_name("")
   end
 
-  def test_find_all_by_description
+  def test_find_all_with_description
     description = "fancy"
     ir = ItemRepo.new('./data/items.csv')
-    matches = ir.find_all_by_description(description)
+    matches = ir.find_all_with_description(description)
     assert_equal 2, matches.count
 
-    assert_equal [], ir.find_all_by_description("butts")
+    assert_equal [], ir.find_all_with_description("butts")
   end
 
   def test_find_by_price

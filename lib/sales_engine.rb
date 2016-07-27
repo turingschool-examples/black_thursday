@@ -1,6 +1,7 @@
 require "csv"
-require_relative "item_repo"
-require_relative "merchant_repo"
+require_relative "../lib/item_repo"
+require_relative "../lib/merchant_repo"
+require_relative "../lib/invoice_repo"
 
 class SalesEngine
 
@@ -10,6 +11,9 @@ class SalesEngine
 
   def initialize(files)
     @files = files
+    # @merchants = MerchantsRepo.new(files[:merchants], self)
+    # @items = ItemRepo.new(files[:items], self)
+    # @invoices = InvoiceRepo.new(files[:invoice], self)
   end
 
   def merchants
@@ -17,19 +21,17 @@ class SalesEngine
   end
 
   def items
-    @items = ItemsRepo.new(@files[:items], self )
+    @items = ItemRepo.new(@files[:items], self)
   end
 
-  def find_merchant_by_item_id(merchant_id)
+  def invoice
+    @invoices = InvoiceRepo.new(@files[:invoice], self)
+  end
+
+  def find_merchant_by_id(merchant_id)
+    # binding.pry
     @merchants.find_by_id(merchant_id)
   end
-end
-
-  # se = SalesEngine.new({merchant: filename})
-  # se.merchants_repo.merchants
-  #
-  # se = SalesEngine.from_csv({merchant: filename})
-  # se.merchants_repo.merchants
 
   def find_items_by_merchant_id(merchant_id)
     @items.find_all_by_merchant_id(merchant_id)
