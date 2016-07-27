@@ -4,12 +4,16 @@ require 'minitest/pride'
 require "./lib/sales_engine"
 
 
-class SalesEngine < MiniTest::Test
+class SalesEngineTest < MiniTest::Test
 
   def test_it_can_load_a_csv
-
-    assert_equal 0, se = SalesEngine.from_csv({
-      :items => "./data/items.csv"})
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+    })
+  assert_equal true, se.merchants.is_a?(MerchantRepository)
+  assert_equal false, se.merchants.is_a?(ItemRepository)
+  assert_equal true, se.items.is_a?(ItemRepository)
   end
 
 

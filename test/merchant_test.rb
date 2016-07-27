@@ -7,7 +7,7 @@ require "./lib/merchant"
 class MerchantTest < MiniTest::Test
 
   def test_holds_a_name
-    @merchant = Merchant.new("mc'ds", 666, "string")
+    @merchant = Merchant.new(["12334105", "Shopin1901", "2010-12-10", "2011-12-04"])
 
     assert_equal "mc'ds", @merchant.name
   end
@@ -26,7 +26,7 @@ class MerchantTest < MiniTest::Test
 
     assert_equal "string", @merchant.repo
   end
-  
+
   def test_it_can_commincate_with_the_repo
     skip
   end

@@ -4,9 +4,9 @@ class Merchant
 
   attr_reader :name, :id, :repo
 
-  def initialize(name = "", id, repo)
-    @name  = name
-    @id = id
+  def initialize(hash)
+    @name  = hash[:name]
+    @id = hash[:id]
     @repo = repo
   end
 end

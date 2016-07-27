@@ -9,7 +9,7 @@ class Item
               :updated_at,
               :merchant_id,
               :repo
-  def initialize(hash)
+  def initialize(hash, repo)
     @id = hash[:id]
     @name = hash[:name]
     @description = hash[:description]
@@ -17,7 +17,7 @@ class Item
     @created_at = hash[:created_at]
     @updated_at = hash[:updated_at]
     @merchant_id = hash[:merchant_id]
-    @repo = hash[:repo]
+    @repo = repo
   end
 
   def unit_price_to_dollars

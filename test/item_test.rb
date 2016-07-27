@@ -7,14 +7,13 @@ require 'bigdecimal'
 
 class ItemTest < MiniTest::Test
     def setup
-      @item = Item.new ({:id => 1,
+      @item = Item.new({:id => 1,
                          :name        => "Pencil",
                          :description => "It's a pencil",
                          :unit_price  => BigDecimal.new(10.99,4),
                          :created_at  => Time.now,
                          :updated_at  => Time.now,
-                         :merchant_id => 1234567,
-                         :repo => "repo"})
+                         :merchant_id => 1234567}, "repo")
     end
 
     def test_it_holds_id
