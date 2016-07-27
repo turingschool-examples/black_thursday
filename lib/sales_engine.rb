@@ -17,7 +17,7 @@ class SalesEngine
   end
 
   def items
-    @items = ItemsRepo.new(@files[:items], self)
+    @items = ItemsRepo.new(@files[:items], self )
   end
 
   def find_merchant_by_item_id(merchant_id)
