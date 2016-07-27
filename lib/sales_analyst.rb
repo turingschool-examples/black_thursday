@@ -1,6 +1,4 @@
-require './lib/sales_engine'
-require './lib/merchant_repository'
-require './lib/item_repository'
+require_relative '../sales_engine'
 
 class SalesAnalyst
   attr_reader :sales_engine

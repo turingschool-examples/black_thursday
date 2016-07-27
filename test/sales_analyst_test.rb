@@ -12,6 +12,6 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_find_all_merchants
     se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv" })
     sa = SalesAnalyst.new(se)
-    assert_equal 100, sa.sales_engine.merchants.all.length  
+    assert_equal 100, sa.sales_engine.merchants.all.length
   end
 end

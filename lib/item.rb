@@ -1,5 +1,5 @@
 require 'bigdecimal'
-require_relative 'type_conversion'
+require_relative '../type_conversion'
 
 class Item
 
