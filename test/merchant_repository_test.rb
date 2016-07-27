@@ -62,7 +62,7 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal nil, mr.find_by_name("onlineshop")
   end
 
-  def test_it_finds_all_merchants_by_supplied_name_fragment
+  def test_it_finds_all_merchants_that_match_a_name_fragment
     assert_equal [], mr.find_all_by_name("piney")
 
     found_names = mr.find_all_by_name("pin").map { |merchant| merchant.name }
