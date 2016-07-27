@@ -1,21 +1,30 @@
-require './lib/merchant'
+require_relative 'merchant'
 
 class MerchantRepository
   attr_reader :merchants
 
-  def initialize
+  def initialize(merchants_data)
     @merchants = {}
+    populate(merchants_data)
   end
+
+  # def initialize(merchants)
+  #   @merchants = populate(merchants)
+  # end
 
   def format_merchant_info(merchant)
     {:id => merchant[:id], :name => merchant[:name]}
   end
 
-  def populate(merchants)
-    merchants.each do |merchant|
-      merchant_formatted = format_merchant_info(merchant)
-      @merchants[merchant[:id]] = Merchant.new(merchant_formatted)
+  def populate(merchants_data)
+    merchants_data.each do |merchant_data|
+      make_merchant(merchant_data)
     end
+  end
+
+  def make_merchant(merchant_data)
+    merchant_formatted = format_merchant_info(merchant_data)
+    @merchants[merchant_data[:id]] = Merchant.new(merchant_formatted)
   end
 
   def all
