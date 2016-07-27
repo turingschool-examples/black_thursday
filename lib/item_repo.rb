@@ -1,4 +1,4 @@
-require './lib/item'
+require_relative './item'
 
 class ItemRepo
   attr_reader :sales_engine

@@ -1,4 +1,4 @@
-require './lib/merchant'
+require_relative './merchant'
 
 class MerchantRepo
   attr_reader :sales_engine
