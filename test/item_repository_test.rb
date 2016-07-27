@@ -88,7 +88,5 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 1, mercs_1.length
     assert_equal 3, mercs_2.length
     assert_equal [], mercs_3
-
   end
-
 end

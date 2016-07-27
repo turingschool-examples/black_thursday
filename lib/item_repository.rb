@@ -51,8 +51,8 @@ class ItemRepository
     @items.find { |item| item.name.upcase == name.upcase }
   end
 
-  def find_all_with_description(description_excerpt)
-    @items.find_all { |item| item.description.upcase.include? description_excerpt.upcase }
+  def find_all_with_description(description)
+    @items.find_all { |item| item.description.upcase.include? description.upcase }
   end
 
   def find_all_by_price(price)
