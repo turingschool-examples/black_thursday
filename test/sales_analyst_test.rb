@@ -33,7 +33,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv" })
     sa = SalesAnalyst.new(se)
 
-    assert_equal 20, sa.total_items.length
+    assert_equal 20, sa.find_all_items.length
   end
 
   def test_it_can_find_the_average_items_per_merchant
@@ -41,20 +41,6 @@ class SalesAnalystTest < Minitest::Test
     sa = SalesAnalyst.new(se)
 
     assert_equal 0.2, sa.average_items_per_merchant
-  end
-
-  def test_it_can_put_items_per_merchant_id_into_an_array
-    se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv" })
-    sa = SalesAnalyst.new(se)
-
-    assert sa.set.is_a?(Array)
-  end
-
-  def test_it_can_store_correct_number_of_items_per_merchant_id
-    se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv" })
-    sa = SalesAnalyst.new(se)
-
-    assert_equal 100, sa.set.length
   end
 
   def test_standard_deviation_returns_a_float
@@ -143,6 +129,27 @@ class SalesAnalystTest < Minitest::Test
     sa = SalesAnalyst.new(se)
 
     assert_equal 4, sa.merchants_with_high_item_count.length
+  end
+
+  def test_it_can_find_the_average_item_price
+    se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv" })
+    sa = SalesAnalyst.new(se)
+
+    assert_equal BigDecimal(163.90, 5), sa.average_item_price
+  end
+
+  def test_it_can_find_the_standard_deviation_of_item_price
+    se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv" })
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 224.97, sa.average_price_standard_deviation
+  end
+
+  def test_it_can_find_golden_items
+    se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv" })
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 1, sa.golden_items.length
   end
 
 end

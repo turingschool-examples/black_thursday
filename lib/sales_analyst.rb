@@ -16,33 +16,46 @@ class SalesAnalyst
     sales_engine.merchants.all
   end
 
-  def total_items_per_merchant(merchant_id)
-    sales_engine.merchants.find_by_id(merchant_id).items.count
-  end
-
-  def total_items
+  def find_all_items
     sales_engine.items.all
   end
 
-  def average_items_per_merchant
-    (total_items.length / find_all_merchants.length.to_f).round(2)
+  def total_items_per_merchant(merchant_id)
+    find_merchant(merchant_id).items.count
   end
 
-  def set
-    find_all_merchants.map do |merchant|
-      total_items_per_merchant(merchant.id)
-    end
+  def average_items_per_merchant
+    (find_all_items.length / find_all_merchants.length.to_f).round(2)
   end
 
   def sum_squares
-    set.reduce(0) do |sum_squares, items|
-    sum_squares += ((items - average_items_per_merchant).abs.to_f)**2
-    sum_squares
+    find_all_merchants.reduce(0) do |sum_squares, merchant|
+      sum_squares += squared_difference_from_average(merchant.id)
+      sum_squares
     end
+  end
+
+  def sum_squares_of_price_differences
+    find_all_items.reduce(0) do |sum_squares, item|
+      sum_squares += squared_difference_from_average_for_price(item)
+      sum_squares
+    end
+  end
+
+  def squared_difference_from_average(merchant_id)
+    ((total_items_per_merchant(merchant_id) - average_items_per_merchant).abs.to_f) ** 2
+  end
+
+  def squared_difference_from_average_for_price(item)
+    ((item.unit_price - average_item_price).abs.to_f) ** 2
   end
 
   def average_items_per_merchant_standard_deviation
     sqrt( (sum_squares / (find_all_merchants.length - 1))).round(2)
+  end
+
+  def average_price_standard_deviation
+    sqrt( (sum_squares_of_price_differences / (find_all_items.length - 1))).round(2)
   end
 
   def average_item_price_for_merchant(merchant_id)
@@ -59,9 +72,10 @@ class SalesAnalyst
   end
 
   def total_item_price_for_merchant(merchant)
-    merchant.items.map do |item|
-      item.unit_price
-    end.inject(:+)
+    merchant.items.reduce(0) do |total, item|
+      total += item.unit_price
+      total
+    end
   end
 
   def average_average_price_per_merchant
@@ -81,9 +95,10 @@ class SalesAnalyst
   end
 
   def total_item_price_for_active_merchants(active_merchants)
-    active_merchants.map do |merchant|
-      average_item_price_for_merchant(merchant.id)
-    end.inject(:+)
+    active_merchants.reduce(0) do |total, merchant|
+      total += average_item_price_for_merchant(merchant.id)
+      total
+    end
   end
 
   def merchants_with_high_item_count
@@ -91,8 +106,25 @@ class SalesAnalyst
     avg_items = average_items_per_merchant
     std_dev = average_items_per_merchant_standard_deviation
     all_merchants.find_all do |merchant|
-      total_items_per_merchant(merchant.id) > (avg_items + (std_dev * 2))
+      total_items_per_merchant(merchant.id) > (avg_items + std_dev)
     end
+  end
+
+  def golden_items
+    all_items = find_all_items
+    avg_price = average_item_price
+    std_dev = average_price_standard_deviation
+    all_items.find_all do |item|
+      item.unit_price > (avg_price + (std_dev * 2))
+    end
+  end
+
+  def average_item_price
+    total_price = find_all_items.reduce(0) do |total, item|
+      total += item.unit_price
+      total
+    end
+    (total_price / find_all_items.length).floor(2)
   end
 
 end
