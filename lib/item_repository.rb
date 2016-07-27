@@ -19,8 +19,7 @@ class ItemRepository
   end
 
   def make_prepared_data(row)
-    {
-      id:           row[:id].to_i,
+    { id:           row[:id].to_i,
       name:         row[:name],
       description:  row[:description],
       unit_price:   prepare_unit_price(row[:unit_price]),

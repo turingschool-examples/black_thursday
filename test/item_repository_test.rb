@@ -14,6 +14,11 @@ class ItemRepositoryTest < Minitest::Test
     @ir = ItemRepository.new(csv_rows)
   end
 
+  def test_items_is_an_array_of_item_instances
+    assert_equal Array, ir.items.class
+    assert_equal true, ir.items.all? { |thing| thing.class == Item }
+  end
+
   def test_item_is_instantiated_with_correct_attributes
     assert_equal 263415269, ir.items[0].id
     assert_equal "name a", ir.items[0].name
@@ -24,45 +29,40 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal Time.parse('2016-01-12 15:41:05 UTC'), ir.items[0].updated_at
   end
 
-  def test_items_is_an_array_of_item_instances
-    assert_equal Array, ir.items.class
-    assert_equal true, ir.items.all? { |thing| thing.class == Item}
-  end
-
   def test_method_all_returns_array_known_item_instances
     assert_equal ir.items, ir.all
   end
 
   def test_method_find_by_id_returns_nil_or_item_instance
-    find_1 = ir.find_by_id(263415269)
-    find_2 = ir.find_by_id('googleypuff')
-    assert_equal Item, find_1.class
-    assert_equal 263415269, find_1.id
-    assert_equal nil, find_2
+    item_1 = ir.find_by_id(263415269)
+    item_2 = ir.find_by_id('googleypuff')
+    assert_equal Item, item_1.class
+    assert_equal 263415269, item_1.id
+    assert_equal nil, item_2
   end
 
   def test_method_find_by_name_returns_nil_or_item_instance
-    find_1 = ir.find_by_name("name o")
-    find_2 = ir.find_by_name("NAME o")
-    find_3 = ir.find_by_name("Donkey the dinosaur part 2")
-    assert_equal Item, find_1.class
-    assert_equal "name o", find_1.name
-    assert_equal "name o", find_2.name
-    assert_equal nil, find_3
+    item_1 = ir.find_by_name("name o")
+    item_2 = ir.find_by_name("NAME o")
+    item_3 = ir.find_by_name("Donkey the dinosaur part 2")
+    assert_equal Item, item_1.class
+    assert_equal "name o", item_1.name
+    assert_equal "name o", item_2.name
+    assert_equal nil, item_3
   end
 
   def test_method_find_all_with_description_returns_array_of_matches
     desc_1 = "desc a"
     desc_2 = "dEsc"
     desc_3 = "nothing here"
-    find_1 = ir.find_all_with_description(desc_1)
-    find_2 = ir.find_all_with_description(desc_2)
-    find_3 = ir.find_all_with_description(desc_3)
-    assert_equal Array, find_1.class
-    assert_equal 1, find_1.length
-    assert_equal Array, find_2.class
-    assert_equal 26, find_2.length
-    assert_equal [], find_3
+    items_1 = ir.find_all_with_description(desc_1)
+    items_2 = ir.find_all_with_description(desc_2)
+    items_3 = ir.find_all_with_description(desc_3)
+    assert_equal Array, items_1.class
+    assert_equal 1, items_1.length
+    assert_equal Array, items_2.class
+    assert_equal 26, items_2.length
+    assert_equal [], items_3
   end
 
   def test_method_find_all_by_price_returns_array_of_matches
