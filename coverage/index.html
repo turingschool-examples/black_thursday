@@ -14,7 +14,7 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2016-07-26T17:56:37-06:00">2016-07-26T17:56:37-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2016-07-26T18:15:41-06:00">2016-07-26T18:15:41-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -25,7 +25,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         3337.23
+         65.13
        </span>
     </span> hits/line)
   </h2>
@@ -57,7 +57,7 @@
         <td>12</td>
         <td>11</td>
         <td>1</td>
-        <td>4785.4</td>
+        <td>91.3</td>
       </tr>
       
       <tr>
@@ -67,7 +67,7 @@
         <td>27</td>
         <td>27</td>
         <td>0</td>
-        <td>2693.6</td>
+        <td>53.5</td>
       </tr>
       
     </tbody>
@@ -160,44 +160,44 @@
           <code class="ruby">  def initialize(data)</code>
         </li>
       
-        <li class="covered" data-hits="8203" data-linenumber="11">
-          <span class="hits">8203</span>
+        <li class="covered" data-hits="156" data-linenumber="11">
+          <span class="hits">156</span>
           
           <code class="ruby">    @id =           data[:id]</code>
         </li>
       
-        <li class="covered" data-hits="8203" data-linenumber="12">
-          <span class="hits">8203</span>
+        <li class="covered" data-hits="156" data-linenumber="12">
+          <span class="hits">156</span>
           
           <code class="ruby">    @name =         data[:name]</code>
         </li>
       
-        <li class="covered" data-hits="8203" data-linenumber="13">
-          <span class="hits">8203</span>
+        <li class="covered" data-hits="156" data-linenumber="13">
+          <span class="hits">156</span>
           
           <code class="ruby">    @description =  data[:description]</code>
         </li>
       
-        <li class="covered" data-hits="8203" data-linenumber="14">
-          <span class="hits">8203</span>
+        <li class="covered" data-hits="156" data-linenumber="14">
+          <span class="hits">156</span>
           
           <code class="ruby">    @unit_price =   data[:unit_price]</code>
         </li>
       
-        <li class="covered" data-hits="8203" data-linenumber="15">
-          <span class="hits">8203</span>
+        <li class="covered" data-hits="156" data-linenumber="15">
+          <span class="hits">156</span>
           
           <code class="ruby">    @merchant_id =  data[:merchant_id]</code>
         </li>
       
-        <li class="covered" data-hits="8203" data-linenumber="16">
-          <span class="hits">8203</span>
+        <li class="covered" data-hits="156" data-linenumber="16">
+          <span class="hits">156</span>
           
           <code class="ruby">    @created_at =   data[:created_at]</code>
         </li>
       
-        <li class="covered" data-hits="8203" data-linenumber="17">
-          <span class="hits">8203</span>
+        <li class="covered" data-hits="156" data-linenumber="17">
+          <span class="hits">156</span>
           
           <code class="ruby">    @updated_at =   data[:updated_at]</code>
         </li>
@@ -310,8 +310,8 @@
           <code class="ruby">  def initialize(item_contents)</code>
         </li>
       
-        <li class="covered" data-hits="7" data-linenumber="9">
-          <span class="hits">7</span>
+        <li class="covered" data-hits="6" data-linenumber="9">
+          <span class="hits">6</span>
           
           <code class="ruby">    @items = make_items(item_contents)</code>
         </li>
@@ -334,8 +334,8 @@
           <code class="ruby">  def make_items(item_contents)</code>
         </li>
       
-        <li class="covered" data-hits="8210" data-linenumber="13">
-          <span class="hits">8210</span>
+        <li class="covered" data-hits="162" data-linenumber="13">
+          <span class="hits">162</span>
           
           <code class="ruby">    item_contents.map { |row| make_item(row) }</code>
         </li>
@@ -358,14 +358,14 @@
           <code class="ruby">  def make_item(row)</code>
         </li>
       
-        <li class="covered" data-hits="8203" data-linenumber="17">
-          <span class="hits">8203</span>
+        <li class="covered" data-hits="156" data-linenumber="17">
+          <span class="hits">156</span>
           
           <code class="ruby">    data = make_prepared_data(row)</code>
         </li>
       
-        <li class="covered" data-hits="8203" data-linenumber="18">
-          <span class="hits">8203</span>
+        <li class="covered" data-hits="156" data-linenumber="18">
+          <span class="hits">156</span>
           
           <code class="ruby">    Item.new(data)</code>
         </li>
@@ -436,8 +436,8 @@
           <code class="ruby">      updated_at:   prepare_time(row[:updated_at])</code>
         </li>
       
-        <li class="covered" data-hits="8203" data-linenumber="30">
-          <span class="hits">8203</span>
+        <li class="covered" data-hits="156" data-linenumber="30">
+          <span class="hits">156</span>
           
           <code class="ruby">    }</code>
         </li>
@@ -460,14 +460,14 @@
           <code class="ruby">  def prepare_unit_price(unit_price)</code>
         </li>
       
-        <li class="covered" data-hits="8203" data-linenumber="34">
-          <span class="hits">8203</span>
+        <li class="covered" data-hits="156" data-linenumber="34">
+          <span class="hits">156</span>
           
           <code class="ruby">    digits = unit_price.to_s.length - 1</code>
         </li>
       
-        <li class="covered" data-hits="8203" data-linenumber="35">
-          <span class="hits">8203</span>
+        <li class="covered" data-hits="156" data-linenumber="35">
+          <span class="hits">156</span>
           
           <code class="ruby">    BigDecimal.new(unit_price, digits)</code>
         </li>
@@ -490,8 +490,8 @@
           <code class="ruby">  def prepare_time(time)</code>
         </li>
       
-        <li class="covered" data-hits="16406" data-linenumber="39">
-          <span class="hits">16406</span>
+        <li class="covered" data-hits="312" data-linenumber="39">
+          <span class="hits">312</span>
           
           <code class="ruby">    Time.parse(time)</code>
         </li>
@@ -538,8 +538,8 @@
           <code class="ruby">  def find_by_id(id)</code>
         </li>
       
-        <li class="covered" data-hits="1531" data-linenumber="47">
-          <span class="hits">1531</span>
+        <li class="covered" data-hits="29" data-linenumber="47">
+          <span class="hits">29</span>
           
           <code class="ruby">    @items.find { |item| item.id == id }</code>
         </li>
@@ -562,8 +562,8 @@
           <code class="ruby">  def find_by_name(name)</code>
         </li>
       
-        <li class="covered" data-hits="1438" data-linenumber="51">
-          <span class="hits">1438</span>
+        <li class="covered" data-hits="59" data-linenumber="51">
+          <span class="hits">59</span>
           
           <code class="ruby">    @items.find { |item| item.name.upcase == name.upcase }</code>
         </li>
@@ -586,8 +586,8 @@
           <code class="ruby">  def find_all_with_description(description_excerpt)</code>
         </li>
       
-        <li class="covered" data-hits="4104" data-linenumber="55">
-          <span class="hits">4104</span>
+        <li class="covered" data-hits="81" data-linenumber="55">
+          <span class="hits">81</span>
           
           <code class="ruby">    @items.find_all { |item| item.description.upcase.include? description_excerpt.upcase }</code>
         </li>

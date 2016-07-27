@@ -7,26 +7,21 @@ class ItemRepositoryTest < Minitest::Test
   attr_reader :ir
 
   def setup
-    items_file = CSV.open("./data/items.csv",
-                          headers:true,
+    items_file = CSV.open("./test/testdata/items_gen.csv",
+                          headers: true,
                           header_converters: :symbol)
     csv_rows = items_file.map { |row| row }
     @ir = ItemRepository.new(csv_rows)
   end
 
   def test_item_is_instantiated_with_correct_attributes
-    items_file = CSV.open("./test/testdata/items_single.csv",
-                          headers:true,
-                          header_converters: :symbol)
-    csv_rows = items_file.map { |row| row }
-    ir = ItemRepository.new(csv_rows)
-    assert_equal 263415243, ir.items[0].id
-    assert_equal "Davido Gracia Genuine Python tote" , ir.items[0].name
-    assert_equal "Beautiful genuine Python tote", ir.items[0].description
-    assert_equal 120.99, ir.items[0].unit_price
-    assert_equal 12334155, ir.items[0].merchant_id
+    assert_equal 263415269, ir.items[0].id
+    assert_equal "name a", ir.items[0].name
+    assert_equal "desc a", ir.items[0].description
+    assert_equal 27.99, ir.items[0].unit_price
+    assert_equal 12334181, ir.items[0].merchant_id
     assert_equal Time.parse('2016-01-11 15:11:05 UTC'), ir.items[0].created_at
-    assert_equal Time.parse('2003-02-19 16:49:05 UTC'), ir.items[0].updated_at
+    assert_equal Time.parse('2016-01-12 15:41:05 UTC'), ir.items[0].updated_at
   end
 
   def test_items_is_an_array_of_item_instances
@@ -39,34 +34,34 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_method_find_by_id_returns_nil_or_item_instance
-    find_1 = ir.find_by_id(263415243)
+    find_1 = ir.find_by_id(263415269)
     find_2 = ir.find_by_id('googleypuff')
     assert_equal Item, find_1.class
-    assert_equal 263415243, find_1.id
+    assert_equal 263415269, find_1.id
     assert_equal nil, find_2
   end
 
   def test_method_find_by_name_returns_nil_or_item_instance
-    find_1 = ir.find_by_name("Moyenne toile")
-    find_2 = ir.find_by_name("moyenne TOILE")
+    find_1 = ir.find_by_name("name o")
+    find_2 = ir.find_by_name("NAME o")
     find_3 = ir.find_by_name("Donkey the dinosaur part 2")
     assert_equal Item, find_1.class
-    assert_equal "Moyenne toile", find_1.name
-    assert_equal "Moyenne toile", find_2.name
+    assert_equal "name o", find_1.name
+    assert_equal "name o", find_2.name
     assert_equal nil, find_3
   end
 
   def test_method_find_all_with_description_returns_array_of_matches
-    desc_1 = "honey is a unique condiment great on cheese plates"
-    desc_2 = "this"
-    desc_3 = "i do not not not believe this is something someone ever wrote"
+    desc_1 = "desc a"
+    desc_2 = "desc"
+    desc_3 = "nothing here"
     find_1 = ir.find_all_with_description(desc_1)
     find_2 = ir.find_all_with_description(desc_2)
     find_3 = ir.find_all_with_description(desc_3)
     assert_equal Array, find_1.class
-    assert_equal 5, find_1.length
+    assert_equal 1, find_1.length
     assert_equal Array, find_2.class
-    assert_equal true, find_2.length > 1
+    assert_equal 26, find_2.length
     assert_equal [], find_3
   end
 
