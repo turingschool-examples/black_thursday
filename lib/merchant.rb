@@ -11,7 +11,7 @@ class Merchant
   end
 
   def items
-    parent_repo.parent_engine.items.find_all_by_merchant_id(@id)
+    parent_repo.pass_to_engine(@id)
   end
 
 end

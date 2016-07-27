@@ -28,4 +28,8 @@ class SalesEngine
     CSV.read(@list_of_paths[what_to_read], headers: true, header_converters: :symbol)
   end
 
+  def find_items(id)
+    items.find_all_by_merchant_id(id)
+  end
+
 end
