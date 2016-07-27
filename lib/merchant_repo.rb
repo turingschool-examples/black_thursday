@@ -6,7 +6,7 @@ class MerchantsRepo
   def initialize(csv_filepath, parent = nil)
     contents = CSV.open csv_filepath, headers: true, header_converters: :symbol
     @merchant_objects = contents.map do |row|
-      Merchant.new(row)
+      Merchant.new(row, self)
     end
     @parent = parent
   end

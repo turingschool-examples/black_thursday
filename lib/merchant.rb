@@ -16,6 +16,4 @@ class Merchant
     @parent.find_items_by_merchant_id(self.id)
   end
 
-
-
 end

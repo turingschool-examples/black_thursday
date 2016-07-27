@@ -11,9 +11,6 @@ class SalesEngine
 
   def initialize(files)
     @files = files
-    # @merchants = MerchantsRepo.new(files[:merchants], self)
-    # @items = ItemRepo.new(files[:items], self)
-    # @invoices = InvoiceRepo.new(files[:invoice], self)
   end
 
   def merchants
@@ -29,7 +26,6 @@ class SalesEngine
   end
 
   def find_merchant_by_id(merchant_id)
-    # binding.pry
     @merchants.find_by_id(merchant_id)
   end
 
