@@ -13,7 +13,7 @@ class SalesEngine
   end
 
   def merchants
-    MerchantsRepo.new(@files[:merchants])
+    @merchants = MerchantsRepo.new(@files[:merchants], self)
   end
 
   def items
@@ -31,6 +31,8 @@ end
   # se = SalesEngine.from_csv({merchant: filename})
   # se.merchants_repo.merchants
 
-#se = SalesEngine.from_csv(files) # SalesEngine.new(files)
-#se.merchants # -> MerchantsRepo.new(hash[:merchants])
-# .all # -> .all
+  def find_items_by_merchant_id(merchant_id)
+    @items.find_all_by_merchant_id(merchant_id)
+  end
+
+end
