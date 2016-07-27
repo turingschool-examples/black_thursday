@@ -12,7 +12,7 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_find_one_merchant
     se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv" })
     sa = SalesAnalyst.new(se)
-    assert_equal "Shopin1901", sa.find_merchant("12334105").name
+    assert_equal "Shopin1901", sa.find_merchant(12334105).name
   end
 
 
@@ -26,7 +26,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv" })
     sa = SalesAnalyst.new(se)
 
-    assert_equal 3, sa.total_items_per_merchant("12334185")
+    assert_equal 3, sa.total_items_per_merchant(12334185)
   end
 
   def test_it_can_find_the_total_number_of_items
@@ -74,7 +74,7 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_find_total_item_price_for_a_merchant
     se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv" })
     sa = SalesAnalyst.new(se)
-    merchant = sa.find_merchant("12334185")
+    merchant = sa.find_merchant(12334185)
 
     assert_equal BigDecimal(33.50, 4), sa.total_item_price_for_merchant(merchant)
   end
@@ -83,21 +83,21 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv" })
     sa = SalesAnalyst.new(se)
 
-    assert_equal BigDecimal(11.17, 4), sa.average_item_price_for_merchant("12334185")
+    assert_equal BigDecimal(11.17, 4), sa.average_item_price_for_merchant(12334185)
   end
 
   def test_average_item_price_returns_nil_for_an_itemless_merchant
     se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv" })
     sa = SalesAnalyst.new(se)
 
-    assert_equal nil, sa.average_item_price_for_merchant("12334496")
+    assert_equal nil, sa.average_item_price_for_merchant(12334496)
   end
 
   def test_average_item_price_returns_nil_for_a_nonexistent_merchant
     se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv" })
     sa = SalesAnalyst.new(se)
 
-    assert_equal nil, sa.average_item_price_for_merchant("99999999")
+    assert_equal nil, sa.average_item_price_for_merchant(99999999)
   end
 
   def test_it_can_find_active_merchants
@@ -121,21 +121,21 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv" })
     sa = SalesAnalyst.new(se)
 
-    assert_equal BigDecimal(71.04, 4), sa.average_average_item_price_per_merchant
+    assert_equal BigDecimal(71.03, 4), sa.average_average_price_per_merchant
   end
 
   def test_average_average_returns_nil_with_no_merchants
     se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/empty_file.csv" })
     sa = SalesAnalyst.new(se)
 
-    assert_equal nil, sa.average_average_item_price_per_merchant
+    assert_equal nil, sa.average_average_price_per_merchant
   end
 
   def test_average_average_returns_nil_with_no_items
     se = SalesEngine.from_csv({ items: "./data/empty_file.csv", merchants: "./data/merchants_sample.csv" })
     sa = SalesAnalyst.new(se)
 
-    assert_equal nil, sa.average_average_item_price_per_merchant
+    assert_equal nil, sa.average_average_price_per_merchant
   end
 
 end

@@ -24,7 +24,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    (total_items.length / find_all_merchants.length.to_f)
+    (total_items.length / find_all_merchants.length.to_f).round(2)
   end
 
   def set
@@ -63,14 +63,14 @@ class SalesAnalyst
     end.inject(:+)
   end
 
-  def average_average_item_price_per_merchant
+  def average_average_price_per_merchant
     all_merchants = find_all_merchants
     active_merchants = find_active_merchants(all_merchants)
     return nil if all_merchants == [] || active_merchants == []
 
     (total_item_price_for_active_merchants(active_merchants) /
     active_merchants.length).
-    round(2)
+    floor(2)
   end
 
   def find_active_merchants(all_merchants)
