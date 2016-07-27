@@ -5,23 +5,27 @@ require 'CSV'
 class MerchantRepositoryTest < Minitest::Test
 
   # def setup
-  #   @mr = MerchantRepository.new
   #   @merchants = CSV.read("./data/merchants_sample.csv", headers: true, header_converters: :symbol)
+  #   @mr = MerchantRepository.new(merchants)
   # end
 
   def test_it_exists
-    assert_instance_of MerchantRepository, MerchantRepository.new
+    merchants = CSV.read("./data/merchants_sample.csv", headers: true, header_converters: :symbol)
+    mr = MerchantRepository.new(merchants)
+
+    assert_instance_of MerchantRepository, mr
   end
 
   def test_it_starts_with_no_merchants
-    mr = MerchantRepository.new
+    merchants = CSV.parse("id,name,description,unit_price,merchant_id,created_at,updated_at", headers: true, header_converters: :symbol)
+    mr = MerchantRepository.new(merchants)
 
     assert_equal 0, mr.merchants.count
   end
 
   def test_it_formats_merchant_info
-    mr = MerchantRepository.new
     merchants = CSV.read("./data/merchants_sample.csv", headers: true, header_converters: :symbol)
+    mr = MerchantRepository.new(merchants)
 
     result = {:id=>"12334105", :name=>"Shopin1901"}
     assert_equal result, mr.format_merchant_info(merchants[0])
@@ -34,24 +38,22 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_populates_repository_with_merchants
-    mr = MerchantRepository.new
     merchants = CSV.read("./data/merchants_sample.csv", headers: true, header_converters: :symbol)
-    mr.populate(merchants)
+    mr = MerchantRepository.new(merchants)
 
     assert_equal 10, mr.merchants.count
   end
 
   def test_it_returns_a_merchant_from_repository
-    mr = MerchantRepository.new
     merchants = CSV.read("./data/merchants_sample.csv", headers: true, header_converters: :symbol)
-    mr.populate(merchants)
+    mr = MerchantRepository.new(merchants)
+
     assert_instance_of Merchant, mr.merchants[merchants[0][:id]]
   end
 
   def test_it_returns_a_list_of_merchants
-    mr = MerchantRepository.new
     merchants = CSV.read("./data/merchants_sample.csv", headers: true, header_converters: :symbol)
-    mr.populate(merchants)
+    mr = MerchantRepository.new(merchants)
 
     assert_equal Array, mr.all.class
     assert_equal 10, mr.all.count
@@ -59,9 +61,8 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_finds_the_merchant_by_id
-    mr = MerchantRepository.new
     merchants = CSV.read("./data/merchants_sample.csv", headers: true, header_converters: :symbol)
-    mr.populate(merchants)
+    mr = MerchantRepository.new(merchants)
 
     assert_instance_of Merchant, mr.find_by_id("12334105")
     assert_instance_of Merchant, mr.find_by_id("12334135")
@@ -69,9 +70,8 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_finds_the_merchant_by_name
-    mr = MerchantRepository.new
     merchants = CSV.read("./data/merchants_sample.csv", headers: true, header_converters: :symbol)
-    mr.populate(merchants)
+    mr = MerchantRepository.new(merchants)
 
     assert_instance_of Merchant, mr.find_by_name("Shopin1901")
     assert_instance_of Merchant, mr.find_by_name("ShOPiN1901")
@@ -82,8 +82,9 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_finds_all_merchants_that_match_a_name_fragment
     mr = MerchantRepository.new
+
     merchants = CSV.read("./data/merchants_sample.csv", headers: true, header_converters: :symbol)
-    mr.populate(merchants)
+    mr = MerchantRepository.new(merchants)
 
     assert_equal [], mr.find_all_by_name("piney")
 
