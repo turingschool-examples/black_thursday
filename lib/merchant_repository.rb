@@ -1,4 +1,4 @@
-require_relative '../merchant'
+require_relative '../lib/merchant'
 class MerchantRepository
   attr_reader :list_of_merchants,
               :parent_engine

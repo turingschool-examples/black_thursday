@@ -41,14 +41,12 @@ class ItemTest < Minitest::Test
 
   def test_that_it_finds_when_created
     item = Item.new({ id: "123", name: "Bill", description: "Good at being Bill", unit_price: "1000", merchant_id: "456", created_at: "2016-07-26 02:23:16 UTC", updated_at: "1970-04-01 12:45:13 UTC"})
-
-    assert_equal "2016-07-26 02:23:16 UTC", item.created_at
+    assert_equal Time.new(2016, 07, 26, 02, 23, 16, "-00:00"), item.created_at
   end
 
   def test_that_it_finds_when_updated
     item = Item.new({ id: "123", name: "Bill", description: "Good at being Bill", unit_price: "1000", merchant_id: "456", created_at: "2016-07-26 02:23:16 UTC", updated_at: "1970-04-01 12:45:13 UTC"})
-
-    assert_equal "1970-04-01 12:45:13 UTC", item.updated_at
+    assert_equal Time.new(1970, 04, 01, 12, 45, 13, "-00:00"), item.updated_at
   end
 
   def test_it_can_convert_unit_price_to_dollars
