@@ -23,7 +23,7 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 263415269, ir.items[0].id
     assert_equal "name a", ir.items[0].name
     assert_equal "desc a", ir.items[0].description
-    assert_equal 27.99, ir.items[0].unit_price
+    assert_equal BigDecimal(2799 / 100.0, 4), ir.items[0].unit_price
     assert_equal 12334181, ir.items[0].merchant_id
     assert_equal Time.parse('2016-01-11 15:11:05 UTC'), ir.items[0].created_at
     assert_equal Time.parse('2016-01-12 15:41:05 UTC'), ir.items[0].updated_at

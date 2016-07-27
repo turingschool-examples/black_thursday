@@ -58,9 +58,15 @@ class ItemTest < Minitest::Test
     assert_equal data[:updated_at],   i.updated_at
   end
 
-  def test_unit_price_to_dollars
+  def test_unit_price_to_dollars_with_decimal_value
     data = {:unit_price  => BigDecimal.new(10.99,4)}
     i = Item.new(data)
     assert_equal 10.99, i.unit_price_to_dollars
+  end
+
+  def test_unit_price_to_dollars_with_whole_value
+    data = {:unit_price  => BigDecimal.new(12)}
+    i = Item.new(data)
+    assert_equal 12.00, i.unit_price_to_dollars
   end
 end

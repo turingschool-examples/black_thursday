@@ -1,5 +1,6 @@
 require 'bigdecimal'
-require './lib/item'
+# require './lib/item'
+require_relative 'item'
 
 class ItemRepository
   attr_reader :items
@@ -9,12 +10,9 @@ class ItemRepository
   end
 
   def make_items(item_contents)
-    item_contents.map { |row| make_item(row) }
-  end
-
-  def make_item(row)
-    data = make_prepared_data(row)
-    Item.new(data)
+    item_contents.map do |row|
+      Item.new(make_prepared_data(row))
+    end
   end
 
   def make_prepared_data(row)
@@ -29,8 +27,8 @@ class ItemRepository
   end
 
   def prepare_unit_price(unit_price)
-    digits = unit_price.to_s.length - 1
-    BigDecimal.new(unit_price, digits)
+    digits = unit_price.length + 1
+    BigDecimal.new(unit_price.to_i/100.0, digits)
   end
 
   def prepare_time(time)
@@ -65,4 +63,7 @@ class ItemRepository
     @items.find_all { |item| item.merchant_id == merchant_id }
   end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 end

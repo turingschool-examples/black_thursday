@@ -1,4 +1,5 @@
-require './lib/merchant'
+# require './lib/merchant'
+require_relative 'merchant'
 
 class MerchantRepository
   attr_reader :merchants
@@ -8,12 +9,9 @@ class MerchantRepository
   end
 
   def make_merchants(merchant_contents)
-    merchant_contents.map { |row| make_merchant(row) }
-  end
-
-  def make_merchant(row)
-    data = make_prepared_data(row)
-    Merchant.new(data)
+    merchant_contents.map do |row|
+      Merchant.new(make_prepared_data(row))
+    end
   end
 
   def make_prepared_data(row)
@@ -36,5 +34,9 @@ class MerchantRepository
 
   def find_all_by_name(name)
     @merchants.find_all { |merc| merc.name.upcase.include? name.upcase }
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end
