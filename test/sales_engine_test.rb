@@ -1,5 +1,5 @@
-require './test/test_helper'
-require './lib/sales_engine'
+require_relative './test_helper'
+require_relative '../lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test
   def test_it_has_item_and_merchant_repository

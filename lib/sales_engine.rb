@@ -1,5 +1,5 @@
-require './lib/item_repo'
-require './lib/merchant_repo'
+require_relative './item_repo'
+require_relative './merchant_repo'
 require 'CSV'
 require 'pry'
 
@@ -14,11 +14,11 @@ class SalesEngine
 
   def from_csv(csv_path_info)
     if csv_path_info[:merchants]
-      merchant_data = CSV.read(csv_path_info[:merchants], headers:true)
+      merchant_data = CSV.read(csv_path_info[:merchants], headers:true, header_converters: :symbol)
       add_merchants_to_repo(merchant_data)
     end
     if csv_path_info[:items]
-      item_data = CSV.read(csv_path_info[:items], headers:true)
+      item_data = CSV.read(csv_path_info[:items], headers:true, header_converters: :symbol)
       add_items_to_repo(item_data)
     end
   end
@@ -26,22 +26,15 @@ class SalesEngine
   def add_merchants_to_repo(merchant_data)
     headers = merchant_data.headers
     merchant_data.each do |row|
-      merchant_details = create_initializing_details(row, headers)
-      @merchant_repo.add_merchant(merchant_details)
+      @merchant_repo.add_merchant(row.to_hash)
     end
   end
 
   def add_items_to_repo(item_data)
     headers = item_data.headers
     item_data.each do |row|
-      item_details = create_initializing_details(row, headers)
-      @item_repo.add_item(item_details)
+      @item_repo.add_item(row.to_hash)
     end
-  end
-
-  def create_initializing_details(entry, headers)
-    header_syms = headers.map { |h| h.to_sym }
-    header_syms.zip(entry.fields).to_h
   end
 
 end

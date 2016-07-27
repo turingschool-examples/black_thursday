@@ -1,5 +1,5 @@
-require './test/test_helper'
-require './lib/item'
+require_relative './test_helper'
+require_relative '../lib/item'
 
 class ItemTest < Minitest::Test
   def test_initializing_with_a_hash
