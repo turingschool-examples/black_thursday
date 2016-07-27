@@ -6,11 +6,6 @@ class MerchantRepo
   def initialize(sales_engine = nil)
     @merchants = []
     @sales_engine = sales_engine
-    @@data = self
-  end
-
-  def self.data
-    @@data
   end
 
   def all
@@ -44,7 +39,4 @@ class MerchantRepo
   def find_all_items_by_merchant_id(id)
     @sales_engine.find_all_items_by_merchant_id(id)
   end
-
-
-
 end

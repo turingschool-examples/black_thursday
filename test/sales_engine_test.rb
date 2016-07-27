@@ -135,8 +135,9 @@ class SalesEngineTest < Minitest::Test
     merchants.each do |merchant|
       mr.add_merchant(merchant)
     end
-    merchant = mr.find_by_id(21)
-    item = ir.find_all_by_merchant_id(21)
-    assert_equal merchant, item.merchant
+    expected_merchant = mr.find_by_id(21)
+    item = ir.find_all_by_merchant_id(21).first
+    assert_equal expected_merchant, item.merchant
   end
+
 end

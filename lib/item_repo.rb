@@ -6,11 +6,6 @@ class ItemRepo
   def initialize(sales_engine = nil)
     @items = []
     @sales_engine = sales_engine
-    @@data = self
-  end
-
-  def self.data
-    @@data
   end
 
   def all
@@ -57,6 +52,13 @@ class ItemRepo
     @items.find_all do |item|
       item.merchant_id == id
     end
+  end
+
+  # all methods below this are for children querying into
+  # other repos
+
+  def find_merchant_by_merchant_id(id)
+    @sales_engine.find_merchant_by_merchant_id(id)
   end
 
 end

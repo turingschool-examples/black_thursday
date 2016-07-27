@@ -44,8 +44,16 @@ class SalesEngine
     header_syms.zip(entry.fields).to_h
   end
 
+
+  # these methods are for passing child queries
+  # into other repos
+
   def find_all_items_by_merchant_id(id)
     @item_repo.find_all_by_merchant_id(id)
+  end
+
+  def find_merchant_by_merchant_id(id)
+    @merchant_repo.find_by_id(id)
   end
 
 end
