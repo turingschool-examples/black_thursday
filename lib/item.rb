@@ -8,7 +8,7 @@ class Item
               :merchant_id,
               :created_at,
               :updated_at,
-              :repo
+              :parent
 
 
   def initialize(item_details, repo = nil)

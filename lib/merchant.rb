@@ -2,7 +2,7 @@ require './lib/item_repo'
 class Merchant
   attr_reader :id,
               :name,
-              :repo
+              :parent
 
   def initialize(merchant_details, merchant_repo = nil)
     @id   = merchant_details[:id].to_i

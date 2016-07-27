@@ -172,7 +172,7 @@ class ItemRepoTest < Minitest::Test
     item_repo = ItemRepo.new
     item_repo.add_item(item_details)
     item = item_repo.all.first
-    assert_equal item_repo, item.repo
+    assert_equal item_repo, item.parent
   end
 
   def test_item_has_time_as_object

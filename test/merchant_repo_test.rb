@@ -66,6 +66,6 @@ class MerchantRepoTest < Minitest::Test
     mr = MerchantRepo.new
     mr.add_merchant(merchant_details)
     merchant = mr.all.first
-    assert_equal mr, merchant.repo
+    assert_equal mr, merchant.parent
   end
 end

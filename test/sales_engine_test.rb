@@ -58,7 +58,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_merchant_can_find_items
-    se = SalesEngine.new
+    se = SalesEngine.new("empty")
     ir = se.item_repo
     mr = se.merchant_repo
     item_1_details = {
@@ -100,7 +100,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_item_can_find_merchant
-    se = SalesEngine.new
+    se = SalesEngine.new("empty")
     ir = se.item_repo
     mr = se.merchant_repo
     item_1_details = {
