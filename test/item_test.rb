@@ -1,6 +1,6 @@
 require './test/test_helper'
 require './lib/item'
-require 'BigDecimal'
+# require 'BigDecimal'
 
 class ItemTest < Minitest::Test
 
@@ -12,7 +12,7 @@ class ItemTest < Minitest::Test
     item = Item.new({
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(10.99,4),
+      :unit_price  => 2999, #BigDecimal.new(10.99,4),
       :created_at  => Time.now,
       :updated_at  => Time.now,
     })
