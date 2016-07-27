@@ -31,9 +31,11 @@ class MerchantRepositoryTest < Minitest::Test
   def test_method_find_by_id_returns_nil_or_merchant_instance
     merc_1 = mr.find_by_id(12334105)
     merc_2 = mr.find_by_id('shaq')
+    merc_3 = mr.find_by_id('12334105')
     assert_equal Merchant, merc_1.class
     assert_equal 12334105, merc_1.id
     assert_equal nil, merc_2
+    assert_equal nil, merc_3
   end
 
   def test_method_find_by_name_returns_nil_or_merchant_instance
