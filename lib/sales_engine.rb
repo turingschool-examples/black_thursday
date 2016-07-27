@@ -40,9 +40,8 @@ class SalesEngine
   end
 
   def create_initializing_details(entry, headers)
-    headers.collect.with_index do |header, index|
-      [header.to_sym, entry[index]]
-    end.to_h
+    header_syms = headers.map { |h| h.to_sym }
+    header_syms.zip(entry.fields).to_h
   end
 
 end
