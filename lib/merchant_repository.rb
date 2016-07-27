@@ -5,12 +5,11 @@ class MerchantRepository
 
   def initialize(merchants_data, parent_engine)
     @parent_engine = parent_engine
-    @list_of_merchants = []
-    populate_merchants(merchants_data)
+    @list_of_merchants = populate_merchants(merchants_data)
   end
 
   def populate_merchants(merchants_data)
-    @list_of_merchants = merchants_data.map do |datum|
+    merchants_data.map do |datum|
       Merchant.new(datum, self)
     end
   end
@@ -35,6 +34,10 @@ class MerchantRepository
     @list_of_merchants.find_all do |merchant|
       merchant.name.downcase.include?(name_fragment_to_find.downcase)
     end
+  end
+
+  def pass_to_engine(id)
+    parent_engine.find_items(id)
   end
 
 end

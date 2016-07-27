@@ -19,17 +19,18 @@ class Item
     @description = datum[:description]
     @unit_price = convert_to_big_decimal(datum[:unit_price])
     @merchant_id = datum[:merchant_id]
+    #needs to return Time instance, Time.parse(string)
     @created_at = datum[:created_at]
     @updated_at = datum[:updated_at]
     @parent_repo = parent_repo
   end
 
   def unit_price_to_dollars
-    @unit_price.to_f
+    unit_price.to_f
   end
 
   def merchant
-    parent_repo.parent_engine.merchants.find_by_id(@merchant_id)
+    parent_repo.parent_engine.merchants.find_by_id(merchant_id)
   end
 
 end
