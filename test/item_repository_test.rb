@@ -7,7 +7,7 @@ class ItemRepositoryTest < Minitest::Test
   attr_reader :ir
 
   def setup
-    items_file = CSV.open("./test/testdata/items_gen.csv",
+    items_file = CSV.open("./test/testdata/items_simple.csv",
                           headers: true,
                           header_converters: :symbol)
     csv_rows = items_file.to_a

@@ -18,6 +18,6 @@ class SalesEngine
   def self.from_csv(hash)
     items_path = hash[:items]
     merchants_path = hash[:merchants]
-    SalesEngine.new(items_path, merchants_path)
+    self.new(items_path, merchants_path)
   end
 end

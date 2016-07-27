@@ -49,19 +49,17 @@ class ItemTest < Minitest::Test
       :updated_at  => Time.parse("2016-01-11 09:34:06 UTC")
     }
     i = Item.new(data)
-    assert_equal data[:id], i.id
-    assert_equal data[:name], i.name
-    assert_equal data[:description], i.description
-    assert_equal data[:merchant_id], i.merchant_id
-    assert_equal data[:unit_price], i.unit_price
-    assert_equal data[:created_at], i.created_at
-    assert_equal data[:updated_at], i.updated_at
+    assert_equal data[:id],           i.id
+    assert_equal data[:name],         i.name
+    assert_equal data[:description],  i.description
+    assert_equal data[:merchant_id],  i.merchant_id
+    assert_equal data[:unit_price],   i.unit_price
+    assert_equal data[:created_at],   i.created_at
+    assert_equal data[:updated_at],   i.updated_at
   end
 
   def test_unit_price_to_dollars
-    data = {
-      :unit_price  => BigDecimal.new(10.99,4)
-    }
+    data = {:unit_price  => BigDecimal.new(10.99,4)}
     i = Item.new(data)
     assert_equal 10.99, i.unit_price_to_dollars
   end
