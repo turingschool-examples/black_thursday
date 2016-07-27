@@ -19,6 +19,20 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 0, mr.merchants.count
   end
 
+  def test_it_formats_merchant_info
+    mr = MerchantRepository.new
+    merchants = CSV.read("./data/merchants_sample.csv", headers: true, header_converters: :symbol)
+
+    result = {:id=>"12334105", :name=>"Shopin1901"}
+    assert_equal result, mr.format_merchant_info(merchants[0])
+
+    result = {:id=>"12334145", :name=>"BowlsByChris"}
+    assert_equal result, mr.format_merchant_info(merchants[9])
+
+    result = {:id=>"12334132", :name=>"perlesemoi"}
+    assert_equal result, mr.format_merchant_info(merchants[5])
+  end
+
   def test_it_populates_repository_with_merchants
     mr = MerchantRepository.new
     merchants = CSV.read("./data/merchants_sample.csv", headers: true, header_converters: :symbol)
@@ -66,7 +80,7 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal nil, mr.find_by_name("onlineshop")
   end
 
-  def test_it_finds_all_merchants_by_supplied_name_fragment
+  def test_it_finds_all_merchants_that_match_a_name_fragment
     mr = MerchantRepository.new
     merchants = CSV.read("./data/merchants_sample.csv", headers: true, header_converters: :symbol)
     mr.populate(merchants)
