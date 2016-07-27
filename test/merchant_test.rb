@@ -1,5 +1,6 @@
 require './test/test_helper'
 require './lib/merchant'
+require './lib/sales_engine'
 
 class MerchantTest < Minitest::Test
   def test_we_can_instantiate_merchant_with_name
@@ -26,5 +27,23 @@ class MerchantTest < Minitest::Test
     m = Merchant.new({:name => "Pamela", :id => 90210})
     assert_equal "Pamela", m.name
     assert_equal 90210, m.id
+  end
+
+  def test_items_method_returns_merchant_items_length
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+    })
+    merchant = se.merchants.find_by_id(12334132)
+    assert_equal 3, merchant.items.length
+  end
+
+  def test_items_method_returns_different_merchant_items_length
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+    })
+    merchant = se.merchants.find_by_id(12334189)
+    assert_equal 2, merchant.items.length
   end
 end
