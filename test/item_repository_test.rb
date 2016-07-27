@@ -53,7 +53,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_method_find_all_with_description_returns_array_of_matches
     desc_1 = "desc a"
-    desc_2 = "desc"
+    desc_2 = "dEsc"
     desc_3 = "nothing here"
     find_1 = ir.find_all_with_description(desc_1)
     find_2 = ir.find_all_with_description(desc_2)
@@ -65,5 +65,30 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal [], find_3
   end
 
+  def test_method_find_all_by_price_returns_array_of_matches
+    price_1 = ir.find_all_by_price(31.99)
+    price_2 = ir.find_all_by_price(5890.76)
+    price_3 = ir.find_all_by_price(51.99)
+    assert_equal 31.99, price_1[0].unit_price
+    assert_equal [], price_2
+    assert_equal 2, price_3.length
+  end
+
+  def test_method_find_all_by_price_in_range_returns_array_of_matches
+    range_1 = ir.find_all_by_price_in_range(27..30)
+    range_2 = ir.find_all_by_price_in_range(1000..1001)
+    assert_equal 3, range_1.length
+    assert_equal [], range_2
+  end
+
+  def test_method_find_all_by_merchant_id_returns_array_of_matches
+    mercs_1 = ir.find_all_by_merchant_id(12334200)
+    mercs_2 = ir.find_all_by_merchant_id(12334204)
+    mercs_3 = ir.find_all_by_merchant_id(12339999)
+    assert_equal 1, mercs_1.length
+    assert_equal 3, mercs_2.length
+    assert_equal [], mercs_3
+
+  end
 
 end

@@ -55,4 +55,16 @@ class ItemRepository
     @items.find_all { |item| item.description.upcase.include? description_excerpt.upcase }
   end
 
+  def find_all_by_price(price)
+    @items.find_all { |item| item.unit_price == price }
+  end
+
+  def find_all_by_price_in_range(range)
+    @items.find_all { |item| range.include? item.unit_price }
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    @items.find_all { |item| item.merchant_id == merchant_id }
+  end
+
 end
