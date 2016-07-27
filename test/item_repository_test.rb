@@ -10,7 +10,7 @@ class ItemRepositoryTest < Minitest::Test
     items_file = CSV.open("./test/testdata/items_gen.csv",
                           headers: true,
                           header_converters: :symbol)
-    csv_rows = items_file.map { |row| row }
+    csv_rows = items_file.to_a
     @ir = ItemRepository.new(csv_rows)
   end
 

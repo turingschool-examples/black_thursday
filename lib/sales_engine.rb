@@ -12,7 +12,7 @@ class SalesEngine
 
   def csv_rows(path)
     file = CSV.open(path, headers: true, header_converters: :symbol)
-    file.map { |row| row }
+    file.to_a
   end
 
   def self.from_csv(hash)
