@@ -29,13 +29,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 3, sa.total_items_per_merchant("12334185")
   end
 
-  def test_it_can_find_total_number_of_merchants
-    se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv" })
-    sa = SalesAnalyst.new(se)
-
-    assert_equal 100, sa.total_merchants.length
-  end
-
   def test_it_can_find_the_total_number_of_items
     se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv" })
     sa = SalesAnalyst.new(se)

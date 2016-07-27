@@ -1,6 +1,6 @@
 require 'CSV'
-require_relative '../merchant_repository'
-require_relative '../item_repository'
+require_relative '../lib/merchant_repository'
+require_relative '../lib/item_repository'
 
 class SalesEngine
   attr_reader :items,
@@ -30,6 +30,10 @@ class SalesEngine
 
   def find_items(id)
     items.find_all_by_merchant_id(id)
+  end
+
+  def find_merchant(merchant_id)
+    merchants.find_by_id(merchant_id)
   end
 
 end

@@ -1,4 +1,4 @@
-require_relative '../item'
+require_relative '../lib/item'
 class ItemRepository
   include TypeConversion
 
@@ -7,12 +7,11 @@ class ItemRepository
 
   def initialize(items_data, parent_engine)
     @parent_engine = parent_engine
-    @list_of_items = []
-    populate_items(items_data)
+    @list_of_items = populate_items(items_data)
   end
 
   def populate_items(items_data)
-    @list_of_items = items_data.map do |datum|
+    items_data.map do |datum|
       Item.new(datum, self)
     end
   end
@@ -56,6 +55,10 @@ class ItemRepository
     @list_of_items.find_all do |item|
       item.merchant_id == merchant_id_to_find
     end
+  end
+
+  def pass_to_engine(merchant_id)
+    parent_engine.find_merchant(merchant_id)
   end
 
 end

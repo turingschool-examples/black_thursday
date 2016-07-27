@@ -1,4 +1,4 @@
-require_relative '../sales_engine'
+require_relative '../lib/sales_engine'
 
 class SalesAnalyst
   attr_reader :sales_engine,
@@ -32,7 +32,7 @@ class SalesAnalyst
       total_items_per_merchant(merchant.id)
     end
   end
-#refactor into two methods: sum squares and keep average_items_per_merchant_standard_deviation
+
   def sum_squares
     set.reduce(0) do |sum_squares, items|
     sum_squares += ((items - average_items_per_merchant).abs.to_f)**2
