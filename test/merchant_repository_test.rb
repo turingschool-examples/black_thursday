@@ -80,7 +80,7 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal nil, mr.find_by_name("onlineshop")
   end
 
-  def test_it_finds_all_merchants_by_supplied_name_fragment
+  def test_it_finds_all_merchants_that_match_a_name_fragment
     mr = MerchantRepository.new
     merchants = CSV.read("./data/merchants_sample.csv", headers: true, header_converters: :symbol)
     mr.populate(merchants)
