@@ -138,4 +138,11 @@ class SalesAnalystTest < Minitest::Test
     assert_equal nil, sa.average_average_price_per_merchant
   end
 
+  def test_it_can_find_merchants_with_high_items_count
+    se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv" })
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 4, sa.merchants_with_high_item_count.length
+  end
+
 end

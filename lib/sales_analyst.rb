@@ -1,4 +1,5 @@
 require_relative '../lib/sales_engine'
+require 'pry'
 
 class SalesAnalyst
   attr_reader :sales_engine,
@@ -83,6 +84,15 @@ class SalesAnalyst
     active_merchants.map do |merchant|
       average_item_price_for_merchant(merchant.id)
     end.inject(:+)
+  end
+
+  def merchants_with_high_item_count
+    all_merchants = find_all_merchants
+    avg_items = average_items_per_merchant
+    std_dev = average_items_per_merchant_standard_deviation
+    all_merchants.find_all do |merchant|
+      total_items_per_merchant(merchant.id) > (avg_items + (std_dev * 2))
+    end
   end
 
 end
