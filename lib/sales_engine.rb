@@ -26,23 +26,22 @@ class SalesEngine
   def add_merchants_to_repo(merchant_data)
     headers = merchant_data.headers
     merchant_data.each do |row|
-      new_merchant = create_initializing_details(row, headers)
-      @merchant_repo.add_merchant(new_merchant)
+      merchant_details = create_initializing_details(row, headers)
+      @merchant_repo.add_merchant(merchant_details)
     end
   end
 
   def add_items_to_repo(item_data)
     headers = item_data.headers
     item_data.each do |row|
-      new_item = create_initializing_details(row, headers)
-      @item_repo.add_item(new_item)
+      item_details = create_initializing_details(row, headers)
+      @item_repo.add_item(item_details)
     end
   end
 
   def create_initializing_details(entry, headers)
-    headers.collect.with_index do |header, index|
-      [header.to_sym, entry[index]]
-    end.to_h
+    header_syms = headers.map { |h| h.to_sym }
+    header_syms.zip(entry.fields).to_h
   end
 
   def find_all_items_by_merchant_id(id)
