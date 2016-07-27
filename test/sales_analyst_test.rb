@@ -121,21 +121,21 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv" })
     sa = SalesAnalyst.new(se)
 
-    assert_equal BigDecimal(71.04, 4), sa.average_average_item_price_per_merchant
+    assert_equal BigDecimal(71.03, 4), sa.average_average_price_per_merchant
   end
 
   def test_average_average_returns_nil_with_no_merchants
     se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/empty_file.csv" })
     sa = SalesAnalyst.new(se)
 
-    assert_equal nil, sa.average_average_item_price_per_merchant
+    assert_equal nil, sa.average_average_price_per_merchant
   end
 
   def test_average_average_returns_nil_with_no_items
     se = SalesEngine.from_csv({ items: "./data/empty_file.csv", merchants: "./data/merchants_sample.csv" })
     sa = SalesAnalyst.new(se)
 
-    assert_equal nil, sa.average_average_item_price_per_merchant
+    assert_equal nil, sa.average_average_price_per_merchant
   end
 
 end
