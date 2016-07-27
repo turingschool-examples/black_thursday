@@ -1,5 +1,5 @@
-require './lib/item_repo'
-require './lib/merchant_repo'
+require_relative './item_repo'
+require_relative './merchant_repo'
 require 'CSV'
 require 'pry'
 
@@ -36,8 +36,7 @@ class SalesEngine
 
     def add_merchants(path_info)
       CSV.foreach(path_info, headers:true, header_converters: :symbol) do |row|
-        @merchant_repo.add_merchant(row)
-      end
+      @merchant_repo.add_merchant(row)
     end
 
     def add_items(path_info)
@@ -56,5 +55,4 @@ class SalesEngine
   def find_merchant_by_merchant_id(id)
     @merchant_repo.find_by_id(id)
   end
-
 end

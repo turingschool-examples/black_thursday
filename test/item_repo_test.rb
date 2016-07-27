@@ -1,5 +1,5 @@
-require './test/test_helper'
-require './lib/item_repo'
+require_relative './test_helper'
+require_relative '../lib/item_repo'
 class ItemRepoTest < Minitest::Test
 
   def test_add_items_and_access_them
@@ -193,8 +193,8 @@ class ItemRepoTest < Minitest::Test
     item_repo = ItemRepo.new
     item_repo.add_item(item_details)
     item = item_repo.all.first
-    assert_equal DateTime, item.created_at.class
-    assert_equal DateTime, item.updated_at.class
+    assert_equal Time, item.created_at.class
+    assert_equal Time, item.updated_at.class
   end
 
 

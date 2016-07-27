@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/merchant_repo'
+require_relative '../lib/merchant_repo'
 require "pry"
 
 class MerchantRepoTest < Minitest::Test

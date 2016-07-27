@@ -24,12 +24,11 @@ class Item
 
   def format_time(time_string)
     unless time_string == ""
-      DateTime.strptime(time_string, '%Y-%m-%d %H:%M:%S %z')
+      Time.parse(time_string)
     end
   end
 
   def merchant
-
     @parent.find_merchant_by_merchant_id(self.merchant_id)
   end
 end
