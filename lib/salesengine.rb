@@ -1,26 +1,40 @@
-require './lib/merchant_repository'
+require_relative 'merchant_repository'
+require 'csv'
 
 # require './lib/items'
-
 class SalesEngine
+  attr_reader :merchants,
+              :items
 
-  def self.from_csv(hash)
-    
-    # require "pry"; binding.pry
+  def initialize(load_paths)
+    @load_paths = load_paths
+    @merchants =  MerchantRepository.new(read_csv_data(:merchants))
+    # @items = ItemRepository.new(read_csv_data)
   end
 
-  def self.merchants
-    @MerchantRepository = MerchantRepository.new(true)
+  def self.from_csv(csv_files)
+    SalesEngine.new(csv_files)
   end
 
-  def self.items
+  def read_csv_data(repository)
+    CSV.read(@load_paths[repository], headers: true, header_converters: :symbol)
   end
+
+
+  # require "pry"; binding.pry
+
+
+#   items returns an instance of ItemRepository with all the item instances loaded
+
+# merchants returns an instance of MerchantRepository with all the merchant instances loaded
+
+
+
+  # def self.merchants
+  #   @MerchantRepository
+  # end
+
+  # def self.items
+  #   @ItemRepository = ItemRepository.new(true)
+  # end
 end
-#   se = SalesEngine.from_csv({
-#   :items     => "./data/items.csv",
-#   :merchants => "./data/merchants.csv"
-# })
-#
-# ir   = se.items
-# item = ir.find_by_name("Item Repellat Dolorum")
-# # => <Item>
