@@ -5,7 +5,7 @@ class Merchant
               :parent_repo
 
   def initialize(datum, parent_repo = nil)
-    @id = datum[:id]
+    @id = datum[:id].to_i
     @name = datum[:name]
     @parent_repo = parent_repo
   end

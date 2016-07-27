@@ -22,7 +22,7 @@ class ItemRepository
 
   def find_by_id(id_to_find)
     @list_of_items.find do |item|
-      item.id == id_to_find.to_s
+      item.id == id_to_find
     end
   end
 
@@ -32,7 +32,7 @@ class ItemRepository
     end
   end
 
-  def find_all_by_description(description_fragment_to_find)
+  def find_all_with_description(description_fragment_to_find)
     @list_of_items.find_all do |item|
       item.description.downcase.include?(description_fragment_to_find.downcase)
     end
@@ -47,7 +47,7 @@ class ItemRepository
 
   def find_all_by_price_in_range(range_to_find_from)
     @list_of_items.find_all do |item|
-      range_to_find_from.include?(convert_to_integer(item.unit_price))
+      range_to_find_from.include?(item.unit_price)
     end
   end
 
@@ -59,6 +59,10 @@ class ItemRepository
 
   def pass_to_engine(merchant_id)
     parent_engine.find_merchant(merchant_id)
+  end
+
+  # just for the spec harness
+  def inspect
   end
 
 end

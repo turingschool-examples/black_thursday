@@ -20,7 +20,7 @@ class MerchantRepository
 
   def find_by_id(id_to_find)
     @list_of_merchants.find do |merchant|
-      merchant.id == id_to_find.to_s
+      merchant.id == id_to_find
     end
   end
 
@@ -40,4 +40,7 @@ class MerchantRepository
     parent_engine.find_items(id)
   end
 
+  # just for the spec harness
+  def inspect
+  end
 end
