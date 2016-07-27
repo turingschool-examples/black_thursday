@@ -1,5 +1,5 @@
 require "csv"
-require_relative "invoice"
+require_relative "../lib/invoice"
 
 class InvoiceRepo
 
@@ -16,16 +16,6 @@ class InvoiceRepo
   end
 
   def find_by_id(invoice_id)
-    invoice_id = invoice_id.to_i
-    invoice = find_invoice_id(invoice_id)
-    if invoice != nil
-      invoice
-    else
-      nil
-    end
-  end
-
-  def find_invoice_id(invoice_id)
     @invoice_objects.detect do |invoice|
       invoice.id == invoice_id
     end
@@ -47,6 +37,10 @@ class InvoiceRepo
     @invoice_objects.select do |invoice|
       invoice.status == status
     end
+  end
+
+  def find_merchant_by_id(merchant_id)
+    @parent.find_merchant_by_id(mercahnt_id)
   end
 
 end

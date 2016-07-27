@@ -1,5 +1,5 @@
 require 'csv'
-require './lib/item'
+require_relative '../lib/item'
 class ItemRepo
 
   attr_reader :items
@@ -11,7 +11,7 @@ class ItemRepo
       Item.new(row)
     end
   end
-  
+
   def all
     @items
   end
@@ -28,7 +28,7 @@ class ItemRepo
     end
   end
 
-  def find_all_by_description(description)
+  def find_all_with_description(description)
     @items.select do |item|
       item.description.upcase.include?(description.upcase)
     end

@@ -14,4 +14,8 @@ class Invoice
     @updated_at = Time.strptime(row[:updated_at], "%Y-%m-%d")
   end
 
+  def merchant
+    @parent.find_merchant_by_id(self.merchant_id)
+  end
+
 end

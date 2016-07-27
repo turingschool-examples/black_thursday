@@ -1,5 +1,5 @@
 require "csv"
-require_relative "merchant"
+require_relative "../lib/merchant"
 
 class MerchantsRepo
 
@@ -16,44 +16,34 @@ class MerchantsRepo
   end
 
   def find_by_id(merchant_id)
-    merchant_id = merchant_id.to_i
-    merchant = find_merchant_id(merchant_id)
-    if merchant != nil
-      merchant
-    else
-      nil
-    end
-  end
-
-  def find_merchant_id(merchant_id)
     @merchant_objects.detect do |merchant|
-      merchant.id == merchant_id
+      merchant.id == merchant_id.to_i
     end
   end
 
-  def find_by_name(merchant_name)
-    merchant = find_merchant_name(merchant_name)
-    if merchant != nil
-      merchant
-    else
-      nil
-    end
+def find_by_name(merchant_name)
+  merchant = find_merchant_name(merchant_name)
+  if merchant != nil
+    merchant
+  else
+    nil
   end
+end
 
-  def find_merchant_name(merchant_name)
-    @merchant_objects.detect do |merchant|
-      merchant.name.upcase == merchant_name.upcase
-    end
+def find_merchant_name(merchant_name)
+  @merchant_objects.detect do |merchant|
+    merchant.name.upcase == merchant_name.upcase
   end
+end
 
-  def find_all_by_name(name_fragment)
-    @merchant_objects.select do |merchant|
-      merchant.name.upcase.include?(name_fragment.upcase)
-    end
+def find_all_by_name(name_fragment)
+  @merchant_objects.select do |merchant|
+    merchant.name.upcase.include?(name_fragment.upcase)
   end
+end
 
-  def find_items_by_merchant_id(merchant_id)
-    @parent.find_items_by_merchant_id(merchant_id)
-  end
+def find_items_by_merchant_id(merchant_id)
+  @parent.find_items_by_merchant_id(merchant_id)
+end
 
 end

@@ -2,6 +2,8 @@ require 'bigdecimal'
 require './test/test_helper'
 require './lib/item'
 require './lib/merchant'
+require "./lib/item_repo"
+require "./lib/sales_engine"
 
 class ItemTest < Minitest::Test
   def setup
@@ -12,7 +14,8 @@ class ItemTest < Minitest::Test
       created_at: "2016-07-26 13:59:43 -0600",
       updated_at: "2016-07-26 13:59:43 -0600",
       merchant_id: 1
- })
+ },
+    ItemRepo.new("./data/items.csv", SalesEngine.new({merchant: "./data/support/merchant_support.csv", items: "./data/items.csv", invoice: "./data/support/invoice_support.csv"})))
   end
 
   def test_gives_its_id
@@ -43,7 +46,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_gives_time_created
-
+    skip
     time = Time.now
     item = Item.new({  id: 1,
       name: "Pencil",
@@ -52,8 +55,7 @@ class ItemTest < Minitest::Test
       created_at: time.to_s,
       updated_at: time.to_s,
       merchant_id: 1})
-      binding.pry
-      assert_equal time, @item.created_at
+      assert_equal time, item.created_at
   end
 
   def test_gives_time_updated
@@ -66,7 +68,7 @@ class ItemTest < Minitest::Test
       created_at: time,
       updated_at: time,
       merchant_id: 1})
-      assert_equal time, @item.updated_at
+      assert_equal time, item.updated_at
   end
 
   def test_gives_owners_merchant_id
@@ -74,6 +76,8 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_finds_the_merchant_it_belongs_to
-    assert_kind_of Merchant, @item.merchant 
+    binding.pry
+    assert_kind_of Merchant, @item.merchant
   end
+
 end
