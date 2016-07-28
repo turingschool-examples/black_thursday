@@ -12,11 +12,41 @@ class ItemRepositoryTest < MiniTest::Test
   end
   def test_it_maker_polulates_all_with_instances_of_item
     assert_instance_of Item, item_repository.all.first
-    assert_equal 1367, item_repository.all.length
+    assert_equal 9, item_repository.all.length
   end
   def test_empty_id_returns_nil #sad test
     assert_equal nil, item_repository.find_by_id("not_a_valid_id")
     assert_equal nil, item_repository.find_by_id(666)
   end
+
+  def test_it_finds_by_id
+    assert_instance_of Item, item_repository.find_by_id(263395721)
+    assert_equal "Disney scrabble frames", item_repository.find_by_id(263395721).name
+  end
+
+  def test_it_finds_by_name_invalid
+    assert_equal nil, item_repository.find_by_name("not_a_valid_id")
+    assert_equal nil, item_repository.find_by_name(666)
+  end
+
+  def test_it_finds_by_name
+    assert_instance_of Item, item_repository.find_by_name("Disney scrabble frames")
+    assert_equal 263395721, item_repository.find_by_name("Disney scrabble frames").id
+  end
+
+  def test_it_finds_all_with_description
+    assert_equal [], item_repository.find_all_by_description("Mike Dao is HILARIOUS")
+    assert_instance_of Item, item_repository.find_all_by_description("Disney glitter frames").first
+    assert_equal 263395721, item_repository.find_all_by_description("Disney glitter frames").first.id
+    assert_equal 2, item_repository.find_all_by_description("frames").length
+  end
+
+  def test_it_finds_by_price
+    assert_equal [], item_repository.find_all_by_price(8474384)
+    assert_instance_of Item, item_repository.find_all_by_price(1350).first
+    assert_equal "Disney scrabble frames", item_repository.find_all_by_price(1350).first.name
+    assert_equal 2, item_repository.find_all_by_price(1350).length
+  end
+
 
 end

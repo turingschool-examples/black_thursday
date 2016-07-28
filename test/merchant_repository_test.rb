@@ -25,8 +25,11 @@ class MerchantRepositoryTest < MiniTest::Test
    end
 
   def test_find_by_id
-    assert_equal nil, @merchant_repository.find_by_id(0)
     assert_equal "sparetimecrocheter",   @merchant_repository.find_by_id(12335961).name
+  end
+
+  def test_find_by_id_invalid_returns_nil
+    assert_equal nil, @merchant_repository.find_by_id(0)
   end
 
   def test_it_finds_by_name

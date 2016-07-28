@@ -21,11 +21,32 @@ attr_reader :all
       Item.new(row, self)
     end
   end
+
   def find_by_id(id_input)
     @all.find do |instance|
       instance.id == id_input.to_i
     end
   end
+
+  def find_by_name(name_input)
+    @all.find do |instance|
+      instance.name == name_input.to_s
+    end
+  end
+
+  def find_all_by_description(description_fragment)
+    @all.find_all do |instance|
+      instance.description.include?(description_fragment.to_s)
+    end
+  end
+
+  def find_all_by_price(price)
+    @all.find_all do |instance|
+      instance.unit_price.to_i == BigDecimal.new(price).to_i
+    end
+  end
+
+  
 
 
 end
