@@ -16,7 +16,7 @@ class SalesEngineTest < Minitest::Test
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
     })
-    merchant = se.merchants.find_by_id(12334189)
+    merchant = se.merchants.find_by_id(12334155)
     # =>
     merchant.items
     # => [<item>, <item>, <item>]
