@@ -46,4 +46,8 @@ class InvoiceRepository
     end
   end
 
+#just for the spec harness
+  def inspect
+  end
+
 end
