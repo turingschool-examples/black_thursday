@@ -1,4 +1,5 @@
 require_relative '../lib/statistics'
+require 'pry'
 class MerchantAnalyst
 
   include Statistics
@@ -78,6 +79,36 @@ class MerchantAnalyst
     active_merchants.reduce(0) do |total, merchant|
       total += average_item_price_for_merchant(merchant.id)
       total
+    end
+  end
+
+  def average_invoices_per_merchant
+    mean(invoices_per_merchant).round(2)
+  end
+
+  def invoices_per_merchant
+    @all_merchants.map do |merchant|
+      merchant.invoices.count
+    end
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    standard_deviation(invoices_per_merchant).round(1)
+  end
+
+  def top_merchants_by_invoice_count
+    avg = average_invoices_per_merchant
+    std_dev = average_invoices_per_merchant_standard_deviation
+    @all_merchants.find_all do |merchant|
+      merchant.invoices.count > (avg + (std_dev * 2))
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    avg = average_invoices_per_merchant
+    std_dev = average_invoices_per_merchant_standard_deviation
+    @all_merchants.find_all do |merchant|
+      merchant.invoices.count < (avg - (std_dev * 2))
     end
   end
 

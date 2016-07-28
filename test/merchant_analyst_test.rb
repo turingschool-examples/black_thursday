@@ -13,7 +13,6 @@ class MerchantAnalystTest < Minitest::Test
   def test_it_can_find_the_average_items_per_merchant
     se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv" })
     ma = SalesAnalyst.new(se).merchant_analyst
-
     assert_equal 0.2, ma.average_items_per_merchant
   end
 
@@ -101,4 +100,35 @@ class MerchantAnalystTest < Minitest::Test
 
     assert_equal 4, ma.merchants_with_high_item_count.length
   end
+
+  def test_it_can_find_average_invoices_per_merchant
+    se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv", invoices: "./data/invoices_sample.csv" })
+    ma = SalesAnalyst.new(se).merchant_analyst
+
+    assert_equal 0.18, ma.average_invoices_per_merchant
+  end
+
+  def test_it_can_find_standard_deviation_of_invoices_per_merchant
+    se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv", invoices: "./data/invoices_sample.csv" })
+    ma = SalesAnalyst.new(se).merchant_analyst
+
+    assert_equal 0.4, ma.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_it_can_find_top_merchants_by_invoice_count
+    se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv", invoices: "./data/invoices_sample.csv" })
+    ma = SalesAnalyst.new(se).merchant_analyst
+    ma.stub :average_invoices_per_merchant, 0.5 do
+      assert_equal 1, ma.top_merchants_by_invoice_count.length
+    end
+  end
+
+  def test_it_can_find_bottom_merchants_by_invoice_count
+    se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv", invoices: "./data/invoices_sample.csv" })
+    ma = SalesAnalyst.new(se).merchant_analyst
+    ma.stub :average_invoices_per_merchant_standard_deviation, 0.01 do
+      assert_equal 83, ma.bottom_merchants_by_invoice_count.length
+    end
+  end
+
 end

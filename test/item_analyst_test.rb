@@ -8,6 +8,7 @@ class ItemAnalystTest < Minitest::Test
     ia = SalesAnalyst.new(se).item_analyst
 
     assert_equal 20, ia.all_items.length
+
   end
 
   def test_it_can_find_the_standard_deviation_of_item_price

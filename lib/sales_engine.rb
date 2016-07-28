@@ -38,7 +38,9 @@ class SalesEngine
 
   def read_data(what_to_read)
     return [] if @list_of_paths[what_to_read].nil?
-    CSV.read(@list_of_paths[what_to_read], headers: true, header_converters: :symbol)
+    CSV.read(@list_of_paths[what_to_read],
+             headers: true,
+             header_converters: :symbol)
   end
 
   def find_items(id)
