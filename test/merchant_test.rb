@@ -19,6 +19,9 @@ class MerchantTest < Minitest::Test
     se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv" })
     merchant = se.merchants.find_by_id(12334185)
 
+    assert_instance_of Item, merchant.items.first
+    assert_equal 7, merchant.items.count
+
     assert_equal "Glitter scrabble frames", merchant.items[0].name
   end
 
