@@ -93,7 +93,7 @@ class MerchantAnalyst
   end
 
   def average_invoices_per_merchant_standard_deviation
-    standard_deviation(invoices_per_merchant).round(1)
+    standard_deviation(invoices_per_merchant).round(2)
   end
 
   def top_merchants_by_invoice_count

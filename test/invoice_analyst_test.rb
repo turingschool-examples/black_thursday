@@ -18,4 +18,14 @@ class InvoiceAnalystTest < Minitest::Test
     assert_equal ["Friday"], ina.top_days_by_invoice_count
   end
 
+  def test_that_it_finds_distribution_of_invoice_status
+    se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv", invoices: "./data/invoices_sample.csv" })
+    ina = SalesAnalyst.new(se).invoice_analyst
+
+    assert_equal 29.00, ina.invoice_status(:pending)
+    assert_equal 63.00, ina.invoice_status(:shipped)
+    assert_equal 8.00, ina.invoice_status(:returned)
+  end
+
+
 end

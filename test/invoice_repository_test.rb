@@ -18,7 +18,7 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_that_it_can_find_an_invoice_by_its_id
     se = SalesEngine.from_csv({invoices:  "./data/invoices_sample.csv"})
     iv = se.invoices
-    assert_equal "shipped", iv.find_by_id(2).status
+    assert_equal :shipped, iv.find_by_id(2).status
   end
 
   def test_that_it_returns_nil_for_invalid_id
@@ -54,13 +54,13 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_that_find_all_by_status_returns_an_array
     se = SalesEngine.from_csv({invoices:  "./data/invoices_sample.csv"})
     iv = se.invoices
-    assert_equal [], iv.find_all_by_status("backordered")
+    assert_equal [], iv.find_all_by_status(:backordered)
   end
 
   def test_that_find_all_by_status_returns_an_array_of_proper_length
     se = SalesEngine.from_csv({invoices:  "./data/invoices_sample.csv"})
     iv = se.invoices
-    assert_equal 29, iv.find_all_by_status("pending").length
+    assert_equal 29, iv.find_all_by_status(:pending).length
   end
 
 end

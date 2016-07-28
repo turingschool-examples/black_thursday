@@ -12,7 +12,7 @@ class Invoice
     @id = datum[:id].to_i
     @customer_id = datum[:customer_id].to_i
     @merchant_id = datum[:merchant_id].to_i
-    @status = datum[:status]
+    @status = datum[:status].to_sym
     @created_at = Time.parse(datum[:created_at])
     @updated_at = Time.parse(datum[:updated_at])
     @parent_repo = parent_repo
