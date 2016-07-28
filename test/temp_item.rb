@@ -26,15 +26,15 @@ class ItemRepoTest < Minitest::Test
                 unit_price: "string",
                 created_at: Time.now.to_s,
                 updated_at: Time.now.to_s,
-                merchant_id: "merchant"}]
+                merchant_id: "merchant_id"}]
     mock_se = MiniTest::Mock.new
     # mock expects:
     #            method      return  arguments
     #-------------------------------------------------------------
-    mock_se.expect(:find_merchant_by_id, "merchant", ["merchant"])
+    mock_se.expect(:find_merchant_by_id, "merchant", ["merchant_id"])
 
     item_repo = ItemRepo.new(data, mock_se)
-    assert_equal "merchant", item_repo.find_merchant_by_id("string")
+    assert_equal "merchant", item_repo.find_merchant_by_id("merchant_id")
     assert mock_se.verify
 
   end
