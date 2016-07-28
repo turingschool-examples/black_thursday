@@ -32,8 +32,8 @@ class AnalysisMathTest < Minitest::Test
   def test_it_calculates_standard_deviation
     dummy = DummyTestClass.new
     array = [1,2,3,4,5]
-    assert_equal 1.58114, dummy.standard_deviation(array)
-    assert_equal BigDecimal, dummy.standard_deviation(array).class
+    assert_equal 1.58, dummy.standard_deviation(array)
+    assert_equal Float, dummy.standard_deviation(array).class
   end
 
 end

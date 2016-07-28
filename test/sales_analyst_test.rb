@@ -64,25 +64,145 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_price_for_merchant
-    assert_equal 20, @sa.average_price_for_merchant(1)
-    assert_equal 2502.5, @sa.average_price_for_merchant(2)
+    assert_equal 0.20, @sa.average_item_price_for_merchant(1)
+    assert_equal 25.03, @sa.average_item_price_for_merchant(2)
   end
 
   def test_average_price_per_merchant
-    assert_equal 1261.25, @sa.average_price_per_merchant
+    assert_equal 12.62, @sa.average_average_price_per_merchant
   end
 
   def test_get_individual_standard_deviation_price
-    assert_equal 10, @sa.price_standard_deviation_for_merchant(1)
-    assert_equal 3532, @sa.price_standard_deviation_for_merchant(2)
+    assert_equal 0.10, @sa.price_standard_deviation_for_merchant(1)
+    assert_equal 35.32, @sa.price_standard_deviation_for_merchant(2)
   end
 
   def test_get_all_item_price_standard_deviation
-    assert_equal 2228.82, @sa.price_standard_deviation
+    assert_equal 22.29, @sa.price_standard_deviation
   end
 
   def test_find_golden_items
     expected_item = @ir.find_by_name("A dead bird in a bag")
     assert_equal [expected_item], @sa.golden_items(1)
+  end
+
+  def test_average_items_per_merchant
+    se = SalesEngine.new("empty")
+    sa = SalesAnalyst.new(se)
+    ir = se.item_repo
+    mr = se.merchant_repo
+    item_1_details = {
+      :id => 20,
+      :name => "A thing that you want",
+      :merchant_id => 21
+    }
+    item_2_details = {
+      :id =>22,
+      :name => "A thing you sorta want",
+      :merchant_id => 21
+    }
+
+    items = [item_1_details, item_2_details]
+    merchant_1_details = {
+      :name => "The awesome store",
+      :id   => 21
+    }
+    merchant_2_details = {
+      :name => "Trump Store of Fail",
+      :id   => 666
+    }
+    merchants = [merchant_1_details, merchant_2_details]
+
+    items.each do |item|
+      ir.add_item(item)
+    end
+    merchants.each do |merchant|
+      mr.add_merchant(merchant)
+    end
+
+    assert_equal 1, sa.average_items_per_merchant
+  end
+
+  def test_average_items_per_merchant_standard_deviation
+    se = SalesEngine.new("empty")
+    sa = SalesAnalyst.new(se)
+    ir = se.item_repo
+    mr = se.merchant_repo
+    item_1_details = {
+      :id => 20,
+      :name => "A thing that you want",
+      :merchant_id => 21
+    }
+    item_2_details = {
+      :id =>22,
+      :name => "A thing you sorta want",
+      :merchant_id => 21
+    }
+
+    items = [item_1_details, item_2_details]
+    merchant_1_details = {
+      :name => "The awesome store",
+      :id   => 21
+    }
+    merchant_2_details = {
+      :name => "Trump Store of Fail",
+      :id   => 666
+    }
+    merchants = [merchant_1_details, merchant_2_details]
+
+    items.each do |item|
+      ir.add_item(item)
+    end
+    merchants.each do |merchant|
+      mr.add_merchant(merchant)
+    end
+
+    assert_equal 1.41, sa.average_items_per_merchant_standard_deviation
+  end
+
+  def test_merchants_with_high_item_count
+    se = SalesEngine.new("empty")
+    sa = SalesAnalyst.new(se)
+    ir = se.item_repo
+    mr = se.merchant_repo
+    item_1_details = {
+      :id => 20,
+      :name => "A thing that you want",
+      :merchant_id => 21
+    }
+    item_2_details = {
+      :id =>22,
+      :name => "A thing you sorta want",
+      :merchant_id => 21
+    }
+    item_3_details = {
+      :id => 24,
+      :name => "A thing that you kind of want",
+      :merchant_id => 21
+    }
+    item_4_details = {
+      :id =>26,
+      :name => "A thing you really want",
+      :merchant_id => 21
+    }
+    items = [item_1_details, item_2_details, item_3_details, item_4_details]
+    merchant_1_details = {
+      :name => "The awesome store",
+      :id   => 21
+    }
+    merchant_2_details = {
+      :name => "Trump Store of Fail",
+      :id   => 666
+    }
+    merchants = [merchant_1_details, merchant_2_details]
+
+    items.each do |item|
+      ir.add_item(item)
+    end
+    merchants.each do |merchant|
+      mr.add_merchant(merchant)
+    end
+
+    assert_equal [], sa.merchants_with_high_item_count
   end
 end

@@ -20,7 +20,7 @@ module AnalysisMath
   end
 
   def standard_deviation(numbers)
-    BigDecimal(Math.sqrt(variance(numbers)),6)
+    Math.sqrt(variance(numbers)).round(2)
   end
 
 end
