@@ -45,11 +45,16 @@ attr_reader :all
       instance.unit_price.to_i == BigDecimal.new(price).to_i
     end
   end
- def find_all_by_price_in_range(range)
-   
 
- end
+  def find_all_by_price_in_range(range)
+    @all.find_all do |instance|
+      range.to_a.include?(instance.unit_price.to_i)
+    end
+  end
 
-
-
+  def find_all_by_merchant_id(merchant_id_input)
+    @all.find_all do |instance|
+      instance.merchant_id == merchant_id_input.to_i
+    end
+  end
 end

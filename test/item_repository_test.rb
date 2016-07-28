@@ -7,13 +7,16 @@ require 'csv'
 
 class ItemRepositoryTest < MiniTest::Test
   attr_reader :item_repository
+  
   def setup
     @item_repository = ItemRepository.new("./data/items.csv")
   end
+
   def test_it_maker_polulates_all_with_instances_of_item
     assert_instance_of Item, item_repository.all.first
     assert_equal 9, item_repository.all.length
   end
+
   def test_empty_id_returns_nil #sad test
     assert_equal nil, item_repository.find_by_id("not_a_valid_id")
     assert_equal nil, item_repository.find_by_id(666)
@@ -50,7 +53,17 @@ class ItemRepositoryTest < MiniTest::Test
 
   def test_it_returns_empty_array_when_it_find_nothing_in_a_price_range
     assert_equal  [], item_repository.find_all_by_price_in_range(Range.new(1,4))
+    assert_instance_of Item, item_repository.find_all_by_price_in_range(Range.new(300,700)).first
+    assert_equal  2, item_repository.find_all_by_price_in_range(Range.new(300,700)).length
   end
 
+  def test_it_finds_all_by_merchant_id_is_invalid
+    assert_equal [], item_repository.find_all_by_merchant_id(38483)
+  end
 
+  def test_it_finds_all_by_merchant_id
+    assert_instance_of Item, item_repository.find_all_by_merchant_id(12334185).first
+    assert_equal 3, item_repository.find_all_by_merchant_id(12334185).length
+    assert_equal "Glitter scrabble frames", item_repository.find_all_by_merchant_id(12334185).first.name
+  end
 end
