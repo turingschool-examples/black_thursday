@@ -43,7 +43,7 @@ class SalesAnalyst
     item_unit_price = items.reduce(0) do |total, item|
       total += item.unit_price
     end
-    (item_unit_price / items.count).floor(2)
+    (item_unit_price / items.count).round(2)
   end
 
   def average_average_price_per_merchant
@@ -107,10 +107,10 @@ class SalesAnalyst
   end
 
   def bottom_merchants_by_invoice_count
-    average = average_items_per_merchant
+    average = average_invoices_per_merchant
     standard_deviation = average_invoices_per_merchant_standard_deviation
     result = merchant_repo.all.select do |merchant|
-      merchant.invoices.count < (average - (standard_deviation * 2))
+      merchant.invoices.count <= (average - (standard_deviation * 2))
     end
     result || []
   end
@@ -148,5 +148,9 @@ class SalesAnalyst
     end
   end
   def invoice_status(status)
+    # binding.pry
+    invoice_count = invoice_repo.all.count
+    invoices_with_status = invoice_repo.find_all_by_status(status).count
+    (invoices_with_status.to_f / invoice_count * 100.0).round(2)
   end
 end
