@@ -6,7 +6,7 @@ class InvoiceRepoTest < Minitest::Test
   def test_it_can_retun_the_full_invoice_count
     filepath = "./data/support/invoices_support.csv"
     merch_repo = InvoiceRepo.new(filepath)
-    assert_equal 100, merch_repo.all.count
+    assert_equal 201, merch_repo.all.count
   end
 
   def test_it_can_find_a_merchant_via_id_number
@@ -52,7 +52,7 @@ class InvoiceRepoTest < Minitest::Test
   def test_it_can_find_all_invoices_by_status
     filepath = "./data/support/invoices_support.csv"
     invoice_repo = InvoiceRepo.new(filepath)
-    assert_equal 29, invoice_repo.find_all_by_status("pending").count
+    assert_equal 57, invoice_repo.find_all_by_status(:pending).count
   end
 
   def test_it_returns_an_empty_array_if_no_status_found

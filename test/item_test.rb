@@ -10,7 +10,7 @@ class ItemTest < Minitest::Test
     @item = Item.new({  id: 1,
       name: "Pencil",
       description: "You can use it to write things",
-      unit_price: BigDecimal.new(10.99,4),
+      unit_price: "1099",
       created_at: "2016-07-26 13:59:43 -0600",
       updated_at: "2016-07-26 13:59:43 -0600",
       merchant_id: 1
@@ -31,7 +31,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_gives_its_price
-    assert_equal BigDecimal.new(10.99,4), @item.unit_price
+    assert_equal BigDecimal.new(1099,4), @item.unit_price
   end
 
   def test_gives_price_as_dollars
@@ -39,9 +39,9 @@ class ItemTest < Minitest::Test
   end
 
   def test_prices_with_one_decimal_work
-    item = Item.new({unit_price: BigDecimal.new(11.00,4)})
+    item = Item.new({unit_price: "1100"})
     assert_equal 11.00, item.unit_price_to_dollars
-    item = Item.new({unit_price: BigDecimal.new(11.40,4)})
+    item = Item.new({unit_price: "1140"})
     assert_equal 11.40, item.unit_price_to_dollars
   end
 
@@ -51,7 +51,7 @@ class ItemTest < Minitest::Test
     item = Item.new({  id: 1,
       name: "Pencil",
       description: "You can use it to write things",
-      unit_price: BigDecimal.new(10.99,4),
+      unit_price: "1099",
       created_at: time.to_s,
       updated_at: time.to_s,
       merchant_id: 1})
@@ -64,7 +64,7 @@ class ItemTest < Minitest::Test
     item = Item.new({  id: 1,
       name: "Pencil",
       description: "You can use it to write things",
-      unit_price: BigDecimal.new(10.99,4),
+      unit_price: "1099",
       created_at: time,
       updated_at: time,
       merchant_id: 1})
@@ -84,7 +84,7 @@ class ItemTest < Minitest::Test
     item = Item.new({  id: 1,
       name: "Pencil",
       description: "You can use it to write things",
-      unit_price: BigDecimal.new(10.99,4),
+      unit_price: "1099",
       created_at: time,
       updated_at: time,
       merchant_id: 12334146}, se.items)

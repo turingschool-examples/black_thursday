@@ -35,7 +35,7 @@ class ItemRepoTest < Minitest::Test
   end
 
   def test_find_by_price
-    price = 1200
+    price = 12.00
     ir = ItemRepo.new('./data/items.csv')
     matches = ir.find_all_by_price(price)
     assert_equal 41, matches.count
@@ -46,7 +46,7 @@ class ItemRepoTest < Minitest::Test
     price_range = (10.0..100.0)
     ir = ItemRepo.new('./data/items.csv')
     matches = ir.find_all_by_price_in_range(price_range)
-    assert_equal 6, matches.count
+    assert_equal 853, matches.count
     assert_equal [], ir.find_all_by_price_in_range(0.0..0.01)
   end
 

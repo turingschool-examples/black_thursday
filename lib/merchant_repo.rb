@@ -21,29 +21,32 @@ class MerchantsRepo
     end
   end
 
-def find_by_name(merchant_name)
-  merchant = find_merchant_name(merchant_name)
-  if merchant != nil
-    merchant
-  else
-    nil
+  def find_by_name(merchant_name)
+    merchant = find_merchant_name(merchant_name)
+    if merchant != nil
+      merchant
+    else
+      nil
+    end
   end
-end
 
-def find_merchant_name(merchant_name)
-  @merchant_objects.detect do |merchant|
-    merchant.name.upcase == merchant_name.upcase
+  def find_merchant_name(merchant_name)
+    @merchant_objects.detect do |merchant|
+      merchant.name.upcase == merchant_name.upcase
+    end
   end
-end
 
-def find_all_by_name(name_fragment)
-  @merchant_objects.select do |merchant|
-    merchant.name.upcase.include?(name_fragment.upcase)
+  def find_all_by_name(name_fragment)
+    @merchant_objects.select do |merchant|
+      merchant.name.upcase.include?(name_fragment.upcase)
+    end
   end
-end
 
-def find_items_by_merchant_id(merchant_id)
-  @parent.find_items_by_merchant_id(merchant_id)
-end
+  def find_items_by_merchant_id(merchant_id)
+    @parent.find_items_by_merchant_id(merchant_id)
+  end
 
+  def find_invoices_by_merchant_id(merchant_id)
+    @parent.find_invoices_by_merchant_id(merchant_id)
+  end
 end

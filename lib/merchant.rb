@@ -19,5 +19,4 @@ class Merchant
   def invoices
     @parent.find_invoices_by_merchant_id(self.id)
   end
-
 end
