@@ -76,8 +76,19 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_finds_the_merchant_it_belongs_to
-    binding.pry
-    assert_kind_of Merchant, @item.merchant
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/support/merchant_support.csv",
+      })
+    se.merchants
+    item = Item.new({  id: 1,
+      name: "Pencil",
+      description: "You can use it to write things",
+      unit_price: BigDecimal.new(10.99,4),
+      created_at: time,
+      updated_at: time,
+      merchant_id: 12334146}, se.items)
+    assert_kind_of Merchant, item.merchant
   end
 
 end
