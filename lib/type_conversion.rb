@@ -2,9 +2,9 @@ module TypeConversion
 
   def convert_to_big_decimal(unit_price)
     if unit_price.is_a?(String)
-      BigDecimal.new(unit_price.to_f/100, 4)
+      BigDecimal.new(unit_price.to_f/100, 0).round(2)
     elsif unit_price.is_a?(Integer)
-      BigDecimal.new(unit_price.to_f/100, 4)
+      BigDecimal.new(unit_price.to_f/100, 0).round(2)
     elsif unit_price.is_a?(BigDecimal)
       unit_price
     end

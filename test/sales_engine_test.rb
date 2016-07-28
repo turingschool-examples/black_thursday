@@ -39,6 +39,12 @@ class SalesEngineTest < Minitest::Test
     assert_equal true, se.transactions.is_a?(TransactionRepository)
   end
 
+  def test_it_creates_a_customer_repository
+    se = SalesEngine.from_csv({ customers: "./data/customers_sample.csv"})
+
+    assert_equal true, se.customers.is_a?(CustomerRepository)
+  end
+
   def test_it_splits_merchant_entries_correctly
     se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv" })
 
@@ -61,6 +67,12 @@ class SalesEngineTest < Minitest::Test
     se = SalesEngine.from_csv({ transactions: "./data/transactions_sample.csv" })
 
     assert_equal "4126", se.read_transactions_data[3][1]
+  end
+
+  def test_it_splits_customer_entries_correctly
+    se = SalesEngine.from_csv({ customers: "./data/customers_sample.csv" })
+
+    assert_equal "Sylvester", se.read_customers_data[4][1]
   end
 
   def test_it_converts_headers_to_symbols
