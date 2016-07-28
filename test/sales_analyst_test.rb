@@ -83,6 +83,6 @@ class SalesAnalystTest < Minitest::Test
 
   def test_find_golden_items
     expected_item = @ir.find_by_name("A dead bird in a bag")
-    assert_equal [expected_item], @sa.golden_items
+    assert_equal [expected_item], @sa.golden_items(1)
   end
 end

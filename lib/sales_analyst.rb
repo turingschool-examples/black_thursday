@@ -40,9 +40,9 @@ class SalesAnalyst
     end
   end
 
-  def golden_items
+  def golden_items(num_of_std = 2)
     @sales_engine.all_items.find_all do |item|
-      item.unit_price > (average_price_per_merchant + 2*price_standard_deviation)
+      item.unit_price > (average_price_per_merchant + num_of_std*price_standard_deviation)
     end
   end
 

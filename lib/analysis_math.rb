@@ -13,7 +13,7 @@ module AnalysisMath
     mean = mean(numbers)
     degrees_of_freedom = numbers.count - 1
     sum_of_squares = numbers.reduce(0) do |result, num|
-      result + (num-mean)**2
+      result += (num-mean)**2
       result
     end
     sum_of_squares / degrees_of_freedom
