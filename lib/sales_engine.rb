@@ -51,6 +51,14 @@ class SalesEngine
     end
   end
 
+  def all_merchants
+    @merchant_repo.all
+  end
+
+  def all_items
+    @item_repo.all
+  end
+
   # these methods are for passing child queries
   # into other repos
 
@@ -61,4 +69,5 @@ class SalesEngine
   def find_merchant_by_merchant_id(id)
     @merchant_repo.find_by_id(id)
   end
+
 end
