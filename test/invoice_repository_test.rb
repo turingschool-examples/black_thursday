@@ -15,5 +15,5 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 100, iv.all.length
   end
 
-  
+
 end
