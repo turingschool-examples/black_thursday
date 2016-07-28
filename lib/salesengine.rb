@@ -1,4 +1,5 @@
 require_relative 'merchant_repository'
+require_relative 'item_repository'
 require 'csv'
 
 # require './lib/items'
@@ -8,8 +9,8 @@ class SalesEngine
 
   def initialize(load_paths)
     @load_paths = load_paths
-    @merchants =  MerchantRepository.new(read_csv_data(:merchants))
-    # @items = ItemRepository.new(read_csv_data)
+    @merchants  = MerchantRepository.new(read_csv_data(:merchants))
+    # @items      = ItemRepository.new(read_csv_data[:items])
   end
 
   def self.from_csv(csv_files)

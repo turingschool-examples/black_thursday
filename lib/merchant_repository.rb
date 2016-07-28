@@ -13,7 +13,8 @@ class MerchantRepository
   # end
 
   def format_merchant_info(merchant)
-    {:id => merchant[:id], :name => merchant[:name]}
+    { :id   => merchant[:id],
+      :name => merchant[:name] }
   end
 
   def populate(merchants_data)

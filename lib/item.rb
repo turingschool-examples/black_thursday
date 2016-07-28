@@ -19,6 +19,11 @@ class Item
     @unit_price_to_dollars = item[:unit_price_to_dollars]
     # @item_repository = item_repository
   end
+
+  def convert_price(unit_price)
+    unit_price.to_f/100
+  end
+
 end
 
 # time.parse("string")
