@@ -114,7 +114,7 @@ class ItemRepoTest < Minitest::Test
                 :description => "it's really cool yarn",
                 :unit_price => 150})
     assert_equal [], ir.find_all_by_price(100)
-    assert_equal 2, ir.find_all_by_price(150).count
+    assert_equal 2, ir.find_all_by_price(1.5).count
   end
 
   def test_find_all_by_price_in_range
@@ -134,8 +134,8 @@ class ItemRepoTest < Minitest::Test
                 :name => "yarn!",
                 :description => "it's really cool yarn",
                 :unit_price => 140})
-    assert_equal [], ir.find_all_by_price_in_range((1..10))
-    assert_equal 2, ir.find_all_by_price_in_range((130..150)).count
+    assert_equal [], ir.find_all_by_price_in_range((100000000..200000000))
+    assert_equal 2, ir.find_all_by_price_in_range((1.30..1.50)).count
   end
 
   def test_find_all_by_merchant_id

@@ -28,9 +28,10 @@ class ItemTest < Minitest::Test
   end
 
   def test_unit_price_is_big_decimal
-    item_details = {:id => 263396517,
-                    :name => "Course contre la montre",
-                    :description => "Acrylique sur toile exécutée en 2013
+    item_details = {
+      :id => 263396517,
+      :name => "Course contre la montre",
+      :description => "Acrylique sur toile exécutée en 2013
                     Format : 46 x 38 cm
                     Toile sur châssis en bois - non encadré
                     Artiste : Flavien Couche - Artiste côté Akoun
@@ -38,13 +39,35 @@ class ItemTest < Minitest::Test
                     TABLEAU VENDU AVEC FACTURE ET CERTIFICAT D&#39;AUTHETICITE
 
                     www.flavien-couche.com",
-                    :unit_price => 40000,
-                    :merchant_id => 12334195,
-                    :created_at => "1994-05-07 23:38:43 UTC",
-                    :updated_at => "2016-01-11 11:30:35 UTC"}
+      :unit_price => 40000,
+      :merchant_id => 12334195,
+      :created_at => "1994-05-07 23:38:43 UTC",
+      :updated_at => "2016-01-11 11:30:35 UTC"
+    }
     item = Item.new(item_details)
     assert_equal BigDecimal, item.unit_price.class
     assert_equal 40000, item.unit_price
+  end
+
+  def test_unit_price_to_dollars
+    item_details = {
+      :id => 263396517,
+      :name => "Course contre la montre",
+      :description => "Acrylique sur toile exécutée en 2013
+                    Format : 46 x 38 cm
+                    Toile sur châssis en bois - non encadré
+                    Artiste : Flavien Couche - Artiste côté Akoun
+
+                    TABLEAU VENDU AVEC FACTURE ET CERTIFICAT D&#39;AUTHETICITE
+
+                    www.flavien-couche.com",
+      :unit_price => 40000,
+      :merchant_id => 12334195,
+      :created_at => "1994-05-07 23:38:43 UTC",
+      :updated_at => "2016-01-11 11:30:35 UTC"
+    }
+    item = Item.new(item_details)
+    assert_equal 400.0, item.unit_price_to_dollars
   end
 
 end
