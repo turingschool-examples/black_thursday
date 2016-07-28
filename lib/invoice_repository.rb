@@ -19,4 +19,28 @@ class InvoiceRepository
     list_of_invoices
   end
 
+  def find_by_id(id_to_find)
+    @list_of_invoices.find do |invoice|
+      invoice.id == id_to_find
+    end
+  end
+
+  def find_all_by_customer_id(customer_id_to_find)
+    @list_of_invoices.find_all do |invoice|
+      invoice.customer_id == customer_id_to_find
+    end
+  end
+
+  def find_all_by_merchant_id(merchant_id_to_find)
+    @list_of_invoices.find_all do |invoice|
+      invoice.merchant_id == merchant_id_to_find
+    end
+  end
+
+  def find_all_by_status(status_to_find)
+    @list_of_invoices.find_all do |invoice|
+      invoice.status == status_to_find
+    end
+  end
+
 end
