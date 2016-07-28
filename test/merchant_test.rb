@@ -23,7 +23,7 @@ class MerchantTest < Minitest::Test
   end
 
   def test_that_a_merchant_points_to_its_invoices
-    se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv" })
+    se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv", invoices: "./data/invoices_sample.csv" })
     merchant = se.merchants.find_by_id(12334266)
 
     assert_equal 100, merchant.invoices[0].id
