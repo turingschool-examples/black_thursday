@@ -50,9 +50,9 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_can_convert_unit_price_to_dollars
-    item = Item.new({ id: 123, name: "Bill", description: "Good at being Bill", unit_price: "1000", merchant_id: 456, created_at: "2016-07-26 02:23:16 UTC", updated_at: "1970-04-01 12:45:13 UTC"})
+    item = Item.new({ id: 123, name: "Bill", description: "Good at being Bill", unit_price: "1008", merchant_id: 456, created_at: "2016-07-26 02:23:16 UTC", updated_at: "1970-04-01 12:45:13 UTC"})
 
-    assert_equal 10.00, item.unit_price_to_dollars
+    assert_equal 10.08, item.unit_price_to_dollars
   end
 
   def test_that_an_item_points_to_its_merchant
