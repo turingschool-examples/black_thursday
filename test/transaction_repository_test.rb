@@ -73,6 +73,4 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal 23, tr.find_all_by_result(:failed).length
   end
 
-
-
 end
