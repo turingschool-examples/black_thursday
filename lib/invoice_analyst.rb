@@ -38,4 +38,11 @@ class InvoiceAnalyst
      days[index]
    end
 
+   def invoice_status(status_to_find)
+     matching_invoices = @all_invoices.find_all do |invoice|
+       invoice.status == status_to_find
+     end
+     ((matching_invoices.length.to_f / @all_invoices.length) * 100).round(2)
+   end
+
 end

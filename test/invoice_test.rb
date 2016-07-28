@@ -24,7 +24,7 @@ class InvoiceTest < Minitest::Test
   def test_that_it_has_a_status
     invoice = Invoice.new({ id: 10, customer_id: 2, merchant_id: 12334839, status: "pending", created_at: "2016-07-26 02:23:16 UTC", updated_at: "1970-04-01 12:45:13 UTC" })
 
-    assert_equal "pending", invoice.status
+    assert_equal :pending, invoice.status
   end
 
   def test_that_it_finds_when_created
