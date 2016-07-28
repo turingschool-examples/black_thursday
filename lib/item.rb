@@ -1,3 +1,5 @@
+require "bigdecimal"
+require "time"
 require 'pry'
 
 class Item
@@ -8,21 +10,19 @@ class Item
               :created_at,
               :updated_at,
               :merchant_id,
-              :repo
-  def initialize(hash, repo)
-    @id = hash[:id]
-    @name = hash[:name]
-    @description = hash[:description]
-    @unit_price = hash[:unit_price]
-    @created_at = hash[:created_at]
-    @updated_at = hash[:updated_at]
-    @merchant_id = hash[:merchant_id]
-    @repo = repo
+              :parent
+  def initialize(attributes, parent)
+              @id          = attributes[:id].to_i
+              @name        = attributes[:name]
+              @description = attributes[:description]
+              @unit_price  = BigDecimal.new(attributes[:unit_price])/100
+              @created_at  = Time.parse(attributes[:created_at])
+              @updated_at  = Time.parse(attributes[:updated_at])
+              @merchant_id = attributes[:merchant_id].to_i
+              @parent      = parent
   end
 
   def unit_price_to_dollars
     @unit_price.to_f
-    # binding.pry
   end
-
 end

@@ -1,30 +1,34 @@
 gem 'minitest', '~> 5.2'
 require 'minitest/autorun'
 require 'minitest/pride'
-require "./lib/merchant"
-
+require_relative "../lib/merchant"
 
 class MerchantTest < MiniTest::Test
+  def setup
+    @merchant = Merchant.new({ :id         => "12334105",
+                               :name       => "Shopin1901",
+                               :created_at => "12/10/10",
+                               :updated_at => "12/4/11"}, self)
 
-  def test_holds_a_name
-    @merchant = Merchant.new({ :name => "mc'ds", :id => 666})
-    assert_equal "mc'ds", @merchant.name
-  end
-
-#I don't think this test needs to exist anymore.
-  def test_it_sets_default_name_to_empty_string
-    skip
-    @merchant = Merchant.new( { :name => "", :id => 666})
-    assert_equal "", @merchant.name
   end
 
   def test_it_holds_an_id
-    @merchant = Merchant.new({ :name => "mc'ds", :id => 666})
-    assert_equal 666, @merchant.id
+    assert_equal 12334105, @merchant.id
   end
 
-#need to impliment repo fully before testing this???
-  def test_it_can_commincate_with_the_repo
-    skip
+  def test_it_holds_a_name
+    assert_equal "Shopin1901", @merchant.name
+  end
+
+  def test_it_holds_a_parsed_created_at
+    assert_equal true, @merchant.created_at.is_a?(Time)
+  end
+
+  def test_it_holdss_a_parsed_updated_at
+    assert_equal true, @merchant.updated_at.is_a?(Time)
+  end
+
+  def test_it_can_return_self
+    assert_equal true, @merchant.parent.is_a?(MerchantTest)
   end
 end
