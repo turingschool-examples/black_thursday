@@ -1,34 +1,47 @@
 require_relative "../lib/sales_engine"
 require_relative "../lib/merchant"
 require "csv"
+require 'pry'
 
 class MerchantRepository
 attr_reader :all
 
-  def initialize(csv,sales_engine)
+  def initialize(data_path, sales_engine=nil)
     @sales_engine = sales_engine
     @all = []
-    @path = csv
-    csv_loader
+    csv_loader(data_path)
     merchant_maker
   end
 
-  # def csv?
-  #   @csv.is_a?(CSV)
-  # end
-  def csv_loader
-    @csv = CSV.open @path, headers:true, header_converters: :symbols
+  def csv_loader(data_path)
+    @csv = CSV.open data_path, headers:true, header_converters: :symbol
   end
 
   def merchant_maker
-    @csv.each do |row|
-       @all << Merchant.new(row, self)
+    @all = @csv.map do |row|
+        Merchant.new(row, self)
     end
   end
-  def find_by_id(input)
+
+  def find_by_id(id_input)
     @all.find do |instance|
-      instance.id == input
+      instance.id == id_input
     end
   end
+
+  def find_by_name(name_input)
+    @all.find do |instance|
+      instance.name.downcase == name_input.downcase
+    end
+  end
+
+  def find_all_by_name(name_fragment)
+    @all.find_all do |instance|
+      instance.name.downcase.include?(name_fragment.downcase)
+    end
+  end
+
+
+
 
 end
