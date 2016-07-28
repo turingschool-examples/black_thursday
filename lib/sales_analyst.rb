@@ -44,4 +44,33 @@ class SalesAnalyst
     item_unit_price / items.count
   end
 
+  def average_average_price_per_merchant
+    sum = @merchant_repo.all.reduce(0) do |total, merchant|
+      total += average_item_price_for_merchant(merchant.id)
+    end
+    sum / @merchant_repo.all.count
+  end
+
+  def golden_items
+      average = average_item_price
+      deviation = standard_deviation_in_items_price(average)
+      @item_repo.all.select do |item|
+        item.unit_price > average + deviation * 2
+      end
+  end
+
+  def average_item_price
+    sum = @item_repo.all.reduce(0) do |total, item|
+      total += item.unit_price
+    end
+    sum / @item_repo.all.count
+  end
+
+  def standard_deviation_in_items_price(average)
+    diviation = @item_repo.all.reduce(0) do |total, item|
+      total += (item.unit_price - average) ** 2
+    end
+    item_count = @item_repo.all.count
+    Math.sqrt(diviation / (item_count - 1))
+  end
 end

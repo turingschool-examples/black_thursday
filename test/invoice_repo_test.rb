@@ -12,7 +12,7 @@ class InvoiceRepoTest < Minitest::Test
   def test_it_can_find_a_merchant_via_id_number
     filepath = "./data/support/invoices_support.csv"
     invoice_repo = InvoiceRepo.new(filepath)
-    assert_equal 4, invoice_repo.find_by_id("4").id
+    assert_equal 4, invoice_repo.find_by_id(4).id
   end
 
   def test_nil_is_returned_if_id_is_invalid
