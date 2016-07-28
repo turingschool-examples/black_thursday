@@ -10,7 +10,7 @@ class SalesAnalyst
     @item_repo = sales_engine.items
     @invoice_repo = sales_engine.invoices
   end
-
+  #items per merchant
   def average_items_per_merchant
     total_merchants = merchant_repo.all.count
     total_items = item_repo.all.count
@@ -53,6 +53,7 @@ class SalesAnalyst
     (sum / merchant_repo.all.count).floor(2)
   end
 
+  #items
   def golden_items
       average = average_item_price
       deviation = standard_deviation_in_items_price(average)
@@ -76,17 +77,18 @@ class SalesAnalyst
     Math.sqrt(deviation / (item_count - 1))
   end
 
+  #invoices per merchant
   def average_invoices_per_merchant
     invoice_count = invoice_repo.all.count
     merchant_count= merchant_repo.all.count
-    invoice_count.to_f / merchant_count
+    (invoice_count.to_f / merchant_count).round(2)
   end
 
   def average_invoices_per_merchant_standard_deviation
     average = average_invoices_per_merchant
     deviation  = standard_deviation_in_invoices(average)
     merchants = merchant_repo.all.count
-    Math.sqrt(deviation/(merchants - 1))
+    Math.sqrt(deviation/(merchants - 1)).round(2)
   end
 
   def standard_deviation_in_invoices(average)
@@ -99,17 +101,52 @@ class SalesAnalyst
     average = average_invoices_per_merchant
     standard_deviation = average_invoices_per_merchant_standard_deviation
     result = merchant_repo.all.select do |merchant|
-      merchant.invoices.count > average + standard_deviation * 2
+      merchant.invoices.count > (average + (standard_deviation * 2))
     end
     return result || []
   end
 
   def bottom_merchants_by_invoice_count
+    average = average_items_per_merchant
+    standard_deviation = average_invoices_per_merchant_standard_deviation
+    result = merchant_repo.all.select do |merchant|
+      merchant.invoices.count < (average - (standard_deviation * 2))
+    end
+    result || []
   end
 
+  #invoices by day
+  def average_invoices_per_day
+    invoice_repo.all.count / 7
+  end
+
+  def group_invoices_by_day
+    invoice_repo.all.group_by do |invoice|
+      invoice.created_at.strftime("%A")
+    end
+  end
+
+  def average_invoices_per_day_standard_deviation
+    average = average_invoices_per_day
+    deviation = deviation_in_invoices_per_day(average)
+    Math.sqrt(deviation / 6).round(2)
+  end
+
+  def deviation_in_invoices_per_day(average)
+    invoices_on_days = group_invoices_by_day
+    sum = invoices_on_days.values.reduce(0) do |total, invoices_on_day|
+      total += (invoices_on_day.count - average) ** 2
+    end
+    sum
+  end
   def top_days_by_invoice_count
+    average = average_invoices_per_day
+    standard_deviation = average_invoices_per_day_standard_deviation
+    invoices_by_days = group_invoices_by_day
+    invoices_by_days.keys.select do |day|
+      invoices_by_days[day].count > average + standard_deviation
+    end
   end
-
   def invoice_status(status)
   end
 end

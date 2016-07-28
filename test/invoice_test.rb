@@ -25,7 +25,7 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_it_can_find_the_status
-    assert_equal "pending", Invoice.new(@hash).status
+    assert_equal :pending, Invoice.new(@hash).status
   end
 
   def test_it_can_find_the_created_date
