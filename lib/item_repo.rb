@@ -8,7 +8,7 @@ class ItemRepo
     @parent = parent
     contents = CSV.open source_file, headers: true, header_converters: :symbol
     @items = contents.map do |row|
-      Item.new(row)
+      Item.new(row, self)
     end
   end
 

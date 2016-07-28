@@ -21,8 +21,8 @@ class SalesEngine
     @items = ItemRepo.new(@files[:items], self)
   end
 
-  def invoice
-    @invoices = InvoiceRepo.new(@files[:invoice], self)
+  def invoices
+    @invoices = InvoiceRepo.new(@files[:invoices], self)
   end
 
   def find_merchant_by_id(merchant_id)
