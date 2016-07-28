@@ -13,7 +13,7 @@ class ItemTest < MiniTest::Test
                          :unit_price  => "795",
                          :created_at  => "2016-01-11 17:12:39 UTC",
                          :updated_at  => "1998-12-18 19:32:09 UTC",
-                         :merchant_id => "12334727"}, "repo")
+                         :merchant_id => "12334727"}, self)
     end
 
     def test_it_holds_id
@@ -48,8 +48,8 @@ class ItemTest < MiniTest::Test
       assert_equal 12334727, @item1.merchant_id
     end
 
-    def test_it_holds_repo
-      assert_equal "repo", @item1.parent
+    def test_it_returns_self
+      assert_equal true, @item1.parent.is_a?(ItemTest)
     end
 
     def test_returns_unit_price_to_dollars
