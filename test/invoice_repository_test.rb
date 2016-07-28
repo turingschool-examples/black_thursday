@@ -63,5 +63,4 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 29, iv.find_all_by_status("pending").length
   end
 
-
 end
