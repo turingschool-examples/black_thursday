@@ -30,7 +30,7 @@ class Item
   end
 
   def merchant
-    parent_repo.pass_to_engine(@merchant_id)
+    parent_repo.find_merchant(@merchant_id)
   end
 
 end

@@ -3,6 +3,9 @@ class MerchantRepository
   attr_reader :list_of_merchants,
               :parent_engine
 
+  extend Forwardable
+  def_delegators :@parent_engine, :find_items, :find_invoices
+
   def initialize(merchants_data, parent_engine)
     @parent_engine = parent_engine
     @list_of_merchants = populate_merchants(merchants_data)
@@ -34,10 +37,6 @@ class MerchantRepository
     @list_of_merchants.find_all do |merchant|
       merchant.name.downcase.include?(name_fragment_to_find.downcase)
     end
-  end
-
-  def pass_to_engine(id)
-    parent_engine.find_items(id)
   end
 
   # just for the spec harness

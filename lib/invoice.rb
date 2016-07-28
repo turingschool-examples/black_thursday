@@ -18,4 +18,8 @@ class Invoice
     @parent_repo = parent_repo
   end
 
+  def merchant
+    @parent_repo.find_merchant(merchant_id)
+  end
+
 end

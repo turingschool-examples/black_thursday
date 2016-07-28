@@ -5,6 +5,9 @@ class ItemRepository
   attr_reader :list_of_items,
               :parent_engine
 
+  extend Forwardable
+  def_delegators :@parent_engine, :find_merchant
+
   def initialize(items_data, parent_engine)
     @parent_engine = parent_engine
     @list_of_items = populate_items(items_data)
@@ -55,10 +58,6 @@ class ItemRepository
     @list_of_items.find_all do |item|
       item.merchant_id == merchant_id_to_find
     end
-  end
-
-  def pass_to_engine(merchant_id)
-    parent_engine.find_merchant(merchant_id)
   end
 
   # just for the spec harness
