@@ -8,11 +8,22 @@ class SalesEngine
               :item_repo
 
   def initialize(csv_path_info)
+    # we use <type>_repo, rather than just the type
+    # as we find this to be clearer
+    # e.g. merchant_repo rather than merchants
     @merchant_repo = MerchantRepo.new(self)
     @item_repo     = ItemRepo.new(self)
     if csv_path_info.class == Hash
       add_data_to_repos(csv_path_info)
     end
+  end
+
+  def items
+    @item_repo
+  end
+
+  def merchants
+    @merchant_repo
   end
 
   def add_data_to_repos(csv_path_info)
@@ -57,14 +68,6 @@ class SalesEngine
 
   def find_merchant_by_merchant_id(id)
     @merchant_repo.find_by_id(id)
-  end
-
-  def items
-    @item_repo
-  end
-
-  def merchants
-    @merchant_repo
   end
 
 end
