@@ -1,7 +1,7 @@
-require_relative '../lib/standard_deviation'
-
+require_relative '../lib/statistics'
 class ItemAnalyst
-  include StandardDeviation
+
+  include Statistics
 
   attr_reader :all_items
 

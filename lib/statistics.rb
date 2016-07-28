@@ -1,4 +1,4 @@
-module StandardDeviation
+module Statistics
   include Math
 
   def standard_deviation(set)

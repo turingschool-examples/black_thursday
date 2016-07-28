@@ -1,7 +1,7 @@
-require_relative '../lib/standard_deviation'
+require_relative '../lib/statistics'
 class MerchantAnalyst
 
-  include StandardDeviation
+  include Statistics
 
   def initialize(all_merchants)
     @all_merchants = all_merchants
@@ -28,7 +28,7 @@ class MerchantAnalyst
       merchant.items.count
     end
   end
-  
+
   def item_prices_per_merchant
     active_merchants.map do |merchant|
       merchant.items.reduce(0) do |total, item|
