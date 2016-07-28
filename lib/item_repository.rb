@@ -45,8 +45,11 @@ attr_reader :all
       instance.unit_price.to_i == BigDecimal.new(price).to_i
     end
   end
+ def find_all_by_price_in_range(range)
+   
 
-  
+ end
+
 
 
 end

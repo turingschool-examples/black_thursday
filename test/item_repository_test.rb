@@ -48,5 +48,9 @@ class ItemRepositoryTest < MiniTest::Test
     assert_equal 2, item_repository.find_all_by_price(1350).length
   end
 
+  def test_it_returns_empty_array_when_it_find_nothing_in_a_price_range
+    assert_equal  [], item_repository.find_all_by_price_in_range(Range.new(1,4))
+  end
+
 
 end
