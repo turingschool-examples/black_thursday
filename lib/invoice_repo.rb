@@ -6,7 +6,7 @@ class InvoiceRepo
   def initialize(csv_filepath, parent = nil)
     contents = CSV.open csv_filepath, headers: true, header_converters: :symbol
     @invoice_objects = contents.map do |row|
-      Invoice.new(row)
+      Invoice.new(row, self)
     end
     @parent = parent
   end
@@ -40,7 +40,7 @@ class InvoiceRepo
   end
 
   def find_merchant_by_id(merchant_id)
-    @parent.find_merchant_by_id(mercahnt_id)
+    @parent.find_merchant_by_id(merchant_id)
   end
 
 end

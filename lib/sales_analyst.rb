@@ -14,25 +14,25 @@ class SalesAnalyst
   def average_items_per_merchant
     total_merchants = merchant_repo.all.count
     total_items = item_repo.all.count
-    total_items.to_f / total_merchants
+    (total_items.to_f / total_merchants).round(2)
   end
 
-  def standard_deviation_in_items_per_merchant
+  def average_items_per_merchant_standard_deviation
     average = average_items_per_merchant
     deviation = sum_deviation(average)
     denominator = merchant_repo.all.count - 1
-    Math.sqrt(deviation / denominator)
+    Math.sqrt(deviation / denominator).round(2)
   end
 
   def sum_deviation(average)
     merchant_repo.all.reduce(0) do |deviation, merchant|
-      (merchant.items.count - average) ** 2
+      deviation += (merchant.items.count - average) ** 2
     end
   end
 
   def merchants_with_high_item_count
     average = average_items_per_merchant
-    standard_deviation = standard_deviation_in_items_per_merchant
+    standard_deviation = average_items_per_merchant_standard_deviation
     merchant_repo.all.select do |merchant|
       merchant.items.count > (standard_deviation + average)
     end
@@ -43,14 +43,14 @@ class SalesAnalyst
     item_unit_price = items.reduce(0) do |total, item|
       total += item.unit_price
     end
-    item_unit_price / items.count
+    (item_unit_price / items.count).floor(2)
   end
 
   def average_average_price_per_merchant
     sum = merchant_repo.all.reduce(0) do |total, merchant|
       total += average_item_price_for_merchant(merchant.id)
     end
-    sum / merchant_repo.all.count
+    (sum / merchant_repo.all.count).floor(2)
   end
 
   def golden_items
