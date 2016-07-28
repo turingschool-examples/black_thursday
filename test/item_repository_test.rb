@@ -106,7 +106,7 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal [], ir.find_all_by_merchant_id(99999999)
   end
 
-  def test_find_all_by_merchant_id_returns_an_array
+  def test_find_all_by_merchant_id_returns_an_array_of_proper_length
     se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv" })
     ir = se.items
 

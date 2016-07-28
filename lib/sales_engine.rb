@@ -8,6 +8,11 @@ class SalesEngine
               :merchants,
               :invoices
 
+  extend Forwardable
+  def_delegator :@items, :find_all_by_merchant_id, :find_items
+  def_delegator :@merchants, :find_by_id, :find_merchant
+  def_delegator :@invoices, :find_all_by_merchant_id, :find_invoices
+
   def initialize(list_of_paths)
     @list_of_paths = list_of_paths
     @items = ItemRepository.new(read_items_data, self)
