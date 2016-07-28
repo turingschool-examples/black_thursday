@@ -1,17 +1,24 @@
 require './test/test_helper'
 require './lib/item_repository'
 require './lib/item'
+require './lib/sales_engine'
 require 'csv'
 
 class ItemRepositoryTest < Minitest::Test
-  attr_reader :ir
+  attr_reader :ir, :se, :ir2
 
   def setup
     items_file = CSV.open("./test/testdata/items_simple.csv",
                           headers: true,
                           header_converters: :symbol)
     csv_rows = items_file.to_a
-    @ir = ItemRepository.new(csv_rows)
+    @ir = ItemRepository.new(csv_rows, se)
+
+    @se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./test/testdata/merchants_simple.csv",
+    })
+    @ir2 = se.items
   end
 
   def test_items_is_an_array_of_item_instances
@@ -88,5 +95,10 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 1, mercs_1.length
     assert_equal 3, mercs_2.length
     assert_equal [], mercs_3
+  end
+
+  def test_method_find_merchant_by_id
+    merchant = se.find_merchant_by_id(12334149)
+    assert_equal merchant, ir2.find_merchant_by_id(12334149)
   end
 end

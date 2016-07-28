@@ -16,12 +16,30 @@ class SalesEngineTest < Minitest::Test
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
     })
-    merchant = se.merchants.find_by_id(10)
+    merchant = se.merchants.find_by_id(12334189)
     # =>
     merchant.items
     # => [<item>, <item>, <item>]
-    item = se.items.find_by_id(20)
+    item = se.items.find_by_id(263395237)
     item.merchant
     # => <merchant>
+  end
+
+  def test_can_find_merchant_by_merchant_id
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+    })
+    merchant = se.merchants.find_by_id(12334155)
+    assert_equal merchant, se.find_merchant_by_id(12334155)
+  end
+
+  def test_can_find_all_items_by_merchant_id
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+    })
+    items = se.items.find_all_by_merchant_id(12334155)
+    assert_equal items, se.find_all_items_by_merchant_id(12334155)
   end
 end

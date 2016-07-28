@@ -1,12 +1,13 @@
 class Merchant
-  attr_reader :id, :name
+  attr_reader :id, :name, :parent
 
-  def initialize(data)
+  def initialize(data, parent)
     @id =   data[:id]
     @name = data[:name]
+    @parent = parent
   end
 
   def items
-    [1,2,3]
+    @parent.find_all_items_by_merchant_id(@id)
   end
 end

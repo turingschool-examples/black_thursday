@@ -1,17 +1,18 @@
 require './test/test_helper'
 require './lib/merchant_repository'
 require './lib/merchant'
+require './lib/sales_engine'
 require 'csv'
 
 class MerchantRepositoryTest < Minitest::Test
-  attr_reader :mr
+  attr_reader :mr, :se
 
   def setup
-    mercs_file = CSV.open("./test/testdata/merchants_simple.csv",
-                          headers: true,
-                          header_converters: :symbol)
-    csv_rows = mercs_file.to_a
-    @mr = MerchantRepository.new(csv_rows)
+    @se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./test/testdata/merchants_simple.csv",
+    })
+    @mr = se.merchants
   end
 
   def test_merchants_is_an_array_of_merchant_instances
@@ -60,6 +61,11 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal Array, mercs_2.class
     assert_equal 3, mercs_2.length
     assert_equal [], mercs_3
+  end
+
+  def test_method_find_all_items_by_merchant_id
+    items = se.items.find_all_by_merchant_id(12334149)
+    assert_equal items, mr.find_all_items_by_merchant_id(12334149)
   end
 
 

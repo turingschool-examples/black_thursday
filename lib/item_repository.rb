@@ -3,15 +3,16 @@ require 'bigdecimal'
 require_relative 'item'
 
 class ItemRepository
-  attr_reader :items
+  attr_reader :items, :parent
 
-  def initialize(item_contents)
+  def initialize(item_contents, parent)
     @items = make_items(item_contents)
+    @parent = parent
   end
 
   def make_items(item_contents)
     item_contents.map do |row|
-      Item.new(make_prepared_data(row))
+      Item.new(make_prepared_data(row), self)
     end
   end
 
@@ -48,7 +49,9 @@ class ItemRepository
   end
 
   def find_all_with_description(description)
-    @items.find_all { |item| item.description.upcase.include? description.upcase }
+    @items.find_all do
+       |item| item.description.upcase.include? description.upcase
+     end
   end
 
   def find_all_by_price(price)
@@ -61,6 +64,10 @@ class ItemRepository
 
   def find_all_by_merchant_id(merchant_id)
     @items.find_all { |item| item.merchant_id == merchant_id }
+  end
+
+  def find_merchant_by_id(merchant_id)
+    parent.find_merchant_by_id(merchant_id)
   end
 
   def inspect

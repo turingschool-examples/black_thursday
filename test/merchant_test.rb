@@ -3,28 +3,35 @@ require './lib/merchant'
 require './lib/sales_engine'
 
 class MerchantTest < Minitest::Test
+  def setup
+    @se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./test/testdata/merchants_simple.csv",
+    })
+  end
+
   def test_we_can_instantiate_merchant_with_name
-    m = Merchant.new({:name => "Gary"})
+    m = Merchant.new({:name => "Gary"}, @se.merchants)
     assert_equal "Gary", m.name
   end
 
   def test_we_can_instantiate_merchant_with_different_name
-    m = Merchant.new({:name => "Joe"})
+    m = Merchant.new({:name => "Joe"}, @se.merchants)
     assert_equal "Joe", m.name
   end
 
   def test_we_can_instantiate_merchant_with_id
-    m = Merchant.new({:id => 12345})
+    m = Merchant.new({:id => 12345}, @se.merchants)
     assert_equal 12345, m.id
   end
 
   def test_we_can_instantiate_merchant_with_different_id
-    m = Merchant.new({:id => 54321})
+    m = Merchant.new({:id => 54321}, @se.merchants)
     assert_equal 54321, m.id
   end
 
   def test_we_can_instantiate_merchant_with_name_and_id
-    m = Merchant.new({:name => "Pamela", :id => 90210})
+    m = Merchant.new({:name => "Pamela", :id => 90210}, @se.merchants)
     assert_equal "Pamela", m.name
     assert_equal 90210, m.id
   end
