@@ -8,7 +8,7 @@ class MerchantTest < MiniTest::Test
     @merchant = Merchant.new({ :id         => "12334105",
                                :name       => "Shopin1901",
                                :created_at => "12/10/10",
-                               :updated_at => "12/4/11"}, self)
+                               :updated_at => "12/4/11"}, "stub parent")
 
   end
 
@@ -29,6 +29,7 @@ class MerchantTest < MiniTest::Test
   end
 
   def test_it_can_return_self
-    assert_equal true, @merchant.parent.is_a?(MerchantTest)
+    # assert_equal true, @merchant.parent.is_a?(MerchantTest)
+    assert_equal "stub parent", @merchant.parent
   end
 end

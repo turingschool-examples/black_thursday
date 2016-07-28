@@ -8,6 +8,8 @@ require 'csv'
 
 
 class MerchantRepositoryTest < MiniTest::Test
+  attr_reader :merchant_repository
+
   def setup
     @merchant_repository = MerchantRepository.new("./data/merchants.csv")
   end
@@ -28,18 +30,26 @@ class MerchantRepositoryTest < MiniTest::Test
   end
 
   def test_it_finds_by_name
-    assert_equal nil, @merchant_repository.find_by_name("idontexist")
     assert_equal 12334112, @merchant_repository.find_by_name("candisart").id
+    assert_instance_of Merchant, @merchant_repository.find_by_name("candisart")
   end
 
+  def test_it_returns_with_invalid_name
+    assert_equal nil, @merchant_repository.find_by_name("idontexist")
+  end
+
+
   def test_it_finds_all_by_name
-    assert_equal [], @merchant_repository.find_all_by_name("idontexist")
-    assert_equal "Candisart", @merchant_repository.find_all_by_name("candis")[0].name
-    assert_equal nil, @merchant_repository.find_all_by_name("candis")[1]
+    assert_equal 90, @merchant_repository.find_all_by_name("AR").length
     assert_equal "LolaMarleys", @merchant_repository.find_all_by_name("AR")[1].name
+    assert_equal 1, @merchant_repository.find_all_by_name("candis").length
+    assert_equal "Candisart", @merchant_repository.find_all_by_name("candis")[0].name
     assert_equal 90, @merchant_repository.find_all_by_name("AR").length
   end
 
+  def test_returns_empty_list_when_no_merchants_match_string
+    assert_equal [], @merchant_repository.find_all_by_name("idontexist")
+  end
 
 
 end
