@@ -27,6 +27,18 @@ class SalesEngineTest < Minitest::Test
     assert_equal true, se.items.is_a?(ItemRepository)
   end
 
+  def test_it_creates_an_invoices_repository
+    se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv", invoices: "./data/invoices_sample.csv" })
+
+    assert_equal true, se.invoices.is_a?(InvoiceRepository)
+  end
+
+  def test_it_creates_a_transaction_repository
+    se = SalesEngine.from_csv({ transactions: "./data/transactions_sample.csv"})
+
+    assert_equal true, se.transactions.is_a?(TransactionRepository)
+  end
+
   def test_it_splits_merchant_entries_correctly
     se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv" })
 
@@ -37,6 +49,18 @@ class SalesEngineTest < Minitest::Test
     se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv" })
 
     assert_equal "Glitter scrabble frames", se.read_items_data[1][1]
+  end
+
+  def test_it_splits_invoice_entries_correctly
+    se = SalesEngine.from_csv({ invoices: "./data/invoices_sample.csv" })
+
+    assert_equal "12335955", se.read_invoices_data[2][2]
+  end
+
+  def test_it_splits_transaction_entries_correctly
+    se = SalesEngine.from_csv({ transactions: "./data/transactions_sample.csv" })
+
+    assert_equal "4126", se.read_transactions_data[3][1]
   end
 
   def test_it_converts_headers_to_symbols

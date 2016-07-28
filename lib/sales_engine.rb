@@ -2,11 +2,13 @@ require 'CSV'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/item_repository'
 require_relative '../lib/invoice_repository'
+require_relative '../lib/transaction_repository'
 
 class SalesEngine
   attr_reader :items,
               :merchants,
-              :invoices
+              :invoices,
+              :transactions
 
   extend Forwardable
   def_delegator :@items, :find_all_by_merchant_id, :find_items
@@ -18,6 +20,7 @@ class SalesEngine
     @items = ItemRepository.new(read_items_data, self)
     @merchants = MerchantRepository.new(read_merchants_data, self)
     @invoices = InvoiceRepository.new(read_invoices_data, self)
+    @transactions = TransactionRepository.new(read_transactions_data, self)
   end
 
   def self.from_csv(list_of_paths)
@@ -34,6 +37,10 @@ class SalesEngine
 
   def read_invoices_data
     read_data(:invoices)
+  end
+
+  def read_transactions_data
+    read_data(:transactions)
   end
 
   def read_data(what_to_read)
