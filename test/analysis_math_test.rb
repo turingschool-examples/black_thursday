@@ -18,7 +18,7 @@ class AnalysisMathTest < Minitest::Test
     dummy = DummyTestClass.new
     array = [1,2,3,4,5]
     assert_equal 3, dummy.mean(array)
-    assert_equal 1.5, dummy.mean([1,2])
+    assert_equal 2502.5, dummy.mean([5000,5])
     assert_equal BigDecimal, dummy.mean([1,2]).class
   end
 
