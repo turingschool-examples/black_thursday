@@ -59,4 +59,12 @@ class SalesEngine
     @merchant_repo.find_by_id(id)
   end
 
+  def items
+    @item_repo
+  end
+
+  def merchants
+    @merchant_repo
+  end
+
 end

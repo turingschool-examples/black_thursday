@@ -11,9 +11,12 @@ module AnalysisMath
 
   def variance(numbers)
     mean = mean(numbers)
-    numbers.inject(0) do |result, num|
+    degrees_of_freedom = numbers.count - 1
+    sum_of_squares = numbers.reduce(0) do |result, num|
       result + (num-mean)**2
-    end/(numbers.count - 1)
+      result
+    end
+    sum_of_squares / degrees_of_freedom
   end
 
   def standard_deviation(numbers)
