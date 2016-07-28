@@ -4,6 +4,9 @@ class InvoiceRepository
   attr_reader :list_of_invoices,
               :parent_engine
 
+  extend Forwardable
+  def_delegators :@parent_engine, :find_merchant
+
   def initialize(invoices_data, parent_engine)
     @parent_engine = parent_engine
     @list_of_invoices = populate_invoices(invoices_data)
