@@ -1,31 +1,30 @@
-require_relative 'merchant'
+require_relative '../lib/file_extractor'
+require_relative '../lib/merchant'
 
 class MerchantRepository
   attr_reader :merchants
 
-  def initialize(merchants_data)
+  def initialize(load_path, sales_engine_parent = nil)
+    @sales_engine_parent = sales_engine_parent
     @merchants = {}
+    merchants_data = FileExtractor.extract_data(load_path)
     populate(merchants_data)
   end
-
-  # def initialize(merchants)
-  #   @merchants = populate(merchants)
-  # end
 
   def format_merchant_info(merchant)
     { :id   => merchant[:id],
       :name => merchant[:name] }
   end
 
+  def make_merchant(merchant_data)
+    merchant_formatted = format_merchant_info(merchant_data)
+    @merchants[merchant_data[:id].to_i] = Merchant.new(merchant_formatted, self)
+  end
+
   def populate(merchants_data)
     merchants_data.each do |merchant_data|
       make_merchant(merchant_data)
     end
-  end
-
-  def make_merchant(merchant_data)
-    merchant_formatted = format_merchant_info(merchant_data)
-    @merchants[merchant_data[:id]] = Merchant.new(merchant_formatted)
   end
 
   def all
@@ -46,5 +45,9 @@ class MerchantRepository
     merchants.values.find_all do |merchant|
       merchant.name.downcase.include?(name_fragment.downcase)
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end

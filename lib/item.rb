@@ -1,3 +1,5 @@
+require 'bigdecimal'
+
 class Item
   attr_reader :id,
               :name,
@@ -5,25 +7,20 @@ class Item
               :unit_price,
               :created_at,
               :updated_at,
-              :merchant_id,
-              :unit_price_to_dollars
+              :merchant_id
 
-  def initialize(item) #, item_repository)
-    @id                    = item[:id]
-    @name                  = item[:name]
-    @description           = item[:description]
-    @unit_price            = item[:unit_price]
-    @created_at            = item[:created_at]
-    @updated_at            = item[:updated_at]
-    @merchant_id           = item[:merchant_id]
-    @unit_price_to_dollars = item[:unit_price_to_dollars]
-    # @item_repository = item_repository
+  def initialize(item, item_repository_parent = nil)
+    @item_repository_parent = item_repository_parent
+    @id                     = item[:id].to_i
+    @name                   = item[:name]
+    @description            = item[:description]
+    @unit_price             = BigDecimal.new(item[:unit_price]) / 100
+    @created_at             = Time.parse(item[:created_at])
+    @updated_at             = Time.parse(item[:updated_at])
+    @merchant_id            = item[:merchant_id].to_i
   end
 
-  def convert_price(unit_price)
-    unit_price.to_f/100
+  def unit_price_to_dollars
+    @unit_price
   end
-
 end
-
-# time.parse("string")
