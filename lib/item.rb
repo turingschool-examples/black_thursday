@@ -12,14 +12,14 @@ class Item
     @id = input_item[:id].to_i
     @name = input_item[:name]
     @description = input_item[:description]
-    @unit_price = BigDecimal.new(input_item[:unit_price].to_f,4)
+    @unit_price = BigDecimal.new(input_item[:unit_price].to_f/100,4)
     @created_at = convert_string_to_time(input_item[:created_at]) || Time.now
     @updated_at = convert_string_to_time(input_item[:updated_at]) || Time.now
     @merchant_id = input_item[:merchant_id].to_i
   end
 
   def unit_price_to_dollars
-    (@unit_price.to_f) / 100
+    @unit_price.to_f
   end
 
   def convert_string_to_time(time_input)

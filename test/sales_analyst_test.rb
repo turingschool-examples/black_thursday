@@ -24,15 +24,15 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_the_average_price_for_a_merchant_with_one_item
-    assert_equal 4995.0, @sa.average_item_price_for_merchant(12334303).to_f
+    assert_equal 49.95, @sa.average_item_price_for_merchant(12334303).to_f
   end
 
   def test_it_can_find_the_average_price_for_a_merchant_with_multiple_items
-    assert_equal 48335.0, @sa.average_item_price_for_merchant(12334195).to_f
+    assert_equal 483.35, @sa.average_item_price_for_merchant(12334195).to_f
   end
 
   def test_average_of_average_price_per_merchant
-    assert_equal 110486.54, @sa.average_average_price_per_merchant.to_f
+    assert_equal 1104.86, @sa.average_average_price_per_merchant.to_f
   end
 
   def test_it_finds_golden_items
@@ -52,10 +52,14 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_finds_bottom_merchants_by_invoice_count
-    assert_equal 100, @sa.bottom_merchants_by_invoice_count.count
+    assert_equal 0, @sa.bottom_merchants_by_invoice_count.count
   end
 
   def test_it_finds_best_days_by_invoice_count
     assert_equal ["Saturday", "Friday"], @sa.top_days_by_invoice_count
+  end
+
+  def test_it_calculates_invoice_status_ratios
+    assert_equal 58.71, @sa.invoice_status(:shipped)
   end
 end
