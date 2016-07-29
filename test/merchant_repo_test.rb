@@ -68,4 +68,12 @@ class MerchantRepoTest < Minitest::Test
     merchant = mr.all.first
     assert_equal mr, merchant.parent
   end
+
+  def test_it_can_ask_engine_for_invoices
+    mock_se = Minitest::Mock.new
+    mr = MerchantRepo.new(mock_se)
+    mock_se.expect(:find_invoices_by_merchant_id, nil, [1])
+    mr.find_invoices_by_merchant_id(1)
+    assert mock_se.verify
+  end
 end
