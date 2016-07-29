@@ -140,4 +140,27 @@ class SalesEngineTest < Minitest::Test
     assert_equal expected_merchant, item.merchant
   end
 
+  def test_find_invoices_by_merchant_id
+    se = SalesEngine.new("empty")
+    ir = se.invoice_repo
+    invoice_1 = {
+      :id => 1,
+      :merchant_id => 3
+    }
+    invoice_2 = {
+      :id => 2,
+      :merchant_id => 3
+    }
+    invoice_3 = {
+      :id => 20,
+      :merchant_id => 4
+    }
+    invoices = [invoice_1, invoice_2, invoice_3]
+    invoices.each do |invoice|
+      ir.add_invoice(invoice)
+    end
+    expected_invoices = ir.find_all_by_merchant_id(3)
+    assert_equal expected_invoices, se.find_invoices_by_merchant_id(3)
+  end
+
 end

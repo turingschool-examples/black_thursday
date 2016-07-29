@@ -205,4 +205,6 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal [], sa.merchants_with_high_item_count
   end
+
+  
 end

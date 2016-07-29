@@ -72,8 +72,8 @@ class MerchantRepoTest < Minitest::Test
   def test_it_can_ask_engine_for_invoices
     mock_se = Minitest::Mock.new
     mr = MerchantRepo.new(mock_se)
-    mock_se.expect(:find_invoices_by_merchant_id, nil, [1])
-    mr.find_invoices_by_merchant_id(1)
+    mock_se.expect(:find_invoices_by_merchant_id, [], [5])
+    mr.find_invoices_by_merchant_id(5)
     assert mock_se.verify
   end
 end

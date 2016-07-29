@@ -7,7 +7,7 @@ require 'pry'
 class SalesEngine
   attr_reader :merchant_repo,
               :item_repo,
-              :invoice_repo 
+              :invoice_repo
 
   def initialize(csv_path_info)
     # we use <type>_repo, rather than just the type
@@ -28,7 +28,7 @@ class SalesEngine
   def merchants
     @merchant_repo
   end
-  
+
   def invoices
     @invoice_repo
   end
@@ -60,7 +60,7 @@ class SalesEngine
        @item_repo.add_item(row)
     end
   end
-  
+
   def add_invoices(path_info)
     CSV.foreach(path_info, headers:true, header_converters: :symbol) do |row|
        @invoice_repo.add_invoice(row)
@@ -74,9 +74,9 @@ class SalesEngine
   def all_items
     @item_repo.all
   end
-  
+
   def all_invoices
-    @invoice_repo.all 
+    @invoice_repo.all
   end
 
   # these methods are for passing child queries
@@ -88,6 +88,10 @@ class SalesEngine
 
   def find_merchant_by_merchant_id(id)
     @merchant_repo.find_by_id(id)
+  end
+
+  def find_invoices_by_merchant_id(id)
+    @invoice_repo.find_all_by_merchant_id(id)
   end
 
 end

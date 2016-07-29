@@ -37,9 +37,10 @@ class InvoiceTest < Minitest::Test
       :created_at => Time.now,
       :updated_at => Time.now
       }, mock_ir)
-    mock_ir.expect(:find_merchant_by_merchant_id, nil, [1])
-    invoice.merchant
+    mock_ir.expect(:find_merchant_by_merchant_id, "merchant", [1])
+    result = invoice.merchant
     assert mock_ir.verify
+    assert_equal "merchant", result
   end
 
 end

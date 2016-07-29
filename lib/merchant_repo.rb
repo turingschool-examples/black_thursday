@@ -41,4 +41,5 @@ class MerchantRepo
   def find_invoices_by_merchant_id(id)
     @sales_engine.find_invoices_by_merchant_id(id)
   end
+
 end
