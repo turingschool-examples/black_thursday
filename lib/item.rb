@@ -1,3 +1,5 @@
+require 'bigdecimal'
+
 class Item
   attr_reader :id,
               :name,
@@ -8,15 +10,27 @@ class Item
               :updated_at,
               :parent
 
-  def initialize(data, parent)
-    @id =           data[:id]
+  def initialize(data, parent = nil)
+    @id =           data[:id].to_i
     @name =         data[:name]
     @description =  data[:description]
-    @unit_price =   data[:unit_price]
-    @merchant_id =  data[:merchant_id]
-    @created_at =   data[:created_at]
-    @updated_at =   data[:updated_at]
+    @unit_price =   prep_unit_price(data[:unit_price])
+    @merchant_id =  data[:merchant_id].to_i
+    @created_at =   prep_time(data[:created_at])
+    @updated_at =   prep_time(data[:updated_at])
     @parent     =   parent
+  end
+
+  def prep_time(time)
+    return nil if !time
+    Time.parse(time)
+  end
+  
+  def prep_unit_price(unit_price)
+    return nil if !unit_price
+    digits = unit_price.length + 1
+    value  = unit_price.to_i / 100.0
+    BigDecimal.new(value, digits)
   end
 
   def unit_price_to_dollars

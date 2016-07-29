@@ -1,91 +1,48 @@
 require './test/test_helper'
 require './lib/item'
-require 'bigdecimal'
-require './lib/merchant'
-require './lib/sales_engine'
+require 'csv'
 
 class ItemTest < Minitest::Test
+  attr_reader :item_rows, :item_1
+
   def setup
-    @se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./test/testdata/merchants_simple.csv",
-    })
+    fixture = CSV.open('./test/fixtures/items_fixture.csv', headers:true, header_converters: :symbol)
+    @item_rows = fixture.to_a
+    @item_1 = Item.new(item_rows[0])
   end
 
-  def test_we_can_instantiate_item_with_name
-    i = Item.new({:name => "Pencil"}, @se.items)
-    assert_equal "Pencil", i.name
+  def test_item_has_a_name
+    assert_equal "name a", item_1.name
   end
 
-  def test_we_can_instantiate_item_with_different_name
-    i = Item.new({:name => "Pen"}, @se.items)
-    assert_equal "Pen", i.name
+  def test_item_has_string_name_and_description
+    assert_equal "name a", item_1.name
+    assert_equal "description a", item_1.description
   end
 
-  def test_can_instantiate_two_attributes
-    i = Item.new({
-      :name        => "Pencil",
-      :description => "You can use it to write things",
-    }, @se.items)
-    assert_equal "Pencil", i.name
-    assert_equal "You can use it to write things", i.description
+  def test_item_has_fixnum_ids
+    assert_equal 1, item_1.id
+    assert_equal 1000, item_1.merchant_id
   end
 
-  def test_can_instantiate_time_object
-    time = Time.parse("2016-01-11 09:34:06 UTC")
-    i = Item.new({
-      :created_at  => time
-    }, @se.items)
-    assert_equal Time, i.created_at.class
+  def test_item_has_time_objects
+    assert_instance_of Time, item_1.created_at
+    assert_instance_of Time, item_1.updated_at
   end
 
-  def test_can_instantiate_big_decimal_objects
-    unit_price = BigDecimal.new(10.99,4)
-    i = Item.new({
-      :unit_price  => unit_price
-    }, @se.items)
-    assert_equal BigDecimal, i.unit_price.class
+  def test_item_has_big_decimal_object
+    assert_instance_of BigDecimal, item_1.unit_price
   end
 
-  def test_can_instantiate_all_required_attributes
-    data = {
-      :id          => 263515792,
-      :name        => "Pencil",
-      :description => "You can use it to write things",
-      :merchant_id => 12334141,
-      :unit_price  => BigDecimal.new(10.99,4),
-      :created_at  => Time.parse("2016-01-11 09:34:06 UTC"),
-      :updated_at  => Time.parse("2016-01-11 09:34:06 UTC")
-    }
-    i = Item.new(data, @se.items)
-    assert_equal data[:id],           i.id
-    assert_equal data[:name],         i.name
-    assert_equal data[:description],  i.description
-    assert_equal data[:merchant_id],  i.merchant_id
-    assert_equal data[:unit_price],   i.unit_price
-    assert_equal data[:created_at],   i.created_at
-    assert_equal data[:updated_at],   i.updated_at
+  def test_method_unit_price_to_dollars_returns_its_float
+    assert 1.0, item_1.unit_price_to_dollars
   end
 
-  def test_unit_price_to_dollars_with_decimal_value
-    data = {:unit_price  => BigDecimal.new(10.99,4)}
-    i = Item.new(data, @se.items)
-    assert_equal 10.99, i.unit_price_to_dollars
-  end
-
-  def test_unit_price_to_dollars_with_whole_value
-    data = {:unit_price  => BigDecimal.new(12)}
-    i = Item.new(data, @se.items)
-    assert_equal 12.00, i.unit_price_to_dollars
-  end
-
-  def test_merchant_method_returns_merchant
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-    })
-    item = se.find_all_items_by_merchant_id(12334132)[0]
-    merchant = se.find_merchant_by_id(12334132)
-    assert_equal merchant, item.merchant
+  def test_method_merchant_queries_item_parent
+    mock_ir = Minitest::Mock.new
+    item = Item.new(item_rows[0], mock_ir)
+    mock_ir.expect(:find_merchant_by_id, nil, [1000])
+    item.merchant
+    assert mock_ir.verify
   end
 end

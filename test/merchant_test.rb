@@ -1,15 +1,7 @@
 require './test/test_helper'
 require './lib/merchant'
-# require './lib/sales_engine'
 
 class MerchantTest < Minitest::Test
-  # def setup
-  #   @se = SalesEngine.from_csv({
-  #     :items     => "./data/items.csv",
-  #     :merchants => "./test/testdata/merchants_simple.csv",
-  #   })
-  # end
-
   def test_we_can_instantiate_merchant_with_name
     m = Merchant.new({:name => "Gary"})
     assert_equal "Gary", m.name
@@ -36,21 +28,11 @@ class MerchantTest < Minitest::Test
     assert_equal 90210, m.id
   end
 
-  def test_items_method_returns_merchant_items_length
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-    })
-    merchant = se.merchants.find_by_id(12334132)
-    assert_equal 3, merchant.items.length
-  end
-
-  def test_items_method_returns_different_merchant_items_length
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-    })
-    merchant = se.merchants.find_by_id(12334189)
-    assert_equal 2, merchant.items.length
+  def test_method_items_can_query_parent_of_merchant
+    mock_mr = Minitest::Mock.new
+    merchant = Merchant.new({id: 1}, mock_mr)
+    mock_mr.expect(:find_all_items_by_merchant_id, nil, [1])
+    merchant.items
+    assert mock_mr.verify
   end
 end

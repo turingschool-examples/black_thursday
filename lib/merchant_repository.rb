@@ -4,21 +4,13 @@ require_relative 'merchant'
 class MerchantRepository
   attr_reader :merchants, :parent
 
-  def initialize(merchant_contents, parent)
+  def initialize(merchant_contents, parent = nil)
     @merchants = make_merchants(merchant_contents)
     @parent = parent
   end
 
   def make_merchants(merchant_contents)
-    merchant_contents.map do |row|
-      Merchant.new(make_prepared_data(row), self)
-    end
-  end
-
-  def make_prepared_data(row)
-    { id:   row[:id].to_i,
-      name: row[:name]
-    }
+    merchant_contents.map { |row| Merchant.new(row, self) }
   end
 
   def all
