@@ -3,16 +3,21 @@ require_relative "../lib/transaction"
 
 class TransactionRepo
 
-  def initialize
-    @transaction_objects = []
-  end
-
-  def from_csv(filepath)
-    contents = CSV.open filepath, headers: true, header_converters: :symbol
-      @transaction_objects = contents.map do |row|
+  def initialize(csv_filepath, parent = nil)
+    contents = CSV.open csv_filepath, headers: true, header_converters: :symbol
+    @transaction_objects = contents.map do |row|
       Transaction.new(row, self)
     end
+    @parent = parent
+    # @transaction_objects = []
   end
+
+  # def from_csv(filepath)
+  #   contents = CSV.open filepath, headers: true, header_converters: :symbol
+  #     @transaction_objects = contents.map do |row|
+  #     Transaction.new(row, self)
+  #   end
+  # end
 
   def all
     @transaction_objects
@@ -24,7 +29,7 @@ class TransactionRepo
     end
   end
 
-  def find_all_by_id(id_fragment)
+  def find_all_by_invoice_id(id_fragment)
     @transaction_objects.select do |transaction|
       transaction.invoice_id.to_s.include?(id_fragment.to_s)
     end
@@ -32,7 +37,7 @@ class TransactionRepo
 
   def find_all_by_credit_card_number(credit_card_fragment)
     @transaction_objects.select do |transaction|
-      transaction.credit_card_number.include?(credit_card_fragment)
+      transaction.credit_card_number.to_s.include?(credit_card_fragment.to_s)
     end
   end
 
