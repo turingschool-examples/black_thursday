@@ -19,9 +19,6 @@ class MerchantTest < Minitest::Test
     se = SalesEngine.from_csv({ items: "./test/samples/item_sample.csv", merchants: "./test/samples/merchants_sample.csv" })
     merchant = se.merchants.find_by_id(12334185)
 
-    assert_instance_of Item, merchant.items.first
-    assert_equal 7, merchant.items.count
-
     assert_equal "Glitter scrabble frames", merchant.items[0].name
   end
 
@@ -30,6 +27,15 @@ class MerchantTest < Minitest::Test
     merchant = se.merchants.find_by_id(12334266)
 
     assert_equal 100, merchant.invoices[0].id
+  end
+
+  def test_that_a_merchant_points_to_its_customers
+    se = SalesEngine.from_csv({ merchants: "./test/samples/merchants_sample.csv", customers: "./test/samples/customers_sample.csv", invoices: "./test/samples/invoices_sample.csv" })
+    merchant = se.merchants.find_by_id(12334105)
+
+    assert_equal true, merchant.customers.is_a?(Array)
+    assert_equal 1, merchant.customers.length
+    assert_equal "Casimer", merchant.customers[0].first_name
   end
 
 end

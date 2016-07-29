@@ -16,10 +16,15 @@ class SalesEngine
 
   extend Forwardable
   def_delegator :@items, :find_all_by_merchant_id, :find_items
+  def_delegator :@items, :find_by_id, :find_item
   def_delegator :@merchants, :find_by_id, :find_merchant
   def_delegator :@invoices, :find_all_by_merchant_id, :find_invoices
+  def_delegator :@invoices, :find_by_id, :find_invoice
+  def_delegator :@invoices, :return_all_customers_for_merchant, :find_customers
+  def_delegator :@invoices, :return_all_merchants_for_customer, :find_merchants
   def_delegator :@transactions, :find_all_by_invoice_id, :find_transactions
   def_delegator :@customers, :find_by_id, :find_customer
+  def_delegator :@invoice_items, :return_all_items_in_invoice, :find_items_from_invoice
 
   def initialize(list_of_paths)
     @list_of_paths = list_of_paths

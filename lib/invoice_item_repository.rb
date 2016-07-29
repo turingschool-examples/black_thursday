@@ -3,6 +3,9 @@ class InvoiceItemRepository
   attr_reader :list_of_invoice_items,
               :parent_engine
 
+  extend Forwardable
+  def_delegators :@parent_engine, :find_item
+
 
   def initialize(invoice_items_data, parent_engine)
     @parent_engine = parent_engine
@@ -37,5 +40,10 @@ class InvoiceItemRepository
     end
   end
 
+  def return_all_items_in_invoice(invoice_id)
+    find_all_by_invoice_id(invoice_id).map do |invoice_item|
+      invoice_item.item
+    end.reject { |elem| elem.nil? }
+  end
 
 end

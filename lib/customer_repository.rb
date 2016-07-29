@@ -3,6 +3,9 @@ require_relative '../lib/customer'
 class CustomerRepository
   attr_reader :list_of_customers
 
+  extend Forwardable
+  def_delegators :@parent_engine, :find_merchants
+
   def initialize(customers_data, parent_engine)
     @parent_engine = parent_engine
     @list_of_customers = populate_customers(customers_data)

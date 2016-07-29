@@ -6,7 +6,8 @@ class Invoice
               :merchant_id,
               :status,
               :created_at,
-              :updated_at
+              :updated_at,
+              :parent_repo
 
   def initialize(datum, parent_repo = nil)
     @id = datum[:id].to_i
@@ -19,15 +20,19 @@ class Invoice
   end
 
   def merchant
-    @parent_repo.find_merchant(merchant_id)
+    parent_repo.find_merchant(merchant_id)
   end
 
   def transactions
-    @parent_repo.find_transactions(id)
+    parent_repo.find_transactions(id)
   end
 
   def customer
-    @parent_repo.find_customer(customer_id)
+    parent_repo.find_customer(customer_id)
+  end
+
+  def items
+    parent_repo.find_items_from_invoice(id)
   end
 
 end

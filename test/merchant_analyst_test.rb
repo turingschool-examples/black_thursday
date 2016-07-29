@@ -81,14 +81,14 @@ class MerchantAnalystTest < Minitest::Test
   end
 
   def test_average_average_returns_nil_with_no_merchants
-    se = SalesEngine.from_csv({ items: "./test/samples/item_sample.csv", merchants: "./data/empty_file.csv" })
+    se = SalesEngine.from_csv({ items: "./test/samples/item_sample.csv", merchants: "./test/samples/empty_file.csv" })
     ma = SalesAnalyst.new(se).merchant_analyst
 
     assert_equal nil, ma.average_average_price_per_merchant
   end
 
   def test_average_average_returns_nil_with_no_items
-    se = SalesEngine.from_csv({ items: "./data/empty_file.csv", merchants: "./test/samples/merchants_sample.csv" })
+    se = SalesEngine.from_csv({ items: "./test/samples/empty_file.csv", merchants: "./test/samples/merchants_sample.csv" })
     ma = SalesAnalyst.new(se).merchant_analyst
 
     assert_equal nil, ma.average_average_price_per_merchant

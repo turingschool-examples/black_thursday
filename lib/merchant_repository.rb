@@ -4,7 +4,7 @@ class MerchantRepository
               :parent_engine
 
   extend Forwardable
-  def_delegators :@parent_engine, :find_items, :find_invoices
+  def_delegators :@parent_engine, :find_items, :find_invoices, :find_customers
 
   def initialize(merchants_data, parent_engine)
     @parent_engine = parent_engine
