@@ -3,6 +3,9 @@ require_relative '../lib/transaction'
 class TransactionRepository
   attr_reader :list_of_transactions
 
+  extend Forwardable
+  def_delegators :@parent_engine, :find_invoice
+
   def initialize(transactions_data, parent_engine)
     @parent_engine = parent_engine
     @list_of_transactions = populate_transactions(transactions_data)
@@ -40,6 +43,10 @@ class TransactionRepository
     @list_of_transactions.find_all do |transaction|
       transaction.result == result_to_find
     end
+  end
+
+  # just for the spec harness
+  def inspect
   end
 
 end

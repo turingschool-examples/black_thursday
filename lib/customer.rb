@@ -3,7 +3,8 @@ class Customer
               :first_name,
               :last_name,
               :created_at,
-              :updated_at
+              :updated_at,
+              :parent_repo
 
   def initialize(datum, parent_repo = nil)
     @id = datum[:id].to_i
@@ -14,4 +15,8 @@ class Customer
     @parent_repo = parent_repo
   end
 
+  def merchants
+    parent_repo.find_merchants(id)
+  end
+  
 end

@@ -3,6 +3,9 @@ require_relative '../lib/customer'
 class CustomerRepository
   attr_reader :list_of_customers
 
+  extend Forwardable
+  def_delegators :@parent_engine, :find_merchants
+
   def initialize(customers_data, parent_engine)
     @parent_engine = parent_engine
     @list_of_customers = populate_customers(customers_data)
@@ -34,6 +37,10 @@ class CustomerRepository
     list_of_customers.find_all do |customer|
       customer.last_name.downcase.include?(name_fragment_to_find.downcase)
     end
+  end
+
+  # just for the spec harness
+  def inspect
   end
 
 end

@@ -40,9 +40,35 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_an_invoice_points_to_its_merchant
-    se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv", invoices: "./data/invoices_sample.csv" })
+    se = SalesEngine.from_csv({ items: "./test/samples/item_sample.csv", merchants: "./test/samples/merchants_sample.csv", invoices: "./test/samples/invoices_sample.csv" })
     invoice = se.invoices.find_by_id(100)
 
     assert_equal 12334266, invoice.merchant.id
+  end
+
+  def test_an_invoice_points_to_its_transactions
+    se = SalesEngine.from_csv({ invoices: "./test/samples/invoices_sample.csv", transactions: "./test/samples/transactions_sample.csv"})
+    invoice = se.invoices.find_by_id(46)
+
+    assert_equal true, invoice.transactions.is_a?(Array)
+    assert_equal 1, invoice.transactions.length
+    assert_equal 2, invoice.transactions[0].id
+  end
+
+  def test_an_invoice_points_to_its_customer
+    se = SalesEngine.from_csv({ invoices: "./test/samples/invoices_sample.csv", customers: "./test/samples/customers_sample.csv"})
+    invoice = se.invoices.find_by_id(17)
+
+    assert_equal true, invoice.customer.is_a?(Customer)
+    assert_equal "Sylvester", invoice.customer.first_name
+  end
+
+  def test_an_invoice_points_to_its_items
+    se = SalesEngine.from_csv({ invoices: "./test/samples/invoices_sample.csv", invoice_items: "./test/samples/invoice_items_sample.csv", items: "./test/samples/item_sample.csv"})
+    invoice = se.invoices.find_by_id(3)
+
+    assert_equal true, invoice.items.is_a?(Array)
+    assert_equal 1, invoice.items.length
+    assert_equal "510+ RealPush Icon Set", invoice.items[0].name
   end
 end

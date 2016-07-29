@@ -5,7 +5,11 @@ class InvoiceRepository
               :parent_engine
 
   extend Forwardable
-  def_delegators :@parent_engine, :find_merchant
+  def_delegators :@parent_engine, :find_merchant,
+                                  :find_transactions,
+                                  :find_customer,
+                                  :find_items_from_invoice
+
 
   def initialize(invoices_data, parent_engine)
     @parent_engine = parent_engine
@@ -23,27 +27,39 @@ class InvoiceRepository
   end
 
   def find_by_id(id_to_find)
-    @list_of_invoices.find do |invoice|
+    list_of_invoices.find do |invoice|
       invoice.id == id_to_find
     end
   end
 
   def find_all_by_customer_id(customer_id_to_find)
-    @list_of_invoices.find_all do |invoice|
+    list_of_invoices.find_all do |invoice|
       invoice.customer_id == customer_id_to_find
     end
   end
 
   def find_all_by_merchant_id(merchant_id_to_find)
-    @list_of_invoices.find_all do |invoice|
+    list_of_invoices.find_all do |invoice|
       invoice.merchant_id == merchant_id_to_find
     end
   end
 
   def find_all_by_status(status_to_find)
-    @list_of_invoices.find_all do |invoice|
+    list_of_invoices.find_all do |invoice|
       invoice.status == status_to_find
     end
+  end
+
+  def return_all_customers_for_merchant(merchant_id)
+    find_all_by_merchant_id(merchant_id).map do |invoice|
+      invoice.customer
+    end.compact.uniq
+  end
+
+  def return_all_merchants_for_customer(customer_id)
+    find_all_by_customer_id(customer_id).map do |invoice|
+      invoice.merchant
+    end.compact.uniq
   end
 
 #just for the spec harness

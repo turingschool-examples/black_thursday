@@ -11,11 +11,15 @@ class Merchant
   end
 
   def items
-    parent_repo.find_items(@id)
+    parent_repo.find_items(id)
   end
 
   def invoices
-    parent_repo.find_invoices(@id)
+    parent_repo.find_invoices(id)
+  end
+
+  def customers
+    parent_repo.find_customers(id)
   end
 
 end

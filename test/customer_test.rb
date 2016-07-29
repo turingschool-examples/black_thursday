@@ -33,4 +33,14 @@ class CustomerTest < Minitest::Test
     assert_equal Time.new(1970, 04, 01, 12, 45, 13, "-00:00"), customer.updated_at
   end
 
+  def test_that_a_customer_points_to_its_merchants
+    se = SalesEngine.from_csv({ merchants: "./test/samples/merchants_sample.csv", customers: "./test/samples/customers_sample.csv", invoices: "./test/samples/invoices_sample.csv" })
+    customer = se.customers.find_by_id(14)
+
+    assert_equal true, customer.merchants.is_a?(Array)
+    assert_equal 2, customer.merchants.length
+    assert_equal "Shopin1901", customer.merchants[0].name
+  end
+
+
 end
