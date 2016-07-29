@@ -34,21 +34,21 @@ attr_reader :all
     end
   end
 
-  def find_all_by_description(description_fragment)
+  def find_all_with_description(description_fragment)
     @all.find_all do |instance|
-      instance.description.include?(description_fragment.to_s)
+      instance.description.downcase.include?(description_fragment.to_s.downcase)
     end
   end
 
   def find_all_by_price(price)
     @all.find_all do |instance|
-      instance.unit_price.to_i == BigDecimal.new(price).to_i
+      instance.unit_price == (price)
     end
   end
 
   def find_all_by_price_in_range(range)
     @all.find_all do |instance|
-      range.to_a.include?(instance.unit_price.to_i)
+      instance if range.min <= (instance.unit_price_to_dollars) && range.max >= (instance.unit_price_to_dollars)
     end
   end
 
@@ -56,5 +56,8 @@ attr_reader :all
     @all.find_all do |instance|
       instance.merchant_id == merchant_id_input.to_i
     end
+  end
+
+  def inspect
   end
 end

@@ -1,4 +1,3 @@
-require_relative "../lib/sales_engine"
 require_relative "../lib/merchant"
 require "csv"
 require 'pry'
@@ -40,6 +39,9 @@ attr_reader :all
     @all.find_all do |instance|
       instance.name.downcase.include?(name_fragment.to_s.downcase)
     end
+  end
+
+  def inspect
   end
 
 

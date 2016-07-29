@@ -7,7 +7,7 @@ require 'csv'
 
 class ItemRepositoryTest < MiniTest::Test
   attr_reader :item_repository
-  
+
   def setup
     @item_repository = ItemRepository.new("./data/items.csv")
   end
@@ -38,23 +38,24 @@ class ItemRepositoryTest < MiniTest::Test
   end
 
   def test_it_finds_all_with_description
-    assert_equal [], item_repository.find_all_by_description("Mike Dao is HILARIOUS")
-    assert_instance_of Item, item_repository.find_all_by_description("Disney glitter frames").first
-    assert_equal 263395721, item_repository.find_all_by_description("Disney glitter frames").first.id
-    assert_equal 2, item_repository.find_all_by_description("frames").length
+    assert_equal [], item_repository.find_all_with_description("Mike Dao is HILARIOUS")
+    assert_instance_of Item, item_repository.find_all_with_description("Disney glitter frames").first
+    assert_equal 263395721, item_repository.find_all_with_description("Disney glitter frames").first.id
+    assert_equal 2, item_repository.find_all_with_description("frames").length
   end
 
   def test_it_finds_by_price
-    assert_equal [], item_repository.find_all_by_price(8474384)
-    assert_instance_of Item, item_repository.find_all_by_price(1350).first
-    assert_equal "Disney scrabble frames", item_repository.find_all_by_price(1350).first.name
-    assert_equal 2, item_repository.find_all_by_price(1350).length
+    assert_equal [], item_repository.find_all_by_price(4895743895)
+    assert_instance_of Item, item_repository.find_all_by_price(13.50).first
+    assert_equal "Disney scrabble frames", item_repository.find_all_by_price(13.50).first.name
+    assert_equal 2, item_repository.find_all_by_price(13.50).length
   end
 
   def test_it_returns_empty_array_when_it_find_nothing_in_a_price_range
-    assert_equal  [], item_repository.find_all_by_price_in_range(Range.new(1,4))
-    assert_instance_of Item, item_repository.find_all_by_price_in_range(Range.new(300,700)).first
-    assert_equal  2, item_repository.find_all_by_price_in_range(Range.new(300,700)).length
+    assert_equal  [], item_repository.find_all_by_price_in_range(1.00..4.00)
+    assert_instance_of Item, item_repository.find_all_by_price_in_range(300..700).first
+    assert_equal  1, item_repository.find_all_by_price_in_range(300.00..700.00).length
+    assert_equal 1, item_repository.find_all_by_price_in_range(300..700).length
   end
 
   def test_it_finds_all_by_merchant_id_is_invalid
