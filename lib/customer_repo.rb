@@ -3,8 +3,6 @@ require_relative "../lib/customer"
 
 class CustomerRepo
 
-    attr_reader :customer_objects
-
   def initialize
     @customer_objects = []
   end

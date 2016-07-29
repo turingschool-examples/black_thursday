@@ -3,7 +3,7 @@ require "./lib/customer_repo"
 
 class CustomerRepoTest < Minitest::Test
 
-  def test_what_happens
+  def test_gets_back_an_array
     filepath = "./data/support/customer_support.csv"
     customer_repo = CustomerRepo.new
     assert_equal Array, customer_repo.from_csv(filepath).class
