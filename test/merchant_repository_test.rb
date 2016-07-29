@@ -1,16 +1,16 @@
 require './test/test_helper'
 require './lib/merchant_repository'
-require './lib/merchant'
+# require './lib/merchant'
 require 'csv'
 
 class MerchantRepositoryTest < Minitest::Test
   attr_reader :mr
 
   def setup
-    items_file = CSV.open("./test/fixtures/merchants_fixture.csv",
+    fixture = CSV.open('./test/fixtures/merchants_fixture.csv',
                           headers: true,
                           header_converters: :symbol)
-    csv_rows = items_file.to_a
+    csv_rows = fixture.to_a
     @mr = MerchantRepository.new(csv_rows)
   end
 
