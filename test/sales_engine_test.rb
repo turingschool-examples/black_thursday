@@ -16,6 +16,16 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of MerchantRepository, se.merchants
   end
 
+  def test_finds_merchant_by_merchant_id
+    merchant = se.merchants.find_by_id(1000)
+    assert_equal merchant, se.find_merchant_by_id(1000)
+  end
+
+  def test_finds_all_items_by_merchant_id
+    items = se.items.find_all_by_merchant_id(1000)
+    assert_equal items, se.find_all_items_by_merchant_id(1000)
+  end
+
   def test_merchant_accesses_items
     merchant = se.merchants.find_by_id(1000)
     merchants_items = se.find_all_items_by_merchant_id(1000)
@@ -26,15 +36,5 @@ class SalesEngineTest < Minitest::Test
     item = se.items.find_by_id(1)
     items_merchant = se.find_merchant_by_id(1000)
     assert_equal items_merchant, item.merchant
-  end
-
-  def test_finds_merchant_by_merchant_id
-    merchant = se.merchants.find_by_id(1000)
-    assert_equal merchant, se.find_merchant_by_id(1000)
-  end
-
-  def test_finds_all_items_by_merchant_id
-    items = se.items.find_all_by_merchant_id(1000)
-    assert_equal items, se.find_all_items_by_merchant_id(1000)
   end
 end

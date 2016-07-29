@@ -1,8 +1,5 @@
-# require './lib/item_repository'
-# require './lib/merchant_repository'
 require_relative 'item_repository'
 require_relative 'merchant_repository'
-
 require 'csv'
 
 class SalesEngine
