@@ -72,6 +72,10 @@ class ItemRepository
   end
 
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    # "#<#{self.class} #{@merchants.size} rows>"
   end
+
+  # def items_by_merchant_id(merchant_id)
+  #   @sales_engine_parent.items(merchant_id)
+  # end
 end

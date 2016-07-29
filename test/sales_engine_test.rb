@@ -41,4 +41,18 @@ class SalesEngineTest < Minitest::Test
     assert_equal "Glitter scrabble frames", item.name
     assert_equal 263395617,               item.id
   end
+
+  def test_it_returns_items_based_on_merchant_id
+    merchants = setup
+    # assert_instance_of Item, merc
+
+    se = SalesEngine.from_csv({ :items     => "./data/items.csv",
+                                :merchants => "./data/merchants.csv" })
+    # merchant = se.merchants.find_by_id(12337411)
+    # assert_equal 0, merchant.items
+    # => [<item>, <item>, <item>]
+    item = se.items.find_by_id(263397059).name
+    assert_equal "Etre ailleurs", item
+    # => <merchant>at
+  end
 end
