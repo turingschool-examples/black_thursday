@@ -6,17 +6,17 @@ require "./lib/item_repo"
 require "./lib/sales_engine"
 
 class ItemTest < Minitest::Test
- #  def setup
- #    @item = Item.new({  id: 1,
- #      name: "Pencil",
- #      description: "You can use it to write things",
- #      unit_price: "1099",
- #      created_at: "2016-07-26 13:59:43 -0600",
- #      updated_at: "2016-07-26 13:59:43 -0600",
- #      merchant_id: 1
- # },
- #    ItemRepo.new("./data/items.csv", SalesEngine.new({merchant: "./data/support/merchant_support.csv", items: "./data/items.csv", invoice: "./data/support/invoice_support.csv"})))
- #  end
+  def setup
+    @item = Item.new({  id: 1,
+      name: "Pencil",
+      description: "You can use it to write things",
+      unit_price: "1099",
+      created_at: "2016-07-26 13:59:43 -0600",
+      updated_at: "2016-07-26 13:59:43 -0600",
+      merchant_id: 1
+ },
+    ItemRepo.new("./data/items.csv", SalesEngine.new({merchant: "./data/support/merchant_support.csv", items: "./data/items.csv", invoice: "./data/support/invoice_support.csv"})))
+  end
 
   def test_gives_its_id
     assert_equal 1, @item.id
@@ -31,7 +31,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_gives_its_price
-    assert_equal BigDecimal.new(1099,4), @item.unit_price
+    assert_equal BigDecimal.new(10.99,4), @item.unit_price
   end
 
   def test_gives_price_as_dollars
@@ -46,7 +46,6 @@ class ItemTest < Minitest::Test
   end
 
   def test_gives_time_created
-
     time = "2016-01-11 09:34:06 UTC"
     item = Item.new({  id: '1',
       name: "Pencil",
@@ -59,8 +58,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_gives_time_updated
-    skip
-    time = Time.now
+    time = "2016-01-11 09:34:06 UTC"
     item = Item.new({  id: 1,
       name: "Pencil",
       description: "You can use it to write things",
@@ -68,7 +66,7 @@ class ItemTest < Minitest::Test
       created_at: time,
       updated_at: time,
       merchant_id: 1})
-      assert_equal time, item.updated_at
+      assert_equal item.convert_string_to_time(time), item.updated_at
   end
 
   def test_gives_owners_merchant_id
