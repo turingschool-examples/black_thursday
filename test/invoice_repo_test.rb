@@ -10,11 +10,11 @@ class InvoiceRepoTest < Minitest::Test
                     :status => "shipped",
                     :created_at => Time.now,
                     :updated_at => Time.now})
-                    
+
     assert_equal 1, ir.all.count
     assert_equal "shipped", ir.all.first.status
   end
-  
+
   def test_find_by_id
     ir = InvoiceRepo.new
     ir.add_invoice({:id => 25,
@@ -42,7 +42,7 @@ class InvoiceRepoTest < Minitest::Test
                     :merchant_id => 23})
     assert_equal nil, ir.find_by_id(0)
   end
-  
+
   def test_find_by_customer_id
     ir = InvoiceRepo.new
     ir.add_invoice({:id => 25,
@@ -57,7 +57,7 @@ class InvoiceRepoTest < Minitest::Test
     assert_equal [], ir.find_all_by_customer_id(0)
     assert_equal 1, ir.find_all_by_customer_id(405).count
   end
-  
+
   def test_find_all_by_merchant_id
     ir = InvoiceRepo.new
     ir.add_invoice({:id => 100,
@@ -72,7 +72,7 @@ class InvoiceRepoTest < Minitest::Test
     assert_equal [], ir.find_all_by_merchant_id(0)
     assert_equal 2, ir.find_all_by_merchant_id(300).count
   end
-  
+
   def test_find_all_by_status
     ir = InvoiceRepo.new
     ir.add_invoice({:id => 100,
@@ -91,6 +91,14 @@ class InvoiceRepoTest < Minitest::Test
                     :status => "shipped"})
     assert_equal [], ir.find_all_by_status("no pay")
     assert_equal 2, ir.find_all_by_status("shipped").count
+  end
+
+  def test_it_can_ask_engine_for_invoice_merchant
+    mock_se = Minitest::Mock.new
+    ir = InvoiceRepo.new(mock_se)
+    mock_se.expect(:find_merchant_by_merchant_id, nil, [1])
+    ir.find_merchant_by_merchant_id(1)
+    assert mock_se.verify
   end
 
 end

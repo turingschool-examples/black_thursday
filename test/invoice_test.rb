@@ -26,4 +26,20 @@ class InvoiceTest < Minitest::Test
     assert_equal "pending", invoice.status
     assert_equal 0, invoice.customer_id
   end
+
+  def test_it_has_a_parent_reached_by_merchant_method
+    mock_ir = Minitest::Mock.new
+    invoice = Invoice.new({
+      :id => 7,
+      :customer_id => 5,
+      :merchant_id => 1,
+      :status => "shipped",
+      :created_at => Time.now,
+      :updated_at => Time.now
+      }, mock_ir)
+    mock_ir.expect(:find_merchant_by_merchant_id, nil, [1])
+    invoice.merchant
+    assert mock_ir.verify
+  end
+
 end
