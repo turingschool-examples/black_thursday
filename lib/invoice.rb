@@ -22,4 +22,12 @@ class Invoice
     @parent_repo.find_merchant(merchant_id)
   end
 
+  def transactions
+    @parent_repo.find_transactions(id)
+  end
+
+  def customer
+    @parent_repo.find_customer(customer_id)
+  end
+
 end

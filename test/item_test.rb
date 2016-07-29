@@ -56,7 +56,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_that_an_item_points_to_its_merchant
-    se = SalesEngine.from_csv({ items: "./data/item_sample.csv", merchants: "./data/merchants_sample.csv" })
+    se = SalesEngine.from_csv({ items: "./test/samples/item_sample.csv", merchants: "./test/samples/merchants_sample.csv" })
     item = se.items.find_by_id(263395617)
 
     assert_equal "Madewithgitterxx", item.merchant.name
