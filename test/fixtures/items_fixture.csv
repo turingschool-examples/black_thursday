@@ -2,3 +2,5 @@ id,name,description,unit_price,merchant_id,created_at,updated_at
 1,name a,description a,100,1000,2015-01-01 01:00:00 UTC,2016-01-01 01:00:00 UTC
 2,name b,description b,199,1001,2015-01-01 01:00:01 UTC,2016-01-01 01:00:01 UTC
 3,name c,description c,199,1001,2015-01-01 01:00:02 UTC,2016-01-01 01:00:02 UTC
+4,name d,description d,399,1001,2015-01-01 01:00:01 UTC,2016-01-01 01:00:01 UTC
+5,name e,description e,499,1003,2015-01-01 01:00:02 UTC,2016-01-01 01:00:02 UTC

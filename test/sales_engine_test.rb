@@ -37,4 +37,10 @@ class SalesEngineTest < Minitest::Test
     items_merchant = se.find_merchant_by_id(1000)
     assert_equal items_merchant, item.merchant
   end
+
+  def test_method_total_merchants_returns_fixnum
+    assert_equal se.merchants.all.length, se.total_merchants
+  end
+
+  
 end

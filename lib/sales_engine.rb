@@ -28,4 +28,10 @@ class SalesEngine
   def find_all_items_by_merchant_id(m_id)
     items.find_all_by_merchant_id(m_id)
   end
+
+  def total_merchants
+    merchants.all.length
+  end
+
+  
 end
