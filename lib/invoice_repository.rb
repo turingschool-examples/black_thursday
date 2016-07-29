@@ -53,13 +53,13 @@ class InvoiceRepository
   def return_all_customers_for_merchant(merchant_id)
     find_all_by_merchant_id(merchant_id).map do |invoice|
       invoice.customer
-    end.reject { |elem| elem.nil? }
+    end.compact.uniq
   end
 
   def return_all_merchants_for_customer(customer_id)
     find_all_by_customer_id(customer_id).map do |invoice|
       invoice.merchant
-    end.reject { |elem| elem.nil? }
+    end.compact.uniq
   end
 
 #just for the spec harness

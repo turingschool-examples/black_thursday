@@ -43,7 +43,11 @@ class InvoiceItemRepository
   def return_all_items_in_invoice(invoice_id)
     find_all_by_invoice_id(invoice_id).map do |invoice_item|
       invoice_item.item
-    end.reject { |elem| elem.nil? }
+    end.compact
+  end
+
+  # just for the spec harness
+  def inspect
   end
 
 end

@@ -49,14 +49,14 @@ class TransactionRepositoryTest < Minitest::Test
     se = SalesEngine.from_csv({ transactions: "./test/samples/transactions_sample.csv" })
     tr = se.transactions
 
-    assert_equal [], tr.find_all_by_credit_card_number("9999999999999999")
+    assert_equal [], tr.find_all_by_credit_card_number(9999999999999999)
   end
 
   def test_that_find_all_by_credit_card_number_returns_an_array_of_proper_length
     se = SalesEngine.from_csv({ transactions: "./test/samples/transactions_sample.csv" })
     tr = se.transactions
 
-    assert_equal 3, tr.find_all_by_credit_card_number("4068631943231473").length
+    assert_equal 3, tr.find_all_by_credit_card_number(4068631943231473).length
   end
 
   def test_that_find_all_by_result_returns_an_array
