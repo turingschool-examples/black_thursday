@@ -10,12 +10,20 @@ class InvoiceItem
     @invoice_id = data[:invoice_id].to_i
     @quantity = data[:quantity].to_i
     @unit_price = BigDecimal.new(data[:unit_price].to_f/100,4)
-    @created_at = Time.strptime(data[:created_at], "%Y-%m-%d %H:%M:%S %z") || Time.strptime(data[:created_at], "%Y-%m-%d")
-    @updated_at = Time.strptime(data[:updated_at], "%Y-%m-%d %H:%M:%S %z") || Time.strptime(data[:created_at], "%Y-%m-%d")
+    @created_at = time_formatter(data[:created_at])
+    @updated_at = time_formatter(data[:updated_at])
   end
 
   def unit_price_to_dollars
     @unit_price.to_f
+  end
+
+  def time_formatter(date_time)
+    if date_time.include?(":")
+      Time.strptime(date_time, "%Y-%m-%d %H:%M:%S %z")
+    else
+      Time.strptime(date_time, "%Y-%m-%d")
+    end
   end
 
 end
