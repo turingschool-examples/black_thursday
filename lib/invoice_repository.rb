@@ -8,7 +8,7 @@ class InvoiceRepository
   def_delegators :@parent_engine, :find_merchant,
                                   :find_transactions,
                                   :find_customer,
-                                  :find_items_from_invoice
+                                  :find_invoice_items
 
 
   def initialize(invoices_data, parent_engine)
@@ -33,15 +33,19 @@ class InvoiceRepository
   end
 
   def find_all_by_customer_id(customer_id_to_find)
-    list_of_invoices.find_all do |invoice|
+    all_invoices_for_customer = list_of_invoices.find_all do |invoice|
       invoice.customer_id == customer_id_to_find
     end
+    yield(all_invoices_for_customer) if block_given?
+    all_invoices_for_customer
   end
 
   def find_all_by_merchant_id(merchant_id_to_find)
-    list_of_invoices.find_all do |invoice|
+    all_invoices_for_merchant = list_of_invoices.find_all do |invoice|
       invoice.merchant_id == merchant_id_to_find
     end
+    yield(all_invoices_for_merchant) if block_given?
+    all_invoices_for_merchant
   end
 
   def find_all_by_status(status_to_find)
@@ -50,17 +54,11 @@ class InvoiceRepository
     end
   end
 
-  def return_all_customers_for_merchant(merchant_id)
-    find_all_by_merchant_id(merchant_id).map do |invoice|
-      invoice.customer
-    end.compact.uniq
-  end
-
-  def return_all_merchants_for_customer(customer_id)
-    find_all_by_customer_id(customer_id).map do |invoice|
-      invoice.merchant
-    end.compact.uniq
-  end
+  # def return_all_customers_for_merchant(merchant_id)
+  #   find_all_by_merchant_id(merchant_id).map do |invoice|
+  #     invoice.customer
+  #   end.compact.uniq
+  # end
 
 #just for the spec harness
   def inspect

@@ -19,7 +19,11 @@ class Merchant
   end
 
   def customers
-    parent_repo.find_customers(id)
+    parent_repo.find_customers(id) do |invoices|
+      return invoices.map do |invoice|
+        invoice.customer
+      end.compact.uniq
+    end
   end
 
 end

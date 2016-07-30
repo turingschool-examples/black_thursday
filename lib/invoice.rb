@@ -32,7 +32,11 @@ class Invoice
   end
 
   def items
-    parent_repo.find_items_from_invoice(id)
+    parent_repo.find_invoice_items(id) do |invoice_items|
+      return invoice_items.map do |invoice_item|
+        invoice_item.item
+      end.compact.uniq
+    end
   end
 
 end
