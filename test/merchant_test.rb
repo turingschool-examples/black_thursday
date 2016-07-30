@@ -34,7 +34,22 @@ class MerchantsRepoTest < Minitest::Test
       })
     se.items
     merch = Merchant.new({:created_at => "2006-08-07", :id => "12334347", :name => "EkaterinaPa", :updated_at =>"2015-10-11"}, se.merchants)
-    assert_equal 2, merch.items.count 
+    assert_equal 2, merch.items.count
   end
 
+  def test_it_has_invoices
+    mock_mr = Minitest::Mock.new
+    mock_mr.expect(:find_all_invoices_by_merchant_id, ["invoice"],[12334347])
+    merch = Merchant.new({id: "12334347", name: "EkaterinaPa", created_at: "2006-08-07", updated_at: "2006-08-07"}, mock_mr)
+    assert_equal 1, merch.invoices.count
+    assert mock_mr.verify
+  end
+
+  def test_it_has_customers
+    mock_mr = Minitest::Mock.new
+    mock_mr.expect(:find_all_customers_by_merchant_id, ["customers!"], [12334347])
+    merch = Merchant.new({id: "12334347", name: "EkaterinaPa", created_at: "2006-08-07", updated_at: "2006-08-07"}, mock_mr)
+    assert_equal 1, merch.customers.count
+    assert mock_mr.verify
+  end
 end

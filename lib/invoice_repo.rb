@@ -43,4 +43,19 @@ class InvoiceRepo
     @parent.find_merchant_by_id(merchant_id)
   end
 
+  def find_all_items_by_invoice_id(invoice_id)
+    @parent.find_all_items_by_invoice_id(invoice_id)
+  end
+
+  def find_all_invoice_items_by_invoice_id(invoice_id)
+    @parent.find_all_invoice_items_by_invoice_id(invoice_id)
+  end
+
+  def find_all_transactions_by_invoice_id(invoice_id)
+    @parent.find_all_transactions_by_invoice_id(invoice_id)
+  end
+
+  def find_customer_by_id(customer_id)
+    @parent.find_customer_by_id(customer_id)
+  end
 end
