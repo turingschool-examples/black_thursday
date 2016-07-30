@@ -41,7 +41,6 @@ class TransactionRepoTest < Minitest::Test
     filepath = "./data/support/transactions_support.csv"
     transaction_repo = TransactionRepo.new(filepath)
     # transaction_repo.from_csv(filepath)
-    binding.pry
     assert_equal 1, transaction_repo.find_all_by_credit_card_number(4881883704910845).count
   end
 
