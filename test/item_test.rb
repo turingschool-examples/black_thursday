@@ -1,6 +1,5 @@
 require './test/test_helper'
 require './lib/item'
-require 'bigdecimal'
 
 class ItemTest < Minitest::Test
   attr_reader :item1,
@@ -42,9 +41,9 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_finds_an_item_id
-    assert_equal "263395617", item1.id
-    assert_equal "263396279", item2.id
-    assert_equal "263397059", item3.id
+    assert_equal 263395617, item1.id
+    assert_equal 263396279, item2.id
+    assert_equal 263397059, item3.id
   end
 
   def test_it_finds_an_item_name
@@ -66,26 +65,26 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_finds_when_an_item_was_created
-    assert_equal "2016-01-11 11:51:37 UTC", item1.created_at
-    assert_equal "2016-01-11 10:06:10 UTC", item2.created_at
-    assert_equal "2016-01-11 11:30:35 UTC", item3.created_at
+    assert_equal Time.parse("2016-01-11 11:51:37 UTC"), item1.created_at
+    assert_equal Time.parse("2016-01-11 10:06:10 UTC"), item2.created_at
+    assert_equal Time.parse("2016-01-11 11:30:35 UTC"), item3.created_at
   end
 
   def test_it_finds_when_an_item_was_updated
-    assert_equal "1993-09-29 11:56:40 UTC", item1.updated_at
-    assert_equal "1995-03-08 17:49:21 UTC", item2.updated_at
-    assert_equal "2007-07-24 05:54:52 UTC", item3.updated_at
+    assert_equal Time.parse("1993-09-29 11:56:40 UTC"), item1.updated_at
+    assert_equal Time.parse("1995-03-08 17:49:21 UTC"), item2.updated_at
+    assert_equal Time.parse("2007-07-24 05:54:52 UTC"), item3.updated_at
   end
 
   def test_it_finds_an_item_related_merchant_id
-    assert_equal "12334185", item1.merchant_id
-    assert_equal "12334213", item2.merchant_id
-    assert_equal "12334195", item3.merchant_id
+    assert_equal 12334185, item1.merchant_id
+    assert_equal 12334213, item2.merchant_id
+    assert_equal 12334195, item3.merchant_id
   end
 
   def test_it_converts_an_item_price_to_dollars
-    assert_equal 13.0,  item1.convert_price(1300)
-    assert_equal 14.9,  item2.convert_price(1490)
-    assert_equal 130.0, item3.convert_price(13000)
+    assert_equal 13,  item1.unit_price_to_dollars
+    assert_equal 14.9,  item2.unit_price_to_dollars
+    assert_equal 130, item3.unit_price_to_dollars
   end
 end

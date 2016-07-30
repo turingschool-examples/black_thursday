@@ -1,15 +1,12 @@
 require './test/test_helper'
 require './lib/merchant_repository'
-require 'csv'
+require './lib/file_extractor'
 
 class MerchantRepositoryTest < Minitest::Test
-  attr_reader :merchants,
-              :mr
+  attr_reader :mr
 
   def setup
-    @merchants = CSV.read("./data/merchants_sample.csv", headers: true,
-    header_converters: :symbol)
-    @mr = MerchantRepository.new(merchants)
+    @mr = MerchantRepository.new("./test/fixtures/merchants_sample.csv")
   end
 
   def test_it_exists
@@ -17,15 +14,16 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_formats_merchant_info
+    merchants_data = FileExtractor.extract_data("./test/fixtures/merchants_sample.csv")
+
     result = {:id=>"12334105", :name=>"Shopin1901"}
-    assert_equal result, mr.format_merchant_info(merchants[0])
+    assert_equal result, mr.format_merchant_info(merchants_data[0])
 
     result = {:id=>"12334145", :name=>"BowlsByChris"}
-    assert_equal result, mr.format_merchant_info(merchants[9])
+    assert_equal result, mr.format_merchant_info(merchants_data[9])
 
     result = {:id=>"12334132", :name=>"perlesemoi"}
-    require "pry"; binding.pry
-    assert_equal result, mr.format_merchant_info(merchants[5])
+    assert_equal result, mr.format_merchant_info(merchants_data[5])
   end
 
   def test_it_populates_repository_with_the_correct_amount_of_sample_merchants
@@ -33,7 +31,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_returns_a_merchant_from_repository
-    assert_instance_of Merchant, mr.merchants[merchants[0][:id]]
+    assert_instance_of Merchant, mr.merchants[12334132]
   end
 
   def test_it_returns_a_full_list_of_merchants_based_on_sample_size
@@ -43,9 +41,9 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_finds_the_merchant_by_id
-    assert_instance_of Merchant, mr.find_by_id("12334105")
-    assert_instance_of Merchant, mr.find_by_id("12334135")
-    assert_equal nil,            mr.find_by_id("1234567")
+    assert_instance_of Merchant, mr.find_by_id(12334105)
+    assert_instance_of Merchant, mr.find_by_id(12334135)
+    assert_equal nil,            mr.find_by_id(1234567)
   end
 
   def test_it_finds_the_merchant_by_name
