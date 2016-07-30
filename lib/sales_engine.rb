@@ -41,7 +41,7 @@ class SalesEngine
       add_items(csv_path_info[:items])
     end
     if csv_path_info[:invoices]
-      add_items(csv_path_info[:invoices])
+      add_invoices(csv_path_info[:invoices])
     end
   end
 

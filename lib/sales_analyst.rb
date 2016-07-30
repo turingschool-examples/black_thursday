@@ -51,10 +51,45 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    high_item_count = average_items_per_merchant + average_items_per_merchant_standard_deviation
+    cutoff = average_items_per_merchant + average_items_per_merchant_standard_deviation
     @sales_engine.all_merchants.find_all do |merchant|
-      merchant.items.count > high_item_count
+      merchant.items.count > cutoff
     end
+  end
+
+  def average_invoices_per_merchant
+    invoice_counts = get_merchant_invoice_counts(@sales_engine.all_merchants)
+    mean(invoice_counts).round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    invoice_counts = get_merchant_invoice_counts(@sales_engine.all_merchants)
+    standard_deviation(invoice_counts).round(2)
+  end
+
+  def top_merchants_by_invoice_count(num_of_std = 2)
+    cutoff = average_invoices_per_merchant +
+     num_of_std * average_invoices_per_merchant_standard_deviation
+    @sales_engine.all_merchants.find_all do |merchant|
+      merchant.invoices.count > cutoff
+    end
+  end
+
+  def bottom_merchants_by_invoice_count(num_of_std = 2)
+    cutoff = average_invoices_per_merchant -
+     num_of_std * average_invoices_per_merchant_standard_deviation
+    @sales_engine.all_merchants.find_all do |merchant|
+      merchant.invoices.count < cutoff
+    end
+  end
+
+  def invoice_status(status)
+    invoices = @sales_engine.all_invoices
+    sought_invoices = invoices.find_all do |invoice|
+      invoice.status == status.to_s
+    end
+    fraction = sought_invoices.count.to_f / invoices.count
+    (fraction * 100).round(2)
   end
 
   def get_item_prices(items)
@@ -68,4 +103,11 @@ class SalesAnalyst
       merchant.items.count
     end
   end
+
+  def get_merchant_invoice_counts(merchants)
+    merchants.map do |merchant|
+      merchant.invoices.count
+    end
+  end
+
 end

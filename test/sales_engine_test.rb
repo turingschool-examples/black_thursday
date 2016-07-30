@@ -163,4 +163,11 @@ class SalesEngineTest < Minitest::Test
     assert_equal expected_invoices, se.find_invoices_by_merchant_id(3)
   end
 
+  def test_add_small_invoice_csv
+    se = SalesEngine.from_csv({
+      :invoices => './test/support/invoice_for_analysis.csv'
+      })
+    assert_equal 73, se.invoice_repo.all.count
+  end
+
 end

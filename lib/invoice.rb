@@ -12,8 +12,8 @@ class Invoice
     @customer_id = invoice_details[:customer_id].to_i
     @merchant_id = invoice_details[:merchant_id].to_i
     @status      = invoice_details[:status]
-    @created_at  = format_time(invoice_details[:created_at].to_s)
-    @updated_at  = format_time(invoice_details[:updated_at].to_s)
+    # @created_at  = format_time(invoice_details[:created_at].to_s)
+    # @updated_at  = format_time(invoice_details[:updated_at].to_s)
     @parent      = repo
   end
 

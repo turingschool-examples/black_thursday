@@ -11,6 +11,7 @@ class InvoiceRepo
   end
 
   def add_invoice(invoice_details)
+    # binding.pry
     @invoices << Invoice.new(invoice_details, self)
   end
 
