@@ -12,6 +12,7 @@ class Invoice
     @status = row[:status].to_sym
     @created_at = Time.strptime(row[:created_at], "%Y-%m-%d")
     @updated_at = Time.strptime(row[:updated_at], "%Y-%m-%d")
+    @parent = parent
   end
 
   def merchant
