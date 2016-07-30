@@ -4,7 +4,7 @@ require_relative "../lib/merchant_repo"
 require_relative "../lib/invoice_repo"
 require_relative "../lib/transaction_repo"
 require_relative "../lib/customer_repo"
-require_relative "../lib/invice_item_repo"
+require_relative "../lib/invoice_item_repo"
 
 class SalesEngine
 
@@ -44,11 +44,37 @@ class SalesEngine
     @merchants.find_by_id(merchant_id)
   end
 
-  def find_items_by_merchant_id(merchant_id)
+  def find_all_items_by_merchant_id(merchant_id)
     @items.find_all_by_merchant_id(merchant_id)
   end
 
-  def find_invoices_by_merchant_id(merchant_id)
+  def find_all_invoices_by_merchant_id(merchant_id)
     @invoices.find_all_by_merchant_id(merchant_id)
+  end
+
+  def find_all_invoice_items_by_invoice_id(invoice_id)
+    @invoice_items.find_all_by_invoice_id(invoice_id)
+  end
+
+  def find_all_items_by_invoice_id(invoice_id)
+    invoice_items = @invoice_items.find_all_by_invoice_id(invoice_id)
+    invoice_items.map {|invoice_item| @items.find_by_id(invoice_item.item_id)}
+  end
+
+  def find_all_transactions_by_invoice_id(invoice_id)
+    @transactions.find_all_by_invoice_id(invoice_id)
+  end
+
+  def find_customer_by_id(customer_id)
+    @customers.find_by_id(customer_id)
+  end
+
+  def find_all_customers_by_merchant_id(merchant_id)
+    invoices = find_all_invoices_by_merchant_id(merchant_id)
+    invoices.select {|invoice| invoice.customer_id}.uniq
+  end
+
+  def find_invoice_by_id(invoice_id)
+    @invoices.find_by_id(invoice_id)
   end
 end

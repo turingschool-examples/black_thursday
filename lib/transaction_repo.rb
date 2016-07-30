@@ -29,15 +29,15 @@ class TransactionRepo
     end
   end
 
-  def find_all_by_invoice_id(id_fragment)
+  def find_all_by_invoice_id(invoice_id)
     @transaction_objects.select do |transaction|
-      transaction.invoice_id.to_s.include?(id_fragment.to_s)
+      transaction.invoice_id == invoice_id
     end
   end
 
-  def find_all_by_credit_card_number(credit_card_fragment)
+  def find_all_by_credit_card_number(credit_card)
     @transaction_objects.select do |transaction|
-      transaction.credit_card_number.to_s.include?(credit_card_fragment.to_s)
+      transaction.credit_card_number == credit_card
     end
   end
 
@@ -47,4 +47,7 @@ class TransactionRepo
     end
   end
 
+  def find_invoice_by_id(invoice_id)
+    @parent.find_invoice_by_id(invoice_id)
+  end
 end

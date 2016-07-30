@@ -16,6 +16,11 @@ class Transaction
     @result = row[:result]
     @created_at = Time.strptime(row[:created_at], "%Y-%m-%d %H:%M:%S %z")
     @updated_at = Time.strptime(row[:updated_at], "%Y-%m-%d %H:%M:%S %z")
+    @parent = parent
+  end
+
+  def invoice
+    @parent.find_invoice_by_id(self.invoice_id)
   end
 
 end
