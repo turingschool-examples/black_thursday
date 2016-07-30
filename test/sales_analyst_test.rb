@@ -32,7 +32,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_of_average_price_per_merchant
-    assert_equal 1104.86, @sa.average_average_price_per_merchant.to_f
+    assert_equal 1104.85, @sa.average_average_price_per_merchant.to_f
   end
 
   def test_it_finds_golden_items
