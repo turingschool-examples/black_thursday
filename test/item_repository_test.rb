@@ -3,17 +3,19 @@ require './lib/item_repository'
 require './lib/file_extractor'
 
 class ItemRepositoryTest < Minitest::Test
-  attr_reader :ir
-
-  def setup
-    @ir = ItemRepository.new("./test/fixtures/items_sample.csv")
+  def item_repository_test_setup
+    ir = ItemRepository.new("./test/fixtures/items_sample.csv")
   end
 
   def test_it_exists
+    ir = item_repository_test_setup
+
     assert_instance_of ItemRepository, ir
   end
 
   def test_it_formats_item_info
+    ir = item_repository_test_setup
+
     items_data = FileExtractor.extract_data("./test/fixtures/items_sample.csv")
     result = { :id          => "263395617",
                :name        => "Glitter scrabble frames",
@@ -26,26 +28,36 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_populates_repository_with_items
+    ir = item_repository_test_setup
+
     assert_equal 10, ir.items.count
   end
 
   def test_it_returns_an_item_from_repository
+    ir = item_repository_test_setup
+
     assert_instance_of Item, ir.items[263395617]
   end
 
   def test_it_returns_a_list_of_items
+    ir = item_repository_test_setup
+
     assert_equal Array,      ir.all.class
     assert_equal 10,         ir.all.count
     assert_instance_of Item, ir.all.sample
   end
 
   def test_it_finds_an_item_by_id
+    ir = item_repository_test_setup
+
     assert_instance_of Item, ir.find_by_id(263395237)
     assert_instance_of Item, ir.find_by_id(263395237)
     assert_equal nil,        ir.find_by_id(1234567)
   end
 
   def test_it_finds_an_item_by_name
+    ir = item_repository_test_setup
+
     assert_instance_of Item, ir.find_by_name("GLITter scrabble frames")
     assert_instance_of Item, ir.find_by_name("Disney scrabble frames")
     assert_instance_of Item, ir.find_by_name("Cache cache à la plage")
@@ -54,6 +66,8 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_finds_all_items_that_match_a_description_fragment
+    ir = item_repository_test_setup
+
     assert_equal [], ir.find_all_with_description("Setting")
 
     matching_items = ir.find_all_with_description("glitter").map do |item|
@@ -78,6 +92,8 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_finds_all_items_that_match_a_price
+    ir = item_repository_test_setup
+
     matching_items = ir.find_all_by_price(29.99).map do |item|
       item.name
     end
@@ -100,6 +116,8 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_finds_all_items_that_match_a_price_range
+    ir = item_repository_test_setup
+
     matching_items = ir.find_all_by_price_in_range(0..10).map do |item|
       item.name
     end
@@ -126,6 +144,8 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_finds_all_items_that_match_a_merchant_id
+    ir = item_repository_test_setup
+
     matching_items = ir.find_all_by_merchant_id(12334185).map do |item|
       item.name
     end

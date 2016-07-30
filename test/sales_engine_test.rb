@@ -87,4 +87,17 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of Item, list_of_items.first
     assert_equal names, names_of_items
   end
+
+#  For Invoice CONNECTION
+#   se = SalesEngine.from_csv({
+#   :items => "./data/items.csv",
+#   :merchants => "./data/merchants.csv",
+#   :invoices => "./data/invoices.csv"
+# })
+# merchant = se.merchants.find_by_id(10)
+# merchant.invoices
+# # => [<invoice>, <invoice>, <invoice>]
+# invoice = se.invoices.find_by_id(20)
+# invoice.merchant
+# # => <merchant>
 end

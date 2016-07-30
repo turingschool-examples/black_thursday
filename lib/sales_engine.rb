@@ -14,10 +14,6 @@ class SalesEngine
     self.new(load_paths)
   end
 
-  # def items_by_merchant_id(merchant_id)
-  #   merchants.find_by_id(merchant_id)
-  # end
-
   def find_merchant_by_item_id(merchant_id)
     merchants.find_by_id(merchant_id)
   end

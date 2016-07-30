@@ -39,7 +39,8 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    cov = coefficient_of_variation(average_items_per_merchant, average_items_per_merchant_standard_deviation, 1)
+    cov = coefficient_of_variation(average_items_per_merchant,
+      average_items_per_merchant_standard_deviation, 1)
     @all_merchants.values.find_all do |merchant|
       sales_engine.items.find_all_by_merchant_id(merchant.id).count > cov
     end
@@ -74,7 +75,8 @@ class SalesAnalyst
   end
 
   def golden_items
-    cov = coefficient_of_variation(average_item_price, item_price_standard_deviation, 2)
+    cov = coefficient_of_variation(average_item_price,
+      item_price_standard_deviation, 2)
     @all_items.values.find_all do |item|
       item.unit_price > cov
     end
