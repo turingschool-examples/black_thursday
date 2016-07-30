@@ -3,14 +3,18 @@ require "bigdecimal"
 class InvoiceItem
 
   attr_reader :id, :item_id, :invoice_id, :quantity, :unit_price, :created_at,
+<<<<<<< HEAD
               :updated_at
+=======
+   :updated_at
+>>>>>>> dc4cb1cb806121f411855e1e14cb270aa9a900b0
 
   def initialize(data, parent = nil)
     @id = data[:id].to_i
     @item_id = data[:item_id].to_i
     @invoice_id = data[:invoice_id].to_i
     @quantity = data[:quantity].to_i
-    @unit_price = BigDecimal.new(data[:unit_price].to_f/100,4)
+    @unit_price = BigDecimal.new(data[:unit_price]) / 100
     @created_at = time_formatter(data[:created_at])
     @updated_at = time_formatter(data[:updated_at])
   end
