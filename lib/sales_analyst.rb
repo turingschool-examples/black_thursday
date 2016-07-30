@@ -1,5 +1,11 @@
 
-#
+class SalesAnalyst
+  attr_reader :sales_engine
+
+  def initialize(sales_engine)
+    @sales_engine = sales_engine
+  end
+end
 # se = SalesEngine.from_csv({
 #   :items     => "./data/items.csv",
 #   :merchants => "./data/merchants.csv",

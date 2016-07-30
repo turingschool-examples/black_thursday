@@ -1,4 +1,5 @@
 require_relative "../lib/merchant"
+require_relative "../lib/item"
 require "csv"
 require 'pry'
 
@@ -23,7 +24,6 @@ attr_reader :all
   end
 
   def find_by_id(id_input)
-
     @all.find do |instance|
       instance.id == id_input.to_i
     end
@@ -39,6 +39,10 @@ attr_reader :all
     @all.find_all do |instance|
       instance.name.downcase.include?(name_fragment.to_s.downcase)
     end
+  end
+
+  def find_items_by_merchant_id(merchant_id_input)
+    @sales_engine.find_items_by_merchant_id(merchant_id_input)
   end
 
   def inspect

@@ -37,4 +37,10 @@ class SalesEngineTest < MiniTest::Test
     assert_instance_of Item, item
     assert_equal 263395721, item.id
   end
+
+  def test_it_gets_the_items
+    assert_instance_of Item, @se.items.find_all_by_merchant_id(12334141)[0]
+  end
+
+
 end

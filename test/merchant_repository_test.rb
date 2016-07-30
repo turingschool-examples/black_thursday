@@ -11,6 +11,10 @@ class MerchantRepositoryTest < MiniTest::Test
   attr_reader :merchant_repository
 
   def setup
+    @se = SalesEngine.from_csv({
+                                 :items     => "./data/items.csv",
+                                 :merchants => "./data/merchants.csv",
+                                })
     @merchant_repository = MerchantRepository.new("./data/merchants.csv")
   end
 
@@ -51,5 +55,9 @@ class MerchantRepositoryTest < MiniTest::Test
 
   def test_returns_empty_list_when_no_merchants_match_string
     assert_equal [], merchant_repository.find_all_by_name("idontexist")
+  end
+
+  def test_it_can_pull_items
+    assert_instance_of Item, @se.merchants.items(12334141)[0]
   end
 end

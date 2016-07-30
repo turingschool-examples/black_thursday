@@ -16,4 +16,10 @@ class SalesEngine
   def self.from_csv(files_to_load)
       self.new(files_to_load)
   end
+
+  def find_items_by_merchant_id(merchant_id_input)
+    items.find_all_by_merchant_id(merchant_id_input)
+  end
+  
+
 end

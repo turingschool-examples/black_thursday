@@ -2,13 +2,19 @@ gem 'minitest', '~> 5.2'
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative "../lib/merchant"
+require_relative "../lib/merchant_repository"
+require_relative "../lib/sales_engine"
 
 class MerchantTest < MiniTest::Test
   def setup
+    @se = SalesEngine.from_csv({
+                                 :items     => "./data/items.csv",
+                                 :merchants => "./data/merchants.csv",
+                                })
     @merchant = Merchant.new({ :id         => "12334105",
                                :name       => "Shopin1901",
                                :created_at => "12/10/10",
-                               :updated_at => "12/4/11"}, "stub parent")
+                               :updated_at => "12/4/11"})
 
   end
 
@@ -30,6 +36,11 @@ class MerchantTest < MiniTest::Test
 
   def test_it_can_return_self
     # assert_equal true, @merchant.parent.is_a?(MerchantTest)
-    assert_equal "stub parent", @merchant.parent
+    assert_equal nil, @merchant.parent
   end
+
+  def test_it_gets_the_item
+    assert_instance_of Item,   @se.merchants.find_by_id(12334141).items[0]
+  end
+
 end
