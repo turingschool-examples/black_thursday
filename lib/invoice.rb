@@ -18,4 +18,27 @@ class Invoice
     @parent.find_merchant_by_id(self.merchant_id)
   end
 
+  def items
+
+  end
+
+  def transactions
+
+  end
+
+  def customer
+
+  end
+
+  def is_paid_in_full?
+
+  end
+
+  def total
+    invoice_items = @parent.find_all_invoice_items_by_invoice_id(self.id)
+    invoice_items.reduce(0) do |total, invoice_item|
+      total += invoice_item.unit_price
+    end
+  end
+
 end

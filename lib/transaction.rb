@@ -18,4 +18,8 @@ class Transaction
     @updated_at = Time.strptime(row[:updated_at], "%Y-%m-%d %H:%M:%S %z")
   end
 
+  def invoice
+
+  end
+
 end
