@@ -29,9 +29,17 @@ class SalesEngine
     items.find_all_by_merchant_id(m_id)
   end
 
+  def all_merchants
+    merchants.all
+  end
+
   def total_merchants
     merchants.all.length
   end
 
-  
+  def items_by_merchant
+    all_merchants.map { |m| find_all_items_by_merchant_id(m.id).length }
+  end
+
+
 end

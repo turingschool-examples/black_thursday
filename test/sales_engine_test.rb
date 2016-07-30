@@ -38,9 +38,13 @@ class SalesEngineTest < Minitest::Test
     assert_equal items_merchant, item.merchant
   end
 
+  def test_method_all_merchants_returns_merchants
+    assert_equal se.merchants.all, se.all_merchants
+  end
+
   def test_method_total_merchants_returns_fixnum
     assert_equal se.merchants.all.length, se.total_merchants
   end
 
-  
+
 end

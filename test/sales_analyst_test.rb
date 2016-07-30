@@ -18,14 +18,16 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_method_average_items_per_merchant_returns_float
-    merchant_ids = sa.engine.merchants.merchants.map{ |m| m.id }
-    items_per_merchant = merchant_ids.map do |id|
-      sa.engine.find_all_items_by_merchant_id(id).length
-    end
-    total_items_per_merchant = items_per_merchant.reduce(:+)
-    total_merchants = merchant_ids.length
-    answer = (total_items_per_merchant.to_f / total_merchants.to_f)
-    assert_equal answer, sa.average_items_per_merchant
+    mock_se = Minitest::Mock.new
+    sa = SalesAnalyst.new(mock_se)
+
+    mock_se.expect(:items_by_merchant,[3,4,5], [])
+    mock_se.expect(:total_merchants, 3, [])
+    assert_equal 4.0, sa.average_items_per_merchant
+
+    mock_se.expect(:items_by_merchant,[10,20,30,40,50], [])
+    mock_se.expect(:total_merchants, 5, [])
+    assert_equal 30.0, sa.average_items_per_merchant
   end
 
 end
