@@ -4,6 +4,7 @@ require_relative "../lib/merchant_repo"
 require_relative "../lib/invoice_repo"
 require_relative "../lib/transaction_repo"
 require_relative "../lib/customer_repo"
+require_relative "../lib/invice_item_repo"
 
 class SalesEngine
 
@@ -33,6 +34,10 @@ class SalesEngine
 
   def customers
     @customers = CustomerRepo.new(@files[:customers], self)
+  end
+
+  def invoice_items
+    @invoice_items = InvoiceItemRepo.new(@files[:invoice_items], self)
   end
 
   def find_merchant_by_id(merchant_id)
