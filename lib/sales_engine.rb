@@ -2,6 +2,8 @@ require "csv"
 require_relative "../lib/item_repo"
 require_relative "../lib/merchant_repo"
 require_relative "../lib/invoice_repo"
+require_relative "../lib/transaction_repo"
+require_relative "../lib/customer_repo"
 
 class SalesEngine
 
@@ -23,6 +25,14 @@ class SalesEngine
 
   def invoices
     @invoices = InvoiceRepo.new(@files[:invoices], self)
+  end
+
+  def transactions
+    @transactions = TransactionRepo.new(@files[:transactions], self)
+  end
+
+  def customers
+    @customers = CustomerRepo.new(@files[:customers], self)
   end
 
   def find_merchant_by_id(merchant_id)
