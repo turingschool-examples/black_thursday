@@ -55,11 +55,24 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 12, sa.average_item_price_for_merchant(12334141)
   end
 
-  # def test_it_calculates_the_sum_of_the_average_price_of_a_merchants_items
-  #   se = SalesEngine.from_csv({ :items     => "./data/items.csv",
-  #                               :merchants => "./data/merchants.csv" })
-  #   sa = SalesAnalyst.new(se)
-  #
-  #   assert_equal 0, sa.average_average_price_per_merchant
-  # end
+  def test_it_calculates_the_sum_of_the_average_price_of_a_merchants_items
+    se = SalesEngine.from_csv({ :items     => "./data/items.csv",
+                                :merchants => "./data/merchants.csv" })
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 350.29, sa.average_average_price_per_merchant
+  end
+
+  def test_it_returns_highest_priced_items
+    se = SalesEngine.from_csv({ :items     => "./data/items.csv",
+                                :merchants => "./data/merchants.csv" })
+    sa = SalesAnalyst.new(se)
+  
+    assert_equal 0, sa.golden_items
+  end
 end
+
+
+# Given that our platform is going to charge merchants based on their sales, expensive items are extra exciting to us. Which are our "Golden Items", those two standard-deviations above the average item price? Return the item objects of these "Golden Items".
+#
+# sa.golden_items # => [<item>, <item>, <item>, <item>]
