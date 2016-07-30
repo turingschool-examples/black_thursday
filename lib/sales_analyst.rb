@@ -62,7 +62,8 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    cutoff = average_items_per_merchant + average_items_per_merchant_standard_deviation
+    cutoff =
+      average_items_per_merchant + average_items_per_merchant_standard_deviation
     @sales_engine.all_merchants.find_all do |merchant|
       merchant.items.count > cutoff
     end
@@ -95,11 +96,8 @@ class SalesAnalyst
   end
 
   def invoice_status(status)
-    invoices = @sales_engine.all_invoices
-    sought_invoices = invoices.find_all do |invoice|
-      invoice.status == status
-    end
-    fraction = sought_invoices.count.to_f / invoices.count
+    sought_invoices = @sales_engine.invoice_repo.find_all_by_status(status)
+    fraction = sought_invoices.count.to_f / @sales_engine.all_invoices.count
     (fraction * 100).round(2)
   end
 
