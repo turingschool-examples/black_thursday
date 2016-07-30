@@ -25,6 +25,6 @@ class Item
   end
 
   def merchant
-    @item_repository_parent.find_all_by_merchant_id(merchant_id)
+    @item_repository_parent.find_merchant_by_item_id(merchant_id)
   end
 end

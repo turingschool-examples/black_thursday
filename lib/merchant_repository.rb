@@ -47,6 +47,10 @@ class MerchantRepository
     end
   end
 
+  def find_items_by_merchant_id(merchant_id)
+    @sales_engine_parent.find_items_by_merchant_id(merchant_id)
+  end
+
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end

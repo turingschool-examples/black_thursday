@@ -7,6 +7,10 @@ class Merchant
     @id = merchant[:id].to_i
     @name = merchant[:name]
   end
+
+  def items
+    @merchant_repository_parent.find_items_by_merchant_id(id)
+  end
 end
 
 #fixtures directory of sample data

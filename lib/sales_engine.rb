@@ -14,17 +14,20 @@ class SalesEngine
     self.new(load_paths)
   end
 
-  def items_by_merchant_id(merchant_id)
+  # def items_by_merchant_id(merchant_id)
+  #   merchants.find_by_id(merchant_id)
+  # end
+
+  def find_merchant_by_item_id(merchant_id)
     merchants.find_by_id(merchant_id)
   end
 
-  # def self.merchants
-  #   @merchants
-  # end
-  #
-  # def self.items
-  #   @items
-  # end
+  def find_items_by_merchant_id(merchant_id)
+    items.find_all_by_merchant_id(merchant_id)
+  end
+end
+
+
 
 
 
@@ -32,25 +35,3 @@ class SalesEngine
 #require 'minitest/mock'
 #mock_se = Minitest::Mock.new
 #mock_se.expect(:find_merchant_by_id, "merchant", ["merchant_id"])
-
-
-
-
-
-  # require "pry"; binding.pry
-
-
-#   items returns an instance of ItemRepository with all the item instances loaded
-
-# merchants returns an instance of MerchantRepository with all the merchant instances loaded
-
-
-
-  # def self.merchants
-  #   @MerchantRepository
-  # end
-
-  # def self.items
-  #   @ItemRepository = ItemRepository.new(true)
-  # end
-end
