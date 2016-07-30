@@ -7,6 +7,7 @@ class SalesAnalyst
   def initialize(sales_engine)
     @sales_engine = sales_engine
     @all_merchants = @sales_engine.merchants.merchants
+    @all_items = @sales_engine.items.items
   end
 
   def average_items_per_merchant
@@ -33,13 +34,12 @@ class SalesAnalyst
     sample_standard_deviation(items_per_merchant, average_items_per_merchant)
   end
 
-  def coefficient_of_variation(variation)
-    average_items_per_merchant +
-    variation * average_items_per_merchant_standard_deviation
+  def coefficient_of_variation(average, standard_deviation, coefficient)
+    average + coefficient * standard_deviation
   end
 
   def merchants_with_high_item_count
-    cov = coefficient_of_variation(1)
+    cov = coefficient_of_variation(average_items_per_merchant, average_items_per_merchant_standard_deviation, 1)
     @all_merchants.values.find_all do |merchant|
       sales_engine.items.find_all_by_merchant_id(merchant.id).count > cov
     end
@@ -53,23 +53,30 @@ class SalesAnalyst
   end
 
   def average_average_price_per_merchant
-    denominator = @all_merchants.count
-    @all_merchants.keys.reduce(0) do |sum, merchant_id|
-      sum += average_item_price_for_merchant(merchant_id) / denominator.to_f
+    total_merchants = @all_merchants.count
+    @all_merchants.keys.inject(0) do |sum, merchant_id|
+      sum += average_item_price_for_merchant(merchant_id) / total_merchants.to_f
     end.round(2)
   end
 
   def average_item_price
-    denominator = sales_engine.items.items.count
-    sales_engine.items.items.values.inject(0) do |sum, item|
-      sum += item.unit_price / denominator.to_f
+    total_items = @all_items.count
+    @all_items.values.inject(0) do |sum, item|
+      sum += item.unit_price / total_items.to_f
+    end.round(2)
+  end
+
+  def item_price_standard_deviation
+    item_prices = @all_items.values.map do |item|
+      item.unit_price
     end
+    sample_standard_deviation(item_prices, average_item_price)
   end
 
   def golden_items
-    cov = average_item_price + sample_standard_deviation
-    sales_engine.items.items.values.find_all do |item|
-      item.unit_price >
+    cov = coefficient_of_variation(average_item_price, item_price_standard_deviation, 2)
+    @all_items.values.find_all do |item|
+      item.unit_price > cov
     end
   end
 end

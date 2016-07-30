@@ -4,7 +4,7 @@ require './lib/file_extractor'
 
 class MerchantRepositoryTest < Minitest::Test
   attr_reader :mr
-
+  
   def setup
     @mr = MerchantRepository.new("./test/fixtures/merchants_sample.csv")
   end
