@@ -5,7 +5,7 @@ class InvoiceTest < Minitest::Test
   def test_initializing_with_a_hash
     invoice = Invoice.new({:status => "pending"})
 
-    assert_equal "pending", invoice.status
+    assert_equal :pending, invoice.status
   end
 
   def test_it_has_all_the_things
@@ -15,7 +15,7 @@ class InvoiceTest < Minitest::Test
       assert_equal 7, invoice.id
       assert_equal 5, invoice.customer_id
       assert_equal 12582467, invoice.merchant_id
-      assert_equal "shipped", invoice.status
+      assert_equal :shipped, invoice.status
       assert_respond_to invoice, :created_at
       assert_respond_to invoice, :updated_at
   end
@@ -23,7 +23,7 @@ class InvoiceTest < Minitest::Test
   def test_it_accepts_partial_data
     invoice = Invoice.new({:id => 1, :status => "pending"})
     assert_equal 1, invoice.id
-    assert_equal "pending", invoice.status
+    assert_equal :pending, invoice.status
     assert_equal 0, invoice.customer_id
   end
 
