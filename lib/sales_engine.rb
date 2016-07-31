@@ -17,67 +17,67 @@ class SalesEngine
   end
 
   def merchants
-    @merchants = MerchantsRepo.new(@files[:merchants], self)
+    @merchants ||= MerchantsRepo.new(@files[:merchants], self)
   end
 
   def items
-    @items = ItemRepo.new(@files[:items], self)
+    @items ||= ItemRepo.new(@files[:items], self)
   end
 
   def invoices
-    @invoices = InvoiceRepo.new(@files[:invoices], self)
+    @invoices ||= InvoiceRepo.new(@files[:invoices], self)
   end
 
   def transactions
-    @transactions = TransactionRepo.new(@files[:transactions], self)
+    @transactions ||= TransactionRepo.new(@files[:transactions], self)
   end
 
   def customers
-    @customers = CustomerRepo.new(@files[:customers], self)
+    @customers ||= CustomerRepo.new(@files[:customers], self)
   end
 
   def invoice_items
-    @invoice_items = InvoiceItemRepo.new(@files[:invoice_items], self)
+    @invoice_items ||= InvoiceItemRepo.new(@files[:invoice_items], self)
   end
 
   def find_merchant_by_id(merchant_id)
-    @merchants.find_by_id(merchant_id)
+    merchants.find_by_id(merchant_id)
   end
 
   def find_all_items_by_merchant_id(merchant_id)
-    @items.find_all_by_merchant_id(merchant_id)
+    items.find_all_by_merchant_id(merchant_id)
   end
 
   def find_all_invoices_by_merchant_id(merchant_id)
-    @invoices.find_all_by_merchant_id(merchant_id)
+    invoices.find_all_by_merchant_id(merchant_id)
   end
 
   def find_all_invoice_items_by_invoice_id(invoice_id)
-    @invoice_items.find_all_by_invoice_id(invoice_id)
+    invoice_items.find_all_by_invoice_id(invoice_id)
   end
 
   def find_all_items_by_invoice_id(invoice_id)
-    invoice_items = @invoice_items.find_all_by_invoice_id(invoice_id)
-    invoice_items.map {|invoice_item| @items.find_by_id(invoice_item.item_id)}
+    invoiced_items = invoice_items.find_all_by_invoice_id(invoice_id)
+    invoiced_items.map {|invoice_item| items.find_by_id(invoice_item.item_id)}
   end
 
   def find_all_transactions_by_invoice_id(invoice_id)
-    @transactions.find_all_by_invoice_id(invoice_id)
+    transactions.find_all_by_invoice_id(invoice_id)
   end
 
   def find_customer_by_id(customer_id)
-    @customers.find_by_id(customer_id)
+    customers.find_by_id(customer_id)
   end
 
   def find_all_customers_by_merchant_id(merchant_id)
     invoices = find_all_invoices_by_merchant_id(merchant_id)
     customers_ids = invoices.map {|invoice| invoice.customer_id}
     customers_ids.map do |customer|
-      @customers.find_by_id(customer)
+      customers.find_by_id(customer)
     end.uniq
   end
 
   def find_invoice_by_id(invoice_id)
-    @invoices.find_by_id(invoice_id)
+    invoices.find_by_id(invoice_id)
   end
 end

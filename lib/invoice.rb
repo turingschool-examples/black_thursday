@@ -12,6 +12,7 @@ class Invoice
     @status = row[:status].to_sym
     @created_at = Time.strptime(row[:created_at], "%Y-%m-%d")
     @updated_at = Time.strptime(row[:updated_at], "%Y-%m-%d")
+    @parent = parent
   end
 
   def merchant
@@ -49,7 +50,7 @@ class Invoice
   def total
     invoice_items = @parent.find_all_invoice_items_by_invoice_id(self.id)
     invoice_items.reduce(0) do |total, invoice_item|
-      total += invoice_item.unit_price
+      total += invoice_item.unit_price * invoice_item.quantity
     end
   end
 
