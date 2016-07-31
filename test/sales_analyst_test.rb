@@ -36,13 +36,9 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 10.76, sa.average_items_per_merchant_standard_deviation
   end
 
-  def test_method_merchants_with_high_item_count_returns_float
-    mock_se = Minitest::Mock.new
-    sa = SalesAnalyst.new(mock_se)
-    mock_se.expect(:items_per_merchant,[3,4,5], [])
-    assert_equal 1.0, sa.average_items_per_merchant_standard_deviation
-    mock_se.expect(:items_per_merchant,[22,40,12,19,30], [])
-    assert_equal 10.76, sa.average_items_per_merchant_standard_deviation
+  def test_method_merchants_with_high_item_count_returns_array_of_merchants
+    assert_instance_of Array, sa.merchants_with_high_item_count
+    assert_instance_of Merchant, sa.merchants_with_high_item_count[0]
   end
 
   def test_method_top_days_by_invoice_count_returns_array
