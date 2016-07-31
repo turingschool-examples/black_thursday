@@ -19,7 +19,7 @@ class InvoiceRepositoryTest < MiniTest::Test
 
   def test_invoice_maker
     assert_equal 3, invoice_repository.all[2].id
-    assert_equal "shipped", invoice_repository.all[2].status
+    assert_equal :shipped, invoice_repository.all[2].status
   end
 
   def test_it_returns_all_the_invoice_instances
@@ -52,11 +52,11 @@ class InvoiceRepositoryTest < MiniTest::Test
   end
 
   def test_it_finds_all_by_status
-    assert_equal 9, invoice_repository.find_all_by_status("pending").length
+    assert_equal 9, invoice_repository.find_all_by_status(:pending).length
   end
 
   def test_it_returns_empty_array_if_no_statses_match
-    assert_equal [], invoice_repository.find_all_by_status("hurry")
+    assert_equal [], invoice_repository.find_all_by_status(:hurry)
   end
 
 end
