@@ -2,6 +2,7 @@ gem 'minitest', '~> 5.2'
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative "../lib/item_repository"
+require_relative "../lib/sales_engine"
 require 'csv'
 
 
@@ -9,6 +10,10 @@ class ItemRepositoryTest < MiniTest::Test
   attr_reader :item_repository
 
   def setup
+    @se = SalesEngine.from_csv({
+                                 :items     => "./data/items.csv",
+                                 :merchants => "./data/merchants.csv",
+                                })
     @item_repository = ItemRepository.new("./data/items.csv")
   end
 
@@ -67,4 +72,13 @@ class ItemRepositoryTest < MiniTest::Test
     assert_equal 3, item_repository.find_all_by_merchant_id(12334185).length
     assert_equal "Glitter scrabble frames", item_repository.find_all_by_merchant_id(12334185).first.name
   end
+
+
+    def test_it_can_tell_you_which_merchant_sells_it
+      assert_instance_of Merchant, @se.items.find_by_id(263395237).merchant
+    end
+  def test_item_count
+    assert_equal 9, @se.items.all.count
+  end
+
 end

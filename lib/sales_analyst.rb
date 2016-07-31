@@ -1,26 +1,32 @@
-
+require "bigdecimal"
+require "pry"
 class SalesAnalyst
   attr_reader :sales_engine
 
   def initialize(sales_engine)
     @sales_engine = sales_engine
   end
-end
-# se = SalesEngine.from_csv({
-#   :items     => "./data/items.csv",
-#   :merchants => "./data/merchants.csv",
-# })
-# merchant = se.merchants.find_by_id(10)
-# merchant.items
-# # => [<item>, <item>, <item>]
-# item = se.items.find_by_id(20)
-# item.merchant
-# # => <merchant>
 
-#this file fires up a sales engine
+  def merchant_items_count(merchant_id)
+    @sales_engine.find_items_by_merchant_id(merchant_id).count
+  end
+  def merchant_count
+    @sales_engine.merchant_count
+  end
+  def item_count
+    @sales_engine.item_count
+  end
+  def average_items_per_merchant
+  (item_count/merchant_count.to_f).round(2)
+  end
+
+  def average_items_per_merchant_standard_deviation
+    @sales_engine.merchants.each do |merchant|
+
+
+end
 
 #methods:
-  # sa.average_items_per_merchant # => 2.88
 
   #sa.average_items_per_merchant_standard_deviation # => 3.26
 

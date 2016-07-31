@@ -18,6 +18,19 @@ class SalesAnalystTest < MiniTest::Test
     assert_instance_of SalesEngine, @sa.sales_engine
   end
 
-  def test_it_returns_items_by_merchant
-
+  def test_it_can_find_how_many_items_a_merchant_has
+    assert_equal 1, @sa.merchant_items_count(12334141)
   end
+
+  def test_it_knows_the_number_of_merchants
+    assert_equal 475, @sa.merchant_count
+  end
+  def test_item_count
+    assert_equal 9, @sa.item_count
+  end
+  def test_average_items_per_merchant
+    assert_equal 0.02, @sa.average_items_per_merchant
+  end
+  def test_average_items_per_merchant_standard_deviation
+    3.26
+end

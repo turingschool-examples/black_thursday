@@ -25,4 +25,8 @@ class Item
   def unit_price_to_dollars
     @unit_price
   end
+
+  def merchant
+    @parent.find_merchant_by_id(@merchant_id)
+  end
 end

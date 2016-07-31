@@ -58,6 +58,9 @@ class MerchantRepositoryTest < MiniTest::Test
   end
 
   def test_it_can_pull_items
-    assert_instance_of Item, @se.merchants.items(12334141)[0]
+    assert_instance_of Item, @se.merchants.find_items_by_merchant_id(12334141)[0]
+  end
+  def test_merchant_count
+    assert_equal 475, @se.merchant_count
   end
 end

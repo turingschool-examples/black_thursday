@@ -57,6 +57,12 @@ attr_reader :all
       instance.merchant_id == merchant_id_input.to_i
     end
   end
+  def find_merchant_by_id(merchant_id_input)
+    @sales_engine.find_merchant_by_id(merchant_id_input)
+  end
+  def item_count
+    @all.count
+  end
 
   def inspect
   end

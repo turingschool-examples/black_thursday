@@ -45,6 +45,10 @@ attr_reader :all
     @sales_engine.find_items_by_merchant_id(merchant_id_input)
   end
 
+  def merchant_count
+    @all.count
+  end
+
   def inspect
   end
 
