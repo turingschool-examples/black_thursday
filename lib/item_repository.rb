@@ -1,38 +1,15 @@
-require 'bigdecimal'
-# require './lib/item'
 require_relative 'item'
 
 class ItemRepository
-  attr_reader :items
+  attr_reader :items, :parent
 
-  def initialize(item_contents)
+  def initialize(item_contents, parent = nil)
     @items = make_items(item_contents)
+    @parent = parent
   end
 
   def make_items(item_contents)
-    item_contents.map do |row|
-      Item.new(make_prepared_data(row))
-    end
-  end
-
-  def make_prepared_data(row)
-    { id:           row[:id].to_i,
-      name:         row[:name],
-      description:  row[:description],
-      unit_price:   prepare_unit_price(row[:unit_price]),
-      merchant_id:  row[:merchant_id].to_i,
-      created_at:   prepare_time(row[:created_at]),
-      updated_at:   prepare_time(row[:updated_at])
-    }
-  end
-
-  def prepare_unit_price(unit_price)
-    digits = unit_price.length + 1
-    BigDecimal.new(unit_price.to_i/100.0, digits)
-  end
-
-  def prepare_time(time)
-    Time.parse(time)
+    item_contents.map { |row| Item.new(row, self) }
   end
 
   def all
@@ -48,7 +25,9 @@ class ItemRepository
   end
 
   def find_all_with_description(description)
-    @items.find_all { |item| item.description.upcase.include? description.upcase }
+    @items.find_all do
+       |item| item.description.upcase.include? description.upcase
+     end
   end
 
   def find_all_by_price(price)
@@ -63,7 +42,11 @@ class ItemRepository
     @items.find_all { |item| item.merchant_id == merchant_id }
   end
 
+  def find_merchant_by_id(merchant_id)
+    parent.find_merchant_by_id(merchant_id)
+  end
+
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{@items.size} rows>"
   end
 end
