@@ -66,7 +66,7 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_standard_deviation_of_items
-    assert_equal 128.89, @sa.standard_deviation_of_items
+    assert_equal 128.89235694088995, @sa.standard_deviation_of_items
   end
 
 

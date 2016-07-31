@@ -44,8 +44,9 @@ class SalesAnalyst
 
   def merchants_with_high_item_count
     standard_deviation = average_items_per_merchant_standard_deviation
+
     all_merchants.find_all do |merchant|
-      merchant_items_count(merchant.id) > (standard_deviation*2)
+      merchant_items_count(merchant.id) > (standard_deviation + average_items_per_merchant)
     end
   end
 
@@ -67,7 +68,7 @@ class SalesAnalyst
     total = all_items.map do |item|
       item.unit_price
     end
-    (total.reduce(:+)/total.length).round(2)
+    (total.reduce(:+)/total.length.to_f)
   end
 
   def standard_deviation_of_items
@@ -80,7 +81,7 @@ class SalesAnalyst
   def golden_items
     standard_deviation = standard_deviation_of_items
     all_items.find_all do |item|
-      item.unit_price > (standard_deviation*3)
+      item.unit_price > (standard_deviation*2)
     end
   end
 
