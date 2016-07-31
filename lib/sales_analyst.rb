@@ -22,8 +22,12 @@ class SalesAnalyst
 
   def average_items_per_merchant_standard_deviation
     @sales_engine.merchants.each do |merchant|
+    end
+  end
 
-
+  def all_merchants
+    @sales_engine.all_merchants
+  end
 end
 
 #methods:

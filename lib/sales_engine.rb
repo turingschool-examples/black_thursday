@@ -24,10 +24,17 @@ class SalesEngine
   def find_merchant_by_id(merchant_id_input)
     merchants.find_by_id(merchant_id_input)
   end
+
   def merchant_count
     merchants.merchant_count
   end
+
   def item_count
     @items.item_count
   end
+
+  def all_merchants
+    merchants.all
+  end
+
 end

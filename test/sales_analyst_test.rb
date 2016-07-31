@@ -25,12 +25,20 @@ class SalesAnalystTest < MiniTest::Test
   def test_it_knows_the_number_of_merchants
     assert_equal 475, @sa.merchant_count
   end
+
   def test_item_count
     assert_equal 9, @sa.item_count
   end
+
   def test_average_items_per_merchant
     assert_equal 0.02, @sa.average_items_per_merchant
   end
+
+  def test_it_can_access_all_the_merchants
+    assert_instance_of Merchant, @sa.all_merchants.last
+  end
+
   def test_average_items_per_merchant_standard_deviation
-    3.26
+    skip
+  end
 end

@@ -2,6 +2,7 @@ gem 'minitest', '~> 5.2'
 require 'minitest/autorun'
 require 'minitest/pride'
 require "./lib/sales_engine"
+require 'pry'
 
 
 class SalesEngineTest < MiniTest::Test
@@ -51,6 +52,10 @@ class SalesEngineTest < MiniTest::Test
   end
   def test_item_count
     assert_equal 9, @se.item_count
+  end
+
+  def test_it_has_all_the_merchants
+    assert_instance_of Merchant, @se.all_merchants.last
   end
 
 
