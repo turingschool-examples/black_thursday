@@ -27,4 +27,12 @@ class MerchantTest < Minitest::Test
     merchant.items
     assert mock_mr.verify
   end
+
+  def test_method_invoices_queries_parent
+    mock_mr = Minitest::Mock.new
+    merchant = Merchant.new({id: 1}, mock_mr)
+    mock_mr.expect(:find_all_invoices_by_merchant_id, nil, [1])
+    merchant.invoices
+    assert mock_mr.verify
+  end
 end

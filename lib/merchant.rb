@@ -11,4 +11,8 @@ class Merchant
     items = @parent.find_all_items_by_merchant_id(@id)
   end
 
+  def invoices
+    invoices = @parent.find_all_invoices_by_merchant_id(@id)
+  end
+
 end

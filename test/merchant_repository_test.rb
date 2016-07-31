@@ -59,12 +59,11 @@ class MerchantRepositoryTest < Minitest::Test
     assert mock_se.verify
   end
 
-  def test_method_find_all_items_by_merchant_id_returns_items
+  def test_method_find_all_invoices_by_merchant_id_returns_items
     mock_se = Minitest::Mock.new
     mr = MerchantRepository.new([], mock_se)
-    mock_se.expect(:find_all_items_by_merchant_id, nil, [1000])
-    mr.find_all_items_by_merchant_id(1000)
+    mock_se.expect(:find_all_invoices_by_merchant_id, nil, [1000])
+    mr.find_all_invoices_by_merchant_id(1000)
     assert mock_se.verify
-    
   end
 end

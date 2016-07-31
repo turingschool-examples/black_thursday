@@ -9,6 +9,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv({
       :items     => "./test/fixtures/items_fixture.csv",
       :merchants => "./test/fixtures/merchants_fixture.csv",
+      :invoices  => "./test/fixtures/invoices_fixture.csv"
     })
     @sa = SalesAnalyst.new(se)
   end
@@ -46,16 +47,6 @@ class SalesAnalystTest < Minitest::Test
     mock_se.expect(:total_merchants, 5, [])
     assert_equal 10.76, sa.average_items_per_merchant_standard_deviation
   end
-
-  # def test_method_merchants_with_high_item_count_returns_merchants
-    # mock_se = Minitest::Mock.new
-    # sa = SalesAnalyst.new(mock_se)
-    #
-    # mock_se.expect(:items_per_merchant,[3,4,5], [])
-    # mock_se.expect(:total_merchants, 3, [])
-    # assert_equal 4.0, sa.average_items_per_merchant
-
-
 
 
 end
