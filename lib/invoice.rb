@@ -20,16 +20,15 @@ class Invoice
   end
 
   def items
-
-
+    @parent.find_all_items_by_invoice_id(self.id)
   end
-
+  
   def transactions
-
+    @parent.find_all_transactions_by_invoice_id(self.id)
   end
 
   def customer
-
+    @parent.find_customer_by_id(self.customer_id)
   end
 
   def is_paid_in_full?

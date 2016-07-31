@@ -18,7 +18,13 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_can_invoices_by_id
     sales_engine = SalesEngine.from_csv({invoices: './data/support/invoices_support.csv'})
-    assert_equal "", sales_engine.find_invoice_by_id(45)
+    assert_equal 10, sales_engine.find_invoice_by_id(45).customer_id
+  end
+
+  def test_it_can_find_transactions_by_invoice_id
+    sales_engine = SalesEngine.from_csv({invoices: './data/support/invoices_support.csv',
+                                         transactions: "./data/support/transactions_support.csv"})
+    assert_equal 1, sales_engine.find_all_transactions_by_invoice_id(4966).count
   end
 
 end
