@@ -14,7 +14,11 @@ class SalesEngineTest < Minitest::Test
   def test_it_can_find_csutomers_by_id
     sales_engine = SalesEngine.from_csv({customers: './data/support/customer_support.csv'})
     assert_equal "Henderson", sales_engine.find_customer_by_id(34).first_name
+  end
 
+  def test_it_can_invoices_by_id
+    sales_engine = SalesEngine.from_csv({invoices: './data/support/invoices_support.csv'})
+    assert_equal "", sales_engine.find_invoice_by_id(45)
   end
 
 end

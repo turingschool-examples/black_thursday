@@ -20,7 +20,7 @@ class Invoice
   end
 
   def items
-<<<<<<< HEAD
+
 
   end
 
@@ -33,8 +33,6 @@ class Invoice
   end
 
   def is_paid_in_full?
-
-=======
     @parent.find_all_items_by_invoice_id(self.id)
   end
 
@@ -44,7 +42,6 @@ class Invoice
 
   def customer
     @parent.find_customer_by_id(self.customer_id)
->>>>>>> dc4cb1cb806121f411855e1e14cb270aa9a900b0
   end
 
   def total
@@ -54,10 +51,7 @@ class Invoice
     end
   end
 
-<<<<<<< HEAD
-=======
   def is_paid_in_full?
     transactions.any? {|transaction| transaction.result.downcase == "success"}
   end
->>>>>>> dc4cb1cb806121f411855e1e14cb270aa9a900b0
 end

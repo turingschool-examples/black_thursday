@@ -3,11 +3,8 @@ require "bigdecimal"
 class InvoiceItem
 
   attr_reader :id, :item_id, :invoice_id, :quantity, :unit_price, :created_at,
-<<<<<<< HEAD
               :updated_at
-=======
-   :updated_at
->>>>>>> dc4cb1cb806121f411855e1e14cb270aa9a900b0
+
 
   def initialize(data, parent = nil)
     @id = data[:id].to_i
