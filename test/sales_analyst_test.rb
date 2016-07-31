@@ -41,6 +41,15 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Merchant, sa.merchants_with_high_item_count[0]
   end
 
+  def test_method_average_average_price_per_merchant_returns_big_decimal
+    assert_instance_of BigDecimal, sa.average_average_price_per_merchant
+  end
+
+  def test_method_golden_items_returns_array_of_items
+    assert_instance_of Array, sa.golden_items
+    assert_instance_of Item, sa.golden_items[0]
+  end
+
   def test_method_top_days_by_invoice_count_returns_array
     mock_se = Minitest::Mock.new
     sa = SalesAnalyst.new(mock_se)

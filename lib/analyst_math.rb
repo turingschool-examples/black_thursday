@@ -13,7 +13,7 @@ module AnalystMath
   end
 
   def self.std_devs_out(numbers, devs)
-    answer = self.average(numbers) + self.standard_deviation(numbers) * devs
+    answer = self.average(numbers) + (self.standard_deviation(numbers) * devs)
     answer.round(2)
   end
 
