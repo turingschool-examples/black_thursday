@@ -50,6 +50,22 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Item, sa.golden_items[0]
   end
 
+  def test_method_average_invoices_per_merchant_returns_float
+    assert_instance_of Float, sa.average_invoices_per_merchant
+  end
+
+  def test_method_average_invoices_per_merchant_standard_deviation_returns_float
+    assert_instance_of Float, sa.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_method_top_merchants_by_invoice_count_returns_array_of_merchants
+    assert_instance_of Array, sa.top_merchants_by_invoice_count
+  end
+
+  def test_method_bottom_merchants_by_invoice_count_returns_array_of_merchants
+    assert_instance_of Array, sa.bottom_merchants_by_invoice_count
+  end
+
   def test_method_top_days_by_invoice_count_returns_array
     mock_se = Minitest::Mock.new
     sa = SalesAnalyst.new(mock_se)
@@ -63,14 +79,10 @@ class SalesAnalystTest < Minitest::Test
     assert_equal ["Wednesday"], sa.top_days_by_invoice_count
   end
 
-  # sa.invoice_status(:pending) # => 5.25
-  # sa.invoice_status(:shipped) # => 93.75
-  # sa.invoice_status(:returned) # => 1.00
-
   def test_method_invoice_status_returns_float
-    assert_equal 40.0, sa.invoice_status(:pending)
-    assert_equal 50.0, sa.invoice_status(:shipped)
-    assert_equal 10.0, sa.invoice_status(:returned)
+    assert_instance_of Float, sa.invoice_status(:pending)
+    assert_instance_of Float, sa.invoice_status(:shipped)
+    assert_instance_of Float, sa.invoice_status(:returned)
   end
 
 
