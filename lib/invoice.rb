@@ -25,4 +25,8 @@ class Invoice
   def merchant
     @parent.find_merchant_by_id(@merchant_id)
   end
+
+  def weekday_created
+    created_at.strftime("%A")
+  end
 end

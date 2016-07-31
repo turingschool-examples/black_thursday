@@ -44,6 +44,10 @@ class SalesEngine
     items.all
   end
 
+  def all_invoices
+    invoices.all
+  end
+
   def total_merchants
     all_merchants.length
   end
@@ -52,16 +56,37 @@ class SalesEngine
     all_items.length
   end
 
+  def total_invoices
+    all_invoices.length
+  end
+
   def items_per_merchant
     all_merchants.map { |m| m.items.length }
+  end
+
+  def invoices_per_merchant
+    all_merchants.map { |m| m.invoices.length }
   end
 
   def merchants_with_item_count_over_n(n)
     all_merchants.select { |m| m.items.length > n }
   end
 
+  def merchants_with_invoice_count_over_n(n)
+    all_merchants.select { |m| m.invoices.length > n }
+  end
+
+  def merchants_with_invoice_count_under_n(n)
+    all_merchants.select { |m| m.invoices.length < n }
+  end
+
   def items_with_price_over_n(n)
     all_items.select { |i| i.unit_price > n }
+  end
+
+  def total_invoices_by_weekday
+    invoices = all_invoices.group_by { |inv| inv.weekday_created }
+    invoices.map { |day, invoices| [day, invoices.length]}.to_h
   end
 
 

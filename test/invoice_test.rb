@@ -35,4 +35,8 @@ class InvoiceTest < Minitest::Test
     invoice.merchant
     assert mock_inv_r.verify
   end
+
+  def test_method_weekday_created_returns_string
+    assert_equal "Saturday", invoice_1.weekday_created
+  end
 end

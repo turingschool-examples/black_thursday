@@ -1,4 +1,5 @@
 require_relative 'sales_engine'
+require_relative 'analyst_math'
 require 'pry'
 
 class SalesAnalyst
@@ -9,56 +10,79 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    ans = engine.items_per_merchant.reduce(&:+) / engine.total_merchants.to_f
-    ans.round(2)
+    AnalystMath.average(engine.items_per_merchant)
   end
 
   def average_items_per_merchant_standard_deviation
-    average = average_items_per_merchant
-    segment = engine.items_per_merchant.reduce(0) do |sum, num|
-      sum += (num.to_f - average) ** 2
-    end
-    Math.sqrt(segment / (engine.total_merchants - 1)).round(2)
+    AnalystMath.standard_deviation(engine.items_per_merchant)
   end
 
   def merchants_with_high_item_count
-    min_items = average_items_per_merchant +
-                average_items_per_merchant_standard_deviation
+    min_items = AnalystMath.std_devs_out(engine.items_per_merchant, 1)
     engine.merchants_with_item_count_over_n(min_items)
   end
 
   def average_item_price_for_merchant(id)
-    merchant_items = engine.find_all_items_by_merchant_id(id)
-    price_sum = merchant_items.reduce(0) do |sum, item|
-      sum += item.unit_price
-    end
-    (price_sum / merchant_items.length).round(2)
+    item_prices = engine.find_all_items_by_merchant_id(id).map { |i| i.unit_price }
+    AnalystMath.average(item_prices)
   end
 
   def average_average_price_per_merchant
-    average_price_sum = engine.merchants.all.reduce(0) do |sum, merc|
-      sum += average_item_price_for_merchant(merc.id)
-    end
-    (average_price_sum / engine.total_merchants).round(2)
+    averages = engine.all_merchants.map { |m| average_item_price_for_merchant(m.id) }
+    AnalystMath.average(averages)
   end
 
   def average_item_price
-    sum_all_unit_prices = engine.all_items.reduce(0) do |sum, item|
-      sum += item.unit_price
-    end
-    sum_all_unit_prices / engine.total_items.to_f
+    item_prices = engine.all_items.map {|i| i.unit_price }
+    AnalystMath.average(item_prices)
   end
 
   def average_item_price_standard_deviation
-    average = average_item_price
-    segment = engine.all_items.reduce(0) do |sum, item|
-      sum += (item.unit_price - average) ** 2
-    end
-    Math.sqrt(segment / (engine.total_items - 1)).round(2)
+    item_prices = engine.all_items.map {|i| i.unit_price }
+    AnalystMath.standard_deviation(item_prices)
   end
 
   def golden_items
-    min_price = average_item_price + average_item_price_standard_deviation * 2
+    item_prices = engine.all_items.map {|i| i.unit_price }
+    min_price = AnalystMath.std_devs_out(item_prices, 2)
     engine.items_with_price_over_n(min_price)
   end
+
+  def average_invoices_per_merchant
+    AnalystMath.average(engine.invoices_per_merchant)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    AnalystMath.standard_deviation(engine.invoices_per_merchant)
+  end
+
+  def top_merchants_by_invoice_count
+    min_invoices = AnalystMath.std_devs_out(engine.invoices_per_merchant, 2)
+    engine.merchants_with_invoice_count_over_n(min_invoices)
+  end
+
+  def bottom_merchants_by_invoice_count
+    max_invoices = AnalystMath.std_devs_out(engine.invoices_per_merchant, -2)
+    engine.merchants_with_invoice_count_under_n(max_invoices)
+  end
+
+  def average_invoices_per_day
+    AnalystMath.average(engine.total_invoices_by_weekday.values)
+  end
+
+  def average_invoices_per_day_standard_deviation
+    AnalystMath.standard_deviation(engine.total_invoices_by_weekday.values)
+  end
+
+  def top_days_by_invoice_count
+    invoices_by_weekday = engine.total_invoices_by_weekday
+    min_invs = AnalystMath.std_devs_out(invoices_by_weekday.values, 1)
+    invoices_by_weekday.select { |day, num| num > min_invs }.keys
+  end
+
+  def invoice_status(status)
+    match = engine.all_invoices.select { |inv| inv.status == status }.length
+    (match.to_f / engine.total_invoices * 100).round(2)
+  end
+
 end
