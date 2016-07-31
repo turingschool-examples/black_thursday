@@ -10,4 +10,5 @@ class Merchant
   def items
     items = @parent.find_all_items_by_merchant_id(@id)
   end
+
 end

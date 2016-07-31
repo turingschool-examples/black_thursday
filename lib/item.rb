@@ -25,7 +25,7 @@ class Item
     return nil if !time
     Time.parse(time)
   end
-  
+
   def prep_unit_price(unit_price)
     return nil if !unit_price
     digits = unit_price.length + 1

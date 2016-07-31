@@ -33,13 +33,30 @@ class SalesEngine
     merchants.all
   end
 
-  def total_merchants
-    merchants.all.length
+  def all_items
+    items.all
   end
 
-  def items_by_merchant
-    all_merchants.map { |m| find_all_items_by_merchant_id(m.id).length }
+  def total_merchants
+    all_merchants.length
   end
+
+  def total_items
+    all_items.length
+  end
+
+  def items_per_merchant
+    all_merchants.map { |m| m.items.length }
+  end
+
+  def merchants_with_item_count_over_n(n)
+    all_merchants.select { |m| m.items.length > n }
+  end
+
+  def items_with_price_over_n(n)
+    all_items.select { |i| i.unit_price > n }
+  end
+
 
 
 end
