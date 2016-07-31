@@ -7,6 +7,10 @@ class SalesAnalyst
     @sales_engine = sales_engine
   end
 
+  def merchant_items(merchant_id)
+    @sales_engine.find_items_by_merchant_id(merchant_id)
+  end
+
   def merchant_items_count(merchant_id)
     @sales_engine.find_items_by_merchant_id(merchant_id).count
   end
@@ -34,6 +38,10 @@ class SalesAnalyst
     @sales_engine.all_merchants
   end
 
+  def all_items
+    @sales_engine.all_items
+  end
+
   def merchants_with_high_item_count
     standard_deviation = average_items_per_merchant_standard_deviation
     all_merchants.find_all do |merchant|
@@ -41,7 +49,42 @@ class SalesAnalyst
     end
   end
 
+  def average_item_price_for_merchant(merchant_id)
+    total = merchant_items(merchant_id).map do |item|
+      item.unit_price
+    end
+    (total.reduce(:+)/total.length).round(2)
+  end
 
+  def average_average_price_per_merchant
+    averages = all_merchants.map do |merchant|
+      average_item_price_for_merchant(merchant.id)
+    end
+  (averages.reduce(:+)/all_merchants.length).round(2)
+  end
+
+  def average_item_price
+    total = all_items.map do |item|
+      item.unit_price
+    end
+    (total.reduce(:+)/total.length).round(2)
+  end
+
+  def standard_deviation_of_items
+    total = all_items.map do |item|
+      ((item.unit_price) - average_item_price)**2
+    end
+    Math.sqrt(total.reduce(:+)/(total.length-1))
+  end
+
+  def golden_items
+    standard_deviation = standard_deviation_of_items
+    all_items.find_all do |item|
+      item.unit_price > (standard_deviation*3)
+    end
+  end
+
+end
 
 
 
@@ -52,7 +95,6 @@ class SalesAnalyst
   #average AVERAGE price per merchant
 
   # golden_items top 2.5%    correct?
-end
 
 #methods:
 

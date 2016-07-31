@@ -37,4 +37,8 @@ class SalesEngine
     merchants.all
   end
 
+  def all_items
+    items.all
+  end
+
 end

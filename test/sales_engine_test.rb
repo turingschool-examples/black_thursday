@@ -58,5 +58,7 @@ class SalesEngineTest < MiniTest::Test
     assert_instance_of Merchant, @se.all_merchants.last
   end
 
-
+  def test_it_has_all_the_merchants
+    assert_instance_of Item, @se.all_items.last
+  end
 end
