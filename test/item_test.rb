@@ -74,19 +74,17 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_finds_the_merchant_it_belongs_to
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/support/merchant_support.csv",
-      })
-    se.merchants
+    mock_ir = Minitest::Mock.new
+    mock_ir.expect(:find_merchant_by_id, "instance_of_merchant", [12334146])
     item = Item.new({  id: 1,
       name: "Pencil",
       description: "You can use it to write things",
       unit_price: "1099",
       created_at: time,
       updated_at: time,
-      merchant_id: 12334146}, se.items)
-    assert_kind_of Merchant, item.merchant
+      merchant_id: 12334146}, mock_ir)
+    assert_equal "instance_of_merchant", item.merchant
+    assert mock_ir.verify
   end
 
 end
