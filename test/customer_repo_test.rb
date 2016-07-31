@@ -70,7 +70,7 @@ class CustomerRepoTest < Minitest::Test
     customer_details_3 = {
       :id => 3,
       :first_name => "Steve",
-      :last_name => "Everyman"
+      :last_name => "Holt!"
     }
     cr = CustomerRepo.new
     cr.add_customer(customer_details)
@@ -78,5 +78,15 @@ class CustomerRepoTest < Minitest::Test
     found_customers = cr.find_all_by_last_name("Khan")
     assert_equal 2, found_customers.count
     assert_equal [], cr.find_all_by_last_name("Trump")
+  end
+
+  def test_passing_methods_to_sales_engine
+    mock_se = Minitest::Mock.new
+    cr = CustomerRepo.new(mock_se)
+    mock_se.expect(:find_invoices_by_customer_id, ["invoice"], [1] )
+    assert_equal ["invoice"], cr.find_invoices_by_customer_id(1)
+    mock_se.expect(:find_merchant_by_merchant_id, "merchant", [14] )
+    assert_equal "merchant", cr.find_merchant_by_merchant_id(14)
+    assert mock_se.verify
   end
 end

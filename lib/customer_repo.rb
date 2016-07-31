@@ -3,6 +3,7 @@ require './lib/customer'
 class CustomerRepo
   def initialize(sales_engine = nil)
     @customers = []
+    @sales_engine = sales_engine
   end
 
   def add_customer(customer_details)
@@ -29,5 +30,13 @@ class CustomerRepo
     @customers.find_all do |customer|
       customer.last_name == last_name
     end
+  end
+
+  def find_invoices_by_customer_id(id)
+    @sales_engine.find_invoices_by_customer_id(id)
+  end
+
+  def find_merchant_by_merchant_id(merchant_id)
+    @sales_engine.find_merchant_by_merchant_id(merchant_id)
   end
 end

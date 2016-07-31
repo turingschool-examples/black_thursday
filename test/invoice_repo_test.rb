@@ -101,4 +101,30 @@ class InvoiceRepoTest < Minitest::Test
     assert mock_se.verify
   end
 
+  def test_it_passes_methods_getting_items_to_invoice
+    mock_se = Minitest::Mock.new
+    ir = InvoiceRepo.new(mock_se)
+    mock_se.expect(:find_invoice_items_by_invoice_id, ["an array of invoice items"], [1])
+    mock_se.expect(:find_item_by_item_id, "an item", [2])
+    assert_equal ["an array of invoice items"], ir.find_invoice_items_by_invoice_id(1)
+    assert_equal "an item", ir.find_item_by_item_id(2)
+    assert mock_se.verify
+  end
+
+  def test_it_passes_methods_getting_transactions_to_invoice
+    mock_se = Minitest::Mock.new
+    ir = InvoiceRepo.new(mock_se)
+    mock_se.expect(:find_transactions_by_invoice_id, "a transaction", [1])
+    assert_equal "a transaction", ir.find_transactions_by_invoice_id(1)
+    assert mock_se.verify
+  end
+
+  def test_it_passes_methods_getting_customer
+    mock_se = Minitest::Mock.new
+    ir = InvoiceRepo.new(mock_se)
+    mock_se.expect(:find_customer_by_customer_id, "a customer", [10])
+    assert_equal "a customer", ir.find_customer_by_customer_id(10)
+    assert mock_se.verify
+  end
+
 end
