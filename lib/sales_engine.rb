@@ -18,7 +18,7 @@ class SalesEngine
       @items = ItemRepository.new(files_to_load[:items], self)
       @merchants = MerchantRepository.new(files_to_load[:merchants], self)
       @invoices = InvoiceRepository.new(files_to_load[:invoices], self)
-      @transactions = TransactionRepository.new(files_to_load[:transactions], self)
+      # @transactions = TransactionRepository.new(files_to_load[:transactions], self)
       @invoice_items = InvoiceItemRepository.new(files_to_load[:invoice_items], self)
 
   end

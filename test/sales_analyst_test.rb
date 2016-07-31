@@ -11,6 +11,9 @@ class SalesAnalystTest < MiniTest::Test
     @sa = SalesAnalyst.new(SalesEngine.new({
                                              :items     => "./data/items.csv",
                                              :merchants => "./data/merchants.csv",
+                                             :invoices  => "./data/invoices.csv",
+                                             :transactions => "./data/transactions.csv",
+                                             :invoice_items => "./data/invoice_items.csv"
                                             }))
   end
 
