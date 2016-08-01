@@ -1,14 +1,18 @@
+require "pry"
+
 class SalesAnalyst
 
   attr_reader :merchant_repo,
-              :item_repo,
-              :invoice_repo
+  :item_repo,
+  :invoice_repo,
+  :invoice_item_repo
 
   def initialize(sales_engine)
     @sales_engine = sales_engine
     @merchant_repo = sales_engine.merchants
     @item_repo = sales_engine.items
     @invoice_repo = sales_engine.invoices
+    @invoice_item_repo = sales_engine.invoice_items
   end
   #items per merchant
   def average_items_per_merchant
@@ -55,11 +59,11 @@ class SalesAnalyst
 
   #items
   def golden_items
-      average = average_item_price
-      deviation = standard_deviation_in_items_price(average)
-      item_repo.all.select do |item|
-        item.unit_price > average + deviation * 2
-      end
+    average = average_item_price
+    deviation = standard_deviation_in_items_price(average)
+    item_repo.all.select do |item|
+      item.unit_price > average + deviation * 2
+    end
   end
 
   def average_item_price
@@ -152,4 +156,94 @@ class SalesAnalyst
     invoices_with_status = invoice_repo.find_all_by_status(status).count
     (invoices_with_status.to_f / invoice_count * 100.0).round(2)
   end
+
+  #revenue info
+  def revenue_by_merchant(merchant_id)
+    merchants_invoices = @sales_engine.find_all_invoices_by_merchant_id(merchant_id)
+    merchants_invoices.reduce(0) do |revenue, invoice|
+      revenue += invoice.total if invoice.is_paid_in_full?
+      revenue
+    end
+  end
+
+  def total_revenue_by_date(date)
+    total_invoices = invoice_repo.all.select do |invoice|
+      invoice.created_at == date
+    end
+    total_invoices.reduce(0) do |revenue, invoice|
+      revenue += invoice.total if invoice.is_paid_in_full?
+      revenue
+    end
+  end
+
+  def top_revenue_earners(threshhold = 20)
+    merchants_ranked_by_revenue[0..threshhold - 1]
+  end
+
+  def merchants_ranked_by_revenue
+    sorted_merchants = merchant_repo.all.sort_by do |merchant|
+      revenue_by_merchant(merchant.id)
+    end
+    sorted_merchants.reverse
+  end
+
+  def merchants_with_pending_invoices
+    merchant_repo.all.select do |merchant|
+      merchant_invoices = invoice_repo.find_all_by_merchant_id(merchant.id)
+      merchant_invoices.any? do |invoice|
+        not invoice.is_paid_in_full?
+      end
+    end
+  end
+
+  def merchants_with_only_one_item
+    merchant_repo.all.select do |merchant|
+      merchant_items = item_repo.find_all_by_merchant_id(merchant.id)
+      merchant_items.count == 1
+    end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchant_repo.all.select do |merchant|
+      merchant_items = item_repo.find_all_by_merchant_id(merchant.id)
+      merchant_items.count == 1 && merchant.created_at.strftime("%B") == month
+    end
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    paid_invoice_items = paid_invoice_items_for_merchant(merchant_id)
+    items_by_merchant = item_repo.find_all_by_merchant_id(merchant_id)
+    grouped_items = items_by_merchant.group_by do |item|
+      paid_invoice_items.reduce(0) do |total, invoice_item|
+        total += invoice_item.quantity if invoice_item.item_id == item.id
+        total
+      end
+    end
+    grouped_items[grouped_items.keys.max]
+  end
+
+  def best_item_for_merchant(merchant_id)
+    paid_invoice_items = paid_invoice_items_for_merchant(merchant_id)
+    items_by_merchant = item_repo.find_all_by_merchant_id(merchant_id)
+    grouped_items = items_by_merchant.sort_by do |item|
+      paid_invoice_items.reduce(0) do |revenue, invoice_item|
+        if invoice_item.item_id == item.id
+          revenue += invoice_item.quantity * invoice_item.unit_price
+        end
+        revenue
+      end
+    end
+    grouped_items.first
+  end
+
+  def paid_invoice_items_for_merchant(merchant_id)
+    invoices_by_merchant = invoice_repo.find_all_by_merchant_id(merchant_id)
+    invoices_by_merchant.reduce([]) do |result, invoice|
+      if invoice.is_paid_in_full?
+        result += invoice_item_repo.find_all_by_invoice_id(invoice.id)
+      end
+      result
+    end
+  end
+
 end
