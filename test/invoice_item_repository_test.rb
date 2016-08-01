@@ -30,22 +30,6 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal nil,        invoice_item_nil
   end
 
-  # def test_method_find_all_by_price_returns_array_of_items
-  #   invoice_items =           inv_ir.find_all_by_price(21.96)
-  #   invoice_items_empty =     inv_ir.find_all_by_price(12345679.10)
-  #   invoice_items_multiple =  inv_ir.find_all_by_price(18.59)
-  #   assert_equal inv_ir.invoice_items[0].unit_price, invoice_items[0].unit_price
-  #   assert_equal [],                     invoice_items_empty
-  #   assert_equal true,                   invoice_items_multiple.length > 1
-  # end
-#
-#   def test_method_find_all_by_price_in_range_returns_array_of_items
-#     items_multiple = inv_ir.find_all_by_price_in_range(1..2)
-#     items_empty =    inv_ir.find_all_by_price_in_range(9000..9001)
-#     assert_equal true, items_multiple.length > 1
-#     assert_equal [],   items_empty
-#   end
-# #
   def test_method_find_all_by_item_id_returns_array_of_items
     invoice_items = inv_ir.find_all_by_item_id(1)
     invoice_items_multiple = inv_ir.find_all_by_item_id(2)

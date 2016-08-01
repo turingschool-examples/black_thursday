@@ -20,14 +20,6 @@ class InvoiceItemRepository
     @invoice_items.find { |invoice_item| invoice_item.id == id }
   end
 
-  # def find_all_by_price(price)
-  #   @invoice_items.find_all { |invoice_item| invoice_item.unit_price == price }
-  # end
-  #
-  # def find_all_by_price_in_range(range)
-  #   @invoice_items.find_all { |invoice_item| range.include? invoice_item.unit_price }
-  # end
-
   def find_all_by_item_id(item_id)
     @invoice_items.find_all { |invoice_item| invoice_item.item_id == item_id }
   end
