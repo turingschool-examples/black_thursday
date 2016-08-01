@@ -88,12 +88,3 @@ class InvoiceRepoTest < Minitest::Test
   end
 
 end
-# def test_it_finds_customers_who_worked_with_a_merchant
-#   filepath = "./data/support/merchant_support.csv"
-#   mock_se = Minitest::Mock.new
-#   mock_se.expect(:find_all_customers_by_merchant_id, [1,2], [12334155])
-#   merch_repo = MerchantsRepo.new(filepath, mock_se)
-#
-#   assert_equal 2, merch_repo.find_all_customers_by_merchant_id(12334155).count
-#   assert mock_se.verify
-# end
