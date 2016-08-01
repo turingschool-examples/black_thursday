@@ -23,8 +23,4 @@ class Transaction
     @parent.find_invoice_by_id(self.invoice_id)
   end
 
-  def invoice
-
-  end
-
 end
