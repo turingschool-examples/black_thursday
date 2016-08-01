@@ -9,6 +9,7 @@ class SalesEngineTest < Minitest::Test
       :items     => "./test/fixtures/items_fixture.csv",
       :merchants => "./test/fixtures/merchants_fixture.csv",
       :invoices  => "./test/fixtures/invoices_fixture.csv",
+      :invoice_items => "./test/fixtures/invoice_items_fixture.csv"
     })
   end
 
@@ -16,6 +17,7 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of ItemRepository, se.items
     assert_instance_of MerchantRepository, se.merchants
     assert_instance_of InvoiceRepository, se.invoices
+    assert_instance_of InvoiceItemRepository, se.invoice_items
   end
 
   def test_finds_merchant_by_merchant_id
