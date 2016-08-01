@@ -11,7 +11,7 @@ class TransactionRepo
   end
 
   def add_transaction(transaction_details)
-    @transactions << Transaction.new(transaction_details)
+    @transactions << Transaction.new(transaction_details, self)
   end
 
   def find_by_id(id)
@@ -19,7 +19,7 @@ class TransactionRepo
       transaction.id == id
     end
   end
-  
+
   def find_all_by_id(id)
     @transactions.find_all do |transaction|
       transaction.id == id
