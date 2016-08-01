@@ -148,7 +148,6 @@ class SalesAnalyst
     end
   end
   def invoice_status(status)
-    # binding.pry
     invoice_count = invoice_repo.all.count
     invoices_with_status = invoice_repo.find_all_by_status(status).count
     (invoices_with_status.to_f / invoice_count * 100.0).round(2)

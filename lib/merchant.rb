@@ -8,8 +8,8 @@ class Merchant
     @parent = parent
     @id = row[:id].to_i
     @name = row[:name]
-    @created_at = Time.strptime(row[:created_at], "%Y-%m-%d")
-    @updated_at = Time.strptime(row[:updated_at], "%Y-%m-%d")
+    @created_at = row[:created_at].nil?? Time.now : Time.parse(row[:created_at])
+    @updated_at = row[:updated_at].nil?? Time.now : Time.parse(row[:updated_at])
   end
 
   def items

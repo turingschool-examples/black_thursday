@@ -9,10 +9,16 @@ class Invoice
     @id = row[:id].to_i
     @customer_id = row[:customer_id].to_i
     @merchant_id = row[:merchant_id].to_i
+<<<<<<< HEAD
+    @status = row[:status].nil?? nil : row[:status].to_sym
+    @created_at = row[:created_at].nil?? Time.now : Time.parse(row[:created_at])
+    @updated_at = row[:updated_at].nil?? Time.now : Time.parse(row[:updated_at])
+=======
     @status = row[:status].to_sym
     @created_at = Time.strptime(row[:created_at], "%Y-%m-%d")
     @updated_at = Time.strptime(row[:updated_at], "%Y-%m-%d")
     @parent = parent
+>>>>>>> master
   end
 
   def merchant

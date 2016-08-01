@@ -44,6 +44,14 @@ class SalesEngine
     merchants.find_by_id(merchant_id)
   end
 
+  def find_customer_by_id(customer_id)
+    customers.find_by_id(customer_id)
+  end
+
+  def find_invoice_by_id(invoice_id)
+    invoices.find_by_id(invoice_id)
+  end
+
   def find_all_items_by_merchant_id(merchant_id)
     items.find_all_by_merchant_id(merchant_id)
   end
@@ -65,19 +73,11 @@ class SalesEngine
     transactions.find_all_by_invoice_id(invoice_id)
   end
 
-  def find_customer_by_id(customer_id)
-    customers.find_by_id(customer_id)
-  end
-
   def find_all_customers_by_merchant_id(merchant_id)
     invoices = find_all_invoices_by_merchant_id(merchant_id)
     customers_ids = invoices.map {|invoice| invoice.customer_id}
     customers_ids.map do |customer|
       customers.find_by_id(customer)
     end.uniq
-  end
-
-  def find_invoice_by_id(invoice_id)
-    invoices.find_by_id(invoice_id)
   end
 end

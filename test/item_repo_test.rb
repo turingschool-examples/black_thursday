@@ -18,7 +18,7 @@ class ItemRepoTest < Minitest::Test
 
   def test_find_by_name
     name = "510+ RealPush Icon Set"
-    ir = ItemRepo.new('./data/items.csv')
+    ir = ItemRepo.new('./data/support/items_support.csv')
     item = ir.find_by_name(name)
     assert_equal name, item.name
 
@@ -27,9 +27,9 @@ class ItemRepoTest < Minitest::Test
 
   def test_find_all_with_description
     description = "fancy"
-    ir = ItemRepo.new('./data/items.csv')
+    ir = ItemRepo.new('./data/support/items_support.csv')
     matches = ir.find_all_with_description(description)
-    assert_equal 2, matches.count
+    assert_equal 1, matches.count
 
     assert_equal [], ir.find_all_with_description("butts")
   end
@@ -56,5 +56,21 @@ class ItemRepoTest < Minitest::Test
     matches = ir.find_all_by_merchant_id(merchant_id)
     assert_equal 1, matches.count
     assert_equal [], ir.find_all_by_merchant_id(1)
+  end
+
+  def test_find_all_items
+    ir = ItemRepo.new("./data/support/items_support.csv")
+    items = ir.all
+
+    assert_equal 2, items.count
+  end
+
+  def find_merchant_by_id
+    mock_se = Minitest::Mock.new
+    mock_se.expect(:find_merchant_by_id, "instance of merchant", [12334207])
+
+    ir = ItemRepo.new('./data/support/items_support.csv', mock_se)
+    assert_equal "instance of merchant", ir.find_merchant_by_id(12334207)
+    assert mock_se.verify
   end
 end
