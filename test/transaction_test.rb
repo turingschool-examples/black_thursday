@@ -34,4 +34,15 @@ class TransactionTest < Minitest::Test
     assert_equal nil, transaction.result 
   end
 
+  def test_transaction_has_invoice
+    mock_tr = Minitest::Mock.new  
+    t = Transaction.new({
+      :id => 1,
+      :invoice_id => 5,
+      }, mock_tr)
+    mock_tr.expect(:find_invoice_by_invoice_id, "a single invoice", [5])
+    assert_equal "a single invoice", t.invoice
+    assert mock_tr.verify
+  end
+
 end

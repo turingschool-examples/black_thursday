@@ -105,5 +105,13 @@ class TransactionRepoTest < Minitest::Test
     assert_equal "success", found_transactions.first.result
     assert_equal [], tr.find_all_by_result("still waiting")
   end
-  
+
+  def test_passing_methods_to_sales_engine
+    mock_se = Minitest::Mock.new
+    tr = TransactionRepo.new(mock_se)
+    mock_se.expect(:find_invoice_by_invoice_id, "invoice", [5] )
+    assert_equal "invoice", tr.find_invoice_by_invoice_id(5)
+    assert mock_se.verify
+  end
+
 end

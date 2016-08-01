@@ -16,10 +16,10 @@ class Transaction
     @credit_card_number          = transaction_details[:credit_card_number].to_i
     @credit_card_expiration_date =
      transaction_details[:credit_card_expiration_date].to_i
-    @result               = transaction_details[:result]
-    @created_at           = format_time(transaction_details[:created_at].to_s)
-    @updated_at           = format_time(transaction_details[:updated_at].to_s)
-    @pare                 = repo
+    @result                      = transaction_details[:result]
+    @created_at                  = format_time(transaction_details[:created_at].to_s)
+    @updated_at                  = format_time(transaction_details[:updated_at].to_s)
+    @parent                      = repo
   end
 
   def format_time(time_string)
@@ -28,4 +28,9 @@ class Transaction
     end
   end
 
+  def invoice
+    @parent.find_invoice_by_invoice_id(invoice_id)
+  end
+
 end
+

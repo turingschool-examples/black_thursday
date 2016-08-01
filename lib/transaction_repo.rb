@@ -19,6 +19,12 @@ class TransactionRepo
       transaction.id == id
     end
   end
+  
+  def find_all_by_id(id)
+    @transactions.find_all do |transaction|
+      transaction.id == id
+    end
+  end
 
   def find_all_by_invoice_id(invoice_id)
     @transactions.find_all do |transaction|
@@ -37,4 +43,9 @@ class TransactionRepo
       transaction.result == result
     end
   end
+
+  def find_invoice_by_invoice_id(invoice_id)
+    @sales_engine.find_invoice_by_invoice_id(invoice_id)
+  end
+
 end
