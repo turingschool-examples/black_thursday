@@ -1,5 +1,5 @@
 require 'simplecov'
-SimpleCov.start
+# SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'minitest/mock'

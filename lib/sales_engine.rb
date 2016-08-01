@@ -1,17 +1,19 @@
 require_relative 'item_repository'
 require_relative 'merchant_repository'
 require_relative 'invoice_repository'
+require_relative 'transaction_repository'
 require_relative 'invoice_item_repository'
 require 'csv'
 
 class SalesEngine
-  attr_reader :items, :merchants, :invoices, :invoice_items
+  attr_reader :items, :merchants, :invoices, :invoice_items, :transactions
 
-  def initialize(items_path, merchants_path, invoices_path, invoice_items_path)
+  def initialize(items_path, merchants_path, invoices_path, invoice_items_path, transactions_path)
     @items = ItemRepository.new(csv_rows(items_path), self)
     @merchants = MerchantRepository.new(csv_rows(merchants_path), self)
     @invoices = InvoiceRepository.new(csv_rows(invoices_path), self)
     @invoice_items = InvoiceItemRepository.new(csv_rows(invoice_items_path), self)
+    @transactions = TransactionRepository.new(csv_rows(transactions_path), self)
   end
 
   def csv_rows(path)
@@ -24,11 +26,16 @@ class SalesEngine
     merchants_path = data[:merchants]
     invoices_path = data[:invoices]
     invoice_items_path = data[:invoice_items]
-    self.new(items_path, merchants_path, invoices_path, invoice_items_path)
+    transactions_path = data[:transactions]
+    self.new(items_path, merchants_path, invoices_path, invoice_items_path, transactions_path)
   end
 
   def find_merchant_by_id(m_id)
     merchants.find_by_id(m_id)
+  end
+
+  def find_invoice_by_id(inv_id)
+    invoices.find_by_id(inv_id)
   end
 
   def find_all_items_by_merchant_id(m_id)
