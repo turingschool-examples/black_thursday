@@ -73,7 +73,17 @@ class MerchantRepoTest < Minitest::Test
     mock_se = Minitest::Mock.new
     mr = MerchantRepo.new(mock_se)
     mock_se.expect(:find_invoices_by_merchant_id, [], [5])
-    mr.find_invoices_by_merchant_id(5)
+    assert_equal [], mr.find_invoices_by_merchant_id(5)
+    assert mock_se.verify
+  end
+
+  def test_passing_methods_to_sales_engine
+    mock_se = Minitest::Mock.new
+    mr = MerchantRepo.new(mock_se)
+    mock_se.expect(:find_invoices_by_merchant_id, ["invoice"], [12334141] )
+    assert_equal ["invoice"], mr.find_invoices_by_merchant_id(12334141)
+    mock_se.expect(:find_customer_by_customer_id, "customer", [8] )
+    assert_equal "customer", mr.find_customer_by_customer_id(8)
     assert mock_se.verify
   end
 end

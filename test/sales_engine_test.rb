@@ -162,6 +162,53 @@ class SalesEngineTest < Minitest::Test
     expected_invoices = ir.find_all_by_merchant_id(3)
     assert_equal expected_invoices, se.find_invoices_by_merchant_id(3)
   end
+  
+  def test_find_invoices_by_customer_id
+    se = SalesEngine.new("empty")
+    ir = se.invoice_repo
+    invoice_1 = {
+      :id => 1,
+      :customer_id => 25
+    }
+    invoice_2 = {
+      :id => 2,
+      :customer_id => 50
+    }
+    invoice_3 = {
+      :id => 20,
+      :customer_id => 100
+    }
+    invoices = [invoice_1, invoice_2, invoice_3]
+    invoices.each do |invoice|
+      ir.add_invoice(invoice)
+    end
+    expected_invoices = ir.find_all_by_customer_id(100)
+    assert_equal expected_invoices, se.find_invoices_by_customer_id(100)
+  end
+  
+  def test_find_invoice_by_invoice_id
+    se = SalesEngine.new("empty")
+    ir = se.invoice_repo
+    invoice_1 = {
+      :id => 1,
+      :customer_id => 25
+    }
+    invoice_2 = {
+      :id => 2,
+      :customer_id => 50
+    }
+    invoice_3 = {
+      :id => 3,
+      :customer_id => 100
+    }
+    invoices = [invoice_1, invoice_2, invoice_3]
+    invoices.each do |invoice|
+      ir.add_invoice(invoice)
+    end
+    expected_invoices = ir.find_all_by_customer_id(3)
+    assert_equal expected_invoices, se.find_invoices_by_customer_id(3)
+  end
+
 
   def test_add_small_invoice_csv
     se = SalesEngine.from_csv({
