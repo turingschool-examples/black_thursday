@@ -9,7 +9,8 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv({
       :items     => "./test/fixtures/items_fixture.csv",
       :merchants => "./test/fixtures/merchants_fixture.csv",
-      :invoices  => "./test/fixtures/invoices_fixture.csv"
+      :invoices  => "./test/fixtures/invoices_fixture.csv",
+      :invoice_items => "./test/fixtures/invoice_items_fixture.csv"
     })
     @sa = SalesAnalyst.new(se)
   end
@@ -85,7 +86,4 @@ class SalesAnalystTest < Minitest::Test
           sa.invoice_status(:returned)
     assert_equal 100.0, sum
   end
-
-
-
 end
