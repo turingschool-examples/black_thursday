@@ -1,11 +1,13 @@
 require_relative './item_repo'
 require_relative './merchant_repo'
+require_relative './invoice_repo'
 require 'CSV'
 require 'pry'
 
 class SalesEngine
   attr_reader :merchant_repo,
-              :item_repo
+              :item_repo,
+              :invoice_repo
 
   def initialize(csv_path_info)
     # we use <type>_repo, rather than just the type
@@ -13,6 +15,7 @@ class SalesEngine
     # e.g. merchant_repo rather than merchants
     @merchant_repo = MerchantRepo.new(self)
     @item_repo     = ItemRepo.new(self)
+    @invoice_repo  = InvoiceRepo.new(self)
     if csv_path_info.class == Hash
       add_data_to_repos(csv_path_info)
     end
@@ -26,12 +29,19 @@ class SalesEngine
     @merchant_repo
   end
 
+  def invoices
+    @invoice_repo
+  end
+
   def add_data_to_repos(csv_path_info)
     if csv_path_info[:merchants]
       add_merchants(csv_path_info[:merchants])
     end
     if csv_path_info[:items]
       add_items(csv_path_info[:items])
+    end
+    if csv_path_info[:invoices]
+      add_invoices(csv_path_info[:invoices])
     end
   end
 
@@ -51,12 +61,22 @@ class SalesEngine
     end
   end
 
+  def add_invoices(path_info)
+    CSV.foreach(path_info, headers:true, header_converters: :symbol) do |row|
+       @invoice_repo.add_invoice(row)
+    end
+  end
+
   def all_merchants
     @merchant_repo.all
   end
 
   def all_items
     @item_repo.all
+  end
+
+  def all_invoices
+    @invoice_repo.all
   end
 
   # these methods are for passing child queries
@@ -68,6 +88,10 @@ class SalesEngine
 
   def find_merchant_by_merchant_id(id)
     @merchant_repo.find_by_id(id)
+  end
+
+  def find_invoices_by_merchant_id(id)
+    @invoice_repo.find_all_by_merchant_id(id)
   end
 
 end

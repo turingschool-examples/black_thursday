@@ -205,4 +205,103 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal [], sa.merchants_with_high_item_count
   end
+
+  def test_get_merchant_invoice_counts
+    se = SalesEngine.from_csv({
+      :merchants => './test/support/merchants_for_invoice_analysis.csv',
+      :invoices => './test/support/invoice_for_analysis.csv'
+    })
+    sa = SalesAnalyst.new(se)
+    invoice_counts = sa.get_merchant_invoice_counts(se.all_merchants)
+    assert_equal [10,7,12,11,10,10,13], invoice_counts
+  end
+
+  def test_average_invoice_per_merchant
+    se = SalesEngine.from_csv({
+      :merchants => './test/support/merchants_for_invoice_analysis.csv',
+      :invoices => './test/support/invoice_for_analysis.csv'
+    })
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 10.43, sa.average_invoices_per_merchant
+  end
+
+  def test_standard_dev_invoice_per_merchant
+    se = SalesEngine.from_csv({
+      :merchants => './test/support/merchants_for_invoice_analysis.csv',
+      :invoices => './test/support/invoice_for_analysis.csv'
+    })
+    sa = SalesAnalyst.new(se)
+    assert_equal 1.9, sa.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_top_merchants_by_invoice_count
+    se = SalesEngine.from_csv({
+      :merchants => './test/support/merchants_for_invoice_analysis.csv',
+      :invoices => './test/support/invoice_for_analysis.csv'
+    })
+    sa = SalesAnalyst.new(se)
+    assert_equal 12334135, sa.top_merchants_by_invoice_count(1).first.id
+  end
+
+  def test_bottom_merchants_by_invoice_count
+    se = SalesEngine.from_csv({
+      :merchants => './test/support/merchants_for_invoice_analysis.csv',
+      :invoices => './test/support/invoice_for_analysis.csv'
+    })
+    sa = SalesAnalyst.new(se)
+    assert_equal 12334112, sa.bottom_merchants_by_invoice_count(1).first.id
+  end
+
+  def test_invoice_status
+    se = SalesEngine.from_csv({
+      :merchants => './test/support/merchants_for_invoice_analysis.csv',
+      :invoices => './test/support/invoice_for_analysis.csv'
+    })
+    sa = SalesAnalyst.new(se)
+    assert_equal 23.29, sa.invoice_status(:pending)
+    assert_equal 13.70, sa.invoice_status(:returned)
+    assert_equal 63.01, sa.invoice_status(:shipped)
+  end
+
+  def test_group_invoices_by_day
+    se = SalesEngine.from_csv({
+      :merchants => './test/support/merchants_for_invoice_analysis.csv',
+      :invoices => './test/support/invoice_for_analysis.csv'
+    })
+    sa = SalesAnalyst.new(se)
+    expected_invoice_day_counts = [6, 15, 13, 8, 7, 7, 17]
+    day_invoice_data = sa.group_invoices_by_day(se.all_invoices)
+    expected_invoice_day_counts.each_with_index do |count, day|
+      assert_equal count, day_invoice_data[day].count
+    end
+  end
+
+  def test_avg_invoices_per_day
+    se = SalesEngine.from_csv({
+      :merchants => './test/support/merchants_for_invoice_analysis.csv',
+      :invoices => './test/support/invoice_for_analysis.csv'
+    })
+    sa = SalesAnalyst.new(se)
+    assert_equal 10.43, sa.average_invoices_per_day
+  end
+
+  def test_invoices_per_day_std
+    se = SalesEngine.from_csv({
+      :merchants => './test/support/merchants_for_invoice_analysis.csv',
+      :invoices => './test/support/invoice_for_analysis.csv'
+    })
+    sa = SalesAnalyst.new(se)
+    assert_equal 4.47, sa.average_invoices_per_day_std
+  end
+
+  def test_top_days_by_invoice_count
+    se = SalesEngine.from_csv({
+      :merchants => './test/support/merchants_for_invoice_analysis.csv',
+      :invoices => './test/support/invoice_for_analysis.csv'
+    })
+    sa = SalesAnalyst.new(se)
+    assert_equal ["Tuesday", "Thursday"], sa.top_days_by_invoice_count
+  end
+
 end
