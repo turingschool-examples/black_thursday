@@ -32,15 +32,15 @@ class SalesAnalyst
     AnalystMath.average(averages)
   end
 
-  def average_item_price
-    item_prices = engine.all_items.map {|i| i.unit_price }
-    AnalystMath.average(item_prices)
-  end
+  # def average_item_price
+  #   item_prices = engine.all_items.map {|i| i.unit_price }
+  #   AnalystMath.average(item_prices)
+  # end
 
-  def average_item_price_standard_deviation
-    item_prices = engine.all_items.map {|i| i.unit_price }
-    AnalystMath.standard_deviation(item_prices)
-  end
+  # def average_item_price_standard_deviation
+  #   item_prices = engine.all_items.map {|i| i.unit_price }
+  #   AnalystMath.standard_deviation(item_prices)
+  # end
 
   def golden_items
     item_prices = engine.all_items.map {|i| i.unit_price }
