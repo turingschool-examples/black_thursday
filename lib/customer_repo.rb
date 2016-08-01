@@ -1,4 +1,4 @@
-require './lib/customer'
+require_relative '../lib/customer'
 
 class CustomerRepo
   def initialize(sales_engine = nil)
@@ -7,6 +7,7 @@ class CustomerRepo
   end
 
   def add_customer(customer_details)
+    # binding.pry
     @customers << Customer.new(customer_details, self)
   end
 
@@ -15,6 +16,7 @@ class CustomerRepo
   end
 
   def find_by_id(id)
+    # binding.pry
     @customers.find do |customer|
       customer.id == id
     end

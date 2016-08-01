@@ -39,7 +39,21 @@ class Invoice
   end
 
   def customer
+    # binding.pry
     @parent.find_customer_by_customer_id(customer_id)
+  end
+
+  def is_paid_in_full?
+    transactions.one? do |transaction|
+      transaction.status == "success"
+    end
+  end
+
+  def total
+    items.reduce(0) do |result, item|
+      result += item.unit_price
+      result
+    end
   end
 
 end
