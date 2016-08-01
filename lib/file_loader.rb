@@ -15,24 +15,13 @@ class FileLoader
   end
 
   def load_repos_from_csv(file_path_details)
-    if file_path_details[:merchants]
-      add(file_path_details[:merchants], merchant_repo)
+    file_path_details.keys.each do |key|
+      add(file_path_details[key], repo_name(key))
     end
-    if file_path_details[:items]
-      add(file_path_details[:items], item_repo)
-    end
-    if file_path_details[:invoices]
-      add(file_path_details[:invoices], invoice_repo)
-    end
-    if file_path_details[:invoice_items]
-      add(file_path_details[:invoice_items], invoice_item_repo)
-    end
-    if file_path_details[:customers]
-      add(file_path_details[:customers], customer_repo)
-    end
-    if file_path_details[:transactions]
-      add(file_path_details[:transactions], transaction_repo)
-    end
+  end
+
+  def repo_name(key)
+    eval("#{key.to_s.chop}_repo")
   end
 
   def add(path, repo)
