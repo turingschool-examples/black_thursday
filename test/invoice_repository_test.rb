@@ -49,10 +49,10 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_method_find_all_by_status_returns_array_of_invoices
-    invoices = inv_r.find_all_by_status(:delivered)
+    invoices = inv_r.find_all_by_status(:returned)
     invoices_multiple = inv_r.find_all_by_status(:shipped)
     invoices_empty = inv_r.find_all_by_status(:terminated)
-    assert_equal :delivered, invoices[0].status
+    assert_equal :returned, invoices[0].status
     assert_equal true, invoices_multiple.length > 1
     assert_equal [], invoices_empty
   end
