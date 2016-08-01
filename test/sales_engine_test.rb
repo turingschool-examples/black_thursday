@@ -88,10 +88,10 @@ class SalesEngineTest < Minitest::Test
     merchants = [merchant_1_details, merchant_2_details]
 
     items.each do |item|
-      ir.add_item(item)
+      ir.add(item)
     end
     merchants.each do |merchant|
-      mr.add_merchant(merchant)
+      mr.add(merchant)
     end
     merchant = mr.find_by_id(21)
     item_1 = ir.find_by_name("A thing that you want")
@@ -130,10 +130,10 @@ class SalesEngineTest < Minitest::Test
     merchants = [merchant_1_details, merchant_2_details]
 
     items.each do |item|
-      ir.add_item(item)
+      ir.add(item)
     end
     merchants.each do |merchant|
-      mr.add_merchant(merchant)
+      mr.add(merchant)
     end
     expected_merchant = mr.find_by_id(21)
     item = ir.find_all_by_merchant_id(21).first
@@ -157,12 +157,12 @@ class SalesEngineTest < Minitest::Test
     }
     invoices = [invoice_1, invoice_2, invoice_3]
     invoices.each do |invoice|
-      ir.add_invoice(invoice)
+      ir.add(invoice)
     end
     expected_invoices = ir.find_all_by_merchant_id(3)
     assert_equal expected_invoices, se.find_invoices_by_merchant_id(3)
   end
-  
+
   def test_find_invoices_by_customer_id
     se = SalesEngine.new("empty")
     ir = se.invoice_repo
@@ -180,12 +180,12 @@ class SalesEngineTest < Minitest::Test
     }
     invoices = [invoice_1, invoice_2, invoice_3]
     invoices.each do |invoice|
-      ir.add_invoice(invoice)
+      ir.add(invoice)
     end
     expected_invoices = ir.find_all_by_customer_id(100)
     assert_equal expected_invoices, se.find_invoices_by_customer_id(100)
   end
-  
+
   def test_find_invoice_by_invoice_id
     se = SalesEngine.new("empty")
     ir = se.invoice_repo
@@ -203,7 +203,7 @@ class SalesEngineTest < Minitest::Test
     }
     invoices = [invoice_1, invoice_2, invoice_3]
     invoices.each do |invoice|
-      ir.add_invoice(invoice)
+      ir.add(invoice)
     end
     expected_invoices = ir.find_all_by_customer_id(3)
     assert_equal expected_invoices, se.find_invoices_by_customer_id(3)

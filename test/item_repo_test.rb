@@ -4,7 +4,7 @@ class ItemRepoTest < Minitest::Test
 
   def test_add_items_and_access_them
     ir = ItemRepo.new
-    ir.add_item({:id => 123,
+    ir.add({:id => 123,
                  :name => "Awesome thing",
                  :description => "It's awesome",
                  :unit_price => 1000000,
@@ -17,14 +17,14 @@ class ItemRepoTest < Minitest::Test
 
   def test_find_by_id
     ir = ItemRepo.new
-    ir.add_item({:id => 123,
+    ir.add({:id => 123,
                  :name => "Awesome thing",
                  :description => "It's awesome",
                  :unit_price => 1000000,
                  :merchant_id => 3,
                  :created_at => Time.now,
                  :updated_at => Time.now})
-    ir.add_item({:id => 124,
+    ir.add({:id => 124,
                  :name => "yarn",
                  :description => "it's yarn..."})
     assert_equal "Awesome thing", ir.find_by_id(123).name
@@ -32,14 +32,14 @@ class ItemRepoTest < Minitest::Test
 
   def test_fail_at_find_by_id
     ir = ItemRepo.new
-    ir.add_item({:id => 123,
+    ir.add({:id => 123,
                  :name => "Awesome thing",
                  :description => "It's awesome",
                  :unit_price => 1000000,
                  :merchant_id => 3,
                  :created_at => Time.now,
                  :updated_at => Time.now})
-    ir.add_item({:id => 124,
+    ir.add({:id => 124,
                  :name => "yarn",
                  :description => "it's yarn..."})
     assert_equal nil, ir.find_by_id(0)
@@ -47,14 +47,14 @@ class ItemRepoTest < Minitest::Test
 
   def test_find_by_name
     ir = ItemRepo.new
-    ir.add_item({:id => 123,
+    ir.add({:id => 123,
                  :name => "Awesome thing",
                  :description => "It's awesome",
                  :unit_price => 1000000,
                  :merchant_id => 3,
                  :created_at => Time.now,
                  :updated_at => Time.now})
-    ir.add_item({:id => 124,
+    ir.add({:id => 124,
                  :name => "yarn",
                  :description => "it's yarn..."})
     assert_equal 124, ir.find_by_name("YARN").id
@@ -62,14 +62,14 @@ class ItemRepoTest < Minitest::Test
 
   def test_fail_at_find_by_name
     ir = ItemRepo.new
-    ir.add_item({:id => 123,
+    ir.add({:id => 123,
                  :name => "Awesome thing",
                  :description => "It's awesome",
                  :unit_price => 1000000,
                  :merchant_id => 3,
                  :created_at => Time.now,
                  :updated_at => Time.now})
-    ir.add_item({:id => 124,
+    ir.add({:id => 124,
                  :name => "yarn",
                  :description => "it's yarn..."})
     assert_equal nil, ir.find_by_name("carrot")
@@ -77,17 +77,17 @@ class ItemRepoTest < Minitest::Test
 
   def test_find_all_with_description
     ir = ItemRepo.new
-    ir.add_item({:id => 123,
+    ir.add({:id => 123,
                  :name => "Awesome thing",
                  :description => "It's awesome",
                  :unit_price => 1000000,
                  :merchant_id => 3,
                  :created_at => Time.now,
                  :updated_at => Time.now})
-    ir.add_item({:id => 124,
+    ir.add({:id => 124,
                  :name => "yarn",
                  :description => "it's yarn..."})
-   ir.add_item({:id => 125,
+   ir.add({:id => 125,
                 :name => "yarn!",
                 :description => "it's really cool yarn"})
     found_items = ir.find_all_with_description("yarn")
@@ -98,18 +98,18 @@ class ItemRepoTest < Minitest::Test
 
   def test_find_all_by_price
     ir = ItemRepo.new
-    ir.add_item({:id => 123,
+    ir.add({:id => 123,
                  :name => "Awesome thing",
                  :description => "It's awesome",
                  :unit_price => 1000000,
                  :merchant_id => 3,
                  :created_at => Time.now,
                  :updated_at => Time.now})
-    ir.add_item({:id => 124,
+    ir.add({:id => 124,
                  :name => "yarn",
                  :description => "it's yarn...",
                  :unit_price => 150})
-    ir.add_item({:id => 125,
+    ir.add({:id => 125,
                 :name => "yarn!",
                 :description => "it's really cool yarn",
                 :unit_price => 150})
@@ -119,18 +119,18 @@ class ItemRepoTest < Minitest::Test
 
   def test_find_all_by_price_in_range
     ir = ItemRepo.new
-    ir.add_item({:id => 123,
+    ir.add({:id => 123,
                  :name => "Awesome thing",
                  :description => "It's awesome",
                  :unit_price => 1000000,
                  :merchant_id => 3,
                  :created_at => Time.now,
                  :updated_at => Time.now})
-    ir.add_item({:id => 124,
+    ir.add({:id => 124,
                  :name => "yarn",
                  :description => "it's yarn...",
                  :unit_price => 150})
-    ir.add_item({:id => 125,
+    ir.add({:id => 125,
                 :name => "yarn!",
                 :description => "it's really cool yarn",
                 :unit_price => 140})
@@ -140,19 +140,19 @@ class ItemRepoTest < Minitest::Test
 
   def test_find_all_by_merchant_id
     ir = ItemRepo.new
-    ir.add_item({:id => 123,
+    ir.add({:id => 123,
                  :name => "Awesome thing",
                  :description => "It's awesome",
                  :unit_price => 1000000,
                  :merchant_id => 3,
                  :created_at => Time.now,
                  :updated_at => Time.now})
-    ir.add_item({:id => 124,
+    ir.add({:id => 124,
                  :name => "yarn",
                  :description => "it's yarn...",
                  :unit_price => 150,
                  :merchant_id => 4})
-    ir.add_item({:id => 125,
+    ir.add({:id => 125,
                 :name => "yarn!",
                 :description => "it's really cool yarn",
                 :unit_price => 140,
@@ -170,7 +170,7 @@ class ItemRepoTest < Minitest::Test
                     :created_at => Time.now,
                     :updated_at => Time.now}
     item_repo = ItemRepo.new
-    item_repo.add_item(item_details)
+    item_repo.add(item_details)
     item = item_repo.all.first
     assert_equal item_repo, item.parent
   end
@@ -191,7 +191,7 @@ class ItemRepoTest < Minitest::Test
                     :created_at => "1994-05-07 23:38:43 UTC",
                     :updated_at => "2016-01-11 11:30:35 UTC"}
     item_repo = ItemRepo.new
-    item_repo.add_item(item_details)
+    item_repo.add(item_details)
     item = item_repo.all.first
     assert_equal Time, item.created_at.class
     assert_equal Time, item.updated_at.class

@@ -4,7 +4,7 @@ require_relative '../lib/invoice_repo'
 class InvoiceRepoTest < Minitest::Test
   def test_add_invoices_and_access_them
     ir = InvoiceRepo.new
-    ir.add_invoice({:id => 1,
+    ir.add({:id => 1,
                     :customer_id => 250,
                     :merchant_id => 20,
                     :status => "shipped",
@@ -17,13 +17,13 @@ class InvoiceRepoTest < Minitest::Test
 
   def test_find_by_id
     ir = InvoiceRepo.new
-    ir.add_invoice({:id => 25,
+    ir.add({:id => 25,
                     :customer_id => 405,
                     :merchant_id => 120,
                     :status => "shipped",
                     :created_at => Time.now,
                     :updated_at => Time.now})
-    ir.add_invoice({:id => 45,
+    ir.add({:id => 45,
                     :customer_id => 290,
                     :merchant_id => 23})
     assert_equal 120, ir.find_by_id(25).merchant_id
@@ -31,13 +31,13 @@ class InvoiceRepoTest < Minitest::Test
 
   def test_fail_at_find_by_id
     ir = InvoiceRepo.new
-    ir.add_invoice({:id => 25,
+    ir.add({:id => 25,
                     :customer_id => 405,
                     :merchant_id => 120,
                     :status => "shipped",
                     :created_at => Time.now,
                     :updated_at => Time.now})
-    ir.add_invoice({:id => 45,
+    ir.add({:id => 45,
                     :customer_id => 290,
                     :merchant_id => 23})
     assert_equal nil, ir.find_by_id(0)
@@ -45,13 +45,13 @@ class InvoiceRepoTest < Minitest::Test
 
   def test_find_by_customer_id
     ir = InvoiceRepo.new
-    ir.add_invoice({:id => 25,
+    ir.add({:id => 25,
                     :customer_id => 405,
                     :merchant_id => 120,
                     :status => "shipped",
                     :created_at => Time.now,
                     :updated_at => Time.now})
-    ir.add_invoice({:id => 45,
+    ir.add({:id => 45,
                     :customer_id => 290,
                     :merchant_id => 23})
     assert_equal [], ir.find_all_by_customer_id(0)
@@ -60,13 +60,13 @@ class InvoiceRepoTest < Minitest::Test
 
   def test_find_all_by_merchant_id
     ir = InvoiceRepo.new
-    ir.add_invoice({:id => 100,
+    ir.add({:id => 100,
                     :customer_id => 200,
                     :merchant_id => 300,
                     :status => "pending",
                     :created_at => Time.now,
                     :updated_at => Time.now})
-    ir.add_invoice({:id => 1,
+    ir.add({:id => 1,
                     :customer_id => 2,
                     :merchant_id => 300})
     assert_equal [], ir.find_all_by_merchant_id(0)
@@ -75,17 +75,17 @@ class InvoiceRepoTest < Minitest::Test
 
   def test_find_all_by_status
     ir = InvoiceRepo.new
-    ir.add_invoice({:id => 100,
+    ir.add({:id => 100,
                     :customer_id => 200,
                     :merchant_id => 300,
                     :status => "pending",
                     :created_at => Time.now,
                     :updated_at => Time.now})
-    ir.add_invoice({:id => 1,
+    ir.add({:id => 1,
                     :customer_id => 2,
                     :merchant_id => 300,
                     :status => "shipped"})
-    ir.add_invoice({:id => 5,
+    ir.add({:id => 5,
                     :customer_id => 6,
                     :merchant_id => 7,
                     :status => "shipped"})

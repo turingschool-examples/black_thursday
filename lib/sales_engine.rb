@@ -25,9 +25,14 @@ class SalesEngine
     @invoice_item_repo = InvoiceItemRepo.new(self)
     @customer_repo     = CustomerRepo.new(self)
     @transaction_repo  = TransactionRepo.new(self)
+    file_loader        = FileLoader.new(self)
     if csv_path_info.class == Hash
-      add_data_to_repos(csv_path_info)
+      file_loader.load_repos_from_csv(csv_path_info)
     end
+  end
+
+  def self.from_csv(csv_path_info)
+    self.new(csv_path_info)
   end
 
   def items
@@ -52,67 +57,6 @@ class SalesEngine
 
   def transactions
     @transaction_repo
-  end
-
-  def add_data_to_repos(csv_path_info)
-    if csv_path_info[:merchants]
-      add_merchants(csv_path_info[:merchants])
-    end
-    if csv_path_info[:items]
-      add_items(csv_path_info[:items])
-    end
-    if csv_path_info[:invoices]
-      add_invoices(csv_path_info[:invoices])
-    end
-    if csv_path_info[:invoice_items]
-      add_invoice_items(csv_path_info[:invoice_items])
-    end
-    if csv_path_info[:customers]
-      add_customers(csv_path_info[:customers])
-    end
-    if csv_path_info[:transactions]
-      add_transactions(csv_path_info[:transactions])
-    end
-  end
-
-  def self.from_csv(csv_path_info)
-    self.new(csv_path_info)
-  end
-
-  def add_merchants(path_info)
-    CSV.foreach(path_info, headers:true, header_converters: :symbol) do |row|
-      @merchant_repo.add_merchant(row)
-    end
-  end
-
-  def add_items(path_info)
-    CSV.foreach(path_info, headers:true, header_converters: :symbol) do |row|
-      @item_repo.add_item(row)
-    end
-  end
-
-  def add_invoices(path_info)
-    CSV.foreach(path_info, headers:true, header_converters: :symbol) do |row|
-      @invoice_repo.add_invoice(row)
-    end
-  end
-
-  def add_invoice_items(path_info)
-    CSV.foreach(path_info, headers:true, header_converters: :symbol) do |row|
-      @invoice_item_repo.add_invoice_item(row)
-    end
-  end
-
-  def add_customers(path_info)
-    CSV.foreach(path_info, headers:true, header_converters: :symbol) do |row|
-      @customer_repo.add_customer(row)
-    end
-  end
-
-  def add_transactions(path_info)
-    CSV.foreach(path_info, headers:true, header_converters: :symbol) do |row|
-      @transaction_repo.add_transaction(row)
-    end
   end
 
   def all_merchants

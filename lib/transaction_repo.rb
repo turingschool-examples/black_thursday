@@ -10,7 +10,7 @@ class TransactionRepo
     @transactions
   end
 
-  def add_transaction(transaction_details)
+  def add(transaction_details)
     @transactions << Transaction.new(transaction_details, self)
   end
 

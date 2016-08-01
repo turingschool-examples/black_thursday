@@ -12,7 +12,7 @@ class MerchantRepo
     @merchants
   end
 
-  def add_merchant(merchant_details)
+  def add(merchant_details)
     @merchants << Merchant.new(merchant_details, self)
   end
 

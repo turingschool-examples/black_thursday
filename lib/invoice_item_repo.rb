@@ -10,7 +10,7 @@ class InvoiceItemRepo
     @invoice_items
   end
 
-  def add_invoice_item(invoice_item_details)
+  def add(invoice_item_details)
     @invoice_items << InvoiceItem.new(invoice_item_details)
   end
 

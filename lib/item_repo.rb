@@ -12,7 +12,7 @@ class ItemRepo
     @items
   end
 
-  def add_item(item_details)
+  def add(item_details)
     @items << Item.new(item_details, self)
   end
 

@@ -12,7 +12,7 @@ class InvoiceRepo
     @invoices
   end
 
-  def add_invoice(invoice_details)
+  def add(invoice_details)
     @invoices << Invoice.new(invoice_details, self)
   end
 

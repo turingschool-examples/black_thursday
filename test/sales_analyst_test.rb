@@ -51,10 +51,10 @@ class SalesAnalystTest < Minitest::Test
     item_details = [item_1, item_2, item_3, item_4, item_5]
     merchant_details = [merchant_1, merchant_2]
     item_details.each do |item|
-      @ir.add_item(item)
+      @ir.add(item)
     end
     merchant_details.each do |merchant|
-      @mr.add_merchant(merchant)
+      @mr.add(merchant)
     end
   end
 
@@ -114,10 +114,10 @@ class SalesAnalystTest < Minitest::Test
     merchants = [merchant_1_details, merchant_2_details]
 
     items.each do |item|
-      ir.add_item(item)
+      ir.add(item)
     end
     merchants.each do |merchant|
-      mr.add_merchant(merchant)
+      mr.add(merchant)
     end
 
     assert_equal 1, sa.average_items_per_merchant
@@ -151,10 +151,10 @@ class SalesAnalystTest < Minitest::Test
     merchants = [merchant_1_details, merchant_2_details]
 
     items.each do |item|
-      ir.add_item(item)
+      ir.add(item)
     end
     merchants.each do |merchant|
-      mr.add_merchant(merchant)
+      mr.add(merchant)
     end
 
     assert_equal 1.41, sa.average_items_per_merchant_standard_deviation
@@ -197,10 +197,10 @@ class SalesAnalystTest < Minitest::Test
     merchants = [merchant_1_details, merchant_2_details]
 
     items.each do |item|
-      ir.add_item(item)
+      ir.add(item)
     end
     merchants.each do |merchant|
-      mr.add_merchant(merchant)
+      mr.add(merchant)
     end
 
     assert_equal [], sa.merchants_with_high_item_count

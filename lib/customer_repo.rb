@@ -6,7 +6,7 @@ class CustomerRepo
     @sales_engine = sales_engine
   end
 
-  def add_customer(customer_details)
+  def add(customer_details)
     # binding.pry
     @customers << Customer.new(customer_details, self)
   end

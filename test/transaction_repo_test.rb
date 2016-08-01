@@ -4,7 +4,7 @@ require_relative '../lib/transaction_repo'
 class TransactionRepoTest < Minitest::Test
   def test_add_transactions_and_access_them
     tr = TransactionRepo.new
-    tr.add_transaction({
+    tr.add({
        :id => 123,
        :invoice_id => 234,
        :credit_card_number => 4297222478855497,
@@ -18,7 +18,7 @@ class TransactionRepoTest < Minitest::Test
 
   def test_find_by_id
     tr = TransactionRepo.new
-    tr.add_transaction({
+    tr.add({
       :id => 123,
       :invoice_id => 234,
       :credit_card_number => 4297222478855497,
@@ -26,7 +26,7 @@ class TransactionRepoTest < Minitest::Test
       :unit_price => 50000,
       :created_at => Time.now,
       :updated_at => Time.now})
-    tr.add_transaction({
+    tr.add({
       :id => 400,
       :invoice_id => 678,
       :credit_card_number => 4297212378855497})
@@ -35,7 +35,7 @@ class TransactionRepoTest < Minitest::Test
   
   def test_find_all_by_invoice_id
     tr = TransactionRepo.new
-    tr.add_transaction({
+    tr.add({
       :id => 123,
       :invoice_id => 234,
       :credit_card_number => 4297222478855497,
@@ -43,11 +43,11 @@ class TransactionRepoTest < Minitest::Test
       :unit_price => 50000,
       :created_at => Time.now,
       :updated_at => Time.now})
-    tr.add_transaction({
+    tr.add({
       :id => 400,
       :invoice_id => 789,
       :result => "success"})
-    tr.add_transaction({
+    tr.add({
       :id => 250,
       :invoice_id => 789,
       :result => "pending"})
@@ -59,7 +59,7 @@ class TransactionRepoTest < Minitest::Test
   
   def test_find_all_by_credit_card_number
     tr = TransactionRepo.new
-    tr.add_transaction({
+    tr.add({
       :id => 345,
       :invoice_id => 456,
       :credit_card_number => 4297222478855497,
@@ -67,12 +67,12 @@ class TransactionRepoTest < Minitest::Test
       :unit_price => 10000,
       :created_at => Time.now,
       :updated_at => Time.now})
-    tr.add_transaction({
+    tr.add({
       :id => 400,
       :invoice_id => 789,
       :credit_card_number => 4297222478855497,
       :result => "success"})
-    tr.add_transaction({
+    tr.add({
       :id => 250,
       :invoice_id => 789,
       :result => "pending"})
@@ -84,7 +84,7 @@ class TransactionRepoTest < Minitest::Test
   
   def test_find_all_by_result
     tr = TransactionRepo.new
-    tr.add_transaction({
+    tr.add({
       :id => 123,
       :invoice_id => 234,
       :credit_card_number => 4297222478855497,
@@ -92,11 +92,11 @@ class TransactionRepoTest < Minitest::Test
       :unit_price => 50000,
       :created_at => Time.now,
       :updated_at => Time.now})
-    tr.add_transaction({
+    tr.add({
       :id => 400,
       :invoice_id => 789,
       :result => "success"})
-    tr.add_transaction({
+    tr.add({
       :id => 250,
       :invoice_id => 789,
       :result => "pending"})
