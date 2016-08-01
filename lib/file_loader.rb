@@ -21,6 +21,8 @@ class FileLoader
   end
 
   def repo_name(key)
+    # we are aware that this is potentially VERY dangerous, but it
+    # makes the load_repos_from_csv method so nice...
     eval("#{key.to_s.chop}_repo")
   end
 
