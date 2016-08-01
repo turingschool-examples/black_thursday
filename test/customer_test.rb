@@ -14,7 +14,7 @@ class CustomerTest < Minitest::Test
   end
 
   def test_has_fixnum_id
-    assert_equal 1, customer_1.id
+    assert_equal 100, customer_1.id
   end
 
   def test_has_string_names

@@ -11,6 +11,8 @@ class SalesEngineTest < Minitest::Test
       :invoices  => "./test/fixtures/invoices_fixture.csv",
       :invoice_items => "./test/fixtures/invoice_items_fixture.csv",
       :transactions => "./test/fixtures/transactions_fixture.csv",
+      :customers => "./test/fixtures/customers_fixture.csv",
+
     })
   end
 
@@ -20,6 +22,7 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of InvoiceRepository, se.invoices
     assert_instance_of TransactionRepository, se.transactions
     assert_instance_of InvoiceItemRepository, se.invoice_items
+    assert_instance_of CustomerRepository, se.customers
   end
 
   def test_finds_merchant_by_merchant_id
@@ -52,6 +55,12 @@ class SalesEngineTest < Minitest::Test
     item = se.items.find_by_id(1)
     items_merchant = se.find_merchant_by_id(1000)
     assert_equal items_merchant, item.merchant
+  end
+
+  def test_customer_accesses_merchants
+    customer = se.customers.find_by_id(200)
+    customers_merchants = se.find_all_merchants_by_customer_id(200)
+    assert_equal customers_merchants, customer.merchants
   end
 
   def test_method_all_merchants_returns_merchants

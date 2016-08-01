@@ -12,6 +12,7 @@ class SalesAnalystTest < Minitest::Test
       :invoices  => "./test/fixtures/invoices_fixture.csv",
       :transactions  => "./test/fixtures/transactions_fixture.csv",
       :invoice_items => "./test/fixtures/invoice_items_fixture.csv",
+      :customers => "./test/fixtures/customers_fixture.csv",
     })
     @sa = SalesAnalyst.new(se)
   end

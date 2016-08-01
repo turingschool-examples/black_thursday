@@ -38,6 +38,11 @@ class InvoiceRepository
     parent.find_merchant_by_id(merchant_id)
   end
 
+  def find_all_merchants_by_customer_id(c_id)
+    invoices = find_all_by_customer_id(c_id)
+    invoices.map { |invoice| invoice.merchant }
+  end
+
   def inspect
     "#<#{self.class} #{@invoices.size} rows>"
   end

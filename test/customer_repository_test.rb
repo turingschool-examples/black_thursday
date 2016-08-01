@@ -23,10 +23,10 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_method_find_by_id_returns_nil_or_customer
-    customer =     cr.find_by_id(1)
+    customer =     cr.find_by_id(100)
     customer_nil = cr.find_by_id(9001)
     assert_instance_of Customer, customer
-    assert_equal 1,          customer.id
+    assert_equal 100,          customer.id
     assert_equal nil,        customer_nil
   end
 
@@ -54,8 +54,8 @@ class CustomerRepositoryTest < Minitest::Test
   def test_method_find_all_merchants_by_id_returns_merchant
     mock_se = Minitest::Mock.new
     cr = CustomerRepository.new([], mock_se)
-    mock_se.expect(:find_all_merchants_by_customer_id, nil, [1])
-    cr.find_all_merchants_by_id(1)
+    mock_se.expect(:find_all_merchants_by_customer_id, nil, [200])
+    cr.find_all_merchants_by_id(200)
     assert mock_se.verify
   end
 end
