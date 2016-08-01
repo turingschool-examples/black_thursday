@@ -1,21 +1,27 @@
 require_relative './item_repo'
 require_relative './merchant_repo'
 require_relative './invoice_repo'
+require_relative './customer_repo'
+require_relative './transaction_repo'
 require 'CSV'
 require 'pry'
 
 class SalesEngine
   attr_reader :merchant_repo,
               :item_repo,
-              :invoice_repo
+              :invoice_repo,
+              :customer_repo,
+              :transaction_repo
 
   def initialize(csv_path_info)
     # we use <type>_repo, rather than just the type
     # as we find this to be clearer
     # e.g. merchant_repo rather than merchants
-    @merchant_repo = MerchantRepo.new(self)
-    @item_repo     = ItemRepo.new(self)
-    @invoice_repo  = InvoiceRepo.new(self)
+    @merchant_repo    = MerchantRepo.new(self)
+    @item_repo        = ItemRepo.new(self)
+    @invoice_repo     = InvoiceRepo.new(self)
+    @customer_repo    = CustomerRepo.new(self)
+    @transaction_repo = TransactionRepo.new(self)
     if csv_path_info.class == Hash
       add_data_to_repos(csv_path_info)
     end
@@ -33,6 +39,14 @@ class SalesEngine
     @invoice_repo
   end
 
+  def customers 
+    @customer_repo
+  end
+
+  def transactions
+    @transaction_repo
+  end
+
   def add_data_to_repos(csv_path_info)
     if csv_path_info[:merchants]
       add_merchants(csv_path_info[:merchants])
@@ -42,6 +56,12 @@ class SalesEngine
     end
     if csv_path_info[:invoices]
       add_invoices(csv_path_info[:invoices])
+    end
+    if csv_path_info[:customers]
+      add_invoices(csv_path_info[:customers])
+    end
+    if csv_path_info[:transactions]
+      add_invoices(csv_path_info[:transactions])
     end
   end
 
@@ -67,6 +87,18 @@ class SalesEngine
     end
   end
 
+  def add_customers(path_info)
+    CSV.foreach(path_info, headers:true, header_converters: :symbol) do |row|
+       @invoice_repo.add_invoice(row)
+    end
+  end
+  
+  def add_transactions(path_info)
+    CSV.foreach(path_info, headers:true, header_converters: :symbol) do |row|
+       @invoice_repo.add_invoice(row)
+    end
+  end
+
   def all_merchants
     @merchant_repo.all
   end
@@ -77,6 +109,14 @@ class SalesEngine
 
   def all_invoices
     @invoice_repo.all
+  end
+  
+  def all_customers
+    @customer_repo.all
+  end
+
+  def all_transactions
+    @transaction_repo.all
   end
 
   # these methods are for passing child queries
@@ -92,6 +132,18 @@ class SalesEngine
 
   def find_invoices_by_merchant_id(id)
     @invoice_repo.find_all_by_merchant_id(id)
+  end
+
+  def find_invoices_by_customer_id(id)
+    @invoice_repo.find_all_by_customer_id(id)
+  end
+
+  def find_customer_by_customer_id(id)
+    @customer_repo.find_by_id(id)
+  end
+  
+  def find_invoice_by_invoice_id(id)
+    @invoice_repo.find_by_id(id)
   end
 
 end
