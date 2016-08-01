@@ -6,9 +6,10 @@ class SalesEngineTest < Minitest::Test
 
   def setup
     @se = SalesEngine.from_csv({
-      :items     => "./test/fixtures/items_fixture.csv",
-      :merchants => "./test/fixtures/merchants_fixture.csv",
-      :invoices  => "./test/fixtures/invoices_fixture.csv",
+      :items        => "./test/fixtures/items_fixture.csv",
+      :merchants    => "./test/fixtures/merchants_fixture.csv",
+      :invoices     => "./test/fixtures/invoices_fixture.csv",
+      :transactions => "./test/fixtures/transactions_fixture.csv",
     })
   end
 
@@ -16,11 +17,17 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of ItemRepository, se.items
     assert_instance_of MerchantRepository, se.merchants
     assert_instance_of InvoiceRepository, se.invoices
+    assert_instance_of TransactionRepository, se.transactions
   end
 
   def test_finds_merchant_by_merchant_id
     merchant = se.merchants.find_by_id(1000)
     assert_equal merchant, se.find_merchant_by_id(1000)
+  end
+
+  def find_invoice_by_invoice_id(inv_id)
+    inv_id = se.invoices.find_by_id(2179)
+    assert_equal se.find_invoice_by_id(inv_id)
   end
 
   def test_finds_all_items_by_merchant_id
@@ -52,6 +59,7 @@ class SalesEngineTest < Minitest::Test
   def test_method_total_merchants_returns_fixnum
     assert_equal se.merchants.all.length, se.total_merchants
   end
+
 
 
 end
