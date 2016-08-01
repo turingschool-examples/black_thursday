@@ -63,12 +63,4 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal true, invoice_items_multiple.length > 1
     assert_equal [], invoice_items_empty
   end
-#
-#   def test_method_find_merchant_by_id_returns_merchant
-#     mock_se = Minitest::Mock.new
-#     inv_ir = ItemRepository.new([], mock_se)
-#     mock_se.expect(:find_merchant_by_id, nil, [1000])
-#     inv_ir.find_merchant_by_id(1000)
-#     assert mock_se.verify
-#   end
 end

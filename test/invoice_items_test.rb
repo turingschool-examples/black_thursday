@@ -1,5 +1,5 @@
 require './test/test_helper'
-require './lib/invoice_items'
+require './lib/invoice_item'
 require 'csv'
 
 class InvoiceItemTest < Minitest::Test
@@ -10,7 +10,7 @@ class InvoiceItemTest < Minitest::Test
                          headers:true,
                          header_converters: :symbol)
     @invoice_item_rows = fixture.to_a
-    @invoice_item_1 = Item.new(invoice_item_rows[0])
+    @invoice_item_1 = InvoiceItem.new(invoice_item_rows[0])
   end
 
   def test_has_fixnum_ids
@@ -35,12 +35,4 @@ class InvoiceItemTest < Minitest::Test
   def test_method_unit_price_to_dollars_returns_float
     assert 1.0, invoice_item_1.unit_price_to_dollars
   end
-
-  # def test_method_merchant_queries_parent
-  #   mock_ir = Minitest::Mock.new
-  #   item = Item.new(invoice_item_rows[0], mock_ir)
-  #   mock_ir.expect(:find_merchant_by_id, nil, [1000])
-  #   item.merchant
-  #   assert mock_ir.verify
-  # end
 end

@@ -9,7 +9,8 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv({
       :items     => "./test/fixtures/items_fixture.csv",
       :merchants => "./test/fixtures/merchants_fixture.csv",
-      :invoices  => "./test/fixtures/invoices_fixture.csv"
+      :invoices  => "./test/fixtures/invoices_fixture.csv",
+      :invoice_items => "./test/fixtures/invoice_items_fixture.csv"
     })
     @sa = SalesAnalyst.new(se)
   end
@@ -58,16 +59,9 @@ class SalesAnalystTest < Minitest::Test
     assert_equal ["Wednesday"], sa.top_days_by_invoice_count
   end
 
-  # sa.invoice_status(:pending) # => 5.25
-  # sa.invoice_status(:shipped) # => 93.75
-  # sa.invoice_status(:returned) # => 1.00
-
   def test_method_invoice_status_returns_float
     assert_equal 40.0, sa.invoice_status(:pending)
     assert_equal 50.0, sa.invoice_status(:shipped)
     assert_equal 10.0, sa.invoice_status(:returned)
   end
-
-
-
 end
