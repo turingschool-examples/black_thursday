@@ -11,4 +11,8 @@ class Customer
     @parent = parent
   end
 
+  def merchants
+
+  end
+
 end

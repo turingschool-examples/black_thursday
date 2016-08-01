@@ -1,5 +1,6 @@
 require "./test/test_helper"
 require "./lib/invoice_repo"
+require "./lib/sales_engine"
 
 class InvoiceRepoTest < Minitest::Test
 
@@ -59,6 +60,31 @@ class InvoiceRepoTest < Minitest::Test
     filepath = "./data/support/invoices_support.csv"
     invoice_repo = InvoiceRepo.new(filepath)
     assert_equal [], invoice_repo.find_all_by_status("pend")
+  end
+
+  def test_it_can_find_merchant_by_invoice_id
+    filepath = "./data/support/invoices_support.csv"
+    mock_se = Minitest::Mock.new
+    mock_se.expect(:find_merchant_by_id, [""], [12335938])
+    invoice_repo = InvoiceRepo.new(filepath, mock_se)
+    assert_equal 1, invoice_repo.find_merchant_by_id(12335938).count
+    assert mock_se.verify
+  end
+
+  def test_it_can_find_all_items_by_invoice_id
+    filepath = "./data/support/invoices_support.csv"
+    mock_se = Minitest::Mock.new
+    mock_se.expect(:find_all_items_by_invoice_id, [1], [15])
+    invoice_repo = InvoiceRepo.new(filepath, mock_se)
+    assert_equal 1, invoice_repo.find_all_items_by_invoice_id(15).count
+    assert mock_se.verify
+  end
+
+  def test_it_can_find_all_transactions_by_invoice_id
+    invoice_filepath = "./data/support/invoices_support.csv"
+    transactions_filepath = "./data/support/transactions_support.csv"
+    se = SalesEngine.from_csv(invoices: invoice_filepath, transactions: transactions_filepath)
+    assert_equal 1, se.invoices.find_all_transactions_by_invoice_id(31).count
   end
 
 end

@@ -1,6 +1,7 @@
 require 'bigdecimal'
 require "./test/test_helper"
 require "./lib/invoice"
+require "./lib/sales_engine"
 
 class InvoiceTest < Minitest::Test
   def test_invoice_returns_the_id
