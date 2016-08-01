@@ -41,4 +41,8 @@ class CustomerRepo
     end
   end
 
+  def find_all_merchants_by_customer_id(customer_id)
+    @parent.find_all_merchants_by_customer_id(customer_id)
+  end
+
 end

@@ -73,6 +73,13 @@ class SalesEngine
     transactions.find_all_by_invoice_id(invoice_id)
   end
 
+  def find_all_merchants_by_customer_id(customer_id)
+    invoice_list = invoices.find_all_by_cusotmer_id(customer_id)
+    invoice_list.map do |invoice|
+      merchants.find_merchant_by_id(invoice.merchant_id)
+    end
+  end
+
   def find_all_customers_by_merchant_id(merchant_id)
     invoices = find_all_invoices_by_merchant_id(merchant_id)
     customers_ids = invoices.map {|invoice| invoice.customer_id}

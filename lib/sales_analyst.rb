@@ -213,6 +213,7 @@ class SalesAnalyst
   def most_sold_item_for_merchant(merchant_id)
     paid_invoice_items = paid_invoice_items_for_merchant(merchant_id)
     items_by_merchant = item_repo.find_all_by_merchant_id(merchant_id)
+
     grouped_items = items_by_merchant.group_by do |item|
       paid_invoice_items.reduce(0) do |total, invoice_item|
         total += invoice_item.quantity if invoice_item.item_id == item.id
@@ -225,6 +226,7 @@ class SalesAnalyst
   def best_item_for_merchant(merchant_id)
     paid_invoice_items = paid_invoice_items_for_merchant(merchant_id)
     items_by_merchant = item_repo.find_all_by_merchant_id(merchant_id)
+
     grouped_items = items_by_merchant.sort_by do |item|
       paid_invoice_items.reduce(0) do |revenue, invoice_item|
         if invoice_item.item_id == item.id

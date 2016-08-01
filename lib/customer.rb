@@ -12,7 +12,7 @@ class Customer
   end
 
   def merchants
-
+    @parent.find_all_merchants_by_customer_id(self.id)
   end
 
 end
