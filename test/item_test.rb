@@ -15,7 +15,7 @@ class ItemTest < Minitest::Test
       assert_equal 2663713, item.id
       assert_equal "Jean", item.name
       assert_equal "Whatever", item.description
-      assert_equal 11, item.unit_price
+      assert_equal 0.11, item.unit_price
       assert_equal 5, item.merchant_id
       assert_respond_to item, :created_at
       assert_respond_to item, :updated_at
@@ -46,7 +46,7 @@ class ItemTest < Minitest::Test
     }
     item = Item.new(item_details)
     assert_equal BigDecimal, item.unit_price.class
-    assert_equal 40000, item.unit_price
+    assert_equal 400.00, item.unit_price
   end
 
   def test_unit_price_to_dollars

@@ -133,8 +133,8 @@ class InvoiceTest < Minitest::Test
       :updated_at => Time.now
       }, mock_ir)
     mock_ir.expect(:find_invoice_items_by_invoice_id, [mock_invoice_item_1, mock_invoice_item_2], [7])
-    mock_invoice_item_1.expect(:unit_price, BigDecimal.new(1000.0,4))
-    mock_invoice_item_2.expect(:unit_price, BigDecimal.new(1150.0,4))
+    mock_invoice_item_1.expect(:unit_price, BigDecimal.new(10,4))
+    mock_invoice_item_2.expect(:unit_price, BigDecimal.new(11.50,4))
     mock_invoice_item_1.expect(:quantity, 3)
     mock_invoice_item_2.expect(:quantity, 1)
     assert_equal 41.50, invoice.total

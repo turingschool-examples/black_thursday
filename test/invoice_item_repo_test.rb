@@ -30,7 +30,7 @@ class InvoiceItemRepoTest < Minitest::Test
       :id => 124,
       :item_id => 678,
       :invoice_id => 789})
-    assert_equal 30000, iir.find_by_id(123).unit_price
+    assert_equal 300.00, iir.find_by_id(123).unit_price
   end
 
   def test_fail_at_find_by_id
@@ -49,7 +49,7 @@ class InvoiceItemRepoTest < Minitest::Test
       :invoice_id => 789})
     assert_equal nil, iir.find_by_id(0)
   end
-  
+
   def test_find_all_by_item_id
     iir = InvoiceItemRepo.new
     iir.add_invoice_item({
@@ -69,11 +69,11 @@ class InvoiceItemRepoTest < Minitest::Test
       :item_id => 678,
       :invoice_id => 126})
       found_invoice_items = iir.find_all_by_item_id(678)
-      assert_equal 2, found_invoice_items.count 
+      assert_equal 2, found_invoice_items.count
       assert_equal 124, found_invoice_items.first.id
       assert_equal [], iir.find_all_by_item_id(1)
   end
-  
+
   def test_find_all_by_invoice_id
     iir = InvoiceItemRepo.new
     iir.add_invoice_item({
@@ -93,9 +93,9 @@ class InvoiceItemRepoTest < Minitest::Test
       :item_id => 678,
       :invoice_id => 789})
     found_invoice_items = iir.find_all_by_invoice_id(789)
-    assert_equal 2, found_invoice_items.count 
+    assert_equal 2, found_invoice_items.count
     assert_equal 789, found_invoice_items.first.invoice_id
     assert_equal [], iir.find_all_by_invoice_id(1)
   end
-  
+
 end

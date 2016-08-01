@@ -45,7 +45,8 @@ class SalesAnalyst
   end
 
   def golden_items(num_of_std = 2)
-    cutoff = average_average_price_per_merchant + num_of_std*price_standard_deviation
+    cutoff =
+      average_average_price_per_merchant + num_of_std*price_standard_deviation
     @sales_engine.all_items.find_all do |item|
       item.unit_price > cutoff
     end

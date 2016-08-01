@@ -28,7 +28,7 @@ class InvoiceItem
   end
 
   def unit_price_to_dollars
-    @unit_price/100.0
+    @unit_price.to_f
   end
 
 end

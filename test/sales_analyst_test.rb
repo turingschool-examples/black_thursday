@@ -69,7 +69,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_price_per_merchant
-    assert_equal 12.62, @sa.average_average_price_per_merchant
+    assert_equal 12.61, @sa.average_average_price_per_merchant
   end
 
   def test_get_individual_standard_deviation_price
