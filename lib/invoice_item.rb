@@ -26,5 +26,4 @@ class InvoiceItem
       Time.strptime(date_time, "%Y-%m-%d")
     end
   end
-
 end

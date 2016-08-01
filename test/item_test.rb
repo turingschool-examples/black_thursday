@@ -6,36 +6,29 @@ require "./lib/item_repo"
 require "./lib/sales_engine"
 
 class ItemTest < Minitest::Test
-  def setup
-    @item = Item.new({  id: 1,
-      name: "Pencil",
-      description: "You can use it to write things",
-      unit_price: "1099",
-      created_at: "2016-07-26 13:59:43 -0600",
-      updated_at: "2016-07-26 13:59:43 -0600",
-      merchant_id: 1
- },
-    ItemRepo.new("./data/items.csv", SalesEngine.new({merchant: "./data/support/merchant_support.csv", items: "./data/items.csv", invoice: "./data/support/invoice_support.csv"})))
-  end
-
   def test_gives_its_id
-    assert_equal 1, @item.id
+    item = Item.new({id: "1"})
+    assert_equal 1, item.id
   end
 
   def test_gives_its_name
-    assert_equal "Pencil", @item.name
+    item = Item.new({name: "Pencil"})
+    assert_equal "Pencil", item.name
   end
 
   def test_gives_its_description
-    assert_equal "You can use it to write things", @item.description
+    item = Item.new({description: "You can use it to write things"})
+    assert_equal "You can use it to write things", item.description
   end
 
   def test_gives_its_price
-    assert_equal BigDecimal.new(10.99,4), @item.unit_price
+    item = Item.new({unit_price: "1099"})
+    assert_equal BigDecimal.new(10.99,4), item.unit_price
   end
 
   def test_gives_price_as_dollars
-    assert_equal 10.99, @item.unit_price_to_dollars
+    item = Item.new({unit_price: "1099"})
+    assert_equal 10.99, item.unit_price_to_dollars
   end
 
   def test_prices_with_one_decimal_work
@@ -46,45 +39,28 @@ class ItemTest < Minitest::Test
   end
 
   def test_gives_time_created
-    time = "2016-01-11 09:34:06 UTC"
-    item = Item.new({  id: '1',
-      name: "Pencil",
-      description: "You can use it to write things",
-      unit_price: "1099",
-      created_at: time,
-      updated_at: time,
-      merchant_id: "1"})
-      assert_equal item.convert_string_to_time(time), item.created_at
+    time = Time.parse("2016-01-11 09:34:06 UTC")
+    item = Item.new({created_at: "2016-01-11 09:34:06 UTC"})
+    assert_equal time, item.created_at
   end
 
   def test_gives_time_updated
-    time = "2016-01-11 09:34:06 UTC"
-    item = Item.new({  id: 1,
-      name: "Pencil",
-      description: "You can use it to write things",
-      unit_price: "1099",
-      created_at: time,
-      updated_at: time,
-      merchant_id: 1})
-      assert_equal item.convert_string_to_time(time), item.updated_at
+    time = Time.parse("2016-01-11 09:34:06 UTC")
+    item = Item.new({updated_at: "2016-01-11 09:34:06 UTC"})
+    assert_equal time, item.updated_at
   end
 
   def test_gives_owners_merchant_id
-    assert_equal 1, @item.merchant_id
+    item = Item.new({merchant_id: "1"})
+    assert_equal 1, item.merchant_id
   end
 
   def test_it_finds_the_merchant_it_belongs_to
     mock_ir = Minitest::Mock.new
     mock_ir.expect(:find_merchant_by_id, "instance_of_merchant", [12334146])
-    item = Item.new({  id: 1,
-      name: "Pencil",
-      description: "You can use it to write things",
-      unit_price: "1099",
-      created_at: time,
-      updated_at: time,
-      merchant_id: 12334146}, mock_ir)
+
+    item = Item.new({merchant_id: 12334146}, mock_ir)
     assert_equal "instance_of_merchant", item.merchant
     assert mock_ir.verify
   end
-
 end
