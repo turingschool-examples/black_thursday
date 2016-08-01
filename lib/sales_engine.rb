@@ -88,7 +88,4 @@ class SalesEngine
     invoices = all_invoices.group_by { |inv| inv.weekday_created }
     invoices.map { |day, invoices| [day, invoices.length]}.to_h
   end
-
-
-
 end
