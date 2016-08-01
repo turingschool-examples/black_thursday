@@ -9,7 +9,7 @@ class InvoiceItemRepoTest < Minitest::Test
   end
 
   def test_it_can_find_all_invoice_items
-    assert_equal 200, InvoiceItemRepo.new(@filepath).all.count
+    assert_equal 208, InvoiceItemRepo.new(@filepath).all.count
   end
 
   def test_it_can_find_by_id
