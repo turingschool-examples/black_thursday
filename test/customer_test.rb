@@ -7,7 +7,7 @@ class CustomerTest < Minitest::Test
 
   def setup
     fixture = CSV.open('./test/fixtures/customers_fixture.csv',
-                          headers:true,
+                          headers: true,
                           header_converters: :symbol)
     @customer_rows = fixture.to_a
     @customer_1 = Customer.new(customer_rows[0])
