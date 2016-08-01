@@ -30,7 +30,7 @@ class SalesAnalyst
       result += average_item_price_for_merchant(merchant.id)
       result
     end
-    average_price = (total_average_price / all_merchants.count).round(2)
+    average_price = (total_average_price / all_merchants.count).floor(2)
   end
 
   def price_standard_deviation_for_merchant(id)
@@ -45,7 +45,7 @@ class SalesAnalyst
   end
 
   def golden_items(num_of_std = 2)
-    cutoff = 100*(average_average_price_per_merchant + num_of_std*price_standard_deviation)
+    cutoff = (average_average_price_per_merchant + num_of_std*price_standard_deviation)
     @sales_engine.all_items.find_all do |item|
       item.unit_price > cutoff
     end

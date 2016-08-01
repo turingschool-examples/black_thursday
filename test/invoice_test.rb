@@ -1,5 +1,6 @@
 require_relative './test_helper'
 require_relative '../lib/invoice'
+require 'bigdecimal'
 
 class InvoiceTest < Minitest::Test
   def test_initializing_with_a_hash
@@ -109,8 +110,8 @@ class InvoiceTest < Minitest::Test
       :updated_at => Time.now
       }, mock_ir)
     mock_ir.expect(:find_transactions_by_invoice_id, [mock_transaction_1, mock_transaction_2], [7])
-    mock_transaction_1.expect(:status, "failed")
-    mock_transaction_2.expect(:status, "success")
+    mock_transaction_1.expect(:result, "failed")
+    mock_transaction_2.expect(:result, "success")
     assert_equal true, invoice.is_paid_in_full?
     assert mock_ir.verify
     assert mock_transaction_1.verify
@@ -132,18 +133,14 @@ class InvoiceTest < Minitest::Test
       :updated_at => Time.now
       }, mock_ir)
     mock_ir.expect(:find_invoice_items_by_invoice_id, [mock_invoice_item_1, mock_invoice_item_2], [7])
-    mock_invoice_item_1.expect(:item_id, 10)
-    mock_invoice_item_2.expect(:item_id, 11)
-    mock_ir.expect(:find_item_by_item_id, mock_item_1, [10])
-    mock_ir.expect(:find_item_by_item_id, mock_item_2, [11])
-    mock_item_1.expect(:unit_price, 10.0)
-    mock_item_2.expect(:unit_price, 11.50)
-    assert_equal 21.50, invoice.total
+    mock_invoice_item_1.expect(:unit_price, BigDecimal.new(1000.0,4))
+    mock_invoice_item_2.expect(:unit_price, BigDecimal.new(1150.0,4))
+    mock_invoice_item_1.expect(:quantity, 3)
+    mock_invoice_item_2.expect(:quantity, 1)
+    assert_equal 41.50, invoice.total
     assert mock_ir.verify
     assert mock_invoice_item_1.verify
     assert mock_invoice_item_2.verify
-    assert mock_item_1.verify
-    assert mock_item_2.verify
   end
 
 end

@@ -28,10 +28,20 @@ class Invoice
   end
 
   def items
-    invoice_items = @parent.find_invoice_items_by_invoice_id(id)
     invoice_items.map do |invoice_item|
       @parent.find_item_by_item_id(invoice_item.item_id)
     end
+  end
+
+  def invoice_items
+    @parent.find_invoice_items_by_invoice_id(id)
+  end
+
+  def get_item_quantity(item_id)
+    invoice_items = get_invoice_items
+    invoice_items.find do |invoice_item|
+      invoice_item.item_id == item_id
+    end.quantity
   end
 
   def transactions
@@ -39,19 +49,18 @@ class Invoice
   end
 
   def customer
-    # binding.pry
     @parent.find_customer_by_customer_id(customer_id)
   end
 
   def is_paid_in_full?
-    transactions.one? do |transaction|
-      transaction.status == "success"
+    transactions.any? do |transaction|
+      transaction.result == "success"
     end
   end
 
   def total
-    items.reduce(0) do |result, item|
-      result += item.unit_price
+    invoice_items.reduce(0) do |result, invoice_item|
+      result += (invoice_item.unit_price).floor(2)  * invoice_item.quantity
       result
     end
   end

@@ -15,7 +15,7 @@ class InvoiceItem
     @item_id    = invoice_item_details[:item_id].to_i
     @invoice_id = invoice_item_details[:invoice_id].to_i
     @quantity   = invoice_item_details[:quantity].to_i
-    @unit_price = BigDecimal(invoice_item_details[:unit_price].to_f, 4)
+    @unit_price = BigDecimal(invoice_item_details[:unit_price].to_f / 100, 6)
     @created_at = format_time(invoice_item_details[:created_at].to_s)
     @updated_at = format_time(invoice_item_details[:updated_at].to_s)
     @parent     = repo
