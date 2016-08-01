@@ -23,7 +23,21 @@ class FileLoader
   def repo_name(key)
     # we are aware that this is potentially VERY dangerous, but it
     # makes the load_repos_from_csv method so nice...
-    eval("#{key.to_s.chop}_repo")
+    if is_a_repo?(key)
+      eval("#{key.to_s.chop}_repo")
+    end
+  end
+
+  def is_a_repo?(key)
+    valid_repos = [
+      "merchant_repo",
+      "item_repo",
+      "invoice_repo",
+      "invoice_item_repo",
+      "transaction_repo",
+      "customer_repo"
+    ]
+    valid_repos.include?("#{key.to_s.chop}_repo")
   end
 
   def add(path, repo)

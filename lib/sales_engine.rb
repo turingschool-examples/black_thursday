@@ -4,6 +4,7 @@ require_relative './invoice_repo'
 require_relative './invoice_item_repo'
 require_relative './customer_repo'
 require_relative './transaction_repo'
+require_relative './file_loader'
 require 'CSV'
 require 'pry'
 

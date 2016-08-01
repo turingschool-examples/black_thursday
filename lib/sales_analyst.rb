@@ -122,6 +122,20 @@ class SalesAnalyst
     top_days
   end
 
+  def merchants_with_pending_invoices
+    @sales_engine.all_merchants.find_all do |merchant|
+      merchant.invoices.find do |invoice|
+        invoice.status == :pending
+      end
+    end
+  end
+
+  def merchants_with_only_one_item
+    @sales_engine.all_merchants.find_all do |merchant|
+      merchant.items.count == 1
+    end
+  end
+
   def get_item_prices(items)
     items.map do |item|
       item.unit_price_to_dollars

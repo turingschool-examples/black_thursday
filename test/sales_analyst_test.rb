@@ -304,4 +304,55 @@ class SalesAnalystTest < Minitest::Test
     assert_equal ["Tuesday", "Thursday"], sa.top_days_by_invoice_count
   end
 
+  def test_merchants_with_pending_invoices
+    mock_se = Minitest::Mock.new
+    mock_merchant_1 = Minitest::Mock.new
+    mock_merchant_2 = Minitest::Mock.new
+    mock_merchant_3 = Minitest::Mock.new
+    mock_merchant_4 = Minitest::Mock.new
+    mock_successful_invoice = Minitest::Mock.new
+    mock_pending_invoice    = Minitest::Mock.new
+    mock_failed_invoice     = Minitest::Mock.new
+    sa = SalesAnalyst.new(mock_se)
+
+    mock_merchants = [mock_merchant_1, mock_merchant_2, mock_merchant_3, mock_merchant_4]
+    mock_se.expect(:all_merchants, mock_merchants)
+    2.times do
+      mock_successful_invoice.expect(:status, :success)
+      mock_pending_invoice.expect(:status, :pending)
+    end
+    mock_failed_invoice.expect(:status, :failed)
+    mock_merchant_1.expect(:invoices, [mock_pending_invoice])
+    mock_merchant_2.expect(:invoices, [mock_successful_invoice, mock_successful_invoice])
+    mock_merchant_3.expect(:invoices, [])
+    mock_merchant_4.expect(:invoices, [mock_failed_invoice, mock_pending_invoice] )
+
+    assert_equal [mock_merchant_1, mock_merchant_4], sa.merchants_with_pending_invoices
+    assert mock_merchant_1.verify
+    assert mock_merchant_2.verify
+    assert mock_merchant_3.verify
+    assert mock_merchant_4.verify
+    assert mock_successful_invoice.verify
+    assert mock_pending_invoice.verify
+    assert mock_failed_invoice.verify
+    assert mock_se.verify
+  end
+
+  def test_merchants_with_only_one_item
+    mock_se = Minitest::Mock.new
+    mock_merchant_1 = Minitest::Mock.new
+    mock_merchant_2 = Minitest::Mock.new
+    mock_merchant_3 = Minitest::Mock.new
+    sa = SalesAnalyst.new(mock_se)
+    mock_merchants = [mock_merchant_1, mock_merchant_2, mock_merchant_3]
+    mock_se.expect(:all_merchants, mock_merchants)
+    mock_merchant_1.expect(:items, ["an item", "another item"])
+    mock_merchant_2.expect(:items, ["just one item"])
+    mock_merchant_3.expect(:items, [])
+    assert_equal [mock_merchant_2], sa.merchants_with_only_one_item
+    assert mock_se.verify
+    assert mock_merchant_1.verify
+    assert mock_merchant_2.verify
+    assert mock_merchant_3.verify
+  end
 end
