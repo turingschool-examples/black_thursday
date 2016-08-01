@@ -12,7 +12,7 @@ class InvoiceRepoTest < Minitest::Test
                     :updated_at => Time.now})
 
     assert_equal 1, ir.all.count
-    assert_equal "shipped", ir.all.first.status
+    assert_equal :shipped, ir.all.first.status
   end
 
   def test_find_by_id

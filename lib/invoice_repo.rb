@@ -11,7 +11,6 @@ class InvoiceRepo
   end
 
   def add_invoice(invoice_details)
-    # binding.pry
     @invoices << Invoice.new(invoice_details, self)
   end
 
@@ -35,7 +34,7 @@ class InvoiceRepo
 
   def find_all_by_status(status)
     @invoices.find_all do |invoice|
-      invoice.status == status
+      invoice.status == status.to_sym
     end
   end
 
