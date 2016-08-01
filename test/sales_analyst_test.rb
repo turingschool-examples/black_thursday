@@ -79,10 +79,11 @@ class SalesAnalystTest < Minitest::Test
     assert_equal ["Wednesday"], sa.top_days_by_invoice_count
   end
 
-  def test_method_invoice_status_returns_float
-    assert_instance_of Float, sa.invoice_status(:pending)
-    assert_instance_of Float, sa.invoice_status(:shipped)
-    assert_instance_of Float, sa.invoice_status(:returned)
+  def test_method_invoice_status_sum_for_all_three_is_100_percent
+    sum = sa.invoice_status(:pending) +
+          sa.invoice_status(:shipped) +
+          sa.invoice_status(:returned)
+    assert_equal 100.0, sum
   end
 
 
