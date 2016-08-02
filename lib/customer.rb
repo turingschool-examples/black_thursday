@@ -23,4 +23,5 @@ class Customer
   def merchants
     merchants = @parent.find_all_merchants_by_id(@id)
   end
+
 end

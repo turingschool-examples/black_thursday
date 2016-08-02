@@ -85,4 +85,13 @@ class SalesAnalyst
     (match.to_f / engine.total_invoices * 100).round(2)
   end
 
+  def top_buyers(num_custs = 20)
+    customer_totals = Hash.new(0)
+    engine.all_invoices.each do |invoice|
+      total = invoice.total || 0
+      customer_totals[invoice.customer] += total
+    end
+    customer_totals.sort_by(&:last)[-num_custs..-1].reverse.map(&:first)
+  end
+
 end

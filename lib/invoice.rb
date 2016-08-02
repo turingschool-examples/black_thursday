@@ -47,10 +47,12 @@ class Invoice
   end
 
   def total
-    total = invoice_items.reduce(0) do |sum, invoice_item|
-      sum += invoice_item.bulk_price
+    if is_paid_in_full?
+      total = invoice_items.reduce(0) do |sum, invoice_item|
+        sum += invoice_item.bulk_price
+      end
+      total
     end
-    total if is_paid_in_full?
   end
 
   def weekday_created
