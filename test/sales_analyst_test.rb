@@ -91,7 +91,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_most_sold_item_for_given_merchant
-    assert_equal "", SalesAnalyst.new(@se).most_sold_item_for_merchant(12335150).first.id
+    assert_equal 263441173, SalesAnalyst.new(@se).most_sold_item_for_merchant(12335150).first.id
   end
 
 end

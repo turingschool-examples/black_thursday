@@ -8,7 +8,7 @@ class SalesAnalyst
   :invoice_item_repo
 
   def initialize(sales_engine)
-    @sales_engine = sales_engine
+    @se = sales_engine
     @merchant_repo = sales_engine.merchants
     @item_repo = sales_engine.items
     @invoice_repo = sales_engine.invoices
@@ -159,7 +159,7 @@ class SalesAnalyst
 
   #revenue info
   def revenue_by_merchant(merchant_id)
-    merchants_invoices = @sales_engine.find_all_invoices_by_merchant_id(merchant_id)
+    merchants_invoices = @se.find_all_invoices_by_merchant_id(merchant_id)
     merchants_invoices.reduce(0) do |revenue, invoice|
       revenue += invoice.total if invoice.is_paid_in_full?
       revenue
@@ -215,7 +215,6 @@ class SalesAnalyst
     items_from_invoices = paid_invoice_items.map do |invoice_item|
       invoice_item.item
     end.uniq
-
     grouped_items = items_from_invoices.group_by do |item|
       quantity_of_item_over_all_invoices(item, paid_invoice_items)
     end
@@ -227,7 +226,6 @@ class SalesAnalyst
     items_from_invoices = paid_invoice_items.map do |invoice_item|
       invoice_item.item
     end.uniq
-
     grouped_items = items_from_invoices.sort_by do |item|
       paid_invoice_items.reduce(0) do |revenue, invoice_item|
         if invoice_item.item_id == item.id
