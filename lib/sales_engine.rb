@@ -53,6 +53,12 @@ class SalesEngine
     invoices.find_all_merchants_by_customer_id(c_id)
   end
 
+  def find_items_by_invoice_id(invoice_id)
+    inv_items = invoice_items.find_all_by_invoice_id(invoice_id)
+    item_ids = inv_items.map { |inv_item| inv_item.item_id }
+    all_items.find_all { |item| item_ids.include? item.id }
+  end
+
   def all_merchants
     merchants.all
   end

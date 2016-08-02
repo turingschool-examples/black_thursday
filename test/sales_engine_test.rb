@@ -71,6 +71,11 @@ class SalesEngineTest < Minitest::Test
     assert_equal se.merchants.all.length, se.total_merchants
   end
 
+  def test_method_find_items_by_invoice_id_returns_items
+    items = [4,5].map{ |n| se.items.find_by_id(n) }
+    assert_equal items, se.find_items_by_invoice_id(2)
+  end
+
 
 
 end

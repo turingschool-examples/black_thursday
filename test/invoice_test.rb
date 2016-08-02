@@ -36,6 +36,14 @@ class InvoiceTest < Minitest::Test
     assert mock_inv_r.verify
   end
 
+  def test_method_items_queries_parent
+    mock_inv_r = Minitest::Mock.new
+    invoice = Invoice.new(invoice_rows[0], mock_inv_r)
+    mock_inv_r.expect(:find_items_by_id, nil, [1])
+    invoice.items
+    assert mock_inv_r.verify
+  end
+
   def test_method_weekday_created_returns_string
     assert_equal "Saturday", invoice_1.weekday_created
   end
