@@ -24,7 +24,7 @@ class Transaction
     Time.parse(time)
   end
 
-  def invoice(invoice_id)
+  def invoice
     @parent.find_invoice_by_id(@invoice_id)
   end
 

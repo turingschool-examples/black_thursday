@@ -39,7 +39,7 @@ class TransactionTest < Minitest::Test
     mock_tr = Minitest::Mock.new
     transaction = Transaction.new(transaction_rows[0], mock_tr)
     mock_tr.expect(:find_invoice_by_id, nil, [2179])
-    transaction.invoice(2179)
+    transaction.invoice
     assert mock_tr.verify
   end
 
