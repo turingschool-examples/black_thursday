@@ -38,6 +38,21 @@ class Invoice
     @parent.find_customer_by_id(@customer_id)
   end
 
+  def invoice_items
+    @parent.find_invoice_items_by_id(@id)
+  end
+
+  def is_paid_in_full?
+    transactions.any? { |t| t.is_successful? }
+  end
+
+  def total
+    total = invoice_items.reduce(0) do |sum, invoice_item|
+      sum += invoice_item.bulk_price
+    end
+    total if is_paid_in_full?
+  end
+
   def weekday_created
     created_at.strftime("%A")
   end

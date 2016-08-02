@@ -69,6 +69,10 @@ class SalesEngine
     all_items.find_all { |item| item_ids.include? item.id }
   end
 
+  def find_invoice_items_by_invoice_id(invoice_id)
+    invoice_items.find_all_by_invoice_id(invoice_id)
+  end
+
   def find_transactions_by_invoice_id(invoice_id)
     transactions.find_all_by_invoice_id(invoice_id)
   end

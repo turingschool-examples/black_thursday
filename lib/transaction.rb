@@ -28,6 +28,10 @@ class Transaction
     @parent.find_invoice_by_id(@invoice_id)
   end
 
+  def is_successful?
+    result == 'success'
+  end
+
   def weekday_created
     @created_at.strftime("%A")
   end
