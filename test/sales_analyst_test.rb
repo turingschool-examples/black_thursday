@@ -318,10 +318,10 @@ class SalesAnalystTest < Minitest::Test
     mock_merchants = [mock_merchant_1, mock_merchant_2, mock_merchant_3, mock_merchant_4]
     mock_se.expect(:all_merchants, mock_merchants)
     2.times do
-      mock_successful_invoice.expect(:status, :success)
-      mock_pending_invoice.expect(:status, :pending)
+      mock_successful_invoice.expect(:is_paid_in_full?, true)
     end
-    mock_failed_invoice.expect(:status, :failed)
+    mock_pending_invoice.expect(:is_paid_in_full?, false)
+    mock_failed_invoice.expect(:is_paid_in_full?, false)
     mock_merchant_1.expect(:invoices, [mock_pending_invoice])
     mock_merchant_2.expect(:invoices, [mock_successful_invoice, mock_successful_invoice])
     mock_merchant_3.expect(:invoices, [])
@@ -355,4 +355,5 @@ class SalesAnalystTest < Minitest::Test
     assert mock_merchant_2.verify
     assert mock_merchant_3.verify
   end
+
 end
