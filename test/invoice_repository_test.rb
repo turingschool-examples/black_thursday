@@ -81,4 +81,12 @@ class InvoiceRepositoryTest < Minitest::Test
     assert mock_se.verify
   end
 
+  def test_method_find_customer_by_id_returns_customer
+    mock_se = Minitest::Mock.new
+    inv_r = InvoiceRepository.new([], mock_se)
+    mock_se.expect(:find_customer_by_id, nil, [100])
+    inv_r.find_customer_by_id(100)
+    assert mock_se.verify
+  end
+
 end

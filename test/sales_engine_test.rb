@@ -30,9 +30,14 @@ class SalesEngineTest < Minitest::Test
     assert_equal merchant, se.find_merchant_by_id(1000)
   end
 
-  def find_invoice_by_invoice_id(inv_id)
-    inv_id = se.invoices.find_by_id(2179)
-    assert_equal se.find_invoice_by_id(inv_id)
+  def test_find_invoice_by_invoice_id
+    invoice = se.invoices.find_by_id(2179)
+    assert_equal invoice, se.find_invoice_by_id(2179)
+  end
+
+  def test_find_customer_by_customer_id
+    customer = se.customers.find_by_id(100)
+    assert_equal customer, se.find_customer_by_id(100)
   end
 
   def test_finds_all_items_by_merchant_id

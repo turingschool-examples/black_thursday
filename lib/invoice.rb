@@ -34,6 +34,10 @@ class Invoice
     @parent.find_transactions_by_id(@id)
   end
 
+  def customer
+    @parent.find_customer_by_id(@customer_id)
+  end
+
   def weekday_created
     created_at.strftime("%A")
   end
