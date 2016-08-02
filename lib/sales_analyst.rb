@@ -138,7 +138,7 @@ class SalesAnalyst
 
   def total_revenue_by_date(date)
     invoices_to_be_consider = @sales_engine.all_invoices.find_all do |invoice|
-      invoice.created_at == date && invoice.is_paid_in_full?
+      invoice.created_at.strftime("%F") == date.strftime("%F") && invoice.is_paid_in_full?
     end
     invoices_to_be_consider.reduce(0) do |result, invoice|
       result += invoice.total
