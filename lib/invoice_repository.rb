@@ -4,11 +4,11 @@ class InvoiceRepository
   attr_reader :invoices, :parent
 
   def initialize(invoice_contents, parent = nil)
-    @invoices = make_invocies(invoice_contents)
+    @invoices = make_invoices(invoice_contents)
     @parent = parent
   end
 
-  def make_invocies(invoice_contents)
+  def make_invoices(invoice_contents)
     invoice_contents.map { |row| Invoice.new(row, self) }
   end
 
@@ -36,6 +36,27 @@ class InvoiceRepository
 
   def find_merchant_by_id(merchant_id)
     parent.find_merchant_by_id(merchant_id)
+  end
+
+  def find_all_merchants_by_customer_id(c_id)
+    invoices = find_all_by_customer_id(c_id)
+    invoices.map { |invoice| invoice.merchant }
+  end
+
+  def find_items_by_id(invoice_id)
+    @parent.find_items_by_invoice_id(invoice_id)
+  end
+
+  def find_invoice_items_by_id(invoice_id)
+    @parent.find_invoice_items_by_invoice_id(invoice_id)
+  end
+
+  def find_transactions_by_id(invoice_id)
+    @parent.find_transactions_by_invoice_id(invoice_id)
+  end
+
+  def find_customer_by_id(customer_id)
+    @parent.find_customer_by_id(customer_id)
   end
 
   def inspect

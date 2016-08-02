@@ -35,4 +35,8 @@ class InvoiceItemTest < Minitest::Test
   def test_method_unit_price_to_dollars_returns_float
     assert 1.0, invoice_item_1.unit_price_to_dollars
   end
+
+  def test_method_bulk_price_returns_bigdecimal
+    assert_equal 109.8, invoice_item_1.bulk_price
+  end
 end

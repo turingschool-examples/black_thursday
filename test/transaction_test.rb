@@ -35,11 +35,17 @@ class TransactionTest < Minitest::Test
     assert_equal "success", transaction_1.result
   end
 
+  def test_method_is_successful_returns_boolean
+    assert_equal true, transaction_1.is_successful?
+    transaction_8 = Transaction.new(transaction_rows[7])
+    assert_equal false, transaction_8.is_successful?
+  end
+
   def test_method_invoice_queries_parent
     mock_tr = Minitest::Mock.new
     transaction = Transaction.new(transaction_rows[0], mock_tr)
     mock_tr.expect(:find_invoice_by_id, nil, [2179])
-    transaction.invoice(2179)
+    transaction.invoice
     assert mock_tr.verify
   end
 

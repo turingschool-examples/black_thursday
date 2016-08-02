@@ -3,17 +3,19 @@ require_relative 'merchant_repository'
 require_relative 'invoice_repository'
 require_relative 'transaction_repository'
 require_relative 'invoice_item_repository'
+require_relative 'customer_repository'
 require 'csv'
 
 class SalesEngine
-  attr_reader :items, :merchants, :invoices, :invoice_items, :transactions
+  attr_reader :items, :merchants, :invoices, :invoice_items, :transactions, :customers
 
-  def initialize(items_path, merchants_path, invoices_path, invoice_items_path, transactions_path)
+  def initialize(items_path, merchants_path, invoices_path, invoice_items_path, transactions_path, customers_path)
     @items = ItemRepository.new(csv_rows(items_path), self)
     @merchants = MerchantRepository.new(csv_rows(merchants_path), self)
     @invoices = InvoiceRepository.new(csv_rows(invoices_path), self)
     @invoice_items = InvoiceItemRepository.new(csv_rows(invoice_items_path), self)
     @transactions = TransactionRepository.new(csv_rows(transactions_path), self)
+    @customers = CustomerRepository.new(csv_rows(customers_path), self)
   end
 
   def csv_rows(path)
@@ -27,7 +29,8 @@ class SalesEngine
     invoices_path = data[:invoices]
     invoice_items_path = data[:invoice_items]
     transactions_path = data[:transactions]
-    self.new(items_path, merchants_path, invoices_path, invoice_items_path, transactions_path)
+    customers_path = data[:customers]
+    self.new(items_path, merchants_path, invoices_path, invoice_items_path, transactions_path, customers_path)
   end
 
   def find_merchant_by_id(m_id)
@@ -38,12 +41,40 @@ class SalesEngine
     invoices.find_by_id(inv_id)
   end
 
+  def find_customer_by_id(cust_id)
+    customers.find_by_id(cust_id)
+  end
+
   def find_all_items_by_merchant_id(m_id)
     items.find_all_by_merchant_id(m_id)
   end
 
   def find_all_invoices_by_merchant_id(m_id)
     invoices.find_all_by_merchant_id(m_id)
+  end
+
+  def find_all_customers_by_merchant_id(m_id)
+    invoices = all_invoices.find_all { |inv| inv.merchant_id == m_id }
+    cust_ids = invoices.map { |inv| inv.customer.id }
+    all_customers.find_all { |cust| cust_ids.include? cust.id }
+  end
+
+  def find_all_merchants_by_customer_id(c_id)
+    invoices.find_all_merchants_by_customer_id(c_id)
+  end
+
+  def find_items_by_invoice_id(invoice_id)
+    inv_items = invoice_items.find_all_by_invoice_id(invoice_id)
+    item_ids = inv_items.map { |inv_item| inv_item.item_id }
+    all_items.find_all { |item| item_ids.include? item.id }
+  end
+
+  def find_invoice_items_by_invoice_id(invoice_id)
+    invoice_items.find_all_by_invoice_id(invoice_id)
+  end
+
+  def find_transactions_by_invoice_id(invoice_id)
+    transactions.find_all_by_invoice_id(invoice_id)
   end
 
   def all_merchants
@@ -56,6 +87,10 @@ class SalesEngine
 
   def all_invoices
     invoices.all
+  end
+
+  def all_customers
+    customers.all
   end
 
   def total_merchants

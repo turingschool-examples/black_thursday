@@ -64,4 +64,37 @@ class InvoiceRepositoryTest < Minitest::Test
     inv_r.find_merchant_by_id(1000)
     assert mock_se.verify
   end
+
+  def test_method_find_items_by_invoice_id_returns_items
+    mock_se = Minitest::Mock.new
+    inv_r = InvoiceRepository.new([], mock_se)
+    mock_se.expect(:find_items_by_invoice_id, nil, [1])
+    inv_r.find_items_by_id(1)
+    assert mock_se.verify
+  end
+
+  def test_method_find_invoice_items_by_invoice_id_returns_invoice_items
+    mock_se = Minitest::Mock.new
+    inv_r = InvoiceRepository.new([], mock_se)
+    mock_se.expect(:find_invoice_items_by_invoice_id, nil, [1])
+    inv_r.find_invoice_items_by_id(1)
+    assert mock_se.verify
+  end
+
+  def test_method_find_transactions_by_invoice_id_returns_transactions
+    mock_se = Minitest::Mock.new
+    inv_r = InvoiceRepository.new([], mock_se)
+    mock_se.expect(:find_transactions_by_invoice_id, nil, [1])
+    inv_r.find_transactions_by_id(1)
+    assert mock_se.verify
+  end
+
+  def test_method_find_customer_by_id_returns_customer
+    mock_se = Minitest::Mock.new
+    inv_r = InvoiceRepository.new([], mock_se)
+    mock_se.expect(:find_customer_by_id, nil, [100])
+    inv_r.find_customer_by_id(100)
+    assert mock_se.verify
+  end
+
 end
