@@ -33,4 +33,7 @@ class InvoiceItemRepo
     end
   end
 
+  def find_item_by_id(item_id)
+    @parent.find_item_by_id(item_id)
+  end
 end

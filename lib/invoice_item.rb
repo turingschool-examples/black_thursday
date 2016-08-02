@@ -14,6 +14,7 @@ class InvoiceItem
     @unit_price = BigDecimal.new(data[:unit_price]) / 100
     @created_at = time_formatter(data[:created_at])
     @updated_at = time_formatter(data[:updated_at])
+    @parent = parent
   end
 
   def unit_price_to_dollars
@@ -26,5 +27,9 @@ class InvoiceItem
     else
       Time.strptime(date_time, "%Y-%m-%d")
     end
+  end
+
+  def item
+    @parent.find_item_by_id(self.item_id)
   end
 end
