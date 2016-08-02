@@ -30,6 +30,10 @@ class Invoice
     @parent.find_items_by_id(@id)
   end
 
+  def transactions
+    @parent.find_transactions_by_id(@id)
+  end
+
   def weekday_created
     created_at.strftime("%A")
   end

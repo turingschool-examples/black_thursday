@@ -76,6 +76,11 @@ class SalesEngineTest < Minitest::Test
     assert_equal items, se.find_items_by_invoice_id(2)
   end
 
+  def test_method_find_transactions_by_invoice_id_returns_transactions
+    transactions = [se.transactions.find_by_id(5)]
+    assert_equal transactions, se.find_transactions_by_invoice_id(1)
+  end
+
 
 
 end
