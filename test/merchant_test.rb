@@ -1,5 +1,6 @@
 require './test/test_helper'
 require './lib/merchant'
+require 'csv'
 
 class MerchantTest < Minitest::Test
   attr_reader :merchant_rows, :merchant_1
@@ -35,4 +36,14 @@ class MerchantTest < Minitest::Test
     merchant.invoices
     assert mock_mr.verify
   end
+
+  def test_method_customers_queries_parent
+    mock_mr = Minitest::Mock.new
+    merchant = Merchant.new({id: 1}, mock_mr)
+    mock_mr.expect(:find_all_customers_by_merchant_id, nil, [1])
+    merchant.customers
+    assert mock_mr.verify
+  end
+
+
 end

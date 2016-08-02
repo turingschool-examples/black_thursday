@@ -50,6 +50,11 @@ class SalesEngineTest < Minitest::Test
     assert_equal invoices, se.find_all_invoices_by_merchant_id(1000)
   end
 
+  def test_method_find_all_customers_by_merchant_id
+    customers = [200, 600, 700].map { |id| se.customers.find_by_id(id) }
+    assert_equal customers, se.find_all_customers_by_merchant_id(1001)
+  end
+
   def test_merchant_accesses_items
     merchant = se.merchants.find_by_id(1000)
     merchants_items = se.find_all_items_by_merchant_id(1000)
@@ -77,7 +82,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_method_find_items_by_invoice_id_returns_items
-    items = [4,5].map{ |n| se.items.find_by_id(n) }
+    items = [4,5].map{ |id| se.items.find_by_id(id) }
     assert_equal items, se.find_items_by_invoice_id(2)
   end
 
