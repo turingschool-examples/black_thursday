@@ -212,9 +212,7 @@ class SalesAnalyst
 
   def most_sold_item_for_merchant(merchant_id)
     paid_invoice_items = paid_invoice_items_for_merchant(merchant_id)
-    items_from_invoices = paid_invoice_items.map do |invoice_item|
-      invoice_item.item
-    end.uniq
+    items_from_invoices = items_in_invoices(paid_invoice_items)
     grouped_items = items_from_invoices.group_by do |item|
       quantity_of_item_over_all_invoices(item, paid_invoice_items)
     end
@@ -223,10 +221,13 @@ class SalesAnalyst
 
   def best_item_for_merchant(merchant_id)
     paid_invoice_items = paid_invoice_items_for_merchant(merchant_id)
-    items_from_invoices = paid_invoice_items.map do |invoice_item|
-      invoice_item.item
-    end.uniq
-    grouped_items = items_from_invoices.sort_by do |item|
+    items_from_invoices = items_in_invoices(paid_invoice_items)
+    grouped_items = group_quantities(items_from_invoices, paid_invoice_items)
+    grouped_items.last
+  end
+
+  def group_quantities(items_from_invoices, paid_invoice_items)
+    items_from_invoices.sort_by do |item|
       paid_invoice_items.reduce(0) do |revenue, invoice_item|
         if invoice_item.item_id == item.id
           revenue += invoice_item.quantity * invoice_item.unit_price
@@ -234,7 +235,12 @@ class SalesAnalyst
         revenue
       end
     end
-    grouped_items.last
+  end
+
+  def items_in_invoices(paid_invoice_items)
+    paid_invoice_items.map do |invoice_item|
+      invoice_item.item
+    end.uniq
   end
 
   def quantity_of_item_over_all_invoices(item, paid_invoice_items)

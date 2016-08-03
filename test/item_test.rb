@@ -39,7 +39,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_gives_time_created
-    time = "2016-01-11 09:34:06 UTC"
+    time = Time.parse("2016-01-11 09:34:06 UTC")
     item = Item.new({created_at: "2016-01-11 09:34:06 UTC"})
     assert_equal time, item.created_at
   end

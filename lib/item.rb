@@ -14,7 +14,7 @@ class Item
     @name = input_item[:name]
     @description = input_item[:description]
     @unit_price = convert_unit_price(input_item[:unit_price])
-    @created_at = (input_item[:created_at]) || Time.now
+    @created_at = convert_string_to_time(input_item[:created_at]) || Time.now
     @updated_at = convert_string_to_time(input_item[:updated_at]) || Time.now
     @merchant_id = input_item[:merchant_id].to_i
   end
