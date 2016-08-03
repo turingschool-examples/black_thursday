@@ -94,4 +94,13 @@ class SalesAnalyst
     customer_totals.sort_by(&:last)[-num_custs..-1].reverse.map(&:first)
   end
 
+  def top_merchant_for_customer(cust_id)
+    invoices = engine.find_all_invoices_by_customer_id(cust_id)
+    top_merchants = invoices.map do |invoice|
+      [engine.find_merchant_by_id(invoice.merchant_id),
+       engine.find_total_item_quantity_by_invoice_id(invoice.id)]
+    end
+    top_merchants.sort_by(&:last).last[0]
+  end
+
 end

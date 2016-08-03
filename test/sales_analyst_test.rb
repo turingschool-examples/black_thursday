@@ -89,15 +89,19 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 100.0, sum
   end
 
-  def test_method_top_buyers
-    answer = []
-    assert_equal answer, sa.top_buyers(5)
-    assert_equal answer.length, 5
-    # customer_totals = Hash.new(0)
-    # [34] pry(main)> se.all_invoices.each do |invoice|
-    #   [34] pry(main)>   total = invoice.total || 0
-    #   [34] pry(main)>   customer_totals[invoice.customer] += total
-    # end
-    # customer_totals.sort_by(&:last)[-x..-1].reverse.map(&:first)
+  def test_top_merchant_for_customer_returns_merchant
+    assert_instance_of Merchant, sa.top_merchant_for_customer(100)
   end
+
+  # def test_method_top_buyers
+  #   answer = []
+  #   assert_equal answer, sa.top_buyers(5)
+  #   assert_equal answer.length, 5
+  #   # customer_totals = Hash.new(0)
+  #   # [34] pry(main)> se.all_invoices.each do |invoice|
+  #   #   [34] pry(main)>   total = invoice.total || 0
+  #   #   [34] pry(main)>   customer_totals[invoice.customer] += total
+  #   # end
+  #   # customer_totals.sort_by(&:last)[-x..-1].reverse.map(&:first)
+  # end
 end
