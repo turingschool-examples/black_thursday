@@ -21,11 +21,15 @@ class CustomerRepository
   end
 
   def find_all_by_first_name(first_name)
-    @customers.find_all { |customer| customer.first_name.upcase.include?(first_name.upcase) }
+    @customers.find_all do |customer|
+      customer.first_name.upcase.include? first_name.upcase
+    end
   end
 
   def find_all_by_last_name(last_name)
-    @customers.find_all { |customer| customer.last_name.upcase.include?(last_name.upcase) }
+    @customers.find_all do |customer|
+      customer.last_name.upcase.include? last_name.upcase
+    end
   end
 
   def find_all_merchants_by_id(customer_id)
