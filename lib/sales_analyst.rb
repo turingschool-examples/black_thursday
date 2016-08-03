@@ -145,5 +145,18 @@ class SalesAnalyst
     inv_hash.max_by{ |invoice, total| total}.first
   end
 
+  def one_time_buyers_item
+    otb_invoices = one_time_buyers.map(&:invoices)
+    otb_invoice_items = otb_invoices.flatten.map(&:invoice_items)
+    otb_item_ids = otb_invoice_items.map do |invoice_items|
+      invoice_items.map { |invoice_item| invoice_item.item_id }
+    end
+    item_count = Hash.new(0)
+    otb_item_ids.flatten.each do |id|
+      item_count[id] += 1
+    end
+    favorite_item_id = item_count.sort_by(&:last).last.first
+    [engine.items.find_by_id(favorite_item_id)]
+  end
 
 end
