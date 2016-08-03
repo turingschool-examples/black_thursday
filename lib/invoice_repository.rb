@@ -51,6 +51,10 @@ class InvoiceRepository
     @parent.find_invoice_items_by_invoice_id(invoice_id)
   end
 
+  def find_items_by_merchant_id(merchant_id)
+    @parent.find_all_items_by_merchant_id(merchant_id)
+  end
+
   def find_transactions_by_id(invoice_id)
     @parent.find_transactions_by_invoice_id(invoice_id)
   end

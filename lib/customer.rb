@@ -28,4 +28,8 @@ class Customer
     @parent.find_fully_paid_invoices_by_customer_id(@id)
   end
 
+  def invoices
+    @parent.find_invoices_by_customer_id(@id)
+  end
+
 end

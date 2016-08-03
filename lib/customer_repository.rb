@@ -36,6 +36,10 @@ class CustomerRepository
     parent.find_fully_paid_invoices_by_customer_id(customer_id)
   end
 
+  def find_invoices_by_customer_id(customer_id)
+    parent.find_all_invoices_by_customer_id(customer_id)
+  end
+
   def inspect
     "#<#{self.class} #{@customers.size} rows>"
   end

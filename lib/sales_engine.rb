@@ -104,6 +104,10 @@ class SalesEngine
     invoices.all
   end
 
+  def paid_invoices
+    all_invoices.select{ |invoice| invoice.is_paid_in_full? }
+  end
+
   def all_customers
     customers.all
   end

@@ -30,6 +30,10 @@ class Invoice
     @parent.find_items_by_id(@id)
   end
 
+  def merchant_items
+    @parent.find_items_by_merchant_id(@merchant_id)
+  end
+
   def transactions
     @parent.find_transactions_by_id(@id)
   end

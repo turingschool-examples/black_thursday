@@ -110,4 +110,40 @@ class SalesAnalyst
     customer_paid_invoices.select{|c, invs| invs.length == 1 }.map(&:first)
   end
 
+  def items_bought_in_year(cust_id, year)
+    invoices = engine.invoices.find_all_by_customer_id(cust_id)
+    year_invoices = invoices.select { |inv| inv.created_at.year == year }
+    year_invoices.map {|inv| inv.items }.flatten.reverse
+  end
+
+  def customers_with_unpaid_invoices
+    customer_invoices = engine.all_customers.map { |cust| [ cust, cust.invoices ] }
+    unpaids = customer_invoices.select do |cust, invoices|
+      invoices.any? {|inv| !inv.is_paid_in_full? }
+    end
+    unpaids.map(&:first)
+  end
+
+  def best_invoice_by_revenue
+    paid = engine.paid_invoices
+    invoice_items = paid.map { |invoice| [ invoice, invoice.invoice_items ] }
+    inv_hash = Hash.new(0)
+    invoice_items.each do |invoice, items|
+      inv_hash[invoice] += items.map { |inv_it| inv_it.bulk_price }.reduce(&:+)
+    end
+    inv_hash.sort_by(&:last)[-1].first
+  end
+
+  def best_invoice_by_quantity
+    paid = engine.paid_invoices
+    invoice_items = paid.map { |invoice| [ invoice, invoice.invoice_items ] }
+    inv_hash = Hash.new(0)
+    invoice_items.each do |invoice, items|
+      inv_hash[invoice] += items.map { |inv_it| inv_it.quantity }.reduce(&:+)
+    end
+    # inv_hash.sort_by(&:last)[-1].last
+    inv_hash.max_by{ |invoice, total| total}.first
+  end
+
+
 end
