@@ -103,4 +103,11 @@ class SalesAnalyst
     top_merchants.sort_by(&:last).last[0]
   end
 
+  def one_time_buyers
+    customer_paid_invoices = engine.all_customers.map do |cust|
+      [ cust, engine.find_fully_paid_invoices_by_customer_id(cust.id)]
+    end
+    customer_paid_invoices.select{|c, invs| invs.length == 1 }.map(&:first)
+  end
+
 end

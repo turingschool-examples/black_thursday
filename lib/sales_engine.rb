@@ -87,6 +87,11 @@ class SalesEngine
     transactions.find_all_by_invoice_id(invoice_id)
   end
 
+  def find_fully_paid_invoices_by_customer_id(cust_id)
+    cust_invoices = invoices.find_all_by_customer_id(cust_id)
+    cust_invoices.select { |invoice| invoice.is_paid_in_full? }
+  end
+
   def all_merchants
     merchants.all
   end

@@ -24,4 +24,8 @@ class Customer
     merchants = @parent.find_all_merchants_by_id(@id)
   end
 
+  def fully_paid_invoices
+    @parent.find_fully_paid_invoices_by_customer_id(@id)
+  end
+
 end
