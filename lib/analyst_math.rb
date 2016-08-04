@@ -12,9 +12,14 @@ module AnalystMath
     Math.sqrt(sum_of_deviations_squared / (numbers.length - 1)).round(2)
   end
 
-  def self.std_devs_out(numbers, devs)
+  def self.std_devs_out(numbers, devs = 1)
     answer = self.average(numbers) + (self.standard_deviation(numbers) * devs)
     answer.round(2)
   end
+
+  def self.percentage(numerator, denominator)
+    (numerator.to_f / denominator * 100).round(2)
+  end
+
 
 end

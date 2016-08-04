@@ -51,11 +51,9 @@ class Invoice
   end
 
   def total
-    if is_paid_in_full?
-      total = invoice_items.reduce(0) do |sum, invoice_item|
-        sum += invoice_item.bulk_price
-      end
-      total
+    return 0 unless is_paid_in_full?
+    total = invoice_items.reduce(0) do |sum, invoice_item|
+      sum += invoice_item.bulk_price
     end
   end
 

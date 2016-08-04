@@ -57,6 +57,10 @@ class SalesEngine
     invoices.find_all_by_customer_id(c_id)
   end
 
+  def find_all_invoices_by_status(status)
+    invoices.find_all_by_status(status)
+  end
+
   def find_all_customers_by_merchant_id(m_id)
     invoices = all_invoices.find_all { |inv| inv.merchant_id == m_id }
     cust_ids = invoices.map { |inv| inv.customer.id }
@@ -149,7 +153,7 @@ class SalesEngine
   end
 
   def total_invoices_by_weekday
-    invoices = all_invoices.group_by { |inv| inv.weekday_created }
+    invoices = all_invoices.group_by { |invoice| invoice.weekday_created }
     invoices.map { |day, invoices| [day, invoices.length]}.to_h
   end
 end
