@@ -58,4 +58,20 @@ class CustomerRepositoryTest < Minitest::Test
     cr.find_all_merchants_by_id(200)
     assert mock_se.verify
   end
+
+  def test_method_find_fully_paid_invoices_by_customer_id_queries_parent
+    mock_se = Minitest::Mock.new
+    cr = CustomerRepository.new([], mock_se)
+    mock_se.expect(:find_fully_paid_invoices_by_customer_id, nil, [100])
+    cr.find_fully_paid_invoices_by_customer_id(100)
+    assert mock_se.verify
+  end
+
+  def test_method_find_invoices_by_customer_id_queries_parent
+    mock_se = Minitest::Mock.new
+    cr = CustomerRepository.new([], mock_se)
+    mock_se.expect(:find_all_invoices_by_customer_id, nil, [50])
+    cr.find_invoices_by_customer_id(50)
+    assert mock_se.verify
+  end
 end

@@ -39,6 +39,10 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal [], transactions_empty
   end
 
+  def test_method_find_all_by_credit_card_number_returns_fixnum
+    assert_equal [tr.all[0]], tr.find_all_by_credit_card_number(4068631943231473)
+  end
+
   def test_method_find_all_by_result_returns_array_of_transactions
     transactions = tr.find_all_by_result('failed')
     transactions_multiple = tr.find_all_by_result('success')
