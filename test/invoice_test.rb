@@ -123,6 +123,6 @@ class InvoiceIntegrationTest < Minitest::Test
 
   def test_method_total_returns_bigdecimal
     assert_equal 15990.93, invoice_1.total
-    assert_equal nil, invoice_4.total
+    assert_equal 0, invoice_4.total
   end
 end
