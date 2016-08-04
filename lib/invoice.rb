@@ -18,7 +18,7 @@ class Invoice
   end
 
   def prep_time(time)
-    return nil if !time
+    return nil unless time
     Time.parse(time)
   end
 
@@ -47,17 +47,17 @@ class Invoice
   end
 
   def is_paid_in_full?
-    transactions.any? { |t| t.is_successful? }
+    transactions.any?(&:is_successful?)
   end
 
   def total
     return 0 unless is_paid_in_full?
-    total = invoice_items.reduce(0) do |sum, invoice_item|
+    invoice_items.reduce(0) do |sum, invoice_item|
       sum += invoice_item.bulk_price
     end
   end
 
   def weekday_created
-    created_at.strftime("%A")
+    created_at.strftime('%A')
   end
 end

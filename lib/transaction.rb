@@ -33,6 +33,6 @@ class Transaction
   end
 
   def weekday_created
-    @created_at.strftime("%A")
+    @created_at.strftime('%A')
   end
 end

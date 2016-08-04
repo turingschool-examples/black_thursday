@@ -25,9 +25,9 @@ class ItemRepository
   end
 
   def find_all_with_description(description)
-    @items.find_all do
-       |item| item.description.upcase.include? description.upcase
-     end
+    @items.find_all do |item|
+      item.description.upcase.include? description.upcase
+    end
   end
 
   def find_all_by_price(price)

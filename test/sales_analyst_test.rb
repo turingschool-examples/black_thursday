@@ -42,31 +42,43 @@ class SalesAnalystTest < Minitest::Test
   def test_method_merchants_with_high_item_count_returns_array_of_merchants
     assert_instance_of Array, sa.merchants_with_high_item_count
     assert_instance_of Merchant, sa.merchants_with_high_item_count[0]
+    assert_equal "barry's berries", sa.merchants_with_high_item_count[0].name
   end
 
   def test_method_average_average_price_per_merchant_returns_big_decimal
     assert_instance_of BigDecimal, sa.average_average_price_per_merchant
+    assert_equal 4.58, sa.average_average_price_per_merchant
   end
 
   def test_method_golden_items_returns_array_of_items
     assert_instance_of Array, sa.golden_items
     assert_instance_of Item, sa.golden_items[0]
+    assert_equal 'description f', sa.golden_items[0].description
+
   end
 
   def test_method_average_invoices_per_merchant_returns_float
     assert_instance_of Float, sa.average_invoices_per_merchant
+    assert_equal 2.0, sa.average_invoices_per_merchant
+
   end
 
   def test_method_average_invoices_per_merchant_standard_deviation_returns_float
     assert_instance_of Float, sa.average_invoices_per_merchant_standard_deviation
+    assert_equal 0.82, sa.average_invoices_per_merchant_standard_deviation
+
   end
 
   def test_method_top_merchants_by_invoice_count_returns_array_of_merchants
     assert_instance_of Array, sa.top_merchants_by_invoice_count
+    assert_equal [], sa.top_merchants_by_invoice_count
+
   end
 
   def test_method_bottom_merchants_by_invoice_count_returns_array_of_merchants
     assert_instance_of Array, sa.bottom_merchants_by_invoice_count
+    assert_equal [], sa.bottom_merchants_by_invoice_count
+
   end
 
   def test_method_top_days_by_invoice_count_returns_array
@@ -89,19 +101,61 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 100.0, sum
   end
 
-  def test_top_merchant_for_customer_returns_merchant
+  def test_method_top_merchant_for_customer_returns_merchant
     assert_instance_of Merchant, sa.top_merchant_for_customer(100)
+    assert_equal 1000, sa.top_merchant_for_customer(100).id
   end
 
-  # def test_method_top_buyers
-  #   answer = []
-  #   assert_equal answer, sa.top_buyers(5)
-  #   assert_equal answer.length, 5
-  #   # customer_totals = Hash.new(0)
-  #   # [34] pry(main)> se.all_invoices.each do |invoice|
-  #   #   [34] pry(main)>   total = invoice.total || 0
-  #   #   [34] pry(main)>   customer_totals[invoice.customer] += total
-  #   # end
-  #   # customer_totals.sort_by(&:last)[-x..-1].reverse.map(&:first)
-  # end
+  def test_method_top_buyers_returns_customer_array
+    assert_instance_of Array, sa.top_buyers
+    assert_instance_of Customer, sa.top_buyers[0]
+    assert_equal "Joey", sa.top_buyers.first.first_name
+    assert_equal 5, sa.top_buyers(5).length
+    assert_equal 9, sa.top_buyers.length
+  end
+
+  def test_method_top_merchant_for_customer_returns_merchant
+    assert_instance_of Merchant, sa.top_merchant_for_customer(100)
+    assert_equal "adam's bar", sa.top_merchant_for_customer(100).name
+    assert_equal "danny's cavern", sa.top_merchant_for_customer(400).name
+    assert_equal "barry's berries", sa.top_merchant_for_customer(700).name
+  end
+
+  def test_method_one_time_buyers_returns_customer_array
+    assert_instance_of Array, sa.one_time_buyers
+    assert_equal 2, sa.one_time_buyers.length
+    assert_equal "Ondricka", sa.one_time_buyers[0].last_name
+  end
+
+  def test_method_items_bought_in_year_returns_item_array
+    assert_instance_of Array, sa.items_bought_in_year(100, 2000)
+    assert_instance_of Array, sa.items_bought_in_year(100, 2015)
+    assert_equal [], sa.items_bought_in_year(100, 2000)
+    assert_equal 3, sa.items_bought_in_year(100, 2009).length
+  end
+
+  def test_method_customers_with_unpaid_invoices_returns_customer_array
+    assert_instance_of Array, sa.customers_with_unpaid_invoices
+    assert_equal 6, sa.customers_with_unpaid_invoices.length
+    assert_equal 400, sa.customers_with_unpaid_invoices[0].id
+    assert_equal "Braun", sa.customers_with_unpaid_invoices[0].last_name
+  end
+
+  def test_method_best_invoice_by_revenue_returns_invoice
+    assert_instance_of Invoice, sa.best_invoice_by_revenue
+    assert_equal 1, sa.best_invoice_by_revenue.id
+  end
+
+  def test_method_best_invoice_by_quantity_returns_invoice
+    assert_instance_of Invoice, sa.best_invoice_by_quantity
+    assert_equal 1, sa.best_invoice_by_quantity.id
+  end
+
+  def test_method_one_time_buyers_item_returns_array_of_item
+    assert_instance_of Array, sa.one_time_buyers_item
+    assert_equal 1, sa.one_time_buyers_item.length
+    assert_equal 'name c', sa.one_time_buyers_item[0].name
+
+  end
+
 end

@@ -62,7 +62,7 @@ class SalesAnalyst
   def top_days_by_invoice_count
     invoices_by_weekday = engine.total_invoices_by_weekday
     min_invoices = AnalystMath.std_devs_out(invoices_by_weekday.values)
-    invoices_by_weekday.select { |day, num| num > min_invoices }.keys
+    invoices_by_weekday.select { |_, num| num > min_invoices }.keys
   end
 
   def invoice_status(status)
@@ -74,7 +74,8 @@ class SalesAnalyst
     cust_totals = engine.all_invoices.reduce(Hash.new(0)) do |result, invoice|
       result[invoice.customer] += invoice.total; result
     end
-    cust_totals.sort_by(&:last)[-n..-1].reverse.map(&:first) if cust_totals
+    n = cust_totals.length if cust_totals.length < n
+    cust_totals.sort_by(&:last)[-n..-1].reverse.map(&:first)
   end
 
   def top_merchant_for_customer(cust_id)
@@ -88,58 +89,55 @@ class SalesAnalyst
 
   def one_time_buyers
     customer_paid_invoices = engine.all_customers.map do |cust|
-      [ cust, engine.find_fully_paid_invoices_by_customer_id(cust.id)]
+      [cust, engine.find_fully_paid_invoices_by_customer_id(cust.id)]
     end
-    customer_paid_invoices.select{|c, invs| invs.length == 1 }.map(&:first)
+    customer_paid_invoices.select { |_, invs| invs.length == 1 }.map(&:first)
   end
 
   def items_bought_in_year(cust_id, year)
     invoices = engine.invoices.find_all_by_customer_id(cust_id)
     year_invoices = invoices.select { |inv| inv.created_at.year == year }
-    year_invoices.map {|inv| inv.items }.flatten.reverse
+    year_invoices.map(&:items).flatten.reverse
   end
 
   def customers_with_unpaid_invoices
-    customer_invoices = engine.all_customers.map { |cust| [ cust, cust.invoices ] }
-    unpaids = customer_invoices.select do |cust, invoices|
-      invoices.any? {|inv| !inv.is_paid_in_full? }
+    customer_invoices = engine.all_customers.map { |cus| [cus, cus.invoices] }
+    unpaid_customer_invoices = customer_invoices.select do |_, invoices|
+      invoices.any? { |invoice| !invoice.is_paid_in_full? }
     end
-    unpaids.map(&:first)
+    unpaid_customer_invoices.map(&:first)
   end
 
   def best_invoice_by_revenue
     paid = engine.paid_invoices
-    invoice_items = paid.map { |invoice| [ invoice, invoice.invoice_items ] }
-    inv_hash = Hash.new(0)
-    invoice_items.each do |invoice, items|
-      inv_hash[invoice] += items.map { |inv_it| inv_it.bulk_price }.reduce(&:+)
+    invoice_items = paid.map { |invoice| [invoice, invoice.invoice_items] }
+    inv_revs = Hash.new(0)
+    invoice_items.each do |inv, items|
+      inv_revs[inv] += items.map(&:bulk_price).reduce(&:+) || 0
     end
-    inv_hash.sort_by(&:last)[-1].first
+    inv_revs.sort_by(&:last)[-1].first
   end
 
   def best_invoice_by_quantity
     paid = engine.paid_invoices
-    invoice_items = paid.map { |invoice| [ invoice, invoice.invoice_items ] }
-    inv_hash = Hash.new(0)
-    invoice_items.each do |invoice, items|
-      inv_hash[invoice] += items.map { |inv_it| inv_it.quantity }.reduce(&:+)
+    invoice_items = paid.map { |invoice| [invoice, invoice.invoice_items] }
+    inv_revs = Hash.new(0)
+    invoice_items.each do |inv, items|
+      inv_revs[inv] += items.map(&:quantity).reduce(&:+) || 0
     end
-    # inv_hash.sort_by(&:last)[-1].last
-    inv_hash.max_by{ |invoice, total| total}.first
+    inv_revs.max_by { |_, total| total }.first
   end
 
   def one_time_buyers_item
     otb_invoices = one_time_buyers.map(&:invoices)
     otb_invoice_items = otb_invoices.flatten.map(&:invoice_items)
     otb_item_ids = otb_invoice_items.map do |invoice_items|
-      invoice_items.map { |invoice_item| invoice_item.item_id }
+      invoice_items.map(&:item_id)
     end
-    item_count = Hash.new(0)
-    otb_item_ids.flatten.each do |id|
-      item_count[id] += 1
+    item_count = otb_item_ids.flatten.reduce(Hash.new(0)) do |res, id|
+      res[id] += 1; res
     end
     favorite_item_id = item_count.sort_by(&:last).last.first
     [engine.items.find_by_id(favorite_item_id)]
   end
-
 end

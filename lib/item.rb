@@ -22,12 +22,12 @@ class Item
   end
 
   def prep_time(time)
-    return nil if !time
+    return nil unless time
     Time.parse(time)
   end
 
   def prep_unit_price(unit_price)
-    return nil if !unit_price
+    return nil unless unit_price
     digits = unit_price.length + 1
     value  = unit_price.to_i / 100.0
     BigDecimal.new(value, digits)

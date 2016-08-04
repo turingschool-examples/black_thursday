@@ -7,7 +7,7 @@ class Customer
               :parent
 
   def initialize(data, parent = nil)
-    @id =   data[:id].to_i
+    @id = data[:id].to_i
     @first_name = data[:first_name]
     @last_name = data[:last_name]
     @created_at = prep_time(data[:created_at])
@@ -16,12 +16,12 @@ class Customer
   end
 
   def prep_time(time)
-    return nil if !time
+    return nil unless time
     Time.parse(time)
   end
 
   def merchants
-    merchants = @parent.find_all_merchants_by_id(@id)
+    @parent.find_all_merchants_by_id(@id)
   end
 
   def fully_paid_invoices
@@ -31,5 +31,4 @@ class Customer
   def invoices
     @parent.find_invoices_by_customer_id(@id)
   end
-
 end

@@ -7,30 +7,35 @@ require_relative 'customer_repository'
 require 'csv'
 
 class SalesEngine
-  attr_reader :items, :merchants, :invoices, :invoice_items, :transactions, :customers
+  attr_reader :items,
+              :merchants,
+              :invoices,
+              :invoice_items,
+              :transactions,
+              :customers
 
-  def initialize(items_path, merchants_path, invoices_path, invoice_items_path, transactions_path, customers_path)
-    @items = ItemRepository.new(csv_rows(items_path), self)
-    @merchants = MerchantRepository.new(csv_rows(merchants_path), self)
-    @invoices = InvoiceRepository.new(csv_rows(invoices_path), self)
-    @invoice_items = InvoiceItemRepository.new(csv_rows(invoice_items_path), self)
-    @transactions = TransactionRepository.new(csv_rows(transactions_path), self)
-    @customers = CustomerRepository.new(csv_rows(customers_path), self)
+  def initialize(items_path,
+                 merchants_path,
+                 invoices_path,
+                 invoice_items_path,
+                 transactions_path,
+                 customers_path)
+    @items = ItemRepository.new(rows(items_path), self)
+    @merchants = MerchantRepository.new(rows(merchants_path), self)
+    @invoices = InvoiceRepository.new(rows(invoices_path), self)
+    @invoice_items = InvoiceItemRepository.new(rows(invoice_items_path), self)
+    @transactions = TransactionRepository.new(rows(transactions_path), self)
+    @customers = CustomerRepository.new(rows(customers_path), self)
   end
 
-  def csv_rows(path)
+  def rows(path)
     file = CSV.open(path, headers: true, header_converters: :symbol)
     file.to_a
   end
 
   def self.from_csv(data)
-    items_path = data[:items]
-    merchants_path = data[:merchants]
-    invoices_path = data[:invoices]
-    invoice_items_path = data[:invoice_items]
-    transactions_path = data[:transactions]
-    customers_path = data[:customers]
-    self.new(items_path, merchants_path, invoices_path, invoice_items_path, transactions_path, customers_path)
+    new(data[:items],         data[:merchants],    data[:invoices],
+        data[:invoice_items], data[:transactions], data[:customers])
   end
 
   def find_merchant_by_id(m_id)
@@ -62,7 +67,7 @@ class SalesEngine
   end
 
   def find_all_customers_by_merchant_id(m_id)
-    invoices = all_invoices.find_all { |inv| inv.merchant_id == m_id }
+    invoices = find_all_invoices_by_merchant_id(m_id)
     cust_ids = invoices.map { |inv| inv.customer.id }
     all_customers.find_all { |cust| cust_ids.include? cust.id }
   end
@@ -73,7 +78,7 @@ class SalesEngine
 
   def find_items_by_invoice_id(invoice_id)
     inv_items = invoice_items.find_all_by_invoice_id(invoice_id)
-    item_ids = inv_items.map { |inv_item| inv_item.item_id }
+    item_ids = inv_items.map(&:item_id)
     all_items.find_all { |item| item_ids.include? item.id }
   end
 
@@ -82,9 +87,7 @@ class SalesEngine
   end
 
   def find_total_item_quantity_by_invoice_id(invoice_id)
-    find_invoice_items_by_invoice_id(invoice_id).map do |invoice_item|
-      invoice_item.quantity
-    end.reduce(&:+)
+    find_invoice_items_by_invoice_id(invoice_id).map(&:quantity).reduce(&:+)
   end
 
   def find_transactions_by_invoice_id(invoice_id)
@@ -93,7 +96,7 @@ class SalesEngine
 
   def find_fully_paid_invoices_by_customer_id(cust_id)
     cust_invoices = invoices.find_all_by_customer_id(cust_id)
-    cust_invoices.select { |invoice| invoice.is_paid_in_full? }
+    cust_invoices.select(&:is_paid_in_full?)
   end
 
   def all_merchants
@@ -109,7 +112,7 @@ class SalesEngine
   end
 
   def paid_invoices
-    all_invoices.select{ |invoice| invoice.is_paid_in_full? }
+    all_invoices.select(&:is_paid_in_full?)
   end
 
   def all_customers
@@ -153,7 +156,7 @@ class SalesEngine
   end
 
   def total_invoices_by_weekday
-    invoices = all_invoices.group_by { |invoice| invoice.weekday_created }
-    invoices.map { |day, invoices| [day, invoices.length]}.to_h
+    group_invoices = all_invoices.group_by(&:weekday_created)
+    group_invoices.map { |day, invoices| [day, invoices.length] }.to_h
   end
 end

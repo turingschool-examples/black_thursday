@@ -29,9 +29,7 @@ class InvoiceRepository
   end
 
   def find_all_by_status(status)
-    @invoices.find_all do
-      |invoice| invoice.status == status
-    end
+    @invoices.find_all { |invoice| invoice.status == status }
   end
 
   def find_merchant_by_id(merchant_id)
@@ -40,7 +38,7 @@ class InvoiceRepository
 
   def find_all_merchants_by_customer_id(c_id)
     invoices = find_all_by_customer_id(c_id)
-    invoices.map { |invoice| invoice.merchant }
+    invoices.map(&:merchant)
   end
 
   def find_items_by_id(invoice_id)
