@@ -34,4 +34,20 @@ class CustomerTest < Minitest::Test
     customer.merchants
     assert mock_cr.verify
   end
+
+  def test_fully_paid_invoices_queries_parent
+    mock_cr = Minitest::Mock.new
+    customer = Customer.new({id: 1}, mock_cr)
+    mock_cr.expect(:find_fully_paid_invoices_by_customer_id, nil, [1])
+    customer.fully_paid_invoices
+    assert mock_cr.verify
+  end
+
+  def test_invoices_queries_parent
+    mock_cr = Minitest::Mock.new
+    customer = Customer.new({id: 1}, mock_cr)
+    mock_cr.expect(:find_invoices_by_customer_id, nil, [1])
+    customer.invoices
+    assert mock_cr.verify
+  end
 end
