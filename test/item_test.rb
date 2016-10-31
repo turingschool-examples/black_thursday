@@ -3,56 +3,70 @@ require 'minitest/pride'
 require './lib/item'
 
 class ItemTest < Minitest::Test
-  attr_reader   :i
+  attr_reader   :item
 
   def setup
-    @i = Item.new({
+    @item = Item.new({
+      :id => 1,
       :name => "Pencil",
       :description => "You can use it to write things",
       :unit_price => BigDecimal.new(10.99, 4),
       :created_at => Time.now,
-      :updated_at => Time.now
+      :updated_at => Time.now,
+      :merchant_id => 100
     })
   end
 
   def test_it_can_create_an_item
-    assert i
+    assert item
   end
 
   def test_it_can_return_id
-    skip
-    ##Need to determine how this will be assigned
+    assert_equal 1, item.id
   end
 
   def test_it_can_return_name
-    assert_equal "Pencil", i.name
+    assert_equal "Pencil", item.name
   end
 
   def test_it_can_return_unit_price_as_big_decimal
-    assert_equal 10.99, i.unit_price
-    assert_instance_of BigDecimal, i.unit_price
+    assert_equal 10.99, item.unit_price
+    assert_instance_of BigDecimal, item.unit_price
+  end
+
+  def test_it_can_return_unit_price_as_big_decimal_given_fixnum
+    item_2 = Item.new({
+      :id => 1,
+      :name => "Pencil",
+      :description => "You can use it to write things",
+      :unit_price => 10,
+      :created_at => Time.now,
+      :updated_at => Time.now,
+      :merchant_id => 100
+    })
+    assert_equal "10.00", item_2.unit_price.to_s
+    assert_instance_of BigDecimal, item.unit_price
   end
 
   def test_it_can_return_created_at_as_time
     skip
     ##Need to find a way to test this properly
-    assert_instance_of Time, i.created_at
+    assert_instance_of Time, item.created_at
   end
 
   def test_it_can_return_updated_at_as_time
     skip
     ##Need to find a way to test this properly
-    assert_instance_of Time, i.updated_at
+    assert_instance_of Time, item.updated_at
   end
 
   def test_it_can_return_merchant_id
-    skip
-    ##Need to determine how this will be assigned
+    assert_equal 100, item.merchant_id
   end
 
   def test_it_can_return_price_in_dollars_as_float
     skip
     ##Need to determine what we need here
-    assert_instance_of Float, i.unit_price_to_dollars
+    assert_instance_of Float, item.unit_price_to_dollars
   end
 end
