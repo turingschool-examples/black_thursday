@@ -32,8 +32,8 @@ class MerchantTest < Minitest::Test
     refute @merchant.merchant_info_clean?(merchant_info)
   end
 
-  def test_it_checks_if_merchant_info_is_nil
-    merchant_info = {:id => nil, :name => nil}
+  def test_it_checks_if_merchant_info_is_empty
+    merchant_info = {}
     refute @merchant.merchant_info_clean?(merchant_info)
   end
 
