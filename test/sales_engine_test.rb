@@ -8,12 +8,20 @@ class SalesEngineTest < Minitest::Test
     assert SalesEngine
   end
 
-  def test_it_grabs_two_csv_files
-    sales_engine = SalesEngine.from_csv({
+  def test_it_grabs_items_csv_file
+    SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
     })
-    assert_equal "", sales_engine.items 
+    assert_equal "./data/items.csv", SalesEngine.items 
+  end
+
+  def test_it_grabs_merchants_csv_file
+    SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+    })
+    assert_equal "./data/merchants.csv", SalesEngine.merchants 
   end
 
 end
