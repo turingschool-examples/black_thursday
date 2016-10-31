@@ -32,10 +32,7 @@ class ItemRepository
   end
 
   def find_all_by_price_range(price_range)
-    found = []
-    prices.map do |price|
-      found << price if price_range.include?(price)
-    end
+    prices.find_all {|price| price_range.include?(price)}
   end
 
   def find_all_by_merchant_id(merchant_id)
