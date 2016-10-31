@@ -39,7 +39,6 @@ class MerchantTest < Minitest::Test
 
   def test_initialize_returns_argument_error_if_merchant_info_not_clean
     merchant_info = {:id => "y", :name => "Turing School"}
-    # merchant = Merchant.new(merchant_info)
     assert_raises(ArgumentError) {Merchant.new(merchant_info)}
   end
 
@@ -47,7 +46,5 @@ class MerchantTest < Minitest::Test
     string = "Error: :id must be a number and :name must be a string."
     assert_equal string, @merchant.error
   end
-
-
 
 end
