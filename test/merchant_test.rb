@@ -9,4 +9,8 @@ class MerchantTest < Minitest::Test
     assert_equal 12334105, a.id
   end
 
+  def test_it_can_have_multiple_ids
+    a = Merchant.new
+    assert_equal 11112222, a.id
+  end
 end
