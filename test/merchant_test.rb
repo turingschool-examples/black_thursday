@@ -1,5 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require './test/test_helper'
 require './lib/merchant'
 
 class MerchantTest < Minitest::Test
@@ -8,10 +7,6 @@ class MerchantTest < Minitest::Test
     m = Merchant.new({:id => 1,:name => "Bob"})
     assert_equal 1, m.id
     assert_equal "Bob", m.name
-  end
-
-  def test
-
   end
 
 
