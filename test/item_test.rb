@@ -10,7 +10,7 @@ class ItemTest < Minitest::Test
     @item = Item.new({
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => 10.99,
+      :unit_price  => 2400,
       :created_at  => Time.now,
       :updated_at  => Time.now,
     })
@@ -29,7 +29,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_item_knows_unit_price
-    assert_equal 10.99, item.unit_price
+    assert_equal 2400, item.unit_price
   end
 
   def test_item_knows_time_created_at
@@ -38,6 +38,10 @@ class ItemTest < Minitest::Test
 
   def test_item_knows_time_updated_at
     assert_equal Time.now.to_s, item.updated_at.to_s
+  end
+
+  def test_unit_price_to_dollars_returns_float_of_price
+    assert_equal 24.00, item.unit_price_to_dollars
   end
 
 end
