@@ -22,4 +22,11 @@ class SalesEngineTest < Minitest::Test
     assert sales_engine.items
   end
 
+  def test_this_thing
+    se = SalesEngine.from_csv({
+    :items     => "./data/items_fixtures.csv",
+    :merchants => "./data/merchants_fixtures.csv",
+    })
+  end
+
 end

@@ -1,6 +1,7 @@
 require 'pry'
 require './lib/merchant_repository'
 require './lib/item_repository'
+require 'csv'
 
 class SalesEngine
   attr_reader :merchants,
