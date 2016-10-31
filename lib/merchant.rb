@@ -9,9 +9,7 @@ class Merchant
   end
 
   def merchant_info_clean?(merchant_info)
-    merchant_info                     && 
-    merchant_info[:id]                &&
-    merchant_info[:name]              &&
+    merchant_info.to_h.any?           && 
     merchant_info[:id].is_a?(Integer) &&
     merchant_info[:name].is_a?(String)
   end
