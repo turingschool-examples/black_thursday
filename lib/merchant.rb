@@ -1,7 +1,7 @@
-require 'csv'
+class Merchant
 
+  def id
+    12334105
+  end
 
-content = CSV.open './data/items.csv', headers: true, header_converters: :symbol
-content.each do |row|
-  puts row[:name]
 end
