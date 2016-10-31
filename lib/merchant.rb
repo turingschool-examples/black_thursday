@@ -4,7 +4,7 @@ class Merchant
   
   def initialize(merchant_info = nil)
     raise ArgumentError.new(error) unless merchant_info_clean?(merchant_info)
-    @id = merchant_info[:id]
+    @id   = merchant_info[:id]
     @name = merchant_info[:name]
   end
 
