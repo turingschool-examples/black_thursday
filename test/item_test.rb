@@ -1,13 +1,11 @@
-gem 'minitest', '~> 5.2'
-require 'minitest/autorun'
-require "minitest/nyan_cat"
+require_relative 'test_helper'
 require './lib/item'
 
 class ItemTest < Minitest::Test
 
   def setup
     item_info = {:id => 5, :name => "Turing School"}
-    @item = Item.new(item_info)  
+    @item = Item.new(item_info)
   end
 
   def test_it_exists
