@@ -1,7 +1,13 @@
 class SalesEngine
 
-  def from_csv(hash)
+  def self.from_csv(hash)
     
+  end
+
+  def self.merchants
+  end
+
+  def self.items
   end
 
 end
