@@ -1,12 +1,11 @@
-gem 'minitest', '~> 5.2'
-require 'minitest/autorun'
-require "minitest/nyan_cat"
+require_relative 'test_helper'
 require './lib/item'
 require 'bigdecimal'
 
 class ItemTest < Minitest::Test
 
   def setup
+<<<<<<< HEAD
     @create_time = Time.new
     @update_time = Time.new
     item_info = ({
@@ -19,6 +18,10 @@ class ItemTest < Minitest::Test
       :merchant_id => 10
     })
     @item = Item.new(item_info)  
+=======
+    item_info = {:id => 5, :name => "Turing School"}
+    @item = Item.new(item_info)
+>>>>>>> master
   end
 
   def test_it_exists

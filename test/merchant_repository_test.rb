@@ -1,8 +1,6 @@
-gem 'minitest', '~> 5.2'
-require 'minitest/autorun'
-require "minitest/nyan_cat"
+require_relative 'test_helper'
 require './lib/merchant_repository'
 
 class MerchantRepositoryTest < Minitest::Test
-  
+
 end
