@@ -34,7 +34,16 @@ class ItemTest < Minitest::Test
     assert_instance_of BigDecimal, item.unit_price
   end
 
-  def test_it_can_return_unit_price_as_big_decimal_given_fixnum
+  def test_it_can_format_unit_price_to_proper_string
+    skip
+    assert_equal "10.00", format_unit_price(10)
+    assert_equal "10.50", format_unit_price(10.50)
+    assert_equal "10.50", format_unit_price(10.5)
+    assert_equal "100.00", format_unit_price(100)
+  end
+
+  def test_it_can_return_unit_price_as_big_decimal_given_2_digit_fixnum
+    skip
     item_2 = Item.new({
       :id => 1,
       :name => "Pencil",
@@ -45,6 +54,21 @@ class ItemTest < Minitest::Test
       :merchant_id => 100
     })
     assert_equal "10.00", item_2.unit_price.to_s
+    assert_instance_of BigDecimal, item.unit_price
+  end
+
+  def test_it_can_return_unit_price_as_big_decimal_given_3_digit_fixnum
+    skip
+    item_2 = Item.new({
+      :id => 1,
+      :name => "Pencil",
+      :description => "You can use it to write things",
+      :unit_price => 100,
+      :created_at => Time.now,
+      :updated_at => Time.now,
+      :merchant_id => 100
+    })
+    assert_equal "100.00", item_2.unit_price.to_s
     assert_instance_of BigDecimal, item.unit_price
   end
 
