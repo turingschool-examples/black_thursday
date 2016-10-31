@@ -2,7 +2,7 @@ require_relative 'test_helper'
 require './lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test
-<<<<<<< HEAD
+  
   def test_it_exists
     assert SalesEngine
   end
@@ -24,7 +24,3 @@ class SalesEngineTest < Minitest::Test
   end
 
 end
-=======
-
-end
->>>>>>> master
