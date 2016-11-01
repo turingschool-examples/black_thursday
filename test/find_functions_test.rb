@@ -34,5 +34,5 @@ class FindFunctionsTest < Minitest::Test
     assert_equal [], find_all(collection, :name, input)
   end
 
-  def test_it_checks_if_attribute_is
+  # def test_it_checks_if_attribute_is
 end
