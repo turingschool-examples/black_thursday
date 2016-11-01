@@ -1,16 +1,16 @@
-require 'minitest/autorun'
+equire 'minitest/autorun'
 require 'minitest/pride'
-require './lib/item_repo'
+require './lib/merchant_repo'
 
-class ItemRepoTest < Minitest::Test
+class MerchantRepoTest < Minitest::Test
 
   def test_it_exists
-    assert ItemRepo.new("items.csv")
+    assert MerchantRepo.new("items.csv")
   end
 
   def test_it_has_a_class
-    i = ItemRepo.new({:id => "Blue purse"})
-    assert_equal ItemRepo, i.class
+    m = MerchantRepo.new({:id => "Blue purse"})
+    assert_equal MerchantRepo, i.class
   end
 
   def test_it_can_display_all_items

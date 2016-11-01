@@ -3,7 +3,6 @@ require 'csv'
 require './lib/item_repo'
 
 class Item
-  include ItemRepo
   attr_reader :id,
               :name,
               :description,
