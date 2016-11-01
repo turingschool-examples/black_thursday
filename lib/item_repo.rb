@@ -1,29 +1,50 @@
-# require './lib/item'
+require './lib/item'
 require 'csv'
 require 'pry'
 
-class ItemRepository
-  def set_up
-    @file = CSV.open "./data/items.csv", headers: true, header_converters: :symbol
-  end #maybe not needed because files linked
-
-  def all(file)
-    all = []
-    all << @file
+class ItemRepo
+  def initialize 
+    # @parent = SalesEngine.new
+    @all = []
   end
 
-  def find_by_id(id_num)
-    @file.detect do |item|
-      item_id = item.each do |row|
-        row[0]
-      end
-      binding.pry
-      if @file.row[0] == id_num
-        binding.pry
-        puts item
-      end
+  def set_up(file)
+    file = CSV.read "./data/items.csv", headers: true, header_converters: :symbol
+    parse_file(file)
+  end 
+
+  def all
+  end
+  
+  def parse_file(file)
+    CSV.foreach("./data/items.csv") do |row|
+      next if row[0] == "id"
+      instantiate_item(row)  
     end
   end
+
+  def instantiate_item(row)
+      item = {:id => row[0],
+        :name => row[1],
+        :description => row[2],
+        :unit_price => row[3],
+        :merchant_id => row[4],
+        :created_at => row[5],
+        :updated_at => row[6]
+        }
+      @all << Item.new(item, self)
+  end
+
+
+  # def find_by_id(id_num)
+  #   right_item = []
+  #   binding.pry
+  #   @file.find do |item|
+  #     right_item << item[:id] == id_num
+  #     binding.pry
+  #     right_item
+  #   end
+  # end
 
   def find_by_name
     #search for a name
@@ -49,9 +70,8 @@ class ItemRepository
   end
 end
 
-trial = ItemRepository.new
-# # file = CSV.open "items.csv", headers: true, header_converters: :symbol
-# trial.set_up
-# puts trial.all
-trial.set_up
-puts trial.find_by_id(263398227)
+
+trial = ItemRepo.new
+file = trial.set_up("./data/items.csv")
+trial.parse_file(file)
+

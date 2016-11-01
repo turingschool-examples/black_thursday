@@ -1,6 +1,7 @@
 require 'bigdecimal'
 require 'csv'
 require './lib/item_repo'
+require 'bigdecimal'
 
 class Item
   attr_reader :id,
@@ -11,19 +12,15 @@ class Item
               :created_at,
               :updated_at
 
-  def initialize(data)
-
-    data = CSV.open "./data/items.csv", headers: true, header_converters: :symbol
-
-    data.each do |row|
-      @id = row[0]
-      @name = row[1]
-      @description = row[2]
-      @unit_price = row[3]
-      @merchant_id = row[4]
-      @created_at = row[5]
-      @updated_at = row[6]
-    end
+  def initialize(data, repo)
+      @parent = repo
+      @id = data[:id].to_i
+      @name = data[:name]
+      @description = data[:description]
+      @unit_price = BigDecimal.new(data[:unit_price]).to_i
+      @merchant_id = data[:merchant_id]
+      @created_at = data[:created_at]
+      @updated_at = data[:updated_at]
   end
 
   def unit_price_to_dollars
@@ -32,16 +29,4 @@ class Item
   end
 end
 
-i = Item.new({
-    :name => "Pencil",
-    :description => "You can use it to write things",
-    :unit_price => BigDecimal.new(10.99,4),
-    :created_at => Time.now,
-    :updated_at => Time.now,
-  })
 
-  puts i.name
-
-  puts i.unit_price_to_dollars
-
-  puts i.unit_price
