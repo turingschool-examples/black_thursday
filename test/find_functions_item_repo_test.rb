@@ -1,6 +1,6 @@
 require_relative 'test_helper'
-require './lib/find_functions'
-require './lib/item_repository'
+require_relative '../lib/find_functions'
+require_relative '../lib/item_repository'
 
 class FindFunctionsTest < Minitest::Test
   include FindFunctions

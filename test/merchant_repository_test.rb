@@ -1,5 +1,5 @@
 require_relative 'test_helper'
-require './lib/merchant_repository'
+require_relative '../lib/merchant_repository'
 
 class MerchantRepositoryTest < Minitest::Test
 
@@ -29,7 +29,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_calls_name_of_merchant_object
-    assert_equal "Shopin1901", @merch_repo.all[0].name  
+    assert_equal "Shopin1901", @merch_repo.all[0].name
   end
 
   def test_it_retrieves_all_merchant_objects

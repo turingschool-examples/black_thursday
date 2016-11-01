@@ -1,11 +1,11 @@
 require_relative 'test_helper'
-require './lib/find_functions'
-require './lib/merchant_repository'
+require_relative '../lib/find_functions'
+require_relative '../lib/merchant_repository'
 
 class FindFunctionsTest < Minitest::Test
   include FindFunctions
-  attr_reader :all 
-  
+  attr_reader :all
+
   def setup
    @all = MerchantRepository.new("./data/test_merchants.csv").all
   end
@@ -13,12 +13,12 @@ class FindFunctionsTest < Minitest::Test
   def test_find_functions_exists_and_is_a_module
     assert Module, FindFunctions.class
   end
-  
+
   def test_finds_all_strings_returns_matching_merchant_object_for_name
     input = "MiniatureBikez"
     assert_equal 1, find_all_strings(:name, input).count
   end
-  
+
   def test_finds_all_strings_returns_matching_merchant_object_for_name_fragment
     input = "mad"
     assert_equal 5, find_all_strings(:name, input).count
@@ -28,7 +28,7 @@ class FindFunctionsTest < Minitest::Test
     input = "MiniatureBikez"
     assert_equal 1, find_all_strings(:name, input).count
   end
-  
+
   def test_finds_all_strings_returns_matching_merchant_object_for_name_fragment
     input = "mad"
     assert_equal 5, find_all_strings(:name, input).count

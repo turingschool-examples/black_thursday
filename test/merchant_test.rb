@@ -1,5 +1,5 @@
 require_relative 'test_helper'
-require './lib/merchant'
+require_relative '../lib/merchant'
 
 class MerchantTest < Minitest::Test
 
@@ -22,7 +22,7 @@ class MerchantTest < Minitest::Test
     assert_equal "Turing School", @merchant1.name
   end
 
-  def test_it_creates_empty_string_if_merchant_info_has_no_name   
+  def test_it_creates_empty_string_if_merchant_info_has_no_name
     assert_equal "", @merchant2.name
   end
 
@@ -32,14 +32,14 @@ class MerchantTest < Minitest::Test
 
   def test_it_returns_empty_merchant_object_if_merchant_info_empty_hash
     merchant = Merchant.new({})
-    assert_equal Merchant, merchant.class    
+    assert_equal Merchant, merchant.class
     assert_nil merchant.id
     assert_nil merchant.name
   end
 
   def test_it_returns_empty_merchant_object_if_no_merchant_info
     merchant = Merchant.new(nil)
-    assert_equal Merchant, merchant.class    
+    assert_equal Merchant, merchant.class
     assert_nil merchant.id
     assert_nil merchant.name
   end
