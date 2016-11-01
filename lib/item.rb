@@ -22,18 +22,16 @@ class Item
   end
 
   def find_unit_price(price)
-    if unit_price = ""
+    if unit_price == ""
       unit_price = BigDecimal.new(0)
-      # binding.pry
     else
-      unit_price = BigDecimal.new(price)
+      unit_price = BigDecimal.new(price) / 100
     end
     return unit_price
-    unit_price_to_dollars(unit_price)
   end
 
   def unit_price_to_dollars(unit_price)
-    dollar_price = unit_price.to_f / 100
+    @unit_price.to_f
   end
 
   def determine_the_time(time_string)
