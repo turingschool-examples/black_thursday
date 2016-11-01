@@ -28,7 +28,7 @@ class Item
   end
 
   def unit_price_to_dollars
-    unit_price_to_dollar = @unit_price.to_f
+    unit_price_to_dollars = @unit_price.to_f
     #returns the price as a float
   end
 end
@@ -42,3 +42,7 @@ i = Item.new({
   })
 
   puts i.name
+
+  puts i.unit_price_to_dollars
+
+  puts i.unit_price
