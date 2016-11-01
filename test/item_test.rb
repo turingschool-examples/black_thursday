@@ -9,11 +9,13 @@ class ItemTest < Minitest::Test
   
   def setup
     @item = Item.new({
+      :id          => 2345,
       :name        => "Pencil",
       :description => "You can use it to write things",
       :unit_price  => BigDecimal.new(10.99,4),
       :created_at  => Time.now,
       :updated_at  => Time.now,
+      :merchant_id => 3333
     })
   end
 
@@ -43,6 +45,14 @@ class ItemTest < Minitest::Test
 
   def test_unit_price_to_dollars_returns_float_of_price
     assert_equal 10.99, item.unit_price_to_dollars
+  end
+
+  def test_item_knows_its_id
+    assert_equal 2345, item.id
+  end
+
+  def test_item_knows_its_merchant_id
+    assert_equal 3333, item.merchant_id
   end
 
 end

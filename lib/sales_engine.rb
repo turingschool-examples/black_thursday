@@ -1,6 +1,7 @@
 require './lib/merchant_repository'
 require './lib/item_repository'
 require './lib/merchant'
+require 'bigdecimal'
 require 'csv'
 
 class SalesEngine
@@ -34,18 +35,20 @@ class SalesEngine
   def self.merchant_csv_parse(file)
     contents = CSV.open file, headers: true, header_converters: :symbol
     contents.map do |row|
-      Merchant.new({:id => row[:id], :name => row[:name]})
+      Merchant.new({:id => row[:id].to_i, :name => row[:name]})
     end
   end
 
   def self.item_csv_parse(file)
     contents = CSV.open file, headers: true, header_converters: :symbol
     contents.map do |row|
-      Item.new({:name => row[:name],
+      Item.new({:id => row[:id].to_i,
+                :name => row[:name],
                 :description => row[:description],
-                :unit_price => row[:unit_price],
+                :unit_price => BigDecimal(row[:unit_price]) / 100,
                 :created_at => row[:created_at],
                 :updated_at => row[:updated_at],
+                :merchant_id => row[:merchant_id]
               })
     end
   end
