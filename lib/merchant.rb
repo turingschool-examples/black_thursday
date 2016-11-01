@@ -3,9 +3,9 @@ class Merchant
               :name
   
   def initialize(merchant_info = nil)
-    return unless merchant_info
-    @id   = merchant_info.to_h[:id]
-    @name = merchant_info.to_h[:name]
+    return if merchant_info.to_h.empty?
+    @id   = merchant_info.to_h[:id].to_i
+    @name = merchant_info.to_h[:name].to_s
   end
 
 end

@@ -14,7 +14,7 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2016-11-01T12:08:58-06:00">2016-11-01T12:08:58-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2016-11-01T13:09:48-06:00">2016-11-01T13:09:48-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -25,15 +25,15 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         28.6
+         7.8
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>1</b> files in total.
-    <b>14</b> relevant lines. 
-    <span class="green"><b>14</b> lines covered</span> and
+    <b>6</b> relevant lines. 
+    <span class="green"><b>6</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -51,13 +51,13 @@
     <tbody>
       
       <tr>
-        <td class="strong"><a href="#ca3eb129a63b0b8d66437431c25ceb8e51df0413" class="src_link" title="lib/item.rb">lib/item.rb</a></td>
+        <td class="strong"><a href="#3a409f816ebf6e97379ee0f831dca47e86bfd5d0" class="src_link" title="lib/merchant.rb">lib/merchant.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>26</td>
-        <td>14</td>
-        <td>14</td>
+        <td>11</td>
+        <td>6</td>
+        <td>6</td>
         <td>0</td>
-        <td>28.6</td>
+        <td>7.8</td>
       </tr>
       
     </tbody>
@@ -76,13 +76,13 @@
     
       <div class="source_files">
       
-        <div class="source_table" id="ca3eb129a63b0b8d66437431c25ceb8e51df0413">
+        <div class="source_table" id="3a409f816ebf6e97379ee0f831dca47e86bfd5d0">
   <div class="header">
-    <h3>lib/item.rb</h3>
+    <h3>lib/merchant.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>14</b> relevant lines. 
-      <span class="green"><b>14</b> lines covered</span> and
+      <b>6</b> relevant lines. 
+      <span class="green"><b>6</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -93,7 +93,7 @@
         <li class="covered" data-hits="1" data-linenumber="1">
           <span class="hits">1</span>
           
-          <code class="ruby">class Item</code>
+          <code class="ruby">class Merchant</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="2">
@@ -105,142 +105,52 @@
         <li class="never" data-hits="" data-linenumber="3">
           
           
-          <code class="ruby">              :name, </code>
+          <code class="ruby">              :name</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="4">
           
           
-          <code class="ruby">              :description,</code>
+          <code class="ruby">  </code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="5">
+        <li class="covered" data-hits="1" data-linenumber="5">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">              :unit_price,</code>
+          <code class="ruby">  def initialize(merchant_info = nil)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="6">
+        <li class="covered" data-hits="16" data-linenumber="6">
+          <span class="hits">16</span>
           
-          
-          <code class="ruby">              :created_at,</code>
+          <code class="ruby">    return if merchant_info.to_h.empty?</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="7">
+        <li class="covered" data-hits="14" data-linenumber="7">
+          <span class="hits">14</span>
           
-          
-          <code class="ruby">              :updated_at,</code>
+          <code class="ruby">    @id   = merchant_info.to_h[:id].to_i</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="8">
+        <li class="covered" data-hits="14" data-linenumber="8">
+          <span class="hits">14</span>
           
-          
-          <code class="ruby">              :merchant_id</code>
+          <code class="ruby">    @name = merchant_info.to_h[:name].to_s</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="9">
           
           
-          <code class="ruby">  </code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="10">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  def initialize(item_info = nil)</code>
-        </li>
-      
-        <li class="covered" data-hits="72" data-linenumber="11">
-          <span class="hits">72</span>
-          
-          <code class="ruby">    return if item_info.to_h.empty?</code>
-        </li>
-      
-        <li class="covered" data-hits="36" data-linenumber="12">
-          <span class="hits">36</span>
-          
-          <code class="ruby">    @id          = item_info[:id].to_i</code>
-        </li>
-      
-        <li class="covered" data-hits="36" data-linenumber="13">
-          <span class="hits">36</span>
-          
-          <code class="ruby">    @name        = item_info[:name].to_s</code>
-        </li>
-      
-        <li class="covered" data-hits="36" data-linenumber="14">
-          <span class="hits">36</span>
-          
-          <code class="ruby">    @description = item_info[:description].to_s</code>
-        </li>
-      
-        <li class="covered" data-hits="36" data-linenumber="15">
-          <span class="hits">36</span>
-          
-          <code class="ruby">    @price       = unit_price_to_dollars(item_info[:unit_price].to_s)</code>
-        </li>
-      
-        <li class="covered" data-hits="36" data-linenumber="16">
-          <span class="hits">36</span>
-          
-          <code class="ruby">    @unit_price  = BigDecimal.new(@price, @price.to_s.length - 1) </code>
-        </li>
-      
-        <li class="covered" data-hits="36" data-linenumber="17">
-          <span class="hits">36</span>
-          
-          <code class="ruby">    @created_at  = item_info[:created_at].to_s</code>
-        </li>
-      
-        <li class="covered" data-hits="36" data-linenumber="18">
-          <span class="hits">36</span>
-          
-          <code class="ruby">    @updated_at  = item_info[:updated_at].to_s</code>
-        </li>
-      
-        <li class="covered" data-hits="36" data-linenumber="19">
-          <span class="hits">36</span>
-          
-          <code class="ruby">    @merchant_id = item_info[:merchant_id].to_i</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="20">
-          
-          
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="21">
+        <li class="never" data-hits="" data-linenumber="10">
           
           
-          <code class="ruby">  </code>
+          <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="22">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  def unit_price_to_dollars(price)</code>
-        </li>
-      
-        <li class="covered" data-hits="37" data-linenumber="23">
-          <span class="hits">37</span>
-          
-          <code class="ruby">    price.to_i / 100.0</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="24">
-          
-          
-          <code class="ruby">  end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="25">
-          
-          
-          <code class="ruby">  </code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="26">
+        <li class="never" data-hits="" data-linenumber="11">
           
           
           <code class="ruby">end</code>
