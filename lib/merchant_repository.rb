@@ -31,9 +31,10 @@ class MerchantRepository
   def find_by_name(name)
     value = nil
     merchants.each do |merchant|
-      if merchant.name == name
+      if Merchant.name == name
         value = merchant
       end
+    end
     value
   end
 
@@ -43,6 +44,7 @@ class MerchantRepository
       if merchant.name.include? partial_search
         by_name << merchant
       end
+    end
       by_name
   end
 
