@@ -14,11 +14,9 @@ class SalesEngineTest < Minitest::Test
     assert SalesEngine
   end
 
-  def test_it_finds_items_for_merchant_id
-    items = @sales_engine.find_items_by_merchant_id(12334185)
-    assert_equal 3, items.count
-    assert items.all? {|item| item.class == Item}
-  end
+  def test_class_method_intializes_instance
+    
+  end  
 
   def test_it_intitalizes_an_item_repo_object
     assert_equal ItemRepository, @sales_engine.items.class

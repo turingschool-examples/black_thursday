@@ -7,7 +7,6 @@ class SalesEngine
               :items,
               :merchants
 
-  
   def self.from_csv(sales_info)
     new(sales_info)
   end
@@ -26,7 +25,7 @@ class SalesEngine
   end
 
   def find_items_by_merchant_id(id)
-    @items.find_all_by_merchant_id(id)
+    items.find_all_by_merchant_id(id)
   end
 
 end
