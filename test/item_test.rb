@@ -91,3 +91,4 @@ class ItemTest < Minitest::Test
     result = item_empty.unit_price
     assert_equal 0.0, item_empty.unit_price_to_dollars(result)
   end
+end
