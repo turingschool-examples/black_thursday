@@ -9,7 +9,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_exists
     assert ItemRepository.new
   end
-  
+
   def test_it_initializes_with_a_file
     assert ItemRepository.new('./data/test_items.csv')
   end
@@ -19,15 +19,15 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_generates_array_of_item_objects_from_csv_object
-    assert @item_repo.item_objects.all?{|row| row.class == Item}
+    assert @item_repo.all.all?{|row| row.class == Item}
   end
 
   def test_it_calls_id_of_item_object
-    assert_equal 263395237, @item_repo.item_objects[0].id    
+    assert_equal 263395237, @item_repo.all[0].id
   end
 
   def test_it_calls_name_of_item_object
-    assert_equal "510+ RealPush Icon Set", @item_repo.item_objects[0].name  
+    assert_equal "510+ RealPush Icon Set", @item_repo.all[0].name
   end
 
   def test_it_retrieves_all_item_objects
@@ -46,7 +46,7 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal Item, item.class
     assert_equal id, item.id
   end
-  
+
   def test_it_returns_nil_if_id_not_found
     id = 123
     item = @item_repo.find_by_id(id)
@@ -85,7 +85,7 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal Item, items.first.class
     assert_equal 2, items.map{|item| item.unit_price}.count
   end
-  
+
   def test_it_returns_nil_if_price_not_found
     price = 10000000
     items = @item_repo.find_all_by_price(price)
@@ -98,20 +98,20 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal Item, items.first.class
     assert_equal 9, items.count
   end
-  
+
   def test_it_returns_nil_if_no_items_in_price_range
     price_range = (100000..10000000)
     items = @item_repo.find_all_by_price_in_range(price_range)
     assert_equal [], items.map{|item| item.merchant_id}
   end
-  
+
   def test_it_finds_items_by_merchant_id
     merchant_id = 12334195
     items = @item_repo.find_all_by_merchant_id(merchant_id)
     assert_equal Item, items.first.class
     assert_equal 12, items.map{|item| item.merchant_id}.count
   end
-  
+
   def test_it_returns_nil_if_merchant_id_is_not_found
     merchant_id = 10000000
     items = @item_repo.find_all_by_merchant_id(merchant_id)
@@ -119,4 +119,3 @@ class ItemRepositoryTest < Minitest::Test
   end
 
 end
-

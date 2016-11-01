@@ -6,7 +6,7 @@ class ItemRepository
 
   include FindFunctions
 
-  attr_reader :file_contents, 
+  attr_reader :file_contents,
               :all
 
   def initialize(file_name = nil)
@@ -20,7 +20,7 @@ class ItemRepository
   end
 
   def create_item_objects
-    @all.map {|row| Item.new(row)}
+    @file_contents.map {|row| Item.new(row)}
   end
 
   def find_by_id(id)

@@ -5,9 +5,9 @@ module FindFunctions
   end
 
   def find_all(method, input)
-    return find_all_prices(@all, input)    if method == :unit_price
-    return find_all_merch_ids(@all, input) if method == :merchant_id
-    find_all_strings(@all, method, input)
+    return find_all_prices(input)    if method == :unit_price
+    return find_all_merch_ids(input) if method == :merchant_id
+    find_all_strings(method, input)
   end
 
   def find_all_prices(input)
