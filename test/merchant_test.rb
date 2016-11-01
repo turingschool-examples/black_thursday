@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/merchant'
+require './lib/data_parser'
 require 'pry'
 
 
@@ -13,5 +14,11 @@ class MerchantTest < Minitest::Test
     merchant = Merchant.new({:id => 5, :name => "Turing School"})
     assert_equal "Turing School", merchant.name
     assert_equal 5, merchant.id
+  end
+
+  def test_merchant_can_parse_rows
+    file = './data/merchants.csv'
+    parsed = DataParser.parse_data(file)
+    assert_instance_of Array, parsed
   end
 end
