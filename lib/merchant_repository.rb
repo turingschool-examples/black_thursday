@@ -30,8 +30,8 @@ class MerchantRepository
 
   def find_by_name(name)
     value = nil
-    merchants.each do |merchant|
-      if Merchant.name == name
+     merchants.each do |merchant|
+      if merchant.name == name
         value = merchant
       end
     end
