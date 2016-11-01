@@ -10,5 +10,6 @@ class SalesEngine
   def initialize(hash)
     @items     =  ItemRepository.new(hash[:items])
     @merchants =  MerchantRepository.new(hash[:merchants])
+    @invoice   =  InvoiceRepository.new(hash[:invoices])
   end
 end
