@@ -9,7 +9,7 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    all.find {|merchant| merchant.id == id.to_s}
+    all.find {|merchant| merchant.id == id}
   end
 
   def find_by_name(name)
