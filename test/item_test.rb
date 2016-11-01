@@ -1,5 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'bigdecimal'
 require './lib/item'
 
 class ItemTest < Minitest::Test
@@ -10,14 +11,14 @@ class ItemTest < Minitest::Test
     @item = Item.new({
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => 2400,
+      :unit_price  => BigDecimal.new(10.99,4),
       :created_at  => Time.now,
       :updated_at  => Time.now,
     })
   end
 
   def test_Item_exists
-    assert Item.new({})
+    assert item
   end
 
   def test_item_knows_name
@@ -29,7 +30,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_item_knows_unit_price
-    assert_equal 2400, item.unit_price
+    assert_equal BigDecimal.new(10.99,4), item.unit_price
   end
 
   def test_item_knows_time_created_at
@@ -41,7 +42,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_unit_price_to_dollars_returns_float_of_price
-    assert_equal 24.00, item.unit_price_to_dollars
+    assert_equal 10.99, item.unit_price_to_dollars
   end
 
 end

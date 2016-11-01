@@ -9,7 +9,7 @@ class SalesEngine
     @files = files
     self
   end
- 
+
   def self.merchants
     merchants = merchant_csv_parse(@files[:merchants])
     MerchantRepository.new(merchants)
@@ -40,4 +40,3 @@ class SalesEngine
   end
 
 end
-  

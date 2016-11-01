@@ -10,7 +10,7 @@ class SalesEngineTest < Minitest::Test
     assert SalesEngine.new
   end
 
-  def test_merchant_returns_a_merchant_object
+  def test_merchant_returns_a_merchant_repository_object
     sales_engine = SalesEngine.from_csv({
       :items => "./data_fixtures/items_fixture.csv",
       :merchants => "./data_fixtures/merchants_fixture.csv"
@@ -18,7 +18,7 @@ class SalesEngineTest < Minitest::Test
     assert_kind_of MerchantRepository, sales_engine.merchants
   end
 
-  def test_item_returns_an_item_object
+  def test_item_returns_an_item_repository_object
     sales_engine = SalesEngine.from_csv({
       :items => "./data_fixtures/items_fixture.csv",
       :merchants => "./data_fixtures/merchants_fixture.csv"
