@@ -24,4 +24,8 @@ class Item
     unit_price.to_f
   end
 
+  def merchant
+    SalesEngine.merchants.find_by_id(merchant_id)
+  end
+
 end
