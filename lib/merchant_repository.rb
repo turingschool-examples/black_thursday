@@ -13,7 +13,9 @@ class MerchantRepository
   end 
 
   def find_by_name(name)
-    @all.find { |merchant| merchant["name"].eql?(name) }
+    @all.find do |merchant|
+      merchant["name"].downcase.eql?(name.downcase)
+    end
   end
 
   def find_all_by_name(fragment)
