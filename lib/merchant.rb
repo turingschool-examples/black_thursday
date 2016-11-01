@@ -17,5 +17,3 @@ class Merchant
   end
 
 end
-
-puts MerchantRepository.new.find_all_by_name("ime")

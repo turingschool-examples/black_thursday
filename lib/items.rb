@@ -4,7 +4,7 @@ class Item
   attr_reader  :item
 
   def initialize(line)
-    @line     = line
+    @line = line
     @item = { 
       "id" => id,
       "name" => name,
@@ -45,5 +45,3 @@ class Item
   end
 
 end
-
-puts ItemRepository.new.find_all_by_price_in_range(3700..3800)
