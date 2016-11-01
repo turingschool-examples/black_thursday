@@ -1,37 +1,133 @@
 {
   "Unit Tests": {
     "coverage": {
+<<<<<<< HEAD
       "/Users/tmikeschutte/Turing/1module/5week/black_thursday/lib/find_functions.rb": [
         1,
         null,
+=======
+      "/Users/jdconrad/Documents/turing/1module/projects/black_thursday/lib/find_functions.rb": [
         1,
-        0,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        null,
         null,
         1,
-        0,
-        null,
-        null,
-        1,
-        0,
+        77,
         null,
         null,
         1,
         0,
         0,
         0,
+        null,
+        null,
+        1,
+        375,
+        null,
+        null,
+        1,
+        375,
+        null,
+        null,
+        1,
+        1,
+        74,
+        74,
         null,
         null,
         null,
         null
       ],
+      "/Users/jdconrad/Documents/turing/1module/projects/black_thursday/lib/item_repository.rb": [
+        1,
+        1,
+        1,
+        null,
+        1,
+        null,
+        1,
+        null,
+        1,
+        null,
+        null,
+        1,
+        14,
+        14,
+        14,
+        null,
+        null,
+        1,
+        14,
+        null,
+        null,
+        1,
+        1050,
+        null,
+        null,
+        1,
+        14,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+>>>>>>> origin/updated-item-repository-jc
+        1,
+        0,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        null
+      ],
+<<<<<<< HEAD
       "/Users/tmikeschutte/Turing/1module/5week/black_thursday/lib/merchant_repository.rb": [
+=======
+      "/Users/jdconrad/Documents/turing/1module/projects/black_thursday/lib/item.rb": [
+        1,
+        null,
+        1,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        1036,
+        1036,
+        1036,
+        1036,
+        1036,
+        1036,
+        1036,
+        1036,
+        1036,
+        null,
+        null,
+        1,
+        1036,
+        null,
+        null,
+        null
+      ],
+      "/Users/jdconrad/Documents/turing/1module/projects/black_thursday/lib/merchant_repository.rb": [
+>>>>>>> origin/updated-item-repository-jc
         1,
         1,
         1,
@@ -44,6 +140,7 @@
         null,
         null,
         1,
+<<<<<<< HEAD
         4,
         4,
         4,
@@ -55,6 +152,15 @@
         null,
         1,
         300,
+=======
+        0,
+        0,
+        0,
+        null,
+        null,
+        1,
+        0,
+>>>>>>> origin/updated-item-repository-jc
         null,
         null,
         1,
@@ -75,21 +181,31 @@
         null,
         null
       ],
-      "/Users/tmikeschutte/Turing/1module/5week/black_thursday/lib/merchant.rb": [
+      "/Users/jdconrad/Documents/turing/1module/projects/black_thursday/lib/merchant.rb": [
         1,
         1,
         null,
         null,
         1,
+<<<<<<< HEAD
         296,
         296,
         296,
+=======
+        0,
+        0,
+        0,
+>>>>>>> origin/updated-item-repository-jc
         null,
         null,
         null
       ]
     },
+<<<<<<< HEAD
     "timestamp": 1478035074
+=======
+    "timestamp": 1478034987
+>>>>>>> origin/updated-item-repository-jc
   },
   "RSpec": {
     "coverage": {
