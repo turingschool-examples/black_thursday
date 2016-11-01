@@ -1,11 +1,11 @@
-require 'csv'
+require './lib/items'
 
 class ItemRepository
   attr_reader  :all
 
-  def initialize
-    data = CSV.open './data/items.csv', headers: true, header_converters: :symbol
-    @all = data.map { |line| Item.new(line).item }
+  def initialize(item_data, parent)
+    @parent = parent
+    @all    = item_data.map { |line| Item.new(line).item }
   end
 
   def find_by_id(id)

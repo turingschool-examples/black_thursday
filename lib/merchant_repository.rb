@@ -1,11 +1,11 @@
-require 'csv'
+require './lib/merchant'
 
 class MerchantRepository
   attr_reader  :all
 
-  def initialize
-    data = CSV.open './data/merchants.csv', headers: true, header_converters: :symbol
-    @all = data.map { |line| Merchant.new(line).merchant }
+  def initialize(merchant_data, parent)
+    @parent = parent
+    @all    = merchant_data.map { |line| Merchant.new(line).merchant }
   end
 
   def find_by_id(id)
