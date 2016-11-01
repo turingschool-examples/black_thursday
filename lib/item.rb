@@ -37,7 +37,8 @@ class Item
   end
 
   def determine_the_time(time_string)
-    return Time.now if time_string.nil?
+    time = Time.new(0)
+    return time if time_string == ""
     time_string = Time.parse(time_string)
   end
 end
