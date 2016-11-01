@@ -4,45 +4,44 @@ require './lib/merchant'
 class MerchantTest < Minitest::Test
 
   def setup
-    merchant_info = {:id => 5, :name => "Turing School"}
-    @merchant = Merchant.new(merchant_info)
+    merchant_info1 = {:id => "5", :name => "Turing School"}
+    merchant_info2 = {:id => nil, :name => nil}
+    @merchant1 = Merchant.new(merchant_info1)
+    @merchant2 = Merchant.new(merchant_info2)
   end
 
   def test_it_exists
-    assert @merchant
+    assert @merchant1
   end
 
   def test_it_initializes_merchant_id
-    assert_equal 5, @merchant.id
+    assert_equal 5, @merchant1.id
   end
 
   def test_it_initializes_merchant_name
-    assert_equal "Turing School", @merchant.name
+    assert_equal "Turing School", @merchant1.name
   end
 
-  def test_it_checks_if_merchant_id_is_not_integer
-    merchant_info = {:id => "yes", :name => "Turing School"}
-    refute @merchant.merchant_info_clean?(merchant_info)
+  def test_it_creates_empty_string_if_merchant_info_has_no_name   
+    assert_equal "", @merchant2.name
   end
 
-  def test_it_checks_if_merchant_name_is_not_string
-    merchant_info = {:id => 5, :name => :turing_school}
-    refute @merchant.merchant_info_clean?(merchant_info)
+  def test_it_returns_zero_if_merchant_info_has_no_id
+    assert_equal 0, @merchant2.id
   end
 
-  def test_it_checks_if_merchant_info_is_empty
-    merchant_info = {}
-    refute @merchant.merchant_info_clean?(merchant_info)
+  def test_it_returns_empty_merchant_object_if_merchant_info_empty_hash
+    merchant = Merchant.new({})
+    assert_equal Merchant, merchant.class    
+    assert_nil merchant.id
+    assert_nil merchant.name
   end
 
-  def test_initialize_returns_argument_error_if_merchant_info_not_clean
-    merchant_info = {:id => "y", :name => "Turing School"}
-    assert_raises(ArgumentError) {Merchant.new(merchant_info)}
-  end
-
-  def test_error_message_explains_problem
-    string = "Error: :id must be a number and :name must be a string."
-    assert_equal string, @merchant.error
+  def test_it_returns_empty_merchant_object_if_no_merchant_info
+    merchant = Merchant.new(nil)
+    assert_equal Merchant, merchant.class    
+    assert_nil merchant.id
+    assert_nil merchant.name
   end
 
 end

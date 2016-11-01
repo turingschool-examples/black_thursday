@@ -5,172 +5,114 @@ require 'bigdecimal'
 class ItemTest < Minitest::Test
 
   def setup
-    @create_time = Time.new
-    @update_time = Time.new
-    item_info = ({
-      :id          => 5,
+    item_info_1 = ({
+      :id          => "5",
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(10.99,4),
-      :created_at  => @create_time,
-      :updated_at  => @update_time,
-      :merchant_id => 10
+      :unit_price  => "2500",
+      :created_at  => "2016-11-01 11:38:28 -0600",
+      :updated_at  => "2016-11-01 14:38:28 -0600",
+      :merchant_id => "10"
     })
-    @item = Item.new(item_info)  
+    item_info_2 = ({
+      :id          => nil,
+      :name        => nil,
+      :description => nil,
+      :unit_price  => nil,
+      :created_at  => nil,
+      :updated_at  => nil,
+      :merchant_id => nil
+    })
+    @item1 = Item.new(item_info_1)
+    @item2 = Item.new(item_info_2)
+    @item3 = Item.new()
+    @item4 = Item.new({})
   end
 
   def test_it_exists
-    assert @item
+    assert @item1
   end
 
   def test_it_initializes_item_id
-    assert_equal 5, @item.id
+    assert_equal 5, @item1.id
   end
 
   def test_it_initializes_item_name
-    assert_equal "Pencil", @item.name
+    assert_equal "Pencil", @item1.name
   end
 
   def test_it_initializes_item_description
     expected = "You can use it to write things"
-    assert_equal expected, @item.description
+    assert_equal expected, @item1.description
   end
 
   def test_it_initializes_item_unit_price
-    expected = BigDecimal.new(10.99,4)
-    assert_equal expected, @item.unit_price
+    expected = BigDecimal.new(25.00,4)
+    assert_equal expected, @item1.unit_price
   end
 
   def test_it_initializes_item_create_time
-    expected = @create_time
-    assert_equal expected, @item.created_at
+    expected = "2016-11-01 11:38:28 -0600" 
+    assert_equal expected, @item1.created_at
   end
 
   def test_it_initializes_item_update_time
-    expected = @update_time
-    assert_equal expected, @item.updated_at
+    expected = "2016-11-01 14:38:28 -0600"
+    assert_equal expected, @item1.updated_at
   end
 
   def test_it_initializes_item_merchant_id
-    assert_equal 10, @item.merchant_id
+    assert_equal 10, @item1.merchant_id
   end
 
   def test_it_returns_unit_price_in_dollars
-    assert_equal 10.99, @item.unit_price_to_dollars
+    assert_equal 25.01, @item1.unit_price_to_dollars("2501")
   end
 
-  def test_it_checks_if_info_is_empty
-    item_info = {}
-    refute @item.item_info_clean?(item_info)
+  def test_it_returns_zero_if_there_is_no_id_given
+    assert_equal 0, @item2.id
   end
 
-  def test_it_checks_if_item_id_is_integer
-    item_info = ({
-      :id          => "0",
-      :name        => "Pencil",
-      :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(10.99,4),
-      :created_at  => @create_time,
-      :updated_at  => @update_time,
-      :merchant_id => 10
-    })
-    refute @item.item_info_clean?(item_info)
+  def test_it_returns_empty_string_if_there_is_no_name_given
+    assert_equal "", @item2.name
   end
 
-  def test_it_checks_if_item_name_is_string
-    item_info = ({
-      :id          => 5,
-      :name        => :pencil,
-      :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(10.99,4),
-      :created_at  => @create_time,
-      :updated_at  => @update_time,
-      :merchant_id => 10
-    })
-    refute @item.item_info_clean?(item_info)
+  def test_it_returns_empty_string_if_there_is_no_description_given
+    assert_equal "", @item2.description
   end
 
-  def test_it_checks_if_description_is_a_string
-    item_info = ({
-      :id          => 5,
-      :name        => "Pencil",
-      :description => nil,
-      :unit_price  => BigDecimal.new(10.99,4),
-      :created_at  => @create_time,
-      :updated_at  => @update_time,
-      :merchant_id => 10
-    })
-    refute @item.item_info_clean?(item_info)
+  def test_it_returns_zero_if_there_is_no_unit_price_given
+    assert_equal 0, @item2.unit_price
   end
 
-  def test_it_checks_if_unit_price_is_a_big_decimal
-    item_info = ({
-      :id          => 5,
-      :name        => "Pencil",
-      :description => "You can use it to write things",
-      :unit_price  => 10,
-      :created_at  => @create_time,
-      :updated_at  => @update_time,
-      :merchant_id => 10
-    })
-    refute @item.item_info_clean?(item_info)
+  def test_it_returns_zero_if_there_is_no_id_given
+    assert_equal 0, @item2.id
   end
 
-  def test_it_checks_if_create_time_is_a_time
-    item_info = ({
-      :id          => 5,
-      :name        => "Pencil",
-      :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(10.99,4),
-      :created_at  => "2016-10-31 15:21:13 -0600",
-      :updated_at  => @update_time,
-      :merchant_id => 10
-    })
-    refute @item.item_info_clean?(item_info)
+  def test_it_returns_empty_string_if_there_is_no_created_time_given
+    assert_equal "", @item2.created_at
   end
 
-  def test_it_checks_if_update_time_is_a_time
-    item_info = ({
-      :id          => 5,
-      :name        => "Pencil",
-      :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(10.99,4),
-      :created_at  => @create_time,
-      :updated_at  => "2016-10-31 15:21:13 -0600",
-      :merchant_id => 10
-    })
-    refute @item.item_info_clean?(item_info)
+  def test_it_returns_empty_string_if_there_is_no_updated_time_given
+    assert_equal "", @item2.updated_at
+  end
+
+  def test_it_returns_zero_if_there_is_no_merchant_id_given
+    assert_equal 0, @item2.merchant_id
+  end
+
+  def test_it_returns_blank_item_object_if_no_data_passed
+    assert_equal Item, @item3.class
+    assert_nil @item3.id
+    assert_nil @item3.created_at
+    assert_nil @item3.description
   end
   
-  def test_it_checks_if_merchant_id_is_an_integer
-    item_info = ({
-      :id          => 5,
-      :name        => "Pencil",
-      :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(10.99,4),
-      :created_at  => @create_time,
-      :updated_at  => @update_time,
-      :merchant_id => "turing"
-    })
-    refute @item.item_info_clean?(item_info)
-  end
-
-  def test_initialize_fails_if_info_not_clean
-    item_info = ({
-      :id          => "5",
-      :name        => "Pencil",
-      :description => "You can use it to write things",
-      :unit_price  => 10.99,
-      :created_at  => @create_time,
-      :updated_at  => @update_time,
-      :merchant_id => "10"
-    })
-    assert_raises(ArgumentError) {Item.new(item_info)}
-  end
-
-  def test_error_message_explains_problem
-    string = "\n      Error:\n      :id and :merchant_id must be an Integer \n      :name and :description must be a String, \n      :unit_price must be a BigDecimal\n      :created_at and :updated_at must be a Time.\n      "  
-    assert_equal string, @item.error
+  def test_it_returns_blank_item_object_if_empty_hash_passed
+    assert_equal Item, @item4.class
+    assert_nil @item4.name
+    assert_nil @item4.unit_price
+    assert_nil @item4.merchant_id
   end
 
 end

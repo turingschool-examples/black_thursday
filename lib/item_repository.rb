@@ -1,40 +1,54 @@
-require_relative 'repository_functions'
+require_relative 'find_functions'
 require_relative 'item'
-
+require 'csv'
 
 class ItemRepository
 
-  include RepositoryFunctions
+  include FindFunctions
 
+  attr_reader :file_contents, 
+              :item_objects
 
+  def initialize(file_name = nil)
+    return unless file_name
+    @file_contents = load(file_name)
+    @item_objects = create_item_objects
+  end
 
+  def load(file_name)
+    CSV.open file_name, headers: true, header_converters: :symbol
+  end
 
-
+  def create_item_objects
+    @file_contents.map {|row| Item.new(row)}
+  end
 
   def all
-    items
+    @item_objects
   end
 
   def find_by_id(id)
-    RepositoryFunctions.find_by(items, id)
+    find_by(@item_objects, :id, id)
   end
 
   def find_by_name(name)
-    RepositoryFunctions.find_by(items, name)
+    find_by(@item_objects, :name, name)
   end
 
   def find_all_with_description(description)
-    RepositoryFunctions.find_all(items, description)
+    find_all(@item_objects, :description, description)
   end
 
   def find_all_by_price(price)
-    RepositoryFunctions.find_all(items, price)
+    find_all(@item_objects, :unit_price, price)
   end
 
-  def find_all_by_price_range(price_range)
-    prices.find_all {|price| price_range.include?(price)}
+  def find_all_by_price_in_range(price_range)
+    @item_objects.find_all {|item| price_range.include?(item.unit_price)}
   end
 
   def find_all_by_merchant_id(merchant_id)
-    RepositoryFunctions.find_all(items, merchant_id)
+    find_all(@item_objects, :merchant_id, merchant_id)
   end
+
+end
