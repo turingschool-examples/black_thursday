@@ -44,11 +44,11 @@ class SalesEngine
     contents.map do |row|
       Item.new({:id => row[:id].to_i,
                 :name => row[:name],
-                :description => row[:description],
                 :unit_price => BigDecimal(row[:unit_price]) / 100,
                 :created_at => row[:created_at],
                 :updated_at => row[:updated_at],
-                :merchant_id => row[:merchant_id]
+                :merchant_id => row[:merchant_id].to_i,
+                :description => row[:description]
               })
     end
   end
