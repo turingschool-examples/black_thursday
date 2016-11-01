@@ -1,7 +1,7 @@
 require './lib/items'
 
 class ItemRepository
-  attr_reader  :all
+  attr_reader   :all
 
   def initialize(item_data, parent)
     @parent = parent
