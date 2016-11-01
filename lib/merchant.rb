@@ -1,10 +1,9 @@
 require 'pry'
 require 'csv'
-require './data/merchants_fixture.csv'
 
 class Merchant
-
   attr_reader :merchants
+
   HASH = {:id => 0, :name => "name"}
 
   def initialize()
