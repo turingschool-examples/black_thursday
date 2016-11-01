@@ -1,6 +1,6 @@
 require './lib/merchant_repository'
 
-class Merchant < MerchantRepository
+class Merchant
   attr_reader  :merchant
 
   def initialize(line)
