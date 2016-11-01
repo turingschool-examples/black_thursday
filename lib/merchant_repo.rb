@@ -4,6 +4,7 @@ require './lib/data_parser'
 class MerchantRepo
   include DataParser
   attr_reader :all
+  
   def initialize
     @all = parse_data('./data/merchants.csv').map { |row| Merchant.new(row) }
   end

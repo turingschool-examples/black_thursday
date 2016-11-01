@@ -2,6 +2,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/merchant_repo'
 require 'pry'
+
 class MerchantRepoTest < Minitest::Test
   def test_merchant_repo_class_exists
     assert_instance_of MerchantRepo, MerchantRepo.new
@@ -17,20 +18,20 @@ class MerchantRepoTest < Minitest::Test
   end
 
   def test_merchant_repo_can_find_by_id
-    merchant = MerchantRepo.new.find_by_id("12334105")
-    assert_equal "12334105", merchant.id
+    merchant_repo = MerchantRepo.new.find_by_id("12334105")
+    assert_equal "12334105", merchant_repo.id
   end
 
   def test_merchant_repo_can_find_by_name
-    merchant = MerchantRepo.new.find_by_name("Shopin1901")
-    assert_equal "Shopin1901", merchant.name
+    merchant_repo = MerchantRepo.new.find_by_name("Shopin1901")
+    assert_equal "Shopin1901", merchant_repo.name
   end
 
   def test_merchant_repo_can_find_all_by_name
-    merchant = MerchantRepo.new.find_all_by_name("gifts").to_s
-    assert merchant.include?("ExecutiveGiftShoppe")
-    assert merchant.include?("SoftAngelGifts")
-    assert merchant.include?("ArgyllHandmadeGifts")
-    refute merchant.include?("ApplePie")
+    merchant_repo = MerchantRepo.new.find_all_by_name("gifts").to_s
+    assert merchant_repo.include?("ExecutiveGiftShoppe")
+    assert merchant_repo.include?("SoftAngelGifts")
+    assert merchant_repo.include?("ArgyllHandmadeGifts")
+    refute merchant_repo.include?("ApplePie")
   end
 end
