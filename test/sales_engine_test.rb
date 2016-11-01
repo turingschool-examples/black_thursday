@@ -1,8 +1,8 @@
 require_relative 'test_helper'
-require './lib/sales_engine'
+require_relative '../lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test
-  
+
   def test_it_exists
     assert SalesEngine
   end
@@ -23,6 +23,6 @@ class SalesEngineTest < Minitest::Test
     assert_equal MerchantRepository, SalesEngine.merchants.class
   end
 
-  
+
 
 end

@@ -1,5 +1,5 @@
 require_relative 'test_helper'
-require './lib/item'
+require_relative '../lib/item'
 require 'bigdecimal'
 
 class ItemTest < Minitest::Test
@@ -52,7 +52,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_initializes_item_create_time
-    expected = "2016-11-01 11:38:28 -0600" 
+    expected = "2016-11-01 11:38:28 -0600"
     assert_equal expected, @item1.created_at
   end
 
@@ -107,7 +107,7 @@ class ItemTest < Minitest::Test
     assert_nil @item3.created_at
     assert_nil @item3.description
   end
-  
+
   def test_it_returns_blank_item_object_if_empty_hash_passed
     assert_equal Item, @item4.class
     assert_nil @item4.name
