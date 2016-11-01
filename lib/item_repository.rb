@@ -1,8 +1,29 @@
-class ItemRepository
-  attr_reader :all
+require 'csv'
+require 'htmlentities'
+require_relative 'item'
 
-  def initialize(raw_inventory_array)
-    @all = raw_inventory_array
+class ItemRepository
+  attr_reader :all, :parent
+
+  def initialize(file_path, parent)
+    @all = parse_items(file_path)
+    @parent = parent
+  end
+
+  def parse_items(file_path)
+    items_data = []
+    CSV.foreach(file_path, headers:true) do |row|
+      items_data << Item.new({:id => row['id'].to_i, 
+                              :name => row['name'],
+                              :description => HTMLEntities.new.decode(row['description']),
+                              :unit_price => BigDecimal.new(row['unit_price']),
+                              :merchant_id => row['merchant_id'].to_i,
+                              :created_at => Time.parse(row['updated_at']),
+                              :updated_at => Time.parse(row['created_at'])
+                            },
+                            self)
+    end
+    items_data
   end
 
   def find_by_id(desired_id)
@@ -32,5 +53,9 @@ class ItemRepository
 
   def find_all_by_merchant_id(desired_merchant_id)
     all.find_all { |x| x.merchant_id.eql?(desired_merchant_id) }
+  end
+
+  def find_merchant_by_merchant_id(merchant_id)
+    parent.find_merchant_by_merchant_id(merchant_id)
   end
 end

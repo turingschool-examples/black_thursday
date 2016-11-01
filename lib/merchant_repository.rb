@@ -1,8 +1,22 @@
-class MerchantRepository
-  attr_reader :all
+require 'csv'
+require_relative 'merchant'
 
-  def initialize(raw_merchant_array)
-    @all = raw_merchant_array
+class MerchantRepository
+  attr_reader :all, :parent
+
+  def initialize(file_path, parent)
+    @all = parse_merchants(file_path) 
+    @parent = parent
+  end
+
+  def parse_merchants(file_path)
+    merchants_data = []
+    CSV.foreach(file_path, headers:true) do |row|
+      merchants_data << Merchant.new({:id => row['id'].to_i, 
+                                      :name => row['name']},
+                                      self)
+    end
+    merchants_data
   end
 
   def find_by_id(desired_id)
@@ -17,5 +31,15 @@ class MerchantRepository
     all.find_all do |merchant| 
       merchant.name.downcase.include?(desired_name_frag.downcase)
     end
+  end
+
+  def find_items_by_merchant_id(id)
+    parent.find_items_by_merchant_id(id)
+  end
+
+  def merchant_item_count
+    merchant_item_count = []
+    all.each {|merchant| merchant_item_count << merchant.items.count }
+    merchant_item_count
   end
 end

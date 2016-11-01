@@ -3,34 +3,10 @@ require_relative '../lib/item_repository'
 require_relative '../lib/item'
 
 class ItemRepositoryTest < Minitest::Test
-  attr_reader :repo
+  attr_reader :repo, :parent
   def setup
-    @repo = ItemRepository.new([Item.new({
-                                          :id => 263395237, 
-                                          :name => "510+ RealPush Icon Set", 
-                                          :description => HTMLEntities.new.decode("You&#39;ve got a total socialmedia iconset! Almost every social icon on the planet earth."), 
-                                          :unit_price => BigDecimal.new(1200), 
-                                          :merchant_id => 12334141, 
-                                          :created_at => Time.utc(2016, 1, 11, 9, 34, 06), 
-                                          :updated_at => Time.utc(2007, 6, 4, 21, 35, 10)
-                                          }),
-                                Item.new({:id => 263395617, 
-                                          :name => "Glitter scrabble frames", 
-                                          :description => HTMLEntities.new.decode("Disney glitter frames Any colour glitter available and can do any characters you require Different colour scrabble tiles Blue Black Pink Wooden"), 
-                                          :unit_price => BigDecimal.new(1350), 
-                                          :merchant_id => 12334185, 
-                                          :created_at => Time.utc(2016, 01, 11, 11, 51, 37), 
-                                          :updated_at => Time.utc(2008, 04, 02, 13, 48, 57)
-                                          }),
-                                Item.new({:id => 263396013, 
-                                          :name => "Free standing Woden letters", 
-                                          :description => HTMLEntities.new.decode("Disney glitter Free standing wooden letters 15cm Any colours"), 
-                                          :unit_price => BigDecimal.new(700), 
-                                          :merchant_id => 12334185, 
-                                          :created_at => Time.utc(2016, 01, 11, 11, 51, 36), 
-                                          :updated_at => Time.utc(2001, 9, 17, 15, 28, 43)
-                                          })
-                                ])
+    @parent = Minitest::Mock.new
+    @repo = ItemRepository.new('./test/assets/small_items.csv', parent)
   end
 
   def test_it_finds_by_id
@@ -63,8 +39,8 @@ def test_it_returns_array_when_description_unique_case_insensitive
   end
 
   def test_it_returns_array_when_description
-    current = repo.find_all_by_description("Disney glitter")
-    assert_equal "Free standing Woden letters", current[1].name
+    current = repo.find_all_by_description("glitter")
+    assert_equal 263395617, current[0].id
   end
 
   def test_it_converts_big_decimal_to_dollar
@@ -73,7 +49,7 @@ def test_it_returns_array_when_description_unique_case_insensitive
 
   def test_it_finds_item_by_exact_price
     current = repo.find_all_by_price(13.50)
-    assert_equal "Glitter scrabble frames", current[0].name
+    assert_equal "Disney scrabble frames", current[0].name
   end
 
   def test_it_returns_empty_array_when_no_prices_match
@@ -91,7 +67,7 @@ def test_it_returns_array_when_description_unique_case_insensitive
   end
 
   def test_it_returns_empty_array_if_no_price_in_range
-    assert_equal [], repo.find_all_by_price_in_range(14.00..15.00)
+    assert_equal [], repo.find_all_by_price_in_range(94.00..95.00)
   end
   
   def test_it_returns_array_of_items_that_have_matching_merchant_id
@@ -101,11 +77,18 @@ def test_it_returns_array_when_description_unique_case_insensitive
   
   def test_it_returns_array_of_items_that_have_matching_merchant_id
     current = repo.find_all_by_merchant_id(12334185)
-    assert_equal "Free standing Woden letters", current[1].name
+
+    assert_equal "Glitter scrabble frames", current[0].name
   end
 
   def test_it_returns_empty_array_if_items_have_merchant_id
     assert_equal [], repo.find_all_by_merchant_id(45)
+  end
+
+  def test_it_calls_parent_find_merchant_by_item_id
+    parent.expect(:find_merchant_by_merchant_id, nil, [1])
+    repo.find_merchant_by_merchant_id(1)
+    parent.verify
   end
 
 end
