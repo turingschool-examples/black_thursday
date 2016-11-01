@@ -2,8 +2,9 @@ require './test/test_helper'
 require './lib/item'
 
 class ItemTest < Minitest::Test
-  attr_reader :item
+  attr_reader :item, :parent
   def setup
+    @parent = Minitest::Mock.new
     @item = Item.new({
                     :id => 263395237, 
                     :name => "510+ RealPush Icon Set", 
@@ -12,7 +13,8 @@ class ItemTest < Minitest::Test
                     :merchant_id => 12334141, 
                     :created_at => Time.utc(2016, 1, 11, 9, 34, 06), 
                     :updated_at => Time.utc(2007, 6, 4, 21, 35, 10)
-                    })
+                    },
+                    parent)
   end
 
   def test_it_stores_item_number
@@ -46,6 +48,12 @@ class ItemTest < Minitest::Test
 
   def test_it_stores_unit_price_as_dollars
     assert_equal 12.00, item.unit_price_as_dollars
+  end
+
+  def test_it_calls_parent_when_looking_for_merchant
+    parent.expect(:find_merchant_by_merchant_id, nil, [12334141]) 
+    item.merchant
+    parent.verify
   end
 
 end

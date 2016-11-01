@@ -1,15 +1,15 @@
 require './test/test_helper'
 require './lib/merchant_repository'
 
+### write a test for parse_merchants
 
 class MerchantRepositoryTest < Minitest::Test 
 
-  attr_reader :repo
+  attr_reader :repo, :parent
 
   def setup
-    @repo = MerchantRepository.new([ Merchant.new({:id => 5, :name => "Bob"}), 
-                                     Merchant.new({:id => 1, :name => "Walmart"}), 
-                                     Merchant.new({:id => 2, :name => "TarboB"})])
+    @parent = Minitest::Mock.new
+    @repo = MerchantRepository.new('./test/assets/merchant_repository_data.csv', parent)
   end
 
   def test_it_returns_array_of_all_merchants
@@ -43,6 +43,12 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_can_find_all_merchant_instances_with_case_insenstive_name
     assert_equal 2, repo.find_all_by_name("Bob").count
+  end
+
+  def test_it_can_access_parent_when_looking_for_merchant_items
+    parent.expect(:find_items_by_merchant_id, nil, [1])
+    repo.find_items_by_merchant_id(1)
+    parent.verify
   end
 
 end
