@@ -25,7 +25,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_all_includes_all_20_merchant_objects_from_merchants_fixture
     merchant_repository = sales_engine.merchants
-    assert_equal 19, merchant_repository.all.length
+    assert_equal 20, merchant_repository.all.length
   end
 
   def test_find_by_id_returns_instance_with_matching_id
