@@ -29,8 +29,6 @@ class MerchantRepository
 
   def find_by_id(id)
     find_by(@merchant_objects, :id, id)
-    #dropped the module name and took out `self.` in the methods.
-    #added method as middle argument to use in `#send(method)`
   end
 
   def find_by_name(name)

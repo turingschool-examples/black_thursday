@@ -23,4 +23,6 @@ class SalesEngineTest < Minitest::Test
     assert_equal MerchantRepository, SalesEngine.merchants.class
   end
 
+  
+
 end

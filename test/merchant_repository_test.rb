@@ -25,7 +25,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_calls_id_of_merchant_object
-    assert_equal "12334105", @merch_repo.merchant_objects[0].id    
+    assert_equal 12334105, @merch_repo.merchant_objects[0].id    
   end
 
   def test_it_calls_name_of_merchant_object
@@ -43,7 +43,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_finds_merchant_by_id
-    id = "12334105"
+    id = 12334105
     merchant = @merch_repo.find_by_id(id)
     assert_equal Merchant, merchant.class
     assert_equal id, merchant.id

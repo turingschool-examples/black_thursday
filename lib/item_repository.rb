@@ -2,7 +2,6 @@ require_relative 'find_functions'
 require_relative 'item'
 require 'csv'
 
-
 class ItemRepository
 
   include FindFunctions
@@ -30,16 +29,10 @@ class ItemRepository
 
   def find_by_id(id)
     find_by(@item_objects, :id, id)
-    #dropped the module name and took out `self.` in the methods.
-    #added method as middle argument to use in `#send(method)`
   end
 
   def find_by_name(name)
     find_by(@item_objects, :name, name)
-  end
-
-  def find_all_by_name(name)
-    find_all(@item_objects, :name, name)
   end
 
   def find_all_with_description(description)
@@ -51,7 +44,7 @@ class ItemRepository
   end
 
   def find_all_by_price_in_range(price_range)
-    @item_objects.find_all {|item| price_range.include?(item.unit_price.to_i)}
+    @item_objects.find_all {|item| price_range.include?(item.unit_price)}
   end
 
   def find_all_by_merchant_id(merchant_id)
