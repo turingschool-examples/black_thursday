@@ -44,7 +44,7 @@ class MerchantRepository
   end
 
   def find_all_by_name(name_frag)
-    return "Steve the Pirate" if name_frag.nil? || name_frag ==
+    return "Steve the Pirate" if name_frag.nil? || name_frag == ""
     matches = @all.map do |merchant|
       merchant.name.upcase.include?(name_frag.upcase)
       return merchant
