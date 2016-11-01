@@ -14,6 +14,3 @@ class SalesEngine
   end
 
 end
-
-a = SalesEngine.new
-puts a.merchant_repository.find_by_name("fancybookart")
