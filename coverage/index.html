@@ -14,7 +14,7 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2016-11-01T12:03:52-06:00">2016-11-01T12:03:52-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2016-11-01T12:48:15-06:00">2016-11-01T12:48:15-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -363,7 +363,7 @@
         <li class="covered" data-hits="1" data-linenumber="1">
           <span class="hits">1</span>
           
-          <code class="ruby">require &#39;./lib/item&#39;</code>
+          <code class="ruby">require_relative &#39;item&#39;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="2">
@@ -387,7 +387,7 @@
         <li class="covered" data-hits="1" data-linenumber="5">
           <span class="hits">1</span>
           
-          <code class="ruby">  attr_reader :all	</code>
+          <code class="ruby">  attr_reader :all</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="6">
@@ -405,7 +405,7 @@
         <li class="covered" data-hits="12" data-linenumber="8">
           <span class="hits">12</span>
           
-          <code class="ruby">  	@all = items</code>
+          <code class="ruby">    @all = items</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="9">
@@ -453,7 +453,7 @@
         <li class="covered" data-hits="30" data-linenumber="16">
           <span class="hits">30</span>
           
-          <code class="ruby">  	all.find {|item| item.name.upcase == name.upcase}</code>
+          <code class="ruby">    all.find {|item| item.name.upcase == name.upcase}</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="17">
@@ -477,19 +477,19 @@
         <li class="covered" data-hits="2" data-linenumber="20">
           <span class="hits">2</span>
           
-          <code class="ruby">  	all.find_all do |item|</code>
+          <code class="ruby">    all.find_all do |item|</code>
         </li>
       
         <li class="covered" data-hits="50" data-linenumber="21">
           <span class="hits">50</span>
           
-          <code class="ruby">  	  item.description.upcase.include?(description.upcase)</code>
+          <code class="ruby">      item.description.upcase.include?(description.upcase)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="22">
           
           
-          <code class="ruby">  	end</code>
+          <code class="ruby">    end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="23">
@@ -615,7 +615,7 @@
         <li class="covered" data-hits="1" data-linenumber="1">
           <span class="hits">1</span>
           
-          <code class="ruby">require &#39;./lib/merchant&#39;</code>
+          <code class="ruby">require_relative &#39;merchant&#39;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="2">
@@ -795,19 +795,19 @@
         <li class="covered" data-hits="1" data-linenumber="1">
           <span class="hits">1</span>
           
-          <code class="ruby">require &#39;./lib/merchant_repository&#39;</code>
+          <code class="ruby">require_relative &#39;merchant_repository&#39;</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="2">
           <span class="hits">1</span>
           
-          <code class="ruby">require &#39;./lib/item_repository&#39;</code>
+          <code class="ruby">require_relative &#39;item_repository&#39;</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="3">
           <span class="hits">1</span>
           
-          <code class="ruby">require &#39;./lib/merchant&#39;</code>
+          <code class="ruby">require_relative &#39;merchant&#39;</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="4">
@@ -1161,13 +1161,13 @@
         <li class="covered" data-hits="1" data-linenumber="3">
           <span class="hits">1</span>
           
-          <code class="ruby">require &#39;./lib/sales_engine&#39;</code>
+          <code class="ruby">require_relative &#39;../lib/sales_engine&#39;</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="4">
           <span class="hits">1</span>
           
-          <code class="ruby">require &#39;./lib/item_repository&#39;</code>
+          <code class="ruby">require_relative &#39;../lib/item_repository&#39;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="5">
@@ -1677,7 +1677,7 @@
         <li class="covered" data-hits="1" data-linenumber="4">
           <span class="hits">1</span>
           
-          <code class="ruby">require &#39;./lib/item&#39;</code>
+          <code class="ruby">require_relative &#39;../lib/item&#39;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="5">
@@ -2037,13 +2037,13 @@
         <li class="covered" data-hits="1" data-linenumber="3">
           <span class="hits">1</span>
           
-          <code class="ruby">require &#39;./lib/sales_engine&#39;</code>
+          <code class="ruby">require_relative &#39;../lib/sales_engine&#39;</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="4">
           <span class="hits">1</span>
           
-          <code class="ruby">require &#39;./lib/merchant_repository&#39;</code>
+          <code class="ruby">require_relative &#39;../lib/merchant_repository&#39;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="5">
@@ -2655,7 +2655,7 @@
         <li class="covered" data-hits="1" data-linenumber="3">
           <span class="hits">1</span>
           
-          <code class="ruby">require &#39;./lib/merchant&#39;</code>
+          <code class="ruby">require_relative &#39;../lib/merchant&#39;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="4">
@@ -2859,19 +2859,19 @@
         <li class="covered" data-hits="1" data-linenumber="3">
           <span class="hits">1</span>
           
-          <code class="ruby">require &#39;./lib/sales_engine&#39;</code>
+          <code class="ruby">require_relative &#39;../lib/sales_engine&#39;</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="4">
           <span class="hits">1</span>
           
-          <code class="ruby">require &#39;./lib/merchant_repository&#39;</code>
+          <code class="ruby">require_relative &#39;../lib/merchant_repository&#39;</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="5">
           <span class="hits">1</span>
           
-          <code class="ruby">require &#39;./lib/item_repository&#39;</code>
+          <code class="ruby">require_relative &#39;../lib/item_repository&#39;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="6">

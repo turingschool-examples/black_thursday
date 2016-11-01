@@ -1,11 +1,11 @@
-require './lib/item'
+require_relative 'item'
 
 class ItemRepository
 
-  attr_reader :all	
+  attr_reader :all
 
   def initialize(items)
-  	@all = items
+    @all = items
   end
 
   def find_by_id(id)
@@ -13,13 +13,13 @@ class ItemRepository
   end
 
   def find_by_name(name)
-  	all.find {|item| item.name.upcase == name.upcase}
+    all.find {|item| item.name.upcase == name.upcase}
   end
 
   def find_all_with_description(description)
-  	all.find_all do |item|
-  	  item.description.upcase.include?(description.upcase)
-  	end
+    all.find_all do |item|
+      item.description.upcase.include?(description.upcase)
+    end
   end
 
 end

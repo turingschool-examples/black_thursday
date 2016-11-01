@@ -1,6 +1,6 @@
-require './lib/merchant_repository'
-require './lib/item_repository'
-require './lib/merchant'
+require_relative 'merchant_repository'
+require_relative 'item_repository'
+require_relative 'merchant'
 require 'bigdecimal'
 require 'csv'
 
