@@ -4,8 +4,8 @@ class MerchantRepository
   attr_reader  :all
 
   def initialize
-    @handle = CSV.open './data/merchants.csv', headers: true, header_converters: :symbol
-    @all    = @handle.map { |line| Merchant.new(line).merchant }
+    data = CSV.open './data/merchants.csv', headers: true, header_converters: :symbol
+    @all = data.map { |line| Merchant.new(line).merchant }
   end
 
   def find_by_id(id)
