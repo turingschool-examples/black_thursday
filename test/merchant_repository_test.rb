@@ -9,7 +9,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def setup
     @sales_engine = SalesEngine.from_csv({
-      :merchants => "./data_fixtures/merchants_fixture.csv"
+      :merchants => "./data_fixtures/merchants_fixture.csv",
     })
   end
 

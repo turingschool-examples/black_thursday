@@ -6,18 +6,29 @@ require 'csv'
 class SalesEngine
 
   def self.from_csv(files)
-    @files = files
+    @merchant_repo = create_merchant_repository(files)
+    @item_repo = create_item_repository(files)
     self
   end
 
+  def self.create_merchant_repository(files)
+    if files.include?(:merchants)
+      MerchantRepository.new(merchant_csv_parse(files[:merchants]))
+    end
+  end
+
+  def self.create_item_repository(files)
+    if files.include?(:items)
+      ItemRepository.new(item_csv_parse(files[:items]))
+    end
+  end
+
   def self.merchants
-    merchants = merchant_csv_parse(@files[:merchants])
-    MerchantRepository.new(merchants)
+    @merchant_repo
   end
 
   def self.items
-    items = item_csv_parse(@files[:items])
-    ItemRepository.new(items)
+    @item_repo
   end
 
   def self.merchant_csv_parse(file)
