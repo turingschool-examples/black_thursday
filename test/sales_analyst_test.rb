@@ -27,13 +27,33 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_merchants_with_high_item_count_returns_merchants_above_one_st_dev_in_item_count
-    skip
     top_merchants = sales_analyst.merchants_with_high_item_count
-    puts top_merchants.inspect
-    assert_equal 1, top_merchants.length
-    assert top_merchants.one? {|merchant| merchant.id == 12334195}
-    assert top_merchants.all? {|merchant| merchant.items.length > 3}
+    assert top_merchants.all? {|merchant| merchant.items.length > 3.26}
   end
 
+  def test_average_item_price_for_merchant_returns_average_as_big_decimal
+    average_price = sales_analyst.average_item_price_for_merchant(12334195)
+    assert_equal BigDecimal(419.8,4), average_price.round(2)
+  end
+
+  def test_average_item_price_for_merchant_returns_0_if_merchant_has_no_items
+    average_price = sales_analyst.average_item_price_for_merchant(12334145)
+    assert_equal BigDecimal(0), average_price.round(2)
+  end
+
+  def test_average_item_price_for_merchant_returns_price_if_merchant_has_one_item
+    average_price = sales_analyst.average_item_price_for_merchant(12334141)
+    assert_equal BigDecimal(12,4), average_price.round(2)
+  end
+
+  def test_average_average_price_per_merchant_returns_average
+    average_average_price = sales_analyst.average_average_price_per_merchant
+    assert_equal BigDecimal(27.09, 4), average_average_price.round(2)
+  end
+
+  def test_golden_items_returns_items_two_standard_devs_above_average_item_price
+    golden_items = sales_analyst.golden_items
+    assert golden_items.all? {|item| item.unit_price > 250}
+  end
 
 end
