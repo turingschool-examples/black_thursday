@@ -4,7 +4,8 @@ require_relative '../lib/merchant_repository'
 class MerchantRepositoryTest < Minitest::Test
 
   def setup
-    @merch_repo = MerchantRepository.new('./data/test_merchants.csv')
+    @sales_engine = Minitest::Mock.new
+    @merch_repo = MerchantRepository.new('./data/test_merchants.csv', @sales_engine)
   end
 
   def test_it_exists
@@ -13,6 +14,16 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_initializes_with_a_file
     assert MerchantRepository.new('./data/test_merchants.csv')
+  end
+
+  def test_it_initializes_with_reference_to_sales_engine_parent
+    assert @merch_repo.parent
+  end
+
+  def test_find_items_by_id_calls_parent
+    @merch_repo.parent.expect(:find_items_by_merchant_id, nil, [5])
+    @merch_repo.find_items_by_merchant_id(5)
+    @merch_repo.parent.verify
   end
 
   def test_it_turns_file_contents_to_CSV_object
