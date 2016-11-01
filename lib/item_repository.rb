@@ -5,6 +5,7 @@ require 'pry'
 class ItemRepository
   attr_reader   :contents,
                 :items
+
   def initialize(path)
     @contents = CSV.open path, headers: true, header_converters: :symbol
     @items = contents.map do |line|

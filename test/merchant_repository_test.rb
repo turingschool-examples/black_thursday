@@ -3,15 +3,19 @@ require 'minitest/pride'
 require './lib/merchant_repository'
 
 class MerchantRepositoryTest < Minitest::Test
+    attr_reader :repository
+
+  def setup
+    @repository = MerchantRepository.new('fixture.merchant_test_file.csv')
+
+  end
 
   def test_it_can_create_merchant_repository
     repository = MerchantRepository.new
   end
 
   def test_it_can_find_all_instances_of_Merchant
-    repository = MerchantRepository.new
-
-    repository.instance_of? Merchant
+    skip
   end
 
 
@@ -37,7 +41,8 @@ class MerchantRepositoryTest < Minitest::Test
     assert_nil, repository.name("Amazon")
   end
 
-  def test_it_can_find_all_by_case_insensitive_name
+  def test_it_can_
+    find_all_by_case_insensitive_name
     repository = MerchantRepository.new
 
     assert_instance_of Merchant, repository.name("shop")
