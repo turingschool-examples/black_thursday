@@ -25,6 +25,8 @@ class ItemTest < Minitest::Test
     })
     @item1 = Item.new(item_info_1)
     @item2 = Item.new(item_info_2)
+    @item3 = Item.new()
+    @item4 = Item.new({})
   end
 
   def test_it_exists
@@ -97,6 +99,20 @@ class ItemTest < Minitest::Test
 
   def test_it_returns_zero_if_there_is_no_merchant_id_given
     assert_equal 0, @item2.merchant_id
+  end
+
+  def test_it_returns_blank_item_object_if_no_data_passed
+    assert_equal Item, @item3.class
+    assert_nil @item3.id
+    assert_nil @item3.created_at
+    assert_nil @item3.description
+  end
+  
+  def test_it_returns_blank_item_object_if_empty_hash_passed
+    assert_equal Item, @item4.class
+    assert_nil @item4.name
+    assert_nil @item4.unit_price
+    assert_nil @item4.merchant_id
   end
 
 end

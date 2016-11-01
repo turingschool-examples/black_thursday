@@ -8,7 +8,7 @@ class Item
               :merchant_id
   
   def initialize(item_info = nil)
-    return unless item_info
+    return if item_info.to_h.empty?
     @id          = item_info[:id].to_i
     @name        = item_info[:name].to_s
     @description = item_info[:description].to_s
