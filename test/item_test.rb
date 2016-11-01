@@ -8,10 +8,10 @@ class ItemTest < Minitest::Test
     @item = Item.new({:id => 4,
                       :name => "Thing",
                       :description => "description of the thing",
-                      :unit_price => BigDecimal.new(10.99,4),
+                      :unit_price => "1200",
                       :merchant_id => "01",
-                      :created_at => "time",
-                      :updated_at => "time"
+                      :created_at => "2016-01-11 18:30:35 UTC",
+                      :updated_at => "2016-01-11 18:30:35 UTC"
                       })
   end
 
@@ -47,9 +47,30 @@ class ItemTest < Minitest::Test
     assert item.updated_at
   end
 
-  def test_unit_price_to_dollars_returns_correct_format
-    result = item.unit_price_to_dollars
-    assert_equal "$10.00", result
+  def test_find_unit_price
+    assert_equal BigDecimal, item.find_unit_price("1200").class
+    # binding.pry
+  end
+
+  def test_it_turns_into_a_float
+    assert_equal Float, item.unit_price_to_dollars("1200").class
+  end
+
+  def test_it_returns_a_number_at_the_end
+    result = BigDecimal.new("1200 ")
+    assert_equal Float, item.unit_price_to_dollars(result).class
+  end
+
+  def test_it_converts_a_string_into_the_time
+    assert_equal Time.parse("2016-01-11 18:30:35 UTC"), item.created_at
+  end
+
+  def test_it_converts_updated_at_string_into_real_time
+    assert_equal Time.parse("2016-01-11 18:30:35 UTC"), item.updated_at
+  end
+
+  def test_it_has_no_unit_price
+    
   end
 
 end
