@@ -20,7 +20,7 @@ class MerchantRepository
   end
 
   def create_merchant_objects
-    @file_contents.map {|row| Merchant.new(row)}
+    @file_contents.map {|row| Merchant.new(row, self)}
   end
 
   def find_by_id(id)
