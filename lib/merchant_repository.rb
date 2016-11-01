@@ -1,10 +1,10 @@
-require_relative 'repository_functions'
+require_relative 'find_functions'
 require './lib/merchant'
 require 'csv'
 
 
 class MerchantRepository
-  include RepositoryFunctions
+  include FindFunctions
 
   attr_reader :file_contents, 
               :merchant_objects

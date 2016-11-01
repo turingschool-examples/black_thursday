@@ -1,11 +1,11 @@
-require_relative 'repository_functions'
+require_relative 'find_functions'
 require_relative 'item'
 require 'csv'
 
 
 class ItemRepository
 
-  include RepositoryFunctions
+  include FindFunctions
 
   attr_reader :file_contents, 
               :item_objects
