@@ -1,7 +1,21 @@
+require_relative 'item'
+require 'csv'
+require 'pry'
+
 class ItemRepository
+  attr_reader   :contents,
+                :items
+  def initialize(path)
+    @contents = CSV.open path, headers: true, header_converters: :symbol
+    @items = contents.map do |line|
+      binding.pry
+      Item.new(line)
+    end
+  end
 
   #returns an array of all known Item instances
   def all
+    @items
   end
 
   #returns either nil or an instance of Item with a matching ID
@@ -29,3 +43,5 @@ class ItemRepository
   end
 
 end
+
+repository = ItemRepository.new('fixture/items.csv')
