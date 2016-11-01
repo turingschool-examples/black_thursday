@@ -3,7 +3,8 @@ require 'minitest/pride'
 require './lib/item'
 
 class ItemTest < Minitest::Test
-  attr_reader   :item
+  attr_reader   :item,
+                :item_2
 
   def setup
     @item = Item.new({
@@ -15,6 +16,15 @@ class ItemTest < Minitest::Test
       :updated_at => Time.now,
       :merchant_id => 100
     })
+    @item_2 = Item.new({
+      :id => 2,
+      :name => "Pen",
+      :description => "You can use it to write things",
+      :unit_price => 10,
+      :created_at => Time.now,
+      :updated_at => Time.now,
+      :merchant_id => 101
+    })
   end
 
   def test_it_can_create_an_item
@@ -23,65 +33,31 @@ class ItemTest < Minitest::Test
 
   def test_it_can_return_id
     assert_equal 1, item.id
+    assert_equal 2, item_2.id
   end
 
   def test_it_can_return_name
     assert_equal "Pencil", item.name
+    assert_equal "Pen", item_2.name
   end
 
   def test_it_can_return_unit_price_as_big_decimal
     assert_equal 10.99, item.unit_price
     assert_instance_of BigDecimal, item.unit_price
-  end
-
-  def test_it_can_format_unit_price_to_proper_string
-    skip
-    assert_equal "10.00", format_unit_price(10)
-    assert_equal "10.50", format_unit_price(10.50)
-    assert_equal "10.50", format_unit_price(10.5)
-    assert_equal "100.00", format_unit_price(100)
-  end
-
-  def test_it_can_return_unit_price_as_big_decimal_given_2_digit_fixnum
-    skip
-    item_2 = Item.new({
-      :id => 1,
-      :name => "Pencil",
-      :description => "You can use it to write things",
-      :unit_price => 10,
-      :created_at => Time.now,
-      :updated_at => Time.now,
-      :merchant_id => 100
-    })
-    assert_equal "10.00", item_2.unit_price.to_s
-    assert_instance_of BigDecimal, item.unit_price
-  end
-
-  def test_it_can_return_unit_price_as_big_decimal_given_3_digit_fixnum
-    skip
-    item_2 = Item.new({
-      :id => 1,
-      :name => "Pencil",
-      :description => "You can use it to write things",
-      :unit_price => 100,
-      :created_at => Time.now,
-      :updated_at => Time.now,
-      :merchant_id => 100
-    })
-    assert_equal "100.00", item_2.unit_price.to_s
-    assert_instance_of BigDecimal, item.unit_price
+    assert_equal 10.00, item_2.unit_price
+    assert_instance_of BigDecimal, item_2.unit_price
   end
 
   def test_it_can_return_created_at_as_time
-    skip
     ##Need to find a way to test this properly
     assert_instance_of Time, item.created_at
+    assert_instance_of Time, item_2.created_at
   end
 
   def test_it_can_return_updated_at_as_time
-    skip
     ##Need to find a way to test this properly
     assert_instance_of Time, item.updated_at
+    assert_instance_of Time, item_2.updated_at
   end
 
   def test_it_can_return_merchant_id
@@ -89,8 +65,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_can_return_price_in_dollars_as_float
-    skip
-    ##Need to determine what we need here
     assert_instance_of Float, item.unit_price_to_dollars
+    assert_instance_of Float, item_2.unit_price_to_dollars
   end
 end
