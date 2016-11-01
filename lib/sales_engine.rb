@@ -13,12 +13,12 @@ class SalesEngine
     @merchants  = make_merchant_repo
   end
 
-  def make_item_repo
-    ItemRepository.new(sales_info[:items])
+  def self.make_item_repo
+    ItemRepository.new(@sales_info[:items])
   end
 
-  def make_merchant_repo
-    MerchantRepository.new(sales_info[:merchants])
+  def self.make_merchant_repo
+    MerchantRepository.new(@sales_info[:merchants])
   end
 
   def self.merchants
