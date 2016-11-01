@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/sales_engine'
-require './lib/merchant_repository'
+require_relative '../lib/sales_engine'
+require_relative '../lib/merchant_repository'
 
 class MerchantRepositoryTest < Minitest::Test
 
@@ -9,7 +9,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def setup
     @sales_engine = SalesEngine.from_csv({
-      :merchants => "./data_fixtures/merchants_fixture.csv"
+      :merchants => "./data_fixtures/merchants_fixture.csv",
     })
   end
 
@@ -29,7 +29,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_by_id_returns_instance_with_matching_id
-    id = '12334155'
+    id = 12334155
     merchant_repository = sales_engine.merchants
     merchant = merchant_repository.find_by_id(id)
     assert_kind_of Merchant, merchant
@@ -37,7 +37,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_by_id_returns_nil_with_matching_id
-    id = '99999999'
+    id = 99999999
     merchant_repository = sales_engine.merchants
     assert_nil merchant_repository.find_by_id(id)
   end
@@ -94,7 +94,7 @@ class MerchantRepositoryTest < Minitest::Test
     fragment = 'thiswouldneverbeinanetsyshopname'
     merchant_repository = sales_engine.merchants
     merchants = merchant_repository.find_all_by_name(fragment)
-    assert [], merchants
+    assert_equal [], merchants
   end
 
 end
