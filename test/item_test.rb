@@ -48,8 +48,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_unit_price_to_dollars_returns_correct_format
-    result = item.unit_price_to_dollars
-    assert_equal "$10.00", result
+    assert_equal 0, item.find_unit_price(1200)
   end
 
 end

@@ -28,6 +28,6 @@ class Item
 
   def unit_price_to_dollars(unit_price)
     dollar_price = unit_price.to_f / 100
-    binding.pry
+    # binding.pry
   end
 end
