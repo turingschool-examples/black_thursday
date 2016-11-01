@@ -16,4 +16,4 @@ class SalesEngine
 end
 
 a = SalesEngine.new
-puts a.merchant_repository.find_by_name("fancybookart")
+puts a.item_repository.find_all_by_name("lets")[1]["name"]
