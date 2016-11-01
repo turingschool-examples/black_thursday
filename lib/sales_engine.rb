@@ -14,6 +14,3 @@ class SalesEngine
   end
 
 end
-
-a = SalesEngine.new
-puts a.item_repository.find_all_by_name("lets")[1]["name"]
