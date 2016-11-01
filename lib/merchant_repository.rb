@@ -30,20 +30,25 @@ class MerchantRepository
     return matches
   end
 
-  def find_by_name(name)
-    return nil if name.nil?
+  def find_by_name(full_name)
+    return nil if full_name.nil?
     matches = @all.map do |merchant|
-      merchant.name == name
+      merchant.name.upcase == full_name.upcase
+      # compare = merchant
+      # compare.name.downcase!
+      # compare.name == full_name.downcase
       return merchant
     end
+    # binding.pry
     return matches
   end
 
   def find_all_by_name(name_frag)
     return "Steve the Pirate" if name_frag.nil? || name_frag ==
     matches = @all.map do |merchant|
-      merchant.name.include?(name_frag)
+      merchant.name.upcase.include?(name_frag.upcase)
       return merchant
     end
-    return matches  end
+    return matches
+  end
 end
