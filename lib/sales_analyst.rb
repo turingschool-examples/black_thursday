@@ -13,6 +13,10 @@ class SalesAnalyst
     engine.merchants.all
   end
 
+  def all_items
+    engine.items.all
+  end
+
   def merchant_item_count
     engine.merchants.merchant_item_count
   end
@@ -40,6 +44,12 @@ class SalesAnalyst
     merchant_ids = all_merchants.map {|merchant| merchant.id}
     average_merchant_prices = merchant_ids.map { |id| average_item_price_for_merchant(id)}
     find_average(average_merchant_prices) 
+  end
+
+  def golden_items
+    items_prices = all_items.map { |item| item.unit_price }  
+    threshold = (stdev(items_prices) * 2) + find_average(items_prices)
+    all_items.find_all { |item| item.unit_price >= threshold }
   end
 
 end

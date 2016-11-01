@@ -2,10 +2,11 @@ require 'csv'
 require_relative 'merchant'
 
 class MerchantRepository
-  attr_reader :all, :parent
+  attr_reader :all, 
+              :parent
 
   def initialize(file_path, parent)
-    @all = parse_merchants(file_path) 
+    @all    = parse_merchants(file_path) 
     @parent = parent
   end
 
@@ -28,9 +29,7 @@ class MerchantRepository
   end
 
   def find_all_by_name(desired_name_frag)
-    all.find_all do |merchant| 
-      merchant.name.downcase.include?(desired_name_frag.downcase)
-    end
+    all.find_all { |merchant| merchant.name.downcase.include?(desired_name_frag.downcase) }
   end
 
   def find_items_by_merchant_id(id)
@@ -38,8 +37,6 @@ class MerchantRepository
   end
 
   def merchant_item_count
-    merchant_item_count = []
-    all.each {|merchant| merchant_item_count << merchant.items.count }
-    merchant_item_count
+    all.map {|merchant| merchant.items.count }
   end
 end

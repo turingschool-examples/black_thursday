@@ -37,10 +37,8 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_returns_high_item_count
     expected_array = ["Madewithgitterxx : 3", "2MAKERSMARKET : 4", "Soudoveshop : 3", "BowlsByChris : 5"]
-    result_array = []
-    found_merchants = analyst.merchants_with_high_item_count
-    found_merchants.each { |merchant| result_array << "#{merchant.name} : #{merchant.items.count}"}
-    assert_equal expected_array, result_array
+    found_merchants = analyst.merchants_with_high_item_count.map { |merchant| "#{merchant.name} : #{merchant.items.count}"}
+    assert_equal expected_array, found_merchants
   end
 
   def test_it_finds_average_price_of_one_merchant
@@ -49,5 +47,11 @@ class SalesAnalystTest < Minitest::Test
 
   def test_analyst_finds_average_average_price_per_merchant
     assert_equal 8004.35, analyst.average_average_price_per_merchant.round(2)
+  end
+
+  def test_it_finds_golden_items_of_all_items
+    golden_array = ["Introspection virginalle : 600.0", "La prière : 650.0", "Les raisons : 600.0", "Matrice monolithique : 600.0", "Monolithes à découper : 600.0"]
+    found_items = analyst.golden_items.map { |item| "#{item.name} : #{item.unit_price_as_dollars}"}
+    assert_equal golden_array, found_items
   end
 end

@@ -77,7 +77,6 @@ def test_it_returns_array_when_description_unique_case_insensitive
   
   def test_it_returns_array_of_items_that_have_matching_merchant_id
     current = repo.find_all_by_merchant_id(12334185)
-
     assert_equal "Glitter scrabble frames", current[0].name
   end
 
@@ -89,6 +88,11 @@ def test_it_returns_array_when_description_unique_case_insensitive
     parent.expect(:find_merchant_by_merchant_id, nil, [1])
     repo.find_merchant_by_merchant_id(1)
     parent.verify
+  end
+
+  def test_that_parse_items_parses_items
+    current = repo.parse_items('./test/assets/small_items.csv')
+    assert_equal 10, current.count
   end
 
 end
