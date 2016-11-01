@@ -25,10 +25,39 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_csv_loader_loads_correctly
-    result = merchant_repository.all[0][0]
+    result = merchant_repository.all[0].id
     assert_equal 12334105, result
   end
 
+  def test_find_by_id_finds_correct_pair_of_values
+    merchant_repository.all
+    result = merchant_repository.find_by_id(12334105).name
+    assert_equal "Shopin1901", result
+  end
 
+  def test_find_by_id_returns_correct_format
+    merchant_repository.all
+    result = merchant_repository.find_by_id(12334105)
+    assert_equal Merchant, result.class
+  end
+
+  def test_find_by_name_finds_correct_pair_of_values
+    merchant_repository.all
+    result = merchant_repository.find_by_name("Shopin1901")
+    assert_equal 12334105, result.id
+    assert_equal "Shopin1901", result.name
+    assert_equal Merchant, result.class
+  end
+
+  def test_find_all_by_name_nil_case
+    result = merchant_repository.find_all_by_name(nil)
+    assert_equal "Steve the Pirate", result
+  end
+
+  def test_find_all_by_name_returns_array_of_names
+    merchant_repository.all
+    result = merchant_repository.find_all_by_name("Shopin190")
+    assert_equal "Shopin1901", result.name
+  end
 
 end
