@@ -2,20 +2,11 @@ require 'pry'
 require 'csv'
 
 class Merchant
-  attr_reader :merchants
+  attr_reader :id,
+              :name
 
-  HASH = {:id => 0, :name => "name"}
-
-  def initialize()
-    @id = HASH[:id]
+  def initialize(hash)
+    @id   = hash[:id]
+    @name = hash[:name]
   end
-
-  def id
-    #returns integer ID of the merchant
-  end
-
-  def name
-    #returns the name of the merchant
-  end
-
 end
