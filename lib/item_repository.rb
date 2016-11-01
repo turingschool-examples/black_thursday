@@ -24,37 +24,64 @@ class ItemRepository
 
   def find_by_id(id)
     return nil if id.nil?
-    identify = @all.map do |item|
-      item.id == id
-      return item
-    end
+    identify = identify_id(id)
     return identify
   end
 
+  def identify_id(id)
+    @all.map do |item|
+      item.id == id
+      return item
+    end
+  end
+
   def find_by_name(name)
-    return "A cool spindle" if name.nil? || name = ""
-  # returns either nil or an instance of an item having done a case insensitive search
+    return "A cool spindle" if name.nil?
+    designation = designate_name(name)
+    return designation
   end
 
-  def find_all_with_description
-  # returns either [] or instances of item where the supplied
-  # string appears in the item description, case-insensitive
+  def designate_name(name)
+    @all.map do |item|
+      item.name.upcase.include?(name.upcase)
+      return item
+    end
   end
 
-  def find_all_by_price
-  # returns either [] or instances of item where the supplied
-  # exactly matches
+  def find_all_with_description(description)
+    details = discover_details(description)
+    return details
   end
 
-  def find_all_by_price_in_range
-  # returns either [] or instances of item where the supplied
-  # price is in the supplied range (a single Ruby range
-  # instance is passed in)
+  def discover_details(description)
+    @all.map do |item|
+      item.description.upcase.include?(description.upcase)
+      return item
+    end
   end
 
-  def find_all_by_merchant_id
-  # returns either [] or instances of item where the supplied
-  # merchant id matches that supplied
+  def find_all_by_price(price)
+    dollars = @all.map do |item|
+      item.unit_price == price
+      return item
+    end
+    return dollars
+  end
+
+  def find_all_by_price_in_range(price_range)
+    range = @all.map do |item|
+      price_range.include?(item.unit_price)
+      return item
+    end
+    return range
+  end
+
+  def find_all_by_merchant_id(number)
+    merch = @all.map do |item|
+      item.merchant_id == number
+      return item
+    end
+    return merch
   end
 
 end
