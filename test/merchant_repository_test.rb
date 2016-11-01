@@ -2,7 +2,7 @@ require_relative 'test_helper'
 require './lib/merchant_repository'
 
 class MerchantRepositoryTest < Minitest::Test
-  
+
   def setup
     @merch_repo = MerchantRepository.new('./data/test_merchants.csv')
   end
@@ -10,7 +10,7 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_exists
     assert MerchantRepository.new
   end
-  
+
   def test_it_initializes_with_a_file
     assert MerchantRepository.new('./data/test_merchants.csv')
   end
@@ -20,16 +20,16 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_generates_array_of_merchant_objects_from_csv_object
-    assert_equal Merchant, @merch_repo.merchant_objects[0].class
-    assert_equal Merchant, @merch_repo.merchant_objects[1].class
+    assert_equal Merchant, @merch_repo.all[0].class
+    assert_equal Merchant, @merch_repo.all[1].class
   end
 
   def test_it_calls_id_of_merchant_object
-    assert_equal 12334105, @merch_repo.merchant_objects[0].id    
+    assert_equal 12334105, @merch_repo.all[0].id
   end
 
   def test_it_calls_name_of_merchant_object
-    assert_equal "Shopin1901", @merch_repo.merchant_objects[0].name  
+    assert_equal "Shopin1901", @merch_repo.all[0].name  
   end
 
   def test_it_retrieves_all_merchant_objects
@@ -48,7 +48,7 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal Merchant, merchant.class
     assert_equal id, merchant.id
   end
-  
+
   def test_it_returns_nil_if_id_not_found
     id = "123"
     merchant = @merch_repo.find_by_id(id)
