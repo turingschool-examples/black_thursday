@@ -36,7 +36,7 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal id, merchant.id
   end
 
-  def test_find_by_id_returns_instance_with_matching_id
+  def test_find_by_id_returns_nil_with_matching_id
     id = '99999999'
     merchant_repository = sales_engine.merchants
     assert_nil merchant_repository.find_by_id(id)
@@ -59,7 +59,7 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal name, merchant.name
   end
 
-  def test_find_by_name_returns_instance_with_matching_name
+  def test_find_by_name_returns_nil_when_there_are_no_matches
     name = 'NothingFactory'
     merchant_repository = sales_engine.merchants
     assert_nil merchant_repository.find_by_name(name)
@@ -80,7 +80,7 @@ class MerchantRepositoryTest < Minitest::Test
     assert merchants.one? {|merchant| merchant.name == name}
   end
 
-   def test_find_all_by_name_returns_all_matches_to_fragment
+  def test_find_all_by_name_returns_all_matches_to_fragment
     name1 = 'Shopin1901'
     name2 = 'thepurplepenshop'
     fragment = 'shop'
@@ -90,7 +90,7 @@ class MerchantRepositoryTest < Minitest::Test
     assert merchants.one? {|merchant| merchant.name == name2}
   end
 
-  def test_find_all_by_name_returns_all_matches_to_fragment
+  def test_find_all_by_name_returns_empty_array_when_no_matches_exist
     fragment = 'thiswouldneverbeinanetsyshopname'
     merchant_repository = sales_engine.merchants
     merchants = merchant_repository.find_all_by_name(fragment)
