@@ -19,7 +19,12 @@ class ItemRepository
   end
 
   #returns either nil or an instance of Item with a matching ID
-  def find_by_id
+  def find_by_id(id_number)
+    value = nil
+    items.each do |item|
+      value = item if item.id == id_number
+    end
+    value
   end
 
   #returns either nil or an instance of Item having done a case insensitive search

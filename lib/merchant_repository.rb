@@ -1,4 +1,4 @@
-require 'CSV'
+require 'csv'
 require_relative 'merchant'
 
 class MerchantRepository
@@ -8,12 +8,11 @@ class MerchantRepository
     @name = item_hash[:name]
     @created_at = item_hash[:created_at]
     @updated_at = item_hash[:updated_at]
-
   end
   #returns an array of all known Merchant instances
-  def all
-    ObjectSpace.each_object(MerchantRepository) {|merchant| << merchant}
-  end
+  # def all
+  #   ObjectSpace.each_object(MerchantRepository) {|merchant| << merchant}
+  # end
 
   #returns either nil or an instance of Merchant with a matching ID
   def id(id_number)
@@ -23,8 +22,6 @@ class MerchantRepository
         puts csv.find {|row| row[id_number]}
       end
   end
-  end
-
   #returns either nil or an instance of Merchant having done a case insensitive search
   def find_by_name
   end
