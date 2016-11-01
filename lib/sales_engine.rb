@@ -7,8 +7,8 @@ class SalesEngine
   attr_reader :merchants,
               :items
 
-  def initialize
-    @merchants  = MerchantRepository.new
-    @items      = ItemRepository.new
+  def initialize(hash)
+    @items     =  ItemRepository.new(hash[:items])
+    @merchants =  MerchantRepository.new(hash[:merchants])
   end
 end
