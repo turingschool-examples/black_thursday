@@ -1,11 +1,14 @@
 module RepositoryFunctions
 
-  def self.find_by(variable, input)
-    variable.find {|name| name == input}
+  def find_by(variable, method, input)
+    variable.find {|row| row.send(method) == input}
   end
 
-
-  def self.find_all(variable, input)
-   variable.find_all {|name| name == input}
+  def find_all(variable, method, input)
+    variable.find_all do |row| 
+      row = row.send(method).to_s.downcase
+      row.include?(input.downcase)
+    end
   end
+
 end

@@ -20,29 +20,24 @@ class MerchantTest < Minitest::Test
     assert_equal "Turing School", @merchant.name
   end
 
-  def test_it_checks_if_merchant_id_is_not_integer
-    merchant_info = {:id => "yes", :name => "Turing School"}
-    refute @merchant.merchant_info_clean?(merchant_info)
+  def test_it_creates_empty_name_if_merchant_info_empty
+    merchant = Merchant.new(nil)    
+    assert_equal nil, merchant.name
   end
 
-  def test_it_checks_if_merchant_name_is_not_string
-    merchant_info = {:id => 5, :name => :turing_school}
-    refute @merchant.merchant_info_clean?(merchant_info)
+  def test_it_creates_empty_name_if_merchant_info_has_no_name
+    merchant = Merchant.new({:id => 5, :place => "Turing School"})    
+    assert_equal nil, merchant.name
   end
 
-  def test_it_checks_if_merchant_info_is_empty
-    merchant_info = {}
-    refute @merchant.merchant_info_clean?(merchant_info)
+  def test_it_creates_empty_id_if_merchant_info_empty
+    merchant = Merchant.new(nil)    
+    assert_equal nil, merchant.id
   end
 
-  def test_initialize_returns_argument_error_if_merchant_info_not_clean
-    merchant_info = {:id => "y", :name => "Turing School"}
-    assert_raises(ArgumentError) {Merchant.new(merchant_info)}
-  end
-
-  def test_error_message_explains_problem
-    string = "Error: :id must be a number and :name must be a string."
-    assert_equal string, @merchant.error
+  def test_it_creates_empty_name_if_merchant_info_has_no_id
+    merchant = Merchant.new({:number => 5, :name => "Turing School"})    
+    assert_equal nil, merchant.id
   end
 
 end

@@ -1,20 +1,20 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/jdconrad/Documents/turing/1module/projects/black_thursday/lib/repository_functions.rb": [
+      "/Users/tmikeschutte/Turing/1module/5week/black_thursday/lib/merchant.rb": [
         1,
-        null,
         1,
-        43,
-        null,
         null,
         null,
         1,
-        64,
+        11,
+        9,
+        9,
+        null,
         null,
         null
       ]
     },
-    "timestamp": 1477953610
+    "timestamp": 1477972091
   }
 }
