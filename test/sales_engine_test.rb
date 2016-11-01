@@ -7,7 +7,16 @@ class SalesEngineTest < Minitest::Test
     assert SalesEngine
   end
 
+  def test_it_intitalizes_an_item_repo_object
+    SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+    })
+    assert_equal ItemRepository, SalesEngine.items.class
+  end
+
   def test_it_grabs_items_csv_file
+    skip
     SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -16,6 +25,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_grabs_merchants_csv_file
+    skip
     SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",

@@ -1,11 +1,24 @@
+require './lib/item_repository'
+require './lib/merchant_repository'
+
 class SalesEngine
 
-  attr_reader :items,
+  attr_reader :sales_info,
+              :items,
               :merchants
 
   def self.from_csv(sales_info)
-    @items     = sales_info[:items]
-    @merchants = sales_info[:merchants]
+    @sales_info = sales_info
+    @items      = make_item_repo
+    @merchants  = make_merchant_repo
+  end
+
+  def make_item_repo
+    ItemRepository.new(sales_info[:items])
+  end
+
+  def make_merchant_repo
+    MerchantRepository.new(sales_info[:merchants])
   end
 
   def self.merchants
