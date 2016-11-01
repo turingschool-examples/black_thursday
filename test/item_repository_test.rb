@@ -1,6 +1,6 @@
-require './test/test_helper'
-require './lib/item_repository'
-require './lib/item'
+require_relative '../test/test_helper'
+require_relative '../lib/item_repository'
+require_relative '../lib/item'
 
 class ItemRepositoryTest < Minitest::Test
   attr_reader :repo
@@ -45,6 +45,10 @@ class ItemRepositoryTest < Minitest::Test
       assert_equal 263396013, repo.find_by_name("Free standing Woden letters").id
   end
 
+  def test_it_finds_by_name_case_insensitive
+    assert_equal 263396013, repo.find_by_name("Free standing woden letters").id
+  end
+
   def test_it_returns_nil_when_name_not_present
     assert_equal nil, repo.find_by_name("Hello")
   end
@@ -53,7 +57,11 @@ class ItemRepositoryTest < Minitest::Test
       assert_equal [], repo.find_all_by_description("Boogers")
   end
 
-  #is there a better way to write these kind of tests??
+def test_it_returns_array_when_description_unique_case_insensitive
+    current = repo.find_all_by_description("socialMedia")
+    assert_equal 263395237, current[0].id
+  end
+
   def test_it_returns_array_when_description
     current = repo.find_all_by_description("Disney glitter")
     assert_equal "Free standing Woden letters", current[1].name
@@ -72,17 +80,25 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal [], repo.find_all_by_price(20.00)
   end
 
-  #is there a better way to write these kind of tests??
   def test_it_returns_array_of_price_in_range
-    current = repo.find_all_by_price(10.00..14.00)
+    current = repo.find_all_by_price_in_range(10.00..13.00)
+    assert_equal 263395237, current[0].id
+  end
+  
+  def test_it_returns_array_of_price_in_range
+    current = repo.find_all_by_price_in_range(10.00..14.00)
     assert_equal "Glitter scrabble frames", current[1].name
   end
 
   def test_it_returns_empty_array_if_no_price_in_range
-    assert_equal [], repo.find_all_by_price(14.00..15.00)
+    assert_equal [], repo.find_all_by_price_in_range(14.00..15.00)
   end
-
-  #is there a better way to write these kind of tests??
+  
+  def test_it_returns_array_of_items_that_have_matching_merchant_id
+    current = repo.find_all_by_merchant_id(12334141)
+    assert_equal 263395237, current[1].id
+  end
+  
   def test_it_returns_array_of_items_that_have_matching_merchant_id
     current = repo.find_all_by_merchant_id(12334185)
     assert_equal "Free standing Woden letters", current[1].name

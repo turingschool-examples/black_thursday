@@ -10,7 +10,7 @@ class ItemRepository
   end
 
   def find_by_name(desired_name)
-    all.find { |x| x.name.eql?(desired_name) }
+    all.find { |x| x.name.downcase.eql?(desired_name.downcase) }
   end
 
   def find_all_by_description(fragment)
@@ -18,14 +18,12 @@ class ItemRepository
   end
 
   def find_all_by_price(desired_price)
-    if desired_price.class.eql?(Float)
-      response = all.find_all { |x| convert_to_dollar(x.unit_price).eql?(desired_price) }
-    else
-      values   = desired_price.step(0.01).to_a
-      response = all.find_all { |x| values.include?(convert_to_dollar(x.unit_price)) }
-    end
-    return [] if response.eql?( [nil] || [] )
-    response
+    response = all.find_all { |x| convert_to_dollar(x.unit_price).eql?(desired_price) }
+  end
+
+  def find_all_by_price_in_range(desired_range)
+    values   = desired_range.step(0.01).to_a
+    response = all.find_all { |x| values.include?(convert_to_dollar(x.unit_price)) }
   end
 
   def convert_to_dollar(big_decimal)
