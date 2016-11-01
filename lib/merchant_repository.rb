@@ -1,5 +1,5 @@
 require_relative 'find_functions'
-require './lib/merchant'
+require_relative '../lib/merchant'
 require 'csv'
 
 
