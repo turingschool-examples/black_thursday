@@ -1,7 +1,22 @@
+require_relative 'item'
+require 'csv'
+require 'pry'
+
 class ItemRepository
+  attr_reader   :contents,
+                :csv   
+  def initialize(path)
+    @contents = csv_load(path)
+    @items = items
+  end
+
+  def csv_load(path)
+    @csv = CSV.open path, headers: true, header_converters: :symbol
+  end
 
   #returns an array of all known Item instances
   def all
+    @items
   end
 
   #returns either nil or an instance of Item with a matching ID
@@ -28,4 +43,14 @@ class ItemRepository
   def find_all_by_merchant_id
   end
 
+  def items
+    all = []
+    contents.each do |line|
+      all << Item.new(line)
+    end
+    all 
+  end
 end
+
+repository = ItemRepository.new('fixture/items.csv')
+repository.items
