@@ -18,4 +18,4 @@ class Merchant
 
 end
 
-puts MerchantRepository.new.find_by_name("jaimeLeelightleArt")
+puts MerchantRepository.new.find_all_by_name("ime")
