@@ -12,20 +12,24 @@ class Item
               :updated_at
 
   def initialize(item_hash)
-    @id           = item_hash[:id]
+    @id           = item_hash[:id].to_i
     @name         = item_hash[:name]
     @description  = item_hash[:description]
     @unit_price   = find_unit_price(item_hash[:unit_price])
-    @merchant_id  = item_hash[:merchant_id]
+    @merchant_id  = item_hash[:merchant_id].to_i
     @created_at   = determine_the_time(item_hash[:created_at])
     @updated_at   = determine_the_time(item_hash[:updated_at])
   end
 
   def find_unit_price(price)
-    unit_price = BigDecimal.new(price)
+    if unit_price = ""
+      unit_price = BigDecimal.new(0)
+      # binding.pry
+    else
+      unit_price = BigDecimal.new(price)
+    end
     return unit_price
     unit_price_to_dollars(unit_price)
-    # binding.pry
   end
 
   def unit_price_to_dollars(unit_price)
@@ -35,6 +39,5 @@ class Item
   def determine_the_time(time_string)
     return Time.now if time_string.nil?
     time_string = Time.parse(time_string)
-    # binding.pry
   end
 end
