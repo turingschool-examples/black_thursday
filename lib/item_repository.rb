@@ -4,14 +4,13 @@ require 'pry'
 
 class ItemRepository
   attr_reader   :contents,
-                :csv   
+                :items
   def initialize(path)
-    @contents = csv_load(path)
-    @items = items
-  end
-
-  def csv_load(path)
-    @csv = CSV.open path, headers: true, header_converters: :symbol
+    @contents = CSV.open path, headers: true, header_converters: :symbol
+    @items = contents.map do |line|
+      binding.pry
+      Item.new(line)
+    end
   end
 
   #returns an array of all known Item instances
@@ -43,14 +42,6 @@ class ItemRepository
   def find_all_by_merchant_id
   end
 
-  def items
-    all = []
-    contents.each do |line|
-      all << Item.new(line)
-    end
-    all 
-  end
 end
 
 repository = ItemRepository.new('fixture/items.csv')
-repository.items
