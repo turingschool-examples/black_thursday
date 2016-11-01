@@ -1,8 +1,8 @@
-require './lib/test_helper'
+require './test/test_helper'
 require './lib/item'
 
 class ItemTest < Minitest::Test
-
+  attr_reader :item
   def setup
     @item = Item.new({
                     :id => 263395237, 
@@ -37,11 +37,11 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_stores_time_created_at
-    assert_equal 2007, item.created_at.year
+      assert_equal 2016, item.created_at.year
   end
 
-  def test_it_stores_time_updated
-    assert_equal 2016, item.created_at.year
+  def test_it_stores_time_updated_at
+    assert_equal 2007, item.updated_at.year
   end
 
   def test_it_stores_unit_price_as_dollars

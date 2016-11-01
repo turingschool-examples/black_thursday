@@ -1,9 +1,10 @@
-require './lib/test_helper'
+require './test/test_helper'
 require './lib/item_repository'
+require './lib/item'
 
-class ItemRepositoryTest < Minitest::test_helper
-
-  def setup 
+class ItemRepositoryTest < Minitest::Test
+  attr_reader :repo
+  def setup
     @repo = ItemRepository.new([Item.new({
                                           :id => 263395237, 
                                           :name => "510+ RealPush Icon Set", 
@@ -26,22 +27,22 @@ class ItemRepositoryTest < Minitest::test_helper
                                           :description => HTMLEntities.new.decode("Disney glitter Free standing wooden letters 15cm Any colours"), 
                                           :unit_price => BigDecimal.new(700), 
                                           :merchant_id => 12334185, 
-                                          :created_at => Time.utc(2016, 0, 11, 11, 51, 36), 
-                                          :updated_at => Time.utc(2001, 09, 17, 15, 28, 43)
+                                          :created_at => Time.utc(2016, 01, 11, 11, 51, 36), 
+                                          :updated_at => Time.utc(2001, 9, 17, 15, 28, 43)
                                           })
                                 ])
   end
 
   def test_it_finds_by_id
-    assert_equal "Free standing Woden letters", repo.find_by_id(263395721).name
+      assert_equal "Free standing Woden letters", repo.find_by_id(263396013).name
   end
 
   def test_it_returns_nil_when_id_not_present
-    assert_equal nil, repo.find_by_id(45)
+      assert_equal nil, repo.find_by_id(45)
   end
 
   def test_it_finds_by_name_when_present
-    assert_equal 263395721, repo.find_by_name("Free standing Woden letters").id
+      assert_equal 263396013, repo.find_by_name("Free standing Woden letters").id
   end
 
   def test_it_returns_nil_when_name_not_present
@@ -49,31 +50,42 @@ class ItemRepositoryTest < Minitest::test_helper
   end
 
   def test_it_returns_empty_array_when_description_not_present
-    assert_equal [], repo.find_all_by_description("Boogers")
+      assert_equal [], repo.find_all_by_description("Boogers")
   end
 
+  #is there a better way to write these kind of tests??
   def test_it_returns_array_when_description
-    assert_equal "Free standing Woden letters", repo.find_all_by_description("Disney glitter")[0].name
+    current = repo.find_all_by_description("Disney glitter")
+    assert_equal "Free standing Woden letters", current[1].name
+  end
+
+  def test_it_converts_big_decimal_to_dollar
+    assert_equal 12.00, repo.convert_to_dollar(1200)
   end
 
   def test_it_finds_item_by_exact_price
-    assert_equal "Free standing Woden letters", repo.find_all_by_price(13.50)
+    current = repo.find_all_by_price(13.50)
+    assert_equal "Glitter scrabble frames", current[0].name
   end
 
   def test_it_returns_empty_array_when_no_prices_match
     assert_equal [], repo.find_all_by_price(20.00)
   end
 
+  #is there a better way to write these kind of tests??
   def test_it_returns_array_of_price_in_range
-    assert_equal "Free standing Woden letters", repo.find_all_by_price(10.00..14.00)[1].name
+    current = repo.find_all_by_price(10.00..14.00)
+    assert_equal "Glitter scrabble frames", current[1].name
   end
 
   def test_it_returns_empty_array_if_no_price_in_range
     assert_equal [], repo.find_all_by_price(14.00..15.00)
   end
 
+  #is there a better way to write these kind of tests??
   def test_it_returns_array_of_items_that_have_matching_merchant_id
-    assert_equal "Disney scrabble frames", repo.find_all_by_merchant_id(12334185)[0].name
+    current = repo.find_all_by_merchant_id(12334185)
+    assert_equal "Free standing Woden letters", current[1].name
   end
 
   def test_it_returns_empty_array_if_items_have_merchant_id
