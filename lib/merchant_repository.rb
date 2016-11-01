@@ -1,6 +1,5 @@
 require './lib/merchant'
 require 'csv'
-require './lib/merchant'
 
 class MerchantRepository
   attr_reader :all,
@@ -15,24 +14,36 @@ class MerchantRepository
   end
 
   def all
-    all = []
+    @all = []
     @csv.each do |line|
-      all << [line[:id].to_i, line[:name]]
+      @all << Merchant.new({:id => line[:id].to_i, :name => line[:name]})
     end
-    return all
+    return @all
   end
 
   def find_by_id(id)
     return nil if id.nil?
-    all.include?[id]
+    matches = @all.map do |merchant|
+      merchant.id == id
+      return merchant
+    end
+    return matches
   end
-  #
-  # def find_by_name(name)
-  #   return nil if name.nil?
-  #   # return either nil or instance of merchant having done a case insensitive search
-  # end
-  #
-  # def find_all_by_name(names)
-  #   # returns either [] or one or more matches that contain the supplied name fragment, case insensitive
-  # end
+
+  def find_by_name(name)
+    return nil if name.nil?
+    matches = @all.map do |merchant|
+      merchant.name == name
+      return merchant
+    end
+    return matches
+  end
+
+  def find_all_by_name(name_frag)
+    return "Steve the Pirate" if name_frag.nil? || name_frag ==
+    matches = @all.map do |merchant|
+      merchant.name.include?(name_frag)
+      return merchant
+    end
+    return matches  end
 end
