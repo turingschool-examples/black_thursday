@@ -61,4 +61,12 @@ class InvoicesTest < Minitest::Test
     assert_equal "pending", invoice.status
   end
 
+  def test_it_outputs_the_time_int_the_correct_format
+    assert_equal "2009-02-07 00:00:00 -0700", invoice.created_at.to_s
+  end
+
+  def test_it_outputs_the_time_for_updated_at
+    assert_equal "2014-03-15 00:00:00 -0600", invoice.updated_at.to_s
+  end
+
 end
