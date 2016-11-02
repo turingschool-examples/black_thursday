@@ -1,5 +1,5 @@
-require_relative '../lib/item'
-require_relative '../lib/data_parser'
+require_relative './item'
+require_relative './data_parser'
 
 class ItemRepo
   include DataParser

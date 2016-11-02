@@ -13,8 +13,8 @@ class ItemRepoTest < Minitest::Test
     assert_equal "Glitter scrabble frames", item_repo.all[1].name
     assert_equal "Glitter scrabble frames \n\nAny colour glitter \nAny wording\n\nAvailable colour scrabble tiles\nPink\nBlue\nBlack\nWooden", item_repo.all[1].description
     assert_equal 13.00, item_repo.all[1].unit_price
-    assert_equal "2016-01-11 11:51:37 UTC", item_repo.all[1].created_at
-    assert_equal "1993-09-29 11:56:40 UTC", item_repo.all[1].updated_at
+    assert_instance_of Time, item_repo.all[1].created_at
+    assert_instance_of Time, item_repo.all[1].updated_at
     assert_equal 12334185, item_repo.all[1].merchant_id
   end
 

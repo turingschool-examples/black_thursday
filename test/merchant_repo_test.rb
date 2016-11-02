@@ -10,14 +10,14 @@ class MerchantRepoTest < Minitest::Test
     merchant_repo = MerchantRepo.new
     assert_equal Merchant, merchant_repo.all.first.class
     assert_equal "2010-12-10", merchant_repo.all.first.created_at
-    assert_equal "12334105", merchant_repo.all.first.id
+    assert_equal 12334105, merchant_repo.all.first.id
     assert_equal "Shopin1901", merchant_repo.all.first.name
     assert_equal "2011-12-04", merchant_repo.all.first.updated_at
   end
 
   def test_merchant_repo_can_find_by_id
-    merchant = MerchantRepo.new.find_by_id("12334105")
-    assert_equal "12334105", merchant.id
+    merchant = MerchantRepo.new.find_by_id(12334105)
+    assert_equal 12334105, merchant.id
   end
 
   def test_merchant_repo_returns_nil_when_given_fake_data
