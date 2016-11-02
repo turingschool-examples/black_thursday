@@ -14,9 +14,12 @@ class Invoices
     @customer_id  = invoice_hash[:customer_id].to_i
     @merchant_id  = invoice_hash[:merchant_id].to_i
     @status       = invoice_hash[:status]
-    @created_at   = invoice_hash[:created_at]
-    @updated_at   = invoice_hash[:updated_at]
+    @created_at   = determine_the_time(invoice_hash[:created_at])
+    @updated_at   = determine_the_time(invoice_hash[:updated_at])
+  end
 
+  def determine_the_time(time)
+    time = Time.parse(time)
   end
 
 end

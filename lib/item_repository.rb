@@ -5,9 +5,7 @@ require 'csv'
 class ItemRepository
 
   attr_reader :csv, :add
-  # load a csv file
-  # iterate over file and read items
-  # make each line into an Item.new with the correct values in a HASH
+
   def initialize(path)
     csv_load(path)
   end
@@ -29,7 +27,7 @@ class ItemRepository
   end
 
   def identify_id(id)
-    @all.map do |item|
+    @all.collect do |item|
       item.id == id
       return item
     end
@@ -42,7 +40,7 @@ class ItemRepository
   end
 
   def designate_name(name)
-    @all.map do |item|
+    @all.collect do |item|
       item.name.upcase.include?(name.upcase)
       return item
     end
@@ -54,14 +52,14 @@ class ItemRepository
   end
 
   def discover_details(description)
-    @all.map do |item|
+    @all.collect do |item|
       item.description.upcase.include?(description.upcase)
       return item
     end
   end
 
   def find_all_by_price(price)
-    dollars = @all.map do |item|
+    dollars = @all.collect do |item|
       item.unit_price == price
       return item
     end
@@ -69,7 +67,7 @@ class ItemRepository
   end
 
   def find_all_by_price_in_range(price_range)
-    range = @all.map do |item|
+    range = @all.collect do |item|
       price_range.include?(item.unit_price)
       return item
     end
@@ -77,7 +75,7 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(number)
-    merch = @all.map do |item|
+    merch = @all.collect do |item|
       item.merchant_id == number
       return item
     end
