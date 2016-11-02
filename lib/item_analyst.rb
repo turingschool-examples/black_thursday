@@ -1,8 +1,4 @@
-require_relative 'calculator'
-
 module ItemAnalyst
-
-  include Calculator
 
   def items
     sales_engine.items.all

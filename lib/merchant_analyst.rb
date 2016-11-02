@@ -1,8 +1,4 @@
-require_relative 'Calculator'
-
 module MerchantAnalyst
-
-  include Calculator
 
   def merchants
     sales_engine.merchants.all
