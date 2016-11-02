@@ -14,6 +14,10 @@ class ItemRepositoryTest < Minitest::Test
     assert ItemRepository.new('./data/test_items.csv')
   end
 
+  def test_it_has_custom_inspect
+    assert_equal "#<ItemRepository: 74 rows>", @item_repo.inspect
+  end
+
   def test_it_turns_file_contents_to_CSV_object
     assert_equal CSV, @item_repo.file_contents.class
   end
