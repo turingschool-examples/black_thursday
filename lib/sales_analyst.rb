@@ -1,3 +1,4 @@
+require 'bigdecimal'
 require_relative 'statistics'
 
 class SalesAnalyst
@@ -22,28 +23,28 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    find_average(merchant_item_count)
+    find_average(merchant_item_count).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
-    stdev(merchant_item_count)
+    stdev(merchant_item_count).round(2)
   end
 
   def merchants_with_high_item_count
-    threshold = in_or_out_stdev(merchant_item_count)
+    threshold = stdev(merchant_item_count) + find_average(merchant_item_count)
     merchant_outliers = all_merchants.find_all { |merchant| merchant.items.count > threshold }
   end
 
   def average_item_price_for_merchant(merchant_id)
     merchant = engine.merchants.find_by_id(merchant_id)
     item_prices = merchant.items.map { |item| item.unit_price }
-    find_average(item_prices)
+    BigDecimal.new(find_average(item_prices).round(2), 2)
   end
 
   def average_average_price_per_merchant
     merchant_ids = all_merchants.map {|merchant| merchant.id}
     average_merchant_prices = merchant_ids.map { |id| average_item_price_for_merchant(id)}
-    find_average(average_merchant_prices) 
+    BigDecimal.new(find_average(average_merchant_prices).round(2), 2)
   end
 
   def golden_items

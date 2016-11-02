@@ -19,8 +19,8 @@ class ItemRepository
                               :description => row['description'],
                               :unit_price => row['unit_price'],
                               :merchant_id => row['merchant_id'],
-                              :created_at => Time.parse(row['updated_at']),
-                              :updated_at => Time.parse(row['created_at'])
+                              :created_at => Time.parse(row['created_at']),
+                              :updated_at => Time.parse(row['updated_at'])
                             },
                             self)
     end
@@ -44,8 +44,7 @@ class ItemRepository
   end
 
   def find_all_by_price_in_range(desired_range)
-    values   = desired_range.step(.01).to_a
-    response = all.find_all { |item| values.include?(item.unit_price) }
+    response = all.find_all { |item| desired_range.cover?(item.unit_price) }
   end
 
   def convert_to_dollar(big_decimal)

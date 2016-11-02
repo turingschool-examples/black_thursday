@@ -7,17 +7,24 @@ class SalesEngine
   attr_accessor :items, :merchants
 
   def self.from_csv(data)
-    engine = SalesEngine.new
-    engine.items = ItemRepository.new(data[:items], self)
-    engine.merchants = MerchantRepository.new(data[:merchants], self)
-    engine
+    @items_file = data[:items]
+    @merchants_file = data[:merchants]
+    self
   end
 
-  def find_items_by_merchant_id(id)
+  def self.items
+    ItemRepository.new(@items_file, self)
+  end
+
+  def self.merchants
+    MerchantRepository.new(@merchants_file, self)
+  end
+
+  def self.find_items_by_merchant_id(id)
     items.find_all_by_merchant_id(id)
   end
 
-  def find_merchant_by_merchant_id(merchant_id)
+  def self.find_merchant_by_merchant_id(merchant_id)
     merchants.find_by_id(merchant_id)
   end
 
