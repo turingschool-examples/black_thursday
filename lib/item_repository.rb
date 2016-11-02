@@ -4,17 +4,18 @@ require 'csv'
 
 class ItemRepository
 
-  attr_reader :csv, :add
+  attr_reader :csv, :all
 
   def initialize(path)
     csv_load(path)
+    load_all
   end
 
   def csv_load(path)
     @csv = CSV.open path, headers: true, header_converters: :symbol
   end
 
-  def all
+  def load_all
     @all = []
     @all = @csv.collect { |line| Item.new(line) }
     return @all

@@ -8,14 +8,22 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
+    load_merchant_items
     binding.pry
-    @sales_engine.merchants.all.count
     # take in number of items for each merchant
     # return average items per merchant as a FLOAT
     average(array)
   end
 
+  def load_merchant_items
+    array = @sales_engine.merchants.all.map do |merchant_instance|
+      merchant_instance.items = sales_engine.items.find_all_by_merchant_id(merchant_instance.id)
+    end
+    binding.pry
+  end
+
   def average(array)
+    binding.pry
     array.inject{ |sum, element| sum + element }.to_f / array.count
   end
 
