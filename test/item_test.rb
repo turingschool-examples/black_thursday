@@ -54,4 +54,11 @@ class ItemTest < Minitest::Test
     assert_equal 3333, item.merchant_id
   end
 
+  # def test_item_call_sales_engine
+  #   sales_engine = Minitest::Mock.new
+  #   sales_engine.expect(:find_by_id, nil, [1])
+  #   item.merchant
+  #   sales_engine.verify
+  # end
+
 end
