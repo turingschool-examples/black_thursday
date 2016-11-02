@@ -24,6 +24,11 @@ class FindFunctionsTest < Minitest::Test
     assert_equal 5, find_all_strings(:name, input).count
   end
 
+  def test_finds_all_strings_returns_matching_merchant_object_for_upcase_search
+    input = "JEJUM"
+    assert_equal 1, find_all_strings(:name, input).count
+  end
+
   def test_finds_all_strings_returns_matching_merchant_object_for_name
     input = "MiniatureBikez"
     assert_equal 1, find_all_strings(:name, input).count
