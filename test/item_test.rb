@@ -1,6 +1,7 @@
 require_relative 'test_helper'
 require_relative '../lib/item'
 require 'bigdecimal'
+require 'time'
 
 class ItemTest < Minitest::Test
 
@@ -19,8 +20,8 @@ class ItemTest < Minitest::Test
       :name        => nil,
       :description => nil,
       :unit_price  => nil,
-      :created_at  => nil,
-      :updated_at  => nil,
+      :created_at  => "2016-11-01 11:38:28 -0600",
+      :updated_at  => "2016-11-01 14:38:28 -0600",
       :merchant_id => nil
     })
     @item1 = Item.new(item_info_1)
@@ -52,12 +53,12 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_initializes_item_create_time
-    expected = "2016-11-01 11:38:28 -0600"
+    expected = Time.parse("2016-11-01 11:38:28 -0600")
     assert_equal expected, @item1.created_at
   end
 
   def test_it_initializes_item_update_time
-    expected = "2016-11-01 14:38:28 -0600"
+    expected = Time.parse("2016-11-01 14:38:28 -0600")
     assert_equal expected, @item1.updated_at
   end
 
@@ -87,14 +88,6 @@ class ItemTest < Minitest::Test
 
   def test_it_returns_zero_if_there_is_no_id_given
     assert_equal 0, @item2.id
-  end
-
-  def test_it_returns_empty_string_if_there_is_no_created_time_given
-    assert_equal "", @item2.created_at
-  end
-
-  def test_it_returns_empty_string_if_there_is_no_updated_time_given
-    assert_equal "", @item2.updated_at
   end
 
   def test_it_returns_zero_if_there_is_no_merchant_id_given
