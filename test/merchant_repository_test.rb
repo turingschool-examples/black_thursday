@@ -13,7 +13,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_has_custom_inspect
-    assert_equal "#<MerchantRepository: 74 rows>", @merch_repo.inspect
+    assert_equal "#<MerchantRepository: 131 rows>", @merch_repo.inspect
   end
 
   def test_it_initializes_with_a_file
@@ -49,7 +49,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_retrieves_all_merchant_objects
     assert_equal Merchant, @merch_repo.all[0].class
-    assert_equal 74, @merch_repo.all.count
+    assert_equal 131, @merch_repo.all.count
   end
 
   def test_merchant_ids_are_uniq
@@ -92,7 +92,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_finds_all_merchants_by_name
     name      = "shop"
-    shops     = ["Shopin1901", "thepurplepenshop", "Woodenpenshop", "ZazaBoutiqueShop", "Soudoveshop", "WoodleyShop"]
+    shops     = ["Shopin1901", "thepurplepenshop", "Woodenpenshop", "ZazaBoutiqueShop", "Soudoveshop", "WoodleyShop", "ExecutiveGiftShoppe", "CHALKLEYSWOODSHOP", "FrenchiezShop"]
     merchants = @merch_repo.find_all_by_name(name)
     assert_equal shops, merchants.map{|merchant| merchant.name}
   end
