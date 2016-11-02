@@ -14,7 +14,7 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2016-11-02T16:46:07-06:00">2016-11-02T16:46:07-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2016-11-02T17:16:18-06:00">2016-11-02T17:16:18-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -31,9 +31,9 @@
   </h2>
   <a name="AllFiles"></a>
   <div>
-    <b>21</b> files in total.
-    <b>230</b> relevant lines. 
-    <span class="green"><b>230</b> lines covered</span> and
+    <b>22</b> files in total.
+    <b>236</b> relevant lines. 
+    <span class="green"><b>236</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -146,6 +146,16 @@
         <td>80</td>
         <td>16</td>
         <td>16</td>
+        <td>0</td>
+        <td>1.0</td>
+      </tr>
+      
+      <tr>
+        <td class="strong"><a href="#70daa4d69ec1c0d3dc4b39a3cbae396d32902004" class="src_link" title="test/invoice_merchant_integrated_test.rb">test/invoice_merchant_integrated_test.rb</a></td>
+        <td class="green strong">100.0 %</td>
+        <td>16</td>
+        <td>6</td>
+        <td>6</td>
         <td>0</td>
         <td>1.0</td>
       </tr>
@@ -485,13 +495,13 @@
         <li class="covered" data-hits="1" data-linenumber="11">
           <span class="hits">1</span>
           
-          <code class="ruby">  def inspect</code>
+          <code class="ruby">  def find_by_id(id)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="12">
           
           
-          <code class="ruby">    &quot;#&lt;#{self.class} #{@all.size} rows&gt;&quot;</code>
+          <code class="ruby">    all.find {|invoice| invoice.id == id}</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="13">
@@ -509,13 +519,13 @@
         <li class="covered" data-hits="1" data-linenumber="15">
           <span class="hits">1</span>
           
-          <code class="ruby">  def find_by_id(id)</code>
+          <code class="ruby">  def find_all_by_customer_id(customer_id)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="16">
           
           
-          <code class="ruby">    all.find {|invoice| invoice.id == id}</code>
+          <code class="ruby">    all.find_all {|invoice| invoice.customer_id == customer_id}</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="17">
@@ -533,13 +543,13 @@
         <li class="covered" data-hits="1" data-linenumber="19">
           <span class="hits">1</span>
           
-          <code class="ruby">  def find_all_by_customer_id(customer_id)</code>
+          <code class="ruby">  def find_all_by_merchant_id(merchant_id)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="20">
           
           
-          <code class="ruby">    all.find_all {|invoice| invoice.customer_id == customer_id}</code>
+          <code class="ruby">    all.find_all {|invoice| invoice.merchant_id == merchant_id}</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="21">
@@ -557,13 +567,13 @@
         <li class="covered" data-hits="1" data-linenumber="23">
           <span class="hits">1</span>
           
-          <code class="ruby">  def find_all_by_merchant_id(merchant_id)</code>
+          <code class="ruby">  def find_all_by_status(status)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="24">
           
           
-          <code class="ruby">    all.find_all {|invoice| invoice.merchant_id == merchant_id}</code>
+          <code class="ruby">    all.find_all {|invoice| invoice.status == status}</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="25">
@@ -581,13 +591,13 @@
         <li class="covered" data-hits="1" data-linenumber="27">
           <span class="hits">1</span>
           
-          <code class="ruby">  def find_all_by_status(status)</code>
+          <code class="ruby">  def inspect</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="28">
           
           
-          <code class="ruby">    all.find_all {|invoice| invoice.status == status}</code>
+          <code class="ruby">    &quot;#&lt;#{self.class} #{@all.size} rows&gt;&quot;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="29">
@@ -2451,6 +2461,120 @@
         </li>
       
         <li class="never" data-hits="" data-linenumber="80">
+          
+          
+          <code class="ruby">end</code>
+        </li>
+      
+    </ol>
+  </pre>
+</div>
+      
+        <div class="source_table" id="70daa4d69ec1c0d3dc4b39a3cbae396d32902004">
+  <div class="header">
+    <h3>test/invoice_merchant_integrated_test.rb</h3>
+    <h4><span class="green">100.0 %</span> covered</h4>
+    <div>
+      <b>6</b> relevant lines. 
+      <span class="green"><b>6</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
+    </div>
+  </div>
+  
+  <pre>
+    <ol>
+      
+        <li class="covered" data-hits="1" data-linenumber="1">
+          <span class="hits">1</span>
+          
+          <code class="ruby">require &#39;minitest/autorun&#39;</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="2">
+          <span class="hits">1</span>
+          
+          <code class="ruby">require &#39;minitest/pride&#39;</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="3">
+          <span class="hits">1</span>
+          
+          <code class="ruby">require_relative &#39;../lib/sales_engine&#39;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="4">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="5">
+          <span class="hits">1</span>
+          
+          <code class="ruby">class InvoiceMerchantIntegratedTest &lt; Minitest::Test</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="6">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="7">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  attr_reader :sales_engine</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="8">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="9">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def setup</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="10">
+          
+          
+          <code class="ruby">    @sales_engine = SalesEngine.from_csv({</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="11">
+          
+          
+          <code class="ruby">      :invoices =&gt; &quot;./data_fixtures/invoices_fixture.csv&quot;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="12">
+          
+          
+          <code class="ruby">      :merchants =&gt; &quot;./data_fixtures/merchants_fixture.csv&quot;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="13">
+          
+          
+          <code class="ruby">    })</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="14">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="15">
+          
+          
+          <code class="ruby">  </code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="16">
           
           
           <code class="ruby">end</code>

@@ -28,7 +28,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_all_includes_all_invoices
     invoice_repository = sales_engine.invoices
-    assert_equal 194, invoice_repository.all.length
+    assert_equal 56, invoice_repository.all.length
   end
 
   def test_find_by_id_finds_invoice_with_matching_id
@@ -83,19 +83,19 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_find_all_by_status_finds_all_pending_invoices
     invoice_repository = sales_engine.invoices
     invoices = invoice_repository.find_all_by_status("pending")
-    assert_equal 59, invoices.length
+    assert_equal 20, invoices.length
   end
 
   def test_find_all_by_status_finds_all_shipped_invoices
     invoice_repository = sales_engine.invoices
     invoices = invoice_repository.find_all_by_status("shipped")
-    assert_equal 111, invoices.length
+    assert_equal 30, invoices.length
   end
 
   def test_find_all_by_status_finds_all_returned_invoices
     invoice_repository = sales_engine.invoices
     invoices = invoice_repository.find_all_by_status("returned")
-    assert_equal 24, invoices.length
+    assert_equal 6, invoices.length
   end
 
 end
