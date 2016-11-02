@@ -8,7 +8,7 @@ class SalesEngineTest < Minitest::Test
 
   def setup
     @se = SalesEngine.from_csv({
-              :items     => 'data/item_fixture.csv',
+              :items     => 'fixture/item_fixture_2.csv',
               :merchants => 'data/merchants_fixture.csv',})
   end
 
@@ -29,6 +29,16 @@ class SalesEngineTest < Minitest::Test
   def test_it_initializes_with_merchants
     assert se.merchants
     assert_equal MerchantRepository, se.merchants.class
+  end
+
+  def test_it_creates_a_hash_of_item_instances
+    se.load_items
+    assert_equal Hash, se.load_items.class
+  end
+
+  def test_it_loads_items_into_a_hash
+    result = se.load_items
+    assert_equal [12334113, 12334185], result.keys
   end
 
   # def test_it_initializes_with_items

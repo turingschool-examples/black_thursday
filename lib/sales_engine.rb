@@ -15,4 +15,10 @@ class SalesEngine
   def self.from_csv(hash)
     SalesEngine.new(hash)
   end
+
+  def load_items
+    items.all.group_by do |item_instance|
+      item_instance.merchant_id
+    end
+  end
 end
