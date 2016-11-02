@@ -1,6 +1,6 @@
-require './lib/merchant_repository'
+require_relative 'merchant_repository'
 require 'csv'
-require './lib/item_repository'
+require_relative 'item_repository'
 require 'pry'
 
 class SalesEngine
@@ -20,6 +20,7 @@ class SalesEngine
 
   def self.from_csv(file = nil)
     contents = CSV.open file, headers: true, header_converters: :symbol
+    binding.pry
     contents.each do |row|
       return row
   end
@@ -38,7 +39,7 @@ class SalesEngine
 
 end
 
-# se = SalesEngine.new
-# # binding.pry
-# merch_test = se.merchant_repository.find_by_id("12334105")
+se = SalesEngine.new
 # binding.pry
+merch_test = se.merchant_repository.find_by_id("12334105")
+binding.pry

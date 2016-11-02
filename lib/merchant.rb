@@ -1,4 +1,4 @@
-# require_relative './lib/merchant_repository'
+require_relative 'merchant_repository'
 require 'pry'
 
 class Merchant
