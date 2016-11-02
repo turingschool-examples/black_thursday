@@ -2,13 +2,13 @@ require 'minitest/autorun'
 require 'minitest/nyan_cat'
 require './lib/merchant.rb'
 require_relative '../lib/item'
+require 'minitest/mock'
 
 
 class MerchantTest < Minitest::Test
-  attr_reader :merchant, :parent, :expected_items
+  attr_reader :merchant
 
   def setup
-    @parent = Minitest::Mock.new
     @merchant = Merchant.new({:id => 5,
                               :name => "Turing School"})
   end
@@ -32,9 +32,13 @@ class MerchantTest < Minitest::Test
   end
 
   def test_merchant_can_ask_mr_for_items
-    merchant.find_items_by_merchant_id()
-    parent.expect(:find_items_by_merchant_id, nil,[merchant.id])
-    merchant.items
+    skip
+    data = {}
+    parent = Minitest::Mock.new
+    merchants = Merchant.new(data, parent)
+    # binding.pry
+    parent.expect(:find_items_by_merchant_id, [1546546],[1124546432])
+    merchants.items
     parent.verify
   end
 end
