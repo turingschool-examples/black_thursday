@@ -3,7 +3,7 @@ require_relative '../lib/invoice'
 
 class InvoiceTest < Minitest::Test 
 
-  attr_reader :invoice
+  attr_reader :invoice, :repo
 
   def setup
     @invoice = Invoice.new({:id => 6,
@@ -11,7 +11,9 @@ class InvoiceTest < Minitest::Test
                             :merchant_id => 12335938,
                             :status => "pending",
                             :created_at => Time.parse("2009-02-07"),
-                            :updated_at => Time.parse("2014-03-15")})
+                            :updated_at => Time.parse("2014-03-15")},
+                            repo)
+    @repo = Minitest::Mock.new
   end
 
   def test_invoice_has_id
@@ -37,4 +39,6 @@ class InvoiceTest < Minitest::Test
   def test_invoice_has_updated_at_time
     assert_equal 2014, invoice.updated_at.year
   end
+
+  ## write some self/parent tests
 end
