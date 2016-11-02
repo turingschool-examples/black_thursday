@@ -18,15 +18,14 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_can_instantiate_merchant_repo
-  skip
     se = SalesEngine.from_csv({:items => "./data/small_item_file.csv",
       :merchants => "./data/small_item_file.csv"})
-    assert_equal MerchantRepo, se.merchants.class
+    assert_equal MerchantRepo, se.merchant_repo.class
   end
 
-  # def test_it_can_instantiate_item_repo
-  #   new = SalesEngine.from_csv({:items => "./data/small_item_file.csv",
-  #   :merchants => "./data/small_item_file.csv"})
-  #   refute new.item_repo.nil?
-  # end
+  def test_it_can_instantiate_item_repo
+    se = SalesEngine.from_csv({:items => "./data/small_item_file.csv",
+      :merchants => "./data/small_item_file.csv"})
+    assert_equal ItemRepo, se.item_repo.class
+  end
 end

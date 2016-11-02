@@ -1,7 +1,6 @@
 require 'bigdecimal'
 require 'csv'
 require './lib/item_repo'
-require 'bigdecimal'
 
 class Item
   attr_reader :id,
@@ -24,7 +23,7 @@ class Item
   end
 
   def unit_price_to_dollars
-    unit_price_to_dollars = @unit_price.to_f
+    @unit_price.to_f
     #returns the price as a float
   end
 end

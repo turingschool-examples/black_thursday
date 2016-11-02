@@ -1,37 +1,32 @@
 require './lib/merchant'
 require 'csv'
 require 'pry'
+require './lib/sales_engine'
 
 class MerchantRepo
-  def initialize
-    # @parent = sales_engine
+  attr_reader :name,
+              :id,
+              :created_at,
+              :updated_at,
+              :all
+
+
+  def initialize(file, sales_engine)
+    @parent = sales_engine
     @all = []
+    file_reader(file)
   end
 
-  def parse_file(file)
-    CSV.foreach(file) do |row|
-      next if row[0] == "id"
-      add_merchant(row)
+  def file_reader(file)
+    contents = CSV.open(file, headers:true, header_converters: :symbol)
+    contents.each do |merchant|
+       @all << Merchant.new(merchant, self)
     end
   end
 
-  def add_merchant(row)
-    data = {:id => row[0],
-        :name => row[1],
-        :created_at => row[2],
-        :updated_at => row[3]
-        }
-    @all << Merchant.new(data, self)
-  end
-
-  def all
-    @all
-  end
-
   def find_by_id(desired_id)
-    desired_id.to_i
     @all.find do |merchant| 
-       merchant.id == desired_id
+       merchant.id == desired_id.to_i
     end
   end
 
@@ -41,7 +36,7 @@ class MerchantRepo
   end
 
   def find_all_by_name(fragment)
-    fragment.to_s.downcase
+    fragment = fragment.to_s.downcase
     @all.find_all do |merchant|
       merchant.name.downcase.include?(fragment)
     end

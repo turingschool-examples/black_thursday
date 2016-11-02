@@ -3,32 +3,25 @@ require 'csv'
 require 'pry'
 
 class ItemRepo
-  def initialize
-    # @parent = SalesEngine.new
+  attr_reader :all,
+              :name,
+              :id,
+              :description,
+              :merchant_id,
+              :created_at,
+              :updated_at
+              
+  def initialize(file, sales_engine)
+    @parent = sales_engine
     @all = []
-  end
- 
-  def all
-    @all
+    file_reader(file)
   end
 
-  def parse_file(file)
-    CSV.foreach("./data/items.csv") do |row|
-      next if row[0] == "id"
-      instantiate_item(row)
+ def file_reader(file)
+    contents = CSV.open(file, headers:true, header_converters: :symbol)
+    contents.each do |item|
+       @all << Item.new(item, self)
     end
-  end
-
-  def instantiate_item(row)
-      item = {:id => row[0],
-        :name => row[1],
-        :description => row[2],
-        :unit_price => row[3],
-        :merchant_id => row[4],
-        :created_at => row[5],
-        :updated_at => row[6]
-        }
-      @all << Item.new(item, self)
   end
 
   def find_by_id(desired_id)

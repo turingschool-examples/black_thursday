@@ -1,6 +1,7 @@
 require 'csv'
 require './lib/merchant_repo'
 require 'bigdecimal'
+require 'pry'
 
 class Merchant
   attr_reader :id,

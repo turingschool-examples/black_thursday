@@ -13,8 +13,8 @@ class SalesEngine
 
   def initialize(files)
     @file              = files
-    @merchant_repo     = MerchantRepo.new(files[:merchants])
-    @item_repo         = ItemRepo.new(files[:items])
+    @merchant_repo     = MerchantRepo.new(files[:merchants], self)
+    @item_repo         = ItemRepo.new(files[:items], self)
    
   end
 
