@@ -4,11 +4,13 @@ require_relative '../lib/item_repository'
 
 class SalesEngine
 
-  attr_reader :items, :merchants
+  attr_accessor :items, :merchants
 
-  def from_file(data)
-    @items = ItemRepository.new(data[:items], self)
-    @merchants = MerchantRepository.new(data[:merchants], self)
+  def self.from_csv(data)
+    engine = SalesEngine.new
+    engine.items = ItemRepository.new(data[:items], self)
+    engine.merchants = MerchantRepository.new(data[:merchants], self)
+    engine
   end
 
   def find_items_by_merchant_id(id)
