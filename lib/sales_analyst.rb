@@ -1,3 +1,4 @@
+require 'pry'
 class SalesAnalyst
 
   attr_reader :sales_engine
@@ -30,10 +31,6 @@ class SalesAnalyst
     (sales_engine.merchants.all.count - 1).to_f
   end
 
-  def average_item_price_for_merchant(id)
-    items = sales_engine.merchants.find_by_id(id).items
-    (items.map {|row|  row.unit_price}).reduce(:+) / items.count
-  end
 
   def merchants_with_high_item_count
     avg     = average_items_per_merchant
@@ -43,4 +40,19 @@ class SalesAnalyst
     end
   end
 
+  def average_item_price_for_merchant(id)
+    items = sales_engine.merchants.find_by_id(id).items
+    return 0 if items.empty?
+    prices = items.map do |row|
+      row.unit_price
+    end.reduce(:+) / items.count
+  end
+
+
+  def average_average_price_per_merchant
+    merchants = sales_engine.merchants.all
+    (merchants.map do |merchant|
+      average_item_price_for_merchant(merchant.id)
+    end.reduce(:+) / merchants.count).round(2)
+  end
 end
