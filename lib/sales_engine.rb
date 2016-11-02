@@ -1,9 +1,10 @@
 require_relative 'merchant_repository'
 require_relative 'item_repository'
-require 'csv'
-require 'time'
+require 'csv_parse'
 
 class SalesEngine
+
+  extend ParseCSV
 
   def self.from_csv(files)
     @merchant_repo = create_merchant_repository(files)
@@ -29,27 +30,6 @@ class SalesEngine
 
   def self.items
     @item_repo
-  end
-
-  def self.merchant_csv_parse(file)
-    contents = CSV.open file, headers: true, header_converters: :symbol
-    contents.map do |row|
-      Merchant.new({:id => row[:id].to_i, :name => row[:name]})
-    end
-  end
-
-  def self.item_csv_parse(file)
-    contents = CSV.open file, headers: true, header_converters: :symbol
-    contents.map do |row|
-      Item.new({:id => row[:id].to_i,
-                :name => row[:name],
-                :unit_price => BigDecimal(row[:unit_price]) / 100,
-                :created_at => Time.parse(row[:created_at]),
-                :updated_at => Time.parse(row[:updated_at]),
-                :merchant_id => row[:merchant_id].to_i,
-                :description => row[:description]
-              })
-    end
   end
 
 end
