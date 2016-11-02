@@ -6,7 +6,7 @@ class SalesAnalyst
   def initialize(sales_engine)
     @sales_engine = sales_engine
   end
-  
+
   def average(array)
     array.inject{ |sum, element| sum + element }.to_f / array.count
   end
@@ -34,7 +34,7 @@ class SalesAnalyst
   end
 
   def load_merchant_items
-    array = []
+    # array = []
     # array = @sales_engine.merchants.all.detect do |merchant_instance|
       # merchant_instance.items << sales_engine.items.find_all_by_merchant_id(merchant_instance.id)
       # @sales_engine.merchants.all.each do |merchant_instance|
