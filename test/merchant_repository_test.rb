@@ -66,7 +66,7 @@ class MerchantRepositoryTest < Minitest::Test
     mr = se.merchants
 
     assert_equal [], mr.find_all_by_name("Amazon")
-    assert_equal ["Shopin1901"], mr.find_all_by_name("1901")
+    assert_equal ["Shopin1901"], mr.find_all_by_name("1901").name
   end
 
   def test_it_can_find_merchants_by_partial_name
