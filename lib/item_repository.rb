@@ -1,5 +1,6 @@
 require_relative 'item'
 require 'csv'
+require 'bigdecimal'
 
 class ItemRepository
   attr_reader   :contents,

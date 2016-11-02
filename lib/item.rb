@@ -1,4 +1,5 @@
 require 'bigdecimal'
+require 'time'
 
 class Item
   attr_reader   :id,
@@ -11,12 +12,12 @@ class Item
                 :parent
 
   def initialize(item_hash, parent = nil)
-    @id = item_hash[:id]
+    @id = item_hash[:id].to_i
     @name = item_hash[:name]
     @description = item_hash[:description]
-    @unit_price = BigDecimal.new(item_hash[:unit_price], 4)
-    @created_at = item_hash[:created_at]
-    @updated_at = item_hash[:updated_at]
+    @unit_price = BigDecimal.new(item_hash[:unit_price])
+    @created_at = Time.parse(item_hash[:created_at])
+    @updated_at = Time.parse(item_hash[:updated_at])
     @merchant_id = item_hash[:merchant_id]
     @parents = parent
   end
@@ -28,4 +29,5 @@ class Item
   def merchant
     parent.find_merchant(merchant_id)
   end
+  
 end
