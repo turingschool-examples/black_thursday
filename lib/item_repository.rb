@@ -12,7 +12,7 @@ class ItemRepository
   def initialize(file_name = nil)
     return unless file_name
     @file_contents = load(file_name)
-    @all = create_item_objects
+    @all           = create_item_objects
   end
 
   def load(file_name)
@@ -40,7 +40,7 @@ class ItemRepository
   end
 
   def find_all_by_price_in_range(price_range)
-    @all.find_all {|item| price_range.include?(item.unit_price)}
+    all.find_all {|item| price_range.include?(item.unit_price)}
   end
 
   def find_all_by_merchant_id(merchant_id)

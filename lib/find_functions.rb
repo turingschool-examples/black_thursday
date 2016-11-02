@@ -1,7 +1,7 @@
 module FindFunctions
 
   def find_by(method, input)
-    @all.find {|row| row.send(method) == input}
+    all.find {|row| row.send(method) == input}
   end
 
   def find_all(method, input)
@@ -11,15 +11,15 @@ module FindFunctions
   end
 
   def find_all_prices(input)
-    @all.find_all {|row| row.unit_price.to_f == input.to_f }
+    all.find_all {|row| row.unit_price.to_f == input.to_f }
   end
 
   def find_all_merch_ids(input)
-    @all.find_all {|row| row.merchant_id == input }
+    all.find_all {|row| row.merchant_id == input }
   end
 
   def find_all_strings(method, input)
-    @all.find_all do |row|
+    all.find_all do |row|
       row = row.send(method).downcase
       row.include?(input.downcase)
     end
