@@ -30,7 +30,7 @@ module CSV_parser
       Invoice.new({ :id => row[:id].to_i,
                     :customer_id => row[:customer_id].to_i,
                     :merchant_id => row[:merchant_id].to_i,
-                    :status => row[:status],
+                    :status => row[:status].to_sym,
                     :created_at => Time.parse(row[:created_at]),
                     :updated_at => Time.parse(row[:updated_at])
                  })

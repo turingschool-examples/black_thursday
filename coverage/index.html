@@ -14,7 +14,7 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2016-11-02T17:34:49-06:00">2016-11-02T17:34:49-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2016-11-02T17:53:00-06:00">2016-11-02T17:53:00-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -505,7 +505,7 @@
         <li class="never" data-hits="" data-linenumber="33">
           
           
-          <code class="ruby">                    :status =&gt; row[:status],</code>
+          <code class="ruby">                    :status =&gt; row[:status].to_sym,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="34">
@@ -3175,7 +3175,7 @@
         <li class="never" data-hits="" data-linenumber="85">
           
           
-          <code class="ruby">    invoices = invoice_repository.find_all_by_status(&quot;pending&quot;)</code>
+          <code class="ruby">    invoices = invoice_repository.find_all_by_status(:pending)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="86">
@@ -3211,7 +3211,7 @@
         <li class="never" data-hits="" data-linenumber="91">
           
           
-          <code class="ruby">    invoices = invoice_repository.find_all_by_status(&quot;shipped&quot;)</code>
+          <code class="ruby">    invoices = invoice_repository.find_all_by_status(:shipped)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="92">
@@ -3247,7 +3247,7 @@
         <li class="never" data-hits="" data-linenumber="97">
           
           
-          <code class="ruby">    invoices = invoice_repository.find_all_by_status(&quot;returned&quot;)</code>
+          <code class="ruby">    invoices = invoice_repository.find_all_by_status(:returned)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="98">
