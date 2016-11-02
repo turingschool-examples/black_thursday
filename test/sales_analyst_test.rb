@@ -53,12 +53,12 @@ class SalesAnalystTest < Minitest::Test
     end
 
     def test_average_item_price_per_merchant_returns_a_Big_Decimal
-      assert BigDecimal, sales_analyst.average_item_price_per_merchant(12334185).class
+      assert BigDecimal, sales_analyst.average_item_price_for_merchant(12334185).class
     end
 
     def test_it_calculates_the_average_item_price_per_merchant
       expected = 11.166666666666666
-      result = sales_analyst.average_item_price_per_merchant(12334185)
+      result = sales_analyst.average_item_price_for_merchant(12334185)
       assert_equal expected, result.to_f
     end
 
