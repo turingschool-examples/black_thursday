@@ -12,6 +12,10 @@ class MerchantRepositoryTest < Minitest::Test
     assert MerchantRepository.new
   end
 
+  def test_it_has_custom_inspect
+    assert_equal "#<MerchantRepository: 74 rows>", @merch_repo.inspect
+  end
+
   def test_it_initializes_with_a_file
     assert MerchantRepository.new('./data/test_merchants.csv')
   end
@@ -69,6 +73,13 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_finds_merchant_by_name
     name = "Shopin1901"
     merchant = @merch_repo.find_by_name(name)
+    assert_equal Merchant, merchant.class
+    assert_equal name, merchant.name
+  end
+
+  def test_it_finds_merchant_by_name_case_insensitive
+    name = "Shopin1901"
+    merchant = @merch_repo.find_by_name(name.upcase)
     assert_equal Merchant, merchant.class
     assert_equal name, merchant.name
   end

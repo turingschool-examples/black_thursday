@@ -2,8 +2,10 @@ require_relative 'test_helper'
 require_relative '../lib/item_repository'
 
 class ItemRepositoryTest < Minitest::Test
+  
    def setup
-    @item_repo = ItemRepository.new('./data/test_items.csv')
+    parent = Minitest::Mock.new
+    @item_repo = ItemRepository.new('./data/test_items.csv', parent)
   end
 
   def test_it_exists
@@ -12,6 +14,16 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_initializes_with_a_file
     assert ItemRepository.new('./data/test_items.csv')
+  end
+
+  def test_it_has_custom_inspect
+    assert_equal "#<ItemRepository: 74 rows>", @item_repo.inspect
+  end
+
+  def test_find_all_by_merchant_id_calls_parent
+    @item_repo.parent.expect(:find_merchant_for_id, nil, [5])
+    @item_repo.find_merchant_for_id(5)
+    @item_repo.parent.verify
   end
 
   def test_it_turns_file_contents_to_CSV_object

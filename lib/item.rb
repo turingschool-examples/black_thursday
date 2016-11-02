@@ -8,10 +8,12 @@ class Item
               :unit_price,
               :created_at,
               :updated_at,
-              :merchant_id
+              :merchant_id,
+              :parent
 
-  def initialize(item_info = nil)
+  def initialize(item_info = nil, repo = nil)
     return if item_info.to_h.empty?
+    @parent      = repo
     @id          = item_info[:id].to_i
     @name        = item_info[:name].to_s
     @description = item_info[:description].to_s
@@ -24,6 +26,10 @@ class Item
 
   def unit_price_to_dollars(price)
     price.to_i / 100.0
+  end
+
+  def merchant 
+    parent.find_merchant_for_id(@merchant_id)
   end
 
 end

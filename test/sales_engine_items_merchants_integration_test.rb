@@ -32,4 +32,18 @@ class SalesEngineTest < Minitest::Test
     assert merchant.items.one?{|item| item.class == Item}
   end
 
+  def test_merchant_is_found_from_item_level
+    item = @sales_engine.items.find_by_id(263395237)
+    merchant = item.merchant
+    assert_equal Merchant, merchant.class
+    assert merchant.items.include?(item)
+  end
+
+  def test_merchant_is_found_from_different_item
+    item = @sales_engine.items.find_by_id(263396517)
+    merchant = item.merchant
+    assert_equal Merchant, merchant.class
+    assert merchant.items.include?(item)
+  end
+
 end

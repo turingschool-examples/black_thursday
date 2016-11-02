@@ -1,21 +1,15 @@
-require_relative 'find_functions'
-require "pry"
-
-
 class SalesAnalyst
-  include FindFunctions
+
   attr_reader :sales_engine
 
   def initialize(sales_engine)
     @sales_engine = sales_engine
   end
 
-  def find_items_by_merchant_id(id)
-    sales_engine.items.find_all_by_merchant_id(id)
-  end
-
   def average_items_per_merchant
-    (sales_engine.items.all.count.to_f / sales_engine.merchants.all.count.to_f).round(2)
+    items = sales_engine.items.all.count.to_f
+    merchants = sales_engine.merchants.all.count.to_f
+    (items / merchants).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
@@ -36,9 +30,17 @@ class SalesAnalyst
     (sales_engine.merchants.all.count - 1).to_f
   end
 
-  def average_item_price_per_merchant(id)
-    items = find_items_by_merchant_id(id)
+  def average_item_price_for_merchant(id)
+    items = sales_engine.merchants.find_by_id(id).items
     (items.map {|row|  row.unit_price}).reduce(:+) / items.count
+  end
+
+  def merchants_with_high_item_count
+    avg     = average_items_per_merchant
+    std_dev = average_items_per_merchant_standard_deviation
+    sales_engine.merchants.all.find_all do |merchant|
+      merchant.items.count > avg + std_dev
+    end
   end
 
 end
