@@ -12,8 +12,8 @@ class MerchantRepository
     @contents = CSV.open path, headers: true, header_converters: :symbol
     @merchants = contents.map do |line|
       Merchant.new(line)
-    @parent = parent
     end
+    @parent = parent
   end
 
   def all
@@ -21,27 +21,21 @@ class MerchantRepository
   end
 
   def id(id_number)
-    @merchants.find do |merchant|
-      if merchant.id == id_number
-      merchant
-      end
-  end
-
-  def find_by_name(name)
-    @merchants.find do |merchant|
-      if merchant.name.downcase == name.downcase
-        merchant
-      end
+    merchants.find do |merchant|
+      merchant.id == id_number
     end
   end
 
-
-  def find_all_by_name(partial_search)
-    @merchants.find_all do |merchant|
-      merchant.name.downcase.include?(partial_search.downcase)
-      merchant
+  def find_by_name(name)
+    merchants.find do |merchant|
+      merchant.name.downcase == name.downcase
       end
   end
-end
+
+  def find_all_by_name(partial_search)
+    merchants.find_all do |merchant|
+      merchant.name.downcase.include?(partial_search.downcase)
+    end
+  end
 
 end
