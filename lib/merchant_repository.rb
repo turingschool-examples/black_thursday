@@ -39,4 +39,8 @@ class MerchantRepository
   def merchant_item_count
     all.map {|merchant| merchant.items.count }
   end
+    
+  def inspect
+
+  end
 end

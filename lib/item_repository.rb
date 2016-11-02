@@ -1,5 +1,6 @@
+require 'pry'
 require 'csv'
-require 'htmlentities'
+require 'bigdecimal'
 require_relative 'item'
 
 class ItemRepository
@@ -13,13 +14,13 @@ class ItemRepository
   def parse_items(file_path)
     items_data = []
     CSV.foreach(file_path, headers:true) do |row|
-      items_data << Item.new({:id => row['id'].to_i, 
+      items_data << Item.new({:id => row['id'], 
                               :name => row['name'],
-                              :description => HTMLEntities.new.decode(row['description']),
-                              :unit_price => BigDecimal.new(row['unit_price']),
-                              :merchant_id => row['merchant_id'].to_i,
-                              :created_at => Time.parse(row['updated_at']),
-                              :updated_at => Time.parse(row['created_at'])
+                              :description => row['description'],
+                              :unit_price => row['unit_price'],
+                              :merchant_id => row['merchant_id'],
+                              :created_at => Time.parse(row['created_at']),
+                              :updated_at => Time.parse(row['updated_at'])
                             },
                             self)
     end
@@ -27,24 +28,23 @@ class ItemRepository
   end
 
   def find_by_id(desired_id)
-    all.find { |x| x.id.eql?(desired_id) }
+    all.find { |item| item.id.eql?(desired_id) }
   end
 
   def find_by_name(desired_name)
-    all.find { |x| x.name.downcase.eql?(desired_name.downcase) }
+    all.find { |item| item.name.downcase.eql?(desired_name.downcase) }
   end
 
-  def find_all_by_description(fragment)
-    response = all.find_all { |x| x.description.downcase.include?(fragment.downcase) }
+  def find_all_with_description(fragment)
+    response = all.find_all { |item| item.description.downcase.include?(fragment.downcase) }
   end
 
   def find_all_by_price(desired_price)
-    response = all.find_all { |x| convert_to_dollar(x.unit_price).eql?(desired_price) }
+    all.find_all { |item| item.unit_price.eql?(desired_price) }
   end
 
   def find_all_by_price_in_range(desired_range)
-    values   = desired_range.step(0.01).to_a
-    response = all.find_all { |x| values.include?(convert_to_dollar(x.unit_price)) }
+    response = all.find_all { |item| desired_range.cover?(item.unit_price) }
   end
 
   def convert_to_dollar(big_decimal)
@@ -52,10 +52,14 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(desired_merchant_id)
-    all.find_all { |x| x.merchant_id.eql?(desired_merchant_id) }
+    all.find_all { |item| item.merchant_id.eql?(desired_merchant_id) }
   end
 
   def find_merchant_by_merchant_id(merchant_id)
     parent.find_merchant_by_merchant_id(merchant_id)
+  end
+
+  def inspect
+    
   end
 end

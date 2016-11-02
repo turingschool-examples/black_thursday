@@ -1,18 +1,12 @@
 module Statistics
 
   def stdev(array)
-    average     = find_average(array)
-    numerator   = array.map{ |number| (number - average).to_f ** 2 }
+    numerator   = array.map{ |number| (number - find_average(array)).to_f ** 2 }
     variance    = numerator.reduce(:+) / array.count
-    Math.sqrt(variance) 
+    Math.sqrt(variance)
   end
 
   def find_average(array)
-    array.inject{ |sum, el| sum + el}.to_f / array.count
+    array.inject{ |sum, number| sum + number}.to_f / array.count
   end
-
-  def in_or_out_stdev(array)
-    stdev(array) + find_average(array) 
-  end
-
 end

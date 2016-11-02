@@ -7,8 +7,7 @@ class SalesAnalystTest < Minitest::Test
   attr_reader :engine, :analyst
 
   def setup
-    @engine = SalesEngine.new
-    engine.from_file({:items => './test/assets/medium_items.csv', :merchants => './test/assets/medium_merchants.csv'})
+    @engine = SalesEngine.from_csv({:items => './test/assets/medium_items.csv', :merchants => './test/assets/medium_merchants.csv'})
     @analyst =  SalesAnalyst.new(engine)
   end
 
@@ -26,8 +25,8 @@ class SalesAnalystTest < Minitest::Test
 
   def test_that_stdev_method_works
     array = [13, 22, 23, 50]
-    expected = 13.84
-    assert_equal expected, analyst.stdev(array).round(2)
+    expected = 13.838352503098047
+    assert_equal expected, analyst.stdev(array)
   end
 
   def test_it_averages_arrays
@@ -42,11 +41,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_finds_average_price_of_one_merchant
-    assert_equal 2400.0, analyst.average_item_price_for_merchant(12334145)
+    assert_equal 24.0, analyst.average_item_price_for_merchant(12334145)
   end
 
   def test_analyst_finds_average_average_price_per_merchant
-    assert_equal 8004.35, analyst.average_average_price_per_merchant.round(2)
+    assert_equal 80.0, analyst.average_average_price_per_merchant.to_f
   end
 
   def test_it_finds_golden_items_of_all_items

@@ -1,6 +1,5 @@
-require_relative '../test/test_helper'
+require_relative 'test_helper'
 require_relative '../lib/item_repository'
-require_relative '../lib/item'
 
 class ItemRepositoryTest < Minitest::Test
   attr_reader :repo, :parent
@@ -30,16 +29,16 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_returns_empty_array_when_description_not_present
-      assert_equal [], repo.find_all_by_description("Boogers")
+      assert_equal [], repo.find_all_with_description("Boogers")
   end
 
 def test_it_returns_array_when_description_unique_case_insensitive
-    current = repo.find_all_by_description("socialMedia")
+    current = repo.find_all_with_description("socialMedia")
     assert_equal 263395237, current[0].id
   end
 
   def test_it_returns_array_when_description
-    current = repo.find_all_by_description("glitter")
+    current = repo.find_all_with_description("glitter")
     assert_equal 263395617, current[0].id
   end
 
@@ -48,12 +47,12 @@ def test_it_returns_array_when_description_unique_case_insensitive
   end
 
   def test_it_finds_item_by_exact_price
-    current = repo.find_all_by_price(13.50)
-    assert_equal "Disney scrabble frames", current[0].name
+    current = repo.find_all_by_price(BigDecimal.new(13))
+    assert_equal "Glitter scrabble frames", current[0].name
   end
 
   def test_it_returns_empty_array_when_no_prices_match
-    assert_equal [], repo.find_all_by_price(20.00)
+    assert_equal [], repo.find_all_by_price(BigDecimal.new(20))
   end
 
   def test_it_returns_array_of_price_in_range
