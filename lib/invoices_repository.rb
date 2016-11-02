@@ -6,7 +6,7 @@ class InvoiceRepository
   attr_reader :csv, :all
 
   def initialize(path)
-    csv_load(path)
+    csv_path(path)
   end
 
   def csv_path(path)
