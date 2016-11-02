@@ -1,6 +1,5 @@
-require_relative '../test/test_helper'
+require_relative 'test_helper'
 require_relative '../lib/item_repository'
-require_relative '../lib/item'
 
 class ItemRepositoryTest < Minitest::Test
   attr_reader :repo, :parent

@@ -1,5 +1,4 @@
 require 'csv'
-require 'htmlentities'
 require_relative 'item'
 
 class ItemRepository
@@ -15,7 +14,7 @@ class ItemRepository
     CSV.foreach(file_path, headers:true) do |row|
       items_data << Item.new({:id => row['id'].to_i, 
                               :name => row['name'],
-                              :description => HTMLEntities.new.decode(row['description']),
+                              :description => row['description'],
                               :unit_price => BigDecimal.new(row['unit_price']),
                               :merchant_id => row['merchant_id'].to_i,
                               :created_at => Time.parse(row['updated_at']),
@@ -57,5 +56,9 @@ class ItemRepository
 
   def find_merchant_by_merchant_id(merchant_id)
     parent.find_merchant_by_merchant_id(merchant_id)
+  end
+
+  def inspect
+    
   end
 end

@@ -1,5 +1,5 @@
-require './test/test_helper'
-require './lib/item'
+require_relative 'test_helper'
+require_relative '../lib/item'
 
 class ItemTest < Minitest::Test
   attr_reader :item, :parent
@@ -8,7 +8,7 @@ class ItemTest < Minitest::Test
     @item = Item.new({
                     :id => 263395237, 
                     :name => "510+ RealPush Icon Set", 
-                    :description => HTMLEntities.new.decode("You&#39;ve got a total socialmedia iconset! Almost every social icon on the planet earth."), 
+                    :description => "You&#39;ve got a total socialmedia iconset! Almost every social icon on the planet earth.", 
                     :unit_price => BigDecimal.new(1200), 
                     :merchant_id => 12334141, 
                     :created_at => Time.utc(2016, 1, 11, 9, 34, 06), 
