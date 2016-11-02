@@ -20,7 +20,7 @@ class MerchantRepository
     @merchants
   end
 
-  def id(id_number)
+  def find_by_id(id_number)
     merchants.find do |merchant|
       merchant.id == id_number
     end
@@ -36,6 +36,10 @@ class MerchantRepository
     merchants.find_all do |merchant|
       merchant.name.downcase.include?(partial_search.downcase)
     end
+  end
+
+  def find_items_by_merchant_id(merchant_id)
+    parent.find_items_by_merchant_id(merchant_id)
   end
 
 end

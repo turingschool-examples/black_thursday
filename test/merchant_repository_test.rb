@@ -1,3 +1,5 @@
+require 'simplecov'
+SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/sales_engine'
@@ -23,15 +25,15 @@ class MerchantRepositoryTest < Minitest::Test
     se = SalesEngine.from_csv({ :items => "./fixture/items.csv", :merchants => "./fixture/merchant_test_file.csv" })
     mr = se.merchants
 
-    assert_equal "Shopin1901", mr.id("12334105").name
-    assert_equal "Candisart", mr.id("12334112").name
+    assert_equal "Shopin1901", mr.find_by_id("12334105").name
+    assert_equal "Candisart", mr.find_by_id("12334112").name
   end
 
   def test_returns_nil_if_no_id_match
     se = SalesEngine.from_csv({ :items => "./fixture/items.csv", :merchants => "./fixture/merchant_test_file.csv" })
     mr = se.merchants
 
-    refute mr.id("12345678")
+    refute mr.find_by_id("12345678")
   end
 
   def test_it_can_find_merchant_by_name

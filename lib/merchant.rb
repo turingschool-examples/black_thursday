@@ -14,4 +14,8 @@ class Merchant
     @updated_at = merchant_hash[:updated_at]
   end
 
+  def items
+    parent.find_items_by_merchant_id(id)
+  end
+
 end
