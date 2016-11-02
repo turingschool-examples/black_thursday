@@ -116,6 +116,10 @@
         0,
         null,
         null,
+        1,
+        0,
+        null,
+        null,
         null
       ],
       "/Users/kyle_heppenstall/turing/1module/project/black_thursday/lib/item_repository.rb": [
@@ -243,6 +247,10 @@
         0,
         0,
         0,
+        0,
+        null,
+        null,
+        1,
         0,
         null,
         null,
@@ -1058,11 +1066,11 @@
         null
       ]
     },
-    "timestamp": 1478130779
+    "timestamp": 1478131016
   },
   "minitest": {
     "coverage": {
     },
-    "timestamp": 1478130780
+    "timestamp": 1478131017
   }
 }
