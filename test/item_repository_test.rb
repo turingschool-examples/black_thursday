@@ -1,13 +1,15 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/item_repository'
-require 'pry'
+require './lib/sales_engine'
 
 class ItemRepositoryTest < Minitest::Test
   attr_reader  :repository
   
   def setup
-    @repository = ItemRepository.new('fixture/items.csv')
+    se = SalesEngine.from_csv({
+      :items => "./fixture/items.csv"
+    })
+    @repository = se.items
   end
 
   def test_it_can_create_item_repository

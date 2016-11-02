@@ -1,7 +1,5 @@
 require_relative 'item_repository'
 require_relative 'merchant_repository'
-require 'pry'
-require 'csv'
 
 class SalesEngine
   attr_reader   :paths,
@@ -9,12 +7,11 @@ class SalesEngine
                 :merchants
 
   def initialize(paths)
-    @paths = paths
-    @items = ItemRepository.new(paths[:items])
-    @merchants = MerchantRepository.new(paths[:merchants])
+    @items = ItemRepository.new(paths[:items], self) if paths[:items]
+    @merchants = MerchantRepository.new(paths[:merchants], self) if paths[:merchants]
   end
 
-  def self.from_CSV(paths)
+  def self.from_csv(paths)
     SalesEngine.new(paths)
   end
 
