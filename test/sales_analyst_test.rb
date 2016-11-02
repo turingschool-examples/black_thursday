@@ -40,4 +40,13 @@ class SalesAnalystTest < Minitest::Test
     result = sa.find_standard_deviation(array)
     assert_equal 1, result
   end
+
+  def test_average_items_per_merchant_std_dev
+    result = sa.average_items_per_merchant_standard_deviation
+    assert_equal [], result
+  end
+  # 
+  # def
+  #   #class of @merchant and @ items
+  # end
 end

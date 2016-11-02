@@ -1,10 +1,23 @@
 require 'pry'
 
 class SalesAnalyst
-  attr_reader :sales_engine
+  attr_reader :sales_engine,
+              :items,
+              :merchants
 
   def initialize(sales_engine)
     @sales_engine = sales_engine
+    @items = load_items
+    @merchants = load_merchants
+  end
+
+  def load_items
+    self.sales_engine.items.all
+    # make sure this only happens once. Needs if or something
+  end
+
+  def load_merchants
+    self.sales_engine.merchants.all
   end
 
   def average(array)
@@ -28,13 +41,20 @@ class SalesAnalyst
   def average_items_per_merchant_standard_deviation
     items_per_merchant = load_merchant_items
     average(items_per_merchant)
+
     # take in number of items for each merchant
     # take in average items for each merchant
     # return standard deviation as a FLOAT
   end
 
   def load_merchant_items
-    # array = []
+    array = @merchants.map do |merchant_instance|
+      @items.find_all do |item_instance|
+         item_instance.merchant_id == merchant_instance.id
+         item_instance
+      end
+    end
+    binding.pry
     # array = @sales_engine.merchants.all.detect do |merchant_instance|
       # merchant_instance.items << sales_engine.items.find_all_by_merchant_id(merchant_instance.id)
       # @sales_engine.merchants.all.each do |merchant_instance|
