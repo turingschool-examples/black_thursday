@@ -24,6 +24,12 @@ class SalesAnalystTest < Minitest::Test
     assert_equal SalesEngine, result
   end
 
+  def test_average_gives_average
+    array = [3,4,5]
+    result = sa.average(array)
+    assert_equal 4, result
+  end
+
   def test_average_items_per_merchant
     result = sa.average_items_per_merchant
     assert_equal 0.17, result
