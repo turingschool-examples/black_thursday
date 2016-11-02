@@ -12,4 +12,7 @@ class Merchant
     @parent = merchant_repository_instance
   end
 
+  def items
+    @parent.find_items_by_merchant_id(@id)
+  end
 end

@@ -21,6 +21,7 @@ class SalesAnalyst
   end
 
   def average(array)
+    binding.pry
     array.inject{ |sum, element| sum + element }.to_f / array.count
   end
 
@@ -41,30 +42,25 @@ class SalesAnalyst
   def average_items_per_merchant_standard_deviation
     items_per_merchant = load_merchant_items
     result = find_standard_deviation(items_per_merchant)
+    #hash stores merch id and number of items find std_dev of all values
     return result.round(2)
   end
 
   def load_merchant_items
-    array = []
-    @merchants.each do |merchant_instance|
-      if @items.keys.include?(merchant_instance.id)
-        array << merchant_instance.id
-      end
-    end
-    array_counts = array.map do |array|
-      binding.pry
-      array.count
-    end
-    return array_counts
+    item_count = @items.dup
+    item_count.keys.map {|key| item_count[key] = item_count[key].count}
+    # binding.pry
+    item_count
   end
 
   def merchants_with_high_item_count
     std_dev = average_items_per_merchant_standard_deviation
     average_ip  = average_items_per_merchant
-    var = std_dev + average_ip
-    array = @merchants.all.map do |merchant_instance|
-      binding.pry
-        items[merchant_instance.id].count > var
+    threshold = std_dev + average_ip
+    array = @merchants.find_all do |merchant_instance|
+        @items[merchant_instance.id].count > threshold
+        # merchant_instance.items.count > threshold
+        binding.pry
       end
       array
     # if merchants.std_dev + average_ip
