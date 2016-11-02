@@ -22,7 +22,18 @@ class SalesEngine
     contents = CSV.open file, headers: true, header_converters: :symbol
     contents.each do |row|
       return row
-    end
+  end
+
+  def items(merchant_id)
+    item_repository.find_all_by_merchant_id(merchant_id).map { |item| item["name"]}
+  end
+
+
+  def merchant(name)
+    merch_ids = item_repository.find_all_by_name(name).map { |item| item["merchant_id"] }
+    merchants = merch_ids.map { |merch_id| merchant_repository.find_by_id(merch_id)["name"] }
+    merchants
+  end
   end
 
 end
