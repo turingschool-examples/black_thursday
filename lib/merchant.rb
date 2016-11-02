@@ -7,24 +7,13 @@ class Merchant
               :created_at,
               :updated_at
 
-  def initialize(data)
-    data = CSV.open "./data/merchants.csv", headers: true, header_converters: :symbol
-
-    data.each do |row|
-      @id = row[0]
-      @name = row[1]
-      @created_at = row[2]
-      @updated_at = row[3]
-    end
+  def initialize(data, repo)
+      @parent = repo
+      @id = data[:id]
+      @name = data[:name]
+      @created_at = data[:created_at]
+      @updated_at = data[:updated_at]
   end
 end
 
-m = Merchant.new({:id => 5, :name => "Turing School"})
 
-  puts m.id
-
-  puts m.name
-
-  puts m.created_at
-
-  puts m.updated_at

@@ -9,11 +9,11 @@
 
 
 require_relative 'merchant_repo'
-require_relative 'item_repo'
-require_relative 'invoice_repo'
-require_relative 'invoice_item_repo'
-require_relative 'transaction_repo'
-require_relative 'customer_repo'
+# require_relative 'item_repo'
+# require_relative 'invoice_repo'
+# require_relative 'invoice_item_repo'
+# require_relative 'transaction_repo'
+# require_relative 'customer_repo'
 require 'bigdecimal'
 require 'csv'
 
@@ -39,7 +39,7 @@ class SalesEngine
 
   def merchants
     if @merchant_repo.nil?
-      @merchant_repo = MerchantRepo.new(files[:merchants], self)
+      @merchant_repo = MerchantRepo.new(files, self)
       @merchant_repo.load_csv_data
     end
     @merchant_repo
@@ -100,10 +100,10 @@ class SalesEngine
 
 end
 
-mr = se.merchants
-merchant = mr.find_by_name("CJsDecor")
-# => <Merchant>
+# mr = se.merchants
+# merchant = mr.find_by_name("CJsDecor")
+# # => <Merchant>
 
-item = se.items.find_by_id(20)
-item.merchant
-# => <merchant>
+# item = se.items.find_by_id(20)
+# item.merchant
+# # => <merchant>

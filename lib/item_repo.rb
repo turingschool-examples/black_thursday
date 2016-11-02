@@ -14,6 +14,7 @@ class ItemRepo
   end 
 
   def all
+    @all
   end
   
   def parse_file(file)
