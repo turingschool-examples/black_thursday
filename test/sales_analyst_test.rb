@@ -6,8 +6,8 @@ class SalesAnalystTest < Minitest::Test
   attr_reader :sales_analyst
   def setup
     @sales_engine = SalesEngine.from_csv({
-      :items     => "./data/test_items1.csv",
-      :merchants => "./data/test_merchants1.csv"
+      :items     => "./data/test_items.csv",
+      :merchants => "./data/test_merchants.csv"
       })
       @sales_analyst = SalesAnalyst.new(@sales_engine)
     end
