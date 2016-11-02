@@ -1,7 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'csv'
-require './fixtures/sales_engine_mock'
 require './lib/merchant_repository'
 require 'pry'
 

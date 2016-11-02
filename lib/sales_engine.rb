@@ -1,6 +1,7 @@
 require 'csv'
 require './lib/merchant_repository'
 require './lib/item_repository'
+require 'pry'
 
 class SalesEngine
   attr_reader   :merchant_repository,
@@ -13,4 +14,13 @@ class SalesEngine
     @item_repository     = ItemRepository.new(@item_data, self)
   end
 
+  def find_all_items_by_merchant_id(merchant_id)
+    item_repository.find_all_by_merchant_id(merchant_id)
+  end
+
 end
+
+se = SalesEngine.new
+# binding.pry
+merch_test = se.merchant_repository.find_by_id("12334105")
+binding.pry
