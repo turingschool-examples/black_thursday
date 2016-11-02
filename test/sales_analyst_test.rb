@@ -62,6 +62,10 @@ class SalesAnalystTest < Minitest::Test
       assert_equal expected, result.to_f
     end
 
+    def test_it_finds_the_average_of_average_price_per_merchant
+      assert_equal 814.8, sales_analyst.average_average_price_per_merchant
+    end
+
     def test_it_finds_merchants_with_items_greater_than_one_std_dev
       high_rollers = sales_analyst.merchants_with_high_item_count
       assert high_rollers.all?{|merchant| merchant.class == Merchant}
