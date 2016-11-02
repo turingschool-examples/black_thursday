@@ -33,7 +33,8 @@ class MerchantTest < Minitest::Test
 
   def test_merchant_can_ask_mr_for_items
     merchant.find_items_by_merchant_id()
-    parent.expect(:find_items_by_merchant_id, nil,[merchant.id])
+    merchant = Merchant.new(data, parent)
+    parent.expect(:find_items_by_merchant_id, nil,[1])
     merchant.items
     parent.verify
   end

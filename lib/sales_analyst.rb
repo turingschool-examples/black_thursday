@@ -39,7 +39,8 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    items_per_merchant = load_merchant_items
+    items_per_merchant = load_merchant_item
+    binding.pry
     result = find_standard_deviation(items_per_merchant)
     #hash stores merch id and number of items find std_dev of all values
     return result.round(2)
@@ -51,7 +52,6 @@ class SalesAnalyst
     threshold = std_dev + average_ip
     array = @merchants.find_all do |merchant_instance|
         @items[merchant_instance.id].count > threshold
-        # merchant_instance.items.count > threshold
         binding.pry
       end
       array
