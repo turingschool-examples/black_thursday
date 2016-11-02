@@ -1,4 +1,4 @@
-require './lib/merchant'
+require_relative 'merchant'
 require 'pry'
 
 class MerchantRepository
@@ -13,6 +13,9 @@ class MerchantRepository
 
   def add_merchant(merchant_data)
     @all_merchants << Merchant.new(merchant_data, self)
+  end
+
+  def inspect
   end
 
   def find_by_id(id_number)
