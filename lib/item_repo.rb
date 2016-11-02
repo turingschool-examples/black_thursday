@@ -5,8 +5,9 @@ class ItemRepo
   include DataParser
   attr_reader :all
 
-  def initialize
-    @all = parse_data('./data/items.csv').map { |row| Item.new(row) }
+  def initialize(file_path = nil)
+    raw_file = file_path || './data/items.csv'
+    @all = parse_data(file_path).map { |row| Item.new(row) }
   end
 
   def find_by_id(id)

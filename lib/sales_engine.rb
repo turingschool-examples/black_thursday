@@ -3,22 +3,17 @@ require './lib/item_repo'
 require 'pry'
 
 class SalesEngine
-  def self.from_csv(file)
-    @items     = ItemRepo.new
-    @merchants = MerchantRepo.new
+  def self.from_csv(file_path)
+    @items_file     = file_path[:items]
+    @merchants_file = file_path[:merchants]
     self
   end
 
   def self.merchants
-    @merchants
+    MerchantRepo.new(@merchant_file)
   end
 
   def self.items
-    @items
+    ItemRepo.new(@items_file)
   end
 end
-
-# se = SalesEngine.from_csv
-# mr = se.merchants
-# merchant = mr.find_by_name("fancybookart")
-# p merchant
