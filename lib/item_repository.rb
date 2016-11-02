@@ -28,9 +28,8 @@ class ItemRepository
   end
 
   def identify_id(id)
-    @all.collect do |item|
+    @all.find do |item|
       item.id == id
-      return item
     end
   end
 
@@ -41,9 +40,8 @@ class ItemRepository
   end
 
   def designate_name(name)
-    @all.collect do |item|
+    @all.find do |item|
       item.name.upcase.include?(name.upcase)
-      return item
     end
   end
 
@@ -53,34 +51,30 @@ class ItemRepository
   end
 
   def discover_details(description)
-    @all.collect do |item|
+    @all.find_all do |item|
       item.description.upcase.include?(description.upcase)
-      return item
     end
   end
 
   def find_all_by_price(price)
-    dollars = @all.collect do |item|
+    dollars = @all.find_all do |item|
       item.unit_price == price
-      return item
     end
-    return dollars
+    dollars
   end
 
   def find_all_by_price_in_range(price_range)
-    range = @all.collect do |item|
+    range = @all.find_all do |item|
       price_range.include?(item.unit_price)
-      return item
     end
-    return range
+    range
   end
 
   def find_all_by_merchant_id(number)
     merch = @all.find_all do |item|
       item.merchant_id == number
-      # return item
     end
-    return merch
+    merch
   end
 
 end
