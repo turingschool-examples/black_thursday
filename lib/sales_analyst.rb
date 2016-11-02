@@ -8,25 +8,30 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    load_merchant_items
-    # binding.pry
-    # take in number of items for each merchant
-    # return average items per merchant as a FLOAT
-    # average(array)
+    items_count      = sales_engine.items.all.count
+    merchants_count  = sales_engine.merchants.all.count
+    average = items_count.to_f / merchants_count.to_f
+    average.round(2)
   end
-
-  def load_merchant_items
-    # array = []
-    # array = @sales_engine.merchants.all.detect do |merchant_instance|
-      # merchant_instance.items << sales_engine.items.find_all_by_merchant_id(merchant_instance.id)
-      @sales_engine.merchants.all.each do |merchant_instance|
-          merchant_instance.items = sales_engine.items.find_all_by_merchant_id(merchant_instance.id)
-        end
-  end
+  #
+  # def load_merchant_items
+  #   # array = []
+  #   # array = @sales_engine.merchants.all.detect do |merchant_instance|
+  #     # merchant_instance.items << sales_engine.items.find_all_by_merchant_id(merchant_instance.id)
+  #     @sales_engine.merchants.all.each do |merchant_instance|
+  #         merchant_instance.items = sales_engine.items.find_all_by_merchant_id(merchant_instance.id)
+  #       end
+  # end
 
   def average(array)
-    # binding.pry
     array.inject{ |sum, element| sum + element }.to_f / array.count
+  end
+
+  def find_standard_deviation(array)
+    mean = average(array)
+    n = array.length
+    sum_squares = array.inject(0) { |sum, element| sum + (mean - element)**2 }
+    result = Math.sqrt(sum_squares / (n-1))
   end
 
   def average_items_per_merchant_standard_deviation

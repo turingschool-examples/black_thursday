@@ -26,7 +26,12 @@ class SalesAnalystTest < Minitest::Test
 
   def test_average_items_per_merchant
     result = sa.average_items_per_merchant
-    binding.pry
-    assert result
+    assert_equal 0.17, result
+  end
+
+  def test_standard_deviation_gives_standard_dev
+    array = [3,4,5]
+    result = sa.find_standard_deviation(array)
+    assert_equal 1, result
   end
 end
