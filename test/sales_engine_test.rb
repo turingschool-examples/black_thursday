@@ -21,16 +21,16 @@ class SalesEngineTest < Minitest::Test
     assert_equal MerchantRepository, result2.class
   end
 
-  # def test_it_exists
-  #   assert @sales_engine
-  #   assert_equal SalesEngine, @sales_engine.class
-  # end
-  #
-  # def test_it_initializes_with_merchants
-  #   assert @sales_engine.merchants
-  #   assert_equal MerchantRepository, @sales_engine.merchants.class
-  # end
-  #
+  def test_it_exists
+    assert se
+    assert_equal SalesEngine, se.class
+  end
+
+  def test_it_initializes_with_merchants
+    assert se.merchants
+    assert_equal MerchantRepository, se.merchants.class
+  end
+
   # def test_it_initializes_with_items
   #   assert @sales_engine.items
   #   assert_equal ItemRepository, @sales_engine.items.class
