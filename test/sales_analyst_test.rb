@@ -19,6 +19,14 @@ class SalesAnalystTest < Minitest::Test
     assert @sa
   end
 
+  def test_merchants_is_array_class
+    assert_equal Array, sa.merchants.class
+  end
+
+  def test_items_is_array_class
+    assert_equal Array, sa.items.class
+  end
+
   def test_new_sales_analyst_initializes_as_sales_engine
     result= sa.sales_engine.class
     assert_equal SalesEngine, result
@@ -43,10 +51,13 @@ class SalesAnalystTest < Minitest::Test
 
   def test_average_items_per_merchant_std_dev
     result = sa.average_items_per_merchant_standard_deviation
-    assert_equal [], result
+    assert_equal 0.29, result
+    assert_equal Float, result.class
   end
-  # 
-  # def
-  #   #class of @merchant and @ items
-  # end
+
+  def test_it_finds_merchants_with_high_item_counts
+    result = sa.merchants_with_high_item_count
+    assert_equal 0, result
+  end
+
 end

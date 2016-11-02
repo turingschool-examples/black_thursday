@@ -12,7 +12,7 @@ class SalesAnalyst
   end
 
   def load_items
-    self.sales_engine.items.all
+    sales_engine.load_items
     # make sure this only happens once. Needs if or something
   end
 
@@ -34,37 +34,40 @@ class SalesAnalyst
   def average_items_per_merchant
     items_count      = sales_engine.items.all.count
     merchants_count  = sales_engine.merchants.all.count
-    average = items_count.to_f / merchants_count.to_f
+    average          = items_count.to_f / merchants_count.to_f
     average.round(2)
   end
 
   def average_items_per_merchant_standard_deviation
     items_per_merchant = load_merchant_items
-    average(items_per_merchant)
-
-    # take in number of items for each merchant
-    # take in average items for each merchant
-    # return standard deviation as a FLOAT
+    result = find_standard_deviation(items_per_merchant)
+    return result.round(2)
   end
 
   def load_merchant_items
-    array = @merchants.map do |merchant_instance|
-      @items.find_all do |item_instance|
-         item_instance.merchant_id == merchant_instance.id
-         item_instance
+    array = []
+    @merchants.each do |merchant_instance|
+      if @items.keys.include?(merchant_instance.id)
+        array << merchant_instance.id
       end
     end
-    binding.pry
-    # array = @sales_engine.merchants.all.detect do |merchant_instance|
-      # merchant_instance.items << sales_engine.items.find_all_by_merchant_id(merchant_instance.id)
-      # @sales_engine.merchants.all.each do |merchant_instance|
-      #     merchant_instance.items = sales_engine.items.find_all_by_merchant_id(merchant_instance.id)
-      #   end
+    array_counts = array.map do |array|
+      binding.pry
+      array.count
+    end
+    return array_counts
   end
 
   def merchants_with_high_item_count
-    # take in standard deviation
-    # take in average number of items
+    std_dev = average_items_per_merchant_standard_deviation
+    average_ip  = average_items_per_merchant
+    var = std_dev + average_ip
+    array = @merchants.all.map do |merchant_instance|
+      binding.pry
+        items[merchant_instance.id].count > var
+      end
+      array
+    # if merchants.std_dev + average_ip
     # return merchants with more than one standard deviation
     # above average number of items as an ARRAY
   end
