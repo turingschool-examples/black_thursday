@@ -1,6 +1,5 @@
 require './lib/item'
 require './lib/data_parser'
-require 'pry'
 
 class ItemRepo
   include DataParser
