@@ -9,14 +9,6 @@ class ItemRepoTest < Minitest::Test
     assert_equal ItemRepo, i.class
   end
 
-  # def test_itemrepo_can_call_parent
-  #   parent = Minitest::Mock.new
-  #   item_repo = ItemRepo.new(data, parent)
-  #   parent.expect (:method_here, nil, [1])
-  #   item_repo.exists?
-  #   parent.verify
-  # end
-
   def test_it_can_display_all_items
     i = ItemRepo.new
     i.parse_file("./data/items.csv")

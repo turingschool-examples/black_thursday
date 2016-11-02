@@ -68,7 +68,7 @@ class ItemRepo
   end
 
   def find_all_by_price_in_range(price1, price2)
-    #returns objects that match with range price provided
+
       @all.find_all do |item|
         item.unit_price >= price1 &&
         item.unit_price <= price2
@@ -77,8 +77,6 @@ class ItemRepo
   end
 
   def find_all_by_merchant_id(merchant_id)
-    #search merchant with that id
-    #returns all items of that merchant
     @all.find_all do |item|
       item.merchant_id == merchant_id
       return item.name
