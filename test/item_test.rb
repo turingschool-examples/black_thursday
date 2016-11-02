@@ -26,12 +26,12 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_stores_item_description
-    description = "You've got a total socialmedia iconset! Almost every social icon on the planet earth."
+    description = "You&#39;ve got a total socialmedia iconset! Almost every social icon on the planet earth."
     assert_equal description, item.description
   end
 
   def test_it_stores_unit_price_as_bigdecimal
-    assert_equal 1200, item.unit_price.to_i
+    assert_equal 12, item.unit_price.to_i
   end
 
   def test_it_stores_merchant_id
