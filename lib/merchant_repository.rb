@@ -2,7 +2,6 @@ require_relative 'find_functions'
 require_relative '../lib/merchant'
 require 'csv'
 
-
 class MerchantRepository
   include FindFunctions
 
