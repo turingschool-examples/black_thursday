@@ -3,10 +3,11 @@ require_relative '../lib/invoice_repository'
 
 class InvoiceRepositoryTest < Minitest::Test
 
-  attr_reader :repo
+  attr_reader :repo, :parent
 
   def setup
-    @repo = InvoiceRepository.new('./test/assets/small_invoice.csv')
+    @parent = Minitest::Mock.new
+    @repo = InvoiceRepository.new('./test/assets/small_invoice.csv', parent)
   end
 
   def test_that_invoice_repository_is_array_of_invoices
@@ -44,4 +45,11 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_find_all_invoices_returns_empty_array_if_no_matching_status
     assert_equal [], repo.find_all_by_status(:turd)
   end
+
+  def test_it_calls_parent_when_looking_for_merchant
+    parent.expect(:find_merchant_by_merchant_id, nil, [2])
+    repo.find_merchant_by_id(2)
+    parent.verify
+  end
+
 end

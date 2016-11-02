@@ -40,7 +40,10 @@ class MerchantRepository
     all.map {|merchant| merchant.items.count }
   end
     
-  def inspect
+  def find_invoices_by_merchant_id(id)
+    parent.find_invoices_by_merchant_id(id)
+  end
 
+  def inspect
   end
 end

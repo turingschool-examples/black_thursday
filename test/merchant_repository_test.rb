@@ -51,4 +51,10 @@ class MerchantRepositoryTest < Minitest::Test
     parent.verify
   end
 
+  def test_it_can_access_parent_when_looking_for_merchant_items
+    parent.expect(:find_invoices_by_merchant_id, nil, [1])
+    repo.find_invoices_by_merchant_id(1)
+    parent.verify
+  end
+
 end

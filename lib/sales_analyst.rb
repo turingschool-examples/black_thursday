@@ -22,6 +22,10 @@ class SalesAnalyst
     engine.merchants.merchant_item_count
   end
 
+  def merchant_invoice_count
+    engine.merchants.all.map { |merchant| merchant.invoices.count }
+  end
+
   def average_items_per_merchant
     find_average(merchant_item_count).round(2)
   end
@@ -51,6 +55,24 @@ class SalesAnalyst
     items_prices = all_items.map { |item| item.unit_price }  
     threshold = (stdev(items_prices) * 2) + find_average(items_prices)
     all_items.find_all { |item| item.unit_price >= threshold }
+  end
+
+  def average_invoices_per_merchant
+    find_average(merchant_invoice_count).round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    stdev(merchant_invoice_count).round(2)
+  end
+
+  def top_merchants_by_invoice_count
+    threshold = (stdev(merchant_invoice_count) * 2) + find_average(merchant_invoice_count)
+    all_merchants.find_all { |merchant| merchant.invoices.count > threshold }
+  end
+
+  def bottom_merchants_by_invoice_count
+    threshold = find_average(merchant_invoice_count) - (stdev(merchant_invoice_count) * 2)
+    all_merchants.find_all { |merchant| merchant.invoices.count < threshold }
   end
 
 end

@@ -2,10 +2,11 @@ require 'csv'
 require_relative 'invoice'
 
 class InvoiceRepository
-  attr_reader :all
+  attr_reader :all, :parent
 
-  def initialize(file_path)
+  def initialize(file_path, parent)
     @all = parse_invoices(file_path)
+    @parent = parent
   end
 
   def parse_invoices(file_path)
@@ -36,6 +37,10 @@ class InvoiceRepository
 
   def find_all_by_status(desired_status)
     all.find_all {|invoice| invoice.status.eql?(desired_status)}
+  end
+
+  def find_merchant_by_id(merchant_id)
+    parent.find_merchant_by_merchant_id(merchant_id)
   end
 
 end
