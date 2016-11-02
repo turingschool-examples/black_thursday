@@ -7,9 +7,9 @@ class SalesEngine
   attr_reader   :merchant_repository,
                 :item_repository
                 
-  def initialize(file = nil)
-    @merchant_data = SalesEngine.from_csv({:merchants => file })
-    @item_data     = SalesEngine.from_csv({:items => file })
+  def initialize(all_file_paths)
+    @merchant_data = SalesEngine.read_csv(all_file_paths[:merchants])
+    @item_data     = SalesEngine.read_csv(all_file_paths[:items])
     @merchant_repository = MerchantRepository.new(@merchant_data, self)
     @item_repository     = ItemRepository.new(@item_data, self)
   end
@@ -18,11 +18,13 @@ class SalesEngine
     item_repository.find_all_by_merchant_id(merchant_id)
   end
 
-  def self.from_csv(file = nil)
-    contents = CSV.open file, headers: true, header_converters: :symbol
-    binding.pry
-    contents.each do |row|
-      return row
+  def self.from_csv(all_file_paths)
+    SalesEngine.new(all_file_paths)
+  end
+  
+  def read_csv(file_path)
+    contents = CSV.read file_path, headers: true, header_converters: :symbol
+    #add a way to deal with nil
   end
 
   def items(merchant_id)
@@ -35,11 +37,10 @@ class SalesEngine
     merchants = merch_ids.map { |merch_id| merchant_repository.find_by_id(merch_id)["name"] }
     merchants
   end
-  end
 
 end
 
-se = SalesEngine.new
+# se = SalesEngine.new
+# # binding.pry
+# merch_test = se.merchant_repository.find_by_id("12334105")
 # binding.pry
-merch_test = se.merchant_repository.find_by_id("12334105")
-binding.pry
