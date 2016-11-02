@@ -29,16 +29,16 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_returns_empty_array_when_description_not_present
-      assert_equal [], repo.find_all_by_description("Boogers")
+      assert_equal [], repo.find_all_with_description("Boogers")
   end
 
 def test_it_returns_array_when_description_unique_case_insensitive
-    current = repo.find_all_by_description("socialMedia")
+    current = repo.find_all_with_description("socialMedia")
     assert_equal 263395237, current[0].id
   end
 
   def test_it_returns_array_when_description
-    current = repo.find_all_by_description("glitter")
+    current = repo.find_all_with_description("glitter")
     assert_equal 263395617, current[0].id
   end
 
@@ -47,12 +47,12 @@ def test_it_returns_array_when_description_unique_case_insensitive
   end
 
   def test_it_finds_item_by_exact_price
-    current = repo.find_all_by_price(13.50)
+    current = repo.find_all_by_price(BigDecimal.new(1300))
     assert_equal "Disney scrabble frames", current[0].name
   end
 
   def test_it_returns_empty_array_when_no_prices_match
-    assert_equal [], repo.find_all_by_price(20.00)
+    assert_equal [], repo.find_all_by_price(BigDeicmal.new(2000))
   end
 
   def test_it_returns_array_of_price_in_range
