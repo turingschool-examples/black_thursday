@@ -7,10 +7,12 @@ class ItemRepository
   include FindFunctions
 
   attr_reader :file_contents,
-              :all
+              :all,
+              :parent
 
-  def initialize(file_name = nil)
+  def initialize(file_name = nil, engine = nil)
     return unless file_name
+    @parent = engine
     @file_contents = load(file_name)
     @all           = create_item_objects
   end
@@ -24,7 +26,11 @@ class ItemRepository
   end
 
   def create_item_objects
-    @file_contents.map {|row| Item.new(row)}
+    @file_contents.map {|row| Item.new(row, self)}
+  end
+
+  def find_merchant_for_id(id)
+    parent.find_merchant_for_id(id)
   end
 
   def find_by_id(id)

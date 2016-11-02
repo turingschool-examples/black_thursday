@@ -24,14 +24,21 @@ class ItemTest < Minitest::Test
       :updated_at  => "2016-11-01 14:38:28 -0600",
       :merchant_id => nil
     })
-    @item1 = Item.new(item_info_1)
-    @item2 = Item.new(item_info_2)
+    parent = Minitest::Mock.new
+    @item1 = Item.new(item_info_1, parent)
+    @item2 = Item.new(item_info_2, parent)
     @item3 = Item.new()
     @item4 = Item.new({})
   end
 
   def test_it_exists
     assert @item1
+  end
+
+  def test_merchant_calls_parent
+    @item1.parent.expect(:find_merchant_for_id, nil, [10])
+    @item1.merchant
+    @item1.parent.verify
   end
 
   def test_it_initializes_item_id

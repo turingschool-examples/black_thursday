@@ -17,7 +17,7 @@ class SalesEngine
   end
 
   def make_item_repo(sales_info)
-    ItemRepository.new(sales_info[:items])
+    ItemRepository.new(sales_info[:items], self)
   end
 
   def make_merchant_repo(sales_info)
@@ -26,6 +26,10 @@ class SalesEngine
 
   def find_items_by_merchant_id(id)
     items.find_all_by_merchant_id(id)
+  end
+
+  def find_merchant_for_id(id)
+    merchants.find_by_id(id)
   end
 
 end

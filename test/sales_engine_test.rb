@@ -15,7 +15,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_class_method_intializes_instance
-    
+    assert_equal SalesEngine, @sales_engine.class
   end  
 
   def test_it_intitalizes_an_item_repo_object
@@ -24,6 +24,12 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_intitalizes_a_merch_repo_object
     assert_equal MerchantRepository, @sales_engine.merchants.class
+  end
+
+  def test_find_items_by_merchant_id_finds_merchant
+    expected = @sales_engine.find_items_by_merchant_id(12334105)
+    assert expected.all?{|item| item.class == Item}
+    assert expected.all?{|item| item.merchant_id == 12334105}
   end
 
 end
