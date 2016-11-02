@@ -34,8 +34,7 @@ module MerchantAnalyst
 
   def average_average_price_per_merchant
     set = merchants.map do |merchant|
-      id = merchant.id
-      average_item_price_for_merchant(id)
+      average_item_price_for_merchant(merchant.id)
     end
     average(set).round(2)
   end
