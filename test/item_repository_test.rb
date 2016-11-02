@@ -119,9 +119,9 @@ class ItemRepositoryTest < Minitest::Test
   def test_find_by_merchant_id
     item_repository.all
     output = item_repository.find_all_by_merchant_id(12334113)
-    assert_equal Item, output.class
-    assert_equal 263400121, output.id
-    assert_equal "Custom Hand Made Miniature Bicycle", output.name
-    assert_equal 150.0, output.unit_price
+    assert_equal Array, output.class
+    assert_equal 263400121, output.first.id
+    assert_equal "Custom Hand Made Miniature Bicycle", output.first.name
+    assert_equal 150.0, output.first.unit_price
   end
 end

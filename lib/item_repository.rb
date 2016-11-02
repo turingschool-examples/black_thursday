@@ -76,9 +76,9 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(number)
-    merch = @all.collect do |item|
+    merch = @all.find_all do |item|
       item.merchant_id == number
-      return item
+      # return item
     end
     return merch
   end

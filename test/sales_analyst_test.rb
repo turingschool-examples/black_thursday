@@ -9,7 +9,7 @@ class SalesAnalystTest < Minitest::Test
 
   def setup
     @se = SalesEngine.from_csv({
-  :items     => "./data/item_fixture.csv",
+  :items     => "./fixture/item_fixture_2.csv",
   :merchants => "./data/merchants_fixture.csv",
   })
   @sa = SalesAnalyst.new(@se)
@@ -26,6 +26,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_average_items_per_merchant
     result = sa.average_items_per_merchant
+    binding.pry
     assert result
   end
 end
