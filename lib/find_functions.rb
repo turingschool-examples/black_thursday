@@ -4,11 +4,11 @@ module FindFunctions
     return find_name(input) if method == :name
     find_id(input) if method == :id
   end
-  
+
   def find_name(input)
     all.find {|row| row.name.downcase == input.downcase}
   end
-  
+
   def find_id(input)
     all.find {|row| row.id == input}
   end

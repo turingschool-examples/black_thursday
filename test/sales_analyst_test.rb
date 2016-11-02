@@ -41,11 +41,11 @@ class SalesAnalystTest < Minitest::Test
     end
 
     def test_std_dev_numerator_returns_sum_of_squared_distances_from_mean
-      assert_equal 534.5450999999997, sales_analyst.std_dev_numerator
+      assert_equal 534.5450999999997, sales_analyst.item_count_std_dev_numerator
     end
 
     def test_std_dev_denominator_returns_item_count_minus_one
-      assert_equal 130.0, sales_analyst.std_dev_denominator
+      assert_equal 130.0, sales_analyst.item_count_std_dev_denominator
     end
 
     def test_avg_items_per_merch_std_dev_returns_std_dev
@@ -57,7 +57,7 @@ class SalesAnalystTest < Minitest::Test
     end
 
     def test_it_calculates_the_average_item_price_per_merchant
-      expected = 11.166666666666666
+      expected = 11.17
       result = sales_analyst.average_item_price_for_merchant(12334185)
       assert_equal expected, result.to_f
     end
@@ -67,5 +67,11 @@ class SalesAnalystTest < Minitest::Test
       assert high_rollers.all?{|merchant| merchant.class == Merchant}
       assert high_rollers.all?{|merchant| merchant.items.count > 2.92}
     end
+
+    # def test_golden_items_returns_items_with_two_std_devs_over_avg_price
+    #   goldies = sales_analyst.golden_items
+    #   assert goldies.all?{|item| item.class == Item}
+    #   assert goldies.all?{|item| item.unit_price > 3}
+    # end
 
   end
