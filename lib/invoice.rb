@@ -16,4 +16,8 @@ class Invoice
       @updated_at = data[:updated_at]
   end
 
+  def merchant
+    SalesEngine.merchants.find_by_id(merchant_id)
+  end
+
 end
