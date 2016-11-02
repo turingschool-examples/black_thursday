@@ -3,11 +3,13 @@ require 'csv'
 
 class MerchantRepository
   attr_reader :all,
-              :csv
+              :csv,
+              :parent
 
-  def initialize(path)
+  def initialize(path, sales_engine)
     csv_load(path)
     load_all
+    @parent = sales_engine
   end
 
   def csv_load(path)
@@ -17,7 +19,7 @@ class MerchantRepository
   def load_all
     @all = []
     @csv.each do |line|
-      @all << Merchant.new({:id => line[:id].to_i, :name => line[:name]})
+      @all << Merchant.new({:id => line[:id].to_i, :name => line[:name]}, self)
     end
     return @all
   end

@@ -9,9 +9,10 @@ class Item
               :unit_price,
               :merchant_id,
               :created_at,
-              :updated_at
+              :updated_at,
+              :parent
 
-  def initialize(item_hash)
+  def initialize(item_hash, item_repository_instance = nil)
     @id           = item_hash[:id].to_i
     @name         = item_hash[:name]
     @description  = item_hash[:description]
@@ -19,6 +20,7 @@ class Item
     @merchant_id  = item_hash[:merchant_id].to_i
     @created_at   = determine_the_time(item_hash[:created_at])
     @updated_at   = determine_the_time(item_hash[:updated_at])
+    @parent       = item_repository_instance
   end
 
   def find_unit_price(price)

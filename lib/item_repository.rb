@@ -4,9 +4,12 @@ require 'csv'
 
 class ItemRepository
 
-  attr_reader :csv, :all
+  attr_reader :csv,
+              :all,
+              :parent
 
-  def initialize(path)
+  def initialize(path, sales_engine)
+    @parent = sales_engine
     csv_load(path)
     load_all
   end
@@ -17,7 +20,9 @@ class ItemRepository
 
   def load_all
     @all = []
-    @all = @csv.collect { |line| Item.new(line) }
+    @all = @csv.collect do |line|
+      Item.new(line, self)
+    end
     return @all
   end
 

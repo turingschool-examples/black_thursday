@@ -6,7 +6,10 @@ class MerchantRepositoryTest < Minitest::Test
   attr_reader :merchant_repository
 
   def setup
-    @merchant_repository = MerchantRepository.new("data/merchants_fixture.csv")
+    se = SalesEngine.from_csv({
+              :items     => 'data/item_fixture.csv',
+              :merchants => 'data/merchants_fixture.csv',})
+    @merchant_repository = se.merchants
   end
 
   def test_it_exists

@@ -5,7 +5,10 @@ require_relative '../lib/item_repository'
 class ItemRepositoryTest < Minitest::Test
   attr_reader :item_repository
   def setup
-    @item_repository = ItemRepository.new('fixture/item_fixture_2.csv')
+    se = SalesEngine.from_csv({
+              :items     => 'data/item_fixture.csv',
+              :merchants => 'data/merchants_fixture.csv',})
+    @item_repository = se.items
   end
 
   def test_it_exists
@@ -24,7 +27,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_all
     output = item_repository.all.count
-    assert_equal 2, output
+    assert_equal 1, output
   end
 
   def test_it_puts_the_id_in_the_all_array
