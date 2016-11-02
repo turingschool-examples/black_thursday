@@ -1,19 +1,21 @@
-require './lib/merchant_repository'
+# require_relative './lib/merchant_repository'
+require 'pry'
 
 class Merchant
-  attr_reader  :merchant
+  attr_reader  :merchant,
+               :name,
+               :id,
+               :created_at,
+               :updated_at,
+               :merchant_parent
 
-  def initialize(line)
-    @line     = line
-    @merchant = { "id" => id, "name" => name }
+  def initialize(merchant_data, parent = nil)
+    @merchant_parent = parent
+    @name = merchant_data[:name]
+    @id = merchant_data[:id].to_i
+    @created_at = merchant_data[:created_at]
+    @updated_at = merchant_data[:updated_at]
   end
 
-  def id
-    @line[:id]
-  end
-
-  def name
-    @line[:name]
-  end
 
 end
