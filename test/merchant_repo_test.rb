@@ -19,7 +19,7 @@ class MerchantRepoTest < Minitest::Test
   def test_it_can_search_by_id
     m = MerchantRepo.new
     m.parse_file("./data/small_merchant_file.csv")
-    assert_equal ["CERAMICANDCO"], m.find_by_id(12334284)
+    assert_equal "CERAMICANDCO", m.find_by_id(12334284).name
   end
 
   def test_it_returns_nil_given_false_merchant_id
@@ -29,10 +29,9 @@ class MerchantRepoTest < Minitest::Test
   end
 
   def test_it_can_find_by_name
-    skip
     m = MerchantRepo.new
     m.parse_file("./data/small_merchant_file.csv")
-    assert_equal ["#<Merchant:0x007fded9983ab8>"], m.find_by_name("CERAMICANDCO")
+    assert_equal 12334284, m.find_by_name("CERAMICANDCO").id
   end
 
    def test_it_returns_nil_given_false_merchant_name
@@ -42,7 +41,6 @@ class MerchantRepoTest < Minitest::Test
   end
 
   def test_it_can_find_a_merchant_given_fragment
-    skip
     m = MerchantRepo.new
     m.parse_file("./data/small_merchant_file.csv")
     assert_equal ["CERAMICANDCO"], m.find_all_by_name("ceram")
@@ -56,9 +54,8 @@ class MerchantRepoTest < Minitest::Test
   end
 
   def test_it_returns_empty_array_given_illegitimate_fragment
-    skip
     m = MerchantRepo.new
     m.parse_file("./data/small_merchant_file.csv")
-    assert equal [], m.find_all_by_name("pizza")
+    assert_equal [], m.find_all_by_name("pizza")
   end
 end

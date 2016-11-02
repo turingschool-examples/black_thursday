@@ -3,10 +3,9 @@ require 'csv'
 require 'pry'
 
 class MerchantRepo
-  def initialize(file, sales_engine=nil)
+  def initialize
     # @parent = sales_engine
     @all = []
-    parse_file(file)
   end
 
   def parse_file(file)
@@ -42,16 +41,9 @@ class MerchantRepo
   end
 
   def find_all_by_name(fragment)
-    suggested_merchants = []
     fragment.to_s.downcase
-    @all.find do |merchant|
-    binding.pry
-      if merchant.name.include?(fragment)
-      binding.pry
-        suggested_merchants << merchant.name
-      else
-        suggested_merchants
-      end
+    @all.find_all do |merchant|
+      merchant.name.downcase.include?(fragment)
     end
   end
 
