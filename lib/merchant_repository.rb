@@ -5,12 +5,14 @@ require 'pry'
 class MerchantRepository
 
   attr_reader   :contents,
-                :merchants
+                :merchants,
+                :parent
 
-  def initialize(path)
+  def initialize(path, parent=nil)
     @contents = CSV.open path, headers: true, header_converters: :symbol
     @merchants = contents.map do |line|
       Merchant.new(line)
+    @parent = parent
     end
   end
 
@@ -19,33 +21,27 @@ class MerchantRepository
   end
 
   def id(id_number)
-    value = nil
-    merchants.each do |merchant|
+    @merchants.find do |merchant|
       if merchant.id == id_number
-        value = merchant
+      merchant
       end
-    end
-    value
   end
 
   def find_by_name(name)
-    value = nil
-     merchants.each do |merchant|
-      if merchant.name == name
-        value = merchant
+    @merchants.find do |merchant|
+      if merchant.name.downcase == name.downcase
+        merchant
       end
     end
-    value
   end
 
+
   def find_all_by_name(partial_search)
-    by_name = []
-    merchants.each do |merchant|
-      if merchant.name.include? partial_search
-        by_name << merchant
+    @merchants.find_all do |merchant|
+      merchant.name.downcase.include?(partial_search.downcase)
+      merchant
       end
-    end
-      by_name
   end
+end
 
 end
