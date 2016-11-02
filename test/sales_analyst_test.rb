@@ -9,8 +9,8 @@ class SalesAnalystTest < Minitest::Test
 
   def setup
     @se = SalesEngine.from_csv({
-  :items     => "./fixture/item_fixture_2.csv",
-  :merchants => "./data/merchants_fixture.csv",
+  :items     => "./fixture/items_fixture_3.csv",
+  :merchants => "./fixture/merchants_fixture_3.csv",
   })
   @sa = SalesAnalyst.new(@se)
   end
@@ -59,5 +59,6 @@ class SalesAnalystTest < Minitest::Test
     result = sa.merchants_with_high_item_count
     assert_equal 0, result
   end
+
 
 end

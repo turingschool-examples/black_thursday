@@ -46,4 +46,8 @@ class MerchantRepository
       merchant.name.upcase.include?(name_frag.upcase)
     end
   end
+
+  def find_items_by_merchant_id(id)
+    @parent.find_items_by_merchant_id(id)
+  end
 end
