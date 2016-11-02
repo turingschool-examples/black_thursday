@@ -1,7 +1,7 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/jdconrad/Documents/turing/1module/projects/black-thursday/black_thursday/lib/sales_analyst.rb": [
+      "/Users/tmikeschutte/Turing/1module/5week/black_thursday/lib/sales_analyst.rb": [
         1,
         1,
         null,
@@ -61,7 +61,7 @@
         null,
         null
       ],
-      "/Users/jdconrad/Documents/turing/1module/projects/black-thursday/black_thursday/lib/sales_engine.rb": [
+      "/Users/tmikeschutte/Turing/1module/5week/black_thursday/lib/sales_engine.rb": [
         1,
         1,
         null,
@@ -98,7 +98,7 @@
         null,
         null
       ],
-      "/Users/jdconrad/Documents/turing/1module/projects/black-thursday/black_thursday/lib/item_repository.rb": [
+      "/Users/tmikeschutte/Turing/1module/5week/black_thursday/lib/item_repository.rb": [
         1,
         1,
         1,
@@ -160,7 +160,7 @@
         null,
         null
       ],
-      "/Users/jdconrad/Documents/turing/1module/projects/black-thursday/black_thursday/lib/find_functions.rb": [
+      "/Users/tmikeschutte/Turing/1module/5week/black_thursday/lib/find_functions.rb": [
         1,
         null,
         1,
@@ -199,7 +199,7 @@
         null,
         null
       ],
-      "/Users/jdconrad/Documents/turing/1module/projects/black-thursday/black_thursday/lib/item.rb": [
+      "/Users/tmikeschutte/Turing/1module/5week/black_thursday/lib/item.rb": [
         1,
         1,
         null,
@@ -236,7 +236,7 @@
         null,
         null
       ],
-      "/Users/jdconrad/Documents/turing/1module/projects/black-thursday/black_thursday/lib/merchant_repository.rb": [
+      "/Users/tmikeschutte/Turing/1module/5week/black_thursday/lib/merchant_repository.rb": [
         1,
         1,
         1,
@@ -285,7 +285,7 @@
         null,
         null
       ],
-      "/Users/jdconrad/Documents/turing/1module/projects/black-thursday/black_thursday/lib/merchant.rb": [
+      "/Users/tmikeschutte/Turing/1module/5week/black_thursday/lib/merchant.rb": [
         1,
         1,
         null,
@@ -305,6 +305,6 @@
         null
       ]
     },
-    "timestamp": 1478126308
+    "timestamp": 1478126838
   }
 }

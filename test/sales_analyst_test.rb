@@ -62,7 +62,6 @@ class SalesAnalystTest < Minitest::Test
       assert_equal expected, result.to_f
     end
 
-
     def test_it_finds_merchants_with_items_greater_than_one_std_dev
       high_rollers = sales_analyst.merchants_with_high_item_count
       assert high_rollers.all?{|merchant| merchant.class == Merchant}
