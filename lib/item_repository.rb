@@ -13,7 +13,6 @@ class ItemRepository
     end
   end
 
-  #returns an array of all known Item instances
   def all
     @items
   end
@@ -34,24 +33,36 @@ class ItemRepository
     value
   end
 
-  #returns either [] or instances of Item where the supplied string appears in the item description (case insensitive)
-  def find_all_with_description
+  def find_all_with_description(description)
+    match = []
+    items.each do |item|
+      match << item if item.description.downcase == description.downcase
+    end
+    match
   end
 
   def find_all_by_price(price)
-    value = []
+    match = []
     items.each do |item|
-    value << item if item.unit_price == price
+      match << item if item.unit_price == price
     end
-    value
+    match
   end
 
-  #returns either [] or instances of Item where the supplied price is in the supplied range (a single Ruby range instance is passed in)
-  def find_all_by_price_in_range
+  def find_all_by_price_in_range(range)
+    match = []
+    items.each do |item|
+      match << item if range.include?(item.unit_price_to_dollars)
+    end
+    match
   end
 
-  #returns either [] or instances of Item where the supplied merchant ID matches that supplied
-  def find_all_by_merchant_id
+  def find_all_by_merchant_id(merchant_id)
+    match = []
+    items.each do |item|
+      match << item if item.merchant_id.to_i == merchant_id
+    end
+    match
   end
 
 end
