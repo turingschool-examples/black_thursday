@@ -8,25 +8,24 @@ class SalesEngine
               :merchants
 
   def self.from_csv(sales_info)
-    @sales_info = sales_info
-    @items      = make_item_repo
-    @merchants  = make_merchant_repo
+    new(sales_info)
   end
 
-  def self.make_item_repo
-    ItemRepository.new(@sales_info[:items])
+  def initialize(sales_info)
+    @items     = make_item_repo(sales_info)
+    @merchants = make_merchant_repo(sales_info)
   end
 
-  def self.make_merchant_repo
-    MerchantRepository.new(@sales_info[:merchants])
+  def make_item_repo(sales_info)
+    ItemRepository.new(sales_info[:items])
   end
 
-  def self.merchants
-    @merchants
+  def make_merchant_repo(sales_info)
+    MerchantRepository.new(sales_info[:merchants], self)
   end
 
-  def self.items
-    @items
+  def find_items_by_merchant_id(id)
+    items.find_all_by_merchant_id(id)
   end
 
 end

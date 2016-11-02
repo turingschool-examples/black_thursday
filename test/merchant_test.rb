@@ -4,14 +4,25 @@ require_relative '../lib/merchant'
 class MerchantTest < Minitest::Test
 
   def setup
+    merchant_repo = Minitest::Mock.new
     merchant_info1 = {:id => "5", :name => "Turing School"}
     merchant_info2 = {:id => nil, :name => nil}
-    @merchant1 = Merchant.new(merchant_info1)
-    @merchant2 = Merchant.new(merchant_info2)
+    @merchant1 = Merchant.new(merchant_info1, merchant_repo)
+    @merchant2 = Merchant.new(merchant_info2, merchant_repo)
   end
 
   def test_it_exists
     assert @merchant1
+  end
+
+  def test_it_initializes_with_parent_reference
+    assert @merchant1.parent
+  end
+
+  def test_items_method_calls_parent
+    @merchant1.parent.expect(:find_items_by_merchant_id, nil, [5])
+    @merchant1.items
+    @merchant1.parent.verify
   end
 
   def test_it_initializes_merchant_id
