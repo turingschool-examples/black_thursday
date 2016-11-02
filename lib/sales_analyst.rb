@@ -8,6 +8,8 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
+    binding.pry
+    @sales_engine.merchants.all.count
     # take in number of items for each merchant
     # return average items per merchant as a FLOAT
     average(array)

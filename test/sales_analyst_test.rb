@@ -1,5 +1,6 @@
 require './test/test_helper'
 require './lib/sales_analyst'
+require './lib/sales_engine'
 
 
 class SalesAnalystTest < Minitest::Test
@@ -8,14 +9,23 @@ class SalesAnalystTest < Minitest::Test
 
   def setup
     @se = SalesEngine.from_csv({
-  :items     => "./data/items.csv",
-  :merchants => "./data/merchants.csv",
+  :items     => "./data/item_fixture.csv",
+  :merchants => "./data/merchants_fixture.csv",
   })
-  @sa = SalesAnalyst.new(se)
+  @sa = SalesAnalyst.new(@se)
   end
 
   def test_it_exists
     assert @sa
   end
 
+  def test_new_sales_analyst_initializes_as_sales_engine
+    result= sa.sales_engine.class
+    assert_equal SalesEngine, result
+  end
+
+  def test_average_items_per_merchant
+    result = sa.average_items_per_merchant
+    assert result
+  end
 end

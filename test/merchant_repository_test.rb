@@ -31,7 +31,7 @@ class MerchantRepositoryTest < Minitest::Test
   def test_find_by_id_finds_correct_pair_of_values
     merchant_repository.all
     result = merchant_repository.find_by_id(12334105).name
-    assert_equal "shopin1901", result
+    assert_equal "Shopin1901", result
   end
 
   def test_find_by_id_returns_correct_format
@@ -44,7 +44,7 @@ class MerchantRepositoryTest < Minitest::Test
     merchant_repository.all
     result = merchant_repository.find_by_name("Shopin1901")
     assert_equal 12334105, result.id
-    assert_equal "shopin1901", result.name
+    assert_equal "Shopin1901", result.name
     assert_equal Merchant, result.class
   end
 
@@ -56,8 +56,7 @@ class MerchantRepositoryTest < Minitest::Test
   def test_find_all_by_name_returns_array_of_names
     merchant_repository.all
     result = merchant_repository.find_all_by_name("Shopin")
-    # binding.pry
-    assert_equal "shopin1901", result.name
+    assert_equal "Shopin1901", result.first.name
+    assert_equal "Shopin1902", result.last.name
   end
-
 end
