@@ -146,14 +146,4 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 3, items.length
   end
 
-
-
-
-
-
-
-
-
-
-
 end
