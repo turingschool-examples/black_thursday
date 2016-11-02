@@ -2,7 +2,8 @@ require './lib/merchant'
 require 'pry'
 
 class MerchantRepository
-  attr_reader  :all_merchants
+  attr_reader  :all_merchants,
+               :parent
 
   def initialize(merchant_data, parent = nil)
     @parent = parent
@@ -11,17 +12,27 @@ class MerchantRepository
   end
 
   def add_merchant(merchant_data)
-    merchant_data.each do |row|
-    require 'pry'; binding.pry
-      @all_merchants << Merchant.new(row, self)
-    end
+    @all_merchants << Merchant.new(merchant_data, self)
   end
-  def find_by_id(id)
-    @all_merchants.find { |merchant| merchant.id.to_i == id.to_i }
+
+  def find_by_id(id_number)
+    @all_merchants.find do |merchant|
+      if merchant.id == id_number.to_i
+        merchant.name
+      else
+        nil
+      end
+    end
   end 
 
-  def find_by_name(name)
-   @all_merchants.find { |merchant| merchant.name.downcase == name.downcase }
+  def find_by_name(merch_name)
+    @all_merchants.find do |merchant|
+      if merchant.name == merch_name
+        merchant.id
+      else
+        nil
+      end
+    end
   end
 
   def find_all_by_name(fragment)
