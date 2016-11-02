@@ -17,7 +17,6 @@ class MerchantRepoTest < Minitest::Test
   end
 
   def test_it_can_search_by_id
-    skip
     m = MerchantRepo.new
     m.parse_file("./data/small_merchant_file.csv")
     assert_equal ["CERAMICANDCO"], m.find_by_id(12334284)

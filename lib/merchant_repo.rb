@@ -6,8 +6,8 @@ require 'pry'
 # find_by_name - returns either nil or an instance of Merchant having done a case insensitive search
 # find_all_by_name - returns either [] or one or more matches which contain the supplied name fragment, case insensitive
 class MerchantRepo
-  def initialize
-    # @parent = SalesEngine.new
+  def initialize(data, sales_engine)
+    @parent = sales_engine
     @all = []
   end
 
@@ -34,7 +34,7 @@ class MerchantRepo
   def find_by_id(desired_id)
     desired_id.to_i
     @all.find do |merchant| 
-      return merchant.name if merchant.id == desired_id
+      return @all.merchant.name if merchant.id == desired_id
     end
   end
 
