@@ -9,14 +9,8 @@ class SalesEngine
 
   def self.from_CSV(paths)
     @items = ItemRepository.new(paths[:items])
-#    @merchants = MerchantRepository.new(paths[:merchants])
   end
 
 end
 
-se = SalesEngine.from_CSV({
-  :items     => "./fixture/items.csv",
-#  :merchants => "./data/merchants.csv"
-})
 
-binding.pry

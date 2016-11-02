@@ -55,5 +55,3 @@ class ItemRepository
   end
 
 end
-
-repository = ItemRepository.new('fixture/items.csv')
