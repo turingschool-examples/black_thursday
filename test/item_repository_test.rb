@@ -95,25 +95,25 @@ class ItemRepositoryTest < Minitest::Test
   def test_find_all_with_description
     item_repository.all
     output = item_repository.find_all_with_description("bicycle/mtb")
-    assert_equal 263400121, output.id
-    assert_equal 12334113, output.merchant_id
-    assert_equal 150.0, output.unit_price
-    assert_equal "Custom Hand Made Miniature Bicycle", output.name
+    assert_equal 263400121, output.first.id
+    assert_equal 12334113, output.first.merchant_id
+    assert_equal 150.0, output.first.unit_price
+    assert_equal "Custom Hand Made Miniature Bicycle", output.first.name
   end
 
   def test_find_all_by_price
     item_repository.all
     output = item_repository.find_all_by_price(150.0)
-    assert_equal Item, output.class
-    assert_equal 263400121, output.id
-    assert_equal 12334113, output.merchant_id
+    assert_equal Array, output.class
+    assert_equal 263400121, output.first.id
+    assert_equal 12334113, output.first.merchant_id
   end
 
   def test_find_all_by_price_range
     item_repository.all
     output = item_repository.find_all_by_price_in_range(100.0..200.0)
-    assert_equal Item, output.class
-    assert_equal 263400121, output.id
+    assert_equal Array, output.class
+    assert_equal 263400121, output.first.id
   end
 
   def test_find_by_merchant_id
