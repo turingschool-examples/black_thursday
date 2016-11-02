@@ -57,4 +57,3 @@ class ItemRepository
 end
 
 repository = ItemRepository.new('fixture/items.csv')
-binding.pry
