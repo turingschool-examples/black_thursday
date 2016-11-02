@@ -6,23 +6,7 @@ class SalesAnalyst
   def initialize(sales_engine)
     @sales_engine = sales_engine
   end
-
-  def average_items_per_merchant
-    items_count      = sales_engine.items.all.count
-    merchants_count  = sales_engine.merchants.all.count
-    average = items_count.to_f / merchants_count.to_f
-    average.round(2)
-  end
-  #
-  # def load_merchant_items
-  #   # array = []
-  #   # array = @sales_engine.merchants.all.detect do |merchant_instance|
-  #     # merchant_instance.items << sales_engine.items.find_all_by_merchant_id(merchant_instance.id)
-  #     @sales_engine.merchants.all.each do |merchant_instance|
-  #         merchant_instance.items = sales_engine.items.find_all_by_merchant_id(merchant_instance.id)
-  #       end
-  # end
-
+  
   def average(array)
     array.inject{ |sum, element| sum + element }.to_f / array.count
   end
@@ -31,13 +15,31 @@ class SalesAnalyst
     mean = average(array)
     n = array.length
     sum_squares = array.inject(0) { |sum, element| sum + (mean - element)**2 }
-    result = Math.sqrt(sum_squares / (n-1))
+    Math.sqrt(sum_squares / (n-1))
+  end
+
+  def average_items_per_merchant
+    items_count      = sales_engine.items.all.count
+    merchants_count  = sales_engine.merchants.all.count
+    average = items_count.to_f / merchants_count.to_f
+    average.round(2)
   end
 
   def average_items_per_merchant_standard_deviation
+    items_per_merchant = load_merchant_items
+    average(items_per_merchant)
     # take in number of items for each merchant
     # take in average items for each merchant
     # return standard deviation as a FLOAT
+  end
+
+  def load_merchant_items
+    array = []
+    # array = @sales_engine.merchants.all.detect do |merchant_instance|
+      # merchant_instance.items << sales_engine.items.find_all_by_merchant_id(merchant_instance.id)
+      # @sales_engine.merchants.all.each do |merchant_instance|
+      #     merchant_instance.items = sales_engine.items.find_all_by_merchant_id(merchant_instance.id)
+      #   end
   end
 
   def merchants_with_high_item_count
