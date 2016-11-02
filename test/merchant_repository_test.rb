@@ -23,7 +23,7 @@ class MerchantRepositoryTest < Minitest::Test
     se = SalesEngine.from_csv({ :items => "./fixture/items.csv", :merchants => "./fixture/merchant_test_file.csv" })
     mr = se.merchants
 
-    assert_equal "Shopin1901", mr.id("1234105").name
+    assert_equal "Shopin1901", mr.id("12334105").name
     assert_equal "Candisart", mr.id("12334112").name
   end
 
@@ -46,7 +46,7 @@ class MerchantRepositoryTest < Minitest::Test
     se = SalesEngine.from_csv({ :items => "./fixture/items.csv", :merchants => "./fixture/merchant_test_file.csv" })
     mr = se.merchants
 
-    refute mr.find_by_name("Amazon").id
+    refute mr.find_by_name("Amazon")
   end
 
   def test_it_can_find_merchant_id_by_case_insensitive_name
@@ -58,7 +58,7 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal ("12334105"), mr.find_by_name("sHOPin1901").id
     assert_equal ("12334112"), mr.find_by_name("CANDISART").id
     assert_equal ("12334112"), mr.find_by_name("candisart").id
-    assert_equal ("12334112"), mr.find_by_name("CANDIisart").id
+    assert_equal ("12334112"), mr.find_by_name("CANDisart").id
   end
 
   def test_it_can_find_all_by_name_returns_an_array
@@ -66,7 +66,7 @@ class MerchantRepositoryTest < Minitest::Test
     mr = se.merchants
 
     assert_equal [], mr.find_all_by_name("Amazon")
-    assert_equal ["Shopin1901"], mr.find_all_by_name("1901").name
+    assert_equal Array, mr.find_all_by_name("1901").class
   end
 
   def test_it_can_find_merchants_by_partial_name
