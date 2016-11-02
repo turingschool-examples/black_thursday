@@ -34,7 +34,7 @@ class ItemRepository
     all.find_all {|item| price_range.include?(item.unit_price)}
   end
 
-
-
+  def inspect
+  end
 
 end

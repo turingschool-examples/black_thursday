@@ -59,7 +59,7 @@ class SalesAnalyst
     if count == 0
       BigDecimal(0)
     else
-      average_price(merchant.items, count)
+      average_price(merchant.items, count).round(2)
     end
   end
 
@@ -76,7 +76,7 @@ class SalesAnalyst
   end
 
   def average_average_price_per_merchant
-    sum_of_averages / total_merchant_count
+    (sum_of_averages / total_merchant_count).round(2)
   end
 
   def golden_items

@@ -2,6 +2,7 @@ require_relative 'merchant_repository'
 require_relative 'item_repository'
 require_relative 'merchant'
 require 'bigdecimal'
+require 'time'
 require 'csv'
 
 class SalesEngine
@@ -45,8 +46,8 @@ class SalesEngine
       Item.new({:id => row[:id].to_i,
                 :name => row[:name],
                 :unit_price => BigDecimal(row[:unit_price]) / 100,
-                :created_at => row[:created_at],
-                :updated_at => row[:updated_at],
+                :created_at => Time.parse(row[:created_at]),
+                :updated_at => Time.parse(row[:updated_at]),
                 :merchant_id => row[:merchant_id].to_i,
                 :description => row[:description]
               })
