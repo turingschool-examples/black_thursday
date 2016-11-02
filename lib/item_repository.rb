@@ -15,11 +15,9 @@ class ItemRepository
 
   #returns an array of all known Item instances
   def all
-  # binding.pry
     @items
   end
 
-  #returns either nil or an instance of Item with a matching ID
   def find_by_id(id_number)
     value = nil
     items.each do |item|
@@ -28,16 +26,24 @@ class ItemRepository
     value
   end
 
-  #returns either nil or an instance of Item having done a case insensitive search
-  def find_by_name
+  def find_by_name(name)
+    value = nil
+    items.each do |item|
+      value = item if item.name.downcase == name.downcase
+    end 
+    value
   end
 
   #returns either [] or instances of Item where the supplied string appears in the item description (case insensitive)
   def find_all_with_description
   end
 
-  #returns either [] or instances of Item where the supplied price exactly matches
-  def find_all_by_price
+  def find_all_by_price(price)
+    value = []
+    items.each do |item|
+    value << item if item.unit_price == price
+    end
+    value
   end
 
   #returns either [] or instances of Item where the supplied price is in the supplied range (a single Ruby range instance is passed in)
@@ -51,3 +57,4 @@ class ItemRepository
 end
 
 repository = ItemRepository.new('fixture/items.csv')
+binding.pry

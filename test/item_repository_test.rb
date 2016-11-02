@@ -35,7 +35,6 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_name_match_is_case_insensitive
-    skip
     assert repository.find_by_name("Basketball")
     assert repository.find_by_name("basketball")
     assert repository.find_by_name("BASKETBALL")
@@ -51,14 +50,14 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_return_array_with_all_items_that_match_price
-    skip
     assert repository.find_all_by_price(10)
     assert_equal 2, repository.find_all_by_price(10).length
     assert repository.find_all_by_price(40)
-    assert_equal 1, repository.find_all_by_price(40)
-    assert_equal
+    assert_equal 1, repository.find_all_by_price(40).length
+    assert_equal [], repository.find_all_by_price(1000)
   end
 
+  def test_it_can_return_range
 
 end
 
