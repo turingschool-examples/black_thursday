@@ -1,14 +1,12 @@
 require './lib/merchant'
 require 'csv'
 require 'pry'
-#all - returns an array of all known Merchant instances
-# find_by_id - returns either nil or an instance of Merchant with a matching ID
-# find_by_name - returns either nil or an instance of Merchant having done a case insensitive search
-# find_all_by_name - returns either [] or one or more matches which contain the supplied name fragment, case insensitive
+
 class MerchantRepo
-  def initialize(data, sales_engine)
-    @parent = sales_engine
+  def initialize(file, sales_engine=nil)
+    # @parent = sales_engine
     @all = []
+    parse_file(file)
   end
 
   def parse_file(file)
@@ -34,7 +32,7 @@ class MerchantRepo
   def find_by_id(desired_id)
     desired_id.to_i
     @all.find do |merchant| 
-      return @all.merchant.name if merchant.id == desired_id
+       merchant.id == desired_id
     end
   end
 

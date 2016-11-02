@@ -3,16 +3,17 @@ require 'csv'
 require 'pry'
 
 class ItemRepo
-  def initialize(data, sales_engine) 
-    @parent = sales_engine
-    @all = []
-  end
+  
+  # def initialize
+  #   # @parent = sales_engine
+  #   @all = []
+  # end
 
-  def set_up(file)
-    CSV.read (file), headers: true, header_converters: :symbol
-    parse_file(file)
-  end 
-
+  # def set_up(file)
+  #   CSV.read (file), headers: true, header_converters: :symbol
+  #   parse_file(file)
+  # end 
+ 
   def all
     @all
   end
@@ -72,7 +73,5 @@ class ItemRepo
 end
 
 
-trial = ItemRepo.new
-file = trial.set_up("./data/items.csv")
-trial.parse_file(file)
+
 
