@@ -2,6 +2,21 @@
   "Unit Tests": {
     "coverage": {
     },
-    "timestamp": 1478121989
+    "timestamp": 1478125275
+  },
+  "Unknown Test Framework": {
+    "coverage": {
+    },
+    "timestamp": 1478122800
+  },
+  "tests": {
+    "coverage": {
+    },
+    "timestamp": 1478122717
+  },
+  "minitest": {
+    "coverage": {
+    },
+    "timestamp": 1478124991
   }
 }

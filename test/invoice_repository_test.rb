@@ -25,4 +25,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
   # end
 
+  def inspect
+  end
+
 end
