@@ -532,6 +532,13 @@
         0,
         null,
         null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
         null
       ],
       "/Users/kyle_heppenstall/turing/1module/project/black_thursday/test/merchant_analyst_test.rb": [
@@ -798,6 +805,6 @@
         null
       ]
     },
-    "timestamp": 1478113424
+    "timestamp": 1478116735
   }
 }
