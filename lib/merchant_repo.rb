@@ -1,6 +1,6 @@
-require './lib/merchant'
-require './lib/data_parser'
-require 'pry'
+require_relative '../lib/merchant'
+require_relative '../lib/data_parser'
+
 class MerchantRepo
   include DataParser
   attr_reader :all
@@ -20,5 +20,9 @@ class MerchantRepo
 
   def find_all_by_name(name_fragment)
     @all.find_all {|merchant| merchant.name.downcase.include?(name_fragment)}
+  end
+
+  def inspect 
+    "#<#{self.class} #{@all.size} rows>"
   end
 end

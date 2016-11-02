@@ -1,7 +1,6 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/item'
-require './lib/data_parser'
+require_relative 'test_helper'
+require_relative '../lib/item'
+require_relative '../lib/data_parser'
 
 class ItemTest < Minitest::Test
     include DataParser

@@ -1,6 +1,5 @@
-require './lib/merchant_repo'
-require './lib/item_repo'
-require 'pry'
+require_relative '../lib/merchant_repo'
+require_relative '../lib/item_repo'
 
 class SalesEngine
   def self.from_csv(file_path)

@@ -1,5 +1,5 @@
-require './lib/item'
-require './lib/data_parser'
+require_relative '../lib/item'
+require_relative '../lib/data_parser'
 
 class ItemRepo
   include DataParser
@@ -7,7 +7,7 @@ class ItemRepo
 
   def initialize(file_path = nil)
     raw_file = file_path || './data/items.csv'
-    @all = parse_data(file_path).map { |row| Item.new(row) }
+    @all     = parse_data(raw_file).map { |row| Item.new(row) }
   end
 
   def find_by_id(id)
@@ -32,5 +32,9 @@ class ItemRepo
 
   def find_all_by_merchant_id(merchant_id)
     @all.find_all {|item| item.merchant_id.eql?(merchant_id)}
+  end
+
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
   end
 end
