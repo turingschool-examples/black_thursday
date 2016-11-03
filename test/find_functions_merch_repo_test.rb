@@ -21,7 +21,12 @@ class FindFunctionsTest < Minitest::Test
 
   def test_finds_all_strings_returns_matching_merchant_object_for_name_fragment
     input = "mad"
-    assert_equal 5, find_all_strings(:name, input).count
+    assert_equal 6, find_all_strings(:name, input).count
+  end
+
+  def test_finds_all_strings_returns_matching_object_case_insensitive
+    input = "mAd"
+    assert_equal 6, find_all_strings(:name, input).count
   end
 
   def test_finds_all_strings_returns_matching_merchant_object_for_upcase_search
@@ -32,11 +37,6 @@ class FindFunctionsTest < Minitest::Test
   def test_finds_all_strings_returns_matching_merchant_object_for_name
     input = "MiniatureBikez"
     assert_equal 1, find_all_strings(:name, input).count
-  end
-
-  def test_finds_all_strings_returns_matching_merchant_object_for_name_fragment
-    input = "mad"
-    assert_equal 5, find_all_strings(:name, input).count
   end
 
   def test_find_all_returns_merchant_objects_for_common_name_if_method_name

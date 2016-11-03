@@ -17,7 +17,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_has_custom_inspect
-    assert_equal "#<ItemRepository: 74 rows>", @item_repo.inspect
+    assert_equal "#<ItemRepository: 116 rows>", @item_repo.inspect
   end
 
   def test_find_all_by_merchant_id_calls_parent
@@ -44,7 +44,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_retrieves_all_item_objects
     assert_equal Item, @item_repo.all[0].class
-    assert_equal 74, @item_repo.all.count
+    assert_equal 116, @item_repo.all.count
   end
 
   def test_item_ids_are_uniq
@@ -82,7 +82,7 @@ class ItemRepositoryTest < Minitest::Test
     description = "custom"
     items = @item_repo.find_all_with_description(description)
     assert_equal Item, items.first.class
-    assert_equal 6, items.map{|item| item.description}.count
+    assert_equal 8, items.map{|item| item.description}.count
   end
 
   def test_it_returns_nil_if_description_not_found
@@ -108,7 +108,7 @@ class ItemRepositoryTest < Minitest::Test
     price_range = (0..10)
     items = @item_repo.find_all_by_price_in_range(price_range)
     assert_equal Item, items.first.class
-    assert_equal 9, items.count
+    assert_equal 19, items.count
   end
 
   def test_it_returns_nil_if_no_items_in_price_range
