@@ -46,4 +46,24 @@ class InvoiceTest < Minitest::Test
     invoice.merchant
     repo.verify
   end
+
+  def test_it_calls_parent_when_looking_for_customer
+    repo.expect(:find_customer_by_id, nil, [7])
+    invoice.customer
+    repo.verify
+  end
+
+  def test_it_calls_parent_when_looking_for_customer
+    repo.expect(:find_transactions_by_invoice_id, nil, [6])
+    invoice.transactions
+    repo.verify
+  end
+
+  def test_it_calls_parent_when_looking_for_customer
+    repo.expect(:find_invoice_items_by_invoice_id, nil, [6])
+    invoice.items
+    repo.verify
+  end
+
+
 end

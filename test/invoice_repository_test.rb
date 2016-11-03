@@ -52,4 +52,22 @@ class InvoiceRepositoryTest < Minitest::Test
     parent.verify
   end
 
+  def test_it_calls_parent_when_looking_for_transactions
+    parent.expect(:find_transactions_by_invoice_id, nil, [2])
+    repo.find_transactions_by_invoice_id(2)
+    parent.verify
+  end
+
+  def test_it_calls_parent_when_looking_for_invoice_items
+    parent.expect(:find_invoice_items_by_invoice_id, nil, [2])
+    repo.find_invoice_items_by_invoice_id(2)
+    parent.verify
+  end
+
+  def test_it_calls_parent_when_looking_for_invoice_items
+    parent.expect(:find_item_by_item_id, nil, [2])
+    repo.find_item_by_item_id(2)
+    parent.verify
+  end
+
 end

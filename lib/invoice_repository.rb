@@ -40,4 +40,20 @@ class InvoiceRepository
     "#{self.class}, #{all.count}"
   end
 
+  def find_customer_by_id(customer_id)
+    parent.find_customer_by_id(customer_id)
+  end
+
+  def find_transactions_by_invoice_id(invoice_id)
+    parent.find_transactions_by_invoice_id(invoice_id)
+  end
+
+  def find_invoice_items_by_invoice_id(invoice_id)
+    parent.find_invoice_items_by_invoice_id(invoice_id)
+  end
+
+  def find_item_by_item_id(item_id)
+    parent.find_item_by_item_id(item_id)
+  end
+
 end

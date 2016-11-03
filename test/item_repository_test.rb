@@ -94,5 +94,11 @@ def test_it_returns_array_when_description_unique_case_insensitive
     assert_equal 10, current.count
   end
 
+  def test_it_calls_parent_when_looking_for_customer
+    parent.expect(:find_customer_by_id, nil, [1])
+    repo.find_customer_by_id(1)
+    parent.verify
+  end
+
 end
 

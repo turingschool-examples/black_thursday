@@ -22,4 +22,16 @@ class Invoice
     parent.find_merchant_by_id(merchant_id)
   end
 
+  def items
+    invoice_items = parent.find_invoice_items_by_invoice_id(id)
+    invoice_items.map { |invoice_items| parent.find_item_by_item_id(invoice_items.id)}
+  end
+
+  def transactions
+    parent.find_transactions_by_invoice_id(id)
+  end
+
+  def customer
+    parent.find_customer_by_id(customer_id)
+  end
 end
