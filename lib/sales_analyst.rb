@@ -15,6 +15,5 @@ class SalesAnalyst
 
   def average_items_per_merchant_standard_deviation
     mean = average_items_per_merchant
-
   end
 end

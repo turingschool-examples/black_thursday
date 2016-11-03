@@ -286,7 +286,6 @@
         1,
         2,
         null,
-        null,
         null
       ],
       "/Users/cews7/turing/1mod/mod1work/projects/black_thursday/test/merchant_test.rb": [
@@ -359,7 +358,6 @@
         null,
         1,
         1,
-        null,
         null,
         null
       ],
@@ -461,6 +459,6 @@
         null
       ]
     },
-    "timestamp": 1478214767
+    "timestamp": 1478215509
   }
 }
