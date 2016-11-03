@@ -1,13 +1,20 @@
 require_relative 'items'
 
 class ItemRepository
-  attr_reader   :all_items,
+  attr_reader   :all,
                 :parent
 
   def initialize(item_data, parent = nil)
     @parent = parent
-    @all_items = []
-    add_item(item_data)
+    @all = []
+    populate(item_data)
+  end
+
+  def populate(item_data)
+    item_data.each do |item|
+      @all << Merchant.new(item, self)
+      # add_merchant(merchant)
+    end
   end
 
   def add_item(item_data)
@@ -51,6 +58,10 @@ class ItemRepository
     @all_items.find_all do |item|
       item.name.downcase.include?(fragment.downcase)
     end
+  end
+
+  def inspect 
+    "#<#{self.class} #{@all.size} rows>"
   end
 
 end

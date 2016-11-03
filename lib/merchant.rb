@@ -16,5 +16,9 @@ class Merchant
     @updated_at = merchant_data[:updated_at]
   end
 
+  def items
+    parent.find_all_items_by_merchant(self.id)
+  end
+
 
 end

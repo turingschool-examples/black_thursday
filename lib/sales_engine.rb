@@ -1,21 +1,21 @@
 require_relative 'merchant_repository'
-require 'csv'
 require_relative 'item_repository'
+require 'csv'
 require 'pry'
 
 class SalesEngine
-  attr_reader   :merchant_repository,
-                :item_repository
+  attr_reader   :merchants,
+                :items,
+                :raw_data
                 
   def initialize(all_file_paths)
-    @merchant_data = SalesEngine.read_csv(all_file_paths[:merchants])
-    @item_data     = SalesEngine.read_csv(all_file_paths[:items])
-    @merchant_repository = MerchantRepository.new(@merchant_data, self)
-    @item_repository     = ItemRepository.new(@item_data, self)
+    read_csv(all_file_paths)
+    @merchants           = MerchantRepository.new(@raw_data[:merchants], self)
+    @items               = ItemRepository.new(@raw_data[:items], self)
   end
 
   def find_all_items_by_merchant_id(merchant_id)
-    item_repository.find_all_by_merchant_id(merchant_id)
+    items.find_all_by_merchant_id(merchant_id)
   end
 
   def self.from_csv(all_file_paths)
@@ -23,13 +23,16 @@ class SalesEngine
   end
   
   def read_csv(file_path)
-    contents = CSV.read file_path, headers: true, header_converters: :symbol
+    @raw_data = {}
+    file_path.map do |key, value|
+      @raw_data[key] = CSV.read value, headers: true, header_converters: :symbol
+    end
     #add a way to deal with nil
   end
 
-  def items(merchant_id)
-    item_repository.find_all_by_merchant_id(merchant_id).map { |item| item["name"]}
-  end
+  # def items(merchant_id = nil)
+  #   items.find_all_by_merchant_id(merchant_id).map { |item| item["name"]}
+  # end
 
 
   def merchant(name)
