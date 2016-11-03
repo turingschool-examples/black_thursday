@@ -1,4 +1,3 @@
-require 'pry'
 class SalesAnalyst
 
   attr_reader :sales_engine
@@ -65,7 +64,7 @@ class SalesAnalyst
 
   def average_item_price
     items = sales_engine.items.all
-    sum   = items.map {|item| item.unit_price}.reduce(:+)
+    sum   = items.map { |item| item.unit_price }.reduce(:+)
     sum / items.count
   end
 
