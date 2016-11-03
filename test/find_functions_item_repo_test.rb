@@ -79,24 +79,24 @@ class FindFunctionsTest < Minitest::Test
     assert result.all?{|item| item.merchant_id == input}
   end
 
-  def test_find_all_merch_ids_returns_item_objects
-    assert find_all_merch_ids(12334185).all?{|item| item.class == Item}
+  def test_find_all_by_merch_id_returns_item_objects
+    assert find_all_by_merch_id(12334185).all?{|item| item.class == Item}
   end
 
-  def test_find_all_merch_ids_returns_more_than_one_object_for_common_merch_id
-    assert find_all_merch_ids(12334185).count > 1
+  def test_find_all_by_merch_id_returns_more_than_one_object_for_common_merch_id
+    assert find_all_by_merch_id(12334185).count > 1
   end
 
-  def test_find_all_merch_ids_returns_item_object_for_unique_price
-    assert find_all_merch_ids(12334141).one?{|item| item.class == Item}
+  def test_find_all_by_merch_id_returns_item_object_for_unique_price
+    assert find_all_by_merch_id(12334141).one?{|item| item.class == Item}
   end
 
-  def test_find_all_merch_ids_returns_one_object_for_a_unique_price
-    assert_equal 1, find_all_merch_ids(12334141).count
+  def test_find_all_by_merch_id_returns_one_object_for_a_unique_price
+    assert_equal 1, find_all_by_merch_id(12334141).count
   end
 
-  def test_find_all_merch_ids_returns_an_empty_array_if_no_merch_ids_found
-    assert_equal [], find_all_merch_ids(1)
+  def test_find_all_by_merch_id_returns_an_empty_array_if_no_by_merch_id_found
+    assert_equal [], find_all_by_merch_id(1)
   end
 
   def test_find_all_filters_description_method
