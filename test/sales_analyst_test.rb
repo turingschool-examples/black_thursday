@@ -39,10 +39,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal [1,1,1,1,2,2], sales_analyst.collect_items_per_merchant.sort
   end
 
-  def test_it_can_return_standard_deviation_of_items_per_merchant
-    assert_equal 0.52, sales_analyst.average_items_per_merchant_standard_deviation
-  end
-
   def test_it_can_return_array_of_items_given_merchant_id
     assert_instance_of Array, sales_analyst.items_given_merchant_id(101)
     assert_instance_of Array, sales_analyst.items_given_merchant_id(102)
@@ -74,5 +70,14 @@ class SalesAnalystTest < Minitest::Test
   def test_golden_items_returns_an_array
     assert Array, sales_analyst.golden_items.class
   end
+
+  def test_it_can_calculate_number_of_items_for_every_merchant
+    assert_equal [1,1,1,1,2,2], sales_analyst.number_of_items_for_every_merchant.sort
+  end
+
+  def test_it_can_calculate_merchants_with_high_item_count
+    assert_equal 2, sales_analyst.merchants_with_high_item_count.length
+  end
+
 
 end

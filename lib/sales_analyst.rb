@@ -71,4 +71,18 @@ class SalesAnalyst
     items.flatten.uniq
   end
 
+  def number_of_items_for_every_merchant
+    sales_engine.merchants.merchants.map do |merchant|
+      merchant.items.length
+    end
+  end
+
+  def merchants_with_high_item_count
+   item_count = number_of_items_for_every_merchant
+   cut = mean(item_count) + standard_deviation(item_count)
+   sales_engine.merchants.merchants.find_all do |merchant|
+     merchant.items.count >= cut
+   end
+ end
+
 end
