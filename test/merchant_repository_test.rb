@@ -1,5 +1,6 @@
-require './test/test_helper'
-require './lib/merchant_repository'
+require_relative '../test/test_helper'
+require_relative '../lib/merchant_repository'
+require_relative '../lib/sales_engine'
 
 
 class MerchantRepositoryTest < Minitest::Test
@@ -33,8 +34,8 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_find_by_id_finds_correct_pair_of_values
     merchant_repository.all
-    result = merchant_repository.find_by_id(12334105).name
-    assert_equal "Shopin1901", result
+    result = merchant_repository.find_by_id(12334105)
+    assert_equal "Shopin1901", result.name
   end
 
   def test_find_by_id_returns_correct_format
