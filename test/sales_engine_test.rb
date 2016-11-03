@@ -9,7 +9,8 @@ class SalesEngineTest < Minitest::Test
 
   def setup
     @sales_engine = SalesEngine.from_csv({
-      :items => "./fixture/items.csv"
+      :items => "./fixture/items.csv",
+      :merchants => "./fixture/merchant_test_file.csv"
     })
   end
 
@@ -23,7 +24,6 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_has_instance_of_merchant_repo
-    skip
     assert sales_engine.merchants
     assert_instance_of MerchantRepository, sales_engine.merchants
   end
