@@ -44,15 +44,15 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_price_in_range_returns_expected_item
-    assert_equal @ir.find_all_by_price_in_range(1..100)[1].name, "OLIVE SOAP"
+    assert_equal "Glitter scrabble frames", @ir.find_all_by_price_in_range(1..100)[1].name
   end
 
   def test_find_all_by_price_returns_array
-    assert_equal Array, @ir.find_all_by_price("600").class
+    assert_equal Array, @ir.find_all_by_price(600).class
   end
 
   def test_find_all_by_price_returns_expected_item
-    assert_equal @ir.find_all_by_price("600")[1].name, "Bangle Bracelets"
+    assert_equal "Les raisons", @ir.find_all_by_price(600)[1].name
   end
 
   def test_find_by_name_returns_expected_value
