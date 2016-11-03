@@ -13,11 +13,10 @@ class SalesAnalyst
 
   def load_items
     sales_engine.load_items
-    # make sure this only happens once. Needs if or something
   end
 
   def load_merchants
-    self.sales_engine.merchants.all
+    sales_engine.merchants.all
   end
 
   def average(array)
@@ -39,45 +38,63 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    items_per_merchant = load_merchant_items
+    items_per_merchant = []
+    @merchants.each do |merchant_instance|
+      items_per_merchant << merchant_instance.items.count
+    end
     result = find_standard_deviation(items_per_merchant)
-    #hash stores merch id and number of items find std_dev of all values
     return result.round(2)
   end
 
   def merchants_with_high_item_count
     std_dev = average_items_per_merchant_standard_deviation
-    average_ip  = average_items_per_merchant
-    threshold = std_dev + average_ip
-    array = @merchants.find_all do |merchant_instance|
-        @items[merchant_instance.id].count > threshold
-        # merchant_instance.items.count > threshold
-        binding.pry
+    threshold = std_dev + average_items_per_merchant
+    array = @merchants.find_all do |merchant|
+        merchant.items.count > threshold
       end
-      array
-    # if merchants.std_dev + average_ip
-    # return merchants with more than one standard deviation
-    # above average number of items as an ARRAY
+      name = array.map { |merchant| merchant.name }
+      # ^if spec harness breaks delete this line^
   end
 
   def average_item_price_for_merchant(id)
-    # take in merchant id
-    # take in list of merchant's items' prices
-    # return average of those prices as a BIGDECIMAL
-    average_price = average(prices)
-    return BigDecimal.new(average_price, 4)
+    prices = @items[id].map { |item| item.unit_price.to_f }
+    return BigDecimal.new(average(prices), 4)
   end
 
   def average_average_price_per_merchant
-    # average accross all merchant's average prices
-    # return BIGDECIMAL
+    # need to find another way to get array of merchant ids
+    prices = @items.keys.map do |id|
+      average_item_price_for_merchant(id)
+    end
     average_price = average(prices)
     return BigDecimal.new(average_price, 4)
   end
 
+  def get_item_average_price
+    item_prices = []
+    item_prices = sales_engine.items.all.map do |item|
+      item.unit_price
+    end
+    average(item_prices)
+  end
+
+  def get_item_standard_deviation
+    item_prices = []
+    item_prices = sales_engine.items.all.map do |item|
+      item.unit_price
+    end
+    find_standard_deviation(item_prices)
+  end
+
   def golden_items
-    # take in standard deviation, average price
-    # search for items that are 2 standard deviations above
-    # average and return ARRAY of those item objects
+    ave = get_item_average_price
+    std_dev = get_item_standard_deviation
+    threshold = BigDecimal(ave + std_dev, 4)
+    golden_items = @sales_engine.items.all do |item|
+      # binding.pry
+        item.unit_price > threshold
+      end
+      golden_items
+
   end
 end
