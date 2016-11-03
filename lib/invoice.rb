@@ -1,3 +1,4 @@
+require 'pry'
 class Invoice
 
   attr_reader :id,
@@ -24,7 +25,7 @@ class Invoice
 
   def items
     invoice_items = parent.find_invoice_items_by_invoice_id(id)
-    invoice_items.map { |invoice_items| parent.find_item_by_item_id(invoice_items.id)}
+    invoice_items.map { |invoice_item| parent.find_item_by_item_id(invoice_item.item_id)}
   end
 
   def transactions

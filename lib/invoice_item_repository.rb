@@ -28,4 +28,8 @@ class InvoiceItemRepository
     all.find_all { |invoice_item| invoice_item.invoice_id.eql?(desired_id) }
   end
 
+  def inspect
+    '#{self.class}, #{all.count}'
+  end
+
 end

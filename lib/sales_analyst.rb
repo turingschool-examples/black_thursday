@@ -78,7 +78,7 @@ class SalesAnalyst
 
   def top_days_by_invoice_count
     day_hash = engine.invoices.all.group_by {|invoice| invoice.created_at.wday}
-    day_data = day_hash.valuesgit .map { |day| day.count}
+    day_data = day_hash.values.map { |day| day.count}
     threshold = (stdev(day_data) + find_average(day_data)).round
     top_days = day_hash.keys.find_all { |day| day_hash[day].count > threshold }
     top_days.map { |day| day_accessor[day] }

@@ -33,4 +33,8 @@ class TransactionRepository
     all.find_all {|transaction| transaction.result == desired_result}
   end
 
+  def inspect
+    '#{self.class}, #{all.count}'
+  end
+
 end

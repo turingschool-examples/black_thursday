@@ -21,11 +21,15 @@ class CustomerRepository
   end
 
   def find_all_by_first_name(desired_name)
-    all.find_all {|customer| customer.first_name.include?(desired_name)}
+    all.find_all {|customer| customer.first_name.downcase.include?(desired_name.downcase)}
   end
 
   def find_all_by_last_name(desired_name)
-    all.find_all {|customer| customer.last_name.include?(desired_name)}
+    all.find_all {|customer| customer.last_name.downcase.include?(desired_name.downcase)}
+  end
+
+  def inspect
+    '#{self.class}, #{all.count}'
   end
 
 end
