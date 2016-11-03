@@ -51,7 +51,7 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_find_invoice_by_id_returns_an_instance_of_invoice
     id       = 1
     invoices = invoice_repo.find_by_id(id)
-    assert_equal Invoice,invoices.class
+    assert_equal Invoice, invoices.class
   end
 
   def test_it_returns_nil_if_id_not_found
