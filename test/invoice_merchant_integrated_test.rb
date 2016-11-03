@@ -7,17 +7,10 @@ class InvoiceMerchantIntegratedTest < Minitest::Test
 
   def setup
     @sales_engine = SalesEngine.from_csv({
-      :invoices => "./data_fixtures/invoices_fixture.csv",
-      :merchants => "./data_fixtures/merchants_fixture.csv"
+      :invoices => "./test/data_fixtures/invoices_fixture.csv",
+      :merchants => "./test/data_fixtures/merchants_fixture.csv"
     })
   end
-
-  # def test_merchant_knows_its_one_item
-  #   merchant = sales_engine.merchants.find_by_id(12334141)
-  #   items = merchant.items
-  #   assert_equal 1, items.length
-  #   assert items.one? {|item| item.id == 263395237}
-  # end
   
   def test_merchant_knows_all_its_invoices
   	merchant_id = 12334195

@@ -1,11 +1,22 @@
 require_relative 'invoice'
+require_relative 'csv_parser'
 
 class InvoiceRepository
 
+  include CSV_parser
+
   attr_reader :all
 
-  def initialize(invoices)
-    @all = invoices
+  def initialize(file)
+    @all = parse(file).map do |row|
+      Invoice.new({ :id => row[:id],
+                    :customer_id => row[:customer_id],
+                    :merchant_id => row[:merchant_id],
+                    :status => row[:status],
+                    :created_at => row[:created_at],
+                    :updated_at => row[:updated_at]
+                 })
+    end
   end
 
   def find_by_id(id)

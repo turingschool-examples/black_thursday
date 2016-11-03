@@ -1,11 +1,23 @@
 require_relative 'item'
+require_relative 'csv_parser'
 
 class ItemRepository
 
+  include CSV_parser
+
   attr_reader :all
 
-  def initialize(items)
-    @all = items
+  def initialize(file)
+    @all = parse(file).map do |row|
+      Item.new({:id => row[:id],
+                :name => row[:name],
+                :unit_price => row[:unit_price],
+                :created_at => row[:created_at],
+                :updated_at => row[:updated_at],
+                :merchant_id => row[:merchant_id],
+                :description => row[:description]
+              })
+    end
   end
 
   def find_by_id(id)
