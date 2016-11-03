@@ -69,4 +69,6 @@ class InvoicesTest < Minitest::Test
     assert_equal "2014-03-15 00:00:00 -0600", invoice.updated_at.to_s
   end
 
+
+
 end
