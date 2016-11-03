@@ -26,12 +26,12 @@ module CSV_parser
   def invoice_csv_parse(file)
     contents = CSV.open file, headers: true, header_converters: :symbol
     contents.map do |row|
-      Invoice.new({ :id => row[:id].to_i,
-                    :customer_id => row[:customer_id].to_i,
-                    :merchant_id => row[:merchant_id].to_i,
-                    :status => row[:status].to_sym,
-                    :created_at => Time.parse(row[:created_at]),
-                    :updated_at => Time.parse(row[:updated_at])
+      Invoice.new({ :id => row[:id],
+                    :customer_id => row[:customer_id],
+                    :merchant_id => row[:merchant_id],
+                    :status => row[:status],
+                    :created_at => row[:created_at],
+                    :updated_at => row[:updated_at]
                  })
     end
   end

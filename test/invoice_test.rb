@@ -7,12 +7,12 @@ class InvoiceTest < Minitest::Test
 
   def setup
     @invoice = Invoice.new({
-      :id => 6,
-      :customer_id => 7,
-      :merchant_id => 8,
+      :id => '6',
+      :customer_id => '7',
+      :merchant_id => '8',
       :status => "pending",
-      :created_at => Time.now,
-      :updated_at => Time.now
+      :created_at => Time.now.to_s,
+      :updated_at => Time.now.to_s
     })
   end
 
@@ -33,7 +33,7 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_invoice_knows_its_status
-    assert_equal "pending", invoice.status
+    assert_equal :pending, invoice.status
   end
 
   def test_invoice_knows_time_created_at
