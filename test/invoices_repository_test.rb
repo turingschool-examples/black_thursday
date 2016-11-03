@@ -26,7 +26,7 @@ class InvoiceRepositoryTest < Minitest::Test
     add real number below
     result = @invoice.find_all_by_customer_id(00000)
     assert_equal #invoice instance
-    , result
+    assert_equal 0, result
   end
 
 
