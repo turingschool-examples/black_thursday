@@ -27,7 +27,7 @@ class SalesAnalyst
     ((item_count - average_items_per_merchant) ** 2).to_f
   end
 
-  def item_count_std_dev_denominator
+  def items_per_merchant_std_dev_denominator
     (sales_engine.merchants.all.count - 1).to_f
   end
 
