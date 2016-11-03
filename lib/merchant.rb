@@ -1,11 +1,13 @@
 class Merchant
 
   attr_reader :id,
-              :name
+              :name,
+              :parent
 
-  def initialize(data)
+  def initialize(data, parent = nil)
     @id = data[:id].to_i
     @name = data[:name]
+    @parent = parent
   end
 
   def items
@@ -13,7 +15,7 @@ class Merchant
   end
 
   def invoices
-    SalesEngine.invoices.find_all_by_merchant_id(id)
+    parent.find_invoices(id)
   end
 
 end

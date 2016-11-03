@@ -40,6 +40,7 @@ class MerchantItemIntegratedTest < Minitest::Test
   def test_item_without_merchant_returns_nil
     item = sales_engine.items.find_by_id(263398079)
     merchant = item.merchant
+    assert_nil merchant
   end
   
 end

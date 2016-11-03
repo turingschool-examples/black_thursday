@@ -7,7 +7,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def setup
     file = "./test/data_fixtures/items_fixture.csv"
-    @item_repository = ItemRepository.new(file)
+    @item_repository = ItemRepository.new(file, Minitest::Mock.new)
   end
 
   def test_all_returns_an_array_of_item_instances
@@ -121,6 +121,12 @@ class ItemRepositoryTest < Minitest::Test
     price_range = (0..10)
     items = item_repository.find_all_by_price_in_range(price_range)
     assert_equal 3, items.length
+  end
+
+  def test_item_repo_knows_its_parent
+    item_repository.parent.expect(:find_by_merchant_id, nil, [3333])
+    item_repository.find_merchant(3333)
+    item_repository.parent.verify
   end
 
 end

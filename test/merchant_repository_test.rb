@@ -6,7 +6,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def setup
     file = "./test/data_fixtures/merchants_fixture.csv"
-    @merchant_repository = MerchantRepository.new(file)
+    @merchant_repository = MerchantRepository.new(file, Minitest::Mock.new)
   end
 
   def test_all_returns_an_array
@@ -79,6 +79,12 @@ class MerchantRepositoryTest < Minitest::Test
     fragment = 'thiswouldneverbeinanetsyshopname'
     merchants = merchant_repository.find_all_by_name(fragment)
     assert_equal [], merchants
+  end
+
+  def test_merchant_repo_knows_its_parent
+    merchant_repository.parent.expect(:find_invoices_by_merchant_id, nil, [3333])
+    merchant_repository.find_invoices(3333)
+    merchant_repository.parent.verify
   end
 
 end

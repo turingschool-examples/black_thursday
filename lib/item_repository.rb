@@ -5,9 +5,10 @@ class ItemRepository
 
   include CSV_parser
 
-  attr_reader :all
+  attr_reader :all,
+              :parent
 
-  def initialize(file)
+  def initialize(file, parent = nil)
     @all = parse(file).map do |row|
       Item.new({:id => row[:id],
                 :name => row[:name],
@@ -15,9 +16,10 @@ class ItemRepository
                 :created_at => row[:created_at],
                 :updated_at => row[:updated_at],
                 :merchant_id => row[:merchant_id],
-                :description => row[:description]
-              })
+                :description => row[:description]},
+                self)
     end
+    @parent = parent
   end
 
   def find_by_id(id)
@@ -48,6 +50,10 @@ class ItemRepository
 
   def inspect
     "#<#{self.class} #{@all.size} rows>"
+  end
+
+  def find_merchant(merchant_id)
+    parent.find_by_merchant_id(merchant_id)
   end
 
 end

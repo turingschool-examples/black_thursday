@@ -9,9 +9,10 @@ class Item
               :unit_price,
               :created_at,
               :updated_at,
-              :merchant_id
+              :merchant_id,
+              :parent
 
-  def initialize(data)
+  def initialize(data, parent = nil)
     @id = data[:id].to_i
     @name = data[:name]
     @description = data[:description]
@@ -19,6 +20,7 @@ class Item
     @created_at = Time.parse(data[:created_at])
     @updated_at = Time.parse(data[:updated_at])
     @merchant_id = data[:merchant_id].to_i
+    @parent = parent
   end
 
   def unit_price_to_dollars
@@ -26,7 +28,8 @@ class Item
   end
 
   def merchant
-    SalesEngine.merchants.find_by_id(merchant_id)
+    parent.find_merchant(merchant_id)
+    # SalesEngine.merchants.find_by_id(merchant_id)
   end
 
 end

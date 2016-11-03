@@ -12,8 +12,8 @@ class InvoiceTest < Minitest::Test
       :merchant_id => '8',
       :status => "pending",
       :created_at => Time.now.to_s,
-      :updated_at => Time.now.to_s
-    })
+      :updated_at => Time.now.to_s},
+      Minitest::Mock.new)
   end
 
   def test_invoice_exists
@@ -42,6 +42,12 @@ class InvoiceTest < Minitest::Test
 
   def test_invoice_knows_time_updated_at
     assert_equal Time.now.to_s, invoice.updated_at.to_s
+  end
+
+  def test_invoice_calls_parent
+    invoice.parent.expect(:find_merchant, nil, [8])
+    invoice.merchant
+    invoice.parent.verify
   end
 
 end

@@ -26,5 +26,12 @@ class MerchantTest < Minitest::Test
     merchant = Merchant.new({:id => '5', :name => "Terd School"})
     assert_equal "Terd School", merchant.name
   end
+
+  def test_merchant_knows_its_parent
+    merchant = Merchant.new({:id => '5', :name => "Terd School"}, Minitest::Mock.new)
+    merchant.parent.expect(:find_invoices, nil, [5])
+    merchant.invoices
+    merchant.parent.verify
+  end
   
 end

@@ -13,8 +13,8 @@ class ItemTest < Minitest::Test
       :unit_price  => "1099",
       :created_at  => Time.now.to_s,
       :updated_at  => Time.now.to_s,
-      :merchant_id => '3333'
-    })
+      :merchant_id => '3333'},
+      Minitest::Mock.new)
   end
 
   def test_Item_exists
@@ -53,11 +53,10 @@ class ItemTest < Minitest::Test
     assert_equal 3333, item.merchant_id
   end
 
-  # def test_item_call_sales_engine
-  #   sales_engine = Minitest::Mock.new
-  #   sales_engine.expect(:find_by_id, nil, [1])
-  #   item.merchant
-  #   sales_engine.verify
-  # end
+  def test_item_calls_parent
+    item.parent.expect(:find_merchant, nil, [3333])
+    item.merchant
+    item.parent.verify
+  end
 
 end

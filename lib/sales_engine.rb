@@ -13,7 +13,7 @@ class SalesEngine
 
   def self.create_item_repository(files)
     if files.include?(:items)
-      ItemRepository.new(files[:items])
+      ItemRepository.new(files[:items], self)
     end
   end
 
@@ -23,7 +23,7 @@ class SalesEngine
 
   def self.create_merchant_repository(files)
     if files.include?(:merchants)
-      MerchantRepository.new(files[:merchants])
+      MerchantRepository.new(files[:merchants], self)
     end
   end
 
@@ -33,12 +33,20 @@ class SalesEngine
 
   def self.create_invoice_repository(files)
     if files.include?(:invoices)
-      InvoiceRepository.new(files[:invoices])
+      InvoiceRepository.new(files[:invoices], self)
     end
   end
 
   def self.invoices
     @invoice_repo
+  end
+
+  def self.find_by_merchant_id(merchant_id)
+    merchants.find_by_id(merchant_id)
+  end
+
+  def self.find_invoices_by_merchant_id(merchant_id)
+    invoices.find_all_by_merchant_id(merchant_id)
   end
 
 end

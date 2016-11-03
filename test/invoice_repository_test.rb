@@ -6,7 +6,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def setup
     file = "./test/data_fixtures/invoices_fixture.csv"
-    @invoice_repository = InvoiceRepository.new(file)
+    @invoice_repository = InvoiceRepository.new(file, Minitest::Mock.new)
   end
 
   def test_invoice_repo_exists
@@ -79,6 +79,12 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_find_all_by_status_finds_all_returned_invoices
     invoices = invoice_repository.find_all_by_status(:returned)
     assert_equal 6, invoices.length
+  end
+
+  def test_invoice_repo_knows_its_parent
+    invoice_repository.parent.expect(:find_by_merchant_id, nil, [3333])
+    invoice_repository.find_merchant(3333)
+    invoice_repository.parent.verify
   end
 
 end

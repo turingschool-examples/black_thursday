@@ -5,12 +5,14 @@ class MerchantRepository
 
   include CSV_parser
 
-  attr_reader :all
+  attr_reader :all,
+              :parent
 
-  def initialize(file)
+  def initialize(file, parent = nil)
     @all = parse(file).map do |row|
-      Merchant.new({:id => row[:id], :name => row[:name]})
+      Merchant.new({:id => row[:id], :name => row[:name]}, self)
     end
+    @parent = parent
   end
 
   def find_by_id(id)
@@ -29,6 +31,10 @@ class MerchantRepository
 
   def inspect
     "#<#{self.class} #{@all.size} rows>"
+  end
+
+  def find_invoices(merchant_id)
+    parent.find_invoices_by_merchant_id(merchant_id)
   end
 
 end
