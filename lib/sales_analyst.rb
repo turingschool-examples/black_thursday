@@ -38,7 +38,7 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(id)
-    merch_items  = sales_engine.merchants.find_by_id(id).items
+    merch_items = merchants.find_by_id(id).items
     return 0 if merch_items.empty?
     prices = merch_items.map do |row|
       row.unit_price

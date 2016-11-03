@@ -3,8 +3,7 @@ require_relative '../lib/merchant_repository'
 
 class SalesEngine
 
-  attr_reader :sales_info,
-              :items,
+  attr_reader :items,
               :merchants
 
   def self.from_csv(sales_info)
