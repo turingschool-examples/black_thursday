@@ -7,6 +7,6 @@ module Statistics
   end
 
   def find_average(array)
-    array.inject{ |sum, number| sum + number}.to_f / array.count
+    array.inject{ |sum, number| sum + number.to_f} / array.count
   end
 end

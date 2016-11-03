@@ -43,13 +43,13 @@ class SalesAnalyst
   def average_item_price_for_merchant(merchant_id)
     merchant = engine.merchants.find_by_id(merchant_id)
     item_prices = merchant.items.map { |item| item.unit_price }
-    BigDecimal.new(find_average(item_prices), 2)
+    BigDecimal(find_average(item_prices)).round(2)
   end
 
   def average_average_price_per_merchant
     merchant_ids = all_merchants.map {|merchant| merchant.id}
     average_merchant_prices = merchant_ids.map { |id| average_item_price_for_merchant(id)}
-    BigDecimal.new(find_average(average_merchant_prices), 2)
+    BigDecimal(find_average(average_merchant_prices)).round(2)
   end
 
   def golden_items
@@ -79,7 +79,7 @@ class SalesAnalyst
   def top_days_by_invoice_count
     day_hash = engine.invoices.all.group_by {|invoice| invoice.created_at.wday}
     day_data = day_hash.values.map { |day| day.count}
-    threshold = stdev(day_data) + find_average(day_data)
+    threshold = (stdev(day_data) + find_average(day_data)).round
     top_days = day_hash.keys.find_all { |day| day_hash[day].count > threshold }
     top_days.map { |day| day_accessor[day] }
   end
