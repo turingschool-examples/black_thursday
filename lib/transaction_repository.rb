@@ -33,6 +33,10 @@ class TransactionRepository
     all.find_all {|transaction| transaction.result == desired_result}
   end
 
+  def find_invoice_by_invoice_id(invoice_id)
+    parent.find_invoice_by_invoice_id(invoice_id)
+  end
+
   def inspect
     '#{self.class}, #{all.count}'
   end

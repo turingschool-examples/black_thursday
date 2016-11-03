@@ -6,7 +6,7 @@ class CustomerRepostioryTest < Minitest::Test
   attr_reader :repo, :parent
 
   def setup
-    @parent = Minitest::Mock
+    @parent = Minitest::Mock.new
     @repo = CustomerRepository.new('./data/customers.csv', parent) 
   end
 
@@ -40,6 +40,12 @@ class CustomerRepostioryTest < Minitest::Test
 
   def test_it_returns_empty_array_when_last_name_not_found
     assert_equal [], repo.find_all_by_last_name("Dragon")
+  end
+
+  def test_it_calls_parent_when_looking_for_invoices
+    parent.expect(:find_invoices_by_customer_id, nil, [6])
+    repo.find_invoices_by_customer_id(6)
+    parent.verify
   end
 
 end

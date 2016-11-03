@@ -72,4 +72,12 @@ class SalesEngine
     items.find_by_id(item_id)
   end
 
+  def self.find_invoice_by_invoice_id(invoice_id)
+    invoices.find_by_id(invoice_id)
+  end
+
+  def self.find_invoices_by_customer_id(customer_id)
+    invoices.find_all_by_customer_id(customer_id)
+  end
+
 end
