@@ -10,9 +10,12 @@ class SalesAnalyst
     sales_engine.all_items
   end
 
+  def merchants
+    sales_engine.all_merchants
+  end
+
   def average_items_per_merchant
-    merchants = sales_engine.merchants.all.count.to_f
-    (items.count.to_f / merchants).round(2)
+    (items.count / merchants.count.to_f).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
@@ -22,19 +25,19 @@ class SalesAnalyst
   end
 
   def items_per_merchant_std_dev_numerator
-    sales_engine.merchants.all.map do |merchant|
+    merchants.map do |merchant|
       ((merchant.items.count - average_items_per_merchant) ** 2).to_f
     end.reduce(:+).to_f
   end
 
   def items_per_merchant_std_dev_denominator
-    (sales_engine.merchants.all.count - 1).to_f
+    (merchants.count - 1).to_f
   end
 
   def merchants_with_high_item_count
     mean    = average_items_per_merchant
     std_dev = average_items_per_merchant_standard_deviation
-    sales_engine.merchants.all.find_all do |merchant|
+    merchants.find_all do |merchant|
       merchant.items.count > (mean + std_dev)
     end
   end
@@ -49,8 +52,7 @@ class SalesAnalyst
   end
 
   def average_average_price_per_merchant
-    merchants = sales_engine.merchants.all
-    sum       = merchants.map do |merchant|
+    sum = merchants.map do |merchant|
       average_item_price_for_merchant(merchant.id)
     end.reduce(:+)
     (sum / merchants.count).round(2)
@@ -84,8 +86,5 @@ class SalesAnalyst
   def item_price_std_dev_denominator
     sales_engine.items.all.count - 1
   end
-
-
-
 
 end
