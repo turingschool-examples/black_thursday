@@ -59,6 +59,8 @@ class ItemRepository
     parent.find_merchant(merchant_id)
   end
 
+
+
   def inspect
     "#<#{self.class} #{@items.size} rows>"
   end
