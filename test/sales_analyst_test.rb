@@ -20,22 +20,27 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_has_a_sales_engine_instance
-    assert sales_analyst.sales_engine
+    assert_instance_of SalesEngine, sales_analyst.sales_engine
   end
 
   def test_it_can_return_total_number_of_items
-    skip
-    assert_equal 16, sales_analyst.total_items
+    assert_equal 8, sales_analyst.total_items
   end
 
   def test_it_can_return_total_number_of_merchants
-    skip
-    assert_equal 8, sales_analyst.total_merchants
+    assert_equal 6, sales_analyst.total_merchants
   end
 
   def test_it_can_return_average_items_per_merchant
-    skip
-    assert_equal 2, sales_analyst.average_items_per_merchant
+    assert_equal 1.33, sales_analyst.average_items_per_merchant
+  end
+
+  def test_it_can_return_array_with_the_number_of_items_for_each_merchant
+    assert_equal [1,1,1,1,2,2,], sales_analyst.collect_items_per_merchant.sort
+  end
+
+  def test_it_can_return_standard_deviation_of_items_per_merchant
+    assert_equal 0.52, sales_analyst.average_items_per_merchant_standard_deviation
   end
 
 end

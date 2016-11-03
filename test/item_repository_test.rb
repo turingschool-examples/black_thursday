@@ -62,14 +62,14 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_can_return_all_items_that_match_price
     assert repository.find_all_by_price(10)
-    assert_equal 2, repository.find_all_by_price(10).length
+    assert_equal 3, repository.find_all_by_price(10).length
     assert repository.find_all_by_price(40)
     assert_equal 1, repository.find_all_by_price(40).length
     assert_equal [], repository.find_all_by_price(1000)
   end
 
   def test_it_can_return_items_within_price_range
-    assert_equal 3, repository.find_all_by_price_in_range(5..10).length
+    assert_equal 4, repository.find_all_by_price_in_range(5..10).length
     assert_equal 2, repository.find_all_by_price_in_range(20..40).length
     assert_equal [], repository.find_all_by_price_in_range(100..110)
   end
