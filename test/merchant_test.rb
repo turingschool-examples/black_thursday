@@ -21,7 +21,7 @@ class MerchantTest < Minitest::Test
     parent.verify
   end
 
-  def test_it_calls_its_parents_when_looking_for_items
+  def test_it_calls_its_parents_when_looking_for_invoices
     parent.expect(:find_invoices_by_merchant_id, nil, [1])
     m.invoices
     parent.verify
