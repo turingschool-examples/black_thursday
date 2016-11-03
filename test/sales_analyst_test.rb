@@ -7,7 +7,8 @@ class SalesAnalystTest < Minitest::Test
   def setup
     @sales_engine = SalesEngine.from_csv({
       :items     => "./data/test_items.csv",
-      :merchants => "./data/test_merchants.csv"
+      :merchants => "./data/test_merchants.csv",
+      :invoices     => "./data/test_invoices.csv"
       })
       @sales_analyst = SalesAnalyst.new(@sales_engine)
     end
@@ -86,6 +87,24 @@ class SalesAnalystTest < Minitest::Test
       assert gold_items.all?{|item| item.unit_price > 18221.5}
       assert gold_items.all?{|item| item.class == Item}
       assert_equal 1, gold_items.count
+    end
+
+    def test_average_invoices_per_merchant_returns_a_float
+      assert Float, sales_analyst.average_invoices_per_merchant
+    end
+
+    def test_average_invoices_per_merchant_returns_the_average
+      assert_equal 0.56, sales_analyst.average_invoices_per_merchant
+    end
+
+    def test_invoice_status_returns_a_float
+      status = "pending"
+      assert_equal Float, sales_analyst.invoice_status(status).class
+    end
+
+    def test_invoice_status_returns_the_percentage_of_the_status
+      status = "pending"
+      assert_equal 28.38, sales_analyst.invoice_status(status)
     end
 
   end

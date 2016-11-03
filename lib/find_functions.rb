@@ -14,8 +14,9 @@ module FindFunctions
   end
 
   def find_all(method, input)
-    return find_all_prices(input)    if method == :unit_price
-    return find_all_merch_ids(input) if method == :merchant_id
+    return find_all_prices(input)       if method == :unit_price
+    return find_all_merch_ids(input)    if method == :merchant_id
+    return find_all_customer_ids(input) if method == :customer_id
     find_all_strings(method, input)
   end
 
@@ -25,6 +26,10 @@ module FindFunctions
 
   def find_all_merch_ids(input)
     all.find_all {|row| row.merchant_id == input}
+  end
+
+  def find_all_customer_ids(input)
+    all.find_all {|row| row.customer_id == input}
   end
 
   def find_all_strings(method, input)
