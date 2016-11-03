@@ -43,4 +43,9 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 0.52, sales_analyst.average_items_per_merchant_standard_deviation
   end
 
+  def test_it_can_determine_average_price_per_merchant
+    assert_equal 7.50, sales_analyst.average_item_price_for_merchant(101)
+    assert_equal 15.00, sales_analyst.average_item_price_for_merchant(102)
+  end
+
 end
