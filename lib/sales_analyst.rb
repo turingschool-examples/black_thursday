@@ -52,7 +52,7 @@ class SalesAnalyst
     array = @merchants.find_all do |merchant|
         merchant.items.count > threshold
       end
-      name = array.map { |merchant| merchant.name }
+      # name = array.map { |merchant| merchant.name }
       # ^if spec harness breaks delete this line^
   end
 
