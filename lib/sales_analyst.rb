@@ -6,10 +6,13 @@ class SalesAnalyst
     @sales_engine = sales_engine
   end
 
+  def items
+    sales_engine.all_items
+  end
+
   def average_items_per_merchant
-    items     = sales_engine.items.all.count.to_f
     merchants = sales_engine.merchants.all.count.to_f
-    (items / merchants).round(2)
+    (items.count.to_f / merchants).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
@@ -37,11 +40,11 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(id)
-    items  = sales_engine.merchants.find_by_id(id).items
-    return 0 if items.empty?
-    prices = items.map do |row|
+    merch_items  = sales_engine.merchants.find_by_id(id).items
+    return 0 if merch_items.empty?
+    prices = merch_items.map do |row|
       row.unit_price
-    end.reduce(:+) / items.count
+    end.reduce(:+) / merch_items.count
     prices.round(2)
   end
 
@@ -56,14 +59,12 @@ class SalesAnalyst
   def golden_items
     mean    = average_item_price
     std_dev = item_price_standard_deviation
-    items   = sales_engine.items.all
     items.find_all do |item|
       item.unit_price > (mean + (std_dev * 2))
     end
   end
 
   def average_item_price
-    items = sales_engine.items.all
     sum   = items.map { |item| item.unit_price }.reduce(:+)
     sum / items.count
   end
@@ -75,7 +76,6 @@ class SalesAnalyst
   end
 
   def item_price_std_dev_numerator
-    items = sales_engine.items.all
     items.map do |item|
       (item.unit_price - average_item_price) ** 2
     end.reduce(:+)
@@ -84,6 +84,7 @@ class SalesAnalyst
   def item_price_std_dev_denominator
     sales_engine.items.all.count - 1
   end
+
 
 
 
