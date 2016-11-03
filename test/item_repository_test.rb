@@ -5,13 +5,13 @@ require 'minitest/pride'
 require './lib/sales_engine'
 
 class ItemRepositoryTest < Minitest::Test
-  attr_reader  :repository
-  
+  attr_reader  :repository, :se
+
   def setup
-    se = SalesEngine.from_csv({
+    @se = SalesEngine.from_csv({
       :items => "./fixture/items.csv"
     })
-    @repository = se.items
+    @repository = @se.items
   end
 
   def test_it_can_create_item_repository
@@ -23,11 +23,11 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_return_instance_of_item_with_matching_id
-    assert repository.find_by_id("1")
-    assert_instance_of Item, repository.find_by_id("1")
-    assert repository.find_by_id("2")
-    assert_instance_of Item, repository.find_by_id("2")
-    assert_nil repository.find_by_id("50")
+    assert repository.find_by_id(1)
+    assert_instance_of Item, repository.find_by_id(1)
+    assert repository.find_by_id(2)
+    assert_instance_of Item, repository.find_by_id(2)
+    assert_nil repository.find_by_id(50)
   end
 
   def test_it_can_return_instance_of_item_if_name_matches
@@ -81,5 +81,8 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal [], repository.find_all_by_merchant_id(999)
   end
 
-end
+  def test_that_an_item_repo_knows_who_its_parent_is
+    assert_equal @se, @repository.parent
+  end
 
+end
