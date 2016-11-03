@@ -12,7 +12,6 @@ class MerchantTest < Minitest::Test
       :id => 5,
       :name => "Turing School"
     })
-
   end
 
   def test_it_can_create_a_merchant
