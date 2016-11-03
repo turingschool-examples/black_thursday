@@ -12,6 +12,7 @@ class ItemRepository
     @items = contents.map do |line|
       Item.new(line, self)
     end
+    @parent = parent
   end
 
   def all
@@ -27,7 +28,7 @@ class ItemRepository
   def find_by_name(name)
     items.find do |item|
       item.name.downcase == name.downcase
-    end 
+    end
   end
 
   def find_all_with_description(description)

@@ -11,7 +11,7 @@ class Item
                 :merchant_id,
                 :parent
 
-  def initialize(item_hash, parent = nil)
+  def initialize(item_hash, parent=nil)
     @id = item_hash[:id].to_i
     @name = item_hash[:name]
     @description = item_hash[:description]
@@ -19,7 +19,7 @@ class Item
     @created_at = Time.parse(item_hash[:created_at])
     @updated_at = Time.parse(item_hash[:updated_at])
     @merchant_id = item_hash[:merchant_id]
-    @parents = parent
+    @parent = parent
   end
 
   def unit_price_to_dollars
@@ -29,5 +29,5 @@ class Item
   def merchant
     parent.find_merchant(merchant_id)
   end
-  
+
 end

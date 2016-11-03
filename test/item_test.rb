@@ -3,30 +3,35 @@ SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/item'
+require './lib/item_repository'
 
 class ItemTest < Minitest::Test
   attr_reader   :item,
-                :item_2
+                :item_2,
+                :ir
 
   def setup
+    @ir = ItemRepository.new('./fixture/items.csv')
     @item = Item.new({
       :id => 1,
       :name => "Pencil",
       :description => "You can use it to write things",
       :unit_price => BigDecimal.new(10.99, 4),
-      :created_at => Time.now,
-      :updated_at => Time.now,
-      :merchant_id => 100
-    })
+      :created_at => "2015-01-01 11:11:37 UTC",
+      :updated_at => "2015-10-10 11:11:37 UTC",
+      :merchant_id => 100,
+      :parent => @ir
+    }, ir)
     @item_2 = Item.new({
       :id => 2,
       :name => "Pen",
       :description => "You can use it to write things",
       :unit_price => 10,
-      :created_at => Time.now,
-      :updated_at => Time.now,
-      :merchant_id => 101
-    })
+      :created_at => "2015-01-01 11:11:37 UTC",
+      :updated_at => "2015-10-10 11:11:37 UTC",
+      :merchant_id => 101,
+      :parent => @ir
+    }, ir)
   end
 
   def test_it_can_create_an_item
@@ -69,5 +74,9 @@ class ItemTest < Minitest::Test
   def test_it_can_return_price_in_dollars_as_float
     assert_instance_of Float, item.unit_price_to_dollars
     assert_instance_of Float, item_2.unit_price_to_dollars
+  end
+
+  def test_that_an_item_knows_who_its_parent_is
+    assert_equal @ir, item.parent
   end
 end
