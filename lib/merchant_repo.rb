@@ -1,4 +1,5 @@
 require_relative './merchant'
+require_relative './item'
 require_relative './data_parser'
 
 class MerchantRepo
@@ -20,6 +21,10 @@ class MerchantRepo
 
   def find_all_by_name(name_fragment)
     @all.find_all {|merchant| merchant.name.downcase.include?(name_fragment)}
+  end
+
+  def find_items_by_merchant_id(id)
+    @parent.find_items_by_merchant_id(id)
   end
 
   def inspect

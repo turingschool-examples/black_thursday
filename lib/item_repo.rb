@@ -30,8 +30,12 @@ class ItemRepo
     @all.find_all {|item| price_range.include?(item.unit_price)}
   end
 
-  def find_all_by_merchant_id(merchant_id)
-    @all.find_all {|item| item.merchant_id.eql?(merchant_id)}
+  def find_all_by_merchant_id(id)
+    @all.find_all {|item| item.merchant_id.eql?(id)}
+  end
+
+  def find_merchant_by_merchant_id(id)
+    @parent.find_merchant_by_merchant_id(id)
   end
 
   def inspect
