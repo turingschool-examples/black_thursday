@@ -1,4 +1,8 @@
+require_relative '../lib/statistics'
+
 class SalesAnalyst
+
+  include Statistics
 
   attr_reader :sales_engine
 
@@ -19,19 +23,10 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    numerator   = items_per_merchant_std_dev_numerator
-    denominator = items_per_merchant_std_dev_denominator
-    Math.sqrt(numerator / denominator).round(2)
-  end
-
-  def items_per_merchant_std_dev_numerator
-    merchants.map do |merchant|
-      ((merchant.items.count - average_items_per_merchant) ** 2).to_f
-    end.reduce(:+).to_f
-  end
-
-  def items_per_merchant_std_dev_denominator
-    (merchants.count - 1).to_f
+    array1   = merchants.map {|merchant| merchant.items.count}
+    array2   = merchants
+    average  = average_items_per_merchant
+    standard_deviation(array1, array2, average)
   end
 
   def merchants_with_high_item_count

@@ -36,13 +36,13 @@ class SalesAnalystTest < Minitest::Test
       assert_equal 0.89, sales_analyst.average_items_per_merchant
     end
 
-    def test_std_dev_numerator_returns_sum_of_squared_distances_from_mean
-      assert_equal 534.5450999999997, sales_analyst.items_per_merchant_std_dev_numerator
-    end
+    # def test_std_dev_numerator_returns_sum_of_squared_distances_from_mean
+    #   assert_equal 534.5450999999997, sales_analyst.items_per_merchant_std_dev_numerator
+    # end
 
-    def test_std_dev_denominator_returns_item_count_minus_one
-      assert_equal 130.0, sales_analyst.items_per_merchant_std_dev_denominator
-    end
+    # def test_std_dev_denominator_returns_item_count_minus_one
+    #   assert_equal 130.0, sales_analyst.items_per_merchant_std_dev_denominator
+    # end
 
     def test_avg_items_per_merch_std_dev_returns_std_dev
       assert_equal 2.03, sales_analyst.average_items_per_merchant_standard_deviation
