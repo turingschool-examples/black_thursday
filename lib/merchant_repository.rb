@@ -11,7 +11,7 @@ class MerchantRepository
   def initialize(path, parent=nil)
     @contents = CSV.open path, headers: true, header_converters: :symbol
     @merchants = contents.map do |line|
-      Merchant.new(line)
+      Merchant.new(line, self)
     end
     @parent = parent
   end

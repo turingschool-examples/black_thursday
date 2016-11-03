@@ -1,5 +1,6 @@
 require_relative 'item_repository'
 require_relative 'merchant_repository'
+require 'pry'
 
 class SalesEngine
   attr_reader   :paths,
