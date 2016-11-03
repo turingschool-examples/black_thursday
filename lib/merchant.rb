@@ -11,7 +11,7 @@ class Merchant
   end
 
   def items
-    SalesEngine.items.find_all_by_merchant_id(id)
+    parent.find_items(id)
   end
 
   def invoices

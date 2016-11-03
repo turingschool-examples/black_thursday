@@ -24,7 +24,6 @@ class MerchantAnalystTest < Minitest::Test
   def test_merchants_with_high_item_count_returns_merchants_above_one_st_dev_in_item_count
     top_merchants = sales_analyst.merchants_with_high_item_count
     assert top_merchants.all? {|merchant| merchant.items.length > 2.88}
-
   end
 
   def test_average_average_price_per_merchant_returns_average

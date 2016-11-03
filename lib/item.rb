@@ -29,7 +29,6 @@ class Item
 
   def merchant
     parent.find_merchant(merchant_id)
-    # SalesEngine.merchants.find_by_id(merchant_id)
   end
 
 end

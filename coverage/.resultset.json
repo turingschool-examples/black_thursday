@@ -1,7 +1,7 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/user/turing/module_1/projects/black_thursday/lib/calculator.rb": [
+      "/Users/kyle_heppenstall/turing/1module/project/black_thursday/lib/calculator.rb": [
         1,
         null,
         1,
@@ -28,7 +28,7 @@
         null,
         null
       ],
-      "/Users/user/turing/module_1/projects/black_thursday/test/invoice_test.rb": [
+      "/Users/kyle_heppenstall/turing/1module/project/black_thursday/test/invoice_test.rb": [
         1,
         1,
         null,
@@ -83,7 +83,7 @@
         null,
         null
       ],
-      "/Users/user/turing/module_1/projects/black_thursday/lib/invoice.rb": [
+      "/Users/kyle_heppenstall/turing/1module/project/black_thursday/lib/invoice.rb": [
         1,
         null,
         1,
@@ -112,7 +112,7 @@
         null,
         null
       ],
-      "/Users/user/turing/module_1/projects/black_thursday/test/item_test.rb": [
+      "/Users/kyle_heppenstall/turing/1module/project/black_thursday/test/item_test.rb": [
         1,
         1,
         null,
@@ -176,7 +176,7 @@
         null,
         null
       ],
-      "/Users/user/turing/module_1/projects/black_thursday/lib/item.rb": [
+      "/Users/kyle_heppenstall/turing/1module/project/black_thursday/lib/item.rb": [
         1,
         1,
         null,
@@ -192,14 +192,14 @@
         null,
         null,
         1,
-        935,
-        935,
-        935,
-        935,
-        935,
-        935,
-        935,
-        935,
+        910,
+        910,
+        910,
+        910,
+        910,
+        910,
+        910,
+        910,
         null,
         null,
         1,
@@ -210,49 +210,48 @@
         3,
         null,
         null,
+        null
+      ],
+      "/Users/kyle_heppenstall/turing/1module/project/black_thursday/test/merchant_test.rb": [
+        1,
+        1,
+        null,
+        1,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
         null,
         null
       ],
-      "/Users/user/turing/module_1/projects/black_thursday/test/merchant_test.rb": [
-        1,
-        1,
-        null,
-        1,
-        null,
-        1,
-        1,
-        null,
-        null,
-        1,
-        1,
-        1,
-        null,
-        null,
-        1,
-        1,
-        1,
-        null,
-        null,
-        1,
-        1,
-        1,
-        null,
-        null,
-        1,
-        1,
-        1,
-        null,
-        null,
-        1,
-        1,
-        1,
-        1,
-        1,
-        null,
-        null,
-        null
-      ],
-      "/Users/user/turing/module_1/projects/black_thursday/lib/merchant.rb": [
+      "/Users/kyle_heppenstall/turing/1module/project/black_thursday/lib/merchant.rb": [
         1,
         null,
         1,
@@ -260,9 +259,9 @@
         null,
         null,
         1,
-        686,
-        686,
-        686,
+        666,
+        666,
+        666,
         null,
         null,
         1,
@@ -275,7 +274,7 @@
         null,
         null
       ],
-      "/Users/user/turing/module_1/projects/black_thursday/test/sales_engine_test.rb": [
+      "/Users/kyle_heppenstall/turing/1module/project/black_thursday/test/sales_engine_test.rb": [
         1,
         1,
         null,
@@ -304,7 +303,7 @@
         null,
         null
       ],
-      "/Users/user/turing/module_1/projects/black_thursday/lib/sales_engine.rb": [
+      "/Users/kyle_heppenstall/turing/1module/project/black_thursday/lib/sales_engine.rb": [
         1,
         1,
         1,
@@ -312,40 +311,35 @@
         1,
         null,
         1,
-        21,
-        21,
-        21,
-        21,
-        null,
-        null,
-        1,
-        21,
-        17,
         null,
         null,
         null,
         1,
-        133,
+        20,
         null,
         null,
         1,
-        21,
-        21,
+        20,
+        20,
+        20,
+        null,
+        null,
+        1,
+        20,
+        16,
         null,
         null,
         null,
         1,
-        39,
+        20,
+        20,
+        null,
         null,
         null,
         1,
-        21,
+        20,
         4,
         null,
-        null,
-        null,
-        1,
-        4,
         null,
         null,
         1,
@@ -356,9 +350,13 @@
         2,
         null,
         null,
+        1,
+        127,
+        null,
+        null,
         null
       ],
-      "/Users/user/turing/module_1/projects/black_thursday/lib/merchant_repository.rb": [
+      "/Users/kyle_heppenstall/turing/1module/project/black_thursday/lib/merchant_repository.rb": [
         1,
         1,
         null,
@@ -370,10 +368,10 @@
         null,
         null,
         1,
-        34,
-        680,
+        33,
+        660,
         null,
-        34,
+        33,
         null,
         null,
         1,
@@ -398,22 +396,26 @@
         3,
         null,
         null,
+        1,
+        127,
+        null,
+        null,
         null,
         null,
         null
       ],
-      "/Users/user/turing/module_1/projects/black_thursday/lib/csv_parser.rb": [
+      "/Users/kyle_heppenstall/turing/1module/project/black_thursday/lib/csv_parser.rb": [
         1,
         null,
         1,
         null,
         1,
-        91,
+        89,
         null,
         null,
         null
       ],
-      "/Users/user/turing/module_1/projects/black_thursday/lib/item_repository.rb": [
+      "/Users/kyle_heppenstall/turing/1module/project/black_thursday/lib/item_repository.rb": [
         1,
         1,
         null,
@@ -425,8 +427,8 @@
         null,
         null,
         1,
-        37,
-        925,
+        36,
+        900,
         null,
         null,
         null,
@@ -435,7 +437,7 @@
         null,
         null,
         null,
-        37,
+        36,
         null,
         null,
         1,
@@ -474,7 +476,7 @@
         null,
         null
       ],
-      "/Users/user/turing/module_1/projects/black_thursday/lib/invoice_repository.rb": [
+      "/Users/kyle_heppenstall/turing/1module/project/black_thursday/lib/invoice_repository.rb": [
         1,
         1,
         null,
@@ -525,7 +527,7 @@
         null,
         null
       ],
-      "/Users/user/turing/module_1/projects/black_thursday/test/integrated_test/invoice_merchant_integrated_test.rb": [
+      "/Users/kyle_heppenstall/turing/1module/project/black_thursday/test/integrated_test/invoice_merchant_integrated_test.rb": [
         1,
         1,
         null,
@@ -571,7 +573,7 @@
         null,
         null
       ],
-      "/Users/user/turing/module_1/projects/black_thursday/test/integrated_test/merchant_item_integrated_test.rb": [
+      "/Users/kyle_heppenstall/turing/1module/project/black_thursday/test/integrated_test/merchant_item_integrated_test.rb": [
         1,
         1,
         null,
@@ -619,7 +621,7 @@
         null,
         null
       ],
-      "/Users/user/turing/module_1/projects/black_thursday/test/analyst_test/item_analyst_test.rb": [
+      "/Users/kyle_heppenstall/turing/1module/project/black_thursday/test/analyst_test/item_analyst_test.rb": [
         1,
         1,
         null,
@@ -658,7 +660,7 @@
         null,
         null
       ],
-      "/Users/user/turing/module_1/projects/black_thursday/lib/sales_analyst.rb": [
+      "/Users/kyle_heppenstall/turing/1module/project/black_thursday/lib/sales_analyst.rb": [
         1,
         1,
         1,
@@ -673,12 +675,12 @@
         1,
         null,
         1,
-        9,
+        8,
         null,
         null,
         null
       ],
-      "/Users/user/turing/module_1/projects/black_thursday/lib/item_analyst.rb": [
+      "/Users/kyle_heppenstall/turing/1module/project/black_thursday/lib/item_analyst.rb": [
         1,
         null,
         1,
@@ -704,7 +706,7 @@
         null,
         null
       ],
-      "/Users/user/turing/module_1/projects/black_thursday/lib/merchant_analyst.rb": [
+      "/Users/kyle_heppenstall/turing/1module/project/black_thursday/lib/merchant_analyst.rb": [
         1,
         null,
         1,
@@ -750,7 +752,7 @@
         null,
         null
       ],
-      "/Users/user/turing/module_1/projects/black_thursday/test/analyst_test/merchant_analyst_test.rb": [
+      "/Users/kyle_heppenstall/turing/1module/project/black_thursday/test/analyst_test/merchant_analyst_test.rb": [
         1,
         1,
         null,
@@ -779,7 +781,6 @@
         2,
         null,
         null,
-        null,
         1,
         1,
         1,
@@ -789,29 +790,7 @@
         null,
         null
       ],
-      "/Users/user/turing/module_1/projects/black_thursday/test/analyst_test/sales_analyst_test.rb": [
-        1,
-        1,
-        null,
-        1,
-        null,
-        1,
-        null,
-        1,
-        1,
-        null,
-        null,
-        null,
-        1,
-        null,
-        null,
-        1,
-        1,
-        null,
-        null,
-        null
-      ],
-      "/Users/user/turing/module_1/projects/black_thursday/test/repository_test/invoice_repository_test.rb": [
+      "/Users/kyle_heppenstall/turing/1module/project/black_thursday/test/repository_test/invoice_repository_test.rb": [
         1,
         1,
         null,
@@ -904,7 +883,7 @@
         null,
         null
       ],
-      "/Users/user/turing/module_1/projects/black_thursday/test/repository_test/item_repository_test.rb": [
+      "/Users/kyle_heppenstall/turing/1module/project/black_thursday/test/repository_test/item_repository_test.rb": [
         1,
         1,
         null,
@@ -1038,7 +1017,7 @@
         null,
         null
       ],
-      "/Users/user/turing/module_1/projects/black_thursday/test/repository_test/merchant_repository_test.rb": [
+      "/Users/kyle_heppenstall/turing/1module/project/black_thursday/test/repository_test/merchant_repository_test.rb": [
         1,
         1,
         null,
@@ -1132,7 +1111,7 @@
         null
       ]
     },
-    "timestamp": 1478203946
+    "timestamp": 1478205382
   },
   "minitest": {
     "coverage": {
