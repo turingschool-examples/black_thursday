@@ -30,7 +30,6 @@ class MerchantTest < Minitest::Test
   def test_that_a_merchant_knows_whose_its_parent_is
     mr = MerchantRepository.new("./fixture/merchant_test_file.csv")
     merchant = Merchant.new({}, mr)
-
     assert_equal mr, merchant.parent
   end
 

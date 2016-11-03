@@ -12,25 +12,25 @@ class ItemTest < Minitest::Test
 
   def setup
     @ir = ItemRepository.new('./fixture/items.csv')
+
     @item = Item.new({
       :id => 1,
       :name => "Pencil",
       :description => "You can use it to write things",
-      :unit_price => BigDecimal.new(10.99, 4),
+      :unit_price => "1099",
       :created_at => "2015-01-01 11:11:37 UTC",
       :updated_at => "2015-10-10 11:11:37 UTC",
-      :merchant_id => 100,
-      :parent => @ir
+      :merchant_id => 100 
     }, ir)
+
     @item_2 = Item.new({
       :id => 2,
       :name => "Pen",
       :description => "You can use it to write things",
-      :unit_price => 10,
+      :unit_price => "1000",
       :created_at => "2015-01-01 11:11:37 UTC",
       :updated_at => "2015-10-10 11:11:37 UTC",
-      :merchant_id => 101,
-      :parent => @ir
+      :merchant_id => 101
     }, ir)
   end
 
