@@ -78,7 +78,7 @@ class SalesAnalystTest < Minitest::Test
     end
 
     def test_item_price_standard_deviation_returns_std_dev
-      assert_equal 8703.35, sales_analyst.item_price_standard_deviation
+      assert_equal 9277.08, sales_analyst.item_price_standard_deviation
     end
 
     def test_golden_items_returns_items_with_price_greater_than_2_std_devs_above_avg_price
