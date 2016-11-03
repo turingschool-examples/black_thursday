@@ -34,6 +34,11 @@ class ItemRepoTest < Minitest::Test
     assert_equal 263402963,i.find_by_name(name)
   end
 
+  def test_it_can_find_item_price_by_id
+    i = ItemRepo.new(file, sales_engine)
+    assert_equal 25000, i.find_item_price_by_id(263402963)
+  end
+
   def test_it_can_can_find_by_description
     i = ItemRepo.new(file, sales_engine)
     description = "- Super Chunky knit infinity scarf

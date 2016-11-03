@@ -22,9 +22,13 @@ class SalesEngine
     self.new(files)
   end
 
-  # def total_merchants
-  #   merchants.all.length
-  # end
+  def total_merchants
+    @merchant_repo.all.length
+  end
+
+  def find_all_by_merchant_id(id)
+    @item_repo.find_all_by_merchant_id(id)
+  end
 
   # def total_invoices
   #   invoices.all.length

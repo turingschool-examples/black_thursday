@@ -37,16 +37,21 @@ class ItemRepo
     end
   end
 
+  def find_item_price_by_id(merchant_id)
+    u = @all.find do |item|
+      item.merchant_id == merchant_id
+    end
+    binding.pry
+    u.unit_price
+  end
+
   def find_all_with_description(desired_description)
     @all.find_all do |item|
       item.description.downcase == desired_description
     end
-    #returns instances of item where the supplied string occurs in the description
-    #case insensitive
   end
 
   def find_all_by_price(desired_price)
-  #returns objects that match with price provided
     @all.find_all do |item|
       item.unit_price == desired_price
       return item.name
@@ -55,7 +60,6 @@ class ItemRepo
   end
 
   def find_all_by_price_in_range(price1, price2)
-    #returns objects that match with range price provided
       @all.find_all do |item|
         item.unit_price >= price1 &&
         item.unit_price <= price2
@@ -64,12 +68,11 @@ class ItemRepo
   end
 
   def find_all_by_merchant_id(merchant_id)
-    #search merchant with that id
-    #returns all items of that merchant
     @all.find_all do |item|
       item.merchant_id == merchant_id
       return item.name
     end
-
   end
+
+
 end

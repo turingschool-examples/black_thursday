@@ -4,7 +4,8 @@ require 'bigdecimal'
 require 'pry'
 
 class Merchant
-  attr_reader :id,
+  attr_reader :parent,
+              :id,
               :name,
               :created_at,
               :updated_at
@@ -16,6 +17,11 @@ class Merchant
       @created_at = data[:created_at]
       @updated_at = data[:updated_at]
   end
+
+   def items
+    @parent.find_all_by_merchant_id(id)
+  end
+
 end
 
 

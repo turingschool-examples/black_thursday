@@ -1,9 +1,11 @@
 require 'csv'
 require 'pry'
+require 'bigdecimal'
 require './lib/sales_engine'
+require './lib/calculations_module'
 
 class SalesAnalyst
-  # include Calculations
+  include Calculations
   attr_reader :parent
 
   def initialize(sales_engine)
@@ -12,30 +14,59 @@ class SalesAnalyst
 
   def average_items_per_merchant
       all_items = parent.item_repo.all.length.to_f
-      all_merchants = parent.merchant_repo.all.length.to_f
+      all_merchants = parent.total_merchants.to_f
       (all_items/all_merchants).round(2)
   end
 
+  def create_all_merchant_ids
+    parent.merchant_repo.all.map do |merchant|
+      merchant.id
+    end
+  end
+
   def average_items_per_merchant_standard_deviation
-    #will live in outside module
-    #set = [x..x+n]
-    #set mean
-    #standard_deviation = sqrt(((x-mean)**2 + .. + (x+n - mean)** 2))/set.length-1)
+    all_ids = create_all_merchant_ids
+    array = all_ids.map.with_index do |item, index|
+      binding.pry
+      items_per_merchant(index)
+      binding.pry
+    end
+
+    mean(array)
+  end
+
+  def items_per_merchant(merchant_id)
+    merchant = parent.merchant_repo.find_by_id(merchant_id)
+    merchant.items.length
   end
 
   def average_item_price_per_merchant(merchant_id)
-   desired_id = merchant_id
-    merchant = parent.item_repo.find_by_id(desired_id)
-    binding.pry
-    aggregate_price = merchant.items.reduce(0) do |sum, item|
-      sum + item.unit_price
-      sum
-    end
-    (aggregate_price/merchant.num_items).round(2)
-  end
-
-  def golden_items
-    #find items 2 or more standard_deviation above average price
-    #return these in an array
+    merchant = parent.merchant_repo.find_by_id(merchant_id)
+    num_items = items_per_merchant(merchant_id)
+    aggregate_price = parent.item_repo.find_item_price_by_id(merchant_id)
+    merchant_item_array = []
+    merchant_item_array << aggregate_price
+    merchant_item_array.reduce(:+)
+    (aggregate_price/num_items).round(2)
   end
 end
+
+  ###create a method for the previous array thing###
+    
+  # def average_price_per_item_for_all_merchants
+  #   total_merchants = parent.total_merchants.to_f
+  #   sum_averages = total_merchants.reduce(0) do |sum, merchant|
+  #     sum + average_item_price_for_merchant(merchant.id)
+  #   end
+  #   (sum_averages/total_merchants).round(2)
+  # end
+
+  # def golden_items
+  #   standard_deviation
+  #   price_threshold = 
+  #   parent.item_repo.all.find_all do |item|
+  #     item.unit_price_to_dollars >= price_threshold
+  #   end
+  # end
+
+ 
