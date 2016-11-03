@@ -88,5 +88,4 @@ class SalesAnalystTest < Minitest::Test
       assert_equal 1, gold_items.count
     end
 
-
   end

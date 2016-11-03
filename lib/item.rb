@@ -28,7 +28,7 @@ class Item
     price.to_i / 100.0
   end
 
-  def merchant 
+  def merchant
     parent.find_merchant_for_id(@merchant_id)
   end
 
