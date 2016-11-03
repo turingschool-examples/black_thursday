@@ -54,4 +54,20 @@ class SalesAnalyst
     (sum_of_averages / total_merchants).round(2)
   end
 
+  def get_all_prices
+    prices = sales_engine.items.items.map do |item|
+      item.unit_price
+    end
+  end
+
+  def golden_prices
+    above_standard_deviation(get_all_prices, 2)
+  end
+
+  def golden_items
+    golden_prices.map do |price|
+      sales_engine.items.find_all_by_price(price)
+    end
+  end
+
 end
