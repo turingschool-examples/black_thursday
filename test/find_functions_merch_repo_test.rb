@@ -14,6 +14,30 @@ class FindFunctionsTest < Minitest::Test
     assert Module, FindFunctions.class
   end
 
+  def test_find_by_filters_name_method
+    input = "Candisart"
+    assert_equal Merchant, find_by(:name, input).class
+    assert_equal find_by(:name, input).name, input
+  end
+
+  def test_find_name_returns_merchant_that_meets_criteria
+    input = "Candisart"
+    assert_equal Merchant, find_name(input).class
+    assert_equal find_name(input).name, input
+  end
+
+  def test_find_by_filters_id_method
+    input = 12334112
+    assert_equal Merchant, find_by(:id, input).class
+    assert_equal find_by(:id, input).id, input
+  end
+
+  def test_find_id_returns_merchant_that_meets_criteria
+    input = 12334112
+    assert_equal Merchant, find_id(input).class
+    assert_equal find_id(input).id, input
+  end
+
   def test_finds_all_strings_returns_matching_merchant_object_for_name
     input = "MiniatureBikez"
     assert_equal 1, find_all_strings(:name, input).count

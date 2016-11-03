@@ -36,7 +36,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_merchant_calls_parent
-    @item1.parent.expect(:find_merchant_for_id, nil, [10])
+    @item1.parent.expect(:find_item_merchant_by_merch_id, nil, [10])
     @item1.merchant
     @item1.parent.verify
   end

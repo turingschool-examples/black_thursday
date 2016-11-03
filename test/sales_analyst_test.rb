@@ -36,10 +36,6 @@ class SalesAnalystTest < Minitest::Test
       assert_equal 0.89, sales_analyst.average_items_per_merchant
     end
 
-    def test_distance_from_mean_squared_finds_distance_from_mean_squared
-      assert_equal 9.672099999999999, sales_analyst.items_per_merchant_distance_from_mean_squared(4)
-    end
-
     def test_std_dev_numerator_returns_sum_of_squared_distances_from_mean
       assert_equal 534.5450999999997, sales_analyst.items_per_merchant_std_dev_numerator
     end
@@ -86,6 +82,20 @@ class SalesAnalystTest < Minitest::Test
       assert gold_items.all?{|item| item.unit_price > 18221.5}
       assert gold_items.all?{|item| item.class == Item}
       assert_equal 1, gold_items.count
+    end
+
+    def test_items_returns_all_items_array
+      assert_equal Array, sales_analyst.items.class
+      assert sales_analyst.items.all? { |item| item.class == Item}
+      expected = sales_analyst.sales_engine.all_items.count
+      assert_equal expected, sales_analyst.items.count
+    end
+
+    def test_merchants_returns_all_merchants_array
+      assert_equal Array, sales_analyst.merchants.class
+      assert sales_analyst.merchants.all? { |merchant| merchant.class == Merchant}
+      expected = sales_analyst.sales_engine.all_merchants.count
+      assert_equal expected, sales_analyst.merchants.count
     end
 
   end
