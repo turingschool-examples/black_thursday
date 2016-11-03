@@ -37,6 +37,7 @@ class InvoiceRepository
   end
 
   def inspect
+    "#{self.class}, #{all.count}"
   end
 
 end
