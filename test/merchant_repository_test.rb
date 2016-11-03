@@ -18,12 +18,12 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_has_the_correct_number_of_merchants
-    assert_equal 3, mr.all.length
+    assert_equal 4, mr.all.length
   end
 
   def test_it_can_find_by_merchant_id
-    assert_equal "Shopin1901", mr.find_by_id(12334105).name
-    assert_equal "Candisart", mr.find_by_id(12334112).name
+    assert_equal "Shopin1901", mr.find_by_id(102).name
+    assert_equal "Candisart", mr.find_by_id(103).name
   end
 
   def test_returns_nil_if_no_id_match
@@ -31,8 +31,8 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_merchant_by_name
-    assert_equal (12334105), mr.find_by_name("Shopin1901").id
-    assert_equal (12334112), mr.find_by_name("Candisart").id
+    assert_equal (102), mr.find_by_name("Shopin1901").id
+    assert_equal (103), mr.find_by_name("Candisart").id
   end
 
   def test_returns_nil_if_no_name_match
@@ -40,12 +40,12 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_merchant_id_by_case_insensitive_name
-    assert_equal (12334105), mr.find_by_name("SHOPIN1901").id
-    assert_equal (12334105), mr.find_by_name("shopin1901").id
-    assert_equal (12334105), mr.find_by_name("sHOPin1901").id
-    assert_equal (12334112), mr.find_by_name("CANDISART").id
-    assert_equal (12334112), mr.find_by_name("candisart").id
-    assert_equal (12334112), mr.find_by_name("CANDisart").id
+    assert_equal (102), mr.find_by_name("SHOPIN1901").id
+    assert_equal (102), mr.find_by_name("shopin1901").id
+    assert_equal (102), mr.find_by_name("sHOPin1901").id
+    assert_equal (103), mr.find_by_name("CANDISART").id
+    assert_equal (103), mr.find_by_name("candisart").id
+    assert_equal (103), mr.find_by_name("CANDisart").id
   end
 
   def test_it_can_find_all_by_name_returns_an_array
