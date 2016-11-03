@@ -6,9 +6,10 @@ class SalesEngineTest < Minitest::Test
   attr_reader :sales_engine
 
   def setup
-    @sales_engine = SalesEngine.from_csv({:items => './test/assets/small_items.csv', :merchants => './test/assets/small_merchants.csv'})
+    @sales_engine = SalesEngine.from_csv({:items => './test/assets/small_items.csv', :merchants => './test/assets/small_merchants.csv', :invoices => './test/assets/small_invoice.csv'})
     sales_engine.merchants
     sales_engine.items
+    sales_engine.invoices
   end
 
   def test_it_loads_merchants_from_small_file
@@ -47,6 +48,14 @@ class SalesEngineTest < Minitest::Test
   def test_it_returns_merchant_instance_given_merchant_id
     result = sales_engine.find_merchant_by_merchant_id(12334112)
     assert_equal "Candisart", result.name
+  end
+
+  def test_it_loads_invoices_and_are_accessible_by_merchant_id
+    assert_equal 8, sales_engine.invoices.find_all_by_status(:pending).count
+  end
+
+  def test_it_invoices_when_passed_merchant_id
+    assert_equal 11, sales_engine.find_invoices_by_merchant_id(12334771)[0].id
   end
 
 end

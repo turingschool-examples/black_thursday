@@ -2,29 +2,20 @@ require 'pry'
 require 'csv'
 require 'bigdecimal'
 require_relative 'item'
+require_relative 'parser'
 
 class ItemRepository
+  include Parser
   attr_reader :all, :parent
 
   def initialize(file_path, parent)
-    @all = parse_items(file_path)
+    @all = create_items(file_path)
     @parent = parent
   end
 
-  def parse_items(file_path)
-    items_data = []
-    CSV.foreach(file_path, headers:true) do |row|
-      items_data << Item.new({:id => row['id'], 
-                              :name => row['name'],
-                              :description => row['description'],
-                              :unit_price => row['unit_price'],
-                              :merchant_id => row['merchant_id'],
-                              :created_at => Time.parse(row['created_at']),
-                              :updated_at => Time.parse(row['updated_at'])
-                            },
-                            self)
-    end
-    items_data
+  def create_items(file_path)
+    data_rows = parse_items_csv(file_path)
+    data_rows.map { |row| Item.new(row, self) }
   end
 
   def find_by_id(desired_id)

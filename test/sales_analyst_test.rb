@@ -7,7 +7,7 @@ class SalesAnalystTest < Minitest::Test
   attr_reader :engine, :analyst
 
   def setup
-    @engine = SalesEngine.from_csv({:items => './test/assets/medium_items.csv', :merchants => './test/assets/medium_merchants.csv'})
+    @engine = SalesEngine.from_csv({:items => './test/assets/medium_items.csv', :merchants => './test/assets/medium_merchants.csv', :invoices => "./test/assets/medium_invoices.csv"})
     @analyst =  SalesAnalyst.new(engine)
   end
 
@@ -53,4 +53,33 @@ class SalesAnalystTest < Minitest::Test
     found_items = analyst.golden_items.map { |item| "#{item.name} : #{item.unit_price_as_dollars}"}
     assert_equal golden_array, found_items
   end
+
+  def test_analyst_finds_average_invoices_per_merchant
+    assert_equal 9.82, analyst.average_invoices_per_merchant
+  end
+
+  def test_it_finds_stdev_of_average_invoices_per_merchant
+    assert_equal 3.66, analyst.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_analyst_returns_top_performing_merchants_two_stdevs_over_average
+    top_merchants = []
+    found_merchants = analyst.top_merchants_by_invoice_count
+    assert_equal top_merchants, found_merchants.map {|merchant| merchant.name}
+  end
+
+  def test_analyst_returns_bottom_performing_merchants_two_stdevs_under_average
+    lowest_merchants = ["CANNATHERAPYCO"]
+    found_merchants = analyst.bottom_merchants_by_invoice_count
+    assert_equal lowest_merchants, found_merchants.map {|merchant| merchant.name}
+  end
+
+  def test_it_find_top_days_for_sales
+    assert_equal ['Monday'], analyst.top_days_by_invoice_count
+  end
+
+  def test_invoice_status_returns_percentage_with_status
+    assert_equal 28.24, analyst.invoice_status(:pending)
+  end
+
 end
