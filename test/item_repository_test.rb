@@ -90,7 +90,7 @@ def test_it_returns_array_when_description_unique_case_insensitive
   end
 
   def test_that_parse_items_parses_items
-    current = repo.parse_items('./test/assets/small_items.csv')
+    current = repo.parse_items_csv('./test/assets/small_items.csv')
     assert_equal 10, current.count
   end
 

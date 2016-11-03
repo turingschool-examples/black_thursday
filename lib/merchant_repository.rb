@@ -1,23 +1,20 @@
 require 'csv'
 require_relative 'merchant'
+require_relative 'parser'
 
 class MerchantRepository
+  include Parser
   attr_reader :all, 
               :parent
 
   def initialize(file_path, parent)
-    @all    = parse_merchants(file_path) 
+    @all    = create_merchants(file_path) 
     @parent = parent
   end
 
-  def parse_merchants(file_path)
-    merchants_data = []
-    CSV.foreach(file_path, headers:true) do |row|
-      merchants_data << Merchant.new({:id => row['id'].to_i, 
-                                      :name => row['name']},
-                                      self)
-    end
-    merchants_data
+  def create_merchants(file_path)
+    data_rows = parse_merchants_csv(file_path)
+    data_rows.map { |row| Merchant.new(row, self) }
   end
 
   def find_by_id(desired_id)

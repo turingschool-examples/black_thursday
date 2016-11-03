@@ -74,8 +74,12 @@ class SalesAnalystTest < Minitest::Test
     assert_equal lowest_merchants, found_merchants.map {|merchant| merchant.name}
   end
 
-  def test_it_find_top_day_for_sales
-    assert_equal ["Sunday", "Saturday"], analyst.top_days_by_invoice_count
+  def test_it_find_top_days_for_sales
+    assert_equal ['Monday'], analyst.top_days_by_invoice_count
+  end
+
+  def test_invoice_status_returns_percentage_with_status
+    assert_equal 28.24, analyst.invoice_status(:pending)
   end
 
 end
