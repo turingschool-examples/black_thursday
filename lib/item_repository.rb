@@ -40,13 +40,18 @@ class ItemRepository
 
   def find_all_by_price_in_range(price_range)
     @all.find_all do |item|
-      price_range.include?(item.unit_price.to_i)
+      price_range.include?(item.unit_price)
     end
   end
 
   def find_all_by_price(price)
-    @all.find_all { |item| item.unit_price.eql?(price) }
+    @all.find_all do |item|
+      if item.unit_price.eql?(price)
+        item
+      end
+    end
   end
+
 
   def find_by_name(name)
     @all.find do |item|
