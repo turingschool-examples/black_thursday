@@ -59,4 +59,23 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 24.58, sales_analyst.average_average_price_per_merchant
   end
 
+  def test_it_can_retrieve_all_item_proces
+    assert_equal [5,10,10,10,15,20,40,60], sales_analyst.get_all_prices.sort
+  end
+
+  def test_it_can_find_golden_prices
+    assert_equal 1, sales_analyst.golden_prices.length
+  end
+
+  def test_it_can_return_a_golden_item
+    assert_equal 1, sales_analyst.golden_items.length
+    assert_instance_of Array, sales_analyst.golden_items
+    # def test_it_can_return_a_golden_item_name
+    #   assert_instance_of "Glove", sales_analyst.golden_items.name
+    # end
+    #find a better way to test this
+  end
+
+
+
 end
