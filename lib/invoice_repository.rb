@@ -1,11 +1,11 @@
-require_relative '../lib/invoices'
+require_relative '../lib/invoice'
 require 'csv'
 
 class InvoiceRepository
 
   attr_reader :csv, :all
 
-  def initialize(path, sales_engine)
+  def initialize(path, sales_engine = nil)
     csv_path(path)
     load_all
     @parent = sales_engine
@@ -18,7 +18,7 @@ class InvoiceRepository
   def load_all
     @all = []
     @csv.each do |line|
-      @all << Invoice.new({ :id => line[:id].to_i,
+      @all << Invoice.new({ :id => line[:id],
                             :customer_id => line[:customer_id],
                             :merchant_id => line[:merchant_id],
                             :status => line[:status],
@@ -31,23 +31,34 @@ class InvoiceRepository
 
   def find_by_id(id)
     return nil if id.nil?
-    matches = @all.find do |invoice|
-      invoice.id == id
+    matches = @all.find { |invoice| invoice.id == id }
+  end
+
+  def find_all_by_customer_id(id)
+    return nil if id.nil?
+    matches = []
+    matches = @all.find_all do |invoice|
+      invoice.customer_id == id
     end
     matches
-    #returns either nil or an instance of Invoice with a matchin ID
   end
 
-  def find_all_by_customer_id(customer_id)
-    #returns either [] of one of more matches which hace a matching customer ID
+  def find_all_by_merchant_id(id)
+    return nil if id.nil?
+    matches = []
+    matches = @all.find_all do |invoice|
+      invoice.merchant_id == id
+    end
+    matches
   end
 
-  def find_all_by_merchant_id
-    #returns either [] or one of more matches which have a matching merchant ID
-  end
-
-  def find_all_by_status
-    #returns either [] or one or more matches which have a matching status
+  def find_all_by_status(status)
+    return nil if status.nil?
+    matches = []
+    matches = @all.find_all do |invoice|
+      invoice.status == status
+    end
+    matches
   end
 
 end

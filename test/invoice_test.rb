@@ -1,11 +1,11 @@
 require_relative '../test/test_helper'
-require_relative '../lib/invoices'
+require_relative '../lib/invoice'
 
-class InvoicesTest < Minitest::Test
+class InvoiceTest < Minitest::Test
 
   attr_reader :invoice
   def setup
-    @invoice = Invoices.new(({:id => "1",
+    @invoice = Invoice.new(({:id => "1",
                       :customer_id => "2",
                       :merchant_id => "12335938",
                       :status => "pending",
@@ -68,7 +68,5 @@ class InvoicesTest < Minitest::Test
   def test_it_outputs_the_time_for_updated_at
     assert_equal "2014-03-15 00:00:00 -0600", invoice.updated_at.to_s
   end
-
-
 
 end

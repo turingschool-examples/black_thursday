@@ -1,6 +1,6 @@
 require 'pry'
 
-class Invoices
+class Invoice
 
   attr_reader :id,
               :customer_id,
@@ -9,11 +9,11 @@ class Invoices
               :created_at,
               :updated_at
 
-  def initialize(invoice_hash)
+  def initialize(invoice_hash, invoice_repository = nil)
     @id           = invoice_hash[:id].to_i
     @customer_id  = invoice_hash[:customer_id].to_i
     @merchant_id  = invoice_hash[:merchant_id].to_i
-    @status       = invoice_hash[:status]
+    @status       = invoice_hash[:status].to_sym
     @created_at   = determine_the_time(invoice_hash[:created_at])
     @updated_at   = determine_the_time(invoice_hash[:updated_at])
   end
