@@ -39,6 +39,30 @@ module MerchantAnalyst
     average(set).round(2)
   end
 
+  def invoice_count(merchant)
+    BigDecimal(merchant.invoices.length)
+  end
+
+  def average_invoices_per_merchant
+    average(merchant_invoice_count).round(2).to_f
+  end
+
+  def merchant_invoice_count
+    merchants.map {|merchant| invoice_count(merchant)}
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    standard_deviation(merchant_invoice_count).round(2).to_f
+  end
+
+  def top_merchants_by_invoice_count
+    standard_deviation = average_invoices_per_merchant_standard_deviation
+    threshold = average_invoices_per_merchant + standard_deviation * 2
+    merchants.find_all {|merchant| invoice_count(merchant) > threshold}
+  end
+
+
+
 end
 
 

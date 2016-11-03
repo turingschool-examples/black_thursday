@@ -8,7 +8,8 @@ class MerchantAnalystTest < Minitest::Test
   def setup
     sales_engine = SalesEngine.from_csv({
       :items => "./test/data_fixtures/items_fixture.csv",
-      :merchants => "./test/data_fixtures/merchants_fixture.csv"
+      :merchants => "./test/data_fixtures/merchants_fixture.csv",
+      :invoices => "./test/data_fixtures/invoices_fixture.csv"
     })
     @sales_analyst = SalesAnalyst.new(sales_engine)
   end
@@ -29,6 +30,21 @@ class MerchantAnalystTest < Minitest::Test
   def test_average_average_price_per_merchant_returns_average
     average_average_price = sales_analyst.average_average_price_per_merchant
     assert_equal BigDecimal(27.09, 4), average_average_price.round(2)
+  end
+
+  def test_calculates_average_invoices_per_merchant
+    assert_equal 0.70, sales_analyst.average_invoices_per_merchant
+  end
+
+  def test_calculates_standard_deviation_of_average_items_per_merchant
+     assert_equal 2.90, sales_analyst.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_finds_top_merchants_by_invoice_count
+    threshold = 4.30
+    merchants = sales_analyst.top_merchants_by_invoice_count
+    assert_equal 1, merchants.length
+    assert merchants.all? {|merchant| merchant.invoices.length > threshold}
   end
 
 end
