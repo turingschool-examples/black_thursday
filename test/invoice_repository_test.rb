@@ -1,5 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require_relative 'test_helper'
 require_relative '../lib/sales_engine'
 
 class InvoiceRepositoryTest < Minitest::Test
@@ -23,7 +22,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_all_returns_an_array_of_all_invoice_objects
     invoice_repository = sales_engine.invoices
-    invoice_repository.all.each {|invoice| assert_kind_of Invoice, invoice}
+    invoice_repository.all.all? {|invoice| assert_kind_of Invoice, invoice}
   end
 
   def test_all_includes_all_invoices

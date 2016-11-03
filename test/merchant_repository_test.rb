@@ -1,7 +1,5 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require_relative 'test_helper'
 require_relative '../lib/sales_engine'
-require_relative 'coverage_test'
 
 class MerchantRepositoryTest < Minitest::Test
 
