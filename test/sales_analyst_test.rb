@@ -36,10 +36,6 @@ class SalesAnalystTest < Minitest::Test
       assert_equal 0.89, sales_analyst.average_items_per_merchant
     end
 
-    def test_distance_from_mean_squared_finds_distance_from_mean_squared
-      assert_equal 9.672099999999999, sales_analyst.items_per_merchant_distance_from_mean_squared(4)
-    end
-
     def test_std_dev_numerator_returns_sum_of_squared_distances_from_mean
       assert_equal 534.5450999999997, sales_analyst.items_per_merchant_std_dev_numerator
     end
