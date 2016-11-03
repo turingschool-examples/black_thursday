@@ -5,13 +5,14 @@ require 'minitest/pride'
 require './lib/sales_engine'
 
 class ItemRepositoryTest < Minitest::Test
-  attr_reader  :repository, :se
+  attr_reader   :repository, 
+                :sales_engine
 
   def setup
-    @se = SalesEngine.from_csv({
+    @sales_engine = SalesEngine.from_csv({
       :items => "./fixture/items.csv"
     })
-    @repository = @se.items
+    @repository = sales_engine.items
   end
 
   def test_it_can_create_item_repository
@@ -82,7 +83,8 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_that_an_item_repo_knows_who_its_parent_is
-    assert_equal @se, @repository.parent
+    assert_equal sales_engine, repository.parent
+    assert_instance_of SalesEngine, repository.parent
   end
 
 end

@@ -32,14 +32,15 @@ class SalesAnalyst
     standard_deviation(collect_items_per_merchant).round(2)
   end
 
-  def 
+  def items_given_merchant_id(merchant_id)
+    merchant = sales_engine.find_merchant(merchant_id)
+    merchant.items
+  end
 
   def average_item_price_for_merchant(merchant_id)
-    merchant = sales_engine.find_merchant(merchant_id)
-    items = merchant.items
+    items = items_given_merchant_id(merchant_id)
     sum_of_prices = items.reduce(0) do |sum, item|
       sum += item.unit_price
-      sum
     end
     (sum_of_prices / items.count).round(2)
   end

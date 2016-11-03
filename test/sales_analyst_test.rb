@@ -43,6 +43,13 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 0.52, sales_analyst.average_items_per_merchant_standard_deviation
   end
 
+  def test_it_can_return_array_of_items_given_merchant_id
+    assert_instance_of Array, sales_analyst.items_given_merchant_id(101)
+    assert_instance_of Array, sales_analyst.items_given_merchant_id(102)
+    assert_equal 2, sales_analyst.items_given_merchant_id(101).length
+    assert_equal 2, sales_analyst.items_given_merchant_id(102).length
+  end
+
   def test_it_can_determine_average_price_per_merchant
     assert_equal 7.50, sales_analyst.average_item_price_for_merchant(101)
     assert_equal 15.00, sales_analyst.average_item_price_for_merchant(102)
