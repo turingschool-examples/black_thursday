@@ -26,7 +26,7 @@ class ItemRepository
   end
 
   def create_item_objects
-    @file_contents.map {|row| Item.new(row, self)}
+    @file_contents.map { |row| Item.new(row, self) }
   end
 
   def find_merchant_for_id(id)
@@ -50,7 +50,7 @@ class ItemRepository
   end
 
   def find_all_by_price_in_range(price_range)
-    all.find_all{ |item| price_range.include?(item.unit_price) }
+    all.find_all { |item| price_range.include?(item.unit_price) }
   end
 
   def find_all_by_merchant_id(merchant_id)
