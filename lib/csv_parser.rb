@@ -1,4 +1,3 @@
-require 'time'
 require 'csv'
 
 module CSV_parser
@@ -6,12 +5,12 @@ module CSV_parser
   def item_csv_parse(file)
     contents = CSV.open file, headers: true, header_converters: :symbol
     contents.map do |row|
-      Item.new({:id => row[:id].to_i,
+      Item.new({:id => row[:id],
                 :name => row[:name],
-                :unit_price => BigDecimal(row[:unit_price]) / 100,
-                :created_at => Time.parse(row[:created_at]),
-                :updated_at => Time.parse(row[:updated_at]),
-                :merchant_id => row[:merchant_id].to_i,
+                :unit_price => row[:unit_price],
+                :created_at => row[:created_at],
+                :updated_at => row[:updated_at],
+                :merchant_id => row[:merchant_id],
                 :description => row[:description]
               })
     end
