@@ -5,13 +5,14 @@ require 'minitest/pride'
 require './lib/sales_engine'
 
 class ItemRepositoryTest < Minitest::Test
-  attr_reader  :repository, :se
+  attr_reader   :repository, 
+                :sales_engine
 
   def setup
-    @se = SalesEngine.from_csv({
+    @sales_engine = SalesEngine.from_csv({
       :items => "./fixture/items.csv"
     })
-    @repository = @se.items
+    @repository = sales_engine.items
   end
 
   def test_it_can_create_item_repository
@@ -62,14 +63,14 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_can_return_all_items_that_match_price
     assert repository.find_all_by_price(10)
-    assert_equal 2, repository.find_all_by_price(10).length
+    assert_equal 3, repository.find_all_by_price(10).length
     assert repository.find_all_by_price(40)
     assert_equal 1, repository.find_all_by_price(40).length
     assert_equal [], repository.find_all_by_price(1000)
   end
 
   def test_it_can_return_items_within_price_range
-    assert_equal 3, repository.find_all_by_price_in_range(5..10).length
+    assert_equal 4, repository.find_all_by_price_in_range(5..10).length
     assert_equal 2, repository.find_all_by_price_in_range(20..40).length
     assert_equal [], repository.find_all_by_price_in_range(100..110)
   end
@@ -82,7 +83,8 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_that_an_item_repo_knows_who_its_parent_is
-    assert_equal @se, @repository.parent
+    assert_equal sales_engine, repository.parent
+    assert_instance_of SalesEngine, repository.parent
   end
 
 end

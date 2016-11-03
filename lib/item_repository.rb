@@ -9,14 +9,14 @@ class ItemRepository
 
   def initialize(path, parent = nil)
     @contents = CSV.open path, headers: true, header_converters: :symbol
+    @parent = parent
     @items = contents.map do |line|
       Item.new(line, self)
     end
-    @parent = parent
   end
 
   def all
-    @items
+    items
   end
 
   def find_by_id(id_number)
@@ -58,8 +58,6 @@ class ItemRepository
   def find_merchant(merchant_id)
     parent.find_merchant(merchant_id)
   end
-
-
 
   def inspect
     "#<#{self.class} #{@items.size} rows>"

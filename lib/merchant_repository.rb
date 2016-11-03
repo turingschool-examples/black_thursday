@@ -10,14 +10,14 @@ class MerchantRepository
 
   def initialize(path, parent=nil)
     @contents = CSV.open path, headers: true, header_converters: :symbol
+    @parent = parent
     @merchants = contents.map do |line|
       Merchant.new(line, self)
     end
-    @parent = parent
   end
 
   def all
-    @merchants
+    merchants
   end
 
   def find_by_id(id_number)
@@ -29,7 +29,7 @@ class MerchantRepository
   def find_by_name(name)
     merchants.find do |merchant|
       merchant.name.downcase == name.downcase
-      end
+    end
   end
 
   def find_all_by_name(partial_search)
