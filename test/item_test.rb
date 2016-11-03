@@ -4,6 +4,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/item'
 require './lib/item_repository'
+require './lib/sales_engine'
 
 class ItemTest < Minitest::Test
   attr_reader   :item,
@@ -20,7 +21,7 @@ class ItemTest < Minitest::Test
       :unit_price => "1099",
       :created_at => "2015-01-01 11:11:37 UTC",
       :updated_at => "2015-10-10 11:11:37 UTC",
-      :merchant_id => 100 
+      :merchant_id => 100
     }, ir)
 
     @item_2 = Item.new({
@@ -79,4 +80,12 @@ class ItemTest < Minitest::Test
   def test_that_an_item_knows_who_its_parent_is
     assert_equal @ir, item.parent
   end
+
+  def test_an_item_can_point_to_its_merchant
+    se = SalesEngine.from_csv({ :items => "./fixture/items.csv", :merchants => "./fixture/merchant_test_file.csv" })
+    item = se.items.find_by_id(1)
+
+    assert_equal "ShopBoxes", item.merchant.name
+  end
+
 end
