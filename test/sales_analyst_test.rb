@@ -9,6 +9,8 @@ class SalesAnalystTest < Minitest::Test
   def setup
     @engine = SalesEngine.from_csv({:items => './test/assets/medium_items.csv', :merchants => './test/assets/medium_merchants.csv', :invoices => "./test/assets/medium_invoices.csv"})
     @analyst =  SalesAnalyst.new(engine)
+    @engine_2 = SalesEngine.from_csv({:items => './test/assets/medium_items.csv', :merchants => './test/assets/medium_merchants.csv', :invoices => "./test/assets/medium_invoices.csv"})
+    @analyst_2 = SalesAnalyst.new(engine_2)
   end
 
   def test_engine_is_accessible_from_analyst
