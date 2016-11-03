@@ -69,13 +69,10 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_return_a_golden_item
     assert_equal 1, sales_analyst.golden_items.length
-    assert_instance_of Array, sales_analyst.golden_items
-    # def test_it_can_return_a_golden_item_name
-    #   assert_instance_of "Glove", sales_analyst.golden_items.name
-    # end
-    #find a better way to test this
   end
 
-
+  def test_golden_items_returns_an_array
+    assert Array, sales_analyst.golden_items.class
+  end
 
 end

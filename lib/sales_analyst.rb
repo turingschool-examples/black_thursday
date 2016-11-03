@@ -65,9 +65,10 @@ class SalesAnalyst
   end
 
   def golden_items
-    golden_prices.map do |price|
+    items = golden_prices.map do |price|
       sales_engine.items.find_all_by_price(price)
     end
+    items.flatten.uniq
   end
 
 end
