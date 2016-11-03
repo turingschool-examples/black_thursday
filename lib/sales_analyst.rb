@@ -91,9 +91,8 @@ class SalesAnalyst
     ave = get_item_average_price
     std_dev = get_item_standard_deviation
     threshold = BigDecimal(ave + std_dev, 4)
-    golden_items = @sales_engine.items.all do |item|
-      # binding.pry
-        item.unit_price > threshold
+    golden_items = @sales_engine.items.all.find_all do |item|
+        item.unit_price > threshold * 2
       end
       golden_items
 
