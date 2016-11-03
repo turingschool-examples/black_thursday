@@ -4,3 +4,6 @@ id,name,description,unit_price,merchant_id,created_at,updated_at
 3,Basketball,"You use it to play basketball",2000,102, 2015-01-01 11:11:37 UTC, 2015-10-10 11:11:37 UTC
 4,Baseball,"You use it to play baseball",1000,102, 2015-01-01 11:11:37 UTC, 2015-10-10 11:11:37 UTC
 5,Backpack,"You use it to carry your things",4000,103, 2015-01-01 11:11:37 UTC, 2015-10-10 11:11:37 UTC
+6,Glove,"You use it to catch balls",60000,104,2015-01-01 11:11:37 UTC, 2015-10-10 11:11:37 UTC
+7,Football,"You use it to play football",1500,105,2015-01-01 11:11:37 UTC, 2015-10-10 11:11:37 UTC
+8,Water bottle,"You use it to drink water",1000,106,2015-01-01 11:11:37 UTC, 2015-10-10 11:11:37 UTC
