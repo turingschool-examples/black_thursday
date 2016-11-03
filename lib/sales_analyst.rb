@@ -14,20 +14,20 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    Math.sqrt(std_dev_numerator / std_dev_denominator).round(2)
+    Math.sqrt(items_per_merchant_std_dev_numerator / items_per_merchant_std_dev_denominator).round(2)
   end
 
-  def std_dev_numerator
+  def items_per_merchant_std_dev_numerator
     sales_engine.merchants.all.map do |merchant|
-      distance_from_mean_squared(merchant.items.count)
+      items_per_merchant_distance_from_mean_squared(merchant.items.count)
     end.reduce(:+).to_f
   end
 
-  def distance_from_mean_squared(item_count)
+  def items_per_merchant_distance_from_mean_squared(item_count)
     ((item_count - average_items_per_merchant) ** 2).to_f
   end
 
-  def std_dev_denominator
+  def items_per_merchant_std_dev_denominator
     (sales_engine.merchants.all.count - 1).to_f
   end
 
@@ -64,7 +64,19 @@ class SalesAnalyst
 
   def golden_items
     mean    = average_average_price_per_merchant
-    std_dev = 
+    std_dev = item_price_standard_deviation
+    items = sales_engine.items.all
+    items.find_all do |item| 
+      item.unit_price > (mean + (std_dev * 2))
+    end
+  end
+
+  def item_price_standard_deviation
+    merchants = sales_engine.merchants.all
+    stdev = merchants.map do |merchant|
+      (average_item_price_for_merchant(merchant.id) - average_average_price_per_merchant) ** 2
+    end.reduce(:+) / merchants.count
+    Math.sqrt(stdev).round(2)
   end
 
 end
