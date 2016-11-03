@@ -57,7 +57,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_finds_merchants_with_high_item_counts
     result = sa.merchants_with_high_item_count
-    assert_equal ["BloominScents"], result
+    assert_equal "BloominScents", result.first.name
   end
 
   def test_average_item_price_for_merchant_returns_price

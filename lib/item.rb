@@ -41,4 +41,8 @@ class Item
     return time if time_string == ""
     time_string = Time.parse(time_string)
   end
+
+  def merchant
+    @parent.find_all_by_merchant_id(@id)
+  end
 end

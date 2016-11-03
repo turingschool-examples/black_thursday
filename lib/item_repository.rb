@@ -72,10 +72,10 @@ class ItemRepository
   end
 
   def find_all_by_price_in_range(price_range)
-    range = determine_the_range(price_range)
+    range = is_unit_price_within_range?(price_range)
   end
 
-  def determine_the_range(price_range)
+  def is_unit_price_within_range?(price_range)
     @all.find_all do |item|
       price_range.include?(item.unit_price)
     end
@@ -90,6 +90,10 @@ class ItemRepository
       item.merchant_id == number
     end
   end
+
+  # def find_all_by_merchant_id
+  #   @parent.find_all_by_merchant_id(@merchant_id)
+  # end
 
   def inspect
     "#<#{self.class} #{@all.size} rows>"
