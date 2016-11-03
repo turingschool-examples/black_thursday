@@ -19,7 +19,7 @@ module CSV_parser
   def merchant_csv_parse(file)
     contents = CSV.open file, headers: true, header_converters: :symbol
     contents.map do |row|
-      Merchant.new({:id => row[:id].to_i, :name => row[:name]})
+      Merchant.new({:id => row[:id], :name => row[:name]})
     end
   end
 
