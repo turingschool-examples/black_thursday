@@ -5,21 +5,21 @@ class ItemRepo
   include DataParser
   attr_reader :all
 
-  def initialize(file_path = nil)
-    raw_file = file_path || './data/items.csv'
-    @all     = parse_data(raw_file).map { |row| Item.new(row) }
+  def initialize(file, parent = nil)
+    @all = parse_data(file).map { |row| Item.new(row, self) }
+    @parent = parent
   end
 
   def find_by_id(id)
-    @all.find(id) {|item| item.id.eql?(id)}
+    @all.find {|item| item.id.eql?(id)}
   end
 
   def find_by_name(name)
-    @all.find(name) {|item| item.name.downcase.eql?(name.downcase)}
+    @all.find {|item| item.name.downcase.eql?(name.downcase)}
   end
 
   def find_all_with_description(description_fragment)
-    @all.find_all {|item| item.description.downcase.include?(description_fragment)}
+    @all.find_all {|item| item.description.downcase.include?(description_fragment.downcase)}
   end
 
   def find_all_by_price(price)

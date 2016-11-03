@@ -5,9 +5,9 @@ class MerchantRepo
   include DataParser
   attr_reader :all
 
-  def initialize(file = nil)
-    raw_file = file || './data/merchants.csv'
-    @all     = parse_data(raw_file).map { |row| Merchant.new(row) }
+  def initialize(file, parent = nil)
+    @all = parse_data(file).map { |row| Merchant.new(row, self) }
+    @parent = parent
   end
 
   def find_by_id(id)
