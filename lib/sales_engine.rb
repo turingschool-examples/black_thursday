@@ -10,8 +10,8 @@ class SalesEngine
                 
   def initialize(all_file_paths)
     read_csv(all_file_paths)
-    @merchants           = MerchantRepository.new(@raw_data[:merchants], self)
-    @items               = ItemRepository.new(@raw_data[:items], self)
+    @merchants = MerchantRepository.new(@raw_data[:merchants], self)
+    @items     = ItemRepository.new(@raw_data[:items], self)
   end
 
   def find_all_items_by_merchant_id(merchant_id)
