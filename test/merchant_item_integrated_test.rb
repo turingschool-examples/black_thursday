@@ -26,10 +26,21 @@ class MerchantItemIntegratedTest < Minitest::Test
     assert_equal 10, items.length
   end
 
+  def test_merchant_without_item_returns_nil
+     merchant = sales_engine.merchants.find_by_id(12334176)
+     items = merchant.items
+     assert [], items
+  end
+
   def test_item_knows_its_merchant
     item = sales_engine.items.find_by_id(263395237)
     merchant = item.merchant
     assert_equal item.merchant_id, merchant.id
+  end
+
+  def test_item_without_merchant_returns_nil
+    item = sales_engine.items.find_by_id(263398079)
+    merchant = item.merchant
   end
   
 end
