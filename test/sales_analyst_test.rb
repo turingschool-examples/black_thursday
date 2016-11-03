@@ -36,7 +36,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_return_array_with_the_number_of_items_for_each_merchant
-    assert_equal [1,1,1,1,2,2,], sales_analyst.collect_items_per_merchant.sort
+    assert_equal [1,1,1,1,2,2], sales_analyst.collect_items_per_merchant.sort
   end
 
   def test_it_can_return_standard_deviation_of_items_per_merchant
@@ -53,6 +53,10 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_determine_average_price_per_merchant
     assert_equal 7.50, sales_analyst.average_item_price_for_merchant(101)
     assert_equal 15.00, sales_analyst.average_item_price_for_merchant(102)
+  end
+
+  def test_it_can_find_the_average_average_price_of_all_merchants
+    assert_equal 24.58, sales_analyst.average_average_price_per_merchant
   end
 
 end
