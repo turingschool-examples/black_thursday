@@ -36,14 +36,6 @@ class SalesAnalystTest < Minitest::Test
       assert_equal 0.89, sales_analyst.average_items_per_merchant
     end
 
-    # def test_std_dev_numerator_returns_sum_of_squared_distances_from_mean
-    #   assert_equal 534.5450999999997, sales_analyst.items_per_merchant_std_dev_numerator
-    # end
-
-    # def test_std_dev_denominator_returns_item_count_minus_one
-    #   assert_equal 130.0, sales_analyst.items_per_merchant_std_dev_denominator
-    # end
-
     def test_avg_items_per_merch_std_dev_returns_std_dev
       assert_equal 2.03, sales_analyst.average_items_per_merchant_standard_deviation
     end
@@ -71,10 +63,6 @@ class SalesAnalystTest < Minitest::Test
 
     def test_it_finds_the_average_of_average_price_per_merchant
       assert_equal 814.8, sales_analyst.average_average_price_per_merchant
-    end
-
-    def test_item_price_standard_deviation_returns_std_dev
-      assert_equal 9277.08, sales_analyst.item_price_standard_deviation
     end
 
     def test_golden_items_returns_items_with_price_greater_than_2_std_devs_above_avg_price

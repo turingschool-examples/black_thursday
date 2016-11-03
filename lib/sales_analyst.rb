@@ -67,19 +67,10 @@ class SalesAnalyst
   end
 
   def item_price_standard_deviation
-    numerator   = item_price_std_dev_numerator
-    denominator = item_price_std_dev_denominator
-    Math.sqrt(numerator / denominator).round(2)
-  end
-
-  def item_price_std_dev_numerator
-    items.map do |item|
-      (item.unit_price - average_item_price) ** 2
-    end.reduce(:+)
-  end
-
-  def item_price_std_dev_denominator
-    sales_engine.items.all.count - 1
+    array1  = items.map {|item| item.unit_price}
+    array2  = items
+    average = average_item_price
+    standard_deviation(array1, array2, average)
   end
 
 end
