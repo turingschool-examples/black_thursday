@@ -71,11 +71,15 @@ class SalesAnalyst
     end
   end
 
+  def average_price
+    sales_engine.items.all.map {|item| item.unit_price}.reduce(:+) / sales_engine.items.all.count
+  end
+
   def item_price_standard_deviation
-    merchants = sales_engine.merchants.all
-    stdev = merchants.map do |merchant|
-      (average_item_price_for_merchant(merchant.id) - average_average_price_per_merchant) ** 2
-    end.reduce(:+) / merchants.count
+    items = sales_engine.items.all
+    stdev = items.map do |item|
+      (item.unit_price - average_price) ** 2
+    end.reduce(:+) / (items.count - 1)
     Math.sqrt(stdev).round(2)
   end
 
