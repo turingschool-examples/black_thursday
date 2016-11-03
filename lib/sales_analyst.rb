@@ -1,4 +1,8 @@
+require_relative '../lib/statistics'
+
 class SalesAnalyst
+
+  include Statistics
 
   attr_reader :sales_engine
 
@@ -19,19 +23,10 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    numerator   = items_per_merchant_std_dev_numerator
-    denominator = items_per_merchant_std_dev_denominator
-    Math.sqrt(numerator / denominator).round(2)
-  end
-
-  def items_per_merchant_std_dev_numerator
-    merchants.map do |merchant|
-      ((merchant.items.count - average_items_per_merchant) ** 2).to_f
-    end.reduce(:+).to_f
-  end
-
-  def items_per_merchant_std_dev_denominator
-    (merchants.count - 1).to_f
+    array1   = merchants.map {|merchant| merchant.items.count}
+    array2   = merchants
+    average  = average_items_per_merchant
+    standard_deviation(array1, array2, average)
   end
 
   def merchants_with_high_item_count
@@ -43,7 +38,7 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(id)
-    merch_items  = sales_engine.merchants.find_by_id(id).items
+    merch_items = sales_engine.merchants.find_by_id(id).items
     return 0 if merch_items.empty?
     prices = merch_items.map do |row|
       row.unit_price
@@ -72,19 +67,10 @@ class SalesAnalyst
   end
 
   def item_price_standard_deviation
-    numerator   = item_price_std_dev_numerator
-    denominator = item_price_std_dev_denominator
-    Math.sqrt(numerator / denominator).round(2)
-  end
-
-  def item_price_std_dev_numerator
-    items.map do |item|
-      (item.unit_price - average_item_price) ** 2
-    end.reduce(:+)
-  end
-
-  def item_price_std_dev_denominator
-    sales_engine.items.all.count - 1
+    array1  = items.map {|item| item.unit_price}
+    array2  = items
+    average = average_item_price
+    standard_deviation(array1, array2, average)
   end
 
 end
