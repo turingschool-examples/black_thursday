@@ -1,5 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require_relative 'test_helper'
 require_relative '../lib/merchant'
 
 class MerchantTest < Minitest::Test
@@ -9,23 +8,30 @@ class MerchantTest < Minitest::Test
   end
 
   def test_merchant_knows_id
-    merchant = Merchant.new({:id => 5, :name => "Turing School"})
+    merchant = Merchant.new({:id => '5', :name => "Turing School"})
     assert_equal 5, merchant.id
   end
 
   def test_merchant_knows_a_differentid
-    merchant = Merchant.new({:id => 3, :name => "Turing School"})
+    merchant = Merchant.new({:id => '3', :name => "Turing School"})
     assert_equal 3, merchant.id
   end
 
   def test_merchant_knows_name
-    merchant = Merchant.new({:id => 5, :name => "Turing School"})
+    merchant = Merchant.new({:id => '5', :name => "Turing School"})
     assert_equal "Turing School", merchant.name
   end
 
   def test_merchant_knows_a_different_name
-    merchant = Merchant.new({:id => 5, :name => "Terd School"})
+    merchant = Merchant.new({:id => '5', :name => "Terd School"})
     assert_equal "Terd School", merchant.name
+  end
+
+  def test_merchant_knows_its_parent
+    merchant = Merchant.new({:id => '5', :name => "Terd School"}, Minitest::Mock.new)
+    merchant.parent.expect(:find_invoices, nil, [5])
+    merchant.invoices
+    merchant.parent.verify
   end
   
 end

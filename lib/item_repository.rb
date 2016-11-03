@@ -1,11 +1,25 @@
 require_relative 'item'
+require_relative 'csv_parser'
 
 class ItemRepository
 
-  attr_reader :all
+  include CSV_parser
 
-  def initialize(items)
-    @all = items
+  attr_reader :all,
+              :parent
+
+  def initialize(file, parent = nil)
+    @all = parse(file).map do |row|
+      Item.new({:id => row[:id],
+                :name => row[:name],
+                :unit_price => row[:unit_price],
+                :created_at => row[:created_at],
+                :updated_at => row[:updated_at],
+                :merchant_id => row[:merchant_id],
+                :description => row[:description]},
+                self)
+    end
+    @parent = parent
   end
 
   def find_by_id(id)
@@ -36,6 +50,10 @@ class ItemRepository
 
   def inspect
     "#<#{self.class} #{@all.size} rows>"
+  end
+
+  def find_merchant(merchant_id)
+    parent.find_by_merchant_id(merchant_id)
   end
 
 end

@@ -1,5 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require_relative 'test_helper'
 require_relative '../lib/item'
 
 class ItemTest < Minitest::Test
@@ -8,14 +7,14 @@ class ItemTest < Minitest::Test
   
   def setup
     @item = Item.new({
-      :id          => 2345,
+      :id          => "2345",
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(10.99,4),
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
-      :merchant_id => 3333
-    })
+      :unit_price  => "1099",
+      :created_at  => Time.now.to_s,
+      :updated_at  => Time.now.to_s,
+      :merchant_id => '3333'},
+      Minitest::Mock.new)
   end
 
   def test_Item_exists
@@ -54,11 +53,10 @@ class ItemTest < Minitest::Test
     assert_equal 3333, item.merchant_id
   end
 
-  # def test_item_call_sales_engine
-  #   sales_engine = Minitest::Mock.new
-  #   sales_engine.expect(:find_by_id, nil, [1])
-  #   item.merchant
-  #   sales_engine.verify
-  # end
+  def test_item_calls_parent
+    item.parent.expect(:find_merchant, nil, [3333])
+    item.merchant
+    item.parent.verify
+  end
 
 end

@@ -1,9 +1,5 @@
 require "rake"
 require "rake/testtask"
-require 'simplecov'
-SimpleCov.start do 
-  command_name 'minitest'
-end
 
 Rake::TestTask.new do |t|
   t.libs << "test"

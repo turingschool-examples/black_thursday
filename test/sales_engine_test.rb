@@ -1,5 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require_relative 'test_helper'
 require_relative '../lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test
@@ -8,8 +7,8 @@ class SalesEngineTest < Minitest::Test
 
   def setup
     @sales_engine = SalesEngine.from_csv({
-      :items => "./data_fixtures/items_fixture.csv",
-      :merchants => "./data_fixtures/merchants_fixture.csv"
+      :items => "./test/data_fixtures/items_fixture.csv",
+      :merchants => "./test/data_fixtures/merchants_fixture.csv"
     })
   end
   
