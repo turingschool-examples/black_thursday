@@ -1,6 +1,6 @@
-require_relative '../lib/item'
 require 'pry'
 require 'csv'
+require_relative '../lib/item'
 
 class ItemRepository
 
@@ -62,24 +62,37 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
-    dollars = @all.find_all do |item|
+    dollars = find_unit_price(price)
+  end
+
+  def find_unit_price(price)
+    @all.find_all do |item|
       item.unit_price == price
     end
-    dollars
   end
 
   def find_all_by_price_in_range(price_range)
-    range = @all.find_all do |item|
+    range = determine_the_range(price_range)
+  end
+
+  def determine_the_range(price_range)
+    @all.find_all do |item|
       price_range.include?(item.unit_price)
     end
-    range
   end
 
   def find_all_by_merchant_id(number)
-    merch = @all.find_all do |item|
+    merch = what_is_merchant_id?(number)
+  end
+
+  def what_is_merchant_id?(number)
+    @all.find_all do |item|
       item.merchant_id == number
     end
-    merch
+  end
+
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
   end
 
 end

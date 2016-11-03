@@ -1,6 +1,5 @@
-require 'minitest/autorun'
-require 'minitest/nyan_cat'
-require './lib/sales_engine'
+require_relative '../test/test_helper'
+require_relative '../lib/sales_engine'
 
 
 class SalesEngineTest < Minitest::Test
@@ -41,14 +40,16 @@ class SalesEngineTest < Minitest::Test
     assert_equal [12334113, 12334185], result.keys
   end
 
-  # def test_it_initializes_with_items
-  #   assert @sales_engine.items
-  #   assert_equal ItemRepository, @sales_engine.items.class
-  # end
-  #
-  # def test_csv_load_works
-  #   result = @sales_engine.merchants.all.first.id
-  #   assert_equal 12334105, result
-  # end
+  def test_it_initializes_with_items
+    result = se.items
+    assert_equal "Custom Hand Made Miniature Bicycle", result.all.first.name
+    assert_equal 263400121, result.all.first.id
+  end
+
+  def test_csv_load_works
+    result = se.merchants.all.first
+    assert_equal 12334105, result.id
+    assert_equal "Shopin1901", result.name
+  end
 
 end

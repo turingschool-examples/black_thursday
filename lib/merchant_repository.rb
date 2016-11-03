@@ -26,11 +26,10 @@ class MerchantRepository
 
   def find_by_id(id)
     return nil if id.nil?
-    matches = @all.map do |merchant|
+    matches = @all.find do |merchant|
       merchant.id == id
-      return merchant
     end
-    return matches
+    matches
   end
 
   def find_by_name(full_name)
@@ -42,12 +41,16 @@ class MerchantRepository
 
   def find_all_by_name(name_frag)
     return "Steve the Pirate" if name_frag.nil? || name_frag == ""
-    matches = @all.select do |merchant|
+    matches = @all.find_all do |merchant|
       merchant.name.upcase.include?(name_frag.upcase)
     end
   end
 
   def find_items_by_merchant_id(id)
     @parent.find_items_by_merchant_id(id)
+  end
+
+  def inspect
+  "#<#{self.class} #{@merchants.size} rows>"
   end
 end

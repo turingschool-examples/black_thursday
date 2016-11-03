@@ -1,7 +1,7 @@
 require 'pry'
+require 'csv'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/item_repository'
-require 'csv'
 
 class SalesEngine
   attr_reader :merchants,
