@@ -26,6 +26,7 @@ class MerchantRepository
 
   def find_by_id(id)
     return nil if id.nil?
+    matches = []
     matches = @all.find do |merchant|
       merchant.id == id
     end
@@ -46,8 +47,9 @@ class MerchantRepository
     end
   end
 
-  def find_items_by_merchant_id(id)
-    @parent.find_items_by_merchant_id(id)
+  def find_all_by_merchant_id(id)
+    # binding.pry
+    @parent.find_all_by_merchant_id(id)
   end
 
   def inspect

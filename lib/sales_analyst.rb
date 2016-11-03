@@ -58,7 +58,7 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(id)
     prices = @items[id].map { |item| item.unit_price.to_f }
-    return BigDecimal.new(average(prices), 4)
+    return BigDecimal.new(average(prices).to_f, 5).round(2)
   end
 
   def average_average_price_per_merchant
@@ -66,8 +66,9 @@ class SalesAnalyst
     prices = @items.keys.map do |id|
       average_item_price_for_merchant(id)
     end
+    # binding.pry
     average_price = average(prices)
-    return BigDecimal.new(average_price, 4)
+    return BigDecimal.new(average_price, 6).floor(2)
   end
 
   def get_item_average_price

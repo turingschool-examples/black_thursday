@@ -28,6 +28,7 @@ class ItemRepository
 
   def find_by_id(id)
     return nil if id.nil?
+    identify = []
     identify = identify_id(id)
     return identify
   end
@@ -82,7 +83,7 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(number)
-    merch = what_is_merchant_id?(number)
+    merch_id = what_is_merchant_id?(number)
   end
 
   def what_is_merchant_id?(number)
@@ -91,8 +92,12 @@ class ItemRepository
     end
   end
 
-  # def find_all_by_merchant_id
-  #   @parent.find_all_by_merchant_id(@merchant_id)
+  def find_merchant(id)
+    @parent.find_merchant_by_id(id)
+  end
+
+  # def find_all_by_merchant_id(id)
+  #   @parent.find_all_by_merchant_id(id)
   # end
 
   def inspect
