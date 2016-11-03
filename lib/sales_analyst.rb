@@ -18,6 +18,10 @@ class SalesAnalyst
     sales_engine.all_merchants
   end
 
+  def invoices
+    sales_engine.all_invoices
+  end
+
   def average_items_per_merchant
     (items.count / merchants.count.to_f).round(2)
   end
@@ -62,7 +66,7 @@ class SalesAnalyst
   end
 
   def average_item_price
-    sum   = items.map { |item| item.unit_price }.reduce(:+)
+    sum = items.map { |item| item.unit_price }.reduce(:+)
     sum / items.count
   end
 
@@ -71,6 +75,25 @@ class SalesAnalyst
     array2  = items
     average = average_item_price
     standard_deviation(array1, array2, average)
+  end
+
+  def average_invoices_per_merchant
+    invoices  = invoices.count.to_f
+    merchants = merchants.count.to_f
+    (invoices / merchants).round(2)
+  end
+
+  def invoice_status(invoice_status)
+    status = find_all_statuses(:status, invoice_status).count.to_f
+    count  = invoices.count.to_f
+    ((status / count) * 100).round(2)
+  end
+
+  def find_all_statuses(method, invoice_status)
+    invoices.find_all do |row|
+      row = row.send(method).downcase
+      row.include?(invoice_status.downcase)
+    end
   end
 
 end
