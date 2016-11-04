@@ -20,8 +20,8 @@ module FindFunctions
   end
 
   def equivalence_needed?(method)
-    method == :unit_price  || 
-    method == :merchant_id || 
+    method == :unit_price  ||
+    method == :merchant_id ||
     method == :customer_id ||
     method == :status
   end

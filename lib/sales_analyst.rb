@@ -115,18 +115,18 @@ class SalesAnalyst
 
   def invoices_by_day
     invoice_days.reduce ({}) do |result, day|
-      result[day] += 1 if result[day] 
+      result[day] += 1 if result[day]
       result[day]  = 1 if result[day].nil?
       result
-    end 
+    end
   end
-  
+
   def invoice_days
     invoices.map {|invoice| Date::DAYNAMES[invoice.created_at.wday]}
   end
 
   def average_invoices_per_day
-    sum = invoices_by_day.values.reduce(:+) 
+    sum = invoices_by_day.values.reduce(:+)
     (sum / invoices_by_day.values.count.to_f).round(2)
   end
 
