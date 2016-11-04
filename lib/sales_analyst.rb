@@ -119,4 +119,15 @@ class SalesAnalyst
       end
   end
 
+  def find_invoice_status
+   sales_engine.invoices.all.each_with_object(Hash.new(0)) do |invoice,counts|
+     # binding.pry
+     counts[invoice.status] += 1
+   end
+ end
+
+ def invoice_status(status)
+   ((find_invoice_status[status].to_f/ total_invoices.to_f) * 100).round(2)
+ end
+
 end
