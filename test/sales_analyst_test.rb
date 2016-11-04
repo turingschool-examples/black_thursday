@@ -92,7 +92,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_calculate_top_merchants_by_invoice_count
-    assert_equal 0, sales_analyst.merchants_with_high_invoice_count.length
+    assert_equal 0, sales_analyst.top_merchants_by_invoice_count.length
   end
 
   def test_it_can_calculate_bottom_merchants_by_invoice_count
@@ -100,15 +100,15 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_invoice_status
-   hash = {:pending=>4, :shipped=>9, :returned=>2}
-   assert_equal hash, sales_analyst.find_invoice_status
- end
+    hash = {:pending=>4, :shipped=>9, :returned=>2}
+    assert_equal hash, sales_analyst.find_invoice_status
+  end
 
- def test_it_can_calculate_invoice_status_percentage
-   assert_equal 26.67, sales_analyst.invoice_status(:pending)
-   assert_equal 60.00, sales_analyst.invoice_status(:shipped)
-   assert_equal 13.33, sales_analyst.invoice_status(:returned)
- end
+  def test_it_can_calculate_invoice_status_percentage
+    assert_equal 26.67, sales_analyst.invoice_status(:pending)
+    assert_equal 60.00, sales_analyst.invoice_status(:shipped)
+    assert_equal 13.33, sales_analyst.invoice_status(:returned)
+  end
 
 
 end
