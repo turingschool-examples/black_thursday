@@ -94,22 +94,22 @@ class SalesAnalystTest < Minitest::Test
     assert_equal expected, sales_analyst.invoices.count
   end
 
-  def test_average_invoices_per_merchant_returns_a_float
-    assert Float, sales_analyst.average_invoices_per_merchant
+  def test_average_invoices_per_merchant_returns_a_float_average
+    assert_equal Float, sales_analyst.average_invoices_per_merchant.class
+    assert_equal  0.56, sales_analyst.average_invoices_per_merchant
   end
   
-  def test_average_invoices_per_merchant_returns_the_average
-    assert_equal 0.56, sales_analyst.average_invoices_per_merchant
+  def test_invoices_per_merchant_standard_deviation
+    assert_equal Float, sales_analyst.average_invoices_per_merchant_standard_deviation.class
+    assert_equal 0.55, sales_analyst.average_invoices_per_merchant_standard_deviation
   end
 
-  def test_invoice_status_returns_a_float
-    status = :pending
-    assert_equal Float, sales_analyst.invoice_status(status).class
+  def test_top_merchants_by_invoice_count_returns_array_of_top_merchants
+    assert_equal Array, sales_analyst.top_merchants_by_invoice_count.class
   end
-
-  def test_invoice_status_returns_the_percentage_of_the_status
-    status = :pending
-    assert_equal 28.38, sales_analyst.invoice_status(status)
+  
+  def test_bottom_merchants_by_invoice_count_returns_array_of_bottom_merchants
+    assert_equal Array, sales_analyst.bottom_merchants_by_invoice_count.class
   end
 
   def test_invoice_days_returns_array_of_day_numbers
@@ -131,6 +131,16 @@ class SalesAnalystTest < Minitest::Test
 
   def test_top_days_by_invoice_count_returns_top_day_or_days
     assert_equal ["Friday"], sales_analyst.top_days_by_invoice_count
+  end
+  
+  def test_invoice_status_returns_a_float
+    status = :pending
+    assert_equal Float, sales_analyst.invoice_status(status).class
+  end
+
+  def test_invoice_status_returns_the_percentage_of_the_status
+    status = :pending
+    assert_equal 28.38, sales_analyst.invoice_status(status)
   end
 
 end
