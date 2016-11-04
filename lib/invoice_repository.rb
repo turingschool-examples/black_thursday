@@ -48,7 +48,7 @@ class InvoiceRepository
   end
 
   def find_all_by_status(status)
-    find_all(:status, status.to_s)
+    find_all(:status, status.to_sym)
   end
 
 end

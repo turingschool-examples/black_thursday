@@ -21,8 +21,8 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_merchant_id_calls_parent
-    invoice_repo.parent.expect(:find_invoice_for_id, nil, [5])
-    invoice_repo.find_invoice_for_id(5)
+    invoice_repo.parent.expect(:find_merchant_by_id, nil, [5])
+    invoice_repo.find_merchant_by_id(5)
     invoice_repo.parent.verify
   end
 
@@ -85,7 +85,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_finds_all_of_a_status
-    status   = "pending"
+    status   = :pending
     invoices = invoice_repo.find_all_by_status(status)
     assert_equal 21, invoices.count
   end

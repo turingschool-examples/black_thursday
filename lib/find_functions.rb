@@ -15,12 +15,15 @@ module FindFunctions
   end
 
   def find_all(method, input)
-    return find_all_equivalent(method, input) if if_equivalent?(method)
+    return find_all_equivalent(method, input) if equivalence_needed?(method)
     find_all_strings(method, input)
   end
 
-  def if_equivalent?(method)
-    method == :unit_price || method == :merchant_id || method == :customer_id
+  def equivalence_needed?(method)
+    method == :unit_price  || 
+    method == :merchant_id || 
+    method == :customer_id ||
+    method == :status
   end
 
   def find_all_equivalent(method, input)
@@ -29,7 +32,7 @@ module FindFunctions
 
   def find_all_strings(method, input)
     all.find_all do |row|
-      row = row.send(method).to_s.downcase
+      row = row.send(method).downcase
       row.include?(input.downcase)
     end
   end
