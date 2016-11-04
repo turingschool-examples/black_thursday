@@ -78,21 +78,29 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
-    invoices  = invoices.count.to_f
-    merchants = merchants.count.to_f
-    (invoices / merchants).round(2)
+    (invoices.count / merchants.count.to_f).round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    array1   = merchants.map {|merchant| merchant.invoices.count}
+    array2   = merchants
+    average  = average_invoices_per_merchant
+    standard_deviation(array1, array2, average)
+  end
+
+  def top_merchants_by_invoice_count
+    
   end
 
   def invoice_status(invoice_status)
-    status = find_all_statuses(:status, invoice_status).count.to_f
+    status = all_invoices_by_status(invoice_status).count.to_f
     count  = invoices.count.to_f
     ((status / count) * 100).round(2)
   end
 
-  def find_all_statuses(method, invoice_status)
+  def all_invoices_by_status(invoice_status)
     invoices.find_all do |row|
-      row = row.send(method).downcase
-      row.include?(invoice_status.downcase)
+      row.status.to_sym == invoice_status.to_sym
     end
   end
 

@@ -87,21 +87,28 @@ class SalesAnalystTest < Minitest::Test
     assert_equal expected, sales_analyst.merchants.count
   end
 
+  def test_invoices_returns_all_invoices_array
+    assert_equal Array, sales_analyst.invoices.class
+    assert sales_analyst.invoices.all? { |invoice| invoice.class == Invoice}
+    expected = sales_analyst.sales_engine.all_invoices.count
+    assert_equal expected, sales_analyst.invoices.count
+  end
+
   def test_average_invoices_per_merchant_returns_a_float
     assert Float, sales_analyst.average_invoices_per_merchant
   end
-
+  
   def test_average_invoices_per_merchant_returns_the_average
     assert_equal 0.56, sales_analyst.average_invoices_per_merchant
   end
 
   def test_invoice_status_returns_a_float
-    status = "pending"
+    status = :pending
     assert_equal Float, sales_analyst.invoice_status(status).class
   end
 
   def test_invoice_status_returns_the_percentage_of_the_status
-    status = "pending"
+    status = :pending
     assert_equal 28.38, sales_analyst.invoice_status(status)
   end
 
