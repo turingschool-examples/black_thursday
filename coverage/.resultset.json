@@ -1,49 +1,20 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/cews7/turing/1mod/mod1work/projects/black_thursday/lib/data_parser.rb": [
+      "/Users/edilene/1610/module_1/projects/black_thursday/lib/data_parser.rb": [
         1,
         null,
         1,
         1,
-        48,
-        46040,
+        49,
+        51026,
         null,
         null
       ],
-      "/Users/cews7/turing/1mod/mod1work/projects/black_thursday/test/invoice_test.rb": [
-
-      ],
-      "/Users/cews7/turing/1mod/mod1work/projects/black_thursday/test/item_repo_test.rb": [
-        1,
-        1,
-        null,
+      "/Users/edilene/1610/module_1/projects/black_thursday/test/invoice_test.rb": [
         1,
         1,
         1,
-        null,
-        null,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        null,
-        null,
-        1,
-        1,
-        1,
-        null,
-        null,
-        1,
-        1,
-        1,
-        null,
         null,
         1,
         1,
@@ -51,12 +22,25 @@
         1,
         null,
         null,
-        1,
-        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
         1,
         1,
         null,
         null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        1,
+        1,
         1,
         1,
         1,
@@ -68,7 +52,93 @@
         null,
         null
       ],
-      "/Users/cews7/turing/1mod/mod1work/projects/black_thursday/lib/item_repo.rb": [
+      "/Users/edilene/1610/module_1/projects/black_thursday/lib/invoice.rb": [
+        1,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        null,
+        null
+      ],
+      "/Users/edilene/1610/module_1/projects/black_thursday/lib/time_formatter.rb": [
+        1,
+        1,
+        68358,
+        68358,
+        null,
+        null,
+        null
+      ],
+      "/Users/edilene/1610/module_1/projects/black_thursday/test/item_repo_test.rb": [
+        1,
+        1,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null
+      ],
+      "/Users/edilene/1610/module_1/projects/black_thursday/lib/item_repo.rb": [
         1,
         1,
         null,
@@ -114,33 +184,28 @@
         null,
         null
       ],
-      "/Users/cews7/turing/1mod/mod1work/projects/black_thursday/lib/item.rb": [
-        1,
-        null,
+      "/Users/edilene/1610/module_1/projects/black_thursday/lib/item.rb": [
         1,
         1,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
         1,
-        34177,
-        34177,
-        34177,
-        34177,
-        34177,
-        34177,
-        34177,
-        34177,
+        1,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
         null,
         null,
         1,
-        68354,
-        68354,
-        null,
+        34177,
+        34177,
+        34177,
+        34177,
+        34177,
+        34177,
+        34177,
+        34177,
         null,
         null,
         1,
@@ -148,7 +213,7 @@
         null,
         null
       ],
-      "/Users/cews7/turing/1mod/mod1work/projects/black_thursday/test/item_test.rb": [
+      "/Users/edilene/1610/module_1/projects/black_thursday/test/item_test.rb": [
         1,
         1,
         1,
@@ -191,7 +256,7 @@
         null,
         null
       ],
-      "/Users/cews7/turing/1mod/mod1work/projects/black_thursday/test/merchant_repo_test.rb": [
+      "/Users/edilene/1610/module_1/projects/black_thursday/test/merchant_repo_test.rb": [
         1,
         1,
         null,
@@ -233,7 +298,7 @@
         null,
         null
       ],
-      "/Users/cews7/turing/1mod/mod1work/projects/black_thursday/lib/merchant_repo.rb": [
+      "/Users/edilene/1610/module_1/projects/black_thursday/lib/merchant_repo.rb": [
         1,
         1,
         1,
@@ -268,12 +333,11 @@
         null,
         null
       ],
-      "/Users/cews7/turing/1mod/mod1work/projects/black_thursday/lib/merchant.rb": [
+      "/Users/edilene/1610/module_1/projects/black_thursday/lib/merchant.rb": [
         1,
         1,
         1,
         1,
-        null,
         null,
         null,
         null,
@@ -291,7 +355,7 @@
         null,
         null
       ],
-      "/Users/cews7/turing/1mod/mod1work/projects/black_thursday/test/merchant_test.rb": [
+      "/Users/edilene/1610/module_1/projects/black_thursday/test/merchant_test.rb": [
         1,
         1,
         1,
@@ -314,7 +378,7 @@
         null,
         null
       ],
-      "/Users/cews7/turing/1mod/mod1work/projects/black_thursday/test/sales_analyst_test.rb": [
+      "/Users/edilene/1610/module_1/projects/black_thursday/test/sales_analyst_test.rb": [
         1,
         1,
         1,
@@ -364,7 +428,7 @@
         null,
         null
       ],
-      "/Users/cews7/turing/1mod/mod1work/projects/black_thursday/lib/sales_analyst.rb": [
+      "/Users/edilene/1610/module_1/projects/black_thursday/lib/sales_analyst.rb": [
         1,
         1,
         1,
@@ -431,12 +495,13 @@
         null,
         null
       ],
-      "/Users/cews7/turing/1mod/mod1work/projects/black_thursday/lib/sales_engine.rb": [
+      "/Users/edilene/1610/module_1/projects/black_thursday/lib/sales_engine.rb": [
         1,
         1,
         null,
         1,
         1,
+        null,
         null,
         1,
         13,
@@ -464,7 +529,7 @@
         null,
         null
       ],
-      "/Users/cews7/turing/1mod/mod1work/projects/black_thursday/test/sales_engine_test.rb": [
+      "/Users/edilene/1610/module_1/projects/black_thursday/test/sales_engine_test.rb": [
         1,
         1,
         null,
@@ -528,6 +593,6 @@
         null
       ]
     },
-    "timestamp": 1478279762
+    "timestamp": 1478281833
   }
 }

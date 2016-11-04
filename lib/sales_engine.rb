@@ -4,6 +4,7 @@ require_relative './item_repo'
 class SalesEngine
   attr_reader :merchants,
               :items
+              
   def initialize(file_path)
     @merchants = MerchantRepo.new(file_path[:merchants], self)
     @items     = ItemRepo.new(file_path[:items], self)

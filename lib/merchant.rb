@@ -6,7 +6,6 @@ class Merchant
               :created_at,
               :updated_at
 
-
   def initialize(row, parent = nil)
     @id         = row[:id].to_i
     @name       = row[:name].to_s
