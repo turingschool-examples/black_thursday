@@ -53,8 +53,8 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_it_can_return_status
-    assert_equal "pending", invoice.status
-    assert_equal "pending", invoice_2.status
+    assert_equal :pending, invoice.status
+    assert_equal :pending, invoice_2.status
   end
 
   def test_it_can_return_created_at_as_time
