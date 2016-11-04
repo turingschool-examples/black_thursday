@@ -10,8 +10,8 @@ class SalesAnalystTest < Minitest::Test
   def setup
     sales_engine = SalesEngine.from_csv({
     :items => "./fixture/items.csv",
-    :merchants => "./fixture/merchant_test_file.csv"
-    })
+    :merchants => "./fixture/merchant_test_file.csv",
+    :invoices => "./fixture/invoices.csv"})
     @sales_analyst = SalesAnalyst.new(sales_engine)
   end
 
@@ -31,12 +31,24 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 6, sales_analyst.total_merchants
   end
 
+  def test_it_can_return_total_number_of_invoices
+    assert_equal 15, sales_analyst.total_invoices
+  end
+
   def test_it_can_return_average_items_per_merchant
     assert_equal 1.33, sales_analyst.average_items_per_merchant
   end
 
+  def test_it_can_return_average_number_of_invoices_per_merchant
+    assert_equal 2.50, sales_analyst.average_invoices_per_merchant
+  end
+
   def test_it_can_return_array_with_the_number_of_items_for_each_merchant
     assert_equal [1,1,1,1,2,2], sales_analyst.collect_items_per_merchant.sort
+  end
+
+  def test_it_can_return_array_with_the_number_of_invoices_for_each_merchant
+    assert_equal [1,2,2,2,3,5], sales_analyst.collect_invoices_per_merchant.sort
   end
 
   def test_it_can_return_array_of_items_given_merchant_id
