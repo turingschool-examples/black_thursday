@@ -5,13 +5,15 @@ require 'minitest/pride'
 require './lib/sales_engine'
 
 class MerchantTest < Minitest::Test
-  attr_reader   :merchant
+  attr_reader   :merchant,
+                :repository
 
   def setup
+    @repository = MerchantRepository.new('./fixture/merchant_test_file.csv')
     @merchant = Merchant.new({
-      :id => 5,
-      :name => "Turing School"
-    })
+    :id => 5,
+    :name => "Turing School"
+    }, repository)
   end
 
   def test_it_can_create_a_merchant
@@ -26,18 +28,28 @@ class MerchantTest < Minitest::Test
     assert_equal "Turing School", merchant.name
   end
 
-  def test_that_a_merchant_knows_whose_its_parent_is
-    mr = MerchantRepository.new("./fixture/merchant_test_file.csv")
-    merchant = Merchant.new({}, mr)
-    assert_equal mr, merchant.parent
+  def test_that_a_merchant_knows_who_its_parent_is
+    assert_equal repository, merchant.parent
+    assert_instance_of MerchantRepository, merchant.parent
   end
 
   def test_a_merchant_can_point_to_its_items
-    se = SalesEngine.from_csv({ :items => "./fixture/items.csv", 
+    sales_engine = SalesEngine.from_csv({ 
+    :items => "./fixture/items.csv", 
     :merchants => "./fixture/merchant_test_file.csv" 
     })
-    merchant = se.merchants.find_by_id(101)
+    merchant = sales_engine.merchants.find_by_id(101)
     assert_equal 2, merchant.items.length
+  end
+
+  def test_a_merchant_can_point_to_its_invoices
+    skip
+    sales_engine = SalesEngine.from_csv({
+    :merchants => "./fixture/merchant_test_file.csv",
+    invoices => "./fixture/invoices.csv"
+    })
+    merchant = sales_engine.merchants.find_by_id(101)
+    assert_equal 2, merchant.invoices.length
   end
 
 end

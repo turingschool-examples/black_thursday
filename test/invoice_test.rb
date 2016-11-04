@@ -3,15 +3,16 @@ SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/invoice'
-#require './lib/invoice_repository'
+require './lib/invoice_repository'
 require './lib/sales_engine'
 
 class InvoiceTest < Minitest::Test
     attr_reader   :invoice,
-                  :invoice_2
+                  :invoice_2,
+                  :repository
 
   def setup
-    #@repository = InvoiceRepository.new('./fixture/invoices.csv')
+    @repository = InvoiceRepository.new('./fixture/invoices.csv')
     
     @invoice = Invoice.new({
       :id => "1",
@@ -20,7 +21,7 @@ class InvoiceTest < Minitest::Test
       :status => "pending",
       :created_at => "2015-01-01 11:11:37 UTC",
       :updated_at => "2015-10-10 11:11:37 UTC",
-    })
+    }, repository)
 
     @invoice_2 = Invoice.new({
       :id => "2",
@@ -29,7 +30,7 @@ class InvoiceTest < Minitest::Test
       :status => "pending",
       :created_at => "2015-01-01 11:11:37 UTC",
       :updated_at => "2015-10-10 11:11:37 UTC",
-    })
+    }, repository)
   end
 
   def test_it_can_create_an_invoice
@@ -68,16 +69,18 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_that_an_invoice_knows_who_its_parent_is
-    skip
     assert_equal repository, invoice.parent
-    assert_instance_of InvoiceRepository, invoice_2.parent
+    assert_instance_of InvoiceRepository, invoice.parent
   end
 
   def test_an_invoice_can_point_to_its_merchant
     skip
     sales_engine = SalesEngine.from_csv({ 
-      :invoices => "./fixture/invoices.csv" 
+    :merchants => "./fixture/merchant_test_file.csv",
+    :invoices => ".fixture/invoices.csv"
     })
-
+    invoice = sales_engine.invoices.find_by_id(1)
+    assert_instance_of Merchant, invoice.merchant
+    assert_equal 101, invoice.merchant.id
   end
 end

@@ -18,4 +18,7 @@ class Invoice
     @updated_at = Time.parse(invoice_hash[:updated_at])
     @parent = parent
   end
+
+  def merchants
+  end
 end
