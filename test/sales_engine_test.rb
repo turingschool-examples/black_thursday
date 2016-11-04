@@ -6,10 +6,18 @@ class SalesEngineTest < Minitest::Test
   attr_reader :sales_engine
 
   def setup
-    @sales_engine = SalesEngine.from_csv({:items => './test/assets/small_items.csv', :merchants => './test/assets/small_merchants.csv', :invoices => './test/assets/small_invoice.csv'})
+    @sales_engine = SalesEngine.from_csv({:items => './test/assets/small_items.csv', 
+                                          :merchants => './test/assets/small_merchants.csv', 
+                                          :invoices => './test/assets/small_invoice.csv', 
+                                          :invoice_items => './data/invoice_items.csv',
+                                          :transactions => './data/transactions.csv',
+                                          :customers => './data/customers.csv'})
     sales_engine.merchants
     sales_engine.items
     sales_engine.invoices
+    sales_engine.invoice_items
+    sales_engine.transactions
+    sales_engine.customers
   end
 
   def test_it_loads_merchants_from_small_file
@@ -56,6 +64,23 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_invoices_when_passed_merchant_id
     assert_equal 11, sales_engine.find_invoices_by_merchant_id(12334771)[0].id
+  end
+
+  def test_engine_accesses_invoice_items
+    assert_equal 21830, sales_engine.invoice_items.all.count
+  end
+
+  def test_engine_accesses_transaction_repo
+    assert_equal 4985, sales_engine.transactions.all.count
+  end
+
+  def test_engine_accesses_customer_repo
+    assert_equal 1000, sales_engine.customers.all.count
+  end
+
+  def test_invoice_totaling
+    invoice = sales_engine.invoices.find_by_id(2)
+    assert_equal 5289.13, invoice.total.to_f
   end
 
 end

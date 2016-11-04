@@ -4,7 +4,7 @@ require_relative 'customer'
 class CustomerRepository
   include Parser
 
-  attr_reader :all
+  attr_reader :all, :parent
 
   def initialize(file_path, parent)
     @all    = create_customers(file_path)
@@ -21,11 +21,23 @@ class CustomerRepository
   end
 
   def find_all_by_first_name(desired_name)
-    all.find_all {|customer| customer.first_name.include?(desired_name)}
+    all.find_all {|customer| customer.first_name.downcase.include?(desired_name.downcase)}
   end
 
   def find_all_by_last_name(desired_name)
-    all.find_all {|customer| customer.last_name.include?(desired_name)}
+    all.find_all {|customer| customer.last_name.downcase.include?(desired_name.downcase)}
+  end
+
+  def find_invoices_by_customer_id(customer_id)
+    parent.find_invoices_by_customer_id(customer_id)
+  end
+
+  def find_merchants_by_merchant_id(merchant_id)
+    parent.find_merchant_by_merchant_id(merchant_id)
+  end
+
+  def inspect
+    '#{self.class}, #{all.count}'
   end
 
 end

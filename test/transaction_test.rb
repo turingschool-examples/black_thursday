@@ -45,8 +45,8 @@ class TransactionTest < Minitest::Test
   end
 
   def test_that_transaction_stores_result
-    assert_equal :success, transaction.result 
-    assert_equal :failure, transaction_dos.result 
+    assert_equal "success", transaction.result 
+    assert_equal "failure", transaction_dos.result 
   end
 
   def test_that_transaction_stores_created_at
@@ -57,6 +57,12 @@ class TransactionTest < Minitest::Test
   def test_that_transaction_stores_updated_at
     assert_equal Time.parse('2012-02-26 20:56:56 UTC'), transaction.updated_at
     assert_equal Time.parse('2010-02-26 20:56:56 UTC'), transaction_dos.updated_at
+  end
+
+  def test_it_calls_parent_when_looking_for_invoice
+    parent.expect(:find_invoice_by_invoice_id, nil, [2179])
+    transaction.invoice
+    parent.verify
   end
 
 end

@@ -41,6 +41,10 @@ class MerchantRepository
     parent.find_invoices_by_merchant_id(id)
   end
 
+  def find_customer_by_customer_id(customer_id)
+    parent.find_customer_by_id(customer_id)
+  end
+
   def inspect
   end
 end

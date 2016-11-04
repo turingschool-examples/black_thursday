@@ -18,4 +18,7 @@ class Merchant
     parent.find_invoices_by_merchant_id(id)
   end
 
+  def customers
+    invoices.map { |invoice| parent.find_customer_by_customer_id(invoice.customer_id) }.uniq
+  end
 end

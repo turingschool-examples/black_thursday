@@ -38,7 +38,13 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_that_repo_finds_transactions_with_given_status
-    assert_equal 4158, repo.find_all_by_result(:success).count
+    assert_equal 4158, repo.find_all_by_result("success").count
+  end
+
+  def test_it_calls_parent_when_looking_for_invoice
+    parent.expect(:find_invoice_by_invoice_id, nil, [6])
+    repo.find_invoice_by_invoice_id(6)
+    parent.verify
   end
 
 end
