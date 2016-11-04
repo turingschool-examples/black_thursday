@@ -19,6 +19,7 @@ class Invoice
     @parent = parent
   end
 
-  def merchants
+  def merchant
+    parent.find_merchant(merchant_id)
   end
 end

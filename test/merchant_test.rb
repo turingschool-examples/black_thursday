@@ -34,22 +34,21 @@ class MerchantTest < Minitest::Test
   end
 
   def test_a_merchant_can_point_to_its_items
-    sales_engine = SalesEngine.from_csv({ 
-    :items => "./fixture/items.csv", 
-    :merchants => "./fixture/merchant_test_file.csv" 
+    sales_engine = SalesEngine.from_csv({
+    :items => "./fixture/items.csv",
+    :merchants => "./fixture/merchant_test_file.csv"
     })
     merchant = sales_engine.merchants.find_by_id(101)
     assert_equal 2, merchant.items.length
   end
 
   def test_a_merchant_can_point_to_its_invoices
-    skip
     sales_engine = SalesEngine.from_csv({
     :merchants => "./fixture/merchant_test_file.csv",
-    invoices => "./fixture/invoices.csv"
+    :invoices => "./fixture/invoices.csv"
     })
     merchant = sales_engine.merchants.find_by_id(101)
-    assert_equal 2, merchant.invoices.length
+    assert_equal 1, merchant.invoices.length
   end
 
 end
