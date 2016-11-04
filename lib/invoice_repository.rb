@@ -30,8 +30,8 @@ class InvoiceRepository
     @file_contents.map {|row| Invoice.new(row, self)}
   end
 
-  def find_invoice_for_id(id)
-    parent.find_invoice_for_id(id)
+  def find_merchant_by_id(id)
+    parent.find_merchant_by_id(id)
   end
 
   def find_by_id(id)
@@ -48,7 +48,7 @@ class InvoiceRepository
   end
 
   def find_all_by_status(status)
-    find_all(:status, status)
+    find_all(:status, status.to_sym)
   end
 
 end

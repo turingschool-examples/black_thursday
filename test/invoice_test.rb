@@ -34,8 +34,8 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_merchant_calls_parent
-    @invoice1.parent.expect(:find_invoice_for_id, nil, [10])
-    @invoice1.invoice
+    @invoice1.parent.expect(:find_merchant_by_id, nil, [10])
+    @invoice1.merchant
     @invoice1.parent.verify
   end
 
@@ -48,7 +48,7 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_it_initializes_the_status
-    assert_equal "pending", @invoice1.status
+    assert_equal :pending, @invoice1.status
   end
 
   def test_it_initializes_item_create_time
@@ -69,8 +69,8 @@ class InvoiceTest < Minitest::Test
     assert_equal 0, @invoice2.id
   end
 
-  def test_it_returns_empty_string_if_there_is_no_status_is_given
-    assert_equal "", @invoice2.status
+  def test_it_returns_nil_if_there_is_no_status_is_given
+    assert_equal nil, @invoice2.status
   end
 
   def test_it_returns_zero_if_there_is_no_customer_id_given

@@ -51,24 +51,18 @@ class FindFunctionsTest < Minitest::Test
     assert result.all?{|item| item.unit_price == input}
   end
 
-  def test_find_all_prices_returns_item_object_for_unique_price
-    assert find_all_prices(119.00).one?{|item| item.class == Item}
+  def test_find_all_equivalent_returns_item_object_for_unique_price
+    assert find_all_equivalent(:unit_price, 119.00).one?{|item| item.class == Item}
+    assert find_all_equivalent(:unit_price, 119.00).count == 1
   end
 
-  def test_find_all_prices_returns_one_object_for_a_unique_price
-    assert find_all_prices(119.00).count == 1
+  def test_find_all_equivalent_returns_item_objects_for_common_price
+    assert find_all_equivalent(:unit_price, 12.00).all?{|item| item.class == Item}
+    assert find_all_equivalent(:unit_price, 12.00).count > 1
   end
 
-  def test_find_all_prices_returns_item_objects_for_common_price
-    assert find_all_prices(12.00).all?{|item| item.class == Item}
-  end
-
-  def test_find_all_prices_returns_more_than_one_object_for_common_price
-    assert find_all_prices(12.00).count > 1
-  end
-
-  def test_find_all_prices_returns_an_empty_array_if_no_prices_found
-    assert_equal [], find_all_prices(18.75)
+  def test_find_all_equivalent_returns_an_empty_array_if_no_equivalent_found
+    assert_equal [], find_all_equivalent(:unit_price, 18.75)
   end
 
   def test_find_all_filters_merchant_id_method
@@ -79,24 +73,24 @@ class FindFunctionsTest < Minitest::Test
     assert result.all?{|item| item.merchant_id == input}
   end
 
-  def test_find_all_by_merch_id_returns_item_objects
-    assert find_all_by_merch_id(12334185).all?{|item| item.class == Item}
+  def test_find_all_equivalent_returns_item_objects_for_merch_id
+    assert find_all_equivalent(:merchant_id, 12334185).all?{|item| item.class == Item}
   end
 
-  def test_find_all_by_merch_id_returns_more_than_one_object_for_common_merch_id
-    assert find_all_by_merch_id(12334185).count > 1
+  def test_find_all_equivalent_returns_more_than_one_object_for_common_merch_id
+    assert find_all_equivalent(:merchant_id, 12334185).count > 1
   end
 
-  def test_find_all_by_merch_id_returns_item_object_for_unique_price
-    assert find_all_by_merch_id(12334141).one?{|item| item.class == Item}
+  def test_find_all_equivalent_returns_item_object_for_unique_price
+    assert find_all_equivalent(:merchant_id, 12334141).one?{|item| item.class == Item}
   end
 
-  def test_find_all_by_merch_id_returns_one_object_for_a_unique_price
-    assert_equal 1, find_all_by_merch_id(12334141).count
+  def test_find_all_equivalent_returns_one_object_for_a_unique_price
+    assert_equal 1, find_all_equivalent(:merchant_id, 12334141).count
   end
 
-  def test_find_all_by_merch_id_returns_an_empty_array_if_no_by_merch_id_found
-    assert_equal [], find_all_by_merch_id(1)
+  def test_find_all_equivalent_returns_an_empty_array_if_no_equivalent_found
+    assert_equal [], find_all_equivalent(:merchant_id, 1)
   end
 
   def test_find_all_filters_description_method
@@ -110,6 +104,10 @@ class FindFunctionsTest < Minitest::Test
   def test_finds_all_strings_returns_matching_item_object_for_description
     input = "handwoven pillow"
     assert_equal 1, find_all_strings(:description, input).count
+  end
+
+  def test_equivalence_needed_evaluates_method_name
+    assert equivalence_needed?(:unit_price)
   end
 
 end

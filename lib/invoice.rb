@@ -16,14 +16,15 @@ class Invoice
     @parent      = repo
     @id          = invoice_info[:id].to_i
     @customer_id = invoice_info[:customer_id].to_i
-    @status      = invoice_info[:status].to_s
+    @status      = invoice_info[:status].to_sym if invoice_info[:status]
     @created_at  = Time.parse(invoice_info[:created_at].to_s)
     @updated_at  = Time.parse(invoice_info[:updated_at].to_s)
     @merchant_id = invoice_info[:merchant_id].to_i
   end
 
-  def invoice
-    parent.find_invoice_for_id(@merchant_id)
+  def merchant
+    parent.find_merchant_by_id(@merchant_id)
   end
 
+  
 end

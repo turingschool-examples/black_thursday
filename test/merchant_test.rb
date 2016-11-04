@@ -25,6 +25,12 @@ class MerchantTest < Minitest::Test
     @merchant1.parent.verify
   end
 
+  def test_invoices_method_calls_parent
+    @merchant1.parent.expect(:find_invoices, nil, [5])
+    @merchant1.invoices
+    @merchant1.parent.verify
+  end
+
   def test_it_initializes_merchant_id
     assert_equal 5, @merchant1.id
   end

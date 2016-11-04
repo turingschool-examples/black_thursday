@@ -1,3 +1,4 @@
+require 'pry'
 module FindFunctions
 
   def find_by(method, input)
@@ -14,22 +15,19 @@ module FindFunctions
   end
 
   def find_all(method, input)
-    return find_all_prices(input)         if method == :unit_price
-    return find_all_by_merch_id(input)    if method == :merchant_id
-    return find_all_by_customer_id(input) if method == :customer_id
+    return find_all_equivalent(method, input) if equivalence_needed?(method)
     find_all_strings(method, input)
   end
 
-  def find_all_prices(input)
-    all.find_all { |row| row.unit_price.to_f == input.to_f }
+  def equivalence_needed?(method)
+    method == :unit_price  || 
+    method == :merchant_id || 
+    method == :customer_id ||
+    method == :status
   end
 
-  def find_all_by_merch_id(input)
-    all.find_all { |row| row.merchant_id == input }
-  end
-
-  def find_all_customer_ids(input)
-    all.find_all { |row| row.customer_id == input }
+  def find_all_equivalent(method, input)
+    all.find_all { |row| row.send(method) == input }
   end
 
   def find_all_strings(method, input)
