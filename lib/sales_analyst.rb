@@ -78,11 +78,11 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-   item_count = number_of_items_for_every_merchant
-   cut = mean(item_count) + standard_deviation(item_count)
-   sales_engine.merchants.merchants.find_all do |merchant|
-     merchant.items.count >= cut
-   end
- end
+    item_count = number_of_items_for_every_merchant
+    cut = mean(item_count) + standard_deviation(item_count)
+    sales_engine.merchants.merchants.find_all do |merchant|
+      merchant.items.count >= cut
+    end
+  end
 
 end
