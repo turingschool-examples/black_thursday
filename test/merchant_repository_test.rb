@@ -43,5 +43,8 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_averages_merchant
     @mr.average_items_per_merchant
+        binding.pry
+
   end
+
 end
