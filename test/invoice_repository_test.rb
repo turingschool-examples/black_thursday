@@ -42,7 +42,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_return_all_invoices_that_match_status
-    assert_equal 2, repository.find_all_by_status(:pending).count
+    assert_equal 15, repository.find_all_by_status(:pending).count
     assert_equal [], repository.find_all_by_status(:something)
   end
 
