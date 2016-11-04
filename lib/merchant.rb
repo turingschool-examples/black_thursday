@@ -1,30 +1,27 @@
 require 'csv'
 require './lib/merchant_repo'
+require 'bigdecimal'
+require 'pry'
 
 class Merchant
-  attr_reader :id,
+  attr_reader :parent,
+              :id,
               :name,
               :created_at,
               :updated_at
-
-  def initialize(data)
-    data = CSV.open "./data/merchants.csv", headers: true, header_converters: :symbol
-
-    data.each do |row|
-      @id = row[0]
-      @name = row[1]
-      @created_at = row[2]
-      @updated_at = row[3]
-    end
+              
+  def initialize(data, repo)
+      @parent = repo
+      @id = data[:id].to_i
+      @name = data[:name].to_s
+      @created_at = data[:created_at]
+      @updated_at = data[:updated_at]
   end
+
+   def items
+    @parent.find_all_by_merchant_id(id)
+  end
+
 end
 
-m = Merchant.new({:id => 5, :name => "Turing School"})
 
-  puts m.id
-
-  puts m.name
-
-  puts m.created_at
-
-  puts m.updated_at

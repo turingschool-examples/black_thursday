@@ -39,3 +39,4 @@ end
 #
 # Which are our "Golden Items", those two standard-deviations above the average item price? Return the item objects of these "Golden Items".
 # sa.golden_items # => [<item>, <item>, <item>, <item>]
+cd

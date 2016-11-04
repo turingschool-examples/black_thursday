@@ -15,10 +15,6 @@ class ItemTest < Minitest::Test
              :updated_at => "2009-12-09 12:08:04 UTC"}
     @repo = Minitest::Mock.new
   end
-<<<<<<< HEAD
-
-=======
->>>>>>> 639083bef12d09b9555be95a9ce0ebd9cbcc0688
   def test_it_exists
     assert Item.new(data, repo)
   end
@@ -36,10 +32,6 @@ class ItemTest < Minitest::Test
   end
   def test_it_has_a_description
     i = Item.new(data, repo)
-<<<<<<< HEAD
-
-=======
->>>>>>> 639083bef12d09b9555be95a9ce0ebd9cbcc0688
     assert_equal "- Super Chunky knit infinity scarf - Soft mixture of 97% Acrylic and 3% Viscose - Beautiful, Warm, and Stylish - Very easy to care for Hand wash with cold water and lay flat to dry", i.description
   end
   def test_it_has_a_unit_price

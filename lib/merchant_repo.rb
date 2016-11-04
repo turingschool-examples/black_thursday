@@ -1,19 +1,50 @@
-#all - returns an array of all known Merchant instances
-# find_by_id - returns either nil or an instance of Merchant with a matching ID
-# find_by_name - returns either nil or an instance of Merchant having done a case insensitive search
-# find_all_by_name - returns either [] or one or more matches which contain the supplied name fragment, case insensitive
+require './lib/merchant'
+require 'csv'
+require 'pry'
+require './lib/sales_engine'
+
 class MerchantRepo
+  attr_reader :name,
+              :id,
+              :created_at,
+              :updated_at,
+              :all
 
-def add_merchant(data)
-  @all << Merchant.new(data, self)
+
+  def initialize(file, sales_engine)
+    @parent = sales_engine
+    @all = []
+    file_reader(file)
+  end
+
+  def file_reader(file)
+    contents = CSV.open(file, headers:true, header_converters: :symbol)
+    contents.each do |merchant|
+       @all << Merchant.new(merchant, self)
+    end
+  end
+
+  def find_by_id(desired_id)
+    @all.find do |merchant| 
+       merchant.id == desired_id
+    end
+  end
+
+  def find_by_name(desired_name)
+    desired_name.to_s.downcase
+    @all.find {|merchant| merchant.name == desired_name}
+  end
+
+  def find_all_by_name(fragment)
+    fragment = fragment.to_s.downcase
+    @all.find_all do |merchant|
+      merchant.name.downcase.include?(fragment)
+    end
+  end
+
+  def find_all_by_merchant_id(id)
+    @parent.find_all_by_merchant_id(id)
+  end
+
 end
 
-def find_by_id(id)
-  find_by_id(id)
-end
-
-def find_by_name(name)
-end
-
-def find_all_by_name(fragment)
-end

@@ -1,8 +1,8 @@
-require './lib/item'
+require './lib/transaction'
 require 'csv'
 require 'pry'
 
-class ItemRepo
+class TransactionRepo
   attr_reader :all,
               :name,
               :id,
@@ -10,7 +10,7 @@ class ItemRepo
               :merchant_id,
               :created_at,
               :updated_at
-              
+
   def initialize(file, sales_engine)
     @parent = sales_engine
     @all = []
@@ -60,10 +60,6 @@ class ItemRepo
   end
 
   def find_all_by_price_in_range(price1, price2)
-<<<<<<< HEAD
-
-=======
->>>>>>> 639083bef12d09b9555be95a9ce0ebd9cbcc0688
       @all.find_all do |item|
         item.unit_price >= price1 &&
         item.unit_price <= price2

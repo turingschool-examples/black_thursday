@@ -1,31 +1,29 @@
-require 'bigdecimal'
 require 'csv'
-require './lib/item_repo'
+require './lib/invoice_item_repo'
+require 'pry'
 
-class Item
+class InvoiceItem
   attr_reader :id,
-              :name,
-              :description,
+              :item_id,
+              :invoice_id,
+              :quantity,
               :unit_price,
-              :merchant_id,
               :created_at,
               :updated_at
 
   def initialize(data, repo)
       @parent = repo
       @id = data[:id].to_i
-      @name = data[:name]
-      @description = data[:description]
-      @unit_price = BigDecimal.new(data[:unit_price], 4).to_i
+      @customer_id = data[:customer_id]
       @merchant_id = data[:merchant_id]
+      @status = data[:status]
       @created_at = data[:created_at]
       @updated_at = data[:updated_at]
   end
 
   def unit_price_to_dollars
-    @unit_price.to_f
-    #returns the price as a float
+    @unit_price.to_f #BigDecimal??
+    #returns the price of the invoice item in dollars formatted as a Float
   end
+
 end
-
-
