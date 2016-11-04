@@ -25,6 +25,7 @@ class MerchantTest < Minitest::Test
   end
   
   def test_it_can_find_its_items_in_an_array
+    binding.pry
     assert_equal Array, @merch.items.class
   end
 end

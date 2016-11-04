@@ -18,6 +18,11 @@ class MerchantRepository
     end
   end
 
+  def average_items_per_merchant
+    numbers = @all.map { |merchant| merchant.items.size }
+    numbers.reduce(&:+) / numbers.size
+  end
+
   def find_by_id(id_number)
     @all.find do |merchant|
       if merchant.id == id_number.to_i

@@ -40,4 +40,8 @@ class MerchantRepositoryTest < Minitest::Test
 
     assert_equal Array, result.class
   end
+
+  def test_it_averages_merchant
+    @mr.average_items_per_merchant
+  end
 end
