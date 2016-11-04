@@ -13,7 +13,7 @@ class InvoiceTest < Minitest::Test
 
   def setup
     @repository = InvoiceRepository.new('./fixture/invoices.csv')
-    
+
     @invoice = Invoice.new({
       :id => "1",
       :customer_id => "1",
@@ -74,10 +74,9 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_an_invoice_can_point_to_its_merchant
-    skip
-    sales_engine = SalesEngine.from_csv({ 
+    sales_engine = SalesEngine.from_csv({
     :merchants => "./fixture/merchant_test_file.csv",
-    :invoices => ".fixture/invoices.csv"
+    :invoices => "./fixture/invoices.csv"
     })
     invoice = sales_engine.invoices.find_by_id(1)
     assert_instance_of Merchant, invoice.merchant

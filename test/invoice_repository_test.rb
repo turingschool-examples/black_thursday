@@ -5,7 +5,7 @@ require 'minitest/pride'
 require './lib/sales_engine'
 
 class InvoiceRepositoryTest < Minitest::Test
-  attr_reader   :repository, 
+  attr_reader   :repository,
                 :sales_engine
 
   def setup
@@ -44,6 +44,11 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_it_can_return_all_invoices_that_match_status
     assert_equal 2, repository.find_all_by_status(:pending).count
     assert_equal [], repository.find_all_by_status(:something)
+  end
+
+  def test_that_an_invoice_repo_knows_who_its_parent_is
+    assert_equal sales_engine, repository.parent
+    assert_instance_of SalesEngine, repository.parent
   end
 
 end
