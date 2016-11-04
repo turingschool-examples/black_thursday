@@ -15,7 +15,7 @@ class SalesEngine
   end
 
   def find_all_items_by_merchant_id(merchant_id)
-    @items.find_all_by_merchant_id(merchant_id)
+    items.find_all_by_merchant_id(merchant_id)
   end
 
   def self.from_csv(all_file_paths)
@@ -24,8 +24,12 @@ class SalesEngine
   
   def read_csv(file_path)
     @raw_data = {}
-    file_path.map do |key, value|
-      @raw_data[key] = CSV.read value, headers: true, header_converters: :symbol
+    if file_path != nil
+      file_path.map do |key, value|
+        @raw_data[key] = CSV.read value, headers: true, header_converters: :symbol
+      end
+    else 
+      raise ArgumentError
     end
     #add a way to deal with nil
   end
