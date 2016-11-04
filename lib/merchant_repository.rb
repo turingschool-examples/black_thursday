@@ -20,7 +20,7 @@ class MerchantRepository
 
   def average_items_per_merchant
     numbers = @all.map { |merchant| merchant.items.size }
-    numbers.reduce(&:+) / numbers.size
+    numbers.reduce(&:+).to_f / numbers.size
   end
 
   def find_by_id(id_number)
