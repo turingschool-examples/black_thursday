@@ -91,12 +91,12 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 2, sales_analyst.merchants_with_high_item_count.length
   end
 
-  def test_it_can_calculate_merchants_with_high_invoice_count
+  def test_it_can_calculate_top_merchants_by_invoice_count
     assert_equal 0, sales_analyst.merchants_with_high_invoice_count.length
   end
 
-  def test_it_can_calculate_merchants_with_low_invoice_count
-    assert_equal 0, sales_analyst.merchants_with_low_invoice_count.length
+  def test_it_can_calculate_bottom_merchants_by_invoice_count
+    assert_equal 0, sales_analyst.bottom_merchants_by_invoice_count.length
   end
 
 

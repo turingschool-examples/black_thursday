@@ -103,7 +103,7 @@ class SalesAnalyst
     end
   end
 
-  def merchants_with_high_invoice_count
+  def top_merchants_by_invoice_count
     invoice_count = collect_invoices_per_merchant
     cut = mean(invoice_count) + 2 * standard_deviation(invoice_count)
     sales_engine.merchants.all.find_all do |merchant|
@@ -111,7 +111,7 @@ class SalesAnalyst
     end
   end
 
-  def merchants_with_low_invoice_count
+  def bottom_merchants_by_invoice_count
     invoice_count = collect_invoices_per_merchant
     cut = mean(invoice_count) - 2 * standard_deviation(invoice_count)
     sales_engine.merchants.all.find_all do |merchant|
