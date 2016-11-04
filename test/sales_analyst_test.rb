@@ -17,7 +17,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(file_path)
     assert_equal 3.26, SalesAnalyst.new(se).average_items_per_merchant_standard_deviation
   end
-
+``
   def test_sales_analyst_can_find_merchants_that_exceed_one_standard_deviation
     se = SalesEngine.from_csv(file_path)
     assert_equal 52, SalesAnalyst.new(se).merchants_with_high_item_count.count
