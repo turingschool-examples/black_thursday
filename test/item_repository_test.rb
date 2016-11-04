@@ -9,9 +9,7 @@ class ItemRepositoryTest < Minitest::Test
                 :sales_engine
 
   def setup
-    @sales_engine = SalesEngine.from_csv({
-      :items => "./fixture/items.csv"
-    })
+    @sales_engine = SalesEngine.from_csv({:items => "./fixture/items.csv"})
     @repository = sales_engine.items
   end
 
