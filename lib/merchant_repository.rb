@@ -15,14 +15,8 @@ class MerchantRepository
   def populate(merchants_data)
     merchants_data.each do |merchant|
       @all << Merchant.new(merchant, self)
-      # add_merchant(merchant)
     end
-    # binding.pry
   end
-
-  # def add_merchant(merchant_data)
-  #   binding.pry
-  # end
 
   def find_by_id(id_number)
     @all.find do |merchant|
@@ -50,13 +44,11 @@ class MerchantRepository
     end
   end
 
-  def find_all_items_by_merchant(merchant)
-    @parent.find_all_items_by_merchant_id(merchant)
+  def find_all_items_by_merchant(merchant_id)
+    parent.find_all_items_by_merchant_id(merchant_id)
   end
 
   def inspect
     "#<#{self.class} #{@all.size} rows>"
   end
 end
-
-
