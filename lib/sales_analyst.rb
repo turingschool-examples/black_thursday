@@ -99,8 +99,24 @@ class SalesAnalyst
     item_count = number_of_items_for_every_merchant
     cut = mean(item_count) + standard_deviation(item_count)
     sales_engine.merchants.all.find_all do |merchant|
-      merchant.items.count >= cut
+      merchant.items.count > cut
     end
+  end
+
+  def merchants_with_high_invoice_count
+    invoice_count = collect_invoices_per_merchant
+    cut = mean(invoice_count) + 2 * standard_deviation(invoice_count)
+    sales_engine.merchants.all.find_all do |merchant|
+      merchant.invoices.count > cut
+    end
+  end
+
+  def merchants_with_low_invoice_count
+    invoice_count = collect_invoices_per_merchant
+    cut = mean(invoice_count) - 2 * standard_deviation(invoice_count)
+    sales_engine.merchants.all.find_all do |merchant|
+      merchant.invoices.count < cut
+      end
   end
 
 end
