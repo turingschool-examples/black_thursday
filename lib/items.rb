@@ -23,8 +23,11 @@ class Item
   end
 
   def merchant
-    id_number = @item_parent.find_all_by_merchant_id(self.merchant_id)[0].merchant_id
     @item_parent.parent.merchants.find_by_id(id_number)
+  end
+
+  def id_number
+    @item_parent.find_all_by_merchant_id(self.merchant_id)[0].merchant_id
   end
 
   def find_unit_price(price)
@@ -33,7 +36,7 @@ class Item
     else
       unit_price = BigDecimal.new(price) / 100
     end
-    return unit_price
+    unit_price
   end
 
   def unit_price_to_dollars(unit_price)
