@@ -22,6 +22,11 @@ class Item
     @merchant_id = item_data[:merchant_id].to_i
   end
 
+  def merchant
+    id_number = @item_parent.find_all_by_merchant_id(self.merchant_id)[0].merchant_id
+    @item_parent.parent.merchants.find_by_id(id_number)
+  end
+
   def find_unit_price(price)
     if unit_price == ""
       unit_price = BigDecimal.new(0)
