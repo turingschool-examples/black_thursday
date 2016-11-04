@@ -24,7 +24,7 @@ class StatisticsTest < Minitest::Test
   end
 
   def test_sum_of_squared_distances_finds_sum
-    assert_equal 1802.5, std_dev_numerator(@array, @average)
+    assert_equal 1802.5, std_dev_numerator(@array)
   end
 
   def test_std_dev_denominator_returns_n_minus_one
@@ -32,7 +32,11 @@ class StatisticsTest < Minitest::Test
   end
 
   def test_standard_deviation_finds_it
-    assert_equal 6.07, standard_deviation(@array, @average)
+    assert_equal 6.07, standard_deviation(@array)
+  end
+
+  def test_compare_with_std_dev
+    assert_equal 1, compare_with_std_dev(@array, :more, 1)
   end
 
 
