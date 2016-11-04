@@ -14,16 +14,14 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-  mean = sales_engine.merchants.all.map { |merchant| (merchant.items.length - average_items_per_merchant)** 2 }
-  Math.sqrt(mean.reduce(:+) / sales_engine.merchants.all.count).round(2)
+    mean = sales_engine.merchants.all.map { |merchant| (merchant.items.length - average_items_per_merchant)** 2 }
+    Math.sqrt(mean.reduce(:+) / sales_engine.merchants.all.count).round(2)
   end
 
   def merchants_with_high_item_count
     threshold = (average_items_per_merchant_standard_deviation + average_items_per_merchant)
     sales_engine.merchants.all.reduce([]) do |result, merchant|
-      if merchant.items.count > threshold
-        result << merchant
-      end
+       result << merchant if merchant.items.count > threshold
       result
     end
   end
@@ -39,13 +37,29 @@ class SalesAnalyst
 
   def average_average_price_per_merchant
     total_average_price = sales_engine.merchants.all.reduce(0) do |result, merchant|
-     result += average_item_price_for_merchant(merchant.id)
-     result
-   end
+      result += average_item_price_for_merchant(merchant.id)
+      result
+    end
     (total_average_price / sales_engine.merchants.all.count).floor(2)
   end
 
   def golden_items
-    threshold = (average_average_price_per_merchant + average_items_per_merchant_standard_deviation)
+    threshold = (average_item_price + average_item_price_standard_deviation * 2)
+    sales_engine.items.all.reduce([]) do |result, item|
+      result << item if item.unit_price > threshold
+      result
+    end
+  end
+
+private 
+  def average_item_price_standard_deviation
+    average = average_item_price
+    mean = sales_engine.items.all.map { |item| (item.unit_price - average)** 2 }
+    Math.sqrt(mean.reduce(:+) / sales_engine.items.all.count).round(2)
+  end
+
+  def average_item_price
+    item_prices = sales_engine.items.all.map { |item| item.unit_price}
+    (item_prices.reduce(:+) / item_prices.count)
   end
 end
