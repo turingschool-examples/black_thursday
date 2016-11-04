@@ -78,4 +78,9 @@ class SalesEngineTest < Minitest::Test
     assert_equal 1000, sales_engine.customers.all.count
   end
 
+  def test_invoice_totaling
+    invoice = sales_engine.invoices.find_by_id(2)
+    assert_equal 20, invoice.total.to_f
+  end
+
 end
