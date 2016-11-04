@@ -80,7 +80,7 @@ class SalesEngineTest < Minitest::Test
 
   def test_invoice_totaling
     invoice = sales_engine.invoices.find_by_id(2)
-    assert_equal 20, invoice.total.to_f
+    assert_equal 5289.13, invoice.total.to_f
   end
 
 end

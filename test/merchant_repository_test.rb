@@ -58,7 +58,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_access_parent_when_looking_for_customers
-    parent.expect(:find_customer_by_customer_id, nil, [1])
+    parent.expect(:find_customer_by_id, nil, [1])
     repo.find_customer_by_customer_id(1)
     parent.verify
   end

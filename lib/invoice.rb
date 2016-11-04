@@ -40,13 +40,13 @@ class Invoice
   end
 
   def is_paid_in_full?
-    transactions_status = transactions.detect { |transaction| transaction.status == "success" }
+    transactions_status = transactions.detect { |transaction| transaction.result == "success" }
     transactions_status ? true : false
   end
 
   def total
     invoice_items.reduce(0) do |sum, invoice_item|
-      sum += (invoice_item.unit_pricegti * invoice_item.quantity)
+      sum += (invoice_item.unit_price * invoice_item.quantity)
       sum
     end
   end

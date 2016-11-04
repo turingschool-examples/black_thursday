@@ -57,7 +57,7 @@ module Parser
                         :item_id    => row['item_id'],
                         :invoice_id => row['invoice_id'],
                         :unit_price => row['unit_price'],
-                        :quantity   => row['unit_price'],
+                        :quantity   => row['quantity'],
                         :created_at => row['created_at'],
                         :updated_at => row['updated_at']}
     end
