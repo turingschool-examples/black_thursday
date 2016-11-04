@@ -17,6 +17,7 @@ class MerchantRepository
       @all << Merchant.new(merchant, self)
       # add_merchant(merchant)
     end
+    # binding.pry
   end
 
   # def add_merchant(merchant_data)
@@ -50,7 +51,7 @@ class MerchantRepository
   end
 
   def find_all_items_by_merchant(merchant)
-    parent.find_all_items_by_merchant_id(merchant.id)
+    @parent.find_all_items_by_merchant_id(merchant)
   end
 
   def inspect
