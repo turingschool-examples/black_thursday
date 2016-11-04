@@ -2,19 +2,30 @@ require_relative './merchant_repo'
 require_relative './item_repo'
 
 class SalesEngine
+  attr_reader :merchants,
+              :items
+  def initialize(file_path)
+    @merchants = MerchantRepo.new(file_path[:merchants], self)
+    @items     = ItemRepo.new(file_path[:items], self)
+  end
+
   def self.from_csv(file_path)
-    @items_file     = file_path[:items]
-    @merchants_file = file_path[:merchants]
-    self.merchants
-    self.items
-    self
+    SalesEngine.new(file_path)
   end
 
-  def self.merchants
-    MerchantRepo.new(@merchants_file , self)
+  def find_merchant_by_merchant_id(merchant_id)
+    merchants.find_by_id(merchant_id)
   end
 
-  def self.items
-    ItemRepo.new(@items_file, self)
+  def find_items_by_merchant_id(merchant_id)
+    items.find_all_by_merchant_id(merchant_id)
+  end
+
+  def all_merchants
+    @merchants.all.count
+  end
+
+  def all_items
+    @items.all.count
   end
 end

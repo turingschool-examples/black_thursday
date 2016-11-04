@@ -40,7 +40,7 @@ class ItemRepoTest < Minitest::Test
     assert_equal 5, ItemRepo.new('./data/items.csv').find_all_by_price(24.00).count
   end
 
-  def test_item_repo_can_find_all_by_price_ion_range
+  def test_item_repo_can_find_all_by_price_in_range
     assert_equal [], ItemRepo.new('./data/items.csv').find_all_by_price_in_range((100000000..200000000))
     assert_equal 59, ItemRepo.new('./data/items.csv').find_all_by_price_in_range((2.50..4.50)).count
   end

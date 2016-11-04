@@ -17,12 +17,16 @@ class Item
     @created_at  = format_time(item_data[:created_at].to_s)
     @updated_at  = format_time(item_data[:updated_at].to_s)
     @merchant_id = item_data[:merchant_id].to_i
-    @parent      = parent 
+    @parent      = parent
   end
 
   def format_time(time_string)
     unless time_string == ""
       Time.parse(time_string)
     end
+  end
+
+  def merchant
+    @parent.find_merchant_by_merchant_id(self.merchant_id)
   end
 end
