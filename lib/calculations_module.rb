@@ -1,14 +1,15 @@
 require 'bigdecimal'
+require 'pry'
+
 
 module Calculations
 
   def sum(array)
     array.reduce(:+)
-    mean(array)
   end
 
   def mean(array)
-    BigDecimal.new(sum(array)/array.length)
+    (sum(array)/array.length)
   end
 
   def standard_deviation(array)

@@ -2,6 +2,8 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/item'
 require './lib/item_repo'
+require 'simplecov'
+
 class ItemTest < Minitest::Test
   attr_reader :data,
               :repo

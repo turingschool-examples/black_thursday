@@ -37,12 +37,12 @@ class ItemRepo
     end
   end
 
-  def find_item_price_by_id(merchant_id)
-    u = @all.find do |item|
-      item.merchant_id == merchant_id
+  def find_item_price_by_id(id)
+    i = @all.collect do |item|
+      item.merchant_id == id
+      binding.pry
     end
-    binding.pry
-    u.unit_price
+    i.unit_price
   end
 
   def find_all_with_description(desired_description)

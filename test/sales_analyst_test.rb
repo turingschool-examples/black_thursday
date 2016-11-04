@@ -10,7 +10,7 @@ class SalesAnalystTest < Minitest::Test
   def setup
     @sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
-      :merchants => "./data/small_merchant_file.csv",})
+      :merchants => "./data/merchants.csv",})
   end
 
   def test_it_exists
@@ -25,28 +25,29 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_find_items_per_merchant
     sa = SalesAnalyst.new(sales_engine)
-    assert_equal 22, sa.items_per_merchant(12334301)
+    assert_equal 1, sa.items_per_merchant(12334301)
+    assert_equal 2, sa.items_per_merchant(12334269)
+    assert_equal 3, sa.items_per_merchant(12336957)
   end
 
   def test_it_can_find_average_items_per_merchant
     sa = SalesAnalyst.new(sales_engine)
-    assert_equal 65.1, sa.average_items_per_merchant
+    assert_equal 2.88, sa.average_items_per_merchant
   end
 
   def test_it_creates_all_merchant_ids
     sa = SalesAnalyst.new(sales_engine)
-    result = [2334261, 12334264, 12334266, 12334269, 12334271, 12334275, 12334277, 12334280, 12334281, 12334284, 12334289, 12334296, 12334299, 12334301, 12334302, 12334303, 12334305, 12334315, 12334319, 12334324, 12334326]
-    assert_equal result, sa.create_all_merchant_ids
+    result = sa.create_all_merchant_ids
+    assert_equal 475, result.length
   end
 
-  def test_it_can_find_average_price_per_merchant
-    skip #unit_price showing as nil when this is run through item_repo, but otherwise the method works
+  def test_it_can_find_average_item_price_per_merchant
     sa = SalesAnalyst.new(sales_engine)
-    assert_equal 25000.0, sa.average_item_price_per_merchant(12334301)
+    assert_equal 25000.0, sa.average_item_price_per_merchant(12336957)
   end
 
   def test_it_can_find_items_per_merchant_standard_deviation
     sa = SalesAnalyst.new(sales_engine)
-    assert_equal 0.0, sa.average_items_per_merchant_standard_deviation
+    assert_equal 238, sa.average_items_per_merchant_standard_deviation
   end
 end

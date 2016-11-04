@@ -25,9 +25,10 @@ class MerchantRepo
   end
 
   def find_by_id(desired_id)
-    @all.find do |merchant| 
+    m = @all.find do |merchant| 
        merchant.id == desired_id
     end
+    m
   end
 
   def find_by_name(desired_name)
