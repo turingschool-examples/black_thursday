@@ -34,12 +34,12 @@ class SalesEngine
     items.find_all_by_merchant_id(id)
   end
 
-  def find_item_merchant_by_merch_id(id)
+  def find_merchant_for_id(id)
     merchants.find_by_id(id)
   end
 
-  def find_merchant_for_id(id)
-    merchants.find_by_id(id)
+  def find_invoices(merchant_id)
+    invoices.find_all_by_merchant_id(merchant_id)
   end
 
   def all_items

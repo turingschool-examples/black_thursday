@@ -21,8 +21,8 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_merchant_id_calls_parent
-    @item_repo.parent.expect(:find_item_merchant_by_merch_id, nil, [5])
-    @item_repo.find_item_merchant_by_merch_id(5)
+    @item_repo.parent.expect(:find_merchant_by_id, nil, [5])
+    @item_repo.find_merchant_by_id(5)
     @item_repo.parent.verify
   end
 
