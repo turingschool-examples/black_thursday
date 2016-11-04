@@ -112,4 +112,25 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 28.38, sales_analyst.invoice_status(status)
   end
 
+  def test_invoice_days_returns_array_of_day_numbers
+    assert_equal Array, sales_analyst.invoice_days.class
+    assert_equal sales_analyst.invoices.count, sales_analyst.invoice_days.count
+  end
+
+  def test_invoice_days_returns_day_name
+    assert sales_analyst.invoice_days.all?{|day| day.include?("day")}
+  end
+
+  def test_average_invoices_per_day
+    assert_equal 10.57, sales_analyst.average_invoices_per_day
+  end
+
+  def test_average_invoices_per_day_std_dev
+    assert_equal 3.1, sales_analyst.average_invoices_per_day_standard_deviation
+  end
+
+  def test_top_days_by_invoice_count_returns_top_day_or_days
+    assert_equal ["Friday"], sales_analyst.top_days_by_invoice_count
+  end
+
 end

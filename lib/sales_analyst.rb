@@ -1,4 +1,5 @@
 require_relative '../lib/statistics'
+require 'date'
 
 class SalesAnalyst
 
@@ -89,7 +90,50 @@ class SalesAnalyst
   end
 
   def top_merchants_by_invoice_count
-    
+    mean    = average_invoices_per_merchant
+    std_dev = average_invoices_per_merchant_standard_deviation
+    merchants.find_all do |merchant|
+      merchant.invoices.count > (mean + (std_dev * 2))
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    mean    = average_invoices_per_merchant
+    std_dev = average_invoices_per_merchant_standard_deviation
+    merchants.find_all do |merchant|
+      merchant.invoices.count < (mean - (std_dev * 2))
+    end
+  end
+
+  def top_days_by_invoice_count
+    mean    = average_invoices_per_day
+    std_dev = average_invoices_per_day_standard_deviation
+    invoices_by_day.find_all do |key, value|
+      value > (mean + std_dev)
+    end.map{|pair| pair[0]}
+  end
+
+  def invoices_by_day
+    invoice_days.reduce ({}) do |result, day|
+      result[day] += 1 if result[day] 
+      result[day]  = 1 if result[day].nil?
+      result
+    end 
+  end
+  
+  def invoice_days
+    invoices.map {|invoice| Date::DAYNAMES[invoice.created_at.wday]}
+  end
+
+  def average_invoices_per_day
+    sum = invoices_by_day.values.reduce(:+) 
+    (sum / invoices_by_day.values.count.to_f).round(2)
+  end
+
+  def average_invoices_per_day_standard_deviation
+    array1  = invoices_by_day.values
+    average = average_invoices_per_day
+    standard_deviation(array1, average)
   end
 
   def invoice_status(invoice_status)
