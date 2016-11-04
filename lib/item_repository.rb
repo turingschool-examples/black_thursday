@@ -30,7 +30,6 @@ class ItemRepository
 
   def find_all_by_merchant_id(merchant_id)
     @all.find_all { |item| item.merchant_id.eql?(merchant_id) }
-    # binding.pry
   end
 
   def find_all_with_description(fragment)
