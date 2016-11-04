@@ -29,7 +29,7 @@ class ItemRepository
     @file_contents.map { |row| Item.new(row, self) }
   end
 
-  def find_by_merchant_id(id)
+  def find_merchant_by_id(id)
     parent.find_merchant_by_id(id)
   end
 

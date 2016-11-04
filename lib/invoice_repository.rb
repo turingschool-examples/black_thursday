@@ -30,8 +30,8 @@ class InvoiceRepository
     @file_contents.map {|row| Invoice.new(row, self)}
   end
 
-  def find_merchant_for_id(id)
-    parent.find_merchant_for_id(id)
+  def find_merchant_by_id(id)
+    parent.find_merchant_by_id(id)
   end
 
   def find_by_id(id)

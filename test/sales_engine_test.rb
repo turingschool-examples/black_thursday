@@ -45,8 +45,8 @@ class SalesEngineTest < Minitest::Test
     assert expected.all?{|invoice| invoice.merchant_id == 12334105}
   end
 
-  def test_find_merchant_for_item_id_returns_merchant_object
-    expected = sales_engine.find_merchant_for_id(12334112)
+  def test_find_merchant_by_item_id_returns_merchant_object
+    expected = sales_engine.find_merchant_by_id(12334112)
     assert_equal Merchant, expected.class
     assert_equal expected.id, sales_engine.merchants.find_by_id(12334112).id
   end
