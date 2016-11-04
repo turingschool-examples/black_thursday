@@ -18,8 +18,16 @@ class SalesAnalyst
     sales_engine.merchants.all.count
   end
 
+  def total_invoices
+    sales_engine.invoices.all.count
+  end
+
   def average_items_per_merchant
     (total_items.to_f / total_merchants.to_f).round(2)
+  end
+
+  def average_invoices_per_merchant
+    (total_invoices.to_f / total_merchants.to_f).round(2)
   end
 
   def collect_items_per_merchant
@@ -30,6 +38,16 @@ class SalesAnalyst
 
   def average_items_per_merchant_standard_deviation
     standard_deviation(collect_items_per_merchant).round(2)
+  end
+
+  def collect_invoices_per_merchant
+    sales_engine.merchants.all.map do |merchant|
+      merchant.invoices.length
+    end
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    standard_deviation(collect_invoices_per_merchant).round(2)
   end
 
   def items_given_merchant_id(merchant_id)
