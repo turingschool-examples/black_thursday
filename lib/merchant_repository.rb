@@ -52,5 +52,3 @@ class MerchantRepository
     "#<#{self.class} #{@all.size} rows>"
   end
 end
-
-

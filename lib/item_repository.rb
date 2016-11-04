@@ -7,25 +7,15 @@ class ItemRepository
 
   def initialize(item_data, parent = nil)
     @parent = parent
-    @all = []
     populate(item_data)
   end
 
   def populate(item_data)
-    item_data.each do |item|
-      @all << Item.new(item, self)
-    # binding.pry
-    end
+    @all = item_data.map { |item| Item.new(item, self) }
   end
 
   def find_by_id(id)
-    @all.find do |item| 
-        # binding.pry
-      if item.id.eql?(id)
-        item
-      end
-    end
-    # binding.pry
+    @all.find { |item| item.id.eql?(id) }
   end 
 
   def find_all_by_merchant_id(merchant_id)
@@ -45,18 +35,12 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
-    @all.find_all do |item|
-      if item.unit_price.eql?(price)
-        item
-      end
-    end
+    @all.find_all { |item| item.unit_price.eql?(price) }
   end
 
 
   def find_by_name(name)
-    @all.find do |item|
-      item.name.downcase.eql?(name.downcase)
-    end
+    @all.find { |item| item.name.downcase.eql?(name.downcase) }
   end
 
   def find_all_by_name(fragment)
