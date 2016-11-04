@@ -37,13 +37,12 @@ class ItemRepo
     end
   end
 
-  def find_item_price_by_id(id)
-    i = @all.collect do |item|
-      item.merchant_id == id
-      binding.pry
-    end
-    i.unit_price
-  end
+  # def find_item_price_by_id(id)
+  #   i = @all.find_all do |item|
+  #     item.unit_price if item.merchant_id == id
+  #   end
+  #   binding.pry
+  # end
 
   def find_all_with_description(desired_description)
     @all.find_all do |item|
@@ -68,10 +67,10 @@ class ItemRepo
   end
 
   def find_all_by_merchant_id(merchant_id)
-    @all.find_all do |item|
+    i = @all.find_all do |item|
       item.merchant_id == merchant_id
-      return item.name
     end
+    
   end
 
 

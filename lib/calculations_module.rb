@@ -19,12 +19,7 @@ module Calculations
     Math.sqrt(result).round(2)
   end
 
-  def variance
-    (sum**2)/array.length
-  end
-
   def price_threshold(array, num_std_devs)
-    variance
     (mean(array) + num_std_devs * standard_deviation(array)).round(2)
   end
 

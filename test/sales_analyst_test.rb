@@ -18,9 +18,9 @@ class SalesAnalystTest < Minitest::Test
     assert_equal SalesAnalyst, sa.class
   end
 
-  def test_parent_is_sales_engine
+  def test_it_connects_with_sales_engine
     sa = SalesAnalyst.new(sales_engine)
-    assert_equal SalesEngine, sa.parent.class
+    assert_equal Class, sa.se.class
   end
 
   def test_it_can_find_items_per_merchant
@@ -43,11 +43,21 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_find_average_item_price_per_merchant
     sa = SalesAnalyst.new(sales_engine)
-    assert_equal 25000.0, sa.average_item_price_per_merchant(12336957)
+    assert_equal 18.98, sa.average_item_price_per_merchant(12336957)
   end
 
   def test_it_can_find_items_per_merchant_standard_deviation
     sa = SalesAnalyst.new(sales_engine)
     assert_equal 238, sa.average_items_per_merchant_standard_deviation
+  end
+
+  def test_it_can_find_average_item_price_for_all_merchants
+    sa = SalesAnalyst.new(sales_engine)
+    assert_equal 35.03, sa.average_price_per_item
+  end
+
+  def test_it_can_find_golden_items
+    sa = SalesAnalyst.new(sales_engine)
+    assert_equal ["Test Listing"], sa.golden_items.first.name
   end
 end
