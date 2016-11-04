@@ -23,22 +23,16 @@ class SalesAnalystTest < Minitest::Test
 
   def test_average_items_per_merchant_returns_a_float
     assert Float, sales_analyst.average_items_per_merchant.class
-  end
-
-  def test_it_can_calculate_average_items_per_merchant
     assert_equal 0.89, sales_analyst.average_items_per_merchant
   end
 
   def test_it_calls_sales_engine_object
-    assert sales_analyst.sales_engine
+    assert SalesEngine, sales_analyst.sales_engine.class
   end
 
-  def test_average_items_per_merchant_returns_average
-    assert_equal 0.89, sales_analyst.average_items_per_merchant
-  end
 
   def test_avg_items_per_merch_std_dev_returns_std_dev
-    assert_equal 2.03, sales_analyst.average_items_per_merchant_standard_deviation
+    assert_equal 2.02, sales_analyst.average_items_per_merchant_standard_deviation
   end
 
   def test_average_item_price_per_merchant_returns_a_Big_Decimal
@@ -101,7 +95,7 @@ class SalesAnalystTest < Minitest::Test
   
   def test_invoices_per_merchant_standard_deviation
     assert_equal Float, sales_analyst.average_invoices_per_merchant_standard_deviation.class
-    assert_equal 0.55, sales_analyst.average_invoices_per_merchant_standard_deviation
+    assert_equal 0.32, sales_analyst.average_invoices_per_merchant_standard_deviation
   end
 
   def test_top_merchants_by_invoice_count_returns_array_of_top_merchants
