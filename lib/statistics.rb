@@ -6,6 +6,10 @@ module Statistics
     Math.sqrt(numerator / denominator).round(2)
   end
 
+  def average(array)
+    array.reduce(:+) / array.count
+  end
+
   def squared_distance_from_average(unit, average)
     (unit - average.to_f) ** 2
   end

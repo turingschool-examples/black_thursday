@@ -29,9 +29,8 @@ class SalesAnalyst
 
   def average_items_per_merchant_standard_deviation
     array1   = merchants.map {|merchant| merchant.items.count}
-    array2   = merchants
     average  = average_items_per_merchant
-    standard_deviation(array1, array2, average)
+    standard_deviation(array1, average)
   end
 
   def merchants_with_high_item_count
