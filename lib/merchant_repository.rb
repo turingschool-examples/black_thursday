@@ -17,35 +17,6 @@ class MerchantRepository
     end
   end
 
-  def average_items_per_merchant
-    @item_counts = @all.map { |merchant| merchant.items.size }
-    average(@item_counts)
-  end
-
-  def average_item_price_for_merchant(id)
-    all_prices = find_all_items_by_merchant(id).map do |item|
-      item.unit_price
-    end
-    average(all_prices).to_f
-  end
-
-  def average_average_price_per_merchant
-    averages = @all.map do |merchant|
-      average_item_price_for_merchant(merchant.id)
-    end
-    average(averages).to_f
-  end
-
-  def average(collection)
-    collection.reduce(&:+) / collection.size
-  end
-
-  def merchants_with_most_items
-    names = @all.map { |merchant| merchant.name }
-    @item_counts.sort!.reverse!
-    @item_counts.zip(names)[0..2]
-  end
-
   def find_by_id(id_number)
     @all.find do |merchant|
       if merchant.id == id_number.to_i
