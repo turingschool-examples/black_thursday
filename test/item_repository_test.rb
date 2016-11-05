@@ -1,6 +1,5 @@
 require './lib/sales_engine'
-require 'minitest/autorun'
-require 'minitest/pride'
+require './test/test_helper'
 
 class ItemRepositoryTest < Minitest::Test
 

@@ -16,7 +16,6 @@ class SalesEngine
 
   def find_all_items_by_merchant_id(merchant_id)
     items.find_all_by_merchant_id(merchant_id)
-
   end
 
   def self.from_csv(all_file_paths)
@@ -32,23 +31,12 @@ class SalesEngine
     else 
       raise ArgumentError
     end
-    #add a way to deal with nil
   end
 
-  # def items(merchant_id = nil)
-  #   items.find_all_by_merchant_id(merchant_id).map { |item| item["name"]}
+  # def merchant(name)
+  #   merch_ids = item_repository.find_all_by_name(name).map { |item| item["merchant_id"] }
+  #   merchants = merch_ids.map { |merch_id| merchant_repository.find_by_id(merch_id)["name"] }
+  #   merchants
   # end
 
-
-  def merchant(name)
-    merch_ids = item_repository.find_all_by_name(name).map { |item| item["merchant_id"] }
-    merchants = merch_ids.map { |merch_id| merchant_repository.find_by_id(merch_id)["name"] }
-    merchants
-  end
-
 end
-
-# se = SalesEngine.new
-# # binding.pry
-# merch_test = se.merchant_repository.find_by_id("12334105")
-# binding.pry

@@ -3,6 +3,6 @@ SimpleCov.start do
   add_filter "test"
 end
 require 'minitest/autorun'
-# require 'minitest/nyan_cat'
+require 'minitest/pride'
 require 'csv'
 require 'pry'

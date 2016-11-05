@@ -25,7 +25,15 @@ class MerchantTest < Minitest::Test
   end
   
   def test_it_can_find_its_items_in_an_array
-    binding.pry
     assert_equal Array, @merch.items.class
   end
+
+  def test_it_knows_when_it_was_created
+    assert_equal "2010-12-10", @merch.created_at
+  end
+
+  def test_it_knows_when_it_was_updated
+    assert_equal "2011-12-04", @merch.updated_at
+  end
+  
 end
