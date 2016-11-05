@@ -22,9 +22,10 @@ class MerchantRepository
     average(@item_counts)
   end
 
-  def average_item_price_for_merchant(merchant_id)
-    all_items = find_all_items_by_merchant(merchant_id)
-    all_prices = all_items.map { |item| item.unit_price }
+  def average_item_price_for_merchant(id)
+    all_prices = find_all_items_by_merchant(id).map do |item|
+      item.unit_price
+    end
     average(all_prices).to_f
   end
 
