@@ -1,9 +1,9 @@
 require_relative 'find_functions'
-require_relative 'item'
+require_relative 'invoice_item'
 require 'csv'
 require 'pry'
 
-class ItemRepository
+class InvoiceItemRepository
 
   include FindFunctions
 
@@ -27,39 +27,27 @@ class ItemRepository
   end
 
   def create_item_objects
-    @file_contents.map { |row| Item.new(row, self) }
-  end
-
-  def find_merchant_by_id(id)
-    parent.find_merchant_by_id(id)
+    @file_contents.map { |row| InvoiceItem.new(row, self) }
   end
 
   def find_invoice_by_id(id)
     parent.find_invoice_by_id(id)
   end
 
+  def find_item_by_id(item_id)
+    parent.find_item_by_id(item_id)
+  end
+
   def find_by_id(id)
     find_by(:id, id)
   end
 
-  def find_by_name(name)
-    find_by(:name, name)
+  def find_all_by_item_id(item_id)
+    find_all(:item_id, item_id)
   end
 
-  def find_all_with_description(description)
-    find_all(:description, description)
-  end
-
-  def find_all_by_price(price)
-    find_all(:unit_price, price)
-  end
-
-  def find_all_by_price_in_range(price_range)
-    all.find_all { |item| price_range.include?(item.unit_price) }
-  end
-
-  def find_all_by_merchant_id(merchant_id)
-    find_all(:merchant_id, merchant_id)
+  def find_all_by_invoice_id(invoice_id)
+    find_all(:invoice_id, invoice_id)
   end
 
 end
