@@ -82,14 +82,4 @@ class InvoiceItemTest < Minitest::Test
     assert_instance_of InvoiceItemRepository, invoice_item.parent
   end
 
-  def test_an_invoice_can_point_to_its_merchant
-    skip
-    sales_engine = SalesEngine.from_csv({
-    :merchants => "./fixture/merchant_test_file.csv",
-    :invoices => "./fixture/invoices.csv"
-    })
-    invoice = sales_engine.invoices.find_by_id(1)
-    assert_instance_of Merchant, invoice.merchant
-    assert_equal 101, invoice.merchant.id
-  end
 end
