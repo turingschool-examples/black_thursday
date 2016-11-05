@@ -26,12 +26,12 @@ class Item
     unit_price.to_f
   end
 
-  def merchant
-    parent.find_merchant(merchant_id)
-  end
-
   def format_unit_price(price)
     price.chars.insert(-3, ".").join
+  end
+
+  def merchant
+    parent.find_merchant(merchant_id)
   end
 
 end
