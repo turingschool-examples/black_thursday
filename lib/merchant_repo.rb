@@ -33,7 +33,10 @@ class MerchantRepo
 
   def find_by_name(desired_name)
     desired_name.to_s.downcase
-    @all.find {|merchant| merchant.name == desired_name}
+    m = @all.find do |merchant| 
+      merchant.name == desired_name
+    end
+    m
   end
 
   def find_all_by_name(fragment)
@@ -50,5 +53,7 @@ class MerchantRepo
   def find_all_invoices_by_id(id)
     @parent.find_all_invoices_by_id(id)
   end
-
+  
 end
+
+

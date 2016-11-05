@@ -25,4 +25,13 @@ class Merchant
   def invoices
     @parent.find_all_invoices_by_id(id)
   end
+
+  def num_items
+    items.length
+  end
+
+  def num_invoices
+    invoices.length
+  end
+  
 end

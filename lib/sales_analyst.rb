@@ -1,5 +1,6 @@
 require 'csv'
 require 'pry'
+require 'time'
 require 'bigdecimal'
 require './lib/sales_engine'
 require './lib/calculations_module'
@@ -7,20 +8,16 @@ require './lib/calculations_module'
 class SalesAnalyst
   include Calculations
 
-  attr_reader :se,
-              :merchant_item_array,
-              :merchant_invoice_array
+  attr_reader :se
+            
 
   def initialize(sales_engine)
     @se = sales_engine
-    @merchant_item_array = []
-    @merchant_invoice_array = []
   end
 
   def average_items_per_merchant
-    all_items = se.items.all.length.to_f
-    all_merchants = se.total_merchants.to_f
-    (all_items/all_merchants).round(2)
+    merchants = create_all_merchant_ids.length
+    ((items_per_merchant.reduce(:+))/merchants).round(2)
   end
 
   def create_all_merchant_ids
@@ -30,23 +27,19 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    all_ids = create_all_merchant_ids
-    array = all_ids.map do |id|
-      items_per_merchant(id)
+   mean(items_per_merchant)
+  end
+
+ def items_per_merchant
+   all = se.merchants.all.map do |merchant|
+      merchant.items.count
     end
-    mean(array)
   end
 
-  def items_per_merchant(merchant_id)
-    merchant = se.merchants.find_by_id(merchant_id)
-    @merchant_item_array << merchant.items
-    merchant_item_array.length
-  end
-
-  def invoices_per_merchant(merchant_id)
-    merchant = se.merchants.find_by_id(merchant_id)
-    @merchant_invoice_array << merchant.invoices
-    merchant_invoice_array.length
+  def invoices_per_merchant
+    se.merchants.all.map do |merchant|
+      merchant.invoices.count
+    end
   end
 
   def average_item_price_per_merchant(merchant_id)
@@ -70,35 +63,78 @@ class SalesAnalyst
     array_of_prices = all_items.map do |item|
       item.unit_price
     end
-    gold = price_threshold(array_of_prices, 2)
+    gold = threshold(array_of_prices, 2)
     all_items.find_all do |gold_items| 
       gold_items.unit_price > gold
     end
   end
 
-  def invoice_status(symbol)
+  def invoice_status(status)
+    invoices_with_status = all_invoices_by_status[status].length.to_f
+    total_invoices = se.total_invoices
+    (invoices_with_status/total_invoices * 100).round(2)
+  end
+  
+  def all_invoices_by_status
+    se.invoices.all.group_by do |invoice|
+      invoice.status
+    end
   end
 
   def average_invoices_per_merchant
-    all_invoices = se.invoices.all.length.to_f
-    all_merchants = se.total_merchants.to_f
-    (all_invoices/all_merchants).round(2)
+    merchants = create_all_merchant_ids.length
+    ((invoices_per_merchant.reduce(:+))/merchants).round(2)
   end
 
   def average_invoices_per_merchant_standard_deviation
-    all_ids = create_all_merchant_ids
-    array = all_ids.map do |id|
-      invoices_per_merchant(id)
-    end
-    mean(array)
+    mean(invoices_per_merchant)
   end
 
   def top_merchants_by_invoice_count
+    invoice_count = threshold(invoices_per_merchant, 2)
+    tops = se.merchants.all.find_all do |merchant|
+      merchant.num_invoices > invoice_count
+    end
+    tops
   end
    
   def bottom_merchants_by_invoice_count
+    invoice_count = threshold(invoices_per_merchant, -2)
+    bottoms = se.merchants.all.find_all do |merchant|
+      merchant.num_invoices < invoice_count
+    end
+    bottoms
+  end
+
+  def find_day(date)
+    date.strftime("%A")
+  end
+
+  def group_invoices_by_day
+    dayz = se.invoices.all.group_by do |invoice|
+      find_day(invoice.created_at)
+    end
+    binding.pry
+    dayz
   end
 
   def top_days_by_invoice_count
+   top_dayz = threshold(group_invoices_by_day.values, 1)
+    group_invoices_by_day_count.delete_if do | key, value |
+      value <= top_dayz
+    end.keys
   end
+
+  def merchants_with_pending_invoices
+    se.merchants.all.select do |merchant|
+      merchant.invoices.any? {|invoice| !invoice.is_paid_in_full?}
+    end
+  end
+
+  def merchants_with_only_one_item
+    se.merchants.all.select do |merchant|
+      merchant.num_items == 1
+    end
+  end
+
 end

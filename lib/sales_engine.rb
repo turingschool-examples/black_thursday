@@ -45,7 +45,7 @@ class SalesEngine
     @invoice_repo.find_all_by_merchant_id(id)
   end
 
-  def total_invoices
+  def self.total_invoices
     @invoice_repo.all.length
   end
 

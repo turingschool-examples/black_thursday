@@ -40,7 +40,7 @@ class ItemTest < Minitest::Test
   end
   def test_it_has_a_merchant_id
     i = Item.new(data, repo)
-    assert_equal "12334871", i.merchant_id
+    assert_equal 12334871, i.merchant_id
   end
   def test_it_displays_when_it_was_created
     i = Item.new(data, repo)
@@ -52,6 +52,6 @@ class ItemTest < Minitest::Test
   end
   def test_it_has_a_unit_price_to_dollars
     i = Item.new(data, repo)
-    assert_equal 3800.0, i.unit_price_to_dollars
+    assert_equal 3.8, i.unit_price_to_dollars
   end
 end

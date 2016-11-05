@@ -4,12 +4,10 @@ require 'pry'
 
 class TransactionRepo
   attr_reader :all,
-              :name,
               :id,
-              :description,
-              :merchant_id,
-              :created_at,
-              :updated_at
+              :invoice_id,
+              :credit_card_number,
+              :result
 
   def initialize(file, sales_engine)
     @parent = sales_engine
@@ -20,59 +18,35 @@ class TransactionRepo
  def file_reader(file)
     contents = CSV.open(file, headers:true, header_converters: :symbol)
     contents.each do |item|
-       @all << Item.new(item, self)
+       @all << Transaction.new(item, self)
     end
   end
 
   def find_by_id(desired_id)
-    @all.find do |item|
-      item.id == desired_id
+    @all.find do |transaction|
+      transaction.id == desired_id
+      return transaction.invoice_id
+      #not sure what it should return
     end
   end
 
-  def find_by_name(desired_name)
-    @all.find do |item|
-      item.name.downcase == desired_name
-      return item.id
+  def find_by_invoice_id(desired_invoice_id)
+    @all.find do |transaction| #or invoice, not sure
+      invoice.id == desired_invoice_id
     end
   end
 
-  def find_item_price_by_id(merchant_id)
-    u = @all.find do |item|
-      item.merchant_id == merchant_id
-    end
-    binding.pry
-    u.unit_price
-  end
-
-  def find_all_with_description(desired_description)
-    @all.find_all do |item|
-      item.description.downcase == desired_description
+  def find_all_by_credit_card_number(desired_credit_card_number)
+    @all.find_all do |transaction|
+      transaction.credit_card_number.to_i == desired_credit_card_number.to_i
+      return transaction
     end
   end
-
-  def find_all_by_price(desired_price)
-    @all.find_all do |item|
-      item.unit_price == desired_price
-      return item.name
-    end
-
-  end
-
-  def find_all_by_price_in_range(price1, price2)
-      @all.find_all do |item|
-        item.unit_price >= price1 &&
-        item.unit_price <= price2
-        return item.name
-      end
-  end
-
-  def find_all_by_merchant_id(merchant_id)
-    @all.find_all do |item|
-      item.merchant_id == merchant_id
-      return item.name
+  
+  def find_all_by_result(desired_result)
+    @all.find_all do |transaction|
+      transaction.result == desired_result
+      return transaction
     end
   end
-
-
 end

@@ -3,11 +3,11 @@ require 'csv'
 require 'pry'
 
 class InvoiceItemRepo
+
   attr_reader :all,
               :id,
               :customer_id,
-              :invoice_id,
-              :parent
+              :invoice_id
 
   def initialize(file, sales_engine)
     @parent = sales_engine
@@ -17,8 +17,8 @@ class InvoiceItemRepo
 
  def file_reader(file)
     contents = CSV.open(file, headers:true, header_converters: :symbol)
-    contents.each do |invoice|
-       @all << InvoiceItemRepo.new(invoice, self)
+    contents.each do |item|
+       @all << InvoiceItem.new(item, self)
     end
   end
 
@@ -44,7 +44,7 @@ class InvoiceItemRepo
       return invoice.customer_id.length
     end
   end
-
+  
   def find_all_by_invoice_id(invoice_id)
     #find_all_by_invoice_id - returns either [] or one or more matches which have a matching invoice ID
     @all.find_all do |invoice|
@@ -52,5 +52,4 @@ class InvoiceItemRepo
       return invoice.merchant_id.to_i
     end
   end
-
 end

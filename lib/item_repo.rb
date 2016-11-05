@@ -68,8 +68,9 @@ class ItemRepo
 
   def find_all_by_merchant_id(merchant_id)
     i = @all.find_all do |item|
-      item.merchant_id == merchant_id
+      item.merchant_id == merchant_id.to_i
     end
+    i
   end
 
 end

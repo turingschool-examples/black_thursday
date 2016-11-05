@@ -1,5 +1,4 @@
 require 'minitest/autorun'
-require 'minitest/emoji'
 require './lib/invoice_item_repo'
 require 'csv'
 require 'pry'
@@ -15,7 +14,7 @@ class InvoiceItemRepoTest < Minitest::Test
 
   def test_it_has_a_class
     iir = InvoiceItemRepo.new(file, sales_engine)
-    assert_equal InvoiceRepo, iir.class
+    assert_equal InvoiceItemRepo, iir.class
   end
 
   def test_it_can_display_all_invoices_items
@@ -32,10 +31,9 @@ class InvoiceItemRepoTest < Minitest::Test
     iir = InvoiceItemRepo.new(file, sales_engine)
     assert_equal 1, iir.find_all_by_item_id(5)
   end
-
+  
    def test_it_can_find_all_by_invoice_id
     iir = InvoiceItemRepo.new(file, sales_engine)
     assert_equal 7, iir.find_all_by_invoice_id(4)
   end
-
 end

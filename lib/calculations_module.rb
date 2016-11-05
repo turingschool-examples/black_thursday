@@ -1,6 +1,4 @@
 require 'bigdecimal'
-require 'pry'
-
 
 module Calculations
 
@@ -9,7 +7,7 @@ module Calculations
   end
 
   def mean(array)
-    (sum(array)/array.length)
+    sum(array)/array.length.to_f
   end
 
   def standard_deviation(array)
@@ -19,7 +17,7 @@ module Calculations
     Math.sqrt(result).round(2)
   end
 
-  def price_threshold(array, num_std_devs)
+  def threshold(array, num_std_devs)
     (mean(array) + num_std_devs * standard_deviation(array)).round(2)
   end
 
