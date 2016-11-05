@@ -3,8 +3,7 @@ require 'pry'
 
 class MerchantRepository
   attr_reader   :all,
-                :parent,
-                :all
+                :parent
 
   def initialize(merchants_data, parent = nil)
     @parent = parent
