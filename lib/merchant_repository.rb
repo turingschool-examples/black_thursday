@@ -3,6 +3,7 @@ require_relative '../lib/merchant'
 require 'csv'
 
 class MerchantRepository
+  
   include FindFunctions
 
   attr_reader :file_contents,
