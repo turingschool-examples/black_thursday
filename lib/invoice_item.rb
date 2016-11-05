@@ -1,8 +1,8 @@
 require 'bigdecimal'
 require 'time'
-require 'pry'
 
 class InvoiceItem
+
   attr_reader :id,
               :quantity,
               :created_at,
@@ -22,7 +22,7 @@ class InvoiceItem
     @quantity   = invoice_item_info.to_h[:quantity].to_i
     @created_at = Time.parse(invoice_item_info.to_h[:created_at].to_s)
     @updated_at = Time.parse(invoice_item_info.to_h[:updated_at].to_s)
-    @price      = unit_price_to_dollars(invoice_item_info.to_h[:unit_price].to_s)
+    @price      = unit_price_to_dollars(invoice_item_info[:unit_price].to_s)
     @unit_price = BigDecimal.new(@price, @price.to_s.length - 1)
   end
 
