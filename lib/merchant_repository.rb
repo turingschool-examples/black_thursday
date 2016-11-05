@@ -41,8 +41,8 @@ class MerchantRepository
 
   def merchants_with_most_items
     names = @all.map { |merchant| merchant.name }
-    @numbers.sort!.reverse!
-    @numbers.zip(names)[0..2]
+    @item_counts.sort!.reverse!
+    @item_counts.zip(names)[0..2]
   end
 
   def find_by_id(id_number)
