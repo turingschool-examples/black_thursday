@@ -80,4 +80,8 @@ class SalesEngine
     invoice_items.all
   end
 
+  def all_transactions
+    transactions.all
+  end
+
 end

@@ -27,4 +27,8 @@ class Invoice
     parent.find_merchant_by_id(@merchant_id)
   end
 
+  def transactions
+    parent.find_transactions_by_invoice_id(@id)
+  end
+
 end
