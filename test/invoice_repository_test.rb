@@ -49,44 +49,37 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_find_invoice_by_id_returns_an_instance_of_invoice
-    id       = 1
-    invoices = invoice_repo.find_by_id(id)
+    invoices = invoice_repo.find_by_id(1)
     assert_equal Invoice, invoices.class
   end
 
   def test_it_returns_nil_if_id_not_found
-    id       = 123
-    invoices = invoice_repo.find_by_id(id)
+    invoices = invoice_repo.find_by_id(123)
     assert_equal nil,invoices
   end
 
   def test_it_finds_all_items_by_customer_id
-    customer_id = 1
-    invoices    = invoice_repo.find_all_by_customer_id(customer_id)
+    invoices    = invoice_repo.find_all_by_customer_id(1)
     assert_equal 8, invoices.count
   end
 
   def est_it_returns_nil_if_customer_id_is_not_found
-    customer_id = 10000000
-    invoices    = invoice_repo.find_all_by_customer_id(merchant_id)
+    invoices    = invoice_repo.find_all_by_customer_id(1000000)
     assert_equal [], invoices.map{|item| item.merchant_id}
   end
 
   def test_it_finds_all_by_merchant_id
-    merchant_id = 12335955
-    invoices    = invoice_repo.find_all_by_merchant_id(merchant_id)
+    invoices    = invoice_repo.find_all_by_merchant_id(12335955)
     assert_equal 2, invoices.count
   end
 
   def test_it_returns_nil_if_merchant_id_is_not_found
-    merchant_id = 10000000
-    invoices    = invoice_repo.find_all_by_merchant_id(merchant_id)
+    invoices    = invoice_repo.find_all_by_merchant_id(10000000)
     assert_equal [], invoices.map{|item| item.merchant_id}
   end
 
   def test_it_finds_all_of_a_status
-    status   = :pending
-    invoices = invoice_repo.find_all_by_status(status)
+    invoices = invoice_repo.find_all_by_status(:pending)
     assert_equal 21, invoices.count
   end
 
