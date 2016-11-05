@@ -18,6 +18,10 @@ class Invoice
     @updated_at  = determine_the_time(invoice_data[:updated_at])
   end
 
+  def merchant
+    @invoice_parent.parent.merchants.find_by_id(@merchant_id)
+  end
+
   def determine_the_time(time_string)
     time = Time.new(0)
     return time if time_string == ""

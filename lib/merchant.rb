@@ -20,5 +20,8 @@ class Merchant
     merchant_parent.find_all_items_by_merchant(self.id)
   end
 
+  def invoices
+    merchant_parent.find_all_invoices_by_merchant(self.id)
+  end
 
 end
