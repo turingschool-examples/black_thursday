@@ -48,7 +48,7 @@ class MerchantTest < Minitest::Test
     :invoices => "./fixture/invoices.csv"
     })
     merchant = sales_engine.merchants.find_by_id(101)
-    assert_equal 1, merchant.invoices.length
+    assert_equal 2, merchant.invoices.length
   end
 
 end

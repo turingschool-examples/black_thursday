@@ -7,9 +7,9 @@ require './lib/invoice_repository'
 require './lib/sales_engine'
 
 class InvoiceTest < Minitest::Test
-    attr_reader   :invoice,
-                  :invoice_2,
-                  :repository
+  attr_reader   :invoice,
+                :invoice_2,
+                :repository
 
   def setup
     @repository = InvoiceRepository.new('./fixture/invoices.csv')
