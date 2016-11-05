@@ -35,9 +35,5 @@ class StatisticsTest < Minitest::Test
     assert_equal 6.07, standard_deviation(@array)
   end
 
-  def test_compare_with_std_dev
-    assert_equal 1, compare_with_std_dev(@array, :more, 1)
-  end
-
 
 end

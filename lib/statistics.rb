@@ -24,13 +24,4 @@ module Statistics
     collection.count - 1.0
   end
 
-  def compare_with_std_dev(collection, direction, quantity = 1)
-    mean = average(collection)
-    std_dev = standard_deviation(collection) * quantity
-    #  return
-    collection.find_all do |unit|
-      unit < (average - (standard_deviation * 2))
-    end
-  end
-
 end
