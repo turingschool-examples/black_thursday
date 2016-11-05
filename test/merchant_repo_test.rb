@@ -21,7 +21,7 @@ class MerchantRepoTest < Minitest::Test
   end
 
   def test_merchant_repo_returns_nil_when_given_fake_data
-    merchant = MerchantRepo.new('./data/merchants.csv').find_by_id("77777777")
+    merchant = MerchantRepo.new('./data/merchants.csv').find_by_id(77777777)
     assert_equal nil, merchant
   end
 

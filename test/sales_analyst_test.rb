@@ -39,10 +39,21 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 5, SalesAnalyst.new(se).golden_items.count
   end
 
+  def test_sales_analyst_can_find_the_average_of_invoices_per_merchant
+    se = SalesEngine.from_csv(file_path)
+    assert_equal 10.49, SalesAnalyst.new(se).average_invoices_per_merchant
+  end
+
+  def test_sales_analyst_can_calculate_average_invoices_per_merchant_with_standard_deviation
+    se = SalesEngine.from_csv(file_path)
+    assert_equal 3.29, SalesAnalyst.new(se).average_invoices_per_merchant_standard_deviation
+  end
+
   def file_path
     {
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
       }
   end
 end

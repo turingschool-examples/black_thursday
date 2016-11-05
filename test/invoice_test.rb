@@ -9,7 +9,7 @@ class InvoiceTest < Minitest::Test
     :id          => 6,
     :customer_id => 7,
     :merchant_id => 8,
-    :status      => "pending",
+    :status      => :pending,
     :created_at  => Time.now,
     :updated_at  => Time.now
   })
@@ -20,18 +20,18 @@ class InvoiceTest < Minitest::Test
     :id          => 6,
     :customer_id => 7,
     :merchant_id => 8,
-    :status      => "pending",
+    :status      => :pending,
     :created_at  => Time.now,
     :updated_at  => Time.now
   })
     assert_equal 6, i.id
     assert_equal 7, i.customer_id
     assert_equal 8, i.merchant_id
-    assert_equal "pending", i.status
+    assert_equal :pending, i.status
     assert_respond_to i, :created_at
     assert_respond_to i, :updated_at
   end
-  
+
   def test_invoice_can_parse_rows
     file = './data/invoices.csv'
     assert_instance_of Array, parse_data(file)

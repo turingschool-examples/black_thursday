@@ -1,5 +1,7 @@
 require_relative './item_repo'
 require_relative './merchant_repo'
+require_relative './invoice_repo'
+
 class Merchant
   attr_reader :name,
               :id,
@@ -16,5 +18,9 @@ class Merchant
 
   def items
     @parent.find_items_by_merchant_id(id)
+  end
+
+  def invoices
+    @parent.find_invoices_by_merchant_id(id)
   end
 end
