@@ -121,7 +121,6 @@ class SalesAnalyst
 
   def find_invoice_status
    sales_engine.invoices.all.each_with_object(Hash.new(0)) do |invoice,counts|
-     # binding.pry
      counts[invoice.status] += 1
    end
  end
@@ -129,5 +128,52 @@ class SalesAnalyst
  def invoice_status(status)
    ((find_invoice_status[status].to_f/ total_invoices.to_f) * 100).round(2)
  end
+
+ def days_of_week
+   { 0 => "Sunday",
+     1 => "Monday",
+     2 => "Tuesday",
+     3 => "Wednesday",
+     4 => "Thursday",
+     5 => "Friday",
+     6 => "Saturday",
+    }
+  end
+
+  def invoices_per_day
+    sales_engine.invoices.all.reduce(Array.new(7) {0}) do |days, invoice|
+      days[invoice.created_at.wday] += 1
+      days
+    end
+  end
+
+  # def convert_dates_into_numerical_day_of_week
+  #   sales_engine.invoices.all.map do |invoice|
+  #     invoice.created_at.wday
+  #   end
+  # end
+  #
+  # def convert_numerical_day_of_week_into_day_of_week
+  #   convert_dates_into_numerical_day_of_week.map do |number|
+  #     days_of_week[number]
+  # end
+  #
+  # def create_a_hash_with_counted_days_of_week
+  #   sales_engine.convert_numerical_day_of_week_into_day_of_week.each_with_object(Hash.new(0)) do |number,counts|
+  #     counts[number] += 1
+  # end
+  #
+  # def average_number_of_invoices_per_day
+  #   create_a_hash_with_counted_days_of_week.keys.reduce(:+).to_f / 7
+  # end
+  #
+  # def top_days_by_invoice_count
+  #   number_of
+  #   cut = average_number_of_invoices_per_day + standard_deviation()
+  #   sales_engine.merchants.all.find_all do |merchant|
+  #     merchant.invoices.count > cut
+  # end
+
+
 
 end

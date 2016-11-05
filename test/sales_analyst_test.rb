@@ -110,5 +110,13 @@ class SalesAnalystTest < Minitest::Test
    assert_equal 13.33, sales_analyst.invoice_status(:returned)
  end
 
+ def test_it_can_return_day_of_the_week
+  assert_equal "Sunday", sales_analyst.days_of_week[0]
+  assert_equal "Wednesday", sales_analyst.days_of_week[3]
+ end
 
+ def test_it_can_convert_numerical_day_of_week_to_day
+  skip
+  assert_equal [], sales_analyst.convert_numerical_day_of_week_into_day_of_week
+ end
 end
