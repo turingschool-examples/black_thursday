@@ -1,7 +1,6 @@
 require_relative 'find_functions'
 require_relative 'invoice_item'
 require 'csv'
-require 'pry'
 
 class InvoiceItemRepository
 

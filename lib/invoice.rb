@@ -2,6 +2,7 @@ require 'bigdecimal'
 require 'time'
 
 class Invoice
+
   attr_reader :id,
               :unit_price,
               :created_at,

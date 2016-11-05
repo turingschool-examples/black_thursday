@@ -1,7 +1,6 @@
 require_relative 'find_functions'
 require_relative 'item'
 require 'csv'
-require 'pry'
 
 class ItemRepository
 
@@ -32,10 +31,6 @@ class ItemRepository
 
   def find_merchant_by_id(id)
     parent.find_merchant_by_id(id)
-  end
-
-  def find_invoice_by_id(id)
-    parent.find_invoice_by_id(id)
   end
 
   def find_by_id(id)

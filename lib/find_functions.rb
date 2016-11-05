@@ -24,8 +24,9 @@ module FindFunctions
     method == :customer_id ||
     method == :status      ||
     method == :invoice_id  ||
-    method == :id          ||
-    method == :item_id
+    method == :item_id     ||
+    method == :result      ||
+    method == :credit_card_number
   end
 
   def find_all_equivalent(method, input)

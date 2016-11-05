@@ -2,13 +2,15 @@ require_relative '../lib/item_repository'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/invoice_repository'
 require_relative '../lib/invoice_item_repository'
+require_relative '../lib/transaction_repository'
 
 class SalesEngine
 
   attr_reader :items,
               :merchants,
               :invoices,
-              :invoice_items
+              :invoice_items,
+              :transactions
 
   def self.from_csv(sales_info)
     new(sales_info)
@@ -18,7 +20,8 @@ class SalesEngine
     @items         = make_item_repo(sales_info)
     @merchants     = make_merchant_repo(sales_info)
     @invoices      = make_invoice_repo(sales_info)
-    @invoice_items = make_invoice_tem_repo(sales_info)
+    @invoice_items = make_invoice_item_repo(sales_info)
+    @transactions  = make_transaction_repo(sales_info)
   end
 
   def make_item_repo(sales_info)
@@ -33,24 +36,28 @@ class SalesEngine
     InvoiceRepository.new(sales_info[:invoices], self)
   end
 
-  def make_invoice_tem_repo(sales_info)
+  def make_invoice_item_repo(sales_info)
     InvoiceItemRepository.new(sales_info[:invoice_items], self)
   end
 
-  def find_items_by_merchant_id(id)
-    items.find_all_by_merchant_id(id)
+  def make_transaction_repo(sales_info)
+    TransactionRepository.new(sales_info[:transactions], self)
   end
 
-  def find_merchant_by_id(id)
-    merchants.find_by_id(id)
+  def find_items_by_merchant_id(merchant_id)
+    items.find_all_by_merchant_id(merchant_id)
+  end
+
+  def find_merchant_by_id(merchant_id)
+    merchants.find_by_id(merchant_id)
   end
 
   def find_invoices(merchant_id)
     invoices.find_all_by_merchant_id(merchant_id)
   end
 
-  def find_invoice_by_id(id)
-    invoices.find_by_id(id)
+  def find_invoice_by_id(invoice_id)
+    invoices.find_by_id(invoice_id)
   end
 
   def find_item_by_id(item_id)

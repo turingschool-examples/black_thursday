@@ -2,6 +2,7 @@ require 'bigdecimal'
 require 'time'
 
 class Item
+
   attr_reader :id,
               :name,
               :description,
@@ -31,6 +32,5 @@ class Item
   def merchant
     parent.find_merchant_by_id(merchant_id)
   end
-
 
 end
