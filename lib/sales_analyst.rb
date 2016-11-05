@@ -5,7 +5,6 @@ require 'pry'
 
 class SalesAnalyst
   include StandardDeviation
-
   attr_reader :sales_engine
 
   def initialize(sales_engine)
@@ -13,9 +12,8 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    sample_set = []
-      merchants_and_items = sales_engine.merchants.all.map do |merchant|
-        sample_set << sales_engine.find_all_items_by_merchant_id(merchant.id).count
+      sample_set = sales_engine.merchants.all.map do |merchant|
+        sales_engine.find_all_items_by_merchant_id(merchant.id).count
       end
     standard_deviation(sample_set).round(2).to_f
   end
@@ -43,13 +41,13 @@ class SalesAnalyst
     collection.reduce(&:+) / collection.size
   end
 
-  def merchants_with_high_item_count
-    # names = sales_engine.merchants.all.map { |merchant| merchant.name }
-    # @item_counts.sort!.reverse!
-    # @item_counts.zip(names)[0..2]
-  end
+  # def merchants_with_high_item_count
+  #   # names = sales_engine.merchants.all.map { |merchant| merchant.name }
+  #   # @item_counts.sort!.reverse!
+  #   # @item_counts.zip(names)[0..2]
+  # end
 
-  def golden_items
-  end
+  # def golden_items
+  # end
   
 end
