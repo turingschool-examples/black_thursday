@@ -10,7 +10,8 @@ class SalesAnalystTest < Minitest::Test
   def setup
     @sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",})
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"})
   end
 
   def test_it_exists
@@ -24,6 +25,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_items_per_merchant
+  #something is screwed up here, too
     sa = SalesAnalyst.new(sales_engine)
     assert_equal 1, sa.items_per_merchant(12334301)
     assert_equal 2, sa.items_per_merchant(12334269)
@@ -47,6 +49,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_items_per_merchant_standard_deviation
+    #something is screwed up here
     sa = SalesAnalyst.new(sales_engine)
     assert_equal 238, sa.average_items_per_merchant_standard_deviation
   end
@@ -58,6 +61,41 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_find_golden_items
     sa = SalesAnalyst.new(sales_engine)
-    assert_equal ["Test Listing"], sa.golden_items.first.name
+    assert_equal "Test listing", sa.golden_items.first.name
   end
+
+  def test_it_can_find_invoices_per_merchant
+  #something is screwed up here
+    sa = SalesAnalyst.new(sales_engine)
+    assert_equal 1, sa.invoices_per_merchant(12334404)
+    assert_equal 2, sa.invoices_per_merchant(12334570)
+    assert_equal 3, sa.invoices_per_merchant(12334488)
+    assert_equal 4, sa.invoices_per_merchant(12335073)
+    assert_equal 1, sa.invoices_per_merchant(12334301)
+  end
+
+  def test_it_can_find_average_invoices_per_merchant
+    sa = SalesAnalyst.new(sales_engine)
+    assert_equal 10.49, sa.average_invoices_per_merchant
+  end
+
+  def test_it_can_find_invoices_per_merchant_standard_deviation
+    #something is screwed up here, too, probably has to do with the invoices/items per merchant problem
+    sa = SalesAnalyst.new(sales_engine)
+    assert_equal 238, sa.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_it_can_find_invoice_status
+    skip
+    sa = SalesAnalyst.new(sales_engine)
+  end
+
+  def test_it_can_find_top_merchants_by_invoice_count
+    skip
+  end
+
+  def test_it_can_find_bottom_merchants_by_invoice_count
+    skip
+  end
+
 end

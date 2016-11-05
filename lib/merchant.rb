@@ -25,7 +25,4 @@ class Merchant
   def invoices
     @parent.find_all_invoices_by_id(id)
   end
-
 end
-
-

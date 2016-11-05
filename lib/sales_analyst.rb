@@ -8,11 +8,13 @@ class SalesAnalyst
   include Calculations
 
   attr_reader :se,
-              :merchant_item_array
+              :merchant_item_array,
+              :merchant_invoice_array
 
   def initialize(sales_engine)
     @se = sales_engine
     @merchant_item_array = []
+    @merchant_invoice_array = []
   end
 
   def average_items_per_merchant
@@ -41,6 +43,12 @@ class SalesAnalyst
     merchant_item_array.length
   end
 
+  def invoices_per_merchant(merchant_id)
+    merchant = se.merchants.find_by_id(merchant_id)
+    @merchant_invoice_array << merchant.invoices
+    merchant_invoice_array.length
+  end
+
   def average_item_price_per_merchant(merchant_id)
     items = se.items.find_all_by_merchant_id(merchant_id)
     aggregate_price = items.map do |item|
@@ -67,6 +75,30 @@ class SalesAnalyst
       gold_items.unit_price > gold
     end
   end
-end
 
- 
+  def invoice_status(symbol)
+  end
+
+  def average_invoices_per_merchant
+    all_invoices = se.invoices.all.length.to_f
+    all_merchants = se.total_merchants.to_f
+    (all_invoices/all_merchants).round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    all_ids = create_all_merchant_ids
+    array = all_ids.map do |id|
+      invoices_per_merchant(id)
+    end
+    mean(array)
+  end
+
+  def top_merchants_by_invoice_count
+  end
+   
+  def bottom_merchants_by_invoice_count
+  end
+
+  def top_days_by_invoice_count
+  end
+end

@@ -18,8 +18,8 @@ class MerchantRepo
   end
 
   def file_reader(file)
-    contents = CSV.open(file, headers:true, header_converters: :symbol)
-    contents.each do |merchant|
+    contents = CSV.open(file, headers:true, header_converters: :symbol) 
+    contents.map do |merchant|
        @all << Merchant.new(merchant, self)
     end
   end
@@ -52,4 +52,3 @@ class MerchantRepo
   end
 
 end
-

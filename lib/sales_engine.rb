@@ -1,15 +1,18 @@
-require_relative 'merchant_repo'
-require_relative 'item_repo'
+require './lib/merchant_repo'
+require './lib/item_repo'
+require "./lib/invoice_repo"
 require 'csv'
 require 'pry'
 
 class SalesEngine
 
-  attr_reader   :files, :items, :merchants
+  attr_reader   :files, :items, :merchants, :invoices
   attr_accessor :merchant_repo, 
                 :item_repo,
                 :invoice_repo
   
+  # def initialize
+  # end
 
   def self.from_csv(files)
     @merchant_repo     = MerchantRepo.new(files[:merchants], self)
@@ -47,4 +50,3 @@ class SalesEngine
   end
 
 end
-

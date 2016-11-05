@@ -36,24 +36,29 @@ class ItemTest < Minitest::Test
     i = Item.new(data, repo)
     assert_equal "- Super Chunky knit infinity scarf - Soft mixture of 97% Acrylic and 3% Viscose - Beautiful, Warm, and Stylish - Very easy to care for Hand wash with cold water and lay flat to dry", i.description
   end
+
   def test_it_has_a_unit_price
     i = Item.new(data, repo)
     assert_equal 3800, i.unit_price
   end
+
   def test_it_has_a_merchant_id
     i = Item.new(data, repo)
-    assert_equal "12334871", i.merchant_id
+    assert_equal 12334871, i.merchant_id
   end
+
   def test_it_displays_when_it_was_created
     i = Item.new(data, repo)
     assert_equal "2016-01-11 20:59:20 UTC", i.created_at
   end
+
   def test_it_displays_when_it_was_updated
     i = Item.new(data, repo)
     assert_equal "2009-12-09 12:08:04 UTC", i.updated_at
   end
+  
   def test_it_has_a_unit_price_to_dollars
     i = Item.new(data, repo)
-    assert_equal 3800.0, i.unit_price_to_dollars
+    assert_equal 3.8, i.unit_price_to_dollars
   end
 end

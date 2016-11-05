@@ -18,9 +18,8 @@ class InvoiceRepo
   end
 
  def file_reader(file)
-    contents = CSV.open(file, headers:true, header_converters: :symbol)
-    contents.each do |item|
-       @all << Invoice.new(item, self)
+    CSV.foreach(file, headers:true, header_converters: :symbol) do |row|
+       @all << Invoice.new(row, self)
     end
   end
 

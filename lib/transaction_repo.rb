@@ -1,8 +1,8 @@
-require './lib/item'
+require './lib/transaction'
 require 'csv'
 require 'pry'
 
-class ItemRepo
+class TransactionRepo
   attr_reader :all,
               :name,
               :id,
@@ -10,7 +10,7 @@ class ItemRepo
               :merchant_id,
               :created_at,
               :updated_at
-              
+
   def initialize(file, sales_engine)
     @parent = sales_engine
     @all = []
@@ -18,7 +18,7 @@ class ItemRepo
   end
 
  def file_reader(file)
-    contents = CSV.read(file, headers:true, header_converters: :symbol)
+    contents = CSV.open(file, headers:true, header_converters: :symbol)
     contents.each do |item|
        @all << Item.new(item, self)
     end
@@ -37,12 +37,13 @@ class ItemRepo
     end
   end
 
-  # def find_item_price_by_id(id)
-  #   i = @all.find_all do |item|
-  #     item.unit_price if item.merchant_id == id
-  #   end
-  #   binding.pry
-  # end
+  def find_item_price_by_id(merchant_id)
+    u = @all.find do |item|
+      item.merchant_id == merchant_id
+    end
+    binding.pry
+    u.unit_price
+  end
 
   def find_all_with_description(desired_description)
     @all.find_all do |item|
@@ -67,9 +68,11 @@ class ItemRepo
   end
 
   def find_all_by_merchant_id(merchant_id)
-    i = @all.find_all do |item|
+    @all.find_all do |item|
       item.merchant_id == merchant_id
+      return item.name
     end
   end
+
 
 end
