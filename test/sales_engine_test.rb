@@ -13,7 +13,8 @@ class SalesEngineTest < Minitest::Test
     :merchants => "./fixture/merchant_test_file.csv",
     :invoices => "./fixture/invoices.csv",
     # :invoice_items => "./fixture/invoice_items.csv",
-    # :customers => "./fixture/customers.csv"
+    # :customers => "./fixture/customers.csv",
+    # :transactions => "./fixture/transactions.csv"
     })
   end
 
@@ -46,6 +47,12 @@ class SalesEngineTest < Minitest::Test
     skip
     assert sales_engine.customers
     assert_instance_of CustomerRepository, sales_engine.customers
+  end
+
+  def test_it_has_instance_of_transaction_repo
+    skip
+    assert sales_engine.transactions
+    assert_instance_of TransactionRepository, sales_engine.transactions
   end
 
 end
