@@ -9,9 +9,9 @@ class InvoiceItemRepositoryTest < Minitest::Test
                 :sales_engine
 
   def setup
-    @sales_engine = SalesEngine.from_csv(
-    {:invoice_items => "./fixture/invoice_items.csv"})
-    @repository = sales_engine.invoices
+    #@sales_engine = SalesEngine.from_csv(
+    #{:invoice_items => "./fixture/invoice_items.csv"})
+    #@repository = sales_engine.invoices
   end
 
   def test_it_can_create_invoice_repository

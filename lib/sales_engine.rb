@@ -2,6 +2,8 @@ require_relative 'item_repository'
 require_relative 'merchant_repository'
 require_relative 'invoice_repository'
 require_relative 'invoice_item_repository'
+require_relative 'customer_repository'
+
 require 'pry'
 
 class SalesEngine
@@ -9,13 +11,15 @@ class SalesEngine
                 :items,
                 :merchants,
                 :invoices,
-                :invoice_items
+                :invoice_items,
+                :customers
 
   def initialize(paths)
     @items = ItemRepository.new(paths[:items], self) if paths[:items]
     @merchants = MerchantRepository.new(paths[:merchants], self) if paths[:merchants]
     @invoices = InvoiceRepository.new(paths[:invoices], self) if paths[:invoices]
     @invoice_items = InvoiceItemRepository.new(paths[:invoice_items], self) if paths[:invoice_items]
+    @customers = CustomerRepository.new(paths[:customers], self) if paths[:customers]
   end
 
   def self.from_csv(paths)
