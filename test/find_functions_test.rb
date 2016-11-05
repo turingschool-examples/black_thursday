@@ -20,13 +20,6 @@ class FindFunctionsTest < Minitest::Test
     find_by(:name, input)
     all.verify
   end
-
-  def test_find_name_calls_all
-    input = "510+ RealPush Icon Set"
-    all.expect(:find, nil, [])
-    find_by(:name, input)
-    all.verify
-  end
   
   def test_find_by_filters_id_method
     input = 10
@@ -35,100 +28,81 @@ class FindFunctionsTest < Minitest::Test
     all.verify
   end
 
+  def test_find_name_calls_all
+    input = "510+ RealPush Icon Set"
+    all.expect(:find, nil, [])
+    find_name(input)
+    all.verify
+  end
+
   def test_find_id_calls_all
     input = 10
     all.expect(:find, nil, [])
-    find_by(:id, input)
+    find_id(input)
     all.verify
   end
-  # def test_find_name_returns_item_that_meets_the_criteria
-  #   input = "510+ RealPush Icon Set"
-  #   assert_equal Item, find_name(input).class
-  #   assert_equal find_name(input).name, input
-  # end
 
-  # def test_find_by_filters_id_method
-  #   input = 263395237
-  #   assert_equal Item, find_by(:id, input).class
-  #   assert_equal find_by(:id, input).id, input
-  # end
+  def test_find_all_filters_unit_price_method
+    input = 10.00
+    all.expect(:find_all, nil, [])
+    find_all(:unit_price, input)
+    all.verify
+  end
+  
+  def test_find_all_filters_merchant_id_method
+    input = 10
+    all.expect(:find_all, nil, [])
+    find_all(:merchant_id, input)
+    all.verify
+  end
+  
+  def test_find_all_filters_customer_id_method
+    input = 15
+    all.expect(:find_all, nil, [])
+    find_all(:customer_id, input)
+    all.verify
+  end
+  
+  def test_find_all_filters_status_method
+    input = :pending
+    all.expect(:find_all, nil, [])
+    find_all(:status, input)
+    all.verify
+  end
+  
+  def test_find_all_filters_other_method
+    input = "Gimley"
+    all.expect(:find_all, nil, [])
+    find_all(:name, input)
+    all.verify
+  end
 
-  # def test_find_id_returns_item_that_meets_criteria
-  #   input = 263395237
-  #   assert_equal Item, find_id(input).class
-  #   assert_equal find_id(input).id, input
-  # end
-
-  # def test_it_returns_nil_if_the_element_is_not_found
-  #   input = "BetterCallSaul"
-  #   assert_equal nil, find_by(:name, input)
-  # end
-
-  # def test_find_all_filters_unit_price_method
-  #   input = 12.00
-  #   assert_equal Array, find_all(:unit_price, input).class
-  #   result = find_all(:unit_price, input) 
-  #   assert result.all?{|item| item.class == Item}
-  #   assert result.all?{|item| item.unit_price == input}
-  # end
-
-  # def test_find_all_equivalent_returns_item_object_for_unique_price
-  #   assert find_all_equivalent(:unit_price, 119.00).one?{|item| item.class == Item}
-  #   assert find_all_equivalent(:unit_price, 119.00).count == 1
-  # end
-
-  # def test_find_all_equivalent_returns_item_objects_for_common_price
-  #   assert find_all_equivalent(:unit_price, 12.00).all?{|item| item.class == Item}
-  #   assert find_all_equivalent(:unit_price, 12.00).count > 1
-  # end
-
-  # def test_find_all_equivalent_returns_an_empty_array_if_no_equivalent_found
-  #   assert_equal [], find_all_equivalent(:unit_price, 18.75)
-  # end
-
-  # def test_find_all_filters_merchant_id_method
-  #   input = 12334185
-  #   assert_equal Array, find_all(:merchant_id, input).class
-  #   result = find_all(:merchant_id, input) 
-  #   assert result.all?{|item| item.class == Item}
-  #   assert result.all?{|item| item.merchant_id == input}
-  # end
-
-  # def test_find_all_equivalent_returns_item_objects_for_merch_id
-  #   assert find_all_equivalent(:merchant_id, 12334185).all?{|item| item.class == Item}
-  # end
-
-  # def test_find_all_equivalent_returns_more_than_one_object_for_common_merch_id
-  #   assert find_all_equivalent(:merchant_id, 12334185).count > 1
-  # end
-
-  # def test_find_all_equivalent_returns_item_object_for_unique_price
-  #   assert find_all_equivalent(:merchant_id, 12334141).one?{|item| item.class == Item}
-  # end
-
-  # def test_find_all_equivalent_returns_one_object_for_a_unique_price
-  #   assert_equal 1, find_all_equivalent(:merchant_id, 12334141).count
-  # end
-
-  # def test_find_all_equivalent_returns_an_empty_array_if_no_equivalent_found
-  #   assert_equal [], find_all_equivalent(:merchant_id, 1)
-  # end
-
-  # def test_find_all_filters_description_method
-  #   input = "handwoven pillow"
-  #   assert_equal Array, find_all(:description, input).class
-  #   result = find_all(:description, input) 
-  #   assert result.all?{|item| item.class == Item}
-  #   assert result.all?{|item| item.description.downcase.include?(input.downcase)}
-  # end
-
-  # def test_finds_all_strings_returns_matching_item_object_for_description
-  #   input = "handwoven pillow"
-  #   assert_equal 1, find_all_strings(:description, input).count
-  # end
-
-  # def test_equivalence_needed_evaluates_method_name
-  #   assert equivalence_needed?(:unit_price)
-  # end
+  def test_equivalence_needed_evaluates_true_for_equivalence_methods
+    assert equivalence_needed?(:unit_price)
+    assert equivalence_needed?(:merchant_id)
+    assert equivalence_needed?(:customer_id)
+    assert equivalence_needed?(:status)
+    refute equivalence_needed?(:name)
+  end
+  
+  def test_find_all_equivalent_calls_all
+    input = 10.00
+    all.expect(:find_all, nil, [])
+    find_all_equivalent(:unit_price, input)
+    all.verify
+    all.expect(:find_all, nil, [])
+    find_all_equivalent(:merchant_id, 10)
+    all.verify
+  end
+  
+  def test_find_all_strings_calls_all
+    input = "Thump Coffee"
+    all.expect(:find_all, nil, [])
+    find_all_strings(:name, input)
+    all.verify
+    all.expect(:find_all, nil, [])
+    find_all_strings(:description, "handmade soap")
+    all.verify
+  end
 
 end
