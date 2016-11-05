@@ -10,7 +10,6 @@ class MerchantRepositoryTest < Minitest::Test
       :merchants => "./data/merchants.csv",
       :invoices  => "./data/invoices.csv"
       })
-    
     @mr = @se.merchants
   end
 

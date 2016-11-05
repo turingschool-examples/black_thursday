@@ -7,14 +7,11 @@ class MerchantRepository
 
   def initialize(merchants_data, parent = nil)
     @parent = parent
-    @all = []
     populate(merchants_data)
   end
 
   def populate(merchants_data)
-    merchants_data.each do |merchant|
-      @all << Merchant.new(merchant, self)
-    end
+    @all = merchants_data.map { |merchant| Merchant.new(merchant, self) }
   end
 
   def find_by_id(id_number)

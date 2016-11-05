@@ -8,14 +8,11 @@ class InvoiceRepository
 
   def initialize(invoice_data, parent = nil)
     @parent = parent
-    @all = []
     populate(invoice_data)
   end
 
   def populate(invoice_data)
-    invoice_data.each do |invoice|
-      @all << Invoice.new(invoice, self)
-    end
+    @all = invoice_data.map { |invoice| Invoice.new(invoice, self) }
   end
 
   def find_by_id(id)
@@ -23,7 +20,7 @@ class InvoiceRepository
   end
 
   def find_all_by_customer_id(customer_id)
-    @all.find_all { |invoice| invoice.customer_id.eql?(merchant_id) }
+    @all.find_all { |invoice| invoice.customer_id.eql?(customer_id) }
   end
 
   def find_all_by_merchant_id(merchant_id)
