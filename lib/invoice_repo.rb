@@ -1,5 +1,4 @@
 require_relative './invoice'
-require_relative './data_parser'
 
 class InvoiceRepo
   include DataParser

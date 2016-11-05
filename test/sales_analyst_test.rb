@@ -49,6 +49,28 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 3.29, SalesAnalyst.new(se).average_invoices_per_merchant_standard_deviation
   end
 
+  def test_sales_analyst_can_calculate_top_merchants_by_invoice_count
+    se = SalesEngine.from_csv(file_path)
+    assert_equal 12, SalesAnalyst.new(se).top_merchants_by_invoice_count.count
+  end
+
+  def test_sales_analyst_can_calculate_bottom_merchants_by_invoice_count
+    se = SalesEngine.from_csv(file_path)
+    assert_equal 4, SalesAnalyst.new(se).bottom_merchants_by_invoice_count.count
+  end
+
+  # def test_sales_analyst_can_calculate_top_days_by_invoice_count
+  #   se = SalesEngine.from_csv(file_path)
+  #   assert_equal [], SalesAnalyst.new(se).top_days_by_invoice_count
+  # end
+
+  def test_sales_analyst_can_calculate_percentage_of_invoices_that_are_shipped_pending_returned
+    se = SalesEngine.from_csv(file_path)
+    assert_equal 29.55, SalesAnalyst.new(se).invoice_status(:pending)
+    assert_equal 56.95, SalesAnalyst.new(se).invoice_status(:shipped)
+    assert_equal 13.5, SalesAnalyst.new(se).invoice_status(:returned)
+  end
+
   def file_path
     {
       :items     => "./data/items.csv",
