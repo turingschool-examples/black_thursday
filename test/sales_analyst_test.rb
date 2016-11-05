@@ -115,8 +115,16 @@ class SalesAnalystTest < Minitest::Test
   assert_equal "Wednesday", sales_analyst.days_of_week[3]
  end
 
- def test_it_can_convert_numerical_day_of_week_to_day
-  skip
-  assert_equal [], sales_analyst.convert_numerical_day_of_week_into_day_of_week
+ def test_it_can_return_number_of_days
+  assert_equal [1,2,2,2,1,5,2], sales_analyst.invoices_per_day
  end
+
+ def test_it_can_calculate_average_invoices_per_day
+   assert_equal 2.14, sales_analyst.average_number_of_invoices_per_day
+ end
+
+ def test_it_can_find_high_days_of_week
+   assert_equal ["Friday"], sales_analyst.top_days_by_invoice_count
+ end
+
 end

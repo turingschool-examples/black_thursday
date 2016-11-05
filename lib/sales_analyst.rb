@@ -147,33 +147,18 @@ class SalesAnalyst
     end
   end
 
-  # def convert_dates_into_numerical_day_of_week
-  #   sales_engine.invoices.all.map do |invoice|
-  #     invoice.created_at.wday
-  #   end
-  # end
-  #
-  # def convert_numerical_day_of_week_into_day_of_week
-  #   convert_dates_into_numerical_day_of_week.map do |number|
-  #     days_of_week[number]
-  # end
-  #
-  # def create_a_hash_with_counted_days_of_week
-  #   sales_engine.convert_numerical_day_of_week_into_day_of_week.each_with_object(Hash.new(0)) do |number,counts|
-  #     counts[number] += 1
-  # end
-  #
-  # def average_number_of_invoices_per_day
-  #   create_a_hash_with_counted_days_of_week.keys.reduce(:+).to_f / 7
-  # end
-  #
-  # def top_days_by_invoice_count
-  #   number_of
-  #   cut = average_number_of_invoices_per_day + standard_deviation()
-  #   sales_engine.merchants.all.find_all do |merchant|
-  #     merchant.invoices.count > cut
-  # end
+  def average_number_of_invoices_per_day
+    (invoices_per_day.reduce(:+) / 7.to_f).round(2)
+  end
 
-
+  def top_days_by_invoice_count
+    cut = average_number_of_invoices_per_day + standard_deviation(invoices_per_day)
+    invoices_per_day.reduce([]) do |top_days, day|
+      if day > cut
+        top_days << days_of_week[invoices_per_day.index(day)]
+      end
+      top_days
+    end
+  end
 
 end
