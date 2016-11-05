@@ -1,4 +1,3 @@
-require 'pry'
 module FindFunctions
 
   def find_by(method, input)

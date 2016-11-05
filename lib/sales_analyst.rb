@@ -25,7 +25,6 @@ class SalesAnalyst
 
   def average_items_per_merchant
     (items.count / merchants.count.to_f).round(2)
-    # average(merchants.map {|merchant| merchant.items.count})
   end
 
   def average_items_per_merchant_standard_deviation
@@ -47,7 +46,7 @@ class SalesAnalyst
   end
 
   def average_average_price_per_merchant
-    average(merchants.map { |merch| average_item_price_for_merchant(merch.id) } )
+    average(merchants.map{|merch| average_item_price_for_merchant(merch.id)})
   end
 
   def golden_items
