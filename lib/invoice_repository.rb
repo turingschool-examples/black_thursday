@@ -1,7 +1,6 @@
 require_relative 'find_functions'
 require_relative 'invoice'
 require 'csv'
-require 'pry'
 
 class InvoiceRepository
 
@@ -39,7 +38,6 @@ class InvoiceRepository
   end
 
   def find_all_by_customer_id(customer_id)
-    # binding.pry
     find_all(:customer_id, customer_id)
   end
 

@@ -28,10 +28,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    array1   = merchants.map {|merchant| merchant.items.count}
-    array2   = merchants
-    average  = average_items_per_merchant
-    standard_deviation(array1, array2, average)
+    standard_deviation(merchants.map {|merchant| merchant.items.count})
   end
 
   def merchants_with_high_item_count
@@ -45,17 +42,11 @@ class SalesAnalyst
   def average_item_price_for_merchant(id)
     merch_items = sales_engine.merchants.find_by_id(id).items
     return 0 if merch_items.empty?
-    prices = merch_items.map do |row|
-      row.unit_price
-    end.reduce(:+) / merch_items.count
-    prices.round(2)
+    average(merch_items.map{|row| row.unit_price})
   end
 
   def average_average_price_per_merchant
-    sum = merchants.map do |merchant|
-      average_item_price_for_merchant(merchant.id)
-    end.reduce(:+)
-    (sum / merchants.count).round(2)
+    average(merchants.map{|merch| average_item_price_for_merchant(merch.id)})
   end
 
   def golden_items
@@ -67,26 +58,20 @@ class SalesAnalyst
   end
 
   def average_item_price
-    sum = items.map { |item| item.unit_price }.reduce(:+)
-    sum / items.count
+    average(items.map { |item| item.unit_price })
   end
 
   def item_price_standard_deviation
-    array1  = items.map {|item| item.unit_price}
-    array2  = items
-    average = average_item_price
-    standard_deviation(array1, array2, average)
+    standard_deviation(items.map { |item| item.unit_price })
   end
 
   def average_invoices_per_merchant
+    # average(merchants.map{|merchant| merchant.invoices.count})
     (invoices.count / merchants.count.to_f).round(2)
   end
 
   def average_invoices_per_merchant_standard_deviation
-    array1   = merchants.map {|merchant| merchant.invoices.count}
-    array2   = merchants
-    average  = average_invoices_per_merchant
-    standard_deviation(array1, array2, average)
+    standard_deviation(merchants.map {|merchant| merchant.invoices.count})
   end
 
   def top_merchants_by_invoice_count
@@ -126,14 +111,11 @@ class SalesAnalyst
   end
 
   def average_invoices_per_day
-    sum = invoices_by_day.values.reduce(:+)
-    (sum / invoices_by_day.values.count.to_f).round(2)
+    average(invoices_by_day.values)
   end
 
   def average_invoices_per_day_standard_deviation
-    array1  = invoices_by_day.values
-    average = average_invoices_per_day
-    standard_deviation(array1, average)
+    standard_deviation(invoices_by_day.values)
   end
 
   def invoice_status(invoice_status)

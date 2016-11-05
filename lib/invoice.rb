@@ -26,5 +26,4 @@ class Invoice
     parent.find_merchant_by_id(@merchant_id)
   end
 
-
 end
