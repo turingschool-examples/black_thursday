@@ -1,7 +1,7 @@
-require_relative 'invoice'
+require_relative 'invoice_item'
 require 'csv'
 
-class InvoiceRepository
+class InvoiceItemRepository
   attr_reader   :contents,
                 :invoice_items,
                 :parent
@@ -32,7 +32,7 @@ class InvoiceRepository
 
   def find_all_by_invoice_id(invoice_id)
     invoice_items.find_all do |invoice_item|
-      invoice.invoice_id == invoice_id
+      invoice_item.invoice_id == invoice_id
     end
   end
 
