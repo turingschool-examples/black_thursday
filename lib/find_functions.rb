@@ -23,7 +23,10 @@ module FindFunctions
     method == :unit_price  ||
     method == :merchant_id ||
     method == :customer_id ||
-    method == :status
+    method == :status      ||
+    method == :invoice_id  ||
+    method == :id          ||
+    method == :item_id
   end
 
   def find_all_equivalent(method, input)

@@ -39,7 +39,6 @@ class InvoiceRepository
   end
 
   def find_all_by_customer_id(customer_id)
-    # binding.pry
     find_all(:customer_id, customer_id)
   end
 

@@ -2,14 +2,15 @@ require_relative 'test_helper'
 require_relative '../lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test
-  
+
   attr_reader :sales_engine
 
   def setup
     @sales_engine = SalesEngine.from_csv({
-      :items     => "./data/test_items.csv",
-      :merchants => "./data/test_merchants.csv",
-      :invoices  => "./data/test_invoices.csv"
+      :items         => "./data/test_items.csv",
+      :merchants     => "./data/test_merchants.csv",
+      :invoices      => "./data/test_invoices.csv",
+      :invoice_items => "./data/test_invoice_items.csv"
     })
   end
 
@@ -19,7 +20,7 @@ class SalesEngineTest < Minitest::Test
 
   def test_class_method_intializes_instance
     assert_equal SalesEngine, sales_engine.class
-  end  
+  end
 
   def test_it_intitalizes_an_item_repo_object
     assert_equal ItemRepository, sales_engine.items.class
@@ -31,6 +32,10 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_intitalizes_an_invoice_repo_object
     assert_equal InvoiceRepository, @sales_engine.invoices.class
+  end
+
+  def test_it_intitalizes_an_invoice_item_repo_object
+    assert_equal InvoiceItemRepository, @sales_engine.invoice_items.class
   end
 
   def test_find_items_by_merchant_id_finds_merchant
@@ -67,6 +72,12 @@ class SalesEngineTest < Minitest::Test
     assert_equal Array, sales_engine.all_invoices.class
     assert sales_engine.all_invoices.all? { |invoice| invoice.class == Invoice}
     assert_equal sales_engine.invoices.all.count, sales_engine.all_invoices.count
+  end
+
+  def test_all_items_returns_array_of_all_invoice_items
+    assert_equal Array, sales_engine.all_invoice_items.class
+    assert sales_engine.all_invoice_items.all? { |invoice_item| invoice_item.class == InvoiceItem}
+    assert_equal sales_engine.invoice_items.all.count, sales_engine.all_invoice_items.count
   end
 
 end
