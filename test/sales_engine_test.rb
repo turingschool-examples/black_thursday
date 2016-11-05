@@ -19,7 +19,6 @@ class SalesEngineTest < Minitest::Test
     assert_equal CSV::Table, @se.raw_data[:items].class
     assert_equal CSV::Table, @se.raw_data[:merchants].class
     assert_equal CSV::Table, @se.raw_data[:invoices].class
-    binding.pry
   end
 
   def test_it_can_talk_to_item_repo

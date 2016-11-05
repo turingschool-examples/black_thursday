@@ -7,7 +7,9 @@ class MerchantTest < Minitest::Test
   def setup
     @se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"})
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+      })
     @merch = @se.merchants.all[0]
   end
 
@@ -35,5 +37,5 @@ class MerchantTest < Minitest::Test
   def test_it_knows_when_it_was_updated
     assert_equal "2011-12-04", @merch.updated_at
   end
-  
+
 end

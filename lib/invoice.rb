@@ -10,10 +10,10 @@ class Invoice
 
   def initialize(invoice_data, parent = nil)
     @invoice_parent = parent
-    @id             = invoice_data[:id]
-    @customer_id    = invoice_data[:customer_id]
-    @merchant_id    = invoice_data[:merchant_id]
-    @status         = invoice_data[:status]
+    @id             = invoice_data[:id].to_i
+    @customer_id    = invoice_data[:customer_id].to_i
+    @merchant_id    = invoice_data[:merchant_id].to_i
+    @status         = invoice_data[:status].to_sym
     @created_at  = determine_the_time(invoice_data[:created_at])
     @updated_at  = determine_the_time(invoice_data[:updated_at])
   end
