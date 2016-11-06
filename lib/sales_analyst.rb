@@ -13,14 +13,6 @@ class SalesAnalyst
     @sales_engine = sales_engine    
   end
 
-  def average_items_per_merchant_standard_deviation
-    format BigDecimal.new standard_deviation(item_counts).to_s
-  end
-
-  def average_invoices_per_merchant_standard_deviation
-    format BigDecimal.new standard_deviation(invoice_counts).to_s
-  end
-  
   def average_items_per_merchant
     format BigDecimal.new average(item_counts).to_s
   end
@@ -45,6 +37,14 @@ class SalesAnalyst
       invoice.id if invoice.status.eql?(status)
     end
     format BigDecimal.new status_average_operator(matches)
+  end
+
+  def average_items_per_merchant_standard_deviation
+    format BigDecimal.new standard_deviation(item_counts).to_s
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    format BigDecimal.new standard_deviation(invoice_counts).to_s
   end
 
 end
