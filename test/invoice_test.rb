@@ -124,18 +124,21 @@ class InvoiceTest < Minitest::Test
     sales_engine = SalesEngine.from_csv({
       :invoices      => "./data/test_invoices.csv",
       :invoice_items => "./data/test_invoice_items.csv",
+      :transactions  => "./data/test_transactions.csv"      
     })
-    invoice = sales_engine.find_invoice_by_id(8)
-    expected = BigDecimal.new('0.2477652E5')
+    invoice = sales_engine.find_invoice_by_id(14)
+    expected = BigDecimal.new('0.2249684E5')
     assert_equal expected, invoice.total
+    invoice = sales_engine.find_invoice_by_id(8)
+    assert_equal "Failed transaction", invoice.total
   end
 
   def test_is_paid_in_full_calls_parent_and_items
     sales_engine = SalesEngine.from_csv({
       :invoices      => "./data/test_invoices.csv",
-      :transactions  => "./data/test_transactions.csv",
+      :transactions  => "./data/test_transactions.csv"
     })
-    invoice = sales_engine.find_invoice_by_id(46)
+    invoice = sales_engine.find_invoice_by_id(14)
     assert_equal true, invoice.is_paid_in_full?
   end
 
