@@ -148,8 +148,24 @@ class SalesAnalystTest < Minitest::Test
     assert_equal Merchant, sales_analyst.merchants_ranked_by_revenue[2].class
   end
 
+  def test_merchants_and_invoices_stores_merch_keys_and_invoice_values
+    assert_equal Hash, sales_analyst.merchants_and_invoices.class
+    assert_equal Merchant, sales_analyst.merchants_and_invoices.keys[2].class
+    assert_equal Invoice, sales_analyst.merchants_and_invoices.values[0][0].class
+  end
+
   def test_merchants_with_pending_invoices
-    assert_equal Merchant, sales_analyst.merchants_with_pending_invoices
+    assert_equal Merchant, sales_analyst.merchants_with_pending_invoices[1].class
+  end
+
+  def test_pending
+    invoice = sales_analyst.sales_engine.find_invoice_by_id(58)
+    invoice2 = sales_analyst.sales_engine.find_invoice_by_id(14)
+    assert sales_analyst.pending?(invoice)
+  end
+
+  def test_merchants_with_only_one_item
+    assert_equal Merchant, sales_analyst.merchants_with_only_one_item[0].class
   end
 
 end

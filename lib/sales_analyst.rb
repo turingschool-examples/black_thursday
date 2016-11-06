@@ -131,7 +131,7 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    collection = invoices.find_all do |invoice| 
+    collection = invoices.find_all do |invoice|
       invoice.created_at.strftime('%F') == date.strftime('%F')
     end
     total = collection.map { |invoice| invoice.total }.reduce(:+)
@@ -144,10 +144,31 @@ class SalesAnalyst
   end
 
   def merchants_ranked_by_revenue
-    merchants = invoices.group_by { |invoice| invoice.merchant }
-    top = merchants.sort_by do |merchant, invoices|
+    top = merchants_and_invoices.sort_by do |merchant, invoices|
       invoices.map { |invoice| invoice.total }.reduce(:+)
     end.map { |pair| pair[0] if pair[0] }.reverse
+  end
+
+  def merchants_and_invoices
+    invoices.group_by { |invoice| invoice.merchant }
+  end
+
+  def merchants_with_pending_invoices
+    penders = invoices.find_all do |invoice|
+      pending?(invoice)
+    end
+    penders.map {|pender| pender.merchant }.uniq
+  end
+
+  def pending?(invoice)
+    invoice.transactions.none? do |transaction|
+      transaction.result == "success"
+    end
+  end
+
+  def merchants_with_only_one_item
+    merchants = items.group_by {|item| item.merchant}
+    merchants.find_all { |pair| pair[1].count == 1}.map {|pair| pair[0]}
   end
 
 end
