@@ -6,7 +6,8 @@ class SalesEngineTest < Minitest::Test
   def setup
     @se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv"
+    :merchants => "./data/merchants.csv",
+    :invoices  => "./data/invoices.csv"
     })
   end
 
@@ -17,6 +18,7 @@ class SalesEngineTest < Minitest::Test
   def test_sales_engine_can_load_csv_files
     assert_equal CSV::Table, @se.raw_data[:items].class
     assert_equal CSV::Table, @se.raw_data[:merchants].class
+    assert_equal CSV::Table, @se.raw_data[:invoices].class
   end
 
   def test_it_can_talk_to_item_repo

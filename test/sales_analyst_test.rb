@@ -8,6 +8,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
     })
     @sa = SalesAnalyst.new(se)
   end
@@ -19,7 +20,7 @@ class SalesAnalystTest < Minitest::Test
   def test_it_knows_parent
     refute @sa.sales_engine.nil?
   end
-  
+
   def test_it_can_find_the_standard_deviation
     result = @sa.average_items_per_merchant_standard_deviation
   end

@@ -7,14 +7,11 @@ class ItemRepository
 
   def initialize(item_data, parent = nil)
     @parent = parent
-    @all = []
     populate(item_data)
   end
 
   def populate(item_data)
-    item_data.each do |item| 
-      @all << Item.new(item, self)
-    end
+    @all = item_data.map { |item| Item.new(item, self) }
   end
 
   def find_by_id(id)
