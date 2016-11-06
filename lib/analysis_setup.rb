@@ -27,7 +27,7 @@ module AnalysisSetup
   end
 
   def status_average_operator(status)
-    matches = sales_engine.invoices.all.find_all do |invoice| 
+    matches = sales_engine.invoices.all.find_all do |invoice|
       invoice.id if invoice.status.eql?(status)
     end
     ((matches.size.to_f / sales_engine.invoices.all.size.to_f) * 100).to_s
@@ -42,6 +42,45 @@ module AnalysisSetup
       average_item_price_for_merchant(merchant.id)
     end
     decimal(average(averages).to_s).round(2)
+  end
+
+  def item_number_plus_one_deviation
+    average_items_per_merchant + average_items_per_merchant_standard_deviation
+  end
+
+  def all_merchants_high_items_count
+    merchants = []
+    sales_engine.merchants.all.map do |merchant|
+      if merchant.items.count >= item_number_plus_one_deviation
+        merchants << merchant
+      end
+    end
+    merchants
+  end
+
+  def average_price_per_item_deviation
+    items = []
+    sales_engine.items.all.map do |item|
+      items << item.unit_price
+    end
+    format decimal standard_deviation(items).to_s
+  end
+
+
+  def two_standard_deviations_away_in_price
+    average_average_price_per_merchant + (average_price_per_item_deviation*2)
+  end
+
+  def all_golden_items_for_merchants
+    items = []
+    sales_engine.merchants.all.map do |merchant|
+      merchant.items.each do |item|
+        if item.unit_price >= two_standard_deviations_away_in_price
+          items << item
+        end
+      end
+    end
+    items
   end
 
 end

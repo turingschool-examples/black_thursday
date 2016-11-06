@@ -46,4 +46,13 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 2, @sa.average([1,2,3])
   end
 
+  def test_it_can_find_merchants_with_high_item_count
+    assert_equal Merchant, @sa.merchants_with_high_item_count[0].class
+  end
+
+  def test_it_can_find_golden_items
+    result = @sa.golden_items
+
+  end
+
 end
