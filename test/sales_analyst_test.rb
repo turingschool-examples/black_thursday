@@ -192,4 +192,8 @@ class SalesAnalystTest < Minitest::Test
     assert sales_analyst.merchants_by_registration_month.values.all? { |array| array.all? { |item| item.class == Merchant } }
   end
 
+  def test_revenue_by_merchant_returns_revenue_total
+    assert_equal 0, sales_analyst.revenue_by_merchant(12334105)
+  end
+
 end

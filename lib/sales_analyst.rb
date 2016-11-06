@@ -152,8 +152,8 @@ class SalesAnalyst
     end.reverse
   end
 
-  def invoices_total(merchant)
-    merchant.map { |invoice| invoice.total }.reduce(:+)
+  def invoices_total(invoices)
+    invoices.map { |invoice| invoice.total }.reduce(:+)
   end
 
   def merchants_and_invoices
@@ -187,6 +187,11 @@ class SalesAnalyst
     merchants.group_by do |merchant|
       Date::MONTHNAMES[merchant.created_at.month]
     end
+  end
+
+  def revenue_by_merchant(merchant_id)
+    merchant = sales_engine.merchants.find_by_id(merchant_id)
+    invoices_total(merchant.invoices).round(2)
   end
 
 end
