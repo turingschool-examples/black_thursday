@@ -24,8 +24,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    average(merchants.map{|merchant| merchant.items.count})
-    # (items.count / merchants.count.to_f).round(2)
+    average(merchants.map{ |merchant| merchant.items.count })
   end
 
   def average_items_per_merchant_standard_deviation
@@ -47,7 +46,10 @@ class SalesAnalyst
   end
 
   def average_average_price_per_merchant
-    average(merchants.map{|merch| average_item_price_for_merchant(merch.id)})
+    averages = merchants.map do |merchant|
+      average_item_price_for_merchant(merchant.id)
+    end
+    average(averages)
   end
 
   def golden_items
@@ -67,12 +69,11 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
-    average(merchants.map{|merchant| merchant.invoices.count})
-    # (invoices.count / merchants.count.to_f).round(2)
+    average(merchants.map { |merchant| merchant.invoices.count })
   end
 
   def average_invoices_per_merchant_standard_deviation
-    standard_deviation(merchants.map {|merchant| merchant.invoices.count})
+    standard_deviation(merchants.map { |merchant| merchant.invoices.count })
   end
 
   def top_merchants_by_invoice_count
@@ -94,9 +95,9 @@ class SalesAnalyst
   def top_days_by_invoice_count
     mean    = average_invoices_per_day
     std_dev = average_invoices_per_day_standard_deviation
-    invoices_by_day.find_all do |key, value|
-      value > (mean + std_dev)
-    end.map{|pair| pair[0]}
+    invoices_by_day.keys.find_all do |day|
+      invoices_by_day[day] > (mean + std_dev)
+    end
   end
 
   def invoices_by_day
@@ -126,9 +127,7 @@ class SalesAnalyst
   end
 
   def all_invoices_by_status(invoice_status)
-    invoices.find_all do |row|
-      row.status.to_sym == invoice_status.to_sym
-    end
+    invoices.find_all { |row| row.status.to_sym == invoice_status.to_sym }
   end
 
 end
