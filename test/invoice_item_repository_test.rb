@@ -20,9 +20,15 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal "#<InvoiceItemRepository: 74 rows>", @invoice_item.inspect
   end
 
-  def test_find_all_by_merchant_id_calls_parent
+  def test_find_invoice_by_id_calls_parent
     @invoice_item.parent.expect(:find_invoice_by_id, nil, [5])
     @invoice_item.find_invoice_by_id(5)
+    @invoice_item.parent.verify
+  end
+
+  def test_find_item_by_id_calls_parent
+    @invoice_item.parent.expect(:find_item_by_id, nil, [5])
+    @invoice_item.find_item_by_id(5)
     @invoice_item.parent.verify
   end
 
