@@ -29,12 +29,16 @@ class MerchantRepository
     file_contents.map { |row| Merchant.new(row, self) }
   end
 
-  def find_items_by_merchant_id(id)
-    parent.find_items_by_merchant_id(id)
+  def find_items_by_merchant_id(merchant_id)
+    parent.find_items_by_merchant_id(merchant_id)
   end
 
   def find_invoices(merchant_id)
     parent.find_invoices(merchant_id)
+  end
+
+  def find_customers_of_merchant(merchant_id)
+    parent.find_customers_of_merchant(merchant_id)
   end
 
   def find_by_id(id)

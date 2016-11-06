@@ -36,6 +36,18 @@ class MerchantRepositoryTest < Minitest::Test
     @merch_repo.parent.verify
   end
 
+  def test_find_customers_of_merchant_calls_parent
+    @merch_repo.parent.expect(:find_customers_of_merchant, nil, [5])
+    @merch_repo.find_customers_of_merchant(5)
+    @merch_repo.parent.verify
+  end
+
+  def test_find_invoices_calls_parent
+    @merch_repo.parent.expect(:find_invoices, nil, [5])
+    @merch_repo.find_invoices(5)
+    @merch_repo.parent.verify
+  end
+
   def test_it_turns_file_contents_to_CSV_object
     assert_equal CSV, @merch_repo.file_contents.class
   end
