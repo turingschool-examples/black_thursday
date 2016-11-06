@@ -15,7 +15,7 @@ class InvoiceTest < Minitest::Test
   })
   end
 
-  def test_it_can_access_invoice_id
+  def test_it_can_access_invoice_attributes
     i = Invoice.new({
     :id          => 6,
     :customer_id => 7,

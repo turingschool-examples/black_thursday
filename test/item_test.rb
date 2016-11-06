@@ -15,7 +15,7 @@ class ItemTest < Minitest::Test
       :merchant_id => 12})
     end
 
-    def test_it_can_access_merchant_item
+    def test_it_can_access_merchant_item_attributes
       i = Item.new({
         :id          => "1",
         :name        => "Pencil",

@@ -73,9 +73,10 @@ class SalesAnalystTest < Minitest::Test
 
   def file_path
     {
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"
+      :items         => "./data/items.csv",
+      :merchants     => "./data/merchants.csv",
+      :invoices      => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv"
       }
   end
 end

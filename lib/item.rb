@@ -1,5 +1,6 @@
-require 'bigdecimal'
 require_relative './time_formatter'
+require 'bigdecimal'
+
 class Item
   include TimeFormatter
   attr_reader :id,

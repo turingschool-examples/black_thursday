@@ -1,12 +1,13 @@
 require_relative 'test_helper'
 require_relative '../lib/invoice_repo'
 
+
 class InvoiceRepoTest < Minitest::Test
   def test_invoice_repo_class_exists
     assert_instance_of InvoiceRepo, InvoiceRepo.new('./data/invoices.csv')
   end
 
-  def test_invoice_repo_can_populate_with_invoice_objects
+  def test_invoice_repo_can_populate_with_invoice_objects_and_attributes
     invoice_repo = InvoiceRepo.new('./data/invoices.csv')
     assert_equal Invoice, invoice_repo.all.first.class
     assert_equal 1, invoice_repo.all.first.id
