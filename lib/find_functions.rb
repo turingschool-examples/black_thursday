@@ -19,13 +19,10 @@ module FindFunctions
   end
 
   def equivalence_needed?(method)
-    method == :unit_price  ||
-    method == :merchant_id ||
-    method == :customer_id ||
-    method == :status      ||
-    method == :invoice_id  ||
-    method == :item_id     ||
-    method == :result      ||
+    method.to_s.include?("_id")  ||
+    method == :unit_price        ||
+    method == :status            ||
+    method == :result            ||
     method == :credit_card_number
   end
 

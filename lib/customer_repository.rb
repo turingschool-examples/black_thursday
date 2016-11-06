@@ -26,7 +26,7 @@ class CustomerRepository
   end
 
   def create_item_objects
-    @file_contents.map {|row| Customer.new(row, self)}
+    @file_contents.map { |row| Customer.new(row, self) }
   end
 
   def find_by_id(id)

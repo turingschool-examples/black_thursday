@@ -2,6 +2,7 @@ require 'bigdecimal'
 require 'time'
 
 class Customer
+
   attr_reader :id,
               :first_name,
               :last_name,
