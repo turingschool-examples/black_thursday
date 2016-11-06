@@ -1,5 +1,5 @@
 require 'csv'
-require './lib/invoice_repo'
+require_relative '../lib/invoice_repo'
 require 'pry'
 require 'time'
 

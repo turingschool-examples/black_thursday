@@ -2,8 +2,8 @@ require 'csv'
 require 'pry'
 require 'time'
 require 'bigdecimal'
-require './lib/sales_engine'
-require './lib/calculations_module'
+require_relative '../lib/sales_engine'
+require_relative '../lib/calculations_module'
 
 class SalesAnalyst
   include Calculations

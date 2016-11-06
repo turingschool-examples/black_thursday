@@ -1,6 +1,6 @@
 require 'bigdecimal'
 require 'csv'
-require './lib/item_repo'
+require_relative '../lib/item_repo'
 
 class Item
   attr_reader :parent,
@@ -17,7 +17,7 @@ class Item
       @id = data[:id].to_i
       @name = data[:name]
       @description = data[:description]
-      @unit_price = BigDecimal.new(data[:unit_price])/1000.to_i
+      @unit_price = BigDecimal.new(data[:unit_price].to_i)/BigDecimal.new(100)
       @merchant_id = data[:merchant_id].to_i
       @created_at = data[:created_at]
       @updated_at = data[:updated_at]
@@ -25,8 +25,16 @@ class Item
 
   def unit_price_to_dollars
     @unit_price.to_f
-    #returns the price as a float
   end
+
+  def created_at
+    Time.parse(@created_at)
+  end
+
+  def updated_at
+    Time.parse(@updated_at)
+  end
+
 end
 
 

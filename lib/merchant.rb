@@ -1,5 +1,5 @@
 require 'csv'
-require './lib/merchant_repo'
+require_relative '../lib/merchant_repo'
 require 'bigdecimal'
 require 'pry'
 

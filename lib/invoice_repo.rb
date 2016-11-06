@@ -1,4 +1,4 @@
-require './lib/invoice'
+require_relative '../lib/invoice'
 require 'csv'
 require 'pry'
 

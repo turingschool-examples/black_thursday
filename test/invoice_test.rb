@@ -1,7 +1,8 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/item'
-require './lib/item_repo'
+require_relative '../lib/item'
+require_relative '../lib/item_repo'
+
 class ItemTest < Minitest::Test
   attr_reader :data,
               :repo

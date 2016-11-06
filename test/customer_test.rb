@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/customer'
-require './lib/customer_repo'
+require_relative '../lib/customer'
+require_relative '../lib/customer_repo'
 
 class CustomerTest < Minitest::Test
   attr_reader :data,

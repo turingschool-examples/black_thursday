@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/emoji'
-require './lib/invoice_repo'
+require_relative '../lib/invoice_repo'
 require 'csv'
 require 'pry'
 

@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'minitest/emoji'
 require 'csv'
 require 'bigdecimal'
-require './lib/sales_analyst'
+require_relative '../lib/sales_analyst'
 
 
 class SalesAnalystTest < Minitest::Test
@@ -46,59 +46,64 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 10, result.length
   end
 
-  # def test_it_can_find_average_item_price_per_merchant
-  #   sa = SalesAnalyst.new(sales_engine)
-  #   assert_equal 10.0, sa.average_item_price_per_merchant(12334123)
-  # end
-
-  # def test_it_can_find_items_per_merchant_standard_deviation
-  #   #something is screwed up here
-  #   sa = SalesAnalyst.new(sales_engine)
-  #   assert_equal 6, sa.average_items_per_merchant_standard_deviation
-  # end
-
-  # def test_it_can_find_average_item_price_for_all_merchants
-  #   sa = SalesAnalyst.new(sales_engine)
-  #   assert_equal 9.16, sa.average_price_per_item
-  # end
-
-  # def test_it_can_find_golden_items
-  #   sa = SalesAnalyst.new(sales_engine)
-  #   assert_equal "Test listing", sa.golden_items.first.name
-  # end
-
-  # def test_it_can_find_average_invoices_per_merchant
-  #   sa = SalesAnalyst.new(sales_engine)
-  #   assert_equal 10.0, sa.average_invoices_per_merchant
-  # end
-
-  # def test_it_can_find_invoices_per_merchant_standard_deviation
-  #   #something is screwed up here, too, probably has to do with the invoices/items per merchant problem
-  #   sa = SalesAnalyst.new(sales_engine)
-  #   assert_equal 10, sa.average_invoices_per_merchant_standard_deviation
-  # end
-
-  # def test_it_can_find_invoice_status
-  #   sa = SalesAnalyst.new(sales_engine)
-  #   assert_equal 29.55, sa.invoice_status("pending")
-  #   assert_equal 56.95, sa.invoice_status("shipped")
-  #   assert_equal 13.5, sa.invoice_status("returned")
-  # end
-
-  # def test_it_can_find_top_merchants_by_invoice_count
-  #   sa = SalesAnalyst.new(sales_engine)
-  #   assert_equal "perlesemoi", sa.top_merchants_by_invoice_count.first.name
-  # end
-
-  # def test_it_can_find_bottom_merchants_by_invoice_count
-  #   sa = SalesAnalyst.new(sales_engine)
-  #   assert_equal 0, sa.bottom_merchants_by_invoice_count.first.name  
-  # end
-
-  def test_it_can_find_top_days_by_invoice_count
+  def test_it_can_find_average_item_price_per_merchant
     sa = SalesAnalyst.new(sales_engine)
-    assert_equal 0, sa.top_days_by_invoice_count
+    assert_equal 10.0, sa.average_item_price_per_merchant(12334123)
   end
+
+  def test_it_can_find_items_per_merchant_standard_deviation
+    #something is screwed up here
+    sa = SalesAnalyst.new(sales_engine)
+    assert_equal 6, sa.average_items_per_merchant_standard_deviation
+  end
+
+  def test_it_can_find_average_item_price_for_all_merchants
+    sa = SalesAnalyst.new(sales_engine)
+    assert_equal 9.16, sa.average_price_per_item
+  end
+
+  def test_it_can_find_golden_items
+    sa = SalesAnalyst.new(sales_engine)
+    assert_equal "Test listing", sa.golden_items.first.name
+  end
+
+  def test_it_can_find_average_invoices_per_merchant
+    sa = SalesAnalyst.new(sales_engine)
+    assert_equal 10.0, sa.average_invoices_per_merchant
+  end
+
+  def test_it_can_find_invoices_per_merchant_standard_deviation
+    #something is screwed up here, too, probably has to do with the invoices/items per merchant problem
+    sa = SalesAnalyst.new(sales_engine)
+    assert_equal 10, sa.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_it_can_find_invoice_status
+    sa = SalesAnalyst.new(sales_engine)
+    assert_equal 29.55, sa.invoice_status("pending")
+    assert_equal 56.95, sa.invoice_status("shipped")
+    assert_equal 13.5, sa.invoice_status("returned")
+  end
+
+  def test_it_can_find_top_merchants_by_invoice_count
+    sa = SalesAnalyst.new(sales_engine)
+    assert_equal "perlesemoi", sa.top_merchants_by_invoice_count.first.name
+  end
+
+  def test_it_can_find_bottom_merchants_by_invoice_count
+    sa = SalesAnalyst.new(sales_engine)
+    assert_equal 0, sa.bottom_merchants_by_invoice_count.first.name  
+  end
+
+  # def test_it_group_invoices_by_day
+  #   sa = SalesAnalyst.new(sales_engine)
+  #   assert_equal [], sa.group_invoices_by_day.keys
+  # end
+
+  # def test_it_can_find_top_days_by_invoice_count
+  #   sa = SalesAnalyst.new(sales_engine)
+  #   assert_equal 0, sa.top_days_by_invoice_count
+  # end
 
 
 end

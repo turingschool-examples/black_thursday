@@ -1,7 +1,6 @@
-require './lib/merchant'
+require_relative '../lib/merchant'
 require 'csv'
 require 'pry'
-require './lib/sales_engine'
 
 class MerchantRepo
   attr_reader :name,
@@ -32,9 +31,8 @@ class MerchantRepo
   end
 
   def find_by_name(desired_name)
-    desired_name.to_s.downcase
     m = @all.find do |merchant| 
-      merchant.name == desired_name
+      merchant.name.downcase == desired_name.downcase
     end
     m
   end

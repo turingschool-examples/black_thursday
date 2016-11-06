@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/item_repo'
+require_relative '../lib/item_repo'
 require 'csv'
 require 'pry'
 

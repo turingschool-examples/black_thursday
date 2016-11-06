@@ -1,4 +1,4 @@
-require './lib/item'
+require_relative '../lib/item'
 require 'csv'
 require 'pry'
 
@@ -32,38 +32,28 @@ class ItemRepo
 
   def find_by_name(desired_name)
     @all.find do |item|
-      item.name.downcase == desired_name
-      return item.id
+      item.name.downcase == desired_name.downcase
     end
   end
 
-  # def find_item_price_by_id(id)
-  #   i = @all.find_all do |item|
-  #     item.unit_price if item.merchant_id == id
-  #   end
-  #   binding.pry
-  # end
-
   def find_all_with_description(desired_description)
     @all.find_all do |item|
-      item.description.downcase == desired_description
+      item.description.downcase == desired_description.downcase
     end
   end
 
   def find_all_by_price(desired_price)
     @all.find_all do |item|
       item.unit_price == desired_price
-      return item.name
     end
-
   end
 
-  def find_all_by_price_in_range(price1, price2)
-      @all.find_all do |item|
-        item.unit_price >= price1 &&
-        item.unit_price <= price2
-        return item.name
+  def find_all_by_price_in_range(range)
+      p = @all.find_all do |item|
+        item.unit_price >= range.begin &&
+        item.unit_price <= range.end
       end
+      p
   end
 
   def find_all_by_merchant_id(merchant_id)

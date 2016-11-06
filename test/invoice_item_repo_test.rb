@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require './lib/invoice_item_repo'
+require_relative '../lib/invoice_item_repo'
 require 'csv'
 require 'pry'
 

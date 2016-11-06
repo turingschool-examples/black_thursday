@@ -1,4 +1,4 @@
-require './lib/transaction_repo'
+require_relative '../lib/transaction_repo'
 require 'csv'
 require 'pry'
 
