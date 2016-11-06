@@ -84,6 +84,11 @@ class SalesEngineTest < Minitest::Test
     assert expected.all?{|invoice| invoice.invoice_id == 1}
   end
 
+  def test_find_customers_of_merchant
+    expected = sales_engine.find_customers_of_merchant(12334112)
+    assert expected.all?{|invoice| invoice.class == Customer}    
+  end
+
   def test_all_merchants_returns_array_of_all_merchants
     assert_equal Array, sales_engine.all_merchants.class
     assert sales_engine.all_merchants.all? { |merchant| merchant.class == Merchant}

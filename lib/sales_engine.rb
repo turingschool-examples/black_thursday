@@ -46,7 +46,7 @@ class SalesEngine
   def make_customer_repo(sales_info)
     CustomerRepository.new(sales_info[:customers], self)
   end
-  
+
   def make_transaction_repo(sales_info)
     TransactionRepository.new(sales_info[:transactions], self)
   end
@@ -82,6 +82,11 @@ class SalesEngine
   def find_items_by_invoice_id(invoice_id)
     collection = invoice_items.find_all_by_invoice_id(invoice_id)
     collection.map {|invoice_item| invoice_item.item}.compact
+  end
+
+  def find_customers_of_merchant(merchant_id)
+    collection = invoices.find_all_by_merchant_id(merchant_id)
+    collection.map { |invoice| invoice.customer}
   end
 
   def all_items
