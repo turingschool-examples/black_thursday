@@ -12,11 +12,11 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    standard_deviation(item_counts)
+    BigDecimal.new(standard_deviation(item_counts).to_s).round(2).to_f
   end
 
   def average_invoices_per_merchant_standard_deviation
-    standard_deviation(invoice_counts)
+    BigDecimal.new(standard_deviation(invoice_counts).to_s).round(2).to_f
   end
 
   def top_merchants_by_invoice_count
@@ -26,14 +26,17 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
+    item_counts.find_all do |item_count|
+    item_count > average_items_per_merchant + standard_deviation(item_counts)
+    end
   end
   
   def average_items_per_merchant
-    average(item_counts)
+    BigDecimal.new(average(item_counts).to_s).round(2).to_f
   end
 
   def average_invoices_per_merchant
-    average(invoice_counts)
+    BigDecimal.new(average(invoice_counts).to_s).round(2).to_f
   end
 
   def invoice_counts
@@ -59,7 +62,7 @@ class SalesAnalyst
   end
 
   def average(collection)
-    collection.reduce(&:+) / collection.size
+    collection.reduce(&:+).to_f / collection.size.to_f
   end
 
   
