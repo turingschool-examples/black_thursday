@@ -182,4 +182,12 @@ class SalesAnalystTest < Minitest::Test
     assert_equal Merchant, sales_analyst.merchants_with_only_one_item[0].class
   end
 
+  # def test_merchants_with_only_one_item_registered_in_month
+  #   assert_equal Merchant, sales_analyst.merchants_with_only_one_item_registered_in_month("January")[0].class
+  # end
+  
+  def test_merchants_by_reg_month_returns_hash_of_month_keys_and_merchant_values
+    assert_equal Hash, sales_analyst.merchants_by_registration_month.class
+  end
+
 end

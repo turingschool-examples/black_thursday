@@ -177,4 +177,14 @@ class SalesAnalyst
     merchants.keys.find_all { |merchant| merchants[merchant].count == 1}
   end
 
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants_by_registration_month
+  end
+
+  def merchants_by_registration_month
+    merchants.group_by do |merchant|
+      Date::MONTHNAMES[merchant.created_at]
+    end
+  end
+
 end
