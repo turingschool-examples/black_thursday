@@ -3,14 +3,16 @@ require_relative '../lib/sales_analyst'
 require_relative '../lib/sales_engine'
 
 class SalesAnalystTest < Minitest::Test
-  attr_reader :sales_analyst
+  attr_reader :sales_analyst, :sales_analyst2
   def setup
     @sales_engine = SalesEngine.from_csv({
       :items     => "./data/test_items.csv",
       :merchants => "./data/test_merchants.csv",
       :invoices  => "./data/test_invoices.csv"
     })
-    @sales_analyst = SalesAnalyst.new(@sales_engine)
+    @sales_engine_mock = Minitest::Mock.new
+    @sales_analyst     = SalesAnalyst.new(@sales_engine)
+    @sales_analyst2    = SalesAnalyst.new(@sales_engine_mock)
   end
 
   def test_it_exists
@@ -18,7 +20,25 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_takes_sales_engine_instance_as_argument
-    assert SalesAnalyst.new(@sales_engine)
+    assert SalesAnalyst.new(@sales_engine_mock)
+  end
+
+  def test_items_calls_sales_engine
+    sales_analyst2.sales_engine.expect(:all_items, nil, [])
+    sales_analyst2.items
+    sales_analyst2.sales_engine.verify
+  end
+
+  def test_merchants_calls_sales_engine
+    sales_analyst2.sales_engine.expect(:all_merchants, nil, [])
+    sales_analyst2.merchants
+    sales_analyst2.sales_engine.verify
+  end
+
+  def test_invoices_calls_sales_engine
+    sales_analyst2.sales_engine.expect(:all_invoices, nil, [])
+    sales_analyst2.invoices
+    sales_analyst2.sales_engine.verify
   end
 
   def test_average_items_per_merchant_returns_a_float
