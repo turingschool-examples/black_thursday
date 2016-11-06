@@ -1,6 +1,10 @@
 require_relative 'test_helper'
+require './lib/standard_deviation'
+require './lib/analysis_setup'
 
 class SalesAnalystTest < Minitest::Test
+  include StandardDeviation
+  include AnalysisSetup
 
   def setup
     se = SalesEngine.from_csv({
@@ -38,6 +42,10 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_calculates_average_average_price
     assert_equal 350.29, @sa.average_average_price_per_merchant
+  end
+
+  def test_it_can_find_average_invoices_per_merchant
+    binding.pry
   end
 
   def test_average_method_averages
