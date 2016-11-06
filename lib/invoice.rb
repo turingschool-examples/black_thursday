@@ -38,4 +38,18 @@ class Invoice
     parent.find_items_by_invoice_id(id)
   end
 
+  def invoice_items
+    parent.find_invoice_items_for_invoice(id)
+  end
+
+  def total
+    invoice_items.map do |invoice_item|
+      invoice_item.unit_price * invoice_item.quantity
+    end.reduce(:+).round(2)
+  end
+
+  def is_paid_in_full?
+    transactions.any? { |transaction| transaction.result == "success" }
+  end
+
 end

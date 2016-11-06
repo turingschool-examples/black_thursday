@@ -7,8 +7,8 @@ class Merchant
   def initialize(merchant_info = nil, repo = nil)
     return if merchant_info.to_h.empty?
     @parent = repo
-    @id     = merchant_info.to_h[:id].to_i
-    @name   = merchant_info.to_h[:name].to_s
+    @id     = merchant_info[:id].to_i
+    @name   = merchant_info[:name].to_s
   end
 
   def items

@@ -94,6 +94,10 @@ class SalesEngine
     collection.map { |invoice| invoice.merchant }.compact.uniq
   end
 
+  def find_invoice_items_for_invoice(invoice_id)
+    invoice_items.find_all_by_invoice_id(invoice_id)
+  end
+
   def all_items
     items.all
   end

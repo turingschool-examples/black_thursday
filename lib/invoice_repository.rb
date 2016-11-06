@@ -45,6 +45,10 @@ class InvoiceRepository
     parent.find_items_by_invoice_id(invoice_id)
   end
 
+  def find_invoice_items_for_invoice(invoice_id)
+    parent.find_invoice_items_for_invoice(invoice_id)
+  end
+
   def find_by_id(id)
     find_by(:id, id)
   end
