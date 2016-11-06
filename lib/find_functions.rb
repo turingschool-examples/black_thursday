@@ -10,7 +10,7 @@ module FindFunctions
   end
 
   def find_id(input)
-    all.find { |row| row.id == input }
+    all.find { |row| row.id == input } if all
   end
 
   def find_all(method, input)
