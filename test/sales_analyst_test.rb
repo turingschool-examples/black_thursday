@@ -3,6 +3,7 @@ require_relative '../lib/sales_analyst'
 require_relative '../lib/sales_engine'
 
 class SalesAnalystTest < Minitest::Test
+
   def test_sales_analyst_class_exists
     se = SalesEngine.from_csv(file_path)
     assert_instance_of SalesAnalyst, SalesAnalyst.new(se)
@@ -59,10 +60,10 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 4, SalesAnalyst.new(se).bottom_merchants_by_invoice_count.count
   end
 
-  # def test_sales_analyst_can_calculate_top_days_by_invoice_count
-  #   se = SalesEngine.from_csv(file_path)
-  #   assert_equal [], SalesAnalyst.new(se).top_days_by_invoice_count
-  # end
+  def test_sales_analyst_can_calculate_top_days_by_invoice_count
+    se = SalesEngine.from_csv(file_path)
+    assert_equal ["Wednesday"], SalesAnalyst.new(se).top_days_by_invoice_count
+  end
 
   def test_sales_analyst_can_calculate_percentage_of_invoices_that_are_shipped_pending_returned
     se = SalesEngine.from_csv(file_path)
