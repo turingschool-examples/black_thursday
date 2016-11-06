@@ -34,12 +34,6 @@ class CustomerTest < Minitest::Test
     assert customer1
   end
 
-  # def test_merchant_calls_parent
-  #   customer1.parent.expect(:find_merchant_by_id, nil, [10])
-  #   customer1.merchant
-  #   customer1.parent.verify
-  # end
-
   def test_it_initializes_customer_id
     assert_equal 5, customer1.id
   end
