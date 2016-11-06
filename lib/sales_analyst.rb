@@ -178,12 +178,14 @@ class SalesAnalyst
   end
 
   def merchants_with_only_one_item_registered_in_month(month)
-    merchants_by_registration_month
+    merchants_by_registration_month[month].find_all do |merchant| 
+      merchant.items.count == 1
+    end
   end
 
   def merchants_by_registration_month
     merchants.group_by do |merchant|
-      Date::MONTHNAMES[merchant.created_at]
+      Date::MONTHNAMES[merchant.created_at.month]
     end
   end
 
