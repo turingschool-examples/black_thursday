@@ -10,9 +10,9 @@ class SalesEngine
               :invoice_items
 
   def initialize(file_path)
-    @merchants = MerchantRepo.new(file_path[:merchants], self)
-    @items     = ItemRepo.new(file_path[:items], self)
-    @invoices  = InvoiceRepo.new(file_path[:invoices], self)
+    @merchants     = MerchantRepo.new(file_path[:merchants], self)
+    @items         = ItemRepo.new(file_path[:items], self)
+    @invoices      = InvoiceRepo.new(file_path[:invoices], self)
     @invoice_items = InvoiceItemRepo.new(file_path[:invoice_items], self)
   end
 
@@ -36,6 +36,10 @@ class SalesEngine
     @invoice_items.find_all_by_merchant_id(merchant_id)
   end
 
+  def find_merchant_by_invoice_id(invoice_id)
+    @merchants.find_by_id(invoice_id)
+  end
+
   def all_merchants
     @merchants.all.count
   end
@@ -49,6 +53,6 @@ class SalesEngine
   end
 
   def all_invoice_items
-    @invoice_items.all.count 
+    @invoice_items.all.count
   end
 end

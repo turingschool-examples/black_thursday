@@ -12,6 +12,7 @@ class SalesEngineTest < Minitest::Test
       :invoice_items => "./data/invoice_items.csv"
       })
       assert_instance_of Merchant, se.merchants.all.first
+      assert_equal 475, se.merchants.all.count
       assert_instance_of Merchant, se.merchants.all.last
     end
 
@@ -23,6 +24,7 @@ class SalesEngineTest < Minitest::Test
       :invoice_items => "./data/invoice_items.csv"
       })
       assert_instance_of Item, se.items.all.first
+      assert_equal 1367, se.items.all.count
       assert_instance_of Item, se.items.all.last
     end
 
@@ -34,6 +36,7 @@ class SalesEngineTest < Minitest::Test
         :invoice_items => "./data/invoice_items.csv"
         })
         assert_instance_of Invoice, se.invoices.all.first
+        assert_equal 4985, se.invoices.all.count 
         assert_instance_of Invoice, se.invoices.all.last
     end
 
@@ -45,6 +48,7 @@ class SalesEngineTest < Minitest::Test
         :invoice_items => "./data/invoice_items.csv"
         })
         assert_instance_of InvoiceItem, se.invoice_items.all.first
+        assert_equal 21830, se.invoice_items.all.count
         assert_instance_of InvoiceItem, se.invoice_items.all.last
     end
 
@@ -122,8 +126,7 @@ class SalesEngineTest < Minitest::Test
       :invoices      => "./data/invoices.csv",
       :invoice_items => "./data/invoice_items.csv"
       })
-      invoice_item = se.merchants.find_by_id(12334105)
-      assert_instance_of InvoiceItem, invoice_item.merchant
+      assert_instance_of InvoiceItem, se.invoice_items.find_by_id(6)
   end
 
   # def test_sales_engine_has_relationship_with_merchant_from_invoice_item_id

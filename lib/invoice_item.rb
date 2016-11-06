@@ -22,8 +22,4 @@ class InvoiceItem
     @updated_at = format_time(invoice_item_data[:updated_at].to_s)
     @parent     = parent
   end
-
-  # def
-  #   @unit_price = BigDecimal(invoice_item_data[:unit_price].to_f / 100.0, 4)
-  # end
 end
