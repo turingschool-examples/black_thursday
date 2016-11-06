@@ -32,10 +32,4 @@ class InvoiceItemRepository
     '#{self.class}, #{all.count}'
   end
 
-  def find_all_by_date(date)
-    all.find_all do |invoice_item| 
-      invoice_item.created_at.year == date.year && invoice_item.created_at.yday == date.yday 
-    end
-  end
-
 end

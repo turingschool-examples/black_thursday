@@ -92,10 +92,10 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_find_top_revenue_merchants
-    expected = [12334601, 12334235, 12335853, 12336294]
+    expected = 12334634
     result = analyst.top_revenue_earners(4).map {|merchant| merchant.id}
     assert_equal 4, result.count
-    assert_equal expected, result
+    assert_equal expected, result.first
   end
 
   def test_find_top_merchants_returns_twenty_merchants_by_default
@@ -116,5 +116,12 @@ class SalesAnalystTest < Minitest::Test
 
   def test_findind_merchants_with_one_item_in_first_month
     assert_equal 18, analyst.merchants_with_only_one_item_registered_in_month("june").count
+  end
+
+  def test_merchants_ranked_by_revenue_returns_all_ranked_merchants
+    result = analyst.merchants_ranked_by_revenue
+    assert_equal 475, result.count
+    assert_equal 12334634, result.first.id
+    assert_equal 12336175, result.last.id
   end
 end

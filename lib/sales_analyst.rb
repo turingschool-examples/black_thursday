@@ -1,11 +1,10 @@
-require 'pry'
 require 'bigdecimal'
 require_relative 'statistics'
 
 class SalesAnalyst
   include Statistics
 
-  attr_reader :engine
+  attr_reader :engine, :merchants_rankings
 
   def initialize(engine)
     @engine = engine
@@ -94,22 +93,27 @@ class SalesAnalyst
     ((numerator.to_f / denominator) * 100).round(2)
   end
 
-  def total_revenue_by_date(date_string)
-    dated_invoice_items = engine.invoice_items.find_all_by_date(date_string)
-    dated_invoice_items.reduce(0) do |sum, invoice_item|
-      sum += (invoice_item.unit_price * invoice_item.quantity)
+  def total_revenue_by_date(date)
+    dated_invoice = engine.invoices.find_all_by_date(date)
+    dated_invoice.reduce(0) do |sum, invoice|
+      sum += invoice.total
       sum
     end
   end
 
   def top_revenue_earners(number = 20)
+    sorted = merchants_ranked_by_revenue
+    sorted[0..(number-1)]
+  end
+
+  def merchants_ranked_by_revenue 
     invoice_ids = engine.invoices.all.group_by { |invoice| invoice.merchant_id }
     invoice_ids.each_key do |merchant_id| 
       invoice_ids[merchant_id] = revenue_by_merchant(merchant_id)
     end
-    sorted = invoice_ids.sort_by { |_value, key| key}
-    sorted[0..(number-1)].map { |merchant_pair| engine.merchants.find_by_id(merchant_pair[0]) }
-  end 
+    sorted = invoice_ids.sort_by { |_value, key| key}.reverse
+    sorted.map { |merchant_pair| engine.merchants.find_by_id(merchant_pair[0]) }
+  end
 
   def revenue_by_merchant(merchant_id)
     invoices_by_merchant = engine.invoices.find_all_by_merchant_id(merchant_id)
@@ -117,7 +121,7 @@ class SalesAnalyst
       sum += invoice.total
       sum
     end
-  end
+  end 
 
   def merchants_with_pending_invoices
     pending = engine.invoices.all.find_all {|invoice| invoice.is_paid_in_full? == false }

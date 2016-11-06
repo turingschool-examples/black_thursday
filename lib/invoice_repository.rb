@@ -36,6 +36,12 @@ class InvoiceRepository
     parent.find_merchant_by_merchant_id(merchant_id)
   end
 
+  def find_all_by_date(date)
+    all.find_all do |invoice| 
+      invoice.created_at.year == date.year && invoice.created_at.yday == date.yday 
+    end
+  end
+
   def inspect
     "#{self.class}, #{all.count}"
   end
