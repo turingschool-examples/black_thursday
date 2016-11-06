@@ -52,14 +52,6 @@ class SalesEngineTest < Minitest::Test
     assert merchant.customers.all?{|customer| customer.class == Customer}
   end
 
-
-  def test_items_are_found_from_invoice_item_level
-    invoice_item = sales_engine.invoice_items.find_by_id(20)
-    assert_equal InvoiceItem, invoice_item.class
-    assert_equal Item, invoice_item.item.class
-    assert_equal 263395237, invoice_item.item.id
-  end
-
   def test_merchant_is_found_from_item_level
     item = sales_engine.items.find_by_id(263395237)
     assert_equal Merchant, item.merchant.class
@@ -93,6 +85,24 @@ class SalesEngineTest < Minitest::Test
     transaction = sales_engine.transactions.find_by_id(40)
     assert_equal Invoice, transaction.invoice.class
     assert_equal 14, transaction.invoice.id
+  end
+  
+  def test_invoice_is_found_from_invoice_item_level
+    invoice_item = sales_engine.invoice_items.find_by_id(1)
+    assert_equal Invoice, invoice_item.invoice.class
+    assert_equal 1, invoice_item.invoice.id
+  end
+  
+  def test_item_is_found_from_invoice_item_level
+    invoice_item = sales_engine.invoice_items.find_by_id(55)
+    assert_equal Item, invoice_item.item.class
+    assert_equal 263397059, invoice_item.item.id
+  end
+
+  def test_merchants_are_found_from_customer_level
+    customer = sales_engine.customers.find_by_id(1)
+    assert customer.merchants.all? { |merchant| merchant.class == Merchant }
+    assert invoice.merchants.all? { |merchant| merchant.invoice_id == 2 }
   end
 
 end
