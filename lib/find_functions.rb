@@ -2,7 +2,7 @@ module FindFunctions
 
   def find_by(method, input)
     return find_name(input) if method == :name
-    find_id(input)          if method == :id
+    find_id(input)
   end
 
   def find_name(input)
