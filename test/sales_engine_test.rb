@@ -73,6 +73,11 @@ class SalesEngineTest < Minitest::Test
     assert_equal expected.id, sales_engine.items.find_by_id(263400121).id
   end
 
+  def test_find_items_by_invoice_id_finds_them
+    expected = sales_engine.find_items_by_invoice_id(14)
+    assert expected.all?{|item| item.class == Item}
+  end
+
   def test_find_transactions_by_invoice_id_finds_them
     expected = sales_engine.find_transactions_by_invoice_id(1)
     assert expected.all?{|invoice| invoice.class == Transaction}

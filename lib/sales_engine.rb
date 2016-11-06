@@ -79,6 +79,11 @@ class SalesEngine
     transactions.find_all_by_invoice_id(invoice_id)
   end
 
+  def find_items_by_invoice_id(invoice_id)
+    collection = invoice_items.find_all_by_invoice_id(invoice_id)
+    collection.map {|invoice_item| invoice_item.item}.compact
+  end
+
   def all_items
     items.all
   end
