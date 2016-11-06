@@ -1,5 +1,6 @@
 require_relative 'test_helper'
 require_relative '../lib/invoice'
+require_relative '../lib/sales_engine'
 require 'bigdecimal'
 require 'time'
 
@@ -54,6 +55,12 @@ class InvoiceTest < Minitest::Test
   def test_customer_calls_parent
     @invoice1.parent.expect(:find_customer_by_id, nil, [12])
     @invoice1.customer
+    @invoice1.parent.verify
+  end
+
+  def test_invoice_items_calls_parent
+    @invoice1.parent.expect(:find_invoice_items_for_invoice, nil, [5])
+    @invoice1.invoice_items
     @invoice1.parent.verify
   end
 
@@ -112,4 +119,27 @@ class InvoiceTest < Minitest::Test
     assert_nil @invoice4.unit_price
     assert_nil @invoice4.merchant_id
   end
+
+  def test_total_calls_parent_and_items
+    sales_engine = SalesEngine.from_csv({
+      :invoices      => "./data/test_invoices.csv",
+      :invoice_items => "./data/test_invoice_items.csv",
+      :transactions  => "./data/test_transactions.csv"      
+    })
+    invoice = sales_engine.find_invoice_by_id(14)
+    expected = BigDecimal.new('0.2249684E5')
+    assert_equal expected, invoice.total
+    invoice = sales_engine.find_invoice_by_id(8)
+    assert_equal 0, invoice.total
+  end
+
+  def test_is_paid_in_full_calls_parent_and_items
+    sales_engine = SalesEngine.from_csv({
+      :invoices      => "./data/test_invoices.csv",
+      :transactions  => "./data/test_transactions.csv"
+    })
+    invoice = sales_engine.find_invoice_by_id(14)
+    assert_equal true, invoice.is_paid_in_full?
+  end
+
 end

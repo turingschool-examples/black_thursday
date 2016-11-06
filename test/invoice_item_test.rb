@@ -35,6 +35,18 @@ class InvoiceItemTest < Minitest::Test
     assert @invoice_item1
   end
 
+  def test_invoice_calls_parent
+    @invoice_item1.parent.expect(:find_invoice_by_id, nil, [1])
+    @invoice_item1.invoice
+    @invoice_item1.parent.verify
+  end
+
+  def test_item_calls_parent
+    @invoice_item1.parent.expect(:find_item_by_id, nil, [263519844])
+    @invoice_item1.item
+    @invoice_item1.parent.verify
+  end
+
   def test_it_initializes_id
     assert_equal 1, @invoice_item1.id
   end

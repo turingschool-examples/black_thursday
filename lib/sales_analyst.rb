@@ -24,7 +24,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    (items.count / merchants.count.to_f).round(2)
+    average(merchants.map{ |merchant| merchant.items.count })
   end
 
   def average_items_per_merchant_standard_deviation
@@ -46,7 +46,10 @@ class SalesAnalyst
   end
 
   def average_average_price_per_merchant
-    average(merchants.map{|merch| average_item_price_for_merchant(merch.id)})
+    averages = merchants.map do |merchant|
+      average_item_price_for_merchant(merchant.id)
+    end
+    average(averages)
   end
 
   def golden_items
@@ -66,12 +69,11 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
-    # average(merchants.map{|merchant| merchant.invoices.count})
-    (invoices.count / merchants.count.to_f).round(2)
+    average(merchants.map { |merchant| merchant.invoices.count })
   end
 
   def average_invoices_per_merchant_standard_deviation
-    standard_deviation(merchants.map {|merchant| merchant.invoices.count})
+    standard_deviation(merchants.map { |merchant| merchant.invoices.count })
   end
 
   def top_merchants_by_invoice_count
@@ -93,9 +95,9 @@ class SalesAnalyst
   def top_days_by_invoice_count
     mean    = average_invoices_per_day
     std_dev = average_invoices_per_day_standard_deviation
-    invoices_by_day.find_all do |key, value|
-      value > (mean + std_dev)
-    end.map{|pair| pair[0]}
+    invoices_by_day.keys.find_all do |day|
+      invoices_by_day[day] > (mean + std_dev)
+    end
   end
 
   def invoices_by_day
@@ -125,9 +127,54 @@ class SalesAnalyst
   end
 
   def all_invoices_by_status(invoice_status)
-    invoices.find_all do |row|
-      row.status.to_sym == invoice_status.to_sym
+    invoices.find_all { |row| row.status.to_sym == invoice_status.to_sym }
+  end
+
+  def total_revenue_by_date(date)
+    total = invoices_on_date(date).map { |invoice| invoice.total }.reduce(:+)
+    return total.round(2) if total
+    0
+  end
+
+  def invoices_on_date(date)
+    invoices.find_all do |invoice|
+      invoice.created_at.strftime('%F') == date.strftime('%F')
     end
+  end
+
+  def top_revenue_earners(number = 20)
+    merchants_ranked_by_revenue.first(number)
+  end
+
+  def merchants_ranked_by_revenue
+    merchants_and_invoices.keys.sort_by do |merchant|
+      invoices_total(merchants_and_invoices[merchant])
+    end.reverse
+  end
+
+  def invoices_total(merchant)
+    merchant.map { |invoice| invoice.total }.reduce(:+)
+  end
+
+  def merchants_and_invoices
+    invoices.group_by { |invoice| invoice.merchant }
+  end
+
+  def merchants_with_pending_invoices
+    pending_invoices.map { |pender| pender.merchant }.uniq
+  end
+
+  def pending_invoices
+    invoices.find_all { |invoice| pending?(invoice) }
+  end
+
+  def pending?(invoice)
+    invoice.transactions.none? { |transaction| transaction.result == "success" }
+  end
+
+  def merchants_with_only_one_item
+    merchants = items.group_by {|item| item.merchant}
+    merchants.keys.find_all { |merchant| merchants[merchant].count == 1}
   end
 
 end

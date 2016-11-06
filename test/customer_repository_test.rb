@@ -20,11 +20,11 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal "#<CustomerRepository: 74 rows>", customer_repo.inspect
   end
 
-  # def test_find_all_by_merchant_id_calls_parent
-  #   customer_repo.parent.expect(:find_merchant_by_id, nil, [5])
-  #   customer_repo.find_merchant_by_id(5)
-  #   customer_repo.parent.verify
-  # end
+  def test_find_all_by_merchant_id_calls_parent
+    customer_repo.parent.expect(:find_merchants_of_customer, nil, [5])
+    customer_repo.find_merchants_of_customer(5)
+    customer_repo.parent.verify
+  end
 
   def test_it_turns_file_contents_to_CSV_object
     assert_equal CSV, customer_repo.file_contents.class

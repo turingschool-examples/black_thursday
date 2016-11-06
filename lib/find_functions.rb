@@ -2,7 +2,7 @@ module FindFunctions
 
   def find_by(method, input)
     return find_name(input) if method == :name
-    find_id(input)          if method == :id
+    find_id(input)
   end
 
   def find_name(input)
@@ -19,18 +19,16 @@ module FindFunctions
   end
 
   def equivalence_needed?(method)
-    method == :unit_price  ||
-    method == :merchant_id ||
-    method == :customer_id ||
-    method == :status      ||
-    method == :invoice_id  ||
-    method == :item_id     ||
-    method == :result      ||
+    method.to_s.include?("_id")  ||
+    method == :unit_price        ||
+    method == :status            ||
+    method == :result            ||
     method == :credit_card_number
   end
 
   def find_all_equivalent(method, input)
-    all.find_all { |row| row.send(method) == input }
+    return all.find_all { |row| row.send(method) == input } if all
+    []
   end
 
   def find_all_strings(method, input)

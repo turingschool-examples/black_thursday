@@ -16,12 +16,12 @@ class InvoiceItem
   def initialize(invoice_item_info = nil, repo = nil)
     return if invoice_item_info.to_h.empty?
     @parent     = repo
-    @id         = invoice_item_info.to_h[:id].to_i
-    @item_id    = invoice_item_info.to_h[:item_id].to_i
-    @invoice_id = invoice_item_info.to_h[:invoice_id].to_i
-    @quantity   = invoice_item_info.to_h[:quantity].to_i
-    @created_at = Time.parse(invoice_item_info.to_h[:created_at].to_s)
-    @updated_at = Time.parse(invoice_item_info.to_h[:updated_at].to_s)
+    @id         = invoice_item_info[:id].to_i
+    @item_id    = invoice_item_info[:item_id].to_i
+    @invoice_id = invoice_item_info[:invoice_id].to_i
+    @quantity   = invoice_item_info[:quantity].to_i
+    @created_at = Time.parse(invoice_item_info[:created_at].to_s)
+    @updated_at = Time.parse(invoice_item_info[:updated_at].to_s)
     @price      = unit_price_to_dollars(invoice_item_info[:unit_price].to_s)
     @unit_price = BigDecimal.new(@price, @price.to_s.length - 1)
   end
