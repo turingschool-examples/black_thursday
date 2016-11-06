@@ -32,6 +32,18 @@ class InvoiceRepositoryTest < Minitest::Test
     invoice_repo.parent.verify
   end
 
+  def test_find_customer_by_id_calls_parent
+    invoice_repo.parent.expect(:find_customer_by_id, nil, [5])
+    invoice_repo.find_customer_by_id(5)
+    invoice_repo.parent.verify
+  end
+
+  def test_find_items_by_invoice_id_calls_parent
+    invoice_repo.parent.expect(:find_items_by_invoice_id, nil, [5])
+    invoice_repo.find_items_by_invoice_id(5)
+    invoice_repo.parent.verify
+  end
+
   def test_it_turns_file_contents_to_CSV_object
     assert_equal CSV, invoice_repo.file_contents.class
   end
