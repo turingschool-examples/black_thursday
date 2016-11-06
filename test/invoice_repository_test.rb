@@ -44,6 +44,12 @@ class InvoiceRepositoryTest < Minitest::Test
     invoice_repo.parent.verify
   end
 
+  def test_find_invoice_items_for_invoice_id_calls_parent
+    invoice_repo.parent.expect(:find_invoice_items_for_invoice, nil, [5])
+    invoice_repo.find_invoice_items_for_invoice(5)
+    invoice_repo.parent.verify
+  end
+
   def test_it_turns_file_contents_to_CSV_object
     assert_equal CSV, invoice_repo.file_contents.class
   end
