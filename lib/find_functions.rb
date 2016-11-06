@@ -27,7 +27,8 @@ module FindFunctions
   end
 
   def find_all_equivalent(method, input)
-    all.find_all { |row| row.send(method) == input }
+    return all.find_all { |row| row.send(method) == input } if all
+    []
   end
 
   def find_all_strings(method, input)

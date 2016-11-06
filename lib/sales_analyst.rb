@@ -131,8 +131,19 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    collection = invoices.find_all{ |invoice| invoice.updated_at == date}
-    collection.map { |invoice| invoice.total}
+    collection = invoices.find_all do |invoice| 
+      invoice.created_at.strftime('%F') == date.strftime('%F')
+    end
+    total = collection.map { |invoice| invoice.total }.reduce(:+)
+    return total.round(2) if total
+    0
+  end
+
+  def top_revenue_earners(number = 20)
+    merchants = invoices.group_by { |invoice| invoice.merchant }
+    merchants.sort_by do |merchant, invoices|
+      invoices.map { |invoice| invoice.total }.reduce(:+)
+    end.map { |pair| pair[0] if pair[0] }[0, number]
   end
 
 end
