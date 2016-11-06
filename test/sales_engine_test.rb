@@ -91,13 +91,18 @@ class SalesEngineTest < Minitest::Test
 
   def test_find_transactions_by_invoice_id_finds_them
     expected = sales_engine.find_transactions_by_invoice_id(1)
-    assert expected.all?{|invoice| invoice.class == Transaction}
-    assert expected.all?{|invoice| invoice.invoice_id == 1}
+    assert expected.all?{|transaction| transaction.class == Transaction}
+    assert expected.all?{|transaction| transaction.invoice_id == 1}
   end
 
   def test_find_customers_of_merchant
     expected = sales_engine.find_customers_of_merchant(12334112)
-    assert expected.all?{|invoice| invoice.class == Customer}    
+    assert expected.all?{|customer| customer.class == Customer}    
+  end
+
+  def test_find_merchants_of_customer
+    expected = sales_engine.find_merchants_of_customer(1)
+    assert expected.all?{|merchant| merchant.class == Merchant}    
   end
 
   def test_all_merchants_returns_array_of_all_merchants

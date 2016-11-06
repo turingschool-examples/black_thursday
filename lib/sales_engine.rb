@@ -86,7 +86,12 @@ class SalesEngine
 
   def find_customers_of_merchant(merchant_id)
     collection = invoices.find_all_by_merchant_id(merchant_id)
-    collection.map { |invoice| invoice.customer }.uniq
+    collection.map { |invoice| invoice.customer }.compact.uniq
+  end
+
+  def find_merchants_of_customer(customer_id)
+    collection = invoices.find_all_by_customer_id(customer_id)
+    collection.map { |invoice| invoice.merchant }.compact.uniq
   end
 
   def all_items

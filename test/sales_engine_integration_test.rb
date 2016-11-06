@@ -102,7 +102,6 @@ class SalesEngineTest < Minitest::Test
   def test_merchants_are_found_from_customer_level
     customer = sales_engine.customers.find_by_id(1)
     assert customer.merchants.all? { |merchant| merchant.class == Merchant }
-    assert invoice.merchants.all? { |merchant| merchant.invoice_id == 2 }
   end
 
 end
