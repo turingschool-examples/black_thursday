@@ -131,12 +131,15 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    collection = invoices.find_all do |invoice|
-      invoice.created_at.strftime('%F') == date.strftime('%F')
-    end
-    total = collection.map { |invoice| invoice.total }.reduce(:+)
+    total = invoices_on_date(date).map { |invoice| invoice.total }.reduce(:+)
     return total.round(2) if total
     0
+  end
+
+  def invoices_on_date(date)
+    invoices.find_all do |invoice|
+      invoice.created_at.strftime('%F') == date.strftime('%F')
+    end
   end
 
   def top_revenue_earners(number = 20)
@@ -144,9 +147,13 @@ class SalesAnalyst
   end
 
   def merchants_ranked_by_revenue
-    top = merchants_and_invoices.sort_by do |merchant, invoices|
-      invoices.map { |invoice| invoice.total }.reduce(:+)
-    end.map { |pair| pair[0] if pair[0] }.reverse
+    merchants_and_invoices.keys.sort_by do |merchant|
+      invoices_total(merchants_and_invoices[merchant])
+    end.reverse
+  end
+
+  def invoices_total(merchant)
+    merchant.map { |invoice| invoice.total }.reduce(:+)
   end
 
   def merchants_and_invoices
@@ -154,21 +161,20 @@ class SalesAnalyst
   end
 
   def merchants_with_pending_invoices
-    penders = invoices.find_all do |invoice|
-      pending?(invoice)
-    end
-    penders.map {|pender| pender.merchant }.uniq
+    pending_invoices.map { |pender| pender.merchant }.uniq
+  end
+
+  def pending_invoices
+    invoices.find_all { |invoice| pending?(invoice) }
   end
 
   def pending?(invoice)
-    invoice.transactions.none? do |transaction|
-      transaction.result == "success"
-    end
+    invoice.transactions.none? { |transaction| transaction.result == "success" }
   end
 
   def merchants_with_only_one_item
     merchants = items.group_by {|item| item.merchant}
-    merchants.find_all { |pair| pair[1].count == 1}.map {|pair| pair[0]}
+    merchants.keys.find_all { |merchant| merchants[merchant].count == 1}
   end
 
 end

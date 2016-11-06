@@ -140,12 +140,22 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 0, sales_analyst.total_revenue_by_date(date)
   end
 
+  def test_invoices_on_date_finds_invoices_from_that_date
+    date = Time.parse("2012-02-26")    
+    assert_equal [], sales_analyst.invoices_on_date(date)
+  end
+
   def test_top_revenue_earners
     assert_equal Merchant, sales_analyst.top_revenue_earners(5)[2].class
   end
 
   def test_merchants_ranked_by_revenue
     assert_equal Merchant, sales_analyst.merchants_ranked_by_revenue[2].class
+  end
+
+  def test_invoices_total_returns_a_fixnum_sum
+    invoices = sales_analyst.sales_engine.find_invoices(12335938)
+    assert_equal Fixnum, sales_analyst.invoices_total(invoices).class
   end
 
   def test_merchants_and_invoices_stores_merch_keys_and_invoice_values
@@ -156,6 +166,10 @@ class SalesAnalystTest < Minitest::Test
 
   def test_merchants_with_pending_invoices
     assert_equal Merchant, sales_analyst.merchants_with_pending_invoices[1].class
+  end
+
+  def test_pending_invoices
+    assert sales_analyst.pending_invoices.all? { |invoice| invoice.class == Invoice}
   end
 
   def test_pending
