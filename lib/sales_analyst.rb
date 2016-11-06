@@ -12,19 +12,19 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    BigDecimal.new(standard_deviation(item_counts).to_s).round(2).to_f
+    format BigDecimal.new standard_deviation(item_counts).to_s
   end
 
   def average_invoices_per_merchant_standard_deviation
-    BigDecimal.new(standard_deviation(invoice_counts).to_s).round(2).to_f
+    format BigDecimal.new standard_deviation(invoice_counts).to_s
   end
   
   def average_items_per_merchant
-    BigDecimal.new(average(item_counts).to_s).round(2).to_f
+    format BigDecimal.new average(item_counts).to_s
   end
 
   def average_invoices_per_merchant
-    BigDecimal.new(average(invoice_counts).to_s).round(2).to_f
+    format BigDecimal.new(average(invoice_counts).to_s).round(2)
   end
 
   def average_item_price_for_merchant(id)
@@ -35,14 +35,14 @@ class SalesAnalyst
     averages = sales_engine.merchants.all.map do |merchant|
       average_item_price_for_merchant(merchant.id)
     end
-    BigDecimal.new(average(averages).to_s).round(2)
+    BigDecimal.new(average(averages).to_s).round(2) 
   end
 
   def invoice_status(status)
     matches = sales_engine.invoices.all.find_all do |invoice| 
       invoice.id if invoice.status.eql?(status)
     end
-    BigDecimal.new(status_average_operator(matches)).round(2).to_f
+    format BigDecimal.new status_average_operator(matches)
   end
 
   def status_average_operator(matches)
@@ -51,6 +51,10 @@ class SalesAnalyst
 
   def average(collection)
     collection.reduce(&:+).to_f / collection.size.to_f
+  end
+
+  def format(number)
+    number.round(2).to_f
   end
 
   def invoice_counts
