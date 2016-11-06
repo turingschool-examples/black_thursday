@@ -43,13 +43,12 @@ class SalesAnalystTest < Minitest::Test
 
   def test_average_items_per_merchant_returns_a_float
     assert Float, sales_analyst.average_items_per_merchant.class
-    assert_equal 0.89, sales_analyst.average_items_per_merchant
+    assert_equal 0.76, sales_analyst.average_items_per_merchant
   end
 
   def test_it_calls_sales_engine_object
     assert SalesEngine, sales_analyst.sales_engine.class
   end
-
 
   def test_avg_items_per_merch_std_dev_returns_std_dev
     assert_equal 2.02, sales_analyst.average_items_per_merchant_standard_deviation
@@ -87,30 +86,9 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 1, gold_items.count
   end
 
-  def test_items_returns_all_items_array
-    assert_equal Array, sales_analyst.items.class
-    assert sales_analyst.items.all? { |item| item.class == Item}
-    expected = sales_analyst.sales_engine.all_items.count
-    assert_equal expected, sales_analyst.items.count
-  end
-
-  def test_merchants_returns_all_merchants_array
-    assert_equal Array, sales_analyst.merchants.class
-    assert sales_analyst.merchants.all? { |merchant| merchant.class == Merchant}
-    expected = sales_analyst.sales_engine.all_merchants.count
-    assert_equal expected, sales_analyst.merchants.count
-  end
-
-  def test_invoices_returns_all_invoices_array
-    assert_equal Array, sales_analyst.invoices.class
-    assert sales_analyst.invoices.all? { |invoice| invoice.class == Invoice}
-    expected = sales_analyst.sales_engine.all_invoices.count
-    assert_equal expected, sales_analyst.invoices.count
-  end
-
   def test_average_invoices_per_merchant_returns_a_float_average
     assert_equal Float, sales_analyst.average_invoices_per_merchant.class
-    assert_equal  0.56, sales_analyst.average_invoices_per_merchant
+    assert_equal  0.11, sales_analyst.average_invoices_per_merchant
   end
   
   def test_invoices_per_merchant_standard_deviation

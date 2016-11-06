@@ -24,7 +24,8 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    (items.count / merchants.count.to_f).round(2)
+    average(merchants.map{|merchant| merchant.items.count})
+    # (items.count / merchants.count.to_f).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
@@ -66,8 +67,8 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
-    # average(merchants.map{|merchant| merchant.invoices.count})
-    (invoices.count / merchants.count.to_f).round(2)
+    average(merchants.map{|merchant| merchant.invoices.count})
+    # (invoices.count / merchants.count.to_f).round(2)
   end
 
   def average_invoices_per_merchant_standard_deviation
