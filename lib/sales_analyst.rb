@@ -178,7 +178,7 @@ class SalesAnalyst
   end
 
   def merchants_with_only_one_item_registered_in_month(month)
-    merchants_by_registration_month[month].find_all do |merchant| 
+    merchants_by_registration_month[month].find_all do |merchant|
       merchant.items.count == 1
     end
   end
@@ -192,6 +192,16 @@ class SalesAnalyst
   def revenue_by_merchant(merchant_id)
     merchant = sales_engine.merchants.find_by_id(merchant_id)
     invoices_total(merchant.invoices).round(2)
+  end
+
+  def most_sold_item_for_merchant_id(merchant_id)
+    
+  end
+
+  def invoice_items_of_merchant(merchant_id)
+    merchants_and_invoices[merchant_id].map do |invoice| 
+      invoice.invoice_items
+    end
   end
 
 end

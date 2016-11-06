@@ -6,9 +6,12 @@ class SalesAnalystTest < Minitest::Test
   attr_reader :sales_analyst, :sales_analyst2
   def setup
     @sales_engine = SalesEngine.from_csv({
-      :items     => "./data/test_items.csv",
-      :merchants => "./data/test_merchants.csv",
-      :invoices  => "./data/test_invoices.csv"
+      :items          => "./data/test_items.csv",
+      :merchants      => "./data/test_merchants.csv",
+      :invoices       => "./data/test_invoices.csv",
+      :invoice_items  => "./data/test_invoice_items.csv",
+      :customers      => "./data/test_customers.csv",
+      :transactions   => "./data/test_transactions.csv"
     })
     @sales_engine_mock = Minitest::Mock.new
     @sales_analyst     = SalesAnalyst.new(@sales_engine)
@@ -194,6 +197,15 @@ class SalesAnalystTest < Minitest::Test
 
   def test_revenue_by_merchant_returns_revenue_total
     assert_equal 0, sales_analyst.revenue_by_merchant(12334105)
+  end
+
+  # def test_most_sold_item_for_merchant_id
+  #   assert_equal 1, sales_analyst.most_sold_item_for_merchant_id(12335311)
+  #   assert sales_analyst.most_sold_item_for_merchant_id(12334112).all? { |item| item.class == Item }
+  # end
+
+  def test_invoice_items_of_merchant
+    assert_equal 1, sales_analyst.invoice_items_of_merchant(12334155)
   end
 
 end
