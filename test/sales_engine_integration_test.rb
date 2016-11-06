@@ -89,4 +89,10 @@ class SalesEngineTest < Minitest::Test
     assert invoice.items.all? { |item| item.class == Item }
   end
 
+  def test_invoice_is_found_from_transaction_level
+    transaction = sales_engine.transactions.find_by_id(40)
+    assert_equal Invoice, transaction.invoice.class
+    assert_equal 14, transaction.invoice.id
+  end
+
 end
