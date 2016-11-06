@@ -141,7 +141,15 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_revenue_earners
-    assert_equal [], sales_analyst.top_revenue_earners(5)
+    assert_equal Merchant, sales_analyst.top_revenue_earners(5)[2].class
+  end
+
+  def test_merchants_ranked_by_revenue
+    assert_equal Merchant, sales_analyst.merchants_ranked_by_revenue[2].class
+  end
+
+  def test_merchants_with_pending_invoices
+    assert_equal Merchant, sales_analyst.merchants_with_pending_invoices
   end
 
 end

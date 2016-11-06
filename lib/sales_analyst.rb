@@ -140,10 +140,14 @@ class SalesAnalyst
   end
 
   def top_revenue_earners(number = 20)
+    merchants_ranked_by_revenue.first(number)
+  end
+
+  def merchants_ranked_by_revenue
     merchants = invoices.group_by { |invoice| invoice.merchant }
-    merchants.sort_by do |merchant, invoices|
+    top = merchants.sort_by do |merchant, invoices|
       invoices.map { |invoice| invoice.total }.reduce(:+)
-    end.map { |pair| pair[0] if pair[0] }[0, number]
+    end.map { |pair| pair[0] if pair[0] }.reverse
   end
 
 end
