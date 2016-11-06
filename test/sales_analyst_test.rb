@@ -88,7 +88,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_total_revnue_by_date
-    assert_equal 681.75, analyst.total_revenue_by_date("2004, feb, 25").to_f
+    assert_equal 681.75, analyst.total_revenue_by_date(Time.parse("2004, feb, 25")).to_f
   end
 
   def test_find_top_revenue_merchants
