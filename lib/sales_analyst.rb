@@ -14,37 +14,31 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    format BigDecimal.new average(item_counts).to_s
+    format decimal average(item_counts).to_s
   end
 
   def average_invoices_per_merchant
-    format BigDecimal.new(average(invoice_counts).to_s).round(2)
+    format decimal average(invoice_counts).to_s
   end
 
   def average_item_price_for_merchant(id)
-    BigDecimal.new(average(price_counts(id)).to_s).round(2)
+    price_average_operator(id)
   end
 
   def average_average_price_per_merchant
-    averages = sales_engine.merchants.all.map do |merchant|
-      average_item_price_for_merchant(merchant.id)
-    end
-    BigDecimal.new(average(averages).to_s).round(2) 
+    average_average_operator
   end
 
   def invoice_status(status)
-    matches = sales_engine.invoices.all.find_all do |invoice| 
-      invoice.id if invoice.status.eql?(status)
-    end
-    format BigDecimal.new status_average_operator(matches)
+    format decimal status_average_operator(status)
   end
 
   def average_items_per_merchant_standard_deviation
-    format BigDecimal.new standard_deviation(item_counts).to_s
+    format decimal standard_deviation(item_counts).to_s
   end
 
   def average_invoices_per_merchant_standard_deviation
-    format BigDecimal.new standard_deviation(invoice_counts).to_s
+    format decimal standard_deviation(invoice_counts).to_s
   end
 
 end
