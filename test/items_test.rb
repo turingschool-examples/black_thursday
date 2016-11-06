@@ -1,5 +1,3 @@
-require './lib/items'
-require './lib/sales_engine'
 require_relative 'test_helper'
 
 class ItemTest < Minitest::Test

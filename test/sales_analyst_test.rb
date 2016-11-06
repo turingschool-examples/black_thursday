@@ -1,6 +1,4 @@
 require_relative 'test_helper'
-require './lib/sales_analyst.rb'
-require 'pry'
 
 class SalesAnalystTest < Minitest::Test
 
