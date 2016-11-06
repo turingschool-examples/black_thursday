@@ -32,11 +32,11 @@ module StandardDeviation
   end
 
   def one_standard_deviation_above_invoice_average
-    average_invoices_per_merchant + average_invoices_per_merchant_standard_deviation
+    average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation*2)
   end
 
   def one_standard_deviation_below_invoice_average
-    average_invoices_per_merchant - average_invoices_per_merchant_standard_deviation
+    average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation*2)
   end
 
 end

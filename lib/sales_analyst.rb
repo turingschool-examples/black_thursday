@@ -1,12 +1,12 @@
 require_relative 'sales_engine'
 require_relative 'standard_deviation'
-require_relative 'analysis_setup'
+require_relative 'analyst_helper'
 require 'bigdecimal'
 require 'pry'
 
 class SalesAnalyst
   include StandardDeviation
-  include AnalysisSetup
+  include AnalystHelper
   attr_reader :sales_engine
 
   def initialize(sales_engine)

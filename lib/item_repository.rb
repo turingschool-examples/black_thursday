@@ -1,4 +1,4 @@
-require_relative 'items'
+require_relative 'item'
 require 'pry'
 
 class ItemRepository

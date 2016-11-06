@@ -1,10 +1,10 @@
 require_relative 'test_helper'
 require './lib/standard_deviation'
-require './lib/analysis_setup'
+require './lib/analyst_helper'
 
 class SalesAnalystTest < Minitest::Test
   include StandardDeviation
-  include AnalysisSetup
+  include AnalystHelper
 
   def setup
     se = SalesEngine.from_csv({

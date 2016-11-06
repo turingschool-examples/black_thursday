@@ -1,4 +1,4 @@
-module AnalysisSetup
+module AnalystHelper
 
   def average(collection)
     collection.reduce(&:+).to_f / collection.size.to_f
@@ -59,14 +59,14 @@ module AnalysisSetup
 
   def days_of_the_week
     days = Hash.new(0)
-    completed_sales.each do |invoice|
-      days["Sunday"] += 1 if invoice.created_at.sunday?
-      days["Monday"] += 1 if invoice.created_at.monday?
-      days["Tuesday"] += 1 if invoice.created_at.tuesday?
+    sales_engine.invoices.all.each do |invoice|
+      days["Sunday"]    += 1 if invoice.created_at.sunday?
+      days["Monday"]    += 1 if invoice.created_at.monday?
+      days["Tuesday"]   += 1 if invoice.created_at.tuesday?
       days["Wednesday"] += 1 if invoice.created_at.wednesday?
-      days["Thursday"] += 1 if invoice.created_at.thursday?
-      days["Friday"] += 1 if invoice.created_at.friday?
-      days["Saturday"] += 1 if invoice.created_at.saturday?
+      days["Thursday"]  += 1 if invoice.created_at.thursday?
+      days["Friday"]    += 1 if invoice.created_at.friday?
+      days["Saturday"]  += 1 if invoice.created_at.saturday?
     end
     days
   end
@@ -79,12 +79,6 @@ module AnalysisSetup
 
   def one_above_mean
     average(days_of_the_week.values) + standard_deviation(days_of_the_week.values)
-  end
-
-  def completed_sales
-    sales_engine.invoices.all.find_all do |invoice|
-      invoice.status.eql? :shipped
-    end
   end
 
 end
