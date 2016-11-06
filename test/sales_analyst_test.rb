@@ -87,4 +87,34 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 29.55, analyst.invoice_status(:pending)
   end
 
+  def test_total_revnue_by_date
+    assert_equal 681.75, analyst.total_revenue_by_date("2004, feb, 25").to_f
+  end
+
+  def test_find_top_revenue_merchants
+    expected = [12334601, 12334235, 12335853, 12336294]
+    result = analyst.top_revenue_earners(4).map {|merchant| merchant.id}
+    assert_equal 4, result.count
+    assert_equal expected, result
+  end
+
+  def test_find_top_merchants_returns_twenty_merchants_by_default
+    assert_equal 20, analyst.top_revenue_earners.count
+  end
+
+  def test_it_finds_revenue_for_single_merchant
+    assert_equal 224107.39, analyst.revenue_by_merchant(12335747).to_f
+  end
+
+  def test_returning_merchants_with_pending_invoices
+    assert_equal 467, analyst.merchants_with_pending_invoices.count
+  end
+
+  def test_it_returns_merchants_with_one_item
+    assert_equal 243, analyst.merchants_with_only_one_item.count
+  end
+
+  def test_findind_merchants_with_one_item_in_first_month
+    assert_equal 18, analyst.merchants_with_only_one_item_registered_in_month("june").count
+  end
 end

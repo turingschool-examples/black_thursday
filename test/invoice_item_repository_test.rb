@@ -38,5 +38,9 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal [], repo.find_all_by_invoice_id(0)
   end
 
+  def test_find_all_by_date
+    assert_equal 1, repo.find_all_by_date("2004, feb, 25").count
+  end
+
 end
 

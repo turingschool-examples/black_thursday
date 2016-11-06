@@ -6,7 +6,8 @@ module Parser
     data = [] 
     CSV.foreach(file_path, headers:true) do |row|
       data << {:id => row['id'],
-               :name => row['name']}
+               :name => row['name'],
+               :created_at => row['created_at']}
     end
     data
   end

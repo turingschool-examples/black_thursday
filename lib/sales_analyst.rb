@@ -94,4 +94,47 @@ class SalesAnalyst
     ((numerator.to_f / denominator) * 100).round(2)
   end
 
+  def total_revenue_by_date(date_string)
+    dated_invoice_items = engine.invoice_items.find_all_by_date(date_string)
+    dated_invoice_items.reduce(0) do |sum, invoice_item|
+      sum += (invoice_item.unit_price * invoice_item.quantity)
+      sum
+    end
+  end
+
+  def top_revenue_earners(number = 20)
+    invoice_ids = engine.invoices.all.group_by { |invoice| invoice.merchant_id }
+    invoice_ids.each_key do |merchant_id| 
+      invoice_ids[merchant_id] = revenue_by_merchant(merchant_id)
+    end
+    sorted = invoice_ids.sort_by { |_value, key| key}
+    sorted[0..(number-1)].map { |merchant_pair| engine.merchants.find_by_id(merchant_pair[0]) }
+  end 
+
+  def revenue_by_merchant(merchant_id)
+    invoices_by_merchant = engine.invoices.find_all_by_merchant_id(merchant_id)
+    invoices_by_merchant.reduce(0) do |sum, invoice|
+      sum += invoice.total
+      sum
+    end
+  end
+
+  def merchants_with_pending_invoices
+    pending = engine.invoices.all.find_all {|invoice| invoice.is_paid_in_full? == false }
+    pending_merchants = pending.map {|invoice| invoice.merchant }.uniq
+  end
+
+  def merchants_with_only_one_item
+    all_merchants.find_all {|merchant| merchant.items.count == 1}
+  end
+
+  def merchants_with_only_one_item_registered_in_month(desired_month)
+    registered_then = engine.merchants.all.find_all { |merchant| merchant.created_at.month == month_accessor[desired_month.capitalize]}
+    registered_then.find_all { |merchant| merchant.items.count == 1 }
+  end
+
+  def month_accessor
+    {'January'=>1, 'February'=>2, 'March'=>3, 'April'=>4, 'May'=>5, 'June'=>6, 'July'=>7, 'August'=>8, 'September'=>9, 'October'=>10, 'November'=>11, 'December'=>12}
+  end
+
 end
