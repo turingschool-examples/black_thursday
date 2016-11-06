@@ -19,15 +19,15 @@ class SalesAnalyst
     BigDecimal.new(standard_deviation(invoice_counts).to_s).round(2).to_f
   end
 
-  def high_invoice_qualifier
-    average_invoices_per_merchant + (standard_deviation(invoice_counts)* 2)
-  end
+  # def high_invoice_qualifier
+  #   average_invoices_per_merchant + standard_deviation(invoice_counts) + standard_deviation(invoice_counts)
+  # end
 
-  def top_merchants_by_invoice_count
-    invoice_counts.find_all do |invoice_count|
-      invoice_count > high_invoice_qualifier
-    end
-  end
+  # def top_merchants_by_invoice_count
+  #   invoice_counts.find_all do |invoice_count|
+  #     invoice_count > high_invoice_qualifier
+  #   end
+  # end
 
   # def merchants_with_high_item_count
   #   item_counts.find_all do |item_count|
@@ -55,15 +55,14 @@ class SalesAnalyst
     all_prices = sales_engine.merchants.find_all_items_by_merchant(id).map do |item|
       item.unit_price
     end
-    average(all_prices).round(2)
+    BigDecimal.new(average(all_prices).to_s).round(2)
   end
 
   def average_average_price_per_merchant
-    binding.pry
     averages = sales_engine.merchants.all.map do |merchant|
       average_item_price_for_merchant(merchant.id)
     end
-    average(averages).round(2)
+    BigDecimal.new(average(averages).to_s).round(2)
   end
 
   def average(collection)
