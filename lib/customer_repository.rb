@@ -29,6 +29,10 @@ class CustomerRepository
     @file_contents.map { |row| Customer.new(row, self) }
   end
 
+  def find_merchants_of_customer(customer_id)
+    parent.find_merchants_of_customer(customer_id)
+  end
+
   def find_by_id(id)
     find_by(:id, id)
   end
