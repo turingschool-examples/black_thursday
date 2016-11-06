@@ -16,6 +16,11 @@ class Merchant
   end
 
   def invoices
-    parent.find_invoices(@id)
+    parent.find_invoices(id)
   end
+
+  def customers
+    parent.find_customers_of_merchant(id)
+  end
+
 end

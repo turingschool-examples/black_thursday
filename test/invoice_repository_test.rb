@@ -20,9 +20,27 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal "#<InvoiceRepository: 74 rows>", invoice_repo.inspect
   end
 
-  def test_find_all_by_merchant_id_calls_parent
-    invoice_repo.parent.expect(:find_merchant_by_id, nil, [5])
-    invoice_repo.find_merchant_by_id(5)
+  def test_find_merchant_by_id_calls_parent
+    invoice_repo.parent.expect(:find_merchant_by_id, nil, [10])
+    invoice_repo.find_merchant_by_id(10)
+    invoice_repo.parent.verify
+  end
+
+  def test_find_transactions_by_invoice_id_calls_parent
+    invoice_repo.parent.expect(:find_transactions_by_invoice_id, nil, [5])
+    invoice_repo.find_transactions_by_invoice_id(5)
+    invoice_repo.parent.verify
+  end
+
+  def test_find_customer_by_id_calls_parent
+    invoice_repo.parent.expect(:find_customer_by_id, nil, [5])
+    invoice_repo.find_customer_by_id(5)
+    invoice_repo.parent.verify
+  end
+
+  def test_find_items_by_invoice_id_calls_parent
+    invoice_repo.parent.expect(:find_items_by_invoice_id, nil, [5])
+    invoice_repo.find_items_by_invoice_id(5)
     invoice_repo.parent.verify
   end
 

@@ -39,6 +39,24 @@ class InvoiceTest < Minitest::Test
     @invoice1.parent.verify
   end
 
+  def test_transactions_calls_parent
+    @invoice1.parent.expect(:find_transactions_by_invoice_id, nil, [5])
+    @invoice1.transactions
+    @invoice1.parent.verify
+  end
+
+  def test_items_calls_parent
+    @invoice1.parent.expect(:find_items_by_invoice_id, nil, [5])
+    @invoice1.items
+    @invoice1.parent.verify
+  end
+
+  def test_customer_calls_parent
+    @invoice1.parent.expect(:find_customer_by_id, nil, [12])
+    @invoice1.customer
+    @invoice1.parent.verify
+  end
+
   def test_it_initializes_item_id
     assert_equal 5, @invoice1.id
   end
