@@ -1,8 +1,9 @@
-require_relative '../lib/item_repository'
-require_relative '../lib/merchant_repository'
-require_relative '../lib/invoice_repository'
-require_relative '../lib/invoice_item_repository'
-require_relative '../lib/transaction_repository'
+require_relative 'item_repository'
+require_relative 'merchant_repository'
+require_relative 'invoice_repository'
+require_relative 'invoice_item_repository'
+require_relative 'customer_repository'
+require_relative 'transaction_repository'
 
 class SalesEngine
 
@@ -10,6 +11,7 @@ class SalesEngine
               :merchants,
               :invoices,
               :invoice_items,
+              :customers,
               :transactions
 
   def self.from_csv(sales_info)
@@ -21,6 +23,7 @@ class SalesEngine
     @merchants     = make_merchant_repo(sales_info)
     @invoices      = make_invoice_repo(sales_info)
     @invoice_items = make_invoice_item_repo(sales_info)
+    @customers     = make_customer_repo(sales_info)
     @transactions  = make_transaction_repo(sales_info)
   end
 
@@ -40,6 +43,10 @@ class SalesEngine
     InvoiceItemRepository.new(sales_info[:invoice_items], self)
   end
 
+  def make_customer_repo(sales_info)
+    CustomerRepository.new(sales_info[:customers], self)
+  end
+  
   def make_transaction_repo(sales_info)
     TransactionRepository.new(sales_info[:transactions], self)
   end
@@ -64,6 +71,10 @@ class SalesEngine
     items.find_by_id(item_id)
   end
 
+  def find_customer_by_id(customer_id)
+    customers.find_by_id(customer_id)
+  end
+
   def find_transactions_by_invoice_id(invoice_id)
     transactions.find_all_by_invoice_id(invoice_id)
   end
@@ -82,6 +93,10 @@ class SalesEngine
 
   def all_invoice_items
     invoice_items.all
+  end
+
+  def all_customers
+    customers.all
   end
 
   def all_transactions

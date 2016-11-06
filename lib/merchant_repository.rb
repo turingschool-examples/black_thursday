@@ -1,5 +1,5 @@
 require_relative 'find_functions'
-require_relative '../lib/merchant'
+require_relative 'merchant'
 require 'csv'
 
 class MerchantRepository

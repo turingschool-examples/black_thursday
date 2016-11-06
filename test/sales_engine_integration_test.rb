@@ -10,7 +10,8 @@ class SalesEngineTest < Minitest::Test
       :items        => "./data/test_items.csv",
       :merchants    => "./data/test_merchants.csv",
       :invoices     => "./data/test_invoices.csv",
-      :invoice_items => "./data/test_invoice_items.csv"
+      :invoice_items => "./data/test_invoice_items.csv",
+      :customers     => "./data/test_customers.csv"
     })
   end
 
@@ -60,6 +61,12 @@ class SalesEngineTest < Minitest::Test
     invoice = sales_engine.invoices.find_by_id(30)
     assert_equal 12334208, invoice.merchant.id
     assert_equal Merchant, invoice.merchant.class
+  end
+
+  def test_customers_are_found_from_invoice_level
+    invoice = sales_engine.invoices.find_by_id(5)
+    assert_equal 1, invoice.customer.id
+    assert_equal Customer, invoice.customer.class
   end
 
 end

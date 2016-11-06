@@ -1,4 +1,4 @@
-require_relative '../lib/statistics'
+require_relative 'statistics'
 require 'date'
 
 class SalesAnalyst
