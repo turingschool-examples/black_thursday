@@ -41,4 +41,12 @@ class SalesAnalyst
     format decimal standard_deviation(invoice_counts).to_s
   end
 
+  def merchants_with_high_item_count
+    all_merchants_high_items_count
+  end
+
+  def golden_items
+    all_golden_items_for_merchants
+  end
+
 end
