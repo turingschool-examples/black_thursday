@@ -35,13 +35,6 @@ class InvoiceItemTest < Minitest::Test
     assert @invoice_item1
   end
 
-  def test_merchant_calls_parent
-    @invoice_item1.parent.expect(:find_invoice_by_id, nil, [999])
-    @invoice_item1.invoice_id
-    binding.pry
-    @invoice_item1.parent.verify
-  end
-
   def test_it_initializes_id
     assert_equal 1, @invoice_item1.id
   end

@@ -1,8 +1,8 @@
 require_relative 'find_functions'
-require_relative 'invoice'
+require_relative 'customer'
 require 'csv'
 
-class InvoiceRepository
+class CustomerRepository
 
   include FindFunctions
 
@@ -26,31 +26,19 @@ class InvoiceRepository
   end
 
   def create_item_objects
-    @file_contents.map {|row| Invoice.new(row, self)}
-  end
-
-  def find_merchant_by_id(id)
-    parent.find_merchant_by_id(id)
-  end
-
-  def find_customer_by_id(customer_id)
-    parent.find_customer_by_id(customer_id)
+    @file_contents.map {|row| Customer.new(row, self)}
   end
 
   def find_by_id(id)
     find_by(:id, id)
   end
 
-  def find_all_by_customer_id(customer_id)
-    find_all(:customer_id, customer_id)
+  def find_all_by_first_name(first_name)
+    find_all(:first_name, first_name)
   end
 
-  def find_all_by_merchant_id(merchant_id)
-    find_all(:merchant_id, merchant_id)
-  end
-
-  def find_all_by_status(status)
-    find_all(:status, status.to_sym)
+  def find_all_by_last_name(last_name)
+    find_all(:last_name, last_name)
   end
 
 end

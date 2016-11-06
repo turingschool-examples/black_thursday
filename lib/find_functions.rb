@@ -1,4 +1,3 @@
-require 'pry'
 module FindFunctions
 
   def find_by(method, input)
@@ -34,10 +33,7 @@ module FindFunctions
   end
 
   def find_all_strings(method, input)
-    all.find_all do |row|
-      row = row.send(method).downcase
-      row.include?(input.downcase)
-    end
+    all.find_all { |row| row.send(method).downcase.include?(input.downcase) }
   end
 
 end

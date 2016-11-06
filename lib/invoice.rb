@@ -26,5 +26,7 @@ class Invoice
     parent.find_merchant_by_id(@merchant_id)
   end
 
-
+  def customer
+    parent.find_customer_by_id(customer_id)
+  end
 end

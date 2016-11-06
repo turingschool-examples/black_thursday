@@ -1,14 +1,16 @@
-require_relative '../lib/item_repository'
-require_relative '../lib/merchant_repository'
-require_relative '../lib/invoice_repository'
-require_relative '../lib/invoice_item_repository'
+require_relative 'item_repository'
+require_relative 'merchant_repository'
+require_relative 'invoice_repository'
+require_relative 'invoice_item_repository'
+require_relative 'customer_repository'
 
 class SalesEngine
 
   attr_reader :items,
               :merchants,
               :invoices,
-              :invoice_items
+              :invoice_items,
+              :customers
 
   def self.from_csv(sales_info)
     new(sales_info)
@@ -18,7 +20,8 @@ class SalesEngine
     @items         = make_item_repo(sales_info)
     @merchants     = make_merchant_repo(sales_info)
     @invoices      = make_invoice_repo(sales_info)
-    @invoice_items = make_invoice_tem_repo(sales_info)
+    @invoice_items = make_invoice_item_repo(sales_info)
+    @customers     = make_customer_repo(sales_info)
   end
 
   def make_item_repo(sales_info)
@@ -33,8 +36,12 @@ class SalesEngine
     InvoiceRepository.new(sales_info[:invoices], self)
   end
 
-  def make_invoice_tem_repo(sales_info)
+  def make_invoice_item_repo(sales_info)
     InvoiceItemRepository.new(sales_info[:invoice_items], self)
+  end
+
+  def make_customer_repo(sales_info)
+    CustomerRepository.new(sales_info[:customers], self)
   end
 
   def find_items_by_merchant_id(id)
@@ -57,6 +64,10 @@ class SalesEngine
     items.find_by_id(item_id)
   end
 
+  def find_customer_by_id(customer_id)
+    customers.find_by_id(customer_id)
+  end
+
   def all_items
     items.all
   end
@@ -71,6 +82,10 @@ class SalesEngine
 
   def all_invoice_items
     invoice_items.all
+  end
+
+  def all_customers
+    customers.all
   end
 
 end
