@@ -3,6 +3,7 @@ module StandardDeviation
   def sum(num_set)
     (num_set).inject(0){|accum, int| accum + int }
   end
+  
   def mean(num_set)
     sum(num_set) / (num_set).length.to_f
   end
