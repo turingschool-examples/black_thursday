@@ -45,7 +45,7 @@ class MerchantRepository
   end
 
   def find_all_invoices_by_merchant(merchant_id)
-    parent.find_all_invoices_by_merchant(merchant_id)
+    parent.find_all_invoices_by_merchant_id(merchant_id)
   end
 
   def inspect

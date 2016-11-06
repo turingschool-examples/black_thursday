@@ -12,15 +12,36 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-      sample_set = sales_engine.merchants.all.map do |merchant|
-        sales_engine.find_all_items_by_merchant_id(merchant.id).count
-      end
-    standard_deviation(sample_set).round(2).to_f
+    standard_deviation(item_counts)
   end
 
+  def average_invoices_per_merchant_standard_deviation
+    standard_deviation(invoice_counts)
+  end
+
+  def top_merchants_by_invoice_count
+    invoice_counts.find_all do |invoice_count|
+      invoice_count > average_invoices_per_merchant + standard_deviation(invoice_counts) * 2
+    end
+  end
+
+  def merchants_with_high_item_count
+  end
+  
   def average_items_per_merchant
-    @item_counts = sales_engine.merchants.all.map { |merchant| BigDecimal.new(merchant.items.size) }
-    average(@item_counts).round(2).to_f
+    average(item_counts)
+  end
+
+  def average_invoices_per_merchant
+    average(invoice_counts)
+  end
+
+  def invoice_counts
+    sales_engine.merchants.all.map { |merchant| merchant.invoices.size }
+  end
+
+  def item_counts
+    sales_engine.merchants.all.map { |merchant| merchant.items.size }
   end
 
   def average_item_price_for_merchant(id)
@@ -32,7 +53,7 @@ class SalesAnalyst
 
   def average_average_price_per_merchant
     averages = sales_engine.merchants.all.map do |merchant|
-      BigDecimal.new(average_item_price_for_merchant(merchant.id))
+      average_item_price_for_merchant(merchant.id)
     end
     average(averages).round(2)
   end
@@ -41,7 +62,7 @@ class SalesAnalyst
     collection.reduce(&:+) / collection.size
   end
 
-  # def merchants_with_high_item_count
+  
   #   # names = sales_engine.merchants.all.map { |merchant| merchant.name }
   #   # @item_counts.sort!.reverse!
   #   # @item_counts.zip(names)[0..2]
