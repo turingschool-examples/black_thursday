@@ -43,7 +43,7 @@ class Invoice
   end
 
   def total
-    return "Failed transaction" unless self.is_paid_in_full?
+    return 0 unless self.is_paid_in_full?
     invoice_items.map do |invoice_item|
       invoice_item.unit_price * invoice_item.quantity
     end.reduce(:+).round(2)

@@ -130,7 +130,7 @@ class InvoiceTest < Minitest::Test
     expected = BigDecimal.new('0.2249684E5')
     assert_equal expected, invoice.total
     invoice = sales_engine.find_invoice_by_id(8)
-    assert_equal "Failed transaction", invoice.total
+    assert_equal 0, invoice.total
   end
 
   def test_is_paid_in_full_calls_parent_and_items

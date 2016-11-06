@@ -130,4 +130,9 @@ class SalesAnalyst
     invoices.find_all { |row| row.status.to_sym == invoice_status.to_sym }
   end
 
+  def total_revenue_by_date(date)
+    collection = invoices.find_all{ |invoice| invoice.updated_at == date}
+    collection.map { |invoice| invoice.total}
+  end
+
 end
