@@ -27,7 +27,7 @@ module AnalysisSetup
   end
 
   def status_average_operator(status)
-    matches = sales_engine.invoices.all.find_all do |invoice| 
+    matches = sales_engine.invoices.all.find_all do |invoice|
       invoice.id if invoice.status.eql?(status)
     end
     ((matches.size.to_f / sales_engine.invoices.all.size.to_f) * 100).to_s
@@ -42,6 +42,49 @@ module AnalysisSetup
       average_item_price_for_merchant(merchant.id)
     end
     decimal(average(averages).to_s).round(2)
+  end
+
+  def find_golden_items(merchant)
+    merchant.items.find_all do |item|
+      item.unit_price >= two_standard_deviations_away_in_price
+    end
+  end
+
+  def all_golden_items_for_merchants
+    items = sales_engine.merchants.all.map do |merchant|
+      find_golden_items(merchant)
+    end
+    items.flatten
+  end
+
+  def days_of_the_week
+    days = Hash.new(0)
+    completed_sales.each do |invoice|
+      days["Sunday"] += 1 if invoice.created_at.sunday?
+      days["Monday"] += 1 if invoice.created_at.monday?
+      days["Tuesday"] += 1 if invoice.created_at.tuesday?
+      days["Wednesday"] += 1 if invoice.created_at.wednesday?
+      days["Thursday"] += 1 if invoice.created_at.thursday?
+      days["Friday"] += 1 if invoice.created_at.friday?
+      days["Saturday"] += 1 if invoice.created_at.saturday?
+    end
+    days
+  end
+
+  def top_days
+    days_of_the_week.each_pair.map do |day, count|
+      day if count > one_above_mean
+    end
+  end
+
+  def one_above_mean
+    average(days_of_the_week.values) + standard_deviation(days_of_the_week.values)
+  end
+
+  def completed_sales
+    sales_engine.invoices.all.find_all do |invoice|
+      invoice.status.eql? :shipped
+    end
   end
 
 end

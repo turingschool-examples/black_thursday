@@ -41,4 +41,31 @@ class SalesAnalyst
     format decimal standard_deviation(invoice_counts).to_s
   end
 
+  def merchants_with_high_item_count
+    sales_engine.merchants.all.find_all do |merchant|
+      merchant.items.count >= item_number_plus_one_deviation
+    end
+  end
+
+  def top_days_by_invoice_count
+    top_days.compact
+  end
+
+  def top_merchants_by_invoice_count
+    merchant_list = sales_engine.merchants.all.find_all do |merchant|
+      merchant.invoices.size >= one_standard_deviation_above_invoice_average
+    end
+  merchant_list.flatten
+  end
+
+  def bottom_merchants_by_invoice_count
+    sales_engine.merchants.all.find_all do |merchant|
+      merchant.invoices.size <= one_standard_deviation_below_invoice_average
+    end
+  end
+
+  def golden_items
+    all_golden_items_for_merchants
+  end
+
 end
