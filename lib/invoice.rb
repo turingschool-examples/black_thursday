@@ -48,7 +48,7 @@ class Invoice
       invoice_item.unit_price * invoice_item.quantity
     end.reduce(:+)
     return total.round(2) if total
-    0 
+    0
   end
 
   def is_paid_in_full?

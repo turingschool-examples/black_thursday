@@ -199,16 +199,20 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 0, sales_analyst.revenue_by_merchant(12334105)
   end
 
-  # def test_most_sold_item_for_merchant_id
-  #   assert_equal 1, sales_analyst.most_sold_item_for_merchant_id(12335311)
-  #   assert sales_analyst.most_sold_item_for_merchant_id(12334112).all? { |item| item.class == Item }
-  # end
+  def test_most_sold_item_for_merchant_is_an_array
+    assert_equal Array, sales_analyst.most_sold_item_for_merchant(12335311).class
+  end
 
-  # def test_invoice_items_of_merchant
-  #   assert_equal 1, sales_analyst.invoice_items_of_merchant(12334115)
-  # end
+  def test_item_quantities_of_merchant_is_a_hash
+    assert_equal Hash, sales_analyst.item_quantities_of_merchant(12334115).class
+  end
 
-  def test_pending_invoices
+  def test_all_invoice_items_is_an_array
+    invoices = sales_analyst.sales_engine.find_invoices(12334105)
+    assert_equal Array, sales_analyst.all_invoice_items(invoices).class
+  end
+
+  def test_complete_invoices
     invoices = sales_analyst.sales_engine.find_invoices(12334105)
     assert sales_analyst.complete_invoices(invoices).all? { |invoice| invoice.class == Invoice}
   end

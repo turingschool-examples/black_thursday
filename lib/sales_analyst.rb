@@ -102,8 +102,8 @@ class SalesAnalyst
 
   def invoices_by_day
     invoice_days.reduce ({}) do |result, day|
-      result[day] += 1 if result[day]
-      result[day]  = 1 if result[day].nil?
+      result[day]  = 0 if result[day].nil?
+      result[day] += 1 
       result
     end
   end
@@ -195,20 +195,23 @@ class SalesAnalyst
   end
 
   def most_sold_item_for_merchant(merchant_id)
-    hash  = invoice_items_of_merchant(merchant_id)
-    max   = hash.values.max
-    items = hash.keys
-    items.find_all { |item| hash[item] == max }
+    items_and_count  = item_quantities_of_merchant(merchant_id)
+    max              = items_and_count.values.max
+    items            = items_and_count.keys
+    items.find_all { |item| items_and_count[item] == max }
   end
 
-  def invoice_items_of_merchant(merchant_id)
+  def item_quantities_of_merchant(merchant_id)
     invoices = complete_invoices(sales_engine.find_invoices(merchant_id))
-    invoice_items = invoices.map { |invoice| invoice.invoice_items }.flatten
-    invoice_items.reduce ({}) do |result, invoice_item|
-      result[invoice_item.item] = 0 unless result[invoice_item.item_id]
+    all_invoice_items(invoices).reduce ({}) do |result, invoice_item|
+      result[invoice_item.item]  = 0 unless result[invoice_item.item_id]
       result[invoice_item.item] += invoice_item.quantity
       result
     end
+  end
+
+  def all_invoice_items(invoices)
+    invoices.map { |invoice| invoice.invoice_items }.flatten
   end
 
   def complete_invoices(invoices)
