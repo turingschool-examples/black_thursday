@@ -195,13 +195,24 @@ class SalesAnalyst
   end
 
   def most_sold_item_for_merchant_id(merchant_id)
-    
+    invoice_items_of_merchant(merchant_id).group_by do |invoice_item|
+      invoice_item.item_id * invoice_item.quantity
+    end
   end
 
   def invoice_items_of_merchant(merchant_id)
-    merchants_and_invoices[merchant_id].map do |invoice| 
-      invoice.invoice_items
+    invoices = complete_invoices(sales_engine.find_invoices(merchant_id))
+    invoice_items = invoices.map { |invoice| invoice.invoice_items }.flatten
+    items = invoice_items.reduce ({}) do |result, invoice_item|
+      result[invoice_item.item_id] = 0 unless result[invoice_item.item_id]
+      result[invoice_item.item_id] += invoice_item.quantity
+      result
     end
+    items.keys.max_by {|item| items[items]}
+  end
+
+  def complete_invoices(invoices)
+    invoices.reject { |invoice| pending?(invoice) }
   end
 
 end

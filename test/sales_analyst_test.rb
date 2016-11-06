@@ -204,8 +204,13 @@ class SalesAnalystTest < Minitest::Test
   #   assert sales_analyst.most_sold_item_for_merchant_id(12334112).all? { |item| item.class == Item }
   # end
 
-  def test_invoice_items_of_merchant
-    assert_equal 1, sales_analyst.invoice_items_of_merchant(12334155)
+  # def test_invoice_items_of_merchant
+  #   assert_equal 1, sales_analyst.invoice_items_of_merchant(12334115)
+  # end
+
+  def test_pending_invoices
+    invoices = sales_analyst.sales_engine.find_invoices(12334105)
+    assert sales_analyst.complete_invoices(invoices).all? { |invoice| invoice.class == Invoice}
   end
 
 end
