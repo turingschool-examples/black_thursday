@@ -1,22 +1,23 @@
 require_relative 'test_helper'
 require './lib/standard_deviation'
 require './lib/analyst_helper'
+require './lib/analyst_operations'
 
 class SalesAnalystTest < Minitest::Test
   include StandardDeviation
   include AnalystHelper
+  include AnalystOperations
 
   def setup
     se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"
+      :items     => "./fixtures/items_small_list.csv",
+      :merchants => "./fixtures/merchant_small_list.csv",
+      :invoices  => "./fixtures/invoices_small_list.csv"
     })
     @sa = SalesAnalyst.new(se)
   end
 
   def test_it_exists
-    binding.pry
     assert @sa
   end
 
@@ -29,20 +30,19 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_calculates_average_per_standard_deviation
-    assert_equal 3.26, @sa.average_items_per_merchant_standard_deviation
+    assert_equal 0.42, @sa.average_items_per_merchant_standard_deviation
   end
 
   def test_it_calculates_average_items_per_merchant
-    assert_equal 2.88, @sa.average_items_per_merchant
+    assert_equal 0.2, @sa.average_items_per_merchant
   end
 
   def test_it_can_calculate_average_item_price
-    assert_equal 16.66, @sa.average_item_price_for_merchant(12334105)
-    assert_equal 33.5, @sa.average_item_price_for_merchant(12334871)
+    assert_equal 29.99, @sa.average_item_price_for_merchant(12334105).to_f
   end
 
   def test_it_calculates_average_average_price
-    assert_equal 350.29, @sa.average_average_price_per_merchant
+    assert_equal 4.2, @sa.average_average_price_per_merchant
   end
 
   def test_average_method_averages

@@ -5,9 +5,9 @@ class ItemRepositoryTest < Minitest::Test
 
   def setup 
     se = SalesEngine.from_csv({
-    :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv",
-    :invoices  => "./data/invoices.csv"
+    :items     => "./fixtures/items_small_list.csv",
+    :merchants => "./fixtures/merchant_small_list.csv",
+    :invoices  => "./fixtures/invoices_small_list.csv"
     })
     @ir = se.items
   end
@@ -53,19 +53,19 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_price_returns_expected_item
-    assert_equal "Les raisons", @ir.find_all_by_price(600)[1].name
+    assert_equal "510+ RealPush Icon Set", @ir.find_all_by_price(12)[0].name
   end
 
   def test_find_by_name_returns_expected_value
-    assert_equal 263430985, @ir.find_by_name("Bangle Bracelets").id
+    assert_equal 263396013, @ir.find_by_name("Free standing Woden letters").id
   end
 
   def test_find_all_by_name_returns_array
-    assert_equal Array, @ir.find_all_by_name("ar").class
+    assert_equal Array, @ir.find_all_by_name("a").class
   end
 
   def test_find_all_by_name_returns_expected_value
-    assert_equal @ir.find_all_by_name("lets")[1].name, "Bangle Bracelets"
+    assert_equal "510+ RealPush Icon Set", @ir.find_all_by_name("a")[0].name
   end
   
 end

@@ -1,12 +1,12 @@
 require './test/test_helper'
 
-class ItemRepositoryTest < Minitest::Test
+class InvoiceRepositoryTest < Minitest::Test
 
   def setup 
     se = SalesEngine.from_csv({
-    :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv",
-    :invoices  => "./data/invoices.csv"
+    :items     => "./fixtures/items_small_list.csv",
+    :merchants => "./fixtures/merchant_small_list.csv",
+    :invoices  => "./fixtures/invoices_small_list.csv"
     })
     @ir = se.invoices
   end
@@ -25,17 +25,17 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_customer_id_returns_expected_invoices
-    assert_equal 8, @ir.find_all_by_customer_id(1).size
+    assert_equal 7, @ir.find_all_by_customer_id(1).size
   end
 
   def test_find_all_by_merchant_id_returns_expected_array
     assert_equal Array, @ir.find_all_by_merchant_id(12334185).class
-    assert_equal 16, @ir.find_all_by_merchant_id(12335938).size
+    assert_equal 1, @ir.find_all_by_merchant_id(12335938).size
   end
 
   def test_find_all_by_status_returns_expected_array
     assert_equal Array, @ir.find_all_by_status(:pending).class
-    assert_equal 1473, @ir.find_all_by_status(:pending).size
+    assert_equal 5, @ir.find_all_by_status(:pending).size
   end
 
 end
