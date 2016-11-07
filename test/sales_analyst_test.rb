@@ -16,6 +16,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_exists
+    binding.pry
     assert @sa
   end
 

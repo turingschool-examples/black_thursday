@@ -67,7 +67,9 @@ class SalesAnalyst
   end
 
   def golden_items
-    all_golden_items_for_merchants
+    sales_engine.items.all.find_all do |item|
+      item.unit_price >= two_standard_deviations_away_in_price
+    end
   end
 
 end

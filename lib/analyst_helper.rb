@@ -44,19 +44,6 @@ module AnalystHelper
     decimal(average(averages).to_s).round(2)
   end
 
-  def find_golden_items(merchant)
-    merchant.items.find_all do |item|
-      item.unit_price >= two_standard_deviations_away_in_price
-    end
-  end
-
-  def all_golden_items_for_merchants
-    items = sales_engine.merchants.all.map do |merchant|
-      find_golden_items(merchant)
-    end
-    items.flatten
-  end
-
   def days_of_the_week
     days = Hash.new(0)
     sales_engine.invoices.all.each do |invoice|
@@ -70,6 +57,6 @@ module AnalystHelper
     end
     days
   end
-  
+
 end
 
