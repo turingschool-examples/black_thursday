@@ -163,7 +163,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_merchants_and_invoices_stores_merch_id_keys_and_invoice_values
     assert_equal Hash, sales_analyst.merchants_and_invoices.class
-    assert_equal Merchant, sales_analyst.merchants_and_invoices.keys[2].class
+    assert_equal Fixnum, sales_analyst.merchants_and_invoices.keys[2].class
     assert_equal Invoice, sales_analyst.merchants_and_invoices.values[0][0].class
   end
 

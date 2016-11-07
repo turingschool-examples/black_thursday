@@ -166,7 +166,7 @@ class SalesAnalyst
   end
 
   def pending?(invoice)
-    invoice.transactions.none? { |transaction| transaction.result == "success" }
+    invoice.transactions.all? { |transaction| transaction.result == "failed" }
   end
 
   def merchants_with_only_one_item
