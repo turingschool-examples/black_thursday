@@ -62,6 +62,10 @@ class SalesEngine
     @invoices.find_by_id(invoice_id)
   end
 
+  def find_invoices_by_customer_id(customer_id)
+    @invoices.find_all_by_customer_id(customer_id)
+  end
+
   def all_merchants
     @merchants.all.count
   end

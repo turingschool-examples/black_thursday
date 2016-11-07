@@ -21,4 +21,12 @@ class CustomerRepo
   def find_all_by_last_name(last_name)
     @all.find_all { |customer| customer.last_name.downcase.include?(last_name.downcase) }
   end
+
+  def find_invoices_by_customer_id(id)
+    @parent.find_invoices_by_customer_id(id)
+  end
+
+  def find_merchant_by_merchant_id(id)
+    @parent.find_merchant_by_merchant_id(id)
+  end
 end

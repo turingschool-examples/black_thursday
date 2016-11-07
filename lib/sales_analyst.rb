@@ -117,12 +117,6 @@ class SalesAnalyst
     Math.sqrt(squared_differences / sales_engine.merchants.all.count).round(2)
   end
 
-  def average_invoice_per_day_standard_deviation
-    average =
-    squared_differences = sales_engine.merchants.all.map { |merchant| (merchant.invoices.count - average)** 2 }.reduce(:+)
-    Math.sqrt(squared_differences / sales_engine.merchants.all.count).round(2)
-  end
-
   def average_invoice_count
     invoice_count = sales_engine.merchants.all.map { |merchant| merchant.invoices.count }
     (invoice_count.reduce(:+) / invoice_count.count)

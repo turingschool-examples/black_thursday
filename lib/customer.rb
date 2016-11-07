@@ -16,4 +16,9 @@ class Customer
     @updated_at = format_time(customer_data[:updated_at].to_s)
     @parent     = parent
   end
+
+  def merchants
+    invoices = @parent.find_invoices_by_customer_id(id)
+    invoices.map { |invoice| @parent.find_merchant_by_merchant_id(invoice.merchant_id) }
+  end
 end

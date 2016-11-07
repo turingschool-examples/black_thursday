@@ -5,7 +5,6 @@ class SalesEngineTest < Minitest::Test
   include DataParser
 
   def test_sales_engine_knows_about_merchant_repo
-    skip
     se = SalesEngine.from_csv({
       :items         => "./data/items.csv",
       :merchants     => "./data/merchants.csv",
@@ -20,7 +19,6 @@ class SalesEngineTest < Minitest::Test
     end
 
   def test_sales_engine_knows_about_item_repo
-    skip
     se = SalesEngine.from_csv({
       :items         => "./data/items.csv",
       :merchants     => "./data/merchants.csv",
@@ -35,7 +33,7 @@ class SalesEngineTest < Minitest::Test
     end
 
     def test_sales_engine_knows_about_invoice_repo
-      skip
+
       se = SalesEngine.from_csv({
         :items         => "./data/items.csv",
         :merchants     => "./data/merchants.csv",
@@ -50,7 +48,7 @@ class SalesEngineTest < Minitest::Test
     end
 
     def test_sales_engine_knows_about_invoice_item_repo
-      skip
+
       se = SalesEngine.from_csv({
         :items         => "./data/items.csv",
         :merchants     => "./data/merchants.csv",
@@ -65,7 +63,7 @@ class SalesEngineTest < Minitest::Test
     end
 
     def test_sales_engine_knows_about_transaction_repo
-      skip
+
       se = SalesEngine.from_csv({
         :items         => "./data/items.csv",
         :merchants     => "./data/merchants.csv",
@@ -80,7 +78,7 @@ class SalesEngineTest < Minitest::Test
     end
 
     def test_sales_engine_knows_about_customers_repo
-      skip
+
       se = SalesEngine.from_csv({
         :items         => "./data/items.csv",
         :merchants     => "./data/merchants.csv",
@@ -95,6 +93,7 @@ class SalesEngineTest < Minitest::Test
     end
 
   def test_sales_engine_knows_about_find_by_name_in_merchant_repo
+
     se = SalesEngine.from_csv({
       :items         => "./data/items.csv",
       :merchants     => "./data/merchants.csv",
@@ -108,6 +107,7 @@ class SalesEngineTest < Minitest::Test
     end
 
   def test_sales_engine_knows_about_find_by_name_in_item_repo
+
     se = SalesEngine.from_csv({
       :items         => "./data/items.csv",
       :merchants     => "./data/merchants.csv",
@@ -121,6 +121,7 @@ class SalesEngineTest < Minitest::Test
     end
 
   def test_sale_engine_has_established_relationship_with_merchant_and_merchant_items
+
     se = SalesEngine.from_csv({
       :items         => "./data/items.csv",
       :merchants     => "./data/merchants.csv",
@@ -135,6 +136,7 @@ class SalesEngineTest < Minitest::Test
     end
 
   def test_sales_engine_has_relationship_with_merchant_from_item_id
+
     se = SalesEngine.from_csv({
       :items         => "./data/items.csv",
       :merchants     => "./data/merchants.csv",
@@ -148,6 +150,7 @@ class SalesEngineTest < Minitest::Test
     end
 
   def test_sales_engine_has_relationship_with_invoices
+
     se = SalesEngine.from_csv({
       :items         => "./data/items.csv",
       :merchants     => "./data/merchants.csv",
@@ -174,6 +177,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_sales_engine_has_relationship_with_invoice_items
+
     se = SalesEngine.from_csv({
       :items         => "./data/items.csv",
       :merchants     => "./data/merchants.csv",
@@ -186,6 +190,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_sales_engine_has_relationship_with_transactions
+
     se = SalesEngine.from_csv({
       :items         => "./data/items.csv",
       :merchants     => "./data/merchants.csv",
@@ -198,7 +203,6 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_sales_engine_has_relationship_with_customers
-    skip
     se = SalesEngine.from_csv({
       :items         => "./data/items.csv",
       :merchants     => "./data/merchants.csv",
@@ -211,7 +215,6 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_sales_engine_can_find_invoice_id_and_access_items_transactions_and_customer
-    skip
     se = SalesEngine.from_csv({
       :items         => "./data/items.csv",
       :merchants     => "./data/merchants.csv",
@@ -227,7 +230,6 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_sales_engine_can_find_transaction_id_and_access_invoice
-    skip
     se = SalesEngine.from_csv({
       :items         => "./data/items.csv",
       :merchants     => "./data/merchants.csv",
@@ -249,7 +251,20 @@ class SalesEngineTest < Minitest::Test
       :transactions  => "./data/transactions.csv",
       :customers     => "./data/customers.csv"
       })
-      merchant = se.merchants.find_by_id(10)
-      assert_equal 1, merchant.customers.count
+      merchant = se.merchants.find_by_id(12334135)
+      assert_equal 12, merchant.customers.count
+  end
+
+  def test_sales_engine_can_find_customer_by_id_and_access_merchants
+    se = SalesEngine.from_csv({
+      :items         => "./data/items.csv",
+      :merchants     => "./data/merchants.csv",
+      :invoices      => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions  => "./data/transactions.csv",
+      :customers     => "./data/customers.csv"
+      })
+      customer = se.customers.find_by_id(10)
+      assert_equal 8, customer.merchants.count
   end
 end

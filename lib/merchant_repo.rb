@@ -31,12 +31,15 @@ class MerchantRepo
     @parent.find_invoices_by_merchant_id(id)
   end
 
+  def find_invoices_by_customer_id(id)
+    @parent.find_invoices_by_customer_id(id)
+  end
+
   def find_invoice_items_by_merchant_id(id)
     @parent.find_invoice_items_by_merchant_id(id)
   end
 
   def find_customer_by_customer_id(id)
-    binding.pry
     @parent.find_customer_by_customer_id(id)
   end
 
