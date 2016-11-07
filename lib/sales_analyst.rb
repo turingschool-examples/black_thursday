@@ -209,7 +209,7 @@ class SalesAnalyst
   end
 
   def all_invoice_items(invoices)
-    invoices.map { |invoice| invoice.invoice_items }.flatten
+    invoices.flat_map { |invoice| invoice.invoice_items }
   end
 
   def complete_invoices(invoices)
