@@ -41,7 +41,7 @@ class SalesAnalyst
   def average_item_price_for_merchant(id)
     merch_items = sales_engine.merchants.find_by_id(id).items
     return 0 if merch_items.empty?
-    average(merch_items.map{|row| row.unit_price})
+    average(merch_items.map { |row| row.unit_price })
   end
 
   def average_average_price_per_merchant
@@ -104,7 +104,7 @@ class SalesAnalyst
   end
 
   def invoice_days
-    invoices.map {|invoice| Date::DAYNAMES[invoice.created_at.wday]}
+    invoices.map { |invoice| Date::DAYNAMES[invoice.created_at.wday] }
   end
 
   def average_invoices_per_day
@@ -170,9 +170,9 @@ class SalesAnalyst
   end
 
   def merchants_with_only_one_item
-    merchants = items.group_by {|item| item.merchant_id}
-    merchants = merchants.keys.find_all { |merchant| merchants[merchant].count == 1}
-    merchants.map { |merchant_id| sales_engine.merchants.find_by_id(merchant_id) }
+    merchants = items.group_by { |item| item.merchant_id }
+    ones = merchants.keys.find_all { |id| merchants[id].count == 1}
+    ones.map { |id| sales_engine.merchants.find_by_id(id) }
   end
 
   def merchants_with_only_one_item_registered_in_month(month)
