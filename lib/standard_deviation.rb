@@ -1,9 +1,9 @@
 module StandardDeviation
-  
+
   def sum(num_set)
     (num_set).inject(0){|accum, int| accum + int }
   end
-  
+
   def mean(num_set)
     sum(num_set) / (num_set).length.to_f
   end
@@ -36,11 +36,11 @@ module StandardDeviation
   end
 
   def one_standard_deviation_below_invoice_average
-    average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation*2)
+    average_invoices_per_merchant-(average_invoices_per_merchant_standard_deviation*2)
   end
-  
+
   def one_standard_deviation_above_mean_for_weekdays
-    average(days_of_the_week.values) + standard_deviation(days_of_the_week.values)
+    average(days_of_the_week.values)+standard_deviation(days_of_the_week.values)
   end
-  
+
 end
