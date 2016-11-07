@@ -170,8 +170,9 @@ class SalesAnalyst
   end
 
   def merchants_with_only_one_item
-    merchants = items.group_by {|item| item.merchant}
-    merchants.keys.find_all { |merchant| merchants[merchant].count == 1}
+    merchants = items.group_by {|item| item.merchant_id}
+    merchants = merchants.keys.find_all { |merchant| merchants[merchant].count == 1}
+    merchants.map { |merchant_id| sales_engine.merchants.find_by_id(merchant_id) }
   end
 
   def merchants_with_only_one_item_registered_in_month(month)
