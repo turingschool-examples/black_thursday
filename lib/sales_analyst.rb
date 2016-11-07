@@ -4,7 +4,7 @@ require_relative 'statistics'
 class SalesAnalyst
   include Statistics
 
-  attr_reader :engine, :merchants_rankings
+  attr_reader :engine
 
   def initialize(engine)
     @engine = engine
@@ -83,10 +83,6 @@ class SalesAnalyst
     top_days.map { |day| day_accessor[day] }
   end
 
-  def day_accessor
-    {0 => "Sunday", 1 => "Monday", 2 => "Tuesday", 3 => "Wednesday", 4 => "Thursday", 5 => "Friday", 6 => "Saturday"}
-  end
-
   def invoice_status(status_symbol)
     numerator = engine.invoices.find_all_by_status(status_symbol).count
     denominator = engine.invoices.all.count
@@ -140,5 +136,10 @@ class SalesAnalyst
   def month_accessor
     {'January'=>1, 'February'=>2, 'March'=>3, 'April'=>4, 'May'=>5, 'June'=>6, 'July'=>7, 'August'=>8, 'September'=>9, 'October'=>10, 'November'=>11, 'December'=>12}
   end
+
+  def day_accessor
+    {0 => "Sunday", 1 => "Monday", 2 => "Tuesday", 3 => "Wednesday", 4 => "Thursday", 5 => "Friday", 6 => "Saturday"}
+  end
+
 
 end

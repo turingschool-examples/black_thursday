@@ -19,7 +19,7 @@ class Customer
 
   def merchants
     invoices = parent.find_invoices_by_customer_id(id)
-    invoices.map { |invoice| find_merchants_by_merchant_id(invoice.merchant_id)}
+    invoices.map { |invoice| parent.find_merchants_by_merchant_id(invoice.merchant_id)}
   end
 
 end

@@ -50,6 +50,7 @@ class ItemRepository
     parent.find_merchant_by_merchant_id(merchant_id)
   end
 
-  def inspect  
+  def inspect
+    "#{self.class}: #{all.count}"
   end
 end

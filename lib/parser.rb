@@ -20,8 +20,8 @@ module Parser
                       :description => row['description'],
                       :unit_price => row['unit_price'],
                       :merchant_id => row['merchant_id'],
-                      :created_at => Time.parse(row['created_at']),
-                      :updated_at => Time.parse(row['updated_at'])}
+                      :created_at => row['created_at'],
+                      :updated_at => row['updated_at']}
     end
     items_data
   end

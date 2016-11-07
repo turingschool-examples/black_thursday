@@ -11,8 +11,8 @@ class ItemTest < Minitest::Test
                     :description => "You&#39;ve got a total socialmedia iconset! Almost every social icon on the planet earth.", 
                     :unit_price => BigDecimal.new(1200), 
                     :merchant_id => 12334141, 
-                    :created_at => Time.utc(2016, 1, 11, 9, 34, 06), 
-                    :updated_at => Time.utc(2007, 6, 4, 21, 35, 10)
+                    :created_at => '2016-01-11 18:30:35 UTC', 
+                    :updated_at => "1972-07-30 18:08:53 UTC"
                     },
                     parent)
   end
@@ -43,7 +43,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_stores_time_updated_at
-    assert_equal 2007, item.updated_at.year
+    assert_equal 1972, item.updated_at.year
   end
 
   def test_it_stores_unit_price_as_dollars

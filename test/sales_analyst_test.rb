@@ -124,4 +124,49 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 12334634, result.first.id
     assert_equal 12336175, result.last.id
   end
+
+  def test_finding_items_by_merchant
+    desired_merchant = analyst.engine.merchants.find_by_id(12334395)
+    assert_equal 5, desired_merchant.items.count
+  end
+
+  def test_finding_customers_by_merchant
+    desired_merchant = analyst.engine.merchants.find_by_id(12334395)
+    assert_equal 11, desired_merchant.customers.count
+  end
+
+  def test_finding_merchant_by_item
+    desired_item = analyst.engine.items.find_by_id(263400233)
+    assert_equal 12334423, desired_item.merchant.id
+  end
+
+  def test_finding_items_by_invoice
+    desired_invoice = analyst.engine.invoices.find_by_id(18)
+    assert_equal 7, desired_invoice.items.count
+  end
+
+  def test_finding_transactions_by_invoice
+    desired_invoice = analyst.engine.invoices.find_by_id(18)
+    assert_equal 2, desired_invoice.transactions.count
+  end
+
+  def test_finding_customer_by_invoice
+    desired_invoice = analyst.engine.invoices.find_by_id(18)
+    assert_equal 5, desired_invoice.customer.id
+  end
+
+  def test_invoice_is_paid_in_full
+    desired_invoice = analyst.engine.invoices.find_by_id(18)
+    assert_equal true, desired_invoice.is_paid_in_full?
+  end
+
+  def test_finding_merchants_by_customers
+    desired_customer = analyst.engine.customers.find_by_id(5)
+    assert_equal 8, desired_customer.merchants.count
+  end
+
+  def test_finding_invoice_by_transaction
+    desired_transaction = analyst.engine.transactions.find_by_id(3)
+    assert_equal 750, desired_transaction.invoice.id
+  end
 end
