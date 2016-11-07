@@ -102,8 +102,8 @@ class SalesAnalyst
 
   def invoices_by_day
     invoice_days.reduce ({}) do |result, day|
-      result[day] += 1 if result[day]
-      result[day]  = 1 if result[day].nil?
+      result[day]  = 0 if result[day].nil?
+      result[day] += 1
       result
     end
   end
@@ -152,8 +152,8 @@ class SalesAnalyst
     end.reverse
   end
 
-  def invoices_total(merchant)
-    merchant.map { |invoice| invoice.total }.reduce(:+)
+  def invoices_total(invoices)
+    invoices.map { |invoice| invoice.total }.reduce(:+)
   end
 
   def merchants_and_invoices
@@ -175,6 +175,62 @@ class SalesAnalyst
   def merchants_with_only_one_item
     merchants = items.group_by {|item| item.merchant}
     merchants.keys.find_all { |merchant| merchants[merchant].count == 1}
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants_by_registration_month[month].find_all do |merchant|
+      merchant.items.count == 1
+    end
+  end
+
+  def merchants_by_registration_month
+    merchants.group_by do |merchant|
+      Date::MONTHNAMES[merchant.created_at.month]
+    end
+  end
+
+  def revenue_by_merchant(merchant_id)
+    merchant = sales_engine.merchants.find_by_id(merchant_id)
+    invoices_total(merchant.invoices).round(2)
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    items_and_count  = item_quantities_of_merchant(merchant_id)
+    max              = items_and_count.values.max
+    items            = items_and_count.keys
+    items.find_all { |item| items_and_count[item] == max }
+  end
+
+  def item_quantities_of_merchant(merchant_id)
+    invoices = complete_invoices(sales_engine.find_invoices(merchant_id))
+    all_invoice_items(invoices).reduce ({}) do |result, invoice_item|
+      result[invoice_item.item]  = 0 unless result[invoice_item.item_id]
+      result[invoice_item.item] += invoice_item.quantity
+      result
+    end
+  end
+
+  def all_invoice_items(invoices)
+    invoices.map { |invoice| invoice.invoice_items }.flatten
+  end
+
+  def complete_invoices(invoices)
+    invoices.reject { |invoice| pending?(invoice) }
+  end
+
+  def best_item_for_merchant(merchant_id)
+    items_and_revenues    = item_revenues_of_merchant(merchant_id)
+    items                 = items_and_revenues.keys
+    items.max_by { |item| items_and_revenues[item] }
+  end
+
+  def item_revenues_of_merchant(merchant_id)
+    invoices = complete_invoices(sales_engine.find_invoices(merchant_id))
+    all_invoice_items(invoices).reduce ({}) do |result, invoice_item|
+      result[invoice_item.item]  = 0 unless result[invoice_item.item_id]
+      result[invoice_item.item] += invoice_item.quantity*invoice_item.unit_price
+      result
+    end
   end
 
 end

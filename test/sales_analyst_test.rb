@@ -6,9 +6,12 @@ class SalesAnalystTest < Minitest::Test
   attr_reader :sales_analyst, :sales_analyst2
   def setup
     @sales_engine = SalesEngine.from_csv({
-      :items     => "./data/test_items.csv",
-      :merchants => "./data/test_merchants.csv",
-      :invoices  => "./data/test_invoices.csv"
+      :items          => "./data/test_items.csv",
+      :merchants      => "./data/test_merchants.csv",
+      :invoices       => "./data/test_invoices.csv",
+      :invoice_items  => "./data/test_invoice_items.csv",
+      :customers      => "./data/test_customers.csv",
+      :transactions   => "./data/test_transactions.csv"
     })
     @sales_engine_mock = Minitest::Mock.new
     @sales_analyst     = SalesAnalyst.new(@sales_engine)
@@ -180,6 +183,46 @@ class SalesAnalystTest < Minitest::Test
 
   def test_merchants_with_only_one_item
     assert_equal Merchant, sales_analyst.merchants_with_only_one_item[0].class
+  end
+
+  def test_merchants_with_only_one_item_registered_in_month
+    assert_equal Merchant, sales_analyst.merchants_with_only_one_item_registered_in_month("December")[0].class
+  end
+  
+  def test_merchants_by_reg_month_returns_hash_of_month_keys_and_merchant_values
+    assert_equal Hash, sales_analyst.merchants_by_registration_month.class
+    assert_equal "December", sales_analyst.merchants_by_registration_month.keys.first
+    assert sales_analyst.merchants_by_registration_month.values.all? { |array| array.all? { |item| item.class == Merchant } }
+  end
+
+  def test_revenue_by_merchant_returns_revenue_total
+    assert_equal 0, sales_analyst.revenue_by_merchant(12334105)
+  end
+
+  def test_most_sold_item_for_merchant_is_an_array
+    assert_equal Array, sales_analyst.most_sold_item_for_merchant(12335311).class
+  end
+
+  def test_item_quantities_of_merchant_is_a_hash
+    assert_equal Hash, sales_analyst.item_quantities_of_merchant(12334115).class
+  end
+
+  def test_all_invoice_items_is_an_array
+    invoices = sales_analyst.sales_engine.find_invoices(12334105)
+    assert_equal Array, sales_analyst.all_invoice_items(invoices).class
+  end
+
+  def test_complete_invoices
+    invoices = sales_analyst.sales_engine.find_invoices(12334105)
+    assert sales_analyst.complete_invoices(invoices).all? { |invoice| invoice.class == Invoice}
+  end
+
+  def test_best_item_for_merchant #test files are too disparate to find associated values. spec harness works.
+    assert_equal nil, sales_analyst.best_item_for_merchant(12334115)
+  end
+
+  def test_items_and_revenue_is_a_hash
+    assert_equal Hash, sales_analyst.item_revenues_of_merchant(12334115).class
   end
 
 end
