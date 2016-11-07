@@ -1,6 +1,7 @@
 require_relative 'merchant_repository'
 require_relative 'item_repository'
 require_relative 'invoice_repository'
+require_relative 'sales_analyst'
 require 'csv'
 require 'pry'
 
@@ -39,11 +40,5 @@ class SalesEngine
       raise ArgumentError
     end
   end
-
-  # def merchant(name)
-  #   merch_ids = item_repository.find_all_by_name(name).map { |item| item["merchant_id"] }
-  #   merchants = merch_ids.map { |merch_id| merchant_repository.find_by_id(merch_id)["name"] }
-  #   merchants
-  # end
 
 end

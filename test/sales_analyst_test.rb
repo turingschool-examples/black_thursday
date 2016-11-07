@@ -1,8 +1,10 @@
 require_relative 'test_helper'
-require './lib/sales_analyst.rb'
-require 'pry'
+require './lib/standard_deviation'
+require './lib/analyst_helper'
 
 class SalesAnalystTest < Minitest::Test
+  include StandardDeviation
+  include AnalystHelper
 
   def setup
     se = SalesEngine.from_csv({
@@ -14,6 +16,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_exists
+    binding.pry
     assert @sa
   end
 
@@ -44,6 +47,14 @@ class SalesAnalystTest < Minitest::Test
 
   def test_average_method_averages
     assert_equal 2, @sa.average([1,2,3])
+  end
+
+  def test_it_can_find_merchants_with_high_item_count
+    assert_equal Merchant, @sa.merchants_with_high_item_count[0].class
+  end
+
+  def test_it_can_find_golden_items
+    result = @sa.golden_items
   end
 
 end

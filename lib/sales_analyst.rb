@@ -1,76 +1,75 @@
 require_relative 'sales_engine'
 require_relative 'standard_deviation'
+require_relative 'analyst_helper'
 require 'bigdecimal'
 require 'pry'
 
 class SalesAnalyst
   include StandardDeviation
+  include AnalystHelper
   attr_reader :sales_engine
 
   def initialize(sales_engine)
     @sales_engine = sales_engine    
   end
 
-  def average_items_per_merchant_standard_deviation
-    BigDecimal.new(standard_deviation(item_counts).to_s).round(2).to_f
-  end
-
-  def average_invoices_per_merchant_standard_deviation
-    BigDecimal.new(standard_deviation(invoice_counts).to_s).round(2).to_f
-  end
-
-  def high_invoice_qualifier
-    average_invoices_per_merchant + (standard_deviation(invoice_counts)* 2)
-  end
-
-  def top_merchants_by_invoice_count
-    invoice_counts.find_all do |invoice_count|
-      invoice_count > high_invoice_qualifier
-    end
-  end
-
-  # def merchants_with_high_item_count
-  #   item_counts.find_all do |item_count|
-  #   item_count > average_items_per_merchant + standard_deviation(item_counts)
-  #   end
-  # end
-  
   def average_items_per_merchant
-    BigDecimal.new(average(item_counts).to_s).round(2).to_f
+    format decimal average(item_counts).to_s
   end
 
   def average_invoices_per_merchant
-    BigDecimal.new(average(invoice_counts).to_s).round(2).to_f
-  end
-
-  def invoice_counts
-    sales_engine.merchants.all.map { |merchant| merchant.invoices.size }
-  end
-
-  def item_counts
-    sales_engine.merchants.all.map { |merchant| merchant.items.size }
+    format decimal average(invoice_counts).to_s
   end
 
   def average_item_price_for_merchant(id)
-    all_prices = sales_engine.merchants.find_all_items_by_merchant(id).map do |item|
-      item.unit_price
-    end
-    average(all_prices).round(2)
+    price_average_operator(id)
   end
 
   def average_average_price_per_merchant
-    binding.pry
-    averages = sales_engine.merchants.all.map do |merchant|
-      average_item_price_for_merchant(merchant.id)
+    average_average_operator
+  end
+
+  def invoice_status(status)
+    format decimal status_average_operator(status)
+  end
+
+  def average_items_per_merchant_standard_deviation
+    format decimal standard_deviation(item_counts).to_s
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    format decimal standard_deviation(invoice_counts).to_s
+  end
+
+  def merchants_with_high_item_count
+    sales_engine.merchants.all.find_all do |merchant|
+      merchant.items.count >= item_number_plus_one_deviation
     end
-    average(averages).round(2)
   end
 
-  def average(collection)
-    collection.reduce(&:+).to_f / collection.size.to_f
+  def top_days_by_invoice_count
+    days_of_the_week.each_pair.map do |day, count|
+      day if count > one_standard_deviation_above_mean_for_weekdays
+    end.compact
   end
 
-  # def golden_items
-  # end
-  
+  def top_merchants_by_invoice_count
+    merchant_list = sales_engine.merchants.all.find_all do |merchant|
+      merchant.invoices.size >= one_standard_deviation_above_invoice_average
+    end
+  merchant_list.flatten
+  end
+
+  def bottom_merchants_by_invoice_count
+    sales_engine.merchants.all.find_all do |merchant|
+      merchant.invoices.size <= one_standard_deviation_below_invoice_average
+    end
+  end
+
+  def golden_items
+    sales_engine.items.all.find_all do |item|
+      item.unit_price >= two_standard_deviations_away_in_price
+    end
+  end
+
 end
