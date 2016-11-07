@@ -19,7 +19,9 @@ class ItemRepo
   end
 
   def find_all_with_description(description_fragment)
-    @all.find_all {|item| item.description.downcase.include?(description_fragment.downcase)}
+    @all.find_all do |item|
+      item.description.downcase.include?(description_fragment.downcase)
+    end
   end
 
   def find_all_by_price(price)

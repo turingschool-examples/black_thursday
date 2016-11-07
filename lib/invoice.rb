@@ -26,7 +26,9 @@ class Invoice
   end
 
   def items
-    invoice_items.map { |invoice_item| @parent.find_item_by_item_id(invoice_item.item_id) }
+    invoice_items.map do |invoice_item|
+      @parent.find_item_by_item_id(invoice_item.item_id)
+    end
   end
 
   def invoice_items
@@ -39,5 +41,16 @@ class Invoice
 
   def customer
     @parent.find_customer_by_customer_id(customer_id)
+  end
+
+  def is_paid_in_full?
+    transactions.any? { |transaction| transaction.result.eql?("success") }
+  end
+
+  def total
+    invoice_items.each.reduce(0) do |result, invoice_item|
+      result += (invoice_item.unit_price) * invoice_item.quantity
+      result
+    end
   end
 end

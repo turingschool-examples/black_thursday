@@ -26,6 +26,8 @@ class Merchant
 
   def customers
     invoices = @parent.find_invoices_by_merchant_id(id)
-    invoices.map { |invoice| @parent.find_customer_by_customer_id(invoice.customer_id) }.uniq 
+    invoices.map do |invoice|
+      @parent.find_customer_by_customer_id(invoice.customer_id)
+    end.uniq
   end
 end

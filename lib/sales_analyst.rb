@@ -14,13 +14,16 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    squared_differences = sales_engine.merchants.all.map { |merchant| (merchant.items.length - average_items_per_merchant)** 2 }
+    squared_differences = sales_engine.merchants.all.map do |merchant|
+      (merchant.items.length - average_items_per_merchant)** 2
+    end
     Math.sqrt(squared_differences.reduce(:+) / sales_engine.merchants.all.count).round(2)
   end
 
 
   def merchants_with_high_item_count
-    threshold = (average_items_per_merchant_standard_deviation + average_items_per_merchant)
+    threshold = (average_items_per_merchant_standard_deviation +
+    average_items_per_merchant)
     sales_engine.merchants.all.reduce([]) do |result, merchant|
       result << merchant if merchant.items.count > threshold
       result
@@ -37,11 +40,11 @@ class SalesAnalyst
   end
 
   def average_average_price_per_merchant
-    total_average_price = sales_engine.merchants.all.reduce(0) do |result, merchant|
+    total_average = sales_engine.merchants.all.reduce(0) do |result, merchant|
       result += average_item_price_for_merchant(merchant.id)
       result
     end
-    (total_average_price / sales_engine.merchants.all.count).floor(2)
+    (total_average / sales_engine.merchants.all.count).floor(2)
   end
 
   def golden_items
@@ -57,12 +60,16 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant_standard_deviation
-    squared_differences = sales_engine.merchants.all.map { |merchant| (merchant.invoices.length - average_invoices_per_merchant)** 2 }
-    Math.sqrt(squared_differences.reduce(:+) / sales_engine.merchants.all.count).round(2)
+    squared_differences = sales_engine.merchants.all.map do |merchant|
+      (merchant.invoices.length - average_invoices_per_merchant)** 2
+    end
+    Math.sqrt(squared_differences.reduce(:+) /
+    sales_engine.merchants.all.count).round(2)
   end
 
   def top_merchants_by_invoice_count
-    threshold = (average_invoices_per_merchant + average_invoice_standard_deviation * 2)
+    threshold = (average_invoices_per_merchant +
+    average_invoice_standard_deviation * 2)
     sales_engine.merchants.all.reduce([]) do |result, merchant|
       result << merchant if merchant.invoices.count > threshold
       result
@@ -70,7 +77,8 @@ class SalesAnalyst
   end
 
   def bottom_merchants_by_invoice_count
-    threshold = (average_invoices_per_merchant - average_invoice_standard_deviation * 2)
+    threshold = (average_invoices_per_merchant -
+    average_invoice_standard_deviation * 2)
     sales_engine.merchants.all.reduce([]) do |result, merchant|
       result << merchant if merchant.invoices.count < threshold
       result
@@ -78,7 +86,9 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-    invoices_grouped_by_day = sales_engine.invoices.all.group_by { |invoice| invoice.created_at.strftime("%A") }
+    invoices_grouped_by_day = sales_engine.invoices.all.group_by do |invoice|
+      invoice.created_at.strftime("%A")
+    end
     invoices_per_day = invoices_grouped_by_day.values.map { |day| day.count}
     invoices_sorted_by_day = invoices_grouped_by_day.keys.zip(invoices_per_day)
     invoices_sorted_by_day_hash = invoices_sorted_by_day.inject({}) do |results, element|
@@ -86,11 +96,15 @@ class SalesAnalyst
      results
     end
     average_invoices_per_day = sales_engine.invoices.all.count / 7
-    squared_differences = invoices_per_day.map { |total_per_day| (total_per_day - (sales_engine.invoices.all.count / 7))** 2 }
+    squared_differences = invoices_per_day.map do |total_per_day|
+      (total_per_day - (sales_engine.invoices.all.count / 7))** 2
+    end
     squared_differences_mean = squared_differences.reduce(:+) / 7
     standard_deviation = Math.sqrt(squared_differences_mean).round
-    pairs_above_standard_deviation = invoices_sorted_by_day_hash.find_all { |day, value| value if value > average_invoices_per_day + standard_deviation }
-    pairs_above_standard_deviation.map { |pair| pair[0] }
+    above_std_deviation = invoices_sorted_by_day_hash.find_all do |day, value|
+      value if value > average_invoices_per_day + standard_deviation
+    end
+    above_std_deviation.map { |pair| pair[0] }
   end
 
   def invoice_status(status)
@@ -102,8 +116,10 @@ class SalesAnalyst
   private
   def average_item_price_standard_deviation
     average = average_item_price
-    squared_differences = sales_engine.items.all.map { |item| (item.unit_price - average)** 2 }
-    Math.sqrt(squared_differences.reduce(:+) / sales_engine.items.all.count).round(2)
+    sq_differences = sales_engine.items.all.map do |item|
+      (item.unit_price - average)** 2
+    end
+    Math.sqrt(sq_differences.reduce(:+) / sales_engine.items.all.count).round(2)
   end
 
   def average_item_price
@@ -113,12 +129,16 @@ class SalesAnalyst
 
   def average_invoice_standard_deviation
     average = average_invoice_count
-    squared_differences = sales_engine.merchants.all.map { |merchant| (merchant.invoices.count - average)** 2 }.reduce(:+)
+    squared_differences = sales_engine.merchants.all.map do |merchant|
+      (merchant.invoices.count - average)** 2
+    end.reduce(:+)
     Math.sqrt(squared_differences / sales_engine.merchants.all.count).round(2)
   end
 
   def average_invoice_count
-    invoice_count = sales_engine.merchants.all.map { |merchant| merchant.invoices.count }
+    invoice_count = sales_engine.merchants.all.map do |merchant|
+      merchant.invoices.count
+    end
     (invoice_count.reduce(:+) / invoice_count.count)
   end
 end
