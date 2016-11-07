@@ -103,7 +103,7 @@ class SalesAnalyst
   def invoices_by_day
     invoice_days.reduce ({}) do |result, day|
       result[day]  = 0 if result[day].nil?
-      result[day] += 1 
+      result[day] += 1
       result
     end
   end
@@ -216,6 +216,21 @@ class SalesAnalyst
 
   def complete_invoices(invoices)
     invoices.reject { |invoice| pending?(invoice) }
+  end
+
+  def best_item_for_merchant(merchant_id)
+    items_and_revenues    = item_revenues_of_merchant(merchant_id)
+    items                 = items_and_revenues.keys
+    items.max_by { |item| items_and_revenues[item] }
+  end
+
+  def item_revenues_of_merchant(merchant_id)
+    invoices = complete_invoices(sales_engine.find_invoices(merchant_id))
+    all_invoice_items(invoices).reduce ({}) do |result, invoice_item|
+      result[invoice_item.item]  = 0 unless result[invoice_item.item_id]
+      result[invoice_item.item] += invoice_item.quantity*invoice_item.unit_price
+      result
+    end
   end
 
 end

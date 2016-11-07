@@ -217,4 +217,12 @@ class SalesAnalystTest < Minitest::Test
     assert sales_analyst.complete_invoices(invoices).all? { |invoice| invoice.class == Invoice}
   end
 
+  def test_best_item_for_merchant #test files are too disparate to find associated values. spec harness works.
+    assert_equal nil, sales_analyst.best_item_for_merchant(12334115)
+  end
+
+  def test_items_and_revenue_is_a_hash
+    assert_equal Hash, sales_analyst.item_revenues_of_merchant(12334115).class
+  end
+
 end
