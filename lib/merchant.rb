@@ -13,8 +13,8 @@ class Merchant
     @parent      = repo
     @id          = merchant_info[:id].to_i
     @name        = merchant_info[:name].to_s
-    @created_at  = Time.parse(merchant_info[:created_at].to_s)
-    @updated_at  = Time.parse(merchant_info[:updated_at].to_s)
+    @created_at  = Time.parse(merchant_info[:created_at].to_s) if merchant_info[:created_at]
+    @updated_at  = Time.parse(merchant_info[:updated_at].to_s) if merchant_info[:created_at]
   end
 
   def items

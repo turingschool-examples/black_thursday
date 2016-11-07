@@ -1,5 +1,6 @@
 require_relative 'test_helper'
 require_relative '../lib/merchant'
+require 'time'
 
 class MerchantTest < Minitest::Test
 
