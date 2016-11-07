@@ -163,7 +163,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_merchants_and_invoices_stores_merch_id_keys_and_invoice_values
     assert_equal Hash, sales_analyst.merchants_and_invoices.class
-    assert_equal Fixnum, sales_analyst.merchants_and_invoices.keys[2].class
+    assert_equal Merchant, sales_analyst.merchants_and_invoices.keys[2].class
     assert_equal Invoice, sales_analyst.merchants_and_invoices.values[0][0].class
   end
 
@@ -218,15 +218,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_best_item_for_merchant #test files are too disparate to find associated values. spec harness works.
-    sales_analyst2.sales_engine.expect(:find_invoices, [], [12334115])
-    items = Minitest::Mock.new
-    items.expect(:max_by, nil, [])
-    invoices = Minitest::Mock.new
-    invoices.expect(:reject, nil, [])
-    sales_analyst2.best_item_for_merchant(12334115)
-    sales_analyst2.sales_engine.verify
-    items.verify
-    # assert_equal nil, sales_analyst.best_item_for_merchant(12334115)
+    assert_equal nil, sales_analyst.best_item_for_merchant(12334115)
   end
 
   def test_items_and_revenue_is_a_hash
