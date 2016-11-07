@@ -25,4 +25,8 @@ class TransactionRepo
   def find_all_by_result(result)
     @all.find_all { |transaction| transaction.result.eql?(result) }
   end
+
+  def find_invoice_by_invoice_id(id)
+    @parent.find_invoice_by_invoice_id(id)
+  end
 end

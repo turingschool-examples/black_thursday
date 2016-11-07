@@ -35,6 +35,11 @@ class MerchantRepo
     @parent.find_invoice_items_by_merchant_id(id)
   end
 
+  def find_customer_by_customer_id(id)
+    binding.pry
+    @parent.find_customer_by_customer_id(id)
+  end
+
   def inspect
     "#<#{self.class} #{@all.size} rows>"
   end
