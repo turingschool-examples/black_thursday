@@ -1,20 +1,29 @@
 require_relative 'sales_engine'
 require_relative 'standard_deviation'
 require_relative 'analyst_helper'
+require_relative 'analyst_operations'
 require 'bigdecimal'
 require 'pry'
 
 class SalesAnalyst
   include StandardDeviation
   include AnalystHelper
-  attr_reader :sales_engine
+  include AnalystOperations
+  
+  attr_reader :sales_engine,
+              :merchants,
+              :invoices,
+              :items
 
   def initialize(sales_engine)
-    @sales_engine = sales_engine    
+    @sales_engine = sales_engine
+    @merchants    = sales_engine.merchants.all
+    @invoices     = sales_engine.invoices.all
+    @items        = sales_engine.items.all
   end
 
   def average_items_per_merchant
-    format decimal average(item_counts).to_s
+    format decimal average_item_counts.to_s
   end
 
   def average_invoices_per_merchant
@@ -61,7 +70,7 @@ class SalesAnalyst
   end
 
   def bottom_merchants_by_invoice_count
-    sales_engine.merchants.all.find_all do |merchant|
+    merchants.find_all do |merchant|
       merchant.invoices.size <= one_standard_deviation_below_invoice_average
     end
   end
