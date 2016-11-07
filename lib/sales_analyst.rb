@@ -48,7 +48,9 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-    top_days.compact
+    days_of_the_week.each_pair.map do |day, count|
+      day if count > one_standard_deviation_above_mean_for_weekdays
+    end.compact
   end
 
   def top_merchants_by_invoice_count

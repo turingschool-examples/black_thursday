@@ -70,16 +70,6 @@ module AnalystHelper
     end
     days
   end
-
-  def top_days
-    days_of_the_week.each_pair.map do |day, count|
-      day if count > one_above_mean
-    end
-  end
-
-  def one_above_mean
-    average(days_of_the_week.values) + standard_deviation(days_of_the_week.values)
-  end
-
+  
 end
 

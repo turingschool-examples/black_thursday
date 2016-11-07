@@ -38,5 +38,9 @@ module StandardDeviation
   def one_standard_deviation_below_invoice_average
     average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation*2)
   end
-
+  
+  def one_standard_deviation_above_mean_for_weekdays
+    average(days_of_the_week.values) + standard_deviation(days_of_the_week.values)
+  end
+  
 end
