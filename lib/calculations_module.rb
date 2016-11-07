@@ -3,11 +3,11 @@ require 'bigdecimal'
 module Calculations
 
   def sum(array)
-    array.reduce(:+)
+    array.reduce(:+).to_f
   end
 
   def mean(array)
-    sum(array)/array.length.to_f
+    (sum(array))/(array.length).to_f
   end
 
   def standard_deviation(array)

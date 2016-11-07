@@ -1,58 +1,47 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative '../lib/item'
-require_relative '../lib/item_repo'
+require_relative '../lib/invoice'
+require_relative '../lib/invoice_repo'
+require 'bigdecimal'
 
-class ItemTest < Minitest::Test
+class InvoiceTest < Minitest::Test
   attr_reader :data,
               :repo
   def setup
-    @data = {:id => "263567474",
-             :name => "Minty Green Knit Crochet Infinity Scarf",
-             :description => "- Super Chunky knit infinity scarf - Soft mixture of 97% Acrylic and 3% Viscose - Beautiful, Warm, and Stylish - Very easy to care for Hand wash with cold water and lay flat to dry",
-             :unit_price => 3800,
-             :merchant_id => "12334871",
-             :created_at => "2016-01-11 20:59:20 UTC",
-             :updated_at => "2009-12-09 12:08:04 UTC"}
+    @data = {:id => 292,
+             :customer_id => 57,
+             :merchant_id => 12334713,
+             :status => "shipped",
+             :created_at => "2004-07-23",
+             :updated_at => "2007-11-20"}
     @repo = Minitest::Mock.new
   end
+
   def test_it_exists
-    assert Item.new(data, repo)
+    assert Invoice.new(data, repo)
   end
   def test_it_has_a_class
-    i = Item.new(data, repo)
-    assert_equal Item, i.class
+    i = Invoice.new(data, repo)
+    assert_equal Invoice, i.class
   end
   def test_it_has_an_id
-    i = Item.new(data, repo)
-    assert_equal 263567474, i.id
+    i = Invoice.new(data, repo)
+    assert_equal 292, i.id
   end
-  def test_it_has_a_name
-    i = Item.new(data, repo)
-    assert_equal "Minty Green Knit Crochet Infinity Scarf", i.name
-  end
-  def test_it_has_a_description
-    i = Item.new(data, repo)
-    assert_equal "- Super Chunky knit infinity scarf - Soft mixture of 97% Acrylic and 3% Viscose - Beautiful, Warm, and Stylish - Very easy to care for Hand wash with cold water and lay flat to dry", i.description
-  end
-  def test_it_has_a_unit_price
-    i = Item.new(data, repo)
-    assert_equal 3800, i.unit_price
-  end
+
   def test_it_has_a_merchant_id
-    i = Item.new(data, repo)
-    assert_equal 12334871, i.merchant_id
+    i = Invoice.new(data, repo)
+    assert_equal 12334713, i.merchant_id
   end
+
   def test_it_displays_when_it_was_created
-    i = Item.new(data, repo)
-    assert_equal "2016-01-11 20:59:20 UTC", i.created_at
+    i = Invoice.new(data, repo)
+    assert_equal "2004-07-23 00:00:00 -0600", i.created_at.to_s
   end
+
   def test_it_displays_when_it_was_updated
-    i = Item.new(data, repo)
-    assert_equal "2009-12-09 12:08:04 UTC", i.updated_at
+    i = Invoice.new(data, repo)
+    assert_equal "2007-11-20 00:00:00 -0700", i.updated_at.to_s
   end
-  def test_it_has_a_unit_price_to_dollars
-    i = Item.new(data, repo)
-    assert_equal 3.8, i.unit_price_to_dollars
-  end
+
 end

@@ -25,22 +25,22 @@ class InvoiceRepoTest < Minitest::Test
 
   def test_it_can_search_by_id
     i = InvoiceRepo.new(file, sales_engine)
-    assert_equal 7, i.find_by_id(7).id
+    assert_equal 287, i.find_by_id(287).id
   end
 
   def test_it_can_find_by_customer_id
     i = InvoiceRepo.new(file, sales_engine)
-    assert_equal 1, i.find_all_by_customer_id(5)
+    assert_equal 396, i.find_all_by_customer_id(79).first.id
   end
 
    def test_it_can_find_by_status
     i = InvoiceRepo.new(file, sales_engine)
-    assert_equal 7, i.find_all_by_status("pending")
+    assert_equal 327, i.find_all_by_status("pending").count
   end
 
   def test_it_can_find_by_merchant_id
     i = InvoiceRepo.new(file, sales_engine)
-    assert_equal 12335938, i.find_all_by_merchant_id(12334771)
+    assert_equal "shipped", i.find_all_by_merchant_id(12334771).first.status
   end
 
 end

@@ -24,10 +24,9 @@ class InvoiceRepo
   end
 
   def find_by_id(desired_id)
-    i = @all.find do |invoice|
+    @all.find do |invoice|
       invoice.id == desired_id
     end
-    i
   end
 
   def find_all_by_customer_id(customer_id)
@@ -38,9 +37,14 @@ class InvoiceRepo
   end
 
   def find_all_by_status(desired_status)
-    @all.find_all do |invoice|
+    i = @all.find_all do |invoice|
       invoice.status.downcase == desired_status.downcase
     end
+    i
+  end
+
+  def find_merchant_by_id(merchant_id)
+    @parent.find_merchant_for_invoice(merchant_id)
   end
 
   def find_all_by_merchant_id(merchant_id)
@@ -48,6 +52,18 @@ class InvoiceRepo
       invoice.merchant_id.to_i == merchant_id.to_i
     end
   end
+
+  def find_items_for_invoice(item_id)
+    @parent.find_items_for_invoice(item_id)
+  end
+
+  def find_invoice_items(id)
+    @parent.find_invoice_items(id)
+  end
+  
+  # def find_customer_from_invoice(customer_id)
+  #   # @parent.something there to find customer from invoice
+  # end
 
 
 end

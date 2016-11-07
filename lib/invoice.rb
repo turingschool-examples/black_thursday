@@ -14,9 +14,9 @@ class Invoice
   def initialize(data, repo)
       @parent = repo
       @id = data[:id].to_i
-      @customer_id = data[:customer_id]
-      @merchant_id = data[:merchant_id]
-      @status = data[:status]
+      @customer_id = data[:customer_id].to_i
+      @merchant_id = data[:merchant_id].to_i
+      @status = data[:status].to_sym
       @created_at = data[:created_at]
       @updated_at = data[:updated_at]
   end
@@ -30,7 +30,24 @@ class Invoice
   end
 
   def merchant
-    @parent.merchants.find_by_id(merchant_id)
+    @parent.find_merchant_by_id(merchant_id)
   end
 
+  def items
+    find_invoice_items.map do |item| 
+      @parent.find_items_for_invoice(item.item_id)
+    end
+  end
+
+  def find_invoice_items
+    @parent.find_invoice_items(id)
+  end
+
+  def transactions(id)
+    @parent.find_transactions_by_id(id)
+  end
+  
+  def customer
+    @parent.find_customer_from_invoice(customer_id)
+  end
 end

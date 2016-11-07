@@ -49,18 +49,20 @@ class ItemRepo
   end
 
   def find_all_by_price_in_range(range)
-      p = @all.find_all do |item|
+      @all.find_all do |item|
         item.unit_price >= range.begin &&
         item.unit_price <= range.end
       end
-      p
   end
 
   def find_all_by_merchant_id(merchant_id)
-    i = @all.find_all do |item|
+    @all.find_all do |item|
       item.merchant_id == merchant_id.to_i
     end
-    i
+  end
+
+  def find_merchant_for_item(merchant_id)
+    @parent.find_merchant_for_item(merchant_id)
   end
 
 end

@@ -16,8 +16,9 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    merchants = create_all_merchant_ids.length
-    ((items_per_merchant.reduce(:+))/merchants).round(2)
+    merchants = se.merchants.all.length.to_f
+    items = se.items.all.length.to_f
+    (items/merchants).round(2)
   end
 
   def create_all_merchant_ids
@@ -27,34 +28,41 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-   mean(items_per_merchant)
+   standard_deviation(items_per_merchant)
   end
 
  def items_per_merchant
-   all = se.merchants.all.map do |merchant|
-      merchant.items.count
+   se.merchants.all.map do |merchant|
+      merchant.items.length
     end
   end
 
   def invoices_per_merchant
     se.merchants.all.map do |merchant|
-      merchant.invoices.count
+      merchant.invoices.length
     end
   end
 
-  def average_item_price_per_merchant(merchant_id)
+  def merchants_with_high_item_count
+    variance = threshold(items_per_merchant, 1)
+    se.merchants.all.find_all do |merchant|
+      merchant.num_items >= variance
+    end
+  end
+
+  def average_item_price_for_merchant(merchant_id)
     items = se.items.find_all_by_merchant_id(merchant_id)
     aggregate_price = items.map do |item|
-      item.unit_price 
-    end.reduce(:+).to_f
+      item.unit_price
+    end.reduce(:+).round(2)
     (aggregate_price/items.count).round(2)
   end
     
-  def average_price_per_item
+  def average_average_price_per_merchant
     all_merchants = se.merchants.all
     sum = all_merchants.map do |merchant|
-      average_item_price_per_merchant(merchant.id)
-    end.reduce(:+).to_f
+      average_item_price_for_merchant(merchant.id)
+    end.reduce(:+).round(2)
     (sum/all_merchants.length).round(2)
   end
 
@@ -82,12 +90,13 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
-    merchants = create_all_merchant_ids.length
-    ((invoices_per_merchant.reduce(:+))/merchants).round(2)
+    merchants = se.merchants.all.length.to_f
+    invoices = se.invoices.all.length.to_f
+    (invoices/merchants).round(2)
   end
 
   def average_invoices_per_merchant_standard_deviation
-    mean(invoices_per_merchant)
+    standard_deviation(invoices_per_merchant)
   end
 
   def top_merchants_by_invoice_count
@@ -111,18 +120,24 @@ class SalesAnalyst
   end
 
   def group_invoices_by_day
-    dayz = se.invoices.all.group_by do |invoice|
-      find_day(invoice.created_at)
+    days_hash = Hash.new(0)
+    se.invoices.all.each do |invoice|
+      days_hash[find_day(invoice.created_at)] += 1
     end
-    binding.pry
-    dayz
+    days_hash
+  end
+
+  def invoices_count_by_day
+    highest_day_count = threshold(group_invoices_by_day.values, 1)
+    group_invoices_by_day.find_all do |day|
+      day if day.last >= highest_day_count
+    end
   end
 
   def top_days_by_invoice_count
-   top_dayz = threshold(group_invoices_by_day.values, 1)
-    group_invoices_by_day_count.delete_if do | key, value |
-      value <= top_dayz
-    end.keys
+    invoices_count_by_day.map do |day|
+      day.first
+    end
   end
 
   def merchants_with_pending_invoices

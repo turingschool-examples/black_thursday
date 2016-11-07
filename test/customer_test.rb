@@ -8,11 +8,11 @@ class CustomerTest < Minitest::Test
               :repo
 
   def setup
-    @data = Customer.new({:id => 6,
-                          :first_name => "Joan",
-                          :last_name => "Clarke",
-                          :created_at => Time.now,
-                          :updated_at => Time.now})
+    @data = {:id => 6,
+            :first_name => "Joan",
+            :last_name => "Clarke",
+            :created_at => "2009-12-09 12:08:04 UTC",
+            :updated_at => "2436-08-27 22:19:07 UTC"}
     @repo = Minitest::Mock.new
   end
 
@@ -26,32 +26,27 @@ class CustomerTest < Minitest::Test
   end
 
   def test_it_has_an_id
-    skip
     c = Customer.new(data, repo)
     assert_equal 6, c.id
   end
 
   def test_it_has_a_first_name
-    skip
     c = Customer.new(data, repo)
     assert_equal "Joan", c.first_name
   end
 
   def test_it_has_a_last_name
-    skip
     c = Customer.new(data, repo)
     assert_equal "Clarke", c.last_name
   end
 
   def test_it_displays_when_it_was_created
-    skip
     c = Customer.new(data, repo)
-    assert_equal "2016-01-11 20:59:20 UTC", c.created_at
+    assert_equal "2009-12-09 12:08:04 UTC", c.created_at.to_s
   end
   
   def test_it_displays_when_it_was_updated
-    skip
-    tc = Customer.new(data, repo)
-    assert_equal "2009-12-09 12:08:04 UTC", c.updated_at
+    c = Customer.new(data, repo)
+    assert_equal "2436-08-27 22:19:07 UTC", c.updated_at.to_s
   end
 end

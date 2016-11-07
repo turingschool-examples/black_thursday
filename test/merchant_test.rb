@@ -33,16 +33,4 @@ class MerchantTest < Minitest::Test
     assert_equal "Minty Green Knit Crochet Infinity Scarf", m.name
   end
 
-  # def test_it_displays_when_it_was_created
-  #   m = Merchant.new(data, repo)
-  #   assert_equal "2016-01-11", m.created_at
-  # end
-
-  # def test_it_displays_when_it_was_updated
-  #   m = Merchant.new(data, repo)
-  #   assert_equal "2009-12-09", m.updated_at
-  # end
-
-
-
 end

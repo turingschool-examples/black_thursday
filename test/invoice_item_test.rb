@@ -1,7 +1,9 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/invoice_item'
-require_relative '../lib/item_item_repo'
+require_relative '../lib/invoice_item_repo'
+# require 'time'
+# require 'bigdecimal'
 
 class InvoiceItemTest < Minitest::Test
 
@@ -9,13 +11,13 @@ class InvoiceItemTest < Minitest::Test
               :repo
 
   def setup
-    @data = ({:id => 6,
+    @data = {:id => 6,
               :item_id => 7,
               :invoice_id => 8,
               :quantity => 1,
-              :unit_price => BigDecimal.new(10.99, 4),
-              :created_at => Time.now,
-              :updated_at => Time.now})
+              :unit_price => 1099,
+              :created_at => "2011-02-22 10:11:12 UTC",
+              :updated_at => "2015-09-06 23:19:57 UTC"}
     @repo = Minitest::Mock.new
   end
 
@@ -55,16 +57,16 @@ class InvoiceItemTest < Minitest::Test
 
   def test_it_displays_when_it_was_created
     ii = InvoiceItem.new(data, repo)
-    assert_equal "2016-01-11 20:59:20 UTC", ii.created_at
+    assert_equal "2011-02-22 10:11:12 UTC", ii.created_at.to_s
   end
 
   def test_it_displays_when_it_was_updated
     ii = InvoiceItem.new(data, repo)
-    assert_equal Time.now, ii.updated_at
+    assert_equal "2015-09-06 23:19:57 UTC", ii.updated_at.to_s
   end
   
   def test_it_has_a_unit_price_to_dollars
     ii = InvoiceItem.new(data, repo)
-    assert_equal Time.now, ii.unit_price_to_dollars
+    assert_equal 10.99, ii.unit_price_to_dollars
   end
 end

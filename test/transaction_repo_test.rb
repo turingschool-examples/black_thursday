@@ -9,7 +9,7 @@ class TransactionRepoTest < Minitest::Test
               :sales_engine
 
   def setup
-    @file = "./data/transactions.csv"
+    @file = "./data/small_transaction_file.csv"
     @sales_engine = Minitest::Mock.new
   end
 
@@ -19,32 +19,27 @@ class TransactionRepoTest < Minitest::Test
   end
 
   def test_it_can_display_all_transactions
-    skip
     tr = TransactionRepo.new(file, sales_engine)
     assert tr.all
   end
 
   def test_it_can_find_by_id
-    skip
     tr = TransactionRepo.new(file, sales_engine)
-    assert_equal 7, tr.find_by_id(4920)
+    assert_equal 412, tr.find_by_id(412).id
   end
 
   def test_it_can_find_by_invoice_id
-    skip
     tr = TransactionRepo.new(file, sales_engine)
-    assert_equal 4920, tr.find_by_invoice_id(4920)
+    assert_equal 99, tr.find_by_invoice_id(511).id
   end
 
   def test_it_can_find_by_credit_card_number
-    skip
     tr = TransactionRepo.new(file, sales_engine)
-    assert_equal 1, tr.find_by_credit_card_number("4242424242424242")
+    assert_equal 1, tr.find_all_by_credit_card_number("4191976989764980").length
   end
   
    def test_it_can_find_by_result
-     skip
     tr = TransactionRepo.new(file, sales_engine)
-    assert_equal 7, tr.find_all_by_result("pending")
+    assert_equal 117, tr.find_all_by_result("failed").length
   end
 end

@@ -1,5 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'bigdecimal'
 require_relative '../lib/item'
 require_relative '../lib/item_repo'
 
@@ -16,6 +17,7 @@ class ItemTest < Minitest::Test
              :updated_at => "2009-12-09 12:08:04 UTC"}
     @repo = Minitest::Mock.new
   end
+  
   def test_it_exists
     assert Item.new(data, repo)
   end
@@ -38,7 +40,7 @@ class ItemTest < Minitest::Test
 
   def test_it_has_a_unit_price
     i = Item.new(data, repo)
-    assert_equal 3800, i.unit_price
+    assert_equal 38.0, i.unit_price
   end
 
   def test_it_has_a_merchant_id
@@ -48,16 +50,16 @@ class ItemTest < Minitest::Test
 
   def test_it_displays_when_it_was_created
     i = Item.new(data, repo)
-    assert_equal "2016-01-11 20:59:20 UTC", i.created_at
+    assert_equal "2016-01-11 20:59:20 UTC", i.created_at.to_s
   end
 
   def test_it_displays_when_it_was_updated
     i = Item.new(data, repo)
-    assert_equal "2009-12-09 12:08:04 UTC", i.updated_at
+    assert_equal "2009-12-09 12:08:04 UTC", i.updated_at.to_s
   end
   
   def test_it_has_a_unit_price_to_dollars
     i = Item.new(data, repo)
-    assert_equal 3.8, i.unit_price_to_dollars
+    assert_equal 38.0, i.unit_price_to_dollars
   end
 end

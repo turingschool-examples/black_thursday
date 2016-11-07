@@ -11,7 +11,10 @@ class SalesAnalystTest < Minitest::Test
     @sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/small_merchant_file.csv",
-      :invoices => "./data/small_invoice_file.csv"})
+      :invoices => "./data/small_invoice_file.csv",
+      :customers => "./data/small_customer_file.csv",
+      :transactions => "./data/small_transaction_file.csv",
+      :invoice_items => "./data/small_invoice_item_file.csv"})
   end
 
   def test_it_exists
@@ -37,7 +40,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_find_average_items_per_merchant
     sa = SalesAnalyst.new(sales_engine)
-    assert_equal 6.0, sa.average_items_per_merchant
+    assert_equal 136.7, sa.average_items_per_merchant
   end
 
   def test_it_creates_all_merchant_ids
@@ -46,20 +49,24 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 10, result.length
   end
 
-  def test_it_can_find_average_item_price_per_merchant
+  def test_it_can_find_average_item_price_for_merchant
     sa = SalesAnalyst.new(sales_engine)
-    assert_equal 10.0, sa.average_item_price_per_merchant(12334123)
+    assert_equal 100.0, sa.average_item_price_for_merchant(12334123)
   end
 
   def test_it_can_find_items_per_merchant_standard_deviation
-    #something is screwed up here
     sa = SalesAnalyst.new(sales_engine)
-    assert_equal 6, sa.average_items_per_merchant_standard_deviation
+    assert_equal 6.6, sa.average_items_per_merchant_standard_deviation
   end
 
   def test_it_can_find_average_item_price_for_all_merchants
     sa = SalesAnalyst.new(sales_engine)
-    assert_equal 9.16, sa.average_price_per_item
+    assert_equal 91.54, sa.average_average_price_per_merchant
+  end
+
+  def test_it_can_find_merchants_with_high_item_count
+    sa = SalesAnalyst.new(sales_engine)
+    assert_equal 0, sa.merchants_with_high_item_count
   end
 
   def test_it_can_find_golden_items
@@ -69,20 +76,19 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_find_average_invoices_per_merchant
     sa = SalesAnalyst.new(sales_engine)
-    assert_equal 10.0, sa.average_invoices_per_merchant
+    assert_equal 2.0, sa.average_invoices_per_merchant
   end
 
   def test_it_can_find_invoices_per_merchant_standard_deviation
-    #something is screwed up here, too, probably has to do with the invoices/items per merchant problem
     sa = SalesAnalyst.new(sales_engine)
-    assert_equal 10, sa.average_invoices_per_merchant_standard_deviation
+    assert_equal 2.7, sa.average_invoices_per_merchant_standard_deviation
   end
 
   def test_it_can_find_invoice_status
     sa = SalesAnalyst.new(sales_engine)
-    assert_equal 29.55, sa.invoice_status("pending")
-    assert_equal 56.95, sa.invoice_status("shipped")
-    assert_equal 13.5, sa.invoice_status("returned")
+    assert_equal 29.3, sa.invoice_status("pending")
+    assert_equal 56.45, sa.invoice_status("shipped")
+    assert_equal 14.25, sa.invoice_status("returned")
   end
 
   def test_it_can_find_top_merchants_by_invoice_count

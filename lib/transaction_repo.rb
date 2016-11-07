@@ -7,7 +7,10 @@ class TransactionRepo
               :id,
               :invoice_id,
               :credit_card_number,
-              :result
+              :credit_card_expiration_date,
+              :result,
+              :created_at,
+              :updated_at
 
   def initialize(file, sales_engine)
     @parent = sales_engine
@@ -25,28 +28,35 @@ class TransactionRepo
   def find_by_id(desired_id)
     @all.find do |transaction|
       transaction.id == desired_id
-      return transaction.invoice_id
-      #not sure what it should return
     end
   end
 
   def find_by_invoice_id(desired_invoice_id)
-    @all.find do |transaction| #or invoice, not sure
-      invoice.id == desired_invoice_id
+    @all.find do |invoice| 
+      invoice.invoice_id == desired_invoice_id.to_i
+    end
+  end
+
+  def find_all_by_invoice_id(desired_invoice_id)
+    @all.find_all do |invoice| 
+      invoice.invoice_id == desired_invoice_id.to_i
     end
   end
 
   def find_all_by_credit_card_number(desired_credit_card_number)
     @all.find_all do |transaction|
-      transaction.credit_card_number.to_i == desired_credit_card_number.to_i
-      return transaction
+      transaction.credit_card_number == desired_credit_card_number.to_i
     end
   end
   
   def find_all_by_result(desired_result)
     @all.find_all do |transaction|
       transaction.result == desired_result
-      return transaction
     end
   end
+
+  def find_invoice_for_transaction(invoice_id)
+    @parent.find_invoice_for_transaction(invoice_id)
+  end
+
 end

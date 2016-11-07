@@ -1,6 +1,7 @@
 require 'bigdecimal'
 require 'csv'
 require_relative '../lib/item_repo'
+require 'time'
 
 class Item
   attr_reader :parent,
@@ -33,6 +34,10 @@ class Item
 
   def updated_at
     Time.parse(@updated_at)
+  end
+
+  def merchant
+    @parent.find_merchant_for_item(merchant_id)
   end
 
 end
