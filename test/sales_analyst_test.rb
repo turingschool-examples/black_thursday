@@ -88,7 +88,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_total_revnue_by_date
-    assert_equal 681.75, analyst.total_revenue_by_date(Time.parse("2004, feb, 25")).to_f
+    assert_equal 13882.91, analyst.total_revenue_by_date(Time.parse("2004, feb, 25")).to_f
   end
 
   def test_find_top_revenue_merchants
@@ -103,7 +103,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_finds_revenue_for_single_merchant
-    assert_equal 224107.39, analyst.revenue_by_merchant(12335747).to_f
+    assert_equal 155553.39, analyst.revenue_by_merchant(12335747).to_f
   end
 
   def test_returning_merchants_with_pending_invoices
