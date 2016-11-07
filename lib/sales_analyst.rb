@@ -126,7 +126,7 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    total = invoices_on_date(date).map { |invoice| invoice.total }.reduce(:+)
+    total = invoices_total(invoices_on_date(date))
     return total.round(2) if total
     0
   end
