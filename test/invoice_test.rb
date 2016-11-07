@@ -4,9 +4,9 @@ class InvoiceTest < Minitest::Test
     
   def setup
     se = SalesEngine.from_csv({
-    :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv",
-    :invoices  => "./data/invoices.csv"
+    :items     => "./fixtures/items_small_list.csv",
+    :merchants => "./fixtures/merchant_small_list.csv",
+    :invoices  => "./fixtures/invoices_small_list.csv"
     })
     @ir = se.invoices
   end
@@ -44,11 +44,6 @@ class InvoiceTest < Minitest::Test
   def test_it_determines_time
     assert_equal "2009-02-07 00:00:00 -0700", @ir.all[0].created_at.to_s
     assert_equal "2014-03-15 00:00:00 -0600", @ir.all[0].updated_at.to_s
-  end
-
-  def test_it_knows_merchant
-    assert_equal "IanLudiBoards", @ir.all[0].merchant.name
-    assert_equal "TeeTeeTieDye", @ir.all[3].merchant.name
   end
 
 end

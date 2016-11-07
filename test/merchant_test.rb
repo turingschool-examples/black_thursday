@@ -4,9 +4,9 @@ class MerchantTest < Minitest::Test
 
   def setup
     @se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"
+    :items     => "./fixtures/items_small_list.csv",
+    :merchants => "./fixtures/merchant_small_list.csv",
+    :invoices  => "./fixtures/invoices_small_list.csv"
       })
     @merch = @se.merchants.all[0]
   end

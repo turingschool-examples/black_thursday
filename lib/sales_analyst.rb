@@ -31,7 +31,7 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(id)
-    price_average_operator(id)
+    format decimal price_average_operator(id).to_s
   end
 
   def average_average_price_per_merchant
