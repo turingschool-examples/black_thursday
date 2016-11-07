@@ -7,15 +7,15 @@ class MerchantRepository
 
   def initialize(merchants_data, parent = nil)
     @parent = parent
-    populate(merchants_data)
+    @all = populate(merchants_data)
   end
 
   def populate(merchants_data)
-    @all = merchants_data.map { |merchant| Merchant.new(merchant, self) }
+    merchants_data.map { |merchant| Merchant.new(merchant, self) }
   end
 
   def find_by_id(id_number)
-    @all.find do |merchant|
+    all.find do |merchant|
       if merchant.id == id_number.to_i
         merchant.name
       else
@@ -25,7 +25,7 @@ class MerchantRepository
   end
 
   def find_by_name(merch_name)
-    @all.find do |merchant|
+    all.find do |merchant|
       if merchant.name.downcase == merch_name.downcase
         merchant.id
       else
@@ -35,7 +35,7 @@ class MerchantRepository
   end
 
   def find_all_by_name(fragment)
-    @all.find_all do |merchant|
+    all.find_all do |merchant|
       merchant.name.downcase.include?(fragment.downcase)
     end
   end
