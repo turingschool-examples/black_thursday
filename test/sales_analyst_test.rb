@@ -169,4 +169,18 @@ class SalesAnalystTest < Minitest::Test
     desired_transaction = analyst.engine.transactions.find_by_id(3)
     assert_equal 750, desired_transaction.invoice.id
   end
+
+  def test_analyst_finds_most_sold_iterm_for_a_merchant
+    result = analyst.most_sold_item_for_merchant(12334189)
+    assert_equal 1, result.count
+  end
+
+  def test_it_returns_ties_for_most_sold
+    result = analyst.most_sold_item_for_merchant(12337105)
+    assert_equal 4, result.count
+  end
+
+  def test_analyst_returns_best_item_for_merchant
+    assert_equal 263516130, analyst.best_item_for_merchant(12334189).id
+  end
 end

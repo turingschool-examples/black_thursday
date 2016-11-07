@@ -107,7 +107,7 @@ class SalesAnalyst
     invoice_ids.each_key do |merchant_id| 
       invoice_ids[merchant_id] = revenue_by_merchant(merchant_id)
     end
-    sorted = invoice_ids.sort_by { |_value, key| key}.reverse
+    sorted = sort_grouped(invoice_ids)
     sorted.map { |merchant_pair| engine.merchants.find_by_id(merchant_pair[0]) }
   end
 
@@ -141,5 +141,44 @@ class SalesAnalyst
     {0 => "Sunday", 1 => "Monday", 2 => "Tuesday", 3 => "Wednesday", 4 => "Thursday", 5 => "Friday", 6 => "Saturday"}
   end
 
+  def most_sold_item_for_merchant(merchant_id)
+    sorted = pull_merchants_sold_items(merchant_id)
+    sorted.each_key { |item_id| sorted[item_id] = add_quantities(sorted[item_id]) }
+    final_sorted = sort_grouped(sorted)
+    top_items = final_sorted.find_all {|element| element[1] == final_sorted[0][1]}
+    top_items.map {|element| engine.items.find_by_id(element[0]) }
+  end
+
+  def sort_grouped(grouped)
+    grouped.sort_by{|key, value| value}.reverse
+  end
+
+  def add_quantities(invoice_items)
+    invoice_items.reduce(0) do |sum, invoice_item|
+      sum += invoice_item.quantity
+      sum
+    end
+  end
+
+  def pull_merchants_sold_items(merchant_id)
+    merchant_invoices = engine.merchants.find_by_id(merchant_id).invoices
+    merchant_invoices = merchant_invoices.find_all { |invoice| invoice.is_paid_in_full? }
+    sold_items = merchant_invoices.map { |invoice| invoice.invoice_items }.flatten
+    sold_items.group_by { |invoice_item| invoice_item.item_id }
+  end
+
+  def reduce_revenue(invoice_items)
+    invoice_items.reduce(0) do |sum, invoice_item|
+      sum += (invoice_item.quantity * invoice_item.unit_price)
+      sum
+    end
+  end
+
+  def best_item_for_merchant(merchant_id)
+    sold_items = pull_merchants_sold_items(merchant_id)
+    sold_items.each_key {|item_id| sold_items[item_id] = reduce_revenue(sold_items[item_id])}
+    final_sorted = sort_grouped(sold_items)
+    engine.items.find_by_id(final_sorted[0][0])
+  end
 
 end
