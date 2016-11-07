@@ -5,7 +5,7 @@ class InvoiceItemRepo
   attr_reader :all
 
   def initialize(file, parent = nil)
-    @all = parse_data(file).map { |row| InvoiceItem.new(row, self) }
+    @all    = parse_data(file).map { |row| InvoiceItem.new(row, self) }
     @parent = parent
   end
 
@@ -19,5 +19,9 @@ class InvoiceItemRepo
 
   def find_all_by_invoice_id(id)
     @all.find_all { |invoice_item| invoice_item.invoice_id.eql?(id) }
+  end
+
+  def find_item_by_item_id(id)
+    @parent.find_item_by_item_id(id)
   end
 end

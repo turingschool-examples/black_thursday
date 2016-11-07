@@ -43,5 +43,4 @@ class InvoiceItemRepoTest < Minitest::Test
     invoice_item = InvoiceItemRepo.new('./data/invoice_items.csv').find_all_by_invoice_id(1)
     assert_equal 8, invoice_item.count
   end
-
 end

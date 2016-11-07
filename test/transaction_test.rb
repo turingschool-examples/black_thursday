@@ -4,7 +4,6 @@ require_relative '../lib/data_parser'
 
 class TransactionTest < Minitest::Test
   include DataParser
-
   def test_transaction_class_exists
     assert_instance_of Transaction, Transaction.new({
     :id                          => 6,
@@ -29,7 +28,7 @@ class TransactionTest < Minitest::Test
   })
       assert_equal 6, t.id
       assert_equal 8, t.invoice_id
-      assert_equal "4242424242424242", t.credit_card_number
+      assert_equal 4242424242424242, t.credit_card_number
       assert_equal "0220", t.credit_card_expiration_date
       assert_equal "success", t.result
       assert_respond_to t, :created_at

@@ -12,12 +12,16 @@ class Transaction
 
   def initialize(transaction_data, parent = nil)
     @id                          = transaction_data[:id].to_i
-    @invoice_id                  = transaction_data[:invoice_id]
-    @credit_card_number          = transaction_data[:credit_card_number].to_s
+    @invoice_id                  = transaction_data[:invoice_id].to_i
+    @credit_card_number          = transaction_data[:credit_card_number].to_i
     @credit_card_expiration_date = transaction_data[:credit_card_expiration_date].to_s
     @result                      = transaction_data[:result].to_s
     @created_at                  = format_time(transaction_data[:created_at].to_s)
     @updated_at                  = format_time(transaction_data[:updated_at].to_s)
     @parent                      = parent
+  end
+
+  def invoice
+    @parent.find_invoice_by_invoice_id(id)
   end
 end

@@ -6,7 +6,7 @@ class ItemRepo
   attr_reader :all
 
   def initialize(file, parent = nil)
-    @all = parse_data(file).map { |row| Item.new(row, self) }
+    @all    = parse_data(file).map { |row| Item.new(row, self) }
     @parent = parent
   end
 
