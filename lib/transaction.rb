@@ -1,10 +1,10 @@
 class Transaction
   attr_reader :id,
-              :invoice_id, 
-              :credit_card_number, 
+              :invoice_id,
+              :credit_card_number,
               :credit_card_expiration_date,
               :result,
-              :created_at, 
+              :created_at,
               :updated_at,
               :parent
 
@@ -19,7 +19,7 @@ class Transaction
     @parent                       = parent
   end
 
-  def invoice 
+  def invoice
     parent.find_invoice_by_invoice_id(invoice_id)
   end
 

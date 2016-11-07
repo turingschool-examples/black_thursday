@@ -6,7 +6,7 @@ class Item
               :merchant_id,
               :created_at,
               :updated_at,
-              :parent 
+              :parent
 
   def initialize(arg, parent)
     @id           = arg[:id].to_i

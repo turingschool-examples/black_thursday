@@ -18,7 +18,7 @@ class Invoice
     @parent       = parent
   end
 
-  def merchant 
+  def merchant
     parent.find_merchant_by_id(merchant_id)
   end
 
@@ -27,7 +27,7 @@ class Invoice
   end
 
   def items
-    invoice_items.map { |invoice_item| parent.find_item_by_item_id(invoice_item.item_id)}
+    invoice_items.map { |ii| parent.find_item_by_item_id(ii.item_id)}
   end
 
   def transactions
@@ -39,7 +39,7 @@ class Invoice
   end
 
   def is_paid_in_full?
-    transactions_status = transactions.detect { |transaction| transaction.result == "success" }
+    transactions_status = transactions.detect { |t| t.result == "success" }
     transactions_status ? true : false
   end
 
