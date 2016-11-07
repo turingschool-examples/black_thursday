@@ -32,17 +32,16 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    mean    = average_items_per_merchant
-    std_dev = average_items_per_merchant_standard_deviation
-    merchants.find_all do |merchant|
-      merchant.items.count > (mean + std_dev)
-    end
+    mean       = average_items_per_merchant
+    std_dev    = average_items_per_merchant_standard_deviation
+    threshhold = mean + std_dev
+    merchants.find_all { |merchant| merchant.items.count > threshhold }
   end
 
   def average_item_price_for_merchant(id)
     merch_items = sales_engine.merchants.find_by_id(id).items
     return 0 if merch_items.empty?
-    average(merch_items.map{|row| row.unit_price})
+    average(merch_items.map { |row| row.unit_price })
   end
 
   def average_average_price_per_merchant
@@ -53,11 +52,10 @@ class SalesAnalyst
   end
 
   def golden_items
-    mean    = average_item_price
-    std_dev = item_price_standard_deviation
-    items.find_all do |item|
-      item.unit_price > (mean + (std_dev * 2))
-    end
+    mean       = average_item_price
+    std_dev    = item_price_standard_deviation
+    threshhold = mean + (std_dev * 2)
+    items.find_all { |item| item.unit_price > threshhold }
   end
 
   def average_item_price
@@ -77,27 +75,24 @@ class SalesAnalyst
   end
 
   def top_merchants_by_invoice_count
-    mean    = average_invoices_per_merchant
-    std_dev = average_invoices_per_merchant_standard_deviation
-    merchants.find_all do |merchant|
-      merchant.invoices.count > (mean + (std_dev * 2))
-    end
+    mean       = average_invoices_per_merchant
+    std_dev    = average_invoices_per_merchant_standard_deviation
+    threshhold = mean + (std_dev * 2)
+    merchants.find_all { |merchant| merchant.invoices.count > threshhold }
   end
 
   def bottom_merchants_by_invoice_count
-    mean    = average_invoices_per_merchant
-    std_dev = average_invoices_per_merchant_standard_deviation
-    merchants.find_all do |merchant|
-      merchant.invoices.count < (mean - (std_dev * 2))
-    end
+    mean       = average_invoices_per_merchant
+    std_dev    = average_invoices_per_merchant_standard_deviation
+    threshhold = mean - (std_dev * 2)
+    merchants.find_all { |merchant| merchant.invoices.count < threshhold }
   end
 
   def top_days_by_invoice_count
-    mean    = average_invoices_per_day
-    std_dev = average_invoices_per_day_standard_deviation
-    invoices_by_day.keys.find_all do |day|
-      invoices_by_day[day] > (mean + std_dev)
-    end
+    mean       = average_invoices_per_day
+    std_dev    = average_invoices_per_day_standard_deviation
+    threshhold = mean + std_dev
+    invoices_by_day.keys.find_all { |day| invoices_by_day[day] > threshhold }
   end
 
   def invoices_by_day
@@ -109,7 +104,7 @@ class SalesAnalyst
   end
 
   def invoice_days
-    invoices.map {|invoice| Date::DAYNAMES[invoice.created_at.wday]}
+    invoices.map { |invoice| Date::DAYNAMES[invoice.created_at.wday] }
   end
 
   def average_invoices_per_day
@@ -131,14 +126,15 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    total = invoices_on_date(date).map { |invoice| invoice.total }.reduce(:+)
+    total = invoices_total(invoices_on_date(date))
     return total.round(2) if total
     0
   end
 
   def invoices_on_date(date)
+    date = date.strftime('%F')
     invoices.find_all do |invoice|
-      invoice.created_at.strftime('%F') == date.strftime('%F')
+      invoice.created_at.strftime('%F') == date
     end
   end
 
@@ -147,9 +143,10 @@ class SalesAnalyst
   end
 
   def merchants_ranked_by_revenue
-    merchants_and_invoices.keys.sort_by do |merchant|
+    sorted = merchants_and_invoices.keys.sort_by do |merchant|
       invoices_total(merchants_and_invoices[merchant])
     end.reverse
+    sorted.map { |merchant_id| sales_engine.merchants.find_by_id(merchant_id) }
   end
 
   def invoices_total(invoices)
@@ -157,7 +154,7 @@ class SalesAnalyst
   end
 
   def merchants_and_invoices
-    invoices.group_by { |invoice| invoice.merchant }
+    invoices.group_by { |invoice| invoice.merchant_id }
   end
 
   def merchants_with_pending_invoices
@@ -169,12 +166,13 @@ class SalesAnalyst
   end
 
   def pending?(invoice)
-    invoice.transactions.none? { |transaction| transaction.result == "success" }
+    invoice.transactions.all? { |transaction| transaction.result == "failed" }
   end
 
   def merchants_with_only_one_item
-    merchants = items.group_by {|item| item.merchant}
-    merchants.keys.find_all { |merchant| merchants[merchant].count == 1}
+    merchants = items.group_by { |item| item.merchant_id }
+    ones = merchants.keys.find_all { |id| merchants[id].count == 1}
+    ones.map { |id| sales_engine.merchants.find_by_id(id) }
   end
 
   def merchants_with_only_one_item_registered_in_month(month)
