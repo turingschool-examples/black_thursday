@@ -1,6 +1,6 @@
 module AnalystOperations
 
- def average(collection)
+  def average(collection)
     if empty collection
       0
     elsif single collection
