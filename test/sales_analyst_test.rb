@@ -9,12 +9,15 @@ class SalesAnalystTest < Minitest::Test
   include AnalystOperations
 
   def setup
-    se = SalesEngine.from_csv({
-      :items     => "./fixtures/items_small_list.csv",
-      :merchants => "./fixtures/merchant_smaller_list.csv",
-      :invoices  => "./fixtures/invoices_small_list.csv"
+    @se = SalesEngine.from_csv({
+      :items => "./fixtures/items_small_list.csv",
+      :invoices => "./fixtures/invoices_small_list.csv",
+      :merchants => "./fixtures/merchant_small_list.csv",
+      :invoice_items => "./fixtures/invoice_item_small_list.csv",
+      :transactions => "./fixtures/transactions_small_list.csv",
+      :customers => "./fixtures/customers_small_list.csv"
     })
-    @sa = SalesAnalyst.new(se)
+    @sa = SalesAnalyst.new(@se)
   end
 
   def test_it_exists
@@ -30,11 +33,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_calculates_average_per_standard_deviation
-    assert_equal 0.44, @sa.average_items_per_merchant_standard_deviation
+    assert_equal 0.34, @sa.average_items_per_merchant_standard_deviation
   end
 
   def test_it_calculates_average_items_per_merchant
-    assert_equal 0.22, @sa.average_items_per_merchant
+    assert_equal 0.06, @sa.average_items_per_merchant
   end
 
   def test_it_can_calculate_average_item_price
@@ -42,7 +45,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_calculates_average_average_price
-    assert_equal 4.67, @sa.average_average_price_per_merchant.to_f
+    assert_equal 2.04, @sa.average_average_price_per_merchant.to_f
   end
 
   def test_average_method_averages
