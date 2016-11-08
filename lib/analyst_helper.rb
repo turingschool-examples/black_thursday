@@ -1,13 +1,13 @@
 module AnalystHelper
 
-  def invoice_counts
-    merchants.map { |merchant| merchant.invoices.size }
+  def decimal(number)
+    BigDecimal.new(number)
   end
 
-  def item_counts
-    merchants.map { |merchant| merchant.items.size }
+  def format(number)
+    number.round(2).to_f
   end
-
+  
   def price_compiler(id)
     merchant_items = sales_engine.find_all_items_by_merchant_id(id)
     no_prices                  if merchant_items.size == 0
@@ -30,9 +30,13 @@ module AnalystHelper
     collection.size == 1
   end
 
+  def big(collection)
+    collection.reduce(&:+).to_f / collection.size.to_f
+  end
+
   def days_of_the_week
     days = Hash.new(0)
-    sales_engine.invoices.all.each do |invoice|
+    @invoices.each do |invoice|
       days["Sunday"]    += 1 if invoice.created_at.sunday?
       days["Monday"]    += 1 if invoice.created_at.monday?
       days["Tuesday"]   += 1 if invoice.created_at.tuesday?

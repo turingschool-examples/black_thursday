@@ -46,4 +46,12 @@ class InvoiceTest < Minitest::Test
     assert_equal "2014-03-15 00:00:00 -0600", @ir.all[0].updated_at.to_s
   end
 
+  def test_it_knows_merchant
+    assert_equal "TeeTeeTieDye", @ir.all[3].merchant.name
+  end
+
+  def test_it_knows_parent
+    assert_equal InvoiceRepository, @ir.all[0].invoice_parent.class
+  end
+
 end
