@@ -67,7 +67,7 @@ class InvoiceTest < Minitest::Test
 
     assert_equal Array, invoice.items.class
     # binding.pry
-    assert_equal Item, invoice.items[0].class
+    assert_equal InvoiceItem, invoice.items[0].class
   end
 
   # def test_it_can_find_transactions_from_invoice

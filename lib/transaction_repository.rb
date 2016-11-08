@@ -16,7 +16,8 @@ class TransactionRepository
   end
 
   def find_by_id(id)
-    all.find_all { |transaction| transaction.id.eql?(id) }
+    result = all.find_all { |transaction| transaction.id.eql?(id) }
+    result[0]
   end
 
   def find_all_by_invoice_id(invoice_id)
