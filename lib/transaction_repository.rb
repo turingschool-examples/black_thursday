@@ -6,13 +6,13 @@ class TransactionRepository
   attr_reader   :parent,
                 :all
 
-  def initialize(load_path = nil)
+  def initialize(transaction_list, parent = nil)
     @parent = parent
+    @all = populate(transaction_list)
   end
 
-  # binding.pry
   def populate(transaction_list)
-    @all = transaction_list.map { |transaction| Transaction.new(transaction, self) }
+    transaction_list.map { |transaction| Transaction.new(transaction, self) }
   end
 
   def find_by_id(id)
@@ -29,16 +29,6 @@ class TransactionRepository
 
   def find_all_by_result(result)
     all.find_all { |transaction| transaction.result.eql?(result) }
-  end
-
-  def from_csv(file_path)
-    transaction_item = {}
-    if file_path != nil
-      transaction_item = CSV.read file_path, headers:true, header_converters: :symbol
-    else
-      raise ArgumentError
-    end
-   populate(transaction_item)
   end
 
   def inspect
