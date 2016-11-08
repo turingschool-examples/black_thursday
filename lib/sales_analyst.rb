@@ -62,8 +62,8 @@ class SalesAnalyst
 
   def top_days_by_invoice_count
     one_deviation_above = one_standard_deviation_above_mean_for_weekdays
-    days_of_the_week.each_pair.map do |day, count|
-      day if count > one_deviation_above
+    days_of_the_week.each_pair.map do |day, invoice_count|
+      day if invoice_count > one_deviation_above
     end.compact
   end
 
