@@ -20,7 +20,23 @@ class Invoice
   end
 
   def merchant
-    @invoice_parent.parent.merchants.find_by_id(@merchant_id)
+    invoice_parent.parent.merchants.find_by_id(@merchant_id)
+  end
+
+  def items
+    invoice_parent.parent.invoice_items.find_all_by_invoice_id(id)
+  end
+
+  def transactions
+    invoice_parent.parent.transactions.find_by_id(id)
+  end
+
+  def is_paid_in_full?
+    if status != :pending && status != :returned
+      true
+    else
+      false
+    end
   end
 
   def determine_the_time(time_string)
