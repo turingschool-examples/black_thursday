@@ -4,7 +4,7 @@ module AnalystOperations
     if empty collection
       0
     elsif single collection
-      single_operator collection
+      single_operator(collection)
     else
       big collection
     end
