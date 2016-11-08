@@ -14,26 +14,26 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2016-11-07T18:23:45-07:00">2016-11-07T18:23:45-07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2016-11-08T08:09:35-07:00">2016-11-08T08:09:35-07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="green">99.27%</span></span>
+    (<span class="covered_percent"><span class="green">99.28%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         49159.63
+         48735.55
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>30</b> files in total.
-    <b>825</b> relevant lines. 
-    <span class="green"><b>819</b> lines covered</span> and
+    <b>833</b> relevant lines. 
+    <span class="green"><b>827</b> lines covered</span> and
     <span class="red"><b>6</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -162,12 +162,12 @@
       
       <tr>
         <td class="strong"><a href="#c99a387703299c17cd8ec715f071de3623ca3894" class="src_link" title="lib/sales_analyst.rb">lib/sales_analyst.rb</a></td>
-        <td class="green strong">99.04 %</td>
-        <td>167</td>
-        <td>104</td>
-        <td>103</td>
+        <td class="green strong">99.11 %</td>
+        <td>192</td>
+        <td>112</td>
+        <td>111</td>
         <td>1</td>
-        <td>334.4</td>
+        <td>667.8</td>
       </tr>
       
       <tr>
@@ -2853,10 +2853,10 @@
         <div class="source_table" id="c99a387703299c17cd8ec715f071de3623ca3894">
   <div class="header">
     <h3>lib/sales_analyst.rb</h3>
-    <h4><span class="green">99.04 %</span> covered</h4>
+    <h4><span class="green">99.11 %</span> covered</h4>
     <div>
-      <b>104</b> relevant lines. 
-      <span class="green"><b>103</b> lines covered</span> and
+      <b>112</b> relevant lines. 
+      <span class="green"><b>111</b> lines covered</span> and
       <span class="red"><b>1</b> lines missed.</span>
     </div>
   </div>
@@ -2963,7 +2963,7 @@
         <li class="covered" data-hits="2" data-linenumber="17">
           <span class="hits">2</span>
           
-          <code class="ruby">    squared_differences = sales_engine.merchants.all.map do |merchant|</code>
+          <code class="ruby">    sqr_differences = sales_engine.merchants.all.map do |merchant|</code>
         </li>
       
         <li class="covered" data-hits="950" data-linenumber="18">
@@ -2981,7 +2981,7 @@
         <li class="covered" data-hits="2" data-linenumber="20">
           <span class="hits">2</span>
           
-          <code class="ruby">    Math.sqrt(squared_differences.reduce(:+) / sales_engine.merchants.all.count).round(2)</code>
+          <code class="ruby">    Math.sqrt(sqr_differences.reduce(:+) / sales_engine.merchants.all.count).round(2)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="21">
@@ -3239,7 +3239,7 @@
         <li class="covered" data-hits="1" data-linenumber="63">
           <span class="hits">1</span>
           
-          <code class="ruby">    squared_differences = sales_engine.merchants.all.map do |merchant|</code>
+          <code class="ruby">    sqr_differences = sales_engine.merchants.all.map do |merchant|</code>
         </li>
       
         <li class="covered" data-hits="475" data-linenumber="64">
@@ -3257,7 +3257,7 @@
         <li class="never" data-hits="" data-linenumber="66">
           
           
-          <code class="ruby">    Math.sqrt(squared_differences.reduce(:+) /</code>
+          <code class="ruby">    Math.sqrt(sqr_differences.reduce(:+) /</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="67">
@@ -3386,214 +3386,214 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="88">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="88">
           
-          <code class="ruby">  def top_days_by_invoice_count</code>
+          
+          <code class="ruby"></code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="89">
           <span class="hits">1</span>
           
-          <code class="ruby">    invoices_grouped_by_day = sales_engine.invoices.all.group_by do |invoice|</code>
+          <code class="ruby">  def top_days_by_invoice_count</code>
         </li>
       
-        <li class="covered" data-hits="4985" data-linenumber="90">
-          <span class="hits">4985</span>
+        <li class="covered" data-hits="1" data-linenumber="90">
+          <span class="hits">1</span>
           
-          <code class="ruby">      invoice.created_at.strftime(&quot;%A&quot;)</code>
+          <code class="ruby">    above_std_deviation = sorted_by_day_pairs.find_all do |day, value|</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="91">
+        <li class="covered" data-hits="7" data-linenumber="91">
+          <span class="hits">7</span>
+          
+          <code class="ruby">      value if value &gt; average_invoices_per_day + standard_deviation_for_days</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="92">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="covered" data-hits="8" data-linenumber="92">
-          <span class="hits">8</span>
-          
-          <code class="ruby">    invoices_per_day = invoices_grouped_by_day.values.map { |day| day.count}</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="93">
-          <span class="hits">1</span>
-          
-          <code class="ruby">    invoices_sorted_by_day = invoices_grouped_by_day.keys.zip(invoices_per_day)</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="94">
-          <span class="hits">1</span>
-          
-          <code class="ruby">    invoices_sorted_by_day_hash = invoices_sorted_by_day.inject({}) do |results, element|</code>
-        </li>
-      
-        <li class="covered" data-hits="7" data-linenumber="95">
-          <span class="hits">7</span>
-          
-          <code class="ruby">      results[element[0]] = element[1]</code>
-        </li>
-      
-        <li class="covered" data-hits="7" data-linenumber="96">
-          <span class="hits">7</span>
-          
-          <code class="ruby">      results</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="97">
-          
-          
-          <code class="ruby">    end</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="98">
-          <span class="hits">1</span>
-          
-          <code class="ruby">    average_invoices_per_day = sales_engine.invoices.all.count / 7</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="99">
-          <span class="hits">1</span>
-          
-          <code class="ruby">    squared_differences = invoices_per_day.map do |total_per_day|</code>
-        </li>
-      
-        <li class="covered" data-hits="7" data-linenumber="100">
-          <span class="hits">7</span>
-          
-          <code class="ruby">      (total_per_day - (sales_engine.invoices.all.count / 7))** 2</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="101">
-          
-          
-          <code class="ruby">    end</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="102">
-          <span class="hits">1</span>
-          
-          <code class="ruby">    squared_differences_mean = squared_differences.reduce(:+) / 7</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="103">
-          <span class="hits">1</span>
-          
-          <code class="ruby">    standard_deviation = Math.sqrt(squared_differences_mean).round</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="104">
-          <span class="hits">1</span>
-          
-          <code class="ruby">    above_std_deviation = invoices_sorted_by_day_hash.find_all do |day, value|</code>
-        </li>
-      
-        <li class="covered" data-hits="7" data-linenumber="105">
-          <span class="hits">7</span>
-          
-          <code class="ruby">      value if value &gt; average_invoices_per_day + standard_deviation</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="106">
-          
-          
-          <code class="ruby">    end</code>
-        </li>
-      
-        <li class="covered" data-hits="2" data-linenumber="107">
+        <li class="covered" data-hits="2" data-linenumber="93">
           <span class="hits">2</span>
           
           <code class="ruby">    above_std_deviation.map { |pair| pair[0] }</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="108">
+        <li class="never" data-hits="" data-linenumber="94">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="109">
+        <li class="never" data-hits="" data-linenumber="95">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="110">
+        <li class="covered" data-hits="1" data-linenumber="96">
           <span class="hits">1</span>
           
           <code class="ruby">  def invoice_status(status)</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="111">
+        <li class="covered" data-hits="3" data-linenumber="97">
           <span class="hits">3</span>
           
           <code class="ruby">    relevant_invoices = sales_engine.invoices.find_all_by_status(status)</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="112">
+        <li class="covered" data-hits="3" data-linenumber="98">
           <span class="hits">3</span>
           
           <code class="ruby">    fraction = relevant_invoices.count.to_f / sales_engine.invoices.all.count</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="113">
+        <li class="covered" data-hits="3" data-linenumber="99">
           <span class="hits">3</span>
           
           <code class="ruby">    (fraction * 100).round(2)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="114">
+        <li class="never" data-hits="" data-linenumber="100">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="115">
+        <li class="never" data-hits="" data-linenumber="101">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="116">
+        <li class="covered" data-hits="1" data-linenumber="102">
           <span class="hits">1</span>
           
           <code class="ruby">  def total_revenue_by_date(date)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="117">
+        <li class="never" data-hits="" data-linenumber="103">
           
           
-          <code class="ruby">    @sales_engine.invoices.all.reduce(0) do |result, invoice|</code>
+          <code class="ruby">    sales_engine.invoices.all.reduce(0) do |result, invoice|</code>
         </li>
       
-        <li class="covered" data-hits="4985" data-linenumber="118">
+        <li class="covered" data-hits="4985" data-linenumber="104">
           <span class="hits">4985</span>
           
           <code class="ruby">      if invoice.created_at.to_s.split(&quot; &quot;)[0].eql?(date.to_s.split[0])</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="119">
+        <li class="missed" data-hits="0" data-linenumber="105">
           
           
-          <code class="ruby">      result +=  total_invoice_items_revenue(result, invoice)</code>
+          <code class="ruby">        result +=  total_invoice_items_revenue(result, invoice)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="120">
+        <li class="never" data-hits="" data-linenumber="106">
           
           
           <code class="ruby">      end</code>
         </li>
       
-        <li class="covered" data-hits="4985" data-linenumber="121">
+        <li class="covered" data-hits="4985" data-linenumber="107">
           <span class="hits">4985</span>
           
           <code class="ruby">      result</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="122">
+        <li class="covered" data-hits="1" data-linenumber="108">
           <span class="hits">1</span>
           
           <code class="ruby">    end.to_d.round(2)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="109">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="110">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="111">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def revenue_by_merchant(merchant_id)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="112">
+          
+          
+          <code class="ruby">    sales_engine.merchants.find_invoices_by_merchant_id(merchant_id).reduce(0) do |result, invoice|</code>
+        </li>
+      
+        <li class="covered" data-hits="9" data-linenumber="113">
+          <span class="hits">9</span>
+          
+          <code class="ruby">      result +=  total_invoice_items_revenue(result, invoice)</code>
+        </li>
+      
+        <li class="covered" data-hits="9" data-linenumber="114">
+          <span class="hits">9</span>
+          
+          <code class="ruby">      result</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="115">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    end.to_d.round(2)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="116">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="117">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="118">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  private</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="119">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def grouped_invoices_by_day</code>
+        </li>
+      
+        <li class="covered" data-hits="9" data-linenumber="120">
+          <span class="hits">9</span>
+          
+          <code class="ruby">    sales_engine.invoices.all.group_by do |invoice|</code>
+        </li>
+      
+        <li class="covered" data-hits="44865" data-linenumber="121">
+          <span class="hits">44865</span>
+          
+          <code class="ruby">      invoice.created_at.strftime(&quot;%A&quot;)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="122">
+          
+          
+          <code class="ruby">    end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="123">
@@ -3611,71 +3611,71 @@
         <li class="covered" data-hits="1" data-linenumber="125">
           <span class="hits">1</span>
           
-          <code class="ruby">  def revenue_by_merchant(merchant_id)</code>
+          <code class="ruby">  def invoices_per_day</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="126">
+        <li class="covered" data-hits="64" data-linenumber="126">
+          <span class="hits">64</span>
           
-          
-          <code class="ruby">    @sales_engine.merchants.find_invoices_by_merchant_id(merchant_id).reduce(0) do |result, invoice|</code>
+          <code class="ruby">    grouped_invoices_by_day.values.map { |day| day.count}</code>
         </li>
       
-        <li class="covered" data-hits="9" data-linenumber="127">
-          <span class="hits">9</span>
-          
-          <code class="ruby">      result +=  total_invoice_items_revenue(result, invoice)</code>
-        </li>
-      
-        <li class="covered" data-hits="9" data-linenumber="128">
-          <span class="hits">9</span>
-          
-          <code class="ruby">      result</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="129">
-          <span class="hits">1</span>
-          
-          <code class="ruby">    end.to_d.round(2)</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="130">
+        <li class="never" data-hits="" data-linenumber="127">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="131">
+        <li class="never" data-hits="" data-linenumber="128">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="132">
+        <li class="covered" data-hits="1" data-linenumber="129">
           <span class="hits">1</span>
           
-          <code class="ruby">  private</code>
+          <code class="ruby">  def invoices_sorted_by_day</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="130">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    grouped_invoices_by_day.keys.zip(invoices_per_day)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="131">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="132">
+          
+          
+          <code class="ruby"></code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="133">
           <span class="hits">1</span>
           
-          <code class="ruby">  def total_invoice_items_revenue(result, invoice)</code>
+          <code class="ruby">  def sorted_by_day_pairs</code>
         </li>
       
-        <li class="covered" data-hits="9" data-linenumber="134">
-          <span class="hits">9</span>
+        <li class="covered" data-hits="1" data-linenumber="134">
+          <span class="hits">1</span>
           
-          <code class="ruby">    invoice.invoice_items.reduce(0) do |result, invoice_item|</code>
+          <code class="ruby">    invoices_sorted_by_day.inject({}) do |result, pair|</code>
         </li>
       
-        <li class="covered" data-hits="44" data-linenumber="135">
-          <span class="hits">44</span>
+        <li class="covered" data-hits="7" data-linenumber="135">
+          <span class="hits">7</span>
           
-          <code class="ruby">      result += invoice_item.unit_price * invoice_item.quantity</code>
+          <code class="ruby">      result[pair[0]] = pair[1]</code>
         </li>
       
-        <li class="covered" data-hits="44" data-linenumber="136">
-          <span class="hits">44</span>
+        <li class="covered" data-hits="7" data-linenumber="136">
+          <span class="hits">7</span>
           
           <code class="ruby">      result</code>
         </li>
@@ -3701,166 +3701,316 @@
         <li class="covered" data-hits="1" data-linenumber="140">
           <span class="hits">1</span>
           
-          <code class="ruby">  def average_item_price_standard_deviation</code>
+          <code class="ruby">  def average_invoices_per_day</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="141">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="7" data-linenumber="141">
+          <span class="hits">7</span>
           
-          <code class="ruby">    average = average_item_price</code>
+          <code class="ruby">    sales_engine.invoices.all.count / 7</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="142">
-          <span class="hits">1</span>
-          
-          <code class="ruby">    sq_differences = sales_engine.items.all.map do |item|</code>
-        </li>
-      
-        <li class="covered" data-hits="1367" data-linenumber="143">
-          <span class="hits">1367</span>
-          
-          <code class="ruby">      (item.unit_price - average)** 2</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="144">
-          
-          
-          <code class="ruby">    end</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="145">
-          <span class="hits">1</span>
-          
-          <code class="ruby">    Math.sqrt(sq_differences.reduce(:+) / sales_engine.items.all.count).round(2)</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="146">
+        <li class="never" data-hits="" data-linenumber="142">
           
           
           <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="143">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="144">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def squared_differences</code>
+        </li>
+      
+        <li class="covered" data-hits="7" data-linenumber="145">
+          <span class="hits">7</span>
+          
+          <code class="ruby">    invoices_per_day.map do |total_per_day|</code>
+        </li>
+      
+        <li class="covered" data-hits="49" data-linenumber="146">
+          <span class="hits">49</span>
+          
+          <code class="ruby">      (total_per_day - (sales_engine.invoices.all.count / 7))** 2</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="147">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">    end</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="148">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  def average_item_price</code>
-        </li>
-      
-        <li class="covered" data-hits="2736" data-linenumber="149">
-          <span class="hits">2736</span>
-          
-          <code class="ruby">    item_prices = sales_engine.items.all.map { |item| item.unit_price }</code>
-        </li>
-      
-        <li class="covered" data-hits="2" data-linenumber="150">
-          <span class="hits">2</span>
-          
-          <code class="ruby">    (item_prices.reduce(:+) / item_prices.count)</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="151">
+        <li class="never" data-hits="" data-linenumber="148">
           
           
           <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="149">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="150">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def squared_differences_mean</code>
+        </li>
+      
+        <li class="covered" data-hits="7" data-linenumber="151">
+          <span class="hits">7</span>
+          
+          <code class="ruby">    squared_differences.reduce(:+) / 7</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="152">
           
           
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="153">
+          
+          
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="153">
+        <li class="covered" data-hits="1" data-linenumber="154">
           <span class="hits">1</span>
           
-          <code class="ruby">  def average_invoice_standard_deviation</code>
+          <code class="ruby">  def standard_deviation_for_days</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="154">
-          <span class="hits">2</span>
+        <li class="covered" data-hits="7" data-linenumber="155">
+          <span class="hits">7</span>
           
-          <code class="ruby">    average = average_invoice_count</code>
+          <code class="ruby">    Math.sqrt(squared_differences_mean).round</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="155">
-          <span class="hits">2</span>
+        <li class="never" data-hits="" data-linenumber="156">
           
-          <code class="ruby">    squared_differences = sales_engine.merchants.all.map do |merchant|</code>
-        </li>
-      
-        <li class="covered" data-hits="950" data-linenumber="156">
-          <span class="hits">950</span>
           
-          <code class="ruby">      (merchant.invoices.count - average)** 2</code>
+          <code class="ruby">  end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="157">
           
           
-          <code class="ruby">    end.reduce(:+)</code>
-        </li>
-      
-        <li class="covered" data-hits="2" data-linenumber="158">
-          <span class="hits">2</span>
-          
-          <code class="ruby">    Math.sqrt(squared_differences / sales_engine.merchants.all.count).round(2)</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="159">
-          
-          
-          <code class="ruby">  end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="160">
-          
-          
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="161">
+        <li class="covered" data-hits="1" data-linenumber="158">
           <span class="hits">1</span>
           
-          <code class="ruby">  def average_invoice_count</code>
+          <code class="ruby">  def total_invoice_items_revenue(result, invoice)</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="162">
-          <span class="hits">2</span>
+        <li class="covered" data-hits="9" data-linenumber="159">
+          <span class="hits">9</span>
           
-          <code class="ruby">    invoice_count = sales_engine.merchants.all.map do |merchant|</code>
+          <code class="ruby">    invoice.invoice_items.reduce(0) do |result, invoice_item|</code>
         </li>
       
-        <li class="covered" data-hits="950" data-linenumber="163">
-          <span class="hits">950</span>
+        <li class="covered" data-hits="44" data-linenumber="160">
+          <span class="hits">44</span>
           
-          <code class="ruby">      merchant.invoices.count</code>
+          <code class="ruby">      result += invoice_item.unit_price * invoice_item.quantity</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="164">
+        <li class="covered" data-hits="44" data-linenumber="161">
+          <span class="hits">44</span>
+          
+          <code class="ruby">      result</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="162">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="165">
-          <span class="hits">2</span>
-          
-          <code class="ruby">    (invoice_count.reduce(:+) / invoice_count.count)</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="166">
+        <li class="never" data-hits="" data-linenumber="163">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="167">
+        <li class="never" data-hits="" data-linenumber="164">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="165">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def average_item_price_standard_deviation</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="166">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    average = average_item_price</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="167">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    sq_differences = sales_engine.items.all.map do |item|</code>
+        </li>
+      
+        <li class="covered" data-hits="1367" data-linenumber="168">
+          <span class="hits">1367</span>
+          
+          <code class="ruby">      (item.unit_price - average)** 2</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="169">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="170">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    Math.sqrt(sq_differences.reduce(:+) / sales_engine.items.all.count).round(2)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="171">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="172">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="173">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def average_item_price</code>
+        </li>
+      
+        <li class="covered" data-hits="2736" data-linenumber="174">
+          <span class="hits">2736</span>
+          
+          <code class="ruby">    item_prices = sales_engine.items.all.map { |item| item.unit_price }</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="175">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    (item_prices.reduce(:+) / item_prices.count)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="176">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="177">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="178">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def average_invoice_standard_deviation</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="179">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    average = average_invoice_count</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="180">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    sqr_differences = sales_engine.merchants.all.map do |merchant|</code>
+        </li>
+      
+        <li class="covered" data-hits="950" data-linenumber="181">
+          <span class="hits">950</span>
+          
+          <code class="ruby">      (merchant.invoices.count - average)** 2</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="182">
+          
+          
+          <code class="ruby">    end.reduce(:+)</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="183">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    Math.sqrt(sqr_differences / sales_engine.merchants.all.count).round(2)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="184">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="185">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="186">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def average_invoice_count</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="187">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    invoice_count = sales_engine.merchants.all.map do |merchant|</code>
+        </li>
+      
+        <li class="covered" data-hits="950" data-linenumber="188">
+          <span class="hits">950</span>
+          
+          <code class="ruby">      merchant.invoices.count</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="189">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="190">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    (invoice_count.reduce(:+) / invoice_count.count)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="191">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="192">
           
           
           <code class="ruby">end</code>
