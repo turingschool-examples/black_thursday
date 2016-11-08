@@ -53,7 +53,7 @@ class InvoiceTest < Minitest::Test
     repo.verify
   end
 
-  def test_it_calls_parent_when_looking_for_customer
+  def test_it_calls_parent_when_looking_for_transactions
     repo.expect(:find_transactions_by_invoice_id, nil, [6])
     invoice.transactions
     repo.verify

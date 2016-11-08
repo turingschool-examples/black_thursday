@@ -6,7 +6,7 @@ class InvoiceItem
               :unit_price,
               :created_at,
               :updated_at,
-              :quantity
+              :quantity,
               :parent
 
   def initialize(data, parent)

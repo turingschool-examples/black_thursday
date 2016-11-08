@@ -50,7 +50,7 @@ class InvoiceItemTest < Minitest::Test
     assert_equal 2012, invoice_item_2.created_at.year
   end
 
-  def test_invoice_items_have_created_on_dates
+  def test_invoice_items_have_updated_on_dates
     assert_equal 2012, invoice_item_1.updated_at.year
     assert_equal 2012, invoice_item_2.updated_at.year
   end

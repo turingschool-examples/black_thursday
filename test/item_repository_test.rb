@@ -32,7 +32,7 @@ class ItemRepositoryTest < Minitest::Test
       assert_equal [], repo.find_all_with_description("Boogers")
   end
 
-def test_it_returns_array_when_description_unique_case_insensitive
+  def test_it_returns_array_when_description_unique_case_insensitive
     current = repo.find_all_with_description("socialMedia")
     assert_equal 263395237, current[0].id
   end
@@ -60,7 +60,7 @@ def test_it_returns_array_when_description_unique_case_insensitive
     assert_equal 263395237, current[0].id
   end
   
-  def test_it_returns_array_of_price_in_range
+  def test_it_returns_array_of_price_in_different_range
     current = repo.find_all_by_price_in_range(10.00..14.00)
     assert_equal "Glitter scrabble frames", current[1].name
   end
@@ -71,10 +71,10 @@ def test_it_returns_array_when_description_unique_case_insensitive
   
   def test_it_returns_array_of_items_that_have_matching_merchant_id
     current = repo.find_all_by_merchant_id(12334141)
-    assert_equal 263395237, current[1].id
+    assert_equal 263395237, current[0].id
   end
   
-  def test_it_returns_array_of_items_that_have_matching_merchant_id
+  def test_it_returns_array_of_items_that_have_different_matching_merchant_id
     current = repo.find_all_by_merchant_id(12334185)
     assert_equal "Glitter scrabble frames", current[0].name
   end

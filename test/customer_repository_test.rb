@@ -7,11 +7,11 @@ class CustomerRepostioryTest < Minitest::Test
 
   def setup
     @parent = Minitest::Mock.new
-    @repo = CustomerRepository.new('./data/customers.csv', parent) 
+    @repo = CustomerRepository.new('./test/assets/test_customers.csv', parent) 
   end
 
   def test_repo_all_holds_array_of_customers
-    assert_equal 1000, repo.all.count
+    assert_equal 31, repo.all.count
   end
 
   def test_repo_holds_customer_instances_that_are_accessible
@@ -19,7 +19,7 @@ class CustomerRepostioryTest < Minitest::Test
   end
 
   def test_repo_can_find_customer_given_id
-    assert_equal 'Rodrick', repo.find_by_id(690).first_name
+    assert_equal 'Lucille', repo.find_by_id(12).first_name
   end
 
   def test_repo_returns_nil_given_nonexsistant_id
@@ -27,7 +27,7 @@ class CustomerRepostioryTest < Minitest::Test
   end
 
   def test_it_returns_array_with_all_customers_with_first_name
-    assert_equal 1, repo.find_all_by_first_name('Rodrick').count
+    assert_equal 1, repo.find_all_by_first_name('Lucille').count
   end
 
   def test_it_returns_empty_array_when_first_name_not_found
@@ -35,7 +35,7 @@ class CustomerRepostioryTest < Minitest::Test
   end
 
   def test_it_returns_array_with_all_customers_with_last_name
-    assert_equal 2, repo.find_all_by_last_name('Homenick').count
+    assert_equal 1, repo.find_all_by_last_name('Homenick').count
   end
 
   def test_it_returns_empty_array_when_last_name_not_found

@@ -41,7 +41,7 @@ class CustomerTest < Minitest::Test
     assert_equal 2012, customer_2.created_at.year
   end
 
-  def test_customers_have_idividual_dates_created_at
+  def test_customers_have_idividual_dates_updated_at
     assert_equal 2012, customer_1.updated_at.year
     assert_equal 2015, customer_2.updated_at.year
   end
