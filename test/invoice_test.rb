@@ -57,8 +57,21 @@ class InvoiceTest < Minitest::Test
     assert_equal InvoiceRepository, @ir.all[0].invoice_parent.class
   end
 
-  def test_it_knows_the_total
-
+  def test_it_knows_if_is_paid
+    assert @ir.all[1].is_paid_in_full?
+    refute @ir.all[0].is_paid_in_full?
   end
 
+  def test_it_can_find_items_for_an_invoice
+    invoice = @ir.find_by_id(2)
+    assert_equal Array, invoice.items.class
+    assert_equal Item, invoice.items[0].class
+  end
+
+  def test_it_can_find_transactions_from_invoice
+    invoice = @ir.find_by_id(2)
+    binding.pry
+    invoice.transactions # => [transaction, transaction]
+    invoice.customer # => customer
+    end
 end
