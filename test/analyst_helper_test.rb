@@ -4,7 +4,6 @@ require './lib/analyst_helper'
 require './lib/analyst_operations'
 
 class AnalystHelperTest < Minitest::Test
-  include AnalystHelper
 
   def setup
     se = SalesEngine.from_csv({
@@ -47,10 +46,6 @@ class AnalystHelperTest < Minitest::Test
 
   def test_decimal_creates_big_decimal
     assert_equal BigDecimal, @sa.decimal(2).class
-  end
-
-  def test_format_properly_formats
-    assert_equal 29.99, @sa.format(decimal(29.991.to_s))
   end
 
 end

@@ -1,10 +1,6 @@
 module AnalystOperations
 
-  def average_item_counts
-    average(@item_counts)
-  end
-
-  def average(collection)
+ def average(collection)
     if empty collection
       0
     elsif single collection

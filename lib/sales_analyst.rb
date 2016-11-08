@@ -26,7 +26,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    format decimal average_item_counts.to_s
+    format decimal average(@item_counts).to_s
   end
 
   def average_invoices_per_merchant
