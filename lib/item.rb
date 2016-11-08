@@ -6,7 +6,7 @@ class Item
               :merchant_id,
               :created_at,
               :updated_at,
-              :parent 
+              :parent
 
   def initialize(arg, parent)
     @id           = arg[:id].to_i
@@ -14,9 +14,9 @@ class Item
     @description  = arg[:description]
     @unit_price   = BigDecimal.new(arg[:unit_price].to_i) / 100
     @merchant_id  = arg[:merchant_id].to_i
-    @created_at   = arg[:created_at]
-    @updated_at   = arg[:updated_at]
-    @parent = parent
+    @created_at   = Time.parse(arg[:created_at])
+    @updated_at   = Time.parse(arg[:updated_at])
+    @parent       = parent
   end
 
   def unit_price_as_dollars

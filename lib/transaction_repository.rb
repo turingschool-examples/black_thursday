@@ -4,11 +4,11 @@ require_relative 'parser'
 
 class TransactionRepository
   include Parser
-  attr_reader :all, 
+  attr_reader :all,
               :parent
-  
+
   def initialize(file_path, parent)
-    @all    = create_transactions(file_path) 
+    @all    = create_transactions(file_path)
     @parent = parent
   end
 
@@ -18,19 +18,19 @@ class TransactionRepository
   end
 
   def find_by_id(desired_id)
-    all.find {|transaction| transaction.id == desired_id}
+    all.find {|t| t.id == desired_id}
   end
 
   def find_all_by_invoice_id(desired_id)
-    all.find_all {|transaction| transaction.invoice_id == desired_id}
+    all.find_all {|t| t.invoice_id == desired_id}
   end
 
   def find_all_by_credit_card_number(desired_number)
-    all.find_all {|transaction| transaction.credit_card_number == desired_number}
+    all.find_all {|t| t.credit_card_number == desired_number}
   end
 
   def find_all_by_result(desired_result)
-    all.find_all {|transaction| transaction.result == desired_result}
+    all.find_all {|t| t.result == desired_result}
   end
 
   def find_invoice_by_invoice_id(invoice_id)

@@ -1,4 +1,3 @@
-require 'pry'
 require 'csv'
 require 'bigdecimal'
 require_relative 'item'
@@ -19,23 +18,23 @@ class ItemRepository
   end
 
   def find_by_id(desired_id)
-    all.find { |item| item.id.eql?(desired_id) }
+    all.find { |i| i.id.eql?(desired_id) }
   end
 
   def find_by_name(desired_name)
-    all.find { |item| item.name.downcase.eql?(desired_name.downcase) }
+    all.find { |i| i.name.downcase.eql?(desired_name.downcase) }
   end
 
   def find_all_with_description(fragment)
-    response = all.find_all { |item| item.description.downcase.include?(fragment.downcase) }
+    all.find_all { |i| i.description.downcase.include?(fragment.downcase) }
   end
 
   def find_all_by_price(desired_price)
-    all.find_all { |item| item.unit_price.eql?(desired_price) }
+    all.find_all { |i| i.unit_price.eql?(desired_price) }
   end
 
   def find_all_by_price_in_range(desired_range)
-    response = all.find_all { |item| desired_range.cover?(item.unit_price) }
+    all.find_all { |i| desired_range.cover?(i.unit_price) }
   end
 
   def convert_to_dollar(big_decimal)
@@ -43,7 +42,7 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(desired_merchant_id)
-    all.find_all { |item| item.merchant_id.eql?(desired_merchant_id) }
+    all.find_all { |i| i.merchant_id.eql?(desired_merchant_id) }
   end
 
   def find_merchant_by_merchant_id(merchant_id)
@@ -51,6 +50,6 @@ class ItemRepository
   end
 
   def inspect
-    
+    "#{self.class}: #{all.count}"
   end
 end

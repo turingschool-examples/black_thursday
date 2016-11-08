@@ -7,12 +7,13 @@ class MerchantTest < Minitest::Test
 
   def setup
     @parent = Minitest::Mock.new
-    @m = Merchant.new({:id => 1,:name => "Bob"}, parent) 
+    @m = Merchant.new({:id => 1,:name => "Bob", :created_at => "2009-02-01"}, parent) 
   end
 
   def test_that_merchant_stores_id_and_name
     assert_equal 1, m.id
     assert_equal "Bob", m.name
+    assert_equal 2009, m.created_at.year
   end
 
   def test_it_calls_its_parents_when_looking_for_items

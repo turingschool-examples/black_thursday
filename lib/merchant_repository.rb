@@ -4,11 +4,11 @@ require_relative 'parser'
 
 class MerchantRepository
   include Parser
-  attr_reader :all, 
+  attr_reader :all,
               :parent
 
   def initialize(file_path, parent)
-    @all    = create_merchants(file_path) 
+    @all    = create_merchants(file_path)
     @parent = parent
   end
 
@@ -18,15 +18,15 @@ class MerchantRepository
   end
 
   def find_by_id(desired_id)
-    all.find { |merchant| merchant.id == desired_id }
+    all.find { |m| m.id == desired_id }
   end
 
   def find_by_name(desired_name)
-    all.find { |merchant| merchant.name.downcase == desired_name.downcase }
+    all.find { |m| m.name.downcase == desired_name.downcase }
   end
 
   def find_all_by_name(desired_name_frag)
-    all.find_all { |merchant| merchant.name.downcase.include?(desired_name_frag.downcase) }
+    all.find_all { |m| m.name.downcase.include?(desired_name_frag.downcase) }
   end
 
   def find_items_by_merchant_id(id)
@@ -34,9 +34,9 @@ class MerchantRepository
   end
 
   def merchant_item_count
-    all.map {|merchant| merchant.items.count }
+    all.map {|m| m.items.count }
   end
-    
+
   def find_invoices_by_merchant_id(id)
     parent.find_invoices_by_merchant_id(id)
   end

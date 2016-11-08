@@ -13,19 +13,19 @@ class InvoiceItemRepository
 
   def create_invoice_items(file_path)
     invoice_item_data = parse_invoice_items_csv(file_path)
-    invoice_item_data.map {|row| InvoiceItem.new(row, self)} 
+    invoice_item_data.map {|row| InvoiceItem.new(row, self)}
   end
 
   def find_by_id(desired_id)
-    all.find { |invoice_item| invoice_item.id.eql?(desired_id) }
+    all.find { |ii| ii.id.eql?(desired_id) }
   end
 
   def find_all_by_item_id(desired_id)
-    all.find_all { |invoice_item| invoice_item.item_id.eql?(desired_id) }
+    all.find_all { |ii| ii.item_id.eql?(desired_id) }
   end
 
   def find_all_by_invoice_id(desired_id)
-    all.find_all { |invoice_item| invoice_item.invoice_id.eql?(desired_id) }
+    all.find_all { |ii| ii.invoice_id.eql?(desired_id) }
   end
 
   def inspect

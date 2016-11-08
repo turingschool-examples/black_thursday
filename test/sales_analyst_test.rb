@@ -1,6 +1,7 @@
 require_relative 'test_helper'
 require_relative '../lib/sales_analyst'
 require_relative '../lib/sales_engine'
+require 'pry'
 
 class SalesAnalystTest < Minitest::Test 
 
@@ -87,4 +88,100 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 29.55, analyst.invoice_status(:pending)
   end
 
+  def test_total_revnue_by_date
+    assert_equal 13882.91, analyst.total_revenue_by_date(Time.parse("2004, feb, 25")).to_f
+  end
+
+  def test_find_top_revenue_merchants
+    expected = 12334634
+    result = analyst.top_revenue_earners(4).map {|merchant| merchant.id}
+    assert_equal 4, result.count
+    assert_equal expected, result.first
+  end
+
+  def test_find_top_merchants_returns_twenty_merchants_by_default
+    assert_equal 20, analyst.top_revenue_earners.count
+  end
+
+  def test_it_finds_revenue_for_single_merchant
+    assert_equal 155553.39, analyst.revenue_by_merchant(12335747).to_f
+  end
+
+  def test_returning_merchants_with_pending_invoices
+    assert_equal 467, analyst.merchants_with_pending_invoices.count
+  end
+
+  def test_it_returns_merchants_with_one_item
+    assert_equal 243, analyst.merchants_with_only_one_item.count
+  end
+
+  def test_findind_merchants_with_one_item_in_first_month
+    assert_equal 18, analyst.merchants_with_only_one_item_registered_in_month("june").count
+  end
+
+  def test_merchants_ranked_by_revenue_returns_all_ranked_merchants
+    result = analyst.merchants_ranked_by_revenue
+    assert_equal 475, result.count
+    assert_equal 12334634, result.first.id
+    assert_equal 12336175, result.last.id
+  end
+
+  def test_finding_items_by_merchant
+    desired_merchant = analyst.engine.merchants.find_by_id(12334395)
+    assert_equal 5, desired_merchant.items.count
+  end
+
+  def test_finding_customers_by_merchant
+    desired_merchant = analyst.engine.merchants.find_by_id(12334395)
+    assert_equal 11, desired_merchant.customers.count
+  end
+
+  def test_finding_merchant_by_item
+    desired_item = analyst.engine.items.find_by_id(263400233)
+    assert_equal 12334423, desired_item.merchant.id
+  end
+
+  def test_finding_items_by_invoice
+    desired_invoice = analyst.engine.invoices.find_by_id(18)
+    assert_equal 7, desired_invoice.items.count
+  end
+
+  def test_finding_transactions_by_invoice
+    desired_invoice = analyst.engine.invoices.find_by_id(18)
+    assert_equal 2, desired_invoice.transactions.count
+  end
+
+  def test_finding_customer_by_invoice
+    desired_invoice = analyst.engine.invoices.find_by_id(18)
+    assert_equal 5, desired_invoice.customer.id
+  end
+
+  def test_invoice_is_paid_in_full
+    desired_invoice = analyst.engine.invoices.find_by_id(18)
+    assert_equal true, desired_invoice.is_paid_in_full?
+  end
+
+  def test_finding_merchants_by_customers
+    desired_customer = analyst.engine.customers.find_by_id(5)
+    assert_equal 8, desired_customer.merchants.count
+  end
+
+  def test_finding_invoice_by_transaction
+    desired_transaction = analyst.engine.transactions.find_by_id(3)
+    assert_equal 750, desired_transaction.invoice.id
+  end
+
+  def test_analyst_finds_most_sold_iterm_for_a_merchant
+    result = analyst.most_sold_item_for_merchant(12334189)
+    assert_equal 1, result.count
+  end
+
+  def test_it_returns_ties_for_most_sold
+    result = analyst.most_sold_item_for_merchant(12337105)
+    assert_equal 4, result.count
+  end
+
+  def test_analyst_returns_best_item_for_merchant
+    assert_equal 263516130, analyst.best_item_for_merchant(12334189).id
+  end
 end
