@@ -5,11 +5,10 @@ sa.total_revenue_by_date(date) #=> $$
 
 * Lives in SalesAnalyst
 * Iterate through invoice_repo.all to find_all created_at (date)
+    * We'll actually probably have to find_all corresponding to completed transactions updated_at (date)
 * Return the unit_price of each invoice_item it finds
 * Format to spec
-  * We may have to sharpen this to only include completed transactions
-  per Transaction, since it's asking for revenue, but we have
-  to us the unit_price from invoice_item (IIRepo.find_all_by_result)
+  * **Be sure to use unit_price from invoice_item**
 
 
 # Method #2:
@@ -43,7 +42,7 @@ sa.merchants_with_pending_invoices #=> [merchant, merchant, merchant]
 
 * Lives in SalesAnalyst
 * If invoice.status(:pending) doesn't get us expected results, refer to tip from spec:
-  **Note: an invoice is considered pending if none of its transactions are successful.**
+    * **Note: an invoice is considered pending if none of its transactions are successful.**
 
 
 
