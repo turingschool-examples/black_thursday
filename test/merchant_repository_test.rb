@@ -31,9 +31,17 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal "Shopin1901", result[0].name
   end
 
-  def test_it_can_get_items_by_merchant_id
+  def test_it_can_get_items_by_merchant
     result = @mr.find_all_items_by_merchant(@mr.all[0])
     assert_equal Array, result.class
+  end
+
+  def test_it_can_find_all_invoices_by_merchant
+    assert_equal 1, @mr.find_all_invoices_by_merchant(12334269).size
+  end
+
+  def test_inspect_message
+    assert_equal "#<MerchantRepository 99 rows>", @mr.inspect
   end
 
 end

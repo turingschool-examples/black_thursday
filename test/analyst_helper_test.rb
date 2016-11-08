@@ -9,7 +9,7 @@ class AnalystHelperTest < Minitest::Test
   def setup
     se = SalesEngine.from_csv({
       :items     => "./fixtures/items_small_list.csv",
-      :merchants => "./fixtures/merchant_small_list.csv",
+      :merchants => "./fixtures/merchant_smaller_list.csv",
       :invoices  => "./fixtures/invoices_small_list.csv"
     })
     @sa = SalesAnalyst.new(se)
@@ -25,6 +25,32 @@ class AnalystHelperTest < Minitest::Test
 
   def test_days_of_the_week_returns_proper_hash
     assert_equal ({"Saturday"=>2, "Friday"=>2, "Wednesday"=>1, "Monday"=>2}), @sa.days_of_the_week
+  end
+
+  def test_all_prices_retrieves_prices
+    assert_equal Array, @sa.all_prices(@sa.merchants[0].items).class
+    assert_equal 1, @sa.all_prices(@sa.merchants[0].items).size
+    assert_equal BigDecimal, @sa.all_prices(@sa.merchants[0].items)[0].class
+  end
+
+  def test_big_performs_average
+    assert_equal 3.0, @sa.big([2,3,4])
+  end
+
+  def test_single_detects_single_item_array
+    assert_equal true, @sa.single([2])
+  end
+
+  def test_empty_detects_empty_array
+    assert_equal false, @sa.empty([2])
+  end
+
+  def test_decimal_creates_big_decimal
+    assert_equal BigDecimal, @sa.decimal(2).class
+  end
+
+  def test_format_properly_formats
+    assert_equal 29.99, @sa.format(decimal(29.991.to_s))
   end
 
 end

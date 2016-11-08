@@ -19,6 +19,10 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal Invoice, @ir.all[0].class
   end
 
+  def test_it_knows_parent
+    assert_equal SalesEngine, @ir.parent.class
+  end
+
   def test_find_by_id_returns_expected_invoice
     assert_equal :pending, @ir.find_by_id(1).status
     assert_equal :shipped, @ir.find_by_id(3).status
@@ -36,6 +40,10 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_find_all_by_status_returns_expected_array
     assert_equal Array, @ir.find_all_by_status(:pending).class
     assert_equal 5, @ir.find_all_by_status(:pending).size
+  end
+
+  def test_manual_inspect
+    assert_equal "#<InvoiceRepository 7 rows>", @ir.inspect
   end
 
 end
