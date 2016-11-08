@@ -83,9 +83,9 @@ class SalesAnalyst
   end
 
   def golden_items
-    two_deviations = two_standard_deviations_away_in_price
+    two_deviations_above = two_standard_deviations_away_in_price
     items.find_all do |item|
-      item.unit_price >= two_deviations
+      item.unit_price >= two_deviations_above
     end
   end
 
