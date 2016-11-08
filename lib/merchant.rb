@@ -1,7 +1,3 @@
-require_relative './item_repo'
-require_relative './merchant_repo'
-require_relative './invoice_repo'
-
 class Merchant
   attr_reader :name,
               :id,

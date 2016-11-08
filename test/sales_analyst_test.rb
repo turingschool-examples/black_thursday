@@ -72,6 +72,18 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 13.5, SalesAnalyst.new(se).invoice_status(:returned)
   end
 
+  def test_sales_analyst_can_find_total_revenue_by_date
+    se = SalesEngine.from_csv(file_path)
+    expected = BigDecimal.new('0.0', 9)
+    assert_equal expected, SalesAnalyst.new(se).total_revenue_by_date(Time.parse("2012-03-27"))
+  end
+
+  def test_sales_analyst_can_find_total_revenue_by_merchant_id
+    se = SalesEngine.from_csv(file_path)
+    expected = BigDecimal.new('0.11639397E6',18)
+    assert_equal expected, SalesAnalyst.new(se).revenue_by_merchant(12334871)
+  end
+
   def file_path
     {
       :items         => "./data/items.csv",

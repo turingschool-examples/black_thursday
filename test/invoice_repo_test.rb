@@ -15,7 +15,7 @@ class InvoiceRepoTest < Minitest::Test
     assert_equal :pending, invoice_repo.all.first.status
     assert_instance_of Time, invoice_repo.all.first.created_at
     assert_instance_of Time, invoice_repo.all.first.updated_at
-    end
+  end
 
   def test_invoice_repo_can_find_all_invoices
     invoice_repo = InvoiceRepo.new('./data/invoices.csv')
@@ -47,5 +47,4 @@ class InvoiceRepoTest < Minitest::Test
     invoice_repo = InvoiceRepo.new('./data/invoices.csv').find_all_by_status(:returned)
     assert_equal 673, invoice_repo.count
   end
-
 end

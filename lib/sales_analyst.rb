@@ -92,8 +92,8 @@ class SalesAnalyst
     invoices_per_day = invoices_grouped_by_day.values.map { |day| day.count}
     invoices_sorted_by_day = invoices_grouped_by_day.keys.zip(invoices_per_day)
     invoices_sorted_by_day_hash = invoices_sorted_by_day.inject({}) do |results, element|
-     results[element[0]] = element[1]
-     results
+      results[element[0]] = element[1]
+      results
     end
     average_invoices_per_day = sales_engine.invoices.all.count / 7
     squared_differences = invoices_per_day.map do |total_per_day|
@@ -113,7 +113,30 @@ class SalesAnalyst
     (fraction * 100).round(2)
   end
 
+  def total_revenue_by_date(date)
+    @sales_engine.invoices.all.reduce(0) do |result, invoice|
+      if invoice.created_at.to_s.split(" ")[0].eql?(date.to_s.split[0])
+      result +=  total_invoice_items_revenue(result, invoice)
+      end
+      result
+    end.to_d.round(2)
+  end
+
+  def revenue_by_merchant(merchant_id)
+    @sales_engine.merchants.find_invoices_by_merchant_id(merchant_id).reduce(0) do |result, invoice|
+      result +=  total_invoice_items_revenue(result, invoice)
+      result
+    end.to_d.round(2)
+  end
+
   private
+  def total_invoice_items_revenue(result, invoice)
+    invoice.invoice_items.reduce(0) do |result, invoice_item|
+      result += invoice_item.unit_price * invoice_item.quantity
+      result
+    end
+  end
+
   def average_item_price_standard_deviation
     average = average_item_price
     sq_differences = sales_engine.items.all.map do |item|
