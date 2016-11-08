@@ -23,12 +23,11 @@ module StandardDeviation
   end
 
   def average_price_per_item_deviation
-    items = sales_engine.items.all.map { |item| item.unit_price }
-    format decimal standard_deviation(items).to_s
+    format decimal standard_deviation(@item_prices).to_s
   end
 
   def two_standard_deviations_away_in_price
-    average_average_price_per_merchant + (average_price_per_item_deviation*2)
+    average_average_operator + (average_price_per_item_deviation*2)
   end
 
   def one_standard_deviation_above_invoice_average
@@ -36,11 +35,11 @@ module StandardDeviation
   end
 
   def one_standard_deviation_below_invoice_average
-    average_invoices_per_merchant-(average_invoices_per_merchant_standard_deviation*2)
+    average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation*2)
   end
 
   def one_standard_deviation_above_mean_for_weekdays
-    average(days_of_the_week.values)+standard_deviation(days_of_the_week.values)
+    average(days_of_the_week.values) + standard_deviation(days_of_the_week.values)
   end
 
 end

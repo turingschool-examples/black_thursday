@@ -23,7 +23,6 @@ class TransactionRepositoryTest < Minitest::Test
     tr = TransactionRepository.new
     tr.from_csv("./fixtures/transactions_small_list.csv")
     result = tr.find_all_by_credit_card_number(4271805778010747)
-    binding.pry
     assert_equal Transaction, result[0].class
     assert_equal Array, result.class
   end

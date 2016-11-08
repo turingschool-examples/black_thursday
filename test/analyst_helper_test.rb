@@ -15,14 +15,6 @@ class AnalystHelperTest < Minitest::Test
     @sa = SalesAnalyst.new(se)
   end
 
-  def test_invoice_counts_counts_invoices
-    assert_equal 0, @sa.invoice_counts.reduce(&:+)
-  end
-
-  def test_item_counts_counts_items
-    assert_equal 2, @sa.item_counts.reduce(&:+)
-  end
-
   def test_price_compiler_compiles_prices
     assert_equal 29.99, @sa.price_compiler(12334105)[0].to_f
   end
