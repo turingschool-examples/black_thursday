@@ -16,7 +16,7 @@ class TransactionRepositoryTest < Minitest::Test
   def test_it_populates_transaction_items
     result = @se.transactions.find_by_id(6)
 
-    assert_equal Transaction, result.class
+    assert_equal Transaction, result[0].class
   end
 
   def test_it_can_find_by_invoice_id

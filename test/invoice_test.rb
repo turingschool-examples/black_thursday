@@ -3,7 +3,7 @@ require_relative 'test_helper'
 class InvoiceTest < Minitest::Test
     
   def setup
-    se = SalesEngine.from_csv({
+    @se = SalesEngine.from_csv({
       :items => "./fixtures/items_small_list.csv",
       :invoices => "./fixtures/invoices_small_list.csv",
       :merchants => "./fixtures/merchant_small_list.csv",
@@ -11,7 +11,7 @@ class InvoiceTest < Minitest::Test
       :transactions => "./fixtures/transactions_small_list.csv",
       :customers => "./fixtures/customers_small_list.csv"
     })
-    @ir = se.invoices
+    @ir = @se.invoices
   end
 
   def test_it_knows_id
@@ -64,14 +64,16 @@ class InvoiceTest < Minitest::Test
 
   def test_it_can_find_items_for_an_invoice
     invoice = @ir.find_by_id(2)
+
     assert_equal Array, invoice.items.class
+    # binding.pry
     assert_equal Item, invoice.items[0].class
   end
 
-  def test_it_can_find_transactions_from_invoice
-    invoice = @ir.find_by_id(2)
-    binding.pry
-    invoice.transactions # => [transaction, transaction]
-    invoice.customer # => customer
-    end
+  # def test_it_can_find_transactions_from_invoice
+  #   invoice = @ir.find_by_id(2)
+    
+  #   invoice.transactions # => [transaction, transaction]
+  #   invoice.customer # => customer
+  #   end
 end

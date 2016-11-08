@@ -3,12 +3,15 @@ require_relative 'test_helper'
 class ItemTest < Minitest::Test
     
   def setup
-    se = SalesEngine.from_csv({
-    :items     => "./fixtures/items_small_list.csv",
-    :merchants => "./fixtures/merchant_small_list.csv",
-    :invoices  => "./fixtures/invoices_small_list.csv"
+    @se = SalesEngine.from_csv({
+      :items => "./fixtures/items_small_list.csv",
+      :invoices => "./fixtures/invoices_small_list.csv",
+      :merchants => "./fixtures/merchant_small_list.csv",
+      :invoice_items => "./fixtures/invoice_item_small_list.csv",
+      :transactions => "./fixtures/transactions_small_list.csv",
+      :customers => "./fixtures/customers_small_list.csv"
     })
-    @ir = se.items
+    @ir = @se.items
   end
 
   def test_it_knows_name
@@ -46,9 +49,9 @@ class ItemTest < Minitest::Test
     assert_equal 12334195, @ir.all.last.merchant_id
   end
 
-def test_items_know_merchants
-  refute @ir.all[0].merchant.nil?
-  refute @ir.all[0].merchant.eql?(@ir.all[1].merchant)
-end
+  def test_items_know_merchants
+    refute @ir.all[0].merchant.nil?
+    refute @ir.all[0].merchant.eql?(@ir.all[1].merchant)
+  end
 
 end

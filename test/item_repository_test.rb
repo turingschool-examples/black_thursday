@@ -4,12 +4,15 @@ require './test/test_helper'
 class ItemRepositoryTest < Minitest::Test
 
   def setup 
-    se = SalesEngine.from_csv({
-    :items     => "./fixtures/items_small_list.csv",
-    :merchants => "./fixtures/merchant_small_list.csv",
-    :invoices  => "./fixtures/invoices_small_list.csv"
+    @se = SalesEngine.from_csv({
+      :items => "./fixtures/items_small_list.csv",
+      :invoices => "./fixtures/invoices_small_list.csv",
+      :merchants => "./fixtures/merchant_small_list.csv",
+      :invoice_items => "./fixtures/invoice_item_small_list.csv",
+      :transactions => "./fixtures/transactions_small_list.csv",
+      :customers => "./fixtures/customers_small_list.csv"
     })
-    @ir = se.items
+    @ir = @se.items
   end
 
   def test_repository_stored_as_array
