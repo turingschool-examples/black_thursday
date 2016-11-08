@@ -43,11 +43,29 @@ class Invoice
     @parent.find_invoice_items(id)
   end
 
-  def transactions(id)
+  def transactions
     @parent.find_transactions_by_id(id)
   end
   
   def customer
     @parent.find_customer_from_invoice(customer_id)
+  end
+
+  def is_paid_in_full?
+    results = transactions.map do |transaction|
+      transaction.result.include?("success")
+    end 
+    if results.include?(true) 
+      true
+    else
+      false
+    end
+  end
+
+  def total
+    prices = find_invoice_items.map do |invoice_item|
+      invoice_item.unit_price * invoice_item.quantity
+    end
+    prices.reduce(:+)
   end
 end

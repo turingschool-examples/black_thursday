@@ -1,6 +1,6 @@
 require_relative '../lib/customer'
 require 'csv'
-require 'pry'
+# require 'pry'
 
 class CustomerRepo
   attr_reader :all,
@@ -29,25 +29,11 @@ class CustomerRepo
     end
   end
 
-  # def find_by_first_name(desired_name)
-  #   c = @all.find do |customer|
-  #     customer.first_name == desired_name
-  #   end
-  #   c.id
-  # end
-  
   def find_all_by_first_name(desired_name)
     @all.find_all do |customer|
       customer.first_name.downcase.include?(desired_name.downcase)
     end
   end
-
-  # def find_by_last_name(desired_name)
-  #   c = @all.find do |customer|
-  #     customer.last_name == desired_name
-  #   end
-  #   c.id
-  # end
 
   def find_all_by_last_name(desired_name)
     @all.find_all do |customer|

@@ -52,12 +52,14 @@ class MerchantRepo
     @parent.find_all_invoices_by_id(id)
   end
 
-  def find_all_customers_for_merchant(id)
-    @parent.find_all_customers_for_merchant(id)
+  def find_customers(customer_id)
+    @parent.find_customers(customer_id)
   end
 
+  def find_all_customers_for_merchant(merchant_id)
+    @parent.find_all_invoices_by_id(merchant_id)
+  end
 
-  
 end
 
 

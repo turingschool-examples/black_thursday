@@ -140,6 +140,7 @@ class SalesAnalyst
     end
   end
 
+
   def merchants_with_pending_invoices
     se.merchants.all.select do |merchant|
       merchant.invoices.any? {|invoice| !invoice.is_paid_in_full?}

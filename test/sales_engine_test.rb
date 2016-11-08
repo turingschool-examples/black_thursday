@@ -1,9 +1,9 @@
 require 'minitest/autorun'
-require 'minitest/emoji'
+require 'minitest/pride'
 require 'csv'
 require 'bigdecimal'
 require_relative '../lib/sales_engine'
-
+require_relative "test_helper"
 
 class SalesEngineTest < Minitest::Test
   attr_reader :sales_engine

@@ -78,8 +78,8 @@ class SalesEngine
     @item_repo.find_all_by_merchant_id(id)
   end
 
-  def self.find_all_invoices_by_id(id)
-    @invoice_repo.find_all_by_merchant_id(id)
+  def self.find_all_invoices_by_id(merchant_id)
+    @invoice_repo.find_all_by_merchant_id(merchant_id)
   end
 
   def self.find_invoice_items(id)
@@ -98,17 +98,20 @@ class SalesEngine
     @merchant_repo.find_by_id(merchant_id)
   end
 
-  def self.find_customer_from_invoice(customer_id)
-    @customer_repo.find_by_id(id)
-  end
-
   def self.find_invoice_for_transaction(invoice_id)
-    @invoice_repo.find_by_id(id)
+    @invoice_repo.find_by_id(invoice_id)
   end
 
-  def self.find_all_customers_for_merchant(id)
-    #bringing in a merchant id, want all customers attached
+  def self.find_transactions_by_id(id)
+    @transaction_repo.find_all_by_invoice_id(id)
   end
 
+  def self.find_customer_from_invoice(customer_id)
+   @customer_repo.find_by_id(customer_id)
+  end
+
+  def self.find_customers(customer_id)
+    @customer_repo.find_by_id(customer_id)
+  end
 
 end

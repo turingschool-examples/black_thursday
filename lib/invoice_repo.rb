@@ -61,9 +61,13 @@ class InvoiceRepo
     @parent.find_invoice_items(id)
   end
   
-  # def find_customer_from_invoice(customer_id)
-  #   # @parent.something there to find customer from invoice
-  # end
+  def find_transactions_by_id(id)
+    @parent.find_transactions_by_id(id)
+  end
+
+  def find_customer_from_invoice(customer_id)
+    @parent.find_customer_from_invoice(customer_id)
+  end
 
 
 end
