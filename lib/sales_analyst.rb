@@ -174,7 +174,6 @@ class SalesAnalyst
   end
 
   def merchants_with_only_one_item_registered_in_month(month)
-    month = Time.parse(month.to_s).strftime("%B")
     merchants_with_only_one_item.find_all do |merchant|
       merchant.created_at.strftime("%B").include?(month)
     end

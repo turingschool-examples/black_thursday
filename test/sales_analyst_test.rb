@@ -145,7 +145,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_find_merchants_with_only_one_item_registered_in_month
     sa = SalesAnalyst.new(sales_engine)
-    assert_equal "MiniatureBikez", sa.merchants_with_only_one_item_registered_in_month("09").first.name
+    assert_equal "MiniatureBikez", sa.merchants_with_only_one_item_registered_in_month("March").first.name
   end  
 
   def test_it_can_find_revenue_by_merchant
@@ -160,7 +160,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_find_most_sold_item_for_merchant
     sa = SalesAnalyst.new(sales_engine)
-    assert_equal "Glitter scrabble frames", sa.most_sold_item_for_merchant(12334185).first.name
+    assert_equal "Camicetta in pura seta con ricamo", sa.most_sold_item_for_merchant(12334132).first.name
   end
 
   def test_it_can_find_best_item_for_merchant
