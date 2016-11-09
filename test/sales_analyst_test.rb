@@ -121,9 +121,17 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 5795.92, sa.total_revenue_by_date("2012-03-27").to_f
   end
 
-  # def test_it_can_find_top_revenue_earners
-  #   sa = SalesAnalyst.new(sales_engine)
-  # end
+  def test_it_can_find_top_revenue_earners_without_number_specified
+    sa = SalesAnalyst.new(sales_engine)
+    assert_equal "BowlsByChris", sa.top_revenue_earners.first.name
+    assert_equal "Shopin1901", sa.top_revenue_earners.last.name
+  end
+
+  def test_it_can_find_top_revenue_earners_with_number_specified
+    sa = SalesAnalyst.new(sales_engine)
+    assert_equal "BowlsByChris", sa.top_revenue_earners(5).first.name
+    assert_equal "perlesemoi", sa.top_revenue_earners(5).last.name
+  end
 
   def test_it_can_find_merchants_with_pending_invoices
     sa = SalesAnalyst.new(sales_engine)
@@ -145,20 +153,20 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 0, sa.revenue_by_merchant(12334185)
   end
 
-  def test_it_can_merchants_ranked_by_revenue
+  def test_it_can_find_merchants_ranked_by_revenue
     sa = SalesAnalyst.new(sales_engine)
-    assert_equal 0, sa.merchants_ranked_by_revenue.first.name
+    assert_equal "BowlsByChris", sa.merchants_ranked_by_revenue.first.name
   end
 
-  # def test_it_can_find_most_sold_item_for_merchant
-  #   sa = SalesAnalyst.new(sales_engine)
-  #   assert_equal "Glitter scrabble frames", sa.most_sold_item_for_merchant(12334185).first.name
-  # end
+  def test_it_can_find_most_sold_item_for_merchant
+    sa = SalesAnalyst.new(sales_engine)
+    assert_equal "Glitter scrabble frames", sa.most_sold_item_for_merchant(12334185).first.name
+  end
 
   def test_it_can_find_best_item_for_merchant
     sa = SalesAnalyst.new(sales_engine)
-    assert_equal "Glitter scrabble frames", sa.best_item_for_merchant(12334185).first.name
-    assert_equal 13.0, sa.best_item_for_merchant(12334185).first.unit_price.to_f
+    assert_equal "Camicetta in pura seta con ricamo", sa.best_item_for_merchant(12334132).name
+    assert_equal 30.0, sa.best_item_for_merchant(12334132).unit_price.to_f
   end
 
 
