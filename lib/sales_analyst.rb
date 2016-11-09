@@ -169,10 +169,6 @@ class SalesAnalyst
     end
   end
 
-  def find_month(date)
-    date.strftime("%B")
-  end
-
   def merchants_with_only_one_item_registered_in_month(month)
     merchants_with_only_one_item.find_all do |merchant|
       merchant.created_at.strftime("%B").include?(month)
@@ -210,7 +206,7 @@ class SalesAnalyst
     end.flatten
     all_quantity_per_item = all_quantities.inject do |item, element|
       item.merge(element) do |k, old, present|
-       old + present
+        old + present
       end
     end
     top_quantity = 0
