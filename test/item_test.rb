@@ -3,6 +3,8 @@ require 'minitest/pride'
 require 'bigdecimal'
 require_relative '../lib/item'
 require_relative '../lib/item_repo'
+require_relative "../test/test_helper"
+
 
 class ItemTest < Minitest::Test
   attr_reader :data,

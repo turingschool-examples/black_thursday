@@ -2,6 +2,8 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/transaction'
 require_relative '../lib/transaction_repo'
+require_relative "../test/test_helper"
+
 
 class TransactionTest < Minitest::Test
   
@@ -34,7 +36,7 @@ class TransactionTest < Minitest::Test
 
   def test_it_has_a_credit_card_number
     t = Transaction.new(data, repo)
-    assert_equal "4242424242424242", t.credit_card_number
+    assert_equal 4242424242424242, t.credit_card_number
   end
 
   def test_it_has_a_credit_card_expiration_date
@@ -56,4 +58,5 @@ class TransactionTest < Minitest::Test
     t = Transaction.new(data, repo)
     assert_equal "2011-03-08 19:19:19 UTC", t.updated_at.to_s
   end
+
 end

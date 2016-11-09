@@ -6,15 +6,27 @@ require 'pry'
 class Merchant
   attr_reader :parent,
               :id,
-              :name
+              :name,
+              :created_at,
+              :updated_at
               
   def initialize(data, repo)
       @parent = repo
       @id = data[:id].to_i
       @name = data[:name].to_s
+      @created_at = data[:created_at]
+      @updated_at = data[:updated_at]
   end
 
-   def items
+  def created_at
+    Time.parse(@created_at)
+  end
+
+  def updated_at
+    Time.parse(@updated_at)
+  end
+
+  def items
     @parent.find_all_by_merchant_id(id)
   end
 

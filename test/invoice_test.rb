@@ -2,6 +2,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/invoice'
 require_relative '../lib/invoice_repo'
+require_relative "../test/test_helper"
 require 'bigdecimal'
 
 class InvoiceTest < Minitest::Test

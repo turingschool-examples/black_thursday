@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/emoji'
 require_relative '../lib/transaction_repo'
+require_relative "../test/test_helper"
 require 'csv'
 require 'pry'
 

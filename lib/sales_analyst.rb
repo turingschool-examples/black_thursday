@@ -140,6 +140,21 @@ class SalesAnalyst
     end
   end
 
+  def total_revenue_by_date(date)
+    date = Time.parse(date.to_s).strftime("%D")
+    invoices_array = se.invoices.all.find_all do |invoice|
+      invoice.created_at.strftime("%D") == date
+    end
+    sum = invoices_array.reduce(0) do |sum, invoice|
+      sum += invoice.total
+    end
+    BigDecimal.new(sum).round(2)
+  end
+
+  def top_revenue_earners(num)
+    #returns the specified number of top revenue earners
+    #if no num is provided, it provides the top 20 merchants by revenue
+  end
 
   def merchants_with_pending_invoices
     se.merchants.all.select do |merchant|
@@ -151,6 +166,52 @@ class SalesAnalyst
     se.merchants.all.select do |merchant|
       merchant.num_items == 1
     end
+  end
+
+  def find_month(date)
+    date.strftime("%B")
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    month = Time.parse(month.to_s).strftime("%B")
+    merchants_with_only_one_item.find_all do |merchant|
+      merchant.created_at.strftime("%B").include?(month)
+    end
+  end
+  
+  def total_invoice_items_revenue(total, invoice)
+    invoice.find_invoice_items.inject(0) do |total, item|
+      total += item.unit_price * item.quantity
+    end
+  end
+
+  def revenue_by_merchant(merchant_id)
+    revenue = se.merchants.find_all_invoices_by_id(merchant_id).reduce(0) do |total, invoice|
+     total += total_invoice_items_revenue(total, invoice)
+    end
+    BigDecimal.new(revenue).round(2)
+  end
+
+  def merchants_ranked_by_revenue
+  #I think this will have to pull from top_revenue_earners
+  #because this isn't working
+    revenue_by_merchant(merchant_id).sort
+  end
+
+  # def most_sold_item_for_merchant(merchant_id)
+  # #returns an item array if there is a tie, or a single item if there isn't'
+  #   se.find_all_by_merchant_id(merchant_id)
+  # end
+
+  def best_item_for_merchant(merchant_id)
+    prices = se.find_all_by_merchant_id(merchant_id).map do |item|
+      item.unit_price
+    end
+    highest = prices.max
+    best = se.find_all_by_merchant_id(merchant_id).each do |item|
+      item.unit_price == highest
+    end
+    best
   end
 
 end

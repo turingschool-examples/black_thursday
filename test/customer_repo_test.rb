@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/customer_repo'
+require_relative "../test/test_helper"
 require 'csv'
 require 'pry'
 
@@ -27,13 +28,13 @@ class CustomerRepoTest < Minitest::Test
     assert_equal 786, cr.find_by_id(786).id
   end
 
-   def test_it_can_find_by_first_name
+   def test_it_can_find_all_by_first_name
     cr = CustomerRepo.new(file, sales_engine)
-    assert_equal 978, cr.find_by_first_name("Karl")
+    assert_equal 2, cr.find_all_by_first_name("Karl").length
   end
   
-  def test_it_can_find_by_last_name
+  def test_it_can_find_all_by_last_name
    cr = CustomerRepo.new(file, sales_engine)
-   assert_equal 672, cr.find_by_last_name("Simonis")
+   assert_equal 1, cr.find_all_by_last_name("Simonis").length
  end
 end

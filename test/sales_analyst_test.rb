@@ -3,7 +3,7 @@ require 'minitest/emoji'
 require 'csv'
 require 'bigdecimal'
 require_relative '../lib/sales_analyst'
-
+require_relative "../test/test_helper"
 
 class SalesAnalystTest < Minitest::Test
   attr_reader :sales_engine
@@ -56,17 +56,17 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_find_items_per_merchant_standard_deviation
     sa = SalesAnalyst.new(sales_engine)
-    assert_equal 6.6, sa.average_items_per_merchant_standard_deviation
+    assert_equal 8.64, sa.average_items_per_merchant_standard_deviation
   end
 
   def test_it_can_find_average_item_price_for_all_merchants
     sa = SalesAnalyst.new(sales_engine)
-    assert_equal 91.54, sa.average_average_price_per_merchant
+    assert_equal 91.54, sa.average_average_price_per_merchant.to_f
   end
 
   def test_it_can_find_merchants_with_high_item_count
     sa = SalesAnalyst.new(sales_engine)
-    assert_equal 0, sa.merchants_with_high_item_count
+    assert_equal "Keckenbauer", sa.merchants_with_high_item_count.first.name
   end
 
   def test_it_can_find_golden_items
@@ -76,40 +76,90 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_find_average_invoices_per_merchant
     sa = SalesAnalyst.new(sales_engine)
-    assert_equal 2.0, sa.average_invoices_per_merchant
+    assert_equal 111.6, sa.average_invoices_per_merchant
   end
 
   def test_it_can_find_invoices_per_merchant_standard_deviation
     sa = SalesAnalyst.new(sales_engine)
-    assert_equal 2.7, sa.average_invoices_per_merchant_standard_deviation
+    assert_equal 1.16, sa.average_invoices_per_merchant_standard_deviation
   end
 
   def test_it_can_find_invoice_status
     sa = SalesAnalyst.new(sales_engine)
-    assert_equal 29.3, sa.invoice_status("pending")
-    assert_equal 56.45, sa.invoice_status("shipped")
-    assert_equal 14.25, sa.invoice_status("returned")
+    assert_equal 29.3, sa.invoice_status("pending".to_sym)
+    assert_equal 56.45, sa.invoice_status("shipped".to_sym)
+    assert_equal 14.25, sa.invoice_status("returned".to_sym)
   end
 
   def test_it_can_find_top_merchants_by_invoice_count
     sa = SalesAnalyst.new(sales_engine)
-    assert_equal "perlesemoi", sa.top_merchants_by_invoice_count.first.name
+    assert_equal 0, sa.top_merchants_by_invoice_count.length
   end
 
   def test_it_can_find_bottom_merchants_by_invoice_count
     sa = SalesAnalyst.new(sales_engine)
-    assert_equal 0, sa.bottom_merchants_by_invoice_count.first.name  
+    assert_equal 0, sa.bottom_merchants_by_invoice_count.length
   end
 
-  # def test_it_group_invoices_by_day
+  def test_it_can_group_invoices_by_day
+    sa = SalesAnalyst.new(sales_engine)
+    assert_equal ["Tuesday", "Sunday", "Saturday", "Wednesday", "Thursday", "Monday", "Friday"], sa.group_invoices_by_day.keys
+  end
+
+  def test_it_can_find_invoice_count_by_day_array
+    sa = SalesAnalyst.new(sales_engine)
+    assert_equal [], sa.invoices_count_by_day
+  end
+
+  def test_it_can_find_top_days_by_invoice_count
+    sa = SalesAnalyst.new(sales_engine)
+    assert_equal [], sa.top_days_by_invoice_count
+  end
+
+  def test_it_can_find_total_revenue_by_date
+    sa = SalesAnalyst.new(sales_engine)
+    assert_equal 5795.92, sa.total_revenue_by_date("2012-03-27").to_f
+  end
+
+  # def test_it_can_find_top_revenue_earners
   #   sa = SalesAnalyst.new(sales_engine)
-  #   assert_equal [], sa.group_invoices_by_day.keys
   # end
 
-  # def test_it_can_find_top_days_by_invoice_count
+  def test_it_can_find_merchants_with_pending_invoices
+    sa = SalesAnalyst.new(sales_engine)
+    assert_equal "Shopin1901", sa.merchants_with_pending_invoices.first.name
+  end
+
+  def test_it_can_find_merchants_with_only_one_item
+    sa = SalesAnalyst.new(sales_engine)
+    assert_equal "Urcase17", sa.merchants_with_only_one_item.last.name
+  end
+
+  def test_it_can_find_merchants_with_only_one_item_registered_in_month
+    sa = SalesAnalyst.new(sales_engine)
+    assert_equal "MiniatureBikez", sa.merchants_with_only_one_item_registered_in_month("09").first.name
+  end  
+
+  def test_it_can_find_revenue_by_merchant
+    sa = SalesAnalyst.new(sales_engine)
+    assert_equal 0, sa.revenue_by_merchant(12334185)
+  end
+
+  def test_it_can_merchants_ranked_by_revenue
+    sa = SalesAnalyst.new(sales_engine)
+    assert_equal 0, sa.merchants_ranked_by_revenue.first.name
+  end
+
+  # def test_it_can_find_most_sold_item_for_merchant
   #   sa = SalesAnalyst.new(sales_engine)
-  #   assert_equal 0, sa.top_days_by_invoice_count
+  #   assert_equal "Glitter scrabble frames", sa.most_sold_item_for_merchant(12334185).first.name
   # end
+
+  def test_it_can_find_best_item_for_merchant
+    sa = SalesAnalyst.new(sales_engine)
+    assert_equal "Glitter scrabble frames", sa.best_item_for_merchant(12334185).first.name
+    assert_equal 13.0, sa.best_item_for_merchant(12334185).first.unit_price.to_f
+  end
 
 
 end
