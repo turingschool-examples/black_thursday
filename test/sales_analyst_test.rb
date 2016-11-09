@@ -49,6 +49,16 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 10, result.length
   end
 
+  def test_it_can_find_items_per_merchant
+    sa = SalesAnalyst.new(sales_engine)
+    assert_equal [3, 5, 1, 6, 25, 20, 1, 1, 1, 3], sa.items_per_merchant
+  end
+
+  def test_it_can_find_invoices_per_merchant
+    sa = SalesAnalyst.new(sales_engine)
+    assert_equal [4, 2, 2, 1, 2, 5, 3, 2, 3, 3], sa.invoices_per_merchant
+  end
+
   def test_it_can_find_average_item_price_for_merchant
     sa = SalesAnalyst.new(sales_engine)
     assert_equal 100.0, sa.average_item_price_for_merchant(12334123)

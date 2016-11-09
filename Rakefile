@@ -23,6 +23,11 @@ end
 
 require 'rake/testtask'
 
+task :coverage do
+  'rake spec COVERAGE=true'
+  'open coverage/index.html'
+end
+
 Rake::TestTask.new do |t|
   t.libs << "test"
   t.test_files = FileList['test/*.rb'].exclude("test/test_helper.rb")
