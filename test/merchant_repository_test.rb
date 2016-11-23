@@ -1,0 +1,66 @@
+require_relative '../test/test_helper'
+require_relative '../lib/merchant_repository'
+require_relative '../lib/sales_engine'
+
+
+class MerchantRepositoryTest < Minitest::Test
+  attr_reader :merchant_repository
+
+  def setup
+    se = SalesEngine.from_csv({
+              :items     => 'data/item_fixture.csv',
+              :merchants => 'data/merchants_fixture.csv',})
+    @merchant_repository = se.merchants
+  end
+
+  def test_it_exists
+    assert merchant_repository
+  end
+
+  def test_csv_loader_loads_files
+    result = merchant_repository.csv
+    assert result
+  end
+
+  def test_csv_loader_loads_to_array
+    result = merchant_repository.all
+    assert_equal Array, result.class
+  end
+
+  def test_csv_loader_loads_correctly
+    result = merchant_repository.all[0].id
+    assert_equal 12334105, result
+  end
+
+  def test_find_by_id_finds_correct_pair_of_values
+    merchant_repository.all
+    result = merchant_repository.find_by_id(12334105)
+    assert_equal "Shopin1901", result.name
+  end
+
+  def test_find_by_id_returns_correct_format
+    merchant_repository.all
+    result = merchant_repository.find_by_id(12334105)
+    assert_equal Merchant, result.class
+  end
+
+  def test_find_by_name_finds_correct_pair_of_values
+    merchant_repository.all
+    result = merchant_repository.find_by_name("Shopin1901")
+    assert_equal 12334105, result.id
+    assert_equal "Shopin1901", result.name
+    assert_equal Merchant, result.class
+  end
+
+  def test_find_all_by_name_nil_case
+    result = merchant_repository.find_all_by_name(nil)
+    assert_equal "Steve the Pirate", result
+  end
+
+  def test_find_all_by_name_returns_array_of_names
+    merchant_repository.all
+    result = merchant_repository.find_all_by_name("Shopin")
+    assert_equal "Shopin1901", result.first.name
+    assert_equal "Shopin1902", result.last.name
+  end
+end
