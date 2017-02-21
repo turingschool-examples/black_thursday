@@ -36,4 +36,12 @@ class SalesEngineTest < Minitest::Test
   def test_can_retrieve_values
     assert_equal ["./data/items.csv", "./data/merchants.csv"], se.paths.values
   end
+  
+  def test_from_csv_can_take_another_hash
+    test_hash = {:transactions => "./data/transactions.csv"}
+    se.from_csv(test_hash)
+    assert_equal 3, se.paths.keys.count
+    assert_equal :transactions, se.paths.keys.last
+    assert_equal [:items, :merchants, :transactions], se.paths.keys
+  end
 end

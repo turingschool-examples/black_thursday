@@ -6,8 +6,10 @@ class SalesEngine
 
 
   def from_csv (hash)
-    @paths = hash
-    binding.pry
+    files = hash.each_pair do |key, value|
+      @paths[key] = value
+    end
+    files
   end
 
 end
