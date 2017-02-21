@@ -9,7 +9,6 @@ class SalesEngine
   end
 
   def merchants
-    binding.pry
     merchant_data
   end
 end
