@@ -14,11 +14,11 @@ class ItemTest < Minitest::Test
       })
   end
   def test_item_exists
-      assert_equal "Pencil", @i.values[:name]
-      assert_equal "You can use it to write things", @i.values[:description]
-      assert @i.values[:created_at]
-      assert @i.values[:updated_at]
-      assert_equal 0.1099e2, @i.values[:unit_price]
+      assert_equal "Pencil", @i.attributes[:name]
+      assert_equal "You can use it to write things", @i.attributes[:description]
+      assert @i.attributes[:created_at]
+      assert @i.attributes[:updated_at]
+      assert_equal 0.1099e2, @i.attributes[:unit_price]
   end
 
   def test_item_id

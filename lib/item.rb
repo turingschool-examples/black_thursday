@@ -1,33 +1,33 @@
 require 'bigdecimal'
 class Item
-  attr_reader :values
+  attr_reader :attributes
 
-  def initialize(values_hash)
-    @values = values_hash
+  def initialize(attributes)
+    @attributes = attributes
   end
 
   def id
-    values[:id]
+    attributes[:id]
   end
 
   def name
-    values[:name]
+    attributes[:name]
   end
 
   def description
-    values[:description]
+    attributes[:description]
   end
 
   def unit_price
-    values[:unit_price]
+    attributes[:unit_price]
   end
 
   def created_at
-    values[:created_at]
+    attributes[:created_at]
   end
 
   def updated_at
-    values[:updated_at]
+    attributes[:updated_at]
   end
 
   def unit_price_to_dollars
