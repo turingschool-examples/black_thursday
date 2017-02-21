@@ -9,6 +9,5 @@ class ItemTest < Minitest::Test
     i = Item.new
     assert_instance_of Item, i
   end
+
 end
-
-
