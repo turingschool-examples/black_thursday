@@ -1,14 +1,21 @@
-require_relative "/data/items"
-require_relative "/data/merchants"
+# require_relative "../data/items"
+# require "/data/merchants"
+require_relative "item_repository"
+require "csv"
 
 class SalesEngine
-  attr_reader :items
-
-  def initialize(csv_file)
-    @csv_file = csv_file
-  end
 
   def items
-    @csv_file
+    ItemRepository.new
   end
+
+  
+
+  def from_csv(input_hash)
+    contents = CSV.open "data/items.csv"       #headers: true, header_converters: :symbol
+    output = "#{:id},#{:name},#{:description},#{:unit_price},#{:merchant_id},#{:created_at},#{:updated_at}"
+  end
+
+
 end
+
