@@ -30,11 +30,59 @@ class SalesEngineTest < Minitest::Test
 
   def test_SE_can_make_ItemRepository
     se = SalesEngine.new
-    se.from_csv("args")
+    se.from_csv({:items => "./data/items.csv",
+        :merchants => "./data/merchants.csv"
+      })
     ir = se.items
     assert_instance_of ItemRepository, ir
   end
 
+  def test_SE_can_make_MerchantRepository
+    se = SalesEngine.new
+    se.from_csv({:items => "./data/items.csv",
+        :merchants => "./data/merchants.csv"
+      })
+    mr = se.merchants
+    assert_instance_of MerchantRepository, mr
+  end
+
+  def test_that_item_passes_to_item_repo
+    se = SalesEngine.new
+    se.from_csv({:items => "./data/items.csv",
+        :merchants => "./data/merchants.csv"
+      })
+    ir = se.items
+    assert_instance_of CSV, ir.item_contents
+  end
+
+  def test_that_item_passes_to_merchant_repo
+    se = SalesEngine.new
+    se.from_csv({:items => "./data/items.csv",
+        :merchants => "./data/merchants.csv"
+      })
+    mr = se.merchants
+    assert_instance_of CSV, mr.merchant_contents
+    end
+
+  def test_that_IR_makes_items
+    se = SalesEngine.new
+    se.from_csv({:items => "./data/items.csv",
+        :merchants => "./data/merchants.csv"
+      })
+    ir = se.items
+    item = ir.find_by_name("Glitter scrabble frames")
+    assert_instance_of Item, item
+  end
+
+  def test_that_MR_makes_merchants
+    skip
+    e = SalesEngine.new
+    se.from_csv({:items => "./data/items.csv",
+        :merchants => "./data/merchants.csv"
+      })
+    mr = se.merchants
+    assert_instance_of CSV, mr.merchant_contents
+  end
   # binding.pry
 
 
