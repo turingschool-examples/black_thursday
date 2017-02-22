@@ -5,3 +5,7 @@ class SalesEngine
 
 
  end
+
+ class PizzaParty
+
+  end
