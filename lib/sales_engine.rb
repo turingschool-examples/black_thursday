@@ -1,34 +1,32 @@
 require 'csv'
 require 'pry'
 require_relative 'merchant_repository'
+require_relative 'item_repository'
 
 class SalesEngine
-  attr_reader :data
-  def initialize(data)
-    @data = data
-  end
+
   def self.from_csv(info)
-    self.new(info)
-    #items = info[:items]
-    # merchants = info[:merchants]
+    @merchant_repo = MerchantRepository.new(info[:merchants], self)
+    @items_repo = ItemsRepository.new(info[:items], self)
+    self
   end
 
-  def items
-    items_csv = CSV.open data[:items], headers: true, header_converters: :symbol
-    ItemRepository.new(items_csv)
+  def self.merchants
+    @merchant_repo
   end
 
-  def merchants
-    merchants_csv = CSV.open data[:merchants], headers: true, header_converters: :symbol
-    MerchantRepository.new(merchants_csv)
+  def self.items
+    @items_repo
   end
+
 
 end
 
-se = SalesEngine.from_csv({
-    :merchants    => "./data/temp_merchants.csv",
-    })
-merch = se.merchants
-merch.all
-binding.pry
+# se = SalesEngine.from_csv({
+#     :merchants    => "./data/temp_merchants.csv",
+#     })
+# binding.pry
+# merch = se.merchants
+# merch.all
+#
 ""
