@@ -1,33 +1,14 @@
 require 'bigdecimal'
 class Item
-  attr_reader :attributes
+  attr_reader :id, :name, :description, :unit_price, :created_at, :updated_at
 
   def initialize(attributes)
-    @attributes = attributes
-  end
-
-  def id
-    attributes[:id]
-  end
-
-  def name
-    attributes[:name]
-  end
-
-  def description
-    attributes[:description]
-  end
-
-  def unit_price
-    attributes[:unit_price]
-  end
-
-  def created_at
-    attributes[:created_at]
-  end
-
-  def updated_at
-    attributes[:updated_at]
+    @id = attributes[:id]
+    @name = attributes[:name]
+    @description = attributes[:description]
+    @unit_price = attributes[:unit_price]
+    @created_at = attributes[:created_at]
+    @updated_at = attributes[:updated_at]
   end
 
   def unit_price_to_dollars
