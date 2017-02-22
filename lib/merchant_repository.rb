@@ -1,5 +1,6 @@
+require './lib/sales_engine'
+
 class MerchantRepository
 
-  # do cool merchant stuff here
-
+  
 end

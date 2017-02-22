@@ -1,16 +1,25 @@
 gem 'minitest'
 require 'minitest/autorun'
-require './lib/merchant_reposity'
-
+require './lib/merchant_repository'
+require './lib/sales_engine'
 class MerchantRepositoryTest < Minitest::Test
 
   def test_merchant_repository_exists
-    skip
-    # building sales engine first
-    merchant_repo = se.merchants
-    merchant = mr.find_by_name("CJsDecor")
-    assert_equal merchant_object, merchant
+    se = SalesEngine.new("./data/merchants.csv")
+    mr = se.merchants
+    assert_instance_of CSV, mr
   end
+
+  # def test_returns_all_merchants
+  #   se = SalesEngine.new("./data/merchants.csv")
+  #   mr = se.merchants
+  #   merchant = mr.find_by_name("CJsDecor")
+  # 
+  #   assert_instance_of Merchant, merchant
+  # end
+
+
+
 end
 
 
