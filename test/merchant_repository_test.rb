@@ -6,36 +6,38 @@ class MerchantRepoTest < Minitest::Test
 	attr_reader :mr, :se
 
 	def setup
-		@se = SalesEngine.from_csv({:items => "./data/items.csv", :merchants => "./data/merchants.csv",})
+		@se = SalesEngine.from_csv({:items => "./data/items.csv", :merchants => "./test/fixtures/merchant_reduced.csv",})
 		@mr = se.merchants
 	end
 
+	# def test_can_find_all
+	# 	assert_equal [], mr.all
+
+	# 	merchant_1 = mr.find_by_name("cardsbymarykate")
+	# 	merchant_2 = mr.find_by_name("CJsDecor")
+	# 	mr.add_merchant(merchant_1, se)
+
+	# 	assert_equal 1, mr.all.count
+
+	# 	mr.add_merchant(merchant_2, se)
+	# 	assert_equal 2, mr.all.count
+	# end
+	
 	def test_can_find_all
-		assert_equal [], mr.all
-		binding.pry
-		merchant_2 = mr.find_by_name("Shopin1901")
-		merchant_1 = mr.find_by_name("CJsDecor")
-		mr.add_merchant(merchant_1, se)
-
-		assert_equal 1, mr.all.count
-
-		mr.add_merchant(merchant_2, se)
-		assert_equal 2, mr.all.count
+		assert_equal 3, mr.all.count
 	end
 
 	def test_can_find_by_id
-		skip
 
 	end
 
 	def test_can_find_by_name
-		skip
+		assert_instance_of Merchant, mr.find_by_name("cardsbymarykate")
 
 	end
 
 	def test_can_find_all_by_name
-		skip
-
+		assert_equal 2, mr.find_all_by_name("cardsbymarykate").count
 	end
 end
 
