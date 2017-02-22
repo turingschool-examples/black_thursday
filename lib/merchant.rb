@@ -12,5 +12,5 @@ class Merchant
   def name
     attributes[:name]
   end
-  
+
 end
