@@ -8,8 +8,8 @@ class SalesEngine
   attr_reader :items, :merchants
 
   def from_csv(input_hash)
-    item_contents = CSV.open(input_hash[:items]) #headers: true header
-    merchant_contents = CSV.open(input_hash[:merchants])
+    item_contents = CSV.open(input_hash[:items], headers: true, header_converters: :symbol)
+    merchant_contents = CSV.open(input_hash[:merchants], headers: true, header_converters: :symbol)
     # output = "#{:id},#{:name},#{:description},#{:unit_price},#{:merchant_id},#{:created_at},#{:updated_at}"
     @items = ItemRepository.new(item_contents)
     @merchants = MerchantRepository.new(merchant_contents)
@@ -22,7 +22,13 @@ class SalesEngine
   }
 end
 
-#se.merchants
+# se = SalesEngine.new
+# se.from_csv({:items => "./data/items.csv",
+#     :merchants => "./data/merchants.csv"
+#   })
+# ir = se.items
+# ir.make_items
+# #se.merchants
 #=> seems to just return your MerchantRepo *object*
 
 #SE will just read csv files and set up Item Repos and Merchant Repos

@@ -76,14 +76,13 @@ class SalesEngineTest < Minitest::Test
 
   def test_that_MR_makes_merchants
     skip
-    e = SalesEngine.new
+    se = SalesEngine.new
     se.from_csv({:items => "./data/items.csv",
         :merchants => "./data/merchants.csv"
       })
     mr = se.merchants
     assert_instance_of CSV, mr.merchant_contents
   end
-  # binding.pry
 
 
 end
