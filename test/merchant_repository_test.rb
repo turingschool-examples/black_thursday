@@ -1,10 +1,13 @@
-gem 'minitest'
-require 'minitest/autorun'
-require './lib/merchant_repository'
+require_relative 'test_helper'
 require './lib/sales_engine'
+
+# require './lib/merchant_repository'
+# require './lib/sales_engine'
+
 class MerchantRepositoryTest < Minitest::Test
 
   def test_merchant_repository_exists
+    skip
     se = SalesEngine.new("./data/merchants.csv")
     mr = se.merchants
     assert_instance_of CSV, mr
@@ -14,7 +17,7 @@ class MerchantRepositoryTest < Minitest::Test
   #   se = SalesEngine.new("./data/merchants.csv")
   #   mr = se.merchants
   #   merchant = mr.find_by_name("CJsDecor")
-  # 
+  #
   #   assert_instance_of Merchant, merchant
   # end
 
