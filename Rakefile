@@ -1,3 +1,13 @@
+task :default => [:test]
+
+task :test do
+  ruby "test/item_test.rb"
+  # ruby "test/merchant_repository.rb"
+  ruby "test/sales_engine_test.rb"
+  ruby "test/merchant_test.rb"
+  puts "ran some tests!"
+end
+
 namespace :sanitation do
   desc "Check line lengths & whitespace with Cane"
   task :lines do
