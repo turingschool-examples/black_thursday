@@ -1,14 +1,20 @@
-
+require 'csv'
 
 class MerchantRepo
 
+  attr_reader
 
-  def load_file(file)
-    CSV.open file, headers: true, header_converters: :symbol
+  def initialize
 
   end
 
-  def parse_headers
+  def load_file(file)
+    contents = CSV.open file, headers: true, header_converters: :symbol
+
+  end
+
+  def parse_headers(file)
+    contents = load_file(file)
     contents.each do |row|
       id = row[0]
       name = row[:name]

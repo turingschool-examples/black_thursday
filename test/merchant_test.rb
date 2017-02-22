@@ -3,7 +3,7 @@ require 'minitest/pride'
 require_relative '../lib/merchant'
 
 
-class MerchantTest < Minitest::Test
+class MerchantTest < Minitest::Test 
 
 
   def test_it_creates_an_instance_of_merchant
