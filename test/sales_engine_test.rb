@@ -23,16 +23,14 @@ class SalesEngineTest < Minitest::Test
     assert_equal "id,name,description,unit_price,merchant_id,created_at,updated_at", se.from_csv
   end
 
-
-
   def test_from_csv_accepts_key_values
     se = SalesEngine.new
     se.from_csv({:items     => "./data/items.csv", :merchants => "./data/merchants.csv"})
   end
 
-
   def test_SE_can_make_ItemRepository
     se = SalesEngine.new
+    se.from_csv("args")
     ir = se.items
     assert_instance_of ItemRepository, ir
   end
