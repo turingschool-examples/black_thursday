@@ -15,10 +15,15 @@ class MerchantRepo
 
   def parse_headers(file)
     contents = load_file(file)
+
     contents.each do |row|
-      id = row[0]
+      id = row[:id]
       name = row[:name]
+      created_at = row[:created_at]
+      updated_at = row[:updated_at]
+      require "pry"; binding.pry
     end
+
   end
 
   def all

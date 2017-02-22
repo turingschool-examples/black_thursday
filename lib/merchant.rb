@@ -2,7 +2,6 @@ require_relative 'merchant_repo'
 
 class Merchant
 
-  attr_reader :merchant_info
 
   def initialize(merchant_info)
     @merchant_info = {}
@@ -15,7 +14,7 @@ class Merchant
   end
 
   def name
-    # returns the name of the mercha
+    # returns the name of the merchant
     @merchant_info[:name]
   end
 
