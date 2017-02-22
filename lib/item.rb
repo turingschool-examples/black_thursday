@@ -3,6 +3,12 @@ require 'csv'
 
 class Item
 
+end
+
+
+
+
+
   def open_file(file_path)
     file = CSV.open file_path
   end
