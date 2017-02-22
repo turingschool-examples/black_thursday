@@ -1,5 +1,5 @@
 class SalesEngine
-  
+
   @items
   @merchants
 
@@ -7,5 +7,6 @@ class SalesEngine
  end
 
  class PizzaParty
-
+ def bring_beer
+ end
   end
