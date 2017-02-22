@@ -7,14 +7,14 @@ class MerchantRepository
     @merchant_data = merchant_data
   end
 
-
-  # def create_merchants(merchant_data)
-  #   Merchant.new(merchant_data)
-  # end
   def create_merchants
     merchant_data.map do |row|
       Merchant.new(row)
     end
+  end
+
+  def all
+    create_merchants
   end
 
 end

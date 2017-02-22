@@ -17,21 +17,14 @@ class MerchantRepositoryTest < Minitest::Test
   def test_can_make_new_merchants
     se = SalesEngine.new("./data/merchants.csv")
     mr = se.merchant_repo
-    merchant_list = mr.create_merchants
-    assert "12334105", merchant_list.first.id
+    assert "12334105", mr.create_merchants.first.id
   end
 
-  def test_merchant_can_have_small_input_hash
-    skip
+  def test_returns_all_merchants
+    se = SalesEngine.new("./data/merchants.csv")
+    mr = se.merchant_repo
+    assert_equal 475, mr.all.count
   end
-
-  # def test_returns_all_merchants
-  #   se = SalesEngine.new("./data/merchants.csv")
-  #   mr = se.merchants
-  #   merchant = mr.find_by_name("CJsDecor")
-  #
-  #   assert_instance_of Merchant, merchant
-  # end
 
 
 
