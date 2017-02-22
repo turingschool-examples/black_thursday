@@ -22,8 +22,8 @@ class MerchantRepositoryTest < Minitest::Test
     mr = MerchantRepository.new("./data/merchants.csv")
     mr.pull_csv
     mr.parse_csv
-    assert_equal 'FlavienCouche', mr.find_by_id(12334195).merchant_hash[:name]
-    refute_equal 'FlavienCouche', mr.find_by_id(12334155).merchant_hash[:name]
+    assert_equal 'FlavienCouche', mr.find_by_id(12334195).name
+    refute_equal 'FlavienCouche', mr.find_by_id(12334155).name
     assert_nil   mr.find_by_id(100)
   end
 
@@ -31,8 +31,8 @@ class MerchantRepositoryTest < Minitest::Test
     mr = MerchantRepository.new("./data/merchants.csv")
     mr.pull_csv
     mr.parse_csv
-    assert_equal 12334159, mr.find_by_name('SassyStrangeArt').merchant_hash[:id]
-    assert_equal 12334159, mr.find_by_name('SASSystrangeart').merchant_hash[:id]
+    assert_equal 12334159, mr.find_by_name('SassyStrangeArt').id
+    assert_equal 12334159, mr.find_by_name('SASSystrangeart').id
   end
 
   def test_find_all_by_name
@@ -40,7 +40,7 @@ class MerchantRepositoryTest < Minitest::Test
     mr.pull_csv
     mr.parse_csv
     assert_equal 2, mr.find_all_by_name('ham').count
-    assert_equal "TheHamAndRat", mr.find_all_by_name('ham')[0].merchant_hash[:name]
+    assert_equal "TheHamAndRat", mr.find_all_by_name('ham')[0].name
     assert_equal [], mr.find_all_by_name('efbwrhjbfr')
   end
 end

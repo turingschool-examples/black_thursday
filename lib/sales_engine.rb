@@ -1,12 +1,12 @@
 require 'csv'
 
 class SalesEngine
-  def self.from_csv(hash)
-    # make an items repository instance using hash[:items] path
 
-    # make a merchants repository instance using hash[:merchants] path
-    MerchantRepository.new(hash[merchants])
-    
+  attr_accessor :items, :merchants
+
+  def self.from_csv(hash)
+    @items = ItemRepository.new(hash[items])
+    @merchants = MerchantRepository.new(hash[merchants])
   end
 end
 
