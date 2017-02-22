@@ -1,11 +1,14 @@
-require 'pry'
-gem 'minitest'
-require 'minitest/autorun'
+require './test/test_helper'
 require './lib/merchant_repository'
 require './lib/sales_engine'
+
+# require './lib/merchant_repository'
+# require './lib/sales_engine'
+
 class MerchantRepositoryTest < Minitest::Test
 
   def test_merchant_repository_exists
+    skip
     se = SalesEngine.new("./data/merchants.csv")
     # se.merchant_repo is an instance of MerchantRepo class!
     mr = se.merchant_repo
