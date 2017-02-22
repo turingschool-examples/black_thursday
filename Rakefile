@@ -1,3 +1,27 @@
+task :default => [:unit_test]
+
+task :unit_test do
+  puts "running unit tests!"
+  ruby "test/item_test.rb"
+  # ruby "test/merchant_repository.rb"
+  ruby "test/merchant_test.rb"
+  ruby "test/sales_engine_test.rb"
+end
+
+task :integration_test do
+  puts "running integration tests!"
+  ruby 'test/integration/*_test.rb'
+  # put integration tests here
+end
+
+# might use this format later
+# Rake::TestTask.new do |t|
+#   t.libs = ["lib"]
+#   t.warning = true
+#   t.verbose = true
+#   t.test_files = FileList['test/*_test.rb']
+# end
+
 namespace :sanitation do
   desc "Check line lengths & whitespace with Cane"
   task :lines do
