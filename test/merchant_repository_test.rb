@@ -1,9 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require 'simplecov'
-require 'pry'
-require './lib/merchant'
-require './lib/merchant_repository'
+require 'test_helper'
 
 class MerchantRepositoryTest < Minitest::Test
   attr_reader :merchant_1, :merchant_2, :merchant_3, :merch_repo

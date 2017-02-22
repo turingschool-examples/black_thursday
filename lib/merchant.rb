@@ -4,9 +4,10 @@ class Merchant
 
   attr_reader :id, :name
 
-  def initialize (parent, merchant_hash = {})
-    @id = merchant_hash.values[0]
-    @name = merchant_hash.values[1]
+  def initialize (row, parent = nil)
+    @id           = row[:id]
+    @name         = row[:name]
+    @created_at   = row[:created_at]
     @parent = parent
   end
 
