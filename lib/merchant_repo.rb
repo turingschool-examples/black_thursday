@@ -7,6 +7,7 @@ class MerchantRepo
 
   def initialize
     @merchants = {}
+    @all_merchants = []
   end
 
   def load_file(file)
@@ -29,6 +30,7 @@ class MerchantRepo
 
   def all
     # returns an array of all known Merchant instances
+    @all_merchants << @merchants.values
 
   end
 
@@ -39,13 +41,19 @@ class MerchantRepo
 
 
   def find_by_name(name)
+
     name = name.upcase
-    @merchants[name]
+    if @merchants.has_key?(name)
+      @merchants[name]
+    else
+      nil
+    end
     # returns either nil or an instance of Merchant having done a case insensitive search
   end
 
 
   def find_all_by_name
+    @merchants.keys
     # returns either [] or one or more matches which contain the supplied name fragment, case insensitive
   end
 
