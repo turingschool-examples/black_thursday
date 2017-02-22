@@ -17,4 +17,10 @@ class MerchantRepository
     create_merchants
   end
 
+  def find_by_id(id)
+    binding.pry
+    create_merchants.to_h
+
+  end
+
 end

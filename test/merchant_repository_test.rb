@@ -24,9 +24,14 @@ class MerchantRepositoryTest < Minitest::Test
     se = SalesEngine.new("./data/merchants.csv")
     mr = se.merchant_repo
     assert_equal 475, mr.all.count
+    assert_instance_of Array, mr.all
   end
 
-
+  def test_find_by_name
+    se = SalesEngine.new("./data/merchants.csv")
+    mr = se.merchant_repo
+    assert_instance_of Merchant, mr.find_by_id(12334105)
+  end
 
 end
 
