@@ -22,8 +22,15 @@ class MerchantRepository
       @all = csv_hash
   end
 
+  def find_all_by_name(name_fragment)
+    @all.select do |merchant|
+      merchant.name.downcase.include? (name_fragment.downcase)
+    end
+  end
 
+  #
+  # def create_merchants
+  #   i = Merchant.new(self, hash)
+  # end
 
-  def create_merchants
-    i = Merchant.new(self, hash)
 end
