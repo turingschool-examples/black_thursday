@@ -1,16 +1,16 @@
 require 'csv'
+require_relative 'merchant'
 
 class MerchantRepo
 
   attr_reader
 
   def initialize
-
+    @merchants = {}
   end
 
   def load_file(file)
     contents = CSV.open file, headers: true, header_converters: :symbol
-
   end
 
   def parse_headers(file)
@@ -19,11 +19,12 @@ class MerchantRepo
     contents.each do |row|
       id = row[:id]
       name = row[:name]
-      created_at = row[:created_at]
-      updated_at = row[:updated_at]
-      require "pry"; binding.pry
+      # created_at = row[:created_at]
+      # updated_at = row[:updated_at]
+      @merchants[name.upcase] = Merchant.new(
+                              { :name => name,
+                                :id => id })
     end
-
   end
 
   def all
@@ -37,7 +38,9 @@ class MerchantRepo
 
 
 
-  def find_by_name
+  def find_by_name(name)
+    name = name.upcase
+    @merchants[name]
     # returns either nil or an instance of Merchant having done a case insensitive search
   end
 

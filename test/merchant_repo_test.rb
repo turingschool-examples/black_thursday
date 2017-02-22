@@ -14,11 +14,23 @@ class MerchantRepoTest < Minitest::Test
 
 
   def test_parse_headers
+    skip
     mr = MerchantRepo.new
-    result = mr.parse_headers('test/fixtures/merchant_sample_small.csv')
-  #  assert_equal "12334105", headers[:id]
-#trying to get this to pass
-""
+
+    mr.parse_headers('test/fixtures/merchant_sample_small.csv')
+
+    assert_equal "12334105", merchant
   end
+
+  def test_it_can_find_merchant_by_name
+      mr = MerchantRepo.new
+
+      mr.parse_headers('test/fixtures/merchant_sample_small.csv')
+
+      search_repo = mr.find_by_name("Shopin1901")
+
+      assert_equal "Shopin1901", search_repo.name
+  end
+
 
 end

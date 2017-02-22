@@ -4,7 +4,7 @@ class Merchant
 
 
   def initialize(merchant_info)
-    @merchant_info = {}
+    @merchant_info = merchant_info
   end
 
 
