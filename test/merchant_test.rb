@@ -1,5 +1,4 @@
-gem 'minitest'
-require 'minitest/autorun'
+require './test/test_helper'
 require './lib/merchant'
 
 class MerchantTest < Minitest::Test

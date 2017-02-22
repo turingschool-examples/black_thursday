@@ -1,5 +1,4 @@
-gem 'minitest'
-require 'minitest/autorun'
+require './test/test_helper'
 require './lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test
