@@ -8,20 +8,21 @@ require './lib/sales_engine'
 class MerchantRepositoryTest < Minitest::Test
 
   def test_merchant_repository_exists
-    skip
     se = SalesEngine.new("./data/merchants.csv")
     # se.merchant_repo is an instance of MerchantRepo class!
     mr = se.merchant_repo
     assert_instance_of CSV, mr.merchant_data
   end
 
-  def test_can_make_new_merchant
+  def test_can_make_new_merchants
     se = SalesEngine.new("./data/merchants.csv")
     mr = se.merchant_repo
-    merchant_data = { id:"12334112", name:"Candisart", created_at:"2009-05-30", updated_at:"2010-08-29" }
-    binding.pry
-    merchant_object = mr.create_merchants(merchant_data)
-    assert_instance_of Merchant, merchant_object
+    merchant_list = mr.create_merchants
+    assert "12334105", merchant_list.first.id
+  end
+
+  def test_merchant_can_have_small_input_hash
+    skip
   end
 
   # def test_returns_all_merchants

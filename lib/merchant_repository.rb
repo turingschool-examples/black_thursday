@@ -11,9 +11,8 @@ class MerchantRepository
   # def create_merchants(merchant_data)
   #   Merchant.new(merchant_data)
   # end
-  def create_merchants(merchant_data)
-    binding.pry
-    merchant_data.each do |row|
+  def create_merchants
+    merchant_data.map do |row|
       Merchant.new(row)
     end
   end
