@@ -28,19 +28,19 @@ class MerchantRepository
 
   def find_by_id(find_id)
     merchants_array.find do |instance|
-      instance.merchant_hash[:id] == find_id
+      instance.id == find_id
     end
   end
 
   def find_by_name(find_name)
     merchants_array.find do |instance|
-      instance.merchant_hash[:name].downcase == find_name.downcase
+      instance.name.downcase == find_name.downcase
     end
   end
 
   def find_all_by_name(find_fragment)
     merchants_array.find_all do |instance|
-      instance.merchant_hash[:name].downcase.include?(find_fragment.downcase)
+      instance.name.downcase.include?(find_fragment.downcase)
     end
   end
 end
