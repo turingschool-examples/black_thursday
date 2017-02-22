@@ -22,6 +22,8 @@ class MerchantRepository
       @all = csv_hash
   end
 
+
+
   def create_merchants
     i = Merchant.new(self, hash)
 end
