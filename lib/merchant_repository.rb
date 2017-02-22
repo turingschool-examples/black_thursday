@@ -10,8 +10,8 @@ class MerchantRepository
 		@all = Array.new
 	end
 
-	def add_merchant(data)
-		all << Merchant.new(data)
+	def add_merchant(data, sales_engine)
+		all << Merchant.new(data, sales_engine)
 	end
 
 	def find_by_name(name)
