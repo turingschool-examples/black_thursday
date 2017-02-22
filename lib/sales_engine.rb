@@ -2,7 +2,7 @@ class SalesEngine
   attr_reader :items, :merchant
 
   def initialize
-    @items = repos[:items]
+    @items     = repos[:items]
     @merchants = repos[:merchant]
   end
 
@@ -14,5 +14,8 @@ class SalesEngine
 
     arry_objects = ob.read_csv(args)
     repos = rb.build_repos(arry_objects)
+
+    # need to insert parent info into object classes
+    # using nested each loops
   end
 end
