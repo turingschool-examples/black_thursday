@@ -22,9 +22,9 @@ class SalesEngineTest < Minitest::Test
 	def test_merchants_can_find_by_name_from_sales_engine
     mr = se.merchants
     merchant_1 = mr.find_by_name("CJsDecor")
-    merchant_2 = mr.find_by_name("NOT A NAME")
 
-    assert_equal "CJsDecor", merchant_1[:name]
-    assert_nil merchant_2
+    assert_instance_of Merchant, merchant_1
+		assert_equal "12337411", merchant_1.id
+		assert_equal "CJsDecor", merchant_1.name
 	end
 end
