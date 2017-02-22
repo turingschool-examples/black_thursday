@@ -1,26 +1,45 @@
 require 'bigdecimal'
+
 class Item
-  attr_reader :id, :name, :description, :unit_price, :created_at, :updated_at
+
+  attr_reader :item_hash
 
   def initialize(hash)
-    @id = id
-    @name = name
-    @description = description
-    @unit_price = unit_price
-    @created_at = created_at
-    @updated_at = updated_at
+    @item_hash = hash
   end
 
+  def name
+    item_hash[:name]
+  end
+
+  def id
+    item_hash[:id]
+  end
+
+  def description
+    item_hash[:description]
+  end
+
+  def unit_price
+    BigDecimal.new(item_hash[:unit_price])
+  end
+
+  def created_at
+    item_hash[:created_at]
+  end
+
+  def updated_at
+    item_hash[:updated_at]
+  end
+
+  def merchant_id
+    item_hash[:merchant_id]
+  end
+
+  def unit_price_to_dollars
+    unit_price.to_f / 100
+  end
 end
-i = Item.new({
-  :name        => "Pencil",
-  :description => "You can use it to write things",
-  :unit_price  => BigDecimal.new(10.99,4),
-  :created_at  => Time.now,
-  :updated_at  => Time.now,
-})
-
-
 
 # Item
 #
