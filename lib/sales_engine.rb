@@ -14,7 +14,6 @@ class SalesEngine
   def initialize(files = {})
     @merchants = create_merchant_repository(files)
     @items = create_item_repository(files)
-
   end
 
   def self.from_csv(files)
