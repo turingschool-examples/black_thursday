@@ -13,7 +13,7 @@ class Item
   end
 
   def unit_price_to_dollars
-    "$" + ("%.2f" % @unit_price
+    "$" + ("%.2f" % @unit_price)
     
   end
 end
