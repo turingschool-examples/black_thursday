@@ -47,6 +47,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_returns_empty_array_if_no_match
+    skip
     merch_repo = MerchantRepository.new('test/fixtures/merchant_sample_small.csv')
 
     assert_equal [], merch_repo.find_all_by_name("Steph")

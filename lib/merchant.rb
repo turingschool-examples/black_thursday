@@ -5,5 +5,4 @@ class Merchant
     @id = row[:id]
     @name = row[:name]
   end
-
 end
