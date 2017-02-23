@@ -13,6 +13,7 @@ class Item
     @unit_price = unit_price_to_dollars(item[:unit_price])
     @created_at = Time.parse(item[:created_at])
     @updated_at = Time.parse(item[:updated_at])
+    @merchant_id = item[:merchant_id].to_i # test coverage for this
   end
 
   def unit_price_to_dollars(price)
