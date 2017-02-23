@@ -16,9 +16,9 @@ class SalesEngine
   end
 
   def merchants
-    MerchantRepository.new(@merchant_csv)
+    MerchantRepository.new(@merchant_csv, self).make_merchant_repository
   end
-  
+
 end
 
 sales =  SalesEngine.new
