@@ -17,5 +17,5 @@ class Item
     @merchant_id = data[:merchant_id]
     @parent = parent
   end
-  
+
 end

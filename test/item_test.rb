@@ -22,4 +22,29 @@ class ItemTest < Minitest::Test
     assert_equal "263395617", i.first.id
   end
 
+  def test_name_method_returns_item_name
+    se = SalesEngine.new({:items => './test/fixtures/items_three.csv'})
+    ir = se.items
+    i = ir.all
+
+    assert_equal "Glitter scrabble frames", i.first.name
+  end
+
+  def test_description_method_returns_item_description
+    se = SalesEngine.new({:items => './test/fixtures/items_three.csv'})
+    ir = se.items
+    i = ir.all
+
+    assert_equal String, i.first.description.class
+  end
+
+  def test_unit_price_method_returns_unit_price
+    se = SalesEngine.new({:items => './test/fixtures/items_three.csv'})
+    ir = se.items
+    i = ir.all
+
+    assert_equal "1300", i.first.unit_price
+  end
+
+
 end
