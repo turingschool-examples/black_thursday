@@ -45,4 +45,32 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal [], ir.find_all_with_description("banana")
     assert_equal 2, ir.find_all_with_description("glitter").length
   end
+
+  def test_find_all_by_price
+    se = SalesEngine.new({:items => './test/fixtures/items_same_price.csv'})
+    ir = se.items
+
+    assert_equal Array, ir.find_all_by_price("1300").class
+    assert_equal 2, ir.find_all_by_price("1300").length
+    assert_equal [], ir.find_all_by_price("12345")
+  end
+
+  def test_find_all_by_price_in_range
+    se = SalesEngine.new({:items => './test/fixtures/items_three.csv'})
+    ir = se.items
+
+    assert_equal Array, ir.find_all_by_price_in_range(1300..1400).class
+    assert_equal 2, ir.find_all_by_price_in_range(1300..1400).length
+    assert_equal [], ir.find_all_by_price_in_range(1500..1600)
+  end
+
+  def test_it_finds_all_by_merchant_id
+    se = SalesEngine.new({:items => './test/fixtures/items_same_merchant_id.csv'})
+    ir = se.items
+
+    assert_equal Array, ir.find_all_by_merchant_id("12334185").class
+    assert_equal 3, ir.find_all_by_merchant_id("12334185").length
+    assert_equal [], ir.find_all_by_merchant_id("12234145")
+  end
+
 end

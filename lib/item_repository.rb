@@ -33,4 +33,25 @@ include CsvParser
     items.compact
   end
   
+  def find_all_by_price(price)
+    items = all.find_all do |item|
+      price == item.unit_price
+    end
+  end
+
+  def find_all_by_price_in_range(price_range)
+    # needs refactoring
+    items = all.map do |item|
+      if price_range.to_a.include?(item.unit_price.to_i)
+        item
+      end
+    end
+    items.compact
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    items = all.find_all do |item|
+      merchant_id == item.merchant_id 
+    end 
+  end
 end
