@@ -6,6 +6,10 @@ class ItemRepository
     @parent = parent
   end
 
+  def inspect
+    "#<#{self.class} #{@repository.size} rows>"
+  end
+
   def make_repository
     @repository = {}
     @item_csv.read.each do |item|
