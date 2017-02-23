@@ -1,5 +1,12 @@
 class Item
-  attr_reader :id, :name, :description, :unit_price, :created_at, :updated_at, :merchant_id
+  attr_reader :id,
+              :name,
+              :description,
+              :unit_price,
+              :created_at,
+              :updated_at,
+              :merchant_id
+  
   def initialize(data, parent)
     @id = data[:id]
     @name = data[:name]
@@ -10,4 +17,5 @@ class Item
     @merchant_id = data[:merchant_id]
     @parent = parent
   end
+  
 end
