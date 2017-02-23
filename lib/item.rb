@@ -1,4 +1,5 @@
 require 'pry'
+# require "bigdecimal"  ?
 class Item
   attr_reader :id, :name, :description, :unit_price, :merchant_id, :created_at, :updated_at
   
@@ -12,5 +13,6 @@ class Item
     @created_at  = data[:created_at]
     @updated_at = data[:updated_at]
   end
+
 
 end
