@@ -8,6 +8,8 @@ class MerchantRepository
   def initialize(path)
     @merchants_path = path
     @merchants_array = []
+    pull_csv
+    parse_csv
   end
 
   def pull_csv
@@ -42,5 +44,9 @@ class MerchantRepository
     merchants_array.find_all do |instance|
       instance.name.downcase.include?(find_fragment.downcase)
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end
