@@ -25,6 +25,7 @@ class MerchantRepository
   def all #- returns an array of all known Merchant instances
     @merchant_repository.map do |key, value|
       value 
+    end
   end
 
   def find_by_id #- returns either nil or an instance of Merchant with a matching ID
