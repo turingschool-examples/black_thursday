@@ -4,7 +4,7 @@ require_relative 'merchant'
 
 class MerchantRepository < Repository
 
-  # attr_reader :path
+  attr_reader :klass
   #
   # def initialize(path)
   #   @path = path
@@ -15,7 +15,7 @@ class MerchantRepository < Repository
 
   # data = [<Merchant name: 'John Johnson', ...]
   def initialize(path)
-    klass = Merchant
+    @klass = Merchant
     super(path, Merchant)
   end
 
