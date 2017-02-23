@@ -24,7 +24,7 @@ class MerchantRepositoryTest < Minitest::Test
     se = SalesEngine.from_csv({:merchants => './test/fixtures/merchants_three.csv'})
     mr = se.merchants
     
-    assert_equal "Candisart",mr.find_by_id('12334112').name
+    assert_equal "Candisart", mr.find_by_id('12334112').name
   end
 
   def test_find_by_id_returns_nil_if_merchant_doesnt_exist
@@ -54,5 +54,12 @@ class MerchantRepositoryTest < Minitest::Test
     mr = se.merchants
 
     assert_equal ["Shopin1901", "MiniatureBikez"], mr.find_all_by_name("in")
+  end
+
+  def test_find_all_by_name_returns_empty_array_if_doesnt_exist
+    se = SalesEngine.from_csv({:merchants => './test/fixtures/merchants_three.csv'})
+    mr = se.merchants
+
+    assert_equal [], mr.find_all_by_name("banana")
   end
 end
