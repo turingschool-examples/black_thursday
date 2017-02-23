@@ -2,10 +2,11 @@ require 'bigdecimal'
 
 class Item
 
-  attr_reader :item_hash
+  attr_reader :item_hash, :repository
 
-  def initialize(hash)
+  def initialize(hash, repository = '')
     @item_hash = hash
+    @repository = repository
   end
 
   def name
@@ -38,5 +39,9 @@ class Item
 
   def unit_price_to_dollars
     unit_price.to_f / 100
+  end
+
+  def merchant
+    repository.engine.merchants.find_by_id(merchant_id)
   end
 end

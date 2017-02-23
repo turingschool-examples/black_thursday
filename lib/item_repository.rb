@@ -4,11 +4,12 @@ require 'time'
 
 class ItemRepository
   attr_accessor :items_array
-  attr_reader :contents
+  attr_reader :contents, :engine
 
-  def initialize(path)
+  def initialize(path, engine = '')
     @items_path = path
     @items_array = []
+    @engine = engine
     pull_csv
     parse_csv
   end
@@ -35,7 +36,7 @@ class ItemRepository
         :created_at  => created_at,
         :updated_at  => updated_at,
         :merchant_id => merchant_id
-      })
+      }, self)
     end
   end
 

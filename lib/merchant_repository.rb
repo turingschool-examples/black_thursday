@@ -3,11 +3,12 @@ require_relative './merchant'
 
 class MerchantRepository
   attr_accessor :merchants_array
-  attr_reader :contents
+  attr_reader :contents, :engine
 
-  def initialize(path)
+  def initialize(path, engine)
     @merchants_path = path
     @merchants_array = []
+    @engine = engine
     pull_csv
     parse_csv
   end
@@ -20,7 +21,7 @@ class MerchantRepository
     @contents.each do |row|
       name = row[:name]
       id = row[:id]
-      merchants_array << Merchant.new({:id => id.to_i, :name => name})
+      merchants_array << Merchant.new({:id => id.to_i, :name => name}, self)
     end
   end
 

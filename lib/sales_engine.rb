@@ -6,8 +6,8 @@ class SalesEngine
   attr_accessor :items, :merchants
 
   def initialize(hash)
-    @items = ItemRepository.new(hash[:items])
-    @merchants = MerchantRepository.new(hash[:merchants])
+    @items = ItemRepository.new(hash[:items], self)
+    @merchants = MerchantRepository.new(hash[:merchants], self)
   end
 
   def self.from_csv(hash)
@@ -17,10 +17,10 @@ class SalesEngine
 end
 
 
-# se = SalesEngine.from_csv({
-#   :items     => "./data/items.csv",
-#   :merchants => "./data/merchants.csv",
-# })
-#
-# require "pry"; binding.pry
-# p ""
+se = SalesEngine.from_csv({
+  :items     => "./data/items.csv",
+  :merchants => "./data/merchants.csv",
+})
+
+require "pry"; binding.pry
+p ""

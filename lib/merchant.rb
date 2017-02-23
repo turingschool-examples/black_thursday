@@ -1,8 +1,9 @@
 class Merchant
-  attr_reader :merchant_hash
+  attr_reader :merchant_hash, :repository
 
-  def initialize(hash)
+  def initialize(hash, repository)
     @merchant_hash = hash
+    @repository = repository
   end
 
   def id
@@ -13,6 +14,10 @@ class Merchant
     merchant_hash[:name]
   end
 
+  def items
+    repository.engine.items.find_all_by_merchant_id(id)
+  end
+
 end
 
-m = Merchant.new({:id => 5, :name => "Turing School"})
+# m = Merchant.new({:id => 5, :name => "Turing School"})
