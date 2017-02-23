@@ -42,6 +42,8 @@ class ItemRepositoryTest < Minitest::Test
 #     assert_equal "12334185", merchant_id
 #   end
 
+
+# delete all make_items? now done in initialize, right?
   def test_can_find_by_name
     ir = ItemRepository.new(@path)
     ir.make_items
