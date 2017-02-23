@@ -2,11 +2,11 @@ require_relative 'item'
 require 'pry'
 
 class ItemRepository
-  attr_reader :item_contents, :arr
+  attr_reader :item_contents, :items
 
   def initialize(item_contents)
     @item_contents  = item_contents
-    @arr = []
+    @items = []
   end
 
   def make_items
@@ -18,12 +18,14 @@ class ItemRepository
         :merchant_id => row[:merchant_id],
         :created_at => row[:created_at],
         :updated_at => row[:updated_at]})
-        @arr << item
+        @items << item
       end
   end
 
   def find_by_name(name)
-
+    # binding.pry
+    #why is select it returning an array?
+    items.find{ |item| item.name == name}
   end
 
   # def from_csv(input_hash)
