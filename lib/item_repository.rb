@@ -18,4 +18,10 @@ class ItemRepository
     return self
   end
 
+  def all
+    @repository.map do |item|
+      item
+    end
+  end
+
 end
