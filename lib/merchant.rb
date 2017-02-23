@@ -9,11 +9,11 @@ class Merchant
     @parent = parent
   end
 
-  def id
-    # returns the integer id of the merchant
-  end
-
-  def name
-    # returns the name of the merchant
-  end
+  # def id
+  #   # returns the integer id of the merchant
+  # end
+  #
+  # def name
+  #   # returns the name of the merchant
+  # end
 end
