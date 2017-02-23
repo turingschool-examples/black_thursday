@@ -3,7 +3,7 @@ require './lib/merchant'
 
 class MerchantRepository
 
-  def initialize(se)
+  def initialize
     # se = SalesEngine.from_csv({
     #   :items     => "./data/items.csv",
     #   :merchants => "./data/merchants.csv",})
