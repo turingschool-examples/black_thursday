@@ -1,27 +1,13 @@
 require 'pry'
-require './lib/merchant'
-require './lib/merchant_repository'
-require './lib/item'
-require './lib/item_repository'
-
-# put load paths in separate file
-
 class SalesEngine
-  attr_reader :path
+  attr_reader :merchants
 
-    def initialize(path)
-      @path = path
-    end
-
-    def self.from_csv(path)
-      SalesEngine.new(path)
-    end
-
-    def items
-      @items ||= ItemRepository.new(Loader.load(path[:items]), self)
-    end
-
-    def merchants
-      @merchants ||= MerchantRepository.new(Loader.load(path[:merchants]), self)
-    end
+  def initialize(files_to_be_loaded)
+    @merchants = MerchantRepository.new(files_to_be_loaded[:merchants])
   end
+
+  def self.from_csv(files_to_be_loaded)
+    SalesEngine.new(files_to_be_loaded)
+  end
+
+end
