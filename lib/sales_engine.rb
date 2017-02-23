@@ -22,6 +22,7 @@ class SalesEngine
   }
 end
 
+# binding.pry
 # se = SalesEngine.new
 # se.from_csv({:items => "./data/items.csv",
 #     :merchants => "./data/merchants.csv"

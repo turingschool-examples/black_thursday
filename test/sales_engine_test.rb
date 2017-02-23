@@ -10,9 +10,9 @@ class SalesEngineTest < Minitest::Test
 
   # def test_for_args
   #   se = SalesEngine.new({
-  # :items     => "./data/items.csv",
+  # :items     => "./data/items_fixtures.csv",
   # :merchants => "./data/merchants.csv"})
-  # assert_equal ({:items     => "./data/items.csv",
+  # assert_equal ({:items     => "./data/items_fixtures.csv",
   # :merchants => "./data/merchants.csv"}), se.items
   # end
 
@@ -25,12 +25,12 @@ class SalesEngineTest < Minitest::Test
 
   def test_from_csv_accepts_key_values
     se = SalesEngine.new
-    se.from_csv({:items     => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    se.from_csv({:items     => "./data/items_fixtures.csv", :merchants => "./data/merchants.csv"})
   end
 
   def test_SE_can_make_ItemRepository
     se = SalesEngine.new
-    se.from_csv({:items => "./data/items.csv",
+    se.from_csv({:items => "./data/items_fixtures.csv",
         :merchants => "./data/merchants.csv"
       })
     ir = se.items
@@ -39,7 +39,7 @@ class SalesEngineTest < Minitest::Test
 
   def test_SE_can_make_MerchantRepository
     se = SalesEngine.new
-    se.from_csv({:items => "./data/items.csv",
+    se.from_csv({:items => "./data/items_fixtures.csv",
         :merchants => "./data/merchants.csv"
       })
     mr = se.merchants
@@ -48,7 +48,7 @@ class SalesEngineTest < Minitest::Test
 
   def test_that_item_passes_to_item_repo
     se = SalesEngine.new
-    se.from_csv({:items => "./data/items.csv",
+    se.from_csv({:items => "./data/items_fixtures.csv",
         :merchants => "./data/merchants.csv"
       })
     ir = se.items
@@ -57,19 +57,21 @@ class SalesEngineTest < Minitest::Test
 
   def test_that_item_passes_to_merchant_repo
     se = SalesEngine.new
-    se.from_csv({:items => "./data/items.csv",
+    se.from_csv({:items => "./data/items_fixtures.csv",
         :merchants => "./data/merchants.csv"
       })
     mr = se.merchants
     assert_instance_of CSV, mr.merchant_contents
-    end
+  end
 
   def test_that_IR_makes_items
     se = SalesEngine.new
-    se.from_csv({:items => "./data/items.csv",
+    se.from_csv({:items => "./data/items_fixtures.csv",
         :merchants => "./data/merchants.csv"
       })
     ir = se.items
+    # binding.pry
+    ir.make_items
     item = ir.find_by_name("Glitter scrabble frames")
     assert_instance_of Item, item
   end
@@ -77,7 +79,7 @@ class SalesEngineTest < Minitest::Test
   def test_that_MR_makes_merchants
     skip
     se = SalesEngine.new
-    se.from_csv({:items => "./data/items.csv",
+    se.from_csv({:items => "./data/items_fixtures.csv",
         :merchants => "./data/merchants.csv"
       })
     mr = se.merchants
