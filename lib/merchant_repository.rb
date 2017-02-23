@@ -1,6 +1,5 @@
 require "csv"
 require './lib/merchant'
-require 'pry'
 
 class MerchantRepository
   attr_reader :merchants
@@ -24,9 +23,4 @@ class MerchantRepository
   def find_all_by_name (merchant_name)
     merchants[:merchant].select { |row| row.name == merchant_name }
   end
-
-
 end
-
-#binding.pry
-""
