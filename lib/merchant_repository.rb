@@ -1,4 +1,4 @@
-require './lib/merchant'
+require_relative 'merchant'
 require 'csv'
 require 'pry'
 class MerchantRepository
@@ -7,7 +7,7 @@ class MerchantRepository
 		@file = file
 		@sales_engine_instance = sales_engine_instance
 		@merchants = Hash.new(0)
-		merchant_maker 
+		merchant_maker
 	end
 
 	def open_contents
@@ -19,7 +19,7 @@ class MerchantRepository
 			id = row[:id].to_i
 			#potential to_sym or to_i (value)
 			name = row[:name]
-			@merchants[id] = Merchant.new({:id => id, :name => name.upcase}, self)
+			@merchants[id] = Merchant.new({:id => id, :name => name}, self)
 		end
 		# @merchants
 	end
@@ -36,26 +36,29 @@ class MerchantRepository
 
 	def find_by_name(naming)
 		found_merchant = all.detect do |merchant|
-			merchant.merchant_info[:name] == naming.upcase
+			merchant.name.downcase == naming.downcase
 		end
 		found_merchant
 	end
 
 	def find_all_by_name(fragment)
-		found_names = @merchants.values.map do |merchant|
-				# binding.pry
-			if merchant.merchant_info[:name].include?(fragment.upcase) 
-				merchant.merchant_info[:name]
+		found_merchants = @merchants.values.map do |merchant|
+			if merchant.name.downcase.include?(fragment.downcase)
+				merchant
 			end
 		end
-		found_names.compact
+		found_merchants.compact
 	end
+
+	def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 
 
 	# def find_by_name(name)
 	# 	if all.any? { |merchant| merchant.merchant_info[:name] == name }
 	# 	end
-	# 	name.upcase
+	# 	name.downcase
 	# end
 end
 

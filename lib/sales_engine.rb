@@ -1,5 +1,5 @@
-require "./lib/merchant_repository"
-require "./lib/item_repository"
+require_relative "merchant_repository"
+require_relative "item_repository"
 
 class SalesEngine
     attr_accessor :paths
@@ -20,5 +20,5 @@ class SalesEngine
 
   def items
     ItemRepository.new(@paths[:items], self)
-  end 
+  end
 end
