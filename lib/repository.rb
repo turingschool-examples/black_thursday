@@ -19,4 +19,8 @@ class Repository
     data
   end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
 end
