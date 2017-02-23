@@ -16,7 +16,7 @@ class ItemRepository
       all << Item.new({id: row[:id], name: row[:name], description: row[:description], unit_price: row[:unit_price], created_at: row[:created_at], updated_at: row[:updated_at], merchant_id: row[:merchant_id]}, self)
     end
   end
-  
+
   def find_by_id(id_num)
     all.find { |item| item.id == id_num }
   end
@@ -24,19 +24,25 @@ class ItemRepository
   def find_by_name(name)
     all.find { |item| item.name.downcase == name.downcase}
   end
-  
-  def find_all_by_description(fragment)
+
+  def find_all_with_description(fragment)
     all.select { |item| item.description.downcase.include?(fragment.downcase)}
   end
-  
+
   def find_all_by_price(price)
-    all.select { |item| item.unit_price == price}
+    all.select { |item| item.unit_price_to_dollars == price}
+  end
+
+  def find_all_by_price_in_range(range)
+    all.select { |item| range.include?(item.unit_price_to_dollars)}
   end
 
   def find_all_by_merchant_id(merchant_id_num)
     all.select { |item| item.merchant_id == merchant_id_num }
   end
-  
+
+  def inspect
+  "#<#{self.class} #{@merchants.size} rows>"
+  end
+
 end
-
-

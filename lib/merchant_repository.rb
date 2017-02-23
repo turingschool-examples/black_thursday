@@ -30,4 +30,8 @@ class MerchantRepository
   def find_all_by_name(name_frag)
     all.select {|merchant| merchant.name.downcase.include?(name_frag.downcase)}
   end
+
+  def inspect
+  "#<#{self.class} #{@merchants.size} rows>"
+  end
 end
