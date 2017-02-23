@@ -7,7 +7,6 @@ class MerchantRepositoryTest < Minitest::Test
     @merchant_list = ob.read_csv({:merchant=>"./test/fixtures/merchants_test_data.csv"})
     @merchant_repo = MerchantRepository.new(merchant_list)
     @merchant_example = merchant_list[:merchant]
-    
   end
 
   def test_it_exists
@@ -28,5 +27,5 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_find_all_by_name
     assert_equal [merchant_example[0], merchant_example[3]], merchant_repo.find_all_by_name("Shopin1901")
-  end 
+  end
 end
