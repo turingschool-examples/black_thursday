@@ -11,9 +11,11 @@ class MerchantRepository < Repository
     super(path, klass)
   end
 
+  def all
+    data
+  end
 
   def find_by_name(name)
-    # data.select {|row| row.name == name }
     data.select do |row|
       if row.name == name
         return row.name
@@ -24,7 +26,6 @@ class MerchantRepository < Repository
   end
 
   def find_by_id(id)
-    # data.select {|row| row.name == name }
     data.select do |row|
       if row.id == id
         return row.id
@@ -34,7 +35,12 @@ class MerchantRepository < Repository
     end
   end
 
-
+  def find_all_by_name(fragment)
+    data.select do |row|
+      upcased = row.name.upcase
+      if upcased.include?(fragment.upcase)
+        return row.name
+      end
+    end
   end
 end
-    # returns either [] or one or more matches which contain the supplied name fragment, case insensitive

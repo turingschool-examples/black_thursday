@@ -11,7 +11,8 @@ class MerchantRepositoryTest < Minitest::Test
   def test_finds_all_merchants
     merch_repo = MerchantRepository.new('test/fixtures/merchant_sample_small.csv')
 
-    assert_equal ["boop"], merch_repo.all
+    assert_equal Array, merch_repo.all.class
+    refute_empty merch_repo.all
   end
 
   def test_it_can_find_merchant_by_name
@@ -37,6 +38,18 @@ class MerchantRepositoryTest < Minitest::Test
       merch_repo = MerchantRepository.new('test/fixtures/merchant_sample_small.csv')
 
       refute merch_repo.find_by_id("123456")
+  end
+
+  def test_find_all_by_name
+    merch_repo = MerchantRepository.new('test/fixtures/merchant_sample_small.csv')
+
+    assert_equal "Shopin1901", merch_repo.find_all_by_name("Shop")
+  end
+
+  def test_returns_empty_array_if_no_match
+    merch_repo = MerchantRepository.new('test/fixtures/merchant_sample_small.csv')
+
+    assert_equal [], merch_repo.find_all_by_name("Steph")
   end
 
 end
