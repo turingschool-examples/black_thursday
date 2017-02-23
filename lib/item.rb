@@ -1,5 +1,5 @@
+require 'pry'
 class Item 
-
 	def initialize(item_info, ir_instance)
 		@item_info = item_info
 		@ir_instance = ir_instance
@@ -14,8 +14,7 @@ class Item
 	end
 
 	def unit_price
-		@item[:unit_price]
+		@item_info[:unit_price]
+		# binding.pry
 	end
-
-	
 end
