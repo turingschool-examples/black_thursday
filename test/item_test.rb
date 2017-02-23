@@ -47,9 +47,17 @@ class ItemTest < Minitest::Test
 
     assert_equal "123456", i.merchant_id
   end
+  
+  def test_it_converts_unit_price_to_bigdecimal
+    skip
+    i = Item.new({:unit_price => "1099"})
+
+    assert_equal 0.1099E4, i.unit_price
+  end
 
   def test_it_can_conververt_unit_price_to_dollars
-    i = Item.new({:unit_price => BigDecimal.new(10.99,4)})
+    skip
+    i = Item.new({:unit_price => "1099"})
 
     assert_equal 10.99, i.unit_price_to_dollars
   end
