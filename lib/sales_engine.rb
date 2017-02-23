@@ -1,16 +1,15 @@
+require_relative 'repo_builder'
+require_relative 'object_builder'
 
 class SalesEngine
   attr_reader :items, :merchant
 
-  def initialize
+  def initialize(repos = {})
     @items     = repos[:items]
     @merchants = repos[:merchant]
   end
 
-
-
-
-  def self.from_csv(args)
+  def self.from_csv(args) 
     se = SalesEngine.new
     rb = RepoBuilder.new(se)
     ob = ObjectBuilder.new
@@ -18,7 +17,7 @@ class SalesEngine
     arry_objects = ob.read_csv(args)
     repos = rb.build_repos(arry_objects)
 
-    # need to insert parent info into object classes
-    # using nested each loops
+    ob.assign_parents(repos)
+
   end
 end

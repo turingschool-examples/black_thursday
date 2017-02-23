@@ -1,4 +1,5 @@
-require './lib/merchant'
+require_relative 'merchant'
+require_relative 'item'
 require 'csv'
 require 'pry'
 
@@ -8,12 +9,24 @@ class ObjectBuilder
   end
 
   def read_csv(args)
-    { merchant: build_object(args[:merchant], Merchant),
-      item:     build_object(args[:item], Item) }
+    { merchant: build_object(args[:merchants], Merchant),
+      item:     build_object(args[:items], Item) }
   end
 
   def build_object(path, class_type)
-    line = CSV.open path, headers: true, header_converters: :symbol
-    line.map { |row| class_type.new(row) }
+    get_lines(path).map { |row| class_type.new(row) }
+  end
+
+  def get_lines(path)
+    CSV.open path, headers: true, header_converters: :symbol
+  end
+
+  def assign_parents(repos)
+    repos.each { |repo| repo.all.each { |object| object.parent = repo } }
   end
 end
+
+# obj = ObjectBuilder.new
+# a = obj.read_csv({:merchants => "./test/fixtures/merchants_test_data.csv", :items => "./data/items.csv"})
+#
+# p a
