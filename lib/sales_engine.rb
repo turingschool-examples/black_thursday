@@ -26,10 +26,7 @@ sales =  SalesEngine.new
 sales.from_csv({
   :items     => "./data/items.csv",
   :merchants => "./data/merchants.csv"})
-    binding.pry
-''
 
-The data can be found in data/merchants.csv so the instance is created and used like this:
 
 se = SalesEngine.from_csv({
   :items     => "./data/items.csv",
@@ -38,4 +35,3 @@ se = SalesEngine.from_csv({
 
 mr = se.merchants
 merchant = mr.find_by_name("CJsDecor")
-# => <Merchant>
