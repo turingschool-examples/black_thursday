@@ -4,6 +4,7 @@ class RepoBuilder
   end
 
   def build_repos(arry_objects)
-    [ MerchantRepository.new(arry_objects[:merchant], sales_engine) ]
+    [ MerchantRepository.new(arry_objects[:merchant], sales_engine),
+      ItemRepository.new(arry_objects[:items], sales_engine)]
   end
 end
