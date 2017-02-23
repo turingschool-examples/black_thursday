@@ -9,6 +9,7 @@ class Repository
     @path = path
     @data = []
     @klass = klass
+    load_file
   end
 
   def load_file

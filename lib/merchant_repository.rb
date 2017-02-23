@@ -13,41 +13,28 @@ class MerchantRepository < Repository
 
 
   def find_by_name(name)
-    data.select {|row| row.name == name }
-  end
-
-
-  def all
-    # returns an array of all known Merchant instances
-    @all_merchants << @merchants.values
-
-  end
-
-  def find_by_id
-    # returns either nil or an instance of Merchant with a matching ID
-  end
-
-
-
-  # def find_by_name(name)
-  #   name = name.upcase
-  #   if @merchants.has_key?(name)
-  #     @merchants[name]
-  #   else
-  #     nil
-  #   end
-  #   # returns either nil or an instance of Merchant having done a case insensitive search
-  # end
-
-
-  def find_all_by_name(name_piece)
-    broken_name = @merchants.keys
-
-    broken_name.map do |name|
-      if name.to_s.include?(name_piece.upcase)
-          @name_pieces << name
+    # data.select {|row| row.name == name }
+    data.select do |row|
+      if row.name == name
+        return row.name
+      else
+        return nil
       end
     end
+  end
+
+  def find_by_id(id)
+    # data.select {|row| row.name == name }
+    data.select do |row|
+      if row.id == id
+        return row.id
+      else
+        return nil
+      end
+    end
+  end
+
+
   end
 end
     # returns either [] or one or more matches which contain the supplied name fragment, case insensitive
