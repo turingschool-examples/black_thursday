@@ -22,7 +22,7 @@ class MerchantRepository
 
   def find_by_name(name)
     all.find do |merchant|
-      merchant.name == name
+      merchant.name.downcase == name.downcase
     end
   end
  
@@ -30,9 +30,13 @@ class MerchantRepository
     # please refactor me /select/
     merchants = all.map do |merchant|
       if merchant.name.downcase.include?(fragment.downcase)
-        merchant.name
+        merchant
       end
     end
     merchants.compact
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end

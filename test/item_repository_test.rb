@@ -25,7 +25,7 @@ class ItemRepositoryTest < Minitest::Test
     se = SalesEngine.new({:items => './test/fixtures/items_three.csv'})
     ir = se.items
     
-    assert_equal "Glitter scrabble frames", ir.find_by_id("263395617").name
+    assert_equal "Glitter scrabble frames", ir.find_by_id(263395617).name
     assert_nil ir.find_by_id("263355617")
   end
 
@@ -33,7 +33,7 @@ class ItemRepositoryTest < Minitest::Test
     se = SalesEngine.new({:items => './test/fixtures/items_three.csv'})
     ir = se.items
 
-    assert_equal "263395617", ir.find_by_name("Glitter scrabble frames").id
+    assert_equal 263395617, ir.find_by_name("Glitter scrabble frames").id
     assert_nil ir.find_by_name("banana")
   end
 
@@ -50,27 +50,27 @@ class ItemRepositoryTest < Minitest::Test
     se = SalesEngine.new({:items => './test/fixtures/items_same_price.csv'})
     ir = se.items
 
-    assert_equal Array, ir.find_all_by_price("1300").class
-    assert_equal 2, ir.find_all_by_price("1300").length
-    assert_equal [], ir.find_all_by_price("12345")
+    assert_equal Array, ir.find_all_by_price(BigDecimal.new(13)).class
+    assert_equal 2, ir.find_all_by_price(BigDecimal.new(13)).length
+    assert_equal [], ir.find_all_by_price(BigDecimal.new(123))
   end
 
   def test_find_all_by_price_in_range
     se = SalesEngine.new({:items => './test/fixtures/items_three.csv'})
     ir = se.items
 
-    assert_equal Array, ir.find_all_by_price_in_range(1300..1400).class
-    assert_equal 2, ir.find_all_by_price_in_range(1300..1400).length
-    assert_equal [], ir.find_all_by_price_in_range(1500..1600)
+    assert_equal Array, ir.find_all_by_price_in_range(13.00..14.00).class
+    assert_equal 2, ir.find_all_by_price_in_range(13.00..14.00).length
+    assert_equal [], ir.find_all_by_price_in_range(15.00..16.00)
   end
 
   def test_it_finds_all_by_merchant_id
     se = SalesEngine.new({:items => './test/fixtures/items_same_merchant_id.csv'})
     ir = se.items
 
-    assert_equal Array, ir.find_all_by_merchant_id("12334185").class
-    assert_equal 3, ir.find_all_by_merchant_id("12334185").length
-    assert_equal [], ir.find_all_by_merchant_id("12234145")
+    assert_equal Array, ir.find_all_by_merchant_id(12334185).class
+    assert_equal 3, ir.find_all_by_merchant_id(12334185).length
+    assert_equal [], ir.find_all_by_merchant_id(12234145)
   end
 
 end

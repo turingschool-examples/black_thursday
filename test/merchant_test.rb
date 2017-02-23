@@ -20,7 +20,7 @@ class MerchantTest < Minitest::Test
     se = SalesEngine.from_csv({:merchants => './test/fixtures/merchants_three.csv'})
     mr = se.merchants
     m = mr.all
-    assert_equal "12334105", m.first.id
+    assert_equal 12334105, m.first.id
   end
 
   def test_name_method_returns_name

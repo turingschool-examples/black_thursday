@@ -42,7 +42,8 @@ include CsvParser
   def find_all_by_price_in_range(price_range)
     # needs refactoring
     items = all.map do |item|
-      if price_range.to_a.include?(item.unit_price.to_i)
+      # require 'pry';binding.pry
+      if price_range.include?(item.unit_price.to_f)
         item
       end
     end
@@ -53,5 +54,9 @@ include CsvParser
     items = all.find_all do |item|
       merchant_id == item.merchant_id 
     end 
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end

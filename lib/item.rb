@@ -10,17 +10,17 @@ class Item
               :merchant_id
   
   def initialize(data, parent)
-    @id = data[:id]
+    @id = data[:id].to_i
     @name = data[:name]
     @description = data[:description]
-    @unit_price = BigDecimal.new(data[:unit_price])
+    @unit_price = (BigDecimal.new(data[:unit_price])/100).round(2)
     @created_at = Time.parse(data[:created_at])
     @updated_at = Time.parse(data[:updated_at])
-    @merchant_id = data[:merchant_id]
+    @merchant_id = data[:merchant_id].to_i
     @parent = parent
   end
 
   def unit_price_to_dollars
-    (unit_price / 100).to_f
+    unit_price.to_f
   end
 end
