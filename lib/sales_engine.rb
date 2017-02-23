@@ -6,7 +6,7 @@ require 'pry'
 class SalesEngine
   attr_reader :item_csv, :merchant_csv
 
-  def from_csv(csv_hash)
+  def self.from_csv(csv_hash)
     @item_csv = CSV.open csv_hash[:items], headers: true, header_converters: :symbol
     @merchant_csv = CSV.open csv_hash[:merchants], headers: true, header_converters: :symbol
   end

@@ -8,6 +8,10 @@ class MerchantRepository
     @parent = parent
   end
 
+  def inspect
+    "#<#{self.class} #{@merchant_repository.size} rows>"
+  end
+
   def make_merchant_repository
     @merchant_repository = {}
     @merchant_csv.read.each do |merchant|
