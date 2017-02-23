@@ -21,17 +21,17 @@ class SalesEngine
 
 end
 
-sales =  SalesEngine.new
-
-sales.from_csv({
-  :items     => "./data/items.csv",
-  :merchants => "./data/merchants.csv"})
-
-
-se = SalesEngine.from_csv({
-  :items     => "./data/items.csv",
-  :merchants => "./data/merchants.csv",
-})
-
-mr = se.merchants
-merchant = mr.find_by_name("CJsDecor")
+# sales =  SalesEngine.new
+#
+# sales.from_csv({
+#   :items     => "./data/items.csv",
+#   :merchants => "./data/merchants.csv"})
+#
+#
+# se = SalesEngine.from_csv({
+#   :items     => "./data/items.csv",
+#   :merchants => "./data/merchants.csv",
+# })
+#
+# mr = se.merchants
+# merchant = mr.find_by_name("CJsDecor")
