@@ -18,5 +18,4 @@ class SalesEngine
 		@merchants
 	end
 
-
 end
