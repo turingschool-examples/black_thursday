@@ -1,12 +1,15 @@
 require './lib/item'
 require 'csv'
 require 'pry'
+require 'bigdecimal'
+
 class ItemRepository	
 	attr_reader :file, :items
 	def initialize(file, sales_engine_instance)
 		@file = file
 		@sales_engine_instance = sales_engine_instance
 		@items = Hash.new(0)
+		item_maker
 	end
 
 	def open_contents
@@ -41,9 +44,17 @@ class ItemRepository
 		found_descriptions = all.map do |item|
 			if item.name.include?(fragment.upcase)
 				item.name
+				# binding.pry
 			end
 		end
 		found_descriptions.compact			
+	end
+
+	def find_all_by_price(price)
+		all.select do |item|
+			price == item.unit_price
+		# binding.pry
+		end
 	end
 
 	#convert unit_price into big decimal and / 100

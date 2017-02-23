@@ -7,6 +7,7 @@ class MerchantRepository
 		@file = file
 		@sales_engine_instance = sales_engine_instance
 		@merchants = Hash.new(0)
+		merchant_maker 
 	end
 
 	def open_contents
