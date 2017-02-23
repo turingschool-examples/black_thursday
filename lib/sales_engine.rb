@@ -16,9 +16,9 @@ class SalesEngine
   end
 
   def merchants
-    MerchantRepository.new(@merchant_csv)
+    MerchantRepository.new(@merchant_csv, self).make_merchant_repository
   end
-  
+
 end
 
 sales =  SalesEngine.new
@@ -26,5 +26,12 @@ sales =  SalesEngine.new
 sales.from_csv({
   :items     => "./data/items.csv",
   :merchants => "./data/merchants.csv"})
-binding.pry
-''
+
+
+se = SalesEngine.from_csv({
+  :items     => "./data/items.csv",
+  :merchants => "./data/merchants.csv",
+})
+
+mr = se.merchants
+merchant = mr.find_by_name("CJsDecor")
