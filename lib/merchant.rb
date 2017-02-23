@@ -1,9 +1,15 @@
 class Merchant
 
-  attr_reader :name, :id
+  attr_reader :name, :id, :sales_engine
 
-  def initialize(name, id)
+  def initialize(name, id, sales_engine)
     @name = name
     @id = id.to_i
+    @sales_engine = sales_engine
+  end
+
+  def items
+    require "pry"; binding.pry
+    sales_engine.items.find_all_by_merchant_id(id)
   end
 end

@@ -3,18 +3,19 @@ require_relative './merchant'
 
 class MerchantRepository
 
-  attr_accessor :merchants
+  attr_accessor :merchants, :sales_engine
 
-  def initialize(path)
+  def initialize(path, sales_engine)
     # @path = path
     @merchants = Hash.new
+    @sales_engine = sales_engine
     populate_repository(path)
   end
 
   def populate_repository(path)
     data = CSV.read(path, headers: true, header_converters: :symbol)
     data.each do |merchant|
-      merchants[merchant[:id].to_sym] = Merchant.new(merchant[:name], merchant[:id])
+      merchants[merchant[:id].to_sym] = Merchant.new(merchant[:name], merchant[:id], sales_engine)
     end
   end
 
