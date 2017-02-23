@@ -30,6 +30,18 @@ class ItemTest < Minitest::Test
   end
 
   def test_item_has_unit_price
-    assert_equal 10.99, item.unit_price
+    assert_equal BigDecimal.new(10.99, 4), item.unit_price
+  end
+
+  def test_created_time
+    assert_equal Time.now.to_s, item.created_at
+  end
+
+  def test_updated_time
+    assert_equal Time.now.to_s, item.updated_at
+  end
+
+  def test_item_merchant_id
+    assert_equal 3333, item.merchant_id
   end
 end
