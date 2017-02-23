@@ -1,17 +1,36 @@
 class Merchant
   attr_reader :merchant_id, :merchant_name, :merchant_created_at, :merchant_updated_at
-  def initialize(merchant, parent)
+
+  def initialize(merchant, parent = nil)
     @merchant_id = merchant[:merchant_id]
     @merchant_name = merchant[:merchant_name]
     @merchant_created_at = merchant[:merchant_created_at]
     @merchant_updated_at = merchant[:merchant_updated_at]
     # @parent = parent
   end
+
+  def find_id
+    @merchant_id.to_i
+  end
+
+  def find_name
+    @merchant_name
+  end
+
+  def when_created_at
+    if @merchant_created_at.class == String
+     Time.parse(merchant_created_at)
+    elsif merchant_created_at.class == Time
+     merchant_created_at
+    end
+  end
+
+  def when_updated_at
+    if @merchant_updated_at.class == String
+      Time.parse(merchant_updated_at)
+    elsif merchant_updated_at.class == Time
+      merchant_updated_at
+    end
+  end
+
 end
-
-
-# id - returns the integer id of the merchant
-# name - returns the name of the merchant
-# We create an instance like this:
-#
-# m = Merchant.new({:id => 5, :name => "Turing School"})
