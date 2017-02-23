@@ -3,26 +3,26 @@ require_relative 'test_helper'
 
 class ItemRepositoryTest < Minitest::Test
   def setup
-    @item_contents =  CSV.open("./data/items_fixtures.csv", headers: true, header_converters: :symbol)
+    @path = "./data/items_fixtures.csv"
   end
   
   def test_it_exist
-    ir = ItemRepository.new(@item_contents)
+    ir = ItemRepository.new(@path)
     assert_instance_of ItemRepository, ir
   end
 
-  def test_if_item_contents_is_CSV_object
-    ir = ItemRepository.new(@item_contents)
-    assert_instance_of CSV, ir.item_contents
+  def test_if_path_is_CSV_object
+    ir = ItemRepository.new(@path)
+    assert_instance_of CSV, ir.csv_file
   end
 
-  def test_initializes_with_empty_array
-    ir = ItemRepository.new(@item_contents)
-    assert_equal [], ir.all
+  def test_initializes_with_populated_array
+    ir = ItemRepository.new(@path)
+    refute ir.all.empty?
   end
 
   def test_items_populate_array
-    ir = ItemRepository.new(@item_contents)
+    ir = ItemRepository.new(@path)
     ir.make_items
     refute ir.all.empty?
     assert_instance_of Item, ir.all[0]
@@ -31,10 +31,10 @@ class ItemRepositoryTest < Minitest::Test
 # #Refactor headers test
 #   def test_can_pull_csv_headers
 #     skip
-#     ir = ItemRepository.new(@item_contents)
+#     ir = ItemRepository.new(@path)
 #     name = nil
 #     merchant_id = nil
-#     @item_contents.each do |row|
+#     @path.each do |row|
 #      name = row[:name]
 #      merchant_id = row[:merchant_id]
 #     end
@@ -43,7 +43,7 @@ class ItemRepositoryTest < Minitest::Test
 #   end
 
   def test_can_find_by_name
-    ir = ItemRepository.new(@item_contents)
+    ir = ItemRepository.new(@path)
     ir.make_items
     found = ir.find_by_name("Glitter scrabble frames")
     assert_equal "Glitter scrabble frames", found.name
@@ -51,7 +51,7 @@ class ItemRepositoryTest < Minitest::Test
 
 
   def test_that_all_returns_an_array
-    ir = ItemRepository.new(@item_contents)
+    ir = ItemRepository.new(@path)
     ir.make_items
     all_items = ir.all
 
@@ -60,7 +60,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_can_find_by_id
-    ir = ItemRepository.new(@item_contents)
+    ir = ItemRepository.new(@path)
     ir.make_items
     found = ir.find_by_id(263395237)
     not_found = ir.find_by_id(9999999)
@@ -70,7 +70,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_can_find_by_description
-    ir = ItemRepository.new(@item_contents)
+    ir = ItemRepository.new(@path)
     ir.make_items
     found = ir.find_by_description("This is THE DescRiption")
     assert_equal "this is the description", found[0].description
@@ -83,9 +83,15 @@ class ItemRepositoryTest < Minitest::Test
   # end
 
 
+  def test_set_time
+  end
+
+  def test_updates_current_date
+  end
+
 #note: found.count depends on fixtures file. Update.
   def test_can_find_all_by_merchant_id
-    ir = ItemRepository.new(@item_contents)
+    ir = ItemRepository.new(@path)
     ir.make_items
     found = ir.find_all_by_merchant_id(12334185)
     assert_equal 12334185, found[0].merchant_id

@@ -7,30 +7,48 @@ require 'pry'
 class SalesEngine
   attr_reader :items, :merchants
 
-#ask how to change from instance method to Class method
-  def from_csv(input_hash)
-    item_contents = CSV.open(input_hash[:items], headers: true, header_converters: :symbol)
-    merchant_contents = CSV.open(input_hash[:merchants], headers: true, header_converters: :symbol)
-    # output = "#{:id},#{:name},#{:description},#{:unit_price},#{:merchant_id},#{:created_at},#{:updated_at}"
-    @items = ItemRepository.new(item_contents)
-    @merchants = MerchantRepository.new(merchant_contents)
-
+  def initialize(items, merchants)
+    @items = items
+    @merchants = merchants
   end
+  
+  def self.from_csv(data)
+    items = ItemRepository.new(data[:items])#, self)
+    merchants = MerchantRepository.new(data[:merchants])#, self)
+    se = SalesEngine.new(items, merchants)
+  end
+
+  # def self.from_csv(data)
+  #   #takes in path to data
+
+  #   # binding.pry
+  #   item_contents = CSV.open(data[:items], headers: true, header_converters: :symbol)
+  #   merchant_contents = CSV.open(data[:merchants], headers: true, header_converters: :symbol)
+    
+  #   se = SalesEngine.new
+  #   se.items = ItemRepository.new(item_contents)
+  #   se.merchants = MerchantRepository.new(merchant_contents)
+  #   return se
+  # end
+
+end
+
+# se = SalesEngine.from_csv({:items => "./data/items.csv",
+#     :merchants => "./data/merchants.csv"
+#   })
+# binding.pry
+# ""
+
+# ir = se.items
+# ir.make_items
+# binding.pry
+
+
 
   # {
   #   :items     => "./data/items.csv",
   #   :merchants => "./data/merchants.csv",
   # }
-end
-
-se = SalesEngine.new
-se.from_csv({:items => "./data/items.csv",
-    :merchants => "./data/merchants.csv"
-  })
-ir = se.items
-ir.make_items
-# binding.pry
-""
 
 
 # #se.merchants
