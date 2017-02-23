@@ -1,10 +1,9 @@
 require 'csv'
 require 'pry'
 
-
 class Repository
 
-  attr_reader :path, :data
+  attr_reader :path, :data, :klass
 
   def initialize(path, klass)
     @path = path
@@ -12,11 +11,11 @@ class Repository
     @klass = klass
   end
 
-
   def load_file
     CSV.foreach @path, headers: true, header_converters: :symbol do |row|
       @data << @klass.new(row.to_hash)
     end
+    data
   end
 
 end

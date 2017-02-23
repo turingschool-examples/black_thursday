@@ -1,19 +1,18 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'pry'
+require_relative '../lib/repository'
 require_relative '../lib/merchant_repository'
-
 
 
 class MerchantRepositoryTest < Minitest::Test
 
-  def test_it_loads_file
-    instance = MerchantRepository.new('test/fixtures/merchant_sample.csv')
-    instance.load_file
-    puts instance.data
-    assert Array, instance.data.class
-    # assert Array, parsed_data.class
+  def test_it_can_find_merchant_by_name
+      merch_repo = MerchantRepository.new('test/fixtures/merchant_sample_small.csv')
+
+      assert_equal "Shopin1901", merch_repo.find_by_name("Shopin1901")
   end
+
 
   #
   # def test_parse_headers
@@ -25,14 +24,7 @@ class MerchantRepositoryTest < Minitest::Test
   #   assert_equal "12334105", result
   # end
   #
-  # def test_it_can_find_merchant_by_name
-  #     mr = MerchantRepository.new
-  #     mr.parse_headers('test/fixtures/merchant_sample_small.csv')
-  #
-  #     merchant_1 = mr.find_by_name("Shopin1901")
-  #
-  #     assert_equal "Shopin1901", merchant_1.name
-  # end
+
   #
   # def test_it_can_return_nil
   #     mr = MerchantRepository.new
