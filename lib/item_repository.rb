@@ -1,16 +1,7 @@
-require './lib/SalesEngine'
-require './lib/item'
-
 class ItemRepository
-
-  def initialize(se)
-    # se = SalesEngine.from_csv({
-    #   :items     => "./data/items.csv",
-    #   :merchants => "./data/merchants.csv"})
-    #
-    # ir   = se.items
-    # item = ir.find_by_name("Item Repellat Dolorum")
-    #   # => <Item>
+  attr_reader :path
+  def initialize(path)
+    @path = path
   end
 
   def all

@@ -7,15 +7,16 @@ class MerchantRepositoryTest < Minitest::Test
 
   def setup
     @se = SalesEngine.from_csv({
-  :items     => "./data/items.csv",
-  :merchants => "./data/merchants.csv"})
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+      })
 
     @mr = @se.merchants
   end
 
   def test_it_can_load_csv
     # skip
-    assert_instance_of CSV, @mr.csv_loader("./data/merchants.csv")
+    assert_instance_of CSV, @mr.csv
   end
 
 
@@ -24,8 +25,13 @@ class MerchantRepositoryTest < Minitest::Test
     assert_instance_of Merchant, @mr.all.first
   end
 
-  def test_it_can_return_array_of_all_known_merchant_instances
+  def test_all_returns_an_array
     assert_instance_of Array, @mr.all
+  end
+
+  def test_all_contains_proper_number_of_merchants
+    assert_equal 475, @mr.all.count
+    assert_equal Merchant, @mr.all.first.class
   end
 
   def test_it_returns_nil_if_the_merchant_by_id_does_not_exist
@@ -38,6 +44,11 @@ class MerchantRepositoryTest < Minitest::Test
     assert_instance_of Merchant, merchant
   end
 
+  def test_the_merchant_by_name_search_is_case_insensitive
+    merchant = @mr.find_by_name("cjsdecor")
+    assert_equal "CJsDecor", merchant.name
+  end
+
   def test_it_can_find_merchant_by_id
     merchant = @mr.find_by_id(12334105)
     assert_instance_of Merchant, merchant
@@ -45,13 +56,9 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_returns_nil_if_the_merchant_by_name_does_not_exist
     merchant = @mr.find_by_name("vfjsbvsfv")
-    assert_nil nil, merchant
+    assert_nil merchant, 'merchant was supposed to return nil!'
   end
 
-  def test_the_merchant_by_name_search_is_case_insensitive
-    merchant = @mr.find_by_name("cjsdecor")
-    assert_equal "CJsDecor", merchant.name
-  end
 
   def test_it_can_find_all_merchants_matching_name_fragment
     merchant = @mr.find_all_by_name("end")

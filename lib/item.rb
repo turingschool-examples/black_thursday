@@ -1,5 +1,3 @@
-require './lib/SalesEngine'
-require './lib/ItemRepository'
 # from datetime import datetime
 # from decimal import Decimal
 
