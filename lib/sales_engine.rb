@@ -13,14 +13,13 @@ class SalesEngine
   def self.from_csv(hash)
     SalesEngine.new(hash)
   end
-
 end
 
 
-se = SalesEngine.from_csv({
-  :items     => "./data/items.csv",
-  :merchants => "./data/merchants.csv",
-})
-
-require "pry"; binding.pry
-p ""
+# se = SalesEngine.from_csv({
+#   :items     => "./test/fixtures/item_fixture.csv",
+#   :merchants => "./test/fixtures/merchant_fixture.csv",
+# })
+#
+# require "pry"; binding.pry
+# p ""
