@@ -2,16 +2,18 @@ require'csv'
 require_relative'merchant'
 
 class MerchantRepository
-	attr_reader :merchant
+	attr_reader :merchant, :all
 
 	def initialize(merchant, sales_engine)
 		@merchant = CSV.open merchant, headers: true, header_converters: :symbol
 		@sales_engine = sales_engine
+		@all = Array.new
+		parse_csv
 	end
 
-	def all
-		merchant.map do |merchants|
-			Merchant.new(merchants, self)
+	def parse_csv
+		merchant.each do |merchants|
+			all << Merchant.new(merchants, self)
 		end
 	end
 
@@ -25,7 +27,7 @@ class MerchantRepository
 
 	def find_by_id(id)
 		all.find do |instance|
-			if instance.id.downcase == id.downcase
+			if instance.id == id.to_i
 				instance
 			end
 		end
@@ -33,10 +35,13 @@ class MerchantRepository
 
 	def find_all_by_name(name)
 		all.select do |instance|
-			if instance.name.downcase == name.downcase
+			if instance.name.downcase.include?(name.downcase)
 				instance.name
 			end
 		end
 	end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 end
