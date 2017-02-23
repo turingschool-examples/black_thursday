@@ -7,10 +7,13 @@ class Repository
   def initialize(path, klass)
     @path = path
     @data = []
+  end
+
+
+  def load_file
     CSV.foreach @path, headers: true, header_converters: :symbol do |row|
       @data << klass.new(row.to_hash)
     end
   end
-
 
 end
