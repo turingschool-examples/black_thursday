@@ -42,9 +42,15 @@ class ItemTest < Minitest::Test
     assert Time.now <=> i.updated_at
   end
 
+  def test_it_knows_merchant_id
+    i = Item.new({:merchant_id => "123456"})
+
+    assert_equal "123456", i.merchant_id
+  end
+
   def test_it_can_conververt_unit_price_to_dollars
     i = Item.new({:unit_price => BigDecimal.new(10.99,4)})
 
-    assert_equal 10.99, i.unit_price_to_dollars 
+    assert_equal 10.99, i.unit_price_to_dollars
   end
 end

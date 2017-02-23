@@ -4,15 +4,16 @@ require_relative 'merchant_repository'
 require_relative 'item_repository'
 
 class SalesEngine
+  attr_accessor :merchants, :items
 
   def self.from_csv(info)
-    @merchant_repo = MerchantRepository.new(info[:merchants], self)
-    @items_repo = ItemsRepository.new(info[:items], self)
+    @merchants_repo = MerchantRepository.new(info[:merchants], self)
+    @items_repo = ItemRepository.new(info[:items], self)
     self
   end
 
   def self.merchants
-    @merchant_repo
+    @merchants_repo
   end
 
   def self.items
@@ -23,10 +24,11 @@ class SalesEngine
 end
 
 # se = SalesEngine.from_csv({
-#     :merchants    => "./data/temp_merchants.csv",
+#     :merchants    => "./test/fixtures/temp_merchants.csv",
+#     :items => "./test/fixtures/temp_items.csv"
 #     })
 # binding.pry
 # merch = se.merchants
 # merch.all
-#
+
 ""

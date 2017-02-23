@@ -2,8 +2,9 @@ require 'csv'
 require 'pry'
 require_relative 'item'
 
-class ItemsRepository
+class ItemRepository
 
+  attr_reader :all, :engine
   def initialize(item_csv_data, engine ="")
     @all = []
     create_item_instances(item_csv_data)
@@ -12,8 +13,8 @@ class ItemsRepository
 
   def create_item_instances(data)
     CSV.foreach(data, headers: true, header_converters: :symbol) do |row|
-      all << Item.new({id: row[:id], name: row[:name], description: row[:description], unit_price: row[:unit_price]}, engine)
-      end
-   end
+      all << Item.new({id: row[:id], name: row[:name], description: row[:description], unit_price: row[:unit_price], created_at: row[:created_at], updated_at: row[:updated_at], merchant_id: row[:merchant_id]}, engine)
+    end
+  end
 
 end

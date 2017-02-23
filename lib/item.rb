@@ -1,14 +1,16 @@
 require 'bigdecimal'
 class Item
-  attr_reader :id, :name, :description, :unit_price, :created_at, :updated_at
+  attr_reader :id, :name, :description, :unit_price, :created_at, :updated_at, :merchant_id, :engine
 
-  def initialize(info = {})
+  def initialize(info = {}, engine="")
     @id = info[:id]
     @name = info[:name]
     @description = info[:description]
     @unit_price = info[:unit_price]
     @created_at = info[:created_at]
     @updated_at = info[:updated_at]
+    @merchant_id = info[:merchant_id]
+    @engine = engine
   end
 
   def unit_price_to_dollars
