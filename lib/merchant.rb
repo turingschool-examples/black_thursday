@@ -8,3 +8,10 @@ class Merchant
     # @parent = parent
   end
 end
+
+
+id - returns the integer id of the merchant
+name - returns the name of the merchant
+We create an instance like this:
+
+m = Merchant.new({:id => 5, :name => "Turing School"})
