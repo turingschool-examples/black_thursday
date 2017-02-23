@@ -14,5 +14,4 @@ class SalesEngine
     CSV.open csv, headers: true, header_converters: :symbol
   end
 
-
 end

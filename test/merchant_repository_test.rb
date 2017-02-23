@@ -2,9 +2,6 @@ require './test/test_helper'
 require './lib/merchant_repository'
 require './lib/sales_engine'
 
-# require './lib/merchant_repository'
-# require './lib/sales_engine'
-
 class MerchantRepositoryTest < Minitest::Test
 
   def test_merchant_repository_exists
@@ -23,11 +20,12 @@ class MerchantRepositoryTest < Minitest::Test
   def test_returns_all_merchants
     se = SalesEngine.new("./data/merchants.csv")
     mr = se.merchant_repo
+    require "pry"; binding.pry
     assert_equal 475, mr.all.count
     assert_instance_of Array, mr.all
   end
 
-  def test_find_by_name
+  def test_find_by_id
     se = SalesEngine.new("./data/merchants.csv")
     mr = se.merchant_repo
     assert_instance_of Merchant, mr.find_by_id(12334105)
