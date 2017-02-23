@@ -9,5 +9,4 @@ class Item
     @updated_at   = row[:updated_at]
     @merchant_id  = row[:merchant_id]
   end
-
 end

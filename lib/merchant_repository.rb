@@ -1,38 +1,26 @@
 require "csv"
 require './lib/merchant'
-require 'pry'
 
 class MerchantRepository
-  attr_reader :path, :csv_hash
+  attr_reader :merchants
 
-  def initialize(csv_path)
-    @path = csv_path
-    @csv_hash = []
-  end
-
-  def create_csv_hash
-    line = CSV.open path, headers: true, header_converters: :symbol
-    line.each { |row| csv_hash << row.to_hash }
+  def initialize(merchants)
+    @merchants = merchants
   end
 
   def all
-      self.csv_hash
+      self.merchants
   end
 
   def find_by_id(merchant_id)
-    csv_hash.find { |row| row[:id] == merchant_id.to_s }
+    merchants[:merchant].find { |row| row.id == merchant_id }
   end
 
   def find_by_name (merchant_name)
-    csv_hash.find { |row| row[:name] == merchant_name.to_s}
+    merchants[:merchant].find { |row| row.name == merchant_name }
   end
 
   def find_all_by_name (merchant_name)
-    csv_hash.select { |row| row[:name] == merchant_name.to_s}
+    merchants[:merchant].select { |row| row.name == merchant_name }
   end
-
-
 end
-
-#binding.pry
-""
