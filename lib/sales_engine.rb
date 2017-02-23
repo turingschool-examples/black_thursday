@@ -26,5 +26,5 @@ sales =  SalesEngine.new
 sales.from_csv({
   :items     => "./data/items.csv",
   :merchants => "./data/merchants.csv"})
-    binding.pry
+binding.pry
 ''
