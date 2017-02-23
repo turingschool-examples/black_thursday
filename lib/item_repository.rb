@@ -1,5 +1,11 @@
+require_relative 'repository'
 
-class ItemRepo
+class ItemRepository < Repository
+
+  def initialize(path)
+    klass = Item
+    super(path, Item)
+  end
 
   def all
     # returns an array of all known Item instances
@@ -31,11 +37,11 @@ class ItemRepo
 
 end
 
-se = SalesEngine.from_csv({
-  :items     => "./data/items.csv",
-  :merchants => "./data/merchants.csv"
-})
-
-ir   = se.items
-item = ir.find_by_name("Item Repellat Dolorum")
-# => <Item>
+# se = SalesEngine.from_csv({
+#   :items     => "./data/items.csv",
+#   :merchants => "./data/merchants.csv"
+# })
+#
+# ir   = se.items
+# item = ir.find_by_name("Item Repellat Dolorum")
+# # => <Item>

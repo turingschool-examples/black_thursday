@@ -1,18 +1,28 @@
 require 'csv'
+require_relative 'repository'
 require_relative 'merchant'
 
-class MerchantRepo
+class MerchantRepository < Repository
 
-  attr_reader
+  # attr_reader :path
+  #
+  # def initialize(path)
+  #   @path = path
+  #   #@merchants = {}
+  #   #@all_merchants = []
+  #   #@name_pieces = []
+  # end
 
-  def initialize
-    @merchants = {}
-    @all_merchants = []
+  # data = [<Merchant name: 'John Johnson', ...]
+  def initialize(path)
+    klass = Merchant
+    super(path, Merchant)
   end
 
-  def load_file(file)
-    contents = CSV.open file, headers: true, header_converters: :symbol
+  def find_by_name(name)
+    data.select {|row| row.name == name }
   end
+
 
   def parse_headers(file)
     contents = load_file(file)
@@ -41,7 +51,6 @@ class MerchantRepo
 
 
   def find_by_name(name)
-
     name = name.upcase
     if @merchants.has_key?(name)
       @merchants[name]
@@ -52,8 +61,15 @@ class MerchantRepo
   end
 
 
-  def find_all_by_name
-    @merchants.keys
+  def find_all_by_name(name_piece)
+    broken_name = @merchants.keys
+
+    broken_name.map do |name|
+      if name.to_s.include?(name_piece.upcase)
+          @name_pieces << name
+
+      end
+  end
     # returns either [] or one or more matches which contain the supplied name fragment, case insensitive
   end
 
