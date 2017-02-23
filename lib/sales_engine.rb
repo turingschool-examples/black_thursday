@@ -7,6 +7,7 @@ require 'pry'
 class SalesEngine
   attr_reader :items, :merchants
 
+#ask how to change from instance method to Class method
   def from_csv(input_hash)
     item_contents = CSV.open(input_hash[:items], headers: true, header_converters: :symbol)
     merchant_contents = CSV.open(input_hash[:merchants], headers: true, header_converters: :symbol)
@@ -16,19 +17,22 @@ class SalesEngine
 
   end
 
-  {
-    :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv",
-  }
+  # {
+  #   :items     => "./data/items.csv",
+  #   :merchants => "./data/merchants.csv",
+  # }
 end
 
+se = SalesEngine.new
+se.from_csv({:items => "./data/items.csv",
+    :merchants => "./data/merchants.csv"
+  })
+ir = se.items
+ir.make_items
 # binding.pry
-# se = SalesEngine.new
-# se.from_csv({:items => "./data/items.csv",
-#     :merchants => "./data/merchants.csv"
-#   })
-# ir = se.items
-# ir.make_items
+""
+
+
 # #se.merchants
 #=> seems to just return your MerchantRepo *object*
 

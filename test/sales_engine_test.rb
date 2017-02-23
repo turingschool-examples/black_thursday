@@ -1,6 +1,5 @@
 require_relative 'test_helper'
 #require_relative '.../black_thursday_spec_harness'
-require 'pry'
 
 class SalesEngineTest < Minitest::Test
   def test_it_exist
