@@ -23,7 +23,7 @@ class MerchantRepositoryTest < Minitest::Test
     # returns either nil or an instance of Merchant with a matching ID
   end
 
-  def test_it_returns_nil_if_the_merchant_doesn_not_exist
+  def test_it_returns_nil_if_the_merchant_does_not_exist
     # method #find_by_id
     # returns either nil or an instance of Merchant with a matching ID
   end
@@ -38,12 +38,18 @@ class MerchantRepositoryTest < Minitest::Test
     # returns either nil or an instance of Merchant having done a case insensitive search
   end
 
-  def find_by_name
+  def test_it_returns_nil_if_the_merchant_does_not_exist
     # method #find_by_name
     # returns either nil or an instance of Merchant having done a case insensitive search
   end
 
-  def find_all_by_name
+  def test_it_can_find_all_merchants_matching_name_fragment
+    # method #find_all_by_name
+    # returns either [] or one or more matches which contain the supplied name fragment, case insensitive
+  end
+
+  def test_it_can_return_an_empty_array_if_no_matches_are_found
+    # method #find_all_by_name
     # returns either [] or one or more matches which contain the supplied name fragment, case insensitive
   end
 end
