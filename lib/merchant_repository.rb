@@ -31,9 +31,7 @@ class MerchantRepository
     csv_hash.select { |row| row[:name] == merchant_name.to_s}
   end
 
-  def create_merchants
-    i = Merchant.new(self, hash)
-  end
+
 end
 
 #binding.pry
