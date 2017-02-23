@@ -18,7 +18,7 @@ class MerchantRepository < Repository
   def find_by_name(name)
     data.select do |row|
       if row.name == name
-        return row.name
+        return row
       else
         return nil
       end
@@ -28,7 +28,7 @@ class MerchantRepository < Repository
   def find_by_id(id)
     data.select do |row|
       if row.id == id
-        return row.id
+        return row
       else
         return nil
       end

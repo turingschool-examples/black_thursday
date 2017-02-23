@@ -34,13 +34,23 @@ class ItemRepository < Repository
       end
     end
   end
-  # def find_all_with_description
-  #   # returns either [] or instances of Item where the supplied string appears in the item description (case insensitive)
-  # end
-  #
-  # def find_all_by_price
-  #   # returns either [] or instances of Item where the supplied price exactly matches
-  # end
+
+
+    def find_all_with_description(description_string)
+      data.select do |row|
+        if row.description == description
+          return row.description
+        end
+      end
+    end
+
+      # returns either [] or instances of Item where the supplied string appears in the item description (case insensitive)
+
+
+
+  def find_all_by_price
+    # returns either [] or instances of Item where the supplied price exactly matches
+  end
   #
   # def find_all_by_price_in_range
   #   # returns either [] or instances of Item where the supplied price is in the supplied range (a single Ruby range instance is passed in)

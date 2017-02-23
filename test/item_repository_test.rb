@@ -28,4 +28,10 @@ class ItemRepositoryTest < Minitest::Test
   end
 
 
+  def test_it_can_find_all_with_discription
+    item_repository = ItemRepository.new('test/fixtures/items_sample.csv')
+
+    assert_equal Item , item_repository.find_by_discription("Disney glitter frames")
+  end
+
 end
