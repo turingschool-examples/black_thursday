@@ -1,3 +1,4 @@
+
 class SalesEngine
   attr_reader :items, :merchant
 

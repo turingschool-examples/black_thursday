@@ -3,34 +3,36 @@ require './lib/merchant'
 require 'pry'
 
 class MerchantRepository
-  attr_reader :path
+  attr_reader :path, :csv_hash
 
   def initialize(csv_path)
     @path = csv_path
-    @all = []
+    @csv_hash = []
   end
 
   def create_csv_hash
     line = CSV.open path, headers: true, header_converters: :symbol
-    csv_hash = line.to_a.map do |row|
-      row.to_hash
-    end
-    csv_hash
+    line.each { |row| csv_hash << row.to_hash }
   end
 
-  def all(csv_hash)
-      @all = csv_hash
+  def all
+      self.csv_hash
   end
 
-  def find_all_by_name(name_fragment)
-    @all.select do |merchant|
-      merchant.name.downcase.include? (name_fragment.downcase)
-    end
+  def find_by_id(merchant_id)
+    csv_hash.find { |row| row[:id] == merchant_id.to_s }
   end
 
-  #
-  # def create_merchants
-  #   i = Merchant.new(self, hash)
-  # end
+  def find_by_name (merchant_name)
+    csv_hash.find { |row| row[:name] == merchant_name.to_s}
+  end
+
+  def find_all_by_name (merchant_name)
+    csv_hash.select { |row| row[:name] == merchant_name.to_s}
+  end
+
 
 end
+
+#binding.pry
+""
