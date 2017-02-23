@@ -1,4 +1,6 @@
 require "./lib/merchant_repository"
+require "./lib/item_repository"
+
 class SalesEngine
     attr_accessor :paths
   def initialize (hash)
@@ -16,4 +18,7 @@ class SalesEngine
     MerchantRepository.new(@paths[:merchants], self)
   end
 
+  def items
+    ItemRepository.new(@paths[:items], self)
+  end 
 end
