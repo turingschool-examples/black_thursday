@@ -1,0 +1,8 @@
+require 'minitest/autorun'
+require 'minitest/pride'
+require 'simplecov'
+require 'mocha'
+require 'pry'
+require './lib/merchant'
+require './lib/merchant_repository'
+require './lib/object_builder'
