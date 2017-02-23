@@ -2,7 +2,9 @@ require "minitest/autorun"
 require "minitest/pride"
 require "./lib/item"
 require "./lib/item_repository"
+require "bigdecimal"
 require "simplecov"
+
 SimpleCov.start
 
 class ItemTest < Minitest::Test
@@ -43,7 +45,8 @@ class ItemTest < Minitest::Test
     ir = se.items
     i = ir.all
 
-    assert_equal "1300", i.first.unit_price
+    assert_equal BigDecimal, i.first.unit_price.class
+    assert_equal 1300, i.first.unit_price.to_i
   end
 
   def test_created_at_returns_date_created_at
@@ -51,7 +54,8 @@ class ItemTest < Minitest::Test
     ir = se.items
     i = ir.all
 
-    assert_equal "2016-01-11 11:51:37 UTC", i.first.created_at
+    assert_equal Time, i.first.created_at.class
+    assert_equal "2016-01-11 11:51:37 UTC", i.first.created_at.to_s
   end
 
   def test_updated_at_returns_date_updated
@@ -59,7 +63,8 @@ class ItemTest < Minitest::Test
     ir = se.items
     i = ir.all
 
-    assert_equal "1993-09-29 11:56:40 UTC", i.first.updated_at
+    assert_equal Time, i.first.updated_at.class
+    assert_equal "1993-09-29 11:56:40 UTC", i.first.updated_at.to_s
   end
 
   def test_merchant_id_returns_merchant_id
@@ -70,4 +75,12 @@ class ItemTest < Minitest::Test
     assert_equal "12334185", i.first.merchant_id
   end
 
+  def test_unit_price_to_dollars
+    se = SalesEngine.new({:items => './test/fixtures/items_three.csv'})
+    ir = se.items
+    i = ir.all
+
+    assert_equal 13.00, i.first.unit_price_to_dollars
+    assert_equal Float, i.first.unit_price_to_dollars.class
+  end
 end
