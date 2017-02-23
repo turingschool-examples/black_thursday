@@ -1,7 +1,21 @@
+require 'csv'
+require_relative './merchant'
+
 class MerchantRepository
 
+  attr_accessor :merchants
+
   def initialize(path)
-    @path = path
+    # @path = path
+    @merchants = Hash.new
+    populate_repository(path)
+  end
+
+  def populate_repository(path)
+    data = CSV.read(path, headers: true, header_converters: :symbol)
+    data.each do |merchant|
+      merchants[merchant[:id].to_sym] = Merchant.new(merchant[:name], merchant[:id])
+    end
   end
 
   def inspect
@@ -9,8 +23,11 @@ class MerchantRepository
   end
 
   def all
-
-    # returns an array of all known Merchant instances
+    all_merchants = []
+    merchants.each do |merch_id, merchant|
+      all_merchants << merchant
+    end
+    all_merchants
   end
 
   def find_by_id(id)
