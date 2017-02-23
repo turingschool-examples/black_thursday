@@ -20,9 +20,11 @@ class MerchantRepository
   #The MerchantRepository is responsible for holding and searching our Merchant instances. It offers the following methods:
 
   def all #- returns an array of all known Merchant instances
+
     @all_merchants = []
     @merchant_repository.each do |key, value|
       @all_merchants << value
+
     end
   end
 
