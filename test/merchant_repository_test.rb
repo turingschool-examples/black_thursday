@@ -37,15 +37,17 @@ class MerchantRepositoryTest < Minitest::Test
     mr = MerchantRepository.new(@path)
     found = mr.find_by_name("SHOPIN1901")
     not_found = mr.find_by_name("Mr.McCoolDude")
-    
+
     assert_equal "Shopin1901", found.name
     assert_nil not_found
   end
 
   def test_can_find_all_by_name
     mr = MerchantRepository.new(@path)
-    found = mr.find_all_by_name("SHOPIN1901")
-    assert_equal "Shopin1901", found.name
+    found = mr.find_all_by_name("s")
+    assert_equal "Shopin1901", found[0].name
+    assert_equal "Candisart", found[1].name
+    assert_equal "LolaMarleys", found[2].name
   end
 
 end
