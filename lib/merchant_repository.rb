@@ -20,7 +20,6 @@ class MerchantRepository
 			if instance.name.downcase == name.downcase
 				instance
 			end
-			name
 		end
 	end
 
@@ -29,7 +28,6 @@ class MerchantRepository
 			if instance.id.downcase == id.downcase
 				instance
 			end
-			id
 		end
 	end
 

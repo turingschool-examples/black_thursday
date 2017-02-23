@@ -20,7 +20,6 @@ class ItemRepository
 			if instance.name.downcase == name.downcase
 				instance
 			end
-			name
 		end
 	end
 
@@ -29,7 +28,6 @@ class ItemRepository
 			if instance.id == id
 				instance
 			end
-			id
 		end
 	end
 
