@@ -5,28 +5,29 @@ require './lib/sales_engine'
 class MerchantRepositoryTest < Minitest::Test
 
   def test_merchant_repository_exists
-    se = SalesEngine.new("./data/merchants.csv")
+    se = SalesEngine.from_csv({:merchants => "./data/merchants.csv"})
     # se.merchant_repo is an instance of MerchantRepo class!
-    mr = se.merchant_repo
-    assert_instance_of CSV, mr.merchant_data
+    assert_instance_of MerchantRepository, se.merchants
   end
 
   def test_can_make_new_merchants
-    se = SalesEngine.new("./data/merchants.csv")
+    skip
+    se = SalesEngine.from_csv({:merchants => "./data/merchants.csv"})
     mr = se.merchant_repo
     assert "12334105", mr.create_merchants.first.id
   end
 
   def test_returns_all_merchants
-    se = SalesEngine.new("./data/merchants.csv")
-    mr = se.merchant_repo
-    require "pry"; binding.pry
+    se = SalesEngine.from_csv({:merchants => "./data/merchants.csv"})
+    mr = se.merchants
     assert_equal 475, mr.all.count
     assert_instance_of Array, mr.all
+    assert_instance_of Merchant, mr.all.first
   end
 
   def test_find_by_id
-    se = SalesEngine.new("./data/merchants.csv")
+    skip
+    se = SalesEngine.from_csv({:merchants => "./data/merchants.csv"})
     mr = se.merchant_repo
     assert_instance_of Merchant, mr.find_by_id(12334105)
   end

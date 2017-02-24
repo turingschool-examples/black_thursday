@@ -8,13 +8,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_se_merchant_method_reads_file
-    se = SalesEngine.new("data/merchants.csv")
-    assert_instance_of CSV, se.merchants
-  end
-
-  def test_se_initializes_merchant_repo
-    se = SalesEngine.new("data/merchants.csv")
-    mr = se.merchant_repo
-    assert_instance_of MerchantRepository, mr
+    se = SalesEngine.from_csv({:merchants => "./data/merchants.csv"})
+    assert_instance_of MerchantRepository, se.merchants
   end
 end
