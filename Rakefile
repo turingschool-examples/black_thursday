@@ -5,9 +5,7 @@ task :unit_test do
   ruby "test/file_loader_test.rb"
   ruby "test/invoice_item_test.rb"
   ruby "test/invoice_test.rb"
-  # skipping item_repo test because rake doesn't wanna run everything
-  # if one test fails.
-  # ruby "test/item_repository_test.rb"
+  ruby "test/item_repository_test.rb"
   ruby "test/item_test.rb"
   ruby "test/merchant_repository_test.rb"
   ruby "test/merchant_test.rb"
