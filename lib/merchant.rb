@@ -2,7 +2,7 @@ class Merchant
   attr_reader :merchant_id, :merchant_name, :merchant_created_at, :merchant_updated_at
 
   def initialize(merchant, merch_repo_parent = nil)
-    @merchant_id = merchant[:merchant_id]
+    @merchant_id = merchant[:merchant_id].to_i
     @merchant_name = merchant[:merchant_name]
     @merchant_created_at = merchant[:merchant_created_at]
     @merchant_updated_at = merchant[:merchant_updated_at]
@@ -10,7 +10,7 @@ class Merchant
   end
 
   def find_id
-    @merchant_id.to_i
+    @merchant_id
   end
 
   def find_name

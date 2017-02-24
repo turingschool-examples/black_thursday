@@ -8,7 +8,9 @@ class SalesEngine
 
   def self.from_csv(csv_hash)
     @item_csv = csv_hash[:items]
-    @merchant_csv = CSV.open csv_hash[:merchants], headers: true, header_converters: :symbol
+
+    @merchant_csv = csv_hash[:merchants]
+
     return self
   end
 
@@ -17,8 +19,9 @@ class SalesEngine
   end
 
   def self.merchants
-    MerchantRepository.new(@merchant_csv, self).make_merchant_repository
+
+    MerchantRepository.new(@merchant_csv, self)
+
   end
 
 end
-
