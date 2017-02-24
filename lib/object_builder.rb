@@ -25,8 +25,3 @@ class ObjectBuilder
     repos.each { |repo| repo.all.each { |object| object.parent = repo } }
   end
 end
-
-# obj = ObjectBuilder.new
-# a = obj.read_csv({:merchants => "./test/fixtures/merchants_test_data.csv", :items => "./data/items.csv"})
-#
-# p a

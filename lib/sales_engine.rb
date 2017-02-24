@@ -2,15 +2,15 @@ require_relative 'repo_builder'
 require_relative 'object_builder'
 
 class SalesEngine
-  attr_reader :items, :merchant
+  attr_reader :items, :merchants
 
   def initialize(repos = {})
+    @merchants = repos[:merchants]
     @items     = repos[:items]
-    @merchants = repos[:merchant]
   end
 
-  def self.from_csv(args) 
-    se = SalesEngine.new
+  def self.from_csv(args)
+    se = SalesEngine.new()
     rb = RepoBuilder.new(se)
     ob = ObjectBuilder.new
 
@@ -18,6 +18,13 @@ class SalesEngine
     repos = rb.build_repos(arry_objects)
 
     ob.assign_parents(repos)
+    se.set_variables(repos)
 
+    return se
+  end
+
+  def set_variables(repos)
+    @merchants = repos[0]
+    @items     = repos[1]
   end
 end
