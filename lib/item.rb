@@ -8,7 +8,7 @@ class Item
     @id = row[:id].to_i
     @name = row[:name]
     @description = row[:description]
-    @unit_price = BigDecimal.new(row[:unit_price])
+    @unit_price = BigDecimal.new(row[:unit_price])/100
     @created_at = Time.parse(row[:created_at])
     @updated_at = Time.parse(row[:updated_at])
     @merchant_id = row[:merchant_id].to_i
@@ -31,23 +31,3 @@ class Item
   #   # returns the integer merchant id of the item
   # end
 end
-
-
-# spec harness error:   3) Iteration 0 Item #description returns the description
-#      Failure/Error: expect(item_one.description.length).to eq 2236
-#
-#        expected: 2236
-#             got: 2436
-#
-#        (compared using ==)
-#      # ./spec/iteration_0_spec.rb:210:in `block (3 levels) in <top (required)>'
-
-
-# 4) Iteration 0 Item #unit_price returns the unit price
-#    Failure/Error: expect(item_one.unit_price).to eq 12.00
-#
-#      expected: 12.0
-#           got: 1200.0 (0.12e4)
-#
-#      (compared using ==)
-#    # ./spec/iteration_0_spec.rb:216:in `block (3 levels) in <top (required)>'

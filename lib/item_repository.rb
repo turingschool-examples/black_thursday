@@ -38,30 +38,12 @@ class ItemRepository
     end
   end
 
-  #spec harness error: # 1) Iteration 0 Item Repository #find_all_by_price finds all items matching given price
-  #  Failure/Error: expect(expected.length).to eq 79
-  #
-  #    expected: 79
-  #         got: 0
-  #
-  #    (compared using ==)
-  #  # ./spec/iteration_0_spec.rb:141:in `block (3 levels) in <top (required)>'
-
   def find_all_by_price_in_range(price_range)
     all.find_all do |item|
       price = item.unit_price_to_dollars
       price_range.member?(price)
     end
   end
-
-  # #spec harness error:   2) Iteration 0 Item Repository #find_all_by_price_in_range returns an array of items priced within given range
-  #    Failure/Error: expect(expected.length).to eq 19
-  #
-  #      expected: 19
-  #           got: 205
-  #
-  #      (compared using ==)
-  #    # ./spec/iteration_0_spec.rb:158:in `block (3 levels) in <top (required)>'
 
   def find_all_by_merchant_id(merchant_id)
     all.find_all do |item|

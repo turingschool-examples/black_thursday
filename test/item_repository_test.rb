@@ -83,7 +83,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_find_all_items_matching_price_range
     item = @ir.find_all_by_price_in_range(1000..2000)
     assert_instance_of Item, item.first
-    assert_equal 317, item.count
+    assert_equal 26, item.count
     #unsure of range format being passed in
   end
 
