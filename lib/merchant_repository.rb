@@ -6,7 +6,6 @@ class MerchantRepository
   def initialize(merchant_data)
     @merchant_data = merchant_data
     @all = create_merchants
-    require "pry"; binding.pry
   end
 
   def create_merchants
