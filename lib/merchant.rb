@@ -10,6 +10,6 @@ class Merchant
     @id           = row[:id].to_i
     @name         = row[:name]
     @created_at   = row[:created_at]
-    @parent = parent
-  end 
+    @parent       = parent
+  end
 end
