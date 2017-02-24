@@ -20,16 +20,17 @@ class MerchantRepository
   #The MerchantRepository is responsible for holding and searching our Merchant instances. It offers the following methods:
 
   def all #- returns an array of all known Merchant instances
-
     @all_merchants = []
     @merchant_repository.each do |key, value|
       @all_merchants << value
-
+      require "pry"; binding.pry
     end
   end
 
-  def find_by_id #- returns either nil or an instance of Merchant with a matching ID
-
+  def find_by_id(id = nil) #- returns either nil or an instance of Merchant with a matching ID
+    all.find do |instance|
+      instance.send(search_hash.keys[0]) == search_hash.values[0]
+    end
   end
 
   def find_by_name #- returns either nil or an instance of Merchant having done a case insensitive search
