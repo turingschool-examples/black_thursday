@@ -7,8 +7,15 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of SalesEngine, se
   end
 
-  def test_se_merchant_method_reads_file
+  def test_se_merchant_method_reads_merchant_file
     se = SalesEngine.from_csv({:merchants => "./data/merchants.csv"})
     assert_instance_of MerchantRepository, se.merchants
   end
+
+  def test_se_merchant_method_reads_items_file
+    skip
+    se = SalesEngine.from_csv({:items => "./data/items.csv"})
+    assert_instance_of ItemRepository, se.items
+  end
+
 end

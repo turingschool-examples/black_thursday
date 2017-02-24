@@ -2,7 +2,7 @@ require_relative 'merchant_repository'
 require_relative 'file_loader'
 
 class SalesEngine
-  attr_reader :merchants, :csv
+  attr_reader :merchants, :items
 
   def initialize(file_paths)
     # @csv = file_paths
