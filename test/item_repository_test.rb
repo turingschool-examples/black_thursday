@@ -49,4 +49,14 @@ class ItemRepositoryTest < Minitest::Test
 
   ### This is as far on the spec as I got for item_repository
 
+  def find_all_by_price_in_range
+    skip
+
+  end
+
+  def find_all_by_merchant_id
+    skip
+
+  end
+
 end
