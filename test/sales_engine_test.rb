@@ -3,7 +3,7 @@ require './lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test
   def test_sales_engine_exists
-    se = SalesEngine.new("data/merchants.csv")
+    se = SalesEngine.from_csv({:merchants => "./data/merchants.csv"})
     assert_instance_of SalesEngine, se
   end
 
