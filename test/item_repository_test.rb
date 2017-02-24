@@ -41,7 +41,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_price
-    skip
+
     assert_equal 1200.0, @ir.find_all_by_price(1200).first.unit_price
     assert_equal 2, @ir.find_all_by_price(300).count
     assert_equal [], @ir.find_all_by_price(9898989)
@@ -54,7 +54,7 @@ class ItemRepositoryTest < Minitest::Test
   ### This is as far on the spec as I got for item_repository
 
   def test_find_all_by_price_in_range
-    skip
+    
     assert_equal 2, @ir.find_all_by_price_in_range(1100..1250).count
     assert_instance_of Array, @ir.find_all_by_price_in_range(150..400)
     assert_nil @ir.find_all_by_price_in_range(0..0).first
