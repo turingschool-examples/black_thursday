@@ -26,12 +26,11 @@ class MerchantRepository
 
 	def all
 		@merchants.values
-		# binding.pry
 	end
 
 	def find_by_id(id)
 		@merchants.has_key?(id) ? @merchants[id] : nil
-		# binding.pry
+
 	end
 
 	def find_by_name(naming)
@@ -53,13 +52,5 @@ class MerchantRepository
 	def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
-
-
-	# def find_by_name(name)
-	# 	if all.any? { |merchant| merchant.merchant_info[:name] == name }
-	# 	end
-	# 	name.downcase
-	# end
 end
 
-#all search/parsing analytics for the merchants
