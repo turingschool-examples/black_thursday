@@ -5,8 +5,7 @@ class SalesEngine
   attr_reader :merchants, :items
 
   def initialize(file_paths)
-    # @csv = file_paths
-    @merchants = MerchantRepository.new(FileLoader.load_csv(file_paths[:merchants]))
+    @merchants = MerchantRepository.new(FileLoader.new(file_paths[:merchants]))
     # @items = ItemRepository.new(FileLoader.new(file_paths[:items]))
   end
 
