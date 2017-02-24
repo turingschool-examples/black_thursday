@@ -46,14 +46,13 @@ class ItemRepository
     all.find{ |item| item.name.downcase == name.downcase }
   end
 
-  def find_by_description(description)
+  def find_all_with_description(description)
     all.select{ |item| item.description.downcase == description.downcase }  
   end
 
   def find_all_by_merchant_id(merchant_id)
     all.select{ |item| item.merchant_id == merchant_id }
   end
-
 
   def inspect
     "#<#{self.class} #{@items.size} rows>"
