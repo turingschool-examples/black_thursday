@@ -1,4 +1,3 @@
-
 require 'pry'
 
 class SalesAnalyst
@@ -13,12 +12,12 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    avg = average_items_per_merchant
+    avg = se.items.all.count.to_f / se.merchants.all.count.to_f
 
     squared_diffs = se.merchants.all.map do |merchant|
       (merchant.items.count - avg) ** 2
     end.reduce(:+)
-    std_dev = sqrt(squared_diffs / se.merchants.all.count - 1)
+    std_dev = Math.sqrt(squared_diffs / (se.merchants.all.count - 1)).round(2)
   end
 
 end
