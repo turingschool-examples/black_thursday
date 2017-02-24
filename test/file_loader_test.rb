@@ -1,7 +1,6 @@
 require './test/test_helper'
 require './lib/file_loader'
 
-
 class FileLoaderTest < Minitest::Test
 
   def test_returns_csv_object
