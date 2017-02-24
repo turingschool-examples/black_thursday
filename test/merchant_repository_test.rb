@@ -11,10 +11,9 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_can_make_new_merchants
-    skip
     se = SalesEngine.from_csv({:merchants => "./data/merchants.csv"})
-    mr = se.merchant_repo
-    assert "12334105", mr.create_merchants.first.id
+    mr = se.merchants
+    assert "12334105", mr.all.first.id
   end
 
   def test_returns_all_merchants
@@ -26,11 +25,30 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_by_id
-    skip
     se = SalesEngine.from_csv({:merchants => "./data/merchants.csv"})
-    mr = se.merchant_repo
+    mr = se.merchants
+
     assert_instance_of Merchant, mr.find_by_id(12334105)
+    assert_equal "Shopin1901", mr.find_by_id(12334105).name
+    assert_nil mr.find_by_id(00000000)
   end
+
+  def test_find_by_name
+    se = SalesEngine.from_csv({:merchants => "./data/merchants.csv"})
+    mr = se.merchants
+    assert_instance_of Merchant, mr.find_by_name("Shopin1901")
+    assert_instance_of Merchant, mr.find_by_name("SHOPIN1901")
+    assert_nil mr.find_by_name("foobarbaz")
+  end
+
+  def test_find_all_by_name
+    se = SalesEngine.from_csv({:merchants => "./data/merchants_five.csv"})
+    mr = se.merchants
+    assert_instance_of Array, mr.find_all_by_name("Bikez")
+    assert_equal "MiniatureBikez", mr.find_all_by_name("Bikez").first.name
+
+  end
+
 
 end
 
