@@ -7,7 +7,7 @@ require 'pry'
 
 class ItemRepositoryTest < Minitest::Test
   def setup
-    @item_csv = CSV.open './test/fixtures/items.csv', headers: true, header_converters: :symbol
+    @item_csv =  './test/fixtures/items.csv'
     @parent = ""
   end
   
@@ -45,7 +45,17 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_finds_by_price
     repo = ItemRepository.new(@item_csv, @parent)
-
+    assert_equal Array, repo.find_all_by_price(13.00).class
+    assert_equal Array, repo.find_all_by_price(412345).class
   end
 
+  def test_it_finds_by_price_range
+    repo = ItemRepository.new(@item_csv, @parent)
+    assert_equal 3, repo.find_all_by_price_in_range(Range.new(0,50)).length
+  end
+
+  def test_it_finds_by_merchant
+    repo = ItemRepository.new(@item_csv, @parent)
+    assert_equal 3, repo.find_all_by_merchant_id(12334185).length
+  end
 end
