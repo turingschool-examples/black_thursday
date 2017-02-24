@@ -74,4 +74,13 @@ class MerchantRepositoryTest < Minitest::Test
     assert_instance_of SalesEngine, mr.parent
   end
 
+  def test_find_items_returns_items_for_merchant_id
+    se = SalesEngine.from_csv({:merchants => './test/fixtures/merchant_matches.csv', :items => './test/fixtures/items_same_merchant_id.csv'})
+    mr = se.merchants
+    merchant = mr.find_by_id(12334185)   
+    
+    assert_equal Array, mr.find_items(12334185).class
+    assert_equal 3, mr.find_items(12334185).length
+    assert_equal Item, mr.find_items(12334185).first.class
+  end
 end
