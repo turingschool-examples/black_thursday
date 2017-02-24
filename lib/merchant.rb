@@ -19,8 +19,7 @@ class Merchant
   end
 
   def items
-    # please refactor me 
-   parent.parent.items.find_all_by_merchant_id(id)
+    parent.find_items(id)
   end
 
 end
