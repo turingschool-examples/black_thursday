@@ -5,11 +5,11 @@ class ItemRepository
 
   def initialize(item_data)
     @item_data = item_data
-    @all = item_data.map { |row| Item.new(row) }
+    @all = item_data.map { |row| Item.new(row, self) }
   end
 
   def find_by_id(id)
-    all.find {|object| object.id.to_i == id }
+    all.find {|object| object.id == id }
   end
 
   def find_by_name(name)
@@ -34,4 +34,7 @@ class ItemRepository
     end
   end
 
+  def find_all_by_merchant_id(merchant_id)
+    all.find_all { |object| object.merchant_id == merchant_id} 
+  end
 end

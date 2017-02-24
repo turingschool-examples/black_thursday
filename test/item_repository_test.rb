@@ -56,7 +56,11 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_merchant_id
-    assert_equal 2, @ir.find_all_by_merchant_id(263396255)
+    results = @ir.find_all_by_merchant_id(12334185)
+    assert_includes "Glitter scrabble frames", results.first.name
+    assert_instance_of Array, results
+    assert_equal 3, results.count
+    assert_nil @ir.find_all_by_merchant_id(000000).first
   end
 
 end
