@@ -5,11 +5,12 @@ class ItemTest < Minitest::Test
   def setup
     @i = Item.new({
       :id          => 1111,
+      :merchant_id => 222222,
       :name        => "Pencil",
       :description => "You can use it to write things",
       :unit_price  => BigDecimal.new(10.99,4),
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
+      :created_at  => "2017-02-24 15:24:17 -0700",
+      :updated_at  => "2017-02-24 15:24:17 -0700"
       })
   end
   def test_item_exists
@@ -17,7 +18,7 @@ class ItemTest < Minitest::Test
       assert_equal "You can use it to write things", @i.description
       assert @i.created_at
       assert @i.updated_at
-      assert_equal 0.1099e2, @i.unit_price
+      assert_equal 0.1099e0, @i.unit_price
   end
 
   def test_item_id
@@ -33,7 +34,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_item_unit_price
-    assert_equal 0.1099e2, @i.unit_price
+    assert_equal 0.1099e0, @i.unit_price
   end
 
   def test_time_stamps
@@ -42,16 +43,12 @@ class ItemTest < Minitest::Test
   end
 
   def test_unit_price_to_dollars
-    float = 10.99
+    float = 0.1099e0
     assert_equal float, @i.unit_price_to_dollars
   end
 
   def test_merchant_id
-    skip
-    # waiting to build merchant class and other stuff
-    m = Merchant.new({:id => 5, :name => "Turing School"})
-    assert_equal m.id, @i.merchant_id
+    assert_equal 222222, @i.merchant_id
   end
-
 
 end
