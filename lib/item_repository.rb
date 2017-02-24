@@ -1,6 +1,7 @@
 require 'csv'
 require_relative 'repository'
 require_relative 'item'
+require 'bigdecimal'
 
 class ItemRepository < Repository
 
@@ -12,11 +13,11 @@ class ItemRepository < Repository
   end
 
   def all
-    @data
+    data
   end
 
   def find_by_id(id)
-    data.select { |item| item.id == id }
+    data.select { |item| item.id == id }.first
   end
 
   def find_by_name(name)
@@ -24,18 +25,25 @@ class ItemRepository < Repository
   end
 
   def find_all_with_description(description_string)
-      if data.include? description_string
-          return row.description
-      end
+    data.select { |item| item.description.downcase.include?(description_string.downcase) }
   end
 
+  def find_all_by_price(price)
+    data.select { |item| item.unit_price == price }
+  end
 
-  # def find_all_by_price
-  #   # returns either [] or instances of Item where the supplied price exactly matches
-  # end
+  def find_all_by_price_in_range(range)
+    min_range = range.first
+    max_range = range.last
+
+    data.select { |item| item.unit_price >= min_range && item.unit_price <= max_range }
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    data.select { |item| item.merchant_id == merchant_id }
+  end
 
   def inspect
    "#<#{self.class} #{@merchants.size} rows>"
   end
-
 end
