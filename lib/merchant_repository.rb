@@ -1,17 +1,20 @@
-require_relative 'csv_parser'
 require_relative 'merchant'
 require_relative 'sales_engine'
+require_relative 'item_repository'
+require_relative 'item'
+require_relative 'csv_parser'
 require 'pry'
 
 class MerchantRepository
 
   include CsvParser
 
-  attr_reader :all
+  attr_reader :all,
+              :parent
 
-  def initialize(merchant_data)
+  def initialize(merchant_data, parent)
     @all = merchant_data.map { |raw_merchant| Merchant.new(raw_merchant, self)}
-    
+    @parent = parent
   end
 
   def find_by_id(id)
@@ -27,16 +30,13 @@ class MerchantRepository
   end
  
   def find_all_by_name(fragment)
-    # please refactor me /select/
-    merchants = all.map do |merchant|
-      if merchant.name.downcase.include?(fragment.downcase)
-        merchant
-      end
+    merchants = all.find_all do |merchant|
+      merchant.name.downcase.include?(fragment.downcase)
     end
-    merchants.compact
   end
 
   def inspect
+    # ????
     "#<#{self.class} #{@merchants.size} rows>"
   end
 end

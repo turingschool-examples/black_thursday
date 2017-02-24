@@ -1,3 +1,8 @@
+require_relative 'merchant_repository'
+require_relative 'sales_engine'
+require_relative 'item_repository'
+require_relative 'csv_parser'
+require_relative 'merchant'
 require 'bigdecimal'
 
 class Item
@@ -7,7 +12,8 @@ class Item
               :unit_price,
               :created_at,
               :updated_at,
-              :merchant_id
+              :merchant_id,
+              :parent
   
   def initialize(data, parent)
     @id = data[:id].to_i

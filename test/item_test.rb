@@ -83,4 +83,12 @@ class ItemTest < Minitest::Test
     assert_equal 13.00, i.first.unit_price_to_dollars
     assert_equal Float, i.first.unit_price_to_dollars.class
   end
+
+  def test_parent_is_instance_of_item_repository
+    se = SalesEngine.from_csv({:items => './test/fixtures/items_three.csv'})
+    ir = se.items
+    i = ir.all
+
+    assert_instance_of ItemRepository, i.first.parent
+  end
 end

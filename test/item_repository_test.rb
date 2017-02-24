@@ -73,4 +73,10 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal [], ir.find_all_by_merchant_id(12234145)
   end
 
+  def test_parent_is_instance_of_sales_engine
+    se = SalesEngine.from_csv({:items => './test/fixtures/items_three.csv'})
+    ir = se.items
+
+    assert_instance_of SalesEngine, ir.parent
+  end
 end
