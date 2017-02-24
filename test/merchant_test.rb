@@ -23,6 +23,4 @@ class MerchantTest < Minitest::Test
   def test_it_has_name
     assert_equal "Turing School", @m.name
   end
-
-
 end
