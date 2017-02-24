@@ -6,9 +6,8 @@ class MerchantRepository < Repository
 
   attr_reader :klass, :data
 
-  def initialize(path)
-    klass = Merchant
-    super(path, klass)
+  def initialize(sales_engine, path)
+    super(sales_engine, path, Merchant)
   end
 
   def all
@@ -24,7 +23,8 @@ class MerchantRepository < Repository
   end
 
   def find_all_by_name(fragment)
-    data.find_all {|item| /#{Regexp.quote(fragment)}/ =~ item.name.downcase }
+    # data.find_all { |item| item.name.downcase.include?(fragment.downcase) }
+    data.find_all {|item| /#{Regexp.quote(fragment.downcase)}/ =~ item.name.downcase }
   end
 
   def inspect

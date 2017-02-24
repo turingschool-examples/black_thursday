@@ -10,15 +10,18 @@ class MerchantTest < Minitest::Test
     assert m
   end
 
-  def test_it_can_find_an_id
-    m = Merchant.new({:id => 12334105, :name => "Shopin1901"})
-
-    assert_equal 12334105, m.id
-  end
 
   def test_it_can_find_a_name
     m = Merchant.new({:id => 12334105, :name => "Shopin1901"})
 
     assert_equal "Shopin1901", m.name
   end
+
+
+  def test_it_can_find_an_id
+    m = Merchant.new({:id => 12334105, :name => "Shopin1901"})
+
+    assert_equal 12334105, m.id
+  end
+
 end

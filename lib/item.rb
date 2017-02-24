@@ -10,13 +10,17 @@ class Item
               :created_at,
               :merchant_id
 
-  def initialize(row)
+  def initialize(row, repo)
     @id = row[:id].to_i
     @name = row[:name]
     @description = row[:description]
-    @unit_price = BigDecimal.new(row[:unit_price]) / 100
+    @unit_price = unit_price_to_dollars(row[:unit_price])
     @updated_at = Time.parse(row[:updated_at])
     @created_at = Time.parse(row[:created_at])
     @merchant_id = row[:merchant_id].to_i
+  end
+
+  def unit_price_to_dollars(price)
+    BigDecimal.new(price) / 100
   end
 end

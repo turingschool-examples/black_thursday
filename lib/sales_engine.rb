@@ -6,14 +6,15 @@ require 'pry'
 
 
 class SalesEngine
-  attr_accessor :files
+  attr_accessor :items, :merchants
 
-  def initialize(files)
-    @files = files
+  def initialize(file_hash)
+    @items = ItemRepository.new(self, file_hash[:items])
+    @merchants = MerchantRepository.new(self, file_hash[:merchants])
   end
 
   def self.from_csv(file_hash)
-    OpenStruct.new(items: ItemRepository.new(file_hash[:items]), merchants: MerchantRepository.new(file_hash[:merchants]))
+    SalesEngine.new(file_hash)
   end
 
 end

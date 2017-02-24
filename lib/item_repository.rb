@@ -7,9 +7,8 @@ class ItemRepository < Repository
 
   attr_reader :klass, :data
 
-  def initialize(path)
-    klass = Item
-    super(path, klass)
+  def initialize(sales_engine, path)
+    super(sales_engine, path, Item)
   end
 
   def all
