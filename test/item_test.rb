@@ -8,8 +8,8 @@ class ItemTest < Minitest::Test
       :name        => "Pencil",
       :description => "You can use it to write things",
       :unit_price  => "1099",
-      :created_at  => Time.now.to_s,
-      :updated_at  => Time.now.to_s,
+      :created_at  => "2017-02-24 09:33:28 -0700",
+      :updated_at  => "2017-02-24 09:33:28 -0700",
       :merchant_id => '3333'})
   end
 
@@ -34,11 +34,11 @@ class ItemTest < Minitest::Test
   end
 
   def test_created_time
-    assert_equal Time.now.to_s, item.created_at
+    assert_equal Time.parse("2017-02-24 09:33:28 -0700"), item.created_at
   end
 
   def test_updated_time
-    assert_equal Time.now.to_s, item.updated_at
+    assert_equal Time.parse("2017-02-24 09:33:28 -0700"), item.updated_at
   end
 
   def test_item_merchant_id
