@@ -1,5 +1,13 @@
 class SalesAnalyst
-  attr_reader :engine
+  attr_reader :engine, 
+              :set, 
+              :squared_differences, 
+              :items_by_merchant, 
+              :total_price_per_merchant, 
+              :total_avgs,
+              :total_prices,
+              :price_set,
+              :price_squared_differences
   
   def initialize(engine="")
     @engine = engine
@@ -10,10 +18,10 @@ class SalesAnalyst
   end
   
   def average_items_per_merchant_standard_deviation
-    set = engine.merchants.all.map do |merchant|
+    @set ||= engine.merchants.all.map do |merchant|
       merchant.items.count
     end
-    squared_differences = set.map { |num| (num - average_items_per_merchant)**2 }
+    @squared_differences ||= set.map { |num| (num - average_items_per_merchant)**2 }
     
     (Math.sqrt( ( squared_differences.reduce(:+) ) / (set.count - 1) )).round(2)
     # Math.sqrt( ( (2-0.67)**2+(0-0.67)**2+(0-0.67)**2 ) / 2 )
@@ -26,34 +34,35 @@ class SalesAnalyst
   end
   
   def average_item_price_for_merchant(merch_id)
-    items_by_merchant = engine.merchants.find_by_id(merch_id).items
-    total_price = items_by_merchant.reduce(0) do |total, item|
+    @items_by_merchant ||= engine.merchants.find_by_id(merch_id).items
+    @total_price_per_merchant ||= items_by_merchant.reduce(0) do |total, item|
       total + item.unit_price
     end
-    (total_price / items_by_merchant.count).round(2)
+    (total_price_per_merchant / items_by_merchant.count).round(2)
   end
   
   def average_average_price_per_merchant
-    total_avgs = engine.merchants.all.reduce(0) do |total, merchant|
+    @total_avgs ||= engine.merchants.all.reduce(0) do |total, merchant|
       total + average_item_price_for_merchant(merchant.id)
+      require "pry"; binding.pry
     end
-    (total_avgs / engine.merchants.all.count).round(2)
+    (total_avgs / engine.merchants.all.count).floor(2)
   end
   
   def average_item_price
-    total_prices = average_item_price ||= engine.items.all.reduce(0) do |total, item|
+    @total_prices ||= engine.items.all.reduce(0) do |total, item|
       total + item.unit_price_to_dollars
     end
     (total_prices / engine.items.all.count).round(2)
   end
   
   def item_price_standard_deviation
-    set = engine.items.all.map do |item|
+    @price_set ||= engine.items.all.map do |item|
       item.unit_price_to_dollars
     end
     
-    squared_differences = set.map { |num| (num - average_item_price)**2 }
-    std_dev = (Math.sqrt( ( squared_differences.reduce(:+) ) / (set.count - 1) )).round(2)
+    @price_squared_differences ||= price_set.map { |num| (num - average_item_price)**2 }
+    (Math.sqrt( ( price_squared_differences.reduce(:+) ) / (price_set.count - 1) )).round(2)
   end
   
   def golden_items

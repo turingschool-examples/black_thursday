@@ -9,10 +9,7 @@ class MerchantTest < Minitest::Test
     assert_instance_of Merchant, m
   end
 
-  def test_it_knows_id
-    m = Merchant.new({:id => 5}, "engine")
-    assert_equal 5, m.id
-  end
+
 
   def test_it_knows_name
     m = Merchant.new({:name => "Turing"}, "engine")
