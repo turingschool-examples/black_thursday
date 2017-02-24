@@ -3,17 +3,19 @@ require_relative './item'
 require 'pry'
 
 class ItemRepository
-  attr_accessor :items
 
-  def initialize(path)
+  attr_accessor :items, :sales_engine
+
+  def initialize(path, sales_engine)
     @items = Hash.new
+    @sales_engine = sales_engine
     populate_repository(path)
   end
 
   def populate_repository(path)
     data = CSV.read(path, headers: true, header_converters: :symbol)
       data.each do |item|
-        items[item[:id].to_sym] = Item.new(item)
+        items[item[:id].to_sym] = Item.new(item, sales_engine)
       end
   end
 

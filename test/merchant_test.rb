@@ -1,26 +1,33 @@
 require 'minitest/autorun'
 require 'minitest/emoji'
-require 'mocha'
-
-require './black_thursday/lib/merchant_repository'
+require 'mocha/mini_test'
+require 'minitest/unit'
+require './black_thursday/lib/sales_engine'
 
 class MerchantTest < Minitest::Test
 
-  attr_reader :merchant
+  attr_reader :se
 
   def setup
-    @merchant = MerchantRepository.new('./black_thursday/test/fixtures/merchants_truncated.csv').merchants[:"12334112"]
+    @se = SalesEngine.from_csv({
+                                 :items     => "./black_thursday/data/items.csv",
+                                 :merchants => "./black_thursday/data/merchants.csv",
+    })
   end
 
   def test_it_exists
-    assert merchant
+    assert se
   end
 
   def test_it_knows_its_items
+    skip
     item1 = mock("item")
-    item2 = mock("item")
-
-    merchant.add_items([item1, item2])
+    item2 = mock("Item")
+    se.add_items([item1, item2])
     assert_include
+  end
+
+  def test_items_returns_merchants_items
+    assert_equal 3, se.merchants.all.first.items.length
   end
 end
