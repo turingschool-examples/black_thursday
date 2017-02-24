@@ -38,6 +38,6 @@ class ItemTest < Minitest::Test
   def test_it_updates_at_time
     item = Item.new(@item, @parent)
     time = Time.now
-    assert_equal time, item.updated_at
+    assert_equal Time, item.updated_at
   end
 end
