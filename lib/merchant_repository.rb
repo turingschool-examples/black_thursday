@@ -28,7 +28,7 @@ class MerchantRepository
       merchant.name.downcase == name.downcase
     end
   end
- 
+
   def find_all_by_name(fragment)
     merchants = all.find_all do |merchant|
       merchant.name.downcase.include?(fragment.downcase)
@@ -36,7 +36,7 @@ class MerchantRepository
   end
 
   def find_items(id)
-    parent.items.find_all_by_merchant_id(id)  
+    parent.items.find_all_by_merchant_id(id)
   end
 
   def inspect
