@@ -8,10 +8,24 @@ class ItemRepository
     @all = item_data.map { |row| Item.new(row) }
   end
 
+  def find_by_id(id)
+    all.find {|object| object.id.to_i == id }
+  end
 
+  def find_by_name(name)
+    all.find { |object| object.name.downcase == name.downcase }
+  end
 
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
+  end
+
+  def find_by_description(search_term)
+    all.find_all { |object| object.description.downcase.include?(search_term.downcase) }
+  end
+
+  def find_all_by_price(price)
+    all.find_all { |object| object.unit_price == price }
   end
 
 end

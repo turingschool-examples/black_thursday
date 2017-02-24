@@ -45,7 +45,6 @@ class MerchantRepositoryTest < Minitest::Test
     mr = @se.merchants
     assert_instance_of Array, mr.find_all_by_name("Bikez")
     assert_equal "MiniatureBikez", mr.find_all_by_name("Bikez").first.name
-
   end
 
 end
