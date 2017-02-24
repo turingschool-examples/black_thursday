@@ -2,17 +2,17 @@ require'csv'
 require_relative'item'
 
 class ItemRepository
-	attr_reader :item, :all
+	attr_reader :items, :all, :sales_engine
 
 	def initialize(item, sales_engine)
-		@item = CSV.open item, headers: true, header_converters: :symbol
+		@items = CSV.open item, headers: true, header_converters: :symbol
 		@sales_engine = sales_engine
 		@all = Array.new
 		parse_csv
 	end
 
 	def parse_csv
-		item.each do |item|
+		items.each do |item|
 			all << Item.new(item, self)
 		end
 	end
@@ -43,7 +43,7 @@ class ItemRepository
 
 	def find_all_by_price(price)
 		all.select do |instance|
-			if instance.unit_price.to_s.include?(price.to_i.to_s)
+			if instance.unit_price.to_s.include?(price.to_s)
 				instance
 			end
 		end
@@ -51,7 +51,7 @@ class ItemRepository
 
 	def find_all_by_price_in_range(range)
 		all.select do |instance|
-			if range.include?(instance.unit_price.to_i)
+			if range.include?(instance.unit_price)
 				instance
 			end
 		end
@@ -66,6 +66,6 @@ class ItemRepository
 	end
 
 	def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{@items.size} rows>"
 	end
 end

@@ -2,7 +2,7 @@ require'csv'
 require_relative'merchant'
 
 class MerchantRepository
-	attr_reader :merchant, :all
+	attr_reader :merchant, :all, :sales_engine
 
 	def initialize(merchant_path, sales_engine)
 		@merchant = CSV.open merchant_path, headers: true, header_converters: :symbol
