@@ -1,4 +1,3 @@
-require 'pry'
 require_relative 'merchant_repository'
 require_relative 'file_loader'
 
