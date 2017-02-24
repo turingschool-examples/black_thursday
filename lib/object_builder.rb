@@ -14,7 +14,10 @@ class ObjectBuilder
   end
 
   def build_object(path, class_type)
-    get_lines(path).map { |row| class_type.new(row) }
+    get_lines(path).map do |row|
+      class_type.new(row)
+      binding.pry
+    end
   end
 
   def get_lines(path)
