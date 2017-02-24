@@ -26,7 +26,7 @@ class ItemRepositoryTest < Minitest::Test
     ir = se.items
     
     assert_equal "Glitter scrabble frames", ir.find_by_id(263395617).name
-    assert_nil ir.find_by_id("263355617")
+    assert_nil ir.find_by_id(263355617)
   end
 
   def test_find_by_name
@@ -42,8 +42,8 @@ class ItemRepositoryTest < Minitest::Test
     ir = se.items
 
     assert_equal Array, ir.find_all_with_description("glitter").class
-    assert_equal [], ir.find_all_with_description("banana")
     assert_equal 2, ir.find_all_with_description("glitter").length
+    assert_equal [], ir.find_all_with_description("banana")
   end
 
   def test_find_all_by_price
