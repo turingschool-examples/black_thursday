@@ -21,6 +21,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_returns_price
+    assert_instance_of BigDecimal, @item.unit_price
     assert_equal 12.0, @item.unit_price
   end
 
@@ -34,6 +35,11 @@ class ItemTest < Minitest::Test
 
   def test_has_updated_time
    assert_instance_of Time, @item.updated_at    
+  end
+
+  def test_it_returns_price_in_dollars
+    assert_instance_of Float, @item.unit_price_to_dollars 
+    assert_equal 12.0, @item.unit_price_to_dollars
   end
 
 end
