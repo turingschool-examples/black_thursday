@@ -1,4 +1,4 @@
-require './lib/merchant'
+require_relative 'merchant'
 
 class MerchantRepository
   attr_reader :merchant_data, :all
@@ -6,7 +6,6 @@ class MerchantRepository
   def initialize(merchant_data)
     @merchant_data = merchant_data
     @all = create_merchants
-    require "pry"; binding.pry
   end
 
   def create_merchants
@@ -19,4 +18,7 @@ class MerchantRepository
   #
   # end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 end
