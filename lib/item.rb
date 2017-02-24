@@ -22,4 +22,8 @@ class Item
     @merchant_id  = row[:merchant_id].to_i
     @parent       = parent
   end
+
+  def merchant
+    parent.parent.merchants.find_by_id(self.merchant_id)
+  end
 end
