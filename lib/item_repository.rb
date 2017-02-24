@@ -4,31 +4,54 @@ class ItemRepository
     @path = path
   end
 
+  def csv
+    @csv ||= CSV.open(path, headers:true, header_converters: :symbol)
+  end
+
   def all
-    # returns an array of all known Item instances
+    @all ||= csv.map do |row|
+      Item.new(row, self)
+    end
   end
 
-  def find_by_id
-    # returns either nil or an instance of Item with a matching ID
+  def find_by_id(id)
+    all.find do |item|
+      item.id.to_i == id.to_i
+    end
   end
 
-  def find_by_name
-    # returns either nil or an instance of Item having done a case insensitive search
+  def find_by_name(name)
+    all.find do |item|
+      item.name.downcase == name.downcase
+    end
   end
 
-  def find_all_with_description
-    # returns either [] or instances of Item where the supplied string appears in the item description (case insensitive)
+  def find_all_with_description(desc_fragment)
+    all.find_all do |item|
+      item.description.downcase.include?(desc_fragment.downcase)
+    end
   end
 
-  def find_all_by_price
-    # returns either [] or instances of Item where the supplied price exactly matches
+  def find_all_by_price(price)
+    all.find_all do |item|
+      item.unit_price == price
+    end
   end
 
-  def find_all_by_price_in_range
-    # returns either [] or instances of Item where the supplied price is in the supplied range (a single Ruby range instance is passed in)
+  def find_all_by_price_in_range(price_range)
+    all.find_all do |item|
+      price = item.unit_price_to_dollars
+      price_range.member?(price)
+    end
   end
 
-  def find_all_by_merchant_id
-    # returns either [] or instances of Item where the supplied merchant ID matches that supplied
+  def find_all_by_merchant_id(merchant_id)
+    all.find_all do |item|
+      item.merchant_id == merchant_id.to_i
+    end
+  end
+  
+  def inspect
+  "#<#{self.class} #{@merchants.size} rows>"
   end
 end
