@@ -18,7 +18,7 @@ class ItemTest < Minitest::Test
       assert_equal "You can use it to write things", @i.description
       assert @i.created_at
       assert @i.updated_at
-      assert_equal 0.1099e2, @i.unit_price
+      assert_equal 10.99, @i.unit_price
   end
 
   def test_item_id
@@ -34,7 +34,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_item_unit_price
-    assert_equal 0.1099e2, @i.unit_price
+    assert_equal 10.99, @i.unit_price
   end
 
   def test_time_stamps

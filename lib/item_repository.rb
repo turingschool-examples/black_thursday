@@ -16,16 +16,15 @@ class ItemRepository
     all.find { |object| object.name.downcase == name.downcase }
   end
 
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
-  end
 
-  def find_by_description(search_term)
+  def find_all_with_description(search_term)
     all.find_all { |object| object.description.downcase.include?(search_term.downcase) }
   end
 
   def find_all_by_price(price)
-    all.find_all { |object| object.unit_price == price }
+    all.find_all do |object|
+      object.unit_price == price
+    end
   end
 
   def find_all_by_price_in_range(range)
@@ -35,6 +34,11 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(merchant_id)
-    all.find_all { |object| object.merchant_id == merchant_id} 
+    all.find_all { |object| object.merchant_id == merchant_id}
   end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
 end
