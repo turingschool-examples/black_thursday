@@ -66,4 +66,12 @@ class MerchantRepositoryTest < Minitest::Test
 
     assert_equal [], mr.find_all_by_name("banana")
   end
+
+  def test_parent_is_instance_of_sales_engine
+    se = SalesEngine.from_csv({:merchants => './test/fixtures/merchants_three.csv'})
+    mr = se.merchants
+    
+    assert_instance_of SalesEngine, mr.parent
+  end
+
 end

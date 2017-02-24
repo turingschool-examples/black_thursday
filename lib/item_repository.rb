@@ -1,15 +1,19 @@
-require_relative 'csv_parser'
-require_relative 'item'
+require_relative 'merchant_repository'
 require_relative 'sales_engine'
+require_relative 'item'
+require_relative 'csv_parser'
+require_relative 'merchant'
 require 'pry'
 
 class ItemRepository
 include CsvParser
 
-  attr_reader :all
+  attr_reader :all,
+              :parent
 
-  def initialize(item_data)
+  def initialize(item_data, parent)
     @all = item_data.map { |raw_item| Item.new(raw_item, self)}
+    @parent = parent
   end
 
   def find_by_id(id)

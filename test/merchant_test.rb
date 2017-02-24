@@ -2,6 +2,7 @@ require "minitest/autorun"
 require "minitest/pride"
 require "./lib/merchant"
 require "./lib/sales_engine"
+require './lib/merchant_repository'
 require "simplecov"
 SimpleCov.start
 
@@ -30,5 +31,20 @@ class MerchantTest < Minitest::Test
     assert_equal "Shopin1901", m.first.name
   end
 
+  def test_parent_is_instance_of_merchant_repository
+    se = SalesEngine.from_csv({:merchants => './test/fixtures/merchants_three.csv'})
+    mr = se.merchants
+    m = mr.all
+
+    assert_instance_of MerchantRepository, m.first.parent
+  end
+
+  def test_merchant_can_find_items
+    se = SalesEngine.from_csv({:merchants => './test/fixtures/merchant_matches.csv', :items => './test/fixtures/items_same_merchant_id.csv'})
+    merchant = se.merchants.find_by_id(12334185)   
+    
+    assert_equal Array, merchant.items.class
+    assert_equal 3, merchant.items.length
+  end
 end
 
