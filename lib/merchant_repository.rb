@@ -1,4 +1,4 @@
-require './lib/merchant'
+require_relative 'merchant'
 
 class MerchantRepository
   attr_reader :merchant_data, :all
@@ -19,4 +19,7 @@ class MerchantRepository
   #
   # end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 end
