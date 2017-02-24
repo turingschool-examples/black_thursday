@@ -10,9 +10,6 @@ class SalesAnalyst
   end
   
   def average_items_per_merchant_standard_deviation
-    # array each items/merchant (total count = merchants.all)
-    # average
-    # merchants.all.count - 1
     set = engine.merchants.all.map do |merchant|
       merchant.items.count
     end
@@ -29,22 +26,25 @@ class SalesAnalyst
   end
   
   def average_item_price_for_merchant(merch_id)
-    total_price = engine.merchants.find_by_id(merch_id).items.reduce(0) do |total, item|
+    items_by_merchant = engine.merchants.find_by_id(merch_id).items
+    total_price = items_by_merchant.reduce(0) do |total, item|
       total + item.unit_price
     end
-    total_price / engine.merchants.find_by_id(merch_id).items.count
+    (total_price / items_by_merchant.count).round(2)
   end
   
   def average_average_price_per_merchant
-    engine.merchants.all.reduce(0) do |total, merchant|
+    total_avgs = engine.merchants.all.reduce(0) do |total, merchant|
       total + average_item_price_for_merchant(merchant.id)
-    end.send('/', engine.merchants.all.count)
+    end
+    (total_avgs / engine.merchants.all.count).round(2)
   end
   
   def average_item_price
-    engine.items.all.reduce(0) do |total, item|
+    total_prices = average_item_price ||= engine.items.all.reduce(0) do |total, item|
       total + item.unit_price_to_dollars
-    end.send('/', engine.items.all.count).round(2)
+    end
+    (total_prices / engine.items.all.count).round(2)
   end
   
   def item_price_standard_deviation
