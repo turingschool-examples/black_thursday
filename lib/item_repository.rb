@@ -61,7 +61,11 @@ include CsvParser
     end 
   end
 
+  def find_merchant(merchant_id)
+    parent.merchants.find_by_id(merchant_id)  
+  end
+
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{@all.size} rows>"
   end
 end
