@@ -1,4 +1,5 @@
 require_relative 'item'
+require_relative 'merchant'
 class ItemRepository
   attr_reader :items, :parent
   def initialize (items, parent = nil)

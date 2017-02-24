@@ -12,4 +12,8 @@ class Merchant
     @created_at   = row[:created_at]
     @parent       = parent
   end
+
+  def items
+    parent.parent.items.find_by_merchant_id(self.id)
+  end
 end

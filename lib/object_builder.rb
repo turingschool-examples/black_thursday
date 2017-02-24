@@ -16,7 +16,6 @@ class ObjectBuilder
   def build_object(path, class_type)
     get_lines(path).map do |row|
       class_type.new(row)
-      binding.pry
     end
   end
 

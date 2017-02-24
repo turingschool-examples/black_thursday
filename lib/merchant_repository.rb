@@ -2,7 +2,7 @@ require "csv"
 require_relative 'merchant'
 
 class MerchantRepository
-  attr_reader :merchants
+  attr_reader :merchants, :parent
 
   def initialize(merchants, parent = nil)
     @merchants = merchants
