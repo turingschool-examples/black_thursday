@@ -21,7 +21,6 @@ class MerchantRepository
 			name = row[:name]
 			@merchants[id] = Merchant.new({:id => id, :name => name}, self)
 		end
-		# @merchants
 	end
 
 	def all
