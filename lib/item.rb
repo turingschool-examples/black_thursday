@@ -11,10 +11,11 @@ class Item
 # binding.pry
     @unit_price =  data[:unit_price]
     @merchant_id = data[:merchant_id]
-    @created_at  = Time.now
-    @updated_at = Time.now
+    @created_at  = Time.parse(data[:created_at]) #Time.now
+    @updated_at = Time.parse(data[:updated_at]) #Time.now
     # binding.pry
   end
+
 
 
 end
