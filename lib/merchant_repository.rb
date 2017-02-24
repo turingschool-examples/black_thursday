@@ -4,7 +4,6 @@ class MerchantRepository
   attr_reader :merchant_data, :all
 
   def initialize(merchant_data)
-    binding.pry
     @merchant_data = merchant_data
     @all = merchant_data.map { |row| Merchant.new(row) }
   end
