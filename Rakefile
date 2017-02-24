@@ -2,6 +2,7 @@ task :default => [:unit_test]
 
 task :unit_test do
   puts "running unit tests!"
+  ruby "test/file_loader_test.rb"
   ruby "test/invoice_item_test.rb"
   ruby "test/invoice_test.rb"
   # skipping item_repo test because rake doesn't wanna run everything
