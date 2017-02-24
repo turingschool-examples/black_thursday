@@ -5,6 +5,7 @@ class ItemTest < Minitest::Test
   def setup
     @i = Item.new({
       :id          => 1111,
+      :merchant_id => 222222,
       :name        => "Pencil",
       :description => "You can use it to write things",
       :unit_price  => BigDecimal.new(10.99,4),
@@ -47,11 +48,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_merchant_id
-    skip
-    # waiting to build merchant class and other stuff
-    m = Merchant.new({:id => 5, :name => "Turing School"})
-    assert_equal m.id, @i.merchant_id
+    assert_equal 222222, @i.merchant_id
   end
-
 
 end

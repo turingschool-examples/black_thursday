@@ -8,7 +8,7 @@ class Item
               :created_at,
               :updated_at
 
-  def initialize(attributes, parent)
+  def initialize(attributes, parent = nil)
     @id = attributes[:id].to_i
     @merchant_id = attributes[:merchant_id].to_i
     @name = attributes[:name]
