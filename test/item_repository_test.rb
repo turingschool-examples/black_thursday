@@ -60,6 +60,7 @@ class ItemRepositoryTest < Minitest::Test
     found = ir.find_by_id(263395237)
     not_found = ir.find_by_id(9999999)
 
+    # binding.pry
     assert_equal 263395237, found.id
     assert_nil not_found
   end
@@ -71,16 +72,24 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_can_find_all_by_price
+    ir = ItemRepository.new(@path)
+    found = ir.find_all_by_price(13.50)
+    not_found = ir.find_all_by_price(9999999)
+
+    assert_equal 13.50, found[0].unit_price
+    assert_equal [], not_found
   end
 
   def test_can_find_all_by_price_in_range
-  end
+    ir = ItemRepository.new(@path)
+    found = ir.find_all_by_price_in_range((11.00..14.00))
+    not_found = ir.find_all_by_price_in_range((1.0..2.5))
 
 
-  def test_set_time
-  end
-
-  def test_updates_current_date
+    assert_instance_of Array, found
+    assert_equal 12.00, found[0].unit_price
+    assert_equal 13.50, found[1].unit_price
+    assert_equal [], not_found
   end
 
 #note: found.count depends on fixtures file. Update.

@@ -19,8 +19,8 @@ class ItemRepository
         :merchant_id => row[:merchant_id].to_i,
         #make time methods, time.now
       
-        :created_at => row[:created_at],
-        :updated_at => row[:updated_at]})
+        :created_at => time_formatter(row[:created_at]),
+        :updated_at => time_formatter(row[:updated_at])})
         @all << item
 
         #return an array, then you can nix @all
@@ -33,7 +33,7 @@ class ItemRepository
         #could make a transform_price method
 
   def transform_price(price)
-    formatted_price = (BigDecimal.new(price.to_i)/100).to_f
+    formatted_price = (BigDecimal.new(price.to_i)/100)
   end
 
 
@@ -54,6 +54,16 @@ class ItemRepository
     all.select{ |item| item.merchant_id == merchant_id }
   end
 
+  def find_all_by_price(unit_price)
+    all.select{ |item| item.unit_price == unit_price }
+  end
+
+  def find_all_by_price_in_range(range)
+    all.select{ |item| range.include?(item.unit_price)  }
+  end
+
+  
+
   def inspect
     "#<#{self.class} #{@items.size} rows>"
   end
@@ -63,4 +73,34 @@ class ItemRepository
   #   # output = "#{:id},#{:name},#{:description},#{:unit_price},#{:merchant_id},#{:created_at},#{:updated_at}"
   #   @all = ItemRepository.new(item_path)
   #   @merchants = MerchantRepository.new
+
+  def time_formatter(time)
+    time = time.split(' ')
+    date = time[0].split('-').map {|item| item.to_i}
+    clock = time[1].split(':').map {|item| item.to_i}
+
+    year = date[0]
+    month = date[1]
+    day = date[2]
+    hour = clock[0]
+    minute = clock[1]
+    second = clock[2]
+    zone = 0000
+
+    t = Time.new(year, month, day, hour, minute, second, zone)
+      
+  end
+
+
+# find_all_by_price - returns either [] or instances of Item where the supplied price exactly matches
+# find_all_by_price_in_range - returns either [] or instances of Item where the supplied price is in the supplied range (a single Ruby range instance is passed in)
+
+
+
+
 end
+
+
+# binding.pry
+
+""
