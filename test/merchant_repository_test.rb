@@ -16,29 +16,31 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_has_method_all
     se = SalesEngine.from_csv({:merchants => './test/fixtures/merchants_three.csv'})
     mr = se.merchants
-    
+
     assert_instance_of Array, mr.all
+    assert_equal 3, mr.all.length
+    assert_equal "Shopin1901",mr.all.first.name
   end
 
   def test_it_can_find_merchant_by_id
     se = SalesEngine.from_csv({:merchants => './test/fixtures/merchants_three.csv'})
     mr = se.merchants
-    
-    assert_equal "Candisart", mr.find_by_id('12334112').name
+
+    assert_equal "Candisart", mr.find_by_id(12334112).name
   end
 
   def test_find_by_id_returns_nil_if_merchant_doesnt_exist
     se = SalesEngine.from_csv({:merchants => './test/fixtures/merchants_three.csv'})
     mr = se.merchants
-    
-    assert_nil mr.find_by_id('12334115')
+
+    assert_nil mr.find_by_id(12334115)
   end
-  
+
   def test_it_can_find_merchant_by_name
     se = SalesEngine.from_csv({:merchants => './test/fixtures/merchants_three.csv'})
     mr = se.merchants
-    
-    assert_equal '12334112', mr.find_by_name('Candisart').id
+
+    assert_equal 12334112, mr.find_by_name('Candisart').id
   end
 
 
@@ -46,7 +48,7 @@ class MerchantRepositoryTest < Minitest::Test
     se = SalesEngine.from_csv({:merchants => './test/fixtures/merchants_three.csv'})
     mr = se.merchants
     
-    assert_nil mr.find_by_name('jasmin')
+    assert_nil mr.find_by_name('Jasmin')
   end
 
   def test_find_all_by_name

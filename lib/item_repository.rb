@@ -1,6 +1,7 @@
 require_relative 'csv_parser'
 require_relative 'item'
 require_relative 'sales_engine'
+require 'pry'
 
 class ItemRepository
 include CsvParser

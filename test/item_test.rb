@@ -21,7 +21,7 @@ class ItemTest < Minitest::Test
     ir = se.items
     i = ir.all
 
-    assert_equal "263395617", i.first.id
+    assert_equal 263395617, i.first.id
   end
 
   def test_name_method_returns_item_name
@@ -46,7 +46,7 @@ class ItemTest < Minitest::Test
     i = ir.all
 
     assert_equal BigDecimal, i.first.unit_price.class
-    assert_equal 1300, i.first.unit_price.to_i
+    assert_equal 13.00, i.first.unit_price
   end
 
   def test_created_at_returns_date_created_at
@@ -72,7 +72,7 @@ class ItemTest < Minitest::Test
     ir = se.items
     i = ir.all
 
-    assert_equal "12334185", i.first.merchant_id
+    assert_equal 12334185, i.first.merchant_id
   end
 
   def test_unit_price_to_dollars
