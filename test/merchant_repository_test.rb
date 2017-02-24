@@ -4,7 +4,6 @@ require './lib/sales_engine'
 require './lib/merchant'
 
 class MerchantRepositoryTest < Minitest::Test
-
   def setup
     @se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
@@ -15,13 +14,10 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_load_csv
-    # skip
     assert_instance_of CSV, @mr.csv
   end
 
-
   def test_it_can_create_instance_of_merchant
-    # skip
     assert_instance_of Merchant, @mr.all.first
   end
 
@@ -58,7 +54,6 @@ class MerchantRepositoryTest < Minitest::Test
     merchant = @mr.find_by_name("vfjsbvsfv")
     assert_nil merchant, 'merchant was supposed to return nil!'
   end
-
 
   def test_it_can_find_all_merchants_matching_name_fragment
     merchant = @mr.find_all_by_name("end")

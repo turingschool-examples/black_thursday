@@ -4,18 +4,19 @@ require_relative '../lib/sales_engine'
 require_relative '../lib/item_repository'
 
 class ItemTest < Minitest::Test
-
   def setup
     @se = SalesEngine.from_csv({
-  :items     => "./data/items.csv",
-  :merchants => "./data/merchants.csv"})
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+      })
 
     @i = Item.new({
       :name        => "Pencil",
       :description => "You can use it to write things",
       :unit_price  => BigDecimal.new(10.99,4),
       :created_at  => "2016-01-11 11:44:00 UTC",
-      :updated_at  => "2006-08-26 06:56:21 UTC",})
+      :updated_at  => "2006-08-26 06:56:21 UTC"
+      })
   end
 
   def test_assert_it_exists
@@ -30,19 +31,17 @@ class ItemTest < Minitest::Test
   #   # method #id
   #   # returns the integer id of the item
   # end
-  #
+
   def test_it_returns_name_of_item
     assert_equal "Pencil", @i.name
   end
-  #
+
   def test_it_returns_description_of_item
     assert_equal "You can use it to write things", @i.description
   end
 
   def test_it_returns_unit_price
     assert_instance_of BigDecimal, @i.unit_price
-    # method #unit_price
-    # returns the price of the item formatted as a BigDecimal
   end
 
   def test_it_returns_unit_price_to_dollars

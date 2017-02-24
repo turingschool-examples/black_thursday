@@ -6,10 +6,12 @@ require_relative '../lib/merchant_repository'
 class MerchantTest < Minitest::Test
   def setup
     @se = SalesEngine.from_csv({
-  :items     => "./data/items.csv",
-  :merchants => "./data/merchants.csv"})
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+      })
 
-    @m = Merchant.new({:id => "5", :name => "Turing School"})
+    @m = Merchant.new({:id => "5", :name => "Turing School"
+      })
   end
 
   def test_assert_it_exists

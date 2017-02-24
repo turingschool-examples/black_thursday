@@ -4,7 +4,6 @@ require './lib/item_repository'
 require './lib/item'
 
 class ItemRepositoryTest < Minitest::Test
-
   def setup
     @se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
@@ -34,7 +33,6 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_find_an_item_by_id
     item = @ir.find_by_id(263395617)
     assert_instance_of Item, item
-    # returns either nil or an instance of Item with a matching ID
   end
 
   def test_it_returns_nil_if_the_item_does_not_exist
@@ -101,7 +99,6 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_return_an_empty_array_if_no_matches_are_found
-    # skip
     item = @ir.find_all_by_merchant_id(90907653)
     assert_equal [], item
   end

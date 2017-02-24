@@ -8,5 +8,4 @@ class Merchant
     @updated_at = row[:updated_at]
     @parent = parent
   end
-
 end
