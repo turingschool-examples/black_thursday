@@ -12,52 +12,26 @@ class ItemRepository < Repository
   end
 
   def all
-    data
+    @data
   end
 
   def find_by_id(id)
-    data.select do |row|
-      if row.id == id
-        return row.id
-      else
-        return nil
-      end
-    end
+    data.select { |item| item.id == id }
   end
 
   def find_by_name(name)
-    data.select do |row|
-      if row.name == name
-        return row.name
-      else
-        return nil
-      end
-    end
+    data.select { |item| item.name.downcase == name.downcase }.first
   end
 
-
-    def find_all_with_description(description_string)
-      data.select do |row|
-        if row.description == description
+  def find_all_with_description(description_string)
+      if data.include? description_string
           return row.description
-        end
       end
-    end
-
-      # returns either [] or instances of Item where the supplied string appears in the item description (case insensitive)
-
-
-
-  def find_all_by_price
-    # returns either [] or instances of Item where the supplied price exactly matches
   end
-  #
-  # def find_all_by_price_in_range
-  #   # returns either [] or instances of Item where the supplied price is in the supplied range (a single Ruby range instance is passed in)
-  # end
-  #
-  # def find_all_by_merchant_id
-  #   # returns either [] or instances of Item where the supplied merchant ID matches that supplied
+
+
+  # def find_all_by_price
+  #   # returns either [] or instances of Item where the supplied price exactly matches
   # end
 
   def inspect

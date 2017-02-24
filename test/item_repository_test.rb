@@ -4,9 +4,7 @@ require 'pry'
 require_relative '../lib/repository'
 require_relative '../lib/item_repository'
 
-
 class ItemRepositoryTest < Minitest::Test
-
 
   def test_it_finds_all_items
     item_repository = ItemRepository.new('test/fixtures/items_sample.csv')
