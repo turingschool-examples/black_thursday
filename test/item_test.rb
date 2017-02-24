@@ -1,6 +1,7 @@
 require_relative 'test_helper.rb'
 require_relative '../lib/item'
-require 'pry'
+require_relative '../lib/sales_engine'
+
 class ItemTest < Minitest::Test
   def test_it_exists
     i = Item.new
@@ -60,5 +61,17 @@ class ItemTest < Minitest::Test
     i = Item.new({:unit_price => "1099"})
 
     assert_equal 10.99, i.unit_price_to_dollars
+  end
+  
+  
+  def test_it_can_find_merchant_from_merchant_id
+    se = SalesEngine.from_csv({
+        :merchants     => "./test/fixtures/temp_merchants.csv",
+        :items     => "./test/fixtures/temp_items.csv"
+        })
+    item = se.items.find_by_id(263395617)
+    
+    assert_instance_of Merchant, item.merchant
+    assert_equal "HEYhey", item.merchant.name
   end
 end
