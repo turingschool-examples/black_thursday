@@ -5,7 +5,7 @@ class MerchantRepository
   attr_accessor :merchants_array
   attr_reader :contents, :engine
 
-  def initialize(path, engine)
+  def initialize(path, engine = '')
     @merchants_path = path
     @merchants_array = []
     @engine = engine

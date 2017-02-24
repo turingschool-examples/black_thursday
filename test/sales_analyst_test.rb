@@ -21,6 +21,28 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_merchants_with_high_item_count
-    assert_equal [4, 12, 4, 5], sa.merchants_with_high_item_count
+    assert_equal 4, sa.merchants_with_high_item_count.length
+    assert_instance_of Merchant, sa.merchants_with_high_item_count.first
+  end
+
+  def test_average_item_price_for_merchant
+    assert_equal (BigDecimal.new(5050)/100), sa.average_item_price_for_merchant(12334365)
+  end
+
+  def test_average_average_price_per_merchant
+    assert_equal (BigDecimal.new(15525)/100), sa.average_average_price_per_merchant
+  end
+
+  def test_average_item_price
+    assert_equal (BigDecimal.new(16686)/100), sa.average_item_price
+  end
+
+  def test_average_item_price_standard_deviation
+    assert_equal 376.88, sa.average_item_price_standard_deviation
+  end
+
+  def test_golden_items
+    assert_equal 1, sa.golden_items.length
+    assert_instance_of Item, sa.golden_items.first
   end
 end
