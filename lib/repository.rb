@@ -16,7 +16,7 @@ class Repository
     CSV.foreach @path, headers: true, header_converters: :symbol do |row|
       @data << @klass.new(row.to_hash)
     end
-    data
+    @data
   end
 
   def inspect

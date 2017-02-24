@@ -12,36 +12,19 @@ class MerchantRepository < Repository
   end
 
   def all
-    data
+    @data
   end
 
   def find_by_name(name)
-    data.select do |row|
-      if row.name == name
-        return row
-      else
-        return nil
-      end
-    end
+    data.select {|item| item.name.downcase == name.downcase }.first
   end
 
   def find_by_id(id)
-    data.select do |row|
-      if row.id == id
-        return row
-      else
-        return nil
-      end
-    end
+    data.select {|item| item.id == id }.first
   end
 
   def find_all_by_name(fragment)
-    data.select do |row|
-      upcased = row.name.upcase
-      if upcased.include?(fragment.upcase)
-        return row.name
-      end
-    end
+    data.find_all {|item| /#{Regexp.quote(fragment)}/ =~ item.name.downcase }
   end
 
   def inspect
