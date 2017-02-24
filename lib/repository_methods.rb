@@ -7,9 +7,8 @@ module RepositoryMethods
   end
 
   def all
-    collection.reduce([]) do |all_entries, entry|
-      all_entries << entry
-      all_entries
+    collection.map do |id, entry|
+      entry
     end
   end
 

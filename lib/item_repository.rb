@@ -10,8 +10,6 @@ class ItemRepository
     @child = Item
     @collection = Hash.new
     populate_repository(path)
-    require "pry"; binding.pry
-    ""
   end
 
   include RepositoryMethods
