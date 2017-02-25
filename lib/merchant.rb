@@ -4,16 +4,16 @@ class Merchant
               :name,
               :created_at
 
-  attr_accessor :parent
+  attr_accessor :repository
 
-  def initialize (row, parent = nil)
+  def initialize (row, repository = nil)
     @id           = row[:id].to_i
     @name         = row[:name]
     @created_at   = row[:created_at]
-    @parent       = parent
+    @repository   = repository
   end
 
   def items
-    parent.parent.items.find_by_merchant_id(self.id)
+    repository.sales_engine.items.find_all_by_merchant_id(self.id)
   end
 end

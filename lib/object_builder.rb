@@ -24,6 +24,6 @@ class ObjectBuilder
   end
 
   def assign_parents(repos)
-    repos.each { |repo| repo.all.each { |object| object.parent = repo } }
+    repos.each { |repo| repo.all.each { |object| object.repository = repo } }
   end
 end
