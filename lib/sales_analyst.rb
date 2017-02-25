@@ -12,30 +12,52 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    #Check with sample size and 3.26 SD
-    sample = se.merchants.all.sample(500)
+    #Checked with sample size and 3.26 SD
+
+    n = se.merchants.all.count.to_f
+
+    sample = se.merchants.all.sample(n)
+
     items_of_merchants = sample.map {|merchant| merchant.items.count}  
     sum = items_of_merchants.reduce(:+)
-    mean = sum/500.0
+    mean = sum/n
 
-
-    mean = items_of_merchants.reduce(:+)/500.0
+    mean = items_of_merchants.reduce(:+)/n
 
     do_math = items_of_merchants.map{ |item| ((item - mean)**2) }
     do_math = do_math.reduce(:+)
-    result = Math.sqrt(do_math/(500-1)).round(2)
+    result = Math.sqrt(do_math/(n-1)).round(2)
     
   end
 
-    # sa.merchants_with_high_item_count # => [merchant, merchant, merchant]
-  def merchants_with_high_item_count
 
+
+  def merchants_with_high_item_count
+    #find merchants selling more than 1 SD higher
+    merchants = se.merchants.all
+    average = average_items_per_merchant
+    sd = average_items_per_merchant_standard_deviation
+
+    merchants.select{ |merchant| merchant.items.count > (average + sd) }
+    # sa.merchants_with_high_item_count # => [merchant, merchant, merchant]
   end
 
-  #Let’s find the average price of a merchant’s items (by supplying the merchant ID):
-  # sa.average_item_price_for_merchant(12334159) # => BigDecimal
-  def average_item_price_for_merchant
 
+  
+  def average_item_price_for_merchant(merchant_id)
+    items = se.items.find_all_by_merchant_id(merchant_id)
+    prices = items.map { |item| item.unit_price }
+    price_sum = prices.reduce(:+) 
+    (price_sum / items.count).round(2)
+  end
+
+
+
+# Then we can sum all of the averages and find the average price across all merchants (this implies that each merchant’s average has equal weight in the calculation):
+
+  def average_average_price_per_merchant
+
+# sa.average_average_price_per_merchant # => BigDecimal
   end
 
 end
