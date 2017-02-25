@@ -1,8 +1,8 @@
 module RepositoryMethods
-  def populate_repository(path)
+  def populate_repository(path, sales_engine)
     data = CSV.read(path, headers: true, header_converters: :symbol)
     data.each do |row|
-      collection[row[:id].to_sym] = child.new(row)
+      collection[row[:id].to_sym] = child.new(row, sales_engine)
     end
   end
 

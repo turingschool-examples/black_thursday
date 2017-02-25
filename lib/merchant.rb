@@ -2,9 +2,9 @@ class Merchant
 
   attr_reader :name, :id, :sales_engine
 
-  def initialize(name, id, sales_engine)
-    @name = name
-    @id = id.to_i
+  def initialize(params, sales_engine)
+    @name = params[:name]
+    @id = params[:id].to_i
     @sales_engine = sales_engine
   end
 

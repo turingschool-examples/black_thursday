@@ -7,10 +7,10 @@ class ItemRepository
 
   attr_accessor :collection, :child
 
-  def initialize(path)
+  def initialize(path, sales_engine)
     @child = Item
     @collection = Hash.new
-    populate_repository(path)
+    populate_repository(path, sales_engine)
   end
 
   include RepositoryMethods
@@ -33,7 +33,6 @@ class ItemRepository
       items_matching_price << item if item.unit_price == price
     end
     items_matching_price
-
   end
 
   def find_all_by_price_in_range(range)
