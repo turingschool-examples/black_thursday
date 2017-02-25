@@ -85,7 +85,7 @@ class SalesAnalyst
     end
   end
 
-  def test_average_average_price_per_merchant
+  def average_average_price_per_merchant
     average(average_merchant_prices)
   end
 

@@ -36,6 +36,10 @@ class SalesEngineTest < Minitest::Test
     
     assert_instance_of Item, se.items.all.first
   end
+
+  def test_it_creates_invoice_repository
+      
+  end
 end
 
 
