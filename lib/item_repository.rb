@@ -24,7 +24,7 @@ class ItemRepository < Repository
   end
 
   def find_by_name(name)
-    data.select { |item| item.name.downcase == name.downcase }.first
+    data.select { |item|  item.name.downcase == name.downcase }.first
   end
 
   def find_all_with_description(description_string)
