@@ -1,13 +1,15 @@
 require 'csv'
 require_relative 'merchant_repository'
 require_relative 'item_repository'
+require_relative 'invoice_repository'
 require 'pry'
 
 
 class SalesEngine
-  attr_accessor :items, :merchants
+  attr_accessor :items, :merchants, :invoices
 
   def initialize(file_hash)
+    @invoices = InvoiceRepository.new(self, file_hash[:invoices])
     @items = ItemRepository.new(self, file_hash[:items])
     @merchants = MerchantRepository.new(self, file_hash[:merchants])
   end
