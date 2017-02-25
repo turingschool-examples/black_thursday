@@ -6,8 +6,12 @@ require_relative '../lib/item_repository'
 class ItemTest < Minitest::Test
   def setup
     @se = SalesEngine.from_csv({
+      :merchants => "./data/merchants.csv",
       :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
+      :customers => "./data/customers.csv",
+      :invoices  => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions  => "./data/transactions.csv"
       })
 
     @i = Item.new({
