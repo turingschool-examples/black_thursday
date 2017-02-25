@@ -31,7 +31,7 @@ class Item
   end
 
   def merchant
-    parent.find_merchant(merchant_id)  
+    parent.find_merchant(merchant_id)
   end
   
 end

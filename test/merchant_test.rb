@@ -14,6 +14,7 @@ class MerchantTest < Minitest::Test
     se = SalesEngine.from_csv({:merchants => './test/fixtures/merchants_three.csv'})
     mr = se.merchants
     m = mr.all
+    
     assert_instance_of Merchant, m.first
   end
 
@@ -21,6 +22,7 @@ class MerchantTest < Minitest::Test
     se = SalesEngine.from_csv({:merchants => './test/fixtures/merchants_three.csv'})
     mr = se.merchants
     m = mr.all
+    
     assert_equal 12334105, m.first.id
   end
 
@@ -28,6 +30,7 @@ class MerchantTest < Minitest::Test
     se = SalesEngine.from_csv({:merchants => './test/fixtures/merchants_three.csv'})
     mr = se.merchants
     m = mr.all
+    
     assert_equal "Shopin1901", m.first.name
   end
 
@@ -45,6 +48,7 @@ class MerchantTest < Minitest::Test
     
     assert_equal Array, merchant.items.class
     assert_equal 3, merchant.items.length
+    assert_equal Item, merchant.items.first.class
   end
 end
 

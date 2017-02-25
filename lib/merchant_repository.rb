@@ -18,7 +18,7 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    all.find do |merchant| 
+    all.find do |merchant|
       merchant.id == id
     end
   end
@@ -30,7 +30,7 @@ class MerchantRepository
   end
 
   def find_all_by_name(fragment)
-    merchants = all.find_all do |merchant|
+    all.find_all do |merchant|
       merchant.name.downcase.include?(fragment.downcase)
     end
   end

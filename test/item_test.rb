@@ -94,8 +94,8 @@ class ItemTest < Minitest::Test
 
   def test_item_can_find_merchants
     se = SalesEngine.from_csv({:items => './test/fixtures/items_same_merchant_id.csv', :merchants => './test/fixtures/merchant_matches.csv'})
-    item = se.items.find_by_id(263395617)   
-    
+    item = se.items.find_by_id(263395617)
+
     assert_equal Merchant, item.merchant.class
     assert_equal "Madewithgitterxx", item.merchant.name
   end
