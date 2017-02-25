@@ -35,6 +35,13 @@ class SalesAnalyst
     find_merchant_by_id(id).items
   end
 
+  def item_repository
+    sales_engine.items
+  end
+
+  def all_items
+    item_repository.all
+  end
 #-----/Navigation_Methods-----#
 
 #-----Merchant_Analysis_Methods-----#
@@ -54,8 +61,9 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
+    one_sd = one_standard_deviation_above_mean(count_items_per_merchant)
     all_merchants.find_all do |merchant|
-        merchant.items.length > one_standard_deviation_above_mean
+        merchant.items.length > one_sd
       end
   end
 
@@ -70,15 +78,45 @@ class SalesAnalyst
   end
 
   def average_merchant_prices
+    #please refactor me
     all_merchants.map do |merchant|
       id = merchant.id
       average_item_price_for_merchant(id)
     end
   end
 
+  def test_average_average_price_per_merchant
+    average(average_merchant_prices)
+  end
+
+  
+
 #-----/Merchant_Analysis_Methods-----#
 
- 
+#-----Item_Analysis_Methods-----#
+  def all_item_prices
+    all_items.map do |item|
+      item.unit_price
+    end
+  end
+
+  def average_item_price
+    average(all_item_prices)  
+  end
+
+  def item_price_standard_deviation
+    standard_deviation(all_item_prices)  
+  end
+
+  def golden_items
+    two_sd = two_standard_deviations_above_mean(all_item_prices)
+    all_items.find_all do |item|
+      item.unit_price > two_sd
+    end
+  end
+
+
+#-----/Item_Analysis_Methods-----#
 
 end
 

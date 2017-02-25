@@ -10,14 +10,19 @@ module Calculator
   end
 
   def standard_deviation(set)
-    #refactor me
+    #refactor me, calculates average every time
     sum = set.map do |item_count|
       (item_count - average(set)) ** 2
     end.reduce(:+)
     ((sum / (set.length - 1)) ** 0.5).round(2)
   end
 
-  def one_standard_deviation_above_mean
-    average_items_per_merchant + average_items_per_merchant_standard_deviation
+  def one_standard_deviation_above_mean(set)
+    average(set) + (standard_deviation(set))
   end
+
+  def two_standard_deviations_above_mean(set)
+    average(set) + ((standard_deviation(set) * 2))
+  end
+
 end

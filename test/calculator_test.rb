@@ -22,6 +22,14 @@ class CalculatorTest < Minitest::Test
     set = [2, 3, 4, 5, 6]
     assert_equal 1.58, standard_deviation(set)
   end
-  
-  
+
+  def test_one_standard_deviation_above_mean
+    set = [2, 3, 4, 5, 6]
+    assert_equal 5.58, one_standard_deviation_above_mean(set)
+  end
+
+  def test_two_standard_deviations_above_mean
+    set = [2, 3, 4, 5, 6]
+    assert_equal 7.16, two_standard_deviations_above_mean(set)
+  end
 end
