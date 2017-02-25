@@ -7,15 +7,13 @@ module RepositoryMethods
   end
 
   def all
-    collection.reduce([]) do |all_entries, entry|
-      all_entries << entry
-      all_entries
+    collection.map do |id, entry|
+      entry
     end
   end
 
   def find_by_id(id)
     collection[id.to_s.to_sym]
-    # returns either nil or an instance of Item with a matching ID
   end
 
   def find_by_name(name_to_search_for)
@@ -23,7 +21,14 @@ module RepositoryMethods
       return entry if entry.name.downcase == name_to_search_for.downcase
     end
     nil
-    # returns either nil or an instance of Item having done a case insensitive search
+  end
+
+  def find_all_by_name(name_fragment)
+
+    collection.reduce([]) do |all_matches, (id, entry)|
+      all_matches << entry if entry.name.downcase.include?(name_fragment.downcase)
+      all_matches
+    end
   end
 
   def find_all_by_merchant_id(merchant_id)
@@ -32,6 +37,5 @@ module RepositoryMethods
       entries_matching_merchant_id << entry if entry.merchant_id == merchant_id
     end
     entries_matching_merchant_id
-    #returns either [] or instances of Item where the supplied merchant ID matches that supplied
   end
 end
