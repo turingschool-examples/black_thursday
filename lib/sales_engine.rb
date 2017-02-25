@@ -13,7 +13,6 @@ require_relative '../lib/invoice'
 require_relative '../lib/invoice_item'
 require_relative '../lib/transaction'
 
-
 class SalesEngine
   attr_reader :merchants, :items, :customers, :invoices, :invoice_items, :transactions
 
@@ -24,6 +23,7 @@ class SalesEngine
     @invoices ||= InvoiceRepository.new(files_to_be_loaded[:invoices])
     @invoice_items ||= InvoiceItemRepository.new(files_to_be_loaded[:invoice_items])
     @transactions ||= TransactionRepository.new(files_to_be_loaded[:transactions])
+
   end
 
   def self.from_csv(files_to_be_loaded)
