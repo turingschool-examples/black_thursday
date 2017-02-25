@@ -15,11 +15,16 @@ class MerchantTest < Minitest::Test
       })
 
     @m = Merchant.new({:id => "5", :name => "Turing School"
-      })
+      }, @se.merchants)
   end
 
   def test_assert_it_exists
     assert_instance_of Merchant, @m
+  end
+
+  def test_every_merchant_has_a_merchant_repo_parent
+    assert @m.parent, @se.merchants
+
   end
 
   def test_it_has_id

@@ -2,9 +2,9 @@ require 'bigdecimal'
 require 'time'
 
 class Item
-    attr_reader :id, :name, :description, :unit_price, :created_at, :updated_at, :merchant_id
+    attr_reader :id, :name, :description, :unit_price, :created_at, :updated_at, :merchant_id, :parent
 
-  def initialize(row, parent=nil)
+  def initialize(row, parent)
     @id = row[:id].to_i
     @name = row[:name]
     @description = row[:description]
