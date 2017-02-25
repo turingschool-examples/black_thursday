@@ -41,14 +41,23 @@ class SalesAnalystTest < Minitest::Test
 
   def test_sa_can_return_average_item_price_for_merchant
     assert_instance_of BigDecimal, @sa.average_item_price_for_merchant(12334174) 
-    assert_equal 34, @sa.average_item_price_for_merchant(12334174) 
+    assert_equal 13.5, @sa.average_item_price_for_merchant(12334174) 
   end
 
 
   def test_meta_average_returns_average_of_average_price
-
+    se = SalesEngine.from_csv({:items => "./data/items_fixture.csv", :merchants => "./data/merchants_fixture.csv" })
+    sa = SalesAnalyst.new(se)
+    assert_instance_of BigDecimal, sa.average_average_price_per_merchant
+    assert_equal 13.43, sa.average_average_price_per_merchant
   end
 
+  def test_golden_items
+
+    assert_instance_of Array, sa.golden_items
+    assert_instance_of Item, sa.golden_items[0]
+    assert_equal "Name"    sa.golden_items[0].name
+  end
 
 
 end

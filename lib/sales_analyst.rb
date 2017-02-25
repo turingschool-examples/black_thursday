@@ -47,8 +47,8 @@ class SalesAnalyst
   def average_item_price_for_merchant(merchant_id)
     items = se.items.find_all_by_merchant_id(merchant_id)
     prices = items.map { |item| item.unit_price }
-    price_sum = prices.reduce(:+) 
-    (price_sum / items.count).round(2)
+    price_sum = prices.reduce(:+)
+    ((price_sum / items.count).round(2))
   end
 
 
@@ -56,8 +56,10 @@ class SalesAnalyst
 # Then we can sum all of the averages and find the average price across all merchants (this implies that each merchant’s average has equal weight in the calculation):
 
   def average_average_price_per_merchant
-
-# sa.average_average_price_per_merchant # => BigDecimal
+    merchants = se.merchants.all    
+    prices = merchants.map{ |merchant| average_item_price_for_merchant(merchant.id) }
+    average_average = (prices.reduce(:+) / merchants.count).round(2)
+    # binding.pry 
   end
 
 end
