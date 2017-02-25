@@ -2,7 +2,7 @@ require_relative 'merchant'
 require 'csv'
 require 'pry'
 class MerchantRepository
-	attr_reader :file, :merchants
+	attr_reader :file, :merchants, :sales_engine_instance
 	def initialize(file, sales_engine_instance)
 		@file = file
 		@sales_engine_instance = sales_engine_instance

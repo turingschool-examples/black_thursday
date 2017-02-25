@@ -13,4 +13,8 @@ class Merchant
 	def id
 		merchant_info[:id]
 	end
+
+	def items
+		mr_instance.sales_engine_instance.items.find_all_by_merchant_id(id)
+	end
 end

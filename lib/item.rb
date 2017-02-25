@@ -37,11 +37,11 @@ attr_reader :item_info, :ir_instance
 		@item_info[:merchant_id]
 	end
 
-	 def unit_price_to_dollars
+	def unit_price_to_dollars
     unit_price.to_f / 100
-   end
+  end
 
-  # def merchant
-  #   ir_instance.sales_engine_instance.merchants.find_by_id(id)
-  # end
+  def merchant
+    ir_instance.sales_engine_instance.merchants.find_by_id(merchant_id)
+  end
 end
