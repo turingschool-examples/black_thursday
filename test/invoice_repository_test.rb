@@ -50,7 +50,7 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_it_can_find_all_items_matching_customer_id_in_invoices
     invoice = @ivr.find_all_by_customer_id(79)
     assert_instance_of Invoice, invoice.first
-    assert_instance_of Array, @ivr.find_all_by_customer_id
+    assert_instance_of Array, @ivr.find_all_by_customer_id(79)
   end
 
   def test_it_can_return_an_empty_array_if_no_matches_are_found
@@ -61,7 +61,7 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_it_can_find_all_items_matching_merchant_id_in_invoices
     invoice = @ivr.find_all_by_merchant_id(12334284)
     assert_instance_of Invoice, invoice.first
-    assert_instance_of Array, @ivr.find_all_by_merchant_id
+    assert_instance_of Array, @ivr.find_all_by_merchant_id(12334284)
   end
 
   def test_it_can_return_an_empty_array_if_no_matches_are_found
@@ -72,7 +72,7 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_it_can_find_all_invoices_matching_status
     invoice = @ivr.find_all_by_status("shipped")
     assert_equal 2839, invoice.count
-    assert_instance_of Array, @ivr.find_all_by_status
+    assert_instance_of Array, @ivr.find_all_by_status("shipped")
   end
 
   def test_it_can_return_an_empty_array_if_no_matches_are_found
