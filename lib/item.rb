@@ -19,7 +19,6 @@ class Item
 
   def unit_price_to_dollars(price)
     BigDecimal.new(price) / 100
-    # returns the price of the item in dollars formatted as a Float
   end
 
 end

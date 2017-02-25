@@ -20,4 +20,12 @@ class SalesAnalyst
     std_dev = Math.sqrt(squared_diffs / (se.merchants.all.count - 1)).round(2)
   end
 
+  def merchants_with_high_item_count
+
+
+    se.merchants.all.select do |merchant|
+      merchant.items.count > 7
+    end
+  end
+
 end

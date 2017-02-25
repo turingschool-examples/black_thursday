@@ -4,10 +4,10 @@ require_relative './../lib/sales_engine'
 require_relative './../lib/sales_analyst'
 
 class SalesAnalystTest < Minitest::Test
-  attr_reader :sa
+  attr_reader :sa, :se
 
   def setup
-    se = SalesEngine.from_csv({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    @se = SalesEngine.from_csv({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
     @sa = SalesAnalyst.new(se)
   end
 
@@ -21,5 +21,10 @@ class SalesAnalystTest < Minitest::Test
 
   def test_average_items_per_merchant_standard_deviation
     assert_equal 3.26, sa.average_items_per_merchant_standard_deviation
-  end # => 3.26
+  end
+
+  def test_it_identifies_whales
+    assert_equal 42, sa.merchants_with_high_item_count.length
+    assert_includes sa.merchants_with_high_item_count, se.merchants.find_by_id(12334123)
+  end
 end

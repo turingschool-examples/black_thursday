@@ -16,7 +16,7 @@ class ItemRepository
   include RepositoryMethods
 
   def inspect
-    "#<#{self.class} #{@items.size} rows>"
+    "#<#{self.class} #{@collection.size} rows>"
   end
 
   def find_all_with_description(description_fragment)

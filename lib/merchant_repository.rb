@@ -16,7 +16,7 @@ class MerchantRepository
   include RepositoryMethods
 
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{@collection.size} rows>"
   end
 
 end
