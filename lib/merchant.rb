@@ -18,6 +18,10 @@ class Merchant
     repository.engine.items.find_all_by_merchant_id(id)
   end
 
+  def invoices
+    repository.engine.invoices.find_all_by_merchant_id(id)
+  end
+
 end
 
 # m = Merchant.new({:id => 5, :name => "Turing School"})
