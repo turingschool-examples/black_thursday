@@ -4,7 +4,7 @@ require_relative '../lib/item_repository'
 class ItemTest < Minitest::Test
 
   def setup
-    @ir = ItemRepository.new("./data/items_fixtures.csv")
+    @ir = ItemRepository.new("./data/items_fixture.csv")
     @item = @ir.all[0]
   end
 
@@ -26,7 +26,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_returns_merchant_id
-    assert_equal 12334141, @item.merchant_id
+    assert_equal 12334105, @item.merchant_id
   end
 
   def test_has_created_time
@@ -43,7 +43,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_merchant_method_returns_merchant
-    se =SalesEngine.from_csv({:items => "./data/items_fixtures.csv", :merchants => "./data/merchants.csv" })
+    se =SalesEngine.from_csv({:items => "./data/items_fixture.csv", :merchants => "./data/merchants_fixture.csv" })
     ir = se.items
     item = ir.all[0]
 

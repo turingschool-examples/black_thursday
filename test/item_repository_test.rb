@@ -3,7 +3,7 @@ require_relative 'test_helper'
 
 class ItemRepositoryTest < Minitest::Test
   def setup
-    @path = "./data/items_fixtures.csv"
+    @path = "./data/items_fixture.csv"
   end
   
   def test_it_exist

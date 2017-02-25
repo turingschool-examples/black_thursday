@@ -18,12 +18,12 @@ class SalesEngineTest < Minitest::Test
 
   def test_from_csv_accepts_key_values
     
-    se = SalesEngine.from_csv({:items     => "./data/items_fixtures.csv", :merchants => "./data/merchants.csv"})
+    se = SalesEngine.from_csv({:items     => "./data/items_fixture.csv", :merchants => "./data/merchants.csv"})
   end
 
   def test_SE_can_make_ItemRepository
     
-    se = SalesEngine.from_csv({:items => "./data/items_fixtures.csv",
+    se = SalesEngine.from_csv({:items => "./data/items_fixture.csv",
         :merchants => "./data/merchants.csv"
       })
     ir = se.items
@@ -32,7 +32,7 @@ class SalesEngineTest < Minitest::Test
 
   def test_SE_can_make_MerchantRepository
     
-    se = SalesEngine.from_csv({:items => "./data/items_fixtures.csv",
+    se = SalesEngine.from_csv({:items => "./data/items_fixture.csv",
         :merchants => "./data/merchants.csv"
       })
     mr = se.merchants
@@ -41,7 +41,7 @@ class SalesEngineTest < Minitest::Test
 
   def test_that_item_passes_to_item_repo
     
-    se = SalesEngine.from_csv({:items => "./data/items_fixtures.csv",
+    se = SalesEngine.from_csv({:items => "./data/items_fixture.csv",
         :merchants => "./data/merchants.csv"
       })
     ir = se.items
@@ -50,7 +50,7 @@ class SalesEngineTest < Minitest::Test
 
   def test_that_item_passes_to_merchant_repo
     skip
-    se =SalesEngine.from_csv({:items => "./data/items_fixtures.csv",
+    se =SalesEngine.from_csv({:items => "./data/items_fixture.csv",
         :merchants => "./data/merchants.csv"
       })
     mr = se.merchants
@@ -59,7 +59,7 @@ class SalesEngineTest < Minitest::Test
 
   def test_that_IR_makes_items
     
-    se = SalesEngine.from_csv({:items => "./data/items_fixtures.csv",
+    se = SalesEngine.from_csv({:items => "./data/items_fixture.csv",
         :merchants => "./data/merchants.csv"
       })
     ir = se.items
@@ -72,7 +72,7 @@ class SalesEngineTest < Minitest::Test
   def test_that_MR_makes_merchants
     skip
     
-    se = SalesEngine.from_csv({:items => "./data/items_fixtures.csv",
+    se = SalesEngine.from_csv({:items => "./data/items_fixture.csv",
         :merchants => "./data/merchants.csv"
       })
     mr = se.merchants

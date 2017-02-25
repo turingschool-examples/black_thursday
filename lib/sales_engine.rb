@@ -11,45 +11,30 @@ class SalesEngine
     #files = hash.each_pair do |key, value|
       # @paths[key] = value
     se = SalesEngine.new
-    se.items = ItemRepository.new(data[:items], se)#, self)
-    se.merchants = MerchantRepository.new(data[:merchants], se)#, self)
+    se.items = ItemRepository.new(data[:items], se)
+    se.merchants = MerchantRepository.new(data[:merchants], se)
     se
   end
-  
-
-    # binding.pry
-  # def merchants
-  #   @merchants
-  # end
-
-  # def items
-  #   @items
-  # end
-  # def self.from_csv(data)
-  #   #takes in path to data
-
-  #   # binding.pry
-  #   item_contents = CSV.open(data[:items], headers: true, header_converters: :symbol)
-  #   merchant_contents = CSV.open(data[:merchants], headers: true, header_converters: :symbol)
-    
-  #   se = SalesEngine.new
-  #   se.items = ItemRepository.new(item_contents)
-  #   se.merchants = MerchantRepository.new(merchant_contents)
-  #   return se
-  # end
 
 end
 
  se = SalesEngine.from_csv({:items => "./data/items.csv", :merchants => "./data/merchants.csv" })
+ ir = se.items
+ mr = se.merchants
 
 # binding.pry
+
 
 # ""
-# #se.merchants
 
-# ir = se.items
-# ir.make_items
-# binding.pry
+
+
+
+
+
+#####
+#Notes
+#####
 
 
 

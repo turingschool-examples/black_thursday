@@ -17,10 +17,25 @@ class SalesAnalyst
     items_of_merchants = sample.map {|merchant| merchant.items.count}  
     sum = items_of_merchants.reduce(:+)
     mean = sum/500.0
+
+
+    mean = items_of_merchants.reduce(:+)/500.0
+
     do_math = items_of_merchants.map{ |item| ((item - mean)**2) }
     do_math = do_math.reduce(:+)
     result = Math.sqrt(do_math/(500-1)).round(2)
     
+  end
+
+    # sa.merchants_with_high_item_count # => [merchant, merchant, merchant]
+  def merchants_with_high_item_count
+
+  end
+
+  #Let’s find the average price of a merchant’s items (by supplying the merchant ID):
+  # sa.average_item_price_for_merchant(12334159) # => BigDecimal
+  def average_item_price_for_merchant
+
   end
 
 end

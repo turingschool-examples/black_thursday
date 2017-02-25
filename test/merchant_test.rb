@@ -18,7 +18,7 @@ class MerchantTest < Minitest::Test
   end
 
   def test_item_method_return_array_of_items
-    se =SalesEngine.from_csv({:items => "./data/items_fixtures.csv", :merchants => "./data/merchants.csv" })
+    se =SalesEngine.from_csv({:items => "./data/items_fixture.csv", :merchants => "./data/merchants_fixture.csv" })
     mr = se.merchants
     merchant = mr.all[0]
     item = merchant.items[0]

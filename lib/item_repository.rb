@@ -1,5 +1,6 @@
 require_relative 'item'
 require 'pry'
+require 'time'
 
 class ItemRepository
   attr_reader :csv_file, :all, :parent
@@ -20,8 +21,8 @@ class ItemRepository
         :merchant_id => row[:merchant_id].to_i,
         #make time methods, time.now
       
-        :created_at => time_formatter(row[:created_at]),
-        :updated_at => time_formatter(row[:updated_at])}, self)
+        :created_at => Time.parse(row[:created_at]),
+        :updated_at => Time.parse(row[:updated_at])}, self)
         @all << item
 
         #return an array, then you can nix @all
@@ -36,7 +37,6 @@ class ItemRepository
   def transform_price(price)
     formatted_price = (BigDecimal.new(price.to_i)/100)
   end
-
 
 
   def find_by_id(id)
@@ -75,25 +75,6 @@ class ItemRepository
   #   @all = ItemRepository.new(item_path)
   #   @merchants = MerchantRepository.new
 
-  def time_formatter(time)
-    time = time.split(' ')
-    date = time[0].split('-').map {|item| item.to_i}
-    clock = time[1].split(':').map {|item| item.to_i}
-
-    year = date[0]
-    month = date[1]
-    day = date[2]
-    hour = clock[0]
-    minute = clock[1]
-    second = clock[2]
-    zone = 0000
-
-    # "2007-06-04 21:35:10 UTC"
-    # t = DateTime.strptime('2001-02-03T04:05:06+07:00', '%Y-%m-%dT%H:%M:%S%z')
-
-    t = Time.new(year, month, day, hour, minute, second, zone)
-      
-  end
 
 
 # find_all_by_price - returns either [] or instances of Item where the supplied price exactly matches

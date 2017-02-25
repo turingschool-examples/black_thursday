@@ -9,11 +9,10 @@ class Item
     @id  = data[:id]
     @name = data[:name]
     @description = data[:description]
-# binding.pry
     @unit_price =  data[:unit_price]
     @merchant_id = data[:merchant_id]
-    @created_at  = data[:created_at] #Time.now
-    @updated_at = data[:updated_at] #Time.now
+    @created_at  = data[:created_at]
+    @updated_at = data[:updated_at]
     @parent = parent
     #  binding.pry
   end
