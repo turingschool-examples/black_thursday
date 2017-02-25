@@ -1,5 +1,7 @@
 class Merchant
-  attr_reader :id, :name, :parent
+  attr_reader :id,
+              :name,
+              :parent
 
   def initialize(row, parent)
     @id = row[:id].to_i

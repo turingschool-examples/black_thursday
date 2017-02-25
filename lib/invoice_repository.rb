@@ -1,5 +1,6 @@
 class InvoiceRepository
-  attr_reader :path, :engine
+  attr_reader :path,
+              :engine
   def initialize(path, engine)
     @path = path
     @engine = engine
