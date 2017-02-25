@@ -24,7 +24,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_identifies_whales
-    assert_equal 42, sa.merchants_with_high_item_count.length
+    assert_equal 52, sa.merchants_with_high_item_count.length
     assert_includes sa.merchants_with_high_item_count, se.merchants.find_by_id(12334123)
   end
 end

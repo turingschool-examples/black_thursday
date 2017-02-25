@@ -1,10 +1,12 @@
 require 'pry'
 
 class SalesAnalyst
-  attr_reader :se
+  attr_reader :se, :avg_items_per_merchant, :avg_items_per_merchant_standard_deviation
 
   def initialize(sales_engine)
     @se = sales_engine
+    @avg_items_per_merchant = average_items_per_merchant
+    @avg_items_per_merchant_standard_deviation = average_items_per_merchant_standard_deviation
   end
 
   def average_items_per_merchant
@@ -21,10 +23,8 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-
-
     se.merchants.all.select do |merchant|
-      merchant.items.count > 7
+      merchant.items.count > avg_items_per_merchant + avg_items_per_merchant_standard_deviation
     end
   end
 
