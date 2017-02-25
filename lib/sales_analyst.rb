@@ -1,5 +1,3 @@
-require 'pry'
-
 class SalesAnalyst
   attr_reader :se_inst
 
@@ -54,7 +52,7 @@ class SalesAnalyst
 
   def difference_between_mean_and_item_price_squared_summed
     mean = average_item_price
-    get_item_price_set.map { |item_price| (item_price - mean) ** 2 }.reduce(:+)
+    get_item_price_set.map { |item_price| (item_price - mean) ** 2 }.reduce(:+).round(2)
   end
 
   def average_item_price_standard_deviation
@@ -66,6 +64,5 @@ class SalesAnalyst
     avg = average_item_price
     std_dev = average_item_price_standard_deviation
     se_inst.items.all.select {|item| item.unit_price >= ((std_dev + avg) * 2) }
-  end
-
+  end 
 end

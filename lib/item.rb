@@ -18,7 +18,6 @@ attr_reader :item_info, :ir_instance
 
 	def unit_price
 		@item_info[:unit_price]
-		#format as BigDecimal
 	end
 
 	def description
@@ -36,10 +35,6 @@ attr_reader :item_info, :ir_instance
 	def merchant_id
 		@item_info[:merchant_id]
 	end
-
-	def unit_price_to_dollars
-    unit_price.to_f / 100
-  end
 
   def merchant
     ir_instance.sales_engine_instance.merchants.find_by_id(merchant_id)
