@@ -1,8 +1,14 @@
 require './test/test_helper'
 require './lib/item'
+require './lib/sales_engine'
 
 class ItemTest < Minitest::Test
+
   def setup
+    @se = SalesEngine.from_csv({
+  :items     => "./data/items.csv",
+  :merchants => "./data/merchants.csv",})
+
     @i = Item.new({
       :id          => 1111,
       :merchant_id => 222222,
@@ -13,6 +19,7 @@ class ItemTest < Minitest::Test
       :updated_at  => "2017-02-24 15:24:17 -0700"
       })
   end
+
   def test_item_exists
       assert_equal "Pencil", @i.name
       assert_equal "You can use it to write things", @i.description
@@ -49,6 +56,12 @@ class ItemTest < Minitest::Test
 
   def test_merchant_id
     assert_equal 222222, @i.merchant_id
+  end
+
+  def test_merchant
+    item = @se.items.find_all_by_merchant_id(12334141).first
+    assert_instance_of Merchant, item.merchant
+    assert_equal "jejum", item.merchant.name
   end
 
 end
