@@ -45,7 +45,7 @@ class SalesEngineTest < Minitest::Test
         :merchants => "./data/merchants.csv"
       })
     ir = se.items
-    assert_instance_of CSV, ir.path
+    assert_instance_of CSV, ir.csv_file
   end
 
   def test_that_item_passes_to_merchant_repo

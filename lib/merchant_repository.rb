@@ -1,18 +1,19 @@
 require_relative 'merchant'
 
 class MerchantRepository
-  attr_reader :csv_file, :all
+  attr_reader :csv_file, :all, :parent
   
-  def initialize(path)
+  def initialize(path, parent=nil)
     @csv_file = CSV.open(path, headers: true, header_converters: :symbol)
     @all = []
+    @parent = parent
     make_merchants
   end
 
   def make_merchants
     csv_file.each do |row|
       merchant = Merchant.new({:id => row[:id].to_i,
-        :name => row[:name]})
+        :name => row[:name]}, self)
         @all << merchant
         #return an array, then you can nix @all
       end

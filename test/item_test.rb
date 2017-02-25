@@ -42,4 +42,13 @@ class ItemTest < Minitest::Test
     assert_equal 12.0, @item.unit_price_to_dollars
   end
 
+  def test_merchant_method_returns_merchant
+    se =SalesEngine.from_csv({:items => "./data/items_fixtures.csv", :merchants => "./data/merchants.csv" })
+    ir = se.items
+    item = ir.all[0]
+
+    # binding.pry
+    assert_equal Merchant, item.merchant  
+  end
+
 end

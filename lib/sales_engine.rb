@@ -5,19 +5,26 @@ require "csv"
 require 'pry'
 
 class SalesEngine
-  attr_reader :items, :merchants
-
-  def initialize(items, merchants)
-    @items = items
-    @merchants = merchants
-  end
+  attr_accessor :items, :merchants
   
   def self.from_csv(data)
-    items = ItemRepository.new(data[:items])#, self)
-    merchants = MerchantRepository.new(data[:merchants])#, self)
-    se = SalesEngine.new(items, merchants)
+    #files = hash.each_pair do |key, value|
+      # @paths[key] = value
+    se = SalesEngine.new
+    se.items = ItemRepository.new(data[:items], se)#, self)
+    se.merchants = MerchantRepository.new(data[:merchants], se)#, self)
+    se
   end
+  
 
+    # binding.pry
+  # def merchants
+  #   @merchants
+  # end
+
+  # def items
+  #   @items
+  # end
   # def self.from_csv(data)
   #   #takes in path to data
 
@@ -33,11 +40,12 @@ class SalesEngine
 
 end
 
-# se = SalesEngine.from_csv({:items => "./data/items.csv",
-#     :merchants => "./data/merchants.csv"
-#   })
+ se = SalesEngine.from_csv({:items => "./data/items.csv", :merchants => "./data/merchants.csv" })
+
 # binding.pry
+
 # ""
+# #se.merchants
 
 # ir = se.items
 # ir.make_items
@@ -51,7 +59,6 @@ end
   # }
 
 
-# #se.merchants
 #=> seems to just return your MerchantRepo *object*
 
 #SE will just read csv files and set up Item Repos and Merchant Repos
