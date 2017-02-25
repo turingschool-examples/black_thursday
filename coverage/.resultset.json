@@ -1,6 +1,7 @@
 {
   "Unit Tests": {
     "coverage": {
+
       "/Users/jonathank/turing/1module/black_thursday/lib/sales_engine.rb": [
         1,
         1,
@@ -14,6 +15,7 @@
         1,
         null,
         1,
+
         5,
         5,
         null,
@@ -25,6 +27,7 @@
         null
       ],
       "/Users/jonathank/turing/1module/black_thursday/lib/merchant_repository.rb": [
+
         1,
         1,
         1,
@@ -35,9 +38,13 @@
         1,
         1,
         null,
+        1,
+        0,
+        null,
         null,
         1,
         null,
+
         475,
         1,
         null,
@@ -180,6 +187,43 @@
         null,
         null,
         null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/Users/jonathank/turing/1module/black_thursday/lib/customer_repository.rb": [
+        1,
+        1,
+        1,
+        6,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        1,
+        null,
+        0,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        null,
+        null,
+        null,
+        1,
+        0,
+        0,
+        null,
+        null,
+        null,
+        1,
+        0,
+        0,
         null,
         null,
         null,
