@@ -28,4 +28,16 @@ class SalesAnalyst
     end
   end
 
+  def average_item_price_for_merchant(merchant_id)
+    # find in our MR the merchant using find by ID
+    # then reduce the item prices into an average
+
+    merchant = se.merchants.find_by_id(merchant_id)
+    total = merchant.items.reduce(0) do |sum, item|
+      sum += item.unit_price
+      sum
+    end
+    total / merchant.items.count
+  end
+
 end

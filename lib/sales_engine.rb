@@ -12,7 +12,7 @@ class SalesEngine
   end
 
   def self.from_csv(data_paths)
-    self.new(data_paths)
+    new(data_paths)
   end
 
 end
