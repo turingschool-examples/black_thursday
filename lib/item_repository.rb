@@ -2,6 +2,7 @@ require_relative 'item'
 require 'csv'
 require 'pry'
 require 'bigdecimal'
+require 'time'
 
 class ItemRepository
 	attr_reader :file, :items
@@ -18,11 +19,11 @@ class ItemRepository
 
 	def item_maker
 		open_contents.each do |row|
-		@items[row[:id].to_i] = Item.new({:id => row[:id].to_i, :name => row[:name], :unit_price => row[:unit_price],
-		:created_at => row[:created_at], :updated_at => row[:updated_at], :merchant_id => row[:merchant_id],
+		@items[row[:id].to_i] = Item.new({:id => row[:id].to_i, :name => row[:name], :unit_price => BigDecimal.new(row[:unit_price].to_i)/100,
+		:created_at => Time.parse(row[:created_at]), :updated_at => Time.parse(row[:updated_at]), :merchant_id => row[:merchant_id].to_i,
 		:description => row[:description]}, self)
-		# binding.pry
 		end
+
 	end
 
 	def all
@@ -51,16 +52,25 @@ class ItemRepository
 	end
 
 	def find_all_by_price(price)
-		all.select do |item|
-			price == item.unit_price
-		# binding.pry
+		all.find_all do |item|
+			item.unit_price == price
 		end
 	end
+
+	def find_all_by_price_in_range(range)
+    all.find_all do |instance|
+       range.include?(instance.unit_price)
+    end
+  end
+
+  def find_all_by_merchant_id(find_id)
+    merchant = all.find_all do |item|
+      item.merchant_id == find_id
+    end
+    merchant 
+  end
 
 	def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
-
-	#convert unit_price into big decimal and / 100
-	#unit price method
 end
