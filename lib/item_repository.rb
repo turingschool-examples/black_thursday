@@ -29,36 +29,27 @@ include CsvParser
   end
 
   def find_all_with_description(fragment)
-       # please refactor me /select/
-    items = all.map do |item|
-      if item.description.downcase.include?(fragment.downcase)
-        item 
-      end
+    all.find_all do |item|
+      item.description.downcase.include?(fragment.downcase)
     end
-    items.compact
   end
   
   def find_all_by_price(price)
-    items = all.find_all do |item|
+    all.find_all do |item|
       price == item.unit_price
     end
   end
 
   def find_all_by_price_in_range(price_range)
-    # needs refactoring
-    items = all.map do |item|
-      # require 'pry';binding.pry
-      if price_range.include?(item.unit_price.to_f)
-        item
-      end
+    all.find_all do |item|
+      price_range.include?(item.unit_price.to_f)
     end
-    items.compact
   end
 
   def find_all_by_merchant_id(merchant_id)
-    items = all.find_all do |item|
-      merchant_id == item.merchant_id 
-    end 
+    all.find_all do |item|
+      merchant_id == item.merchant_id
+    end
   end
 
   def find_merchant(merchant_id)
