@@ -10,7 +10,7 @@ class SalesEngine
 
   attr_reader :merchants,
               :items
-      
+
   def initialize(files = {})
     @merchants = create_merchant_repository(files)
     @items = create_item_repository(files)
