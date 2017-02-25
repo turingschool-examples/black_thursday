@@ -1,8 +1,8 @@
 class ItemRepository
-  attr_reader :path, :parent
-  def initialize(path, parent)
+  attr_reader :path, :engine
+  def initialize(path, engine)
     @path = path
-    @parent = parent
+    @engine = engine
   end
 
   def csv

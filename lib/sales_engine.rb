@@ -14,15 +14,20 @@ require_relative '../lib/invoice_item'
 require_relative '../lib/transaction'
 
 class SalesEngine
-  attr_reader :merchants, :items, :customers, :invoices, :invoice_items, :transactions
+  attr_reader :merchants,
+              :items,
+              :customers,
+              :invoices,
+              :invoice_items,
+              :transactions
 
   def initialize(files_to_be_loaded)
-    @merchants ||= MerchantRepository.new(files_to_be_loaded[:merchants])
-    @items ||= ItemRepository.new(files_to_be_loaded[:items])
-    @customers ||= CustomerRepository.new(files_to_be_loaded[:customers])
-    @invoices ||= InvoiceRepository.new(files_to_be_loaded[:invoices])
-    @invoice_items ||= InvoiceItemRepository.new(files_to_be_loaded[:invoice_items])
-    @transactions ||= TransactionRepository.new(files_to_be_loaded[:transactions])
+    @merchants ||= MerchantRepository.new(files_to_be_loaded[:merchants], self)
+    @items ||= ItemRepository.new(files_to_be_loaded[:items], self)
+    @customers ||= CustomerRepository.new(files_to_be_loaded[:customers], self)
+    @invoices ||= InvoiceRepository.new(files_to_be_loaded[:invoices], self)
+    # @invoice_items ||= InvoiceItemRepository.new(files_to_be_loaded[:invoice_items], self)
+    # @transactions ||= TransactionRepository.new(files_to_be_loaded[:transactions], self)
 
   end
 

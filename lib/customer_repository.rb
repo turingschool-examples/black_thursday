@@ -1,7 +1,8 @@
 class CustomerRepository
-  attr_reader :path
-  def initialize(path)
+  attr_reader :path, :engine
+  def initialize(path, engine)
     @path = path
+    @engine = engine
   end
 
   def csv
