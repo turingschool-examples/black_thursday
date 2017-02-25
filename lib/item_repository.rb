@@ -2,12 +2,13 @@ require_relative 'item'
 require 'pry'
 
 class ItemRepository
-  attr_reader :csv_file, :all
+  attr_reader :csv_file, :all, :parent
 
-  def initialize(path)
+  def initialize(path, parent=nil)
     @csv_file = CSV.open(path, headers: true, header_converters: :symbol)
     @all = []
     make_items
+    @parent = parent
   end
 
   def make_items
@@ -20,7 +21,7 @@ class ItemRepository
         #make time methods, time.now
       
         :created_at => time_formatter(row[:created_at]),
-        :updated_at => time_formatter(row[:updated_at])})
+        :updated_at => time_formatter(row[:updated_at])}, self)
         @all << item
 
         #return an array, then you can nix @all
@@ -86,6 +87,9 @@ class ItemRepository
     minute = clock[1]
     second = clock[2]
     zone = 0000
+
+    # "2007-06-04 21:35:10 UTC"
+    # t = DateTime.strptime('2001-02-03T04:05:06+07:00', '%Y-%m-%dT%H:%M:%S%z')
 
     t = Time.new(year, month, day, hour, minute, second, zone)
       
