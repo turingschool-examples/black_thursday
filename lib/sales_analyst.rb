@@ -5,10 +5,6 @@ class SalesAnalyst
     @engine = engine
   end
 
-
-
-
-
   def all_items
     engine.items.all
   end
@@ -30,7 +26,6 @@ class SalesAnalyst
       invoice.day_created
     end
   end
-
 
   def item_count
     all_items.count
@@ -65,7 +60,6 @@ class SalesAnalyst
     wday_groups.each_value.map(&:count)
   end
 
-
   def find_average(numerator, denomenator)
     (numerator / denomenator)
   end
@@ -97,7 +91,6 @@ class SalesAnalyst
     find_average(all_invoices.count.to_f, merchant_count.to_f).round(2)
   end
 
-
   def find_standard_deviation(average, number_array)
     sum = number_array.inject(0) do |total, count|
       total + (count - average)**2
@@ -120,8 +113,6 @@ class SalesAnalyst
   def average_invoices_per_day_standard_deviation
     find_standard_deviation(average_invoices_per_day, wday_invoice_count_array)
   end
-
-
 
   def merchants_with_high_item_count(average = average_items_per_merchant, sd = average_items_per_merchant_standard_deviation)
     all_merchants.find_all do |merchant|

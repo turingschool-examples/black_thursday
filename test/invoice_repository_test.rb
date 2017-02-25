@@ -35,7 +35,7 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal [], ir.find_all_by_customer_id(2)
   end
 
-  def test_find_all_by_customer_id
+  def test_find_all_by_merchant_id
     ir = InvoiceRepository.new('./test/fixtures/invoice_fixture.csv')
     assert_equal 10, ir.find_all_by_merchant_id(12334105).count
     assert_equal 74, ir.find_all_by_merchant_id(12334105)[0].id
@@ -48,5 +48,4 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 2, ir.find_all_by_status('shipped')[0].id
     assert_equal [], ir.find_all_by_status('not a status')
   end
-  
 end
