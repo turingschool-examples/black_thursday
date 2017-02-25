@@ -5,7 +5,7 @@ require 'bigdecimal'
 require 'time'
 
 class ItemRepository
-	attr_reader :file, :items
+	attr_reader :file, :items, :sales_engine_instance
 	def initialize(file, sales_engine_instance)
 		@file = file
 		@sales_engine_instance = sales_engine_instance
@@ -63,9 +63,9 @@ class ItemRepository
     end
   end
 
-  def find_all_by_merchant_id(find_id)
+  def find_all_by_merchant_id(id)
     merchant = all.find_all do |item|
-      item.merchant_id == find_id
+      item.merchant_id == id
     end
     merchant 
   end
