@@ -37,17 +37,14 @@ class SalesAnalyst
   def average_item_price_for_merchant(merchant_id)
     total = sales_engine.items.find_all_by_merchant_id(merchant_id)
     total_price = 0
-    total.each do |item|
-      total_price += item.unit_price
-      end
+    total.each { |item| total_price += item.unit_price }
+
     (total_price/total.count).round(2)
   end
 
   def average_average_price_per_merchant
+    total = sales_engine.merchants.all.map { |merchant| merchant.id }
 
-    total = sales_engine.merchants.all.map do |merchant|
-      merchant.id
-    end
     total_price = 0
 
     total.each do |merchant_id|
@@ -55,6 +52,30 @@ class SalesAnalyst
       total_price += per_merchant
     end
       (total_price / total.count).round(2)
+  end
+
+  def average_price_standard_deviation
+    all_items = sales_engine.prices_of_each_item
+    average = all_items.reduce(:+).to_i/all_items.count
+    sum_of_means_squared = all_items.map do |price|
+      (price - average)**2
+    end
+  Math.sqrt(sum_of_means_squared.reduce(:+) / (all_items.count - 1)).round(2)
+  end
+
+  def golden_items
+    all_items = sales_engine.prices_of_each_item
+    average = all_items.reduce(:+).to_i/all_items.count
+
+    total = average + (2 * average_price_standard_deviation)
+    goldies = []
+
+    sales_engine.items.all.each do |item|
+      if item.unit_price >= total
+        goldies << item
+      end
+    end
+    goldies
   end
 
 end

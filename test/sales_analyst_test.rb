@@ -43,6 +43,16 @@ class SalesAnalystTest < Minitest::Test
    assert_equal BigDecimal, sa.average_average_price_per_merchant.class
  end
 
+ def test_it_can_find_average_price_deviation
+  assert_equal Float, sa.average_price_standard_deviation.class
+ end
 
+ def test_it_can_find_golden_items
 
+   assert_equal Array, sa.golden_items.class
+ end
+
+ def test_it_can_find_number_of_golden_items
+   assert_equal 5, sa.golden_items.count
+ end
 end

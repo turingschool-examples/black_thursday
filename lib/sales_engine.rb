@@ -28,4 +28,8 @@ class SalesEngine
     total = items.data.group_by(&:merchant_id).values.map(&:count)
   end
 
+  def prices_of_each_item
+    total = items.all.map { |item| item.unit_price }
+  end
+
 end
