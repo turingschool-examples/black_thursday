@@ -2,14 +2,14 @@ require_relative 'test_helper'
 require './lib/sales_engine'
 require './lib/merchant'
 
-class MerchantTest < Minitest::Test 
+class MerchantTest < Minitest::Test
 	attr_reader :merchant
 	def setup
-		@merchant = Merchant.new({:id => 12334112, :name => 'Candisart'}, nil)
+		@merchant = Merchant.new({:id => "12334112".to_i, :name => 'Candisart'}, nil)
 	end
 
 	def test_merchant_info_exists
-		expected = {:id => 12334112, :name => 'Candisart'}
+		expected = {:id => "12334112".to_i, :name => 'Candisart'}
 		assert_equal expected, merchant.merchant_info
 	end
 
