@@ -15,12 +15,11 @@ class SalesAnalystTest < Minitest::Test
   end  
 
   def test_that_average_items_per_merchant
-    skip
-    assert_equal 136.7, @sa.average_items_per_merchant
+    assert_equal 2.18, @sa.average_items_per_merchant
   end
 
   def test_sampled_average_items_per_merchant_standard_deviation
-    assert_equal 3.3, @sa.average_items_per_merchant_standard_deviation
+    assert_equal 3.0, @sa.average_items_per_merchant_standard_deviation
   end
 
 # Delete this? SD should always use all merchants 
@@ -41,7 +40,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_sa_can_return_average_item_price_for_merchant
     assert_instance_of BigDecimal, @sa.average_item_price_for_merchant(12334174) 
-    assert_equal 13.5, @sa.average_item_price_for_merchant(12334174) 
+    assert_equal 9.85, @sa.average_item_price_for_merchant(12334174) 
   end
 
 
@@ -49,14 +48,16 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv({:items => "./data/items_fixture.csv", :merchants => "./data/merchants_fixture.csv" })
     sa = SalesAnalyst.new(se)
     assert_instance_of BigDecimal, sa.average_average_price_per_merchant
-    assert_equal 13.43, sa.average_average_price_per_merchant
+    assert_equal 37.01, sa.average_average_price_per_merchant
   end
 
   def test_golden_items
-
-    assert_instance_of Array, sa.golden_items
-    assert_instance_of Item, sa.golden_items[0]
-    assert_equal "Name"    sa.golden_items[0].name
+    golden = @sa.golden_items
+    assert_instance_of Array, golden
+    assert_instance_of Item, golden[0]
+    assert_equal "Peanut", golden[0].name
+    assert_equal "Crown jewels", golden[1].name
+    assert_equal "Iphone 12", golden[2].name
   end
 
 

@@ -21,7 +21,7 @@ class MerchantRepositoryTest < Minitest::Test
     mr = MerchantRepository.new(@path)
     merchants = mr.all
     assert merchants.all?{ |merchant| merchant.is_a?(Merchant)}
-    assert_equal 10, mr.all.count
+    assert_equal 11, mr.all.count
   end
 
   def test_finds_by_id
