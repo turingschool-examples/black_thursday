@@ -10,9 +10,9 @@ class Item
               :updated_at,
               :merchant_id
 
-  attr_accessor :parent
+  attr_accessor :repository
 
-  def initialize(row, parent =nil)
+  def initialize(row, repository =nil)
     @id           = row[:id].to_i
     @name         = row[:name]
     @description  = row[:description]
@@ -20,10 +20,10 @@ class Item
     @created_at   = Time.parse(row[:created_at])
     @updated_at   = Time.parse(row[:updated_at])
     @merchant_id  = row[:merchant_id].to_i
-    @parent       = parent
+    @repository   = repository
   end
 
   def merchant
-    parent.parent.merchants.find_by_id(self.merchant_id)
+    repository.sales_engine.merchants.find_by_id(self.merchant_id)
   end
 end

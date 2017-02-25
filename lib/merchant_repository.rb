@@ -2,11 +2,11 @@ require "csv"
 require_relative 'merchant'
 
 class MerchantRepository
-  attr_reader :merchants, :parent
+  attr_reader :merchants, :sales_engine
 
-  def initialize(merchants, parent = nil)
+  def initialize(merchants, sales_engine = nil)
     @merchants = merchants
-    @parent = parent
+    @sales_engine = sales_engine
   end
 
   def all

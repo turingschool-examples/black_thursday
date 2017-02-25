@@ -16,4 +16,12 @@ class MerchantTest < Minitest::Test
     assert_equal "Shopin1901", m.name
   end
 
+  def test_find_items_by_merchant_id
+    se = SalesEngine.from_csv({items: './test/fixtures/items_match_merchant_id.csv', merchants: './test/fixtures/merchants_test_data.csv'})
+    merchant = se.merchants.find_by_id(12334105)
+    expected_number_of_items = 3
+
+    assert_equal expected_number_of_items, (merchant.items).length
+  end
+
 end
