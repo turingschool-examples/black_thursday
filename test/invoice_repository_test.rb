@@ -48,5 +48,5 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 2, ir.find_all_by_status('shipped')[0].id
     assert_equal [], ir.find_all_by_status('not a status')
   end
-
+  
 end
