@@ -35,4 +35,14 @@ class SalesAnalystTest < Minitest::Test
    assert_equal Array, sa.merchants_with_high_item_count.class
  end
 
+ def test_it_can_find_average_price_for_merchant
+   assert_equal BigDecimal, sa.average_item_price_for_merchant(12334159).class
+ end
+
+ def test_average_average_price_per_merchant
+   assert_equal BigDecimal, sa.average_average_price_per_merchant.class
+ end
+
+
+
 end

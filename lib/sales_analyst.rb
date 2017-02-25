@@ -34,4 +34,27 @@ class SalesAnalyst
     high_sellers
   end
 
+  def average_item_price_for_merchant(merchant_id)
+    total = sales_engine.items.find_all_by_merchant_id(merchant_id)
+    total_price = 0
+    total.each do |item|
+      total_price += item.unit_price
+      end
+    (total_price/total.count).round(2)
+  end
+
+  def average_average_price_per_merchant
+
+    total = sales_engine.merchants.all.map do |merchant|
+      merchant.id
+    end
+    total_price = 0
+
+    total.each do |merchant_id|
+      per_merchant = average_item_price_for_merchant(merchant_id)
+      total_price += per_merchant
+    end
+      (total_price / total.count).round(2)
+  end
+
 end
