@@ -1,11 +1,12 @@
 require_relative 'merchant'
 
 class MerchantRepository
-  attr_reader :merchant_data, :all
+  attr_reader :merchant_data, :all, :parent
 
-  def initialize(merchant_data)
+  def initialize(merchant_data, parent = nil )
     @merchant_data = merchant_data
-    @all = merchant_data.map { |row| Merchant.new(row) }
+    @all = merchant_data.map { |row| Merchant.new(row, self) }
+    @parent = parent
   end
 
   def find_by_id(id)

@@ -7,7 +7,8 @@ class Item
               :description,
               :unit_price,
               :created_at,
-              :updated_at
+              :updated_at,
+              :parent
 
   def initialize(attributes, parent = nil)
     @id = attributes[:id].to_i
@@ -23,5 +24,5 @@ class Item
   def unit_price_to_dollars
     unit_price.to_f
   end
-  
+
 end
