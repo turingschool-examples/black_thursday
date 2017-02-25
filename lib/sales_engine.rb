@@ -10,8 +10,8 @@ class SalesEngine
   attr_reader :merchants, :items
 
   def initialize(files_to_be_loaded)
-    @merchants ||= MerchantRepository.new(files_to_be_loaded[:merchants])
-    @items ||= ItemRepository.new(files_to_be_loaded[:items])
+    @merchants ||= MerchantRepository.new(files_to_be_loaded[:merchants], self)
+    @items ||= ItemRepository.new(files_to_be_loaded[:items], self)
   end
 
   def self.from_csv(files_to_be_loaded)
