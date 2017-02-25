@@ -19,9 +19,10 @@ class MerchantRepository
 
   def parse_csv
     @contents.each do |row|
-      name = row[:name]
-      id = row[:id]
-      merchants_array << Merchant.new({:id => id.to_i, :name => name}, self)
+      merchants_array << Merchant.new({
+        :id   => row[:id],
+        :name => row[:name]
+        }, self)
     end
   end
 
