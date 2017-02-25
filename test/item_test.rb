@@ -47,8 +47,7 @@ class ItemTest < Minitest::Test
     ir = se.items
     item = ir.all[0]
 
-    # binding.pry
-    assert_equal Merchant, item.merchant  
+    assert_instance_of Merchant, item.merchant  
   end
 
 end
