@@ -63,6 +63,51 @@ class SalesAnalyst
   def golden_items
     avg = average_item_price
     std_dev = average_item_price_standard_deviation
-    se_inst.items.all.select {|item| item.unit_price >= ((std_dev + avg) * 2) }
-  end 
+    se_inst.items.all.select {|item| item.unit_price >= (avg + (std_dev * 2)) }
+  end
+
+  def average_invoices_per_merchant
+    (se_inst.invoices.all.count.to_f / se_inst.merchants.all.count.to_f).round(2)
+  end
+
+  def get_merchant_invoices_set
+    se_inst.merchants.all.map do |merchant|
+      se_inst.invoices.find_all_by_merchant_id(merchant.id).count
+    end
+  end
+
+  def difference_between_mean_and_invoice_count_squared_summed
+    mean = average_invoices_per_merchant
+    get_merchant_invoices_set.map { |invoices| (invoices - mean) ** 2 }.reduce(:+).round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    set_length = (get_merchant_invoices_set.count - 1)
+    Math.sqrt(difference_between_mean_and_invoice_count_squared_summed/set_length).round(2)
+  end
+
+  def top_merchants_by_invoice_count
+    std_dev = average_invoices_per_merchant_standard_deviation
+    avg = average_invoices_per_merchant
+    se_inst.merchants.all.select do |merchant|
+      merchant.invoices.count >= (avg + (std_dev * 2))
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    std_dev = average_invoices_per_merchant_standard_deviation
+    avg = average_invoices_per_merchant
+    se_inst.merchants.all.select do |merchant|
+      merchant.invoices.count <= (avg - (std_dev * 2))
+    end
+  end
+
+  # not working
+  # def invoice_status(status)
+  #   total_found = se_inst.invoices.all.reduce(0) do |count, invoice|
+  #     invoice.status == status.to_sym ? count += 1 : next
+  #   end
+  #   ((total_found.to_f / se_inst.invoices.all.count.to_f) * 100).round(2)
+  # end
+
 end

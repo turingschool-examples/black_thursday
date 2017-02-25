@@ -4,7 +4,7 @@ class Merchant
 		@merchant_info = merchant_info
 		@mr_instance = mr_instance
 	end
-	
+
 	def name
 		#call this instead of hash for refactor
 		merchant_info[:name]
@@ -16,5 +16,9 @@ class Merchant
 
 	def items
 		mr_instance.sales_engine_instance.items.find_all_by_merchant_id(id)
+	end
+
+	def invoices
+		mr_instance.sales_engine_instance.invoices.find_all_by_merchant_id(id)
 	end
 end

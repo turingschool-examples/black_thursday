@@ -33,7 +33,16 @@ class InvoiceRepository
 		invoices.has_key?(id) ? invoices[id] : nil
 	end
 
-  def find_all_by_customer_id
+	def find_all_by_status(status)
+		all.select do |invoice|
+			invoice.status == status.to_sym
+		end
+	end
+
+  def find_all_by_customer_id(customer_id)
+		all.select do |invoice|
+			invoice.customer_id == customer_id
+		end
   end
 
 
@@ -43,6 +52,7 @@ class InvoiceRepository
     end
     merchant
   end
+
 
 	def inspect
     "#<#{self.class} #{@merchants.size} rows>"
