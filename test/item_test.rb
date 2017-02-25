@@ -32,4 +32,33 @@ class ItemTest < Minitest::Test
 	def test_item_has_an_id
 		assert_equal 263395237, item.id
 	end
+
+	def test_item_has_a_unit_price
+		big_inst = BigDecimal.new("1200".to_i)/100
+		assert_equal big_inst, item.unit_price
+	end
+
+	def test_item_has_a_description
+		assert_equal "Red balloons with streamers and party favors", item.description
+	end
+
+	def test_item_has_a_created_at
+		expected = Time.parse("2016-01-11 09:34:06 UTC")
+		assert_equal expected, item.created_at
+	end
+
+	def test_item_has_a_updated_at
+		expected = Time.parse("2007-06-04 21:35:10 UTC")
+		assert_equal expected, item.updated_at
+	end
+
+	def test_item_has_a_merchant_id
+		assert_equal 12334141, item.merchant_id
+	end
+
+	def test_item_merchant_connection
+		#requires all se, item, instances
+		skip
+		assert_equal Merchant, item.merchant.class
+	end
 end
