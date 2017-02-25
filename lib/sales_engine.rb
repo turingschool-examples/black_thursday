@@ -7,9 +7,9 @@ class SalesEngine
   attr_accessor :items, :merchants, :invoices
 
   def initialize(hash)
-    @items = ItemRepository.new(hash[:items], self)
-    @merchants = MerchantRepository.new(hash[:merchants], self)
-    @invoices = InvoiceRepository.new(hash[:invoices], self)
+    @items = ItemRepository.new(hash[:items], self) unless hash[:items].nil?
+    @merchants = MerchantRepository.new(hash[:merchants], self) unless hash[:merchants].nil?
+    @invoices = InvoiceRepository.new(hash[:invoices], self) unless hash[:invoices].nil?
   end
 
   def self.from_csv(hash)
