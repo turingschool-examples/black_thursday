@@ -1,47 +1,52 @@
+require 'csv'
 require_relative 'repository'
+require_relative 'item'
+require 'bigdecimal'
 
 class ItemRepository < Repository
 
-  def initialize(path)
-    klass = Item
-    super(path, Item)
+  attr_reader :klass, :data
+
+  def initialize(sales_engine, path)
+    super(sales_engine, path, Item)
   end
 
   def all
-    # returns an array of all known Item instances
+    data
   end
 
-  def find_by_id
-    # returns either nil or an instance of Item with a matching ID
+  def count
+    data.count
   end
 
-  def find_by_name
-    # returns either nil or an instance of Item having done a case insensitive search
+  def find_by_id(id)
+    data.select { |item| item.id == id }.first
   end
 
-  def find_all_with_description
-    # returns either [] or instances of Item where the supplied string appears in the item description (case insensitive)
+  def find_by_name(name)
+    data.select { |item|  item.name.downcase == name.downcase }.first
   end
 
-  def find_all_by_price
-    # returns either [] or instances of Item where the supplied price exactly matches
+  def find_all_with_description(description_string)
+    data.select { |item| item.description.downcase.include?(description_string.downcase) }
   end
 
-  def find_all_by_price_in_range
-    # returns either [] or instances of Item where the supplied price is in the supplied range (a single Ruby range instance is passed in)
+  def find_all_by_price(price)
+    data.select { |item| item.unit_price == price }
   end
 
-  def find_all_by_merchant_id
-    # returns either [] or instances of Item where the supplied merchant ID matches that supplied
+  def find_all_by_price_in_range(range)
+    min_range = range.first
+    max_range = range.last
+
+    data.select { |item| item.unit_price >= min_range && item.unit_price <= max_range }
   end
 
+  def find_all_by_merchant_id(merchant_id)
+    data.select { |item| item.merchant_id == merchant_id }
+  end
+
+  def inspect
+   "#<#{self.class} #{@merchants.size} rows>"
+  end
 end
-
-# se = SalesEngine.from_csv({
-#   :items     => "./data/items.csv",
-#   :merchants => "./data/merchants.csv"
-# })
-#
-# ir   = se.items
-# item = ir.find_by_name("Item Repellat Dolorum")
-# # => <Item>

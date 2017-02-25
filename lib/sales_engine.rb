@@ -1,41 +1,35 @@
-require 'ostruct'
 require 'csv'
 require_relative 'merchant_repository'
 require_relative 'item_repository'
 require 'pry'
-#require_relative '../data/merchants'
-#require_relative '../data/items'
-
 
 
 class SalesEngine
-  attr_accessor :files
+  attr_accessor :items, :merchants
 
-  def initialize(files)
-    binding.pry
-    @files = files
+  def initialize(file_hash)
+    @items = ItemRepository.new(self, file_hash[:items])
+    @merchants = MerchantRepository.new(self, file_hash[:merchants])
   end
 
   def self.from_csv(file_hash)
-    OpenStruct.new(items: ItemRepository.new(file_hash[:items]), merchants: MerchantRepository.new(file_hash[:merchants]))
+    SalesEngine.new(file_hash)
   end
 
-  # key =  File.basename(file, ".csv").to_sym
-  # @files[key] = file
-  #file_hash.each do |type, file_name|
-  #  puts type
-  #puts file_name
-  #end
+  def number_of_merchants
+    merchants.count
+  end
 
-  # pass the hash of keys to file names
-  # instantiate the "children" classes depending on the key we're given
+  def number_of_items
+    items.count
+  end
 
-  # bind the objects returned to a method our self class can call.
-#
-# se = SalesEngine.from_csv({
-#   :items     => "./data/items.csv",
-#   :merchants => "./data/merchants.csv",
-# })
-#calling a class method
+  def number_of_items_per_merchant
+    total = items.data.group_by(&:merchant_id).values.map(&:count)
+  end
+
+  def prices_of_each_item
+    total = items.all.map { |item| item.unit_price }
+  end
 
 end

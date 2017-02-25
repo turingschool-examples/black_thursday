@@ -6,41 +6,32 @@ class MerchantRepository < Repository
 
   attr_reader :klass, :data
 
-  def initialize(path)
-    klass = Merchant
-    super(path, klass)
+  def initialize(sales_engine, path)
+    super(sales_engine, path, Merchant)
   end
 
   def all
     data
   end
 
+  def count
+    data.count
+  end
+
   def find_by_name(name)
-    data.select do |row|
-      if row.name == name
-        return row.name
-      else
-        return nil
-      end
-    end
+    data.select {|item| item.name.downcase == name.downcase }.first
   end
 
   def find_by_id(id)
-    data.select do |row|
-      if row.id == id
-        return row.id
-      else
-        return nil
-      end
-    end
+    data.select {|item| item.id == id }.first
   end
 
   def find_all_by_name(fragment)
-    data.select do |row|
-      upcased = row.name.upcase
-      if upcased.include?(fragment.upcase)
-        return row.name
-      end
-    end
+    data.find_all {|item| /#{Regexp.quote(fragment.downcase)}/ =~ item.name.downcase }
   end
+
+  def inspect
+     "#<#{self.class} #{@merchants.size} rows>"
+  end
+
 end

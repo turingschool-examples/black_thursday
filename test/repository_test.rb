@@ -2,6 +2,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'pry'
 require_relative '../lib/repository'
+require_relative '../lib/sales_engine'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/item_repository'
 require_relative '../lib/merchant'
@@ -11,12 +12,17 @@ require_relative '../lib/item'
 class RepositoryTest < Minitest::Test
 
   def test_load_file_merchant
+    file_hash = {
+      items: './data/items.csv',
+      merchants: './data/merchants.csv'
+    }
     path = 'test/fixtures/merchant_sample_small.csv'
-    repo = Repository.new(path, Merchant)
-    require "pry"; binding.pry
+    se = SalesEngine.from_csv(file_hash)
+    repo = Repository.new(se, path, Merchant)
+
     assert_equal Array, repo.load_file.class
 
-    assert_equal  Merchant , repo.klass
+    assert_equal  Merchant, repo.klass
   end
 
   # def test_load_file_item
