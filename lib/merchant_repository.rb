@@ -11,7 +11,11 @@ class MerchantRepository < Repository
   end
 
   def all
-    @data
+    data
+  end
+
+  def count
+    data.count
   end
 
   def find_by_name(name)

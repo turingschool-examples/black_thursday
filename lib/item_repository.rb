@@ -15,6 +15,10 @@ class ItemRepository < Repository
     data
   end
 
+  def count
+    data.count
+  end
+
   def find_by_id(id)
     data.select { |item| item.id == id }.first
   end

@@ -1,6 +1,6 @@
 require 'csv'
 require 'pry'
-require './lib/sales_engine'
+# require 'sales_engine'
 
 class Repository
 

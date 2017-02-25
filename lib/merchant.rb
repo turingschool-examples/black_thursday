@@ -1,4 +1,4 @@
-require "./lib/sales_engine"
+# require_relative "../lib/sales_engine"
 
 class Merchant
   attr_reader :id, :name, :repo
