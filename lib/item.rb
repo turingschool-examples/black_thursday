@@ -26,6 +26,10 @@ class Item
     unit_price.to_f
   end
 
+  def merchant
+    parent.engine.merchants.find_by_id(self.merchant_id)
+  end
+
   # def created_at
   #   # returns a Time instance for the date the item was first created
   # end
