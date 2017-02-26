@@ -1,18 +1,25 @@
 
 require_relative "item_repository"
 require_relative "merchant_repository"
+require_relative "invoice_repository"
 require "csv"
 require 'pry'
 
 class SalesEngine
-  attr_accessor :items, :merchants
+  attr_accessor :items, :merchants, :invoices
   
   def self.from_csv(data)
     #files = hash.each_pair do |key, value|
       # @paths[key] = value
+
+      #create a module, SalesEngineCreators
+        #def if_it_exists_make_repo
+          
+        
     se = SalesEngine.new
     se.items = ItemRepository.new(data[:items], se)
     se.merchants = MerchantRepository.new(data[:merchants], se)
+    se.invoices = InvoiceRepository.new(data[:invoices], se) unless data[:invoices].nil?
     se
   end
 
