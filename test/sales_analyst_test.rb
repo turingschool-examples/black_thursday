@@ -76,14 +76,12 @@ class SalesAnalystTest < Minitest::Test
 
 
   def test_average_invoices_per_day_standard_deviation
-    skip
-    assert_equal 0, sa.average_invoices_per_day_standard_deviation
+    assert_equal 18.06, sa.average_invoices_per_day_standard_deviation
   end
 
-  # def test_it_can_find_top_days_by_invoice_count
-  #   skip
-  #   assert_equal Array, sa.top_days_by_invoice_count.class
-  # end
+  def test_it_can_find_top_days_by_invoice_count
+    assert_equal Array, sa.top_days_by_invoice_count.class
+  end
 
 
   def test_invoice_status

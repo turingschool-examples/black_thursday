@@ -1,6 +1,6 @@
 class SalesAnalyst
 
-  attr_reader :sales_engine
+  attr_reader :sales_engine, :days_hash
 
   def initialize(sales_engine)
     @sales_engine = sales_engine
@@ -59,7 +59,7 @@ class SalesAnalyst
     sum_of_means_squared = all_items.map do |price|
       (price - average)**2
     end
-  Math.sqrt(sum_of_means_squared.reduce(:+) / (all_items.count - 1)).round(2)
+    Math.sqrt(sum_of_means_squared.reduce(:+) / (all_items.count - 1)).round(2)
   end
 
   def golden_items
@@ -129,20 +129,26 @@ class SalesAnalyst
    total_days.length / 7
   end
 
-  # def average_invoices_per_day_standard_deviation
-  #   days_hash = { "Sunday"=> 0, "Monday"=> 0, "Tuesday"=> 0, "Wednesday"=> 0, "Thursday"=> 0, "Friday"=> 0, "Saturday"=> 0 }
-  #   counter = 0
-  #   while counter < total_days.length
-  #       days_hash[total_days[counter]] += 1
-  #       counter += 1
-  #   end
-  #   require "pry"; binding.pry
-  #   invoices_each_day = days_hash.values
-  #   means_squared = invoices_each_day.each do |value|
-  #   (value - average_invoices_per_day) ** 2
-  #     end
-  #   Math.sqrt(means_squared.reduce(:+) / 6).round(2)
-  # end
+  def average_invoices_per_day_standard_deviation
+    @days_hash = total_days.inject(Hash.new(0)) do |total, day|
+      total[day] += 1
+      total
+    end
+    sum_of_means_squared = days_hash.values.map { |day| (day - average_invoices_per_day)  ** 2 }
+    Math.sqrt(sum_of_means_squared.reduce(:+) / 6).round(2)
+  end
+
+  def top_days_by_invoice_count
+    total = average_invoices_per_day +  average_invoices_per_day_standard_deviation
+    top_days = []
+
+     @days_hash.each_key do |day|
+       if days_hash[day] > total
+         top_days << day
+       end
+     end
+    top_days
+  end
 
   def invoice_status(status)
     (sales_engine.invoices.find_all_by_status(status).count * 100  / sales_engine.number_of_invoices.to_f).round(2)

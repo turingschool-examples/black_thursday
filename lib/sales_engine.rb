@@ -6,9 +6,10 @@ require 'pry'
 
 
 class SalesEngine
-  attr_accessor :items, :merchants, :invoices
+  attr_accessor :items, :merchants, :invoices, :invoice_items
 
   def initialize(file_hash)
+    @invoice_items = InvoiceItemRepository.new(self, file_hash[:invoice_items])
     @invoices = InvoiceRepository.new(self, file_hash[:invoices])
     @items = ItemRepository.new(self, file_hash[:items])
     @merchants = MerchantRepository.new(self, file_hash[:merchants])

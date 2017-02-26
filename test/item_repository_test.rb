@@ -14,6 +14,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def setup
     @file_hash = {
+      invoice_items: './data/invoice_items.csv',
       invoices: './data/invoices.csv',
       items: './data/items.csv',
       merchants: './data/merchants.csv'

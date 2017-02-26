@@ -15,7 +15,8 @@ class MerchantRepositoryTest < Minitest::Test
   def setup
     @file_hash = { invoices: './data/invoices.csv',
                   items: './data/items.csv',
-                  merchants: './data/merchants.csv'
+                  merchants: './data/merchants.csv',
+                  invoice_items: './data/invoice_items.csv',
                   }
     @path = 'test/fixtures/merchant_sample_small.csv'
     @se = SalesEngine.from_csv(file_hash)
