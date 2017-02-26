@@ -4,6 +4,10 @@ require_relative './invoice_repository'
 require_relative './invoice_item_repository'
 require_relative './transaction_repository'
 require_relative './customer_repository'
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 
 class SalesEngine
 
@@ -15,7 +19,7 @@ class SalesEngine
     @invoices = InvoiceRepository.new(hash[:invoices], self) unless hash[:invoices].nil?
     @invoice_items = InvoiceItemRepository.new(hash[:invoice_items], self) unless hash[:invoice_items].nil?
     @transactions = TransactionRepository.new(hash[:transactions], self) unless hash[:transactions].nil?
-    @customers = CustoemrRepository.new(hash[:customers], self) unless hash[:customers].nil?
+    @customers = CustomerRepository.new(hash[:customers], self) unless hash[:customers].nil?
   end
 
   def self.from_csv(hash)
