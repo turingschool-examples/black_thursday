@@ -47,4 +47,14 @@ class Invoice
       when 6 then 'Saturday'
     end
   end
+
+  def items
+    invoice_items.map! do |invoice_item|
+      invoice_item.item
+    end
+  end
+
+  def invoice_items
+    repository.engine.invoice_items.find_all_by_invoice_id(id)
+  end
 end

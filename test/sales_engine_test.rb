@@ -9,7 +9,8 @@ class SalesEngineTest < Minitest::Test
       :items => "./test/fixtures/item_fixture.csv",
       :merchants => "./test/fixtures/merchant_fixture.csv",
       :invoices => "./test/fixtures/invoice_fixture.csv",
-      :invoice_items => "./test/fixutures/invoice_items_fixture.csv"
+      :invoice_items => "./test/fixtures/invoice_items_fixture.csv",
+      :transactions => "./test/fixtures/transaction_fixture.csv"
       })
   end
 
@@ -41,4 +42,15 @@ class SalesEngineTest < Minitest::Test
     assert_equal 'Woodenpenshop', invoice.merchant.name
   end
 
+  def test_invoice_invoice_items
+    invoice = se.invoices.find_by_id(2)
+    assert_equal 4, invoice.invoice_items.count
+    assert_instance_of InvoiceItem, invoice.invoice_items[0]
+  end
+
+  def test_invoice_items
+    invoice = se.invoices.find_by_id(2)
+    assert_equal 4, invoice.items.count
+    assert_instance_of Item, invoice.items[0]
+  end
 end
