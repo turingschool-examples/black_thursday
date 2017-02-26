@@ -1,4 +1,3 @@
-require 'pry'
 class Merchant
   attr_reader :id, :name, :merchant_repository
 
@@ -11,5 +10,13 @@ class Merchant
   def items
     merchant_repository.engine.items.find_all_by_merchant_id(id)
   end
+<<<<<<< HEAD
 
+=======
+  
+  def invoices 
+    merchant_repository.engine.invoices.find_all_by_merchant_id(id)
+  end
+  
+>>>>>>> master
 end

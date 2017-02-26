@@ -1,5 +1,4 @@
 require 'csv'
-require 'pry'
 require_relative 'item'
 
 class ItemRepository
@@ -7,8 +6,8 @@ class ItemRepository
   attr_reader :all, :engine
   def initialize(item_csv_data, engine ="")
     @all = []
-    create_item_instances(item_csv_data)
     @engine = engine
+    create_item_instances(item_csv_data)
   end
 
   def create_item_instances(data)

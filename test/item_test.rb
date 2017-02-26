@@ -67,7 +67,8 @@ class ItemTest < Minitest::Test
   def test_it_can_find_merchant_from_merchant_id
     se = SalesEngine.from_csv({
         :merchants     => "./test/fixtures/temp_merchants.csv",
-        :items     => "./test/fixtures/temp_items.csv"
+        :items     => "./test/fixtures/temp_items.csv",
+        :invoices => "./test/fixtures/invoices_truncated.csv"
         })
     item = se.items.find_by_id(263395617)
     
