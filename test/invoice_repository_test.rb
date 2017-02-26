@@ -29,5 +29,23 @@ class InvoiceRepositoryTest < Minitest::Test
     refute_empty invoice_repository.all
   end
 
+  def test_find_by_id
+      assert_equal Invoice , invoice_repository.find_by_id(1).class
+  end
+
+
+  def test_find_all_by_customer_id
+    assert_equal Array, invoice_repository.find_all_by_customer_id(1).class
+  end
+
+  def test_find_all_by_merchant_id
+    assert_equal Array, invoice_repository.find_all_by_merchant_id(12335938).class
+  end
+
+
+  def test_find_all_by_status
+    assert_equal Array, invoice_repository.find_all_by_status("shipped").class
+  end
+
 
 end

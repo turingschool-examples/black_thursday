@@ -13,4 +13,8 @@ class Merchant
     repo.sales_engine.items.find_all_by_merchant_id(self.id)
   end
 
+  def invoices
+    repo.sales_engine.invoices.find_by_id(self.id)
+  end
+  
 end
