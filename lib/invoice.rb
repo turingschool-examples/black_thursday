@@ -20,9 +20,12 @@ class Invoice
     @repo = repo
   end
 
-
   def merchant
     repo.sales_engine.merchants.find_by_id(self.merchant_id)
+  end
+
+  def day_of_the_week_on_which_an_invoice_is_created
+    @created_at.strftime('%A')
   end
 
 end

@@ -59,4 +59,9 @@ class InvoiceTest < Minitest::Test
     assert_equal Time, invoice.updated_at.class
   end
 
+  def test_if_finds_the_day_of_the_week_of_an_invoice
+    assert_equal "Saturday", invoice.day_of_the_week_on_which_an_invoice_is_created
+
+  end
+
 end

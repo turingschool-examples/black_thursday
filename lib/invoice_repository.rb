@@ -22,15 +22,12 @@ class InvoiceRepository < Repository
     data.select { |invoice| invoice.customer_id == customer_id }
   end
 
-
   def find_all_by_merchant_id(merchant_id)
     data.select { |invoice| invoice.merchant_id == merchant_id }
   end
 
-
   def find_all_by_status(status)
     data.select { |invoice| invoice.status == status }
   end
-
 
 end

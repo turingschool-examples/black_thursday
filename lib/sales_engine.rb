@@ -34,6 +34,13 @@ class SalesEngine
     items.all.map { |item| item.unit_price }
   end
 
+  def number_of_invoices
+    invoices.data.count
+  end
+
+  def number_of_invoices_per_merchant
+    invoices.data.group_by(&:merchant_id).values.map(&:count)
+  end
 
 
 end
