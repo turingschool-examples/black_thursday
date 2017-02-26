@@ -3,10 +3,12 @@ require_relative './merchant_repository'
 require_relative './invoice_repository'
 require_relative './invoice_item_repository'
 require_relative './transaction_repository'
+require_relative './customer_repository'
+
 
 class SalesEngine
 
-  attr_accessor :items, :merchants, :invoices, :invoice_items, :transactions
+  attr_accessor :items, :merchants, :invoices, :invoice_items, :transactions, :customers
 
   def initialize(hash)
     @items = ItemRepository.new(hash[:items], self) unless hash[:items].nil?
@@ -14,6 +16,7 @@ class SalesEngine
     @invoices = InvoiceRepository.new(hash[:invoices], self) unless hash[:invoices].nil?
     @invoice_items = InvoiceItemRepository.new(hash[:invoice_items], self) unless hash[:invoice_items].nil?
     @transactions = TransactionRepository.new(hash[:transactions], self) unless hash[:transactions].nil?
+    @customers = CustomerRepository.new(hash[:customers], self) unless hash[:customers].nil?
   end
 
   def self.from_csv(hash)
