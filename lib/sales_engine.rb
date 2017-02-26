@@ -26,7 +26,7 @@ class SalesEngine
     @items ||= ItemRepository.new(files_to_be_loaded[:items], self)
     @customers ||= CustomerRepository.new(files_to_be_loaded[:customers], self)
     @invoices ||= InvoiceRepository.new(files_to_be_loaded[:invoices], self)
-    # @invoice_items ||= InvoiceItemRepository.new(files_to_be_loaded[:invoice_items], self)
+    @invoice_items ||= InvoiceItemRepository.new(files_to_be_loaded[:invoice_items], self)
     # @transactions ||= TransactionRepository.new(files_to_be_loaded[:transactions], self)
 
   end
