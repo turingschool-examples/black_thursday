@@ -3,13 +3,17 @@ require_relative 'merchant_repository'
 require_relative 'item_repository'
 require_relative 'invoice_repository'
 require_relative 'invoice_item_repository'
+require_relative 'transaction_repository'
+require_relative 'customer_repository'
 require 'pry'
 
 
 class SalesEngine
-  attr_accessor :items, :merchants, :invoices, :invoice_items
+  attr_accessor :items, :merchants, :invoices, :invoice_items, :customers, :transactions
 
   def initialize(file_hash)
+    @customers = CustomerRepository.new(self, file_hash[:customers])
+    @transactions = TransactionRepository.new(self, file_hash[:transactions])
     @invoice_items = InvoiceItemRepository.new(self, file_hash[:invoice_items])
     @invoices = InvoiceRepository.new(self, file_hash[:invoices])
     @items = ItemRepository.new(self, file_hash[:items])

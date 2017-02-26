@@ -11,10 +11,13 @@ class MerchantTest < Minitest::Test
   end
 
   def test_it_can_find_a_name
-    file_hash = {
-      items: './data/items.csv',
-      merchants: './data/merchants.csv'
-    }
+    file_hash = { customers: './data/customers.csv',
+                  transactions: './data/transactions.csv',
+                  invoices: './data/invoices.csv',
+                  items: './data/items.csv',
+                  merchants: './data/merchants.csv',
+                  invoice_items: './data/invoice_items.csv'
+                  }
     path = 'test/fixtures/merchant_sample_small.csv'
     se = SalesEngine.from_csv(file_hash)
     repo = Repository.new(se, path, Merchant)
@@ -25,10 +28,13 @@ class MerchantTest < Minitest::Test
 
 
   def test_it_can_find_an_id
-    file_hash = {
-      items: './data/items.csv',
-      merchants: './data/merchants.csv'
-    }
+    @file_hash = { customers: './data/customers.csv',
+                  transactions: './data/transactions.csv',
+                  invoices: './data/invoices.csv',
+                  items: './data/items.csv',
+                  merchants: './data/merchants.csv',
+                  invoice_items: './data/invoice_items.csv'
+                  }
     path = 'test/fixtures/merchant_sample_small.csv'
     se = SalesEngine.from_csv(file_hash)
     repo = Repository.new(se, path, Merchant)

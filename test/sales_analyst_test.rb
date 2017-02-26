@@ -3,18 +3,18 @@ require 'minitest/pride'
 require 'pry'
 require_relative '../lib/sales_engine'
 require_relative '../lib/sales_analyst'
+require_relative '../test/file_hash_setup'
+
 
 
 class SalesAnalystTest < Minitest::Test
 
   attr_reader :file_hash, :se, :sa
 
+    include FileHashSetup
+    
   def setup
-    @file_hash = { items: './data/items.csv',
-                merchants: './data/merchants.csv',
-                invoices: './data/invoices.csv'
-                  }
-    @se = SalesEngine.new(file_hash)
+    super
     @sa = SalesAnalyst.new(se)
   end
 

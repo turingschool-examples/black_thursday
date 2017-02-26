@@ -10,11 +10,13 @@ class InvoiceTest < Minitest::Test
   attr_reader :file_hash, :path, :se, :repo, :invoice
 
   def setup
-    @file_hash = {
-      invoices: './data/invoices.csv',
-      items: './data/items.csv',
-      merchants: './data/merchants.csv'
-    }
+    @file_hash = { customers: './data/customers.csv',
+                  transactions: './data/transactions.csv',
+                  invoices: './data/invoices.csv',
+                  items: './data/items.csv',
+                  merchants: './data/merchants.csv',
+                  invoice_items: './data/invoice_items.csv'
+                  }
     @path = 'test/fixtures/invoice_sample.csv'
     @se = SalesEngine.from_csv(file_hash)
     @repo = Repository.new(se, path, Invoice)

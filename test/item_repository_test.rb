@@ -3,24 +3,20 @@ require 'minitest/pride'
 require 'pry'
 require_relative '../lib/repository'
 require_relative '../lib/sales_engine'
-require_relative '../lib/merchant_repository'
 require_relative '../lib/item_repository'
-require_relative '../lib/merchant'
 require_relative '../lib/item'
+require_relative '../test/file_hash_setup'
+
 
 class ItemRepositoryTest < Minitest::Test
 
   attr_reader :file_hash, :se, :path, :repo, :item_repository
 
+  include FileHashSetup
+
   def setup
-    @file_hash = {
-      invoice_items: './data/invoice_items.csv',
-      invoices: './data/invoices.csv',
-      items: './data/items.csv',
-      merchants: './data/merchants.csv'
-    }
+    super
     @path = 'test/fixtures/items_sample.csv'
-    @se = SalesEngine.from_csv(file_hash)
     @repo = Repository.new(se, path, Item)
     @item_repository = ItemRepository.new(se, path)
   end

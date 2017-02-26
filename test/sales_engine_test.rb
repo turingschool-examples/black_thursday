@@ -8,12 +8,13 @@ class SalesEngineTest < Minitest::Test
   attr_reader :file_hash, :se
 
   def setup
-    @file_hash = {
-      items: './data/items.csv',
-      merchants: './data/merchants.csv',
-      invoices: './data/invoices.csv',
-      invoice_items: './data/invoice_items.csv'
-    }
+    @file_hash = { customers: './data/customers.csv',
+                  transactions: './data/transactions.csv',
+                  invoices: './data/invoices.csv',
+                  items: './data/items.csv',
+                  merchants: './data/merchants.csv',
+                  invoice_items: './data/invoice_items.csv'
+                  }
     @se = SalesEngine.from_csv(file_hash)
   end
 
@@ -24,6 +25,8 @@ class SalesEngineTest < Minitest::Test
     assert_equal MerchantRepository, se.merchants.class
     assert_equal InvoiceRepository, se.invoices.class
     assert_equal InvoiceItemRepository, se.invoice_items.class
+    assert_equal CustomerRepository, se.customers.class
+    assert_equal TransactionRepository, se.transactions.class
   end
 
   def test_it_finds_the_number_of_merchants

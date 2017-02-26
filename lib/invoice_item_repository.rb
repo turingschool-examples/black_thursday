@@ -14,7 +14,6 @@ class InvoiceItemRepository < Repository
     data
   end
 
-
   def find_by_id(id)
     data.select { |invoice_item| invoice_item.id == id }.first
   end
