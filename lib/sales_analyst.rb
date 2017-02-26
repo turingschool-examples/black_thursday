@@ -102,12 +102,10 @@ class SalesAnalyst
     end
   end
 
-  # not working
-  # def invoice_status(status)
-  #   total_found = se_inst.invoices.all.reduce(0) do |count, invoice|
-  #     invoice.status == status.to_sym ? count += 1 : next
-  #   end
-  #   ((total_found.to_f / se_inst.invoices.all.count.to_f) * 100).round(2)
-  # end
-
+  def invoice_status(status)
+    status_count = se_inst.invoices.all.count do |invoice|
+      invoice.status == status
+    end
+    (100 * status_count.to_f / se_inst.invoices.all.count.to_f).round(2)
+  end
 end
