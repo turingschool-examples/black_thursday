@@ -44,4 +44,8 @@ class SalesAnalystTest < Minitest::Test
   def test_average_average_price_per_merchant_returns_bigdecimal
     assert_instance_of BigDecimal, @sa.average_average_price_per_merchant
   end
+
+  def test_golden_items_returns_array
+    assert_instance_of Array, @sa.golden_items
+  end
 end
