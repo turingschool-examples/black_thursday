@@ -7,7 +7,7 @@ require 'simplecov'
 SimpleCov.start
 
 class SalesAnalystTest < Minitest::Test
-  
+
   attr_accessor :sa
 
   def setup
@@ -81,8 +81,8 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_average_price_per_merchant
-    assert_instance_of BigDecimal, sa.test_average_average_price_per_merchant
-    assert_equal 62.53, sa.test_average_average_price_per_merchant
+    assert_instance_of BigDecimal, sa.average_average_price_per_merchant
+    assert_equal 62.53, sa.average_average_price_per_merchant
   end
 
   def test_it_can_access_item_repository

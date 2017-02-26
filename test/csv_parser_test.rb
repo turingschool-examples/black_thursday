@@ -11,5 +11,5 @@ class CsvParserTest < Minitest::Test
     file = open_file('./test/fixtures/merchants_three.csv')
     assert_equal CSV, file.class
   end
-  
+
 end

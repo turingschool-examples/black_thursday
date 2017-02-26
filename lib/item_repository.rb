@@ -6,7 +6,8 @@ require_relative 'merchant'
 require 'pry'
 
 class ItemRepository
-include CsvParser
+
+  #include CsvParser
 
   attr_reader :all,
               :parent
