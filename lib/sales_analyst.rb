@@ -19,6 +19,12 @@ class SalesAnalyst
     end
   end
 
+  def all_items
+    sales_engine.items.all.map do |item|
+      item.id
+    end
+  end
+
   def build_hash
     merchant_prices = Hash.new{ |hash, key| hash[key] = [] }
     sales_engine.merchants.all.map do |merchant|
@@ -37,18 +43,10 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    data = build_hash
-    merchant_count = data.keys.count
-    item_count = data.values.reduce(0) do |sum, x|
-      if x.count == 0
-        sum
-      else
-        sum + x.count
-      end
-    end
+    merchant_count = all_merchants.count
+    item_count = all_items.count
     average = item_count.to_f/merchant_count.to_f
     average.round(2)
-
   end
 
 end
