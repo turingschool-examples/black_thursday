@@ -20,7 +20,7 @@ class InvoiceItemRepository
   end
 
   def parse_csv
-    @contents.each do |row|
+    contents.each do |row|
       invoice_items_array << InvoiceItem.new({
         :id         => row[:id].to_i,
         :item_id    => row[:item_id].to_i,
