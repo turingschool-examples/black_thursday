@@ -1,8 +1,11 @@
 require_relative 'sales_engine'
 require_relative 'merchant'
+require_relative 'calculator'
 require 'bigdecimal'
 
 class SalesAnalyst
+
+  include Calculator
 
   attr_reader :sales_engine
 
@@ -10,42 +13,66 @@ class SalesAnalyst
     @sales_engine = sales_engine
   end
 
+# ------ Data Structure Navigation ------
+  def merchant_repository
+    sales_engine.merchants
+  end
+
+  def items_repository
+    sales_engine.items
+  end
+
+# ----------- Search methods -----------
+
+  def items_per_merchant
+    merchant_repository.merchants.map { |merchant| merchant.items.length }
+  end
+
+  def price_of_items_per_merchant(merchant_id)
+    item_array = items_repository.find_all_by_merchant_id(merchant_id)
+    item_array.map { |item| item.unit_price }
+  end
+
+  def price_per_item
+    items_repository.items.map { |item| item.unit_price }
+  end
+
+  def average_price_per_item
+    average(price_per_item)
+  end
+
+#------ Merchant methods per spec ------
+
   def average_items_per_merchant
-      i = sales_engine.items.items.length.to_f 
-      m = sales_engine.merchants.merchants.length.to_f
-      BigDecimal.new(i/m, 3).to_f
+    average(items_per_merchant)
   end
 
   def average_items_per_merchant_standard_deviation
-    average = average_items_per_merchant
-    item_array = sales_engine.merchants.merchants.map { |merchant| merchant.items.length }
-    array_sum = item_array.reduce(0) { |sum, item_count| sum + (item_count - average)**2 }
-    BigDecimal.new(Math.sqrt(array_sum/(item_array.length - 1)), 3).to_f
+    std_dev(items_per_merchant)
   end
 
   def merchants_with_high_item_count
-    sd = average_items_per_merchant_standard_deviation
-    array = sales_engine.merchants.merchants.select { |merchant| merchant.items.length > (sd + average_items_per_merchant) }
+    std_dev = average_items_per_merchant_standard_deviation
+    avg = average_items_per_merchant
+
+    merchant_repository.merchants.select do |merchant|
+      merchant.items.length > (avg + std_dev)
+    end
   end
 
   def average_item_price_for_merchant(merchant_id)
-    item_array = sales_engine.items.find_all_by_merchant_id(merchant_id)
-    item_sum = item_array.inject(0) { |sum, item| sum + item.unit_price.to_f }
-    BigDecimal.new(item_sum / item_array.length, 4)
+    average(price_of_items_per_merchant(merchant_id))
   end
 
   def average_average_price_per_merchant
-    merchant_total = sales_engine.merchants.merchants.inject(0) { |sum, merchant| sum + average_item_price_for_merchant(merchant.id).to_f }
-    BigDecimal.new(merchant_total / sales_engine.merchants.merchants.length, 6).floor(2)
+    price_averages = merchant_repository.merchants.map do |merchant|
+      average_item_price_for_merchant(merchant.id)
+    end
+    average(price_averages)
   end
 
   def golden_items
-    item_total = sales_engine.items.items.inject(0) { |sum, item| sum + item.unit_price}
-    item_avg = item_total / sales_engine.items.items.length
-    price_array = sales_engine.items.items.map { |item| item.unit_price}
-    std_dev = price_array.reduce(0) { |sum, price| sum + ((price - item_avg)**2) }
-    final_dev = Math.sqrt(std_dev / (price_array.length - 1))
-    sales_engine.items.items.select { |item| item.unit_price > ((final_dev*2) + item_avg)}    
+    price_std_dev = std_dev(price_per_item)
+    items_repository.items.select { |item| item.unit_price > (price_std_dev * 2) }
   end
-
 end
