@@ -14,8 +14,8 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of SalesAnalyst, @sa
   end
 
-  def test_can_sum_all_item_prices
-    skip
+  def test_can_return_sum_of_all_item_prices
+    assert_equal 116268.99, @sa.all_prices
   end
 
 end
