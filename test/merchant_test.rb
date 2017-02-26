@@ -50,5 +50,17 @@ class MerchantTest < Minitest::Test
     assert_equal 3, merchant.items.length
     assert_equal Item, merchant.items.first.class
   end
+
+  def test_merchant_can_find_invoices
+    se = SalesEngine.from_csv({:merchants => './test/fixtures/merchant_matches.csv',
+                               :items => './test/fixtures/items_same_merchant_id.csv',
+                               :invoices => './test/fixtures/invoices_three.csv'})
+    mr = se.merchants
+    merchant = mr.find_by_id(12335938)
+
+    assert_instance_of Array, merchant.invoices
+    assert_instance_of Invoice, merchant.invoices.first
+    assert_equal 2, merchant.invoices.length
+  end
 end
 

@@ -7,8 +7,6 @@ require 'pry'
 
 class MerchantRepository
 
-  include CsvParser
-
   attr_reader :all,
               :parent
 
@@ -37,6 +35,10 @@ class MerchantRepository
 
   def find_items(id)
     parent.items.find_all_by_merchant_id(id)
+  end
+
+  def find_invoices(id)
+    parent.invoices.find_all_by_merchant_id(id)
   end
 
   def inspect
