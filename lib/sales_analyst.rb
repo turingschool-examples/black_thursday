@@ -89,11 +89,10 @@ class SalesAnalyst
     average(average_merchant_prices)
   end
 
-  
-
 #-----/Merchant_Analysis_Methods-----#
 
 #-----Item_Analysis_Methods-----#
+
   def all_item_prices
     all_items.map do |item|
       item.unit_price
@@ -114,7 +113,6 @@ class SalesAnalyst
       item.unit_price > two_sd
     end
   end
-
 
 #-----/Item_Analysis_Methods-----#
 
