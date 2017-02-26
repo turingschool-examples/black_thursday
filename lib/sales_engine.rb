@@ -9,6 +9,7 @@ class SalesEngine
     @items = ItemRepository.new(@paths[:items], self)
     @merchants = MerchantRepository.new(@paths[:merchants], self)
     @invoices = InvoiceRepository.new(@paths[:invoices], self)
+    # @invoice_items = InvoiceItemsRepository.new(@paths[:invoice])
   end
 
   def self.from_csv(hash)

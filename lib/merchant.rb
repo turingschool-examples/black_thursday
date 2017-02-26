@@ -21,4 +21,8 @@ class Merchant
 	def invoices
 		mr_instance.sales_engine_instance.invoices.find_all_by_merchant_id(id)
 	end
+
+	# def customers
+
+	# end
 end
