@@ -73,9 +73,12 @@ class SalesAnalyst
     end
   end
 
-  # def average_items_per_merchant_standard_deviation
-  #   data = build_hash
-  #   standard_deviation(data)
-  # end
-  #
+  def average_item_price_for_merchant(merchant_id)
+    merchant = sales_engine.merchants.find_by_id(merchant_id)
+    item_prices = merchant.items.map do |item|
+      item.unit_price
+    end
+    (item_prices.inject(:+) / item_prices.count).round(2)
+  end
+
 end

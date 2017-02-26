@@ -52,4 +52,9 @@ class SalesAnalystTest < Minitest::Test
     assert_equal "Keckenbauer" , @sa.merchants_with_high_item_count.first.name
     assert_instance_of Array, @sa.merchants_with_high_item_count
   end
+
+  def test_average_item_price_for_merchant
+    assert_equal 0.315E2, @sa.average_item_price_for_merchant(12334159)
+  end
+
 end
