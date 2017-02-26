@@ -2,8 +2,8 @@ require_relative 'test_helper'
 require './lib/sales_engine'
 require './lib/sales_analyst'
 
-class SalesAnalystTest < Minitest::Test 
-	attr_reader :se, :sa, :mr, :ir, :se_one, :sa_one
+class SalesAnalystTest < Minitest::Test
+	attr_reader :se, :sa, :se_two, :sa_two
 
 	def setup
 		@se = SalesEngine.from_csv({
@@ -11,9 +11,12 @@ class SalesAnalystTest < Minitest::Test
   	:merchants => "./test/fixtures/merchant_fixtures.csv",
   	:invoices => "./test/fixtures/invoices_fixture.csv"
 		})
-		@mr = se.merchants
-		@ir = se.items
 		@sa = SalesAnalyst.new(se)
+
+		@se_two = SalesEngine.from_csv({:items => "./test/fixtures/item_fixtures.csv",
+  	:merchants => "./test/fixtures/merchant_invoice_fixture.csv",
+  	:invoices => "./test/fixtures/invoice_fixture_two.csv"})
+		@sa_two = SalesAnalyst.new(se_two)
 	end
 
 	def test_there_is_a_sales_analyst
@@ -109,4 +112,54 @@ class SalesAnalystTest < Minitest::Test
 	def test_average_invoices_per_merchant_std_deviation
 		assert_equal 5.29, sa.average_invoices_per_merchant_standard_deviation
 	end
+
+	def test_the_top_merchants_by_invoice_count_returned
+		assert_equal 1, sa_two.top_merchants_by_invoice_count.count
+		assert_equal 'jejum', sa_two.top_merchants_by_invoice_count.first.name
+		assert_equal 17, sa_two.top_merchants_by_invoice_count.first.invoices.count
+	end
+
+	def test_bottom_merchants_by_invoice_count
+		#find merchant with invoices
+	 assert_equal 0, sa_two.bottom_merchants_by_invoice_count.count
+ end
+ def test_invoice_status_returns_percentage
+	 pending = sa.invoice_status(:pending)
+	 returned = sa.invoice_status(:returned)
+	 shipped = sa.invoice_status(:shipped)
+	 sum = shipped + pending + returned
+	 assert_equal 29.85, pending
+	 assert_equal Float, pending.class
+	 assert_equal 11.94, returned
+	 assert_equal 58.21, shipped
+	 assert_equal 0.0, sa.invoice_status(:hamster)
+	 assert_equal 100.00, sum
+ end
+
+ def test_it_gets_wday
+	 assert_equal Array, sa.get_wdays.class
+	 assert_equal 67, sa.get_wdays.count
+ end
+
+ def test_average_invoices_per_day
+	 assert_equal 9.57, sa.average_invoices_per_day
+	 assert_equal Float, sa.average_invoices_per_day.class
+ end
+
+ def test_gets_diff_btw_mean_and_day_freq_and_sums
+	 assert_equal 73.71, sa.diff_btw_mean_and_day_frequency_sqrd_summed
+	 assert_equal Float, sa.diff_btw_mean_and_day_frequency_sqrd_summed.class
+ end
+
+ def test_it_gets_standard_dev_by_freq_per_day
+	 assert_equal 3.5, sa.average_frequency_per_day_standard_deviation
+	 assert_equal Float, sa.average_frequency_per_day_standard_deviation.class
+ end
+
+ def test_it_gets_top_days_by_invoice_count
+	 assert_equal 2, sa.top_days_by_invoice_count.count
+	 assert_equal ["Saturday", "Thursday"], sa.top_days_by_invoice_count
+	 assert_equal Array, sa.top_days_by_invoice_count.class
+	 assert_equal String, sa.top_days_by_invoice_count.first.class
+ end
 end
