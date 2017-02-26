@@ -2,7 +2,6 @@ require_relative 'test_helper.rb'
 require_relative '../lib/sales_engine'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/item_repository'
-require 'pry'
 
 class SalesEngineTest < Minitest::Test
   # def test_it_exists

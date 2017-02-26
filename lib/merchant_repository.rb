@@ -1,19 +1,17 @@
 require 'csv'
-require 'pry'
 require_relative 'merchant'
 
 class MerchantRepository
-
-  #creates instances of Merchant for each row in the csv file
   attr_reader :all, :engine
 
   def initialize(merchant_csv_data, engine ="")
     @all = []
-    create_merchant_instances(merchant_csv_data)
     @engine = engine
+    create_merchant_instances(merchant_csv_data)
   end
 
   def create_merchant_instances(data)
+    
     CSV.foreach(data, headers: true, header_converters: :symbol) do |row|
       all << Merchant.new({id: row[:id], name: row[:name]}, self)
       end
