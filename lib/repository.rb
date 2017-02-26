@@ -23,6 +23,6 @@ class Repository
 
   def inspect
    "#<#{self.class} #{@repository.size} rows>"
- end
+  end
 
 end

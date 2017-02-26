@@ -2,24 +2,14 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'pry'
 require_relative '../lib/invoice'
-require_relative '../lib/invoice_repository'
 require_relative '../lib/sales_engine'
 
 class InvoiceTest < Minitest::Test
 
-  attr_reader :file_hash, :path, :se, :repo, :invoice
+  attr_reader :repo, :invoice
 
   def setup
-    @file_hash = { customers: './data/customers.csv',
-                  transactions: './data/transactions.csv',
-                  invoices: './data/invoices.csv',
-                  items: './data/items.csv',
-                  merchants: './data/merchants.csv',
-                  invoice_items: './data/invoice_items.csv'
-                  }
-    @path = 'test/fixtures/invoice_sample.csv'
-    @se = SalesEngine.from_csv(file_hash)
-    @repo = Repository.new(se, path, Invoice)
+
     @invoice = Invoice.new( {:id => 1,
                       :customer_id => 1,
                       :merchant_id => 12335938,

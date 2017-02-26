@@ -21,7 +21,20 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_it_finds_all_customers
-
+    assert_equal Array, customer_repository.all.class
   end
 
+  def test_it_finds_by_id
+    assert_equal Customer, customer_repository.find_by_id(1).class
+  end
+
+  def test_it_finds_all_by_first_name
+    assert_equal Array, customer_repository.find_all_by_first_name("Joey").class
+    refute_empty customer_repository.find_all_by_first_name("Joey")
+  end
+
+  def test_it_finds_all_by_last_name
+    assert_equal Array, customer_repository.find_all_by_last_name("Ondricka").class
+    refute_empty customer_repository.find_all_by_last_name("Ondricka")
+  end
 end
