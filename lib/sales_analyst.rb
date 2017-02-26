@@ -108,4 +108,12 @@ class SalesAnalyst
     end
     (100 * status_count.to_f / se_inst.invoices.all.count.to_f).round(2)
   end
+
+  # def find_merchant_greater_count
+  #   std_dev = average_invoices_per_merchant_standard_deviation
+  #   avg = average_invoices_per_merchant
+  #   se_inst.merchants.all.detect do |merchant|
+  #     merchant.invoices.count <= 1
+  #   end
+  # end
 end
