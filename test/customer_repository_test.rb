@@ -24,8 +24,14 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_first_name
-    assert_equal [], cr.find_all_by_first_name("Joey")
+    assert_equal 1, cr.find_all_by_first_name("Joey").count
+    assert_equal 2, cr.find_all_by_first_name("Lisa").count
+    assert_equal 61, cr.find_all_by_first_name("Lisa")[0].id
   end
 
-
+  def test_find_all_by_last_name
+    assert_equal 4, cr.find_all_by_last_name("man").count
+    assert_equal 4, cr.find_all_by_last_name("Dick").count
+    assert_equal 61, cr.find_all_by_last_name("Leannon")[0].id
+  end
 end
