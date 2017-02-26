@@ -1,6 +1,6 @@
 class SalesAnalyst
 
-  attr_reader :sales_engine
+  attr_reader :sales_engine, :days_hash
 
   def initialize(sales_engine)
     @sales_engine = sales_engine
@@ -22,7 +22,6 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-
     total = average_items_per_merchant + average_items_per_merchant_standard_deviation
     high_sellers = []
 
@@ -60,7 +59,7 @@ class SalesAnalyst
     sum_of_means_squared = all_items.map do |price|
       (price - average)**2
     end
-  Math.sqrt(sum_of_means_squared.reduce(:+) / (all_items.count - 1)).round(2)
+    Math.sqrt(sum_of_means_squared.reduce(:+) / (all_items.count - 1)).round(2)
   end
 
   def golden_items
@@ -76,6 +75,83 @@ class SalesAnalyst
       end
     end
     goldies
+  end
+
+  def average_invoices_per_merchant
+    merchant_count = sales_engine.number_of_merchants
+    invoice_count = sales_engine.number_of_invoices
+
+    (invoice_count / merchant_count.to_f).round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    invoices_per_merchant = sales_engine.number_of_invoices_per_merchant
+    sum_of_means_squared = invoices_per_merchant.map do |number|
+      (number - average_invoices_per_merchant)**2
+    end
+    Math.sqrt(sum_of_means_squared.reduce(:+) / (invoices_per_merchant.count - 1)).round(2)
+  end
+
+
+  def top_merchants_by_invoice_count
+    total = average_invoices_per_merchant + (2 * average_invoices_per_merchant_standard_deviation)
+    top_merchants = []
+
+    sales_engine.merchants.all.each do |merchant|
+      if merchant.invoices.count >= total
+        top_merchants << merchant
+      end
+    end
+    top_merchants
+  end
+
+
+  def bottom_merchants_by_invoice_count
+    total = average_invoices_per_merchant - (2 * average_invoices_per_merchant_standard_deviation)
+    bottom_merchants = []
+
+    sales_engine.merchants.all.each do |merchant|
+      if merchant.invoices.count <= total
+        bottom_merchants << merchant
+      end
+    end
+    bottom_merchants
+  end
+
+  def total_days
+    total = sales_engine.invoices.all.map { |invoice| invoice.created_at }
+    total.map! do |date|
+      date.strftime('%A')
+    end
+  end
+
+  def average_invoices_per_day
+   total_days.length / 7
+  end
+
+  def average_invoices_per_day_standard_deviation
+    @days_hash = total_days.inject(Hash.new(0)) do |total, day|
+      total[day] += 1
+      total
+    end
+    sum_of_means_squared = days_hash.values.map { |day| (day - average_invoices_per_day)  ** 2 }
+    Math.sqrt(sum_of_means_squared.reduce(:+) / 6).round(2)
+  end
+
+  def top_days_by_invoice_count
+    total = average_invoices_per_day +  average_invoices_per_day_standard_deviation
+    top_days = []
+
+     @days_hash.each_key do |day|
+       if days_hash[day] > total
+         top_days << day
+       end
+     end
+    top_days
+  end
+
+  def invoice_status(status)
+    (sales_engine.invoices.find_all_by_status(status).count * 100  / sales_engine.number_of_invoices.to_f).round(2)
   end
 
 end

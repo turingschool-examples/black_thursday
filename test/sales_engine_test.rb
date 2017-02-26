@@ -10,20 +10,20 @@ class SalesEngineTest < Minitest::Test
   def setup
     @file_hash = {
       items: './data/items.csv',
-      merchants: './data/merchants.csv'
+      merchants: './data/merchants.csv',
+      invoices: './data/invoices.csv',
+      invoice_items: './data/invoice_items.csv'
     }
     @se = SalesEngine.from_csv(file_hash)
   end
 
   def test_from_csv
-    file_hash = {
-      items: './data/items.csv',
-      merchants: './data/merchants.csv'
-    }
     se = SalesEngine.from_csv(file_hash)
     assert_equal SalesEngine, se.class
     assert_equal ItemRepository, se.items.class
     assert_equal MerchantRepository, se.merchants.class
+    assert_equal InvoiceRepository, se.invoices.class
+    assert_equal InvoiceItemRepository, se.invoice_items.class
   end
 
   def test_it_finds_the_number_of_merchants

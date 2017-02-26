@@ -1,13 +1,16 @@
 require 'csv'
 require_relative 'merchant_repository'
 require_relative 'item_repository'
+require_relative 'invoice_repository'
 require 'pry'
 
 
 class SalesEngine
-  attr_accessor :items, :merchants
+  attr_accessor :items, :merchants, :invoices, :invoice_items
 
   def initialize(file_hash)
+    @invoice_items = InvoiceItemRepository.new(self, file_hash[:invoice_items])
+    @invoices = InvoiceRepository.new(self, file_hash[:invoices])
     @items = ItemRepository.new(self, file_hash[:items])
     @merchants = MerchantRepository.new(self, file_hash[:merchants])
   end
@@ -25,11 +28,20 @@ class SalesEngine
   end
 
   def number_of_items_per_merchant
-    total = items.data.group_by(&:merchant_id).values.map(&:count)
+    items.data.group_by(&:merchant_id).values.map(&:count)
   end
 
   def prices_of_each_item
-    total = items.all.map { |item| item.unit_price }
+    items.all.map { |item| item.unit_price }
   end
+
+  def number_of_invoices
+    invoices.data.count
+  end
+
+  def number_of_invoices_per_merchant
+    invoices.data.group_by(&:merchant_id).values.map(&:count)
+  end
+
 
 end

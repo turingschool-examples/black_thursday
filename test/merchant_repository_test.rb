@@ -10,18 +10,18 @@ require_relative '../lib/item'
 
 class MerchantRepositoryTest < Minitest::Test
 
-  attr_reader :file_hash, :se, :path, :repo, :merch_repo
+  attr_reader :file_hash, :path, :se, :repo, :merch_repo
 
   def setup
-    @file_hash = {
-
-      items: './data/items.csv',
-      merchants: './data/merchants.csv'
-    }
+    @file_hash = { invoices: './data/invoices.csv',
+                  items: './data/items.csv',
+                  merchants: './data/merchants.csv',
+                  invoice_items: './data/invoice_items.csv',
+                  }
     @path = 'test/fixtures/merchant_sample_small.csv'
     @se = SalesEngine.from_csv(file_hash)
     @repo = Repository.new(se, path, Merchant)
-    @merch_repo = MerchantRepository.new(se, 'test/fixtures/merchant_sample_small.csv')
+    @merch_repo = MerchantRepository.new(se, path)
   end
 
   def test_finds_all_merchants

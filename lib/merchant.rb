@@ -1,5 +1,3 @@
-# require_relative "../lib/sales_engine"
-
 class Merchant
   attr_reader :id, :name, :repo
 
@@ -11,6 +9,10 @@ class Merchant
 
   def items
     repo.sales_engine.items.find_all_by_merchant_id(self.id)
+  end
+
+  def invoices
+    repo.sales_engine.invoices.find_all_by_merchant_id(self.id)
   end
 
 end
