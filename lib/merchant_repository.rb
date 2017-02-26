@@ -13,7 +13,7 @@ class MerchantRepository
       merchants
   end
 
-  def find_by_id(merchant_id)
+  def find_by_id (merchant_id)
     merchants.find { |row| row.id == merchant_id }
   end
 

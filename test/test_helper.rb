@@ -11,3 +11,5 @@ require './lib/item'
 require './lib/object_builder'
 require './lib/repo_builder'
 require './lib/sales_engine'
+require './lib/sales_analyst'
+
