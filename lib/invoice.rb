@@ -65,4 +65,16 @@ class Invoice
   def customer
     repository.engine.customers.find_by_id(customer_id)
   end
+
+  def is_paid_in_full?
+    transactions.any? do |transaction|
+      transaction.result == 'success'
+    end
+  end
+
+  def total
+    invoice_items.inject(0) do |sum, invoice_item|
+      sum + invoice_item.unit_price * invoice_item.quantity
+    end
+  end
 end
