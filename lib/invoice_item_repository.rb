@@ -15,15 +15,16 @@ class InvoiceItemRepository < Repository
   end
 
 
-  def find_by_id
+  def find_by_id(id)
     data.select { |invoice_item| invoice_item.id == id }.first
   end
 
-  def find_all_by_item_id
-
+  def find_all_by_item_id(item_id)
+    data.select { |invoice_item| invoice_item.item_id == item_id }
   end
 
-  def find_all_by_invoice_id
+  def find_all_by_invoice_id(invoice_id)
+    data.select { |invoice_item| invoice_item.invoice_id == invoice_id }
   end
 
 end
