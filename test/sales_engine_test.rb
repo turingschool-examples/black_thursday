@@ -10,7 +10,8 @@ class SalesEngineTest < Minitest::Test
       :merchants => "./test/fixtures/merchant_fixture.csv",
       :invoices => "./test/fixtures/invoice_fixture.csv",
       :invoice_items => "./test/fixtures/invoice_items_fixture.csv",
-      :transactions => "./test/fixtures/transaction_fixture.csv"
+      :transactions => "./test/fixtures/transaction_fixture.csv",
+      :customers => "./test/fixtures/customer_fixture.csv",
       })
   end
 
@@ -61,7 +62,6 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_invoice_customer
-    skip
     invoice = se.invoices.find_by_id(2)
     assert_equal 1, invoice.customer.id
     assert_instance_of Customer, invoice.customer
@@ -75,8 +75,18 @@ class SalesEngineTest < Minitest::Test
 
   def test_merchant_customers
     merchant = se.merchants.find_by_id(12334371)
-    assert_equal 11, merchant.customers
-    # assert_equal 156, merchant.invoices.first.id
+    assert_equal 11, merchant.customers.length
+    assert_equal 31, merchant.customers.first.id
+  end
+
+  def test_is_paid_in_full?
+    invoice = se.invoices.find_by_id(2)
+    assert invoice.is_paid_in_full?
+  end
+
+  def test_invoice_total
+    invoice = se.invoices.find_by_id(2)
+    assert_equal 400, invoice.total
   end
 
 end

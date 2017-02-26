@@ -23,9 +23,9 @@ class Merchant
   end
 
   def customers
-    invoices.map do |invoice|
+    invoices.map! do |invoice|
       invoice.customer
-    end
+    end.uniq
   end
 end
 
