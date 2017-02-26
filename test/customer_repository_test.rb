@@ -24,6 +24,7 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_first_name
-    assert_equal [], cr.find_all_by_first_name("Joey")
+    assert_equal 2, cr.find_all_by_first_name("Lisa").count
+    assert_equal 61, cr.find_all_by_first_name("Lisa")[0].id
   end
 end
