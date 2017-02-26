@@ -109,6 +109,56 @@ class SalesAnalyst
     (100 * status_count.to_f / se_inst.invoices.all.count.to_f).round(2)
   end
 
+  def get_wdays
+    se_inst.invoices.all.map do |invoice|
+      invoice.created_at.wday
+    end
+  end
+
+  def days_of_the_week
+  {"Sunday" => 0,
+   "Monday" => 1,
+   "Tuesday" => 2,
+   "Wednesday" => 3,
+   "Thursday" => 4,
+   "Friday" => 5,
+   "Saturday" => 6
+ }.invert
+end
+
+  def frequency_created_per_day
+    day_count = Hash.new(0)
+      get_wdays.each do |wday_num|
+      day_count[days_of_the_week[wday_num]] += 1
+    end
+    day_count
+  end
+
+  def average_invoices_per_day
+    frequencies = frequency_created_per_day.values
+    (frequencies.reduce(:+).to_f / frequencies.count.to_f).round(2)
+  end
+
+  def diff_btw_mean_and_day_frequency_sqrd_summed
+    mean = average_invoices_per_day
+    frequency_created_per_day.values.map do |day_freq|
+      (day_freq - mean) ** 2
+    end.reduce(:+).round(2)
+  end
+
+  def average_frequency_per_day_standard_deviation
+    set_length = (frequency_created_per_day.values.count - 1)
+    Math.sqrt(diff_btw_mean_and_day_frequency_sqrd_summed/set_length).round(2)
+  end
+
+  def top_days_by_invoice_count
+    avg = average_invoices_per_day
+    std_dev = average_frequency_per_day_standard_deviation
+    frequency_created_per_day.select do |day, frequency|
+      frequency >= (std_dev + avg)
+    end.keys
+  end
+
   # def find_merchant_greater_count
   #   std_dev = average_invoices_per_merchant_standard_deviation
   #   avg = average_invoices_per_merchant
