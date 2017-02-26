@@ -23,7 +23,7 @@ class SalesAnalyst
   def average_items_per_merchant_standard_deviation # meth calcs std deviation using meths avobe
     total = engine.merchants.all.map do |merchant|
       ((merchant_items_count(merchant.id)) - average_items_per_merchant)**2
-    end # sets total to find diff of each item total per merchant and teh average item total of merchants, squares this
+    end # sets total to arr find diff of each item total per merchant and teh average item total of merchants, squares this
     Math.sqrt(total.reduce(:+)/(total.length-1)).round(2) # sums squares together, divides by number of elemetns -1, squares the result
   end
 
