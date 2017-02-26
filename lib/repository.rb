@@ -22,7 +22,7 @@ class Repository
   end
 
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
-  end
+   "#<#{self.class} #{@repository.size} rows>"
+ end
 
 end

@@ -30,8 +30,4 @@ class MerchantRepository < Repository
     data.find_all {|item| /#{Regexp.quote(fragment.downcase)}/ =~ item.name.downcase }
   end
 
-  def inspect
-     "#<#{self.class} #{@merchants.size} rows>"
-  end
-
 end

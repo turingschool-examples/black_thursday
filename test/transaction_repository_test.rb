@@ -26,4 +26,23 @@ class TransactionRepositoryTest < Minitest::Test
     refute_empty transaction_repository.all
   end
 
+  def test_finds_by_id
+    assert_equal Transaction, transaction_repository.find_by_id(1).class
+  end
+
+  def test_finds_all_by_invoice_id
+    assert_equal Array, transaction_repository.find_all_by_invoice_id(2179).class
+    refute_empty transaction_repository.find_all_by_invoice_id(2179)
+  end
+
+  def test_find_all_by_credit_card_number
+    assert_equal Array, transaction_repository.find_all_by_credit_card_number(4068631943231473).class
+    refute_empty transaction_repository.find_all_by_credit_card_number(4068631943231473)
+  end
+
+  def test_finds_all_by_result
+    assert_equal Array, transaction_repository.find_all_by_result("success").class
+    refute_empty transaction_repository.find_all_by_result("success")
+  end
+
 end
