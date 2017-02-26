@@ -60,7 +60,7 @@ class TransactionRepository
       instance.result.downcase == result.downcase
     end
   end
-  
+
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
