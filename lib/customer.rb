@@ -1,14 +1,28 @@
-# id - returns the integer id
-# first_name - returns the first name
-# last_name - returns the last name
-# created_at - returns a Time instance for the date the customer was first created
-# updated_at - returns a Time instance for the date the customer was last modified
-# We create an instance like this:
-#
-# c = Customer.new({
-#   :id => 6,
-#   :first_name => "Joan",
-#   :last_name => "Clarke",
-#   :created_at => Time.now,
-#   :updated_at => Time.now
-# })
+class Customer
+  attr_reader :customer_hash, :repository
+
+  def initialize(hash, repository = '')
+    @customer_hash = hash
+    @repository = repository
+  end
+
+  def id
+    customer_hash[:id]
+  end
+
+  def first_name
+    customer_hash[:first_name]
+  end
+
+  def last_name
+    customer_hash[:last_name]
+  end
+
+  def created_at
+    customer_hash[:created_at]
+  end
+
+  def updated_at
+    customer_hash[:updated_at]
+  end
+end
