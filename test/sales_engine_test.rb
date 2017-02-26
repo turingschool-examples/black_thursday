@@ -1,7 +1,7 @@
-require "minitest/autorun"
-require "minitest/pride"
-require "./lib/sales_engine"
-require "simplecov"
+require 'minitest/autorun'
+require 'minitest/pride'
+require './lib/sales_engine'
+require 'simplecov'
 
 SimpleCov.start
 
@@ -35,6 +35,12 @@ class SalesEngineTest < Minitest::Test
     se = SalesEngine.from_csv({:items => './test/fixtures/items_one.csv'})
     
     assert_instance_of Item, se.items.all.first
+  end
+
+  def test_it_creates_instance_of_invoice_repository
+    se = SalesEngine.from_csv({:invoices => './test/fixtures/invoice_one.csv'})
+    
+    assert_instance_of InvoiceRepository, se.invoices
   end
 end
 
