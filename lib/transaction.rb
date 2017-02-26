@@ -32,4 +32,8 @@ class Transaction
   def updated_at
     transaction_hash[:updated_at]
   end
+
+  def invoice
+    repository.engine.invoices.find_by_id(invoice_id)
+  end
 end

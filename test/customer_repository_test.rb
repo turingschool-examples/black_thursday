@@ -13,10 +13,4 @@ class CustomerRepositoryTest < Minitest::Test
   def test_pull_csv
     assert_instance_of CSV, cr.pull_csv
   end
-
-  def test_all
-    assert_equal 100, cr.all
-  end
-
-
 end

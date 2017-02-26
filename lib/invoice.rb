@@ -57,4 +57,12 @@ class Invoice
   def invoice_items
     repository.engine.invoice_items.find_all_by_invoice_id(id)
   end
+
+  def transactions
+    repository.engine.transactions.find_all_by_invoice_id(id)
+  end
+
+  def customer
+    repository.engine.customers.find_by_id(customer_id)
+  end
 end

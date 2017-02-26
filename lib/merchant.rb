@@ -22,6 +22,11 @@ class Merchant
     repository.engine.invoices.find_all_by_merchant_id(id)
   end
 
+  def customers
+    invoices.map do |invoice|
+      invoice.customer
+    end
+  end
 end
 
 # m = Merchant.new({:id => 5, :name => "Turing School"})

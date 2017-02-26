@@ -53,4 +53,30 @@ class SalesEngineTest < Minitest::Test
     assert_equal 4, invoice.items.count
     assert_instance_of Item, invoice.items[0]
   end
+
+  def test_invoice_transactions
+    invoice = se.invoices.find_by_id(2)
+    assert_equal 2, invoice.transactions.count
+    assert_instance_of Transaction, invoice.transactions[0]
+  end
+
+  def test_invoice_customer
+    skip
+    invoice = se.invoices.find_by_id(2)
+    assert_equal 1, invoice.customer.id
+    assert_instance_of Customer, invoice.customer
+  end
+
+  def test_transactions_invoice
+    transaction = se.transactions.find_by_id(203)
+    assert_equal 144, transaction.invoice.id
+    assert_instance_of Invoice, transaction.invoice
+  end
+
+  def test_merchant_customers
+    merchant = se.merchants.find_by_id(12334371)
+    assert_equal 11, merchant.customers
+    # assert_equal 156, merchant.invoices.first.id
+  end
+
 end
