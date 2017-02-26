@@ -14,7 +14,7 @@ class SalesEngine
 
       #create a module, SalesEngineCreators
         #def if_it_exists_make_repo
-          
+
         
     se = SalesEngine.new
     se.items = ItemRepository.new(data[:items], se)
@@ -25,14 +25,15 @@ class SalesEngine
 
 end
 
- se = SalesEngine.from_csv({:items => "./data/items.csv", :merchants => "./data/merchants.csv" })
+ se = SalesEngine.from_csv({:items => "./data/items.csv", :merchants => "./data/merchants.csv", :invoices => "./data/invoices.csv" })
  ir = se.items
  mr = se.merchants
+ invr = se.invoices
 
 # binding.pry
 
 
-# ""
+""
 
 
 

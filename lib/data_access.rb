@@ -1,7 +1,8 @@
 # require_relative "../test/test_helper"
 
 module DataAccess
-  attr_reader :id, :name, :description, :unit_price, :merchant_id, :created_at, :updated_at, :parent
+  attr_reader :id, :name, :description, :unit_price, :merchant_id, :created_at, :updated_at, :parent, :status, :customer_id
+  #status and customer_id are invoice readers. Consider whether it's drier to initialize invoice here (with extra instance variables) or in invoice (with similar/repeated instance varialbes)
 
 
   def initialize(data, parent=nil)
@@ -14,6 +15,8 @@ module DataAccess
     @updated_at = data[:updated_at]
     @parent = parent
     #  binding.pry
+    @customer_id = data[:customer_id]
+    @status = data[:status]
   end
 ###
 #all
