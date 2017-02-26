@@ -36,5 +36,23 @@ class InvoiceItemTest < Minitest::Test
     assert_equal 8, @ii.invoice_id
   end
 
+  def test_quantity_returns_quantity
+    assert_equal 1, @ii.quantity
+  end
+
+  def test_unit_price_returns_unit_price
+    assert_instance_of BigDecimal, @ii.unit_price
+  end
+
+  def test_created_at_is_time_object
+    assert_instance_of Time, @ii.created_at
+  end
+
+  def test_updated_at_is_time_object
+    assert_instance_of Time, @ii.updated_at
+  end
+
+  def test_it_returns_unit_price_as_float
+    assert @ii.unit_price_to_dollars.is_a?(Float)
   end
 end
