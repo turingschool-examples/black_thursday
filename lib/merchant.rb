@@ -15,4 +15,8 @@ class Merchant
     repo.sales_engine.invoices.find_all_by_merchant_id(self.id)
   end
 
+  # def customers
+  #   repo.sales_engine.invoices.find_all_by_customer_id(self.customer_id)
+  # end
+
 end

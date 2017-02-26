@@ -22,5 +22,10 @@ class Transaction
     @repo = repo
   end
 
+  def invoice
+    repo.sales_engine.invoices.find_by_id(self.invoice_id)
+  end
+
+  
 
 end
