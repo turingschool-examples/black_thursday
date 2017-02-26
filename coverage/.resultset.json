@@ -1,0 +1,23 @@
+{
+  "Unit Tests": {
+    "coverage": {
+      "/Users/josephglass/turing/1module/black_thursday/lib/sales_engine.rb": [
+        1,
+        0,
+        null,
+        0,
+        0,
+        null,
+        0,
+        0,
+        null,
+        null,
+        0,
+        0,
+        null,
+        null
+      ]
+    },
+    "timestamp": 1487715313
+  }
+}
