@@ -40,4 +40,13 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 8.36, results
   end
 
+  def test_std_from_array
+    assert_equal 3.90, @sa.std_dev_from_array([2,6,9.8])
+    assert_equal 20.10, @sa.std_dev_from_array([11,4,0,0,0.45,13.5,56])
+  end
+
+  def test_average_items_per_merchant_standard_deviation
+    assert_equal 4.51, @sa.average_items_per_merchant_standard_deviation
+  end
+
 end
