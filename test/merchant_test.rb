@@ -21,12 +21,12 @@ class MerchantTest < Minitest::Test
         :merchants     => "./test/fixtures/temp_merchants.csv",
         :items     => "./test/fixtures/temp_items.csv"
         })
-    merchant = se.merchants.find_by_id(12334185) 
-    
+    merchant = se.merchants.find_by_id(12334185)
+
     assert_instance_of Array, merchant.items
     assert_instance_of Item, merchant.items.first
     assert_equal "Disney scrabble frames", merchant.items.last.name
   end
-  
+
 
 end

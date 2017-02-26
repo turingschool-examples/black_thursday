@@ -7,9 +7,9 @@ class Merchant
     @name = info[:name]
     @merchant_repository = merchant_repository
   end
-  
-  def items 
+
+  def items
     merchant_repository.engine.items.find_all_by_merchant_id(id)
   end
-  
+
 end
