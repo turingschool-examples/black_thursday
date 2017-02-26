@@ -34,4 +34,5 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal 4, cr.find_all_by_last_name("Dick").count
     assert_equal 61, cr.find_all_by_last_name("Leannon")[0].id
   end
+>>>>>>> master
 end

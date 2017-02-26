@@ -26,7 +26,7 @@ class CustomerRepository
   :last_name  => row[:last_name],
   :created_at => Time.parse(row[:created_at]),
   :updated_at => Time.parse(row[:updated_at])
-}, self)
+  }, self)
     end
   end
 
