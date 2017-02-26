@@ -15,13 +15,13 @@ class SalesAnalyst
 
   def all_merchants
     sales_engine.merchants.all.map do |merchant|
-      merchant.id
+      merchant
     end
   end
 
   def all_items
     sales_engine.items.all.map do |item|
-      item.id
+      item
     end
   end
 
@@ -64,6 +64,14 @@ class SalesAnalyst
     std_dev_from_array(item_count)
   end
 
+  def merchants_with_high_item_count
+    average = average_items_per_merchant
+    std_dev = average_items_per_merchant_standard_deviation
+    min_item_count = average + std_dev
+    all_merchants.find_all do |merchant|
+      merchant.items.count > min_item_count
+    end
+  end
 
   # def average_items_per_merchant_standard_deviation
   #   data = build_hash
