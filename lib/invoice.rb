@@ -46,27 +46,22 @@ class Invoice
     repo.sales_engine.customers.find_by_id(self.customer_id)
   end
 
-  def is_paid_in_full?  # returns true if the invoice is paid in full
+  def is_paid_in_full?
+    success_or_failure = transactions.map do |transaction|
+      transaction.result
+    end
 
-    # if transactions.result == "success"
-    #   true
-    #   end
-      #each transaction has a result
-      #if each transaction on an invoice is successful = paid in full
-
+    if success_or_failure.include?("success")
+      true
+    else
+      false
+    end
   end
 
   def total # invoice.total returns the total $ amount of the invoice
-
-      #find each item on the invoice
-
-      #invoice.items will do this
-          # {{{go to invoice_items connect on invoice_id
-          #connect again on item_id
-          #find each instance of item }}}}
-
-      #find each item's unit price
-      #sum all prices
+      items.map do |item|
+        item.unit_price /
+      end.reduce(:+).round(2)
   end
   # Note: Failed charges should never be counted in revenue totals or statistics.
 
