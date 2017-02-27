@@ -35,9 +35,9 @@ class MerchantRepository
   #    all.select{ |merchant| merchant.name.downcase.include?(name_frag.downcase) }
   # end
 
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
-  end
+  # def inspect
+  #   "#<#{self.class} #{@merchants.size} rows>"
+  # end
 ###########################
 end
 

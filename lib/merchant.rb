@@ -13,6 +13,18 @@ class Merchant
     parent.parent.items.find_all_by_merchant_id(@id)
   end
 
+
+
+###Taken from DataAccess, find_all_by_merchant_id. Refactor to extract find_all?
+#def invoices
+  #find_all(method_name)
+    #all.select{ |item| item.method_name == method_name(which is same as instance var name) }
+#I don't think you can pass in method calls as arguments... Except as a proc?
+
+  def invoices
+    parent.parent.invoices.find_all_by_merchant_id(@id)
+  end
+
 end
 
 

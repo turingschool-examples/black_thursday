@@ -12,7 +12,7 @@ class SalesEngine
     #files = hash.each_pair do |key, value|
       # @paths[key] = value
 
-      #create a module, SalesEngineCreators
+      #create a method, repo_creator?
         #def if_it_exists_make_repo
 
         

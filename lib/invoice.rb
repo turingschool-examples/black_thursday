@@ -10,4 +10,17 @@ class Invoice
   #   @customer_id = data[:customer_id]
   # end
 
+
+
+###
+#duplicated from Item. Should we move to data_access?
+###
+  def merchant
+    parent.parent.merchants.find_by_id(merchant_id)
+  end
+
+
+
+
+
 end
