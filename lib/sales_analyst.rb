@@ -81,4 +81,23 @@ class SalesAnalyst
     (item_prices.inject(:+) / item_prices.count).round(2)
   end
 
+  def average_average_price_per_merchant
+    (all_merchants.inject(0) { |sum, merchant| sum + average_item_price_for_merchant(merchant.id) } / all_merchants.count).round(2)
+  end
+
+  def average_price_per_item_standard_deviation
+    prices = build_hash.values.flatten
+    std_dev_from_array(prices)
+    # return some shit
+  end
+
+  def golden_items
+    std_dev = average_price_per_item_standard_deviation
+    mean = all_prices / sales_engine.items.all.count
+    min_price = (std_dev + mean) * 2
+    sales_engine.items.all.find_all do |item|
+      item.unit_price > min_price
+    end
+  end
+
 end
