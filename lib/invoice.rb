@@ -28,4 +28,29 @@ class Invoice
     @created_at.strftime('%A')
   end
 
+  def invoice_items
+    repo.sales_engine.invoice_items.find_all_by_invoice_id(self.id)
+  end
+
+  def items
+    invoice_items.map do |invoice_item|
+      invoice_item.item
+    end
+  end
+
+  def transactions
+    repo.sales_engine.transactions.find_all_by_invoice_id(self.id)
+  end
+
+  def customer
+    repo.sales_engine.customers.find_by_id(self.customer_id)
+  end
+
+  def is_paid_in_full?
+    transactions.any?{ |transaction| transaction.success? }
+  end
+
+  def total
+      invoice_items.map { |invoice_item| invoice_item.total_price }.reduce(:+).round(2)
+  end
 end

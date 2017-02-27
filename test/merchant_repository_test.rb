@@ -1,25 +1,22 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'pry'
+require_relative '../test/file_hash_setup'
 require_relative '../lib/repository'
 require_relative '../lib/sales_engine'
 require_relative '../lib/merchant_repository'
-require_relative '../lib/item_repository'
 require_relative '../lib/merchant'
-require_relative '../lib/item'
+
 
 class MerchantRepositoryTest < Minitest::Test
 
   attr_reader :file_hash, :path, :se, :repo, :merch_repo
 
+  include FileHashSetup
+
   def setup
-    @file_hash = { invoices: './data/invoices.csv',
-                  items: './data/items.csv',
-                  merchants: './data/merchants.csv',
-                  invoice_items: './data/invoice_items.csv',
-                  }
+    super
     @path = 'test/fixtures/merchant_sample_small.csv'
-    @se = SalesEngine.from_csv(file_hash)
     @repo = Repository.new(se, path, Merchant)
     @merch_repo = MerchantRepository.new(se, path)
   end
@@ -54,5 +51,4 @@ class MerchantRepositoryTest < Minitest::Test
   def test_returns_empty_array_if_no_match
     assert_equal [], merch_repo.find_all_by_name("Steph")
   end
-
 end

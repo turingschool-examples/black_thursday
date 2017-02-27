@@ -12,6 +12,7 @@ class Item
               :merchant,
               :repo
 
+
   def initialize(row, repo)
     @id = row[:id].to_i
     @name = row[:name]

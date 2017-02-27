@@ -2,19 +2,16 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'pry'
 require_relative '../lib/sales_engine'
+require_relative '../test/file_hash_setup'
 
 class SalesEngineTest < Minitest::Test
 
   attr_reader :file_hash, :se
 
+  include FileHashSetup
+
   def setup
-    @file_hash = {
-      items: './data/items.csv',
-      merchants: './data/merchants.csv',
-      invoices: './data/invoices.csv',
-      invoice_items: './data/invoice_items.csv'
-    }
-    @se = SalesEngine.from_csv(file_hash)
+    super
   end
 
   def test_from_csv
@@ -24,6 +21,8 @@ class SalesEngineTest < Minitest::Test
     assert_equal MerchantRepository, se.merchants.class
     assert_equal InvoiceRepository, se.invoices.class
     assert_equal InvoiceItemRepository, se.invoice_items.class
+    assert_equal CustomerRepository, se.customers.class
+    assert_equal TransactionRepository, se.transactions.class
   end
 
   def test_it_finds_the_number_of_merchants
@@ -37,5 +36,4 @@ class SalesEngineTest < Minitest::Test
   def test_it_can_find_number_of_items_per_merchant
     assert_equal 475, se.number_of_items_per_merchant.count
   end
-
 end

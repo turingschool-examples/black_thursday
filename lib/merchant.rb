@@ -15,4 +15,14 @@ class Merchant
     repo.sales_engine.invoices.find_all_by_merchant_id(self.id)
   end
 
+  def customers
+    uniq_customers = []
+    invoices.each do | invoice|
+      unless uniq_customers.include?(invoice.customer)
+        uniq_customers << invoice.customer
+      end
+    end
+    uniq_customers
+  end
+
 end

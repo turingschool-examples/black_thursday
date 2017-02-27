@@ -9,31 +9,27 @@ require_relative '../lib/merchant'
 require_relative '../lib/item'
 require_relative '../lib/invoice_repository'
 require_relative '../lib/invoice'
-
+require_relative '../test/file_hash_setup'
 
 class RepositoryTest < Minitest::Test
 
-  def test_load_file_merchant
-    file_hash = {
-      items: './data/items.csv',
-      merchants: './data/merchants.csv',
-      invoices: './data/invoices.csv'
-    }
-    path = 'test/fixtures/merchant_sample_small.csv'
-    se = SalesEngine.from_csv(file_hash)
-    repo = Repository.new(se, path, Merchant)
+  include FileHashSetup
 
+  attr_reader :file_hash, :se, :path, :repo, :repository
+
+  def setup
+    super
+    @path = 'test/fixtures/merchant_sample_small.csv'
+    @repo = Repository.new(se, path, Merchant)
+  end
+
+  def test_it_loads_a_repository
     assert_equal Array, repo.load_file.class
-
     assert_equal  Merchant, repo.klass
   end
 
-  # def test_load_file_item
-  #   path = 'test/fixtures/items_sample.csv'
-  #   repo = Repository.new(path, Item)
-  #   assert_equal Array, repo.load_file.class
-  #
-  #   assert_equal  Item , repo.klass
-  # end
-
+  def test_load_file_item
+    assert_equal Array, repo.load_file.class
+    refute_empty repo.load_file
+  end
 end

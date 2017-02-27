@@ -7,10 +7,12 @@ require_relative '../lib/item'
 
 class ItemTest < Minitest::Test
 
+  attr_reader :repo, :item
+
   def setup
     @item = Item.new( {:id => 263395721,
                       :name => "Disney scrabble frames", :updated_at => "2008-04-02 13:48:57 UTC", :description => "Disney glitter frames\nAny colour glitter available and can do any characters you require\nDifferent colour scrabble tiles\nBlue\nBlack\nPink\nWooden", :unit_price => 1350,
-                      :created_at => "2016-01-11 11:51:37 UTC", :merchant_id => 12334185 } )
+                      :created_at => "2016-01-11 11:51:37 UTC", :merchant_id => 12334185 }, repo )
   end
 
   def test_it_creates_an_instance_of_item
@@ -48,5 +50,4 @@ class ItemTest < Minitest::Test
   def test_it_has_a_price_in_dollas
     assert_equal 13.50, @item.unit_price_to_dollars(1350)
   end
-
 end
