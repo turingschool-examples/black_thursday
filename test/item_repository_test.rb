@@ -6,8 +6,10 @@ class ItemRepositoryTest < Minitest::Test
 
   def setup
     @se = SalesEngine.from_csv({
-      :items     => "./data/items_test_data.csv",
-      :merchants => "./data/merchants.csv",})
+      :invoices => "./data/invoices.csv",
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      })
     @ir = @se.items
   end
 
@@ -20,7 +22,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_returns_all_items
-    assert_equal 117, @ir.all.count
+    assert_equal 1367, @ir.all.count
   end
 
   def test_find_by_id
@@ -37,12 +39,12 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal [], @ir.find_all_with_description("poopmuffin")
     assert_equal 263396209, @ir.find_all_with_description("crumpling").first.id
     assert_nil @ir.find_all_with_description("poopmuffin").first
-    assert_equal 4, @ir.find_all_with_description("black").count
+    assert_equal 101, @ir.find_all_with_description("black").count
   end
 
   def test_find_all_by_price
     assert_equal 12.0, @ir.find_all_by_price(12).first.unit_price
-    assert_equal 4, @ir.find_all_by_price(30).count
+    assert_equal 48, @ir.find_all_by_price(30).count
     assert_equal [], @ir.find_all_by_price(9898989)
     refute @ir.find_all_by_price(9898989).first
 
@@ -53,7 +55,7 @@ class ItemRepositoryTest < Minitest::Test
   ### This is as far on the spec as I got for item_repository
 
   def test_find_all_by_price_in_range
-    assert_equal 2, @ir.find_all_by_price_in_range(11..12.50).count
+    assert_equal 50, @ir.find_all_by_price_in_range(11..12.50).count
     assert_instance_of Array, @ir.find_all_by_price_in_range(150..400)
     assert_nil @ir.find_all_by_price_in_range(0..0).first
   end
@@ -62,7 +64,7 @@ class ItemRepositoryTest < Minitest::Test
     results = @ir.find_all_by_merchant_id(12334185)
     assert_includes "Glitter scrabble frames", results.first.name
     assert_instance_of Array, results
-    assert_equal 3, results.count
+    assert_equal 6, results.count
     assert_nil @ir.find_all_by_merchant_id(000000).first
   end
 

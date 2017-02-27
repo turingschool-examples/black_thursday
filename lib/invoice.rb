@@ -4,9 +4,10 @@ class Invoice
               :merchant_id,
               :status,
               :created_at,
-              :updated_at
+              :updated_at,
+              :parent
 
-  def initialize(attributes, parent)
+  def initialize(attributes, parent = nil)
     @id = attributes[:id].to_i
     @customer_id = attributes[:customer_id].to_i
     @merchant_id = attributes[:merchant_id].to_i

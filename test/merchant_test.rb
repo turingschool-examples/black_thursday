@@ -6,8 +6,10 @@ class MerchantTest < Minitest::Test
 
   def setup
     @se = SalesEngine.from_csv({
-  :items     => "./data/items_test_data.csv",
-  :merchants => "./data/merchants.csv",})
+      :invoices => "./data/invoices.csv",
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      })
   end
 
   def test_it_exists
@@ -29,7 +31,7 @@ class MerchantTest < Minitest::Test
     merchant = @se.merchants.find_by_id(12334783)
 
     assert_instance_of Array, merchant.items
-    assert_equal 2, merchant.items.count
+    assert_equal 4, merchant.items.count
     assert_equal "Freedom", merchant.items.first.name
   end
 

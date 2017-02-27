@@ -4,9 +4,11 @@ require './lib/sales_analyst'
 class SalesAnalystTest < Minitest::Test
 
   def setup
-    se = SalesEngine.from_csv({
+    @se = SalesEngine.from_csv({
+      :invoices => "./data/invoices.csv",
       :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",})
+      :merchants => "./data/merchants.csv",
+      })
     @sa = SalesAnalyst.new(se)
   end
 

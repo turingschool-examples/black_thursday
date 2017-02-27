@@ -6,9 +6,10 @@ class ItemTest < Minitest::Test
 
   def setup
     @se = SalesEngine.from_csv({
-  :items     => "./data/items.csv",
-  :merchants => "./data/merchants.csv",})
-
+      :invoices => "./data/invoices.csv",
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      })
     @i = Item.new({
       :id          => 1111,
       :merchant_id => 222222,
