@@ -58,6 +58,16 @@ class SalesAnalyst
     numbered_days = Hash.new()
     invoice_repository.invoices.each { |invoice| numbered_days[] }
   end
+
+  def invoice_days
+    invoice_repository.invoices.map { |invoice| invoice.created_at.strftime("%A") }
+  end
+
+  def invoice_day_count
+    days = invoice_days
+    days.each_with_object(Hash.new(0)) { |day, counts| counts[day] += 1 }
+  end
+
 #------------------ Merchant Analyst ------------------
 
   def average_items_per_merchant
@@ -106,7 +116,6 @@ class SalesAnalyst
   def top_merchants_by_invoice_count
     avg = average_invoices_per_merchant
     std_dev = average_invoices_per_merchant_standard_deviation
-
     merchant_repository.merchants.select do |merchant|
       merchant.invoices.length > avg + (std_dev * 2)
     end
@@ -115,21 +124,20 @@ class SalesAnalyst
   def bottom_merchants_by_invoice_count
     avg = average_invoices_per_merchant
     std_dev = average_invoices_per_merchant_standard_deviation
-
     merchant_repository.merchants.select do |merchant|
-      merchant.invoices.length < avg + (std_dev * 2)
+      merchant.invoices.length < avg - (std_dev * 2)
     end
   end
 
   def top_days_by_invoice_count
-    binding.pry
-    days = invoice_repository.invoices.map { |invoice| invoice.created_at.strftime("%A") }
-    day_totals = days.each_with_object(Hash.new(0)) { |day, counts| counts[day] += 1 }
-    day_totals.select {|key,value| value > sd }
+    day_totals = invoice_day_count
+    sd = average(day_totals.values) + standard_deviation(day_totals.values)
+    top_days = day_totals.select {|key,value| value > sd }
+    top_days.map { |day| day[0].to_s}
   end
 
   def invoice_status(status)
-    numerator = invoice_repository.find_all_by_status("#{status}")
+    numerator = invoice_repository.find_all_by_status(status)
     denominator = invoice_repository.invoices.length
     percentage(numerator, denominator)
   end
