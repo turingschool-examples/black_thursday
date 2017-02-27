@@ -18,4 +18,14 @@ class Customer
   end
 
 
+  def invoices
+    repo.sales_engine.invoices.find_all_by_customer_id(self.id)
+  end
+
+  def merchants
+    invoices.map do |invoice|
+      invoice.customer
+    end
+  end 
+
 end
