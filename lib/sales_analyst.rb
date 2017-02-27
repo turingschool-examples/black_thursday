@@ -71,4 +71,33 @@ class SalesAnalyst
     end
   end
 
+  def bottom_merchants_by_invoice_count
+    std_dev = average_invoices_per_merchant_standard_deviation
+    mean = average_invoices_per_merchant
+    count = mean - (std_dev * 2 )
+    merchants.all.find_all do |merchant|
+      merchant.invoices.count < count
+    end
+  end
+
+  def top_days_by_invoice_count
+    mean = average_invoices_per_merchant  # 10.49
+    std_dev = average_invoices_per_merchant_standard_deviation
+    count = mean + std_dev
+    merch = merchants.all.find_all do |merchant|
+      merchant.invoices.count > count
+      binding.pry
+    end
+
+
+    merch.map do |merchant|
+      merchant.invoice.strftime("%A")
+    end
+    days_and_frequency = Hash.new(0)
+    days.each {|day| days_and_frequency[day] += 1}
+
+
+  end
+
+
 end

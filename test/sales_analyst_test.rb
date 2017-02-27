@@ -74,4 +74,17 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 12, result.count
   end
 
+  def test_bottom_merchants_by_invoice_count
+    result = @sa.bottom_merchants_by_invoice_count
+    assert_instance_of Array, result
+    assert_equal 4, result.count
+    assert_equal "WellnessNeelsen", result.first.name
+  end
+
+  def test_top_days_by_invoice_count
+    result = @sa.top_days_by_invoice_count
+    assert_equal "Wednesday", result.first
+    assert_instance_of Array, result
+  end
+
 end
