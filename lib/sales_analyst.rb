@@ -150,4 +150,8 @@ class SalesAnalyst
     end
     (100 * status_count.to_f / all_invoices.count.to_f).round(2)
   end
+
+  def total_revenue_by_date(date)
+    engine.invoices.find_all_by_created_date(date)
+  end
 end

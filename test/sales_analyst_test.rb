@@ -8,7 +8,10 @@ class SalesAnalystTest < Minitest::Test
     @se = SalesEngine.from_csv({
       :items => "./test/fixtures/item_fixture.csv",
       :merchants => "./test/fixtures/merchant_fixture.csv",
-      :invoices => "./test/fixtures/invoice_fixture.csv"
+      :invoices => "./test/fixtures/invoice_fixture.csv",
+      :invoice_items => "./test/fixtures/invoice_items_fixture.csv",
+      :transactions => "./test/fixtures/transaction_fixture.csv",
+      :customers => "./test/fixtures/customer_fixture.csv",
       })
     @sa = SalesAnalyst.new(se)
   end
@@ -84,4 +87,8 @@ class SalesAnalystTest < Minitest::Test
   end
 
 
+  def test_total_revenue_by_date
+    date = Time.parse("2009-02-07")
+    assert_equal 1, sa.total_revenue_by_date(date).count
+  end
 end
