@@ -1,8 +1,11 @@
 require_relative 'merchant_repository'
 require_relative 'item_repository'
+require_relative 'functions'
+
 
 class SalesAnalyst
-  attr_reader :se
+  include Functions
+  attr_reader :se, :average_items_merchant, :average_price_item
 
   def initialize(sales_engine)
     @se = sales_engine
@@ -32,8 +35,135 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    # if merchant has more items than standard deviation, put it in the array
-    
+    benchmark = average_items_per_merchant + average_items_per_merchant_standard_deviation
+    high_performers = []
+    se.merchants.all.each do |merchant|
+      if merchant.items.count > benchmark
+        high_performers << merchant
+      end
+    end
+    high_performers
   end
+
+  def average_item_price_for_merchant(merchant_id)
+    merchant_items = se.items.find_all_by_merchant_id(merchant_id)
+    sum_item_prices = merchant_items.map do |item|
+      item.unit_price
+    end.reduce(:+)
+    (sum_item_prices / merchant_items.count).round(2)
+  end
+
+  def average_average_price_per_merchant
+    sum_all_averages = se.merchants.all.map do |merchant|
+      average_item_price_for_merchant(merchant.id)
+    end.reduce(:+)
+    (sum_all_averages / se.merchants.all.count).round(2)
+  end
+
+  def average_item_price
+    total_item_price = se.items.all.map do |item|
+      item.unit_price
+    end.reduce(:+)
+    total_item_price / se.items.all.count
+  end
+
+  def item_price_standard_deviation
+    Math.sqrt(golden_items_numerator / golden_items_denominator).round(2)
+  end
+
+  def golden_items_numerator
+    se.items.all.map do |item|
+      (item.unit_price - average_price_item)**2
+    end.reduce(:+)
+  end
+
+  def golden_items_denominator
+    se.items.all.count - 1
+  end
+
+  def golden_items
+    @average_price_item =  average_item_price
+    benchmark = item_price_standard_deviation * 2
+    golden_items = []
+    se.items.all.each do |item|
+      if item.unit_price > benchmark
+        golden_items << item
+      end
+    end
+    golden_items
+  end
+
+  def average_invoices_per_merchant
+    find_average(total_invoices_of_each_merchant).round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    standard_deviation(total_invoices_of_each_merchant, average_invoices_per_merchant, se.merchants.all.length)
+  end
+
+
+  def total_invoices_of_each_merchant
+    se.merchants.all.map do |merchant|
+      validate_number(merchant.invoices)
+    end
+  end
+
+  def top_merchants_by_invoice_count
+    find_high_invoice_count(
+    above_standard_deviation(average_invoices_per_merchant, average_invoices_per_merchant_standard_deviation, 2)
+    )
+  end
+
+  def find_high_invoice_count(above)
+    se.merchants.all.find_all do |merchant|
+      merchant.invoices.length > above
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    find_low_invoice_count(
+    below_standard_deviation(average_invoices_per_merchant, average_invoices_per_merchant_standard_deviation, 2)
+    )
+  end
+
+  def find_low_invoice_count(above)
+    se.merchants.all.find_all do |merchant|
+      merchant.invoices.length < above
+    end
+  end
+
+  def invoice_status(status)
+    ((number_of_invoices(status) / se.invoices.all.length.to_f) * 100).round(2)
+  end
+
+  def number_of_invoices(status)
+    se.invoices.all.reduce(0) do |result, invoice|
+      result += 1 if invoice.status == status
+      result
+    end
+  end
+
+  def top_days_by_invoice_count
+    find_top_days_by_invoice_count(
+    above_standard_deviation(average_invoices_created_per_day, average_invoices_per_day_standard_deviation)
+    )
+  end
+
+  def find_top_days_by_invoice_count(average)
+    days = ["Sunday", "Monday", "Tuesday", "Wednesday",
+            "Thursday", "Friday", "Saturday"]
+    split_invoices_by_creation_date.map.with_index do |invoices_on_day, i|
+      days[i] if invoices_on_day > average
+    end.compact
+  end
+
+  def average_invoices_per_day_standard_deviation
+    standard_deviation(split_invoices_by_creation_date, average_invoices_created_per_day, 7)
+  end
+
+  def average_invoices_created_per_day
+    find_average(split_invoices_by_creation_date).round(2)
+  end
+
 
 end

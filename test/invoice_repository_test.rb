@@ -17,15 +17,8 @@ class InvoiceRepositoryTest < Minitest::Test
 	end
 
 	def	test_can_find_all_by_customer_id
-		skip
-		assert_instance_of Invoice, invoices.find_all_by_customer_id(6)
-		assert_equal 6, invoices.find_all_by_customer_id(6).id
-		assert_equal 62334389, invoices.find_all_by_customer_id(1).merchant_id
+		assert_instance_of Array, invoices.find_all_by_customer_id(6)
+		assert_equal 24, invoices.find_all_by_customer_id(6)[0].id
+		assert_equal 12335938, invoices.find_all_by_customer_id(1)[0].merchant_id
 	end
 end
-
-# all - returns an array of all known Invoice instances
-# find_by_id - returns either nil or an instance of Invoice with a matching ID
-# find_all_by_customer_id - returns either [] or one or more matches which have a matching customer ID
-# find_all_by_merchant_id - returns either [] or one or more matches which have a matching merchant ID
-# find_all_by_status - returns either [] or one or more matches which have a matching status

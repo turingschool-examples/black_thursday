@@ -10,6 +10,7 @@ class SalesEngineTest < Minitest::Test
 		@se = SalesEngine.from_csv({
 			:items     => "./test/fixtures/items_reduced.csv",
 			:merchants => "./test/fixtures/merchant_reduced.csv",
+			:invoices => "./test/fixtures/invoices_reduced.csv"
 		})
 		@sa = SalesAnalyst.new(se)
 	end
@@ -48,14 +49,32 @@ class SalesEngineTest < Minitest::Test
 	end
 
 	def test_standard_deviation
-		assert_equal 0.58, sa.average_items_per_merchant_standard_deviation
+		assert_equal 1.08, sa.average_items_per_merchant_standard_deviation
 	end
 
-	def test_highest_sellers
-		skip
-		assert_equal 12, sa.merchants_with_high_item_count.first.name
-		assert_equal 12, sa.merchants_with_high_item_count.first.items.count
-		assert_equal 12, sa.merchants_with_high_item_count.last.name
-		assert_equal 12, sa.merchants_with_high_item_count.last.items.count
+	def test_average_invoices_per_merchant
+		assert_equal 0.33, sa.average_invoices_per_merchant
+	end
+
+	def test_average_invoices_per_merchant_standard_deviation
+		assert_equal 0.58, sa.average_invoices_per_merchant_standard_deviation
+	end
+
+	def test_top_merchants_by_invoice_count
+		assert_equal [], sa.top_merchants_by_invoice_count
+	end
+
+	def test_bottom_merchants_by_invoice_count
+		assert_equal [], sa.bottom_merchants_by_invoice_count
+	end
+
+	def test_invoice_status
+		assert_equal 60.71, sa.invoice_status(:shipped)
+		assert_equal 35.71, sa.invoice_status(:pending)
+		assert_equal 3.57, sa.invoice_status(:returned)
+	end
+
+	def test_top_days_by_invoice_count
+		assert_equal ["Friday"], sa.top_days_by_invoice_count
 	end
 end

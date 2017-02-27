@@ -1,7 +1,9 @@
 require'csv'
 require_relative'merchant'
+require_relative'inspect'
 
 class MerchantRepository
+	include Inspect
 	attr_reader :merchant, :all, :sales_engine
 
 	def initialize(merchant_path, sales_engine)
@@ -41,7 +43,4 @@ class MerchantRepository
 		end
 	end
 
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
-  end
 end

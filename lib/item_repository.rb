@@ -1,7 +1,9 @@
 require'csv'
 require_relative'item'
+require_relative'inspect'
 
 class ItemRepository
+	include Inspect
 	attr_reader :items, :all, :sales_engine
 
 	def initialize(item, sales_engine)
@@ -65,7 +67,4 @@ class ItemRepository
 		end
 	end
 
-	def inspect
-    "#<#{self.class} #{@items.size} rows>"
-	end
 end

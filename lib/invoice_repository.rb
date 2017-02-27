@@ -1,8 +1,10 @@
 require'csv'
+require_relative'inspect'
 require_relative'invoice'
 
 class InvoiceRepository
 	attr_reader :sales_engine, :invoice, :all
+	include Inspect
 
 	def initialize(invoice_path, sales_engine)
 		@invoice = CSV.open invoice_path, headers: true, header_converters: :symbol
@@ -47,10 +49,6 @@ class InvoiceRepository
 				instance
 			end
 		end
-	end
-
-	def inspect
-    "#<#{self.class} #{@invoices.size} rows>"
 	end
 
 end
