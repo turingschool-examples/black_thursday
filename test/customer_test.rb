@@ -1,11 +1,14 @@
 require_relative 'test_helper'
 require_relative '../lib/customer'
+require_relative 'sales_engine_methods'
 
 class CustomerTest < Minitest::Test
+  include SalesEngineMethods
 
-attr_reader :c
+  attr_reader :c, :se
 
   def setup
+    create_sales_engine
     @c = Customer.new({
       :id => 2,
       :first_name => "Cecelia",
@@ -43,6 +46,13 @@ attr_reader :c
 
   def test_it_knows_customer_repo
     assert_equal "customer_repo", c.customer_repo
+  end
+
+  def test_it_can_find_merchants_for_given_customer
+    customer = se.customers.find_by_id(1)
+
+    assert_instance_of Array, customer.merchants
+    assert_equal 5, customer.merchants.count
   end
 
 end

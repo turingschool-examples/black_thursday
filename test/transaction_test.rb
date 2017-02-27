@@ -1,11 +1,13 @@
 require_relative 'test_helper'
 require_relative '../lib/transaction'
+require_relative 'sales_engine_methods'
 
 class TransactionTest < Minitest::Test
-
-  attr_reader :t, :t2
+  include SalesEngineMethods
+  attr_reader :t, :t2, :se
 
   def setup
+    create_sales_engine
     @t = Transaction.new({
       :id => 4,
       :invoice_id => 4126,
@@ -33,7 +35,7 @@ class TransactionTest < Minitest::Test
   end
 
   def test_it_knows_credit_card_number
-    assert_equal "4048033451067370", t.credit_card_number
+    assert_equal 4048033451067370, t.credit_card_number
   end
 
   def test_it_knows_credit_card_expiration
@@ -56,6 +58,12 @@ class TransactionTest < Minitest::Test
 
   def test_it_knows_transaction_repo
     assert_equal "transaction_repo", t.transaction_repo
+  end
+
+  def test_it_can_find_invoice_based_on_transaction_id
+    transaction = se.transactions.find_by_id(8)
+    assert_instance_of Invoice, transaction.invoice
+    assert_equal 1, transaction.invoice.id
   end
 
 end

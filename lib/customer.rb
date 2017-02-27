@@ -23,6 +23,11 @@ class Customer
   def updated_at
     Time.parse(@updated_at)
   end
-  
 
+  def merchants
+    customer_invoices = customer_repo.engine.invoices.find_all_by_customer_id(id)
+    customer_invoices.map do |invoice|
+      invoice.invoice_repository.engine.merchants.find_by_id(invoice.id)
+    end
+  end
 end

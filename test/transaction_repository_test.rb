@@ -33,10 +33,10 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_credit_card_number
-    assert_instance_of Array, tr.find_all_by_credit_card_number("4463525332822998")
-    assert_equal 1, tr.find_all_by_credit_card_number("4463525332822998").count
-    assert_equal 1752, tr.find_all_by_credit_card_number("4463525332822998").first.invoice_id
-    assert_instance_of Transaction, tr.find_all_by_credit_card_number("4463525332822998").first
+    assert_instance_of Array, tr.find_all_by_credit_card_number(4149654190362629)
+    assert_equal 1, tr.find_all_by_credit_card_number(4149654190362629).count
+    assert_equal 1752, tr.find_all_by_credit_card_number(4149654190362629).first.invoice_id
+    assert_instance_of Transaction, tr.find_all_by_credit_card_number(4149654190362629).first
   end
 
   def test_it_knows_all_by_result

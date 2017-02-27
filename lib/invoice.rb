@@ -20,8 +20,37 @@ class Invoice
   def updated_at
     Time.parse(@updated_at)
   end
-  
+
   def merchant
     invoice_repository.engine.merchants.find_by_id(merchant_id)
   end
+
+  def items
+    invoice_repository.engine.invoice_items.find_all_by_invoice_id(id)
+  end
+
+  def transactions
+    invoice_repository.engine.transactions.find_all_by_invoice_id(id)
+  end
+
+  def customer
+    invoice_repository.engine.customers.find_by_id(customer_id)
+  end
+
+  def is_paid_in_full?
+    result = transactions.map {|transaction| transaction.result == "success"}
+    if result.include?(false)
+      false
+    else
+      true
+    end
+  end
+
+  def total
+    sum = items.reduce(0) do |total, item|
+      total + item.unit_price_to_dollars * item.quantity
+    end
+    sum
+  end
+
 end

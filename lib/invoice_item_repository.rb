@@ -26,4 +26,8 @@ class InvoiceItemRepository
   def find_all_by_invoice_id(invoice_num)
     all.select {|invoiceitem| invoiceitem.invoice_id == invoice_num}
   end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 end

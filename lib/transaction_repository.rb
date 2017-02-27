@@ -30,4 +30,8 @@ class TransactionRepository
   def find_all_by_result(approval)
     all.select {|transaction| transaction.result == approval}
   end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 end

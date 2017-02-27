@@ -42,14 +42,14 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_it_finds_all_by_merchant_id
     assert_instance_of Invoice, ir.find_all_by_merchant_id(12334753).first
-    assert_equal 2, ir.find_all_by_merchant_id(12334753).count
+    assert_equal 1, ir.find_all_by_merchant_id(12334753).count
     assert_equal 2, ir.find_all_by_merchant_id(12334753).first.id
   end
 
   def test_it_returns_empty_array_when_merchant_id_not_found
     assert_equal [], ir.find_all_by_merchant_id("rrrrrrrr")
   end
-  
+
   def test_it_finds_all_by_status
     assert_instance_of Invoice, ir.find_all_by_status("shipped").first
     assert_equal 2, ir.find_all_by_status("shipped").count
