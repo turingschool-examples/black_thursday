@@ -23,7 +23,7 @@ class SalesAnalystTest < Minitest::Test
   # end
 
   def test_average_items_per_merchant
-    assert_equal 1.88, sa.average_items_per_merchant
+    assert_equal 1.98, sa.average_items_per_merchant
   end
 
   def test_average_items_per_merchant_standard_deviation
@@ -44,11 +44,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_item_price
-    assert_equal (BigDecimal.new(16686)/100), sa.average_item_price
+    assert_equal (BigDecimal.new(16162)/100), sa.average_item_price
   end
 
   def test_average_item_price_standard_deviation
-    assert_equal 376.88, sa.average_item_price_standard_deviation
+    assert_equal 368.77, sa.average_item_price_standard_deviation
   end
 
   def test_golden_items
@@ -57,7 +57,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_invoices_per_merchant
-    assert_equal 11.0, sa.average_invoices_per_merchant
+    assert_equal 11.02, sa.average_invoices_per_merchant
   end
 
   def test_average_invoices_per_merchant_standard_deviation
@@ -78,10 +78,13 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_invoice_status
-    assert_equal 29.18, sa.invoice_status(:pending)
-    assert_equal 55.6, sa.invoice_status(:shipped)
-    assert_equal 15.22, sa.invoice_status(:returned)
+    assert_equal 29.11, sa.invoice_status(:pending)
+    assert_equal 55.7, sa.invoice_status(:shipped)
+    assert_equal 15.19, sa.invoice_status(:returned)
   end
 
-
+  def test_total_revenue_by_date
+    skip
+    assert_equal ' ', sa.total_revenue_by_date(date)
+  end
 end
