@@ -1,4 +1,6 @@
 require_relative "item"
+
+
 class ItemRepository
   attr_reader :repository
   def initialize(item_csv, parent)
@@ -20,7 +22,7 @@ class ItemRepository
   end
 
   def all
-    @repository.map do |key, value|
+    @repository.map do  |key, value|
       value
     end
   end
