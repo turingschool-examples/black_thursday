@@ -21,7 +21,18 @@ class SalesAnalystTest < Minitest::Test
   end
   
   def test_merchants_selling_more_items
-    assert_equal 452, @sales_analyst.merchants_with_high_item_count.length
+    assert_equal 52, @sales_analyst.merchants_with_high_item_count.length
   end
   
+  def test_average_price_merchant
+    assert_instance_of BigDecimal , @sales_analyst.average_item_price_for_merchant(12334159)
+  end
+
+  def test_average_of_averages
+    assert_instance_of BigDecimal , @sales_analyst.average_average_price_per_merchant
+  end
+
+  def test_price_standard_dev
+    assert_equal 3, @sales_analyst.price_std_dev
+  end
 end

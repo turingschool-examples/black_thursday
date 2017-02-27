@@ -1,4 +1,4 @@
-# require 'csv'
+require 'csv'
 require_relative 'merchant_repository'
 require_relative 'item_repository'
 require 'pry'
@@ -23,4 +23,3 @@ class SalesEngine
 end
 
 
-sa = SalesAnalyst.new(se)
