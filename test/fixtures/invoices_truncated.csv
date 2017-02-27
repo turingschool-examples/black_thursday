@@ -1,5 +1,0 @@
-id,customer_id,merchant_id,status,created_at,updated_at
-1,1,12335938,pending,2009-02-07,2014-03-15
-2,1,12334753,shipped,2012-11-23,2013-04-14
-25,6,12334115,returned,2011-08-08,2015-07-21
-777,148,12334753,shipped,2000-07-29,2001-09-09

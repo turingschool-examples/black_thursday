@@ -8,7 +8,7 @@ class Item
     @id = info[:id].to_i
     @name = info[:name]
     @description = info[:description]
-    @unit_price = BigDecimal.new(info[:unit_price].to_f/100, 4)
+    @unit_price = BigDecimal.new(info[:unit_price].to_f/100, 8)
     @created_at = info[:created_at]
     @updated_at = info[:updated_at]
     @merchant_id = info[:merchant_id].to_i
