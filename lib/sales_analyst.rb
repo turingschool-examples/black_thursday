@@ -1,4 +1,4 @@
-class SalesAnalyst
+  class SalesAnalyst
   attr_reader :se_inst
 
   def initialize(se_inst)

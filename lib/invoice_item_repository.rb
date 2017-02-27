@@ -17,6 +17,7 @@ class InvoiceItemRepository
 	def invoice_item_maker
 		open_contents.each do |row|
 			id = row[:id].to_i
+			binding.pry
       #add bigdecimal/Time for price/created_at/updated_at
 			invoice_items[id] = invoice_item.new({:id => id, :item_id => row[:item_id].to_i, :invoice_id => row[:invoice_id].to_i, :quantity => row[:quantity].to_i, :unit_price => row[:unit_price], :created_at => row[:created_at], :updated_at => row[:updated_at]}, self)
 		end
