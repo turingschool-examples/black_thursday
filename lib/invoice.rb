@@ -28,22 +28,15 @@ class Invoice
     @created_at.strftime('%A')
   end
 
-  def items
-    total = repo.sales_engine.invoice_items.find_all_by_invoice_id(self.id)
-    #we now have a bunch of invoices in an array
-    #find_all corresponding item ids
-
-    item_ids = total.each { |invoice_item| puts invoice_item.item_id  }
-    #we have an array of item ids
-    #we want to return the instance of item associated with each of these numbers
-    # go into the item repo and pick out each instance that has the
-    item_ids.each do |item_id|
-  # give me the intance of Item associted with the id
-
-
-
+  def invoice_items
+    repo.sales_engine.invoice_items.find_all_by_invoice_id(self.id)
   end
 
+  def items
+    invoice_items.map do |invoice_item|
+      invoice_item.item
+    end
+  end
 
   def transactions
     repo.sales_engine.transactions.find_all_by_invoice_id(self.id)
@@ -52,5 +45,29 @@ class Invoice
   def customer
     repo.sales_engine.customers.find_by_id(self.customer_id)
   end
+
+  def is_paid_in_full?  # returns true if the invoice is paid in full
+
+    # if transactions.result == "success"
+    #   true
+    #   end
+      #each transaction has a result
+      #if each transaction on an invoice is successful = paid in full
+
+  end
+
+  def total # invoice.total returns the total $ amount of the invoice
+
+      #find each item on the invoice
+
+      #invoice.items will do this
+          # {{{go to invoice_items connect on invoice_id
+          #connect again on item_id
+          #find each instance of item }}}}
+
+      #find each item's unit price
+      #sum all prices
+  end
+  # Note: Failed charges should never be counted in revenue totals or statistics.
 
 end

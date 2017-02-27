@@ -26,4 +26,9 @@ class InvoiceItem
     BigDecimal.new(price) / 100
   end
 
+
+  def item
+    repo.sales_engine.items.find_by_id(self.item_id)
+  end
+
 end
