@@ -15,7 +15,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_return_array_of_all_merchant_ids
-    assert_equal 475, @sa.merchants.count
+    assert_equal 475, @sa.merchants.all.count
   end
 
   def test_average_items_per_merchant

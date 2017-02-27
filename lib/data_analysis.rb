@@ -8,8 +8,6 @@ module DataAnalysis
   end
 
   def average_of_items(item_1, item_2)
-    # by default, could accept one argument and divide by arg count
-    # perhaps optional 2nd arg, if included, divide item_1 by item_2?
     (item_1.to_f / item_2.to_f).round(2)
   end
 
