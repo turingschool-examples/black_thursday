@@ -4,17 +4,18 @@ require './lib/item.rb'
 require './test/test_helper.rb'
 
 class ItemTest < Minitest::Test
+
   def setup
     @item = {
       :name        => "Pencil",
       :description => "You can use it to write things",
       :unit_price  => BigDecimal.new(10.99,4),
       :created_at  => Time.now,
-      :updated_at  => Time.now,
+      :updated_at  => Time.now
       }
       @parent = ""
   end
-  
+
   def test_it_exists
     assert_instance_of Item, Item.new(@item, @parent)
   end
@@ -42,6 +43,6 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_can_find_merchant
-    assert_instance_of Merchant, 
+    assert_instance_of Merchant
   end
 end
