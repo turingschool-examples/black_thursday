@@ -2,6 +2,7 @@ require_relative 'sales_engine'
 require_relative 'merchant'
 require_relative 'calculator'
 require 'bigdecimal'
+require 'pry'
 
 class SalesAnalyst
 
@@ -121,10 +122,10 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-
-    # make a count for invoices that are created on each day
-    # return two highest days
-    # => ["Sunday", "Saturday"]
+    binding.pry
+    days = invoice_repository.invoices.map { |invoice| invoice.created_at.strftime("%A") }
+    day_totals = days.each_with_object(Hash.new(0)) { |day, counts| counts[day] += 1 }
+    day_totals.select {|key,value| value > sd }
   end
 
   def invoice_status(status)
