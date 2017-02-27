@@ -59,6 +59,12 @@ class InvoiceRepository
     end
   end
 
+  def find_all_by_created_date(date)
+    invoices_array.find_all do |instance|
+      instance.created_at == date
+    end
+  end
+
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
