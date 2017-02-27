@@ -15,11 +15,11 @@ class TransactionTest < Minitest::Test
       :transactions  => "./data/transactions.csv"
       })
 
-    @tr = Transaction.new({
+    @t = Transaction.new({
       :id         => 22,
       :invoice_id => 3543,
       :credit_card_number => 4172068877354384,
-      :credit_card_expiration_date => 1117,
+      :credit_card_expiration_date => 0117,
       :result      => "success",
       :created_at  => "2012-02-26 20:56:57 UTC",
       :updated_at  => "2012-02-26 20:56:57 UTC"
@@ -43,7 +43,7 @@ class TransactionTest < Minitest::Test
   end
 
   def test_it_returns_credit_card_expiration_date
-    assert_equal 1117, @t.credit_card_expiration_date
+    assert_equal 0117, @t.credit_card_expiration_date
   end
 
   def test_it_returns_transaction_result

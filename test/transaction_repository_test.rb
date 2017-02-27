@@ -64,7 +64,7 @@ def setup
 
   def test_it_can_find_all_transactions_matching_result
     transaction = @tr.find_all_by_result("success")
-    assert_equal 2839, transaction.count
+    assert_equal 4158, transaction.count
     assert_instance_of Array, @tr.find_all_by_result("success")
   end
 
