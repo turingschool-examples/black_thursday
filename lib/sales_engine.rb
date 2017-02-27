@@ -14,13 +14,11 @@ class SalesEngine
     se = SalesEngine.new()
     rb = RepoBuilder.new(se)
     ob = ObjectBuilder.new
-
     arry_objects = ob.read_csv(args)
     repos = rb.build_repos(arry_objects)
 
     ob.assign_parents(repos)
     se.set_variables(repos)
-
     return se
   end
 

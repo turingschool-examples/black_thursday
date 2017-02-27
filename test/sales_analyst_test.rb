@@ -8,6 +8,7 @@ class SalesAnalystTest < Minitest::Test
     @se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
+    :invoices  => "./data/invoices.csv"
     })
     @sa = SalesAnalyst.new(se)
   end
@@ -84,12 +85,10 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_invoices_per_merchant_standard_deviation
-    skip
     assert_equal 3.29, sa.average_invoices_per_merchant_standard_deviation
   end
 
   def test_top_merchants_by_invoice_count
-    skip
     top_merchants_list = sa.top_merchants_list_by_invoice_count
     assert_instance_of Array, top_merchants_list
     assert_equal 23,top_merchants_list.length
@@ -107,6 +106,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_days_by_invoice_count
+    skip
     assert_equal ["Sunday", "Saturday"], sa.top_days_by_invoice_count
   end
 end

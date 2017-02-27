@@ -38,7 +38,7 @@ class SalesAnalyst
   end
 
   def invoice_per_merchant
-    merchant_repository.merchant.map { |merchant| merchant.invoices.length }
+    merchant_repository.merchants.map { |merchant| merchant.invoices.length }
   end
 
   def price_per_item
@@ -61,6 +61,7 @@ class SalesAnalyst
 
   def average_items_per_merchant
     average(items_per_merchant)
+
   end
 
   def average_items_per_merchant_standard_deviation
@@ -105,9 +106,10 @@ class SalesAnalyst
     avg = average_invoices_per_merchant
     std_dev = average_invoices_per_merchant_standard_deviation
 
-    merchant_repository.merchants.select do |merchant|
+    a = merchant_repository.merchants.select do |merchant|
       merchant.invoice.length > avg + (std_dev * 2)
     end
+    binding.pry
   end
 
   def bottom_merchants_by_invoice_count
@@ -120,7 +122,7 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-    
+
     # make a count for invoices that are created on each day
     # return two highest days
     # => ["Sunday", "Saturday"]
