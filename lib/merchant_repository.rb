@@ -5,44 +5,54 @@ class MerchantRepository
   attr_reader :merchant_repository, :merchant_csv, :se_parent
 
   def initialize(merchant_csv = nil, se_parent)
-    @merchant_csv = merchant_csv
+    @merchant_csv = CSV.open merchant_csv, headers: true, header_converters: :symbol
     @se_parent = se_parent
+    make_merchant_repository
   end
 
   def make_merchant_repository
     @merchant_repository = {}
     @merchant_csv.read.each do |merchant|
-      @merchant_repository[merchant[:merchant_id]] = Merchant.new(merchant, self)
+      @merchant_repository[merchant[:id]] = Merchant.new(merchant, self)
     end
     return self
   end
 
-  #The MerchantRepository is responsible for holding and searching our Merchant instances. It offers the following methods:
-
-  def all #- returns an array of all known Merchant instances
-    @all_merchants = []
-    @merchant_repository.each do |key, value|
-      @all_merchants << value
-      require "pry"; binding.pry
-    end
-  end
-
-  def find_by_id(id = nil) #- returns either nil or an instance of Merchant with a matching ID
-    all.find do |instance|
-      instance.send(search_hash.keys[0]) == search_hash.values[0]
-    end
-  end
-
-  def find_by_name #- returns either nil or an instance of Merchant having done a case insensitive search
-
-  end
-
-  def find_all_by_name #- returns either [] or one or more matches which contain the supplied name fragment, case insensitive
-
-  end
-
   def inspect
-    "#<#{self.class} #{@merchant_repository.size} rows>"
+    "#<#{self.class} #{merchant_repository.size} rows>"
   end
+
+  def all
+    merchant_repository.map do |key, value|
+      value
+    end
+  end
+
+  def find_by_id(id)
+    if merchant_repository[id.to_s]
+      merchant_repository[id.to_s]
+    else
+      nil
+    end
+  end
+
+  def find_by_name(name_search)
+    all.find do |merchant|
+      merchant.name.downcase == name_search.downcase
+    end
+  end
+
+  def find_all_by_name(partial)
+    all.find_all do |merchant|
+      merchant.name.downcase.include?(partial.downcase)
+    end
+  end
+
+  # def generate_revenue_array
+  #   revenue_array = all.map do |merchant|
+  #     {merchant => merchant.revenue}
+  #   end
+  #   @revenue_array = revenue_array.sort_by { |hash| -hash.values[0]}
+  # end
 
 end
