@@ -28,7 +28,7 @@ class InvoiceRepository
     invoices.select { |row| row.status == status }
   end
 
-  def inspect
-  "#<#{self.class} #{@merchants.size} rows>"
-  end
+  # def inspect
+  # "#<#{self.class} #{@merchants.size} rows>"
+  # end
 end
