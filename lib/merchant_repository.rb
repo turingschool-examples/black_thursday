@@ -24,7 +24,6 @@ class MerchantRepository
   end
 
   def inspect
-    binding.pry
     "#<#{self.class} #{@merchants.size} rows>"
   end
 

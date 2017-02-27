@@ -40,11 +40,11 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_status
-    assert_equal 499, @ir.find_all_by_status("pending")
+    assert_equal 1473, @ir.find_all_by_status("pending").count
+    assert_equal 2839, @ir.find_all_by_status("shipped").count
   end
 
   def test_find_merchant
-    skip
     assert_equal "merchant name", @ir.merchant(22)
 
   end

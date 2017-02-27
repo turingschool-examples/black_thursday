@@ -5,6 +5,7 @@ task :unit_test do
   ruby "test/file_loader_test.rb"
   ruby "test/invoice_item_test.rb"
   ruby "test/invoice_test.rb"
+  ruby "test/invoice_repository_test.rb"
   ruby "test/item_repository_test.rb"
   ruby "test/item_test.rb"
   ruby "test/merchant_repository_test.rb"
