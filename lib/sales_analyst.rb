@@ -1,6 +1,8 @@
 require_relative 'sales_engine'
+require_relative 'data_analysis'
 
 class SalesAnalyst
+  include DataAnalysis
   attr_reader :sales_engine, :merchants, :items
 
   def initialize(sales_engine)
@@ -10,14 +12,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    (items.count.to_f/merchants.count.to_f).round(2)
-  end
-
-  def std_dev_from_array(array)
-    array.map!{|num| num.to_f }
-    mean = array.reduce(:+)/array.length
-    sum_sqr = array.map {|number| number * number}.reduce(:+)
-    Math.sqrt((sum_sqr - array.length * mean * mean)/(array.length - 1)).round(2)
+    average_of_items(items.count, merchants.count)
   end
 
   def average_items_per_merchant_standard_deviation
@@ -54,5 +49,4 @@ class SalesAnalyst
       item.unit_price > min_price
     end
   end
-
 end
