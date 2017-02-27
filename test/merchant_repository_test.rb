@@ -4,12 +4,14 @@ require './lib/sales_engine'
 
 class MerchantRepositoryTest < Minitest::Test
 
+  @@se = SalesEngine.from_csv({
+    :invoices => "./data/invoices.csv",
+    :items     => "./data/items.csv",
+    :merchants => "./data/merchants.csv",
+    })
+
   def setup
-    @se = SalesEngine.from_csv({
-      :invoices => "./data/invoices.csv",
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      })
+    @se = @@se
   end
 
   def test_merchant_repository_exists
