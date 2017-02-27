@@ -27,7 +27,7 @@ class MerchantTest < Minitest::Test
     assert_instance_of Array, merchant.items
     assert_instance_of Item, merchant.items.first
     assert_equal 2, merchant.items.count
-    assert_equal "Dinosaurs", merchant.items.last.name
+    assert_equal "DINO EGGS", merchant.items.last.name
   end
 
   def test_it_can_find_all_instances_of_invoice_that_match_merch_id

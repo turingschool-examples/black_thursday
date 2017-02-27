@@ -5,7 +5,7 @@ class MerchantRepositoryTest < Minitest::Test
   attr_reader :mr
 
   def setup
-    @mr = MerchantRepository.new("./test/fixtures/temp_merchants.csv")
+    @mr = MerchantRepository.new("./test/fixtures/merchants_test.csv")
   end
 
   def test_it_exists
@@ -14,11 +14,11 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_creates_new_instances_of_merchant
     assert_instance_of Merchant, mr.all.first
-    assert_equal "Shopin1901", mr.all.first.name
+    assert_equal "DinoSeller", mr.all.first.name
   end
 
   def test_it_returns_all_instances_of_merchant
-    assert_equal 5, mr.all.count
+    assert_equal 3, mr.all.count
   end
 
   def test_it_can_find_by_id
@@ -31,12 +31,12 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_by_name
-    assert_instance_of Merchant, mr.find_by_name("Candisart")
-    assert_equal 12334112, mr.find_by_name("Candisart").id
+    assert_instance_of Merchant, mr.find_by_name("DinoSeller")
+    assert_equal 12334185, mr.find_by_name("DinoSeller").id
   end
 
   def test_it_knows_name_case_insensitive
-    assert_equal 12334112, mr.find_by_name("candisart").id
+    assert_equal 12334185, mr.find_by_name("dINoSellER").id
   end
 
   def test_it_returns_nil_if_it_does_not_find_name
@@ -44,8 +44,8 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_name_fragment
-    assert_instance_of Merchant, mr.find_all_by_name("Candi").first
-    assert_equal 2, mr.find_all_by_name("Candi").count
-    assert_equal 12334112, mr.find_all_by_name("Candi").first.id
+    assert_instance_of Merchant, mr.find_all_by_name("DinoSeller").first
+    assert_equal 1, mr.find_all_by_name("DinoSeller").count
+    assert_equal 12334185, mr.find_all_by_name("DinoSeller").first.id
   end
 end

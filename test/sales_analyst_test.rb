@@ -51,7 +51,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_knows_golden_items
     assert_instance_of Array, sa.golden_items
-    assert_equal "Dinosaurs", sa.golden_items.first.name
+    assert_equal "DINO EGGS", sa.golden_items.first.name
   end
 
   def test_it_can_calculate_average_invoices_per_merchant

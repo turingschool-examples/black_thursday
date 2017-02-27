@@ -6,7 +6,7 @@ class CustomerRepositoryTest < Minitest::Test
 
   def setup
     @cr = CustomerRepository.new
-    cr.from_csv("./test/fixtures/customer_test.csv")
+    cr.from_csv("./test/fixtures/customers_test.csv")
   end
 
   def test_it_exists

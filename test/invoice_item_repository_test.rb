@@ -6,7 +6,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def setup
     @iir = InvoiceItemRepository.new
-    iir.from_csv("./test/fixtures/invoice_items_test_data.csv")
+    iir.from_csv("./test/fixtures/invoice_items_test.csv")
   end
 
   def test_it_exists
