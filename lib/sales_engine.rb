@@ -9,6 +9,7 @@ class SalesEngine
   def self.from_csv(csv_hash)
     @item_csv = csv_hash[:items]
     @merchant_csv = csv_hash[:merchants]
+    @invoice_csv = csv_hash[:invoices]
     return self
   end
 
@@ -18,6 +19,10 @@ class SalesEngine
 
   def self.merchants
     MerchantRepository.new(@merchant_csv, self)
+  end
+
+  def self.invoices
+    InvoiceRepository.new(@invoice_csv, self)
   end
 
 end
