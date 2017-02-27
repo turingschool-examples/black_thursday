@@ -3,6 +3,7 @@ require 'minitest/pride'
 require './lib/invoice_repository'
 require 'simplecov'
 
+
 class InvoiceRepositoryTest < Minitest::Test
 
   def test_it_exists
