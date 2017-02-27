@@ -1,8 +1,8 @@
 task :default => [:unit_test]
 
-task :unit_test do
+task :unit_test do |t|
   puts "running unit tests!"
-  # add regex here
+  # do regext shit here
   ruby "test/file_loader_test.rb"
   ruby "test/invoice_item_test.rb"
   ruby "test/invoice_test.rb"
