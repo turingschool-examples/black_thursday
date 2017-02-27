@@ -13,7 +13,7 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_all_array
     repo = InvoiceRepository.new(@invoice_csv, @parent)
     # repo.make_repository
-    assert_equal 3, repo.all.length
+    assert_equal 4985, repo.all.length
   end
 
   def test_finds_by_id
@@ -25,18 +25,18 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_finds_all_customer_id
     repo = InvoiceRepository.new(@invoice_csv, @parent)
     assert_equal 8, repo.find_all_by_customer_id(1).length
-    assert_nil repo.find_all_by_customer_id(0)
+    assert_equal [], repo.find_all_by_customer_id(0)
   end
 
   def test_finds_all_merchant_id
     repo = InvoiceRepository.new(@invoice_csv, @parent)
-    assert_equal 8, repo.find_all_by_merchant_id(12335938).length
-    assert_nil repo.find_all_by_merchant_id(0)
+    assert_equal 16, repo.find_all_by_merchant_id(12335938).length
+    assert_equal [], repo.find_all_by_merchant_id(0)
   end
 
-    def test_finds_all_merchant_id
+    def test_finds_all_status
     repo = InvoiceRepository.new(@invoice_csv, @parent)
-    assert_equal 8, repo.find_all_by_merchant_id("shipped").length
-    assert_nil repo.find_all_by_merchant_id('')
+    assert_equal 2839, repo.find_all_by_status("shipped").length
+    assert_equal [], repo.find_all_by_status('')
   end
 end
