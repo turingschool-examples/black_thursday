@@ -46,17 +46,17 @@ class Invoice
     repo.sales_engine.customers.find_by_id(self.customer_id)
   end
 
-#   def is_paid_in_full?
-#     success_or_failure = transactions.map do |transaction|
-#       transaction.result
-#     end
-#
-#     if success_or_failure.include?("success")
-#       true
-#     else
-#       false
-#     end
-#   end
+  def is_paid_in_full?
+    success_or_failure = transactions.map do |transaction|
+      transaction.result
+    end
+
+    if success_or_failure.include?("success")
+      true
+    else
+      false
+    end
+  end
 #
 #   def total # invoice.total returns the total $ amount of the invoice
 #       items.map do |item|
