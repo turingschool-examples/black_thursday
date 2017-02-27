@@ -7,8 +7,8 @@ module DataAnalysis
     Math.sqrt((sum_sqr - array.length * mean * mean)/(array.length - 1)).round(2)
   end
 
-  def average_of_items(item_1, item_2)
-    (item_1.to_f / item_2.to_f).round(2)
+  def average(object_1, object_2)
+    (object_1.to_f / object_2.to_f).round(2)
   end
 
 

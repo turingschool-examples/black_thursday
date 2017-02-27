@@ -24,7 +24,7 @@ class MerchantRepository
   end
 
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    @instance.nil? ? nil : "#<#{self.class} #{@instance.size} rows>"
   end
 
 end
