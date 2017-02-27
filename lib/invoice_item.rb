@@ -3,14 +3,14 @@ require 'bigdecimal'
 class InvoiceItem
   attr_reader  :id, :item_id, :invoice_id, :quantity, :unit_price, :created_at, :updated_at, :unit_price, :iir
 
-  def initialize (information, iir)
-    @id         = information[:id].to_i
-    @item_id    = information[:item_id].to_i
-    @invoice_id = information[:invoice_id].to_i
-    @quantity   = information[:quantity].to_i
-    @created_at = Time.parse(information[:created_at])
-    @updated_at = Time.parse(information[:updated_at])
-    @unit_price = BigDecimal.new(information[:unit_price], 4)/100
+  def initialize (data_hash, iir)
+    @id         = data_hash[:id].to_i
+    @item_id    = data_hash[:item_id].to_i
+    @invoice_id = data_hash[:invoice_id].to_i
+    @quantity   = data_hash[:quantity].to_i
+    @created_at = Time.parse(data_hash[:created_at])
+    @updated_at = Time.parse(data_hash[:updated_at])
+    @unit_price = BigDecimal.new(data_hash[:unit_price], 4)/100
     @iir = iir
   end
 

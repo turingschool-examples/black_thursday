@@ -9,7 +9,7 @@ class TransactionRepository
 	def initialize(csv_path, sales_engine)
 		@transactions = CSV.open csv_path, headers: true, header_converters: :symbol
 		@se = sales_engine
-		@all = Array.new
+		@all = []
 		parse_csv
 	end
 	

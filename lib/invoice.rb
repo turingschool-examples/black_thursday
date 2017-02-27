@@ -33,6 +33,7 @@ class Invoice
 	end
 
 	def total
-		
+		inv_items_arr = ir.sales_engine.invoice_items.find_all_by_invoice_id(id)
+		inv_items_arr.map { |ii| ii.quantity * ii.unit_price }.reduce(:+)
 	end
 end
