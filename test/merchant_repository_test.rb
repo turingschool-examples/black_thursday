@@ -51,5 +51,4 @@ class MerchantRepositoryTest < Minitest::Test
   def test_returns_empty_array_if_no_match
     assert_equal [], merch_repo.find_all_by_name("Steph")
   end
-
 end

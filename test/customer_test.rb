@@ -37,5 +37,4 @@ class CustomerTest < Minitest::Test
   def test_it_finds_an_updated_at_date
     assert_equal Time, customer.updated_at.class
   end
-
 end

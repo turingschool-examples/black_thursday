@@ -47,5 +47,4 @@ class TransactionTest < Minitest::Test
   def test_it_finds_a_updated_at_time
     assert_equal Time, transaction.updated_at.class
   end
-
 end

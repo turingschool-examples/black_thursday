@@ -21,7 +21,6 @@ class InvoiceItem
     @repo = repo
   end
 
-
   def unit_price_to_dollars(price)
     BigDecimal.new(price) / 100
   end

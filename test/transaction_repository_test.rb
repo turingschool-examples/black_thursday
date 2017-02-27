@@ -44,5 +44,4 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal Array, transaction_repository.find_all_by_result("success").class
     refute_empty transaction_repository.find_all_by_result("success")
   end
-
 end

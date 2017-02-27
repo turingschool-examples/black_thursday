@@ -38,7 +38,6 @@ class InvoiceTest < Minitest::Test
 
   def test_it_finds_a_unit_price
     assert_equal BigDecimal, invoice_item.unit_price.class
-
   end
 
   def test_it_finds_a_created_at_date
@@ -49,4 +48,7 @@ class InvoiceTest < Minitest::Test
     assert_equal Time, invoice_item.updated_at.class
   end
 
+  def test_it_returns_an_item
+    assert_equal 263396255, invoice_item.item.item_id
+  end
 end

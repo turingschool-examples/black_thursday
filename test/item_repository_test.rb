@@ -34,7 +34,6 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal Item , item_repository.find_by_name("510+ RealPush Icon Set").class
   end
 
-
   def test_it_can_find_all_with_discription
     assert_equal Array , item_repository.find_all_with_description("Disney glitter frames").class
   end

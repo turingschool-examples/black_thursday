@@ -12,7 +12,7 @@ class SalesAnalystTest < Minitest::Test
   attr_reader :file_hash, :se, :sa
 
     include FileHashSetup
-    
+
   def setup
     super
     @sa = SalesAnalyst.new(se)
@@ -74,7 +74,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 712, sa.average_invoices_per_day
   end
 
-
   def test_average_invoices_per_day_standard_deviation
     assert_equal 18.06, sa.average_invoices_per_day_standard_deviation
   end
@@ -82,7 +81,6 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_find_top_days_by_invoice_count
     assert_equal Array, sa.top_days_by_invoice_count.class
   end
-
 
   def test_invoice_status
     assert_equal  29.55, sa.invoice_status(:pending)

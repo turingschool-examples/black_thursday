@@ -27,7 +27,6 @@ class InvoiceTest < Minitest::Test
     assert_equal 1, invoice.id
   end
 
-
   def test_customer_id
     assert_equal 1, invoice.customer_id
   end
@@ -36,16 +35,13 @@ class InvoiceTest < Minitest::Test
     assert_equal 12335938, invoice.merchant_id
   end
 
-
   def test_status
     assert_equal :pending, invoice.status
   end
 
-
   def test_created_at
     assert_equal Time, invoice.created_at.class
   end
-
 
   def test_updated_at
     assert_equal Time, invoice.updated_at.class
@@ -54,5 +50,4 @@ class InvoiceTest < Minitest::Test
   def test_if_finds_the_day_of_the_week_of_an_invoice
     assert_equal "Saturday", invoice.day_of_the_week_on_which_an_invoice_is_created
   end
-
 end

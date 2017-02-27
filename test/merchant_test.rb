@@ -30,5 +30,4 @@ class MerchantTest < Minitest::Test
   def test_it_can_find_items_by_id
     assert_equal 0, merchant.items
   end
-
 end

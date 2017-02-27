@@ -7,7 +7,6 @@ require_relative '../lib/invoice_item_repository'
 require_relative '../lib/invoice_item'
 require_relative '../test/file_hash_setup'
 
-
 class InvoiceItemRepositoryTest < Minitest::Test
 
   attr_reader :file_hash, :se, :path, :repo, :invoice_item_repository
@@ -39,5 +38,4 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal Array, invoice_item_repository.find_all_by_invoice_id(1).class
     refute_empty invoice_item_repository.find_all_by_invoice_id(1)
   end
-
 end

@@ -6,7 +6,6 @@ require_relative '../lib/sales_engine'
 require_relative '../lib/invoice_repository'
 require_relative '../test/file_hash_setup'
 
-
 class InvoiceRepositoryTest < Minitest::Test
 
   attr_reader :file_hash, :se, :path, :repo, :invoice_repository
@@ -29,7 +28,6 @@ class InvoiceRepositoryTest < Minitest::Test
       assert_equal Invoice , invoice_repository.find_by_id(1).class
   end
 
-
   def test_find_all_by_customer_id
     assert_equal Array, invoice_repository.find_all_by_customer_id(1).class
   end
@@ -37,7 +35,6 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_find_all_by_merchant_id
     assert_equal Array, invoice_repository.find_all_by_merchant_id(12335938).class
   end
-
 
   def test_find_all_by_status
     assert_equal Array, invoice_repository.find_all_by_status("shipped").class
