@@ -27,4 +27,8 @@ class InvoiceRepository
   def find_all_by_status(status)
     invoices.select { |row| row.status == status }
   end
+
+  def inspect
+  "#<#{self.class} #{@merchants.size} rows>"
+  end
 end
