@@ -49,4 +49,5 @@ class SalesAnalyst
       item.unit_price > min_price
     end
   end
+
 end
