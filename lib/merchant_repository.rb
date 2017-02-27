@@ -41,6 +41,12 @@ class MerchantRepository
     parent.invoices.find_all_by_merchant_id(id)
   end
 
+  def invoices_per_merchant
+    all.map do |merchant|
+      merchant.invoices.length.to_f
+    end
+  end
+
   def inspect
     "#<#{self.class} #{@all.size} rows>"
   end

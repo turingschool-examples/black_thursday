@@ -94,4 +94,14 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 2, mr.find_invoices(12335938).length
     assert_equal [], mr.find_invoices(22335948)
   end
+
+  def test_it_returns_invoice_count_for_merchants
+    se = SalesEngine.from_csv({:merchants => './test/fixtures/merchants_100.csv',
+                               :items => './test/fixtures/items_100.csv',
+                               :invoices => './test/fixtures/invoices_100.csv'})
+    mr = se.merchants
+
+    assert_instance_of Array, mr.invoices_per_merchant
+    assert_equal 100, mr.invoices_per_merchant.length
+  end
 end

@@ -44,6 +44,19 @@ class InvoiceRepository
     parent.merchants.find_by_id(merchant_id)
   end
 
+  def all_weekdays_created_at
+    all.map do |invoice|
+      invoice.weekday_created
+    end
+  end
+
+  def invoices_per_day
+    all_weekdays_created_at.reduce(Hash.new(0)) do |hash, day|
+      hash[day] += 1
+      hash
+    end
+  end
+
   def inspect
     "#<#{self.class} #{@all.size} rows>"
   end

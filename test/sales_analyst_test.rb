@@ -12,7 +12,8 @@ class SalesAnalystTest < Minitest::Test
 
   def setup
     se = SalesEngine.from_csv({:items => './test/fixtures/items_100.csv',
-                               :merchants => './test/fixtures/merchants_100.csv'})
+                               :merchants => './test/fixtures/merchants_100.csv',
+                               :invoices => './test/fixtures/invoices_100.csv'})
     @sa = SalesAnalyst.new(se)
   end
 
@@ -114,4 +115,71 @@ class SalesAnalystTest < Minitest::Test
     assert_equal Array, sa.golden_items.class
     assert_equal 2, sa.golden_items.length
   end
+
+  def test_it_can_access_invoice_repository
+    assert_instance_of InvoiceRepository, sa.invoice_repository
+  end
+
+  def test_all_invoices_returns_invoices
+    assert_equal Array, sa.all_invoices.class
+    assert_instance_of Invoice, sa.all_invoices.first
+  end
+
+  def test_average_invoices_per_merchant
+    assert_equal Float, sa.average_invoices_per_merchant.class
+    assert_equal 0.18, sa.average_invoices_per_merchant
+  end
+
+  def test_average_invoices_per_merchant_standard_deviation
+    assert_equal Float, sa.average_invoices_per_merchant_standard_deviation.class
+    assert_equal 0.41, sa.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_invoices_per_merchant
+    assert_equal Array, sa.invoices_per_merchant.class
+    assert_equal 100, sa.invoices_per_merchant.length
+  end
+
+  def test_top_merchants_by_invoice_count
+    assert_instance_of Array, sa.top_merchants_by_invoice_count
+    assert_instance_of Merchant, sa.top_merchants_by_invoice_count.first
+  end
+
+  def test_bottom_merchants_by_invoice_count
+    assert_instance_of Array, sa.bottom_merchants_by_invoice_count
+    assert_equal [], sa.bottom_merchants_by_invoice_count
+  end
+
+  def test_average_invoices_per_day
+    assert_instance_of Float, sa.average_invoices_per_day
+    assert_equal 14, sa.average_invoices_per_day
+  end
+
+  def test_top_days_by_invoice_count
+    assert_instance_of Array, sa.top_days_by_invoice_count
+    assert_equal 1, sa.top_days_by_invoice_count.length
+    assert_equal "Friday", sa.top_days_by_invoice_count.first
+  end
+
+  def test_invoice_statuses
+    assert_equal Array, sa.invoice_statuses.class
+    assert_equal 100, sa.invoice_statuses.length
+    assert_equal :pending, sa.invoice_statuses.first
+  end
+
+  def test_group_statues
+    assert_instance_of Hash, sa.group_statuses
+    assert_equal 3, sa.group_statuses.length
+  end
+
+  def test_total_count
+    assert_equal 100, sa.total_statuses
+  end
+
+  def test_invoice_status
+    assert_equal 29.0, sa.invoice_status(:pending)
+    assert_equal 63, sa.invoice_status(:shipped)
+    assert_equal 8, sa.invoice_status(:returned)
+  end
+
 end
