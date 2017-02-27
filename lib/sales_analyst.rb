@@ -18,8 +18,12 @@ class SalesAnalyst
     sales_engine.merchants
   end
 
-  def items_repository
+  def item_repository
     sales_engine.items
+  end
+
+  def invoice_repository
+    sales_engine.invoices
   end
 
 # ----------- Search methods -----------
@@ -29,31 +33,43 @@ class SalesAnalyst
   end
 
   def price_of_items_per_merchant(merchant_id)
-    item_array = items_repository.find_all_by_merchant_id(merchant_id)
+    item_array = item_repository.find_all_by_merchant_id(merchant_id)
     item_array.map { |item| item.unit_price }
   end
 
+  def invoice_per_merchant
+    merchant_repository.merchant.map { |merchant| merchant.invoices.length }
+  end
+
   def price_per_item
-    items_repository.items.map { |item| item.unit_price }
+    item_repository.items.map { |item| item.unit_price }
   end
 
   def average_price_per_item
     average(price_per_item)
   end
 
-#------ Merchant methods per spec ------
+  def status_per_invoice
+    invoice_repository.invoices.map { |invoice| invoice.status }
+  end
+
+  def number_for_day
+    numbered_days = Hash.new()
+    invoice_repository.invoices.each { |invoice| numbered_days[] }
+  end
+#------------------ Merchant Analyst ------------------
 
   def average_items_per_merchant
     average(items_per_merchant)
   end
 
   def average_items_per_merchant_standard_deviation
-    std_dev(items_per_merchant)
+    standard_deviation(items_per_merchant)
   end
 
   def merchants_with_high_item_count
-    std_dev = average_items_per_merchant_standard_deviation
     avg = average_items_per_merchant
+    std_dev = average_items_per_merchant_standard_deviation
 
     merchant_repository.merchants.select do |merchant|
       merchant.items.length > (avg + std_dev)
@@ -72,7 +88,47 @@ class SalesAnalyst
   end
 
   def golden_items
-    price_std_dev = std_dev(price_per_item)
-    items_repository.items.select { |item| item.unit_price > (price_std_dev * 2) }
+    price_std_dev = standard_deviation(price_per_item)
+    item_repository.items.select { |item| item.unit_price > (price_std_dev * 2) }
+  end
+
+# ------------------Invoice Analyst------------------------
+  def average_invoices_per_merchant
+    average(invoice_per_merchant)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    standard_deviation(invoice_per_merchant)
+  end
+
+  def top_merchants_by_invoice_count
+    avg = average_invoices_per_merchant
+    std_dev = average_invoices_per_merchant_standard_deviation
+
+    merchant_repository.merchants.select do |merchant|
+      merchant.invoice.length > avg + (std_dev * 2)
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    avg = average_invoices_per_merchant
+    std_dev = average_invoices_per_merchant_standard_deviation
+
+    merchant_repository.merchants.select do |merchant|
+      merchant.invoice.length < avg + (std_dev * 2)
+    end
+  end
+
+  def top_days_by_invoice_count
+    
+    # make a count for invoices that are created on each day
+    # return two highest days
+    # => ["Sunday", "Saturday"]
+  end
+
+  def invoice_status(status)
+    numerator = invoice_repository.find_all_by_status(status)
+    denominator = invoice_repository.invoices.length
+    percentage(numerator, denominator)
   end
 end
