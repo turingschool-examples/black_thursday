@@ -8,7 +8,6 @@ class TransactionTest < Minitest::Test
 
   attr_reader :repo, :transaction
 
-
   def setup
     @transaction = Transaction.new({
       :id => 1,
