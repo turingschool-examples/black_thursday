@@ -2,8 +2,16 @@ require './test/test_helper'
 require './lib/invoice_repository'
 require './lib/sales_engine'
 
+
 class InvoiceRepositoryTest < Minitest::Test
 
+
+  # se = SalesEngine.from_csv({
+  #   :invoices => "./data/invoices.csv",
+  #   :items     => "./data/items.csv",
+  #   :merchants => "./data/merchants.csv",
+  #   })
+  # ir = se.invoices
   def setup
     @se = SalesEngine.from_csv({
       :invoices => "./data/invoices.csv",
@@ -42,11 +50,6 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_find_all_by_status
     assert_equal 1473, @ir.find_all_by_status("pending").count
     assert_equal 2839, @ir.find_all_by_status("shipped").count
-  end
-
-  def test_find_merchant
-    assert_equal "merchant name", @ir.merchant(22)
-
   end
 
 end
