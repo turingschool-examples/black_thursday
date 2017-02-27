@@ -14,41 +14,23 @@ class InvoiceRepository
 	end
 
 	def parse_csv
-		invoice.each do |invoices|
-			all << Invoice.new(invoices, self)
-		end
+		invoice.each { |invoices| all << Invoice.new(invoices, self) }
 	end
 
 	def find_by_id(id)
-		all.find do |instance|
-			if instance.id == id.to_i
-				instance
-			end
-		end
+		all.find { |instance| instance if instance.id == id.to_i }
 	end
 
 	def find_all_by_customer_id(id)
-		all.select do |instance|
-			if instance.customer_id == id
-				instance
-			end
-		end
+		all.select { |instance| instance if instance.customer_id == id }
 	end
 
 	def find_all_by_merchant_id(id)
-		all.select do |instance|
-			if instance.merchant_id == id
-				instance
-			end
-		end
+		all.select { |instance| instance if instance.merchant_id == id }
 	end
 
 	def find_all_by_status(status)
-		all.select do |instance|
-			if instance.status == status.to_sym
-				instance
-			end
-		end
+		all.select { |instance| instance if instance.status == status.to_sym }
 	end
 
 end

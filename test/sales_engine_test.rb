@@ -6,21 +6,13 @@ class SalesEngineTest < Minitest::Test
 	attr_reader :se
 
 	def setup
-		# @se = SalesEngine.from_csv({
-		# 	:items => "./test/fixtures/items_reduced.csv",
-		# 	:merchants => "./test/fixtures/merchant_reduced.csv",
-		# 	:invoices => "./test/fixtures/invoices_reduced.csv",
-		# 	:invoice_items => "./test/fixtures/inv_items_reduced.csv",
-		# 	:transactions => "./test/fixtures/transactions_reduced.csv",
-		# 	:customers => "./test/fixtures/customers_reduced.csv"
-		# })
 		@se = SalesEngine.from_csv({
-			:items => "./data/items.csv",
-			:merchants => "./data/merchants.csv",
-			:invoices => "./data/invoices.csv",
-			:invoice_items => "./data/invoice_items.csv",
-			:transactions => "./data/transactions.csv",
-			:customers => "./data/customers.csv"
+			:items => "./test/fixtures/items_reduced.csv",
+			:merchants => "./test/fixtures/merchant_reduced.csv",
+			:invoices => "./test/fixtures/invoices_reduced.csv",
+			:invoice_items => "./test/fixtures/inv_items_reduced.csv",
+			:transactions => "./test/fixtures/transactions_reduced.csv",
+			:customers => "./test/fixtures/customers_reduced.csv"
 		})
 	end
 
@@ -44,4 +36,5 @@ class SalesEngineTest < Minitest::Test
 		invoice = se.invoices.find_by_id(20)
 		assert_equal [], invoice.items
 	end
+
 end

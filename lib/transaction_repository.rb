@@ -14,9 +14,7 @@ class TransactionRepository
 	end
 	
 	def parse_csv
-		transactions.each do |instances|
-			all << Transaction.new(instances, self)
-		end
+		transactions.each { |instances| all << Transaction.new(instances, self) }
 	end
 
 	def find_by_id(id)

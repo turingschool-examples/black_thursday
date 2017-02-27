@@ -14,30 +14,19 @@ class InvoiceItemRepository
 	end
 
 	def parse_csv
-		invoice_items.each do |invoices|
-			all << InvoiceItem.new(invoices, self)
-		end
+		invoice_items.each { |invoices| all << InvoiceItem.new(invoices, self) }
 	end
 	
 	def find_by_id(id)
-		all.find {|instance| return instance if instance.id == id }
+		all.find { |instance| instance if instance.id == id }
 	end
 
 	def find_all_by_item_id(item_id)
-		all.select do |instance|
-			if instance.item_id == item_id
-				instance
-			end
-		end
+		all.select { |instance| instance if instance.item_id == item_id }
 	end
 
 	def find_all_by_invoice_id(invoice_id)
-		all.select do |instance|
-			if instance.invoice_id == invoice_id
-				instance
-			end
-		end
+		all.select { |instance| instance if instance.invoice_id == invoice_id }
 	end
-
 
 end

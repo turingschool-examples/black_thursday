@@ -14,33 +14,18 @@ class MerchantRepository
 	end
 
 	def parse_csv
-		merchant.each do |merchants|
-			all << Merchant.new(merchants, self)
-		end
+		merchant.each { |merchants| all << Merchant.new(merchants, self) }
 	end
 
 	def find_by_name(name)
-		all.find do |instance|
-			if instance.name.downcase == name.downcase
-				instance
-			end
-		end
+		all.find { |instance| instance if instance.name.downcase == name.downcase }
 	end
 
 	def find_by_id(id)
-		all.find do |instance|
-			if instance.id == id.to_i
-				instance
-			end
-		end
+		all.find { |instance| instance if instance.id == id.to_i }
 	end
 
 	def find_all_by_name(name)
-		all.select do |instance|
-			if instance.name.downcase.include?(name.downcase)
-				instance.name
-			end
-		end
+		all.select { |instance| instance.name if instance.name.downcase.include?(name.downcase) }
 	end
-
 end
