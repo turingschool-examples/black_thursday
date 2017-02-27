@@ -42,7 +42,7 @@ class InvoiceTest < Minitest::Test
     inr = se.invoices
     i = inr.all
 
-    assert_equal "pending", i.first.status
+    assert_equal :pending, i.first.status
   end
 
   def test_created_at_returns_time_created
@@ -74,4 +74,13 @@ class InvoiceTest < Minitest::Test
     assert_equal "IanLudiBoards", invoice.merchant.name
   end
 
+  def test_it_knows_weekday_created_at
+    se = SalesEngine.from_csv({:merchants => './test/fixtures/merchant_matches.csv',
+                               :items => './test/fixtures/items_same_merchant_id.csv',
+                               :invoices => './test/fixtures/invoices_three.csv'})
+    inr = se.invoices
+    invoice = inr.find_by_id(1)
+
+    assert_equal "Saturday", invoice.weekday_created
+  end
 end

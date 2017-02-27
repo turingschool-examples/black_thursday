@@ -61,10 +61,10 @@ class InvoiceRepositoryTest < Minitest::Test
     sa = SalesEngine.from_csv({:invoices => './test/fixtures/invoices_three.csv'})
     inr = sa.invoices
 
-    assert_instance_of Array, inr.find_all_by_status("shipped")
-    assert_instance_of Invoice, inr.find_all_by_status("shipped").first
-    assert_equal 2, inr.find_all_by_status("shipped").length
-    assert_equal [], inr.find_all_by_status("returned")
+    assert_instance_of Array, inr.find_all_by_status(:shipped)
+    assert_instance_of Invoice, inr.find_all_by_status(:shipped).first
+    assert_equal 2, inr.find_all_by_status(:shipped).length
+    assert_equal [], inr.find_all_by_status(:returned)
   end
 
   def test_find_merchant
@@ -75,4 +75,27 @@ class InvoiceRepositoryTest < Minitest::Test
 
     assert_instance_of Merchant, inr.find_merchant(12335938)
   end
+
+  def test_creates_an_array_of_all_weekdays_created_at
+    se = SalesEngine.from_csv({:merchants => './test/fixtures/merchants_100.csv',
+                               :items => './test/fixtures/items_100.csv',
+                               :invoices => './test/fixtures/invoices_100.csv'})
+    inr = se.invoices
+
+    assert_instance_of Array, inr.all_weekdays_created_at
+    assert_equal 100, inr.all_weekdays_created_at.length
+  end
+
+  def test_hash_of_invoices_created_per_day
+    se = SalesEngine.from_csv({:merchants => './test/fixtures/merchants_100.csv',
+                               :items => './test/fixtures/items_100.csv',
+                               :invoices => './test/fixtures/invoices_100.csv'})
+    inr = se.invoices
+    hash = inr.invoices_per_day
+
+    assert_instance_of Hash, hash
+    assert_equal 7, hash.length
+    assert_equal 15, hash["Saturday"]
+  end
+
 end
