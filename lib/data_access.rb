@@ -2,8 +2,12 @@
 
 module DataAccess
   attr_reader :id, :name, :description, :unit_price, :merchant_id, :created_at, :updated_at, :parent, :status, :customer_id
-  #status and customer_id are invoice readers. Consider whether it's drier to initialize invoice here (with extra instance variables) or in invoice (with similar/repeated instance varialbes)
+  #status and customer_id are invoice readers. Consider whether it's drier to initialize invoice here (with extra instance variables) or in invoice (with similar/repeated instance variables)
 
+  #check if merchants.all has unneeded nil instance variables.
+  #Would .compact help? 
+
+  #OR, could we make a RepoDataAccess, and ItemDataAccess?
 
   def initialize(data, parent=nil)
     @id  = data[:id]
@@ -102,7 +106,12 @@ module DataAccess
   
 
 
-  # def inspect
-  #   "#<#{self.class} #{@items.size} rows>"
-  # end
+
+# def inspect
+#   @instance.nil? ? nil : "#<#{self.class} #{@instance.size} rows>"
+# end
+
+  def inspect
+    "#<#{self.class} #{@instance.size} rows>" #unless @instance.nil?
+  end
 end

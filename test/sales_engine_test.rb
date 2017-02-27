@@ -45,16 +45,16 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of Item, item
   end
 
-  # def test_that_MR_makes_merchants
+  def test_that_MR_makes_merchants
   # skip #odd error?
-  #   se = SalesEngine.from_csv({:items => "./data/items_fixture.csv",
-  #       :merchants => "./data/merchants.csv"
-  #     })
+    se = SalesEngine.from_csv({:items => "./data/items_fixture.csv",
+        :merchants => "./data/merchants_fixture.csv"
+      })
 
-  #   mr = se.merchants
-  #   merchant = mr.all[0]
-  #   assert_instance_of Merchant, merchant
-  # end
+    mr = se.merchants
+    merchant = mr.all[0]
+    assert_instance_of Merchant, merchant
+  end
 
 
 end
