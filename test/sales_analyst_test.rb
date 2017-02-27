@@ -11,7 +11,7 @@ class SalesAnalystTest < Minitest::Test
       :invoices => "./test/fixtures/invoice_fixture.csv",
       :invoice_items => "./test/fixtures/invoice_items_fixture.csv",
       :transactions => "./test/fixtures/transaction_fixture.csv",
-      :customers => "./test/fixtures/customer_fixture.csv",
+      :customers => "./test/fixtures/customer_fixture.csv"
       })
     @sa = SalesAnalyst.new(se)
   end
@@ -20,7 +20,10 @@ class SalesAnalystTest < Minitest::Test
   #   @se = SalesEngine.from_csv({
   #     :items => "./data/items.csv",
   #     :merchants => "./data/merchants.csv",
-  #     :invoices => "./data/invoices.csv"
+  #     :invoices => "./data/invoices.csv",
+  #     :invoice_items => "./data/invoice_items.csv",
+  #     :transactions => "./data/transactions.csv",
+  #     :customers => "./data/customers.csv"
   #     })
   #   @sa = SalesAnalyst.new(se)
   # end
@@ -87,7 +90,12 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_total_revenue_by_date
-    date = Time.parse("2009-02-07")
-    assert_equal 1, sa.total_revenue_by_date(date).count
+    date = Time.parse("2015-03-13")
+    assert_equal 4774.75, sa.total_revenue_by_date(date)
+  end
+
+  def test_top_revenue_earners
+    require "pry"; binding.pry
+    assert_equal [], sa.top_revenue_earners
   end
 end

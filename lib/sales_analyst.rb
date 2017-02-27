@@ -152,6 +152,57 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
+    invoices_from_date(date).reduce(0) do |sum, invoice|
+      sum + invoice.total
+    end
+  end
+
+  def invoices_from_date(date)
     engine.invoices.find_all_by_created_date(date)
   end
+
+  def top_revenue_earners
+    # require "pry"; binding.pry
+    all_items
+  end
+
+
+  # def top_revenue_earners
+  #   a = group_invoices_by_merchant.each_value do |invoices|
+  #
+  #     invoices.count
+  #
+  #     # invoices.map! do |invoice|
+  #     #   invoice.is_paid_in_full? ? invoice.total : 0
+  #     # end
+  #     # invoices.inject(0) do |sum, invoice|
+  #     #   sum + (invoice.is_paid_in_full? ? invoice.total : 0)
+  #     # end
+  #   end
+  #   puts a
+  # end
+  #
+  # def sum_up_invoice_totals(invoices)
+  #   invoices.inject(0) do |sum, invoice|
+  #     sum + (invoice.is_paid_in_full? ? invoice.total : 0)
+  #   end
+  # end
+  #
+  # def group_invoices_by_merchant
+  #   all_invoices.group_by do |invoice|
+  #     invoice.merchant_id
+  #   end
+  # end
 end
+
+# se = SalesEngine.from_csv({
+#     :items => "./data/items.csv",
+#     :merchants => "./data/merchants.csv",
+#     :invoices => "./data/invoices.csv",
+#     :invoice_items => "./data/invoice_items.csv",
+#     :transactions => "./data/transactions.csv",
+#     :customers => "./data/customers.csv"
+#     })
+# sa = SalesAnalyst.new(se)
+#
+# p sa.top_revenue_earners
