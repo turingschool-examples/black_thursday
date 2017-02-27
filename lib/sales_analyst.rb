@@ -29,11 +29,11 @@ class SalesAnalyst
     @group_by_number_of_items.each do |merchant, items|
       hash[merchant] = items.length
     end
-    hash.map do |merchant, number|
+    merchants = hash.select do |merchant, number|
       merchant if number > (@average + @std_dev)
-    end.compact.map do |merchant_id|
-      @sales_engine.merchants.find_by_id(merchant_id)
-    end
+     end#map do |merchant_id|
+    #   @sales_engine.merchants.find_by_id(merchant_id)
+    #end
     binding.pry
   end
 end
