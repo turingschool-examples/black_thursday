@@ -1,6 +1,7 @@
 require_relative 'merchant'
 require_relative 'item'
 require_relative 'invoice'
+require_relative 'transaction'
 require 'csv'
 require 'pry'
 
@@ -10,13 +11,14 @@ class ObjectBuilder
   end
 
   def read_csv(args)
-    { merchant: build_object(args[:merchants], Merchant),
-      item:     build_object(args[:items], Item),
-      invoice:  build_object(args[:invoices], Invoice) }
+    { merchant:    build_object(args[:merchants], Merchant),
+      item:        build_object(args[:items], Item),
+      invoice:     build_object(args[:invoices], Invoice),
+      transaction: build_object(args[:transactions], Transaction) }
   end
 
   def build_object(path, class_type)
-    get_lines(path).map { |row| class_type.new(row) }
+    get = get_lines(path).map { |row| class_type.new(row) }
   end
 
   def get_lines(path)
