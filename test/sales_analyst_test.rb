@@ -14,24 +14,8 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of SalesAnalyst, @sa
   end
 
-  def test_can_return_sum_of_all_item_prices
-    assert_equal 343192.3300000002, @sa.all_prices
-  end
-
   def test_can_return_array_of_all_merchant_ids
-    assert_equal 475, @sa.all_merchants.count
-  end
-
-  def test_can_build_hash_of_merchants_and_prices
-    merchant_hash = @sa.build_hash
-    assert_equal 475, merchant_hash.count
-    assert_equal [[12334105, [29.99, 9.99, 9.99]], [12334112, [15.0]], [12334113, [150.0]]], merchant_hash.take(3)
-
-  end
-
-  def test_can_return_all_prices_of_single_merchant
-    results = @sa.get_prices_of_merchant(12334145)
-    assert_equal [[12334145, [30.0, 25.0, 25.0, 20.0, 25.0, 25.0, 25.0]]], results
+    assert_equal 475, @sa.merchants.count
   end
 
   def test_average_items_per_merchant
