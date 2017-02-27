@@ -2,7 +2,6 @@ require 'bigdecimal'
 require 'pry'
 require 'time'
 
-
 class Invoice
 attr_reader :invoice_info, :inv_parent
 	def initialize(invoice_info, inv_parent)

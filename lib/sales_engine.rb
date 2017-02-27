@@ -5,8 +5,6 @@ require_relative "invoice_item_repository"
 require_relative "transaction_repository"
 require_relative "customer_repository"
 
-
-
 class SalesEngine
     attr_accessor :paths, :items, :merchants, :invoices, :invoice_items, :transactions, :customers
   def initialize (hash)
