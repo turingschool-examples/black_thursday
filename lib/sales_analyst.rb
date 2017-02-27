@@ -210,4 +210,3 @@ class SalesAnalyst
 #-----Invoice_Analysis_Method-----#
 
 end
-

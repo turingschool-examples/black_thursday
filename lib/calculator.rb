@@ -14,12 +14,11 @@ module Calculator
   end
 
   def standard_deviation(set)
-    #refactor me
     avg = average(set)
-    sum = set.map do |item_count|
-      (item_count - avg) ** 2
-    end.reduce(:+)
-    ((sum / (set.length - 1)) ** 0.5).round(2)
+    std_sum = set.reduce(0) do |sum, item_count|
+      sum + (item_count - avg) ** 2
+    end
+    ((std_sum / (set.length - 1)) ** 0.5).round(2)
   end
 
   def one_standard_deviation_above_mean(set)
