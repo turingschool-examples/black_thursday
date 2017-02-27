@@ -40,4 +40,8 @@ class ItemTest < Minitest::Test
     time = Time.now
     assert_equal Time, item.updated_at
   end
+
+  def test_it_can_find_merchant
+    assert_instance_of Merchant, 
+  end
 end

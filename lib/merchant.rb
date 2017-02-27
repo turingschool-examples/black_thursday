@@ -25,4 +25,8 @@ attr_reader :id, :name, :merchant_created_at, :merchant_updated_at
     end
   end
 
+  def items
+    @parent.se_parent.items.find_all_by_merchant_id(@id)
+  end
+
 end

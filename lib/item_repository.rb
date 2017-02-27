@@ -2,7 +2,7 @@ require_relative "item"
 
 
 class ItemRepository
-  attr_reader :repository
+  attr_reader :repository, :parent
   def initialize(item_csv, parent)
     @item_csv = CSV.open item_csv, headers: true, header_converters: :symbol
     @parent = parent

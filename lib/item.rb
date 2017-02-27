@@ -23,4 +23,8 @@ class Item
   def updated_at
     Time.parse(@updated_at)
   end
+
+  def merchant
+    @parent.parent.merchants.find_by_id(@merchant_id)
+  end
 end
