@@ -15,6 +15,6 @@ module Calculator
   end
 
   def percentage(numerator, denominator)
-    (numerator / denominator) * 100
+    ((numerator.length / denominator.to_f) * 100).round(2)
   end
 end

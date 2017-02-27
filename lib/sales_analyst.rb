@@ -106,10 +106,9 @@ class SalesAnalyst
     avg = average_invoices_per_merchant
     std_dev = average_invoices_per_merchant_standard_deviation
 
-    a = merchant_repository.merchants.select do |merchant|
-      merchant.invoice.length > avg + (std_dev * 2)
+    merchant_repository.merchants.select do |merchant|
+      merchant.invoices.length > avg + (std_dev * 2)
     end
-    binding.pry
   end
 
   def bottom_merchants_by_invoice_count
@@ -117,7 +116,7 @@ class SalesAnalyst
     std_dev = average_invoices_per_merchant_standard_deviation
 
     merchant_repository.merchants.select do |merchant|
-      merchant.invoice.length < avg + (std_dev * 2)
+      merchant.invoices.length < avg + (std_dev * 2)
     end
   end
 
@@ -129,7 +128,7 @@ class SalesAnalyst
   end
 
   def invoice_status(status)
-    numerator = invoice_repository.find_all_by_status(status)
+    numerator = invoice_repository.find_all_by_status("#{status}")
     denominator = invoice_repository.invoices.length
     percentage(numerator, denominator)
   end

@@ -89,24 +89,33 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_merchants_by_invoice_count
-    top_merchants_list = sa.top_merchants_list_by_invoice_count
+    top_merchants_list = sa.top_merchants_by_invoice_count
     assert_instance_of Array, top_merchants_list
-    assert_equal 23,top_merchants_list.length
+    assert_equal 12, top_merchants_list.length
     top_merchant = top_merchants_list[0]
-    assert_equal "name of merchant", top_merchant.name
+    assert_equal "jejum", top_merchant.name
   end
 
-  def test_top_merchants_by_invoice_count
-    skip
-    top_merchants_list = sa.top_merchants_list_by_invoice_count
-    assert_instance_of Array, top_merchants_list
-    assert_equal 23,top_merchants_list.length
-    top_merchant = top_merchants_list[-1]
-    assert_equal "name of merchant", top_merchant.name
+  def test_bottom_merchants_by_invoice_count
+    bottom_merchants_list = sa.bottom_merchants_by_invoice_count
+    assert_instance_of Array, bottom_merchants_list
+    assert_equal 463,bottom_merchants_list.length
+    bottom_merchant = bottom_merchants_list[-1]
+    assert_equal "CJsDecor", bottom_merchant.name
   end
 
   def test_top_days_by_invoice_count
     skip
     assert_equal ["Sunday", "Saturday"], sa.top_days_by_invoice_count
+  end
+
+  def test_invoice_status
+    pending = sa.invoice_status(:pending)
+    shipped = sa.invoice_status(:shipped)
+    returned = sa.invoice_status(:returned)
+
+    assert_equal 29.55, pending
+    assert_equal 56.953, shipped
+    assert_equal 13.5, returned
   end
 end
