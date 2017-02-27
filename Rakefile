@@ -2,6 +2,7 @@ task :default => [:unit_test]
 
 task :unit_test do
   puts "running unit tests!"
+  # add regex here
   ruby "test/file_loader_test.rb"
   ruby "test/invoice_item_test.rb"
   ruby "test/invoice_test.rb"
@@ -11,6 +12,7 @@ task :unit_test do
   ruby "test/merchant_repository_test.rb"
   ruby "test/merchant_test.rb"
   ruby "test/sales_engine_test.rb"
+  ruby "test/sales_analyst_test.rb"
 end
 
 task :integration_test do

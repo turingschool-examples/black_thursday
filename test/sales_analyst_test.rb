@@ -4,7 +4,7 @@ require './lib/sales_analyst'
 class SalesAnalystTest < Minitest::Test
 
   def setup
-    @se = SalesEngine.from_csv({
+    se = SalesEngine.from_csv({
       :invoices => "./data/invoices.csv",
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -51,5 +51,12 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 5, @sa.golden_items.count
     assert_equal "Test listing", @sa.golden_items.first.name
   end
+
+  def test_average_invoices_per_merchant
+    skip
+    results = @sa.average_invoices_per_merchant
+    assert_equal 10.49, results
+  end
+
 
 end

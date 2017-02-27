@@ -9,7 +9,10 @@ class SalesAnalyst
     @sales_engine = sales_engine
     @merchants = sales_engine.merchants
     @items = sales_engine.items
+    @invoices = sales_engine.invoices
   end
+
+  # merchant and item methods
 
   def average_items_per_merchant
     average_of_items(items.all.count, merchants.all.count)
@@ -46,6 +49,11 @@ class SalesAnalyst
     sales_engine.items.all.find_all do |item|
       item.unit_price > min_price
     end
+  end
+
+# Inovice Methods
+
+  def average_invoices_per_merchant
   end
 
 end
