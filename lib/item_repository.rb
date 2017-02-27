@@ -45,5 +45,4 @@ class ItemRepository < Repository
   def find_all_by_merchant_id(merchant_id)
     data.select { |item| item.merchant_id == merchant_id }
   end
-
 end

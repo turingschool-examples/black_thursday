@@ -47,22 +47,10 @@ class Invoice
   end
 
   def is_paid_in_full?
-    success_or_failure = transactions.map do |transaction|
-      transaction.result
-    end
-
-    if success_or_failure.include?("success")
-      true
-    else
-      false
-    end
+    transactions.any?{ |transaction| transaction.success? }
   end
-#
-#   def total # invoice.total returns the total $ amount of the invoice
-#       items.map do |item|
-#         item.unit_price /
-#       end.reduce(:+).round(2)
-#   end
-#   # Note: Failed charges should never be counted in revenue totals or statistics.
-# end
+
+  def total
+      invoice_items.map { |invoice_item| invoice_item.total_price }.reduce(:+).round(2)
+  end
 end

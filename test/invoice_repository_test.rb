@@ -44,5 +44,4 @@ class InvoiceRepositoryTest < Minitest::Test
     invoice = se.invoices.find_by_id(20)
     assert_equal Array, invoice.items.class
   end
-
 end

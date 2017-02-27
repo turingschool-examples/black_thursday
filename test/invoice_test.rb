@@ -3,20 +3,25 @@ require 'minitest/pride'
 require 'pry'
 require_relative '../lib/invoice'
 require_relative '../lib/sales_engine'
+require_relative '../test/file_hash_setup'
+require_relative '../lib/repository'
 
 class InvoiceTest < Minitest::Test
 
-  attr_reader :repo, :invoice
+  attr_reader :file_hash, :se, :path, :repo, :invoice
+
+  include FileHashSetup
 
   def setup
-
+    super
+    require "pry"; binding.pry
     @invoice = Invoice.new( {:id => 1,
                       :customer_id => 1,
                       :merchant_id => 12335938,
                       :status => "pending",
                       :created_at => "2014-03-15",
                       :updated_at=> "2014-03-15"
-                      }, repo)
+                      }, repo )
   end
 
   def test_it_creates_an_instance_of_invoice
@@ -50,4 +55,9 @@ class InvoiceTest < Minitest::Test
   def test_if_finds_the_day_of_the_week_of_an_invoice
     assert_equal "Saturday", invoice.day_of_the_week_on_which_an_invoice_is_created
   end
+
+  def test_it_finds_the_total_amount_of_the_invoice
+    assert_equal 21067.77, invoice.total
+  end
+
 end

@@ -26,6 +26,7 @@ class Transaction
     repo.sales_engine.invoices.find_by_id(self.invoice_id)
   end
 
-  
-
+  def success?
+    result == 'success'
+  end
 end
