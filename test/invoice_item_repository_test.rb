@@ -33,9 +33,9 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_invoice_id
-    assert_equal Array, iir.find_all_by_invoice_id(2).class
-    assert_equal 4, iir.find_all_by_invoice_id(2).count
-    assert_equal 263529264, iir.find_all_by_invoice_id(2).first.item_id
+    assert_equal Array, iir.find_all_by_invoice_id(22).class
+    assert_equal 4, iir.find_all_by_invoice_id(22).count
+    assert_equal 263529264, iir.find_all_by_invoice_id(22).first.item_id
     assert_equal 0, iir.find_all_by_invoice_id(10).count 
   end
 

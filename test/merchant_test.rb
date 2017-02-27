@@ -5,10 +5,11 @@ require_relative 'sales_engine_methods'
 
 class MerchantTest < Minitest::Test
   include SalesEngineMethods
-  attr_reader :se
+  attr_reader :se, :merchant
 
   def setup
     create_sales_engine
+    @merchant = se.merchants.find_by_id(12334185)
   end
 
   def test_it_exists
@@ -23,36 +24,23 @@ class MerchantTest < Minitest::Test
   end
 
   def test_it_can_find_all_instances_of_item_that_match_merch_id
-    se = SalesEngine.from_csv({
-        :merchants     => "./test/fixtures/temp_merchants.csv",
-        :items     => "./test/fixtures/temp_items.csv",
-        :invoices => "./test/fixtures/invoices_truncated.csv"
-        })
-    merchant = se.merchants.find_by_id(12334185)
-
     assert_instance_of Array, merchant.items
     assert_instance_of Item, merchant.items.first
-    assert_equal "Disney scrabble frames", merchant.items.last.name
+    assert_equal 2, merchant.items.count
+    assert_equal "Dinosaurs", merchant.items.last.name
   end
 
   def test_it_can_find_all_instances_of_invoice_that_match_merch_id
-    se = SalesEngine.from_csv({
-        :merchants     => "./test/fixtures/merchants_for_invoice_sales_analysis.csv",
-        :items => "./test/fixtures/temp_items.csv",
-        :invoices     => "./test/fixtures/invoices_truncated.csv"
-        })
-    merchant = se.merchants.find_by_id(12334753)
-
     assert_instance_of Array, merchant.invoices
     assert_instance_of Invoice, merchant.invoices.first
-    assert_equal 777, merchant.invoices.last.id
+    assert_equal 10, merchant.invoices.count
+    assert_equal 787, merchant.invoices.last.id
   end
 
   def test_it_can_find_customers_by_merchant_id
-    merchant = se.merchants.find_by_id(12334185)
-
     assert_instance_of Array, merchant.customers
-    assert_instance_of Customer , merchant.customers.first
+    assert_instance_of Customer, merchant.customers.first
+    assert_equal 7, merchant.customers.count
     assert_equal "Joey", merchant.customers.first.first_name
   end
 

@@ -1,8 +1,16 @@
 require_relative 'test_helper.rb'
 require_relative '../lib/item'
 require_relative '../lib/sales_engine'
+require_relative 'sales_engine_methods'
 
 class ItemTest < Minitest::Test
+  include SalesEngineMethods
+  attr_reader :se
+  
+  def setup 
+    create_sales_engine
+  end
+  
   def test_it_exists
     i = Item.new
 
@@ -65,14 +73,9 @@ class ItemTest < Minitest::Test
   
   
   def test_it_can_find_merchant_from_merchant_id
-    se = SalesEngine.from_csv({
-        :merchants     => "./test/fixtures/temp_merchants.csv",
-        :items     => "./test/fixtures/temp_items.csv",
-        :invoices => "./test/fixtures/invoices_truncated.csv"
-        })
     item = se.items.find_by_id(263395617)
     
     assert_instance_of Merchant, item.merchant
-    assert_equal "HEYhey", item.merchant.name
+    assert_equal "DinoSeller", item.merchant.name
   end
 end

@@ -16,8 +16,9 @@ class Merchant
   end
 
   def customers
-    customer_ids = invoices.map { |invoice| invoice.customer_id }
-    customer_ids.map {|customer| merchant_repository.engine.customers.find_by_id(customer)}
+    invoices.map { |invoice| invoice.customer_id }.uniq.map do |customer_id|
+      merchant_repository.engine.customers.find_by_id(customer_id)
+    end
   end
 
 end

@@ -4,12 +4,12 @@ module SalesEngineMethods
 
   def create_sales_engine
     @se = SalesEngine.from_csv({
-    :items => "./test/fixtures/items_robust_sa.csv",
-    :merchants => "./test/fixtures/merchants_for_sales_analysis.csv",
-    :invoices => "./test/fixtures/invoices_for_sales_analysis.csv",
-    :invoice_items => "./test/fixtures/invoice_items_test_data.csv",
-    :transactions => "./test/fixtures/transactions_test.csv",
-    :customers => "./test/fixtures/customer_test.csv"
-  })
+      :items => "./test/fixtures/items_test.csv",
+      :merchants => "./test/fixtures/merchants_test.csv",
+      :invoices => "./test/fixtures/invoices_test.csv",
+      :invoice_items => "./test/fixtures/invoice_items_test.csv",
+      :transactions => "./test/fixtures/transactions_test.csv",
+      :customers => "./test/fixtures/customers_test.csv"
+    })
   end
 end

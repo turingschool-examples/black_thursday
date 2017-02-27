@@ -41,10 +41,10 @@ class TransactionRepositoryTest < Minitest::Test
 
   def test_it_knows_all_by_result
     assert_instance_of Array, tr.find_all_by_result("success")
-    assert_equal 9, tr.find_all_by_result("success").count
+    assert_equal 8, tr.find_all_by_result("success").count
     assert_equal 2179, tr.find_all_by_result("success").first.invoice_id
     assert_instance_of Transaction, tr.find_all_by_result("success").first
-    assert_equal 1, tr.find_all_by_result("failed").count
+    assert_equal 2, tr.find_all_by_result("failed").count
   end
 
 end

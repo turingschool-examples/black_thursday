@@ -26,7 +26,9 @@ class Invoice
   end
 
   def items
-    invoice_repository.engine.invoice_items.find_all_by_invoice_id(id)
+    invoice_repository.engine.invoice_items.find_all_by_invoice_id(id).map do |invoice_item| 
+      invoice_repository.engine.items.find_by_id(invoice_item.item_id)
+    end
   end
 
   def transactions
@@ -38,19 +40,13 @@ class Invoice
   end
 
   def is_paid_in_full?
-    result = transactions.map {|transaction| transaction.result == "success"}
-    if result.include?(false)
-      false
-    else
-      true
-    end
+    transactions.any? {|transaction| transaction.result == "success"} ? true : false
   end
 
   def total
-    sum = items.reduce(0) do |total, item|
-      total + item.unit_price_to_dollars * item.quantity
+    invoice_repository.engine.invoice_items.find_all_by_invoice_id(id).reduce(0) do |total, invoice_item|
+      is_paid_in_full? ? total + invoice_item.unit_price * invoice_item.quantity : next
     end
-    sum
   end
 
 end

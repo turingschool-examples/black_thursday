@@ -64,9 +64,9 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_calculate_top_merchants_by_invoice_count
     se2 = SalesEngine.from_csv({
-        :merchants     => "./test/fixtures/merchants_for_invoice_sales_analysis.csv",
-        :items     => "./test/fixtures/items_robust_sa.csv",
-        :invoices => "./test/fixtures/invoices_for_sales_analysis.csv"
+        :merchants     => "./test/fixtures/merchants_for_invoices_test.csv",
+        :items     => "./test/fixtures/items_test.csv",
+        :invoices => "./test/fixtures/invoices_test.csv"
         })
     sa2 = SalesAnalyst.new(se2)
 
@@ -77,9 +77,9 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_calculate_bottom_merchants_by_invoice_count
     se2 = SalesEngine.from_csv({
-      :merchants     => "./test/fixtures/merchants_for_invoice_sales_analysis.csv",
-      :items     => "./test/fixtures/items_robust_sa.csv",
-      :invoices => "./test/fixtures/bottom_invoices_for_sales_analysis.csv"
+      :merchants     => "./test/fixtures/merchants_for_invoices_test.csv",
+      :items     => "./test/fixtures/items_test.csv",
+      :invoices => "./test/fixtures/invoices_bottom_test.csv"
       })
     sa2 = SalesAnalyst.new(se2)
 
@@ -90,9 +90,9 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_calculate_top_days_by_invoice_count
     se2 = SalesEngine.from_csv({
-        :merchants     => "./test/fixtures/merchants_for_invoice_sales_analysis.csv",
-        :items     => "./test/fixtures/items_robust_sa.csv",
-        :invoices => "./test/fixtures/invoices_for_sales_analysis.csv"
+        :merchants     => "./test/fixtures/merchants_for_invoices_test.csv",
+        :items     => "./test/fixtures/items_test.csv",
+        :invoices => "./test/fixtures/invoices_test.csv"
         })
     sa2 = SalesAnalyst.new(se2)
 
