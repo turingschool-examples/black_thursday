@@ -163,7 +163,5 @@ class SalesAnalyst
       number_of_each[status] = invoices.count
     end
     ((number_of_each[status_search] / @sales_engine.invoices.all.length.to_f) * 100).round(2)
-
-
   end
 end
