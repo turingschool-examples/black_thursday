@@ -21,7 +21,23 @@ class InvoiceTest < Minitest::Test
     invoice = @i.find_by_id(20)
 
     assert_instance_of Merchant, invoice.merchant
-
   end
+
+  def test_invoices_have_attached_items
+    invoice = @i.find_by_id(20)
+
+    assert_instance_of Array, invoice.items
+    assert_instance_of Item, invoice.items.first
+    assert_equal 5, invoice.items.count
+  end
+
+  def test_invoices_have_attached_transactions
+    invoice = @i.find_by_id(20)
+
+    assert_instance_of Array, invoice.transactions
+    assert_instance_of Transaction, invoice.transactions.first
+    assert_equal 3, invoice.transactions.count
+  end
+
 
 end

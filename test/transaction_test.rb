@@ -1,6 +1,6 @@
 require './test/test_helper'
 require './lib/transaction'
-
+require './lib/sales_engine'
 
 class TransactionTest < Minitest::Test
 
@@ -14,6 +14,15 @@ class TransactionTest < Minitest::Test
             :created_at=>"2012-02-26 20:56:56 UTC",
             :updated_at=>"2012-02-26 20:56:56 UTC"
             })
+    se = SalesEngine.from_csv({
+      :invoices => "./data/invoices.csv",
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :transactions => "./data/transactions.csv",
+      :invoice_items => "./data/invoice_items.csv"
+      })
+
+    @tr = se.transactions
   end
 
   def test_transaction_properties
@@ -25,5 +34,12 @@ class TransactionTest < Minitest::Test
     assert_instance_of Time, @t.created_at
     assert_instance_of Time, @t.updated_at
   end
+
+  def test_transaction_has_invoice
+    transaction = @tr.find_by_id(40)
+
+    assert_instance_of Invoice, transaction.invoice
+  end
+
 
 end

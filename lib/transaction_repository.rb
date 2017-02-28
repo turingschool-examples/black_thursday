@@ -1,7 +1,7 @@
 require_relative 'transaction'
 
 class TransactionRepository
-  attr_reader :all
+  attr_reader :transaction_data, :all, :parent
 
   def initialize(transaction_data, parent = nil )
     @transaction_data = transaction_data
