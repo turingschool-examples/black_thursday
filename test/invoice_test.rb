@@ -50,4 +50,6 @@ class InvoiceTest < Minitest::Test
     assert_instance_of Merchant
   end
 
+
+ 
 end

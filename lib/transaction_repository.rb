@@ -1,5 +1,6 @@
 require_relative 'transaction'
 class TransactionRepository
+  attr_reader :parent
   def initialize(csv_path, parent)
     @transaction_csv = CSV.open(csv_path, headers: true, header_converters: :symbol)
     @parent = parent

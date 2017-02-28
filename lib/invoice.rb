@@ -34,4 +34,36 @@ attr_reader :id,
     end
   end
 
+  def items 
+    @items = @parent.parent.invoice_items.find_all_by_invoice_id(@id)
+    all_items = @items.map do |invoice_item| 
+      @parent.parent.items.find_by_id(invoice_item.item_id)
+    end 
+    all_items
+  end
+
+  def transactions
+    @parent.parent.transactions.find_all_by_invoice_id(@id)
+  end
+
+  def customer
+    @parent.parent.customers.find_by_id(@customer_id) 
+  end
+
+  def is_paid_in_full?
+    transactions.any? do |transaction|
+      transaction.result == "success"
+    end
+
+  end
+
+  def total
+    items
+    total = @items.map do |invoice_item| 
+      [@parent.parent.items.find_by_id(invoice_item.item_id), invoice_item.quantity]
+    end
+    total.reduce(0) do |sum, item|
+      sum + (item[0].unit_price * item[1].to_f)
+    end
+  end
 end
