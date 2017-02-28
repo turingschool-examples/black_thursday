@@ -1,5 +1,7 @@
 require 'time'
 require_relative 'invoice_item'
+require_relative 'item_repository'
+require 'pry'
 
 class Invoice
 
@@ -27,7 +29,8 @@ class Invoice
   end
 
   def items
-    repository.sales_engine.invoice_items.find_all_by_invoice_id(self.id)
+    matching_items = repository.sales_engine.invoice_items.invoice_items.select { |row| row.invoice_id == self.id}
+    matching_items.map { |item| repository.sales_engine.items.find_by_id(item.item_id) }
   end
 
   def transactions
@@ -36,6 +39,15 @@ class Invoice
 
   def customer
     repository.sales_engine.customers.find_by_id(self.customer_id)
+  end
+
+  def is_paid_in_full?
+    transactions.all? { |trans| trans.result == "success" } && !transactions.empty?
+  end
+
+  def total
+    matching_items = repository.sales_engine.invoice_items.invoice_items.select { |row| row.invoice_id == self.id}
+    matching_items.reduce(0) { |sum, item| sum + item.unit_price*item.quantity }
   end
 end
     

@@ -1,3 +1,5 @@
+require 'pry'
+
 class CustomerRepository
 
   attr_reader :customers, :sales_engine
@@ -15,11 +17,15 @@ class CustomerRepository
     customers.find { |row| row.id == id }
   end
 
-  def find_by_first_name(first_name)
-    customers.select { |row| row.first_name == first_name }
+  def find_all_by_first_name(first_name)
+    customers.select { |row| row.first_name.downcase.include?  first_name.downcase }
   end
 
-  def find_by_last_name(last_name)
-    customers.select { |row| row.last_name == last_name }
+  def find_all_by_last_name(last_name)
+    customers.select { |row| row.last_name.downcase.include? last_name.downcase }
+  end
+
+  def inspect
+  "#<#{self.class} #{@merchants.size} rows>"
   end
 end

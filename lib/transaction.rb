@@ -22,4 +22,8 @@ class Transaction
     @updated_at                  = Time.parse(row[:updated_at])
     @repository                  = repository
   end
+
+  def invoice
+    repository.sales_engine.invoices.find_by_id(self.invoice_id)
+  end
 end
