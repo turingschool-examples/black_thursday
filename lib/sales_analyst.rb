@@ -74,4 +74,63 @@ class SalesAnalyst
     end
   end
 
+# iteration 2
+
+  def invoices_count
+    engine.invoices.all.count
+  end
+
+  def average_invoices_per_merchant
+    (invoices_count/merchant_count.to_f).round(2)
+  end
+
+  def merchant_invoice_count(merchant_id)
+    engine.invoices.find_all_by_merchant_id(merchant_id).count
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    total = engine.merchants.all.map do |merchant|
+      ((merchant_invoice_count(merchant.id)) - average_invoices_per_merchant)**2
+    end
+    Math.sqrt(total.reduce(:+)/total.length - 1).round(2)
+  end
+
+  def top_merchants_by_invoice_count
+    std_dev = average_invoices_per_merchant_standard_deviation
+    avg = average_invoices_per_merchant
+    engine.merchants.all.find_all do |merchant|
+      merchant_invoice_count(merchant.id) > ((std_dev * 2) + avg)
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    std_dev = average_invoices_per_merchant_standard_deviation
+    avg = average_invoices_per_merchant
+    engine.merchants.all.find_all do |merchant|
+      merchant_invoice_count(merchant.id) < (avg - (std_dev * 2))
+    end
+  end
+
+  def invoice_day_created
+    engine.invoices.all.map do |invoice|
+      invoice.created_at.strftime('%A')
+    end
+  end
+
+  def invoice_number_created_on_given_day
+    # prob hash of day and number created
+  end
+
+  def invoice_created_day_average
+    #average no of invoice created per day
+  end
+
+  def invoice_created_day_standard_deviation
+    #std dev of day invoice created
+  end
+
+  def top_days_by_invoice_count
+    # days of the week where invoices created at 1 + std deviation
+  end
+
 end
