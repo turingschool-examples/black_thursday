@@ -1,18 +1,22 @@
-require_relative "../lib/data_access"
+require_relative "../lib/item_data_access"
 class Merchant
-  include DataAccess
-  # attr_reader :id, :name, :parent
+  # include ItemDataAccess
+  attr_reader :id, :name, :parent
   
-  # def initialize(data, parent=nil)
-  #   @id  = data[:id]
-  #   @name = data[:name]
-  #   @parent = parent
-  # end
-
-  def items
-    parent.parent.items.find_all_by_merchant_id(@id)
+  def initialize(data, parent=nil)
+    @id  = data[:id]
+    @name = data[:name]
+    @parent = parent
   end
 
+  def items
+    parent.parent.items.find_all_by_merchant_id(id)
+  end
+
+  def customers
+    #and if we started with a merchant we could find the customers who’ve purchased one or more items at their store:
+    parent.parent.invoices.find_all_by_merchant_id(id).map {|invoice| invoice.customer}.uniq
+  end
 
 
 ###Taken from DataAccess, find_all_by_merchant_id. Refactor to extract find_all?

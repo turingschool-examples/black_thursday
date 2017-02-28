@@ -21,7 +21,10 @@ module DataAccess
     #  binding.pry
     @customer_id = data[:customer_id]
     @status = data[:status]
+    # binding.pry
+    # instance_variables.each {|var|  remove_instance_variable(:@var) if self.var.nil? }
   end
+
 ###
 #all
 ###
@@ -103,15 +106,7 @@ module DataAccess
   #   "#<#{self.class} #{@merchants.size} rows>"
   # end
 
-  
-
-
-
-# def inspect
-#   @instance.nil? ? nil : "#<#{self.class} #{@instance.size} rows>"
-# end
-
   def inspect
-    "#<#{self.class} #{@instance.size} rows>" #unless @instance.nil?
+    "#<#{self.class} #{@instance.size} rows>" unless @instance.nil?
   end
 end
