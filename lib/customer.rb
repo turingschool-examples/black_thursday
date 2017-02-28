@@ -16,4 +16,14 @@ class Customer
     @parent = parent
   end
 
+  # def merchants
+  #   merchant_ids = parent.parent.invoices.find_all_by_merchant_id(id).map do |invoice|
+  #     invoice.merchant_id
+  #   end
+  #   merchant_ids.map do |id|
+  #     parent.parent.merchants.find_by_id(id)
+  #   end
+  # end
+
+
 end
