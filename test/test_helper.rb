@@ -17,4 +17,5 @@ require './lib/invoice'
 require './lib/invoice_item'
 require './lib/invoice_item_repository'
 require './lib/transaction'
-
+require './lib/customer'
+require './lib/customer_repository'

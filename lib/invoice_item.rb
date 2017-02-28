@@ -22,6 +22,6 @@ class InvoiceItem
   end
 
   def unit_price_to_dollars
-  repository.sales_engine.items.find_by_id(self.item_id).to_f
+    unit_price.to_f
   end
 end

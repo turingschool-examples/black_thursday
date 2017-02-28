@@ -1,7 +1,9 @@
 require './test/test_helper'
 
 class ItemTest < Minitest::Test
+
   attr_reader :item
+  
   def setup
     @item = Item.new({
       :id          => "2345",

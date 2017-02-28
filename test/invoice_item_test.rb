@@ -42,10 +42,7 @@ class InvoiceItemTest < Minitest::Test
   end
 
   def test_unit_price_to_dollars
-    se = SalesEngine.from_csv({items: './test/fixtures/items_match_invoice_id.csv', invoice_items: './test/fixtures/invoice_items_truncated.csv'})
-    item = se.items.find_by_id(263519844)
-    item_price = item.unit_price
-    assert_equal item_price.to_f, invoice_item_1.unit_price_to_dollars
+    assert_equal 136.35, invoice_item_1.unit_price_to_dollars
   end
 
 end
