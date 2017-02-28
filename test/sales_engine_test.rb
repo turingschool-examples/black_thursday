@@ -2,13 +2,8 @@ require './test/test_helper'
 require './lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test
-
-  @@se = SalesEngine.from_csv({
-    :invoices => "./data/invoices.csv",
-    :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv",
-    })
-
+  include TestSetup
+  
   def setup
     @se = @@se
   end
