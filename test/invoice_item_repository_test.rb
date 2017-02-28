@@ -20,7 +20,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_it_can_find_invoice_item_by_id
     assert_instance_of InvoiceItem, iir.find_by_id(5)
-    assert_equal 263515158, iir.find_by_id(5).item_id
+    assert_equal 263394417, iir.find_by_id(5).item_id
     assert_nil iir.find_by_id(31)
   end
 

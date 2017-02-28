@@ -77,13 +77,14 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_it_knows_if_invoice_is_paid
-    refute invoice.is_paid_in_full?
-    invoice2 = se.invoices.find_by_id(1752)
-    assert invoice2.is_paid_in_full?
+    invoice2 = se.invoices.find_by_id(3715)
+    refute invoice2.is_paid_in_full?
+    invoice3 = se.invoices.find_by_id(1752)
+    assert invoice3.is_paid_in_full?
   end
 
   def test_it_knows_total
-    invoice2 = se.invoices.find_by_id(3715)
-    assert_equal 8144.80, invoice2.total.to_f
+    assert_instance_of BigDecimal, invoice.total
+    assert_equal 12922.97, invoice.total.to_f
   end
 end

@@ -63,12 +63,12 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_calculate_top_merchants_by_invoice_count
-    se2 = SalesEngine.from_csv({
+    se = SalesEngine.from_csv({
         :merchants     => "./test/fixtures/merchants_for_invoices_test.csv",
         :items     => "./test/fixtures/items_test.csv",
         :invoices => "./test/fixtures/invoices_test.csv"
         })
-    sa2 = SalesAnalyst.new(se2)
+    sa2 = SalesAnalyst.new(se)
 
     assert_instance_of Array, sa2.top_merchants_by_invoice_count
     assert_instance_of Merchant, sa2.top_merchants_by_invoice_count.first
@@ -76,12 +76,12 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_calculate_bottom_merchants_by_invoice_count
-    se2 = SalesEngine.from_csv({
+    se = SalesEngine.from_csv({
       :merchants     => "./test/fixtures/merchants_for_invoices_test.csv",
       :items     => "./test/fixtures/items_test.csv",
       :invoices => "./test/fixtures/invoices_bottom_test.csv"
       })
-    sa2 = SalesAnalyst.new(se2)
+    sa2 = SalesAnalyst.new(se)
 
     assert_instance_of Array, sa2.bottom_merchants_by_invoice_count
     assert_instance_of Merchant, sa2.bottom_merchants_by_invoice_count.first
@@ -89,12 +89,12 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_calculate_top_days_by_invoice_count
-    se2 = SalesEngine.from_csv({
+    se = SalesEngine.from_csv({
         :merchants     => "./test/fixtures/merchants_for_invoices_test.csv",
         :items     => "./test/fixtures/items_test.csv",
         :invoices => "./test/fixtures/invoices_test.csv"
         })
-    sa2 = SalesAnalyst.new(se2)
+    sa2 = SalesAnalyst.new(se)
 
     assert_instance_of Array, sa2.top_days_by_invoice_count
     assert_equal 1, sa2.top_days_by_invoice_count.count
@@ -155,6 +155,12 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Merchant, sa.merchants_with_only_one_item_registered_in_month("December").first
     assert_equal 1, sa.merchants_with_only_one_item_registered_in_month("December").count
     assert_equal 12334105, sa.merchants_with_only_one_item_registered_in_month("December").first.id
+  end
+  
+  def test_it_finds_most_sold_item_for_a_given_merchant
+    assert_instance_of Array, sa.most_sold_item_for_merchant(12334185)
+    assert_instance_of Item, sa.most_sold_item_for_merchant(12334185).first
+    assert_equal 263394417, sa.most_sold_item_for_merchant(12334185).first.id
   end
 
 end

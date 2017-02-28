@@ -61,7 +61,35 @@ class MerchantTest < Minitest::Test
 
   def test_it_knows_no_revenue_means_value_0
     merchant = se.merchants.find_by_id(12334105)
-    assert_equal 0, merchant.revenue
+    assert_nil merchant.revenue
+  end
+  
+  def test_it_can_find_items_based_on_invoice_items
+    assert_instance_of Array, merchant.items_with_invoice_items
+    assert_instance_of Item, merchant.items_with_invoice_items.first
+    assert_equal 2, merchant.items_with_invoice_items.count
+    assert_equal 263394417, merchant.items_with_invoice_items.last.id
+  end
+  
+  # def test_it_can_find_most_sold_item
+  #   assert_instance_of Array, merchant.most_sold_item
+  #   assert_instance_of Item, merchant.most_sold_item.first
+  #   assert_equal 263394417, merchant.most_sold_item.first.id
+  #   assert_equal 1, merchant.most_sold_item.count
+  # end
+
+  def test_it_can_find_most_sold_item_when_top_items_tie
+    se = SalesEngine.from_csv({
+      :items => "./test/fixtures/items_for_top_item.csv",
+      :merchants => "./test/fixtures/merchants_test.csv",
+      :invoices => "./test/fixtures/invoices_test.csv",
+      :invoice_items => "./test/fixtures/invoice_items_test.csv",
+      :transactions => "./test/fixtures/transactions_test.csv",
+      :customers => "./test/fixtures/customers_test.csv"
+    })
+    merchant = se.merchants.find_by_id(12334185)
+    assert_equal 263451719, merchant.most_sold_item.first.id
+    assert_equal 2, merchant.most_sold_item.count
   end
 
 end
