@@ -10,11 +10,6 @@ class InvoiceItemTest < Minitest::Test
     @ii = @se.invoice_items
   end
 
-  # def setup
-  #   @se = @@se
-  #   @ii = @@se.invoice_items
-  # end
-
   def test_invoice_item_exists
     assert_equal 1, @ii.all.first.id
     assert_equal 263519844, @ii.all.first.item_id
