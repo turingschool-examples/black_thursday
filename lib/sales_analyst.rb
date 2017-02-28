@@ -13,8 +13,10 @@ class SalesAnalyst
               :invoice_set,
               :invoices_squared_differences,
               :invoices_by_day,
-              :merchant_invoices,
-              :total
+              :invoices_by_date,
+              :merchants_by_revenue,
+              :merchants_pending,
+              :merchants_one_item
 
   def initialize(engine="")
     @engine = engine
@@ -111,7 +113,7 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-    @invoices_by_day = engine.invoices.all.group_by do |invoice|
+    @invoices_by_day ||= engine.invoices.all.group_by do |invoice|
       invoice.created_at.strftime('%A')
     end
 
@@ -123,7 +125,7 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    invoices_by_date = engine.invoices.all.select do |invoice|
+    @invoices_by_date ||= engine.invoices.all.select do |invoice|
       invoice.created_at == date
     end
     invoices_by_date.map do |invoice|
@@ -136,43 +138,23 @@ class SalesAnalyst
   end
 
   def merchants_ranked_by_revenue
-    engine.merchants.all.sort_by do |merchant|
+    @merchants_by_revenue ||= engine.merchants.all.sort_by do |merchant|
       [merchant.revenue ? 1 : 0, merchant.revenue]
     end.reverse
   end
 
-  # def revenue_for_all_merchants
-  #   engine.merchants.all.map {|merchant| revenue_by_merchant(merchant.id)}
-  # end
-
-  # #def top_revenue_earners(num_top = 20)
-  #   sorted_merchants_by_revenue_2[0..num_top-1]
-  # end
-  #
-  # def sorted_merchants_by_revenue_2
-  #   engine.merchants.all.sort_by { |merchant| [revenue_by_merchant(merchant.id) ? 0 : 1, revenue_by_merchant(merchant.id) || 0] }
-  ## end
-
-  # def remove_nil_merchants_by_revenue
-  #   engine.merchants.all.select do |merchant|
-  #     revenue_by_merchant(merchant.id)
-  #   end
-  # end
-  #
-  # def sorted_merchants_by_revenue
-  #   remove_nil_merchants_by_revenue.sort_by do |merchant|
-  #     revenue_by_merchant(merchant.id)
-  #   end.reverse
-  # end
+  def top_revenue_earners(num_top = 20)
+    merchants_ranked_by_revenue[0..num_top-1]
+  end
 
   def merchants_with_pending_invoices
-    engine.merchants.all.select do |merchant|
+    @merchants_pending ||= engine.merchants.all.select do |merchant|
       merchant.any_pending?
     end
   end
 
   def merchants_with_only_one_item
-    engine.merchants.all.select do |merchant|
+    @merchants_one_item ||= engine.merchants.all.select do |merchant|
       merchant.only_one_item?
     end
   end
@@ -182,7 +164,5 @@ class SalesAnalyst
       merchant.created_at.strftime("%B") == month
     end
   end
-
-
 
 end

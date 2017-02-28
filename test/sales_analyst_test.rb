@@ -122,7 +122,7 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Array, sa.merchants_ranked_by_revenue
     assert_instance_of Merchant, sa.merchants_ranked_by_revenue.first
     assert_equal 3, sa.merchants_ranked_by_revenue.count
-    assert_equal 12334122, sa.merchants_ranked_by_revenue.last
+    assert_equal 12334122, sa.merchants_ranked_by_revenue.first.id
   end
 
   # def test_it_can_return_revenue_for_all_merchants
@@ -130,11 +130,11 @@ class SalesAnalystTest < Minitest::Test
   #   assert_instance_of BigDecimal, sa.revenue_for_all_merchants[1]
   # end
 
-  # def test_it_can_find_top_x_number_of_revenue_earners
-  #   assert_instance_of Array, sa.top_revenue_earners(1)
-  #   assert_equal 1, sa.top_revenue_earners(1).count
-  #   assert_instance_of Merchant, sa.top_revenue_earners(1).first
-  # end
+  def test_it_can_find_top_x_number_of_revenue_earners
+    assert_instance_of Array, sa.top_revenue_earners(1)
+    assert_equal 1, sa.top_revenue_earners(1).count
+    assert_instance_of Merchant, sa.top_revenue_earners(1).first
+  end
 
   def test_it_can_return_merchants_with_pending_invoices
     assert_instance_of Array, sa.merchants_with_pending_invoices
