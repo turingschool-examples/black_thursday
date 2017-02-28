@@ -35,8 +35,8 @@ attr_reader :id,
   end
 
   def items 
-    @items = @parent.parent.invoice_items.find_all_by_invoice_id(@id)
-    all_items = @items.map do |invoice_item| 
+    @invoice_items = @parent.parent.invoice_items.find_all_by_invoice_id(@id)
+    all_items = @invoice_items.map do |invoice_item| 
       @parent.parent.items.find_by_id(invoice_item.item_id)
     end 
     all_items
@@ -59,11 +59,8 @@ attr_reader :id,
 
   def total
     items
-    total = @items.map do |invoice_item| 
-      [@parent.parent.items.find_by_id(invoice_item.item_id), invoice_item.quantity]
-    end
-    total.reduce(0) do |sum, item|
-      sum + (item[0].unit_price * item[1].to_f)
-    end
+    @invoice_items.reduce(0) do |sum, item|
+      sum + item.unit_price * item.quantity.to_f
+    end.round(2)
   end
 end
