@@ -29,4 +29,5 @@ class InvoiceItemRepository
 		all.select { |instance| instance if instance.invoice_id == invoice_id }
 	end
 
+
 end

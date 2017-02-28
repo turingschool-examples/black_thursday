@@ -36,4 +36,18 @@ class Invoice
 		inv_items_arr = ir.sales_engine.invoice_items.find_all_by_invoice_id(id)
 		inv_items_arr.map { |ii| ii.quantity * ii.unit_price }.reduce(:+)
 	end
+
+	def each_paid
+		each = ir.sales_engine.transactions.find_all_by_invoice_id(id)
+		each.select do |trans|
+				require'pry';binding.pry
+			if trans.result == "success"
+				
+			elsif trans.result == "failed"
+				0
+			else
+				0
+			end
+		end.compact.reduce(:+)
+	end
 end

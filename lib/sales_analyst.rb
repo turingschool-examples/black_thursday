@@ -165,5 +165,33 @@ class SalesAnalyst
     find_average(split_invoices_by_creation_date).round(2)
   end
 
+  def total_revenue_by_date(date)
+    inv = se.invoices.find_all_by_date(date)
+    inv.reduce(0) do |total, invoice|
+      total += se.invoice_items.find_all_by_invoice_id(invoice.id).reduce(0) do |t, ii|
+       t += (ii.quantity * ii.unit_price)
+      end
+    end
+  end
 
+  def merchant_totals
+    se.merchants.all.map do |merchant|
+      se.invoices.find_all_by_merchant_id(merchant.id).map do |invoices|
+        if invoices.is_paid_in_full?
+          invoices.total
+        else
+         invoices.each_paid
+        end
+      end.reduce(:+)
+    end
+  end
+
+  def merchants_array
+    se.merchants.all.map
+  end
+
+  def top_revenue_earners(amount)
+    # require'pry';binding.pry
+    Hash[merchants_array.zip(merchant_totals)].sort_by { |key, value| -value }[0...amount].map { |hash| hash[0] }
+  end
 end

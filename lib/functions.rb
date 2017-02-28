@@ -12,7 +12,7 @@ module Functions
   def standard_deviation(data, average, total)
     Math.sqrt(add_squared(data, average) / (total - 1)).round(2)
   end
-
+  
 	def add_squared(data, average)
     data.reduce(0) do |result, number|
       result += ((number - average) ** 2)

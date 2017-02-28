@@ -80,8 +80,4 @@ class SalesEngineTest < Minitest::Test
 	def test_top_days_by_invoice_count
 		assert_equal ["Friday"], sa.top_days_by_invoice_count
 	end
-
-	def test_total_revenue_by_date()
-
-	end
 end

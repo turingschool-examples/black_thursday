@@ -33,4 +33,8 @@ class InvoiceRepository
 		all.select { |instance| instance if instance.status == status.to_sym }
 	end
 
+	def find_all_by_date(date)
+		all.select { |instance| instance if instance.created_at == date }
+	end
+
 end
