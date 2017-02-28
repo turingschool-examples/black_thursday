@@ -46,7 +46,7 @@ class TransactionRepository
 
   def find_all_by_result(result)
     all.find_all do |transaction|
-      transaction.result == result
+      transaction.result == result.to_s
     end
   end
 
