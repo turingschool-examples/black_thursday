@@ -117,20 +117,27 @@ class SalesAnalyst
     end
   end
 
-  def invoice_number_created_on_given_day
-    # prob hash of day and number created
-  end
-
-  def invoice_created_day_average
-    #average no of invoice created per day
+  def number_of_invoices_created_on_given_day
+    invoice_day_created.inject(Hash.new(0)) do |total, day|
+     total[day] += 1
+     total
+   end
   end
 
   def invoice_created_day_standard_deviation
-    #std dev of day invoice created
+    total = number_of_invoices_created_on_given_day.map do |day, count|
+      (count - (invoices_count/7.0))**2
+    end
+    Math.sqrt(total.reduce(:+)/(total.length - 1)).round(2)
   end
 
   def top_days_by_invoice_count
-    # days of the week where invoices created at 1 + std deviation
+    std_dev = invoice_created_day_standard_deviation
+    avg = invoices_count/7.0
+    result = number_of_invoices_created_on_given_day.select do |day, count|
+      day if count > (std_dev + avg)
+      end
+      result.keys
   end
 
 end

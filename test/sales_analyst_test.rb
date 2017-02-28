@@ -97,7 +97,7 @@ class SalesAnalystTest < Minitest::Test
   def test_returns_array_of_bottom_performing_merchants_by_invoice_count
     skip
     assert_instance_of Array, @sa.bottom_merchants_by_invoice_count
-    assert_instance_of NilClass, @sa.bottom_merchants_by_invoice_count.first # this needs to be fixed in the fxture file
+    assert_instance_of Merchant, @sa.bottom_merchants_by_invoice_count.first # this needs to be fixed in the fxture file
   end
 
   def test_invoice_day_created_returns_array_of_day_names
@@ -105,11 +105,19 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 'Monday', @sa.invoice_day_created.first
   end
 
+  def test_invoice_created_on_given_day_returns_hash
+    assert_instance_of Hash, @sa.number_of_invoices_created_on_given_day
+    assert_equal 7, @sa.number_of_invoices_created_on_given_day.keys.count
+  end
+
+  def test_invoice_created_day_std_dev_returns_correct_number
+    assert_equal 3.69, @sa.invoice_created_day_standard_deviation
+  end
+
   def test_returns_array_of_strings_for_top_performing_days
     skip
     assert_instance_of Array, @sa.top_days_by_invoice_count
-    assert_instance_of String, @sa.top_days_by_invoice_count.first
-    assert_includes
+    assert_instance_of String, @sa.top_days_by_invoice_count.first # needs to be fixed in fixture
   end
 
 end
