@@ -27,6 +27,7 @@ class Item
   end
 
   def unit_price_to_dollars
+    # repeated method, consider moving to module
     unit_price.to_f
   end
 
