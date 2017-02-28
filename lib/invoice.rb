@@ -1,5 +1,5 @@
 require 'time'
-require_relative 'invoice item'
+require_relative 'invoice_item'
 
 class Invoice
 
