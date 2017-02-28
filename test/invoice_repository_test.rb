@@ -19,7 +19,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_all
     ir = InvoiceRepository.new('./test/fixtures/invoice_fixture.csv')
-    assert_equal 473, ir.all.count
+    assert_equal 474, ir.all.count
   end
 
   def test_find_by_id
@@ -44,7 +44,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_find_all_by_status
     ir = InvoiceRepository.new('./test/fixtures/invoice_fixture.csv')
-    assert_equal 263, ir.find_all_by_status(:shipped).count
+    assert_equal 264, ir.find_all_by_status(:shipped).count
     assert_equal 2, ir.find_all_by_status(:shipped)[0].id
     assert_equal [], ir.find_all_by_status(:'not a status')
   end

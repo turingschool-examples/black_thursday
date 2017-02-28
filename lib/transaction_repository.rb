@@ -62,6 +62,6 @@ class TransactionRepository
   end
 
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    @merchants.nil? ? nil: "#<#{self.class} #{@merchants.size} rows>"
   end
 end

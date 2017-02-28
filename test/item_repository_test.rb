@@ -18,7 +18,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_all
     ir = ItemRepository.new('./test/fixtures/item_fixture.csv')
-    assert_equal 81, ir.all.count
+    assert_equal 85, ir.all.count
   end
 
   def test_find_by_id
@@ -49,7 +49,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_find_all_by_price_in_range
     ir = ItemRepository.new('./test/fixtures/item_fixture.csv')
-    assert_equal 66, ir.find_all_by_price_in_range(1.00..200.00).count
+    assert_equal 70, ir.find_all_by_price_in_range(1.00..200.00).count
     assert_equal 12, ir.find_all_by_price_in_range(10.00..20.00)[0].unit_price
     assert_equal [], ir.find_all_by_price_in_range(1.00..2.00)
   end

@@ -14,7 +14,7 @@ attr_reader :tr
   end
 
   def test_all
-    assert_equal 103, tr.all.count
+    assert_equal 105, tr.all.count
   end
 
   def test_find_by_id
@@ -25,7 +25,7 @@ attr_reader :tr
   def test_find_all_by_invoice_id
     assert_equal 3, tr.find_all_by_invoice_id(4930).count
     assert_equal 200, tr.find_all_by_invoice_id(4930)[0].id
-    assert_equal [], tr.find_all_by_invoice_id(2)
+    assert_equal [], tr.find_all_by_invoice_id(3)
   end
 
   def test_find_all_by_credit_card_number

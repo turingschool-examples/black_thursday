@@ -22,15 +22,3 @@ class SalesEngine
     SalesEngine.new(hash)
   end
 end
-
-
-# se = SalesEngine.from_csv({
-#   :items     => "./test/fixtures/item_fixture.csv",
-#   :merchants => "./test/fixtures/merchant_fixture.csv",
-#   :invoices => "./test/fixtures/invoice_fixture.csv",
-#   :invoice_items => "./test/fixtures/invoice_items_fixture.csv",
-#   :transactions => "./data/transactions.csv"
-# })
-#
-# require "pry"; binding.pry
-# p ""

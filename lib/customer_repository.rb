@@ -53,6 +53,6 @@ class CustomerRepository
   end
 
   def inspect
-    "#<#{self.class} #{@customers.size} rows>"
+    @customers.nil? ? nil: "#<#{self.class} #{@customers.size} rows>"
   end
 end
