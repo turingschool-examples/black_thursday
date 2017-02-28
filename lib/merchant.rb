@@ -20,4 +20,8 @@ class Merchant
   def invoices
     repository.sales_engine.invoices.find_all_by_merchant_id(self.id)
   end
+
+  def customers
+    self.invoices.map { |pizza| pizza.customer }.uniq
+  end
 end
