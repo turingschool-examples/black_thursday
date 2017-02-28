@@ -3,12 +3,17 @@ require './lib/invoice_item'
 require './lib/sales_engine'
 
 class InvoiceItemTest < Minitest::Test
-  include TestSetup
+  include SalesEngineTestSetup
 
   def setup
-    @se = @@se
-    @ii = @@se.invoice_items
+    super
+    @ii = @se.invoice_items
   end
+
+  # def setup
+  #   @se = @@se
+  #   @ii = @@se.invoice_items
+  # end
 
   def test_invoice_item_exists
     assert_equal 1, @ii.all.first.id

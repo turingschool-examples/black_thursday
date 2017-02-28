@@ -2,10 +2,10 @@ require './test/test_helper'
 require './lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test
-  include TestSetup
+  include SalesEngineTestSetup
 
   def setup
-    @se = @@se
+    super
   end
 
   def test_sales_engine_exists

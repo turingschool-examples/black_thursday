@@ -3,10 +3,10 @@ require './lib/merchant'
 require './lib/sales_engine'
 
 class MerchantTest < Minitest::Test
-  include TestSetup
+  include SalesEngineTestSetup
 
   def setup
-    @se = @@se
+    super
   end
 
   def test_it_exists

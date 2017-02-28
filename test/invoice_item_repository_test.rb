@@ -3,10 +3,11 @@ require './lib/invoice_item_repository'
 require './lib/sales_engine'
 
 class InvoiceItemRepositoryTest < Minitest::Test
-  include TestSetup
+  include SalesEngineTestSetup
 
   def setup
-    @iir = @@se.invoice_items
+    super
+    @iir = @se.invoice_items
   end
 
   def test_it_exists

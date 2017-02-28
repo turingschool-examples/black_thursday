@@ -3,13 +3,14 @@ require_relative 'data_analysis'
 
 class SalesAnalyst
   include DataAnalysis
-  attr_reader :sales_engine, :merchants, :items, :invoices
+  attr_reader :sales_engine, :merchants, :items, :invoices, :invoice_items
 
   def initialize(sales_engine)
     @sales_engine = sales_engine
     @merchants = sales_engine.merchants
     @items = sales_engine.items
     @invoices = sales_engine.invoices
+    @invoice_items = sales_engine.invoice_items
   end
 
   # merchant and item methods

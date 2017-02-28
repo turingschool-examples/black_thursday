@@ -3,11 +3,11 @@ require './lib/item_repository'
 require './lib/sales_engine'
 
 class ItemRepositoryTest < Minitest::Test
-  include TestSetup
+  include SalesEngineTestSetup
 
   def setup
-    @se = @@se
-    @ir = @@se.items
+    super
+    @ir = @se.items
   end
 
   def test_it_exists

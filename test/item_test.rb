@@ -3,10 +3,10 @@ require './lib/item'
 require './lib/sales_engine'
 
 class ItemTest < Minitest::Test
-  include TestSetup
+  include SalesEngineTestSetup
 
   def setup
-    @se = @@se
+    super
     @i = Item.new({
       :id          => 1111,
       :merchant_id => 222222,

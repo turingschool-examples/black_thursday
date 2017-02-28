@@ -4,11 +4,11 @@ require './lib/sales_engine'
 
 
 class InvoiceRepositoryTest < Minitest::Test
-  include TestSetup
+  include SalesEngineTestSetup
 
   def setup
-    @se = @@se
-    @ir = @@se.invoices
+    super
+    @ir = @se.invoices
   end
 
   def test_it_exists

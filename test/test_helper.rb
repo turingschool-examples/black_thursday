@@ -4,4 +4,4 @@ SimpleCov.start
 gem 'minitest'
 require 'minitest/autorun'
 require 'pry'
-require './lib/test_module'
+require './test/sales_engine_test_setup'

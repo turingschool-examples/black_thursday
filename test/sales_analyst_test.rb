@@ -2,14 +2,14 @@ require './test/test_helper'
 require './lib/sales_analyst'
 
 class SalesAnalystTest < Minitest::Test
-  include TestSetup
+  include SalesEngineTestSetup
 
-  @@sa = SalesAnalyst.new(@@se)
 
   def setup
-    @se = @@se
-    @sa = @@sa
+    super
+    @sa = SalesAnalyst.new(@se)
   end
+
 
   def test_it_exists
     assert_instance_of SalesAnalyst, @sa
