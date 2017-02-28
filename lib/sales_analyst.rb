@@ -226,10 +226,10 @@ class SalesAnalyst
   end
 
   def find_invoice_items_for_merchant(merchant_id)
-    inv = engine.merchants.find_by_id(merchant_id).inv.find_all do |invoice|
-       invoice.is_paid_in_full?
+    invs = engine.merchants.find_by_id(merchant_id).invoices.find_all do |inv|
+       inv.is_paid_in_full?
     end
-    invoices.map do |invoice|
+    invs.map do |invoice|
       invoice.invoice_items
     end
   end
