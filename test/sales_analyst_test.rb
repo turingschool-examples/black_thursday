@@ -108,5 +108,54 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 6.9, sa.invoice_status(:returned)
   end
 
+  def test_it_can_find_total_revenue_by_given_date
+    assert_instance_of BigDecimal, sa.total_revenue_by_date(Time.parse("2009-02-05"))
+    assert_equal 12922.97, sa.total_revenue_by_date(Time.parse("2009-02-05")).to_f
+  end
+
+  def test_it_can_calculate_revenue_by_merchant
+    assert_instance_of BigDecimal, sa.revenue_by_merchant(12334122)
+    assert_equal 12922.97, sa.revenue_by_merchant(12334122).to_f
+  end
+
+  def test_it_calculates_merchants_ranked_by_revenue
+    assert_instance_of Array, sa.merchants_ranked_by_revenue
+    assert_instance_of Merchant, sa.merchants_ranked_by_revenue.first
+    assert_equal 3, sa.merchants_ranked_by_revenue.count
+    assert_equal 12334122, sa.merchants_ranked_by_revenue.last
+  end
+
+  # def test_it_can_return_revenue_for_all_merchants
+  #   assert_instance_of Array, sa.revenue_for_all_merchants
+  #   assert_instance_of BigDecimal, sa.revenue_for_all_merchants[1]
+  # end
+
+  # def test_it_can_find_top_x_number_of_revenue_earners
+  #   assert_instance_of Array, sa.top_revenue_earners(1)
+  #   assert_equal 1, sa.top_revenue_earners(1).count
+  #   assert_instance_of Merchant, sa.top_revenue_earners(1).first
+  # end
+
+  def test_it_can_return_merchants_with_pending_invoices
+    assert_instance_of Array, sa.merchants_with_pending_invoices
+    assert_instance_of Merchant, sa.merchants_with_pending_invoices.first
+    assert_equal 1, sa.merchants_with_pending_invoices.count
+    assert_equal 12334185, sa.merchants_with_pending_invoices.first.id
+  end
+
+  def test_it_returns_merchants_with_only_one_item
+    assert_instance_of Array, sa.merchants_with_only_one_item
+    assert_instance_of Merchant, sa.merchants_with_only_one_item.first
+    assert_equal 1, sa.merchants_with_only_one_item.count
+    assert_equal 12334105, sa.merchants_with_only_one_item.first.id
+  end
+
+  def test_it_can_return_merchants_with_only_one_item_in_a_month
+    assert_instance_of Array, sa.merchants_with_only_one_item_registered_in_month("December")
+    assert_instance_of Merchant, sa.merchants_with_only_one_item_registered_in_month("December").first
+    assert_equal 1, sa.merchants_with_only_one_item_registered_in_month("December").count
+    assert_equal 12334105, sa.merchants_with_only_one_item_registered_in_month("December").first.id
+  end
+
 end
 

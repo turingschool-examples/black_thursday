@@ -44,4 +44,24 @@ class MerchantTest < Minitest::Test
     assert_equal "Joey", merchant.customers.first.first_name
   end
 
+  def test_it_has_any_pending_invoices
+    assert merchant.any_pending?
+  end
+
+  def test_it_knows_if_merchant_only_has_one_item
+    merchant = se.merchants.find_by_id(12334105)
+    assert merchant.only_one_item?
+  end
+
+  def test_it_can_find_merchant_revenue
+    merchant = se.merchants.find_by_id(12334122)
+    assert_instance_of BigDecimal, merchant.revenue
+    assert_equal 12922.97, merchant.revenue.to_f
+  end
+
+  def test_it_knows_no_revenue_means_value_0
+    merchant = se.merchants.find_by_id(12334105)
+    assert_equal 0, merchant.revenue
+  end
+
 end

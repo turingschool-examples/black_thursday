@@ -12,7 +12,9 @@ class SalesAnalyst
               :price_squared_differences,
               :invoice_set,
               :invoices_squared_differences,
-              :invoices_by_day
+              :invoices_by_day,
+              :merchant_invoices,
+              :total
 
   def initialize(engine="")
     @engine = engine
@@ -119,5 +121,68 @@ class SalesAnalyst
   def invoice_status(status)
     ((engine.invoices.find_all_by_status(status).count / engine.invoices.all.count.to_f) * 100).round(2)
   end
+
+  def total_revenue_by_date(date)
+    invoices_by_date = engine.invoices.all.select do |invoice|
+      invoice.created_at == date
+    end
+    invoices_by_date.map do |invoice|
+      invoice.total
+    end.reduce(:+)
+  end
+
+  def revenue_by_merchant(merch_id)
+    engine.merchants.find_by_id(merch_id).revenue
+  end
+
+  def merchants_ranked_by_revenue
+    engine.merchants.all.sort_by do |merchant|
+      [merchant.revenue ? 1 : 0, merchant.revenue]
+    end.reverse
+  end
+
+  # def revenue_for_all_merchants
+  #   engine.merchants.all.map {|merchant| revenue_by_merchant(merchant.id)}
+  # end
+
+  # #def top_revenue_earners(num_top = 20)
+  #   sorted_merchants_by_revenue_2[0..num_top-1]
+  # end
+  #
+  # def sorted_merchants_by_revenue_2
+  #   engine.merchants.all.sort_by { |merchant| [revenue_by_merchant(merchant.id) ? 0 : 1, revenue_by_merchant(merchant.id) || 0] }
+  ## end
+
+  # def remove_nil_merchants_by_revenue
+  #   engine.merchants.all.select do |merchant|
+  #     revenue_by_merchant(merchant.id)
+  #   end
+  # end
+  #
+  # def sorted_merchants_by_revenue
+  #   remove_nil_merchants_by_revenue.sort_by do |merchant|
+  #     revenue_by_merchant(merchant.id)
+  #   end.reverse
+  # end
+
+  def merchants_with_pending_invoices
+    engine.merchants.all.select do |merchant|
+      merchant.any_pending?
+    end
+  end
+
+  def merchants_with_only_one_item
+    engine.merchants.all.select do |merchant|
+      merchant.only_one_item?
+    end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants_with_only_one_item.select do |merchant|
+      merchant.created_at.strftime("%B") == month
+    end
+  end
+
+
 
 end
