@@ -6,7 +6,8 @@ class Transaction
               :credit_card_expiration_date,
               :result,
               :created_at,
-              :updated_at
+              :updated_at,
+              :parent
 
   def initialize(transaction_data, parent = nil)
     @id = transaction_data[:id].to_i
@@ -18,5 +19,10 @@ class Transaction
     @updated_at = Time.parse(transaction_data[:updated_at])
     @parent = parent
   end
+
+  def invoice
+    parent.parent.invoices.find_by_id(id)
+  end
+
 
 end

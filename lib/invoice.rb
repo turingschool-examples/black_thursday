@@ -21,4 +21,19 @@ class Invoice
     parent.parent.merchants.find_by_id(self.merchant_id)
   end
 
+  def items
+    item_ids = parent.parent.invoice_items.find_all_by_invoice_id(id).map do |invoice_item|
+      invoice_item.item_id
+    end
+    item_ids.map do |id|
+      parent.parent.items.find_by_id(id)
+    end
+
+  end
+
+  def transactions
+    parent.parent.transactions.find_all_by_invoice_id(id)
+  end
+
+
 end
