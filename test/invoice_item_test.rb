@@ -1,15 +1,18 @@
 require './test/test_helper'
-require './lib/merchant'
+require './lib/invoice_item'
 
-class MerchantTest < Minitest::Test
+class InvoiceItemTest < Minitest::Test
 
   def setup
-    @merchant = Merchant.new({
-      :id          => 602397854,
-      :name        => "Burger King",
-      :created_at  => Time.now,
-      :updated_at  => Time.now
-      })
+    @invoice_item = {
+      :id         => 6,
+      :item_id    => 7,
+      :invoice_id => 8,
+      :quantity   => 1,
+      :unit_price => BigDecimal.new(10.99, 4),
+      :created_at => Time.now,
+      :updated_at => Time.now
+    }
   end
 
   def test_it_has_an_id

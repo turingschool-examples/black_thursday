@@ -1,15 +1,18 @@
 require './test/test_helper'
-require './lib/merchant'
+require './lib/transaction'
 
-class MerchantTest < Minitest::Test
+class TransactionTest < Minitest::Test
 
   def setup
-    @merchant = Merchant.new({
-      :id          => 602397854,
-      :name        => "Burger King",
-      :created_at  => Time.now,
-      :updated_at  => Time.now
-      })
+    @transaction = {
+      :id                          => 6,
+      :invoice_id                  => 8,
+      :credit_card_number          => "4242424242424242",
+      :credit_card_expiration_date => "0220",
+      :result                      => "success",
+      :created_at                  => Time.now,
+      :updated_at                  => Time.now
+    }
   end
 
   def test_it_has_an_id
