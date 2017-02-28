@@ -73,6 +73,8 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Array, @sa.golden_items
   end
 
+  # iteration 2
+
   def test_returns_corrent_invoices_count
     assert_equal 115, @sa.invoices_count
   end
@@ -118,6 +120,16 @@ class SalesAnalystTest < Minitest::Test
     skip
     assert_instance_of Array, @sa.top_days_by_invoice_count
     assert_instance_of String, @sa.top_days_by_invoice_count.first # needs to be fixed in fixture
+  end
+
+  def test_invoice_status_count_returns_correct_number
+    assert_equal 69, @sa.invoice_statuses_count(:shipped)
+  end
+
+  def test_returns_correct_percentage_status
+    assert_equal 27.83, @sa.invoice_status(:pending)
+    assert_equal 60.0, @sa.invoice_status(:shipped)
+    assert_equal 12.17, @sa.invoice_status(:returned)
   end
 
 end

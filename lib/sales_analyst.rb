@@ -90,7 +90,7 @@ class SalesAnalyst
 
   def average_invoices_per_merchant_standard_deviation
     total = engine.merchants.all.map do |merchant|
-      ((merchant_invoice_count(merchant.id)) - average_invoices_per_merchant)**2
+      (merchant_invoice_count(merchant.id) - average_invoices_per_merchant)**2
     end
     Math.sqrt(total.reduce(:+)/total.length - 1).round(2)
   end
@@ -138,6 +138,14 @@ class SalesAnalyst
       day if count > (std_dev + avg)
       end
       result.keys
+  end
+
+  def invoice_statuses_count(status)
+    engine.invoices.find_all_by_status(status).count
+  end
+
+  def invoice_status(status)
+    ((invoice_statuses_count(status).to_f/invoices_count) * 100).round(2)
   end
 
 end
