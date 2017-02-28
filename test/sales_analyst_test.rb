@@ -6,14 +6,16 @@ class SalesAnalystTest < Minitest::Test
 
   def setup
     @se = SalesEngine.from_csv({
-    :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv",
-    :invoices  => "./data/invoices.csv"
-    })
+    :items        => "./data/items.csv",
+    :merchants    => "./data/merchants.csv",
+    :invoices     => "./data/invoices.csv",
+    :transactions => "./data/transactions.csv"
+  })
     @sa = SalesAnalyst.new(se)
   end
 
   def test_it_exists
+    binding.pry
     assert_instance_of SalesAnalyst, sa
   end
 

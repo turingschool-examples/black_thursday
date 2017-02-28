@@ -142,3 +142,5 @@ class SalesAnalyst
     percentage(numerator, denominator)
   end
 end
+
+#

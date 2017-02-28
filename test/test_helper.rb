@@ -16,3 +16,5 @@ require './lib/sales_analyst'
 require './lib/invoice'
 require './lib/invoice_item'
 require './lib/invoice_item_repository'
+require './lib/transaction'
+
