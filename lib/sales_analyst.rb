@@ -175,9 +175,10 @@ class SalesAnalyst
     merchant_revenues.max_by(x) { |(merchant, revenue)| revenue }
   end
 
-  # def merchants_ranked_by_revenue
-  #   merchant_revenues.max_by { |(merchant, revenue)| revenue }
-  # end
+  def merchants_ranked_by_revenue
+    merchant_ranked = Hash[merchant_revenues.sort_by { |keys, values| values }]
+    merchant_ranked.keys.reverse
+  end
 
   def revenue_by_merchant(merchant_id)
     sales_engine.merchants.find_by_id(merchant_id).revenue
