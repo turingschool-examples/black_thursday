@@ -22,12 +22,12 @@ class CustomerRepository
 
   def parse_csv
     @contents.each do |row| customer_array << Customer.new({
-  :id         => row[:id].to_i,
-  :first_name => row[:first_name],
-  :last_name  => row[:last_name],
-  :created_at => Time.parse(row[:created_at]),
-  :updated_at => Time.parse(row[:updated_at])
-  }, self)
+      :id         => row[:id].to_i,
+      :first_name => row[:first_name],
+      :last_name  => row[:last_name],
+      :created_at => Time.parse(row[:created_at]),
+      :updated_at => Time.parse(row[:updated_at])
+    }, self)
     end
   end
 
