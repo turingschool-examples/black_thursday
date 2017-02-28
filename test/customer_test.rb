@@ -1,30 +1,45 @@
-require './test/test_helper'
-require './lib/merchant'
+require 'minitest/autorun'
+require 'minitest/pride'
+require './lib/customer'
 
-class MerchantTest < Minitest::Test
+class CustomerTest < Minitest::Test
 
   def setup
-    @merchant = Merchant.new({
-      :id          => 602397854,
-      :name        => "Burger King",
-      :created_at  => Time.now,
-      :updated_at  => Time.now
-      })
+    @customer = {
+      :id         => 6,
+      :first_name => "Joan",
+      :last_name  => "Clarke",
+      :created_at => Time.now,
+      :updated_at => Time.now
+      }
+      @parent = ""
   end
 
-  def test_it_has_an_id
-    assert_equal 602397854, @merchant.id
+  def test_it_exists
+    assert_instance_of Customer, Customer.new(@customer, @parent)
   end
 
-  def test_it_has_a_name
-    assert_equal "Burger King", @merchant.name
+  def test_it_has_id
+    customer = Customer.new(@customer, @parent)
+    assert_equal 6, customer.id
   end
 
-  def test_it_has_a_created_at
-    assert_equal Time, @merchant.created_at.class
+  def test_it_has_names
+    customer = Customer.new(@customer, @parent)
+    assert_equal "Joan", customer.first_name
+    assert_equal "Clarke", customer.last_name
   end
 
-  def test_it_has_a_updated_at
-    assert_equal Time, @merchant.updated_at.class
+  def test_it_creates_at_time
+    customer = Customer.new(@customer, @parent)
+    time = Time.now
+    assert_equal time, customer.created_at
   end
+
+  def test_it_updates_at_time
+    customer = Customer.new(@customer, @parent)
+    time = Time.now
+    assert_equal Time, customer.updated_at
+  end
+
 end
