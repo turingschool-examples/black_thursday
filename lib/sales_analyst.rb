@@ -175,6 +175,10 @@ class SalesAnalyst
     merchant_revenues.max_by(x) { |(merchant, revenue)| revenue }
   end
 
+  # def merchants_ranked_by_revenue
+  #   merchant_revenues.max_by { |(merchant, revenue)| revenue }
+  # end
+
   def revenue_by_merchant(merchant_id)
     sales_engine.merchants.find_by_id(merchant_id).revenue
   end
@@ -182,5 +186,26 @@ class SalesAnalyst
   def merchants_with_pending_invoices
     sales_engine.merchants.all.select{|merchant| merchant.has_pending_invoices? }
   end
+
+
+  def merchants_with_only_one_item
+    item_count = []
+    sales_engine.merchants.all. map do |merchant|
+      if merchant.items.count == 1
+        item_count << merchant
+      end
+    end
+    item_count
+  end
+
+
+  # def merchants_with_only_one_item_registered_in_month(month)
+  # end
+  #
+  # def most_sold_item_for_merchant(merchant_id)
+  # end
+  #
+  # def best_item_for_merchant(merchant_id)
+  # end
 
 end
