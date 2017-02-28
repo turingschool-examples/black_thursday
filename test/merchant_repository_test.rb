@@ -3,11 +3,10 @@ require './lib/merchant_repository'
 require './lib/sales_engine'
 
 class MerchantRepositoryTest < Minitest::Test
+  include TestSetup
 
   def setup
-    @se = SalesEngine.from_csv({
-  :items     => "./data/items_test_data.csv",
-  :merchants => "./data/merchants.csv",})
+    @se = @@se
   end
 
   def test_merchant_repository_exists

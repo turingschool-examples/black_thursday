@@ -3,11 +3,10 @@ require './lib/merchant'
 require './lib/sales_engine'
 
 class MerchantTest < Minitest::Test
+  include TestSetup
 
   def setup
-    @se = SalesEngine.from_csv({
-  :items     => "./data/items_test_data.csv",
-  :merchants => "./data/merchants.csv",})
+    @se = @@se
   end
 
   def test_it_exists
@@ -29,8 +28,15 @@ class MerchantTest < Minitest::Test
     merchant = @se.merchants.find_by_id(12334783)
 
     assert_instance_of Array, merchant.items
-    assert_equal 2, merchant.items.count
+    assert_equal 4, merchant.items.count
     assert_equal "Freedom", merchant.items.first.name
   end
 
+  def test_invoices_attached_to_merchant
+    merchant = @se.merchants.find_by_id(12334159)
+
+    assert_instance_of Array, merchant.invoices
+    assert_equal 13, merchant.invoices.count
+    assert_equal 44, merchant.invoices.first.customer_id
+  end
 end

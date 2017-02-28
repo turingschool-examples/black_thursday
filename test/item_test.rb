@@ -3,12 +3,10 @@ require './lib/item'
 require './lib/sales_engine'
 
 class ItemTest < Minitest::Test
+  include TestSetup
 
   def setup
-    @se = SalesEngine.from_csv({
-  :items     => "./data/items.csv",
-  :merchants => "./data/merchants.csv",})
-
+    @se = @@se
     @i = Item.new({
       :id          => 1111,
       :merchant_id => 222222,

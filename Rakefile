@@ -1,15 +1,20 @@
 task :default => [:unit_test]
 
-task :unit_test do
+task :unit_test do |t|
   puts "running unit tests!"
+  # do regext shit here
   ruby "test/file_loader_test.rb"
   ruby "test/invoice_item_test.rb"
   ruby "test/invoice_test.rb"
+  ruby "test/invoice_repository_test.rb"
   ruby "test/item_repository_test.rb"
   ruby "test/item_test.rb"
   ruby "test/merchant_repository_test.rb"
   ruby "test/merchant_test.rb"
   ruby "test/sales_engine_test.rb"
+  ruby "test/sales_analyst_test.rb"
+  ruby "test/invoice_item_test.rb"
+  ruby "test/invoice_item_repository_test.rb"
 end
 
 task :integration_test do

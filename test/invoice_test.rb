@@ -1,27 +1,28 @@
 require './test/test_helper'
 require './lib/invoice'
+require './lib/sales_engine'
 
 class InvoiceTest < Minitest::Test
+  include TestSetup
+
   def setup
-    @i = Invoice.new({
-    :id          => 6,
-    :customer_id => 7,
-    :merchant_id => 8,
-    :status      => "pending",
-    :created_at  => Time.now,
-    :updated_at  => Time.now,
-  })
+    @se = @@se
+    @i = @@se.invoices
   end
+
 
   def test_invoice_exists
-    assert_equal 6, @i.id
-    assert_equal 7, @i.customer_id
-    assert_equal 8, @i.merchant_id
-    assert_equal "pending", @i.status
-    assert @i.created_at
-    assert @i.updated_at
+    assert_equal 1, @i.all.first.id
+    assert_equal 1, @i.all.first.customer_id
+    assert_equal 12335938, @i.all.first.merchant_id
+    assert_equal :pending, @i.all.first.status
   end
 
+  def test_invoice_has_attached_merchant
+    invoice = @i.find_by_id(20)
 
+    assert_instance_of Merchant, invoice.merchant
+
+  end
 
 end

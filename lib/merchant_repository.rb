@@ -13,10 +13,6 @@ class MerchantRepository
     all.find {|object| object.id == id }
   end
 
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
-  end
-
   def find_by_name(name)
     all.find { |object| object.name.downcase == name.downcase}
   end
@@ -25,6 +21,10 @@ class MerchantRepository
     all.find_all do |object|
       object.name.downcase.include?(name.downcase)
     end
+  end
+
+  def inspect
+    @instance.nil? ? nil : "#<#{self.class} #{@instance.size} rows>"
   end
 
 end

@@ -2,12 +2,13 @@ require './test/test_helper'
 require './lib/sales_analyst'
 
 class SalesAnalystTest < Minitest::Test
+  include TestSetup
+
+  @@sa = SalesAnalyst.new(@@se)
 
   def setup
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",})
-    @sa = SalesAnalyst.new(se)
+    @se = @@se
+    @sa = @@sa
   end
 
   def test_it_exists
@@ -48,6 +49,39 @@ class SalesAnalystTest < Minitest::Test
   def test_golden_items
     assert_equal 5, @sa.golden_items.count
     assert_equal "Test listing", @sa.golden_items.first.name
+  end
+
+  def test_average_invoices_per_merchant
+    results = @sa.average_invoices_per_merchant
+    assert_equal 10.49, results
+  end
+
+  def test_average_invoices_per_merchant_standard_deviation
+    results = @sa.average_invoices_per_merchant_standard_deviation
+
+    assert_equal 3.29, results
+  end
+
+  def test_top_merchants_by_invoice_count
+    result = @sa.top_merchants_by_invoice_count
+
+    assert_instance_of Array, result
+    assert_equal "jejum", result.first.name
+    assert_equal 12, result.count
+  end
+
+  def test_bottom_merchants_by_invoice_count
+    result = @sa.bottom_merchants_by_invoice_count
+    assert_instance_of Array, result
+    assert_equal 4, result.count
+    assert_equal "WellnessNeelsen", result.first.name
+  end
+
+  def test_top_days_by_invoice_count
+    skip
+    result = @sa.top_days_by_invoice_count
+    assert_equal "Wednesday", result.first
+    assert_instance_of Array, result
   end
 
 end
