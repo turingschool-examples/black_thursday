@@ -3,13 +3,7 @@ require './lib/transaction_repository'
 require './lib/sales_engine'
 
 class TransactionRepositoryTest < Minitest::Test
-
-  @@se = SalesEngine.from_csv({
-    :invoices => "./data/invoices.csv",
-    :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv",
-    :transactions => "./data/transactions.csv"
-    })
+  include TestSetup
 
     def setup
       @se = @@se
@@ -42,7 +36,5 @@ class TransactionRepositoryTest < Minitest::Test
       result = @tr.find_all_by_result("success")
       assert_equal 4158, result.count
     end
-
-
 
 end
