@@ -79,8 +79,8 @@ class SalesAnalystTest < Minitest::Test
 
   def test_top_days_by_invoice_count
     result = @sa.top_days_by_invoice_count
-    assert_equal "Wednesday", result
-    # assert_instance_of Array, result
+    assert_equal "Wednesday", result.first
+    assert_instance_of Array, result
   end
 
 end
