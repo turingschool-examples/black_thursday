@@ -29,7 +29,16 @@ attr_reader :id, :name, :merchant_created_at, :merchant_updated_at
     @parent.se_parent.items.find_all_by_merchant_id(@id)
   end
 
-def invoices
+  def invoices
     @parent.se_parent.invoices.find_all_by_merchant_id(@id)
   end
+
+  def customers
+    invoices.map! do |invoice| 
+      invoice.customer
+    end.uniq do |customer|
+      customer.id
+    end
+  end
+
 end

@@ -1,6 +1,7 @@
 require_relative 'customer'
 
 class CustomerRepository
+  attr_reader :parent
   def initialize(path, parent)
     @csv = CSV.open path, headers: true, header_converters: :symbol
     @parent = parent
