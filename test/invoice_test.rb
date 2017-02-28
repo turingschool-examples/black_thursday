@@ -30,7 +30,7 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_has_status
-    assert_equal "shipped", invoice.status
+    assert_equal :shipped, invoice.status
   end
 
   def test_has_created_at
@@ -41,4 +41,17 @@ class InvoiceTest < Minitest::Test
     assert_instance_of Time, invoice.updated_at 
   end
 
+  def test_merchant
+    binding.pry
+    assert_equal 234234, invoice.merchant
+  end
+
+  def test_items
+  end
+
+  def test_transactions
+  end
+
+  def test_customer
+  end
 end
