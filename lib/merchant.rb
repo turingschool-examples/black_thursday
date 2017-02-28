@@ -19,4 +19,10 @@ class Merchant
     parent.parent.invoices.find_all_by_merchant_id(self.id)
   end
 
+  def customers
+    customer_ids = self.invoices.map do |invoice|
+      invoice.customer_id
+    end
+    customer_ids.map { |id| parent.parent.customers.find_by_id(id) }.uniq
+  end
 end

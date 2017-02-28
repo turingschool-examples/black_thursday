@@ -35,5 +35,8 @@ class Invoice
     parent.parent.transactions.find_all_by_invoice_id(id)
   end
 
+  def customer
+    parent.parent.customers.find_by_id(customer_id)
+  end
 
 end

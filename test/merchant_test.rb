@@ -39,4 +39,11 @@ class MerchantTest < Minitest::Test
     assert_equal 13, merchant.invoices.count
     assert_equal 44, merchant.invoices.first.customer_id
   end
+
+  def test_customers_attached_to_merchant
+    merchant = @se.merchants.find_by_id(12335938)
+
+    assert_instance_of Array, merchant.customers
+    assert_instance_of Customer, merchant.customers.first
+  end
 end

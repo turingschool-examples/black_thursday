@@ -20,4 +20,5 @@ class CustomerTest < Minitest::Test
     assert_equal Time.parse("2012-03-27 14:54:09 UTC"), @c.created_at
   end
 
+
 end

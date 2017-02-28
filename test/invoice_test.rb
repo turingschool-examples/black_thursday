@@ -39,5 +39,11 @@ class InvoiceTest < Minitest::Test
     assert_equal 3, invoice.transactions.count
   end
 
+  def test_invoice_has_customers
+    invoice = @i.find_by_id(20)
+
+    assert_instance_of Customer, invoice.customer
+    assert_equal "Sylvester", invoice.customer.first_name
+  end
 
 end
