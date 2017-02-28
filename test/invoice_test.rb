@@ -24,15 +24,6 @@ class InvoiceTest < Minitest::Test
       })
   end
 
-  # id - returns the integer id
-  # customer_id - returns the customer id
-  # merchant_id - returns the merchant id
-  # status - returns the status
-  # created_at - returns a Time instance for the date the item was first created
-  # updated_at - returns a Time instance for the date the item was last modified
-
-  # id	customer_id	merchant_id	status	created_at	updated_at
-
   def test_assert_it_exists
     assert_instance_of Invoice, @iv
   end
@@ -50,7 +41,7 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_it_returns_status_of_invoice
-    assert_equal "shipped", @iv.status
+    assert_equal :shipped, @iv.status
   end
 
   def test_it_returns_instance_of_time_for_date_invoice_was_first_created

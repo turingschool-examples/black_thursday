@@ -7,12 +7,12 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def setup
     @se = SalesEngine.from_csv({
-      :merchants => "./data/merchants.csv",
-      :items     => "./data/items.csv",
-      :customers => "./data/customers.csv",
-      :invoices  => "./data/invoices.csv",
-      :invoice_items => "./data/invoice_items.csv",
-      :transactions  => "./data/transactions.csv"
+      # :merchants => "./data/merchants.csv",
+      # :items     => "./data/items.csv",
+      # :customers => "./data/customers.csv",
+      # :invoices  => "./data/invoices.csv",
+      :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
+      # :transactions  => "./data/transactions.csv"
       })
 
     @iir = @se.invoice_items
@@ -31,7 +31,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_all_contains_proper_number_of_invoice_items
-    assert_equal 21830, @iir.all.count
+    assert_equal 13732, @iir.all.count
     assert_equal InvoiceItem, @iir.all.first.class
   end
 
@@ -47,12 +47,16 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_it_returns_array_with_find_all_by_item_id
     invoice_item = @iir.find_all_by_item_id(263519844)
+
     assert_instance_of Array, invoice_item
+    assert_equal 164, invoice_item.count
   end
 
   def test_it_returns_array_with_find_all_by_invoice_id
     invoice_item = @iir.find_all_by_invoice_id(1)
+
     assert_instance_of Array, invoice_item
+    assert_equal 5, invoice_item.count
   end
 
   def test_it_returns_empty_array_if_none_match_item_id

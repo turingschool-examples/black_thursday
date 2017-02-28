@@ -5,12 +5,12 @@ class SalesEngineTest < Minitest::Test
 
   def setup
     @se = SalesEngine.from_csv({
-      :merchants => "./data/merchants.csv",
-      :items     => "./data/items.csv",
-      :customers => "./data/customers.csv",
-      :invoices  => "./data/invoices.csv",
-      :invoice_items => "./data/invoice_items.csv",
-      :transactions  => "./data/transactions.csv"
+      :merchants => "./test/fixtures/merchants_truncated.csv",
+      :items     => "./test/fixtures/items_truncated.csv",
+      :customers => "./test/fixtures/customers_truncated.csv",
+      :invoices  => "./test/fixtures/invoices_truncated.csv",
+      :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
+      :transactions  => "./test/fixtures/transactions_truncated.csv"
       })
   end
 
@@ -27,7 +27,7 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of ItemRepository, @se.items
     assert_instance_of CustomerRepository, @se.customers
     assert_instance_of InvoiceRepository, @se.invoices
-    # assert_instance_of InvoiceItemRepository, @se.invoice_items
+    assert_instance_of InvoiceItemRepository, @se.invoice_items
     assert_instance_of TransactionRepository, @se.transactions
   end
 
@@ -52,7 +52,22 @@ class SalesEngineTest < Minitest::Test
     item = @se.items.find_by_id(263395237)
     merchant_item = item.merchant
 
-    # assert_equal
     assert_instance_of Merchant, merchant_item
+  end
+
+  def test_it_can_find_all_merchant_invoice
+    merchant = @se.merchants.find_by_id(12334115)
+    invoices = merchant.invoices
+
+    assert_instance_of Array, invoices
+    assert_instance_of Invoice, invoices.first
+    assert_equal 11, invoices.count
+  end
+
+  def test_it_can_find_merchant_of_invoice
+    invoice = @se.invoices.find_by_id(74)
+
+    assert_instance_of Merchant, invoice.merchant
+    assert_equal 12334105, invoice.merchant.id
   end
 end

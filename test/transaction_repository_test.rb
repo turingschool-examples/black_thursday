@@ -7,12 +7,12 @@ class TransactionRepositoryTest < Minitest::Test
 
 def setup
     @se = SalesEngine.from_csv({
-      :merchants => "./data/merchants.csv",
-      :items     => "./data/items.csv",
-      :customers => "./data/customers.csv",
-      :invoices  => "./data/invoices.csv",
-      :invoice_items => "./data/invoice_items.csv",
-      :transactions  => "./data/transactions.csv"
+      # :merchants => "./data/merchants.csv",
+      # :items     => "./data/items.csv",
+      # :customers => "./data/customers.csv",
+      # :invoices  => "./data/invoices.csv",
+      # :invoice_items => "./data/invoice_items.csv",
+      :transactions  => "./test/fixtures/transactions_truncated.csv"
       })
 
     @tr = @se.transactions
@@ -31,40 +31,47 @@ def setup
   end
 
   def test_it_can_find_a_transaction_by_id
-    transaction = @tr.find_by_id(22)
+    transaction = @tr.find_by_id(4944)
+
     assert_instance_of Transaction, transaction
   end
 
   def test_it_returns_nil_if_the_transaction_does_not_exist
     transaction = @tr.find_by_id(07417000)
+
     assert_nil transaction, 'non-existent transaction was supposed to return nil!'
   end
 
   def test_it_can_find_all_items_matching_invoice_id_in_transactions
-    transaction = @tr.find_all_by_invoice_id(3543)
+    transaction = @tr.find_all_by_invoice_id(175)
+
     assert_instance_of Transaction, transaction.first
-    assert_instance_of Array, @tr.find_all_by_invoice_id(3543)
+    assert_instance_of Array, transaction
+    assert_equal 4, transaction.count
   end
 
   def test_it_can_return_an_empty_array_if_no_matches_are_found
     transaction = @tr.find_all_by_invoice_id(99991094725)
+
     assert_equal [], transaction
   end
 
   def test_it_can_find_all_items_matching_credit_card_number
-    transaction = @tr.find_all_by_credit_card_number(4172068877354384)
+    transaction = @tr.find_all_by_credit_card_number(4825072724408233)
+
     assert_instance_of Transaction, transaction.first
-    assert_instance_of Array, @tr.find_all_by_credit_card_number(4172068877354384)
+    assert_instance_of Array, transaction
   end
 
   def test_it_can_return_an_empty_array_if_no_matches_are_found
     transaction = @tr.find_all_by_credit_card_number(9090765374528603)
+
     assert_equal [], transaction
   end
 
   def test_it_can_find_all_transactions_matching_result
     transaction = @tr.find_all_by_result("success")
-    assert_equal 4158, transaction.count
+    assert_equal 109, transaction.count
     assert_instance_of Array, @tr.find_all_by_result("success")
   end
 

@@ -9,21 +9,13 @@ class InvoiceRepositoryTest < Minitest::Test
       :merchants => "./data/merchants.csv",
       :items     => "./data/items.csv",
       :customers => "./data/customers.csv",
-      :invoices  => "./data/invoices.csv",
+      :invoices  => "./test/fixtures/invoices_truncated.csv",
       :invoice_items => "./data/invoice_items.csv",
       :transactions  => "./data/transactions.csv"
       })
 
     @ivr = @se.invoices
   end
-
-  # all - returns an array of all known Invoice instances
-  # find_by_id - returns either nil or an instance of Invoice with a matching ID
-  # find_all_by_customer_id - returns either [] or one or more matches which have a matching customer ID
-  # find_all_by_merchant_id - returns either [] or one or more matches which have a matching merchant ID
-  # find_all_by_status - returns either [] or one or more matches which have a matching status
-
-  # id	customer_id	merchant_id	status	created_at	updated_at
 
   def test_it_can_load_csv
     assert_instance_of CSV, @ivr.csv
@@ -38,7 +30,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_an_invoice_by_id
-    invoice = @ivr.find_by_id(397)
+    invoice = @ivr.find_by_id(2502)
     assert_instance_of Invoice, invoice
   end
 
@@ -48,9 +40,9 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_items_matching_customer_id_in_invoices
-    invoice = @ivr.find_all_by_customer_id(79)
+    invoice = @ivr.find_all_by_customer_id(811)
     assert_instance_of Invoice, invoice.first
-    assert_instance_of Array, @ivr.find_all_by_customer_id(79)
+    assert_instance_of Array, @ivr.find_all_by_customer_id(811)
   end
 
   def test_it_can_return_an_empty_array_if_no_matches_are_found
@@ -59,9 +51,9 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_items_matching_merchant_id_in_invoices
-    invoice = @ivr.find_all_by_merchant_id(12334284)
+    invoice = @ivr.find_all_by_merchant_id(12334105)
     assert_instance_of Invoice, invoice.first
-    assert_instance_of Array, @ivr.find_all_by_merchant_id(12334284)
+    assert_instance_of Array, @ivr.find_all_by_merchant_id(12334105)
   end
 
   def test_it_can_return_an_empty_array_if_no_matches_are_found
@@ -70,9 +62,9 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_invoices_matching_status
-    invoice = @ivr.find_all_by_status("shipped")
-    assert_equal 2839, invoice.count
-    assert_instance_of Array, @ivr.find_all_by_status("shipped")
+    invoice = @ivr.find_all_by_status(:shipped)
+    assert_equal 69, invoice.count
+    assert_instance_of Array, @ivr.find_all_by_status(:shipped)
   end
 
   def test_it_can_return_an_empty_array_if_no_matches_are_found
