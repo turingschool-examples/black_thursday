@@ -8,10 +8,11 @@ class ItemTest < Minitest::Test
     :invoices => "./data/invoices.csv",
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
+    :invoice_items => "./data/invoice_items.csv"
     })
 
   def setup
-    @se = @@se 
+    @se = @@se
     @i = Item.new({
       :id          => 1111,
       :merchant_id => 222222,

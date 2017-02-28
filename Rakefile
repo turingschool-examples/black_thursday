@@ -13,6 +13,8 @@ task :unit_test do |t|
   ruby "test/merchant_test.rb"
   ruby "test/sales_engine_test.rb"
   ruby "test/sales_analyst_test.rb"
+  ruby "test/invoice_item_test.rb"
+  ruby "test/invoice_item_repository_test.rb"
 end
 
 task :integration_test do

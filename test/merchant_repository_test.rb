@@ -8,6 +8,7 @@ class MerchantRepositoryTest < Minitest::Test
     :invoices => "./data/invoices.csv",
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
+    :invoice_items => "./data/invoice_items.csv"
     })
 
   def setup

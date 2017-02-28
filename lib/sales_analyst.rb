@@ -86,7 +86,6 @@ class SalesAnalyst
     count = mean + std_dev
     merch = merchants.all.find_all do |merchant|
       merchant.invoices.count > count
-      binding.pry
     end
 
 
