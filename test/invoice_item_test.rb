@@ -4,57 +4,41 @@ require_relative '../lib/invoice_item'
 class InvoiceItemTest < Minitest::Test
 
   def setup
-    @ir = InvoiceItemRepository.new("./data/invoice_items.csv")
-    @inv_item = @ir.all[0]
+    @ir = InvoiceItemRepository.new("parent")
+    @ir.from_csv("./data/invoice_items_fixture.csv")
+    @inv_item = @ir.all[0] 
   end
 
   def test_it_exists
-    
+    assert_instance_of InvoiceItem, @inv_item
   end
 
-  # def test_it_returns_id
-  #   assert_equal 263395237, @item.id
-  # end
+  def test_it_returns_id
+    assert_equal 1, @inv_item.id
+  end
 
-  # def test_it_returns_name
-  #   assert_equal "510+ RealPush Icon Set", @item.name
-  # end
+  def test_it_returns_item_id
+    assert_equal 263519844, @inv_item.item_id
+  end
 
-  # def test_it_returns_description
-  #   assert_equal "this is the description", @item.description
-  # end
+  def test_it_returns_invoice_id
+    assert_equal 1, @inv_item.invoice_id
+  end
 
-  # def test_it_returns_price
-  #   assert_instance_of BigDecimal, @item.unit_price
-  #   assert_equal 12.0, @item.unit_price
-  # end
+  def test_it_returns_quantity
+    assert_equal 5, @inv_item.quantity
+  end
 
-  # def test_it_returns_merchant_id
-  #   assert_equal 12334105, @item.merchant_id
-  # end
+  def test_it_returns_price
+    assert_instance_of BigDecimal, @inv_item.unit_price
+    assert_equal 136.35, @inv_item.unit_price
+  end
 
-  # def test_has_created_time
-  #   assert_instance_of Time, @item.created_at
-  # end
+  def test_has_created_time
+    assert_instance_of Time, @inv_item.created_at
+  end
 
-  # def test_has_updated_time
-  #  assert_instance_of Time, @item.updated_at    
-  # end
-
-  # def test_it_returns_price_in_dollars
-  #   assert_instance_of Float, @item.unit_price_to_dollars 
-  #   assert_equal 12.0, @item.unit_price_to_dollars
-  # end
-
-  # def test_merchant_method_returns_merchant
-  #   se =SalesEngine.from_csv({:items => "./data/items_fixture.csv", :merchants => "./data/merchants_fixture.csv" })
-  #   ir = se.items
-  #   item = ir.all[0]
-
-  #   assert_instance_of Merchant, item.merchant  
-  # end
-
-
-
-
+  def test_has_updated_time
+   assert_instance_of Time, @inv_item.updated_at    
+  end
 end
