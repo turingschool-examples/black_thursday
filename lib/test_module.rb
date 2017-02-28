@@ -6,7 +6,8 @@ module TestSetup
     :invoices => "./data/invoices.csv",
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
-    :transactions => "./data/transactions.csv"
+    :transactions => "./data/transactions.csv",
+    :invoice_items => "./data/invoice_items.csv"
     })
 
 end
