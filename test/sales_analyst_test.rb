@@ -8,9 +8,12 @@ class SalesEngineTest < Minitest::Test
 
 	def setup
 		@se = SalesEngine.from_csv({
-			:items     => "./test/fixtures/items_reduced.csv",
-			:merchants => "./test/fixtures/merchant_reduced.csv",
-			:invoices => "./test/fixtures/invoices_reduced.csv"
+			:items         => "./test/fixtures/items_reduced.csv",
+			:merchants     => "./test/fixtures/merchant_reduced.csv",
+			:invoices      => "./test/fixtures/invoices_reduced.csv",
+			:invoice_items => "./test/fixtures/inv_items_reduced.csv",
+			:transactions  => "./test/fixtures/transactions_reduced.csv",
+			:customers     => "./test/fixtures/customers_reduced.csv"
 		})
 		@sa = SalesAnalyst.new(se)
 	end
@@ -76,5 +79,9 @@ class SalesEngineTest < Minitest::Test
 
 	def test_top_days_by_invoice_count
 		assert_equal ["Friday"], sa.top_days_by_invoice_count
+	end
+
+	def test_total_revenue_by_date()
+
 	end
 end

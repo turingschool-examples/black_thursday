@@ -22,7 +22,7 @@ class ItemRepository
 	end
 
 	def find_by_id(id)
-		all.find { |instance| instance if instance.id == id }
+		all.find { |instance| instance if instance.id == id.to_i }
 	end
 
 	def find_all_with_description(phrase)
