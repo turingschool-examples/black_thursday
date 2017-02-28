@@ -9,8 +9,13 @@ require "csv"
 require 'pry'
 
 class SalesEngine
-  attr_accessor :items, :merchants, :invoices, :invoice_items, :transactions, :customers
-  
+  attr_accessor :items,
+                :merchants,
+                :invoices,
+                :invoice_items,
+                :transactions,
+                :customers
+
   def self.from_csv(data)
     #files = hash.each_pair do |key, value|
       # @paths[key] = value
@@ -18,7 +23,7 @@ class SalesEngine
       #create a method, repo_creator?
         #def if_it_exists_make_repo
 
-        
+
     se = SalesEngine.new
     se.items = ItemRepository.new(data[:items], se)
     se.merchants = MerchantRepository.new(data[:merchants], se)

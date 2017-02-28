@@ -3,8 +3,10 @@ require_relative '../lib/data_access'
 
 class MerchantRepository
   include DataAccess
-  attr_reader :csv_file, :all, :parent
-  
+  attr_reader :csv_file,
+              :all,
+              :parent
+
   def initialize(path, parent=nil)
     @csv_file = CSV.open(path, headers: true, header_converters: :symbol)
     @all = []
@@ -39,4 +41,3 @@ class MerchantRepository
   # end
 ###########################
 end
-

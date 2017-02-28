@@ -5,7 +5,9 @@ require_relative '../lib/data_access'
 
 class ItemRepository
   include DataAccess
-  attr_reader :csv_file, :all, :parent
+  attr_reader :csv_file,
+              :all,
+              :parent
 
 #make module for initialize, make_items >> populate_repo
 
@@ -24,7 +26,7 @@ class ItemRepository
         :unit_price => transform_price(row[:unit_price]),
         :merchant_id => row[:merchant_id].to_i,
         #make time methods, time.now
-      
+
         :created_at => Time.parse(row[:created_at]),
         :updated_at => Time.parse(row[:updated_at])}, self)
         @all << item
@@ -34,7 +36,7 @@ class ItemRepository
   end
 
   #make a format method?
-  
+
         #make it BigDecimal
         #could make a transform_price method
 
@@ -56,7 +58,7 @@ class ItemRepository
   # end
 
   # def find_all_with_description(description)
-  #   all.select{ |item| item.description.downcase == description.downcase }  
+  #   all.select{ |item| item.description.downcase == description.downcase }
   # end
 
   # def find_all_by_merchant_id(merchant_id)
@@ -71,7 +73,7 @@ class ItemRepository
   #   all.select{ |item| range.include?(item.unit_price)  }
   # end
 
-  
+
 
   # def inspect
   #   "#<#{self.class} #{@items.size} rows>"

@@ -3,7 +3,9 @@ require_relative '../lib/data_access'
 
 class InvoiceRepository
   include DataAccess
-  attr_reader :csv_file, :all, :parent
+  attr_reader :csv_file,
+              :all,
+              :parent
 
   def initialize(path, parent=nil)
     @csv_file = CSV.open(path, headers: true, header_converters: :symbol)
@@ -22,7 +24,7 @@ class InvoiceRepository
         :updated_at => Time.parse(row[:updated_at])}, self)
         @all << invoice
       end
-  end  
+  end
 
   def find_all_by_customer_id(customer_id)
     all.select{ |invoice| invoice.customer_id == customer_id }

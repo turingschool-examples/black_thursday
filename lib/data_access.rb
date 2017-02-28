@@ -1,11 +1,20 @@
 # require_relative "../test/test_helper"
 
 module DataAccess
-  attr_reader :id, :name, :description, :unit_price, :merchant_id, :created_at, :updated_at, :parent, :status, :customer_id
+  attr_reader :id,
+              :name,
+              :description,
+              :unit_price,
+              :merchant_id,
+              :created_at,
+              :updated_at,
+              :parent,
+              :status,
+              :customer_id
   #status and customer_id are invoice readers. Consider whether it's drier to initialize invoice here (with extra instance variables) or in invoice (with similar/repeated instance variables)
 
   #check if merchants.all has unneeded nil instance variables.
-  #Would .compact help? 
+  #Would .compact help?
 
   #OR, could we make a RepoDataAccess, and ItemDataAccess?
 
@@ -31,7 +40,7 @@ module DataAccess
 
   # def populate_repo
   #   repos = [Item, Merchant]#, Invoice]
-    
+
   #   repos.each {|repo| csv_file.each do |row|
   #     object = repo.new({:id => row[:id].to_i,
   #       :name => row[:name],
@@ -39,7 +48,7 @@ module DataAccess
   #       :unit_price => transform_price(row[:unit_price]),
   #       :merchant_id => row[:merchant_id].to_i,
   #       #make time methods, time.now
-      
+
   #       :created_at => Time.parse(row[:created_at]),
   #       :updated_at => Time.parse(row[:updated_at])}, self)
   #       @all << object unless object.nil?
@@ -54,7 +63,7 @@ module DataAccess
 #ItemRepo Methods
 #####
 
-  
+
 
 
   def transform_price(price)
@@ -70,7 +79,7 @@ module DataAccess
   end
 
   def find_all_with_description(description)
-    all.select{ |item| item.description.downcase == description.downcase }  
+    all.select{ |item| item.description.downcase == description.downcase }
   end
 
   def find_all_by_merchant_id(merchant_id)

@@ -1,8 +1,10 @@
 require_relative "../lib/item_data_access"
 class Merchant
   # include ItemDataAccess
-  attr_reader :id, :name, :parent
-  
+  attr_reader :id,
+              :name,
+              :parent
+
   def initialize(data, parent=nil)
     @id  = data[:id]
     @name = data[:name]

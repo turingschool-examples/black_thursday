@@ -1,7 +1,14 @@
 require_relative "../lib/item_data_access"
 class InvoiceItem
   include ItemDataAccess
-  attr_reader :id, :item_id, :invoice_id, :unit_price, :quantity, :created_at, :updated_at, :parent
+  attr_reader :id,
+              :item_id,
+              :invoice_id,
+              :unit_price,
+              :quantity,
+              :created_at, 
+              :updated_at,
+              :parent
 
   def initialize(data, parent=nil)
     @id  = data[:id]

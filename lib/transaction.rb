@@ -5,8 +5,14 @@ class Transaction
   include ItemDataAccess
   include DataAccess
 
-  attr_reader :id, :invoice_id, :credit_card_number, :credit_card_expiration_date, :result, :created_at, :updated_at
-  
+  attr_reader :id,
+              :invoice_id,
+              :credit_card_number,
+              :credit_card_expiration_date,
+              :result,
+              :created_at,
+              :updated_at
+
   def initialize(data, parent=nil)
     @id  = data[:id]
     @invoice_id = data[:invoice_id]
