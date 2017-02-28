@@ -19,7 +19,8 @@ class TransactionTest < Minitest::Test
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :transactions => "./data/transactions.csv",
-      :invoice_items => "./data/invoice_items.csv"
+      :invoice_items => "./data/invoice_items.csv",
+      :customers => "./data/customers.csv"
       })
 
     @tr = se.transactions
@@ -37,7 +38,6 @@ class TransactionTest < Minitest::Test
 
   def test_transaction_has_invoice
     transaction = @tr.find_by_id(40)
-
     assert_instance_of Invoice, transaction.invoice
   end
 
