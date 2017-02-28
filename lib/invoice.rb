@@ -19,8 +19,19 @@ class Invoice
     parent.parent.merchants.find_by_id(merchant_id)
   end
 
+  def items
+    binding.pry
+    #The problem seems to be occurring in merchant
+    merchant.items
+  end
 
+  def transactions
+    parent.parent.transactions.find_all_by_invoice_id(id)
+  end
 
+  def customer
+    parent.parent.customers.find_by_id(customer_id)
+  end
 
 
 end
