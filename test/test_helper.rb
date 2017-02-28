@@ -14,4 +14,7 @@ require './lib/repo_builder'
 require './lib/sales_engine'
 require './lib/sales_analyst'
 require './lib/invoice'
+require './lib/invoice_item'
+require './lib/invoice_item_repository'
 require './lib/transaction'
+

@@ -132,7 +132,7 @@ class SalesAnalyst
   def top_days_by_invoice_count
     day_totals = invoice_day_count
     sd = average(day_totals.values) + standard_deviation(day_totals.values)
-    top_days = day_totals.select {|key,value| value > sd }
+    top_days = day_totals.select { |key,value| value > sd }
     top_days.map { |day| day[0].to_s}
   end
 
