@@ -1,3 +1,5 @@
+require 'time'
+
 class SalesAnalyst
 
   attr_reader :sales_engine, :days_hash
@@ -188,7 +190,6 @@ class SalesAnalyst
     sales_engine.merchants.all.select{|merchant| merchant.has_pending_invoices? }
   end
 
-
   def merchants_with_only_one_item
     item_count = []
     sales_engine.merchants.all. map do |merchant|
@@ -199,14 +200,9 @@ class SalesAnalyst
     item_count
   end
 
-
-  # def merchants_with_only_one_item_registered_in_month(month)
-  # end
-  #
-  # def most_sold_item_for_merchant(merchant_id)
-  # end
-  #
-  # def best_item_for_merchant(merchant_id)
-  # end
+  def merchants_with_only_one_item_registered_in_month(month)
+    x = sales_engine.merchants.all.select { |merchant| merchant.month_to_string == month }
+    x.select { |y| y.items.count == 1 }
+  end
 
 end

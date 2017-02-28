@@ -1,10 +1,15 @@
+require 'bigdecimal'
+require 'time'
+
 class Merchant
-  attr_reader :id, :name, :repo
+  attr_reader :id, :name, :repo, :created_at, :updated_at
 
   def initialize(row, repo)
     @id = row[:id].to_i
     @name = row[:name]
     @repo = repo
+    @updated_at = Time.parse(row[:updated_at])
+    @created_at = Time.parse(row[:created_at])
   end
 
   def items
@@ -32,4 +37,9 @@ class Merchant
   def has_pending_invoices?
     !invoices.all? { |invoice| invoice.is_paid_in_full? }
   end
+
+  def month_to_string
+    @created_at.strftime('%B')
+  end
+
 end

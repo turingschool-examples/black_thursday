@@ -32,4 +32,8 @@ class Item
     repo.sales_engine.merchants.find_by_id(self.merchant_id)
   end
 
+  def month_to_string
+    @created_at.strftime('%B')
+  end
+
 end
