@@ -1,4 +1,5 @@
 require 'csv'
+require 'time'
 require_relative './merchant'
 
 class MerchantRepository
@@ -21,7 +22,9 @@ class MerchantRepository
     @contents.each do |row|
       merchants_array << Merchant.new({
         :id   => row[:id].to_i,
-        :name => row[:name]
+        :name => row[:name],
+        :created_at  => Time.parse(row[:created_at]),
+        :updated_at  => Time.parse(row[:updated_at])
         }, self)
     end
   end

@@ -178,7 +178,7 @@ class SalesAnalyst
   end
 
   def merchants_ranked_by_revenue
-    top_revenue_earners(sa.all_merchants.count)
+    top_revenue_earners(all_merchants.count)
   end
 
   def invoices_grouped_by_merchant
@@ -197,9 +197,73 @@ class SalesAnalyst
       engine.merchants.find_by_id(merchant_id)
     end
   end
+
+  def merchants_with_only_one_item
+    all_merchants.find_all do |merchant|
+      merchant.items.count == 1
+    end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month_name)
+    all_merchants.find_all do |merchant|
+      merchant.items.count == 1 && merchant.month_created.downcase == month_name.downcase
+    end
+  end
+
+  def revenue_by_merchant(merchant_id)
+    invoices_grouped_by_merchant[merchant_id].inject(0) do |sum, invoice|
+      sum + invoice.total
+    end
+  end
+
+  def find_invoice_items_for_merchant(merchant_id)
+    invoices = engine.merchants.find_by_id(merchant_id).invoices.find_all do |invoice|
+      invoice.is_paid_in_full?
+    end
+    invoices.map do |invoice|
+      invoice.invoice_items
+    end
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    group = find_quantity_for_each_item_id(merchant_id)
+    max = group.max_by { |_, v| v }[1]
+
+    highest = group.select {|_, v| v == max}.to_a
+    highest.map! {|array| engine.items.find_by_id(array[0])}
+  end
+
+  def group_by_item_id(merchant_id)
+    inv_items = find_invoice_items_for_merchant(merchant_id).flatten
+    inv_items.group_by do |inv_item|
+      inv_item.item_id
+    end
+  end
+
+  def find_quantity_for_each_item_id(merchant_id)
+    group = group_by_item_id(merchant_id)
+    group.each do |k,v|
+      group[k] = v.reduce(0){|sum, item| sum + item.quantity}
+    end
+  end
+
+  def find_revenue_for_each_item_id(merchant_id)
+    group = group_by_item_id(merchant_id)
+    group.each do |k,v|
+      group[k] = v.reduce(0){|sum, item| sum + item.quantity * item.unit_price}
+    end
+  end
+
+  def best_item_for_merchant(merchant_id)
+    group = find_revenue_for_each_item_id(merchant_id)
+    max = group.max_by { |_, v| v }[1]
+
+    highest = group.select {|_, v| v == max}.to_a
+    highest.map! {|array| engine.items.find_by_id(array[0])}[0]
+  end
 end
 
-
+#
 # se = SalesEngine.from_csv({
 #     :items => "./data/items.csv",
 #     :merchants => "./data/merchants.csv",
@@ -209,5 +273,5 @@ end
 #     :customers => "./data/customers.csv"
 #     })
 # sa = SalesAnalyst.new(se)
-#
-# p sa.top_revenue_earners
+# require "pry"; binding.pry
+# puts  sa.most_sold_item_for_merchant(12337105)
