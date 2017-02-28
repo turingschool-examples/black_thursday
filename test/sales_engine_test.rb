@@ -6,9 +6,9 @@ class SalesEngineTest < Minitest::Test
   def setup
     @se = SalesEngine.from_csv({
       :merchants => "./test/fixtures/merchants_truncated.csv",
-      :items     => "./data/items.csv",
+      :items     => "./test/fixtures/items_truncated.csv",
       :customers => "./data/customers.csv",
-      :invoices  => "./data/invoices.csv",
+      :invoices  => "./test/fixtures/invoices_truncated.csv",
       :invoice_items => "./data/invoice_items.csv",
       :transactions  => "./data/transactions.csv"
       })
@@ -27,7 +27,7 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of ItemRepository, @se.items
     assert_instance_of CustomerRepository, @se.customers
     assert_instance_of InvoiceRepository, @se.invoices
-    # assert_instance_of InvoiceItemRepository, @se.invoice_items
+    assert_instance_of InvoiceItemRepository, @se.invoice_items
     assert_instance_of TransactionRepository, @se.transactions
   end
 
@@ -52,7 +52,6 @@ class SalesEngineTest < Minitest::Test
     item = @se.items.find_by_id(263395237)
     merchant_item = item.merchant
 
-    # assert_equal
     assert_instance_of Merchant, merchant_item
   end
 

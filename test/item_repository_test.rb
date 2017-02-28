@@ -7,7 +7,7 @@ class ItemRepositoryTest < Minitest::Test
   def setup
     @se = SalesEngine.from_csv({
       :merchants => "./data/merchants.csv",
-      :items     => "./data/items.csv",
+      :items     => "./test/fixtures/items_truncated.csv",
       :customers => "./data/customers.csv",
       :invoices  => "./data/invoices.csv",
       :invoice_items => "./data/invoice_items.csv",
@@ -30,12 +30,12 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_all_contains_proper_number_of_items
-    assert_equal 1367, @ir.all.count
+    assert_equal 44, @ir.all.count
     assert_equal Item, @ir.all.first.class
   end
 
   def test_it_can_find_an_item_by_id
-    item = @ir.find_by_id(263395617)
+    item = @ir.find_by_id(263500440)
     assert_instance_of Item, item
   end
 
@@ -45,7 +45,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_an_item_by_name
-    item = @ir.find_by_name("Green Footed Ceramic Bowl")
+    item = @ir.find_by_name("Vogue Paris Original Givenchy 2307")
     assert_instance_of Item, item
   end
 
@@ -55,12 +55,12 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_the_item_by_name_search_is_case_insensitive
-    item = @ir.find_by_name("grEEn fooTED ceRamic bOWl")
-    assert_equal "Green Footed Ceramic Bowl", item.name
+    item = @ir.find_by_name("vogue paris original givenchy 2307")
+    assert_equal "Vogue Paris Original Givenchy 2307", item.name
   end
 
   def test_it_can_find_all_items_matching_description
-    item = @ir.find_all_with_description("little natural crazing")
+    item = @ir.find_all_with_description("unlined hiplength jacket")
     assert_equal 1, item.count
   end
 
@@ -70,12 +70,12 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_all_matching_items_by_description_search_is_case_insensitive
-    item = @ir.find_all_with_description("liTTle nATUral CraZing")
+    item = @ir.find_all_with_description("UNlined Hiplength Jacket")
     assert_equal 1, item.count
   end
 
   def test_it_can_find_all_items_matching_price
-    item = @ir.find_all_by_price(1350)
+    item = @ir.find_all_by_price(100)
     assert_instance_of Item, item.first
   end
 
@@ -85,20 +85,18 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_items_matching_price_range
-    item = @ir.find_all_by_price_in_range(1000..2000)
+    item = @ir.find_all_by_price_in_range(10..20)
     assert_instance_of Item, item.first
-    assert_equal 26, item.count
-    #unsure of range format being passed in
+    assert_equal 6, item.count
   end
 
   def test_it_can_return_an_empty_array_if_no_matches_are_found
     item = @ir.find_all_by_price_in_range(0..0)
     assert_equal [], item
-    #unsure of range format being passed in
   end
 
   def test_it_can_find_all_items_matching_merchant_id_in_items
-    item = @ir.find_all_by_merchant_id(12334195)
+    item = @ir.find_all_by_merchant_id(12334123)
     assert_instance_of Item, item.first
   end
 

@@ -14,7 +14,7 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2017-02-27T17:42:39-07:00">2017-02-27T17:42:39-07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2017-02-27T18:29:20-07:00">2017-02-27T18:29:20-07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -25,7 +25,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         467.87
+         14.24
        </span>
     </span> hits/line)
   </h2>
@@ -77,7 +77,7 @@
         <td>13</td>
         <td>13</td>
         <td>0</td>
-        <td>5369.0</td>
+        <td>124.4</td>
       </tr>
       
       <tr>
@@ -107,7 +107,7 @@
         <td>24</td>
         <td>19</td>
         <td>5</td>
-        <td>627.6</td>
+        <td>15.8</td>
       </tr>
       
       <tr>
@@ -117,7 +117,7 @@
         <td>17</td>
         <td>16</td>
         <td>1</td>
-        <td>1287.1</td>
+        <td>41.9</td>
       </tr>
       
       <tr>
@@ -127,7 +127,7 @@
         <td>30</td>
         <td>21</td>
         <td>9</td>
-        <td>137.9</td>
+        <td>6.8</td>
       </tr>
       
       <tr>
@@ -666,44 +666,44 @@
           <code class="ruby">  def initialize(row, parent=nil)</code>
         </li>
       
-        <li class="covered" data-hits="9970" data-linenumber="13">
-          <span class="hits">9970</span>
+        <li class="covered" data-hits="230" data-linenumber="13">
+          <span class="hits">230</span>
           
           <code class="ruby">    @id = row[:id].to_i</code>
         </li>
       
-        <li class="covered" data-hits="9970" data-linenumber="14">
-          <span class="hits">9970</span>
+        <li class="covered" data-hits="230" data-linenumber="14">
+          <span class="hits">230</span>
           
           <code class="ruby">    @customer_id = row[:customer_id].to_i</code>
         </li>
       
-        <li class="covered" data-hits="9970" data-linenumber="15">
-          <span class="hits">9970</span>
+        <li class="covered" data-hits="230" data-linenumber="15">
+          <span class="hits">230</span>
           
           <code class="ruby">    @merchant_id = row[:merchant_id].to_i</code>
         </li>
       
-        <li class="covered" data-hits="9970" data-linenumber="16">
-          <span class="hits">9970</span>
+        <li class="covered" data-hits="230" data-linenumber="16">
+          <span class="hits">230</span>
           
           <code class="ruby">    @status = row[:status].to_sym</code>
         </li>
       
-        <li class="covered" data-hits="9970" data-linenumber="17">
-          <span class="hits">9970</span>
+        <li class="covered" data-hits="230" data-linenumber="17">
+          <span class="hits">230</span>
           
           <code class="ruby">    @created_at = Time.parse(row[:created_at])</code>
         </li>
       
-        <li class="covered" data-hits="9970" data-linenumber="18">
-          <span class="hits">9970</span>
+        <li class="covered" data-hits="230" data-linenumber="18">
+          <span class="hits">230</span>
           
           <code class="ruby">    @updated_at = Time.parse(row[:updated_at])</code>
         </li>
       
-        <li class="covered" data-hits="9970" data-linenumber="19">
-          <span class="hits">9970</span>
+        <li class="covered" data-hits="230" data-linenumber="19">
+          <span class="hits">230</span>
           
           <code class="ruby">    @parent = parent</code>
         </li>
@@ -1368,8 +1368,8 @@
           <code class="ruby">    @all ||= csv.map do |row|</code>
         </li>
       
-        <li class="covered" data-hits="9970" data-linenumber="23">
-          <span class="hits">9970</span>
+        <li class="covered" data-hits="230" data-linenumber="23">
+          <span class="hits">230</span>
           
           <code class="ruby">      Invoice.new(row, self)</code>
         </li>
@@ -1404,8 +1404,8 @@
           <code class="ruby">    all.find do |invoice|</code>
         </li>
       
-        <li class="covered" data-hits="74" data-linenumber="29">
-          <span class="hits">74</span>
+        <li class="covered" data-hits="1" data-linenumber="29">
+          <span class="hits">1</span>
           
           <code class="ruby">      invoice.id.to_i == id.to_i</code>
         </li>
@@ -1476,8 +1476,8 @@
           <code class="ruby">    all.find_all do |invoice|</code>
         </li>
       
-        <li class="covered" data-hits="4985" data-linenumber="41">
-          <span class="hits">4985</span>
+        <li class="covered" data-hits="115" data-linenumber="41">
+          <span class="hits">115</span>
           
           <code class="ruby">      invoice.merchant_id == merchant_id.to_i</code>
         </li>
@@ -1668,50 +1668,50 @@
           <code class="ruby">  def initialize(row, parent)</code>
         </li>
       
-        <li class="covered" data-hits="2734" data-linenumber="15">
-          <span class="hits">2734</span>
+        <li class="covered" data-hits="88" data-linenumber="15">
+          <span class="hits">88</span>
           
           <code class="ruby">    @id = row[:id].to_i</code>
         </li>
       
-        <li class="covered" data-hits="2734" data-linenumber="16">
-          <span class="hits">2734</span>
+        <li class="covered" data-hits="88" data-linenumber="16">
+          <span class="hits">88</span>
           
           <code class="ruby">    @name = row[:name]</code>
         </li>
       
-        <li class="covered" data-hits="2734" data-linenumber="17">
-          <span class="hits">2734</span>
+        <li class="covered" data-hits="88" data-linenumber="17">
+          <span class="hits">88</span>
           
           <code class="ruby">    @description = row[:description]</code>
         </li>
       
-        <li class="covered" data-hits="2734" data-linenumber="18">
-          <span class="hits">2734</span>
+        <li class="covered" data-hits="88" data-linenumber="18">
+          <span class="hits">88</span>
           
           <code class="ruby">    @unit_price = BigDecimal.new(row[:unit_price])/100</code>
         </li>
       
-        <li class="covered" data-hits="2734" data-linenumber="19">
-          <span class="hits">2734</span>
+        <li class="covered" data-hits="88" data-linenumber="19">
+          <span class="hits">88</span>
           
           <code class="ruby">    @created_at = Time.parse(row[:created_at])</code>
         </li>
       
-        <li class="covered" data-hits="2734" data-linenumber="20">
-          <span class="hits">2734</span>
+        <li class="covered" data-hits="88" data-linenumber="20">
+          <span class="hits">88</span>
           
           <code class="ruby">    @updated_at = Time.parse(row[:updated_at])</code>
         </li>
       
-        <li class="covered" data-hits="2734" data-linenumber="21">
-          <span class="hits">2734</span>
+        <li class="covered" data-hits="88" data-linenumber="21">
+          <span class="hits">88</span>
           
           <code class="ruby">    @merchant_id = row[:merchant_id].to_i</code>
         </li>
       
-        <li class="covered" data-hits="2734" data-linenumber="22">
-          <span class="hits">2734</span>
+        <li class="covered" data-hits="88" data-linenumber="22">
+          <span class="hits">88</span>
           
           <code class="ruby">    @parent = parent</code>
         </li>
@@ -1950,8 +1950,8 @@
           <code class="ruby">    @all ||= csv.map do |row|</code>
         </li>
       
-        <li class="covered" data-hits="2734" data-linenumber="15">
-          <span class="hits">2734</span>
+        <li class="covered" data-hits="88" data-linenumber="15">
+          <span class="hits">88</span>
           
           <code class="ruby">      Item.new(row, self)</code>
         </li>
@@ -1986,8 +1986,8 @@
           <code class="ruby">    all.find do |item|</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="21">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="36" data-linenumber="21">
+          <span class="hits">36</span>
           
           <code class="ruby">      item.id.to_i == id.to_i</code>
         </li>
@@ -2172,8 +2172,8 @@
           <code class="ruby">    all.find_all do |item|</code>
         </li>
       
-        <li class="covered" data-hits="1367" data-linenumber="52">
-          <span class="hits">1367</span>
+        <li class="covered" data-hits="44" data-linenumber="52">
+          <span class="hits">44</span>
           
           <code class="ruby">      item.merchant_id == merchant_id.to_i</code>
         </li>
