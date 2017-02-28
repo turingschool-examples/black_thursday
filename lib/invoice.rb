@@ -6,18 +6,24 @@ class Invoice
                 :merchant_id,
                 :status,
                 :created_at,
-                :updated_at
+                :updated_at,
+                :parent
 
   def initialize(row, parent=nil)
     @id = row[:id].to_i
     @customer_id = row[:customer_id].to_i
     @merchant_id = row[:merchant_id].to_i
-    @status = row[:status]
+    @status = row[:status].to_sym
     @created_at = Time.parse(row[:created_at])
     @updated_at = Time.parse(row[:updated_at])
     @parent = parent
   end
+
+  def merchant
+    parent.engine.merchants.find_by_id(merchant_id)
+  end
 end
+
 
 # id - returns the integer id
 # customer_id - returns the customer id
