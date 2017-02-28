@@ -7,7 +7,7 @@ class Customer
               :parent
 
 
-  def method_name(data, parent = nil)
+  def initialize(data, parent = nil)
     @id = data[:id]
     @first_name = data[:first_name]
     @last_name = data[:last_name]

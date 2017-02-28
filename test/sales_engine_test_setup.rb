@@ -13,7 +13,8 @@ module SalesEngineTestSetup
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :transactions => "./data/transactions.csv",
-      :invoice_items => "./data/invoice_items.csv"
+      :invoice_items => "./data/invoice_items.csv",
+      :customers => "./data/customers.csv"
       })
   end
 end
