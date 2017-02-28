@@ -44,4 +44,10 @@ class InvoiceRepositoryTest < Minitest::Test
     invoice = se.invoices.find_by_id(20)
     assert_equal Array, invoice.items.class
   end
+
+  def test_it_finds_all_by_date
+    date = Time.parse("2009-02-07")
+    assert_equal  Array, invoice_repository.find_all_by_date(date).class
+    refute_empty invoice_repository.find_all_by_date(date)
+  end
 end

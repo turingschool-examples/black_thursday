@@ -9,13 +9,14 @@ require_relative '../test/file_hash_setup'
 
 class SalesAnalystTest < Minitest::Test
 
-  attr_reader :file_hash, :se, :sa
+  attr_reader :file_hash, :se, :sa, :date
 
     include FileHashSetup
 
   def setup
     super
     @sa = SalesAnalyst.new(se)
+    @date = Time.parse("2009-02-07")
   end
 
   def test_it_exists
@@ -86,5 +87,10 @@ class SalesAnalystTest < Minitest::Test
     assert_equal  29.55, sa.invoice_status(:pending)
     assert_equal 56.95, sa.invoice_status(:shipped)
     assert_equal 13.5, sa.invoice_status(:returned)
+  end
+
+  def test_total_revenue_by_date
+    assert_equal BigDecimal, sa.total_revenue_by_date(date).class
+
   end
 end

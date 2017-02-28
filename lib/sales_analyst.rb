@@ -154,4 +154,33 @@ class SalesAnalyst
     (sales_engine.invoices.find_all_by_status(status).count * 100  / sales_engine.number_of_invoices.to_f).round(2)
   end
 
+
+  def total_revenue_by_date(date)
+    invoices_on_a_date = sales_engine.invoices.find_all_by_date(date)
+    invoices_on_a_date.map { |invoice| invoice.total }.reduce(:+)
+  end
+
+
+  def top_revenue_earners(x=20)
+    top_merchants_by_revenue(x).map { |merchant| merchant[0] }
+  end
+
+  def merchant_revenues
+    sales_engine.merchants.all.reduce({}) do |merchant_revenues, merchant|
+      merchant_revenues.merge!({merchant => merchant.revenue})
+    end
+  end
+
+  def top_merchants_by_revenue(x)
+    merchant_revenues.max_by(x) { |(merchant, revenue)| revenue }
+  end
+
+  def revenue_by_merchant(merchant_id)
+    sales_engine.merchants.find_by_id(merchant_id).revenue
+  end
+
+  def merchants_with_pending_invoices
+    sales_engine.merchants.all.select{|merchant| merchant.has_pending_invoices? }
+  end
+
 end

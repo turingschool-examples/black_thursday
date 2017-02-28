@@ -30,4 +30,8 @@ class InvoiceRepository < Repository
     data.select { |invoice| invoice.status == status }
   end
 
+  def find_all_by_date(date)
+    data.select { |invoice| invoice.created_at == date}
+  end
+
 end

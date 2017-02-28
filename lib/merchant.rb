@@ -25,4 +25,11 @@ class Merchant
     uniq_customers
   end
 
+  def revenue
+    invoices.map { |invoice| invoice.total }.reduce(:+)
+  end
+
+  def has_pending_invoices?
+    !invoices.all? { |invoice| invoice.is_paid_in_full? }
+  end
 end

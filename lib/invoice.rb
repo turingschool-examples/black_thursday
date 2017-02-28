@@ -51,6 +51,7 @@ class Invoice
   end
 
   def total
+    return 0.0 unless is_paid_in_full?
       invoice_items.map { |invoice_item| invoice_item.total_price }.reduce(:+).round(2)
   end
 end
