@@ -16,7 +16,8 @@ class CustomerRepository
   end
 
   def pull_csv
-    @contents = CSV.open @customers_path, headers: true, header_converters: :symbol
+    @contents = CSV.open @customers_path, headers: true,
+     header_converters: :symbol
   end
 
   def parse_csv
