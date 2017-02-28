@@ -1,6 +1,7 @@
+require_relative 'invoice_item.rb'
 class InvoiceItemRepository
-  def initialize csv_path, parent
-    @invoice_item_csv = CSV.open csv_path, headers: true, header_converters: :symbol
+  def initialize(csv_path, parent)
+    @invoice_item_csv = CSV.open(csv_path, headers: true, header_converters: :symbol)
     @parent = parent
     make_repository
   end
@@ -14,6 +15,7 @@ class InvoiceItemRepository
     @invoice_item_csv.read.each do |invoice|
       @repository[invoice[:id]] = InvoiceItem.new(invoice, self)
     end
+
     return self
   end
 
