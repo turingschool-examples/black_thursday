@@ -81,14 +81,10 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-    days_of_week = invoices.all.map do |x|
-      x.created_at.strftime("%A")
-    end
+    days_of_week = invoices.all.map { |x| x.created_at.strftime("%A") }
 
     invoices_per_day = Hash.new(0)
-    days_of_week.map do |day|
-      invoices_per_day[day] += 1
-    end
+    days_of_week.map { |day| invoices_per_day[day] += 1 }
 
     average = average(invoices_per_day.values, invoices_per_day.values.count)
     std_dev = std_dev_from_array(invoices_per_day.values)
@@ -97,5 +93,9 @@ class SalesAnalyst
     invoices_per_day.select { |key, value| value > invoice_min }.keys
   end
 
+  def invoice_status(status)
+    percentage = (invoices.find_all_by_status(status).count.to_f / invoices.all.count.to_f) * 100
+    percentage.round(2)
+  end
 
 end

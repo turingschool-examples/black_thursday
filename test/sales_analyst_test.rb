@@ -83,4 +83,10 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Array, result
   end
 
+  def test_percentage_merchants_by_status
+    assert_equal 29.55, @sa.invoice_status(:pending)
+    assert_equal 56.95, @sa.invoice_status(:shipped)
+    assert_equal 13.5, @sa.invoice_status(:returned)
+  end
+
 end
