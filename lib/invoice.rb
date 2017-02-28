@@ -28,7 +28,6 @@ class Invoice
     item_ids.map do |id|
       parent.parent.items.find_by_id(id)
     end
-
   end
 
   def transactions
@@ -38,5 +37,14 @@ class Invoice
   def customer
     parent.parent.customers.find_by_id(customer_id)
   end
+
+  def is_paid_in_full?
+    return false if transactions.empty?
+    transactions.each do |x|
+      return false if x.result != "success"
+    end
+    return true
+  end
+
 
 end

@@ -26,11 +26,6 @@ class InvoiceRepository
     all.select { |invoice| invoice.status == status }
   end
 
-  # def merchant(invoice_id)
-  #   binding.pry
-  #   invoice = find_by_id(invoice_id)
-  # end
-
   def inspect
     @instance.nil? ? nil : "#<#{self.class} #{@instance.size} rows>"
   end

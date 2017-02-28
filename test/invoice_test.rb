@@ -41,9 +41,20 @@ class InvoiceTest < Minitest::Test
 
   def test_invoice_has_customers
     invoice = @i.find_by_id(20)
-
     assert_instance_of Customer, invoice.customer
     assert_equal "Sylvester", invoice.customer.first_name
   end
+
+  def test_invoice_is_paid_in_full?
+    invoice_status = @i.find_by_id(1).is_paid_in_full?
+    assert_equal true, invoice_status
+    assert_equal false, @i.find_by_id(203).is_paid_in_full?
+  end
+
+  def test_invoice_total
+    
+
+  end
+
 
 end
