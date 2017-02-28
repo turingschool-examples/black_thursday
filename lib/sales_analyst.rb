@@ -92,7 +92,6 @@ class SalesAnalyst
     total = engine.merchants.all.map do |merchant|
       (merchant_invoice_count(merchant.id) - average_invoices_per_merchant)**2
     end
-    # binding.pry
     Math.sqrt(total.reduce(:+)/(total.length - 1)).round(2)
   end
 
