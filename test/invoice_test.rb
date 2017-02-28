@@ -3,18 +3,11 @@ require './lib/invoice'
 require './lib/sales_engine'
 
 class InvoiceTest < Minitest::Test
-
-  @@se = SalesEngine.from_csv({
-    :invoices => "./data/invoices.csv",
-    :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv",
-    :invoice_items => "./data/invoice_items.csv"
-    })
-  @@i = @@se.invoices
+  include TestSetup
 
   def setup
     @se = @@se
-    @i = @@i
+    @i = @@se.invoices
   end
 
 

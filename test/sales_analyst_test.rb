@@ -2,13 +2,8 @@ require './test/test_helper'
 require './lib/sales_analyst'
 
 class SalesAnalystTest < Minitest::Test
+  include TestSetup
 
-  @@se = SalesEngine.from_csv({
-    :invoices => "./data/invoices.csv",
-    :items     => "./data/items.csv",
-    :merchants => "./data/merchants.csv",
-    :invoice_items => "./data/invoice_items.csv"
-    })
   @@sa = SalesAnalyst.new(@@se)
 
   def setup
