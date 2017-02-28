@@ -5,7 +5,7 @@ class SalesEngineTest < Minitest::Test
 
   def setup
     @se = SalesEngine.from_csv({
-      :merchants => "./data/merchants.csv",
+      :merchants => "./test/fixtures/merchants_truncated.csv",
       :items     => "./data/items.csv",
       :customers => "./data/customers.csv",
       :invoices  => "./data/invoices.csv",
@@ -57,18 +57,18 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_can_find_all_merchant_invoice
-    merchant = @se.merchants.find_by_id(12334159)
+    merchant = @se.merchants.find_by_id(12334115)
     invoices = merchant.invoices
 
     assert_instance_of Array, invoices
     assert_instance_of Invoice, invoices.first
-    assert_equal 13, invoices.count
+    assert_equal 11, invoices.count
   end
 
   def test_it_can_find_merchant_of_invoice
-    invoice = @se.invoices.find_by_id(20)
+    invoice = @se.invoices.find_by_id(74)
 
     assert_instance_of Merchant, invoice.merchant
-    assert_equal 12336163, invoice.merchant.id
+    assert_equal 12334105, invoice.merchant.id
   end
 end

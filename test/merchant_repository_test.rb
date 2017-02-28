@@ -6,7 +6,7 @@ require './lib/merchant'
 class MerchantRepositoryTest < Minitest::Test
   def setup
     @se = SalesEngine.from_csv({
-      :merchants => "./data/merchants.csv",
+      :merchants => "./test/fixtures/merchants_truncated.csv",
       :items     => "./data/items.csv",
       :customers => "./data/customers.csv",
       :invoices  => "./data/invoices.csv",
@@ -30,7 +30,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_all_contains_proper_number_of_merchants
-    assert_equal 475, @mr.all.count
+    assert_equal 10, @mr.all.count
     assert_equal Merchant, @mr.all.first.class
   end
 
@@ -40,13 +40,13 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_merchant_by_name
-    merchant = @mr.find_by_name("CJsDecor")
+    merchant = @mr.find_by_name("BowlsByChris")
     assert_instance_of Merchant, merchant
   end
 
   def test_the_merchant_by_name_search_is_case_insensitive
-    merchant = @mr.find_by_name("cjsdecor")
-    assert_equal "CJsDecor", merchant.name
+    merchant = @mr.find_by_name("bowlsbychriS")
+    assert_equal "BowlsByChris", merchant.name
   end
 
   def test_it_can_find_merchant_by_id
@@ -60,8 +60,8 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_merchants_matching_name_fragment
-    merchant = @mr.find_all_by_name("end")
-    assert_equal 7, merchant.count
+    merchant = @mr.find_all_by_name("in")
+    assert_equal 2, merchant.count
   end
 
   def test_it_can_return_an_empty_array_if_no_matches_are_found
