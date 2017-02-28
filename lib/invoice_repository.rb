@@ -18,9 +18,6 @@ class InvoiceRepository
     csv_file.each do |row|
       invoice = Invoice.new({:id => row[:id].to_i,
         :customer_id => row[:customer_id].to_i,
-        # :name => row[:name],
-        # :description => row[:description],
-        # :unit_price => transform_price(row[:unit_price]),
         :merchant_id => row[:merchant_id].to_i,
         :status => row[:status].to_sym,
       

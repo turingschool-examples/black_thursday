@@ -39,7 +39,7 @@ class Invoice
   def is_paid_in_full?
     invoice_transactions = parent.parent.transactions.find_all_by_invoice_id(id)
     return false if transactions.empty? 
-    invoice_transactions.all? {|transaction| transaction.result == "success"}
+    invoice_transactions.any? {|transaction| transaction.result == "success"}
   end
 
   def total
