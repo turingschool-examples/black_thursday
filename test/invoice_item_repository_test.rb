@@ -4,10 +4,10 @@ require_relative '../lib/invoice_item_repository'
 class InvoiceItemRepositoryTest < Minitest::Test
 
   def setup
-    @iir = InvoiceItemRepository.new
+    @iir = InvoiceItemRepository.new("parent")
     @iir.from_csv("./data/invoice_items_fixture.csv")
     @inv_item = @iir.all[0]
-    binding.pry
+    # binding.pry
   end
 
   def test_it_exists
@@ -15,30 +15,16 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_initializes_with_empty_array
-    iir = InvoiceItemRepository.new
+    iir = InvoiceItemRepository.new("parent")
     assert_equal [], iir.all
   end
 
   def test_from_csv_populates_array
-    iir = InvoiceItemRepository.new
+    iir = InvoiceItemRepository.new("parent")
     iir.from_csv("./data/invoice_items_fixture.csv")
     refute iir.all.empty?
     assert_instance_of InvoiceItem, iir.all[0]
   end
-
-# # #Refactor headers test
-# #   def test_can_pull_csv_headers
-# #     skip
-# #     ir = ItemRepository.new(@path)
-# #     name = nil
-# #     merchant_id = nil
-# #     @path.each do |row|
-# #      name = row[:name]
-# #      merchant_id = row[:merchant_id]
-# #     end
-# #     assert_equal "Disney scrabble frames
-# #     assert_equal "12334185", merchant_id
-# #   end
 
   def test_can_return_all_invoice_items
     assert_equal 30, @iir.all.length
