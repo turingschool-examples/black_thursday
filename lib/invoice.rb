@@ -20,9 +20,9 @@ class Invoice
   end
 
   def items
-    binding.pry
-    #The problem seems to be occurring in merchant
-    merchant.items
+    all_invoices = parent.parent.invoice_items.find_all_by_invoice_id(id)
+    item_ids = all_invoices.map { |invoice_item| invoice_item.item_id }
+    item_ids.map {|item_id| self.parent.parent.items.find_by_id(item_id) }
   end
 
   def transactions
