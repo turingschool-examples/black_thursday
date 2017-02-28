@@ -68,7 +68,8 @@ class SalesAnalyst
     find_average(item_count.to_f, merchant_count.to_f).round(2)
   end
 
-  def average_item_price_for_merchant(merchant_id, items = merchant_items(merchant_id))
+  def average_item_price_for_merchant(merchant_id,
+                                    items = merchant_items(merchant_id))
     find_average(item_prices_array(items).inject(:+), items.count).round(2)
   end
 
@@ -99,7 +100,8 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    find_standard_deviation(average_items_per_merchant, item_count_array(all_merchants))
+    find_standard_deviation(average_items_per_merchant,
+                           item_count_array(all_merchants))
   end
 
   def average_item_price_standard_deviation
@@ -107,38 +109,44 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant_standard_deviation
-    find_standard_deviation(average_invoices_per_merchant, merchant_invoice_counts)
+    find_standard_deviation(average_invoices_per_merchant,
+                            merchant_invoice_counts)
   end
 
   def average_invoices_per_day_standard_deviation
     find_standard_deviation(average_invoices_per_day, wday_invoice_count_array)
   end
 
-  def merchants_with_high_item_count(average = average_items_per_merchant, sd = average_items_per_merchant_standard_deviation)
+  def merchants_with_high_item_count(average = average_items_per_merchant,
+                             sd = average_items_per_merchant_standard_deviation)
     all_merchants.find_all do |merchant|
       merchant_item_count(merchant) > average + sd
     end
   end
 
-  def golden_items(average = average_item_price, sd = average_item_price_standard_deviation)
+  def golden_items(average = average_item_price,
+                   sd = average_item_price_standard_deviation)
     all_items.find_all do |item|
       item.unit_price > average + sd * 2
     end
   end
 
-  def top_merchants_by_invoice_count(average = average_invoices_per_merchant, sd = average_invoices_per_merchant_standard_deviation)
+  def top_merchants_by_invoice_count(average = average_invoices_per_merchant,
+                        sd = average_invoices_per_merchant_standard_deviation)
     all_merchants.find_all do |merchant|
       merchant.invoices.count > average + 2 * sd
     end
   end
 
-  def bottom_merchants_by_invoice_count(average = average_invoices_per_merchant, sd = average_invoices_per_merchant_standard_deviation)
+  def bottom_merchants_by_invoice_count(average = average_invoices_per_merchant,
+                        sd = average_invoices_per_merchant_standard_deviation)
     all_merchants.find_all do |merchant|
       merchant.invoices.count < average - 2 * sd
     end
   end
 
-  def top_days_by_invoice_count(average = average_invoices_per_day, sd = average_invoices_per_day_standard_deviation)
+  def top_days_by_invoice_count(average = average_invoices_per_day,
+    sd = average_invoices_per_day_standard_deviation)
     wday_groups.select do |_day, invoices|
       invoices.count > average + sd
     end.keys
@@ -206,7 +214,8 @@ class SalesAnalyst
 
   def merchants_with_only_one_item_registered_in_month(month_name)
     all_merchants.find_all do |merchant|
-      merchant.items.count == 1 && merchant.month_created.downcase == month_name.downcase
+      merchant.items.count == 1 &&
+      merchant.month_created.downcase == month_name.downcase
     end
   end
 
@@ -217,8 +226,8 @@ class SalesAnalyst
   end
 
   def find_invoice_items_for_merchant(merchant_id)
-    invoices = engine.merchants.find_by_id(merchant_id).invoices.find_all do |invoice|
-      invoice.is_paid_in_full?
+    inv = engine.merchants.find_by_id(merchant_id).inv.find_all do |invoice|
+       invoice.is_paid_in_full?
     end
     invoices.map do |invoice|
       invoice.invoice_items

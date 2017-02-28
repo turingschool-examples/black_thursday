@@ -16,7 +16,8 @@ class InvoiceItemRepository
   end
 
   def pull_csv
-    @contents = CSV.open @invoice_items_path, headers: true, header_converters: :symbol
+    @contents = CSV.open @invoice_items_path, headers: true,
+     header_converters: :symbol
   end
 
   def parse_csv

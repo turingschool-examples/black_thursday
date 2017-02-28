@@ -10,12 +10,24 @@ class SalesEngine
   attr_accessor :items, :merchants, :invoices, :invoice_items, :transactions, :customers
 
   def initialize(hash)
-    @items = ItemRepository.new(hash[:items], self) unless hash[:items].nil?
-    @merchants = MerchantRepository.new(hash[:merchants], self) unless hash[:merchants].nil?
-    @invoices = InvoiceRepository.new(hash[:invoices], self) unless hash[:invoices].nil?
-    @invoice_items = InvoiceItemRepository.new(hash[:invoice_items], self) unless hash[:invoice_items].nil?
-    @transactions = TransactionRepository.new(hash[:transactions], self) unless hash[:transactions].nil?
-    @customers = CustomerRepository.new(hash[:customers], self) unless hash[:customers].nil?
+    unless hash[:items].nil?
+      @items = ItemRepository.new(hash[:items], self)
+    end
+    unless hash[:merchants].nil?
+      @merchants = MerchantRepository.new(hash[:merchants], self)
+    end
+    unless hash[:invoices].nil?
+      @invoices = InvoiceRepository.new(hash[:invoices], self)
+    end
+    unless hash[:invoice_items].nil?
+      @invoice_items = InvoiceItemRepository.new(hash[:invoice_items], self)
+    end
+    unless hash[:transactions].nil?
+      @transactions = TransactionRepository.new(hash[:transactions], self)
+    end
+    unless hash[:customers].nil?
+      @customers = CustomerRepository.new(hash[:customers], self)
+    end
   end
 
   def self.from_csv(hash)

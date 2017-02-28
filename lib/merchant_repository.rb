@@ -15,7 +15,8 @@ class MerchantRepository
   end
 
   def pull_csv
-    @contents = CSV.open @merchants_path, headers: true, header_converters: :symbol
+    @contents = CSV.open @merchants_path, headers: true,
+     header_converters: :symbol
   end
 
   def parse_csv
