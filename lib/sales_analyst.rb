@@ -9,16 +9,16 @@ class SalesAnalyst
               :total_avgs,
               :total_prices,
               :price_set,
-              :price_squared_differences,
+              :price_squared_diffs,
               :invoice_set,
-              :invoices_squared_differences,
+              :invoices_squared_diffs,
               :invoices_by_day,
               :invoices_by_date,
               :merchants_by_revenue,
               :merchants_pending,
               :merchants_one_item
 
-  def initialize(engine="")
+  def initialize(engine)
     @engine = engine
   end
 
@@ -30,13 +30,18 @@ class SalesAnalyst
     @set ||= engine.merchants.all.map do |merchant|
       merchant.items.count
     end
-    @squared_differences ||= set.map { |num| (num - average_items_per_merchant) ** 2 }
-    (Math.sqrt( ( squared_differences.reduce(:+) ) / (set.count - 1) )).round(2)
+
+    @squared_differences ||= set.map do
+      |num| (num - average_items_per_merchant) ** 2
+    end
+    std_dev_inner = (squared_differences.reduce(:+)) / (set.count - 1)
+    (Math.sqrt(std_dev_inner)).round(2)
   end
 
   def merchants_with_high_item_count
+    std_dev_distance = average_items_per_merchant_standard_deviation + average_items_per_merchant
     engine.merchants.all.select do |merchant|
-      merchant.items.count > (average_items_per_merchant_standard_deviation + average_items_per_merchant)
+      merchant.items.count > std_dev_distance
     end
   end
 
@@ -67,13 +72,17 @@ class SalesAnalyst
       item.unit_price_to_dollars
     end
 
-    @price_squared_differences ||= price_set.map { |num| (num - average_item_price)**2 }
-    (Math.sqrt( ( price_squared_differences.reduce(:+) ) / (price_set.count - 1) )).round(2)
+    @price_squared_diffs ||= price_set.map do |num|
+      (num - average_item_price)**2
+    end
+    std_dev_inner = (price_squared_diffs.reduce(:+)) / (price_set.count - 1)
+    (Math.sqrt(std_dev_inner)).round(2)
   end
 
   def golden_items
+    std_dev_distance = item_price_standard_deviation * 2 + average_item_price
     engine.items.all.select do |item|
-      item.unit_price_to_dollars > (item_price_standard_deviation * 2 + average_item_price)
+      item.unit_price_to_dollars > std_dev_distance
     end
   end
 
@@ -85,20 +94,26 @@ class SalesAnalyst
     @invoice_set ||= engine.merchants.all.map do |merchant|
       merchant.invoices.count
     end
-    @invoices_squared_differences ||= invoice_set.map { |num| (num - average_invoices_per_merchant) ** 2 }
+    @invoices_squared_diffs ||= invoice_set.map do |num|
+      (num - average_invoices_per_merchant) ** 2
+    end
 
-    (Math.sqrt( ( invoices_squared_differences.reduce(:+) ) / (invoice_set.count - 1) )).round(2)
+    std_dev_inner = (invoices_squared_diffs.reduce(:+)) / (invoice_set.count - 1)
+
+    (Math.sqrt(std_dev_inner)).round(2)
   end
 
   def top_merchants_by_invoice_count
+    std_dev_distance  = average_invoices_per_merchant + average_invoices_per_merchant_standard_deviation * 2
     engine.merchants.all.select do |merchant|
-      merchant.invoices.count > (average_invoices_per_merchant + average_invoices_per_merchant_standard_deviation * 2)
+      merchant.invoices.count > std_dev_distance
     end
   end
 
   def bottom_merchants_by_invoice_count
+    std_dev_distance = average_invoices_per_merchant - average_invoices_per_merchant_standard_deviation * 2
     engine.merchants.all.select do |merchant|
-      merchant.invoices.count < (average_invoices_per_merchant - average_invoices_per_merchant_standard_deviation * 2)
+      merchant.invoices.count < std_dev_distance
     end
   end
 
@@ -107,8 +122,11 @@ class SalesAnalyst
   end
 
   def invoices_by_day_standard_deviation
-    invoices_by_day_squared_differences = invoices_by_day.values.map { |invoices| (invoices.count - invoices_by_day_average) ** 2 }
-    (Math.sqrt( ( invoices_by_day_squared_differences.reduce(:+) ) / (invoices_by_day.values.count - 1) )).round(2)
+    invoices_by_day_squared_differences = invoices_by_day.values.map do |invoices|
+      (invoices.count - invoices_by_day_average) ** 2
+    end
+    std_dev_inner = invoices_by_day_squared_differences.reduce(:+) / (invoices_by_day.values.count - 1)
+    (Math.sqrt(std_dev_inner)).round(2)
   end
 
   def top_days_by_invoice_count
@@ -116,11 +134,15 @@ class SalesAnalyst
       invoice.created_at.strftime('%A')
     end
 
-    invoices_by_day.select { |day, invoices| invoices.count > (invoices_by_day_average + invoices_by_day_standard_deviation) }.keys
+    std_dev_distance = invoices_by_day_average + invoices_by_day_standard_deviation
+    invoices_by_day.select do |day, invoices|
+      invoices.count > std_dev_distance
+    end.keys
   end
 
   def invoice_status(status)
-    ((engine.invoices.find_all_by_status(status).count / engine.invoices.all.count.to_f) * 100).round(2)
+    find_all_by_status = engine.invoices.find_all_by_status(status)
+    ((find_all_by_status.count / engine.invoices.all.count.to_f) * 100).round(2)
   end
 
   def total_revenue_by_date(date)
@@ -201,6 +223,12 @@ class SalesAnalyst
     end
     revenue_sorted.pop
     revenue_sorted.map{|item| engine.items.find_by_id(item.item_id)}.first
+  end
+
+  private
+
+  def st_dev_distance
+    average_items_per_merchant_standard_deviation + average_items_per_merchant
   end
 
 end

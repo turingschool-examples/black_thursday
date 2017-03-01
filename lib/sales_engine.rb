@@ -7,7 +7,12 @@ require_relative 'customer_repository'
 
 
 class SalesEngine
-  attr_accessor :merchants, :items, :invoices, :invoice_items, :transactions, :customers
+  attr_accessor :merchants,
+                :items,
+                :invoices,
+                :invoice_items,
+                :transactions,
+                :customers
 
   def self.from_csv(info)
     @merchant_repo = MerchantRepository.new(info[:merchants], self)
