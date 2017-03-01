@@ -5,11 +5,11 @@ require 'pry'
 
 class Invoice
 
-  attr_reader :id, 
-              :customer_id, 
-              :merchant_id, 
-              :status, 
-              :created_at, 
+  attr_reader :id,
+              :customer_id,
+              :merchant_id,
+              :status,
+              :created_at,
               :updated_at
 
   attr_accessor :repository
@@ -46,8 +46,9 @@ class Invoice
   end
 
   def total
+    return 0.0 unless is_paid_in_full?
     matching_items = repository.sales_engine.invoice_items.invoice_items.select { |row| row.invoice_id == self.id}
+    matching_items.select {}
     matching_items.reduce(0) { |sum, item| sum + item.unit_price*item.quantity }
   end
 end
-    

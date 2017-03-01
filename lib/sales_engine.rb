@@ -3,7 +3,7 @@ require_relative 'object_builder'
 require 'pry'
 
 class SalesEngine
-  
+
   attr_reader :items, :merchants, :invoices, :invoice_items, :transactions, :customers
 
   def initialize(repos = {})
