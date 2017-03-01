@@ -9,7 +9,7 @@ class Merchant
   def initialize (row, repository = nil)
     @id           = row[:id].to_i
     @name         = row[:name]
-    @created_at   = row[:created_at]
+    @created_at   = Time.parse(row[:created_at])
     @repository   = repository
   end
 
@@ -37,8 +37,12 @@ class Merchant
     all_invoices = invoices
     paid_invoces = all_invoices.select { |invoice| return 0.0 unless invoice.is_paid_in_full? }
     paid_invoces.reduce(0) do |sum, invoice|
-      binding.pry
       sum + invoice.total
     end
   end
+
+  def merchants_with_only_one_item
+    items.sort
+  end
+
 end
