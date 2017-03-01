@@ -34,11 +34,15 @@ attr_reader :id, :name, :merchant_created_at, :merchant_updated_at
   end
 
   def customers
-    invoices.map! do |invoice| 
+    invoices.map! do |invoice|
       invoice.customer
     end.uniq do |customer|
       customer.id
     end
+  end
+
+  def merchant_revenue
+    @parent.
   end
 
 end

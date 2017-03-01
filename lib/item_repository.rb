@@ -46,7 +46,7 @@ class ItemRepository
       item.description.downcase.include?(description.downcase)
     end
   end
-  
+
   def find_all_by_price(price)
     all.find_all do |item|
       item.unit_price == price
@@ -55,7 +55,7 @@ class ItemRepository
 
   def find_all_by_price_in_range(range)
     all.find_all do |item|
-      range.include? item.unit_price_to_dollars 
+      range.include? item.unit_price_to_dollars
     end
   end
 

@@ -34,11 +34,11 @@ attr_reader :id,
     end
   end
 
-  def items 
+  def items
     @invoice_items = @parent.parent.invoice_items.find_all_by_invoice_id(@id)
-    all_items = @invoice_items.map do |invoice_item| 
+    all_items = @invoice_items.map do |invoice_item|
       @parent.parent.items.find_by_id(invoice_item.item_id)
-    end 
+    end
     all_items
   end
 
@@ -47,11 +47,11 @@ attr_reader :id,
   end
 
   def customer
-    @parent.parent.customers.find_by_id(@customer_id) 
+    @parent.parent.customers.find_by_id(@customer_id)
   end
 
   def invoice_item_array
-    @parent.parent.invoice_items.find_all_by_invoice_id(@id) 
+    @parent.parent.invoice_items.find_all_by_invoice_id(@id)
   end
 
   def is_paid_in_full?
