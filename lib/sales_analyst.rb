@@ -1,12 +1,14 @@
 require_relative 'sales_engine'
 require_relative 'merchant'
 require_relative 'calculator'
+require_relative 'merchant_analytics'
 require 'bigdecimal'
 require 'pry'
 
 class SalesAnalyst
 
   include Calculator
+  include MerchantAnalytics
 
   attr_reader :sales_engine
 
@@ -141,6 +143,19 @@ class SalesAnalyst
     denominator = invoice_repository.invoices.length
     percentage(numerator, denominator)
   end
-end
 
-#
+  def total_revenue_by_date(date)
+    invoice_date = invoice_repository.find_all_by_date(date)
+    invoice_date.reduce(0) { |sum, invoice| sum + invoice.total }
+  end
+
+  def top_revenue_earners(amount)
+    merchants = merchant_repository.merchants
+    merchant_values = Hash[merchants.map { |merchant| [merchant, merchant.invoices]}]
+    merchant_values.map { |merchant, total| merchant_values[merchant] =  total.reduce(0) { |sum, invoice| sum + invoice.total }}
+    top_merchants = merchant_values.sort_by { |key,value| value }.reverse[0..(amount - 1)]
+    top_merchants.map { |pair| pair[0] }
+
+    # merchant_values.values.map { |invoice| invoice.reduce(0) { |sum, invoice| sum + invoice.total }}
+  end
+end

@@ -28,6 +28,14 @@ class InvoiceRepository
     invoices.select { |row| row.status == status }
   end
 
+  def find_all_by_date(date)
+    invoices.select { |row| row.created_at == date }
+  end
+
+  def all_paid_in_full
+    invoices.select { |row| row.is_paid_in_full? }
+  end
+
   def inspect
   "#<#{self.class} #{@merchants.size} rows>"
   end

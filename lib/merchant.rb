@@ -24,4 +24,21 @@ class Merchant
   def customers
     self.invoices.map { |pizza| pizza.customer }.uniq
   end
+
+  def invoice_total
+    invoices.reduce(0) { |sum, invoice| sum + invoice.total }
+  end
+
+  def invoices_paid_in_full
+    invoices.select { |row| row.is_paid_in_full? }
+  end
+
+  def paid_in_full_total
+    all_invoices = invoices
+    paid_invoces = all_invoices.select { |invoice| return 0.0 unless invoice.is_paid_in_full? }
+    paid_invoces.reduce(0) do |sum, invoice|
+      binding.pry
+      sum + invoice.total
+    end
+  end
 end
