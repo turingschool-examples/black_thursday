@@ -1,10 +1,4 @@
-require "minitest/autorun"
-require "minitest/pride"
-require "./lib/transaction"
-require "simplecov"
-require "bigdecimal"
-
-SimpleCov.start
+require './test/test_helper'
 
 class TransactionTest < Minitest::Test
   attr_reader :t,

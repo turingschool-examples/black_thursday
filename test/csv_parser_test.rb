@@ -1,6 +1,4 @@
-require "minitest/autorun"
-require "minitest/pride"
-require "./lib/helper"
+require './test/test_helper'
 
 class CsvParserTest < Minitest::Test
 

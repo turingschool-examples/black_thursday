@@ -1,9 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/calculator'
-require 'simplecov'
-
-SimpleCov.start
+require './test/test_helper'
 
 class CalculatorTest < Minitest::Test
 

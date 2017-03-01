@@ -1,8 +1,4 @@
-require "minitest/autorun"
-require "minitest/pride"
-require "./lib/merchant_repository"
-require "simplecov"
-SimpleCov.start
+require './test/test_helper'
 
 class MerchantRepositoryTest < Minitest::Test
 

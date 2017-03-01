@@ -1,9 +1,4 @@
-require "minitest/autorun"
-require "minitest/pride"
-require "./lib/customer"
-require "simplecov"
-
-SimpleCov.start
+require './test/test_helper'
 
 class CustomerTest < Minitest::Test
   attr_reader :c,

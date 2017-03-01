@@ -1,8 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/sales_engine'
-require 'simplecov'
-SimpleCov.start
+require './test/test_helper'
 
 class SalesEngineTest < Minitest::Test
 

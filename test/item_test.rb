@@ -1,9 +1,4 @@
-require "minitest/autorun"
-require "minitest/pride"
-require "./lib/item"
-require "./lib/item_repository"
-require "bigdecimal"
-require "simplecov"
+require './test/test_helper'
 
 SimpleCov.start
 
