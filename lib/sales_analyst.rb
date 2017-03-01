@@ -228,7 +228,24 @@ class SalesAnalyst
   end
 
   def best_item_for_merchant(merchant_id)
-    #=> item (in terms of revenue generated)
-  end
+    #use merchant_id to find items
+    invoices_for_merchant = sales_engine.invoices.find_all_by_merchant_id(merchant_id).select{|invoice| invoice.is_paid_in_full?}
 
+    invoice_items = invoices_for_merchant.map do |invoice|
+      sales_engine.invoice_items.find_all_by_invoice_id(invoice.id)
+      end
+
+    revenue_by_item_id = Hash.new(0)
+
+    invoice_items.flatten.each do |invoice_item|
+      revenue_by_item_id[invoice_item.item_id] += invoice_item.total_price
+    end
+
+    max_item = revenue_by_item_id.values.max
+
+    output_items = revenue_by_item_id.select { |k,v| v == max_item }.keys
+
+    sales_engine.items.find_by_id(output_items.first)
+
+  end
 end
