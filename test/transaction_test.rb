@@ -7,8 +7,11 @@ require "bigdecimal"
 SimpleCov.start
 
 class TransactionTest < Minitest::Test
-  attr_reader :t
+  attr_reader :t,
+              :parent
   def setup
+    @parent = SalesEngine.from_csv({:transactions => './test/fixtures/transaction_three.csv'})
+
     @t = Transaction.new({
       :id => 6,
       :invoice_id => 8,
@@ -17,7 +20,7 @@ class TransactionTest < Minitest::Test
       :result => "success",
       :created_at => "2012-02-26 20:56:56 UTC",
       :updated_at => "2013-02-26 20:56:56 UTC"
-    })
+    }, parent)
   end
 
   def test_it_exists
@@ -33,7 +36,7 @@ class TransactionTest < Minitest::Test
   end
 
   def test_it_knows_credit_card_number
-    assert_equal "4242424242424242", t.credit_card_number
+    assert_equal 4242424242424242, t.credit_card_number
   end
 
   def test_it_knows_credit_card_expiration_date
@@ -54,5 +57,11 @@ class TransactionTest < Minitest::Test
     assert_equal "2013-02-26 20:56:56 UTC", t.updated_at.to_s
   end
 
-  
+  def test_parent_is_instance_of_transaction_repository
+    se = SalesEngine.from_csv({:transactions => './test/fixtures/transaction_three.csv'})
+    tr = se.transactions
+    t = tr.all.first
+
+    assert_instance_of TransactionRepository, t.parent
+  end
 end

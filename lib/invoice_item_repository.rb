@@ -9,10 +9,12 @@ require_relative 'invoice_repository'
 
 class InvoiceItemRepository
 
-  attr_reader :all
+  attr_reader :all,
+              :parent
 
-  def initialize(invoice_item_data)
+  def initialize(invoice_item_data, parent)
     @all = invoice_item_data.map { |raw_data| InvoiceItem.new(raw_data, self)}
+    @parent = parent
   end
 
   def find_by_id(id)

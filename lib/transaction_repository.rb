@@ -11,10 +11,12 @@ require_relative 'transaction'
 
 class TransactionRepository
 
-  attr_reader :all
+  attr_reader :all,
+              :parent
 
-  def initialize(transaction_data)
+  def initialize(transaction_data, parent)
     @all = transaction_data.map { |raw_data| Transaction.new(raw_data, self)}
+    @parent = parent
   end
 
   def find_by_id(id)

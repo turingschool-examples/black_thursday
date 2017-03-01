@@ -10,9 +10,11 @@ require_relative 'invoice_item_repository'
 require_relative 'customer'
 
 class CustomerRepository
-  attr_reader :all
-  def initialize(customer_data)
+  attr_reader :all,
+              :parent
+  def initialize(customer_data, parent)
     @all = customer_data.map { |raw_data| Customer.new(raw_data)}
+    @parent = parent
   end
 
   def find_by_id(id)
