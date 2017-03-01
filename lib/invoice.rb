@@ -1,15 +1,15 @@
 require 'time'
 
 class Invoice
-    attr_reader :id,
-                :customer_id,
-                :merchant_id,
-                :status,
-                :created_at,
-                :updated_at,
-                :parent
+  attr_reader :id,
+              :customer_id,
+              :merchant_id,
+              :status,
+              :created_at,
+              :updated_at,
+              :parent
 
-  def initialize(row, parent=nil)
+  def initialize(row, parent)
     @id = row[:id].to_i
     @customer_id = row[:customer_id].to_i
     @merchant_id = row[:merchant_id].to_i

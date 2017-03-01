@@ -1,6 +1,7 @@
 class InvoiceItemRepository
   attr_reader :path,
               :engine
+
   def initialize(path, engine)
     @path = path
     @engine = engine
@@ -16,9 +17,9 @@ class InvoiceItemRepository
     end
   end
 
-  def find_by_id(invoice_item_id)
+  def find_by_id(id)
     all.find do |invoice_item|
-      invoice_item.id.to_i == invoice_item_id.to_i
+      invoice_item.id.to_i == invoice_item.id.to_i
     end
   end
 

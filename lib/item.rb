@@ -2,14 +2,14 @@ require 'bigdecimal'
 require 'time'
 
 class Item
-    attr_reader :id,
-                :name,
-                :description,
-                :unit_price,
-                :created_at,
-                :updated_at,
-                :merchant_id,
-                :parent
+  attr_reader :id,
+              :name,
+              :description,
+              :unit_price,
+              :created_at,
+              :updated_at,
+              :merchant_id,
+              :parent
 
   def initialize(row, parent)
     @id = row[:id].to_i
@@ -27,18 +27,6 @@ class Item
   end
 
   def merchant
-    parent.engine.merchants.find_by_id(self.merchant_id)
+    parent.engine.merchants.find_by_id(merchant_id)
   end
-
-  # def created_at
-  #   # returns a Time instance for the date the item was first created
-  # end
-  #
-  # def updated_at
-  #   # returns a Time instance for the date the item was last modified
-  # end
-
-  # def merchant_id
-  #   # returns the integer merchant id of the item
-  # end
 end

@@ -1,6 +1,7 @@
 class CustomerRepository
   attr_reader :path,
               :engine
+
   def initialize(path, engine)
     @path = path
     @engine = engine
@@ -16,7 +17,7 @@ class CustomerRepository
     end
   end
 
-  def find_by_id(customer_id)
+  def find_by_id(id)
     all.find do |customer|
       customer.id.to_i == customer_id.to_i
     end
@@ -37,5 +38,4 @@ class CustomerRepository
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
-
 end

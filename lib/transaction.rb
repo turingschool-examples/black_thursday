@@ -1,15 +1,16 @@
 require 'time'
 
 class Transaction
-    attr_reader :id,
-                :invoice_id,
-                :credit_card_number,
-                :credit_card_expiration_date,
-                :result,
-                :created_at,
-                :updated_at
+  attr_reader :id,
+              :invoice_id,
+              :credit_card_number,
+              :credit_card_expiration_date,
+              :result,
+              :created_at,
+              :updated_at,
+              :parent
 
-  def initialize(row, parent = nil)
+  def initialize(row, parent)
     @id = row[:id].to_i
     @invoice_id = row[:invoice_id].to_i
     @credit_card_number = row[:credit_card_number].to_i
@@ -19,6 +20,8 @@ class Transaction
     @updated_at = Time.parse(row[:updated_at])
     @parent = parent
   end
-end
 
-# CHECK FORMAT OF RETURNED CREDIT CARD NUMBER WITHOUT TAB OR SPACE
+  def invoice
+    parent.engine.invoice.find_by_id(invoice_id)
+  end
+end
