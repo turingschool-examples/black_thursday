@@ -70,4 +70,22 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of Merchant, invoice.merchant
     assert_equal 12334105, invoice.merchant.id
   end
+
+  def test_it_can_find_array_of_merchants_from_item
+    invoice = @se.invoices.find_by_id(74)
+
+    assert_instance_of Array, invoice.items
+  end
+
+  def test_it_can_find_transactions_of_invoice
+    invoice = @se.invoices.find_by_id(74)
+
+    assert_instance_of Array, invoice.transactions
+  end
+
+  def test_it_can_find_customer_by_invoice
+    invoice = @se.invoices.find_by_id(74)
+
+    assert_instance_of Customer, invoice.customer
+  end
 end
