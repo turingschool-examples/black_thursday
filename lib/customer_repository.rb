@@ -19,7 +19,7 @@ class CustomerRepository
 
   def find_by_id(id)
     all.find do |customer|
-      customer.id.to_i == customer_id.to_i
+      customer.id.to_i == id.to_i
     end
   end
 

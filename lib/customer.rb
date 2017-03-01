@@ -17,7 +17,7 @@ class Customer
     @parent = parent
   end
 
-  def merchants ***
+  def merchants #need longer method to traverse and match correct data
     parent.engine.invoices.find_all_by_merchant_id(merchant_id)
   end
 end
