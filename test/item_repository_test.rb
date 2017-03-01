@@ -1,9 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/item_repository.rb'
-require './lib/sales_engine'
-require 'simplecov'
-SimpleCov.start
+require './test/test_helper'
 
 class ItemRepositoryTest < Minitest::Test
 

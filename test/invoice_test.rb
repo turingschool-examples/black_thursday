@@ -1,7 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/invoice'
-require 'simplecov'
+require './test/test_helper'
 
 class InvoiceTest < Minitest::Test
 

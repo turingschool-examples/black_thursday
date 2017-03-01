@@ -1,10 +1,4 @@
-require 'simplecov'
-SimpleCov.start
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/sales_analyst'
-
-
+require './test/test_helper'
 
 class SalesAnalystTest < Minitest::Test
 

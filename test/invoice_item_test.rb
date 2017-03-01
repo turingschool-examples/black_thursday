@@ -1,10 +1,4 @@
-require "minitest/autorun"
-require "minitest/pride"
-require "./lib/invoice_item"
-require "simplecov"
-require "bigdecimal"
-
-SimpleCov.start
+require './test/test_helper'
 
 class InvoiceItemTest < Minitest::Test
   attr_reader :ini,
