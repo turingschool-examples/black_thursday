@@ -6,13 +6,22 @@ class SalesAnalystTest < Minitest::Test
 
   def setup
     @se = SalesEngine.from_csv({
-      :merchants => "./test/fixtures/merchants_truncated.csv",
-      :items     => "./test/fixtures/items_truncated.csv",
-      :customers => "./test/fixtures/customers_truncated.csv",
-      :invoices  => "./test/fixtures/invoices_truncated.csv",
+      :merchants => "./data/merchants.csv",
+      :items     => "./data/items.csv",
+      :customers => "./data/customers.csv",
+      :invoices  => "./data/invoices.csv",
       :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
       :transactions  => "./test/fixtures/transactions_truncated.csv"
       })
+
+      # {
+      #   :merchants => "./test/fixtures/merchants_truncated_2.csv",
+      #   :items     => "./test/fixtures/items_truncated_2.csv",
+      #   :customers => "./test/fixtures/customers_truncated.csv",
+      #   :invoices  => "./test/fixtures/invoices_truncated_2.csv",
+      #   :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
+      #   :transactions  => "./test/fixtures/transactions_truncated.csv"
+      #   }
 
     @sa = SalesAnalyst.new(@se)
   end
@@ -26,11 +35,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_merchant_returns_correct_count
-    assert_equal 10, @sa.merchant_count
+    assert_equal 475, @sa.merchant_count
   end
 
   def test_item_test_returns_correct_count
-    assert_equal 44, @sa.item_count
+    assert_equal 1367, @sa.item_count
   end
 
   def test_merchent_items_count_returns_correct_item_count_for_given_merchant
@@ -38,11 +47,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_average_items_per_merchant
-    assert_equal 4.4, @sa.average_items_per_merchant
+    assert_equal 2.88, @sa.average_items_per_merchant
   end
 
   def test_it_can_find_average_items_per_merchant_std_deviation
-    assert_equal 7.49, @sa.average_items_per_merchant_standard_deviation
+    assert_equal 3.26, @sa.average_items_per_merchant_standard_deviation
   end
 
   def test_returns_array_of_high_item_count_merchants
@@ -76,11 +85,11 @@ class SalesAnalystTest < Minitest::Test
   # iteration 2
 
   def test_returns_corrent_invoices_count
-    assert_equal 115, @sa.invoices_count
+    assert_equal 4985, @sa.invoices_count
   end
 
   def test_it_can_return_average_invoices_per_merchant
-    assert_equal 11.5, @sa.average_invoices_per_merchant
+    assert_equal 10.49, @sa.average_invoices_per_merchant
   end
 
   def test_merchant_invoice_count_returns_integer
@@ -88,7 +97,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_return_std_dev_of_average_invoices_per_merchant
-    assert_equal 2.66, @sa.average_invoices_per_merchant_standard_deviation
+    assert_equal 3.29, @sa.average_invoices_per_merchant_standard_deviation
   end
 
   def test_returns_array_of_top_performing_merchants_by_invoice_count
@@ -97,14 +106,13 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_returns_array_of_bottom_performing_merchants_by_invoice_count
-    skip
     assert_instance_of Array, @sa.bottom_merchants_by_invoice_count
     assert_instance_of Merchant, @sa.bottom_merchants_by_invoice_count.first # this needs to be fixed in the fxture file
   end
 
   def test_invoice_day_created_returns_array_of_day_names
     assert_instance_of Array, @sa.invoice_day_created
-    assert_equal 'Monday', @sa.invoice_day_created.first
+    assert_equal 'Saturday', @sa.invoice_day_created.first
   end
 
   def test_invoice_created_on_given_day_returns_hash
@@ -113,23 +121,22 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_invoice_created_day_std_dev_returns_correct_number
-    assert_equal 3.69, @sa.invoice_created_day_standard_deviation
+    assert_equal 18.07, @sa.invoice_created_day_standard_deviation
   end
 
   def test_returns_array_of_strings_for_top_performing_days
-    skip
     assert_instance_of Array, @sa.top_days_by_invoice_count
     assert_instance_of String, @sa.top_days_by_invoice_count.first # needs to be fixed in fixture
   end
 
   def test_invoice_status_count_returns_correct_number
-    assert_equal 69, @sa.invoice_statuses_count(:shipped)
+    assert_equal 2839, @sa.invoice_statuses_count(:shipped)
   end
 
   def test_returns_correct_percentage_status
-    assert_equal 27.83, @sa.invoice_status(:pending)
-    assert_equal 60.0, @sa.invoice_status(:shipped)
-    assert_equal 12.17, @sa.invoice_status(:returned)
+    assert_equal 29.55, @sa.invoice_status(:pending)
+    assert_equal 56.95, @sa.invoice_status(:shipped)
+    assert_equal 13.5, @sa.invoice_status(:returned)
   end
 
 end

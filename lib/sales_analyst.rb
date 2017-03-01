@@ -136,7 +136,7 @@ class SalesAnalyst
     avg = invoices_count/7.0
     result = number_of_invoices_created_on_given_day.select do |day, count|
       day if count > (std_dev + avg)
-      end
+    end # written as a case
       result.keys
   end
 
