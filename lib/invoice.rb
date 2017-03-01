@@ -28,4 +28,15 @@ class Invoice
     created_at.strftime("%A")
   end
 
+  def items
+    parent.find_invoice_items(id)
+  end
+
+  def transactions
+    parent.find_transactions(id)
+  end
+
+  def customer
+    parent.find_customer(customer_id)  
+  end
 end

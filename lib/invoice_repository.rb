@@ -1,4 +1,5 @@
 require './lib/helper'
+require 'pry'
 
 class InvoiceRepository
 
@@ -51,6 +52,18 @@ class InvoiceRepository
     end
   end
 
+  def find_invoice_items(invoice_id)
+    parent.find_items_by_invoice_id(invoice_id)
+  end
+
+  def find_transactions(invoice_id)
+    parent.find_transactions_by_invoice_id(invoice_id)
+  end
+
+  def find_customer(customer_id)
+    parent.find_customer_by_customer_id(customer_id)  
+  end
+  
   def inspect
     "#<#{self.class} #{@all.size} rows>"
   end
