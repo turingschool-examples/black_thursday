@@ -6,15 +6,17 @@ require "simplecov"
 SimpleCov.start
 
 class CustomerTest < Minitest::Test
-  attr_reader :c
+  attr_reader :c,
+              :parent
   def setup
+    @parent = SalesEngine.from_csv({:customers => './test/fixtures/customer_three.csv'})
     @c = Customer.new({
       :id => 6,
       :first_name => "Joan",
       :last_name => "Clarke",
       :created_at => "2012-03-27 14:54:09 UTC",
       :updated_at => "2013-03-27 14:54:09 UTC"
-      })
+      }, parent)
   end
 
 def test_it_exists
@@ -41,6 +43,14 @@ def test_it_exists
   def test_it_knows_date_updated_at
     assert_instance_of Time, c.updated_at
     assert_equal "2013-03-27 14:54:09 UTC", c.updated_at.to_s
+  end
+
+  def test_parent_is_instance_of_customer_repository
+    se = SalesEngine.from_csv({:customers => './test/fixtures/customer_three.csv'})
+    cr = se.customers
+    c = cr.all.first
+
+    assert_instance_of CustomerRepository, c.parent
   end
 
 end

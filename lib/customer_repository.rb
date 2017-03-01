@@ -13,7 +13,7 @@ class CustomerRepository
   attr_reader :all,
               :parent
   def initialize(customer_data, parent)
-    @all = customer_data.map { |raw_data| Customer.new(raw_data)}
+    @all = customer_data.map { |raw_data| Customer.new(raw_data, self) }
     @parent = parent
   end
 
