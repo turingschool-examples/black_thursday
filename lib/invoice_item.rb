@@ -8,7 +8,8 @@ class InvoiceItem
               :quantity,
               :unit_price,
               :created_at,
-              :updated_at
+              :updated_at,
+              :parent
 
   def initialize(path, parent)
     @id = path[:id].to_i
@@ -18,6 +19,7 @@ class InvoiceItem
     @unit_price = BigDecimal.new(path[:unit_price])/100
     @created_at = Time.parse(path[:created_at])
     @updated_at = Time.parse(path[:updated_at])
+    @parent = parent
   end
 
   def unit_price_to_dollars

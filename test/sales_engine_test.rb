@@ -7,14 +7,14 @@ class SalesEngineTest < Minitest::Test
     @se = SalesEngine.from_csv({
       :merchants => "./test/fixtures/merchants_truncated.csv",
       :items     => "./test/fixtures/items_truncated.csv",
-      :customers => "./test/fixtures/customers_truncated.csv",
       :invoices  => "./test/fixtures/invoices_truncated.csv",
       :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
-      :transactions  => "./test/fixtures/transactions_truncated.csv"
+      :transactions  => "./test/fixtures/transactions_truncated.csv",
+      :customers => "./test/fixtures/customers_truncated.csv"
       })
   end
 
-  def test_does_it_exist
+  def test_it_exists
     assert_instance_of SalesEngine, @se
   end
 
@@ -25,17 +25,9 @@ class SalesEngineTest < Minitest::Test
   def test_data_files_return_instance_of_corresponding_repositories
     assert_instance_of MerchantRepository, @se.merchants
     assert_instance_of ItemRepository, @se.items
-    assert_instance_of CustomerRepository, @se.customers
     assert_instance_of InvoiceRepository, @se.invoices
     assert_instance_of InvoiceItemRepository, @se.invoice_items
     assert_instance_of TransactionRepository, @se.transactions
-  end
-
-  def test_items_returns_an_Item_Repository
-    assert_instance_of ItemRepository, @se.items
-  end
-
-  def test_customers_returns_a_Customers_repository
     assert_instance_of CustomerRepository, @se.customers
   end
 
@@ -55,7 +47,7 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of Merchant, merchant_item
   end
 
-  def test_it_can_find_all_merchant_invoice
+  def test_it_can_find_all_merchant_invoices
     merchant = @se.merchants.find_by_id(12334115)
     invoices = merchant.invoices
 
@@ -70,4 +62,39 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of Merchant, invoice.merchant
     assert_equal 12334105, invoice.merchant.id
   end
+
+  def method_name
+
+  end
+
+  def method_name
+
+  end
+
+  def method_name
+
+  end
 end
+
+# Then we can find connections from an invoice:
+# invoice = se.invoices.find_by_id(20)
+# invoice.items # => [item, item, item] assert_instance_of Array of item instances
+# invoice.transactions # => [transaction, transaction] assert_instance_of Array of transaction instances
+# invoice.customer # => customer assert_equal (customer_id)
+
+
+
+
+
+
+# Or a transaction:
+# transaction = se.transactions.find_by_id(40)
+# transaction.invoice # => invoice assert_equal invoice.transaction.id
+
+# And if we started with a merchant we could find the customers who’ve purchased one or more items at their store:
+# merchant = se.merchants.find_by_id(12335938)
+# merchant.customers # => [customer, customer, customer]
+
+# Or from the customer side we could find the merchants they’ve purchased from:
+# customer = se.customers.find_by_id(30)
+# customer.merchants # => [merchant, merchant]

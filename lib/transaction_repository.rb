@@ -1,5 +1,6 @@
 class TransactionRepository
-  attr_reader :path, :engine
+  attr_reader :path,
+              :engine
 
   def initialize(path, engine)
     @path = path
@@ -43,5 +44,5 @@ class TransactionRepository
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
-  
+
 end

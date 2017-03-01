@@ -1,6 +1,8 @@
 class Merchant
   attr_reader :id,
               :name,
+              :created_at,
+              :updated_at,
               :parent
 
   def initialize(row, parent)
@@ -12,18 +14,14 @@ class Merchant
   end
 
   def items
-    # Merchant Repo can find Merchant by id
-    # how can merchant talk to item repo methods from here?
-    # should return array of item objects that only belong to specific merchant
     parent.engine.items.find_all_by_merchant_id(id)
-    # parent = MerchantRepository
-    # parent.engine = SalesEngine
-    # parent.engine.items = ItemRepository
-    # parent.engine.items.find_all_by_merchant_id = collection of items
-    # binding.pry
   end
 
   def invoices
     parent.engine.invoices.find_all_by_merchant_id(id)
+  end
+
+  def customers ***
+    parent.engine.invoices.find_all_by_customer_id(customer_id)
   end
 end
