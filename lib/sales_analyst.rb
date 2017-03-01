@@ -103,9 +103,5 @@ class SalesAnalyst
   ### Business Intelligence ###
   #############################
 
-  # highly speculative, not on spec
-  def total_order_value
-    inject(0) { |sum, item| sum + item.unit_price}.to_i.round(2)
-  end
 
 end

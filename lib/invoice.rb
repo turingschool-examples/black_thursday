@@ -18,7 +18,7 @@ class Invoice
   end
 
   def merchant
-    parent.parent.merchants.find_by_id(self.merchant_id)
+    parent.parent.merchants.find_by_id(merchant_id)
   end
 
   def items
@@ -40,8 +40,8 @@ class Invoice
 
   def is_paid_in_full?
     return false if transactions.empty?
-    transactions.each do |x|
-      return false if x.result != "success"
+    transactions.each do |transaction|
+      return false if transaction.result != "success"
     end
     return true
   end

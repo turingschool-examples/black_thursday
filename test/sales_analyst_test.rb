@@ -89,9 +89,4 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 13.5, @sa.invoice_status(:returned)
   end
 
-  def test_invoice_is_paid_in_full?
-    foo = @iir.all.first
-    assert_equal "True", @iir.invoice_is_paid_in_full?(foo)
-  end
-
 end
