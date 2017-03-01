@@ -87,7 +87,7 @@ class MerchantTest < Minitest::Test
       :transactions => "./test/fixtures/transactions_test.csv",
       :customers => "./test/fixtures/customers_test.csv"
     })
-    merchant = se.merchants.find_by_id(12334185)
+    merchant = se.merchants.find_by_id(12334122)
     assert_equal 263451719, merchant.most_sold_item.first.id
     assert_equal 2, merchant.most_sold_item.count
   end
