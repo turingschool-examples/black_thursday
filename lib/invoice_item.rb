@@ -6,7 +6,7 @@ class InvoiceItem
               :invoice_id,
               :unit_price,
               :quantity,
-              :created_at, 
+              :created_at,
               :updated_at,
               :parent
 

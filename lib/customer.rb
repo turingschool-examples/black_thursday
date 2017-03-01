@@ -7,7 +7,7 @@ class Customer
   include DataAccess
 
   attr_reader :id, :first_name, :last_name, :created_at, :updated_at
-  
+
   def initialize(data, parent=nil)
     @id  = data[:id]
     @first_name = data[:first_name]

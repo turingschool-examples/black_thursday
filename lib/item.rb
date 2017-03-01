@@ -1,5 +1,5 @@
 require 'pry'
-require "bigdecimal" 
+require "bigdecimal"
 require "date"
 require_relative "../lib/item_data_access"
 
@@ -7,7 +7,7 @@ class Item
   include ItemDataAccess
 
   # attr_reader :id, :name, :description, :unit_price, :merchant_id, :created_at, :updated_at, :parent    ###Now done by DataAccess module
-  
+
   # def initialize(data, parent=nil)
   #   @id  = data[:id]
   #   @name = data[:name]

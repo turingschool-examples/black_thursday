@@ -11,7 +11,10 @@ module DataAccess
               :parent,
               :status,
               :customer_id
-  #status and customer_id are invoice readers. Consider whether it's drier to initialize invoice here (with extra instance variables) or in invoice (with similar/repeated instance variables)
+  #status and customer_id are invoice readers.
+  #Consider whether it's drier to initialize invoice here
+  #(with extra instance variables) or in invoice
+  #(with similar/repeated instance variables)
 
   #check if merchants.all has unneeded nil instance variables.
   #Would .compact help?
@@ -27,11 +30,8 @@ module DataAccess
     @created_at  = data[:created_at]
     @updated_at = data[:updated_at]
     @parent = parent
-    #  binding.pry
     @customer_id = data[:customer_id]
     @status = data[:status]
-    # binding.pry
-    # instance_variables.each {|var|  remove_instance_variable(:@var) if self.var.nil? }
   end
 
 ###
@@ -62,9 +62,6 @@ module DataAccess
 #####
 #ItemRepo Methods
 #####
-
-
-
 
   def transform_price(price)
     formatted_price = (BigDecimal.new(price.to_i)/100)
@@ -108,7 +105,7 @@ module DataAccess
   # end
 
   def find_all_by_name(name_frag)
-     all.select{ |merchant| merchant.name.downcase.include?(name_frag.downcase) }
+    all.select{ |merchant| merchant.name.downcase.include?(name_frag.downcase) }
   end
 
   # def inspect

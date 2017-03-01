@@ -3,7 +3,7 @@ require_relative "../lib/data_access"
 class Invoice
   include DataAccess
   #do attr_readers from  interfere with each other?
-  #it seems wherever you put readers, it initializes, either here, or in module. 
+  #it seems wherever you put readers, it initializes, either here, or in module.
   # attr_reader :customer_id, :status
 
   # def initialize
@@ -38,7 +38,7 @@ class Invoice
 
   def is_paid_in_full?
     invoice_transactions = parent.parent.transactions.find_all_by_invoice_id(id)
-    return false if transactions.empty? 
+    return false if transactions.empty?
     invoice_transactions.any? {|transaction| transaction.result == "success"}
   end
 
@@ -46,7 +46,7 @@ class Invoice
     #returns total $ amount of instance
       # binding.pry
     return 0.0 unless is_paid_in_full?
-    invoice_items.inject(0){ |sum, invoice_item| sum + invoice_item.unit_price * invoice_item.quantity } 
+    invoice_items.inject(0){ |sum, invoice_item| sum + invoice_item.unit_price * invoice_item.quantity }
   end
 
 end

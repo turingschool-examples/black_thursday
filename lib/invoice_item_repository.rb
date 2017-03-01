@@ -11,7 +11,7 @@ class InvoiceItemRepository
     @parent = parent
   end
 
-  #Refactor 
+  #Refactor
   def from_csv(path)
     file = CSV.open(path, headers: true, header_converters: :symbol)
     populate_repo(file)
@@ -22,11 +22,11 @@ class InvoiceItemRepository
     invoice = InvoiceItem.new({:id => row[:id].to_i,
       :item_id => row[:item_id].to_i,
       :invoice_id => row[:invoice_id].to_i,
-      :quantity => row[:quantity].to_i,        
+      :quantity => row[:quantity].to_i,
       # :name => row[:name],
       # :description => row[:description],
       :unit_price => transform_price(row[:unit_price]),
-    
+
       :created_at => Time.parse(row[:created_at]),
       :updated_at => Time.parse(row[:updated_at])}, self)
       @all << invoice

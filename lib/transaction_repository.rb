@@ -21,7 +21,7 @@ class TransactionRepository
       :invoice_id => row[:invoice_id].to_i,
       :credit_card_number => row[:credit_card_number].to_i,
       :credit_card_expiration_date =>row[:credit_card_expiration_date],
-      :result => row[:result],        
+      :result => row[:result],
       :created_at => Time.parse(row[:created_at]),
       :updated_at => Time.parse(row[:updated_at])}, self)
       @all << transaction

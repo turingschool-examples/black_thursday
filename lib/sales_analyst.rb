@@ -4,9 +4,9 @@ class SalesAnalyst
 
   def initialize(se)
     @se = se
-  end  
-  
-  def average(total_sum, count) 
+  end
+
+  def average(total_sum, count)
     (total_sum / count.to_f)
   end
 
@@ -18,18 +18,18 @@ class SalesAnalyst
     # merchants_total = se.merchants.all.count
     # (items_total/merchants_total.to_f).round(2)
   end
-  
+
 
   def average_items_per_merchant_standard_deviation
     merchants = se.merchants.all
-    items = merchants.map {|merchant| merchant.items.count}  
+    items = merchants.map {|merchant| merchant.items.count}
     standard_deviation(items)
   end
 
   def standard_deviation(collection)
 
     # n = collection.count
-    # item_prices = collection.map {|item| item.items.count}  
+    # item_prices = collection.map {|item| item.items.count}
     # mean = average(item_prices.reduce(:+), n.to_f)
 
     # diff_squared = item_prices.map{ |item| ((item - mean)**2) }
@@ -49,9 +49,9 @@ class SalesAnalyst
     average = average_items_per_merchant
     sd = average_items_per_merchant_standard_deviation
     se.merchants.all.select{ |merchant| merchant.items.count > (average + sd) }
-    
+
   end
-  
+
   def average_item_price_for_merchant(merchant_id)
     items = se.items.find_all_by_merchant_id(merchant_id)
     prices = items.map { |item| item.unit_price }
@@ -60,13 +60,13 @@ class SalesAnalyst
   end
 
   def average_average_price_per_merchant
-    merchants = se.merchants.all    
+    merchants = se.merchants.all
     prices = merchants.map{ |merchant| average_item_price_for_merchant(merchant.id) }
     average(prices.reduce(:+), merchants.count).round(2)
 
   end
 
-  def golden_items    
+  def golden_items
     merchants = se.merchants.all
     items = se.items.all
 
@@ -79,13 +79,13 @@ class SalesAnalyst
   end
 
 
-  
+
 
   def standard_deviation_for_price
     # items = se.items.all
     # n = items.count
 
-    item_prices = se.items.all.map {|item| item.unit_price}  
+    item_prices = se.items.all.map {|item| item.unit_price}
     standard_deviation(item_prices)
     # mean = item_prices.reduce(:+)/n.to_f
     # diff_squared = item_prices.map{ |price| ((price - mean)**2) }
@@ -114,7 +114,7 @@ class SalesAnalyst
 
   def average_invoices_per_merchant_standard_deviation
     #get invoices per merchant
-    invoices = se.merchants.all.map {|merchant| merchant.invoices.count}  
+    invoices = se.merchants.all.map {|merchant| merchant.invoices.count}
     standard_deviation(invoices)
   end
 
@@ -127,7 +127,7 @@ class SalesAnalyst
     sd = average_invoices_per_merchant_standard_deviation
     case comparison
     when "top"
-      se.merchants.all.select { |merchant| merchant.invoices.count > ( average + (sd*2)) }    
+      se.merchants.all.select { |merchant| merchant.invoices.count > ( average + (sd*2)) }
     when "bottom"
       se.merchants.all.select { |merchant| merchant.invoices.count < ( average - (sd*2)) }
       # binding.pry
