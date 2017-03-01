@@ -30,5 +30,5 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal [], @repo.find_all_by_invoice_id(0)
   end
 
-  
+
 end

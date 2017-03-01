@@ -34,9 +34,14 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal [], repo.find_all_by_merchant_id(0)
   end
 
-    def test_finds_all_status
+  def test_finds_all_status
     repo = InvoiceRepository.new(@invoice_csv, @parent)
     assert_equal 2839, repo.find_all_by_status("shipped").length
     assert_equal [], repo.find_all_by_status('')
+  end
+
+  def test_find_all_by_date
+    repo = InvoiceRepository.new(@invoice_csv, @parent)
+    assert_equal 1, repo.find_all_by_date(Time.parse('2012-08-26')).length
   end
 end
