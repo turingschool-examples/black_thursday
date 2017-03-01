@@ -42,7 +42,6 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal 0, iir.find_all_by_invoice_id(10).count
   end
 
-
   def test_it_knows_invoice_items_paid_in_full
     iir = se.invoice_items
     assert_instance_of Array, iir.invoice_items_paid_in_full
@@ -50,6 +49,5 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal 6, iir.invoice_items_paid_in_full.count
     assert_equal 263519844, iir.invoice_items_paid_in_full.first.item_id
   end
-
 
 end

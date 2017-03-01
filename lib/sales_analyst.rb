@@ -22,7 +22,6 @@ class SalesAnalyst
     @engine = engine
   end
 
-
   def average_items_per_merchant
     (engine.items.all.count / engine.merchants.all.count.to_f).round(2)
   end
@@ -33,7 +32,6 @@ class SalesAnalyst
     end
     @squared_differences ||= set.map { |num| (num - average_items_per_merchant) ** 2 }
     (Math.sqrt( ( squared_differences.reduce(:+) ) / (set.count - 1) )).round(2)
-    # Math.sqrt( ( (2-0.67)**2+(0-0.67)**2+(0-0.67)**2 ) / 2 )
   end
 
   def merchants_with_high_item_count
@@ -190,85 +188,19 @@ class SalesAnalyst
     top.keys.map{|item| engine.items.find_by_id(item.item_id)}
   end
 
-  #
-  # def invoice_items_paid_in_full(collection)
-  #   iipf = collection.map do |item|
-  #     binding.pry
-  #     engine.invoice_items.find_by_id(item.id)
-  #   end
-  #   iipf.select {|ii| engine.invoices.find_by_id(ii.invoice_id).is_paid_in_full?}
-  # end
-  #
-  # def merchant_invoice_items_ranked_by_quantity(merchant_id)
-  #   invoice_items_paid_in_full(engine.merchants.find_by_id(merchant_id).items).sort_by do |ii|
-  #     ii.quantity
-  #   end
-  # end
+  def item_revenue_for_merchant(merchant_id)
+    paid_merchant_invoices(merchant_id).reduce({}) do |memo, invoice_item|
+      memo[invoice_item] = invoice_item.quantity * invoice_item.unit_price
+      memo
+    end
+  end
 
-  # def invoices_that_are_paid_in_full_by_merchant(merchant_id)
-  #   engine.invoices.find_all_by_merchant_id(merchant_id).select do |invoice|
-  #     invoice.is_paid_in_full?
-  #   end
-  # end
-  #
-  # def invoice_items_that_match_paid_in_full_merchant_invoices(merchant_id)
-  #   items = []
-  #   invoices = []
-  #   engine.invoice_items.all.each do |invoice_item|
-  #     if engine.merchants.find_by_id(merchant_id).items.any? {|item| item.id == invoice_item.item_id}
-  #       items << engine.merchants.find_by_id(merchant_id).items.find {|item| item.id == invoice_item.item_id}
-  #     end
-  #     if invoices_that_are_paid_in_full_by_merchant(merchant_id).any? {|invoice| invoice.id == invoice_item.invoice_id}
-  #       invoices << invoices_that_are_paid_in_full_by_merchant(merchant_id).find {|invoice| invoice.id == invoice_item.invoice_id}
-  #     end
-  #   end
-  #
-  #   engine.invoice_items.all.select do |invoice_item|
-  #      items.any?{|item| invoice_item.item_id == item.id} && invoices.any?{|invoice| invoice_item.invoice_id == invoice.id}
-  #   end
-  #
-  # end
-  #
-  # def invoice_items_merchant_items_paid_in_full(merchant_id)
-  #   engine.merchants.find_by_id(merchant_id).items.select do |item|
-  #     invoice_items_merchant_items_paid_in_full(merchant_id).select do |invoice_item|
-  #       invoice_item.item_id == item.id
-  #     end
-  #   end
-  # end
-
-  # def most_sold_items(merchant_id)
-  #   invoice_items_quantity = invoice_items_that_match_paid_in_full_merchant_invoices(merchant_id).inject(Hash.new(0)) do |memo, invoice_item|
-  #     memo[invoice_item.quantity] = invoice_item
-  #     memo
-  #   end
-  #   invoice_items_to_items = invoice_items_quantity.values.map do |value|
-  #     items.find_by_id(value.item_id)
-  #   end
-  #
-  #   invoice_items_quantity.keys.inject(Hash.new(0)) do |memo, quantity|
-  #     invoice_items_to_items.each_with_index do |item, i|
-  #       memo[quantity] = item[i]
-  #       memo
-  #     end
-  #   end
-
-    # invoice_items_that_match_paid_in_full_merchant_invoices(merchant_id).inject(Hash.new(0)) do |memo, invoice_item|
-    #   invoice_items_to_items.each_with_index do |item, i|
-    #     memo[invoice_item.quantity] = item[i]
-    #   end
-    # end
-  #   invoice_items_to_items.group_by
-  # end
-
-  # def most_sold_item_for_merchant(merchant_id)
-  #   arr = most_sold_items.max_by do |quantity, items|
-  #     quantity
-  #   end[1]
-  # end
-  #
-  # def most_sold_item_for_merchant(merchant_id)
-  #   engine.merchants.find_by_id(merchant_id).most_sold_item
-  # end
+  def best_item_for_merchant(merchant_id)
+    revenue_sorted = item_revenue_for_merchant(merchant_id).max_by do |invoice_item, revenue|
+      revenue
+    end
+    revenue_sorted.pop
+    revenue_sorted.map{|item| engine.items.find_by_id(item.item_id)}.first
+  end
 
 end

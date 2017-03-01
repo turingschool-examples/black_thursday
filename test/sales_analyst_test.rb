@@ -43,8 +43,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 96.20, sa.average_item_price
   end
 
-  # need a test for item price av that would give 3 decimal places
-
   def test_it_calculates_item_price_standard_deviation
     assert_equal 2.17, sa.item_price_standard_deviation
   end
@@ -125,11 +123,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 12334122, sa.merchants_ranked_by_revenue.first.id
   end
 
-  # def test_it_can_return_revenue_for_all_merchants
-  #   assert_instance_of Array, sa.revenue_for_all_merchants
-  #   assert_instance_of BigDecimal, sa.revenue_for_all_merchants[1]
-  # end
-
   def test_it_can_find_top_x_number_of_revenue_earners
     assert_instance_of Array, sa.top_revenue_earners(1)
     assert_equal 1, sa.top_revenue_earners(1).count
@@ -166,53 +159,25 @@ class SalesAnalystTest < Minitest::Test
   def test_it_knows_quantity_of_invoice_items_for_merchant
     assert_instance_of Hash, sa.quantity_of_item(12334122)
     assert_instance_of InvoiceItem, sa.quantity_of_item(12334122).keys.first
+    assert_equal 1, sa.quantity_of_item(12334122).keys.first.id
   end
 
   def test_it_knows_top_item_for_merchant
     assert_instance_of Array, sa.most_sold_item_for_merchant(12334122)
     assert_instance_of Item, sa.most_sold_item_for_merchant(12334122).first
+    assert_equal 263454779, sa.most_sold_item_for_merchant(12334122).first.id
   end
-  # def test_it_finds_all_invoices_paid_in_full_by_merchant
-  #   assert_instance_of Array, sa.invoices_that_are_paid_in_full_by_merchant(12334122)
-  #   assert_instance_of Invoice, sa.invoices_that_are_paid_in_full_by_merchant(12334122).first
-  #   assert_equal 1, sa.invoices_that_are_paid_in_full_by_merchant(12334122).first.id
-  # end
 
-  # def test_it_knows_invoice_items_paid_in_full
-  #   collection = se.items.all
-  #   assert_instance_of Array, sa.invoice_items_paid_in_full(collection)
-  #   assert_instance_of InvoiceItem, sa.invoice_items_paid_in_full(collection).first
-  #   assert_equal 6, sa.invoice_items_paid_in_full(collection).count
-  #   assert_equal 263519844, sa.invoice_items_paid_in_full(collection).first.item_id
-  # end
-  #
-  # def test_it_can_sort_merchant_invoice_items_paid_by_quantity
-  #   assert_instance_of Array, sa.merchant_invoice_items_ranked_by_quantity(12334122)
-  #   assert_instance_of InvoiceItem, sa.merchant_invoice_items_ranked_by_quantity(12334122).first
-  #   assert_equal 263454779, sa.merchant_invoice_items_ranked_by_quantity(12334122).first.item_id
-  # end
-  #
-  # def test_it_can_find_invoice_items_that_match_paid_in_full_merchant_invoices
-  #   se = SalesEngine.from_csv({
-  #     :items => "./test/fixtures/items_for_top_item.csv",
-  #     :merchants => "./test/fixtures/merchants_test.csv",
-  #     :invoices => "./test/fixtures/invoices_test.csv",
-  #     :invoice_items => "./test/fixtures/invoice_items_test.csv",
-  #     :transactions => "./test/fixtures/transactions_test.csv",
-  #     :customers => "./test/fixtures/customers_test.csv"
-  #   })
-  #
-  #   assert_instance_of Array, sa.invoice_items_that_match_paid_in_full_merchant_invoices(12334122)
-  #   assert_instance_of InvoiceItem, sa.invoice_items_that_match_paid_in_full_merchant_invoices(12334122).first
-  #   assert_equal 3, sa.invoice_items_that_match_paid_in_full_merchant_invoices(12334122).first.id
-  #   assert_equal 1, sa.invoice_items_that_match_paid_in_full_merchant_invoices(12334122).count
-  # end
-  #
-  # def test_it_finds_most_sold_item_for_a_given_merchant
-  #   assert_instance_of Array, sa.most_sold_item_for_merchant(12334185)
-  #   assert_instance_of Item, sa.most_sold_item_for_merchant(12334185).first
-  #   assert_equal 263394417, sa.most_sold_item_for_merchant(12334185).first.id
-  # end
+  def test_it_can_find_item_revenue_for_merchant
+    assert_instance_of Hash, sa.item_revenue_for_merchant(12334122)
+    assert_instance_of InvoiceItem, sa.item_revenue_for_merchant(12334122).keys.first
+    assert_equal 1, sa.item_revenue_for_merchant(12334122).keys.first.id
+  end
+
+  def test_it_can_find_best_item_for_merchant
+    assert_instance_of Item, sa.best_item_for_merchant(12334122)
+    assert_equal 263432817, sa.best_item_for_merchant(12334122).id
+  end
 
 end
 

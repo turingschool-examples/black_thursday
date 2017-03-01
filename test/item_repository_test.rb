@@ -62,8 +62,7 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal "DINO EGGS", ir.find_all_by_price(100.99).first.name
     assert_equal "Glitter scrabble frames", ir.find_all_by_price(94.80).first.name
   end
-
-
+  
   def test_find_by_price_returns_empty_array_if_no_matches
     assert_equal [], ir.find_all_by_price("rrrrrrrr")
   end

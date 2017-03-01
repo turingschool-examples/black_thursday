@@ -6,11 +6,11 @@ require_relative 'sales_engine_methods'
 class ItemTest < Minitest::Test
   include SalesEngineMethods
   attr_reader :se
-  
-  def setup 
+
+  def setup
     create_sales_engine
   end
-  
+
   def test_it_exists
     i = Item.new
 
@@ -71,10 +71,9 @@ class ItemTest < Minitest::Test
     assert_equal 10.99, i.unit_price_to_dollars
   end
   
-  
   def test_it_can_find_merchant_from_merchant_id
     item = se.items.find_by_id(263395617)
-    
+
     assert_instance_of Merchant, item.merchant
     assert_equal "DinoSeller", item.merchant.name
   end
