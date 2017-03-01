@@ -33,4 +33,8 @@ class TransactionRepository
       result == transaction.result
     end
   end
+
+  def find_invoice(invoice_id)
+    parent.find_invoice_by_invoice_id(invoice_id)
+  end
 end

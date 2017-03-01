@@ -25,4 +25,8 @@ class CustomerRepository
       customer.last_name.downcase.include?(fragment.downcase)
     end
   end
+
+  def find_merchants(customer_id)
+    parent.find_merchants_by_customer_id(customer_id)
+  end
 end

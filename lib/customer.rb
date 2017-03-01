@@ -17,4 +17,8 @@ class Customer
     @updated_at = Time.parse(data[:updated_at])
     @parent = parent
   end
+
+  def merchants
+    parent.find_merchants(id)
+  end
 end
