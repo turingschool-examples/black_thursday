@@ -1,5 +1,4 @@
 require './lib/helper'
-#require './lib/csv_parser'
 
 class SalesEngine
 
@@ -60,4 +59,18 @@ class SalesEngine
       CustomerRepository.new(open_file(files[:customers]), self)
     end
   end
+
+#-----navigation_methods-----#
+  def find_invoice_items_by_invoice_id(invoice_id)
+    invoice_items.find_all_by_invoice_id(invoice_id)
+  end
+
+  def find_items_by_invoice_id(invoice_id)
+    returned_invoice_items = find_invoice_items_by_invoice_id(invoice_id)
+    item_ids = returned_invoice_items.map {|returned_invoice_item| returned_invoice_item.item_id}
+    item_ids.map {|item_id| items.find_by_id(item_id)}
+  end
+
+#-----/navigation_methods----#
+
 end

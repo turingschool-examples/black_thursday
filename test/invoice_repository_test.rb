@@ -95,4 +95,19 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 15, hash["Saturday"]
   end
 
+  def test_find_items
+    se = SalesEngine.from_csv({:merchants => './test/fixtures/merchants_100.csv',
+                               :items => './data/items.csv',
+                               :invoices => './test/fixtures/invoices_100.csv',
+                               :invoice_items => './test/fixtures/invoice_items_100.csv',
+                               :transactions => './test/fixtures/transaction_100.csv',
+                               :customers => './test/fixtures/customer_100.csv'})
+    inr = se.invoices
+    invoice = inr.find_by_id(1)
+
+    assert_instance_of Array, inr.find_invoice_items(1)
+    assert_instance_of Item, inr.find_invoice_items(1).first
+    assert_equal 8, inr.find_invoice_items(1).length
+  end
+
 end

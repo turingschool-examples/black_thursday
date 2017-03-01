@@ -1,4 +1,5 @@
 require './lib/helper'
+require 'pry'
 
 class InvoiceRepository
 
@@ -49,6 +50,16 @@ class InvoiceRepository
       hash[day] += 1
       hash
     end
+  end
+
+  def find_invoice_items(invoice_id)
+    parent.find_items_by_invoice_id(invoice_id)
+=begin
+    invoice_items = parent.invoice_items.find_all_by_invoice_id(invoice_id)
+    invoice_items.map do |invoice_item|
+      invoice_item.item_id
+    end
+=end
   end
 
   def inspect
