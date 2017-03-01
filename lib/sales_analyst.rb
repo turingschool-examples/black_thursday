@@ -135,7 +135,6 @@ class SalesAnalyst
       (number - @average_invoices)**2
     end.inject(:+) / (@invoice_per_merchant.length - 1)).round(2)
   end
-
   def invoices_per_day_std_dev
     Math.sqrt(@invoice_per_day.map do |invoice|
       (invoice - @average_sales_day)**2
@@ -166,16 +165,6 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    # day_sales = @sales_engine.invoice_items.all.find_all do |invoice_item|
-    #   # @sales_engine.invoices.find_by_id(invoice_item.invoice_id).created_at == date
-    #   invoice_item.invoice.created_at == date
-    # end
-    # binding.pry
-    # day_sales.inject(0) do |sum, sale|
-    #   sum + sale.quantity.to_f * sale.unit_price
-    # end
-
-    # this works! 
     @sales_engine.invoices.find_all_by_date(date).reduce(0) do |sum, invoice|
       sum + invoice.invoice_item_array.reduce(0) do |total, invoice_item|
         total + (invoice_item.unit_price * invoice_item.quantity.to_f)

@@ -50,19 +50,24 @@ class SalesEngineTest < Minitest::Test
   #   assert_instance_of Invoice, transaction.invoice 
   # end
   
-  def test_find_customer_from_merchant 
-    merchant = @se.merchants.find_by_id(12335938)
-    assert_equal 16, merchant.customers.length 
-    assert_instance_of Customer, merchant.customers.last
-  end
+  # def test_find_customer_from_merchant 
+  #   merchant = @se.merchants.find_by_id(12335938)
+  #   assert_equal 16, merchant.customers.length 
+  #   assert_instance_of Customer, merchant.customers.last
+  # end
 
-  def test_find_all_paid_in_full
-    invoice = @se.invoices.find_by_id(1)
-    assert invoice.is_paid_in_full?
-  end
+  # def test_find_all_paid_in_full
+  #   invoice = @se.invoices.find_by_id(1)
+  #   assert invoice.is_paid_in_full?
+  # end
 
-  def test_total
-    invoice = @se.invoices.find_by_id(1)
-    assert_equal 21067.77, invoice.total.to_f
+  # def test_total
+  #   invoice = @se.invoices.find_by_id(1)
+  #   assert_equal 21067.77, invoice.total.to_f
+  # end
+
+  def test_it_can_find_merchant_revenue
+    merchant = @se.merchants.find_by_id(12337339)
+    assert_equal 7845, merchant.merchant_revenue
   end
 end

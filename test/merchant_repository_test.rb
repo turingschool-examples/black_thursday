@@ -23,18 +23,16 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal Merchant, merchant_repo.all[7].class
   end
 
-# use assert_nil here - redo
   def test_find_by_id_nil_for_a_unmatched
-    assert_equal nil, merchant_repo.find_by_id(6)
+    assert_nil merchant_repo.find_by_id(6)
   end
 
   def test_find_by_id_upon_match
     assert_equal "GoldenRayPress", merchant_repo.find_by_id(12334135).name
   end
 
-# use assert_nil here - redo
   def test_find_by_name_nil_when_no_match
-    assert_equal nil, merchant_repo.find_by_name("fake")
+    assert_nil merchant_repo.find_by_name("fake")
   end
 
   def test_find_by_name_returns_merch_object
