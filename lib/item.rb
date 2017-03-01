@@ -1,9 +1,4 @@
-require_relative 'merchant_repository'
-require_relative 'sales_engine'
-require_relative 'item_repository'
-require_relative 'csv_parser'
-require_relative 'merchant'
-require 'bigdecimal'
+require './lib/helper'
 
 class Item
   attr_reader :id,

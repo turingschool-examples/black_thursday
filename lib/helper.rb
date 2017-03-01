@@ -1,0 +1,22 @@
+# lib files
+require './lib/calculator'
+require './lib/csv_parser'
+require './lib/customer_repository'
+require './lib/customer'
+require './lib/invoice_item_repository'
+require './lib/invoice_item'
+require './lib/invoice_repository'
+require './lib/invoice'
+require './lib/item_repository'
+require './lib/item'
+require './lib/merchant_repository'
+require './lib/merchant'
+require './lib/transaction_repository'
+require './lib/transaction'
+require './lib/sales_analyst'
+require './lib/sales_engine'
+
+# gems
+require 'csv'
+require 'bigdecimal'
+require 'time'
