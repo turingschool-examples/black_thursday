@@ -7,8 +7,11 @@ require "bigdecimal"
 SimpleCov.start
 
 class InvoiceItemTest < Minitest::Test
-  attr_reader :ini
+  attr_reader :ini,
+              :parent
   def setup
+    @parent = SalesEngine.from_csv({:invoice_items => './test/fixtures/invoice_items_three.csv'})
+
     @ini = InvoiceItem.new({
       :id => 6,
       :item_id => 7,
@@ -17,7 +20,7 @@ class InvoiceItemTest < Minitest::Test
       :unit_price => BigDecimal.new(10.99, 4),
       :created_at => "2012-03-27 14:54:09 UTC",
       :updated_at => "2012-03-27 14:54:09 UTC",
-        })
+        }, parent)
   end
 
   def test_it_exists
@@ -55,5 +58,13 @@ class InvoiceItemTest < Minitest::Test
 
   def test_unit_price_to_dollars
     assert_equal 10.99, ini.unit_price_to_dollars
+  end
+
+  def test_parent_is_instance_of_invoice_item_repository
+    se = SalesEngine.from_csv({:invoice_items => './test/fixtures/invoice_items_three.csv'})
+    iir = se.invoice_items
+    ini = iir.all.first
+
+    assert_instance_of InvoiceItemRepository, ini.parent
   end
 end

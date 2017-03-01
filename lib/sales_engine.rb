@@ -4,6 +4,12 @@ require_relative 'item'
 require_relative 'csv_parser'
 require_relative 'merchant'
 require_relative 'invoice_repository'
+require_relative 'invoice_item'
+require_relative 'invoice_item_repository'
+require_relative 'transaction'
+require_relative 'transaction_repository'
+require_relative 'customer'
+require_relative 'customer_repository'
 
 class SalesEngine
 
@@ -11,12 +17,18 @@ class SalesEngine
 
   attr_reader :merchants,
               :items,
-              :invoices
+              :invoices,
+              :invoice_items,
+              :transactions,
+              :customers
 
   def initialize(files = {})
     @merchants = create_merchant_repository(files)
     @items = create_item_repository(files)
     @invoices = create_invoice_repository(files)
+    @invoice_items = create_invoice_item_repository(files)
+    @transactions = create_transaction_repository(files)
+    @customers = create_customer_repository(files)
   end
 
   def self.from_csv(files)
@@ -38,6 +50,24 @@ class SalesEngine
   def create_invoice_repository(files)
     if files.include?(:invoices)
       InvoiceRepository.new(open_file(files[:invoices]), self)
+    end
+  end
+
+  def create_invoice_item_repository(files)
+    if files.include?(:invoice_items)
+      InvoiceItemRepository.new(open_file(files[:invoice_items]), self)
+    end
+  end
+
+  def create_transaction_repository(files)
+    if files.include?(:transactions)
+      TransactionRepository.new(open_file(files[:transactions]), self)
+    end
+  end
+
+  def create_customer_repository(files)
+    if files.include?(:customers)
+      CustomerRepository.new(open_file(files[:customers]), self)
     end
   end
 end

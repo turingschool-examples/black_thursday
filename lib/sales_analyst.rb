@@ -34,10 +34,6 @@ class SalesAnalyst
     find_merchant_by_id(id).items
   end
 
-#??????WTF????
-  def find_merchant_invoices
-  end
-
   def item_repository
     sales_engine.items
   end
@@ -169,7 +165,6 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-    # refactor me please, maybe break out into array and use group by
     one_sd = one_standard_deviation_above_mean(invoices_per_day_values)
     days = []
     invoices_per_day.each do |key, value|
