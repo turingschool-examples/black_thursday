@@ -2,7 +2,14 @@ require 'bigdecimal'
 require 'date'
 
 class Item
-  attr_reader :id, :name, :description, :unit_price, :created_at, :updated_at, :merchant_id, :item_repository
+  attr_reader :id,
+              :name,
+              :description,
+              :unit_price,
+              :created_at,
+              :updated_at,
+              :merchant_id,
+              :item_repository
 
   def initialize(info = {}, item_repository = "")
     @id = info[:id].to_i
@@ -26,7 +33,7 @@ class Item
   def updated_at
     Time.parse(@updated_at)
   end
-  
+
   def merchant
     item_repository.engine.merchants.find_by_id(merchant_id)
   end

@@ -11,7 +11,12 @@ class CustomerRepository
 
   def from_csv(info)
     CSV.foreach(info, headers: true, header_converters: :symbol) do |row|
-      all << Customer.new({id: row[:id], first_name: row[:first_name], last_name: row[:last_name], created_at: row[:created_at], updated_at: row[:updated_at]}, self)
+      all << Customer.new({id: row[:id],
+                           first_name: row[:first_name],
+                           last_name: row[:last_name],
+                           created_at: row[:created_at],
+                           updated_at: row[:updated_at]},
+                           self)
     end
   end
 
@@ -20,11 +25,15 @@ class CustomerRepository
   end
 
   def find_all_by_first_name(first_frag)
-    all.select {|customer| customer.first_name.downcase.include?(first_frag.downcase)}
+    all.select do |customer|
+      customer.first_name.downcase.include?(first_frag.downcase)
+    end
   end
 
   def find_all_by_last_name(last_frag)
-    all.select {|customer| customer.last_name.downcase.include?(last_frag.downcase)}
+    all.select do |customer|
+      customer.last_name.downcase.include?(last_frag.downcase)
+    end
   end
 
   def inspect
