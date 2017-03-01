@@ -19,14 +19,14 @@ class Merchant
   def invoices
     merchant_repository.engine.invoices.find_all_by_merchant_id(id)
   end
-  
+
   # def items_with_invoice_items
-  #   items.select do |item| 
+  #   items.select do |item|
   #     merchant_repository.engine.invoice_items.find_all_by_item_id(item.id)
   #   end
   # end
 
-  
+
   # def items_with_invoice_items_paid_in_full
   #   items_invoices = items_with_invoice_items.each do |item|
   #     merchant_repository.engine.invoice_items.find_all_by_item_id(item.id).map do |invoice_item|
@@ -35,7 +35,7 @@ class Merchant
   #   end
   #   merchant_repository.engine.invoices.map {|invoice| invoice.paid_in_full?}
   # end
-  
+
   # def most_sold_items
   #   items_with_invoice_items.group_by do |item|
   #     merchant_repository.engine.invoice_items.find_all_by_item_id(item.id).map do |invoice_item|
@@ -43,7 +43,7 @@ class Merchant
   #     end
   #   end
   # end
-  # 
+
   # def most_sold_item
   #   arr = most_sold_items.max_by do |quantity, items|
   #     quantity

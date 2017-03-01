@@ -32,7 +32,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_can_find_by_name
     assert_instance_of Item, ir.find_by_name("SQUIRREL!")
-    assert_equal 263667755, ir.find_by_name("SQUIRREL!").id
+    assert_equal 263454779, ir.find_by_name("SQUIRREL!").id
   end
 
   def test_it_knows_name_case_insensitive

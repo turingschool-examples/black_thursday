@@ -156,34 +156,63 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 1, sa.merchants_with_only_one_item_registered_in_month("December").count
     assert_equal 12334105, sa.merchants_with_only_one_item_registered_in_month("December").first.id
   end
-  
-  def test_it_finds_all_invoices_paid_in_full_by_merchant
-    assert_instance_of Array, sa.invoices_that_are_paid_in_full_by_merchant(12334122)
-    assert_instance_of Invoice, sa.invoices_that_are_paid_in_full_by_merchant(12334122).first
-    assert_equal 1, sa.invoices_that_are_paid_in_full_by_merchant(12334122).first.id
+
+  def test_it_can_return_invoice_items_for_paid_invoices
+    assert_instance_of Array, sa.paid_merchant_invoices(12334122)
+    assert_instance_of InvoiceItem, sa.paid_merchant_invoices(12334122).first
+    assert_equal 2, sa.paid_merchant_invoices(12334122)[1].id
   end
-  
-  def test_it_can_find_invoice_items_that_match_paid_in_full_merchant_invoices
-    se = SalesEngine.from_csv({
-      :items => "./test/fixtures/items_for_top_item.csv",
-      :merchants => "./test/fixtures/merchants_test.csv",
-      :invoices => "./test/fixtures/invoices_test.csv",
-      :invoice_items => "./test/fixtures/invoice_items_test.csv",
-      :transactions => "./test/fixtures/transactions_test.csv",
-      :customers => "./test/fixtures/customers_test.csv"
-    })
-    
-    assert_instance_of Array, sa.invoice_items_that_match_paid_in_full_merchant_invoices(12334122)
-    assert_instance_of InvoiceItem, sa.invoice_items_that_match_paid_in_full_merchant_invoices(12334122).first
-    assert_equal 3, sa.invoice_items_that_match_paid_in_full_merchant_invoices(12334122).first.id
-    assert_equal 1, sa.invoice_items_that_match_paid_in_full_merchant_invoices(12334122).count 
+
+  def test_it_knows_quantity_of_invoice_items_for_merchant
+    assert_instance_of Hash, sa.quantity_of_item(12334122)
+    assert_instance_of InvoiceItem, sa.quantity_of_item(12334122).keys.first
   end
-  
-  def test_it_finds_most_sold_item_for_a_given_merchant
-    assert_instance_of Array, sa.most_sold_item_for_merchant(12334185)
-    assert_instance_of Item, sa.most_sold_item_for_merchant(12334185).first
-    assert_equal 263394417, sa.most_sold_item_for_merchant(12334185).first.id
+
+  def test_it_knows_top_item_for_merchant
+    assert_instance_of Array, sa.most_sold_item_for_merchant(12334122)
+    assert_instance_of Item, sa.most_sold_item_for_merchant(12334122).first
   end
+  # def test_it_finds_all_invoices_paid_in_full_by_merchant
+  #   assert_instance_of Array, sa.invoices_that_are_paid_in_full_by_merchant(12334122)
+  #   assert_instance_of Invoice, sa.invoices_that_are_paid_in_full_by_merchant(12334122).first
+  #   assert_equal 1, sa.invoices_that_are_paid_in_full_by_merchant(12334122).first.id
+  # end
+
+  # def test_it_knows_invoice_items_paid_in_full
+  #   collection = se.items.all
+  #   assert_instance_of Array, sa.invoice_items_paid_in_full(collection)
+  #   assert_instance_of InvoiceItem, sa.invoice_items_paid_in_full(collection).first
+  #   assert_equal 6, sa.invoice_items_paid_in_full(collection).count
+  #   assert_equal 263519844, sa.invoice_items_paid_in_full(collection).first.item_id
+  # end
+  #
+  # def test_it_can_sort_merchant_invoice_items_paid_by_quantity
+  #   assert_instance_of Array, sa.merchant_invoice_items_ranked_by_quantity(12334122)
+  #   assert_instance_of InvoiceItem, sa.merchant_invoice_items_ranked_by_quantity(12334122).first
+  #   assert_equal 263454779, sa.merchant_invoice_items_ranked_by_quantity(12334122).first.item_id
+  # end
+  #
+  # def test_it_can_find_invoice_items_that_match_paid_in_full_merchant_invoices
+  #   se = SalesEngine.from_csv({
+  #     :items => "./test/fixtures/items_for_top_item.csv",
+  #     :merchants => "./test/fixtures/merchants_test.csv",
+  #     :invoices => "./test/fixtures/invoices_test.csv",
+  #     :invoice_items => "./test/fixtures/invoice_items_test.csv",
+  #     :transactions => "./test/fixtures/transactions_test.csv",
+  #     :customers => "./test/fixtures/customers_test.csv"
+  #   })
+  #
+  #   assert_instance_of Array, sa.invoice_items_that_match_paid_in_full_merchant_invoices(12334122)
+  #   assert_instance_of InvoiceItem, sa.invoice_items_that_match_paid_in_full_merchant_invoices(12334122).first
+  #   assert_equal 3, sa.invoice_items_that_match_paid_in_full_merchant_invoices(12334122).first.id
+  #   assert_equal 1, sa.invoice_items_that_match_paid_in_full_merchant_invoices(12334122).count
+  # end
+  #
+  # def test_it_finds_most_sold_item_for_a_given_merchant
+  #   assert_instance_of Array, sa.most_sold_item_for_merchant(12334185)
+  #   assert_instance_of Item, sa.most_sold_item_for_merchant(12334185).first
+  #   assert_equal 263394417, sa.most_sold_item_for_merchant(12334185).first.id
+  # end
 
 end
 

@@ -26,9 +26,13 @@ class Invoice
   end
 
   def items
-    invoice_repository.engine.invoice_items.find_all_by_invoice_id(id).map do |invoice_item| 
+    invoice_repository.engine.invoice_items.find_all_by_invoice_id(id).map do |invoice_item|
       invoice_repository.engine.items.find_by_id(invoice_item.item_id)
     end
+  end
+
+  def invoice_items
+    invoice_repository.engine.invoice_items.find_all_by_invoice_id(id)
   end
 
   def transactions
