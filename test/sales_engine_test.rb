@@ -63,38 +63,21 @@ class SalesEngineTest < Minitest::Test
     assert_equal 12334105, invoice.merchant.id
   end
 
-  def method_name
+  def test_it_can_find_array_of_merchants_from_item
+    invoice = @se.invoices.find_by_id(74)
 
+    assert_instance_of Array, invoice.items
   end
 
-  def method_name
+  def test_it_can_find_transactions_of_invoice
+    invoice = @se.invoices.find_by_id(74)
 
+    assert_instance_of Array, invoice.transactions
   end
 
-  def method_name
+  def test_it_can_find_customer_by_invoice
+    invoice = @se.invoices.find_by_id(74)
 
+    assert_instance_of Customer, invoice.customer
   end
 end
-
-# Then we can find connections from an invoice:
-# invoice = se.invoices.find_by_id(20)
-# invoice.items # => [item, item, item] assert_instance_of Array of item instances
-# invoice.transactions # => [transaction, transaction] assert_instance_of Array of transaction instances
-# invoice.customer # => customer assert_equal (customer_id)
-
-
-
-
-
-
-# Or a transaction:
-# transaction = se.transactions.find_by_id(40)
-# transaction.invoice # => invoice assert_equal invoice.transaction.id
-
-# And if we started with a merchant we could find the customers who’ve purchased one or more items at their store:
-# merchant = se.merchants.find_by_id(12335938)
-# merchant.customers # => [customer, customer, customer]
-
-# Or from the customer side we could find the merchants they’ve purchased from:
-# customer = se.customers.find_by_id(30)
-# customer.merchants # => [merchant, merchant]

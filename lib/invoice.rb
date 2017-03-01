@@ -23,8 +23,17 @@ class Invoice
     parent.engine.merchants.find_by_id(merchant_id)
   end
 
-  def items ***
-    parent.engine.invoice_items.find_all_by_item_id(item_id)
+  def item_ids_by_invoice_id(invoice_id)
+    parent.engine.invoice_items.find_all_by_invoice_id(invoice_id)
+  end
+
+  def items
+    item_ids = item_ids_by_invoice_id(id).map do |inv_item|
+      inv_item.item_id
+    end
+    item_ids.map do |item_id|
+      parent.engine.items.find_by_id(item_id)
+    end
   end
 
   def transactions
