@@ -46,5 +46,17 @@ class Invoice
     return true
   end
 
+  def invoice_item
+    parent.find_invoice_items_by_invoice(id)
+
+  end
+
+  def total
+    if is_paid_in_full?
+      invoice_item = parent.parent.invoice_items.find_all_by_invoice_id(id)
+      invoice_item.reduce(0) { |sum, item| sum + (item.unit_price * item.quantity) }
+    end
+  end
+
 
 end

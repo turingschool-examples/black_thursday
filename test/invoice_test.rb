@@ -52,8 +52,8 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_invoice_total
-    
-
+    invoice = @i.find_by_id(1)
+    assert_equal 21067.77, invoice.total
   end
 
 
