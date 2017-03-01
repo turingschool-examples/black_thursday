@@ -71,6 +71,14 @@ class SalesEngine
     item_ids.map {|item_id| items.find_by_id(item_id)}
   end
 
+  def find_transactions_by_invoice_id(invoice_id)
+    transactions.find_all_by_invoice_id(invoice_id)
+  end
+
+  def find_customer_by_customer_id(customer_id)
+    customers.find_by_id(customer_id)
+  end
+
 #-----/navigation_methods----#
 
 end

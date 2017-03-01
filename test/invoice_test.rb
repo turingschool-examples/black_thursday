@@ -98,7 +98,22 @@ class InvoiceTest < Minitest::Test
 
   def test_it_can_find_transactions
     se = SalesEngine.from_csv({:merchants => './test/fixtures/merchants_100.csv',
-                               :items => './test/fixtures/items.csv',
+                               :items => './test/fixtures/items_100.csv',
+                               :invoices => './test/fixtures/invoices_100.csv',
+                               :invoice_items => './test/fixtures/invoice_items_100.csv',
+                               :transactions => './data/transactions.csv',
+                               :customers => './test/fixtures/customer_100.csv'})
+    inr = se.invoices
+    invoice = inr.find_by_id(1)
+
+    assert_instance_of Array, invoice.transactions
+    assert_instance_of Transaction, invoice.transactions.first
+    assert_equal 2, invoice.transactions.length
+  end
+
+  def test_it_can_find_customer
+    se = SalesEngine.from_csv({:merchants => './test/fixtures/merchants_100.csv',
+                               :items => './test/fixtures/items_100.csv',
                                :invoices => './test/fixtures/invoices_100.csv',
                                :invoice_items => './test/fixtures/invoice_items_100.csv',
                                :transactions => './test/fixtures/transaction_100.csv',
@@ -106,9 +121,9 @@ class InvoiceTest < Minitest::Test
     inr = se.invoices
     invoice = inr.find_by_id(1)
 
-    assert_instance_of Array, invoice.transactions
-    assert_instance_of Transaction, invoice.transactions.first
-    assert_equal 8, invoice.transactions.length
+    assert_instance_of Customer, invoice.customer
+    assert_equal "Joey", invoice.customer.first_name
   end
+
 
 end

@@ -54,14 +54,16 @@ class InvoiceRepository
 
   def find_invoice_items(invoice_id)
     parent.find_items_by_invoice_id(invoice_id)
-=begin
-    invoice_items = parent.invoice_items.find_all_by_invoice_id(invoice_id)
-    invoice_items.map do |invoice_item|
-      invoice_item.item_id
-    end
-=end
   end
 
+  def find_transactions(invoice_id)
+    parent.find_transactions_by_invoice_id(invoice_id)
+  end
+
+  def find_customer(customer_id)
+    parent.find_customer_by_customer_id(customer_id)  
+  end
+  
   def inspect
     "#<#{self.class} #{@all.size} rows>"
   end
