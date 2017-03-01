@@ -153,7 +153,12 @@ class SalesAnalyst
     invoice_date.reduce(0) { |sum, invoice| sum + invoice.total }
   end
 
-  def top_revenue_earners(amount)
+  def top_revenue_earners(amount = nil)
+    if amount == nil
+      amount = 20
+    else
+      amount = amount
+    end
     merchants = merchant_repository.merchants
     merchant_values = Hash[merchants.map { |merchant| [merchant, merchant.invoices]}]
     merchant_values.map { |merchant, total| merchant_values[merchant] =  total.reduce(0) { |sum, invoice| sum + invoice.total }}
@@ -161,6 +166,19 @@ class SalesAnalyst
     top_merchants.map { |pair| pair[0] }
 
     # merchant_values.values.map { |invoice| invoice.reduce(0) { |sum, invoice| sum + invoice.total }}
+  end
+
+  def merchants_ranked_by_revenue
+    merchants = merchant_repository.merchants
+    merchant_values = Hash[merchants.map { |merchant| [merchant, merchant.invoices]}]
+    merchant_values.map { |merchant, total| merchant_values[merchant] =  total.reduce(0) { |sum, invoice| sum + invoice.total }}
+    top_merchants = merchant_values.sort_by { |key,value| value }.reverse.flatten
+    top_merchants.select! { |merchant| merchant.class == Merchant }.flatten
+  end
+
+  def merchants_with_pending_invoices
+    pending = sales_engine.invoices.invoices.select { |invoice| invoice.transactions.none? { |transaction| transaction.result == "success"}}
+    pending.map { |invoice| invoice.merchant }.uniq
   end
 
   def merchants_with_only_one_item
@@ -184,14 +202,14 @@ class SalesAnalyst
 
     most_sold = invoice_items.max_by do |invoice_item|
       invoice_item.quantity
-      end
+    end
 
     top_invoice_item = invoice_items.select do |invoice_item|
       invoice_item.quantity == most_sold.quantity
-      end
+    end
 
     top_invoice_item.map do |invoice_item|
       item_repository.find_by_id(invoice_item.id)
-      end
+    end
   end
 end
