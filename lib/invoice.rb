@@ -50,6 +50,10 @@ attr_reader :id,
     @parent.parent.customers.find_by_id(@customer_id) 
   end
 
+  def invoice_item_array
+    @parent.parent.invoice_items.find_all_by_invoice_id(@id) 
+  end
+
   def is_paid_in_full?
     transactions.any? do |transaction|
       transaction.result == "success"

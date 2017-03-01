@@ -23,4 +23,8 @@ class InvoiceItem
     @unit_price.to_f / 100
   end
 
+  def invoice
+    @parent.parent.invoices.find_by_id(@invoice_id)
+  end
+
 end

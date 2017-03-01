@@ -1,5 +1,6 @@
 require_relative 'invoice_item'
 class InvoiceItemRepository
+  attr_reader :parent
   def initialize(csv_path, parent)
     @invoice_item_csv = CSV.open(csv_path, headers: true, header_converters: :symbol)
     @parent = parent

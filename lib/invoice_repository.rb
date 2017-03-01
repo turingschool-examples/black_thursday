@@ -50,4 +50,10 @@ class InvoiceRepository
       invoice.status == status_search
     end
   end
+
+  def find_all_by_date(date)
+    all.find_all do |invoice|
+      invoice.created_at == date
+    end
+  end
 end
