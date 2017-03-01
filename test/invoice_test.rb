@@ -56,12 +56,17 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_it_can_can_find_all_items_based_on_invoice_id
-    invoice = se.invoices.find_by_id(3)
-    
-    assert_instance_of Array, invoice.items
-    assert_instance_of Item, invoice.items.first
-    assert_equal 1, invoice.items.count
-    assert_equal 263553176, invoice.items.first.id
+    invoice2 = se.invoices.find_by_id(3715)
+    assert_instance_of Array, invoice2.items
+    assert_instance_of Item, invoice2.items.first
+    assert_equal 2, invoice2.items.count
+    assert_equal 263394417, invoice2.items.first.id
+  end
+
+  def test_it_can_find_all_invoice_items_based_on_invoice_id
+    assert_instance_of Array, invoice.invoice_items
+    assert_instance_of InvoiceItem, invoice.invoice_items.first
+    assert_equal 6, invoice.invoice_items.count
   end
 
   def test_it_can_find_all_transactions_by_invoice_id
@@ -77,13 +82,14 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_it_knows_if_invoice_is_paid
-    refute invoice.is_paid_in_full?
-    invoice2 = se.invoices.find_by_id(1752)
-    assert invoice2.is_paid_in_full?
+    invoice2 = se.invoices.find_by_id(3715)
+    refute invoice2.is_paid_in_full?
+    invoice3 = se.invoices.find_by_id(1752)
+    assert invoice3.is_paid_in_full?
   end
 
   def test_it_knows_total
-    invoice2 = se.invoices.find_by_id(3715)
-    assert_equal 8144.80, invoice2.total.to_f
+    assert_instance_of BigDecimal, invoice.total
+    assert_equal 12922.97, invoice.total.to_f
   end
 end

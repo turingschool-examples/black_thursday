@@ -42,5 +42,4 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal 3, cr.find_all_by_last_name("y").count
   end
 
-
 end

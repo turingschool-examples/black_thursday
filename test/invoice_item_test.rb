@@ -59,6 +59,4 @@ class InvoiceItemTest < Minitest::Test
     assert_equal 10.99, ii.unit_price_to_dollars
   end
 
-  
-
 end

@@ -12,7 +12,11 @@ class SalesAnalyst
               :price_squared_differences,
               :invoice_set,
               :invoices_squared_differences,
-              :invoices_by_day
+              :invoices_by_day,
+              :invoices_by_date,
+              :merchants_by_revenue,
+              :merchants_pending,
+              :merchants_one_item
 
   def initialize(engine="")
     @engine = engine
@@ -28,7 +32,6 @@ class SalesAnalyst
     end
     @squared_differences ||= set.map { |num| (num - average_items_per_merchant) ** 2 }
     (Math.sqrt( ( squared_differences.reduce(:+) ) / (set.count - 1) )).round(2)
-    # Math.sqrt( ( (2-0.67)**2+(0-0.67)**2+(0-0.67)**2 ) / 2 )
   end
 
   def merchants_with_high_item_count
@@ -109,7 +112,7 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-    @invoices_by_day = engine.invoices.all.group_by do |invoice|
+    @invoices_by_day ||= engine.invoices.all.group_by do |invoice|
       invoice.created_at.strftime('%A')
     end
 
@@ -118,6 +121,86 @@ class SalesAnalyst
 
   def invoice_status(status)
     ((engine.invoices.find_all_by_status(status).count / engine.invoices.all.count.to_f) * 100).round(2)
+  end
+
+  def total_revenue_by_date(date)
+    @invoices_by_date ||= engine.invoices.all.select do |invoice|
+      invoice.created_at == date
+    end
+    invoices_by_date.map do |invoice|
+      invoice.total
+    end.reduce(:+)
+  end
+
+  def revenue_by_merchant(merch_id)
+    engine.merchants.find_by_id(merch_id).revenue
+  end
+
+  def merchants_ranked_by_revenue
+    @merchants_by_revenue ||= engine.merchants.all.sort_by do |merchant|
+      [merchant.revenue ? 1 : 0, merchant.revenue]
+    end.reverse
+  end
+
+  def top_revenue_earners(num_top = 20)
+    merchants_ranked_by_revenue[0..num_top-1]
+  end
+
+  def merchants_with_pending_invoices
+    @merchants_pending ||= engine.merchants.all.select do |merchant|
+      merchant.any_pending?
+    end
+  end
+
+  def merchants_with_only_one_item
+    @merchants_one_item ||= engine.merchants.all.select do |merchant|
+      merchant.only_one_item?
+    end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants_with_only_one_item.select do |merchant|
+      merchant.created_at.strftime("%B") == month
+    end
+  end
+
+  def paid_merchant_invoices(merchant_id)
+    merchant = engine.merchants.find_by_id(merchant_id)
+    merchant.invoices.map do |invoice|
+      invoice.invoice_items if invoice.is_paid_in_full?
+    end.flatten.compact
+  end
+
+  def quantity_of_item(merchant_id)
+    paid_merchant_invoices(merchant_id).reduce({}) do |memo, invoice_item|
+      memo[invoice_item] = invoice_item.quantity
+      memo
+    end
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    quantity_sorted = quantity_of_item(merchant_id).max_by do |invoice_item, quantity|
+      quantity
+    end
+    top = quantity_of_item(merchant_id).select do |item_id, quantity|
+      quantity == quantity_sorted[1]
+    end
+    top.keys.map{|item| engine.items.find_by_id(item.item_id)}
+  end
+
+  def item_revenue_for_merchant(merchant_id)
+    paid_merchant_invoices(merchant_id).reduce({}) do |memo, invoice_item|
+      memo[invoice_item] = invoice_item.quantity * invoice_item.unit_price
+      memo
+    end
+  end
+
+  def best_item_for_merchant(merchant_id)
+    revenue_sorted = item_revenue_for_merchant(merchant_id).max_by do |invoice_item, revenue|
+      revenue
+    end
+    revenue_sorted.pop
+    revenue_sorted.map{|item| engine.items.find_by_id(item.item_id)}.first
   end
 
 end

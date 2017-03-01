@@ -32,7 +32,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_can_find_by_name
     assert_instance_of Item, ir.find_by_name("SQUIRREL!")
-    assert_equal 263667755, ir.find_by_name("SQUIRREL!").id
+    assert_equal 263454779, ir.find_by_name("SQUIRREL!").id
   end
 
   def test_it_knows_name_case_insensitive
@@ -62,8 +62,7 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal "DINO EGGS", ir.find_all_by_price(100.99).first.name
     assert_equal "Glitter scrabble frames", ir.find_all_by_price(94.80).first.name
   end
-
-
+  
   def test_find_by_price_returns_empty_array_if_no_matches
     assert_equal [], ir.find_all_by_price("rrrrrrrr")
   end

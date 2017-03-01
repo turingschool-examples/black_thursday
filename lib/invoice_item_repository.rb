@@ -1,5 +1,6 @@
 require 'csv'
 require_relative 'invoice_item'
+require 'pry'
 
 class InvoiceItemRepository
   attr_reader :all, :engine
@@ -27,7 +28,11 @@ class InvoiceItemRepository
     all.select {|invoiceitem| invoiceitem.invoice_id == invoice_num}
   end
 
+  def invoice_items_paid_in_full
+    all.select {|invoiceitem| engine.invoices.find_by_id(invoiceitem.invoice_id).is_paid_in_full?}
+  end
+
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{all.size} rows>"
   end
 end
