@@ -34,9 +34,7 @@ class Merchant
   end
 
   def paid_in_full_total
-    all_invoices = invoices
-    paid_invoces = all_invoices.select { |invoice| return 0.0 unless invoice.is_paid_in_full? }
-    paid_invoces.reduce(0) do |sum, invoice|
+    invoices_paid_in_full.reduce(0) do |sum, invoice|
       sum + invoice.total
     end
   end

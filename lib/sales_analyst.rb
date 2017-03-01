@@ -190,13 +190,14 @@ class SalesAnalyst
   end
 
   def most_sold_item_for_merchant(merchant_id)
+# binding.pry
     merchant_invoices = invoice_repository.find_all_by_merchant_id(merchant_id)
 
-    successfull_ivoices = merchant_invoices.select do |invoice|
-      invoice.is_paid_in_full?
+    successfull_invoices = merchant_invoices.select do |invoice|
+      invoice.mod_paid_in_full?
     end
 
-    invoice_items = successfull_ivoices.map do |invoice|
+    invoice_items = successfull_invoices.map do |invoice|
       invoice_item_repository.find_all_by_invoice_id(invoice.id)
     end.flatten
 
@@ -207,9 +208,28 @@ class SalesAnalyst
     top_invoice_item = invoice_items.select do |invoice_item|
       invoice_item.quantity == most_sold.quantity
     end
-
+    
     top_invoice_item.map do |invoice_item|
-      item_repository.find_by_id(invoice_item.id)
+      item_repository.find_by_id(invoice_item.item_id)
     end
+  end
+
+  def revenue_by_merchant(merchant_id)
+    merchant_repository.find_by_id(merchant_id).paid_in_full_total
+  end
+
+  def best_item_for_merchant(merchant_id)
+    merchant_invoices = invoice_repository.find_all_by_merchant_id(merchant_id)
+
+    successfull_invoices = merchant_invoices.select do |invoice|
+      invoice.mod_paid_in_full?
+    end
+
+    invoice_items = successfull_invoices.map do |invoice|
+      invoice_item_repository.find_all_by_invoice_id(invoice.id)
+    end.flatten
+
+    best_item = invoice_items.max_by { |item| item.unit_price * item.quantity }
+    item_repository.find_by_id(best_item.item_id)
   end
 end
