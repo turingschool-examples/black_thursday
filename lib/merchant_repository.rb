@@ -1,9 +1,4 @@
-require_relative 'merchant'
-require_relative 'sales_engine'
-require_relative 'item_repository'
-require_relative 'item'
-require_relative 'csv_parser'
-require 'pry'
+require './lib/helper'
 
 class MerchantRepository
 

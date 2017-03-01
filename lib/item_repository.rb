@@ -1,13 +1,6 @@
-require_relative 'merchant_repository'
-require_relative 'sales_engine'
-require_relative 'item'
-require_relative 'csv_parser'
-require_relative 'merchant'
-require 'pry'
+require './lib/helper'
 
 class ItemRepository
-
-  #include CsvParser
 
   attr_reader :all,
               :parent

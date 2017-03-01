@@ -1,5 +1,4 @@
-require 'csv'
-require 'pry'
+require './lib/helper'
 
 module CsvParser
   def open_file(file)

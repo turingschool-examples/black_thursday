@@ -1,4 +1,3 @@
-require 'pry'
 module Calculator
   
   def percentage(count, total)

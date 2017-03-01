@@ -1,10 +1,4 @@
-require_relative 'merchant'
-require_relative 'sales_engine'
-require_relative 'item_repository'
-require_relative 'item'
-require_relative 'calculator'
-require 'time'
-require 'pry'
+require './lib/helper'
 
 class SalesAnalyst
 
