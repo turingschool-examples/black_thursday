@@ -29,6 +29,10 @@ class SalesAnalyst
     sales_engine.invoices
   end
 
+  def invoice_item_repository
+    sales_engine.invoice_items
+  end
+
 # ----------- Search methods -----------
 
   def items_per_merchant
@@ -157,5 +161,37 @@ class SalesAnalyst
     top_merchants.map { |pair| pair[0] }
 
     # merchant_values.values.map { |invoice| invoice.reduce(0) { |sum, invoice| sum + invoice.total }}
+  end
+
+  def merchants_with_only_one_item
+    merchant_repository.all.select { |merchant| merchant.items.count == 1 }.compact
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants_with_only_one_item.select { |merchant| merchant.created_at.strftime("%B") == month }
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    merchant_invoices = invoice_repository.find_all_by_merchant_id(merchant_id)
+
+    successfull_ivoices = merchant_invoices.select do |invoice|
+      invoice.is_paid_in_full?
+    end
+
+    invoice_items = successfull_ivoices.map do |invoice|
+      invoice_item_repository.find_all_by_invoice_id(invoice.id)
+    end.flatten
+
+    most_sold = invoice_items.max_by do |invoice_item|
+      invoice_item.quantity
+      end
+
+    top_invoice_item = invoice_items.select do |invoice_item|
+      invoice_item.quantity == most_sold.quantity
+      end
+
+    top_invoice_item.map do |invoice_item|
+      item_repository.find_by_id(invoice_item.id)
+      end
   end
 end

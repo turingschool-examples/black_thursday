@@ -120,12 +120,30 @@ class SalesAnalystTest < Minitest::Test
 #     assert_equal 56.95, shipped
 #     assert_equal 13.5, returned
 #   end
+  #
+  # def test_total_revenue_by_date
+  # assert_equal BigDecimal.new(2106777) / 100, sa.total_revenue_by_date(Time.parse("2009-02-07"))
+  # end
+  #
+  # def test_top_revenue_earners
+  #   assert_equal 3, sa.test_top_revenue_earners(3).count
+  # end
 
-  def test_total_revenue_by_date
-  assert_equal BigDecimal.new(2106777) / 100, sa.total_revenue_by_date(Time.parse("2009-02-07"))
+  def test_merchants_with_only_one_item
+    assert_instance_of Array, sa.merchants_with_only_one_item
+    assert_instance_of Merchant, sa.merchants_with_only_one_item[0]
+    assert_equal 243, sa.merchants_with_only_one_item.count
   end
 
-  def test_top_revenue_earners
-    assert_equal 3, sa.test_top_revenue_earners(3).count
+  def test_merchants_with_only_one_item_registered_in_month
+    assert_instance_of Array, sa.merchants_with_only_one_item_registered_in_month("March")
+    assert_instance_of Merchant, sa.merchants_with_only_one_item_registered_in_month("March")[0]
+    assert_equal 21, sa.merchants_with_only_one_item_registered_in_month("March").count
+  end
+
+  def test_most_sold_item_for_merchant
+    assert_instance_of Array, most_sold_item_for_merchant(12334189)
+    assert_instance_of Item, most_sold_item_for_merchant(12334189)
+    assert_equal "Adult Princess Leia Hat" ,most_sold_item_for_merchant(12334189)
   end
 end
