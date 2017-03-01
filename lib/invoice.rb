@@ -1,5 +1,11 @@
 class Invoice
-	attr_reader :id, :customer_id, :merchant_id, :status, :created_at, :updated_at, :ir
+	attr_reader :id,
+							:customer_id,
+							:merchant_id,
+							:status,
+							:created_at,
+							:updated_at,
+							:ir
 
 	def initialize(data_hash, invoice_repo)
 		@id          = data_hash[:id].to_i
@@ -8,7 +14,7 @@ class Invoice
 		@status      = data_hash[:status].to_sym
 		@created_at  = Time.parse(data_hash[:created_at])
 		@updated_at  = Time.parse(data_hash[:updated_at])
-		@ir = invoice_repo
+		@ir          = invoice_repo
 	end
 
 	def merchant
@@ -16,7 +22,9 @@ class Invoice
 	end
 
 	def items
-		ir.sales_engine.invoice_items.find_all_by_invoice_id(id).map { |invoice_item| invoice_item.find_items_by_ids }
+		ir.sales_engine.invoice_items.find_all_by_invoice_id(id).map {
+			|invoice_item| invoice_item.find_items_by_ids
+		}
 	end
 
 	def transactions
@@ -28,26 +36,20 @@ class Invoice
 	end
 
 	def is_paid_in_full?
-		all = ir.sales_engine.transactions.find_all_by_invoice_id(id)
-		all.all? {|trans| trans.result == "success"} && !all.empty?
+		transactions.any? { |transaction|  transaction.result == "success"}
 	end
 
 	def total
-		inv_items_arr = ir.sales_engine.invoice_items.find_all_by_invoice_id(id)
-		inv_items_arr.map { |ii| ii.quantity * ii.unit_price }.reduce(:+)
+		is_paid_in_full? ? paid : 0
 	end
 
-	def each_paid
-		each = ir.sales_engine.transactions.find_all_by_invoice_id(id)
-		each.select do |trans|
-				require'pry';binding.pry
-			if trans.result == "success"
-				
-			elsif trans.result == "failed"
-				0
-			else
-				0
-			end
-		end.compact.reduce(:+)
+	def paid
+		inv_items_arr = ir.sales_engine.invoice_items.find_all_by_invoice_id(id)
+		inv_items_arr.reduce(0) { |total, ii| total += (ii.quantity * ii.unit_price) }
 	end
+
+	def pending?
+		transactions.all? { |transaction| transaction.result == "failed" }
+	end
+
 end

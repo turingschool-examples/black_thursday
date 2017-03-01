@@ -14,7 +14,7 @@ class ItemRepository
 	end
 
 	def parse_csv
-		items.each { |item| all << Item.new(item, self) } 
+		items.each { |item| all << Item.new(item, self) }
 	end
 
 	def find_by_name(name)
@@ -26,11 +26,17 @@ class ItemRepository
 	end
 
 	def find_all_with_description(phrase)
-		all.select { |instance| instance if instance.description.downcase.include?(phrase.downcase) }
+		all.select {
+			|instance| instance if instance.description.downcase.include?(
+				phrase.downcase
+			)
+		}
 	end
 
 	def find_all_by_price(price)
-		all.select { |instance| instance if instance.unit_price.to_s.include?(price.to_s) }
+		all.select {
+			|instance| instance if instance.unit_price.to_s.include?(price.to_s)
+		}
 	end
 
 	def find_all_by_price_in_range(range)
@@ -38,7 +44,9 @@ class ItemRepository
 	end
 
 	def find_all_by_merchant_id(id)
-		all.select { |instance| instance if instance.merchant_id.to_s.include?(id.to_s) }
+		all.select {
+			|instance| instance if instance.merchant_id.to_s.include?(id.to_s)
+		}
 	end
 
 end

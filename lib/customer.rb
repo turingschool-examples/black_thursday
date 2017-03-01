@@ -7,10 +7,11 @@ attr_reader :id, :first_name, :last_name, :created_at, :updated_at, :cr
     @last_name  = data_hash[:last_name]
     @created_at = Time.parse(data_hash[:created_at])
     @updated_at = Time.parse(data_hash[:updated_at])
-    @cr = customer_repo
+    @cr         = customer_repo
   end
 
   def merchants
-    cr.se.invoices.find_all_by_customer_id(id).map { |invoice| invoice.merchant }
+    invoices = cr.se.invoices
+    invoices.find_all_by_customer_id(id).map { |invoice| invoice.merchant }
   end
 end

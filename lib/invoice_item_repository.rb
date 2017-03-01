@@ -16,7 +16,7 @@ class InvoiceItemRepository
 	def parse_csv
 		invoice_items.each { |invoices| all << InvoiceItem.new(invoices, self) }
 	end
-	
+
 	def find_by_id(id)
 		all.find { |instance| instance if instance.id == id }
 	end

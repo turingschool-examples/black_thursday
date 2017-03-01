@@ -1,7 +1,15 @@
 require 'bigdecimal'
 
 class InvoiceItem
-  attr_reader  :id, :item_id, :invoice_id, :quantity, :unit_price, :created_at, :updated_at, :unit_price, :iir
+  attr_reader :id,
+              :item_id,
+              :invoice_id,
+              :quantity,
+              :unit_price,
+              :created_at,
+              :updated_at,
+              :unit_price,
+              :iir
 
   def initialize (data_hash, iir)
     @id         = data_hash[:id].to_i

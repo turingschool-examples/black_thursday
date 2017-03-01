@@ -22,10 +22,14 @@ class CustomerRepository
 	end
 
 	def find_all_by_first_name(fn)
-		all.select { |instance| instance if instance.first_name.downcase.include?(fn.downcase) }
+		all.select { |instance|
+			instance if instance.first_name.downcase.include?(fn.downcase)
+		}
 	end
 
 	def find_all_by_last_name(ln)
-		all.select { |instance| instance if instance.last_name.downcase.include?(ln.downcase) }
+		all.select {
+			|instance| instance if instance.last_name.downcase.include?(ln.downcase)
+		}
 	end
 end

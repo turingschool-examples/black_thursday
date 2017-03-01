@@ -12,7 +12,7 @@ class TransactionRepository
 		@all = []
 		parse_csv
 	end
-	
+
 	def parse_csv
 		transactions.each { |instances| all << Transaction.new(instances, self) }
 	end
@@ -26,7 +26,9 @@ class TransactionRepository
 	end
 
 	def find_all_by_credit_card_number(credit_card_number)
-		all.select { |instance| instance if instance.credit_card_number == credit_card_number}
+		all.select {
+			|instance| instance if instance.credit_card_number == credit_card_number
+		}
 	end
 
 	def find_all_by_result(result)

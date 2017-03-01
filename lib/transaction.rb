@@ -1,5 +1,12 @@
 class Transaction
-attr_reader :id, :invoice_id, :credit_card_number, :credit_card_expiration_date, :result, :created_at, :updated_at, :tr
+attr_reader :id,
+            :invoice_id,
+            :credit_card_number,
+            :credit_card_expiration_date,
+            :result,
+            :created_at,
+            :updated_at,
+            :tr
 
   def initialize(data_hash, transaction_repo)
     @id                          = data_hash[:id].to_i

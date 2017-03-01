@@ -6,7 +6,7 @@ class Merchant
 		@name          = data_hash[:name]
 		@created_at    = data_hash[:created_at]
 		@updated_at    = data_hash[:updated_at]
-		@mr = merchant_repo
+		@mr            = merchant_repo
 	end
 
 	def items
@@ -18,6 +18,8 @@ class Merchant
 	end
 
 	def customers
-		mr.sales_engine.invoices.find_all_by_merchant_id(id).map { |invoices| invoices.customer }.uniq
+		mr.sales_engine.invoices.find_all_by_merchant_id(id).map {
+			|invoices| invoices.customer
+		}.uniq
 	end
 end
