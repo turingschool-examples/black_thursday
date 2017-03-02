@@ -40,7 +40,7 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_can_find_by_status
     found = @ir.find_all_by_status(:pending)
     not_found = @ir.find_all_by_status(:remitted)
-    assert_equal 11, found.length
+    assert_equal 10, found.length
     assert_equal 0, not_found.length
   end
 end

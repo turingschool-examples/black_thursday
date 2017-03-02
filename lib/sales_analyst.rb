@@ -160,42 +160,61 @@ class SalesAnalyst
     item_invoices = se.invoice_items.find_all_by_item_id(item_id)
   end
 
+  def paid_invoices(invoice_items)
+    invoice_items.select do |invoice_item|
+      id = invoice_item.invoice_id
+      se.invoices.find_by_id(id).is_paid_in_full?
+    end
+  end
 
-  def most_sold_item_for_merchant(merchant_id)
-    #items are unique to merchant
-    #take each of his items
-    #tally how many of each item sold
-    #sort items sold
-    #max_by items sold
-
-    # merchant = se.merchants.find_by_id(merchant_id)
-    # merchant.items
-
-
+  def sold_count(merchant_id)
     sold_count = Hash.new(0)
-    #grab merchant's items
     items = se.items.find_all_by_merchant_id(merchant_id)
-
-    #take each item
     items.each do |item|
-      #find item.quantity, add it to hash
-
-     # Find all matching invoices
-      invoice_items = find_the_invoice_items(item.id)
+      invoice_items = paid_invoices(find_the_invoice_items(item.id))
       total = invoice_items.inject(0){|sum, ii| sum + ii.quantity}
       sold_count[item] += total
     end
+    sold_count
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    sold_count = sold_count(merchant_id)
     max = sold_count.values.max
     max_items = Hash[sold_count.select { |k, v| v == max}].keys
-    binding.pry
   end
+
+  def least_sold_item_for_merchant(merchant_id)
+    sold_count = sold_count(merchant_id)
+    min = sold_count.values.min
+    min = Hash[sold_count.select { |k, v| v == min}].keys
+  end
+
+  def best_item_for_merchant
+  end
+
+  def sold_zero(item_id)
+    se.invoice_items.find_all_by_item_id(item_id).empty?
+  end
+
+  def merchant_zero_sellers(merchant_id)
+    merchant = se.merchants.find_by_id(merchant_id)
+    merchant.items.select{ |item| sold_zero(item.id) }
+  end
+
+  # def sellers_with_a_zero
+  #   se.merchants.all.select {|merc| merchant_zero_sellers(merc.id > 0)}
+  # end
 end
 
-# se = SalesEngine.from_csv({:items => "./data/items.csv", 
-#:merchants => "./data/merchants.csv", :invoices => "./data/invoices.csv" })
+# se = SalesEngine.from_csv({:items => "./data/items.csv",
+# :merchants => "./data/merchants.csv", :invoices => "./data/invoices.csv" })
 # ir = se.items
 # mr = se.merchants
 # invr = se.invoices
 # invoice = invr.all[0]
 # sa = SalesAnalyst.new(se)
 # sa.top_days_by_invoice_count
+
+# binding.pry
+# ""
