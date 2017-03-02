@@ -33,6 +33,30 @@ class SalesAnalyst
     sales_engine.invoice_items
   end
 
+  def merchant_invoices(new_input)
+    invoice_repository.find_all_by_merchant_id(new_input)
+  end
+
+  def successfull_invoices(new_input)
+    new_input.select { |invoice| invoice.mod_paid_in_full? }
+  end
+
+  def invoice_items(new_input) 
+    new_input.map do |invoice|
+      invoice_item_repository.find_all_by_invoice_id(invoice.id)
+    end.flatten
+  end
+
+  def succesful_items(new_input)
+    merchant_invoices = merchant_invoices(new_input)
+    success = successfull_invoices(merchant_invoices)
+    invoice_items(success)
+  end
+
+  def invoice_total(total)
+    total.reduce(0) { |sum, invoice| sum + invoice.total }
+  end
+
 # ----------- Search methods -----------
 
   def items_per_merchant
@@ -70,15 +94,13 @@ class SalesAnalyst
   end
 
   def invoice_day_count
-    days = invoice_days
-    days.each_with_object(Hash.new(0)) { |day, counts| counts[day] += 1 }
+    invoice_days.each_with_object(Hash.new(0)) { |day, counts| counts[day] += 1 }
   end
 
 #------------------ Merchant Analyst ------------------
 
   def average_items_per_merchant
     average(items_per_merchant)
-
   end
 
   def average_items_per_merchant_standard_deviation
@@ -88,8 +110,7 @@ class SalesAnalyst
   def merchants_with_high_item_count
     avg = average_items_per_merchant
     std_dev = average_items_per_merchant_standard_deviation
-
-    merchant_repository.merchants.select do |merchant|
+    merchant_repository.merchants.select.select do |merchant|
       merchant.items.length > (avg + std_dev)
     end
   end
@@ -99,10 +120,9 @@ class SalesAnalyst
   end
 
   def average_average_price_per_merchant
-    price_averages = merchant_repository.merchants.map do |merchant|
+    average(merchant_repository.merchants.map do |merchant|
       average_item_price_for_merchant(merchant.id)
-    end
-    average(price_averages)
+    end)
   end
 
   def golden_items
@@ -136,9 +156,8 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-    day_totals = invoice_day_count
-    sd = average(day_totals.values) + standard_deviation(day_totals.values)
-    top_days = day_totals.select { |key,value| value > sd }
+    sd = average(invoice_day_count.values) + standard_deviation(invoice_day_count.values)
+    top_days = invoice_day_count.select { |key,value| value > sd }
     top_days.map { |day| day[0].to_s}
   end
 
@@ -153,27 +172,14 @@ class SalesAnalyst
     invoice_date.reduce(0) { |sum, invoice| sum + invoice.total }
   end
 
-  def top_revenue_earners(amount = nil)
-    if amount == nil
-      amount = 20
-    else
-      amount = amount
-    end
-    merchants = merchant_repository.merchants
-    merchant_values = Hash[merchants.map { |merchant| [merchant, merchant.invoices]}]
-    merchant_values.map { |merchant, total| merchant_values[merchant] =  total.reduce(0) { |sum, invoice| sum + invoice.total }}
-    top_merchants = merchant_values.sort_by { |key,value| value }.reverse[0..(amount - 1)]
-    top_merchants.map { |pair| pair[0] }
-
-    # merchant_values.values.map { |invoice| invoice.reduce(0) { |sum, invoice| sum + invoice.total }}
+  def top_revenue_earners(amount = 20)
+    merchant_values = Hash[merchant_repository.merchants.map { |merchant| [merchant, merchant.invoices]}]
+    merchant_values.map { |merchant, total| merchant_values[merchant] =  invoice_total(total) } 
+    top_merchants = merchant_values.sort_by { |key,value| value }.reverse[0..(amount - 1)].collect(&:first)
   end
 
   def merchants_ranked_by_revenue
-    merchants = merchant_repository.merchants
-    merchant_values = Hash[merchants.map { |merchant| [merchant, merchant.invoices]}]
-    merchant_values.map { |merchant, total| merchant_values[merchant] =  total.reduce(0) { |sum, invoice| sum + invoice.total }}
-    top_merchants = merchant_values.sort_by { |key,value| value }.reverse.flatten
-    top_merchants.select! { |merchant| merchant.class == Merchant }.flatten
+    top_revenue_earners(0)
   end
 
   def merchants_with_pending_invoices
@@ -190,17 +196,7 @@ class SalesAnalyst
   end
 
   def most_sold_item_for_merchant(merchant_id)
-# binding.pry
-    merchant_invoices = invoice_repository.find_all_by_merchant_id(merchant_id)
-
-    successfull_invoices = merchant_invoices.select do |invoice|
-      invoice.mod_paid_in_full?
-    end
-
-    invoice_items = successfull_invoices.map do |invoice|
-      invoice_item_repository.find_all_by_invoice_id(invoice.id)
-    end.flatten
-
+    invoice_items = succesful_items(merchant_id)
     most_sold = invoice_items.max_by do |invoice_item|
       invoice_item.quantity
     end
@@ -208,7 +204,7 @@ class SalesAnalyst
     top_invoice_item = invoice_items.select do |invoice_item|
       invoice_item.quantity == most_sold.quantity
     end
-    
+
     top_invoice_item.map do |invoice_item|
       item_repository.find_by_id(invoice_item.item_id)
     end
@@ -219,17 +215,7 @@ class SalesAnalyst
   end
 
   def best_item_for_merchant(merchant_id)
-    merchant_invoices = invoice_repository.find_all_by_merchant_id(merchant_id)
-
-    successfull_invoices = merchant_invoices.select do |invoice|
-      invoice.mod_paid_in_full?
-    end
-
-    invoice_items = successfull_invoices.map do |invoice|
-      invoice_item_repository.find_all_by_invoice_id(invoice.id)
-    end.flatten
-
-    best_item = invoice_items.max_by { |item| item.unit_price * item.quantity }
+    best_item = succesful_items(merchant_id).max_by { |item| item.unit_price * item.quantity }
     item_repository.find_by_id(best_item.item_id)
   end
 end
