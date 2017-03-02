@@ -8,40 +8,24 @@ require_relative 'customer_repository'
 require 'pry'
 
 class SalesEngine
-  # attr_reader :item_csv, :merchant_csv
-
-  def self.from_csv(csv_hash)
+  attr_reader :items, :merchants, :invoices, :invoice_items, :transactions, :customers
+  def initialize(csv_hash)
     @item_csv = csv_hash[:items]
     @merchant_csv = csv_hash[:merchants]
     @invoice_csv = csv_hash[:invoices]
     @invoice_items_csv = csv_hash[:invoice_items]
     @transactions_csv = csv_hash[:transactions]
     @customers_csv = csv_hash[:customers]
-    return self
+    @items = ItemRepository.new(@item_csv, self)
+    @merchants = MerchantRepository.new(@merchant_csv, self)
+    @invoices = InvoiceRepository.new(@invoice_csv, self)
+    @invoice_items = InvoiceItemRepository.new(@invoice_items_csv, self)
+    @transactions = TransactionRepository.new(@transactions_csv, self)
+    @customers = CustomerRepository.new(@customers_csv, self)
   end
 
-  def self.items
-    ItemRepository.new(@item_csv, self)
-  end
-
-  def self.merchants
-    MerchantRepository.new(@merchant_csv, self)
-  end
-
-  def self.invoices
-    InvoiceRepository.new(@invoice_csv, self)
-  end
-
-  def self.invoice_items
-    InvoiceItemRepository.new(@invoice_items_csv, self)
-  end
-
-  def self.transactions
-    TransactionRepository.new(@transactions_csv, self)
-  end
-
-  def self.customers
-    CustomerRepository.new(@customers_csv, self)
+  def self.from_csv(csv_hash)
+    SalesEngine.new(csv_hash)
   end
 
 

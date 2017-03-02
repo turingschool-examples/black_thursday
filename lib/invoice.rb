@@ -16,6 +16,9 @@ attr_reader :id,
     @updated_at = Time.parse(invoice[:updated_at])
     @parent = invoice_repo_parent
   end
+  def invoice_items 
+    @parent.parent.invoice_items.find_all_by_invoice_id(@id)
+  end
 
   def merchant
     @parent.parent.merchants.find_by_id(@merchant_id)
@@ -35,8 +38,7 @@ attr_reader :id,
   end
 
   def items
-    @invoice_items = @parent.parent.invoice_items.find_all_by_invoice_id(@id)
-    all_items = @invoice_items.map do |invoice_item|
+    all_items = invoice_items.map do |invoice_item|
       @parent.parent.items.find_by_id(invoice_item.item_id)
     end
     all_items
@@ -62,8 +64,8 @@ attr_reader :id,
   end
 
   def total
-    items
-    @invoice_items.reduce(0) do |sum, item|
+    return 0.0 unless is_paid_in_full?
+    invoice_items.inject(0) do |sum, item|
       sum + item.unit_price * item.quantity.to_f
     end.round(2)
   end
