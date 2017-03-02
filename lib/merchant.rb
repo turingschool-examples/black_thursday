@@ -3,12 +3,14 @@ class Merchant
   # include ItemDataAccess
   attr_reader :id,
               :name,
-              :parent
+              :parent,
+              :created_at
 
   def initialize(data, parent=nil)
     @id  = data[:id]
     @name = data[:name]
     @parent = parent
+    @created_at = data[:created_at]
   end
 
   def items

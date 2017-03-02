@@ -14,7 +14,9 @@ module ItemDataAccess
               :item_id,
               :invoice_id,
               :quantity
-  #status and customer_id are invoice readers. Consider whether it's drier to initialize invoice here (with extra instance variables) or in invoice (with similar/repeated instance variables)
+  #status and customer_id are invoice readers. Consider whether it's drier 
+  # to initialize invoice here (with extra instance variables) or in 
+  #invoice (with similar/repeated instance variables)
 
   #check if merchants.all has unneeded nil instance variables.
   #Would .compact help?

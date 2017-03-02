@@ -17,7 +17,9 @@ class MerchantRepository
   def populate_repo
     csv_file.each do |row|
       merchant = Merchant.new({:id => row[:id].to_i,
-        :name => row[:name]}, self)
+        :name => row[:name],
+        :created_at => Time.parse(row[:created_at])
+        }, self)
         @all << merchant
         #return an array, then you can nix @all
       end

@@ -32,24 +32,26 @@ class SalesEngine
 
     #Refactor to initialize with dynamic paths
     se.invoice_items = InvoiceItemRepository.new(se)
-    # se.invoice_items.from_csv("./data/invoice_items.csv")
     se.invoice_items.from_csv("./data/invoice_items.csv")
+    # se.invoice_items.from_csv("./data/invoice_items_fixture.csv")
     se.transactions = TransactionRepository.new(se)
     se.transactions.from_csv("./data/transactions.csv")
+    # se.transactions.from_csv("./data/transactions_fixture.csv")
     se.customers = CustomerRepository.new(se)
     se.customers.from_csv("./data/customers.csv")
+    # se.customers.from_csv("./data/customers_fixture.csv")
     se
   end
 
 end
 
-se = SalesEngine.from_csv({:items => "./data/items.csv", :merchants => "./data/merchants.csv", :invoices => "./data/invoices.csv" })
-ir = se.items
-mr = se.merchants
-invr = se.invoices
-cr = se.customers
+# se = SalesEngine.from_csv({:items => "./data/items.csv", :merchants => "./data/merchants.csv", :invoices => "./data/invoices.csv" })
+# ir = se.items
+# mr = se.merchants
+# invr = se.invoices
+# cr = se.customers
 
-invoice = invr.all[0]
+# invoice = invr.all[0]
 
 # binding.pry
 

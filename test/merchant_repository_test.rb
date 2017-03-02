@@ -53,8 +53,6 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal "perlesemoi", found_s[3].name 
     assert_equal "LolaMarleys", found_marleys[0].name
     assert_nil found_marleys[1]
-
-    
   end
 
 end

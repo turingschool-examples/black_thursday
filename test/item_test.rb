@@ -34,11 +34,11 @@ class ItemTest < Minitest::Test
   end
 
   def test_has_updated_time
-   assert_instance_of Time, @item.updated_at    
+   assert_instance_of Time, @item.updated_at
   end
 
   def test_it_returns_price_in_dollars
-    assert_instance_of Float, @item.unit_price_to_dollars 
+    assert_instance_of Float, @item.unit_price_to_dollars
     assert_equal 12.0, @item.unit_price_to_dollars
   end
 
@@ -47,7 +47,6 @@ class ItemTest < Minitest::Test
     ir = se.items
     item = ir.all[0]
 
-    assert_instance_of Merchant, item.merchant  
+    assert_instance_of Merchant, item.merchant
   end
-
 end

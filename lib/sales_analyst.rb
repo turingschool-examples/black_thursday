@@ -94,8 +94,6 @@ class SalesAnalyst
   end
 
 
-
-
   ##business SalesAnalyst
 
   def average_items_per_merchant
@@ -110,7 +108,6 @@ class SalesAnalyst
   def average_invoices_per_merchant
     average(se.invoices.all.count, se.merchants.all.count).round(2)
   end
-
 
   def average_invoices_per_merchant_standard_deviation
     #get invoices per merchant
@@ -157,20 +154,89 @@ class SalesAnalyst
 
   def invoice_status(status)
     total = se.invoices.all.count.to_f
+    # binding.pry
     matching = se.invoices.all.select{ |invoice| invoice.status == status }.count
     ((matching/total) * 100).round(2)
   end
+
+  def total_revenue_by_date(date)
+    #go to invoices
+    #select only invoices that match date
+    #grab unit_price off of invoice_items, sum
+
+    #Time.parse().to_date?
+    # date = Time.parse(date).to_date
+    #Date.strptime("09-28-2004","%m-%d-%Y")
+
+    invoices = se.invoices.all.select { |ii| ii.created_at.to_date === date.to_date }
+    invoices.inject(0) { |sum, invoice| sum + invoice.total }
+  end
+
+  def top_revenue_earners(num=20)
+    # invoices = se.invoices.all
+    # revenues = Hash.new(0)
+    # invoices.each { |invoice| revenues[invoice.merchant_id] += invoice.total }
+    # sorted = revenues.sort_by{ |k, v| -v }.to_h
+    # # sorted = sorted.reverse
+    # top = sorted.keys.first(num)
+    # top.map { |id| se.merchants.find_by_id(id) }
+
+    merchants = merchants_ranked_by_revenue
+    top = merchants.first(num)
+  end
+
+  def bottom_revenue_earners(num = 20)
+    merchants = merchants_ranked_by_revenue
+    bottom = merchants.last(num)
+
+  end
+
+  def merchants_ranked_by_revenue
+    invoices = se.invoices.all
+    revenues = Hash.new(0)
+    invoices.each {|invoice| revenues[invoice.merchant_id] += invoice.total }
+    sorted = revenues.sort_by{ |k, v| -v }.to_h
+    sorted.keys.map { |id| se.merchants.find_by_id(id) }
+  end
+
+  def merchants_with_pending_invoices
+    #this first attempt is incorrect, see Note on I-4 instructions
+    # pending = se.invoices.all.select{ |invoice| invoice.status == :pending }
+
+    pending = se.invoices.all.select { |invoice| invoice.is_paid_in_full? == false }
+    pending.map { |invoice| se.merchants.find_by_id(invoice.merchant_id) }.uniq
+  end
+  
+  def merchants_with_only_one_item
+    # binding.pry
+    item_count = Hash.new(0)
+    se.items.all.each { |item| item_count[item.merchant_id] += 1 }
+    ones = item_count.select { |merchant_id, item_count| item_count == 1 }
+    ones.keys.map { |merchant_id| se.merchants.find_by_id(merchant_id) }.uniq
+  end
+
+  def merchants_with_only_one_item_registered_in_month
+    ones = merchants_with_only_one_item
+    invoices = se.invoices.all.select { |ii| ii.created_at.to_date === date.to_date }
+
+
+    # added created_at to merchant repo and merchant
+    # added merchant.created_at
+    #need to compare months and select
+  end
+
 
 end
 
 
 
-se = SalesEngine.from_csv({:items => "./data/items.csv", :merchants => "./data/merchants.csv", :invoices => "./data/invoices.csv" })
-ir = se.items
-mr = se.merchants
-invr = se.invoices
-sa = SalesAnalyst.new(se)
-sa.top_days_by_invoice_count
+# se = SalesEngine.from_csv({:items => "./data/items_fixture.csv", :merchants => "./data/merchants_fixture.csv", :invoices => "./data/invoices_fixture.csv" })
+# ir = se.items
+# mr = se.merchants
+# invr = se.invoices
+# invoice = invr.all[0]
+# sa = SalesAnalyst.new(se)
+# sa.top_days_by_invoice_count
 # binding.pry
 
 ""

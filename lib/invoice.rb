@@ -48,5 +48,4 @@ class Invoice
     return 0.0 unless is_paid_in_full?
     invoice_items.inject(0){ |sum, invoice_item| sum + invoice_item.unit_price * invoice_item.quantity }
   end
-
 end
