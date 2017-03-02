@@ -35,10 +35,13 @@ attr_reader :invoice_item_1,
 
   def test_find_all_by_item_id
     assert_equal [invoice_item_1], iir.find_all_by_item_id(263519844)
+    assert_equal [], iir.find_all_by_item_id(3519844)
   end
 
   def test_find_all_by_invoice_id
     assert_equal invoice_items_list, iir.find_all_by_invoice_id(1)
+    assert_equal [], iir.find_all_by_invoice_id(2)
+
   end
 
 end

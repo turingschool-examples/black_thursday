@@ -35,7 +35,7 @@ class ItemRepository
     items.select { |row| row.merchant_id == merchant_id }
   end
 
-  def inspect
-  "#<#{self.class} #{@merchants.size} rows>"
-  end
+  # def inspect
+  # "#<#{self.class} #{@merchants.size} rows>"
+  # end
 end

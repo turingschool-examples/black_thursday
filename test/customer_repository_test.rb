@@ -25,10 +25,12 @@ attr_reader :customer_1, :customer_2, :customer_3, :customer_list, :customer_rep
   end
 
   def test_find_all_by_first_name
-    assert_equal [customer_2], customer_repo.find_by_first_name("Mark")
+    assert_equal [customer_2], customer_repo.find_all_by_first_name("Mark")
+    assert_equal [], customer_repo.find_all_by_first_name("Steve")
   end
 
   def test_find_all_by_last_name
-    assert_equal [customer_3], customer_repo.find_by_last_name("Stover")
+    assert_equal [customer_3], customer_repo.find_all_by_last_name("Stover")
+    assert_equal [], customer_repo.find_all_by_last_name("Rudolferson")
   end
 end

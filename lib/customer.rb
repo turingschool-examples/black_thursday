@@ -15,4 +15,12 @@ class Customer
     @updated_at  = Time.parse(row[:updated_at])
     @repository  = repository
   end
+
+  def invoices
+    repository.sales_engine.invoices.find_all_by_customer_id(self.id)
+  end
+
+  def merchants
+    self.invoices.map { |invoice| invoice.customer }.uniq
+  end
 end

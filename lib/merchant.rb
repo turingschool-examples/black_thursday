@@ -22,12 +22,13 @@ class Merchant
   end
 
   def customers
-    self.invoices.map { |pizza| pizza.customer }.uniq
+    self.invoices.map { |invoice| invoice.customer }.uniq
   end
 
   def invoice_total
     invoices.reduce(0) { |sum, invoice| sum + invoice.total }
   end
+
 
   def invoices_paid_in_full
     invoices.select { |row| row.is_paid_in_full? }
@@ -38,9 +39,4 @@ class Merchant
       sum + invoice.total
     end
   end
-
-  def merchants_with_only_one_item
-    items.sort
-  end
-
 end
