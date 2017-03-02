@@ -156,24 +156,28 @@ class SalesAnalystTest < Minitest::Test
     most_sold = @sa.most_sold_item_for_merchant(12334189)
     assert_instance_of Item, most_sold[0]
     assert_equal 1, most_sold.length
-    assert_equal [@se.items.find_by_name("Stirling Silver Filigree Drop Hoop Earrings")], most_sold
+    assert_equal [@se.items.find_by_name("Adult Princess Leia Hat")], most_sold
 
     other_most_sold = @sa.most_sold_item_for_merchant(12335916)
     assert_instance_of Item, other_most_sold[0]
     assert_equal 1, other_most_sold.length
-    assert_equal [@se.items.find_by_name("Chrono Trigger Death Peak Pixel Art Print - Chrono & Marle Sprite - &quot;Welcome Home&quot;")], other_most_sold
+    assert_equal [@se.items.find_by_id(263452497)], other_most_sold
   end
 
-   def test_least_sold_item_for_merchant
+  def test_least_sold_item_for_merchant
     least_sold = @sa.least_sold_item_for_merchant(12334189)
     assert_instance_of Item, least_sold[0]
     assert_equal 1, least_sold.length
-    assert_equal [@se.items.find_by_name("Roses/Flower Stirling Silver  Dangle Earrings")], least_sold
 
     other_least_sold = @sa.least_sold_item_for_merchant(12335916)
     assert_instance_of Item, other_least_sold[0]
     assert_equal 1, other_least_sold.length
-    assert_equal [@se.items.find_by_name("Chrono Trigger Death Peak Pixel Art Print - Chrono & Marle Sprite - &quot;Welcome Home&quot;")], other_least_sold
+    assert_equal [@se.items.find_by_id(263452497)], other_least_sold
+  end
+
+  def test_best_item_for_merchant
+    assert_instance_of Item, @sa.best_item_for_merchant(12334189)
+    assert_equal 263516130, @sa.best_item_for_merchant(12334189).id
   end
 
   def test_sold_zero
@@ -182,5 +186,4 @@ class SalesAnalystTest < Minitest::Test
     refute @sa.sold_zero(263549938)
     assert @sa.sold_zero(235225435)
   end
-
 end

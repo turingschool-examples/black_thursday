@@ -1,4 +1,3 @@
-
 class SalesAnalyst
   attr_reader :se
 
@@ -179,18 +178,35 @@ class SalesAnalyst
   end
 
   def most_sold_item_for_merchant(merchant_id)
-    sold_count = sold_count(merchant_id)
-    max = sold_count.values.max
-    max_items = Hash[sold_count.select { |k, v| v == max}].keys
+    invoices = se.merchants.find_by_id(merchant_id).invoices
+    invoices = invoices.find_all { |inv| inv.is_paid_in_full? }
+    invoice_items = invoices.map { |inv| inv.invoice_items }.flatten
+    hash = invoice_items.group_by { |inv_item| inv_item.item_id }
+    final = hash.each do |k, v|
+      hash[k] = v.reduce(0) {|sum, item| sum + item.quantity}
+    end
+    max = hash.max_by {|k,v| v}.last
+    max_items = Hash[hash.select { |k, v| v == max}].keys
+    max_items.map { |item_id| se.items.find_by_id(item_id) }
+  end
+
+  def best_item_for_merchant(merchant_id)
+    invoices = se.merchants.find_by_id(merchant_id).invoices
+    invoices = invoices.find_all { |inv| inv.is_paid_in_full? }
+    invoice_items = invoices.map { |inv| inv.invoice_items }.flatten
+    hash = invoice_items.group_by { |inv_item| inv_item.item_id }
+    final = hash.each do |k, v|
+      hash[k] = v.reduce(0) {|sum, item| sum + (item.quantity * item.unit_price)}
+    end
+    max = hash.max_by {|k,v| v}.last
+    max_price = Hash[hash.select { |k, v| v == max}].keys
+    max_price.map { |item_id| se.items.find_by_id(item_id) }[0]
   end
 
   def least_sold_item_for_merchant(merchant_id)
     sold_count = sold_count(merchant_id)
     min = sold_count.values.min
     min = Hash[sold_count.select { |k, v| v == min}].keys
-  end
-
-  def best_item_for_merchant(merchant_id)
   end
 
   def sold_zero(item_id)
