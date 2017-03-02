@@ -1,4 +1,4 @@
-require './lib/helper'
+require_relative 'helper'
 
 class CustomerRepository
   attr_reader :all,
@@ -24,5 +24,13 @@ class CustomerRepository
     all.find_all do |customer|
       customer.last_name.downcase.include?(fragment.downcase)
     end
+  end
+
+  def find_merchants(customer_id)
+    parent.find_merchants_by_customer_id(customer_id)
+  end
+
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
   end
 end

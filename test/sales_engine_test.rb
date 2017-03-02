@@ -63,5 +63,3 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of CustomerRepository, se.customers
   end
 end
-
-

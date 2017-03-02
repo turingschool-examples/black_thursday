@@ -54,5 +54,20 @@ class MerchantTest < Minitest::Test
     assert_instance_of Invoice, merchant.invoices.first
     assert_equal 2, merchant.invoices.length
   end
+
+  def test_it_can_find_customer
+    se = SalesEngine.from_csv({:merchants => './test/fixtures/merchants_100.csv',
+                               :items => './test/fixtures/items_100.csv',
+                               :invoices => './data/invoices.csv',
+                               :invoice_items => './test/fixtures/invoice_items_100.csv',
+                               :transactions => './test/fixtures/transaction_100.csv',
+                               :customers => './data/customers.csv'})
+    mr = se.merchants
+    merchant = mr.find_by_id(12334194)
+
+    assert_instance_of Array, merchant.customers
+    assert_instance_of Customer, merchant.customers.first
+    assert_equal 12, merchant.customers.length
+  end
 end
 

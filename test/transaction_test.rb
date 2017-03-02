@@ -58,4 +58,19 @@ class TransactionTest < Minitest::Test
 
     assert_instance_of TransactionRepository, t.parent
   end
+
+  def test_invoice_method
+    se = SalesEngine.from_csv({:merchants => './test/fixtures/merchants_100.csv',
+                               :items => './test/fixtures/items_100.csv',
+                               :invoices => './data/invoices.csv',
+                               :invoice_items => './test/fixtures/invoice_items_100.csv',
+                               :transactions => './test/fixtures/transaction_100.csv',
+                               :customers => './test/fixtures/customer_100.csv'})
+    tr = se.transactions
+    t = tr.all.first
+  
+    assert_instance_of Invoice, t.invoice
+    assert_equal 2179, t.invoice.id
+  end
+
 end

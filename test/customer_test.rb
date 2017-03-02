@@ -48,5 +48,19 @@ def test_it_exists
     assert_instance_of CustomerRepository, c.parent
   end
 
+  def test_it_can_find_merchant
+    se = SalesEngine.from_csv({:merchants => './data/merchants.csv',
+                               :items => './test/fixtures/items_100.csv',
+                               :invoices => './test/fixtures/invoices_100.csv',
+                               :invoice_items => './test/fixtures/invoice_items_100.csv',
+                               :transactions => './test/fixtures/transaction_100.csv',
+                               :customers => './data/customers.csv'})
+    cr = se.customers
+    customer = cr.find_by_id(1)
+
+    assert_instance_of Array, customer.merchants
+    assert_instance_of Merchant, customer.merchants.first
+    assert_equal 8, customer.merchants.length
+  end
 end
 

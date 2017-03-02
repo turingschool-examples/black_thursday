@@ -1,4 +1,4 @@
-require './lib/helper'
+require_relative 'helper'
 
 class MerchantRepository
 
@@ -33,7 +33,7 @@ class MerchantRepository
   end
 
   def find_invoices(id)
-    parent.invoices.find_all_by_merchant_id(id)
+    parent.find_all_by_merchant_id(id)
   end
 
   def invoices_per_merchant
@@ -42,6 +42,10 @@ class MerchantRepository
     end
   end
 
+  def find_customers_by_merchant_id(merchant_id)
+    parent.find_customer_for_each_invoice(merchant_id)
+  end
+  
   def inspect
     "#<#{self.class} #{@all.size} rows>"
   end

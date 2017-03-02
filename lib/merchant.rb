@@ -1,4 +1,4 @@
-require './lib/helper'
+require_relative 'helper'
 
 class Merchant
   attr_reader :id,
@@ -17,5 +17,9 @@ class Merchant
 
   def invoices
     parent.find_invoices(id)
+  end
+
+  def customers
+    parent.find_customers_by_merchant_id(id)
   end
 end

@@ -1,4 +1,4 @@
-require './lib/helper'
+require_relative 'helper'
 
 class TransactionRepository
 
@@ -33,4 +33,13 @@ class TransactionRepository
       result == transaction.result
     end
   end
+
+  def find_invoice(invoice_id)
+    parent.find_invoice_by_invoice_id(invoice_id)
+  end
+
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
+  end
+  
 end

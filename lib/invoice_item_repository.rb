@@ -1,4 +1,4 @@
-require './lib/helper'
+require_relative 'helper'
 
 class InvoiceItemRepository
 
@@ -26,5 +26,9 @@ class InvoiceItemRepository
     all.find_all do |invoice_item|
       invoice_id == invoice_item.invoice_id
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
   end
 end

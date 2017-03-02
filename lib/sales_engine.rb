@@ -1,4 +1,4 @@
-require './lib/helper'
+require_relative 'helper'
 
 class SalesEngine
 
@@ -79,6 +79,29 @@ class SalesEngine
     customers.find_by_id(customer_id)
   end
 
+  def find_invoice_by_invoice_id(invoice_id)
+    invoices.find_by_id(invoice_id)
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    invoices.find_all_by_merchant_id(merchant_id)
+  end
+
+  def find_customer_for_each_invoice(merchant_id)
+    merchant_invoices = find_all_by_merchant_id(merchant_id)
+    customer_ids = merchant_invoices.map { |invoice| invoice.customer_id }
+    (customer_ids.map { |id| find_customer_by_customer_id(id) }).uniq
+  end
+
+  def find_invoices_by_customer_id(customer_id)
+    invoices.find_all_by_customer_id(customer_id)
+  end
+
+  def find_merchants_by_customer_id(customer_id)
+    customer_invoices = find_invoices_by_customer_id(customer_id)
+    merchant_ids = customer_invoices.map { |invoice| invoice.merchant_id }
+    merchant_ids.map { |merchant_id| merchants.find_by_id(merchant_id) }
+  end
 #-----/navigation_methods----#
 
 end

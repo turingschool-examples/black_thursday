@@ -1,4 +1,4 @@
-require './lib/helper'
+require_relative 'helper'
 
 class Transaction
 
@@ -20,6 +20,10 @@ class Transaction
     @created_at = Time.parse(data[:created_at])
     @updated_at = Time.parse(data[:updated_at])
     @parent = parent
+  end
+
+  def invoice
+    parent.find_invoice(invoice_id)
   end
 
 end
