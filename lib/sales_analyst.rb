@@ -120,6 +120,21 @@ class SalesAnalyst
     merchants_ranked_by_revenue.shift(x)
   end
 
+  def revenue_by_merchant(merchant_id)
+    merchant = merchant_repository.find_by_id(merchant_id)
+    merchant_revenue(merchant)
+  end
+
+  def check_for_pending_invoices
+    all_invoices.find_all { |invoice| !invoice.is_paid_in_full?}
+  end
+
+  def merchants_with_pending_invoices
+    check_for_pending_invoices.map do |invoice|
+      invoice.merchant
+    end.uniq
+  end
+
 #-----/Merchant_Analysis_Methods-----#
 
 #-----Item_Analysis_Methods-----#

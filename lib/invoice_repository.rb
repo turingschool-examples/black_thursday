@@ -63,6 +63,11 @@ class InvoiceRepository
     parent.find_customer_by_customer_id(customer_id)  
   end
   
+  def check_for_pending(invoice_id)
+    transactions = find_transactions(invoice_id)
+    transactions.any? { |transaction| transaction.result == "pending"}
+  end
+
   def check_for_paid_in_full(invoice_id)
     transactions = find_transactions(invoice_id)
     transactions.any? { |transaction| transaction.result == "success"}

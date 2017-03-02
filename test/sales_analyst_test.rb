@@ -201,4 +201,18 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 5, sa.top_revenue_earners(5).length
     assert_instance_of Merchant, sa.top_revenue_earners(5).first
   end
+
+  def test_merchants_with_pending_invoices
+    se = SalesEngine.from_csv({:merchants => './test/fixtures/merchants_100.csv',
+                               :items => './test/fixtures/items_100.csv',
+                               :invoices => './data/invoices.csv',
+                               :invoice_items => './data/invoice_items.csv',
+                               :transactions => './data/transactions.csv',
+                               :customers => './test/fixtures/customer_100.csv'})
+    sa = SalesAnalyst.new(se)
+
+    assert_instance_of Array, sa.merchants_with_pending_invoices
+    assert_equal 98, sa.merchants_with_pending_invoices.length
+    assert_instance_of Merchant, sa.merchants_with_pending_invoices.first
+  end
 end
