@@ -29,6 +29,10 @@ class Invoice
   end
 
   def items
+    parent.find_items(id)
+  end
+
+  def invoice_items
     parent.find_invoice_items(id)
   end
 
@@ -47,5 +51,4 @@ class Invoice
   def total
     parent.find_invoice_items_total(id)
   end
-  
 end

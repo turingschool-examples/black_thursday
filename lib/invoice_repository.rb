@@ -51,7 +51,7 @@ class InvoiceRepository
     end
   end
 
-  def find_invoice_items(invoice_id)
+  def find_items(invoice_id)
     parent.find_items_by_invoice_id(invoice_id)
   end
 
@@ -89,6 +89,10 @@ class InvoiceRepository
     invoices.reduce(0) do |sum, invoice|
       sum += find_invoice_items_total(invoice.id)
     end
+  end
+
+  def find_invoice_items(invoice_id)
+    parent.find_invoice_items_by_invoice_id(invoice_id)
   end
 
   def inspect

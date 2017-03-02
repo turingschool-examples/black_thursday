@@ -212,7 +212,33 @@ class SalesAnalystTest < Minitest::Test
     sa = SalesAnalyst.new(se)
 
     assert_instance_of Array, sa.merchants_with_pending_invoices
-    assert_equal 98, sa.merchants_with_pending_invoices.length
+    assert_equal 97, sa.merchants_with_pending_invoices.length
     assert_instance_of Merchant, sa.merchants_with_pending_invoices.first
+  end
+
+  def test_merchants_with_only_one_item
+    se = SalesEngine.from_csv({:merchants => './test/fixtures/merchants_100.csv',
+                               :items => './test/fixtures/items_100.csv',
+                               :invoices => './data/invoices.csv',
+                               :invoice_items => './data/invoice_items.csv',
+                               :transactions => './data/transactions.csv',
+                               :customers => './test/fixtures/customer_100.csv'})
+    sa = SalesAnalyst.new(se)
+
+    assert_instance_of Array, sa.merchants_with_only_one_item
+    assert_equal 18, sa.merchants_with_only_one_item.length
+    assert_instance_of Merchant, sa.merchants_with_only_one_item.first
+  end
+
+  def test_merchants_with_only_one_item_registered_in_month
+    se = SalesEngine.from_csv({:merchants => './test/fixtures/merchants_100.csv',
+                               :items => './test/fixtures/items_100.csv',
+                               :invoices => './data/invoices.csv',
+                               :invoice_items => './data/invoice_items.csv',
+                               :transactions => './data/transactions.csv',
+                               :customers => './test/fixtures/customer_100.csv'})
+    sa = SalesAnalyst.new(se)
+
+    assert_instance_of Array, sa.merchants_with_only_one_item_registered_in_month("December")
   end
 end

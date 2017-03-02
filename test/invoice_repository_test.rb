@@ -105,9 +105,9 @@ class InvoiceRepositoryTest < Minitest::Test
     inr = se.invoices
     invoice = inr.find_by_id(1)
 
-    assert_instance_of Array, inr.find_invoice_items(1)
-    assert_instance_of Item, inr.find_invoice_items(1).first
-    assert_equal 8, inr.find_invoice_items(1).length
+    assert_instance_of Array, inr.find_items(1)
+    assert_instance_of Item, inr.find_items(1).first
+    assert_equal 8, inr.find_items(1).length
   end
 
   def test_find_invoices_by_date

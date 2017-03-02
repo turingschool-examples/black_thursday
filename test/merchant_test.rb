@@ -69,5 +69,22 @@ class MerchantTest < Minitest::Test
     assert_instance_of Customer, merchant.customers.first
     assert_equal 12, merchant.customers.length
   end
+
+  def test_created_at
+    se = SalesEngine.from_csv({:merchants => './test/fixtures/merchants_three.csv'})
+    mr = se.merchants
+    m = mr.all
+    
+    assert_equal "2010-12-10 00:00:00 -0700", m.first.created_at.to_s
+  end
+
+  def test_month_created
+    se = SalesEngine.from_csv({:merchants => './test/fixtures/merchants_three.csv'})
+    mr = se.merchants
+    m = mr.all
+      
+    assert_equal "December", m.first.month_created
+  end
 end
+
 

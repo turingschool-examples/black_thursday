@@ -132,7 +132,57 @@ class SalesAnalyst
   def merchants_with_pending_invoices
     check_for_pending_invoices.map do |invoice|
       invoice.merchant
-    end.uniq
+    end.uniq.compact
+  end
+
+  def merchants_with_only_one_item
+    all_merchants.find_all do |merchant|
+      merchant.items.length == 1
+    end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants_with_only_one_item.find_all do |merchant|
+      merchant.month_created.downcase == month.downcase
+    end
+  end
+
+  def invoice_items_by_merchant(merchant)
+    paid_invoices_by_merchant(merchant).map do |invoice|
+      invoice.invoice_items
+    end.flatten
+  end
+
+  def invoice_items_by_merchant_id(merchant_id)
+    merchant = merchant_repository.find_by_id(merchant_id)
+    invoice_items = invoice_items_by_merchant(merchant)
+  end
+
+
+  def return_top_items(item_ids)
+    item_repository.all.find_all do |item|
+      item_ids.include?(item.id)
+    end
+  end
+
+  def most_sold_items(sold_count)
+    max_value = sold_count.values.max
+    item_ids = sold_count.keys.find_all do |item_id|
+      sold_count[item_id] == max_value
+    end
+    return_top_items(item_ids)
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    invoice_items = invoice_items_by_merchant_id(merchant_id)
+    sold_count = Hash.new(0)
+    invoice_items.each do |invoice_item|
+      sold_count[invoice_item.item_id] += invoice_item.quantity
+    end
+    most_sold_items(sold_count)
+  end
+
+  def best_item_for_merchant(merchant_id)
   end
 
 #-----/Merchant_Analysis_Methods-----#
@@ -242,5 +292,4 @@ class SalesAnalyst
   end
 
 #-----Invoice_Analysis_Method-----#
-
 end
