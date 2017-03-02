@@ -1,0 +1,10 @@
+# require 'simplecov'
+# SimpleCov.start
+require 'minitest/autorun'
+require 'minitest/pride'
+require_relative '../lib/sales_engine'
+require_relative '../lib/data_access'
+require 'bigdecimal'
+require 'csv'
+require 'date'
+require 'pry'
