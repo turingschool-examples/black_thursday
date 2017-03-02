@@ -201,11 +201,11 @@ class SalesAnalyst
   end
 
   def average_item_price
-    average(all_item_prices)  
+    average(all_item_prices)
   end
 
   def item_price_standard_deviation
-    standard_deviation(all_item_prices)  
+    standard_deviation(all_item_prices)
   end
 
   def golden_items

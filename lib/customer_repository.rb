@@ -19,7 +19,7 @@ class CustomerRepository
       customer.first_name.downcase.include?(fragment.downcase)
     end
   end
-  
+
   def find_all_by_last_name(fragment)
     all.find_all do |customer|
       customer.last_name.downcase.include?(fragment.downcase)

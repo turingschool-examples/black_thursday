@@ -1,7 +1,7 @@
 require_relative 'helper'
 
 module Calculator
-  
+
   def percentage(count, total)
     ((count.to_f / total) * 100).round(2)
   end

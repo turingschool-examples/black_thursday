@@ -1,5 +1,4 @@
 require_relative 'helper'
-require 'pry'
 
 class TransactionRepository
 
@@ -42,5 +41,5 @@ class TransactionRepository
   def inspect
     "#<#{self.class} #{@all.size} rows>"
   end
-  
+
 end

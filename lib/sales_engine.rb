@@ -67,7 +67,9 @@ class SalesEngine
 
   def find_items_by_invoice_id(invoice_id)
     returned_invoice_items = find_invoice_items_by_invoice_id(invoice_id)
-    item_ids = returned_invoice_items.map {|returned_invoice_item| returned_invoice_item.item_id}
+    item_ids = returned_invoice_items.map do |returned_invoice_item|
+      returned_invoice_item.item_id
+    end
     item_ids.map {|item_id| items.find_by_id(item_id)}
   end
 

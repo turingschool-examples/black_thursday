@@ -9,7 +9,7 @@ class Item
               :updated_at,
               :merchant_id,
               :parent
-  
+
   def initialize(data, parent)
     @id = data[:id].to_i
     @name = data[:name]
@@ -29,5 +29,5 @@ class Item
   def merchant
     parent.find_merchant(merchant_id)
   end
-  
+
 end

@@ -1,7 +1,6 @@
 require_relative 'helper'
 
 class InvoiceRepository
-
   attr_reader :all,
               :parent
 
@@ -60,9 +59,9 @@ class InvoiceRepository
   end
 
   def find_customer(customer_id)
-    parent.find_customer_by_customer_id(customer_id)  
+    parent.find_customer_by_customer_id(customer_id)
   end
-  
+
   def check_for_pending(invoice_id)
     transactions = find_transactions(invoice_id)
     transactions.any? { |transaction| transaction.result == "pending"}
@@ -75,7 +74,9 @@ class InvoiceRepository
 
   def find_invoice_items_total(invoice_id)
     invoice_items = parent.find_invoice_items_by_invoice_id(invoice_id)
-    invoice_items.reduce(0) {|sum, invoice_item| sum += invoice_item.unit_price * invoice_item.quantity }
+    invoice_items.reduce(0) do |sum, invoice_item|
+      sum += invoice_item.unit_price * invoice_item.quantity
+    end
   end
 
   def find_invoices_by_date(date)

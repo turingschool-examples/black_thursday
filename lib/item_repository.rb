@@ -15,11 +15,11 @@ class ItemRepository
       id == item.id
     end
   end
-  
+
   def find_by_name(name)
     @all.find do |item|
       name == item.name
-    end  
+    end
   end
 
   def find_all_with_description(fragment)
@@ -27,7 +27,7 @@ class ItemRepository
       item.description.downcase.include?(fragment.downcase)
     end
   end
-  
+
   def find_all_by_price(price)
     all.find_all do |item|
       price == item.unit_price
