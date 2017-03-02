@@ -13,10 +13,10 @@ class MerchantTest < Minitest::Test
 
   def setup
     super
-    @merchant = Merchant.new( {
-        :id => 12334105,
-        :name => "Shopin1901"
-      }, repo)
+    @merchant = Merchant.new( { :id => 12334105,
+                                :name => "Shopin1901",
+                                :updated_at => "2011-12-04",
+                                :created_at => "2010-12-10"}, repo)
   end
 
   def test_it_finds_a_merchant_id
@@ -27,7 +27,12 @@ class MerchantTest < Minitest::Test
     assert_equal "Shopin1901", merchant.name
   end
 
-  def test_it_can_find_items_by_id
-    assert_equal 0, merchant.items
+  def test_updated_at
+    assert_equal Time , merchant.updated_at.class
   end
+
+  def test_created_at
+    assert_equal Time, merchant.created_at.class
+  end
+
 end

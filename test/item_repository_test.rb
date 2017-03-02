@@ -26,6 +26,10 @@ class ItemRepositoryTest < Minitest::Test
     refute_empty item_repository.all
   end
 
+  def test_count
+    assert_equal Fixnum, item_repository.count.class
+  end
+
   def test_it_finds_items_by_id
     assert_equal Item , item_repository.find_by_id(263395237).class
   end

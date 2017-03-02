@@ -24,11 +24,11 @@ class ItemRepository < Repository
   end
 
   def find_by_name(name)
-    data.select { |item|  item.name.downcase == name.downcase }.first
+    data.select { |item| item.name.downcase == name.downcase }.first
   end
 
-  def find_all_with_description(description_string)
-    data.select { |item| item.description.downcase.include?(description_string.downcase) }
+  def find_all_with_description(descript)
+    data.select { |item| item.description.downcase.include?(descript.downcase) }
   end
 
   def find_all_by_price(price)
@@ -39,7 +39,9 @@ class ItemRepository < Repository
     min_range = range.first
     max_range = range.last
 
-    data.select { |item| item.unit_price >= min_range && item.unit_price <= max_range }
+    data.select do |item|
+      item.unit_price >= min_range && item.unit_price <= max_range
+    end
   end
 
   def find_all_by_merchant_id(merchant_id)
