@@ -62,6 +62,5 @@ def test_it_exists
     assert_instance_of Merchant, customer.merchants.first
     assert_equal 8, customer.merchants.length
   end
-
 end
 

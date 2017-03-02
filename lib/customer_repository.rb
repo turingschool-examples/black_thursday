@@ -1,4 +1,4 @@
-require './lib/helper'
+require_relative 'helper'
 
 class CustomerRepository
   attr_reader :all,
@@ -28,5 +28,9 @@ class CustomerRepository
 
   def find_merchants(customer_id)
     parent.find_merchants_by_customer_id(customer_id)
+  end
+
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
   end
 end

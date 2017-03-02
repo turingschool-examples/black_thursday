@@ -1,3 +1,5 @@
+require_relative 'helper'
+
 module Calculator
   
   def percentage(count, total)

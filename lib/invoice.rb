@@ -1,4 +1,4 @@
-require './lib/helper'
+require_relative 'helper'
 
 class Invoice
 
@@ -39,4 +39,14 @@ class Invoice
   def customer
     parent.find_customer(customer_id)
   end
+
+  def is_paid_in_full?
+    parent.check_for_paid_in_full(id) 
+  end
+
+  def total
+  return 0.0 unless is_paid_in_full?
+    parent.find_invoice_items_total(id)
+  end
+  
 end

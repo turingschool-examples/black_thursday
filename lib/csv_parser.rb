@@ -1,4 +1,4 @@
-require './lib/helper'
+require_relative 'helper'
 
 module CsvParser
   def open_file(file)

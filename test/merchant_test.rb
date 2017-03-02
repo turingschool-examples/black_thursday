@@ -63,11 +63,11 @@ class MerchantTest < Minitest::Test
                                :transactions => './test/fixtures/transaction_100.csv',
                                :customers => './data/customers.csv'})
     mr = se.merchants
-    merchant = mr.find_by_id(12334145)
+    merchant = mr.find_by_id(12334194)
 
     assert_instance_of Array, merchant.customers
     assert_instance_of Customer, merchant.customers.first
-    assert_equal 14, merchant.customers.length
+    assert_equal 12, merchant.customers.length
   end
 end
 

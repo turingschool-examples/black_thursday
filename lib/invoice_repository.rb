@@ -1,5 +1,4 @@
-require './lib/helper'
-require 'pry'
+require_relative 'helper'
 
 class InvoiceRepository
 
@@ -64,6 +63,16 @@ class InvoiceRepository
     parent.find_customer_by_customer_id(customer_id)  
   end
   
+  def check_for_paid_in_full(invoice_id)
+    transactions = find_transactions(invoice_id)
+    transactions.any? { |transaction| transaction.result == "success"}
+  end
+
+  def find_invoice_items_total(invoice_id)
+    invoice_items = parent.find_invoice_items_by_invoice_id(invoice_id)
+    invoice_items.reduce(0) {|sum, invoice_item| sum += invoice_item.unit_price * invoice_item.quantity }
+  end
+
   def inspect
     "#<#{self.class} #{@all.size} rows>"
   end
