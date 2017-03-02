@@ -160,10 +160,6 @@ class SalesAnalyst
     item_invoices = se.invoice_items.find_all_by_item_id(item_id)
   end
 
-  def most_sold_item_for_merchant
-    #group_by_item_id
-
-  end
 
   def most_sold_item_for_merchant(merchant_id)
     #items are unique to merchant
@@ -175,8 +171,8 @@ class SalesAnalyst
     # merchant = se.merchants.find_by_id(merchant_id)
     # merchant.items
 
-    sold_count = Hash.new(0)
 
+    sold_count = Hash.new(0)
     #grab merchant's items
     items = se.items.find_all_by_merchant_id(merchant_id)
 
@@ -191,6 +187,7 @@ class SalesAnalyst
     end
     max = sold_count.values.max
     max_items = Hash[sold_count.select { |k, v| v == max}].keys
+    binding.pry
   end
 end
 
