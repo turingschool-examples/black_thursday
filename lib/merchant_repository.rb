@@ -12,11 +12,7 @@ class MerchantRepository
 
   def create_merchant_instances(data)
     CSV.foreach(data, headers: true, header_converters: :symbol) do |row|
-      all << Merchant.new({
-                           id: row[:id],
-                           name: row[:name],
-                           created_at: row[:created_at]},
-                           self)
+      all << Merchant.new(row,self)
       end
    end
 

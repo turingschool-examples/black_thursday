@@ -14,14 +14,7 @@ class InvoiceRepository
 
   def create_invoice_instances(data)
     CSV.foreach(data, headers: true, header_converters: :symbol) do |row|
-      all << Invoice.new({
-                          id: row[:id],
-                          customer_id: row[:customer_id],
-                          merchant_id: row[:merchant_id],
-                          status: row[:status],
-                          created_at: row[:created_at],
-                          updated_at: row[:updated_at]},
-                          self)
+      all << Invoice.new(row, self)
     end
   end
 

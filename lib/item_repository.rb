@@ -14,15 +14,7 @@ class ItemRepository
 
   def create_item_instances(data)
     CSV.foreach(data, headers: true, header_converters: :symbol) do |row|
-      all << Item.new({
-                       id: row[:id],
-                       name: row[:name],
-                       description: row[:description],
-                       unit_price: row[:unit_price],
-                       created_at: row[:created_at],
-                       updated_at: row[:updated_at],
-                       merchant_id: row[:merchant_id]},
-                       self)
+      all << Item.new(row, self)
     end
   end
 
