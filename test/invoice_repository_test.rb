@@ -110,4 +110,13 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 8, inr.find_invoice_items(1).length
   end
 
+  def test_find_invoices_by_date
+    se = SalesEngine.from_csv({:invoices => './test/fixtures/invoices_100.csv',
+                               :invoice_items => './test/fixtures/invoice_items_100.csv'})
+    inr = se.invoices
+
+    assert_instance_of Array, inr.find_invoices_by_date("2009-02-07")
+    assert_instance_of Invoice, inr.find_invoices_by_date("2009-02-07").first
+  end
+
 end

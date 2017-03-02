@@ -73,6 +73,19 @@ class InvoiceRepository
     invoice_items.reduce(0) {|sum, invoice_item| sum += invoice_item.unit_price * invoice_item.quantity }
   end
 
+  def find_invoices_by_date(date)
+    all.find_all do |invoice|
+      Date.parse(invoice.created_at.to_s) == Date.parse(date.to_s)
+    end
+  end
+
+  def get_all_invoice_ids(date)
+    invoices = find_invoices_by_date(date)
+    invoices.reduce(0) do |sum, invoice|
+      sum += find_invoice_items_total(invoice.id)
+    end
+  end
+
   def inspect
     "#<#{self.class} #{@all.size} rows>"
   end

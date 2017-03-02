@@ -22,4 +22,5 @@ class Merchant
   def customers
     parent.find_customers_by_merchant_id(id)
   end
+
 end
