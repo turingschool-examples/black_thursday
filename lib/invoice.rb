@@ -1,4 +1,3 @@
-require 'time'
 require_relative 'invoice_item'
 require_relative 'item_repository'
 require 'pry'
@@ -28,9 +27,17 @@ class Invoice
     repository.sales_engine.merchants.find_by_id(self.merchant_id)
   end
 
+  def invoice_items
+    repository.sales_engine.invoice_items.invoice_items.select do |row|
+      row.invoice_id == self.id
+    end
+  end
+
   def items
-    matching_items = repository.sales_engine.invoice_items.invoice_items.select { |row| row.invoice_id == self.id}
-    matching_items.map { |item| repository.sales_engine.items.find_by_id(item.item_id) }
+    matching_items = invoice_items
+    matching_items.map do |item|
+      repository.sales_engine.items.find_by_id(item.item_id)
+    end
   end
 
   def transactions

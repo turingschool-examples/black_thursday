@@ -25,7 +25,7 @@ class CustomerRepository
     customers.select { |row| row.last_name.downcase.include? last_name.downcase }
   end
 
-  def inspect
-  "#<#{self.class} #{@merchants.size} rows>"
-  end
+  # def inspect
+  # "#<#{self.class} #{@merchants.size} rows>"
+  # end
 end
