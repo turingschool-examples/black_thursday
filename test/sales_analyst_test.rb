@@ -1,4 +1,7 @@
 require './test/test_helper'
+require './lib/merchant_analyst'
+require './lib/item_analyst'
+require './lib/invoice_analyst'
 
 class SalesAnalystTest < Minitest::Test
 

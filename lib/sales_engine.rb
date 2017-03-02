@@ -60,7 +60,6 @@ class SalesEngine
     end
   end
 
-#-----navigation_methods-----#
   def find_invoice_items_by_invoice_id(invoice_id)
     invoice_items.find_all_by_invoice_id(invoice_id)
   end
@@ -104,6 +103,5 @@ class SalesEngine
     merchant_ids = customer_invoices.map { |invoice| invoice.merchant_id }
     merchant_ids.map { |merchant_id| merchants.find_by_id(merchant_id) }
   end
-#-----/navigation_methods----#
 
 end
