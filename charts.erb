@@ -1,0 +1,67 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawMerchantRevenueChart);
+      google.charts.setOnLoadCallback(drawInvoiceDaysChart);
+      function drawMerchantRevenueChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['merchant_id', 'item_count'],
+          <% merchants = merchants_with_highest_revenue %>
+          <% revenue = merchants_with_highest_revenue.map do |merchant| 
+               merchant.revenue
+             end %>
+          ["<%= "#{merchants[0].id}" %>", <%= revenue[0] %>],
+          ["<%= "#{merchants[1].id}" %>", <%= revenue[1] %>],
+          ["<%= "#{merchants[2].id}" %>", <%= revenue[2] %>],
+          ["<%= "#{merchants[3].id}" %>", <%= revenue[3] %>],
+          ["<%= "#{merchants[4].id}" %>", <%= revenue[4] %>]
+        ]);
+
+        var options = {
+          title: 'Merchants With Highest Revenue',
+          pieHole: 0.4,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+      }
+      
+      function drawInvoiceDaysChart() {
+      var data = google.visualization.arrayToDataTable([
+        ["Days", "Number of Invoices", { role: "style" } ],
+        ["Sunday", <%= "#{invoices_by_day["Sunday"]}" %>, "#a93226"],
+        ["Monday", <%= "#{invoices_by_day["Monday"]}" %>, "#ca6f1e"],
+        ["Tuesday", <%= "#{invoices_by_day["Tuesday"]}" %>, "#f1c40f"],
+        ["Wednesday", <%= "#{invoices_by_day["Wednesday"]}" %>, "#27ae60"]
+        ["Thursday", <%= "#{invoices_by_day["Thursday"]}" %>, "#1abc9c"],
+        ["Friday", <%= "#{invoices_by_day["Friday"]}" %>, "#2980b9"],
+        ["Saturday", <%= "#{invoices_by_day["Saturday"]}" %>, "#8e44ad"]
+      ]);
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+      var options = {
+        title: "Number of Invoices by Day",
+        width: 600,
+        height: 400,
+        bar: {groupWidth: "95%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+      chart.draw(view, options);
+  }
+    </script>
+  </head>
+  <body>
+    <div id="donutchart" style="width: 900px; height: 500px;"></div>
+    <div id="columnchart_values" style="width: 900px; height: 300px;"></div>
+  </body>
+</html>

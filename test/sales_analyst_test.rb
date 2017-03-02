@@ -150,33 +150,36 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 12334105, sa.merchants_with_only_one_item_registered_in_month("December").first.id
   end
 
-  def test_it_can_return_invoice_items_for_paid_invoices
-    assert_instance_of Array, sa.paid_merchant_invoices(12334122)
-    assert_instance_of InvoiceItem, sa.paid_merchant_invoices(12334122).first
-    assert_equal 2, sa.paid_merchant_invoices(12334122)[1].id
-  end
-
-  def test_it_knows_quantity_of_invoice_items_for_merchant
-    assert_instance_of Hash, sa.quantity_of_item(12334122)
-    assert_instance_of InvoiceItem, sa.quantity_of_item(12334122).keys.first
-    assert_equal 1, sa.quantity_of_item(12334122).keys.first.id
-  end
-
   def test_it_knows_top_item_for_merchant
     assert_instance_of Array, sa.most_sold_item_for_merchant(12334122)
     assert_instance_of Item, sa.most_sold_item_for_merchant(12334122).first
     assert_equal 263454779, sa.most_sold_item_for_merchant(12334122).first.id
   end
 
-  def test_it_can_find_item_revenue_for_merchant
-    assert_instance_of Hash, sa.item_revenue_for_merchant(12334122)
-    assert_instance_of InvoiceItem, sa.item_revenue_for_merchant(12334122).keys.first
-    assert_equal 1, sa.item_revenue_for_merchant(12334122).keys.first.id
-  end
-
   def test_it_can_find_best_item_for_merchant
     assert_instance_of Item, sa.best_item_for_merchant(12334122)
     assert_equal 263432817, sa.best_item_for_merchant(12334122).id
+  end
+  
+  def test_it_finds_merchants_with_highest_revenue
+    assert_instance_of Array, sa.merchants_with_highest_revenue
+    assert_instance_of Merchant, sa.merchants_with_highest_revenue.first
+  end
+  
+  def test_it_can_make_html_file
+    skip
+    @se = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data//invoice_items.csv",
+      :transactions => "./data/transactions.csv",
+      :customers => "./data/customers.csv"
+    })
+    sa = SalesAnalyst.new(se)
+    
+    chart ||= sa.make_charts
+    assert File.read "./sites/charts.html"
   end
 
 end

@@ -1,0 +1,43 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawInvoiceDaysChart);
+      
+      function drawInvoiceDaysChart() {
+      var data = google.visualization.arrayToDataTable([
+        ["Days", "Number of Invoices", { role: "style" } ],
+        ["Sunday", 708, "#a93226"],
+        ["Monday", 696, "#ca6f1e"],
+        ["Tuesday", 692, "#f1c40f"],
+        ["Wednesday", 741, "#27ae60"]
+        ["Thursday", 718, "#1abc9c"],
+        ["Friday", 701, "#2980b9"],
+        ["Saturday", 729, "#8e44ad"]
+      ]);
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+      var options = {
+        title: "Number of Invoices by Day",
+        width: 600,
+        height: 400,
+        bar: {groupWidth: "95%"},
+        legend: { position: "none" },
+      };
+        var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+        chart.draw(view, options);
+  }
+    </script>
+  </head>
+  <body>
+    <div id="columnchart_values" style="width: 900px; height: 300px;"></div>
+  </body>
+</html>
