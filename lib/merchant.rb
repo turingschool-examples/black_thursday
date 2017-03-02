@@ -39,8 +39,4 @@ class Merchant
     end
   end
 
-  def merchants_with_only_one_item
-    items.sort
-  end
-
 end
