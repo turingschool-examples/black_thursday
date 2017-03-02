@@ -20,7 +20,9 @@ class ItemRepository
   end
 
   def find_all_with_description(item_description)
-    items.select { |row| row.description.downcase.include? (item_description.downcase) }
+    items.select do |row|
+      row.description.downcase.include? (item_description.downcase)
+    end
   end
 
   def find_all_by_price(item_price)
@@ -28,14 +30,16 @@ class ItemRepository
   end
 
   def find_all_by_price_in_range(range)
-    items.select { |row| row.unit_price >= range.first && row.unit_price <= range.last }
+    items.select do |row|
+      row.unit_price >= range.first && row.unit_price <= range.last
+    end
   end
 
   def find_all_by_merchant_id(merchant_id)
     items.select { |row| row.merchant_id == merchant_id }
   end
-  
-  # def inspect
-  # "#<#{self.class} #{@merchants.size} rows>"
-  # end
+
+  def inspect
+  "#<#{self.class} #{@merchants.size} rows>"
+  end
 end

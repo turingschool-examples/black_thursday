@@ -49,17 +49,20 @@ class Invoice
   end
 
   def is_paid_in_full?
-    transactions.any? { |trans| trans.result == "success" } && !transactions.empty?
+    transactions.any? {|tran| tran.result == "success"} && !transactions.empty?
   end
 
   def mod_paid_in_full?
-    transactions.all? { |trans| trans.result == "success" } && !transactions.empty?
+    transactions.all? {|tran| tran.result == "success"} && !transactions.empty?
   end
 
   def total
     return 0.0 unless is_paid_in_full?
-    matching_items = repository.sales_engine.invoice_items.invoice_items.select { |row| row.invoice_id == self.id}
-    matching_items.select {}
-    matching_items.reduce(0) { |sum, item| sum + item.unit_price*item.quantity }
+    items = repository.sales_engine.invoice_items.invoice_items.select do |row|
+      row.invoice_id == self.id
+    end
+
+    items.select {}
+    items.reduce(0) { |sum, item| sum + item.unit_price*item.quantity }
   end
 end

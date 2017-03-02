@@ -36,7 +36,7 @@ class InvoiceRepository
     invoices.select { |row| row.is_paid_in_full? }
   end
 
-  # def inspect
-  # "#<#{self.class} #{@merchants.size} rows>"
-  # end
+  def inspect
+  "#<#{self.class} #{@merchants.size} rows>"
+  end
 end

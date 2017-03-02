@@ -28,7 +28,7 @@ class InvoiceItemRepository
     invoice_items.select { |row| row.invoice_id == invoice_id }
   end
 
-  # def inspect
-  # "#<#{self.class} #{@merchants.size} rows>"
-  # end
+  def inspect
+  "#<#{self.class} #{@merchants.size} rows>"
+  end
 end
