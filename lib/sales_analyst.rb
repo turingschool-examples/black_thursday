@@ -183,6 +183,11 @@ class SalesAnalyst
   end
 
   def best_item_for_merchant(merchant_id)
+    invoice_items = invoice_items_by_merchant_id(merchant_id)
+    item_id = invoice_items.max_by do |invoice_item|
+      invoice_item.unit_price * invoice_item.quantity
+    end.item_id
+    item_repository.find_by_id(item_id)
   end
 
 #-----/Merchant_Analysis_Methods-----#
