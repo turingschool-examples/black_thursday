@@ -167,7 +167,6 @@ class SalesAnalystTest < Minitest::Test
   end
   
   def test_it_can_make_html_file
-    skip
     @se = SalesEngine.from_csv({
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -178,8 +177,8 @@ class SalesAnalystTest < Minitest::Test
     })
     sa = SalesAnalyst.new(se)
     
-    chart ||= sa.make_charts
-    assert File.read "./sites/charts.html"
+    chart = sa.make_charts
+    assert File.read "./charts/charts.html"
   end
 
 end

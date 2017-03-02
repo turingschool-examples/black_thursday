@@ -11,9 +11,9 @@
       function drawHolidaySalesChart() {
         var data = google.visualization.arrayToDataTable([
           ['Holiday', 'Revenue'],
-          ["Black Friday (Nov 27)",            <%= total_revenue_by_date(Time.parse("2015-11-27")) %>],
-          ["Cyber Monday (Nov 30)",            <%= total_revenue_by_date(Time.parse("2015-11-30")) %>],
-          ["Green Monday (Dec 14)",            <%= total_revenue_by_date(Time.parse("2015-12-14")) %>]
+          ["Black Friday (Nov 27)",            0.693303E4],
+          ["Cyber Monday (Nov 30)",            0.1434467E5],
+          ["Green Monday (Dec 14)",            0.489981E4]
         ]);
       
         var options = {
@@ -28,10 +28,10 @@
       function drawGoldenItemsChart() {
       var data = google.visualization.arrayToDataTable([
         ['Golden Item', 'Price', { role: "style" } ],
-        ["<%= "#{golden_items_sorted[1].name}" %>", <%= golden_items_sorted[1].unit_price_to_dollars %>, "#ff9900"],
-        ["<%= "#{golden_items_sorted[2].name}" %>", <%= golden_items_sorted[2].unit_price_to_dollars %>, "#ffa31a"],
-        ["<%= "#{golden_items_sorted[3].name}" %>", <%= golden_items_sorted[3].unit_price_to_dollars %>, "#ffad33"],
-        ["<%= "#{golden_items_sorted[4].name}" %>", <%= golden_items_sorted[4].unit_price_to_dollars %>, "#ffb84d"]
+        ["Original WWII Guinness Advertising Oil on Canvas Artwork by John Gilroy - 1944 Royal Air Force Bomber Crew [ON8500]", 24995.0, "#ff9900"],
+        ["Original WWII Guinness Advertising Oil on Canvas Artwork by John Gilroy - 1944 Royal Navy Submarine Crew [ON8505]", 24995.0, "#ffa31a"],
+        ["Original British Household Cavalry Named Life Guards Officer Cuirass and Helmet Set [ON8829]", 7495.0, "#ffad33"],
+        ["Solid American Black Walnut Trestle Table", 7000.0, "#ffb84d"]
       ]);
   
       var view = new google.visualization.DataView(data);
@@ -56,13 +56,13 @@
       function drawInvoiceDaysChart() {
       var data = google.visualization.arrayToDataTable([
         ["Days", "Number of Invoices", { role: "style" } ],
-        ["Sunday",    <%= "#{invoices_by_day["Sunday"]}" %>, "#a93226"],
-        ["Monday",    <%= "#{invoices_by_day["Monday"]}" %>, "#ca6f1e"],
-        ["Tuesday",   <%= "#{invoices_by_day["Tuesday"]}" %>, "#f1c40f"],
-        ["Wednesday", <%= "#{invoices_by_day["Wednesday"]}" %>, "#27ae60"],
-        ["Thursday",  <%= "#{invoices_by_day["Thursday"]}" %>, "#1abc9c"],
-        ["Friday",    <%= "#{invoices_by_day["Friday"]}" %>, "#2980b9"],
-        ["Saturday",  <%= "#{invoices_by_day["Saturday"]}" %>, "#8e44ad"]
+        ["Sunday",    708, "#a93226"],
+        ["Monday",    696, "#ca6f1e"],
+        ["Tuesday",   692, "#f1c40f"],
+        ["Wednesday", 741, "#27ae60"],
+        ["Thursday",  718, "#1abc9c"],
+        ["Friday",    701, "#2980b9"],
+        ["Saturday",  729, "#8e44ad"]
       ]);
   
       var view = new google.visualization.DataView(data);
@@ -87,15 +87,13 @@
       function drawMerchantRevenueChart() {
       var data = google.visualization.arrayToDataTable([
         ['Merchant ID', 'Item Count', { role: "style" } ],
-        <% merchants = merchants_with_highest_revenue %>
-        <% revenue = merchants_with_highest_revenue.map do |merchant| 
-             merchant.revenue
-           end %>
-        ["<%= "#{merchants[0].id}" %>", <%= revenue[0] %>, "#6C3483"],
-        ["<%= "#{merchants[1].id}" %>", <%= revenue[1] %>, "#7D3C98"],
-        ["<%= "#{merchants[2].id}" %>", <%= revenue[2] %>, "#8E44AD"],
-        ["<%= "#{merchants[3].id}" %>", <%= revenue[3] %>, "#A569BD"],
-        ["<%= "#{merchants[4].id}" %>", <%= revenue[4] %>, "#AF7AC5"]
+        
+        
+        ["12334634", 0.21275227E6, "#6C3483"],
+        ["12334942", 0.20618195E6, "#7D3C98"],
+        ["12334280", 0.20286397E6, "#8E44AD"],
+        ["12336035", 0.19535152E6, "#A569BD"],
+        ["12335213", 0.17631668E6, "#AF7AC5"]
       ]);
 
       var view = new google.visualization.DataView(data);

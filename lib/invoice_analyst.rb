@@ -38,6 +38,10 @@ module InvoiceAnalyst
     engine.invoices.all
   end
 
+  def invoice_set
+    invoice_set ||= merchants.map{|merchant| merchant.invoices.count}
+  end
+
   def invoices_by_day_average
     average(invoices_by_day.values)
   end

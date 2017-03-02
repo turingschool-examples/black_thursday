@@ -3,13 +3,25 @@ require 'erb'
 module MakeCharts
 
   def make_charts
-    template_letter = File.read "charts.erb"
-    erb_template = ERB.new template_letter
-    site = erb_template.result(binding)
+    make_erb_template
+    write_charts
+  end
 
-    Dir.mkdir("sites") unless Dir.exists? "sites"
-    File.open("sites/charts.html", 'w') do |file|
-      file.puts site
+  def make_template_letter
+    File.read "charts.erb"
+  end
+
+  def make_erb_template
+    ERB.new make_template_letter
+  end
+
+  def construct_charts
+    make_erb_template.result(binding)
+  end
+
+  def write_charts
+    File.open("charts/charts.html", 'w') do |file|
+      file.puts construct_charts
     end
   end
 
