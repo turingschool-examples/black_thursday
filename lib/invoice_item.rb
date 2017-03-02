@@ -33,5 +33,4 @@ class InvoiceItem
     quantity * unit_price
   end
 
-
 end

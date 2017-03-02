@@ -27,7 +27,9 @@ class MerchantRepository < Repository
   end
 
   def find_all_by_name(fragment)
-    data.find_all {|item| /#{Regexp.quote(fragment.downcase)}/ =~ item.name.downcase }
+    data.find_all do |item|
+      /#{Regexp.quote(fragment.downcase)}/ =~ item.name.downcase
+    end
   end
 
 

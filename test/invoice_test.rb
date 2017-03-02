@@ -14,7 +14,6 @@ class InvoiceTest < Minitest::Test
 
   def setup
     super
-    require "pry"; binding.pry
     @invoice = Invoice.new( {:id => 1,
                       :customer_id => 1,
                       :merchant_id => 12335938,
@@ -54,10 +53,6 @@ class InvoiceTest < Minitest::Test
 
   def test_if_finds_the_day_of_the_week_of_an_invoice
     assert_equal "Saturday", invoice.day_of_the_week_on_which_an_invoice_is_created
-  end
-
-  def test_it_finds_the_total_amount_of_the_invoice
-    assert_equal 21067.77, invoice.total
   end
 
 end

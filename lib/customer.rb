@@ -1,3 +1,5 @@
+require_relative '../lib/sales_engine'
+require_relative '../lib/repository'
 require 'time'
 
 class Customer
@@ -23,9 +25,7 @@ class Customer
   end
 
   def merchants
-    invoices.map do |invoice|
-      invoice.customer
-    end
-  end 
+    invoices.map { |invoice| invoice.customer }
+  end
 
 end

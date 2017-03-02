@@ -36,4 +36,17 @@ class SalesEngineTest < Minitest::Test
   def test_it_can_find_number_of_items_per_merchant
     assert_equal 475, se.number_of_items_per_merchant.count
   end
+
+  def test_prices_of_each_item
+    assert_equal Array, se.prices_of_each_item.class
+  end
+
+  def test_number_of_invoices
+    assert_equal Fixnum, se.number_of_invoices.class
+  end
+
+  def test_number_of_invoices_per_merchant
+    assert_equal Array, se.number_of_invoices_per_merchant.class
+  end
+
 end

@@ -18,12 +18,12 @@ class CustomerRepository < Repository
     data.select { |customer| customer.id == id }.first
   end
 
-  def find_all_by_first_name(first_name)
-    data.select { |customer| customer.first_name.upcase.include?(first_name.upcase) }
+  def find_all_by_first_name(first)
+    data.select { |customer| customer.first_name.upcase.include?(first.upcase) }
   end
 
-  def find_all_by_last_name(last_name)
-    data.select { |customer| customer.last_name.upcase.include?(last_name.upcase) }
+  def find_all_by_last_name(last)
+    data.select { |customer| customer.last_name.upcase.include?(last.upcase) }
   end
 
 end

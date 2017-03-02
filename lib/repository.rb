@@ -14,14 +14,14 @@ class Repository
   end
 
   def load_file
-    CSV.foreach @path, headers: true, header_converters: :symbol do |row|
-      @data << @klass.new(row.to_hash, self)
+    CSV.foreach path, headers: true, header_converters: :symbol do |row|
+      data << klass.new(row.to_hash, self)
     end
-    @data
+    data
   end
 
   def inspect
-   "#<#{self.class} #{@repository.size} rows>"
+   "#<#{self.class} #{repository.size} rows>"
   end
 
 end

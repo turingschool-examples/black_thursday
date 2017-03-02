@@ -91,6 +91,18 @@ class SalesAnalystTest < Minitest::Test
 
   def test_total_revenue_by_date
     assert_equal BigDecimal, sa.total_revenue_by_date(date).class
-
   end
+
+  def test_total_revenue_earners
+    assert_equal Array, sa.top_revenue_earners(20).class
+  end
+
+  def test_top_merchants_by_revenue
+    assert_equal Array, sa.top_merchants_by_revenue(20).class
+  end
+
+  def test_merchants_with_pending_invoices
+    assert_equal Array, sa.merchants_with_pending_invoices.class
+  end
+
 end

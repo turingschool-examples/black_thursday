@@ -28,6 +28,11 @@ class InvoiceRepositoryTest < Minitest::Test
       assert_equal Invoice , invoice_repository.find_by_id(1).class
   end
 
+  def test_it_finds_items_by_id_number
+    invoice = se.invoices.find_by_id(20)
+    assert_equal Array, invoice.items.class
+  end
+
   def test_find_all_by_customer_id
     assert_equal Array, invoice_repository.find_all_by_customer_id(1).class
   end
@@ -38,11 +43,6 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_find_all_by_status
     assert_equal Array, invoice_repository.find_all_by_status("shipped").class
-  end
-
-  def test_it_finds_items_by_id_number
-    invoice = se.invoices.find_by_id(20)
-    assert_equal Array, invoice.items.class
   end
 
   def test_it_finds_all_by_date

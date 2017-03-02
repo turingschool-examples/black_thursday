@@ -9,7 +9,12 @@ require 'pry'
 
 
 class SalesEngine
-  attr_accessor :items, :merchants, :invoices, :invoice_items, :customers, :transactions
+  attr_accessor :items,
+                :merchants,
+                :invoices,
+                :invoice_items,
+                :customers,
+                :transactions
 
   def initialize(file_hash)
     @customers = CustomerRepository.new(self, file_hash[:customers])

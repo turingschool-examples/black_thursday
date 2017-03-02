@@ -2,6 +2,7 @@ require 'minitest/autorun'
 require 'time'
 require 'minitest/pride'
 require_relative '../lib/sales_engine'
+require_relative '../lib/repository'
 require_relative '../lib/customer'
 
 class CustomerTest < Minitest::Test
@@ -37,4 +38,5 @@ class CustomerTest < Minitest::Test
   def test_it_finds_an_updated_at_date
     assert_equal Time, customer.updated_at.class
   end
+
 end
