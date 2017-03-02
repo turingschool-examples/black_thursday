@@ -190,7 +190,7 @@ class SalesAnalyst
     min = Hash[sold_count.select { |k, v| v == min}].keys
   end
 
-  def best_item_for_merchant
+  def best_item_for_merchant(merchant_id)
   end
 
   def sold_zero(item_id)
@@ -201,20 +201,4 @@ class SalesAnalyst
     merchant = se.merchants.find_by_id(merchant_id)
     merchant.items.select{ |item| sold_zero(item.id) }
   end
-
-  # def sellers_with_a_zero
-  #   se.merchants.all.select {|merc| merchant_zero_sellers(merc.id > 0)}
-  # end
 end
-
-# se = SalesEngine.from_csv({:items => "./data/items.csv",
-# :merchants => "./data/merchants.csv", :invoices => "./data/invoices.csv" })
-# ir = se.items
-# mr = se.merchants
-# invr = se.invoices
-# invoice = invr.all[0]
-# sa = SalesAnalyst.new(se)
-# sa.top_days_by_invoice_count
-
-# binding.pry
-# ""
