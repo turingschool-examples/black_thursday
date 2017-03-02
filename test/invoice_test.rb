@@ -1,55 +1,46 @@
 require './test/test_helper.rb'
-require './lib/invoice'
 
 class InvoiceTest < Minitest::Test
+  attr_reader :invoice
 
   def setup
-    @invoices = {
-        :id => 1,
-        :customer_id  => 1,
-        :merchant_id  => 12335938,
-        :status       => "pending",
-        :created_at   => Time.now,
-        :updated_at   => Time.now
-        }
-        @parent = ""
+    @invoice = Invoice.new({
+      :id           => 1,
+      :customer_id  => 1,
+      :merchant_id  => 12335938,
+      :status       => "pending",
+      :created_at   => "2012-03-27 14:54:09 UTC",
+      :updated_at   => "2012-03-27 14:54:09 UTC"},
+      parent = ""
+    )
   end
 
   def test_it_exists
-    assert_instance_of Invoice, Invoice.new(@invoices, @parent)
+    assert_instance_of Invoice, invoice
   end
 
-  def test_it_names
-    skip
-    invoice = Invoice.new(@invoices, @parent)
-    assert_equal "Pencil", invoice.name
+  def test_the_id
+    assert_equal 1, invoice.id
   end
 
-  def test_it_describes
-    skip
-    invoice = Invoice.new(@invoices, @parent)
-    assert_equal "You can use it to write things", invoice.description
+  def test_the_customer_id
+    assert_equal 1, invoice.customer_id
+  end
+
+  def test_the_merchant_id
+    assert_equal 12335938, invoice.merchant_id
+  end
+
+  def test_the_status
+    assert_equal :pending, invoice.status
   end
 
   def test_it_creates_at_time
-    skip
-    invoice = Invoice.new(@invoices, @parent)
-    time = Time.now
-    assert_equal time, invoice.created_at
+    assert_instance_of Time, invoice.created_at
   end
 
   def test_it_updates_at_time
-    skip
-    invoice = Invoice.new(@invoices, @parent)
-    time = Time.now
-    assert_equal Time, invoice.updated_at
+    assert_instance_of Time, invoice.updated_at
   end
 
-  def test_it_can_find_merchant
-    skip
-    assert_instance_of Merchant
-  end
-
-
- 
 end

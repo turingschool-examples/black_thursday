@@ -1,48 +1,37 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/item.rb'
 require './test/test_helper.rb'
 
 class ItemTest < Minitest::Test
+  attr_reader :item
 
   def setup
-    @item = {
+    @item =  Item.new({
       :name        => "Pencil",
-      :description => "You can use it to write things",
+      :description => "write things",
       :unit_price  => BigDecimal.new(10.99,4),
-      :created_at  => Time.now,
-      :updated_at  => Time.now
-      }
-      @parent = ""
+      :created_at  => "2012-03-27 14:54:09 UTC",
+      :updated_at  => "2012-03-27 14:54:09 UTC"},
+      parent = ""
+    )
   end
 
   def test_it_exists
-    assert_instance_of Item, Item.new(@item, @parent)
+    assert_instance_of Item, item
   end
 
-  def test_it_names
-    item = Item.new(@item, @parent)
+  def test_it_has_a_name
     assert_equal "Pencil", item.name
   end
 
   def test_it_describes
-    item = Item.new(@item, @parent)
-    assert_equal "You can use it to write things", item.description
+    assert_equal "write things", item.description
   end
 
   def test_it_creates_at_time
-    item = Item.new(@item, @parent)
-    time = Time.now
-    assert_equal time, item.created_at
+    assert_instance_of Time, item.created_at
   end
 
   def test_it_updates_at_time
-    item = Item.new(@item, @parent)
-    time = Time.now
-    assert_equal Time, item.updated_at
+    assert_instance_of Time, item.updated_at
   end
 
-  def test_it_can_find_merchant
-    assert_instance_of Merchant
-  end
 end
