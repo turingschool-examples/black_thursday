@@ -1,14 +1,14 @@
 require_relative 'invoice_item'
 class InvoiceItemRepository
   attr_reader :parent
-  def initialize(csv_path, parent)
-    @invoice_item_csv = CSV.open(csv_path, headers: true, header_converters: :symbol)
+  def initialize(csv, parent)
+    @invoice_item_csv = CSV.open(csv, headers: true, header_converters: :symbol)
     @parent = parent
     make_repository
   end
 
   def inspect
-    "#<#{self.class} #{@repository.size} rows>"
+    "#<#{self.class} #{repository.size} rows>"
   end
 
   def make_repository

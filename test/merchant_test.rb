@@ -27,5 +27,5 @@ class MerchantTest < Minitest::Test
   def test_it_has_a_updated_at
     assert_instance_of Time, merchant.updated_at
   end
-  
+
 end
