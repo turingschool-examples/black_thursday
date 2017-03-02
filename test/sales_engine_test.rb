@@ -1,6 +1,5 @@
 require_relative 'test_helper'
 require "csv"
-# require_relative 'black_thursday_spec_harness'
 
 class SalesEngineTest < Minitest::Test
   def test_it_exist
@@ -46,7 +45,6 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_that_MR_makes_merchants
-  # skip #odd error?
     se = SalesEngine.from_csv({:items => "./data/items_fixture.csv",
         :merchants => "./data/merchants_fixture.csv"
       })
@@ -55,6 +53,4 @@ class SalesEngineTest < Minitest::Test
     merchant = mr.all[0]
     assert_instance_of Merchant, merchant
   end
-
-
 end

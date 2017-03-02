@@ -2,19 +2,7 @@ require_relative "../lib/data_access"
 
 class Invoice
   include DataAccess
-  #do attr_readers from  interfere with each other?
-  #it seems wherever you put readers, it initializes, either here, or in module.
-  # attr_reader :customer_id, :status
 
-  # def initialize
-  #   @customer_id = data[:customer_id]
-  # end
-
-
-
-###
-#duplicated from Item. Should we move to data_access?
-###
   def merchant
     parent.parent.merchants.find_by_id(merchant_id)
   end
@@ -43,9 +31,7 @@ class Invoice
   end
 
   def total
-    #returns total $ amount of instance
-      # binding.pry
     return 0.0 unless is_paid_in_full?
-    invoice_items.inject(0){ |sum, invoice_item| sum + invoice_item.unit_price * invoice_item.quantity }
+    invoice_items.inject(0){ |sum, ii| sum + ii.unit_price * ii.quantity }
   end
 end

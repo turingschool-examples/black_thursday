@@ -136,18 +136,34 @@ class SalesAnalystTest < Minitest::Test
   #   assert_equal 467, pending.count
   # end
 
-  def test_merchants_with_only_one_item
-    ones = @sa.merchants_with_only_one_item
-    assert_instance_of Array, ones
-    assert_instance_of Merchant, ones[0]
-    assert_equal 243, ones.count
-    # binding.pry
-  end
-
-  # def test_merchants_with_only_one_item_by_month
-  #   ones = merchants_with_only_one_item_registered_in_month("February")
+  # def test_merchants_with_only_one_item
+  #   ones = @sa.merchants_with_only_one_item
   #   assert_instance_of Array, ones
   #   assert_instance_of Merchant, ones[0]
-  #   assert_equal 400, ones.count
+  #   assert_equal 243, ones.count
   # end
+
+  def test_merchants_with_only_one_item_by_month
+    ones = @sa.merchants_with_only_one_item_registered_in_month("February")
+    assert_instance_of Array, ones
+    assert_instance_of Merchant, ones[0]
+    assert_equal 19, ones.count
+  end
+
+  # def test_revenue_by_merchant
+  #   total = @sa.revenue_by_merchant(12334135)
+  #   assert_instance_of BigDecimal, total
+  #   assert_equal 86389.07, total.to_f
+  # end
+
+  def test_most_sold_item_for_merchant
+    most_sold = @sa.most_sold_item_for_merchant(12334189)
+    assert_instance_of Item, most_sold
+    # se.items.find_by_id("this")
+    assert_equal "this", most_sold
+  end
+
+  def test_best_item_for_merchant
+    sa.best_item_for_merchant(merchant_id)
+  end
 end  

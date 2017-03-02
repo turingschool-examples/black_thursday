@@ -6,12 +6,10 @@ class CustomerRepository
   include DataAccess
 
   def initialize(parent)
-    # @csv_file = CSV.open(path, headers: true, header_converters: :symbol)
     @all = []
     @parent = parent
   end
 
-  #Refactor
   def from_csv(path)
     file = CSV.open(path, headers: true, header_converters: :symbol)
     populate_repo(file)
@@ -25,10 +23,8 @@ class CustomerRepository
       :created_at => Time.parse(row[:created_at]),
       :updated_at => Time.parse(row[:updated_at])}, self)
       @all << customer
-      #return an array, then you can nix @all
     end
   end
-
 
   def find_all_by_first_name(first_name)
     name = first_name.downcase
@@ -39,6 +35,4 @@ class CustomerRepository
     name = last_name.downcase
     all.select{|customer| customer.last_name.downcase.include?(name)}
   end
-
-
 end

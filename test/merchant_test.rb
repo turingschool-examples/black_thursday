@@ -22,10 +22,8 @@ class MerchantTest < Minitest::Test
     mr = se.merchants
     merchant = mr.all[0]
     item = merchant.items[0]
-  # binding.pry
     assert_instance_of Array, merchant.items
     refute merchant.items.empty?
     assert_equal "510+ RealPush Icon Set",item.name
-
   end
 end

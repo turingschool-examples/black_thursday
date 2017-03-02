@@ -6,12 +6,10 @@ class InvoiceItemRepository
   include DataAccess
 
   def initialize(parent)
-    # @csv_file = CSV.open(path, headers: true, header_converters: :symbol)
     @all = []
     @parent = parent
   end
 
-  #Refactor
   def from_csv(path)
     file = CSV.open(path, headers: true, header_converters: :symbol)
     populate_repo(file)
@@ -23,14 +21,10 @@ class InvoiceItemRepository
       :item_id => row[:item_id].to_i,
       :invoice_id => row[:invoice_id].to_i,
       :quantity => row[:quantity].to_i,
-      # :name => row[:name],
-      # :description => row[:description],
       :unit_price => transform_price(row[:unit_price]),
-
       :created_at => Time.parse(row[:created_at]),
       :updated_at => Time.parse(row[:updated_at])}, self)
       @all << invoice
-      #return an array, then you can nix @all
     end
   end
 
@@ -41,7 +35,4 @@ class InvoiceItemRepository
   def find_all_by_invoice_id(invoice_id)
     all.select{ |invoice| invoice.invoice_id == invoice_id }
   end
-
-
-
 end

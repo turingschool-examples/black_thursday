@@ -10,15 +10,9 @@ class SalesAnalyst
     (total_sum / count.to_f)
   end
 
-
   def average_items_per_merchant
     average(se.items.all.count, se.merchants.all.count).round(2)
-
-    # items_total = se.items.all.count
-    # merchants_total = se.merchants.all.count
-    # (items_total/merchants_total.to_f).round(2)
   end
-
 
   def average_items_per_merchant_standard_deviation
     merchants = se.merchants.all
@@ -27,29 +21,17 @@ class SalesAnalyst
   end
 
   def standard_deviation(collection)
-
-    # n = collection.count
-    # item_prices = collection.map {|item| item.items.count}
-    # mean = average(item_prices.reduce(:+), n.to_f)
-
-    # diff_squared = item_prices.map{ |item| ((item - mean)**2) }
-    # sum_of_squares = diff_squared.reduce(:+)
-    # result = Math.sqrt(sum_of_squares/(n-1)).round(2)
-
     n = collection.count
     mean = average(collection.reduce(:+), n.to_f)
     diff_squared = collection.map{ |item| ((item - mean)**2) }
     sum_of_squares = diff_squared.reduce(:+)
     sd = Math.sqrt(sum_of_squares/(n-1)).round(2)
-
   end
 
   def merchants_with_high_item_count
-    #find merchants selling more than 1 SD higher
     average = average_items_per_merchant
     sd = average_items_per_merchant_standard_deviation
     se.merchants.all.select{ |merchant| merchant.items.count > (average + sd) }
-
   end
 
   def average_item_price_for_merchant(merchant_id)
@@ -61,73 +43,45 @@ class SalesAnalyst
 
   def average_average_price_per_merchant
     merchants = se.merchants.all
-    prices = merchants.map{ |merchant| average_item_price_for_merchant(merchant.id) }
+    prices = merchants.map{ |merc| average_item_price_for_merchant(merc.id) }
     average(prices.reduce(:+), merchants.count).round(2)
-
   end
 
   def golden_items
     merchants = se.merchants.all
     items = se.items.all
-
     sd_price = standard_deviation_for_price
-    #use average_price_per_merchant here??
-    average_price = merchants.map {|merchant| average_item_price_for_merchant(merchant.id) }
-    average_price = average_price.reduce(:+)/(merchants.count).to_f
-
-    golden = items.select{ |item| item.unit_price > ((2 * sd_price) + average_price) }
+    ave_price = merchants.map {|merc| average_item_price_for_merchant(merc.id)}
+    ave_price = ave_price.reduce(:+)/(merchants.count).to_f
+    golden = items.select{|item| item.unit_price > ((2 * sd_price) + ave_price)}
   end
-
-
-
 
   def standard_deviation_for_price
-    # items = se.items.all
-    # n = items.count
-
     item_prices = se.items.all.map {|item| item.unit_price}
     standard_deviation(item_prices)
-    # mean = item_prices.reduce(:+)/n.to_f
-    # diff_squared = item_prices.map{ |price| ((price - mean)**2) }
-    # do_math = diff_squared.reduce(:+)
-    # result = Math.sqrt(do_math/(n-1)).round(2)
   end
-
-
-  ##business SalesAnalyst
 
   def average_items_per_merchant
     average(se.items.all.count, se.merchants.all.count).round(2)
-
-    # items_total = se.items.all.count
-    # merchants_total = se.merchants.all.count
-    # (items_total/merchants_total.to_f).round(2)
   end
-
 
   def average_invoices_per_merchant
     average(se.invoices.all.count, se.merchants.all.count).round(2)
   end
 
   def average_invoices_per_merchant_standard_deviation
-    #get invoices per merchant
     invoices = se.merchants.all.map {|merchant| merchant.invoices.count}
     standard_deviation(invoices)
   end
 
-
-
-#How to refactor top and bottom merchants methods? They're identical except for the final comparison grab
-    # #use this for later methods?
   def merchants_by_invoice(comparison)
     average = average_invoices_per_merchant
     sd = average_invoices_per_merchant_standard_deviation
     case comparison
     when "top"
-      se.merchants.all.select { |merchant| merchant.invoices.count > ( average + (sd*2)) }
+      se.merchants.all.select {|merc| merc.invoices.count > ( average + (sd*2))}
     when "bottom"
-      se.merchants.all.select { |merchant| merchant.invoices.count < ( average - (sd*2)) }
-      # binding.pry
+      se.merchants.all.select {|merc| merc.invoices.count < ( average - (sd*2))}
     end
   end
 
@@ -140,47 +94,26 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-    #days with invoice count > 1 sd above mean
-
     days = Hash.new(0)
-    se.invoices.all.each { |invoice| days[invoice.created_at.strftime("%A")] += 1 }
+    se.invoices.all.each{|invoice| days[invoice.created_at.strftime("%A")] += 1}
     average = average(days.values.reduce(:+), 7)
     sd = standard_deviation(days.values)
     days.keys.select { |day| days[day] > (average + sd) }
-
   end
-
-
 
   def invoice_status(status)
     total = se.invoices.all.count.to_f
-    # binding.pry
-    matching = se.invoices.all.select{ |invoice| invoice.status == status }.count
+    matching = se.invoices.all.select{|invoice| invoice.status == status}.count
     ((matching/total) * 100).round(2)
   end
 
   def total_revenue_by_date(date)
-    #go to invoices
-    #select only invoices that match date
-    #grab unit_price off of invoice_items, sum
-
-    #Time.parse().to_date?
-    # date = Time.parse(date).to_date
-    #Date.strptime("09-28-2004","%m-%d-%Y")
-
-    invoices = se.invoices.all.select { |ii| ii.created_at.to_date === date.to_date }
+    invoices = se.invoices.all
+    invoices = invoices.select{|ii| ii.created_at.to_date === date.to_date}
     invoices.inject(0) { |sum, invoice| sum + invoice.total }
   end
 
   def top_revenue_earners(num=20)
-    # invoices = se.invoices.all
-    # revenues = Hash.new(0)
-    # invoices.each { |invoice| revenues[invoice.merchant_id] += invoice.total }
-    # sorted = revenues.sort_by{ |k, v| -v }.to_h
-    # # sorted = sorted.reverse
-    # top = sorted.keys.first(num)
-    # top.map { |id| se.merchants.find_by_id(id) }
-
     merchants = merchants_ranked_by_revenue
     top = merchants.first(num)
   end
@@ -188,7 +121,6 @@ class SalesAnalyst
   def bottom_revenue_earners(num = 20)
     merchants = merchants_ranked_by_revenue
     bottom = merchants.last(num)
-
   end
 
   def merchants_ranked_by_revenue
@@ -200,43 +132,73 @@ class SalesAnalyst
   end
 
   def merchants_with_pending_invoices
-    #this first attempt is incorrect, see Note on I-4 instructions
-    # pending = se.invoices.all.select{ |invoice| invoice.status == :pending }
-
-    pending = se.invoices.all.select { |invoice| invoice.is_paid_in_full? == false }
-    pending.map { |invoice| se.merchants.find_by_id(invoice.merchant_id) }.uniq
+    pending = se.invoices.all.select{|inv| inv.is_paid_in_full? == false}
+    pending.map {|inv| se.merchants.find_by_id(inv.merchant_id)}.uniq
   end
-  
+
   def merchants_with_only_one_item
-    # binding.pry
     item_count = Hash.new(0)
     se.items.all.each { |item| item_count[item.merchant_id] += 1 }
     ones = item_count.select { |merchant_id, item_count| item_count == 1 }
     ones.keys.map { |merchant_id| se.merchants.find_by_id(merchant_id) }.uniq
   end
 
-  def merchants_with_only_one_item_registered_in_month
+  def merchants_with_only_one_item_registered_in_month(month)
     ones = merchants_with_only_one_item
-    invoices = se.invoices.all.select { |ii| ii.created_at.to_date === date.to_date }
-
-
-    # added created_at to merchant repo and merchant
-    # added merchant.created_at
-    #need to compare months and select
+    ones.select{|merc| Time.parse(merc.created_at).strftime("%B") == month}
   end
 
+  def revenue_by_merchant(merchant_id)
+    invoices = se.invoices.all
+    revenues = Hash.new(0)
+    invoices.each {|invoice| revenues[invoice.merchant_id] += invoice.total }
+    sorted = revenues.sort_by{ |k, v| -v }.to_h
+    revenues[merchant_id]
+  end
 
+  def find_the_invoice_items(item_id)
+    item_invoices = se.invoice_items.find_all_by_item_id(item_id)
+  end
+
+  def most_sold_item_for_merchant
+    #group_by_item_id
+
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    #items are unique to merchant
+    #take each of his items
+    #tally how many of each item sold
+    #sort items sold
+    #max_by items sold
+
+    # merchant = se.merchants.find_by_id(merchant_id)
+    # merchant.items
+
+    sold_count = Hash.new(0)
+
+    #grab merchant's items
+    items = se.items.find_all_by_merchant_id(merchant_id)
+
+    #take each item
+    items.each do |item|
+      #find item.quantity, add it to hash
+
+     # Find all matching invoices
+      invoice_items = find_the_invoice_items(item.id)
+      total = invoice_items.inject(0){|sum, ii| sum + ii.quantity}
+      sold_count[item] += total
+    end
+    max = sold_count.values.max
+    max_items = Hash[sold_count.select { |k, v| v == max}].keys
+  end
 end
 
-
-
-# se = SalesEngine.from_csv({:items => "./data/items_fixture.csv", :merchants => "./data/merchants_fixture.csv", :invoices => "./data/invoices_fixture.csv" })
+# se = SalesEngine.from_csv({:items => "./data/items.csv", 
+#:merchants => "./data/merchants.csv", :invoices => "./data/invoices.csv" })
 # ir = se.items
 # mr = se.merchants
 # invr = se.invoices
 # invoice = invr.all[0]
 # sa = SalesAnalyst.new(se)
 # sa.top_days_by_invoice_count
-# binding.pry
-
-""

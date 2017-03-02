@@ -1,5 +1,4 @@
 require_relative 'test_helper'
-# require_relative '../lib/merchant_repository'
 
 class MerchantRepositoryTest < Minitest::Test
   def setup
@@ -54,5 +53,4 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal "LolaMarleys", found_marleys[0].name
     assert_nil found_marleys[1]
   end
-
 end

@@ -25,7 +25,6 @@ class TransactionRepository
       :created_at => Time.parse(row[:created_at]),
       :updated_at => Time.parse(row[:updated_at])}, self)
       @all << transaction
-      #return an array, then you can nix @all
     end
   end
 
@@ -34,11 +33,10 @@ class TransactionRepository
   end
 
   def find_all_by_credit_card_number(credit_card_number)
-    all.select{ |transaction| transaction.credit_card_number == credit_card_number}
+    all.select{ |tran| tran.credit_card_number == credit_card_number}
   end
 
   def find_all_by_result(result)
     all.select{ |transaction| transaction.result == result}
   end
-
 end
