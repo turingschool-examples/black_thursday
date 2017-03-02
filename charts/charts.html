@@ -1,0 +1,126 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawHolidaySalesChart);
+      google.charts.setOnLoadCallback(drawGoldenItemsChart);
+      google.charts.setOnLoadCallback(drawInvoiceDaysChart);
+      google.charts.setOnLoadCallback(drawMerchantRevenueChart);
+
+      function drawHolidaySalesChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Holiday', 'Revenue'],
+          ["Black Friday (Nov 27)",            0.693303E4],
+          ["Cyber Monday (Nov 30)",            0.1434467E5],
+          ["Green Monday (Dec 14)",            0.489981E4]
+        ]);
+      
+        var options = {
+          title: 'Revenues on Holidays 2016',
+          pieHole: 0.4,
+        };
+      
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+      }
+
+      function drawGoldenItemsChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['Golden Item', 'Price', { role: "style" } ],
+        ["Original WWII Guinness Advertising Oil on Canvas Artwork by John Gilroy - 1944 Royal Air Force Bomber Crew [ON8500]", 24995.0, "#ff9900"],
+        ["Original WWII Guinness Advertising Oil on Canvas Artwork by John Gilroy - 1944 Royal Navy Submarine Crew [ON8505]", 24995.0, "#ffa31a"],
+        ["Original British Household Cavalry Named Life Guards Officer Cuirass and Helmet Set [ON8829]", 7495.0, "#ffad33"],
+        ["Solid American Black Walnut Trestle Table", 7000.0, "#ffb84d"]
+      ]);
+  
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+  
+      var options = {
+        title: "Top 4 Merchants With Highest Revenue (excluding test listing)",
+        width: 600,
+        height: 400,
+        bar: {groupWidth: "95%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.ColumnChart(document.getElementById("golden_items"));
+      chart.draw(view, options);
+  }
+
+      function drawInvoiceDaysChart() {
+      var data = google.visualization.arrayToDataTable([
+        ["Days", "Number of Invoices", { role: "style" } ],
+        ["Sunday",    708, "#a93226"],
+        ["Monday",    696, "#ca6f1e"],
+        ["Tuesday",   692, "#f1c40f"],
+        ["Wednesday", 741, "#27ae60"],
+        ["Thursday",  718, "#1abc9c"],
+        ["Friday",    701, "#2980b9"],
+        ["Saturday",  729, "#8e44ad"]
+      ]);
+  
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+  
+      var options = {
+        title: "Number of Invoices by Day",
+        width: 600,
+        height: 400,
+        bar: {groupWidth: "95%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.ColumnChart(document.getElementById("invoices_by_day"));
+      chart.draw(view, options);
+  }
+  
+      function drawMerchantRevenueChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['Merchant ID', 'Item Count', { role: "style" } ],
+        
+        
+        ["12334634", 0.21275227E6, "#6C3483"],
+        ["12334942", 0.20618195E6, "#7D3C98"],
+        ["12334280", 0.20286397E6, "#8E44AD"],
+        ["12336035", 0.19535152E6, "#A569BD"],
+        ["12335213", 0.17631668E6, "#AF7AC5"]
+      ]);
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+      var options = {
+        title: "Top 5 Merchants With Highest Revenue",
+        width: 600,
+        height: 400,
+        bar: {groupWidth: "95%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.ColumnChart(document.getElementById("top_merchants_by_revenue"));
+      chart.draw(view, options);
+    }
+
+    </script>
+  </head>
+  <body>
+    <div id="donutchart" style="width: 900px; height: 500px;"></div>
+    <div id="golden_items" style="width: 900px; height: 300px;"></div>
+    <div id="invoices_by_day" style="width: 900px; height: 300px;"></div>
+    <div id="top_merchants_by_revenue" style="width: 900px; height: 300px;"></div>
+  </body>
+</html>

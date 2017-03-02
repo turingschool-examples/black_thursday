@@ -1,0 +1,128 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawHolidaySalesChart);
+      google.charts.setOnLoadCallback(drawGoldenItemsChart);
+      google.charts.setOnLoadCallback(drawInvoiceDaysChart);
+      google.charts.setOnLoadCallback(drawMerchantRevenueChart);
+
+      function drawHolidaySalesChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Holiday', 'Revenue'],
+          ["Black Friday (Nov 27)",            <%= total_revenue_by_date(Time.parse("2015-11-27")) %>],
+          ["Cyber Monday (Nov 30)",            <%= total_revenue_by_date(Time.parse("2015-11-30")) %>],
+          ["Green Monday (Dec 14)",            <%= total_revenue_by_date(Time.parse("2015-12-14")) %>]
+        ]);
+      
+        var options = {
+          title: 'Revenues on Holidays 2016',
+          pieHole: 0.4,
+        };
+      
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+      }
+
+      function drawGoldenItemsChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['Golden Item', 'Price', { role: "style" } ],
+        ["<%= "#{golden_items_sorted[1].name}" %>", <%= golden_items_sorted[1].unit_price_to_dollars %>, "#ff9900"],
+        ["<%= "#{golden_items_sorted[2].name}" %>", <%= golden_items_sorted[2].unit_price_to_dollars %>, "#ffa31a"],
+        ["<%= "#{golden_items_sorted[3].name}" %>", <%= golden_items_sorted[3].unit_price_to_dollars %>, "#ffad33"],
+        ["<%= "#{golden_items_sorted[4].name}" %>", <%= golden_items_sorted[4].unit_price_to_dollars %>, "#ffb84d"]
+      ]);
+  
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+  
+      var options = {
+        title: "Top 4 Merchants With Highest Revenue (excluding test listing)",
+        width: 600,
+        height: 400,
+        bar: {groupWidth: "95%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.ColumnChart(document.getElementById("golden_items"));
+      chart.draw(view, options);
+  }
+
+      function drawInvoiceDaysChart() {
+      var data = google.visualization.arrayToDataTable([
+        ["Days", "Number of Invoices", { role: "style" } ],
+        ["Sunday",    <%= "#{invoices_by_day["Sunday"]}" %>, "#a93226"],
+        ["Monday",    <%= "#{invoices_by_day["Monday"]}" %>, "#ca6f1e"],
+        ["Tuesday",   <%= "#{invoices_by_day["Tuesday"]}" %>, "#f1c40f"],
+        ["Wednesday", <%= "#{invoices_by_day["Wednesday"]}" %>, "#27ae60"],
+        ["Thursday",  <%= "#{invoices_by_day["Thursday"]}" %>, "#1abc9c"],
+        ["Friday",    <%= "#{invoices_by_day["Friday"]}" %>, "#2980b9"],
+        ["Saturday",  <%= "#{invoices_by_day["Saturday"]}" %>, "#8e44ad"]
+      ]);
+  
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+  
+      var options = {
+        title: "Number of Invoices by Day",
+        width: 600,
+        height: 400,
+        bar: {groupWidth: "95%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.ColumnChart(document.getElementById("invoices_by_day"));
+      chart.draw(view, options);
+  }
+  
+      function drawMerchantRevenueChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['Merchant ID', 'Item Count', { role: "style" } ],
+        <% merchants = merchants_with_highest_revenue %>
+        <% revenue = merchants_with_highest_revenue.map do |merchant| 
+             merchant.revenue
+           end %>
+        ["<%= "#{merchants[0].id}" %>", <%= revenue[0] %>, "#6C3483"],
+        ["<%= "#{merchants[1].id}" %>", <%= revenue[1] %>, "#7D3C98"],
+        ["<%= "#{merchants[2].id}" %>", <%= revenue[2] %>, "#8E44AD"],
+        ["<%= "#{merchants[3].id}" %>", <%= revenue[3] %>, "#A569BD"],
+        ["<%= "#{merchants[4].id}" %>", <%= revenue[4] %>, "#AF7AC5"]
+      ]);
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+      var options = {
+        title: "Top 5 Merchants With Highest Revenue",
+        width: 600,
+        height: 400,
+        bar: {groupWidth: "95%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.ColumnChart(document.getElementById("top_merchants_by_revenue"));
+      chart.draw(view, options);
+    }
+
+    </script>
+  </head>
+  <body>
+    <div id="donutchart" style="width: 900px; height: 500px;"></div>
+    <div id="golden_items" style="width: 900px; height: 300px;"></div>
+    <div id="invoices_by_day" style="width: 900px; height: 300px;"></div>
+    <div id="top_merchants_by_revenue" style="width: 900px; height: 300px;"></div>
+  </body>
+</html>
