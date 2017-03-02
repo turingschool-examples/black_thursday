@@ -220,50 +220,43 @@ class SalesAnalyst
     merchants_by_month.select { |merchants| merchants.items.count == 1 }
   end
 
-  def most_sold_item_for_merchant(merchant_id)
+  def find_paid_invoices_by_merchant(merchant_id)
     find_merchants = sales_engine.invoices.find_all_by_merchant_id(merchant_id)
-   invoices_for_merchant = find_merchants.select do |invoice|
+    find_merchants.select do |invoice|
      invoice.is_paid_in_full?
    end
+  end
 
-    invoice_items = invoices_for_merchant.map do |invoice|
+  def find_invoice_ids(merchant_id)
+    find_paid_invoices_by_merchant(merchant_id).map do |invoice|
       sales_engine.invoice_items.find_all_by_invoice_id(invoice.id)
-      end
-    quantity_sold_by_item_id = Hash.new(0)
+    end
+  end
 
-    invoice_items.flatten.each do |invoice_item|
+  def create_item_quantity_hash(merchant_id)
+    quantity_sold_by_item_id = Hash.new(0)
+    find_invoice_ids(merchant_id).flatten.each do |invoice_item|
       quantity_sold_by_item_id[invoice_item.item_id] += invoice_item.quantity
     end
+    quantity_sold_by_item_id
+  end
 
-     max_value = quantity_sold_by_item_id.values.max
-
-    output_hash = quantity_sold_by_item_id.select { |k, v| v == max_value}.keys
-
+  def most_sold_item_for_merchant(merchant_id)
+    quantity_item = create_item_quantity_hash(merchant_id)
+    max_value = quantity_item.values.max
+    output_hash = quantity_item.select { |k, v| v == max_value}.keys
     output_hash.map do |item_id|
       sales_engine.items.find_by_id(item_id)
     end
-
   end
 
   def best_item_for_merchant(merchant_id)
-    a = sales_engine.invoices.find_all_by_merchant_id(merchant_id)
-    invoices_for_merchant = a.select{|invoice| invoice.is_paid_in_full?}
-
-    invoice_items = invoices_for_merchant.map do |invoice|
-      sales_engine.invoice_items.find_all_by_invoice_id(invoice.id)
-      end
-
     revenue_by_item_id = Hash.new(0)
-
-    invoice_items.flatten.each do |invoice_item|
+    find_invoice_ids(merchant_id).flatten.each do |invoice_item|
       revenue_by_item_id[invoice_item.item_id] += invoice_item.total_price
     end
-
     max_item = revenue_by_item_id.values.max
-
     output_items = revenue_by_item_id.select { |k,v| v == max_item }.keys
-
     sales_engine.items.find_by_id(output_items.first)
-
   end
 end
