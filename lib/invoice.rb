@@ -41,11 +41,10 @@ class Invoice
   end
 
   def is_paid_in_full?
-    parent.check_for_paid_in_full(id) 
+    parent.check_for_paid_in_full(id) && !transactions.empty?
   end
 
   def total
-  return 0.0 unless is_paid_in_full?
     parent.find_invoice_items_total(id)
   end
   

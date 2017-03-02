@@ -95,6 +95,31 @@ class SalesAnalyst
     average(average_merchant_prices)
   end
 
+  def paid_invoices_by_merchant(merchant)
+    merchant.invoices.find_all {|invoice| invoice.is_paid_in_full? }
+  end
+
+  def revenue_by_invoices(invoices)
+    invoices.reduce(0) do |sum, invoice|
+      sum += invoice.total
+    end
+  end
+
+  def merchant_revenue(merchant)
+    invoices = paid_invoices_by_merchant(merchant)
+    revenue_by_invoices(invoices)
+  end
+
+  def merchants_ranked_by_revenue
+    all_merchants.sort_by do |merchant|
+      merchant_revenue(merchant)
+    end.reverse
+  end
+
+  def top_revenue_earners(x = 20)
+    merchants_ranked_by_revenue.shift(x)
+  end
+
 #-----/Merchant_Analysis_Methods-----#
 
 #-----Item_Analysis_Methods-----#
@@ -196,6 +221,11 @@ class SalesAnalyst
     # returns percentage of total statuses
     percentage(count_statuses[status], total_statuses)
   end
+
+  def total_revenue_by_date(date)
+    invoice_repository.get_all_invoice_ids(date)
+  end
+
 #-----Invoice_Analysis_Method-----#
 
 end
