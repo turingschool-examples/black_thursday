@@ -16,7 +16,7 @@ class SalesAnalyst
     @items_per_merchant = @group_by_number_of_items.map do |key, value|
       value.count
     end
-    @average = @items_per_merchant.reduce(:+) / @group_by_number_of_items.size.to_f
+    @average =@items_per_merchant.reduce(:+)/@group_by_number_of_items.size.to_f
     @average.round(2)
   end
 
@@ -172,5 +172,110 @@ class SalesAnalyst
     end
   end
 
+  def revenue_by_merchant(merchant_id)
+    invoices_grouped_by_merchant[merchant_id].reduce(0) do |sum, invoice|
+      sum + invoice.total
+    end
+  end
 
+  def invoices_grouped_by_merchant
+    @sales_engine.invoices.all.group_by do |invoice|
+      invoice.merchant_id
+    end
+  end
+
+  def find_invoice_items_for_merchant(id)
+    invoices = @sales_engine.merchants.find_by_id(id).invoices.find_all do |inv|
+      inv.is_paid_in_full?
+    end
+    invoices.map do |invoice|
+      invoice.invoice_item_array
+    end
+  end
+
+  def group_by_item_id(merch_id)
+    inv_items = find_invoice_items_for_merchant(merch_id).flatten
+    inv_items.group_by do |inv_item|
+      inv_item.item_id
+    end
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    group = find_quantity_of_each_item_id(merchant_id)
+    max = group.max_by do |_key, value|
+      value
+      end[1]
+    highest = group.select {|key, value| value == max}.to_a
+    highest.map! {|array| @sales_engine.items.find_by_id(array[0])}
+  end
+
+  def find_quantity_of_each_item_id(merch_id)
+    group = group_by_item_id(merch_id)
+    group.each do |key,value|
+      group[key] = value.reduce(0){|sum, item| sum + item.quantity.to_f}
+    end
+  end
+
+  def revenue_by_item_id(merchant_id)
+    group = group_by_item_id(merchant_id)
+    group.each do |key,value|
+      group[key] = value.reduce(0){|s, i| s + i.quantity.to_f * i.unit_price}
+    end
+  end
+
+  def best_item_for_merchant(id)
+    group = revenue_by_item_id(id)
+    max = group.max_by { |key, value| value }[1]
+     highest = group.select {|key, value| value == max}.to_a
+    highest.map! {|array| @sales_engine.items.find_by_id(array[0])}[0]
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    @sales_engine.merchants.all.find_all do |merchant|
+      merchant.items.length == 1 &&
+      merchant.creation_month.downcase == month.downcase
+    end
+  end
+
+  def merchants_with_only_one_item
+    @sales_engine.merchants.all.find_all do |merchant|
+      merchant.items.length == 1
+    end
+  end
+
+  def merchants_with_pending_invoices
+    merchants = pending_invoices.group_by do |invoice|
+      invoice.merchant_id
+    end
+    merchants.map do |key, _value|
+      @sales_engine.merchants.find_by_id(key)
+    end.uniq
+  end
+
+  def pending_invoices
+    @sales_engine.invoices.all.find_all { |invoice| !invoice.is_paid_in_full? }
+  end
+
+  def top_revenue_earners(x=20)
+    top_20 = revenues_for_all.sort_by do |merchant_id, revenue|
+      revenue
+    end.reverse[0..(x-1)]
+    top_20.map do |id, revenue|
+      @sales_engine.merchants.find_by_id(id)
+    end
+  end
+
+  def revenues_for_all
+    revenues = {}
+    invoices_grouped_by_merchant.each do |id, value|
+      revenues[id] = value.inject(0) do |sum, invoice|
+        sum + invoice.total
+      end
+    end
+    revenues
+  end
+
+  def merchants_ranked_by_revenue
+    top_revenue_earners(@sales_engine.merchants.all.length)
+  end
 end
