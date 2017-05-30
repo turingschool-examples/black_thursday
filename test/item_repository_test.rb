@@ -36,5 +36,16 @@ class ItemRepositoryTest < MiniTest::Test
     assert_equal [], item.find_all_by_price
   end
 
+  def test_if_can_find_all_by_price_in_range
+    item = ItemRepository.new
+
+    assert_equal [], item.find_all_by_price_in_range
+  end
+
+  def test_if_can_find_all_by_merchant_id
+    item = ItemRepository.new
+
+    assert_equal [], item.find_all_by_merchant_id
+  end
 
 end

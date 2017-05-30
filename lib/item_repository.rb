@@ -23,8 +23,13 @@ class ItemRepository
     []
   end
 
+  def find_all_by_price_in_range
+    []
+    #will take argument of price with range and return those in that range.
+  end
 
-
-
+  def find_all_by_merchant_id
+    []
+  end
 
 end
