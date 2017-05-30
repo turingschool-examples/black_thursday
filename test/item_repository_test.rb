@@ -24,9 +24,40 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of Item, item_repo.items[263395237]
   end
 
-  def test_item_find_by_name
+  def test_item_find_all
     item_repo = ItemRepository.new
     item_repo.populate_items_repo
     assert_equal item_repo.all, item_repo.items.values
   end
+
+  def test_item_find_by_id
+    item_repo = ItemRepository.new
+    item_repo.populate_items_repo
+    assert_instance_of Item, item_repo.find_by_id(263395237)
+  end
+
+  def test_item_find_by_name
+    item_repo = ItemRepository.new
+    item_repo.populate_items_repo
+    assert_instance_of Item, item_repo.find_by_name("510+ RealPush Icon Set")
+  end
+
+  def test_item_find_by_name_with_nil
+    item_repo = ItemRepository.new
+    item_repo.populate_items_repo
+    assert_nil item_repo.find_by_name("Katie")
+  end
+
+  def test_find_all_with_description
+    item_repo = ItemRepository.new
+    item_repo.populate_items_repo
+    assert_equal item_repo.find_all_with_description("frames").length, 7
+  end
+
+  def test_find_all_with_description_with_nil
+    item_repo = ItemRepository.new
+    item_repo.populate_items_repo
+    assert_equal item_repo.find_all_with_description("asjdhasuhkjdnas"), []
+  end
+
 end

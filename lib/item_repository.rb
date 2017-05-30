@@ -22,4 +22,39 @@ class ItemRepository
     @items.values
   end
 
+  def find_by_id(id)
+    return_value = nil
+    @items.each do |key, value|
+      if key == id
+        return_value = value
+        puts value
+      end
+    end
+    return_value
+  end
+
+  def find_by_name(name)
+    @items.each_value do |value|
+      if value.name == name
+        return value
+      else
+        return nil
+      end
+    end
+  end
+
+  def find_all_with_description(description_string)
+    description_array = []
+    @items.each_value do |value|
+      description_array << value if value.description.include?(description_string)
+    end
+    description_array
+  end
+
+  def find_all_by_price
+  end
+
+
+
+
 end
