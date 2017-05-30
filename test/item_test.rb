@@ -20,7 +20,7 @@ class ItemTest < MiniTest::Test
     assert_instance_of Item, i
   end
 
-  def test_default_attributes
+  def test_default_attributes_and_format
     i = Item.new({:name        => "Pencil",
                   :description => "You can use it to write things",
                   :unit_price  => BigDecimal.new(10.99,4),
@@ -29,10 +29,17 @@ class ItemTest < MiniTest::Test
                  })
 
     assert i.name
+    assert_equal "Pencil", i.name
     assert i.description
+    assert_equal "You can use it to write things", i.description
     assert i.unit_price
+    assert_equal 0.1099E2, i.unit_price
     assert i.created_at
     assert i.updated_at
+  end
+
+  def test_item_id
+    i = Item.new 
   end
 
 end
