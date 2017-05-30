@@ -18,4 +18,8 @@ class MerchantTest < Minitest::Test
     assert_equal 1, merchant.id
   end
 
+  def test_it_has_a_name
+    assert_equal "StarCityGames", merchant.name
+  end
+
 end
