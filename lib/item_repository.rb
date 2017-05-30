@@ -13,15 +13,13 @@ class ItemRepository
   def populate_items_repo
     items_list = CSV.open "./data/items.csv", headers: true, header_converters: :symbol
     items_list.each { |row|
-      item = Item.new(row[:id], row[:name], row[:description], row[:unit_price], row[:merchant_id], row[:created_at], row[:updated_at])
-      @items[item.id] = { :id => item.id, :name => item.name, :description => item.description, :unit_price => item.}
+      item = Item.new({ :id => row[:id], :name => row[:name], :description => row[:description], :unit_price => row[:unit_price], :merchant_id => row[:merchant_id], :created_at => row[:created_at], :updated_at => row[:updated_at]})
+      @items[item.id] = item
     }
   end
 
+  def all
+    @items.values
+  end
+
 end
-
-
-items_repo = ItemRepository.new
-items_repo.populate_items_repo
-binding.pry
-puts items_repo.items["263395237"]

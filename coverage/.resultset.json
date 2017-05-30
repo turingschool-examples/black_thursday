@@ -1,23 +1,50 @@
 {
   "Unit Tests": {
     "coverage": {
+      "/Users/katieshermer/Desktop/Turing/1mod/black_thursday/lib/item_repository.rb": [
+        1,
+        1,
+        1,
+        null,
+        1,
+        null,
+        1,
+        null,
+        1,
+        4,
+        null,
+        null,
+        1,
+        2,
+        2,
+        2734,
+        2734,
+        null,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        null
+      ],
       "/Users/katieshermer/Desktop/Turing/1mod/black_thursday/lib/item.rb": [
         1,
         1,
         null,
         1,
-        8,
-        8,
-        8,
-        8,
-        8,
-        8,
-        8,
+        2734,
+        2734,
+        2734,
+        2734,
+        2734,
+        2734,
+        2734,
         null,
         null,
         null
       ]
     },
-    "timestamp": 1496180138
+    "timestamp": 1496181456
   }
 }
