@@ -44,7 +44,7 @@ class MerchantRepository
     snippet = snippet.downcase
     require 'pry' ; binding.pry
     @merchants.each_value {|value|
-      if value.name.include?(snippet)   
+      if value.name.include?(snippet)
         return_matches << value.name
       end
       }
@@ -53,7 +53,8 @@ class MerchantRepository
 
 end
 #
-# merchant = MerchantRepository.new
-# merchant.populate_merchant_repo
-# merchant.find_by_name("Shopin1901")
+merchant = MerchantRepository.new
+merchant.populate_merchant_repo
+merchant.find_by_name("Shopin1901")
+p merchant.find_all_by_name('th')
 # puts merchant.merchants
