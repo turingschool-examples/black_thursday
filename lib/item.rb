@@ -1,7 +1,12 @@
 class Item
 
-  attr_reader :name, :description, :unit_price, :created_at, :updated_at
-  attr_accessor :id, :merchant_id
+  attr_reader   :name,
+                :description,
+                :unit_price,
+                :created_at,
+                :updated_at
+  attr_accessor :id,
+                :merchant_id
 
   def initialize(params = {}, id = nil, merchant_id = nil)
     @id          = id
