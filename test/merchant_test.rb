@@ -4,10 +4,11 @@ require './lib/merchant'
 
 class MerchantTest < Minitest::Test
 
-  attr_reader :merchant
+  attr_reader :merchant, :merchant2
 
   def setup
     @merchant = Merchant.new({:id => 1, :name => "StarCityGames"})
+    @merchant2 = Merchant.new({:id => 2, :name => "Amazong"})
   end
 
   def test_it_exists
@@ -20,6 +21,10 @@ class MerchantTest < Minitest::Test
 
   def test_it_has_a_name
     assert_equal "StarCityGames", merchant.name
+  end
+
+  def test_it_can_have_different_id
+    assert_equal 2, merchant2.id
   end
 
 end
