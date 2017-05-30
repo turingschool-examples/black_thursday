@@ -68,4 +68,15 @@ class ItemTest < MiniTest::Test
     assert_equal 2, i2.id
   end
 
+  def test_if_creates_merchant_id
+    i = Item.new({:name        => "Pencil",
+                  :description => "You can use it to write things",
+                  :unit_price  => BigDecimal.new(10.99,4),
+                  :created_at  => Time.now,
+                  :updated_at  => Time.now
+                 }, 1, 321)
+
+    assert_equal 321, i.merchant_id
+  end
+
 end
