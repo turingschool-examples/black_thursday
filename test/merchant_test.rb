@@ -27,4 +27,8 @@ class MerchantTest < Minitest::Test
     assert_equal 2, merchant2.id
   end
 
+  def test_it_can_have_different_name
+    assert_equal "Amazong", merchant2.name
+  end
+
 end
