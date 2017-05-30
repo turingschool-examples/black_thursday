@@ -1,6 +1,7 @@
 {
   "Unit Tests": {
     "coverage": {
+<<<<<<< HEAD
       "/Users/thedanielvogelsang/TuringFolder/1module/projects/black_thursday/lib/merchant_repository.rb": [
         1,
         1,
@@ -73,5 +74,25 @@
       ]
     },
     "timestamp": 1496184570
+=======
+      "/Users/katieshermer/Desktop/Turing/1mod/black_thursday/lib/item.rb": [
+        1,
+        1,
+        null,
+        1,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        null,
+        null,
+        null
+      ]
+    },
+    "timestamp": 1496176694
+>>>>>>> 330b00689c63e7ef801284ec8ab6938a902d645c
   }
 }
