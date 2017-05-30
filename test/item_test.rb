@@ -29,7 +29,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_item_has_a_price
-    item = Item.new({:unit_price => 14.50})
+    item = Item.new({:unit_price => "1450"})
     assert_equal item.unit_price, 14.50
   end
 
