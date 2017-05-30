@@ -1,6 +1,7 @@
 {
   "Unit Tests": {
     "coverage": {
+<<<<<<< HEAD
       "/Users/katieshermer/Desktop/Turing/1mod/black_thursday/lib/item_repository.rb": [
         1,
         1,
@@ -76,6 +77,16 @@
         null,
         null
       ],
+=======
+<<<<<<< HEAD
+      "/Users/thedanielvogelsang/TuringFolder/1module/projects/black_thursday/lib/merchant.rb": [
+        1,
+        1,
+        1,
+        3,
+        3,
+=======
+>>>>>>> bafefbfeef5aaefff47f4cf930accbcace38c208
       "/Users/katieshermer/Desktop/Turing/1mod/black_thursday/lib/item.rb": [
         1,
         1,
@@ -89,10 +100,19 @@
         15037,
         15037,
         null,
+>>>>>>> 530a55d5fbc0d2571c872d0e83e02a3fe45e0f6a
         null,
         null
       ]
     },
+<<<<<<< HEAD
     "timestamp": 1496186189
+=======
+<<<<<<< HEAD
+    "timestamp": 1496185248
+=======
+    "timestamp": 1496185334
+>>>>>>> 530a55d5fbc0d2571c872d0e83e02a3fe45e0f6a
+>>>>>>> bafefbfeef5aaefff47f4cf930accbcace38c208
   }
 }
