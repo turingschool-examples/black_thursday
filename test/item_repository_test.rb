@@ -66,4 +66,37 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal item_repo.find_all_by_price(400.00).length, 7
   end
 
+  def test_find_all_by_price_with_nil
+    item_repo = ItemRepository.new
+    item_repo.populate_items_repo
+    assert_equal item_repo.find_all_by_price(12938012983.00), []
+  end
+
+  def test_find_all_by_price_in_range
+    skip
+    item_repo = ItemRepository.new
+    item_repo.populate_items_repo
+    assert_equal item_repo.find_all_by_price_in_range("range"), "?"
+  end
+
+  def test_find_all_by_price_in_range_with_nil
+    skip
+    item_repo = ItemRepository.new
+    item_repo.populate_items_repo
+    assert_equal item_repo.find_all_by_price_in_range("not_real_range"), []
+  end
+
+  def test_find_all_by_merchant_id
+    item_repo = ItemRepository.new
+    item_repo.populate_items_repo
+    assert_equal item_repo.find_all_by_merchant_id("12334141").length, 1
+  end
+
+  def test_find_all_by_merchant_id_with_nil
+    item_repo = ItemRepository.new
+    item_repo.populate_items_repo
+    assert_equal item_repo.find_all_by_merchant_id("kwjalkdwja"), []
+  end
+
+
 end

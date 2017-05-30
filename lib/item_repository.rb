@@ -60,9 +60,14 @@ class ItemRepository
   end
 
   def find_all_by_price_in_range
-    
   end
 
-
+  def find_all_by_merchant_id(merchant_id)
+    merchants_array = []
+    @items.each_value do |value|
+      merchants_array << value if value.merchant_id == merchant_id
+    end
+    merchants_array
+  end
 
 end
