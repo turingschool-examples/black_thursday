@@ -60,4 +60,10 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal item_repo.find_all_with_description("asjdhasuhkjdnas"), []
   end
 
+  def test_find_all_by_price
+    item_repo = ItemRepository.new
+    item_repo.populate_items_repo
+    assert_equal item_repo.find_all_by_price(400.00).length, 7
+  end
+
 end

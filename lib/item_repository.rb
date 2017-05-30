@@ -51,9 +51,16 @@ class ItemRepository
     description_array
   end
 
-  def find_all_by_price
+  def find_all_by_price(item_price)
+    prices_array = []
+    @items.each_value do |value|
+      prices_array << value if value.unit_price == item_price
+    end
+    prices_array
   end
 
+  def find_all_by_price_in_range
+  end
 
 
 
