@@ -38,8 +38,34 @@ class ItemTest < MiniTest::Test
     assert i.updated_at
   end
 
-  def test_item_id
-    i = Item.new 
+  def test_one_item_id
+    i = Item.new({:name        => "Pencil",
+                  :description => "You can use it to write things",
+                  :unit_price  => BigDecimal.new(10.99,4),
+                  :created_at  => Time.now,
+                  :updated_at  => Time.now
+                 }, 1)
+
+   assert_equal 1, i.id
+  end
+
+  def test_can_create_two_item_ids
+    i1 = Item.new({:name        => "Pencil",
+                  :description => "You can use it to write things",
+                  :unit_price  => BigDecimal.new(10.99,4),
+                  :created_at  => Time.now,
+                  :updated_at  => Time.now
+                 }, 1)
+
+    i2 = Item.new({:name        => "Pen",
+                  :description => "You can use it to write things",
+                  :unit_price  => BigDecimal.new(11.99,4),
+                  :created_at  => Time.now,
+                  :updated_at  => Time.now
+                 }, 2)
+
+    assert_equal 1, i1.id
+    assert_equal 2, i2.id
   end
 
 end
