@@ -10,4 +10,8 @@ class Item
     @created_at = attributes[:created_at]
     @updated_at = attributes[:updated_at]
   end 
+  
+  def unit_price_to_dollars
+    dollar_price = @unit_price.to_f
+  end 
 end 
