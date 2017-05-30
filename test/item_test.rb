@@ -10,20 +10,23 @@ require_relative '../lib/item'
 class ItemTest < MiniTest::Test
 
   def test_if_create_class
-    i = Item.new("pencil", "test", 10.99, Time.now, Time.now)
+    i = Item.new({:name        => "test",
+                  :description => "test",
+                  :unit_price  => BigDecimal.new(10.99,4),
+                  :created_at  => Time.now,
+                  :updated_at  => Time.now
+                 })
 
     assert_instance_of Item, i
   end
 
   def test_default_attributes
-    # i = Item.new({:name        => "Pencil",
-    #               :description => "You can use it to write things",
-    #               :unit_price  => BigDecimal.new(10.99,4),
-    #               :created_at  => Time.now,
-    #               :updated_at  => Time.now
-    #              })
-    i = Item.new("pencil", "test", 10.99, Time.now, Time.now)
-
+    i = Item.new({:name        => "Pencil",
+                  :description => "You can use it to write things",
+                  :unit_price  => BigDecimal.new(10.99,4),
+                  :created_at  => Time.now,
+                  :updated_at  => Time.now
+                 })
 
     assert i.name
     assert i.description
