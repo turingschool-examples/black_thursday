@@ -14,7 +14,7 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2017-05-30T14:38:14-06:00">2017-05-30T14:38:14-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2017-05-30T15:35:38-06:00">2017-05-30T15:35:38-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -111,49 +111,49 @@
         <li class="covered" data-hits="1" data-linenumber="4">
           <span class="hits">1</span>
           
-          <code class="ruby">  def initialize(id, name, description, unit_price, merchant_id, created_at, updated_at)</code>
+          <code class="ruby">  def initialize(item_hash)</code>
         </li>
       
         <li class="covered" data-hits="8" data-linenumber="5">
           <span class="hits">8</span>
           
-          <code class="ruby">    @id = id</code>
+          <code class="ruby">    @id = item_hash[:id].to_i</code>
         </li>
       
         <li class="covered" data-hits="8" data-linenumber="6">
           <span class="hits">8</span>
           
-          <code class="ruby">    @name = name</code>
+          <code class="ruby">    @name = item_hash[:name]</code>
         </li>
       
         <li class="covered" data-hits="8" data-linenumber="7">
           <span class="hits">8</span>
           
-          <code class="ruby">    @description = description</code>
+          <code class="ruby">    @description = item_hash[:description]</code>
         </li>
       
         <li class="covered" data-hits="8" data-linenumber="8">
           <span class="hits">8</span>
           
-          <code class="ruby">    @unit_price = unit_price</code>
+          <code class="ruby">    @unit_price = item_hash[:unit_price]</code>
         </li>
       
         <li class="covered" data-hits="8" data-linenumber="9">
           <span class="hits">8</span>
           
-          <code class="ruby">    @merchant_id = merchant_id</code>
+          <code class="ruby">    @merchant_id = item_hash[:merchant_id]</code>
         </li>
       
         <li class="covered" data-hits="8" data-linenumber="10">
           <span class="hits">8</span>
           
-          <code class="ruby">    @created_at = created_at</code>
+          <code class="ruby">    @created_at = item_hash[:created_at]</code>
         </li>
       
         <li class="covered" data-hits="8" data-linenumber="11">
           <span class="hits">8</span>
           
-          <code class="ruby">    @updated_at = updated_at</code>
+          <code class="ruby">    @updated_at = item_hash[:updated_at]</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="12">
