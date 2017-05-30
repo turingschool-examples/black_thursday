@@ -10,7 +10,7 @@ class ItemTest < Minitest::Test
     @item = Item.new({
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(10.99,4),
+      :unit_price  => 1099,
       :created_at  => Time.now,
       :updated_at  => Time.now,
       :merchant_id => 12334141
@@ -30,7 +30,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_has_a_unit_price
-    assert_equal 10.99, item.unit_price
+    assert_equal 1099, item.unit_price
   end
 
   def test_it_knows_when_it_was_created_and_updated
@@ -40,5 +40,9 @@ class ItemTest < Minitest::Test
 
   def test_it_knows_merchant_id
     assert_equal 12334141, item.merchant_id
+  end
+
+  def test_it_can_convert_to_dollars
+    assert_equal 10.99, item.unit_price_to_dollars
   end
 end
