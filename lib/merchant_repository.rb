@@ -5,12 +5,13 @@ require './lib/merchant'
 class MerchantRepository
   attr_reader :merchants
 
-  def initialize
+  def initialize(csv_file)
     @merchants = {}
+    populate_merchant_repo(csv_file)
   end
 
-  def populate_merchant_repo
-    merchant_list = CSV.open "./data/merchants.csv", headers: true, header_converters: :symbol
+  def populate_merchant_repo(csv_file)
+    merchant_list = CSV.open csv_file, headers: true, header_converters: :symbol
     merchant_list.each { |row|
       individual = Merchant.new({:id => row[:id], :name => row[:name]})
         @merchants[individual.id] = individual
@@ -62,9 +63,9 @@ class MerchantRepository
 
 end
 #
-merchant = MerchantRepository.new
-merchant.populate_merchant_repo
-merchant.all
+# merchant = MerchantRepository.new
+# merchant.populate_merchant_repo
+# merchant.all
 # p merchant.find_by_id(12334113)
 # merchant.find_by_name("Shopin1901")
 # p merchant.find_all_by_name('th')

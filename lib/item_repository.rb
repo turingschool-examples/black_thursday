@@ -6,12 +6,13 @@ class ItemRepository
 
   attr_reader :items
 
-  def initialize
+  def initialize(csv_file)
     @items = {}
+    populate_items_repo(csv_file)
   end
-
-  def populate_items_repo
-    items_list = CSV.open "./data/items.csv", headers: true, header_converters: :symbol
+  
+  def populate_items_repo(csv_file)
+    items_list = CSV.open csv_file, headers: true, header_converters: :symbol
     items_list.each { |row|
       item = Item.new({ :id => row[:id], :name => row[:name], :description => row[:description], :unit_price => row[:unit_price], :merchant_id => row[:merchant_id], :created_at => row[:created_at], :updated_at => row[:updated_at]})
       @items[item.id] = item
