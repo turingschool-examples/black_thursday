@@ -9,3 +9,5 @@ class SalesEngine
     @items = ItemRepository.new(input_csv_files[:items])
   end
 end
+
+#this method isn't a class method yet
