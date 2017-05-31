@@ -2,6 +2,7 @@ require "pry"
 
 class Item
   attr_reader :name,
+              :id,
               :description,
               :unit_price,
               :created_at,
