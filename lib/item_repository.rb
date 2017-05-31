@@ -1,3 +1,4 @@
+require "pry"
 require_relative 'item'
 
 class ItemRepository
@@ -20,5 +21,12 @@ class ItemRepository
 
   def find_by_id(id)
     items[id]
+  end
+
+  def find_by_name(name)
+    thing = items.find do |id, item|
+      item.name == name
+    end
+    thing[1]
   end
 end

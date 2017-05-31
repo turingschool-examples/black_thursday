@@ -32,7 +32,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_return_all_item_instances
     actual = item_repo.all
     assert_equal 5, actual.length
-    assert_instance_of Item, actual[0]
+    assert_instance_of Item, actual.sample
   end
 
   def test_it_can_find_item_by_id
@@ -46,5 +46,12 @@ class ItemRepositoryTest < Minitest::Test
     id = "2412341234"
 
     assert_nil item_repo.find_by_id(id)
+  end
+
+  def test_can_find_item_by_name
+    name = "Eule - Topflappen, handgehäkelt, Paar"
+
+    assert_instance_of Item, item_repo.find_by_name(name)
+    assert_equal name, item_repo.find_by_name(name).name
   end
 end
