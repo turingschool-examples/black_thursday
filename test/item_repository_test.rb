@@ -63,7 +63,8 @@ class ItemRepositoryTest < Minitest::Test
   def test_find_all_by_price
     item_repo = ItemRepository.new
     item_repo.populate_items_repo
-    assert_equal item_repo.find_all_by_price(400.00).length, 7
+    p item_repo.find_all_by_price(400.00)
+    assert_equal item_repo.find_all_by_price(400.00).length, 23
   end
 
   def test_find_all_by_price_with_nil
@@ -73,17 +74,15 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_price_in_range
-    skip
     item_repo = ItemRepository.new
     item_repo.populate_items_repo
-    assert_equal item_repo.find_all_by_price_in_range("range"), "?"
+    assert_equal item_repo.find_all_by_price_in_range(10..20).length, 1
   end
 
   def test_find_all_by_price_in_range_with_nil
-    skip
     item_repo = ItemRepository.new
     item_repo.populate_items_repo
-    assert_equal item_repo.find_all_by_price_in_range("not_real_range"), []
+    assert_equal item_repo.find_all_by_price_in_range(0..0), []
   end
 
   def test_find_all_by_merchant_id
