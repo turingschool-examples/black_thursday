@@ -1,6 +1,9 @@
 class CsvReader
 
 
-def read_file(file_path)
-contents = CSV.open file_path, headers: true, header_converters: :symbol
+  def self.read_file(file_path)
+    CSV.open(file_path,
+             headers: true,
+             header_converters: :symbol)
+  end
 end

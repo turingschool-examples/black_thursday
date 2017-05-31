@@ -1,11 +1,21 @@
 require 'pry'
 require 'csv'
+require_relative 'merchant'
 
 class MerchantRepository
   attr_reader :all
 
-  def initialize
+  def initialize(file)
     @all = []
+    populate_merchant_repo(file)
+  end
+
+  def populate_merchant_repo(file)
+    merchant_lines = CSV.open(file, headers: true, header_converters: :symbol)
+    merchant_lines.each do |row|
+      merchant = Merchant.new({:id => row[:id], :name => row[:name], :created_at => row[:created_at], :updated_at => row[:updated_at]})
+      all << merchant
+    end
   end
 
   def add_merchants(merchant)
