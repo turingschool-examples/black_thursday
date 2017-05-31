@@ -15,5 +15,15 @@ class MerchantTest < MiniTest::Test
     assert_instance_of Merchant, m
   end
 
+  def test_default_attributes
+    m = Merchant.new({:name  =>  "Turing School",
+                      :id    =>  201})
+                      
+    assert m.name
+    assert_equal "Turing School", m.name
+    assert m.id
+    assert_equal 201, m.id
+  end
+
 
 end
