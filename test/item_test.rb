@@ -29,8 +29,8 @@ class ItemTest < Minitest::Test
   end
 
   def test_item_has_a_price
-    item = Item.new({:unit_price => "1450"})
-    assert_equal item.unit_price, 0.145E2
+    item = Item.new({:unit_price => BigDecimal.new(10.99,4)})
+    assert_equal item.unit_price, 0.1099e2
   end
 
   def test_item_has_a_merchant_id
