@@ -29,8 +29,8 @@ class ItemTest < Minitest::Test
   end
 
   def test_item_has_a_price
-    item = Item.new({:unit_price => "1450"}) #what if it enters as a fixnum?
-    assert_equal 14.50, item.unit_price
+    item = Item.new({:unit_price => BigDecimal.new(10.99,4)})
+    assert_equal item.unit_price, 0.1099e2
   end
 
   def test_item_has_a_merchant_id
@@ -48,6 +48,11 @@ class ItemTest < Minitest::Test
     time = Time.now
     item = Item.new({:updated_at => time})
     assert_equal item.updated_at, time
+  end
+
+  def test_item_price_in_dollars
+    item = Item.new({:unit_price => BigDecimal.new(10.99,4)})
+    assert_equal item.unit_price_to_dollars, 10.99
   end
 
 end

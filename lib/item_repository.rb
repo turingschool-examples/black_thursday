@@ -10,7 +10,7 @@ class ItemRepository
     @items = {}
     populate_items_repo(csv_file)
   end
-
+  
   def populate_items_repo(csv_file)
     items_list = CSV.open csv_file, headers: true, header_converters: :symbol
     items_list.each { |row|
@@ -55,12 +55,17 @@ class ItemRepository
   def find_all_by_price(item_price)
     prices_array = []
     @items.each_value do |value|
-      prices_array << value if value.unit_price == item_price
+      prices_array << value if value.unit_price_to_dollars == item_price
     end
     prices_array
   end
 
-  def find_all_by_price_in_range
+  def find_all_by_price_in_range(range)
+    prices_range_array = []
+    @items.each_value do |value|
+      prices_range_array << value if range.include?(value.unit_price_to_dollars)
+    end
+    prices_range_array
   end
 
   def find_all_by_merchant_id(merchant_id)

@@ -8,11 +8,19 @@ class Item
     @id = item_hash[:id].to_i
     @name = item_hash[:name]
     @description = item_hash[:description]
-    @unit_price = item_hash[:unit_price].to_s.insert(-3, ".").to_f.to_d unless item_hash[:unit_price] == nil
+    @unit_price = item_hash[:unit_price].to_f.to_d unless item_hash[:unit_price] == nil
     @merchant_id = item_hash[:merchant_id]
     @created_at = item_hash[:created_at]
     @updated_at = item_hash[:updated_at]
   end
 
+<<<<<<< HEAD
 end
   
+=======
+  def unit_price_to_dollars
+    @unit_price.to_f
+  end
+
+end
+>>>>>>> 63d4d42516816a64ced87fab99df6901ebe79f96
