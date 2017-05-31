@@ -14,10 +14,6 @@ class Item
     @updated_at = item_hash[:updated_at]
   end
 
-<<<<<<< HEAD
-end
-  
-=======
   def unit_price_to_dollars
     @unit_price.to_f / 100
   end
@@ -26,7 +22,4 @@ end
     input = BigDecimal.new(input, input.length)
   end
 
-
-
 end
->>>>>>> 63d4d42516816a64ced87fab99df6901ebe79f96
