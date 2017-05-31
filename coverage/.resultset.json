@@ -1,6 +1,7 @@
 {
   "Unit Tests": {
     "coverage": {
+<<<<<<< HEAD
       "/Users/thedanielvogelsang/TuringFolder/1module/projects/black_thursday/lib/sales_engine.rb": [
         1,
         1,
@@ -33,13 +34,31 @@
         1,
         1
       ],
+=======
+<<<<<<< HEAD
+      "/Users/katieshermer/Desktop/Turing/1mod/black_thursday/lib/item_repository.rb": [
+        1,
+=======
+>>>>>>> 21937940a945656d4807067af178212ca5b8c44c
       "/Users/thedanielvogelsang/TuringFolder/1module/projects/black_thursday/lib/merchant_repository.rb": [
+>>>>>>> 8d1a558fbc9622a4fc76297fc7296ef1bc9b6858
         1,
         1,
         null,
         null,
         1,
         1,
+<<<<<<< HEAD
+        15,
+        15,
+        null,
+        null,
+        1,
+        15,
+        15,
+        20505,
+        20505,
+=======
         null,
         1,
         7,
@@ -47,10 +66,18 @@
         null,
         null,
         1,
+<<<<<<< HEAD
         7,
         7,
         3325,
         3325,
+=======
+        10,
+        10,
+        4750,
+        4750,
+>>>>>>> 8d1a558fbc9622a4fc76297fc7296ef1bc9b6858
+>>>>>>> 21937940a945656d4807067af178212ca5b8c44c
         null,
         null,
         null,
@@ -97,6 +124,36 @@
         0,
         null,
         null,
+<<<<<<< HEAD
+        1,
+        2,
+        2,
+        2734,
+        null,
+        2,
+        null,
+        null,
+        1,
+        2,
+        2,
+        2734,
+        null,
+        2,
+        null,
+        null,
+        1,
+        2,
+        2,
+        2734,
+        null,
+        2,
+        null,
+        null,
+        1,
+        2,
+        2,
+        2734,
+=======
         null,
         null,
         null,
@@ -121,6 +178,7 @@
         1,
         1,
         null,
+<<<<<<< HEAD
         1,
         null,
         1,
@@ -128,8 +186,45 @@
         1,
         7,
         7,
+=======
+>>>>>>> 8d1a558fbc9622a4fc76297fc7296ef1bc9b6858
         null,
         null,
+        null,
+<<<<<<< HEAD
+        null
+      ],
+      "/Users/katieshermer/Desktop/Turing/1mod/black_thursday/lib/item.rb": [
+        1,
+        1,
+        null,
+        1,
+        1,
+        null,
+        1,
+        20505,
+        20505,
+        20505,
+        20505,
+        20505,
+        20505,
+        20505,
+        null,
+        null,
+        1,
+        5468,
+        null,
+        null,
+        1,
+        20505,
+>>>>>>> 21937940a945656d4807067af178212ca5b8c44c
+        null,
+        null,
+        null
+      ]
+    },
+    "timestamp": 1496240922
+=======
         1,
         7,
         7,
@@ -225,6 +320,11 @@
         null
       ]
     },
+<<<<<<< HEAD
     "timestamp": 1496242325
+=======
+    "timestamp": 1496240680
+>>>>>>> 8d1a558fbc9622a4fc76297fc7296ef1bc9b6858
+>>>>>>> 21937940a945656d4807067af178212ca5b8c44c
   }
 }
