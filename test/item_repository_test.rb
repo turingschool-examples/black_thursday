@@ -90,7 +90,7 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal item_repo.find_all_by_merchant_id("12334141").length, 1
   end
 
-  def test_find_all_by_merchant_id_with_nil
+  def test_find_all_by_merchant_id_with_invalid_input
     item_repo = ItemRepository.new
     item_repo.populate_items_repo
     assert_equal item_repo.find_all_by_merchant_id("kwjalkdwja"), []

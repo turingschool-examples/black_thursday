@@ -30,7 +30,7 @@ class MerchantRepository
       if value.name == name
         return value
       else
-        return nil
+        nil
       end
     }
   end
