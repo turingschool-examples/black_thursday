@@ -98,5 +98,4 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal item_repo.find_all_by_merchant_id("kwjalkdwja"), []
   end
 
-
 end

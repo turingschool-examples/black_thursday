@@ -28,7 +28,7 @@ class MerchantRepoTest < Minitest::Test
     assert_equal 475, result2.length
   end
 
-  def test_it_can_access_individual_instances_of_merchants_with_merchants_attr_reader
+  def test_merchants_attr_reader_has_fixnums_as_keys
     merchant = MerchantRepository.new
     merchant.populate_merchant_repo
     merchant_list = merchant.merchants
@@ -36,7 +36,7 @@ class MerchantRepoTest < Minitest::Test
     assert_instance_of Fixnum, merchant_1[0]
   end
 
-  def test_merchants_can_find_name
+  def test_find_by_name
     merchant = MerchantRepository.new
     merchant.populate_merchant_repo
     result = merchant.find_by_name("shopin1901")
@@ -47,10 +47,10 @@ class MerchantRepoTest < Minitest::Test
     merchant = MerchantRepository.new
     merchant.populate_merchant_repo
     result = merchant.find_by_id("12334105")
-    assert_equal 12334105, result
+    assert_instance_of Merchant, result
   end
 
-  def test_find_by_returns_nil_if_no_match
+  def test_find_bys_return_nil_if_no_match
     merchant = MerchantRepository.new
     merchant.populate_merchant_repo
     result = merchant.find_by_name("Daniel")
@@ -74,4 +74,10 @@ class MerchantRepoTest < Minitest::Test
     assert_equal 40, result.length
   end
 
+  def test_it_can_use_all_method
+    merchant = MerchantRepository.new
+    merchant.populate_merchant_repo
+    all_merchants = merchant.all
+    assert_equal 475, all_merchants.length
+  end
 end

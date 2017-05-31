@@ -29,8 +29,8 @@ class ItemTest < Minitest::Test
   end
 
   def test_item_has_a_price
-    item = Item.new({:unit_price => "1450"})
-    assert_equal item.unit_price, 14.50
+    item = Item.new({:unit_price => "1450"}) #what if it enters as a fixnum?
+    assert_equal 14.50, item.unit_price
   end
 
   def test_item_has_a_merchant_id
