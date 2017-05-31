@@ -56,8 +56,9 @@ class ItemRepositoryTest < MiniTest::Test
     ir = ItemRepository.new
     ir.add_items(item_1)
     ir.add_items(item_2)
+    results = ir.find_all_by_price(10)
 
-    assert_equal item_2, ir.find_by_price(10)
+    assert results.include?(item_2)
   end
 
   def test_if_can_find_all_by_price_in_range
@@ -71,9 +72,12 @@ class ItemRepositoryTest < MiniTest::Test
   end
 
   def test_if_can_find_all_by_merchant_id
-    item = ItemRepository.new
+    ir = ItemRepository.new
+    ir.add_items(item_1)
+    ir.add_items(item_2)
+    results = ir.find_all_by_merchant_id(123)
 
-    assert_equal [], item.find_all_by_merchant_id
+    assert results.include?(item_1)
   end
 
 end
