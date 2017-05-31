@@ -17,16 +17,16 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    @all_merchant_data.select{|merchant| merchant.id == id}
+    @all_merchant_data.find{|merchant| merchant.id == id}
   end
 
   def find_by_name(name)
-    @all_merchant_data.select{|merchant| merchant.name == name}
+    @all_merchant_data.find{|merchant| merchant.name == name}
   end
 
-  def find_all_by_name
+  def find_all_by_name(name)
+    @all_merchant_data.find_all{|merchant| /#{name}/i =~ merchant.name}
   end
-
 end
 
 merchant = MerchantRepository.new
