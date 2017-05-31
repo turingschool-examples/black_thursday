@@ -45,5 +45,22 @@ class MerchantRepositoryTest < MiniTest::Test
     assert_nil actual_2
   end
 
+  def test_if_find_by_name_works
+    mr = MerchantRepository.new
+    m_1 = Merchant.new({:name  =>  "Turing School",
+                        :id    =>  201})
+    m_2 = Merchant.new({:name  =>  "Slice Works",
+                        :id    =>  405})
+
+    mr.all << m_1
+    mr.all << m_2
+
+    actual_1 = mr.find_by_name("Turing School")
+    actual_2 = mr.find_by_name("Mike Dao's Torture Chamber")
+
+    assert_equal m_1, actual_1
+    assert_nil actual_2
+  end
+
 
 end
