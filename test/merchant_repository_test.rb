@@ -28,7 +28,22 @@ class MerchantRepositoryTest < MiniTest::Test
     assert_equal [m_1, m_2], mr.all
   end
 
-  
+  def test_if_find_by_id_returns_correct_value_for_method
+    mr = MerchantRepository.new
+    m_1 = Merchant.new({:name  =>  "Turing School",
+                        :id    =>  201})
+    m_2 = Merchant.new({:name  =>  "Slice Works",
+                        :id    =>  405})
+
+    mr.all << m_1
+    mr.all << m_2
+
+    actual_1 = mr.find_by_id(201)
+    actual_2 = mr.find_by_id(800)
+
+    assert_equal m_1, actual_1
+    assert_nil actual_2
+  end
 
 
 end
