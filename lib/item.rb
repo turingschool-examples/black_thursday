@@ -5,7 +5,6 @@ class Item
 
   def initialize(information)
     @information = information
-
   end
 
   def id

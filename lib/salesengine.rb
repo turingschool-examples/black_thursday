@@ -1,25 +1,21 @@
 require 'pry'
+require 'csv'
+require_relative 'itemrepository'
 class SalesEngine
 
   attr_reader :items,
               :merchants
 
-  def intialize
-    @items = ItemRepository.new
-    @merchants = MerchantRepository.new
+  def initialize(file_path)
+    @items = ItemRepository.new(file_path)
+    # @merchants = MerchantRepository.new
   end
 
-  # def items
-  #
-  # end
-  #
-  # def merchants
-  #
-  # end
-
-  # def self.from_csv(files)
-  #
-  # end
-
+  def self.from_csv(file = {})
+    SalesEngine.new(file[:items])
+    # items = ItemRepository.new(file[:items])
+    # @merchant_info = CSV.read(file[:merchants])
+  end
 
 end
+binding.pry
