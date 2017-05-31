@@ -1,4 +1,5 @@
 require 'pry'
+require 'csv'
 
 class MerchantRepository
   attr_reader :all
@@ -7,8 +8,18 @@ class MerchantRepository
     @all = []
   end
 
-  def find_by_id
-    nil
+  def read_csv_into_array
+  array = []
+  contents = CSV.open "./data/merchants.csv", headers: true, header_converters: :symbol
+  contents.map do |line|
+    array << line[:id]
+    puts array
+    end
+
+  end
+
+  def find_by_id(array)
+    # array.map do |name|
     #will take arguement of item_id
   end
 
@@ -22,3 +33,5 @@ class MerchantRepository
   end
 
 end
+final = MerchantRepository.new
+final.read_csv_into_array
