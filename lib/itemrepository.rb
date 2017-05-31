@@ -5,8 +5,9 @@ class ItemRepository
   attr_reader :file_path,
               :content
 
-  def initialize(file_path)
+  def initialize(file_path, parent)
     @file_path = file_path
+    @parent = parent
     @content = nil
   end
 
@@ -33,7 +34,7 @@ class ItemRepository
   def all
     list = []
     content.each do |item|
-      i = Item.new(item)
+      i = Item.new(item,self)
       list << i
     end
     list
@@ -42,7 +43,7 @@ class ItemRepository
   def find_by_id(id_number)
     l = nil
     content.each do |item|
-      i = Item.new(item)
+      i = Item.new(item,self)
       l = i if i.id == id_number
     end
     l
@@ -51,7 +52,7 @@ class ItemRepository
   def find_by_name(name)
     l = nil
     content.each do |item|
-      i = Item.new(item)
+      i = Item.new(item,self)
       l = i if i.name == name
     end
     l
@@ -60,7 +61,7 @@ class ItemRepository
   def find_all_with_description(str)
     list = []
     content.each do |item|
-      i = Item.new(item)
+      i = Item.new(item,self)
       list << i if i.description.downcase.split.include?(str.downcase)
     end
     list

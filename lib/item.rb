@@ -3,8 +3,9 @@ require 'bigdecimal'
 class Item
   attr_reader :information
 
-  def initialize(information)
+  def initialize(information,parent)
     @information = information
+    @parent = parent
   end
 
   def id
