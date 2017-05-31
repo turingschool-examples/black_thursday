@@ -15,9 +15,9 @@ class MerchantRepositoryTest < MiniTest::Test
 
   def test_it_can_add_merchants
     mr = MerchantRepository.new
-    merch_1 = Merchant.new(1, "Burger King")
-    merch_2 = Merchant.new(2, "McDonalds")
-    merch_3 = Merchant.new(3, "Wendys")
+    merch_1 = Merchant.new(:id => 1, :name => "Burger King")
+    merch_2 = Merchant.new(:id => 2, :name => "McDonalds")
+    merch_3 = Merchant.new(:id => 3, :name => "Wendys")
     mr.add_merchants(merch_1)
     mr.add_merchants(merch_2)
     mr.add_merchants(merch_3)
@@ -26,9 +26,9 @@ class MerchantRepositoryTest < MiniTest::Test
 
   def test_if_can_find_by_id
     mr = MerchantRepository.new
-    merch_1 = Merchant.new(1, "Burger King")
-    merch_2 = Merchant.new(2, "McDonalds")
-    merch_3 = Merchant.new(3, "Wendys")
+    merch_1 = Merchant.new(:id => 1, :name => "Burger King")
+    merch_2 = Merchant.new(:id => 2, :name => "McDonalds")
+    merch_3 = Merchant.new(:id => 3, :name => "Wendys")
     mr.add_merchants(merch_1)
     mr.add_merchants(merch_2)
     mr.add_merchants(merch_3)
@@ -38,9 +38,9 @@ class MerchantRepositoryTest < MiniTest::Test
 
   def test_to_find_by_name
     mr = MerchantRepository.new
-    merch_1 = Merchant.new(1, "Burger King")
-    merch_2 = Merchant.new(2, "McDonalds")
-    merch_3 = Merchant.new(3, "Wendys")
+    merch_1 = Merchant.new(:id => 1, :name => "Burger King")
+    merch_2 = Merchant.new(:id => 2, :name => "McDonalds")
+    merch_3 = Merchant.new(:id => 3, :name => "Wendys")
     mr.add_merchants(merch_1)
     mr.add_merchants(merch_2)
     mr.add_merchants(merch_3)
@@ -50,9 +50,9 @@ class MerchantRepositoryTest < MiniTest::Test
 
   def test_to_find_by_all_by_name
     mr = MerchantRepository.new
-    merch_1 = Merchant.new(1, "Burger King")
-    merch_2 = Merchant.new(2, "McDonalds")
-    merch_3 = Merchant.new(3, "Wendys")
+    merch_1 = Merchant.new(:id => 1, :name => "Burger King")
+    merch_2 = Merchant.new(:id => 2, :name => "McDonalds")
+    merch_3 = Merchant.new(:id => 3, :name => "Wendys")
     mr.add_merchants(merch_1)
     mr.add_merchants(merch_2)
     mr.add_merchants(merch_3)

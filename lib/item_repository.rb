@@ -5,14 +5,20 @@ class ItemRepository
     @all = []
   end
 
-  def find_by_id
-    nil
-    #will take arguement of item_id
+  def add_items(item)
+    all <<(item)
   end
 
-  def find_by_name
-    nil
-    #will take argument of item_name
+  def find_by_id(id)
+    all.find do |item|
+      item.id == id
+    end
+  end
+
+  def find_by_name(name)
+    all.find do |item|
+      item.name == name
+    end
   end
 
   def find_all_with_descriptions
