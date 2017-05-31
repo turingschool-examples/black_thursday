@@ -1,7 +1,7 @@
 require './lib/merchant_repository'
 require './lib/item_repository'
 
-class SearchEngine
+class SalesEngine
 
   attr_reader :merchants, :items
 
@@ -11,8 +11,8 @@ class SearchEngine
   end
 
 
-end
+  def self.from_csv(item_merchant_hash)
+    se = SalesEngine.new(item_merchant_hash)
+  end
 
-se = SearchEngine.new({:items => "./data/items.csv", :merchants=>"./data/merchants.csv"})
-p merchant = se.merchants
-p items = se.items
+end

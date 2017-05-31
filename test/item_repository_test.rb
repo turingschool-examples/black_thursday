@@ -44,10 +44,10 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of Item, item_repo.find_by_name("510+ RealPush Icon Set")
   end
 
-  def test_item_find_by_name_with_nil
+  def test_item_find_by_name_with_invalid_input
     csv_file = "./data/items.csv"
     item_repo = ItemRepository.new(csv_file)
-    assert_nil item_repo.find_by_name("Katie")
+    assert_nil item_repo.find_by_name("askjdhiuioiasjdoiasoidahdwnkj"), nil
   end
 
   def test_find_all_with_description

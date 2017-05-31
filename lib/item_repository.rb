@@ -39,9 +39,10 @@ class ItemRepository
       if value.name == name
         return value
       else
-        return nil
+        next
       end
     end
+    nil
   end
 
   def find_all_with_description(description_string)

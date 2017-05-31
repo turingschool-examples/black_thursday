@@ -1,19 +1,16 @@
 {
   "Unit Tests": {
     "coverage": {
-<<<<<<< HEAD
       "/Users/katieshermer/Desktop/Turing/1mod/black_thursday/lib/item_repository.rb": [
         1,
-=======
-      "/Users/thedanielvogelsang/TuringFolder/1module/projects/black_thursday/lib/merchant_repository.rb": [
->>>>>>> 8d1a558fbc9622a4fc76297fc7296ef1bc9b6858
         1,
         1,
         null,
+        1,
         null,
         1,
+        null,
         1,
-<<<<<<< HEAD
         15,
         15,
         null,
@@ -23,40 +20,35 @@
         15,
         20505,
         20505,
-=======
-        null,
-        1,
-        10,
-        10,
-        null,
-        null,
-        1,
-        10,
-        10,
-        4750,
-        4750,
->>>>>>> 8d1a558fbc9622a4fc76297fc7296ef1bc9b6858
         null,
         null,
         null,
         1,
         1,
-        475,
-        null,
         null,
         null,
         1,
-        3,
-        3,
-        3,
+        1,
+        1,
+        1367,
+        1,
+        1,
+        null,
+        null,
+        1,
+        null,
+        null,
+        1,
         2,
-        null,
+        1368,
         1,
         null,
+        1367,
         null,
         null,
         null,
-<<<<<<< HEAD
+        null,
+        null,
         1,
         2,
         2,
@@ -85,24 +77,10 @@
         2,
         2,
         2734,
-=======
         null,
-        null,
-        null,
-        null,
-        1,
         2,
-        2,
-        2,
-        1,
-        null,
-        1,
-        null,
->>>>>>> 8d1a558fbc9622a4fc76297fc7296ef1bc9b6858
         null,
         null,
-        null,
-<<<<<<< HEAD
         null
       ],
       "/Users/katieshermer/Desktop/Turing/1mod/black_thursday/lib/item.rb": [
@@ -133,40 +111,6 @@
         null
       ]
     },
-    "timestamp": 1496240922
-=======
-        1,
-        1,
-        1,
-        1,
-        475,
-        40,
-        null,
-        null,
-        1,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "/Users/thedanielvogelsang/TuringFolder/1module/projects/black_thursday/lib/merchant.rb": [
-        1,
-        1,
-        1,
-        4750,
-        4750,
-        null,
-        null
-      ]
-    },
-    "timestamp": 1496240680
->>>>>>> 8d1a558fbc9622a4fc76297fc7296ef1bc9b6858
+    "timestamp": 1496242512
   }
 }
