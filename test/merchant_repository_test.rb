@@ -7,7 +7,7 @@ class MerchantRepositoryTest < Minitest::Test
   attr_reader :merch_repo
 
   def setup
-    csv = CSV.open('./data/merchants.csv', headers: true, header_converters: :symbol)
+    csv = CSV.open('./data/merchant_sample.csv', headers: true, header_converters: :symbol)
     @merch_repo = MerchantRepository.new(csv)
   end
 
@@ -26,6 +26,10 @@ class MerchantRepositoryTest < Minitest::Test
     assert_instance_of Merchant, merch_repo.merchants[random_merch_key]
   end
 
-
+  def test_it_can_return_all_merchants
+    actual = merch_repo.all
+    assert_equal 5, actual.length
+    assert_instance_of Merchant, actual.sample
+  end
 
 end

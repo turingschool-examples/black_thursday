@@ -17,11 +17,11 @@ class MerchantRepository
       merchants[stuff[:id]] = Merchant.new(stuff)
     end
   end
+
+  def all
+    merchants.values
+  end
 end
-#   def all
-#     merchants
-#   end
-#
 #   def find_by_id(id)
 #
 #   end
