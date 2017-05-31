@@ -65,4 +65,56 @@ class ItemRepositoryTest < MiniTest::Test
     assert_nil ir.find_by_id(3)
   end
 
+  def test_find_by_name_returns_correct_value_for_method
+    ir = ItemRepository.new
+    i1 = Item.new({:name        => "Pencil",
+                  :description => "You can use it to write things",
+                  :unit_price  => BigDecimal.new(10.99,4),
+                  :created_at  => Time.now,
+                  :updated_at  => Time.now
+                 }, 1)
+
+    i2 = Item.new({:name        => "Pen",
+                  :description => "You can use it to write things",
+                  :unit_price  => BigDecimal.new(11.99,4),
+                  :created_at  => Time.now,
+                  :updated_at  => Time.now
+                 }, 2)
+    ir.all << i1
+    ir.all << i2
+
+    assert_equal i2, ir.find_by_name('pen')
+    assert_nil ir.find_by_name('Crayon')
+  end
+
+  def test_find_all_with_description_returns_correct_value_for_method
+    ir = ItemRepository.new
+    i1 = Item.new({:name        => "Pencil",
+                  :description => "You can use it to write things",
+                  :unit_price  => BigDecimal.new(10.99,4),
+                  :created_at  => Time.now,
+                  :updated_at  => Time.now
+                 }, 1)
+
+    i2 = Item.new({:name        => "Pen",
+                  :description => "Empty",
+                  :unit_price  => BigDecimal.new(11.99,4),
+                  :created_at  => Time.now,
+                  :updated_at  => Time.now
+                 }, 2)
+    ir.all << i1
+    ir.all << i2
+
+    actual_1 = ir.find_all_with_description("You can use it to write things")
+    actual_2 = ir.find_all_with_description("This description doesn't exist")
+
+    assert_equal [i1], actual_1
+    assert_equal [], actual_2
+  end
+
+# find_all_with_description
+# find_all_by_price
+# find_all_by_price_in_range
+# find_all_by_merchant_id
+
 end
