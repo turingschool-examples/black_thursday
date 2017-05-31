@@ -1,5 +1,6 @@
 require 'csv'
 require './lib/merchant'
+require './lib/sales_engine'
 
 class MerchantRepository
   attr_reader :merchants
@@ -18,7 +19,7 @@ class MerchantRepository
   end
 
   def all
-    @merchants.each {|key, value| print value}
+    @merchants.each {|key, value| puts value}
   end
 
   def find_by_name(name)
@@ -27,9 +28,10 @@ class MerchantRepository
       if value.name == name
         return value
       else
-       nil
+        next
       end
     end
+    nil
   end
 
   def find_by_id(id)
@@ -38,9 +40,10 @@ class MerchantRepository
       if key == id
         return @merchants[key]
       else
-        nil
+        next
       end
     end
+    nil
   end
 
   def find_all_by_name(snippet)
@@ -53,5 +56,6 @@ class MerchantRepository
     end
     return_matches
   end
+
 
 end
