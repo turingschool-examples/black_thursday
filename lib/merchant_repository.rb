@@ -1,5 +1,6 @@
 require 'csv'
 require './lib/merchant'
+require './lib/sales_engine'
 
 class MerchantRepository
   attr_reader :merchants
@@ -55,5 +56,6 @@ class MerchantRepository
     end
     return_matches
   end
+
 
 end
