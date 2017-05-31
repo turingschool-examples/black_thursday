@@ -13,7 +13,6 @@ class ItemRepository
       name = row[:id]
       p name
     end
-
   end
 
   def name
