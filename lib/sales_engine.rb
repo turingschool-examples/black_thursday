@@ -7,7 +7,7 @@ class SalesEngine
   end
 
   def merchants
-    MerchantRepository.new   
+    # MerchantRepository.new  
   end
 end
 
