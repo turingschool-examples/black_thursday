@@ -107,9 +107,31 @@ class ItemRepositoryTest < MiniTest::Test
 
     actual_1 = ir.find_all_with_description("You can use it to write things")
     actual_2 = ir.find_all_with_description("This description doesn't exist")
-
     assert_equal [i1], actual_1
     assert_equal [], actual_2
+  end
+
+  def test_find_all_by_price
+    ir = ItemRepository.new
+    i1 = Item.new({:name        => "Pencil",
+                  :description => "You can use it to write things",
+                  :unit_price  => BigDecimal.new(10.99,4),
+                  :created_at  => Time.now,
+                  :updated_at  => Time.now
+                 }, 1)
+
+    i2 = Item.new({:name        => "Pen",
+                  :description => "Empty",
+                  :unit_price  => BigDecimal.new(11.99,4),
+                  :created_at  => Time.now,
+                  :updated_at  => Time.now
+                 }, 2)
+    ir.all << i1
+    ir.all << i2
+
+    assert_equal [i1], ir.find_all_by_price(0.1099E2)
+    assert_equal [], ir.find_all_by_price(0.1515E2)
+
   end
 
 # find_all_with_description
