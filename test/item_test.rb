@@ -63,7 +63,7 @@ class ItemTest < MiniTest::Test
                   :created_at  => Time.now,
                   :updated_at  => Time.now
                  }, 2)
-
+binding.pry
     assert_equal 1, i1.id
     assert_equal 2, i2.id
   end
