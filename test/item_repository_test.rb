@@ -29,14 +29,14 @@ class ItemRepositoryTest < MiniTest::Test
                   :unit_price  => BigDecimal.new(10.99,4),
                   :created_at  => Time.now,
                   :updated_at  => Time.now
-                 }, 1)
+                 })
 
     i2 = Item.new({:name        => "Pen",
                   :description => "You can use it to write things",
                   :unit_price  => BigDecimal.new(11.99,4),
                   :created_at  => Time.now,
                   :updated_at  => Time.now
-                 }, 2)
+                 })
     ir.all << i1
     ir.all << i2
 
@@ -50,14 +50,15 @@ class ItemRepositoryTest < MiniTest::Test
                   :unit_price  => BigDecimal.new(10.99,4),
                   :created_at  => Time.now,
                   :updated_at  => Time.now
-                 }, 1)
+                 })
 
-    i2 = Item.new({:name        => "Pen",
+    i2 = Item.new({:id         => 2,
+                  :name        => "Pen",
                   :description => "You can use it to write things",
                   :unit_price  => BigDecimal.new(11.99,4),
                   :created_at  => Time.now,
                   :updated_at  => Time.now
-                 }, 2)
+                 })
     ir.all << i1
     ir.all << i2
 
@@ -72,14 +73,14 @@ class ItemRepositoryTest < MiniTest::Test
                   :unit_price  => BigDecimal.new(10.99,4),
                   :created_at  => Time.now,
                   :updated_at  => Time.now
-                 }, 1)
+                 })
 
     i2 = Item.new({:name        => "Pen",
                   :description => "You can use it to write things",
                   :unit_price  => BigDecimal.new(11.99,4),
                   :created_at  => Time.now,
                   :updated_at  => Time.now
-                 }, 2)
+                 })
     ir.all << i1
     ir.all << i2
 
@@ -94,14 +95,14 @@ class ItemRepositoryTest < MiniTest::Test
                   :unit_price  => BigDecimal.new(10.99,4),
                   :created_at  => Time.now,
                   :updated_at  => Time.now
-                 }, 1)
+                 })
 
     i2 = Item.new({:name        => "Pen",
                   :description => "Empty",
                   :unit_price  => BigDecimal.new(11.99,4),
                   :created_at  => Time.now,
                   :updated_at  => Time.now
-                 }, 2)
+                 })
     ir.all << i1
     ir.all << i2
 
@@ -118,24 +119,47 @@ class ItemRepositoryTest < MiniTest::Test
                   :unit_price  => BigDecimal.new(10.99,4),
                   :created_at  => Time.now,
                   :updated_at  => Time.now
-                 }, 1)
+                 })
 
     i2 = Item.new({:name        => "Pen",
                   :description => "Empty",
                   :unit_price  => BigDecimal.new(11.99,4),
                   :created_at  => Time.now,
                   :updated_at  => Time.now
-                 }, 2)
+                 })
     ir.all << i1
     ir.all << i2
 
     assert_equal [i1], ir.find_all_by_price(0.1099E2)
     assert_equal [], ir.find_all_by_price(0.1515E2)
-
   end
 
-# find_all_with_description
-# find_all_by_price
+  def test_find_all_by_price_in_range_returns_two_items
+    ir = ItemRepository.new
+    i1 = Item.new({:name        => "Pencil",
+                  :description => "You can use it to write things",
+                  :unit_price  => BigDecimal.new(10.99,4),
+                  :created_at  => Time.now,
+                  :updated_at  => Time.now
+                 })
+
+    i2 = Item.new({:name        => "Pen",
+                  :description => "Empty",
+                  :unit_price  => BigDecimal.new(11.99,4),
+                  :created_at  => Time.now,
+                  :updated_at  => Time.now
+                 })
+    ir.all << i1
+    ir.all << i2
+
+    actual_1 = ir.find_all_by_price_in_range((10..12))
+    actual_2 = ir.find_all_by_price_in_range((1..4))
+
+    assert_equal [i1, i2], actual_1
+    assert_equal [], actual_2
+  end
+
+
 # find_all_by_price_in_range
 # find_all_by_merchant_id
 

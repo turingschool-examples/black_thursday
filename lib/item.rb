@@ -1,16 +1,16 @@
 class Item
 
-  attr_reader   :name,
+  attr_reader   :id,
+                :merchant_id,
+                :name,
                 :description,
                 :unit_price,
                 :created_at,
                 :updated_at
-  attr_accessor :id,
-                :merchant_id
 
-  def initialize(params = {}, id = nil, merchant_id = nil)
-    @id          = id
-    @merchant_id = merchant_id
+  def initialize(params = {})
+    @id          = params.fetch(:id, "")
+    @merchant_id = params.fetch(:merchant_id, "")
     @name        = params.fetch(:name, "")
     @description = params.fetch(:description, "")
     @unit_price  = params.fetch(:unit_price, "")
