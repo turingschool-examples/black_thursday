@@ -21,8 +21,10 @@ class ItemRepository
     end
   end
 
-  def find_all_with_descriptions
-    []
+  def find_all_with_descriptions(description_inc)
+    all.find_all do |item|
+      item.description.include?(description_inc)
+    end
   end
 
   def find_all_by_price
