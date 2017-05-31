@@ -1,4 +1,3 @@
-require './lib/merchant'
 require 'csv'
 
 class MerchantRepository
@@ -6,26 +5,21 @@ class MerchantRepository
   attr_reader :all_merchant_data
 
   def initialize
-    @all_merchant_data = CSV.open "./data/merchants.csv",
-    headers: true, header_converters: :symbol
-    all
+    @all_merchant_data = CSV.open("./data/merchants.csv",
+    headers: true, header_converters: :symbol).map do |row|
+      row
+    end
   end
 
   def all
-    all_merchants = Array.new
-    @all_merchant_data.each do |merchant|
-      all_merchants << merchant
-    end
-    all_merchants
-
+    @all_merchant_data
   end
 
-  # def find_by_id
-  #   sanitized_merchants = @all_merchant_data.map do |merchant|
-  #    puts merchant[:id]
-  #
-  #
-  # end
+  def find_by_id
+    merchant_by_id = @all_merchant_data.map do |num|
+      num
+    end
+  end
 
   def find_by_name
 
