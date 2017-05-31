@@ -17,7 +17,15 @@ class Item
     @created_at  = hash[:created_at]
     @updated_at  = hash[:updated_at]
     @merchant_id = hash[:merchant_id]
-
   end
+
+  def unit_price_to_float
+    unit_price.to_f
+  end
+
+
+
+
+
 
 end
