@@ -29,8 +29,18 @@ class ItemTest < Minitest::Test
   end
 
   def test_item_has_a_price
-    item = Item.new({:unit_price => BigDecimal.new(10.99,4)})
-    assert_equal item.unit_price, 0.1099e2
+    item = Item.new({:unit_price => "1099"})
+    assert_equal item.unit_price, 0.1099e4
+  end
+
+  def test_item_has_another_price
+    item = Item.new({:unit_price => "15099"})
+    assert_equal item.unit_price, 0.15099e5
+  end
+
+  def test_item_price_length_is_three
+    item = Item.new({:unit_price => "109"})
+    assert_equal item.unit_price, 0.109e3
   end
 
   def test_item_has_a_merchant_id
@@ -51,8 +61,18 @@ class ItemTest < Minitest::Test
   end
 
   def test_item_price_in_dollars
-    item = Item.new({:unit_price => BigDecimal.new(10.99,4)})
+    item = Item.new({:unit_price => "1099"})
     assert_equal item.unit_price_to_dollars, 10.99
+  end
+
+  def test_item_price_in_dollars_three
+    item = Item.new({:unit_price => "109"})
+    assert_equal item.unit_price_to_dollars, 1.09
+  end
+
+  def test_item_price_in_dollars_five
+    item = Item.new({:unit_price => "10990"})
+    assert_equal item.unit_price_to_dollars, 109.90
   end
 
 end
