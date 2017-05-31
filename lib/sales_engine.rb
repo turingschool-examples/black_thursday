@@ -1,7 +1,7 @@
 class SalesEngine
   def initialize(item_rows, merchant_rows)
     @items     = ItemRepository.new
-    @merchants = MerchantRepository.new
+    @merchants = MerchantRepository.new(merchant_rows)
 
     item_rows.each  do |row|
       @items.add(row_data)
