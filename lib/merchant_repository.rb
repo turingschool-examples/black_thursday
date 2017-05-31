@@ -4,22 +4,20 @@ require 'pry'
 
 class MerchantRepository
 
+  attr_reader :merchants
+
   def initialize(csv)
+    @merchants = {}
     self.add(csv)
   end
-end
 
-#   attr_reader :hel,
-#               :merchants
-#
-#   def initialize
-#     merchants = {}
-#   end
-#
-#   def add(attrs)
-#     merchants[attrs[:id]] = Merchant.new(attrs)
-#   end
-#
+  def add(csv)
+    csv.each do |row|
+      stuff = row.to_h
+      merchants[stuff[:id]] = Merchant.new(stuff)
+    end
+  end
+end
 #   def all
 #     merchants
 #   end
@@ -33,10 +31,10 @@ end
 #
 #   def find_all_by_name
 #   end
-  csv = CSV.open('./data/merchants.csv', :headers => true, :header_converters => :symbol)
-  hel = csv.to_a.map do |row|
-    row.to_hash
-  end
+  # csv = CSV.open('./data/merchants.csv', :headers => true, :header_converters => :symbol)
+  # hel = csv.to_a.map do |row|
+  #   row.to_hash
+  # end
 #   # binding.pry
 # end
 
