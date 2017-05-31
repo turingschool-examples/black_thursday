@@ -186,8 +186,7 @@ class ItemRepositoryTest < MiniTest::Test
 
     assert_equal [i1, i2], actual_1
     assert_equal [], actual_2
-      
+
   end
-# find_all_by_merchant_id
 
 end
