@@ -34,4 +34,17 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 5, actual.length
     assert_instance_of Item, actual[0]
   end
+
+  def test_it_can_find_item_by_id
+    id = "263396279"
+
+    assert_instance_of Item, item_repo.find_by_id(id)
+    assert_equal id, item_repo.find_by_id(id).id
+  end
+
+  def test_returns_nil_for_invalid_id
+    id = "2412341234"
+
+    assert_nil item_repo.find_by_id(id)
+  end
 end

@@ -17,4 +17,8 @@ class ItemRepository
   def all
     items.values
   end
+
+  def find_by_id(id)
+    items[id]
+  end
 end
