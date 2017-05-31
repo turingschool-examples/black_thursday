@@ -8,7 +8,6 @@ class ItemRepository
   def initialize(file_path)
     @file_path = file_path
     @content = nil
-    # @item = Item.new
   end
 
   def item_info
@@ -32,28 +31,37 @@ class ItemRepository
   end
 
   def all
-    #returns array of all known Item instances
+    list = []
+    content.each do |item|
+      i = Item.new(item)
+      list << i
+    end
+    list
   end
 
   def find_by_id(id_number)
+    l = nil
     content.each do |item|
       i = Item.new(item)
-      i.id == id_number ? i : nil
+      l = i if i.id == id_number
     end
+    l
   end
 
   def find_by_name(name)
+    l = nil
     content.each do |item|
       i = Item.new(item)
-      i.name == name ? i : nil
+      l = i if i.name == name
     end
+    l
   end
 
   def find_all_with_description(str)
     list = []
     content.each do |item|
       i = Item.new(item)
-      list << i if i.description.split.include?(str)
+      list << i if i.description.downcase.split.include?(str.downcase)
     end
     list
   end

@@ -5,8 +5,8 @@ require 'csv'
 require 'bigdecimal'
 class ItemTest < Minitest::Test
   def file_setup
-    header = CSV.read("/Users/jimmytruong/turing/1module/projects/black_thursday/test/itemtestfile.csv")[0]
-    content = CSV.read("/Users/jimmytruong/turing/1module/projects/black_thursday/test/itemtestfile.csv")[1 .. -1].flatten
+    header = CSV.read("/Users/jimmytruong/turing/1module/projects/black_thursday/test/itemsample.csv")[0]
+    content = CSV.read("/Users/jimmytruong/turing/1module/projects/black_thursday/test/itemsample.csv")[1 .. -1].flatten
     line = header.zip(content).flatten.compact
     item_info = Hash[*line]
   end
