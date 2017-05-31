@@ -28,4 +28,23 @@ class ItemTest < Minitest::Test
     assert_equal 3, result
   end
 
+  def test_created_at
+    new_instance = Item.new(["toothbrush", "brush teeth", 3])
+    result = new_instance.created_at
+    refute_equal Time.now, result
+  end
+
+  def test_updated_at
+    new_instance = Item.new(["toothbrush", "brush teeth", 3])
+    result = new_instance.updated_at
+    refute_equal Time.now, result #-0600
+  end
+
+  def test_merchant_id
+    skip
+    new_instance = Item.new(["toothbrush", "brush teeth", 3])
+    result = new_instance.merchant_id
+    assert_equal 0, result
+  end
+
 end
