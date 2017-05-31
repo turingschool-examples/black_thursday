@@ -1,11 +1,7 @@
 {
   "Unit Tests": {
     "coverage": {
-<<<<<<< HEAD
-      "/Users/thedanielvogelsang/TuringFolder/1module/projects/black_thursday/lib/item_repository.rb": [
-=======
       "/Users/katieshermer/Desktop/Turing/1mod/black_thursday/lib/item_repository.rb": [
->>>>>>> 63d4d42516816a64ced87fab99df6901ebe79f96
         1,
         1,
         1,
@@ -15,25 +11,15 @@
         1,
         null,
         1,
-<<<<<<< HEAD
-        13,
-        null,
-        null,
-        1,
-        11,
-        11,
-        15037,
-        15037,
-=======
+        15,
         15,
         null,
         null,
         1,
-        13,
-        13,
-        17771,
-        17771,
->>>>>>> 63d4d42516816a64ced87fab99df6901ebe79f96
+        15,
+        15,
+        20505,
+        20505,
         null,
         null,
         null,
@@ -66,43 +52,9 @@
         2,
         2,
         2734,
-<<<<<<< HEAD
-        null,
-        2,
-=======
->>>>>>> 63d4d42516816a64ced87fab99df6901ebe79f96
         null,
         2,
         null,
-<<<<<<< HEAD
-        1,
-        2,
-        2,
-        2734,
-        null,
-        2,
-=======
-        null,
-        1,
-<<<<<<< HEAD
-        2,
-        2,
-        2734,
-=======
-        3,
-        3,
-        4101,
->>>>>>> 63d4d42516816a64ced87fab99df6901ebe79f96
->>>>>>> 964f68fb392eb247a866aad645e9fe7237d7575b
-        null,
-        2,
-        null,
-<<<<<<< HEAD
-        1,
-        null,
-        null,
-        1,
-=======
         null,
         1,
         2,
@@ -113,7 +65,14 @@
         null,
         null,
         1,
->>>>>>> 63d4d42516816a64ced87fab99df6901ebe79f96
+        2,
+        2,
+        2734,
+        null,
+        2,
+        null,
+        null,
+        1,
         2,
         2,
         2734,
@@ -123,68 +82,34 @@
         null,
         null
       ],
-<<<<<<< HEAD
-      "/Users/thedanielvogelsang/TuringFolder/1module/projects/black_thursday/lib/item.rb": [
-=======
       "/Users/katieshermer/Desktop/Turing/1mod/black_thursday/lib/item.rb": [
         1,
         1,
         null,
->>>>>>> 63d4d42516816a64ced87fab99df6901ebe79f96
         1,
         1,
         null,
         1,
-        17771,
-        17771,
-        17771,
-        17771,
-        17771,
-        17771,
-        17771,
+        20505,
+        20505,
+        20505,
+        20505,
+        20505,
+        20505,
+        20505,
         null,
         null,
         1,
-<<<<<<< HEAD
         5468,
         null,
         null,
         1,
-        17771,
+        20505,
         null,
         null,
-=======
-<<<<<<< HEAD
-=======
-        6835,
->>>>>>> 964f68fb392eb247a866aad645e9fe7237d7575b
-        null,
->>>>>>> 63d4d42516816a64ced87fab99df6901ebe79f96
-        null,
-        1,
-        15038,
-        15038,
-        15038,
-        15038,
-        15038,
-        15038,
-        15038,
-        null,
-        null,
-        null,
-        null,
-        1,
-        1
+        null
       ]
     },
-<<<<<<< HEAD
-    "timestamp": 1496239778
-=======
-<<<<<<< HEAD
-    "timestamp": 1496236668
-=======
-    "timestamp": 1496238010
->>>>>>> 63d4d42516816a64ced87fab99df6901ebe79f96
->>>>>>> 964f68fb392eb247a866aad645e9fe7237d7575b
+    "timestamp": 1496240922
   }
 }
