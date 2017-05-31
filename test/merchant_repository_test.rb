@@ -1,38 +1,64 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/merchant_repository'
+require './lib/merchant'
 require 'pry'
 
 
 class MerchantRepositoryTest < MiniTest::Test
 
-  def test_can_call_all_on_merchants
+  def test_it_has_no_merchants_when_initialized
     merchant = MerchantRepository.new
 
     assert_equal [], merchant.all
   end
 
-  def test_it_can_find_by_id
-    merchant = MerchantRepository.new
-
-    assert_equal nil, merchant.find_by_id
+  def test_it_can_add_merchants
+    mr = MerchantRepository.new
+    merch_1 = Merchant.new(1, "Burger King")
+    merch_2 = Merchant.new(2, "McDonalds")
+    merch_3 = Merchant.new(3, "Wendys")
+    mr.add_merchants(merch_1)
+    mr.add_merchants(merch_2)
+    mr.add_merchants(merch_3)
+    assert_equal [merch_1, merch_2, merch_3], mr.all
   end
 
-  def test_if_can_find_by_name
-    merchant = MerchantRepository.new
+  def test_if_can_find_by_id
+    mr = MerchantRepository.new
+    merch_1 = Merchant.new(1, "Burger King")
+    merch_2 = Merchant.new(2, "McDonalds")
+    merch_3 = Merchant.new(3, "Wendys")
+    mr.add_merchants(merch_1)
+    mr.add_merchants(merch_2)
+    mr.add_merchants(merch_3)
 
-    assert_equal nil, merchant.find_by_name
+    assert_equal merch_3, mr.find_by_id(3)
   end
 
-  def test_to_find_all_by_name
-    merchant = MerchantRepository.new
+  def test_to_find_by_name
+    mr = MerchantRepository.new
+    merch_1 = Merchant.new(1, "Burger King")
+    merch_2 = Merchant.new(2, "McDonalds")
+    merch_3 = Merchant.new(3, "Wendys")
+    mr.add_merchants(merch_1)
+    mr.add_merchants(merch_2)
+    mr.add_merchants(merch_3)
 
-    assert_equal [], merchant.find_all_by_name
+    assert_equal merch_1, mr.find_by_name("Burger King")
   end
 
+  def test_to_find_by_all_by_name
+    mr = MerchantRepository.new
+    merch_1 = Merchant.new(1, "Burger King")
+    merch_2 = Merchant.new(2, "McDonalds")
+    merch_3 = Merchant.new(3, "Wendys")
+    mr.add_merchants(merch_1)
+    mr.add_merchants(merch_2)
+    mr.add_merchants(merch_3)
+    results = mr.find_all_by_name("Burger King")
 
-
-
-
+    assert results.include?(merch_1)
+  end
 
 end

@@ -53,29 +53,29 @@ class ItemTest < MiniTest::Test
     assert_equal BigDecimal.new(10.99,4), item.unit_price
   end
 
-  # def test_it_can_call_on_created_at
-  #   item = Item.new({
-  #   :name        => "Pencil",
-  #   :description => "You can use it to write things",
-  #   :unit_price  => BigDecimal.new(10.99,4),
-  #   :created_at  => Time.now,
-  #   # :updated_at  => Time.now,
-  #   })
-  #
-  #   assert_equal Time.now, item.created_at
-  # end
-  #
-  # def test_it_can_call_on_updated_at
-  #   item = Item.new({
-  #   :name        => "Pencil",
-  #   :description => "You can use it to write things",
-  #   :unit_price  => BigDecimal.new(10.99,4),
-  #   # :created_at  => Time.now,
-  #   :updated_at  => Time.now,
-  #   })
-  #
-  #   assert_equal Time.now, item.updated_at
-  # end
+  def test_it_can_call_on_created_at
+    item = Item.new({
+    :name        => "Pencil",
+    :description => "You can use it to write things",
+    :unit_price  => BigDecimal.new(10.99,4),
+    :created_at  => Time.now,
+    # :updated_at  => Time.now,
+    })
+
+    assert_equal Time.now, item.created_at
+  end
+
+  def test_it_can_call_on_updated_at
+    item = Item.new({
+    :name        => "Pencil",
+    :description => "You can use it to write things",
+    :unit_price  => BigDecimal.new(10.99,4),
+    # :created_at  => Time.now,
+    :updated_at  => Time.now,
+    })
+
+    assert_equal Time.now, item.updated_at
+  end
 
 
 end
