@@ -15,6 +15,4 @@ class Item
   end
 
 end
-
-item = Item.new({:unit_price => 3900})
-puts item.unit_price
+  
