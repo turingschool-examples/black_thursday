@@ -8,10 +8,8 @@ class MerchantRepository
   end
 
   def populate_merchants(line)
-    return false if line == "id,name,created_at,updated_at\n"
-    columns = line.split(",")
-      id = columns[0]
-      name = columns[1]
+      id = line[0]
+      name = line[1]
     self.all << Merchant.new({ :name => name, :id => id })
   end
 

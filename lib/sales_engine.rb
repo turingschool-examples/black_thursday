@@ -21,8 +21,10 @@ class SalesEngine
 
   def merchants
     mr = MerchantRepository.new
-    lines = File.readlines @files[:merchants]
-    lines.each do |line|
+    i = 0
+    csv = CSV.foreach('./data/merchants_test.csv', row_sep: :auto) do |line|
+      i += 1
+      next if i == 1
       mr.populate_merchants(line)
     end
     puts mr.all.inspect
@@ -30,8 +32,10 @@ class SalesEngine
 
   def items
     ir = ItemRepository.new
-    lines = File.readlines @files[:items]
-    lines.each do |line|
+    i = 0
+    csv = CSV.foreach('./data/items_test.csv', row_sep: :auto) do |line|
+      i += 1
+      next if i == 1
       ir.populate_items(line)
     end
     puts ir.all.inspect
