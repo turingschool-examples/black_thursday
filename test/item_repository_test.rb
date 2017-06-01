@@ -27,20 +27,19 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal expected, actual
   end
 
-  # def test_it_can_return_names
-  #   item = ItemRepository.new
-  #   actual   = item.find_by_name("Shopin1901")
-  #   expected = item.all[0]
-  #
-  #   assert_equal expected, actual
-  # end
-  #
-  # def test_it_can_find_all_by_name
-  #   item = ItemRepository.new
-  #   actual   = item.find_all_by_name("shopin")
-  #   expected = [item.all[0]]
-  #
-  #   assert_equal expected, actual
-  # end
+  def test_it_can_return_names
+    item = ItemRepository.new
+    actual   = item.find_by_name("510+ RealPush Icon Set")
+    expected = item.all[0]
 
+    assert_equal expected, actual
+  end
+
+  def test_it_can_find_all_with_description
+    item = ItemRepository.new
+    result = item.find_all_with_description("glitter")
+    actual = result[0].description.include?("glitter")
+    
+    assert_equal true, actual
+  end
 end
