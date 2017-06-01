@@ -10,26 +10,25 @@ class ItemRepositoryTest < Minitest::Test
 
     assert_equal expected, actual
   end
-  #
-  # def test_it_returns_item_instances
-  #   skip #No visible difference...wtf?
-  #   item = itemRepository.new
-  #   actual   = item.all[0]
-  #   expected = "#<item:0xXXXXXX @id=\"12334105\", @name=\"Shopin1901\">"
-  #
-  #   assert_equal expected, actual
-  # end
-  #
-  # def test_it_can_return_ids
-  #   item = itemRepository.new
-  #   actual   = item.find_by_id("12334105")
-  #   expected = item.all[0]
-  #
-  #   assert_equal expected, actual
-  # end
-  #
+
+  def test_it_returns_item_instances
+    item = ItemRepository.new
+    actual   = item.all[0].class
+    expected = Item
+
+    assert_equal expected, actual
+  end
+
+  def test_it_can_return_ids
+    item = ItemRepository.new
+    actual   = item.find_by_id("263395237")
+    expected = item.all[0]
+
+    assert_equal expected, actual
+  end
+
   # def test_it_can_return_names
-  #   item = itemRepository.new
+  #   item = ItemRepository.new
   #   actual   = item.find_by_name("Shopin1901")
   #   expected = item.all[0]
   #
@@ -37,7 +36,7 @@ class ItemRepositoryTest < Minitest::Test
   # end
   #
   # def test_it_can_find_all_by_name
-  #   item = itemRepository.new
+  #   item = ItemRepository.new
   #   actual   = item.find_all_by_name("shopin")
   #   expected = [item.all[0]]
   #

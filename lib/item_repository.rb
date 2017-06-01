@@ -11,15 +11,15 @@ class ItemRepository
       Item.new(row)
     end
   end
-  #
-  # def all
-  #   @all_item_data
-  # end
-  #
-  # def find_by_id(id)
-  #   @all_item_data.find{|item| item.id == id}
-  # end
-  #
+
+  def all
+    @all_item_data
+  end
+
+  def find_by_id(id)
+    @all_item_data.find{|item| item.id == id}
+  end
+
   # def find_by_name(name)
   #   @all_item_data.find{|item| item.name == name}
   # end
@@ -27,6 +27,4 @@ class ItemRepository
   # def find_all_with_description(description)
   #   @all_item_data.find_all{|item| /#{description}/i =~ item.description}
   # end
-  # end
-
 end
