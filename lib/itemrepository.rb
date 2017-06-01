@@ -11,6 +11,7 @@ class ItemRepository
     @content = nil
   end
 
+
   def item_info
     CSV.read(file_path)
   end

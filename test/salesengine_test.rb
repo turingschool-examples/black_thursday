@@ -1,6 +1,6 @@
 require "minitest/autorun"
 require "minitest/emoji"
-require "./lib/salesengine"
+require_relative"../lib/salesengine"
 class SalesEngineTest < Minitest::Test
   def test_it_exists
     se = SalesEngine.new
