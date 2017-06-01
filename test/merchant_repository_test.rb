@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 require 'csv'
-require './lib/merchant_repository'
+require_relative '../lib/merchant_repository'
 
 class MerchantRepositoryTest < Minitest::Test
 
@@ -13,7 +13,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_returns_merchant_instances
-    skip #No visible difference...wtf?
+    skip #No visible difference...
     merchant = MerchantRepository.new
     actual   = merchant.all[0]
     expected = "#<Merchant:0xXXXXXX @id=\"12334105\", @name=\"Shopin1901\">"
