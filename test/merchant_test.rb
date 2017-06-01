@@ -1,14 +1,28 @@
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'csv'
 require './lib/merchant'
+require_relative '../lib/merchant_repository'
+require_relative '../lib/sales_engine'
+
 
 class MerchantTest < Minitest::Test
 
-  attr_reader :merchant, :merchant2
+  attr_reader :merchant,
+              :merchant2,
+              :merchant3
 
   def setup
-    @merchant = Merchant.new({:id => 1, :name => "StarCityGames"})
-    @merchant2 = Merchant.new({:id => 2, :name => "Amazong"})
+    small_csv_paths = {
+                        :items     => "./data/small_item_set.csv",
+                        :merchants => "./data/merchant_sample.csv",
+                      }
+    engine = SalesEngine.from_csv(small_csv_paths)
+    csv  = CSV.open './data/merchant_sample.csv', headers: true, header_converters: :symbol
+    repo = MerchantRepository.new(csv, engine)
+    @merchant = Merchant.new({:id => 1, :name => "StarCityGames"}, repo)
+    @merchant2 = Merchant.new({:id => 2, :name => "Amazong"},repo)
+    @merchant3 = Merchant.new({:id => 12334213, :name => "Sal's Sassafras Supply"},repo)
   end
 
   def test_it_exists
@@ -32,4 +46,17 @@ class MerchantTest < Minitest::Test
     assert_equal "Amazong", merchant2.name
   end
 
+  def test_it_knows_about_parent_repo
+    assert_instance_of MerchantRepository, merchant.repository
+    assert_instance_of MerchantRepository, merchant2.repository
+  end
+
+  def test_it_can_get_all_its_items
+    actual = merchant3.items
+
+    assert_instance_of Array, actual
+    assert_instance_of Item, actual.sample
+    assert_equal 2, actual.count
+    assert_equal 12334213, actual.sample.merchant_id
+  end
 end

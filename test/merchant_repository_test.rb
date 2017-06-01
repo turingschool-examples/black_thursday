@@ -1,14 +1,20 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/merchant_repository'
+require_relative '../lib/sales_engine'
 
 class MerchantRepositoryTest < Minitest::Test
 
   attr_reader :merch_repo
 
   def setup
+    small_csv_paths = {
+                        :items     => "./data/small_item_set.csv",
+                        :merchants => "./data/merchant_sample.csv",
+                      }
+    engine = SalesEngine.from_csv(small_csv_paths)
     csv = CSV.open('./data/merchant_sample.csv', headers: true, header_converters: :symbol)
-    @merch_repo = MerchantRepository.new(csv)
+    @merch_repo = MerchantRepository.new(csv, engine)
   end
 
   def test_merchant_repository_exists
@@ -54,5 +60,18 @@ class MerchantRepositoryTest < Minitest::Test
 
     assert_equal [], merch_repo.find_all_by_name("jjj")
     assert_equal [merch_1, merch_2], merch_repo.find_all_by_name("ke")
+  end
+
+  def test_it_knows_about_parent_sales_engine
+    assert_instance_of SalesEngine, merch_repo.engine
+  end
+
+  def test_it_can_get_merchant_items_from_parent_sales_engine
+    actual = merch_repo.all_merchant_items(12334213)
+
+    assert_instance_of Array, actual
+    assert_instance_of Item, actual.sample
+    assert_equal 2, actual.count
+    assert_equal 12334213, actual.sample.merchant_id
   end
 end

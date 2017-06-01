@@ -8,7 +8,7 @@ class SalesEngine
 
   def initialize(item_rows, merchant_rows)
     @items     = ItemRepository.new(item_rows)
-    @merchants = MerchantRepository.new(merchant_rows)
+    @merchants = MerchantRepository.new(merchant_rows, self)
   end
 
   def self.from_csv(paths)
@@ -19,5 +19,9 @@ class SalesEngine
     merch_data = CSV.open merch_path, headers: true, header_converters: :symbol
 
     SalesEngine.new(item_data, merch_data)
+  end
+
+  def all_merchant_items(merchant_id)
+    items.find_all_by_merchant_id(merchant_id)
   end
 end

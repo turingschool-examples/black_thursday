@@ -4,17 +4,20 @@ require 'pry'
 
 class MerchantRepository
 
-  attr_reader :merchants
+  attr_reader :merchants,
+              :engine
 
-  def initialize(csv)
+  def initialize(csv, engine)
     @merchants = {}
+    @engine = engine
     self.add(csv)
+
   end
 
   def add(csv)
     csv.each do |row|
       stuff = row.to_h
-      merchants[stuff[:id]] = Merchant.new(stuff)
+      merchants[stuff[:id]] = Merchant.new(stuff, self)
     end
   end
 
@@ -32,5 +35,9 @@ class MerchantRepository
 
   def find_all_by_name(name_frag)
     all.find_all { |merchant| merchant.name.downcase.include?(name_frag.downcase)}
+  end
+
+  def all_merchant_items(merchant_id)
+    engine.all_merchant_items(merchant_id)
   end
 end

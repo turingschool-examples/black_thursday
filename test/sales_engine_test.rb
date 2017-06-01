@@ -63,4 +63,19 @@ class SalesEngineTest < Minitest::Test
     assert_equal 5, se.merchants.all.length
     assert_instance_of Merchant, se.merchants.all.sample
   end
+
+  def test_it_can_return_all_items_for_a_merchant
+    small_csv_paths = {
+                        :items     => "./data/small_item_set.csv",
+                        :merchants => "./data/merchant_sample.csv",
+                      }
+    se = SalesEngine.from_csv(small_csv_paths)
+
+    actual = se.all_merchant_items(12334213)
+
+    assert_instance_of Array, actual
+    assert_instance_of Item, actual.sample
+    assert_equal 2, actual.count
+    assert_equal 12334213, actual.sample.merchant_id
+  end
 end
