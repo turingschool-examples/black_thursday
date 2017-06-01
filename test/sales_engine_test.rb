@@ -14,6 +14,23 @@ class SalesEngineTest < MiniTest::Test
     assert_instance_of SalesEngine, se
   end
 
+  def test_from_csv_opens_csv_files_without_headers
+    se = SalesEngine.from_csv({:items => './data/items_test.csv',
+                               :merchants => './data/merchants_test.csv'})
+    binding.pry
+    merchant_library
+    items_library
+
+
+  end
+
+  def test_from_csv_creates_an_instance_of_sales_engine
+    se = SalesEngine.from_csv({:items => './data/items_test.csv',
+                               :merchants => './data/merchants_test.csv'})
+
+    assert_instance_of SalesEngine, se
+  end
+
   def test_merchant_repo_creates
     se = SalesEngine.from_csv({:items => './data/items_test.csv',
                                :merchants => './data/merchants_test.csv'})

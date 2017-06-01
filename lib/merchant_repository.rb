@@ -1,9 +1,18 @@
+require_relative 'merchant'
 class MerchantRepository
 
   attr_reader :all
 
   def initialize
     @all = []
+  end
+
+  def populate_merchants(line)
+    return false if line == "id,name,created_at,updated_at\n"
+    columns = line.split(",")
+      id = columns[0]
+      name = columns[1]
+    self.all << Merchant.new({ :name => name, :id => id })
   end
 
   def find_by_id(id)
@@ -31,6 +40,6 @@ class MerchantRepository
         result << merchant
       end
     end
-    result 
+    result
   end
 end

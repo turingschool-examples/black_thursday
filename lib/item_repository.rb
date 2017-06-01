@@ -8,6 +8,10 @@ class ItemRepository
     @all = []
   end
 
+  def populate_items(file_path)
+    
+  end
+
   def find_by_id(id)
     @all.find do |item|
       if item.id == id

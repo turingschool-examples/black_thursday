@@ -22,6 +22,10 @@ class ItemRepositoryTest < MiniTest::Test
     assert_equal [], ir.all
   end
 
+  def test_populate_items_populates_repository
+
+  end 
+
   def test_if_all_returns_array_of_instances
     ir = ItemRepository.new
     i1 = Item.new({:name        => "Pencil",
