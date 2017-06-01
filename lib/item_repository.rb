@@ -31,12 +31,8 @@ class ItemRepository
   end
 
   def find_all_with_description
-    empty_descrips = items.find_all do |id, item|
+    all.find_all do |item|
       !item.description.nil?
-    end
-
-    empty_descrips.flatten.find_all do |item|
-      item.class == Item
     end
   end
 end
