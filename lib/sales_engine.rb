@@ -7,7 +7,7 @@ class SalesEngine
               :merchants
 
   def initialize(item_rows, merchant_rows)
-    @items     = ItemRepository.new(item_rows)
+    @items     = ItemRepository.new(item_rows, self)
     @merchants = MerchantRepository.new(merchant_rows, self)
   end
 
@@ -23,5 +23,9 @@ class SalesEngine
 
   def all_merchant_items(merchant_id)
     items.find_all_by_merchant_id(merchant_id)
+  end
+
+  def merchant_by_item(merchant_id)
+    merchants.find_by_id(merchant_id.to_s)
   end
 end

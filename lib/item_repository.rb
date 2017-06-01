@@ -2,16 +2,18 @@ require "pry"
 require_relative 'item'
 
 class ItemRepository
-  attr_reader :items
-  def initialize(csv)
+  attr_reader :items,
+              :engine
+  def initialize(csv, engine)
     @items = {}
+    @engine = engine
     self.add(csv)
   end
 
   def add(csv)
     csv.each do |row|
       stuff = row.to_h
-      items[stuff[:id]] = Item.new(stuff)
+      items[stuff[:id]] = Item.new(stuff, self)
     end
   end
 
@@ -51,5 +53,9 @@ class ItemRepository
     all.find_all do |item|
       item.merchant_id == merchant_id
     end
+  end
+
+  def merchant_by_item(merchant_id)
+    engine.merchant_by_item(merchant_id)
   end
 end
