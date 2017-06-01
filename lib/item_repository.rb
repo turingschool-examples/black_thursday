@@ -1,4 +1,5 @@
 require_relative './item'
+require 'bigdecimal'
 
 class ItemRepository
 
@@ -13,7 +14,7 @@ class ItemRepository
       merchant_id = line[4]
       name = line[1]
       description = line[2]
-      unit_price = line[3]
+      unit_price = BigDecimal.new(line[3].to_i, 4)
       created_at = line[5]
       updated_at = line[6]
     self.all << Item.new({ :id => id,

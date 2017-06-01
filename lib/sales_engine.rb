@@ -22,7 +22,7 @@ class SalesEngine
   def merchants
     mr = MerchantRepository.new
     i = 0
-    csv = CSV.foreach('./data/merchants_test.csv', row_sep: :auto) do |line|
+    CSV.foreach('./data/merchants_test.csv', row_sep: :auto) do |line|
       i += 1
       next if i == 1
       mr.populate_merchants(line)
@@ -33,7 +33,7 @@ class SalesEngine
   def items
     ir = ItemRepository.new
     i = 0
-    csv = CSV.foreach('./data/items_test.csv', row_sep: :auto) do |line|
+    CSV.foreach('./data/items_test.csv', row_sep: :auto) do |line|
       i += 1
       next if i == 1
       ir.populate_items(line)
