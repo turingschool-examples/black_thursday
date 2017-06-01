@@ -1,5 +1,5 @@
 require 'csv'
-require './lib/merchant'
+require_relative '../lib/merchant'
 
 class MerchantRepository
 
