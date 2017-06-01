@@ -10,41 +10,28 @@ class MerchantRepository
   end
 
   def populate_merchants(file_path)
-    i = 0
-    CSV.foreach(file_path, row_sep: :auto) do |line|
-      i += 1
-      next if i == 1
-      id = line[0]
-      name = line[1]
-      self.all << Merchant.new({ :name => name, :id => id })
+    CSV.foreach(file_path, row_sep: :auto, headers: true) do |line|
+      self.all << Merchant.new(line)
     end
   end
 
   def find_by_id(id)
     @all.find do |merchant|
-      if merchant.id == id
-        return merchant
-      end
-      nil
+      merchant.id == id
     end
   end
 
   def find_by_name(name)
     @all.find do |merchant|
-      if merchant.name.downcase == name.downcase
-        return merchant
-      end
-      nil
+      merchant.name.downcase == name.downcase
     end
   end
 
   def find_all_by_name(name)
-    result = []
     @all.find_all do |merchant|
-      if merchant.name.downcase.include? name.downcase
-        result << merchant
-      end
+      merchant.name.downcase.include? name.downcase
     end
-    result
   end
+
+
 end

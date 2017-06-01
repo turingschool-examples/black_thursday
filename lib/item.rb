@@ -17,7 +17,6 @@ class Item
     @name        = params["name"]
     @description = params["description"]
     @unit_price  = BigDecimal.new(params["unit_price"], 4)
-    # binding.pry
     @created_at  = Time.parse(params["created_at"])
     @updated_at  = Time.parse(params["updated_at"])
   end

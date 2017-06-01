@@ -61,35 +61,15 @@ class ItemRepositoryTest < MiniTest::Test
     assert_equal [ir.all[0], ir.all[1]], actual_1
     assert_equal [], actual_2
   end
-  #
-  # def test_find_all_by_merchant_id
-  #   ir = ItemRepository.new
-  #   i1 = Item.new({:id         => 1,
-  #                 :merchant_id => 11,
-  #                 :name        => "Pencil",
-  #                 :description => "You can use it to write things",
-  #                 :unit_price  => BigDecimal.new(10.99,4),
-  #                 :created_at  => Time.now,
-  #                 :updated_at  => Time.now
-  #                })
-  #
-  #   i2 = Item.new({:id         => 2,
-  #                 :merchant_id => 11,
-  #                 :name        => "Pen",
-  #                 :description => "Empty",
-  #                 :unit_price  => BigDecimal.new(11.99,4),
-  #                 :created_at  => Time.now,
-  #                 :updated_at  => Time.now
-  #                })
-  #   ir.all << i1
-  #   ir.all << i2
-  #
-  #   actual_1 = ir.find_all_by_merchant_id(11)
-  #   actual_2 = ir.find_all_by_merchant_id(12)
-  #
-  #   assert_equal [i1, i2], actual_1
-  #   assert_equal [], actual_2
-  #
-  # end
+
+  def test_find_all_by_merchant_id
+    ir = ItemRepository.new(@file_path)
+
+    actual_1 = ir.find_all_by_merchant_id(12334185)
+    actual_2 = ir.find_all_by_merchant_id(12)
+
+    assert_equal [ir.all[0], ir.all[1], ir.all[2]], actual_1
+    assert_equal [], actual_2
+  end
 
 end
