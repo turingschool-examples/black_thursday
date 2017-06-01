@@ -2,39 +2,16 @@
 class Merchant
 
   attr_reader :name,
-              # :id,
               :created_at,
+              :id,
               :updated_at
 
 
   def initialize(data, parent)
       @name = data[:name]
-      # @id   = data[:id]
+      @id = data[:id].to_i
       @created_at = data[:created_at]
       @updated_at = data[:updated_at]
   end
-
-
-
-  # def initialize(information, parent)
-  #   @information = information
-  #   @parent      = parent
-  # end
-
-  # def name
-  #   information["name"]
-  # end
-  #
-  # def id
-  #   information["id"].to_i
-  # end
-  #
-  # def created_at
-  #   information["created_at"]
-  # end
-  #
-  # def updated_at
-  #   information["updated_at"]
-  # end
 
 end

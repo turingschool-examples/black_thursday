@@ -9,26 +9,21 @@ class MerchantRepository
   def initialize(file_path, parent)
     @file_path = file_path
     @parent = parent
-    @contents = {}
+    @contents = load_library
   end
 
   def load_library
     library = {}
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
       h = Hash[row]
-      d = h.delete(:id)
+      d = h[:id]
       library[d] = Merchant.new(h, self)
     end
-    library
+    @contents = library
   end
 
   def all
-    list = []
-    @contents.each do |merchant|
-      m = Merchant.new(merchant,self)
-      list << m
-    end
-    list
+
   end
 
   def find_by_id(id_number)
