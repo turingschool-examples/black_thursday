@@ -1,4 +1,4 @@
-require './lib/item_repository'
+require_relative '../lib/item_repository'
 require 'bigdecimal'
 
 
@@ -19,7 +19,7 @@ class Item
   end
 
   def unit_price_to_dollars
-    '%.02f' % (unit_price.to_f / 100)
+    '%.02f' % (unit_price.to_f)
   end
 
 end

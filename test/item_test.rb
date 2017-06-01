@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-require './lib/item'
+require_relative '../lib/item'
 
 class ItemTest < Minitest::Test
   def test_it_starts_an_item_instance
