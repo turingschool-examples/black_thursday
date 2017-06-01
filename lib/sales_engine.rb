@@ -12,6 +12,8 @@ class SalesEngine
   end
 
   def items
+    #Return array of items that match the merchant
+    # that we called using its merchant ID
     ItemRepository.new
   end
 end
@@ -20,3 +22,4 @@ se = SalesEngine.from_csv({
   :items     => "./data/items.csv",
   :merchants => "./data/merchants.csv",
 })
+ merchant = se.merchants.find_by_id()

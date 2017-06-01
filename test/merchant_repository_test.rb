@@ -23,7 +23,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_can_return_ids
     merchant = MerchantRepository.new
-    actual   = merchant.find_by_id("12334105")
+    actual   = merchant.find_by_id(12334105)
     expected = merchant.all[0]
 
     assert_equal expected, actual
