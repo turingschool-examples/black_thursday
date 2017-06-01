@@ -27,13 +27,15 @@ class Invoice
   end
 
   def created_at
-    #returns a Time instance for the
-    #date the item was first created
+    date = @information[:created_at].split("-")
+    time =Time.new(date[0],date[1],date[2])
+    time
   end
 
   def updated_at
-    #returns a Time instance for the
-    #date the itme was last modified
+    date = @information[:updated_at].split("-")
+    time = Time.new(date[0],date[1],date[2])
+    time
   end
 
 end

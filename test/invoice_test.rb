@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/emoji'
 require_relative '../lib/invoice'
-
+require 'pry'
 class InvoiceTest < Minitest::Test
 
   def test_new_instance
@@ -58,5 +58,28 @@ class InvoiceTest < Minitest::Test
 
      assert_equal "pending", i.status
    end
+
+   def test_it_returns_time_instance_for_created_at
+     i = Invoice.new({:id => 6,
+                      :customer_id => 7,
+                      :merchant_id => 8,
+                      :status => "pending",
+                      :created_at => "2003-11-07",
+                      :updated_at => "2008-03-07"},self)
+      expected = "2003-11-07 00:00:00 -0700"
+      assert_equal expected, i.created_at.to_s
+   end
+
+   def test_it_returns_time_instance_for_updated_at
+     i = Invoice.new({:id => 6,
+                      :customer_id => 7,
+                      :merchant_id => 8,
+                      :status => "pending",
+                      :created_at => "2003-11-07",
+                      :updated_at => "2008-03-07"},self)
+      expected = "2008-03-07 00:00:00 -0700"
+      assert_equal expected, i.updated_at.to_s
+    end
+
 
 end
