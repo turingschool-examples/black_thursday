@@ -1,14 +1,34 @@
 {
   "Unit Tests": {
     "coverage": {
+<<<<<<< HEAD
+      "/Users/katieshermer/Desktop/Turing/1mod/black_thursday/lib/merchant_repository.rb": [
+=======
       "/Users/thedanielvogelsang/TuringFolder/1module/projects/black_thursday/lib/merchant_repository.rb": [
         1,
         1,
         null,
+>>>>>>> 12ed123046ea04769f3e51fc4c17ce5dca62b63b
         1,
         1,
         null,
         1,
+<<<<<<< HEAD
+        1,
+        null,
+        1,
+        9,
+        9,
+        null,
+        null,
+        1,
+        9,
+        9,
+        4275,
+        4275,
+        null,
+        9,
+=======
         10,
         10,
         null,
@@ -20,6 +40,7 @@
         4750,
         null,
         10,
+>>>>>>> 12ed123046ea04769f3e51fc4c17ce5dca62b63b
         null,
         null,
         1,
@@ -32,6 +53,10 @@
         null,
         3,
         3,
+<<<<<<< HEAD
+        1,
+=======
+>>>>>>> 12ed123046ea04769f3e51fc4c17ce5dca62b63b
         null,
         null,
         1,
@@ -40,6 +65,10 @@
         null,
         2,
         2,
+<<<<<<< HEAD
+        1,
+=======
+>>>>>>> 12ed123046ea04769f3e51fc4c17ce5dca62b63b
         null,
         null,
         1,
@@ -53,19 +82,32 @@
         null,
         null
       ],
+<<<<<<< HEAD
+      "/Users/katieshermer/Desktop/Turing/1mod/black_thursday/lib/merchant.rb": [
+=======
       "/Users/thedanielvogelsang/TuringFolder/1module/projects/black_thursday/lib/merchant.rb": [
+>>>>>>> 12ed123046ea04769f3e51fc4c17ce5dca62b63b
         1,
         null,
         1,
         null,
         1,
+<<<<<<< HEAD
+        4275,
+        4275,
+=======
         4750,
         4750,
+>>>>>>> 12ed123046ea04769f3e51fc4c17ce5dca62b63b
         null,
         null,
         null
       ]
     },
+<<<<<<< HEAD
+    "timestamp": 1496332468
+=======
     "timestamp": 1496332273
+>>>>>>> 12ed123046ea04769f3e51fc4c17ce5dca62b63b
   }
 }

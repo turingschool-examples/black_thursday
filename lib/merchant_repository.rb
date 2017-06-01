@@ -27,7 +27,8 @@ class MerchantRepository
       merchant.name == name.downcase
     end
     puts return_value
-    return_value
+    return return_value if return_value.empty? == false
+    return nil if return_value.empty?
   end
 
   def find_by_id(id)
@@ -35,7 +36,8 @@ class MerchantRepository
       merchant.id == id.to_i
     end
     puts return_value
-    return_value
+    return return_value if return_value.empty? == false
+    return nil if return_value.empty?
   end
 
   def find_all_by_name(snippet)
