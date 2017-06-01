@@ -6,4 +6,8 @@ class Merchant
   @id = merchant_data[:id]
   @name = merchant_data[:name]
   end
+
+  # def items
+  #   self
+  # end
 end

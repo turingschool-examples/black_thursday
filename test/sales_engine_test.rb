@@ -3,33 +3,43 @@ require_relative '../lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test
 
-  def test_sales_engine_exists
-    skip
-    se = SalesEngine.from_csv(data_files)
-
-    assert_instance_of SalesEngine, se
-  end
-
   def test_that_sales_engine_is_right_class
-    skip
-    se = SalesEngine.from_csv(data_files)
-    actual = se.class
-    expected = SalesEngine
-    assert_equal expected, actual
+    se = SalesEngine.new
+
+    assert_equal SalesEngine, se.class
   end
 
   def test_from_csv_takes_hashes
-    skip
+    data_files = {
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    }
     se = SalesEngine.from_csv(data_files)
+
     actual = data_files.class
     expected = Hash
   end
 
-  def test_merchants_creates_instance_of_merchant_repository
-    skip
-    se = SalesEngine.from_csv(data_files)
-    actual = se.merchants
+  def test_from_csv_opens_merchant_repositories
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
 
-    assert_instance_of MerchantRepository, actual
+    assert_equal MerchantRepository, se.class
+  end
+
+  def test_merchants_creates_instance_of_merchant_repository
+    se = SalesEngine.new
+    merch = se.merchants("./data/merchants.csv")
+
+    assert_instance_of MerchantRepository, merch
+  end
+
+  def test_items_creates_instance_of_item_repository
+    se = SalesEngine.new
+    item = se.items("./data/items.csv")
+
+    assert_instance_of ItemRepository, item
   end
 end
