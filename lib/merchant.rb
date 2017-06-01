@@ -6,9 +6,6 @@ class Merchant
               :name
 
   def initialize(merchant_data)
-  #  {  id:  id,
-  #   name: name
-  # }
   @id = merchant_data[:id]
   @name = merchant_data[:name]
   end
