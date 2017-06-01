@@ -1,6 +1,6 @@
 require_relative 'merchant'
 require 'csv'
-
+require 'pry'
 class MerchantRepository
 
   attr_reader :file_path,
@@ -9,27 +9,17 @@ class MerchantRepository
   def initialize(file_path, parent)
     @file_path = file_path
     @parent = parent
-    @contents = nil
+    @contents = {}
   end
 
-  def csv_read
-    CSV.read(file_path)
-  end
-
-  def organize
-    header = csv_read[0]
-    content = csv_read[1..-1]
-    temp = []
-    content.each do |line|
-      item = header.zip(line).flatten.compact
-      temp << item
+  def load_library
+    library = {}
+    CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
+      h = Hash[row]
+      d = h.delete(:id)
+      library[d] = Merchant.new(h, self)
     end
-    final = []
-    temp.map do |i|
-      h = Hash[*i]
-      final << h
-    end
-    @contents = final
+    library
   end
 
   def all
