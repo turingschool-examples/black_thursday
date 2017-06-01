@@ -19,11 +19,11 @@ class SalesEngine
   end
 
 end
-#
-# se = SalesEngine.from_csv({
-#   :items     => "./data/items.csv",
-#   :merchants => "./data/merchants.csv",
-# })
-#  merchant = se.merchants.find_by_id(12334105)
-#
-#  merchant.items
+
+se = SalesEngine.from_csv({
+  :items     => "./data/items.csv",
+  :merchants => "./data/merchants.csv",
+})
+ merchant = se.merchants.find_by_id(12334105)
+
+ merchant.items

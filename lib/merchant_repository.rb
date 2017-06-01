@@ -28,5 +28,3 @@ class MerchantRepository
     @all_merchant_data.find_all{|merchant| /#{name}/i =~ merchant.name}
   end
 end
-
-merchant = MerchantRepository.new
