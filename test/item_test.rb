@@ -10,10 +10,10 @@ class ItemTest < Minitest::Test
     @item = Item.new({
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => 1099,
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
-      :merchant_id => 12334141
+      :unit_price  => "1099",
+      :created_at  => "2016-01-11 11:30:35 UTC",
+      :updated_at  => "1994-05-07 23:38:43 UTC",
+      :merchant_id => "12334141"
       })
   end
 
@@ -30,6 +30,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_has_a_unit_price
+    assert_instance_of BigDecimal, item.unit_price
     assert_equal 1099, item.unit_price
   end
 
@@ -51,9 +52,9 @@ class ItemTest < Minitest::Test
       name: "Eraser",
       description: "You can use it to erase things.",
       unit_price: 300,
-      created_at: Time.now,
-      updated_at: Time.now,
-      merchant_id: 12341234
+      created_at: "2016-01-11 11:30:35 UTC",
+      updated_at: "1994-05-07 23:38:43 UTC",
+      merchant_id: "12341234"
       })
 
     assert_equal "Eraser", item2.name
