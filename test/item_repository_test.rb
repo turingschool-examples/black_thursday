@@ -69,4 +69,12 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of Item, actual.sample
     assert_equal 2, actual.length
   end
+
+  def test_it_can_find_all_items_in_price_range
+    actual = item_repo.find_all_by_price_in_range((1..9000))
+
+    assert_instance_of Array, actual
+    assert_instance_of Item, actual.sample
+    assert_equal 2, actual.length
+  end
 end
