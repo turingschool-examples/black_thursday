@@ -13,7 +13,7 @@ class MerchantRepository
   def populate_merchant_repo(file)
     merchant_lines = CSV.open(file, headers: true, header_converters: :symbol)
     merchant_lines.each do |row|
-      merchant = Merchant.new({:id => row[:id], :name => row[:name], :created_at => row[:created_at], :updated_at => row[:updated_at]})
+      merchant = Merchant.new(row)
       all << merchant
     end
   end

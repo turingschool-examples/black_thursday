@@ -12,9 +12,8 @@ class ItemRepository
   def populate_item_repo(file)
     item_lines = CSV.open(file, headers: true, header_converters: :symbol)
     item_lines.each do |row|
-      item = Item.new({:id => row[:id], :name => row[:name], :description => row[:description], :unit_price => row[:unit_price], :merchant_id => row[:merchant_id], :created_at => row[:created_at], :updated_at => row[:updated_at]})
+      item = Item.new(row)
       all << item
-      puts all
     end
   end
 
@@ -57,6 +56,4 @@ class ItemRepository
       id.merchant_id == merch_id
     end
   end
-
 end
-a = ItemRepository.new("./data/items.csv")

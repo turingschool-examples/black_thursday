@@ -1,5 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require './test/test_helper'
 require './lib/merchant_repository'
 require './lib/merchant'
 require 'pry'
@@ -17,7 +16,7 @@ class MerchantRepositoryTest < MiniTest::Test
   end
 
   def test_it_has_no_merchants_when_initialized
-    merchant = MerchantRepository.new
+    merchant = MerchantRepository.new()
 
     assert_equal [], merchant.all
   end
@@ -27,6 +26,7 @@ class MerchantRepositoryTest < MiniTest::Test
     mr.add_merchants(merch_1)
     mr.add_merchants(merch_2)
     mr.add_merchants(merch_3)
+
     assert_equal [merch_1, merch_2, merch_3], mr.all
   end
 
