@@ -8,8 +8,23 @@ class ItemRepository
     @all = []
   end
 
-  def populate_items(file_path)
-    
+  def populate_items(line)
+    return false if line == "id,name,description,unit_price,merchant_id,created_at,updated_at\n"
+    columns = line.split(",")
+      id = columns[0]
+      merchant_id = columns[4]
+      name = columns[1]
+      description = columns[2]
+      unit_price = columns[3]
+      created_at = columns[5]
+      updated_at = columns[6]
+    self.all << Item.new({ :id => id,
+                               :merchant_id => merchant_id,
+                               :name => name,
+                               :description => description,
+                               :unit_price => unit_price,
+                               :created_at => created_at,
+                               :updated_at => updated_at })
   end
 
   def find_by_id(id)

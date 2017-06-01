@@ -21,15 +21,20 @@ class SalesEngine
 
   def merchants
     mr = MerchantRepository.new
-    lines = File.readlines @files[:merchants], headers: true
+    lines = File.readlines @files[:merchants]
     lines.each do |line|
       mr.populate_merchants(line)
     end
     puts mr.all.inspect
   end
 
-  def items(items_library)
+  def items
     ir = ItemRepository.new
+    lines = File.readlines @files[:items]
+    lines.each do |line|
+      ir.populate_items(line)
+    end
+    puts ir.all.inspect
   end
 end
 
@@ -37,3 +42,4 @@ se = SalesEngine.from_csv({:items => './data/items_test.csv',
                            :merchants => './data/merchants_test.csv'})
 
 se.merchants
+se.items
