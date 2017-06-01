@@ -1,14 +1,19 @@
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'csv'
 require './lib/merchant'
+require_relative '../lib/merchant_repository'
+
 
 class MerchantTest < Minitest::Test
 
   attr_reader :merchant, :merchant2
 
   def setup
-    @merchant = Merchant.new({:id => 1, :name => "StarCityGames"})
-    @merchant2 = Merchant.new({:id => 2, :name => "Amazong"})
+    csv  = CSV.open './data/merchant_sample.csv', headers: true, header_converters: :symbol
+    repo = MerchantRepository.new(csv)
+    @merchant = Merchant.new({:id => 1, :name => "StarCityGames"}, repo)
+    @merchant2 = Merchant.new({:id => 2, :name => "Amazong"},repo)
   end
 
   def test_it_exists
@@ -30,6 +35,11 @@ class MerchantTest < Minitest::Test
 
   def test_it_can_have_different_name
     assert_equal "Amazong", merchant2.name
+  end
+
+  def test_it_knows_about_parent_repo
+    assert_instance_of MerchantRepository, merchant.repository
+    assert_instance_of MerchantRepository, merchant2.repository
   end
 
 end
