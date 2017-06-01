@@ -1,4 +1,6 @@
+require_relative 'merchant'
 require 'pry'
+
 class SalesEngine
 
   attr_reader :items,
@@ -9,6 +11,11 @@ class SalesEngine
     @merchants = MerchantRepository.new
   end
 
+  def self.from_csv(file)
+  end
+
+
+# binding.pry
   # def items
   #
   # end
