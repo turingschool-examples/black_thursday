@@ -1,84 +1,49 @@
 require 'pry'
-
-require 'simplecov'
-SimpleCov.start
-require 'minitest/autorun'
-require 'minitest/pride'
+require_relative 'test_helper'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/merchant'
 
 class MerchantRepositoryTest < MiniTest::Test
 
+  def setup
+    @file_path = './test/data/merchants_test.csv'
+  end
+
   def test_if_create_class
-    mr = MerchantRepository.new
+    mr = MerchantRepository.new(@file_path)
 
     assert_instance_of MerchantRepository, mr
+    assert_equal 5, mr.all.length
   end
 
-  def test_all_returns_all_instances_of_merchant
-    mr = MerchantRepository.new
-    m_1 = Merchant.new({:name  =>  "Turing School",
-                        :id    =>  201})
-    m_2 = Merchant.new({:name  =>  "Slice Works",
-                        :id    =>  405})
-
-    mr.all << m_1
-    mr.all << m_2
-
-    assert_equal [m_1, m_2], mr.all
-  end
 
   def test_if_find_by_id_returns_correct_value_for_method
-    mr = MerchantRepository.new
-    m_1 = Merchant.new({:name  =>  "Turing School",
-                        :id    =>  201})
-    m_2 = Merchant.new({:name  =>  "Slice Works",
-                        :id    =>  405})
+    mr = MerchantRepository.new(@file_path)
 
-    mr.all << m_1
-    mr.all << m_2
-
-    actual_1 = mr.find_by_id(201)
+    actual_1 = mr.find_by_id(12334105)
     actual_2 = mr.find_by_id(800)
 
-    assert_equal m_1, actual_1
+    assert_equal mr.all[0], actual_1
     assert_nil actual_2
   end
 
   def test_if_find_by_name_works
-    mr = MerchantRepository.new
-    m_1 = Merchant.new({:name  =>  "Turing School",
-                        :id    =>  201})
-    m_2 = Merchant.new({:name  =>  "Slice Works",
-                        :id    =>  405})
+    mr = MerchantRepository.new(@file_path)
 
-    mr.all << m_1
-    mr.all << m_2
-
-    actual_1 = mr.find_by_name("Turing School")
+    actual_1 = mr.find_by_name("Shopin1901")
     actual_2 = mr.find_by_name("Mike Dao's Torture Chamber")
 
-    assert_equal m_1, actual_1
+    assert_equal mr.all[0], actual_1
     assert_nil actual_2
   end
 
   def test_if_find_all_by_name_works
-    mr = MerchantRepository.new
-    m_1 = Merchant.new({:name  =>  "Turing School",
-                        :id    =>  201})
-    m_2 = Merchant.new({:name  =>  "Slice Works",
-                        :id    =>  405})
-    m_3 = Merchant.new({:name  =>  "Turing Consultant",
-                        :id    =>  2302})
+    mr = MerchantRepository.new(@file_path)
 
-    mr.all << m_1
-    mr.all << m_2
-    mr.all << m_3
-
-    actual_1 = mr.find_all_by_name("Turing")
+    actual_1 = mr.find_all_by_name("Shopin19")
     actual_2 = mr.find_all_by_name("Mike Dao's Torture Chamber")
 
-    assert_equal [m_1, m_3], actual_1
+    assert_equal [mr.all[0], mr.all[2]], actual_1
     assert_equal [], actual_2
   end
 

@@ -1,8 +1,5 @@
 require 'pry'
-require 'simplecov'
-SimpleCov.start
-require 'minitest/autorun'
-require 'minitest/pride'
+require_relative 'test_helper'
 require_relative '../lib/sales_engine'
 
 class SalesEngineTest < MiniTest::Test
@@ -14,15 +11,14 @@ class SalesEngineTest < MiniTest::Test
     assert_instance_of SalesEngine, se
   end
 
-  def test_from_csv_opens_csv_files_without_headers
-    se = SalesEngine.from_csv({:items => './data/items_test.csv',
-                               :merchants => './data/merchants_test.csv'})
-    binding.pry
-    merchant_library
-    items_library
-
-
-  end
+  # def test_from_csv_opens_csv_files_without_headers
+  #   se = SalesEngine.from_csv({:items => './data/items_test.csv',
+  #                              :merchants => './data/merchants_test.csv'})
+  #   merchant_library
+  #   items_library
+  #
+  #
+  # end
 
   def test_from_csv_creates_an_instance_of_sales_engine
     se = SalesEngine.from_csv({:items => './data/items_test.csv',

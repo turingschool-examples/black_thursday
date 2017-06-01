@@ -12,13 +12,14 @@ class Item
                 :updated_at
 
   def initialize(params = {})
-    @id          = params[:id].to_i
-    @merchant_id = params[:merchant_id].to_i
-    @name        = params[:name]
-    @description = params[:description]
-    @unit_price  = BigDecimal.new(params[:unit_price])
-    @created_at  = Time.parse(params[:created_at])
-    @updated_at  = Time.parse(params[:updated_at])
+    @id          = params["id"].to_i
+    @merchant_id = params["merchant_id"].to_i
+    @name        = params["name"]
+    @description = params["description"]
+    @unit_price  = BigDecimal.new(params["unit_price"].to_i)
+    # binding.pry
+    @created_at  = Time.parse(params["created_at"])
+    @updated_at  = Time.parse(params["updated_at"])
   end
 
 end

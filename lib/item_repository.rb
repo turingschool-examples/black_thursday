@@ -1,29 +1,34 @@
 require_relative './item'
 require 'bigdecimal'
+require 'csv'
 
 class ItemRepository
 
   attr_reader :all
 
-  def initialize
+  def initialize(file_path)
     @all = []
+    populate_items(file_path)
   end
 
-  def populate_items(line)
-      id = line[0]
-      merchant_id = line[4]
-      name = line[1]
-      description = line[2]
-      unit_price = BigDecimal.new(line[3].to_i, 4)
-      created_at = line[5]
-      updated_at = line[6]
-    self.all << Item.new({ :id => id,
-                           :merchant_id => merchant_id,
-                           :name => name,
-                           :description => description,
-                           :unit_price => unit_price,
-                           :created_at => created_at,
-                           :updated_at => updated_at })
+  def populate_items(file_path)
+    CSV.foreach(file_path, row_sep: :auto, headers: true) do |line|
+      self.all << Item.new(line)
+    end
+    #   id = line[0]
+    #   merchant_id = line[4]
+    #   name = line[1]
+    #   description = line[2]
+    #   unit_price = BigDecimal.new(line[3].to_i, 4)
+    #   created_at = line[5]
+    #   updated_at = line[6]
+    # self.all << Item.new({ :id => id,
+    #                        :merchant_id => merchant_id,
+    #                        :name => name,
+    #                        :description => description,
+    #                        :unit_price => unit_price,
+    #                        :created_at => created_at,
+    #                        :updated_at => updated_at })
   end
 
   def find_by_id(id)
