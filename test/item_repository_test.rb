@@ -2,13 +2,20 @@ require "minitest/autorun"
 require "minitest/pride"
 require "csv"
 require_relative "../lib/item_repository"
+require_relative "../lib/sales_engine"
 require "pry"
 
 class ItemRepositoryTest < Minitest::Test
   attr_reader :item_repo
   def setup
+    small_csv_paths = {
+                        :items     => "./data/small_item_set.csv",
+                        :merchants => "./data/merchant_sample.csv",
+                      }
+    engine = SalesEngine.from_csv(small_csv_paths)
     csv = CSV.open('./data/small_item_set.csv', :headers => true, :header_converters => :symbol)
-    @item_repo = ItemRepository.new(csv)
+
+    @item_repo = ItemRepository.new(csv, engine)
   end
 
   def test_it_exists_and_populates_items_automatically
@@ -90,5 +97,9 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of Array, actual
     assert_instance_of Item, actual.sample
     assert_equal 2, actual.length
+  end
+
+  def test_it_knows_about_parent_sales_engine
+    assert_instance_of SalesEngine,item_repo.engine
   end
 end

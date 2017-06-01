@@ -2,11 +2,22 @@ require "minitest/autorun"
 require "minitest/pride"
 require "bigdecimal"
 require_relative "../lib/item"
+require_relative "../lib/sales_engine"
+require_relative "../lib/item_repository"
 
 
 class ItemTest < Minitest::Test
-  attr_reader :item
+  attr_reader :item,
+              :repo
   def setup
+    small_csv_paths = {
+                        :items     => "./data/small_item_set.csv",
+                        :merchants => "./data/merchant_sample.csv",
+                      }
+    engine = SalesEngine.from_csv(small_csv_paths)
+    csv  = CSV.open './data/small_item_set.csv', headers: true, header_converters: :symbol
+    @repo = ItemRepository.new(csv, engine)
+
     @item = Item.new({
       :name        => "Pencil",
       :description => "You can use it to write things",
@@ -14,7 +25,7 @@ class ItemTest < Minitest::Test
       :created_at  => "2016-01-11 11:30:35 UTC",
       :updated_at  => "1994-05-07 23:38:43 UTC",
       :merchant_id => "12334141"
-      })
+      }, repo)
   end
 
   def test_it_exists
@@ -55,7 +66,7 @@ class ItemTest < Minitest::Test
       created_at: "2016-01-11 11:30:35 UTC",
       updated_at: "1994-05-07 23:38:43 UTC",
       merchant_id: "12341234"
-      })
+      }, repo)
 
     assert_equal "Eraser", item2.name
     assert_equal "You can use it to erase things.", item2.description
@@ -63,5 +74,9 @@ class ItemTest < Minitest::Test
     assert_instance_of Time, item2.created_at
     assert_instance_of Time, item2.updated_at
     assert_equal 3.00, item2.unit_price_to_dollars
+  end
+
+  def test_it_knows_about_parent_repo
+    assert_instance_of ItemRepository, item.repository
   end
 end
