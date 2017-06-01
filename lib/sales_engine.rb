@@ -6,7 +6,9 @@ class SalesEngine
   attr_reader :files
   def initialize(files)
     @files = files
+    @merchants = MerchantRepository.new(files[:merchants])
   end
+
 
   # def initialize(params = {})
   #   @items_file = params.fetch(:items, "")

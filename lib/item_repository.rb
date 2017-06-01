@@ -28,10 +28,7 @@ class ItemRepository
 
   def find_by_id(id)
     @all.find do |item|
-      if item.id == id
-        return item
-      end
-      nil
+      item.id == id
     end
   end
 
@@ -45,13 +42,9 @@ class ItemRepository
   end
 
   def find_all_with_description(description)
-    result = []
     @all.find_all do |item|
-      if item.description.downcase == description.downcase
-        result << item
-      end
+      item.description.downcase == description.downcase
     end
-    result
   end
 
   def find_all_by_price(unit_price)

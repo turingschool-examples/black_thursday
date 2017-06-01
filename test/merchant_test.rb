@@ -1,10 +1,6 @@
 require 'pry'
 
-require 'simplecov'
-SimpleCov.start
-require 'bigdecimal'
-require 'minitest/autorun'
-require 'minitest/pride'
+require_relative 'test_helper'
 require_relative '../lib/merchant'
 
 class MerchantTest < MiniTest::Test
@@ -18,7 +14,7 @@ class MerchantTest < MiniTest::Test
   def test_default_attributes
     m = Merchant.new({:name  =>  "Turing School",
                       :id    =>  201})
-                      
+
     assert m.name
     assert_equal "Turing School", m.name
     assert m.id

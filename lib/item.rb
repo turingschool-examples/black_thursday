@@ -1,3 +1,6 @@
+require 'bigdecimal'
+require 'time'
+
 class Item
 
   attr_reader   :id,
@@ -9,13 +12,13 @@ class Item
                 :updated_at
 
   def initialize(params = {})
-    @id          = params.fetch(:id, "")
-    @merchant_id = params.fetch(:merchant_id, "")
-    @name        = params.fetch(:name, "")
-    @description = params.fetch(:description, "")
-    @unit_price  = params.fetch(:unit_price, "")
-    @created_at  = params.fetch(:created_at, "")
-    @updated_at  = params.fetch(:updated_at, "")
+    @id          = params[:id].to_i
+    @merchant_id = params[:merchant_id].to_i
+    @name        = params[:name]
+    @description = params[:description]
+    @unit_price  = BigDecimal.new(params[:unit_price])
+    @created_at  = Time.parse(params[:created_at])
+    @updated_at  = Time.parse(params[:updated_at])
   end
 
 end

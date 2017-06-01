@@ -4,8 +4,8 @@ class Merchant
               :id
 
   def initialize(params = {})
-    @name = params.fetch(:name, "")
-    @id   = params.fetch(:id, "")
+    @name = params[:name]
+    @id   = params[:id].to_i
   end
 
 end
