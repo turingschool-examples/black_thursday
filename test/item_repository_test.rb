@@ -102,4 +102,12 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_knows_about_parent_sales_engine
     assert_instance_of SalesEngine,item_repo.engine
   end
+
+  def test_it_can_get_merchant_by_item_from_sales_engine
+    actual = item_repo.merchant_by_item(12334113)
+
+    assert_instance_of Merchant, actual
+    assert_equal 12334113, actual.id
+  end
+
 end

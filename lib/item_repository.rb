@@ -54,4 +54,8 @@ class ItemRepository
       item.merchant_id == merchant_id
     end
   end
+
+  def merchant_by_item(merchant_id)
+    engine.merchant_by_item(merchant_id)
+  end
 end
