@@ -29,9 +29,9 @@ class ItemRepository
     end
   end
 
-  def find_all_with_description
+  def find_all_with_description(string)
     all.find_all do |item|
-      !item.description.nil?
+      item.description.to_s.downcase.include?(string.downcase)
     end
   end
 
