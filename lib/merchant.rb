@@ -16,4 +16,12 @@ class Merchant
     information["id"].to_i
   end
 
+  def created_at
+    information["created_at"]
+  end
+
+  def updated_at
+    information["updated_at"]
+  end
+
 end
