@@ -9,4 +9,8 @@ class Merchant
     @name = attributes[:name]
     @repository = repository
   end
+
+  def items
+    repository.all_merchant_items(id)
+  end
 end
