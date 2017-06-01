@@ -14,6 +14,16 @@ class SalesEngine
 
   def self.from_csv(hash)
     se = SalesEngine.new(hash)
+    #self.from_csv(data)
+    import(data)
+  end
+
+  def collected_items(merchant_id)
+    @items.find_all_by_merchant_id(merchant_id)
+  end
+
+  def merchant(item_id)
+    @merchants.merchant(item_id)
   end
 
   se = SalesEngine.from_csv({
