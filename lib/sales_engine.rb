@@ -1,12 +1,11 @@
+require_relative "item_repository"
+require_relative "merchant_repository"
+
 class SalesEngine
-  # def initialize(item_rows, merchant_rows)
-  #   @items     = ItemRepository.new
-  #   @merchants = MerchantRepository.new
-  #
-  #   item_rows.each  do |row|
-  #     @items.add(row_data)
-  #   end
-  # end
+  def initialize(item_rows, merchant_rows)
+    @items     = ItemRepository.new(item_rows)
+    @merchants = MerchantRepository.new(merchant_rows)
+  end
   #
   # def self.from_csv(attrs)
   #   item_path = attrs[:items]
@@ -18,5 +17,5 @@ class SalesEngine
   #   se = SalesEngine.new(item_data, merchants_data)
   # end
 
-  
+
 end
