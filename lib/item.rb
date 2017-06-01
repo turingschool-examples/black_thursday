@@ -2,6 +2,7 @@ require "pry"
 
 class Item
   attr_reader :name,
+              :id,
               :description,
               :unit_price,
               :created_at,
@@ -9,6 +10,7 @@ class Item
               :merchant_id
 
   def initialize(data)
+    @id = data[:id]
     @name = data[:name]
     @description = data[:description]
     @unit_price = data[:unit_price]
