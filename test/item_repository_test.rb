@@ -23,13 +23,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_item_repository_can_be_populated
     csv_file = "./data/items.csv"
     item_repo = ItemRepository.new(csv_file)
-    assert_instance_of Item, item_repo.items[263395237]
-  end
-
-  def test_item_find_all
-    csv_file = "./data/items.csv"
-    item_repo = ItemRepository.new(csv_file)
-    assert_equal item_repo.all, item_repo.items.values
+    assert_instance_of Item, item_repo.items[0]
   end
 
   def test_item_find_by_id
