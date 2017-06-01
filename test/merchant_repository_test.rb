@@ -32,4 +32,7 @@ class MerchantRepositoryTest < Minitest::Test
     assert_instance_of Merchant, actual.sample
   end
 
+  def test_it_can_find_merchants_by_id
+    assert_instance_of Merchant, merch_repo.find_by_id("12334105")
+  end
 end

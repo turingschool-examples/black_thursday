@@ -21,10 +21,11 @@ class MerchantRepository
   def all
     merchants.values
   end
+
+  def find_by_id(id)
+    merchants[id]
+  end
 end
-#   def find_by_id(id)
-#
-#   end
 #
 #   def find_by_name
 #   end
