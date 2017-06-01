@@ -10,7 +10,7 @@ class Item
               :merchant_id
 
   def initialize(hash)
-    @id          = hash[:id]
+    @id          = hash[:id].to_i
     @name        = hash[:name]
     @description = hash[:description]
     @unit_price  = hash[:unit_price]
@@ -22,10 +22,4 @@ class Item
   def unit_price_to_float
     unit_price.to_f
   end
-
-
-
-
-
-
 end
