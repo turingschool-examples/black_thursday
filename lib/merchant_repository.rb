@@ -25,13 +25,14 @@ class MerchantRepository
   def find_by_id(id)
     merchants[id]
   end
+
+  def find_by_name(name)
+    merchants.values.find { |merchant| merchant.name.downcase == name.downcase }
+  end
 end
-#
-#   def find_by_name
-#   end
-#
 #   def find_all_by_name
 #   end
+
   # csv = CSV.open('./data/merchants.csv', :headers => true, :header_converters => :symbol)
   # hel = csv.to_a.map do |row|
   #   row.to_hash
@@ -41,7 +42,7 @@ end
 
 
 
-# find_by_id(id) returns either nil or an instance of Merchant with matching ID
+
 
 # find_by_name(name) returns either nil or an instance of Merchant from a case insensitive search
 
