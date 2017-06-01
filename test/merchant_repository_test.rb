@@ -65,4 +65,13 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_knows_about_parent_sales_engine
     assert_instance_of SalesEngine, merch_repo.engine
   end
+
+  def test_it_can_get_merchant_items_from_parent_sales_engine
+    actual = merch_repo.all_merchant_items(12334213)
+
+    assert_instance_of Array, actual
+    assert_instance_of Item, actual.sample
+    assert_equal 2, actual.count
+    assert_equal 12334213, actual.sample.merchant_id
+  end
 end
