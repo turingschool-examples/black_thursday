@@ -25,4 +25,8 @@ class Item
   def unit_price_to_dollars
     (unit_price)/100.0
   end
+
+  def merchant
+    repository.merchant_by_item(merchant_id)
+  end
 end

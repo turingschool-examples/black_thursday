@@ -24,7 +24,7 @@ class ItemTest < Minitest::Test
       :unit_price  => "1099",
       :created_at  => "2016-01-11 11:30:35 UTC",
       :updated_at  => "1994-05-07 23:38:43 UTC",
-      :merchant_id => "12334141"
+      :merchant_id => "12334113"
       }, repo)
   end
 
@@ -51,7 +51,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_knows_merchant_id
-    assert_equal 12334141, item.merchant_id
+    assert_equal 12334113, item.merchant_id
   end
 
   def test_it_can_convert_to_dollars
@@ -78,5 +78,12 @@ class ItemTest < Minitest::Test
 
   def test_it_knows_about_parent_repo
     assert_instance_of ItemRepository, item.repository
+  end
+
+  def test_it_can_get_its_merchant
+    actual = item.merchant
+
+    assert_instance_of Merchant, actual
+    assert_equal 12334113, actual.id
   end
 end
