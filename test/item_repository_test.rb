@@ -39,7 +39,24 @@ class ItemRepositoryTest < Minitest::Test
     item = ItemRepository.new
     result = item.find_all_with_description("glitter")
     actual = result[0].description.include?("glitter")
-    
+
     assert_equal true, actual
+  end
+
+  def test_it_can_find_all_by_price
+    item = ItemRepository.new
+    result = item.find_all_by_price("1300")
+    actual = result.count
+
+    assert_equal 8, actual
+
+  end
+
+  def test_it_can_find_all_by_price_in_range
+    item = ItemRepository.new
+    result = item.find_all_by_price_in_range("1300".."1450")
+    actual = result.count
+
+    assert_equal 22, actual
   end
 end

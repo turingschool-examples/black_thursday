@@ -27,5 +27,13 @@ class ItemRepository
   def find_all_with_description(description)
     @all_item_data.find_all{|item| /#{description}/i =~ item.description}
   end
-  
+
+  def find_all_by_price(unit_price)
+    @all_item_data.find_all{|item| item.unit_price == unit_price }
+  end
+
+  def find_all_by_price_in_range(price_range)
+    @all_item_data.find_all{|item| price_range === item.unit_price }
+  end
+
 end
