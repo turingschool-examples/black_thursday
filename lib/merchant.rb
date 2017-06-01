@@ -1,7 +1,8 @@
 
 class Merchant
 
-  attr_reader :information
+  attr_reader :information,
+              :parent
 
   def initialize(information, parent)
     @information = information
