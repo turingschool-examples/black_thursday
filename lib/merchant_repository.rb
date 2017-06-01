@@ -1,6 +1,6 @@
 require 'csv'
 require './lib/merchant'
-require 'pry'
+
 class MerchantRepository
 
   attr_reader :all_merchant_data
@@ -8,7 +8,6 @@ class MerchantRepository
   def initialize
     @all_merchant_data = CSV.open("./data/merchants.csv",
     headers: true, header_converters: :symbol).map do |row|
-      binding.pry
       Merchant.new(row)
     end
   end

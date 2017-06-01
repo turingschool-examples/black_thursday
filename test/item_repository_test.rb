@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-require './lib/item_repository'
+require_relative '../lib/item_repository'
 
 class ItemRepositoryTest < Minitest::Test
   def test_it_opens_csv_into_array
