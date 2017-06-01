@@ -47,4 +47,9 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_returns_nil_for_invalid_name
     assert_nil merch_repo.find_by_name("Stuff")
   end
+
+  def test_it_can_find_all_merchants_containing_given_name_fragment
+    assert_equal [], merch_repo.find_all_by_name("jjj")
+    assert_equal [], merch_repo.find_all_by_name("ke")
+  end
 end

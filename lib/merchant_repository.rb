@@ -27,23 +27,17 @@ class MerchantRepository
   end
 
   def find_by_name(name)
-    merchants.values.find { |merchant| merchant.name.downcase == name.downcase }
+    all.find { |merchant| merchant.name.downcase == name.downcase }
+  end
+
+  def find_all_by_name(name_frag)
+    all.find_all { |merchant| merchant.name.downcase.include?(name_frag.downcase)}
   end
 end
-#   def find_all_by_name
-#   end
-
+# name fragment = "ke"
   # csv = CSV.open('./data/merchants.csv', :headers => true, :header_converters => :symbol)
   # hel = csv.to_a.map do |row|
   #   row.to_hash
   # end
 #   # binding.pry
 # end
-
-
-
-
-
-# find_by_name(name) returns either nil or an instance of Merchant from a case insensitive search
-
-#find_all_by_name returns either [] or one or more matches which contain the supplied name fragment, case insensitive
