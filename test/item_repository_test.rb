@@ -56,14 +56,20 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_can_find_all_items_with_a_description
-    actual = item_repo.find_all_with_description
+    actual = item_repo.find_all_with_description('Handmade')
     assert_instance_of Array, actual
     assert_instance_of Item, actual.sample
-    assert_equal 5, actual.length
+    assert_equal 2, actual.length
+  end
+
+  def test_it_returns_empty_array_for_silly_string
+    actual = item_repo.find_all_with_description('quetzocatl')
+    assert_instance_of Array, actual
+    assert_equal [], actual
   end
 
   def test_it_can_find_all_items_with_certain_price
-    actual = item_repo.find_all_by_price("13000")
+    actual = item_repo.find_all_by_price(13000)
 
     assert_instance_of Array, actual
     assert_instance_of Item, actual.sample
@@ -79,7 +85,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_items_by_merch_id
-    actual = item_repo.find_all_by_merchant_id("12334213")
+    actual = item_repo.find_all_by_merchant_id(12334213)
 
     assert_instance_of Array, actual
     assert_instance_of Item, actual.sample

@@ -24,15 +24,14 @@ class ItemRepository
   end
 
   def find_by_name(name)
-    thing = items.find do |id, item|
-      item.name == name
+    all.find do |item|
+      item.name.downcase == name.downcase
     end
-    thing[1]
   end
 
-  def find_all_with_description
+  def find_all_with_description(string)
     all.find_all do |item|
-      !item.description.nil?
+      item.description.to_s.downcase.include?(string.downcase)
     end
   end
 
