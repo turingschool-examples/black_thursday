@@ -1,6 +1,7 @@
 require 'pry'
 require 'csv'
 require_relative 'itemrepository'
+require_relative 'salesanalyst'
 class SalesEngine
 
   attr_reader :items,
@@ -9,6 +10,7 @@ class SalesEngine
   def initialize(item_path, merchant_path)
     @items = ItemRepository.new(item_path, self)
     @merchants = MerchantRepository.new(merchant_path)
+    @salesanalyst = SalesAnalyst.new(self)
   end
 
   def self.from_csv(file = {})
