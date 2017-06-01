@@ -8,7 +8,7 @@ class SalesEngine
 
   def initialize(item_rows, merchant_rows)
     @items     = ItemRepository.new(item_rows)
-    @merchants = MerchantRepository.new(merchant_rows)
+    @merchants = MerchantRepository.new(merchant_rows, self)
   end
 
   def self.from_csv(paths)

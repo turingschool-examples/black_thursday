@@ -4,11 +4,14 @@ require 'pry'
 
 class MerchantRepository
 
-  attr_reader :merchants
+  attr_reader :merchants,
+              :engine
 
-  def initialize(csv)
+  def initialize(csv, engine)
     @merchants = {}
+    @engine = engine
     self.add(csv)
+
   end
 
   def add(csv)

@@ -41,5 +41,4 @@ class MerchantTest < Minitest::Test
     assert_instance_of MerchantRepository, merchant.repository
     assert_instance_of MerchantRepository, merchant2.repository
   end
-
 end
