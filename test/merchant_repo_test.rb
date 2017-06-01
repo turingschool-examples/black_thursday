@@ -15,7 +15,7 @@ class MerchantRepoTest < Minitest::Test
   def test_it_initiates_with_hash
     merchant = MerchantRepository.new("./data/merchants.csv")
     result = merchant.merchants
-    assert_instance_of Hash, result
+    assert_instance_of Array, result
   end
 
   def test_it_can_populate_array_with_all_475_merchants
