@@ -5,8 +5,8 @@ class ItemRepository
 
   attr_reader :all_item_data
 
-  def initialize
-    @all_item_data = CSV.open("./data/items.csv",
+  def initialize(filename)
+    @all_item_data = CSV.foreach(filename,
     headers: true, header_converters: :symbol).map do |row|
       Item.new(row)
     end

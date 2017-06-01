@@ -5,8 +5,8 @@ class MerchantRepository
 
   attr_reader :all_merchant_data
 
-  def initialize
-    @all_merchant_data = CSV.open("./data/merchants.csv",
+  def initialize(filename)
+    @all_merchant_data = CSV.foreach(filename,
     headers: true, header_converters: :symbol).map do |row|
       Merchant.new(row)
     end
