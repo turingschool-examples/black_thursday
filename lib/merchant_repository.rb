@@ -34,10 +34,3 @@ class MerchantRepository
     all.find_all { |merchant| merchant.name.downcase.include?(name_frag.downcase)}
   end
 end
-# name fragment = "ke"
-  # csv = CSV.open('./data/merchants.csv', :headers => true, :header_converters => :symbol)
-  # hel = csv.to_a.map do |row|
-  #   row.to_hash
-  # end
-#   # binding.pry
-# end

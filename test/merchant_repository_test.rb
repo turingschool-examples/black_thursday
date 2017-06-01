@@ -49,7 +49,10 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_merchants_containing_given_name_fragment
+    merch_1 = merch_repo.find_by_id("12334113")
+    merch_2 = merch_repo.find_by_id("12334123")
+
     assert_equal [], merch_repo.find_all_by_name("jjj")
-    assert_equal [], merch_repo.find_all_by_name("ke")
+    assert_equal [merch_1, merch_2], merch_repo.find_all_by_name("ke")
   end
 end
