@@ -47,8 +47,9 @@ class ItemRepository
   end
 
   def find_all_with_description(description)
+    description = description.downcase
     @all.find_all do |item|
-      item.description.downcase == description.downcase
+      item.description.include? description
     end
   end
 
@@ -63,13 +64,9 @@ class ItemRepository
   end
 
   def find_all_by_price_in_range(range)
-    result = []
-    @all.each do |item|
-      if range.include? item.unit_price
-        result << item
-      end
+    @all.find_all do |item|
+      range.include? item.unit_price
     end
-    result
   end
 
   def find_all_by_merchant_id(merchant_id)
