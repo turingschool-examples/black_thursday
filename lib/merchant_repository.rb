@@ -5,7 +5,7 @@ class MerchantRepository
   attr_reader :merchants
 
   def initialize(csv_file)
-    @merchants = {}
+    @merchants = []
     populate_merchant_repo(csv_file)
   end
 
@@ -13,46 +13,36 @@ class MerchantRepository
     merchant_list = CSV.open csv_file, headers: true, header_converters: :symbol
     merchant_list.each do |row|
       individual = Merchant.new({:id => row[:id], :name => row[:name]})
-      @merchants[individual.id] = individual
+      @merchants << individual
     end
+    merchant_list.close
   end
 
   def all
-    @merchants.each {|key, value| puts value}
+    @merchants.each {|merchant| puts merchant}
   end
 
   def find_by_name(name)
-    name = name.downcase
-    @merchants.each_value do |value|
-      if value.name == name
-        return value
-      else
-        next
-      end
+    return_value = @merchants.select do |merchant|
+      merchant.name == name.downcase
     end
-    nil
+    puts return_value
+    return_value
   end
 
   def find_by_id(id)
-    id = id.to_i
-    @merchants.each_key do |key|
-      if key == id
-        return @merchants[key]
-      else
-        next
-      end
+    return_value = @merchants.select do |merchant|
+      merchant.id == id.to_i
     end
-    nil
+    puts return_value
+    return_value
   end
 
   def find_all_by_name(snippet)
-    return_matches = []
-    snippet = snippet.downcase
-    @merchants.each_value do |value|
-      if value.name.include?(snippet)
-        return_matches << value.name
-      end
+    return_matches = @merchants.select do |merchant|
+      merchant.name.include?(snippet.downcase)
     end
+    puts return_matches
     return_matches
   end
 
