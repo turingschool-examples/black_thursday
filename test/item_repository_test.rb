@@ -59,4 +59,12 @@ class ItemRepositoryTest < Minitest::Test
 
     assert_equal 22, actual
   end
+
+  def test_it_can_find_all_by_merchant_id
+    item = ItemRepository.new
+    result = item.find_all_by_merchant_id("12334113")
+    actual = result.count
+
+    assert_equal 1, actual
+  end
 end

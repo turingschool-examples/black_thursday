@@ -36,4 +36,8 @@ class ItemRepository
     @all_item_data.find_all{|item| price_range === item.unit_price }
   end
 
+  def find_all_by_merchant_id(merchant_id)
+    @all_item_data.find_all{|item| merchant_id == item.merchant_id }
+  end
+
 end
