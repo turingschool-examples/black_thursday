@@ -1,6 +1,5 @@
 require 'csv'
 require_relative '../lib/item'
-require_relative '../lib/sales_engine'
 require_relative '../lib/file_opener'
 
 class ItemRepository
@@ -17,7 +16,7 @@ class ItemRepository
   end
 
   def find_by_id(id)
-    @all_item_data.find{|item| item.id == id}
+    @all_item_data.find{|item| item.id == id.to_s}
   end
 
   def find_by_name(name)
@@ -37,7 +36,7 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(merchant_id)
-    @all_item_data.find_all{|item| merchant_id == item.merchant_id }
+    @all_item_data.find_all{|item| merchant_id == item.merchant_id.to_s }
   end
 
 end

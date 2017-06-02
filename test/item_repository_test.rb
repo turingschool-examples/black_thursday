@@ -14,6 +14,17 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal expected, actual
   end
 
+  def test_item_repo_opens_csv_into_array
+    item_repo = ItemRepository.new({
+                  :items     => "./data/items.csv",
+                  :merchants => "./data/merchants.csv"
+                })
+    actual   = item_repo.all_item_data.class
+    expected = Array
+
+    assert_equal expected, actual
+  end
+
   def test_it_returns_item_instances
     item = ItemRepository.new({
                   :items     => "./data/items.csv",
@@ -30,7 +41,7 @@ class ItemRepositoryTest < Minitest::Test
                   :items     => "./data/items.csv",
                   :merchants => "./data/merchants.csv"
                 })
-    actual   = item.find_by_id("263395237")
+    actual   = item.find_by_id(263395237)
     expected = item.all[0]
 
     assert_equal expected, actual

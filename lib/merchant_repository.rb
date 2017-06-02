@@ -1,11 +1,13 @@
 require 'csv'
 require_relative '../lib/merchant'
+require_relative '../lib/file_opener'
 
 class MerchantRepository
-
+  include FileOpener
   attr_reader :all_merchant_data
 
-  def initialize(all_merchants)
+  def initialize(data_files)
+    all_merchants = open_csv(data_files[:merchants])
     @all_merchant_data = all_merchants.map{|row| Merchant.new(row)}
   end
 
