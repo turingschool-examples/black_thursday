@@ -11,8 +11,8 @@ class SalesAnalyst
     mr = se.merchants.all
     ir = se.items.all
 
-    (ir.length.to_f)/(mr.length)
-    #TODO limit decimal to two places
+    average = (ir.length.to_f)/(mr.length)
+    average.round(2)
   end
 
 end
