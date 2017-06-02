@@ -2,19 +2,22 @@ require 'csv'
 require_relative 'item'
 
 class ItemRepository
-  attr_reader :all
+  attr_reader :all,
+              :sales_engine
 
-  def initialize(file)
+  def initialize(file, sales_engine)
     @all = []
+    @sales_engine = sales_engine
     populate_item_repo(file)
   end
 
   def populate_item_repo(file)
     item_lines = CSV.open(file, headers: true, header_converters: :symbol)
     item_lines.each do |row|
-      item = Item.new(row)
+      item = Item.new(row, self)
       all << item
     end
+    item_lines.close
   end
 
   def add_items(item)
@@ -55,5 +58,13 @@ class ItemRepository
     all.find_all do |id|
       id.merchant_id == merch_id
     end
+  end
+
+  def sales_engine_merchant_id(merchant_id)
+    find_all_by_merchant_id(merchant_id)
+  end
+
+  def merchant(item_id)
+    @sales_engine.merchant(item_id)
   end
 end

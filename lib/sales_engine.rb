@@ -1,21 +1,19 @@
 require 'pry'
 require_relative 'merchant_repository'
 require_relative 'item_repository'
-# require_relative 'csv_reader'
+require_relative 'csv_reader'
 
 class SalesEngine
   attr_reader :merchants,
               :items
 
   def initialize(hash)
-    @items = ItemRepository.new(hash[:items])
-    @merchants = MerchantRepository.new(hash[:merchants])
+    @items = ItemRepository.new(hash[:items], self)
+    @merchants = MerchantRepository.new(hash[:merchants], self)
   end
 
   def self.from_csv(hash)
     se = SalesEngine.new(hash)
-    #self.from_csv(data)
-    import(data)
   end
 
   def collected_items(merchant_id)
@@ -30,5 +28,7 @@ class SalesEngine
   :items     => "./data/items.csv",
   :merchants => "./data/merchants.csv",
   })
+  binding.pry
+
 
 end

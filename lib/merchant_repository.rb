@@ -3,19 +3,22 @@ require 'csv'
 require_relative 'merchant'
 
 class MerchantRepository
-  attr_reader :all
+  attr_reader :all,
+              :sales_engine
 
-  def initialize(file)
+  def initialize(file, sales_engine)
     @all = []
+    @sales_engine = sales_engine
     populate_merchant_repo(file)
   end
 
   def populate_merchant_repo(file)
     merchant_lines = CSV.open(file, headers: true, header_converters: :symbol)
     merchant_lines.each do |row|
-      merchant = Merchant.new(row)
+      merchant = Merchant.new(row, self)
       all << merchant
     end
+    merchant_lines.close
   end
 
   def add_merchants(merchant)
@@ -39,4 +42,13 @@ class MerchantRepository
       merch.name.include?(name2)
     end
   end
+
+  def items_in_merch_repo(merchant_id)
+    @sales_engine.collected_items(merchant_id)
+  end
+
+  def merchant(item_id)
+    find_by_id(item_id)
+  end
+
 end
