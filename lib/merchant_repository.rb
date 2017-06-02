@@ -17,7 +17,7 @@ class MerchantRepository
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
       h = Hash[row]
       d = h[:id]
-      library[d] = Merchant.new(h, self)
+      library[d.to_i] = Merchant.new(h, self)
     end
     @contents = library
   end
@@ -28,11 +28,7 @@ class MerchantRepository
 
   def find_by_id(id_number)
     number = @contents.keys.find { |k| k == id_number }
-    if number == nil
-      return number
-    else
-      @contents[id_number].id
-    end
+    contents[number]
   end
 
   def find_by_name(merchant)
@@ -40,13 +36,14 @@ class MerchantRepository
     if m == nil
       return m
     else
-      m[1].name
+      contents[m[0]]
     end
   end
 
   def find_all_by_name(merchant)
+    #need to verify what exactly the return should be
     all = []
-    lookup = @contents.find_all { |k,v| contents[k].name.include?(merchant.downcase) }
+    lookup = @contents.find_all { |k,v| contents[k].name.downcase.include?(merchant.downcase) }
     lookup.compact
   end
 
