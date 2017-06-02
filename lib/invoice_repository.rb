@@ -20,9 +20,20 @@ class InvoiceRepository
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
       h = Hash[row]
       d = h[:id]
-      library[d] = Invoice.new(h, self)
+      library[d.to_i] = Invoice.new(h, self)
     end
     @contents = library
   end
+
+  def all
+    invoices = contents.map { |k,v| v }
+  end
+
+  def find_by_id(id)
+    i = contents.keys.find { |k| k == id }
+    x = contents[i]
+  end
+
+
 
 end
