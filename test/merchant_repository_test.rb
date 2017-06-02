@@ -21,15 +21,12 @@ class MerchantRepositoryTest < MiniTest::Test
 
     assert_equal "MiniatureBikez", merchant.name
   end
-  #
-  # def test_to_find_by_all_by_name
-  #   mr = MerchantRepository.new
-  #   mr.add_merchants(merch_1)
-  #   mr.add_merchants(merch_2)
-  #   mr.add_merchants(merch_3)
-  #   results = mr.find_all_by_name("Burger King")
-  #
-  #   assert results.include?(merch_1)
-  # end
+
+  def test_to_find_by_all_by_name
+    mr = MerchantRepository.new('./test/data/merchants_fixture.csv', sales_engine = nil)
+    merchants = mr.find_all_by_name("MiniatureBikez")
+
+    assert_equal true, merchants.name.include?("MiniatureBikez") 
+  end
 
 end
