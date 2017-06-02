@@ -1,13 +1,15 @@
 require 'csv'
 require_relative '../lib/item'
-# require_relative '../lib/sales_engine'
+require_relative '../lib/sales_engine'
+require_relative '../lib/file_opener'
 
 class ItemRepository
+  include FileOpener
+  attr_reader :all_item_data
 
-  # attr_reader :all_item_data
-
-  def initialize(all_item_data)
-    @all_item_data = all_item_data.map{|row| Item.new(row)} 
+  def initialize(data_files)
+    all_items = open_csv(data_files[:items])
+    @all_item_data = all_items.map{|row| Item.new(row)}
   end
 
   def all

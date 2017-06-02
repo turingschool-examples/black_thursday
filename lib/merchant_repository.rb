@@ -5,11 +5,8 @@ class MerchantRepository
 
   attr_reader :all_merchant_data
 
-  def initialize(filename)
-    @all_merchant_data = CSV.foreach(filename,
-    headers: true, header_converters: :symbol).map do |row|
-      Merchant.new(row)
-    end
+  def initialize(all_merchants)
+    @all_merchant_data = all_merchants.map{|row| Merchant.new(row)}
   end
 
   def all

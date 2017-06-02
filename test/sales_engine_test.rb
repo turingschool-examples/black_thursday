@@ -4,7 +4,10 @@ require_relative '../lib/sales_engine'
 class SalesEngineTest < Minitest::Test
 
   def test_that_sales_engine_is_right_class
-    se = SalesEngine.new
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
 
     assert_equal SalesEngine, se.class
   end
@@ -29,17 +32,24 @@ class SalesEngineTest < Minitest::Test
     assert_equal SalesEngine, se.class
   end
 
+  def test_items_creates_instance_of_item_repository
+    se = SalesEngine.new({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+      })
+      item = se.items
+
+      assert_instance_of ItemRepository, item
+  end
+
   def test_merchants_creates_instance_of_merchant_repository
-    se = SalesEngine.new
-    merch = se.merchants("./data/merchants.csv")
+    se = SalesEngine.new({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+      })
+    merch = se.merchants
 
     assert_instance_of MerchantRepository, merch
   end
 
-  def test_items_creates_instance_of_item_repository
-    se = SalesEngine.new
-    item = se.items("./data/items.csv")
-
-    assert_instance_of ItemRepository, item
-  end
 end
