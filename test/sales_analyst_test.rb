@@ -25,10 +25,21 @@ class SalesAnalystTest < MiniTest::Test
     se = SalesEngine.from_csv(@files)
     sa = SalesAnalyst.new(se)
 
-    actual_1 = sa.average_items_per_merchant_standard_deviation.keys
-    actual_2 = sa.average_items_per_merchant_standard_deviation.values
+    actual_1 = sa.create_items_per_merchant_hash.keys
+    actual_2 = sa.create_items_per_merchant_hash.values
 
     assert_equal [0, 1, 2, 3, 4], actual_1
     assert_equal [1, 0, 0, 0, 0], actual_2
+  end
+
+  def test_average_items_per_perchant_standard_dev
+    se = SalesEngine.from_csv(@files)
+    sa = SalesAnalyst.new(se)
+
+    sa.stubs(:create_items_per_merchant_hash).returns({0 => 3, 1 => 4, 2 => 5})
+
+    actual = sa.average_items_per_merchant_standard_deviation
+
+    assert_equal 1, actual
   end
 end

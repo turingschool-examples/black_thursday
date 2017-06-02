@@ -15,7 +15,7 @@ class SalesAnalyst
     average.round(2)
   end
 
-  def average_items_per_merchant_standard_deviation
+  def create_items_per_merchant_hash
     merchant_items = {}
 
     mr = se.merchants.all
@@ -25,5 +25,16 @@ class SalesAnalyst
       merchant_items[idx] = items.length
     end
     merchant_items
+  end
+
+  def average_items_per_merchant_standard_deviation
+    keys = create_items_per_merchant_hash.keys
+    values = create_items_per_merchant_hash.values
+
+    mean = values.reduce(:+)/values.length
+
+    mean_squared = values.reduce(0) { |acc, num| acc += ((num - mean)**2) }
+    # binding.pry
+    Math.sqrt(mean_squared / (values.length - 1))
   end
 end
