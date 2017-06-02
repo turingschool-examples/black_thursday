@@ -18,4 +18,5 @@ class Merchant
     date = from_file.split("-")
     time = Time.new(date[0], date[1], date[2])
   end
+  
 end
