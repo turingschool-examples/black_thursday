@@ -19,7 +19,7 @@ class SalesEngine
   def collected_items(merchant_id)
     @items.find_all_by_merchant_id(merchant_id)
   end
-  
+
 
   def merchant(item_id)
     @merchants.merchant(item_id)
@@ -29,5 +29,5 @@ class SalesEngine
   :items     => "./data/items.csv",
   :merchants => "./data/merchants.csv",
   })
-binding.pry
+
 end
