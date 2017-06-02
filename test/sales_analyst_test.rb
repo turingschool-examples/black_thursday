@@ -15,6 +15,18 @@ class SalesAnalystTest < MiniTest::Test
     assert_instance_of SalesAnalyst, sa
   end
 
+  def test_it_can_get_average_item
+    se = SalesEngine.from_csv({
+    :items     => "./data/items.csv",
+    :merchants => "./data/merchants.csv",
+    })
+    sa = SalesAnalyst.new(se)
+    result = sa.average_items_per_merchant
+
+    assert_equal 2.88, result
+
+  end
+
 
 
 
