@@ -11,13 +11,13 @@ class MerchantRepositoryTest < Minitest::Test
  end
 
  def test_return_all_instances
-   skip #need to figure out how to get a reasonable return for the test
    mr = MerchantRepository.new("./test/data/merchant_fixture.csv",self)
-   expected = [12334105, 12334112, 12334113, 12334115, 12334135]
-   actual = mr.all
+   expected = [12334105, 12334112, 12334113, 12334115, 12334123, 12334132, 12334135]
+   result = mr.all
+   actual = []
+   result.each { |m| actual << m.id }
 
-
-   assert_equal expected, mr.all
+   assert_equal expected, actual
  end
 
  def test_find_by_id_with_good_id
