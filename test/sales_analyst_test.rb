@@ -1,0 +1,31 @@
+require 'minitest/autorun'
+require 'minitest/pride'
+require_relative '../lib/sales_analyst'
+require_relative '../lib/sales_engine'
+
+class SalesAnalystTest < Minitest::Test
+
+  attr_reader :analyst
+
+  def setup
+    item_dummy = CSV.open './test/data/small_item_set.csv', headers: true, header_converters: :symbol
+    merch_dummy = CSV.open './test/data/merchant_sample.csv', headers: true, header_converters: :symbol
+    engine  = SalesEngine.new(item_dummy, merch_dummy)
+    @analyst = SalesAnalyst.new(engine)
+  end
+
+  def test_sales_analyst_exists_and_knows_about_sales_engine
+    assert_instance_of SalesAnalyst, analyst
+    assert_instance_of SalesEngine, analyst.engine
+  end
+
+  def test_it_can_find_average_items_per_merchant
+    item_dummy = CSV.open './test/data/medium_item_set.csv', headers: true, header_converters: :symbol
+    merch_dummy = CSV.open './test/data/medium_merchant_set.csv', headers: true, header_converters: :symbol
+    engine  = SalesEngine.new(item_dummy, merch_dummy)
+    analyst_2 = SalesAnalyst.new(engine)
+
+    assert_equal 1.2, analyst.average_items_per_merchant
+    assert_equal 1.45, analyst_2.average_items_per_merchant
+  end
+end
