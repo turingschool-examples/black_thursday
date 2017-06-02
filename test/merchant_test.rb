@@ -2,8 +2,14 @@ require 'pry'
 
 require_relative 'test_helper'
 require_relative '../lib/merchant'
+require_relative '../lib/sales_engine'
 
 class MerchantTest < MiniTest::Test
+
+  def setup
+    @files = {:items => './test/data/items_test.csv',
+              :merchants => './test/data/merchants_test.csv'}
+  end
 
   def test_if_create_class
     m = Merchant.new
@@ -21,15 +27,13 @@ class MerchantTest < MiniTest::Test
     assert_equal 201, m.id
   end
 
-  # def test_if_items_method_returns_items
-  #   m = Merchant.new({"name"  =>  "Shopin1901",
-  #                     "id"    =>  12334105})
-  #
-  #
-  #   m.items
-  #   actual = m.items.length
-  #   assert_equal 1, actual
-  # end
+  def test_if_items_method_returns_items
+    se = SalesEngine.from_csv(@files)
+    merchant = se.merchants.find_by_id(12334105)
+    actual = merchant.items.length
+
+    assert_equal 1, actual
+  end
 
 
 end

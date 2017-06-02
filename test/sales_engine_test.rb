@@ -32,8 +32,8 @@ class SalesEngineTest < MiniTest::Test
   def test_if_pull_items_by_merchant_id
     se = SalesEngine.from_csv(@files)
     ir = se.items
-    actual = se.items_by_merchant_id(12334185).length
+    actual = se.items_by_merchant_id(12334105).length
 
-    assert_equal 3, actual
+    assert_equal 1, actual
   end
 end

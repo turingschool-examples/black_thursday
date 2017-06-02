@@ -4,7 +4,8 @@ class MerchantRepository
 
   attr_reader :all
 
-  def initialize(file_path)
+  def initialize(file_path, parent = nil)
+    @parent = parent
     @all = []
     populate_merchants(file_path)
   end
@@ -34,7 +35,7 @@ class MerchantRepository
   end
 
   def mid_to_se(merchant_id)
-
+    @parent.items_by_merchant_id(merchant_id)
   end
 
 end

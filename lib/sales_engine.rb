@@ -7,7 +7,7 @@ class SalesEngine
 
   def initialize(files)
     @files = files
-    @merchants = MerchantRepository.new(files[:merchants])
+    @merchants = MerchantRepository.new(files[:merchants], self)
     @items = ItemRepository.new(files[:items])
   end
 

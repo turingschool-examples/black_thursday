@@ -12,7 +12,6 @@ class Merchant
   end
 
   def items
-    # binding.pry
     @parent.mid_to_se(self.id)
   end
 end
