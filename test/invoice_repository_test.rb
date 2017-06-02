@@ -32,14 +32,44 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_return_find_all_by_customer_id_good_id
+    skip #need to figure out how to ananlyze the return
     ir = InvoiceRepository.new("./test/data/invoices_fixture.csv", self)
-binding.pry
     actual = ir.find_all_by_customer_id(1)
     expected =
 
     assert_equal expected, actual
   end
 
+  def test_return_find_all_by_customer_id_bad_id
+    ir = InvoiceRepository.new("./test/data/invoices_fixture.csv", self)
 
+    assert_equal [], ir.find_all_by_customer_id(10)
+  end
+
+  def test_find_all_by_merchant_id_good_id
+    skip #need to figure out how to analyze the return
+    ir = InvoiceRepository.new("./test/data/invoices_fixture.csv", self)
+
+    assert_equal x, y
+  end
+
+  def test_find_all_by_merchant_id_bad_id
+    ir = InvoiceRepository.new("./test/data/invoices_fixture.csv", self)
+
+    assert_equal [], ir.find_all_by_merchant_id(34)
+  end
+
+  def test_find_all_by_status_good_status
+    skip #need to figure out how to analyze the return
+    ir = InvoiceRepository.new("./test/data/invoices_fixture.csv", self)
+
+    assert_equal [], ir.find_all_by_status("pending")
+  end
+
+  def test_find_all_by_status_bad_status
+    ir = InvoiceRepository.new("./test/data/invoices_fixture.csv", self)
+
+    assert_equal [], ir.find_all_by_status("pend")
+  end
 
 end

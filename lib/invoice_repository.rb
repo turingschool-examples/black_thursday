@@ -34,12 +34,16 @@ class InvoiceRepository
     x = contents[i]
   end
 
-  def find_all_by_customer_id(id)
-    matches = []
-    i = contents.values.find { |v| v.customer_id == id }
-    matches << i
+  def find_all_by_customer_id(c_id)
+    ci = contents.values.find_all { |v| v.customer_id == c_id }
   end
 
+  def find_all_by_merchant_id(m_id)
+    mi = contents.values.find_all { |v| v.merchant_id == m_id }
+  end
 
+  def find_all_by_status(i_status)
+    s = contents.values.find_all { |v| v.status == i_status }
+  end
 
 end
