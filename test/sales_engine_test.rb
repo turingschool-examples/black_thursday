@@ -36,4 +36,12 @@ class SalesEngineTest < MiniTest::Test
 
     assert_equal 1, actual
   end
+
+  def test_if_pull_merchant_by_merchant_id
+    se = SalesEngine.from_csv(@files)
+    mr = se.merchants
+    actual = se.merchant_by_merchant_id(12334105)
+
+    assert_instance_of Merchant, actual
+  end
 end

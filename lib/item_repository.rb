@@ -6,14 +6,15 @@ class ItemRepository
 
   attr_reader :all
 
-  def initialize(file_path)
+  def initialize(file_path, parent = nil)
+    @parent = parent
     @all = []
     populate_items(file_path)
   end
 
   def populate_items(file_path)
     CSV.foreach(file_path, row_sep: :auto, headers: true) do |line|
-      self.all << Item.new(line)
+      self.all << Item.new(line, self)
     end
   end
 
@@ -54,4 +55,7 @@ class ItemRepository
     end
   end
 
+  def mid_to_se(merchant_id)
+    @parent.merchant_by_merchant_id(merchant_id)
+  end
 end

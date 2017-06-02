@@ -4,11 +4,15 @@ require 'bigdecimal'
 require 'time'
 require_relative './test_helper'
 require_relative '../lib/item'
+require_relative '../lib/sales_engine'
 
 
 class ItemTest < MiniTest::Test
 
   def setup
+    @files = {:items => './test/data/items_test.csv',
+              :merchants => './test/data/merchants_test.csv'}
+
     @i1 = Item.new({"id"       => '1',
                   "merchant_id" => '11',
                   "name"        => "Pencil",
@@ -45,4 +49,11 @@ class ItemTest < MiniTest::Test
     assert @i1.updated_at
   end
 
+  def test_merchant_method_returns_merchants
+    se = SalesEngine.from_csv(@files)
+    item = se.items.find_by_id(263396209)
+    actual = item.merchant
+    
+    assert_instance_of Merchant, actual
+  end
 end
