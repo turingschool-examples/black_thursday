@@ -29,4 +29,11 @@ class SalesEngineTest < MiniTest::Test
     assert_instance_of ItemRepository, ir
   end
 
+  def test_if_pull_items_by_merchant_id
+    se = SalesEngine.from_csv(@files)
+    ir = se.items
+    actual = se.items_by_merchant_id(12334185).length
+
+    assert_equal 3, actual
+  end
 end

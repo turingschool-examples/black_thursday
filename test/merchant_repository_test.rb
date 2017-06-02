@@ -47,4 +47,14 @@ class MerchantRepositoryTest < MiniTest::Test
     assert_equal [], actual_2
   end
 
+  def test_if_items_method_returns_items
+    mr = MerchantRepository.new(@file_path)
+
+    merchant = mr.all[0]
+binding.pry
+    actual = merchant.items.length
+    assert_equal 1, actual
+  end
+
+
 end

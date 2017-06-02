@@ -11,7 +11,7 @@ class MerchantRepository
 
   def populate_merchants(file_path)
     CSV.foreach(file_path, row_sep: :auto, headers: true) do |line|
-      self.all << Merchant.new(line)
+      self.all << Merchant.new(line, self)
     end
   end
 
@@ -33,5 +33,8 @@ class MerchantRepository
     end
   end
 
+  def mid_to_se(merchant_id)
+
+  end
 
 end
