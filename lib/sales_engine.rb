@@ -7,7 +7,7 @@ class SalesEngine
               :merchants
 
   def initialize(data_files)
-    @items = ItemRepository.new(data_files)
+    @items = ItemRepository.new(data_files, self)
     @merchants = MerchantRepository.new(data_files)
   end
 
@@ -15,4 +15,7 @@ class SalesEngine
     se = SalesEngine.new(data_files)
   end
 
+  def merchant
+    @merchants.find_by_id(self.merchant)
+  end
 end

@@ -12,7 +12,7 @@ class Item
               :merchant_id,
               :unit_price_to_dollars
 
-  def initialize(item_data)
+  def initialize(item_data, item_repo)
   @id = item_data[:id]
   @name = item_data[:name]
   @description = item_data[:description]
@@ -26,4 +26,7 @@ class Item
     '%.02f' % (unit_price.to_f)
   end
 
+  def merchant
+    self.merchant_id
+  end
 end

@@ -6,9 +6,9 @@ class ItemRepository
   include FileOpener
   attr_reader :all_item_data
 
-  def initialize(data_files)
+  def initialize(data_files, sale_engine)
     all_items = open_csv(data_files[:items])
-    @all_item_data = all_items.map{|row| Item.new(row)}
+    @all_item_data = all_items.map{|row| Item.new(row, self)}
   end
 
   def all
@@ -39,4 +39,7 @@ class ItemRepository
     @all_item_data.find_all{|item| merchant_id.to_s == item.merchant_id }
   end
 
+  def merchant
+    self.merchant
+  end
 end
