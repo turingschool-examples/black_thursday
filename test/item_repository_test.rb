@@ -9,7 +9,7 @@ class ItemRepositoryTest < MiniTest::Test
 
 
   def test_it_can_find_by_id
-    ir = ItemRepository.new('./test/data/items_fixture.csv')
+    ir = ItemRepository.new('./test/data/items_fixture.csv', sales_engine = nil)
     id = 263395237
     item = ir.find_by_id(id)
 
@@ -17,13 +17,12 @@ class ItemRepositoryTest < MiniTest::Test
     assert_instance_of Item, item
   end
 
-  # def test_if_can_find_by_name
-  #   ir = ItemRepository.new
-  #   ir.add_items(item_1)
-  #   ir.add_items(item_2)
-  #
-  #   assert_equal item_2, ir.find_by_name("McDonalds")
-  # end
+  def test_if_can_find_by_name
+    ir = ItemRepository.new('./test/data/items_fixture.csv', sales_engine = nil)
+    item = ir.find_by_name("Glitter scrabble frames")
+
+    assert_equal "Glitter scrabble frames", item.name
+  end
   #
   # def test_to_find_all_with_description
   #   ir = ItemRepository.new

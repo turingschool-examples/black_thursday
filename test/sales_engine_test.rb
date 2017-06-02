@@ -43,10 +43,4 @@ class SalesEngineTest < MiniTest::Test
     refute_equal 2, items.find_all_by_merchant_id(12334141).length
   end
 
-
-
-
-
-
-
 end
