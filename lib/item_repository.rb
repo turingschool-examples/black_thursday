@@ -58,4 +58,8 @@ class ItemRepository
   def mid_to_se(merchant_id)
     @parent.merchant_by_merchant_id(merchant_id)
   end
+
+  def inspect
+   "#<#{self.class} #{@items.size} rows>"
+  end
 end
