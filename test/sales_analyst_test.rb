@@ -28,7 +28,7 @@ class SalesAnalystTest < MiniTest::Test
     actual_1 = sa.create_items_per_merchant_hash.keys
     actual_2 = sa.create_items_per_merchant_hash.values
 
-    assert_equal [0, 1, 2, 3, 4], actual_1
+    assert_equal [12334105, 12334112, 12334113, 12334115, 12334123], actual_1
     assert_equal [1, 0, 0, 0, 0], actual_2
   end
 
@@ -39,6 +39,15 @@ class SalesAnalystTest < MiniTest::Test
     sa.stubs(:create_items_per_merchant_hash).returns({0 => 3, 1 => 4, 2 => 5})
 
     actual = sa.average_items_per_merchant_standard_deviation
+
+    assert_equal 1, actual
+  end
+
+  def test_merchants_with_high_item_count
+    se = SalesEngine.from_csv(@files)
+    sa = SalesAnalyst.new(se)
+
+    actual = sa.merchants_with_high_item_count.length
 
     assert_equal 1, actual
   end
