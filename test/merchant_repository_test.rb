@@ -9,11 +9,11 @@ class MerchantRepositoryTest < Minitest::Test
 
   def setup
     small_csv_paths = {
-                        :items     => "./data/small_item_set.csv",
-                        :merchants => "./data/merchant_sample.csv",
+                        :items     => "./test/data/small_item_set.csv",
+                        :merchants => "./test/data/merchant_sample.csv",
                       }
     engine = SalesEngine.from_csv(small_csv_paths)
-    csv = CSV.open('./data/merchant_sample.csv', headers: true, header_converters: :symbol)
+    csv = CSV.open('./test/data/merchant_sample.csv', headers: true, header_converters: :symbol)
     @merch_repo = MerchantRepository.new(csv, engine)
   end
 
@@ -22,7 +22,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_add_merchants
-    csv = CSV.open('./data/merchant_sample.csv', headers: true, header_converters: :symbol)
+    csv = CSV.open('./test/data/merchant_sample.csv', headers: true, header_converters: :symbol)
 
     merch_repo.merchants.clear
 

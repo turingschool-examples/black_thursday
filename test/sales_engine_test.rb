@@ -5,8 +5,8 @@ require "pry"
 
 class SalesEngineTest < Minitest::Test
   def test_it_exists
-    item_dummy = CSV.open './data/small_item_set.csv', headers: true, header_converters: :symbol
-    merch_dummy = CSV.open './data/merchant_sample.csv', headers: true, header_converters: :symbol
+    item_dummy = CSV.open './test/data/small_item_set.csv', headers: true, header_converters: :symbol
+    merch_dummy = CSV.open './test/data/merchant_sample.csv', headers: true, header_converters: :symbol
     se = SalesEngine.new(item_dummy, merch_dummy)
 
     assert_instance_of SalesEngine, se
@@ -14,8 +14,8 @@ class SalesEngineTest < Minitest::Test
 
   def test_from_csv_returns_instance_of_sales_engine
     small_csv_paths = {
-                        :items     => "./data/small_item_set.csv",
-                        :merchants => "./data/merchant_sample.csv",
+                        :items     => "./test/data/small_item_set.csv",
+                        :merchants => "./test/data/merchant_sample.csv",
                       }
     se = SalesEngine.from_csv(small_csv_paths)
 
@@ -24,8 +24,8 @@ class SalesEngineTest < Minitest::Test
 
   def test_sales_engine_items_returns_item_repo_instance
     small_csv_paths = {
-                        :items     => "./data/small_item_set.csv",
-                        :merchants => "./data/merchant_sample.csv",
+                        :items     => "./test/data/small_item_set.csv",
+                        :merchants => "./test/data/merchant_sample.csv",
                       }
     se = SalesEngine.from_csv(small_csv_paths)
 
@@ -34,8 +34,8 @@ class SalesEngineTest < Minitest::Test
 
   def test_sales_engine_merchants_returns_merchant_repo_instance
     small_csv_paths = {
-                        :items     => "./data/small_item_set.csv",
-                        :merchants => "./data/merchant_sample.csv",
+                        :items     => "./test/data/small_item_set.csv",
+                        :merchants => "./test/data/merchant_sample.csv",
                       }
     se = SalesEngine.from_csv(small_csv_paths)
 
@@ -44,8 +44,8 @@ class SalesEngineTest < Minitest::Test
 
   def test_sales_engine_items_returns_all_item_instances
     small_csv_paths = {
-                        :items     => "./data/small_item_set.csv",
-                        :merchants => "./data/merchant_sample.csv",
+                        :items     => "./test/data/small_item_set.csv",
+                        :merchants => "./test/data/merchant_sample.csv",
                       }
     se = SalesEngine.from_csv(small_csv_paths)
 
@@ -55,8 +55,8 @@ class SalesEngineTest < Minitest::Test
 
   def test_sales_engine_merchants_returns_all_merchant_instances
     small_csv_paths = {
-                        :items     => "./data/small_item_set.csv",
-                        :merchants => "./data/merchant_sample.csv",
+                        :items     => "./test/data/small_item_set.csv",
+                        :merchants => "./test/data/merchant_sample.csv",
                       }
     se = SalesEngine.from_csv(small_csv_paths)
 
@@ -66,8 +66,8 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_can_return_all_items_for_a_merchant
     small_csv_paths = {
-                        :items     => "./data/small_item_set.csv",
-                        :merchants => "./data/merchant_sample.csv",
+                        :items     => "./test/data/small_item_set.csv",
+                        :merchants => "./test/data/merchant_sample.csv",
                       }
     se = SalesEngine.from_csv(small_csv_paths)
 
@@ -81,14 +81,14 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_can_get_merchant_by_item
     small_csv_paths = {
-                        :items     => "./data/small_item_set.csv",
-                        :merchants => "./data/merchant_sample.csv",
+                        :items     => "./test/data/small_item_set.csv",
+                        :merchants => "./test/data/merchant_sample.csv",
                       }
     se = SalesEngine.from_csv(small_csv_paths)
 
     actual = se.merchant_by_item(12334113)
 
     assert_instance_of Merchant, actual
-    assert_equal 12334113, actual.id 
+    assert_equal 12334113, actual.id
   end
 end
