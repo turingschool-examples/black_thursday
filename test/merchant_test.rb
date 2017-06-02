@@ -34,5 +34,5 @@ class MerchantTest < Minitest::Test
 
     assert_equal 12334132, mr.contents["12334132"].id
   end
-  
+
 end

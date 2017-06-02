@@ -23,37 +23,32 @@ class MerchantRepository
   end
 
   def all
-
+    merchants = contents.map { |k,v| v }
   end
 
   def find_by_id(id_number)
-    m = nil
-    @contents.each do |merchant|
-      mt = Merchant.new(merchant,self)
-      m = mt if mt.id == id_number
+    #think about cleaning this up a little
+    number = @contents.keys.find { |k| k == id_number }
+    if number == nil
+      return number
+    else
+      @contents[id_number].id
     end
-    m
   end
 
-  def find_by_name(name)
-    m = nil
-    @contents.each do |merchant|
-      mt = Merchant.new(merchant,self)
-      m = mt if mt.name.downcase == name.downcase
+  def find_by_name(merchant)
+    m = @contents.find { |k,v| contents[k].name.downcase == merchant.downcase }
+    if m == nil
+      return m
+    else
+      m[1].name
     end
-    m
   end
 
-  def find_all_by_name(name)
-    m = []
-    @contents.each do |merchant|
-      mt = Merchant.new(merchant,self)
-      if mt.name.downcase.include?(name)
-        match = mt
-        m << match
-      end
-    end
-    m
+  def find_all_by_name(merchant)
+    all = []
+    lookup = @contents.find_all { |k,v| contents[k].name.include?(merchant.downcase) }
+    lookup.compact
   end
 
 end
