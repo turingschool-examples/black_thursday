@@ -28,4 +28,14 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 1.2, analyst.average_items_per_merchant
     assert_equal 1.45, analyst_2.average_items_per_merchant
   end
+
+  def test_it_can_calculate_standard_deviation_for_average_items_per_merchant
+    item_dummy = CSV.open './data/items.csv', headers: true, header_converters: :symbol
+    merch_dummy = CSV.open './data/merchants.csv', headers: true, header_converters: :symbol
+    engine  = SalesEngine.new(item_dummy, merch_dummy)
+    analyst_2 = SalesAnalyst.new(engine)
+
+
+    assert_equal 3.26, analyst_2.average_items_per_merchant_standard_deviation
+  end
 end
