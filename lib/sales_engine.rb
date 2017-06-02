@@ -28,7 +28,5 @@ class SalesEngine
   :items     => "./data/items.csv",
   :merchants => "./data/merchants.csv",
   })
-  binding.pry
-
 
 end

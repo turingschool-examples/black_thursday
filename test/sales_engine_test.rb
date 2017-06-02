@@ -1,14 +1,27 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/merchant_repository'
+require './lib/sales_engine'
 require 'pry'
 
 
 class SalesEngineTest < MiniTest::Test
 
-  def test_can_call_all_on_merchants
+  def test_items_searched_by_id
+    se = SalesEngine.from_csv({
+    :items     => "./data/items.csv",
+    :merchants => "./data/merchants.csv"})
+    items = se.items
+    assert_instance_of Item, items.find_by_id(263395237)
+  end
 
+  def test_items_searched_by_all_price
+    se = SalesEngine.from_csv({
+    :items     => "./data/items.csv",
+    :merchants => "./data/merchants.csv"})
+    items = se.items
 
+    assert_equal 6, items.find_all_by_price(300).length
+    refute_equal 2, items.find_all_by_price(300).length
   end
 
 
