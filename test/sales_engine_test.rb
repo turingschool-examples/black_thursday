@@ -12,17 +12,6 @@ class SalesEngineTest < Minitest::Test
     assert_equal SalesEngine, se.class
   end
 
-  def test_from_csv_takes_hashes
-    data_files = {
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
-    }
-    se = SalesEngine.from_csv(data_files)
-
-    actual = data_files.class
-    expected = Hash
-  end
-
   def test_from_csv_returns_sales_engine
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
@@ -52,4 +41,24 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of MerchantRepository, merch
   end
 
+  def test_sales_engine_can_access_merch_repo_methods
+    se = SalesEngine.new({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+      })
+    actual = se.merchants.find_by_id(12334105)
+    expected = se.merchants.all[0]
+
+    assert_equal expected, actual
+  end
+
+  def test_sales_engine_can_access_array_of_items
+    se = SalesEngine.new({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+      })
+    actual = se.items.find_all_by_merchant_id(12334105)
+
+    assert_equal Array, actual.class
+  end
 end

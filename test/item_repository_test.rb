@@ -97,7 +97,7 @@ class ItemRepositoryTest < Minitest::Test
                   :items     => "./data/items.csv",
                   :merchants => "./data/merchants.csv"
                 })
-    result = item.find_all_by_merchant_id("12334113")
+    result = item.find_all_by_merchant_id(12334113)
     actual = result.count
 
     assert_equal 1, actual
