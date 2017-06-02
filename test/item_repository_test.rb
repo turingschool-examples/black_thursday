@@ -43,7 +43,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_item_by_id
-    id = "263396279"
+    id = 263396279
 
     assert_instance_of Item, item_repo.find_by_id(id)
     assert_equal id, item_repo.find_by_id(id).id
@@ -76,7 +76,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_items_with_certain_price
-    actual = item_repo.find_all_by_price(13000)
+    actual = item_repo.find_all_by_price(130.00)
 
     assert_instance_of Array, actual
     assert_instance_of Item, actual.sample
@@ -84,7 +84,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_items_in_price_range
-    actual = item_repo.find_all_by_price_in_range((1..9000))
+    actual = item_repo.find_all_by_price_in_range((1..90.00))
 
     assert_instance_of Array, actual
     assert_instance_of Item, actual.sample

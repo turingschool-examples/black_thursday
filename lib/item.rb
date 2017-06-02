@@ -1,4 +1,5 @@
 require "bigdecimal"
+require "time"
 require "pry"
 
 class Item
@@ -12,18 +13,18 @@ class Item
               :repository
 
   def initialize(data, repository)
-    @id = data[:id]
+    @id = data[:id].to_i
     @name = data[:name]
     @description = data[:description]
-    @unit_price = BigDecimal.new(data[:unit_price], 4)
-    @created_at = Time.new(data[:created_at])
-    @updated_at = Time.new(data[:updated_at])
+    @unit_price = BigDecimal.new(((data[:unit_price].to_i)/100.0), 4)
+    @created_at = Time.parse(data[:created_at])
+    @updated_at = Time.parse(data[:updated_at])
     @merchant_id = data[:merchant_id].to_i
     @repository = repository
   end
 
   def unit_price_to_dollars
-    (unit_price)/100.0
+    unit_price.to_f
   end
 
   def merchant

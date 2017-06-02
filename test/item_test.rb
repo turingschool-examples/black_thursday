@@ -42,7 +42,7 @@ class ItemTest < Minitest::Test
 
   def test_it_has_a_unit_price
     assert_instance_of BigDecimal, item.unit_price
-    assert_equal 1099, item.unit_price
+    assert_equal 10.99, item.unit_price
   end
 
   def test_it_knows_when_it_was_created_and_updated
@@ -55,6 +55,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_can_convert_to_dollars
+    assert_instance_of Float, item.unit_price_to_dollars
     assert_equal 10.99, item.unit_price_to_dollars
   end
 
@@ -70,10 +71,10 @@ class ItemTest < Minitest::Test
 
     assert_equal "Eraser", item2.name
     assert_equal "You can use it to erase things.", item2.description
-    assert_equal 300, item2.unit_price
+    assert_equal 3.00, item2.unit_price
     assert_instance_of Time, item2.created_at
     assert_instance_of Time, item2.updated_at
-    assert_equal 3.00, item2.unit_price_to_dollars
+    assert_equal 3.0, item2.unit_price_to_dollars
   end
 
   def test_it_knows_about_parent_repo

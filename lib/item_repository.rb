@@ -13,7 +13,7 @@ class ItemRepository
   def add(csv)
     csv.each do |row|
       stuff = row.to_h
-      items[stuff[:id]] = Item.new(stuff, self)
+      items[stuff[:id].to_i] = Item.new(stuff, self)
     end
   end
 
@@ -45,7 +45,7 @@ class ItemRepository
 
   def find_all_by_price_in_range(range)
     all.find_all do |item|
-      range.include?(item.unit_price.to_i)
+      range.include?(item.unit_price)
     end
   end
 
@@ -57,5 +57,9 @@ class ItemRepository
 
   def merchant_by_item(merchant_id)
     engine.merchant_by_item(merchant_id)
+  end
+
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
   end
 end
