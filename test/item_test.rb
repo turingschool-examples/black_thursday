@@ -53,7 +53,14 @@ class ItemTest < MiniTest::Test
     se = SalesEngine.from_csv(@files)
     item = se.items.find_by_id(263396209)
     actual = item.merchant
-    
+
     assert_instance_of Merchant, actual
+  end
+
+  def test_unit_price_to_dollars_converts_string
+    # binding.pry
+
+    assert_equal 10.99, @i1.unit_price_to_dollars(@i1.unit_price)
+    assert_equal 11.99, @i2.unit_price_to_dollars(@i2.unit_price)
   end
 end

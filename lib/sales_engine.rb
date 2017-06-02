@@ -21,5 +21,12 @@ class SalesEngine
 
   def merchant_by_merchant_id(merchant_id)
     @merchants.find_by_id(merchant_id)
-  end 
+  end
+
+  # def average_items_by_merchant
+  #   mr = @merchants.all
+  #   ir = @items.all
+  #
+  #   (ir.length)/(mr.length)
+  # end
 end
