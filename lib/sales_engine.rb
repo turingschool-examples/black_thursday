@@ -13,7 +13,7 @@ class SalesEngine
   end
 
   def self.from_csv(hash)
-    SalesEngine.new(hash)
+    se = SalesEngine.new(hash)
   end
 
   def collected_items(merchant_id)
@@ -25,9 +25,5 @@ class SalesEngine
     @merchants.merchant(item_id)
   end
 
-  se = SalesEngine.from_csv({
-  :items     => "./data/items.csv",
-  :merchants => "./data/merchants.csv",
-  })
 
 end

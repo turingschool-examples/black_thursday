@@ -21,11 +21,11 @@ class SalesAnalystTest < MiniTest::Test
     :merchants => "./data/merchants.csv",
     })
     sa = SalesAnalyst.new(se)
-    result = sa.average_items_per_merchant
 
-    assert_equal 2.88, result
-
+    assert_equal 2.88, sa.average_items_per_merchant
   end
+
+  
 
 
 

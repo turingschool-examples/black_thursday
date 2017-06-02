@@ -3,9 +3,10 @@ require 'csv'
 require_relative 'merchant'
 
 class MerchantRepository
-  attr_reader :all,
+  attr_reader :collected_merchants,
               :sales_engine,
-              :merchants
+              :merchants,
+              :all
 
   def initialize(file, sales_engine)
     @all = []
@@ -51,5 +52,7 @@ class MerchantRepository
   def merchant(item_id)
     find_by_id(item_id)
   end
+
+
 
 end
