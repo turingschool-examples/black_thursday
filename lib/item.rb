@@ -17,10 +17,7 @@ class Item
     @merchant_id = params["merchant_id"].to_i
     @name        = params["name"]
     @description = params["description"]
-    dollars = unit_price_to_dollars(params["unit_price"])
-    @unit_price  = BigDecimal.new(dollars, 4)
-      # dollars = unit_price_to_dollars(params["unit_price"])
-      # BigDecimal.new(dollars, 4)
+    @unit_price  = BigDecimal.new(params["unit_price"].to_i/100, 4)
     @created_at  = Time.parse(params["created_at"])
     @updated_at  = Time.parse(params["updated_at"])
   end
@@ -30,7 +27,6 @@ class Item
   end
 
   def unit_price_to_dollars(price)
-    # binding.pry
     (price.to_f)/100
   end
 end
