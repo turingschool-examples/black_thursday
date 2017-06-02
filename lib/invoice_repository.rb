@@ -34,6 +34,12 @@ class InvoiceRepository
     x = contents[i]
   end
 
+  def find_all_by_customer_id(id)
+    matches = []
+    i = contents.values.find { |v| v.customer_id == id }
+    matches << i
+  end
+
 
 
 end

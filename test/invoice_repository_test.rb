@@ -31,6 +31,15 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_nil ir.find_by_id(3)
   end
 
+  def test_return_find_all_by_customer_id_good_id
+    ir = InvoiceRepository.new("./test/data/invoices_fixture.csv", self)
+binding.pry
+    actual = ir.find_all_by_customer_id(1)
+    expected =
+
+    assert_equal expected, actual
+  end
+
 
 
 end
