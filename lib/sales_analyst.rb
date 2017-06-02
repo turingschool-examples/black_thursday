@@ -7,12 +7,12 @@ class SalesAnalyst
     @se = se
   end
 
-  def average_items_by_merchant
+  def average_items_per_merchant
     mr = se.merchants.all
     ir = se.items.all
 
-    (ir.length)/(mr.length)
+    (ir.length.to_f)/(mr.length)
+    #TODO limit decimal to two places
   end
 
-  def 
 end

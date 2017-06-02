@@ -18,6 +18,6 @@ class SalesAnalystTest < MiniTest::Test
     se = SalesEngine.from_csv(@files)
     sa = SalesAnalyst.new(se)
 
-    assert_equal 1, sa.average_items_by_merchant
+    assert_equal 1, sa.average_items_per_merchant
   end
 end
