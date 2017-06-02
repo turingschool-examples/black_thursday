@@ -26,7 +26,7 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    merchants[id]
+    merchants[id.to_s]
   end
 
   def find_by_name(name)
@@ -39,5 +39,9 @@ class MerchantRepository
 
   def all_merchant_items(merchant_id)
     engine.all_merchant_items(merchant_id)
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end
