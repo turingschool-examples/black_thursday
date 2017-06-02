@@ -1,15 +1,13 @@
 require 'csv'
 require_relative '../lib/item'
+# require_relative '../lib/sales_engine'
 
 class ItemRepository
 
-  attr_reader :all_item_data
+  # attr_reader :all_item_data
 
-  def initialize(filename)
-    @all_item_data = CSV.foreach(filename,
-    headers: true, header_converters: :symbol).map do |row|
-      Item.new(row)
-    end
+  def initialize(all_item_data)
+    @all_item_data = all_item_data.map{|row| Item.new(row)} 
   end
 
   def all

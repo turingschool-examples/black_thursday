@@ -20,13 +20,13 @@ class SalesEngineTest < Minitest::Test
     expected = Hash
   end
 
-  def test_from_csv_opens_merchant_repositories
+  def test_from_csv_returns_sales_engine
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv"
     })
 
-    assert_equal MerchantRepository, se.class
+    assert_equal SalesEngine, se.class
   end
 
   def test_merchants_creates_instance_of_merchant_repository

@@ -8,6 +8,6 @@ class Merchant
   end
 
   # def items
-  #   self
+  #   self.id
   # end
 end
