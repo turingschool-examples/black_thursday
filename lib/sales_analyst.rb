@@ -17,4 +17,11 @@ class SalesAnalyst
     variance = sos / (engine.merchants.all.count - 1)
     (Math.sqrt(variance)).round(2)
   end
+
+  def merchants_with_high_item_count
+    std_dev = average_items_per_merchant_standard_deviation
+    engine.merchants.all.find_all do |merchant|
+      (merchant.items.count - average_items_per_merchant) > std_dev 
+    end
+  end
 end
