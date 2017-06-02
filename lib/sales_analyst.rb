@@ -19,17 +19,11 @@ class SalesAnalyst
     merchant_items = {}
 
     mr = se.merchants.all
-    # binding.pry
+
     mr.each_with_index do |merchant, idx|
-      # binding.pry
-      merchant_items[idx] = se.items_by_merchant_id(merchant.id)
+      items = se.items_by_merchant_id(merchant.id)
+      merchant_items[idx] = items.length
     end
-    puts merchant_items
+    merchant_items
   end
 end
-
-se = SalesEngine.from_csv({:items => './test/data/items_test.csv',
-          :merchants => './test/data/merchants_test.csv'})
-sa = SalesAnalyst.new(se)
-
-sa.average_items_per_merchant_standard_deviation
