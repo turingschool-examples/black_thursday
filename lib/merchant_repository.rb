@@ -27,7 +27,6 @@ class MerchantRepository
   end
 
   def find_by_id(id_number)
-    #think about cleaning this up a little
     number = @contents.keys.find { |k| k == id_number }
     if number == nil
       return number
