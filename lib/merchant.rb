@@ -9,7 +9,7 @@ class Merchant
   end
 
   def items
-    @mr.items_in_merch_repo(@id)
+    @mr.items_in_merch_repo(id)
   end
 
 end

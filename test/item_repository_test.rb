@@ -23,15 +23,7 @@ class ItemRepositoryTest < MiniTest::Test
 
     assert_equal "Glitter scrabble frames", item.name
   end
-  #
-  # def test_to_find_all_with_description
-  #   ir = ItemRepository.new
-  #   ir.add_items(item_1)
-  #   ir.add_items(item_2)
-  #   results = ir.find_all_with_descriptions("Best burgers ever here")
-  #
-  #   assert results.include?(item_1)
-  # end
+
   #
   # def test_if_can_find_all_by_price
   #   ir = ItemRepository.new

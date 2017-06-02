@@ -67,4 +67,8 @@ class ItemRepository
   def merchant(item_id)
     @sales_engine.merchant(item_id)
   end
+
+  def items
+    @items
+  end
 end
