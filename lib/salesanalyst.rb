@@ -7,53 +7,55 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    counts = Hash.new(0)
-    @parent.items.organize
-    x = @parent.items.content.map do |item|
-      item["merchant_id"]
-    end
-    x.each do |id|
-      counts[id] += 1
-    end
-    value = counts.values
-    sum = value.reduce(:+)
-    leng = value.length
-    average = sum.to_f / leng.to_f
+    a = item_count_per_merchant
+    value = a.values
+    sum = value.reduce(:+).to_f
+    leng = value.length.to_f
+    average = sum / leng
   end
 
   def average_items_per_merchant_standard_deviation
-    # Take the difference between each number and the mean and square it
-    # Sum these square differences together
-    # Divide the sum by the number of elements minus 1
-    # Take the square root of this result
-    #std_dev = sqrt( ( (3-4)^2+(4-4)^2+(5-4)^2 ) / 2 )
-    sum = 0
+    a = item_count_per_merchant
+    value = a.values
+    standard_deviation(value)
+  end
+
+  def merchants_with_high_item_count
     counts = Hash.new(0)
-    @parent.items.organize
-    x = @parent.items.content.map do |item|
-      item["merchant_id"]
+    x = []
+    y = []
+    a = item_count_per_merchant
+    a.each do |k,v|
+      y << k if v > average_items_per_merchant_standard_deviation
+    end
+    return y
+  end
+
+  def retrieve_average_item_price_for_merchant(id)
+    @parent.items.content.each do |k,v|
+      if id == v.merchant_id
+  end
+
+private
+  def standard_deviation(arr)
+    mean = arr.reduce do |sum, element|
+      sum + element
+    end.to_f / arr.length
+    variance = arr.reduce(0.0) do |sum, element|
+      sum + (element - mean)**2
+    end / (arr.length - 1)
+    Math.sqrt(variance)
+  end
+
+  def item_count_per_merchant
+    counts = Hash.new(0)
+    x = []
+    @parent.items.content.each do |k,v|
+      x << v.merchant_id
     end
     x.each do |id|
       counts[id] += 1
     end
-    value = counts.values
-    value.each_with_index do |element, index|
-      h = (element - value[index+1]) **2
-      sum += h
-    end
-    sum /= 2
-    Math.sqrt(sum)
+    return counts
   end
-
-  # def list_all_quantities_of_items_per_merchant
-  #   counts = Hash.new(0)
-  #   @parent.items.organize
-  #   x = @parent.items.content.map do |item|
-  #     item["merchant_id"]
-  #   end
-  #   x.each do |id|
-  #     counts[id] += 1
-  #   end
-  #   value = counts.values
-  # end
 end
