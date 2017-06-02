@@ -1,6 +1,7 @@
 require "minitest/autorun"
 require "minitest/emoji"
 require_relative"../lib/salesengine"
+
 class SalesEngineTest < Minitest::Test
   def test_it_exists
     se = SalesEngine.new
@@ -9,12 +10,12 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_can_access_items_instance_variable
-    se = SalesEngine.new
-
+    se = SalesEngine.from_csv({:merchants => "./test/merchants_test.csv"})
     assert_nil se.items
   end
 
   def test_can_acccess_merchant_instance_variable
+    skip
     se = SalesEngine.new
 
     assert_nil se.merchants

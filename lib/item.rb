@@ -1,44 +1,28 @@
 require 'pry'
 require 'bigdecimal'
+require 'time'
 class Item
-  attr_reader :information,
+  attr_reader :name,
+              :description,
+              :unit_price,
+              :created_at,
+              :updated_at,
+              :merchant_id,
               :parent
 
   def initialize(information,parent)
-    @information = information
+    @name = information[:name]
+    @description = information[:description]
+    @unit_price = BigDecimal(information[:unit_price].to_i)
+    @created_at = information[:created_at]
+    @updated_at = information[:updated_at]
+    @merchant_id = information[:merchant_id].to_i
     @parent = parent
   end
 
-  def id
-    information["id"].to_i
-  end
+  # def convert_time(time)
+  #   list = time.split(/[- :]/)
+  #   final = Time.utc(list[0].to_i, list[1].to_i, list[2].to_i, list[3].to_i, list[4].to_i, list[5].to_i)
+  # end
 
-  def name
-    information["name"]
-  end
-
-  def description
-    information["description"]
-  end
-
-  def unit_price
-    info = information["unit_price"]
-    price = BigDecimal.new(info)
-  end
-
-  def merchant_id
-    information["merchant_id"].to_i
-  end
-
-  def created_at
-    start = information["created_at"]
-    list = start.split(/[- :]/)
-    time = Time.utc(list[0].to_i, list[1].to_i, list[2].to_i, list[3].to_i, list[4].to_i, list[5].to_i)
-  end
-
-  def updated_at
-    update = information["updated_at"]
-    list = update.split(/[- :]/)
-    time = Time.utc(list[0].to_i, list[1].to_i, list[2].to_i, list[3].to_i, list[4].to_i, list[5].to_i)
-  end
 end
