@@ -2,7 +2,8 @@ require 'minitest'
 require 'minitest/autorun'
 require 'minitest/emoji'
 require 'csv'
-require_relative 'invoice'
+require 'pry'
+require_relative '../lib/invoice'
 
 class InvoiceRepository
 

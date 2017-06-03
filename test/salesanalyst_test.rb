@@ -3,7 +3,7 @@ require_relative '../lib/salesanalyst'
 require_relative '../lib/salesengine'
 class SalesAnalystTest < Minitest::Test
   def setup
-    {:items=>"./test/data/salesanalystsample.csv",:merchants=>"./data/merchantreposample.csv"}
+    {:items=>"./test/data/salesanalystitemsample.csv",:merchants=>"./test/data/merchantreposample.csv",:invoices=>"./test/data/salesanalystinvoicesample.csv"}
   end
 
   def test_it_exists
@@ -58,5 +58,11 @@ class SalesAnalystTest < Minitest::Test
     assert_equal "263396013", a[0]
   end
 
+  def test_average_invoices_per_merchant
+    se = SalesEngine.from_csv(setup)
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 1.7222222222222223, sa.average_invoices_per_merchant
+  end
 
 end
