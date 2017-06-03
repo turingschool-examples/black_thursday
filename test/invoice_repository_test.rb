@@ -28,6 +28,11 @@ class InvoiceRepositoryTest < MiniTest::Test
     assert_equal 1, ir.find_all_by_merchant_id(12334269).length
   end
 
+  def test_if_can_find_all_by_merchant_id
+    ir  = InvoiceRepository.new("./test/data/invoices_fixture.csv", sales_engine = nil)
+
+    assert_equal 7, ir.find_all_by_status("pending").length
+  end
 
 
 
