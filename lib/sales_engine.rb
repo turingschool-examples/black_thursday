@@ -8,15 +8,19 @@ class SalesEngine
 
   def initialize(data_files)
     @items = ItemRepository.new(data_files, self)
-    @merchants = MerchantRepository.new(data_files)
+    @merchants = MerchantRepository.new(data_files, self)
   end
 
   def self.from_csv(data_files)
     se = SalesEngine.new(data_files)
   end
 
-  def merchant(merchant_id)
+  def merchant_output(merchant_id)
     @merchants.find_by_id(merchant_id)
+  end
+
+  def item_output(merch_id)
+    @items.find_all_by_merchant_id(merch_id)
   end
 end
 
@@ -25,6 +29,8 @@ end
 #   :merchants => "./data/merchants.csv",
 # })
 #
+# merchant = se.merchants.find_by_id(12334195)
+# puts merchant.items
+
 # item = se.items.find_by_id(263395237)
-#
-# item.merchant
+# puts item.merchant

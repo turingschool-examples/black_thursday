@@ -42,6 +42,6 @@ class ItemRepository
   end
 
   def merchant(merchant_id)
-    @sales_engine.merchant(merchant_id)
+    @sales_engine.merchant_output(merchant_id)
   end
 end

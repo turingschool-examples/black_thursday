@@ -4,11 +4,13 @@ require_relative '../lib/file_opener'
 
 class MerchantRepository
   include FileOpener
-  attr_reader :all_merchant_data
+  attr_reader :all_merchant_data,
+              :sales_engine
 
-  def initialize(data_files)
+  def initialize(data_files, sales_engine)
+    @sales_engine = sales_engine
     all_merchants = open_csv(data_files[:merchants])
-    @all_merchant_data = all_merchants.map{|row| Merchant.new(row)}
+    @all_merchant_data = all_merchants.map{|row| Merchant.new(row, self)}
   end
 
   def all
@@ -25,5 +27,9 @@ class MerchantRepository
 
   def find_all_by_name(name)
     @all_merchant_data.find_all{|merchant| /#{name}/i =~ merchant.name}
+  end
+
+  def item_output(merch_id)
+    @sales_engine.item_output(merch_id)
   end
 end
