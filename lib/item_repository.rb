@@ -33,7 +33,7 @@ class ItemRepository
   def find_all_with_description(description)
     downcased = description.downcase
     @all.find_all do |item|
-      item.description.include? downcased
+      item.description.downcase.include? downcased
     end
   end
 

@@ -59,9 +59,7 @@ class SalesAnalyst
   def golden_items
     ir = se.items.all
     unit_prices = ir.map {|item| item.unit_price}
-
     two_deviations = (average_average_price_per_merchant) + (standard_deviation(unit_prices) * 2)
-    binding.pry
     ir.find_all do |item|
       item.unit_price >= two_deviations
     end

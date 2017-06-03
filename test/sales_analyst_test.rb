@@ -79,6 +79,6 @@ class SalesAnalystTest < MiniTest::Test
 
     actual = sa.golden_items.length
 
-    assert_equal 1, actual
+    assert_equal 0, actual
   end
 end
