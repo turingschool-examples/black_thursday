@@ -31,20 +31,15 @@ class ItemRepositoryTest < MiniTest::Test
 
   def test_it_can_find_all_with_description
     ir  = ItemRepository.new("./test/data/items_fixture.csv", sales_engine = nil)
-    results = ir.find_all_with_description(description)
 
-    assert_equal description, results.first.description
+    assert_equal 2, ir.find_all_with_description("glitter").length
   end
 
-  # def test_items_searched_by_all_price
-  #   se = SalesEngine.from_csv({
-  #   :items     => "./data/items.csv",
-  #   :merchants => "./data/merchants.csv"})
-  #   items = se.items
-  #
-  #   assert_equal 6, items.find_all_by_price(300).length
-  #   refute_equal 2, items.find_all_by_price(300).length
-  # end
+  def test_items_find_by_all_price
+    ir  = ItemRepository.new("./test/data/items_fixture.csv", sales_engine = nil)
+
+    assert_equal 1, ir.find_all_by_price(12).length
+  end
   #
   # def test_if_can_find_all_by_price_in_range
   #   ir = ItemRepository.new

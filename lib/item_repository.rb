@@ -24,9 +24,9 @@ class ItemRepository
     all <<(item)
   end
 
-  def inspect
-    "#<#{self.class} #{@items.size} rows>"
-  end
+  # def inspect
+  #   "#<#{self.class} #{@items.size} rows>"
+  # end
 
   def find_by_id(id)
     all.find do |item|
