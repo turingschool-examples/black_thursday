@@ -1,5 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require './tst/test_helper'
 require_relative '../lib/merchant'
 require 'pry'
 

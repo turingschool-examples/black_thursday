@@ -1,6 +1,5 @@
+require './test/test_helper'
 require 'bigdecimal'
-require 'minitest/autorun'
-require 'minitest/pride'
 require_relative '../lib/sales_engine'
 require_relative '../lib/sales_analyst'
 
@@ -95,5 +94,5 @@ class SalesAnalystTest < MiniTest::Test
 
     assert_equal 2.88, sa.average_invoices_per_merchant
   end
-  
+
 end

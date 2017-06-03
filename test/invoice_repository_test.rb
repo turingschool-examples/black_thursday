@@ -1,6 +1,5 @@
+require './test/test_helper'
 require 'bigdecimal'
-require 'minitest/autorun'
-require 'minitest/pride'
 require_relative '../lib/invoice_repository'
 require 'pry'
 
