@@ -48,4 +48,11 @@ class SalesAnalyst
     variance = sos / (engine.merchants.all.count - 1)
     (Math.sqrt(variance)).round(2)
   end
+
+  def golden_items
+    std_dev = average_item_price_standard_deviation
+    engine.items.all.find_all do |item|
+      (item.unit_price - average_average_price_per_merchant) > (2 * std_dev)
+    end
+  end
 end

@@ -77,17 +77,17 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_golden_items
-    skip
     item_dummy = CSV.open './test/data/medium_item_set.csv', headers: true, header_converters: :symbol
     merch_dummy = CSV.open './test/data/medium_merchant_set.csv', headers: true, header_converters: :symbol
     engine  = SalesEngine.new(item_dummy, merch_dummy)
     analyst_2 = SalesAnalyst.new(engine)
 
     actual = analyst_2.golden_items
+    std_dev = analyst_2.average_item_price_standard_deviation
 
     assert_instance_of Array, actual
     assert_instance_of Item, actual.sample
-    assert actual.sample.unit_price - average_average_price_per_merchant > thing
+    assert (actual.sample.unit_price - analyst_2.average_average_price_per_merchant) > (2 * std_dev)
   end
 
   def test_it_knows_standard_deviation_of_average_average_item_price
