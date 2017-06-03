@@ -16,11 +16,8 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    keys = create_items_per_merchant_hash.keys
-    values = create_items_per_merchant_hash.values
-    mean = values.reduce(:+)/values.length.to_f
-    mean_squared = values.reduce(0) { |acc, num| acc += ((num - mean)**2) }
-    Math.sqrt(mean_squared / (values.length - 1)).round(2)
+      values = create_items_per_merchant_hash.values
+    standard_deviation(values)
   end
 
   def create_items_per_merchant_hash
@@ -44,8 +41,8 @@ class SalesAnalyst
   def average_item_price_for_merchant(merchant_id)
     items = se.items_by_merchant_id(merchant_id)
     sum = items.reduce(0) { |acc, item| acc += item.unit_price }
-    price_average = sum/(items.length)
-    BigDecimal.new(price_average.round(2))
+    price_average = sum/items.length
+    BigDecimal.new(price_average).round(2)
   end
 
   def average_average_price_per_merchant
@@ -56,8 +53,23 @@ class SalesAnalyst
     end
 
     average_average = averages/mr.length
-
-    BigDecimal.new(average_average.round(2))
+    BigDecimal.new(average_average).round(2)
   end
 
+  def golden_items
+    ir = se.items.all
+    unit_prices = ir.map {|item| item.unit_price}
+
+    two_deviations = (average_average_price_per_merchant) + (standard_deviation(unit_prices) * 2)
+    binding.pry
+    ir.find_all do |item|
+      item.unit_price >= two_deviations
+    end
+  end
+
+  def standard_deviation(values)
+    mean = values.reduce(:+)/values.length.to_f
+    mean_squared = values.reduce(0) { |acc, num| acc += ((num - mean)**2) }
+    Math.sqrt(mean_squared / (values.length - 1)).round(2)
+  end
 end

@@ -64,12 +64,21 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 0.2999E2, actual
   end
 
-  def test_average_average_price_per_merchant
+  def test_average_average_price_per_merchant_works
     se = SalesEngine.from_csv(@files2)
     sa = SalesAnalyst.new(se)
 
     actual = sa.average_average_price_per_merchant
 
     assert_equal 0.667806E4, actual
+  end
+
+  def test_golden_items_works
+    se = SalesEngine.from_csv(@files2)
+    sa = SalesAnalyst.new(se)
+
+    actual = sa.golden_items.length
+
+    assert_equal 1, actual
   end
 end
