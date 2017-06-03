@@ -1,7 +1,5 @@
-require 'minitest/autorun'
-require 'minitest/emoji'
+require_relative 'test_helper.rb'
 require_relative '../lib/item_repository'
-require 'csv'
 class ItemRepositoryTest < Minitest::Test
   def sample_path
     "./test/data/itemreposample.csv"

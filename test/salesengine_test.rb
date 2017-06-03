@@ -1,5 +1,4 @@
-require "minitest/autorun"
-require "minitest/emoji"
+require_relative '../test/test_helper.rb'
 require_relative"../lib/salesengine"
 
 class SalesEngineTest < Minitest::Test

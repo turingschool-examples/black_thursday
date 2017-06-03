@@ -1,5 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/emoji'
+require_relative 'test_helper.rb'
 require_relative '../lib/salesanalyst'
 require_relative '../lib/salesengine'
 class SalesAnalystTest < Minitest::Test
@@ -40,6 +39,24 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(setup)
     sa = SalesAnalyst.new(se)
 
-    assert_equal ,sa.average_item_price_for_merchant(12334185)
+
+    assert_equal 9 ,sa.average_item_price_for_merchant(12334185).to_f
   end
+
+  def test_average_average_price_per_merchant
+    se = SalesEngine.from_csv(setup)
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 4.75, sa.average_average_price_per_merchant.to_f
+  end
+
+  def test_retrieve_golden_items
+    se = SalesEngine.from_csv(setup)
+    sa = SalesAnalyst.new(se)
+    a = sa.golden_items
+
+    assert_equal "263396013", a[0]
+  end
+
+
 end

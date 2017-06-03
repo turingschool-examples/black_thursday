@@ -1,8 +1,5 @@
-require 'minitest/autorun'
-require 'minitest/emoji'
+require_relative 'test_helper.rb'
 require_relative '../lib/item'
-require 'csv'
-require 'bigdecimal'
 class ItemTest < Minitest::Test
   def sample_path
     {:name=>"Glitter scrabble frames",
@@ -28,14 +25,13 @@ class ItemTest < Minitest::Test
   def test_has_description
     i = Item.new(sample_path, nil)
 
-    assert_equal "Disney glitter frames", i.description
+    assert_equal "Glitter scrabble frames", i.name
   end
 
   def test_has_unit_price
     i = Item.new(sample_path, nil)
-    price = BigDecimal.new("1350")
 
-    assert_equal price, i..unit_price
+    assert_equal 1300.0, i.unit_price.to_f
   end
 
   def test_has_merchant_id
@@ -44,15 +40,17 @@ class ItemTest < Minitest::Test
     assert_equal 12334185, i.merchant_id
   end
 
-  def test_convert_time
+  def test_convert_created_at_time
     i = Item.new(sample_path, nil)
     time = Time.utc(2016,01,11,11,51,37)
 
     assert_equal time, i.created_at
+  end
 
-    time = Time.utc(2008,04,02,13,48,57)
+  def test_convert_updated_at_time
+    i = Item.new(sample_path, nil)
 
-    assert_equal time, i.updated_at
+    assert_equal "1993-09-29 11:56:40 UTC", i.updated_at.to_s
   end
 
 end

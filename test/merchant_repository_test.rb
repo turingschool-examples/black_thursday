@@ -1,6 +1,5 @@
-require "minitest/autorun"
-require "minitest/emoji"
-require "./lib/merchant_repository"
+require_relative "test_helper.rb"
+require_relative "./lib/merchant_repository"
 
 class MerchantRepositoryTest < Minitest::Test
 

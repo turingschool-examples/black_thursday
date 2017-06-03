@@ -25,18 +25,66 @@ class SalesAnalyst
     x = []
     y = []
     a = item_count_per_merchant
+    b = average_items_per_merchant_standard_deviation
+    c = average_items_per_merchant
     a.each do |k,v|
-      y << k if v > average_items_per_merchant_standard_deviation
+      y << k if v > b + c
     end
     return y
   end
 
-  def retrieve_average_item_price_for_merchant(id)
+  def average_item_price_for_merchant(id)
+    final = []
     @parent.items.content.each do |k,v|
       if id == v.merchant_id
+        final << v.unit_price
+      end
+    end
+    final.reduce(:+)/final.length
+  end
+
+  def average_average_price_per_merchant
+    merchants = []
+    avg_prices = []
+    @parent.items.content.each do |k,v|
+      if !merchants.include?(v.merchant_id)
+        merchants << v.merchant_id
+      end
+    end
+    merchants.each do |x|
+      a = average_item_price_for_merchant(x)
+      avg_prices << a
+    end
+    a = avg_prices.reduce(:+)/avg_prices.length
+  end
+
+  def golden_items
+    golden = []
+    a = average_average_price_per_merchant
+    b = average_price_per_merchant_standard_deviation
+    x = @parent.items.content.each do |k,v|
+      golden << k if v.unit_price.to_f > a + (b + b)
+    end
+    return golden
   end
 
 private
+
+  def average_price_per_merchant_standard_deviation
+    merchants = []
+    avg_prices = []
+    @parent.items.content.each do |k,v|
+      if !merchants.include?(v.merchant_id)
+        merchants << v.merchant_id
+      end
+    end
+    merchants.each do |x|
+      a = average_item_price_for_merchant(x)
+      avg_prices << a.to_i
+    end
+    standard_deviation(avg_prices)
+  end
+
   def standard_deviation(arr)
     mean = arr.reduce do |sum, element|
       sum + element

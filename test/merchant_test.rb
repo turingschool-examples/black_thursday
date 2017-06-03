@@ -1,8 +1,6 @@
-require "minitest/autorun"
-require "minitest/emoji"
-require "./lib/merchant"
-require "./lib/merchant_repository"
-require 'pry'
+require_relative "test_helper.rb"
+require_relative "../lib/merchant"
+require_relative "../lib/merchant_repository"
 class MerchantTest < Minitest::Test
 
   def test_new_instance
