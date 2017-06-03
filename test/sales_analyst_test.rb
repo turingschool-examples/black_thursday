@@ -65,4 +65,14 @@ class SalesAnalystTest < MiniTest::Test
 
     assert_equal 3.5, sa.average_average_price_per_merchant
   end
+
+  def test_golden_items
+    se = SalesEngine.from_csv({
+    :items     => "./data/items.csv",
+    :merchants => "./data/merchants.csv",
+    })
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 27, sa.golden_times.length
+  end
 end

@@ -65,5 +65,11 @@ class SalesAnalyst
     array_2.round(2)
   end
 
-
+  def golden_times
+    mr = sales_engine.merchants.all
+    var = average_items_per_merchant_standard_deviation * 2 + average_items_per_merchant
+    mr.find_all do |merchant|
+      merchant.items.length >= var
+    end
+  end
 end
