@@ -75,4 +75,27 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of BigDecimal, actual
     assert_equal 6.66, actual
   end
+
+  def test_it_can_find_golden_items
+    skip
+    item_dummy = CSV.open './test/data/medium_item_set.csv', headers: true, header_converters: :symbol
+    merch_dummy = CSV.open './test/data/medium_merchant_set.csv', headers: true, header_converters: :symbol
+    engine  = SalesEngine.new(item_dummy, merch_dummy)
+    analyst_2 = SalesAnalyst.new(engine)
+
+    actual = analyst_2.golden_items
+
+    assert_instance_of Array, actual
+    assert_instance_of Item, actual.sample
+    assert actual.sample.unit_price - average_average_price_per_merchant > thing
+  end
+
+  def test_it_knows_standard_deviation_of_average_average_item_price
+    item_dummy = CSV.open './test/data/medium_item_set.csv', headers: true, header_converters: :symbol
+    merch_dummy = CSV.open './test/data/medium_merchant_set.csv', headers: true, header_converters: :symbol
+    engine  = SalesEngine.new(item_dummy, merch_dummy)
+    analyst_2 = SalesAnalyst.new(engine)
+
+    assert_equal 18.75, analyst_2.average_item_price_standard_deviation
+  end
 end
