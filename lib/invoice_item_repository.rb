@@ -30,7 +30,11 @@ class InvoiceItemRepository
     contents[id_number]
   end
 
-  def find_all_by_id(item_number)
+  def find_all_by_item_id(item_number)
     contents.values.find_all { |v| v.item_id == item_number }
+  end
+
+  def find_all_by_invoice_id(invoice_number)
+    contents.values.find_all { |v| v.invoice_id == invoice_number }
   end
 end

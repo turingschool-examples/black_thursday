@@ -37,18 +37,34 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_nil iir.find_by_id(55)
   end
 
-  def test_return_find_all_by_id_good_id
+  def test_return_find_all_by_item_id_good_id
     iir = InvoiceItemRepository.new("./test/data/invoice_items_fixture.csv", self)
     expected = [2, 190]
-    x = iir.find_all_by_id(263454779)
+    x = iir.find_all_by_item_id(263454779)
     actual = x.map { |i| i.id }
 
      assert_equal expected, actual
   end
 
-  def test_return_find_all_by_id_bad_id
+  def test_return_find_all_by_item_id_bad_id
     iir = InvoiceItemRepository.new("./test/data/invoice_items_fixture.csv", self)
 
-    assert_equal [], iir.find_all_by_id(445)
+    assert_equal [], iir.find_all_by_item_id(263452315)
   end
+
+  def test_return_find_all_by_invoice_id_good_id
+    iir = InvoiceItemRepository.new("./test/data/invoice_items_fixture.csv", self)
+    expected = [263558834, 263537372]
+    x = iir.find_all_by_invoice_id(8)
+    actual = x.map { |i| i.item_id }
+
+    assert_equal expected, actual
+  end
+
+  def test_return_find_all_by_invoice_id_bad_id
+    iir = InvoiceItemRepository.new("./test/data/invoice_items_fixture.csv", self)
+
+    assert_equal [], iir.find_all_by_invoice_id(2)
+  end
+
 end
