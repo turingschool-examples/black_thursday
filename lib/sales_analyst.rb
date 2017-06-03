@@ -41,11 +41,19 @@ class SalesAnalyst
     (total_average / engine.merchants.all.count).round(2)
   end
 
-  def average_item_price_standard_deviation
-    sos = engine.merchants.all.reduce(0) do |sum, merchant|
-      sum + (average_item_price_for_merchant(merchant.id) - average_average_price_per_merchant)**2
+  def average_item_price
+    total_items = engine.items.all.count
+    total_price = engine.items.all.reduce(0) do |sum, item|
+      sum + item.unit_price
     end
-    variance = sos / (engine.merchants.all.count - 1)
+    (total_price / total_items).round(2)
+  end
+
+  def average_item_price_standard_deviation
+    sos = engine.items.all.reduce(0) do |sum, item|
+      sum + (item.unit_price - average_item_price)**2
+    end
+    variance = sos / (engine.items.all.count - 1)
     (Math.sqrt(variance)).round(2)
   end
 
