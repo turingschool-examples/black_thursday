@@ -29,4 +29,28 @@ class InvoiceItemTest < Minitest::Test
 
     assert_equal 263537372, iir.contents[41].item_id
   end
+
+  def test_return_quantity
+    iir = InvoiceItemRepository.new("./test/data/invoice_items_fixture.csv", self)
+
+    assert_equal 5, iir.contents[1].quantity
+  end
+
+  def test_return_unit_price
+    iir = InvoiceItemRepository.new("./test/data/invoice_items_fixture.csv", self)
+
+    assert_equal 4264, iir.contents[14].unit_price
+  end
+
+  def test_return_created_at
+    iir = InvoiceItemRepository.new("./test/data/invoice_items_fixture.csv", self)
+
+    assert_equal "2012-03-27 14:54:09 UTC", iir.contents[1].created_at.to_s
+  end
+
+  def test_return_updated_at
+    iir = InvoiceItemRepository.new("./test/data/invoice_items_fixture.csv", self)
+
+    assert_equal "2012-03-27 14:54:10 UTC", iir.contents[41].updated_at.to_s 
+  end
 end
