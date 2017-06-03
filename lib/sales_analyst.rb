@@ -8,7 +8,8 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-
+    (@sales_engine.items.all_item_data.count).to_f /
+    (@sales_engine.merchants.all_merchant_data.count).to_f
   end
 
   def average_items_per_merchant_standard_deviation
