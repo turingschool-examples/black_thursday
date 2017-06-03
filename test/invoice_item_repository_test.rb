@@ -1,8 +1,7 @@
-require 'minitest'
-require 'minitest/autorun'
-require 'minitest/emoji'
+require_relative 'test_helper'
 require_relative '../lib/invoice_item_repository'
 require 'pry'
+
 class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_new_instance
