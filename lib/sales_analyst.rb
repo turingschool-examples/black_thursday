@@ -35,13 +35,21 @@ class SalesAnalyst
 
   def merchants_with_high_item_count
     mr = se.merchants.all
-
     one_deviation = average_items_per_merchant + average_items_per_merchant_standard_deviation
-
     mr.find_all do |merchant|
-    
       merchant.items.length >= one_deviation
     end
+  end
+
+  def average_item_price_for_merchant(merchant_id)
+    items = se.items_by_merchant_id(merchant_id)
+    sum = 0
+    items.each do |item|
+      sum += item.unit_price
+    end
+    # price_sum = items.reduce(0) {|acc, item| acc += item.unit_price}
+    price_average = sum.to_f/(items.length)
+    price_average.round(2)
   end
 
 end
