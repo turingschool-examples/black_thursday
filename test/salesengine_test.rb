@@ -1,5 +1,4 @@
-require "minitest/autorun"
-require "minitest/emoji"
+require_relative '../test/test_helper.rb'
 require_relative"../lib/salesengine"
 
 class SalesEngineTest < Minitest::Test
@@ -12,7 +11,6 @@ binding.pry
   def test_can_access_items_instance_variable
     skip
     se = SalesEngine.from_csv({:merchants => "./test/merchants_test.csv"})
-    binding.pry
     assert_nil se.items
   end
 

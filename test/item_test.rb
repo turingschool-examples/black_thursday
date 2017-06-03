@@ -1,65 +1,56 @@
-require 'minitest/autorun'
-require 'minitest/emoji'
+require_relative 'test_helper.rb'
 require_relative '../lib/item'
-require 'csv'
-require 'bigdecimal'
 class ItemTest < Minitest::Test
-  def file_setup
-    header = CSV.read("/Users/jimmytruong/turing/1module/projects/black_thursday/test/itemsample.csv")[0]
-    content = CSV.read("/Users/jimmytruong/turing/1module/projects/black_thursday/test/itemsample.csv")[1 .. -1].flatten
-    line = header.zip(content).flatten.compact
-    item_info = Hash[*line]
+  def sample_path
+    {:name=>"Glitter scrabble frames",
+     :description=>"Glitter scrabble frames\n\nAny colour glitter\nAny wording\n\nAvailable colour scrabble tiles\nPink\nBlue\nBlack\nWooden",
+     :unit_price=>"1300",
+     :merchant_id=>"12334185",
+     :created_at=>"2016-01-11 11:51:37 UTC",
+     :updated_at=>"1993-09-29 11:56:40 UTC"}
   end
 
   def test_it_exists
-    i = Item.new(file_setup, nil)
+    i = Item.new(sample_path, nil)
 
     assert_instance_of Item, i
   end
 
-  def test_has_ID
-    i = Item.new(file_setup,nil)
-
-    assert_equal 263395721, i.id
-  end
-
   def test_has_name
-    i = Item.new(file_setup, nil)
+    i = Item.new(sample_path, nil)
 
-    assert_equal "Disney scrabble frames", i.name
+    assert_equal "Glitter scrabble frames", i.name
   end
 
   def test_has_description
-    i = Item.new(file_setup, nil)
+    i = Item.new(sample_path, nil)
 
-    assert_equal "Disney glitter frames", i.description
+    assert_equal "Glitter scrabble frames", i.name
   end
 
   def test_has_unit_price
-    i = Item.new(file_setup, nil)
-    price = BigDecimal.new("1350")
+    i = Item.new(sample_path, nil)
 
-    assert_equal price, i.unit_price
+    assert_equal 1300.0, i.unit_price.to_f
   end
 
   def test_has_merchant_id
-    i = Item.new(file_setup, nil)
+    i = Item.new(sample_path, nil)
 
     assert_equal 12334185, i.merchant_id
   end
 
-  def test_has_time_of_creation
-    i = Item.new(file_setup, nil)
+  def test_convert_created_at_time
+    i = Item.new(sample_path, nil)
     time = Time.utc(2016,01,11,11,51,37)
+
     assert_equal time, i.created_at
   end
 
-  def test_has_time_that_it_was_last_updated
-    i = Item.new(file_setup, nil)
-    time = Time.utc(2008,04,02,13,48,57)
+  def test_convert_updated_at_time
+    i = Item.new(sample_path, nil)
 
-    assert_equal time, i.updated_at
+    assert_equal "1993-09-29 11:56:40 UTC", i.updated_at.to_s
   end
-
 
 end
