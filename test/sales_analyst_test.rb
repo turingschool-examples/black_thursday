@@ -56,4 +56,12 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 0.58, actual
   end
 
+  def test_merchants_with_high_item_count
+    top_merchants = @sa.sales_engine.merchants.all_merchant_data.find_all do |merchant|
+      merchant.items.count > (@sa.average_items_per_merchant + @sa.average_items_per_merchant_standard_deviation)
+    end
+
+    assert_equal 1, top_merchants.count
+  end
+
 end

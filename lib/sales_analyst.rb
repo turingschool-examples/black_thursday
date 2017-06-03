@@ -13,6 +13,7 @@ class SalesAnalyst
     @avg_items = @sales_engine.merchants.all_merchant_data.map do |merch|
     merch.items.count
     end
+
     (avg_items.reduce{|sum, num| sum + num}.to_f / avg_items.count).round(2)
   end
 
@@ -22,10 +23,17 @@ class SalesAnalyst
     actual = Math.sqrt(sum/(@avg_items.count - 1)).round(2)
   end
 
+  def merchants_with_high_item_count
+    top_merchants = @sales_engine.merchants.all_merchant_data.find_all do |merchant|
+      merchant.items.count > (self.average_items_per_merchant + self.average_items_per_merchant_standard_deviation)
+    end
+
+  end
+
 end
 # se = SalesEngine.from_csv({
 #   :items     => "./data/items.csv",
 #   :merchants => "./data/merchants.csv",
 # })
 # sa = SalesAnalyst.new(se)
-# puts sa.average_items_per_merchant_standard_deviation
+# puts sa
