@@ -11,11 +11,11 @@ class ItemTest < Minitest::Test
               :repo
   def setup
     small_csv_paths = {
-                        :items     => "./data/small_item_set.csv",
-                        :merchants => "./data/merchant_sample.csv",
+                        :items     => "./test/data/small_item_set.csv",
+                        :merchants => "./test/data/merchant_sample.csv",
                       }
     engine = SalesEngine.from_csv(small_csv_paths)
-    csv  = CSV.open './data/small_item_set.csv', headers: true, header_converters: :symbol
+    csv  = CSV.open './test/data/small_item_set.csv', headers: true, header_converters: :symbol
     @repo = ItemRepository.new(csv, engine)
 
     @item = Item.new({

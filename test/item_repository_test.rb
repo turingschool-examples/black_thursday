@@ -9,11 +9,11 @@ class ItemRepositoryTest < Minitest::Test
   attr_reader :item_repo
   def setup
     small_csv_paths = {
-                        :items     => "./data/small_item_set.csv",
-                        :merchants => "./data/merchant_sample.csv",
+                        :items     => "./test/data/small_item_set.csv",
+                        :merchants => "./test/data/merchant_sample.csv",
                       }
     engine = SalesEngine.from_csv(small_csv_paths)
-    csv = CSV.open('./data/small_item_set.csv', :headers => true, :header_converters => :symbol)
+    csv = CSV.open('./test/data/small_item_set.csv', :headers => true, :header_converters => :symbol)
 
     @item_repo = ItemRepository.new(csv, engine)
   end
@@ -25,7 +25,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_add_items
-    csv = CSV.open('./data/small_item_set.csv', :headers => true, :header_converters => :symbol)
+    csv = CSV.open('./test/data/small_item_set.csv', :headers => true, :header_converters => :symbol)
 
     item_repo.items.clear
 
