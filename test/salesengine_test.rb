@@ -4,12 +4,13 @@ require_relative"../lib/salesengine"
 
 class SalesEngineTest < Minitest::Test
   def test_it_exists
-    se = SalesEngine.new
-
+    se = SalesEngine.from_csv({:merchants => "./test/data/merchant_fixture.csv", :invoices => "./test/data/invoices_fixture.csv", :items => "./test/itemsample.csv"})
+binding.pry
     assert_instance_of SalesEngine, se
   end
 
   def test_can_access_items_instance_variable
+    skip
     se = SalesEngine.from_csv({:merchants => "./test/merchants_test.csv"})
     binding.pry
     assert_nil se.items
