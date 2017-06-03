@@ -15,7 +15,7 @@ class SalesEngine
     se = SalesEngine.new(data_files)
   end
 
-  def merchant
-    @merchants.find_by_id(self.merchant)
+  def merchant(merchant_id)
+    @merchant.find_by_id(merchant_id)
   end
 end

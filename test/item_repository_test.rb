@@ -2,6 +2,8 @@ require_relative 'test_helper'
 require_relative '../lib/item_repository'
 
 class ItemRepositoryTest < Minitest::Test
+  attr_reader :item
+
   def setup
     @item = ItemRepository.new({
                   :items     => "./data/items.csv",
@@ -69,7 +71,14 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_find_all_by_merchant_id
     result = @item.find_all_by_merchant_id(12334113)
     actual = result.count
-
     assert_equal 1, actual
+  end
+
+  def test_merchant_method_returns_item_value
+    require 'pry'; binding.pry
+    actual = @item.merchant
+    expected = 12334105
+
+    assert_equal expected, actual
   end
 end
