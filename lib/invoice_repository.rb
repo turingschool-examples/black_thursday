@@ -1,8 +1,5 @@
-require 'minitest'
-require 'minitest/autorun'
-require 'minitest/emoji'
-require 'csv'
 require_relative 'invoice'
+require 'csv'
 
 class InvoiceRepository
 
