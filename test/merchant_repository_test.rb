@@ -1,6 +1,6 @@
 require './test/test_helper'
-require './lib/merchant_repository'
-require './lib/merchant'
+require_relative '../lib/merchant_repository'
+require_relative '../lib/merchant'
 require 'pry'
 
 
@@ -24,9 +24,9 @@ class MerchantRepositoryTest < MiniTest::Test
 
   def test_to_find_by_all_by_name
     mr = MerchantRepository.new('./test/data/merchants_fixture.csv', sales_engine = nil)
-    merchants = mr.find_all_by_name("MiniatureBikez")
+    results = mr.find_all_by_name("MiniatureBikez")
 
-    assert_equal true, merchants.name.include?("MiniatureBikez") 
+    assert_equal results.first.name, "miniaturebikez"
   end
 
 end

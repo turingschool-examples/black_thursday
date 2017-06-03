@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/sales_engine'
+require_relative '../lib/sales_engine'
 require 'pry'
 
 
@@ -42,5 +42,6 @@ class SalesEngineTest < MiniTest::Test
     assert_equal 1, items.find_all_by_merchant_id(12334141).length
     refute_equal 2, items.find_all_by_merchant_id(12334141).length
   end
+
 
 end

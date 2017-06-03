@@ -13,7 +13,7 @@ class SalesEngine
   end
 
   def self.from_csv(hash)
-    se = SalesEngine.new(hash)
+    SalesEngine.new(hash)
   end
 
   def collected_items(merchant_id)
@@ -24,6 +24,5 @@ class SalesEngine
   def merchant(item_id)
     @merchants.merchant(item_id)
   end
-
 
 end

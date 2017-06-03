@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/item_repository'
-require './lib/item'
+require_relative '../lib/item_repository'
+require_relative '../lib/item'
 require 'pry'
 
 
@@ -27,7 +27,23 @@ class ItemRepositoryTest < MiniTest::Test
   def test_if_can_find_all_by_price
     ir = ItemRepository.new('./test/data/items_fixture.csv', sales_engine = nil)
 
-    assert_equal 1, ir.find_all_by_price(1200).length
+    assert_equal 1, ir.find_all_by_price(12.00).length
+  end
+
+  def test_it_can_find_all_by_description
+    ir  = ItemRepository.new("./test/data/items_fixture.csv", sales_engine = nil)
+    description = "Glitter scrabble frames
+
+    Any colour glitter
+    Any wording
+
+    Available colour scrabble tiles
+    Pink
+    Blue
+    Black
+    Wooden"
+    result = ir.find_all_with_description(description)
+    assert_equal 139, description.length
   end
 
   # def test_items_searched_by_all_price

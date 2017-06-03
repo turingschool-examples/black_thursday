@@ -24,6 +24,10 @@ class ItemRepository
     all <<(item)
   end
 
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
+  end
+
   def find_by_id(id)
     all.find do |item|
       item.id == id
@@ -36,9 +40,9 @@ class ItemRepository
     end
   end
 
-  def find_all_with_descriptions(description_inc)
+  def find_all_with_description(description)
     all.find_all do |item|
-      item.description.include?(description_inc)
+      item.description.include?(description)
     end
   end
 

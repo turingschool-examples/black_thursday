@@ -14,6 +14,12 @@ class MerchantRepository
     populate_merchant_repo(file)
   end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
+
+
   def populate_merchant_repo(file)
     merchant_lines = CSV.open(file, headers: true, header_converters: :symbol)
     merchant_lines.each do |row|
@@ -35,13 +41,13 @@ class MerchantRepository
 
   def find_by_name(name)
     all.find do |merch|
-      merch.name == name
+      merch.name == name.downcase
     end
   end
 
   def find_all_by_name(name2)
     all.find_all do |merch|
-      merch.name.include?(name2)
+      merch.name.include?(name2.downcase)
     end
   end
 

@@ -1,5 +1,5 @@
 require 'pry'
-require './lib/sales_engine'
+require_relative 'sales_engine'
 require 'bigdecimal'
 
 class SalesAnalyst
@@ -20,11 +20,32 @@ class SalesAnalyst
       merchant_array = @sales_engine.merchants.all
       merchant_array.each do |merchant|
         item = merchant.items
-        average_array << item.length
+        all_merchants << item.length
       end
       all_merchants
   end
 
-  
+  def average_items_per_merchant_standard_deviation
+    standard_deviation
+  end
+
+  def standard_deviation
+    array_1 = collected_merchant_array
+    average = average_items_per_merchant
+    array_2 = array_1.map{|num| (num-average)**2}
+    final = Math.sqrt((array_2.reduce(:+))/(array_2.length-1))
+    final.round(2)
+  end
+
+  def merchants_with_high_item_count
+    mr = sales_engine.merchants.all
+    var = average_items_per_merchant + average_items_per_merchant_standard_deviation
+    mr.find_all do |merchant|
+      merchant.items.length >= var
+    end
+  end
+
+
+
 
 end
