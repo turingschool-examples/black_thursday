@@ -6,94 +6,49 @@ require 'bigdecimal'
 
 class ItemTest < MiniTest::Test
 
-  def test_it_can_be_created
-    assert_instance_of Item, Item.new({
-  :name        => "Pencil",
-  :description => "You can use it to write things",
-  :unit_price  => BigDecimal.new(10.99,4),
-  :created_at  => Time.now,
-  :updated_at  => Time.now,
-  :merchant_id => 12345678,
-  })
+  def setup
+    item_created_at = '2017-05-27 15:44:02 UTC'
+    item_updated_at = '2017-05-29 14:56:56 UTC'
+    @item = Item.new({
+    :name        => "Pencil",
+    :description => "You can use it to write things",
+    :unit_price  => "1099",
+    :created_at  => item_created_at,
+    :updated_at  => item_updated_at,
+    :merchant_id => 12345678,
+    }, ir = nil)
   end
 
   def test_it_can_call_on_name
-    item = Item.new({
-    :name        => "Pencil",
-    :description => "You can use it to write things",
-    :unit_price  => BigDecimal.new(10.99,4),
-    :created_at  => Time.now,
-    :updated_at  => Time.now,
-    :merchant_id => 12345678,
-    })
 
-    assert_equal "Pencil", item.name
+    assert_equal "Pencil", @item.name
   end
 
   def test_it_can_call_on_description
-    item = Item.new({
-    :name        => "Pencil",
-    :description => "You can use it to write things",
-    :unit_price  => BigDecimal.new(10.99,4),
-    :created_at  => Time.now,
-    :updated_at  => Time.now,
-    :merchant_id => 12345678,
-    })
 
-    assert_equal "You can use it to write things", item.description
+    assert_equal "You can use it to write things", @item.description
   end
 
 
   def test_it_can_call_on_unit_price
-    item = Item.new({
-    :name        => "Pencil",
-    :description => "You can use it to write things",
-    :unit_price  => BigDecimal.new(10.99,4),
-    :created_at  => Time.now,
-    :updated_at  => Time.now,
-    :merchant_id => 12345678,
-    })
 
-    assert_equal BigDecimal.new(10.99,4), item.unit_price
+    assert_equal BigDecimal.new(10.99,4), @item.unit_price
   end
 
   def test_it_can_call_on_merchant_id
-    item = Item.new({
-    :name        => "Pencil",
-    :description => "You can use it to write things",
-    :unit_price  => BigDecimal.new(10.99,4),
-    :created_at  => Time.now,
-    :updated_at  => Time.now,
-    :merchant_id => 12345678,
-    })
 
-    assert_equal 12345678, item.merchant_id
+    assert_equal 12345678, @item.merchant_id
   end
 
+  def test_item_has_a_create_date
+    created_at = Time.gm(2017, 5, 27, 15, 44, 2)
 
-  def test_it_can_call_on_created_at
-    time_created_at = Time.now
-    item = Item.new({
-    :name        => "Pencil",
-    :description => "You can use it to write things",
-    :unit_price  => BigDecimal.new(10.99,4),
-    :created_at  => time_created_at,
-    })
-
-    assert_equal time_created_at, item.created_at
+    assert_equal created_at, @item.created_at
   end
 
-  def test_it_can_call_on_updated_at
-    time_updated_at = Time.now
-    item = Item.new({
-    :name        => "Pencil",
-    :description => "You can use it to write things",
-    :unit_price  => BigDecimal.new(10.99,4),
-    :updated_at  => time_updated_at,
-    })
+  def test_item_has_an_update_date
+    updated_at = Time.gm(2017, 5, 29, 14, 56, 56)
 
-    assert_equal time_updated_at, item.updated_at
+    assert_equal updated_at, @item.updated_at
   end
-
-
 end
