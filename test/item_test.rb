@@ -17,7 +17,7 @@ class ItemTest < MiniTest::Test
                   "merchant_id" => '11',
                   "name"        => "Pencil",
                   "description" => "You can use it to write things",
-                  "unit_price"  => '1099',
+                  "unit_price"  => '1050',
                   "created_at"  => '1993-09-29 11:56:40 UTC',
                   "updated_at"  => '1993-09-29 11:56:40 UTC'
                  })
@@ -30,7 +30,6 @@ class ItemTest < MiniTest::Test
                   "created_at"  => '1993-09-29 11:56:40 UTC',
                   "updated_at"  => '1993-09-29 11:56:40 UTC'
                  })
-
   end
 
   def test_if_create_class
@@ -44,7 +43,7 @@ class ItemTest < MiniTest::Test
     assert_equal 11, @i1.merchant_id
     assert_equal "Pencil", @i1.name
     assert_equal "You can use it to write things", @i1.description
-    assert_equal 0.1099E4, @i1.unit_price
+    assert_equal 0.1050E2, @i1.unit_price
     assert @i1.created_at
     assert @i1.updated_at
   end
@@ -58,9 +57,12 @@ class ItemTest < MiniTest::Test
   end
 
   def test_unit_price_to_dollars_converts_string
-    # binding.pry
 
-    assert_equal 10.99, @i1.unit_price_to_dollars(@i1.unit_price)
+    assert_equal 10.50, @i1.unit_price_to_dollars(@i1.unit_price)
     assert_equal 11.99, @i2.unit_price_to_dollars(@i2.unit_price)
+  end
+
+  def test_parses_unit_price
+    assert_equal BigDecimal.new('10.50'), @i1.unit_price
   end
 end
