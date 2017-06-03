@@ -36,4 +36,10 @@ class InvoiceRepository
     final
   end
 
+  def find_all_by_merchant_id(merch_id)
+    all.find_all do |id|
+      id.merchant_id == merch_id
+    end
+  end
+
 end

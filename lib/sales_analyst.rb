@@ -66,16 +66,12 @@ class SalesAnalyst
   end
 
   def golden_items
-    array_1 = []
-    ir = sales_engine.items.items
-    ir.each do |item|
-      array_1 << item.unit_price
-    end
-    var = (average_items_per_merchant_standard_deviation * 2) + average_items_per_merchant
-    mr.find_all do |merchant|
-      merchant.items.length >= var
+    ir = sales_engine.items.all
+    prices = ir.map {|item| item.unit_price}
+    dev = (average_average_price_per_merchant) + (standard_deviation * 2)
+    ir.find_all do |item|
+      item.unit_price >= dev
     end
   end
-
 
 end

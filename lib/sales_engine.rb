@@ -5,13 +5,14 @@ require_relative 'item_repository'
 
 class SalesEngine
   attr_reader :merchants,
-              :items
+              :items,
+              :invoices
 
 
   def initialize(hash)
     @items = ItemRepository.new(hash[:items], self)
     @merchants = MerchantRepository.new(hash[:merchants], self)
-    @invoices = InvoiceRepository.new(hash[:invoices], self)
+    # @invoices = InvoiceRepository.new(hash[:invoices], self)
   end
 
   def self.from_csv(hash)
