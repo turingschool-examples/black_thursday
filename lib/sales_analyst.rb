@@ -21,7 +21,15 @@ class SalesAnalyst
   def merchants_with_high_item_count
     std_dev = average_items_per_merchant_standard_deviation
     engine.merchants.all.find_all do |merchant|
-      (merchant.items.count - average_items_per_merchant) > std_dev 
+      (merchant.items.count - average_items_per_merchant) > std_dev
     end
+  end
+
+  def average_item_price_for_merchant(merchant_id)
+    merchant = engine.merchants.find_by_id(merchant_id)
+    total_price = merchant.items.reduce(0) do |sum, item|
+      sum + item.unit_price
+    end
+    (total_price / merchant.items.count).round(2)
   end
 end

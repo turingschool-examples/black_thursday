@@ -51,4 +51,16 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Array, actual
     assert_instance_of Merchant, actual.sample
   end
+
+  def test_it_can_find_average_item_price_for_merchant
+    item_dummy = CSV.open './test/data/medium_item_set.csv', headers: true, header_converters: :symbol
+    merch_dummy = CSV.open './test/data/medium_merchant_set.csv', headers: true, header_converters: :symbol
+    engine  = SalesEngine.new(item_dummy, merch_dummy)
+    analyst_2 = SalesAnalyst.new(engine)
+
+    actual = analyst_2.average_item_price_for_merchant(12334185)
+
+    assert_instance_of BigDecimal, actual
+    assert_equal 11.17, actual
+  end
 end
