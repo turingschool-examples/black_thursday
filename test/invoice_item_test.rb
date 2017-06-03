@@ -51,6 +51,12 @@ class InvoiceItemTest < Minitest::Test
   def test_return_updated_at
     iir = InvoiceItemRepository.new("./test/data/invoice_items_fixture.csv", self)
 
-    assert_equal "2012-03-27 14:54:10 UTC", iir.contents[41].updated_at.to_s 
+    assert_equal "2012-03-27 14:54:10 UTC", iir.contents[41].updated_at.to_s
+  end
+
+  def test_unit_price_to_dollars
+    iir = InvoiceItemRepository.new("./test/data/invoice_items_fixture.csv", self)
+
+    assert_equal 70783, iir.contents[41].unit_price_to_dollars(41)
   end
 end
