@@ -1,10 +1,22 @@
 require_relative 'test_helper'
 require_relative '../lib/item'
+require_relative '../lib/item_repository'
+require_relative '../lib/sales_engine'
 
 class ItemTest < Minitest::Test
   attr_reader :item
 
   def setup
+    @se = SalesEngine.from_csv({
+      :items     => "./test/data/items_truncated.csv",
+      :merchants => "./test/data/merchants_truncated.csv"
+    })
+
+    @item_repo = ItemRepository.new({
+                  :items     => "./test/data/items_truncated.csv",
+                  :merchants => "./test/data/merchants_truncated.csv"
+                }, self)
+
     @item = Item.new({
                       :name        => "Pencil",
                       :description => "You can use it to write things",
@@ -24,7 +36,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_attr_reader_works_for_other_attributes
-    assert_equal "0.1099E2", @item.unit_price.to_s
+    assert_equal 0.1099E2, @item.unit_price
   end
 
   def test_instance_created_at_works

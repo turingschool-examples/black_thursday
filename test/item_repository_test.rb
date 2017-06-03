@@ -6,8 +6,8 @@ class ItemRepositoryTest < Minitest::Test
 
   def setup
     @item = ItemRepository.new({
-                  :items     => "./data/items.csv",
-                  :merchants => "./data/merchants.csv"
+                  :items     => "./test/data/items_truncated.csv",
+                  :merchants => "./test/data/merchants_truncated.csv"
                 }, self)
   end
 
@@ -57,25 +57,25 @@ class ItemRepositoryTest < Minitest::Test
     result = @item.find_all_by_price("1300")
     actual = result.count
 
-    assert_equal 8, actual
+    assert_equal 1, actual
 
   end
 
   def test_it_can_find_all_by_price_in_range
-    result = @item.find_all_by_price_in_range("1300".."1450")
+    result = @item.find_all_by_price_in_range("0100".."4450")
     actual = result.count
 
-    assert_equal 22, actual
+    assert_equal 7, actual
   end
 
   def test_it_can_find_all_by_merchant_id
-    result = @item.find_all_by_merchant_id(12334113)
+    result = @item.find_all_by_merchant_id(12334195)
     actual = result.count
-    assert_equal 1, actual
+    assert_equal 6, actual
   end
 
   def test_merchant_method_returns_item_value
-    require 'pry'; binding.pry
+    skip
     actual = @item.merchant
     expected = 12334105
 

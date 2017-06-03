@@ -4,8 +4,8 @@ require_relative '../lib/sales_engine'
 class SalesEngineTest < Minitest::Test
   def setup
     @se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
+      :items     => "./test/data/items_truncated.csv",
+      :merchants => "./test/data/merchants_truncated.csv"
     })
   end
   def test_that_sales_engine_is_right_class
@@ -38,6 +38,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_if_merchant_method_links_to_item_class
+    skip
     actual = @se.merchant
     expected = "1234"
 

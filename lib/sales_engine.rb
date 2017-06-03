@@ -16,6 +16,15 @@ class SalesEngine
   end
 
   def merchant(merchant_id)
-    @merchant.find_by_id(merchant_id)
+    @merchants.find_by_id(merchant_id)
   end
 end
+
+# se = SalesEngine.from_csv({
+#   :items     => "./data/items.csv",
+#   :merchants => "./data/merchants.csv",
+# })
+#
+# item = se.items.find_by_id(263395237)
+#
+# item.merchant
