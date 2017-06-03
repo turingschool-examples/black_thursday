@@ -56,6 +56,13 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 16.66, sa.average_item_price_per_merchant(12334105)
   end
 
+  def test_average_average_price_per_merchant
+    se = SalesEngine.from_csv({
+    :items     => "./data/items.csv",
+    :merchants => "./data/merchants.csv",
+    })
+    sa = SalesAnalyst.new(se)
 
-
+    assert_equal 3.5, sa.average_average_price_per_merchant
+  end
 end

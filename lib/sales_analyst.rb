@@ -15,16 +15,6 @@ class SalesAnalyst
     average.round(2)
   end
 
-  def average_item_price_per_merchant(merchant_id)
-    items = sales_engine.collected_items(merchant_id)
-    sum = 0
-    items.each do |item|
-      sum += item.unit_price
-    end
-    average = sum.to_f/(items.length)
-    average.round(2)
-  end
-
   def collected_merchant_array
       all_merchants = []
       merchant_array = @sales_engine.merchants.all
@@ -53,6 +43,26 @@ class SalesAnalyst
     mr.find_all do |merchant|
       merchant.items.length >= var
     end
+  end
+
+  def average_item_price_per_merchant(merchant_id)
+    items = sales_engine.collected_items(merchant_id)
+    sum = 0
+    items.each do |item|
+      sum += item.unit_price
+    end
+    average = sum.to_f/(items.length)
+    average.round(2)
+  end
+
+  def average_average_price_per_merchant
+    array_1 = []
+    sales_engine.merchants.all.each do |merch|
+      id = merch.id
+      array_1 << average_item_price_per_merchant(id)
+    end
+    array_2 = (array_1.reduce(:+)/array_1.length).to_f/100
+    array_2.round(2)
   end
 
 
