@@ -2,6 +2,7 @@ require 'pry'
 require 'csv'
 require_relative 'invoice'
 
+
 class InvoiceRepository
 
   attr_reader :all
@@ -40,6 +41,10 @@ class InvoiceRepository
     @all.find_all do |invoice|
       invoice.status == status
     end
+  end
+
+  def inspect
+   "#<#{self.class} #{@all.size} rows>"
   end
 
 end

@@ -1,9 +1,10 @@
 require 'csv'
 require_relative 'merchant_repository'
 require_relative 'item_repository'
+require_relative 'invoice_repository'
 
 class SalesEngine
-  attr_reader :files, :merchants, :items
+  attr_reader :files, :merchants, :items, :invoices
 
   def initialize(files)
     @files = files
