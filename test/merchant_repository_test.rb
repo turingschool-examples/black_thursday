@@ -17,16 +17,22 @@ class MerchantRepositoryTest < MiniTest::Test
 
   def test_to_find_by_name
     mr = MerchantRepository.new('./test/data/merchants_fixture.csv', sales_engine = nil)
-    merchant = mr.find_by_name("MiniatureBikez")
+    merchant = mr.find_by_name("miniaturebikez")
 
     assert_equal "MiniatureBikez", merchant.name
   end
 
   def test_to_find_by_all_by_name
     mr = MerchantRepository.new('./test/data/merchants_fixture.csv', sales_engine = nil)
-    results = mr.find_all_by_name("MiniatureBikez")
+    results = mr.find_all_by_name("Shop")
 
-    assert_equal results.first.name, "miniaturebikez"
+    assert_equal [mr.all[0]], results
+  end
+
+  def test_it_can_match_with_improper_case
+    mr = MerchantRepository.new("./test/data/merchants_fixture.csv", sales_engine = nil)
+    result = mr.find_by_name("SHOPIN1901")
+    assert_equal "Shopin1901", result.name
   end
 
 end

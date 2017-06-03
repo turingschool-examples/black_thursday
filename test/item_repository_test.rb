@@ -30,20 +30,12 @@ class ItemRepositoryTest < MiniTest::Test
     assert_equal 1, ir.find_all_by_price(12.00).length
   end
 
-  def test_it_can_find_all_by_description
+  def test_it_can_find_all_with_description
     ir  = ItemRepository.new("./test/data/items_fixture.csv", sales_engine = nil)
-    description = "Glitter scrabble frames
+    results = ir.find_all_with_description(description)
 
-    Any colour glitter
-    Any wording
+    assert_equal description, results.first.description
 
-    Available colour scrabble tiles
-    Pink
-    Blue
-    Black
-    Wooden"
-    result = ir.find_all_with_description(description)
-    assert_equal 139, description.length
   end
 
   # def test_items_searched_by_all_price

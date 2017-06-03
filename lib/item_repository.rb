@@ -36,13 +36,13 @@ class ItemRepository
 
   def find_by_name(name)
     all.find do |item|
-      item.name == name
+      item.name.downcase == name.downcase
     end
   end
 
   def find_all_with_description(description)
     all.find_all do |item|
-      item.description.include?(description)
+      item.description.downcase.include?(description.downcase)
     end
   end
 
