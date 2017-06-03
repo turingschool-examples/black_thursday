@@ -10,12 +10,19 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    var = collected_merchant_array
+    var = collected_items_array
     average = (var.reduce(0) { |sum, num| sum += num})/var.length.to_f
     average.round(2)
   end
 
-  def collected_merchant_array
+  def average_invoices_per_merchant
+    var = collected_invoices_array
+    average = (var.reduce(0) { |sum, num| sum += num})/var.length.to_f
+    average.round(2)
+  end
+
+
+  def collected_items_array
       all_merchants = []
       merchant_array = @sales_engine.merchants.all
       merchant_array.each do |merchant|
@@ -25,12 +32,22 @@ class SalesAnalyst
       all_merchants
   end
 
+  def collected_invoices_array
+      all_invoices = []
+      merchant_array = @sales_engine.merchants.all
+      merchant_array.each do |merchant|
+        invoice = merchant.invoices
+        all_merchants << invoice.length
+      end
+      all_invoices
+  end
+
   def average_items_per_merchant_standard_deviation
     standard_deviation
   end
 
   def standard_deviation
-    array_1 = collected_merchant_array
+    array_1 = collected_items_array
     average = average_items_per_merchant
     array_2 = array_1.map{|num| (num-average)**2}
     final = Math.sqrt((array_2.reduce(:+))/(array_2.length-1))

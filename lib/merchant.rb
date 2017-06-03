@@ -12,4 +12,8 @@ class Merchant
     @mr.items_in_merch_repo(id)
   end
 
+  def invoices
+    @mr.invoices_in_merch_repo(id)
+  end
+
 end

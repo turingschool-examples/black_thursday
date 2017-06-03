@@ -53,6 +53,10 @@ class MerchantRepository
     @sales_engine.collected_items(merchant_id)
   end
 
+  def invoices_in_merch_repo(merchant_id)
+    @sales_engine.collected_invoices(merchant_id)
+  end
+
   def merchant(item_id)
     find_by_id(item_id)
   end
