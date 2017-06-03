@@ -1,13 +1,17 @@
+require 'csv'
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative '../lib/invoice'
+require_relative 'invoice'
 require 'pry'
 
 class InvoiceRepository
+  attr_reader :all,
+              :sales_engine
 
   def initialize(file, sales_engine)
     @sales_engine = sales_engine
     @all = []
+    populate_invoice_repo(file)
   end
 
   def populate_invoice_repo(file)
@@ -17,6 +21,19 @@ class InvoiceRepository
       all << invoice
     end
     invoice_lines.close
+  end
+
+  def find_by_id(id)
+    all.find do |invoice|
+      invoice.id == id
+    end
+  end
+
+  def find_all_by_customer_id(customer_id)
+    final = all.find_all do |invoice|
+      invoice.id == customer_id
+    end
+    final
   end
 
 end

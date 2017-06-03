@@ -1,9 +1,8 @@
-require 'minitest/autorun'
-require 'minitest/pride'
 require 'pry'
+require 'time'
 
 class Invoice
-  attr_reader :idea,
+  attr_reader :id,
               :customer_id,
               :merchant_id,
               :status,
