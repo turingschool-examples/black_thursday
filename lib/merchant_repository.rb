@@ -1,6 +1,6 @@
 require_relative 'merchant'
 require 'csv'
-
+require 'pry'
 class MerchantRepository
 
   attr_reader :file_path,
@@ -9,66 +9,42 @@ class MerchantRepository
   def initialize(file_path, parent)
     @file_path = file_path
     @parent = parent
-    @contents = nil
+    @contents = load_library
   end
 
-  def csv_read
-    CSV.read(file_path)
-  end
-
-  def organize
-    header = csv_read[0]
-    content = csv_read[1..-1]
-    temp = []
-    content.each do |line|
-      item = header.zip(line).flatten.compact
-      temp << item
+  def load_library
+    library = {}
+    CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
+      h = Hash[row]
+      d = h[:id]
+      library[d.to_i] = Merchant.new(h, self)
     end
-    final = []
-    temp.map do |i|
-      h = Hash[*i]
-      final << h
-    end
-    @contents = final
+    @contents = library
   end
 
   def all
-    list = []
-    @contents.each do |merchant|
-      m = Merchant.new(merchant,self)
-      list << m
-    end
-    list
+    merchants = contents.map { |k,v| v }
   end
 
   def find_by_id(id_number)
-    m = nil
-    @contents.each do |merchant|
-      mt = Merchant.new(merchant,self)
-      m = mt if mt.id == id_number
-    end
-    m
+    number = @contents.keys.find { |k| k == id_number }
+    contents[number]
   end
 
-  def find_by_name(name)
-    m = nil
-    @contents.each do |merchant|
-      mt = Merchant.new(merchant,self)
-      m = mt if mt.name.downcase == name.downcase
+  def find_by_name(merchant)
+    m = @contents.find { |k,v| contents[k].name.downcase == merchant.downcase }
+    if m == nil
+      return m
+    else
+      contents[m[0]]
     end
-    m
   end
 
-  def find_all_by_name(name)
-    m = []
-    @contents.each do |merchant|
-      mt = Merchant.new(merchant,self)
-      if mt.name.downcase.include?(name)
-        match = mt
-        m << match
-      end
-    end
-    m
+  def find_all_by_name(merchant)
+    #need to verify what exactly the return should be
+    all = []
+    lookup = @contents.find_all { |k,v| contents[k].name.downcase.include?(merchant.downcase) }
+    lookup.compact
   end
 
 end
