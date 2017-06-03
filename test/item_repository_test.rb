@@ -48,15 +48,15 @@ class ItemRepositoryTest < MiniTest::Test
   def test_find_all_by_price
     ir = ItemRepository.new(@file_path)
 
-    assert_equal [ir.all[0]], ir.find_all_by_price(0.13E4)
+    assert_equal [ir.all[0]], ir.find_all_by_price(13)
     assert_equal [], ir.find_all_by_price(0.1515E2)
   end
 
   def test_find_all_by_price_in_range_returns_two_items
     ir = ItemRepository.new(@file_path)
 
-    actual_1 = ir.find_all_by_price_in_range((1000..1400))
-    actual_2 = ir.find_all_by_price_in_range((2500..2600))
+    actual_1 = ir.find_all_by_price_in_range((10.00..14.00))
+    actual_2 = ir.find_all_by_price_in_range((25.00..26.00))
 
     assert_equal [ir.all[0], ir.all[1]], actual_1
     assert_equal [], actual_2

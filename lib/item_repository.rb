@@ -31,9 +31,9 @@ class ItemRepository
   end
 
   def find_all_with_description(description)
-    description = description.downcase
+    downcased = description.downcase
     @all.find_all do |item|
-      item.description.include? description
+      item.description.include? downcased
     end
   end
 
@@ -61,6 +61,6 @@ class ItemRepository
   end
 
   def inspect
-   "#<#{self.class} #{@items.size} rows>"
+   "#<#{self.class} #{@all.size} rows>"
   end
 end
