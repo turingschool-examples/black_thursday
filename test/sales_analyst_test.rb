@@ -70,6 +70,6 @@ class SalesAnalystTest < MiniTest::Test
 
     actual = sa.average_average_price_per_merchant
 
-    assert_equal 6678.05, actual
+    assert_equal 0.667806E4, actual
   end
 end
