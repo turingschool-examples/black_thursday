@@ -48,13 +48,13 @@ class ItemRepository
 
   def find_all_by_price(unit_price)
     all.find_all do |item|
-      item.unit_price_to_float == unit_price
+      item.unit_price == unit_price
     end
   end
 
   def find_all_by_price_in_range(price_range)
     all.find_all do |item|
-      price_range.include?(item.unit_price_to_float)
+      price_range.include?(item.unit_price)
     end
   end
 

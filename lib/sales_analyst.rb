@@ -45,13 +45,13 @@ class SalesAnalyst
     end
   end
 
-  def average_item_price_per_merchant(merchant_id)
+  def average_item_price_for_merchant(merchant_id)
     items = sales_engine.collected_items(merchant_id)
     sum = 0
     items.each do |item|
       sum += item.unit_price
     end
-    average = sum.to_f/(items.length)
+    average = sum/(items.length)
     average.round(2)
   end
 
@@ -59,17 +59,23 @@ class SalesAnalyst
     array_1 = []
     sales_engine.merchants.all.each do |merch|
       id = merch.id
-      array_1 << average_item_price_per_merchant(id)
+      array_1 << average_item_price_for_merchant(id)
     end
-    array_2 = (array_1.reduce(:+)/array_1.length).to_f/100
+    array_2 = (array_1.reduce(:+)/array_1.length)
     array_2.round(2)
   end
 
-  def golden_times
-    mr = sales_engine.merchants.all
-    var = average_items_per_merchant_standard_deviation * 2 + average_items_per_merchant
+  def golden_items
+    array_1 = []
+    ir = sales_engine.items.items
+    ir.each do |item|
+      array_1 << item.unit_price
+    end
+    var = (average_items_per_merchant_standard_deviation * 2) + average_items_per_merchant
     mr.find_all do |merchant|
       merchant.items.length >= var
     end
   end
+
+
 end

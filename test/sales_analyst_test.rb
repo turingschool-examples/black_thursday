@@ -1,3 +1,4 @@
+require 'bigdecimal'
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/sales_engine'
@@ -46,14 +47,15 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 52, sa.merchants_with_high_item_count.length
   end
 
-  def test_average_item_price_per_merchant
+  def test_average_item_price_for_merchant
     se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
     })
     sa = SalesAnalyst.new(se)
 
-    assert_equal 16.66, sa.average_item_price_per_merchant(12334105)
+    assert_equal 16.66, sa.average_item_price_for_merchant(12334105)
+    assert_instance_of BigDecimal, sa.average_item_price_for_merchant(12334105)
   end
 
   def test_average_average_price_per_merchant
@@ -63,7 +65,7 @@ class SalesAnalystTest < MiniTest::Test
     })
     sa = SalesAnalyst.new(se)
 
-    assert_equal 3.5, sa.average_average_price_per_merchant
+    assert_equal 350.29, sa.average_average_price_per_merchant
   end
 
   def test_golden_items
@@ -73,6 +75,6 @@ class SalesAnalystTest < MiniTest::Test
     })
     sa = SalesAnalyst.new(se)
 
-    assert_equal 27, sa.golden_times.length
+    assert_equal 5, sa.golden_items.length
   end
 end
