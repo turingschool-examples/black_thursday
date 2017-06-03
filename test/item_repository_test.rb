@@ -7,7 +7,6 @@ require 'pry'
 
 class ItemRepositoryTest < MiniTest::Test
 
-
   def test_it_can_find_by_id
     ir = ItemRepository.new('./test/data/items_fixture.csv', sales_engine = nil)
     id = 263395237
@@ -35,7 +34,6 @@ class ItemRepositoryTest < MiniTest::Test
     results = ir.find_all_with_description(description)
 
     assert_equal description, results.first.description
-
   end
 
   # def test_items_searched_by_all_price

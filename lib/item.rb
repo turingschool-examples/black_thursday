@@ -24,7 +24,6 @@ class Item
     unit_price.to_f
   end
 
-
   def merchant
     @ir.merchant(self.merchant_id)
   end

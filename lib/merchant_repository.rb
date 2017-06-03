@@ -56,7 +56,4 @@ class MerchantRepository
   def merchant(item_id)
     find_by_id(item_id)
   end
-
-
-
 end

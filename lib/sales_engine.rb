@@ -7,6 +7,7 @@ class SalesEngine
   attr_reader :merchants,
               :items
 
+
   def initialize(hash)
     @items = ItemRepository.new(hash[:items], self)
     @merchants = MerchantRepository.new(hash[:merchants], self)
@@ -19,7 +20,6 @@ class SalesEngine
   def collected_items(merchant_id)
     @items.find_all_by_merchant_id(merchant_id)
   end
-
 
   def merchant(item_id)
     @merchants.merchant(item_id)
