@@ -12,6 +12,7 @@ class Merchant
   end
 
   def items
+
     @merch_repo.item_output(self.id)
   end
 end

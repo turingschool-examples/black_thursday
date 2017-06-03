@@ -8,6 +8,7 @@ class SalesEngineTest < Minitest::Test
       :merchants => "./test/data/merchants_truncated.csv"
     })
   end
+  
   def test_that_sales_engine_is_right_class
     assert_equal SalesEngine, @se.class
   end
