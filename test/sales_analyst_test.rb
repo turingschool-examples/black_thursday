@@ -3,7 +3,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/sales_engine'
 require_relative '../lib/sales_analyst'
-require 'pry'
+
 
 class SalesAnalystTest < MiniTest::Test
 
@@ -11,6 +11,7 @@ class SalesAnalystTest < MiniTest::Test
     se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
+    :invoices => "./data/invoices.csv",
     })
     sa = SalesAnalyst.new(se)
     assert_instance_of SalesAnalyst, sa
@@ -20,6 +21,7 @@ class SalesAnalystTest < MiniTest::Test
     se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
+    :invoices => "./data/invoices.csv",
     })
     sa = SalesAnalyst.new(se)
 
@@ -30,6 +32,7 @@ class SalesAnalystTest < MiniTest::Test
     se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
+    :invoices => "./data/invoices.csv",
     })
     sa = SalesAnalyst.new(se)
 
@@ -41,6 +44,7 @@ class SalesAnalystTest < MiniTest::Test
     se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
+    :invoices => "./data/invoices.csv",
     })
     sa = SalesAnalyst.new(se)
 
@@ -51,6 +55,7 @@ class SalesAnalystTest < MiniTest::Test
     se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
+    :invoices => "./data/invoices.csv",
     })
     sa = SalesAnalyst.new(se)
 
@@ -62,6 +67,7 @@ class SalesAnalystTest < MiniTest::Test
     se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
+    :invoices => "./data/invoices.csv",
     })
     sa = SalesAnalyst.new(se)
 
@@ -72,6 +78,7 @@ class SalesAnalystTest < MiniTest::Test
     se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
+    :invoices => "./data/invoices.csv",
     })
     sa = SalesAnalyst.new(se)
 

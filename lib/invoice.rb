@@ -7,7 +7,8 @@ class Invoice
               :merchant_id,
               :status,
               :created_at,
-              :updated_at
+              :updated_at,
+              :iv_repo
 
   def initialize(hash, iv_repo)
     @iv_repo     = iv_repo
@@ -18,5 +19,10 @@ class Invoice
     @created_at  = Time.parse(hash[:created_at])
     @updated_at  = Time.parse(hash[:updated_at])
   end
+
+  def merchant
+    @iv_repo.merchant(self.merchant_id)
+  end
+
 
 end

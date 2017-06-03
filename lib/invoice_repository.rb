@@ -48,5 +48,8 @@ class InvoiceRepository
     end
   end
 
+  def merchant(merchant_id)
+    @sales_engine.merchant(merchant_id)
+  end
 
 end
