@@ -43,13 +43,21 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(merchant_id)
     items = se.items_by_merchant_id(merchant_id)
-    sum = 0
-    items.each do |item|
-      sum += item.unit_price
+    sum = items.reduce(0) { |acc, item| acc += item.unit_price }
+    price_average = sum/(items.length)
+    BigDecimal.new(price_average.round(2))
+  end
+
+  def average_average_price_per_merchant
+    mr = se.merchants.all
+
+    averages = mr.reduce(0) do |acc, merchant|
+      acc += average_item_price_for_merchant(merchant.id)
     end
-    # price_sum = items.reduce(0) {|acc, item| acc += item.unit_price}
-    price_average = sum.to_f/(items.length)
-    price_average.round(2)
+
+    average_average = averages/mr.length
+
+    BigDecimal.new(average_average.round(2))
   end
 
 end

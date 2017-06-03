@@ -7,6 +7,9 @@ class SalesAnalystTest < MiniTest::Test
   def setup
     @files = {:items => './test/data/items_test.csv',
               :merchants => './test/data/merchants_test.csv'}
+
+    @files2 = {:items => './test/data/test_items_2.csv',
+              :merchants => './test/data/merchant_test_2.csv'}
   end
 
   def test_the_sales_analyst_exists
@@ -58,6 +61,15 @@ class SalesAnalystTest < MiniTest::Test
 
     actual = sa.average_item_price_for_merchant(12334105)
 
-    assert_equal 14900, actual
+    assert_equal 0.2999E2, actual
+  end
+
+  def test_average_average_price_per_merchant
+    se = SalesEngine.from_csv(@files2)
+    sa = SalesAnalyst.new(se)
+
+    actual = sa.average_average_price_per_merchant
+
+    assert_equal 6678.05, actual
   end
 end

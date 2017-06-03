@@ -1,0 +1,7 @@
+id,name,description,unit_price,merchant_id,created_at,updated_at
+111,mouse,use it with computer,1500,321,2010-12-10,2011-12-04
+112,keyboard,also use it with computer,3000,321,2010-12-10,2011-12-04
+211,torture chamber,to be tortured in,2000000,456,2010-12-10,2011-12-04
+311,dope shirt,to be dope in,500,555,2010-12-10,2011-12-04
+312,dope shoes,tell me more,1000,555,2010-12-10,2011-12-04
+313,chinstrap stencil,for your dope face,2000,555,2010-12-10,2011-12-04
