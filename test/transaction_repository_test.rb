@@ -47,4 +47,16 @@ class TransactionRepositoryTest < MiniTest::Test
     assert_equal [], actual_2
   end
 
+  def test_if_find_all_by_result_works
+    tr = TransactionRepository.new(@files)
+
+    actual_1 = tr.find_all_by_result("success")
+    actual_2 = tr.find_all_by_result("failed")
+    actual_3 = tr.find_all_by_result("saywhaaaaat?")
+
+    assert_equal 9, actual_1.length
+    assert_equal 1, actual_2.length
+    assert_equal [], actual_3
+  end
+
 end
