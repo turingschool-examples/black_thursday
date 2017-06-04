@@ -17,8 +17,33 @@ class CustomerTest < Minitest::Test
 
   def test_new_instance
 
-   assert_instance_of Customer, customer
- end
+    assert_instance_of Customer, customer
+  end
+
+  def test_id
+
+    assert_equal 6, customer.id
+  end
+
+  def test_first_name
+
+    assert_equal "Joan", customer.first_name
+  end
+
+  def test_last_name
+
+    assert_equal "Clarke", customer.last_name
+  end
+
+  def test_created_at
+
+    assert_instance_of Time, customer.created_at
+  end
+
+  def test_updated_at
+
+    assert_instance_of Time, customer.created_at
+  end
 
 
 end
