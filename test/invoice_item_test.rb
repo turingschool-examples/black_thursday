@@ -34,7 +34,11 @@ class InvoiceItemTest < Minitest::Test
     assert_equal 0.13635E3, @ii1.unit_price
     assert @ii1.created_at
     assert @ii1.updated_at
+  end
 
+  def test_unit_price_to_dollars_converts_string
+
+    assert_equal 136.35, @ii1.unit_price_to_dollars(@ii1.unit_price)
   end
 
 

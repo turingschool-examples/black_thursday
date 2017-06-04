@@ -23,4 +23,8 @@ class InvoiceItem
   end
 
 
+  def unit_price_to_dollars(price)
+    price.to_f
+  end
+
 end
