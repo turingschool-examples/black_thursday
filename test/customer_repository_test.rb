@@ -30,5 +30,24 @@ class CustomerRepositoryTest < MiniTest::Test
     assert_nil actual_2
   end
 
+  def test_if_find_all_by_first_name_works
+    cr = CustomerRepository.new(@file_path)
+
+    actual_1 = cr.find_all_by_first_name("Joey")
+    actual_2 = cr.find_all_by_first_name("Loki")
+
+    assert_equal [cr.all[0]], actual_1
+    assert_equal [], actual_2
+  end
+
+  def test_if_find_all_by_last_name_works
+    cr = CustomerRepository.new(@file_path)
+
+    actual_1 = cr.find_all_by_last_name("Ondricka")
+    actual_2 = cr.find_all_by_last_name("Monster Monkey")
+
+    assert_equal [cr.all[0]], actual_1
+    assert_equal [], actual_2
+  end
 
 end
