@@ -9,7 +9,8 @@ class SalesEngineTest < Minitest::Test
       :salesanalyst => "./test/data/salesanalystsample.csv",
       :invoices => "./test/data/invoices_fixture.csv",
       :invoice_items => "./test/data/invoice_items_fixture.csv",
-      :transactions => "./test/data/transactions_fixture.csv" })
+      :transactions => "./test/data/transactions_fixture.csv",
+      :customers => "./test/data/customers_fixture.csv" })
 
 binding.pry
     assert_instance_of SalesEngine, se
