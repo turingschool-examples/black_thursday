@@ -76,6 +76,50 @@ class SalesAnalyst
     average = sum / leng
   end
 
+  def average_invoices_per_merchant_standard_deviation
+    a = invoice_count_per_merchant
+    value = a.values
+    b = standard_deviation(value)
+  end
+
+  def top_merchants_by_invoice_count
+    a = average_invoices_per_merchant
+    b = average_invoices_per_merchant_standard_deviation
+    c = invoice_count_per_merchant
+    final = []
+    c.each do |k,v|
+      if v > a + (b + b)
+        final << k
+      end
+    end
+    return final
+  end
+
+  def bottom_merchants_by_invoice_count
+    a = average_invoices_per_merchant
+    b = average_invoices_per_merchant_standard_deviation
+    c = invoice_count_per_merchant
+    final = []
+    c.each do |k,v|
+      if v < a - (b + b)
+        final << k
+      end
+    end
+    return final
+  end
+
+  def top_days_by_invoice_count
+    counts = Hash.new(0)
+    x = []
+    @parent.invoices.contents.each do |k,v|
+      x << v.created_at
+    end
+    x.each do |id|
+      counts[id] += 1
+    end
+    return counts
+  end
+
 private
 
   def average_price_per_merchant_standard_deviation
