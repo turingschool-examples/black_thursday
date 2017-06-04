@@ -8,11 +8,11 @@ class CustomerTest < Minitest::Test
 
   def setup
     @customer = Customer.new({ :id => 6,
-                              :first_name => "Joan",
-                              :last_name  => "Clarke",
-                              :created_at => Time.now,
-                              :updated_at => Time.now },
-                              self)
+                               :first_name => "Joan",
+                               :last_name  => "Clarke",
+                               :created_at => "2012-03-27 14:56:10 UTC",
+                               :updated_at => "2012-03-27 14:56:10 UTC" },
+                               self)
   end
 
   def test_new_instance
