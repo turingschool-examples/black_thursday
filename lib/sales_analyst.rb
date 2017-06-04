@@ -32,19 +32,24 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(merchant_id)
     merch_items = @sales_engine.item_output(merchant_id)
-    item_prices = merch_items.map{|item| item.unit_price.to_i}
-    avg_merch_item_price = item_prices.reduce{|sum, num| sum + num}/
-    item_prices.count
-  
+      item_prices = merch_items.map{|item| item.unit_price.to_i}
+      avg_merch_item_price = item_prices.reduce(:+) /
+      (item_prices.count)
   end
 
   def average_average_price_per_merchant
-
+    merchants = @sales_engine.merchants.all
+    merch_ids = merchants.map do |merchant|
+      merchant.id.to_i
+    end
+    avg_prices = merch_ids.map{|merchant_id|
+      self.average_item_price_for_merchant(merchant_id)}
+      avg_prices.reduce(:+) / avg_prices.count
   end
 end
-se = SalesEngine.from_csv({
-  :items     => "./data/items.csv",
-  :merchants => "./data/merchants.csv",
-})
-sa = SalesAnalyst.new(se)
-puts sa.average_item_price_for_merchant(12334160)
+# se = SalesEngine.from_csv({
+#   :items     => "./data/items.csv",
+#   :merchants => "./data/merchants.csv",
+# })
+# sa = SalesAnalyst.new(se)
+# puts sa.average_average_price_per_merchant

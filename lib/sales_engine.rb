@@ -12,7 +12,7 @@ class SalesEngine
   end
 
   def self.from_csv(data_files)
-    se = SalesEngine.new(data_files)
+    SalesEngine.new(data_files)
   end
 
   def merchant_output(merchant_id)

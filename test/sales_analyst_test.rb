@@ -73,14 +73,15 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_average_price_per_merchant
+    skip #Need to deal with returning nil
     merchants = @sa.sales_engine.merchants.all
     merch_ids = merchants.map do |merchant|
-      merchant.id
+      merchant.id.to_i
     end
-    avg_prices = merch_ids.map do |id|
-      @sa.average_item_price_for_merchant(id)
+    avg_prices = merch_ids.map do |merchant_id|
+      @sa.average_item_price_for_merchant(merchant_id)
     end
-      require 'pry'; binding.pry
+    #Need to take average of avg_prices array
   end
 
 end
