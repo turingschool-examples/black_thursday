@@ -34,4 +34,12 @@ class TransactionRepository
     contents.values.find_all { |v| v.invoice_id == inv_id }
   end
 
+  def find_all_by_credit_card_number(cc_number)
+    contents.values.find_all { |v| v.credit_card_number == cc_number }
+  end
+
+  def find_all_by_result(trans_res)
+    contents.values.find_all { |v| v.result == trans_res }
+  end
+
 end
