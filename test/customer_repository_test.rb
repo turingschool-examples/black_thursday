@@ -20,5 +20,15 @@ class CustomerRepositoryTest < MiniTest::Test
     assert_equal 10, cr.all.length
   end
 
+  def test_if_find_by_id_works
+    cr = CustomerRepository.new(@file_path)
+
+    actual_1 = cr.find_by_id(1)
+    actual_2 = cr.find_by_id(25)
+
+    assert_equal cr.all[0], actual_1
+    assert_nil actual_2
+  end
+
 
 end
