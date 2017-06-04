@@ -7,6 +7,10 @@ class ItemRepository
   attr_reader :all_item_data,
               :sales_engine
 
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
+  end
+
   def initialize(data_files, sales_engine)
     @sales_engine = sales_engine
     all_items = open_csv(data_files[:items])
@@ -18,7 +22,7 @@ class ItemRepository
   end
 
   def find_by_id(id)
-    @all_item_data.find{|item| item.id == id.to_s}
+    @all_item_data.find{|item| item.id == id}
   end
 
   def find_by_name(name)

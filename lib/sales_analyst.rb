@@ -72,10 +72,10 @@ class SalesAnalyst
     end
   end
 end
-
-se = SalesEngine.from_csv({
-  :items     => "./data/items.csv",
-  :merchants => "./data/merchants.csv",
-})
-sa = SalesAnalyst.new(se)
-puts sa.golden_items
+#
+# se = SalesEngine.from_csv({
+#   :items     => "./data/items.csv",
+#   :merchants => "./data/merchants.csv",
+# })
+# sa = SalesAnalyst.new(se)
+# puts sa.golden_items
