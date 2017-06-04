@@ -61,19 +61,21 @@ class SalesAnalyst
 
   def standard_deviation_of_prices
     mean = self.average_average_price_per_merchant
-    require 'pry'; binding.pry
     sum = @avg_prices_per_merch.reduce(0){|sum, num| sum + (num - mean)**2}
     std_dev = Math.sqrt(sum/(@avg_prices_per_merch.count - 1)).round(2)
   end
 
   def golden_items
-
+    std_dev = self.standard_deviation_of_prices
+    @sales_engine.items.all_item_data.find_all do |item|
+      item.unit_price.to_i > (std_dev * 2)
+    end
   end
 end
-#
-# se = SalesEngine.from_csv({
-#   :items     => "./data/items.csv",
-#   :merchants => "./data/merchants.csv",
-# })
-# sa = SalesAnalyst.new(se)
-# puts sa.standard_deviation_of_prices
+
+se = SalesEngine.from_csv({
+  :items     => "./data/items.csv",
+  :merchants => "./data/merchants.csv",
+})
+sa = SalesAnalyst.new(se)
+puts sa.golden_items

@@ -18,7 +18,7 @@ class Item
   @id = item_data[:id]
   @name = item_data[:name]
   @description = item_data[:description]
-  @unit_price = item_data[:unit_price]
+  @unit_price = item_data[:unit_price] #to_i
   @created_at = item_data[:created_at]
   @updated_at = item_data[:updated_at]
   @merchant_id = item_data[:merchant_id]

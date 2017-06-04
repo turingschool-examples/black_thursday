@@ -97,8 +97,11 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 12526.52, actual
   end
 
-  # def test_golden_items
-  #   @sa.items.all_item_data.find_all do |item|
-  #     item.unit_price >
-  # end
+  def test_golden_items
+    actual = @sa.sales_engine.items.all_item_data.find_all do |item|
+      item.unit_price.to_i > (@sa.standard_deviation_of_prices * 2)
+    end
+    assert_equal 10, actual.count
+  end
+
 end
