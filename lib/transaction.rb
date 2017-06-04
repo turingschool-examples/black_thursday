@@ -20,7 +20,4 @@ class Transaction
     @created_at                  = Time.parse(params["created_at"])
     @updated_at                  = Time.parse(params["updated_at"])
   end
-
-
-
 end
