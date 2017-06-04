@@ -20,4 +20,22 @@ class TransactionRepositoryTest < MiniTest::Test
     assert_equal 10, tr.all.length
   end
 
+  def test_if_find_by_id_returns_correct_value_for_method
+    tr = TransactionRepository.new(@files)
+
+    assert_equal tr.all[0], tr.find_by_id(1)
+    assert_nil tr.find_by_id(122)
+  end
+
+  def test_if_find_all_by_invoice_id_works
+    tr = TransactionRepository.new(@files)
+
+    actual_1 = tr.find_all_by_invoice_id(2179)
+    actual_2 = tr.find_all_by_invoice_id(12)
+
+    assert_equal [tr.all[0]], actual_1
+    assert_equal [], actual_2
+
+  end
+
 end
