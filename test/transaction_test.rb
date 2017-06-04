@@ -7,8 +7,8 @@ class TransactionTest < Minitest::Test
   attr_reader :transaction
 
   def setup
-    @transaction = Transaction.new({ :id => 6,
-                                     :invoice_id => 8,
+    @transaction = Transaction.new({ :id => "6",
+                                     :invoice_id => "8",
                                      :credit_card_number => "4242424242424242",
                                      :credit_card_expiration_date => "0220",
                                      :result => "success",

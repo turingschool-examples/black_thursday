@@ -22,4 +22,16 @@ class TransactionRepository
     @contents = library
   end
 
+  def all
+    contents.map { |k,v| v }
+  end
+
+  def find_by_id(transaction_id)
+    contents[transaction_id]
+  end
+
+  def find_all_by_invoice_id(inv_id)
+    contents.values.find_all { |v| v.invoice_id == inv_id }
+  end
+
 end
