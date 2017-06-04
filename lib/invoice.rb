@@ -15,4 +15,8 @@ class Invoice
     @created_at  = Time.parse(params['created_at'])
     @updated_at  = Time.parse(params['updated_at'])
   end
+
+  def merchant
+    @parent.mid_to_se(self.merchant_id)
+  end
 end
