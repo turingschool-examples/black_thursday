@@ -58,7 +58,8 @@ class SalesAnalystTest < Minitest::Test
 
   def test_merchants_with_high_item_count
     top_merchants = @sa.sales_engine.merchants.all_merchant_data.find_all do |merchant|
-      merchant.items.count > (@sa.average_items_per_merchant + @sa.average_items_per_merchant_standard_deviation)
+      merchant.items.count > (@sa.average_items_per_merchant +
+      @sa.average_items_per_merchant_standard_deviation)
     end
 
     assert_equal 2, top_merchants.count
@@ -73,15 +74,31 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_average_price_per_merchant
-    skip #Need to deal with returning nil
     merchants = @sa.sales_engine.merchants.all
     merch_ids = merchants.map do |merchant|
       merchant.id.to_i
     end
-    avg_prices = merch_ids.map do |merchant_id|
-      @sa.average_item_price_for_merchant(merchant_id)
+    avg_prices = []
+    merch_ids.each do |merchant_id|
+      if @sa.average_item_price_for_merchant(merchant_id) != nil
+        avg_prices << @sa.average_item_price_for_merchant(merchant_id)
+      end
     end
-    #Need to take average of avg_prices array
+    actual = avg_prices.reduce(:+) / avg_prices.count
+
+    assert_equal 7582, actual
   end
 
+  def test_standard_deviation_of_prices
+    mean = @sa.average_average_price_per_merchant
+    sum = @sa.avg_prices_per_merch.reduce(0){|sum, num| sum + (num - mean)**2}
+    actual = Math.sqrt(sum/(@sa.avg_prices_per_merch.count - 1)).round(2)
+
+    assert_equal 12526.52, actual
+  end
+
+  # def test_golden_items
+  #   @sa.items.all_item_data.find_all do |item|
+  #     item.unit_price >
+  # end
 end
