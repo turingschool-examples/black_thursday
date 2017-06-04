@@ -8,7 +8,7 @@ class SalesEngineTest < Minitest::Test
       :merchants => "./test/data/merchants_truncated.csv"
     })
   end
-  
+
   def test_that_sales_engine_is_right_class
     assert_equal SalesEngine, @se.class
   end
@@ -38,10 +38,11 @@ class SalesEngineTest < Minitest::Test
     assert_equal Array, actual.class
   end
 
-  def test_if_merchant_method_links_to_item_class
-    skip
-    actual = @se.merchant
-    expected = "1234"
+  def test_if_item_method_links_to_merchant_class
+    item = @se.items.find_by_id(263395237)
+
+    actual = item.merchant.id
+    expected = 12334141
 
     assert_equal expected, actual
   end

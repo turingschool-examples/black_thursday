@@ -3,13 +3,15 @@ require_relative '../lib/merchant_repository'
 require 'csv'
 
 class MerchantRepositoryTest < Minitest::Test
+  attr_reader :merchant
+
   def setup
     @merchant = MerchantRepository.new({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv"
       }, self)
   end
-  
+
   def test_merchant_repo_instantiates
     actual   = @merchant.class
     expected = MerchantRepository

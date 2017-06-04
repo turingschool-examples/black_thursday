@@ -1,5 +1,6 @@
 require_relative 'test_helper'
 require_relative '../lib/item_repository'
+require_relative '../lib/sales_engine'
 
 class ItemRepositoryTest < Minitest::Test
   attr_reader :item
@@ -54,15 +55,15 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_price
-    result = @item.find_all_by_price("1300")
+    result = @item.find_all_by_price(0.12E2)
     actual = result.count
 
-    assert_equal 1, actual
+    assert_equal 2, actual
 
   end
 
   def test_it_can_find_all_by_price_in_range
-    result = @item.find_all_by_price_in_range("0100".."4450")
+    result = @item.find_all_by_price_in_range(0.12E2..0.44E2)
     actual = result.count
 
     assert_equal 15, actual
@@ -75,9 +76,14 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_merchant_method_returns_item_value
-    skip
-    actual = @item.merchant
-    expected = 12334105
+  se = SalesEngine.from_csv({
+    :items     => "./test/data/items_truncated.csv",
+    :merchants => "./test/data/merchants_truncated.csv"
+    })
+    item = se.items.find_by_id(263395237)
+
+    actual = item.merchant.id
+    expected = 12334141
 
     assert_equal expected, actual
   end

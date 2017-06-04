@@ -7,9 +7,9 @@ class ItemRepository
   attr_reader :all_item_data,
               :sales_engine
 
-  def inspect
-    "#<#{self.class} #{@items.size} rows>"
-  end
+  # def inspect
+  #   "#<#{self.class} #{@items.size} rows>"
+  # end
 
   def initialize(data_files, sales_engine)
     @sales_engine = sales_engine
@@ -42,7 +42,7 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(merchant_id)
-    @all_item_data.find_all{|item| merchant_id.to_s == item.merchant_id }
+    @all_item_data.find_all{|item| merchant_id == item.merchant_id }
   end
 
   def merchant(merchant_id)
