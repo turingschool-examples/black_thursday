@@ -62,14 +62,14 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(setup)
     sa = SalesAnalyst.new(se)
 
-    assert_equal 1.625, sa.average_invoices_per_merchant
+    assert_equal 1.63, sa.average_invoices_per_merchant
   end
 
   def test_average_invoices_per_merchant_standard_deviation
     se = SalesEngine.from_csv(setup)
     sa = SalesAnalyst.new(se)
 
-    assert_equal 1.746424919657298, sa.average_invoices_per_merchant_standard_deviation
+    assert_equal 1.75, sa.average_invoices_per_merchant_standard_deviation
   end
 
   def test_top_merchants_by_invoice_count
@@ -92,7 +92,17 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(setup)
     sa = SalesAnalyst.new(se)
 
-    assert_equal
+    assert_equal ['Friday'], sa.top_days_by_invoice_count
+  end
+
+  def test_invoice_status
+    se = SalesEngine.from_csv(setup)
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 38.46, sa.invoice_status(:pending)
+    assert_equal 57.69, sa.invoice_status(:shipped)
+    assert_equal 3.85, sa.invoice_status(:returned)
+
   end
 
 end

@@ -12,12 +12,13 @@ class SalesAnalyst
     sum = value.reduce(:+).to_f
     leng = value.length.to_f
     average = sum / leng
+    average.round(2)
   end
 
   def average_items_per_merchant_standard_deviation
     a = item_count_per_merchant
     value = a.values
-    standard_deviation(value)
+    standard_deviation(value).round(2)
   end
 
   def merchants_with_high_item_count
@@ -40,7 +41,8 @@ class SalesAnalyst
         final << v.unit_price
       end
     end
-    final.reduce(:+)/final.length
+     total = final.reduce(:+)/final.length
+     total.round(2)
   end
 
   def average_average_price_per_merchant
@@ -56,6 +58,7 @@ class SalesAnalyst
       avg_prices << a
     end
     a = avg_prices.reduce(:+)/avg_prices.length
+    a.round(2)
   end
 
   def golden_items
@@ -74,12 +77,13 @@ class SalesAnalyst
     sum = value.reduce(:+).to_f
     leng = value.length.to_f
     average = sum / leng
+    average.round(2)
   end
 
   def average_invoices_per_merchant_standard_deviation
     a = invoice_count_per_merchant
     value = a.values
-    b = standard_deviation(value)
+    standard_deviation(value).round(2)
   end
 
   def top_merchants_by_invoice_count
@@ -109,15 +113,29 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-    counts = Hash.new(0)
-    x = []
-    @parent.invoices.contents.each do |k,v|
-      x << v.created_at
+    a = invoices_created_per_date
+    b = average_invoices_created_per_day
+    c = average_invoices_created_per_day_standard_deviation
+    d = []
+    a.each do |k,v|
+      if v > b + c
+        d << k
+      end
     end
-    x.each do |id|
-      counts[id] += 1
+    return d
+  end
+
+  def invoice_status(status)
+    count = count_status_orders
+    total = count.values.reduce(:+)
+    percentage = nil
+    count.each do |k,v|
+      if k == status
+        percentage = v / total.to_f * 100
+
+      end
     end
-    return counts
+    percentage.round(2)
   end
 
 private
@@ -170,4 +188,61 @@ private
     end
     return counts
   end
+
+  def days_invoice_created_at_count
+    counts = Hash.new(0)
+    x = []
+    @parent.invoices.contents.each do |k,v|
+      x << v.created_at
+    end
+    x.each do |id|
+      counts[id] += 1
+    end
+    return counts
+  end
+
+  def invoices_created_per_date
+    counts = Hash.new(0)
+    a = days_invoice_created_at_count
+    days = []
+    a.each do |k,v|
+      days << k.strftime("%A")
+    end
+    days.each do |day|
+      counts[day] += 1
+    end
+    return counts
+  end
+
+  def average_invoices_created_per_day
+    a = invoices_created_per_date
+    b = []
+    a.each do |k,v|
+      b << v
+    end
+    b.reduce(:+) / b.length
+  end
+
+  def average_invoices_created_per_day_standard_deviation
+    a = invoices_created_per_date
+    b = []
+    a.each do |k,v|
+      b << v
+    end
+    standard_deviation(b)
+  end
+
+  def count_status_orders
+    counts = Hash.new(0)
+    x = []
+    @parent.invoices.contents.each do |k,v|
+      x << v.status.to_sym
+    end
+    x.each do |id|
+      counts[id] += 1
+    end
+    return counts
+
+  end
+
 end
