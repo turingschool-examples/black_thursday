@@ -7,8 +7,9 @@ class MerchantRepositoryTest < Minitest::Test
     @merchant = MerchantRepository.new({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv"
-      })
+      }, self)
   end
+  
   def test_merchant_repo_instantiates
     actual   = @merchant.class
     expected = MerchantRepository

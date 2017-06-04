@@ -9,22 +9,22 @@ class ItemTest < Minitest::Test
   attr_reader :item
 
   def setup
-    @se = SalesEngine.from_csv({
-                  :items     => "./test/data/items_truncated.csv",
-                  :merchants => "./test/data/merchants_truncated.csv"
-                })
-
-    @item_repo = ItemRepository.new({
-                  :items     => "./test/data/items_truncated.csv",
-                  :merchants => "./test/data/merchants_truncated.csv"
-                }, self)
-
-    @merchant_repo = MerchantRepository.new({
-                  :items     => "./data/items.csv",
-                  :merchants => "./data/merchants.csv"
-                  })
-
-    @merchant = Merchant.new({:id => 263395237, :name => "Turing School"})
+    # @se = SalesEngine.from_csv({
+    #               :items     => "./test/data/items_truncated.csv",
+    #               :merchants => "./test/data/merchants_truncated.csv"
+    #             })
+    #
+    # @item_repo = ItemRepository.new({
+    #               :items     => "./test/data/items_truncated.csv",
+    #               :merchants => "./test/data/merchants_truncated.csv"
+    #             }, self)
+    #
+    # @merchant_repo = MerchantRepository.new({
+    #               :items     => "./data/items.csv",
+    #               :merchants => "./data/merchants.csv"
+    #               })
+    #
+    # @merchant = Merchant.new({:id => 263395237, :name => "Turing School"})
 
     @item = Item.new({
                       :name        => "Pencil",
