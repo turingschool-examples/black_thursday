@@ -8,10 +8,10 @@ class InvoiceItemRepository
   def initialize(file_path, parent = nil)
     @parent = parent
     @all = []
-    populate_invoices(file_path)
+    populate_invoice_items(file_path)
   end
 
-  def populate_invoices(file_path)
+  def populate_invoice_items(file_path)
     CSV.foreach(file_path, row_sep: :auto, headers: true) do |line|
       self.all << InvoiceItem.new(line, self)
     end

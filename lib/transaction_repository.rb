@@ -8,10 +8,10 @@ class TransactionRepository
   def initialize(file_path, parent = nil)
     @parent = parent
     @all = []
-    populate_items(file_path)
+    populate_transactions(file_path)
   end
 
-  def populate_items(file_path)
+  def populate_transactions(file_path)
     CSV.foreach(file_path, row_sep: :auto, headers: true) do |line|
       self.all << Transaction.new(line, self)
     end
@@ -41,5 +41,8 @@ class TransactionRepository
     end
   end
 
+  def inspect
+   "#<#{self.class} #{@transactions.size} rows>"
+  end
 
 end
