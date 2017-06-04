@@ -28,4 +28,25 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_nil iir.find_by_id(13)
   end
 
+  def test_find_all_by_item_id
+    iir = InvoiceItemRepository.new(@files)
+
+    actual_1 = iir.find_all_by_item_id(263454779)
+    actual_2 = iir.find_all_by_item_id(22)
+
+    assert_equal 1, actual_1.length
+    assert_equal [], actual_2
+  end
+
+  def test_find_all_by_invoice_id
+    iir = InvoiceItemRepository.new(@files)
+
+    actual_1 = iir.find_all_by_invoice_id(1)
+    actual_2 = iir.find_all_by_invoice_id(122)
+
+    assert_equal 8, actual_1.length
+    assert_equal [], actual_2
+
+  end
+
 end
