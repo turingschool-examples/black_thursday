@@ -14,5 +14,4 @@ class Customer
     @created_at = Time.parse(data_files[:created_at].to_s)
     @updated_at = Time.parse(data_files[:updated_at].to_s)
   end
-
 end
