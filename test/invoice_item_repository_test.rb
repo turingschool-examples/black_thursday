@@ -26,4 +26,17 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
     assert_equal expected, actual
   end
+
+  def test_it_can_find_all_by_item_id
+    actual = @ir.find_all_by_item_id(263454779)
+    expected = [@ir.all[1]]
+
+    assert_equal expected, actual
+  end
+
+  def test_it_can_find_all_by_invoice_id
+    actual = @ir.find_all_by_invoice_id(1).count
+
+    assert_equal 8, actual
+  end
 end

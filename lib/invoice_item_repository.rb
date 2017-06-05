@@ -21,11 +21,11 @@ class InvoiceItemRepository
     @all_invoice_item_data.find{|item| item.id == id}
   end
 
-  def find_all_by_item_id
-
+  def find_all_by_item_id(item_id)
+    @all_invoice_item_data.find_all{|item| item.item_id == item_id}
   end
 
-  def find_all_by_invoice_id
-
+  def find_all_by_invoice_id(invoice_id)
+    @all_invoice_item_data.find_all{|item| item.invoice_id == invoice_id}
   end
 end
