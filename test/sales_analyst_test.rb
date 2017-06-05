@@ -103,4 +103,23 @@ class SalesAnalystTest < MiniTest::Test
 
     assert_equal 0.55, actual
   end
+
+  def test_top_merchants_by_invoice_count_works
+    se = SalesEngine.from_csv(@files3)
+    sa = SalesAnalyst.new(se)
+    actual = sa.top_merchants_by_invoice_count
+
+    assert_equal [], actual
+  end
+
+  def test_top_merchants_by_invoice_count_works
+    se = SalesEngine.from_csv(@files3)
+    sa = SalesAnalyst.new(se)
+    actual = sa.bottom_merchants_by_invoice_count
+
+    assert_equal 3, actual.length
+  end
+
+  
+
 end
