@@ -29,5 +29,4 @@ class Customer
       x.merchant_id
     end
   end
-
 end
