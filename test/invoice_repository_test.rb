@@ -50,9 +50,9 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_if_find_all_by_status_works
     invr = InvoiceRepository.new(@files)
 
-    actual_1 = invr.find_all_by_status("returned")
-    actual_2 = invr.find_all_by_status("pending")
-    actual_3 = invr.find_all_by_status("shipped")
+    actual_1 = invr.find_all_by_status(:returned)
+    actual_2 = invr.find_all_by_status(:pending)
+    actual_3 = invr.find_all_by_status(:shipped)
 
     assert_equal 1, actual_1.length
     assert_equal 6, actual_2.length

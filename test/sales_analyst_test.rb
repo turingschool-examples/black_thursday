@@ -6,10 +6,15 @@ class SalesAnalystTest < MiniTest::Test
 
   def setup
     @files = {:items => './test/data/items_test.csv',
-              :merchants => './test/data/merchants_test.csv'}
+              :merchants => './test/data/merchants_test.csv',
+              :invoices => './test/data/invoices_test.csv'}
 
     @files2 = {:items => './test/data/test_items_2.csv',
-              :merchants => './test/data/merchant_test_2.csv'}
+              :merchants => './test/data/merchant_test_2.csv',
+              :invoices => './test/data/invoices_test.csv'}
+    @files3 = {:items => './test/data/test_items_3.csv',
+              :merchants => './test/data/merchants_test_3.csv',
+              :invoices => './test/data/invoices_test.csv'}
   end
 
   def test_the_sales_analyst_exists
@@ -80,5 +85,58 @@ class SalesAnalystTest < MiniTest::Test
     actual = sa.golden_items.length
 
     assert_equal 0, actual
+  end
+
+  def test_average_invoices_per_merchant_works
+    se = SalesEngine.from_csv(@files3)
+    sa = SalesAnalyst.new(se)
+
+    actual = sa.average_invoices_per_merchant
+
+    assert_equal 2.2, actual
+  end
+
+  def test_average_invoices_per_merchant_standard_deviation_works
+    se = SalesEngine.from_csv(@files3)
+    sa = SalesAnalyst.new(se)
+    actual = sa.average_invoices_per_merchant_standard_deviation
+
+    assert_equal 0.55, actual
+  end
+
+  def test_top_merchants_by_invoice_count_works
+    se = SalesEngine.from_csv(@files3)
+    sa = SalesAnalyst.new(se)
+    actual = sa.top_merchants_by_invoice_count
+
+    assert_equal [], actual
+  end
+
+  def test_top_merchants_by_invoice_count_works
+    se = SalesEngine.from_csv(@files3)
+    sa = SalesAnalyst.new(se)
+    actual = sa.bottom_merchants_by_invoice_count
+
+    assert_equal 3, actual.length
+  end
+
+  def test_invoice_status_returns_correct_percentage
+    se = SalesEngine.from_csv(@files3)
+    sa = SalesAnalyst.new(se)
+    actual_1 = sa.invoice_status(:pending)
+    actual_2 = sa.invoice_status(:shipped)
+    actual_3 = sa.invoice_status(:returned)
+
+    assert_equal 54.55, actual_1
+    assert_equal 45.45, actual_2
+    assert_equal 0, actual_3
+  end
+
+  def test_create_invoices_per_day_hash_works
+    se = SalesEngine.from_csv(@files3)
+    sa = SalesAnalyst.new(se)
+    actual = sa.top_days_by_invoice_count
+
+    assert_equal ["Friday", "Saturday"], actual
   end
 end

@@ -8,7 +8,11 @@ class MerchantTest < MiniTest::Test
 
   def setup
     @files = {:items => './test/data/items_test.csv',
-              :merchants => './test/data/merchants_test.csv'}
+              :merchants => './test/data/merchants_test.csv',
+              :invoices => './test/data/invoices_test.csv'}
+    @files_2 = {:items => './test/data/test_items_3.csv',
+              :merchants => './test/data/merchants_test_3.csv',
+              :invoices => './test/data/invoices_test.csv'}
   end
 
   def test_if_create_class
@@ -35,5 +39,12 @@ class MerchantTest < MiniTest::Test
     assert_equal 1, actual
   end
 
+  def test_if_invoices_method_returns_invoices
+    se = SalesEngine.from_csv(@files_2)
+    merchant = se.merchants.find_by_id(12335938)
+    actual = merchant.items.length
+
+    assert_equal 2, actual
+  end
 
 end

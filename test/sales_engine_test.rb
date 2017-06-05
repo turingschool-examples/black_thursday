@@ -6,7 +6,11 @@ class SalesEngineTest < MiniTest::Test
 
   def setup
     @files = {:items => './test/data/items_test.csv',
-              :merchants => './test/data/merchants_test.csv'}
+              :merchants => './test/data/merchants_test.csv',
+              :invoices => './test/data/invoices_test.csv'}
+    @files_2 = {:items => './test/data/items_test.csv',
+              :merchants => './test/data/merchants_test_3.csv',
+              :invoices => './test/data/invoices_test.csv'}
   end
 
   def test_from_csv_creates_an_instance_of_sales_engine
@@ -43,5 +47,13 @@ class SalesEngineTest < MiniTest::Test
     actual = se.merchant_by_merchant_id(12334105)
 
     assert_instance_of Merchant, actual
+  end
+
+  def test_if_pull_invoices_by_merchant_id
+    se = SalesEngine.from_csv(@files_2)
+    merchant = se.merchants.find_by_id(12334389)
+    actual = merchant.invoices.length
+
+    assert_equal 1, actual
   end
 end
