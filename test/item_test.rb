@@ -10,8 +10,12 @@ require_relative '../lib/sales_engine'
 class ItemTest < MiniTest::Test
 
   def setup
-    @files = {:items => './test/data/items_test.csv',
-              :merchants => './test/data/merchants_test.csv'}
+    @files = {:items         => './test/data/items_test.csv',
+              :merchants     => './test/data/merchants_test.csv',
+              :invoices      => './test/data/invoices_test.csv',
+              :invoice_items => './test/data/invoice_items_test.csv',
+              :transactions  => './test/data/transactions_test.csv',
+              :customers     => './test/data/customers_test.csv'}
 
     @i1 = Item.new({"id"       => '1',
                   "merchant_id" => '11',
