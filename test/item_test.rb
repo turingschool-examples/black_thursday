@@ -12,7 +12,7 @@ class ItemTest < Minitest::Test
 
   def test_it_exists
     i = Item.new(sample_path, nil)
-binding.pry
+
     assert_instance_of Item, i
   end
 
