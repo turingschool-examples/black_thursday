@@ -35,6 +35,10 @@ class CustomerRepository
     end
   end
 
+  def customer_id_to_se(customer_id)
+    @parent.merchants_by_customer_id(customer_id)
+  end
+
   def inspect
    "#<#{self.class} #{@all.size} rows>"
   end

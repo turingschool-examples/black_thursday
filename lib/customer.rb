@@ -17,4 +17,8 @@ class Customer
     @updated_at = Time.parse(params["updated_at"])
 
   end
+
+  def merchants
+    @parent.customer_id_to_se(self.id)
+  end
 end
