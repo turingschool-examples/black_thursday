@@ -40,8 +40,8 @@ class TransactionRepositoryTest < MiniTest::Test
   def test_if_find_all_by_cc_number_works
     tr = TransactionRepository.new(@files)
 
-    actual_1 = tr.find_all_by_credit_card_number("4068631943231473")
-    actual_2 = tr.find_all_by_credit_card_number("4068631943231479")
+    actual_1 = tr.find_all_by_credit_card_number(4068631943231473)
+    actual_2 = tr.find_all_by_credit_card_number(4068631943231479)
 
     assert_equal [tr.all[0]], actual_1
     assert_equal [], actual_2

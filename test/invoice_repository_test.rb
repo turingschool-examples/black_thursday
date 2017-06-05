@@ -33,7 +33,7 @@ class InvoiceRepositoryTest < Minitest::Test
     actual_1 = invr.find_all_by_customer_id(1)
     actual_2 = invr.find_all_by_customer_id(22)
 
-    assert_equal 8, actual_1.length
+    assert_equal 10, actual_1.length
     assert_equal [], actual_2
   end
 
@@ -43,7 +43,7 @@ class InvoiceRepositoryTest < Minitest::Test
     actual_1 = invr.find_all_by_merchant_id(12335938)
     actual_2 = invr.find_all_by_merchant_id(22)
 
-    assert_equal 1, actual_1.length
+    assert_equal 2, actual_1.length
     assert_equal [], actual_2
   end
 

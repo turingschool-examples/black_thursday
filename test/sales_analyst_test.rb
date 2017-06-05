@@ -7,14 +7,25 @@ class SalesAnalystTest < MiniTest::Test
   def setup
     @files = {:items => './test/data/items_test.csv',
               :merchants => './test/data/merchants_test.csv',
-              :invoices => './test/data/invoices_test.csv'}
+              :invoices => './test/data/invoices_test.csv',
+              :invoice_items => './test/data/invoice_items_test.csv',
+              :transactions  => './test/data/transactions_test.csv',
+              :customers     => './test/data/customers_test.csv'}
 
     @files2 = {:items => './test/data/test_items_2.csv',
               :merchants => './test/data/merchant_test_2.csv',
-              :invoices => './test/data/invoices_test.csv'}
+              :invoices => './test/data/invoices_test.csv',
+              :invoice_items => './test/data/invoice_items_test.csv',
+              :transactions  => './test/data/transactions_test.csv',
+              :customers     => './test/data/customers_test.csv'}
+
     @files3 = {:items => './test/data/test_items_3.csv',
               :merchants => './test/data/merchants_test_3.csv',
-              :invoices => './test/data/invoices_test.csv'}
+              :invoices => './test/data/invoices_test.csv',
+              :invoice_items => './test/data/invoice_items_test.csv',
+              :transactions  => './test/data/transactions_test.csv',
+              :customers     => './test/data/customers_test.csv'}
+
   end
 
   def test_the_sales_analyst_exists
@@ -128,8 +139,8 @@ class SalesAnalystTest < MiniTest::Test
     actual_3 = sa.invoice_status(:returned)
 
     assert_equal 54.55, actual_1
-    assert_equal 45.45, actual_2
-    assert_equal 0, actual_3
+    assert_equal 36.36, actual_2
+    assert_equal 9.09, actual_3
   end
 
   def test_create_invoices_per_day_hash_works
