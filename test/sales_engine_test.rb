@@ -68,7 +68,16 @@ class SalesEngineTest < MiniTest::Test
     actual_1 = se.items_by_invoice_id(12)
     actual_2 = se.items_by_invoice_id(32)
 
-    assert_equal 1, actual_1.length 
+    assert_equal 1, actual_1.length
     assert [], actual_2
+  end
+
+  def test_transactions_by_invoice_id
+    se = SalesEngine.from_csv(@files_2)
+
+    actual = se.transactions_by_invoice_id(12)
+    expected = se.transactions.all[9]
+
+    assert_equal [expected], actual
   end
 end

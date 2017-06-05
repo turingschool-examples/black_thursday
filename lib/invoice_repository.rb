@@ -51,6 +51,10 @@ class InvoiceRepository
     @parent.items_by_invoice_id(invoice_id)
   end
 
+  def invoice_id_to_se_for_trans(invoice_id)
+    @parent.transactions_by_invoice_id(invoice_id)
+  end
+
   def inspect
    "#<#{self.class} #{@all.size} rows>"
   end

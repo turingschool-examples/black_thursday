@@ -53,4 +53,15 @@ class InvoiceTest < Minitest::Test
 
     assert_equal [expected], actual_1
   end
+
+  def test_transactions_returns_array_of_transactions
+    se = SalesEngine.from_csv(@files)
+
+    invoice = se.invoices.find_by_id(12)
+
+    actual = invoice.transactions
+    expected = se.transactions.all[9]
+
+    assert_equal [expected], actual
+  end
 end

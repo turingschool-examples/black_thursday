@@ -23,4 +23,8 @@ class Invoice
   def items
     @parent.invoice_id_to_se(self.id)
   end
+
+  def transactions
+    @parent.invoice_id_to_se_for_trans(self.id)
+  end
 end
