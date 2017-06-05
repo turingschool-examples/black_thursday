@@ -12,7 +12,7 @@ class ItemTest < Minitest::Test
 
   def test_it_exists
     i = Item.new(sample_path, nil)
-binding.pry
+
     assert_instance_of Item, i
   end
 
@@ -31,7 +31,7 @@ binding.pry
   def test_has_unit_price
     i = Item.new(sample_path, nil)
 
-    assert_equal 1300.0, i.unit_price.to_f
+    assert_equal 13.0, i.unit_price.to_f
   end
 
   def test_has_merchant_id

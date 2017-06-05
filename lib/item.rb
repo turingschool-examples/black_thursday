@@ -2,7 +2,8 @@ require 'pry'
 require 'bigdecimal'
 require 'time'
 class Item
-  attr_reader :name,
+  attr_reader :id,
+              :name,
               :description,
               :unit_price,
               :created_at,
@@ -11,9 +12,10 @@ class Item
               :parent
 
   def initialize(information,parent)
+    @id = information[:id].to_i
     @name = information[:name]
     @description = information[:description]
-    @unit_price = BigDecimal(information[:unit_price].to_i)
+    @unit_price = BigDecimal(information[:unit_price].insert(-3, "."))
     @created_at = date_convert(information[:created_at])
     @updated_at = date_convert(information[:updated_at])
     @merchant_id = information[:merchant_id].to_i

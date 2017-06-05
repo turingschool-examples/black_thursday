@@ -21,11 +21,11 @@ class ItemRepositoryTest < Minitest::Test
   def test_return_instance_or_nil_with_id
     ir = ItemRepository.new(sample_path, nil)
     ir.load_library
-    a = ir.find_by_id("0")
+    a = ir.find_by_id(0)
 
     assert_nil a
 
-    b = ir.find_by_id("263395617")
+    b = ir.find_by_id(263395617)
 
     assert_equal "Glitter scrabble frames", b.name
   end
@@ -49,7 +49,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_find_all_by_price
     ir = ItemRepository.new(sample_path, nil)
     ir.load_library
-    a = ir.find_all_by_price(1350)
+    a = ir.find_all_by_price(13.50)
 
     assert_equal "Disney scrabble frames", a[0].name
   end
@@ -57,7 +57,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_find_all_by_price_range
     ir = ItemRepository.new(sample_path, nil)
     ir.load_library
-    a = ir.find_all_by_price_range(1300..1400)
+    a = ir.find_all_by_price_in_range(13.00..14.00)
 
     assert_equal "Glitter scrabble frames", a[0].name
   end

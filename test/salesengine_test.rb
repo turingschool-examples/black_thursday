@@ -12,7 +12,7 @@ class SalesEngineTest < Minitest::Test
       :transactions => "./test/data/transactions_fixture.csv",
       :customers => "./test/data/customers_fixture.csv" })
 
-# binding.pry
+binding.pry
     assert_instance_of SalesEngine, se
   end
 
