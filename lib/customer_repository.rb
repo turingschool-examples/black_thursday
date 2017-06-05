@@ -4,7 +4,8 @@ require 'csv'
 class CustomerRepository
 
   attr_reader :file_path,
-              :contents
+              :contents,
+              :parent
 
   def initialize(file_path, parent)
     @file_path = file_path

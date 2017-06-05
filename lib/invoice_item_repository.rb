@@ -4,7 +4,8 @@ require_relative 'invoice_item'
 class InvoiceItemRepository
 
   attr_reader :file_path,
-              :contents
+              :contents,
+              :parent
 
   def initialize(file_path, parent)
     @file_path = file_path

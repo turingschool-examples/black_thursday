@@ -3,7 +3,8 @@ require 'csv'
 require_relative 'item'
 class ItemRepository
   attr_reader :file_path,
-              :content
+              :content,
+              :parent
 
   def initialize(file_path, parent)
     @file_path = file_path
