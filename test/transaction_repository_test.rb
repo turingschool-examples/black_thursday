@@ -31,7 +31,7 @@ class TransactionRepositoryTest < MiniTest::Test
     tr = TransactionRepository.new(@files)
 
     actual_1 = tr.find_all_by_invoice_id(2179)
-    actual_2 = tr.find_all_by_invoice_id(12)
+    actual_2 = tr.find_all_by_invoice_id(17)
 
     assert_equal [tr.all[0]], actual_1
     assert_equal [], actual_2
