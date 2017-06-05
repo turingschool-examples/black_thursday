@@ -4,7 +4,8 @@ require 'pry'
 class MerchantRepository
 
   attr_reader :file_path,
-              :contents
+              :contents,
+              :parent
 
   def initialize(file_path, parent)
     @file_path = file_path

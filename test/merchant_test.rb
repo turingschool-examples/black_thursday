@@ -1,6 +1,7 @@
 require_relative "test_helper.rb"
 require_relative "../lib/merchant"
 require_relative "../lib/merchant_repository"
+
 class MerchantTest < Minitest::Test
 
   def test_new_instance

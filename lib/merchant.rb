@@ -4,7 +4,8 @@ class Merchant
   attr_reader :name,
               :created_at,
               :id,
-              :updated_at
+              :updated_at,
+              :parent
 
 
   def initialize(data, parent)
@@ -12,11 +13,12 @@ class Merchant
       @id = data[:id].to_i
       @created_at = date_convert(data[:created_at])
       @updated_at = date_convert(data[:updated_at])
+      @parent = parent
   end
 
   def date_convert(from_file)
     date = from_file.split("-")
     time = Time.new(date[0], date[1], date[2])
   end
-  
+
 end
