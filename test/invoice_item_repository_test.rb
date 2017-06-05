@@ -16,7 +16,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal Array, @ir.all_invoice_item_data.class
   end
 
-  def test_it_returns_invoice_item_repo_instances
+  def test_it_returns_invoice_item_instances
     assert_equal InvoiceItem, @ir.all[1].class
   end
 

@@ -13,4 +13,22 @@ class TransactionTest < Minitest::Test
         :updated_at => Time.now
       })
   end
+
+  def test_transaction_id_can_be_read
+    assert_equal 6, @t.id
+  end
+
+  def test_invoice_id_can_be_read
+    assert_equal 8, @t.invoice_id
+  end
+
+  def test_cc_number_can_be_read
+    assert_equal "4242424242424242", @t.credit_card_number
+  end
+
+  def test_created_at_returns_time
+    actual = @t.created_at.class
+
+    assert_equal Time, actual
+  end
 end
