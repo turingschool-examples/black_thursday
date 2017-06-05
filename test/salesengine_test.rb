@@ -1,5 +1,5 @@
 require_relative '../test/test_helper.rb'
-require_relative"../lib/salesengine"
+require_relative"../lib/sales_engine"
 
 class SalesEngineTest < Minitest::Test
   def test_it_exists
@@ -12,7 +12,7 @@ class SalesEngineTest < Minitest::Test
       :transactions => "./test/data/transactions_fixture.csv",
       :customers => "./test/data/customers_fixture.csv" })
 
-binding.pry
+# binding.pry
     assert_instance_of SalesEngine, se
   end
 
