@@ -29,7 +29,4 @@ class Customer
       x.merchant_id
     end
   end
-
-=======
->>>>>>> master
 end

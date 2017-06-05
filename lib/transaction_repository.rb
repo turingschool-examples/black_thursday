@@ -47,5 +47,4 @@ class TransactionRepository
     "#<#{self.class} #{@contents.size} rows>"
   end
 
->>>>>>> master
 end

@@ -42,5 +42,5 @@ class InvoiceItemRepository
   def inspect
     "#<#{self.class} #{@contents.size} rows>"
   end
->>>>>>> master
+
 end
