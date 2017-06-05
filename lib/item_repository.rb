@@ -3,12 +3,12 @@ require 'csv'
 require_relative 'item'
 class ItemRepository
   attr_reader :file_path,
-              :content
+              :contents
 
   def initialize(file_path, parent)
     @file_path = file_path
     @parent = parent
-    @content = load_library
+    @contents = load_library
   end
 
 
@@ -25,17 +25,17 @@ class ItemRepository
 
   def all
     final = []
-    final << content
+    final << contents
   end
 
   def find_by_id(id_number)
-    content[id_number]
+    contents[id_number]
   end
 
   def find_by_name(name)
-    content.each do |k,v|
+    contents.each do |k,v|
       if v.name == name
-        return content[k]
+        return contents[k]
       else
         return nil
       end
@@ -44,9 +44,9 @@ class ItemRepository
 
   def find_all_with_description(str)
     final = []
-    content.each do |k,v|
+    contents.each do |k,v|
       if v.description.downcase.include? str.downcase
-       final << content[k]
+       final << contents[k]
       end
     end
     return final
@@ -54,9 +54,9 @@ class ItemRepository
 
   def find_all_by_price(price)
     final = []
-    content.each do |k,v|
+    contents.each do |k,v|
       if v.unit_price.to_f == price.to_f
-        final << content[k]
+        final << contents[k]
       end
     end
     return final
@@ -64,9 +64,9 @@ class ItemRepository
 
   def find_all_by_price_range(price_range)
     final = []
-    content.each do |k,v|
+    contents.each do |k,v|
       if price_range.include?(v.unit_price.to_f)
-        final << content[k]
+        final << contents[k]
       end
     end
     return final
@@ -74,9 +74,9 @@ class ItemRepository
 
   def find_all_by_merchant_id(id_number)
     final = []
-    content.each do |k,v|
+    contents.each do |k,v|
       if v.merchant_id.to_i == id_number.to_i
-        final << content[k]
+        final << contents[k]
       end
     end
     return final

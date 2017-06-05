@@ -3,7 +3,7 @@ require_relative '../lib/salesanalyst'
 require_relative '../lib/salesengine'
 class SalesAnalystTest < Minitest::Test
   def setup
-    {:items=>"./test/data/salesanalystsample.csv",:merchants=>"./data/merchantreposample.csv"}
+    {:items=>"./test/data/salesanalystitemsample.csv",:merchants=>"./test/data/merchantreposample.csv",:invoices=>"./test/data/salesanalystinvoicesample.csv"}
   end
 
   def test_it_exists
@@ -58,5 +58,51 @@ class SalesAnalystTest < Minitest::Test
     assert_equal "263396013", a[0]
   end
 
+  def test_average_invoices_per_merchant
+    se = SalesEngine.from_csv(setup)
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 1.63, sa.average_invoices_per_merchant
+  end
+
+  def test_average_invoices_per_merchant_standard_deviation
+    se = SalesEngine.from_csv(setup)
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 1.75, sa.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_top_merchants_by_invoice_count
+    se = SalesEngine.from_csv(setup)
+    sa = SalesAnalyst.new(se)
+    a = sa.top_merchants_by_invoice_count
+
+    assert_equal 12335009, a[0]
+  end
+
+  def test_bottom_merchants_by_invoice_count
+    se = SalesEngine.from_csv(setup)
+    sa = SalesAnalyst.new(se)
+    a = sa.bottom_merchants_by_invoice_count
+
+    assert_equal [], a
+  end
+
+  def test_top_days_by_invoice_count
+    se = SalesEngine.from_csv(setup)
+    sa = SalesAnalyst.new(se)
+
+    assert_equal ['Friday'], sa.top_days_by_invoice_count
+  end
+
+  def test_invoice_status
+    se = SalesEngine.from_csv(setup)
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 38.46, sa.invoice_status(:pending)
+    assert_equal 57.69, sa.invoice_status(:shipped)
+    assert_equal 3.85, sa.invoice_status(:returned)
+
+  end
 
 end
