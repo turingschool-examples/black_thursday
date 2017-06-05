@@ -61,11 +61,13 @@ class ItemRepository
   end
 
   def find_items_by_invoice_id(invoice_items)
-    @all.find_all do |item|
-      invoice_items.each do |invoice_item|
-        invoice_item.item_id == item.id
+    items = []
+    invoice_items.each do |invoice_item|
+      @all.find_all do |item|
+        items << item if item.id == invoice_item.item_id
       end
     end
+    items
   end
 
   def inspect

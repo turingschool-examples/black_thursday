@@ -49,9 +49,8 @@ class InvoiceTest < Minitest::Test
     invoice_2 = se.invoices.find_by_id(32)
 
     actual_1 = invoice_1.items
-    actual_2 = invoice_2.items
+    expected = se.items.all[0]
 
-    assert_equal Item, actual_1
-    assert [], actual_2
+    assert_equal [expected], actual_1
   end
 end

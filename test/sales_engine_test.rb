@@ -64,11 +64,11 @@ class SalesEngineTest < MiniTest::Test
 
   def test_items_by_invoice_id
     se = SalesEngine.from_csv(@files_2)
-    
+
     actual_1 = se.items_by_invoice_id(12)
     actual_2 = se.items_by_invoice_id(32)
 
-    assert_equal [263395617], actual_1
+    assert_equal 1, actual_1.length 
     assert [], actual_2
   end
 end

@@ -18,7 +18,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   def test_initialize_and_population_of_items
     iir = InvoiceItemRepository.new(@files)
 
-    assert_equal 10, iir.all.length
+    assert_equal 11, iir.all.length
   end
 
   def test_if_find_by_id_returns_correct_value_for_method

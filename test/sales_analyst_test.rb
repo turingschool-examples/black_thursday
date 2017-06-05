@@ -106,7 +106,7 @@ class SalesAnalystTest < MiniTest::Test
 
     actual = sa.average_invoices_per_merchant
 
-    assert_equal 2.2, actual
+    assert_equal 2.4, actual
   end
 
   def test_average_invoices_per_merchant_standard_deviation_works
@@ -140,9 +140,9 @@ class SalesAnalystTest < MiniTest::Test
     actual_2 = sa.invoice_status(:shipped)
     actual_3 = sa.invoice_status(:returned)
 
-    assert_equal 54.55, actual_1
-    assert_equal 36.36, actual_2
-    assert_equal 9.09, actual_3
+    assert_equal 58.33, actual_1
+    assert_equal 33.33, actual_2
+    assert_equal 8.33, actual_3
   end
 
   def test_create_invoices_per_day_hash_works
@@ -150,6 +150,6 @@ class SalesAnalystTest < MiniTest::Test
     sa = SalesAnalyst.new(se)
     actual = sa.top_days_by_invoice_count
 
-    assert_equal ["Friday", "Saturday"], actual
+    assert_equal ["Wednesday", "Friday", "Saturday"], actual
   end
 end

@@ -17,7 +17,7 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_initialize_and_population_of_items
     invr = InvoiceRepository.new(@files)
 
-    assert_equal 11, invr.all.length
+    assert_equal 12, invr.all.length
   end
 
   def test_if_find_by_id_returns_correct_value_for_method
@@ -55,7 +55,7 @@ class InvoiceRepositoryTest < Minitest::Test
     actual_3 = invr.find_all_by_status(:shipped)
 
     assert_equal 1, actual_1.length
-    assert_equal 6, actual_2.length
+    assert_equal 7, actual_2.length
     assert_equal 4, actual_3.length
   end
 end
