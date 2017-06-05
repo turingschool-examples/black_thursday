@@ -36,7 +36,7 @@ class CustomerRepository
   end
 
   def inspect
-   "#<#{self.class} #{@customers.size} rows>"
+   "#<#{self.class} #{@all.size} rows>"
   end
 
 end

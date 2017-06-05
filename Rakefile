@@ -20,10 +20,9 @@ namespace :sanitation do
     puts ""
   end
 
+  desc "Check both line length and method length"
+  task :all => [:lines, :methods]
 end
-
-desc "Check both line length and method length"
-task :all => [:lines, :methods]
 
 Rake::TestTask.new do |t|
 t.pattern = "test/**/*_test.rb"

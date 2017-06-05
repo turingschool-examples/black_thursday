@@ -19,4 +19,8 @@ class Invoice
   def merchant
     @parent.mid_to_se(self.merchant_id)
   end
+
+  def items
+    @parent.invoice_id_to_se(self.id)
+  end
 end

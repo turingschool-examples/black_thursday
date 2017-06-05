@@ -43,5 +43,15 @@ class InvoiceTest < Minitest::Test
     assert_instance_of Merchant, actual
   end
 
+  def test_items_returns_array_of_items
+    se = SalesEngine.from_csv(@files)
+    invoice_1 = se.invoices.find_by_id(12)
+    invoice_2 = se.invoices.find_by_id(32)
 
+    actual_1 = invoice_1.items
+    actual_2 = invoice_2.items
+
+    assert_equal Item, actual_1
+    assert [], actual_2
+  end
 end
