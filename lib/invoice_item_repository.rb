@@ -4,7 +4,8 @@ require_relative '../lib/file_opener'
 
 class InvoiceItemRepository
   include FileOpener
-  attr_reader :sales_engine
+  attr_reader :sales_engine,
+              :all_invoice_item_data
 
   def initialize(data_files, sales_engine)
     @sales_engine = sales_engine

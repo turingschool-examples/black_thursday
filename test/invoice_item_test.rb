@@ -27,4 +27,10 @@ class InvoiceItemTest < Minitest::Test
     assert_equal 8, @ii.invoice_id
   end
 
+  def test_instance_created_at_works
+    actual = @ii.created_at.class
+    expected = Time
+
+    assert_equal expected, actual
+  end
 end
