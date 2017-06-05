@@ -17,7 +17,6 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal sample_path, ir.file_path
   end
 
-
   def test_return_instance_or_nil_with_id
     ir = ItemRepository.new(sample_path, nil)
     ir.load_library
@@ -37,6 +36,13 @@ class ItemRepositoryTest < Minitest::Test
 
     assert_nil ir.find_by_name("hello")
     assert_equal "Glitter scrabble frames", a.name
+  end
+
+  def test_find_all_item_instances
+    ir = ItemRepository.new(sample_path, nil)
+    a = ir.all
+
+    assert_equal "Glitter scrabble frames", a[0]["263395617"].name
   end
 
   def test_find_all_with_description
@@ -62,7 +68,7 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal "Glitter scrabble frames", a[0].name
   end
 
-  def find_all_by_merchant_id
+  def test_find_all_by_merchant_id
     ir = ItemRepository.new(sample_path, nil)
     ir.load_library
     a = ir.find_all_by_merchant_id(12334185)

@@ -25,4 +25,3 @@ class SalesEngine
     SalesEngine.new(file[:items], file[:merchants], file[:invoices])
   end
 end
-binding.pry
