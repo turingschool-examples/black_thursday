@@ -12,9 +12,9 @@ class InvoiceTest < Minitest::Test
                   "created_at"  => '1993-09-29 11:56:40 UTC',
                   "updated_at"  => '1993-09-29 11:56:40 UTC'
                  })
-                 @files = {:items => './test/data/items_test.csv',
-                           :merchants => './test/data/merchants_test_3.csv',
-                           :invoices => './test/data/invoices_test.csv'}
+    @files = {:items => './test/data/items_test.csv',
+              :merchants => './test/data/merchants_test_3.csv',
+              :invoices => './test/data/invoices_test.csv'}
   end
 
   def test_it_exists
@@ -40,5 +40,5 @@ class InvoiceTest < Minitest::Test
     assert_instance_of Merchant, actual
   end
 
-  
+
 end

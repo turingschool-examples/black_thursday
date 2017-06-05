@@ -38,6 +38,10 @@ class MerchantRepository
     @parent.items_by_merchant_id(merchant_id)
   end
 
+  def mid_to_se_for_invoices(merchant_id)
+    @parent.invoices_by_merchant_id(merchant_id)
+  end
+
   def inspect
    "#<#{self.class} #{@merchants.size} rows>"
   end

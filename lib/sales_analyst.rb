@@ -16,7 +16,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-      values = create_items_per_merchant_hash.values
+    values = create_items_per_merchant_hash.values
     standard_deviation(values)
   end
 
@@ -63,6 +63,41 @@ class SalesAnalyst
     ir.find_all do |item|
       item.unit_price >= two_deviations
     end
+  end
+
+  def average_invoices_per_merchant
+    mr = se.merchants.all
+    invr = se.invoices.all
+
+    average = (invr.length.to_f)/(mr.length)
+    average.round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    values = create_invoices_per_merchant_hash.values
+    standard_deviation(values)
+  end
+
+  def create_invoices_per_merchant_hash
+    merchant_invoices = {}
+    mr = se.merchants.all
+    mr.each do |merchant|
+      invoices = se.invoices_by_merchant_id(merchant.id)
+      merchant_invoices[merchant.id] = invoices.length
+    end
+    merchant_invoices
+  end
+
+  def top_merchants_by_invoice_count
+  end
+
+  def bottom_merchants_by_invoice_count
+  end
+
+  def top_days_by_invoice_count
+  end
+
+  def invoice_status(status)
   end
 
   def standard_deviation(values)

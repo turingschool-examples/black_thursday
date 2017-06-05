@@ -6,10 +6,15 @@ class SalesAnalystTest < MiniTest::Test
 
   def setup
     @files = {:items => './test/data/items_test.csv',
-              :merchants => './test/data/merchants_test.csv'}
+              :merchants => './test/data/merchants_test.csv',
+              :invoices => './test/data/invoices_test.csv'}
 
     @files2 = {:items => './test/data/test_items_2.csv',
-              :merchants => './test/data/merchant_test_2.csv'}
+              :merchants => './test/data/merchant_test_2.csv',
+              :invoices => './test/data/invoices_test.csv'}
+    @files3 = {:items => './test/data/test_items_3.csv',
+              :merchants => './test/data/merchants_test_3.csv',
+              :invoices => './test/data/invoices_test.csv'}
   end
 
   def test_the_sales_analyst_exists
@@ -80,5 +85,22 @@ class SalesAnalystTest < MiniTest::Test
     actual = sa.golden_items.length
 
     assert_equal 0, actual
+  end
+
+  def test_average_invoices_per_merchant_works
+    se = SalesEngine.from_csv(@files3)
+    sa = SalesAnalyst.new(se)
+
+    actual = sa.average_invoices_per_merchant
+
+    assert_equal 2.2, actual
+  end
+
+  def test_average_invoices_per_merchant_standard_deviation_works
+    se = SalesEngine.from_csv(@files3)
+    sa = SalesAnalyst.new(se)
+    actual = sa.average_invoices_per_merchant_standard_deviation
+
+    assert_equal 0.55, actual
   end
 end
