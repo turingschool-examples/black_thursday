@@ -29,6 +29,7 @@ class MerchantRepository
 
   def find_by_id(id_number)
     number = @contents.keys.find { |k| k == id_number }
+    @current_id = id_number
     contents[number]
   end
 

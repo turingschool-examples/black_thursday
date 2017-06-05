@@ -1,6 +1,6 @@
 
 require_relative 'item_repository'
-require_relative 'sale_sanalyst'
+require_relative 'sales_analyst'
 require_relative 'merchant_repository'
 require_relative 'invoice_repository'
 require_relative 'invoice_item_repository'
@@ -36,3 +36,4 @@ class SalesEngine
     file[:invoice_items], file[:transactions], file[:customers])
   end
 end
+binding.pry

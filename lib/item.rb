@@ -24,4 +24,8 @@ class Item
     date = from_file.split(/[-," ",:]/)
     time = Time.utc(date[0], date[1], date[2], date[3], date[4], date[5])
   end
+
+  def merchant
+    @parent.parent.merchants.find_by_id(merchant_id)
+  end
 end

@@ -23,4 +23,11 @@ class Customer
                     date[5], date[6], date[7])
   end
 
+  def merchants
+    a = @parent.parent.invoices.find_all_by_customer_id(id)
+    a.map do |x|
+      x.merchant_id
+    end
+  end
+
 end
