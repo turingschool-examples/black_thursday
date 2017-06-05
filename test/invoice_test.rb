@@ -64,4 +64,15 @@ class InvoiceTest < Minitest::Test
 
     assert_equal [expected], actual
   end
+
+  def test_customer_returns_instance_of_customer
+    se = SalesEngine.from_csv(@files)
+
+    invoice = se.invoices.find_by_id(1)
+
+    actual = invoice.customer
+    expected = se.customers.all[0]
+
+    assert_equal expected, actual
+  end
 end

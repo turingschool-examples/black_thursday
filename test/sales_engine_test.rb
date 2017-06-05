@@ -80,4 +80,13 @@ class SalesEngineTest < MiniTest::Test
 
     assert_equal [expected], actual
   end
+
+  def test_customer_by_customer_id
+    se = SalesEngine.from_csv(@files_2)
+
+    actual = se.customer_by_customer_id(1)
+    expected = se.customers.all[0]
+
+    assert_equal expected, actual
+  end
 end

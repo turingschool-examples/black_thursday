@@ -27,4 +27,10 @@ class Invoice
   def transactions
     @parent.invoice_id_to_se_for_trans(self.id)
   end
+
+  def customer
+    @parent.customer_id_to_se_for_cust(self.customer_id)
+  end
+
+
 end
