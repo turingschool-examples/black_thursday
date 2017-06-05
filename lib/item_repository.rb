@@ -83,4 +83,8 @@ class ItemRepository
     return final
   end
 
+  def inspect
+    "#<#{self.class} #{@contents.size} rows>"
+  end
+
 end

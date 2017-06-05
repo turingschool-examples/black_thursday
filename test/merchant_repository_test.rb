@@ -46,7 +46,7 @@ class MerchantRepositoryTest < Minitest::Test
  def test_find_all_by_name_good_name
    mr = MerchantRepository.new("./test/data/merchant_fixture.csv",self)
    find = mr.find_all_by_name("in")
-   actual = find[0][0], find[1][0]
+   actual = find[0].id, find[1].id
 
    assert_equal [12334105, 12334113], actual
  end
