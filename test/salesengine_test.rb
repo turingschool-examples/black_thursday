@@ -3,7 +3,15 @@ require_relative"../lib/salesengine"
 
 class SalesEngineTest < Minitest::Test
   def test_it_exists
-    se = SalesEngine.from_csv({:merchants => "./test/data/merchant_fixture.csv", :invoices => "./test/data/invoices_fixture.csv", :items => "./test/itemsample.csv"})
+    se = SalesEngine.from_csv({
+      :items => "./test/data/itemsample.csv",
+      :merchants => "./test/data/merchant_fixture.csv",
+      :salesanalyst => "./test/data/salesanalystsample.csv",
+      :invoices => "./test/data/invoices_fixture.csv",
+      :invoice_items => "./test/data/invoice_items_fixture.csv",
+      :transactions => "./test/data/transactions_fixture.csv",
+      :customers => "./test/data/customers_fixture.csv" })
+
 binding.pry
     assert_instance_of SalesEngine, se
   end

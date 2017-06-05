@@ -1,14 +1,11 @@
-require 'minitest'
-require 'minitest/autorun'
-require 'minitest/emoji'
+require_relative 'invoice'
 require 'csv'
-require 'pry'
-require_relative '../lib/invoice'
 
 class InvoiceRepository
 
   attr_reader :file_path,
-              :contents
+              :contents,
+              :parent
 
   def initialize(file_path, parent)
     @file_path = file_path
