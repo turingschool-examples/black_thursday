@@ -1,5 +1,5 @@
 require_relative '../test/test_helper.rb'
-require_relative"../lib/salesengine"
+require_relative"../lib/sales_engine"
 
 class SalesEngineTest < Minitest::Test
   def test_it_exists

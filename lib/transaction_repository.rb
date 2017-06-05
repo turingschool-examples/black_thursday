@@ -43,4 +43,9 @@ class TransactionRepository
     contents.values.find_all { |v| v.result == trans_res }
   end
 
+  def inspect
+    "#<#{self.class} #{@contents.size} rows>"
+  end
+
+>>>>>>> master
 end

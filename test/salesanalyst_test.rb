@@ -1,6 +1,6 @@
 require_relative 'test_helper.rb'
-require_relative '../lib/salesanalyst'
-require_relative '../lib/salesengine'
+require_relative '../lib/sales_analyst'
+require_relative '../lib/sales_engine'
 class SalesAnalystTest < Minitest::Test
   def setup
     {:items=>"./test/data/salesanalystitemsample.csv",:merchants=>"./test/data/merchantreposample.csv",:invoices=>"./test/data/salesanalystinvoicesample.csv"}

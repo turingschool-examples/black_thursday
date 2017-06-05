@@ -38,4 +38,9 @@ class InvoiceItemRepository
   def find_all_by_invoice_id(invoice_number)
     contents.values.find_all { |v| v.invoice_id == invoice_number }
   end
+
+  def inspect
+    "#<#{self.class} #{@contents.size} rows>"
+  end
+>>>>>>> master
 end

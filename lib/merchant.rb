@@ -36,4 +36,6 @@ class Merchant
     end
   end
 
+=======
+>>>>>>> master
 end

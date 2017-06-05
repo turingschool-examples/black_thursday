@@ -30,4 +30,6 @@ class Customer
     end
   end
 
+=======
+>>>>>>> master
 end
