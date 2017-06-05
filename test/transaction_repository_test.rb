@@ -41,7 +41,15 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal expected, actual
   end
 
-  def method_name
+  def test_it_can_find_all_by_successful_result
+    actual = @tr.find_all_by_result("success").count
 
+    assert_equal 40, actual
+  end
+
+  def test_it_can_find_all_by_failed_result
+    actual = @tr.find_all_by_result("failed").count
+
+    assert_equal 10, actual
   end
 end

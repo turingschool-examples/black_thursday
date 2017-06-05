@@ -11,7 +11,7 @@ class TransactionTest < Minitest::Test
         :result => "success",
         :created_at => Time.now,
         :updated_at => Time.now
-      })
+      }, self)
   end
 
   def test_transaction_id_can_be_read
@@ -23,7 +23,7 @@ class TransactionTest < Minitest::Test
   end
 
   def test_cc_number_can_be_read
-    assert_equal "4242424242424242", @t.credit_card_number
+    assert_equal 4242424242424242, @t.credit_card_number
   end
 
   def test_created_at_returns_time

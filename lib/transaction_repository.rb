@@ -33,8 +33,8 @@ class TransactionRepository
     @all_transactions.find_all{|trans| trans.credit_card_number == cc_num}
   end
 
-  def find_all_by_result
-
+  def find_all_by_result(result)
+    @all_transactions.find_all{|trans| trans.result == result}
   end
 
 end
