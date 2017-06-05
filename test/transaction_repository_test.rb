@@ -19,4 +19,29 @@ class TransactionRepositoryTest < Minitest::Test
   def test_it_returns_transaction_instance
     assert_equal Transaction, @tr.all[1].class
   end
+
+  def test_it_can_find_by_id
+    actual = @tr.find_by_id(1)
+    expected = @tr.all[0]
+
+    assert_equal expected, actual
+  end
+
+  def test_it_can_find_all_by_invoice_id
+    actual = @tr.find_all_by_invoice_id(46)
+    expected = [@tr.all[1]]
+
+    assert_equal expected, actual
+  end
+
+  def test_it_can_find_all_by_cc_number
+    actual = @tr.find_all_by_credit_card_number(4297222478855497)
+    expected = [@tr.all[4]]
+
+    assert_equal expected, actual
+  end
+
+  def method_name
+
+  end
 end
