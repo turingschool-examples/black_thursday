@@ -1,5 +1,6 @@
 require 'time'
 
+
 class Transaction
 
   attr_reader :id,
@@ -19,5 +20,9 @@ class Transaction
     @credit_card_expiration_date = params["credit_card_expiration_date"]
     @created_at                  = Time.parse(params["created_at"])
     @updated_at                  = Time.parse(params["updated_at"])
+  end
+
+  def invoice
+    @parent.invoice_id_to_se(self.invoice_id)
   end
 end
