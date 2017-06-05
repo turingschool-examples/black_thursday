@@ -18,4 +18,8 @@ class Merchant
   def invoices
     @parent.mid_to_se_for_invoices(self.id)
   end
+
+  def customers
+    @parent.mid_to_se_for_customer(self.id)
+  end
 end

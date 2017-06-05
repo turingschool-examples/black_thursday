@@ -1,3 +1,4 @@
+require 'pry'
 require 'csv'
 require_relative 'merchant_repository'
 require_relative 'item_repository'
@@ -56,6 +57,13 @@ class SalesEngine
 
   def invoice_by_invoice_id(invoice_id)
     @invoices.find_by_id(invoice_id)
+  end
+
+  def customers_by_merchant_id(merchant_id)
+    invoices = invoices_by_merchant_id(merchant_id)
+    customer_ids = invoices.map {|invoice| invoice = invoice.customer_id}
+    uniq_cust_ids = customer_ids.uniq
+    customers = uniq_cust_ids.map {|id| customer_by_customer_id(id)}
   end
 
 end

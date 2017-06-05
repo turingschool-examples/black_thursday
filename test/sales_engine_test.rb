@@ -99,4 +99,15 @@ class SalesEngineTest < MiniTest::Test
 
     assert_equal expected, actual
   end
+
+  def test_customer_by_merchant_id
+    se = SalesEngine.from_csv(@files_2)
+
+    merchant = se. merchants.find_by_id(12335938)
+    actual = se.customers_by_merchant_id(12335938)
+    expected = [se.customers.all[0]]
+    # binding.pry
+    assert_equal expected, actual
+
+  end
 end
