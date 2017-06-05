@@ -44,4 +44,8 @@ class InvoiceRepository
     s = contents.values.find_all { |v| v.status == i_status }
   end
 
+  def inspect
+    "#<#{self.class} #{@contents.size} rows>"
+  end
+
 end

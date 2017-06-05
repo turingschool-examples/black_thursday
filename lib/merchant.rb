@@ -21,4 +21,19 @@ class Merchant
     time = Time.new(date[0], date[1], date[2])
   end
 
+  def items
+    @parent.parent.items.find_all_by_merchant_id(id)
+  end
+
+  def invoices
+    @parent.parent.invoices.find_all_by_merchant_id(id)
+  end
+
+  def customers
+    a = @parent.parent.invoices.find_all_by_merchant_id(id)
+    a.map do |x|
+      x.customer_id
+    end
+  end
+
 end

@@ -18,29 +18,37 @@ class ItemRepository
     CSV.foreach(file_path, headers: true, :header_converters => :symbol) do |row|
 
       h = Hash[row]
-      d = h.delete(:id)
-      x[d] = Item.new(h, self)
+      d = h[:id]
+      # d = h.delete(:id)
+      x[d.to_i] = Item.new(h, self)
     end
     x
   end
 
   def all
-    final = []
-    final << contents
+    contents.map { |k,v| v }
+    # final = []
+    # final << contents
   end
 
   def find_by_id(id_number)
     contents[id_number]
   end
 
-  def find_by_name(name)
-    contents.each do |k,v|
-      if v.name == name
-        return contents[k]
-      else
-        return nil
-      end
+  def find_by_name(i_name)
+    n = contents.values.find { |v| v.name.downcase == i_name.downcase }
+    if n == nil
+      return n
     end
+    n
+    # contents.each do |k,v|
+    #   binding.pry
+    #   if v.name == name
+    #     return contents[k]
+    #   else
+    #     return nil
+    #   end
+    # end
   end
 
   def find_all_with_description(str)
@@ -56,14 +64,14 @@ class ItemRepository
   def find_all_by_price(price)
     final = []
     contents.each do |k,v|
-      if v.unit_price.to_f == price.to_f
+      if v.unit_price == price
         final << contents[k]
       end
     end
     return final
   end
 
-  def find_all_by_price_range(price_range)
+  def find_all_by_price_in_range(price_range)
     final = []
     contents.each do |k,v|
       if price_range.include?(v.unit_price.to_f)
@@ -81,6 +89,10 @@ class ItemRepository
       end
     end
     return final
+  end
+
+  def inspect
+    "#<#{self.class} #{@contents.size} rows>"
   end
 
 end

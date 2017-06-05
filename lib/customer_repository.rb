@@ -40,4 +40,8 @@ class CustomerRepository
     contents.values.find_all { |v| v.last_name == name }
   end
 
+  def inspect
+    "#<#{self.class} #{@contents.size} rows>"
+  end
+
 end

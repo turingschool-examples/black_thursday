@@ -29,6 +29,7 @@ class MerchantRepository
 
   def find_by_id(id_number)
     number = @contents.keys.find { |k| k == id_number }
+    @current_id = id_number
     contents[number]
   end
 
@@ -42,10 +43,12 @@ class MerchantRepository
   end
 
   def find_all_by_name(merchant)
-    #need to verify what exactly the return should be
-    all = []
-    lookup = @contents.find_all { |k,v| contents[k].name.downcase.include?(merchant.downcase) }
+    lookup = contents.values.find_all { |v| v.name.downcase.include?(merchant.downcase) }
     lookup.compact
+  end
+
+  def inspect
+    "#<#{self.class} #{@contents.size} rows>"
   end
 
 end

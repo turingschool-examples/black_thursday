@@ -24,4 +24,25 @@ class Invoice
     time = Time.new(date[0], date[1], date[2])
   end
 
+  def merchant
+    @parent.parent.merchants.find_by_id(merchant_id)
+  end
+
+  def items
+    @parent.parent.items.find_all_by_merchant_id(merchant_id)
+  end
+
+  def transactions
+    @parent.parent.transactions.find_all_by_invoice_id(id)
+  end
+
+  def customer
+    @parent.parent.customers.find_by_id(customer_id)
+  end
+
+  def is_paid_in_full?
+    a = @parent.parent.transactions.find_all_by_invoice_id(id)
+    a.
+  end
+
 end
