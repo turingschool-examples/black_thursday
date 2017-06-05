@@ -11,6 +11,7 @@ class SalesEngineTest < MiniTest::Test
               :invoice_items => './test/data/invoice_items_test.csv',
               :transactions  => './test/data/transactions_test.csv',
               :customers     => './test/data/customers_test.csv'}
+
     @files_2 = {:items => './test/data/items_test.csv',
               :merchants => './test/data/merchants_test_3.csv',
               :invoices => './test/data/invoices_test.csv',
@@ -41,7 +42,6 @@ class SalesEngineTest < MiniTest::Test
 
   def test_if_pull_items_by_merchant_id
     se = SalesEngine.from_csv(@files)
-    ir = se.items
     actual = se.items_by_merchant_id(12334105).length
 
     assert_equal 1, actual
@@ -49,7 +49,6 @@ class SalesEngineTest < MiniTest::Test
 
   def test_if_pull_merchant_by_merchant_id
     se = SalesEngine.from_csv(@files)
-    mr = se.merchants
     actual = se.merchant_by_merchant_id(12334105)
 
     assert_instance_of Merchant, actual

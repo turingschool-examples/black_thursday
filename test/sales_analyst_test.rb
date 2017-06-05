@@ -31,6 +31,8 @@ class SalesAnalystTest < MiniTest::Test
   def test_the_sales_analyst_exists
     se = SalesEngine.from_csv(@files)
     sa = SalesAnalyst.new(se)
+
+    assert_instance_of SalesAnalyst, sa
   end
 
   def test_average_items_per_merchant_works
@@ -123,7 +125,7 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal [], actual
   end
 
-  def test_top_merchants_by_invoice_count_works
+  def test_bottom_merchants_by_invoice_count_works
     se = SalesEngine.from_csv(@files3)
     sa = SalesAnalyst.new(se)
     actual = sa.bottom_merchants_by_invoice_count
