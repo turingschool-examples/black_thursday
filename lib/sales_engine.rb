@@ -1,7 +1,10 @@
 require 'csv'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/item_repository'
+require_relative '../lib/invoice_repository'
+
 # do some tests guy
+
 class SalesEngine
   attr_reader :items,
               :merchants,
@@ -11,6 +14,7 @@ class SalesEngine
     @items = ItemRepository.new(data_files, self)
     @merchants = MerchantRepository.new(data_files, self)
     @invoices = InvoiceRepository.new(data_files, self)
+
   end
 
   def self.from_csv(data_files)
