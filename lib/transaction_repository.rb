@@ -13,7 +13,7 @@ class TransactionRepository
 
   def initialize(data_files, sales_engine)
     @sales_engine = sales_engine
-    all_transactions = open_csv(data_files)
+    all_transactions = open_csv(data_files[:transactions])
     @all_transactions = all_transactions.map{|row| Transaction.new(row, self)}
   end
 

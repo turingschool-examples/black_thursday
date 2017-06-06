@@ -13,7 +13,7 @@ class CustomerRepository
 
   def initialize(data_files, sales_engine)
     @sales_engine = sales_engine
-    all_customers = open_csv(data_files)
+    all_customers = open_csv(data_files[:customers])
     @all_customer_data = all_customers.map{|row| Customer.new(row, self)}
   end
 
@@ -33,4 +33,7 @@ class CustomerRepository
     @all_customer_data.find_all{|cust|  /#{name}/i =~ cust.last_name}
   end
 
+  def merch(id)
+    @sales_engine.customer_output(id)
+  end
 end

@@ -13,7 +13,7 @@ class InvoiceItemRepository
 
   def initialize(data_files, sales_engine)
     @sales_engine = sales_engine
-    all_invoice_items = open_csv(data_files)
+    all_invoice_items = open_csv(data_files[:invoice_items])
     @all_invoice_item_data = all_invoice_items.map{|row| InvoiceItem.new(row, self)}
   end
 
