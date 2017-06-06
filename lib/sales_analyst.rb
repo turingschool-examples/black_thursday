@@ -28,8 +28,9 @@ class SalesAnalyst
     a = item_count_per_merchant
     b = average_items_per_merchant_standard_deviation
     c = average_items_per_merchant
-    a.each do |k,v|
-      y << k if v > b + c
+    d = @parent.merchants.contents
+    a.find_all do |k,v|
+      y << d[k] if v > b + c
     end
     return y
   end
@@ -63,10 +64,12 @@ class SalesAnalyst
 
   def golden_items
     golden = []
-    a = average_average_price_per_merchant
-    b = average_price_per_merchant_standard_deviation
-    x = @parent.items.contents.each do |k,v|
-      golden << k if v.unit_price.to_f > a + (b + b)
+    a = @parent.items.contents.values.map { |v| v.unit_price}
+    b = a.reduce(:+)/a.count
+    c = average_price_per_merchant_standard_deviation
+    d = @parent.items.contents
+    @parent.items.contents.map do |k,v|
+      golden << d[k] if v.unit_price.to_f > b + (c + c)
     end
     return golden
   end
@@ -90,11 +93,10 @@ class SalesAnalyst
     a = average_invoices_per_merchant
     b = average_invoices_per_merchant_standard_deviation
     c = invoice_count_per_merchant
+    d = @parent.merchants.contents
     final = []
-    c.each do |k,v|
-      if v > a + (b + b)
-        final << k
-      end
+    c.find_all do |k,v|
+      final << d[k] if v > a + (b + b)
     end
     return final
   end
@@ -103,11 +105,10 @@ class SalesAnalyst
     a = average_invoices_per_merchant
     b = average_invoices_per_merchant_standard_deviation
     c = invoice_count_per_merchant
+    d = @parent.merchants.contents
     final = []
     c.each do |k,v|
-      if v < a - (b + b)
-        final << k
-      end
+      final << d[k] if v < a - (b + b)
     end
     return final
   end
@@ -141,18 +142,18 @@ class SalesAnalyst
 private
 
   def average_price_per_merchant_standard_deviation
-    merchants = []
-    avg_prices = []
-    @parent.items.contents.each do |k,v|
-      if !merchants.include?(v.merchant_id)
-        merchants << v.merchant_id
-      end
-    end
-    merchants.each do |x|
-      a = average_item_price_for_merchant(x)
-      avg_prices << a.to_i
-    end
-    standard_deviation(avg_prices)
+    # merchants = []
+    # avg_prices = []
+    # @parent.items.contents.each do |k,v|
+    #   if !merchants.include?(v.merchant_id)
+    #     merchants << v.merchant_id
+    #   end
+    # end
+    # merchants.each do |x|
+    #   a = average_item_price_for_merchant(x)
+    #   avg_prices << a.to_i
+    a = @parent.items.contents.values.map { |v| v.unit_price}
+    standard_deviation(a)
   end
 
   def standard_deviation(arr)
@@ -190,23 +191,20 @@ private
   end
 
   def days_invoice_created_at_count
-    counts = Hash.new(0)
+    # counts = Hash.new(0)
     x = []
     @parent.invoices.contents.each do |k,v|
       x << v.created_at
     end
-    x.each do |id|
-      counts[id] += 1
-    end
-    return counts
+    return x
+    # return counts
   end
 
   def invoices_created_per_date
     counts = Hash.new(0)
     a = days_invoice_created_at_count
-    days = []
-    a.each do |k,v|
-      days << k.strftime("%A")
+    days = a.map do |x|
+      x.strftime("%A")
     end
     days.each do |day|
       counts[day] += 1
