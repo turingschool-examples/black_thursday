@@ -67,12 +67,41 @@ class InvoiceTest < Minitest::Test
 
   def test_customer_returns_instance_of_customer
     se = SalesEngine.from_csv(@files)
-
     invoice = se.invoices.find_by_id(1)
 
     actual = invoice.customer
     expected = se.customers.all[0]
 
     assert_equal expected, actual
+  end
+
+  def test_paid_in_full_returns_correct_boolean
+    se = SalesEngine.from_csv(@files)
+    invoice_1 = se.invoices.find_by_id(12)
+    invoice_2 = se.invoices.find_by_id(11)
+    invoice_3 = se.invoices.find_by_id(8)
+
+    actual_1 = invoice_1.is_paid_in_full?
+    actual_2 = invoice_2.is_paid_in_full?
+    actual_3 = invoice_3.is_paid_in_full?
+
+    assert actual_1
+    refute actual_2
+    refute actual_3
+  end
+
+  def test_invoice_total_returns_amount
+    se = SalesEngine.from_csv(@files)
+    invoice_1 = se.invoices.find_by_id(1)
+    invoice_2 = se.invoices.find_by_id(2)
+    invoice_3 = se.invoices.find_by_id(12)
+
+    actual_1 = invoice_1.total
+    actual_2 = invoice_2.total
+    actual_3 = invoice_3.total
+
+    assert_equal 2106777, actual_1
+    assert_equal 187274, actual_2
+    assert_equal 7436, actual_3
   end
 end

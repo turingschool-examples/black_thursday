@@ -32,5 +32,16 @@ class Invoice
     @parent.customer_id_to_se_for_cust(self.customer_id)
   end
 
+  def is_paid_in_full?
+    transactions = self.transactions
+    return false if transactions.empty?
+    transactions.all? {|transaction| transaction.result == 'success'}
+  end
 
+  def total
+    if self.is_paid_in_full?
+      invoice_items = @parent.invoice_id_to_se_for_invoice_items(self.id)
+      invoice_items.reduce(0) {|acc, item| acc += item.quantity * item.unit_price}
+    end
+  end
 end

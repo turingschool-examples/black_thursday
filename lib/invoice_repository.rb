@@ -47,6 +47,10 @@ class InvoiceRepository
     @parent.merchant_by_merchant_id(merchant_id)
   end
 
+  def invoice_id_to_se_for_invoice_items(invoice_id)
+    @parent.invoice_items_by_invoice_id(invoice_id)
+  end
+
   def invoice_id_to_se(invoice_id)
     @parent.items_by_invoice_id(invoice_id)
   end
@@ -56,7 +60,7 @@ class InvoiceRepository
   end
 
   def customer_id_to_se_for_cust(customer_id)
-    @parent.customer_by_customer_id(customer_id)    
+    @parent.customer_by_customer_id(customer_id)
   end
 
   def inspect
