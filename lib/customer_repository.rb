@@ -7,9 +7,9 @@ class CustomerRepository
   attr_reader :sales_engine,
               :all_customer_data
 
-  # def inspect
-  #   "#<#{self.class} #{@items.size} rows>"
-  # end
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
+  end
 
   def initialize(data_files, sales_engine)
     @sales_engine = sales_engine

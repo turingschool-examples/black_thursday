@@ -36,8 +36,7 @@ class SalesEngine
   end
 
   def customer_output(id)
-    @customers.find_by_id(id)
+    @merchants.find_by_id(id)
   end
 
-  
 end
