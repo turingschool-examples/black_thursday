@@ -7,9 +7,9 @@ class ItemRepository
   attr_reader :all_item_data,
               :sales_engine
 
-  # def inspect
-  #   "#<#{self.class} #{@items.size} rows>"
-  # end
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
+  end
 
   def initialize(data_files, sales_engine)
     @sales_engine = sales_engine
