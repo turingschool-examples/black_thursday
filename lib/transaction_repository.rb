@@ -41,6 +41,13 @@ class TransactionRepository
     end
   end
 
+  # def find_all_by_date(date)
+  #   @all.find_all do |transaction|
+  #     # binding.pry
+  #     transaction.created_at.strftime('%Y%m%d') == date
+  #   end
+  # end
+
   def invoice_id_to_se(invoice_id)
     @parent.invoice_by_invoice_id(invoice_id)
   end

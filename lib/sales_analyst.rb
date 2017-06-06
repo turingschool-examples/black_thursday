@@ -135,6 +135,14 @@ class SalesAnalyst
     percentage.round(2)
   end
 
+  def total_revenue_by_date(date)
+    stripped = date.strftime('%Y%m%d')
+    all_inv = se.invoices_by_date(stripped)
+    invoice_ids = all_inv.map  {|invoice| invoice.id }
+    all_items = invoice_ids.flat_map {|id| se.invoice_items_by_invoice_id(id)}
+    all_items.reduce(0) {|acc, item| acc+= item.quantity * item.unit_price}
+  end
+
   def standard_deviation(values)
     mean = values.reduce(:+)/values.length.to_f
     mean_squared = values.reduce(0) { |acc, num| acc += ((num - mean)**2) }

@@ -1,4 +1,5 @@
 require 'pry'
+require 'time'
 require_relative 'test_helper'
 require_relative '../lib/sales_analyst'
 
@@ -151,5 +152,16 @@ class SalesAnalystTest < MiniTest::Test
     actual = sa.top_days_by_invoice_count
 
     assert_equal ["Wednesday", "Friday", "Saturday"], actual
+  end
+
+  def test_returns_revenue_by_date
+    se = SalesEngine.from_csv(@files3)
+    sa = SalesAnalyst.new(se)
+
+    actual_1 = sa.total_revenue_by_date(Time.parse('2009-02-07'))
+    actual_2 = sa.total_revenue_by_date(Time.parse('2012-02-28'))
+
+    assert_equal 21067.77, actual_1
+    assert_equal 0, actual_2
   end
 end

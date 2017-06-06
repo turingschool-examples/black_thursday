@@ -43,7 +43,7 @@ class SalesEngine
   end
 
   def items_by_invoice_id(invoice_id)
-    invoice_items = @invoice_items.find_all_by_invoice_id(invoice_id)
+    invoice_items = self.invoice_items_by_invoice_id(invoice_id)
     @items.find_items_by_invoice_id(invoice_items)
   end
 
@@ -75,7 +75,17 @@ class SalesEngine
     merchant_ids = invoices.map {|invoice| invoice = invoice.merchant_id}
     uniq_mids = merchant_ids.uniq
     uniq_mids.map {|mid| merchant_by_merchant_id(mid)}
-    # binding.pry
   end
 
+  # def transactions_by_date(date)
+  #   @transactions.find_all_by_date(date)
+  # end
+
+  def invoices_by_date(date)
+    @invoices.find_all_by_date(date)
+  end
+
+  def total_by_invoice_id(invoice_id)
+    @invoices.total_to_se(invoice_id)
+  end
 end

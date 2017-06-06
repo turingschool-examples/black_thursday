@@ -43,6 +43,17 @@ class InvoiceRepository
     end
   end
 
+  def find_all_by_date(date)
+    @all.find_all do |invoice|
+    invoice.created_at.strftime('%Y%m%d') == date
+    end
+  end
+
+  def total_to_se(invoice_id)
+    invoice = find_by_id(invoice_id)
+    invoice.total
+  end
+
   def mid_to_se(merchant_id)
     @parent.merchant_by_merchant_id(merchant_id)
   end
