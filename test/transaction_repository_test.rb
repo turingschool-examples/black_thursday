@@ -53,11 +53,11 @@ class TransactionRepositoryTest < Minitest::Test
   def test_return_find_all_by_credit_card_number
     tr = TransactionRepository.new("./test/data/transactions_fixture.csv", self)
     expected = [3, 33]
-    x = tr.find_all_by_credit_card_number("4271805778010747")
+    x = tr.find_all_by_credit_card_number(4271805778010747)
     actual = x.map { |v| v.id }
 
     assert_equal expected, actual
-    assert_equal [], tr.find_all_by_credit_card_number("4444444444444444")
+    assert_equal [], tr.find_all_by_credit_card_number(4444444444444444)
   end
 
   def test_return_find_all_by_result_success

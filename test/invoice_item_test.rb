@@ -38,7 +38,7 @@ class InvoiceItemTest < Minitest::Test
   def test_return_unit_price
     iir = InvoiceItemRepository.new("./test/data/invoice_items_fixture.csv", self)
 
-    assert_equal 4264, iir.contents[14].unit_price
+    assert_equal 42.64, iir.contents[14].unit_price.to_f
   end
 
   def test_return_created_at
@@ -56,6 +56,6 @@ class InvoiceItemTest < Minitest::Test
   def test_unit_price_to_dollars
     iir = InvoiceItemRepository.new("./test/data/invoice_items_fixture.csv", self)
 
-    assert_equal 70783, iir.contents[41].unit_price_to_dollars(41)
+    assert_equal 707.83, iir.contents[41].unit_price_to_dollars(41)
   end
 end

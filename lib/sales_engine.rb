@@ -24,11 +24,11 @@ class SalesEngine
 
     @items         = ItemRepository.new(item_path, self)
     @merchants     = MerchantRepository.new(merchant_path,self)
-    @salesanalyst  = SalesAnalyst.new(self)
     @invoices      = InvoiceRepository.new(invoice_path,self)
     @invoice_items = InvoiceItemRepository.new(invoice_items_path,self)
     @transactions  = TransactionRepository.new(transaction_path, self)
     @customers     = CustomerRepository.new(customer_path, self)
+    @salesanalyst  = SalesAnalyst.new(self)
   end
 
   def self.from_csv(file = {})

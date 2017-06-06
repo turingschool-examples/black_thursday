@@ -42,7 +42,7 @@ class ItemRepositoryTest < Minitest::Test
     ir = ItemRepository.new(sample_path, nil)
     a = ir.all
 
-    assert_equal "Glitter scrabble frames", a[0]["263395617"].name
+    assert_equal "Glitter scrabble frames", a[0].name
   end
 
   def test_find_all_with_description
@@ -73,6 +73,6 @@ class ItemRepositoryTest < Minitest::Test
     ir.load_library
     a = ir.find_all_by_merchant_id(12334185)
 
-    assert_equal "Disney scrabble frames", a[0].name
+    assert_equal "Glitter scrabble frames", a[0].name
   end
 end

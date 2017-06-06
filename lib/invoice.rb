@@ -26,6 +26,7 @@ class Invoice
 
   def merchant
     @parent.parent.merchants.find_by_id(merchant_id)
+    binding.pry
   end
 
   def items

@@ -1,9 +1,13 @@
 require 'pry'
+require_relative 'revenue'
 
 class SalesAnalyst
+  attr_reader :parent,
+              :revenue_by_date
 
   def initialize(parent)
     @parent = parent
+    @revenue_by_date = Revenue.new(self)
   end
 
   def average_items_per_merchant
@@ -139,19 +143,17 @@ class SalesAnalyst
     percentage.round(2)
   end
 
+  def total_revenue_by_date(date)
+    @revenue_by_date.revenue_by_date[date].to_f
+  end
+
+  def top_revenue_earners(x)
+    
+  end
+
 private
 
   def average_price_per_merchant_standard_deviation
-    # merchants = []
-    # avg_prices = []
-    # @parent.items.contents.each do |k,v|
-    #   if !merchants.include?(v.merchant_id)
-    #     merchants << v.merchant_id
-    #   end
-    # end
-    # merchants.each do |x|
-    #   a = average_item_price_for_merchant(x)
-    #   avg_prices << a.to_i
     a = @parent.items.contents.values.map { |v| v.unit_price}
     standard_deviation(a)
   end
@@ -191,13 +193,11 @@ private
   end
 
   def days_invoice_created_at_count
-    # counts = Hash.new(0)
     x = []
     @parent.invoices.contents.each do |k,v|
       x << v.created_at
     end
     return x
-    # return counts
   end
 
   def invoices_created_per_date
