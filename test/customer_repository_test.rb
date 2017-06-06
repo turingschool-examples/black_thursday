@@ -36,7 +36,7 @@ class CustomerRepositoryTest < Minitest::Test
     expected = [ 47, 511 ]
     x = cr.find_all_by_first_name("Wayne")
     actual = x.map { |i| i.id }
-binding.pry
+
     assert_equal expected, actual
     assert_equal [], cr.find_all_by_first_name("Ted")
   end

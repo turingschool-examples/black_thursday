@@ -29,7 +29,13 @@ class Invoice
   end
 
   def items
-    @parent.parent.items.find_all_by_merchant_id(merchant_id)
+    a = @parent.parent.invoice_items.find_all_by_invoice_id(id)
+    b = a.map do |x|
+      x.item_id
+    end
+    z = b.map do |x|
+      @parent.parent.items.find_by_id(x)
+    end
   end
 
   def transactions
@@ -45,20 +51,16 @@ class Invoice
     b = a.map do |x|
       x.result
     end
-    b.include?("failed") ? false : true
+    b.include?("failed") || b == [] ? false : true
   end
 
   def total
     a = @parent.parent.invoice_items.find_all_by_invoice_id(id)
     b = transactions
     c = a.map do |x|
-      b.map do |y|
-        if y.result == "success"
-          x.unit_price
-        end
-      end
+      x.unit_price * x.quantity
     end
-    c.reduce(:+).compact[0]
+    d = c.reduce(:+)
   end
 
 end
