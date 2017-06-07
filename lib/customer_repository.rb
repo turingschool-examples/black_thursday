@@ -33,11 +33,15 @@ class CustomerRepository
   end
 
   def find_all_by_first_name(name)
-    contents.values.find_all { |v| v.first_name.downcase.include?(name.downcase) }
+    contents.values.find_all do |v|
+      v.first_name.downcase.include?(name.downcase)
+    end
   end
 
   def find_all_by_last_name(name)
-    contents.values.find_all { |v| v.last_name.downcase.include?(name.downcase) }
+    contents.values.find_all do |v|
+      v.last_name.downcase.include?(name.downcase)
+    end
   end
 
   def inspect

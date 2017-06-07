@@ -3,11 +3,11 @@ require_relative 'revenue'
 
 class SalesAnalyst
   attr_reader :parent,
-              :revenue_by_date
+              :revenue
 
   def initialize(parent)
     @parent = parent
-    @revenue_by_date = Revenue.new(self)
+    @revenue = Revenue.new(self)
   end
 
   def average_items_per_merchant
@@ -144,11 +144,17 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    @revenue_by_date.revenue_by_date[date].to_f
+    @revenue.revenue_by_date[date].to_f
   end
 
   def top_revenue_earners(x)
-    
+    a = @revenue.merchant_revenue
+    if x.class == Fixnum || x.class == Integer
+      b = a.shift(x)
+    else
+      b = a.shift(20)
+    end
+    return b
   end
 
 private
@@ -240,7 +246,6 @@ private
       counts[id] += 1
     end
     return counts
-
   end
 
 end

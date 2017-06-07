@@ -15,7 +15,8 @@ class ItemRepository
 
   def load_library
     x = {}
-    CSV.foreach(file_path, headers: true, :header_converters => :symbol) do |row|
+    CSV.foreach(file_path, headers: true,
+                :header_converters => :symbol) do |row|
 
       h = Hash[row]
       d = h[:id]
