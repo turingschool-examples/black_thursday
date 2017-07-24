@@ -5,14 +5,18 @@ require './lib/merchant_repository'
 
 class SalesEngine
 
-  def from_csv(path)
-    contents = CSV.open path, headers: true, header_converters: :symbol
-    contents.each do |data|
-      # item.add_data(data)
+  def from_csv(input)
+    input.each_pair do |key, value|
+      load_csv(value, key)
     end
   end
 
-
+  def load_csv(path, repo)
+    contents = CSV.open path, headers: true, header_converters: :symbol
+    contents.each do |data|
+    repo.add_data(data)
+    end
+  end
 
 
 
