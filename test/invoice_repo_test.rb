@@ -39,4 +39,12 @@ class InvoiceRepoTest < Minitest::Test
   def test_it_can_find_all_by_merchant_id
     assert_equal 2, ir.find_all_by_merchant_id(12335955).count
   end
+
+  def test_returns_empty_array_if_no_valid_merch_id
+    assert_equal [], ir.find_all_by_merchant_id(000000000000000)
+  end
+
+  def test_it_can_find_all_by_status_pending
+    assert_equal 29, ir.find_all_by_status("pending").count
+  end
 end
