@@ -3,6 +3,12 @@ require './lib/merchant'
 
 class MerchantRepository
 
+  attr_reader :merchants
+
+  def initialize
+    @merchants = {}
+  end
+
   def all
     # all - returns an array of all known Merchant instances
   end
@@ -20,7 +26,8 @@ class MerchantRepository
   end
 
   def add_data(data)
-
+    # @merchants << Merchant.new(data)
+    @merchants.merge(data)
   end
 
 
