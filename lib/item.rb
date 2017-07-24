@@ -1,7 +1,15 @@
 require 'csv'
 
 class Item
+  attr_reader :name, :desciption, :unit_price, :created_at, :updated_at
 
+  def initialize(item_hash)
+    @name = item_hash[:name]
+    @description = item_hash[:description]
+    @unit_price = item_hash[:unit_price]
+    @created_at = item_hash[:created_at]
+    @updated_at = item_hash[:updated_at]
+  end
   # The Item instance offers the following methods:
   #
   # id - returns the integer id of the item
