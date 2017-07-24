@@ -27,4 +27,8 @@ class InvoiceRepoTest < Minitest::Test
   def test_returns_nil_if_no_id_present
     assert_nil ir.find_by_id(85769)
   end
+
+  def test_it_can_find_all_customers
+    assert_equal 8, ir.find_all_by_customer_id(5).count
+  end
 end

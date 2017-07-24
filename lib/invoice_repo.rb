@@ -11,8 +11,8 @@ class InvoiceRepo
 
   def open_file(filename)
     CSV.foreach filename,  headers: true, header_converters: :symbol do |row|
-      stuff = row.to_h
-      invoices[stuff[:id].to_i] = Invoice.new(stuff, self)
+      data = row.to_h
+      invoices[data[:id].to_i] = Invoice.new(data, self)
     end
   end
 
@@ -23,5 +23,11 @@ class InvoiceRepo
   def find_by_id(id)
     invoices[id]
   end
-  
+
+  def find_all_by_customer_id(cust_id)
+    all.find_all do |invoice|
+      invoice.customer_id == cust_id
+    end
+  end
+
 end

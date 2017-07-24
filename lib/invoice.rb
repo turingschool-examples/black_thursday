@@ -5,8 +5,8 @@ class Invoice
 
   def initialize(params, repo=nil)
     @id          = params[:id].to_i
-    @customer_id = params[:customer_id]
-    @merchant_id = params[:merchant_id]
+    @customer_id = params[:customer_id].to_i
+    @merchant_id = params[:merchant_id].to_i
     @status      = params[:status]
     @created_at  = params[:created_at]
     @updated_at  = params[:updated_at]
