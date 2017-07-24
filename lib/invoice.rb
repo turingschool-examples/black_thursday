@@ -13,5 +13,4 @@ class Invoice
     @updated_at  = params[:updated_at]
     @repo        = repo
   end
-  
 end
