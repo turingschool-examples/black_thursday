@@ -19,15 +19,27 @@ class SalesEngineTest < Minitest::Test
     assert_equal "./data/merchants.csv", se.files[:merchants]
   end
 
+  def test_load_item_from_item_csv
+    se = SalesEngine.new
+    se.from_csv({
+    :items     => "./data/items.csv",
+    :merchants => "./data/merchants.csv",
+    })
+
+    assert_instance_of ItemRepository, se.items
+  end
+
   def test_load_merchants_from_merchant_csv
-    skip
-    se = SalesEngine.new.from_csv({
+    se = SalesEngine.new
+    se.from_csv({
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
     })
 
     assert_instance_of MerchantRepository, se.merchants
   end
+
+
 
 
     #
