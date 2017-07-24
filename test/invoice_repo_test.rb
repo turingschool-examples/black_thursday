@@ -23,4 +23,8 @@ class InvoiceRepoTest < Minitest::Test
   def test_it_can_find_by_id
     assert_instance_of Invoice, ir.find_by_id(5)
   end
+
+  def test_returns_nil_if_no_id_present
+    assert_nil ir.find_by_id(85769)
+  end
 end
