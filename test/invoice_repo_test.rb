@@ -16,7 +16,11 @@ class InvoiceRepoTest < Minitest::Test
     assert_equal 100, ir.all.count
   end
 
+  def test_all_is_array_of_invoices
+    assert_instance_of Invoice, ir.all[0]
+  end
+
   def test_it_can_find_by_id
-    assert_equal Invoice, ir.find_by_id.class
+    assert_instance_of Invoice, ir.find_by_id(5)
   end
 end
