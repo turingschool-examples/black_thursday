@@ -55,4 +55,9 @@ class InvoiceRepoTest < Minitest::Test
   def test_it_can_find_returned_statuses
     assert_equal 8, ir.find_all_by_status("returned").count
   end
+
+  def test_returns_empty_array_if_no_valid_statuses
+    assert_equal [], ir.find_all_by_status("never gonna give you up")
+
+  end
 end
