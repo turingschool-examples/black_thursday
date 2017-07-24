@@ -1,7 +1,7 @@
 require 'time'
 class Invoice
   attr_reader :id, :customer_id, :merchant_id,
-              :status, :created_at, :updated_at
+              :status, :created_at, :updated_at, :repo
 
   def initialize(params, repo=nil)
     @id          = params[:id]
@@ -10,5 +10,6 @@ class Invoice
     @status      = params[:status]
     @created_at  = params[:created_at]
     @updated_at  = params[:updated_at]
+    @repo        = repo
   end
 end
