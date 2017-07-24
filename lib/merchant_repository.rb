@@ -6,7 +6,7 @@ class MerchantRepository
   attr_reader :merchants
 
   def initialize
-    @merchants = {}
+    @merchants = Hash.new
   end
 
   def all
@@ -27,8 +27,13 @@ class MerchantRepository
 
   def add_data(data)
     # @merchants << Merchant.new(data)
-    @merchants.merge(data)
+    # @merchant.to_hash
+    binding.pry
+    @merchants.merge(Merchant.new(data).convert_to_hash)
+    binding.pry
   end
 
 
 end
+# merchant = MerchantRepository.new
+# binding.pry

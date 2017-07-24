@@ -8,8 +8,9 @@ class SalesEngine
   attr_reader :merchants
 
   def initialize
+    @array = []
     @items = ItemRepository.new
-    @merchants = MerchantRepository.new
+    @mr = MerchantRepository.new
   end
 
   def from_csv(input)
@@ -19,10 +20,14 @@ class SalesEngine
   end
 
   def open_csv(path)
-    contents = CSV.open path, headers: true, header_converters: :symbol
-    contents.each do |data|
-    @merchants.add_data(data)
-        # puts data
+    row = CSV.open path, headers: true, header_converters: :symbol
+    row.each do |data|
+    # # @merchants.add_data(data)
+    #   # binding.pry
+    #   array << data.to_h
+    # binding.pry
+    @mr.add_data(data.to_hash)
+        puts data.inspect
         # puts "\n\n END DATA \n\n"
     end
   end
