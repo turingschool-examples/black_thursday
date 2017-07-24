@@ -2,7 +2,7 @@ require 'simplecov'
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/item'
-require 'pry'
+require 'bigdecimal'
 
 class ItemTest < Minitest::Test
 
@@ -38,7 +38,6 @@ class ItemTest < Minitest::Test
     assert_equal "You can use it to write things", item.description
   end
 
-
   def test_it_has_a_unit_price
     item = Item.new({
                     :name        => "Pencil",
@@ -46,9 +45,8 @@ class ItemTest < Minitest::Test
                     :unit_price  => BigDecimal.new(10.99,4),
                     :created_at  => Time.now,
                     :updated_at  => Time.now, })
-    assert_equal
+    assert_instance_of BigDecimal, item.unit_price
   end
-
 
   def test_it_has_a_created_time
     item = Item.new({
@@ -57,7 +55,7 @@ class ItemTest < Minitest::Test
                     :unit_price  => BigDecimal.new(10.99,4),
                     :created_at  => Time.now,
                     :updated_at  => Time.now, })
-
+    assert_instance_of Time, item.created_at
   end
 
   def test_it_has_an_updated_time
@@ -67,7 +65,7 @@ class ItemTest < Minitest::Test
                     :unit_price  => BigDecimal.new(10.99,4),
                     :created_at  => Time.now,
                     :updated_at  => Time.now, })
-
+    assert_instance_of Time, item.updated_at
   end
 
 
