@@ -31,4 +31,8 @@ class InvoiceRepoTest < Minitest::Test
   def test_it_can_find_all_customers
     assert_equal 8, ir.find_all_by_customer_id(5).count
   end
+
+  def test_returns_empty_array_if_no_valid_cust_id
+    assert_equal [], ir.find_all_by_customer_id(6930457)
+  end
 end
