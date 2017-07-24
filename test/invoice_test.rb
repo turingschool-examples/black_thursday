@@ -29,4 +29,16 @@ class InvoiceTest < Minitest::Test
   def test_it_can_return_merchant_id
     assert_equal 8, i.merchant_id
   end
+
+  def test_it_can_return_status
+    assert_equal "pending", i.status
+  end
+
+  def test_it_knows_when_created
+    assert_instance_of Time, i.created_at
+  end
+
+  def test_it_knows_when_updated
+    assert_instance_of Time, i.updated_at
+  end
 end
