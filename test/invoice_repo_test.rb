@@ -47,4 +47,12 @@ class InvoiceRepoTest < Minitest::Test
   def test_it_can_find_all_by_status_pending
     assert_equal 29, ir.find_all_by_status("pending").count
   end
+
+  def test_it_can_find_shipped_statuses
+    assert_equal 63, ir.find_all_by_status("shipped").count
+  end
+
+  def test_it_can_find_returned_statuses
+    assert_equal 8, ir.find_all_by_status("returned").count
+  end
 end
