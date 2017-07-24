@@ -25,4 +25,8 @@ class InvoiceTest < Minitest::Test
   def test_it_can_see_
     assert_equal 7, i.customer_id
   end
+
+  def test_it_can_return_merchant_id
+    assert_equal 8, i.merchant_id
+  end
 end
