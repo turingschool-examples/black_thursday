@@ -1,11 +1,13 @@
 require 'csv'
 
 class Merchant
-  # 
-  # The merchant is one of the critical concepts in our data hierarchy.
-  #
-  # id - returns the integer id of the merchant
-  # name - returns the name of the merchant
+  attr_reader :id, :name
+
+  def initialize(merch_hash)
+    @id = merch_hash[:id]
+    @name = merch_hash[:name]
+  end
+
 
 
 end
