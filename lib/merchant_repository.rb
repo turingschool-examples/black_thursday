@@ -1,1 +1,4 @@
-# holds instances of merchant class
+require_relative 'merchant'
+
+class MerchantRepository
+end
