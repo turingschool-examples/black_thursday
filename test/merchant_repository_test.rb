@@ -1,4 +1,5 @@
 require './lib/merchant_repository'
+require './lib/sales_engine'
 require 'csv'
 require 'minitest/autorun'
 require 'minitest/emoji'
@@ -6,7 +7,11 @@ require 'minitest/emoji'
 class MerchantRepositoryTest < Minitest::Test
 
   def setup
-    @mr = MerchantRepository.new
+    @se = SalesEngine.new({
+          :items     => "./data/items.csv",
+          :merchants => "./data/merchants.csv",
+          })
+    @mr = @se.merchant
   end
 
   def test_it_exists
@@ -14,6 +19,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_return_array_of_known_merchant_instances
-    assert_equal [], @mr.all
+    assert_equal 475, @mr.all.count
   end
+
 end

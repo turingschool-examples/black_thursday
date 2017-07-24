@@ -13,7 +13,7 @@ class MerchantTest < Minitest::Test
     assert_instance_of Merchant, @merch
   end
 
-  def test_it_had_an_id
+  def test_it_has_an_id
     assert_equal 5, @merch.id
   end
 

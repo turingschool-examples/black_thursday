@@ -8,16 +8,12 @@ class SalesEngine
               :merchant
 
   def initialize(csv_data)
-    @item = ItemRepository.new()
-    @merchant = MerchantRepository.new()
+    @item = ItemRepository.new(csv_data[:items], self)
+    @merchant = MerchantRepository.new(csv_data[:merchants], self)
   end
 
   def self.from_csv(csv_data)
     SalesEngine.new(csv_data)
-  end
-
-  def method_name
-
   end
 
 end
