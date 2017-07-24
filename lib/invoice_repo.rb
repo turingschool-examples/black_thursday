@@ -25,9 +25,12 @@ class InvoiceRepo
   end
 
   def find_all_by_customer_id(cust_id)
-    all.find_all do |invoice|
-      invoice.customer_id == cust_id
-    end
+    all.find_all {|invoice| invoice.customer_id == cust_id}
   end
+
+  def find_all_by_merchant_id(merch_id)
+    all.find_all {|invoice| invoice.merchant_id == merch_id}
+  end
+
 
 end
