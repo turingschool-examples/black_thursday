@@ -19,4 +19,12 @@ class MerchantRepository
   def all
     repository.values
   end
+
+  def find_by_id(id)
+    if repository.keys.include?(id)
+      return repository[id]
+    else
+      return nil
+    end
+  end
 end
