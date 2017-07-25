@@ -5,7 +5,7 @@ class InvoiceTest < Minitest::Test
   attr_reader :i
 
   def setup
-    @i = i = Invoice.new({id:           6,
+    @i = Invoice.new({id:           6,
                           customer_id:  7,
                           merchant_id:  8,
                           status:       "pending",
