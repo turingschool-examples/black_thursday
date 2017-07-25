@@ -20,8 +20,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_can_find_by_id
-    skip
-    merchant_repo = MerchantRepository.new
+    merchant_repo = MerchantRepository.new("./data/merchants.csv", "salesengine")
 
     assert_nil merchant_repo.find_by_id("123")
     assert_instance_of Merchant, merchant_repo.find_by_id(12334105)

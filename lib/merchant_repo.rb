@@ -6,10 +6,10 @@ class MerchantRepository
   # The MerchantRepository is responsible for holding and searching our Merchant instances.
   # sales engine will be passed through each repo
 
-  attr_reader :salesengine, :contents
+  attr_reader :engine, :contents
 
-  def initialize(csvfile, salesengine)
-    @salesengine = salesengine
+  def initialize(csvfile, engine)
+    @salesengine = engine
     @contents = load_merchants(csvfile)
   end
 
@@ -29,7 +29,7 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-
+    @contents[id.to_s]
   # returns either nil or an instance of Merchant with a matching ID
   end
 
