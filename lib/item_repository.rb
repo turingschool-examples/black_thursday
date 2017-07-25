@@ -16,7 +16,8 @@ class ItemRepository
       unit_price = row[:unit_price]
       created_at = row[:created_at]
       updated_at = row[:updated_at]
-      item = Item.new(id, name, description, unit_price, created_at, updated_at)
+      merchant_id = row[:merchant_id]
+      item = Item.new(id, name, description, unit_price, created_at, updated_at, merchant_id)
       @items << item
     end
   end
@@ -53,6 +54,12 @@ class ItemRepository
     prices_to_search = range.to_a
     @items.find_all do |item|
       prices_to_search.include?(item.unit_price)
+    end
+  end
+
+  def find_all_by_merchant_id(id)
+    @items.find_all do |item|
+      item.merchant_id == id
     end
   end
 

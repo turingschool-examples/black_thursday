@@ -34,9 +34,19 @@ class SalesEngineTest < Minitest::Test
 
     mr = se.merchants
     merchant = mr.all
-    
 
     assert_equal 475, merchant.length
     assert_equal Array, merchant.class
+  end
+
+  def test_item_repository_can_find_all_items
+    se = SalesEngine.from_csv({:items => './data/items.csv',
+                               :merchants => './data/merchants.csv'})
+
+    ir = se.items
+    item = ir.all
+
+    assert_equal 1367, item.length
+    assert_equal Array, item.class
   end
 end
