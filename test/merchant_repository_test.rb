@@ -38,4 +38,9 @@ class MerchantRepositoryTest < Minitest::Test
     mr = MerchantRepository.new("./data/mini_merchants.csv")
     assert mr.find_by_name("MandyBlackShop")
   end
+
+  def test_merchant_repo_can_supply_names_if_given_name_fragment
+    mr = MerchantRepository.new("./data/mini_merchants.csv")
+    assert_instance_of Array, mr.find_all_by_name("Man")
+  end
 end

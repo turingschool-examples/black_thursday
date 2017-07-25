@@ -34,4 +34,14 @@ class MerchantRepository
       end
     end
   end
+
+  def find_all_by_name(name_fragment)
+    names = []
+    merchants = repository.values
+    merchants.each do |merchant|
+      if merchant.name.include?(name_fragment)
+        names << merchant
+      end
+    end
+  end
 end
