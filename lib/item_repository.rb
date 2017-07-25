@@ -20,5 +20,27 @@ class ItemRepository
       @items << item
     end
   end
+
+  def all
+    @items
+  end
+
+  def find_by_id(item_id)
+    @items.find do |item|
+      item.id == item_id
+    end
+  end
+
+  def find_by_name(item_name)
+    @items.find do |item|
+      item.name.downcase == item_name.downcase
+    end
+  end
+
+  def find_all_with_description(fragment)
+    @items.find_all do |substr|
+      substr.description.downcase.include?(fragment.downcase)
+    end
+  end
 end
 
