@@ -1,3 +1,5 @@
+require_relative 'customer'
+
 class CustomerRepository
   attr_reader :customers, :engine
 
@@ -10,16 +12,16 @@ class CustomerRepository
     customers
   end
 
-  def find_by_id
-    # returns either nil or an instance of Customer with a matching ID
+  def find_by_id(id)
+    customers.detect { |customer| customer.id == id }
   end
 
-  def find_all_by_first_name
-    # returns either [] or one or more matches which have a first name matching the substring fragment supplied
+  def find_all_by_first_name(first_name)
+    customers.select { |customer| customer.first_name == first_name } || []
   end
 
-  def find_all_by_last_name
-    # returns either [] or one or more matches which have a last name matching the substring fragment supplied
+  def find_all_by_last_name(last_name)
+    customers.select { |customer| customer.last_name == last_name } || []
   end
 
 end

@@ -1,11 +1,13 @@
 class MerchantRepository
-  # The MerchantRepository is responsible for holding and searching our Merchant instances.
-  # def initialize(csv_data, self)
-  #   @salesengine = self
-  # end
+  attr_reader :merchants
+
+  def initialize(csv_data, engine)
+    @engine = engine
+    @merchants = csv_data
+  end
 
   def all
-  # returns an array of all known Merchant instances
+    merchants
   end
 
   def find_by_id

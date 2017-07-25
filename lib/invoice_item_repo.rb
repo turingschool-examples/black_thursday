@@ -21,6 +21,4 @@ class InvoiceItemRepository
     invoice_items.select { |invoice_item| invoice_item.invoice_id == invoice_id } || []
   end
 
-
-
 end

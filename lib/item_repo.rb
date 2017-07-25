@@ -1,14 +1,17 @@
 require_relative 'item'
 require 'csv'
+require 'pry'
 
 class ItemRepository
-  attr_reader :items, :engine, :grouped_by_merchant_id
+  attr_reader :items, :engine
+  # :grouped_by_merchant_id
 
   def initialize(csv_data, engine)
     @engine                 = engine
     @items                  = csv_data
-    @grouped_by_merchant_id = items.group_by(:merchant_id)
+    # @grouped_by_merchant_id = @items.group_by(:merchant_id)
   end
+
 
   def all
     items

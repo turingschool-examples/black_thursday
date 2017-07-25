@@ -26,5 +26,4 @@ class InvoiceRepository
     invoices.select { |invoice| invoice.status == status } || []
   end
 
-
 end
