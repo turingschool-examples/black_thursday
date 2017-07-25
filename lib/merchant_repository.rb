@@ -16,12 +16,18 @@ class MerchantRepository
   def load_repo
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
       binding.pry
-      merchant_hash = Hash[row]
-      merchant_identification = merchant_hash[:id]
-      merchant_name = merchant_hash[:name]
-      merchant = Merchant.new(merchant_hash, self)
-      id_repo[merchant_identification] = merchant
-      name_repo[merchant_name] = merchant
+      merchant_info = Hash[row]
+      merchant_identification = merchant_info[:id]
+      merchant_name = merchant_info[:name]
+      merchant = Merchant.new(merchant_info, self)
+      @id_repo[merchant_identification.to_i] = merchant
+      @name_repo[merchant_name] = merchant
+    end
+  end
+
+  def all
+    id_repo.map do |id, merchant_info|
+      merchant_hash
     end
   end
 
