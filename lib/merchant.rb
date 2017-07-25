@@ -2,9 +2,9 @@ class Merchant
   attr_reader :id, :name, :created_at, :updated_at, :repo
 
   def initialize(repo, merch_hash)
-    @repo = repo
-    @id = merch_hash[:id].to_i
-    @name = merch_hash[:name].to_s
+    @repo       = repo
+    @id         = merch_hash[:id].to_i
+    @name       = merch_hash[:name].to_s
     @created_at = Time.parse(merch_hash[:created_at])
     @updated_at = Time.parse(merch_hash[:updated_at])
   end
