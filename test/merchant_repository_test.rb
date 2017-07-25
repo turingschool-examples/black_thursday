@@ -80,4 +80,6 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 4, list_two.count
   end
 
+  def
+
 end

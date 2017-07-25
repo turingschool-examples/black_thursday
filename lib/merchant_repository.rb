@@ -14,10 +14,6 @@ class MerchantRepository
     @merchants
   end
 
-  def items
-    items = @sales_engine.items.find_by_id(self.id)
-    items
-  end
 
   def find_by_id(id)
     id.to_s
@@ -52,7 +48,7 @@ class MerchantRepository
   end
 
   def add_data(data)
-    @merchants << Merchant.new(data.to_hash)
+    @merchants << Merchant.new(data.to_hash, @sales_engine)
   end
 
 

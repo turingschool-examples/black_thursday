@@ -8,7 +8,7 @@ require 'pry'
 class SalesEngineTest < Minitest::Test
 
   def setup
-    @se = se = SalesEngine.from_csv({
+    @se = SalesEngine.from_csv({
                               :items     => "./data/items.csv",
                               :merchants => "./data/merchants.csv",
                                                                   })
@@ -33,7 +33,7 @@ class SalesEngineTest < Minitest::Test
     found_2    = @se.merchants.find_by_id("12335252")
     found_list_one = @se.merchants.find_all_by_name("liv")
     found_list_two = @se.merchants.find_all_by_name("ba")
-    
+
     assert_equal "MyouBijou"  , found_1.name
     assert_equal "12334455"   , found_1.id
     assert_equal "habichschon", found_2.name
