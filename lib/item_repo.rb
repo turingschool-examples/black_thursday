@@ -2,6 +2,12 @@ require 'csv'
 
 class ItemRepository
 
+  attr_reader :item_repo
+
+  def initialize(item_repo)
+    @item_repo = item_repo
+  end
+
   # The ItemRepository is responsible for holding and searching our Item instances. This object represents one line of data from the file items.csv.
 
   def all
