@@ -6,6 +6,7 @@ require 'pry'
 
 
 class MerchantTest < Minitest::Test
+# REFACTOR TO USE DUMMY DATA
 
   def test_it_exists
     mr = MerchantRepository.new("./data/merchants.csv")

@@ -1,3 +1,6 @@
+require 'simplecov'
+SimpleCov.start
+
 require './lib/item_repository'
 require './lib/merchant_repository'
 
