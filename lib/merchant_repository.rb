@@ -15,7 +15,6 @@ class MerchantRepository
 
   def load_repo
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
-      binding.pry
       merchant_info = Hash[row]
       merchant_identification = merchant_info[:id]
       merchant_name = merchant_info[:name]
