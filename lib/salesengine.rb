@@ -1,6 +1,7 @@
 require './lib/merchant_repo'
 require './lib/item_repo'
 require './lib/invoice_repo'
+require './lib/invoice_item_repo'
 require 'csv'
 
 class SalesEngine
