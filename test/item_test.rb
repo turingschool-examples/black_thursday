@@ -51,4 +51,12 @@ class ItemTest < Minitest::Test
     assert_equal 123, item.merchant_id
   end
 
+  def test_it_can_convert_price
+    item = Item.new(1, "Bill", "An item", 1200, "Yesterday", "Today", 123)
+    item_2 = Item.new(2, "Bill", "An item", 902, "Yesterday", "Today", 123)
+
+    assert_equal 12.00, item.unit_price_to_dollars
+    assert_equal 9.02, item_2.unit_price_to_dollars
+  end
+
 end

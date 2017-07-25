@@ -17,4 +17,8 @@ class Item
     @merchant_id = merchant_id
   end
 
+  def unit_price_to_dollars
+    (@unit_price / 100.00)
+  end
+
 end
