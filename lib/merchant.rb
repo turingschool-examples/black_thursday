@@ -9,6 +9,14 @@ class Merchant
     @created_at = Time.now
     @updated_at = Time.now
   end
+
+  def items
+    merch_repo.find_items_by_merchant_id(id)
+  end
+
+  def invoices
+    merch_repo.find_invoice_by_merchant_id(id)
+  end
   #
   # @merch_repo = merch_repo
 
