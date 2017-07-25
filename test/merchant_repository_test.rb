@@ -15,16 +15,10 @@ class MerchantTest < Minitest::Test
 
   def test_all_returns_all_merchants_in_the_correct_format
     mr = MerchantRepository.new("./data/merchants.csv")
-    merchant = Merchant.new({
-      :id => 12334105,
-      :name => 'Shopin1901',
-      :created_at=>"2010-12-10",
-      :updated_at=>"2011-12-04"
-      })
-    mr.all
+
     assert_instance_of Merchant, mr.merchants[0]
-    assert_equal merchant.name, mr.merchants[0].name
-    assert_equal merchant.id, mr.merchants[0].id
+    assert_equal 'Shopin1901', mr.merchants[0].name
+    assert_equal 12334105, mr.merchants[0].id
     assert_equal 475, mr.merchants.count
   end
 

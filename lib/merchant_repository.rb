@@ -6,7 +6,6 @@ class MerchantRepository
   def initialize(filepath)
     @merchants = []
     load_csv(filepath)
-    #can we pass this directly to load_csv?
   end
 
   def load_csv(filepath)
@@ -19,8 +18,7 @@ class MerchantRepository
     @merchants
   end
 
-  def find_by_id(merchant_id)
-    found_merchant = ''
+  def find_by_id(merchant_id, found_merchant = '')
     @merchants.each do |merchant|
       if merchant.id == merchant_id
         found_merchant = merchant
@@ -32,8 +30,7 @@ class MerchantRepository
     found_merchant
   end
 
-  def find_by_name(merchant_name)
-    found_merchant = ''
+  def find_by_name(merchant_name, found_merchant = '')
     @merchants.each do |merchant|
       if merchant.name.upcase == merchant_name.upcase
         found_merchant = merchant
@@ -45,8 +42,7 @@ class MerchantRepository
     found_merchant
   end
 
-  def find_all_by_name(name_fragment)
-    found_merchants = []
+  def find_all_by_name(name_fragment, found_merchants = [])
     @merchants.each do |merchant|
       if merchant.name.upcase.include?(name_fragment.upcase)
         found_merchants << merchant
