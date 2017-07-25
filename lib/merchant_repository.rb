@@ -3,17 +3,20 @@ require 'csv'
 require 'pry'
 
 class MerchantRepository
+  attr_reader :repository
   def initialize(data)
+    @repository = {}
     load_csv_file(data)
   end
 
   def load_csv_file(data)
-    contents = CSV.open data, headers: true, header_converters: :symbol
-    contents.each do |row|
-      id = row[:id]
-      name = row[:name]
-      created_at = row[:created_at]
-      updated_at = row[:updated_at]
+    CSV.foreach(data, :headers => true, :header_converters => :symbol, :converters => :all) do |row|
+      data = row.to_h
+      repository[data[:id].to_i] = Merchant.new(data)
     end
+  end
+
+  def all
+    repository.values
   end
 end
