@@ -38,9 +38,23 @@ class ItemRepository
   end
 
   def find_all_with_description(fragment)
-    @items.find_all do |substr|
-      substr.description.downcase.include?(fragment.downcase)
+    @items.find_all do |item|
+      item.description.downcase.include?(fragment.downcase)
     end
   end
+
+  def find_all_by_price(price)
+    @items.find_all do |item|
+      item.unit_price == price
+    end
+  end
+
+  def find_all_by_price_in_range(range)
+    prices_to_search = range.to_a
+    @items.find_all do |item|
+      prices_to_search.include?(item.unit_price)
+    end
+  end
+
 end
 

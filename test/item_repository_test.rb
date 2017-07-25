@@ -58,4 +58,25 @@ class ItemRepositoryTest < Minitest::Test
       assert_equal [], target_3
   end
 
+  def test_it_can_find_all_by_price
+    ir = ItemRepository.new('./data/items.csv', self)
+
+    target = ir.find_all_by_price("1200")
+    target_2  = ir.find_all_by_price("9999999")
+
+    assert_equal "510+ RealPush Icon Set", target[0].name
+    assert_equal Array, target.class
+    assert_equal [], target_2
+  end
+
+  def test_it_can_find_all_by_price_in_range
+    ir = ItemRepository.new('./data/items.csv', self)
+
+    target = ir.find_all_by_price_in_range("1000".."1300")
+    target_2  = ir.find_all_by_price_in_range("0".."1")
+
+    assert_equal "510+ RealPush Icon Set", target[0].name
+    assert_equal Array, target.class
+    assert_equal [], target_2
+  end
 end
