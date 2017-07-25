@@ -2,15 +2,17 @@ require './lib/merchant'
 
 class MerchantRepository
 
-  attr_reader :merchants
+  attr_reader :merchants,
+              :se
 
   def initialize(merchants_file_path, se)
+    @se = se
     @merchants = []
     contents = CSV.open merchants_file_path,
                  headers: true,
                  header_converters: :symbol
     contents.each do |row|
-      id = row[:id]
+      id = (row[:id]).to_i
       name = row[:name]
       created_at = row[:created_at]
       updated_at = row[:updated_at]

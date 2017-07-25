@@ -11,4 +11,8 @@ class Merchant
     @updated_at = updated_at
   end
 
+  def items
+    self.id 
+  end
+
 end

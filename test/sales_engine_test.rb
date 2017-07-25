@@ -49,4 +49,13 @@ class SalesEngineTest < Minitest::Test
     assert_equal 1367, item.length
     assert_equal Array, item.class
   end
+
+  def test_relationship_layer
+    se = SalesEngine.from_csv({:items => './data/items.csv',
+                               :merchants => './data/merchants.csv'})
+
+    merchant = se.merchants.find_by_id(12334105)
+    binding.pry
+    assert_equal [], merchant.items
+  end
 end
