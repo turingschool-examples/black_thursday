@@ -1,6 +1,8 @@
 require './test/test_helper'
+require 'simplecov'
+require 'minitest/autorun'
+require 'minitest/pride'
 require './lib/salesengine'
-
 
 class SalesEngineTest < Minitest::Test
 
