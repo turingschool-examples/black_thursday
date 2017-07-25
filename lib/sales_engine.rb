@@ -26,9 +26,9 @@ class SalesEngine
     #   # binding.pry
     #   array << data.to_h
     # binding.pry
-    @mr.add_data(data.to_hash)
-        puts data.inspect
-        # puts "\n\n END DATA \n\n"
+      @mr.add_data(data.to_hash)
+      # puts data.inspect
+      # puts "\n\n END DATA \n\n"
     end
   end
 
@@ -38,6 +38,5 @@ class SalesEngine
 
 end
 
-se = SalesEngine.new
-se.open_csv("./data/merchants_short.csv")
+
 binding.pry
