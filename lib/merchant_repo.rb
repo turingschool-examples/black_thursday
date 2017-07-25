@@ -2,10 +2,6 @@ class MerchantRepository
   # The MerchantRepository is responsible for holding and searching our Merchant instances.
   # sales engine will be passed through each repo
 
-  def initialize(merchant_repo)
-    @merchant_repo = merchant_repo
-  end
-
   def all
   # returns an array of all known Merchant instances
   end

@@ -8,9 +8,9 @@ class SalesEngine
   attr_reader :items, :merchants, :invoices, :invoice_items
 
   def initialize(se_hash)
-    @items = ItemRepository.new(se_hash[:item])
-    @merchants = MerchantRepository.new(se_hash[:merchant])
-    @invoices = InvoiceRepository.new(se_hash(:invoice))
+    @items         = ItemRepository.new(se_hash[:item])
+    @merchants     = MerchantRepository.new(se_hash[:merchant])
+    @invoices      = InvoiceRepository.new(se_hash(:invoice))
     @invoice_items = InvoiceItemRepository.new(:invoice_items)
   end
 
