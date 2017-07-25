@@ -23,7 +23,16 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_items_per_merchant_standard_deviation
+    assert_equal 3.26, @sa.average_items_per_merchant_standard_deviation
+  end
 
+  def test_merchants_with_high_item_count
+    assert_instance_of Array, @sa.merchants_with_high_item_count
+    assert_equal 52, @sa.merchants_with_high_item_count.count
+  end
+
+  def test_average_item_price_for_merchant
+    assert_instance_of BigDecimal, @sa.average_item_price_for_merchant
   end
 
 end
