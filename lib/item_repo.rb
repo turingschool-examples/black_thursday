@@ -3,7 +3,7 @@ require_relative 'item'
 
 class ItemRepository
   attr_reader :items, :grouped_by_merchant_id
-
+  # sales engine will be passed through each repo
   def initialize(raw)
     @items                  = load_data
     @grouped_by_merchant_id = items.group_by(:merchant_id)

@@ -1,6 +1,6 @@
 class CustomerRepository
 
-  # sales engine will be passed through each repo
+
   # The CustomerRepository is responsible for holding and searching our Customers instances. It offers the following methods:
   def all
     # returns an array of all known Customers instances

@@ -1,9 +1,6 @@
 class MerchantRepository
   # The MerchantRepository is responsible for holding and searching our Merchant instances.
-
-
   # sales engine will be passed through each repo
-
 
   def initialize(merchant_repo)
     @merchant_repo = merchant_repo
@@ -24,7 +21,5 @@ class MerchantRepository
   def find_all_by_name
   # returns either [] or one or more matches which contain the supplied name fragment, case insensitive
   end
-
-
 
 end
