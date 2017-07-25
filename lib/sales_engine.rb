@@ -9,28 +9,30 @@ class SalesEngine
               :items
 
   def initialize
-    @array = []
+    @items = ItemRepository.new
+    @merchants = MerchantRepository.new
   end
 
-  def self.init
+  def self.initialize
     @items = ItemRepository.new
     @merchants = MerchantRepository.new
   end
 
   def self.from_csv(input)
-    init
+    created = SalesEngine.new
     input.each_pair do |key, value|
       row = CSV.open value, headers: true, header_converters: :symbol
       if key == :items
         row.each do |data|
-          @items.add_data(data.to_hash)
+          created.items.add_data(data.to_hash)
         end
       elsif key == :merchants
         row.each do |data|
-          @merchants.add_data(data.to_hash)
+          created.merchants.add_data(data.to_hash)
         end
       end
     end
+    created
   end
 
 
