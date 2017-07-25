@@ -5,7 +5,7 @@ require './lib/merchant_repository'
 
 class SalesEngine
 
-  attr_reader :merchants
+  attr_reader :mr
 
   def initialize
     @array = []
@@ -38,6 +38,6 @@ class SalesEngine
 
 end
 
-# se = SalesEngine.open_csv("./data/items.csv")
-
+se = SalesEngine.new
+se.open_csv("./data/merchants_short.csv")
 binding.pry

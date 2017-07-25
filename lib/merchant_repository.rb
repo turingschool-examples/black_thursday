@@ -6,7 +6,7 @@ class MerchantRepository
   attr_reader :merchants
 
   def initialize
-    @merchants = Hash.new
+    @merchants = []
   end
 
   def all
@@ -14,7 +14,18 @@ class MerchantRepository
   end
 
   def find_by_id(id)
+    result = nil
     # find_by_id - returns either nil or an instance of Merchant with a matching ID
+    # @merchants.each do |something|
+    #   results = something.include(id)
+    @merchants.each do |merchant|
+      if merchant.id == id
+        result = merchant
+      end
+      # if merchant[:id] == id
+      #   results << merchant
+    end
+    result
   end
 
   def find_by_name(name)
@@ -28,9 +39,9 @@ class MerchantRepository
   def add_data(data)
     # @merchants << Merchant.new(data)
     # @merchant.to_hash
-    binding.pry
-    @merchants.merge(Merchant.new(data).convert_to_hash)
-    binding.pry
+    # @merchants.merge!({data[:id] => Merchant.new(data)})
+    # @merchants.merge!({Merchant.new(data).convert_to_hash})
+    @merchants << Merchant.new(data.to_hash)
   end
 
 
