@@ -50,7 +50,7 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 4, @item_r.items.count
     assert_equal 7, @item_r.items.first.merchant_id
     assert_equal "Chocolate", @item_r.items.first.name
-    assert_equal 115, @item_r.items.last.unit_price
+    assert_equal 210, @item_r.items.last.unit_price
   end
 
   def test_find_by_id_working
@@ -84,7 +84,52 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal "Cherry", list[1].name
   end
 
-  def t
+  def test_all_by_price_works_for_one_entry
+    list = @item_r.find_all_by_price(315)
+    assert_instance_of Item, list.first
+    assert_equal 1, list.count
+    assert_equal "Chocolate", list.first.name
+    assert_equal 7, list.first.merchant_id
+  end
+
+
+
+  def test_all_by_price_works_for_multiple_entries
+    list = @item_r.find_all_by_price(210)
+    assert_equal 2, list.count
+    assert_equal "Cherry", list.first.name
+    assert_equal "Apple", list.last.name
+    assert_equal 2, list.first.merchant_id
+    assert_equal 5, list.last.merchant_id
+  end
+
+  def test_all_by_price_in_range_works_for_one_entry
+    list = @item_r.find_all_by_price_in_range(390, 410)
+    assert_equal 1, list.count
+    assert_equal "Coconut", list.first.name
+    assert_equal 400, list.first.unit_price
+  end
+
+  def test_all_by_price_in_range_works_for_multiple_entries
+    list = @item_r.find_all_by_price_in_range(200, 350)
+    assert_equal 3, list.count
+    assert_equal "Chocolate", list.first.name
+    assert_equal 315, list.first.unit_price
+  end
+
+  def test_find_all_by_merchant_id_works_for_one_entry
+    list = @item_r.find_all_by_merchant_id(2)
+    assert_equal 1, list.count
+    assert_equal "Cherry", list.first.name
+  end
+
+  def test_find_all_by_merchant_id_works_for_multiple_entries
+    list = @item_r.find_all_by_merchant_id(5)
+    assert_equal 2, list.count
+    assert_equal "Coconut", list.first.name
+    assert_equal "Apple", list.last.name
+  end
+
 
 
 end
