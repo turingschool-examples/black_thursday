@@ -35,8 +35,10 @@ class MerchantRepository
     end
   end
 
-  def find_all_by_name
-
+  def find_all_by_name(fragment)
+    @merchants.find_all do |merchant|
+      merchant.name.downcase.include?(fragment.downcase)
+    end
   end
 
 end
