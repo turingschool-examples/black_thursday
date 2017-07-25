@@ -23,7 +23,7 @@ class ItemRepository
     result = nil
     @items.each do |item|
       if item.name == name
-        resutlt = name
+        result = item
       end
     end
     result
@@ -32,7 +32,7 @@ class ItemRepository
   def find_all_with_description(descrip)
     results = []
     @items.each do |item|
-      if item.includes?(descrip)
+      if item.description.downcase.include?(descrip.downcase)
         results << item
       end
     end
