@@ -1,0 +1,6 @@
+class Customer
+
+
+
+
+end

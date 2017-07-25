@@ -11,9 +11,4 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of Item_Repo, item_repo
   end
 
-
-
-
-
-
 end
