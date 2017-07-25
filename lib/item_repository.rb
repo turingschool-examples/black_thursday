@@ -6,31 +6,67 @@ class ItemRepository
   end
 
   def all
-    #  - returns an array of all known Item instances
+    @items
   end
 
-  def find_by_id
-    #  - returns either nil or an instance of Item with a matching ID
+  def find_by_id(id)
+    result = nil
+    @items.each do |item|
+      if item.id == id
+        result = item
+      end
+    end
+    result
   end
 
-  def find_by_name
-    #  - returns either nil or an instance of Item having done a case insensitive search
+  def find_by_name(name)
+    result = nil
+    @items.each do |item|
+      if item.name == name
+        resutlt = name
+      end
+    end
+    result
   end
 
-  def find_all_with_description
-    #  - returns either [] or instances of Item where the supplied string appears in the item description (case insensitive)
+  def find_all_with_description(descrip)
+    results = []
+    @items.each do |item|
+      if item.includes?(descrip)
+        results << item
+      end
+    end
+    results
   end
 
-  def find_all_by_price
-    #  - returns either [] or instances of Item where the supplied price exactly matches
+  def find_all_by_price(price)
+    results =  []
+    @items.each do |item|
+      if item.unit_price == price
+        results << item
+      end
+    end
+    results
   end
 
-  def find_all_by_price_in_range
-    #  - returns either [] or instances of Item where the supplied price is in the supplied range (a single Ruby range instance is passed in)
+  def find_all_by_price_in_range(price_low, price_high)
+    results = []
+    @items.each do |item|
+      if item.unit_price >= price_low && item.unit_price <= price_high
+        results << item
+      end
+    end
+    results
   end
 
-  def find_all_by_merchant_id
-    #  - returns either [] or instances of Item where the supplied merchant ID matches that supplied
+  def find_all_by_merchant_id(merch_id)
+    results = []
+    @items.each do |item|
+      if item.merchant_id == merch_id
+        results << item
+      end
+    end
+    results
   end
 
   def add_data(data)
