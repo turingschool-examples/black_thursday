@@ -17,11 +17,17 @@ class MerchantRepoTest < Minitest::Test
   end
 
   def test_it_finds_instance_of_merchant_by_id
-    assert_equal Merchant, mr.find_by_id(12334135).class
+    assert_instance_of Merchant, mr.find_by_id(12334135)
+    assert_equal "GoldenRayPress", mr.find_by_id(12334135).name
   end
 
   def test_it_finds_name_of_merchant
-    
+    assert_equal Merchant, mr.find_by_name("jejum").class
+  end
+
+  def test_it_finds_name_of_all_merchants
+    assert_equal 1, mr.find_all_by_name("McG").count
+  end
 
 
 end
