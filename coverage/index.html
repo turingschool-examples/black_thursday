@@ -14,27 +14,27 @@
       <img src="./assets/0.10.1/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2017-07-24T17:57:48-06:00">2017-07-24T17:57:48-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2017-07-24T18:36:00-06:00">2017-07-24T18:36:00-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="red">75.0%</span></span>
+    (<span class="covered_percent"><span class="red">60.0%</span></span>
      covered at
      <span class="covered_strength">
-       <span class="yellow">
-         1.0
+       <span class="red">
+         0.8
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>1</b> files in total.
-    <b>8</b> relevant lines. 
+    <b>10</b> relevant lines. 
     <span class="green"><b>6</b> lines covered</span> and
-    <span class="red"><b>2</b> lines missed </span>
+    <span class="red"><b>4</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -52,12 +52,12 @@
       
       <tr>
         <td class="strong"><a href="#17e8e8b63c2b9fc75c7d6cddbce3e3cb4a002492" class="src_link" title="lib/salesengine.rb">lib/salesengine.rb</a></td>
-        <td class="red strong">75.0 %</td>
-        <td>26</td>
-        <td>8</td>
+        <td class="red strong">60.0 %</td>
+        <td>28</td>
+        <td>10</td>
         <td>6</td>
-        <td>2</td>
-        <td>1.0</td>
+        <td>4</td>
+        <td>0.8</td>
       </tr>
       
     </tbody>
@@ -79,11 +79,11 @@
         <div class="source_table" id="17e8e8b63c2b9fc75c7d6cddbce3e3cb4a002492">
   <div class="header">
     <h3>lib/salesengine.rb</h3>
-    <h4><span class="red">75.0 %</span> covered</h4>
+    <h4><span class="red">60.0 %</span> covered</h4>
     <div>
-      <b>8</b> relevant lines. 
+      <b>10</b> relevant lines. 
       <span class="green"><b>6</b> lines covered</span> and
-      <span class="red"><b>2</b> lines missed.</span>
+      <span class="red"><b>4</b> lines missed.</span>
     </div>
   </div>
   
@@ -162,58 +162,58 @@
           <code class="ruby">    Salesengine.new(se_hash)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="13">
+        <li class="missed" data-hits="0" data-linenumber="13">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby">    item.load(se_hash[:items])</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="14">
+        <li class="missed" data-hits="0" data-linenumber="14">
           
           
-          <code class="ruby">    #I called self bc per the spec it looks like it will call on itself.</code>
+          <code class="ruby">    merchant.load(se_hash[:merchants])</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="15">
           
           
-          <code class="ruby">    #I can explain in class if need be</code>
+          <code class="ruby">  end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="16">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">    #I called self bc per the spec it looks like it will call on itself.</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="17">
           
           
-          <code class="ruby">  # se = SalesEngine.from_csv({</code>
+          <code class="ruby">    #I can explain in class if need be</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="18">
           
           
-          <code class="ruby">  # :items     =&gt; &quot;./data/items.csv&quot;,</code>
+          <code class="ruby"></code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="19">
           
           
-          <code class="ruby">  # :merchants =&gt; &quot;./data/merchants.csv&quot;,})</code>
+          <code class="ruby">  # se = SalesEngine.from_csv({</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="20">
           
           
-          <code class="ruby">  #</code>
+          <code class="ruby">  # :items     =&gt; &quot;./data/items.csv&quot;,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="21">
           
           
-          <code class="ruby">  # From there we can find the child instances:</code>
+          <code class="ruby">  # :merchants =&gt; &quot;./data/merchants.csv&quot;,})</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="22">
@@ -225,22 +225,34 @@
         <li class="never" data-hits="" data-linenumber="23">
           
           
-          <code class="ruby">  # items returns an instance of ItemRepository with all the item instances loaded</code>
+          <code class="ruby">  # From there we can find the child instances:</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="24">
           
           
-          <code class="ruby">  # merchants returns an instance of MerchantRepository with all the merchant instances loaded</code>
+          <code class="ruby">  #</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="25">
           
           
-          <code class="ruby">  #</code>
+          <code class="ruby">  # items returns an instance of ItemRepository with all the item instances loaded</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="26">
+          
+          
+          <code class="ruby">  # merchants returns an instance of MerchantRepository with all the merchant instances loaded</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="27">
+          
+          
+          <code class="ruby">  #</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="28">
           
           
           <code class="ruby">end</code>

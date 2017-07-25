@@ -8,9 +8,11 @@ class SalesEngine
     @merchants = MerchantRepository.new(se_hash[:merchant])
   end
 
-  def self.from_csv(se_hash)
-    Salesengine.new(se_hash)
-  end
+  # def self.from_csv(se_hash)
+  #   Salesengine.new(se_hash)
+  #   item.load(se_hash[:items])
+  #   merchant.load(se_hash[:merchants])
+  # end
     #I called self bc per the spec it looks like it will call on itself.
     #I can explain in class if need be
 
