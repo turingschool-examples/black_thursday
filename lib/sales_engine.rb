@@ -37,5 +37,5 @@ class SalesEngine
     end
     created
   end
-  
+
 end
