@@ -1,10 +1,10 @@
-require 'csv'
 require_relative 'item'
+require 'csv'
 
 class ItemRepository
   attr_reader :items, :grouped_by_merchant_id
   # sales engine will be passed through each repo
-  def initialize(raw)
+  def initialize(csv_data)
     @items                  = load_data
     @grouped_by_merchant_id = items.group_by(:merchant_id)
   end
@@ -17,7 +17,6 @@ class ItemRepository
 
   def find_by_id(id)
     items.detect { |item| item.id == id }
-    # returns either nil or an instance of Item with a matching ID
   end
 
   def find_by_name(name)
@@ -39,7 +38,6 @@ class ItemRepository
     items.select { |item| range.include?(item.unit_price) }
     # returns either [] or instances of Item where the supplied price is in the supplied range (a single Ruby range instance is passed in)
   end
-
 
   def find_all_by_merchant_id(merchant_id)
     grouped_by_merchant_id[merchant_id] || []
