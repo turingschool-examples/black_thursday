@@ -83,4 +83,15 @@ class ItemTest < Minitest::Test
     assert_instance_of Time, item.updated_at
   end
 
+  def test_it_returns_unit_price_as_float
+    item = Item.new({:id         => 263395237,
+                    :name        => "Pencil",
+                    :description => "You can use it to write things",
+                    :unit_price  => BigDecimal.new(10.99,4),
+                    :created_at  => Time.now,
+                    :updated_at  => Time.now, })
+
+    assert_equal 10.99, item.unit_price_to_dollars
+  end
+
 end
