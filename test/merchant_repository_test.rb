@@ -28,4 +28,9 @@ class MerchantRepositoryTest < Minitest::Test
     mr = MerchantRepository.new("./data/mini_merchants.csv")
     assert_nil mr.find_by_id(12334861)
   end
+
+  def test_merchant_repo_is_able_to_find_by_name
+    mr = MerchantRepository.new("./data/mini_merchants.csv")
+    assert mr.find_by_name("JUSTEmonsters")
+  end
 end

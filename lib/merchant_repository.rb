@@ -27,4 +27,14 @@ class MerchantRepository
       return nil
     end
   end
+
+  def find_by_name(name)
+    # repository.select{|key, hash| hash == value}
+    merchants = repository.values
+    merchants.each do |merchant|
+      if merchant.name == name
+        return merchant
+      end
+    end
+  end
 end
