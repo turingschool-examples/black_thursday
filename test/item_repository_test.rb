@@ -10,8 +10,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_load_csv_file
-    ir = ItemRepository.new("./data/mini_items.csv")
-
+    ir = ItemRepository.new("./data/items.csv")
     assert ir
   end
 end
