@@ -19,12 +19,12 @@ class SalesEngine
   end
 
   def self.from_csv(se_hash)
-    item_data = Item.load_data(se_hash[:items])
-    merchant_data = Merchant.load_data(se_hash[:merchants])
-    invoice_data = Invoice.load_data(se_hash[:invoices])
+    item_data         = Item.load_data(se_hash[:items])
+    merchant_data     = Merchant.load_data(se_hash[:merchants])
+    invoice_data      = Invoice.load_data(se_hash[:invoices])
     invoice_item_data = InvoiceItem.load_data(se_hash[:invoice_items])
-    transaction_data = Transaction.load_data(se_hash[:transactions])
-    customer_data = Customer.load_data(se_hash[:customers])
+    transaction_data  = Transaction.load_data(se_hash[:transactions])
+    customer_data     = Customer.load_data(se_hash[:customers])
 
     Salesengine.new(item_data, merchant_data, invoice_data, invoice_item_data, transaction_data, customer_data)
   end
