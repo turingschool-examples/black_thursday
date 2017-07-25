@@ -1,3 +1,5 @@
+require_relative 'merchant_repository'
+require_relative 'item_repository'
 require 'csv'
 
 class SalesEngine
@@ -8,11 +10,16 @@ class SalesEngine
     @merchants = MerchantRepository.new(se_hash[:merchant])
   end
 
-  # def self.from_csv(se_hash)
-  #   Salesengine.new(se_hash)
-  #   item.load(se_hash[:items])
-  #   merchant.load(se_hash[:merchants])
-  # end
+  def self.from_csv(se_hash)
+    item_data = Item.load_data(se_hash[:items])
+    merchant_data = Merchant.load_data(se_hash[:merchants])
+
+    Salesengine.new(item_data, merchant_data)
+  end
+
+  def self.load_data(se_hash)
+    CSV.open(se_path, headers: true)
+  end
     #I called self bc per the spec it looks like it will call on itself.
     #I can explain in class if need be
 
