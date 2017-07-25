@@ -1,10 +1,10 @@
-require_relative 'merchant_repository'
-require_relative 'item_repository'
+require './lib/merchant_repo'
+require './lib/item_repo'
 require 'csv'
 
 class SalesEngine
   attr_reader :items, :merchants, :invoices
-  
+
   def initialize(se_hash)
     @items = ItemRepository.new(se_hash[:item])
     @merchants = MerchantRepository.new(se_hash[:merchant])
@@ -22,5 +22,6 @@ class SalesEngine
   def self.load_data(se_hash)
     CSV.open(se_path, headers: true)
   end
+
 
 end
