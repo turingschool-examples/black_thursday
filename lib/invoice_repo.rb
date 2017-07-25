@@ -2,11 +2,12 @@ require 'csv'
 require_relative 'invoice'
 
 class InvoiceRepo
-  attr_reader :invoices
+  attr_reader :invoices, :parent
 
   def initialize(filename, se=nil)
     @invoices = {}
     open_file(filename)
+    @parent   = se
   end
 
   def open_file(filename)

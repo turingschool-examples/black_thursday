@@ -11,6 +11,6 @@ class Invoice
     @status      = params[:status]
     @created_at  = params[:created_at]
     @updated_at  = params[:updated_at]
-    @repo        = repo
+    @parent      = repo
   end
 end
