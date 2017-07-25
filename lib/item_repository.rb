@@ -1,9 +1,22 @@
 require './lib/item'
 class ItemRepository
   attr_reader :items
-  def initialize
+  def initialize(sales_engine)
+    @sales_engine = sales_engine
     @items = []
   end
+  #
+  # def initialize(path)
+  #   @sales_engine = sales_engine
+  #   @items = from_csv(path)
+  # end
+
+  # def from_csv(path)
+  #   results = CSV.open(path, headers:true, header_converters: :symbol)
+  #   results.map do |row|
+  #     Item.new(row, self)
+  #   end
+  # end
 
   def all
     @items

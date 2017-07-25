@@ -8,18 +8,21 @@ class SalesEngine
   attr_reader :merchants,
               :items
 
-  def initialize
-    @items = ItemRepository.new
-    @merchants = MerchantRepository.new
+  def initialize(data)
+    @items = ItemRepository.new(self)
+    @merchants = MerchantRepository.new(self)
+    # @items = ItemRepository.new(data[:items], self)
+    # @merchants = MerchantRepository.new(data[:merchants], self)
   end
 
-  def self.initialize
-    @items = ItemRepository.new
-    @merchants = MerchantRepository.new
-  end
+  # def self.initialize
+  #   @items = ItemRepository.new
+  #   @merchants = MerchantRepository.new
+  # end
 
   def self.from_csv(input)
-    created = SalesEngine.new
+    # SalesEngine.new(input)
+    created = SalesEngine.new(input)
     input.each_pair do |key, value|
       row = CSV.open value, headers: true, header_converters: :symbol
       if key == :items
@@ -34,8 +37,11 @@ class SalesEngine
     end
     created
   end
-
-
-
-
 end
+
+binding.pry
+se = SalesEngine.from_csv({
+  :items     => "./data/items_short.csv",
+  :merchants => "./data/merchants_short.csv",
+})
+binding.pry

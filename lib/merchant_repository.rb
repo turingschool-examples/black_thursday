@@ -5,7 +5,8 @@ class MerchantRepository
 
   attr_reader :merchants
 
-  def initialize
+  def initialize(sales_engine)
+    @sales_engine = sales_engine
     @merchants = []
   end
 
@@ -13,7 +14,12 @@ class MerchantRepository
     @merchants
   end
 
+  def items
+    @sales_engine.items
+  end
+
   def find_by_id(id)
+    id.to_s
     result = nil
     @merchants.each do |merchant|
       if merchant.id == id
