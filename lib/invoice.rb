@@ -1,3 +1,5 @@
+require 'time'
+
 class Invoice
 
   def initialize(invoice_hash)
@@ -8,6 +10,5 @@ class Invoice
     @created_at = Time.parse(invoice_hash[:created_at])
     @updated_at = Time.parse(invoice_hash[:updated_at])
   end
-
 
 end

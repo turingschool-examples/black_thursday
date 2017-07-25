@@ -32,6 +32,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_name
+    skip
     merchant_repo = MerchantRepository.new
 
     assert_equal [], merchant_repo.find_all_by_name("zzzz")

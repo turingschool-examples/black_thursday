@@ -30,7 +30,7 @@ class SalesEngine
   end
 
   def self.load_data(se_hash)
-    CSV.open(se_path, headers: true)
+    CSV.open(se_hash, headers: true)
   end
 
 

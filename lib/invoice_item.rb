@@ -1,4 +1,5 @@
 require 'bigdecimal'
+require 'time'
 
 class InvoiceItem
 
@@ -10,10 +11,9 @@ class InvoiceItem
     @invoice_id            = invoice_hash[:invoice_id]
     @quantity              = invoice_hash[:quantity]
     @unit_price            = BigDecimal.new(invoice_hash[:unit_price])
-    @created_at            = invoice_hash[:created_at]
-    @updated_at            = invoice_hash[:updated_at]
+    @created_at            = Time.now
+    @updated_at            = Time.now
     @unit_price_to_dollars = unit_price.to_f
   end
-
 
 end

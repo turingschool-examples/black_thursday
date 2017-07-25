@@ -7,15 +7,14 @@ require './lib/salesengine'
 class SalesEngineTest < Minitest::Test
 
   def test_it_exists
-    skip
-    salesengine = SalesEngine.new(({ :items         => "./data/items.csv",
+    salesengine = SalesEngine.new({ :items         => "./data/items.csv",
                                     :merchants     => "./data/merchants.csv",
                                     :invoices      => "./data/invoices.csv",
                                     :invoice_items => "./data/invoice_items.csv",
                                     :transactions  => "./data/transactions.csv",
                                     :customers     => "./data/customers.csv"})
 
-    assert_instance_of SalesEngine, salesengine(se_hash)
+    assert_instance_of SalesEngine, salesengine
   end
 
   def test_items_returns_new_instance_of_item_repo
