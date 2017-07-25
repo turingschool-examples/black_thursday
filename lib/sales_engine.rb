@@ -25,7 +25,6 @@ class SalesEngine
     # # @merchants.add_data(data)
     #   # binding.pry
     #   array << data.to_h
-    # binding.pry
       @mr.add_data(data.to_hash)
       # puts data.inspect
       # puts "\n\n END DATA \n\n"
@@ -33,10 +32,4 @@ class SalesEngine
   end
 
 
-
-
-
 end
-
-
-binding.pry
