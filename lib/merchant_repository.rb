@@ -1,7 +1,7 @@
 require 'simplecov'
 SimpleCov.start
-
 require 'CSV'
+
 class MerchantRepository
 
   attr_reader :merchants

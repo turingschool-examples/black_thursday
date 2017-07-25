@@ -9,8 +9,7 @@ require 'pry'
 class SalesEngineTest < Minitest::Test
 
   def test_load_item_from_item_csv
-    se = SalesEngine.new
-    se.from_csv({
+    se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
     })
@@ -19,8 +18,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_load_merchants_from_merchant_csv
-    se = SalesEngine.new
-    se.from_csv({
+    se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
     })
