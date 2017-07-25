@@ -1,3 +1,4 @@
+require 'bigdecimal'
 require './lib/sales_engine'
 require 'csv'
 require 'minitest/autorun'

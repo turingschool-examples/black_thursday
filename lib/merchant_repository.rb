@@ -13,7 +13,7 @@ class MerchantRepository
     @sales_engine = sales_engine
     @all_merchant_data = open_csv(csv_data)
     @all = @all_merchant_data.map do |row|
-      Merchant.new(row)
+      Merchant.new(row, self)
     end
   end
 
