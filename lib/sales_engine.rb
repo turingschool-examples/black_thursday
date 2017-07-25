@@ -9,7 +9,7 @@ class SalesEngine
 
   def initialize
     @array = []
-    @items = ItemRepository.new
+    @it = ItemRepository.new
     @mr = MerchantRepository.new
   end
 
@@ -25,7 +25,7 @@ class SalesEngine
     # # @merchants.add_data(data)
     #   # binding.pry
     #   array << data.to_h
-      @mr.add_data(data.to_hash)
+      @items.add_data(data.to_hash)
       # puts data.inspect
       # puts "\n\n END DATA \n\n"
     end
