@@ -36,7 +36,8 @@ class MerchantRepository
   def find_all_by_name(name)
     results = []
     @merchants.each do |merchant|
-      if merchant.name == name
+      down = merchant.name.downcase
+      if down.include?(name.downcase)
         results << merchant
       end
     end
