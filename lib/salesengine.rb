@@ -1,5 +1,5 @@
-require_relative 'merchant_repository'
-require_relative 'item_repository'
+require './lib/merchant_repo'
+require './lib/item_repo'
 require 'csv'
 
 class SalesEngine
@@ -22,6 +22,7 @@ class SalesEngine
   end
     #I called self bc per the spec it looks like it will call on itself.
     #I can explain in class if need be
+    # Will this actually call it on self? I think the self right now is just part of the method name and not calling on the self. 
 
   # se = SalesEngine.from_csv({
   # :items     => "./data/items.csv",
