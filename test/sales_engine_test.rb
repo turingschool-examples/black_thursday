@@ -22,14 +22,18 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of SalesEngine, se
   end
 
-  def test_class_method_integration_item_repo
+  def test_class_method_integration_merch_repo
     se = SalesEngine.from_csv({
                               :items     => "./data/items.csv",
                               :merchants => "./data/merchants.csv",
                                                                   })
-    # found = se.merchants.fin
+    found_1 = se.merchants.find_by_name("MyouBijou")
+    found_2 = se.merchants.find_by_id("habichschon")
 
-    # assert_equal se.merchants.fin
+    assert_equal "MyouBijou", found_1.name
+    assert_equal "12334455" , found_1.id
+    assert_equal
+    assert_equal "12335252"
   end
   def test_class_method_integration_merch_repo
   end
