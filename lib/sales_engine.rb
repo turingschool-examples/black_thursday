@@ -1,0 +1,12 @@
+class SalesEngine
+
+  def initialize(item_file, merchant_file)
+    @items = ItemRepository.new(item_file, self)
+    @merchants = MerchantRepository.new(merchant_file, self)
+  end
+
+  def self.from_csv(file = {})
+    SalesEngine.new(file[:items], file[:merchants])
+  end
+
+end
