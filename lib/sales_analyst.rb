@@ -28,7 +28,29 @@ class SalesAnalyst
     end
   end
 
-  
+  def average_item_price_for_merchant(merch_id)
+    merchant = @se.merchant.find_by_id(merch_id)
+    num_of_items = merchant.items.count
+    sum_of_prices = sum_array(merchant.items)
+    sum_of_prices/num_of_items
+  end
+
+  def average_average_price_per_merchant
+    all_merch_ids = @se.merchant.all.map do |merchant|
+      merchant.id
+    end
+    total_averages = all_merch_ids.map do |merch_id|
+      average_item_price_for_merchant(merch_id)
+    end
+    sum = sum_array(total_averages)
+    sum / total_averages.count
+  end
+
+  def sum_array(array)
+    sum = array.inject(0) do |sum, num|
+      sum += average
+    end
+  end
 
 
 end
