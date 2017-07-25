@@ -7,7 +7,8 @@ class Item
               :created_at,
               :updated_at
 
-  def initialize(item_characteristics)
+  def initialize(item_characteristics, sales_engine)
+    @sales_engine = sales_engine
     @id = item_characteristics[:id].to_i
     @name = item_characteristics[:name]
     @description = item_characteristics[:description]
@@ -15,5 +16,9 @@ class Item
     @merchant_id = item_characteristics[:merchant_id].to_i
     @created_at = item_characteristics[:created_at]
     @updated_at = item_characteristics[:updated_at]
+  end
+
+  def merchant
+    @sales_engine.merchants.find_by_id(self.merchant_id)
   end
 end

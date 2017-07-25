@@ -83,7 +83,7 @@ class ItemRepository
   end
 
   def add_data(data)
-    @items << Item.new(data.to_hash)
+    @items << Item.new(data.to_hash, @sales_engine)
   end
 
 end
