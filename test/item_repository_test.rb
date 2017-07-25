@@ -13,4 +13,26 @@ class ItemRepositoryTest < Minitest::Test
     ir = ItemRepository.new("./data/items.csv")
     assert ir
   end
+
+  def test_it_can_return_array_of_items
+    ir = ItemRepository.new("./data/mini_items.csv")
+    assert_equal 2, ir.all.count
+  end
+
+  def test_it_can_find_by_id
+    ir = ItemRepository.new("./data/mini_items.csv")
+    assert ir.find_by_id(263395237)
+  end
+
+  def test_it_can_be_found_by_name
+    ir = ItemRepository.new("./data/mini_items.csv")
+    assert ir.find_by_name("510+ RealPush Icon Set")
+  end
+
+  def test_it_can_be_found_by_description
+    ir = ItemRepository.new("./data/mini_items.csv")
+    description = "Glitter scrabble frames"
+
+    assert ir.find_all_with_description(description)
+  end
 end

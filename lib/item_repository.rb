@@ -15,4 +15,34 @@ class ItemRepository
     end
   end
 
+  def all
+    repository.values
+  end
+
+  def find_by_id(id)
+    if repository.keys.include?(id)
+      return repository[id]
+    end
+  end
+
+  def find_by_name(name)
+    merchants = repository.values
+    merchants.each do |merchant|
+      if merchant.name == name
+        return merchant
+      end
+    end
+  end
+
+  def find_all_with_description(description)
+    descriptions = []
+    items = repository.values
+    items.each do |item|
+      if item.description.include?(description)
+        descriptions << item
+      end
+    end
+    return descriptions
+  end
+
 end
