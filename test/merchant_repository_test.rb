@@ -33,4 +33,9 @@ class MerchantRepositoryTest < Minitest::Test
     mr = MerchantRepository.new("./data/mini_merchants.csv")
     assert mr.find_by_name("JUSTEmonsters")
   end
+
+  def test_merchant_repo_returns_nil_if_no_name_is_found
+    mr = MerchantRepository.new("./data/mini_merchants.csv")
+    assert mr.find_by_name("MandyBlackShop")
+  end
 end
