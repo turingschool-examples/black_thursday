@@ -43,5 +43,6 @@ class MerchantRepository
         names << merchant
       end
     end
+    return names
   end
 end

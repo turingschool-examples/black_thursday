@@ -43,4 +43,10 @@ class MerchantRepositoryTest < Minitest::Test
     mr = MerchantRepository.new("./data/mini_merchants.csv")
     assert_instance_of Array, mr.find_all_by_name("Man")
   end
+
+  def test_merchant_repo_returns_empty_array_if_no_name_is_found
+    mr = MerchantRepository.new("./data/mini_merchants.csv")
+    expected = []
+    assert_equal expected, mr.find_all_by_name("zzz")
+  end
 end
