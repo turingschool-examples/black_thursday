@@ -15,4 +15,24 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 475,  mr.merchants.count
   end
 
+  def test_it_can_return_all_merchants
+    mr = MerchantRepository.new('./data/merchants.csv', self)
+
+    target = mr.all
+
+    assert_equal Array, target.class
+    assert_equal 475, target.count
+  end
+
+  def test_it_can_find_by_id
+    mr = MerchantRepository.new('./data/merchants.csv', self)
+
+    target = mr.find_by_id("12334135")
+    target_2 = mr.find_by_id("00000000")
+
+    assert_equal "GoldenRayPress", target.name
+    assert_nil target_2
+  end
+
+  
 end
