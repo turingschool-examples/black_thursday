@@ -15,7 +15,8 @@ class MerchantRepository
   end
 
   def items
-    @sales_engine.items
+    items = @sales_engine.items.find_by_id(self.id)
+    items
   end
 
   def find_by_id(id)
