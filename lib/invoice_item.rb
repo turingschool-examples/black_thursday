@@ -15,18 +15,5 @@ class InvoiceItem
     @unit_price_to_dollars = unit_price.to_f
   end
 
-  # The invoice item has the following data accessible:
-
-  # id - returns the integer id
-  # item_id - returns the item id
-  # invoice_id - returns the invoice id
-  # quantity - returns the quantity
-  # unit_price - returns the unit_price
-  # created_at - returns a Time instance for the date the invoice item was first created
-  # updated_at - returns a Time instance for the date the invoice item was last modified
-  # It also offers the following method:
-  #
-  # unit_price_to_dollars - returns the price of the invoice item in dollars formatted as a Float
-
 
 end
