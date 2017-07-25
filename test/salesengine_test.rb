@@ -46,5 +46,25 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of InvoiceItemRepository, salesengine.invoice_items
   end
 
+  def test_transactions_returns_new_instance_of_transaction_repo
+    salesengine = SalesEngine.new({ :items         => "./data/items.csv",
+                                    :merchants     => "./data/merchants.csv",
+                                    :invoices      => "./data/invoices.csv",
+                                    :invoice_items => "./data/invoice_items.csv",
+                                    :transactions  => "./data/transactions.csv"})
+
+    assert_instance_of TransactionRepository, salesengine.transactions
+  end
+
+  def test_customers_returns_new_instance_of_customer_repo
+    salesengine = SalesEngine.new({ :items         => "./data/items.csv",
+                                    :merchants     => "./data/merchants.csv",
+                                    :invoices      => "./data/invoices.csv",
+                                    :invoice_items => "./data/invoice_items.csv",
+                                    :transactions  => "./data/transactions.csv",
+                                    :customers     => "./data/customers.csv"})
+
+    assert_instance_of CustomerRepository, salesengine.customers
+  end
 
 end
