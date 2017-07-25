@@ -1,3 +1,4 @@
+require 'bigdecimal'
 require './lib/item_repository'
 require './lib/sales_engine'
 require 'csv'
