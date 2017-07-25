@@ -21,4 +21,16 @@ class SalesEngineTest < Minitest::Test
     # assert_instance_of ItemRepository, se.items
     assert_instance_of SalesEngine, se
   end
+
+  def test_class_method_integration_item_repo
+    se = SalesEngine.from_csv({
+                              :items     => "./data/items.csv",
+                              :merchants => "./data/merchants.csv",
+                                                                  })
+    # found = se.merchants.fin
+
+    # assert_equal se.merchants.fin
+  end
+  def test_class_method_integration_merch_repo
+  end
 end
