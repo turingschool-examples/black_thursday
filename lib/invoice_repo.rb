@@ -1,0 +1,8 @@
+class InvoiceRepository
+
+
+
+
+
+
+end

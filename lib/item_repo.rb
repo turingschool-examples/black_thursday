@@ -5,7 +5,7 @@ class ItemRepository
   attr_reader :items, :grouped_by_merchant_id
 
   def initialize(raw)
-    @items = load_data
+    @items                  = load_data
     @grouped_by_merchant_id = items.group_by(:merchant_id)
   end
   # The ItemRepository is responsible for holding and searching our Item instances. This object represents one line of data from the file items.csv.

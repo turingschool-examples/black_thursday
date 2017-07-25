@@ -1,6 +1,7 @@
 class TransactionRepository
+  
 
-  # The TransactionRepository is responsible for holding and searching our Transaction instances. 
+  # The TransactionRepository is responsible for holding and searching our Transaction instances.
   def all
     # all - returns an array of all known Transaction instances
   end
