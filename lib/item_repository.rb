@@ -3,8 +3,17 @@ SimpleCov.start
 
 class ItemRepository
 
+  attr_reader :items
+
   def initialize(filepath)
-    @filepath = nil
+    @items = []
+    load_csv(filepath)
+  end
+
+  def load_csv(filepath)
+    CSV.foreach(filepath, headers: true, header_converters: :symbol, converters: :numeric) do |row|
+      @items << Item.new(row.to_h)
+    end
   end
 
 

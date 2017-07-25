@@ -7,14 +7,12 @@ require 'pry'
 class ItemRepositoryTest < Minitest::Test
 
   def test_it_exists
-    skip
     ir = ItemRepository.new("./data/items.csv")
 
     assert_instance_of ItemRepository, ir
   end
 
   def test_all_returns_all_items_in_the_correct_format
-    skip
       ir = ItemRepository.new("./data/items.csv")
 
       assert_instance_of Item, ir.items[0]
