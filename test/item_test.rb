@@ -32,4 +32,7 @@ class ItemTest < Minitest::Test
     assert_instance_of Time, @item.updated_at
   end
 
+  def test_unit_price_to_dollars
+    assert_equal 12.00, item.unit_price_
+
 end
