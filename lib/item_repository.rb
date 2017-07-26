@@ -1,4 +1,4 @@
-require './lib/item'
+require_relative '../lib/item'
 class ItemRepository
   attr_reader :items
   def initialize(sales_engine)
@@ -6,9 +6,6 @@ class ItemRepository
     @items = []
   end
 
-  def inspect
-    "#<#{self.class} #{@items.size} rows>"
-  end
 
   def all
     @items

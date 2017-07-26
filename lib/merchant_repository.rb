@@ -1,14 +1,10 @@
 require 'pry'
-require './lib/merchant'
+require_relative '../lib/merchant'
 
 
 class MerchantRepository
 
   attr_reader :merchants
-
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
-  end
 
   def initialize(sales_engine)
     @sales_engine = sales_engine
@@ -18,6 +14,10 @@ class MerchantRepository
   def all
     @merchants
   end
+
+  def inspect
+  "#<#{self.class} #{@merchants.size} rows>"
+end
 
 
   def find_by_id(id)
