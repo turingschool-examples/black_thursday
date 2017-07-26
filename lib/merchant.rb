@@ -5,4 +5,8 @@ class Merchant
     @id = hash[:id]
     @name = hash[:name]
   end
+
+  def items
+    
+  end
 end

@@ -59,7 +59,6 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_be_found_by_another_description
     ir = ItemRepository.new("./data/mini_items.csv")
     description = "You&#39;ve got a total socialmedia iconset!"
-    binding.pry
     assert ir.find_all_with_description(description)
   end
 
@@ -102,7 +101,6 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_can_find_all_by_another_merchant_id
     ir = ItemRepository.new("./data/mini_items.csv")
-    binding.pry
     assert ir.find_all_by_merchant_id(12334141)
   end
 
