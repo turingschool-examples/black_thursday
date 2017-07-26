@@ -50,4 +50,12 @@ class SalesAnalyst
     high_item_merchants
   end
 
+  def average_item_price_for_merchant(merchant_id)
+    all_merchant_items = @se.items.find_all_by_merchant_id(merchant_id)
+    all_item_prices = all_merchant_items.map do |item|
+      item.unit_price
+    end
+    (all_item_prices.sum / all_item_prices.count).round(2)
+  end
+
 end

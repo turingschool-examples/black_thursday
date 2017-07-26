@@ -2,6 +2,7 @@ require 'minitest/autorun'
 require 'minitest/emoji'
 require './lib/sales_engine.rb'
 require './lib/sales_analyst.rb'
+require 'bigdecimal'
 require 'pry'
 
 class SalesAnalystTest < Minitest::Test
@@ -65,4 +66,15 @@ class SalesAnalystTest < Minitest::Test
     assert_equal Array, target.class
     assert_equal 52, target.count
   end
+
+  def test_average_item_price_for_merchant
+    se = SalesEngine.from_csv({:items => './data/items.csv',
+                               :merchants => './data/merchants.csv'})
+    sa = SalesAnalyst.new(se)
+
+    target = sa.average_item_price_for_merchant(12334159)
+
+    assert_equal BigDecimal.new("315".insert(-2, ".")), target
+  end
+
 end
