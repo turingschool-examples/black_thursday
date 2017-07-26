@@ -13,7 +13,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    standard_deviance(all_averages)
+    standard_deviance(all_averages.map {|average| average[:count]})
   end
 
   def merchants_with_high_item_count
