@@ -59,5 +59,3 @@ class MerchantTest < Minitest::Test
   end
 
 end
-
-#12337011,Pillowtalkdartmoor,2004-10-06,2014-12-04

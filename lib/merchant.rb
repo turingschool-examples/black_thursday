@@ -13,6 +13,4 @@ class Merchant
     @merchant_repo  = merchant_repo
   end
 
-
-
 end
