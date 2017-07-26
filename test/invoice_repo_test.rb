@@ -9,7 +9,26 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_instance_of InvoiceRepository, invoice_repo
   end
 
+  def test_can_find_by_id
+    invoice_repo = InvoiceRepository.new("./data/invoices.csv", "engine")
+    id = 1
 
+    assert_instance_of Invoice, invoice_repo.find_by_id(id)
+  end
+
+  def test_it_can_find_all_by_customer_id
+    invoice_repo = InvoiceRepository.new("./data/invoices.csv", "engine")
+    customer_id = 1
+    
+    assert_instance_of Array, invoice_repo.find_all_by_customer_id(customer_id)
+  end
+
+  def test_invoices_are_placed_in_array
+    invoice_repo = InvoiceRepository.new("./data/invoices.csv", "engine")
+    customer_id = 1
+
+    assert_instance_of Invoice, invoice_repo.find_all_by_customer_id(customer_id)[0]
+  end
 
 
 end

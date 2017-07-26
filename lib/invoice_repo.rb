@@ -29,8 +29,8 @@ class InvoiceRepository
   def find_all_by_customer_id(customer_id)
     content_array = all
     content_array.find_all do |invoice|
-      if invoice.customer_id == customer_id
-        return invoice
+      if invoice.customer_id == customer_id.to_s
+        invoice
       end
     end
   end
@@ -39,7 +39,7 @@ class InvoiceRepository
     content_array = all
     content_array.find_all do |invoice|
       if invoice.merchant_id == merchant_id
-        return invoice
+        invoice
       end
     end
   end
