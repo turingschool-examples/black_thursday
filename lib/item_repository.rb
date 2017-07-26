@@ -21,7 +21,7 @@ class ItemRepository
       updated_at = row[:updated_at]
       merchant_id = (row[:merchant_id]).to_i
       item = Item.new(id, name, description, unit_price,
-                     created_at, updated_at, merchant_id)
+                     created_at, updated_at, merchant_id, self)
       @items << item
     end
   end
@@ -65,6 +65,10 @@ class ItemRepository
     @items.find_all do |item|
       item.merchant_id == id
     end
+  end
+
+  def fetch_items_merchant_id(merchant_id)
+    se.fetch_items_merchant_id(merchant_id)
   end
 
 end

@@ -71,13 +71,12 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_can_retrieve_merchant_with_merchant_id_from_item
-    skip
     se = SalesEngine.from_csv({:items => './data/items.csv',
                                :merchants => './data/merchants.csv'})
 
     item = se.items.find_by_id(263395237)
 # binding.pry
-    assert_equal "510+ Plush", item.merchant.name
+    assert_equal "jejum", item.merchant.name
   end
 
 
