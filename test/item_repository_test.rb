@@ -46,4 +46,9 @@ class ItemRepositoryTest < Minitest::Test
     assert ir.find_all_by_price_in_range(1..1200)
   end
 
+  def test_it_can_find_all_by_merchant_id
+    ir = ItemRepository.new("./data/mini_items.csv")
+    assert ir.find_all_by_merchant_id(12334185)
+  end
+
 end

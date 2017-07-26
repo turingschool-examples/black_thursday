@@ -68,4 +68,14 @@ class ItemRepository
     return prices
   end
 
+  def find_all_by_merchant_id(merchant_id)
+    merchant = []
+    items = repository.values
+    items.each do |item|
+      if item.merchant_id == merchant_id
+        merchant << item
+      end
+    end
+    return merchant
+  end
 end
