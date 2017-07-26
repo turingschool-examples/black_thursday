@@ -45,18 +45,26 @@ class SalesAnalyst
   def average_item_price_for_merchant(merch_id)
     merchant = @se.merchant.find_by_id(merch_id)
     num_of_items = merchant.items.count
-    sum_of_prices = merchant.items.inject(0) do |sum, item|
-      sum += item.unit_price_to_dollars
+    if num_of_items != 0
+      sum_of_prices = merchant.items.inject(0) do |sum, item|
+        sum += item.unit_price_to_dollars
+      end
+      result = sum_of_prices/num_of_items
+    else
+      return nil
     end
-    sum_of_prices/num_of_items
+    result
   end
 
   def average_average_price_per_merchant
     all_merch_ids = @se.merchant.all.map do |merchant|
       merchant.id
     end
-    total_averages = all_merch_ids.map do |merch_id|
-      average_item_price_for_merchant(merch_id)
+    total_averages = []
+    all_merch_ids.each do |merch_id|
+      if average_item_price_for_merchant(merch_id) != nil
+        total_averages << average_item_price_for_merchant(merch_id)
+      end
     end
     sum = sum_array(total_averages)
     sum / total_averages.count
@@ -69,14 +77,14 @@ class SalesAnalyst
   end
 
   def average_item_price_standard_deviation
-    mean = average_average_price_per_merchant
+    mean = average_item_price
     set = set_of_item_prices
-    Math.sqrt(set.inject(0){|sum,val| sum + (val - mean)**2} / set.size).round(2)
+    Math.sqrt(set.inject(0){|sum,val| sum + (val - mean)**2} / set.size)
   end
 
   def golden_items
     @se.item.all.find_all do |item|
-      item.unit_price_to_dollars > (average_item_price + (average_item_price_standard_deviation * 2))
+      item.unit_price_to_dollars > (average_item_price + (average_item_price_standard_deviation * 2)).round(2)
     end
   end
 
