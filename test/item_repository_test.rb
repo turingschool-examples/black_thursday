@@ -24,6 +24,11 @@ class ItemRepositoryTest < Minitest::Test
     assert ir.find_by_id(263395237)
   end
 
+  def test_it_can_find_by_another_id
+    ir = ItemRepository.new("./data/mini_items.csv")
+    assert ir.find_by_id(263395617)
+  end
+
   def test_it_returns_nil_if_no_id_is_found
     ir = ItemRepository.new("./data/mini_items.csv")
     assert_nil ir.find_by_id(12334213)
@@ -48,6 +53,13 @@ class ItemRepositoryTest < Minitest::Test
     ir = ItemRepository.new("./data/mini_items.csv")
     description = "Glitter scrabble frames"
 
+    assert ir.find_all_with_description(description)
+  end
+
+  def test_it_can_be_found_by_another_description
+    ir = ItemRepository.new("./data/mini_items.csv")
+    description = "You&#39;ve got a total socialmedia iconset!"
+    binding.pry
     assert ir.find_all_with_description(description)
   end
 
@@ -86,6 +98,12 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_find_all_by_merchant_id
     ir = ItemRepository.new("./data/mini_items.csv")
     assert ir.find_all_by_merchant_id(12334185)
+  end
+
+  def test_it_can_find_all_by_another_merchant_id
+    ir = ItemRepository.new("./data/mini_items.csv")
+    binding.pry
+    assert ir.find_all_by_merchant_id(12334141)
   end
 
   def test_it_returns_an_empty_array_if_it_cant_find_merchant_id
