@@ -1,7 +1,9 @@
 class Merchant
 
   attr_reader :name,
-              :id
+              :id,
+              :created_at,
+              :updated_at
 
   def initialize(merchant_info, merchant_repo)
     @name           = merchant_info[:name]
