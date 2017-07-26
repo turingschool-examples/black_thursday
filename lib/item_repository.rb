@@ -3,7 +3,8 @@ require './lib/item'
 require 'pry'
 
 class ItemRepository
-  attr_reader :sales_engine
+  attr_reader :sales_engine,
+              :id_repo
   def initialize(file_path, sales_engine)
     @file_path =        file_path
     @sales_engine =     sales_engine
