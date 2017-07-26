@@ -28,7 +28,7 @@ class ItemRepository
   def find_by_name(name)
     merchants = repository.values
     merchants.each do |merchant|
-      if merchant.name == name
+      if merchant.name.downcase == name.downcase
         return merchant
       end
     end
