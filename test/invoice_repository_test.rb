@@ -22,4 +22,10 @@ class InvoiceRepositoryTest < Minitest::Test
     ir = InvoiceRepository.new("./data/mini_invoices.csv")
     assert ir.find_by_id(1)
   end
+
+  def test_it_can_find_all_by_merchant_id
+    ir = InvoiceRepository.new("./data/mini_invoices.csv")
+    binding.pry
+    assert ir.find_all_by_customer_id(1)
+  end
 end

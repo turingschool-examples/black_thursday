@@ -24,4 +24,13 @@ class InvoiceRepository
       return repository[id]
     end
   end
+
+  def find_all_by_customer_id(customer_id)
+    items = repository.values
+    items.find_all do |item|
+      item.customer_id == customer_id
+    end
+  end
+
+
 end
