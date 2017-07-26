@@ -23,6 +23,21 @@ class SalesAnalyst
     standard_dev = Math.sqrt(divided_result).round(2)
   end
 
-  # def merchants_with_high_item_count
-  #   @merchants.id_repo.each do |merchant|
+  def merchants_with_high_item_count
+    merchant_results = []
+    average = average_items_per_merchant
+    standard_dev = average_items_per_merchant_standard_deviation
+    @merchants.id_repo.keys.each do |id|
+      merchant = @merchants.id_repo[id]
+      if merchant.items.count > average + standard_dev
+        merchant_results << merchant
+      end
+    end
+    merchant_results
+  end
+
+  # def average_item_price_for_merchant(merchant_id)
+  #   if @merchants.id_repo.include?(merchant_id)
+  #     merchant = @merchants.id_repo[merchant_id]
+
 end
