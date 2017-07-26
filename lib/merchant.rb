@@ -1,11 +1,12 @@
 require 'time'
 
 class Merchant
-  attr_reader :id, :name, :created_at, :updated_at
+  attr_reader :id, :name, :created_at, :updated_at, :merch_repo
   # , :repo
-  def initialize(merch_hash)
+  def initialize(merch_hash, merch_repo)
     @id         = merch_hash[:id].to_i
     @name       = merch_hash[:name].to_s
+    @merch_repo = merch_repo
     @created_at = Time.now
     @updated_at = Time.now
   end

@@ -27,19 +27,17 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_by_name
-    skip
-    merchant_repo = MerchantRepository.new
+    merchant_repo = MerchantRepository.new("./data/merchants.csv", "salesengine")
 
     assert_nil merchant_repo.find_by_name("Thisisafakenamenotinrepo")
     assert_instance_of Merchant, merchant_repo.find_by_name("CJsDecor")
   end
 
   def test_it_can_find_all_by_name
-    skip
-    merchant_repo = MerchantRepository.new
+    merchant_repo = MerchantRepository.new("./data/merchants.csv", "salesengine")
 
     assert_equal [], merchant_repo.find_all_by_name("zzzz")
-    assert_instance_of Merchant, merchant_repo.find_all_by_name("el")
+    assert_instance_of Merchant, merchant_repo.find_all_by_name("el")[0]
 
   end
 
