@@ -1,3 +1,6 @@
+require './lib/item_repository'
+require './lib/merchant_repository'
+
 class SalesEngine
 
   attr_reader :items,
