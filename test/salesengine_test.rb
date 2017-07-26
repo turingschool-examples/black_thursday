@@ -1,7 +1,4 @@
 require './test/test_helper'
-require 'simplecov'
-require 'minitest/autorun'
-require 'minitest/pride'
 require './lib/salesengine'
 require 'pry'
 
@@ -50,7 +47,7 @@ class SalesEngineTest < Minitest::Test
                                     :transactions  => "./data/transactions.csv",
                                     :customers     => "./data/customers.csv"})
 
-                                    
+    assert_equal CSV.open "./data/merchants.csv", salesengine.merchants
   end
 
   def test_invoices_returns_new_instance_of_invoice_repo
