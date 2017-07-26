@@ -6,7 +6,6 @@ require 'pry'
 
 
 class MerchantTest < Minitest::Test
-# REFACTOR TO USE DUMMY DATA
 
   def test_it_exists
     mr = MerchantRepository.new("./data/merchants.csv")
@@ -28,7 +27,7 @@ class MerchantTest < Minitest::Test
     merchant = mr.find_by_id(12334105)
     nil_merchant = mr.find_by_id(1231412543534543)
 
-    assert_instance_of Merchant, merchant
+    assert_equal 'Shopin1901', merchant.name
     assert_nil nil_merchant
   end
 
@@ -38,8 +37,8 @@ class MerchantTest < Minitest::Test
     nil_merchant = mr.find_by_name('Sals hammocks')
     merchant_upcase = mr.find_by_name('SHOPIN1901')
 
-    assert_instance_of Merchant, merchant
-    assert_instance_of Merchant, merchant_upcase
+    assert_equal 12334105, merchant.id
+    assert_equal 12334105, merchant_upcase.id
     assert_nil nil_merchant
   end
 
@@ -52,5 +51,7 @@ class MerchantTest < Minitest::Test
     assert_equal 4, merchant.count
     assert_equal 4, merchant_upcase.count
     assert_equal 0, nil_merchant.count
+    assert_equal 'littledorisdesigns', merchant[0].name
+    assert_equal 'littledorisdesigns', merchant_upcase[0].name
   end
 end

@@ -46,12 +46,16 @@ class ItemRepositoryTest < Minitest::Test
     items = @ir.find_all_with_description('beer')
 
     assert_equal 3, items.count
+    assert items[0].description.include?('beer')
+    assert items[2].description.include?('beer')
   end
 
   def test_it_can_find_all_by_price
     items = @ir.find_all_by_price(50000)
 
     assert_equal 11, items.count
+    assert_equal 50000, items[0].unit_price
+    assert_equal 50000, items[7].unit_price
   end
 
   def test_it_finds_all_by_price_in_range
@@ -59,6 +63,7 @@ class ItemRepositoryTest < Minitest::Test
     price_range_items = @ir.find_all_by_price_in_range(price_range)
 
     assert_equal 13, price_range_items.count
+    assert price_range_items[0].unit_price >= 47000 && price_range_items[0].unit_price <= 50000
   end
 
   def test_it_finds_all_by_merchant_id
@@ -66,6 +71,8 @@ class ItemRepositoryTest < Minitest::Test
     empty_items = @ir.find_all_by_merchant_id(90210878)
 
     assert_equal 3, items.count
+    assert_equal 12334132, items[0].merchant_id
+    assert_equal 12334132, items[2].merchant_id
     assert_equal [], empty_items
   end
 
