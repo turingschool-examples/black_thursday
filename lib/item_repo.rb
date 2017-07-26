@@ -7,18 +7,18 @@ class ItemRepository
 
   def initialize(csvfile, engine)
     @engine = engine
-    @contents  = load_items(csvfile)
+    @contents  = csvfile
   end
 
-  def load_items(csvfile)
-    # change the variable name
-    contents = CSV.open csvfile, headers: true, header_converters: :symbol
-    all_items = {}
-    contents.each do |row|
-      all_items[row[:id]] = Item.new(row, self)
-    end
-    all_items
-  end
+  # def load_items(csvfile)
+  #   # change the variable name
+  #   contents = CSV.open csvfile, headers: true, header_converters: :symbol
+  #   all_items = {}
+  #   contents.each do |row|
+  #     all_items[row[:id]] = Item.new(row, self)
+  #   end
+  #   all_items
+  # end
 
   def all
     @contents.values

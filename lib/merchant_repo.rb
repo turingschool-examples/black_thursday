@@ -8,18 +8,18 @@ class MerchantRepository
 
   def initialize(csvfile, engine)
     @engine = engine
-    @contents = load_merchants(csvfile)
+    @contents = csvfile
   end
 
-  def load_merchants(csvfile)
-    # change the variable name
-    contents = CSV.open csvfile, headers: true, header_converters: :symbol
-    all_merchants = {}
-    contents.each do |row|
-      all_merchants[row[:id]] = Merchant.new(row, self)
-    end
-    all_merchants
-  end
+  # def load_merchants(csvfile)
+  #   # change the variable name
+  #   contents = CSV.open csvfile, headers: true, header_converters: :symbol
+  #   all_merchants = {}
+  #   contents.each do |row|
+  #     all_merchants[row[:id]] = Merchant.new(row, self)
+  #   end
+  #   all_merchants
+  # end
 
   def all
     @contents.values

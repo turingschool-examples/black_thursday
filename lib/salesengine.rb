@@ -8,15 +8,16 @@ require 'pry'
 require 'csv'
 
 class SalesEngine
-  attr_reader :items, :merchants, :invoices, :invoice_items, :transactions, :customers
+  attr_reader :items, :merchants
+  # , :invoices, :invoice_items, :transactions, :customers
 
   def initialize(se_hash)
     @items         = ItemRepository.new(se_hash[:items], self)
     @merchants     = MerchantRepository.new(se_hash[:merchants], self)
-    @invoices      = InvoiceRepository.new(se_hash[:invoices], self)
-    @invoice_items = InvoiceItemRepository.new(:invoice_items, self)
-    @transactions  = TransactionRepository.new(:transactions, self)
-    @customers     = CustomerRepository.new(:customers, self)
+    # @invoices      = InvoiceRepository.new(se_hash[:invoices], self)
+    # @invoice_items = InvoiceItemRepository.new(:invoice_items, self)
+    # @transactions  = TransactionRepository.new(:transactions, self)
+    # @customers     = CustomerRepository.new(:customers, self)
   end
 
   def self.from_csv(se_hash)
@@ -35,7 +36,7 @@ class SalesEngine
     contents = CSV.open csvfile, headers: true, header_converters: :symbol
     all_merchants = {}
     contents.each do |row|
-      all_merchants[row[0]] = Merchant.new({:id => row[0], :name => row[1]}, self)
+      all_merchants[row[:id]] = Merchant.new(row, self)
     end
     all_merchants
   end
@@ -44,7 +45,7 @@ class SalesEngine
     contents = CSV.open csvfile, headers: true, header_converters: :symbol
     all_items = {}
     contents.each do |row|
-      all_items[row[0]] = Item.new({:id => row[0], :name => row[1]}, self)
+      all_items[row[:id]] = Item.new(row, self)
     end
     all_items
   end
