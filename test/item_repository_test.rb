@@ -166,4 +166,16 @@ class ItemRepositoryTest < Minitest::Test
     item = itemrepo.find_all_by_merchant_id(2345234523498709872345)
     assert item.empty?
   end
+
+  def test_find_merchant
+    file_path = "./data/items.csv"
+    salesengine = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+    })
+    itemrepo = ItemRepository.new(file_path, salesengine)
+
+    merchant = itemrepo.find_merchant(12334195)
+    assert_instance_of Merchant, merchant
+  end
 end

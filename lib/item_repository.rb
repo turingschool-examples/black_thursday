@@ -29,7 +29,7 @@ class ItemRepository
     itemcsv = CSV.open @file_path, headers: true, header_converters: :symbol
     itemcsv.each do |row|
       item_hash = Hash[row]
-      item = Item.new(item_hash)
+      item = Item.new(item_hash, self)
       load_to(@id_repo, item, row[:id])
       load_to(@name_repo, item, row[:name])
       load_to(@description_repo, item, row[:description])
@@ -92,5 +92,9 @@ class ItemRepository
     else
       []
     end
+  end
+
+  def find_merchant(merchant_id)
+    @sales_engine.merchants.find_by_id(merchant_id)
   end
 end
