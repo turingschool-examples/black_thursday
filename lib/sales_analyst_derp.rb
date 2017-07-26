@@ -2,7 +2,7 @@ require './lib/sales_engine'
 require 'pry'
 
 
-class SalesAnalyst(sales_engine)
+class SalesAnalyst
   def initialize(sales_engine)
     @sales_engine = sales_engine
   end
