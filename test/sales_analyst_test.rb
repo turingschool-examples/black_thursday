@@ -16,62 +16,61 @@ require './lib/sales_analyst'
 
 class SalesAnalystTest < Minitest::Test
   def test_average_items_per_merchant
-    salesengine = SalesEngine.from_csv({
+    sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
     })
-    salesanalyst = SalesAnalyst.new(salesengine)
+    sales_analyst = SalesAnalyst.new(sales_engine)
 
-    average_items = salesanalyst.average_items_per_merchant
+    average_items = sales_analyst.average_items_per_merchant
 
     assert_equal 2.88, average_items
   end
 
   def test_average_items_per_merchant_standard_deviation
-    salesengine = SalesEngine.from_csv({
+    sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
     })
-    salesanalyst = SalesAnalyst.new(salesengine)
+    sales_analyst = SalesAnalyst.new(sales_engine)
 
-    standard_deviation = salesanalyst.average_items_per_merchant_standard_deviation
+    standard_deviation = sales_analyst.average_items_per_merchant_standard_deviation
 
     assert_equal 3.26, standard_deviation
   end
 
   def test_merchants_with_high_item_count
-    salesengine = SalesEngine.from_csv({
+    sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
     })
-    salesanalyst = SalesAnalyst.new(salesengine)
+    sales_analyst = SalesAnalyst.new(sales_engine)
 
-    high_item_merchants = salesanalyst.merchants_with_high_item_count
+    high_item_merchants = sales_analyst.merchants_with_high_item_count
 
     assert_instance_of Array, high_item_merchants
     assert_instance_of Merchant, high_item_merchants[0]
   end
 
   def test_average_item_price_for_merchant
-    skip
-    salesengine = SalesEngine.from_csv({
+    sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
     })
-    salesanalyst = SalesAnalyst.new(salesengine)
-    merchant_id = salesengine.merchants.id_repo.keys[0]
+    sales_analyst = SalesAnalyst.new(sales_engine)
+    merchant_id = 12334105
 
-    average_merchant_price = salesanalyst.average_item_price_for_merchant(merchant_id)
-    assert_equal ________, average_merchant_price
+    average_item_price = sales_analyst.average_item_price_for_merchant(12334105)
+    assert_equal 1665.67, average_item_price
   end
 
   def test_average_price_per_merchant
     skip
-    salesengine = SalesEngine.from_csv({
+    sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
     })
-    salesanalyst = SalesAnalyst.new(salesengine)
+    sales_analyst = SalesAnalyst.new(sales_engine)
 
     average_price = sales_analyst.average_price_per_merchant
 
@@ -80,11 +79,11 @@ class SalesAnalystTest < Minitest::Test
 
   def test_golden_items
     skip
-    salesengine = SalesEngine.from_csv({
+    sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
     })
-    salesanalyst = SalesAnalyst.new(salesengine)
+    sales_analyst = SalesAnalyst.new(sales_engine)
 
     golden_items = sales_analyst.golden_items
 

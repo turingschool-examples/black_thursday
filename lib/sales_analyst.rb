@@ -28,7 +28,7 @@ class SalesAnalyst
     average = average_items_per_merchant
     standard_dev = average_items_per_merchant_standard_deviation
     @merchants.id_repo.keys.each do |id|
-      merchant = @merchants.id_repo[id]
+      merchant = @merchants.find_by_id(id)
       if merchant.items.count > average + standard_dev
         merchant_results << merchant
       end
@@ -36,8 +36,16 @@ class SalesAnalyst
     merchant_results
   end
 
-  # def average_item_price_for_merchant(merchant_id)
-  #   if @merchants.id_repo.include?(merchant_id)
-  #     merchant = @merchants.id_repo[merchant_id]
+  def average_item_price_for_merchant(merchant_id)
+    merchant = @merchants.find_by_id(merchant_id)
+    if !(merchant.nil?)
+      items = merchant.items
+      total_price = 0
+      items.each do |item|
+        total_price += item.unit_price.to_i
+      end
+      average = (total_price.to_f / items.count.to_f).round(2)
+    end
+  end
 
 end
