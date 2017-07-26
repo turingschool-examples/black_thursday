@@ -1,4 +1,4 @@
-require './lib/item'
+require_relative '../lib/item'
 class ItemRepository
   attr_reader :items
   def initialize(sales_engine)
