@@ -6,7 +6,7 @@ require 'pry'
 class SalesEngine
 
   def self.from_csv(hash)
-    SalesEngine.new(hash)
+    se = SalesEngine.new(hash)
   end
 
   attr_reader :items,
