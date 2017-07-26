@@ -1,9 +1,14 @@
 require 'pry'
 require './lib/merchant'
 
+
 class MerchantRepository
 
   attr_reader :merchants
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 
   def initialize(sales_engine)
     @sales_engine = sales_engine
@@ -29,7 +34,7 @@ class MerchantRepository
   def find_by_name(name)
     result = nil
     @merchants.each do |merchant|
-      if merchant.name == name
+      if merchant.name.downcase == name.downcase
         result = merchant
       end
     end

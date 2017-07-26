@@ -5,18 +5,10 @@ class ItemRepository
     @sales_engine = sales_engine
     @items = []
   end
-  #
-  # def initialize(path)
-  #   @sales_engine = sales_engine
-  #   @items = from_csv(path)
-  # end
 
-  # def from_csv(path)
-  #   results = CSV.open(path, headers:true, header_converters: :symbol)
-  #   results.map do |row|
-  #     Item.new(row, self)
-  #   end
-  # end
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
+  end
 
   def all
     @items

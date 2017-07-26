@@ -1,7 +1,8 @@
 require 'minitest'
 require 'minitest/autorun'
-require 'minitest/emoji'
+# require 'minitest/emoji'
 require_relative '../lib/item'
+require 'bigdecimal'
 
 
 class ItemTest < Minitest::Test
@@ -47,6 +48,15 @@ class ItemTest < Minitest::Test
     item = Item.new(hash, self)
     assert item
     assert_instance_of Item, item
+  end
+
+  def test_spec_creation
+    item = Item.new({:name        => "Pencil",
+                     :description => "You can use it to write things",
+                     :unit_price  => BigDecimal.new(10.99,4),
+                     :created_at  => Time.now,
+                     :updated_at  => Time.now                        })
+
   end
 
 end
