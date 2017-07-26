@@ -55,11 +55,17 @@ class ItemRepository
       item.unit_price == price
     end
   end
-# find_all_by_price - returns either [] or instances of Item where the supplied price exactly matches
 
-# find_all_by_price_in_range - returns either [] or instances of Item where the supplied price is in the supplied range (a single Ruby range instance is passed in)
+  def find_all_by_price_in_range(price_range)
+    @items.find_all do |item|
+      item.unit_price <= price_range.max && item.unit_price >= price_range.min
+    end
+  end
 
-# find_all_by_merchant_id - returns either [] or instances of Item where the supplied merchant ID matches that supplied
-
+  def find_all_by_merchant_id(merchant_id)
+    @items.find_all do |item|
+      item.merchant_id == merchant_id
+    end
+  end
 
 end

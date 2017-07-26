@@ -54,6 +54,19 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 11, items.count
   end
 
-  def find_all_by_price_in_range
+  def test_it_finds_all_by_price_in_range
+    price_range = Range.new(47000,50000)
+    price_range_items = @ir.find_all_by_price_in_range(price_range)
+
+    assert_equal 13, price_range_items.count
   end
+
+  def test_it_finds_all_by_merchant_id
+    items = @ir.find_all_by_merchant_id(12334132)
+    empty_items = @ir.find_all_by_merchant_id(90210878)
+
+    assert_equal 3, items.count
+    assert_equal [], empty_items
+  end
+
 end
