@@ -4,29 +4,46 @@ require 'pry'
 
 class ItemRepository
   attr_reader :items, :engine
-  # :grouped_by_merchant_id
 
-  def initialize(csv_data, engine)
-    @engine                 = engine
-    @items                  = csv_data
-    # @grouped_by_merchant_id = @items.group_by(:merchant_id)
+  def initialize(csvfile, engine)
+    @engine = engine
+    @contents  = load_items(csvfile)
   end
 
+  def load_items(csvfile)
+    # change the variable name
+    contents = CSV.open csvfile, headers: true, header_converters: :symbol
+    all_items = {}
+    contents.each do |row|
+      all_items[row[:id]] = Item.new(row, self)
+    end
+    all_items
+  end
 
   def all
-    items
+    @contents.values
   end
 
   def find_by_id(id)
-    items.detect { |item| item.id == id }
+    @contents[id.to_s]
   end
 
   def find_by_name(name)
-    items.detect { |item| item.name.downcase == name.downcase }
+    content_array = all
+    content_array.find do |item|
+      if item.name == name
+        return item
+      end
+    end
   end
 
   def find_all_with_description(description)
-    items.select { |item| item.description.downcase == description.downcase }
+    content_array = all
+    content_array.find_all do |item|
+      if item.description == description
+        return description
+      end
+    end
   end
 
   def find_all_by_price(price)
@@ -38,7 +55,12 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(merchant_id)
-    grouped_by_merchant_id[merchant_id] || []
+    content_array = all
+    content_array.find_all do |item|
+      if item.merchant_id == merchant_id
+        return merchant_id
+      end
+    end
   end
 
 end

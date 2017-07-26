@@ -16,7 +16,7 @@ class MerchantRepository
     contents = CSV.open csvfile, headers: true, header_converters: :symbol
     all_merchants = {}
     contents.each do |row|
-      all_merchants[row[0]] = Merchant.new({:id => row[0], :name => row[1]}, self)
+      all_merchants[row[:id]] = Merchant.new(row, self)
     end
     all_merchants
   end
@@ -38,11 +38,9 @@ class MerchantRepository
         return merchant
       end
     end
-  # returns either nil or an instance of Merchant having done a case insensitive search
   end
 
   def find_all_by_name(name)
-  # returns either [] or one or more matches which contain the supplied name fragment, case insensitive
     content_array = all
     content_array.find_all do |merchant|
       if merchant.name.start_with?(name)
