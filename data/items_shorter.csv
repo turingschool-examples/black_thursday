@@ -1,0 +1,4 @@
+id,name,description,unit_price,merchant_id,created_at,updated_at
+10003,Item 4,another item,1250,12334113,2016-01-11 11:51:37 UTC,2001-09-17 15:28:43 UTC
+10004,Item 5,one more,12000,12334113,2016-01-11 11:51:37 UTC,2001-09-17 15:28:43 UTC
+10005,Item 6,still another,750,12334115,2016-01-11 11:51:37 UTC,2001-09-17 15:28:43 UTC

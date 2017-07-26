@@ -1,13 +1,13 @@
-require './lib/item_repository'
+require_relative '../lib/item_repository'
 require 'minitest'
 require 'minitest/autorun'
-require 'minitest/pride'
+require 'minitest/emoji'
 
 class ItemRepositoryTest < Minitest::Test
 
   def setup
-    @item_r = ItemRepository.new
 
+    @item_r = ItemRepository.new(self)
     hash_one = {merchant_id: 7, description: "Brown and tasty",
                 id: 123, name: "Chocolate", unit_price: 315     }
     hash_two = {merchant_id: 2, description: "Red and tasty",
@@ -24,14 +24,13 @@ class ItemRepositoryTest < Minitest::Test
 
 
   def test_it_is_initialized
-    ir = ItemRepository.new
-
+    ir = ItemRepository.new(self)
     assert ir
     assert_instance_of ItemRepository, ir
   end
 
   def test_it_can_be_added_to
-    ir = ItemRepository.new
+    ir = ItemRepository.new(self)
 
     hash_one = {
     id: 12334113, name: "MiniatureBikez"}
@@ -129,7 +128,5 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal "Coconut", list.first.name
     assert_equal "Apple", list.last.name
   end
-
-
 
 end

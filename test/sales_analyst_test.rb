@@ -1,7 +1,7 @@
-require './lib/sales_analyst'
+require_relative '../lib/sales_analyst'
 require 'minitest'
 require 'minitest/autorun'
-require 'minitest/pride'
+require 'minitest/emoji'
 
 class SalesAnalystTest < Minitest::Test
   def setup
@@ -37,6 +37,6 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_average_averages
     # assert_equal 10, @sa.average_average_price_per_merchant
-    assert_equal 10, @sa_short.average_average_price_per_merchant
+    assert_equal 1445, @sa_short.average_average_price_per_merchant
   end
 end

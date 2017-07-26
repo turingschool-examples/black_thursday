@@ -1,7 +1,7 @@
 require 'minitest'
 require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/item'
+require 'minitest/emoji'
+require_relative '../lib/item'
 
 
 class ItemTest < Minitest::Test
@@ -10,7 +10,7 @@ class ItemTest < Minitest::Test
     hash = {id: 1, name: "Candy", description: "yellow",
             unit_price: 120, merchant_id: 13,
             created_at: Time.now, updated_at: Time.now   }
-    @the_item = Item.new(hash)
+    @the_item = Item.new(hash, self)
   end
 
   def test_it_has_id
@@ -44,7 +44,7 @@ class ItemTest < Minitest::Test
 
   def test_it_is_initialized_corretly
     hash = {}
-    item = Item.new(hash)
+    item = Item.new(hash, self)
     assert item
     assert_instance_of Item, item
   end

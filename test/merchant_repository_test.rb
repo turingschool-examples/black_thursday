@@ -1,16 +1,17 @@
-require './lib/merchant_repository'
+require_relative '../lib/merchant_repository'
 require 'minitest'
 require 'minitest/autorun'
-require 'minitest/pride'
+require 'minitest/emoji'
 
 class MerchantRepositoryTest < Minitest::Test
 
   def setup
-    @merchant_r = MerchantRepository.new
+    # @merchant_r = MerchantRepository.new(self)
     hash_one   = {id:1, name: "Target"}
     hash_two   = {id:2, name: "Walmart"}
     hash_three = {id:3, name: "CostMart"}
     hash_four  = {id:4, name: "Costco"}
+    @merchant_r = MerchantRepository.new(self)
     @merchant_r.add_data(hash_one)
     @merchant_r.add_data(hash_two)
     @merchant_r.add_data(hash_three)
@@ -19,14 +20,14 @@ class MerchantRepositoryTest < Minitest::Test
 
 
   def test_it_can_be_initialized
-    mr = MerchantRepository.new
+    mr = MerchantRepository.new(self)
     assert mr
     assert_instance_of MerchantRepository, mr
     assert mr.merchants.empty?
   end
 
   def test_data_can_be_added
-    mr = MerchantRepository.new
+    mr = MerchantRepository.new(self)
     hash_one = {
     id: 12334113, name: "MiniatureBikez"}
     hash_two = {
@@ -79,7 +80,5 @@ class MerchantRepositoryTest < Minitest::Test
     list_two = @merchant_r.find_all_by_name("t")
     assert_equal 4, list_two.count
   end
-
-  def
 
 end

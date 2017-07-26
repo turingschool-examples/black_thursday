@@ -1,4 +1,4 @@
-require './lib/merchant'
+require_relative '../lib/merchant'
 require 'pry'
 require 'minitest/autorun'
 require 'minitest/emoji'
@@ -6,7 +6,7 @@ require 'minitest/emoji'
 class MerchantTest < Minitest::Test
 
   def setup
-    @merchant = Merchant.new({id: 1, name: "Bob's Bagpipes"})
+    @merchant = Merchant.new({id: 1, name: "Bob's Bagpipes"}, self)
   end
 
   def test_merchant_exists
