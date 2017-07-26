@@ -21,18 +21,15 @@ class ItemTest < Minitest::Test
   end
 
    def test_time_takes_data
-     i = Item.new({
-  :name        => "Pencil",
-  :description => "You can use it to write things",
-  :unit_price  => BigDecimal.new(10.99,4),
-  :created_at  => Time.parse("2016-11-01 11:38:28 -0600"),
-  :updated_at  => Time.parse("2016-11-01 11:38:28 -0600")
-})
-
+     i = Item.new({:name        => "Pencil",
+                   :description => "You can use it to write things",
+                   :unit_price  => BigDecimal.new(10.99,4),
+                   :created_at  => Time.parse("2016-11-01 11:38:28 -0600"),
+                   :updated_at  => Time.parse("2016-11-01 11:38:28 -0600")
+                 })
      expected = Time.parse("2016-11-01 11:38:28 -0600")
 
      assert_equal expected, i.created_at
-
      assert_instance_of Time, i.created_at
    end
 
