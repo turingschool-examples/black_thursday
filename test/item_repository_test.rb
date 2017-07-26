@@ -24,7 +24,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_by_id
-    assert_instance_of Item, @ir.find_by_id("263395617")
+    assert_instance_of Item, @ir.find_by_id(263395237)
     assert_nil @ir.find_by_id("128095803")
   end
 
