@@ -7,7 +7,7 @@ class ItemRepository
 
   def initialize(csvfile, engine)
     @engine = engine
-    @contents  = load_items(csvfile)
+    @contents  = csvfile
   end
 
   def load_items(csvfile)
