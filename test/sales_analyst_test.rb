@@ -42,7 +42,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_returns_golden_items
     assert_instance_of Array, @sa.golden_items
-    assert_equal 1367, @sa.golden_items.count
-    assert_equal 1367, @sa.items.items.find_all_by_price_in_range
+    assert_equal 5, @sa.golden_items.count
+    assert_equal 5, @sa.sales_engine.items.find_all_by_price_in_range(615227, 10000000000).count
   end
 end

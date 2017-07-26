@@ -2,6 +2,7 @@ require './lib/sales_engine'
 require './lib/calculator'
 require 'pry'
 class SalesAnalyst
+  attr_reader :sales_engine
   include Calculator
 
   def initialize(sales_engine)
@@ -43,16 +44,20 @@ class SalesAnalyst
 
   def average_average_price_per_merchant
     merchants = @sales_engine.merchants.all
-    averages = merchants.map do |merchant|
-      average_item_price_for_merchant(merchant.id)
-    end
+    averages = list_avg_merch(merchants)
     mean(averages)
   end
 
+  def list_avg_merch(in_set)
+    averages = in_set.map do |merchant|
+      average_item_price_for_merchant(merchant.id)
+    end
+  end
+
   def golden_items
-    s_dev        = average_items_per_merchant_standard_deviation
-    average_each = average_items_per_merchant
-    mark = average_each + (s_dev * 2)
+    s_dev = standard_deviance(@sales_engine.items.items.map {|item| item.unit_price})
+    avg_each = average_average_price_per_merchant
+    mark = avg_each + (s_dev * 2)
     golden_set = @sales_engine.items.items.find_all do |item|
       item.unit_price > mark
     end
@@ -61,8 +66,6 @@ class SalesAnalyst
     end
     items
   end
-
-
 
   def all_averages
     the_merchants = @sales_engine.merchants.all
