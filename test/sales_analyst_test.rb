@@ -36,7 +36,18 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_average_averages
+<<<<<<< HEAD
     # assert_equal 10, @sa.average_average_price_per_merchant
     assert_equal 1445, @sa_short.average_average_price_per_merchant
+=======
+    assert_equal 35029, @sa.average_average_price_per_merchant
+    assert_equal 1445, @sa_short.average_average_price_per_merchant
+  end
+
+  def test_it_returns_golden_items
+    assert_instance_of Array, @sa.golden_items
+    assert_equal 5, @sa.golden_items.count
+    assert_equal 5, @sa.sales_engine.items.find_all_by_price_in_range(615227, 10000000000).count
+>>>>>>> 4c6d3b441340021496d11d436db1e0f706004099
   end
 end
