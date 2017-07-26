@@ -17,4 +17,9 @@ class InvoiceRepositoryTest < Minitest::Test
     ir = InvoiceRepository.new("./data/mini_invoices.csv")
     assert_equal 2, ir.all.count
   end
+
+  def test_invoice_repo_is_able_to_find_by_id
+    ir = InvoiceRepository.new("./data/mini_invoices.csv")
+    assert ir.find_by_id(1)
+  end
 end
