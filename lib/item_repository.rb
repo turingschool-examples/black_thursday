@@ -43,7 +43,6 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
-    price = price * 100
     items = repository.values
     items.find_all do |item|
       item.unit_price == price
@@ -53,7 +52,7 @@ class ItemRepository
   def find_all_by_price_in_range(range)
     items = repository.values
     items.find_all do |item|
-      range.include?(item.unit_price / 100)
+      range.include?(item.unit_price)
     end
   end
 
