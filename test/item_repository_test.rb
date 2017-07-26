@@ -10,7 +10,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_load_csv_file
-    ir = ItemRepository.new("./data/items.csv")
+    ir = ItemRepository.new("./data/mini_items.csv")
     assert ir
   end
 
@@ -32,6 +32,11 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_be_found_by_name
     ir = ItemRepository.new("./data/mini_items.csv")
     assert ir.find_by_name("510+ realpush icon set")
+  end
+
+  def test_it_can_be_found_by_another_name
+    ir = ItemRepository.new("./data/mini_items.csv")
+    assert ir.find_by_name("Glitter scrabble frames")
   end
 
   def test_it_returns_nil_if_no_name_is_found
