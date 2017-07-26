@@ -53,4 +53,5 @@ class MerchantRepository
     end
     found_merchants
   end
+
 end

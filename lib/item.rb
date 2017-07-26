@@ -26,4 +26,12 @@ class Item
     ((@unit_price / 100).to_f).round(2)
   end
 
+  def merchant
+    se = SalesEngine.from_csv({
+    :items     => "./data/items.csv",
+    :merchants => "./data/merchants.csv",
+    })
+    se.merchants.find_by_id(merchant_id)
+  end
+
 end

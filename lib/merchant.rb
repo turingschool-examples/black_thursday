@@ -1,6 +1,3 @@
-require 'simplecov'
-SimpleCov.start
-
 class Merchant
   attr_reader :merchant_info
 
@@ -14,6 +11,14 @@ class Merchant
 
   def id
     merchant_info[:id]
+  end
+
+  def items
+    se = SalesEngine.from_csv({
+    :items     => "./data/items.csv",
+    :merchants => "./data/merchants.csv",
+    })
+    se.items.find_all_by_merchant_id(id)
   end
 
 end

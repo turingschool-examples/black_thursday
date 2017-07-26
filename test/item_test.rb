@@ -54,4 +54,15 @@ class ItemTest < Minitest::Test
     assert_equal 500.00, @item.unit_price_to_dollars
   end
 
+  def test_it_can_find_merchant_by_item_id
+    se = SalesEngine.from_csv({
+    :items     => "./data/items.csv",
+    :merchants => "./data/merchants.csv",
+    })
+
+    item = se.items.find_by_id(263395237)
+
+    assert_instance_of Merchant, item.merchant
+  end
+
 end
