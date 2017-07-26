@@ -38,7 +38,7 @@ class ItemRepository
     descriptions = []
     items = repository.values
     items.each do |item|
-      if item.description.include?(description)
+      if item.description.include?(description.downcase)
         descriptions << item
       end
     end
