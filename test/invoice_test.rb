@@ -21,4 +21,8 @@ class InventoryTest < Minitest::Test
   def test_it_returns_a_id
     assert_equal 6, @i.id
   end
+
+  def test_it_returns_customer_id
+    assert_equal 7, @i.customer_id
+  end
 end
