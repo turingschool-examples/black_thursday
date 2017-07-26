@@ -1,19 +1,13 @@
-<<<<<<< HEAD
-se = SalesEngine.from_csv({
-  :items     => "./data/items.csv",
-  :merchants => "./data/merchants.csv",
-})
-- items: returns instance of ItemRepository with all instances loaded
-ir   = se.items
-item = ir.find_by_name("Item Repellat Dolorum")
-=======
 gem 'minitest', '~> 5.2'
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/sales_engine'
 require './lib/merchant_repository'
+<<<<<<< HEAD
 # require './lib/item_repository'
->>>>>>> 2d200b0a046704c334a61ada479e4cc45cfb1a60
+=======
+require './lib/item_repository'
+>>>>>>> 4ce2731ed80078c466c4320f16daad0cf92e56a3
 
 - merchants: returns instance of MerchantRepository with all instances loaded
 mr = se.merchants

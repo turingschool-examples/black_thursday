@@ -57,4 +57,16 @@ class MerchantTest < Minitest::Test
 
     assert_equal "2014-12-04", update_date
   end
+
+  def test_merchant_can_check_for_items
+    se = SalesEngine.from_csv({
+          :items     => "./data/items.csv",
+          :merchants => "./data/merchants.csv",
+        })
+    merchant = se.merchants.find_by_id(12334112)
+    merch_items = merchant.items
+
+    assert_equal 2, merch_items.count
+  end
+
 end

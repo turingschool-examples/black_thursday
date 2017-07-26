@@ -15,4 +15,9 @@ class Merchant
     @merchant_repo  = merchant_repo
   end
 
+  def items
+    item_repo = @merchant_repo.sales_engine.items
+    item_repo.find_all_by_merchant_id(@id)
+  end
+
 end

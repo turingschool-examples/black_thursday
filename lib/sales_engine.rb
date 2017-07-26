@@ -1,5 +1,5 @@
-require './lib/item_repository'
 require './lib/merchant_repository'
+require './lib/item_repository'
 
 class SalesEngine
 

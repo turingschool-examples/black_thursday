@@ -26,3 +26,7 @@ class SalesAnalyst
     divided_result = sum / sum_repo(@merchants)
     standard_dev = Math.sqrt(divided_result)
   end
+
+  def merchants_with_high_item_count
+    @merchants.id_repo.each do |merchant|
+      
