@@ -40,7 +40,7 @@ class SalesEngineTest < Minitest::Test
       :merchants => "./data/mini_merchants.csv",
       })
     mr = se.merchants
-    merchant = mr.find_by_name("CJsDecor")
+    merchant = mr.find_by_name("Shopin1901")
     assert merchant
   end
 
@@ -55,13 +55,12 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_can_find_another_item_by_name
-    skip
     se = SalesEngine.from_csv({
       :items     => "./data/mini_items.csv",
       :merchants => "./data/mini_merchants.csv",
       })
     ir   = se.items
-    item = ir.find_by_name("Disney scrabble frames")
+    item = ir.find_by_name("Glitter scrabble frames")
     assert item
   end
 end

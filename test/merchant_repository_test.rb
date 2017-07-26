@@ -31,12 +31,17 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_merchant_repo_is_able_to_find_by_name
     mr = MerchantRepository.new("./data/mini_merchants.csv")
-    assert mr.find_by_name("JUSTEmonsters")
+    assert mr.find_by_name("Candisart")
+  end
+
+  def test_merchant_repo_is_able_to_find_by_another_name
+    mr = MerchantRepository.new("./data/mini_merchants.csv")
+    assert mr.find_by_name("Shopin1901")
   end
 
   def test_merchant_repo_returns_nil_if_no_name_is_found
     mr = MerchantRepository.new("./data/mini_merchants.csv")
-    assert mr.find_by_name("MandyBlackShop")
+    assert_nil mr.find_by_name("MandyBlackShop")
   end
 
   def test_merchant_repo_can_supply_names_if_given_name_fragment

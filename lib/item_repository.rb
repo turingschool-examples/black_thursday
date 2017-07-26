@@ -27,12 +27,8 @@ class ItemRepository
 
   def find_by_name(name)
     items = repository.values
-    items.each do |item|
-      if item.name.downcase == name.downcase
-        return item
-      else
-        return nil
-      end
+    items.find do |item|
+      item.name.downcase == name.downcase
     end
   end
 
