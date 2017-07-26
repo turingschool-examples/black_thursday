@@ -29,7 +29,7 @@ class MerchantRepository
   def find_by_name(name)
     merchants = repository.values
     merchants.each do |merchant|
-      if merchant.name == name
+      if merchant.name.downcase == name.downcase
         return merchant
       end
     end
@@ -39,7 +39,7 @@ class MerchantRepository
     names = []
     merchants = repository.values
     merchants.each do |merchant|
-      if merchant.name.include?(name_fragment)
+      if merchant.name.include?(name_fragment.downcase)
         names << merchant
       end
     end
