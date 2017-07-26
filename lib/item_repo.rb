@@ -7,7 +7,11 @@ class ItemRepository
 
   def initialize(csvfile, engine)
     @engine = engine
-    @contents  = csvfile
+    @items  = csvfile
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 
   def load_items(csvfile)

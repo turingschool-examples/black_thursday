@@ -8,9 +8,12 @@ class MerchantRepository
 
   def initialize(csvfile, engine)
     @engine = engine
-    @contents = csvfile
+    @merchants = csvfile
   end
 
+    def inspect
+      "#<#{self.class} #{@merchants.size} rows>"
+    end
 
   def load_merchants(csvfile)
     contents = CSV.open csvfile, headers: true, header_converters: :symbol

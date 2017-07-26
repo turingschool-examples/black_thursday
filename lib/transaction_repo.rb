@@ -9,6 +9,10 @@ class TransactionRepository
     @transactions = csv_data
   end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
   def all
     transactions
   end
