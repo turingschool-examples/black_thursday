@@ -58,4 +58,13 @@ class SalesAnalyst
     (all_item_prices.sum / all_item_prices.count).round(2)
   end
 
+  def average_average_price_per_merchant
+    merchant_averages = []
+    @se.merchants.merchants.each do |merchant_obj|
+      merchant_id = merchant_obj.id
+      merchant_averages << average_item_price_for_merchant(merchant_id)
+    end
+    (merchant_averages.sum / @se.merchants.merchants.count).round(2)
+  end
+
 end

@@ -77,4 +77,14 @@ class SalesAnalystTest < Minitest::Test
     assert_equal BigDecimal.new("315".insert(-2, ".")), target
   end
 
+  def test_average_price_among_all_merchants
+    se = SalesEngine.from_csv({:items => './data/items.csv',
+                               :merchants => './data/merchants.csv'})
+    sa = SalesAnalyst.new(se)
+
+    target = sa.average_average_price_per_merchant
+
+    assert_equal BigDecimal.new("35029".insert(-3, ".")), target
+  end
+
 end
