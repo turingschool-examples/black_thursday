@@ -57,4 +57,15 @@ class ItemRepository
     return prices
   end
 
+  def find_all_by_price_in_range(range)
+    prices = []
+    items = repository.values
+    items.each do |item|
+      if range.include?(item.unit_price)
+        prices << item
+      end
+    end
+    return prices
+  end
+
 end
