@@ -23,10 +23,13 @@ class SalesAnalyst
     example_merch = []
     example_merch = all_averages.find_all do |average|
       if average[:count] > mark
-        example_merch << average[:merchant]
+        example_merch << average[:merchant].to_s
       end
     end
-    example_merch
+    examples = example_merch.map do |example|
+      example[:merchant].name
+    end
+    examples
   end
 
 
