@@ -1,7 +1,8 @@
 gem 'minitest', '~> 5.2'
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/merchant'
+require_relative '../lib/merchant'
+require_relative '../lib/sales_engine.rb'
 
 class MerchantTest < Minitest::Test
 
@@ -66,7 +67,7 @@ class MerchantTest < Minitest::Test
     merchant = se.merchants.find_by_id(12334112)
     merch_items = merchant.items
 
-    assert_equal 2, merch_items.count
+    assert_equal 1, merch_items.count
   end
 
 end
