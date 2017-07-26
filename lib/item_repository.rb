@@ -5,7 +5,9 @@ class ItemRepository
     @sales_engine = sales_engine
     @items = []
   end
-  #
+  def inspect
+  "#<#{self.class} #{@merchants.size} rows>"
+end
   # def initialize(path)
   #   @sales_engine = sales_engine
   #   @items = from_csv(path)
