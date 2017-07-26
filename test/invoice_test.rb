@@ -3,8 +3,22 @@ require './lib/invoice'
 require 'pry'
 
 class InventoryTest < Minitest::Test
+  def setup
+    @i = Invoice.new({
+      :id          => 6,
+      :customer_id => 7,
+      :merchant_id => 8,
+      :status      => "pending",
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+      })
+  end
+
   def test_it_exist
-    invoice = Invoice.new
-    assert_instance_of Invoice, invoice
+    assert_instance_of Invoice, @i
+  end
+
+  def test_it_returns_a_id
+    assert_equal 6, @i.id
   end
 end
