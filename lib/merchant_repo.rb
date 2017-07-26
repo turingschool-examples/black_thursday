@@ -12,7 +12,6 @@ class MerchantRepository
   end
 
   def load_merchants(csvfile)
-    # change the variable name
     contents = CSV.open csvfile, headers: true, header_converters: :symbol
     all_merchants = {}
     contents.each do |row|

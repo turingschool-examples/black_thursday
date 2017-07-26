@@ -22,12 +22,12 @@ class SalesEngine
   def self.from_csv(se_hash)
     merchant_data     = load_merchants(se_hash[:merchants])
     item_data         = load_items(se_hash[:items])
-    # invoice_data      = load_data(se_hash[:invoices])
+    invoice_data      = load_invoices(se_hash[:invoices])
     # invoice_item_data = load_data(se_hash[:invoice_items])
     # transaction_data  = load_data(se_hash[:transactions])
     # customer_data     = load_data(se_hash[:customers])
 
-    SalesEngine.new({:items => item_data, :merchants => merchant_data})
+    SalesEngine.new({:items => item_data, :merchants => merchant_data, :invoices => invoice_data})
     # , invoice_data, invoice_item_data, transaction_data, customer_data)
   end
 

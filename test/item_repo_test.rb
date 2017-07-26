@@ -1,6 +1,4 @@
-require 'simplecov'
-require 'minitest/autorun'
-require 'minitest/pride'
+require './test/test_helper'
 require './lib/item_repo'
 
 class ItemRepositoryTest < Minitest::Test

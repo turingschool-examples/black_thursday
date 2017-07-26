@@ -1,9 +1,12 @@
+require_relative 'invoice'
+require 'csv'
+
 class InvoiceRepository
   attr_reader :engine, :contents
 
   def initialize(csvfile, engine)
     @engine   = engine
-    @contents = load_items(csvfile)
+    @contents = load_invoices(csvfile)
   end
 
   def load_invoices(csvfile)

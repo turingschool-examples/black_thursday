@@ -11,7 +11,6 @@ class ItemRepository
   end
 
   def load_items(csvfile)
-    # change the variable name
     contents = CSV.open csvfile, headers: true, header_converters: :symbol
     all_items = {}
     contents.each do |row|
