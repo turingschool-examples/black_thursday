@@ -41,6 +41,15 @@ class SalesAnalyst
     mean(item_prices)
   end
 
+  def average_average_price_per_merchant
+    merchants = @sales_engine.merchants.all
+    averages = merchants.map do |merchant|
+      average_item_price_for_merchant(merchant.id)
+    end
+    mean(averages)
+  end
+
+
 
   def all_averages
     the_merchants = @sales_engine.merchants.all
@@ -64,5 +73,6 @@ class SalesAnalyst
     count = @sales_engine.items.find_all_by_merchant_id(id).count
     count
   end
+
 
 end

@@ -10,6 +10,11 @@ class SalesAnalystTest < Minitest::Test
                               :merchants => "./data/merchants.csv",
                                                                   })
     @sa = SalesAnalyst.new(@se)
+    @se_short= SalesEngine.from_csv({
+                              :items     => "./data/items_short_one.csv",
+                              :merchants => "./data/merchants_short_one.csv",})
+    @sa_short = SalesAnalyst.new(@se_short)
+
   end
 
   def test_it_can_be_initialized
@@ -28,5 +33,10 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_do_average_item_price_for_merchant
     assert_equal 13000, @sa.average_item_price_for_merchant(12335227)
+  end
+
+  def test_it_can_average_averages
+    # assert_equal 10, @sa.average_average_price_per_merchant
+    assert_equal 10, @sa_short.average_average_price_per_merchant
   end
 end
