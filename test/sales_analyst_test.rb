@@ -1,15 +1,15 @@
-sa = SalesAnalyst.new(sales_engine)
-sa.average_items_per_merchant
-sa.average_items_per_merchant_standard_deviation
-    Take the difference between each number and the mean and square it
-    Sum these square differences together
-    Divide the sum by the number of elements minus 1
-    Take the square root of this result
-sa.merchants_with_high_item_count # => [merchant, merchant, merchant]
-sa.average_item_price_for_merchant(merchant_id) # => BigDecimal
-sa.average_average_price_per_merchant # => BigDecimal
-sa.golden_items # => [<item>, <item>, <item>, <item>]
-    ^2 standard deviations above average price
+# sa = SalesAnalyst.new(sales_engine)
+# sa.average_items_per_merchant
+# sa.average_items_per_merchant_standard_deviation
+#     Take the difference between each number and the mean and square it
+#     Sum these square differences together
+#     Divide the sum by the number of elements minus 1
+#     Take the square root of this result
+# sa.merchants_with_high_item_count # => [merchant, merchant, merchant]
+# sa.average_item_price_for_merchant(merchant_id) # => BigDecimal
+# sa.average_average_price_per_merchant # => BigDecimal
+# sa.golden_items # => [<item>, <item>, <item>, <item>]
+#     ^2 standard deviations above average price
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/sales_analyst'
@@ -40,6 +40,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_merchants_with_high_item_count
+    skip
     salesengine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -79,6 +80,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_golden_items
+    skip
     salesengine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",

@@ -1,3 +1,5 @@
+require './lib/sales_engine'
+
 class SalesAnalyst
   def initialize(sales_engine)
     @sales_engine = sales_engine
@@ -5,28 +7,22 @@ class SalesAnalyst
     @items = sales_engine.items
   end
 
-  def sum_repo(repository)
-    sum = 0
-    repository.id_repo.each do |merchant|
-      sum += 1
-    end
-  end
-
   def average_items_per_merchant
-    sum_repo(@items) / sum_repo(@merchants)
-    #somehow need to round to 2 decimal points
+    average = @items.id_repo.count.to_f / @merchants.id_repo.count.to_f
+    average.round(2)
   end
 
   def average_items_per_merchant_standard_deviation
     average = average_items_per_merchant
     sum = 0
-    @merchants.id_repo.each do |merchant|
+    @merchants.id_repo.keys.each do |id|
+      merchant = @merchants.id_repo[id]
       sum += (merchant.items.count - average) ** 2
     end
-    divided_result = sum / sum_repo(@merchants)
-    standard_dev = Math.sqrt(divided_result)
+    divided_result = sum / (@merchants.id_repo.count - 1)
+    standard_dev = Math.sqrt(divided_result).round(2)
   end
 
-  def merchants_with_high_item_count
-    @merchants.id_repo.each do |merchant|
-      
+  # def merchants_with_high_item_count
+  #   @merchants.id_repo.each do |merchant|
+end
