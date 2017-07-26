@@ -1,3 +1,4 @@
+
 require_relative '../lib/item'
 class ItemRepository
   attr_reader :items
@@ -51,15 +52,28 @@ class ItemRepository
     results
   end
 
-  def find_all_by_price_in_range(price_low, price_high)
+  [1..10]
+
+  # def find_all_by_price_in_range(price_low, price_high)
+  #   results = []
+  #   @items.each do |item|
+  #     if item.unit_price >= price_low && item.unit_price <= price_high
+  #       results << item
+  #     end
+  #   end
+  #   results
+  # end
+
+  def find_all_by_price_in_range(range)
     results = []
     @items.each do |item|
-      if item.unit_price >= price_low && item.unit_price <= price_high
+      if (range).member?(item.unit_price)
         results << item
       end
     end
     results
   end
+
 
   def find_all_by_merchant_id(merch_id)
     results = []
@@ -73,6 +87,10 @@ class ItemRepository
 
   def add_data(data)
     @items << Item.new(data.to_hash, @sales_engine)
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 
 end

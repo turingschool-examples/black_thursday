@@ -1,3 +1,4 @@
+require 'bigdecimal'
 class Item
   attr_reader :id,
               :name,
@@ -7,15 +8,15 @@ class Item
               :created_at,
               :updated_at
 
-  def initialize(item_characteristics, sales_engine)
+  def initialize(data, sales_engine)
     @sales_engine = sales_engine
-    @id = item_characteristics[:id].to_i
-    @name = item_characteristics[:name]
-    @description = item_characteristics[:description]
-    @unit_price = item_characteristics[:unit_price].to_i
-    @merchant_id = item_characteristics[:merchant_id].to_i
-    @created_at = item_characteristics[:created_at]
-    @updated_at = item_characteristics[:updated_at]
+    @id = data[:id].to_i
+    @name = data[:name]
+    @description = data[:description]
+    @unit_price = BigDecimal.new((data[:unit_price].to_i)/100, 4)
+    @merchant_id = data[:merchant_id].to_i
+    @created_at = Time.parse(data[:created_at])
+    @updated_at = Time.parse(data[:updated_at])
   end
 
   def merchant
