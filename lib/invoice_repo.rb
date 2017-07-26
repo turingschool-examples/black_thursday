@@ -1,29 +1,53 @@
 class InvoiceRepository
-  attr_reader :invoices, :engine
+  attr_reader :engine, :contents
 
-  def initialize(csv_data, engine)
-    @invoices = csv_data
+  def initialize(csvfile, engine)
     @engine   = engine
+    @contents = load_items(csvfile)
+  end
+
+  def load_invoices(csvfile)
+    contents = CSV.open csvfile, headers: true, header_converters: :symbol
+    all_invoices = {}
+    contents.each do |row|
+      all_invoices[row[:id]] = Invoice.new(row, self)
+    end
+    all_invoices
   end
 
   def all
-    invoices
+    @contents.values
   end
 
-  def find_by_id
-    invoices.detect { |invoice| invoice.id == id }
+  def find_by_id(id)
+    @contents[id.to_s]
   end
 
-  def find_all_by_customer_id
-    invoices.select { |invoice| invoice.customer_id == customer_id } || []
+  def find_all_by_customer_id(customer_id)
+    content_array = all
+    content_array.find_all do |invoice|
+      if invoice.customer_id == customer_id
+        return invoice
+      end
+    end
   end
 
-  def find_all_by_merchant_id
-    invoices.select { |invoice| invoice.merchant_id == merchant_id } || []
+  def find_all_by_merchant_id(merchant_id)
+    content_array = all
+    content_array.find_all do |invoice|
+      if invoice.merchant_id == merchant_id
+        return invoice
+      end
+    end
   end
 
-  def find_all_by_status
-    invoices.select { |invoice| invoice.status == status } || []
+  def find_all_by_status(status)
+    content_array = all
+    content_array.find_all do |invoice|
+      if invoice.status == status
+        return invoice
+      end
+    end
   end
 
 end
