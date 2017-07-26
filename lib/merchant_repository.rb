@@ -1,10 +1,13 @@
 require 'pry'
+require './lib/merchant_repository'
+# require './lib/ItemRepository'
 require 'csv'
 
 class MerchantRepository
 
   attr_reader :file_path,
-              :sales_engine
+              :sales_engine,
+              :id_repo
 
   def initialize(file_path, sales_engine)
     @sales_engine = sales_engine
