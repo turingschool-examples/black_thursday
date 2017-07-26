@@ -26,7 +26,7 @@ class ItemRepositoryTest < Minitest::Test
 
     item = itemrepo.find_by_id(263395237)
     assert_instance_of Item, item
-    assert_equal 263395237, item.id
+    assert_equal "263395237", item.id
   end
 
   def test_find_by_id_negative

@@ -4,12 +4,12 @@ require 'pry'
 
 class ItemRepository
   def initialize(file_path, sales_engine)
-    @file_path = file_path
-    @sales_engine = sales_engine
-    @id_repo = {}
-    @name_repo = {}
+    @file_path =        file_path
+    @sales_engine =     sales_engine
+    @id_repo =          {}
+    @name_repo =        {}
     @description_repo = {}
-    @price_repo = {}
+    @price_repo =       {}
     @merchant_id_repo = {}
     load_repo
   end
@@ -43,8 +43,8 @@ class ItemRepository
   end
 
   def find_by_id(id)
-    if @id_repo.include?(id)
-      @id_repo[id]
+    if @id_repo.include?(id.to_s)
+      @id_repo[id.to_s]
     else
       nil
     end
@@ -60,7 +60,7 @@ class ItemRepository
 
   def find_all_with_description(description)
     results = []
-    @description_repo.each do |key_value|
+    @description_repo.keys.each do |key_value|
       if key_value.include?(description)
         results << @description_repo[key_value]
       end
@@ -69,8 +69,8 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
-    if @price_repo.include?(price)
-      [@price_repo[price]].flatten
+    if @price_repo.include?(price.to_s)
+      [@price_repo[price.to_s]].flatten
     else
       []
     end
@@ -78,8 +78,8 @@ class ItemRepository
 
   def find_all_by_price_in_range(price_minimum, price_maximum)
     results = []
-    @price_repo.each do |key_value|
-      if key_value > price_minimum && key_value < price_maximum
+    @price_repo.keys.each do |key_value|
+      if key_value.to_i > price_minimum && key_value.to_i < price_maximum
         results << @price_repo[key_value]
       end
     end
@@ -87,8 +87,8 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(merchant_id)
-    if @merchant_id_repo.include?(merchant_id)
-      [@merchant_id_repo[merchant_id]].flatten
+    if @merchant_id_repo.include?(merchant_id.to_s)
+      [@merchant_id_repo[merchant_id.to_s]].flatten
     else
       []
     end
