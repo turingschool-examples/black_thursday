@@ -1,10 +1,7 @@
-all: returns an array of all known Item instances
-find_by_id: returns either nil or an instance of Item with a matching ID
-find_by_name: returns either nil or an instance of Item having done a case insensitive search
-find_all_with_description: returns either [] or instances of Item where the supplied string appears in the item description (case insensitive)
-find_all_by_price: returns either [] or instances of Item where the supplied price exactly matches
-find_all_by_price_in_range: returns either [] or instances of Item where the supplied price is in the supplied range (a single Ruby range instance is passed in)
-find_all_by_merchant_id: returns either [] or instances of Item where the supplied merchant ID matches that supplied
+require 'minitest/autorun'
+require 'minitest/pride'
+require './lib/item_repository'
+require './lib/sales_engine'
 
 class ItemRepositoryTest < Minitest::Test
   def test_all
@@ -27,9 +24,9 @@ class ItemRepositoryTest < Minitest::Test
     })
     itemrepo = ItemRepository.new(file_path, salesengine)
 
-    item = itemrepo.find_by_id(12337199)
+    item = itemrepo.find_by_id(263395237)
     assert_instance_of Item, item
-    assert_equal 12337199, item.id
+    assert_equal "263395237", item.id
   end
 
   def test_find_by_id_negative
@@ -40,7 +37,7 @@ class ItemRepositoryTest < Minitest::Test
     })
     itemrepo = ItemRepository.new(file_path, salesengine)
 
-    item = itemrepo.find_by_id(2394023094820)
+    item = itemrepo.find_by_id(239402309410)
     assert_instance_of NilClass, item
   end
 
@@ -52,9 +49,9 @@ class ItemRepositoryTest < Minitest::Test
     })
     itemrepo = ItemRepository.new(file_path, salesengine)
 
-    item = itemrepo.find_by_name("etsygb")
+    item = itemrepo.find_by_name("510+ RealPush Icon Set")
     assert_instance_of Item, item
-    assert_equal "EtsyGB", item.name
+    assert_equal "510+ RealPush Icon Set", item.name
   end
 
   def test_find_by_name_negative
@@ -66,7 +63,7 @@ class ItemRepositoryTest < Minitest::Test
     itemrepo = ItemRepository.new(file_path, salesengine)
 
     item = itemrepo.find_by_name("EEEEEEEEEEEYYYYYYYYthere")
-    assert_instance_of NilClass, merchant
+    assert_instance_of NilClass, item
   end
 
   def test_find_all_with_description
@@ -77,6 +74,11 @@ class ItemRepositoryTest < Minitest::Test
     })
     itemrepo = ItemRepository.new(file_path, salesengine)
 
+    item = itemrepo.find_all_with_description("ship")
+    assert_instance_of Array, item
+    assert_instance_of Item, item[0]
+  end
+
   def test_find_all_with_description_negative
     file_path = "./data/items.csv"
     salesengine = SalesEngine.from_csv({
@@ -84,6 +86,11 @@ class ItemRepositoryTest < Minitest::Test
       :merchants => "./data/merchants.csv",
     })
     itemrepo = ItemRepository.new(file_path, salesengine)
+
+    item = itemrepo.find_all_with_description("HUZZAHLOOKITDESESOLIDDEELS")
+    assert item.empty?
+  end
+
 
   def test_find_all_by_price
     file_path = "./data/items.csv"
@@ -93,6 +100,11 @@ class ItemRepositoryTest < Minitest::Test
     })
     itemrepo = ItemRepository.new(file_path, salesengine)
 
+    item = itemrepo.find_all_by_price(2999)
+    assert_instance_of Array, item
+    assert_instance_of Item, item[0]
+  end
+
   def test_find_all_by_price_negative
     file_path = "./data/items.csv"
     salesengine = SalesEngine.from_csv({
@@ -100,6 +112,10 @@ class ItemRepositoryTest < Minitest::Test
       :merchants => "./data/merchants.csv",
     })
     itemrepo = ItemRepository.new(file_path, salesengine)
+
+    item = itemrepo.find_all_by_price(24502394875234534987)
+    assert item.empty?
+  end
 
   def test_find_all_by_price_in_range
     file_path = "./data/items.csv"
@@ -109,6 +125,11 @@ class ItemRepositoryTest < Minitest::Test
     })
     itemrepo = ItemRepository.new(file_path, salesengine)
 
+    item = itemrepo.find_all_by_price_in_range(1000, 4500)
+    assert_instance_of Array, item
+    assert_instance_of Item, item[0]
+  end
+
   def test_find_all_by_price_in_range_negative
     file_path = "./data/items.csv"
     salesengine = SalesEngine.from_csv({
@@ -116,6 +137,10 @@ class ItemRepositoryTest < Minitest::Test
       :merchants => "./data/merchants.csv",
     })
     itemrepo = ItemRepository.new(file_path, salesengine)
+
+    item = itemrepo.find_all_by_price_in_range(1234234235344645645, 234523452345234523452)
+    assert item.empty?
+  end
 
   def test_find_all_by_merchant_id
     file_path = "./data/items.csv"
@@ -125,6 +150,11 @@ class ItemRepositoryTest < Minitest::Test
     })
     itemrepo = ItemRepository.new(file_path, salesengine)
 
+    item = itemrepo.find_all_by_merchant_id(12334195)
+    assert_instance_of Array, item
+    assert_instance_of Item, item[0]
+  end
+
   def test_find_all_by_merchant_id_negative
     file_path = "./data/items.csv"
     salesengine = SalesEngine.from_csv({
@@ -132,3 +162,20 @@ class ItemRepositoryTest < Minitest::Test
       :merchants => "./data/merchants.csv",
     })
     itemrepo = ItemRepository.new(file_path, salesengine)
+
+    item = itemrepo.find_all_by_merchant_id(2345234523498709872345)
+    assert item.empty?
+  end
+
+  def test_find_merchant
+    file_path = "./data/items.csv"
+    salesengine = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+    })
+    itemrepo = ItemRepository.new(file_path, salesengine)
+
+    merchant = itemrepo.find_merchant(12334195)
+    assert_instance_of Merchant, merchant
+  end
+end
