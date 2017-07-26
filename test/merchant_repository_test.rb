@@ -40,6 +40,15 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 475, mr.id_repo.count
   end
 
+  def test_merhcant_repo_can_load_name_repo
+    mr = MerchantRepository.new('./data/merchants.csv', self)
+    mr.load_repo
+
+    assert_instance_of Hash, mr.name_repo
+    refute mr.name_repo.empty?
+    assert_equal 475, mr.name_repo.count
+  end
+
 end
 
 #   def test_initialize

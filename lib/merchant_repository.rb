@@ -7,7 +7,8 @@ class MerchantRepository
 
   attr_reader :file_path,
               :sales_engine,
-              :id_repo
+              :id_repo,
+              :name_repo
 
   def initialize(file_path, sales_engine)
     @sales_engine = sales_engine
