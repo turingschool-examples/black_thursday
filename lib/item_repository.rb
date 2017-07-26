@@ -1,4 +1,5 @@
 require 'csv'
+require './lib/item'
 
 class ItemRepository
   def initialize(file_path, sales_engine)
@@ -11,9 +12,79 @@ class ItemRepository
     @merchant_id_repo = {}
   end
 
-  def load_to(repo, )
+  def load_to(repo, item, key_value)
+    if !(repo.include?(key_value))
+      repo.store(key_value, item)
+    elsif repo[key_value].is_a?(Array)
+      repo[key_value] << item
+    else
+      new_value = [repo[key_value], item]
+      repo.store(key_value, new_value)
+    end
+  end
 
   def load_repo
     itemcsv = CSV.open file_path, headers: true, header_converters: :symbol
     itemcsv.each do |row|
-      item_hash = {id:, name:,}
+      item_hash = {id:, name:, description:, price:, merchant_id:}
+      item = Item.new(item_hash)
+      load_to(@id_repo, item, id:)
+      load_to(@name_repo, item, name:)
+      load_to(@description_repo, item, description:)
+      load_to(@price_repo, item, price:)
+      load_to(@merchant_id_repo, item, merchant_id:)
+    end
+  end
+
+  def find_by_id(id)
+    if @id_repo.include?(id)
+      @id_repo[id]
+    else
+      nil
+    end
+  end
+
+  def find_by_name(name)
+    if @name_repo.include?(name)
+      @name_repo[name]
+    else
+      nil
+    end
+  end
+
+  def find_all_with_description(description)
+    results = []
+    @description_repo.each do |key_value|
+      if key_value.include?(description)
+        results << @description_repo[key_value]
+      end
+    end
+    results.flatten
+  end
+
+  def find_all_by_price(price)
+    if @price_repo.include?(price)
+      @price_repo[price]
+    else
+      []
+    end
+  end
+
+  def find_all_by_price_in_range(price_minimum, price_maximum)
+    results = []
+    @price_repo.each do |key_value|
+      if key_value > price_minimum && key_value < price_maximum
+        results << @price_repo[key_value]
+      end
+    end
+    results.flatten
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    if @merchant_id_repo.include?(merchant_id)
+      @merchant_id_repo[merchant_id]
+    else
+      []
+    end
+  end
+end
