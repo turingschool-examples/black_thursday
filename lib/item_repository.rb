@@ -1,5 +1,8 @@
 require_relative 'item'
+require 'bigdecimal'
+require 'bigdecimal/util'
 require 'csv'
+
 class ItemRepository
   attr_reader :repository
 
@@ -40,10 +43,9 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
-    converted_price = BigDecimal.new(price,4)
     items = repository.values
     items.find_all do |item|
-      item.unit_price == converted_price
+      item.unit_price == price
     end
   end
 
@@ -59,5 +61,9 @@ class ItemRepository
     items.find_all do |item|
       item.merchant_id == merchant_id
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
   end
 end

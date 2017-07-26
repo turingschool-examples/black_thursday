@@ -36,7 +36,11 @@ class MerchantRepository
   def find_all_by_name(name_fragment)
     merchants = repository.values
     merchants.find_all do |merchant|
-      merchant.name.include?(name_fragment.downcase)
+      merchant.name.downcase.include?(name_fragment.downcase)
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end
