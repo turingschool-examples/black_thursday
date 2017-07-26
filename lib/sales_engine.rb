@@ -5,13 +5,13 @@ require_relative '../lib/invoice_repository'
 
 class SalesEngine
 
-  attr_reader :item,
-              :merchant,
+  attr_reader :items,
+              :merchants,
               :invoices
 
   def initialize(csv_data)
-    @item = ItemRepository.new(csv_data[:items], self)
-    @merchant = MerchantRepository.new(csv_data[:merchants], self)
+    @items = ItemRepository.new(csv_data[:items], self)
+    @merchants = MerchantRepository.new(csv_data[:merchants], self)
     @invoices = InvoiceRepository.new(csv_data[:invoices], self)
   end
 
@@ -20,7 +20,7 @@ class SalesEngine
   end
 
   def items
-    @merchant
+    @merchants
   end
 
 end

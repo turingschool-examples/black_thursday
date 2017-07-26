@@ -18,6 +18,6 @@ class Invoice
   end
 
   def merchant
-    @invoice_repo.sales_engine.merchant.find_by_id(@merchant_id)
+    @invoice_repo.sales_engine.merchants.find_by_id(@merchant_id)
   end
 end
