@@ -62,7 +62,7 @@ class SalesAnalyst
       item.unit_price > mark
     end
     items = golden_set.map do |golden|
-      golden.name
+      golden
     end
     items
   end
