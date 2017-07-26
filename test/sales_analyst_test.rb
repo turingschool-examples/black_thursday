@@ -7,10 +7,13 @@ require 'bigdecimal'
 class SalesAnalystTest < Minitest::Test
   def setup
     @se = SalesEngine.from_csv({
-          :items     => "./test/data/items_fixture.csv",
-          :merchants => "./test/data/merchants_fixture.csv",
-          })
-
+              :items => "./test/data/items_fixture.csv",
+              :merchants => "./test/data/merchants_fixture.csv",
+              :invoice_items => "./test/data/invoice_items_fixture.csv",
+              :invoices => "./test/data/invoices_fixture.csv",
+              :transactions => "./test/data/transactions_fixture.csv",
+              :customers => "./test/data/customers_fixture.csv"
+            })
     @sa = SalesAnalyst.new(@se)
   end
 
@@ -45,4 +48,34 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Array, @sa.golden_items
     assert_instance_of Item, @sa.golden_items[0]
   end
+
+  def test_average_invoices_per_merchant
+    assert_equal 10.0, @sa.average_invoices_per_merchant
+  end
+
+  def test_average_invoices_per_merchant_standard_deviation
+    assert_equal 0.89, @sa.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_top_merchants_by_invoice_count
+    assert_instance_of Array, @sa.top_merchants_by_invoice_count
+    assert_instance_of Merchant, @sa.top_merchants_by_invoice_count[0]
+  end
+
+  def test_bottom_merchants_by_invoice_count
+    assert_instance_of Array, @sa.top_merchants_by_invoice_count
+    assert_instance_of Merchant, @sa.top_merchants_by_invoice_count[0]
+  end
+
+  def test_turn_date_to_day
+    assert_equal "Wednesday", @sa.turn_date_to_day(2017-07-26)
+  end
+
+  def test_top_days_by_invoice_count
+    skip
+    assert_instance_of Array, @sa.top_days_by_invoice_count
+    assert_equal 3, @sa.top_days_by_invoice_count.count
+  end
+
+
 end

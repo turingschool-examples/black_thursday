@@ -9,9 +9,13 @@ class MerchantTest < Minitest::Test
 
   def setup
     @se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      })
+              :items => "./test/data/items_fixture.csv",
+              :merchants => "./test/data/merchants_fixture.csv",
+              :invoice_items => "./test/data/invoice_items_fixture.csv",
+              :invoices => "./test/data/invoices_fixture.csv",
+              :transactions => "./test/data/transactions_fixture.csv",
+              :customers => "./test/data/customers_fixture.csv"
+            })
     @merchant = @se.merchant.find_by_id(12334105)
     @merch = Merchant.new({:id => 5, :name => "Turing School"}, @se.merchant)
 
@@ -28,7 +32,12 @@ class MerchantTest < Minitest::Test
   def test_items_returns_array_of_items_objects
     assert_instance_of Array, @merchant.items
     assert_instance_of Item, @merchant.items[0]
-    assert_equal 3, @merchant.items.count
+    assert_equal 1, @merchant.items.count
+  end
+
+  def test_invoices_returns_array_of_invoices_by_merchant
+    assert_equal 3, @merchant.invoices.count
+    assert_instance_of Invoice, @merchant.invoices[0]
   end
 
 

@@ -88,4 +88,45 @@ class SalesAnalyst
     end
   end
 
+  def average_invoices_per_merchant
+    ((@se.invoices.all.count.to_f) / (@se.merchant.all.count.to_f)).round(2)
+  end
+
+  def set_of_merchant_invoices
+    set = []
+    @se.merchant.all.map do |merchant|
+      set << merchant.invoices.count
+    end
+    set
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    set = set_of_merchant_invoices
+    mean = set.inject(:+).to_f / set.size
+    Math.sqrt(set.inject(0){|sum,val| sum + (val - mean)**2} / set.size).round(2)
+  end
+
+  def top_merchants_by_invoice_count
+    @se.merchant.all.find_all do |merchant|
+      merchant.invoices.count > (average_invoice_count + (average_invoices_per_merchant_standard_deviation * 2)).round(2)
+    end
+  end
+
+  def average_invoice_count
+    set = set_of_merchant_invoices
+    total_merchant_count = @se.merchant.all.count
+    set.count / total_merchant_count
+  end
+
+  def bottom_merchants_by_invoice_count
+    @se.merchant.all.find_all do |merchant|
+      merchant.invoices.count > (average_invoice_count - (average_invoices_per_merchant_standard_deviation * 2)).round(2)
+    end
+  end
+
+  def turn_date_to_day(date)
+    date = Time.new(date)
+    date.strftime("%A")
+  end
+
 end

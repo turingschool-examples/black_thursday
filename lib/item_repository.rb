@@ -15,8 +15,6 @@ class ItemRepository
     @all = @all_item_data.map do |row|
       Item.new(row, self)
     end
-    # csv_data[:id] = @all.count
-    # @id = csv_data[:id]
   end
 
   def find_by_id(id)
