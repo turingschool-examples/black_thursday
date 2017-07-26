@@ -42,7 +42,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_unit_price_to_dollars
-    assert_equal 10.99, @item.unit_price_to_dollars
+    assert_equal 0.11, @item.unit_price_to_dollars.to_f.round(2)
   end
 
   def test_merchant_returns_the_merchant_of_the_item
