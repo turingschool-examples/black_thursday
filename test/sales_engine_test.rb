@@ -60,12 +60,23 @@ class SalesEngineTest < Minitest::Test
     assert_equal Array, target.class
   end
 
+  def test_it_can_retrieve_items_from_items_with_merchant_id
+    se = SalesEngine.from_csv({:items => './data/items.csv',
+                               :merchants => './data/merchants.csv'})
+
+    merchant = se.merchants.find_by_id(12334105)
+
+    assert_equal 3, merchant.items.count
+    assert_equal Array, merchant.items.class
+  end
+
   def test_it_can_retrieve_merchant_with_merchant_id_from_item
+    skip
     se = SalesEngine.from_csv({:items => './data/items.csv',
                                :merchants => './data/merchants.csv'})
 
     item = se.items.find_by_id(263395237)
-binding.pry
+# binding.pry
     assert_equal "510+ Plush", item.merchant.name
   end
 

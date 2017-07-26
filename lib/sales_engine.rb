@@ -29,7 +29,7 @@ class SalesEngine
     pass_items_merchant_id(merchant_id)
   end
 
-  def pass_item_merchant_id(merchant_id)
+  def pass_items_merchant_id(merchant_id)
     @merchants.find_by_id(merchant_id)
   end
 
