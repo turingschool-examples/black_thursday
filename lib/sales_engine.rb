@@ -25,6 +25,14 @@ class SalesEngine
     @items.find_all_by_merchant_id(merchant_id)
   end
 
+  def fetch_items_merchant_id(merchant_id)
+    pass_items_merchant_id(merchant_id)
+  end
+
+  def pass_item_merchant_id(merchant_id)
+    @merchants.find_by_id(merchant_id)
+  end
+
 end
 # se = SalesEngine.from_csv({
 #   :items     => "./data/items.csv",
