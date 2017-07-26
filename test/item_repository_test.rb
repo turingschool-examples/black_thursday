@@ -59,6 +59,13 @@ class ItemRepositoryTest < Minitest::Test
     assert ir.find_all_by_price(1300)
   end
 
+  def test_it_returns_an_empty_array_if_no_price_matches
+    ir = ItemRepository.new("./data/mini_items.csv")
+    expected = []
+
+    assert_equal expected, ir.find_all_by_price(1400)
+  end
+
   def test_it_can_find_all_by_price_in_range
     ir = ItemRepository.new("./data/mini_items.csv")
     assert ir.find_all_by_price_in_range(1..1200)
