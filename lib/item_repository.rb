@@ -1,5 +1,6 @@
 require 'csv'
 require './lib/item'
+require 'pry'
 
 class ItemRepository
   def initialize(file_path, sales_engine)
@@ -10,6 +11,7 @@ class ItemRepository
     @description_repo = {}
     @price_repo = {}
     @merchant_id_repo = {}
+    load_repo
   end
 
   def load_to(repo, item, key_value)
@@ -24,16 +26,20 @@ class ItemRepository
   end
 
   def load_repo
-    itemcsv = CSV.open file_path, headers: true, header_converters: :symbol
+    itemcsv = CSV.open @file_path, headers: true, header_converters: :symbol
     itemcsv.each do |row|
-      item_hash = {id:, name:, description:, price:, merchant_id:}
+      item_hash = Hash[row]
       item = Item.new(item_hash)
-      load_to(@id_repo, item, id:)
-      load_to(@name_repo, item, name:)
-      load_to(@description_repo, item, description:)
-      load_to(@price_repo, item, price:)
-      load_to(@merchant_id_repo, item, merchant_id:)
+      load_to(@id_repo, item, row[:id])
+      load_to(@name_repo, item, row[:name])
+      load_to(@description_repo, item, row[:description])
+      load_to(@price_repo, item, row[:unit_price])
+      load_to(@merchant_id_repo, item, row[:merchant_id])
     end
+  end
+
+  def all
+    @id_repo.values
   end
 
   def find_by_id(id)
@@ -64,7 +70,7 @@ class ItemRepository
 
   def find_all_by_price(price)
     if @price_repo.include?(price)
-      @price_repo[price]
+      [@price_repo[price]].flatten
     else
       []
     end
@@ -82,7 +88,7 @@ class ItemRepository
 
   def find_all_by_merchant_id(merchant_id)
     if @merchant_id_repo.include?(merchant_id)
-      @merchant_id_repo[merchant_id]
+      [@merchant_id_repo[merchant_id]].flatten
     else
       []
     end
