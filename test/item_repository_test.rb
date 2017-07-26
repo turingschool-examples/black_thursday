@@ -74,7 +74,6 @@ class ItemRepositoryTest < Minitest::Test
     ir = ItemRepository.new("./data/mini_items.csv")
     price = BigDecimal.new(1300)
     assert ir.find_all_by_price(price)
-    binding.pry
   end
 
   def test_it_returns_an_empty_array_if_no_price_matches
