@@ -67,105 +67,27 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 12334271, merchant.id
   end
 
-end
+  def test_merchant_repo_can_find_merchant_by_id
+    mr = MerchantRepository.new('./data/merchants.csv', self)
+    merchant = mr.find_by_name("Necklacemaniac")
 
-#   def test_initialize
-#     file_path = "./data/merchants.csv"
-#     salesengine = SalesEngine.from_csv({
-#       :items     => "./data/items.csv",
-#       :merchants => "./data/merchants.csv",
-#     })
-#     merchantrepo = MerchantRepository.new(file_path, salesengine)
-#
-#     assert_instance_of MerchantRepository, merchantrepo
-#     assert_instance_of SalesEngine, merchant.salesengine
-#   end
-#
-#   def test_all
-#     file_path = "./data/merchants.csv"
-#     salesengine = SalesEngine.from_csv({
-#       :items     => "./data/items.csv",
-#       :merchants => "./data/merchants.csv",
-#     })
-#     merchantrepo = MerchantRepository.new(file_path, salesengine)
-#
-#     assert_equal 475, merchantrepo.all.count
-#     assert_instance_of Merchant, merchantrepo.all[0]
-#   end
-#
-#   def test_find_by_id_positive
-#     file_path = "./data/merchants.csv"
-#     salesengine = SalesEngine.from_csv({
-#       :items     => "./data/items.csv",
-#       :merchants => "./data/merchants.csv",
-#     })
-#     merchantrepo = MerchantRepository.new(file_path, salesengine)
-#
-#     merchant = merchantrepo.find_by_id(12337199)
-#     assert_instance_of Merchant, merchant
-#     assert_equal 12337199, merchant.id
-#   end
-#
-#   def test_find_by_id_negative
-#     file_path = "./data/merchants.csv"
-#     salesengine = SalesEngine.from_csv({
-#       :items     => "./data/items.csv",
-#       :merchants => "./data/merchants.csv",
-#     })
-#     merchantrepo = MerchantRepository.new(file_path, salesengine)
-#
-#     merchant = merchantrepo.find_by_id(2394023094820)
-#     assert_instance_of NilClass, merchant
-#   end
-#
-#   def test_find_by_name_positive
-#     file_path = "./data/merchants.csv"
-#     salesengine = SalesEngine.from_csv({
-#       :items     => "./data/items.csv",
-#       :merchants => "./data/merchants.csv",
-#     })
-#     merchantrepo = MerchantRepository.new(file_path, salesengine)
-#
-#     merchant = merchantrepo.find_by_name("etsygb")
-#     assert_instance_of Merchant, merchant
-#     assert_equal "EtsyGB", merchant.name
-#   end
-#
-#   def test_find_by_name_negative
-#     file_path = "./data/merchants.csv"
-#     salesengine = SalesEngine.from_csv({
-#       :items     => "./data/items.csv",
-#       :merchants => "./data/merchants.csv",
-#     })
-#     merchantrepo = MerchantRepository.new(file_path, salesengine)
-#
-#     merchant = merchantrepo.find_by_name("EEEEEEEEEEEYYYYYYYYthere")
-#     assert_instance_of NilClass, merchant
-#   end
-#
-#   def test_find_by_name_all
-#     file_path = "./data/merchants.csv"
-#     salesengine = SalesEngine.from_csv({
-#       :items     => "./data/items.csv",
-#       :merchants => "./data/merchants.csv",
-#     })
-#     merchantrepo = MerchantRepository.new(file_path, salesengine)
-#
-#     merchants = merchantrepo.find_by_name_all("e")
-#     assert_instance_of Array, merchants
-#     assert_instance_of Merchant, merchants[0]
-#   end
-#
-#   def test_find_by_name_all_negative
-#     file_path = "./data/merchants.csv"
-#     salesengine = SalesEngine.from_csv({
-#       :items     => "./data/items.csv",
-#       :merchants => "./data/merchants.csv",
-#     })
-#     merchantrepo = MerchantRepository.new(file_path, salesengine)
-#
-#     merchants = merchantrepo.find_by_name_all("WREFwerfwerWHTRytg")
-#     assert_instance_of Array, merchants
-#     assert merchants.empty?
-#   end
-#
+    assert_instance_of Merchant, merchant
+    assert_equal "Necklacemaniac", merchant.name
+    assert_equal 12334986, merchant.id
+  end
+
+  def test_merchant_repo_can_find_all_by_name
+    mr = MerchantRepository.new('./data/merchants.csv', self)
+    merchants = mr.find_all_by_name('cool')
+
+    assert_equal ["JustReallyCoolStuff", "coolzish", "CoolArtPots"], merchants
+  end
+
+  def test_merchant_repo_find_all_by_name_returns_empty_array_on_bad_search
+    mr = MerchantRepository.new('./data/merchants.csv', self)
+    merchants = mr.find_all_by_name('adsf;lkjsdaf')
+
+    assert_equal [], merchants
+  end
+
+end
