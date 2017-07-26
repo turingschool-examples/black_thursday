@@ -1,7 +1,7 @@
 require './sales_engine'
 
 
-class SalesAnalyst
+class SalesAnalyst(sales_engine)
   def initialize(sales_engine)
 
   end

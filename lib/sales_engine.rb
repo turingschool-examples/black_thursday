@@ -37,5 +37,10 @@ class SalesEngine
     end
     created
   end
-  
+
 end
+se = SalesEngine.from_csv({
+  :items     => "./data/items_short.csv",
+  :merchants => "./data/merchants_short.csv",
+})
+binding.pry
