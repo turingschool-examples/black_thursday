@@ -17,7 +17,7 @@ class MerchantRepository
 
   def inspect
   "#<#{self.class} #{@merchants.size} rows>"
-end
+  end
 
 
   def find_by_id(id)

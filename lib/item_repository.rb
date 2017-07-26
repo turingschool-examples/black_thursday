@@ -67,7 +67,7 @@ class ItemRepository
   def find_all_by_price_in_range(range)
     results = []
     @items.each do |item|
-      if (range).member?(item.unit_price)
+      if (range).cover?(item.unit_price)
         results << item
       end
     end
