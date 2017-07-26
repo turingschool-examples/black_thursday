@@ -1,4 +1,4 @@
-require './lib/merchant'
+require_relative 'merchant'
 require 'pry'
 
 class MerchantRepository
@@ -48,4 +48,7 @@ class MerchantRepository
     se.fetch_merchant_id(merchant_id)
   end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 end

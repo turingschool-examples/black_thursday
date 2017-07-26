@@ -1,4 +1,4 @@
-require './lib/item'
+require_relative 'item'
 require 'pry'
 
 class ItemRepository
@@ -16,7 +16,7 @@ class ItemRepository
       id = (row[:id]).to_i
       name = row[:name]
       description = row[:description]
-      unit_price = (row[:unit_price]).to_i
+      unit_price = (row[:unit_price])
       created_at = row[:created_at]
       updated_at = row[:updated_at]
       merchant_id = (row[:merchant_id]).to_i
@@ -69,6 +69,10 @@ class ItemRepository
 
   def fetch_items_merchant_id(merchant_id)
     se.fetch_items_merchant_id(merchant_id)
+  end
+
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
   end
 
 end

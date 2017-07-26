@@ -75,10 +75,16 @@
         1,
         null,
         null,
+        1,
+        0,
+        null,
+        null,
         null,
         null
       ],
       "/Users/mbutera/turing/1module/projects/black_thursday/lib/item.rb": [
+        1,
+        null,
         1,
         1,
         null,
@@ -162,6 +168,9 @@
         2,
         null,
         null,
+        1,
+        0,
+        null,
         null
       ],
       "/Users/mbutera/turing/1module/projects/black_thursday/lib/merchant.rb": [
@@ -235,6 +244,6 @@
         null
       ]
     },
-    "timestamp": 1501099927
+    "timestamp": 1501101477
   }
 }
