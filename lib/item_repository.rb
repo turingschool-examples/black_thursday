@@ -4,7 +4,8 @@ require 'pry'
 
 class ItemRepository
   attr_reader :sales_engine,
-              :id_repo
+              :id_repo,
+              :price_repo
   def initialize(file_path, sales_engine)
     @file_path =        file_path
     @sales_engine =     sales_engine

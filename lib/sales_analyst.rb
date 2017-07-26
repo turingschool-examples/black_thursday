@@ -7,6 +7,10 @@ class SalesAnalyst
     @items = sales_engine.items
   end
 
+  def to_cents(int)
+    int.to_f / 100
+  end
+
   def average_items_per_merchant
     average = @items.id_repo.count.to_f / @merchants.id_repo.count.to_f
     average.round(2)
@@ -44,8 +48,17 @@ class SalesAnalyst
       items.each do |item|
         total_price += item.unit_price.to_i
       end
-      average = (total_price.to_f / items.count.to_f).round(2)
+      average = (to_cents(total_price.to_f / items.count.to_f)).round(2)
     end
   end
 
+  def average_price_per_merchant
+    item_price_sum = 0
+    @items.price_repo.keys.each do |price|
+      @items.find_all_by_price(price).count.times do
+        item_price_sum += price.to_i
+      end
+    end
+    average_price = (to_cents(item_price_sum.to_f / @merchants.id_repo.count.to_f)).round(2)
+  end
 end
