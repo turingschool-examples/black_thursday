@@ -46,6 +46,14 @@ class ItemRepositoryTest < Minitest::Test
     assert ir.find_all_with_description(description)
   end
 
+  def test_it_returns_an_empty_array_if_no_description_matches
+    ir = ItemRepository.new("./data/mini_items.csv")
+    description = "A Variety of Fragrance Oils for Oil Burners"
+    expected = []
+
+    assert_equal expected, ir.find_all_with_description(description)
+  end
+
   def test_find_all_by_price
     ir = ItemRepository.new("./data/mini_items.csv")
     assert ir.find_all_by_price(1300)
