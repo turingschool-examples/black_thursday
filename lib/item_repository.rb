@@ -29,7 +29,6 @@ class ItemRepository
     items = repository.values
     items.each do |item|
       if item.name.downcase == name.downcase
-        binding.pry
         return item
       else
         return nil
