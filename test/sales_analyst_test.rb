@@ -12,7 +12,7 @@
 #     ^2 standard deviations above average price
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/sales_analyst'
+require_relative '../lib/sales_analyst'
 
 class SalesAnalystTest < Minitest::Test
   def test_average_items_per_merchant
