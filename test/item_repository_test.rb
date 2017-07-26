@@ -36,5 +36,9 @@ class ItemRepositoryTest < Minitest::Test
     assert ir.find_all_with_description(description)
   end
 
+  def test_find_all_by_price
+    ir = ItemRepository.new("./data/mini_items.csv")
+    assert ir.find_all_by_price(1300)
+  end
 
 end

@@ -45,4 +45,16 @@ class ItemRepository
     return descriptions
   end
 
+  def find_all_by_price(price)
+    converted_price = BigDecimal.new(price,4)
+    prices = []
+    items = repository.values
+    items.each do |item|
+      if item.unit_price == converted_price
+        prices << item
+      end
+    end
+    return prices
+  end
+
 end
