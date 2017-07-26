@@ -1,5 +1,5 @@
 require 'bigdecimal'
-require './lib/sales_engine'
+require_relative '../lib/sales_engine'
 require 'csv'
 require 'minitest/autorun'
 require 'minitest/emoji'

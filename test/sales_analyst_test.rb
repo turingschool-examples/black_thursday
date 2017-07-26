@@ -1,5 +1,5 @@
-require './lib/sales_engine'
-require './lib/sales_analyst'
+require_relative '../lib/sales_engine'
+require_relative '../lib/sales_analyst'
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'bigdecimal'

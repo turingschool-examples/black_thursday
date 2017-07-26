@@ -1,6 +1,6 @@
 require 'bigdecimal'
-require './lib/sales_engine'
-require './lib/merchant'
+require_relative '../lib/sales_engine'
+require_relative '../lib/merchant'
 require 'csv'
 require 'minitest/autorun'
 require 'minitest/emoji'
