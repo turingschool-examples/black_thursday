@@ -16,7 +16,7 @@ class Item
     @id = id
     @name = name
     @description = description
-    @unit_price = BigDecimal.new(unit_price, 4)
+    @unit_price = BigDecimal.new(unit_price.insert(-3, "."))
     @created_at = Time.parse(created_at)
     @updated_at = Time.parse(updated_at)
     @merchant_id = merchant_id

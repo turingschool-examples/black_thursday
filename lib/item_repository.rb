@@ -57,9 +57,8 @@ class ItemRepository
   end
 
   def find_all_by_price_in_range(range)
-    prices_to_search = range.to_a
     @items.find_all do |item|
-      prices_to_search.include?(item.unit_price)
+      range.include?(item.unit_price)
     end
   end
 
