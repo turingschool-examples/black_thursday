@@ -49,6 +49,19 @@ class SalesAnalyst
     mean(averages)
   end
 
+  def golden_items
+    s_dev        = average_items_per_merchant_standard_deviation
+    average_each = average_items_per_merchant
+    mark = average_each + (s_dev * 2)
+    golden_set = @sales_engine.items.items.find_all do |item|
+      item.unit_price > mark
+    end
+    items = golden_set.map do |golden|
+      golden.name
+    end
+    items
+  end
+
 
 
   def all_averages
