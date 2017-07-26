@@ -28,4 +28,22 @@ class ItemRepo
   def find_by_name(name)
     all.find {|item| item.name.downcase == name.downcase}
   end
+
+  def find_by_description(desc)
+    all.find do |item|
+      item.description.downcase.include?(desc.downcase)
+    end
+  end
+
+  def find_by_price(price)
+    all.find {|item| item.unit_price == price}
+  end
+
+  def find_all_by_price_in_range(range)
+    all.find_all {|item| range.include?(item.unit_price)}
+  end
+
+  def find_by_merchant_id(id)
+    all.find {|item| item.merchant_id == id}
+  end
 end
