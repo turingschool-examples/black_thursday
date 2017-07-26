@@ -6,22 +6,54 @@ require 'pry'
 
 class ItemRepositoryTest < Minitest::Test
 
-  def test_it_exists
-    ir = ItemRepository.new("./test/test_data/item_test.csv")
+  def setup
+    @ir = ItemRepository.new("./data/items.csv")
+  end
 
-    assert_instance_of ItemRepository, ir
+  def test_it_exists
+    assert_instance_of ItemRepository, @ir
   end
 
   def test_all_returns_all_items_in_the_correct_format
-      ir = ItemRepository.new("./test/test_data/item_test.csv")
-
-      assert_instance_of Item, ir.items[0]
-      assert_equal 'Shopin1901', ir.items[0].name
-      assert_equal 12334105, ir.items[0].id
-      assert_equal 475, ir.items.count
+    assert_instance_of Item, @ir.items[0]
+    assert_equal "510+ RealPush Icon Set", @ir.items[0].name
+    assert_equal 263395237, @ir.items[0].id
+    assert_equal 1367, @ir.items.count
   end
 
-  def test_it_return_all
+  def test_it_returns_all
+    all_items = @ir.all
+    assert_equal 1367, all_items.count
   end
 
+  def test_it_can_find_by_id
+    item = @ir.find_by_id(263395237)
+    nil_item = @ir.find_by_id(201)
+
+    assert_equal "510+ RealPush Icon Set", item.name
+    assert_nil nil_item
+  end
+
+  def test_it_has_a_name
+    item = @ir.find_by_name("510+ RealPush Icon Set")
+    nil_item = @ir.find_by_name("The Pencil")
+
+    assert_equal 263395237, item.id
+    assert_nil nil_item
+  end
+
+  def test_it_can_find_all_with_description
+    items = @ir.find_all_with_description('beer')
+
+    assert_equal 3, items.count
+  end
+
+  def test_it_can_find_all_by_price
+    items = @ir.find_all_by_price(50000)
+
+    assert_equal 11, items.count
+  end
+
+  def find_all_by_price_in_range
+  end
 end
