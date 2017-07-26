@@ -10,6 +10,7 @@ class Merchant
     @parent = repo
 
   end
+ 
 
 
 
