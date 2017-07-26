@@ -34,13 +34,9 @@ class MerchantRepository
   end
 
   def find_all_by_name(name_fragment)
-    names = []
     merchants = repository.values
-    merchants.each do |merchant|
-      if merchant.name.include?(name_fragment.downcase)
-        names << merchant
-      end
+    merchants.find_all do |merchant|
+      merchant.name.include?(name_fragment.downcase)
     end
-    return names
   end
 end

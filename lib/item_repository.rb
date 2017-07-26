@@ -33,47 +33,31 @@ class ItemRepository
   end
 
   def find_all_with_description(description)
-    descriptions = []
     items = repository.values
-    items.each do |item|
-      if item.description.include?(description.downcase)
-        descriptions << item
-      end
+    items.find_all do |item|
+      item.description.include?(description.downcase)
     end
-    return descriptions
   end
 
   def find_all_by_price(price)
     converted_price = BigDecimal.new(price,4)
-    prices = []
     items = repository.values
-    items.each do |item|
-      if item.unit_price == converted_price
-        prices << item
-      end
+    items.find_all do |item|
+      item.unit_price == converted_price
     end
-    return prices
   end
 
   def find_all_by_price_in_range(range)
-    prices = []
     items = repository.values
-    items.each do |item|
-      if range.include?(item.unit_price)
-        prices << item
-      end
+    items.find_all do |item|
+      range.include?(item.unit_price)
     end
-    return prices
   end
 
   def find_all_by_merchant_id(merchant_id)
-    merchant = []
     items = repository.values
-    items.each do |item|
-      if item.merchant_id == merchant_id
-        merchant << item
-      end
+    items.find_all do |item|
+      item.merchant_id == merchant_id
     end
-    return merchant
   end
 end
