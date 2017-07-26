@@ -54,4 +54,15 @@ class SalesAnalystTest < Minitest::Test
     expected = [0.014400000000000026, 1.2544000000000002, 4.494400000000001]
     assert_equal expected, target
   end
+
+  def test_for_merchants_with_high_item_counts
+    se = SalesEngine.from_csv({:items => './data/items.csv',
+                               :merchants => './data/merchants.csv'})
+    sa = SalesAnalyst.new(se)
+
+    target = sa.merchants_with_high_item_count
+
+    assert_equal Array, target.class
+    assert_equal 52, target.count
+  end
 end
