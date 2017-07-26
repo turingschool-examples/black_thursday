@@ -9,8 +9,8 @@ class InventoryTest < Minitest::Test
       :customer_id => 7,
       :merchant_id => 8,
       :status      => "pending",
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
+      :created_at  => "2009-02-07",
+      :updated_at  => "2014-03-15",
       })
   end
 
@@ -32,5 +32,13 @@ class InventoryTest < Minitest::Test
 
   def test_it_returns_status
     assert_equal "pending", @i.status
+  end
+
+  def test_it_returns_a_time_instance_for_date_created
+    assert_instance_of Time, @i.created_at
+  end
+
+  def test_it_returns_a_time_instance_for_date_updated
+    assert_instance_of Time, @i.updated_at
   end
 end
