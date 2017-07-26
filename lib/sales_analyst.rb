@@ -17,5 +17,8 @@ class SalesAnalyst
     #somehow need to round to 2 decimal points
   end
 
+  def items_of_merchant(merchant)
+    @merchants.
+
   def average_items_per_merchant_standard_deviation
     average = average_items_per_merchant
