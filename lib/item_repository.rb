@@ -30,6 +30,8 @@ class ItemRepository
     items.each do |item|
       if item.name.downcase == name.downcase
         return item
+      else
+        return nil
       end
     end
   end

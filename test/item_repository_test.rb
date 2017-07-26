@@ -34,6 +34,11 @@ class ItemRepositoryTest < Minitest::Test
     assert ir.find_by_name("510+ realpush icon set")
   end
 
+  def test_it_returns_nil_if_no_name_is_found
+    ir = ItemRepository.new("./data/mini_items.csv")
+    assert_nil ir.find_by_name("Vogue Paris Original Givenchy 2307")
+  end
+
   def test_it_can_be_found_by_description
     ir = ItemRepository.new("./data/mini_items.csv")
     description = "Glitter scrabble frames"
