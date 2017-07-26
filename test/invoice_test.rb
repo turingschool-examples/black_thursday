@@ -29,4 +29,8 @@ class InventoryTest < Minitest::Test
   def test_it_returns_merchant_id
     assert_equal 8, @i.merchant_id
   end
+
+  def test_it_returns_status
+    assert_equal "pending", @i.status
+  end
 end
