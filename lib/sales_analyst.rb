@@ -32,6 +32,15 @@ class SalesAnalyst
     examples
   end
 
+  def average_item_price_for_merchant(id)
+    merchant = @sales_engine.merchants.find_by_id(id)
+    items = merchant.items
+    item_prices = items.map do |item|
+      item.unit_price
+    end
+    mean(item_prices)
+  end
+
 
   def all_averages
     the_merchants = @sales_engine.merchants.all
