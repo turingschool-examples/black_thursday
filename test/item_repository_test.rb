@@ -24,6 +24,11 @@ class ItemRepositoryTest < Minitest::Test
     assert ir.find_by_id(263395237)
   end
 
+  def test_it_returns_nil_if_no_id_is_found
+    ir = ItemRepository.new("./data/mini_items.csv")
+    assert_nil ir.find_by_id(12334213)
+  end
+
   def test_it_can_be_found_by_name
     ir = ItemRepository.new("./data/mini_items.csv")
     assert ir.find_by_name("510+ realpush icon set")
