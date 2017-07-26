@@ -7,6 +7,8 @@ require './lib/merchant_repository'
 require './lib/sales_engine'
 require './lib/merchant'
 
+require 'pry'
+
 class MerchantRepositoryTest < Minitest::Test
 
   def test_merchant_repo_exists
@@ -33,20 +35,36 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_merchant_repo_can_load_id_repository
     mr = MerchantRepository.new('./data/merchants.csv', self)
-    mr.load_repo
 
     assert_instance_of Hash, mr.id_repo
     refute mr.id_repo.empty?
     assert_equal 475, mr.id_repo.count
   end
 
-  def test_merhcant_repo_can_load_name_repo
+  def test_merchant_repo_can_load_name_repo
     mr = MerchantRepository.new('./data/merchants.csv', self)
-    mr.load_repo
 
     assert_instance_of Hash, mr.name_repo
     refute mr.name_repo.empty?
     assert_equal 475, mr.name_repo.count
+  end
+
+  def test_merchant_repo_can_search_all_merchants
+    mr = MerchantRepository.new('./data/merchants.csv', self)
+    all_merchants = mr.all
+
+    assert_instance_of Array, all_merchants
+    refute all_merchants.empty?
+    assert_equal 475, all_merchants.count
+  end
+
+  def test_merchant_repo_can_find_merchant_by_id
+    mr = MerchantRepository.new('./data/merchants.csv', self)
+    merchant = mr.find_by_id(12334271)
+
+    assert_instance_of Merchant, merchant
+    assert_equal "TheAssemblyRooms", merchant.name
+    assert_equal 12334271, merchant.id
   end
 
 end

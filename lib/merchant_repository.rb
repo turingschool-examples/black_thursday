@@ -15,6 +15,7 @@ class MerchantRepository
     @file_path    = file_path
     @id_repo       = {}
     @name_repo     = {}
+    load_repo
   end
 
   def load_repo
@@ -32,7 +33,7 @@ class MerchantRepository
 
   def all
     id_repo.map do |id, merchant_info|
-      merchant_hash
+      merchant_info
     end
   end
 
@@ -41,7 +42,10 @@ class MerchantRepository
   def find_by_id(id)
     id_repo[id]
   end
-  # find_by_name - returns either nil or an instance of Merchant having done a case insensitive search
+
+  # find_by_name - qreturns either nil or an instance of Merchant having done a case insensitive search
+
+  
   # find_all_by_name - returns either [] or one or more matches which contain the supplied name fragment, case insensitive
 
 
