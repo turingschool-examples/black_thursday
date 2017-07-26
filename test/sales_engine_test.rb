@@ -3,13 +3,15 @@ require './lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test
   def test_sales_engine_class_exists
-    sales_engine = SalesEngine.new
-    assert_instance_of SalesEngine, sales_engine
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      })
+    assert_instance_of SalesEngine, se
   end
 
   def test_sales_engine_can_take_hash
-    sales_engine = SalesEngine.new
-    se = sales_engine.from_csv({
+    se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       })
@@ -17,17 +19,23 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_can_create_a_new_instance_of_merchant_repo_class
-    sales_engine = SalesEngine.new
-    se = sales_engine.from_csv({
+    se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       })
-    assert_instance_of MerchantRepository, se
+    assert_instance_of MerchantRepository, se.merchants
+  end
+
+  def test_it_can_create_a_new_instance_of_item_repo_class
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      })
+    assert_instance_of ItemRepository, se.items
   end
 
   def test_it_can_find_merchant_by_name
-    se = SalesEngine.new
-    se.from_csv({
+    se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       })
@@ -37,8 +45,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_can_find_item_by_name
-    se = SalesEngine.new
-    se.from_csv({
+    se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       })
@@ -48,14 +55,13 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_can_find_another_item_by_name
-    se = SalesEngine.new
-    se.from_csv({
+    skip
+    se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       })
     ir   = se.items
     item = ir.find_by_name("Sunstone Pendant!")
-    binding.pry
     assert item
   end
 end
