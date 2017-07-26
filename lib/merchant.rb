@@ -1,3 +1,5 @@
+require './lib/merchant_repository'
+
 class Merchant
 
   attr_reader :name,

@@ -3,6 +3,7 @@ require './lib/item'
 require 'pry'
 
 class ItemRepository
+  attr_reader :sales_engine
   def initialize(file_path, sales_engine)
     @file_path =        file_path
     @sales_engine =     sales_engine
@@ -92,9 +93,5 @@ class ItemRepository
     else
       []
     end
-  end
-
-  def find_merchant(merchant_id)
-    @sales_engine.merchants.find_by_id(merchant_id)
   end
 end

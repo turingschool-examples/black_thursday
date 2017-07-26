@@ -1,13 +1,9 @@
-require 'simplecov'
-
 gem 'minitest', '~> 5.2'
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/merchant_repository'
 require './lib/sales_engine'
 require './lib/merchant'
-
-require 'pry'
 
 class MerchantRepositoryTest < Minitest::Test
 

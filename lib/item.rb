@@ -19,6 +19,6 @@ class Item
   end
 
   def merchant
-    @item_repository.find_mechant(@merchant_id)
+    @item_repository.sales_engine.merchants.find_by_id(@merchant_id.to_i)
   end
 end

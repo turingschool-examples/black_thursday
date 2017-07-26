@@ -17,8 +17,12 @@ class SalesAnalyst
     #somehow need to round to 2 decimal points
   end
 
-  def items_of_merchant(merchant)
-    @merchants.
-
   def average_items_per_merchant_standard_deviation
     average = average_items_per_merchant
+    sum = 0
+    @merchants.id_repo.each do |merchant|
+      sum += (merchant.items.count - average) ** 2
+    end
+    divided_result = sum / sum_repo(@merchants)
+    standard_dev = Math.sqrt(divided_result)
+  end

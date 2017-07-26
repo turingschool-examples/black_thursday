@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-id - returns the integer id of the merchant
-name - returns the name of the merchant
-m = Merchant.new({:id => 5, :name => "Turing School"})
-
-merchant.items
-=======
 gem 'minitest', '~> 5.2'
 require 'minitest/autorun'
 require 'minitest/pride'
@@ -64,6 +57,4 @@ class MerchantTest < Minitest::Test
 
     assert_equal "2014-12-04", update_date
   end
-
 end
->>>>>>> 2d200b0a046704c334a61ada479e4cc45cfb1a60
