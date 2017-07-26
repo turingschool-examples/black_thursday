@@ -22,13 +22,11 @@ class MerchantRepository
   end
 
   def all
-  # returns an array of all known Merchant instances
     @contents.values
   end
 
   def find_by_id(id)
     @contents[id.to_s]
-  # returns either nil or an instance of Merchant with a matching ID
   end
 
   def find_by_name(name)
