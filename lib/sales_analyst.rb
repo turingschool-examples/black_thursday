@@ -28,7 +28,7 @@ class SalesAnalyst
       end
     end
     examples = example_merch.map do |example|
-      example[:merchant].name
+      example[:merchant]
     end
     examples
   end
@@ -62,7 +62,7 @@ class SalesAnalyst
       item.unit_price > mark
     end
     items = golden_set.map do |golden|
-      golden.name
+      golden
     end
     items
   end
