@@ -31,6 +31,11 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_it_can_find_all_by_merchant_id
     ir = InvoiceRepository.new("./data/mini_invoices.csv")
     assert ir.find_all_by_merchant_id(12335938)
-    binding.pry
   end
+
+  def test_it_can_find_all_by_status
+    ir = InvoiceRepository.new("./data/mini_invoices.csv")
+    assert ir.find_all_by_status("pending")
+  end
+  
 end
