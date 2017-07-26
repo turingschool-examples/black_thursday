@@ -17,17 +17,22 @@ class SalesEngine
     @merchants = MerchantRepository.new(hash[:merchants], self)
   end
 
-  def items
-    
+  def fetch_merchant_id(merchant_id)
+    pass_merchant_id(merchant_id)
   end
 
-  # def fetch_items(id)
-  #   items.find_all_by_merchant_id(id)
-  # end
-
-  # def items_2
-  #   # merchant_id = self.id
-  #   items.find_all_by_merchant_id(merchant_id)
-  # end
+  def pass_merchant_id(merchant_id)
+    @items.find_all_by_merchant_id(merchant_id)
+  end
 
 end
+# se = SalesEngine.from_csv({
+#   :items     => "./data/items.csv",
+#   :merchants => "./data/merchants.csv",
+# })
+# merchant = se.merchants.find_by_id(12334112)
+# merchant.items
+# # => [<item>, <item>, <item>]
+# item = se.items.find_by_id(263395237)
+# item.merchant
+# # => <merchant>

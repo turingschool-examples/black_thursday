@@ -2,9 +2,12 @@ require './lib/item'
 require 'pry'
 
 class ItemRepository
-  attr_reader :items
+
+  attr_reader :items,
+              :se
 
   def initialize(items_file_path, se)
+    @se = se
     @items = []
     contents = CSV.open items_file_path,
                  headers: true,

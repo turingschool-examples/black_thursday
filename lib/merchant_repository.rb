@@ -1,4 +1,5 @@
 require './lib/merchant'
+require 'pry'
 
 class MerchantRepository
 
@@ -16,7 +17,7 @@ class MerchantRepository
       name = row[:name]
       created_at = row[:created_at]
       updated_at = row[:updated_at]
-      merchant = Merchant.new(id, name, created_at, updated_at)
+      merchant = Merchant.new(id, name, created_at, updated_at, self)
       @merchants << merchant
     end
   end
@@ -41,6 +42,10 @@ class MerchantRepository
     @merchants.find_all do |merchant|
       merchant.name.downcase.include?(fragment.downcase)
     end
+  end
+
+  def fetch_merchant_id(merchant_id)
+    se.fetch_merchant_id(merchant_id)
   end
 
 end
