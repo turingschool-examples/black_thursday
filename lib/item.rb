@@ -21,4 +21,8 @@ class Item
     @updated_at  = Time.parse(hash[:updated_at].to_s)
     @merchant_id = hash[:merchant_id].to_i
   end
+
+  def unit_price_to_dollars
+    unit_price / 100
+  end
 end
