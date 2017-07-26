@@ -35,4 +35,27 @@ class SalesEngineTest < Minitest::Test
     merchant = mr.find_by_name("CJsDecor")
     assert merchant
   end
+
+  def test_it_can_find_item_by_name
+    se = SalesEngine.new
+    se.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      })
+    ir   = se.items
+    item = ir.find_by_name("510+ RealPush Icon Set")
+    assert item
+  end
+
+  def test_it_can_find_another_item_by_name
+    se = SalesEngine.new
+    se.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      })
+    ir   = se.items
+    item = ir.find_by_name("Sunstone Pendant!")
+    binding.pry
+    assert item
+  end
 end
