@@ -1,5 +1,5 @@
 require 'pry'
-class Calculator
+module Calculator
 
   def sum(array)
     array.reduce(:+)
