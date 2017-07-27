@@ -101,4 +101,12 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 2839, invoices.count
   end
 
+  def test_invoice_repo_find_all_by_status_returns_empty_array_on_bad_search
+    ir = InvoiceRepository.new('./data/invoices.csv', self)
+    invoices = ir.find_all_by_status("asdjadls;k")
+
+    assert_instance_of Array, invoices
+    assert_equal [], invoices
+  end
+
 end

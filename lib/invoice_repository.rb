@@ -36,14 +36,18 @@ class InvoiceRepository
     invoices = id_repo.values.select do |invoice_instance|
       invoice_instance.customer_id == customer_id
     end
-    invoices
   end
 
   def find_all_by_merchant_id(merchant_id)
     invoices = id_repo.values.select do |invoice_instance|
       invoice_instance.merchant_id == merchant_id
     end
-    invoices
+  end
+
+  def find_all_by_status(status)
+    invoices = id_repo.values.select do |invoice_instance|
+      invoice_instance.status == status
+    end
   end
 
 end
