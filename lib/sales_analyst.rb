@@ -20,13 +20,17 @@ class SalesAnalyst
   end
 
   def number_of_items_per_merchant
-    number_of_items_per_merchant = []
-    @se.merchants.merchants.each do |merchant_obj|
+    @se.merchants.merchants.map do |merchant_obj|
       merchant_id = merchant_obj.id
       items = @se.items.find_all_by_merchant_id(merchant_id)
-      number_of_items_per_merchant << items.count
+      items.count
     end
-    number_of_items_per_merchant
+    # number_of_items_per_merchant
+    # @se.merchants.merchants.reduce([]) do |result, merchant_obj|
+    #   merchant_id = merchant_obj.id
+    #   items = @se.items.find_all_by_merchant_id(merchant_id)
+    #   result << items.count
+    # end
   end
 
   def get_variance_merchants(merchant_items)
@@ -43,11 +47,9 @@ class SalesAnalyst
   end
 
   def get_all_costs
-    all_costs = [] # big decimals live here
-    @se.items.items.each do |item_obj|
-      all_costs << item_obj.unit_price
+    @se.items.items.map do |item_obj|
+      item_obj.unit_price
     end
-    all_costs
   end
 
   def average_all_costs(all_costs)
