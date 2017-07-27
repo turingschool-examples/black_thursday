@@ -3,6 +3,10 @@ require './lib/merchant_repo'
 
 class MerchantRepositoryTest < Minitest::Test
 
+  def setup
+    @salesengine = SalesEngine.from_csv
+  end
+
   def test_it_exist
     merchant_repo = MerchantRepository.new("./data/merchants.csv", "salesengine")
 
