@@ -18,5 +18,6 @@ class SalesEngineTest < Minitest::Test
     mr = se.merchants
     merchant = mr.find_by_name("MiniatureBikez")
     assert_instance_of Merchant, merchant
+    assert_equal "MiniatureBikez", merchant.name
   end
 end
