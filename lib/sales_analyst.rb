@@ -69,6 +69,8 @@ class SalesAnalyst
     items
   end
 
+  
+
   def all_averages
     the_merchants = @sales_engine.merchants.all
     average_set = []
