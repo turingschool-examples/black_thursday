@@ -8,12 +8,12 @@ class InvoiceTest < Minitest::Test
     hash = {id: 1, customer_id: 3, merchant_id: 4,
             status: "Closed", created_at: 2012-11-23,
             update_at: 2013-04-14                  }
-    @in_v = Invoice.new(hash)
+    @in_v = Invoice.new(hash, 1)
   end
 
   def test_it_is_initialized_corectly
     data = {id:1}
-    i = Invoice.new(data)
+    i = Invoice.new(data, 1)
     assert i
     assert_instance_of Invoice, i
   end
