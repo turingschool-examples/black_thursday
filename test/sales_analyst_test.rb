@@ -51,7 +51,7 @@ class SalesAnalystTest < Minitest::Test
                                :merchants => './data/merchants.csv'})
     sa = SalesAnalyst.new(se)
 
-    target = sa.get_variance([3, 4, 5])
+    target = sa.get_variance_merchants([3, 4, 5])
     expected = [0.014400000000000026, 1.2544000000000002, 4.494400000000001]
     assert_equal expected, target
   end
@@ -87,4 +87,14 @@ class SalesAnalystTest < Minitest::Test
     assert_equal BigDecimal.new("35029".insert(-3, ".")), target
   end
 
+  def test_for_golden_items
+    se = SalesEngine.from_csv({:items => './data/items.csv',
+                               :merchants => './data/merchants.csv'})
+    sa = SalesAnalyst.new(se)
+
+    target = sa.golden_items
+
+    assert_equal Array, target.class
+    assert_equal 5, target.count
+  end
 end
