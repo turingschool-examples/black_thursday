@@ -3,6 +3,7 @@ require 'pry'
 require 'time'
 require_relative './item_repository'
 require_relative './merchant_repository'
+require_relative './invoice_repository'
 
 class SalesEngine
 
@@ -12,27 +13,26 @@ class SalesEngine
   def initialize(data)
     @items = ItemRepository.new(self)
     @merchants = MerchantRepository.new(self)
-    # @items = ItemRepository.new(data[:items], self)
-    # @merchants = MerchantRepository.new(data[:merchants], self)
+    @invoices = InvoiceRepository.new(self)
   end
 
-  # def self.initialize
-  #   @items = ItemRepository.new
-  #   @merchants = MerchantRepository.new
-  # end
 
   def self.from_csv(input)
-    # SalesEngine.new(input)
     created = SalesEngine.new(input)
     input.each_pair do |key, value|
       row = CSV.open value, headers: true, header_converters: :symbol
-      if key == :items
+      case key
+      when :items
         row.each do |data|
           created.items.add_data(data.to_hash)
         end
-      elsif key == :merchants
+      when key == :merchants
         row.each do |data|
           created.merchants.add_data(data.to_hash)
+        end
+      when key == :invoices
+        row.each do |data|
+          created.invoices.add_data(data.to_hash)
         end
       end
     end
