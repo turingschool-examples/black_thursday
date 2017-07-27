@@ -86,4 +86,15 @@ class SalesEngineTest < Minitest::Test
     merchant = se.merchants.find_by_id(12334112)
     assert merchant.items
   end
+
+  def test_it_can_return_array_of_items_by_merchant_id
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      })
+    item = se.items.find_by_id(263395237)
+    binding.pry
+    assert item.merchant
+  end
+
 end

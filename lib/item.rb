@@ -26,10 +26,8 @@ class Item
     unit_price.to_f
   end
 
-  # def merchant
-  #  @ir.merchant(merchant_id)
-  #  require "pry"; binding.pry
-  # end
-
+  def merchant
+    @ir.fetch_merchant(merchant_id)
+  end
 
 end

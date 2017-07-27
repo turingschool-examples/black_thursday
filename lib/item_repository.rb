@@ -7,8 +7,8 @@ class ItemRepository
   attr_reader :repository
 
   def initialize(data, sales_engine = nil)
-    @repository = {}
     @sales_engine = sales_engine
+    @repository = {}
     load_csv_file(data)
   end
 
@@ -62,6 +62,10 @@ class ItemRepository
     items.find_all do |item|
       item.merchant_id == merchant_id
     end
+  end
+
+  def fetch_merchant(merchant_id)
+    @sales_engine.fetch_merchant(merchant_id)
   end
 
 
