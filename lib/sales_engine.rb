@@ -50,6 +50,14 @@ class SalesEngine
     all_items
   end
 
+  def self.load_invoices(csvfile)
+    contents = CSV.open csvfile, headers: true, header_converters: :symbol
+    all_items = {}
+    contents.each do |row|
+      all_items[row[:id]] = Item.new(row, self)
+    end
+    all_items
+  end
 
 
 end

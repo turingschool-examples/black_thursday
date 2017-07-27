@@ -11,7 +11,7 @@ class ItemRepository
   end
 
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{@items.size} rows>"
   end
 
   def load_items(csvfile)
@@ -24,25 +24,23 @@ class ItemRepository
   end
 
   def all
-    @contents.values
+    @items.values
   end
 
   def find_by_id(id)
-    @contents[id.to_s]
+    @items[id.to_s]
   end
 
   def find_by_name(name)
-    content_array = all
-    content_array.find do |item|
-      if item.name == name
+    all.find do |item|
+      if item.name == name.downcase
         return item
       end
     end
   end
 
   def find_all_with_description(description)
-    content_array = all
-    content_array.find_all do |item|
+    all.find_all do |item|
       if item.description == description
         return item
       end
@@ -50,8 +48,7 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
-    content_array = all
-    content_array.find_all do |item|
+    all.find_all do |item|
       if item.unit_price == price
         return item
       end
@@ -59,8 +56,7 @@ class ItemRepository
   end
 
   def find_all_by_price_in_range(range)
-    content_array = all
-    content_array.find_all do |item|
+    all.find_all do |item|
       if item.unit_price < range.end && item.unit_price > range.begin
         return item
       end
@@ -68,8 +64,7 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(merchant_id)
-    content_array = all
-    content_array.find_all do |item|
+    all.find_all do |item|
       if item.merchant_id == merchant_id
         return item
       end
