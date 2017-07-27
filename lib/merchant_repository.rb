@@ -19,19 +19,6 @@ class MerchantRepository
     @name_repo    = {}
   end
 
-  attr_reader :file_path,
-              :sales_engine,
-              :id_repo,
-              :name_repo
-
-  def initialize(file_path, sales_engine)
-    @sales_engine = sales_engine
-    @file_path    = file_path
-    @id_repo       = {}
-    @name_repo     = {}
-    load_repo
-  end
-
   def load_repo
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
       merchant_info = Hash[row]
