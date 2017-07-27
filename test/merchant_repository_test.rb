@@ -62,13 +62,27 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 12334271, merchant.id
   end
 
-  def test_merchant_repo_can_find_merchant_by_id
+  def test_merchant_repo_find_by_id_returns_nil_on_bad_search
     mr = MerchantRepository.new('./data/merchants.csv', self)
-    merchant = mr.find_by_name("Necklacemaniac")
+    merchant = mr.find_by_id(00000000)
+
+    assert_nil merchant
+  end
+
+  def test_merchant_repo_can_find_merchant_by_name
+    mr = MerchantRepository.new('./data/merchants.csv', self)
+    merchant = mr.find_by_name("necklacemaniac")
 
     assert_instance_of Merchant, merchant
     assert_equal "Necklacemaniac", merchant.name
     assert_equal 12334986, merchant.id
+  end
+
+  def test_merchant_repo_find_by_name_returns_nil_on_bad_search
+    mr = MerchantRepository.new('./data/merchants.csv', self)
+    merchant = mr.find_by_name("asdlkjads;lf")
+
+    assert_nil merchant
   end
 
   def test_merchant_repo_can_find_all_by_name

@@ -52,7 +52,14 @@ class MerchantRepository
   end
 
   def find_by_name(name)
-    name_repo[name]
+    merchant = id_repo.detect do |id, merchant_instance|
+      id_repo[id].name.downcase == name.downcase
+    end
+    if merchant.nil?
+      return merchant
+    else
+      id_repo[merchant[0]]
+    end
   end
 
   def find_all_by_name(name)
