@@ -1,4 +1,5 @@
 class Item
+
   attr_reader :id,
               :name,
               :description,
@@ -6,6 +7,7 @@ class Item
               :merchant_id,
               :created_at,
               :updated_at
+              
   def initialize(item_hash, item_repository)
     @item_hash =       item_hash
     @item_repository = item_repository

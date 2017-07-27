@@ -1,9 +1,8 @@
 gem 'minitest', '~> 5.2'
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/merchant_repository'
-require './lib/sales_engine'
-require './lib/merchant'
+require_relative '../lib/merchant_repository'
+require_relative '../lib/sales_engine'
 
 class MerchantRepositoryTest < Minitest::Test
 
@@ -75,8 +74,10 @@ class MerchantRepositoryTest < Minitest::Test
   def test_merchant_repo_can_find_all_by_name
     mr = MerchantRepository.new('./data/merchants.csv', self)
     merchants = mr.find_all_by_name('cool')
+    merchants_2 = mr.find_all_by_name('justMstyle')
 
     assert_equal ["JustReallyCoolStuff", "coolzish", "CoolArtPots"], merchants
+    assert_equal ["justMstyle"], merchants_2
   end
 
   def test_merchant_repo_find_all_by_name_returns_empty_array_on_bad_search

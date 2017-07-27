@@ -1,11 +1,12 @@
 require 'csv'
-require './lib/item'
-require 'pry'
+require_relative 'item'
 
 class ItemRepository
+  
   attr_reader :sales_engine,
               :id_repo,
               :price_repo
+  
   def initialize(file_path, sales_engine)
     @file_path =        file_path
     @sales_engine =     sales_engine
@@ -96,4 +97,9 @@ class ItemRepository
       []
     end
   end
+
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
+  end
+
 end

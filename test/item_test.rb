@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/item'
-require './lib/sales_engine'
+require_relative '../lib/item'
+require_relative '../lib/sales_engine'
 
 class ItemTest < Minitest::Test
   def test_initialize

@@ -1,5 +1,7 @@
-require './lib/merchant'
+require 'pry'
+
 require 'csv'
+require_relative 'merchant'
 
 class MerchantRepository
 #
@@ -54,10 +56,15 @@ class MerchantRepository
   end
 
   def find_all_by_name(name)
+    binding.pry
     merchants = name_repo.keys.select do |merchant_name|
       merchant_name.downcase.include?(name.downcase)
     end
     merchants
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 
 end
