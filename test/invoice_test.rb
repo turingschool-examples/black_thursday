@@ -34,13 +34,13 @@ class InvoiceTest < Minitest::Test
     assert_equal "Closed", @in_v.status
   end
 
-  # def test_created_at_can_be_got
-  #   assert_equal Time.now.parse(), @in_v.created_at
-  # end
-  #
-  # def test_updated_at_can_be_got
-  #   assert_equal Time.now.parse(), @in_v.updated_at
-  # end
+  def test_created_at_can_be_got
+    assert_equal 2012-11-23, @in_v.created_at
+  end
+
+  def test_updated_at_can_be_got
+    assert_equal 2013-04-14, @in_v.updated_at
+  end
 
 
 

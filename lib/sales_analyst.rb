@@ -1,6 +1,7 @@
 require_relative '../lib/sales_engine'
 require_relative '../lib/calculator'
 require 'pry'
+
 class SalesAnalyst
   attr_reader :sales_engine
   include Calculator
