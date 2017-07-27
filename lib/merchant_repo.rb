@@ -33,8 +33,9 @@ class MerchantRepository
   end
 
   def find_by_name(name)
-    all.find do |merchant|
-      if merchant.name == name.downcase
+    content_array = all
+    content_array.find do |merchant|
+      if merchant.name.downcase == name.downcase
         return merchant
       end
     end
