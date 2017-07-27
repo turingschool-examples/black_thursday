@@ -38,7 +38,4 @@ class MerchantRepo
     parent.items_of_merchant(id)
   end
 
-
-
-
 end

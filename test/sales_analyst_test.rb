@@ -15,4 +15,17 @@ class SalesAnalystTest < Minitest::Test
   def test_it_exists
     assert_instance_of SalesAnalyst, sa
   end
+
+  def test_it_can_calculate_average_items_per_merchant
+    assert_equal 2.0, sa.average_items_per_merchant
+  end
+
+  def test_it_can_calculate_std_deviation_for_avg_items_per_merchant
+    assert_equal 0.47, sa.average_items_per_merchant_standard_deviation
+  end
+
+  def test_it_can_determine_merchants_with_high_item_count
+    actual = sa.merchants_with_high_item_count
+    assert_equal 0, actual.count
+  end
 end

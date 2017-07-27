@@ -15,7 +15,7 @@ class SalesEngine
   end
 
   def self.from_csv(data)
-    se = SalesEngine.new(data)
+    SalesEngine.new(data)
   end
 
   def items_of_merchant(id)
@@ -24,5 +24,13 @@ class SalesEngine
 
   def merchant_item(id)
     merchants.find_by_id(id)
+  end
+
+  def all_items
+    items.all
+  end
+
+  def all_merchants
+    merchants.all
   end
 end
