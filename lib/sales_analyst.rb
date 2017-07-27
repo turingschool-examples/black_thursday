@@ -11,7 +11,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    ((@se.item.all.count.to_f) / (@se.merchants.all.count.to_f)).round(2)
+    ((@se.items.all.count.to_f) / (@se.merchants.all.count.to_f)).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
@@ -22,7 +22,7 @@ class SalesAnalyst
 
   def set_of_item_prices
     set = []
-    @se.item.all.map do |item|
+    @se.items.all.map do |item|
       set << item.unit_price_to_dollars
     end
     set
@@ -53,7 +53,7 @@ class SalesAnalyst
     else
       return nil
     end
-    result
+    result.round(2)
   end
 
   def average_average_price_per_merchant
@@ -67,7 +67,7 @@ class SalesAnalyst
       end
     end
     sum = sum_array(total_averages)
-    sum / total_averages.count
+    (sum / total_averages.count).round(2)
   end
 
   def sum_array(array)
@@ -83,7 +83,7 @@ class SalesAnalyst
   end
 
   def golden_items
-    @se.item.all.find_all do |item|
+    @se.items.all.find_all do |item|
       item.unit_price_to_dollars > (average_item_price + (average_item_price_standard_deviation * 2)).round(2)
     end
   end

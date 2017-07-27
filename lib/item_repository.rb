@@ -39,15 +39,15 @@ class ItemRepository
     end
   end
 
-  def find_all_by_price(unit_price)
+  def find_all_by_price(unit_price_to_dollars)
     @all.find_all do |item|
-      item.unit_price == unit_price
+      item.unit_price_to_dollars == unit_price_to_dollars
     end
   end
 
-  def find_all_by_price_range(price_range)
+  def find_all_by_price_in_range(price_range)
     @all.find_all do |item|
-      price_range.include?(item.unit_price)
+      price_range.include?(item.unit_price_to_dollars)
     end
   end
 

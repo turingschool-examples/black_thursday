@@ -19,8 +19,4 @@ class SalesEngine
     SalesEngine.new(csv_data)
   end
 
-  def items
-    @merchants
-  end
-
 end
