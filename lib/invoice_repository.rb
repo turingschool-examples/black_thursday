@@ -13,7 +13,7 @@ class InvoiceRepository
                  header_converters: :symbol
     contents.each do |row|
       id = (row[:id]).to_i
-      customer_id = row[:customer_id]
+      customer_id = (row[:customer_id]).to_i
       status = row[:status]
       created_at = row[:created_at]
       updated_at = row[:updated_at]
@@ -24,4 +24,15 @@ class InvoiceRepository
       @invoices << invoice
     end
   end
+
+  def all
+    @invoices
+  end
+
+  def find_by_id(id)
+    @invoices.find do |invoice|
+      invoice.id == id
+    end
+  end
+
 end
