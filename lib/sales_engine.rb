@@ -14,7 +14,7 @@ class SalesEngine
   def initialize(data)
     @items = ItemRepository.new(self)
     @merchants = MerchantRepository.new(self)
-    # @invoices = InvoiceRepository.new(self)
+    @invoices = InvoiceRepository.new(self)
   end
 
 
@@ -31,10 +31,10 @@ class SalesEngine
         row.each do |data|
           created.merchants.add_data(data.to_hash)
         end
-      # when  :invoices
-      #   row.each do |data|
-      #     created.invoices.add_data(data.to_hash)
-      #   end
+      when  :invoices
+        row.each do |data|
+          created.invoices.add_data(data.to_hash)
+        end
       end
     end
     created

@@ -16,5 +16,8 @@ class Invoice
     @updated_at   = Time.parse(data[:updated_at])
   end
 
+  def merchant
+    @sales_engine.merchants.find_by_id(self.merchant_id)
+  end
 
 end
