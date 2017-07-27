@@ -20,4 +20,11 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of Merchant, merchant
     assert_equal "MiniatureBikez", merchant.name
   end
+
+  def test_engine_can_find_item_by_name
+    ir   = se.items
+    item = ir.find_by_name("Glitter scrabble frames")
+    assert_instance_of Item, item
+    assert_equal "Glitter scrabble frames", item.name
+  end
 end
