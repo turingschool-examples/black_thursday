@@ -342,6 +342,14 @@
         1,
         null,
         null,
+        1,
+        13,
+        null,
+        null,
+        1,
+        9,
+        null,
+        null,
         null
       ],
       "/Users/mbutera/turing/1module/projects/black_thursday/lib/sales_analyst.rb": [
@@ -464,6 +472,6 @@
         null
       ]
     },
-    "timestamp": 1501195623
+    "timestamp": 1501196120
   }
 }

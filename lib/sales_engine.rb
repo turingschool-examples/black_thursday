@@ -44,4 +44,12 @@ class SalesEngine
     @merchants.find_by_id(merchant_id)
   end
 
+  def call_merchants
+    @merchants.merchants
+  end
+
+  def call_items
+    @items.items
+  end
+
 end

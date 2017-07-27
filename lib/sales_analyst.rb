@@ -10,23 +10,23 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    (@se.items.items.count.to_f / @se.merchants.merchants.count.to_f).round(2)
+    (@se.call_items.count.to_f / @se.call_merchants.count.to_f).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
     merchant_items = number_of_items_per_merchant
     variance = get_variance_merchants(merchant_items)
-    sqrt(variance.sum / (@se.merchants.merchants.count.to_f - 1)).round(2)
+    sqrt(variance.sum / (@se.call_merchants.count.to_f - 1)).round(2)
   end
 
   def number_of_items_per_merchant
-    @se.merchants.merchants.map do |merchant_obj|
+    @se.call_merchants.map do |merchant_obj|
       merchant_id = merchant_obj.id
       items = @se.items.find_all_by_merchant_id(merchant_id)
       items.count
     end
     # number_of_items_per_merchant
-    # @se.merchants.merchants.reduce([]) do |result, merchant_obj|
+    # @se.call_merchants.reduce([]) do |result, merchant_obj|
     #   merchant_id = merchant_obj.id
     #   items = @se.items.find_all_by_merchant_id(merchant_id)
     #   result << items.count
@@ -47,7 +47,7 @@ class SalesAnalyst
   end
 
   def get_all_costs
-    @se.items.items.map do |item_obj|
+    @se.call_items.map do |item_obj|
       item_obj.unit_price
     end
   end
@@ -67,7 +67,7 @@ class SalesAnalyst
     high_item_merchants = []
     target = average_items_per_merchant +
              average_items_per_merchant_standard_deviation
-    @se.merchants.merchants.each do |merchant_obj|
+    @se.call_merchants.each do |merchant_obj|
       merchant_id = merchant_obj.id
       items = @se.items.find_all_by_merchant_id(merchant_id)
       if items.count >= target
@@ -87,26 +87,26 @@ class SalesAnalyst
 
   def average_average_price_per_merchant
     merchant_averages = []
-    @se.merchants.merchants.each do |merchant_obj|
+    @se.call_merchants.each do |merchant_obj|
       merchant_id = merchant_obj.id
       merchant_averages << average_item_price_for_merchant(merchant_id)
     end
-    (merchant_averages.sum / @se.merchants.merchants.count).round(2)
+    (merchant_averages.sum / @se.call_merchants.count).round(2)
   end
 
   def average_price_per_item
     total_cost = []
-    @se.items.items.each do |item|
+    @se.call_items.each do |item|
       total_cost << item.unit_price
     end
-    (total_cost.sum / @se.items.items.count.to_f).round(2)
+    (total_cost.sum / @se.call_items.count.to_f).round(2)
   end
 
   def golden_items
     gold_items = []
     target = average_price_per_item +
              (cost_standard_deviation * 2)
-    @se.items.items.each do |item|
+    @se.call_items.each do |item|
       if item.unit_price >= target
         gold_items << item
       end
