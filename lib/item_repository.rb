@@ -43,16 +43,11 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
-    results =  []
-    @items.each do |item|
-      if item.unit_price == price
-        results << item
-      end
+    results = @items.find_all do |item|
+      item.unit_price == BigDecimal.new(price)
     end
     results
   end
-
-  [1..10]
 
   # def find_all_by_price_in_range(price_low, price_high)
   #   results = []

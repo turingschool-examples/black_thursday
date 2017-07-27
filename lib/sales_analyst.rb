@@ -10,11 +10,11 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    average(all_averages)
+    average(all_averages).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
-    standard_deviance(all_averages.map {|average| average[:count]})
+    standard_deviance(all_averages.map {|average| average[:count]}).round(2)
   end
 
   def merchants_with_high_item_count
@@ -39,13 +39,14 @@ class SalesAnalyst
     item_prices = items.map do |item|
       item.unit_price
     end
-    mean(item_prices)
+    # binding.pry
+    mean(item_prices).round(2)
   end
 
   def average_average_price_per_merchant
     merchants = @sales_engine.merchants.all
     averages = list_avg_merch(merchants)
-    mean(averages)
+    mean(averages).round(2)
   end
 
   def list_avg_merch(in_set)
