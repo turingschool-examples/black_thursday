@@ -1,16 +1,22 @@
 require 'minitest'
 require 'minitest/autorun'
-# require 'minitest/emoji'
+require 'minitest/emoji'
 require_relative '../lib/item'
 require 'bigdecimal'
+require 'time'
 
 
 class ItemTest < Minitest::Test
 
   def setup
-    hash = {id: 1, name: "Candy", description: "yellow",
-            unit_price: 120, merchant_id: 13,
-            created_at: Time.now, updated_at: Time.now   }
+    hash = {id: 1,
+            name: "Candy",
+            description: "yellow",
+            unit_price: 120,
+            merchant_id: 13,
+            created_at: "2016-01-11 11:51:37 UTC",
+            updated_at: "2016-01-11 11:51:37 UTC"
+           }
     @the_item = Item.new(hash, self)
   end
 
@@ -27,9 +33,8 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_has_unit_price
-    assert_equal 120, @the_item.unit_price
+    assert_equal 1.2, @the_item.dollars
   end
-
 
   def test_it_has_merchant_id
     assert_equal 13, @the_item.merchant_id
@@ -44,19 +49,18 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_is_initialized_corretly
-    hash = {}
-    item = Item.new(hash, self)
-    assert item
-    assert_instance_of Item, item
+    assert_instance_of Item, @the_item
   end
 
-  def test_spec_creation
-    item = Item.new({:name        => "Pencil",
-                     :description => "You can use it to write things",
-                     :unit_price  => BigDecimal.new(10.99,4),
-                     :created_at  => Time.now,
-                     :updated_at  => Time.now                        })
-
-  end
+  # def test_spec_creation
+  #   item = Item.new({:name        => "Pencil",
+  #                    :description => "You can use it to write things",
+  #                    :unit_price  => BigDecimal.new(10.99,4),
+  #                    :created_at  => Time.now,
+  #                    :updated_at  => Time.now
+  #                   })
+  #   new_item = Item.new(item, self)
+  #   assert_instance_of Item, new_item
+  # end
 
 end
