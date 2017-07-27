@@ -2,13 +2,15 @@ gem 'minitest', '~> 5.2'
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/sales_engine'
+require 'pry'
 
 class SalesEngineTest < Minitest::Test
 
   def test_initialize
     salesengine = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
+      :items => "./data/items.csv",
       :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
     })
 
     assert_instance_of SalesEngine, salesengine
@@ -18,18 +20,20 @@ class SalesEngineTest < Minitest::Test
 
   def test_sales_engine_exists
     se = SalesEngine.from_csv({
-          :items     => "./data/items.csv",
-          :merchants => "./data/merchants.csv",
-        })
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+    })
 
     assert_instance_of SalesEngine, se
   end
 
   def test_sales_engine_initializes_with_merchant_repository
     se = SalesEngine.from_csv({
-          :items     => "./data/items.csv",
-          :merchants => "./data/merchants.csv",
-        })
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+    })
 
     assert_instance_of MerchantRepository, se.merchants
   end
