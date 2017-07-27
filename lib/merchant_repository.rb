@@ -17,6 +17,7 @@ class MerchantRepository
     @file_path    = file_path
     @id_repo      = {}
     @name_repo    = {}
+    load_repo
   end
 
   def load_repo

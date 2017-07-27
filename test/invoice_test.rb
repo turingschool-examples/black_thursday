@@ -2,6 +2,7 @@ gem 'minitest', '~> 5.2'
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/invoice'
+require_relative '../lib/sales_engine'
 
 class InvoiceTest < Minitest::Test
 
@@ -65,6 +66,19 @@ class InvoiceTest < Minitest::Test
     updated_at = invoice.updated_at
 
     assert_instance_of Time, updated_at
+  end
+
+  def test_invoice_can_check_for_merchants
+    se = SalesEngine.from_csv({
+          :items     => "./data/items.csv",
+          :merchants => "./data/merchants.csv",
+          :invoices => "./data/invoices.csv"
+        })
+    binding.pry
+    invoice = se.invoices.find_by_id(71)
+    merchant = se.merchants.find_by_id(12336292)
+
+    assert_equal invoice.merchant_id, merchant.id
   end
 
 end
