@@ -84,7 +84,7 @@ class SalesEngineTest < Minitest::Test
                                :invoices => './data/invoices.csv'})
 
     target = se.pass_items_merchant_id(12334105)
-# binding.pry
+
     assert_equal "Shopin1901", target.name
   end
 
@@ -119,5 +119,16 @@ class SalesEngineTest < Minitest::Test
     assert_equal Array, invoice.class
   end
 
+  def test_can_retrieve_invoices_from_invoice_repo_with_merchant_id
+    se = SalesEngine.from_csv({:items => './data/items.csv',
+                               :merchants => './data/merchants.csv',
+                               :invoices => './data/invoices.csv'})
+
+    merchant = se.merchants.find_by_id(12337207)
+    target = merchant.invoices
+
+    assert_equal 17, target.count
+    assert_equal Array, target.class
+  end
 
 end
