@@ -16,7 +16,7 @@ class MerchantRepositoryTest < Minitest::Test
               :transactions => "./test/data/transactions_fixture.csv",
               :customers => "./test/data/customers_fixture.csv"
             })
-    @mr = @se.merchant
+    @mr = @se.merchants
   end
 
   def test_it_exists

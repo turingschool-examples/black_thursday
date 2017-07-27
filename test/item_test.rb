@@ -24,7 +24,7 @@ class ItemTest < Minitest::Test
                       :unit_price  => BigDecimal.new(10.99,4),
                       :created_at  => Time.now,
                       :updated_at  => Time.now,
-                      }, @se.item)
+                      }, @se.items)
 
 
 
@@ -50,7 +50,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_merchant_returns_the_merchant_of_the_item
-    item_instance = @se.item.find_by_id(263395237)
+    item_instance = @se.items.find_by_id(263395237)
     assert_instance_of Merchant, item_instance.merchant
   end
 
