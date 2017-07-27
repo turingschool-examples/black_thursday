@@ -4,7 +4,8 @@ require './lib/item'
 class ItemTest < Minitest::Test
 
   def test_it_exists
-    item = Item.new(1, "Bill", "An item", "1200", "2016-01-11 09:34:06 UTC", "2016-01-11 09:34:06 UTC", 123, self)
+    item = Item.new(1, "Bill", "An item", "1200", "2016-01-11 09:34:06 UTC",
+                   "2016-01-11 09:34:06 UTC", 123, self)
 
     assert_instance_of Item, item
   end

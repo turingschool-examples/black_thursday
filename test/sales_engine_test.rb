@@ -1,5 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/emoji'
+require './test/test_helper'
 require './lib/sales_engine.rb'
 require 'pry'
 
@@ -17,8 +16,9 @@ class SalesEngineTest < Minitest::Test
     se = SalesEngine.from_csv({:items => './data/items.csv',
                                :merchants => './data/merchants.csv',
                                :invoices => './data/invoices.csv'})
-                              # binding.pry
+
     items = se.items
+
     assert_instance_of ItemRepository, items
   end
 
@@ -28,6 +28,7 @@ class SalesEngineTest < Minitest::Test
                                :invoices => './data/invoices.csv'})
 
     merchants = se.merchants
+
     assert_instance_of MerchantRepository, merchants
   end
 
@@ -97,6 +98,26 @@ class SalesEngineTest < Minitest::Test
     assert_equal "jejum", item.merchant.name
   end
 
+  def test_it_creates_a_invoice_repository
+    se = SalesEngine.from_csv({:items => './data/items.csv',
+                               :merchants => './data/merchants.csv',
+                               :invoices => './data/invoices.csv'})
+
+    inr = se.invoices
+    assert_instance_of InvoiceRepository, inr
+  end
+
+  def test_invoice_repository_can_find_all_invoices
+    se = SalesEngine.from_csv({:items => './data/items.csv',
+                               :merchants => './data/merchants.csv',
+                               :invoices => './data/invoices.csv'})
+
+    inr = se.invoices
+    invoice = inr.all
+
+    assert_equal 4985, invoice.length
+    assert_equal Array, invoice.class
+  end
 
 
 end

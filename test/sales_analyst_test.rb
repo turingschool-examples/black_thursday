@@ -1,5 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/emoji'
+require './test/test_helper'
 require './lib/sales_engine.rb'
 require './lib/sales_analyst.rb'
 require 'bigdecimal'

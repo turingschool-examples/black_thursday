@@ -1,5 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/emoji'
+require './test/test_helper'
 require './lib/invoice_repository.rb'
 require 'pry'
 
@@ -41,28 +40,26 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal Array, target.class
     assert_equal [], target_2
   end
-#
-#   def test_it_can_find_all_by_merchant_id
-#     skip
-#     inr = InvoiceRepository.new('./data/invoices.csv', self)
-#
-#     target = inr.find_all_by_merchant_id(12334141)
-#     target_2 = inr.find_all_by_merchant_id("0")
-#
-#     assert_equal "510+ RealPush Icon Set", target[0].name
-#     assert_equal Array, target.class
-#     assert_equal [], target_2
-#   end
-#
-#   def test_it_can_find_all_by_status
-#     skip
-#     inr = InvoiceRepository.new('./data/invoices.csv', self)
-#
-#     target = inr.find_all_by_merchant_id(12334141)
-#     target_2 = inr.find_all_by_merchant_id("0")
-#
-#     assert_equal "510+ RealPush Icon Set", target[0].name
-#     assert_equal Array, target.class
-#     assert_equal [], target_2
-#   end
+
+  def test_it_can_find_all_by_merchant_id
+    inr = InvoiceRepository.new('./data/invoices.csv', self)
+
+    target = inr.find_all_by_merchant_id(12334105)
+    target_2 = inr.find_all_by_merchant_id(123)
+
+    assert_equal 10, target.count
+    assert_equal Array, target.class
+    assert_equal [], target_2
+  end
+
+  def test_it_can_find_all_by_status
+    inr = InvoiceRepository.new('./data/invoices.csv', self)
+
+    target = inr.find_all_by_status("returned")
+    target_2 = inr.find_all_by_status("nil")
+
+    assert_equal 673, target.count
+    assert_equal Array, target.class
+    assert_equal [], target_2
+  end
 end
