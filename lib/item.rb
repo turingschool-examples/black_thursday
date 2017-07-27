@@ -21,6 +21,10 @@ class Item
     price/100
   end
 
+  def merchant
+    @item_repo.find_merchant_vendor(@id)
+  end
+
 
 
 end

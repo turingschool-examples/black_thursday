@@ -20,44 +20,43 @@ class SalesEngine
     # @customers     = CustomerRepository.new(:customers, self)
   end
 
+  def find_items_by_merchant_id(merchant_id)
+    @items.find_all_items_to_a_merchant(merchant_id)
+  end
+
+  def find_merchant_by_item_id(id)
+    @merchants.find_al(id.to_s)
+  end
+
   def self.from_csv(se_hash)
     merchant_data     = load_merchants(se_hash[:merchants])
     item_data         = load_items(se_hash[:items])
-    invoice_data      = load_invoices(se_hash[:invoices])
+    # invoice_data      = load_invoices(se_hash[:invoices])
     # invoice_item_data = load_data(se_hash[:invoice_items])
     # transaction_data  = load_data(se_hash[:transactions])
     # customer_data     = load_data(se_hash[:customers])
 
-    SalesEngine.new({:items => item_data, :merchants => merchant_data, :invoices => invoice_data})
-    # , invoice_data, invoice_item_data, transaction_data, customer_data)
+    SalesEngine.new({:items => item_data, :merchants => merchant_data })
   end
 
+  #:invoices => invoice_data  # , invoice_data, invoice_item_data, transaction_data, customer_data)
+
   def self.load_merchants(csvfile)
-    contents = CSV.open csvfile, headers: true, header_converters: :symbol
-    all_merchants = {}
-    contents.each do |row|
-      all_merchants[row[:id]] = Merchant.new(row, self)
-    end
-    all_merchants
+    CSV.open csvfile, headers: true, header_converters: :symbol
   end
 
   def self.load_items(csvfile)
     contents = CSV.open csvfile, headers: true, header_converters: :symbol
-    all_items = {}
-    contents.each do |row|
-      all_items[row[:id]] = Item.new(row, self)
-    end
-    all_items
   end
 
-  def self.load_invoices(csvfile)
-    contents = CSV.open csvfile, headers: true, header_converters: :symbol
-    all_items = {}
-    contents.each do |row|
-      all_items[row[:id]] = Item.new(row, self)
-    end
-    all_items
-  end
+  # def self.load_invoices(csvfile)
+  #   contents = CSV.open csvfile, headers: true, header_converters: :symbol
+  #   all_items = {}
+  #   contents.each do |row|
+  #     all_items[row[:id]] = Item.new(row, self)
+  #   end
+  #   all_items
+  # end
 
 
 end
