@@ -16,8 +16,8 @@ class MerchantTest < Minitest::Test
               :transactions => "./test/data/transactions_fixture.csv",
               :customers => "./test/data/customers_fixture.csv"
             })
-    @merchant = @se.merchant.find_by_id(12334105)
-    @merch = Merchant.new({:id => 5, :name => "Turing School"}, @se.merchant)
+    @merchant = @se.merchants.find_by_id(12334105)
+    @merch = Merchant.new({:id => 5, :name => "Turing School"}, @se.merchants)
 
   end
 
