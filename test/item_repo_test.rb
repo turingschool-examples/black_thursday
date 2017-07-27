@@ -46,4 +46,5 @@ class ItemRepoTest < Minitest::Test
     expected = "510+ RealPush Icon Set"
     assert_equal expected, ir.find_all_by_merchant_id(12334141)[0].name
   end
+
 end
