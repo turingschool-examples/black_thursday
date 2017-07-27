@@ -8,7 +8,7 @@ class MerchantRepository
 
   def initialize(csvfile, engine)
     @engine = engine
-    @merchants = load_merchants(csvfile)
+    @merchants = csvfile
   end
 
   def inspect
@@ -44,7 +44,7 @@ class MerchantRepository
   def find_all_by_name(name)
     array_of_matching_merchants = []
     all.find_all do |merchant|
-      if merchant.name.downcase.start_with?(name)
+      if merchant.name.downcase.include?(name.downcase)
         array_of_matching_merchants << merchant
       end
     end

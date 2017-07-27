@@ -7,7 +7,7 @@ class ItemRepository
 
   def initialize(csvfile, engine)
     @engine = engine
-    @items  = load_items(csvfile)
+    @items  = csvfile
   end
 
   def inspect
@@ -41,32 +41,28 @@ class ItemRepository
 
   def find_all_with_description(description)
     all.find_all do |item|
-      if item.description == description
-        return item
+      if item.description.downcase == description.downcase
+        item
       end
     end
   end
 
   def find_all_by_price(price)
     all.find_all do |item|
-      if item.unit_price == price
-        return item
-      end
+      (item.unit_price_to_dollars) == price
     end
   end
 
   def find_all_by_price_in_range(range)
     all.find_all do |item|
-      if item.unit_price < range.end && item.unit_price > range.begin
-        return item
-      end
+      item.unit_price <= range.end && item.unit_price >= range.begin
     end
   end
 
   def find_all_by_merchant_id(merchant_id)
     all.find_all do |item|
       if item.merchant_id == merchant_id
-        return item
+        item
       end
     end
   end

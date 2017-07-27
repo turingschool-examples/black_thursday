@@ -35,5 +35,7 @@ class ItemRepositoryTest < Minitest::Test
     assert_nil item_repo.find_by_name("zz09093480")
   end
 
+  def test_it_can_find_by_description
+  end
 
 end
