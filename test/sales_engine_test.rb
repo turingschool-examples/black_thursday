@@ -7,14 +7,16 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_exists
     se = SalesEngine.from_csv({:items => './data/items.csv',
-                               :merchants => './data/merchants.csv'})
+                               :merchants => './data/merchants.csv',
+                               :invoices => './data/invoices.csv'})
 
     assert_instance_of SalesEngine, se
   end
 
   def test_it_creates_an_item_repository
     se = SalesEngine.from_csv({:items => './data/items.csv',
-                               :merchants => './data/merchants.csv'})
+                               :merchants => './data/merchants.csv',
+                               :invoices => './data/invoices.csv'})
                               # binding.pry
     items = se.items
     assert_instance_of ItemRepository, items
@@ -22,7 +24,8 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_creates_a_merchant_repository
     se = SalesEngine.from_csv({:items => './data/items.csv',
-                               :merchants => './data/merchants.csv'})
+                               :merchants => './data/merchants.csv',
+                               :invoices => './data/invoices.csv'})
 
     merchants = se.merchants
     assert_instance_of MerchantRepository, merchants
@@ -30,7 +33,8 @@ class SalesEngineTest < Minitest::Test
 
   def test_merchant_repository_can_find_all_merchants
     se = SalesEngine.from_csv({:items => './data/items.csv',
-                               :merchants => './data/merchants.csv'})
+                               :merchants => './data/merchants.csv',
+                               :invoices => './data/invoices.csv'})
 
     mr = se.merchants
     merchant = mr.all
@@ -41,7 +45,8 @@ class SalesEngineTest < Minitest::Test
 
   def test_item_repository_can_find_all_items
     se = SalesEngine.from_csv({:items => './data/items.csv',
-                               :merchants => './data/merchants.csv'})
+                               :merchants => './data/merchants.csv',
+                               :invoices => './data/invoices.csv'})
 
     ir = se.items
     item = ir.all
@@ -52,7 +57,8 @@ class SalesEngineTest < Minitest::Test
 
   def test_can_retrieve_items_from_items_repo_with_merchant_id
     se = SalesEngine.from_csv({:items => './data/items.csv',
-                               :merchants => './data/merchants.csv'})
+                               :merchants => './data/merchants.csv',
+                               :invoices => './data/invoices.csv'})
 
     target = se.pass_merchant_id(12334105)
 
@@ -62,7 +68,8 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_can_retrieve_items_from_items_with_merchant_id
     se = SalesEngine.from_csv({:items => './data/items.csv',
-                               :merchants => './data/merchants.csv'})
+                               :merchants => './data/merchants.csv',
+                               :invoices => './data/invoices.csv'})
 
     merchant = se.merchants.find_by_id(12334105)
 
@@ -72,7 +79,8 @@ class SalesEngineTest < Minitest::Test
 
   def test_can_retrieve_merchant_from_merchant_repo_with_item_id
     se = SalesEngine.from_csv({:items => './data/items.csv',
-                               :merchants => './data/merchants.csv'})
+                               :merchants => './data/merchants.csv',
+                               :invoices => './data/invoices.csv'})
 
     target = se.pass_items_merchant_id(12334105)
 # binding.pry
@@ -81,7 +89,8 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_can_retrieve_merchant_with_merchant_id_from_item
     se = SalesEngine.from_csv({:items => './data/items.csv',
-                               :merchants => './data/merchants.csv'})
+                               :merchants => './data/merchants.csv',
+                               :invoices => './data/invoices.csv'})
 
     item = se.items.find_by_id(263395237)
 

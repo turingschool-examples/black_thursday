@@ -1,6 +1,7 @@
 require 'CSV'
 require_relative 'item_repository'
 require_relative 'merchant_repository'
+require_relative 'invoice_repository'
 require 'pry'
 
 class SalesEngine
@@ -10,11 +11,13 @@ class SalesEngine
   end
 
   attr_reader :items,
-              :merchants
+              :merchants,
+              :invoices
 
   def initialize(hash)
     @items = ItemRepository.new(hash[:items], self)
     @merchants = MerchantRepository.new(hash[:merchants], self)
+    @invoices = InvoiceRepository.new(hash[:invoices], self)
   end
 
   def fetch_merchant_id(merchant_id)
