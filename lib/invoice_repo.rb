@@ -9,6 +9,10 @@ class InvoiceRepository
     @contents = load_invoices(csvfile)
   end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
   def load_invoices(csvfile)
     contents = CSV.open csvfile, headers: true, header_converters: :symbol
     all_invoices = {}

@@ -34,6 +34,7 @@ class MerchantRepositoryTest < Minitest::Test
     merchant_repo = MerchantRepository.new("./data/merchants.csv", "salesengine")
 
     assert_equal [], merchant_repo.find_all_by_name("zzzz")
+
     assert_instance_of Merchant, merchant_repo.find_all_by_name("el")[0]
 
   end

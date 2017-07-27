@@ -8,6 +8,10 @@ class CustomerRepository
     @customers = csv_data
   end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
   def all
     customers
   end

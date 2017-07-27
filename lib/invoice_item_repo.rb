@@ -5,6 +5,10 @@ class InvoiceItemRepository
     @invoice_items = csv_data
   end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
   def all
     invoice_items
   end
