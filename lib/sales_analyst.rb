@@ -44,8 +44,9 @@ class SalesAnalyst
     mr = sales_engine.merchants.all
     v = average_items_per_merchant+average_items_per_merchant_standard_deviation
     mr.find_all do |merchant|
+      # bring in merchant_items
       # require "pry"; binding.pry
-      merchant.items.length >= v
+      # merchant.items.length >= v
     end
   end
 
