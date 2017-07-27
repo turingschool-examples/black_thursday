@@ -74,10 +74,10 @@ class MerchantRepositoryTest < Minitest::Test
   def test_merchant_repo_can_find_all_by_name
     mr = MerchantRepository.new('./data/merchants.csv', self)
     merchants = mr.find_all_by_name('cool')
-    merchants_2 = mr.find_all_by_name('justMstyle')
+    merchants_2 = mr.find_all_by_name('style')
 
-    assert_equal ["JustReallyCoolStuff", "coolzish", "CoolArtPots"], merchants
-    assert_equal ["justMstyle"], merchants_2
+    assert_equal 3, merchants.count
+    assert_equal 3, merchants_2.count
   end
 
   def test_merchant_repo_find_all_by_name_returns_empty_array_on_bad_search

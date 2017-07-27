@@ -56,14 +56,14 @@ class MerchantRepository
   end
 
   def find_all_by_name(name)
-    merchants = name_repo.keys.select do |merchant_name|
-      merchant_name.downcase.include?(name.downcase)
+    merchants = id_repo.values.select do |merchant_instance|
+      merchant_instance.name.downcase.include?(name.downcase)
     end
     merchants
   end
 
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{@id_repo.size} rows>"
   end
 
 end
