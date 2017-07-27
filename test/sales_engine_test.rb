@@ -13,4 +13,10 @@ class SalesEngineTest < Minitest::Test
   def test_it_exists
     assert_instance_of SalesEngine, se
   end
+
+  def test_engine_can_find_merchant_by_name
+    mr = se.merchants
+    merchant = mr.find_by_name("MiniatureBikez")
+    assert_instance_of Merchant, merchant
+  end
 end
