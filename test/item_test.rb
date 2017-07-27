@@ -12,7 +12,7 @@ class ItemTest < Minitest::Test
                     :description => "You can use it to write things",
                     :unit_price  => BigDecimal.new(10.99,4),
                     :created_at  => Time.now,
-                    :updated_at  => Time.now, })
+                    :updated_at  => Time.now, }, "engine")
 
     assert_instance_of Item, item
   end
@@ -23,7 +23,7 @@ class ItemTest < Minitest::Test
                     :description => "You can use it to write things",
                     :unit_price  => BigDecimal.new(10.99,4),
                     :created_at  => Time.now,
-                    :updated_at  => Time.now, })
+                    :updated_at  => Time.now, }, "engine")
 
     assert_equal 263395237, item.id
   end
@@ -34,7 +34,7 @@ class ItemTest < Minitest::Test
                     :description => "You can use it to write things",
                     :unit_price  => BigDecimal.new(10.99,4),
                     :created_at  => Time.now,
-                    :updated_at  => Time.now, })
+                    :updated_at  => Time.now, },"engine")
 
     assert_equal "Pencil", item.name
   end
@@ -45,7 +45,7 @@ class ItemTest < Minitest::Test
                     :description => "You can use it to write things",
                     :unit_price  => BigDecimal.new(10.99,4),
                     :created_at  => Time.now,
-                    :updated_at  => Time.now, })
+                    :updated_at  => Time.now, }, "engine")
 
     assert_equal "You can use it to write things", item.description
   end
@@ -56,7 +56,7 @@ class ItemTest < Minitest::Test
                     :description => "You can use it to write things",
                     :unit_price  => BigDecimal.new(10.99,4),
                     :created_at  => Time.now,
-                    :updated_at  => Time.now, })
+                    :updated_at  => Time.now, }, "engine")
 
     assert_instance_of BigDecimal, item.unit_price
   end
@@ -67,7 +67,7 @@ class ItemTest < Minitest::Test
                     :description => "You can use it to write things",
                     :unit_price  => BigDecimal.new(10.99,4),
                     :created_at  => Time.now,
-                    :updated_at  => Time.now, })
+                    :updated_at  => Time.now, }, "engine")
 
     assert_instance_of Time, item.created_at
   end
@@ -78,7 +78,7 @@ class ItemTest < Minitest::Test
                     :description => "You can use it to write things",
                     :unit_price  => BigDecimal.new(10.99,4),
                     :created_at  => Time.now,
-                    :updated_at  => Time.now, })
+                    :updated_at  => Time.now, }, "engine")
 
     assert_instance_of Time, item.updated_at
   end
@@ -89,7 +89,7 @@ class ItemTest < Minitest::Test
                     :description => "You can use it to write things",
                     :unit_price  => BigDecimal.new(10.99,4),
                     :created_at  => Time.now,
-                    :updated_at  => Time.now, })
+                    :updated_at  => Time.now, }, "engine")
 
     assert_equal 10.99, item.unit_price_to_dollars
   end

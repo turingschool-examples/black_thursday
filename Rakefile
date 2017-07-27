@@ -3,6 +3,8 @@ task default: %w[test]
 task :test do
   ruby "test/item_test.rb"
   ruby "test/merchant_test.rb"
+  ruby "test/item_repo_test.rb"
+  ruby "test/merchant_repo_test.rb"
 end
 
 namespace :sanitation do
