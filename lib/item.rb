@@ -18,16 +18,16 @@ class Item
     @id          = hash[:id].to_i
     @name        = hash[:name]
     @description = hash[:description]
-    @price       = unit_price_to_dollars(hash[:unit_price])
-    @unit_price  = BigDecimal.new(@price)
+    @price       = BigDecimal.new(hash[:unit_price])
+    @unit_price  = unit_price_to_dollars(@price)
     @created_at  = Time.parse(hash[:created_at].to_s)
     @updated_at  = Time.parse(hash[:updated_at].to_s)
     @merchant_id = hash[:merchant_id].to_i
     @parent      = repo
   end
 
-  def unit_price_to_dollars(price)
-    price.to_i / 100
+  def unit_price_to_dollars(unit_price)
+    unit_price / 100
   end
 
   def merchant

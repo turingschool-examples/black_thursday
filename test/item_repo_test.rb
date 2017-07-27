@@ -25,16 +25,16 @@ class ItemRepoTest < Minitest::Test
   def test_it_can_find_by_desc
     expected = "510+ RealPush Icon Set"
     sub_str = "You&#39;ve got a total socialmedia iconset!"
-    assert_equal expected, ir.find_by_description(sub_str).name
+    assert_equal expected, ir.find_all_with_description(sub_str)[0].name
   end
 
-  def test_it_can_find_item_by_price
+  def test_it_can_find_items_by_price
     expected = "510+ RealPush Icon Set"
-    assert_equal expected, ir.find_by_price(1200).name
+    assert_equal expected, ir.find_all_by_price(12)[0].name
   end
 
   def test_it_can_find_all_by_price_in_range
-    range = (1100..1400)
+    range = (11..14)
     assert_equal 2, ir.find_all_by_price_in_range(range).count
   end
 

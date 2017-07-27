@@ -29,21 +29,19 @@ class ItemRepo
     all.find {|item| item.name.downcase == name.downcase}
   end
 
-  def find_by_description(desc)
-    all.find do |item|
+  def find_all_with_description(desc)
+    all.find_all do |item|
       item.description.downcase.include?(desc.downcase)
     end
   end
 
-  def find_by_price(price)
-    price /= 100
-    all.find {|item| item.unit_price == price}
+  def find_all_by_price(price)
+    all.find_all {|item| item.unit_price == price}
   end
 
   def find_all_by_price_in_range(range)
-    range = range.map {|x| (x/100).to_f}
     all.find_all do |item|
-      range.include?(item.unit_price.to_f)
+      range.include?(item.unit_price)
     end
   end
 
