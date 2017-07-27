@@ -25,6 +25,7 @@ class Item
     @sales_engine.merchants.find_by_id(self.merchant_id)
   end
 
+
   def unit_price_to_dollars
     unit_price.to_f
   end
