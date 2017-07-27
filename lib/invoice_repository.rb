@@ -31,10 +31,24 @@ class InvoiceRepository
     results
   end
 
-  def find_all_by_merchant_id #- returns either [] or one or more matches which have a matching merchant ID
+  def find_all_by_merchant_id(merch_id) #- returns either [] or one or more matches which have a matching merchant ID
+    results = []
+    @invoices.each do |invoice|
+      if invoice.merchant_id == merch_id
+        results << invoice
+      end
+    end
+    results
   end
 
-  def find_all_by_status #- returns either [] or one or more matches which have a matching status
+  def find_all_by_status(state) #- returns either [] or one or more matches which have a matching status
+    results = []
+    @invoices.each do |invoice|
+      if invoice.status == state
+        results << invoice
+      end
+    end
+    results
   end
 
   def add_data(data)

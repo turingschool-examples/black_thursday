@@ -122,4 +122,31 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 3        , list.last.customer_id
   end
 
+
+
+
+  def test_find_all_by_status_returns_blank_if_none_match
+    assert_equal [], @invoice_r.find_all_by_status("awesome")
+    assert_equal [], @invoice_r.find_all_by_status("awesome")
+  end
+
+  def test_find_all_by_status_works_for_one_entry
+    list_one = @invoice_r.find_all_by_status("pending")
+
+    assert_equal 1        , list_one.count
+    assert_equal "pending", list_one.first.status
+    assert_equal 123      , list_one.first.id
+  end
+
+  def test_find_all_by_merchant_id_works_for_multiple_entries
+    list = @invoice_r.find_all_by_status("shipped")
+
+    assert_equal 3        , list.count
+    assert_equal "shipped", list.first.status
+    assert_equal 1        , list.first.customer_id
+    assert_equal "shipped", list.last.status
+    assert_equal 3        , list.last.customer_id
+  end
+
+
 end
