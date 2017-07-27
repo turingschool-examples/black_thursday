@@ -33,6 +33,7 @@ class ItemTest < Minitest::Test
      assert_instance_of Time, i.created_at
    end
 
+
    def test_it_can_change_to_dollar_format
      i = Item.new({:name        => "Pencil",
                    :description => "You can use it to write things",
@@ -42,6 +43,5 @@ class ItemTest < Minitest::Test
                  })
      assert_equal 25.00, i.unit_price_to_dollars(2500)
    end
-
 
  end
