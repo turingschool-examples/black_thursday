@@ -1,5 +1,6 @@
 require_relative 'test_helper'
 require_relative '../lib/invoice_repo'
+require 'pry'
 
 class InvoiceRepoTest < Minitest::Test
   attr_reader :ir
@@ -20,8 +21,8 @@ class InvoiceRepoTest < Minitest::Test
     assert_instance_of Invoice, ir.all[0]
   end
 
-  def test_it_can_find_by_id
-    assert_instance_of Invoice, ir.find_by_id(5)
+  def test_it_can_return_invoice_object_by_id
+    assert_equal Invoice, ir.find_by_id(5).class
   end
 
   def test_returns_nil_if_no_id_present

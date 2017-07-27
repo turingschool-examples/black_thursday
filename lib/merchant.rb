@@ -1,13 +1,16 @@
 class Merchant
 
   attr_reader :id,
-              :name
+              :name,
+              :parent
 
-  def initialize(hash)
+  def initialize(hash, repo = nil)
     @id = hash[:id]
     @name = hash[:name]
+    @parent = repo
 
   end
+ 
 
 
 
