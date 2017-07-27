@@ -6,7 +6,7 @@ module Calculator
   end
 
   def mean(array)
-    sum(array) / array.count
+    sum(array) / array.count.to_f
   end
 
   def difference(array)
@@ -22,7 +22,7 @@ module Calculator
     difference_array = difference(array)
     total_difference = sum(difference_array)
     average_difference = total_difference / (array.count - 1)
-    Math.sqrt(average_difference).round(2)
+    Math.sqrt(average_difference).round(3)
   end
 
 end
