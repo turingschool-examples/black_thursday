@@ -7,16 +7,6 @@ require 'pry'
 
 class SalesAnalystTest < MiniTest::Test
 
-
-  def test_that_se_is_initialized
-    se = SalesEngine.from_csv({
-    :items     => "./test/data/items_fixture.csv",
-    :merchants => "./test/data/merchants_fixture.csv"
-    })
-    sa = SalesAnalyst.new(se)
-    assert_instance_of SalesAnalyst, sa
-  end
-
   def test_that_se_is_initialized
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",

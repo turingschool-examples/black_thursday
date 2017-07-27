@@ -12,7 +12,7 @@ class ItemTest < Minitest::Test
       :merchant_id => 1233418,
       :created_at  => "2007-06-04 21:35:10 UTC",
       :updated_at  => "1993-09-29 11:56:40 UTC",
-      }, ir = nil)
+      })
   end
 
   def test_it_exists
@@ -30,7 +30,6 @@ class ItemTest < Minitest::Test
   end
 
   def test_unit_price_to_dollars
-   price = 1300
    assert_equal 13.00, @item.unit_price_to_dollars
   end
 

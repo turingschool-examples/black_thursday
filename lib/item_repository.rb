@@ -23,10 +23,6 @@ class ItemRepository
     repository.values
   end
 
-  def inspect
-    "#<#{self.class} #{@repository.size} rows>"
-  end
-
   def find_by_id(id)
     if repository.keys.include?(id)
       return repository[id]

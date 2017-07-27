@@ -8,8 +8,7 @@ class Merchant
   end
 
   def items
-    require "pry"; binding.pry
-    @mr.fetch_items(merchant.id)
+    @mr.fetch_items(id)
   end
 
 end

@@ -84,7 +84,6 @@ class SalesEngineTest < Minitest::Test
       :merchants => "./data/merchants.csv",
       })
     merchant = se.merchants.find_by_id(12334112)
-    require "pry"; binding.pry
     assert merchant.items
   end
 end
