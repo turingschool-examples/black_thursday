@@ -1,3 +1,4 @@
+require 'csv'
 require_relative 'item'
 require 'pry'
 class ItemRepo
