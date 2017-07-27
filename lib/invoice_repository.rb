@@ -32,4 +32,11 @@ class InvoiceRepository
     id_repo[id]
   end
 
+  def find_all_by_customer_id(customer_id)
+    invoices = id_repo.values.select do |invoice_instance|
+      invoice_instance.customer_id == customer_id
+    end
+    invoices
+  end
+
 end

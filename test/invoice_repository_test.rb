@@ -54,4 +54,19 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 878, invoice.customer_id
   end
 
+  def test_invoice_repo_find_by_id_returns_nil_on_bad_search
+    ir = InvoiceRepository.new('./data/invoices.csv', self)
+    invoice = ir.find_by_id(99999999)
+
+    assert_nil invoice
+  end
+
+  def test_invoice_repo_can_find_all_by_customer_id
+    ir = InvoiceRepository.new('./data/invoices.csv', self)
+    invoices = ir.find_all_by_customer_id(880)
+
+    assert_instance_of Array, invoices
+    assert_equal 6, invoices.count
+  end
+
 end
