@@ -7,13 +7,13 @@ class SalesEngine
   attr_reader :items,
               :merchants
 
-  def initialize(item_file, merchant_file)
-    @items = ItemRepository.new(item_file, self)
-    @merchants = MerchantRepository.new(merchant_file, self)
+  def initialize(data)
+    @items = ItemRepository.new(data[:items], self)
+    @merchants = MerchantRepository.new(data[:merchants], self)
   end
 
-  def self.from_csv(file = {})
-    SalesEngine.new(file[:items], file[:merchants])
+  def self.from_csv(data)
+    SalesEngine.new(data)
   end
 
   def collected_items(merchant_id)
@@ -21,7 +21,12 @@ class SalesEngine
   end
 
   def merchant(item_id)
+    require "pry"; binding.pry
     @merchants.merchant(item_id)
+  end
+
+  def fetch_items(merchant_id)
+    @items.find_all_by_merchant_id(merchant_id)
   end
 
 end

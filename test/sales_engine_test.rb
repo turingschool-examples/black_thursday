@@ -77,4 +77,14 @@ class SalesEngineTest < Minitest::Test
     item = ir.find_by_name("Glitter scrabble frames")
     assert item
   end
+
+  def test_it_can_return_array_of_items_by_merchant_id
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      })
+    merchant = se.merchants.find_by_id(12334112)
+    require "pry"; binding.pry
+    assert merchant.items
+  end
 end

@@ -12,7 +12,7 @@ class MerchantRepository
   def load_csv_file(data)
     CSV.foreach(data, :headers => true, :header_converters => :symbol, :converters => :all) do |row|
       data = row.to_h
-      repository[data[:id].to_i] = Merchant.new(data)
+      repository[data[:id].to_i] = Merchant.new(data, self)
     end
   end
 
@@ -38,6 +38,10 @@ class MerchantRepository
     merchants.find_all do |merchant|
       merchant.name.downcase.include?(name_fragment.downcase)
     end
+  end
+
+  def fetch_items(merchant_id)
+    @search_engine.fetch_items(merchant_id)
   end
 
   def inspect

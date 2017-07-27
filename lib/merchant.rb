@@ -7,8 +7,9 @@ class Merchant
     @name = data[:name]
   end
 
-  def item
-   @mr.item(item_id)
+  def items
+    require "pry"; binding.pry
+    @mr.fetch_items(merchant.id)
   end
 
 end

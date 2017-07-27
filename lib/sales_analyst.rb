@@ -40,15 +40,23 @@ class SalesAnalyst
     # require "pry"; binding.pry
   end
 
-  def merchants_with_high_item_count
-    mr = sales_engine.merchants.all
-    v = average_items_per_merchant+average_items_per_merchant_standard_deviation
-    mr.find_all do |merchant|
-      # bring in merchant_items
-      # require "pry"; binding.pry
-      # merchant.items.length >= v
-    end
-  end
+  # def merchants_with_high_item_count
+  #
+  # end
+
 
 
 end
+
+
+
+
+
+
+
+# mr = sales_engine.merchants.all
+# v = average_items_per_merchant+average_items_per_merchant_standard_deviation
+# mr.find_all do |merchant|
+#   merchant.find_by_id(merchant_id)
+#   # bring in merchant_items
+#   merchant.item.length >= v
