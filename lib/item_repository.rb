@@ -1,6 +1,5 @@
 require 'csv'
-require './lib/item'
-require 'pry'
+require_relative '../lib/item'
 
 class ItemRepository
   attr_reader :sales_engine,
