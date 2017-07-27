@@ -36,11 +36,15 @@ class ItemRepo
   end
 
   def find_by_price(price)
+    price /= 100
     all.find {|item| item.unit_price == price}
   end
 
   def find_all_by_price_in_range(range)
-    all.find_all {|item| range.include?(item.unit_price)}
+    range = range.map {|x| (x/100).to_f}
+    all.find_all do |item|
+      range.include?(item.unit_price.to_f)
+    end
   end
 
   def find_by_merchant_id(id)
