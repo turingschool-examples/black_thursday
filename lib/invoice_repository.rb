@@ -28,4 +28,8 @@ class InvoiceRepository
     end
   end
 
+  def find_by_id(id)
+    id_repo[id]
+  end
+
 end

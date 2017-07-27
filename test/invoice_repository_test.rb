@@ -45,4 +45,13 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 4985, ir.all.count
   end
 
+  def test_invoice_repo_can_find_invoice_by_id
+    ir = InvoiceRepository.new('./data/invoices.csv', self)
+    invoice = ir.find_by_id(4400)
+
+    assert_instance_of Invoice, invoice
+    assert_equal "returned", invoice.status
+    assert_equal 878, invoice.customer_id
+  end
+
 end
