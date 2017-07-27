@@ -13,8 +13,7 @@ class InvoiceRepo
 
   def open_file(filename)
     CSV.foreach filename,  headers: true, header_converters: :symbol do |row|
-      data = row.to_h
-      invoices[data[:id].to_i] = Invoice.new(data, self)
+      invoices[row[:id].to_i] = Invoice.new(row, self)
     end
   end
 
