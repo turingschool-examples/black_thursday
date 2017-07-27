@@ -5,8 +5,8 @@ class Merchant
               :name
 
   def initialize(merch_data, merch_repo)
-    @id = merch_data[:id].to_i
-    @name = merch_data[:name]
+    @id         = merch_data[:id].to_i
+    @name       = merch_data[:name]
     @merch_repo = merch_repo
   end
 

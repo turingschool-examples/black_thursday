@@ -1,7 +1,7 @@
 require_relative '../lib/sales_engine'
 require_relative '../lib/sales_analyst'
 require 'minitest/autorun'
-require 'minitest/pride'
+require 'minitest/emoji'
 require 'bigdecimal'
 
 class SalesAnalystTest < Minitest::Test
@@ -68,11 +68,10 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_turn_date_to_day
-    assert_equal "Wednesday", @sa.turn_date_to_day(2017-07-26)
+    assert_equal "Thursday", @sa.turn_date_to_day("2017-07-27")
   end
 
   def test_top_days_by_invoice_count
-    skip
     assert_instance_of Array, @sa.top_days_by_invoice_count
     assert_equal 3, @sa.top_days_by_invoice_count.count
   end

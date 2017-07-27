@@ -12,14 +12,14 @@ class Item
               :merchant_id
 
   def initialize(item_data, item_repo)
-    @item_data = item_data
-    @item_repo = item_repo
-    @id = item_data[:id].to_i
-    @name = item_data[:name]
+    @item_data   = item_data
+    @item_repo   = item_repo
+    @id          = item_data[:id].to_i
+    @name        = item_data[:name]
     @description = item_data[:description]
-    @unit_price = unit_price_to_dollars
-    @created_at = Time.parse(item_data[:created_at].to_s)
-    @updated_at = Time.parse(item_data[:updated_at].to_s)
+    @unit_price  = unit_price_to_dollars
+    @created_at  = Time.parse(item_data[:created_at].to_s)
+    @updated_at  = Time.parse(item_data[:updated_at].to_s)
     @merchant_id = item_data[:merchant_id].to_i
   end
 

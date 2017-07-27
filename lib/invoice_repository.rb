@@ -12,7 +12,7 @@ class InvoiceRepository
   def initialize(invoice_data, se)
     @sales_engine = se
     @invoice_data = open_csv(invoice_data)
-    @all = @invoice_data.map do |row|
+    @all          = @invoice_data.map do |row|
       Invoice.new(row, self)
     end
   end
@@ -44,7 +44,5 @@ class InvoiceRepository
       (/#{status}/i) =~ invoice.status
     end
   end
-
-
 
 end
