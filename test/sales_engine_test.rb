@@ -35,6 +35,7 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_can_find_merchant_by_item_id
     item = se.items.find_by_id(263395237)
+    item.stubs(:find_by_id).returns(Merchant)
     assert_instance_of Merchant, item.merchant
   end
 end

@@ -5,7 +5,10 @@ class SalesAnalystTest < Minitest::Test
   attr_reader :sa
 
   def setup
-    # se = SalesEngine.from_csv({items: })
+    se = SalesEngine.from_csv({items: "./sa_fixtures/items.csv",
+                           merchants: "./sa_fixtures/merchants.csv",
+                            invoices: "./sa_fixtures/invoices.csv"
+                             })
     @sa = SalesAnalyst.new(se)
   end
 
