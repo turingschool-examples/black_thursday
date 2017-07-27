@@ -11,7 +11,7 @@ class Merchant
   end
 
   def items
-    parent.items_of_merchant(self.id)
+    parent.items_of_merchant(id)
   end
 
 

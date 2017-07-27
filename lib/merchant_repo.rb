@@ -12,8 +12,7 @@ class MerchantRepo
 
   def open_file(file)
     CSV.foreach file,  headers: true, header_converters: :symbol do |row|
-      data = row.to_h
-      merchants[data[:id].to_i] = Merchant.new(data, self)
+      merchants[row[:id].to_i] = Merchant.new(row, self)
     end
   end
 

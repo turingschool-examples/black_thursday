@@ -12,8 +12,7 @@ class ItemRepo
 
   def open_file(file)
     CSV.foreach file,  headers: true, header_converters: :symbol do |row|
-      data = row.to_h
-      items[data[:id].to_i] = Item.new(data, self)
+      items[row[:id].to_i] = Item.new(row, self)
     end
   end
 
