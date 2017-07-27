@@ -100,6 +100,26 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_merchant_id_works_for_one_entry
+    list_one = @invoice_r.find_all_by_merchant_id(7)
+    list_two = @invoice_r.find_all_by_merchant_id(2)
+
+    assert_equal 1        , list_one.count
+    assert_equal "shipped", list_one.first.status
+    assert_equal 123      , list_one.first.id
+
+    assert_equal 1        , list_two.count
+    assert_equal "pending", list_two.first.status
+    assert_equal 123      , list_two.first.id
+  end
+
+  def test_find_all_by_merchant_id_works_for_multiple_entries
+    list = @invoice_r.find_all_by_merchant_id(5)
+
+    assert_equal 2        , list.count
+    assert_equal "shipped", list.first.status
+    assert_equal 1        , list.first.customer_id
+    assert_equal "shipped", list.last.status
+    assert_equal 3        , list.last.customer_id
   end
 
 end
