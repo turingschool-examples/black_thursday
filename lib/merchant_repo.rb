@@ -2,18 +2,17 @@ require_relative 'merchant'
 require 'pry'
 class MerchantRepo
 
-  attr_reader :merchants
+  attr_reader :merchants, :parent
 
-  def initialize(file,se = nil)
+  def initialize(file, se=nil)
     @merchants = {}
     open_file(file)
-
+    @parent    = se
   end
 
   def open_file(file)
     CSV.foreach file,  headers: true, header_converters: :symbol do |row|
-      data = row.to_h
-      merchants[data[:id].to_i] = Merchant.new(data, self)
+      merchants[row[:id].to_i] = Merchant.new(row, self)
     end
   end
 
@@ -33,7 +32,11 @@ class MerchantRepo
     all.find_all do |merchant|
       merchant.name.downcase.include?(name.downcase)
     end
-  end 
+  end
+
+  def items_of_merchant(id)
+    parent.items_of_merchant(id)
+  end
 
 
 
