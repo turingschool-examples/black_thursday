@@ -100,8 +100,10 @@ class ItemRepositoryTest < Minitest::Test
       :merchants => "./data/merchants.csv",
     })
     itemrepo = ItemRepository.new(file_path, salesengine)
+    price = 13
 
-    item = itemrepo.find_all_by_price(2999)
+    item = itemrepo.find_all_by_price(price)
+    binding.pry
     assert_instance_of Array, item
     assert_instance_of Item, item[0]
   end
@@ -167,5 +169,5 @@ class ItemRepositoryTest < Minitest::Test
     item = itemrepo.find_all_by_merchant_id(2345234523498709872345)
     assert item.empty?
   end
-  
+
 end

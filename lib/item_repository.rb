@@ -2,11 +2,12 @@ require 'csv'
 require_relative 'item'
 
 class ItemRepository
-  
+
   attr_reader :sales_engine,
               :id_repo,
-              :price_repo
-  
+              :price_repo,
+              :file_path
+
   def initialize(file_path, sales_engine)
     @file_path =        file_path
     @sales_engine =     sales_engine
@@ -34,10 +35,10 @@ class ItemRepository
     itemcsv.each do |row|
       item_hash = Hash[row]
       item = Item.new(item_hash, self)
-      load_to(@id_repo, item, row[:id])
+      load_to(@id_repo, item, row[:id].to_i)
       load_to(@name_repo, item, row[:name])
       load_to(@description_repo, item, row[:description])
-      load_to(@price_repo, item, row[:unit_price])
+      load_to(@price_repo, item, row[:unit_price].to_f)
       load_to(@merchant_id_repo, item, row[:merchant_id])
     end
   end
@@ -47,11 +48,7 @@ class ItemRepository
   end
 
   def find_by_id(id)
-    if @id_repo.include?(id.to_s)
-      @id_repo[id.to_s]
-    else
-      nil
-    end
+    id_repo[id]
   end
 
   def find_by_name(name)
@@ -65,7 +62,7 @@ class ItemRepository
   def find_all_with_description(description)
     results = []
     @description_repo.keys.each do |key_value|
-      if key_value.include?(description)
+      if key_value.downcase.include?(description.downcase)
         results << @description_repo[key_value]
       end
     end
@@ -73,21 +70,17 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
-    if @price_repo.include?(price.to_s)
-      [@price_repo[price.to_s]].flatten
-    else
-      []
+    items = id_repo.values.select do |item_instance|
+      item_instance.unit_price == price
     end
+    items
   end
 
-  def find_all_by_price_in_range(price_minimum, price_maximum)
-    results = []
-    @price_repo.keys.each do |key_value|
-      if key_value.to_i > price_minimum && key_value.to_i < price_maximum
-        results << @price_repo[key_value]
-      end
+  def find_all_by_price_in_range(range)
+    items = id_repo.values.select do |item_instance|
+      range.include?(item_instance.unit_price)
     end
-    results.flatten
+    items
   end
 
   def find_all_by_merchant_id(merchant_id)

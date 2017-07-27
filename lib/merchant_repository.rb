@@ -1,7 +1,9 @@
 require 'pry'
-
+require 'bigdecimal'
+require 'bigdecimal/util'
 require 'csv'
 require_relative 'merchant'
+
 
 class MerchantRepository
 #
