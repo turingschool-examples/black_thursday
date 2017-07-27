@@ -1,19 +1,10 @@
 gem 'minitest', '~> 5.2'
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/sales_engine'
-require './lib/merchant_repository'
-<<<<<<< HEAD
-# require './lib/item_repository'
-=======
-require './lib/item_repository'
->>>>>>> 4ce2731ed80078c466c4320f16daad0cf92e56a3
+require_relative '../lib/sales_engine'
 
-- merchants: returns instance of MerchantRepository with all instances loaded
-mr = se.merchants
-merchant = mr.find_by_name("CJsDecor")
+class SalesEngineTest < Minitest::Test
 
-class SalesEngineTest <Minitest::Test
   def test_initialize
     salesengine = SalesEngine.from_csv({
       :items     => "./data/items.csv",

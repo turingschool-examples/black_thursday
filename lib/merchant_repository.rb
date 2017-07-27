@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 require_relative '../lib/merchant'
+=======
+require 'pry'
+require 'bigdecimal'
+require 'bigdecimal/util'
+>>>>>>> origin
 require 'csv'
+require_relative 'merchant'
+
 
 class MerchantRepository
 #
@@ -13,18 +21,6 @@ class MerchantRepository
     @file_path    = file_path
     @id_repo      = {}
     @name_repo    = {}
-  end
-
-  attr_reader :file_path,
-              :sales_engine,
-              :id_repo,
-              :name_repo
-
-  def initialize(file_path, sales_engine)
-    @sales_engine = sales_engine
-    @file_path    = file_path
-    @id_repo       = {}
-    @name_repo     = {}
     load_repo
   end
 
@@ -50,14 +46,25 @@ class MerchantRepository
   end
 
   def find_by_name(name)
-    name_repo[name]
+    merchant = id_repo.detect do |id, merchant_instance|
+      id_repo[id].name.downcase == name.downcase
+    end
+    if merchant.nil?
+      return merchant
+    else
+      id_repo[merchant[0]]
+    end
   end
 
   def find_all_by_name(name)
-    merchants = name_repo.keys.select do |merchant_name|
-      merchant_name.downcase.include?(name.downcase)
+    merchants = id_repo.values.select do |merchant_instance|
+      merchant_instance.name.downcase.include?(name.downcase)
     end
     merchants
+  end
+
+  def inspect
+    "#<#{self.class} #{@id_repo.size} rows>"
   end
 
 end
