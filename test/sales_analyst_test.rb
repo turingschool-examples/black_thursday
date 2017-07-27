@@ -19,6 +19,7 @@ class SalesAnalystTest < Minitest::Test
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
     })
     sales_analyst = SalesAnalyst.new(sales_engine)
 
@@ -31,6 +32,7 @@ class SalesAnalystTest < Minitest::Test
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
     })
     sales_analyst = SalesAnalyst.new(sales_engine)
 
@@ -43,6 +45,7 @@ class SalesAnalystTest < Minitest::Test
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
     })
     sales_analyst = SalesAnalyst.new(sales_engine)
 
@@ -56,6 +59,7 @@ class SalesAnalystTest < Minitest::Test
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
     })
     sales_analyst = SalesAnalyst.new(sales_engine)
     merchant_id = 12334105
@@ -68,6 +72,7 @@ class SalesAnalystTest < Minitest::Test
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
     })
     sales_analyst = SalesAnalyst.new(sales_engine)
 
@@ -80,6 +85,7 @@ class SalesAnalystTest < Minitest::Test
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
     })
     sales_analyst = SalesAnalyst.new(sales_engine)
 
@@ -88,4 +94,27 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Array, golden_items
     assert_instance_of Item, golden_items[0]
   end
+
+  def test_average_invoices_per_merchant
+    sales_engine = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+    })
+    sales_analyst = SalesAnalyst.new(sales_engine)
+
+    assert_equal 10.49, sales_analyst.average_invoices_per_merchant
+  end
+
+  def test_average_invoices_per_merchant_standard_deviation
+    sales_engine = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+    })
+    sales_analyst = SalesAnalyst.new(sales_engine)
+
+    assert_equal 3.29, sales_analyst.average_invoices_per_merchant_standard_deviation
+  end
+
 end

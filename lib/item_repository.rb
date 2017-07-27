@@ -1,9 +1,5 @@
 require 'csv'
-<<<<<<< HEAD
-require_relative '../lib/item'
-=======
 require_relative 'item'
->>>>>>> origin
 
 class ItemRepository
 

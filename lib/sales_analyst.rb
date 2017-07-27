@@ -29,16 +29,20 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    total_items / total_merchants
-  end.round(2)
+    (total_items / total_merchants).round(2)
+  end
 
   def average_price_per_merchant
-    total_of_all_prices / total_merchants
-  end.round(2)
+    (total_of_all_prices / total_merchants).round(2)
+  end
 
   def average_item_price
-    total_of_all_prices / total_items
-  end.round(2)
+    (total_of_all_prices / total_items).round(2)
+  end
+
+  def average_invoices_per_merchant
+    (total_invoices / total_merchants).round(2)
+  end
 
   def average_item_price_for_merchant(merchant_id)
     merchant = @merchants.find_by_id(merchant_id)
@@ -70,6 +74,11 @@ class SalesAnalyst
   def item_price_standard_deviation
     item_price = Proc.new {|item| item.unit_price}
     standard_deviation(average_item_price, @items.id_repo, item_price, total_items)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    merchant_invoices = Proc.new {|merchant| merchant.invoices.count}
+    standard_deviation(average_invoices_per_merchant, @merchants.id_repo, merchant_invoices, total_merchants)
   end
 
   def merchants_with_high_item_count

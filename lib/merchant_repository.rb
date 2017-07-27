@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-require_relative '../lib/merchant'
-=======
 require 'pry'
 require 'bigdecimal'
 require 'bigdecimal/util'
->>>>>>> origin
 require 'csv'
 require_relative 'merchant'
 

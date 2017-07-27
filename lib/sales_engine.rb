@@ -1,11 +1,6 @@
-<<<<<<< HEAD
-require_relative '../lib/merchant_repository'
-require_relative '../lib/item_repository'
-=======
 require_relative 'merchant_repository'
 require_relative 'item_repository'
 require_relative 'invoice_repository'
->>>>>>> origin
 
 class SalesEngine
 

@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 require_relative '../lib/merchant_repository'
 
-=======
->>>>>>> origin
 class Merchant
 
   attr_reader :name,
