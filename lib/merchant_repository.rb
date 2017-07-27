@@ -4,7 +4,7 @@ require 'pry'
 
 class MerchantRepository
   attr_reader :repository
-  def initialize(data)
+  def initialize(data, sales_engine = nil)
     @repository = {}
     load_csv_file(data)
   end
