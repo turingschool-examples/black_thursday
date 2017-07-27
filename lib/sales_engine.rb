@@ -31,7 +31,7 @@ class SalesEngine
         row.each do |data|
           created.merchants.add_data(data.to_hash)
         end
-      when  :invoices
+      when :invoices
         row.each do |data|
           created.invoices.add_data(data.to_hash)
         end
