@@ -22,11 +22,11 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_has_an_item_repository
-    assert_instance_of ItemRepository, @se.item
+    assert_instance_of ItemRepository, @se.items
   end
 
   def test_it_has_a_merchant_repository
-    assert_instance_of MerchantRepository, @se.merchant
+    assert_instance_of MerchantRepository, @se.merchants
   end
 
 end
