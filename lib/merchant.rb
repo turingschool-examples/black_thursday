@@ -1,4 +1,5 @@
 require 'time'
+require 'pry'
 
 class Merchant
   attr_reader :id, :name, :created_at, :updated_at, :merch_repo
@@ -12,12 +13,12 @@ class Merchant
   end
 
   def items
-    merch_repo.find_items_by_merchant_id(id)
+    @merch_repo.find_items_by_merchant_id(id)
   end
 
-  def invoices
-    merch_repo.find_invoice_by_merchant_id(id)
-  end
+  # def invoices
+  #   @merch_repo.find_invoice_by_merchant_id(id)
+  # end
 
 
   # def items

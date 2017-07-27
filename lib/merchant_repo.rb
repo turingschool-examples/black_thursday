@@ -8,20 +8,19 @@ class MerchantRepository
 
   def initialize(csvfile, engine)
     @engine = engine
-    @merchants = csvfile
+    @merchants = create_hash_of_merchants(csvfile)
+  end
+
+  def create_hash_of_merchants(csvfile)
+    all_merchants = {}
+    csvfile.each do |row|
+      all_merchants[row[:id]] = Merchant.new(row, self)
+    end
+    all_merchants
   end
 
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
-  end
-
-  def load_merchants(csvfile)
-    contents = CSV.open csvfile, headers: true, header_converters: :symbol
-    all_merchants = {}
-    contents.each do |row|
-      all_merchants[row[:id]] = Merchant.new(row, self)
-    end
-    all_merchants
   end
 
   def all
@@ -30,6 +29,10 @@ class MerchantRepository
 
   def find_by_id(id)
     @merchants[id.to_s]
+  end
+
+  def find_items_by_merchant_id(merchant_id)
+    @engine.items.find_all_items_to_a_merchant(merchant_id)
   end
 
   def find_by_name(name)
@@ -52,3 +55,15 @@ class MerchantRepository
   end
 
 end
+
+
+
+
+# def load_merchants(csvfile)
+#   contents = CSV.open csvfile, headers: true, header_converters: :symbol
+#   all_merchants = {}
+#   contents.each do |row|
+#     all_merchants[row[:id]] = Merchant.new(row, self)
+#   end
+#   all_merchants
+# end
