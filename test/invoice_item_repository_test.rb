@@ -28,7 +28,17 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_find_by_id
-    assert_instance_of InvoiceItem, @iir.find_by_id(1)
+    assert_instance_of InvoiceItem, @iir.find_by_id(4)
+  end
+
+  def test_find_all_by_item_id
+    assert_instance_of Array, @iir.find_all_by_item_id(263519844)
+    assert_equal 1, @iir.find_all_by_item_id(263519844).count
+  end
+
+  def test_find_all_by_invoice_id
+    assert_instance_of Array, @iir.find_all_by_invoice_id(1)
+    assert_equal 8, @iir.find_all_by_invoice_id(1).count
   end
 
 end
