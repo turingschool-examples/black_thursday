@@ -132,9 +132,8 @@ class SalesAnalyst
     date.strftime("%A")
   end
 
-  def top_days_by_invoice_count
-    @se.invoices.all.find_all do |invoice|
-      
-  end
+  # def top_days_by_invoice_count
+  #   @se.invoices.all.find_all do |invoice|
+  # end
 
 end

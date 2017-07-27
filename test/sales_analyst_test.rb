@@ -72,6 +72,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_days_by_invoice_count
+    skip
     assert_instance_of Array, @sa.top_days_by_invoice_count
     assert_equal 3, @sa.top_days_by_invoice_count.count
   end
