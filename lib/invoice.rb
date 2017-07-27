@@ -15,5 +15,5 @@ class Invoice
     @updated_at  = (data[:update_at])
   end
 
-  
+
 end
