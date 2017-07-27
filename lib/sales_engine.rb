@@ -26,11 +26,11 @@ class SalesEngine
         row.each do |data|
           created.items.add_data(data.to_hash)
         end
-      when key == :merchants
+      when  :merchants
         row.each do |data|
           created.merchants.add_data(data.to_hash)
         end
-      when key == :invoices
+      when  :invoices
         row.each do |data|
           created.invoices.add_data(data.to_hash)
         end
