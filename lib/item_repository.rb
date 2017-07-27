@@ -40,14 +40,13 @@ class ItemRepository
         results << item
       end
     end
-    return results
+    results
   end
 
   def find_all_by_price(price)
-    results = @items.find_all do |item|
+    @items.find_all do |item|
       item.unit_price == BigDecimal.new(price)
     end
-    results
   end
 
   # def find_all_by_price_in_range(price_low, price_high)
@@ -61,9 +60,12 @@ class ItemRepository
   # end
 
   def find_all_by_price_in_range(range)
-    @items.find_all do |item|
-      range.include?(item.dollars)
+    # binding.pry
+    results = @items.find_all do |item|
+      # binding.pry
+      range.include?((item.unit_price))  #.to_f * 100).to_i)
     end
+    results
   end
 
 
