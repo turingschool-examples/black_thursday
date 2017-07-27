@@ -1,15 +1,15 @@
-# sa = SalesAnalyst.new(sales_engine)
-# sa.average_items_per_merchant
-# sa.average_items_per_merchant_standard_deviation
-#     Take the difference between each number and the mean and square it
-#     Sum these square differences together
-#     Divide the sum by the number of elements minus 1
-#     Take the square root of this result
-# sa.merchants_with_high_item_count # => [merchant, merchant, merchant]
-# sa.average_item_price_for_merchant(merchant_id) # => BigDecimal
-# sa.average_average_price_per_merchant # => BigDecimal
-# sa.golden_items # => [<item>, <item>, <item>, <item>]
-#     ^2 standard deviations above average price
+# sa.average_invoices_per_merchant # => 10.49
+# sa.average_invoices_per_merchant_standard_deviation # => 3.29
+# sa.top_merchants_by_invoice_count # => [merchant, merchant, merchant]
+#    ^2 stndvs above mean
+# sa.bottom_merchants_by_invoice_count # => [merchant, merchant, merchant]
+#    ^2 stndvs below mean
+# sa.top_days_by_invoice_count # => ["Sunday", "Saturday
+#    ^2 stndvs above mean (need average invoices per day + stndv)
+#    sa.invoice_status(:pending) # => 29.55
+#    sa.invoice_status(:shipped) # => 56.95
+#    sa.invoice_status(:returned) # => 13.5
+#    ^ percent of each status
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/sales_analyst'
