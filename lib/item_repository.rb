@@ -1,24 +1,27 @@
-require './lib/item'
+require_relative 'item'
 require 'pry'
 
 class ItemRepository
-  attr_reader :items
+
+  attr_reader :items,
+              :se
 
   def initialize(items_file_path, se)
+    @se = se
     @items = []
     contents = CSV.open items_file_path,
                  headers: true,
                  header_converters: :symbol
     contents.each do |row|
-      id = row[:id]
+      id = (row[:id]).to_i
       name = row[:name]
       description = row[:description]
       unit_price = row[:unit_price]
       created_at = row[:created_at]
       updated_at = row[:updated_at]
-      merchant_id = row[:merchant_id]
+      merchant_id = (row[:merchant_id]).to_i
       item = Item.new(id, name, description, unit_price,
-                     created_at, updated_at, merchant_id)
+                     created_at, updated_at, merchant_id, self)
       @items << item
     end
   end
@@ -48,13 +51,13 @@ class ItemRepository
   def find_all_by_price(price)
     @items.find_all do |item|
       item.unit_price == price
+      # binding.pry
     end
   end
 
   def find_all_by_price_in_range(range)
-    prices_to_search = range.to_a
     @items.find_all do |item|
-      prices_to_search.include?(item.unit_price)
+      range.include?(item.unit_price)
     end
   end
 
@@ -62,6 +65,14 @@ class ItemRepository
     @items.find_all do |item|
       item.merchant_id == id
     end
+  end
+
+  def fetch_items_merchant_id(merchant_id)
+    se.fetch_items_merchant_id(merchant_id)
+  end
+
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
   end
 
 end

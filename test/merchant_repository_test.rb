@@ -27,8 +27,8 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_can_find_by_id
     mr = MerchantRepository.new('./data/merchants.csv', self)
 
-    target = mr.find_by_id("12334135")
-    target_2 = mr.find_by_id("00000000")
+    target = mr.find_by_id(12334135)
+    target_2 = mr.find_by_id(00000000)
 
     assert_equal "GoldenRayPress", target.name
     assert_nil target_2

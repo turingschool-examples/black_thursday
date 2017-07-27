@@ -27,8 +27,8 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_find_by_id
     ir = ItemRepository.new('./data/items.csv', self)
 
-    target = ir.find_by_id("263395237")
-    target_2 = ir.find_by_id("00000000")
+    target = ir.find_by_id(263395237)
+    target_2 = ir.find_by_id(00000000)
 
     assert_equal "510+ RealPush Icon Set", target.name
     assert_nil target_2
@@ -61,8 +61,8 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_find_all_by_price
     ir = ItemRepository.new('./data/items.csv', self)
 
-    target = ir.find_all_by_price("1200")
-    target_2 = ir.find_all_by_price("9999999")
+    target = ir.find_all_by_price(12.00)
+    target_2 = ir.find_all_by_price(99999.99)
 
     assert_equal "510+ RealPush Icon Set", target[0].name
     assert_equal Array, target.class
@@ -72,18 +72,19 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_find_all_by_price_in_range
     ir = ItemRepository.new('./data/items.csv', self)
 
-    target = ir.find_all_by_price_in_range("1000".."1300")
-    target_2 = ir.find_all_by_price_in_range("0".."1")
+    target = ir.find_all_by_price_in_range(12.00..13.00)
+    target_2 = ir.find_all_by_price_in_range(1125.00..1126.00)
 
     assert_equal "510+ RealPush Icon Set", target[0].name
     assert_equal Array, target.class
+    assert_equal 56, target.count
     assert_equal [], target_2
   end
 
   def test_it_can_find_all_by_merchant_id
     ir = ItemRepository.new('./data/items.csv', self)
 
-    target = ir.find_all_by_merchant_id("12334141")
+    target = ir.find_all_by_merchant_id(12334141)
     target_2 = ir.find_all_by_merchant_id("0")
 
     assert_equal "510+ RealPush Icon Set", target[0].name
