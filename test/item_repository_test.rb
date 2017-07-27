@@ -9,19 +9,6 @@ class ItemRepositoryTest < Minitest::Test
 
   def setup
     @repo = ItemRepository.new(self)
-  #   @repo = ItemRepository.new(self)
-  #   hash_one = {merchant_id: 7, description: "Brown and tasty",
-  #               id: 123, name: "Chocolate", unit_price: 315     }
-  #   hash_two = {merchant_id: 2, description: "Red and tasty",
-  #               id: 123, name: "Cherry", unit_price: 210        }
-  #   hash_three = {merchant_id: 5, description: "Brown and tasty",
-  #               id: 124, name: "Coconut", unit_price: 400       }
-  #   hash_four = {merchant_id: 5, description: "Green",
-  #               id: 125, name: "Apple", unit_price: 210         }
-  #   @repo.add_data(hash_one)
-  #   @repo.add_data(hash_two)
-  #   @repo.add_data(hash_three)
-  #   @repo.add_data(hash_four)
   end
 
 
@@ -90,47 +77,45 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 12, item.first.merchant_id
   end
 
-
-
   def test_all_by_price_works_for_multiple_entries
     full_repo
     list = @repo.find_all_by_price(2000 / 100)
     assert_equal 2, list.count
-    assert_equal "Pants", list.first.name
-    assert_equal "Apple", list.last.name
-    assert_equal 2, list.first.merchant_id
-    assert_equal 5, list.last.merchant_id
+    assert_equal "Pants", list[0].name
+    assert_equal "Shirt", list[-1].name
+    assert_equal 13, list[0].merchant_id
+    assert_equal 11, list[-1].merchant_id
   end
 
   def test_all_by_price_in_range_works_for_one_entry
-    skip
-    list = @repo.find_all_by_price_in_range(390, 410)
-    assert_equal 1, list.count
-    assert_equal "Coconut", list.first.name
-    assert_equal 400, list.first.unit_price
+    full_repo
+    item = @repo.find_all_by_price_in_range(1..2)
+    assert_equal 1, item.count
+    assert_equal "Candy", item[0].name
+    assert_equal 1.2, item[0].dollars
   end
 
   def test_all_by_price_in_range_works_for_multiple_entries
-    skip
-    list = @repo.find_all_by_price_in_range(200, 350)
-    assert_equal 3, list.count
-    assert_equal "Chocolate", list.first.name
-    assert_equal 315, list.first.unit_price
+    full_repo
+    items = @repo.find_all_by_price_in_range(9..21)
+    assert_equal 3, items.count
+    assert_equal "Hat", items[0].name
+    assert_equal 20.0, items[-1].dollars
   end
 
   def test_find_all_by_merchant_id_works_for_one_entry
-    skip
-    list = @repo.find_all_by_merchant_id(2)
+    full_repo
+    list = @repo.find_all_by_merchant_id(12)
     assert_equal 1, list.count
-    assert_equal "Cherry", list.first.name
+    assert_equal "Hat", list[0].name
   end
 
   def test_find_all_by_merchant_id_works_for_multiple_entries
-    skip
-    list = @repo.find_all_by_merchant_id(5)
+    full_repo
+    list = @repo.find_all_by_merchant_id(11)
     assert_equal 2, list.count
-    assert_equal "Coconut", list.first.name
-    assert_equal "Apple", list.last.name
+    assert_equal "Candy", list[0].name
+    assert_equal "Shirt", list[-1].name
   end
 
   def item_one
@@ -171,7 +156,7 @@ class ItemRepositoryTest < Minitest::Test
     name: "Shirt",
     description: "blue",
     unit_price: 2000,
-    merchant_id: 14,
+    merchant_id: 11,
     created_at: "2016-04-11 11:51:34 UTC",
     updated_at: "2016-04-11 11:51:34 UTC"
     }
