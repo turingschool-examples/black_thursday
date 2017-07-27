@@ -27,27 +27,27 @@ class InvoiceRepositoryTest < Minitest::Test
     target_2 = inr.find_by_id(00000000)
 
     assert_equal 1, target.customer_id
+    assert_equal Invoice, target.class
     assert_nil target_2
   end
-#
-#   def test_it_can_find_all_by_customer_id
-#     skip
-#     ir = ItemRepository.new('./data/items.csv', self)
-#
-#     target = ir.find_all_by_merchant_id(12334141)
-#     target_2 = ir.find_all_by_merchant_id("0")
-#
-#     assert_equal "510+ RealPush Icon Set", target[0].name
-#     assert_equal Array, target.class
-#     assert_equal [], target_2
-#   end
+
+  def test_it_can_find_all_by_customer_id
+    inr = InvoiceRepository.new('./data/invoices.csv', self)
+
+    target = inr.find_all_by_customer_id(1)
+    target_2 = inr.find_all_by_customer_id(9999)
+
+    assert_equal 12335938, target[0].merchant_id
+    assert_equal Array, target.class
+    assert_equal [], target_2
+  end
 #
 #   def test_it_can_find_all_by_merchant_id
 #     skip
-#     ir = ItemRepository.new('./data/items.csv', self)
+#     inr = InvoiceRepository.new('./data/invoices.csv', self)
 #
-#     target = ir.find_all_by_merchant_id(12334141)
-#     target_2 = ir.find_all_by_merchant_id("0")
+#     target = inr.find_all_by_merchant_id(12334141)
+#     target_2 = inr.find_all_by_merchant_id("0")
 #
 #     assert_equal "510+ RealPush Icon Set", target[0].name
 #     assert_equal Array, target.class
@@ -56,10 +56,10 @@ class InvoiceRepositoryTest < Minitest::Test
 #
 #   def test_it_can_find_all_by_status
 #     skip
-#     ir = ItemRepository.new('./data/items.csv', self)
+#     inr = InvoiceRepository.new('./data/invoices.csv', self)
 #
-#     target = ir.find_all_by_merchant_id(12334141)
-#     target_2 = ir.find_all_by_merchant_id("0")
+#     target = inr.find_all_by_merchant_id(12334141)
+#     target_2 = inr.find_all_by_merchant_id("0")
 #
 #     assert_equal "510+ RealPush Icon Set", target[0].name
 #     assert_equal Array, target.class
