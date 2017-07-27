@@ -11,11 +11,13 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    average(all_averages).round(2)
+    merchants = @sales_engine.merchants.all.count
+    items = @sales_engine.items.all.count
+    (items / merchants.to_f).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
-    standard_deviance(all_averages.map {|average| average[:count]}).round(2)
+    standard_deviance(all_merchant_averages.map {|average| average[:count]}).round(2)
   end
 
   def merchants_with_high_item_count
@@ -23,7 +25,7 @@ class SalesAnalyst
     avg_each = average_items_per_merchant
     mark = s_dev + avg_each
     example_merch = []
-    example_merch = all_averages.find_all do |average|
+    example_merch = all_merchant_averages.find_all do |average|
       if average[:count] > mark
         example_merch << average[:merchant].to_s
       end
@@ -69,9 +71,17 @@ class SalesAnalyst
     items
   end
 
-  
+  # def all_averages(repo)
+  #   binding.pry
+  #   repo = @sales_engine.method(repo.to_sym).all
+  #   binding.pry
+  #   average_set = []
+  #   repo.each do |instance|
+  #     average_set << ({count: total_matches(instance.id), repo.to_sym instance})
+  #   end
+  # end
 
-  def all_averages
+  def all_merchant_averages
     the_merchants = @sales_engine.merchants.all
     average_set = []
     the_merchants.each do |merchant|
@@ -79,6 +89,14 @@ class SalesAnalyst
     end
     average_set
   end
+
+  def average_invoices_per_merchant
+    merchants = @sales_engine.merchants.all.count
+    invoices = @sales_engine.invoices.all.count
+    (invoices / merchants.to_f).round(2)
+  end
+
+
 
   def average(data_set)
     sum = 0
