@@ -38,4 +38,24 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of MerchantRepository, se.merchants
   end
 
+  def test_sales_engine_initializes_with_item_repository
+    se = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+    })
+
+    assert_instance_of ItemRepository, se.items
+  end
+
+  def test_sales_engine_initializes_with_invoice_repository
+    se = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+    })
+
+    assert_instance_of InvoiceRepository, se.invoices
+  end
+
 end
