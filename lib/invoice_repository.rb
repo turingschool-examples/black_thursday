@@ -39,4 +39,11 @@ class InvoiceRepository
     invoices
   end
 
+  def find_all_by_merchant_id(merchant_id)
+    invoices = id_repo.values.select do |invoice_instance|
+      invoice_instance.merchant_id == merchant_id
+    end
+    invoices
+  end
+
 end

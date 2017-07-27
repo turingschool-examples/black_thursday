@@ -69,4 +69,36 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 6, invoices.count
   end
 
+  def test_invoice_repo_find_all_by_customer_id_returns_empty_array_on_bad_search
+    ir = InvoiceRepository.new('./data/invoices.csv', self)
+    invoices = ir.find_all_by_customer_id(999999)
+
+    assert_instance_of Array, invoices
+    assert_equal [], invoices
+  end
+
+  def test_invoice_repo_can_find_all_by_merchant_id
+    ir = InvoiceRepository.new('./data/invoices.csv', self)
+    invoices = ir.find_all_by_merchant_id(12334372)
+
+    assert_instance_of Array, invoices
+    assert_equal 16, invoices.count
+  end
+
+  def test_invoice_repo_find_alla_by_merchant_id_returns_empty_array_on_bad_search
+    ir = InvoiceRepository.new('./data/invoices.csv', self)
+    invoices = ir.find_all_by_merchant_id(99999999)
+
+    assert_instance_of Array, invoices
+    assert_equal [], invoices
+  end
+
+  def test_invoice_repo_can_find_all_by_status
+    ir = InvoiceRepository.new('./data/invoices.csv', self)
+    invoices = ir.find_all_by_status("shipped")
+
+    assert_instance_of Array, invoices
+    assert_equal 2839, invoices.count
+  end
+
 end
