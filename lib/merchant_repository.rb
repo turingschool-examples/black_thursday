@@ -56,7 +56,6 @@ class MerchantRepository
   end
 
   def find_all_by_name(name)
-    binding.pry
     merchants = name_repo.keys.select do |merchant_name|
       merchant_name.downcase.include?(name.downcase)
     end
