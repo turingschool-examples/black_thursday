@@ -18,4 +18,8 @@ class Invoice
     @merchant_id = merchant_id
     @inr = inr
   end
+
+  def merchant
+    inr.fetch_merchant_from_invoice_id(merchant_id)
+  end
 end

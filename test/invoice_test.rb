@@ -26,3 +26,5 @@ class InvoiceTest < Minitest::Test
     assert_equal 12345, invoice.merchant_id
   end
 end
+
+# Spec harness is expecting a symbol as the return value for status
