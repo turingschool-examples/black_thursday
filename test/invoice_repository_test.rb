@@ -29,4 +29,20 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal './data/invoices.csv', ir.file_path
   end
 
+  def test_invoice_repo_can_load_id_repo
+    ir = InvoiceRepository.new('./data/invoices.csv', self)
+
+    assert_instance_of Hash, ir.id_repo
+    refute ir.id_repo.empty?
+    assert_equal 4985, ir.id_repo.count
+  end
+
+  def test_invoice_repo_can_search_all_invoices
+    ir = InvoiceRepository.new('./data/invoices.csv', self)
+
+    assert_instance_of Array, ir.all
+    refute ir.all.empty?
+    assert_equal 4985, ir.all.count
+  end
+
 end

@@ -1,3 +1,5 @@
+require_relative 'invoice'
+
 class InvoiceRepository
 
   attr_reader :file_path,
@@ -8,6 +10,7 @@ class InvoiceRepository
     @file_path    = file_path
     @sales_engine = sales_engine
     @id_repo      = {}
+    load_repo
   end
 
   def load_repo
@@ -16,6 +19,12 @@ class InvoiceRepository
       invoice_identification = invoice_info[:id]
       invoice = Invoice.new(invoice_info, self)
       @id_repo[invoice_identification.to_i] = invoice
+    end
+  end
+
+  def all
+    id_repo.map do |id, invoice_info|
+      invoice_info
     end
   end
 
