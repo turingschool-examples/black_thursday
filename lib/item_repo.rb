@@ -7,7 +7,7 @@ class ItemRepository
 
   def initialize(csvfile, engine)
     @engine = engine
-    @items  = csvfile
+    @items  = load_items(csvfile)
   end
 
   def inspect
@@ -33,7 +33,7 @@ class ItemRepository
 
   def find_by_name(name)
     all.find do |item|
-      if item.name == name.downcase
+      if item.name.downcase == name.downcase
         return item
       end
     end

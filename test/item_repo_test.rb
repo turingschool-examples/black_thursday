@@ -26,7 +26,6 @@ class ItemRepositoryTest < Minitest::Test
     item_repo = ItemRepository.new("./data/items.csv", "engine")
     name = "510+ RealPush Icon Set"
 
-
     assert_instance_of Item, item_repo.find_by_name(name)
   end
 
