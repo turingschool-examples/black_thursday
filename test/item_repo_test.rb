@@ -42,8 +42,8 @@ class ItemRepoTest < Minitest::Test
     assert_equal [], ir.find_all_by_price_in_range(0..0)
   end
 
-  def test_it_can_find_item_by_merchant_id
+  def test_it_can_find_items_by_merchant_id
     expected = "510+ RealPush Icon Set"
-    assert_equal expected, ir.find_by_merchant_id(12334141).name
+    assert_equal expected, ir.find_all_by_merchant_id(12334141)[0].name
   end
 end

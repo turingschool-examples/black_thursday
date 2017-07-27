@@ -27,4 +27,14 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of Item, item
     assert_equal "Glitter scrabble frames", item.name
   end
+
+  def test_it_can_find_all_items_of_particular_merchant
+    merchant = se.merchants.find_by_id(12334185)
+    assert_equal 1, merchant.items.count
+  end
+
+  def test_it_can_find_merchant_by_item_id
+    item = se.items.find_by_id(263395237)
+    assert_instance_of Merchant, item.merchant
+  end
 end

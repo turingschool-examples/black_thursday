@@ -2,12 +2,12 @@ require_relative 'item'
 require 'pry'
 class ItemRepo
 
-  attr_reader :items
+  attr_reader :items, :parent
 
-  def initialize(file,se = nil)
+  def initialize(file, se=nil)
     @items = {}
     open_file(file)
-
+    @parent = se
   end
 
   def open_file(file)
@@ -47,7 +47,11 @@ class ItemRepo
     end
   end
 
-  def find_by_merchant_id(id)
-    all.find {|item| item.merchant_id == id}
+  def find_all_by_merchant_id(id)
+    all.find_all {|item| item.merchant_id == id}
+  end
+
+  def merchant_item(id)
+    parent.merchant_item(id)
   end
 end
