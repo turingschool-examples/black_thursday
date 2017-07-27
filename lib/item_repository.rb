@@ -34,13 +34,13 @@ class ItemRepository
   end
 
   def find_all_with_description(descrip)
-    results = []
+    results = Array.new
     @items.each do |item|
       if item.description.downcase.include?(descrip.downcase)
         results << item
       end
     end
-    results
+    return results
   end
 
   def find_all_by_price(price)

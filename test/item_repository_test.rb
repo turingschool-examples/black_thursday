@@ -3,6 +3,7 @@ require 'minitest'
 require 'minitest/autorun'
 require 'minitest/emoji'
 require 'time'
+require 'pry'
 
 class ItemRepositoryTest < Minitest::Test
 
@@ -68,37 +69,34 @@ class ItemRepositoryTest < Minitest::Test
   def test_find_all_with_description_working_for_one_entry
     full_repo
     item = @repo.find_all_with_description("mint")
-    assert_instance_of Item, item
     assert_equal 1, item.count
-    assert_equal "Pants", list.name
-    assert_equal 13, list.first.merchant_id
+    assert_equal "Pants", item[0].name
+    assert_equal 13, item[0].merchant_id
   end
 
   def test_find_all_with_description_working_for_multiple_entries
-    skip
-    list = @repo.find_all_with_description("tasty")
-    assert_equal 3, list.count
-    assert_equal "Coconut", list.last.name
-    assert_equal "Chocolate", list.first.name
-    assert_equal "Cherry", list[1].name
+    full_repo
+    items = @repo.find_all_with_description("blue")
+    assert_equal 2, items.count
+    assert_equal "Hat", items[0].name
+    assert_equal "Shirt", items[-1].name
   end
 
   def test_all_by_price_works_for_one_entry
-    skip
-    list = @repo.find_all_by_price(315)
-    assert_instance_of Item, list.first
-    assert_equal 1, list.count
-    assert_equal "Chocolate", list.first.name
-    assert_equal 7, list.first.merchant_id
+    full_repo
+    item = @repo.find_all_by_price(1000 / 100)
+    assert_equal 1, item.count
+    assert_equal "Hat", item[0].name
+    assert_equal 12, item.first.merchant_id
   end
 
 
 
   def test_all_by_price_works_for_multiple_entries
-    skip
-    list = @repo.find_all_by_price(210)
+    full_repo
+    list = @repo.find_all_by_price(2000 / 100)
     assert_equal 2, list.count
-    assert_equal "Cherry", list.first.name
+    assert_equal "Pants", list.first.name
     assert_equal "Apple", list.last.name
     assert_equal 2, list.first.merchant_id
     assert_equal 5, list.last.merchant_id
@@ -172,7 +170,7 @@ class ItemRepositoryTest < Minitest::Test
     {id: 444,
     name: "Shirt",
     description: "blue",
-    unit_price: 3000,
+    unit_price: 2000,
     merchant_id: 14,
     created_at: "2016-04-11 11:51:34 UTC",
     updated_at: "2016-04-11 11:51:34 UTC"
