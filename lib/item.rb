@@ -28,7 +28,7 @@ class Item
   end
 
   def merchant
-    ir.fetch_items_merchant_id(self.merchant_id)
+    ir.fetch_items_merchant_id(merchant_id)
   end
 
 end

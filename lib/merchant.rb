@@ -14,7 +14,10 @@ class Merchant
   end
 
   def items
-    mr.fetch_merchant_id(self.id)
+    mr.fetch_merchant_id(id)
   end
 
+  def invoices
+    mr.fetch_invoices(id)
+  end
 end

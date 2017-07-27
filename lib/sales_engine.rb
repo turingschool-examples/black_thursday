@@ -1,6 +1,7 @@
 require 'CSV'
 require_relative 'item_repository'
 require_relative 'merchant_repository'
+require_relative 'invoice_repository'
 require 'pry'
 
 class SalesEngine
@@ -10,11 +11,13 @@ class SalesEngine
   end
 
   attr_reader :items,
-              :merchants
+              :merchants,
+              :invoices
 
   def initialize(hash)
     @items = ItemRepository.new(hash[:items], self)
     @merchants = MerchantRepository.new(hash[:merchants], self)
+    @invoices = InvoiceRepository.new(hash[:invoices], self)
   end
 
   def fetch_merchant_id(merchant_id)
@@ -33,14 +36,12 @@ class SalesEngine
     @merchants.find_by_id(merchant_id)
   end
 
+  def fetch_invoices_for_merchant(merchant_id)
+    @invoices.find_all_by_merchant_id(merchant_id)
+  end
+
+  def fetch_merchant_from_invoice_id(merchant_id)
+    @merchants.find_by_id(merchant_id)
+  end
+
 end
-# se = SalesEngine.from_csv({
-#   :items     => "./data/items.csv",
-#   :merchants => "./data/merchants.csv",
-# })
-# merchant = se.merchants.find_by_id(12334112)
-# merchant.items
-# # => [<item>, <item>, <item>]
-# item = se.items.find_by_id(263395237)
-# item.merchant
-# # => <merchant>
