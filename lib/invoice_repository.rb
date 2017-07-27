@@ -16,9 +16,9 @@ class InvoiceRepository
 
   def load_repo
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
-      invoice_info = Hash[row]
-      invoice_identification = invoice_info[:id]
-      invoice = Invoice.new(invoice_info, self)
+      # invoice_info = Hash[row]
+      invoice_identification = row[:id]
+      invoice = Invoice.new(row, self)
       @id_repo[invoice_identification.to_i] = invoice
     end
   end

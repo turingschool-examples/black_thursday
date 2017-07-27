@@ -18,4 +18,8 @@ class SalesEngine
     SalesEngine.new(file[:items], file[:merchants], file[:invoices])
   end
 
+  def merchant_by_merchant_id(merchant_id)
+    merchants.find_by_id(merchant_id)
+  end
+
 end

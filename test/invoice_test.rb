@@ -74,7 +74,6 @@ class InvoiceTest < Minitest::Test
           :merchants => "./data/merchants.csv",
           :invoices => "./data/invoices.csv"
         })
-    binding.pry
     invoice = se.invoices.find_by_id(71)
     merchant = se.merchants.find_by_id(12336292)
 

@@ -106,4 +106,16 @@ class ItemRepositoryTest < Minitest::Test
     assert item.empty?
   end
 
+  def test_repo_to_se_gets_merchant
+    se = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+    })
+    items = se.items
+    merchant = items.repo_to_se(12335119)
+
+    assert_instance_of Merchant, merchant
+  end
+
 end
