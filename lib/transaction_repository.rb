@@ -45,6 +45,4 @@ class TransactionRepository
     end
   end
 
-
-
 end
