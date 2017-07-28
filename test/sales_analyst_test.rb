@@ -38,5 +38,6 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_avg_the_avgs_of_all_merchant_prices
     actual = sa.average_average_price_per_merchant
     assert_instance_of BigDecimal, actual
+    assert_equal 0.05, actual
   end
 end
