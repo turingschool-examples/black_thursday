@@ -1,7 +1,10 @@
 require 'item_repo'
 require 'merchant_repo'
 
+
 class SalesAnalyst
+
+  include Math
 
   def initialize(engine)
     @engine = engine
@@ -10,37 +13,28 @@ class SalesAnalyst
   def average_items_per_merchant
     merchant = @engine.merchants.all
     items    = @engine.items.all
-
     average = (items.length.to_f)/(merchant.length)
     average.round(2)
   end
 
    def average_items_per_merchant_standard_deviation
-     #  it "#average_items_per_merchant_standard_deviation returns the standard deviation" do
-     #   expected = sales_analyst.average_items_per_merchant_standard_deviation
-     #
-     #   expect(expected).to eq 3.26
-     #   expect(expected.class).to eq Float
-     # end
-     # Note on Standard Deviations
-     #
-     # There are two ways for calculating standard deviations – for a population and for a sample.
-     #
-     # For this project, use the sample standard deviation.
-     #
-     # As an example, given the set 3,4,5. We would calculate the deviation using the following steps:
-     #
-     # Take the difference between each number and the mean and square it
-     # Sum these square differences together
-     # Divide the sum by the number of elements minus 1
-     # Take the square root of this result
-     # Or, in pseudocode:
-     #
-     # set = [3,4,5]
-     #
-     # std_dev = sqrt( ( (3-4)^2+(4-4)^2+(5-4)^2 ) / 2 )
+     mean = average_items_per_merchant
+     subtract_mean = return_array_of_items_by_merchant.map do |merchant_items|
+       merchant_items - mean
+     end
+     subtract_mean.map! do |num|
+       num ** 2
+     end
+     subtract_mean = subtract_mean.reduce(:+)
+     subtract_mean = subtract_mean/(return_array_of_items_by_merchant.length - 1)
+     Math.sqrt(subtract_mean).round(2)
    end
 
+   def return_array_of_items_by_merchant
+     @engine.merchants.all.map do |merchant|
+       @engine.find_items_by_merchant_id(merchant.id).length
+     end
+   end
 
   def merchants_with_high_item_count
     # Which merchants sell the most items?
@@ -69,7 +63,6 @@ class SalesAnalyst
     end
     (total_average / @engine.merchants.all.count).round(2)
   end
-
 
   def golden_items
     # Given that our platform is going to charge merchants based on their sales, expensive items are extra exciting to us. Which are our “Golden Items”,
