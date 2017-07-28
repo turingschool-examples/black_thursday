@@ -56,5 +56,9 @@ module Stats
       array << item
     end
   end
+  #
+  # def num_invoices_per_merchant
+  #
+  # end
 
 end

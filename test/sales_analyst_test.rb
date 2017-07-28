@@ -45,4 +45,10 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 1, sa.golden_items.count
   end
 
+  def test_it_can_return_avg_invoices_per_merchant
+    skip
+    actual = sa.average_invoices_per_merchant
+    assert_equal 10.3, actual
+  end
+
 end

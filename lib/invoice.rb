@@ -13,4 +13,8 @@ class Invoice
     @updated_at  = params[:updated_at]
     @parent      = repo
   end
+
+  # def merchant
+  #
+  # end
 end

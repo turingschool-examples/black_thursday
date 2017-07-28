@@ -38,4 +38,9 @@ class SalesEngineTest < Minitest::Test
     # se.stubs(:find_by_id).returns(Merchant)
     assert_instance_of Merchant, item.merchant
   end
+
+  def test_it_can_get_all_invoices_by_merch_id
+    merchant = se.merchants.find_by_id(12334269)
+    assert_instance_of Invoice, merchant.invoices[0]
+  end
 end

@@ -46,4 +46,8 @@ class SalesAnalyst
     gold
   end
 
+  def average_invoices_per_merchant
+    
+  end
+
 end
