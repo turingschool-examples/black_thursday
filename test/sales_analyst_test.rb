@@ -26,7 +26,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_items_per_merchant_standard_deviation
-    assert_equal 1.75, @sa.average_items_per_merchant_standard_deviation
+    assert_equal 1.76, @sa.average_items_per_merchant_standard_deviation
   end
 
   def test_merchants_with_high_item_count
@@ -54,7 +54,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_invoices_per_merchant_standard_deviation
-    assert_equal 0.89, @sa.average_invoices_per_merchant_standard_deviation
+    assert_equal 0.9, @sa.average_invoices_per_merchant_standard_deviation
   end
 
   def test_top_merchants_by_invoice_count
@@ -72,10 +72,8 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_days_by_invoice_count
-    skip
     assert_instance_of Array, @sa.top_days_by_invoice_count
-    assert_equal 3, @sa.top_days_by_invoice_count.count
+    assert_equal 1, @sa.top_days_by_invoice_count.count
   end
-
 
 end
