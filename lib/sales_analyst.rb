@@ -135,13 +135,22 @@ class SalesAnalyst
     total = @sales_engine.invoices.all.count
     case symbol
     when :pending
-      @sales_engine.invoices.count(symbol) |do|
-        @sales_engine.invoices.all
+      result = @sales_engine.invoices.invoices.count do |invoice|
+        invoice.status == :pending
+      end
+    when :shipped
+      result = @sales_engine.invoices.invoices.count do |invoice|
+        invoice.status == :shipped
+      end
+    when :returned
+      result = @sales_engine.invoices.invoices.count do |invoice|
+        invoice.status == :returned
       end
     end
-
-    when :shipped
-    when :returned
+    decimal = result.to_f/total.to_f
+    percentage = decimal * 100
+    percentage.round(2)
+  end
 
   # def all_averages(repo)
   #   binding.pry
