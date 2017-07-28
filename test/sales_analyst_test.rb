@@ -42,7 +42,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_golden_items
-    skip
-    assert_equal 3, sa.golden_items.count
+    assert_equal 1, sa.golden_items.count
   end
+
 end

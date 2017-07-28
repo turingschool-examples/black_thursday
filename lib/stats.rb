@@ -45,8 +45,10 @@ module Stats
     se.all_items.map {|item| item.unit_price}
   end
 
-  def two_std_dev
-    standard_deviation(item_prices) * 2
+  def two_std_dev(info)
+    avg     = average(item_prices)
+    std_dev = standard_deviation(info) * 2
+    avg + std_dev
   end
 
 end
