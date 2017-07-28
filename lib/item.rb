@@ -31,7 +31,6 @@ class Item
   end
 
   def merchant
-    binding.pry
-    self.item_repository.repo_to_se(self.merchant_id)
+    self.item_repository.item_repo_to_se(merchant_id)
   end
 end

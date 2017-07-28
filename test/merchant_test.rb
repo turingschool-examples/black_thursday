@@ -59,16 +59,19 @@ class MerchantTest < Minitest::Test
     assert_equal "2014-12-04", update_date
   end
 
-  def test_invoice_can_check_for_parent
-    # se = SalesEngine.from_csv({
-    #       :items     => "./data/items.csv",
-    #       :merchants => "./data/merchants.csv",
-    #       :invoices => "./data/invoices.csv"
-    #     })
-    invoice = se.invoices.find_by_id(71)
-    merchant = se.merchants.find_by_id(12336292)
+  def test_invoice_can_check_for_merchants
+    se = SalesEngine.from_csv({
+          :items     => "./data/items.csv",
+          :merchants => "./data/merchants.csv",
+          :invoices => "./data/invoices.csv"
+        })
+    merchants = se.merchants
+    merchant = merchants.find_by_id(12335119)
+    items = merchant.items
 
-    assert_equal invoice.merchant_id, merchant.id
+    assert_instance_of Array, items
+    assert_instance_of Item, items[0]
+    assert_equal 2, items.count
   end
 
 end

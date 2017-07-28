@@ -16,6 +16,7 @@ class MerchantRepositoryTest < Minitest::Test
     se = SalesEngine.from_csv({
           :items     => "./data/items.csv",
           :merchants => "./data/merchants.csv",
+          :invoices => "./data/invoices.csv",
         })
     mr = se.merchants
 
@@ -99,6 +100,18 @@ class MerchantRepositoryTest < Minitest::Test
     merchants = mr.find_all_by_name('adsf;lkjsdaf')
 
     assert_equal [], merchants
+  end
+
+  def test_merchant_repo_to_se
+    se = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+    })
+    merchants = se.merchants
+    item = merchants.merchant_repo_to_se(12335119)
+
+    assert_instance_of Item, item[0]
   end
 
 end

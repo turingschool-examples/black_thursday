@@ -92,7 +92,7 @@ class ItemRepository
     end
   end
 
-  def repo_to_se(merchant_id)
+  def item_repo_to_se(merchant_id)
     @sales_engine.merchant_by_merchant_id(merchant_id)
   end
 
