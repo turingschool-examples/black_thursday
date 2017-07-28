@@ -30,4 +30,10 @@ class TransactionRepository
   def all
     @transactions
   end
+
+  def find_by_id(transaction_id)
+    @transactions.find do |transaction_obj|
+      transaction_obj.id == transaction_id
+    end
+  end
 end
