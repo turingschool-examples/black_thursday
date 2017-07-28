@@ -41,4 +41,11 @@ class InvoiceTest < Minitest::Test
     assert_instance_of Merchant, @invoice.merchant
   end
 
+  def test_invoice_items_returns_an_array_of_items
+    invoice = @se.invoices.find_by_id(14)
+    assert_instance_of Array, invoice.items
+    assert_instance_of InvoiceItem, invoice.items[0]
+    assert_equal 8, invoice.items.count
+  end
+
 end
