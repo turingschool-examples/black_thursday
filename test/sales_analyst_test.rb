@@ -1,3 +1,8 @@
+sa = SalesAnalyst.new
+sa.total_revenue_by_date(date) #=> $$
+sa.top_revenue_earners(x) #=> [merchant, merchant, merchant, merchant, merchant]
+        ^top x merchants
+
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/sales_analyst'
