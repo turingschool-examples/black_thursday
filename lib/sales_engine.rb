@@ -5,11 +5,13 @@ require 'pry'
 
 class SalesEngine
   attr_reader :items,
-              :merchants
+              :merchants,
+              :invoices
 
   def initialize(data)
     @items = ItemRepository.new(data[:items], self)
     @merchants = MerchantRepository.new(data[:merchants], self)
+    @invoices = InvoiceRepository.new(data[:invoices])
   end
 
   def self.from_csv(data)
