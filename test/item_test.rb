@@ -30,7 +30,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_unit_price_to_dollars
-   assert_equal 13.00, @item.unit_price_to_dollars(1300)
+   assert_equal 13.00, @item.unit_price_to_dollars(13)
   end
 
   def test_it_has_an_id
