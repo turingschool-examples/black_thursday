@@ -1,7 +1,7 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/mbutera/turing/1module/projects/black_thursday/lib/invoice_repository.rb": [
+      "/Users/Beckisrofe/turing/1module/projects/black_thursday/lib/invoice_repository.rb": [
         1,
         null,
         null,
@@ -67,7 +67,7 @@
         null,
         null
       ],
-      "/Users/mbutera/turing/1module/projects/black_thursday/lib/invoice.rb": [
+      "/Users/Beckisrofe/turing/1module/projects/black_thursday/lib/invoice.rb": [
         1,
         1,
         null,
@@ -94,7 +94,7 @@
         null,
         null
       ],
-      "/Users/mbutera/turing/1module/projects/black_thursday/lib/item_repository.rb": [
+      "/Users/Beckisrofe/turing/1module/projects/black_thursday/lib/item_repository.rb": [
         1,
         1,
         null,
@@ -174,7 +174,7 @@
         null,
         null
       ],
-      "/Users/mbutera/turing/1module/projects/black_thursday/lib/item.rb": [
+      "/Users/Beckisrofe/turing/1module/projects/black_thursday/lib/item.rb": [
         1,
         1,
         null,
@@ -210,7 +210,7 @@
         null,
         null
       ],
-      "/Users/mbutera/turing/1module/projects/black_thursday/lib/merchant_repository.rb": [
+      "/Users/Beckisrofe/turing/1module/projects/black_thursday/lib/merchant_repository.rb": [
         1,
         1,
         null,
@@ -270,7 +270,7 @@
         null,
         null
       ],
-      "/Users/mbutera/turing/1module/projects/black_thursday/lib/merchant.rb": [
+      "/Users/Beckisrofe/turing/1module/projects/black_thursday/lib/merchant.rb": [
         1,
         1,
         null,
@@ -295,7 +295,7 @@
         null,
         null
       ],
-      "/Users/mbutera/turing/1module/projects/black_thursday/lib/sales_engine.rb": [
+      "/Users/Beckisrofe/turing/1module/projects/black_thursday/lib/sales_engine.rb": [
         1,
         1,
         1,
@@ -352,7 +352,7 @@
         null,
         null
       ],
-      "/Users/mbutera/turing/1module/projects/black_thursday/lib/sales_analyst.rb": [
+      "/Users/Beckisrofe/turing/1module/projects/black_thursday/lib/sales_analyst.rb": [
         1,
         1,
         null,
@@ -472,6 +472,6 @@
         null
       ]
     },
-    "timestamp": 1501196120
+    "timestamp": 1501203888
   }
 }
