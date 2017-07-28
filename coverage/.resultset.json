@@ -1,6 +1,62 @@
 {
   "Unit Tests": {
     "coverage": {
+      "/Users/Beckisrofe/turing/1module/projects/black_thursday/lib/invoice_item_repository.rb": [
+        1,
+        1,
+        null,
+        1,
+        null,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        null,
+        null,
+        10,
+        null,
+        null,
+        null
+      ],
+      "/Users/Beckisrofe/turing/1module/projects/black_thursday/lib/invoice_item.rb": [
+        1,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        null,
+        null,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        null,
+        null
+      ],
       "/Users/Beckisrofe/turing/1module/projects/black_thursday/lib/invoice_repository.rb": [
         1,
         null,
@@ -472,6 +528,6 @@
         null
       ]
     },
-    "timestamp": 1501203888
+    "timestamp": 1501204835
   }
 }
