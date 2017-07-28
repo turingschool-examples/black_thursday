@@ -1,3 +1,5 @@
+require 'simplecov'
+SimpleCov.start
 require_relative '../lib/item_repository'
 require 'minitest'
 require 'minitest/autorun'

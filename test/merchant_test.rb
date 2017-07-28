@@ -1,3 +1,5 @@
+require 'simplecov'
+SimpleCov.start
 require_relative '../lib/merchant'
 require 'pry'
 require 'minitest/autorun'

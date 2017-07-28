@@ -1,9 +1,12 @@
+require 'simplecov'
+SimpleCov.start
 require 'minitest'
 require 'minitest/autorun'
 require 'minitest/emoji'
 require_relative '../lib/item'
 require 'bigdecimal'
 require 'time'
+require './lib/sales_engine'
 
 
 class ItemTest < Minitest::Test
@@ -52,15 +55,12 @@ class ItemTest < Minitest::Test
     assert_instance_of Item, @the_item
   end
 
-  # def test_spec_creation
-  #   item = Item.new({:name        => "Pencil",
-  #                    :description => "You can use it to write things",
-  #                    :unit_price  => BigDecimal.new(10.99,4),
-  #                    :created_at  => Time.now,
-  #                    :updated_at  => Time.now
-  #                   })
-  #   new_item = Item.new(item, self)
-  #   assert_instance_of Item, new_item
+  # def test_merchant_function
+  #   se = SalesEngine.from_csv({
+  #                             :items     => "./data/items_shorter.csv",
+  #                             :merchants => "./data/merchants_short.csv",
+  #                                                                 })
+  #   assert_equal "something", se.items.items[0].merchant
   # end
 
 end
