@@ -41,4 +41,24 @@ class InvoiceTest < Minitest::Test
     assert_instance_of Merchant, @invoice.merchant
   end
 
+  def test_invoice_items_returns_an_array_of_items
+    skip #items_fixture_doesn't match all invoice_items
+    invoice = @se.invoices.find_by_id(14)
+    assert_instance_of Array, invoice.items
+    assert_instance_of InvoiceItem, invoice.items[0]
+    assert_equal 8, invoice.items.count
+  end
+
+  def test_invoice_transactions_returns_an_array_of_transactions
+    invoice = @se.invoices.find_by_id(14)
+    assert_instance_of Array, invoice.transactions
+    assert_instance_of Transaction, invoice.transactions[0]
+    assert_equal 1, invoice.transactions.count
+  end
+
+  def test_customer_finds_customer
+    invoice = @se.invoices.find_by_id(1)
+    assert_instance_of Customer, invoice.customer
+  end
+  
 end

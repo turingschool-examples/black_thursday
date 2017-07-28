@@ -1,12 +1,12 @@
 require_relative '../lib/sales_engine'
 require 'bigdecimal'
 require 'time'
-require_relative '../lib/invoice_item'
+require_relative '../lib/customer'
 require 'csv'
 require 'minitest/autorun'
 require 'minitest/emoji'
 
-class InvoiceItemTest < Minitest::Test
+class CustomerTest < Minitest::Test
   def setup
     @se = SalesEngine.from_csv({
               :items => "./test/data/items_fixture.csv",
@@ -16,34 +16,24 @@ class InvoiceItemTest < Minitest::Test
               :transactions => "./test/data/transactions_fixture.csv",
               :customers => "./test/data/customers_fixture.csv"
             })
-    @ii = InvoiceItem.new({
+    @c = Customer.new({
               :id => 6,
-              :item_id => 7,
-              :invoice_id => 8,
-              :quantity => 1,
-              :unit_price => BigDecimal.new(10.99, 4),
+              :first_name => "Joan",
+              :last_name => "Clarke",
               :created_at => Time.now,
               :updated_at => Time.now
-            }, @se.invoice_items)
-  end
+            }, @se.customers)
+    end
 
-  def test_it_exists
-    assert_instance_of InvoiceItem, @ii
-  end
+    def test_it_exists
+      assert_instance_of Customer, @c
+    end
 
-  def test_has_attributes
-    assert_equal 6, @ii.id
-    assert_equal 7, @ii.item_id
-    assert_equal 8, @ii.invoice_id
-    assert_equal 1, @ii.quantity
-    assert_instance_of BigDecimal, @ii.unit_price
-    assert_instance_of Time, @ii.created_at
-    assert_instance_of Time, @ii.updated_at
-  end
-
-  def test_find_all_by_item_id
-
-  end
-
-
+    def test_has_attributes
+      assert_equal 6, @c.id
+      assert_equal "Joan", @c.first_name
+      assert_equal "Clarke", @c.last_name
+      assert_instance_of Time, @c.created_at
+      assert_instance_of Time, @c.updated_at
+    end
 end
