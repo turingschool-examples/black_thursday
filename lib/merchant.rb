@@ -18,4 +18,8 @@ class Merchant
     self.merchant_repo.merchant_repo_to_se(id)
   end
 
+  def invoices
+    self.merchant_repo.merchant_repo_to_se_invoices(id)
+  end
+
 end
