@@ -31,5 +31,13 @@ class SalesAnalyst
       merchant_items_prices(id).count).round(2)
   end
 
+  def average_average_price_per_merchant
+    avg = []
+    merchant_id_item_group.each do |key,value|
+      avg << value.map {|item| item.unit_price}.reduce(:+) / value.count
+    end
+    (avg.reduce(:+) / avg.count).round(2)
+  end
+
 
 end

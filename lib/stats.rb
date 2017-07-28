@@ -37,4 +37,8 @@ module Stats
     merchant.items.map {|item| item.unit_price}
   end
 
+  def merchant_id_item_group
+    se.all_items.group_by {|item| item.merchant_id}
+  end
+
 end
