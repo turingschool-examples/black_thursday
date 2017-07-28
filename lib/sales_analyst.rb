@@ -1,5 +1,6 @@
 require_relative '../lib/sales_engine'
 require_relative '../lib/calculator'
+require 'date'
 require 'pry'
 
 class SalesAnalyst
@@ -8,6 +9,18 @@ class SalesAnalyst
 
   def initialize(sales_engine)
     @sales_engine = sales_engine
+  end
+
+  def convert_date(input) #expected input: invoice object
+    Date.parse(input.created_at.to_s).strftime('%A')
+  end
+
+  def top_days_by_invoice_count
+    binding.pry
+    results = @sales_engine.invoices.all.group_by do |invoice|
+      convert_date(invoice)
+    end
+    binding.pry
   end
 
   def average_items_per_merchant
@@ -48,11 +61,18 @@ class SalesAnalyst
   end
 
   def top_merchants_by_invoice_count
+    mark = (average_invoices_per_merchant + average_invoices_per_merchant_standard_deviation * 2)
     @sales_engine.merchants.all.find_all do |merchant|
-      merchant.invoices.count > (average_invoices_per_merchant + average_invoices_per_merchant_standard_deviation * 2)
+      merchant.invoices.count > mark
     end
   end
 
+  def bottom_merchants_by_invoice_count
+    mark = (average_invoices_per_merchant - average_invoices_per_merchant_standard_deviation * 2)
+    @sales_engine.merchants.all.find_all do |merchant|
+      merchant.invoices.count < mark
+    end
+  end
 
 
   def average_item_price_for_merchant(id)
