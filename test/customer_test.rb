@@ -36,4 +36,10 @@ class CustomerTest < Minitest::Test
       assert_instance_of Time, @c.created_at
       assert_instance_of Time, @c.updated_at
     end
+
+    def test_merchants_returns_array_of_merchants
+      customer = @se.customers.find_by_id(1)
+      assert_equal 8, customer.merchants.count
+      assert_instance_of Merchant, customer.merchants
+    end
 end

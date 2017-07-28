@@ -29,12 +29,12 @@ class CustomerRepositoryTest < Minitest::Test
 
   def test_find_all_by_first_name
     assert_instance_of Array, @c.find_all_by_first_name("Mariah")
-    assert_equal 1, @c.find_all_by_first_name("Mariah").count
+    assert_equal "Mariah", @c.find_all_by_first_name("Mariah")[0].first_name
   end
 
   def test_find_all_by_last_name
     assert_instance_of Array, @c.find_all_by_last_name("Ondricka")
-    assert_equal 1, @c.find_all_by_last_name("Ondricka").count
+    assert_equal "Ondricka", @c.find_all_by_last_name("Ondricka")[0].last_name
   end
 
 end

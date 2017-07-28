@@ -34,8 +34,10 @@ class Invoice
   end
 
   def customer
-    @invoice_repo.sales_engine.customers.find_by_id(@customer_id.to_s)
-    # binding.pry
+    @invoice_repo.sales_engine.customers.find_by_id(@customer_id)
+  end
+
+  def paid_in_full?
   end
 
 

@@ -60,5 +60,9 @@ class InvoiceTest < Minitest::Test
     invoice = @se.invoices.find_by_id(1)
     assert_instance_of Customer, invoice.customer
   end
-  
+
+  def test_is_paid_in_full?
+    assert_equal true, @invoice.paid_in_full?
+  end
+
 end
