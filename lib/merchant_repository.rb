@@ -22,9 +22,7 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    if repository.keys.include?(id)
-      return repository[id]
-    end
+    repository[id]
   end
 
   def find_by_name(name)

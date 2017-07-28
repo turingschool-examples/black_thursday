@@ -89,14 +89,15 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_can_return_array_of_items_by_merchant_id
     se = SalesEngine.from_csv({
-      :items     => "./data/mini_items.csv",
-      :merchants => "./data/mini_merchants.csv",
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
       })
     merchant = se.merchants.find_by_id(12334112)
     assert merchant.items
   end
 
-  def test_it_can_return_array_of_items_by_merchant_id
+  def test_it_can_return_merchant_by_item_id
     se = SalesEngine.from_csv({
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -106,7 +107,7 @@ class SalesEngineTest < Minitest::Test
     assert item.merchant
   end
 
-  def test_it_can_connect_invoices_to_merchants
+  def test_it_can_return_array_of_invoices_by_merchant_id
     se = SalesEngine.from_csv({
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -116,5 +117,16 @@ class SalesEngineTest < Minitest::Test
 
     assert_equal 9, merchant.invoices.length
   end
+
+  def test_it_can_return_merchant_by_invoice_id
+    se = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+      })
+    invoice = se.invoices.find_by_id(74)
+    assert invoice.merchant
+  end
+
 
 end

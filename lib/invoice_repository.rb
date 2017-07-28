@@ -29,6 +29,11 @@ class InvoiceRepository
     invoices.find_all do |invoice|
       invoice.customer_id == customer_id
     end
+
+    def fetch_merchant_id(id)
+      @sales_engine.fetch_merchant_id(id)
+    end
+
   end
 
   def find_all_by_merchant_id(merchant_id)

@@ -38,4 +38,8 @@ class SalesEngine
     @invoices.find_all_by_merchant_id(merchant_id)
   end
 
+  def fetch_merchant_id(id)
+    @merchants.find_by_id(id)
+  end
+
 end
