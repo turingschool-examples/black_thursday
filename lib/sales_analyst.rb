@@ -31,32 +31,32 @@ class SalesAnalyst
     average = values.reduce(:+)/values.length.to_f
     average_average = values.reduce(0) {|val, num| val += ((num - average)**2) }
     Math.sqrt(average_average / (values.length-1)).round(2)
-    # require "pry"; binding.pry
   end
 
   def average_items_per_merchant_standard_deviation
     value = collected_items_hash.values
     standard_deviation(value)
-    # require "pry"; binding.pry
   end
 
-  # def merchants_with_high_item_count
-  #
-  # end
+  def merchants_with_high_item_count
+    mr = sales_engine.merchants.all
+    v = average_items_per_merchant+average_items_per_merchant_standard_deviation
+    mr.find_all do |merchant|
+      merchant.items.length >= v
+    end
+  end
+
+  def average_item_price_for_merchant(merchant_id)
+    items = @sales_engine.collected_items(merchant_id)
+    sum = 0
+    items.each do |item|
+      sum += item.unit_price
+    end
+
+    average = sum/(items.length)
+    average.round(2)
+  end
 
 
 
 end
-
-
-
-
-
-
-
-# mr = sales_engine.merchants.all
-# v = average_items_per_merchant+average_items_per_merchant_standard_deviation
-# mr.find_all do |merchant|
-#   merchant.find_by_id(merchant_id)
-#   # bring in merchant_items
-#   merchant.item.length >= v

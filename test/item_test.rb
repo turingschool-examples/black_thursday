@@ -30,7 +30,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_unit_price_to_dollars
-   assert_equal 13.00, @item.unit_price_to_dollars
+   assert_equal 13.00, @item.unit_price_to_dollars(1300)
   end
 
   def test_it_has_an_id
@@ -62,8 +62,10 @@ class ItemTest < Minitest::Test
   end
 
   def test_unit_price_to_dollars_returns_a_float
-    assert_equal @item.unit_price_to_dollars.class, Float
-    assert_equal @item.unit_price_to_dollars, 13.0
+    # require "pry"; binding.pry
+    assert_instance_of Float, @item.unit_price_to_dollars(1300)
+    # assert_equal @item.unit_price_to_dollars.class, Float
+    # assert_equal @item.unit_price_to_dollars, 13.0
   end
 
 end

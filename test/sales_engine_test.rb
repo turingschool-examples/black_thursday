@@ -93,7 +93,6 @@ class SalesEngineTest < Minitest::Test
       :merchants => "./data/merchants.csv",
       })
     item = se.items.find_by_id(263395237)
-    binding.pry
     assert item.merchant
   end
 

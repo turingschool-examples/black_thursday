@@ -27,13 +27,22 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_merchants_with_high_item_count
-    # skip
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv"})
     sa = SalesAnalyst.new(se)
 
-    assert_equal 0, sa.merchants_with_high_item_count.length
+    assert_equal 52, sa.merchants_with_high_item_count.length
+  end
+
+  def test_average_item_price_for_merchant
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"})
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 0.1666e2, sa.average_item_price_for_merchant(12334105)
+    assert_instance_of BigDecimal, sa.average_item_price_for_merchant(12334105)
   end
 
 end
