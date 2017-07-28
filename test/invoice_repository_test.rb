@@ -38,18 +38,18 @@ class InvoiceRepositoryTest < Minitest::Test
     ir.add_data(hash_two)
 
     assert_equal 1        , ir.invoices.first.id
-    assert_equal "shipped", ir.invoices.first.status
+    assert_equal :shipped, ir.invoices.first.status
     assert_equal 3        , ir.invoices.first.merchant_id
     assert_equal 4        , ir.invoices.last.merchant_id
-    assert_equal "pending", ir.invoices.last.status
+    assert_equal :pending, ir.invoices.last.status
     assert_equal 2        , ir.invoices.last.id
   end
 
   def test_all_is_working
     assert_equal 4        , @invoice_r.all.count
     assert_equal 123      , @invoice_r.all.first.id
-    assert_equal "shipped", @invoice_r.all.first.status
-    assert_equal "pending", @invoice_r.all[1].status
+    assert_equal :shipped, @invoice_r.all.first.status
+    assert_equal :pending, @invoice_r.all[1].status
     assert_equal 125      , @invoice_r.all.last.id
   end
 
@@ -76,11 +76,11 @@ class InvoiceRepositoryTest < Minitest::Test
     list_two = @invoice_r.find_all_by_customer_id(2)
 
     assert_equal 1        , list_one.count
-    assert_equal "shipped", list_one.first.status
+    assert_equal :shipped, list_one.first.status
     assert_equal 125      , list_one.first.id
 
     assert_equal 1        , list_two.count
-    assert_equal "pending", list_two.first.status
+    assert_equal :pending, list_two.first.status
     assert_equal 123      , list_two.first.id
   end
 
@@ -88,9 +88,9 @@ class InvoiceRepositoryTest < Minitest::Test
     list = @invoice_r.find_all_by_customer_id(1)
 
     assert_equal 2        , list.count
-    assert_equal "shipped", list.first.status
+    assert_equal :shipped, list.first.status
     assert_equal 7        , list.first.merchant_id
-    assert_equal "shipped", list.last.status
+    assert_equal :shipped, list.last.status
     assert_equal 5        , list.last.merchant_id
   end
 
@@ -104,11 +104,11 @@ class InvoiceRepositoryTest < Minitest::Test
     list_two = @invoice_r.find_all_by_merchant_id(2)
 
     assert_equal 1        , list_one.count
-    assert_equal "shipped", list_one.first.status
+    assert_equal :shipped, list_one.first.status
     assert_equal 123      , list_one.first.id
 
     assert_equal 1        , list_two.count
-    assert_equal "pending", list_two.first.status
+    assert_equal :pending, list_two.first.status
     assert_equal 123      , list_two.first.id
   end
 
@@ -116,9 +116,9 @@ class InvoiceRepositoryTest < Minitest::Test
     list = @invoice_r.find_all_by_merchant_id(5)
 
     assert_equal 2        , list.count
-    assert_equal "shipped", list.first.status
+    assert_equal :shipped, list.first.status
     assert_equal 1        , list.first.customer_id
-    assert_equal "shipped", list.last.status
+    assert_equal :shipped, list.last.status
     assert_equal 3        , list.last.customer_id
   end
 
@@ -126,25 +126,25 @@ class InvoiceRepositoryTest < Minitest::Test
 
 
   def test_find_all_by_status_returns_blank_if_none_match
-    assert_equal [], @invoice_r.find_all_by_status("awesome")
-    assert_equal [], @invoice_r.find_all_by_status("awesome")
+    assert_equal [], @invoice_r.find_all_by_status(:awesome)
+    assert_equal [], @invoice_r.find_all_by_status(:awesome)
   end
 
   def test_find_all_by_status_works_for_one_entry
-    list_one = @invoice_r.find_all_by_status("pending")
+    list_one = @invoice_r.find_all_by_status(:pending)
 
     assert_equal 1        , list_one.count
-    assert_equal "pending", list_one.first.status
+    assert_equal :pending, list_one.first.status
     assert_equal 123      , list_one.first.id
   end
 
   def test_find_all_by_merchant_id_works_for_multiple_entries
-    list = @invoice_r.find_all_by_status("shipped")
+    list = @invoice_r.find_all_by_status(:shipped)
 
     assert_equal 3        , list.count
-    assert_equal "shipped", list.first.status
+    assert_equal :shipped , list.first.status
     assert_equal 1        , list.first.customer_id
-    assert_equal "shipped", list.last.status
+    assert_equal :shipped , list.last.status
     assert_equal 3        , list.last.customer_id
   end
 
