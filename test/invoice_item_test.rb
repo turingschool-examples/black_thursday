@@ -26,5 +26,9 @@ class InvoiceItemTest < Minitest::Test
   def test_it_returns_item_id
     assert_equal 7, @ii.item_id
   end
-  
+
+  def test_it_returns_invoice_id
+    assert_equal 8, @ii.invoice_id
+  end
+
 end
