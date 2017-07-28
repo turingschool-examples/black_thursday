@@ -14,7 +14,7 @@
       <img src="./assets/0.10.1/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2017-07-27T19:30:28-06:00">2017-07-27T19:30:28-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2017-07-27T19:36:49-06:00">2017-07-27T19:36:49-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -454,7 +454,7 @@
         <li class="covered" data-hits="42" data-linenumber="18">
           <span class="hits">42</span>
           
-          <code class="ruby">    @unit_price = unit_price</code>
+          <code class="ruby">    @unit_price = BigDecimal.new(unit_price.insert(-3, &quot;.&quot;))</code>
         </li>
       
         <li class="covered" data-hits="42" data-linenumber="19">
