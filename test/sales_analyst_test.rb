@@ -178,4 +178,18 @@ class SalesAnalystTest < Minitest::Test
     assert_equal ______, sales_analyst.average_invoices_per_day_standard_deviation
   end
 
+  def test_top_days_by_invoice_count
+    sales_engine = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+    })
+    sales_analyst = SalesAnalyst.new(sales_engine)
+
+    top_days = sales_analyst.top_days_by_invoice_count
+
+    assert_instance_of Array, top_days
+    assert_instance_of Symbol, top_days[0]
+  end
+
 end

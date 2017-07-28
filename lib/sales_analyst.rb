@@ -174,5 +174,13 @@ class SalesAnalyst
     end
   end
 
-
+  def top_days_by_invoice_count
+    two_stndv_above_avg = (average_invoices_per_day_standard_deviation * 2) + average_invoices_per_day
+    invoices_by_day.keys.reduce([]) do |results, day|
+      if invoices_by_day[day].count >= two_stndv_above_avg
+        results << day
+      end
+      results
+    end
+  end
 end
