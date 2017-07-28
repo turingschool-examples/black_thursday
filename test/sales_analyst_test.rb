@@ -117,4 +117,68 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 3.29, sales_analyst.average_invoices_per_merchant_standard_deviation
   end
 
+  def test_top_merchants_by_invoice_count
+    sales_engine = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+    })
+    sales_analyst = SalesAnalyst.new(sales_engine)
+
+    top_merchants = sales_analyst.top_merchants_by_invoice_count
+
+    assert_instance_of Array, top_merchants
+    assert_instance_of Merchant, top_merchants[0]
+  end
+
+  def test_bottom_merchants_by_invoice_count
+    sales_engine = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+    })
+    sales_analyst = SalesAnalyst.new(sales_engine)
+
+    bottom_merchants = sales_analyst.bottom_merchants_by_invoice_count
+
+    assert_instance_of Array, bottom_merchants
+    assert_instance_of Merchant, bottom_merchants[0]
+  end
+
+  def test_convert_date_to_day
+    sales_engine = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+    })
+    sales_analyst = SalesAnalyst.new(sales_engine)
+
+    assert_equal :Saturday, sales_analyst.convert_date_to_day(Time.new(2017, 07, 23))
+  end
+
+  def test_average_invoices_per_day
+    sales_engine = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+    })
+    sales_analyst = SalesAnalyst.new(sales_engine)
+
+    assert_equal _____, sales_analyst.average_invoices_per_day
+  end
+
+  def test_average_invoices_per_day_standard_deviation
+    sales_engine = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+    })
+    sales_analyst = SalesAnalyst.new(sales_engine)
+
+    assert_equal ______, sales_analyst.average_invoices_per_day_standard_deviation
+  end
+
+  def test
+
+
 end

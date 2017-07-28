@@ -28,6 +28,25 @@ class SalesAnalyst
     end
   end
 
+  def convert_date_to_day(time_object)
+    if time_object.monday?
+      :Monday
+    elsif time_object.tuesday?
+      :Tuesday
+    elsif time_object.wednesday?
+      :Wednesday
+    elsif time_object.thursday?
+      :Thursday
+    elsif time_object.friday?
+      :Friday
+    elsif time_object.saturday?
+      :Saturday
+    else
+      :Sunday
+    end
+  end
+
+
   def average_items_per_merchant
     (total_items / total_merchants).round(2)
   end
@@ -101,5 +120,26 @@ class SalesAnalyst
       results.flatten
     end
   end
+
+  def top_merchants_by_invoice_count
+    two_stndv_above_avg = (average_invoices_per_merchant_standard_deviation * 2) + average_invoices_per_merchant
+    @merchants.id_repo.keys.reduce([]) do |results, id|
+      if @merchants.id_repo[id].invoices.count >= two_stndv_above_avg
+        results << @merchants.id_repo[id]
+      end
+      results.flatten
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    two_stndv_below_avg = average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2)
+    @merchants.id_repo.keys.reduce([]) do |results, id|
+      if @merchants.id_repo[id].invoices.count <= two_stndv_below_avg
+        results << @merchants.id_repo[id]
+      end
+      results.flatten
+    end
+  end
+
 
 end
