@@ -28,4 +28,9 @@ class SalesAnalystTest < Minitest::Test
     actual = sa.merchants_with_high_item_count
     assert_equal 0, actual.count
   end
+
+  def test_it_can_calculate_average_price_item_price_per_merchant
+    actual = sa.average_item_price_for_merchant(12334113)
+    assert_instance_of BigDecimal, actual
+  end
 end
