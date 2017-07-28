@@ -26,4 +26,8 @@ class TransactionRepository
       @transactions << transaction
     end
   end
+
+  def all
+    @transactions
+  end
 end

@@ -14,4 +14,13 @@ class TransactionRepositoryTest < Minitest::Test
 
     assert_equal 10, tr.transactions.count
   end
+
+  def test_it_can_return_all_invoice_items
+    tr = TransactionRepository.new('./data/transactions_short.csv', self)
+
+    target = tr.all
+
+    assert_equal Array, target.class
+    assert_equal 10, target.count
+  end
 end
