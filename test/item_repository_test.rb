@@ -1,5 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require_relative 'test_helper'
 require_relative '../lib/item_repository'
 require_relative '../lib/sales_engine'
 
@@ -104,6 +103,18 @@ class ItemRepositoryTest < Minitest::Test
 
     item = itemrepo.find_all_by_merchant_id(2345234523498709872345)
     assert item.empty?
+  end
+
+  def test_item_repo_to_se_gets_merchant
+    se = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+    })
+    items = se.items
+    merchant = items.item_repo_to_se(12335119)
+
+    assert_instance_of Merchant, merchant
   end
 
 end

@@ -6,7 +6,8 @@ class ItemRepository
   attr_reader :sales_engine,
               :id_repo,
               :price_repo,
-              :file_path
+              :file_path,
+              :sales_engine
 
   def initialize(file_path, sales_engine)
     @file_path =        file_path
@@ -89,6 +90,10 @@ class ItemRepository
     else
       []
     end
+  end
+
+  def item_repo_to_se(merchant_id)
+    @sales_engine.merchant_by_merchant_id(merchant_id)
   end
 
   def inspect

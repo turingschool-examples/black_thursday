@@ -17,11 +17,11 @@ class Invoice
     @status =         invoice_info[:status]
     @created_at =     Time.parse(invoice_info[:created_at])
     @updated_at =     Time.parse(invoice_info[:updated_at])
+    @invoice_repo =   invoice_repo
   end
 
   def merchant
-    merchant_repo = @invoice_repo.sales_engine.merchants
-    merchant_repo.find_by_id(@merchant_id)
+    self.invoice_repo.invoice_repo_to_se_merchant(merchant_id)
   end
 
 end
