@@ -106,4 +106,15 @@ class SalesEngineTest < Minitest::Test
     assert item.merchant
   end
 
+  def test_it_can_connect_invoices_to_merchants
+    se = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+      })
+    merchant = se.merchants.find_by_id(12334839)
+
+    assert_equal 9, merchant.invoices.length
+  end
+
 end

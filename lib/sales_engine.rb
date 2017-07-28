@@ -11,7 +11,7 @@ class SalesEngine
   def initialize(data)
     @items = ItemRepository.new(data[:items], self)
     @merchants = MerchantRepository.new(data[:merchants], self)
-    @invoices = InvoiceRepository.new(data[:invoices])
+    @invoices = InvoiceRepository.new(data[:invoices], self)
   end
 
   def self.from_csv(data)
@@ -23,7 +23,6 @@ class SalesEngine
   end
 
   def merchant(item_id)
-    require "pry"; binding.pry
     @merchants.merchant(item_id)
   end
 
@@ -33,6 +32,10 @@ class SalesEngine
 
   def fetch_merchant(merchant_id)
     @merchants.find_by_id(merchant_id)
+  end
+
+  def fetch_invoices(merchant_id)
+    @invoices.find_all_by_merchant_id(merchant_id)
   end
 
 end

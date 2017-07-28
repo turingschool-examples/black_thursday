@@ -11,4 +11,8 @@ class Merchant
     @mr.fetch_items(id)
   end
 
+  def invoices
+    @mr.fetch_invoices(id)
+  end
+
 end

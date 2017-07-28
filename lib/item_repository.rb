@@ -68,8 +68,7 @@ class ItemRepository
     @sales_engine.fetch_merchant(merchant_id)
   end
 
-
   def inspect
-    "#<#{self.class} #{@items.size} rows>"
+    "#<#{self.class} #{@repository.size} rows>"
   end
 end
