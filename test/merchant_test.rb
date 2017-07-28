@@ -40,6 +40,11 @@ class MerchantTest < Minitest::Test
     assert_instance_of Invoice, @merchant.invoices[0]
   end
 
+  def test_customers_returns_array_of_merchants_customers
+    assert_instance_of Customer, @merchant.customers[0]
+    assert_equal 3, @merchant.customers.count
+  end
+
 
 
 end

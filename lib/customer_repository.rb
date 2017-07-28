@@ -6,7 +6,8 @@ require_relative '../lib/file_opener'
 
 class CustomerRepository
   include FileOpener
-  attr_reader :all
+  attr_reader :all,
+              :se
 
   def initialize(customers, sales_engine)
     @customers = open_csv(customers)
