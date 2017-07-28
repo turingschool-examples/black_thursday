@@ -68,16 +68,17 @@ class InvoiceTest < Minitest::Test
     assert_instance_of Time, updated_at
   end
 
-  def test_invoice_can_check_for_merchants
+  def test_invoice_can_check_merchant
     se = SalesEngine.from_csv({
           :items     => "./data/items.csv",
           :merchants => "./data/merchants.csv",
           :invoices => "./data/invoices.csv"
         })
-    invoice = se.invoices.find_by_id(71)
-    merchant = se.merchants.find_by_id(12336292)
+    invoices = se.invoices
+    invoice = invoices.find_all_by_merchant_id(12335119)[0]
+    merchant = invoice.merchant
 
-    assert_equal invoice.merchant_id, merchant.id
+    assert_instance_of Merchant, merchant
   end
 
 end
