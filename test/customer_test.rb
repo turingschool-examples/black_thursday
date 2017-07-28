@@ -18,11 +18,22 @@ class CustomerTest < Minitest::Test
             })
     @c = Customer.new({
               :id => 6,
-              :invoice_id => 8,
-              :credit_card_number => "4242424242424242",
-              :credit_card_expiration_date => "0220",
-              :result => "success",
+              :first_name => "Joan",
+              :last_name => "Clarke",
               :created_at => Time.now,
               :updated_at => Time.now
             }, @se.customers)
     end
+
+    def test_it_exists
+      assert_instance_of Customer, @c
+    end
+
+    def test_has_attributes
+      assert_equal 6, @c.id
+      assert_equal "Joan", @c.first_name
+      assert_equal "Clarke", @c.last_name
+      assert_instance_of Time, @c.created_at
+      assert_instance_of Time, @c.updated_at
+    end
+end
