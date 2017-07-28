@@ -7,10 +7,10 @@ require './lib/invoice'
 
 class InvoiceTest < Minitest::Test
   def setup
-    hash = {id: 1, customer_id: 3, merchant_id: 4,
-            status: :Closed, created_at: "2012-11-23",
-            updated_at: "2013-04-14"                  }
-    @in_v = Invoice.new(hash, 1)
+      hash = {id: 1, customer_id: 3, merchant_id: 4,
+              status: :Closed, created_at: "2012-11-23",
+              updated_at: "2013-04-14"                  }
+      @in_v = Invoice.new(hash, 1)
   end
 
   def test_it_is_initialized_corectly
