@@ -1,0 +1,9 @@
+id,name,description,unit_price,merchant_id,created_at,updated_at
+10000,Item 1,"Glitter scrabble frames
+
+Wooden",1300,12334105,2016-01-11 11:51:37 UTC,1993-09-29 11:56:40 UTC
+
+10006,Item 7,are you still reading?,999,12334105,2016-01-11 11:51:37 UTC,2001-09-17 15:28:43 UTC
+10007,Item 8,"really, there isnt anything more",875,12334115,2016-01-11 11:51:37 UTC,2001-09-17 15:28:43 UTC
+10008,Item 9,just move along,1700,12334112,2016-01-11 11:51:37 UTC,2001-09-17 15:28:43 UTC
+10009,Item 10,almost over,2100,12334115,2016-01-11 11:51:37 UTC,2001-09-17 15:28:43 UTC
