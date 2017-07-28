@@ -55,16 +55,12 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(merchant_id)
-    # What are prices like on our platform?
-    # Are these merchants selling commodity or luxury goods?
-    # Let’s find the average price of a merchant’s items (by supplying the merchant ID):
-    # it "#average_item_price_for_merchant returns the average item price for the given merchant" do
-    #   merchant_id = 12334105
-    #   expected = sales_analyst.average_item_price_for_merchant(merchant_id)
-    #
-    #   expect(expected).to eq 16.66
-    #   expect(expected.class).to eq BigDecimal
-    # end
+    merchant = @engine.merchants.find_by_id(merchant_id)
+    total_price = merchant.items.reduce(0) do |sum, item|
+      sum + item.unit_price
+    end
+    return 0 if merchant.items.empty?
+    (total_price / merchant.items.count).round(2)
   end
 
   def average_average_price_per_merchant
