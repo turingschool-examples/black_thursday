@@ -1,17 +1,19 @@
+require 'item_repo'
+require 'merchant_repo'
+
 class SalesAnalyst
 
   def initialize(engine)
     @engine = engine
   end
 
-   def average_items_per_merchant
-  #     it "#average_items_per_merchant returns average items per merchant" do
-  #     expected = sales_analyst.average_items_per_merchant
-  #
-  #     expect(expected).to eq 2.88
-  #     expect(expected.class).to eq Float
-  #     end
-   end
+  def average_items_per_merchant
+    merchant = @engine.merchants.all
+    items    = @engine.items.all
+
+    average = (items.length.to_f)/(merchant.length)
+    average.round(2)
+  end
 
    def average_items_per_merchant_standard_deviation
      #  it "#average_items_per_merchant_standard_deviation returns the standard deviation" do
