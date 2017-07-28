@@ -16,11 +16,33 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-    binding.pry
     results = @sales_engine.invoices.all.group_by do |invoice|
       convert_date(invoice)
     end
-    binding.pry
+    day_occurance = {}
+    results.each_pair do |day, invoices|
+      day_number =
+      day_occurance.merge!({day => invoices.count})
+    end
+    find_top_days(day_occurance)
+  end
+
+
+  def find_top_days(day_occurance)
+    all_averages = day_occurance.values
+    s_dev = standard_deviance(all_averages)
+    mark = average_invoices_per_day + s_dev
+    top_days = []
+    day_occurance.each_pair do |day, invoices|
+      if invoices > mark
+        top_days << day
+      end
+    end
+    top_days
+  end
+
+  def average_invoices_per_day
+    @sales_engine.invoices.all.count / 7
   end
 
   def average_items_per_merchant
@@ -81,7 +103,6 @@ class SalesAnalyst
     item_prices = items.map do |item|
       item.unit_price
     end
-    # binding.pry
     mean(item_prices).round(2)
   end
 
@@ -109,6 +130,18 @@ class SalesAnalyst
     end
     items
   end
+
+  def invoice_status(symbol)
+    total = @sales_engine.invoices.all.count
+    case symbol
+    when :pending
+      @sales_engine.invoices.count(symbol) |do|
+        @sales_engine.invoices.all
+      end
+    end
+
+    when :shipped
+    when :returned
 
   # def all_averages(repo)
   #   binding.pry
@@ -148,6 +181,7 @@ class SalesAnalyst
     count = @sales_engine.items.find_all_by_merchant_id(id).count
     count
   end
+
 
 
 end
