@@ -13,7 +13,7 @@ class ItemRepository
   def create_hash_of_items(csvfile)
     all_items = {}
     csvfile.each do |row|
-      all_items[row[:id]] = Item.new(row, @items)
+      all_items[row[:id]] = Item.new(row, self)
     end
     all_items
   end
@@ -26,9 +26,9 @@ class ItemRepository
     @items.values
   end
 
-  # def find_merchant_vendor(id)
-  #   @engine.find_merchant_by_item_id(id)
-  # end
+  def find_merchant_vendor(merchant_id)
+    @engine.find_merchant_by_id(merchant_id)
+  end
 
   def find_all_items_to_a_merchant(merchant_id)
     all.find_all do |item|

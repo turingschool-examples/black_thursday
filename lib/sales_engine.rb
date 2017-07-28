@@ -24,8 +24,8 @@ class SalesEngine
     @items.find_all_items_to_a_merchant(merchant_id)
   end
 
-  def find_merchant_by_item_id(id)
-    @merchants.find_al(id.to_s)
+  def find_merchant_by_id(merchant_id)
+    @merchants.find_by_id(merchant_id)
   end
 
   def self.from_csv(se_hash)
@@ -46,7 +46,7 @@ class SalesEngine
   end
 
   def self.load_items(csvfile)
-    contents = CSV.open csvfile, headers: true, header_converters: :symbol
+    CSV.open csvfile, headers: true, header_converters: :symbol
   end
 
   # def self.load_invoices(csvfile)

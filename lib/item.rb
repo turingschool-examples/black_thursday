@@ -22,7 +22,7 @@ class Item
   end
 
   def merchant
-    @item_repo.find_merchant_vendor(@id)
+    @item_repo.find_merchant_vendor(merchant_id)
   end
 
 

@@ -27,6 +27,12 @@ class MerchantRepository
     @merchants.values
   end
 
+  def find_merchant_by_an_item(item_id)
+    all.find do |merchant|
+        merchant.item_id == item_id
+      end
+  end
+
   def find_by_id(id)
     @merchants[id.to_s]
   end
