@@ -41,9 +41,7 @@ class SalesAnalyst
   def golden_items
     gold = []
     se.all_items.map do |item|
-      if item.unit_price > two_std_dev(item_prices)
-        gold << item
-      end
+      item_std_dev(gold, item)
     end
     gold
   end

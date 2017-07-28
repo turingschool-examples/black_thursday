@@ -21,7 +21,7 @@ module Stats
     avg + std_dev
   end
 
-  def num_items_per_merchant#refactor using hash?
+  def num_items_per_merchant
     se.all_merchants.map do |merchant|
       merch = se.merchants.find_by_id(merchant.id)
       merch.items.count
@@ -49,6 +49,12 @@ module Stats
     avg     = average(item_prices)
     std_dev = standard_deviation(info) * 2
     avg + std_dev
+  end
+
+  def item_std_dev(array, item)
+    if item.unit_price > two_std_dev(item_prices)
+      array << item
+    end
   end
 
 end
