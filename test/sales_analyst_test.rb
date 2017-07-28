@@ -1,15 +1,3 @@
-# sa.average_invoices_per_merchant # => 10.49
-# sa.average_invoices_per_merchant_standard_deviation # => 3.29
-# sa.top_merchants_by_invoice_count # => [merchant, merchant, merchant]
-#    ^2 stndvs above mean
-# sa.bottom_merchants_by_invoice_count # => [merchant, merchant, merchant]
-#    ^2 stndvs below mean
-# sa.top_days_by_invoice_count # => ["Sunday", "Saturday
-#    ^2 stndvs above mean (need average invoices per day + stndv)
-#    sa.invoice_status(:pending) # => 29.55
-#    sa.invoice_status(:shipped) # => 56.95
-#    sa.invoice_status(:returned) # => 13.5
-#    ^ percent of each status
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/sales_analyst'
