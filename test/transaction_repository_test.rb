@@ -21,4 +21,29 @@ class TransactionRepositoryTest < Minitest::Test
   def test_it_exists
     assert_instance_of TransactionRepository, @tr
   end
+
+  def test_all_returns_array_of_all_transactions
+    assert_instance_of Array, @tr.all
+    assert_equal 50, @tr.all.count
+  end
+
+  def find_by_id
+    assert_instance_of Transaction, @tr.find_by_id(6)
+  end
+
+  def test_find_all_by_invoice_id
+    assert_instance_of Array, @tr.find_all_by_invoice_id(2179)
+    assert_equal 1, @tr.find_all_by_invoice_id(2179).count
+  end
+
+  def test_find_all_by_credit_card_number
+    assert_instance_of Array, @tr.find_all_by_credit_card_number(4177816490204479)
+    assert_equal 1, @tr.find_all_by_credit_card_number(4177816490204479).count
+  end
+
+  def test_find_all_by_result
+    assert_instance_of Array, @tr.find_all_by_result("success")
+    assert_equal 40, @tr.find_all_by_result("success").count
+  end
+
 end
