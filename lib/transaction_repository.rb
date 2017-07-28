@@ -1,8 +1,10 @@
 require 'pry'
 require 'csv'
 require_relative '../lib/transaction'
+
 class TransactionRepository
-  attr_reader :items
+
+  attr_reader :transactions
 
   def initialize(sales_engine = self)
     @sales_engine = sales_engine
@@ -75,6 +77,6 @@ class TransactionRepository
 end
 
 
-tr = TransactionRepository.new
-tr.from_csv("./data/transactions.csv")
-binding.pry
+# tr = TransactionRepository.new
+# tr.from_csv("./data/transactions.csv")
+# binding.pry
