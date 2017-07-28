@@ -33,4 +33,14 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal 2179, target.invoice_id
     assert_nil target_2
   end
+
+  def test_it_can_find_all_by_invoice_id
+    tr = TransactionRepository.new('./data/transactions_short.csv', self)
+
+    target = tr.find_all_by_invoice_id(46)
+    target_2 = tr.find_all_by_invoice_id(0)
+
+    assert_equal 2, target[0].id
+    assert_equal [], target_2
+  end
 end
