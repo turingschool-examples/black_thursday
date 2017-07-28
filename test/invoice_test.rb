@@ -31,7 +31,7 @@ class InventoryTest < Minitest::Test
   end
 
   def test_it_returns_status
-    assert_equal "pending", @i.status
+    assert_equal :pending, @i.status
   end
 
   def test_it_returns_a_time_instance_for_date_created

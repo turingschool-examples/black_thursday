@@ -22,9 +22,7 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    if repository.keys.include?(id)
-      return repository[id]
-    end
+    repository[id]
   end
 
   def find_by_name(name)
@@ -45,7 +43,11 @@ class MerchantRepository
     @sales_engine.fetch_items(merchant_id)
   end
 
+  def fetch_invoices(merchant_id)
+    @sales_engine.fetch_invoices(merchant_id)
+  end
+
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{@repository.size} rows>"
   end
 end
