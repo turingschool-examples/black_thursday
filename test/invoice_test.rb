@@ -18,7 +18,7 @@ class InvoiceTest < Minitest::Test
                            :updated_at => "2015-07-01"}, self)
     id = invoice.id
 
-    assert_equal 17, invoice.id
+    assert_equal 17, id
   end
 
   def test_invoice_has_customer_id
