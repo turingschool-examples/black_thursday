@@ -22,11 +22,7 @@ class Item
   end
 
   def merchant
-    se = SalesEngine.from_csv({
-                              :items     => "./data/items.csv",
-                              :merchants => "./data/merchants.csv",
-                                                                  })
-    assert_equal "something", se.items.items[0].merchant
+    @sales_engine.merchants.find_by_id(self.merchant_id)
   end
 
 end
