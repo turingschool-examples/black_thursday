@@ -18,4 +18,8 @@ class InvoiceItemTest < Minitest::Test
   def test_it_exist
     assert_instance_of InvoiceItem, @ii
   end
+
+  def test_it_returns_id
+    assert_equal 6, @ii.id
+  end
 end
