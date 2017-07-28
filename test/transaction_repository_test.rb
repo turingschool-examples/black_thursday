@@ -43,4 +43,14 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal 2, target[0].id
     assert_equal [], target_2
   end
+
+  def test_it_can_find_all_by_credit_card_number
+    tr = TransactionRepository.new('./data/transactions_short.csv', self)
+
+    target = tr.find_all_by_credit_card_number("4149654190362629")
+    target_2 = tr.find_all_by_credit_card_number(0)
+
+    assert_equal 10, target[0].id
+    assert_equal [], target_2
+  end
 end
