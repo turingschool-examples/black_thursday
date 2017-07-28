@@ -64,15 +64,12 @@ class SalesAnalyst
   end
 
   def average_average_price_per_merchant
-    # Then we can sum all of the averages and find the average price across all merchants
-    #(this implies that each merchant’s average has equal weight in the calculation)
-    # it "#average_average_price_per_merchant returns the average price for all merchants" do
-    #   expected = sales_analyst.average_average_price_per_merchant
-    #
-    #   expect(expected).to eq 350.29
-    #   expect(expected.class).to eq BigDecimal
-    # end
+    total_average = @engine.merchants.all.reduce(0) do |sum, merchant|
+      sum + average_item_price_for_merchant(merchant.id)
+    end
+    (total_average / @engine.merchants.all.count).round(2)
   end
+
 
   def golden_items
     # Given that our platform is going to charge merchants based on their sales, expensive items are extra exciting to us. Which are our “Golden Items”,
