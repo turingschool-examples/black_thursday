@@ -15,6 +15,26 @@ class InvoiceItemRepository
     end
   end
 
+  def find_all_by_item_id(item_id)
+    results = []
+    @invoice_items.each do |ii|
+      if ii.item_id == item_id
+        results << ii
+      end
+    end
+    results
+  end
+
+  def find_all_by_invoice_id(invoice_id)
+    results = []
+    @invoice_items.each do |ii|
+      if ii.invoice_id == invoice_id
+        results << ii
+      end
+    end
+    results
+  end
+
   def add_data(data)
     @invoice_items << InvoiceItem.new(data.to_hash, @sales_engine)
   end

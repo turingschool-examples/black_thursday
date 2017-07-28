@@ -41,7 +41,58 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_nil @ii_repo.find_by_id(1527)
   end
 
-  def te
+  def test_find_by_id_is_working_for_entire
+    save = @ii_repo.find_by_id(125)
+    assert_instance_of InvoiceItem, save
+    assert_equal 5, save.item_id
+    assert_equal 3, save.invoice_id
+  end
 
+  def test_find_all_by_item_id_returns_blank_if_not_found
+    ii_repo = InvoiceItemRepository.new(self)
+    assert ii_repo.find_all_by_item_id(123).empty?
+    assert @ii_repo.find_all_by_item_id(1234).empty?
+  end
+
+  def test_find_all_by_item_id_works_for_one_entry
+    one = @ii_repo.find_all_by_item_id(7)
+    two = @ii_repo.find_all_by_item_id(2)
+
+    assert_equal 1  , one.count
+    assert_equal 122, one.first.id
+    assert_equal 1  , two.count
+    assert_equal 123, two.first.id
+  end
+
+  def test_find_all_by_item_id_works_for_multiple_entries
+    one = @ii_repo.find_all_by_item_id(5)
+    assert_equal 2, one.count
+    assert_equal 124, one.first.id
+    assert_equal 125, one.last.id
+  end
+
+  def test_find_all_by_invoice_id_returns_blank_if_not_found
+    ii_repo = InvoiceItemRepository.new(self)
+    assert ii_repo.find_all_by_invoice_id(4).empty?
+    assert @ii_repo.find_all_by_invoice_id(4).empty?
+  end
+
+  def test_find_all_by_invoice_id_works_for_one_entry
+    one = @ii_repo.find_all_by_invoice_id(2)
+    two = @ii_repo.find_all_by_invoice_id(3)
+
+    assert_equal 1  , one.count
+    assert_equal 123, one.first.id
+    assert_equal 1  , two.count
+    assert_equal 125, two.first.id
+  end
+
+  def test_find_all_by_invoice_id_works_for_multiple_entries
+    one = @ii_repo.find_all_by_invoice_id(1)
+
+    assert_equal 2  , one.count
+    assert_equal 122, one.first.id
+    assert_equal 124, one.last.id
+  end
 
 end
