@@ -25,15 +25,13 @@ class InvoiceRepository
   end
 
   def find_all_by_customer_id(customer_id)
-    invoices = repository.values
-    invoices.find_all do |invoice|
+    all.find_all do |invoice|
       invoice.customer_id == customer_id
     end
+  end
 
-    def fetch_merchant_id(merchant_id)
-      @sales_engine.fetch_merchant_id(merchant_id)
-    end
-
+  def fetch_merchant_id(merchant_id)
+    @sales_engine.fetch_merchant_id(merchant_id)
   end
 
   def find_all_by_merchant_id(merchant_id)
@@ -53,4 +51,5 @@ class InvoiceRepository
   def inspect
     "#<#{self.class} #{@repository.size} rows>"
   end
+
 end
