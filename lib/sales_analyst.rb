@@ -36,7 +36,7 @@ class SalesAnalyst
     merchant_id_item_group.each do |key,value|
       avg << value.map {|item| item.unit_price}.reduce(:+) / value.count
     end
-    (avg.reduce(:+) / avg.count).round(2)
+    average(avg)
   end
 
 
