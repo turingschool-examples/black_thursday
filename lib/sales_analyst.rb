@@ -108,10 +108,9 @@ class SalesAnalyst
   end
 
   def top_merchants_by_invoice_count
-    top_merchants = @se.merchants.all.find_all do |merchant|
-      merchant.invoices.count > (average_invoice_count + (average_invoices_per_merchant_standard_deviation * 2)).round(2)
+    @se.merchants.all.find_all do |merchant|
+      merchant.invoices.count < (average_invoice_count + (average_invoices_per_merchant_standard_deviation * 2))
     end
-    top_merchants
   end
 
   def average_invoice_count
@@ -121,10 +120,9 @@ class SalesAnalyst
   end
 
   def bottom_merchants_by_invoice_count
-    bottom_merchants = @se.merchants.all.find_all do |merchant|
+    @se.merchants.all.find_all do |merchant|
       merchant.invoices.count > (average_invoice_count - (average_invoices_per_merchant_standard_deviation * 2)).round(2)
     end
-    bottom_merchants
   end
 
   def turn_date_to_day(date)
@@ -132,8 +130,9 @@ class SalesAnalyst
     date.strftime("%A")
   end
 
-  # def top_days_by_invoice_count
-  #   @se.invoices.all.find_all do |invoice|
-  # end
+  def top_days_by_invoice_count
+    @se.invoices.all.find_all do |invoice|
+    end
+  end
 
 end

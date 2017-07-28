@@ -16,6 +16,10 @@ class CustomerRepository
     end
   end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
   def find_by_id(id)
     @all.find do |customer|
       customer.id == id
