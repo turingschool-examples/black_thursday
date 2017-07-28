@@ -53,4 +53,14 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal 10, target[0].id
     assert_equal [], target_2
   end
+
+  def test_it_can_find_all_by_result
+    tr = TransactionRepository.new('./data/transactions_short.csv', self)
+
+    target = tr.find_all_by_result(:success)
+    target_2 = tr.find_all_by_result("none")
+
+    assert_equal 9, target.count
+    assert_equal [], target_2
+  end
 end
