@@ -1,3 +1,4 @@
+require_relative 'test_helper'
 # sa = SalesAnalyst.new(sales_engine)
 # sa.average_items_per_merchant
 # sa.average_items_per_merchant_standard_deviation
