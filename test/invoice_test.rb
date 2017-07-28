@@ -2,7 +2,7 @@ require_relative 'test_helper'
 require './lib/invoice'
 require 'pry'
 
-class InventoryTest < Minitest::Test
+class InvoiceTest < Minitest::Test
   def setup
     @i = Invoice.new({
       :id          => 6,
