@@ -40,4 +40,9 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of BigDecimal, actual
     assert_equal 0.05, actual
   end
+
+  def test_it_can_find_golden_items
+    skip
+    assert_equal 3, sa.golden_items.count
+  end
 end

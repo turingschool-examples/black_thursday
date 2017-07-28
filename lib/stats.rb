@@ -21,7 +21,7 @@ module Stats
     avg + std_dev
   end
 
-  def num_items_per_merchant
+  def num_items_per_merchant#refactor using hash?
     se.all_merchants.map do |merchant|
       merch = se.merchants.find_by_id(merchant.id)
       merch.items.count

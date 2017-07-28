@@ -27,8 +27,7 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(id)
-    (merchant_items_prices(id).reduce(:+) /
-      merchant_items_prices(id).count).round(2)
+    average(merchant_items_prices(id))
   end
 
   def average_average_price_per_merchant
@@ -37,6 +36,10 @@ class SalesAnalyst
       avg << value.map {|item| item.unit_price}.reduce(:+) / value.count
     end
     average(avg)
+  end
+
+  def golden_items
+
   end
 
 
