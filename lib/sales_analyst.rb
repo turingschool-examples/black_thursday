@@ -1,6 +1,9 @@
 require 'pry'
 
 class SalesAnalyst
+
+  attr_reader :se
+
   def initialize(se)
     @se = se
   end
@@ -15,10 +18,15 @@ class SalesAnalyst
     ((@se.items.all.count.to_f) / (@se.merchants.all.count.to_f)).round(2)
   end
 
+  def standard_deviation(values)
+    average = values.reduce(:+)/values.length.to_f
+    average_average = values.reduce(0) {|val, num| val += ((num - average)**2) }
+    Math.sqrt(average_average / (values.length-1)).round(2)
+  end
+
   def average_items_per_merchant_standard_deviation
     set = set_of_merchant_items
-    mean = set.inject(:+).to_f / set.size
-    Math.sqrt(set.inject(0){|sum,val| sum + (val - mean)**2} / set.size).round(2)
+    standard_deviation(set)
   end
 
   def set_of_item_prices
@@ -78,9 +86,8 @@ class SalesAnalyst
   end
 
   def average_item_price_standard_deviation
-    mean = average_item_price
     set = set_of_item_prices
-    Math.sqrt(set.inject(0){|sum,val| sum + (val - mean)**2} / set.size)
+    standard_deviation(set)
   end
 
   def golden_items
@@ -103,13 +110,22 @@ class SalesAnalyst
 
   def average_invoices_per_merchant_standard_deviation
     set = set_of_merchant_invoices
-    mean = set.inject(:+).to_f / set.size
-    Math.sqrt(set.inject(0){|sum,val| sum + (val - mean)**2} / set.size).round(2)
+    standard_deviation(set)
   end
 
   def top_merchants_by_invoice_count
+    std_dev = (average_invoices_per_merchant_standard_deviation * 2)
+    mean = average_invoices_per_merchant
     @se.merchants.all.find_all do |merchant|
-      merchant.invoices.count < (average_invoice_count + (average_invoices_per_merchant_standard_deviation * 2))
+      (merchant.invoices.count - mean) > std_dev
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    std_dev = (average_invoices_per_merchant_standard_deviation * 2)
+    mean = average_invoices_per_merchant
+    @se.merchants.all.find_all do |merchant|
+      (mean - merchant.invoices.count) > std_dev
     end
   end
 
@@ -119,20 +135,48 @@ class SalesAnalyst
     set.count / total_merchant_count
   end
 
-  def bottom_merchants_by_invoice_count
-    @se.merchants.all.find_all do |merchant|
-      merchant.invoices.count > (average_invoice_count - (average_invoices_per_merchant_standard_deviation * 2)).round(2)
-    end
-  end
-
   def turn_date_to_day(date)
     date = Date.parse(date)
     date.strftime("%A")
   end
 
-  def top_days_by_invoice_count
-    @se.invoices.all.find_all do |invoice|
+  def generate_deviation(mean, items)
+    pre_deviation = (items.reduce(0) do |sum, avg_num|
+      sum + ((avg_num - mean) ** 2)
+    end)/(items.count - 1).to_f
+    Math.sqrt(pre_deviation).round(2)
+  end
+
+  def collect_invoices_per_day
+    @se.invoices.all.reduce(Hash.new(0)) do |days, invoice|
+      invoice_day = invoice.created_at.strftime("%A")
+      days[invoice_day] += 1
+      days
     end
+  end
+
+  def top_days_by_invoice_count
+    average = (@se.invoices.all.count / 7).to_f
+    invoices_per_day = collect_invoices_per_day.values
+    day_deviation = generate_deviation(average, invoices_per_day)
+    var = collect_invoices_per_day.find_all do |day, count|
+      count > (average + day_deviation)
+    end
+    var = var.map do |day|
+      day.join.to_s[0..-4].split
+    end.flatten
+  end
+
+  def calculate_invoice_percentage
+    status = @se.invoices.all.map{|invoice| invoice.status}
+    status = status.reduce(Hash.new(0)){|status, num| status[num] += 1; status}
+    sum = status.values.inject(:+)
+    status.each_with_object(Hash.new(0)){|(stat, num), hash|
+      hash[stat] = num * 100.0 / sum}
+  end
+
+  def invoice_status(status)
+    calculate_invoice_percentage[status].round(2)
   end
 
 end
