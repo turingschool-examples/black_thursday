@@ -176,15 +176,15 @@ class SalesAnalyst
       merchant.invoices.count
     end
   end
-
-  def average(data_set)
-    sum = 0
-    data_set.each do |average|
-      sum += average[:count]
-    end
-    average = (sum/data_set.count.to_f)
-    average.round(2)
-  end
+  #
+  # def average(data_set)
+  #   sum = 0
+  #   data_set.each do |average|
+  #     sum += average[:count]
+  #   end
+  #   average = (sum/data_set.count.to_f)
+  #   average.round(2)
+  # end
 
   def total_matches(id)
     count = @sales_engine.items.find_all_by_merchant_id(id).count
