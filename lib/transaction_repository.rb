@@ -6,7 +6,8 @@ require_relative '../lib/file_opener'
 
 class TransactionRepository
   include FileOpener
-  attr_reader :all
+  attr_reader :all,
+              :se
 
   def initialize(transactions, sales_engine)
     @transactions = open_csv(transactions)
@@ -40,5 +41,7 @@ class TransactionRepository
       transaction.result == result
     end
   end
+
+
 
 end

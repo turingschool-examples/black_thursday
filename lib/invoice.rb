@@ -23,6 +23,20 @@ class Invoice
   end
 
   def items
-    @invoice_repo.sales_engine.invoice_items.find_all_by_invoice_id(@id)
+    invoice_items = @invoice_repo.sales_engine.invoice_items.find_all_by_invoice_id(@id)
+    items = invoice_items.map do |invoice_item|
+      @invoice_repo.sales_engine.items.find_by_id(invoice_item.item_id)
+    end
   end
+
+  def transactions
+    @invoice_repo.sales_engine.transactions.find_all_by_invoice_id(@id)
+  end
+
+  def customer
+    @invoice_repo.sales_engine.customers.find_by_id(@customer_id.to_s)
+    # binding.pry
+  end
+
+
 end

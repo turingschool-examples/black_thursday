@@ -40,4 +40,8 @@ class TransactionTest < Minitest::Test
       assert_instance_of Time, @t.created_at
       assert_instance_of Time, @t.updated_at
   end
+
+  def test_invoice_finds_invoice
+    assert_instance_of Invoice, @t.invoice
+  end
 end

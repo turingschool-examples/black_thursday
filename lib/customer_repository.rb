@@ -17,8 +17,8 @@ class CustomerRepository
   end
 
   def find_by_id(id)
-    @all.find do |transaction|
-      transaction.id == id
+    @all.find do |customer|
+      customer.id == id
     end
   end
 

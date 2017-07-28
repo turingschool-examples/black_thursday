@@ -41,5 +41,9 @@ class InvoiceItemTest < Minitest::Test
     assert_instance_of Time, @ii.updated_at
   end
 
+  def test_find_all_by_item_id
+
+  end
+
 
 end
