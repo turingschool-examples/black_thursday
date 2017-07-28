@@ -20,4 +20,9 @@ class InvoiceItem
     @updated_at = Time.parse(updated_at)
     @iir = irr
   end
+
+  def unit_price_to_dollars
+    @unit_price.to_f
+  end
+  
 end
