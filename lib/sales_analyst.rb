@@ -20,8 +20,8 @@ class SalesAnalyst
   def merchants_with_high_item_count
     bar = one_standard_deviation_bar
     high_sell = []
-    high_selling_merchants.map do |merchant|
-      high_sell << merchant[0] if merchant[1] > bar
+    high_selling_merchants.each do |merchant, item_amt|
+      high_sell << merchant if item_amt > bar
     end
     high_sell
   end
@@ -39,6 +39,7 @@ class SalesAnalyst
   end
 
   def golden_items
+    gold = []
 
   end
 

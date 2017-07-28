@@ -29,7 +29,7 @@ module Stats
   end
 
   def high_selling_merchants
-    se.all_merchants.zip(num_items_per_merchant)
+    se.all_merchants.zip(num_items_per_merchant).to_h
   end
 
   def merchant_items_prices(id)
@@ -39,6 +39,14 @@ module Stats
 
   def merchant_id_item_group
     se.all_items.group_by {|item| item.merchant_id}
+  end
+
+  def item_prices
+    se.all_items.map {|item| item.unit_price}
+  end
+
+  def two_std_dev
+    standard_deviation(item_prices) * 2
   end
 
 end
