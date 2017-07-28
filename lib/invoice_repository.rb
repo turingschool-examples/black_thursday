@@ -16,9 +16,8 @@ class InvoiceRepository
 
   def load_repo
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
-      invoice_info = Hash[row]
-      invoice_identification = invoice_info[:id]
-      invoice = Invoice.new(invoice_info, self)
+      invoice_identification = row[:id]
+      invoice = Invoice.new(row, self)
       @id_repo[invoice_identification.to_i] = invoice
     end
   end
@@ -34,21 +33,29 @@ class InvoiceRepository
   end
 
   def find_all_by_customer_id(customer_id)
-    invoices = id_repo.values.select do |invoice_instance|
+    id_repo.values.select do |invoice_instance|
       invoice_instance.customer_id == customer_id
     end
   end
 
   def find_all_by_merchant_id(merchant_id)
-    invoices = id_repo.values.select do |invoice_instance|
+    id_repo.values.select do |invoice_instance|
       invoice_instance.merchant_id == merchant_id
     end
   end
 
   def find_all_by_status(status)
-    invoices = id_repo.values.select do |invoice_instance|
+    id_repo.values.select do |invoice_instance|
       invoice_instance.status == status
     end
+  end
+
+  def invoice_repo_to_se_merchant(merchant_id)
+    @sales_engine.merchant_by_merchant_id(merchant_id)
+  end
+
+  def inspect
+    "#<#{self.class} #{@invoices.size} rows>"
   end
 
 end

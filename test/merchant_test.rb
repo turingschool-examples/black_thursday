@@ -1,6 +1,4 @@
-gem 'minitest', '~> 5.2'
-require 'minitest/autorun'
-require 'minitest/pride'
+require_relative 'test_helper'
 require_relative '../lib/merchant'
 require_relative '../lib/sales_engine.rb'
 
@@ -63,11 +61,30 @@ class MerchantTest < Minitest::Test
     se = SalesEngine.from_csv({
           :items     => "./data/items.csv",
           :merchants => "./data/merchants.csv",
+          :invoices => "./data/invoices.csv"
         })
-    merchant = se.merchants.find_by_id(12334112)
-    merch_items = merchant.items
+    merchants = se.merchants
+    merchant = merchants.find_by_id(12335119)
+    items = merchant.items
 
-    assert_equal 1, merch_items.count
+    assert_instance_of Array, items
+    assert_instance_of Item, items[0]
+    assert_equal 2, items.count
+  end
+
+  def test_merchant_can_check_for_invoices
+    se = SalesEngine.from_csv({
+          :items     => "./data/items.csv",
+          :merchants => "./data/merchants.csv",
+          :invoices => "./data/invoices.csv"
+        })
+    merchants = se.merchants
+    merchant = merchants.find_by_id(12335119)
+    invoices = merchant.invoices
+
+    assert_instance_of Array, invoices
+    assert_instance_of Invoice, invoices[0]
+    assert_equal 9, invoices.count
   end
 
 end

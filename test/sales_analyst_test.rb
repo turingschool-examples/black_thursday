@@ -1,8 +1,24 @@
+<<<<<<< HEAD
 sa = SalesAnalyst.new
 sa.total_revenue_by_date(date) #=> $$
 sa.top_revenue_earners(x) #=> [merchant, merchant, merchant, merchant, merchant]
         ^top x merchants
 
+=======
+require_relative 'test_helper'
+# sa = SalesAnalyst.new(sales_engine)
+# sa.average_items_per_merchant
+# sa.average_items_per_merchant_standard_deviation
+#     Take the difference between each number and the mean and square it
+#     Sum these square differences together
+#     Divide the sum by the number of elements minus 1
+#     Take the square root of this result
+# sa.merchants_with_high_item_count # => [merchant, merchant, merchant]
+# sa.average_item_price_for_merchant(merchant_id) # => BigDecimal
+# sa.average_average_price_per_merchant # => BigDecimal
+# sa.golden_items # => [<item>, <item>, <item>, <item>]
+#     ^2 standard deviations above average price
+>>>>>>> 230e3e466efeefc17637353011a21dd74edd6611
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/sales_analyst'

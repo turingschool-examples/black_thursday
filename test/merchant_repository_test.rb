@@ -1,6 +1,4 @@
-gem 'minitest', '~> 5.2'
-require 'minitest/autorun'
-require 'minitest/pride'
+require_relative 'test_helper'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/sales_engine'
 
@@ -16,6 +14,7 @@ class MerchantRepositoryTest < Minitest::Test
     se = SalesEngine.from_csv({
           :items     => "./data/items.csv",
           :merchants => "./data/merchants.csv",
+          :invoices => "./data/invoices.csv",
         })
     mr = se.merchants
 
@@ -99,6 +98,30 @@ class MerchantRepositoryTest < Minitest::Test
     merchants = mr.find_all_by_name('adsf;lkjsdaf')
 
     assert_equal [], merchants
+  end
+
+  def test_merchant_repo_to_se
+    se = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+    })
+    merchants = se.merchants
+    item = merchants.merchant_repo_to_se(12335119)
+
+    assert_instance_of Item, item[0]
+  end
+
+  def test_merchant_repo_to_se_invoices
+    se = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+    })
+    merchants = se.merchants
+    invoices = merchants.merchant_repo_to_se_invoices(12335119)
+
+    assert_instance_of Invoice, invoices[0]
   end
 
 end

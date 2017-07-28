@@ -5,7 +5,8 @@ class Merchant
   attr_reader :name,
               :id,
               :created_at,
-              :updated_at
+              :updated_at,
+              :merchant_repo
 
   def initialize(merchant_info, merchant_repo)
     @name           = merchant_info[:name]
@@ -16,8 +17,11 @@ class Merchant
   end
 
   def items
-    item_repo = @merchant_repo.sales_engine.items
-    item_repo.find_all_by_merchant_id(@id)
+    self.merchant_repo.merchant_repo_to_se(id)
+  end
+
+  def invoices
+    self.merchant_repo.merchant_repo_to_se_invoices(id)
   end
 
 end

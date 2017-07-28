@@ -1,6 +1,4 @@
-gem 'minitest', '~> 5.2'
-require 'minitest/autorun'
-require 'minitest/pride'
+require_relative 'test_helper'
 require_relative '../lib/invoice_repository'
 require_relative '../lib/sales_engine'
 
@@ -107,6 +105,18 @@ class InvoiceRepositoryTest < Minitest::Test
 
     assert_instance_of Array, invoices
     assert_equal [], invoices
+  end
+
+  def test_invoice_repo_to_se_merchant
+    se = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+    })
+    invoices = se.invoices
+    merchant = invoices.invoice_repo_to_se_merchant(12335119)
+
+    assert_instance_of Merchant, merchant
   end
 
 end
