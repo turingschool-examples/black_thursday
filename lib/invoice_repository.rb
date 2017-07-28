@@ -30,8 +30,8 @@ class InvoiceRepository
       invoice.customer_id == customer_id
     end
 
-    def fetch_merchant_id(id)
-      @sales_engine.fetch_merchant_id(id)
+    def fetch_merchant_id(merchant_id)
+      @sales_engine.fetch_merchant_id(merchant_id)
     end
 
   end

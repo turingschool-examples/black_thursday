@@ -1,5 +1,6 @@
 require_relative 'merchant_repository'
 require_relative 'item_repository'
+require_relative 'invoice_repository'
 require 'csv'
 require 'pry'
 
@@ -38,8 +39,8 @@ class SalesEngine
     @invoices.find_all_by_merchant_id(merchant_id)
   end
 
-  def fetch_merchant_id(id)
-    @merchants.find_by_id(id)
+  def fetch_merchant_id(merchant_id)
+    @merchants.find_by_id(merchant_id)
   end
 
 end

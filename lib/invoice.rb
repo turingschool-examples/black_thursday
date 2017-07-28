@@ -16,6 +16,6 @@ class Invoice
   end
 
   def merchant
-    @invoice_repo.fetch_merchant_id(id)
+    @invoice_repo.fetch_merchant_id(merchant_id)
   end
 end
