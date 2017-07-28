@@ -157,6 +157,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_invoices_per_day
+    skip
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -168,6 +169,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_invoices_per_day_standard_deviation
+    skip
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -190,6 +192,23 @@ class SalesAnalystTest < Minitest::Test
 
     assert_instance_of Array, top_days
     assert_instance_of Symbol, top_days[0]
+  end
+
+  def test_invoice_status
+    sales_engine = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+    })
+    sales_analyst = SalesAnalyst.new(sales_engine)
+
+    pending = sales_analyst.invoice_status[:pending]
+    shipped = sales_analyst.invoice_status[:shipped]
+    returned = sales_analyst.invoice_status[:returned]
+
+    assert_equal 29.55, pending
+    assert_equal 56.95, shipped
+    assert_equal 13.5, returned
   end
 
 end

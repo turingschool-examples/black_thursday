@@ -183,4 +183,16 @@ class SalesAnalyst
       results
     end
   end
+
+  def invoice_status(symbol_marker)
+    look_for = symbol_marker.to_s
+    number_of = @invoices.id_repo.values.reduce(0) do |number, invoice|
+      if invoice.status == look_for
+        number += 1
+      end
+      number.to_f
+    end
+    ((number_of / total_invoices) * 100).round(2)
+  end
+
 end
