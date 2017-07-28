@@ -178,7 +178,4 @@ class SalesAnalystTest < Minitest::Test
     assert_equal ______, sales_analyst.average_invoices_per_day_standard_deviation
   end
 
-  def test
-
-
 end
