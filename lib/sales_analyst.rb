@@ -192,5 +192,46 @@ class SalesAnalyst
     end
     ((number_of / total_invoices) * 100).round(2)
   end
+######################################################################################
+  def total_revenue_by_date(date)
+    relevant_items = @transactions.id_repo.values.reduce([]) do |result, transaction|
+      if transaction.created_at == date
+        if transaction.result == :success
+          invoice = transaction.invoice
+          result << invoice.items
+        end
+      end
+      result.flatten
+    end
+    relevant_items.reduce(0) do |total, item|
+      total += (item.unit_price * item.quantity)
+      total
+    end
+  end
+
+  def total_revenue_for_merchant(merchant_id)
+    merchant = @merchants.id_repo[merchant_id]
+    invoices = merchant.invoices
+    successful = @
+
+  end
+
+
+  def top_revenue_earners(number=20)
+
+  end
+
+  def merchants_with_pending_invoices
+    @merchants.id_repo.find_all do |merchant|
+      invoices = merchant[1].invoices
+      invoices.any? do |invoice|
+        invoice.status == pending
+      end
+    end
+  end
+
+
+
+
 
 end
