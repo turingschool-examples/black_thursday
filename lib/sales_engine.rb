@@ -28,6 +28,10 @@ class SalesEngine
     @merchants.find_by_id(merchant_id)
   end
 
+  def find_by_id(id)
+    @invoices.find_by_id(invoice_id)
+  end
+
   def self.from_csv(se_hash)
     merchant_data     = load_merchants(se_hash[:merchants])
     item_data         = load_items(se_hash[:items])
@@ -35,8 +39,7 @@ class SalesEngine
     # invoice_item_data = load_data(se_hash[:invoice_items])
     # transaction_data  = load_data(se_hash[:transactions])
     # customer_data     = load_data(se_hash[:customers])
-
-    SalesEngine.new({:items => item_data, :merchants => merchant_data, :invoices => invoice_data })
+    SalesEngine.new({:items => item_data, :merchants => merchant_data, :invoices => invoice_data})
   end
 
   # # , invoice_data, invoice_item_data, transaction_data, customer_data)
@@ -52,15 +55,5 @@ class SalesEngine
   def self.load_invoices(csvfile)
     CSV.open csvfile, headers: true, header_converters: :symbol
   end
-
-  # def self.load_invoices(csvfile)
-  #   contents = CSV.open csvfile, headers: true, header_converters: :symbol
-  #   all_items = {}
-  #   contents.each do |row|
-  #     all_items[row[:id]] = Item.new(row, self)
-  #   end
-  #   all_items
-  # end
-
 
 end

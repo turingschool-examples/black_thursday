@@ -1,5 +1,6 @@
 require_relative 'invoice'
 require 'csv'
+require 'pry'
 
 class InvoiceRepository
   attr_reader :engine, :contents
@@ -9,17 +10,16 @@ class InvoiceRepository
     @contents = create_hash_of_invoices(csvfile)
   end
 
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+  def create_hash_of_invoices(csvfile)
+    all_items = {}
+    csvfile.each do |row|
+      all_items[row[:id]] = Invoice.new(row, self)
+    end
+    all_items
   end
 
-  def create_hash_of_invoices(csvfile)
-    contents = CSV.open csvfile, headers: true, header_converters: :symbol
-    all_invoices = {}
-    contents.each do |row|
-      all_invoices[row[:id]] = Invoice.new(row, self)
-    end
-    all_invoices
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 
   def all
