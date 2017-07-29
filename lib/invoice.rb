@@ -35,17 +35,23 @@ class Invoice
     inr.fetch_customer_from_invoice_id(customer_id)
   end
 
+  def invoice_items
+    inr.fetch_invoice_items_from_invoice_id(id)
+  end
+
   def is_paid_in_full?
-    #go to transactions with invoice id
-    #get all transactions that match invoice id
     trans = transactions
-    #if any transactions == success then it is true
-    #else it is false
     trans.any? do |transaction|
       transaction.result == "success"
     end
   end
 
   def total
+    inv_items = invoice_items
+    prices = inv_items.map do |invoice_item|
+      num = (invoice_item.quantity.to_i  * invoice_item.unit_price)
+      BigDecimal.new(num)
+    end
+    prices.sum
   end
 end

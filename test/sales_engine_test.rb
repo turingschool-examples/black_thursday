@@ -358,4 +358,31 @@ class SalesEngineTest < Minitest::Test
     assert invoice.is_paid_in_full?
     refute invoice_2.is_paid_in_full?
   end
+
+  def test_it_can_find_its_total_amount
+    se = SalesEngine.from_csv({:items => './data/items_short.csv',
+                               :merchants => './data/merchants_short.csv',
+                               :invoices => './data/invoices_short.csv',
+                               :invoice_items => './data/invoice_items_short.csv',
+                               :transactions => './data/transactions_short.csv',
+                               :customers => './data/customers_short.csv'})
+
+    invoice = se.invoices.find_by_id(2)
+    assert_equal BigDecimal.new("1872.74"), invoice.total
+  end
+
+  def test_it_can_retrieve_invoice_items_with_invoice_id
+    se = SalesEngine.from_csv({:items => './data/items_short.csv',
+                               :merchants => './data/merchants_short.csv',
+                               :invoices => './data/invoices_short.csv',
+                               :invoice_items => './data/invoice_items_short.csv',
+                               :transactions => './data/transactions_short.csv',
+                               :customers => './data/customers_short.csv'})
+
+    invoice = se.invoices.find_by_id(2)
+
+    assert_equal 9, invoice.invoice_items[0].id
+    assert_equal 2, invoice.invoice_items.count
+  end
+
 end
