@@ -230,6 +230,14 @@ class SalesAnalyst
     end
   end
 
+  def merchants_with_only_one_item
+    @merchants.id_repo.find_all do |merchant|
+      items = merchant[1].items
+      items.count == 1
+    end
+  end
+
+
 
 
 

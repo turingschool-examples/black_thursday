@@ -211,6 +211,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_total_revenue_by_date
+    skip
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -225,6 +226,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_revenue_earners_default
+    skip
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -240,6 +242,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_revenue_earners_with_argument
+    skip
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -252,6 +255,36 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Array, top_earners
     assert_instance_of Merchant, top_earners[0]
     assert_equal 5, top_earners.length
+  end
+
+  def test_merchants_with_pending_invoices
+    sales_engine = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+    })
+    sales_analyst = SalesAnalyst.new(sales_engine)
+
+    pending_merchants = sales_analyst.merchants_with_pending_invoices
+
+    assert_instance_of Array, pending_merchants
+    assert_instance_of Merchant, pending_merchants[0]
+    assert_equal :pending, pending_merchants[0].invoices[0].status
+  end
+
+  def test_merchants_with_only_one_item
+    sales_engine = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+    })
+    sales_analyst = SalesAnalyst.new(sales_engine)
+
+    lonely_merchants = sales_analyst.merchants_with_only_one_item
+
+    assert_instance_of Array, lonely_merchants
+    assert_instance_of Merchant, lonely_merchants[0]
+    assert_equal 1, lonely_merchants.items.count
   end
 
 end
