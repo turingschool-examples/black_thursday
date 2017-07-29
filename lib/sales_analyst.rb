@@ -14,14 +14,14 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    standard_deviation(num_items_per_merchant).round(2)
+    standard_deviation(num_items_per_merchant.values).round(2)
   end
 
   def merchants_with_high_item_count
     bar = one_standard_deviation_bar
     high_sell = []
-    high_selling_merchants.each do |merchant, item_amt|
-      high_sell << merchant if item_amt > bar
+    num_items_per_merchant.each do |k,v|
+      high_sell << k if v > bar
     end
     high_sell
   end
@@ -40,9 +40,7 @@ class SalesAnalyst
 
   def golden_items
     gold = []
-    se.all_items.map do |item|
-      item_std_dev(gold, item)
-    end
+    se.all_items.map {|item| item_std_dev(gold, item)}
     gold
   end
 

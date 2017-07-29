@@ -22,14 +22,10 @@ module Stats
   end
 
   def num_items_per_merchant
-    se.all_merchants.map do |merchant|
-      merch = se.merchants.find_by_id(merchant.id)
-      merch.items.count
+    se.all_merchants.reduce({}) do |result, merchant|
+      result[merchant] = merchant.items.count
+      result
     end
-  end
-
-  def high_selling_merchants
-    se.all_merchants.zip(num_items_per_merchant).to_h
   end
 
   def merchant_items_prices(id)
@@ -56,9 +52,12 @@ module Stats
       array << item
     end
   end
-  #
-  # def num_invoices_per_merchant
-  #
-  # end
+
+  def num_invoices_per_merchant
+    se.all_merchants.reduce({}) do |result, merchant|
+      result[merchant] = merchant.invoices.count
+      result
+    end
+  end
 
 end
