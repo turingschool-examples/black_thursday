@@ -1,7 +1,11 @@
 {
   "Unit Tests": {
     "coverage": {
+<<<<<<< HEAD
       "/Users/samuelsnider/turing/1module/black_thursday/lib/calculator.rb": [
+=======
+      "/Users/jayphodges/turing/1module/black_thursday/lib/calculator.rb": [
+>>>>>>> ecb189c250a4fcaa709d92180c40e2daac6dd5fd
         1,
         1,
         null,
@@ -31,7 +35,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/Users/samuelsnider/turing/1module/black_thursday/test/invoice_item_repository_test.rb": [
+=======
+      "/Users/jayphodges/turing/1module/black_thursday/test/invoice_item_repository_test.rb": [
+>>>>>>> ecb189c250a4fcaa709d92180c40e2daac6dd5fd
         1,
         1,
         1,
@@ -131,7 +139,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/Users/samuelsnider/turing/1module/black_thursday/lib/invoice_item_repository.rb": [
+=======
+      "/Users/jayphodges/turing/1module/black_thursday/lib/invoice_item_repository.rb": [
+>>>>>>> ecb189c250a4fcaa709d92180c40e2daac6dd5fd
         1,
         1,
         1,
@@ -179,7 +191,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/Users/samuelsnider/turing/1module/black_thursday/lib/invoice_item.rb": [
+=======
+      "/Users/jayphodges/turing/1module/black_thursday/lib/invoice_item.rb": [
+>>>>>>> ecb189c250a4fcaa709d92180c40e2daac6dd5fd
         1,
         null,
         1,
@@ -202,7 +218,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/Users/samuelsnider/turing/1module/black_thursday/test/invoice_item_test.rb": [
+=======
+      "/Users/jayphodges/turing/1module/black_thursday/test/invoice_item_test.rb": [
+>>>>>>> ecb189c250a4fcaa709d92180c40e2daac6dd5fd
         1,
         1,
         1,
@@ -253,7 +273,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/Users/samuelsnider/turing/1module/black_thursday/test/invoice_repository_test.rb": [
+=======
+      "/Users/jayphodges/turing/1module/black_thursday/test/invoice_repository_test.rb": [
+>>>>>>> ecb189c250a4fcaa709d92180c40e2daac6dd5fd
         1,
         1,
         1,
@@ -409,7 +433,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/Users/samuelsnider/turing/1module/black_thursday/lib/invoice_repository.rb": [
+=======
+      "/Users/jayphodges/turing/1module/black_thursday/lib/invoice_repository.rb": [
+>>>>>>> ecb189c250a4fcaa709d92180c40e2daac6dd5fd
         1,
         1,
         1,
@@ -473,7 +501,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/Users/samuelsnider/turing/1module/black_thursday/lib/invoice.rb": [
+=======
+      "/Users/jayphodges/turing/1module/black_thursday/lib/invoice.rb": [
+>>>>>>> ecb189c250a4fcaa709d92180c40e2daac6dd5fd
         1,
         1,
         1,
@@ -498,7 +530,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/Users/samuelsnider/turing/1module/black_thursday/test/invoice_test.rb": [
+=======
+      "/Users/jayphodges/turing/1module/black_thursday/test/invoice_test.rb": [
+>>>>>>> ecb189c250a4fcaa709d92180c40e2daac6dd5fd
         1,
         1,
         1,
@@ -551,7 +587,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/Users/samuelsnider/turing/1module/black_thursday/test/item_repository_test.rb": [
+=======
+      "/Users/jayphodges/turing/1module/black_thursday/test/item_repository_test.rb": [
+>>>>>>> ecb189c250a4fcaa709d92180c40e2daac6dd5fd
         1,
         1,
         1,
@@ -727,7 +767,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/Users/samuelsnider/turing/1module/black_thursday/lib/item_repository.rb": [
+=======
+      "/Users/jayphodges/turing/1module/black_thursday/lib/item_repository.rb": [
+>>>>>>> ecb189c250a4fcaa709d92180c40e2daac6dd5fd
         null,
         1,
         1,
@@ -819,7 +863,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/Users/samuelsnider/turing/1module/black_thursday/lib/item.rb": [
+=======
+      "/Users/jayphodges/turing/1module/black_thursday/lib/item.rb": [
+>>>>>>> ecb189c250a4fcaa709d92180c40e2daac6dd5fd
         1,
         1,
         1,
@@ -849,7 +897,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/Users/samuelsnider/turing/1module/black_thursday/test/item_test.rb": [
+=======
+      "/Users/jayphodges/turing/1module/black_thursday/test/item_test.rb": [
+>>>>>>> ecb189c250a4fcaa709d92180c40e2daac6dd5fd
         1,
         1,
         1,
@@ -917,7 +969,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/Users/samuelsnider/turing/1module/black_thursday/lib/sales_engine.rb": [
+=======
+      "/Users/jayphodges/turing/1module/black_thursday/lib/sales_engine.rb": [
+>>>>>>> ecb189c250a4fcaa709d92180c40e2daac6dd5fd
         1,
         1,
         1,
@@ -962,7 +1018,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/Users/samuelsnider/turing/1module/black_thursday/lib/merchant_repository.rb": [
+=======
+      "/Users/jayphodges/turing/1module/black_thursday/lib/merchant_repository.rb": [
+>>>>>>> ecb189c250a4fcaa709d92180c40e2daac6dd5fd
         1,
         1,
         null,
@@ -1026,7 +1086,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/Users/samuelsnider/turing/1module/black_thursday/lib/merchant.rb": [
+=======
+      "/Users/jayphodges/turing/1module/black_thursday/lib/merchant.rb": [
+>>>>>>> ecb189c250a4fcaa709d92180c40e2daac6dd5fd
         1,
         1,
         null,
@@ -1048,7 +1112,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/Users/samuelsnider/turing/1module/black_thursday/test/merchant_repository_test.rb": [
+=======
+      "/Users/jayphodges/turing/1module/black_thursday/test/merchant_repository_test.rb": [
+>>>>>>> ecb189c250a4fcaa709d92180c40e2daac6dd5fd
         1,
         1,
         1,
@@ -1136,7 +1204,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/Users/samuelsnider/turing/1module/black_thursday/test/merchant_test.rb": [
+=======
+      "/Users/jayphodges/turing/1module/black_thursday/test/merchant_test.rb": [
+>>>>>>> ecb189c250a4fcaa709d92180c40e2daac6dd5fd
         1,
         1,
         1,
@@ -1165,7 +1237,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/Users/samuelsnider/turing/1module/black_thursday/test/sales_analyst_test.rb": [
+=======
+      "/Users/jayphodges/turing/1module/black_thursday/test/sales_analyst_test.rb": [
+>>>>>>> ecb189c250a4fcaa709d92180c40e2daac6dd5fd
         1,
         1,
         1,
@@ -1220,7 +1296,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/Users/samuelsnider/turing/1module/black_thursday/lib/sales_analyst.rb": [
+=======
+      "/Users/jayphodges/turing/1module/black_thursday/lib/sales_analyst.rb": [
+>>>>>>> ecb189c250a4fcaa709d92180c40e2daac6dd5fd
         1,
         1,
         1,
@@ -1385,12 +1465,55 @@
         null,
         null,
         null,
+<<<<<<< HEAD
+        1,
+        1,
+        1,
+        1,
+        475,
+=======
         1,
         1,
         1,
         1,
         475,
         null,
+        1,
+        null,
+>>>>>>> ecb189c250a4fcaa709d92180c40e2daac6dd5fd
+        null,
+        1,
+        0,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        475,
+        475,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/Users/jayphodges/turing/1module/black_thursday/test/sales_engine_test.rb": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
         1,
         null,
         null,
@@ -1435,6 +1558,18 @@
         null,
         null,
         null,
+<<<<<<< HEAD
+=======
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        null,
+>>>>>>> ecb189c250a4fcaa709d92180c40e2daac6dd5fd
         null,
         null,
         1,
@@ -1524,6 +1659,7 @@
         null,
         null,
         1,
+<<<<<<< HEAD
         1,
         1,
         1,
@@ -1581,7 +1717,141 @@
         null,
         1,
         null,
+=======
+>>>>>>> ecb189c250a4fcaa709d92180c40e2daac6dd5fd
         1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        null,
+        1,
+        1,
+        1,
+        null,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        null,
+        1,
+        1,
+        null,
+        null
+      ],
+      "/Users/jayphodges/turing/1module/black_thursday/test/transaction_repository_test.rb": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        1,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        0,
+        null,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        0,
+        null,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        0,
+        null,
+        null,
+        null
+      ],
+      "/Users/jayphodges/turing/1module/black_thursday/lib/transaction_repository.rb": [
+        1,
+        1,
+        1,
+        null,
+        1,
+        null,
+        1,
+        null,
+        1,
+        5,
+        5,
         null,
         1,
         5,
@@ -1638,6 +1908,7 @@
         3,
         30,
         null,
+<<<<<<< HEAD
         null,
         null,
         null,
@@ -1646,7 +1917,12 @@
         null,
         null,
         null,
+=======
+>>>>>>> ecb189c250a4fcaa709d92180c40e2daac6dd5fd
         null,
+        null,
+        1,
+        30,
         null,
         null,
         null,
@@ -1733,6 +2009,72 @@
         null,
         null,
         1,
+<<<<<<< HEAD
+=======
+        38,
+        null,
+        38,
+        38,
+        38,
+        38,
+        38,
+        38,
+        38,
+        null,
+        null,
+        null
+      ],
+      "/Users/jayphodges/turing/1module/black_thursday/test/transaction_test.rb": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        null,
+        1,
+        null,
+        1,
+        8,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+>>>>>>> ecb189c250a4fcaa709d92180c40e2daac6dd5fd
         1,
         null,
         null,
@@ -1743,6 +2085,10 @@
         null
       ]
     },
+<<<<<<< HEAD
     "timestamp": 1501359002
+=======
+    "timestamp": 1501359244
+>>>>>>> ecb189c250a4fcaa709d92180c40e2daac6dd5fd
   }
 }
