@@ -39,4 +39,9 @@ class InvoiceItemTest < Minitest::Test
     assert_equal 13.00, @ii.unit_price
   end
 
+  def test_it_returns_created_at_date
+    time = "2012-03-27 14:54:09 UTC"
+    assert_equal Time.parse(time), @ii.created_at
+  end
+
 end
