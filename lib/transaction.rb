@@ -20,4 +20,8 @@ class Transaction
     @updated_at = Time.parse(data[:updated_at])
   end
 
+  def invoice
+    @sales_engine.invoices.find_by_id(self.invoice_id)
+  end
+
 end

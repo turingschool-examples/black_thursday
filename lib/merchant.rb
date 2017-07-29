@@ -17,4 +17,10 @@ class Merchant
     @sales_engine.invoices.find_all_by_merchant_id(self.id)
   end
 
+  def customers
+    invoices.map do |invoice|
+      @sales_engine.customers.find_by_id(invoice.customer_id)
+    end.uniq
+  end
+
 end
