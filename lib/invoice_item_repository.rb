@@ -14,4 +14,8 @@ class InvoiceItemRepository
     end
   end
 
+  def all
+    repository.values
+  end
+
 end

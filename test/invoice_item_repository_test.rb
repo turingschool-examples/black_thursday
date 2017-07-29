@@ -12,5 +12,10 @@ class InvoiceItemRepositoryTest < Minitest::Test
     ir = InvoiceItemRepository.new("./data/mini_invoice_items.csv")
     assert_equal 2, ir.repository.count
   end
-  
+
+  def test_it_can_return_all_known_invoice_items
+    ir = InvoiceItemRepository.new("./data/mini_invoice_items.csv")
+    assert_equal 2, ir.all.count
+  end
+
 end
