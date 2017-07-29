@@ -19,13 +19,11 @@ class SalesEngine
     SalesEngine.new(data)
   end
 
-  def collected_items(merchant_id)
-    @items.find_all_by_merchant_id(merchant_id)
+  def collected_invoices(merchant_id)
+    @invoices.find_all_by_merchant_id(merchant_id)
   end
 
-  def merchant(item_id)
-    @merchants.merchant(item_id)
-  end
+
 
   def fetch_items(merchant_id)
     @items.find_all_by_merchant_id(merchant_id)
