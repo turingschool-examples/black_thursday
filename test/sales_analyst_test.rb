@@ -56,9 +56,8 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_top_performing_merchants
-    skip
     actual = sa.top_merchants_by_invoice_count
-    assert_equal 3, actual.count
+    assert_equal 0, actual.count
   end
 
 end

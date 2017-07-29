@@ -41,14 +41,14 @@ module Stats
     se.all_items.map {|item| item.unit_price}
   end
 
-  def two_std_dev(info)
+  def item_two_std_dev(info)
     avg     = average(item_prices)
     std_dev = standard_deviation(info) * 2
     avg + std_dev
   end
 
   def item_std_dev(array, item)
-    if item.unit_price > two_std_dev(item_prices)
+    if item.unit_price > item_two_std_dev(item_prices)
       array << item
     end
   end
@@ -59,5 +59,19 @@ module Stats
       result
     end
   end
+
+  def invoice_two_std_dev(info)
+    avg     = average(num_invoices_per_merchant.values)
+    std_dev = standard_deviation(info) * 2
+    avg + std_dev
+  end
+
+  def invoice_std_dev(array, merchant, invoices)
+    m_inv = num_invoices_per_merchant.values
+    if invoices > invoice_two_std_dev(m_inv)
+      array << merchant
+    end
+  end
+
 
 end

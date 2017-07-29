@@ -52,4 +52,13 @@ class SalesAnalyst
     standard_deviation(num_invoices_per_merchant.values).round(2)
   end
 
+  def top_merchants_by_invoice_count
+    merch_inv = num_invoices_per_merchant
+    top       = []
+    merch_inv.each do |merchant, invoices|
+      invoice_std_dev(top, merchant, invoices)
+    end
+    top
+  end
+
 end
