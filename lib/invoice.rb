@@ -22,4 +22,8 @@ class Invoice
   def merchant
     inr.fetch_merchant_from_invoice_id(merchant_id)
   end
+
+  def items
+    inr.fetch_items_from_invoice_id(id)
+  end
 end
