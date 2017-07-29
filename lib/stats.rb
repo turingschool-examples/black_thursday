@@ -94,5 +94,11 @@ module Stats
     num_invoice_days.each_with_object(Hash.new(0)) {|day, result| result[day] += 1}
   end
 
+  def invoice_std_dev_bar
+    avg = average(invoices_by_day_count.values)
+    std_dev = standard_deviation(invoices_by_day_count.values)
+    avg + std_dev
+  end
+
 
 end

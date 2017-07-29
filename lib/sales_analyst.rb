@@ -69,7 +69,11 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-    invoices_by_day_count
+    top_inv = []
+    invoices_by_day_count.each do |day, number|
+      top_inv << day if number > invoice_std_dev_bar
+    end
+    top_inv
   end
 
 end
