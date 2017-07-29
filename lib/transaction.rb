@@ -20,4 +20,8 @@ class Transaction
     @updated_at = Time.parse(updated_at)
     @tr = tr
   end
+
+  def invoice
+    tr.fetch_invoice_from_transaction_id(invoice_id)
+  end
 end

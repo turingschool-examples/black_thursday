@@ -302,4 +302,17 @@ class SalesEngineTest < Minitest::Test
 
     assert_equal "Cecelia", invoice.customer.first_name
   end
+
+  def test_it_can_retrieve_invoices_with_transaction_id
+    se = SalesEngine.from_csv({:items => './data/items_short.csv',
+                               :merchants => './data/merchants_short.csv',
+                               :invoices => './data/invoices_short.csv',
+                               :invoice_items => './data/invoice_items_short.csv',
+                               :transactions => './data/transactions_short.csv',
+                               :customers => './data/customers_short.csv'})
+
+    transaction = se.transactions.find_by_id(2)
+
+    assert_equal 10, transaction.invoice.customer_id
+  end
 end
