@@ -1,7 +1,14 @@
-# sa = SalesAnalyst.new
 # sa.total_revenue_by_date(date) #=> $$
 # sa.top_revenue_earners(x) #=> [merchant, merchant, merchant, merchant, merchant]
 #         ^top x merchants
+# sa.top_revenue_earners #=> [merchant * 20]
+#      ^20 merchants by default
+# sa.merchants_with_pending_invoices #=> [merchant, merchant, merchant]
+# sa.merchants_with_only_one_item #=> [merchant, merchant, merchant]
+# sa.merchants_with_only_one_item_registered_in_month("Month name") #=> [merchant, merchant, merchant]
+# sa.revenue_by_merchant(merchant_id) #=> $
+# sa.most_sold_item_for_merchant(merchant_id) #=> [item] (in terms of quantity sold) or, if there is a tie, [item, item, item]
+# sa.best_item_for_merchant(merchant_id) #=> item (in terms of revenue generated)
 
 require 'minitest/autorun'
 require 'minitest/pride'
@@ -201,6 +208,50 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 29.55, pending
     assert_equal 56.95, shipped
     assert_equal 13.5, returned
+  end
+
+  def test_total_revenue_by_date
+    sales_engine = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+    })
+    sales_analyst = SalesAnalyst.new(sales_engine)
+
+    date = Time.new(2001, 10, 23)
+    total_revenue = sales_engine.total_revenue_by_date(date)
+
+    asseert total_revenue > 1
+  end
+
+  def test_top_revenue_earners_default
+    sales_engine = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+    })
+    sales_analyst = SalesAnalyst.new(sales_engine)
+
+    top_earners = sales_analyst.top_revenue_earners
+
+    assert_instance_of Array, top_earners
+    assert_instance_of Merchant, top_earners[0]
+    assert_equal 20, top_earners.length
+  end
+
+  def test_top_revenue_earners_with_argument
+    sales_engine = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+    })
+    sales_analyst = SalesAnalyst.new(sales_engine)
+
+    top_five = sales_analyst.top_revenue_earners(5)
+
+    assert_instance_of Array, top_earners
+    assert_instance_of Merchant, top_earners[0]
+    assert_equal 5, top_earners.length
   end
 
 end
