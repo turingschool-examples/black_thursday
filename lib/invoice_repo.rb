@@ -33,7 +33,7 @@ class InvoiceRepository
   def find_all_by_customer_id(customer_id)
     all.find_all do |invoice|
       if invoice.customer_id == customer_id.to_s
-         invoice
+        return invoice
       end
     end
   end
@@ -48,7 +48,7 @@ class InvoiceRepository
 
   def find_all_by_status(status)
     all.find_all do |invoice|
-      if invoice.status == status
+      if invoice.status == status.to_sym
          invoice
       end
     end

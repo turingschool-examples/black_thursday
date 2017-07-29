@@ -41,6 +41,10 @@ class MerchantRepository
     @engine.items.find_all_items_to_a_merchant(merchant_id)
   end
 
+  def find_merchant_by_merchant_id(merchant_id)
+    @engine.invoices.find_all_invoices_by_merchant(merchant_id)
+  end
+
   def find_by_name(name)
     content_array = all
     content_array.find do |merchant|
@@ -58,6 +62,12 @@ class MerchantRepository
       end
     end
     array_of_matching_merchants
+  end
+
+  def find_all_invoices_to_a_merchant(merchant_id)
+    all.find_all do |invoice|
+      invoice.merchant_id == merchant_id
+    end
   end
 
 end

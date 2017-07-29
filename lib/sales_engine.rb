@@ -27,9 +27,9 @@ class SalesEngine
   def find_merchant_by_id(merchant_id)
     @merchants.find_by_id(merchant_id)
   end
-
+  #
   def find_by_invoice_id(invoice_id)
-    @invoices.find_by_id(invoice_id)
+    @invoices.find_all_invoices_by_merchant(merchant_id)
   end
 
   def self.from_csv(se_hash)
