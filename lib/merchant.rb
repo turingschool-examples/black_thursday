@@ -8,8 +8,8 @@ class Merchant
     @id         = merch_hash[:id].to_i
     @name       = merch_hash[:name].to_s
     @merch_repo = merch_repo
-    @created_at = Time.now
-    @updated_at = Time.now
+    @created_at = Time.parse(merch_hash[:created_at])
+    @updated_at = Time.parse(merch_hash[:updated_at])
   end
 
   def items

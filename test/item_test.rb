@@ -3,95 +3,37 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/item'
 require 'bigdecimal'
+require './lib/item_repo'
 
 class ItemTest < Minitest::Test
 
-  def test_it_exist
-    item = Item.new({:id         => 263395237,
+  def setup
+    @item = Item.new({:id        => 263395237,
                     :name        => "Pencil",
                     :description => "You can use it to write things",
-                    :unit_price  => BigDecimal.new(10.99,4),
-                    :created_at  => Time.now,
-                    :updated_at  => Time.now, }, "engine")
-
-    assert_instance_of Item, item
+                    :merchant_id => 
+                    :unit_price  => 1099,
+                    :created_at  => "09:34:06 UTC",
+                    :updated_at  => "2007-06-04 21:35:10 UTC"}, "ItemRepository")
   end
 
-  def test_it_has_an_id_that_returns_an_integer
-    item = Item.new({:id         => 263395237,
-                    :name        => "Pencil",
-                    :description => "You can use it to write things",
-                    :unit_price  => BigDecimal.new(10.99,4),
-                    :created_at  => Time.now,
-                    :updated_at  => Time.now, }, "engine")
-
-    assert_equal 263395237, item.id
+  def test_it_exist_with_attributes
+    assert_instance_of Item, @item
+    assert_equal 263395237, @item.id
+    assert_equal "Pencil", @item.name
+    assert_equal "You can use it to write things", @item.description
+    assert_instance_of BigDecimal, @item.unit_price
+    assert_instance_of Time, @item.created_at
+    assert_instance_of Time, @item.updated_at
   end
 
-  def test_it_has_a_name
-    item = Item.new({:id         => 263395237,
-                    :name        => "Pencil",
-                    :description => "You can use it to write things",
-                    :unit_price  => BigDecimal.new(10.99,4),
-                    :created_at  => Time.now,
-                    :updated_at  => Time.now, },"engine")
-
-    assert_equal "Pencil", item.name
+  def test_item_can_return_prices_in_dollars
+    assert_equal 1099, @item.unit_price
+    assert_equal 10.99, @item.unit_price_to_dollars
   end
 
-  def test_it_has_a_description
-    item = Item.new({:id         => 263395237,
-                    :name        => "Pencil",
-                    :description => "You can use it to write things",
-                    :unit_price  => BigDecimal.new(10.99,4),
-                    :created_at  => Time.now,
-                    :updated_at  => Time.now, }, "engine")
-
-    assert_equal "You can use it to write things", item.description
-  end
-
-  def test_it_has_a_unit_price
-    item = Item.new({:id         => 263395237,
-                    :name        => "Pencil",
-                    :description => "You can use it to write things",
-                    :unit_price  => BigDecimal.new(10.99,4),
-                    :created_at  => Time.now,
-                    :updated_at  => Time.now, }, "engine")
-
-    assert_instance_of BigDecimal, item.unit_price
-  end
-
-  def test_it_has_a_created_time
-    item = Item.new({:id         => 263395237,
-                    :name        => "Pencil",
-                    :description => "You can use it to write things",
-                    :unit_price  => BigDecimal.new(10.99,4),
-                    :created_at  => Time.now,
-                    :updated_at  => Time.now, }, "engine")
-
-    assert_instance_of Time, item.created_at
-  end
-
-  def test_it_has_an_updated_time
-    item = Item.new({:id         => 263395237,
-                    :name        => "Pencil",
-                    :description => "You can use it to write things",
-                    :unit_price  => BigDecimal.new(10.99,4),
-                    :created_at  => Time.now,
-                    :updated_at  => Time.now, }, "engine")
-
-    assert_instance_of Time, item.updated_at
-  end
-
-  def test_it_returns_unit_price_as_float
-    item = Item.new({:id         => 263395237,
-                    :name        => "Pencil",
-                    :description => "You can use it to write things",
-                    :unit_price  => BigDecimal.new(10.99,4),
-                    :created_at  => Time.now,
-                    :updated_at  => Time.now, }, "engine")
-
-    assert_equal 10.99, item.unit_price_to_dollars
+  def test_item_knows_about_item_repo
+    assert_equal "ItemRepository", @item.item_repo
   end
 
 end
