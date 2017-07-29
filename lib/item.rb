@@ -22,7 +22,7 @@ class Item
   end
 
   def merchant
-      @sales_engine.merchants.find_by_id(self.merchant_id)
+    @sales_engine.merchants.find_by_id(self.merchant_id)
   end
 
 end
