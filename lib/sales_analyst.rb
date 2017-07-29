@@ -236,6 +236,10 @@ class SalesAnalyst
 
   end
 
+  def revenue_by_merchant(merchant_id)
+
+  end
+
   def merchants_with_pending_invoices
     @merchants.id_repo.find_all do |merchant|
       invoices = merchant[1].invoices
@@ -256,6 +260,29 @@ class SalesAnalyst
     @merchants.id_repo.find_all do |merchant|
       items = merchant[1].items
       items.count == 1 && items[0].created_at.month == month_name_to_num[month]
+    end
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    merchant = @merchants.find_by_id(merchant_id)
+    max_count = 0
+    high_item = merchant.items.reduce("") do |high_item, item|
+      count = 0
+      item_invoices = @invoice_items.find_all_by_item_id(item.id)
+      if !(item_invoices.nil?)
+        count = item_invoices.reduce(0) do |number_sold, invoice_item|
+          number_sold += invoice_item.quantity
+        end
+      end
+      if count > max_count
+        max_count = count
+        high_item = item
+      end
+    end
+    if high_item == ""
+      return merchant.items
+    else
+      return high_item
     end
   end
 
