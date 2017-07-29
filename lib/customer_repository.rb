@@ -30,9 +30,12 @@ class CustomerRepository
     end
   end
 
-
-
-
+  def from_csv(path)
+    rows = CSV.open path, headers: true, header_converters: :symbol
+    rows.each do |data|
+      add_data(data)
+    end
+  end
 
   def add_data(data)
     @customers << Customer.new(data.to_hash, @sales_engine)
