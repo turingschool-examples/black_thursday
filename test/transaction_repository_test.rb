@@ -17,6 +17,31 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal [], repo.transactions
   end
 
+  def test_it_can_load_transactions
+    repo = TransactionRepository.new
+    repo.from_csv("./data/transactions_short.csv")
+    assert_equal 10, repo.transactions.count
+  end
+
+  def test_find_all
+    repo = TransactionRepository.new
+    repo.from_csv("./data/transactions_short.csv")
+    assert_equal 10, repo.all.count
+  end
+
+  def test_find_by_id
+    repo = TransactionRepository.new
+    repo.from_csv("./data/transactions_short.csv")
+    assert_equal "5555", repo.find_by_id(5).invoice_id
+  end
+
+  # def test_find_all_by_invoice_id
+  #   repo = TransactionRepository.new
+  #   repo.from_csv("./data/transactions_short.csv")
+  #   assert_equal "5555", repo.find_all_by_invoice_id("2222")
+  # end
+
+
   def transaction1
     {
       :id => 1,

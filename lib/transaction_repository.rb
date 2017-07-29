@@ -59,7 +59,7 @@ class TransactionRepository
   def from_csv(path)
     rows = CSV.open path, headers: true, header_converters: :symbol
     rows.each do |content|
-      @transactions << Transaction.new(content.to_hash, self)
+      @transactions << Transaction.new(content.to_hash)
     end
   end
 

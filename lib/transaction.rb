@@ -10,6 +10,7 @@ class Transaction
 
   def initialize(data)
     # @sales_engine = sales_engine
+    # @repo = repo
     @id = data[:id].to_i
     @invoice_id = data[:invoice_id]
     @credit_card_number = data[:credit_card_number]
