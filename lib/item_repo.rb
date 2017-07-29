@@ -12,13 +12,13 @@ class ItemRepository
     @items  = create_hash_of_items(csvfile)
   end
 
-  def create_hash_of_items(csvfile)
-    all_items = {}
-    csvfile.each do |row|
-      all_items[row[:id].to_i] = Item.new(row, self)
-    end
-    all_items
-  end
+  # def create_hash_of_items(csvfile)
+  #   all_items = {}
+  #   csvfile.each do |row|
+  #     all_items[row[:id].to_i] = Item.new(row, self)
+  #   end
+  #   all_items
+  # end
 
   def inspect
     "#<#{self.class} #{@items.size} rows>"
@@ -70,6 +70,16 @@ class ItemRepository
       all.find_all do |item|
         item.merchant_id == merchant_id
       end
+    end
+
+  private
+
+    def create_hash_of_items(csvfile)
+      all_items = {}
+      csvfile.each do |row|
+        all_items[row[:id].to_i] = Item.new(row, self)
+      end
+      all_items
     end
 
 end

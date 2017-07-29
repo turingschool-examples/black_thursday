@@ -25,7 +25,6 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of Item, @item_repo.all[-1]
   end
 
-
   def test_can_find_by_id
     id = 263395237
     false_id = "zz09093480"
@@ -50,8 +49,8 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of Array, @item_repo.find_all_with_description(description)
     assert_instance_of Item, @item_repo.find_all_with_description(description)[0]
 
-    assert_instance_of Array, @item_repo.find_all_with_description(false_description)
-    assert_nil @item_repo.find_all_with_description(false_description)[0]
+    assert_equal [], @item_repo.find_all_with_description(false_description)
+
   end
 
   def test_it_can_find_all_by_price
@@ -62,8 +61,7 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of Item, @item_repo.find_all_by_price(price)[0]
     assert_equal 41, @item_repo.find_all_by_price(price).length
 
-    assert_instance_of Array, @item_repo.find_all_by_price(false_price)
-    assert_nil @item_repo.find_all_by_price(false_price)[0]
+    assert_equal [], @item_repo.find_all_by_price(false_price)
   end
 
   def test_it_can_find_all_by_price_range
