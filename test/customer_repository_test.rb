@@ -48,4 +48,19 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal "Sylvester", target_3[0].first_name
     assert_equal [], target_4
   end
+
+  def test_it_can_find_by_last_name_fragment
+    cr = CustomerRepository.new('./data/customers_short.csv', self)
+
+    target = cr.find_all_by_last_name("Toy")
+    target_2 = cr.find_all_by_last_name("toy")
+    target_3 = cr.find_all_by_last_name("er")
+    target_4 = cr.find_all_by_last_name("Jones")
+
+    assert_equal "Mariah", target[0].first_name
+    assert_equal "Mariah", target_2[0].first_name
+    assert_equal 2, target_3.count
+    assert_equal "Sylvester", target_3[0].first_name
+    assert_equal [], target_4
+  end
 end
