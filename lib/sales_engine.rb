@@ -8,13 +8,13 @@ require 'pry'
 require 'csv'
 
 class SalesEngine
-  attr_reader :items, :merchants
-  # , :invoices, :invoice_items, :transactions, :customers
+  attr_reader :items, :merchants, :invoices
+  # :invoice_items, :transactions, :customers
 
   def initialize(se_hash)
     @items         = ItemRepository.new(se_hash[:items], self)
     @merchants     = MerchantRepository.new(se_hash[:merchants], self)
-    # @invoices      = InvoiceRepository.new(se_hash[:invoices], self)
+    @invoices      = InvoiceRepository.new(se_hash[:invoices], self)
     # @invoice_items = InvoiceItemRepository.new(:invoice_items, self)
     # @transactions  = TransactionRepository.new(:transactions, self)
     # @customers     = CustomerRepository.new(:customers, self)
@@ -31,21 +31,25 @@ class SalesEngine
   def self.from_csv(se_hash)
     merchant_data     = load_merchants(se_hash[:merchants])
     item_data         = load_items(se_hash[:items])
-    # invoice_data      = load_invoices(se_hash[:invoices])
+    invoice_data      = load_invoices(se_hash[:invoices])
     # invoice_item_data = load_data(se_hash[:invoice_items])
     # transaction_data  = load_data(se_hash[:transactions])
     # customer_data     = load_data(se_hash[:customers])
 
-    SalesEngine.new({:items => item_data, :merchants => merchant_data })
+    SalesEngine.new({:items => item_data, :merchants => merchant_data, :invoices => invoice_data })
   end
 
-  #:invoices => invoice_data  # , invoice_data, invoice_item_data, transaction_data, customer_data)
+  # # , invoice_data, invoice_item_data, transaction_data, customer_data)
 
   def self.load_merchants(csvfile)
     CSV.open csvfile, headers: true, header_converters: :symbol
   end
 
   def self.load_items(csvfile)
+    CSV.open csvfile, headers: true, header_converters: :symbol
+  end
+
+  def self.load_invoices(csvfile)
     CSV.open csvfile, headers: true, header_converters: :symbol
   end
 
