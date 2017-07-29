@@ -27,4 +27,10 @@ class CustomerRepository
   def all
     @customers
   end
+
+  def find_by_id(customer_id)
+    @customers.find do |customer_obj|
+      customer_obj.id == customer_id
+    end
+  end
 end

@@ -23,4 +23,14 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal Array, target.class
     assert_equal 10, target.count
   end
+
+  def test_it_can_find_by_id
+    cr = CustomerRepository.new('./data/customers_short.csv', self)
+
+    target = cr.find_by_id(1)
+    target_2 = cr.find_by_id(0)
+
+    assert_equal "Joey", target.first_name
+    assert_nil target_2
+  end
 end
