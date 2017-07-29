@@ -5,6 +5,8 @@ class SalesAnalyst
 
   include Math
 
+  attr_reader :engine
+
   def initialize(engine)
     @engine = engine
   end
@@ -23,7 +25,7 @@ class SalesAnalyst
     squared_diff = square_all_elements(actual_diff)
     sum = squared_diff.reduce(:+)
     sum_divided = sum/(return_array_of_items_by_merchant.length - 1)
-     Math.sqrt(sum_divided).round(2)
+    Math.sqrt(sum_divided).round(2)
    end
 
    def return_array_of_items_by_merchant
@@ -39,13 +41,12 @@ class SalesAnalyst
      end
    end
 
+
   def average_item_price_for_merchant(merchant_id)
     merchant = @engine.merchants.find_by_id(merchant_id)
-    total_price = merchant.items.reduce(0) do |sum, item|
-      sum + item.unit_price
-    end
+    price_total = price_totaler(merchant)
     return 0 if merchant.items.empty?
-    (total_price / merchant.items.count).round(2)
+    (price_total / merchant.items.count).round(2)
   end
 
   def average_average_price_per_merchant
@@ -55,11 +56,15 @@ class SalesAnalyst
     (total_average / @engine.merchants.all.count).round(2)
   end
 
+  def item_price_totaler(total_items)
+    @engine.items.all.reduce(0) do |sum, item|
+      sum + item.unit_price
+    end
+  end
+
   def average_item_price
     total_items = @engine.items.all.count
-    total_price = @engine.items.all.reduce(0) do |sum, item|
-      sum + item.unit_price
-      end
+    total_price = item_price_totaler(total_items)
     (total_price / total_items).round(2)
   end
 
@@ -141,6 +146,12 @@ class SalesAnalyst
   # end
 
   private
+
+    def price_totaler(merchant)
+      merchant.items.reduce(0) do |sum, item|
+        sum + item.unit_price
+      end
+    end
 
     def subtract_mean_from_actual(mean)
       return_array_of_items_by_merchant.map do |merchant_items|
