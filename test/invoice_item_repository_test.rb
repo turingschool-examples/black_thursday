@@ -28,4 +28,9 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_instance_of Array, ir.find_all_by_item_id(263454779)
   end
 
+  def test_it_can_find_invoice_items_by_matching_invoice_id
+    ir = InvoiceItemRepository.new("./data/mini_invoice_items.csv")
+    assert_instance_of Array, ir.find_all_by_invoice_id(1)
+  end
+
 end
