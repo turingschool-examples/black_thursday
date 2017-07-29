@@ -4,4 +4,4 @@ SimpleCov.start do
 end
 require 'minitest'
 require 'minitest/autorun'
-require 'minitest/pride'
+require 'minitest/nyan_cat'
