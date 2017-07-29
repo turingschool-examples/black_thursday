@@ -43,8 +43,8 @@ class TransactionTest < Minitest::Test
     assert_instance_of Time, @t.created_at
   end
 
-  def test_it_can_take_a_created_at_date
+  def test_it_can_take_a_updated_at_date
     assert_instance_of Time, @t.updated_at
   end
-  
+
 end
