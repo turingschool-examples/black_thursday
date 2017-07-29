@@ -198,7 +198,7 @@ class SalesAnalyst
      "February" => 02,
      "March" => 03,
      "April" => 04,
-     "May" => 05, 
+     "May" => 05,
      "June" => 06,
      "July" => 07,
      "August" => 08,
@@ -249,6 +249,13 @@ class SalesAnalyst
     @merchants.id_repo.find_all do |merchant|
       items = merchant[1].items
       items.count == 1
+    end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    @merchants.id_repo.find_all do |merchant|
+      items = merchant[1].items
+      items.count == 1 && items[0].created_at.month == month_name_to_num[month]
     end
   end
 
