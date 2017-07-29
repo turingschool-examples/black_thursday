@@ -16,8 +16,6 @@ class Merchant
     @merch_repo = merch_repo
   end
 
-private
-
   def items
     @merch_repo.find_items_by_merchant_id(id)
   end
