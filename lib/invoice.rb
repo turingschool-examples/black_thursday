@@ -26,4 +26,8 @@ class Invoice
   def items
     inr.fetch_items_from_invoice_id(id)
   end
+
+  def transactions
+    inr.fetch_transactions_from_invoice_id(id)
+  end
 end

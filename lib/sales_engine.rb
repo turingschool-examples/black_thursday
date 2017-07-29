@@ -67,6 +67,9 @@ class SalesEngine
     end
   end
 
+  def fetch_transactions_from_invoice_id(invoice_id)
+    @transactions.find_all_by_invoice_id(invoice_id)
+  end
 
   def call_merchants
     @merchants.merchants

@@ -61,6 +61,10 @@ class InvoiceRepository
     se.fetch_items_from_invoice_id(invoice_id)
   end
 
+  def fetch_transactions_from_invoice_id(invoice_id)
+    se.fetch_transactions_from_invoice_id(invoice_id)
+  end
+
   def inspect
     "#<#{self.class} #{@invoices.size} rows>"
   end

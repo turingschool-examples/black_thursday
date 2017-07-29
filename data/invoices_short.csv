@@ -10,3 +10,4 @@ id,customer_id,merchant_id,status,created_at,updated_at
 9,2,12336965,shipped,2003-03-07,2008-10-09
 10,2,12334839,pending,2014-04-13,2015-01-20
 74,14,12334105,returned,2005-01-03,2005-04-20
+46,10,12336837,shipped,2005-11-11,2015-05-03
