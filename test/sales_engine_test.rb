@@ -7,7 +7,10 @@ class SalesEngineTest < Minitest::Test
   def test_it_exists
     se = SalesEngine.from_csv({:items => './data/items_short.csv',
                                :merchants => './data/merchants_short.csv',
-                               :invoices => './data/invoices_short.csv'})
+                               :invoices => './data/invoices_short.csv',
+                               :invoice_items => './data/invoice_items_short.csv',
+                               :transactions => './data/transactions_short.csv',
+                               :customers => './data/customers_short.csv'})
 
     assert_instance_of SalesEngine, se
   end
@@ -15,7 +18,10 @@ class SalesEngineTest < Minitest::Test
   def test_it_creates_an_item_repository
     se = SalesEngine.from_csv({:items => './data/items_short.csv',
                                :merchants => './data/merchants_short.csv',
-                               :invoices => './data/invoices_short.csv'})
+                               :invoices => './data/invoices_short.csv',
+                               :invoice_items => './data/invoice_items_short.csv',
+                               :transactions => './data/transactions_short.csv',
+                               :customers => './data/customers_short.csv'})
 
     items = se.items
 
@@ -25,7 +31,10 @@ class SalesEngineTest < Minitest::Test
   def test_it_creates_a_merchant_repository
     se = SalesEngine.from_csv({:items => './data/items_short.csv',
                                :merchants => './data/merchants_short.csv',
-                               :invoices => './data/invoices_short.csv'})
+                               :invoices => './data/invoices_short.csv',
+                               :invoice_items => './data/invoice_items_short.csv',
+                               :transactions => './data/transactions_short.csv',
+                               :customers => './data/customers_short.csv'})
 
     merchants = se.merchants
 
@@ -35,7 +44,10 @@ class SalesEngineTest < Minitest::Test
   def test_merchant_repository_can_find_all_merchants
     se = SalesEngine.from_csv({:items => './data/items.csv',
                                :merchants => './data/merchants.csv',
-                               :invoices => './data/invoices.csv'})
+                               :invoices => './data/invoices.csv',
+                               :invoice_items => './data/invoice_items.csv',
+                               :transactions => './data/transactions.csv',
+                               :customers => './data/customers.csv'})
 
     mr = se.merchants
     merchant = mr.all
@@ -47,7 +59,10 @@ class SalesEngineTest < Minitest::Test
   def test_item_repository_can_find_all_items
     se = SalesEngine.from_csv({:items => './data/items.csv',
                                :merchants => './data/merchants.csv',
-                               :invoices => './data/invoices.csv'})
+                               :invoices => './data/invoices.csv',
+                               :invoice_items => './data/invoice_items.csv',
+                               :transactions => './data/transactions.csv',
+                               :customers => './data/customers.csv'})
 
     ir = se.items
     item = ir.all
@@ -59,7 +74,10 @@ class SalesEngineTest < Minitest::Test
   def test_can_retrieve_items_from_items_repo_with_merchant_id
     se = SalesEngine.from_csv({:items => './data/items_short.csv',
                                :merchants => './data/merchants_short.csv',
-                               :invoices => './data/invoices_short.csv'})
+                               :invoices => './data/invoices_short.csv',
+                               :invoice_items => './data/invoice_items_short.csv',
+                               :transactions => './data/transactions_short.csv',
+                               :customers => './data/customers_short.csv'})
 
     target = se.pass_merchant_id(12334105)
 
@@ -70,7 +88,10 @@ class SalesEngineTest < Minitest::Test
   def test_it_can_retrieve_items_from_items_with_merchant_id
     se = SalesEngine.from_csv({:items => './data/items_short.csv',
                                :merchants => './data/merchants_short.csv',
-                               :invoices => './data/invoices_short.csv'})
+                               :invoices => './data/invoices_short.csv',
+                               :invoice_items => './data/invoice_items_short.csv',
+                               :transactions => './data/transactions_short.csv',
+                               :customers => './data/customers_short.csv'})
 
     merchant = se.merchants.find_by_id(12334105)
 
@@ -81,7 +102,10 @@ class SalesEngineTest < Minitest::Test
   def test_can_retrieve_merchant_from_merchant_repo_with_item_id
     se = SalesEngine.from_csv({:items => './data/items_short.csv',
                                :merchants => './data/merchants_short.csv',
-                               :invoices => './data/invoices_short.csv'})
+                               :invoices => './data/invoices_short.csv',
+                               :invoice_items => './data/invoice_items_short.csv',
+                               :transactions => './data/transactions_short.csv',
+                               :customers => './data/customers_short.csv'})
 
     target = se.pass_items_merchant_id(12334105)
 
@@ -91,7 +115,10 @@ class SalesEngineTest < Minitest::Test
   def test_it_can_retrieve_merchant_with_merchant_id_from_item
     se = SalesEngine.from_csv({:items => './data/items_short.csv',
                                :merchants => './data/merchants_short.csv',
-                               :invoices => './data/invoices_short.csv'})
+                               :invoices => './data/invoices_short.csv',
+                               :invoice_items => './data/invoice_items_short.csv',
+                               :transactions => './data/transactions_short.csv',
+                               :customers => './data/customers_short.csv'})
 
     item = se.items.find_by_id(263395237)
 
@@ -101,7 +128,10 @@ class SalesEngineTest < Minitest::Test
   def test_it_creates_a_invoice_repository
     se = SalesEngine.from_csv({:items => './data/items_short.csv',
                                :merchants => './data/merchants_short.csv',
-                               :invoices => './data/invoices_short.csv'})
+                               :invoices => './data/invoices_short.csv',
+                               :invoice_items => './data/invoice_items_short.csv',
+                               :transactions => './data/transactions_short.csv',
+                               :customers => './data/customers_short.csv'})
 
     inr = se.invoices
     assert_instance_of InvoiceRepository, inr
@@ -110,7 +140,10 @@ class SalesEngineTest < Minitest::Test
   def test_invoice_repository_can_find_all_invoices
     se = SalesEngine.from_csv({:items => './data/items_short.csv',
                                :merchants => './data/merchants_short.csv',
-                               :invoices => './data/invoices_short.csv'})
+                               :invoices => './data/invoices_short.csv',
+                               :invoice_items => './data/invoice_items_short.csv',
+                               :transactions => './data/transactions_short.csv',
+                               :customers => './data/customers_short.csv'})
 
     inr = se.invoices
     invoice = inr.all
@@ -122,7 +155,10 @@ class SalesEngineTest < Minitest::Test
   def test_can_retrieve_invoices_from_invoice_repo_with_merchant_id
     se = SalesEngine.from_csv({:items => './data/items_short.csv',
                                :merchants => './data/merchants_short.csv',
-                               :invoices => './data/invoices_short.csv'})
+                               :invoices => './data/invoices_short.csv',
+                               :invoice_items => './data/invoice_items_short.csv',
+                               :transactions => './data/transactions_short.csv',
+                               :customers => './data/customers_short.csv'})
 
     merchant = se.merchants.find_by_id(12334105)
     target = merchant.invoices
@@ -134,7 +170,10 @@ class SalesEngineTest < Minitest::Test
   def test_it_can_retrieve_merchant_with_invoice_id
     se = SalesEngine.from_csv({:items => './data/items_short.csv',
                                :merchants => './data/merchants_short.csv',
-                               :invoices => './data/invoices_short.csv'})
+                               :invoices => './data/invoices_short.csv',
+                               :invoice_items => './data/invoice_items_short.csv',
+                               :transactions => './data/transactions_short.csv',
+                               :customers => './data/customers_short.csv'})
 
     invoice = se.invoices.find_by_id(2)
     target = invoice.merchant
