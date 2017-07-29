@@ -12,6 +12,8 @@ class CustomerTest < Minitest::Test
     assert_instance_of Customer, customer
   end
 
+
+
   def test_it_is_created_with_state
     customer = Customer.new(1, "Tom", "Jones",
                             "2016-01-11 09:34:06 UTC",

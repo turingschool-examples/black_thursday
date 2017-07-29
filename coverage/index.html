@@ -14,26 +14,26 @@
       <img src="./assets/0.10.1/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2017-07-28T15:40:58-06:00">2017-07-28T15:40:58-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2017-07-29T10:58:04-06:00">2017-07-29T10:58:04-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="green">99.09%</span></span>
+    (<span class="covered_percent"><span class="green">99.16%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         7955.99
+         7355.47
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
-    <b>12</b> files in total.
-    <b>330</b> relevant lines. 
-    <span class="green"><b>327</b> lines covered</span> and
+    <b>14</b> files in total.
+    <b>357</b> relevant lines. 
+    <span class="green"><b>354</b> lines covered</span> and
     <span class="red"><b>3</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -49,6 +49,26 @@
       </tr>
     </thead>
     <tbody>
+      
+      <tr>
+        <td class="strong"><a href="#c20c1a31f4f3a53eec57c7ffba42b73758e953df" class="src_link" title="lib/customer.rb">lib/customer.rb</a></td>
+        <td class="green strong">100.0 %</td>
+        <td>18</td>
+        <td>9</td>
+        <td>9</td>
+        <td>0</td>
+        <td>21.7</td>
+      </tr>
+      
+      <tr>
+        <td class="strong"><a href="#ea1a43bd51880d2a0b3fe16650215507d5fea189" class="src_link" title="lib/customer_repository.rb">lib/customer_repository.rb</a></td>
+        <td class="green strong">100.0 %</td>
+        <td>30</td>
+        <td>18</td>
+        <td>18</td>
+        <td>0</td>
+        <td>12.7</td>
+      </tr>
       
       <tr>
         <td class="strong"><a href="#810e6b3e9658c0835dde527f61952cc51a719b9d" class="src_link" title="lib/invoice.rb">lib/invoice.rb</a></td>
@@ -185,6 +205,332 @@
       </div>
     
       <div class="source_files">
+      
+        <div class="source_table" id="c20c1a31f4f3a53eec57c7ffba42b73758e953df">
+  <div class="header">
+    <h3>lib/customer.rb</h3>
+    <h4><span class="green">100.0 %</span> covered</h4>
+    <div>
+      <b>9</b> relevant lines. 
+      <span class="green"><b>9</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
+    </div>
+  </div>
+  
+  <pre>
+    <ol>
+      
+        <li class="covered" data-hits="1" data-linenumber="1">
+          <span class="hits">1</span>
+          
+          <code class="ruby">class Customer</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="2">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  attr_reader :id,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="3">
+          
+          
+          <code class="ruby">              :first_name,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="4">
+          
+          
+          <code class="ruby">              :last_name,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="5">
+          
+          
+          <code class="ruby">              :created_at,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="6">
+          
+          
+          <code class="ruby">              :updated_at,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="7">
+          
+          
+          <code class="ruby">              :cr</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="8">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="9">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def initialize(id, first_name, last_name,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="10">
+          
+          
+          <code class="ruby">                created_at, updated_at, cr)</code>
+        </li>
+      
+        <li class="covered" data-hits="32" data-linenumber="11">
+          <span class="hits">32</span>
+          
+          <code class="ruby">    @id = id</code>
+        </li>
+      
+        <li class="covered" data-hits="32" data-linenumber="12">
+          <span class="hits">32</span>
+          
+          <code class="ruby">    @first_name = first_name</code>
+        </li>
+      
+        <li class="covered" data-hits="32" data-linenumber="13">
+          <span class="hits">32</span>
+          
+          <code class="ruby">    @last_name = last_name</code>
+        </li>
+      
+        <li class="covered" data-hits="32" data-linenumber="14">
+          <span class="hits">32</span>
+          
+          <code class="ruby">    @created_at = Time.parse(created_at)</code>
+        </li>
+      
+        <li class="covered" data-hits="32" data-linenumber="15">
+          <span class="hits">32</span>
+          
+          <code class="ruby">    @updated_at = Time.parse(updated_at)</code>
+        </li>
+      
+        <li class="covered" data-hits="32" data-linenumber="16">
+          <span class="hits">32</span>
+          
+          <code class="ruby">    @cr = cr</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="17">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="18">
+          
+          
+          <code class="ruby">end</code>
+        </li>
+      
+    </ol>
+  </pre>
+</div>
+
+      
+        <div class="source_table" id="ea1a43bd51880d2a0b3fe16650215507d5fea189">
+  <div class="header">
+    <h3>lib/customer_repository.rb</h3>
+    <h4><span class="green">100.0 %</span> covered</h4>
+    <div>
+      <b>18</b> relevant lines. 
+      <span class="green"><b>18</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
+    </div>
+  </div>
+  
+  <pre>
+    <ol>
+      
+        <li class="covered" data-hits="1" data-linenumber="1">
+          <span class="hits">1</span>
+          
+          <code class="ruby">require_relative &#39;invoice_item&#39;</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="2">
+          <span class="hits">1</span>
+          
+          <code class="ruby">require &#39;pry&#39;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="3">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="4">
+          <span class="hits">1</span>
+          
+          <code class="ruby">class CustomerRepository</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="5">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="6">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  attr_reader :customers,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="7">
+          
+          
+          <code class="ruby">              :se</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="8">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="9">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def initialize(customers_path, se)</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="10">
+          <span class="hits">3</span>
+          
+          <code class="ruby">    @se = se</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="11">
+          <span class="hits">3</span>
+          
+          <code class="ruby">    @customers = []</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="12">
+          <span class="hits">3</span>
+          
+          <code class="ruby">    contents = CSV.open customers_path,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="13">
+          
+          
+          <code class="ruby">                        headers: true,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="14">
+          
+          
+          <code class="ruby">                        header_converters: :symbol</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="15">
+          <span class="hits">3</span>
+          
+          <code class="ruby">    contents.each do |row|</code>
+        </li>
+      
+        <li class="covered" data-hits="30" data-linenumber="16">
+          <span class="hits">30</span>
+          
+          <code class="ruby">      id = (row[:id]).to_i</code>
+        </li>
+      
+        <li class="covered" data-hits="30" data-linenumber="17">
+          <span class="hits">30</span>
+          
+          <code class="ruby">      first_name = row[:first_name]</code>
+        </li>
+      
+        <li class="covered" data-hits="30" data-linenumber="18">
+          <span class="hits">30</span>
+          
+          <code class="ruby">      last_name = row[:last_name]</code>
+        </li>
+      
+        <li class="covered" data-hits="30" data-linenumber="19">
+          <span class="hits">30</span>
+          
+          <code class="ruby">      created_at = row[:created_at]</code>
+        </li>
+      
+        <li class="covered" data-hits="30" data-linenumber="20">
+          <span class="hits">30</span>
+          
+          <code class="ruby">      updated_at = row[:updated_at]</code>
+        </li>
+      
+        <li class="covered" data-hits="30" data-linenumber="21">
+          <span class="hits">30</span>
+          
+          <code class="ruby">      customer = Customer.new(id, first_name, last_name,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="22">
+          
+          
+          <code class="ruby">                            created_at, updated_at, self)</code>
+        </li>
+      
+        <li class="covered" data-hits="30" data-linenumber="23">
+          <span class="hits">30</span>
+          
+          <code class="ruby">      @customers &lt;&lt; customer</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="24">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="25">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="26">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="27">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def all</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="28">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    @customers</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="29">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="30">
+          
+          
+          <code class="ruby">end</code>
+        </li>
+      
+    </ol>
+  </pre>
+</div>
+
       
         <div class="source_table" id="810e6b3e9658c0835dde527f61952cc51a719b9d">
   <div class="header">
