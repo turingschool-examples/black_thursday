@@ -18,9 +18,13 @@ class CustomerRepository
     end
   end
 
-  def find_all_by_first_name
+  def find_all_by_first_name(f_name)
     @customers.find_all do |customer|
-      cu
+      customer.first_name == f_name
+    end
+  end
+
+  def find_all_by_last_name(l_name)
   end
 
 
