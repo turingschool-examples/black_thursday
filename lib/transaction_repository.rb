@@ -15,9 +15,9 @@ class TransactionRepository
     contents.each do |row|
       id = (row[:id]).to_i
       invoice_id = row[:invoice_id].to_i
-      credit_card_number = row[:credit_card_number]
+      credit_card_number = row[:credit_card_number].to_i
       credit_card_expiration_date = row[:credit_card_expiration_date]
-      result = row[:result].to_sym
+      result = row[:result]
       created_at = row[:created_at]
       updated_at = row[:updated_at]
       transaction = Transaction.new(id, invoice_id,
@@ -53,5 +53,9 @@ class TransactionRepository
     @transactions.find_all do |transaction_obj|
       transaction_obj.result == result
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@invoices.size} rows>"
   end
 end

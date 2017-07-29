@@ -1,4 +1,4 @@
-require_relative 'invoice_item'
+require_relative 'customer'
 require 'pry'
 
 class CustomerRepository
@@ -44,5 +44,9 @@ class CustomerRepository
     @customers.find_all do |customer|
       customer.last_name.downcase.include?(fragment.downcase)
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@invoices.size} rows>"
   end
 end

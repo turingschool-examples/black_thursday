@@ -47,7 +47,7 @@ class TransactionRepositoryTest < Minitest::Test
   def test_it_can_find_all_by_credit_card_number
     tr = TransactionRepository.new('./data/transactions_short.csv', self)
 
-    target = tr.find_all_by_credit_card_number("4149654190362629")
+    target = tr.find_all_by_credit_card_number(4149654190362629)
     target_2 = tr.find_all_by_credit_card_number(0)
 
     assert_equal 10, target[0].id
@@ -57,7 +57,7 @@ class TransactionRepositoryTest < Minitest::Test
   def test_it_can_find_all_by_result
     tr = TransactionRepository.new('./data/transactions_short.csv', self)
 
-    target = tr.find_all_by_result(:success)
+    target = tr.find_all_by_result("success")
     target_2 = tr.find_all_by_result("none")
 
     assert_equal 9, target.count
