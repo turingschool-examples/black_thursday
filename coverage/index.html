@@ -14,7 +14,7 @@
       <img src="./assets/0.10.1/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2017-07-29T16:24:25-06:00">2017-07-29T16:24:25-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2017-07-29T17:08:48-06:00">2017-07-29T17:08:48-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -581,13 +581,13 @@
         <li class="covered" data-hits="19940" data-linenumber="11">
           <span class="hits">19940</span>
           
-          <code class="ruby">    @created_at   = Time.now</code>
+          <code class="ruby">    @created_at   = Time.parse(invoice_hash[:created_at])</code>
         </li>
       
         <li class="covered" data-hits="19940" data-linenumber="12">
           <span class="hits">19940</span>
           
-          <code class="ruby">    @updated_at   = Time.now</code>
+          <code class="ruby">    @updated_at   = Time.parse(invoice_hash[:updated_at])</code>
         </li>
       
         <li class="covered" data-hits="19940" data-linenumber="13">

@@ -1,5 +1,5 @@
-require 'item_repo'
-require 'merchant_repo'
+require_relative 'item_repo'
+require_relative 'merchant_repo'
 
 class SalesAnalyst
 
@@ -16,22 +16,14 @@ class SalesAnalyst
     average.round(2)
   end
 
-  def subtract_mean
-    
-  end
-
 
    def average_items_per_merchant_standard_deviation
-     mean = average_items_per_merchant
-     subtract_mean = return_array_of_items_by_merchant.map do |merchant_items|
-       merchant_items - mean
-     end
-     subtract_mean.map! do |num|
-       num ** 2
-     end
-     subtract_mean = subtract_mean.reduce(:+)
-     subtract_mean = subtract_mean/(return_array_of_items_by_merchant.length - 1)
-     Math.sqrt(subtract_mean).round(2)
+    mean = average_items_per_merchant
+    actual_diff = subtract_mean_from_actual(mean)
+    squared_diff = square_all_elements(actual_diff)
+    sum = squared_diff.reduce(:+)
+    sum_divided = sum/(return_array_of_items_by_merchant.length - 1)
+     Math.sqrt(sum_divided).round(2)
    end
 
    def return_array_of_items_by_merchant
@@ -147,5 +139,19 @@ class SalesAnalyst
   # #
   # # expect(expected).to eq 13.5
   # end
+
+  private
+
+    def subtract_mean_from_actual(mean)
+      return_array_of_items_by_merchant.map do |merchant_items|
+        merchant_items - mean
+      end
+    end
+
+    def square_all_elements(actual_diff)
+      actual_diff.map! do |num|
+        num ** 2
+      end
+    end
 
 end
