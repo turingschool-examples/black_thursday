@@ -12,7 +12,18 @@ class CustomerRepository
     @customers
   end
 
-  
+  def find_by_id(id)
+    @customers.find do |customer|
+      customer.id == id
+    end
+  end
+
+  def find_all_by_first_name
+    @customers.find_all do |customer|
+      cu
+  end
+
+
 
 
 

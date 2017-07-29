@@ -8,7 +8,7 @@ class Customer
               :updated_at
   def initialize(hash, sales_engine)
     @sales_engine = sales_engine
-    @id           = hash[:id]
+    @id           = hash[:id].to_i
     @first_name   = hash[:first_name]
     @last_name    = hash[:last_name]
     @created_at   = Time.parse(hash[:created_at]) if hash[:created_at]

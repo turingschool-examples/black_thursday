@@ -49,18 +49,18 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal 125      , @cust_repo.all.last.id
   end
 
-  # def test_find_by_id_returning_nil_for_non_existing_ids
-  #   assert_nil @invoice_r.find_by_id(14331)
-  #   assert_nil @invoice_r.find_by_id(54322)
-  # end
-  #
-  # def test_find_by_id_working
-  #   save_one = @invoice_r.find_by_id(123)
-  #   save_two = @invoice_r.find_by_id(125)
-  #
-  #   assert_equal @invoice_r.invoices[1], save_one
-  #   assert_equal @invoice_r.invoices.last, save_two
-  # end
+  def test_find_by_id_returning_nil_for_non_existing_ids
+    assert_nil @cust_repo.find_by_id(14331)
+    assert_nil @cust_repo.find_by_id(54322)
+  end
+
+  def test_find_by_id_working
+    save_one = @cust_repo.find_by_id(123)
+    save_two = @cust_repo.find_by_id(125)
+
+    assert_equal @cust_repo.customers[1], save_one
+    assert_equal @cust_repo.customers.last, save_two
+  end
 
   #
   # def setup
