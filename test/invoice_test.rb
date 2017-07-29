@@ -5,13 +5,12 @@ class InvoiceTest < Minitest::Test
   attr_reader :i
 
   def setup
-    @i = Invoice.new({id:           6,
-                          customer_id:  7,
-                          merchant_id:  8,
-                          status:       "pending",
-                          created_at:   Time.now,
-                          updated_at:   Time.now,
-                        })
+    @i = Invoice.new({id:  6,
+             customer_id:  7,
+             merchant_id:  8,
+             status:       "pending",
+             created_at:   Time.now,
+             updated_at:   Time.now,})
   end
 
   def test_it_exists
@@ -31,7 +30,7 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_it_can_return_status
-    assert_equal "pending", i.status
+    assert_equal :pending, i.status
   end
 
   def test_it_knows_when_created
