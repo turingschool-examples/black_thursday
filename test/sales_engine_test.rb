@@ -329,4 +329,18 @@ class SalesEngineTest < Minitest::Test
     assert_equal 1, merchant.customers.count
     assert_equal "Casimer", merchant.customers[0].first_name
   end
+
+  def test_it_can_retrieve_merchants_with_customer_id
+    se = SalesEngine.from_csv({:items => './data/items_short.csv',
+                               :merchants => './data/merchants_short.csv',
+                               :invoices => './data/invoices_short.csv',
+                               :invoice_items => './data/invoice_items_short.csv',
+                               :transactions => './data/transactions_short.csv',
+                               :customers => './data/customers_short.csv'})
+
+    customer = se.customers.find_by_id(2)
+
+    assert_equal 2, customer.merchants.count
+    assert_equal "JewelleAccessories", customer.merchants[0].name
+  end
 end

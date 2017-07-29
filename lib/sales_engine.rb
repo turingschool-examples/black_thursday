@@ -84,7 +84,7 @@ class SalesEngine
     customer_id_array = invoices.map do |invoice|
       invoice.customer_id
     end
-    fetch_customers_with_customer_id(customer_id_array)
+    fetch_customers_with_customer_id(customer_id_array.uniq)
   end
 
   def fetch_customers_with_customer_id(customer_id_array)
@@ -93,19 +93,19 @@ class SalesEngine
       end
   end
 
-  # def fetch_items_from_invoice_id(invoice_id)
-  #   invoice_items = @invoice_items.find_all_by_invoice_id(invoice_id)
-  #   item_id_array = invoice_items.map do |invoice_item|
-  #     invoice_item.item_id
-  #   end
-  #   fetch_items_from_collection_of_item_ids(item_id_array)
-  # end
-  #
-  # def fetch_items_from_collection_of_item_ids(item_id_array)
-  #   item_id_array.map do |item_id|
-  #     items.find_by_id(item_id)
-  #   end
-  # en
+  def fetch_merchants_from_customer_id(customer_id)
+    invoices = @invoices.find_all_by_customer_id(customer_id)
+    merchant_id_array = invoices.map do |invoice|
+      invoice.merchant_id
+    end
+    fetch_merchants_with_merchant_id(merchant_id_array)
+  end
+
+  def fetch_merchants_with_merchant_id(merchant_id_array)
+    merchant_id_array.map do |merchant_id|
+       merchants.find_by_id(merchant_id)
+      end
+  end
 
   def call_merchants
     @merchants.merchants

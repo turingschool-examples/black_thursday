@@ -12,7 +12,7 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_initializes_with_an_empty_array
     mr = MerchantRepository.new('./data/merchants_short.csv', self)
 
-    assert_equal 11,  mr.merchants.count
+    assert_equal 13,  mr.merchants.count
   end
 
   def test_it_can_return_all_merchants
@@ -21,7 +21,7 @@ class MerchantRepositoryTest < Minitest::Test
     target = mr.all
 
     assert_equal Array, target.class
-    assert_equal 11, target.count
+    assert_equal 13, target.count
   end
 
   def test_it_can_find_by_id

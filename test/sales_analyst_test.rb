@@ -29,7 +29,7 @@ class SalesAnalystTest < Minitest::Test
 
     target = sa.average_items_per_merchant
 
-    assert_equal 0.91, target
+    assert_equal 0.77, target
   end
 
   def test_it_can_find_the_standard_deviation
@@ -43,7 +43,7 @@ class SalesAnalystTest < Minitest::Test
 
     target = sa.average_items_per_merchant_standard_deviation
 
-    assert_equal 0.86, target
+    assert_equal 0.74, target
   end
 
   def test_returns_array_of_items_per_merchant
@@ -57,7 +57,7 @@ class SalesAnalystTest < Minitest::Test
 
     target = sa.number_of_items_per_merchant
 
-    assert_equal 11, target.count
+    assert_equal 13, target.count
     assert_equal 1, target[0]
   end
 

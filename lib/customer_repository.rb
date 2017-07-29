@@ -46,6 +46,10 @@ class CustomerRepository
     end
   end
 
+  def fetch_merchants_from_customer_id(customer_id)
+    se.fetch_merchants_from_customer_id(customer_id)
+  end
+
   def inspect
     "#<#{self.class} #{@customers.size} rows>"
   end

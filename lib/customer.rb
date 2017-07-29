@@ -15,4 +15,8 @@ class Customer
     @updated_at = Time.parse(updated_at)
     @cr = cr
   end
+
+  def merchants
+    cr.fetch_merchants_from_customer_id(id)
+  end
 end
