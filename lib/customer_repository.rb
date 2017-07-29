@@ -33,4 +33,10 @@ class CustomerRepository
       customer_obj.id == customer_id
     end
   end
+
+  def find_all_by_first_name(fragment)
+    @customers.find_all do |customer|
+      customer.first_name.downcase.include?(fragment.downcase)
+    end
+  end
 end
