@@ -12,7 +12,7 @@ class CustomerRepositoryTest < Minitest::Test
   def test_it_initializes_with_populated_array
     cr = CustomerRepository.new('./data/customers_short.csv', self)
 
-    assert_equal 10, cr.customers.count
+    assert_equal 11, cr.customers.count
   end
 
   def test_it_can_return_all_customers
@@ -21,7 +21,7 @@ class CustomerRepositoryTest < Minitest::Test
     target = cr.all
 
     assert_equal Array, target.class
-    assert_equal 10, target.count
+    assert_equal 11, target.count
   end
 
   def test_it_can_find_by_id
@@ -44,7 +44,7 @@ class CustomerRepositoryTest < Minitest::Test
 
     assert_equal "Joey", target[0].first_name
     assert_equal "Joey", target_2[0].first_name
-    assert_equal 3, target_3.count
+    assert_equal 4, target_3.count
     assert_equal "Sylvester", target_3[0].first_name
     assert_equal [], target_4
   end
@@ -59,7 +59,7 @@ class CustomerRepositoryTest < Minitest::Test
 
     assert_equal "Mariah", target[0].first_name
     assert_equal "Mariah", target_2[0].first_name
-    assert_equal 2, target_3.count
+    assert_equal 3, target_3.count
     assert_equal "Sylvester", target_3[0].first_name
     assert_equal [], target_4
   end

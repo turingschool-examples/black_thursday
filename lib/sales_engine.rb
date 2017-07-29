@@ -79,6 +79,34 @@ class SalesEngine
     @invoices.find_by_id(invoice_id)
   end
 
+  def fetch_customers_from_merchant_id(merchant_id)
+    invoices = @invoices.find_all_by_merchant_id(merchant_id)
+    customer_id_array = invoices.map do |invoice|
+      invoice.customer_id
+    end
+    fetch_customers_with_customer_id(customer_id_array)
+  end
+
+  def fetch_customers_with_customer_id(customer_id_array)
+    customer_id_array.map do |customer_id|
+       customers.find_by_id(customer_id)
+      end
+  end
+
+  # def fetch_items_from_invoice_id(invoice_id)
+  #   invoice_items = @invoice_items.find_all_by_invoice_id(invoice_id)
+  #   item_id_array = invoice_items.map do |invoice_item|
+  #     invoice_item.item_id
+  #   end
+  #   fetch_items_from_collection_of_item_ids(item_id_array)
+  # end
+  #
+  # def fetch_items_from_collection_of_item_ids(item_id_array)
+  #   item_id_array.map do |item_id|
+  #     items.find_by_id(item_id)
+  #   end
+  # en
+
   def call_merchants
     @merchants.merchants
   end

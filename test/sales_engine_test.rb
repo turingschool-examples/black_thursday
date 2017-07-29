@@ -258,7 +258,7 @@ class SalesEngineTest < Minitest::Test
     cr = se.customers
     customers = cr.all
 
-    assert_equal 10, customers.length
+    assert_equal 11, customers.length
     assert_equal Array, customers.class
   end
 
@@ -314,5 +314,19 @@ class SalesEngineTest < Minitest::Test
     transaction = se.transactions.find_by_id(2)
 
     assert_equal 10, transaction.invoice.customer_id
+  end
+
+  def test_it_can_retrieve_customers_with_merchant_id
+    se = SalesEngine.from_csv({:items => './data/items_short.csv',
+                               :merchants => './data/merchants_short.csv',
+                               :invoices => './data/invoices_short.csv',
+                               :invoice_items => './data/invoice_items_short.csv',
+                               :transactions => './data/transactions_short.csv',
+                               :customers => './data/customers_short.csv'})
+
+    merchant = se.merchants.find_by_id(12334105)
+
+    assert_equal 1, merchant.customers.count
+    assert_equal "Casimer", merchant.customers[0].first_name
   end
 end

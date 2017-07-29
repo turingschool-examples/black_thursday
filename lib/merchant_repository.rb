@@ -52,6 +52,10 @@ class MerchantRepository
     se.fetch_invoices_for_merchant(merchant_id)
   end
 
+  def fetch_customers_from_merchant_id(merchant_id)
+    se.fetch_customers_from_merchant_id(merchant_id)
+  end
+
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
