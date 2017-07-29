@@ -3,18 +3,19 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/item'
 require 'bigdecimal'
-require './lib/item_repo'
 
 class ItemTest < Minitest::Test
 
   def setup
-    @item = Item.new({:id        => 263395237,
+    item_details = {:id        => 263395237,
                     :name        => "Pencil",
                     :description => "You can use it to write things",
-                    :merchant_id => 
+                    :merchant_id => 12334105,
                     :unit_price  => 1099,
                     :created_at  => "09:34:06 UTC",
-                    :updated_at  => "2007-06-04 21:35:10 UTC"}, "ItemRepository")
+                    :updated_at  => "2007-06-04 21:35:10 UTC"}
+
+    @item        = Item.new(item_details, "ItemRepository")
   end
 
   def test_it_exist_with_attributes
@@ -28,7 +29,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_item_can_return_prices_in_dollars
-    assert_equal 1099, @item.unit_price
+    assert_instance_of BigDecimal, @item.unit_price
     assert_equal 10.99, @item.unit_price_to_dollars
   end
 

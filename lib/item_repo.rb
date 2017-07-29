@@ -3,7 +3,9 @@ require 'csv'
 require 'pry'
 
 class ItemRepository
-  attr_reader :engine, :contents
+
+  attr_reader :engine,
+              :items
 
   def initialize(csvfile, engine)
     @engine = engine
@@ -13,7 +15,7 @@ class ItemRepository
   def create_hash_of_items(csvfile)
     all_items = {}
     csvfile.each do |row|
-      all_items[row[:id]] = Item.new(row, self)
+      all_items[row[:id].to_i] = Item.new(row, self)
     end
     all_items
   end
@@ -26,33 +28,19 @@ class ItemRepository
     @items.values
   end
 
-  def find_merchant_vendor(merchant_id)
-    @engine.find_merchant_by_id(merchant_id)
-  end
-
-  def find_all_items_to_a_merchant(merchant_id)
-    all.find_all do |item|
-      item.merchant_id == merchant_id
-    end
-  end
-
   def find_by_id(id)
-    @items[id.to_s]
+    @items[id]
   end
 
   def find_by_name(name)
     all.find do |item|
-      if item.name.downcase == name.downcase
-        return item
-      end
+      item.name.downcase == name.downcase
     end
   end
 
   def find_all_with_description(description)
     all.find_all do |item|
-      if item.description.downcase == description.downcase
-        item
-      end
+      item.description.downcase == description.downcase
     end
   end
 
@@ -70,19 +58,20 @@ class ItemRepository
 
   def find_all_by_merchant_id(merchant_id)
     all.find_all do |item|
-      if item.merchant_id == merchant_id
-        item
-      end
+      item.merchant_id == merchant_id
     end
   end
 
-end
+  private
 
-# def load_items(csvfile)
-#   contents = CSV.open csvfile, headers: true, header_converters: :symbol
-#   all_items = {}
-#   contents.each do |row|
-#     all_items[row[:id]] = Item.new(row, self)
-#   end
-#   all_items
-# end
+    def find_merchant_vendor(merchant_id)
+      @engine.find_merchant_by_id(merchant_id)
+    end
+
+    def find_all_items_to_a_merchant(merchant_id)
+      all.find_all do |item|
+        item.merchant_id == merchant_id
+      end
+    end
+    
+end

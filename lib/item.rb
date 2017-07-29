@@ -25,14 +25,13 @@ class Item
     @item_repo = item_repo
   end
 
-  def price_create(price)
-    price/100
-  end
+  private
 
-  def merchant
-    @item_repo.find_merchant_vendor(merchant_id)
-  end
+    def price_create(price)
+      price/100
+    end
 
-
-
+    def merchant
+      @item_repo.find_merchant_vendor(merchant_id)
+    end
 end
