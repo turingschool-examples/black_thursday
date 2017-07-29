@@ -21,7 +21,8 @@ class TransactionRepository
       created_at = row[:created_at]
       updated_at = row[:updated_at]
       transaction = Transaction.new(id, invoice_id,
-                                    credit_card_number, credit_card_expiration_date,
+                                    credit_card_number,
+                                    credit_card_expiration_date,
                                     result, created_at, updated_at, self)
       @transactions << transaction
     end
@@ -56,6 +57,6 @@ class TransactionRepository
   end
 
   def inspect
-    "#<#{self.class} #{@invoices.size} rows>"
+    "#<#{self.class} #{@transactions.size} rows>"
   end
 end
