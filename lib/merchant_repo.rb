@@ -1,10 +1,9 @@
-require 'pry'
-require 'csv'
 require_relative 'merchant'
+require 'csv'
+require 'pry'
 
 class MerchantRepository
-
-  attr_reader :engine, :contents
+  attr_reader :engine, :merchants
 
   def initialize(csvfile, engine)
     @engine = engine
@@ -65,15 +64,3 @@ class MerchantRepository
   end
 
 end
-
-
-
-
-# def load_merchants(csvfile)
-#   contents = CSV.open csvfile, headers: true, header_converters: :symbol
-#   all_merchants = {}
-#   contents.each do |row|
-#     all_merchants[row[:id]] = Merchant.new(row, self)
-#   end
-#   all_merchants
-# end

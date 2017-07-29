@@ -3,7 +3,7 @@ require 'csv'
 require 'pry'
 
 class ItemRepository
-  attr_reader :engine, :contents
+  attr_reader :engine, :items
 
   def initialize(csvfile, engine)
     @engine = engine

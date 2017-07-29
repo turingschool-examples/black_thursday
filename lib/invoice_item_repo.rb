@@ -3,11 +3,11 @@ require 'csv'
 require 'pry'
 
 class InvoiceItemRepository
-  attr_reader :engine, :contents
+  attr_reader :engine, :invoice_items
 
   def initialize(csvfile, engine)
-    @contents = create_hash_of_invoice_items(csvfile)
-    @engine   = engine
+    @engine        = engine
+    @invoice_items = create_hash_of_invoice_items(csvfile)
   end
 
   def create_hash_of_invoice_items(csvfile)
@@ -23,11 +23,11 @@ class InvoiceItemRepository
   end
 
   def all
-    @contents.values
+    @invoice_items.values
   end
 
-  def find_by_id(invoice_item_id)
-    @contents[invoice_item_id.to_s]
+  def find_by_id(id)
+    @invoice_items[id.to_s]
   end
 
   def find_all_by_item_id(item_id)

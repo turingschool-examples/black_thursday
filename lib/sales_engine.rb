@@ -14,9 +14,9 @@ class SalesEngine
     @items         = ItemRepository.new(se_hash[:items], self)
     @merchants     = MerchantRepository.new(se_hash[:merchants], self)
     @invoices      = InvoiceRepository.new(se_hash[:invoices], self)
-    @invoice_items = InvoiceItemRepository.new(:invoice_items, self)
-    @transactions  = TransactionRepository.new(:transactions, self)
-    @customers     = CustomerRepository.new(:customers, self)
+    @invoice_items = InvoiceItemRepository.new(se_hash[:invoice_items], self)
+    @transactions  = TransactionRepository.new(se_hash[:transactions], self)
+    @customers     = CustomerRepository.new(se_hash[:customers], self)
   end
 
   def find_items_by_merchant_id(merchant_id)
@@ -26,7 +26,7 @@ class SalesEngine
   def find_merchant_by_id(merchant_id)
     @merchants.find_by_id(merchant_id)
   end
-  #
+
   def find_invoices_by_merchant_id(merchant_id)
     @invoices.find_all_by_merchant_id(merchant_id)
   end

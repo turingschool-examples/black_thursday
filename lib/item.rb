@@ -1,8 +1,10 @@
 require 'csv'
+require 'time'
 require 'bigdecimal'
 
 class Item
-  attr_reader :id, :name, :description, :unit_price, :merchant_id,:created_at, :updated_at, :unit_price_to_dollars
+  attr_reader :id, :name, :description, :unit_price, :merchant_id,
+              :created_at, :updated_at, :unit_price_to_dollars
 
   def initialize(item_hash, item_repo)
     @id                    = item_hash[:id].to_i
