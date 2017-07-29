@@ -53,17 +53,19 @@ class SalesAnalyst
   end
 
   def top_merchants_by_invoice_count
-    top       = []
+    top = []
+    bar = invoice_two_std_dev(num_invoices_per_merchant.values)
     num_invoices_per_merchant.each do |merchant, invoices|
-      invoice_std_dev(top, merchant, invoices)
+      invoice_std_dev(top, merchant, invoices, bar)
     end
     top
   end
 
   def bottom_merchants_by_invoice_count
     bottom = []
+    bar    = invoice_2_std_dev_below(num_invoices_per_merchant.values)
     num_invoices_per_merchant.each do |merchant, invoices|
-      bad_merchants(bottom, merchant, invoices)
+      bad_merchants(bottom, merchant, invoices, bar)
     end
     bottom
   end
@@ -71,7 +73,7 @@ class SalesAnalyst
   def top_days_by_invoice_count
     top_inv = []
     invoices_by_day_count.each do |day, number|
-      top_inv << day if number > invoice_std_dev_bar
+      top_inv << day if number > invoice_std_dev_bar.round(0)
     end
     top_inv
   end

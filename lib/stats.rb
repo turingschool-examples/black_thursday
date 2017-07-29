@@ -42,7 +42,7 @@ module Stats
   end
 
   def item_two_std_dev(info)
-    avg     = average(item_prices)
+    avg     = average(info)
     std_dev = standard_deviation(info) * 2
     avg + std_dev
   end
@@ -61,29 +61,23 @@ module Stats
   end
 
   def invoice_two_std_dev(info)
-    avg     = average(num_invoices_per_merchant.values)
+    avg     = average(info)
     std_dev = standard_deviation(info) * 2
     avg + std_dev
   end
 
-  def invoice_std_dev(array, merchant, invoices)
-    m_inv = num_invoices_per_merchant.values
-    if invoices > invoice_two_std_dev(m_inv)
-      array << merchant
-    end
+  def invoice_std_dev(array, merchant, invoices, bar)
+    array << merchant if invoices > bar
   end
 
   def invoice_2_std_dev_below(info)
-    avg     = average(num_invoices_per_merchant.values)
+    avg     = average(info)
     std_dev = standard_deviation(info) * 2
     avg - std_dev
   end
 
-  def bad_merchants(array, merchant, invoices)
-    m_inv = num_invoices_per_merchant.values
-    if invoices < invoice_2_std_dev_below(m_inv)
-      array << merchant
-    end
+  def bad_merchants(array, merchant, invoices, bar)
+    array <<merchant if invoices < bar
   end
 
   def num_invoice_days
@@ -95,8 +89,9 @@ module Stats
   end
 
   def invoice_std_dev_bar
-    avg = average(invoices_by_day_count.values)
-    std_dev = standard_deviation(invoices_by_day_count.values)
+    invoice_day = invoices_by_day_count.values
+    avg         = average(invoice_day)
+    std_dev     = standard_deviation(invoice_day)
     avg + std_dev
   end
 
