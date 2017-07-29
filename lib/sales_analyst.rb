@@ -66,4 +66,13 @@ class SalesAnalyst
     array_2.round(2)
   end
 
+  def golden_items
+    ir = sales_engine.items.all
+    prices = ir.map {|item| item.unit_price}
+    dev = (average_average_price_per_merchant)+(standard_deviation(prices) * 2)
+    ir.find_all do |item|
+      item.unit_price >= dev
+    end
+  end
+
 end

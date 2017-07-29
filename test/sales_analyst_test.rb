@@ -54,13 +54,29 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_average_average_price_per_merchant
+    # require "pry"; binding.!
+    # skip
     se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"})
+        :items => "./data/items.csv",
+        :merchants => "./data/merchants.csv",
+        :invoices => "./data/invoices.csv"
+      })
     sa = SalesAnalyst.new(se)
 
 
     assert_equal 350.29, sa.average_average_price_per_merchant
+  end
+
+  def test_golden_items
+    # skip
+    se = SalesEngine.from_csv({
+        :items => "./data/items.csv",
+        :merchants => "./data/merchants.csv",
+        :invoices => "./data/invoices.csv"
+      })
+      sa = SalesAnalyst.new(se)
+
+    assert_equal 5, sa.golden_items.length
   end
 
 end
