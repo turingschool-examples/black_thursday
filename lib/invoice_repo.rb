@@ -26,8 +26,8 @@ class InvoiceRepository
     @contents.values
   end
 
-  def find_by_id(id)
-    @contents[id.to_s]
+  def find_by_id(invoice_id)
+    @contents[invoice_id.to_s]
   end
 
   def find_all_by_customer_id(customer_id)
@@ -51,10 +51,9 @@ class InvoiceRepository
   def find_all_by_status(status)
     content_array = all
     content_array.find_all do |invoice|
-      if invoice.status == status
-        return invoice
+      invoice.status == status
+         invoice
       end
-    end
   end
 
 end
