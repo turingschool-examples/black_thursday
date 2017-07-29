@@ -18,4 +18,5 @@ class InvoiceItem
     @created_at   = Time.parse(data[:created_at]) if data[:created_at]
     @updated_at   = Time.parse(data[:updated_at]) if data[:updated_at]
   end
+
 end

@@ -1,4 +1,5 @@
-require './lib/invoice_item'
+require_relative '../lib/invoice_item'
+
 class InvoiceItemRepository
   def initialize(sales_engine)
     @sales_engine = sales_engine

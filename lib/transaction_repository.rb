@@ -67,6 +67,10 @@ class TransactionRepository
     @transactions << Transaction.new(data.to_hash, @sales_engine)
   end
 
+  def inspect
+    "#<#{self.class} #{@transactions.size} rows>"
+  end
+
   # def find_all_by(query, arg, branch)
   #   result = []
   #   repo = get_instance_of(branch)
