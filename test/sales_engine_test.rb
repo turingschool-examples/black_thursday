@@ -289,4 +289,17 @@ class SalesEngineTest < Minitest::Test
     assert_equal 2, invoice.transactions[0].id
     assert_equal 1, invoice.transactions.count
   end
+
+  def test_it_can_retrieve_customers_with_invoice_id
+    se = SalesEngine.from_csv({:items => './data/items_short.csv',
+                               :merchants => './data/merchants_short.csv',
+                               :invoices => './data/invoices_short.csv',
+                               :invoice_items => './data/invoice_items_short.csv',
+                               :transactions => './data/transactions_short.csv',
+                               :customers => './data/customers_short.csv'})
+
+    invoice = se.invoices.find_by_id(9)
+
+    assert_equal "Cecelia", invoice.customer.first_name
+  end
 end

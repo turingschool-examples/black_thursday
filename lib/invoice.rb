@@ -30,4 +30,8 @@ class Invoice
   def transactions
     inr.fetch_transactions_from_invoice_id(id)
   end
+
+  def customer
+    inr.fetch_customer_from_invoice_id(customer_id)
+  end
 end
