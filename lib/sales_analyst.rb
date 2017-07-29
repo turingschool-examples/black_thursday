@@ -1,4 +1,5 @@
 require_relative '../lib/sales_engine'
+require 'pry'
 
 class SalesAnalyst
   def initialize(sales_engine)
@@ -13,7 +14,7 @@ class SalesAnalyst
   end
 
   def total_merchants
-    @mercants.id_repo.count.to_f
+    @merchants.id_repo.count.to_f
   end
 
   def total_invoices
@@ -54,9 +55,8 @@ class SalesAnalyst
                                      :Thursday => [],
                                      :Friday => [],
                                      :Saturday => [],
-                                     :Sunday =>[]})
-    do |result_hash, invoice_object|
-      object_day = convert_date_to_day(invoice_object.time_created)
+                                     :Sunday =>[]}) do |result_hash, invoice_object|
+      object_day = convert_date_to_day(invoice_object.created_at)
       result_hash[object_day] << invoice_object
       result_hash
     end
@@ -82,15 +82,10 @@ class SalesAnalyst
     (total_invoices / total_merchants).round(2)
   end
 
-  def average_invoices_per_day
-
-    invoices_by_day @invoices.id_repo.reduce({:Monday
-                                              :Tuesday})
-
   def average_item_price_for_merchant(merchant_id)
     merchant = @merchants.find_by_id(merchant_id)
     if !(merchant.nil?)
-      total = merchant_items.reduce(0) do |total_price, item|
+      total = merchant.items.reduce(0) do |total_price, item|
         total_price += item.unit_price
         total_price
       end
@@ -99,19 +94,21 @@ class SalesAnalyst
   end
 
   def standard_deviation(average, numerator_repo, numerator_attribute_proc, total)
-    summed = numerator_repo.reduce(0) do |sum, identifier|
-      object = numerator_repo[identifier]
-      attribute_value = numerator_attribute_proc.call(object)
-      sum += (attribute_value - average) ** 2
+    summed = numerator_repo.keys.reduce(0) do |sum, identifier|
+      if !(numerator_repo[identifier].nil?)
+        object = numerator_repo[identifier]
+        attribute_value = numerator_attribute_proc.call(object)
+        sum += (attribute_value - average) ** 2
+      end
       sum
     end
-    divided_result = sum / (total - 1)
+    divided_result = summed / (total - 1)
     Math.sqrt(divided_result).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
     count_items = Proc.new {|merchant| merchant.items.count}
-    standard_deviation(average_items_per_merchant, @merchant.id_repo, count_items, total_merchants)
+    standard_deviation(average_items_per_merchant, @merchants.id_repo, count_items, total_merchants)
   end
 
   def item_price_standard_deviation
@@ -125,12 +122,12 @@ class SalesAnalyst
   end
 
   def average_invoices_per_day_standard_deviation
-    summed = invoices_by_day.reduce(0) do |sum, day|
+    summed = invoices_by_day.keys.reduce(0) do |sum, day|
       invoices_on_this_day = invoices_by_day[day].count
       sum += (invoices_on_this_day - average_invoices_per_day) ** 2
       sum
     end
-    divided_resul = sum / (total_invoices - 1)
+    divided_result = summed / (total_invoices - 1)
     Math.sqrt(divided_result).round(2)
   end
 

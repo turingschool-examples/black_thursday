@@ -71,7 +71,7 @@ class SalesAnalystTest < Minitest::Test
 
     average_price = sales_analyst.average_price_per_merchant
 
-    assert_equal 722.51, average_price
+    assert_equal 252.53, average_price
   end
 
   def test_golden_items
@@ -146,11 +146,10 @@ class SalesAnalystTest < Minitest::Test
     })
     sales_analyst = SalesAnalyst.new(sales_engine)
 
-    assert_equal :Saturday, sales_analyst.convert_date_to_day(Time.new(2017, 07, 23))
+    assert_equal :Friday, sales_analyst.convert_date_to_day(Time.new(2017, 07, 28))
   end
 
   def test_average_invoices_per_day
-    skip
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -158,11 +157,10 @@ class SalesAnalystTest < Minitest::Test
     })
     sales_analyst = SalesAnalyst.new(sales_engine)
 
-    assert_equal _____, sales_analyst.average_invoices_per_day
+    assert_equal 712.14, sales_analyst.average_invoices_per_day
   end
 
   def test_average_invoices_per_day_standard_deviation
-    skip
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -170,7 +168,7 @@ class SalesAnalystTest < Minitest::Test
     })
     sales_analyst = SalesAnalyst.new(sales_engine)
 
-    assert_equal ______, sales_analyst.average_invoices_per_day_standard_deviation
+    assert_equal 0.63, sales_analyst.average_invoices_per_day_standard_deviation
   end
 
   def test_top_days_by_invoice_count
@@ -185,6 +183,7 @@ class SalesAnalystTest < Minitest::Test
 
     assert_instance_of Array, top_days
     assert_instance_of Symbol, top_days[0]
+    assert_equal 3, top_days.length
   end
 
   def test_invoice_status
@@ -195,9 +194,9 @@ class SalesAnalystTest < Minitest::Test
     })
     sales_analyst = SalesAnalyst.new(sales_engine)
 
-    pending = sales_analyst.invoice_status[:pending]
-    shipped = sales_analyst.invoice_status[:shipped]
-    returned = sales_analyst.invoice_status[:returned]
+    pending = sales_analyst.invoice_status(:pending)
+    shipped = sales_analyst.invoice_status(:shipped)
+    returned = sales_analyst.invoice_status(:returned)
 
     assert_equal 29.55, pending
     assert_equal 56.95, shipped
