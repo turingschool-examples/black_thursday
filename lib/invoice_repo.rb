@@ -31,17 +31,15 @@ class InvoiceRepository
   end
 
   def find_all_by_customer_id(customer_id)
-    content_array = all
-    content_array.find_all do |invoice|
+    all.find_all do |invoice|
       if invoice.customer_id == customer_id.to_s
-        invoice
+         invoice
       end
     end
   end
 
   def find_all_by_merchant_id(merchant_id)
-    content_array = all
-    content_array.find_all do |invoice|
+    all.find_all do |invoice|
       if invoice.merchant_id == merchant_id.to_s
         invoice
       end
@@ -49,11 +47,11 @@ class InvoiceRepository
   end
 
   def find_all_by_status(status)
-    content_array = all
-    content_array.find_all do |invoice|
-      invoice.status == status
+    all.find_all do |invoice|
+      if invoice.status == status
          invoice
       end
+    end
   end
 
 end
