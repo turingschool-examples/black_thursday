@@ -67,6 +67,11 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_price_range
+    price_range = (10..20)
+
+    assert_instance_of Array, @item_repo.find_all_by_price_in_range(price_range)
+    assert_instance_of Item, @item_repo.find_all_by_price_in_range(price_range)[0]
+    assert_equal 317, @item_repo.find_all_by_price_in_range(price_range).length
   end
 
 end

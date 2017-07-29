@@ -14,27 +14,27 @@
       <img src="./assets/0.10.1/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2017-07-29T13:56:48-06:00">2017-07-29T13:56:48-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2017-07-29T14:03:11-06:00">2017-07-29T14:03:11-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="yellow">86.67%</span></span>
+    (<span class="covered_percent"><span class="yellow">89.83%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         2440.2
+         2527.21
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>2</b> files in total.
-    <b>60</b> relevant lines. 
-    <span class="green"><b>52</b> lines covered</span> and
-    <span class="red"><b>8</b> lines missed </span>
+    <b>59</b> relevant lines. 
+    <span class="green"><b>53</b> lines covered</span> and
+    <span class="red"><b>6</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -62,12 +62,12 @@
       
       <tr>
         <td class="strong"><a href="#2b78fadd38c17da439e20522abb443b7a70ebd98" class="src_link" title="lib/item_repo.rb">lib/item_repo.rb</a></td>
-        <td class="yellow strong">82.5 %</td>
-        <td>77</td>
-        <td>40</td>
-        <td>33</td>
-        <td>7</td>
-        <td>652.7</td>
+        <td class="yellow strong">87.18 %</td>
+        <td>75</td>
+        <td>39</td>
+        <td>34</td>
+        <td>5</td>
+        <td>738.5</td>
       </tr>
       
     </tbody>
@@ -330,11 +330,11 @@
         <div class="source_table" id="2b78fadd38c17da439e20522abb443b7a70ebd98">
   <div class="header">
     <h3>lib/item_repo.rb</h3>
-    <h4><span class="yellow">82.5 %</span> covered</h4>
+    <h4><span class="yellow">87.18 %</span> covered</h4>
     <div>
-      <b>40</b> relevant lines. 
-      <span class="green"><b>33</b> lines covered</span> and
-      <span class="red"><b>7</b> lines missed.</span>
+      <b>39</b> relevant lines. 
+      <span class="green"><b>34</b> lines covered</span> and
+      <span class="red"><b>5</b> lines missed.</span>
     </div>
   </div>
   
@@ -479,8 +479,8 @@
           <code class="ruby">  def inspect</code>
         </li>
       
-        <li class="covered" data-hits="42" data-linenumber="24">
-          <span class="hits">42</span>
+        <li class="covered" data-hits="1" data-linenumber="24">
+          <span class="hits">1</span>
           
           <code class="ruby">    &quot;#&lt;#{self.class} #{@items.size} rows&gt;&quot;</code>
         </li>
@@ -503,8 +503,8 @@
           <code class="ruby">  def all</code>
         </li>
       
-        <li class="covered" data-hits="16" data-linenumber="28">
-          <span class="hits">16</span>
+        <li class="covered" data-hits="18" data-linenumber="28">
+          <span class="hits">18</span>
           
           <code class="ruby">    @items.values</code>
         </li>
@@ -623,14 +623,14 @@
           <code class="ruby">  def find_all_by_price(price)</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="48">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="5" data-linenumber="48">
+          <span class="hits">5</span>
           
           <code class="ruby">    all.find_all do |item|</code>
         </li>
       
-        <li class="covered" data-hits="8202" data-linenumber="49">
-          <span class="hits">8202</span>
+        <li class="covered" data-hits="6835" data-linenumber="49">
+          <span class="hits">6835</span>
           
           <code class="ruby">      (item.unit_price_to_dollars) == price</code>
         </li>
@@ -659,14 +659,14 @@
           <code class="ruby">  def find_all_by_price_in_range(range)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="54">
-          
+        <li class="covered" data-hits="3" data-linenumber="54">
+          <span class="hits">3</span>
           
           <code class="ruby">    all.find_all do |item|</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="55">
-          
+        <li class="covered" data-hits="4101" data-linenumber="55">
+          <span class="hits">4101</span>
           
           <code class="ruby">      item.unit_price &lt;= range.end &amp;&amp; item.unit_price &gt;= range.begin</code>
         </li>
@@ -728,76 +728,64 @@
         <li class="covered" data-hits="1" data-linenumber="65">
           <span class="hits">1</span>
           
-          <code class="ruby">  private</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="66">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="67">
-          <span class="hits">1</span>
-          
           <code class="ruby">    def find_merchant_vendor(merchant_id)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="68">
+        <li class="missed" data-hits="0" data-linenumber="66">
           
           
           <code class="ruby">      @engine.find_merchant_by_id(merchant_id)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="69">
+        <li class="never" data-hits="" data-linenumber="67">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="70">
+        <li class="never" data-hits="" data-linenumber="68">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="71">
+        <li class="covered" data-hits="1" data-linenumber="69">
           <span class="hits">1</span>
           
           <code class="ruby">    def find_all_items_to_a_merchant(merchant_id)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="72">
+        <li class="missed" data-hits="0" data-linenumber="70">
           
           
           <code class="ruby">      all.find_all do |item|</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="73">
+        <li class="missed" data-hits="0" data-linenumber="71">
           
           
           <code class="ruby">        item.merchant_id == merchant_id</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="74">
+        <li class="never" data-hits="" data-linenumber="72">
           
           
           <code class="ruby">      end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="75">
+        <li class="never" data-hits="" data-linenumber="73">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="76">
+        <li class="never" data-hits="" data-linenumber="74">
           
           
-          <code class="ruby">    </code>
+          <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="77">
+        <li class="never" data-hits="" data-linenumber="75">
           
           
           <code class="ruby">end</code>

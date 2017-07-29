@@ -62,8 +62,6 @@ class ItemRepository
     end
   end
 
-  private
-
     def find_merchant_vendor(merchant_id)
       @engine.find_merchant_by_id(merchant_id)
     end
@@ -73,5 +71,5 @@ class ItemRepository
         item.merchant_id == merchant_id
       end
     end
-    
+
 end
