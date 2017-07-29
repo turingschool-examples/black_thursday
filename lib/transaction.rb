@@ -8,8 +8,8 @@ class Transaction
               :created_at,
               :updated_at
 
-  def initialize(data)
-    # @sales_engine = sales_engine
+  def initialize(data, sales_engine)
+    @sales_engine = sales_engine
     # @repo = repo
     @id = data[:id].to_i
     @invoice_id = data[:invoice_id]

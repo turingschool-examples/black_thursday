@@ -58,9 +58,13 @@ class TransactionRepository
 
   def from_csv(path)
     rows = CSV.open path, headers: true, header_converters: :symbol
-    rows.each do |content|
-      @transactions << Transaction.new(content.to_hash)
+    rows.each do |data|
+      add_data(data)
     end
+  end
+
+  def add_data(data)
+    @transactions << Transaction.new(data.to_hash, @sales_engine)
   end
 
   # def find_all_by(query, arg, branch)

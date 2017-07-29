@@ -19,7 +19,7 @@ class TransactionTest < Minitest::Test
       :result => "success",
       :created_at => "2012-02-26 20:56:57 UTC",
       :updated_at => "2012-02-26 20:56:57 UTC"
-    })
+    }, self)
   end
 
   def test_it_exists
@@ -37,7 +37,7 @@ class TransactionTest < Minitest::Test
   def test_it_has_credit_card_number
     assert_equal "4242424242424242", @transaction.credit_card_number
   end
-  
+
   def test_it_has_credit_card_expiration_date
     assert_equal "0220", @transaction.credit_card_expiration_date
   end
