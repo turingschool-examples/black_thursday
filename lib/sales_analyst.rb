@@ -78,4 +78,9 @@ class SalesAnalyst
     top_inv
   end
 
+  def invoice_status(status)
+    ((statuses[status].count).to_f /
+      (se.all_invoices.count).to_f * 100).round(2)
+  end
+
 end

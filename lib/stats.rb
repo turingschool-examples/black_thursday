@@ -95,5 +95,9 @@ module Stats
     avg + std_dev
   end
 
+  def statuses
+    se.all_invoices.group_by {|invoice| invoice.status}
+  end
+
 
 end

@@ -71,4 +71,10 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 1, actual.count
   end
 
+  def test_it_returns_percentage_of_pending_status
+    actual = sa.invoice_status(:pending)
+    assert_equal 20.69, actual
+  end
+
+
 end
