@@ -6,7 +6,7 @@ class TransactionRepository
 
   attr_reader :transactions
 
-  def initialize(sales_engine = self)
+  def initialize(sales_engine)
     @sales_engine = sales_engine
     @transactions = []
   end
@@ -65,6 +65,10 @@ class TransactionRepository
 
   def add_data(data)
     @transactions << Transaction.new(data.to_hash, @sales_engine)
+  end
+
+  def inspect
+    "#<#{self.class} #{@transactions.size} rows>"
   end
 
   # def find_all_by(query, arg, branch)

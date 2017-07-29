@@ -1,5 +1,9 @@
-require './lib/invoice_item'
+require_relative '../lib/invoice_item'
+require 'pry'
 class InvoiceItemRepository
+
+  attr_reader :invoice_items
+
   def initialize(sales_engine)
     @sales_engine = sales_engine
     @invoice_items = []
@@ -35,12 +39,19 @@ class InvoiceItemRepository
     results
   end
 
+  def from_csv(path)
+    rows = CSV.open path, headers: true, header_converters: :symbol
+    rows.each do |data|
+      add_data(data)
+    end
+  end
+
   def add_data(data)
     @invoice_items << InvoiceItem.new(data.to_hash, @sales_engine)
   end
 
-
   def inspect
     "#<#{self.class} #{@invoice_items.size} rows>"
   end
+
 end
