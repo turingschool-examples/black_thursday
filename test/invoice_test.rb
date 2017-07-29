@@ -25,4 +25,5 @@ class InvoiceTest < Minitest::Test
     assert_equal Time.parse("2016-01-11 09:34:06 UTC"), invoice.updated_at
     assert_equal 12345, invoice.merchant_id
   end
+
 end

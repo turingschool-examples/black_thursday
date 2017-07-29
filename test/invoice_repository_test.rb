@@ -15,7 +15,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
     target = inr.all
 
-    assert_equal 12, target.count
+    assert_equal 13, target.count
     assert_equal Array, target.class
   end
 

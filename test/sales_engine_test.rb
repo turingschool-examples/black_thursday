@@ -148,7 +148,7 @@ class SalesEngineTest < Minitest::Test
     inr = se.invoices
     invoice = inr.all
 
-    assert_equal 12, invoice.length
+    assert_equal 13, invoice.length
     assert_equal Array, invoice.class
   end
 
@@ -342,5 +342,20 @@ class SalesEngineTest < Minitest::Test
 
     assert_equal 2, customer.merchants.count
     assert_equal "JewelleAccessories", customer.merchants[0].name
+  end
+
+  def test_it_knows_if_invoice_is_paid_in_full
+    se = SalesEngine.from_csv({:items => './data/items_short.csv',
+                               :merchants => './data/merchants_short.csv',
+                               :invoices => './data/invoices_short.csv',
+                               :invoice_items => './data/invoice_items_short.csv',
+                               :transactions => './data/transactions_short.csv',
+                               :customers => './data/customers_short.csv'})
+
+    invoice = se.invoices.find_by_id(46)
+    invoice_2 = se.invoices.find_by_id(1752)
+
+    assert invoice.is_paid_in_full?
+    refute invoice_2.is_paid_in_full?
   end
 end
