@@ -17,14 +17,32 @@ class SalesAnalyst
     average.round(2)
   end
 
+  def average_invoices_per_merchant
+    merchant = sales_engine.merchants.all
+    invoices = sales_engine.invoices.all
+
+    average = (invoices.length.to_f)/(merchant.length)
+    average.round(2)
+  end
+
   def collected_items_hash
     all_merchants = {}
     mr = @sales_engine.merchants.all
     mr.each do |merchant|
-      item = sales_engine.collected_items(merchant.id)
+      item = sales_engine.fetch_items(merchant.id)
       all_merchants[merchant.id] = item.length
     end
     all_merchants
+  end
+
+  def collected_invoices_hash
+      all_invoices = {}
+      mr = @sales_engine.merchants.all
+      mr.each do |merchant|
+        invoice = sales_engine.collected_invoices(merchant.id)
+        all_invoices[merchant.id] = invoice.length
+      end
+      all_invoices
   end
 
   def standard_deviation(values)
@@ -38,6 +56,11 @@ class SalesAnalyst
     standard_deviation(value)
   end
 
+  def average_invoices_per_merchant_standard_deviation
+    values = collected_invoices_hash.values
+    standard_deviation(values)
+  end
+
   def merchants_with_high_item_count
     mr = sales_engine.merchants.all
     v = average_items_per_merchant+average_items_per_merchant_standard_deviation
@@ -47,7 +70,7 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(merchant_id)
-    items = @sales_engine.collected_items(merchant_id)
+    items = @sales_engine.fetch_items(merchant_id)
     sum = 0
     items.each do |item|
       sum += item.unit_price
@@ -75,4 +98,63 @@ class SalesAnalyst
     end
   end
 
+  def top_merchants_by_invoice_count
+      top_merchants = average_inv_merch_plus_dev
+
+      sales_engine.merchants.all.find_all do |merchant|
+        merchant.invoices.count > top_merchants
+      end
+  end
+
+  def times_by_two
+    (average_invoices_per_merchant_standard_deviation * 2)
+  end
+
+  def average_inv_merch_plus_dev
+    times_by_two + average_invoices_per_merchant
+  end
+
+  def average_inv_merch_minus_dev
+    average_invoices_per_merchant - times_by_two
+  end
+
+  def bottom_merchants_by_invoice_count
+    bottom_merchants = average_inv_merch_minus_dev
+
+    sales_engine.merchants.all.find_all do |merchant|
+      merchant.invoices.count < bottom_merchants
+    end
+  end
+
+  def top_days_by_invoice_count
+   invoices_per_day = create_invoices_per_day_hash
+   values = invoices_per_day.values
+   days = invoices_per_day.keys
+   days.select {|day| invoices_per_day[day] > one_invoice_deviation(values)}
+  end
+
+  def average_invoices_per_day
+   (sales_engine.invoices.all.length)/7
+  end
+
+  def one_invoice_deviation(values)
+   (average_invoices_per_day + standard_deviation(values))
+  end
+
+  def create_invoices_per_day_hash
+    invr = sales_engine.invoices.all
+    invr.reduce({}) do |days, invoice|
+     created_day = invoice.created_at.strftime("%A")
+     days[created_day] = 0 unless days[created_day]
+     days[created_day] += 1
+     days
+    end
+  end
+
+  def invoice_status(status)
+    invr = sales_engine.invoices.all
+    status_matches = invr.select {|invoice| invoice.status == status}
+    percentage = (status_matches.length.to_f)/(invr.length) * 100
+    percentage.round(2)
+  end
 end
