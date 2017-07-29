@@ -8,8 +8,8 @@ class Invoice
     @customer_id  = invoice_hash[:customer_id]
     @merchant_id  = invoice_hash[:merchant_id]
     @status       = invoice_hash[:status]
-    @created_at   = Time.now
-    @updated_at   = Time.now
+    @created_at   = Time.parse(invoice_hash[:created_at])
+    @updated_at   = Time.parse(invoice_hash[:updated_at])
     @invoice_repo = invoice_repo
   end
 

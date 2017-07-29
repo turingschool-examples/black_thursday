@@ -16,6 +16,11 @@ class SalesAnalyst
     average.round(2)
   end
 
+  def subtract_mean
+    
+  end
+
+
    def average_items_per_merchant_standard_deviation
      mean = average_items_per_merchant
      subtract_mean = return_array_of_items_by_merchant.map do |merchant_items|
@@ -81,7 +86,7 @@ class SalesAnalyst
       (item.unit_price - average) > (2 * std_dev)
     end
   end
-  # 
+  #
   # def average_invoices_per_merchant
   # #   it "#average_invoices_per_merchant returns average number of invoices per merchant" do
   # #  expected = sales_analyst.average_invoices_per_merchant
