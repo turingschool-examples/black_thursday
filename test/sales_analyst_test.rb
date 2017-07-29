@@ -67,7 +67,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_finds_top_days_by_invoice_count
     actual = sa.top_days_by_invoice_count
-    assert_equal "Sunday", actual[0]
+    assert_equal "Sunday", actual
   end
 
 end

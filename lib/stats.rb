@@ -91,8 +91,7 @@ module Stats
   end
 
   def invoices_by_day_count
-    huh=num_invoice_days.each_with_object(Hash.new(0)) {|day, result| result[day] += 1}
-    require "pry"; binding.pry
+    num_invoice_days.each_with_object(Hash.new(0)) {|day, result| result[day] += 1}
   end
 
 
