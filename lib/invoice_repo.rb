@@ -30,18 +30,24 @@ class InvoiceRepository
     @contents[invoice_id.to_s]
   end
 
+  def find_merchant_vendor(merchant_id)
+    @engine.find_merchant_by_id(merchant_id)
+  end
+
   def find_all_by_customer_id(customer_id)
+    array_of_matching_invoices = []
     all.find_all do |invoice|
-      if invoice.customer_id == customer_id.to_s
-        return invoice
+      if invoice.customer_id == customer_id
+        array_of_matching_invoices << invoice
       end
     end
   end
 
   def find_all_by_merchant_id(merchant_id)
+    array_of_matching_invoices = []
     all.find_all do |invoice|
-      if invoice.merchant_id == merchant_id.to_s
-        invoice
+      if invoice.merchant_id == merchant_id
+        array_of_matching_invoices << invoice
       end
     end
   end

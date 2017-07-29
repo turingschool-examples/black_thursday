@@ -17,7 +17,7 @@ class Merchant
   end
 
   def invoices
-    @merch_repo.find_invoice_by_merchant_id(id)
+    @merch_repo.find_invoices_by_merchant_id(id)
   end
 
 end
