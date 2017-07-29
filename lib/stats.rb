@@ -73,5 +73,27 @@ module Stats
     end
   end
 
+  def invoice_2_std_dev_below(info)
+    avg     = average(num_invoices_per_merchant.values)
+    std_dev = standard_deviation(info) * 2
+    avg - std_dev
+  end
+
+  def bad_merchants(array, merchant, invoices)
+    m_inv = num_invoices_per_merchant.values
+    if invoices < invoice_2_std_dev_below(m_inv)
+      array << merchant
+    end
+  end
+
+  def num_invoice_days
+    se.all_invoices.map {|invoice| Date::DAYNAMES[invoice.created_at.wday]}
+  end
+
+  def invoices_by_day_count
+    huh=num_invoice_days.each_with_object(Hash.new(0)) {|day, result| result[day] += 1}
+    require "pry"; binding.pry
+  end
+
 
 end

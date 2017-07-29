@@ -60,4 +60,14 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 0, actual.count
   end
 
+  def test_it_can_return_poor_performing_merchants
+    actual = sa.bottom_merchants_by_invoice_count
+    assert_equal 0, actual.count
+  end
+
+  def test_it_finds_top_days_by_invoice_count
+    actual = sa.top_days_by_invoice_count
+    assert_equal "Sunday", actual[0]
+  end
+
 end
