@@ -25,6 +25,9 @@ class CustomerRepository
   end
 
   def find_all_by_last_name(l_name)
+    @customers.find_all do |customer|
+      customer.last_name == l_name
+    end
   end
 
 

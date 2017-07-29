@@ -85,6 +85,28 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
 
+  def test_find_all_by_last_name_blank
+    assert @cust_repo.find_all_by_last_name("Spencer").empty?
+  end
+
+  def test_find_all_by_last_name_working_for_entry_entires
+    list_one = @cust_repo.find_all_by_last_name("Jones")
+    list_two = @cust_repo.find_all_by_last_name("Hodges")
+
+    assert_equal 1  , list_one.count
+    assert_equal 123, list_one.first.id
+    assert_equal 1  , list_two.count
+    assert_equal 124, list_two.first.id
+  end
+
+  def test_find_all_by_last_name_works_for_multiple_entries
+    list = @cust_repo.find_all_by_last_name("Snider")
+
+    assert_equal 2  , list.count
+    assert_equal 122, list.first.id
+    assert_equal 125, list.last.id
+  end
+
   #
   # def setup
   #   @invoice_r = CustomerRepository.new(self)
