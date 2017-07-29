@@ -20,8 +20,8 @@ class SalesAnalyst
 
   def standard_deviation(values)
     average = values.reduce(:+)/values.length.to_f
-    average_average = values.reduce(0) {|val, num| val += ((num - average)**2) }
-    Math.sqrt(average_average / (values.length-1)).round(2)
+    average_average = values.reduce(0) {|val, num| val += ((num - average) ** 2) }
+    Math.sqrt(average_average / (values.length - 1)).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
@@ -46,8 +46,10 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
+    std_dev = (average_items_per_merchant_standard_deviation)
+    mean = average_items_per_merchant
     @se.merchants.all.find_all do |merchant|
-      merchant.items.count > (average_items_per_merchant + average_items_per_merchant_standard_deviation)
+      (merchant.items.count - mean) > std_dev
     end
   end
 
@@ -92,7 +94,8 @@ class SalesAnalyst
 
   def golden_items
     @se.items.all.find_all do |item|
-      item.unit_price_to_dollars > (average_item_price + (average_item_price_standard_deviation * 2)).round(2)
+      item.unit_price_to_dollars >
+      (average_item_price + (average_item_price_standard_deviation * 2)).round(2)
     end
   end
 
