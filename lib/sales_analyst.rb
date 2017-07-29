@@ -162,6 +162,17 @@ class SalesAnalyst
   #   end
   # end
 
+  def total_revenue_by_date(date)
+    total = 0
+    @sales_engine.invoices.each do |invoice|
+      if invoice.updated_at == date
+        total += invoice.total
+      end
+    end
+    total
+  end
+
+
   def all_merchant_averages
     repo = @sales_engine.merchants.all
     average_set = []
