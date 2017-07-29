@@ -48,4 +48,8 @@ class SalesAnalyst
     (se.all_invoices.count.to_f / se.all_merchants.count.to_f).round(2)
   end
 
+  def average_invoices_per_merchant_standard_deviation
+    standard_deviation(num_invoices_per_merchant.values).round(2)
+  end
+
 end
