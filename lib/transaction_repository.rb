@@ -6,7 +6,7 @@ class TransactionRepository
 
   attr_reader :transactions
 
-  def initialize(sales_engine = self)
+  def initialize(sales_engine)
     @sales_engine = sales_engine
     @transactions = []
   end

@@ -44,14 +44,14 @@ class SalesEngine
         row.each do |data|
           created.invoices.add_data(data.to_hash)
         end
-      # when :transactions
-      #   row.each do |data|
-      #     created.transactions.add_data(data.to_hash)
-      #   end
-      # when :invoice_items
-      #   row.each do |data|
-      #     created.invoice_items.add_data(data.to_hash)
-      #   end
+      when :transactions
+        row.each do |data|
+          created.transactions.add_data(data.to_hash)
+        end
+      when :invoice_items
+        row.each do |data|
+          created.invoice_items.add_data(data.to_hash)
+        end
       # when :customers
       #   row.each do |data|
       #     created.customers.add_data(data.to_hash)
