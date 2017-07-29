@@ -287,4 +287,19 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 1, lonely_merchants.items.count
   end
 
+  def test_merchants_with_only_one_item_registered_in_month
+    sales_engine = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+    })
+    sales_analyst = SalesAnalyst.new(sales_engine)
+
+    month = "January"
+    lonely_merchants = sales_analyst.merchants_with_only_one_item_registerd_in_month(month)
+
+    assert_instance_of Array, lonely_merchants
+    assert_instance_of Merchant, lonely_merchants[0]
+    assert_equal 01, lonely_merchants[0].created_at.month
+  end
 end

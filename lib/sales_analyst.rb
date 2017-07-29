@@ -193,6 +193,21 @@ class SalesAnalyst
     ((number_of / total_invoices) * 100).round(2)
   end
 ######################################################################################
+  def month_name_to_num
+    {"January" => 01,
+     "February" => 02,
+     "March" => 03,
+     "April" => 04,
+     "May" => 05, 
+     "June" => 06,
+     "July" => 07,
+     "August" => 08,
+     "September" => 09,
+     "October" => 10,
+     "November" => 11,
+     "December" => 12}
+   end
+
   def total_revenue_by_date(date)
     relevant_items = @transactions.id_repo.values.reduce([]) do |result, transaction|
       if transaction.created_at == date
