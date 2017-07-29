@@ -46,9 +46,13 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_return_avg_invoices_per_merchant
-    skip
     actual = sa.average_invoices_per_merchant
-    assert_equal 10.3, actual
+    assert_equal 9.67, actual
+  end
+
+  def test_it_can_find_avg_invoices_per_merchant_std_dev
+    actual = sa.average_invoices_per_merchant_standard_deviation
+    assert_equal 3, actual
   end
 
 end
