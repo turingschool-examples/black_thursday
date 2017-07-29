@@ -180,4 +180,85 @@ class SalesEngineTest < Minitest::Test
 
     assert_equal "CenTexCustomCoatings", target.name
   end
+
+  def test_it_creates_an_invoice_item_repository
+    se = SalesEngine.from_csv({:items => './data/items_short.csv',
+                               :merchants => './data/merchants_short.csv',
+                               :invoices => './data/invoices_short.csv',
+                               :invoice_items => './data/invoice_items_short.csv',
+                               :transactions => './data/transactions_short.csv',
+                               :customers => './data/customers_short.csv'})
+
+    iir = se.invoice_items
+    assert_instance_of InvoiceItemRepository, iir
+  end
+
+  def test_invoice_item_repository_can_find_all_invoice_items
+    se = SalesEngine.from_csv({:items => './data/items_short.csv',
+                               :merchants => './data/merchants_short.csv',
+                               :invoices => './data/invoices_short.csv',
+                               :invoice_items => './data/invoice_items_short.csv',
+                               :transactions => './data/transactions_short.csv',
+                               :customers => './data/customers_short.csv'})
+
+    iir = se.invoice_items
+    invoice_items = iir.all
+
+    assert_equal 10, invoice_items.length
+    assert_equal Array, invoice_items.class
+  end
+
+  def test_it_creates_a_transaction_repository
+    se = SalesEngine.from_csv({:items => './data/items_short.csv',
+                               :merchants => './data/merchants_short.csv',
+                               :invoices => './data/invoices_short.csv',
+                               :invoice_items => './data/invoice_items_short.csv',
+                               :transactions => './data/transactions_short.csv',
+                               :customers => './data/customers_short.csv'})
+
+    tr = se.transactions
+    assert_instance_of TransactionRepository, tr
+  end
+
+  def test_transaction_repository_can_find_all_transactions
+    se = SalesEngine.from_csv({:items => './data/items_short.csv',
+                               :merchants => './data/merchants_short.csv',
+                               :invoices => './data/invoices_short.csv',
+                               :invoice_items => './data/invoice_items_short.csv',
+                               :transactions => './data/transactions_short.csv',
+                               :customers => './data/customers_short.csv'})
+
+    tr = se.transactions
+    transactions = tr.all
+
+    assert_equal 10, transactions.length
+    assert_equal Array, transactions.class
+  end
+
+  def test_it_creates_a_customer_repository
+    se = SalesEngine.from_csv({:items => './data/items_short.csv',
+                               :merchants => './data/merchants_short.csv',
+                               :invoices => './data/invoices_short.csv',
+                               :invoice_items => './data/invoice_items_short.csv',
+                               :transactions => './data/transactions_short.csv',
+                               :customers => './data/customers_short.csv'})
+
+    cr = se.customers
+    assert_instance_of CustomerRepository, cr
+  end
+
+  def test_customer_repository_can_find_all_customers
+    se = SalesEngine.from_csv({:items => './data/items_short.csv',
+                               :merchants => './data/merchants_short.csv',
+                               :invoices => './data/invoices_short.csv',
+                               :invoice_items => './data/invoice_items_short.csv',
+                               :transactions => './data/transactions_short.csv',
+                               :customers => './data/customers_short.csv'})
+
+    cr = se.customers
+    customers = cr.all
+
+    assert_equal 10, customers.length
+    assert_equal Array, customers.class
+  end
 end
