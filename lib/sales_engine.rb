@@ -30,6 +30,10 @@ class SalesEngine
     merchants.find_by_id(id)
   end
 
+  def merchant_invoice(id)
+    merchants.find_by_id(id)
+  end
+
   def all_items
     items.all
   end

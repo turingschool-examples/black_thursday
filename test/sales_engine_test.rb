@@ -43,4 +43,9 @@ class SalesEngineTest < Minitest::Test
     merchant = se.merchants.find_by_id(12334269)
     assert_instance_of Invoice, merchant.invoices[0]
   end
+
+  def test_it_can_get_merchant_from_invoice_id
+    invoice = se.invoices.find_by_id(4)
+    assert_instance_of Merchant, invoice.merchant
+  end
 end

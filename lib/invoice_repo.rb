@@ -37,5 +37,9 @@ class InvoiceRepo
     all.find_all {|invoice| invoice.status == status}
   end
 
+  def merchant_invoice(id)
+    parent.merchant_invoice(id)
+  end
+
 
 end
