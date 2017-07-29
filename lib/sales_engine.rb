@@ -8,16 +8,15 @@ require 'pry'
 require 'csv'
 
 class SalesEngine
-  attr_reader :items, :merchants, :invoices
-  # :invoice_items, :transactions, :customers
+  attr_reader :items, :merchants, :invoices, :invoice_items, :transactions, :customers
 
   def initialize(se_hash)
     @items         = ItemRepository.new(se_hash[:items], self)
     @merchants     = MerchantRepository.new(se_hash[:merchants], self)
     @invoices      = InvoiceRepository.new(se_hash[:invoices], self)
-    # @invoice_items = InvoiceItemRepository.new(:invoice_items, self)
-    # @transactions  = TransactionRepository.new(:transactions, self)
-    # @customers     = CustomerRepository.new(:customers, self)
+    @invoice_items = InvoiceItemRepository.new(:invoice_items, self)
+    @transactions  = TransactionRepository.new(:transactions, self)
+    @customers     = CustomerRepository.new(:customers, self)
   end
 
   def find_items_by_merchant_id(merchant_id)
@@ -36,13 +35,14 @@ class SalesEngine
     merchant_data     = load_merchants(se_hash[:merchants])
     item_data         = load_items(se_hash[:items])
     invoice_data      = load_invoices(se_hash[:invoices])
-    # invoice_item_data = load_data(se_hash[:invoice_items])
-    # transaction_data  = load_data(se_hash[:transactions])
-    # customer_data     = load_data(se_hash[:customers])
-    SalesEngine.new({:items => item_data, :merchants => merchant_data, :invoices => invoice_data})
-  end
+    invoice_item_data = load_invoice_items(se_hash[:invoice_items])
+    transaction_data  = load_transactions(se_hash[:transactions])
+    customer_data     = load_customers(se_hash[:customers])
 
-  # # , invoice_data, invoice_item_data, transaction_data, customer_data)
+    SalesEngine.new({:items => item_data, :merchants => merchant_data,
+                     :invoices => invoice_data, :invoice_items => invoice_item_data,
+                     :transactions => transaction_data, :customers => customer_data})
+  end
 
   def self.load_merchants(csvfile)
     CSV.open csvfile, headers: true, header_converters: :symbol
@@ -53,6 +53,18 @@ class SalesEngine
   end
 
   def self.load_invoices(csvfile)
+    CSV.open csvfile, headers: true, header_converters: :symbol
+  end
+
+  def self.load_invoice_items(csvfile)
+    CSV.open csvfile, headers: true, header_converters: :symbol
+  end
+
+  def self.load_transactions(csvfile)
+    CSV.open csvfile, headers: true, header_converters: :symbol
+  end
+
+  def self.load_customers(csvfile)
     CSV.open csvfile, headers: true, header_converters: :symbol
   end
 
