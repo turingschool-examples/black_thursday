@@ -125,17 +125,6 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 5, sa.golden_items.length
   end
 
-  # def test_top_merchants_by_invoice_count_return_empty_array
-  #   se = SalesEngine.from_csv({
-  #       :items => "./data/items.csv",
-  #       :merchants => "./data/merchants.csv",
-  #       :invoices => "./data/invoices.csv"
-  #     })
-  #     sa = SalesAnalyst.new(se)
-  #
-  #   assert_equal [], sa.top_merchants_by_invoice_count.length
-  # end
-
   def test_top_merchants_by_invoice_count
     se = SalesEngine.from_csv({
       :items => "./data/items.csv",

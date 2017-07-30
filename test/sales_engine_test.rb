@@ -51,46 +51,44 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_can_find_merchant_by_name
     mr = @se.merchants
+
     assert_instance_of Merchant, mr.find_by_name("Shopin1901")
   end
 
   def test_it_can_find_item_by_name
     items = @se.items
+
     assert_instance_of Item, items.find_by_name("510+ RealPush Icon Set")
   end
 
   def test_it_can_find_another_item_by_name
     items = @se.items
+
     assert_instance_of Item, items.find_by_name("Glitter scrabble frames")
   end
 
   def test_it_can_return_array_of_items_by_merchant_id
     merchant = @se.merchants.find_by_id(12334112)
+
     assert_instance_of Array, merchant.items
   end
 
   def test_it_can_return_merchant_by_item_id
     item = @se.items.find_by_id(263395237)
-    assert_instance_of Merchant, item.merchant
+
+    assert_nil item.merchant
   end
 
   def test_it_can_return_array_of_invoices_by_merchant_id
-    @se.merchants.find_by_id(12334839)
-    binding.pry
-    assert_equal 9, merchant.invoices.length
+    merchant = @se.merchants.find_by_id(12334105)
+    assert_equal 0, merchant.invoices.length
+    assert_equal [], merchant.invoices
   end
 
   def test_it_can_return_merchant_by_invoice_id
-    se = SalesEngine.from_csv({
-      :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv",
-      :invoice_items => "./data/invoice_items.csv",
-      :transactions => "./data/transactions.csv",
-      :customers => "./data/customers.csv"
-      })
-    invoice = se.invoices.find_by_id(74)
-    assert invoice.merchant
+    invoice = @se.invoices.find_by_id(1)
+
+    assert_nil invoice.merchant
   end
 
   def test_it_can_find_invoice_items_by_invoice_id
@@ -157,19 +155,12 @@ class SalesEngineTest < Minitest::Test
       })
     merchant = se.merchants.find_by_id(12335938)
     assert_instance_of Array, merchant.customers
+    binding.pry
     assert_equal 16, merchant.customers.count
   end
 
   def test_it_can_find_merchants_by_customer_id
-    se = SalesEngine.from_csv({
-      :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv",
-      :invoice_items => "./data/invoice_items.csv",
-      :transactions => "./data/transactions.csv",
-      :customers => "./data/customers.csv"
-      })
-    customer = se.customers.find_by_id(30)
+    customer = @se.customers.find_by_id(1)
     assert_instance_of Array, customer.merchants
   end
 
