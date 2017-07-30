@@ -50,4 +50,16 @@ class InvoiceItemTest < Minitest::Test
     assert_equal 3, invoice_id
   end
 
+  def test_invoice_item_has_quantity
+    invoice_item = InvoiceItem.new({
+      :id => 15, :item_id => 263533242, :invoice_id => 3,
+      :quantity => 5, :unit_price => 72018,
+      :created_at => "2012-03-27 14:54:09 UTC",
+      :updated_at => "2012-03-27 14:54:09 UTC"}, self
+    )
+    quantity = invoice_item.quantity
+
+    assert_equal 5, quantity
+  end
+
 end
