@@ -25,4 +25,12 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal './data/transactions.csv', tr.file_path
   end
 
+  def test_transaction_repo_can_load_id_repo
+    tr = TransactionRepository.new('./data/transactions.csv', self)
+
+    assert_instance_of Hash, tr.id_repo
+    refute tr.id_repo.empty?
+    assert_equal 4985, tr.id_repo.count
+  end
+
 end
