@@ -1,7 +1,8 @@
 require 'time'
 
 class Invoice
-  attr_reader :id, :customer_id, :merchant_id, :status, :created_at, :updated_at, :invoice_repo
+  attr_reader :id, :customer_id, :merchant_id, :status,
+              :created_at, :updated_at, :invoice_repo
 
   def initialize(invoice_hash, invoice_repo)
     @id           = invoice_hash[:id].to_i
@@ -14,7 +15,7 @@ class Invoice
   end
 
   def merchant
-    @item_repo.find_merchant_vendor(merchant_id)
+    @invoice_repo.find_merchant_vendor(merchant_id)
   end
 
 end

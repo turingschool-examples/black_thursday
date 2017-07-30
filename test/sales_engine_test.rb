@@ -5,8 +5,9 @@ require 'pry'
 class SalesEngineTest < Minitest::Test
 
   def setup
-    @salesengine = SalesEngine.from_csv({ :items         => "./data/items.csv",
+    @salesengine = SalesEngine.from_csv({:items    => "./data/items.csv",
                                     :merchants     => "./data/merchants.csv",
+                                    :invoices      => "./data/invoices.csv"
                                     })
   end
 
