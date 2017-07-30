@@ -15,4 +15,12 @@ class TransactionRepo
   def all
     transactions.values
   end
+
+  def find_by_id(id)
+    transactions[id]
+  end
+
+  def method_name
+
+  end
 end
