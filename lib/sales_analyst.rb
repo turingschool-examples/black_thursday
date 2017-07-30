@@ -204,10 +204,17 @@ class SalesAnalyst
 
 
   def top_revenue_earners(number = 20)
-    guides = @sales_engine.merchants.all.map do |merchant|
+    grab(merchants_by_revenue(invoices_by_merchant), number)
+  end
+
+  def invoices_by_merchant
+    @sales_engine.merchants.all.map do |merchant|
       merchant.invoices
     end
-    grab(merchants_by_revenue(guides), number)
+  end
+
+  def merchants_ranked_by_revenue
+    grab(merchants_by_revenue(invoices_by_merchant))
   end
 
   def merchants_by_revenue(invoice_by_m)
@@ -222,14 +229,18 @@ class SalesAnalyst
     merchant_revenues
   end
 
-  def grab(all_merchant_revenues, number)
+  def grab(all_merchant_revenues, number = all_merchant_revenues.count)
     revenues = all_merchant_revenues.map do |r|
       r.keys
     end
     sorted   = revenues.sort_by          {|revenue| revenue}
     all      = sorted[(-number)..-1]
+    sorted_merchants(all_merchant_revenues, all)
+  end
+
+  def sorted_merchants(all_merchant_revenues, list)
     merchants = []
-     all.reverse.each do |s|
+     list.reverse.each do |s|
       all_merchant_revenues.each do |r_m|
         if r_m.keys == s
           merchants << r_m.values
@@ -255,8 +266,5 @@ class SalesAnalyst
       merchant.items.count == 1
     end
   end
-
-
-
 
 end
