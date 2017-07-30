@@ -19,4 +19,10 @@ class TransactionRepositoryTest < Minitest::Test
     assert_instance_of SalesEngine, tr.sales_engine
   end
 
+  def test_transaction_repo_has_file_path
+    tr = TransactionRepository.new('./data/transactions.csv', self)
+
+    assert_equal './data/transactions.csv', tr.file_path
+  end
+
 end
