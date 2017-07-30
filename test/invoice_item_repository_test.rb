@@ -19,4 +19,10 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_instance_of SalesEngine, iir.sales_engine
   end
 
+  def test_invoice_item_repo_has_file_path
+    iir = InvoiceItemRepository.new("./data/invoice_items.csv", self)
+
+    assert_equal './data/invoice_items.csv', iir.file_path
+  end
+
 end
