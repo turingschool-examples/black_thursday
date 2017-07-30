@@ -2,14 +2,18 @@ require 'time'
 require 'pry'
 
 class Merchant
-  attr_reader :id, :name, :created_at, :updated_at, :merch_repo
+  attr_reader :id,
+              :name,
+              :created_at,
+              :updated_at,
+              :merch_repo
 
   def initialize(merch_hash, merch_repo)
     @id         = merch_hash[:id].to_i
     @name       = merch_hash[:name].to_s
+    @created_at = Time.parse(merch_hash[:created_at])
+    @updated_at = Time.parse(merch_hash[:updated_at])
     @merch_repo = merch_repo
-    @created_at = Time.now
-    @updated_at = Time.now
   end
 
   def items
@@ -33,3 +37,8 @@ end
   # def invoice_items
   #
   # end
+<<<<<<< HEAD
+=======
+
+end
+>>>>>>> c6c721ab152a24f19f1c154acb24a778b593ce01
