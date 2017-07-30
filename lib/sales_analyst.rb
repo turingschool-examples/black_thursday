@@ -229,6 +229,12 @@ class SalesAnalyst
     merchant_revenues
   end
 
+  def revenue_by_merchant(merchant_id)
+    merchants_by_revenue(invoices_by_merchant).find do |rev_merch|
+      rev_merch.values.first.id == merchant_id
+    end.keys.first
+  end
+
   def grab(all_merchant_revenues, number = all_merchant_revenues.count)
     revenues = all_merchant_revenues.map do |r|
       r.keys
