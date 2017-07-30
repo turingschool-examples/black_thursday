@@ -212,20 +212,33 @@ class SalesAnalyst
   end
 
   def merchants_by_revenue(invoice_by_m)
-    merchant_revenue = []
+    merchant_revenues = []
     invoice_by_m.each do |helpers|
       total = 0
       helpers.each do |helper|
         total += helper.total
       end
-      merchant_revenue << {total => helpers.first.merchant}
+      merchant_revenues << {total => helpers.first.merchant}
     end
- end
+    merchant_revenues
+  end
 
- def grab(all_merchant_revenues, number)
-    revenues = all_merchant_revenues.map {|revenue, merchant| revenue}
+  def grab(all_merchant_revenues, number)
+    revenues = all_merchant_revenues.map do |r|
+      r.keys
+    end
+    binding.pry
     sorted   = revenues.sort_by          {|revenue| revenue}
-    all      = sorted[-number, -1]
+    all      = sorted[(-number)..-1]
+    binding.pry
+    all.map do |s|
+      all_merchant_revenues.each_slice do |r_m|
+        if r_m.keys.first == [s]
+          r_m.value
+        end
+      end
+    end
+  end
 
 
 
