@@ -56,11 +56,6 @@ class SalesAnalyst
     (total_average / @engine.merchants.all.count).round(2)
   end
 
-  def item_price_totaler(total_items)
-    @engine.items.all.reduce(0) do |sum, item|
-      sum + item.unit_price
-    end
-  end
 
   def average_item_price
     total_items = @engine.items.all.count
@@ -76,12 +71,16 @@ class SalesAnalyst
     (Math.sqrt(bob)).round(2)
   end
 
-  def golden_items
-    std_dev = average_item_price_standard_deviation
-    average = average_average_price_per_merchant
+  def find_golden_items(std_dev, average)
     @engine.items.all.find_all do |item|
       (item.unit_price - average) > (2 * std_dev)
     end
+  end
+
+  def golden_items
+    std_dev = average_item_price_standard_deviation
+    average = average_average_price_per_merchant
+    find_golden_items(std_dev, average)
   end
   #
   # def average_invoices_per_merchant
@@ -146,6 +145,12 @@ class SalesAnalyst
   # end
 
   private
+
+    def item_price_totaler(total_items)
+      @engine.items.all.reduce(0) do |sum, item|
+        sum + item.unit_price
+      end
+    end
 
     def price_totaler(merchant)
       merchant.items.reduce(0) do |sum, item|

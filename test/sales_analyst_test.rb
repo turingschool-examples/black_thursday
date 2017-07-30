@@ -59,11 +59,26 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 350.29, average_of_averages.to_f
   end
 
-  def test_average_item_price
+  def test_it_can_average_item_price
     average_price_of_items = @sales_analyst.average_item_price
 
     assert_instance_of BigDecimal, average_price_of_items
     assert_equal 251.06, average_price_of_items.to_f
+  end
+
+  def test_it_can_find_average_item_price_standard_deviation
+    average_standard_deviation = @sales_analyst.average_item_price_standard_deviation
+
+    assert_instance_of Float, average_standard_deviation
+    assert_equal 2900.99, average_standard_deviation
+  end
+
+  def test_it_can_find_golden_items
+    golden_items = @sales_analyst.golden_items
+
+    assert_instance_of Array, golden_items
+    assert_instance_of Item, golden_items[0]
+    assert_equal 5, golden_items.length
   end
 
 end
