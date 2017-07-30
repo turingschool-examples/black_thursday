@@ -19,7 +19,7 @@ class InvoiceItemRepository
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
       invoice_item_identification = row[:id]
       invoice_item = InvoiceItem.new(row, self)
-      id_repo[invoice_item_identification] = invoice_item
+      id_repo[invoice_item_identification.to_i] = invoice_item
     end
   end
 
@@ -27,6 +27,10 @@ class InvoiceItemRepository
     id_repo.map do |id, invoice_item_info|
       invoice_item_info
     end
+  end
+
+  def find_by_id(id)
+    id_repo[id]
   end
 
 end

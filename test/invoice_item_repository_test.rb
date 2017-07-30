@@ -43,4 +43,13 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal 21830, invoice_items.count
   end
 
+  def test_invoice_item_repo_can_find_by_id
+    iir = InvoiceItemRepository.new("./data/invoice_items.csv", self)
+    invoice_item = iir.find_by_id(7759)
+
+    assert_instance_of InvoiceItem, invoice_item
+    assert_equal 8, invoice_item.quantity
+    assert_equal 1750, invoice_item.invoice_id
+  end
+
 end
