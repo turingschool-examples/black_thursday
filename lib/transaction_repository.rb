@@ -16,23 +16,11 @@ class TransactionRepository
   end
 
   def find_by_id(id)
-    result = nil
-    @transactions.each do |transaction|
-      if transaction.id == id
-        result = transaction
-      end
-    end
-    result
+    @transactions.find {|transaction| transaction.id == id}
   end
 
   def find_all_by_invoice_id(id)
-    result = []
-    @transactions.each do |transaction|
-      if transaction.invoice_id == id
-        result << transaction
-      end
-    end
-    result
+    @transactions.find_all {|transaction| transaction.invoice_id == id}
   end
 
   def find_all_by_credit_card_number(cc)
