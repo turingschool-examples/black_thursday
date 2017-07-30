@@ -30,4 +30,13 @@ class Invoice
   def customer
     @invoice_repo.fetch_invoice_id_for_customers(customer_id)
   end
+
+  def is_paid_in_full?
+    transactions.any? {|transaction| transaction.result == "success"}
+  end
+
+  def total
+    @invoice_repo.fetch_invoice_id_for_invoice_items(id)
+  end
+
 end

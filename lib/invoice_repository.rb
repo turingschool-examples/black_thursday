@@ -58,6 +58,10 @@ class InvoiceRepository
     @sales_engine.fetch_invoice_id_for_customers(id)
   end
 
+  def fetch_invoice_id_for_invoice_items(id)
+    @sales_engine.fetch_invoice_id_for_invoice_items(id)
+  end
+
   def inspect
     "#<#{self.class} #{@repository.size} rows>"
   end

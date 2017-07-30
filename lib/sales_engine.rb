@@ -81,4 +81,12 @@ class SalesEngine
     @invoices.find_all_by_customer_id(id)
   end
 
+  def fetch_invoice_id_for_invoice_items(id)
+    total = 0
+    items = @invoice_items.find_all_by_invoice_id(id)
+    items.each do |item|
+      total += item.quantity * item.unit_price
+    end
+    total
+  end
 end

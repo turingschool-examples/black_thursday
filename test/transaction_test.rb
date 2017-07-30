@@ -28,7 +28,7 @@ class TransactionTest < Minitest::Test
   end
 
   def test_it_can_take_a_credit_card_number
-    assert_equal "4242424242424242", @t.credit_card_number
+    assert_equal 4242424242424242, @t.credit_card_number
   end
 
   def test_it_can_take_a_credit_card_expiration_date

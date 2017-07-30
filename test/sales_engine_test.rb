@@ -19,16 +19,28 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of SalesEngine, @se
   end
 
-  def test_sales_engine_can_take_hash
-    assert @se
-  end
-
   def test_it_can_create_a_new_instance_of_merchant_repo_class
     assert_instance_of MerchantRepository, @se.merchants
   end
 
   def test_it_can_create_a_new_instance_of_item_repo_class
     assert_instance_of ItemRepository, @se.items
+  end
+
+  def test_it_can_create_a_new_instance_of_invoice_repo_class
+    assert_instance_of InvoiceRepository, @se.invoices
+  end
+
+  def test_it_can_create_a_new_instance_of_invoice_item_repo_class
+    assert_instance_of InvoiceItemRepository, @se.invoice_items
+  end
+
+  def test_it_can_create_a_new_instance_of_transaction_repo_class
+    assert_instance_of TransactionRepository, @se.transactions
+  end
+
+  def test_it_can_create_a_new_instance_of_customer_repo_class
+    assert_instance_of CustomerRepository, @se.customers
   end
 
   def test_items_searched_by_name
@@ -39,59 +51,32 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_can_find_merchant_by_name
     mr = @se.merchants
-    merchant = mr.find_by_name("Shopin1901")
-    assert merchant
+    assert_instance_of Merchant, mr.find_by_name("Shopin1901")
   end
 
   def test_it_can_find_item_by_name
     items = @se.items
-    item = items.find_by_name("510+ RealPush Icon Set")
-    assert item
+    assert_instance_of Item, items.find_by_name("510+ RealPush Icon Set")
   end
 
   def test_it_can_find_another_item_by_name
-    ir   = @se.items
-    item = ir.find_by_name("Glitter scrabble frames")
-    assert item
+    items = @se.items
+    assert_instance_of Item, items.find_by_name("Glitter scrabble frames")
   end
 
   def test_it_can_return_array_of_items_by_merchant_id
-    se = SalesEngine.from_csv({
-      :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv",
-      :invoice_items => "./data/invoice_items.csv",
-      :transactions => "./data/transactions.csv",
-      :customers => "./data/customers.csv"
-      })
-    merchant = se.merchants.find_by_id(12334112)
-    assert merchant.items
+    merchant = @se.merchants.find_by_id(12334112)
+    assert_instance_of Array, merchant.items
   end
 
   def test_it_can_return_merchant_by_item_id
-    se = SalesEngine.from_csv({
-      :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv",
-      :invoice_items => "./data/invoice_items.csv",
-      :transactions => "./data/transactions.csv",
-      :customers => "./data/customers.csv"
-      })
-    item = se.items.find_by_id(263395237)
-    assert item.merchant
+    item = @se.items.find_by_id(263395237)
+    assert_instance_of Merchant, item.merchant
   end
 
   def test_it_can_return_array_of_invoices_by_merchant_id
-    se = SalesEngine.from_csv({
-      :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv",
-      :invoice_items => "./data/invoice_items.csv",
-      :transactions => "./data/transactions.csv",
-      :customers => "./data/customers.csv"
-      })
-    merchant = se.merchants.find_by_id(12334839)
-
+    @se.merchants.find_by_id(12334839)
+    binding.pry
     assert_equal 9, merchant.invoices.length
   end
 
@@ -185,7 +170,6 @@ class SalesEngineTest < Minitest::Test
       :customers => "./data/customers.csv"
       })
     customer = se.customers.find_by_id(30)
-    binding.pry
     assert_instance_of Array, customer.merchants
   end
 
