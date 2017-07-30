@@ -239,6 +239,23 @@ class SalesAnalyst
     merchants.flatten
   end
 
+  def merchants_with_pending_invoices
+    not_paid_in_full = @sales_engine.invoices.all.map do |invoice|
+      unless invoice.is_paid_in_full?
+        invoice.merchant_id
+      end
+    end.compact
+    not_paid_in_full.map do |not_paid|
+      @sales_engine.merchants.find_by_id(not_paid)
+    end.uniq
+  end
+
+  def merchants_with_only_one_item
+    @sales_engine.merchants.all.find_all do |merchant|
+      merchant.items.count == 1
+    end
+  end
+
 
 
 
