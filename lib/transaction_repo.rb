@@ -20,7 +20,15 @@ class TransactionRepo
     transactions[id]
   end
 
-  def method_name
+  def find_all_by_invoice_id(inv_id)
+    all.find_all {|transaction| transaction.invoice_id == inv_id}
+  end
 
+  def find_all_by_credit_card_number(cc_num)
+    all.find_all {|transaction| transaction.cc_num == cc_num}
+  end
+
+  def find_all_by_result(status)
+    all.find_all{|transaction| transaction.result == status}
   end
 end
