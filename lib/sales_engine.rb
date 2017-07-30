@@ -49,7 +49,11 @@ class SalesEngine
   end
 
   def fetch_invoice_id_for_items(id)
-    @items.find_all_by_merchant_id(id)
+    result = []
+    @invoice_items.find_all_by_invoice_id(id).each do |invoice_item|
+       result << @items.find_by_id(invoice_item.item_id)
+     end
+     result
   end
 
   def fetch_invoice_id_for_transactions(id)

@@ -9,7 +9,7 @@ class TransactionRepository
   end
 
   def load_csv_file(data)
-    CSV.foreach(data, :headers => true, :header_converters => :symbol, :converters => :all) do |row|
+    CSV.foreach(data, :headers => true, :header_converters => :symbol) do |row|
       data = row.to_h
       repository[data[:id].to_i] = Transaction.new(data, self)
     end
