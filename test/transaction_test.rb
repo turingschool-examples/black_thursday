@@ -74,4 +74,17 @@ class TransactionTest < Minitest::Test
     assert_equal "success", result
   end
 
+  def test_transaction_has_created_at_date
+    transaction = Transaction.new({
+      :id => 23, :invoice_id => 2639, :credit_card_number => 4566763237167619,
+      :credit_card_expiration_date => "0220", :result => "success",
+      :created_at => "2012-02-26 20:56:57 UTC",
+      :updated_at => "2012-02-26 20:56:57 UTC"
+      }, self)
+    created_at = transaction.created_at
+
+    assert_instance_of Time, created_at
+    assert_equal '2012-02-26 20:56:57 UTC', created_at.to_s
+  end
+
 end
