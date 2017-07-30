@@ -334,7 +334,30 @@ class SalesAnalystTest < Minitest::Test
     item_1 = sales_analyst.most_sold_item_for_merchant(12334228)
     item_2 = sales_analyst.most_sold_item_for_merchant(12334832)
 
-    assert_instance_of Item, item_1
-    assert_instance_of Item, item_2
+    assert_instance_of Array, item_1
+    assert_instance_of Item, item_1[0]
+    assert_instance_of Array, item_2
+    assert_instance_of Item, item_2[0]
   end
+
+  def test_best_item_for_merchant
+    sales_engine = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+    })
+    sales_analyst = SalesAnalyst.new(sales_engine)
+
+
+    merchant_id_1 = 12334228
+    merchant_id_2 = 12334832
+    item_1 = sales_analyst.best_item_for_merchant(12334228)
+    item_2 = sales_analyst.best_item_for_merchant(12334832)
+
+    assert_instance_of Array, item_1
+    assert_instance_of Item, item_1[0]
+    assert_instance_of Array, item_2
+    assert_instance_of Item, item_2[0]
+  end
+
 end

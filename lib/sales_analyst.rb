@@ -224,20 +224,32 @@ class SalesAnalyst
     end
   end
 
-  def total_revenue_for_merchant(merchant_id)
-    merchant = @merchants.id_repo[merchant_id]
-    invoices = merchant.invoices
-    successful = @
-
+  def revenue_by_merchant(merchant_id)
+    merchant = @merchants.find_by_id(merchant_id)
+    return merchant.invoices.reduce(0) do |total, invoice|
+      merchant_invoice_items = @invoice_items.find_all_by_invoice_id(invoice.id)
+      total += merchant_invoice_items.reduce(0) do |item_total, item|
+        item_total += item.quantity * item.unit_price
+        item_total
+      end
+      total
+    end
   end
-
 
   def top_revenue_earners(number=20)
-
-  end
-
-  def revenue_by_merchant(merchant_id)
-
+    top_earners = []
+    number.times do
+      top_earner = ""
+      @merchants.id_repo.keys.reduce(0) do |max_revenue, id|
+        revenue = revenue_by_merchant(id)
+        if revenue >= max_revenue && !(top_earners.include?(@merchants.id_repo[id]))
+          max_revenue = revenue
+          top_earner = @merchants.id_repo[id]
+        end
+      end
+      top_earners << top_earner
+    end
+    top_earners.compact
   end
 
   def merchants_with_pending_invoices
@@ -266,29 +278,39 @@ class SalesAnalyst
   def most_sold_item_for_merchant(merchant_id)
     merchant = @merchants.find_by_id(merchant_id)
     max_count = 0
-    high_item = merchant.items.reduce("") do |high_item, item|
-      count = 0
+    high_item = merchant.items.reduce([]) do |high_item, item|
       item_invoices = @invoice_items.find_all_by_item_id(item.id)
-      if !(item_invoices.nil?)
+      if !(item_invoices.empty?)
         count = item_invoices.reduce(0) do |number_sold, invoice_item|
           number_sold += invoice_item.quantity
         end
       end
       if count > max_count
         max_count = count
+        high_item = [item]
+      elsif count == max_count
+        high_item << item
+      end
+    end
+    high_item
+  end
+
+  def best_item_for_merchant(merchant_id)
+    merchant = @merchants.find_by_id(merchant_id)
+    max_revenue = 0
+    high_item = merchant.items.reduce([]) do |high_item, item|
+      item_invoices = @invoice_items.find_all_by_item_id(item.id)
+      if !(item_invoices.empty?)
+        revenue = item_invoices.reduce(0) do |money, invoice_item|
+          money += invoice_item.quantity * invoice_item.unit_price
+        end
+      end
+      if revenue >= max_revenue
+        max_revenue = revenue
         high_item = item
       end
     end
-    if high_item == ""
-      return merchant.items
-    else
-      return high_item
-    end
+    high_item
   end
-
-
-
-
-
 
 end
