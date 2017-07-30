@@ -62,4 +62,30 @@ class InvoiceItemTest < Minitest::Test
     assert_equal 5, quantity
   end
 
+  def test_invoice_item_has_unit_price
+    invoice_item = InvoiceItem.new({
+      :id => 15, :item_id => 263533242, :invoice_id => 3,
+      :quantity => 5, :unit_price => 72018,
+      :created_at => "2012-03-27 14:54:09 UTC",
+      :updated_at => "2012-03-27 14:54:09 UTC"}, self
+    )
+    unit_price = invoice_item.unit_price
+
+    assert_instance_of BigDecimal, unit_price
+    assert_equal 720.18, unit_price.to_f
+  end
+
+  def test_unit_price_dollar_conversion
+    invoice_item = InvoiceItem.new({
+      :id => 15, :item_id => 263533242, :invoice_id => 3,
+      :quantity => 5, :unit_price => 72018,
+      :created_at => "2012-03-27 14:54:09 UTC",
+      :updated_at => "2012-03-27 14:54:09 UTC"}, self
+    )
+    unit_price_in_cents = 72018.to_f
+    unit_price = invoice_item.unit_price_in_dollars(unit_price_in_cents)
+
+    assert_equal 720.18, unit_price
+  end
+
 end
