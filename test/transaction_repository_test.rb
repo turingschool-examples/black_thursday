@@ -10,4 +10,13 @@ class TransactionRepositoryTest < Minitest::Test
     assert_instance_of TransactionRepository, tr
   end
 
+  def test_transaction_repo_has_sales_engine_access
+    se = SalesEngine.from_csv({
+      :transactions => './data/transactions.csv'
+      })
+    tr = se.transactions
+
+    assert_instance_of SalesEngine, tr.sales_engine
+  end
+
 end
