@@ -235,6 +235,26 @@ class SalesAnalyst
     end.keys.first
   end
 
+  def most_sold_item_for_merchant(merchant_id) #=> [item] (in terms of quantity sold) or, if there is a tie, [item, item, item]
+    merchant = @sales_engine.merchants.find_by_id(merchant_id)
+    invoices = merchant.invoices
+    invoices_ii = invoices.map do |invoice|
+      invoice.invoice_items.group_by do |invoice_item|
+        invoice_item.item_id
+      end
+    end
+    it_id_counts = Hash.new(0)
+    save = invoices_ii.each do |invoice_ii|
+      invoice_ii.each_pair do |item_id, invoice_items|
+        it_id_counts.merge!({item_id => invoice_items.count})
+      end
+    end
+  end
+
+
+  def best_item_for_merchant(merchant_id) #=> item (in terms of revenue generated)
+  end
+
   def grab(all_merchant_revenues, number = all_merchant_revenues.count)
     revenues = all_merchant_revenues.map do |r|
       r.keys
