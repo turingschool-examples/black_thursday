@@ -85,7 +85,9 @@ module Stats
   end
 
   def invoices_by_day_count
-    num_invoice_days.each_with_object(Hash.new(0)) {|day, result| result[day] += 1}
+    num_invoice_days.each_with_object(Hash.new(0)) do |day,result|
+      result[day] += 1
+    end
   end
 
   def invoice_std_dev_bar

@@ -76,5 +76,4 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 20.69, actual
   end
 
-
 end
