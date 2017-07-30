@@ -63,19 +63,12 @@ class SalesAnalyst
     (total_price / total_items).round(2)
   end
 
+
   def average_item_price_standard_deviation
-    jerry = @engine.items.all.reduce(0) do |sum, item|
-      sum + (item.unit_price - average_item_price)**2
-    end
-    bob = jerry / (@engine.items.all.count - 1)
-    (Math.sqrt(bob)).round(2)
+    squared_total = find_standard_deviation_of_averages / (@engine.items.all.count - 1)
+    (Math.sqrt(squared_total)).round(2)
   end
 
-  def find_golden_items(std_dev, average)
-    @engine.items.all.find_all do |item|
-      (item.unit_price - average) > (2 * std_dev)
-    end
-  end
 
   def golden_items
     std_dev = average_item_price_standard_deviation
@@ -145,6 +138,18 @@ class SalesAnalyst
   # end
 
   private
+  
+    def find_standard_deviation_of_averages
+      @engine.items.all.reduce(0) do |sum, item|
+        sum + (item.unit_price - average_item_price)**2
+      end
+    end
+
+    def find_golden_items(std_dev, average)
+      @engine.items.all.find_all do |item|
+        (item.unit_price - average) > (2 * std_dev)
+      end
+    end
 
     def item_price_totaler(total_items)
       @engine.items.all.reduce(0) do |sum, item|
