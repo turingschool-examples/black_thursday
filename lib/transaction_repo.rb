@@ -19,7 +19,7 @@ class TransactionRepository
   end
 
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{@transactions.size} rows>"
   end
 
   def all
@@ -42,7 +42,7 @@ class TransactionRepository
   def find_all_by_credit_card_number(credit_card_number)
     array_of_matching_ccs = []
     all.find_all do |transaction|
-        if transaction.credit_card_number = credit_card_number
+        if transaction.credit_card_number == credit_card_number
           array_of_matching_ccs << transaction
         end
     end
