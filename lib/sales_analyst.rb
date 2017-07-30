@@ -163,9 +163,10 @@ class SalesAnalyst
   # end
 
   def total_revenue_by_date(date)
-    total = 0
-    @sales_engine.invoices.each do |invoice|
-      if invoice.updated_at == date
+    total = 0.0
+    @sales_engine.invoices.all.each do |invoice|
+      if invoice.updated_at.strftime("%F").eql?(date.strftime("%F"))
+        binding.pry
         total += invoice.total
       end
     end
@@ -201,6 +202,31 @@ class SalesAnalyst
     count = @sales_engine.items.find_all_by_merchant_id(id).count
     count
   end
+
+
+  def top_revenue_earners(number)
+    guides = @sales_engine.merchants.all.map do |merchant|
+      merchant.invoices
+    end
+    grab(merchants_by_revenue(guides), number)
+  end
+
+  def merchants_by_revenue(invoice_by_m)
+    merchant_revenue = []
+    invoice_by_m.each do |helpers|
+      total = 0
+      helpers.each do |helper|
+        total += helper.total
+      end
+      merchant_revenue << {total => helpers.first.merchant}
+    end
+ end
+
+ def grab(all_merchant_revenues, number)
+    revenues = all_merchant_revenues.map {|revenue, merchant| revenue}
+    sorted   = revenues.sort_by          {|revenue| revenue}
+    all      = sorted[-number, -1]
+
 
 
 
