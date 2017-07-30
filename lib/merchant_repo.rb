@@ -63,4 +63,15 @@ class MerchantRepository
     array_of_matching_merchants
   end
 
+  def find_matching_merchants(merchant_ids)
+    all.find_all do |merchant|
+      merchant_ids.include?(merchant.id)
+    end
+  end
+
+  def find_customers_by_merchant_id(merchant_id)
+    @engine.find_customers_by_merchant_id(merchant_id)
+  end
+
+
 end

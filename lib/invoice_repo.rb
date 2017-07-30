@@ -72,4 +72,16 @@ class InvoiceRepository
     @engine.find_customers_by_invoice(customer_id)
   end
 
+  def find_merchants_ids_by_customer_id(customer_id)
+    find_all_by_customer_id(customer_id).map do |invoice|
+      invoice.merchant_id
+    end
+  end
+
+  def find_customer_ids_by_merchant_id(merchant_id)
+    find_all_by_merchant_id(merchant_id).map do |invoice|
+      invoice.customer_id
+    end
+  end
+
 end
