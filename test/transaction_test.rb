@@ -23,7 +23,19 @@ class TransactionTest < Minitest::Test
       }, self)
     id = transaction.id
 
-    assert_equal 23, id 
+    assert_equal 23, id
+  end
+
+  def test_transaction_has_invoice_id
+    transaction = Transaction.new({
+      :id => 23, :invoice_id => 2639, :credit_card_number => 4566763237167619,
+      :credit_card_expiration_date => "0220", :result => "success",
+      :created_at => "2012-02-26 20:56:57 UTC",
+      :updated_at => "2012-02-26 20:56:57 UTC"
+      }, self)
+    invoice_id = transaction.invoice_id
+
+    assert_equal 2639, invoice_id
   end
 
 end
