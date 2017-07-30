@@ -2,7 +2,11 @@ require 'time'
 require 'pry'
 
 class Merchant
-  attr_reader :id, :name, :created_at, :updated_at, :merch_repo
+  attr_reader :id,
+              :name,
+              :created_at,
+              :updated_at,
+              :merch_repo
 
   def initialize(merch_hash, merch_repo)
     @id         = merch_hash[:id].to_i
