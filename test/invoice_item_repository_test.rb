@@ -25,4 +25,12 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal './data/invoice_items.csv', iir.file_path
   end
 
+  def test_invoice_item_repo_can_load_id_repo
+    iir = InvoiceItemRepository.new("./data/invoice_items.csv", self)
+
+    assert_instance_of Hash, iir.id_repo
+    refute iir.id_repo.empty?
+    assert_equal 21830, iir.id_repo.count
+  end
+
 end
