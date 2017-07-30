@@ -16,7 +16,7 @@ class InvoiceItemRepoTest < Minitest::Test
     assert_equal 101, ir.all.count
   end
 
-  # def test_it_can_find_by_id
-  #   assert_equal
-  # end
+  def test_it_can_find_by_id
+    assert_equal 263451719, ir.find_by_id(3).item_id
+  end
 end
