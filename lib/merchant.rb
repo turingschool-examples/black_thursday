@@ -37,5 +37,3 @@ end
   # def invoice_items
   #
   # end
-
-end
