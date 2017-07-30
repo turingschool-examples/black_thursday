@@ -162,16 +162,15 @@ class SalesAnalyst
   #   end
   # end
 
-  # def total_revenue_by_date(date)
-  #   total = 0.0
-  #   @sales_engine.invoices.all.each do |invoice|
-  #     if invoice.updated_at.strftime("%F").eql?(date.strftime("%F"))
-  #       binding.pry
-  #       total += invoice.total
-  #     end
-  #   end
-  #   total
-  # end
+  def total_revenue_by_date(date)
+    total = 0.0
+    @sales_engine.invoices.all.each do |invoice|
+      if invoice.created_at.strftime("%F").eql?(date.strftime("%F"))
+        total += invoice.total
+      end
+    end
+    total
+  end
 
 
   def all_merchant_averages
