@@ -33,4 +33,14 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal 4985, tr.id_repo.count
   end
 
+  def test_transaction_repo_can_get_all_transactions
+    tr = TransactionRepository.new('./data/transactions.csv', self)
+    transactions = tr.all
+
+    assert_instance_of Array, transactions
+    refute transactions.empty?
+    assert_instance_of Transaction, transactions[0]
+    assert_equal 4985, transactions.count
+  end
+
 end

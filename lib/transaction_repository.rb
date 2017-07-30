@@ -22,4 +22,10 @@ class TransactionRepository
     end
   end
 
+  def all
+    id_repo.map do |id, transaction_instance|
+      transaction_instance
+    end
+  end
+
 end
