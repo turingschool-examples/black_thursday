@@ -35,4 +35,8 @@ class CustomerRepoTest < Minitest::Test
   def test_it_can_find_all_by_last_name
     assert_equal 3, cr.find_all_by_last_name("Nader").count
   end
+
+  def test_it_returns_empty_array_for_bad_last_name
+    assert_equal [], cr.find_all_by_last_name("Rawr")
+  end
 end
