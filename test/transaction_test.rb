@@ -62,4 +62,16 @@ class TransactionTest < Minitest::Test
     assert_equal "0220", cc_num_exp
   end
 
+  def test_transaction_has_result
+    transaction = Transaction.new({
+      :id => 23, :invoice_id => 2639, :credit_card_number => 4566763237167619,
+      :credit_card_expiration_date => "0220", :result => "success",
+      :created_at => "2012-02-26 20:56:57 UTC",
+      :updated_at => "2012-02-26 20:56:57 UTC"
+      }, self)
+    result = transaction.result
+
+    assert_equal "success", result
+  end
+
 end
