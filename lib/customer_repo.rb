@@ -27,4 +27,8 @@ class CustomerRepo
   def find_all_by_first_name(f_name)
     all.find_all {|cust| cust.first_name.downcase == f_name.downcase}
   end
+
+  def find_all_by_last_name(l_name)
+    all.find_all {|cust| cust.last_name.downcase == l_name.downcase}
+  end
 end
