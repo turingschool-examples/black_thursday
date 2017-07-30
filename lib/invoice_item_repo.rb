@@ -27,5 +27,9 @@ class InvoiceItemRepo
     all.find_all {|invoice_item| invoice_item.item_id == item_id}
   end
 
+  def find_all_by_invoice_id(inv_id)
+    all.find_all {|invoice_item| invoice_item.invoice_id == inv_id}
+  end
+
 
 end
