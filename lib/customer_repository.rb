@@ -23,15 +23,15 @@ class CustomerRepository
     repository[id]
   end
 
-  def find_all_by_first_name(first_name_fragment)
+  def find_all_by_first_name(fragment)
     all.find_all do |customer|
-      customer.first_name.downcase.include?(first_name_fragment)
+      customer.first_name.downcase.include?(fragment.downcase)
     end
   end
 
-  def find_all_by_last_name(last_name_fragment)
+  def find_all_by_last_name(fragment)
     all.find_all do |customer|
-      customer.last_name.downcase.include?(last_name_fragment)
+      customer.last_name.downcase.include?(fragment.downcase)
     end
   end
 

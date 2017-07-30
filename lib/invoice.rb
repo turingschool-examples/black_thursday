@@ -20,7 +20,7 @@ class Invoice
   end
 
   def items
-    @invoice_repo.fetch_invoice_id_for_invoice_items(id)
+    @invoice_repo.fetch_invoice_id_for_items(id)
   end
 
   def transactions
@@ -28,6 +28,6 @@ class Invoice
   end
 
   def customer
-    @invoice_repo.fetch_invoice_id_for_customers(id)
+    @invoice_repo.fetch_invoice_id_for_customers(customer_id)
   end
 end

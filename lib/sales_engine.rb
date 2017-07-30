@@ -48,8 +48,8 @@ class SalesEngine
     @merchants.find_by_id(merchant_id)
   end
 
-  def fetch_invoice_id_for_invoice_items(id)
-    @invoice_items.find_all_by_invoice_id(id)
+  def fetch_invoice_id_for_items(id)
+    @items.find_all_by_merchant_id(id)
   end
 
   def fetch_invoice_id_for_transactions(id)
@@ -65,7 +65,12 @@ class SalesEngine
   end
 
   def fetch_customers_by_merchant_id(id)
-    @invoices.find_all_by_merchant_id(id)
+    result = []
+    merchant_invoices = @invoices.find_all_by_merchant_id(id)
+    merchant_invoices.each do |invoice|
+      result << @customers.find_by_id(invoice.customer_id)
+    end
+    result.uniq
   end
 
   def fetch_merchant_by_customer_id(id)

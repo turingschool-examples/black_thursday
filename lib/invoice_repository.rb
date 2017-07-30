@@ -24,18 +24,12 @@ class InvoiceRepository
     repository[id]
   end
 
-  def find_all_by_customer_id(customer_id)
-    all.find_all do |invoice|
-      invoice.customer_id == customer_id
-    end
-  end
-
   def fetch_merchant_id(merchant_id)
     @sales_engine.fetch_merchant_id(merchant_id)
   end
 
-  def fetch_invoice_id_for_invoice_items(id)
-    @sales_engine.fetch_invoice_id_for_invoice_items(id)
+  def fetch_invoice_id_for_items(id)
+    @sales_engine.fetch_invoice_id_for_items(id)
   end
 
   def fetch_invoice_id_for_transactions(id)
@@ -48,8 +42,7 @@ class InvoiceRepository
 
 
   def find_all_by_merchant_id(merchant_id)
-    invoices = repository.values
-    invoices.find_all do |invoice|
+    all.find_all do |invoice|
       invoice.merchant_id == merchant_id
     end
   end
