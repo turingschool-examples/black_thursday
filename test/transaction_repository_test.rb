@@ -43,4 +43,13 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal 4985, transactions.count
   end
 
+  def test_transaction_repo_can_fin_by_id
+    tr = TransactionRepository.new('./data/transactions.csv', self)
+    transaction = tr.find_by_id(4332)
+
+    assert_instance_of Transaction, transaction
+    assert_equal "0313", transaction.credit_card_expiration_date
+    assert_equal "success", transaction.result
+  end
+
 end
