@@ -22,4 +22,9 @@ class CustomerRepositoryTest < Minitest::Test
     cr = CustomerRepository.new("./data/mini_customers.csv")
     assert_instance_of Array, cr.find_all_by_first_name("Joey")
   end
+
+  def test_it_can_find_all_by_last_name
+    cr = CustomerRepository.new("./data/mini_customers.csv")
+    assert_instance_of Array, cr.find_all_by_first_name("Ondricka")
+  end
 end
