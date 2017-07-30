@@ -20,19 +20,11 @@ class Merchant
     @merch_repo.find_items_by_merchant_id(id)
   end
 
-  # def invoices
-  #   @merch_repo.find_invoice_by_merchant_id(id)
-  # end
+  def invoices
+    @merch_repo.find_invoices_by_merchant_id(id)
+  end
 
-
-  # def items
-  #   merch_repo.find_items_by_merchant_id(id)
-  # end
-  #
-  # def invoices
-  #   merch_repo.find_invoice_by_merchant_id(id)
-  # end
-  #
+end
   # def customers
   #   customer_ids = invoices.map(:customer_id)
   #   merch_repo.find_all_customers_by_id(customer_ids)
@@ -45,5 +37,3 @@ class Merchant
   # def invoice_items
   #
   # end
-
-end
