@@ -60,4 +60,16 @@ class InvoiceRepository
     end
   end
 
+  def find_items_by_invoice_id(invoice_id)
+    @engine.find_all_items_by_invoice_id(invoice_id)
+  end
+
+  def find_transactions_by_invoice_id(invoice_id)
+    @engine.find_transactions_by_invoice_id(invoice_id)
+  end
+
+  def find_customers_by_invoice(customer_id)
+    @engine.find_customers_by_invoice(customer_id)
+  end
+
 end

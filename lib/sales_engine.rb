@@ -31,6 +31,31 @@ class SalesEngine
     @invoices.find_all_by_merchant_id(merchant_id)
   end
 
+  def item_ids_by_invoice_id(invoice_id)
+    @invoice_items.item_ids_by_invoice_id(invoice_id)
+  end
+
+  def find_all_items_by_invoice_id(invoice_id)
+    item_ids = item_ids_by_invoice_id(invoice_id)
+    items.find_all_items(item_ids)
+  end
+
+  def find_transactions_by_invoice_id(invoice_id)
+    @transactions.find_all_by_invoice_id(invoice_id)
+  end
+
+  def find_invoices_by_transaction(invoice_id)
+    @invoices.find_by_id(invoice_id)
+  end
+
+  def find_customers_by_invoice(customer_id)
+    @customers.find_by_id(customer_id)
+  end
+
+  def find_items_by_item_id(id)
+    @items.find_by_id(id)
+  end
+
   def self.from_csv(se_hash)
     merchant_data     = load_merchants(se_hash[:merchants])
     item_data         = load_items(se_hash[:items])

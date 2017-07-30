@@ -36,6 +36,11 @@ class ItemRepository
     end
   end
 
+  # def find_transactions_by_invoice_id(invoice_id)
+  #
+  # end
+
+
   def find_by_id(id)
     @items[id.to_s]
   end
@@ -76,13 +81,12 @@ class ItemRepository
     end
   end
 
-end
+  def find_all_items(item_ids)
+    all.find_all do |item|
+      if item_ids.include?(item.id)
+        item_ids
+      end
+    end
+  end
 
-# def load_items(csvfile)
-#   contents = CSV.open csvfile, headers: true, header_converters: :symbol
-#   all_items = {}
-#   contents.each do |row|
-#     all_items[row[:id]] = Item.new(row, self)
-#   end
-#   all_items
-# end
+end

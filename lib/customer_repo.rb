@@ -31,21 +31,20 @@ class CustomerRepository
   end
 
   def find_all_by_first_name(first_name)
-    array_of_matching_first_names = []
     all.find_all do |customer|
-      if customer.first_name.downcase == first_name.downcase
-        array_of_matching_first_names << customer
-      end
+      customer.first_name.downcase.include?(first_name.downcase)
     end
   end
 
   def find_all_by_last_name(last_name)
-    array_of_matching_last_names = []
     all.find_all do |customer|
-      if customer.last_name.downcase == last_name.downcase
-        array_of_matching_last_names << customer
-      end
+      customer.last_name.downcase.include?(last_name.downcase)
     end
   end
+
+  def find_merchants_by_customer_id(customer_id)
+    @engine.find_merchants_by_customer_id(customer_id)
+  end
+
 
 end
