@@ -204,7 +204,7 @@ class SalesAnalyst
   end
 
 
-  def top_revenue_earners(number)
+  def top_revenue_earners(number = 20)
     guides = @sales_engine.merchants.all.map do |merchant|
       merchant.invoices
     end
@@ -230,7 +230,7 @@ class SalesAnalyst
     sorted   = revenues.sort_by          {|revenue| revenue}
     all      = sorted[(-number)..-1]
     merchants = []
-     all.each do |s|
+     all.reverse.each do |s|
       all_merchant_revenues.each do |r_m|
         if r_m.keys == s
           merchants << r_m.values
