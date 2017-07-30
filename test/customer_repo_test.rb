@@ -25,6 +25,10 @@ class CustomerRepoTest < Minitest::Test
   end
 
   def test_it_returns_all_matching_first_names
-    assert_equal 1, cr.find_all_by_first_name("Ron").count 
+    assert_equal 1, cr.find_all_by_first_name("Ron").count
+  end
+
+  def test_returns_empty_array_for_bad_name
+    assert_equal [], cr.find_all_by_first_name("Oi")
   end
 end
