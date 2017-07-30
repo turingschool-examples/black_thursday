@@ -5,6 +5,7 @@ task :test do
   ruby "test/merchant_test.rb"
   ruby "test/item_repo_test.rb"
   ruby "test/merchant_repo_test.rb"
+  ruby "test/sales_engine_test.rb"
 end
 
 namespace :sanitation do

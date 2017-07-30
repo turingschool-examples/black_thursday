@@ -1,9 +1,11 @@
-require 'item_repo'
-require 'merchant_repo'
+require_relative 'item_repo'
+require_relative 'merchant_repo'
 
 class SalesAnalyst
 
   include Math
+
+  attr_reader :engine
 
   def initialize(engine)
     @engine = engine
@@ -16,17 +18,14 @@ class SalesAnalyst
     average.round(2)
   end
 
+
    def average_items_per_merchant_standard_deviation
-     mean = average_items_per_merchant
-     subtract_mean = return_array_of_items_by_merchant.map do |merchant_items|
-       merchant_items - mean
-     end
-     subtract_mean.map! do |num|
-       num ** 2
-     end
-     subtract_mean = subtract_mean.reduce(:+)
-     subtract_mean = subtract_mean/(return_array_of_items_by_merchant.length - 1)
-     Math.sqrt(subtract_mean).round(2)
+    mean = average_items_per_merchant
+    actual_diff = subtract_mean_from_actual(mean)
+    squared_diff = square_all_elements(actual_diff)
+    sum = squared_diff.reduce(:+)
+    sum_divided = sum/(return_array_of_items_by_merchant.length - 1)
+    Math.sqrt(sum_divided).round(2)
    end
 
    def return_array_of_items_by_merchant
@@ -42,13 +41,12 @@ class SalesAnalyst
      end
    end
 
+
   def average_item_price_for_merchant(merchant_id)
     merchant = @engine.merchants.find_by_id(merchant_id)
-    total_price = merchant.items.reduce(0) do |sum, item|
-      sum + item.unit_price
-    end
+    price_total = price_totaler(merchant)
     return 0 if merchant.items.empty?
-    (total_price / merchant.items.count).round(2)
+    (price_total / merchant.items.count).round(2)
   end
 
   def average_average_price_per_merchant
@@ -58,30 +56,26 @@ class SalesAnalyst
     (total_average / @engine.merchants.all.count).round(2)
   end
 
+
   def average_item_price
     total_items = @engine.items.all.count
-    total_price = @engine.items.all.reduce(0) do |sum, item|
-      sum + item.unit_price
-      end
+    total_price = item_price_totaler(total_items)
     (total_price / total_items).round(2)
   end
 
+
   def average_item_price_standard_deviation
-    jerry = @engine.items.all.reduce(0) do |sum, item|
-      sum + (item.unit_price - average_item_price)**2
-    end
-    bob = jerry / (@engine.items.all.count - 1)
-    (Math.sqrt(bob)).round(2)
+    squared_total = find_standard_deviation_of_averages / (@engine.items.all.count - 1)
+    (Math.sqrt(squared_total)).round(2)
   end
+
 
   def golden_items
     std_dev = average_item_price_standard_deviation
     average = average_average_price_per_merchant
-    @engine.items.all.find_all do |item|
-      (item.unit_price - average) > (2 * std_dev)
-    end
+    find_golden_items(std_dev, average)
   end
-  # 
+  #
   # def average_invoices_per_merchant
   # #   it "#average_invoices_per_merchant returns average number of invoices per merchant" do
   # #  expected = sales_analyst.average_invoices_per_merchant
@@ -142,5 +136,43 @@ class SalesAnalyst
   # #
   # # expect(expected).to eq 13.5
   # end
+
+  private
+  
+    def find_standard_deviation_of_averages
+      @engine.items.all.reduce(0) do |sum, item|
+        sum + (item.unit_price - average_item_price)**2
+      end
+    end
+
+    def find_golden_items(std_dev, average)
+      @engine.items.all.find_all do |item|
+        (item.unit_price - average) > (2 * std_dev)
+      end
+    end
+
+    def item_price_totaler(total_items)
+      @engine.items.all.reduce(0) do |sum, item|
+        sum + item.unit_price
+      end
+    end
+
+    def price_totaler(merchant)
+      merchant.items.reduce(0) do |sum, item|
+        sum + item.unit_price
+      end
+    end
+
+    def subtract_mean_from_actual(mean)
+      return_array_of_items_by_merchant.map do |merchant_items|
+        merchant_items - mean
+      end
+    end
+
+    def square_all_elements(actual_diff)
+      actual_diff.map! do |num|
+        num ** 2
+      end
+    end
 
 end

@@ -4,6 +4,7 @@ require_relative 'invoice_repo'
 require_relative 'invoice_item_repo'
 require_relative 'transaction_repo'
 require_relative 'customer_repo'
+require_relative 'loader'
 require 'pry'
 require 'csv'
 
@@ -19,6 +20,8 @@ class SalesEngine
     @customers     = CustomerRepository.new(se_hash[:customers], self)
   end
 
+  extend Loader
+
   def find_items_by_merchant_id(merchant_id)
     @items.find_all_items_to_a_merchant(merchant_id)
   end
@@ -32,29 +35,21 @@ class SalesEngine
   end
 
   def self.from_csv(se_hash)
-    merchant_data     = load_merchants(se_hash[:merchants])
-    item_data         = load_items(se_hash[:items])
-    invoice_data      = load_invoices(se_hash[:invoices])
-    invoice_item_data = load_invoice_items(se_hash[:invoice_items])
-    transaction_data  = load_transactions(se_hash[:transactions])
-    customer_data     = load_customers(se_hash[:customers])
+    item_data         = self.load_items(se_hash[:items])
+    merchant_data     = self.load_merchants(se_hash[:merchants])
+    invoice_data      = self.load_invoices(se_hash[:invoices])
+    invoice_item_data = self.load_invoice_items(se_hash[:invoice_items])
+    transaction_data  = self.load_transactions(se_hash[:transactions])
+    customer_data     = self.load_customers(se_hash[:customers])
 
-    SalesEngine.new({:items => item_data, :merchants => merchant_data,
-                     :invoices => invoice_data, :invoice_items => invoice_item_data,
-                     :transactions => transaction_data, :customers => customer_data})
+    SalesEngine.new({:items => item_data,
+                     :merchants => merchant_data,
+                     :invoices => invoice_data,
+                     :invoice_items => invoice_item_data,
+                     :transactions => transaction_data,
+                     :customers => customer_data})
   end
 
-  def self.load_merchants(csvfile)
-    CSV.open csvfile, headers: true, header_converters: :symbol
-  end
-
-  def self.load_items(csvfile)
-    CSV.open csvfile, headers: true, header_converters: :symbol
-  end
-
-  def self.load_invoices(csvfile)
-    CSV.open csvfile, headers: true, header_converters: :symbol
-  end
 
   def self.load_invoice_items(csvfile)
     CSV.open csvfile, headers: true, header_converters: :symbol
