@@ -1,6 +1,6 @@
-require 'pry'
-require 'csv'
 require_relative 'merchant'
+require 'csv'
+require 'pry'
 
 class MerchantRepository
 
@@ -33,6 +33,10 @@ class MerchantRepository
     @engine.items.find_all_items_to_a_merchant(merchant_id)
   end
 
+  def find_invoices_by_merchant_id(merchant_id)
+    @engine.invoices.find_all_by_merchant_id(merchant_id)
+  end
+
   def find_by_name(name)
     content_array = all
     content_array.find do |merchant|
@@ -49,6 +53,7 @@ class MerchantRepository
     end
     array_of_matching_merchants
   end
+
 
   private
 
