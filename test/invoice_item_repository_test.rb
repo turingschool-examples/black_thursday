@@ -75,4 +75,20 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal [], invoice_items
   end
 
+  def test_invoice_item_repo_can_find_all_by_invoice_id
+    iir = InvoiceItemRepository.new("./data/invoice_items.csv", self)
+    invoice_items = iir.find_all_by_invoice_id(82)
+
+    assert_instance_of Array, invoice_items
+    assert_equal 6, invoice_items.count
+  end
+
+  def test_invoice_item_repo_find_all_by_invoice_id_returns_empty_array_on_bad_search
+    iir = InvoiceItemRepository.new("./data/invoice_items.csv", self)
+    invoice_items = iir.find_all_by_invoice_id(99999999)
+
+    assert_instance_of Array, invoice_items
+    assert_equal [], invoice_items
+  end
+
 end
