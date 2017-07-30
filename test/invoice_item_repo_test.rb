@@ -19,4 +19,8 @@ class InvoiceItemRepoTest < Minitest::Test
   def test_it_can_find_by_id
     assert_equal 263451719, ir.find_by_id(3).item_id
   end
+
+  def test_it_can_find_by_item_id
+    assert_equal 3, ir.find_by_item_id(263451719).id
+  end
 end
