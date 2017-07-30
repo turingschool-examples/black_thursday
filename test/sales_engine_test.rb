@@ -28,9 +28,7 @@ class SalesEngineTest < Minitest::Test
 
   def test_sales_engine_initializes_with_merchant_repository
     se = SalesEngine.from_csv({
-      :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv"
+      :merchants => "./data/merchants.csv"
     })
 
     assert_instance_of MerchantRepository, se.merchants
@@ -38,9 +36,7 @@ class SalesEngineTest < Minitest::Test
 
   def test_sales_engine_initializes_with_item_repository
     se = SalesEngine.from_csv({
-      :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv"
+      :items => "./data/items.csv"
     })
 
     assert_instance_of ItemRepository, se.items
@@ -48,8 +44,6 @@ class SalesEngineTest < Minitest::Test
 
   def test_sales_engine_initializes_with_invoice_repository
     se = SalesEngine.from_csv({
-      :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv"
     })
 
@@ -58,9 +52,7 @@ class SalesEngineTest < Minitest::Test
 
   def test_merchant_by_merchant_id_gets_merchant
     se = SalesEngine.from_csv({
-      :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv"
+      :merchants => "./data/merchants.csv"
     })
     merchant = se.merchant_by_merchant_id(12335119)
 
@@ -69,9 +61,7 @@ class SalesEngineTest < Minitest::Test
 
   def test_items_by_merchant_id_gets_items
     se = SalesEngine.from_csv({
-      :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv"
+      :items => "./data/items.csv"
     })
     items = se.items_by_merchant_id(12335119)
 
@@ -81,8 +71,6 @@ class SalesEngineTest < Minitest::Test
 
   def test_invoices_by_merchant_id_gets_invoices
     se = SalesEngine.from_csv({
-      :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv"
     })
     invoices = se.invoices_by_merchant_id(12335119)
