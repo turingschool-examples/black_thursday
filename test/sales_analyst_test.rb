@@ -43,8 +43,7 @@ class SalesAnalystTest < Minitest::Test
   def test_average_items_per_merchant
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv"
+      :merchants => "./data/merchants.csv"
     })
     sales_analyst = SalesAnalyst.new(sales_engine)
 
@@ -56,8 +55,7 @@ class SalesAnalystTest < Minitest::Test
   def test_average_items_per_merchant_standard_deviation
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv"
+      :merchants => "./data/merchants.csv"
     })
     sales_analyst = SalesAnalyst.new(sales_engine)
 
@@ -69,8 +67,7 @@ class SalesAnalystTest < Minitest::Test
   def test_merchants_with_high_item_count
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv"
+      :merchants => "./data/merchants.csv"
     })
     sales_analyst = SalesAnalyst.new(sales_engine)
 
@@ -83,8 +80,7 @@ class SalesAnalystTest < Minitest::Test
   def test_average_item_price_for_merchant
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv"
+      :merchants => "./data/merchants.csv"
     })
     sales_analyst = SalesAnalyst.new(sales_engine)
     merchant_id = 12334105
@@ -96,8 +92,7 @@ class SalesAnalystTest < Minitest::Test
   def test_average_price_per_merchant
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv"
+      :merchants => "./data/merchants.csv"
     })
     sales_analyst = SalesAnalyst.new(sales_engine)
 
@@ -109,8 +104,7 @@ class SalesAnalystTest < Minitest::Test
   def test_golden_items
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv"
+      :merchants => "./data/merchants.csv"
     })
     sales_analyst = SalesAnalyst.new(sales_engine)
 
@@ -241,6 +235,8 @@ class SalesAnalystTest < Minitest::Test
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv"
+      :invoice_items => "./data/invoice_items.csv"
+      :transactions => "./data/transactions.csv"
     })
     sales_analyst = SalesAnalyst.new(sales_engine)
 
@@ -256,6 +252,8 @@ class SalesAnalystTest < Minitest::Test
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv"
+      :invoice_items => "./data/invoice_items.csv"
+      :transactions => "./data/transactions.csv"
     })
     sales_analyst = SalesAnalyst.new(sales_engine)
 
@@ -272,6 +270,8 @@ class SalesAnalystTest < Minitest::Test
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv"
+      :invoice_items => "./data/invoice_items.csv"
+      :transactions => "./data/transactions.csv"
     })
     sales_analyst = SalesAnalyst.new(sales_engine)
 
@@ -300,8 +300,7 @@ class SalesAnalystTest < Minitest::Test
   def test_merchants_with_only_one_item
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv"
+      :merchants => "./data/merchants.csv"
     })
     sales_analyst = SalesAnalyst.new(sales_engine)
 
@@ -315,8 +314,7 @@ class SalesAnalystTest < Minitest::Test
   def test_merchants_with_only_one_item_registered_in_month
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv"
+      :merchants => "./data/merchants.csv"
     })
     sales_analyst = SalesAnalyst.new(sales_engine)
 
@@ -334,6 +332,8 @@ class SalesAnalystTest < Minitest::Test
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv"
+      :invoice_items => "./data/invoice_items.csv"
+      :transactions => "./data/transactions.csv"
     })
     sales_analyst = SalesAnalyst.new(sales_engine)
 
@@ -351,6 +351,8 @@ class SalesAnalystTest < Minitest::Test
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv"
+      :invoice_items => "./data/invoice_items.csv"
+      :transactions => "./data/transactions.csv"
     })
     sales_analyst = SalesAnalyst.new(sales_engine)
 
@@ -370,6 +372,8 @@ class SalesAnalystTest < Minitest::Test
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv"
+      :invoice_items => "./data/invoice_items.csv"
+      :transactions => "./data/transactions.csv"
     })
     sales_analyst = SalesAnalyst.new(sales_engine)
 
