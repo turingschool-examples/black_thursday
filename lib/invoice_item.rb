@@ -9,7 +9,8 @@ class InvoiceItem
               :unit_price,
               :created_at,
               :updated_at
-  def initialize(data)
+  def initialize(data, iir = nil)
+    @iir          = iir
     @id           = data[:id]
     @item_id      = data[:item_id]
     @invoice_id   = data[:invoice_id]
@@ -22,5 +23,5 @@ class InvoiceItem
   def unit_price_to_dollars(unit_price)
     unit_price.to_f
   end
-  
+
 end

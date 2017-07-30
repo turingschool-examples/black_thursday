@@ -2,7 +2,8 @@ require_relative 'transaction'
 
 class TransactionRepository
   attr_reader :repository
-  def initialize(data)
+  def initialize(data, sales_engine = nil)
+    @sales_engine = sales_engine
     @repository = {}
     load_csv_file(data)
   end
@@ -10,7 +11,7 @@ class TransactionRepository
   def load_csv_file(data)
     CSV.foreach(data, :headers => true, :header_converters => :symbol, :converters => :all) do |row|
       data = row.to_h
-      repository[data[:id].to_i] = Transaction.new(data)
+      repository[data[:id].to_i] = Transaction.new(data, self)
     end
   end
 
@@ -38,5 +39,13 @@ class TransactionRepository
     all.find_all do |transaction|
       transaction.result == result
     end
+  end
+
+  def fetch_invoice_id_from_transactions(id)
+    @sales_engine.fetch_invoice_id_from_transactions(id)
+  end
+
+  def inspect
+    "#<#{self.class} #{@repository.size} rows>"
   end
 end

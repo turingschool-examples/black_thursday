@@ -1,6 +1,9 @@
+require_relative 'customer'
+
 class CustomerRepository
   attr_reader :repository
-  def initialize(data)
+  def initialize(data, sales_engine = nil)
+    @sales_engine = sales_engine
     @repository = {}
     load_csv_file(data)
   end
@@ -8,7 +11,7 @@ class CustomerRepository
   def load_csv_file(data)
     CSV.foreach(data, :headers => true, :header_converters => :symbol, :converters => :all) do |row|
       data = row.to_h
-      repository[data[:id].to_i] = Customer.new(data)
+      repository[data[:id].to_i] = Customer.new(data, self)
     end
   end
 
@@ -30,6 +33,14 @@ class CustomerRepository
     all.find_all do |customer|
       customer.last_name.downcase.include?(last_name_fragment)
     end
+  end
+
+  def fetch_merchant_by_customer_id(id)
+    @sales_engine.fetch_merchant_by_customer_id(id)
+  end
+
+  def inspect
+    "#<#{self.class} #{@repository.size} rows>"
   end
 
 end

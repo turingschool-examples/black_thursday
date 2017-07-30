@@ -15,4 +15,8 @@ class Merchant
     @mr.fetch_invoices(id)
   end
 
+  def customers
+    @mr.fetch_customers_by_merchant_id(id)
+  end
+
 end

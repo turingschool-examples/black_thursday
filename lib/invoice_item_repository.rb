@@ -2,7 +2,8 @@ require_relative 'invoice_item'
 
 class InvoiceItemRepository
   attr_reader :repository
-  def initialize(data)
+  def initialize(data, sales_engine = nil)
+    @sales_engine = sales_engine
     @repository = {}
     load_csv_file(data)
   end
@@ -10,7 +11,7 @@ class InvoiceItemRepository
   def load_csv_file(data)
     CSV.foreach(data, :headers => true, :header_converters => :symbol, :converters => :all) do |row|
       data = row.to_h
-      repository[data[:id].to_i] = InvoiceItem.new(data)
+      repository[data[:id].to_i] = InvoiceItem.new(data, self)
     end
   end
 
@@ -32,6 +33,10 @@ class InvoiceItemRepository
     all.find_all do |invoice_item|
       invoice_item.invoice_id == invoice_id
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@repository.size} rows>"
   end
 
 end

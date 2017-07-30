@@ -34,6 +34,19 @@ class InvoiceRepository
     @sales_engine.fetch_merchant_id(merchant_id)
   end
 
+  def fetch_invoice_id_for_invoice_items(id)
+    @sales_engine.fetch_invoice_id_for_invoice_items(id)
+  end
+
+  def fetch_invoice_id_for_transactions(id)
+    @sales_engine.fetch_invoice_id_for_transactions(id)
+  end
+
+  def fetch_invoice_id_for_customers(id)
+    @sales_engine.fetch_invoice_id_for_customers(id)
+  end
+
+
   def find_all_by_merchant_id(merchant_id)
     invoices = repository.values
     invoices.find_all do |invoice|
