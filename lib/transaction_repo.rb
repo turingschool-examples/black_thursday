@@ -40,10 +40,10 @@ class TransactionRepository
   end
 
   def find_all_by_credit_card_number(credit_card_number)
-    array_of_matching_ccs = []
+    array_of_matching_credit_cards = []
     all.find_all do |transaction|
         if transaction.credit_card_number == credit_card_number
-          array_of_matching_ccs << transaction
+          array_of_matching_credit_cards << transaction
         end
     end
   end
@@ -51,7 +51,7 @@ class TransactionRepository
   def find_all_by_result(result)
     array_of_matching_results = []
     all.find_all do |transaction|
-      if transaction.result == result.to_sym
+      if transaction.result == result
         array_of_matching_results << transaction
       end
     end
