@@ -162,16 +162,16 @@ class SalesAnalyst
   #   end
   # end
 
-  def total_revenue_by_date(date)
-    total = 0.0
-    @sales_engine.invoices.all.each do |invoice|
-      if invoice.updated_at.strftime("%F").eql?(date.strftime("%F"))
-        binding.pry
-        total += invoice.total
-      end
-    end
-    total
-  end
+  # def total_revenue_by_date(date)
+  #   total = 0.0
+  #   @sales_engine.invoices.all.each do |invoice|
+  #     if invoice.updated_at.strftime("%F").eql?(date.strftime("%F"))
+  #       binding.pry
+  #       total += invoice.total
+  #     end
+  #   end
+  #   total
+  # end
 
 
   def all_merchant_averages
@@ -227,17 +227,17 @@ class SalesAnalyst
     revenues = all_merchant_revenues.map do |r|
       r.keys
     end
-    binding.pry
     sorted   = revenues.sort_by          {|revenue| revenue}
     all      = sorted[(-number)..-1]
-    binding.pry
-    all.map do |s|
-      all_merchant_revenues.each_slice do |r_m|
-        if r_m.keys.first == [s]
-          r_m.value
+    merchants = []
+     all.each do |s|
+      all_merchant_revenues.each do |r_m|
+        if r_m.keys == s
+          merchants << r_m.values
         end
       end
     end
+    merchants.flatten
   end
 
 
