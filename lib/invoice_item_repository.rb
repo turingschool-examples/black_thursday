@@ -23,4 +23,10 @@ class InvoiceItemRepository
     end
   end
 
+  def all
+    id_repo.map do |id, invoice_item_info|
+      invoice_item_info
+    end
+  end
+
 end
