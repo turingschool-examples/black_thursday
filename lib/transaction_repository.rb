@@ -1,3 +1,6 @@
+require_relative 'transaction'
+require 'csv'
+
 class TransactionRepository
 
   attr_reader :sales_engine,
@@ -7,7 +10,8 @@ class TransactionRepository
   def initialize(file_path, sales_engine)
     @file_path    = file_path
     @sales_engine = sales_engine
-    @id_repo      = id_repo
+    @id_repo      = {}
+    load_repo
   end
 
   def load_repo
