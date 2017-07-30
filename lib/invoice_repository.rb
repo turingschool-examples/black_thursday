@@ -24,6 +24,24 @@ class InvoiceRepository
     repository[id]
   end
 
+  def find_all_by_merchant_id(merchant_id)
+    all.find_all do |invoice|
+      invoice.merchant_id == merchant_id
+    end
+  end
+
+  def find_all_by_customer_id(customer_id)
+    all.find_all do |invoice|
+      invoice.customer_id == customer_id
+    end
+  end
+
+  def find_all_by_status(status)
+    all.find_all do |invoice|
+      invoice.status == status
+    end
+  end
+
   def fetch_merchant_id(merchant_id)
     @sales_engine.fetch_merchant_id(merchant_id)
   end
@@ -38,26 +56,6 @@ class InvoiceRepository
 
   def fetch_invoice_id_for_customers(id)
     @sales_engine.fetch_invoice_id_for_customers(id)
-  end
-
-
-  def find_all_by_merchant_id(merchant_id)
-    all.find_all do |invoice|
-      invoice.merchant_id == merchant_id
-    end
-  end
-
-  def find_all_by_customer_id(customer_id)
-    all.find_all do |invoice|
-      invoice.customer_id == customer_id
-    end
-  end
-
-  def find_all_by_status(status)
-    invoices = repository.values
-    invoices.find_all do |invoice|
-      invoice.status == status
-    end
   end
 
   def inspect

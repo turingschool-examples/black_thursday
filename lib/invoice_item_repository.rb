@@ -4,7 +4,7 @@ class InvoiceItemRepository
   attr_reader :repository
   def initialize(data, sales_engine = nil)
     @sales_engine = sales_engine
-    @repository = {}
+    @repository   = {}
     load_csv_file(data)
   end
 

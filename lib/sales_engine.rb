@@ -16,12 +16,12 @@ class SalesEngine
               :transactions,
               :customers
   def initialize(data)
-    @items = ItemRepository.new(data[:items], self)
-    @merchants = MerchantRepository.new(data[:merchants], self)
-    @invoices = InvoiceRepository.new(data[:invoices], self)
-    @invoice_items = InvoiceItemRepository.new(data[:invoice_items], self)
-    @transactions = TransactionRepository.new(data[:transactions], self)
-    @customers = CustomerRepository.new(data[:customers], self)
+    @items          = ItemRepository.new(data[:items], self)
+    @merchants      = MerchantRepository.new(data[:merchants], self)
+    @invoices       = InvoiceRepository.new(data[:invoices], self)
+    @invoice_items  = InvoiceItemRepository.new(data[:invoice_items], self)
+    @transactions   = TransactionRepository.new(data[:transactions], self)
+    @customers      = CustomerRepository.new(data[:customers], self)
   end
 
   def self.from_csv(data)

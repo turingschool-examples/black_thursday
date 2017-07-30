@@ -1,9 +1,9 @@
 class Merchant
-  attr_reader :id,
-              :name
+  attr_reader   :id,
+                :name
   def initialize(data, mr = nil)
-    @mr = mr
-    @id = data[:id]
+    @mr   = mr
+    @id   = data[:id]
     @name = data[:name]
   end
 
