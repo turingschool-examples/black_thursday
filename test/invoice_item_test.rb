@@ -88,4 +88,30 @@ class InvoiceItemTest < Minitest::Test
     assert_equal 720.18, unit_price
   end
 
+  def test_invoice_item_has_created_at_date
+    invoice_item = InvoiceItem.new({
+      :id => 15, :item_id => 263533242, :invoice_id => 3,
+      :quantity => 5, :unit_price => 72018,
+      :created_at => "2012-03-27 14:54:09 UTC",
+      :updated_at => "2012-03-27 14:54:09 UTC"}, self
+    )
+    created_at = invoice_item.created_at
+
+    assert_instance_of Time, created_at
+    assert_equal "2012-03-27 14:54:09 UTC", created_at.to_s
+  end
+
+  def test_invoice_item_has_updated_at_date
+    invoice_item = InvoiceItem.new({
+      :id => 15, :item_id => 263533242, :invoice_id => 3,
+      :quantity => 5, :unit_price => 72018,
+      :created_at => "2012-03-27 14:54:09 UTC",
+      :updated_at => "2012-03-27 14:54:09 UTC"}, self
+    )
+    updated_at = invoice_item.updated_at
+
+    assert_instance_of Time, updated_at
+    assert_equal "2012-03-27 14:54:09 UTC", updated_at.to_s
+  end
+
 end
