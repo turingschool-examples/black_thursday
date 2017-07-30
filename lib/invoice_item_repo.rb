@@ -23,7 +23,7 @@ class InvoiceItemRepo
     invoice_items[id]
   end
 
-  def find_by_item_id(item_id)
+  def find_all_by_item_id(item_id)
     all.find_all {|invoice_item| invoice_item.item_id == item_id}
   end
 

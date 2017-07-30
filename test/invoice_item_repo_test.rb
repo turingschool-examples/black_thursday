@@ -20,11 +20,23 @@ class InvoiceItemRepoTest < Minitest::Test
     assert_equal 263451719, ir.find_by_id(3).item_id
   end
 
+  def test_it_returns_nil_for_bad_id
+    assert_nil ir.find_by_id(00)
+  end
+
   def test_it_can_find_all_by_item_id
-    assert_equal 1, ir.find_by_item_id(263451719).count
+    assert_equal 1, ir.find_all_by_item_id(263451719).count
+  end
+
+  def test_it_returns_nil_for_bad_item_id
+    assert_equal [], ir.find_all_by_item_id(00)
   end
 
   def test_it_can_find_all_by_invoice_id
     assert_equal 4, ir.find_all_by_invoice_id(2).count
+  end
+
+  def test_it_returns_empty_array_for_bad_invoice_id
+    assert_equal [], ir.find_all_by_invoice_id(00)
   end
 end
