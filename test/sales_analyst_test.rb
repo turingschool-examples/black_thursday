@@ -3,6 +3,7 @@ require_relative '../lib/sales_analyst'
 require 'minitest/autorun'
 require 'minitest/emoji'
 require 'bigdecimal'
+require 'pry'
 
 class SalesAnalystTest < Minitest::Test
   def setup
@@ -64,7 +65,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_bottom_merchants_by_invoice_count
     assert_instance_of Array, @sa.top_merchants_by_invoice_count
-    assert_instance_of Merchant, @sa.top_merchants_by_invoice_count[0]
+    assert_equal 2, @sa.top_merchants_by_invoice_count[0]
   end
 
   def test_turn_date_to_day
@@ -73,7 +74,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_top_days_by_invoice_count
     assert_instance_of Array, @sa.top_days_by_invoice_count
-    assert_equal 1, @sa.top_days_by_invoice_count.count
+    assert_equal "Sunday", @sa.top_days_by_invoice_count[0]
   end
 
 end
