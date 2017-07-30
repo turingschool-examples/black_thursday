@@ -10,6 +10,31 @@
 # sa.most_sold_item_for_merchant(merchant_id) #=> [item] (in terms of quantity sold) or, if there is a tie, [item, item, item]
 # sa.best_item_for_merchant(merchant_id) #=> item (in terms of revenue generated)
 
+# invoice.transactions.map(&:result) #=> ["failed", "success"]
+invoice.is_paid_in_full? #=> true
+
+# invoice.transactions.map(&:result) #=> ["failed", "failed"]
+invoice.is_paid_in_full? #=> false
+
+sa.top_buyers(x) #=> [customer, customer, customer, customer, customer]
+
+sa.top_buyers #=> [customer * 20]
+
+sa.top_merchant_for_customer(customer_id) #=> merchant
+
+sa.one_time_buyers #=> [customer, customer, customer]
+
+sa.one_time_buyers_item #=> [item]
+
+sa.items_bought_in_year(customer_id, year) #=> [item]
+
+sa.highest_volume_items(customer_id) #=> [item] or [item, item, item]
+
+sa.customers_with_unpaid_invoices #=> [customer, customer, customer]
+
+sa.best_invoice_by_revenue #=> invoice
+
+sa.best_invoice_by_quantity #=> invoice
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/sales_analyst'

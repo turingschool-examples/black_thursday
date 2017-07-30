@@ -275,16 +275,22 @@ class SalesAnalyst
     end
   end
 
+  def enumerate_item_invoices(item, attribute_proc)
+    item_invoices = @invoice_items.find_all_by_item_id(item.id)
+    if !(item_invoices.empty?)
+      value = item_invoices.reduce(0) do |passed_value, invoice_item|
+        passed_value += attribut_proc.call(invoice_item)
+      end
+    else
+      return 0
+    end
+  end
+
   def most_sold_item_for_merchant(merchant_id)
     merchant = @merchants.find_by_id(merchant_id)
     max_count = 0
     high_item = merchant.items.reduce([]) do |high_item, item|
-      item_invoices = @invoice_items.find_all_by_item_id(item.id)
-      if !(item_invoices.empty?)
-        count = item_invoices.reduce(0) do |number_sold, invoice_item|
-          number_sold += invoice_item.quantity
-        end
-      end
+      count = enumerate_item_invoices(item, Proc.new {|invoice_item| invoice_item.quantity})
       if count > max_count
         max_count = count
         high_item = [item]
@@ -299,12 +305,7 @@ class SalesAnalyst
     merchant = @merchants.find_by_id(merchant_id)
     max_revenue = 0
     high_item = merchant.items.reduce([]) do |high_item, item|
-      item_invoices = @invoice_items.find_all_by_item_id(item.id)
-      if !(item_invoices.empty?)
-        revenue = item_invoices.reduce(0) do |money, invoice_item|
-          money += invoice_item.quantity * invoice_item.unit_price
-        end
-      end
+      revenue = enumerate_item_invoices(item, Proc.new {|invoice_item| invoice_item.quantity * invoice_item.unit_price})
       if revenue >= max_revenue
         max_revenue = revenue
         high_item = item
