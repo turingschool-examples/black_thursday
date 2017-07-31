@@ -75,7 +75,6 @@ module InvoiceAnalytics
       top_days = invoices_by_day.keys.find_all do |day|
         invoices_by_day[day].count >= two_stndv_above_avg
       end
-      top_days.map {|day| day.to_sym }
     end
 
     def invoice_status(symbol_marker)
