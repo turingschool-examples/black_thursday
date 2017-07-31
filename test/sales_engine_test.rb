@@ -153,4 +153,20 @@ class SalesEngineTest < Minitest::Test
     assert_equal 12334634, invoice.merchant_id
   end
 
+  def test_customers_by_merchant_id_gets_customers
+    se = SalesEngine.from_csv({
+      :invoices => './data/invoices.csv',
+      :customers => './data/customers.csv'
+      })
+    customers = se.customers_by_merchant_id(12334207)
+
+    assert_instance_of Array, customers
+    assert_equal 11, customers.count
+
+    customers_2 = se.customers_by_merchant_id(12334194)
+
+    assert_instance_of Array, customers_2
+    assert_equal 12, customers_2.count
+  end
+
 end

@@ -98,4 +98,14 @@ class SalesEngine
     invoices.find_by_id(invoice_id)
   end
 
+  def customers_by_merchant_id(merchant_id)
+    invoices = invoices_by_merchant_id(merchant_id)
+    customers = invoices.map do |invoice_instance|
+      invoice_instance.customer_id
+    end
+    customers.uniq.map do |customer_id|
+      customer_by_customer_id(customer_id)
+    end
+  end
+
 end
