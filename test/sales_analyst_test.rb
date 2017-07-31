@@ -114,19 +114,23 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 4, merchants.length
   end
 
+  def test_it_can_find_top_days_by_invoices
+    top_days = @sales_analyst.top_days_by_invoice_count
+
+    assert_instance_of Array, top_days
+    assert_equal 1, top_days.length
+    assert_equal 'Wednesday', top_days[0]
+  end
+
   def test_it_can_calculate_status_percentage
     pending  = @sales_analyst.invoice_status(:pending)
     shipped  = @sales_analyst.invoice_status(:shipped)
     returned = @sales_analyst.invoice_status(:returned)
-
 
     assert_equal 29.55, pending
     assert_equal 56.95, shipped
     assert_equal 13.5, returned
   end
 
-  def test_it_can_find_top_days_by_invoices
-    
-  end
 
 end
