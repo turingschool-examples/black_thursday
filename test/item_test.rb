@@ -51,6 +51,7 @@ class ItemTest < Minitest::Test
     unit_price = item.unit_price
 
     assert_instance_of BigDecimal, unit_price
+    assert_equal 48.0, unit_price.to_f
   end
 
   def test_item_has_merchant_id

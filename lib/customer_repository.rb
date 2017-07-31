@@ -48,4 +48,8 @@ class CustomerRepository
     @sales_engine.merchants_by_customer_id(customer_id)
   end
 
+  def inspect
+    "#<#{self.class} #{@customers.size} rows>"
+  end
+
 end
