@@ -62,7 +62,8 @@ class SalesAnalyst
   end
 
   def average_item_price_standard_deviation
-    squared_total = find_standard_deviation_of_averages / (@engine.items.all.count - 1)
+    squared_total =
+    find_standard_deviation_of_averages / (@engine.items.all.count - 1)
     (Math.sqrt(squared_total)).round(2)
   end
 

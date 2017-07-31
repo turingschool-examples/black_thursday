@@ -9,7 +9,8 @@ require 'pry'
 require 'csv'
 
 class SalesEngine
-  attr_reader :items, :merchants, :invoices, :invoice_items, :transactions, :customers
+  attr_reader :items, :merchants, :invoices, :invoice_items, :transactions,
+              :customers
 
   def initialize(se_hash)
     @items         = ItemRepository.new(se_hash[:items], self)
