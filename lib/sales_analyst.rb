@@ -15,16 +15,16 @@ class SalesAnalyst
   def average_items_per_merchant
     merchant = @engine.merchants.all
     items    = @engine.items.all
-    average = (items.length.to_f)/(merchant.length)
+    average  = (items.length.to_f)/(merchant.length)
     average.round(2)
   end
 
   def average_items_per_merchant_standard_deviation
-    mean = average_items_per_merchant
-    actual_diff = subtract_mean_from_actual(mean, array_of_items_by_merchant)
+    mean         = average_items_per_merchant
+    actual_diff  = subtract_mean_from_actual(mean, array_of_items_by_merchant)
     squared_diff = square_all_elements(actual_diff)
-    sum = squared_diff.reduce(:+)
-    sum_divided = sum/(array_of_items_by_merchant.length - 1)
+    sum          = squared_diff.reduce(:+)
+    sum_divided  = sum/(array_of_items_by_merchant.length - 1)
     Math.sqrt(sum_divided).round(2)
   end
 
@@ -42,7 +42,7 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(merchant_id)
-    merchant = @engine.merchants.find_by_id(merchant_id)
+    merchant    = @engine.merchants.find_by_id(merchant_id)
     price_total = price_totaler(merchant)
     return 0 if merchant.items.empty?
     (price_total / merchant.items.count).round(2)
@@ -97,8 +97,14 @@ class SalesAnalyst
 
   def top_merchants_by_invoice_count
     std_dev = average_invoices_per_merchant_standard_deviation
-    mean = average_invoices_per_merchant
+    mean    = average_invoices_per_merchant
     find_top_merchants_by_invoice_count(std_dev, mean)
+  end
+
+  def bottom_merchants_by_invoice_count
+    std_dev = average_invoices_per_merchant_standard_deviation
+    mean    = average_invoices_per_merchant
+    find_bottom_merchants_by_invoice_count(std_dev, mean)
   end
 
   # def bottom_merchants_by_invoice_count
@@ -155,6 +161,12 @@ class SalesAnalyst
     def find_top_merchants_by_invoice_count(std_dev, average)
       @engine.merchants.all.find_all do |merchant|
         (@engine.find_invoices_by_merchant_id(merchant.id).length - average) > (std_dev * 2)
+      end
+    end
+
+    def find_bottom_merchants_by_invoice_count(std_dev, average)
+      @engine.merchants.all.find_all do |merchant|
+        (@engine.find_invoices_by_merchant_id(merchant.id).length + (std_dev *2)) < (average)
       end
     end
 
