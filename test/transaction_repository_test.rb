@@ -106,4 +106,16 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal [], transactions
   end
 
+  def test_transaction_repo_to_se_invoice
+    se = SalesEngine.from_csv({
+      :invoices => './data/invoices.csv',
+      :transactions => './data/transactions.csv'
+      })
+    transactions = se.transactions
+    invoice = transactions.transaction_repo_to_se_invoice(2779)
+
+    assert_instance_of Invoice, invoice
+    assert_equal 12334634, invoice.merchant_id
+  end
+
 end

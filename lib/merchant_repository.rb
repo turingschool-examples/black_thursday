@@ -65,6 +65,10 @@ class MerchantRepository
     @sales_engine.invoices_by_merchant_id(merchant_id)
   end
 
+  def merchant_repo_to_se_customers(merchant_id)
+    @sales_engine.customers_by_merchant_id(merchant_id)
+  end
+
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end

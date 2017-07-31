@@ -50,6 +50,30 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of InvoiceRepository, se.invoices
   end
 
+  def test_sales_engine_initializes_with_invoice_items_repo
+    se = SalesEngine.from_csv({
+      :invoice_items => "./data/invoice_items.csv"
+      })
+
+    assert_instance_of InvoiceItemRepository, se.invoice_items
+  end
+
+  def test_sales_engine_initializes_with_transactions_repo
+    se = SalesEngine.from_csv({
+      :transactions => "./data/transactions.csv"
+      })
+
+    assert_instance_of TransactionRepository, se.transactions
+  end
+
+  def test_sales_engine_initializes_with_customer_repo
+    se = SalesEngine.from_csv({
+      :customers => "./data/customers.csv"
+      })
+
+    assert_instance_of CustomerRepository, se.customers
+  end
+
   def test_merchant_by_merchant_id_gets_merchant
     se = SalesEngine.from_csv({
       :merchants => "./data/merchants.csv"
@@ -97,6 +121,63 @@ class SalesEngineTest < Minitest::Test
     items = se.items_by_invoice_id(168)
     assert_instance_of Item, items[0]
     assert_equal 3, items.count
+  end
+
+  def test_transactions_by_invoice_id_gets_transactions_for_given_invoice
+    se = SalesEngine.from_csv({
+      :transactions => './data/transactions.csv'
+      })
+    transactions = se.transactions_by_invoice_id(20)
+
+    assert_instance_of Transaction, transactions[0]
+    assert_equal 3, transactions.count
+  end
+
+  def test_customer_by_customer_id_gets_customer_for_given_customer_id
+    se = SalesEngine.from_csv({
+      :customers => './data/customers.csv'
+      })
+    customer = se.customer_by_customer_id(22)
+
+    assert_instance_of Customer, customer
+    assert_equal "Constance", customer.first_name
+  end
+
+  def test_invoice_by_invoice_id_gets_invoice
+    se = SalesEngine.from_csv({
+      :invoices => './data/invoices.csv'
+      })
+    invoice = se.invoice_by_invoice_id(2779)
+
+    assert_instance_of Invoice, invoice
+    assert_equal 12334634, invoice.merchant_id
+  end
+
+  def test_customers_by_merchant_id_gets_customers
+    se = SalesEngine.from_csv({
+      :invoices => './data/invoices.csv',
+      :customers => './data/customers.csv'
+      })
+    customers = se.customers_by_merchant_id(12334207)
+
+    assert_instance_of Array, customers
+    assert_equal 11, customers.count
+
+    customers_2 = se.customers_by_merchant_id(12334194)
+
+    assert_instance_of Array, customers_2
+    assert_equal 12, customers_2.count
+  end
+
+  def test_merchants_by_customer_id_gets_merchants
+    se = SalesEngine.from_csv({
+      :merchants => './data/merchants.csv',
+      :invoices => './data/invoices.csv'
+      })
+    merchants = se.merchants_by_customer_id(30)
+
+    assert_instance_of Array, merchants
+    assert_equal 5, merchants.count
   end
 
 end
