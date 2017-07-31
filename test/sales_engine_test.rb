@@ -43,9 +43,8 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of CustomerRepository, @se.customers
   end
 
-  def test_items_searched_by_name
+  def test_it_returns_item_searched_by_name
     items = @se.items
-
     assert_instance_of Item, items.find_by_name("Glitter scrabble frames")
   end
 
@@ -63,7 +62,6 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_can_find_another_item_by_name
     items = @se.items
-
     assert_instance_of Item, items.find_by_name("Glitter scrabble frames")
   end
 
@@ -155,7 +153,6 @@ class SalesEngineTest < Minitest::Test
       })
     merchant = se.merchants.find_by_id(12335938)
     assert_instance_of Array, merchant.customers
-    binding.pry
     assert_equal 16, merchant.customers.count
   end
 

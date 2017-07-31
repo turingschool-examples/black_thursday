@@ -186,5 +186,34 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 13.5, sa.invoice_status(:returned)
   end
 
+  def test_it_returns_total_revenue_by_date
+    se = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv",
+      :customers => "./data/customers.csv"
+      })
+    sa = SalesAnalyst.new(se)
+    date = Time.parse("2009-02-07")
+    assert_equal 21067.77, sa.total_revenue_by_date(date)
+  end
+
+  def test_it_returns_total_revenue_by_date
+    se = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv",
+      :customers => "./data/customers.csv"
+      })
+    sa = SalesAnalyst.new(se)
+    date = Time.parse("2009-02-07")
+    assert_equal 21067.77, sa.total_revenue_by_date(date)
+
+
+
 
 end

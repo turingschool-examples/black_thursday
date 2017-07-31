@@ -157,4 +157,17 @@ class SalesAnalyst
     percentage = (status_matches.length.to_f)/(invr.length) * 100
     percentage.round(2)
   end
+
+  def total_revenue_by_date(date)
+    invoices_by_date = sales_engine.invoices.find_all_by_created_at(date)
+    result = invoices_by_date.map do |invoice|
+      sales_engine.invoice_items.find_all_by_invoice_id(invoice.id)
+    end
+    total = 0
+    result.flatten.each do |item|
+      total += item.quantity * item.unit_price
+    end
+    total
+  end
+
 end

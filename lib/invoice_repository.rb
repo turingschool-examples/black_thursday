@@ -36,9 +36,21 @@ class InvoiceRepository
     end
   end
 
+  def find_all_by_invoice_id(invoice_id)
+    all.find_all do |invoice|
+      invoice.invoice_id == invoice_id
+    end
+  end
+
   def find_all_by_status(status)
     all.find_all do |invoice|
       invoice.status == status
+    end
+  end
+
+  def find_all_by_created_at(date)
+    all.find_all do |invoice|
+      invoice.created_at == date
     end
   end
 
