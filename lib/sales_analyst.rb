@@ -145,6 +145,42 @@ class SalesAnalyst
     percentage.round(2)
   end
 
+  def total_revenue_by_date(date)
+    # returns an amount in dollars
+  end
+
+  def top_revenue_earners(x)
+    # returns array of merchants
+    # If no number is given for top_revenue_earners,
+          # it takes the top 20 merchants by default =>
+              #sa.top_revenue_earners #=> [merchant * 20]
+  end
+
+  def merchants_with_pending_invoices
+    # returns array of merchants
+    # Note: an invoice is considered pending if none of its transactions are successful.
+  end
+
+  def merchants_with_only_one_item
+    # returns array of merchants
+  end
+
+  def merchants_with_only_one_item_registered_in_month("monthname")
+    # returns array of merchants
+  end
+
+  def revenue_by_merchant(merchant_id)
+    #returns amount in dollars
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    # [item] (in terms of quantity sold) or, if there is a tie, [item, item, item]
+  end
+
+  def best_item_for_merchant(merchant_id)
+    # item (in terms of revenue generated)
+  end
+
   private
 
   def time_converter(invoice)

@@ -21,13 +21,17 @@ class InvoiceTest < Minitest::Test
     assert_equal 6, @invoice.id
     assert_equal 7, @invoice.customer_id
     assert_equal 8, @invoice.merchant_id
-    assert_equal "pending", @invoice.status
+    assert_equal :pending, @invoice.status
     assert_instance_of Time, @invoice.created_at
     assert_instance_of Time, @invoice.updated_at
   end
 
-  def test_invoice_can_get_merchant
-    assert_instance_of Merchant, @invoice.merchant
-  end
+  # def test_invoice_can_get_merchant
+  #   assert_instance_of Merchant, @invoice.merchant
+  # end
+  #
+  # def test_can_get_an_item_by_invoice_id
+  #   assert_instance_of Item, @invoice.items
+  # end
 
 end
