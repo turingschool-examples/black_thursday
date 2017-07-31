@@ -83,4 +83,27 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal 3008, transactions[0].id
   end
 
+  def test_transaction_repo_find_all_by_cc_num_returns_empty_array_on_bad_search
+    tr = TransactionRepository.new('./data/transactions.csv', self)
+    transactions = tr.find_all_by_credit_card_number(9999)
+
+    assert_equal [], transactions
+  end
+
+  def test_transaction_repo_can_find_all_by_result
+    tr = TransactionRepository.new('./data/transactions.csv', self)
+    transactions = tr.find_all_by_result("failed")
+
+    assert_instance_of Array, transactions
+    refute transactions.empty?
+    assert_equal 827, transactions.count
+  end
+
+  def test_transaction_repo_find_all_by_result_returns_empty_array_on_bad_search
+    tr = TransactionRepository.new('./data/transactions.csv', self)
+    transactions = tr.find_all_by_result("Blargh")
+
+    assert_equal [], transactions
+  end
+
 end
