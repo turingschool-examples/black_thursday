@@ -24,16 +24,8 @@ class Merchant
     @merch_repo.find_invoices_by_merchant_id(id)
   end
 
-end
-  # def customers
-  #   customer_ids = invoices.map(:customer_id)
-  #   merch_repo.find_all_customers_by_id(customer_ids)
-  # end
+  def customers
+    @merch_repo.find_customers_by_merchant_id(id)
+  end
 
-  # def revenue
-  #
-  # end
-  #
-  # def invoice_items
-  #
-  # end
+end

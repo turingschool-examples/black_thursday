@@ -52,6 +52,30 @@ class InvoiceRepository
     end
   end
 
+  def find_items_by_invoice_id(invoice_id)
+    @engine.find_all_items_by_invoice_id(invoice_id)
+  end
+
+  def find_transactions_by_invoice_id(invoice_id)
+    @engine.find_transactions_by_invoice_id(invoice_id)
+  end
+
+  def find_customers_by_invoice(customer_id)
+    @engine.find_customers_by_invoice(customer_id)
+  end
+
+  def find_merchants_ids_by_customer_id(customer_id)
+    find_all_by_customer_id(customer_id).map do |invoice|
+      invoice.merchant_id
+    end
+  end
+
+  def find_customer_ids_by_merchant_id(merchant_id)
+    find_all_by_merchant_id(merchant_id).map do |invoice|
+      invoice.customer_id
+    end
+  end
+
   private
 
     def create_hash_of_invoices(csvfile)

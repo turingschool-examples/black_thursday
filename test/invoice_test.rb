@@ -26,4 +26,8 @@ class InvoiceTest < Minitest::Test
     assert_instance_of Time, @invoice.updated_at
   end
 
+  def test_invoice_can_get_merchant
+    assert_instance_of Merchant, @invoice.merchant
+  end
+
 end

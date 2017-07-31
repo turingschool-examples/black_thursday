@@ -57,4 +57,7 @@ class TransactionRepository
     end
   end
 
+  def find_invoices_by_transaction(invoice_id)
+    @engine.find_invoices_by_transaction(invoice_id)
+  end
 end
