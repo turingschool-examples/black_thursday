@@ -25,9 +25,10 @@ module MarketAnalytics
     end
 
     def invoices_on_this_date(date)
-      @invoices.id_repo.values.find_all do |invoice|
+      @invoices.all.find_all do |invoice|
         invoice.created_at.yday == date.yday && invoice.is_paid_in_full?
       end
+      binding.pry
     end
 
   public
@@ -41,7 +42,10 @@ module MarketAnalytics
     def revenue_by_merchant(merchant_id)
       merchant = @merchants.find_by_id(merchant_id)
       merchant.invoices.reduce(0) do |total, invoice|
-        total += invoice.total.to_f
+        if invoice.is_paid_in_full?
+          total += invoice.total.to_f
+        end
+        total
       end.round(2)
     end
 
