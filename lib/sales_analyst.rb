@@ -143,6 +143,19 @@ class SalesAnalyst
 
   def total_revenue_by_date(date)
     # returns an amount in dollars
+    invoices = @engine.invoices.all
+    invoices_by_date = invoices.find_all do |invoice|
+      invoice.created_at == date
+    end
+    sum = 0
+    invoices_items = invoices_by_date.map do |invoice|
+      @engine.find_invoice_items_by_invoice(invoice.id)
+    end
+    invoices_items.flatten!
+    invoices_items.each do |invoice_item|
+      sum += (invoice_item.unit_price * invoice_item.quantity.to_f)
+    end
+    sum
   end
 
   def top_revenue_earners(x)
