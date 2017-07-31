@@ -77,4 +77,22 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal [], customers
   end
 
+  def test_customer_repo_can_find_all_by_last_name
+    cr = CustomerRepository.new('./data/customers.csv', self)
+    customers = cr.find_all_by_last_name('arm')
+    customers_2 = cr.find_all_by_last_name('heL')
+    customers_3 = cr.find_all_by_last_name('oE')
+
+    assert_equal 4, customers.count
+    assert_equal 11, customers_2.count
+    assert_equal 14, customers_3.count
+  end
+
+  def test_customer_repo_find_all_by_last_name_returns_empty_array_on_bad_search
+    cr = CustomerRepository.new('./data/customers.csv', self)
+    customers = cr.find_all_by_first_name('lkdhfieylsakf')
+
+    assert_equal [], customers
+  end
+
 end

@@ -38,4 +38,10 @@ class CustomerRepository
     end
   end
 
+  def find_all_by_last_name(last_name_frag)
+    id_repo.values.select do |customer_instance|
+      customer_instance.last_name.downcase.include?(last_name_frag.downcase)
+    end
+  end
+
 end
