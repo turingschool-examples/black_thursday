@@ -13,7 +13,7 @@ class InvoiceAnalyticsTest < Minitest::Test
     sales_analyst = SalesAnalyst.new(sales_engine)
 
     refute_equal nil, sales_analyst.invoices
-    refute_equal nil, sale_analyst.average_invoices_per_day
+    refute_equal nil, sales_analyst.average_invoices_per_day
   end
 
   def test_average_invoices_per_merchant
@@ -64,17 +64,6 @@ class InvoiceAnalyticsTest < Minitest::Test
 
     assert_instance_of Array, bottom_merchants
     assert_instance_of Merchant, bottom_merchants[0]
-  end
-
-  def test_convert_date_to_day
-    sales_engine = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv"
-    })
-    sales_analyst = SalesAnalyst.new(sales_engine)
-
-    assert_equal :Friday, sales_analyst.convert_date_to_day(Time.new(2017, 07, 28))
   end
 
   def test_average_invoices_per_day
@@ -143,7 +132,8 @@ class InvoiceAnalyticsTest < Minitest::Test
 
     assert_instance_of Array, pending_merchants
     assert_instance_of Merchant, pending_merchants[0]
-    assert_equal :pending, pending_merchants[0].invoices[0].status
+    assert pending_merchants.all? {|merchant| merchant.invoices.any?
+                                      {|invoice| invoice.status == "pending"}}
   end
 
 

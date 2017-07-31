@@ -5,6 +5,9 @@ require_relative '../lib/customer_analytics'
 require 'pry'
 
 class SalesAnalyst
+  attr_reader :invoices,
+              :transactions,
+              :customers
   def initialize(sales_engine)
     @sales_engine = sales_engine
     @merchants = sales_engine.merchants
@@ -13,22 +16,25 @@ class SalesAnalyst
     @invoice_items = sales_engine.invoice_items
     @transactions = sales_engine.transactions
     @customers = sales_engine.customers
-    include_methods
+    # include_methods
   end
+  include InvoiceAnalytics
+  include MarketAnalytics
+  include CustomerAnalytics
 
   private
 
-    def include_methods
-      if !(@customers.nil?)
-        include CustomerAnalytics
-      end
-      if !(@invoice_items.nil?) && !(@transactions.nil?)
-        include MarketAnalytics
-      end
-      if !(@invoices.nil?)
-        include InvoiceAnalytics
-      end
-    end
+    # def include_methods
+    #   if !(@customers.nil?)
+    #     include CustomerAnalytics
+    #   end
+    #   if !(@invoice_items.nil?) && !(@transactions.nil?)
+    #     include MarketAnalytics
+    #   end
+    #   if !(@invoices.nil?)
+    #     include InvoiceAnalytics
+    #   end
+    # end
 
     def month_name_to_num
       {"January" => 1,
