@@ -85,7 +85,7 @@ class InvoiceAnalyticsTest < Minitest::Test
     })
     sales_analyst = SalesAnalyst.new(sales_engine)
 
-    assert_equal 0.63, sales_analyst.average_invoices_per_day_standard_deviation
+    assert_equal 18.07, sales_analyst.average_invoices_per_day_standard_deviation
   end
 
   def test_top_days_by_invoice_count
@@ -100,7 +100,7 @@ class InvoiceAnalyticsTest < Minitest::Test
 
     assert_instance_of Array, top_days
     assert_instance_of Symbol, top_days[0]
-    assert_equal 3, top_days.length
+    assert_equal 1, top_days.length
   end
 
   def test_invoice_status

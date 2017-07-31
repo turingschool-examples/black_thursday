@@ -4,7 +4,7 @@ module InvoiceAnalytics
   private
 
     def total_invoices
-      @invoices.id_repo.count.to_f
+      @invoices.all.count.to_f
     end
 
     def convert_date_to_day(time_object)
@@ -20,13 +20,13 @@ module InvoiceAnalytics
     end
 
     def invoices_by_day
-      @invoices.id_repo.values.reduce({"Monday" => [],
-                                       "Tuesday" => [],
-                                       "Wednesday" => [],
-                                       "Thursday" => [],
-                                       "Friday" => [],
-                                       "Saturday" => [],
-                                       "Sunday" =>[]}) do |result_hash, invoice_object|
+      stuff = @invoices.all.reduce({"Monday" => [],
+                            "Tuesday" => [],
+                             "Wednesday" => [],
+                             "Thursday" => [],
+                             "Friday" => [],
+                             "Saturday" => [],
+                             "Sunday" =>[]}) do |result_hash, invoice_object|
         object_day = convert_date_to_day(invoice_object.created_at)
         result_hash[object_day] << invoice_object
         result_hash
@@ -52,27 +52,21 @@ module InvoiceAnalytics
       summed = invoices_by_day.values.reduce(0) do |sum, invoices_on_this_day|
         sum += (invoices_on_this_day.count - average_invoices_per_day) ** 2
       end
-      divided_result = summed / (total_invoices - 1)
+      divided_result = summed / 6.0
       Math.sqrt(divided_result).round(2)
     end
 
     def top_merchants_by_invoice_count
       two_stndv_above_avg = (average_invoices_per_merchant_standard_deviation * 2) + average_invoices_per_merchant
-      @merchants.id_repo.keys.reduce([]) do |results, id|
-        if @merchants.id_repo[id].invoices.count >= two_stndv_above_avg
-          results << @merchants.id_repo[id]
-        end
-        results.flatten
+      @merchants.all.find_all do |merchant|
+        merchant.invoices.count >= two_stndv_above_avg
       end
     end
 
     def bottom_merchants_by_invoice_count
       two_stndv_below_avg = average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2)
-      @merchants.id_repo.keys.reduce([]) do |results, id|
-        if @merchants.id_repo[id].invoices.count <= two_stndv_below_avg
-          results << @merchants.id_repo[id]
-        end
-        results.flatten
+      @merchants.all.find_all do |merchant|
+        merchant.invoices.count <= two_stndv_below_avg
       end
     end
 
