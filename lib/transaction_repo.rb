@@ -35,4 +35,8 @@ class TransactionRepo
   def find_all_by_result(status)
     all.find_all{|transaction| transaction.result == status}
   end
+
+  def transaction_invoice(id)
+    parent.transaction_invoice(id)
+  end
 end

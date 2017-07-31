@@ -13,7 +13,7 @@ class ItemRepoTest < Minitest::Test
   end
 
   def test_it_finds_all_items
-    assert_equal 2, ir.all.count
+    assert_equal 8, ir.all.count
   end
 
   def test_it_can_find_by_id
@@ -35,7 +35,7 @@ class ItemRepoTest < Minitest::Test
 
   def test_it_can_find_all_by_price_in_range
     range = (11..14)
-    assert_equal 2, ir.find_all_by_price_in_range(range).count
+    assert_equal 3, ir.find_all_by_price_in_range(range).count
   end
 
   def test_it_returns_empty_array_for_invalid_price_range

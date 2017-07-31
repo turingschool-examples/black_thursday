@@ -22,6 +22,15 @@ class SalesEngine
     SalesEngine.new(data)
   end
 
+  def customers_of_merchant(id)
+    merchant_list = invoices.find_all_by_merchant_id(id)
+    merchant_list.map {|invoice| invoice.customer}.uniq
+  end
+
+  def transaction_invoice(id)
+    invoices.find_by_id(id)
+  end
+
   def customer_invocies(id)
     customers.find_by_id(id)
   end
@@ -30,8 +39,11 @@ class SalesEngine
     transactions.find_all_by_invoice_id(id)
   end
 
-  def items_from_invoice(inv_id)
-    invoice_items.find_all_by_invoice_id(inv_id)
+  def items_from_invoice(id)
+    invoice_item_list = invoice_items.find_all_by_invoice_id(id)
+    item_list = invoice_item_list.group_by {|invoice_item| invoice_item.item_id}
+    item_list.keys.map {|id| items.find_by_id(id)}
+
   end
 
   def items_of_merchant(id)
@@ -64,5 +76,9 @@ class SalesEngine
 
   def all_invoice_items
     invoice_items.all
+  end
+
+  def all_customers
+    customers.all
   end
 end

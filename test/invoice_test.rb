@@ -40,4 +40,5 @@ class InvoiceTest < Minitest::Test
   def test_it_knows_when_updated
     assert_instance_of Time, i.updated_at
   end
+
 end

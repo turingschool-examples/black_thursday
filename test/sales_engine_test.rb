@@ -54,6 +54,7 @@ class SalesEngineTest < Minitest::Test
   def test_it_can_return_all_items_for_an_invoice
     invoice = se.invoices.find_by_id(20)
     assert_equal 4, invoice.items.count
+    assert_instance_of Item, invoice.items[0]
   end
 
   def test_it_can_find_all_transactions_by_invoice_id
@@ -64,6 +65,27 @@ class SalesEngineTest < Minitest::Test
   def test_it_returns_all_customers_for_a_particular_invoice
     invoice = se.invoices.find_by_id(20)
     assert_instance_of Customer, invoice.customer
+  end
+
+  def test_it_returns_invoice_for_a_particular_invoice
+    transaction = se.transactions.find_by_id(2)
+    assert_instance_of Invoice, transaction.invoice
+    assert_equal 12336837, transaction.invoice.merchant_id
+  end
+
+  def test_it_returns_customers_of_a_particular_merchant
+    merchant = se.merchants.find_by_id(12334105)
+    assert_equal 1, merchant.customers.count
+  end
+
+  def test_it_can_tell_if_invoice_paid
+    invoice = se.invoices.find_by_id(46)
+    assert invoice.is_paid_in_full?
+  end
+
+  def test_it_can_tell_if_invoice_paid
+    invoice = se.invoices.find_by_id(1752)
+    refute invoice.is_paid_in_full?
   end
 
 end

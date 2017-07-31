@@ -41,8 +41,8 @@ class InvoiceRepo
     parent.merchant_invoice(id)
   end
 
-  def items_from_invoice(inv_id)
-    parent.items_from_invoice(inv_id)
+  def items_from_invoice(id)
+    parent.items_from_invoice(id)
   end
 
   def invoice_transactions(id)
@@ -52,5 +52,6 @@ class InvoiceRepo
   def customer_invocies(id)
     parent.customer_invocies(id)
   end
+
 
 end

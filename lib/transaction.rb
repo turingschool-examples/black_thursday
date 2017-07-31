@@ -13,4 +13,8 @@ class Transaction
     @updated_at                  = Time.parse(params[:updated_at].to_s)
     @parent                      = repo
   end
+
+  def invoice
+    parent.transaction_invoice(invoice_id)
+  end
 end

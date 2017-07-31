@@ -30,4 +30,8 @@ class Invoice
   def customer
     parent.customer_invocies(customer_id)
   end
+
+  def is_paid_in_full?
+    transactions.any? {|transaction| transaction.result == "success"}
+  end
 end
