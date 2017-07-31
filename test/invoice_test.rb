@@ -3,7 +3,6 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/invoice'
 
-
 class InvoiceTest < Minitest::Test
 
   def setup
@@ -26,8 +25,8 @@ class InvoiceTest < Minitest::Test
     assert_instance_of Time, @invoice.updated_at
   end
 
-  # def test_merchant_returns_merchant_object
-  #
-  # end
+  def test_invoice_can_get_merchant
+    assert_instance_of Merchant, @invoice.merchant
+  end
 
 end
