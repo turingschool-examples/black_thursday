@@ -143,4 +143,14 @@ class SalesEngineTest < Minitest::Test
     assert_equal "Constance", customer.first_name
   end
 
+  def test_invoice_by_invoice_id_gets_invoice
+    se = SalesEngine.from_csv({
+      :invoices => './data/invoices.csv'
+      })
+    invoice = se.invoice_by_invoice_id(2779)
+
+    assert_instance_of Invoice, invoice
+    assert_equal 12334634, invoice.merchant_id
+  end
+
 end

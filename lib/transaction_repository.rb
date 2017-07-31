@@ -50,4 +50,8 @@ class TransactionRepository
     end
   end
 
+  def transaction_repo_to_se_invoice(invoice_id)
+    @sales_engine.invoice_by_invoice_id(invoice_id)
+  end
+
 end

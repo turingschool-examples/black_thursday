@@ -1,5 +1,6 @@
 require_relative 'test_helper'
 require_relative '../lib/transaction'
+require_relative '../lib/sales_engine'
 
 class TransactionTest < Minitest::Test
 
@@ -98,6 +99,18 @@ class TransactionTest < Minitest::Test
 
     assert_instance_of Time, updated_at
     assert_equal '2012-02-26 20:56:57 UTC', updated_at.to_s
+  end
+
+  def test_transaction_can_check_invoice
+    se = SalesEngine.from_csv({
+      :invoices => './data/invoices.csv',
+      :transactions => './data/transactions.csv'
+      })
+    transactions = se.transactions
+    transaction = transactions.find_by_id(4400)
+    invoice = transaction.invoice
+
+    assert_instance_of Invoice, invoice
   end
 
 end
