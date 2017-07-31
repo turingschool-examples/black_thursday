@@ -32,4 +32,10 @@ class CustomerRepository
     id_repo[id]
   end
 
+  def find_all_by_first_name(first_name_frag)
+    id_repo.values.select do |customer_instance|
+      customer_instance.first_name.downcase.include?(first_name_frag.downcase)
+    end
+  end
+
 end

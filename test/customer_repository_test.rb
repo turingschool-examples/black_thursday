@@ -59,4 +59,15 @@ class CustomerRepositoryTest < Minitest::Test
     assert_nil customer
   end
 
+  def test_customer_repo_can_find_all_by_first_name
+    cr = CustomerRepository.new('./data/customers.csv', self)
+    customers = cr.find_all_by_first_name('bren')
+    customers_2 = cr.find_all_by_first_name('tim')
+    customers_3 = cr.find_all_by_first_name('oE')
+
+    assert_equal 3, customers.count
+    assert_equal 2, customers_2.count
+    assert_equal 8, customers_3.count
+  end
+
 end
