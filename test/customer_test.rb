@@ -1,5 +1,6 @@
 require_relative 'test_helper'
 require_relative '../lib/customer'
+require_relative '../lib/sales_engine'
 
 class CustomerTest < Minitest::Test
 
@@ -68,6 +69,21 @@ class CustomerTest < Minitest::Test
 
     assert_instance_of Time, updated_at
     assert_equal "2012-03-27 14:55:06 UTC", updated_at.to_s
+  end
+
+  def test_customer_can_check_merchants
+    se = SalesEngine.from_csv({
+      :merchants => './data/merchants.csv',
+      :customers => './data/customers.csv',
+      :invoices => './data/invoices.csv'
+      })
+    customers = se.customers
+    customer = customers.find_by_id(30)
+    merchants = customer.merchants
+
+    assert_instance_of Array, merchants
+    assert_instance_of Merchant, merchants[0]
+    assert_equal 5, merchants.count
   end
 
 end
