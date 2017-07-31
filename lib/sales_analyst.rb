@@ -244,11 +244,12 @@ class SalesAnalyst
       end
     end
     it_id_counts = Hash.new(0)
-    save = invoices_ii.each do |invoice_ii|
+    save = invoices_ii.map do |invoice_ii|
       invoice_ii.each_pair do |item_id, invoice_items|
         it_id_counts.merge!({item_id => invoice_items.count})
       end
     end
+    binding.pry
   end
 
 
@@ -298,12 +299,13 @@ class SalesAnalyst
       invoices = merchant.invoices
       if merchant.created_at.strftime("%B") == month
         invoices.one? do |invoice|
-          invoice.updated_at.strftime("%B") == month
+          invoice.created_at.strftime("%B") == month
         end
       else
         nil
       end
     end
   end
+
 
 end
