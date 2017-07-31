@@ -10,12 +10,7 @@ module Calculator
   end
 
   def difference(array)
-    results = []
-    array.each do |number|
-      diff = (number - mean(array)) ** 2
-      results << diff
-    end
-    results
+    array.map {|i| (i - mean(array)) ** 2}
   end
 
   def standard_deviance(array)

@@ -66,7 +66,7 @@ class InvoiceRepositoryTest < Minitest::Test
     save_two = @invoice_r.find_by_id(125)
 
     assert_equal @invoice_r.invoices[1], save_one
-    assert_equal @invoice_r.invoices.last, save_two
+    assert_equal @invoice_r.invoices[-1], save_two
   end
 
   def test_find_all_by_customer_id_returns_blank_if_none_match
