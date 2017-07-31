@@ -8,31 +8,31 @@ require 'minitest/emoji'
 class TransactionRepositoryTest < Minitest::Test
 
   def test_it_exists
-    repo = TransactionRepository.new
+    repo = TransactionRepository.new(self)
     assert_instance_of TransactionRepository, repo
   end
 
   def test_it_has_transactions
-    repo = TransactionRepository.new
+    repo = TransactionRepository.new(self)
     assert_equal [], repo.transactions
   end
 
   def test_it_can_load_transactions
-    repo = TransactionRepository.new
+    repo = TransactionRepository.new(self)
     repo.from_csv("./data/transactions_short.csv")
     assert_equal 10, repo.transactions.count
   end
 
   def test_find_all
-    repo = TransactionRepository.new
+    repo = TransactionRepository.new(self)
     repo.from_csv("./data/transactions_short.csv")
     assert_equal 10, repo.all.count
   end
 
   def test_find_by_id
-    repo = TransactionRepository.new
+    repo = TransactionRepository.new(self)
     repo.from_csv("./data/transactions_short.csv")
-    assert_equal "5555", repo.find_by_id(5).invoice_id
+    assert_equal 5555, repo.find_by_id(5).invoice_id
   end
 
 
