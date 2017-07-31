@@ -1,3 +1,6 @@
+require_relative 'customer'
+require 'csv'
+
 class CustomerRepository
 
   attr_reader :sales_engine,
@@ -8,6 +11,7 @@ class CustomerRepository
     @file_path    = file_path
     @sales_engine = sales_engine
     @id_repo      = {}
+    load_repo
   end
 
   def load_repo
