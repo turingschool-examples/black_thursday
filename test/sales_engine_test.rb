@@ -79,4 +79,24 @@ class SalesEngineTest < Minitest::Test
     assert_equal 9, invoices.count
   end
 
+  def test_invoice_items_by_invoice_id_gets_invoice_items
+    se = SalesEngine.from_csv({
+      :invoice_items => './data/invoice_items.csv'
+      })
+    invoice_items = se.invoice_items_by_invoice_id(168)
+
+    assert_instance_of InvoiceItem, invoice_items[0]
+    assert_equal 3, invoice_items.count
+  end
+
+  def test_items_by_invoice_id_gets_all_items_for_a_given_invoice
+    se = SalesEngine.from_csv({
+      :items => './data/items.csv',
+      :invoice_items => './data/invoice_items.csv'
+      })
+    items = se.items_by_invoice_id(168)
+    assert_instance_of Item, items[0]
+    assert_equal 3, items.count
+  end
+
 end

@@ -24,4 +24,8 @@ class Invoice
     self.invoice_repo.invoice_repo_to_se_merchant(merchant_id)
   end
 
+  def items
+    self.invoice_repo.invoice_repo_to_se_items(id)
+  end
+
 end
