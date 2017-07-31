@@ -73,6 +73,10 @@ class SalesEngine
     @customers.find_merchants_by_customer_id(customer_ids)
   end
 
+  def find_invoice_items_by_invoice(invoice_id)
+    @invoice_items.find_all_by_invoice_id(invoice_id)
+  end
+
   def self.from_csv(se_hash)
     item_data         = self.load_data(se_hash[:items])
     merchant_data     = self.load_data(se_hash[:merchants])

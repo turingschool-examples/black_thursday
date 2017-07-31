@@ -76,6 +76,10 @@ class InvoiceRepository
     end
   end
 
+  def find_invoice_items_by_invoice(invoice_id)
+    @engine.find_invoice_items_by_invoice(invoice_id)
+  end
+
   private
 
     def create_hash_of_invoices(csvfile)
