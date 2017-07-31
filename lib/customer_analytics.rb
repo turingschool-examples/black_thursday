@@ -1,28 +1,15 @@
 module CustomerAnalytics
 
   def top_buyers(num=20)
-    buyers = []
-    num.times do
-      max_revenue = 0
-      top_buyer = @customer.id_repo.values.reduce("") do |top_customer, customer|
-        revenue = customer.invoices.reduce(0) do |money, invoice|
-          if invoice.is_paid_in_full?
-            money += @invoices_items.id_repo.values.reduce(0) do |moneyy, invoice_item|
-              if invoice_item.invoice_id == invoice.id
-                moneyy += invoice_item.unit_price
-              end
-            end
-          end
-        end
-        if revenue >= max_revenue && !(buyers.include?(customer))
-          max_revenue = revenue
-          top_customer = customer
-        end
-      end
-      buyers << top_buyer
+    duplicated_merchant_repo = @merchants.id_repo.clone
+    top = []
+    number.times do
+      max = duplicated_merchant_repo.max_by {|merchant| revenue_by_merchant(merchant[0])}
+      duplicated_merchant_repo.delete(max[0])
+      top << @merchants.find_by_id(max[0])
     end
-    buyers.compact
-  end
+    top
+
 
 
 end
