@@ -119,7 +119,7 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_instance_of Merchant, merchant
   end
 
-  def test_invoice_repo_to_se_invoice_id
+  def test_invoice_repo_to_se_items
     se = SalesEngine.from_csv({
       :items => './data/items.csv',
       :invoice_items => './data/invoice_items.csv',
@@ -130,6 +130,43 @@ class InvoiceRepositoryTest < Minitest::Test
 
     assert_instance_of Item, items[0]
     assert_equal 3, items.count
+  end
+
+  def test_invoice_repo_to_se_transactions
+    se = SalesEngine.from_csv({
+      :invoices => './data/invoices.csv',
+      :transactions => './data/transactions.csv'
+      })
+    invoices = se.invoices
+    transactions = invoices.invoice_repo_to_se_transactions(20)
+
+    assert_instance_of Transaction, transactions[0]
+    assert_equal 3, transactions.count
+  end
+
+  def test_invoice_repo_to_se_customer
+    se = SalesEngine.from_csv({
+      :invoices => './data/invoices.csv',
+      :customers => './data/customers.csv'
+      })
+    invoices = se.invoices
+    customer = invoices.invoice_repo_to_se_customer(22)
+
+    assert_instance_of Customer, customer
+    assert_equal "Constance", customer.first_name
+  end
+
+  def test_invoice_repo_to_se_invoice_items
+    se = SalesEngine.from_csv({
+      :invoices => './data/invoices.csv',
+      :invoice_items => './data/invoice_items.csv'
+      })
+    invoices = se.invoices
+    invoice_items = invoices.invoice_repo_to_se_invoice_items(168)
+
+    assert_instance_of Array, invoice_items
+    assert_instance_of InvoiceItem, invoice_items[0]
+    assert_equal 3, invoice_items.count
   end
 
 end

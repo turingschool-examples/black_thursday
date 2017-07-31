@@ -28,4 +28,32 @@ class Invoice
     self.invoice_repo.invoice_repo_to_se_items(id)
   end
 
+  def transactions
+    self.invoice_repo.invoice_repo_to_se_transactions(id)
+  end
+
+  def customer
+    self.invoice_repo.invoice_repo_to_se_customer(customer_id)
+  end
+
+  def invoice_items
+    self.invoice_repo.invoice_repo_to_se_invoice_items(id)
+  end
+
+  def is_paid_in_full?
+    transactions = self.transactions
+    return false if transactions.empty?
+    transactions.any? do |transaction|
+      transaction.result == "success"
+    end
+  end
+
+  def total
+    if self.is_paid_in_full?
+      self.invoice_items.inject(0) do |sum, invoice_item_instance|
+        sum += invoice_item_instance.quantity * invoice_item_instance.unit_price
+      end
+    end
+  end
+
 end

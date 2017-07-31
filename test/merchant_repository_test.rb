@@ -124,4 +124,17 @@ class MerchantRepositoryTest < Minitest::Test
     assert_instance_of Invoice, invoices[0]
   end
 
+  def test_merchant_repo_to_se_customers
+    se = SalesEngine.from_csv({
+      :merchants => './data/merchants.csv',
+      :customers => './data/customers.csv',
+      :invoices => './data/invoices.csv'
+      })
+    merchants = se.merchants
+    customers = merchants.merchant_repo_to_se_customers(12334194)
+
+    assert_instance_of Customer, customers[0]
+    assert_equal 12, customers.length
+  end
+
 end

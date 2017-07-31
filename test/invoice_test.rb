@@ -94,4 +94,74 @@ class InvoiceTest < Minitest::Test
     assert_instance_of Item, items[0]
   end
 
+  def test_invoice_can_check_transactions
+    se = SalesEngine.from_csv({
+      :invoices => './data/invoices.csv',
+      :transactions => './data/transactions.csv'
+      })
+    invoices = se.invoices
+    invoice = invoices.find_by_id(20)
+    transactions = invoice.transactions
+
+    assert_instance_of Array, transactions
+    refute transactions.empty?
+    assert_instance_of Transaction, transactions[0]
+  end
+
+  def test_invoice_can_check_customer
+    se = SalesEngine.from_csv({
+      :invoices => './data/invoices.csv',
+      :customers => './data/customers.csv'
+      })
+    invoices = se.invoices
+    invoice = invoices.find_by_id(101)
+    customer = invoice.customer
+
+    assert_instance_of Customer, customer
+  end
+
+  def test_invoice_can_check_if_paid_in_full
+    se = SalesEngine.from_csv({
+      :invoices => './data/invoices.csv',
+      :transactions => './data/transactions.csv'
+      })
+    invoice = se.invoices.find_by_id(1)
+    assert invoice.is_paid_in_full?
+
+    invoice_2 = se.invoices.find_by_id(200)
+    assert invoice_2.is_paid_in_full?
+
+    invoice_3 = se.invoices.find_by_id(203)
+    refute invoice_3.is_paid_in_full?
+
+    invoice_4 = se.invoices.find_by_id(204)
+    refute invoice_4.is_paid_in_full?
+  end
+
+  def test_invoice_can_check_invoice_items
+    se = SalesEngine.from_csv({
+      :invoice_items => './data/invoice_items.csv',
+      :invoices => './data/invoices.csv'
+      })
+    invoices = se.invoices
+    invoice = invoices.find_by_id(168)
+    invoice_items = invoice.invoice_items
+
+    assert_instance_of Array, invoice_items
+    refute invoice_items.empty?
+    assert_instance_of InvoiceItem, invoice_items[0]
+  end
+
+  def test_invoice_can_check_total
+    se = SalesEngine.from_csv({
+      :invoices => './data/invoices.csv',
+      :transactions => './data/transactions.csv',
+      :invoice_items => './data/invoice_items.csv'
+      })
+    invoice = se.invoices.all.first
+
+    assert_equal 21067.77, invoice.total
+    assert_instance_of BigDecimal, invoice.total
+  end
+
 end

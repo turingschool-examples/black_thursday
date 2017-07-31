@@ -44,4 +44,8 @@ class CustomerRepository
     end
   end
 
+  def customer_repo_to_se_merchants(customer_id)
+    @sales_engine.merchants_by_customer_id(customer_id)
+  end
+
 end

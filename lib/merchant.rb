@@ -24,4 +24,8 @@ class Merchant
     self.merchant_repo.merchant_repo_to_se_invoices(id)
   end
 
+  def customers
+    self.merchant_repo.merchant_repo_to_se_customers(id)
+  end
+
 end

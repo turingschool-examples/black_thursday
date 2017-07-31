@@ -2,6 +2,8 @@ require_relative 'merchant_repository'
 require_relative 'item_repository'
 require_relative 'invoice_repository'
 require_relative 'invoice_item_repository'
+require_relative 'transaction_repository'
+require_relative 'customer_repository'
 
 class SalesEngine
 
@@ -82,6 +84,38 @@ class SalesEngine
 
   def invoice_items_by_invoice_id(invoice_id)
     invoice_items.find_all_by_invoice_id(invoice_id)
+  end
+
+  def transactions_by_invoice_id(invoice_id)
+    transactions.find_all_by_invoice_id(invoice_id)
+  end
+
+  def customer_by_customer_id(customer_id)
+    customers.find_by_id(customer_id)
+  end
+
+  def invoice_by_invoice_id(invoice_id)
+    invoices.find_by_id(invoice_id)
+  end
+
+  def customers_by_merchant_id(merchant_id)
+    invoices = invoices_by_merchant_id(merchant_id)
+    customers = invoices.map do |invoice_instance|
+      invoice_instance.customer_id
+    end
+    customers.uniq.map do |customer_id|
+      customer_by_customer_id(customer_id)
+    end
+  end
+
+  def merchants_by_customer_id(customer_id)
+    invoices = @invoices.find_all_by_customer_id(customer_id)
+    merchants = invoices.map do |invoice_instance|
+      invoice_instance.merchant_id
+    end
+    merchants.uniq.map do |merchant_id|
+      merchant_by_merchant_id(merchant_id)
+    end
   end
 
 end
