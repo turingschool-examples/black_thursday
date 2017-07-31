@@ -90,7 +90,7 @@ class SalesAnalyst
       end
     end
 
-    def average_average_price_for_merchant
+    def average_average_price_per_merchant
       (total_of_all_prices / total_merchants).round(2)
     end
 
