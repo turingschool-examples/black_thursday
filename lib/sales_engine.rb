@@ -17,7 +17,7 @@ class SalesEngine
     @invoices      = InvoiceRepository.new(se_hash[:invoices], self)
     @invoice_items = InvoiceItemRepository.new(se_hash[:invoice_items], self)
     @transactions  = TransactionRepository.new(se_hash[:transactions], self)
-    # @customers     = CustomerRepository.new(se_hash[:customers], self)
+    @customers     = CustomerRepository.new(se_hash[:customers], self)
   end
 
   extend Loader
@@ -79,15 +79,14 @@ class SalesEngine
     invoice_data      = self.load_data(se_hash[:invoices])
     invoice_item_data = self.load_data(se_hash[:invoice_items])
     transaction_data  = self.load_data(se_hash[:transactions])
-    # customer_data     = self.load_data(se_hash[:customers])
+    customer_data     = self.load_data(se_hash[:customers])
 
     SalesEngine.new({:items => item_data,
                      :merchants => merchant_data,
                      :invoices => invoice_data,
                      :invoice_items => invoice_item_data,
-                     :transactions => transaction_data
-                    #  :customers => customer_data
-                     })
+                     :transactions => transaction_data,
+                     :customers => customer_data})
   end
 
 end

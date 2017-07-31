@@ -118,7 +118,7 @@ class SalesAnalyst
     days << day_validator('Saturday')
     days << day_validator('Sunday')
     days.find_all do |day_array|
-      
+
     end
   end
 
