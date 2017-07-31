@@ -125,4 +125,8 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 13.5, returned
   end
 
+  def test_it_can_find_top_days_by_invoices
+    
+  end
+
 end

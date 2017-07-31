@@ -86,13 +86,20 @@ class SalesAnalyst
     end
   end
 
+  def array_of_invoices_by_day
+    days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    days.map do |day|
+      invoices_per_day(day).length
+    end
+  end
+
   def average_invoices_per_merchant_standard_deviation
-      mean         = average_invoices_per_merchant
-      actual_diff  = subtract_mean_from_actual(mean, array_of_invoices_by_merchant)
-      squared_diff = square_all_elements(actual_diff)
-      sum          = squared_diff.reduce(:+)
-      sum_divided  = sum/(array_of_invoices_by_merchant.length - 1)
-      Math.sqrt(sum_divided).round(2)
+    mean         = average_invoices_per_merchant
+    actual_diff  = subtract_mean_from_actual(mean, array_of_invoices_by_merchant)
+    squared_diff = square_all_elements(actual_diff)
+    sum          = squared_diff.reduce(:+)
+    sum_divided  = sum/(array_of_invoices_by_merchant.length - 1)
+    Math.sqrt(sum_divided).round(2)
   end
 
   def top_merchants_by_invoice_count
@@ -107,18 +114,25 @@ class SalesAnalyst
     find_bottom_merchants_by_invoice_count(std_dev, mean)
   end
 
+  def average_invoices_per_day
+    @engine.invoices.all.length/7
+  end
+
+  def average_invoices_per_day_standard_deviation
+    mean         = average_invoices_per_day
+    actual_diff  = subtract_mean_from_actual(mean, array_of_invoices_by_day)
+    squared_diff = square_all_elements(actual_diff)
+    sum          = squared_diff.reduce(:+)
+    sum_divided  = sum/(array_of_invoices_by_day.length - 1)
+    Math.sqrt(sum_divided).round(2)
+  end
+
   def top_days_by_invoice_count
-    @engine.invoices.all[0]
-    days = []
-    days << day_validator('Monday')
-    days << day_validator('Tuesday')
-    days << day_validator('Wednesday')
-    days << day_validator('Thursday')
-    days << day_validator('Friday')
-    days << day_validator('Saturday')
-    days << day_validator('Sunday')
-    days.find_all do |day_array|
-      
+    std_dev = average_invoices_per_day_standard_deviation
+    mean    = average_invoices_per_day
+    days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    days.find_all do |day|
+      (invoices_per_day(day).length - mean) > (std_dev)
     end
   end
 
@@ -147,11 +161,11 @@ class SalesAnalyst
 
   private
 
-  def time_converter(invoice)
-    invoice.created_at.strftime "%A"
-  end
+    def time_converter(invoice)
+      invoice.created_at.strftime "%A"
+    end
 
-    def day_validator(day)
+    def invoices_per_day(day)
       @engine.invoices.all.find_all do |invoice|
         (day == time_converter(invoice))
       end
