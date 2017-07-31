@@ -13,7 +13,8 @@ module InvoiceAnalytics
       elsif time_object.thursday? {:Thursday}
       elsif time_object.friday? {:Friday}
       elsif time_object.saturday? {:Saturday}
-      else {:Sunday}
+      else
+        :Sunday
       end
     end
 

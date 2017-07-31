@@ -12,29 +12,33 @@ class SalesAnalyst
     @invoice_items = sales_engine.invoice_items
     @transactions = sales_engine.transactions
     @customers = sales_engine.customers
-    if !(@invoices.nil?)
-      include InvoiceAnalytics
-    end
-    if !(@invoice_items.nil?) && !(@transactions.nil?)
-      include MarketAnalytics
-    end
-    if !(@customers.nil?)
-      include CustomerAnalytics
-    end
+    include_methods
   end
 
   private
 
+    def include_methods
+      if !(@customers.nil?)
+        include CustomerAnalytics
+      end
+      if !(@invoice_items.nil?) && !(@transactions.nil?)
+        include MarketAnalytics
+      end
+      if !(@invoices.nil?)
+        include InvoiceAnalytics
+      end
+    end
+
     def month_name_to_num
-      {"January" => 01,
-       "February" => 02,
-       "March" => 03,
-       "April" => 04,
-       "May" => 05,
-       "June" => 06,
-       "July" => 07,
-       "August" => 08,
-       "September" => 09,
+      {"January" => 1,
+       "February" => 2,
+       "March" => 3,
+       "April" => 4,
+       "May" => 5,
+       "June" => 6,
+       "July" => 7,
+       "August" => 8,
+       "September" => 9,
        "October" => 10,
        "November" => 11,
        "December" => 12}
@@ -106,8 +110,7 @@ class SalesAnalyst
 
     def merchants_with_high_item_count
       standard_dev = average_items_per_merchant_standard_deviation
-      @merchants.id_repo.keys.find_all do |id|
-        merchant = @merchants.find_by_id(id)
+      @merchants.id_repo.values.find_all do |merchant|
         merchant.items.count > average_items_per_merchant + standard_dev
       end
     end
