@@ -40,11 +40,11 @@ class SalesAnalyst
      end
 
     def total_items
-      @items.id_repo.count.to_f
+      @items.all.count.to_f
     end
 
     def total_merchants
-      @merchants.id_repo.count.to_f
+      @merchants.all.count.to_f
     end
 
     def total_of_all_prices
@@ -71,11 +71,6 @@ class SalesAnalyst
       (total_items / total_merchants).round(2)
     end
 
-    def average_price_for_merchant(merchant_id)
-      merchant = @merchants.find_by_id(merchant_id)
-      merchant.items.reduce(0) {|total, item| total += item.unit_price}
-    end
-
     def average_item_price
       (total_of_all_prices / total_items).round(2)
     end
@@ -91,7 +86,10 @@ class SalesAnalyst
     end
 
     def average_average_price_per_merchant
-      (total_of_all_prices / total_merchants).round(2)
+      sum_of_averages = @merchants.all.reduce(0) do |sum, merchant|
+        sum += average_item_price_for_merchant(merchant.id)
+      end
+      (sum_of_averages / total_merchants).round(2)
     end
 
     def average_items_per_merchant_standard_deviation
