@@ -120,21 +120,4 @@ class InvoiceAnalyticsTest < Minitest::Test
     assert_equal 13.5, returned
   end
 
-  def test_merchants_with_pending_invoices
-    sales_engine = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv"
-    })
-    sales_analyst = SalesAnalyst.new(sales_engine)
-
-    pending_merchants = sales_analyst.merchants_with_pending_invoices
-
-    assert_instance_of Array, pending_merchants
-    assert_instance_of Merchant, pending_merchants[0]
-    assert pending_merchants.all? {|merchant| merchant.invoices.any?
-                                      {|invoice| invoice.status == "pending"}}
-  end
-
-
 end

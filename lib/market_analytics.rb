@@ -1,3 +1,4 @@
+require 'pry'
 module MarketAnalytics
 
   private
@@ -24,11 +25,8 @@ module MarketAnalytics
     end
 
     def invoices_on_this_date(date)
-      @invoices.id_repo.values.reduce([]) do |on_this_date, invoice|
-        if invoice.is_paid_in_full?
-          on_this_date << invoice
-        end
-        on_this_date
+      @invoices.id_repo.values.find_all do |invoice|
+        invoice.created_at.yday == date.yday && invoice.is_paid_in_full?
       end
     end
 
@@ -36,24 +34,24 @@ module MarketAnalytics
 
     def total_revenue_by_date(date)
       invoices_on_this_date(date).reduce(0) do |total_revenue, invoice|
-        total_revenue += invoice.total
-      end
+        total_revenue += invoice.total.to_f
+      end.round(2)
     end
 
     def revenue_by_merchant(merchant_id)
       merchant = @merchants.find_by_id(merchant_id)
-      return merchant.invoices.reduce(0) do |total, invoice|
-        total += invoice.total
-      end
+      merchant.invoices.reduce(0) do |total, invoice|
+        total += invoice.total.to_f
+      end.round(2)
     end
 
     def top_revenue_earners(number=20)
-      duplicated_merchant_repo = merchants.id_repo.clone
+      duplicated_merchant_repo = @merchants.id_repo.clone
       top = []
       number.times do
         max = duplicated_merchant_repo.max_by {|merchant| revenue_by_merchant(merchant[0])}
         duplicated_merchant_repo.delete(max[0])
-        top << @merchants.id_repo.find_by_id(max[0])
+        top << @merchants.find_by_id(max[0])
       end
       top
     end
@@ -74,4 +72,11 @@ module MarketAnalytics
       @items.find_by_id(most_sold_item_id)
     end
 
+    def merchants_with_pending_invoices
+      @merchants.id_repo.values.find_all do |merchant|
+        merchant.invoices.any? do |invoice|
+          invoice.transactions.none? {|transaction| transaction.status == "success"}
+        end
+      end
+    end
 end

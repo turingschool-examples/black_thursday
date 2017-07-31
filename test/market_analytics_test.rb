@@ -39,7 +39,7 @@ class MarketAnalyticsTest < Minitest::Test
     date = Time.new(2001, 10, 23)
     total_revenue = sales_analyst.total_revenue_by_date(date)
 
-    assert_equal 1, total_revenue
+    assert_equal 109794.68, total_revenue
   end
 
   def test_revenue_by_merchant
@@ -58,12 +58,11 @@ class MarketAnalyticsTest < Minitest::Test
     revenue_1 = sales_analyst.revenue_by_merchant(12334228)
     revenue_2 = sales_analyst.revenue_by_merchant(12334832)
 
-    assert_equal 1, revenue_1
-    assert_equal 2, revenue_2
+    assert_equal 135598.55, revenue_1
+    assert_equal 101405.90, revenue_2
   end
 
   def test_top_revenue_earners_default
-    skip
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -78,10 +77,10 @@ class MarketAnalyticsTest < Minitest::Test
     assert_instance_of Array, top_earners
     assert_instance_of Merchant, top_earners[0]
     assert_equal 20, top_earners.length
+    refute_equal top_earners[0], top_earners[1]
   end
 
   def test_top_revenue_earners_with_argument
-    skip
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -93,12 +92,14 @@ class MarketAnalyticsTest < Minitest::Test
 
     top_five = sales_analyst.top_revenue_earners(5)
 
-    assert_instance_of Array, top_earners
-    assert_instance_of Merchant, top_earners[0]
-    assert_equal 5, top_earners.length
+    assert_instance_of Array, top_five
+    assert_instance_of Merchant, top_five[0]
+    assert_equal 5, top_five.length
+    refute_equal top_earners[0], top_five[1]
   end
 
   def test_most_sold_item_for_merchant
+    skip
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -120,6 +121,7 @@ class MarketAnalyticsTest < Minitest::Test
   end
 
   def test_best_item_for_merchant
+    skip
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -140,5 +142,25 @@ class MarketAnalyticsTest < Minitest::Test
     assert_instance_of Array, item_2
     assert_instance_of Item, item_2[0]
   end
+
+  def test_merchants_with_pending_invoices
+    skip
+    sales_engine = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv"
+
+    })
+    sales_analyst = SalesAnalyst.new(sales_engine)
+
+    pending_merchants = sales_analyst.merchants_with_pending_invoices
+
+    assert_instance_of Array, pending_merchants
+    assert_instance_of Merchant, pending_merchants[0]
+  end
+
+
 
 end

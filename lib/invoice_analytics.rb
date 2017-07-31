@@ -91,11 +91,4 @@ module InvoiceAnalytics
       ((number_of.count / total_invoices) * 100).round(2)
     end
 
-    def merchants_with_pending_invoices
-      @merchants.id_repo.values.find_all do |merchant|
-        merchant.invoices.any? do |invoice|
-          invoice.status == "pending"
-        end
-      end
-    end
 end
