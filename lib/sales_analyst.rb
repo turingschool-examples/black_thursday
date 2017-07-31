@@ -55,7 +55,6 @@ class SalesAnalyst
     (total_average / @engine.merchants.all.count).round(2)
   end
 
-
   def average_item_price
     total_items = @engine.items.all.count
     total_price = item_price_totaler(total_items)
@@ -165,7 +164,7 @@ class SalesAnalyst
     # returns array of merchants
   end
 
-  def merchants_with_only_one_item_registered_in_month("monthname")
+  def merchants_with_only_one_item_registered_in_month(month_name)
     # returns array of merchants
   end
 
