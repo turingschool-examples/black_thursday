@@ -58,14 +58,26 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 16.66, average_item_price
   end
 
-  def test_average_price_per_merchant
+  def test_average_price_for_merchant
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv"
     })
     sales_analyst = SalesAnalyst.new(sales_engine)
 
-    average_price = sales_analyst.average_price_per_merchant
+    average_price = sales_analyst.average_price_for_merchant(12334144)
+
+    assert_instance_of BigDecimal, average_price
+  end
+
+  def test_average_average_price_for_merchant
+    sales_engine = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+    sales_analyst = SalesAnalyst.new(sales_engine)
+
+    average_price = sales_analyst.average_average_price_for_merchant
 
     assert_equal 252.53, average_price
   end

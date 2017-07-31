@@ -17,25 +17,12 @@ class SalesAnalyst
     @invoice_items = sales_engine.invoice_items
     @transactions = sales_engine.transactions
     @customers = sales_engine.customers
-    # include_methods
   end
   include InvoiceAnalytics
   include MarketAnalytics
   include CustomerAnalytics
 
   private
-
-    # def include_methods
-    #   if !(@customers.nil?)
-    #     include CustomerAnalytics
-    #   end
-    #   if !(@invoice_items.nil?) && !(@transactions.nil?)
-    #     include MarketAnalytics
-    #   end
-    #   if !(@invoices.nil?)
-    #     include InvoiceAnalytics
-    #   end
-    # end
 
     def month_name_to_num
       {"January" => 1,
@@ -70,13 +57,9 @@ class SalesAnalyst
     end
 
     def standard_deviation(average, numerator_repo, numerator_attribute_proc, total)
-      summed = numerator_repo.keys.reduce(0) do |sum, identifier|
-        if !(numerator_repo[identifier].nil?)
-          object = numerator_repo[identifier]
-          attribute_value = numerator_attribute_proc.call(object)
-          sum += (attribute_value - average) ** 2
-        end
-        sum
+      summed = numerator_repo.reduce(0) do |sum, object|
+        attribute_value = numerator_attribute_proc.call(object)
+        sum += (attribute_value - average) ** 2
       end
       divided_result = summed / (total - 1)
       Math.sqrt(divided_result).round(2)
@@ -88,8 +71,9 @@ class SalesAnalyst
       (total_items / total_merchants).round(2)
     end
 
-    def average_price_per_merchant
-      (total_of_all_prices / total_merchants).round(2)
+    def average_price_for_merchant(merchant_id)
+      merchant = @merchants.find_by_id(merchant_id)
+      merchant.items.reduce(0) {|total, item| total += item.unit_price}
     end
 
     def average_item_price
@@ -106,30 +90,31 @@ class SalesAnalyst
       end
     end
 
+    def average_average_price_for_merchant
+      (total_of_all_prices / total_merchants).round(2)
+    end
+
     def average_items_per_merchant_standard_deviation
       count_items = Proc.new {|merchant| merchant.items.count}
-      standard_deviation(average_items_per_merchant, @merchants.id_repo, count_items, total_merchants)
+      standard_deviation(average_items_per_merchant, @merchants.all, count_items, total_merchants)
     end
 
     def item_price_standard_deviation
       item_price = Proc.new {|item| item.unit_price}
-      standard_deviation(average_item_price, @items.id_repo, item_price, total_items)
+      standard_deviation(average_item_price, @items.all, item_price, total_items)
     end
 
     def merchants_with_high_item_count
       standard_dev = average_items_per_merchant_standard_deviation
-      @merchants.id_repo.values.find_all do |merchant|
+      @merchants.all.find_all do |merchant|
         merchant.items.count > average_items_per_merchant + standard_dev
       end
     end
 
     def golden_items
       two_stndv_above_avg = (item_price_standard_deviation * 2) + average_item_price
-      @items.price_repo.keys.reduce([]) do |results, price|
-        if price >= two_stndv_above_avg
-          results << @items.price_repo[price]
-        end
-        results.flatten
+      @items.all.find_all do |item|
+        item.unit_price >= two_stndv_above_avg
       end
     end
 

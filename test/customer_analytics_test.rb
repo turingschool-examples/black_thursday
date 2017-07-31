@@ -21,4 +21,13 @@ require_relative '../lib/sales_analyst'
 
 class CustomerAnalyticsTest < Minitest::Test
 
-  def test_include
+  def test_top_buyers
+    sales_engine = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv",
+      :customers => "./data/customers.csv"
+    })
+    sales_analyst = SalesAnalyst.new(sales_engine)
