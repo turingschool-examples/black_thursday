@@ -2,6 +2,7 @@ require_relative '../lib/sales_engine'
 require_relative '../lib/invoice_analytics'
 require_relative '../lib/market_analytics'
 require_relative '../lib/customer_analytics'
+require 'pry'
 
 class SalesAnalyst
   def initialize(sales_engine)
@@ -126,16 +127,14 @@ class SalesAnalyst
     end
 
     def merchants_with_only_one_item
-      @merchants.id_repo.find_all do |merchant|
-        items = merchant[1].items
-        items.count == 1
+      @merchants.id_repo.values.find_all do |merchant|
+        merchant.items.count == 1
       end
     end
 
     def merchants_with_only_one_item_registered_in_month(month)
-      @merchants.id_repo.find_all do |merchant|
-        items = merchant[1].items
-        items.count == 1 && items[0].created_at.month == month_name_to_num[month]
+      @merchants.id_repo.values.find_all do |merchant|
+        merchant.items.count == 1 && merchant.items[0].created_at.month == month_name_to_num[month]
       end
     end
 end

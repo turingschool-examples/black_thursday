@@ -6,6 +6,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/sales_analyst'
+require 'pry'
 
 class SalesAnalystTest < Minitest::Test
   def test_average_items_per_merchant
@@ -93,7 +94,7 @@ class SalesAnalystTest < Minitest::Test
 
     assert_instance_of Array, lonely_merchants
     assert_instance_of Merchant, lonely_merchants[0]
-    assert_equal 1, lonely_merchants.items.count
+    assert lonely_merchants.all? {|merchant| merchant.items.count == 1}
   end
 
   def test_merchants_with_only_one_item_registered_in_month
@@ -108,7 +109,8 @@ class SalesAnalystTest < Minitest::Test
 
     assert_instance_of Array, lonely_merchants
     assert_instance_of Merchant, lonely_merchants[0]
-    assert_equal 01, lonely_merchants[0].created_at.month
+    assert lonely_merchants.all? {|merchant| merchant.items.count == 1}
+    assert lonely_merchants.all? {|merchant| merchant.items[0].created_at.month == 1}
   end
 
 end
