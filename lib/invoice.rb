@@ -32,4 +32,8 @@ class Invoice
     self.invoice_repo.invoice_repo_to_se_transactions(id)
   end
 
+  def customer
+    self.invoice_repo.invoice_repo_to_se_customer(customer_id)
+  end
+
 end

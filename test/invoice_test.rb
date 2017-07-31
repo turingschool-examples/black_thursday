@@ -108,4 +108,16 @@ class InvoiceTest < Minitest::Test
     assert_instance_of Transaction, transactions[0]
   end
 
+  def test_invoice_can_check_customer
+    se = SalesEngine.from_csv({
+      :invoices => './data/invoices.csv',
+      :customers => './data/customers.csv'
+      })
+    invoices = se.invoices
+    invoice = invoices.find_by_id(101)
+    customer = invoice.customer
+
+    assert_instance_of Customer, customer
+  end
+
 end

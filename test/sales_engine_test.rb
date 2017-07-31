@@ -123,7 +123,7 @@ class SalesEngineTest < Minitest::Test
     assert_equal 3, items.count
   end
 
-  def test_transactions_by_invoice_id_gets
+  def test_transactions_by_invoice_id_gets_transactions_for_given_invoice
     se = SalesEngine.from_csv({
       :transactions => './data/transactions.csv'
       })
@@ -131,6 +131,16 @@ class SalesEngineTest < Minitest::Test
 
     assert_instance_of Transaction, transactions[0]
     assert_equal 3, transactions.count
+  end
+
+  def test_customer_by_customer_id_gets_customer_for_given_customer_id
+    se = SalesEngine.from_csv({
+      :customers => './data/customers.csv'
+      })
+    customer = se.customer_by_customer_id(22)
+
+    assert_instance_of Customer, customer
+    assert_equal "Constance", customer.first_name
   end
 
 end

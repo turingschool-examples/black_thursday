@@ -144,4 +144,16 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 3, transactions.count
   end
 
+  def test_invoice_repo_to_se_customer
+    se = SalesEngine.from_csv({
+      :invoices => './data/invoices.csv',
+      :customers => './data/customers.csv'
+      })
+    invoices = se.invoices
+    customer = invoices.invoice_repo_to_se_customer(22)
+
+    assert_instance_of Customer, customer
+    assert_equal "Constance", customer.first_name
+  end
+
 end

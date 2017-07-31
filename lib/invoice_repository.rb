@@ -62,6 +62,10 @@ class InvoiceRepository
     @sales_engine.transactions_by_invoice_id(invoice_id)
   end
 
+  def invoice_repo_to_se_customer(customer_id)
+    @sales_engine.customer_by_customer_id(customer_id)
+  end
+
   def inspect
     "#<#{self.class} #{@invoices.size} rows>"
   end
