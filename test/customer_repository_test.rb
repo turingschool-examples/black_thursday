@@ -70,4 +70,11 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal 8, customers_3.count
   end
 
+  def test_customer_repo_find_all_by_first_name_returns_empty_array_on_bad_search
+    cr = CustomerRepository.new('./data/customers.csv', self)
+    customers = cr.find_all_by_first_name('lkdjdheoeu')
+
+    assert_equal [], customers
+  end
+
 end
