@@ -33,4 +33,14 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal 1000, cr.id_repo.count
   end
 
+  def test_customer_repo_can_find_all_customers
+    cr = CustomerRepository.new('./data/customers.csv', self)
+    customers = cr.all
+
+    assert_instance_of Array, customers
+    refute customers.empty?
+    assert_instance_of Customer, customers[0]
+    assert_equal 1000, customers.count
+  end
+
 end

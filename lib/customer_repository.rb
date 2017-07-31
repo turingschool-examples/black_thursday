@@ -22,4 +22,10 @@ class CustomerRepository
     end
   end
 
+  def all
+    id_repo.map do |id, customer_identification|
+      customer_identification
+    end
+  end
+
 end
