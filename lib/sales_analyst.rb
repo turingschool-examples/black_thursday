@@ -293,4 +293,17 @@ class SalesAnalyst
     end
   end
 
+  def merchants_with_only_one_item_registered_in_month(month)
+    @sales_engine.merchants.all.find_all do |merchant|
+      invoices = merchant.invoices
+      if merchant.created_at.strftime("%B") == month
+        invoices.one? do |invoice|
+          invoice.updated_at.strftime("%B") == month
+        end
+      else
+        nil
+      end
+    end
+  end
+
 end

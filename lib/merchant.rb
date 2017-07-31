@@ -1,11 +1,16 @@
+require 'time'
 class Merchant
   attr_reader :id,
-              :name
+              :name,
+              :created_at,
+              :updated_at
 
   def initialize(data, sales_engine)
     @sales_engine = sales_engine
     @id = data[:id].to_i
     @name = data[:name]
+    @created_at = Time.parse(data[:created_at])
+    @updated_at = Time.parse(data[:updated_at])
   end
 
   def items
