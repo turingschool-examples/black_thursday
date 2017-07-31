@@ -120,4 +120,26 @@ class InvoiceTest < Minitest::Test
     assert_instance_of Customer, customer
   end
 
+  def test_invoice_can_check_if_paid_in_full
+    se = SalesEngine.from_csv({
+      :invoices => './data/invoices.csv',
+      :transactions => './data/transactions.csv'
+      })
+    invoice = se.invoices.find_by_id(1)
+
+    assert invoice.is_paid_in_full?
+
+    invoice_2 = se.invoices.find_by_id(200)
+
+    assert invoice_2.is_paid_in_full?
+
+    invoice_3 = se.invoices.find_by_id(203)
+
+    refute invoice_3.is_paid_in_full?
+
+    invoice_4 = se.invoices.find_by_id(204)
+
+    refute invoice_4.is_paid_in_full?
+  end
+
 end

@@ -36,4 +36,12 @@ class Invoice
     self.invoice_repo.invoice_repo_to_se_customer(customer_id)
   end
 
+  def is_paid_in_full?
+    transactions = self.transactions
+    return false if transactions.empty?
+    transactions.any? do |transaction|
+      transaction.result == "success"
+    end
+  end
+
 end
