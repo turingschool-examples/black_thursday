@@ -6,6 +6,7 @@ require 'pry'
 
 class SalesAnalyst
   attr_reader :invoices,
+              :invoice_items,
               :transactions,
               :customers
   def initialize(sales_engine)

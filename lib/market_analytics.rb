@@ -2,88 +2,76 @@ module MarketAnalytics
 
   private
 
-    def enumerate_item_invoices(item, attribute_proc)
-      item_invoices = @invoice_items.find_all_by_item_id(item.id)
-      if !(item_invoices.empty?)
-        value = item_invoices.reduce(0) do |passed_value, invoice_item|
-          passed_value += attribut_proc.call(invoice_item)
+    def merchant_paid_invoice_items(merchant_id)
+      merchant = @merchants.find_by_id(merchant_id)
+      paid_invoices = merchant.invoices.find_all {|invoice| invoice.is_paid_in_full?}
+      paid_invoice_items =  paid_invoices.reduce([]) do |total_item_instances, invoice|
+        total_item_instances << @invoice_items.id_repo.values.find_all do |item|
+          invoice.id == item.invoice_id
         end
-      else
-        return 0
+        total_item_instances.flatten
+      end
+    end
+
+    def create_invoice_item_hash_by_attribute(invoice_item_array, attribute_proc)
+      invoice_item_array.reduce({}) do |q_hash, invoice_item|
+        if !(q_hash.keys.include?(invoice_item.item_id))
+          q_hash.store(invoice_item.item_id, attribute_proc.call(invoice_item))
+        else
+          q_hash[invoice_item.item_id] += attribute_proc.call(invoice_item)
+        end
+      end
+    end
+
+    def invoices_on_this_date(date)
+      @invoices.id_repo.values.reduce([]) do |on_this_date, invoice|
+        if invoice.is_paid_in_full?
+          on_this_date << invoice
+        end
+        on_this_date
       end
     end
 
   public
 
     def total_revenue_by_date(date)
-      relevant_items = @transactions.id_repo.values.reduce([]) do |result, transaction|
-        if transaction.created_at == date
-          if transaction.result == :success
-            invoice = transaction.invoice
-            result << invoice.items
-          end
-        end
-        result.flatten
-      end
-      relevant_items.reduce(0) do |total, item|
-        total += (item.unit_price * item.quantity)
-        total
+      invoices_on_this_date(date).reduce(0) do |total_revenue, invoice|
+        total_revenue += invoice.total
       end
     end
 
     def revenue_by_merchant(merchant_id)
       merchant = @merchants.find_by_id(merchant_id)
       return merchant.invoices.reduce(0) do |total, invoice|
-        merchant_invoice_items = @invoice_items.find_all_by_invoice_id(invoice.id)
-        total += merchant_invoice_items.reduce(0) do |item_total, item|
-          item_total += item.quantity * item.unit_price
-          item_total
-        end
-        total
+        total += invoice.total
       end
     end
 
     def top_revenue_earners(number=20)
-      top_earners = []
+      duplicated_merchant_repo = merchants.id_repo.clone
+      top = []
       number.times do
-        top_earner = ""
-        @merchants.id_repo.keys.reduce(0) do |max_revenue, id|
-          revenue = revenue_by_merchant(id)
-          if revenue >= max_revenue && !(top_earners.include?(@merchants.id_repo[id]))
-            max_revenue = revenue
-            top_earner = @merchants.id_repo[id]
-          end
-        end
-        top_earners << top_earner
+        max = duplicated_merchant_repo.max_by {|merchant| revenue_by_merchant(merchant[0])}
+        duplicated_merchant_repo.delete(max[0])
+        top << @merchants.id_repo.find_by_id(max[0])
       end
-      top_earners.compact
+      top
     end
 
     def most_sold_item_for_merchant(merchant_id)
-      merchant = @merchants.find_by_id(merchant_id)
-      max_count = 0
-      high_item = merchant.items.reduce([]) do |high_item, item|
-        count = enumerate_item_invoices(item, Proc.new {|invoice_item| invoice_item.quantity})
-        if count > max_count
-          max_count = count
-          high_item = [item]
-        elsif count == max_count
-          high_item << item
-        end
-      end
-      high_item
+      paid_invoice_items = merchant_paid_invoice_items(merchant_id)
+      quantity_proc = Proc.new {|invoice_item| invoice_item.quantity}
+      quantity_hash = create_invoice_item_hash_by_attribute(paid_invoice_items, quantity_proc)
+      most_sold_item_id = quantity_hash.max_by {|pair| pair[1]}
+      @items.find_by_id(most_sold_item_id)
     end
 
     def best_item_for_merchant(merchant_id)
-      merchant = @merchants.find_by_id(merchant_id)
-      max_revenue = 0
-      high_item = merchant.items.reduce([]) do |high_item, item|
-        revenue = enumerate_item_invoices(item, Proc.new {|invoice_item| invoice_item.quantity * invoice_item.unit_price})
-        if revenue >= max_revenue
-          max_revenue = revenue
-          high_item = item
-        end
-      end
-      high_item
+      paid_invoice_items = merchant_paid_invoice_items(merchant_id)
+      quantity_proc = Proc.new {|invoice_item| invoice_item.quantity * invoice_item.unit_price.to_f}
+      quantity_hash = create_invoice_item_hash_by_attribute(paid_invoice_items, quantity_proc)
+      most_sold_item_id = quantity_hash.max_by {|pair| pair[1]}
+      @items.find_by_id(most_sold_item_id)
     end
+
 end
