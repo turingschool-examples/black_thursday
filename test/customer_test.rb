@@ -24,4 +24,15 @@ class CustomerTest < Minitest::Test
     assert_equal 230, id
   end
 
+  def test_customer_has_first_name
+    customer = Customer.new({
+      :id => 230, :first_name => "Matilda", :last_name => "Connelly",
+      :created_at => "2012-03-27 14:55:06 UTC",
+      :updated_at => "2012-03-27 14:55:06 UTC"
+      }, self)
+    first = customer.first_name
+
+    assert_equal "Matilda", first
+  end
+
 end
