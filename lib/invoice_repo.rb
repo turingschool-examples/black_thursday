@@ -10,16 +10,8 @@ class InvoiceRepository
     @invoices = create_hash_of_invoices(csvfile)
   end
 
-  def create_hash_of_invoices(csvfile)
-    all_items = {}
-    csvfile.each do |row|
-      all_items[row[:id]] = Invoice.new(row, self)
-    end
-    all_items
-  end
-
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{@invoices.size} rows>"
   end
 
   def all
@@ -59,5 +51,15 @@ class InvoiceRepository
       end
     end
   end
+
+  private
+
+    def create_hash_of_invoices(csvfile)
+      all_items = {}
+      csvfile.each do |row|
+        all_items[row[:id]] = Invoice.new(row, self)
+      end
+      all_items
+    end
 
 end
