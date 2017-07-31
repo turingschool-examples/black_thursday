@@ -45,7 +45,7 @@ module InvoiceAnalytics
 
     def average_invoices_per_merchant_standard_deviation
       merchant_invoices = Proc.new {|merchant| merchant.invoices.count}
-      standard_deviation(average_invoices_per_merchant, @merchants.id_repo, merchant_invoices, total_merchants)
+      standard_deviation(average_invoices_per_merchant, @merchants.all, merchant_invoices, total_merchants)
     end
 
     def average_invoices_per_day_standard_deviation
@@ -85,8 +85,8 @@ module InvoiceAnalytics
     end
 
     def invoice_status(symbol_marker)
-      number_of = @invoices.id_repo.values.find_all do |invoice|
-        invoice.status == symbol_marker.to_s
+      number_of = @invoices.all.find_all do |invoice|
+        invoice.status == symbol_marker
       end
       ((number_of.count / total_invoices) * 100).round(2)
     end
