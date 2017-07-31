@@ -74,4 +74,13 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal [], transactions
   end
 
+  def test_transaction_repo_can_find_all_by_credit_card_number
+    tr = TransactionRepository.new('./data/transactions.csv', self)
+    transactions = tr.find_all_by_credit_card_number(4875556043697027)
+
+    assert_instance_of Array, transactions
+    assert_equal 1, transactions.count
+    assert_equal 3008, transactions[0].id
+  end
+
 end

@@ -33,9 +33,15 @@ class TransactionRepository
   end
 
   def find_all_by_invoice_id(invoice_id)
-    id_repo.values.select do |invoice_instance|
-      invoice_instance.invoice_id == invoice_id
+    id_repo.values.select do |transaction_instance|
+      transaction_instance.invoice_id == invoice_id
     end
   end
 
+  def find_all_by_credit_card_number(cc_num)
+    id_repo.values.select do |transaction_instance|
+      transaction_instance.credit_card_number == cc_num
+    end
+  end
+  
 end
