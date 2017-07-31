@@ -83,4 +83,9 @@ class SalesAnalyst
       (se.all_invoices.count).to_f * 100).round(2)
   end
 
+  def top_buyers(num=20)
+    cust_ids = se.all_invoices.group_by {|invoice| invoice.customer_id}
+    require "pry"; binding.pry
+  end
+
 end

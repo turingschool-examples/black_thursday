@@ -78,4 +78,8 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 20.69, actual
   end
 
+  def test_it_can_determine_top_buyers
+    assert_equal 4, sa.top_buyers.count
+  end
+
 end
