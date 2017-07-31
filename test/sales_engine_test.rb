@@ -28,9 +28,7 @@ class SalesEngineTest < Minitest::Test
 
   def test_sales_engine_initializes_with_merchant_repository
     se = SalesEngine.from_csv({
-      :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv"
+      :merchants => "./data/merchants.csv"
     })
 
     assert_instance_of MerchantRepository, se.merchants
@@ -38,9 +36,7 @@ class SalesEngineTest < Minitest::Test
 
   def test_sales_engine_initializes_with_item_repository
     se = SalesEngine.from_csv({
-      :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv"
+      :items => "./data/items.csv"
     })
 
     assert_instance_of ItemRepository, se.items
@@ -48,8 +44,6 @@ class SalesEngineTest < Minitest::Test
 
   def test_sales_engine_initializes_with_invoice_repository
     se = SalesEngine.from_csv({
-      :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv"
     })
 
@@ -58,9 +52,7 @@ class SalesEngineTest < Minitest::Test
 
   def test_merchant_by_merchant_id_gets_merchant
     se = SalesEngine.from_csv({
-      :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv"
+      :merchants => "./data/merchants.csv"
     })
     merchant = se.merchant_by_merchant_id(12335119)
 
@@ -69,9 +61,7 @@ class SalesEngineTest < Minitest::Test
 
   def test_items_by_merchant_id_gets_items
     se = SalesEngine.from_csv({
-      :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv"
+      :items => "./data/items.csv"
     })
     items = se.items_by_merchant_id(12335119)
 
@@ -81,14 +71,32 @@ class SalesEngineTest < Minitest::Test
 
   def test_invoices_by_merchant_id_gets_invoices
     se = SalesEngine.from_csv({
-      :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
       :invoices => "./data/invoices.csv"
     })
     invoices = se.invoices_by_merchant_id(12335119)
 
     assert_instance_of Invoice, invoices[0]
     assert_equal 9, invoices.count
+  end
+
+  def test_invoice_items_by_invoice_id_gets_invoice_items
+    se = SalesEngine.from_csv({
+      :invoice_items => './data/invoice_items.csv'
+      })
+    invoice_items = se.invoice_items_by_invoice_id(168)
+
+    assert_instance_of InvoiceItem, invoice_items[0]
+    assert_equal 3, invoice_items.count
+  end
+
+  def test_items_by_invoice_id_gets_all_items_for_a_given_invoice
+    se = SalesEngine.from_csv({
+      :items => './data/items.csv',
+      :invoice_items => './data/invoice_items.csv'
+      })
+    items = se.items_by_invoice_id(168)
+    assert_instance_of Item, items[0]
+    assert_equal 3, items.count
   end
 
 end
