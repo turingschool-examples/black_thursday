@@ -107,4 +107,22 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 12, merchants.length
   end
 
+  def test_it_can_find_merchants_with_top_invoice_number
+    merchants = @sales_analyst.bottom_merchants_by_invoice_count
+
+    assert_instance_of Merchant, merchants[0]
+    assert_equal 4, merchants.length
+  end
+
+  def test_it_can_calculate_status_percentage
+    pending  = @sales_analyst.invoice_status(:pending)
+    shipped  = @sales_analyst.invoice_status(:shipped)
+    returned = @sales_analyst.invoice_status(:returned)
+
+
+    assert_equal 29.55, pending
+    assert_equal 56.95, shipped
+    assert_equal 13.5, returned
+  end
+
 end

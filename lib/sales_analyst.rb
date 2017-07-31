@@ -107,14 +107,21 @@ class SalesAnalyst
     find_bottom_merchants_by_invoice_count(std_dev, mean)
   end
 
-  # def bottom_merchants_by_invoice_count
-  # # it "#bottom_merchants_by_invoice_count returns merchants that are two standard deviations below the mean" do
-  # # expected = sales_analyst.bottom_merchants_by_invoice_count
-  # #
-  # # expect(expected.length).to eq 4
-  # # expect(expected.first.class).to eq Merchant
-  # end
-  #
+  def top_days_by_invoice_count
+    @engine.invoices.all[0]
+    days = []
+    days << day_validator('Monday')
+    days << day_validator('Tuesday')
+    days << day_validator('Wednesday')
+    days << day_validator('Thursday')
+    days << day_validator('Friday')
+    days << day_validator('Saturday')
+    days << day_validator('Sunday')
+    days.find_all do |day_array|
+      
+    end
+  end
+
   # def top_days_by_invoice_count
   # #   it "#top_days_by_invoice_count returns days with an invoice count more than one standard deviation above the mean" do
   # # expected = sales_analyst.top_days_by_invoice_count
@@ -124,27 +131,49 @@ class SalesAnalyst
   # # expect(expected.first.class).to eq String
   # end
   #
-  # def invoice_status(:pending)
-  # #   it "#invoice_status returns the percentage of invoices with given status" do
-  # # expected = sales_analyst.invoice_status(:pending)
-  # #
-  # # expect(expected).to eq 29.55
-  # end
-  #
-  # def invoice_status(:shipped)
-  # # expected = sales_analyst.invoice_status(:shipped)
-  # #
-  # # expect(expected).to eq 56.95
-  # end
-  #
-  # def invoice_status(:returned)
-  # #
-  # # expected = sales_analyst.invoice_status(:returned)
-  # #
-  # # expect(expected).to eq 13.5
-  # end
+
+  def invoice_status(status)
+    if status == :pending
+      invoice_status = pending_iterator.length.to_f
+    elsif status == :shipped
+      invoice_status = shipped_iterator.length.to_f
+    elsif status == :returned
+      invoice_status = returned_iterator.length.to_f
+    end
+    total   = @engine.invoices.all.length.to_f
+    percentage = (invoice_status/total) * 100
+    percentage.round(2)
+  end
 
   private
+
+  def time_converter(invoice)
+    invoice.created_at.strftime "%A"
+  end
+
+    def day_validator(day)
+      @engine.invoices.all.find_all do |invoice|
+        (day == time_converter(invoice))
+      end
+    end
+
+    def pending_iterator
+      @engine.invoices.all.find_all do |invoice|
+        invoice.status == :pending
+      end
+    end
+
+    def shipped_iterator
+      @engine.invoices.all.find_all do |invoice|
+        invoice.status == :shipped
+      end
+    end
+
+    def returned_iterator
+      @engine.invoices.all.find_all do |invoice|
+        invoice.status == :returned
+      end
+    end
 
     def find_standard_deviation_of_averages
       @engine.items.all.reduce(0) do |sum, item|
