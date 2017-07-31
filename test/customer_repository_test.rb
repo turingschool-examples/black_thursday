@@ -10,4 +10,13 @@ class CustomerRepositoryTest < Minitest::Test
     assert_instance_of CustomerRepository, cr
   end
 
+  def test_customer_repo_has_sales_engine_access
+    se = SalesEngine.from_csv({
+      :customers => './data/customers.csv'
+      })
+    cr = se.customers
+
+    assert_instance_of SalesEngine, cr.sales_engine
+  end
+
 end
