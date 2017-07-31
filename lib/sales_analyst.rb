@@ -132,9 +132,6 @@ class SalesAnalyst
     mean    = average_invoices_per_day
     days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     find_top_days(days, mean, std_dev)
-    # days.find_all do |day|
-    #   (invoices_per_day(day).length - mean) > (std_dev)
-    # end
   end
 
   def invoice_status(status)
@@ -161,15 +158,15 @@ class SalesAnalyst
   end
 
   def merchants_with_only_one_item
-    # returns array of merchants
+    @engine.merchants_with_only_one_item
   end
 
-  def merchants_with_only_one_item_registered_in_month(month_name)
-    # returns array of merchants
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants_with_only_one_item.find_all { |merchant| merchant.created_at.strftime('%B') == month }
   end
 
   def revenue_by_merchant(merchant_id)
-    #returns amount in dollars
+    @engine.merchants_by_total_revenue(merchant_id)
   end
 
   def most_sold_item_for_merchant(merchant_id)
@@ -224,7 +221,7 @@ class SalesAnalyst
 
     def find_bottom_merchants_by_invoice_count(std_dev, average)
       @engine.merchants.all.find_all do |merchant|
-        (@engine.find_invoices_by_merchant_id(merchant.id).length + (std_dev *2)) < (average)
+        (@engine.find_invoices_by_merchant_id(merchant.id).length + (std_dev * 2)) < (average)
       end
     end
 

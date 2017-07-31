@@ -65,6 +65,10 @@ class MerchantRepository
     @engine.find_customers_by_merchant_id(merchant_id)
   end
 
+  def find_merchants_with_only_one_item
+    all.find_all { |merchant| merchant.items.count == 1 }
+  end
+
   private
 
     def create_hash_of_merchants(csvfile)
