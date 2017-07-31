@@ -43,4 +43,20 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal 1000, customers.count
   end
 
+  def test_customer_repo_can_find_by_id
+    cr = CustomerRepository.new('./data/customers.csv', self)
+    customer = cr.find_by_id(664)
+
+    assert_instance_of Customer, customer
+    assert_equal "Emelie", customer.first_name
+    assert_equal "Boyle", customer.last_name
+  end
+
+  def test_customer_repo_find_by_id_returns_nil_on_bad_search
+    cr = CustomerRepository.new('./data/customers.csv', self)
+    customer = cr.find_by_id(99999999)
+
+    assert_nil customer
+  end
+
 end
