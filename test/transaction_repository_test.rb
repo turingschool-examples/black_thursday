@@ -52,4 +52,26 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal "success", transaction.result
   end
 
+  def test_transaction_repo_find_by_id_returns_array_on_bad_search
+    tr = TransactionRepository.new('./data/transactions.csv', self)
+    transaction = tr.find_by_id(99999999999)
+
+    assert_nil transaction
+  end
+
+  def test_transaction_repo_can_find_all_by_invoice_id
+    tr = TransactionRepository.new('./data/transactions.csv', self)
+    transactions = tr.find_all_by_invoice_id(442)
+
+    assert_instance_of Array, transactions
+    assert_equal 2, transactions.count
+  end
+
+  def test_transaction_repo_find_all_by_invoice_id_returns_empty_array_on_bad_search
+    tr = TransactionRepository.new('./data/transactions.csv', self)
+    transactions = tr.find_all_by_invoice_id(99999999999999)
+
+    assert_equal [], transactions
+  end
+
 end
