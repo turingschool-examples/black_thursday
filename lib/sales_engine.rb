@@ -17,7 +17,7 @@ class SalesEngine
     @invoices      = InvoiceRepository.new(se_hash[:invoices], self)
     @invoice_items = InvoiceItemRepository.new(se_hash[:invoice_items], self)
     @transactions  = TransactionRepository.new(se_hash[:transactions], self)
-    @customers     = CustomerRepository.new(se_hash[:customers], self)
+    # @customers     = CustomerRepository.new(se_hash[:customers], self)
   end
 
   extend Loader
@@ -35,32 +35,20 @@ class SalesEngine
   end
 
   def self.from_csv(se_hash)
-    item_data         = self.load_items(se_hash[:items])
-    merchant_data     = self.load_merchants(se_hash[:merchants])
-    invoice_data      = self.load_invoices(se_hash[:invoices])
-    invoice_item_data = self.load_invoice_items(se_hash[:invoice_items])
-    transaction_data  = self.load_transactions(se_hash[:transactions])
-    customer_data     = self.load_customers(se_hash[:customers])
+    item_data         = self.load_data(se_hash[:items])
+    merchant_data     = self.load_data(se_hash[:merchants])
+    invoice_data      = self.load_data(se_hash[:invoices])
+    invoice_item_data = self.load_data(se_hash[:invoice_items])
+    transaction_data  = self.load_data(se_hash[:transactions])
+    # customer_data     = self.load_data(se_hash[:customers])
 
     SalesEngine.new({:items => item_data,
                      :merchants => merchant_data,
                      :invoices => invoice_data,
                      :invoice_items => invoice_item_data,
-                     :transactions => transaction_data,
-                     :customers => customer_data})
-  end
-
-
-  def self.load_invoice_items(csvfile)
-    CSV.open csvfile, headers: true, header_converters: :symbol
-  end
-
-  def self.load_transactions(csvfile)
-    CSV.open csvfile, headers: true, header_converters: :symbol
-  end
-
-  def self.load_customers(csvfile)
-    CSV.open csvfile, headers: true, header_converters: :symbol
+                     :transactions => transaction_data
+                    #  :customers => customer_data
+                     })
   end
 
 end
