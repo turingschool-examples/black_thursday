@@ -19,4 +19,10 @@ class CustomerRepositoryTest < Minitest::Test
     assert_instance_of SalesEngine, cr.sales_engine
   end
 
+  def test_custoerm_repo_has_file_path
+    cr = CustomerRepository.new('./data/customers.csv', self)
+
+    assert_equal './data/customers.csv', cr.file_path
+  end
+
 end

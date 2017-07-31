@@ -1,6 +1,7 @@
 class CustomerRepository
 
-  attr_reader :sales_engine
+  attr_reader :sales_engine,
+              :file_path
 
   def initialize(file_path, sales_engine)
     @file_path = file_path
