@@ -18,4 +18,8 @@ class Invoice
   def merchant
     parent.merchant_invoice(merchant_id)
   end
+
+  def items
+    parent.items_from_invoice(id)
+  end
 end

@@ -7,7 +7,10 @@ class SalesEngineTest < Minitest::Test
   def setup
     @se = SalesEngine.from_csv({items: "./data/item_fixtures.csv",
                             merchants: "./data/merchant_fixtures.csv",
-                             invoices: "./data/invoice_fixtures.csv"})
+                             invoices: "./data/invoice_fixtures.csv",
+                            customers: "./data/customer_fixtures.csv",
+                         transactions: "./data/transaction_fixtures.csv",
+                        invoice_items: "./data/invoice_item_fixtures.csv"})
   end
 
   def test_it_exists
@@ -35,7 +38,6 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_can_find_merchant_by_item_id
     item = se.items.find_by_id(263395237)
-    # se.stubs(:find_by_id).returns(Merchant)
     assert_instance_of Merchant, item.merchant
   end
 
@@ -48,4 +50,10 @@ class SalesEngineTest < Minitest::Test
     invoice = se.invoices.find_by_id(4)
     assert_instance_of Merchant, invoice.merchant
   end
+
+  def test_it_can_return_all_items_for_an_invoice
+    invoice = se.invoices.find_by_id(20)
+    assert_equal 4, invoice.items.count
+  end
+
 end

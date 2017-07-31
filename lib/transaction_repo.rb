@@ -1,9 +1,13 @@
+require 'csv'
+require_relative 'transaction'
+
 class TransactionRepo
-  attr_reader :transactions
+  attr_reader :transactions, :parent
 
   def initialize(filename, se=nil)
     @transactions = {}
     open_file(filename)
+    @parent       = se
   end
 
   def open_file(filename)
@@ -25,7 +29,7 @@ class TransactionRepo
   end
 
   def find_all_by_credit_card_number(cc_num)
-    all.find_all {|transaction| transaction.cc_num == cc_num}
+    all.find_all {|transaction| transaction.credit_card_number == cc_num.to_i}
   end
 
   def find_all_by_result(status)

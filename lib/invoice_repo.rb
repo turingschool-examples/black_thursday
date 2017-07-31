@@ -41,5 +41,9 @@ class InvoiceRepo
     parent.merchant_invoice(id)
   end
 
+  def items_from_invoice(inv_id)
+    parent.items_from_invoice(inv_id)
+  end
+
 
 end

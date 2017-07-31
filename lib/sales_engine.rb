@@ -1,21 +1,29 @@
 require_relative 'item_repo'
 require_relative 'merchant_repo'
 require_relative 'invoice_repo'
+require_relative 'customer_repo'
+require_relative 'transaction_repo'
+require_relative 'invoice_item_repo'
 
 class SalesEngine
-  attr_reader :invoices, :merchants, :items
+  attr_reader :invoices, :merchants, :items, :customers,
+              :transactions, :invoice_items
 
   def initialize(data)
     @invoices      = InvoiceRepo.new(data[:invoices], self)
     @merchants     = MerchantRepo.new(data[:merchants], self)
     @items         = ItemRepo.new(data[:items], self)
-    # @customers     = CustomerRepo.new(data[:customers], self)
-    # @transactions  = TransactionRepo.new(data[:transactions], self)
-    # @invoice_items = InvoiceItemsRepo.new(data[:invoice_items], self)
+    @customers     = CustomerRepo.new(data[:customers], self)
+    @transactions  = TransactionRepo.new(data[:transactions], self)
+    @invoice_items = InvoiceItemRepo.new(data[:invoice_items], self)
   end
 
   def self.from_csv(data)
     SalesEngine.new(data)
+  end
+
+  def items_from_invoice(inv_id)
+    invoice_items.find_all_by_invoice_id(inv_id)
   end
 
   def items_of_merchant(id)
@@ -44,5 +52,9 @@ class SalesEngine
 
   def all_invoices
     invoices.all
+  end
+
+  def all_invoice_items
+    invoice_items.all
   end
 end
