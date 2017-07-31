@@ -50,6 +50,30 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of InvoiceRepository, se.invoices
   end
 
+  def test_sales_engine_initializes_with_invoice_items_repo
+    se = SalesEngine.from_csv({
+      :invoice_items => "./data/invoice_items.csv"
+      })
+
+    assert_instance_of InvoiceItemRepository, se.invoice_items
+  end
+
+  def test_sales_engine_initializes_with_transactions_repo
+    se = SalesEngine.from_csv({
+      :transactions => "./data/transactions.csv"
+      })
+
+    assert_instance_of TransactionRepository, se.transactions
+  end
+
+  def test_sales_engine_initializes_with_customer_repo
+    se = SalesEngine.from_csv({
+      :customers => "./data/customers.csv"
+      })
+
+    assert_instance_of CustomerRepository, se.customers
+  end
+
   def test_merchant_by_merchant_id_gets_merchant
     se = SalesEngine.from_csv({
       :merchants => "./data/merchants.csv"
@@ -97,6 +121,16 @@ class SalesEngineTest < Minitest::Test
     items = se.items_by_invoice_id(168)
     assert_instance_of Item, items[0]
     assert_equal 3, items.count
+  end
+
+  def test_transactions_by_invoice_id_gets
+    se = SalesEngine.from_csv({
+      :transactions => './data/transactions.csv'
+      })
+    transactions = se.transactions_by_invoice_id(20)
+
+    assert_instance_of Transaction, transactions[0]
+    assert_equal 3, transactions.count
   end
 
 end

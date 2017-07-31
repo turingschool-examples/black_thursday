@@ -94,4 +94,18 @@ class InvoiceTest < Minitest::Test
     assert_instance_of Item, items[0]
   end
 
+  def test_invoice_can_check_transactions
+    se = SalesEngine.from_csv({
+      :invoices => './data/invoices.csv',
+      :transactions => './data/transactions.csv'
+      })
+    invoices = se.invoices
+    invoice = invoices.find_by_id(20)
+    transactions = invoice.transactions
+
+    assert_instance_of Array, transactions
+    refute transactions.empty?
+    assert_instance_of Transaction, transactions[0]
+  end
+
 end

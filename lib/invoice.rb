@@ -28,4 +28,8 @@ class Invoice
     self.invoice_repo.invoice_repo_to_se_items(id)
   end
 
+  def transactions
+    self.invoice_repo.invoice_repo_to_se_transactions(id)
+  end
+
 end

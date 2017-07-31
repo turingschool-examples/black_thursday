@@ -2,6 +2,8 @@ require_relative 'merchant_repository'
 require_relative 'item_repository'
 require_relative 'invoice_repository'
 require_relative 'invoice_item_repository'
+require_relative 'transaction_repository'
+require_relative 'customer_repository'
 
 class SalesEngine
 
@@ -82,6 +84,10 @@ class SalesEngine
 
   def invoice_items_by_invoice_id(invoice_id)
     invoice_items.find_all_by_invoice_id(invoice_id)
+  end
+
+  def transactions_by_invoice_id(invoice_id)
+    transactions.find_all_by_invoice_id(invoice_id)
   end
 
 end
