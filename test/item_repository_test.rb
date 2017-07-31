@@ -1,6 +1,7 @@
 require_relative 'test_helper'
 require_relative '../lib/item_repository'
 require_relative '../lib/sales_engine'
+require 'pry'
 
 class ItemRepositoryTest < Minitest::Test
 
@@ -115,6 +116,20 @@ class ItemRepositoryTest < Minitest::Test
     merchant = items.item_repo_to_se(12335119)
 
     assert_instance_of Merchant, merchant
+  end
+
+  def test_item_repo_can_get_items_by_invoice_id
+    se = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv"
+      })
+    invoice_items = se.invoice_items_by_invoice_id(168)
+    items = se.items
+    all_items_for_an_invoice = items.items_by_invoice_id(invoice_items)
+
+    assert_instance_of Array, all_items_for_an_invoice
+    assert_equal 3, all_items_for_an_invoice.count
   end
 
 end

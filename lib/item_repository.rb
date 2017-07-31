@@ -96,6 +96,15 @@ class ItemRepository
     @sales_engine.merchant_by_merchant_id(merchant_id)
   end
 
+  def items_by_invoice_id(invoice_items)
+    items = invoice_items.map do |invoice_item|
+      id_repo.values.select do |item|
+        item if item.id == invoice_item.item_id
+      end
+    end
+    items.flatten
+  end
+
   def inspect
     "#<#{self.class} #{@items.size} rows>"
   end
