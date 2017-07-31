@@ -156,4 +156,17 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal "Constance", customer.first_name
   end
 
+  def test_invoice_repo_to_se_invoice_items
+    se = SalesEngine.from_csv({
+      :invoices => './data/invoices.csv',
+      :invoice_items => './data/invoice_items.csv'
+      })
+    invoices = se.invoices
+    invoice_items = invoices.invoice_repo_to_se_invoice_items(168)
+
+    assert_instance_of Array, invoice_items
+    assert_instance_of InvoiceItem, invoice_items[0]
+    assert_equal 3, invoice_items.count
+  end
+
 end
