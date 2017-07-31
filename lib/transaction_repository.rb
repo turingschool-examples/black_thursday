@@ -24,24 +24,11 @@ class TransactionRepository
   end
 
   def find_all_by_credit_card_number(cc)
-    result = []
-    @transactions.each do |transaction|
-      if transaction.credit_card_number == cc
-        result << transaction
-      end
-    end
-    result
+    @transactions.find_all {|transaction| transaction.credit_card_number == cc}
   end
 
-  def find_all_by_result(result_return)
-    result = []
-    @transactions.each do |transaction|
-      if transaction.result == result_return
-        result << transaction
-      end
-    end
-    result
-    #find_all_by(result, "result", @transactions)
+  def find_all_by_result(result)
+    @transactions.find_all {|transaction| transaction.result == result}
   end
 
   def from_csv(path)
@@ -71,8 +58,3 @@ class TransactionRepository
   # end
 
 end
-
-
-# tr = TransactionRepository.new
-# tr.from_csv("./data/transactions.csv")
-# binding.pry

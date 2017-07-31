@@ -1,98 +1,82 @@
 require 'minitest'
 require 'minitest/autorun'
-require 'minitest/pride'
+require 'minitest/emoji'
 require './lib/invoice_item_repository'
+require 'bigdecimal'
+require 'pry'
 
 
 class InvoiceItemRepositoryTest < Minitest::Test
   def test_it_can_be_created
-    ii = InvoiceItemRepository.new(1)
+    repo = InvoiceItemRepository.new(self)
+    assert_instance_of InvoiceItemRepository, repo
   end
 
-  def test_it_can_be_added_to
-    hash   = {id: 122, item_id: 7, invoice_id: 1}
-    ii = InvoiceItemRepository.new(1)
-    ii.add_data(hash)
-    assert_equal  1, ii.all.count
+  def test_it_has_invoice_items
+    repo = InvoiceItemRepository.new(self)
+    assert_equal [], repo.invoice_items
   end
 
-  def setup
-    @ii_repo = InvoiceItemRepository.new(self)
-    hash_one   = {id: 122, item_id: 7, invoice_id: 1}
-    hash_two   = {id: 123, item_id: 2, invoice_id: 2}
-    hash_three = {id: 124, item_id: 5, invoice_id: 1}
-    hash_four  = {id: 125, item_id: 5, invoice_id: 3}
-
-    @ii_repo.add_data(hash_one)
-    @ii_repo.add_data(hash_two)
-    @ii_repo.add_data(hash_three)
-    @ii_repo.add_data(hash_four)
+  def test_it_can_load_invoice_items
+    repo = InvoiceItemRepository.new(self)
+    repo.from_csv("./data/invoice_items_short.csv")
+    assert_equal 10, repo.invoice_items.count
   end
 
-  def test_all_is_working
-    ii_repo = InvoiceItemRepository.new(self)
-
-    assert_equal 0, ii_repo.all.count
-
-    assert_equal 4, @ii_repo.all.count
+  def test_all
+    repo = InvoiceItemRepository.new(self)
+    repo.from_csv("./data/invoice_items_short.csv")
+    assert_equal 10, repo.all.count
   end
 
-  def test_find_by_id_is_returning_nil_for_blank_items
-    assert_nil @ii_repo.find_by_id(1527)
+  def test_find_by_id
+    repo = InvoiceItemRepository.new(self)
+    repo.from_csv("./data/invoice_items_short.csv")
+    assert_equal 3, repo.find_by_id(5).invoice_id
   end
 
-  def test_find_by_id_is_working_for_entire
-    save = @ii_repo.find_by_id(125)
-    assert_instance_of InvoiceItem, save
-    assert_equal 5, save.item_id
-    assert_equal 3, save.invoice_id
+  def test_it_find_all_by_invoice_id(invoice_id)
+    repo = InvoiceItemRepository.new(self)
+    repo.from_csv("./data/invoice_items_short.csv")
+    binding.pry
+    assert_instance_of 123400001, repo.find_all_by_invoice_id("5")[0].invoice_id
   end
 
-  def test_find_all_by_item_id_returns_blank_if_not_found
-    ii_repo = InvoiceItemRepository.new(self)
-    assert ii_repo.find_all_by_item_id(123).empty?
-    assert @ii_repo.find_all_by_item_id(1234).empty?
+
+  def invoice_item1
+    {
+      :id => 1,
+      :item_id => 11,
+      :invoice_id => 111,
+      :quantity => 1,
+      :unit_price => BigDecimal.new([1000],4) / 100,
+      :created_at => "2012-02-26 20:56:41 UTC",
+      :updated_at => "2012-02-26 20:56:51 UTC"
+    }
   end
 
-  def test_find_all_by_item_id_works_for_one_entry
-    one = @ii_repo.find_all_by_item_id(7)
-    two = @ii_repo.find_all_by_item_id(2)
-
-    assert_equal 1  , one.count
-    assert_equal 122, one.first.id
-    assert_equal 1  , two.count
-    assert_equal 123, two.first.id
+  def invoice_item2
+    {
+      :id => 2,
+      :item_id => 22,
+      :invoice_id => 222,
+      :quantity => 2,
+      :unit_price => BigDecimal.new([2000],4) / 100,
+      :created_at => "2012-02-26 20:56:41 UTC",
+      :updated_at => "2012-02-26 20:56:51 UTC"
+    }
   end
 
-  def test_find_all_by_item_id_works_for_multiple_entries
-    one = @ii_repo.find_all_by_item_id(5)
-    assert_equal 2, one.count
-    assert_equal 124, one.first.id
-    assert_equal 125, one.last.id
-  end
-
-  def test_find_all_by_invoice_id_returns_blank_if_not_found
-    ii_repo = InvoiceItemRepository.new(self)
-    assert ii_repo.find_all_by_invoice_id(4).empty?
-    assert @ii_repo.find_all_by_invoice_id(4).empty?
-  end
-
-  def test_find_all_by_invoice_id_works_for_one_entry
-    one = @ii_repo.find_all_by_invoice_id(2)
-    two = @ii_repo.find_all_by_invoice_id(3)
-
-    assert_equal 1  , one.count
-    assert_equal 123, one.first.id
-    assert_equal 1  , two.count
-    assert_equal 125, two.first.id
-  end
-
-  def test_find_all_by_invoice_id_works_for_multiple_entries
-    one = @ii_repo.find_all_by_invoice_id(1)
-
-    assert_equal 2  , one.count
-    assert_equal 122, one.first.id
-    assert_equal 124, one.last.id
+  def invoice_item3
+    {
+      :id => 3,
+      :item_id => 33,
+      :invoice_id => 333,
+      :quantity => 3,
+      :unit_price => BigDecimal.new([3000],4) / 100,
+      :created_at => "2012-02-26 20:56:41 UTC",
+      :updated_at => "2012-02-26 20:56:51 UTC"
+    }
   end
 
 end

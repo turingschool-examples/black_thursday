@@ -1,5 +1,7 @@
 require_relative '../lib/invoice_item'
+require 'bigdecimal'
 require 'pry'
+require 'csv'
 class InvoiceItemRepository
 
   attr_reader :invoice_items
@@ -14,29 +16,15 @@ class InvoiceItemRepository
   end
 
   def find_by_id(id)
-    @invoice_items.find do |ii|
-      ii.id == id
-    end
+    @invoice_items.find {|ii| ii.id == id}
   end
 
   def find_all_by_item_id(item_id)
-    results = []
-    @invoice_items.each do |ii|
-      if ii.item_id == item_id
-        results << ii
-      end
-    end
-    results
+    @invoice_items.find_all {|ii| ii.item_id == item_id}
   end
 
   def find_all_by_invoice_id(invoice_id)
-    results = []
-    @invoice_items.each do |ii|
-      if ii.invoice_id == invoice_id
-        results << ii
-      end
-    end
-    results
+    @invoice_items.find_all {|ii| ii.invoice_id == invoice_id}
   end
 
   def from_csv(path)

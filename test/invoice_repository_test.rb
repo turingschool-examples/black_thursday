@@ -3,6 +3,7 @@ SimpleCov.start
 require 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'bigdecimal'
 require_relative '../lib/invoice_repository'
 
 class InvoiceRepositoryTest < Minitest::Test
@@ -123,9 +124,6 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal :shipped, list.last.status
     assert_equal 3        , list.last.customer_id
   end
-
-
-
 
   def test_find_all_by_status_returns_blank_if_none_match
     assert_equal [], @invoice_r.find_all_by_status(:awesome)
