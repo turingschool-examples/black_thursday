@@ -1,45 +1,40 @@
 require './test/test_helper'
-require './lib/salesengine'
+require './lib/sales_engine'
 require 'pry'
 
 class SalesEngineTest < Minitest::Test
 
-  def test_it_exists
-    salesengine = SalesEngine.from_csv({ :items         => "./data/items.csv",
+  def setup
+    @salesengine = SalesEngine.from_csv({:items    => "./data/items.csv",
                                     :merchants     => "./data/merchants.csv",
+                                    :invoices      => "./data/invoices.csv",
+                                    :invoice_items => "./data/invoice_items.csv",
+                                    :transactions => "./data/transactions.csv"
                                     })
-
-    assert_instance_of SalesEngine, salesengine
   end
 
-  def test_it_can_create_item_repo
-    salesengine = SalesEngine.from_csv({ :items         => "./data/items.csv",
-                                    :merchants     => "./data/merchants.csv",
-                                    })
-    assert_instance_of ItemRepository, salesengine.items
+  def test_it_exists_with_repos
+    assert_instance_of SalesEngine, @salesengine
+    assert_instance_of ItemRepository, @salesengine.items
+    assert_instance_of MerchantRepository, @salesengine.merchants
   end
 
-  def test_item_repo_has_item_instances
-    salesengine = SalesEngine.from_csv({ :items         => "./data/items.csv",
-                                    :merchants     => "./data/merchants.csv",
-                                    })
-
-    assert_instance_of Item, salesengine.items.contents["263395237"]
+  def test_engine_repos_have_instances
+    assert_instance_of Item, @salesengine.items.items[263395237]
+    assert_instance_of Merchant, @salesengine.merchants.merchants[12334105]
   end
 
-  def test_it_can_create_merchant_repo
-    salesengine = SalesEngine.from_csv({ :items         => "./data/items.csv",
-                                    :merchants     => "./data/merchants.csv",
-                                    })
-    assert_instance_of MerchantRepository, salesengine.merchants
+  def test_engine_can_find_items_by_merchant_id
+    items = @salesengine.find_items_by_merchant_id(12334105)
+
+    assert_instance_of Array, items
+    assert_instance_of Item, items[0]
   end
 
-  def test_merchant_repo_has_merchant_instances
-    salesengine = SalesEngine.from_csv({ :items         => "./data/items.csv",
-                                    :merchants     => "./data/merchants.csv",
-                                    })
+  def test_it_can_find_merchant_by_id
+    merchant = @salesengine.find_merchant_by_id(12334105)
 
-    assert_instance_of Merchant, salesengine.merchants.contents["12334105"]
+    assert_instance_of Merchant, merchant
   end
 
 end

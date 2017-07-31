@@ -3,19 +3,12 @@ require 'csv'
 require 'pry'
 
 class MerchantRepository
+
   attr_reader :engine, :merchants
 
   def initialize(csvfile, engine)
     @engine = engine
     @merchants = create_hash_of_merchants(csvfile)
-  end
-
-  def create_hash_of_merchants(csvfile)
-    all_merchants = {}
-    csvfile.each do |row|
-      all_merchants[row[:id]] = Merchant.new(row, self)
-    end
-    all_merchants
   end
 
   def inspect
@@ -33,7 +26,7 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    @merchants[id.to_s]
+    @merchants[id]
   end
 
   def find_items_by_merchant_id(merchant_id)
@@ -47,9 +40,7 @@ class MerchantRepository
   def find_by_name(name)
     content_array = all
     content_array.find do |merchant|
-      if merchant.name.downcase == name.downcase
-        return merchant
-      end
+      merchant.name.downcase == name.downcase
     end
   end
 
@@ -63,6 +54,7 @@ class MerchantRepository
     array_of_matching_merchants
   end
 
+
   def find_matching_merchants(merchant_ids)
     all.find_all do |merchant|
       merchant_ids.include?(merchant.id)
@@ -73,5 +65,14 @@ class MerchantRepository
     @engine.find_customers_by_merchant_id(merchant_id)
   end
 
+  private
+
+    def create_hash_of_merchants(csvfile)
+      all_merchants = {}
+      csvfile.each do |row|
+        all_merchants[row[:id].to_i] = Merchant.new(row, self)
+      end
+      all_merchants
+    end
 
 end
