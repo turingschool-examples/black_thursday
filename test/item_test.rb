@@ -7,15 +7,13 @@ require 'bigdecimal'
 class ItemTest < Minitest::Test
 
   def setup
-    item_details = {:id        => 263395237,
+    @item = Item.new({:id        => 263395237,
                     :name        => "Pencil",
                     :description => "You can use it to write things",
                     :merchant_id => 12334105,
                     :unit_price  => 1099,
                     :created_at  => "09:34:06 UTC",
-                    :updated_at  => "2007-06-04 21:35:10 UTC"}
-
-    @item        = Item.new(item_details, "ItemRepository")
+                    :updated_at  => "2007-06-04 21:35:10 UTC"}, "ItemRepository")
   end
 
   def test_it_exist_with_attributes

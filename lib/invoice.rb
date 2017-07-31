@@ -30,4 +30,21 @@ class Invoice
     @invoice_repo.find_customers_by_invoice(customer_id)
   end
 
+  def invoice_items
+    @invoice_repo.find_invoice_items_by_invoice(id)
+  end
+
+  def is_paid_in_full?
+    return false if transactions.empty?
+    transactions.any? { |transaction| transaction.result == "success" }
+  end
+
+  def total
+    return 0 if !is_paid_in_full?
+    total = invoice_items.reduce(0) do |sum, invoice_item|
+     sum + (invoice_item.quantity.to_i * invoice_item.unit_price)
+   end
+    total
+  end
+
 end
