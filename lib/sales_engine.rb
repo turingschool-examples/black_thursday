@@ -22,6 +22,13 @@ class SalesEngine
     SalesEngine.new(data)
   end
 
+  def total(id)
+    thing = invoice_items.find_all_by_invoice_id(id)
+    thing.map do |invoice_item|
+      invoice_item.quantity * invoice_item.unit_price
+    end.reduce(:+)
+  end
+
   def customers_of_merchant(id)
     merchant_list = invoices.find_all_by_merchant_id(id)
     merchant_list.map {|invoice| invoice.customer}.uniq

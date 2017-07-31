@@ -53,5 +53,9 @@ class InvoiceRepo
     parent.customer_invocies(id)
   end
 
+  def total(id)
+    parent.total(id)
+  end
+
 
 end

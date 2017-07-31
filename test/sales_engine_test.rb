@@ -88,4 +88,8 @@ class SalesEngineTest < Minitest::Test
     refute invoice.is_paid_in_full?
   end
 
+  def test_returns_total_amount_of_the_invoice
+    invoice = se.invoices.find_by_id(20)
+    assert_equal 12244.54, invoice.total.to_f
+  end
 end
