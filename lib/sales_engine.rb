@@ -22,6 +22,14 @@ class SalesEngine
     SalesEngine.new(data)
   end
 
+  def customer_invocies(id)
+    customers.find_by_id(id)
+  end
+
+  def invoice_transactions(id)
+    transactions.find_all_by_invoice_id(id)
+  end
+
   def items_from_invoice(inv_id)
     invoice_items.find_all_by_invoice_id(inv_id)
   end

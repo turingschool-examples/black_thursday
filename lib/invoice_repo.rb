@@ -45,5 +45,12 @@ class InvoiceRepo
     parent.items_from_invoice(inv_id)
   end
 
+  def invoice_transactions(id)
+    parent.invoice_transactions(id)
+  end
+
+  def customer_invocies(id)
+    parent.customer_invocies(id)
+  end
 
 end

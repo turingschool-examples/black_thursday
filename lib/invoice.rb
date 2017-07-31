@@ -22,4 +22,12 @@ class Invoice
   def items
     parent.items_from_invoice(id)
   end
+
+  def transactions
+    parent.invoice_transactions(id)
+  end
+
+  def customer
+    parent.customer_invocies(customer_id)
+  end
 end
