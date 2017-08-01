@@ -28,4 +28,10 @@ class Merchant
     self.merchant_repo.merchant_repo_to_se_customers(id)
   end
 
+  def revenue
+    self.invoices.inject(0) do |sum, invoice_instance|
+      sum + invoice_instance.total
+    end
+  end
+
 end

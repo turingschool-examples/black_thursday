@@ -102,4 +102,19 @@ class MerchantTest < Minitest::Test
     assert_equal 12, customers.count
   end
 
+  def test_merchant_can_get_revenue
+    se = SalesEngine.from_csv({
+      :invoices => './data/invoices.csv',
+      :merchants => './data/merchants.csv',
+      :transactions => './data/transactions.csv',
+      :invoice_items => './data/invoice_items.csv'
+      })
+    merchants = se.merchants
+    merchant = merchants.find_by_id(12334194)
+    revenue = merchant.revenue
+
+    assert_instance_of BigDecimal, revenue
+    assert_equal 81572.4, revenue.to_f
+  end
+
 end
