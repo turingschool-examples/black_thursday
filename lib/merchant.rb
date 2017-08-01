@@ -19,4 +19,6 @@ class Merchant
     @mr.fetch_customers_by_merchant_id(id)
   end
 
+
+
 end

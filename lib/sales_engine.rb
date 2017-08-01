@@ -28,10 +28,6 @@ class SalesEngine
     SalesEngine.new(data)
   end
 
-  def collected_invoices(merchant_id)
-    @invoices.find_all_by_merchant_id(merchant_id)
-  end
-
   def fetch_items(merchant_id)
     @items.find_all_by_merchant_id(merchant_id)
   end
@@ -89,4 +85,18 @@ class SalesEngine
     end
     total
   end
+
+  def top_revenue_earners(x)
+    paid_invoices = @invoices.all.group_by { |invoice| invoice.is_paid_in_full? }
+    merchant_invoices = paid_invoices[true].group_by { |invoice| invoice.merchant_id }
+    merchant_invoices.each_value do |invoices|
+      invoices.map! { |invoice| invoice.total }
+    end
+    total_revenue = merchant_invoices.keys.sort_by do |merchant_id|
+      merchant_invoices[merchant_id].reduce(:+)
+    end
+    total_revenue.reverse[0...x]
+  end
+
+
 end

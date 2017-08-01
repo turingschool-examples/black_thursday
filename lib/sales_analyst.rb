@@ -39,7 +39,7 @@ class SalesAnalyst
       all_invoices = {}
       mr = @sales_engine.merchants.all
       mr.each do |merchant|
-        invoice = sales_engine.collected_invoices(merchant.id)
+        invoice = sales_engine.fetch_invoices(merchant_id)
         all_invoices[merchant.id] = invoice.length
       end
       all_invoices
@@ -168,6 +168,10 @@ class SalesAnalyst
       total += item.quantity * item.unit_price
     end
     total
+  end
+
+  def top_revenue_earners(x = 20)
+    sales_engine.top_revenue_earners(x)
   end
 
 end

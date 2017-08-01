@@ -8,6 +8,7 @@ require 'pry'
 class SalesAnalystTest < MiniTest::Test
 
   def test_that_se_is_initialized
+    skip
     se = SalesEngine.from_csv({
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -23,6 +24,7 @@ class SalesAnalystTest < MiniTest::Test
 
 
   def test_average_item_price_for_merchant
+    skip
     se = SalesEngine.from_csv({
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -38,6 +40,7 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_it_can_get_average_invoice
+    skip
     se = SalesEngine.from_csv({
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -52,6 +55,7 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_for_standard_deviation_on_items
+    skip
     se = SalesEngine.from_csv({
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -66,6 +70,7 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_it_can_get_average_invoice_standard_deviation
+    skip
     se = SalesEngine.from_csv({
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -81,6 +86,7 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_merchants_with_high_item_count
+    skip
     se = SalesEngine.from_csv({
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -96,6 +102,7 @@ class SalesAnalystTest < MiniTest::Test
 
 
   def test_average_average_price_per_merchant
+    skip
     se = SalesEngine.from_csv({
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -111,7 +118,7 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_golden_items
-    # skip
+    skip
     se = SalesEngine.from_csv({
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -126,6 +133,7 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_top_merchants_by_invoice_count
+    skip
     se = SalesEngine.from_csv({
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -141,6 +149,7 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_bottom_merchants_by_invoice_count
+    skip
     se = SalesEngine.from_csv({
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -156,7 +165,7 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_it_calculates_top_days_by_invoice_count
-    # skip
+    skip
     se = SalesEngine.from_csv({
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -171,6 +180,7 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_it_calculates_percentage_of_invoices_status
+    skip
     se = SalesEngine.from_csv({
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -187,6 +197,7 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_it_returns_total_revenue_by_date
+    skip
     se = SalesEngine.from_csv({
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -200,7 +211,7 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 21067.77, sa.total_revenue_by_date(date)
   end
 
-  def test_it_returns_total_revenue_by_date
+  def test_it_returns_top_merchants
     se = SalesEngine.from_csv({
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -210,10 +221,23 @@ class SalesAnalystTest < MiniTest::Test
       :customers => "./data/customers.csv"
       })
     sa = SalesAnalyst.new(se)
-    date = Time.parse("2009-02-07")
-    assert_equal 21067.77, sa.total_revenue_by_date(date)
+    actual = sa.top_revenue_earners(10)
+    assert_equal 10, actual.count
+  end
 
-
+  def test_it_returns_20_top_merchants_by_default
+    se = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv",
+      :customers => "./data/customers.csv"
+      })
+    sa = SalesAnalyst.new(se)
+    actual = sa.top_revenue_earners
+    assert_equal 20, actual.count
+  end
 
 
 end
