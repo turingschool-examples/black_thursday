@@ -77,7 +77,7 @@ module MarketAnalytics
     end
 
     def merchants_with_pending_invoices
-      @merchants.id_repo.values.find_all do |merchant|
+      @merchants.all.find_all do |merchant|
         merchant.invoices.any? do |invoice|
           invoice.transactions.none? {|transaction| transaction.status == "success"}
         end
