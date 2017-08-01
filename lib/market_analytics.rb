@@ -28,7 +28,6 @@ module MarketAnalytics
       @invoices.all.find_all do |invoice|
         invoice.created_at.yday == date.yday && invoice.is_paid_in_full?
       end
-      binding.pry
     end
 
   public
