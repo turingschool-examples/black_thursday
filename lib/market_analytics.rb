@@ -61,6 +61,10 @@ module MarketAnalytics
       sales_engine.merchants_by_revenue[0..(number - 1)]
     end
 
+    def merchants_ranked_by_revenue
+      sales_engine.merchants_by_revenue
+    end
+
     def most_sold_item_for_merchant(merchant_id)
       paid_invoice_items = merchant_paid_invoice_items(merchant_id)
       quantity_proc = Proc.new {|invoice_item| invoice_item.quantity}
