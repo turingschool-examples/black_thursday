@@ -5,7 +5,7 @@ require_relative '../lib/customer_analytics'
 require 'pry'
 
 class SalesAnalyst
-  
+
   attr_reader :invoices,
               :invoice_items,
               :transactions,
@@ -120,7 +120,7 @@ class SalesAnalyst
     end
 
     def merchants_with_only_one_item
-      @merchants.id_repo.values.find_all do |merchant|
+      @merchants.all.find_all do |merchant|
         merchant.items.count == 1
       end
     end
