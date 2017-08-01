@@ -43,7 +43,7 @@ class MerchantTest < Minitest::Test
                           self)
     create_date = merch.created_at
 
-    assert_equal "2004-10-06", create_date
+    assert_equal "2004-10-06", create_date.to_s[0..9]
   end
 
   def test_merchant_has_updated_at_date
@@ -54,7 +54,7 @@ class MerchantTest < Minitest::Test
                           self)
     update_date = merch.updated_at
 
-    assert_equal "2014-12-04", update_date
+    assert_equal "2014-12-04", update_date.to_s[0..9]
   end
 
   def test_merchant_can_check_for_items
