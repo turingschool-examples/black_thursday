@@ -24,19 +24,23 @@ module MarketAnalytics
       end
     end
 
+    # def invoices_on_this_date(date)
+    #   @invoices.all.find_all do |invoice|
+    #     invoice.created_at.yday == date.yday && invoice.is_paid_in_full?
+    #   end
+    # end
+
     def invoices_on_this_date(date)
-      @invoices.all.find_all do |invoice|
-        invoice.created_at.yday == date.yday && invoice.is_paid_in_full?
-      end
+      sales_engine.invoices.find_all_by_date(date)
     end
 
   public
 
-    def total_revenue_by_date(date)
-      invoices_on_this_date(date).reduce(0) do |total_revenue, invoice|
-        total_revenue += invoice.total.to_f
-      end.round(2)
-    end
+    # def total_revenue_by_date(date)
+    #   invoices_on_this_date(date).reduce(0) do |total_revenue, invoice|
+    #     total_revenue += invoice.total.to_f
+    #   end.round(2)
+    # end
 
     # def revenue_by_merchant(merchant_id)
     #   merchant = @merchants.find_by_id(merchant_id)
@@ -55,6 +59,12 @@ module MarketAnalytics
     #   end
     #   top
     # end
+
+    def total_revenue_by_date(date)
+      invoices_on_this_date(date).inject(0) do |sum, invoice_instance|
+        sum + invoice_instance.total
+      end
+    end
 
     def top_revenue_earners(number = 20)
       sales_engine.merchants_by_revenue[0..(number - 1)]
