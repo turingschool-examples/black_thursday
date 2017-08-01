@@ -48,7 +48,7 @@ class InvoiceRepositoryTest < Minitest::Test
     invoice = ir.find_by_id(4400)
 
     assert_instance_of Invoice, invoice
-    assert_equal "returned", invoice.status
+    assert_equal :returned, invoice.status
     assert_equal 878, invoice.customer_id
   end
 
@@ -93,7 +93,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_invoice_repo_can_find_all_by_status
     ir = InvoiceRepository.new('./data/invoices.csv', self)
-    invoices = ir.find_all_by_status("shipped")
+    invoices = ir.find_all_by_status(:shipped)
 
     assert_instance_of Array, invoices
     assert_equal 2839, invoices.count
@@ -105,6 +105,14 @@ class InvoiceRepositoryTest < Minitest::Test
 
     assert_instance_of Array, invoices
     assert_equal [], invoices
+  end
+
+  def test_invoice_repo_find_all_by_date
+    ir = InvoiceRepository.new('./data/invoices.csv', self)
+    invoices = ir.find_all_by_date(Time.parse('2008-04-04'))
+
+    assert_instance_of Array, invoices
+    assert_equal 1, invoices.count
   end
 
   def test_invoice_repo_to_se_merchant

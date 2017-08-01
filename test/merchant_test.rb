@@ -43,7 +43,7 @@ class MerchantTest < Minitest::Test
                           self)
     create_date = merch.created_at
 
-    assert_equal "2004-10-06", create_date
+    assert_equal "2004-10-06", create_date.to_s[0..9]
   end
 
   def test_merchant_has_updated_at_date
@@ -54,7 +54,7 @@ class MerchantTest < Minitest::Test
                           self)
     update_date = merch.updated_at
 
-    assert_equal "2014-12-04", update_date
+    assert_equal "2014-12-04", update_date.to_s[0..9]
   end
 
   def test_merchant_can_check_for_items
@@ -100,6 +100,21 @@ class MerchantTest < Minitest::Test
     assert_instance_of Array, customers
     assert_instance_of Customer, customers[0]
     assert_equal 12, customers.count
+  end
+
+  def test_merchant_can_get_revenue
+    se = SalesEngine.from_csv({
+      :invoices => './data/invoices.csv',
+      :merchants => './data/merchants.csv',
+      :transactions => './data/transactions.csv',
+      :invoice_items => './data/invoice_items.csv'
+      })
+    merchants = se.merchants
+    merchant = merchants.find_by_id(12334194)
+    revenue = merchant.revenue
+
+    assert_instance_of BigDecimal, revenue
+    assert_equal 81572.4, revenue.to_f
   end
 
 end

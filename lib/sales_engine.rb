@@ -118,4 +118,12 @@ class SalesEngine
     end
   end
 
+  def merchants_by_revenue
+    merchants.merchants_by_revenue
+  end
+
+  def revenue_by_merchant_id(merchant_id)
+    merchants.find_by_id(merchant_id).revenue
+  end
+
 end

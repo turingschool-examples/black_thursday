@@ -45,7 +45,7 @@ class InvoiceTest < Minitest::Test
                            :updated_at => "2015-07-01"}, self)
     status = invoice.status
 
-    assert_equal "pending", status
+    assert_equal :pending, status
   end
 
   def test_invoice_has_created_at

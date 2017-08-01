@@ -180,4 +180,34 @@ class SalesEngineTest < Minitest::Test
     assert_equal 5, merchants.count
   end
 
+  def test_merchants_by_revenue
+    se = SalesEngine.from_csv({
+      :invoices => './data/invoices.csv',
+      :merchants => './data/merchants.csv',
+      :transactions => './data/transactions.csv',
+      :invoice_items => './data/invoice_items.csv'
+      })
+    merchants = se.merchants
+    rank = merchants.merchants_by_revenue
+
+    assert_instance_of Array, rank
+    assert_equal 475, rank.count
+    assert_instance_of Merchant, rank[0]
+    assert rank[0].revenue > rank[1].revenue
+    assert rank[1].revenue > rank[2].revenue
+  end
+
+  def test_revenue_by_merchant_id_gets_revenue
+    se = SalesEngine.from_csv({
+      :invoices => './data/invoices.csv',
+      :merchants => './data/merchants.csv',
+      :transactions => './data/transactions.csv',
+      :invoice_items => './data/invoice_items.csv'
+      })
+    revenue = se.revenue_by_merchant_id(12334194)
+
+    assert_instance_of BigDecimal, revenue
+    assert_equal 81572.4, revenue.to_f
+  end
+
 end

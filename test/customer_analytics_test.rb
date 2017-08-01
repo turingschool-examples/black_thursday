@@ -13,6 +13,7 @@
 # sa.highest_volume_items(customer_id) #=> [item] or [item, item, item]
 #
 # sa.customers_with_unpaid_invoices #=> [customer, customer, customer]
+<<<<<<< HEAD
 
 
 require 'minitest/autorun'
@@ -40,3 +41,23 @@ class CustomerAnalyticsTest < Minitest::Test
   end
 
 end
+=======
+#
+#
+# require 'minitest/autorun'
+# require 'minitest/pride'
+# require_relative '../lib/sales_analyst'
+#
+# class CustomerAnalyticsTest < Minitest::Test
+#
+#   def test_top_buyers
+#     sales_engine = SalesEngine.from_csv({
+#       :items     => "./data/items.csv",
+#       :merchants => "./data/merchants.csv",
+#       :invoices => "./data/invoices.csv",
+#       :invoice_items => "./data/invoice_items.csv",
+#       :transactions => "./data/transactions.csv",
+#       :customers => "./data/customers.csv"
+#     })
+#     sales_analyst = SalesAnalyst.new(sales_engine)
+>>>>>>> 5b5495dd92514a3bf76aaac2a752b3f3de939824

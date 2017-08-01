@@ -5,10 +5,13 @@ require_relative '../lib/customer_analytics'
 require 'pry'
 
 class SalesAnalyst
+
   attr_reader :invoices,
               :invoice_items,
               :transactions,
-              :customers
+              :customers,
+              :sales_engine
+
   def initialize(sales_engine)
     @sales_engine = sales_engine
     @merchants = sales_engine.merchants
@@ -117,14 +120,21 @@ class SalesAnalyst
     end
 
     def merchants_with_only_one_item
-      @merchants.id_repo.values.find_all do |merchant|
+      @merchants.all.find_all do |merchant|
         merchant.items.count == 1
       end
     end
 
     def merchants_with_only_one_item_registered_in_month(month)
-      @merchants.id_repo.values.find_all do |merchant|
-        merchant.items.count == 1 && merchant.items[0].created_at.month == month_name_to_num[month]
+      merchants_with_only_one_item.select do |merchant|
+        merchant.created_at.strftime("%B") == month
       end
+      # @merchants.id_repo.values.find_all do |merchant|
+      #   merchant.items.count == 1 && merchant.items[0].created_at.month == month_name_to_num[month]
+      # end
+    end
+
+    def revenue_by_merchant(merchant_id)
+      sales_engine.revenue_by_merchant_id(merchant_id)
     end
 end

@@ -49,10 +49,9 @@ class Invoice
   end
 
   def total
-    if self.is_paid_in_full?
-      self.invoice_items.inject(0) do |sum, invoice_item_instance|
-        sum += invoice_item_instance.quantity * invoice_item_instance.unit_price
-      end
+    return 0 if !self.is_paid_in_full?
+    self.invoice_items.inject(0) do |sum, invoice_item_instance|
+      sum += invoice_item_instance.quantity * invoice_item_instance.unit_price
     end
   end
 

@@ -50,6 +50,12 @@ class InvoiceRepository
     end
   end
 
+  def find_all_by_date(date)
+    all.select do |invoice|
+      invoice.created_at == date
+    end
+  end
+
   def invoice_repo_to_se_merchant(merchant_id)
     @sales_engine.merchant_by_merchant_id(merchant_id)
   end
