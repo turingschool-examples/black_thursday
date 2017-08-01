@@ -1,4 +1,3 @@
-require 'pry'
 require 'csv'
 require_relative '../lib/transaction'
 
@@ -33,9 +32,7 @@ class TransactionRepository
 
   def from_csv(path)
     rows = CSV.open path, headers: true, header_converters: :symbol
-    rows.each do |data|
-      add_data(data)
-    end
+    rows.each {|data| add_data(data)}
   end
 
   def add_data(data)
@@ -45,16 +42,5 @@ class TransactionRepository
   def inspect
     "#<#{self.class} #{@transactions.size} rows>"
   end
-
-  # def find_all_by(query, arg, branch)
-  #   result = []
-  #   repo = get_instance_of(branch)
-  #   repo.each do |instance|
-  #     if instance.arg == query
-  #       result << instance
-  #     end
-  #   result
-  #   end
-  # end
 
 end
