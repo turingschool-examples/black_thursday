@@ -69,10 +69,11 @@ class MerchantRepository
     @sales_engine.customers_by_merchant_id(merchant_id)
   end
 
-  # def merchants_by_revenue
-  #   self.all.sort_by do |merchant|
-  #
-  # end
+  def merchants_by_revenue
+    self.all.sort_by do |merchant|
+      merchant.revenue
+    end.reverse
+  end
 
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"

@@ -39,25 +39,26 @@ module MarketAnalytics
       end.round(2)
     end
 
-    def revenue_by_merchant(merchant_id)
-      merchant = @merchants.find_by_id(merchant_id)
-      merchant.invoices.reduce(0) do |total, invoice|
-        if invoice.is_paid_in_full?
-          total += invoice.total.to_f
-        end
-        total
-      end.round(2)
-    end
+    # def revenue_by_merchant(merchant_id)
+    #   merchant = @merchants.find_by_id(merchant_id)
+    #   merchant.invoices.reduce(0) do |total, invoice|
+    #     total += invoice.total.to_f
+    #   end.round(2)g
+    # end
 
-    def top_revenue_earners(number=20)
-      duplicated_merchant_repo = @merchants.id_repo.clone
-      top = []
-      number.times do
-        max = duplicated_merchant_repo.max_by {|merchant| revenue_by_merchant(merchant[0])}
-        duplicated_merchant_repo.delete(max[0])
-        top << @merchants.find_by_id(max[0])
-      end
-      top
+    # def top_revenue_earners(number=20)
+    #   duplicated_merchant_repo = @merchants.id_repo.clone
+    #   top = []
+    #   number.times do
+    #     max = duplicated_merchant_repo.max_by {|merchant| revenue_by_merchant(merchant[0])}
+    #     duplicated_merchant_repo.delete(max[0])
+    #     top << @merchants.find_by_id(max[0])
+    #   end
+    #   top
+    # end
+
+    def top_revenue_earners(number = 20)
+      sales_engine.merchants_by_revenue[0..(number - 1)]
     end
 
     def most_sold_item_for_merchant(merchant_id)

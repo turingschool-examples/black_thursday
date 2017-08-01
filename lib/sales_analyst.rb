@@ -5,10 +5,13 @@ require_relative '../lib/customer_analytics'
 require 'pry'
 
 class SalesAnalyst
+  
   attr_reader :invoices,
               :invoice_items,
               :transactions,
-              :customers
+              :customers,
+              :sales_engine
+
   def initialize(sales_engine)
     @sales_engine = sales_engine
     @merchants = sales_engine.merchants

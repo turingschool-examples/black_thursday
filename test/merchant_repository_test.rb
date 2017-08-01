@@ -137,4 +137,21 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 12, customers.length
   end
 
+  def test_merchants_by_revenue
+    se = SalesEngine.from_csv({
+      :invoices => './data/invoices.csv',
+      :merchants => './data/merchants.csv',
+      :transactions => './data/transactions.csv',
+      :invoice_items => './data/invoice_items.csv'
+      })
+    merchants = se.merchants
+    rank = merchants.merchants_by_revenue
+
+    assert_instance_of Array, rank
+    assert_equal 475, rank.count
+    assert_instance_of Merchant, rank[0]
+    assert rank[0].revenue > rank[1].revenue
+    assert rank[1].revenue > rank[2].revenue
+  end
+
 end
