@@ -39,7 +39,7 @@ class SalesAnalyst
       all_invoices = {}
       mr = @sales_engine.merchants.all
       mr.each do |merchant|
-        invoice = sales_engine.fetch_invoices(merchant_id)
+        invoice = sales_engine.fetch_invoices(merchant.id)
         all_invoices[merchant.id] = invoice.length
       end
       all_invoices
@@ -183,7 +183,7 @@ class SalesAnalyst
   end
 
   def merchants_with_only_one_item
-    binding.pry
+    # binding.pry
     sales_engine.items.all.group_by { |merchant| merchant.id }
   end
 

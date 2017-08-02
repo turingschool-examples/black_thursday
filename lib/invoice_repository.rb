@@ -24,9 +24,9 @@ class InvoiceRepository
     repository[id]
   end
 
-  def find_all_by_merchant_id(merchant_id)
+  def find_all_by_merchant_id(merch_id)
     all.find_all do |invoice|
-      invoice.merchant_id == merchant_id
+      invoice.merchant_id == merch_id
     end
   end
 

@@ -5,6 +5,7 @@ class Invoice
                       :status,
                       :created_at,
                       :updated_at
+
   def initialize(data, invoice_repo = nil)
     @invoice_repo     = invoice_repo
     @id               = data[:id]
@@ -25,6 +26,10 @@ class Invoice
 
   def transactions
     @invoice_repo.fetch_invoice_id_for_transactions(id)
+  end
+
+  def invoice_items
+    @invoice_repo.sales_engine.invoice_items.find_all_by_invoice_id(id)
   end
 
   def customer

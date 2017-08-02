@@ -57,15 +57,15 @@ class ItemRepository
     end
   end
 
-  def find_all_by_merchant_id(merchant_id)
+  def find_all_by_merchant_id(merch_id)
     all.find_all do |item|
-      item.merchant_id == merchant_id
+      item.merchant_id == merch_id
     end
   end
 
   def find_all_by_customer_id(customer_id)
     all.find_all do |item|
-      item.customer_id== customer_id
+      item.customer_id == customer_id
     end
   end
 

@@ -9,6 +9,7 @@ attr_reader   :name,
               :created_at,
               :updated_at,
               :merchant_id
+
   def initialize(data, ir = nil)
     @ir          = ir
     @id          = data[:id]
@@ -19,8 +20,7 @@ attr_reader   :name,
     @updated_at  = Time.parse(data[:updated_at])
     @merchant_id = data[:merchant_id]
   end
-
-
+  
   def unit_price_to_dollars(unit_price)
     unit_price.to_f
   end

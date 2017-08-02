@@ -160,6 +160,4 @@ class SalesEngineTest < Minitest::Test
     customer = @se.customers.find_by_id(1)
     assert_instance_of Array, customer.merchants
   end
-
-
 end
