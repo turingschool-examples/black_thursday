@@ -209,7 +209,7 @@ class SalesAnalyst
     end
     best_items[best_items.keys.max]
   end
-
+  #i hate github
   private
 
     def find_top_days(days, mean, std_dev)
