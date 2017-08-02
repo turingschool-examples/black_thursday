@@ -65,6 +65,10 @@ class SalesEngine
     initialize_if_it_exists(customer_proc, customer_file)
   end
 
+  def items_by_item_id(item_id)
+    items.find_by_id(item_id)
+  end
+
   def merchant_by_merchant_id(merchant_id)
     merchants.find_by_id(merchant_id)
   end

@@ -13,10 +13,18 @@ module CustomerAnalytics
   def one_time_buyers
     @customers.all.find_all do |customer|
       customer_invoices = @customers.customer_repo_to_se_invoices(customer.id)
-      customer_invoices == 1 && customer_invoices[0].transactions.length == 1
+      customer_invoices.length == 1 && customer_invoices[0].transactions.length == 1
     end
   end
 
-
+  def one_time_buyers_item
+    buyers = one_time_buyers
+    total_items = buyers.reduce([]) do |invoice_items, customer|
+      invoice_items << customer.invoice_items
+      invoice_items.flatten
+    end
+    buyer_item = total_items.max_by {|item| total_items.count(item)}
+    buyer_item.item
+  end
 
 end

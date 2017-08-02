@@ -52,6 +52,14 @@ class CustomerRepository
     @sales_engine.invoices.find_all_by_customer_id(customer_id)
   end
 
+  def customer_repo_to_se_invoice_items(customer_id)
+    invoices = customer_repo_to_se_invoices(customer_id)
+    invoices.reduce([]) do |items, invoice|
+      items << invoice.invoice_items
+      items.flatten
+    end
+  end
+
   def customer_merchants_by_customer_expenditure(customer_id)
     customer_merchants = customer_repo_to_se_merchants(customer_id)
     customer_merchants.sort_by do |merchant|
