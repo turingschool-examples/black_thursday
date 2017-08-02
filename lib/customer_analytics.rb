@@ -1,5 +1,3 @@
-require 'pry'
-
 module CustomerAnalytics
 
   private
@@ -14,6 +12,28 @@ module CustomerAnalytics
     def get_items_from_array(arr)
       arr.reduce([]) do |items, element|
         items << element.items
+      end
+    end
+
+    def total_quantity_of_item_in_invoice_item_array(item, invoice_item_array)
+      item_invoice_items = invoice_item_array.find_all do |invoice_item|
+        invoice_item.item_id == item.id
+      end
+      item_invoice_items.reduce(0) {|total, invoice_item| total += invoice_item.quantity}
+    end
+
+    def find_paid_customer_invoices(customer_id)
+      customer_invoices = @invoices.find_all_by_customer_id(customer_id)
+      customer_invoices.find_all do |invoice|
+        invoice.is_paid_in_full?
+      end
+    end
+
+    def find_top_items_by_quantity(item_array, invoice_item_array)
+      item_array.find_all do |item|
+        max = total_quantity_of_item_in_invoice_item_array(item_array[0], invoice_item_array)
+        current = total_quantity_of_item_in_invoice_item_array(item, invoice_item_array)
+        current == max
       end
     end
 
@@ -42,25 +62,20 @@ module CustomerAnalytics
     end
 
     def items_bought_in_year(customer_id, year)
-      customer_invoices = @invoices.find_all_by_customer_id(customer_id)
-      paid_invoices = customer_invoices.find_all {|invoice| invoice.is_paid_in_full?}
-      invoices_in_year = paid_invoices.find_all {|invoice| invoice.created_at.year == year}
+      customer_invoices = find_paid_customer_invoices(customer_id)
+      invoices_in_year = customer_invoices.find_all {|invoice| invoice.created_at.year == year}
       invoice_items_in_year = get_invoice_items_from_array(invoices_in_year)
       get_items_from_array(invoice_items_in_year)
     end
 
     def highest_volume_items(customer_id)
-      customer_invoices = @invoices.find_all_by_customer_id(customer_id)
+      customer_invoices = find_paid_customer_invoices(customer_id)
       customer_invoice_items = get_invoice_items_from_array(customer_invoices)
-      #get quantity
-      customer_items = get_items_from_array(customer_invoice_items)
-      reverse_sorted = customer_items.sort_by {|item| customer_items.count(item)}
-      reverse_sorted.reverse.reduce([]) do |highest_items, item|
-        if  reverse_sorted.count(item) == reverse_sorted.count(reverse_sorted.last)
-          highest_items << item
-        end
-        highest_items.uniq
+      customer_items = get_items_from_array(customer_invoice_items).uniq
+      customer_items = customer_items.sort_by do |item|
+        total_quantity_of_item_in_invoice_item_array(item, customer_invoice_items)
       end
+      find_top_items_by_quantity(customer_items.reverse, customer_invoice_items)
     end
 
     def customers_with_unpaid_invoices

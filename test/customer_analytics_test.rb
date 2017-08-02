@@ -5,6 +5,7 @@ require_relative '../lib/sales_analyst'
 class CustomerAnalyticsTest < Minitest::Test
 
   def test_top_buyers_default
+    skip
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -23,6 +24,7 @@ class CustomerAnalyticsTest < Minitest::Test
   end
 
   def test_top_buyers_arguement
+    skip
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -41,6 +43,7 @@ class CustomerAnalyticsTest < Minitest::Test
   end
 
   def test_top_merchant_for_customer
+    skip
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -57,6 +60,7 @@ class CustomerAnalyticsTest < Minitest::Test
   end
 
   def test_one_time_buyers
+    skip
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -74,6 +78,7 @@ class CustomerAnalyticsTest < Minitest::Test
   end
 
   def test_one_time_buyers_item
+    skip
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -124,6 +129,7 @@ class CustomerAnalyticsTest < Minitest::Test
   end
 
   def test_customers_with_unpaid_invoices
+    skip
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
