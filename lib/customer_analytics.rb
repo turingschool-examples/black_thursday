@@ -12,7 +12,8 @@ module CustomerAnalytics
 
   def one_time_buyers
     @customers.all.find_all do |customer|
-      @customers.customer_repo_to_se_invoices(customer.id).length == 1
+      customer_invoices = @customers.customer_repo_to_se_invoices(customer.id)
+      customer_invoices == 1 && customer_invoices[0].transactions.length == 1
     end
   end
 
