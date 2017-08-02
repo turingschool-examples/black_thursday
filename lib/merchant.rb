@@ -17,15 +17,15 @@ class Merchant
   end
 
   def items
-    @merch_repo.find_items_by_merchant_id(id)
+    merch_repo.find_items_by_merchant_id(id)
   end
 
   def invoices
-    @merch_repo.find_invoices_by_merchant_id(id)
+    merch_repo.find_invoices_by_merchant_id(id)
   end
 
   def customers
-    @merch_repo.find_customers_by_merchant_id(id)
+    merch_repo.find_customers_by_merchant_id(id)
   end
 
 end
