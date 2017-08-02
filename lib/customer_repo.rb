@@ -23,11 +23,11 @@ class CustomerRepository
   end
 
   def all
-    @customers.values
+    customers.values
   end
 
   def find_by_id(customer_id)
-    @customers[customer_id.to_s]
+    customers[customer_id.to_s]
   end
 
   def find_all_by_first_name(first_name)

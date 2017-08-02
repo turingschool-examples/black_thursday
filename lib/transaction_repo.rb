@@ -23,11 +23,11 @@ class TransactionRepository
   end
 
   def all
-    @transactions.values
+    transactions.values
   end
 
   def find_by_id(id)
-    @transactions[id.to_s]
+    transactions[id.to_s]
   end
 
   def find_all_by_invoice_id(invoice_id)
@@ -58,6 +58,6 @@ class TransactionRepository
   end
 
   def find_invoices_by_transaction(invoice_id)
-    @engine.find_invoices_by_transaction(invoice_id)
+    engine.find_invoices_by_transaction(invoice_id)
   end
 end

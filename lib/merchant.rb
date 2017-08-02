@@ -17,15 +17,33 @@ class Merchant
   end
 
   def items
-    @merch_repo.find_items_by_merchant_id(id)
+    merch_repo.find_items_by_merchant_id(id)
   end
 
   def invoices
-    @merch_repo.find_invoices_by_merchant_id(id)
+    merch_repo.find_invoices_by_merchant_id(id)
   end
 
   def customers
-    @merch_repo.find_customers_by_merchant_id(id)
+    merch_repo.find_customers_by_merchant_id(id)
+  end
+
+  def paid_invoices
+  invoices.find_all do |invoice|
+    invoice.is_paid_in_full?
+    end
+  end
+
+  def invoice_items
+    paid_invoices.map do |invoice|
+      invoice.invoice_items
+    end.flatten
+  end
+
+  def total_revenue
+   invoices.reduce(0) do |sum, invoice|
+     sum + invoice.total
+   end
   end
 
   def pending_invoices?
