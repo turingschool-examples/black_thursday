@@ -14,7 +14,7 @@ class Customer
   end
 
   def merchants
-    @customer_repo.find_merchants_by_customer_id(customer_id)
+    customer_repo.find_merchants_by_customer_id(customer_id)
   end
 
 end
