@@ -1,8 +1,3 @@
-# sa.best_invoice_by_revenue #=> invoice
-#
-# sa.best_invoice_by_quantity #=> invoice
-
-
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/sales_analyst'

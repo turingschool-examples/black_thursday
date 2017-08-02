@@ -1,12 +1,6 @@
-# # invoice.transactions.map(&:result) #=> ["failed", "success"]
-# invoice.is_paid_in_full? #=> true
-#
-# # invoice.transactions.map(&:result) #=> ["failed", "failed"]
-# invoice.is_paid_in_full? #=> false
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/sales_analyst'
-require 'pry'
 
 class SalesAnalystTest < Minitest::Test
   def test_average_items_per_merchant
