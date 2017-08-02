@@ -101,5 +101,34 @@ class SalesEngine
     top_merchants.reverse[0...x]
   end
 
+  # def merchants_ranked_by_revenue
+  #   merchants.all.sort_by do |merchant|
+  #     merchant.total_revenue
+  #   end
+  # end
+
+  def merchants_ranked_by_revenue
+    paid_invoices = @invoices.all.group_by { |invoice| invoice.is_paid_in_full? }
+    merchant_invoices = paid_invoices[true].group_by { |invoice| invoice.merchant_id }
+    merchant_invoices.each_value do |invoices|
+      invoices.map! { |invoice| invoice.total }
+    end
+    total_revenue = merchant_invoices.keys.sort_by do |merchant_id|
+      merchant_invoices[merchant_id].reduce(:+)
+    end
+    total_revenue.map! do |merchant_id|
+      fetch_merchant(merchant_id)
+    end
+  end
+
+  def merchants_with_pending_invoices
+    invoices = @invoices.all.find_all do |invoice|
+      !invoice.is_paid_in_full?
+    end
+    pending = invoices.map do |invoice|
+      invoice.merchant
+    end
+    pending.uniq
+  end
 
 end

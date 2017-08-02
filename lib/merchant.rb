@@ -19,6 +19,12 @@ class Merchant
     @mr.fetch_customers_by_merchant_id(id)
   end
 
+  # def total_revenue
+  #   invoices.reduce(0) do |sum, invoice|
+  #     sum + invoice.total
+  #   end
+  # end
+
 
 
 end

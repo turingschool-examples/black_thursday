@@ -239,7 +239,21 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 20, actual.count
   end
 
-  
+  def test_it_returns_merchants_with_pending_invoices
+    se = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv",
+      :customers => "./data/customers.csv"
+      })
+    sa = SalesAnalyst.new(se)
+    actual = sa.merchants_with_pending_invoices
+    assert_equal 448, actual.count
+  end
+
+
 
 
 end

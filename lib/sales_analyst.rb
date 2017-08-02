@@ -170,8 +170,21 @@ class SalesAnalyst
     total
   end
 
+  def merchants_ranked_by_revenue
+    sales_engine.merchants_ranked_by_revenue
+  end
+
   def top_revenue_earners(x = 20)
     sales_engine.top_revenue_earners(x)
+  end
+
+  def merchants_with_pending_invoices
+    sales_engine.merchants_with_pending_invoices
+  end
+
+  def merchants_with_only_one_item
+    binding.pry
+    sales_engine.items.all.group_by { |merchant| merchant.id }
   end
 
 end
