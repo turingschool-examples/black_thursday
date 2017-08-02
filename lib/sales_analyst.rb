@@ -195,4 +195,15 @@ class SalesAnalyst
     end
   end
 
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants_by_month = merchants_with_only_one_item
+    registered_month = []
+    merchants_by_month.each do |merchant|
+      if merchant.created_month == month
+        registered_month << merchant
+      end
+    end
+    registered_month
+  end
+
 end
