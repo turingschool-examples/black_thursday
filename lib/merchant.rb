@@ -40,4 +40,10 @@ class Merchant
     end.flatten
   end
 
+  def total_revenue
+   invoices.reduce(0) do |sum, invoice|
+     sum + invoice.total
+   end
+  end
+
 end
