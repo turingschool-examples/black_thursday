@@ -24,11 +24,11 @@ class Item
     @created_at            = Time.parse(item_hash[:created_at])
     @updated_at            = Time.parse(item_hash[:updated_at])
     @unit_price_to_dollars = unit_price.to_f
-    @item_repo = item_repo
+    @item_repo             = item_repo
   end
 
   def merchant
-    @item_repo.find_merchant_vendor(merchant_id)
+    item_repo.find_merchant_vendor(merchant_id)
   end
 
   private

@@ -16,7 +16,7 @@ class MerchantRepository
   end
 
   def all
-    @merchants.values
+    merchants.values
   end
 
   def find_merchant_by_an_item(item_id)
@@ -26,15 +26,15 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    @merchants[id]
+    merchants[id]
   end
 
   def find_items_by_merchant_id(merchant_id)
-    @engine.items.find_all_items_to_a_merchant(merchant_id)
+    engine.items.find_all_items_to_a_merchant(merchant_id)
   end
 
   def find_invoices_by_merchant_id(merchant_id)
-    @engine.invoices.find_all_by_merchant_id(merchant_id)
+    engine.invoices.find_all_by_merchant_id(merchant_id)
   end
 
   def find_by_name(name)
@@ -54,7 +54,6 @@ class MerchantRepository
     array_of_matching_merchants
   end
 
-
   def find_matching_merchants(merchant_ids)
     all.find_all do |merchant|
       merchant_ids.include?(merchant.id)
@@ -62,7 +61,7 @@ class MerchantRepository
   end
 
   def find_customers_by_merchant_id(merchant_id)
-    @engine.find_customers_by_merchant_id(merchant_id)
+    engine.find_customers_by_merchant_id(merchant_id)
   end
 
   def find_merchants_with_only_one_item

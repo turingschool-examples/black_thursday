@@ -23,11 +23,11 @@ class InvoiceItemRepository
   end
 
   def all
-    @invoice_items.values
+    invoice_items.values
   end
 
   def find_by_id(id)
-    @invoice_items[id.to_s]
+    invoice_items[id.to_s]
   end
 
   def find_all_by_item_id(item_id)
@@ -50,8 +50,14 @@ class InvoiceItemRepository
 
   def item_ids_by_invoice_id(invoice_id)
     find_all_by_invoice_id(invoice_id).map do |invoice_item|
-      invoice_item.item_id  
+      invoice_item.item_id
     end
   end
+
+  def find_highest_quanity_by_merchant_id(merchant_id)
+    # find_all_by_item_id
+
+  end
+
 
 end
