@@ -147,4 +147,36 @@ class CustomerAnalyticsTest < Minitest::Test
     assert_equal 786, unpaid_customers.length
   end
 
+  def test_best_invoice_by_revenue
+    sales_engine = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv",
+      :customers => "./data/customers.csv"
+    })
+    sales_analyst = SalesAnalyst.new(sales_engine)
+
+    best_invoice = sales_analyst.best_invoice_by_revenue
+
+    assert_instance_of Invoice, best_invoice
+  end
+
+  def test_best_invoice_by_quantity
+    sales_engine = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv",
+      :customers => "./data/customers.csv"
+    })
+    sales_analyst = SalesAnalyst.new(sales_engine)
+
+    best_invoice = sales_analyst.best_invoice_by_quantity
+
+    assert_instance_of Invoice, best_invoice
+  end
+
 end

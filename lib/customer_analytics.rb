@@ -84,4 +84,16 @@ module CustomerAnalytics
       end
     end
 
+    def best_invoice_by_revenue
+      @invoices.all.max_by {|invoice| invoice.total}
+    end
+
+    def best_invoice_by_quantity
+      @invoices.all.max_by do |invoice|
+        invoice.invoice_items.reduce(0) do |quantity, invoice_item|
+          quantity += invoice_item.quantity
+        end
+      end
+    end
+
 end
