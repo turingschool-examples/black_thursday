@@ -128,6 +128,22 @@ class CustomerAnalyticsTest < Minitest::Test
     assert bought_in_year.all? {|item| item.is_a?(Item)}
   end
 
+  def test_highest_volume_items
+    sales_engine = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv",
+      :customers => "./data/customers.csv"
+    })
+    sales_analyst = SalesAnalyst.new(sales_engine)
+
+    highest_items = sales_analyst.highest_volume_items(2)
+
+    assert_instance_of Array, highest_items
+    refute_nil highest_items[0]
+  end
 
 
 end

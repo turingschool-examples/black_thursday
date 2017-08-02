@@ -49,5 +49,19 @@ module CustomerAnalytics
       get_items_from_array(invoice_items_in_year)
     end
 
+    def highest_volume_items(customer_id)
+      customer_invoices = @invoices.find_all_by_customer_id(customer_id)
+      customer_invoice_items = get_invoice_items_from_array(customer_invoices)
+      #get quantity
+      customer_items = get_items_from_array(customer_invoice_items)
+      reverse_sorted = customer_items.sort_by {|item| customer_items.count(item)}
+      reverse_sorted.reverse.reduce([]) do |highest_items, item|
+        if  reverse_sorted.count(item) == reverse_sorted.count(reverse_sorted.last)
+          highest_items << item
+        end
+        highest_items.uniq
+      end
+    end
+
 
 end
