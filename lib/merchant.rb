@@ -34,4 +34,13 @@ class Merchant
     end
   end
 
+  def revenue_by_customer_id(customer_id)
+    self.invoices.inject(0) do |sum, invoice_instance|
+      if invoice_instance.customer_id == customer_id
+        sum += invoice_instance.total
+      end
+      sum
+    end
+  end
+
 end
