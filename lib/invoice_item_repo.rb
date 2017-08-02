@@ -54,4 +54,10 @@ class InvoiceItemRepository
     end
   end
 
+  def find_highest_quanity_by_merchant_id(merchant_id)
+    # find_all_by_item_id
+
+  end
+
+
 end

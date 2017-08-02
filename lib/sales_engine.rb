@@ -86,6 +86,10 @@ class SalesEngine
     merchants.find_merchants_by_total_revenue
   end
 
+  def find_item_by_id(item_id)
+    items.find_by_id(item_id)
+  end
+
   def self.from_csv(se_hash)
     item_data         = self.load_data(se_hash[:items])
     merchant_data     = self.load_data(se_hash[:merchants])

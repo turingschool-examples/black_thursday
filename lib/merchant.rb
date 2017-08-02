@@ -28,4 +28,16 @@ class Merchant
     merch_repo.find_customers_by_merchant_id(id)
   end
 
+  def paid_invoices
+  invoices.find_all do |invoice|
+    invoice.is_paid_in_full?
+    end
+  end
+
+  def invoice_items
+    paid_invoices.map do |invoice|
+      invoice.invoice_items
+    end.flatten
+  end
+
 end

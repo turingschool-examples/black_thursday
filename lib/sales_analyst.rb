@@ -187,13 +187,27 @@ class SalesAnalyst
   end
 
   def most_sold_item_for_merchant(merchant_id)
-    # [item](in terms of quantity sold) or, if there is a tie,[item, item, item]
-    # engine.find_items_by_merchant_id(merchant_id)
+    merchant = engine.find_merchant_by_id(merchant_id)
+    most_sold = merchant.invoice_items.reduce({}) do |quantities, inv_item|
+      quantity = inv_item.quantity
+      if quantities.has_key?(quantity)
+        quantities[quantity] << engine.find_item_by_id(inv_item.item_id)
+      else
+        quantities[quantity] = [engine.find_item_by_id(inv_item.item_id)]
+      end
+      quantities
+    end
+    most_sold[most_sold.keys.max]
   end
 
   def best_item_for_merchant(merchant_id)
-    # item (in terms of revenue generated)
-    # engine.find_items_by_merchant_id(merchant_id)
+    merchant = engine.find_merchant_by_id(merchant_id)
+    best_items = merchant.invoice_items.reduce({}) do |quantities, inv_item|
+      revenue = inv_item.quantity * inv_item.unit_price
+      quantities[revenue] = engine.find_item_by_id(inv_item.item_id)
+      quantities
+    end
+    best_items[best_items.keys.max]
   end
 
   private
