@@ -63,5 +63,10 @@ module CustomerAnalytics
       end
     end
 
+    def customers_with_unpaid_invoices
+      @customers.all.find_all do |customer|
+        customer.invoices.any? {|invoice| !(invoice.is_paid_in_full?)}
+      end
+    end
 
 end

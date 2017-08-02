@@ -26,4 +26,8 @@ class Customer
     customer_repo.customer_repo_to_se_invoice_items(id)
   end
 
+  def invoices
+    customer_repo.customer_repo_to_se_invoices(id)
+  end
+
 end

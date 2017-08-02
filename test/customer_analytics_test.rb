@@ -1,20 +1,3 @@
-# sa.top_buyers(x) #=> [customer, customer, customer, customer, customer]
-#
-# sa.top_buyers #=> [customer * 20]
-#
-# sa.top_merchant_for_customer(customer_id) #=> merchant
-#
-# sa.one_time_buyers #=> [customer, customer, customer]
-#
-# sa.one_time_buyers_item #=> [item]
-#
-# sa.items_bought_in_year(customer_id, year) #=> [item]
-#
-# sa.highest_volume_items(customer_id) #=> [item] or [item, item, item]
-#
-# sa.customers_with_unpaid_invoices #=> [customer, customer, customer]
-
-
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/sales_analyst'
@@ -22,7 +5,6 @@ require_relative '../lib/sales_analyst'
 class CustomerAnalyticsTest < Minitest::Test
 
   def test_top_buyers_default
-    skip
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -41,7 +23,6 @@ class CustomerAnalyticsTest < Minitest::Test
   end
 
   def test_top_buyers_arguement
-    skip
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -60,7 +41,6 @@ class CustomerAnalyticsTest < Minitest::Test
   end
 
   def test_top_merchant_for_customer
-    skip
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -77,7 +57,6 @@ class CustomerAnalyticsTest < Minitest::Test
   end
 
   def test_one_time_buyers
-    skip
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -95,7 +74,6 @@ class CustomerAnalyticsTest < Minitest::Test
   end
 
   def test_one_time_buyers_item
-    skip
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -145,5 +123,22 @@ class CustomerAnalyticsTest < Minitest::Test
     refute_nil highest_items[0]
   end
 
+  def test_customers_with_unpaid_invoices
+    sales_engine = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv",
+      :customers => "./data/customers.csv"
+    })
+    sales_analyst = SalesAnalyst.new(sales_engine)
+
+    unpaid_customers = sales_analyst.customers_with_unpaid_invoices
+
+    assert_instance_of Array, unpaid_customers
+    assert unpaid_customers.all? {|customer| customer.is_a?(Customer)}
+    assert_equal 786, unpaid_customers.length
+  end
 
 end
