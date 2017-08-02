@@ -27,8 +27,8 @@ class InvoiceItem
     unit_price / 100
   end
 
-  def item
-    @invoice_item_repo.invoice_item_to_se_item(item_id)
+  def items
+    @invoice_item_repo.invoice_items_to_se_item(item_id)
   end
-  
+
 end

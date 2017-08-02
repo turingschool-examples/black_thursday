@@ -65,7 +65,7 @@ class SalesEngine
     initialize_if_it_exists(customer_proc, customer_file)
   end
 
-  def items_by_item_id(item_id)
+  def item_by_item_id(item_id)
     items.find_by_id(item_id)
   end
 

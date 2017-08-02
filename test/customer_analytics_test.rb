@@ -95,6 +95,7 @@ class CustomerAnalyticsTest < Minitest::Test
   end
 
   def test_one_time_buyers_item
+    skip
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -108,6 +109,23 @@ class CustomerAnalyticsTest < Minitest::Test
     item = sales_analyst.one_time_buyers_item
 
     assert_instance_of Item, item
+  end
+
+  def test_items_bought_in_year
+    sales_engine = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv",
+      :customers => "./data/customers.csv"
+    })
+    sales_analyst = SalesAnalyst.new(sales_engine)
+
+    bought_in_year = sales_analyst.items_bought_in_year(1, 2009)
+
+    assert_equal 8, bought_in_year.length
+    assert bought_in_year.all? {|item| item.is_a?(Item)}
   end
 
 
