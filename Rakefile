@@ -1,3 +1,13 @@
+task default: %w[test]
+
+task :test do
+  ruby "test/item_test.rb"
+  ruby "test/merchant_test.rb"
+  ruby "test/item_repo_test.rb"
+  ruby "test/merchant_repo_test.rb"
+  ruby "test/sales_engine_test.rb"
+end
+
 namespace :sanitation do
   desc "Check line lengths & whitespace with Cane"
   task :lines do
