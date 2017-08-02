@@ -95,7 +95,10 @@ class SalesEngine
     total_revenue = merchant_invoices.keys.sort_by do |merchant_id|
       merchant_invoices[merchant_id].reduce(:+)
     end
-    total_revenue.reverse[0...x]
+    top_merchants = total_revenue.map do |merchant_id|
+      fetch_merchant(merchant_id)
+    end
+    top_merchants.reverse[0...x]
   end
 
 

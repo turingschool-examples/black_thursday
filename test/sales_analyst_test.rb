@@ -239,5 +239,7 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 20, actual.count
   end
 
+  
+
 
 end
