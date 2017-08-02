@@ -21,6 +21,7 @@ module MarketAnalytics
         else
           q_hash[invoice_item.item_id] += attribute_proc.call(invoice_item)
         end
+        q_hash
       end
     end
 

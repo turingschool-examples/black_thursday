@@ -48,6 +48,15 @@ class CustomerRepository
     @sales_engine.merchants_by_customer_id(customer_id)
   end
 
+  def customers_by_expenditure
+    all.sort_by do |customer|
+      invoices = @sales_engine.invoices_by_customer_id(customer.id)
+      invoices.reduce(0) do |total, invoice|
+        total += invoice.total
+      end
+    end
+  end
+
   def inspect
     "#<#{self.class} #{@customers.size} rows>"
   end

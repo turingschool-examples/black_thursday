@@ -63,6 +63,7 @@ class MarketAnalyticsTest < Minitest::Test
   end
 
   def test_top_revenue_earners_default
+    skip
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -81,6 +82,7 @@ class MarketAnalyticsTest < Minitest::Test
   end
 
   def test_top_revenue_earners_with_argument
+    skip
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -99,7 +101,6 @@ class MarketAnalyticsTest < Minitest::Test
   end
 
   def test_most_sold_item_for_merchant
-    skip
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
