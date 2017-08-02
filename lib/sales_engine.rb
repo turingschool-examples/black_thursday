@@ -108,8 +108,7 @@ class SalesEngine
   # end
 
   def merchants_ranked_by_revenue
-    paid_invoices = @invoices.all.group_by { |invoice| invoice.is_paid_in_full? }
-    merchant_invoices = paid_invoices[true].group_by { |invoice| invoice.merchant_id }
+    merchant_invoices = paid_invoices.group_by { |invoice| invoice.merchant_id }
     merchant_invoices.each_value do |invoices|
       invoices.map! { |invoice| invoice.total }
     end
@@ -118,7 +117,7 @@ class SalesEngine
     end
     total_revenue.map! do |merchant_id|
       fetch_merchant(merchant_id)
-    end
+    end.reverse
   end
 
   def merchants_with_pending_invoices
@@ -129,6 +128,18 @@ class SalesEngine
       invoice.merchant
     end
     pending.uniq
+  end
+
+  def paid_invoices
+    @invoices.all.find_all do |invoice|
+      invoice.is_paid_in_full?
+    end
+  end
+
+  def unpaid_invoices
+    @invoices.all.find_all do |invoice|
+      !invoice.is_paid_in_full?
+    end
   end
 
 end

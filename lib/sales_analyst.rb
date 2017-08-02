@@ -183,8 +183,16 @@ class SalesAnalyst
   end
 
   def merchants_with_only_one_item
-    binding.pry
-    sales_engine.items.all.group_by { |merchant| merchant.id }
+    merchant_items = sales_engine.items.all.group_by { | item | item.merchant_id }
+    merchants_with_only_one_item = []
+    merchant_items.each do |key, value|
+      if value.count == 1
+        merchants_with_only_one_item << key
+      end
+    end
+    merchants_with_only_one_item.map! do |merchant_id|
+      sales_engine.fetch_merchant(merchant_id)
+    end
   end
 
 end
