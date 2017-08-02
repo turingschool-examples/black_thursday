@@ -60,6 +60,7 @@ class CustomerAnalyticsTest < Minitest::Test
   end
 
   def test_top_merchant_for_customer
+    skip
     sales_engine = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -74,5 +75,24 @@ class CustomerAnalyticsTest < Minitest::Test
 
     assert_instance_of Merchant, top
   end
+
+  def test_one_time_buyers
+    sales_engine = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv",
+      :customers => "./data/customers.csv"
+    })
+    sales_analyst = SalesAnalyst.new(sales_engine)
+
+    buyers = sales_analyst.one_time_buyers
+
+    assert_instance_of Array, buyers
+    assert buyers.all? {|buyer| buyer.is_a?(Customer)}
+  end
+
+
 
 end

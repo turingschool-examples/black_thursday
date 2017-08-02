@@ -10,6 +10,12 @@ module CustomerAnalytics
     @customers.customer_merchants_by_customer_expenditure(customer_id)[0]
   end
 
+  def one_time_buyers
+    @customers.all.find_all do |customer|
+      @customers.customer_repo_to_se_invoices(customer.id).length == 1
+    end
+  end
+
 
 
 end
