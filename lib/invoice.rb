@@ -47,4 +47,16 @@ class Invoice
     total
   end
 
+  def find_transaction_success
+    transactions.find_all do |transaction|
+      transaction.result == "success"
+    end
+  end
+
+  def no_successful_transactions?
+    transactions.none? do |transaction|
+      transaction.result == "success"  
+    end
+  end
+
 end

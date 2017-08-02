@@ -158,16 +158,41 @@ class SalesAnalyst
     sum
   end
 
-  def top_revenue_earners(x)
-    # returns array of merchants
-    # If no number is given for top_revenue_earners,
-          # it takes the top 20 merchants by default =>
-              #sa.top_revenue_earners #=> [merchant * 20]
+  def top_revenue_earners(x = 20)
+    sorted_merchants = sort_merchants_by_revenue
+    top_merchants = sorted_merchants.last(x)
+    top_merchants.reverse
+  end
+
+  def sort_merchants_by_revenue
+    merchants = @engine.merchants.all
+    merchants.sort_by {|merchant| merchant.total_revenue}
+  end
+
+  def merchants_ranked_by_revenue
+    sort_merchants_by_revenue.reverse
   end
 
   def merchants_with_pending_invoices
-    # returns array of merchants
-    # Note: an invoice is considered pending if none of its transactions are successful.
+    merchants = @engine.merchants.all
+    pending_array = []
+    merchants.each do |merchant|
+      if merchant.pending_invoices?
+        pending_array << merchant
+      end
+    end
+    pending_array
+  end
+
+  def revenue_by_merchant(merchant_id)
+    merchant = @engine.find_merchant_by_id(merchant_id)
+    merchant.total_revenue
+  end
+
+  def find_merchants_by_invoice(invoices)
+    invoices.map do |invoice|
+      @engine.find_merchant_by_id(invoice.merchant_id)
+    end
   end
 
   def merchants_with_only_one_item
@@ -178,9 +203,9 @@ class SalesAnalyst
     merchants_with_only_one_item.find_all { |merchant| merchant.created_at.strftime('%B') == month }
   end
 
-  def revenue_by_merchant(merchant_id)
-    @engine.merchants_by_total_revenue(merchant_id)
-  end
+  # def revenue_by_merchant(merchant_id)
+  #   @engine.merchants_by_total_revenue(merchant_id)
+  # end
 
   def most_sold_item_for_merchant(merchant_id)
     # [item] (in terms of quantity sold) or, if there is a tie, [item, item, item]
