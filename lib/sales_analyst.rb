@@ -183,8 +183,53 @@ class SalesAnalyst
   end
 
   def merchants_with_only_one_item
-    # binding.pry
     sales_engine.items.all.group_by { |merchant| merchant.id }
+
+    merchant_items = sales_engine.items.all.group_by { | item | item.merchant_id }
+    merchants_with_only_one_item = []
+    merchant_items.each do |key, value|
+      if value.count == 1
+        merchants_with_only_one_item << key
+      end
+    end
+    merchants_with_only_one_item.map! do |merchant_id|
+      sales_engine.fetch_merchant(merchant_id)
+    end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants_by_month = merchants_with_only_one_item
+    registered_month = []
+    merchants_by_month.each do |merchant|
+      if merchant.created_month == month
+        registered_month << merchant
+      end
+    end
+    registered_month
+  end
+
+  def revenue_by_merchant(merchant_id)
+    sales_engine.fetch_merchant_id(merchant_id).total_revenue
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    merchant = sales_engine.fetch_merchant_id(merchant_id)
+    invoices_by_merchant = sales_engine.paid_invoices.group_by { |invoice| invoice.merchant_id }
+    invoices_by_merchant[merchant_id].
+    end
+    invoice_items = merchant_invoices.map do |invoice|
+      invoice.invoice_items
+    end.flatten
+    merchant_invoice_items = invoice_items.group_by { |item| item.item_id }
+    merchant_items = merchant_invoice_items.each do |key, value|
+      merchant_invoice_items[key] = value[0].quantity
+    end
+    top_items = merchant_items.keys.select do |key|
+      merchant_items[key] == merchant_items.values.max
+    end
+    top_items.map do |id|
+      sales_engine.items.find_by_id(id)
+    end.uniq
   end
 
 end
