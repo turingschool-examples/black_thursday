@@ -101,11 +101,9 @@ class SalesEngine
     top_merchants.reverse[0...x]
   end
 
-  # def merchants_ranked_by_revenue
-  #   merchants.all.sort_by do |merchant|
-  #     merchant.total_revenue
-  #   end
-  # end
+  def fetch_invoice_items(id)
+    @invoice_items.find_all_by_invoice_id(id)
+  end
 
   def merchants_ranked_by_revenue
     merchant_invoices = paid_invoices.group_by { |invoice| invoice.merchant_id }

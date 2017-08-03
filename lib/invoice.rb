@@ -40,4 +40,8 @@ class Invoice
     @invoice_repo.fetch_invoice_id_for_invoice_items(id)
   end
 
+  def invoice_items
+    @invoice_repo.fetch_invoice_items(id)
+  end
+
 end

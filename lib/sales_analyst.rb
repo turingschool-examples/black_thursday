@@ -206,4 +206,28 @@ class SalesAnalyst
     registered_month
   end
 
+  def revenue_by_merchant(merchant_id)
+    sales_engine.fetch_merchant_id(merchant_id).total_revenue
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    merchant = sales_engine.fetch_merchant_id(merchant_id)
+    invoices_by_merchant = sales_engine.paid_invoices.group_by { |invoice| invoice.merchant_id }
+    invoices_by_merchant[merchant_id].
+    end
+    invoice_items = merchant_invoices.map do |invoice|
+      invoice.invoice_items
+    end.flatten
+    merchant_invoice_items = invoice_items.group_by { |item| item.item_id }
+    merchant_items = merchant_invoice_items.each do |key, value|
+      merchant_invoice_items[key] = value[0].quantity
+    end
+    top_items = merchant_items.keys.select do |key|
+      merchant_items[key] == merchant_items.values.max
+    end
+    top_items.map do |id|
+      sales_engine.items.find_by_id(id)
+    end.uniq
+  end
+
 end
