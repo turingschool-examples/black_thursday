@@ -9,7 +9,7 @@ class ItemTest < Minitest::Test
     item_hash = {
                     :name        => "Pencil",
                     :description => "You can use it to write things",
-                    :unit_price  => 10.99,
+                    :unit_price  => BigDecimal.new(10.99,4),
                     :created_at  => 11,
                     :updated_at  => 12,
                   }
@@ -29,7 +29,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_item_has_a_unit_price
-    assert_equal 10.99, item.unit_price
+    assert_equal BigDecimal.new(10.99,4), item.unit_price
   end
 
   def test_item_has_created_at_time
