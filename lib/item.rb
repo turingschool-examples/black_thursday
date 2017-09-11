@@ -16,4 +16,7 @@ class Item
     @updated_at = item_hash[:updated_at]
   end
 
+  def unit_price_to_dollars(unit_price)
+    unit_price.to_f
+  end
 end
