@@ -7,11 +7,11 @@ class SalesEngine
   end
 
   def items
-    ItemRepository.new(item_file)
+    ItemRepository.new(@item_file)
   end
 
   def merchants
-    MerchantRepository.new(merchant_file)
+    MerchantRepository.new(@merchant_file)
   end
 
 end

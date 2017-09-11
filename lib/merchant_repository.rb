@@ -12,7 +12,8 @@ The data can be found in data/merchants.csv so the instance is created and used 
 
 class MerchantRepository
 
-
-  
+  def initialize(merchant_csv)
+    @merchant_csv = merchant_csv
+  end
 
 end
