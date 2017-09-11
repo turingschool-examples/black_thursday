@@ -70,6 +70,7 @@ class ItemTest < Minitest::Test
                         })
 
     assert_equal 10.99, item_one.unit_price
+    assert_instance_of BigDecimal, item_one.unit_price
   end
 
   def test_it_has_a_date
