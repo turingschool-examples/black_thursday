@@ -3,6 +3,7 @@ require './lib/merchant'
 
 class MerchantRepository
 include CsvParser
+
 attr_accessor :merchants
 
   def initialize(file_name)

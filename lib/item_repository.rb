@@ -1,6 +1,14 @@
-class ItemRepository 
+require './lib/csv_parser'
+require './lib/item'
 
-    def initialize(item_csv)
-        @item_csv = item_csv
-    end 
-end 
+class ItemRepository
+include CsvParser
+
+attr_accessor :items
+
+    def initialize(file_name)
+        @items = []
+        item_parse_data(file_name)
+    end
+
+end
