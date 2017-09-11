@@ -13,4 +13,6 @@ The data can be found in data/merchants.csv so the instance is created and used 
 class MerchantRepository
 
 
+  
+
 end
