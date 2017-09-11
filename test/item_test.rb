@@ -3,7 +3,7 @@ require 'minitest/pride'
 require './lib/item'
 require 'bigdecimal'
 
-class ItemTest
+class ItemTest < Minitest::Test
 
   attr_reader :item
 
@@ -41,7 +41,7 @@ class ItemTest
   end
 
   def test_it_can_return_unit_price_to_dollars
-    skip
-
+    assert_equal 10.99, @item.unit_price_to_dollars
   end
+
 end
