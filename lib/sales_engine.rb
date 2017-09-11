@@ -18,7 +18,7 @@ class SalesEngine
         #create or access the merchant repo. Want mr to initialize by processing csv.
         mr = MerchantRepository.new(@merchant_csv)
         #access instance variable to populate mr with merchants
-        m
+        
         #output: a functioning merchant repo w/ all merchant objects. 
     end 
 
