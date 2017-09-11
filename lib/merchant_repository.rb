@@ -1,6 +1,10 @@
 
 class MerchantRepository
 
+  def merchant_list(file)
+
+  end
+
   def all
     # returns array of all known merchant instances
   end
