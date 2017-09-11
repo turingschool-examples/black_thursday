@@ -6,9 +6,6 @@ class SalesEngine
   include MerchantRepository
   include ItemRepository
 
-  def open_csv
-    
 
-  end
 
 end
