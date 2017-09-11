@@ -1,29 +1,38 @@
 {
   "Unit Tests": {
     "coverage": {
+      "/Users/nicholasmbogo/turing/1module/projects/black_thursday/lib/item_repository.rb": [
+        1,
+        null,
+        1,
+        1,
+        1367,
+        null,
+        null,
+        null,
+        null
+      ],
       "/Users/nicholasmbogo/turing/1module/projects/black_thursday/lib/item.rb": [
         1,
         null,
         null,
-        null,
-        null,
         1,
         null,
         1,
         null,
         1,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
+        1367,
+        1367,
+        1367,
+        1367,
+        1367,
+        1367,
+        1367,
         null,
         null,
         null
       ]
     },
-    "timestamp": 1505153747
+    "timestamp": 1505157372
   }
 }
