@@ -6,6 +6,4 @@ class SalesEngine
   include MerchantRepository
   include ItemRepository
 
-
-
 end

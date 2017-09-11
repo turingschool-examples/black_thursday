@@ -15,7 +15,12 @@ end
 if __FILE__ == $PROGRAM_NAME
   contents = CSV.open "./data/items.csv", headers: true, header_converters: :symbol
   contents.each do |row|
+    id = row[:id]
     name = row[:name]
-    puts "#{name}"
+    description = row[:description]
+    unit = row[:unit_price]
+    created =row[:created_at]
+    update = row[:updated_at]
+    p "#{id}, #{name}, #{description}, #{unit}, #{created}, #{update}"
   end
 end
