@@ -7,5 +7,8 @@ attr_reader :id, :name
     @name = fields[:name]
   end
 
+  def == other
+    @id == other.id
+  end
 
 end
