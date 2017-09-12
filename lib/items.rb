@@ -14,15 +14,15 @@ class Item
               :parent
 
 
-  def initialize(hash, repo = nil)
-    @id          = hash[:id].to_i
-    @name        = hash[:name]
-    @description = hash[:description]
-    @price       = BigDecimal.new(hash[:unit_price])
+  def initialize(data, repo = nil)
+    @id          = data[:id].to_i
+    @name        = data[:name]
+    @description = data[:description]
+    @price       = BigDecimal.new(data[:unit_price])
     @unit_price  = unit_price_to_dollars(@price)
-    @created_at  = Time.parse(hash[:created_at].to_s)
-    @updated_at  = Time.parse(hash[:updated_at].to_s)
-    @merchant_id = hash[:merchant_id].to_i
+    @created_at  = Time.parse(data[:created_at].to_s)
+    @updated_at  = Time.parse(data[:updated_at].to_s)
+    @merchant_id = data[:merchant_id].to_i
     @parent      = repo
   end
 

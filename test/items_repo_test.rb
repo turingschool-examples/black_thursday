@@ -19,12 +19,12 @@ class ItemRepoTest < Minitest::Test
   end
 
   def test_it_finds_all_items
-    assert_equal 1367, ir.all.count
+    assert_equal 1367, ir.all_items.count
   end
 
   def test_it_can_find_by_id
     expected = "510+ RealPush Icon Set"
-    assert_instance_of Item, ir.find_by_id(263395237).class
+    assert_instance_of Item, ir.find_by_id(263395237)
     assert_equal expected, ir.find_by_id(263395237).name
   end
 

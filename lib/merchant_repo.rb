@@ -3,34 +3,30 @@ require 'csv'
 require 'pry'
 class MerchantRepo
 
-  attr_reader :merchants, :parent
+  attr_reader :all_merchants, :parent
 
   def initialize(file, se=nil)
-    @merchants = {}
+    @all_merchants = []
     open_file(file)
     @parent    = se
   end
 
   def open_file(file)
     CSV.foreach file,  headers: true, header_converters: :symbol do |row|
-      merchants[row[:id].to_i] = Merchant.new(row, self)
+      all_merchants <<  Merchant.new(row, self)
     end
   end
 
-  def all
-    merchants.values
-  end
-
-  def find_by_id(id)
-    merchants[id]
+  def find_by_id(merch_id)
+    all_merchants.find {|merchant| merchant.id == merch_id }
   end
 
   def find_by_name(name)
-    all.find {|merchant| merchant.name.downcase == name.downcase}
+    all_merchants.find {|merchant| merchant.name.downcase == name.downcase}
   end
 
   def find_all_by_name(name)
-    all.find_all do |merchant|
+    all_merchants.find_all do |merchant|
       merchant.name.downcase.include?(name.downcase)
     end
   end

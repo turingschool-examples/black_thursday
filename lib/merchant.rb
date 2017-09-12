@@ -4,9 +4,9 @@ class Merchant
               :name,
               :parent
 
-  def initialize(hash, repo=nil)
-    @id     = hash[:id].to_i
-    @name   = hash[:name]
+  def initialize(data, repo=nil)
+    @id     = data[:id].to_i
+    @name   = data[:name]
     @parent = repo
   end
 
