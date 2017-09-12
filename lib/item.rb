@@ -7,6 +7,7 @@ attr_reader :name,
             :merchant_id
 
     def initialize(info = {})
+      @id = info[:id]
       @name = info[:name]
       @description = info[:description]
       @unit_price = info[:unit_price]

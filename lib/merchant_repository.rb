@@ -32,4 +32,5 @@ attr_accessor :merchants
     end
   end
 
+
 end

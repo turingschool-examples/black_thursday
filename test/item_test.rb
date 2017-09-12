@@ -8,6 +8,7 @@ class ItemTest < Minitest::Test
   def setup
     item = Item.new({
           :name        => "Pencil",
+          :id          =>  263395237,
           :description => "You can use it to write things",
           :unit_price  => BigDecimal.new(10.99,4),
           :created_at  => '12:00',
