@@ -12,34 +12,35 @@ class ItemTest < Minitest::Test
           :unit_price  => BigDecimal.new(10.99,4),
           :created_at  => '12:00',
           :updated_at  => '8:00',
+          :merchant_id => 12334141
           })
     item
-  end 
+  end
 
   def test_it_exists
     item = setup
-    
+
     assert_instance_of Item, item
   end
 
   def test_it_displays_id
     item = setup
-    
+
     #assert_equal ,item.id
   end
 
   def test_it_has_a_name
-    item = setup  
+    item = setup
 
     assert_equal 'Pencil', item.name
   end
-  
+
   def test_it_has_a_description
     item = setup
 
     assert_equal "You can use it to write things", item.description
   end
-  
+
   def test_it_has_a_unit_price
     item = setup
 
@@ -56,6 +57,12 @@ class ItemTest < Minitest::Test
     item = setup
 
     assert_equal '8:00', item.updated_at
+  end
+
+  def test_it_has_a_merchant_id
+    item = setup
+
+    assert_equal 12334141, item.merchant_id
   end
 
 

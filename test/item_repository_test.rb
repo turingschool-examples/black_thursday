@@ -3,11 +3,11 @@ require 'minitest/pride'
 require './lib/item_repository'
 
 class ItemRepositoryTest < MiniTest::Test
-  
+
   def setup
     ir = ItemRepository.new('./data/items_fixture.csv')
-  
-  end 
+
+  end
   def test_it_exists
     ir = setup
     assert_instance_of ItemRepository, ir
@@ -23,18 +23,18 @@ class ItemRepositoryTest < MiniTest::Test
     ir = setup
 
     assert_equal 4, ir.all.length
-  end 
+  end
 
   def test_it_returns_item_given_the_id
     skip
     #This needs to be sorted out after item id
-  end 
+  end
 
   def test_returns_item_given_the_name
     ir = setup
 
     assert_equal '510+ RealPush Icon Set', ir.find_by_name('510+ RealPush Icon Set')[0].name
-  end 
+  end
 
   def test_returns_item_of_given_description
     ir = setup
@@ -51,11 +51,19 @@ Wooden"
 
     assert_equal description, ir.find_all_with_description(description)[0].description
     assert_equal [], ir.find_all_with_description('dogs')
-  end 
+  end
 
   def test_finds_all_by_price_in_range
     ir = setup
-    
+
     assert_equal 2, ir.find_all_by_price_in_range(600,1300).length
-  end 
+  end
+
+  def test_item_has_merchant_id
+    ir = setup
+
+    assert_equal 12334141, ir.find_by_name('510+ RealPush Icon Set')[0].merchant_id
+  end
+
+  
 end

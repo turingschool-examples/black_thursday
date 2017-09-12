@@ -15,7 +15,8 @@ attr_accessor :items
             description: row[:description],
             unit_price: row[:unit_price],
             created_at: row[:created_at],
-            updated_at: row[:updated_at]})
+            updated_at: row[:updated_at],
+            merchant_id: row[:merchant_id].to_i})
         end
     end
 
@@ -28,7 +29,7 @@ attr_accessor :items
     end
 
     def find_by_name(name)
-        @items.select {|item| item.name == name}
+        @items.find {|item| item.name == name}
     end
 
     def find_all_with_description(description)
@@ -43,6 +44,11 @@ attr_accessor :items
         @items.select {|item| lower.to_i < item.unit_price.to_i && item.unit_price.to_i < higher.to_i }
     end
 
-    def find_all_by_merchant_id
+    def find_all_by_merchant_id(merchant_id)
+        @items.select {|item| item.merchant_id == merchant_id}
     end
+
+    # def assign_id
+    #   @items #iterate through, assign each item object an id# that increments by one.
+    # end
 end
