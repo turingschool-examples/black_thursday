@@ -1,10 +1,18 @@
 require 'csv'
+require 'merchant'
 class MerchantRepository
 
-  def open_csv
-  lines = CSV.open "merchants.csv"
-  lines.each do |line|
-    puts line
+  def all
+    
   end
-  
+
+  def find_by_id
+  end
+
+  def find_by_name
+  end
+
+  def find_all_by_name
+  end
+
 end
