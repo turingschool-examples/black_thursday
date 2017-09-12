@@ -7,5 +7,5 @@ class Merchant
     @id = information[:id]
     @name = information[:name]
   end
-  
+
 end

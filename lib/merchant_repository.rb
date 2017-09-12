@@ -9,18 +9,19 @@ class MerchantRepository
   end
 
   def load_csv(file_path)
-    CSV.foreach(file_path, headers: true, header_converters: :symbol ) do |merchant|
+    CSV.foreach(file_path, headers: true, header_converters: :symbol, converters: :numeric ) do |merchant|
       @merchant_list << Merchant.new(merchant.to_h)
     end
   end
 
   def all
-    # returns array of all known merchant instances
+    @merchant_list
   end
 
-  def find_by_id
-    # returns either nil or an instance of Merchant
-    #matching ID
+  def find_by_id(id)
+    merchant_list.find do |merchant|
+      merchant.id == id
+    end
   end
 
   def find_by_name
