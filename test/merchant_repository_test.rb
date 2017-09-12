@@ -16,7 +16,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_all_returns_array_of_merchants
-    assert_equal [], 
+    assert_equal [array of merchants], mr.all
   end
 
 end
