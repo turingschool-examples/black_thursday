@@ -14,11 +14,11 @@ class MerchantRepository
   end
 
   def create_merchants(file_path)
-    csv_parse(file_path).map {|row| Merchant.new(row)}
+    csv_parse(file_path).map {|row| Merchant.new(row, self)}
   end
 
-  def find_by_id(id_number)
-    all.find {|merchant| merchant.id.to_i == id_number.to_i}
+  def find_by_id(item_id)
+    all.find {|merchant| merchant.id.to_i == item_id.to_i}
   end
 
   def find_by_name(name)
@@ -27,5 +27,9 @@ class MerchantRepository
 
   def find_all_by_name(fragment)
     all.select {|merchant| merchant.name.downcase.include?(fragment.downcase)}
+  end
+
+  def find_all_items_per_merchant(merchant_id)
+    @parent.find_all_items_per_merchant(merchant_id)
   end
 end
