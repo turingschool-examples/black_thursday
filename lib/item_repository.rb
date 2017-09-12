@@ -4,8 +4,9 @@ require 'csv'
 class ItemRepository
   attr_accessor :all
 
-  def initialize(file_path)
-    @all = csv_parse(file_path).map {|row| Item.new(row)}
+  def initialize(file_path, parent=nil)
+    @all    = csv_parse(file_path).map {|row| Item.new(row)}
+    @parent = parent
   end
 
   def csv_parse(file_path)
