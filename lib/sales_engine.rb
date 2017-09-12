@@ -1,5 +1,6 @@
 require_relative 'merchant_repo'
 require_relative 'item_repo'
+require 'pry'
 class SalesEngine
 
   def self.from_csv(data_hash)
