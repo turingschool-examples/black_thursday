@@ -15,6 +15,7 @@ require "csv"
 
 class MerchantRepository
 
+<<<<<<< HEAD
   attr_reader :all
 
   def initialize(FILENAME)
@@ -30,5 +31,10 @@ class MerchantRepository
   end
 
 
+=======
+  def initialize(merchant_csv)
+    @merchant_csv = merchant_csv
+  end
+>>>>>>> 71c3e14d564c75c999a75e7147435ef1c38fe928
 
 end

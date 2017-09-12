@@ -6,18 +6,23 @@ class ItemTest < Minitest::Test
   attr_reader :item
 
   def setup
-    item_hash = {
-                    :name        => "Pencil",
-                    :description => "You can use it to write things",
-                    :unit_price  => BigDecimal.new(10.99,4),
-                    :created_at  => 11,
-                    :updated_at  => 12,
-                  }
+    item_hash = { :id          => 1,
+                  :name        => "Pencil",
+                  :description => "You can use it to write things",
+                  :unit_price  => BigDecimal.new(10.99,4),
+                  :created_at  => 11,
+                  :updated_at  => 12,
+                  :merchant_id => 2
+                }
     @item = Item.new(item_hash)
   end
 
   def test_it_exists
     assert_instance_of Item, item
+  end
+
+  def test_item_has_id
+    assert_equal 1, item.id
   end
 
   def test_item_has_a_name
@@ -38,6 +43,10 @@ class ItemTest < Minitest::Test
 
   def test_item_has_updated_at_time
     assert_equal 12, item.updated_at
+  end
+
+  def test_item_has_merchant_id
+    assert_equal 2, item.merchant_id
   end
 
   def test_unit_price_to_dollars_converts_to_float
