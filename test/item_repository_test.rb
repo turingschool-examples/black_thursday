@@ -18,7 +18,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_all_returns_a_copy
     repo = item_repo
-    refute_same_as repo.all, repo.all
+    refute_same repo.all, repo.all
   end
 
 
@@ -61,7 +61,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_with_description_returns_empty_array_if_nothing_found
-    assert_eqaul [], item_repo.find_all_with_description('!@#$%^&}')
+    assert_equal [], item_repo.find_all_with_description('!@#$%^&}')
   end
 
 
@@ -73,32 +73,32 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_find_all_by_price_can_find_multiple_items
     apples_and_durians = item_repo.find_all_by_price(1)
-    assert_eqaul 2, apples_and_durians.length
+    assert_equal 2, apples_and_durians.length
   end
 
   def test_find_all_by_price_returns_empty_array_if_nothing_found
-    assert_eqaul [], item_repo.find_all_by_price(0)
+    assert_equal [], item_repo.find_all_by_price(0)
   end
 
 
   def test_find_all_by_price_in_range_returns_array_of_items
-    bananas = item_repo.find_all_by_price(0.4..0.6)
+    bananas = item_repo.find_all_by_price_in_range(0.4..0.6)
     assert_instance_of Array, bananas
     assert_instance_of Item, bananas.first
   end
 
   def test_find_all_by_price_in_range_can_find_multiple_items
     not_cherries = item_repo.find_all_by_price_in_range(0..2)
-    assert_eqaul 3, not_cherries.length
+    assert_equal 3, not_cherries.length
   end
 
   def test_find_all_by_price_in_range_is_double_inclusive
     not_cherries = item_repo.find_all_by_price_in_range(0.5..1)
-    assert_eqaul 3, not_cherries.length
+    assert_equal 3, not_cherries.length
   end
 
   def test_find_all_by_price_in_range_returns_empty_array_if_nothing_found
-    assert_eqaul [], item_repo.find_all_by_price(100_001.01, 100_001.02)
+    assert_equal [], item_repo.find_all_by_price_in_range(100_001.01..100_001.02)
   end
 
 
@@ -110,7 +110,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_find_all_by_merchant_id_can_find_multiple_items
     bananas_and_cherries = item_repo.find_all_by_merchant_id(2)
-    assert_eqaul 2, bananas_and_cherries.length
+    assert_equal 2, bananas_and_cherries.length
   end
 
   def test_find_all_by_merchant_id_returns_empty_array_if_nothing_found

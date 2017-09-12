@@ -13,4 +13,9 @@ class Item
     @merchant_id =  fields[:merchant_id]
   end
 
+  def ==(other)
+    @id == other.id
+  end
+
+
 end

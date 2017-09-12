@@ -9,21 +9,21 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_can_have_an_items_repository
     se = SalesEngine.from_csv items: "./data/items.csv"
-    assert_instance_of ItemsRepository, se.items
+    assert_instance_of ItemRepository, se.items
   end
 
   def test_it_can_have_a_merchants_repository
-    se = SalesEngine.from_csv merchant: "./data/merchant.csv"
-    assert_instance_of MerchantRepository, se.merchant
+    se = SalesEngine.from_csv merchants: "./data/merchants.csv"
+    assert_instance_of MerchantRepository, se.merchants
   end
 
   def test_it_can_have_multiple_repositories
     se = SalesEngine.from_csv({
       items: "./data/items.csv",
-      merchant: "./data/merchant.csv"
+      merchants: "./data/merchants.csv"
     })
-    assert_instance_of ItemsRepository, se.items
-    assert_instance_of MerchantRepository, se.merchant
+    assert_instance_of ItemRepository, se.items
+    assert_instance_of MerchantRepository, se.merchants
   end
 
 end
