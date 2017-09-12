@@ -20,7 +20,7 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_has_the_correct_first_entry_id
     mr = MerchantRepository.new('./data/merchants_fixture.csv')
 
-    assert_equal "12334105", mr.merchants[0].id
+    assert_equal 12334105, mr.merchants[0].id
   end
 
   def test_it_has_the_correct_first_entry_name
@@ -39,9 +39,9 @@ class MerchantRepositoryTest < Minitest::Test
   # find_by_id - returns either nil or an instance of Merchant with a matching ID
   def test_it_can_find_a_merchant_using_id
     mr = MerchantRepository.new('./data/merchants_fixture.csv')
-    id_1 = "12334174"
+    id_1 = 12334174
     id_2 = "1"
-    id_3 = 1
+    id_3 = 101
 
     assert mr.find_by_id(id_1)
     assert_nil mr.find_by_id(id_2)

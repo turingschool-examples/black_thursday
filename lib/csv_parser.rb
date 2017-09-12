@@ -6,7 +6,7 @@ module CsvParser
     contents = CSV.open file_name, headers: true, header_converters: :symbol
 
     contents.each do |row|
-      @merchants << Merchant.new({id: row[:id], name: row[:name]})
+      @merchants << Merchant.new({id: row[:id].to_i, name: row[:name]})
     end
   end
 
@@ -15,9 +15,9 @@ module CsvParser
 
     contents.each do |row|
       @items << Item.new(
-        {name: row[:name], 
+        {name: row[:name],
         description: row[:description],
-        unit_price: row[:unit_price], 
+        unit_price: row[:unit_price],
         created_at: row[:created_at],
         updated_at: row[:updated_at]})
     end
