@@ -27,13 +27,11 @@ class MerchantRepo
   end
 
   def find_by_name(name)
-    merchants.find { |merchant| merchant.name == name }
+    merchants.find { |merchant| merchant.name.downcase == name.downcase }
   end
 
   def find_all_by_name(name)
-    merchants_match_by_name = []
-    merchants_match_by_name << merchants.find_all { |merchant| merchant.name.include?(/#{name}/i) }
-    merchants_match_by_name
+    merchants.find_all { |merchant| merchant.name.downcase.include?(name.downcase) }
   end
 
 end
