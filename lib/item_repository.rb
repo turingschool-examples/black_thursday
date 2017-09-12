@@ -5,7 +5,7 @@ class ItemRepository
   attr_accessor :all
 
   def initialize(file_path, parent=nil)
-    @all    = csv_parse(file_path).map {|row| Item.new(row)}
+    @all    = csv_parse(file_path).map {|row| Item.new(row, self)}
     @parent = parent
   end
 
@@ -33,7 +33,11 @@ class ItemRepository
     all.select {|item| price_range.include?(item.unit_price)}
   end
 
-  def find_all_by_merchant_id(merchant_id)
+  def find_all_items_per_merchant(merchant_id)
     all.select {|item| item.merchant_id.include?(merchant_id.to_s)}
+  end
+
+  def find_merchant_that_owns_item(item_id)
+    @parent.find_merchant_that_owns_item(item_id)
   end
 end

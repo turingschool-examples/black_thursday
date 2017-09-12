@@ -9,8 +9,7 @@ class Item
               :updated_at,
               :merchant_id
 
-  def initialize(info)
-    @info        = info
+  def initialize(info, parent=nil)
     @id          = info[:id].to_i
     @name        = info[:name]
     @description = info[:description]
@@ -18,9 +17,10 @@ class Item
     @created_at  = info[:created_at]
     @updated_at  = info[:updated_at]
     @merchant_id = info[:merchant_id]
+    @parent      = parent
   end
 
-  # def unit_price_to_dollars
-  #   if @unit_price.is_a?(Integer)
-  # end
+  def merchant 
+    @parent.find_merchant_that_owns_item(@merchant_id)
+  end
 end
