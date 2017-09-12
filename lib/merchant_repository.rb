@@ -8,7 +8,10 @@ attr_accessor :merchants
 
   def initialize(file_name)
     @merchants = []
-    merchant_parse_data(file_name)
+    merchant_contents = parse_data(file_name)
+    merchant_contents.each do |row|
+      @merchants << Merchant.new({id: row[:id].to_i, name: row[:name]})
+    end
   end
 
   def all
