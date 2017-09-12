@@ -65,17 +65,16 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_name_returns_empty_array_with_invalid_name_search
-    skip
     actual = @mr.find_all_by_name("store")
 
     assert_equal [], actual
   end
 
   def test_find_all_by_name_returns_merchant_with_valid_name_search
-    skip
     actual = @mr.find_all_by_name("i")
+    expected = [@mr.merchant_list[0], @mr.merchant_list[1]]
 
-    assert_equal
+    assert_equal expected, actual
   end
 
 end

@@ -30,8 +30,11 @@ class MerchantRepository
     end
   end
 
+#TODO change "name" parameter to something else
   def find_all_by_name(name)
-    # returns either [] or one or more matches which contain the
-    # supplied name fragment, case INSENSITIVE
+    merchant_list.find_all do |merchant|
+      merchant.name.downcase.include?(name.downcase)
+    end
   end
+  
 end
