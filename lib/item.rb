@@ -8,13 +8,13 @@ class Item
               :created_at,
               :updated_at,
               :merchant_id
-              
+
   def initialize(info)
     @info        = info
-    @id          = info[:id]
+    @id          = info[:id].to_i
     @name        = info[:name]
     @description = info[:description]
-    @unit_price  = BigDecimal.new(info[:unit_price]/100.0, 4)
+    @unit_price  = BigDecimal.new(info[:unit_price].to_i/100.0, 4)
     @created_at  = info[:created_at]
     @updated_at  = info[:updated_at]
     @merchant_id = info[:merchant_id]
