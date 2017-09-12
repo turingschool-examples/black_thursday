@@ -30,11 +30,11 @@ class MerchantRepository
     end
   end
 
-#TODO change "name" parameter to something else
-  def find_all_by_name(name)
+#TODO change "name_fragment" parameter to something else
+  def find_all_by_name(name_fragment)
     merchant_list.find_all do |merchant|
-      merchant.name.downcase.include?(name.downcase)
+      merchant.name.downcase.include?(name_fragment.downcase)
     end
   end
-  
+
 end
