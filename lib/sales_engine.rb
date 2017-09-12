@@ -2,20 +2,22 @@ require_relative './merchant_repository'
 require_relative './item_repository'
 
 class SalesEngine 
+  attr_reader :items, :merchants 
+
+  def initialize(file_path)
+    @merchants = MerchantRepository.new(file_path[:merchants], self)
+    @items     = ItemRepository.new(file_path[:items], self)
+  end
 
   def self.from_csv(file_path)
-    @items     = file_path[:items]
-    @merchants = file_path[:merchants]
-    self.merchants
-    self.items
-    self
+   SalesEngine.new(file_path)
   end
 
-  def self.merchants 
-    MerchantRepository.new(@merchants, self)
+  def find_all_items_per_merchant(merchant_id)
+    @items.find_all_items_per_merchant(merchant_id)
   end
 
-  def self.items
-    ItemRepository.new(@items, self)
+  def find_merchant_that_owns_item(item_id)
+    @merchants.find_by_id(item_id)
   end
 end
