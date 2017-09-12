@@ -55,21 +55,11 @@ class ItemTest < Minitest::Test
     file_path = "/Users/annalewis/turing/1module/projects/black_thursday/test/test_data/item_single.csv"
     csv_row = CSV.read(file_path, headers: true, header_converters: :symbol)
     item = Item.load_csv(csv_row)
-    item_description = "Glitter scrabble frames
-
-Any colour glitter
-Any wording
-
-Available colour scrabble tiles
-Pink
-Blue
-Black
-Wooden"
 
     assert_instance_of Item, Item.load_csv(csv_row)
     assert_equal ["263395617"], item.id
     assert_equal ["Glitter scrabble frames"], item.name
-    assert_equal [item_description], item.description
+    assert_equal ["Glittery"], item.description
     assert_equal ["1300"], item.unit_price
     assert_equal ["2016-01-11 11:51:37 UTC"], item.created_at
     assert_equal ["1993-09-29 11:56:40 UTC"], item.updated_at
