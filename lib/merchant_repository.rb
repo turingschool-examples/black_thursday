@@ -21,11 +21,6 @@ class MerchantRepository
   end
 
   def find_all_by_name(fragment)
-    all.reduce([]) do |array, merchant|
-      name     = merchant.name.downcase 
-      fragment = fragment.downcase
-      array << merchant if name.include?(fragment)
-      array
-    end
+    all.select {|merchant| merchant.name.downcase.include?(fragment.downcase)}
   end
 end
