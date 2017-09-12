@@ -1,9 +1,9 @@
 class SalesEngine
 
-  def from_csv(csv_hash)
+  def self.from_csv(csv_hash)
     @item_file = csv_hash[:items]
     @merchant_file = csv_hash[:merchants]
-    return "loaded"
+    SalesEngine.new
   end
 
   def items
