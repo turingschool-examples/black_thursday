@@ -7,13 +7,13 @@ require './lib/sales_engine'
 class ItemTest < Minitest::Test
 
   def setup
-    
+
     se = SalesEngine.from_csv({
           :items     => "./data/items_fixture.csv",
           :merchants => "./data/merchants_fixture.csv",
         })
-    ir = se.items 
-  
+    ir = se.items
+
   end
 
   def test_it_exists
@@ -67,6 +67,16 @@ Any colours'
     ir = setup
 
     assert_equal 12334185, ir.items[3].merchant_id
+  end
+
+  def test_it_can_be_assigned_a_merchant
+    ir = setup
+
+    item = ir.find_by_id(263395237)
+    item.gather_merchant(item.merchant_id)
+
+    assert_equal 12334141, item.merchant.id
+    assert_equal 'jejum', item.merchant.name
   end
 
 end

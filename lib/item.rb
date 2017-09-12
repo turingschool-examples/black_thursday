@@ -6,6 +6,7 @@ attr_reader :name,
             :updated_at,
             :merchant_id,
             :id
+attr_accessor :merchant
 
     def initialize(info, sales_engine)
       @id = info[:id]
@@ -16,6 +17,11 @@ attr_reader :name,
       @updated_at = info[:updated_at]
       @merchant_id = info[:merchant_id]
       @sales_engine = sales_engine
+      @merchant
+    end
+
+    def gather_merchant(id)
+      @merchant = @sales_engine.merchants.find_by_id(id)
     end
 
 end
