@@ -24,12 +24,13 @@ class MerchantRepository
     end
   end
 
-  def find_by_name
-    # returns either nil or and instance of Merchant having
-    # done case-INSENSITIVE search
+  def find_by_name(name)
+    merchant_list.find do |merchant|
+      merchant.name.downcase == name.downcase
+    end
   end
 
-  def find_all_by_name
+  def find_all_by_name(name)
     # returns either [] or one or more matches which contain the
     # supplied name fragment, case INSENSITIVE
   end
