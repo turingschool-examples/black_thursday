@@ -5,11 +5,11 @@ require './lib/sales_engine'
 class SalesEngineTest < MiniTest::Test
 
   def test_it_exists
-    se = SalesEngine.new
-    se.from_csv({
+    se = SalesEngine.from_csv({
           :items     => "./data/items.csv",
           :merchants => "./data/merchants.csv",
         })
+    
     mr = se.merchants
     ir = se.items
 

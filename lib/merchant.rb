@@ -1,4 +1,4 @@
-require 'merchant_repository'
+require './lib/merchant_repository'
 
 class Merchant
 attr_reader :id, :name
