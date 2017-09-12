@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/merchant_repository'
+require 'pry'
 
 class MerchantRepositoryTest < Minitest::Test
 
@@ -16,9 +17,10 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_merchant_list_returns_a_hash_of_ids_as_keys_and_names_as_values
     actual = @mr.merchant_list
-    expected = { 12334105 => "Shopin1901", 12334112 => "Candisart" }
 
-    assert_equal expected, actual
+    assert_instance_of Merchant, actual[0]
+    assert_instance_of Merchant, actual[1]
+    assert_equal 2, actual.length
   end
 
   def test_all_returns_array_of_all_known_merchant_instances

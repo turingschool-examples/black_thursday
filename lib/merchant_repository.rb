@@ -1,15 +1,17 @@
+require './lib/merchant'
+require 'csv'
 
 class MerchantRepository
   attr_reader :merchant_list
   def initialize(file_path)
-    @merchant_list = {}
-    CSV.foreach(file_path, headers: true) do |row|
-      @merchant_list[row[0]] = 
+    @merchant_list = []
+    load_csv(file_path)
+  end
 
-      # id: row['id'].to_i
-      # name: row['name']
+  def load_csv(file_path)
+    CSV.foreach(file_path, headers: true, header_converters: :symbol ) do |merchant|
+      @merchant_list << Merchant.new(merchant.to_h)
     end
-
   end
 
   def all
