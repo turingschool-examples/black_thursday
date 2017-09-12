@@ -1,9 +1,13 @@
+require_relative 'sales_engine'
 require 'csv'
 
-module ItemRepository
+class ItemRepository
 
-  lines = CSV.open "items.csv"
-  lines.each do |line|
-    puts line
+  attr_accessor :items
+
+  def intialize
+    @items = []
   end
+
+  
 end

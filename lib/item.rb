@@ -1,26 +1,24 @@
+require 'time'
+require 'bigdecimal'
 require 'csv'
 
 class Item
-  attr_accessor :id, :name, :description, :unit_price, :created_at, :updated_at
+  attr_accessor :id, :name, :description, :unit_price, :created_at, :updated_at,
+    :merchant_id
 
-  def initialize(item)
+  def initialize(item = {})
+    @id = item.fetch(:id).to_i
     @name = item.fetch(:name)
     @description = item.fetch(:description)
-    @unit_price = item.fetch(:unit_price)
-    @created_at = item.fetch(:created_at)
-    @updated_at = item.fetch(:updated_at)
+    @unit_price = BigDecimal.new(item.fetch(:unit_price))
+    @created_at = Time.parse(item.fetch(:created_at))
+    @updated_at = Time.parse(item.fetch(:updated_at))
+    @merchant_id = item.fetch(:merchant_id).to_i
   end
-end
 
-if __FILE__ == $PROGRAM_NAME
-  contents = CSV.open "./data/items.csv", headers: true, header_converters: :symbol
-  contents.each do |row|
-    id = row[:id]
-    name = row[:name]
-    description = row[:description]
-    unit = row[:unit_price]
-    created =row[:created_at]
-    update = row[:updated_at]
-    p "#{id}, #{name}, #{description}, #{unit}, #{created}, #{update}"
+  def unit_to_dollar(unit_price = @unit_price)
+    price = unit_price.to_f.to_s
+    "$#{price}"
   end
+
 end

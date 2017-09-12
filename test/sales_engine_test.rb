@@ -1,19 +1,32 @@
 require 'pry'
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative '../lib/sales_engine'
+require './lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test
   def test_it_exists
-    se = SalesEngine.new
+    sales = SalesEngine.new
 
-    assert_instance_of SalesEngine, se
+    assert_instance_of SalesEngine, sales
   end
 
-  def test_csv_is_read_for_merchant
-    se = SalesEngine.new
+  def test_instance_of_items_repo
+    sales = SalesEngine.new
 
-    assert_equal "merchants.csv", se
+    assert_instance_of ItemRepository, sales.items
+  end
+
+  def test_instance_of_merchant_repo
+    sales = SalesEngine.new
+
+    assert_instance_of MerchantRepository, sales.merchants
+  end
+
+  def test_from_csv_items
+    sales = SalesEngine.new
+    sales.from_csv({:items => "./data/item_fixture"})
+
+    assert_equal 10, sales.items.items
   end
 
 end
