@@ -40,4 +40,52 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 3, actual.length
   end
 
+  def test_find_by_id_returns_nil_with_invalid_id
+    actual = @ir.find_by_id(666)
+
+    assert_nil actual
+  end
+
+  def test_find_by_id_returns_item_with_valid_id
+    actual = @ir.find_by_id(263395237)
+    expected = @ir.items[0]
+
+    assert_equal expected, actual
+  end
+
+  def test_find_by_name_returns_nil_with_invalid_name
+    actual = @ir.find_by_name("invalid")
+
+    assert_nil actual
+  end
+
+  def test_find_by_name_returns_item_with_valid_name
+    actual = @ir.find_by_name("510+ RealPush Icon Set")
+    expected = @ir.items[0]
+
+    assert_equal expected, actual
+  end
+
+  def test_find_by_name_returns_item_with_valid_name_case_insensitive
+    actual = @ir.find_by_name("510+ realpush icon set")
+    expected = @ir.items[0]
+
+    assert_equal expected, actual
+  end
+
+  def test_find_all_with_description_returns_empty_array_with_invalid_search
+    actual = @ir.find_all_by_description("people")
+
+    assert_equal [], actual
+  end
+
+  def test_find_all_with_description_returns_items_with_valid_search_case_insensitive
+    actual = @ir.find_all_by_description("Glitter")
+    expected = [@ir.items[1], @ir.items[2]]
+
+    assert_equal expected, actual
+  end
+
+
+
 end
