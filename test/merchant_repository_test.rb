@@ -12,7 +12,7 @@ class MerchantRepositoryTest < Minitest::Test
       Merchant.new({id: 3, name: "EmptyString"}),
       Merchant.new({id: 2, name: "Amazon"})]
 
-    @mr = MerchantRepository.new(@merchants)
+    @mr = MerchantRepository.new(nil, @merchants)
   end
 
 

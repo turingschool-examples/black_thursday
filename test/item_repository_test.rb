@@ -119,7 +119,7 @@ class ItemRepositoryTest < Minitest::Test
 
 
   def item_repo
-    ItemRepository.new(item_list)
+    ItemRepository.new(nil, item_list)
   end
 
   def item_list

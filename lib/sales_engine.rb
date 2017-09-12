@@ -17,8 +17,8 @@ class SalesEngine
 
   attr_reader :items, :merchants
   def initialize(data)
-    @items = ItemRepository.new(data[:items]) if data[:items]
-    @merchants = MerchantRepository.new(data[:merchants]) if data[:merchants]
+    @items = ItemRepository.new(self, data[:items]) if data[:items]
+    @merchants = MerchantRepository.new(self, data[:merchants]) if data[:merchants]
   end
 
 end
