@@ -15,4 +15,13 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of ItemRepository, @ir
   end
 
+  def test_load_csv
+    assert_equal 3, @ir.items.length
+    @ir.load_csv('./data/items_test.csv')
+
+    assert_equal 6, @ir.items.length
+  end
+
+  def
+
 end

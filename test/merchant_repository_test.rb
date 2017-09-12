@@ -16,14 +16,14 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_load_csv
-    assert_equal 4, @mr.merchant_list.length
+    assert_equal 4, @mr.merchants.length
     actual = @mr.load_csv('./data/merchants_test.csv')
 
-    assert_equal 8, @mr.merchant_list.length
+    assert_equal 8, @mr.merchants.length
   end
 
-  def test_merchant_list_returns_array
-    actual = @mr.merchant_list
+  def test_merchants_returns_array
+    actual = @mr.merchants
 
     assert_instance_of Merchant, actual[0]
     assert_instance_of Merchant, actual[1]
@@ -46,7 +46,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_find_by_id_returns_merchant_with_valid_id
     actual = @mr.find_by_id(12334105)
-    expected = @mr.merchant_list[0]
+    expected = @mr.merchants[0]
 
     assert_equal expected, actual
   end
@@ -59,14 +59,14 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_find_by_name_returns_merchant_with_valid_name
     actual = @mr.find_by_name("Shopin1901")
-    expected = @mr.merchant_list[0]
+    expected = @mr.merchants[0]
 
     assert_equal expected, actual
   end
 
   def test_find_by_name_returns_merchant_with_valid_name_case_insensitive
     actual = @mr.find_by_name("shopin1901")
-    expected = @mr.merchant_list[0]
+    expected = @mr.merchants[0]
 
     assert_equal expected, actual
   end
@@ -79,7 +79,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_find_all_by_name_returns_merchant_with_valid_name_search
     actual = @mr.find_all_by_name("i")
-    expected = [@mr.merchant_list[0], @mr.merchant_list[1]]
+    expected = [@mr.merchants[0], @mr.merchants[1]]
 
     assert_equal expected, actual
   end
