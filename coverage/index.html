@@ -14,7 +14,7 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2017-09-12T08:58:05-06:00">2017-09-12T08:58:05-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2017-09-12T15:40:54-06:00">2017-09-12T15:40:54-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -25,15 +25,15 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         4655.93
+         4317.64
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>2</b> files in total.
-    <b>47</b> relevant lines. 
-    <span class="green"><b>47</b> lines covered</span> and
+    <b>51</b> relevant lines. 
+    <span class="green"><b>51</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -51,7 +51,7 @@
     <tbody>
       
       <tr>
-        <td class="strong"><a href="#4b6e5c6c48e5df6980f517885671dc3d3ebf44ab" class="src_link" title="lib/item.rb">lib/item.rb</a></td>
+        <td class="strong"><a href="#c3086e81d88e8dd9cfacbd030d91282f753f3e60" class="src_link" title="lib/item.rb">lib/item.rb</a></td>
         <td class="green strong">100.0 %</td>
         <td>25</td>
         <td>16</td>
@@ -61,13 +61,13 @@
       </tr>
       
       <tr>
-        <td class="strong"><a href="#ae6291a84a1e09fa6ed3cd8f82c6f5cc35e1cf2d" class="src_link" title="lib/item_repository.rb">lib/item_repository.rb</a></td>
+        <td class="strong"><a href="#8adf9f46bbe6a06cd8d8cf5008d695bedd762204" class="src_link" title="lib/item_repository.rb">lib/item_repository.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>62</td>
-        <td>31</td>
-        <td>31</td>
+        <td>71</td>
+        <td>35</td>
+        <td>35</td>
         <td>0</td>
-        <td>1105.7</td>
+        <td>1018.5</td>
       </tr>
       
     </tbody>
@@ -86,7 +86,7 @@
     
       <div class="source_files">
       
-        <div class="source_table" id="4b6e5c6c48e5df6980f517885671dc3d3ebf44ab">
+        <div class="source_table" id="c3086e81d88e8dd9cfacbd030d91282f753f3e60">
   <div class="header">
     <h3>lib/item.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
@@ -255,13 +255,13 @@
 </div>
 
       
-        <div class="source_table" id="ae6291a84a1e09fa6ed3cd8f82c6f5cc35e1cf2d">
+        <div class="source_table" id="8adf9f46bbe6a06cd8d8cf5008d695bedd762204">
   <div class="header">
     <h3>lib/item_repository.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>31</b> relevant lines. 
-      <span class="green"><b>31</b> lines covered</span> and
+      <b>35</b> relevant lines. 
+      <span class="green"><b>35</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -326,7 +326,7 @@
         <li class="covered" data-hits="15" data-linenumber="10">
           <span class="hits">15</span>
           
-          <code class="ruby">    @items = read_csv(csv_file_name)</code>
+          <code class="ruby">    @items = load_from_csv(csv_file_name)</code>
         </li>
       
         <li class="covered" data-hits="15" data-linenumber="11">
@@ -350,7 +350,7 @@
         <li class="covered" data-hits="1" data-linenumber="14">
           <span class="hits">1</span>
           
-          <code class="ruby">  def read_csv(csv_file_name)</code>
+          <code class="ruby">  def load_from_csv(csv_file_name)</code>
         </li>
       
         <li class="covered" data-hits="15" data-linenumber="15">
@@ -590,13 +590,13 @@
         <li class="never" data-hits="" data-linenumber="54">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby"></code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="55">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">  end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="56">
@@ -605,37 +605,91 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="57">
+        <li class="covered" data-hits="1" data-linenumber="57">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby"></code>
+          <code class="ruby">  def find_all_by_merchant_id(search_merchant_id)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="58">
+        <li class="covered" data-hits="1" data-linenumber="58">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby"></code>
+          <code class="ruby">    search_merchant_id = search_merchant_id.to_s</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="59">
+        <li class="covered" data-hits="1" data-linenumber="59">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby"></code>
+          <code class="ruby">    @items.find_all do |item|</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="60">
+        <li class="covered" data-hits="1367" data-linenumber="60">
+          <span class="hits">1367</span>
           
-          
-          <code class="ruby"></code>
+          <code class="ruby">      item.merchant_id == search_merchant_id</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="61">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">    end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="62">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="63">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="64">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="65">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="66">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="67">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="68">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="69">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="70">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="71">
           
           
           <code class="ruby">end</code>

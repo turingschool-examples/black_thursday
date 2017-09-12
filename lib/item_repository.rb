@@ -51,7 +51,16 @@ class ItemRepository
     @items.find_all do |item|
       search_price_range.cover?(item.unit_price)
     end
+
   end
+
+  def find_all_by_merchant_id(search_merchant_id)
+    search_merchant_id = search_merchant_id.to_s
+    @items.find_all do |item|
+      item.merchant_id == search_merchant_id
+    end
+  end
+
 
 
 

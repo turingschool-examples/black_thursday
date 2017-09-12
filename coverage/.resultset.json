@@ -1,7 +1,7 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/teacher/turing/1module/projects/black_thursday/lib/item_repository.rb": [
+      "/Users/nicholasmbogo/turing/1module/projects/black_thursday/lib/item_repository.rb": [
         1,
         1,
         1,
@@ -58,6 +58,15 @@
         null,
         null,
         null,
+        1,
+        1,
+        1,
+        1367,
+        null,
+        null,
+        null,
+        null,
+        null,
         null,
         null,
         null,
@@ -65,7 +74,7 @@
         null,
         null
       ],
-      "/Users/teacher/turing/1module/projects/black_thursday/lib/item.rb": [
+      "/Users/nicholasmbogo/turing/1module/projects/black_thursday/lib/item.rb": [
         1,
         1,
         1,
@@ -93,6 +102,6 @@
         null
       ]
     },
-    "timestamp": 1505228285
+    "timestamp": 1505252454
   }
 }

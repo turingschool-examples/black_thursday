@@ -81,9 +81,12 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_finds_all_items_with_matching_merchant_id
-    skip
+    assert_empty(@repository.find_all_by_merchant_id(0))
   end
 
+  def test_it_finds_all_items_with_matching_merchant_id
+    refute_empty(@repository.find_all_by_merchant_id(12334141))
+  end
 
 
 
