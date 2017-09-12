@@ -2,7 +2,7 @@ require 'bigdecimal'
 
 class Item
 
-  def self.load_csv(csv_row)
+  def self.load_csv(items)
     id = items[:id]
     name = items[:name]
     description = items[:description]
