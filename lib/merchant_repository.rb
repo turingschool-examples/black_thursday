@@ -17,10 +17,10 @@ class MerchantRepository
 
   attr_reader :all
 
-  def initialize(FILENAME)
+  def initialize(merchant_csv)
     @all = []
 
-    CSV.foreach('./FILENAME.csv', headers: true, header_converters: :symbol) do |row|
+    CSV.foreach(merchant_csv, headers: true, header_converters: :symbol) do |row|
       @all << Merchant.load_from_csv(row)
     end
 
@@ -28,7 +28,5 @@ class MerchantRepository
 
   def find_by_id
   end
-
-
 
 end
