@@ -15,7 +15,7 @@ class ItemsTest < Minitest::Test
     assert_nil(Item.new(item).id)
     assert_equal 'Pencil', Item.new(item).name
     assert_equal 'You can use it to write things', Item.new(item).description
-    assert_equal 4.30, Item.new(item).unit_price
+    assert_equal BigDecimal.new(43.00, 4), Item.new(item).unit_price
     assert_equal 800, Item.new(item).created_at
     assert_equal 805, Item.new(item).updated_at
   end
