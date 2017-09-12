@@ -8,7 +8,7 @@ find_by_id - returns either nil or an instance of Merchant with a matching ID
   -- for each instance, check the id. use .find?
 find_by_name - returns either nil or an instance of Merchant having done a case insensitive search
 find_all_by_name - returns either [] or one or more matches which contain the supplied name fragment, case insensitive
-The data can be found in data/merchants.csv so the instance is created and used like this:
+
 =end
 require "csv"
 
@@ -17,16 +17,33 @@ class MerchantRepository
 
   attr_reader :all
 
-  def initialize(merchant_csv)
+  def initialize(se, merchant_csv)
     @all = []
+    @se = se
 
     CSV.foreach(merchant_csv, headers: true, header_converters: :symbol) do |row|
       @all << Merchant.load_from_csv(row)
     end
 
+    @id = :id
+    @name = :name
+    @created = :created_at
+    @updated_at = :updated_at
   end
 
-  def find_by_id
-  end
+
+
+  # def find_by_id(id)
+  #   all.find(id)
+  # end
+  #
+  # def find_by_name
+  # end
+  #
+  # def find_all_by_name
+  # end
+
+
+
 
 end

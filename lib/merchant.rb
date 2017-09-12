@@ -1,15 +1,12 @@
-class Merchant
+#works - 4pm, 9/12
 
-  def self.load_from_csv(csv)
-    id = csv[:id]
-    name = csv[:name]
-  end
+class Merchant
 
   attr_reader :id, :name
 
-  def initialize(id, name)
-      @id = id
-    @name = name
+  def initialize(csv_info)
+      @id = csv_info[:id]
+    @name = csv_info[:name]
   end
 
 end
