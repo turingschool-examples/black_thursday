@@ -4,12 +4,17 @@ require 'csv'
 class MerchantRepository 
   attr_accessor :all
 
-  def initialize(file_path)
-    @all = csv_parse(file_path).map {|row| Merchant.new(row)}
+  def initialize(file_path, parent=nil)
+    @all    = create_merchants(file_path)
+    @parent = parent
   end
 
   def csv_parse(file_path)
     CSV.open file_path, headers: true, header_converters: :symbol
+  end
+
+  def create_merchants(file_path)
+    csv_parse(file_path).map {|row| Merchant.new(row)}
   end
 
   def find_by_id(id_number)
