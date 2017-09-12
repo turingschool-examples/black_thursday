@@ -10,23 +10,14 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of SalesEngine, sales
   end
 
-  def test_instance_of_items_repo
-    sales = SalesEngine.new
-
-    assert_instance_of ItemRepository, sales.items
+  def test_from_csv
+    sales = SalesEngine
+    assert_instance_of Item, sales.read_items_file
   end
 
-  def test_instance_of_merchant_repo
-    sales = SalesEngine.new
-
-    assert_instance_of MerchantRepository, sales.merchants
-  end
-
-  def test_from_csv_items
-    sales = SalesEngine.new
-    sales.from_csv({:items => "./data/item_fixture"})
-
-    assert_equal 10, sales.items.items
+  def test_from_csv
+    sales = SalesEngine
+    assert_instance_of Merchant, sales.read_merchants_file
   end
 
 end

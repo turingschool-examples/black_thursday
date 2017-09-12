@@ -1,5 +1,5 @@
-require 'csv'
-require 'merchant'
+require 'lib/merchant'
+
 class MerchantRepository
 
   def all
