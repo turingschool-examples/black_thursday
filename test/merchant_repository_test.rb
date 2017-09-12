@@ -1,4 +1,6 @@
 require './test/test_helper'
+require './lib/merchants_repository'
+
 
 
 class MerchantRepositoryTest < Minitest::Test
@@ -6,12 +8,11 @@ class MerchantRepositoryTest < Minitest::Test
   def setup
     @merchants = [
       Merchant.new({id: 5, name: "Turing School"}),
-      Merchant.new({id: 4, name: "Amazon"})
-      Merchant.new({id: 3, name: "EmptyString"},
-      Merchant.new({id: 2, name: "Amazon"}
-      )
-    ]
-    @mr = MerchantRepository.new(merchants)
+      Merchant.new({id: 4, name: "Amazon"}),
+      Merchant.new({id: 3, name: "EmptyString"}),
+      Merchant.new({id: 2, name: "Amazon"})]
+
+    @mr = MerchantRepository.new(@merchants)
   end
 
 
@@ -20,11 +21,11 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_all_returns_an_array_of_all_merchant_instances
-    assert_equal merchants  ,@mr.all
+    assert_equal @merchants , @mr.all
   end
 
   def test_find_by_id_returns_nil_if_no_matching_id
-    assert_nil ,@mr.find_by_id(1)
+    assert_equal nil , @mr.find_by_id(1)
   end
 
   def test_find_by_name_returns_merchant_instance
@@ -32,26 +33,32 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_by_name_returns_nil_if_no_match
-    assert_nil, @mr.find_by_name("Happy")
+    skip
+    assert_equal nil, @mr.find_by_name("Happy")
   end
 
   def test_find_by_name_returns_matching_instance
+    skip
     assert_equal Merchant.new({id: 4, name: "Amazon"}), @mr.find_by_name("Amazon")
   end
 
   def test_find_by_name_returns_matching_instance_no_matter_case
+    skip
     assert_equal Merchant.new({id: 4, name: "Amazon"}), @mr.find_by_name("amazon")
   end
 
   def test_find_by_name_returns_matching_instance_with_all_caps
+    skip
     assert_equal Merchant.new({id: 4, name: "Amazon"}), @mr.find_by_name("AMAZON")
   end
 
   def test_find_all_by_name_returns_empty_array_if_no_matches
+    skip
     assert_equal [], @mr.find_all_by_name("Happy")
   end
 
   def test_find_all_by_name_returns_all_that_match
+    skip
     expected = [Merchant.new({id: 4, name: "Amazon"}),
                 Merchant.new({id: 2, name: "Amazon"})]
 
@@ -59,6 +66,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_name_returns_all_that_match_case_insensitive
+    skip
     expected = [Merchant.new({id: 4, name: "Amazon"}),
                 Merchant.new({id: 2, name: "Amazon"})]
 
