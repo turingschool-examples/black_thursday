@@ -71,9 +71,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_returns_empty_array_if_no_match_by_price_range
-    skip
-    #shouldn't it return something for zero?
-    assert_empty(@repository.find_all_by_price_in_range(-1..0))
+      assert_empty(@repository.find_all_by_price_in_range(-2..-1))
   end
 
   def test_it_finds_all_by_price_in_range
