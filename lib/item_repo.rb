@@ -31,26 +31,18 @@ class ItemRepo
   end
 
   def find_all_with_description(description)
-    item_match_by_description = []
-    item_match_by_description << items.find_all { |item| item.description.include?(/#{decription}/i) }
-    item_match_by_description
+    items.find_all { |item| item.description.downcase.include?(description.downcase) }
   end
 
   def find_all_by_price(price)
-    item_match_by_price = []
-    item_match_by_price << items.find_all { |item| item.price == price }
-    item_match_by_price
+    items.find_all { |item| item.price.to_f == price }
   end
 
   def find_all_by_price_in_range(range)
-    item_match_by_price_in_range = []
-    item_match_by_price_in_range << items.find_all { |item| range.include?(item.price) }
-    item_match_by_price_in_range
+    items.find_all { |item| range.include?(item.price.to_f) }
   end
 
   def find_all_by_merchant_id(merchant_id)
-    item_match_by_merchant_id = []
-    item_match_by_merchant_id << items.find_all { |item| item.merchant.id == merchant_id }
-    item_match_by_merchant_id
+    items.find_all { |item| item.merchant == merchant_id }
   end
 end
