@@ -10,7 +10,7 @@ class ItemsTest < Minitest::Test
   end
 
   def test_it_can_find_item_attributes
-    item = {:name=>'Pencil', :description=>'You can use it to write things', :unit_price=>4.30, :created_at=>800, :updated_at=>805}
+    item = {:name=>'Pencil', :description=>'You can use it to write things', :unit_price=>4300, :created_at=>800, :updated_at=>805}
 
     assert_nil(Item.new(item).id)
     assert_equal 'Pencil', Item.new(item).name

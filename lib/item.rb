@@ -1,4 +1,6 @@
 require 'csv'
+require 'bigdecimal'
+require 'bigdecimal/util'
 
 
 class Item
@@ -9,7 +11,7 @@ class Item
     @id = item[:id]
     @name = item[:name]
     @description = item[:description]
-    @unit_price = item[:unit_price]
+    @unit_price = item[:unit_price].to_d
     @created_at = item[:created_at]
     @updated_at = item[:updated_at]
     @merchant_id = item[:merchant_id]
