@@ -15,6 +15,13 @@ class MerchantRepositoryTest < Minitest::Test
     assert_instance_of MerchantRepository, @mr
   end
 
+  def test_load_csv
+    assert_equal 4, @mr.merchant_list.length
+    actual = @mr.load_csv('./data/merchants_test.csv')
+
+    assert_equal 8, @mr.merchant_list.length
+  end
+
   def test_merchant_list_returns_array
     actual = @mr.merchant_list
 
