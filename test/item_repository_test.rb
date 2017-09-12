@@ -22,6 +22,22 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 6, @ir.items.length
   end
 
-  def
+  def test_items_returns_array
+    actual = @ir.items
+
+    assert_instance_of Item, actual[0]
+    assert_instance_of Item, actual[1]
+    assert_instance_of Item, actual[2]
+    assert_equal 3, actual.length
+  end
+
+  def test_all_returns_array_of_items
+    actual = @ir.all
+
+    assert_instance_of Item, actual[0]
+    assert_instance_of Item, actual[1]
+    assert_instance_of Item, actual[2]
+    assert_equal 3, actual.length
+  end
 
 end

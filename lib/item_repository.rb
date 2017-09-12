@@ -15,7 +15,11 @@ class ItemRepository
     end
   end
 
-  
+  def all
+    @items
+  end
+
+
 
 
 
