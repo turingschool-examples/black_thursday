@@ -23,35 +23,17 @@ class ItemRepository
 
   def find_all_with_description(info)
     all.select {|item| item.description.downcase.include?(info.downcase)}
-    # all.reduce([]) do |array, item|
-    #   description = item.description.downcase
-    #   info = info.downcase
-    #   array << item if description.include?(info)
-    #   array
-    # end
   end
 
   def find_all_by_price(number)
     all.select {|item| item.unit_price == number}
-    # all.reduce([]) do |array, item|
-    #   array << item if item.unit_price == number
-    #   array
-    # end
   end
 
   def find_all_by_price_in_range(price_range)
     all.select {|item| price_range.include?(item.unit_price)}
-    # all.reduce([]) do |array, item|
-    #   array << item if price_range.include?(item.unit_price)
-    #   array
-    # end
   end
 
   def find_all_by_merchant_id(merchant_id)
     all.select {|item| item.merchant_id.include?(merchant_id.to_s)}
-    # all.reduce([]) do |array, item|
-    #   array << item if item.merchant_id.include?(merchant_id.to_s)
-    #   array
-    # end
   end
 end
