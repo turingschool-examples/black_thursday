@@ -1,17 +1,14 @@
 class SalesEngine
 
-  def self.from_csv(csv_hash)
-    @item_file = csv_hash[:items]
-    @merchant_file = csv_hash[:merchants]
-    SalesEngine.new
+  def self.from_csv(file_names)
+    @item_file = file_names[:items]
+    @merchant_file = file_names[:merchants]
+    SalesEngine.new(@item_file, @merchant_file)
   end
 
-  def items
-    ItemRepository.new(@item_file)
-  end
-
-  def merchants
-    MerchantRepository.new(@merchant_file)
+  def initialize(item, merchant)
+    ItemRepository.new(item)
+    MerchantRepository.new(merchant)
   end
 
 end
