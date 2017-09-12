@@ -6,14 +6,14 @@ class Item
   def initialize(item)
     @id = item[:id]
     @name = item[:name]
-    @description = item[:desciption]
+    @description = item[:description]
     @unit_price = item[:unit_price]
     @merchant_id = item[:merchant_id]
     @created_at = item[:created_at]
   end
 
-  def unit_price_to_dollars
-    @unit_price.to_f
+  def unit_price_to_dollars(unit_price)
+    @unit_price/100
   end
 
 end
