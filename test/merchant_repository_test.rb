@@ -43,10 +43,9 @@ class MerchantRepositoryTest < Minitest::Test
     id_2 = "1"
     id_3 = 101
 
-    assert mr.find_by_id(id_1)
+    assert_equal 12334174, mr.find_by_id(id_1).id
     assert_nil mr.find_by_id(id_2)
     assert_nil mr.find_by_id(id_3)
-    #feel like these tests need to be more robust.... but I'm not sure ho
   end
 
   # find_by_name - returns either nil or an instance of Merchant having done a case insensitive search
@@ -57,8 +56,8 @@ class MerchantRepositoryTest < Minitest::Test
     name_3 = ""
     name_4 = "hi"
 
-    assert mr.find_by_name(name_1)
-    assert mr.find_by_name(name_2)
+    assert_equal "GoldenRayPress" ,mr.find_by_name(name_1).name
+    assert_equal  "GoldenRayPress",mr.find_by_name(name_2).name
     assert_nil mr.find_by_name(name_3)
     assert_nil mr.find_by_name(name_4)
   end
