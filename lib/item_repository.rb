@@ -41,11 +41,33 @@ class ItemRepository
   end
 
   def find_all_by_price(search_price)
-    search_price = search_price.to
+    search_price = search_price.to_i
     @items.find_all do |item|
       item.unit_price == search_price
     end
   end
+
+  def range_includes_end_value?(search_price_range)
+    includes = search_price_range.count('.')
+    if range == 2
+    elsif range == 3
+    else
+      p "Invalid range. Enter a new price range to search."
+    end
+  end
+
+  def find_all_by_price_in_range(search_price_range)
+    includes = search_price_range.count('.')
+    if range == 2
+      search_price_range.split('..')
+      Range.new(starting_price, ending_price)
+    elsif range == 3
+      Range.new(starting_price, ending_price-1)
+    else
+      p "Invalid range. Enter a new price range to search."
+    end
+  end
+
 
 
 
