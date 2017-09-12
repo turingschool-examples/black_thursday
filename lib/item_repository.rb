@@ -18,7 +18,9 @@ class ItemRepository
   end
 
   def find_all_with_description(substring)
-    @items.find_all{ |item| item.description.downcase.include? substring.downcase }
+    @items.find_all do |item|
+      item.description.downcase.include? substring.downcase
+    end
   end
 
   def find_all_by_price(unit_price)
