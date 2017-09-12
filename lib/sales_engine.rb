@@ -1,7 +1,7 @@
 require './lib/merchant_repository'
 require './lib/item_repository'
 class SalesEngine
-  
+
   attr_accessor :merchant_csv_filepath, :item_csv_filepath
 
   def self.from_csv(info)
@@ -10,11 +10,11 @@ class SalesEngine
     se.item_csv_filepath = info[:items]
     se
   end
-  
+
   def initialize
     @merchant_csv_filepath = ''
     @item_csv_filepath = ''
-  end 
+  end
 
   def merchants
     MerchantRepository.new(@merchant_csv_filepath, self)
@@ -22,5 +22,9 @@ class SalesEngine
 
   def items
     ItemRepository.new(@item_csv_filepath, self)
+  end
+
+  def assign_items_to_merchants
+
   end
 end

@@ -2,17 +2,16 @@ require './lib/merchant_repository'
 
 class Merchant
 attr_reader :id, :name, :sales_engine
+attr_accessor :items
 
   def initialize(info, sales_engine = "string")
     @id = info[:id]
     @name = info[:name]
     @sales_engine = sales_engine
+    @items = []
   end
 
-  def items(id)
-    #return an array of items that share the merchant ID.
-    #this will need to communicate with the item repo. 
-
-  end 
+  def gather_items(merchant_id)
+    @items = @sales_engine.items.find_all_by_merchant_id(merchant_id)
+  end
 end
-
