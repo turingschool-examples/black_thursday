@@ -3,29 +3,32 @@ require './lib/item'
 
 class ItemRepository
 include CsvParser
-
+attr_reader :sales_engine   
 attr_accessor :items
 
-    def initialize(file_name)
+    def initialize(file_name, sales_engine)
         @items = []
         item_contents = parse_data(file_name)
         item_contents.each do |row|
           @items << Item.new(
-            {name: row[:name],
+            {id: row[:id].to_i,
+            name: row[:name],
             description: row[:description],
             unit_price: row[:unit_price],
             created_at: row[:created_at],
             updated_at: row[:updated_at],
-            merchant_id: row[:merchant_id].to_i})
+            merchant_id: row[:merchant_id].to_i}, 
+            sales_engine)
         end
+        @sales_engine = sales_engine
     end
 
     def all
         @items
     end
 
-    def find_by_id
-
+    def find_by_id(id)
+        @items.find {|item| item.id == id}
     end
 
     def find_by_name(name)

@@ -9,7 +9,6 @@ class SalesEngineTest < MiniTest::Test
           :items     => "./data/items.csv",
           :merchants => "./data/merchants.csv",
         })
-    
     mr = se.merchants
     ir = se.items
 

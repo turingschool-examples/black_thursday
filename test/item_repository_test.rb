@@ -1,12 +1,16 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/item_repository'
+require './lib/sales_engine'
 
 class ItemRepositoryTest < MiniTest::Test
 
   def setup
-    ir = ItemRepository.new('./data/items_fixture.csv')
-
+    se = SalesEngine.from_csv({
+      :items     => "./data/items_fixture.csv",
+      :merchants => "./data/merchants_fixture.csv",
+    })
+    ir = se.items
   end
   def test_it_exists
     ir = setup
@@ -26,14 +30,15 @@ class ItemRepositoryTest < MiniTest::Test
   end
 
   def test_it_returns_item_given_the_id
-    skip
-    #This needs to be sorted out after item id
+    ir = setup
+    
+    assert_equal '510+ RealPush Icon Set', ir.find_by_id(263395237).name 
   end
 
   def test_returns_item_given_the_name
     ir = setup
 
-    assert_equal '510+ RealPush Icon Set', ir.find_by_name('510+ RealPush Icon Set')[0].name
+    assert_equal '510+ RealPush Icon Set', ir.find_by_name('510+ RealPush Icon Set').name
   end
 
   def test_returns_item_of_given_description
@@ -62,8 +67,13 @@ Wooden"
   def test_item_has_merchant_id
     ir = setup
 
-    assert_equal 12334141, ir.find_by_name('510+ RealPush Icon Set')[0].merchant_id
+    assert_equal 12334141, ir.find_by_name('510+ RealPush Icon Set')  .merchant_id
   end
 
+  def test_repository_has_reference_to_sales_engine
+    ir = setup
+    
+    assert ir.sales_engine
+  end 
   
 end

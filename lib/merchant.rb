@@ -1,11 +1,12 @@
 require './lib/merchant_repository'
 
 class Merchant
-attr_reader :id, :name
+attr_reader :id, :name, :sales_engine
 
-  def initialize(info = {})
+  def initialize(info, sales_engine = "string")
     @id = info[:id]
     @name = info[:name]
+    @sales_engine = sales_engine
   end
 
   def items(id)

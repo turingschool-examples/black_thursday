@@ -3,15 +3,16 @@ require './lib/merchant'
 
 class MerchantRepository
 include CsvParser
-
+attr_reader :sales_engine
 attr_accessor :merchants
 
-  def initialize(file_name)
+  def initialize(file_name, sales_engine)
     @merchants = []
     merchant_contents = parse_data(file_name)
     merchant_contents.each do |row|
-      @merchants << Merchant.new({id: row[:id].to_i, name: row[:name]})
+      @merchants << Merchant.new({id: row[:id].to_i, name: row[:name]}, sales_engine)
     end
+    @sales_engine = sales_engine
   end
 
   def all

@@ -1,12 +1,17 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/merchant_repository'
+require './lib/sales_engine'
 
 
 class MerchantRepositoryTest < Minitest::Test
 
   def setup
-    mr = MerchantRepository.new('./data/merchants_fixture.csv')
+    se = SalesEngine.from_csv({
+      :items     => "./data/items_fixture.csv",
+      :merchants => "./data/merchants_fixture.csv",
+    })  
+    mr = se.merchants
   end
 
   def test_it_exists
@@ -78,4 +83,9 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 3, mr.find_all_by_name(name_3).length
   end
 
+  def test_repository_has_reference_to_sales_engine
+    mr = setup
+    
+    assert mr.sales_engine
+  end 
 end
