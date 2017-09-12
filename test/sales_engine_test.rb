@@ -2,6 +2,9 @@ require 'pry'
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/sales_engine'
+require '../data/item_fixture'
+require '../data/merchant_test_helper'
+
 
 class SalesEngineTest < Minitest::Test
   def test_it_exists
@@ -10,14 +13,14 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of SalesEngine, sales
   end
 
-  def test_from_csv
+  def test_from_csv_item
     sales = SalesEngine
-    assert_instance_of Item, sales.read_items_file
+    assert_instance_of ItemRepository, sales.read_items_file('./data/item_fixture')
   end
 
-  def test_from_csv
+  def test_from_csv_merchants
     sales = SalesEngine
-    assert_instance_of Merchant, sales.read_merchants_file
+    assert_instance_of MerchantRepository, sales.read_merchants_file('./data/merchant_test_helper')
   end
 
 end

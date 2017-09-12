@@ -1,6 +1,10 @@
-require 'lib/merchant'
+require_relative 'merchant'
 
 class MerchantRepository
+
+  def initialize(merchant_list)
+    @merchant_list = merchant_list
+  end
 
   def all
 

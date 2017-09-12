@@ -1,11 +1,9 @@
-class ItemRepository
+require_relative 'item'
 
-  attr_accessor :items
+class ItemRepository
 
   def intialize(item_list)
     @item_list = item_list
   end
-
-
 
 end

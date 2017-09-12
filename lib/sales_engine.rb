@@ -1,9 +1,9 @@
-require './merchant_repo'
-require './item_repo'
-require './item'
-require './merchant'
+require_relative 'merchant_repo'
+require_relative 'item_repo'
+require_relative 'item'
+require_relative 'merchant'
 require 'csv'
-require 'pry'
+
 
 class SalesEngine
 
@@ -17,9 +17,10 @@ class SalesEngine
       created_at =row[:created_at]
       updated_at = row[:updated_at]
       merchant_id = row[:merchant_id]
-      item_list << Item.new({ :id => id, :name => name, :description => description, :unit_price => unit_price, :created_at => created_at, :updated_at => updated_at})
+      item_list << Item.new({ :id => id, :name => name, :description => description, :unit_price => unit_price, :created_at => created_at, :updated_at => updated_at, :merchant_id => merchant_id})
     end
-    ItemRepository.new(item_list)
+    #require 'pry'; binding.pry
+    ItemRepository.new
   end
 
   def self.read_merchants_file(merchants)
@@ -35,8 +36,8 @@ class SalesEngine
   def self.from_csv(files)
     items = files[:items]
     merchants = files[:merchants]
-    read_items_file(items)
-    read_merchant_file(merchants)
+    self.read_items_file(items)
+    self.read_merchants_file(merchants)
   end
 
 end
