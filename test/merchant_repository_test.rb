@@ -7,7 +7,7 @@ class MerchantRepositoryTest < Minitest::Test
   attr_reader :mr
 
   def setup
-    @mr = MerchantRepository.new
+    @mr = MerchantRepository.new('./data/merchants_test.csv')
   end
 
   def test_it_exists
@@ -15,8 +15,8 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_merchant_list_returns_a_hash_of_ids_as_keys_and_names_as_values
-    actual = @mr.merchant_list('merchants_test.csv')
-    expected = { 12334105: "Shopin1901", 12334112: "Candisart" }
+    actual = @mr.merchant_list
+    expected = { 12334105 => "Shopin1901", 12334112 => "Candisart" }
 
     assert_equal expected, actual
   end

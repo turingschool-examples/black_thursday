@@ -1,7 +1,14 @@
 
 class MerchantRepository
+  attr_reader :merchant_list
+  def initialize(file_path)
+    @merchant_list = {}
+    CSV.foreach(file_path, headers: true) do |row|
+      @merchant_list[row[0]] = 
 
-  def merchant_list(file)
+      # id: row['id'].to_i
+      # name: row['name']
+    end
 
   end
 
