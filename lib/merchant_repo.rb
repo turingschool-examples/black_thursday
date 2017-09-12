@@ -31,9 +31,9 @@ class MerchantRepo
   end
 
   def find_all_by_name(name)
-    merchants_match = []
-    merchants_match << merchants.find_all { |merchant| merchant.name.include?(/#{name}/i) }
-    merchants_match
+    merchants_match_by_name = []
+    merchants_match_by_name << merchants.find_all { |merchant| merchant.name.include?(/#{name}/i) }
+    merchants_match_by_name
   end
 
 end
