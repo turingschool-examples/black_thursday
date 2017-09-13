@@ -1,6 +1,6 @@
-require 'pry'
-require './lib/item'
 require 'csv'
+require_relative 'item'
+require 'pry'
 
 class ItemRepo
   attr_reader :items
