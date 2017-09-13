@@ -8,7 +8,7 @@ require 'pry'
 class ItemRepositoryTest < Minitest::Test
 
   def setup
-    csv_file_name = './data/items.csv'
+    csv_file_name = './fixtures/test_items.csv'
     @repository = ItemRepository.new(csv_file_name)
   end
 
