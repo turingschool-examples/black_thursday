@@ -33,7 +33,7 @@ class ItemRepository
     all.select {|item| price_range.include?(item.unit_price)}
   end
 
-  def find_all_items_per_merchant(merchant_id)
+  def find_all_by_merchant_id(merchant_id)
     all.select {|item| item.merchant_id.include?(merchant_id.to_s)}
   end
 
