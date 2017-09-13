@@ -17,4 +17,9 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_returns_array_all_invoice_instances 
     assert_equal 4985, repo.all.length
   end
+
+  def test_find_by_id 
+    invoice_id = 3452
+    repo.find_by_id(3451)
+  end
 end
