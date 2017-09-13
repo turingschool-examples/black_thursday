@@ -10,7 +10,10 @@ class MerchantRepository
     merchant_list
   end
 
-  def find_by_id
+  def find_by_id(id)
+    merchant_list.find do |merchant|
+      merchant.id == id
+    end
   end
 
   def find_by_name
