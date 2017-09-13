@@ -1,6 +1,12 @@
 require './lib/repository'
+require './lib/merchant'
+
 
 class MerchantRepository < Repository
+
+  def initialize(sales_engine, merchant_data)
+    super(Merchant, sales_engine, merchant_data)
+  end
 
   def find_by_name(name)
     find{ |merchant| merchant.name.downcase == name.downcase }

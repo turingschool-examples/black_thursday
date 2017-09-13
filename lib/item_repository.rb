@@ -1,6 +1,11 @@
 require './lib/repository'
+require './lib/item'
 
 class ItemRepository < Repository
+
+  def initialize(sales_engine, member_data)
+    super(Item, sales_engine, member_data)
+  end
 
   def find_by_name(name)
     find{ |item| item.name.downcase == name.downcase }
