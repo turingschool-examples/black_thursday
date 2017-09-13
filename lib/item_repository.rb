@@ -20,6 +20,7 @@ attr_accessor :items
             merchant_id: row[:merchant_id].to_i}, 
             sales_engine)
         end
+        # populate_items_with_merchant
         @sales_engine = sales_engine
     end
 
@@ -49,6 +50,10 @@ attr_accessor :items
 
     def find_all_by_merchant_id(merchant_id)
         @items.select {|item| item.merchant_id == merchant_id}
+    end
+
+    def populate_items_with_merchant
+        @items.each {|item| item.gather_merchant}
     end
 
     # def assign_id

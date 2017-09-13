@@ -65,7 +65,7 @@ Any colours'
 
   def test_it_has_a_merchant_id
     ir = setup
-
+    
     assert_equal 12334185, ir.items[3].merchant_id
   end
 
@@ -73,7 +73,7 @@ Any colours'
     ir = setup
 
     item = ir.find_by_id(263395237)
-    item.gather_merchant(item.merchant_id)
+    item.gather_merchant
 
     assert_equal 12334141, item.merchant.id
     assert_equal 'jejum', item.merchant.name

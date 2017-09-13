@@ -17,11 +17,11 @@ attr_accessor :merchant
       @updated_at = info[:updated_at]
       @merchant_id = info[:merchant_id]
       @sales_engine = sales_engine
-      @merchant
+      @merchant = ''
     end
 
-    def gather_merchant(id)
-      @merchant = @sales_engine.merchants.find_by_id(id)
+    def gather_merchant
+      @merchant = @sales_engine.merchants.find_by_id(@merchant_id)
     end
 
 end

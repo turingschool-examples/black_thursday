@@ -12,6 +12,7 @@ attr_accessor :merchants
     merchant_contents.each do |row|
       @merchants << Merchant.new({id: row[:id].to_i, name: row[:name]}, sales_engine)
     end
+    populate_merchants_with_items
     @sales_engine = sales_engine
   end
 
@@ -32,6 +33,10 @@ attr_accessor :merchants
       merchant.name.downcase.include?(name.downcase)
     end
   end
+
+  def populate_merchants_with_items
+    @merchants.each {|merchant| merchant.gather_items}
+  end 
 
 
 end

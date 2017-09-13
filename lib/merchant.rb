@@ -11,7 +11,7 @@ attr_accessor :items
     @items = []
   end
 
-  def gather_items(merchant_id)
-    @items = @sales_engine.items.find_all_by_merchant_id(merchant_id)
+  def gather_items
+    @items = @sales_engine.items.find_all_by_merchant_id(@id)
   end
 end
