@@ -1,23 +1,18 @@
+require_relative 'item'
 require 'csv'
 
 class ItemRepository
 
-  def self.load_csv(item_csv)
-    item_array = []
-    CSV.foreach(item_csv, headers: true, header_converters: :symbol) do |line|
-      item_array << Item.new(line)
+  attr_reader :all
+
+  def initialize(se, item_csv)
+    @all = []
+    @se = se
+    CSV.foreach(item_csv, headers: true, header_converters: :symbol) do |row|
+      @all << Item.load_csv(row)
     end
-    item_array
   end
 
 
-
-  def initialize(item_csv)
-    item_array = []
-    CSV.foreach(item_csv, headers: true, header_converters: :symbol) do |line|
-      item_array << Item.new(line)
-    end
-    item_array
-  end
 
 end

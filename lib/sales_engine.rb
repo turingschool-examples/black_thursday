@@ -7,8 +7,8 @@ class SalesEngine
   end
 
   def initialize(item_csv, merchant_csv)
-    ItemRepository.new(item_csv)
-    MerchantRepository.new(merchant_csv)
+    ItemRepository.new(self, item_csv)
+    MerchantRepository.new(self, merchant_csv)
   end
 
 end
