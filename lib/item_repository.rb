@@ -1,21 +1,22 @@
 require 'csv'
 require_relative 'item'
-require 'pry'
+require_relative 'csv_loader'
+require_relative 'search'
+
 
 class ItemRepository
+  include CsvLoader
+  include Search
 
   attr_reader :items
 
   def initialize(csv_file_name)
-    @items = load_from_csv(csv_file_name)
+    @items = create_items(csv_file_name)
     return self
   end
 
-  def load_from_csv(csv_file_name)
-    csv = CSV.read("#{csv_file_name}", headers: true, header_converters: :symbol)
-    csv.map do |row|
-      Item.new(row)
-    end
+  def create_items(csv_file_name)
+    create_instances(csv_file_name, 'Item')
   end
 
   def all
@@ -23,16 +24,11 @@ class ItemRepository
   end
 
   def find_by_id(id_number)
-    id_number = id_number.to_s
-    @items.find {|item| item.id == id_number}
+    find_instance_by_id(@items, id_number)
   end
 
   def find_by_name(search_name)
-    search_name = search_name.downcase
-    @items.find do |item|
-      item_name = item.name.downcase
-      item_name == search_name
-    end
+    find_instance_by_name(@items, search_name)
   end
 
   def find_all_with_description(search_term)

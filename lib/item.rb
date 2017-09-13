@@ -1,6 +1,7 @@
 require 'csv'
 require 'bigdecimal'
 require 'bigdecimal/util'
+require 'time'
 
 
 class Item
@@ -12,8 +13,8 @@ class Item
     @name = item[:name]
     @description = item[:description]
     @unit_price = format_unit_price(item[:unit_price])
-    @created_at = item[:created_at]
-    @updated_at = item[:updated_at]
+    @created_at = Time.parse(item[:created_at])
+    @updated_at = Time.parse(item[:updated_at])
     @merchant_id = item[:merchant_id]
   end
 
