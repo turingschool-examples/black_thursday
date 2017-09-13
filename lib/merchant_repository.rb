@@ -34,12 +34,14 @@ class MerchantRepository
     nil
   end
 
-
   def find_all_by_name(name)
+    merchant_array = []
     all.each do |merchant|
-      return merchant if merchant.name.include?(name.downcase)
+      if merchant.name.include?(name.downcase)
+        merchant_array << merchant
+      end
     end
-    nil
+    return merchant_array
   end
 
 end
