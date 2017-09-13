@@ -1,4 +1,5 @@
 require 'bigdecimal'
+require 'time'
 
 class Item
 
@@ -38,8 +39,8 @@ class Item
     @name = name
     @description = description
     @unit_price = unit_price_to_dollars(unit_price)
-    @created_at = created_at
-    @updated_at = updated_at
+    @created_at = Time.parse(created_at)
+    @updated_at = Time.parse(updated_at)
     @merchant_id = merchant_id
   end
 
