@@ -23,6 +23,7 @@ class ItemRepository
   end
 
   def find_by_id(id_number)
+    id_number = id_number.to_s
     @items.find {|item| item.id == id_number}
   end
 

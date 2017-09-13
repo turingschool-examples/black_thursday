@@ -4,53 +4,50 @@ require 'csv'
 
 class MerchantRepositoryTest < Minitest::Test
 
-  def test_merchant_repository_class_exists
-    merchant_repo = MerchantRepository.new("./data/merchants.csv")
+  def setup
+    csv_file_name = './test/fixtures/merchants_truncated.csv'
+    @repository = MerchantRepository.new(csv_file_name)
+  end
 
-    assert_instance_of MerchantRepository, merchant_repo
+  def test_merchant_repository_class_exists
+    assert_instance_of MerchantRepository, @repository
   end
 
   def test_load_from_csv_returns_array_of_merchants
-    merchant_repo = MerchantRepository.new("./data/merchants.csv")
-
-    refute_nil(merchant_repo.merchants)
+    assert_instance_of Merchant, @repository.merchants[0]
   end
 
   def test_it_finds_merchant_by_id
-    merchant_repo = MerchantRepository.new("./data/merchants.csv")
-    merchant = merchant_repo.find_by_id(12334105)
+    merchant = @repository.find_by_id(12334113)
 
-    assert_equal "Shopin1901", merchant.name
+    assert_equal "MiniatureBikez", merchant.name
+
+    merchant = @repository.find_by_id('12334113')
+
+    assert_equal "MiniatureBikez", merchant.name
   end
 
   def test_it_finds_merchants_by_name
-    merchant_repo = MerchantRepository.new("./data/merchants.csv")
-    merchant = merchant_repo.find_by_name("MiniatureBikez")
+    merchant = @repository.find_by_name("LolaMarleys")
 
-    assert_equal ("12334113"), merchant.id
+    assert_equal ("12334115"), merchant.id
 
-    merchant = merchant_repo.find_by_name("miniaturebikez")
+    merchant = @repository.find_by_name("lolamarleys")
 
-    assert_equal ("12334113"), merchant.id
+    assert_equal ("12334115"), merchant.id
   end
 
-  def test_it_returns_empty_array_if_no_name_found
-    merchant_repo = MerchantRepository.new("./data/merchants.csv")
-    merchants = merchant_repo.find_all_by_name("xyz")
-
-    assert_empty merchants
+  def test_it_returns_empty_array_if_no_name_foun
+    assert_empty(@repository.find_all_by_name("xyz"))
   end
 
   def test_it_finds_all_merchants_by_name_fragments
-    merchant_repo = MerchantRepository.new("./data/merchants.csv")
-    merchants = merchant_repo.find_all_by_name("bik")
-    merchant = merchant_repo.find_by_name("MiniatureBikez")
+    merchants = @repository.find_all_by_name("ar")
+    merchant1 = @repository.find_by_name("Candisart")
+    merchant2 = @repository.find_by_name("LolaMarleys")
 
-    assert merchants.include?(merchant)
+    assert merchants.include?(merchant1)
+    assert merchants.include?(merchant2)
   end
-
-
-
-
 
 end

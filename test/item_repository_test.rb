@@ -8,14 +8,14 @@ require 'pry'
 class ItemRepositoryTest < Minitest::Test
 
   def setup
-    csv_file_name = './fixtures/test_items.csv'
+    csv_file_name = './test/fixtures/items_truncated.csv'
     @repository = ItemRepository.new(csv_file_name)
   end
 
 
   def test_it_exists
     csv_file_name = './data/items.csv'
-    assert_instance_of ItemRepository, ItemRepository.new(csv_file_name)
+    assert_instance_of ItemRepository, @repository
   end
 
   def test_it_creates_item_objects_for_each_row
@@ -23,30 +23,36 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_all_returns_array_of_all_item_objects
-    assert_equal 1367, @repository.all.count
+    assert_equal 4, @repository.items.count
   end
 
   def test_find_by_id_returns_nil_if_no_id_found
-    assert_nil(@repository.find_by_id('000000'))
+    assert_nil(@repository.find_by_id(000000))
   end
 
   def test_find_by_id_returns_item_of_matching_id
-    item = @repository.find_by_id('263395237')
-    assert_equal '263395237', item.id
+    item = @repository.find_by_id(263395617)
+
+    assert_equal 'Glitter scrabble frames', item.name
+
+    item = @repository.find_by_id('263395617')
+
+    assert_equal 'Glitter scrabble frames', item.name
   end
 
   def test_find_by_name_returns_nil_if_name_not_found
-    search_name = 'scf'
-    assert_nil(@repository.find_by_name(search_name))
+    assert_nil(@repository.find_by_name('scf'))
   end
 
   def test_find_by_name_returns_an_item_with_matching_name
     search_name = 'Glitter scrabble frames'
     item = @repository.find_by_name('Glitter scrabble frames')
-    assert_equal 'Glitter scrabble frames', item.name
+
+    assert_equal '263395617', item.id
 
     item = @repository.find_by_name('glitter scrabble frames')
-    assert_equal 'Glitter scrabble frames', item.name
+
+    assert_equal '263395617', item.id
   end
 
   def test_find_all_with_description
@@ -54,7 +60,13 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_with_description_returns_all_matching_items
-    refute_empty(@repository.find_all_with_description('cat'))
+    items = @repository.find_all_with_description('glitter')
+
+    assert_equal 2, items.count
+
+    items = @repository.find_all_with_description('gli')
+
+    assert_equal 2, items.count
   end
 
   def test_it_returns_empty_array_if_no_matching_price_is_found
@@ -62,12 +74,9 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_finds_all_items_with_matching_price
-    first = refute_empty(@repository.find_all_by_price(13.00))
-    second = refute_empty(@repository.find_all_by_price(0.13))
-    third = refute_empty(@repository.find_all_by_price('0.13'))
+    items = @repository.find_all_by_price(7)
 
-    assert first == second
-    assert second == third
+    assert_equal 2, items.count
   end
 
   def test_it_returns_empty_array_if_no_match_by_price_range
@@ -75,7 +84,8 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_finds_all_by_price_in_range
-    refute_empty(@repository.find_all_by_price_in_range(0..10))
+    items = @repository.find_all_by_price_in_range(0..10)
+    assert_equal 2, items.count
   end
 
   def test_it_finds_all_items_with_matching_merchant_id
@@ -83,7 +93,13 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_finds_all_items_with_matching_merchant_id
-    refute_empty(@repository.find_all_by_merchant_id(12334141))
+    items = @repository.find_all_by_merchant_id(12334185)
+
+    assert_equal 3, items.count
+
+    items = @repository.find_all_by_merchant_id('12334185')
+
+    assert_equal 3, items.count
   end
 
 
