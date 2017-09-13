@@ -11,6 +11,8 @@ find_all_by_name - returns either [] or one or more matches which contain the su
 
 =end
 require "csv"
+require_relative "merchant"
+require_relative "sales_engine"
 
 
 class MerchantRepository
@@ -22,13 +24,11 @@ class MerchantRepository
     @se = se
 
     CSV.foreach(merchant_csv, headers: true, header_converters: :symbol) do |row|
-      @all << Merchant.load_from_csv(row)
+      @all << Merchant.new(self, row)
     end
 
     @id = :id
     @name = :name
-    @created = :created_at
-    @updated_at = :updated_at
   end
 
 
