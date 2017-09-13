@@ -46,6 +46,15 @@ class ItemRepoTest < MiniTest::Test
   def test_find_all_by_price_returns_all_matches_with_exact_price
     items = ItemRepo.new("./data/items.csv")
 
-
+    assert_equal 6, items.find_all_by_price(0.12e3).count
   end
+
+  def test_it_can_find_price_within_range
+    range = (12..15)
+    items = ItemRepo.new("./data/items.csv")
+
+    assert_equal 135, items.find_all_by_price_in_range(range).count
+  end
+
+
 end

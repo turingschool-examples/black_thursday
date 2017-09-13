@@ -35,11 +35,11 @@ class ItemRepo
   end
 
   def find_all_by_price(price)
-    items.find_all { |item| item.price.to_f == price }
+    items.find_all { |item| item.unit_price == price }
   end
 
   def find_all_by_price_in_range(range)
-    items.find_all { |item| range.include?(item.price.to_f) }
+    items.find_all { |item| range.include?(item.unit_price) }
   end
 
   def find_all_by_merchant_id(merchant_id)
