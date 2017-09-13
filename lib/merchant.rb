@@ -6,7 +6,7 @@ class Merchant < Member
   attr_reader :id, :name
   def initialize(repo, fields)
     super(repo, fields)
-    @id = fields[:id]
+    @id = fields[:id].to_i
     @name = fields[:name]
   end
 

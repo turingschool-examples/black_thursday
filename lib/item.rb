@@ -7,13 +7,16 @@ class Item < Member
 
   def initialize(repo, fields)
     super(repo, fields)
-    @id =           fields[:id]
-    @merchant_id =  fields[:merchant_id]
+    if fields[:unit_price].is_a? String
+      require 'pry'; binding.pry
+    end
+    @id =           fields[:id].to_i
+    @merchant_id =  fields[:merchant_id].to_i
     @name =         fields[:name]
     @description =  fields[:description]
-    @unit_price =   fields[:unit_price]
-    @created_at =   fields[:created_at]
-    @updated_at =   fields[:updated_at]
+    @unit_price =   Bigdecimal.new fields[:unit_price]
+    @created_at =   Time.new fields[:created_at]
+    @updated_at =   Time.new fields[:updated_at]
   end
 
   def merchant
