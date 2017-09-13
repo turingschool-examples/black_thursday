@@ -44,6 +44,8 @@ class ItemRepoTest < MiniTest::Test
   end
 
   def test_find_all_by_price_returns_all_matches_with_exact_price
+    items = ItemRepo.new("./data/items.csv")
+
 
   end
 end
