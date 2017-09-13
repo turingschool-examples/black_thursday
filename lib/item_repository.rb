@@ -1,10 +1,6 @@
 require_relative 'item'
 require 'csv'
 
-# all - returns an array of all known Item instances
-# find_by_id - returns either nil or an instance of Item with a matching ID
-# find_by_name - returns either nil or an instance of Item having done a case insensitive search
-# find_all_with_description - returns either [] or instances of Item where the supplied string appears in the item description (case insensitive)
 # find_all_by_price - returns either [] or instances of Item where the supplied price exactly matches
 # find_all_by_price_in_range - returns either [] or instances of Item where the supplied price is in the supplied range (a single Ruby range instance is passed in)
 # find_all_by_merchant_id - returns either [] or instances of Item where the supplied merchant ID matches that supplied
@@ -38,9 +34,35 @@ class ItemRepository
   def find_all_with_description(description)
     item_array = []
     all.each do |item|
-      item_array << item if item.description.include?(description.downcase)
+      item_array << item if item.description.downcase.include?(description.downcase)
     end
     item_array
+  end
+
+  def find_by_price(price)
+    item_array = []
+    all.each do |item|
+      item_array << item if item.unit_price == price
+    end
+    item_array
+  end
+
+  def find_all_by_price_in_range(price_range)
+    item_array = []
+    all.each do |item|
+      item_array << item if price_range.any? {|num| num == item.unit_price}
+    end
+    item_array
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+  merchant_id_array = []
+  all.each do |item|
+    if item.merchant_id == merchant_id
+      merchant_id_array << item
+    end
+  end
+    return merchant_id_array
   end
 
 end
