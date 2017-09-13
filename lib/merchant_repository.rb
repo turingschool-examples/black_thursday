@@ -32,4 +32,8 @@ class MerchantRepository
   def find_all_items_per_merchant(merchant_id)
     @parent.find_all_items_per_merchant(merchant_id)
   end
+  
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 end
