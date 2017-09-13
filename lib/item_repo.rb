@@ -3,18 +3,18 @@ require_relative 'item'
 require 'pry'
 
 class ItemRepo
-  attr_reader :items
+  attr_reader :items, :parent
 
-  def initialize(file)
+  def initialize(file,se=nil)
     open_file(file)
-#    self
+    @parent = se
   end
 
   def open_file(file)
     csv = CSV.foreach file,
     headers: true, header_converters: :symbol
     @items = csv.map do |row|
-      Item.new(row)
+      Item.new(row, self)
     end
   end
 
@@ -22,8 +22,8 @@ class ItemRepo
     items
   end
 
-  def find_by_id(id)
-    items.find { |item| item.id == id }
+  def find_by_id(merch_id)
+    items.find { |item| item.id == merch_id }
   end
 
   def find_by_name(name)
@@ -42,7 +42,11 @@ class ItemRepo
     items.find_all { |item| range.include?(item.unit_price) }
   end
 
-  def find_all_by_merchant_id(merchant_id)
-    items.find_all { |item| item.merchant == merchant_id }
+  def find_all_by_merchant_id(merch_id)
+    items.find_all { |item| item.merchant_id == merch_id }
+  end
+
+  def item_merchant(id)
+    parent.item_merchant(id)
   end
 end

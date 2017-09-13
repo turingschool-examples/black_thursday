@@ -21,7 +21,7 @@ class ItemRepoTest < MiniTest::Test
     items = ItemRepo.new("./data/items.csv")
     expected = "Linnen Tafelkleed &#39;Non posso vivere di vento&#39;"
 
-    assert_equal expected, items.find_by_id("263405559").name
+    assert_equal expected, items.find_by_id(263405559).name
   end
 
   def test_find_by_id_returns_nil_if_no_match
