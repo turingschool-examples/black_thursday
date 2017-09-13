@@ -12,8 +12,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_from_csv
-    se = SalesEngine.new
-    se.from_csv({:merchants => "./data/merchants.csv"})
+    se = SalesEngine.from_csv({:merchants => "./data/merchants_test.csv"})
 
     assert_instance_of MerchantRepository, se.merchants
   end
