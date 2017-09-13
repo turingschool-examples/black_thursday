@@ -14,6 +14,7 @@ class ItemTest < Minitest::Test
                     :unit_price  => BigDecimal.new(10.99,4),
                     :created_at  => Time.now,
                     :updated_at  => Time.now,
+                    :merchant_id => 666
                     })
   end
 
@@ -47,6 +48,10 @@ class ItemTest < Minitest::Test
 
   def test_it_can_return_unit_price_to_dollars
     assert_equal 10.99, @item.unit_price_to_dollars
+  end
+
+  def test_it_has_merchant_id
+    assert_equal 666, @item.merchant_id
   end
 
 end

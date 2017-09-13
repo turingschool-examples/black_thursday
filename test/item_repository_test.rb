@@ -112,6 +112,19 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal expected, actual
   end
 
+  def test_find_all_by_merchant_id_returns_empty_array_invalid_search
+    actual = @ir.find_all_by_merchant_id(666)
+
+    assert_equal [], actual
+  end
+
+  def test_find_all_by_merchant_id_returns_item_with_valid_search
+    actual = @ir.find_all_by_merchant_id(12334185)
+    expected = [@ir.items[1], @ir.items[2]]
+
+    assert_equal expected, actual
+  end
+
 
 
 
