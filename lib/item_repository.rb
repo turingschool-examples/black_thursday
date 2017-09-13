@@ -34,7 +34,7 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(merchant_id)
-    all.select {|item| item.merchant_id.include?(merchant_id.to_s)}
+    all.select {|item| item.merchant_id.to_s.include?(merchant_id.to_s)}
   end
 
   def find_merchant_that_owns_item(item_id)
