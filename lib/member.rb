@@ -6,6 +6,12 @@ class Member
     @repo = repo
   end
 
+  def foreign_id(type)
+    type_singular = type.to_s[0..-2]
+    key = type_singular + '_id'
+    send(key.to_sym)
+  end
+
   def apply_defaults(fields)
     fields[:id]         ||= repo.unused_id
     fields[:created_at] ||= Time.now
