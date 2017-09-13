@@ -2,9 +2,9 @@ require_relative './merchant_repository'
 require_relative './item_repository'
 require_relative './invoice_repository'
 
-class SalesEngine 
-  attr_reader :items, 
-              :merchants, 
+class SalesEngine
+  attr_reader :items,
+              :merchants,
               :invoices
 
   def initialize(file_path)
@@ -23,5 +23,9 @@ class SalesEngine
 
   def find_merchant_that_owns_item(item_id)
     @merchants.find_by_id(item_id)
+  end
+
+  def find_invoices_by_merchant_id(merchant_id)
+    @invoices.find_all_by_merchant_id(merchant_id)
   end
 end

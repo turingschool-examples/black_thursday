@@ -1,7 +1,7 @@
 require_relative 'merchant'
 require 'csv'
 
-class MerchantRepository 
+class MerchantRepository
   attr_accessor :all
 
   def initialize(file_path, parent=nil)
@@ -31,6 +31,10 @@ class MerchantRepository
 
   def find_all_by_merchant_id(merchant_id)
     @parent.find_all_by_merchant_id(merchant_id)
+  end
+
+  def find_invoices_by_merchant_id(merchant_id)
+    @parent.find_invoices_by_merchant_id(merchant_id)
   end
 
   def inspect
