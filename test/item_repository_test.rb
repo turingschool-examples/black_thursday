@@ -86,6 +86,34 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal expected, actual
   end
 
+  def test_find_all_by_price_returns_empty_array_with_invalid_search
+    actual = @ir.find_all_by_price(199)
+
+    assert_equal [], actual
+  end
+
+  def test_find_all_by_price_returns_item_with_valid_search
+    actual = @ir.find_all_by_price(1200)
+    expected = [@ir.items[0]]
+
+    assert_equal expected, actual
+  end
+
+  def test_find_all_price_in_range_returns_empty_array_with_invalid_range
+    actual = @ir.find_all_by_price_in_range((0..50))
+
+    assert_equal [], actual
+  end
+
+  def test_find_all_by_price_in_range_returns_items_with_valid_range
+    actual = @ir.find_all_by_price_in_range((1300..1350))
+    expected = [@ir.items[1], @ir.items[2]]
+
+    assert_equal expected, actual
+  end
+
+
+
 
 
 end

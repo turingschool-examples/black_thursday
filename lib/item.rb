@@ -1,3 +1,4 @@
+require 'bigdecimal'
 class Item
 
   attr_reader :id,
@@ -11,7 +12,7 @@ class Item
     @id = information[:id]
     @name = information[:name]
     @description = information[:description]
-    @unit_price = information[:unit_price]
+    @unit_price = BigDecimal.new(information[:unit_price])
     @created_at = information[:created_at]
     @updated_at = information[:updated_at]
   end
