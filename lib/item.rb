@@ -3,7 +3,7 @@ require 'bigdecimal'
 class Item
 
   def self.load_csv(items)
-    id = items[:id]
+    id = items[:id].to_s.to_i
     name = items[:name]
     description = items[:description]
     unit_price = items[:unit_price]
