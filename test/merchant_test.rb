@@ -15,6 +15,17 @@ class MerchantTest < Minitest::Test
     assert_equal "Turing School", turing_school.name
   end
 
+  def test_items_returns_an_array_of_items
+    items = turing_school.items
+    assert_instance_of Array, items
+    refute items.empty?
+    assert items.all? { |item| item.is_a? Item }
+  end
+
+  def test_items_returns_items_with_own_id_as_merchant_id
+    assert turing_school.items.all? { item.merchant_id == turing_school.id }
+  end
+
   def turing_school
     Merchant.new({
       id: 5,

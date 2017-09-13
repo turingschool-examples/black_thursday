@@ -3,6 +3,7 @@ require 'bigdecimal'
 require './test/test_helper'
 
 require './lib/item'
+require './lib/merchant'
 
 
 class ItemTest < Minitest::Test
@@ -55,6 +56,14 @@ class ItemTest < Minitest::Test
 
   def test_merchant_id_returns_the_integer_merchant
     assert_equal "33", item.merchant_id
+  end
+
+  def test_merchant_returns_a_single_merchant
+    assert_instance_of Merchant, item.merchant
+  end
+
+  def test_merchant_has_id_same_as_merchant_id
+    assert_equal item.merchant_id, item.merchant.id
   end
 
 end
