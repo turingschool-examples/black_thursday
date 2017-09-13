@@ -41,10 +41,10 @@ class SalesAnalyst
     (averages.sum/engine.merchants.all.length).floor(2)
   end
 
-  # def golden_items ==== TO DO 
+  # def golden_items ==== TO DO
   #   count = average_items_per_merchant + (average_items_per_merchant_standard_deviation*2)
   #   items = engine.merchants.all.map do |merchant|
   #     average_item_price_for_merchant(merchant.id) > count
   #   end
-  end
+  # end
 end

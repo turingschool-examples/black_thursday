@@ -50,10 +50,10 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of BigDecimal, expected
   end
 
-  def test_golden_items_returns_above_average_items
-    expected = sa.golden_items
-
-    assert_equal 5, expected.length
-    assert_instance_of Item, expected.first
-  end
+  # def test_golden_items_returns_above_average_items
+  #   expected = sa.golden_items
+  #
+  #   assert_equal 5, expected.length
+  #   assert_instance_of Item, expected.first
+  # end
 end
