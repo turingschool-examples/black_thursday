@@ -20,7 +20,7 @@ class MerchantRepositoryTest < Minitest::Test
   def test_find_by_id_returns_merchant_with_id
     expected = merch.find_by_id(12336801)
 
-    assert_equal 12336801, expected.id
+    assert_equal '12336801', expected.id
     assert_instance_of Merchant, expected
   end
 

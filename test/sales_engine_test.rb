@@ -35,7 +35,7 @@ class SalesEngineTest < Minitest::Test
       :merchants => "./data/merchants.csv",
     })
 
-    id       = 12335971
+    id       = '12335971'
     merchant = se.merchants.find_by_id(id)
 
     assert_equal id, merchant.id
@@ -64,7 +64,7 @@ class SalesEngineTest < Minitest::Test
     item     = se.items.find_by_id(id)
     expected = item.merchant
 
-    assert_equal expected.id, item.merchant_id.to_i
+    assert_equal expected.id, item.merchant_id
     assert_equal 'Blankiesandfriends', expected.name
   end
 end

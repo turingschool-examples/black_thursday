@@ -112,7 +112,7 @@ class ItemTest < Minitest::Test
                           :merchant_id => 12334141
                         })
 
-    assert_equal 12334141, item_one.merchant_id
+    assert_equal '12334141', item_one.merchant_id
   end
 
   def test_unit_price_to_dollars_converts_unit_price_to_dollar_float
