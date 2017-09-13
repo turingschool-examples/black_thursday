@@ -5,7 +5,9 @@ class SalesEngineTest < Minitest::Test
 
   def test_sales_engine_exists
     engine = SalesEngine.new({ :items     => "./data/items.csv",
-                               :merchants => "./data/merchants.csv"})
+                               :merchants => "./data/merchants.csv",
+                               :invoices  => "./data/invoices.csv"
+                              })
 
     assert engine 
     assert_instance_of SalesEngine, engine
@@ -13,7 +15,9 @@ class SalesEngineTest < Minitest::Test
 
   def test_sales_engine_loads_merchant_repository
     se = SalesEngine.from_csv({ :items     => "./data/items.csv",
-                                :merchants => "./data/merchants.csv"})
+                                :merchants => "./data/merchants.csv",
+                                :invoices  => "./data/invoices.csv"
+                              })
 
     assert_instance_of Merchant, se.merchants.all[0]
     assert_instance_of Merchant, se.merchants.all[-1]
@@ -22,7 +26,9 @@ class SalesEngineTest < Minitest::Test
 
   def test_sales_engine_loads_item_repository
     se = SalesEngine.from_csv({ :items     => "./data/items.csv",
-                                :merchants => "./data/merchants.csv"})
+                                :merchants => "./data/merchants.csv",
+                                :invoices  => "./data/invoices.csv"
+                              })
 
     assert_instance_of Item, se.items.all[0]
     assert_instance_of Item, se.items.all[-1]
@@ -33,6 +39,7 @@ class SalesEngineTest < Minitest::Test
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
     })
 
     id       = 12335971
@@ -45,6 +52,7 @@ class SalesEngineTest < Minitest::Test
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
     })
 
     id       = 12335971
@@ -58,6 +66,7 @@ class SalesEngineTest < Minitest::Test
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
     })
 
     id       = 263538760
