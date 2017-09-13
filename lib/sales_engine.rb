@@ -1,6 +1,6 @@
-require './lib/items_repo'
-require './lib/merchant_repo'
-require './lib/invoices_repo'
+require_relative 'items_repo'
+require_relative 'merchant_repo'
+require_relative 'invoice_repo'
 
 
 class SalesEngine
