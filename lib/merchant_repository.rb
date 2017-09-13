@@ -20,6 +20,11 @@ class MerchantRepository
   end
 
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
+
   def find_by_id(id)
     all.each do |merchant|
       return merchant if merchant.id == id
@@ -29,7 +34,7 @@ class MerchantRepository
 
   def find_by_name(name)
     all.each do |merchant|
-      return merchant if merchant.name == name.downcase
+      return merchant if merchant.name.downcase == name.downcase
     end
     nil
   end
@@ -37,7 +42,7 @@ class MerchantRepository
   def find_all_by_name(name)
     merchant_array = []
     all.each do |merchant|
-      if merchant.name.include?(name.downcase)
+      if merchant.name.downcase.include?(name.downcase)
         merchant_array << merchant
       end
     end

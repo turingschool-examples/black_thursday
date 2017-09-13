@@ -1,4 +1,5 @@
 require_relative 'item'
+require_relative 'sales_engine'
 require 'csv'
 
 class ItemRepository
@@ -11,6 +12,10 @@ class ItemRepository
     CSV.foreach(item_csv, headers: true, header_converters: :symbol) do |row|
       @all << Item.load_csv(row)
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
   end
 
   def find_by_id(id)
@@ -35,7 +40,7 @@ class ItemRepository
     item_array
   end
 
-  def find_by_price(price)
+  def find_all_by_price(price)
     item_array = []
     all.each do |item|
       item_array << item if item.unit_price == price

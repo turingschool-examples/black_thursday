@@ -6,7 +6,7 @@ class Item
     id = items[:id].to_s.to_i
     name = items[:name]
     description = items[:description]
-    unit_price = items[:unit_price].to_i
+    unit_price = items[:unit_price].to_s.to_i
     created_at = items[:created_at]
     updated_at = items[:updated_at]
     merchant_id = items[:merchant_id].to_s.to_i
@@ -37,13 +37,13 @@ class Item
     @id = id
     @name = name
     @description = description
-    @unit_price = unit_price
+    @unit_price = unit_price_to_dollars(unit_price.to_f)
     @created_at = created_at
     @updated_at = updated_at
     @merchant_id = merchant_id
   end
 
   def unit_price_to_dollars(unit_price)
-    unit_price.to_f
+    unit_price / 100
   end
 end
