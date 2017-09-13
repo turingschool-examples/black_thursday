@@ -18,8 +18,8 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_from_csv_created_different_repositories_assigned_to_appropriate_instance_variables
-    assert_instance_of MerchantRepository, se.merchants
-    assert_instance_of ItemRepository, se.items
+    assert_instance_of MerchantRepository, @se.merchants
+    assert_instance_of ItemRepository, @se.items
   end
 
 end
