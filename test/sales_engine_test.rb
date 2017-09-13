@@ -35,6 +35,17 @@ class SalesEngineTest < Minitest::Test
     assert_equal 1367, se.items.all.length
   end
 
+  def test_sales_engine_loads_invoice_repository
+    se = SalesEngine.from_csv({ :items     => "./data/items.csv",
+                                :merchants => "./data/merchants.csv",
+                                :invoices  => "./data/invoices.csv"
+                              })
+
+    assert_instance_of Invoice, se.invoices.all[0]
+    assert_instance_of Invoice, se.invoices.all[-1]
+    assert_equal 4985, se.invoices.all.length
+  end
+
   def test_sales_engine_finds_merchant_by_id
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
