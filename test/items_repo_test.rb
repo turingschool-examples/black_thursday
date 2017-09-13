@@ -19,7 +19,7 @@ class ItemRepoTest < Minitest::Test
   end
 
   def test_it_finds_all_items
-    assert_equal 1367, ir.all_items.count
+    assert_equal 1367, ir.all_items
   end
 
   def test_it_can_find_by_id
