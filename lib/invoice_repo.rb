@@ -1,4 +1,4 @@
-require './lib/invoice'
+require_relative 'invoice'
 require 'csv'
 class InvoiceRepo
   attr_reader :all_invoices, :parent
@@ -20,6 +20,14 @@ class InvoiceRepo
   
   def find_all_by_customer_id(customer_id)
     all_invoices.find_all { |invoice| invoice.customer_id == customer_id }
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    all_invoices.find_all { |invoice| invoice.merchant_id == merchant_id }
+  end
+
+  def find_all_by_status(status)
+    all_invoices.find_all { |invoice| invoice.status == status}
   end
 
 end
