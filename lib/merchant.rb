@@ -2,7 +2,7 @@ class Merchant
   attr_reader :id, :name
 
   def initialize(item, parent=nil)
-    @id     = item[:id].to_s
+    @id     = item[:id].to_i
     @name   = item[:name]
     @parent = parent
   end

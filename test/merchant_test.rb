@@ -11,7 +11,7 @@ class MerchantTest < Minitest::Test
 
   def test_merchant_returns_id 
     merchant = Merchant.new({:id => 2, :name => 'cool'})
-    assert_equal '2', merchant.id    
+    assert_equal 2, merchant.id    
   end
 
   def test_merchant_returns_name 
