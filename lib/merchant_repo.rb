@@ -6,6 +6,10 @@ class MerchantRepository
     @merchant_list = merchant_list
   end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
   def all
     merchant_list
   end
