@@ -1,5 +1,6 @@
 require './lib/csv_parser'
 require './lib/item'
+require 'bigdecimal'
 
 class ItemRepository
 include CsvParser
@@ -14,7 +15,7 @@ attr_accessor :items
             {id: row[:id].to_i,
             name: row[:name],
             description: row[:description],
-            unit_price: row[:unit_price],
+            unit_price: BigDecimal.new(row[:unit_price],4),
             created_at: row[:created_at],
             updated_at: row[:updated_at],
             merchant_id: row[:merchant_id].to_i}, 
