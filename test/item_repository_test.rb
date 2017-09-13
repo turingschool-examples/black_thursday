@@ -2,6 +2,7 @@ require "./test/test_helper"
 require "./lib/sales_engine"
 require "./lib/item_repository"
 require './lib/item'
+require "bigdecimal"
 
 class ItemRepositoryTest < Minitest::Test
 
@@ -48,7 +49,10 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_returns_array_with_items_of_same_price
     assert_instance_of Array, item_repo.find_all_by_price(1200)
-    assert_instance_of Item, item_repo.find_all_by_price(1200)[0]
+  end
+
+  def test_it_returns_item_instances_with_items_of_same_price
+    assert_instance_of Item,  item_repo.find_all_by_price(BigDecimal.new(12))[0]
   end
 
   def test_it_returns_empty_array_if_no_price_match
@@ -56,8 +60,8 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_returns_array_with_items_of_price_in_range
-    assert_instance_of Array, item_repo.find_all_by_price_in_range(1100..1300)
-    assert_instance_of Item, item_repo.find_all_by_price_in_range(1100..1300)[0]
+    assert_instance_of Array, item_repo.find_all_by_price_in_range(11..13)
+    assert_instance_of Item, item_repo.find_all_by_price_in_range(11..13)[0]
   end
 
   def test_it_returns_empty_array_if_no_price_range_match

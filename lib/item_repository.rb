@@ -40,6 +40,7 @@ class ItemRepository
     all.each do |item|
       item_array << item if item.unit_price == price
     end
+    # binding.pry
     item_array
   end
 
