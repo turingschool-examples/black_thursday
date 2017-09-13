@@ -4,9 +4,10 @@ require_relative '../lib/sales_engine'
 
 class SalesAnalystTest < Minitest::Test
   attr_reader :se, :sa
+  
   def setup
     @se = SalesEngine.from_csv({ :items     => "./data/items.csv",
-                                :merchants => "./data/merchants.csv"})
+                                 :merchants => "./data/merchants.csv"})
     @sa = SalesAnalyst.new(se)
   end
 
@@ -50,10 +51,10 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of BigDecimal, expected
   end
 
-  # def test_golden_items_returns_above_average_items
-  #   expected = sa.golden_items
-  #
-  #   assert_equal 5, expected.length
-  #   assert_instance_of Item, expected.first
-  # end
+  def test_golden_items_returns_above_average_items
+    expected = sa.golden_items
+  
+    assert_equal 5, expected.length
+    assert_instance_of Item, expected.first
+  end
 end
