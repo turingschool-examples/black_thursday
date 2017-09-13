@@ -35,7 +35,7 @@ class ItemRepository
     item_array
   end
 
-  def find_by_price(price)
+  def find_all_by_price(price)
     item_array = []
     all.each do |item|
       item_array << item if item.unit_price == price
@@ -46,7 +46,9 @@ class ItemRepository
   def find_all_by_price_in_range(price_range)
     item_array = []
     all.each do |item|
-      item_array << item if price_range.any? {|num| num == item.unit_price}
+      if price_range.include?(item.unit_price)
+        item_array << item
+      end
     end
     item_array
   end
