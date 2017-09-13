@@ -35,8 +35,8 @@ class ItemTest < Minitest::Test
                           :name        => "Pencil",
                           :description => "You can use it to write things",
                           :unit_price  => 1099,
-                          :created_at  => Time.now,
-                          :updated_at  => Time.now,
+                          :created_at  => Time.parse("2016-01-11 09:34:06 UTC"),
+                          :updated_at  => Time.parse("2016-01-11 09:34:06 UTC"),
                           :merchant_id => 12334141
                         })
 
