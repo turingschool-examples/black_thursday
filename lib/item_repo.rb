@@ -2,7 +2,7 @@ require_relative 'item'
 
 class ItemRepository
 
-  def intialize(item_list)
+  def initialize(item_list)
     @item_list = item_list
   end
 

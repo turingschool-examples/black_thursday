@@ -19,8 +19,7 @@ class SalesEngine
       merchant_id = row[:merchant_id]
       item_list << Item.new({ :id => id, :name => name, :description => description, :unit_price => unit_price, :created_at => created_at, :updated_at => updated_at, :merchant_id => merchant_id})
     end
-    #require 'pry'; binding.pry
-    ItemRepository.new
+    ItemRepository.new(item_list)
   end
 
   def self.read_merchants_file(merchants)
@@ -41,9 +40,3 @@ class SalesEngine
   end
 
 end
-
-
-SalesEngine.from_csv({
-  :items     => "./data/items.csv",
-  :merchants => "./data/merchants.csv",
-})
