@@ -1,9 +1,8 @@
 require './lib/items_repo'
 require './lib/merchant_repo'
-require './lib/invoices_repo'
 
+class SalesAnalyst
 
-class SalesEngine
   attr_reader :merchants, :items
 
   def initialize(data)
@@ -12,15 +11,14 @@ class SalesEngine
   end
 
   def self.from_csv(data)
-    se = SalesEngine.new(data)
+    sa = SalesAnalyst.new(data)
   end
 
-  def items_of_merchant(id)
-    items.find_all_by_merchant_id(id)
+  def average_items_per_merchant
+    average = @items.all_items.count.to_f
+    average_1 = @merchants.all_merchants.count.to_f
+    complete_average = average / average_1
+    complete_average.round(2)
   end
-
-  def merchant_item(id)
-    merchants.find_by_id(id)
-  end
-
+  
 end

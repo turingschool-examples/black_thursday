@@ -37,4 +37,8 @@ class SalesEngineTest < Minitest::Test
     item = se.items.find_by_id(263395237)
     assert_instance_of Merchant, item.merchant
   end
+
+  def test_average_items
+  assert_equal 2.88, se.average_items_per_merchant
+  end
 end
