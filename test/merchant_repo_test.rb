@@ -11,6 +11,7 @@ class MerchantRepoTest < Minitest::Test
 
   def test_find_all_merchants
     assert_equal 475, mr.all_merchants.count
+
   end
 
   def test_it_returns_nil_when_no_id_present
@@ -29,6 +30,5 @@ class MerchantRepoTest < Minitest::Test
   def test_it_finds_name_of_all_merchants
     assert_equal 1, mr.find_all_by_name("McG").count
   end
-
 
 end

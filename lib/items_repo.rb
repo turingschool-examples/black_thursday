@@ -16,7 +16,10 @@ class ItemRepo
     end
   end
 
-
+  def all
+    @all_items
+  end
+  
   def find_by_id(item_id)
     all_items.find {|item| item.id == item_id }
   end
