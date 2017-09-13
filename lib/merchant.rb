@@ -1,14 +1,17 @@
-class Merchant
+require './lib/member'
 
-attr_reader :id, :name
 
-  def initialize(fields)
+class Merchant < Member
+
+  attr_reader :id, :name
+  def initialize(repo, fields)
+    super(repo, fields)
     @id = fields[:id]
     @name = fields[:name]
   end
 
-  def == other
-    @id == other.id
+  def items
+    repo.children(:items, id)
   end
 
 end
