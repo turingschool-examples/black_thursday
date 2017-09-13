@@ -20,15 +20,15 @@ class MerchantRepoTest < MiniTest::Test
   def test_find_by_id_returns_matching_id
     merchants = MerchantRepo.new("./data/merchants.csv")
 
-    assert_equal "ElisabettaComotto", merchants.find_by_id("12334228").name
-    assert_nil merchants.find_by_id("777777")
+    assert_equal "ElisabettaComotto", merchants.find_by_id(12334228).name
+    assert_nil merchants.find_by_id(777777)
   end
 
   def test_find_by_name_returns_matching_name
     merchants = MerchantRepo.new("./data/merchants.csv")
 
-    assert_equal "12334228", merchants.find_by_name("ElisabettaComotto").id
-    assert_equal "12334228", merchants.find_by_name("ELISABETTACOMOTTO").id
+    assert_equal 12334228, merchants.find_by_name("ElisabettaComotto").id
+    assert_equal 12334228, merchants.find_by_name("ELISABETTACOMOTTO").id
   end
 
   def test_find_by_returns_nil_if_no_match
