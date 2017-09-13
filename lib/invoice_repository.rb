@@ -11,6 +11,10 @@ class InvoiceRepository
   def csv_parse(file_path)
     CSV.open file_path, headers: true, header_converters: :symbol
   end
+
+  def find_by_id(id_number)
+    all.find {|invoice| invoice.id.to_i == id_number.to_i}
+  end
   
   def inspect
     "#{self.class}"
