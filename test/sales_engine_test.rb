@@ -2,17 +2,19 @@ require "./test/test_helper"
 require "./lib/sales_engine"
 require "./lib/item_repository"
 require "./lib/merchant_repository"
+require "./lib/merchant"
+require "./lib/item"
 
 class SalesEngineTest < Minitest::Test
   attr_reader :se
 
-  def setup
-    csv_hash = {
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-    }
-    @se = SalesEngine.new(csv_hash)
-  end
+  # def setup
+  #   csv_hash = {
+  #     :items     => "./data/items.csv",
+  #     :merchants => "./data/merchants.csv",
+  #   }
+  #   @se = SalesEngine.new(csv_hash)
+  # end
 
   # def test_its_exists
   #   assert_instance_of SalesEngine, se
