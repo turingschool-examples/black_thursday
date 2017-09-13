@@ -22,4 +22,21 @@ attr_reader :merchants
       search_id == merchant.id
     end
   end
+
+  def find_by_name(search_name)
+    search_name = search_name.downcase
+    @merchants.find do |merchant|
+      name = merchant.name.downcase
+      search_name == name
+    end
+  end
+
+  def find_all_by_name(search_all_name)
+    search_all_name = search_all_name.downcase
+    @merchants.find_all do |merchant|
+      name = merchant.name.downcase
+      name.include?(search_all_name)
+    end
+  end
+  
 end
