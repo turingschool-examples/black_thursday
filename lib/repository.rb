@@ -14,6 +14,9 @@ class Repository
     end
   end
 
+  def type
+    (@member_class.name.downcase + 's').to_sym
+  end
 
   def all
     @members.dup
@@ -33,9 +36,9 @@ class Repository
 
 
   def children(child_type, parent_id)
-    child_repo = @sales_engine.repo(:child_type)
+    child_repo = @sales_engine.repo(child_type)
     child_repo.find_all do |member|
-      member.foreign_key(@type) == parent_id
+      member.foreign_id(type) == parent_id
     end
   end
 
