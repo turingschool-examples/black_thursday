@@ -114,19 +114,4 @@ class ItemTest < Minitest::Test
 
     assert_equal 12334141, item_one.merchant_id
   end
-
-  def test_unit_price_to_dollars_converts_unit_price_to_dollar_float
-    skip
-    item_one = Item.new({
-                          :id          => 1,
-                          :name        => "Pencil",
-                          :description => "You can use it to write things",
-                          :unit_price  => 10,
-                          :created_at  => Time.now,
-                          :updated_at  => Time.now,
-                          :merchant_id => 12334141
-                        })
-
-      assert_equal 10.00, item_one.unit_price_to_dollars
-  end
 end
