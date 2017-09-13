@@ -42,7 +42,8 @@ class SalesEngine
   end
 
   def average_items_per_merchant
-    total_items / total_merchants
+    total_items / total_merchants.to_f
+
   end
 
   def merchant_item_count
@@ -52,11 +53,62 @@ class SalesEngine
   end
 
   def standard_deviation_for_merchant_items
-    average_items_per_merchant
-    sum_of_squared_differences = merchant_item_count.reduce(0) do |sum, item_count|
-      (item_count - average_items_per_merchant) ** 2
+    average = average_items_per_merchant
+
+    difference_from_average = merchant_item_count.map do |item_count|
+      item_count - average
     end
-    Math.sqrt(sum_of_squared_differences)
+
+    sum_of_squares = difference_from_average.map {|diff| diff ** 2}.sum
+
+    Math.sqrt(sum_of_squares)
+  end
+
+  def merchants_with_high_item_count
+    std_dev = standard_deviation_for_merchant_items
+    self.merchants.merchants.select do |merchant|
+      merchant.items.count > std_dev
+    end
+  end
+
+  def average_item_price_for_merchant(merchant_id)
+    merchant = self.merchants.find_by_id(merchant_id)
+    total_item_price = merchant.items.reduce(0) do |total_price, item|
+      total_price + item.unit_price
+    end
+    return total_item_price / merchant.items.count unless total_item_price == 0
+    return 0
+  end
+
+
+  def average_average_price_per_merchant
+
+    merchant_price_averages = self.merchants.merchants.map do |merchant|
+      average_item_price_for_merchant(merchant.id)
+    end
+    merchant_price_averages.sum / merchant_price_averages.count
+  end
+
+  def item_standard_deviation
+    #average price of all items
+    total_item_price = self.items.items.reduce(0) do |total_price, item|
+      total_price + item.unit_price
+    end
+    average_item_price = total_item_price / total_items.to_f
+
+
+    #array of all prices
+    item_price_differences = self.items.items.map do |item|
+      (item.unit_price - average_item_price) ** 2
+    end
+
+    Math.sqrt(item_price_differences.sum)
+  end
+
+  def golden_items
+    self.items.items.select do |item|
+      item.unit_price > item_standard_deviation * 2
+    end
   end
 
 end
