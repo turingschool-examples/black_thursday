@@ -1,9 +1,9 @@
-class Invoice 
-  attr_reader :id, 
-              :customer_id, 
-              :merchant_id, 
-              :status, 
-              :created_at, 
+class Invoice
+  attr_reader :id,
+              :customer_id,
+              :merchant_id,
+              :status,
+              :created_at,
               :updated_at,
               :parent
 
@@ -16,4 +16,5 @@ class Invoice
     @updated_at  = Time.parse(invoice[:updated_at].to_s)
     @parent      = nil
   end
+
 end

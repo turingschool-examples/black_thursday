@@ -9,7 +9,7 @@ class SalesEngineTest < Minitest::Test
                                :invoices  => "./data/invoices.csv"
                               })
 
-    assert engine 
+    assert engine
     assert_instance_of SalesEngine, engine
   end
 
@@ -59,7 +59,7 @@ class SalesEngineTest < Minitest::Test
     assert_equal id, merchant.id
   end
 
-  def test_sales_engine_finds_all_items_by_merchant 
+  def test_sales_engine_finds_all_items_by_merchant
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -87,4 +87,34 @@ class SalesEngineTest < Minitest::Test
     assert_equal expected.id, item.merchant_id
     assert_equal 'Blankiesandfriends', expected.name
   end
+
+  def test_sales_engine_finds_all_invoices_by_merchant
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+    })
+
+    id       = 12335690
+    merchant = se.merchants.find_by_id(id)
+    expected = merchant.invoices
+
+    assert_equal 16, expected.length
+  end
+
+  def test_sales_engine_finds_all_invoices_by_other_merchant
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+    })
+
+    id       = 12334189
+    merchant = se.merchants.find_by_id(id)
+    expected = merchant.invoices
+
+    assert_equal 10, expected.length
+  end
+
+
 end
