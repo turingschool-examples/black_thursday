@@ -33,11 +33,15 @@ class ItemRepository
     all.select {|item| price_range.include?(item.unit_price)}
   end
 
-  def find_all_items_per_merchant(merchant_id)
-    all.select {|item| item.merchant_id.include?(merchant_id.to_s)}
+  def find_all_by_merchant_id(merchant_id)
+    all.select {|item| item.merchant_id.to_s.include?(merchant_id.to_s)}
   end
 
   def find_merchant_that_owns_item(item_id)
     @parent.find_merchant_that_owns_item(item_id)
+  end
+
+  def inspect
+    "#{self.class}"
   end
 end

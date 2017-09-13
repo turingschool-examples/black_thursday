@@ -77,15 +77,15 @@ class ItemRepostoryTest < Minitest::Test
     assert_equal 910, expected.count
   end
 
-  def test_find_all_items_per_merchant_returns_item_matching_merchant_id
-    expected = items.find_all_items_per_merchant(12334326)
+  def test_find_all_by_merchant_id_returns_item_matching_merchant_id
+    expected = items.find_all_by_merchant_id(12334326)
 
     assert_instance_of Array, expected
     assert_equal 6, expected.count
   end
 
-  def test_find_all_items_per_merchant_returns_empty_if_no_match_found
-    expected = items.find_all_items_per_merchant(001011010110110)
+  def test_find_all_by_merchant_id_returns_empty_if_no_match_found
+    expected = items.find_all_by_merchant_id(001011010110110)
 
     assert_equal [], expected
   end

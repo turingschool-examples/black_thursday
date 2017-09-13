@@ -29,7 +29,11 @@ class MerchantRepository
     all.select {|merchant| merchant.name.downcase.include?(fragment.downcase)}
   end
 
-  def find_all_items_per_merchant(merchant_id)
-    @parent.find_all_items_per_merchant(merchant_id)
+  def find_all_by_merchant_id(merchant_id)
+    @parent.find_all_by_merchant_id(merchant_id)
+  end
+
+  def inspect
+    "#{self.class}"
   end
 end
