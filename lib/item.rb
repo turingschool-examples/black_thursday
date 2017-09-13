@@ -1,50 +1,42 @@
 require 'time'
 require 'bigdecimal'
 
-
 class Item
-
-  def initialize(item = {})
-    @id = item.fetch(:id)
-    @name = item.fetch(:name)
-    @description = item.fetch(:description)
-    @unit_price = item.fetch(:unit_price)
-    @created_at = item.fetch(:created_at)
-    @updated_at = item.fetch(:updated_at)
-    @merchant_id = item.fetch(:merchant_id)
+  attr_reader :item
+  def initialize(item)
+    @item = item
   end
 
   def id
-    @id.to_i
+    item.fetch(:id).to_i
   end
 
   def name
-    @name
+    item.fetch(:name)
   end
 
   def description
-    @description
+    item.fetch(:description)
   end
 
   def unit_price
-    BigDecimal.new(@unit_price)
+    BigDecimal.new(item.fetch(:unit_price))
   end
 
   def created_at
-    Time.parse(@created_at)
+    Time.parse(item.fetch(:created_at))
   end
 
   def updated_at
-    Time.parse(@updated_at)
+    Time.parse(item.fetch(:updated_at))
   end
 
   def merchant_id
-    @merchant_id.to_i
+    item.fetch(:merchant_id).to_i
   end
 
   def unit_to_dollar
-    price = @unit_price.to_f.to_s
+    price = unit_price.to_f.to_s
     "$#{price}"
   end
-
 end

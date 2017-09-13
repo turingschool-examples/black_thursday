@@ -1,12 +1,14 @@
-require 'pry'
-
 class Merchant
-  attr_accessor :id, :name
-
-
-  def initialize(merchant = {})
-    @id = merchant.fetch(:id)
-    @name = merchant.fetch(:name)
+  attr_reader :merchant
+  def initialize(merchant)
+    @merchant = merchant
   end
 
+  def id
+    merchant.fetch(:id).to_i
+  end
+
+  def name
+    merchant.fetch(:name)
+  end
 end
