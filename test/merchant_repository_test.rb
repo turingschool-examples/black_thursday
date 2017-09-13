@@ -81,4 +81,5 @@ class MerchantRepositoryTest < Minitest::Test
 
     assert_equal expected, actual
   end
+  
 end

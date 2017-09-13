@@ -2,7 +2,9 @@ require './lib/merchant'
 require 'csv'
 
 class MerchantRepository
+
   attr_reader :merchants
+
   def initialize(file_path)
     @merchants = []
     load_csv(file_path)
