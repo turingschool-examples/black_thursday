@@ -10,12 +10,12 @@ class MerchantRepository
 
   def load_csv(file_path)
     CSV.foreach(file_path, headers: true, header_converters: :symbol, converters: :numeric ) do |merchant|
-      @merchants << Merchant.new(merchant.to_h)
+      merchants << Merchant.new(merchant.to_h)
     end
   end
 
   def all
-    @merchants
+    merchants
   end
 
   def find_by_id(id)

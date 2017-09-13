@@ -11,16 +11,16 @@ class ItemRepository
 
   def load_csv(file_path)
     CSV.foreach(file_path, headers: true, header_converters: :symbol, converters: :numeric ) do |item|
-      @items<< Item.new(item.to_h)
+      items<< Item.new(item.to_h)
     end
   end
 
   def all
-    @items
+    items
   end
 
   def find_by_id(id)
-    @items.find do |item|
+    items.find do |item|
       item.id == id
     end
   end

@@ -8,8 +8,8 @@ class SalesEngineTest < Minitest::Test
 
   def setup
     @se = SalesEngine.from_csv({
-            :items => "./data/items_test.csv",
-            :merchants => "./data/merchants_test.csv",
+            :items => './test/fixtures/items_truncated_3.csv',
+            :merchants => './test/fixtures/merchants_truncated_4.csv',
     })
   end
 

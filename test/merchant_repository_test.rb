@@ -1,14 +1,12 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require './test/test_helper'
 require './lib/merchant_repository'
-require 'pry'
 
 class MerchantRepositoryTest < Minitest::Test
 
   attr_reader :mr
 
   def setup
-    @mr = MerchantRepository.new('./data/merchants_test.csv')
+    @mr = MerchantRepository.new('./test/fixtures/merchants_truncated_4.csv')
   end
 
   def test_it_exists
@@ -17,7 +15,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_load_csv
     assert_equal 4, @mr.merchants.length
-    actual = @mr.load_csv('./data/merchants_test.csv')
+    actual = @mr.load_csv('./test/fixtures/merchants_truncated_4.csv')
 
     assert_equal 8, @mr.merchants.length
   end

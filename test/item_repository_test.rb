@@ -1,14 +1,12 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require './test/test_helper'
 require './lib/item_repository'
-require 'pry'
 
 class ItemRepositoryTest < Minitest::Test
 
   attr_reader :ir
 
   def setup
-    @ir = ItemRepository.new('./data/items_test.csv')
+    @ir = ItemRepository.new('./test/fixtures/items_truncated_3.csv')
   end
 
   def test_it_exists
@@ -17,7 +15,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_load_csv
     assert_equal 3, @ir.items.length
-    @ir.load_csv('./data/items_test.csv')
+    @ir.load_csv('./test/fixtures/items_truncated_3.csv')
 
     assert_equal 6, @ir.items.length
   end
