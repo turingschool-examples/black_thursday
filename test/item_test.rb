@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/item'
+
 require 'pry'
 
 class ItemTest < MiniTest::Test
@@ -9,10 +10,11 @@ class ItemTest < MiniTest::Test
     item = Item.new({
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => 10,
-      :created_at  => 10,
-      :updated_at  => 10,
+      :unit_price  => "1000",
+      :created_at  => Time.parse("2016-12-30 10:12:12 -0600"),
+      :updated_at  => Time.parse("2016-12-30 10:12:12 -0600"),
       })
+
     assert_instance_of Item, item
   end
 
