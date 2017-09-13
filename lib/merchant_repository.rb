@@ -2,7 +2,9 @@ require './lib/merchant'
 require 'csv'
 
 class MerchantRepository
+
   attr_reader :merchants
+
   def initialize(file_path)
     @merchants = []
     load_csv(file_path)
@@ -10,12 +12,12 @@ class MerchantRepository
 
   def load_csv(file_path)
     CSV.foreach(file_path, headers: true, header_converters: :symbol, converters: :numeric ) do |merchant|
-      @merchants << Merchant.new(merchant.to_h)
+      merchants << Merchant.new(merchant.to_h)
     end
   end
 
   def all
-    @merchants
+    merchants
   end
 
   def find_by_id(id)
@@ -30,7 +32,6 @@ class MerchantRepository
     end
   end
 
-#TODO change "name_fragment" parameter to something else
   def find_all_by_name(name_fragment)
     merchants.find_all do |merchant|
       merchant.name.downcase.include?(name_fragment.downcase)
