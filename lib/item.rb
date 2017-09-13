@@ -39,8 +39,8 @@ class Item
     @name = name
     @description = description
     @unit_price = unit_price_to_dollars(unit_price)
-    @created_at = Time.parse(created_at)
-    @updated_at = Time.parse(updated_at)
+    @created_at = Time.parse(created_at.to_s)
+    @updated_at = Time.parse(updated_at.to_s)
     @merchant_id = merchant_id
   end
 
