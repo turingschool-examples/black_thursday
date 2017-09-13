@@ -40,7 +40,8 @@ class ItemRepository
   def find_merchant_that_owns_item(item_id)
     @parent.find_merchant_that_owns_item(item_id)
   end
+
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    "#{self.class}"
   end
 end
