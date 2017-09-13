@@ -6,10 +6,10 @@ class Item
     id = items[:id].to_s.to_i
     name = items[:name]
     description = items[:description]
-    unit_price = items[:unit_price].to_i
+    unit_price = items[:unit_price].to_s.to_i
     created_at = items[:created_at]
     updated_at = items[:updated_at]
-    merchant_id = items[:merchant_id].to_s.to_i
+    merchant_id = items[:merchant_id]
     Item.new(id,
              name,
              description,
@@ -46,4 +46,5 @@ class Item
   def unit_price_to_dollars(unit_price)
     unit_price.to_f
   end
+
 end

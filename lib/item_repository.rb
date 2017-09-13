@@ -54,11 +54,15 @@ class ItemRepository
   def find_all_by_merchant_id(merchant_id)
   merchant_id_array = []
   all.each do |item|
-    if item.merchant_id == merchant_id
+    if item.merchant_id.to_i == merchant_id
       merchant_id_array << item
     end
   end
     return merchant_id_array
+  end
+
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
   end
 
 end
