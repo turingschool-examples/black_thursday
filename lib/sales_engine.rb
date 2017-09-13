@@ -1,19 +1,18 @@
+require './lib/item_repository'
+require './lib/merchant_repository'
+
 class SalesEngine
 
-  def self.from_csv(data_files)
-    data_files.for_each do |key, value|
-
-
-      # data_files.keys[0] = MerchantRepository.new(data_files.values[0])
+  def self.from_csv(source_files)
+    SalesEngine.new(source_files)
   end
 
   attr_reader :items,
-  :merchants
+              :merchants
 
-  def initialize
-    @items = items
-    @merchants = merchants
+  def initialize(source_files)
+    @items = ItemRepository.new(source_files[:items])
+    @merchants = MerchantRepository.new(source_files[:merchants])
   end
 
-#data file will equal instance of repo
 end
