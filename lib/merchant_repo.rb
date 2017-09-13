@@ -4,6 +4,10 @@ class MerchantRepository
   def initialize(merchant_list)
     @merchant_list = merchant_list
   end
+  
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 
   def all
   end
