@@ -18,9 +18,9 @@ attr_accessor :items
             created_at: row[:created_at],
             updated_at: row[:updated_at],
             merchant_id: row[:merchant_id].to_i}, 
-            sales_engine)
+            self)
         end
-        # populate_items_with_merchant
+        #populate_items_with_merchant
         @sales_engine = sales_engine
     end
 
@@ -52,11 +52,8 @@ attr_accessor :items
         @items.select {|item| item.merchant_id == merchant_id}
     end
 
-    def populate_items_with_merchant
-        @items.each {|item| item.gather_merchant}
-    end
-
-    # def assign_id
-    #   @items #iterate through, assign each item object an id# that increments by one.
+    # def populate_items_with_merchant
+    #     @items.each {|item| item.gather_merchant}
     # end
+
 end

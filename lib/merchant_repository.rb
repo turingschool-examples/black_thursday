@@ -10,9 +10,9 @@ attr_accessor :merchants
     @merchants = []
     merchant_contents = parse_data(file_name)
     merchant_contents.each do |row|
-      @merchants << Merchant.new({id: row[:id].to_i, name: row[:name]}, sales_engine)
+      @merchants << Merchant.new({id: row[:id].to_i, name: row[:name]}, self)
     end
-    populate_merchants_with_items
+    # populate_merchants_with_items
     @sales_engine = sales_engine
   end
 

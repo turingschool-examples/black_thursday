@@ -53,5 +53,15 @@ class MerchantTest < Minitest::Test
     assert_equal 20, merchant2_items.count
   end
 
+  def test_merchant_can_return_assigned_items
+    mr = setup
+
+    merchant = mr.find_by_id(12334403)
+
+    items = merchant.items
+
+    assert_equal 'Knitted winter snood', items[0].name
+    assert_equal 1, items.count
+  end 
 
 end

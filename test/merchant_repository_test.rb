@@ -88,4 +88,6 @@ class MerchantRepositoryTest < Minitest::Test
     
     assert mr.sales_engine
   end 
+
+  
 end

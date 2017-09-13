@@ -17,14 +17,19 @@ class SalesEngine
   end
 
   def merchants
-    MerchantRepository.new(@merchant_csv_filepath, self)
+    if @merchant_repository.nil? 
+      @merchant_repository = MerchantRepository.new(@merchant_csv_filepath, self)
+    else 
+      @merchant_repository
+    end 
   end
 
   def items
-    ItemRepository.new(@item_csv_filepath, self)
+    if @item_repository.nil? 
+      @item_repository = ItemRepository.new(@item_csv_filepath, self)
+    else 
+      @item_repository
+    end 
   end
 
-  def assign_items_to_merchants
-
-  end
 end

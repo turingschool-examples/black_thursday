@@ -72,11 +72,11 @@ Any colours'
   def test_it_can_be_assigned_a_merchant
     ir = setup
 
-    item = ir.find_by_id(263395237)
-    item.gather_merchant
+    item = ir.find_by_id(263403127)
+    seller = item.merchant
 
-    assert_equal 12334141, item.merchant.id
-    assert_equal 'jejum', item.merchant.name
+    assert_equal 12334403, seller.id
+    assert_equal 'IOleynikova', seller.name
   end
-
+ 
 end
