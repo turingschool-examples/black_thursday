@@ -18,8 +18,11 @@ class InvoiceRepoTest < Minitest::Test
   end
 
   def test_find_by_id
-    assert_instance_of Invoice, ir.find_by_id(12337139)
-    assert_equal 8, ir.find_by_id.(12337139).id
+    # assert_instance_of Invoice, ir.find_by_id(12337139)
+    assert_equal 8, ir.find_by_id(12337139).id
   end
 
+  # def test_find_all_by_customer_id
+  #   assert_equal 23, ir.find_all_by_customer_id(customer_id).count
+  # end
 end
