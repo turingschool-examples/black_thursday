@@ -39,7 +39,15 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_returns_merchant_instance_for_partial_name
+    assert_equal [], mr.find_all_by_name("Skittles12345")
+  end
+
+  def test_it_returns_merchant_instance_for_partial_name
     assert_instance_of Array, mr.find_all_by_name("I")
+  end
+
+  def test_it_returns_merchant_instance_for_partial_name
+    assert_instance_of Merchant, mr.find_all_by_name("I")[0]
   end
 
 end
