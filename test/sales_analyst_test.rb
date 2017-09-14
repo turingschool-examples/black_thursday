@@ -17,17 +17,17 @@ class SalesAnalystTest < Minitest::Test
 
   def test_average_items_per_merchant_returns_float
     average = sales_analyst.average_items_per_merchant
-    assert_equal (4/6), average
+    assert_equal 0.67, average
   end
 
   def test_standard_deviation_returns_std
-    assert_equal 3.26, sales_analyst.average_items_per_merchant_standard_deviation
+    assert_equal 0.82, sales_analyst.average_items_per_merchant_standard_deviation
   end
 
   def test_merchants_with_high_item_count_returns_merchants_one_std_from_avg
-    skip
+
     high_count_merchants = sales_analyst.merchants_with_high_item_count
-    assert_equal [merchant, merchant, merchant], high_count_merchants
+    assert_equal ["merchant 1", "merchant 2",  "merchant 3"], high_count_merchants
   end
 
   def test_average_price_for_merchant_returns_average_price_for_the_item
@@ -43,7 +43,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_golden_items_returns_items_2_standard_deviations_from_average
-    skip
+    
     # assert_equal [<item>, <item>, <item>, <item>], sales_analyst.golden_items
   end
 

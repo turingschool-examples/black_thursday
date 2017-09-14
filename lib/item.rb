@@ -27,6 +27,7 @@ class Item < Repository::Record
 
   def ensure_time(time)
     time = Time.parse time unless time.is_a? Time
+    time
   end
 
 end
