@@ -2,6 +2,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/invoice_repo'
 require 'pry'
+require './lib/sales_engine'
 
 class InvoiceRepoTest < Minitest::Test
   attr_reader :ir
@@ -19,7 +20,9 @@ class InvoiceRepoTest < Minitest::Test
   end
 
   def test_find_by_id
+    assert_instance_of Invoice, ir.find_by_id(8)
     assert_equal 8, ir.find_by_id(8).id
+    assert_nil ir.find_by_id(45423)
   end
 
 

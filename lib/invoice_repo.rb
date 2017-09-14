@@ -5,7 +5,6 @@ class InvoiceRepo
   def initialize(file, ir = nil)
     @all_invoices = []
     open_file(file)
-    # @parent = se
   end
 
   def open_file(file)
@@ -14,10 +13,14 @@ class InvoiceRepo
     end
   end
 
+  def all
+    @all_invoices
+  end
+
   def find_by_id(invoice_id)
     all_invoices.find { |invoice| invoice.id == invoice_id }
   end
-  
+
   def find_all_by_customer_id(customer_id)
     all_invoices.find_all { |invoice| invoice.customer_id == customer_id }
   end
@@ -27,7 +30,7 @@ class InvoiceRepo
   end
 
   def find_all_by_status(status)
-    all_invoices.find_all { |invoice| invoice.status == status}
+    all_invoices.find_all { |invoice| invoice.status == status.to_sym}
   end
 
 end

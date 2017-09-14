@@ -4,11 +4,12 @@ require_relative 'invoice_repo'
 
 
 class SalesEngine
-  attr_reader :merchants, :items
+  attr_reader :merchants, :items, :invoices
 
   def initialize(data)
     @merchants     = MerchantRepo.new(data[:merchants], self)
     @items         = ItemRepo.new(data[:items], self)
+    @invoices      = InvoiceRepo.new(data[:invoices], self)
   end
 
   def self.from_csv(data)
