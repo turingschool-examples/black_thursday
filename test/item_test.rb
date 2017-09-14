@@ -1,5 +1,5 @@
-require './test/test_helper'
-require './lib/item'
+require_relative 'test_helper'
+require_relative '../lib/item'
 require 'bigdecimal'
 
 class ItemTest < Minitest::Test
@@ -22,7 +22,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_parent_exist_and_defaults_to_nil
-    actual = item.parent 
+    actual = item.parent
 
     assert_nil actual
   end

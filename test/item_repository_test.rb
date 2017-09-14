@@ -1,5 +1,5 @@
-require './test/test_helper'
-require './lib/item_repository'
+require_relative 'test_helper'
+require_relative '../lib/item_repository'
 
 class ItemRepositoryTest < Minitest::Test
 
@@ -14,7 +14,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_parent_exist_and_defaults_to_nil
-    actual = @ir.parent 
+    actual = @ir.parent
 
     assert_nil actual
   end
