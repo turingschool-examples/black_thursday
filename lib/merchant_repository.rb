@@ -3,16 +3,18 @@ require 'csv'
 
 class MerchantRepository
 
-  attr_reader :merchants
+  attr_reader :merchants,
+              :parent
 
-  def initialize(file_path)
+  def initialize(file_path, parent = nil)
     @merchants = []
     load_csv(file_path)
+    @parent = parent
   end
 
   def load_csv(file_path)
     CSV.foreach(file_path, headers: true, header_converters: :symbol, converters: :numeric ) do |merchant|
-      merchants << Merchant.new(merchant.to_h)
+      merchants << Merchant.new(merchant.to_h, self)
     end
   end
 

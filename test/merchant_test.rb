@@ -20,4 +20,11 @@ class MerchantTest < Minitest::Test
 
     assert_equal "Turing School", merchant.name
   end
+
+  def test_parent_exists_and_is_defaulted_to_nil
+    merchant = Merchant.new({:id => 5, :name => "Turing School"})
+
+    assert_nil merchant.parent
+  end
+
 end

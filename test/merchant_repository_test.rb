@@ -13,6 +13,10 @@ class MerchantRepositoryTest < Minitest::Test
     assert_instance_of MerchantRepository, mr
   end
 
+  def test_it_has_a_parent_defaulted_to_nil
+    assert_nil mr.parent
+  end
+
   def test_load_csv
     assert_equal 4, mr.merchants.length
     actual = mr.load_csv('./test/fixtures/merchants_truncated_4.csv')
