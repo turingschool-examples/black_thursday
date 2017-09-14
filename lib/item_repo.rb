@@ -2,8 +2,8 @@ require_relative 'item'
 
 class ItemRepository
   attr_reader :items
-  def initialize(item_list)
-    @items = item_list
+  def initialize(items)
+    @items = items
   end
 
   def all
