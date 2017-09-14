@@ -1,7 +1,9 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/merchant_repository'
-require './lib/sales_engine'
+# require './lib/merchant_repository'
+# require './lib/sales_engine'
+require_relative '../lib/merchant_repository'
+require_relative '../lib/sales_engine'
 
 
 class MerchantRepositoryTest < Minitest::Test
@@ -38,14 +40,12 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal "Shopin1901", mr.merchants[0].name
   end
 
-  #all - returns an array of all known Merchant instances
   def test_all_returns_all_the_merchants
     mr = setup
 
-    assert_equal 19, mr.all.count
+    assert_equal 21, mr.all.count
   end
 
-  # find_by_id - returns either nil or an instance of Merchant with a matching ID
   def test_it_can_find_a_merchant_using_id
     mr = setup
     id_1 = 12334174
@@ -57,7 +57,6 @@ class MerchantRepositoryTest < Minitest::Test
     assert_nil mr.find_by_id(id_3)
   end
 
-  # find_by_name - returns either nil or an instance of Merchant having done a case insensitive search
   def test_it_can_find_a_merchant_using_name
     mr = setup
     name_1 = "GoldenRayPress"
@@ -71,7 +70,6 @@ class MerchantRepositoryTest < Minitest::Test
     assert_nil mr.find_by_name(name_4)
   end
 
-  # find_all_by_name - returns either [] or one or more matches which contain the supplied name fragment, case insensitive
   def test_it_can_find_all_merchants_with_a_given_name
     mr = setup
     name_1 = "in"
@@ -88,6 +86,5 @@ class MerchantRepositoryTest < Minitest::Test
 
     assert mr.sales_engine
   end
-
 
 end

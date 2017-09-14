@@ -1,8 +1,10 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/item'
+# require './lib/item'
+# require './lib/sales_engine'
+require_relative '../lib/item'
+require_relative '../lib/sales_engine'
 require 'bigdecimal'
-require './lib/sales_engine'
 
 class ItemTest < Minitest::Test
 
@@ -37,7 +39,7 @@ class ItemTest < Minitest::Test
     ir = setup
 
     description = 'Free standing wooden Any colours'
-    
+
     assert_equal description, ir.items[3].description
   end
 

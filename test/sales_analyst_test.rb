@@ -1,7 +1,9 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/sales_analyst'
-require './lib/sales_engine'
+# require './lib/sales_analyst'
+# require './lib/sales_engine'
+# require_relative '../lib/sales_engine'
+require_relative '../lib/sales_analyst'
 
 class SalesAnalystTest < MiniTest::Test
 
@@ -24,6 +26,6 @@ class SalesAnalystTest < MiniTest::Test
   def test_it_can_find_average_items_per_merchant
     sa = setup
 
-    assert_equal 1, sa.average_items_per_merchant
+    assert_equal 2, sa.average_items_per_merchant
   end
 end

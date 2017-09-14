@@ -1,5 +1,7 @@
-require './lib/csv_parser'
-require './lib/item'
+# require './lib/csv_parser'
+# require './lib/item'
+require_relative 'csv_parser'
+require_relative 'item'
 require 'bigdecimal'
 
 class ItemRepository

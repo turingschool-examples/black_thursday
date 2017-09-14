@@ -1,4 +1,5 @@
-require './lib/sales_engine'
+# require './lib/sales_engine'
+require_relative 'sales_engine'
 
 class SalesAnalyst
 
@@ -13,7 +14,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    
+
   end
 
   def merchants_with_high_item_count

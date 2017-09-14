@@ -1,5 +1,7 @@
-require './lib/csv_parser'
-require './lib/merchant'
+# require './lib/csv_parser'
+# require './lib/merchant'
+require_relative 'csv_parser'
+require_relative 'merchant'
 
 class MerchantRepository
 include CsvParser

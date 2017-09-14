@@ -1,5 +1,7 @@
-require './lib/merchant_repository'
-require './lib/item_repository'
+# require './lib/merchant_repository'
+# require './lib/item_repository'
+require_relative 'merchant_repository'
+require_relative 'item_repository'
 
 class SalesEngine
 
@@ -91,14 +93,11 @@ class SalesEngine
   end
 
   def item_standard_deviation
-    #average price of all items
     total_item_price = self.items.items.reduce(0) do |total_price, item|
       total_price + item.unit_price
     end
     average_item_price = total_item_price / total_items.to_f
 
-
-    #array of all prices
     item_price_differences = self.items.items.map do |item|
       (item.unit_price - average_item_price) ** 2
     end
