@@ -14,7 +14,7 @@ class Item
               :item_repository
 
   def initialize(ir, csv_info)
-    @id = csv_info[:id]
+    @id = csv_info[:id].to_i
     @name = csv_info[:name]
     @description = csv_info[:description]
     @unit_price = unit_price_to_dollars(csv_info[:unit_price])
