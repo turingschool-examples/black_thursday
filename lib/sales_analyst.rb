@@ -55,4 +55,9 @@ class SalesAnalyst
     item_prices = items.map {|item| item.unit_price}
     BigDecimal(item_prices.sum / item_prices.count).round(2)
   end
+
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
+  end
+
 end

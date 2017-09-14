@@ -19,4 +19,9 @@ class SalesEngine
     @merchants = MerchantRepository.new(merchant_file_path, self)
   end
 
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
+  end
+
+
 end
