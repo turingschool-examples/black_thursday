@@ -21,7 +21,7 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of ItemRepository, se.items_repository
   end
 
-  def test_items_returns_array_of_item_objects_associated_with_merchant
+  def test_items_called_on_merchant_returns_array_of_item_objects_associated_with_merchant
     merchant = se.merchants_repository.find_by_id(12334112)
     actual = merchant.items
 
@@ -30,6 +30,14 @@ class SalesEngineTest < Minitest::Test
     assert_equal 12334112, actual[0].merchant_id
     assert_equal 12334112, actual[1].merchant_id
     refute_equal actual[0], actual[1]
+  end
+
+  def test_merchant_called_on_item_returns_merchant_instance
+    item = se.items_repository.find_by_id(263395237)
+    actual = item.merchant
+
+    assert_instance_of Merchant, actual
+    assert_equal item.merchant_id, actual.id
   end
 
 end

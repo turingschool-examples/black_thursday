@@ -1,4 +1,5 @@
 require 'bigdecimal'
+require 'pry'
 
 class Item
 
@@ -24,6 +25,11 @@ class Item
 
   def unit_price_to_dollars
     unit_price.to_f
+  end
+
+  def merchant
+    sales_engine = @parent.parent
+    sales_engine.merchants_repository.find_by_id(@merchant_id)
   end
 
 end
