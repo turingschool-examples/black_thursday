@@ -5,11 +5,11 @@ require_relative "sales_engine"
 
 class MerchantRepository
 
-  attr_reader :all
+  attr_reader :all, :sales_engine
 
   def initialize(se, merchant_csv)
     @all = []
-    @se = se
+    @sales_engine = se
 
     CSV.foreach(merchant_csv, headers: true, header_converters: :symbol) do |row|
       @all << Merchant.new(self, row)

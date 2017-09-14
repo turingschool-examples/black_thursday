@@ -49,4 +49,8 @@ class Item
     BigDecimal.new(dollars, 4)
   end
 
+  def merchant
+    item_repository.sales_engine.merchants.find_by_id(id)
+  end
+
 end
