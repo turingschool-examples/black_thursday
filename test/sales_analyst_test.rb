@@ -172,4 +172,46 @@ class SalesAnalystTest < Minitest::Test
     assert_equal "Wednesday", expected.first
     assert_instance_of String, expected.first
   end
+
+  def test_invoice_std_deviation 
+    invoices_per_day = [1, 2, 3, 4, 5, 6, 7]
+    expected = sa.invoice_std_deviation(invoices_per_day)
+    
+    assert_equal 708, expected
+  end
+
+  def test_invoices_per_day 
+    expected = [729, 701, 741, 696, 708, 692, 718] 
+    assert_equal expected, sa.invoices_per_day
+  end
+
+  def test_day_array 
+    actual   = sa.day_array 
+    expected = [["Saturday", 729], 
+                ["Friday", 701],
+                ["Wednesday", 741], 
+                ["Monday", 696],
+                ["Sunday", 708],
+                ["Tuesday", 692],
+                ["Thursday", 718]]
+
+    assert_equal expected, actual
+  end
+
+  def test_days_with_high_invoices
+    arg1     = sa.day_array 
+    arg2     = sa.avg_inv_per_day
+    arg3     = sa.invoice_std_deviation(sa.invoices_per_day)
+    expected = sa.days_with_high_invoices(arg1, arg2, arg3)
+
+    assert_equal 'Wednesday', expected[0]
+  end
+
+  def test_grouped_invoices 
+    assert_instance_of Hash, sa.grouped_invoices
+  end
+
+  def test_avg_inv_per_day 
+    assert_equal 712, sa.avg_inv_per_day
+  end
 end
