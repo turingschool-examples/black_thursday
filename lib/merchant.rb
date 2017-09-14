@@ -9,11 +9,11 @@ attr_accessor :items
     @items = []
   end
 
- def items
+ def items #refactor—make method in repo that hides sales engine and its stuff. 
   @merchant_repository.sales_engine.items.find_all_by_merchant_id(@id)
  end
 
-  # def gather_items
-  #   @items = @sales_engine.items.find_all_by_merchant_id(@id)
-  # end
+ def invoices
+  @merchant_repository.sales_engine.invoices.find_all_by_merchant_id(@id)
+ end 
 end

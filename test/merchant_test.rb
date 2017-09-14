@@ -11,6 +11,7 @@ class MerchantTest < Minitest::Test
     se = SalesEngine.from_csv({
           :items     => "./test/fixtures/items_fixture.csv",
           :merchants => "./test/fixtures/merchants_fixture.csv",
+          :invoices => "./test/fixtures/invoices_fixture.csv"
         })
     mr = se.merchants
   end
@@ -65,4 +66,11 @@ class MerchantTest < Minitest::Test
     assert_equal 1, items.count
   end
 
+  def test_merchant_can_return_invoices
+    mr = setup
+
+    merchant = mr.find_by_id(12334403)
+
+    assert_equal 1, merchant.invoices.count
+  end
 end

@@ -19,4 +19,7 @@ class Invoice
         @invoice_repository = invoice_repository
     end
 
+    def merchant
+        @invoice_repository.sales_engine.merchants.find_by_id(@merchant_id)
+    end 
 end 

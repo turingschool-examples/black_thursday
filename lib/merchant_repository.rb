@@ -36,10 +36,6 @@ attr_accessor :merchants
     end
   end
 
-  # def populate_merchants_with_items
-  #   @merchants.each {|merchant| merchant.gather_items}
-  # end
-
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
