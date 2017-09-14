@@ -24,12 +24,18 @@ class SalesAnalyst
     total_items = total_item_count_per_merchant(merchant_repo)
     total_items.to_f / merchant_count.to_f
   end
-  #
-  # def average_items_per_merchant_standard_deviation
-  #   mean = average_items_per_merchant
-  #   merchant_repo = @engine.merchants
-  #   merchant_item_count = merchant_repo.merchants.
-  # end
 
+  def average_items_per_merchant_standard_deviation
+    mean = average_items_per_merchant
 
+    merchant_repo = @engine.merchants
+    merchant_repo.reduce(0) do |result, merchant|
+      difference_squared = (mean - merchant.items.count) ** 2
+      result + difference_squared
+    end
+
+    sample_variance = result / (merchant_repo.merchants.count-1)
+    Math.sqrt(sample_variance)
+
+  end
 end
