@@ -64,16 +64,29 @@ class SalesAnalyst
     merchants
   end
 
-# Are these merchants selling commodity or luxury goods? Let’s find the average price of a merchant’s items (by supplying the merchant ID):
-# sa.average_item_price_for_merchant(12334159) # => BigDecimal
-
   def average_item_price_for_merchant(merchant_id)
     total_items = se.items.find_all_by_merchant_id(merchant_id)
     item_prices = total_items.map do |item|
                     item.unit_price
                   end
     total_item_prices = item_prices.sum
+    return 0.00 if total_items.length == 0
     (total_item_prices / total_items.length).round(2)
+  end
+
+  def check_zero(total_items)
+    return 0.00 if total_items == 0
+  end
+
+  # sum all of the averages and find the average price across all merchants
+  # sa.average_average_price_per_merchant # => BigDecimal
+
+  def average_average_price_per_merchant
+    average_price_array = se.items.all.map do |item|
+                          average_item_price_for_merchant(item.merchant_id.to_f)
+                        end
+    sum_averages = average_price_array.sum
+    (sum_averages / average_price_array.count).round(2)
   end
 
 
