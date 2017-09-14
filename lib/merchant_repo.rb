@@ -16,10 +16,16 @@ class MerchantRepository
     end
   end
 
-  def find_by_name
+  def find_by_name(name)
+    merchant_list.find do |merchant|
+      merchant.name.downcase == name.downcase
+    end
   end
 
-  def find_all_by_name
+  def find_all_by_name(fragment)
+    merchant_list.find_all do |merchant|
+      merchant.name.downcase.include?(fragment.downcase)
+    end
   end
 
   def inspect
