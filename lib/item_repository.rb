@@ -17,7 +17,7 @@ attr_accessor :items
             {id: row[:id].to_i,
             name: row[:name],
             description: row[:description],
-            unit_price: BigDecimal.new(row[:unit_price],4),
+            unit_price: BigDecimal.new(row[:unit_price],4)/100,
             created_at: row[:created_at],
             updated_at: row[:updated_at],
             merchant_id: row[:merchant_id].to_i},
@@ -40,24 +40,21 @@ attr_accessor :items
     end
 
     def find_all_with_description(description)
-        @items.select {|item| item.description == description}
+        @items.select {|item| item.description.downcase == description.downcase}    
     end
 
-    def find_all_by_price
-         @items.select {|item| item.unit_price == unit_price}
+    def find_all_by_price(price)
+         @items.select {|item| item.unit_price == price}
     end
 
-    def find_all_by_price_in_range(lower, higher)
-        @items.select {|item| lower.to_i < item.unit_price.to_i && item.unit_price.to_i < higher.to_i }
+    def find_all_by_price_in_range(range) 
+        @items.select {|item| range.include?(item.unit_price)}
     end
 
     def find_all_by_merchant_id(merchant_id)
         @items.select {|item| item.merchant_id == merchant_id}
     end
 
-    # def populate_items_with_merchant
-    #     @items.each {|item| item.gather_merchant}
-    # end
 
     def inspect
     "#<#{self.class} #{@merchants.size} rows>"

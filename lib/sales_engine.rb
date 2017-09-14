@@ -69,6 +69,7 @@ class SalesEngine
 
   def merchants_with_high_item_count
     std_dev = standard_deviation_for_merchant_items
+    
     self.merchants.merchants.select do |merchant|
       merchant.items.count > std_dev
     end
@@ -108,8 +109,9 @@ class SalesEngine
   end
 
   def golden_items
+    std_dev = item_standard_deviation
     self.items.items.select do |item|
-      item.unit_price > item_standard_deviation * 2
+      item.unit_price >  std_dev * 2
     end
   end
 
