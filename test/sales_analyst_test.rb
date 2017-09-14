@@ -46,4 +46,12 @@ class TestSalesAnalyst < Minitest::Test
     assert_equal BigDecimal.new(17.12, 4), sa.average_average_price_per_merchant
   end
 
+  def test_it_finds_average_item_price_for_merchant
+    assert_equal 1712.25, sa. average_item_price
+  end
+
+  def test_it_squares_each_average_difference
+    assert_equal 2219300.75, sa.square_each_item_average_difference
+  end
+
 end

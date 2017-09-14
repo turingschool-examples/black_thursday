@@ -77,12 +77,39 @@ class SalesAnalyst
   # sa.average_average_price_per_merchant # => BigDecimal
 
   def average_average_price_per_merchant
-    average_price_array = se.items.all.map do |item|
-                          average_item_price_for_merchant(item.merchant_id.to_f)
-                        end
-    sum_averages = average_price_array.sum
-    (sum_averages / average_price_array.count).round(2)
   end
+##### Golden Items calc's
+  def golden_items
+    # se.items.all.each do |item|
+    #   i >=
+    # end
+  end
+
+    def average_item_price
+
+      all_item_prices =  []
+      se.items.all.each do |item|
+         all_item_prices << item.unit_price.to_f * 100
+      end
+      # require "pry"; binding.pry
+      all_item_prices.sum / se.items.all.count
+    end
+
+    def square_each_item_average_difference
+      calculation_item_array = []
+      se.items.all.each do |item|
+        # binding.pry
+        calculation_item_array << ((item.unit_price.to_f * 100) - (average_item_price)) ** 2
+      end
+      calculation_item_array.sum
+    end
+
+    def divide_squared_differences_by_total_items
+      square_each_item_average_difference
+    end
+
+
+
 
 
 end
