@@ -1,5 +1,6 @@
 require_relative 'items_repo'
 require_relative 'merchant_repo'
+require 'pry'
 
 class SalesAnalyst
 
@@ -29,6 +30,24 @@ class SalesAnalyst
       (merchant.items.count - average_items_per_merchant)**2
     end
     Math.sqrt(@merchant_deviations.inject(0,:+) / @merchants.all_merchants.count).round(2)
+  end
+
+  def merchants_with_high_item_count
+    @high_count = []
+    @merchants.all_merchants.map do |merchant|
+     if merchant.items.count >= 6.12
+     @high_count << merchant
+      else
+      merchant
+      end
+    end
+    @high_count
+  end
+
+  def average_item_price_for_merchant(merch_id)
+    # merchant = @items.all_merchants.find {|merchant| merchant.id == merch_id }
+    all_items.select {|item| item.merch_id == merch_id }
+    item.price / item.count
   end
 
 
