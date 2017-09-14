@@ -28,6 +28,7 @@ class MerchantRepoTest < Minitest::Test
   end
 
   def test_it_finds_name_of_all_merchants
+    assert_equal [], mr.find_all_by_name("ddddd")
     assert_equal 1, mr.find_all_by_name("McG").count
   end
 

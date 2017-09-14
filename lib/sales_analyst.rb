@@ -34,6 +34,7 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
+<<<<<<< HEAD
     @high_count = []
     @merchants.all_merchants.map do |merchant|
      if merchant.items.count >= 6.12
@@ -57,5 +58,12 @@ class SalesAnalyst
 
     end
 
+=======
+    standard_deviation = 3.26
+    @merchant_deviations = @merchants.all_merchants.map do |merchant|
+      m
+>>>>>>> ab59e953449c98b02b35dca71f33e4b042797185
 
+    end
+  end
 end

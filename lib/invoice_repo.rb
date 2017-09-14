@@ -1,17 +1,22 @@
 require_relative 'invoice'
 require 'csv'
+
 class InvoiceRepo
   attr_reader :all_invoices, :parent
-  def initialize(file, ir = nil)
+  def initialize(file, se = nil)
     @all_invoices = []
     open_file(file)
-    # @parent = se
+    @parent = se
   end
 
   def open_file(file)
     CSV.foreach file, headers: true, header_converters: :symbol do |row|
       all_invoices << Invoice.new(row, self)
     end
+  end
+
+  def all
+    @all_invoices
   end
 
   def find_by_id(invoice_id)
@@ -27,7 +32,7 @@ class InvoiceRepo
   end
 
   def find_all_by_status(status)
-    all_invoices.find_all { |invoice| invoice.status == status}
+    all_invoices.find_all { |invoice| invoice.status == status.to_sym}
   end
 
 end
