@@ -32,7 +32,6 @@ class SalesAnalyst
   def merchants_with_high_item_count
     high_sellers = []
     @se.merchants.all.each do |merchant|
-      # binding.pry
       if merchant.items.count > 6.14
         high_sellers << merchant
       end
@@ -58,6 +57,29 @@ class SalesAnalyst
       array << self.average_item_price_for_merchant(merchant.id)
     end
     BigDecimal.new(array.reduce(:+) / array.count).round(2)
+  end
+
+  def find_standard_deviation_of_average_item_price
+    amount_of_items = @se.items.all.count
+    average_price_of_items = self.average_average_price_per_merchant
+    prices = []
+    @se.items.all.each do |item|
+      prices << ((item.price - average_price_of_items)**2)
+    end
+    summed_prices = (prices.reduce(:+)/(amount_of_items - 1))
+    Math.sqrt(summed_prices).round(2)
+  end
+
+  def golden_items
+    golden_items = []
+    average = average_average_price_per_merchant
+    standard_deviation = find_standard_deviation_of_average_item_price
+    @se.items.all.each do |item|
+      if item.price > (average+(2*standard_deviation))
+        golden_items << item
+      end
+    end
+    golden_items
   end
 
 end
