@@ -17,6 +17,7 @@ class Item
     @name = information[:name]
     @description = information[:description]
     @unit_price = BigDecimal.new(information[:unit_price].to_i/100.0, 4)
+    # TODO Check line      ----->>>                           !^^^!
     @created_at = Time.parse(information[:created_at])
     @updated_at = Time.parse(information[:updated_at])
     @merchant_id = information[:merchant_id]

@@ -12,7 +12,7 @@ class Merchant
 
   def items
     sales_engine = @parent.parent
-    sales_engine.items_repository.find_all_by_merchant_id(@id)
+    sales_engine.items.find_all_by_merchant_id(@id)
   end
 
 end
