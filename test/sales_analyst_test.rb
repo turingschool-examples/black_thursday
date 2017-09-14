@@ -73,10 +73,20 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Float, expected 
   end
 
-  def test_top_merchants_by_invoice_count 
+  def test_top_merchants_by_invoice_count
+    skip # works but takes forever.  
     expected = sa.top_merchants_by_invoice_count
 
     assert_equal 12, expected.length
+    assert_instance_of Array, expected
+    assert_instance_of Merchant, expected.first
+  end
+
+  def test_bottom_merchants_by_invoice_count 
+    skip # works but takes forever.
+    expected = sa.bottom_merchants_by_invoice_count
+
+    assert_equal 4, expected.length
     assert_instance_of Array, expected
     assert_instance_of Merchant, expected.first
   end

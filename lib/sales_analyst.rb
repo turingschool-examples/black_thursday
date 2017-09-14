@@ -83,4 +83,9 @@ class SalesAnalyst
     count = (average_invoices_per_merchant + avg_invoice_standard_deviation * 2)
     engine.merchants.all.select {|merchant| merchant.invoices.length > count}
   end
+
+  def bottom_merchants_by_invoice_count 
+    count = (average_invoices_per_merchant - avg_invoice_standard_deviation * 2)
+    engine.merchants.all.select {|merchant| merchant.invoices.length < count}
+  end
 end
