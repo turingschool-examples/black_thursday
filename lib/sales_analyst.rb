@@ -103,4 +103,28 @@ class SalesAnalyst
     Math.sqrt(summed_differences.to_f/amount_less_one).round(2)
   end
 
+  def top_merchants_by_invoice_count
+    top_merchants = []
+    average = average_invoices_per_merchant
+    standard_deviation = average_invoices_per_merchant_standard_deviation
+    @se.merchants.all.each do |merchant|
+      if merchant.invoices.count > (average + (2*standard_deviation))
+        top_merchants << merchant
+      end
+    end
+    top_merchants
+  end
+
+  def bottom_merchants_by_invoice_count
+    bottom_merchants = []
+    average = average_invoices_per_merchant
+    standard_deviation = average_invoices_per_merchant_standard_deviation
+    @se.merchants.all.each do |merchant|
+      if merchant.invoices.count < (average - (2*standard_deviation))
+        bottom_merchants << merchant
+      end
+    end
+    bottom_merchants
+  end
+
 end
