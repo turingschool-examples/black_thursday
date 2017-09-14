@@ -24,24 +24,20 @@ class ItemTest < Minitest::Test
   def test_it_displays_id
     ir = setup
 
-    assert_equal 263395237, ir.items[0].id
+    assert_equal 263403127, ir.items[0].id
   end
 
   def test_it_has_a_name
     ir = setup
 
-    assert_equal "510+ RealPush Icon Set", ir.items[0].name
+    assert_equal "Knitted winter snood", ir.items[0].name
   end
 
   def test_it_has_a_description
     ir = setup
 
-    description = 'Free standing wooden letters
-
-15cm
-
-Any colours'
-
+    description = 'Free standing wooden Any colours'
+    
     assert_equal description, ir.items[3].description
   end
 
