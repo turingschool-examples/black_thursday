@@ -10,7 +10,7 @@ class ItemRepository
     @all = []
     @se = se
     CSV.foreach(item_csv, headers: true, header_converters: :symbol) do |row|
-      @all << Item.load_csv(row)
+      @all << Item.new(self, row)
     end
   end
 

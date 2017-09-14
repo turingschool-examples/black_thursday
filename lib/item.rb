@@ -1,4 +1,4 @@
-require 'item_repository'
+require_relative 'item_repository'
 require 'bigdecimal'
 require 'time'
 
@@ -10,7 +10,8 @@ class Item
               :unit_price,
               :created_at,
               :updated_at,
-              :merchant_id
+              :merchant_id,
+              :item_repository
 
   def initialize(ir, csv_info)
     @id = csv_info[:id]
