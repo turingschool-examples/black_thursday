@@ -7,7 +7,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   attr_reader :merchant_repo
   def setup
-    @merchant_repo = Fixture.sales_engine.merchants
+    @merchant_repo = Fixture.repo(:merchants)
   end
 
   def test_that_an_instance_exits

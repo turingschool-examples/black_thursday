@@ -19,7 +19,7 @@ class ItemTest < Minitest::Test
       :created_at   => Time.now.to_s,
       :updated_at   => Time.now.to_s
     }
-    @item = Fixture.item_repo.add_record(given)
+    @item = Fixture.repo(:items).add_record(given)
   end
 
   def test_initialize_takes_a_hash_of_strings

@@ -13,7 +13,9 @@ class Repository
   end
 
   def add_record(row)
-    @records << @record_subclass.new(self, row)
+    record = @record_subclass.new(self, row)
+    @records << record
+    record
   end
 
   def type

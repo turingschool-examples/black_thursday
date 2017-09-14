@@ -8,12 +8,8 @@ module Fixture
       })
     end
 
-    def merchant_repo
-      sales_engine.merchants
-    end
-
-    def item_repo
-      sales_engine.items
+    def repo type
+      sales_engine.repo(type)
     end
 
     def merchant_data

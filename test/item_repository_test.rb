@@ -9,7 +9,7 @@ class ItemRepositoryTest < Minitest::Test
 
   attr_reader :item_repo
   def setup
-    @item_repo = Fixture.item_repo
+    @item_repo = Fixture.repo(:items)
   end
 
   def test_it_takes_an_array_of_items
