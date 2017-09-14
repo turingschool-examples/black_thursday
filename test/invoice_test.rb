@@ -38,4 +38,8 @@ class InvoiceTest < Minitest::Test
   def test_it_returns_an_instance_of_time_created_at
     assert_instance_of Time, invoice.created_at
   end
+
+  def test_it_returns_an_instance_of_time_updated_at
+    assert_instance_of Time, invoice.created_at
+  end
 end
