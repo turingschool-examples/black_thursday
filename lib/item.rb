@@ -20,7 +20,7 @@ class Item
   end
 
   def format_unit_price(unit_price_in_cents)
-    dollars = unit_price_in_cents.to_i / 100
+    dollars = unit_price_in_cents.to_f / 100
     BigDecimal.new(dollars, 4)
   end
 

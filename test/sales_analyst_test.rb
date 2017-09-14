@@ -25,7 +25,31 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 0.75, @analyst.average_items_per_merchant
   end
 
+  def test_it_can_find_sum_of_square_differences
+    merchant_repo = @engine.merchants
+
+    assert_equal 6.75, @analyst.sum_of_square_differences(merchant_repo, 0.75)
+  end
+
+  def test_it_can_find_sample_variance
+    merchant_repo = @engine.merchants
+
+    assert_equal 2.25, @analyst.find_sample_variance(merchant_repo, 0.75)
+  end
+
   def test_average_items_per_merchant_standard_deviation_returns_deviation_from_mean
+    assert_equal 1.5, @analyst.average_items_per_merchant_standard_deviation
+  end
+
+  def test_merchants_with_high_item_count_returns_merchants_more_than_one_standard_deviation_above
+    high_sellers = @analyst.merchants_with_high_item_count
+
+    assert_equal "12334185", high_sellers[0].id
+    assert_equal 1, high_sellers.count
+  end
+
+  def test_average_item_price_for_merchant_returns_average_of_merchants_items
+    assert_equal 0.1117e2, @analyst.average_item_price_for_merchant(12334185)
 
   end
 
