@@ -4,7 +4,7 @@ require 'bigdecimal'
 
 class ItemRepository
 include CsvParser
-attr_reader :sales_engine   
+attr_reader :sales_engine
 attr_accessor :items
 
     def initialize(file_name, sales_engine)
@@ -18,7 +18,7 @@ attr_accessor :items
             unit_price: BigDecimal.new(row[:unit_price],4),
             created_at: row[:created_at],
             updated_at: row[:updated_at],
-            merchant_id: row[:merchant_id].to_i}, 
+            merchant_id: row[:merchant_id].to_i},
             self)
         end
         #populate_items_with_merchant

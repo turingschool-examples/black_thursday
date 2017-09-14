@@ -8,9 +8,9 @@ class MerchantRepositoryTest < Minitest::Test
 
   def setup
     se = SalesEngine.from_csv({
-      :items     => "./data/items_fixture.csv",
-      :merchants => "./data/merchants_fixture.csv",
-    })  
+      :items     => "./test/fixtures/items_fixture.csv",
+      :merchants => "./test/fixtures/merchants_fixture.csv",
+    })
     mr = se.merchants
   end
 
@@ -85,9 +85,9 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_repository_has_reference_to_sales_engine
     mr = setup
-    
-    assert mr.sales_engine
-  end 
 
-  
+    assert mr.sales_engine
+  end
+
+
 end

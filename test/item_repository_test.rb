@@ -7,8 +7,8 @@ class ItemRepositoryTest < MiniTest::Test
 
   def setup
     se = SalesEngine.from_csv({
-      :items     => "./data/items_fixture.csv",
-      :merchants => "./data/merchants_fixture.csv",
+      :items     => "./test/fixtures/items_fixture.csv",
+      :merchants => "./test/fixtures/merchants_fixture.csv",
     })
     ir = se.items
   end
@@ -31,8 +31,8 @@ class ItemRepositoryTest < MiniTest::Test
 
   def test_it_returns_item_given_the_id
     ir = setup
-    
-    assert_equal '510+ RealPush Icon Set', ir.find_by_id(263395237).name 
+
+    assert_equal '510+ RealPush Icon Set', ir.find_by_id(263395237).name
   end
 
   def test_returns_item_given_the_name
@@ -72,12 +72,12 @@ Wooden"
 
   def test_repository_has_reference_to_sales_engine
     ir = setup
-    
+
     assert ir.sales_engine
-  end 
+  end
 
   def test_items_initialize_with_merchants
     ir = setup
-  end 
+  end
 
 end

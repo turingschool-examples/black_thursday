@@ -9,8 +9,8 @@ class ItemTest < Minitest::Test
   def setup
 
     se = SalesEngine.from_csv({
-          :items     => "./data/items_fixture.csv",
-          :merchants => "./data/merchants_fixture.csv",
+          :items     => "./test/fixtures/items_fixture.csv",
+          :merchants => "./test/fixtures/merchants_fixture.csv",
         })
     ir = se.items
 
@@ -65,7 +65,7 @@ Any colours'
 
   def test_it_has_a_merchant_id
     ir = setup
-    
+
     assert_equal 12334185, ir.items[3].merchant_id
   end
 
@@ -78,5 +78,5 @@ Any colours'
     assert_equal 12334403, seller.id
     assert_equal 'IOleynikova', seller.name
   end
- 
+
 end

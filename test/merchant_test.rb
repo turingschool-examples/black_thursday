@@ -8,8 +8,8 @@ class MerchantTest < Minitest::Test
 
   def setup
     se = SalesEngine.from_csv({
-          :items     => "./data/items_fixture.csv",
-          :merchants => "./data/merchants_fixture.csv",
+          :items     => "./test/fixtures/items_fixture.csv",
+          :merchants => "./test/fixtures/merchants_fixture.csv",
         })
     mr = se.merchants
   end
@@ -33,9 +33,9 @@ class MerchantTest < Minitest::Test
   end
 
   def test_merchant_has_sales_engine
-    
+
     mr = setup
-    
+
     assert mr.merchants[0].sales_engine
   end
 
@@ -62,6 +62,6 @@ class MerchantTest < Minitest::Test
 
     assert_equal 'Knitted winter snood', items[0].name
     assert_equal 1, items.count
-  end 
+  end
 
 end
