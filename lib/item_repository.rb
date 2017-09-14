@@ -10,13 +10,14 @@ class ItemRepository
 
   attr_reader :items
 
-  def initialize(csv_file_name)
-    @items = create_items(csv_file_name)
+  def initialize(csv_file_path, engine)
+    @items = create_items(csv_file_path, engine)
+    @engine = engine
     return self
   end
 
-  def create_items(csv_file_name)
-    create_instances(csv_file_name, 'Item')
+  def create_items(csv_file_path, engine)
+    create_instances(csv_file_path, 'Item', engine)
   end
 
   def all
@@ -57,12 +58,5 @@ class ItemRepository
       item.merchant_id == search_merchant_id
     end
   end
-
-
-
-
-
-
-
 
 end

@@ -8,13 +8,14 @@ class MerchantRepository
 
   attr_reader :merchants
 
-  def initialize(csv_file_name)
-    @merchants = create_merchants(csv_file_name)
+  def initialize(csv_file_path, engine)
+    @merchants = create_merchants(csv_file_path, engine)
+    @engine = engine
     return self
   end
 
-  def create_merchants(csv_file_name)
-    create_instances(csv_file_name, 'Merchant')
+  def create_merchants(csv_file_path, engine)
+    create_instances(csv_file_path, 'Merchant', engine)
   end
 
   def find_by_id(search_id)

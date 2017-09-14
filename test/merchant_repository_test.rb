@@ -1,12 +1,14 @@
 require_relative 'test_helper'
-require './lib/merchant_repository'
+require './lib/sales_engine'
 require 'csv'
 
 class MerchantRepositoryTest < Minitest::Test
 
   def setup
-    csv_file_name = './test/fixtures/merchants_truncated.csv'
-    @repository = MerchantRepository.new(csv_file_name)
+    item_file_path = './test/fixtures/items_truncated.csv'
+    merchant_file_path = './test/fixtures/merchants_truncated.csv'
+    engine = SalesEngine.new(item_file_path, merchant_file_path)
+    @repository = engine.merchants
   end
 
   def test_merchant_repository_class_exists

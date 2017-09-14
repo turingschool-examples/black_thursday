@@ -1,20 +1,18 @@
 require_relative 'test_helper'
-require './lib/item_repository'
-require './lib/item'
+require './lib/sales_engine'
 require 'csv'
-
-require 'pry'
 
 class ItemRepositoryTest < Minitest::Test
 
   def setup
-    csv_file_name = './test/fixtures/items_truncated.csv'
-    @repository = ItemRepository.new(csv_file_name)
+    item_file_path = './test/fixtures/items_truncated.csv'
+    merchant_file_path = './test/fixtures/merchants_truncated.csv'
+    engine = SalesEngine.new(item_file_path, merchant_file_path)
+    @repository = engine.items
   end
 
 
   def test_it_exists
-    csv_file_name = './data/items.csv'
     assert_instance_of ItemRepository, @repository
   end
 

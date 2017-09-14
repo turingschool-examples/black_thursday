@@ -10,15 +10,13 @@ class SalesEngine
     item_file_path = csv_file_paths[:items]
     merchant_file_path = csv_file_paths[:merchants]
 
-    items = ItemRepository.new(item_file_path)
-    merchants = MerchantRepository.new(merchant_file_path)
-    SalesEngine.new(items, merchants)
+    SalesEngine.new(item_file_path, merchant_file_path)
   end
 
 
-  def initialize(items, merchants)
-    @items = items
-    @merchants = merchants
+  def initialize(item_file_path, merchant_file_path)
+    @items = ItemRepository.new(item_file_path, self)
+    @merchants = MerchantRepository.new(merchant_file_path, self)
   end
 
 end
