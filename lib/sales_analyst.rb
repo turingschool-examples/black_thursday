@@ -1,10 +1,11 @@
 require_relative 'items_repo'
 require_relative 'merchant_repo'
 require 'pry'
+require 'bigdecimal'
 
 class SalesAnalyst
 
-  attr_reader :merchants, :items
+  attr_reader :merchants, :items, :price
 
   def initialize(sales_engine)
     # binding.pry
@@ -46,9 +47,15 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(merch_id)
     # merchant = @items.all_merchants.find {|merchant| merchant.id == merch_id }
-    all_items.select {|item| item.merch_id == merch_id }
-    item.price / item.count
-  end
+    @totals = []
+    total = @items.all_items.select {|item| item.merchant_id == merch_id }
+    total.map do |t|
+    @totals << t.price
+    end
+    total_average = (@totals.reduce(:+) / @totals.count) / 100
+    total_average.round(2)
+
+    end
 
 
 end

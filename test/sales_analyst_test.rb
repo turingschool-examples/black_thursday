@@ -3,6 +3,7 @@ require 'minitest/pride'
 require './lib/sales_analyst'
 require './lib/sales_engine'
 
+
 class SalesAnalystTest < Minitest::Test
 
   attr_reader :sa, :se
