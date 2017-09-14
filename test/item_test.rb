@@ -21,6 +21,12 @@ class ItemTest < Minitest::Test
     assert_instance_of Item, item
   end
 
+  def test_parent_exist_and_defaults_to_nil
+    actual = item.parent 
+
+    assert_nil actual
+  end
+
   def test_it_has_an_id
     assert_equal 1, item.id
   end

@@ -13,6 +13,12 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of ItemRepository, ir
   end
 
+  def test_parent_exist_and_defaults_to_nil
+    actual = @ir.parent 
+
+    assert_nil actual
+  end
+
   def test_load_csv
     assert_equal 3, ir.items.length
     ir.load_csv('./test/fixtures/items_truncated_3.csv')
@@ -118,7 +124,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_find_all_by_merchant_id_returns_item_with_valid_search
     actual = ir.find_all_by_merchant_id(12334185)
-    expected = [ir.items[1], ir.items[2]]
+    expected = [ir.items[2]]
 
     assert_equal expected, actual
   end

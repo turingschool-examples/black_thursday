@@ -3,16 +3,18 @@ require 'csv'
 
 class ItemRepository
 
-  attr_reader :items
+  attr_reader :items,
+              :parent
 
-  def initialize(file_path)
+  def initialize(file_path, parent = nil)
     @items = []
     load_csv(file_path)
+    @parent = parent
   end
 
   def load_csv(file_path)
     CSV.foreach(file_path, headers: true, header_converters: :symbol, converters: :numeric ) do |item|
-      items << Item.new(item.to_h)
+      items << Item.new(item.to_h, self)
     end
   end
 
