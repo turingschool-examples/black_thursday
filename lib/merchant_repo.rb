@@ -1,4 +1,5 @@
 require_relative 'merchant'
+require_relative 'sales_engine'
 
 class MerchantRepository
   def self.read_merchants_file(merchants, sales_engine)
@@ -8,7 +9,7 @@ class MerchantRepository
       name = row[:name]
       merchant_list << Merchant.new({ :id => id, :name => name})
     end
-    MerchantRepository.new(merchant_list, sales_engine)
+    MerchantRepository.new(merchant_list,sales_engine)
   end
 
   attr_reader :merchants, :sales_engine
@@ -38,6 +39,11 @@ class MerchantRepository
     merchants.find_all do |merchant|
       merchant.name.downcase.include?(fragment.downcase)
     end
+  end
+
+  def merchant_items(merchant_id)
+    require 'pry'; binding.pry
+    sales_engine.find_merchant_items(merchant_id)
   end
 
   def inspect

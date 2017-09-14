@@ -121,4 +121,12 @@ class MerchantRepositoryTest < Minitest::Test
 
     assert_equal 2, merchant_repo.find_all_by_name(fragment).count
   end
+
+  def test_items_in_merchant
+    sales = SalesEngine
+    files = ({:items => "./test/fixtures/item_fixture.csv", :merchants => "./test/fixtures/merchant_fixture.csv"})
+    sales.from_csv(files)
+    items(merchant)
+  end
+
 end

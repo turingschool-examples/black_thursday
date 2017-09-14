@@ -1,4 +1,5 @@
 require_relative 'item'
+require_relative 'sales_engine'
 
 class ItemRepository
   def self.read_items_file(items, sales_engine)
@@ -62,6 +63,9 @@ class ItemRepository
       item.merchant_id == merchant_id
     end
   end
+
+  # def merchants(items)
+  # end
 
   def inspect
     "#<#{self.class} #{@items.size} rows>"

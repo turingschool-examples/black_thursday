@@ -2,9 +2,10 @@ require 'time'
 require 'bigdecimal'
 
 class Item
-  attr_reader :item
-  def initialize(item)
+  attr_reader :item, :item_repo
+  def initialize(item, repo = nil)
     @item = item
+    @item_repo = repo
   end
 
   def id
@@ -38,4 +39,9 @@ class Item
   def unit_to_dollar
       unit_price.to_f
   end
+
+  # def merchants
+  #   item_repo.
+  # end
+
 end

@@ -19,4 +19,16 @@ class SalesEngine
     @merchants = merchants
     @items = items
   end
+
+  def find_merchant_items(merchant_id)
+    items.find_all_by_merchant_id(merchant_id)
+  end
+
+  # def item_merchants()
+  #
+  # end
+  #
+  # def items.find_by_id
+  #
+  # end
 end

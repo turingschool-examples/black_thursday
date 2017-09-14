@@ -1,7 +1,8 @@
 class Merchant
-  attr_reader :merchant
-  def initialize(merchant)
+  attr_reader :merchant, :merchant_repo
+  def initialize(merchant,repo = nil)
     @merchant = merchant
+    @merchant_repo = repo
   end
 
   def id
@@ -11,4 +12,9 @@ class Merchant
   def name
     merchant.fetch(:name)
   end
+
+  def items
+    merchant_repo.merchant_items(self.id)
+  end
+
 end
