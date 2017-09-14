@@ -34,7 +34,13 @@ class SalesEngine
   def self.from_csv(files)
     items = files[:items]
     merchants = files[:merchants]
-    self.read_items_file(items)
-    self.read_merchants_file(merchants)
+    item_repo = self.read_items_file(items)
+    merchant_repo = self.read_merchants_file(merchants)
+    SalesEngine.new(item_repo, merchant_repo)
+  end
+  attr_reader :merchants, :items
+  def initialize(items, merchants)
+    @merchants = merchants
+    @items = items
   end
 end

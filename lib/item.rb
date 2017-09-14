@@ -20,7 +20,7 @@ class Item
   end
 
   def unit_price
-    BigDecimal.new(item.fetch(:unit_price))
+    BigDecimal.new(item.fetch(:unit_price).to_i)/100.0
   end
 
   def created_at
@@ -36,7 +36,6 @@ class Item
   end
 
   def unit_to_dollar
-    price = unit_price.to_f.to_s
-    "$#{price}"
+      unit_price.to_f
   end
 end
