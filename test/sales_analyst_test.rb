@@ -42,7 +42,7 @@ class SalesAnalystTest < MiniTest::Test
     items:"./data/items.csv"})
     sa = SalesAnalyst.new(se)
 
-    assert_equal 0.16, sa.average_item_price_for_merchant(12334105)
+    assert_equal 0.1666e2, sa.average_item_price_for_merchant(12334105)
   end
 
   def test_average_average_price_for_merchant
@@ -50,6 +50,6 @@ class SalesAnalystTest < MiniTest::Test
     items:"./data/items.csv"})
     sa = SalesAnalyst.new(se)
 
-    assert_equal 00, sa.average_average_price_per_merchant
+    assert_equal 350.29, sa.average_average_price_per_merchant
   end
 end

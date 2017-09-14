@@ -54,9 +54,10 @@ class SalesAnalyst
   def average_average_price_per_merchant
     array = []
     @se.merchants.all.each do |merchant|
-      array << @se.average_item_price_for_merchant(merchant.id)
+      # binding.pry
+      array << self.average_item_price_for_merchant(merchant.id)
     end
-    array.reduce(:+).to_f / array.count
+    BigDecimal.new(array.reduce(:+) / array.count).round(2)
   end
 
 end
