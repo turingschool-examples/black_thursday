@@ -116,5 +116,17 @@ class SalesEngineTest < Minitest::Test
     assert_equal 10, expected.length
   end
 
+  def test_sales_engine_merchant_returns_merchant_from_invoice
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"
+    })
 
+    invoice      = se.invoices.find_by_id(20)
+    merchant     = invoice.merchant
+
+    assert_instance_of Merchant, merchant
+    assert_equal 12336163, invoice.merchant.id
+  end
 end

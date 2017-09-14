@@ -14,7 +14,10 @@ class Invoice
     @status      = invoice[:status].to_sym
     @created_at  = Time.parse(invoice[:created_at].to_s)
     @updated_at  = Time.parse(invoice[:updated_at].to_s)
-    @parent      = nil
+    @parent      = parent
   end
 
+  def merchant
+    @parent.find_merchant_from_invoice(merchant_id)
+  end
 end

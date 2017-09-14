@@ -28,6 +28,10 @@ class InvoiceRepository
     all.select {|invoice| invoice.status == status}
   end
 
+  def find_merchant_from_invoice(merchant_id)
+    @parent.find_merchant_from_invoice(merchant_id)
+  end
+
   def inspect
     "#{self.class}"
   end
