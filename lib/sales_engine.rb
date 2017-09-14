@@ -11,12 +11,14 @@ class SalesEngine
     se = SalesEngine.new
     se.merchant_csv_filepath = info[:merchants]
     se.item_csv_filepath = info[:items]
+    se.invoice_csv_filepath = info[:invoices]
     se
   end
 
   def initialize
     @merchant_csv_filepath = ''
     @item_csv_filepath = ''
+    @invoice_csv_filepath = ''
   end
 
   def merchants
@@ -35,6 +37,14 @@ class SalesEngine
     end
   end
 
+  def invoices
+    if @invoice_repository.nil?
+      @invoice_repository = InvoiceRepository.new(@invoice_csv_filepath, self) 
+    else  
+      @invoice_repository
+    end 
+  end 
+ 
   def total_merchants
     self.merchants.merchants.length
   end
