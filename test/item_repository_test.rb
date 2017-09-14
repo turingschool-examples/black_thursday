@@ -26,7 +26,7 @@ class ItemRepositoryTest < MiniTest::Test
   def test_reports_all_items_in_array
     ir = setup
 
-    assert_equal 4, ir.all.length
+    assert_equal 60, ir.all.length
   end
 
   def test_it_returns_item_given_the_id
@@ -43,16 +43,7 @@ class ItemRepositoryTest < MiniTest::Test
 
   def test_returns_item_of_given_description
     ir = setup
-        description = "Disney glitter frames
-
-Any colour glitter available and can do any characters you require
-
-Different colour scrabble tiles
-
-Blue
-Black
-Pink
-Wooden"
+        description = "Glitter scrabble frames"
 
     assert_equal description, ir.find_all_with_description(description)[0].description
     assert_equal [], ir.find_all_with_description('dogs')
@@ -76,8 +67,8 @@ Wooden"
     assert ir.sales_engine
   end
 
-  def test_items_initialize_with_merchants
-    ir = setup
-  end
+  # def test_items_initialize_with_merchants
+  #   ir = setup
+  # end
 
 end

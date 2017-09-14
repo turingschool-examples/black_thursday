@@ -25,21 +25,21 @@ class SalesEngineTest < MiniTest::Test
   def test_it_finds_total_merchants
     se = setup
 
-    assert_equal 20, se.total_merchants
+    assert_equal 21, se.total_merchants
   end
 
   def test_it_finds_total_items
     se = setup
 
-    assert_equal 21, se.total_items
+    assert_equal 60, se.total_items
   end
 
   def test_it_can_find_the_items_for_each_merchant
     se = setup
 
     assert_instance_of Array, se.merchant_item_count
-    assert_equal 20, se.merchant_item_count.count
-    assert_equal 0,se.merchant_item_count[0]
+    assert_equal 21, se.merchant_item_count.count
+    assert_equal 2,se.merchant_item_count[0]
     assert_equal 11, se.merchant_item_count[4]
   end
 
@@ -47,14 +47,14 @@ class SalesEngineTest < MiniTest::Test
     se = setup
 
     assert_instance_of Float, se.standard_deviation_for_merchant_items
-    assert_equal 10.851267207105352, se.standard_deviation_for_merchant_items
+    assert_equal 2.833473385894321, se.standard_deviation_for_merchant_items
   end
 
   def test_merchants_with_high_item_count
     se = setup
 
     assert_instance_of Array, se.merchants_with_high_item_count
-    assert_equal 1, se.merchants_with_high_item_count.count
+    assert_equal 8, se.merchants_with_high_item_count.count
     assert_equal 12334123, se.merchants_with_high_item_count[0].id
   end
 
@@ -74,6 +74,6 @@ class SalesEngineTest < MiniTest::Test
     se = setup
 
     assert_instance_of Array, se.golden_items
-    assert_equal 2, se.golden_items.count
+    assert_equal 13, se.golden_items.count
   end
 end

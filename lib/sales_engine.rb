@@ -58,10 +58,11 @@ class SalesEngine
     difference_from_average = merchant_item_count.map do |item_count|
       item_count - average
     end
+    squared_values = difference_from_average.map {|diff| diff ** 2}
 
-    sum_of_squares = difference_from_average.map {|diff| diff ** 2}.sum
+    sum_of_squares = squared_values.sum
 
-    Math.sqrt(sum_of_squares)
+    Math.sqrt(sum_of_squares / (merchant_item_count.count - 1))
   end
 
   def merchants_with_high_item_count
@@ -102,7 +103,9 @@ class SalesEngine
       (item.unit_price - average_item_price) ** 2
     end
 
-    Math.sqrt(item_price_differences.sum)
+    sum_of_squares = item_price_differences.sum
+
+    Math.sqrt(sum_of_squares / (total_items - 1))
   end
 
   def golden_items
