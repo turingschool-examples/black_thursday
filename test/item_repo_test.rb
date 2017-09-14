@@ -1,12 +1,15 @@
 require_relative 'test_helper'
 require_relative '../lib/item_repo'
 require_relative '../lib/sales_engine'
+require_relative '../lib/merchant_repo'
 
 class ItemRepositoryTest < Minitest::Test
   attr_reader :item_repo, :sales_engine
 
   def set_up(items = [])
-    @sales_engine = SalesEngine.new
+    @sales_engine = SalesEngine.new(@item_repo, @merchant_repo)
+    merchants = []
+    @merchant_repo = MerchantRepository.new(merchants, sales_engine)
     @item_repo = ItemRepository.new(items, sales_engine)
     @sales_engine.items = item_repo
   end

@@ -36,15 +36,11 @@ class SalesEngine
     merchants = files[:merchants]
     item_repo = self.read_items_file(items)
     merchant_repo = self.read_merchants_file(merchants)
-    sales_engine = SalesEngine.new
-    sales_engine.merchants = merchant_repo
-    sales_engine.items = item_repo
+    sales_engine = SalesEngine.new(item_repo, merchant_repo)
   end
 
-  attr_accessor :merchants, :items
-
-  def initialize
-    @merchants = nil
-    @items = nil
+  def initialize(items, merchants)
+    @merchants = merchants
+    @items = items
   end
 end
