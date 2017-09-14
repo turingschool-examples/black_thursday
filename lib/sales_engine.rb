@@ -12,8 +12,8 @@ class SalesEngine
               :merchant_repository
 
   def initialize(source_files)
-    @items = ItemRepository.new(source_files[:items], self)
-    @merchants = MerchantRepository.new(source_files[:merchants], self)
+    @items_repository = ItemRepository.new(source_files[:items], self)
+    @merchants_repository = MerchantRepository.new(source_files[:merchants], self)
   end
 
 end
