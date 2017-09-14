@@ -1,4 +1,5 @@
 require_relative 'item'
+require 'bigdecimal'
 require 'csv'
 
 class ItemRepository
@@ -10,6 +11,10 @@ class ItemRepository
     @items = []
     load_csv(file_path)
     @parent = parent
+  end
+
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
   end
 
   def load_csv(file_path)
@@ -34,7 +39,7 @@ class ItemRepository
     end
   end
 
-  def find_all_by_description(description)
+  def find_all_with_description(description)
     items.find_all do |item|
       item.description.downcase.include?(description.downcase)
     end
