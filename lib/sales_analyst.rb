@@ -89,18 +89,33 @@ class SalesAnalyst
     engine.merchants.all.select {|merchant| merchant.invoices.length < count}
   end
 
-  def top_days_by_invoice_count 
-    grouped_invoices  = engine.invoices.all.group_by {|invoice|invoice.created_at.strftime("%A")}
-    invoices_per_day  = grouped_invoices.values.map(&:length)
-    day_array         = grouped_invoices.keys.zip(invoices_per_day)
-    avg_inv_per_day   = engine.invoices.all.length / 7
-    sqr_diff          = invoices_per_day.map {|total| (total - avg_inv_per_day)**2}
-    deviation         = Math.sqrt(sqr_diff.sum / 7).round
-    above_deviation   = day_array.select {|invoice| invoice[1] > avg_inv_per_day + deviation}
-    above_deviation.map {|arr| arr[0]}
+  def top_days_by_invoice_count
+    days_with_high_invoices(day_array, avg_inv_per_day, invoice_std_deviation(invoices_per_day))
+  end
+
+  def invoice_std_deviation(invoices_per_day)
+    Math.sqrt(invoices_per_day.map {|total| (total - avg_inv_per_day)**2}.sum / 7).round
+  end
+
+  def invoices_per_day
+    grouped_invoices.values.map(&:length)
+  end
+
+  def day_array
+    grouped_invoices.keys.zip(invoices_per_day)
+  end
+
+  def days_with_high_invoices(day_array, avg_inv_per_day, deviation)
+    day_array.select do  |invoice|
+      invoice[1] > avg_inv_per_day + deviation
+   end.map {|arr| arr[0]}
   end
 
   def grouped_invoices
     engine.invoices.all.group_by {|invoice|invoice.created_at.strftime("%A")}
+  end
+
+  def avg_inv_per_day 
+    engine.invoices.all.length / 7
   end
 end
