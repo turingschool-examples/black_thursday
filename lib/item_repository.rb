@@ -20,7 +20,7 @@ class ItemRepository
 
   def find_by_id(id)
     all.each do |item|
-      return item if item.id == id
+      return item if item.id.to_i == id
     end
     nil
   end

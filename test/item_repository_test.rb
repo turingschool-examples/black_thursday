@@ -47,16 +47,8 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal [], item_repo.find_all_with_description("chunky blender kittens")
   end
 
-  def test_it_returns_array_with_items_of_same_price
-    assert_instance_of Array, item_repo.find_all_by_price(1200)
-<<<<<<< HEAD
-    assert_instance_of Item, item_repo.find_all_by_price(1200)[0]
-=======
-  end
-
   def test_it_returns_item_instances_with_items_of_same_price
     assert_instance_of Item,  item_repo.find_all_by_price(BigDecimal.new(12))[0]
->>>>>>> 09b7e857f43dd6612eb45abe27620499823d22d6
   end
 
   def test_it_returns_empty_array_if_no_price_match
