@@ -59,4 +59,11 @@ class SalesAnalyst
   def average_invoices_per_merchant
     (engine.invoices.all.count.to_f / engine.merchants.all.count.to_f).round(2)
   end
+
+  def average_invoices_per_merchant_standard_deviation
+    mean = engine.merchants.all.map do |merchant|
+      (merchant.invoices.length - average_invoices_per_merchant)**2
+    end
+    Math.sqrt(mean.sum / (engine.merchants.all.count-1)).round(2)
+  end
 end
