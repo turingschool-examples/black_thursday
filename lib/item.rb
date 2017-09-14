@@ -1,3 +1,6 @@
+require 'bigdecimal'
+require 'time'
+
 require_relative 'repository/record'
 
 
@@ -23,7 +26,7 @@ class Item < Repository::Record
   end
 
   def ensure_time(time)
-    time = Time.new time unless time.is_a? Time
+    time = Time.parse time unless time.is_a? Time
   end
 
 end

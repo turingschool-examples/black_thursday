@@ -55,4 +55,8 @@ class Repository
     id = rand(1_000_000) while find_by_id(id)
   end
 
+  def inspect
+    "<#{self.class.name} with #{all.length} records>"
+  end
+
 end
