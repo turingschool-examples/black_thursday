@@ -29,11 +29,6 @@ class SalesAnalyst
     std_dev_top = individual_minus_average_squared.sum
     number_of_elements = hash_of_merchants_and_number_of_items.values.count
     Math.sqrt(std_dev_top / (number_of_elements - 1)).round(2)
-
-    # Work out the Mean (the simple average of the numbers)
-    # Then for each number: subtract the Mean and square the result (the squared difference).
-    # Then work out the average of those squared differences. (this is the variance.)
-    # Then take the square root of the variance.
   end
 
   def hash_of_merchants_and_number_of_items
@@ -61,12 +56,20 @@ class SalesAnalyst
     item_counts.each do |key,value|
       merchant_ids << key.to_i if  value > one_above
     end
-            # binding.pry
     merchants = []
     merchant_ids.each do |id|
       merchants << se.merchants.find_by_id(id)
     end
     merchants
+  end
+
+# Are these merchants selling commodity or luxury goods? Let’s find the average price of a merchant’s items (by supplying the merchant ID):
+# sa.average_item_price_for_merchant(12334159) # => BigDecimal
+
+  def average_item_price_for_merchant(merchant_id)
+    se.items.find_all_by_merchant_id(merchant_id).map do |item|
+      item.unit_price
+    end.sum / 2
   end
 
 

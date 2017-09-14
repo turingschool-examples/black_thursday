@@ -33,11 +33,13 @@ class TestSalesAnalyst < Minitest::Test
     assert_equal 0.58, sa.average_items_per_merchant_standard_deviation
   end
 
-  def test_it_find_merchants_with_high_item_count
+  def test_it_finds_merchants_with_high_item_count
     assert_instance_of Array, sa.merchants_with_high_item_count
     assert_instance_of Merchant, sa.merchants_with_high_item_count[0]
   end
 
-
+  def test_it_finds_average_item_price_for_merchant
+    assert_equal BigDecimal.new(13.25, 4), sa.average_item_price_for_merchant(12334185)
+  end
 
 end
