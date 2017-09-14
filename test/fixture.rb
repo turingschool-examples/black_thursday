@@ -49,7 +49,7 @@ module Fixture
         id: "3",
         name: 'Cherry',
         description: "One cherry (a fruit, not a wood)",
-        unit_price: "1000000",
+        unit_price: "450",
         merchant_id: "2"
       },{
         id: "4",

@@ -7,8 +7,9 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    merchant_count = @se.merchants.all.count
-    item_count = @se.items.all.count
+    merchants = @se.merchants.all.count
+    items = @se.items.all.count
+    items / merchants
   end
 
   def average_average_price_per_merchant
@@ -26,12 +27,14 @@ class SalesAnalyst
 
   def average(enum)
     count = enum.count
+
     sum = enum.reduce(0) do |sum, element|
       element = yield element if block_given?
       unless element.nil?
         sum + element
       else
         count -= 1
+        sum
       end
     end
     return nil if count.zero?

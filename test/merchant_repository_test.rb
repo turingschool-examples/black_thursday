@@ -24,7 +24,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_by_name_returns_merchant_instance
-    merchant = merchant_repo.find_by_id(4).id
+    merchant = merchant_repo.find_by_id(4)
     assert_instance_of Merchant, merchant
 
     assert_equal 4, merchant.id
