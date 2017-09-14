@@ -53,9 +53,23 @@ class SalesAnalyst
     item_repo = @engine.items
     items = item_repo.find_all_by_merchant_id(merchant_id)
     item_prices = items.map {|item| item.unit_price}
-    BigDecimal(item_prices.sum / item_prices.count).round(2)
+
+    if item_prices.empty?
+      return 0
+    else
+      BigDecimal(item_prices.sum / item_prices.count).round(2)
+    end
   end
 
+  def average_average_price_per_merchant
+    merchant_repo = @engine.merchants
+    merchants = merchant_repo.merchants
+    merchant_averages = merchants.map do |merchant|
+      average_item_price_for_merchant(merchant.id)
+    end
+    BigDecimal(merchant_averages.sum / merchant_averages.count).round(2)
+  end
+  
   def inspect
     "#<#{self.class} #{@items.size} rows>"
   end

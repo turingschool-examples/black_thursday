@@ -1,7 +1,7 @@
 module Search
 
   def find_instance_by_id(list, search_id)
-    search_id = search_id.to_s
+    search_id = search_id.to_i
     list.find do |object|
       search_id == object.id
     end

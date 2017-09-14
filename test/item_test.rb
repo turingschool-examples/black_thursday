@@ -21,7 +21,7 @@ class ItemsTest < Minitest::Test
     items = @item_repo.items
     item = items[0]
 
-    assert_equal '263395617', item.id
+    assert_equal 263395617, item.id
     assert_equal 'Glitter scrabble frames', item.name
     assert item.description.include?('colour')
     assert_equal BigDecimal.new(13.00, 4), item.unit_price

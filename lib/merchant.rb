@@ -3,7 +3,7 @@ class Merchant
   attr_reader :id, :name, :engine
 
   def initialize(merchant_info, engine)
-    @id = merchant_info[:id]
+    @id = merchant_info[:id].to_i
     @name = merchant_info[:name]
     @engine = engine
   end

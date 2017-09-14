@@ -44,7 +44,7 @@ class SalesAnalystTest < Minitest::Test
   def test_merchants_with_high_item_count_returns_merchants_more_than_one_standard_deviation_above
     high_sellers = @analyst.merchants_with_high_item_count
 
-    assert_equal "12334185", high_sellers[0].id
+    assert_equal 12334185, high_sellers[0].id
     assert_equal 1, high_sellers.count
   end
 
@@ -53,5 +53,7 @@ class SalesAnalystTest < Minitest::Test
 
   end
 
-
+  def test_average_average_price_per_merchant_returns_average_of_all
+    assert_equal 0.279e1, @analyst.average_average_price_per_merchant
+  end
 end

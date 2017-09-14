@@ -20,7 +20,7 @@ class MerchantTest < Minitest::Test
   def test_it_initializes_with_id_and_name_and_sales_engine
     merchant = @merchants[0]
 
-    assert_equal '12334112', merchant.id
+    assert_equal 12334112, merchant.id
     assert_equal "Candisart", merchant.name
     assert_instance_of SalesEngine, merchant.engine
   end
