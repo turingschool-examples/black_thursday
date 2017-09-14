@@ -45,13 +45,16 @@ class ItemRepository
     all.each do |item|
       item_array << item if item.unit_price == price
     end
+    # binding.pry
     item_array
   end
 
   def find_all_by_price_in_range(price_range)
     item_array = []
     all.each do |item|
-      item_array << item if price_range.any? {|num| num == item.unit_price}
+      if price_range.include?(item.unit_price)
+        item_array << item
+      end
     end
     item_array
   end
@@ -59,11 +62,15 @@ class ItemRepository
   def find_all_by_merchant_id(merchant_id)
   merchant_id_array = []
   all.each do |item|
-    if item.merchant_id == merchant_id
+    if item.merchant_id.to_i == merchant_id
       merchant_id_array << item
     end
   end
     return merchant_id_array
+  end
+
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
   end
 
 end

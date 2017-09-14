@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 require_relative "item_repository"
 require_relative "merchant_repository"
+=======
+require_relative 'item_repository'
+require_relative 'merchant_repository'
+>>>>>>> 09b7e857f43dd6612eb45abe27620499823d22d6
 
 class SalesEngine
   attr_reader :items, :merchants

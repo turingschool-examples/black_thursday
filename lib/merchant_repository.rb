@@ -49,4 +49,8 @@ class MerchantRepository
     return merchant_array
   end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
 end
