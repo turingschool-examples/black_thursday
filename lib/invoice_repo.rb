@@ -17,7 +17,7 @@ class InvoiceRepo
   def find_by_id(invoice_id)
     all_invoices.find { |invoice| invoice.id == invoice_id }
   end
-
+  
   def find_all_by_customer_id(customer_id)
     all_invoices.find_all { |invoice| invoice.customer_id == customer_id }
   end
