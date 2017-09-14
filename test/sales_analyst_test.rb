@@ -164,4 +164,12 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 0, expected.length
     assert_instance_of Array, expected
   end
+
+  def test_invoice_count_returns_days_with_high_invoices 
+    expected = sa.top_days_by_invoice_count 
+
+    assert_equal 1, expected.length
+    assert_equal "Wednesday", expected.first
+    assert_instance_of String, expected.first
+  end
 end
