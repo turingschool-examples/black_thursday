@@ -1,5 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require_relative 'test_helper'
 # require './lib/merchant_repository'
 # require './lib/sales_engine'
 require_relative '../lib/merchant_repository'
