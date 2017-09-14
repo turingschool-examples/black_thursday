@@ -8,8 +8,8 @@ class SalesEngine
     SalesEngine.new(source_files)
   end
 
-  attr_reader :item_repository,
-              :merchant_repository
+  attr_reader :items_repository,
+              :merchants_repository
 
   def initialize(source_files)
     @items_repository = ItemRepository.new(source_files[:items], self)

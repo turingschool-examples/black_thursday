@@ -17,12 +17,12 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_from_csv_created_different_repositories_assigned_to_appropriate_instance_variables
-    assert_instance_of MerchantRepository, se.merchants
-    assert_instance_of ItemRepository, se.items
+    assert_instance_of MerchantRepository, se.merchants_repository
+    assert_instance_of ItemRepository, se.items_repository
   end
 
   def test_items_returns_array_of_item_objects_associated_with_merchant
-    merchant = se.merchants.find_by_id(12334112)
+    merchant = se.merchants_repository.find_by_id(12334112)
     actual = merchant.items
 
     assert_instance_of Item, actual[0]
