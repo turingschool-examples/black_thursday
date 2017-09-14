@@ -4,7 +4,6 @@ require 'bigdecimal'
 require 'pry'
 
 class Invoice
-
   attr_reader :id,
               :customer_id,
               :merchant_id,
@@ -15,9 +14,9 @@ class Invoice
 
   def initialize(invoice, repo = nil)
     @id = invoice[:id].to_i
-    @customer_id = invoice[:customer_id]
-    @merchant_id = invoice[:merchant_id]
-    @status = invoice[:status].to_sym
+    @customer_id = invoice[:customer_id].to_i
+    @merchant_id = invoice[:merchant_id].to_i
+    @status = invoice[:status].intern
     @created_at = Time.parse(invoice[:created_at].to_s)
     @updated_at =Time.parse(invoice[:updated_at].to_s)
     @parent = repo
