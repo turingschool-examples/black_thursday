@@ -16,5 +16,4 @@ class SalesEngine
     @items = ItemRepository.new(self, item_csv)
     @merchants = MerchantRepository.new(self, merchant_csv)
   end
-
 end

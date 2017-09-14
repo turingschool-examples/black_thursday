@@ -2,7 +2,6 @@ require "./test/test_helper"
 require "./lib/sales_engine"
 require "./lib/item_repository"
 require './lib/item'
-require "bigdecimal"
 
 class ItemRepositoryTest < Minitest::Test
 
