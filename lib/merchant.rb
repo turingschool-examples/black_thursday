@@ -1,4 +1,4 @@
-require './lib/member'
+require_relative 'member'
 
 
 class Merchant < Member

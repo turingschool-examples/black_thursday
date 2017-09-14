@@ -1,4 +1,4 @@
-require './lib/member'
+require_relative 'member'
 require 'pry'
 class Item < Member
 

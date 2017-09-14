@@ -1,5 +1,5 @@
-require './lib/repository'
-require './lib/merchant'
+require_relative 'repository'
+require_relative 'merchant'
 
 
 class MerchantRepository < Repository
