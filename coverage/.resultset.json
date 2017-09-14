@@ -1,7 +1,7 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/kathrine/turing/1module/projects/black_thursday/lib/merchant_repo.rb": [
+      "/Users/Dee/turing/1mod/projects/black_thursday/lib/merchant_repo.rb": [
         1,
         null,
         1,
@@ -18,30 +18,6 @@
         2,
         9,
         null,
-<<<<<<< Updated upstream
-=======
-        null
-      ],
-      "/Users/Dee/turing/1mod/projects/black_thursday/lib/merchant_repo.rb": [
-        1,
-        null,
-        1,
-        1,
-        1,
-        null,
-        null,
-        1,
-        0,
-        null,
-        null,
-        1,
-        null,
-        null,
-        1,
-        null,
-        null,
-        1,
->>>>>>> Stashed changes
         null,
         null,
         1,
@@ -55,23 +31,12 @@
         null,
         null
       ],
-      "/Users/kathrine/turing/1module/projects/black_thursday/lib/merchant.rb": [
+      "/Users/Dee/turing/1mod/projects/black_thursday/lib/merchant.rb": [
         1,
         1,
         1,
         15,
         null,
-<<<<<<< Updated upstream
-=======
-        1,
-        0,
-        null,
-        null
-      ],
-      "/Users/Dee/turing/1mod/projects/black_thursday/lib/item.rb": [
-        1,
-        1,
->>>>>>> Stashed changes
         null,
         1,
         9,
@@ -83,10 +48,6 @@
         null
       ]
     },
-<<<<<<< Updated upstream
-    "timestamp": 1505344578
-=======
-    "timestamp": 1505341953
->>>>>>> Stashed changes
+    "timestamp": 1505347421
   }
 }

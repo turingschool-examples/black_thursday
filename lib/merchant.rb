@@ -3,7 +3,7 @@ class Merchant
   def initialize(merchant)
     @merchant = merchant
   end
-  
+
   def id
     merchant.fetch(:id).to_i
   end
