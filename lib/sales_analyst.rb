@@ -4,6 +4,8 @@ require 'pry'
 
 class SalesAnalyst
 
+# break it down
+
   def initialize(se)
     @se = se
   end
@@ -47,9 +49,9 @@ class SalesAnalyst
     @se.merchants.find_by_id(merchant_id).items.each do |item|
       price_array << item.price
     end
-      total_price = price_array.reduce(:+)
-      average_price = total_price / total_item_count
-      BigDecimal.new(average_price / 100).round(2)
+    total_price = price_array.reduce(:+)
+    average_price = total_price / total_item_count
+    BigDecimal.new(average_price / 100).round(2)
   end
 
   def average_average_price_per_merchant
