@@ -1,9 +1,10 @@
 require_relative 'merchant'
 
 class MerchantRepository
-  attr_reader :merchants
-  def initialize(merchant_list)
+  attr_reader :merchants, :sales_engine
+  def initialize(merchant_list, sales_engine)
     @merchants = merchant_list
+    @sales_engine = sales_engine
   end
 
   def all

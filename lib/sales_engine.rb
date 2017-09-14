@@ -18,7 +18,7 @@ class SalesEngine
       item_info[:merchant_id] = row[:merchant_id]
       item_list << Item.new(item_info)
     end
-    ItemRepository.new(item_list)
+    ItemRepository.new(item_list, self)
   end
 
   def self.read_merchants_file(merchants)
@@ -28,7 +28,7 @@ class SalesEngine
       name = row[:name]
       merchant_list << Merchant.new({ :id => id, :name => name})
     end
-    MerchantRepository.new(merchant_list)
+    MerchantRepository.new(merchant_list, self)
   end
 
   def self.from_csv(files)
@@ -36,11 +36,15 @@ class SalesEngine
     merchants = files[:merchants]
     item_repo = self.read_items_file(items)
     merchant_repo = self.read_merchants_file(merchants)
-    SalesEngine.new(item_repo, merchant_repo)
+    sales_engine = SalesEngine.new
+    sales_engine.merchants = merchant_repo
+    sales_engine.items = item_repo
   end
-  attr_reader :merchants, :items
-  def initialize(items, merchants)
-    @merchants = merchants
-    @items = items
+
+  attr_accessor :merchants, :items
+
+  def initialize
+    @merchants = nil
+    @items = nil
   end
 end
