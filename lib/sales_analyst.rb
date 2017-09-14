@@ -4,8 +4,6 @@ require 'pry'
 
 class SalesAnalyst
 
-# break it down
-
   def initialize(se)
     @se = se
   end
@@ -84,6 +82,25 @@ class SalesAnalyst
       end
     end
     golden_items
+  end
+
+  def average_invoices_per_merchant
+    (@se.invoices.all.count.to_f / @se.merchants.all.count).round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    number_of_invoices = @se.invoices.all.count
+    count_of_each_merchant_invoice =
+    @se.merchants.all.map do |merchant|
+      merchant.invoices.count
+    end
+    difference_between_mean_and_count_squared =
+    count_of_each_merchant_invoice.map do |num|
+      (average_invoices_per_merchant - num)**2
+    end
+    summed_differences = difference_between_mean_and_count_squared.reduce(:+)
+    amount_less_one = count_of_each_merchant_invoice.count - 1
+    Math.sqrt(summed_differences.to_f/amount_less_one).round(2)
   end
 
 end
