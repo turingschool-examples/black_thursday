@@ -53,10 +53,6 @@ class SalesAnalyst
     average_average.round(2)
   end
 
-  # def average_items_per_merchant_standard_deviation
-  #   standard_deviation_for_merchant_items.round(2)
-  # end
-
   def item_standard_deviation
     total_item_price = se.items.items.reduce(0) do |total_price, item|
       total_price + item.unit_price
@@ -78,4 +74,44 @@ class SalesAnalyst
       item.unit_price >  std_dev * 2
     end
   end
+
+  def average_invoices_per_merchant
+    average = se.total_invoices / se.total_merchants.to_f
+    average.round(2)
+  end 
+
+  def average_invoices_per_merchant_standard_deviation
+    average = average_invoices_per_merchant
+    
+    difference_from_average = se.merchant_invoice_count.map do |invoice_count|
+      invoice_count - average
+    end
+    squared_values = difference_from_average.map {|diff| diff ** 2}
+    
+    sum_of_squares = squared_values.sum
+    
+    Math.sqrt(sum_of_squares / (se.merchant_invoice_count.count - 1)).round(2)
+  end
+  
+  def top_merchants_by_invoice_count
+    average = average_invoices_per_merchant
+    std_dev = average_invoices_per_merchant_standard_deviation
+    se.merchants.merchants.select do |merchant|
+      merchant.invoices.count > (average + std_dev * 2)
+    end 
+  end 
+
+  def bottom_merchants_by_invoice_count
+     average = average_invoices_per_merchant
+    std_dev = average_invoices_per_merchant_standard_deviation
+    se.merchants.merchants.select do |merchant|
+      merchant.invoices.count < (average - std_dev * 2)
+    end 
+  end 
+
+  def top_days_by_invoice_count
+  end
 end
+
+
+

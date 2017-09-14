@@ -64,4 +64,11 @@ class SalesEngine
     end
   end
 
+  def total_invoices
+    self.invoices.invoices.length
+  end 
+
+  def merchant_invoice_count
+    self.merchants.merchants.map {|merchant| merchant.invoices.count}
+  end
 end
