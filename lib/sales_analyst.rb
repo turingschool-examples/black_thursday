@@ -103,7 +103,7 @@ class SalesAnalyst
     #   invoice[1] > avg_inv_per_day + deviation
     # end
 
-    invoices_p_day  = grouped.values.map {|day| day.count}
+    invoices_p_day  = grouped.values.map(&:count)
     day_array       = grouped.keys.zip(invoices_p_day)
     # day_hash        = day_array.reduce({}) {|hash, arr| hash[arr[0]]  = arr[1]; hash}
     avg_inv_per_day = engine.invoices.all.length / 7
