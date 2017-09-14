@@ -1,6 +1,7 @@
-require_relative 'member'
-require 'pry'
-class Item < Member
+require_relative 'repository/record'
+
+
+class Item < Repository::Record
 
   attr_reader :name, :description, :unit_price,
               :merchant_id
@@ -24,7 +25,5 @@ class Item < Member
   def ensure_time(time)
     time = Time.new time unless time.is_a? Time
   end
-
-
 
 end
