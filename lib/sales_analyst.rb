@@ -80,10 +80,12 @@ class SalesAnalyst
   end
 ##### Golden Items calc's
   def golden_items
-    # se.items.all.each do |item|
-    #   i >=
-    # end
+    se.items.all.each do |item|
+      i >= standard_deviation_for_item_cost
+    end
   end
+
+  # standard dev for GI
 
     def average_item_price
 
@@ -104,8 +106,9 @@ class SalesAnalyst
       calculation_item_array.sum
     end
 
-    def divide_squared_differences_by_total_items
-      square_each_item_average_difference
+    def standard_deviation_for_item_cost
+      final = Math.sqrt(square_each_item_average_difference / (se.items.all.count - 1))
+      final.round(3)
     end
 
 

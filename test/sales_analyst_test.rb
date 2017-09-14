@@ -54,4 +54,8 @@ class TestSalesAnalyst < Minitest::Test
     assert_equal 2219300.75, sa.square_each_item_average_difference
   end
 
+  def test_divide_squared_differences_by_total_then_sqrt
+    assert_equal 860.097, sa.standard_deviation_for_item_cost
+  end
+
 end
