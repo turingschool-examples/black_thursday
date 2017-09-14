@@ -31,16 +31,17 @@ class SalesAnalyst
     std_dev = average_items_per_merchant_standard_deviation
 
     se.merchants.merchants.select do |merchant|
-      merchant.items.count > std_dev
+      merchant.items.count >= std_dev*2
     end
   end
 
   def average_item_price_for_merchant(merchant_id)
     merchant = se.merchants.find_by_id(merchant_id)
+    
     total_item_price = merchant.items.reduce(0) do |total_price, item|
       total_price + item.unit_price
     end
-    return total_item_price / se.merchants.items.count unless total_item_price == 0
+    return (total_item_price /merchant.items.count).round(2) unless total_item_price == 0
     return 0
   end
 
@@ -48,7 +49,8 @@ class SalesAnalyst
     merchant_price_averages = se.merchants.merchants.map do |merchant|
       average_item_price_for_merchant(merchant.id)
     end
-    merchant_price_averages.sum / merchant_price_averages.count
+    average_average = merchant_price_averages.sum / merchant_price_averages.count
+    average_average.round(2)
   end
 
   # def average_items_per_merchant_standard_deviation
