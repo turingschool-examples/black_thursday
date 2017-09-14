@@ -1,4 +1,5 @@
 require 'bigdecimal'
+require 'pry'
 
 class SalesAnalyst
 
@@ -23,6 +24,15 @@ class SalesAnalyst
 
   def average_item_price(merchant)
     average(merchant.items){ |item| item.unit_price }
+  end
+
+  def average_items_per_merchant_standard_deviation
+    average_count = average_items_per_merchant
+    sum_of_squares = @se.merchants.reduce(0) do |sum, merchant|
+      sum + (merchant.items.count - average_count) ** 2
+    end
+
+    Math.sqrt(sum_of_squares / (@se.merchants.all.count - 1))
   end
 
   def average(enum)

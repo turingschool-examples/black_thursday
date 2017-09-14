@@ -21,7 +21,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_standard_deviation_returns_std
-    skip
     assert_equal 3.26, sales_analyst.average_items_per_merchant_standard_deviation
   end
 
