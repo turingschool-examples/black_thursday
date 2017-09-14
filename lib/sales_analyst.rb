@@ -28,12 +28,23 @@ class SalesAnalyst
 
   def average_items_per_merchant_standard_deviation
     average_count = average_items_per_merchant
-    sum_of_squares = @se.merchants.reduce(0) do |sum, merchant|
+    sum_of_squares = @se.merchants.all.reduce(0) do |sum, merchant|
       sum + (merchant.items.count - average_count) ** 2
     end
 
-    Math.sqrt(sum_of_squares / (@se.merchants.all.count - 1))
+    rounded Math.sqrt(sum_of_squares / (@se.merchants.all.count - 1))
   end
+
+  def merchants_with_high_item_count
+    standard_deviation = average_items_per_merchant_standard_deviation
+    high_count_merchants = @se.merchants.all.find_all do |merchant|
+        merchant.items.count > standard_deviation
+      end
+    high_count_merchants.map do |merchant|
+      merchant.name
+    end
+  end
+
 
   def average(enum)
     count = enum.count

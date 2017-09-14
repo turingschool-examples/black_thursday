@@ -16,8 +16,8 @@ class ItemTest < Minitest::Test
       :name         => "Pencil",
       :description  => "You can use it to write things",
       :unit_price   => "1099",
-      :created_at   => Time.now.to_s,
-      :updated_at   => Time.now.to_s
+      :created_at   => Time.now,
+      :updated_at   => Time.now
     }
     @item = Fixture.repo(:items).add_record(given)
   end
@@ -48,11 +48,11 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_has_a_Time_created_at
-    assert_equal Time.new(given[:created_at]), item.created_at
+    assert_equal given[:created_at], item.created_at
   end
 
   def test_it_has_a_Time_updated_at
-    assert_equal Time.new(given[:updated_at]), item.updated_at
+    assert_equal given[:updated_at], item.updated_at
   end
 
   def test_merchant_returns_a_single_merchant
