@@ -10,10 +10,27 @@ require "./lib/sales_analyst"
 
 class TestSalesAnalyst < Minitest::Test
 
+  attr_reader :sa
+
+  def setup
+    csv_hash = {
+      :items     => "./test/test_data/items_short.csv",
+      :merchants => "./test/test_data/merchants_short.csv",
+    }
+    se = SalesEngine.from_csv(csv_hash)
+    @sa = SalesAnalyst.new(se)
+  end
+
   def test_its_exists
-    se = "se"
-    sa = SalesAnalyst.new(se)
     assert_instance_of SalesAnalyst, sa
+  end
+
+  def test_it_averages_items_per_merchant
+    assert_equal 1.5, sa.average_items_per_merchant
+  end
+
+  def test_it_takes_a_standard_deviation
+    assert_equal 0.5, sa.average_items_per_merchant_standard_deviation
   end
 
 
