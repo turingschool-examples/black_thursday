@@ -3,11 +3,125 @@ require_relative '../lib/item_repo'
 
 class ItemRepositoryTest < Minitest::Test
   def test_item_exists
-    item = ItemRepository.new
+    items = []
+    item = ItemRepository.new(items)
 
     assert_instance_of ItemRepository, item
   end
-  def test
-    
+  def test_all
+    items = []
+    items << Item.new({ :id => "263395237", :name => "510+ RealPush Icon Set", :description => "hi",:merchant_id => "123", :unit_price => "1200", :created_at => "2016-01-11 09:34:06 UTC", :updated_at => "2007-06-04 21:35:10 UTC"})
+    items << Item.new({ :id => "263395238", :name => "Icon Set", :description => "hello",:merchant_id => "223", :unit_price => "1201", :created_at => "2016-01-11 09:34:06 UTC", :updated_at => "2007-06-04 21:35:10 UTC"})
+    item = ItemRepository.new(items)
+
+    assert_equal 2, item.items.count
+  end
+
+  def test_find_by_exisiting_id
+    items = []
+    items << Item.new({ :id => "263395237", :name => "510+ RealPush Icon Set", :description => "hi",:merchant_id => "123", :unit_price => "1200", :created_at => "2016-01-11 09:34:06 UTC", :updated_at => "2007-06-04 21:35:10 UTC"})
+    items << Item.new({ :id => "263395238", :name => "Icon Set", :description => "hello",:merchant_id => "223", :unit_price => "1201", :created_at => "2016-01-11 09:34:06 UTC", :updated_at => "2007-06-04 21:35:10 UTC"})
+    item = ItemRepository.new(items)
+
+    assert_instance_of Item, item.find_by_id(263395237)
+  end
+
+  def test_find_by_id_nil
+    items = []
+    items << Item.new({ :id => "263395237", :name => "510+ RealPush Icon Set", :description => "hi",:merchant_id => "123", :unit_price => "1200", :created_at => "2016-01-11 09:34:06 UTC", :updated_at => "2007-06-04 21:35:10 UTC"})
+    items << Item.new({ :id => "263395238", :name => "Icon Set", :description => "hello",:merchant_id => "223", :unit_price => "1201", :created_at => "2016-01-11 09:34:06 UTC", :updated_at => "2007-06-04 21:35:10 UTC"})
+    item = ItemRepository.new(items)
+
+    assert_nil item.find_by_id(263395230)
+  end
+
+  def test_find_by_name_nil
+    items = []
+    items << Item.new({ :id => "263395237", :name => "510+ RealPush Icon Set", :description => "hi",:merchant_id => "123", :unit_price => "1200", :created_at => "2016-01-11 09:34:06 UTC", :updated_at => "2007-06-04 21:35:10 UTC"})
+    items << Item.new({ :id => "263395238", :name => "Icon Set", :description => "hello",:merchant_id => "223", :unit_price => "1201", :created_at => "2016-01-11 09:34:06 UTC", :updated_at => "2007-06-04 21:35:10 UTC"})
+    item = ItemRepository.new(items)
+
+    assert_nil item.find_by_name("Kool-Aid")
+  end
+
+  def test_find_by_name_exists
+    items = []
+    items << Item.new({ :id => "263395237", :name => "510+ RealPush Icon Set", :description => "hi",:merchant_id => "123", :unit_price => "1200", :created_at => "2016-01-11 09:34:06 UTC", :updated_at => "2007-06-04 21:35:10 UTC"})
+    items << Item.new({ :id => "263395238", :name => "Icon Set", :description => "hello",:merchant_id => "223", :unit_price => "1201", :created_at => "2016-01-11 09:34:06 UTC", :updated_at => "2007-06-04 21:35:10 UTC"})
+    item = ItemRepository.new(items)
+
+    assert_instance_of Item, item.find_by_name("Icon Set")
+  end
+
+  def test_find_by_all_with_description_word_exists
+    items = []
+    items << Item.new({ :id => "263395237", :name => "510+ RealPush Icon Set", :description => "hi",:merchant_id => "123", :unit_price => "1200", :created_at => "2016-01-11 09:34:06 UTC", :updated_at => "2007-06-04 21:35:10 UTC"})
+    items << Item.new({ :id => "263395238", :name => "Icon Set", :description => "hello",:merchant_id => "223", :unit_price => "1201", :created_at => "2016-01-11 09:34:06 UTC", :updated_at => "2007-06-04 21:35:10 UTC"})
+    item = ItemRepository.new(items)
+
+    assert_equal 1, item.find_all_with_description("he").count
+  end
+
+  def test_find_by_all_with_description_word_empty_array
+    items = []
+    items << Item.new({ :id => "263395237", :name => "510+ RealPush Icon Set", :description => "hi",:merchant_id => "123", :unit_price => "1200", :created_at => "2016-01-11 09:34:06 UTC", :updated_at => "2007-06-04 21:35:10 UTC"})
+    items << Item.new({ :id => "263395238", :name => "Icon Set", :description => "hello",:merchant_id => "223", :unit_price => "1201", :created_at => "2016-01-11 09:34:06 UTC", :updated_at => "2007-06-04 21:35:10 UTC"})
+    item = ItemRepository.new(items)
+
+    assert_equal [], item.find_all_with_description("no")
+  end
+
+  def test_find_by_all_by_price_empty_array
+    items = []
+    items << Item.new({ :id => "263395237", :name => "510+ RealPush Icon Set", :description => "hi",:merchant_id => "123", :unit_price => "1200", :created_at => "2016-01-11 09:34:06 UTC", :updated_at => "2007-06-04 21:35:10 UTC"})
+    items << Item.new({ :id => "263395238", :name => "Icon Set", :description => "hello",:merchant_id => "223", :unit_price => "1201", :created_at => "2016-01-11 09:34:06 UTC", :updated_at => "2007-06-04 21:35:10 UTC"})
+    item = ItemRepository.new(items)
+
+    assert_equal [], item.find_all_by_price(5.00)
+  end
+
+  def test_find_by_all_by_existing_price
+    items = []
+    items << Item.new({ :id => "263395237", :name => "510+ RealPush Icon Set", :description => "hi",:merchant_id => "123", :unit_price => "1200", :created_at => "2016-01-11 09:34:06 UTC", :updated_at => "2007-06-04 21:35:10 UTC"})
+    items << Item.new({ :id => "263395238", :name => "Icon Set", :description => "hello",:merchant_id => "223", :unit_price => "1201", :created_at => "2016-01-11 09:34:06 UTC", :updated_at => "2007-06-04 21:35:10 UTC"})
+    item = ItemRepository.new(items)
+
+    assert_equal 1, item.find_all_by_price(12.01).count
+  end
+
+  def test_find_by_all_by_price_range_price_exists_in_range
+    items = []
+    items << Item.new({ :id => "263395237", :name => "510+ RealPush Icon Set", :description => "hi",:merchant_id => "123", :unit_price => "1200", :created_at => "2016-01-11 09:34:06 UTC", :updated_at => "2007-06-04 21:35:10 UTC"})
+    items << Item.new({ :id => "263395238", :name => "Icon Set", :description => "hello",:merchant_id => "223", :unit_price => "1201", :created_at => "2016-01-11 09:34:06 UTC", :updated_at => "2007-06-04 21:35:10 UTC"})
+    item = ItemRepository.new(items)
+
+    assert_equal 2, item.find_all_by_price_in_range(10.00..15.00).count
+  end
+
+  def test_find_by_all_by_price_range_empty_array
+    items = []
+    items << Item.new({ :id => "263395237", :name => "510+ RealPush Icon Set", :description => "hi",:merchant_id => "123", :unit_price => "1200", :created_at => "2016-01-11 09:34:06 UTC", :updated_at => "2007-06-04 21:35:10 UTC"})
+    items << Item.new({ :id => "263395238", :name => "Icon Set", :description => "hello",:merchant_id => "223", :unit_price => "1201", :created_at => "2016-01-11 09:34:06 UTC", :updated_at => "2007-06-04 21:35:10 UTC"})
+    item = ItemRepository.new(items)
+
+    assert_equal [], item.find_all_by_price_in_range(1.00..5.00)
+  end
+
+  def test_find_by_all_by_merchant_id_empty_array
+    items = []
+    items << Item.new({ :id => "263395237", :name => "510+ RealPush Icon Set", :description => "hi",:merchant_id => "123", :unit_price => "1200", :created_at => "2016-01-11 09:34:06 UTC", :updated_at => "2007-06-04 21:35:10 UTC"})
+    items << Item.new({ :id => "263395238", :name => "Icon Set", :description => "hello",:merchant_id => "223", :unit_price => "1201", :created_at => "2016-01-11 09:34:06 UTC", :updated_at => "2007-06-04 21:35:10 UTC"})
+    item = ItemRepository.new(items)
+
+    assert_equal [], item.find_all_by_merchant_id("3")
+  end
+
+  def test_find_by_all_by_merchant_id_exists
+    items = []
+    items << Item.new({ :id => "263395237", :name => "510+ RealPush Icon Set", :description => "hi",:merchant_id => "123", :unit_price => "1200", :created_at => "2016-01-11 09:34:06 UTC", :updated_at => "2007-06-04 21:35:10 UTC"})
+    items << Item.new({ :id => "263395238", :name => "Icon Set", :description => "hello",:merchant_id => "223", :unit_price => "1201", :created_at => "2016-01-11 09:34:06 UTC", :updated_at => "2007-06-04 21:35:10 UTC"})
+    item = ItemRepository.new(items)
+
+    assert_equal 1, item.find_all_by_merchant_id(123).count
   end
 end

@@ -2,8 +2,8 @@ require_relative 'item'
 
 class ItemRepository
   attr_reader :items
-  def initialize(item_list)
-    @items = item_list
+  def initialize(items)
+    @items = items
   end
 
   def all
@@ -35,7 +35,6 @@ class ItemRepository
   end
 
   def find_all_by_price_in_range(range)
-    #new_range = (range.first/100..range.last/100)
     items.find_all do |item|
       range.cover?(item.unit_price)
     end
