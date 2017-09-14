@@ -72,4 +72,12 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 3.29, expected 
     assert_instance_of Float, expected 
   end
+
+  def test_top_merchants_by_invoice_count 
+    expected = sa.top_merchants_by_invoice_count
+
+    assert_equal 12, expected.length
+    assert_instance_of Array, expected
+    assert_instance_of Merchant, expected.first
+  end
 end

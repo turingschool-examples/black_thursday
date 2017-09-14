@@ -64,6 +64,23 @@ class SalesAnalyst
     mean = engine.merchants.all.map do |merchant|
       (merchant.invoices.length - average_invoices_per_merchant)**2
     end
-    Math.sqrt(mean.sum / (engine.merchants.all.count-1)).round(2)
+    Math.sqrt(mean.sum / (engine.merchants.all.count)).round(2)
+  end
+
+  def avg_invoice_standard_deviation 
+    mean = engine.merchants.all.map do |merchant|
+      (merchant.invoices.length - avg_invoice_count)**2
+    end
+    Math.sqrt(mean.sum / engine.merchants.all.length).round(2)
+  end
+
+  def avg_invoice_count 
+    invoices = engine.merchants.all.map {|merchant| merchant.invoices.length}
+    invoices.sum / invoices.length    
+  end
+
+  def top_merchants_by_invoice_count
+    count = (average_invoices_per_merchant + avg_invoice_standard_deviation * 2)
+    engine.merchants.all.select {|merchant| merchant.invoices.length > count}
   end
 end
