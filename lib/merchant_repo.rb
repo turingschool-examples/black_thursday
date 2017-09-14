@@ -1,7 +1,18 @@
 require_relative 'merchant'
 
 class MerchantRepository
+  def self.read_merchants_file(merchants, sales_engine)
+    merchant_list = []
+    CSV.foreach(merchants, headers: true, header_converters: :symbol) do |row|
+      id = row[:id]
+      name = row[:name]
+      merchant_list << Merchant.new({ :id => id, :name => name})
+    end
+    MerchantRepository.new(merchant_list, sales_engine)
+  end
+
   attr_reader :merchants, :sales_engine
+
   def initialize(merchant_list, sales_engine)
     @merchants = merchant_list
     @sales_engine = sales_engine

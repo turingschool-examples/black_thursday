@@ -7,11 +7,7 @@ class ItemRepositoryTest < Minitest::Test
   attr_reader :item_repo, :sales_engine
 
   def set_up(items = [])
-    @sales_engine = SalesEngine.new(@item_repo, @merchant_repo)
-    merchants = []
-    @merchant_repo = MerchantRepository.new(merchants, sales_engine)
     @item_repo = ItemRepository.new(items, sales_engine)
-    @sales_engine.items = item_repo
   end
 
   def test_item_exists
