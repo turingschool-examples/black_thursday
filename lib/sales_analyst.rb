@@ -27,7 +27,13 @@ class SalesAnalyst
                                end
     individual_minus_average_squared = individual_minus_average.flatten.map {|num| num ** 2}
     std_dev_top = individual_minus_average_squared.sum
-    Math.sqrt(std_dev_top / 2).round(2)
+    number_of_elements = hash_of_merchants_and_number_of_items.values.count
+    Math.sqrt(std_dev_top / (number_of_elements - 1)).round(2)
+
+    # Work out the Mean (the simple average of the numbers)
+    # Then for each number: subtract the Mean and square the result (the squared difference).
+    # Then work out the average of those squared differences. (this is the variance.)
+    # Then take the square root of the variance.
   end
 
   def hash_of_merchants_and_number_of_items
