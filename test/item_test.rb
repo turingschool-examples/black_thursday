@@ -31,7 +31,7 @@ class ItemTest < Minitest::Test
   def test_unit_to_dollar
     item = Item.new({ :id => "263395237", :name => "510+ RealPush Icon Set", :description => "hi",:merchant_id => "123", :unit_price => "1200", :created_at => "2016-01-11 09:34:06 UTC", :updated_at => "2007-06-04 21:35:10 UTC"})
 
-    assert_equal "$1200.0", item.unit_to_dollar
+    assert_equal 12.0, item.unit_to_dollar
   end
 
   def test_id

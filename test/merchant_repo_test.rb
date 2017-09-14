@@ -7,9 +7,7 @@ class MerchantRepositoryTest < Minitest::Test
   attr_reader :merchant_repo, :sales_engine
 
   def set_up(merchants = [])
-    @sales_engine = SalesEngine.new
     @merchant_repo = MerchantRepository.new(merchants, sales_engine)
-    @sales_engine.merchants = merchant_repo
   end
 
   def test_merchant_exists
