@@ -3,6 +3,7 @@ class Repository
 
     attr_reader :id, :created_at, :updated_at, :repo
     def initialize(repo, fields)
+      raise "Repository::Record must be subclassed" if self.class == Repository::Record
       apply_defaults(fields)
       @repo = repo
     end

@@ -8,6 +8,14 @@ module Fixture
       })
     end
 
+    def merchant_repo
+      sales_engine.merchants
+    end
+
+    def item_repo
+      sales_engine.items
+    end
+
     def merchant_data
       [
         {

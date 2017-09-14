@@ -1,11 +1,11 @@
 class Repository
 
   def initialize(record_subclass, engine, record_data)
+    raise "Repository must be subclassed" if self.class == Repository
     @record_subclass = record_subclass
     @sales_engine = engine
     @records = []
     populate(record_data)
-    raise "Repository must be subclassed" if self.class == Repository
   end
 
   def populate(record_data)

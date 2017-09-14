@@ -2,7 +2,6 @@ require 'bigdecimal'
 
 require './test/test_helper'
 
-
 require './lib/item'
 require './lib/merchant'
 
@@ -20,7 +19,7 @@ class ItemTest < Minitest::Test
       :created_at   => Time.now.to_s,
       :updated_at   => Time.now.to_s
     }
-    @item = Item.new(Fixture.sales_engine.repo(:items), given)
+    @item = Fixture.item_repo.add_record(given)
   end
 
   def test_initialize_takes_a_hash_of_strings
