@@ -1,4 +1,5 @@
 require_relative "sales_engine"
+require 'pry'
 
 
 class SalesAnalyst
@@ -67,9 +68,12 @@ class SalesAnalyst
 # sa.average_item_price_for_merchant(12334159) # => BigDecimal
 
   def average_item_price_for_merchant(merchant_id)
-    se.items.find_all_by_merchant_id(merchant_id).map do |item|
-      item.unit_price
-    end.sum / 2
+    total_items = se.items.find_all_by_merchant_id(merchant_id)
+    item_prices = total_items.map do |item|
+                    item.unit_price
+                  end
+    total_item_prices = item_prices.sum
+    (total_item_prices / total_items.length).round(2)
   end
 
 
