@@ -1,3 +1,7 @@
+require_relative 'csv_parser'
+require_relative 'invoice'
+
+
 class InvoiceRepository
     include CsvParser
     attr_reader :sales_engine
@@ -26,11 +30,14 @@ class InvoiceRepository
     end
 
     def find_all_by_merchant_id(id)
-        @invoices.select {|invoice| invoice.id == id }
+        @invoices.select {|invoice| invoice.merchant_id == id }
     end 
 
     def find_all_by_status(status)
-        @invoices.select {invoice} invoice.status == status}
+        @invoices.select {|invoice| invoice.status == status}
     end 
-    
+
+    def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+    end
 end 

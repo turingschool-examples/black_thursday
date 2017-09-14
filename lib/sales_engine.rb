@@ -2,10 +2,11 @@
 # require './lib/item_repository'
 require_relative 'merchant_repository'
 require_relative 'item_repository'
+require_relative 'invoice_repository'
 
 class SalesEngine
 
-  attr_accessor :merchant_csv_filepath, :item_csv_filepath
+  attr_accessor :merchant_csv_filepath, :item_csv_filepath, :invoice_csv_filepath
 
   def self.from_csv(info)
     se = SalesEngine.new
