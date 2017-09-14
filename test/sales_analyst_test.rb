@@ -26,11 +26,11 @@ class TestSalesAnalyst < Minitest::Test
   end
 
   def test_it_averages_items_per_merchant
-    assert_equal 2.0, sa.average_items_per_merchant
+    assert_equal 1.33, sa.average_items_per_merchant
   end
 
   def test_it_takes_a_standard_deviation
-    assert_equal 1.0, sa.average_items_per_merchant_standard_deviation
+    assert_equal 0.58, sa.average_items_per_merchant_standard_deviation
   end
 
   def test_it_find_merchants_with_high_item_count
