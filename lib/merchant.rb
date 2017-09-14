@@ -9,4 +9,7 @@ class Merchant
     @name = csv_info[:name]
   end
 
+  def items
+  end
+
 end

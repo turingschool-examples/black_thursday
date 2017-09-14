@@ -1,5 +1,5 @@
 require_relative "sales_engine"
-require "math"
+
 
 class SalesAnalyst
 
@@ -13,10 +13,11 @@ class SalesAnalyst
     item_counts = hash_of_merchants_and_number_of_items
     total_items = item_counts.values.sum
     total_merchants = item_counts.length
-    total_items/total_merchants
+    (total_items/total_merchants).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
+    # binding.pry
     average = average_items_per_merchant
     item_counts = hash_of_merchants_and_number_of_items
     # item_counts: {merchant_id => #items, ...}
@@ -25,7 +26,7 @@ class SalesAnalyst
                                end
     individual_minus_average_squared = individual_minus_average.map {|num| num ** 2}
     std_dev_top = individual_minus_average_squared.sum
-    sqrt(std_dev_top / 2)
+    Math.sqrt(std_dev_top / 2)
   end
 
   def hash_of_merchants_and_number_of_items
@@ -40,15 +41,26 @@ class SalesAnalyst
    item_counts
   end
 
-  # standard dev
-  # Take the difference between each number and the mean and square it
-  # Sum these square differences together
-  # Divide the sum by the number of elements minus 1
-  # Take the square root of this result
-  # Or, in pseudocode:
-  #
-  # set = [3,4,5]
-  #
-  # std_dev = sqrt( ( individual_minus_average_squared+(4-4)^2+(5-4)^2 ) / 2 )
+  def std_dev
+    average_items_per_merchant_standard_deviation
+  end
+
+
+  def merchants_with_high_item_count
+    merchant_ids = []
+
+    item_counts = hash_of_merchants_and_number_of_items
+    one_above  = average_items_per_merchant + std_dev
+    item_counts.each do |key,value|
+      merchant_ids << key.to_i if  value > one_above
+    end
+            # binding.pry
+    merchants = []
+    merchant_ids.each do |id|
+      merchants << se.merchants.find_by_id(id)
+    end
+    merchants
+  end
+
 
 end
