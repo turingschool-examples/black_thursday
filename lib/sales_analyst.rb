@@ -67,14 +67,14 @@ class SalesAnalyst
     Math.sqrt(mean.sum / (engine.merchants.all.count)).round(2)
   end
 
-  def avg_invoice_standard_deviation 
+  def avg_invoice_standard_deviation
     mean = engine.merchants.all.map do |merchant|
       (merchant.invoices.length - avg_invoice_count)**2
     end
     Math.sqrt(mean.sum / engine.merchants.all.length).round(2)
   end
 
-  def avg_invoice_count 
+  def avg_invoice_count
     invoices = engine.merchants.all.map {|merchant| merchant.invoices.length}
     invoices.sum / invoices.length
   end
@@ -115,7 +115,13 @@ class SalesAnalyst
     engine.invoices.all.group_by {|invoice|invoice.created_at.strftime("%A")}
   end
 
-  def avg_inv_per_day 
+  def avg_inv_per_day
     engine.invoices.all.length / 7
+  end
+
+  def invoice_status(status)
+    total = engine.invoices.all.length
+    selected  = engine.invoices.all.select {|invoice| invoice.status == status}
+    ((selected.length.to_f / total.to_f) * 100.0).round(2)
   end
 end

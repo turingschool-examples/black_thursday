@@ -3,11 +3,11 @@ require_relative '../lib/sales_analyst'
 require_relative '../lib/sales_engine'
 
 class SalesAnalystTest < Minitest::Test
-  attr_reader :se, 
-              :sa, 
-              :fe, 
+  attr_reader :se,
+              :sa,
+              :fe,
               :fa
-  
+
   def setup
     @se = SalesEngine.from_csv({ :items     => "./data/items.csv",
                                  :merchants => "./data/merchants.csv",
@@ -17,7 +17,7 @@ class SalesAnalystTest < Minitest::Test
                                  :merchants => "./data/merchants.csv",
                                  :invoices  => "./test/fixtures/invoices.csv"})
 
-    @fa = SalesAnalyst.new(fe)                   
+    @fa = SalesAnalyst.new(fe)
   end
 
   def test_that_it_exists
@@ -31,8 +31,8 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 2.88, expected
     assert_instance_of Float, expected
   end
-  
-  def test_average_items_per_merchant_fixture 
+
+  def test_average_items_per_merchant_fixture
     expected = fa.average_items_per_merchant
 
     assert_equal 0.12, expected
@@ -92,48 +92,48 @@ class SalesAnalystTest < Minitest::Test
 
   def test_golden_items_returns_above_average_items
     expected = sa.golden_items
-  
+
     assert_equal 5, expected.length
     assert_instance_of Item, expected.first
   end
 
   def test_golden_items_returns_above_average_items_fixture
     expected = fa.golden_items
-  
+
     assert_equal 1, expected.length
     assert_instance_of Item, expected.first
   end
 
-  def test_average_invoices_per_merchant 
+  def test_average_invoices_per_merchant
     expected = sa.average_invoices_per_merchant
 
     assert_equal 10.49, expected
     assert_instance_of Float, expected
   end
 
-  def test_average_invoices_per_merchant_fixture 
+  def test_average_invoices_per_merchant_fixture
     expected = fa.average_invoices_per_merchant
 
     assert_equal 1.05, expected
     assert_instance_of Float, expected
   end
 
-  def test_average_invoices_per_merchant_standard_deviation 
+  def test_average_invoices_per_merchant_standard_deviation
     expected = sa.average_invoices_per_merchant_standard_deviation
 
-    assert_equal 3.29, expected 
-    assert_instance_of Float, expected 
+    assert_equal 3.29, expected
+    assert_instance_of Float, expected
   end
 
-  def test_average_invoices_per_merchant_standard_deviation_fixture 
+  def test_average_invoices_per_merchant_standard_deviation_fixture
     expected = fa.average_invoices_per_merchant_standard_deviation
 
-    assert_equal 1.01, expected 
-    assert_instance_of Float, expected 
+    assert_equal 1.01, expected
+    assert_instance_of Float, expected
   end
 
   def test_top_merchants_by_invoice_count
-    skip # works but takes forever.  
+    skip # works but takes forever.
     expected = sa.top_merchants_by_invoice_count
 
     assert_equal 12, expected.length
@@ -149,7 +149,7 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Merchant, expected.first
   end
 
-  def test_bottom_merchants_by_invoice_count 
+  def test_bottom_merchants_by_invoice_count
     skip # works but takes forever.
     expected = sa.bottom_merchants_by_invoice_count
 
@@ -165,31 +165,31 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Array, expected
   end
 
-  def test_invoice_count_returns_days_with_high_invoices 
-    expected = sa.top_days_by_invoice_count 
+  def test_invoice_count_returns_days_with_high_invoices
+    expected = sa.top_days_by_invoice_count
 
     assert_equal 1, expected.length
     assert_equal "Wednesday", expected.first
     assert_instance_of String, expected.first
   end
 
-  def test_invoice_std_deviation 
+  def test_invoice_std_deviation
     invoices_per_day = [1, 2, 3, 4, 5, 6, 7]
     expected = sa.invoice_std_deviation(invoices_per_day)
-    
+
     assert_equal 708, expected
   end
 
-  def test_invoices_per_day 
-    expected = [729, 701, 741, 696, 708, 692, 718] 
+  def test_invoices_per_day
+    expected = [729, 701, 741, 696, 708, 692, 718]
     assert_equal expected, sa.invoices_per_day
   end
 
-  def test_day_array 
-    actual   = sa.day_array 
-    expected = [["Saturday", 729], 
+  def test_day_array
+    actual   = sa.day_array
+    expected = [["Saturday", 729],
                 ["Friday", 701],
-                ["Wednesday", 741], 
+                ["Wednesday", 741],
                 ["Monday", 696],
                 ["Sunday", 708],
                 ["Tuesday", 692],
@@ -199,7 +199,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_days_with_high_invoices
-    arg1     = sa.day_array 
+    arg1     = sa.day_array
     arg2     = sa.avg_inv_per_day
     arg3     = sa.invoice_std_deviation(sa.invoices_per_day)
     expected = sa.days_with_high_invoices(arg1, arg2, arg3)
@@ -207,11 +207,22 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 'Wednesday', expected[0]
   end
 
-  def test_grouped_invoices 
+  def test_grouped_invoices
     assert_instance_of Hash, sa.grouped_invoices
   end
 
-  def test_avg_inv_per_day 
+  def test_avg_inv_per_day
     assert_equal 712, sa.avg_inv_per_day
+  end
+
+  def test_invoice_status_returns_percentage_of_given_status
+    expected = sa.invoice_status(:pending)
+    assert_equal 29.55, expected
+
+    expected = sa.invoice_status(:shipped)
+    assert_equal 56.95, expected
+
+    expected = sa.invoice_status(:returned)
+    assert_equal 13.5, expected
   end
 end
