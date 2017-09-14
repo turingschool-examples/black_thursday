@@ -43,7 +43,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_golden_items_returns_items_2_standard_deviations_from_average
-    skip
+    
     # assert_equal [<item>, <item>, <item>, <item>], sales_analyst.golden_items
   end
 
