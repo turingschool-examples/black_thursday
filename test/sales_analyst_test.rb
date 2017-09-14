@@ -43,7 +43,7 @@ class TestSalesAnalyst < Minitest::Test
   end
 
   def test_it_sums_averages_across_merchants_and_averages
-    assert_equal BigDecimal.new(17.12, 4), sa.average_average_price_per_merchant
+    assert_equal BigDecimal.new(18.41, 4), sa.average_average_price_per_merchant
   end
 
 end
