@@ -1,5 +1,5 @@
 module Fixture
-  class < self
+  class << self
 
     def sales_engine
       SalesEngine.new({
@@ -13,22 +13,21 @@ module Fixture
         {
           name: "merchant 1",
           id: "1"
-        },
-        {
+        },{
           name: "merchant 2",
           id: "2"
-        },
-        {
+        },{
           name: "merchant 3",
           id: "3"
-        },
-        {
+        },{
           name: "merchant 4",
           id: "4"
-        },
-        {
+        },{
           name: "merchant 5",
           id: "5"
+        },{
+          name: "'chant 6",
+          id: "6"
         }
       ]
     end
@@ -56,7 +55,7 @@ module Fixture
         id: "4",
         name: 'Durian',
         description: "A sweet thing with seeds",
-        unit_price: "100"
+        unit_price: "100",
         merchant_id: "3"
       }]
     end

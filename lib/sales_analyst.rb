@@ -12,9 +12,7 @@ class SalesAnalyst
   end
 
   def average_average_price_per_merchant
-    sum = @se.merchants.all.reduce(0) do |sum, merchant|
-      sum + average_item_price(merchant)
-    end
+    average(@se.merchants.all){ |merchant| average_item_price(merchant) }
   end
 
   def average_item_price_for_merchant(id)
@@ -24,18 +22,20 @@ class SalesAnalyst
 
   def average_item_price(merchant)
     average(merchant.items){ |item| item.unit_price }
-    # items = merchant.items
-    # sum = items.reduce(0){ |sum, item| sum + item.unit_price }
-    # sum / items.count
   end
 
   def average(enum)
+    count = enum.count
     sum = enum.reduce(0) do |sum, element|
-      require 'pry'; binding.pry
       element = yield element if block_given?
-      sum + element
+      unless element.nil?
+        sum + element
+      else
+        count -= 1
+      end
     end
-    sum / enum.size
+    return nil if count.zero?
+    sum / count
   end
 
 end

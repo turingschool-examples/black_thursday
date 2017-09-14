@@ -35,12 +35,11 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_initialize_populates_using_given_hash
-    merchant_data = { id: 1, name: "Matz" }
-    item_data = { id: 1, name: "Ruby" }
-    se = SalesEngine.new items: [item_data], merchants: [merchant_data]
 
-    assert_equal "Matz", se.merchants.find_by_id(1).name
-    assert_equal "Ruby", se.items.find_by_id(1).name
+    se = SalesEngine.new({ items: Fixture.item_data, merchants: Fixture.merchant_data })
+
+    assert_equal "merchant 1", se.merchants.find_by_id(1).name
+    assert_equal "Apple", se.items.find_by_id(1).name
   end
 
 

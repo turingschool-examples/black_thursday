@@ -7,21 +7,23 @@ require './lib/item'
 
 class ItemRepositoryTest < Minitest::Test
 
+  attr_reader :item_repo
+  def setup
+    @item_repo= ItemRepository.new(Fixture.sales_engine, Fixture.item_data)
+  end
+
   def test_it_takes_an_array_of_items
     assert_instance_of ItemRepository, item_repo
   end
 
-
   def test_all_returns_array_of_all_items
-    skip
-    assert_equal item_list, item_repo.all
+    assert_instance_of Array, item_repo.all
+    assert_instance_of Item, item_repo.all.first
   end
 
   def test_all_returns_a_copy
-    repo = item_repo
-    refute_same repo.all, repo.all
+    refute_same item_repo.all, item_repo.all
   end
-
 
   def test_find_by_id_returns_item
     assert_instance_of Item, item_repo.find_by_id(1)
@@ -30,7 +32,6 @@ class ItemRepositoryTest < Minitest::Test
   def test_find_by_id_returns_nil_if_not_found
     assert_nil item_repo.find_by_id(34)
   end
-
 
   def test_find_by_name_returns_item
     assert_instance_of Item, item_repo.find_by_name('Apple')
@@ -43,7 +44,6 @@ class ItemRepositoryTest < Minitest::Test
   def test_find_by_name_is_case_insensitive
     assert_equal 'Banana', item_repo.find_by_name('baNanA').name
   end
-
 
   def test_find_all_with_description_returns_array_of_items_containing_substring
     durians = item_repo.find_all_with_description("thing with seeds")
@@ -65,7 +65,6 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal [], item_repo.find_all_with_description('!@#$%^&}')
   end
 
-
   def test_find_all_by_price_returns_array_of_items_exactly_matching
     bananas = item_repo.find_all_by_price(0.5)
     assert_instance_of Array, bananas
@@ -80,7 +79,6 @@ class ItemRepositoryTest < Minitest::Test
   def test_find_all_by_price_returns_empty_array_if_nothing_found
     assert_equal [], item_repo.find_all_by_price(0)
   end
-
 
   def test_find_all_by_price_in_range_returns_array_of_items
     bananas = item_repo.find_all_by_price_in_range(0.4..0.6)
@@ -118,39 +116,5 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal [], item_repo.find_all_by_merchant_id(100_000)
   end
 
-
-  def item_repo
-    ItemRepository.new(nil, item_data)
-  end
-
-  def item_data
-    [
-      {
-        id: 1,
-        name: 'Apple',
-        description: "One apple (a fruit, not a computer)",
-        unit_price: BigDecimal.new(1.00, 3),
-        merchant_id: 1
-      }, {
-        id: 2,
-        name: 'Banana',
-        description: "One banana (a fruit, not a clip)",
-        unit_price: BigDecimal.new(0.50, 3),
-        merchant_id: 2
-      }, {
-        id: 3,
-        name: 'Cherry',
-        description: "One cherry (a fruit, not a wood)",
-        unit_price: BigDecimal.new(10000.00, 7),
-        merchant_id: 2
-      }, {
-        id: 4,
-        name: 'Durian',
-        description: "A sweet thing with seeds",
-        unit_price: BigDecimal.new(1.00, 3),
-        merchant_id: 3
-      }
-    ]
-  end
 
 end

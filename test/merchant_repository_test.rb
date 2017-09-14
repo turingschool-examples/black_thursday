@@ -4,67 +4,68 @@ require './lib/merchant_repository'
 
 
 class MerchantRepositoryTest < Minitest::Test
-  def setup
-    @merchant_data = [
-      { id: 5, name: "Turing School" },
-      { id: 4, name: "Amazon" },
-      { id: 3, name: "EmptyString" },
-      { id: 2, name: "Amazon" }
-    ]
 
-    @mr = MerchantRepository.new(nil, @merchant_data)
+  attr_reader :merchant_repo
+  def setup
+    @merchant_repo= MerchantRepository.new(Fixture.sales_engine, Fixture.merchant_data)
   end
 
-
   def test_that_an_instance_exits
-    assert_instance_of MerchantRepository, @mr
+    assert_instance_of MerchantRepository, merchant_repo
   end
 
   def test_all_returns_an_array_of_all_merchant_instances
-    skip
-    assert_equal @merchants , @mr.all
+    assert_instance_of Array, merchant_repo.all
+    assert_instance_of Merchant, merchant_repo.all.first
   end
 
   def test_find_by_id_returns_nil_if_no_matching_id
-    assert_nil  @mr.find_by_id(1)
+    assert_nil merchant_repo.find_by_id(34)
   end
 
   def test_find_by_name_returns_merchant_instance
-    assert_equal Merchant.new(@mr, {id: 4, name: "Amazon"}) , @mr.find_by_id(4)
+    merchant = merchant_repo.find_by_id(4).id
+    assert_instance_of Merchant, merchant
+
+    assert_equal 4, merchant.id
   end
 
   def test_find_by_name_returns_nil_if_no_match
-    assert_nil @mr.find_by_name("Happy")
+    assert_nil merchant_repo.find_by_name("Happy")
   end
 
   def test_find_by_name_returns_matching_instance
-    assert_equal Merchant.new(@mr, {id: 4, name: "Amazon"}), @mr.find_by_name("Amazon")
+    merchant = merchant_repo.find_by_name("merchant 4")
+    assert_instance_of Merchant, merchant
+
+    assert_equal "merchant 4", merchant.name
   end
 
   def test_find_by_name_returns_matching_instance_no_matter_case
-    assert_equal Merchant.new(@mr, {id: 4, name: "Amazon"}), @mr.find_by_name("amazon")
+    merchant = merchant_repo.find_by_name("mErchaNt 4")
+    assert_instance_of Merchant, merchant
+
+    assert_equal "merchant 4", merchant.name
   end
 
   def test_find_by_name_returns_matching_instance_with_all_caps
-    assert_equal Merchant.new(@mr, {id: 4, name: "Amazon"}), @mr.find_by_name("AMAZON")
+    merchant = merchant_repo.find_by_name("MERCHANT 4")
+    assert_instance_of Merchant, merchant
+
+    assert_equal "merchant 4", merchant.name
   end
 
   def test_find_all_by_name_returns_empty_array_if_no_matches
-    assert_equal [], @mr.find_all_by_name("Happy")
+    assert_equal [], merchant_repo.find_all_by_name("Happy")
   end
 
   def test_find_all_by_name_returns_all_that_match
-    expected = [Merchant.new(@mr, {id: 4, name: "Amazon"}),
-                Merchant.new(@mr, {id: 2, name: "Amazon"})]
-
-    assert_equal expected , @mr.find_all_by_name("Amazon")
+    assert_equal 5, merchant_repo.find_all_by_name("merchant").count
+    assert_equal 6, merchant_repo.find_all_by_name("chant").count
   end
 
   def test_find_all_by_name_returns_all_that_match_case_insensitive
-    expected = [Merchant.new(@mr, {id: 4, name: "Amazon"}),
-                Merchant.new(@mr, {id: 2, name: "Amazon"})]
-
-    assert_equal expected , @mr.find_all_by_name("amaZon")
+    assert_equal 5, merchant_repo.find_all_by_name("merCHANT").count
   end
 
 end
