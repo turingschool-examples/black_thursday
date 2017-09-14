@@ -8,6 +8,10 @@ module Fixture
       })
     end
 
+    def repo type
+      sales_engine.repo(type)
+    end
+
     def merchant_data
       [
         {

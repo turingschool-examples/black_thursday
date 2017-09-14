@@ -1,7 +1,7 @@
-require_relative 'member'
+require_relative 'repository/record'
 
 
-class Merchant < Member
+class Merchant < Repository::Record
 
   attr_reader :name
   def initialize(repo, fields)

@@ -5,7 +5,7 @@ class MerchantTest < Minitest::Test
 
   attr_reader :merchant
   def setup
-    @merchant = Fixture.sales_engine.merchants.find_by_id(2)
+    @merchant = Fixture.repo(:merchants).find_by_id(2)
   end
 
   def test_initialize_takes_a_hash_of_fields

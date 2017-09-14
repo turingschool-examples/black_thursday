@@ -8,18 +8,18 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    merchants = @se.merchants.all.count
+    merchants = @se.merchants.all.count.to_f
     items = @se.items.all.count
-    items / merchants
+    rounded(items / merchants)
   end
 
   def average_average_price_per_merchant
-    average(@se.merchants.all){ |merchant| average_item_price(merchant) }
+    rounded average(@se.merchants.all){ |merchant| average_item_price(merchant) }
   end
 
   def average_item_price_for_merchant(id)
     merchant = @se.merchants.find_by_id(id)
-    average_item_price(merchant)
+    rounded average_item_price(merchant)
   end
 
   def average_item_price(merchant)
@@ -49,6 +49,10 @@ class SalesAnalyst
     end
     return nil if count.zero?
     sum / count
+  end
+
+  def rounded(answer)
+    answer.round(2)
   end
 
 end

@@ -1,44 +1,48 @@
 class Repository
 
-  def initialize(member_class, engine, member_data)
-    @member_class = member_class
-    @sales_engine = engine
-    @members = []
-    populate(member_data)
+  def initialize(record_subclass, engine, record_data)
     raise "Repository must be subclassed" if self.class == Repository
+    @record_subclass = record_subclass
+    @sales_engine = engine
+    @records = []
+    populate(record_data)
   end
 
-  def populate(member_data)
-    member_data.each do |row|
-      @members << @member_class.new(self, row)
-    end
+  def populate(record_data)
+    record_data.each { |row| add_record(row) }
+  end
+
+  def add_record(row)
+    record = @record_subclass.new(self, row)
+    @records << record
+    record
   end
 
   def type
-    (@member_class.name.downcase + 's').to_sym
+    (@record_subclass.name.downcase + 's').to_sym
   end
 
   def all
-    @members.dup
+    @records.dup
   end
 
   def find_by_id(id)
-    find { |member| member.id == id }
+    find { |record| record.id == id }
   end
 
   def find(&block)
-    @members.find &block
+    @records.find &block
   end
 
   def find_all(&block)
-    @members.find_all &block
+    @records.find_all &block
   end
 
 
   def children(child_type, parent_id)
     child_repo = @sales_engine.repo(child_type)
-    child_repo.find_all do |member|
-      member.foreign_id(type) == parent_id
+    child_repo.find_all do |record|
+      record.foreign_id(type) == parent_id
     end
   end
 
@@ -49,6 +53,10 @@ class Repository
 
   def unused_id
     id = rand(1_000_000) while find_by_id(id)
+  end
+
+  def inspect
+    "<#{self.class.name} with #{all.length} records>"
   end
 
 end
