@@ -29,5 +29,9 @@ class TestSalesAnalyst < Minitest::Test
     assert_equal 1.5, sa.average_items_per_merchant
   end
 
+  def test_it_takes_a_standard_deviation
+    assert_equal 0.5, sa.average_items_per_merchant_standard_deviation
+  end
+
 
 end
