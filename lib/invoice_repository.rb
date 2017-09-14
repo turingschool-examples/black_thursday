@@ -12,4 +12,25 @@ class InvoiceRepository
         end 
         @sales_engine = sales_engine
     end 
+
+    def all
+        @invoices
+    end 
+    
+    def find_by_id(id)
+        @invoices.find {|invoice| invoice.id == id }
+    end
+
+    def find_all_by_customer_id(id)
+        @invoices.select {|invoice| invoice.customer_id == id }
+    end
+
+    def find_all_by_merchant_id(id)
+        @invoices.select {|invoice| invoice.id == id }
+    end 
+
+    def find_all_by_status(status)
+        @invoices.select {invoice} invoice.status == status}
+    end 
+    
 end 
