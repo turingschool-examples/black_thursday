@@ -3,7 +3,7 @@ require_relative 'member'
 
 class Merchant < Member
 
-  attr_reader :id, :name
+  attr_reader :name
   def initialize(repo, fields)
     super(repo, fields)
     @id = fields[:id].to_i

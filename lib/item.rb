@@ -2,8 +2,8 @@ require_relative 'member'
 require 'pry'
 class Item < Member
 
-  attr_reader :id, :name, :description, :unit_price,
-              :created_at, :updated_at, :merchant_id
+  attr_reader :name, :description, :unit_price,
+              :merchant_id
 
   def initialize(repo, fields)
     super(repo, fields)

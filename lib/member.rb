@@ -1,6 +1,6 @@
 class Member
 
-  attr_reader :id, :repo
+  attr_reader :id, :created_at, :updated_at, :repo
   def initialize(repo, fields)
     apply_defaults(fields)
     @repo = repo
