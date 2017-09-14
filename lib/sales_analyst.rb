@@ -23,9 +23,8 @@ class SalesAnalyst
     # item_counts: {merchant_id => #items, ...}
     individual_minus_average = []
     individual_minus_average << hash_of_merchants_and_number_of_items.values.map do |number_of_items|
-                                 #binding.pry
-                                 number_of_items - average
-                               end
+                                  number_of_items - average
+                                end
     individual_minus_average_squared = individual_minus_average.flatten.map {|num| num ** 2}
     std_dev_top = individual_minus_average_squared.sum
     number_of_elements = hash_of_merchants_and_number_of_items.values.count
@@ -72,10 +71,6 @@ class SalesAnalyst
     total_item_prices = item_prices.sum
     return 0.00 if total_items.length == 0
     (total_item_prices / total_items.length).round(2)
-  end
-
-  def check_zero(total_items)
-    return 0.00 if total_items == 0
   end
 
   # sum all of the averages and find the average price across all merchants

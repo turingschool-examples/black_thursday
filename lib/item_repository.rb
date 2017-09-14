@@ -4,18 +4,14 @@ require 'csv'
 
 class ItemRepository
 
-  attr_reader :all
+  attr_reader :all, :items
 
   def initialize(se, item_csv)
     @all = []
     @se = se
     CSV.foreach(item_csv, headers: true, header_converters: :symbol) do |row|
-      @all << Item.new(self, row)
+      all << Item.new(self, row)
     end
-  end
-
-  def inspect
-    "#<#{self.class} #{@items.size} rows>"
   end
 
   def find_by_id(id)
@@ -70,7 +66,7 @@ class ItemRepository
   end
 
   def inspect
-    "#<#{self.class} #{@items.size} rows>"
+    "#<#{self.class} #{items.size} rows>"
   end
 
 end
