@@ -12,7 +12,7 @@ class ItemRepository
 
   def load_csv(file_path)
     CSV.foreach(file_path, headers: true, header_converters: :symbol, converters: :numeric ) do |item|
-      items<< Item.new(item.to_h)
+      items << Item.new(item.to_h)
     end
   end
 
