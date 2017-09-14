@@ -58,4 +58,11 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 5, expected.length
     assert_instance_of Item, expected.first
   end
+
+  def test_average_invoices_per_merchant 
+    expected = sa.average_invoices_per_merchant
+    
+    assert_equal 10.49, expected
+    assert_instance_of Float, expected
+  end
 end

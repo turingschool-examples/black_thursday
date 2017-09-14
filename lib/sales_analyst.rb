@@ -55,4 +55,8 @@ class SalesAnalyst
     end
     Math.sqrt(mean.sum / engine.items.all.count).round(2)
   end
+
+  def average_invoices_per_merchant
+    (engine.invoices.all.count.to_f / engine.merchants.all.count.to_f).round(2)
+  end
 end
