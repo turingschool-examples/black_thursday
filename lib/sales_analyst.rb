@@ -31,5 +31,11 @@ class SalesAnalyst
     Math.sqrt(@merchant_deviations.inject(0,:+) / @merchants.all_merchants.count).round(2)
   end
 
+  def merchants_with_high_item_count
+    standard_deviation = 3.26
+    @merchant_deviations = @merchants.all_merchants.map do |merchant|
+      m
 
+    end
+  end
 end
