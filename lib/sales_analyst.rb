@@ -112,7 +112,7 @@ class SalesAnalyst
   end
 
   def grouped_invoices
-    engine.invoices.all.group_by {|invoice|invoice.created_at.strftime("%A")}
+    engine.invoices.all.group_by {|invoice| invoice.created_at.strftime("%A")}
   end
 
   def avg_inv_per_day
