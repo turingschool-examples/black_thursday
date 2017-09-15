@@ -1,3 +1,4 @@
+require_relative 'customer'
 require 'csv'
 
 class CustomerRepository 
