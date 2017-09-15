@@ -21,7 +21,7 @@ class Item
     @parent      = parent
   end
 
-  def merchant 
+  def merchant
     @parent.find_merchant_that_owns_item(@merchant_id)
   end
 end
