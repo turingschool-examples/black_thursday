@@ -64,44 +64,52 @@ class SalesAnalyst
     merchants
   end
 
-  def average_item_price_for_merchant(merchant_id)
+  def average_item_price_for_merchant_unrounded(merchant_id)
     total_items = se.items.find_all_by_merchant_id(merchant_id)
     item_prices = total_items.map do |item|
                     item.unit_price
                   end
     total_item_prices = item_prices.sum
     return 0.00 if total_items.length == 0
-    (total_item_prices / total_items.length).round(2)
+    (total_item_prices / total_items.length)
+  end
+
+  def average_item_price_for_merchant(merchant_id)
+    average_item_price_for_merchant_unrounded(merchant_id).round(2)
   end
 
   def average_average_price_per_merchant
     average_price_array = se.merchants.all.map do |merchant|
 
-                            average_item_price_for_merchant(merchant.id).round(2)
+                            average_item_price_for_merchant_unrounded(merchant.id)
                           end
     sum_averages = average_price_array.sum
     average_average = (sum_averages / se.merchants.all.count)
-    puts average_average
+    puts average_average.class
     '%.2f' % average_average
   end
 
 
 
   def average_item_price
-    all_item_prices =  []
+    all_item_prices_sum = 0
     se.items.all.each do |item|
-       all_item_prices << item.unit_price.to_f * 100
+       all_item_prices_sum += item.unit_price_float
     end
+<<<<<<< HEAD
     all_item_prices.sum / @total_items_maker
+=======
+    all_item_prices_sum / se.items.all.count
+>>>>>>> 8675426f508a87562b27ea2f54053e73d09bfedc
   end
 
   def square_each_item_average_difference
-    calculation_item_array = []
+    calculation_item_array_sum = 0
     se.items.all.each do |item|
       # binding.pry
-      calculation_item_array << ((item.unit_price.to_f * 100) - (average_item_price)) ** 2
+      calculation_item_array_sum += ((item.unit_price_float) - (average_item_price)) ** 2
     end
-    calculation_item_array.sum
+    calculation_item_array_sum
   end
 
   def standard_deviation_for_item_cost
@@ -116,8 +124,8 @@ class SalesAnalyst
   def golden_items
     golden_items_list = []
     se.items.all.each do |item|
-      if (item.unit_price * 100)  >= avg_item_price_plus_2x_std_dev
-        golden_items_list << item.name
+      if (item.unit_price_float)  >= avg_item_price_plus_2x_std_dev
+        golden_items_list << item
         puts "Yowza"
       end
     end
