@@ -4,7 +4,7 @@ require 'csv'
 
 class ItemRepository
 
-  attr_reader :all, :items
+  attr_reader :all, :items, :se
 
   def initialize(se, item_csv)
     @all = []
