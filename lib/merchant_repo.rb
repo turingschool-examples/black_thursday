@@ -38,4 +38,8 @@ class MerchantRepo
     parent.merchant_items(id)
   end
 
+  def merchant_invoices(id)
+    parent.merchant_invoices(id)
+  end
+
 end
