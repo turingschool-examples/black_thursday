@@ -1,7 +1,7 @@
 require_relative 'sales_engine'
-
+require_relative 'standard_deviation'
 class SalesAnalyst
-
+include StandardDeviation
   attr_reader :se
 
   def initialize(se)
@@ -13,18 +13,18 @@ class SalesAnalyst
     average.round(2)
   end
 
-  def average_items_per_merchant_standard_deviation
-    average = average_items_per_merchant
-
-    difference_from_average = se.merchant_item_count.map do |item_count|
-      item_count - average
-    end
-    squared_values = difference_from_average.map {|diff| diff ** 2}
-
-    sum_of_squares = squared_values.sum
-
-    Math.sqrt(sum_of_squares / (se.merchant_item_count.count - 1)).round(2)
-  end
+  # def average_items_per_merchant_standard_deviation
+  #   average = average_items_per_merchant
+  #
+  #   difference_from_average = se.merchant_item_count.map do |item_count|
+  #     item_count - average
+  #   end
+  #   squared_values = difference_from_average.map {|diff| diff ** 2}
+  #
+  #   sum_of_squares = squared_values.sum
+  #
+  #   Math.sqrt(sum_of_squares / (se.merchant_item_count.count - 1)).round(2)
+  # end
 
   def merchants_with_high_item_count
     std_dev = average_items_per_merchant_standard_deviation
@@ -52,20 +52,20 @@ class SalesAnalyst
     average_average.round(2)
   end
 
-  def item_standard_deviation
-    total_item_price = se.items.items.reduce(0) do |total_price, item|
-      total_price + item.unit_price
-    end
-    average_item_price = total_item_price / se.total_items.to_f
-
-    item_price_differences = se.items.items.map do |item|
-      (item.unit_price - average_item_price) ** 2
-    end
-
-    sum_of_squares = item_price_differences.sum
-
-    Math.sqrt(sum_of_squares / (se.total_items - 1))
-  end
+  # def item_standard_deviation
+  #   total_item_price = se.items.items.reduce(0) do |total_price, item|
+  #     total_price + item.unit_price
+  #   end
+  #   average_item_price = total_item_price / se.total_items.to_f
+  #
+  #   item_price_differences = se.items.items.map do |item|
+  #     (item.unit_price - average_item_price) ** 2
+  #   end
+  #
+  #   sum_of_squares = item_price_differences.sum
+  #
+  #   Math.sqrt(sum_of_squares / (se.total_items - 1))
+  # end
 
   def golden_items
     std_dev = item_standard_deviation
@@ -109,6 +109,8 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
+    daily_invoice_count = invoices_for_each_weekday
+
   end
 
   def number_of_invoices_by_day
@@ -127,4 +129,12 @@ class SalesAnalyst
     invoices_for_each_weekday
   end
 
+  #def standard_deviation_of_
+
+  def invoice_status(status)
+    count = 0
+    se.invoices.invoices.each {|invoice| count += 1 if invoice.status == status}
+    percentage = count / se.total_invoices.to_f * 100
+    percentage.round(2)
+  end
 end
