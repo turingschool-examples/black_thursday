@@ -11,48 +11,48 @@ class CustomerRepositoryTest < Minitest::Test
   def test_it_exists 
     assert_instance_of CustomerRepository, customer_repo
   end
+
+  def test_parent_nil_default
+    assert_nil customer_repo.parent
+  end
+
+  def test_all_returns_all_customer_instances 
+    assert_equal 1000, customer_repo.all.length 
+    assert_instance_of Customer, customer_repo.all.first 
+  end
+
+  def test_find_by_id_returns_customer_with_id 
+    id       = 100 
+    expected = customer_repo.find_by_id(id)
+
+    assert_instance_of Customer, expected
+  end
+
+  def test_find_all_by_first_name_returns_customers
+    fragment = "oe"
+    expected = customer_repo.find_all_by_first_name(fragment)
+    
+    assert_equal 8, expected.length
+    assert_instance_of Customer, expected.first
+  end
+
+  def test_find_all_by_last_name_returns_customers
+    fragment = "On"
+    expected = customer_repo.find_all_by_last_name(fragment)
+    
+    assert_equal 85, expected.length
+    assert_instance_of Customer, expected.first
+  end
+
+  def test_find_by_name_methods_are_case_insensitive 
+    fragment = 'NN'
+    expected = customer_repo.find_all_by_first_name(fragment)
+
+    assert_equal 57, expected.length
+
+    fragment = 'oN'
+    expected = customer_repo.find_all_by_last_name(fragment)
+
+    assert_equal 85, expected.length
+  end
 end
-
-# it "#all returns all of the customers" do
-#   expected = engine.customers.all
-#   expect(expected.length).to eq 1000
-#   expect(expected.first.class).to eq Customer
-# end
-
-# it "#find_by_id returns the customer with matching id" do
-#   id = 100
-#   expected = engine.customers.find_by_id(id)
-
-#   expect(expected.id).to eq id
-#   expect(expected.class).to eq Customer
-# end
-
-# it "#find_all_by_first_name returns all customers with matching first name" do
-#   fragment = "oe"
-#   expected = engine.customers.find_all_by_first_name(fragment)
-
-#   expect(expected.length).to eq 8
-#   expect(expected.first.class).to eq Customer
-# end
-
-# it "#find_all_by_last_name returns all customers with matching last name" do
-#   fragment = "On"
-#   expected = engine.customers.find_all_by_last_name(fragment)
-
-#   expect(expected.length).to eq 85
-#   expect(expected.first.class).to eq Customer
-# end
-
-# it "#find_all_by_first_name and #find_all_by_last_name are case insensitive" do
-#   fragment = "NN"
-#   expected = engine.customers.find_all_by_first_name(fragment)
-
-#   expect(expected.length).to eq 57
-#   expect(expected.first.class).to eq Customer
-
-#   fragment = "oN"
-#   expected = engine.customers.find_all_by_last_name(fragment)
-
-#   expect(expected.length).to eq 85
-#   expect(expected.first.class).to eq Customer
-# end
