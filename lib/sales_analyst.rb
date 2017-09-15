@@ -127,4 +127,44 @@ class SalesAnalyst
     bottom_merchants
   end
 
+  def top_days_by_invoice_count
+    high_inv_days(day_array, ave_invoice_per_day, invoice_std_dev(inv_per_day))
+  end
+
+  def invoice_std_dev(inv_per_day)
+    array =
+    inv_per_day.each do |total|
+      (total - ave_invoice_per_day)**2
+    end
+    Math.sqrt(array.reduce(:+) / 7).round
+  end
+
+  def inv_per_day
+    grouped_invoices.values.map(&:length)
+  end
+
+  def day_array
+    grouped_invoices.keys.zip(inv_per_day)
+  end
+
+  def high_inv_days(day_array, ave_invoice_per_day, invoice_std_dev)
+    day_array.select do |invoice|
+      invoice[1] > (ave_invoice_per_day + invoice_std_dev)
+    end.map { |value| value[0] }
+  end
+
+  def grouped_invoices
+    @se.invoices.all.group_by { |invoice| invoice.created_at.strftime("%A") }
+  end
+
+  def ave_invoice_per_day
+    @se.invoices.all.length / 7
+  end
+
+  def invoice_status(status)
+    status_count = @se.invoices.find_all_by_status(status).count
+    total_count = @se.invoices.all.count
+    ((status_count.to_f / total_count)*100).round(2)
+  end
+
 end

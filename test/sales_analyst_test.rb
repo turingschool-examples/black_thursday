@@ -60,4 +60,15 @@ class SalesAnalystTest < MiniTest::Test
   def test_bottom_merchants_by_invoice_count
     assert_equal 4, sa.bottom_merchants_by_invoice_count.count
   end
+
+  def test_top_days_by_invoice_count
+    assert_equal ["Wednesday"], sa.top_days_by_invoice_count
+  end
+
+  def test_invoice_status
+    assert_equal 29.55, sa.invoice_status(:pending)
+    assert_equal 56.95, sa.invoice_status(:shipped)
+    assert_equal 13.5, sa.invoice_status(:returned)
+  end
+
 end
