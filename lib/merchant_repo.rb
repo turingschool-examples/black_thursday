@@ -1,4 +1,5 @@
 require_relative 'merchant'
+require_relative 'sales_engine'
 
 class MerchantRepository
   attr_reader :merchants, :sales_engine
@@ -34,6 +35,11 @@ class MerchantRepository
     merchants.find_all do |merchant|
       merchant.name.downcase.include?(fragment.downcase)
     end
+  end
+
+  def merchant_items(merchant_id)
+    require 'pry'; binding.pry
+    sales_engine.find_merchant_items(merchant_id)
   end
 
   def inspect
