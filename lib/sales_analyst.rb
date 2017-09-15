@@ -102,9 +102,7 @@ class SalesAnalyst
   end
 
   def days_with_high_invoices(day_array, avg_inv_per_day, deviation)
-    day_array.select do  |invoice|
-      invoice[1] > avg_inv_per_day + deviation
-   end.map {|arr| arr[0]}
+    day_array.select {|invoice|invoice[1] > avg_inv_per_day + deviation}.map(&:first)
   end
 
   def grouped_invoices
