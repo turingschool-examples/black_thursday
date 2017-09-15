@@ -64,5 +64,17 @@ module Fixture
       }]
     end
 
+    def invoice_data
+      [
+        {
+          id: 1,
+          customer_id: "1",
+          merhcant_id: "1",
+          status: "pending",
+          created_at: '2014-03-15',
+          updated_at:
+        }
+      ]
+    end
   end
 end
