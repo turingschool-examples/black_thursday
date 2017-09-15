@@ -72,7 +72,7 @@ module Fixture
           merhcant_id: "1",
           status: "pending",
           created_at: '2014-03-15',
-          updated_at:
+          updated_at:'2017-03-15',
         }
       ]
     end
