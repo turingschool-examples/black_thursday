@@ -1,4 +1,3 @@
-# require './lib/sales_engine'
 require_relative 'sales_engine'
 
 class SalesAnalyst
@@ -37,7 +36,7 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(merchant_id)
     merchant = se.merchants.find_by_id(merchant_id)
-    
+
     total_item_price = merchant.items.reduce(0) do |total_price, item|
       total_price + item.unit_price
     end
@@ -78,40 +77,54 @@ class SalesAnalyst
   def average_invoices_per_merchant
     average = se.total_invoices / se.total_merchants.to_f
     average.round(2)
-  end 
+  end
 
   def average_invoices_per_merchant_standard_deviation
     average = average_invoices_per_merchant
-    
+
     difference_from_average = se.merchant_invoice_count.map do |invoice_count|
       invoice_count - average
     end
     squared_values = difference_from_average.map {|diff| diff ** 2}
-    
+
     sum_of_squares = squared_values.sum
-    
+
     Math.sqrt(sum_of_squares / (se.merchant_invoice_count.count - 1)).round(2)
   end
-  
+
   def top_merchants_by_invoice_count
     average = average_invoices_per_merchant
     std_dev = average_invoices_per_merchant_standard_deviation
     se.merchants.merchants.select do |merchant|
       merchant.invoices.count > (average + std_dev * 2)
-    end 
-  end 
+    end
+  end
 
   def bottom_merchants_by_invoice_count
-     average = average_invoices_per_merchant
+    average = average_invoices_per_merchant
     std_dev = average_invoices_per_merchant_standard_deviation
     se.merchants.merchants.select do |merchant|
       merchant.invoices.count < (average - std_dev * 2)
-    end 
-  end 
+    end
+  end
 
   def top_days_by_invoice_count
   end
+
+  def number_of_invoices_by_day
+    invoices_for_each_weekday = {'Monday' => 0,
+                                 'Tuesday' => 0,
+                                 'Wednesday' => 0,
+                                 'Thursday' => 0,
+                                 'Friday' => 0,
+                                 'Saturday' => 0,
+                                 'Sunday' => 0,
+                                }
+
+    se.invoices.invoices.each do |invoice|
+      invoices_for_each_weekday[invoice.day_of_the_week] += 1
+    end
+    invoices_for_each_weekday
+  end
+
 end
-
-
-
