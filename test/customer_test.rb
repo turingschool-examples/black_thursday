@@ -19,7 +19,7 @@ class CustomerTest < Minitest::Test
 
   def test_customer_has_an_id_value
     assert_equal 6, customer.id
-    assert_instance_of Fixnum, customer.id
+    assert_instance_of Integer, customer.id
   end
 
   def test_customer_has_a_first_name_value
