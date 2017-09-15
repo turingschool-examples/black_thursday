@@ -20,4 +20,8 @@ class Merchant
   def updated_at
     Time.parse(merchant.fetch(:updated_at))
   end
+
+    def items
+      merchant_repo.merchant_items(self.id)
+    end
 end

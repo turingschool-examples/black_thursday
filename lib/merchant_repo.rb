@@ -38,7 +38,6 @@ class MerchantRepository
   end
 
   def merchant_items(merchant_id)
-    require 'pry'; binding.pry
     sales_engine.find_merchant_items(merchant_id)
   end
 

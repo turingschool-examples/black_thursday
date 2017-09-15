@@ -39,7 +39,7 @@ attr_reader :merch, :merchant_info
     assert_instance_of Time, merch.created_at
   end
 
-  def test_it_has_a_updated_at
+  def test_it_has_an_updated_at
     set_up
 
     assert_instance_of Time, merch.updated_at
