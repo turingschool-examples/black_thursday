@@ -7,7 +7,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    @engine.items.all.count.to_f / @engine.merchants.all.count.to_f
+    (@engine.items.all.count.to_f / @engine.merchants.all.count.to_f).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
@@ -37,5 +37,20 @@ class SalesAnalyst
     end
   end
 
+  def average_item_price_for_merchant(merchant_id)
+    merchant = @engine.merchants.find_by_id(merchant_id)
+    sum = merchant.items.inject(0) do |total, item|
+      total += item.unit_price/100
+    end
+    (sum / merchant.items.count * 100).round(2)
+  end
+
+  def average_average_price_per_merchant
+    average_prices = @engine.merchants.all.map do |merchant|
+      average_item_price_for_merchant(merchant.id)
+    end
+
+    average_prices.reduce(:+) / @engine.merchants.all.count
+  end
 
 end

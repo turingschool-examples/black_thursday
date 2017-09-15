@@ -1,6 +1,7 @@
 require_relative 'test_helper'
 require_relative '../lib/sales_analyst'
 require_relative '../lib/sales_engine'
+require 'bigdecimal'
 
 class SalesAnalystTest < Minitest::Test
 
@@ -34,8 +35,24 @@ class SalesAnalystTest < Minitest::Test
     assert_equal expected, actual
   end
 
+  def test_average_item_price_for_merchant_returns_average_item_price_for_that_merchant
+#TODO Ask why 5 is used vs a 4 in BigDecimal.new
+    expected = BigDecimal.new((13000 + 40000 + 690 + 1490 + 14900)/100.0/5.0, 5)
+    actual = sa.average_item_price_for_merchant(12334123)
 
+    assert_equal expected, actual
+  end
 
+  def test_average_average_price_per_merchant_returns_average_item_price_across_all_merchants
+    merchant_1_avg = sa.average_item_price_for_merchant(12334105)
+    merchant_2_avg = sa.average_item_price_for_merchant(12334112)
+    merchant_3_avg = sa.average_item_price_for_merchant(12334115)
+    merchant_4_avg = sa.average_item_price_for_merchant(12334123)
+    expected = (merchant_1_avg + merchant_2_avg + merchant_3_avg + merchant_4_avg)/4
+    actual = sa.average_average_price_per_merchant
+
+    assert_equal expected, actual
+  end
 
 
 
