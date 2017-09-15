@@ -17,5 +17,3 @@ class Customer
     @parent      = parent
   end
 end
-
-  

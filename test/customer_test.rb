@@ -19,7 +19,7 @@ class CustomerTest < Minitest::Test
 
   def test_customer_has_an_id_value
     assert_equal 6, customer.id
-    assert_instance_of Integer, customer.id
+    assert_instance_of Fixnum, customer.id
   end
 
   def test_customer_has_a_first_name_value
@@ -44,34 +44,3 @@ class CustomerTest < Minitest::Test
     assert_nil customer.parent
   end
 end
-
-
-
-# context "Customer" do
-#   let(:customer) { engine.customers.find_by_id(500) }
-
-#   it "#id returns the id" do
-#     expect(customer.id).to eq 500
-#     expect(customer.id.class).to eq Fixnum
-#   end
-
-#   it "#first_name returns the first_name" do
-#     expect(customer.first_name).to eq "Hailey"
-#     expect(customer.first_name.class).to eq String
-#   end
-
-#   it "#last_name returns the last_name" do
-#     expect(customer.last_name).to eq "Veum"
-#     expect(customer.last_name.class).to eq String
-#   end
-
-#   it "#created_at returns a Time instance for the date the invoice item was created" do
-#     expect(customer.created_at).to eq Time.parse("2012-03-27 14:56:08 UTC")
-#     expect(customer.created_at.class).to eq Time
-#   end
-
-#   it "#updated_at returns a Time instance for the date the invoice item was last updated" do
-#     expect(customer.updated_at).to eq Time.parse("2012-03-27 14:56:08 UTC")
-#     expect(customer.updated_at.class).to eq Time
-#   end
-# end
