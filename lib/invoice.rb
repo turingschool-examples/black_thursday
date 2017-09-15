@@ -19,7 +19,7 @@ class Invoice
       @created_at = Time.parse(invoice_data[:created_at])
       @updated_at = Time.parse(invoice_data[:updated_at])
       @invoice_repository = invoice_repository
-      @date = Date.new(invoice_data[:created_at].to_i)
+      @date = Time.new(invoice_data[:created_at]).strftime('%A')
   end
 
   def merchant
@@ -27,23 +27,21 @@ class Invoice
   end
 
   def day_of_the_week
-    day_number = date.cwday
-    case day_number
-    when 1
-      'Monday'
-    when 2
-      'Tuesday'
-    when 3
-      'Wednesday'
-    when 4
-      'Thursday'
-    when 5
-      'Friday'
-    when 6
+    case date
+    when 'Sunday'
       'Saturday'
-    when 7
+    when 'Monday'
       'Sunday'
+    when 'Tuesday'
+      'Monday'
+    when 'Wednesday'
+      'Tuesday'
+    when 'Thursday'
+      'Wednesday'
+    when 'Friday'
+      'Thursday'
+    when 'Saturday'
+      'Friday'
     end
-
   end
 end

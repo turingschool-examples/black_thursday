@@ -109,8 +109,13 @@ include StandardDeviation
   end
 
   def top_days_by_invoice_count
-    daily_invoice_count = invoices_for_each_weekday
-
+    average = average_invoices_per_day.round(2)
+    invoice_count_by_day = number_of_invoices_by_day
+    std_dev = daily_invoice_standard_deviation.ceil
+    require "pry"; binding.pry
+    top_days = invoice_count_by_day.select do |day, number|
+      invoice_count_by_day[day] > (average + std_dev)
+    end
   end
 
   def number_of_invoices_by_day
@@ -129,7 +134,9 @@ include StandardDeviation
     invoices_for_each_weekday
   end
 
-  #def standard_deviation_of_
+  def average_invoices_per_day
+    se.total_invoices.to_f / 7
+  end
 
   def invoice_status(status)
     count = 0
@@ -137,4 +144,5 @@ include StandardDeviation
     percentage = count / se.total_invoices.to_f * 100
     percentage.round(2)
   end
+
 end
