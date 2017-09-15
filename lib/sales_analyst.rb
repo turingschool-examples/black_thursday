@@ -73,17 +73,14 @@ class SalesAnalyst
     (total_item_prices / total_items.length).round(2)
   end
 
-  # sum all of the averages and find the average price across all merchants
-  # sa.average_average_price_per_merchant # => BigDecimal
-
   def average_average_price_per_merchant
     average_price_array = se.merchants.all.map do |merchant|
-                            average_item_price_for_merchant(merchant.id)
+                            average_item_price_for_merchant(merchant.id).round(2)
                           end
-    puts "average price array"
-    puts average_price_array
     sum_averages = average_price_array.sum
-    (sum_averages / se.merchants.all.count).round(2)
+    average_average = (sum_averages / se.merchants.all.count)
+    puts average_average
+    '%.2f' % average_average
   end
 
 
