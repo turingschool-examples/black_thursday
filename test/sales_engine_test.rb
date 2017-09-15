@@ -1,28 +1,30 @@
 require_relative 'test_helper'
 require_relative '../lib/sales_engine'
+require_relative '../lib/merchant_repo'
+require_relative '../lib/item_repo'
 
 class SalesEngineTest < Minitest::Test
+  attr_reader :files, :se
+  def set_up
+    files = ({:items => "./test/fixtures/item_fixture.csv", :merchants => "./test/fixtures/merchant_fixture.csv"})
+    @se = SalesEngine.from_csv(files)
+  end
+
   def test_it_exists
-    sales = SalesEngine.new([], [])
+    set_up
 
-
-    assert_instance_of SalesEngine, sales
+    assert_instance_of SalesEngine, se
   end
 
   def test_from_csv_item
-    sales = SalesEngine
-    files = ({:items => "./test/fixtures/item_fixture.csv", :merchants => "./test/fixtures/merchant_fixture.csv"})
-    actual = sales.from_csv(files).items
+    set_up
 
-    assert_instance_of ItemRepository, actual
+    assert_instance_of ItemRepository, se.items
   end
 
   def test_from_csv_merchants
-    sales = SalesEngine
-    files = ({:items => "./test/fixtures/item_fixture.csv", :merchants => "./test/fixtures/merchant_fixture.csv"})
-    actual = sales.from_csv(files).merchants
+    set_up
 
-    assert_instance_of MerchantRepository, actual
+    assert_instance_of MerchantRepository, se.merchants
   end
-
 end
