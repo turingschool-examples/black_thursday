@@ -50,7 +50,34 @@ class SalesAnalyst
       average_item_price_for_merchant(merchant.id)
     end
 
-    average_prices.reduce(:+) / @engine.merchants.all.count
+    (average_prices.reduce(:+) / @engine.merchants.all.count).truncate(2)
   end
+
+  def average_item_price
+    prices = @engine.items.items.map do |item|
+      item.unit_price
+    end
+    prices.inject(:+) / @engine.items.items.count
+  end
+
+  def item_price_standard_deviation
+    squared = @engine.items.items.map do |item|
+      (item.unit_price - average_item_price) ** 2
+    end
+    divided = squared.inject(:+) / (@engine.items.items.count - 1)
+    Math.sqrt(divided)
+    # TODO this is where it converts check decimal count
+  end
+
+  def golden_items
+    bar = (2 * item_price_standard_deviation) + average_item_price
+    @engine.items.items.find_all do |item|
+      item.unit_price > bar
+    end
+  end
+
+
+
+
 
 end
