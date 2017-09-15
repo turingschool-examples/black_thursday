@@ -1,21 +1,21 @@
 require_relative 'merchant'
 
 class MerchantRepository
-  def self.read_merchants_file(merchants, sales_engine)
-    merchant_list = []
-    CSV.foreach(merchants, headers: true, header_converters: :symbol) do |row|
-      id = row[:id]
-      name = row[:name]
-      merchant_list << Merchant.new({ :id => id, :name => name})
-    end
-    MerchantRepository.new(merchant_list, sales_engine)
-  end
-
   attr_reader :merchants, :sales_engine
 
-  def initialize(merchant_list, sales_engine)
-    @merchants = merchant_list
+  def initialize(merchant_file, sales_engine)
+    @merchants = read_merchants_file(merchant_file)
     @sales_engine = sales_engine
+  end
+
+  def read_merchants_file(merchant_file)
+    merchant_list = []
+    CSV.foreach(merchant_file, headers: true, header_converters: :symbol) do |row|
+      id = row[:id]
+      name = row[:name]
+      merchant_list << Merchant.new({ :id => id, :name => name}, self)
+    end
+    merchant_list
   end
 
   def all
@@ -23,15 +23,11 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    merchants.find do |merchant|
-      merchant.id == id
-    end
+    merchants.find {|merchant| merchant.id == id}
   end
 
   def find_by_name(name)
-    merchants.find do |merchant|
-      merchant.name.downcase == name.downcase
-    end
+    merchants.find {|merchant| merchant.name.downcase == name.downcase}
   end
 
   def find_all_by_name(fragment)

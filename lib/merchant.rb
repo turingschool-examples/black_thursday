@@ -1,7 +1,8 @@
 class Merchant
-  attr_reader :merchant
-  def initialize(merchant)
+  attr_reader :merchant, :merchant_repo
+  def initialize(merchant, merchant_repo)
     @merchant = merchant
+    @merchant_repo = merchant_repo
   end
 
   def id
@@ -10,5 +11,13 @@ class Merchant
 
   def name
     merchant.fetch(:name)
+  end
+
+  def created_at
+    Time.parse(merchant.fetch(:created_at))
+  end
+
+  def updated_at
+    Time.parse(merchant.fetch(:updated_at))
   end
 end

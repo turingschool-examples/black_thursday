@@ -2,9 +2,10 @@ require 'time'
 require 'bigdecimal'
 
 class Item
-  attr_reader :item
-  def initialize(item)
+  attr_reader :item, :item_repo
+  def initialize(item, item_repo)
     @item = item
+    @item_repo = item_repo
   end
 
   def id
