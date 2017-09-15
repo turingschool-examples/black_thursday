@@ -58,4 +58,8 @@ class TestSalesAnalyst < Minitest::Test
     assert_equal 860.097, sa.standard_deviation_for_item_cost
   end
 
+  def test_it_returns_golden_items
+    assert_equal [""], sa.golden_items
+  end
+
 end

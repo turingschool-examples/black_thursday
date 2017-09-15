@@ -79,39 +79,47 @@ class SalesAnalyst
   def average_average_price_per_merchant
   end
 ##### Golden Items calc's
-  def golden_items
+
+
+
+
+  def average_item_price
+    all_item_prices =  []
     se.items.all.each do |item|
-      i >= standard_deviation_for_item_cost
+       all_item_prices << item.unit_price.to_f * 100
     end
+    all_item_prices.sum / se.items.all.count
   end
 
-  # standard dev for GI
+  def square_each_item_average_difference
+    calculation_item_array = []
+    se.items.all.each do |item|
+      # binding.pry
+      calculation_item_array << ((item.unit_price.to_f * 100) - (average_item_price)) ** 2
+    end
+    calculation_item_array.sum
+  end
 
-    def average_item_price
+  def standard_deviation_for_item_cost
+    final = Math.sqrt(square_each_item_average_difference / (se.items.all.count - 1))
+    final.round(3)
+  end
 
-      all_item_prices =  []
-      se.items.all.each do |item|
-         all_item_prices << item.unit_price.to_f * 100
+  def avg_item_price_plus_2x_std_dev
+    (average_item_price + standard_deviation_for_item_cost * 2)
+  end
+
+  def golden_items
+
+    golden_items_list = []
+    se.items.all.each do |item|
+      if (item.unit_price * 100)  >= avg_item_price_plus_2x_std_dev
+        golden_items_list << item.name
+        puts "Yowza"
       end
-      # require "pry"; binding.pry
-      all_item_prices.sum / se.items.all.count
     end
-
-    def square_each_item_average_difference
-      calculation_item_array = []
-      se.items.all.each do |item|
-        # binding.pry
-        calculation_item_array << ((item.unit_price.to_f * 100) - (average_item_price)) ** 2
-      end
-      calculation_item_array.sum
-    end
-
-    def standard_deviation_for_item_cost
-      final = Math.sqrt(square_each_item_average_difference / (se.items.all.count - 1))
-      final.round(3)
-    end
-
-
+      golden_items_list
+  end
 
 
 

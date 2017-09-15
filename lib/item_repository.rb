@@ -66,7 +66,7 @@ class ItemRepository
   end
 
   def inspect
-    "#<#{self.class} #{items.size} rows>"
+    "#<#{self.class} #{:items.size} rows>"
   end
 
 end
