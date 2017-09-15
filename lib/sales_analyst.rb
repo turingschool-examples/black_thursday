@@ -35,10 +35,8 @@ class SalesAnalyst
   end
 
   def average_average_price_per_merchant
-    averages = merchants.map do |merchant|
-      average_item_price_for_merchant(merchant.id)
-    end
-    (averages.sum / averages.length).floor(2)
+     avg = merchants.map {|merchant|average_item_price_for_merchant(merchant.id)}
+    (avg.sum / avg.length).floor(2)
   end
 
   def golden_items
@@ -47,49 +45,43 @@ class SalesAnalyst
   end
 
   def avg_item_price
-    average(items.map{|item| item.unit_price})
+    average(items.map(&:unit_price))
     # prices = items.map{|item| item.unit_price}
     # prices.sum / prices.count
   end
 
   def avg_item_price_std_deviation
-    mean = items.map do |item|
-      (item.unit_price - avg_item_price)**2
-    end
-    Math.sqrt(mean.sum / items.count).round(2)
+    standard_deviation(items.map(&:unit_price))
+    # mean = items.map do |item|
+    #   (item.unit_price - avg_item_price)**2
+    # end
+    # Math.sqrt(mean.sum / items.count).round(2)
   end
 
   def average_invoices_per_merchant
-    (invoices.count.to_f / merchants.count.to_f).round(2)
+    average(merchants.map {|merchant| merchant.invoices.length})
+    # (invoices.count.to_f / merchants.count.to_f).round(2)
   end
 
   def average_invoices_per_merchant_standard_deviation
-    mean = merchants.map do |merchant|
-      (merchant.invoices.length - average_invoices_per_merchant)**2
-    end
-    Math.sqrt(mean.sum / (merchants.count)).round(2)
-  end
-
-  def avg_invoice_standard_deviation
-    mean = merchants.map do |merchant|
-      (merchant.invoices.length - avg_invoice_count)**2
-    end
-    Math.sqrt(mean.sum / merchants.length).round(2)
-  end
-
-  def avg_invoice_count
-    average(merchants.map {|merchant| merchant.invoices.length})
-    # invoices = merchants.map {|merchant| merchant.invoices.length}
-    # invoices.sum / invoices.length
+    standard_deviation(merchants.map {|merchant| merchant.invoices.length})
+    # mean = merchants.map do |merchant|
+    #   (merchant.invoices.length - average_invoices_per_merchant)**2
+    # end
+    # Math.sqrt(mean.sum / (merchants.count)).round(2)
   end
 
   def top_merchants_by_invoice_count
-    count = (average_invoices_per_merchant + avg_invoice_standard_deviation * 2)
+    mean      = average_invoices_per_merchant
+    deviation = average_invoices_per_merchant_standard_deviation
+    count     = mean + (deviation * 2)
     merchants.select {|merchant| merchant.invoices.length > count}
   end
 
   def bottom_merchants_by_invoice_count
-    count = (average_invoices_per_merchant - avg_invoice_standard_deviation * 2)
+    mean      = average_invoices_per_merchant
+    deviation = average_invoices_per_merchant_standard_deviation
+    count     = mean - (deviation * 2)
     merchants.select {|merchant| merchant.invoices.length < count}
   end
 
@@ -124,7 +116,7 @@ class SalesAnalyst
   end
 
   def invoice_status(status)
-    total = invoices.length
+    total     = invoices.length
     selected  = invoices.select {|invoice| invoice.status == status}
     ((selected.length.to_f / total.to_f) * 100.0).round(2)
   end
