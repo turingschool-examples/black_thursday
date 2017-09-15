@@ -5,7 +5,8 @@ class Customer
               :first_name,
               :last_name,
               :created_at,
-              :updated_at
+              :updated_at,
+              :parent
 
   def initialize(info, parent=nil)
     @id          = info[:id].to_i
@@ -13,6 +14,7 @@ class Customer
     @last_name   = info[:last_name].to_s
     @created_at  = Time.parse(info[:created_at].to_s)
     @updated_at  = Time.parse(info[:updated_at].to_s)
+    @parent      = parent
   end
 end
 
