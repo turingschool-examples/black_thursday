@@ -44,4 +44,5 @@ attr_reader :merch, :merchant_info
 
     assert_instance_of Time, merch.updated_at
   end
+
 end
