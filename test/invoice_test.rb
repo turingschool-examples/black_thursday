@@ -2,6 +2,8 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/invoice_repo'
 require './lib/invoice'
+require './lib/merchant'
+require 'pry'
 
 class InvoiceTest < Minitest::Test
   attr_reader :invoice
@@ -42,4 +44,9 @@ class InvoiceTest < Minitest::Test
   def test_it_returns_an_instance_of_time_updated_at
     assert_instance_of Time, invoice.created_at
   end
+
+  # def test_it_can_return_the_associated_merchant
+  #   binding.pry
+  #   assert_instance_of Merchant, invoice.merchant
+  # end
 end

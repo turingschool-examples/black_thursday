@@ -7,7 +7,8 @@ class SalesEngineTest < Minitest::Test
 
   def setup
     @se = SalesEngine.from_csv({items: "./data/items.csv",
-                            merchants: "./data/merchants.csv"})
+                            merchants: "./data/merchants.csv",
+                            invoices: "./data/invoices.csv"})
   end
 
   def test_it_exists
@@ -40,5 +41,11 @@ class SalesEngineTest < Minitest::Test
 
   def test_average_items
   assert_equal 2.88, se.average_items_per_merchant
+  end
+
+  def test_invoice_returns_merchant
+    invoice = se.invoices.find_by_id(20)
+
+    assert_instance_of Merchant, invoice.merchant
   end
 end

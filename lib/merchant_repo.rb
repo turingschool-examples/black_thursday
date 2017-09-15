@@ -15,7 +15,7 @@ class MerchantRepo
       all_merchants <<  Merchant.new(row, self)
     end
   end
-  
+
   def all
     @all_merchants
   end

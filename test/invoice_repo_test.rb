@@ -37,9 +37,9 @@ class InvoiceRepoTest < Minitest::Test
   end
 
   def test_find_by_status
-    assert_equal "pending", ir.find_all_by_status("pending").first.status
+    assert_equal :pending, ir.find_all_by_status("pending").first.status
     assert_empty ir.find_all_by_status("not here")
-    refute_equal "pending", ir.find_all_by_status("shipped").first.status
+    refute_equal :pending, ir.find_all_by_status("shipped").first.status
   end
 
 end

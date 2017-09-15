@@ -1,12 +1,13 @@
 require_relative 'invoice'
 require 'csv'
+require 'pry'
 
 class InvoiceRepo
-  attr_reader :all_invoices, :parent
+  attr_reader :all_invoices
   def initialize(file, se = nil)
+    @sales_engine = se
     @all_invoices = []
     open_file(file)
-    @parent = se
   end
 
   def open_file(file)
@@ -33,6 +34,10 @@ class InvoiceRepo
 
   def find_all_by_status(status)
     all_invoices.find_all { |invoice| invoice.status == status.to_sym}
+  end
+
+  def merchant_item(merchant_id)
+    @sales_engine.merchant_item(merchant_id)
   end
 
 end
