@@ -6,7 +6,7 @@ class MerchantTest < Minitest::Test
 attr_reader :merch, :merchant_info
   def set_up
     @merchant_info = {:id => "12337411", :name => "CJsDecor", :created_at => "2010-12-10", :updated_at => "2011-12-04"}
-    @merch = Merchant.new(@merchant_info)
+    @merch = Merchant.new(merchant_info, [])
   end
 
   def test_it_exists

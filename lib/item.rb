@@ -40,9 +40,4 @@ class Item
   def unit_to_dollar
       unit_price.to_f
   end
-
-  # def merchants
-  #   item_repo.
-  # end
-
 end

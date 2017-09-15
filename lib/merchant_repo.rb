@@ -11,7 +11,7 @@ class MerchantRepository
 
   def read_merchants_file(merchant_file)
     merchant_list = []
-    CSV.foreach(merchant_file, headers: true, header_converters: :symbol) do |row|
+    CSV.foreach(merchant_file,headers: true,header_converters: :symbol) do |row|
       id = row[:id]
       name = row[:name]
       merchant_list << Merchant.new({ :id => id, :name => name}, self)

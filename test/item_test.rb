@@ -5,7 +5,7 @@ class ItemTest < Minitest::Test
   attr_reader :item
   def set_up
     item_info = {:id => "263395237", :name => "510+ RealPush Icon Set", :description => "hi",:merchant_id => "123", :unit_price => "1200", :created_at => "2016-01-11 09:34:06 UTC", :updated_at => "2007-06-04 21:35:10 UTC"}
-    @item = Item.new(item_info)
+    @item = Item.new(item_info, [])
   end
 
   def test_item_exists
