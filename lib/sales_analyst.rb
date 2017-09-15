@@ -8,6 +8,7 @@ class SalesAnalyst
 
   def initialize(se)
     @se = se
+    @total_items_maker = se.items.all.count
   end
 
   def average_items_per_merchant
@@ -85,12 +86,13 @@ class SalesAnalyst
   end
 
 
+
   def average_item_price
     all_item_prices =  []
     se.items.all.each do |item|
        all_item_prices << item.unit_price.to_f * 100
     end
-    all_item_prices.sum / se.items.all.count
+    all_item_prices.sum / @total_items_maker
   end
 
   def square_each_item_average_difference
@@ -103,16 +105,15 @@ class SalesAnalyst
   end
 
   def standard_deviation_for_item_cost
-    final = Math.sqrt(square_each_item_average_difference / (se.items.all.count - 1))
+    final = Math.sqrt(square_each_item_average_difference / (@total_items_maker - 1))
     final.round(3)
   end
 
   def avg_item_price_plus_2x_std_dev
-    (average_item_price + standard_deviation_for_item_cost * 2)
+   (average_item_price + standard_deviation_for_item_cost * 2)
   end
 
   def golden_items
-
     golden_items_list = []
     se.items.all.each do |item|
       if (item.unit_price * 100)  >= avg_item_price_plus_2x_std_dev

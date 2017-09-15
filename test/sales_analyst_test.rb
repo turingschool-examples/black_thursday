@@ -14,7 +14,7 @@ class TestSalesAnalyst < Minitest::Test
 
   def setup
     csv_hash = {
-      :items     => "./test/test_data/items_medium.csv",
+      :items     => "./data/items.csv",
       :merchants => "./test/test_data/merchants_short.csv",
     }
     se = SalesEngine.from_csv(csv_hash)
