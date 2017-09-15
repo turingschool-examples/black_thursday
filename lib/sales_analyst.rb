@@ -102,7 +102,7 @@ class SalesAnalyst
   end
 
   def days_with_high_invoices(day_array, avg_inv_per_day, deviation)
-    day_array.select {|invoice|invoice[1] > avg_inv_per_day + deviation}.map(&:first)
+    day_array.select {|invoice| invoice[1] > avg_inv_per_day + deviation}.map(&:first)
   end
 
   def grouped_invoices
@@ -119,15 +119,15 @@ class SalesAnalyst
     ((selected.length.to_f / total.to_f) * 100.0).round(2)
   end
 
-  def items 
+  def items
     engine.items.all
   end
-  
-  def invoices 
+
+  def invoices
     engine.invoices.all
   end
 
-  def merchants 
+  def merchants
     engine.merchants.all
   end
 
@@ -138,11 +138,11 @@ class SalesAnalyst
   def standard_deviation(collection)
     Math.sqrt(s_d_numerator(collection) / collection.length).round(2)
   end
-  
+
   def squared_diff(number, average)
     (number - average)**2
   end
-  
+
   def s_d_numerator(collection)
     collection.map {|number| squared_diff(number, average(collection))}.sum
   end
