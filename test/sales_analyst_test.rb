@@ -48,12 +48,25 @@ class SalesAnalystTest < Minitest::Test
     merchant_2_avg = sa.average_item_price_for_merchant(12334112)
     merchant_3_avg = sa.average_item_price_for_merchant(12334115)
     merchant_4_avg = sa.average_item_price_for_merchant(12334123)
-    expected = (merchant_1_avg + merchant_2_avg + merchant_3_avg + merchant_4_avg)/4
+    expected = ((merchant_1_avg + merchant_2_avg + merchant_3_avg + merchant_4_avg)/4).truncate(2)
     actual = sa.average_average_price_per_merchant
 
     assert_equal expected, actual
   end
 
+  def test_sa_can_find_average_item_price
+    assert_equal 77.629, sa.average_item_price
+  end
+
+  def test_sa_can_find_standard_deviation_of_prices
+    assert_equal 124.96739738827883, sa.item_price_standard_deviation
+  end
+
+  def test_sa_can_find_golden_items
+    expected = [se.items.items[-2]]
+
+    assert_equal expected, sa.golden_items
+  end
 
 
 end
