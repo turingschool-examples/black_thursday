@@ -7,6 +7,7 @@ class SalesEngine
     items = files[:items]
     merchants = files[:merchants]
     sales_engine = SalesEngine.new(items, merchants)
+    # SalesAnalyst.new(sales_engine)
   end
 
   attr_reader :merchants, :items
