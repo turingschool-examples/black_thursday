@@ -75,15 +75,17 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_average_invoices_per_merchant
-    assert_equal 3, @analyst.average_invoices_per_merchant
+    assert_equal 3.5, @analyst.average_invoices_per_merchant
   end
 
-  def test_it_can_find_average_invoices_per_merchant_standard_deviation
-    assert_equal 57, @analyst.sum_of_square_differences_invoice_count(merchant_repo, 3)
+  def test_it_can_find_sum_of_square_differences_for_invoice_count
+    merchant_repo = @engine.merchants
+
+    assert_equal 57, @analyst.sum_of_square_differences_invoice_count(merchant_repo, 3.5)
   end
 
   def test_it_can_find_standard_deviation_for_merchant_invoices
-    assert_equal 5.2, @analyst.average_item_price_standard_deviation
+    assert_equal 4.36, @analyst.average_invoice_count_standard_deviation
   end
 
 end

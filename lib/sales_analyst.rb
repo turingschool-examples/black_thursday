@@ -109,10 +109,10 @@ class SalesAnalyst
     end
   end
 
-  def average_item_price_standard_deviation
+  def average_invoice_count_standard_deviation
     merchant_repo = @engine.merchants
     mean = average_invoices_per_merchant
-    sum = sum_of_square_differences_item_price(merchant_repo, mean)
+    sum = sum_of_square_differences_invoice_count(merchant_repo, mean)
     sample_variance = find_sample_variance(merchant_repo, sum)
     (Math.sqrt(sample_variance)).round(2)
   end

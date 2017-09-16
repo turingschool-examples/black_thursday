@@ -17,6 +17,6 @@ class Invoice
   end
 
   def merchant
-    @engine.invoices.find_by_id(@merchant_id)
+    @engine.merchants.find_by_id(@merchant_id)
   end
 end
