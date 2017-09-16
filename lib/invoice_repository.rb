@@ -44,6 +44,10 @@ class InvoiceRepository
     @parent.find_customer_by_invoice(id)
   end
 
+  def find_invoice_items(id)
+    @parent.find_invoice_items(id)
+  end
+
   def inspect
     "#{self.class}"
   end

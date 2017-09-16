@@ -32,4 +32,19 @@ class Invoice
   def customer
     @parent.find_customer_by_invoice(customer_id)
   end
+
+  def invoice_items 
+    @parent.find_invoice_items(id)
+  end
+
+  def is_paid_in_full?
+    transactions.any? { |transaction| transaction.result == "success"}
+  end
+
+  def total
+    return 0 if !is_paid_in_full?
+    invoice_items.reduce(0) do |sum, item|
+      sum += (item.unit_price * item.quantity)
+    end
+  end
 end

@@ -231,4 +231,33 @@ class SalesAnalystTest < Minitest::Test
     expected = sa.invoice_status(:returned)
     assert_equal 13.5, expected
   end
+
+
+  def test_invoice_is_paid_in_full_returns_bool 
+    expected_1 = sa.engine.invoices.find_by_id(1).is_paid_in_full?
+    expected_2 = sa.engine.invoices.find_by_id(200).is_paid_in_full?
+    expected_3 = sa.engine.invoices.find_by_id(203).is_paid_in_full?
+    expected_4 = sa.engine.invoices.find_by_id(204).is_paid_in_full?
+
+    assert expected_1
+    assert expected_2 
+    refute expected_3
+    refute expected_4
+  end
+
+  def test_invoice_total_returns_total_if_paid_in_full 
+    invoice  = sa.engine.invoices.all.first 
+    expected = invoice.total 
+
+    assert invoice.is_paid_in_full?
+    assert_equal 21067.77, expected
+    assert_instance_of BigDecimal, expected
+  end
+
+  def test_invoice_total_returns_0_if_not_paid_in_full 
+    invoice  = sa.engine.invoices.find_by_id(204)
+    expected = invoice.total 
+
+    assert_equal 0, expected
+  end
 end
