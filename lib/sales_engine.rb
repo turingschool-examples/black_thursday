@@ -7,13 +7,16 @@ require "csv"
 class SalesEngine
 
   def self.from_csv(filenames)
+    new(parse_csv(filenames))
+  end
+
+  def self.parse_csv(filenames)
     options = { headers: true, header_converters: :symbol }
     tables = filenames.transform_values do |filename|
       CSV.foreach(filename, options).map do |row|
         row.to_hash
       end
     end
-    new(tables)
   end
 
   def initialize(record_data)
