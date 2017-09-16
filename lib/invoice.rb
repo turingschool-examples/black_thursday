@@ -17,8 +17,4 @@ class Invoice
     @updated_at = information[:updated_at]
     @parent = parent
   end
-
-
-
-
 end
