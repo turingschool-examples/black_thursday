@@ -29,7 +29,7 @@ class TransactionTest < Minitest::Test
   end
 
   def test_it_has_a_credit_Card_number_value
-    assert_equal "4242424242424242", transaction.credit_card_number
+    assert_equal 4242424242424242, transaction.credit_card_number
   end
 
   def test_it_has_an_expiration_date_value

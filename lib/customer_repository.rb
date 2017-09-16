@@ -28,4 +28,8 @@ class CustomerRepository
   def find_all_by_last_name(prefix)
     all.select {|customer| customer.last_name.downcase.include?(prefix.downcase)}
   end
+
+  def inspect 
+    "#{self.class}"
+  end
 end

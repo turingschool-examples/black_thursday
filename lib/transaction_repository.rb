@@ -1,4 +1,4 @@
-require './lib/transactions'
+require_relative 'transactions'
 require 'csv'
 
 class TransactionRepository
@@ -28,5 +28,9 @@ class TransactionRepository
 
   def find_all_by_result(result)
     all.select { |transaction| transaction.result == result}
+  end
+
+  def inspect
+    "#{self.class}"
   end
 end

@@ -5,10 +5,13 @@ class SalesEngineTest < Minitest::Test
   attr_reader :engine
  
   def setup 
-    @engine = SalesEngine.new({ :items     => "./data/items.csv",
-                                :merchants => "./data/merchants.csv",
-                                :invoices  => "./data/invoices.csv",
-                                :customers => "./data/customers.csv"})
+    @engine = SalesEngine.new({ :items         => "./data/items.csv",
+                                :merchants     => "./data/merchants.csv",
+                                :invoices      => "./data/invoices.csv",
+                                :customers     => "./data/customers.csv",
+                                :invoice_items => "./data/invoice_items.csv",
+                                :transactions  => "./data/transactions.csv"
+                              })
   end
 
   def test_sales_engine_exists
