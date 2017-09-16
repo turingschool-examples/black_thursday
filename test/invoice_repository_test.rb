@@ -40,6 +40,26 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 10, actual.length
   end
 
+  def test_find_by_id_returns_nil_with_invalid_id
+    actual = ir.find_by_id(666)
+
+    assert_nil actual
+  end
+
+  def test_find_by_id_returns_invoice_with_valid_id
+    actual = ir.find_by_id(10)
+    expected = ir.invoices[-1]
+
+    assert_equal expected, actual
+  end
+
+  def test_find_all_by_customer_id_returns_nil_with_invalid_customer_id
+    actual = ir.find_all_by_customer_id(666)
+
+    assert_nil actual
+  end
+
+
 
 
 end
