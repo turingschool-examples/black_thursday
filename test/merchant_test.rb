@@ -1,5 +1,7 @@
 require './test/test_helper'
 require './lib/merchant'
+require './lib/item'
+require './lib/invoice'
 
 class MerchantTest < Minitest::Test
 
@@ -82,6 +84,48 @@ class MerchantTest < Minitest::Test
 
   def test_items_returns_only_items_with_own_id_as_merchant_id
     assert merchant_12334105.items.all? { |item| item.merchant_id == 12334105 }
+  end
+
+  def test_items_returns_an_array_of_item
+    items = merchant_12334105.items
+    assert_instance_of Array, items
+    refute_empty items
+    assert items.all? { |item| item.is_a? Item }
+  end
+
+  def test_items_returns_only_items_with_own_id_as_merchant_id
+    assert merchant_12334105.items.all? { |item| item.merchant_id == 12334105 }
+  end
+
+  def test_items_returns_empty_array_if_no_items_match
+    bad_merchant = new_merchant({
+      id: -1,
+      name: 'Shopin1901',
+      created_at: '2010-12-10',
+      updated_at: '2011-12-04'
+    }
+    assert_empty bad_merchant.items
+  end
+
+  def test_invoices_returns_an_array_of_invoice
+    invoices = merchant_12334105.invoices
+    assert_instance_of Array, invoices
+    refute_empty invoices
+    assert invoices.all? { |invoice| invoice.is_a? Invoice }
+  end
+
+  def test_invoices_returns_only_invoices_with_own_id_as_merchant_id
+    assert merchant_12334105.invoices.all? { |invoice| invoice.merchant_id == 12334105 }
+  end
+
+  def test_invoices_returns_empty_array_if_no_invoices_match
+    bad_merchant = new_merchant({
+      id: -1,
+      name: 'Shopin1901',
+      created_at: '2010-12-10',
+      updated_at: '2011-12-04'
+    }
+    assert_empty bad_merchant.invoices
   end
 
 end
