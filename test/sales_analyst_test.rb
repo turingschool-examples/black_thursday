@@ -38,4 +38,12 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 3.26, sales_a.average_items_per_merchant_standard_deviation
   end
 
+  def test_merchants_with_high_item_count
+    files = ({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    se = SalesEngine.from_csv(files)
+    sales_a = SalesAnalyst.new(se)
+
+    assert_equal 85, sales_a.merchants_with_high_item_count.count
+  end
+
 end
