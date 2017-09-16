@@ -16,5 +16,4 @@ class Customer
     @customer_repository = customer_repository
   end
 
-
 end
