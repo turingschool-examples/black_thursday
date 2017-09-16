@@ -40,4 +40,8 @@ class Item
   def unit_to_dollar
       unit_price.to_f
   end
+
+  def merchant
+    item_repo.item_merchant(self.merchant_id)
+  end
 end

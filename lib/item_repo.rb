@@ -52,6 +52,10 @@ class ItemRepository
     items.find_all {|item| item.merchant_id == merchant_id}
   end
 
+  def item_merchant(merchant_id)
+    sales_engine.find_item_merchant(merchant_id)
+  end
+
   def inspect
     "#<#{self.class} #{@items.size} rows>"
   end

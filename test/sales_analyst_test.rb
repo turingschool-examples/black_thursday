@@ -44,7 +44,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(files)
     sales_a = SalesAnalyst.new(se)
 
-    assert_equal 85, sales_a.merchants_with_high_item_count.count
+    assert_equal 52, sales_a.merchants_with_high_item_count.count
   end
 
   def test_average_item_price_for_merchant
@@ -63,7 +63,21 @@ class SalesAnalystTest < Minitest::Test
     assert_equal BigDecimal.new('0.350294697495132463357977937150568421052631578947e3'), sales_a.average_average_price_per_merchant
   end
 
+  def test_average_item_price
+    set_up
+
+    assert_equal 0.15098e2, sa.average_item_price
+  end
+
+  def test_standard_deviation_of_item_price
+    set_up
+
+    assert_equal 8.72, sa.std_deviation_of_item_price
+  end
+
   def test_golden_items
-    
+    set_up
+
+    assert_equal 1, sa.golden_items.count
   end
 end
