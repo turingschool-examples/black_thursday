@@ -86,6 +86,7 @@ class SalesAnalyst
   end
 
 
+
   def average_item_price
     all_item_prices_sum = 0
     se.items.all.each do |item|
@@ -103,16 +104,15 @@ class SalesAnalyst
   end
 
   def standard_deviation_for_item_cost
-    final = Math.sqrt(square_each_item_average_difference / (se.items.all.count - 1))
+    final = Math.sqrt(square_each_item_average_difference / (@total_items_maker - 1))
     final.round(3)
   end
 
   def avg_item_price_plus_2x_std_dev
-    (average_item_price + standard_deviation_for_item_cost * 2)
+   (average_item_price + standard_deviation_for_item_cost * 2)
   end
 
   def golden_items
-
     golden_items_list = []
     se.items.all.each do |item|
       if (item.unit_price_float)  >= avg_item_price_plus_2x_std_dev
