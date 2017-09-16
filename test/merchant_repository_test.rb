@@ -2,21 +2,11 @@ require './test/test_helper'
 require './lib/merchant_repository'
 
 
-
 class MerchantRepositoryTest < Minitest::Test
 
   attr_reader :merchant_repo
   def setup
     @merchant_repo = Fixture.repo(:merchants)
-  end
-
-  def merchant_12334105_expected
-    {
-      id: 12334105,
-      name: 'Shopin1901',
-      created_at: Time.parse('2010-12-10'),
-      updated_at: Time.parse('2011-12-04')
-    }
   end
 
   def test_initialize_takes_a_sales_engine_and_an_array_of_record_data
