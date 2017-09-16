@@ -102,9 +102,8 @@ class SalesAnalyst
   #  (average_item_price + standard_deviation_for_item_cost * 2)
   # end
 
-  def golden_items(sales_engine.items, sales_engine.merchants)
-    # need to pass in the two se.objects that are needed for comparison. first is the main thing being compared. the second is the less
-    two_standard_deviations_above(sales_engine.items)
+  def golden_items
+    two_standard_deviations_above(sales_engine.items, sales_engine.merchants)
   end
 
 
