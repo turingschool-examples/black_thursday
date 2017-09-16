@@ -28,6 +28,13 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal "263542298", @iir.data[3].item_id
   end
 
+  def test_data_item_id_8_returns_correct_matching_quantity
+    @iir.from_csv("./test/fixtures/invoice_items_truncated_10.csv")
+
+    assert_equal "6", @iir.data[8].quantity
+  end
+
+
 
 end
 
