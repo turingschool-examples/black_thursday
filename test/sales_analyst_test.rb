@@ -88,4 +88,48 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 4.36, @analyst.average_invoice_count_standard_deviation
   end
 
+  def test_it_can_find_top_merchants_by_invoice_count
+    top_merchants = @analyst.top_merchants_by_invoice_count
+    merchant = top_merchants[0]
+
+    assert_equal 12334185, merchant.id
+    assert_equal 1, top_merchants.length
+
+  end
+
+  def test_it_can_find_bottom_merchants_by_invoice_count
+    bottom_merchants = @analyst.bottom_merchants_by_invoice_count
+
+    assert_equal 3, bottom_merchants.length
+    assert_instance_of Merchant, bottom_merchants[0]
+
+  end
+
+  def test_it_can_find_average_invoices_per_day
+    assert_equal 2, @analyst.average_invoices_per_day
+  end
+
+  def test_it_can_find_days_of_week_invoices_were_created
+    assert_equal [5, 3, 5, 4, 5, 6, 3, 4, 4, 3, 1, 3, 6, 2], @analyst.invoice_creation_days
+  end
+
+  def test_it_can_find_how_many_invoices_were_created_per_day
+    assert_equal [0, 1, 1, 4, 3, 3, 2], @analyst.invoices_created_per_day
+  end
+
+  def test_it_can_find_sum_of_square_differences_for_invoices_per_day
+    invoices_per_day = [0, 1, 1, 4, 3, 3, 2]
+    assert_equal 12, @analyst.sum_of_square_differences_invoices_per_day(invoices_per_day, 2)
+  end
+
+  def test_it_can_find_day_of_week_standard_deviation
+    assert_equal 0.96, @analyst.invoices_per_day_standard_deviation
+  end
+
+  def test_it_finds_top_days_by_invoice_count
+    assert_equal ["Wednesday", "Thursday", "Friday", "Saturday"], @analyst.top_days_by_invoice_count
+  end
+
+  def test_it_can_find_percentage_of_invoices_shipped
+
 end
