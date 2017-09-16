@@ -11,7 +11,7 @@ class CustomerRepositoryTest
       :invoices => "./test/fixtures/invoices_fixture.csv",
       :customers => "./test/fixtures/customers_fixture.csv"
       })
-      cr = se.customers
+    cr = se.customers
   end
 
 end
