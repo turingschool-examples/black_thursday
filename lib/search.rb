@@ -15,4 +15,11 @@ module Search
     end
   end
 
+  def find_all_instances_by_merchant_id(list, search_merchant_id)
+    search_merchant_id = search_merchant_id.to_i
+    list.find_all do |object|
+      object.merchant_id == search_merchant_id
+    end
+  end
+
 end

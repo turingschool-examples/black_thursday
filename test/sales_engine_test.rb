@@ -7,6 +7,7 @@ class SalesEngineTest < Minitest::Test
     @engine = SalesEngine.from_csv({
       :items => './test/fixtures/items_truncated.csv',
       :merchants => './test/fixtures/merchants_truncated.csv',
+      :invoices => './test/fixtures/invoices_truncated.csv'
     })
   end
 
@@ -24,7 +25,7 @@ class SalesEngineTest < Minitest::Test
     merchant = merchant_repository.find_by_name('miniaturebikez')
 
     assert_instance_of Merchant, merchant
-    assert_equal '12334113', merchant.id
+    assert_equal 12334113, merchant.id
   end
 
   def test_it_can_find_item_from_item_repository
@@ -32,7 +33,7 @@ class SalesEngineTest < Minitest::Test
     item = item_repository.find_by_name("Glitter scrabble frames")
 
     assert_instance_of Item, item
-    assert_equal "263395617", item.id
+    assert_equal 263395617, item.id
   end
 
 end

@@ -15,7 +15,7 @@ class Item
     @unit_price = format_unit_price(item_info[:unit_price])
     @created_at = Time.parse(item_info[:created_at])
     @updated_at = Time.parse(item_info[:updated_at])
-    @merchant_id = item_info[:merchant_id]
+    @merchant_id = item_info[:merchant_id].to_i
     @engine = engine
   end
 
@@ -28,9 +28,9 @@ class Item
     @engine.merchants.find_by_id(@merchant_id)
   end
 
-  def inspect
-    "#<#{self.class} #{@items.size} rows>"
-  end
+  # def inspect
+  #   "#<#{self.class} #{@merchants.size} rows>"
+  # end
 
 
 end

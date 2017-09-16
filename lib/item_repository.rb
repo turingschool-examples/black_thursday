@@ -53,10 +53,7 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(search_merchant_id)
-    search_merchant_id = search_merchant_id.to_s
-    @items.find_all do |item|
-      item.merchant_id == search_merchant_id
-    end
+    find_all_instances_by_merchant_id(@items, search_merchant_id)
   end
 
   def inspect

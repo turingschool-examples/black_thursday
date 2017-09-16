@@ -22,7 +22,7 @@ class SalesAnalyst
     total_items.to_f / merchant_count.to_f
   end
 
-  def sum_of_square_differences(merchant_repo, mean)
+  def sum_of_square_differences_item_count(merchant_repo, mean)
     merchants = merchant_repo.merchants
     merchants.reduce(0) do |result, merchant|
       difference_squared = (mean - merchant.items.count) ** 2
@@ -30,16 +30,16 @@ class SalesAnalyst
     end
   end
 
-  def find_sample_variance(merchant_repo, mean)
-    sum = sum_of_square_differences(merchant_repo, mean)
+  def find_sample_variance(merchant_repo, sum)
     sum / (merchant_repo.merchants.count-1)
   end
 
   def average_items_per_merchant_standard_deviation
     merchant_repo = @engine.merchants
     mean = average_items_per_merchant
-    sample_variance = find_sample_variance(merchant_repo, mean)
-    Math.sqrt(sample_variance)
+    sum = sum_of_square_differences_item_count(merchant_repo, mean)
+    sample_variance = find_sample_variance(merchant_repo, sum)
+    (Math.sqrt(sample_variance)).round(2)
   end
 
   def merchants_with_high_item_count
@@ -69,9 +69,35 @@ class SalesAnalyst
     end
     BigDecimal(merchant_averages.sum / merchant_averages.count).round(2)
   end
-  
-  def inspect
-    "#<#{self.class} #{@items.size} rows>"
+
+  def sum_of_square_differences_item_price(merchant_repo, mean)
+    merchants = merchant_repo.merchants
+    merchants.reduce(0) do |result, merchant|
+      average_item_price = average_item_price_for_merchant(merchant.id)
+      difference_squared = (mean - average_item_price) ** 2
+      result + difference_squared
+    end
   end
+
+  def average_item_price_standard_deviation
+    merchant_repo = @engine.merchants
+    mean = average_average_price_per_merchant
+    sum = sum_of_square_differences_item_price(merchant_repo, mean)
+    sample_variance = find_sample_variance(merchant_repo, sum)
+    (Math.sqrt(sample_variance)).round(2)
+  end
+
+  def golden_items
+    standard_deviation = average_item_price_standard_deviation
+    item_repo = @engine.items
+    all_items = item_repo.items
+    all_items.find_all {|item| item.unit_price > standard_deviation + 2}
+  end
+
+
+
+  # def inspect
+  #   "#<#{self.class} #{@items.size} rows>"
+  # end
 
 end

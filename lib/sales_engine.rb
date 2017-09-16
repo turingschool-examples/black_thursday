@@ -1,6 +1,7 @@
 require 'csv'
 require_relative 'item_repository'
 require_relative 'merchant_repository'
+require_relative 'invoice_repository'
 
 class SalesEngine
 
@@ -21,9 +22,9 @@ class SalesEngine
     @invoices = InvoiceRepository.new(invoice_file_path, self)
   end
 
-  def inspect
-    "#<#{self.class} #{@items.size} rows>"
-  end
+  # def inspect
+  #   "#<#{self.class} #{@items.size} rows>"
+  # end
 
 
 end

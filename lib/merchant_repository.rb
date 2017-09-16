@@ -18,6 +18,10 @@ class MerchantRepository
     create_instances(csv_file_path, 'Merchant', engine)
   end
 
+  def all
+    @merchants
+  end
+
   def find_by_id(search_id)
     find_instance_by_id(@merchants, search_id)
   end

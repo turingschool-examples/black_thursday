@@ -6,7 +6,8 @@ class ItemsTest < Minitest::Test
   def setup
     item_file_path = './test/fixtures/items_truncated.csv'
     merchant_file_path = './test/fixtures/merchants_truncated.csv'
-    engine = SalesEngine.new(item_file_path, merchant_file_path)
+    invoice_file_path = './test/fixtures/invoices_truncated.csv'
+    engine = SalesEngine.new(item_file_path, merchant_file_path, invoice_file_path)
     @item_repo = engine.items
   end
 

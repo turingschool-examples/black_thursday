@@ -7,7 +7,8 @@ class ItemRepositoryTest < Minitest::Test
   def setup
     item_file_path = './test/fixtures/items_truncated.csv'
     merchant_file_path = './test/fixtures/merchants_truncated.csv'
-    engine = SalesEngine.new(item_file_path, merchant_file_path)
+    invoice_file_path = './test/fixtures/invoices_truncated.csv'
+    engine = SalesEngine.new(item_file_path, merchant_file_path, invoice_file_path)
     @repository = engine.items
   end
 
@@ -46,11 +47,11 @@ class ItemRepositoryTest < Minitest::Test
     search_name = 'Glitter scrabble frames'
     item = @repository.find_by_name('Glitter scrabble frames')
 
-    assert_equal '263395617', item.id
+    assert_equal 263395617, item.id
 
     item = @repository.find_by_name('glitter scrabble frames')
 
-    assert_equal '263395617', item.id
+    assert_equal 263395617, item.id
   end
 
   def test_find_all_with_description
