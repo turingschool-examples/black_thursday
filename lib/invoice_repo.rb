@@ -5,7 +5,7 @@ require 'pry'
 class InvoiceRepo
   attr_reader :all_invoices
   def initialize(file, se = nil)
-    @sales_engine = se
+    @parent = se
     @all_invoices = []
     open_file(file)
   end
@@ -37,7 +37,7 @@ class InvoiceRepo
   end
 
   def merchant_item(merchant_id)
-    @sales_engine.merchant_item(merchant_id)
+    @parent.merchant_item(merchant_id)
   end
 
 end

@@ -9,8 +9,8 @@ class Invoice
               :created_at,
               :updated_at
 
-  def initialize(data, invoice_repo = nil)
-    @invoice_repo = invoice_repo
+  def initialize(data, repo = nil)
+    @parent = repo
     @id = data[:id].to_i
     @customer_id = data[:customer_id].to_i
     @merchant_id = data[:merchant_id].to_i
@@ -20,6 +20,6 @@ class Invoice
   end
 
   def merchant
-    @invoice_repo.merchant_item(merchant_id)
+    @parent.merchant_item(merchant_id)
   end
 end

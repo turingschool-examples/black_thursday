@@ -1,8 +1,8 @@
+require 'pry'
 class Merchant
 
   attr_reader :id,
-              :name,
-              :parent
+              :name
 
   def initialize(data, repo=nil)
     @id     = data[:id].to_i
@@ -11,6 +11,10 @@ class Merchant
   end
 
   def items
-    parent.items_of_merchant(id)
+    @parent.items_of_merchant(id)
+  end
+
+  def invoices
+    @parent.invoice_item(merchant_id)
   end
 end
