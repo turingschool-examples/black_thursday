@@ -15,7 +15,7 @@ class Item
               :merchant_id,
               :item_repository
 
-  def initialize(item_repositoryr, csv_info)
+  def initialize(item_repository, csv_info)
     @id = csv_info[:id].to_i
     @name = csv_info[:name]
     @description = csv_info[:description]
@@ -33,16 +33,13 @@ class Item
   end
 
   def merchant
-     #merchant_repository.sales_engine.items.find_all_by_merchant_id(id)
-     #item_repository.se.merchants.find_by_id(id)
-
-     id = merchant_id.to_i
-
-     return 0 if id.nil?
-     se = item_repository.se
-     merchants = se.merchants
-     #binding.pry
-     merchants.find_by_id(id)
+    id = merchant_id.to_i
+    return 0 if id.nil?
+    # binding.pry
+    sales_engine = item_repository.sales_engine
+    merchants = sales_engine.merchants
+    #binding.pry
+    merchants.find_by_id(id)
   end
 
 end
