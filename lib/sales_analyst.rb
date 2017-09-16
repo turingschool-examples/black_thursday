@@ -16,9 +16,18 @@ class SalesAnalyst
     make_merchants_and_things(sales_engine.items)
   end
 
+  def merchants_and_invoices
+    make_merchants_and_things(sales_engine.invoices)
+  end
+
   def average_items_per_merchant
     merchants_and_items
     average_things_per_merchant(merchants_and_items)
+  end
+
+  def average_invoices_per_merchant
+    merchants_and_invoices
+    average_things_per_merchant(merchants_and_invoices)
   end
 
   def average_items_per_merchant_standard_deviation
@@ -26,13 +35,16 @@ class SalesAnalyst
     average_things_per_merchant_standard_deviation(merchants_and_items)
   end
 
-  def std_dev
-    average_items_per_merchant_standard_deviation
+  def average_invoices_per_merchant_standard_deviation
+    merchants_and_invoices
+    average_things_per_merchant_standard_deviation(merchants_and_invoices)
   end
+
+########
 
   def merchants_with_high_item_count
     merchant_ids = []
-    one_above  = average_items_per_merchant + std_dev
+    one_above  = average_items_per_merchant + average_items_per_merchant_standard_deviation
     merchants_and_items.each do |key,value|
       merchant_ids << key.to_i if  value > one_above
     end

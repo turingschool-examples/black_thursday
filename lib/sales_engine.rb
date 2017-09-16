@@ -16,7 +16,10 @@ class SalesEngine
 
   def initialize(item_csv, merchant_csv, invoice_csv)
     @items = ItemRepository.new(self, item_csv)
+    puts items.all[0].item_repository
     @merchants = MerchantRepository.new(self, merchant_csv)
+    puts merchants.all[0].merchant_repository
     @invoices = InvoiceRepository.new(self, invoice_csv)
+    puts invoices.all[0].invoice_repository
   end
 end
