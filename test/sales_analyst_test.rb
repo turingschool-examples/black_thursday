@@ -233,31 +233,73 @@ class SalesAnalystTest < Minitest::Test
   end
 
 
-  def test_invoice_is_paid_in_full_returns_bool 
+  def test_invoice_is_paid_in_full_returns_bool
     expected_1 = sa.engine.invoices.find_by_id(1).is_paid_in_full?
     expected_2 = sa.engine.invoices.find_by_id(200).is_paid_in_full?
     expected_3 = sa.engine.invoices.find_by_id(203).is_paid_in_full?
     expected_4 = sa.engine.invoices.find_by_id(204).is_paid_in_full?
 
     assert expected_1
-    assert expected_2 
+    assert expected_2
     refute expected_3
     refute expected_4
   end
 
-  def test_invoice_total_returns_total_if_paid_in_full 
-    invoice  = sa.engine.invoices.all.first 
-    expected = invoice.total 
+  def test_invoice_total_returns_total_if_paid_in_full
+    invoice  = sa.engine.invoices.all.first
+    expected = invoice.total
 
     assert invoice.is_paid_in_full?
     assert_equal 21067.77, expected
     assert_instance_of BigDecimal, expected
   end
 
-  def test_invoice_total_returns_0_if_not_paid_in_full 
+  def test_invoice_total_returns_0_if_not_paid_in_full
     invoice  = sa.engine.invoices.find_by_id(204)
-    expected = invoice.total 
+    expected = invoice.total
 
     assert_equal 0, expected
   end
+
+  def test_total_revenue_by_date_returns_total_revenue_for_given_date
+    date = Time.parse("2009-02-07")
+    expected = sa.total_revenue_by_date(date)
+
+    assert_equal 21067.77, expected
+    assert_instance_of BigDecimal, expected
+  end
+
+  def test_total_revenue_by_date_returns_total_revenue_for_other_given_date
+    date = Time.parse("2008-09-21")
+    expected = sa.total_revenue_by_date(date)
+
+    assert_equal 41211.16, expected
+    assert_instance_of BigDecimal, expected
+  end
+
+  def test_top_revenue_earners_returns_top_x_merchants_ranked_by_revenue
+    expected = sales_analyst.top_revenue_earners(10)
+    first = expected.first
+    last = expected.last
+
+    assert_equal 10, expected.length
+
+    assert_instance_of Merchant, expected.first
+    assert_equal 12334634, expected.first.id
+  end
+
+  #
+  # it "#top_revenue_earners(x) returns the top x merchants ranked by revenue" do
+  #   expected = sales_analyst.top_revenue_earners(10)
+  #   first = expected.first
+  #   last = expected.last
+  #
+  #   expect(expected.length).to eq 10
+  #
+  #   expect(first.class).to eq Merchant
+  #   expect(first.id).to eq 12334634
+  #
+  #   expect(last.class).to eq Merchant
+  #   expect(last.id).to eq 12335747
+  # end
 end

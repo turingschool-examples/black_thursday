@@ -127,4 +127,14 @@ class SalesAnalyst
   def s_d_numerator(collection)
     collection.map {|number| squared_diff(number, average(collection))}.sum
   end
+
+  def total_revenue_by_date(date)
+    date = date.to_s.split(" ")[0]
+    invoice = invoices.select {|item| item.created_at.to_s.split(" ")[0] == date}
+    invoice.map {|invoice| invoice.total}.sum
+  end
+
+  def top_revenue_earners(x = 20)
+    
+  end
 end
