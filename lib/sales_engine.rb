@@ -23,8 +23,4 @@ class SalesEngine
   def merchant_item(id)
     merchants.find_by_id(id)
   end
-
-  def invoice_item(merchant_id)
-    invoices.find_all_by_merchant_id(merchant_id)
-  end
 end

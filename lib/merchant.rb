@@ -15,6 +15,7 @@ class Merchant
   end
 
   def invoices
-    @parent.invoice_item(merchant_id)
+    sales_engine = @parent.parent
+    sales_engine.invoices.find_all_by_merchant_id(id)
   end
 end

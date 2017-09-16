@@ -37,8 +37,4 @@ class MerchantRepo
   def items_of_merchant(id)
     parent.items_of_merchant(id)
   end
-
-  def invoice_item(merchant_id)
-    @parent.invoice_item(merchant_id)
-  end
 end
