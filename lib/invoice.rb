@@ -20,4 +20,16 @@ class Invoice
   def merchant
     @parent.find_merchant_from_invoice(merchant_id)
   end
+
+  def items
+    @parent.find_items_by_invoice(id)
+  end
+
+  def transactions
+    @parent.find_transactions_by_invoice(id)
+  end
+
+  def customer
+    @parent.find_customer_by_invoice(customer_id)
+  end
 end

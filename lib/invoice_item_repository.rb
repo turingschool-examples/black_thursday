@@ -25,7 +25,7 @@ class InvoiceItemRepository
   def find_all_by_invoice_id(invoice_id)
     all.select { |invoice_item| invoice_item.invoice_id == invoice_id}
   end
-  
+
   def inspect
     "#{self.class}"
   end

@@ -21,7 +21,7 @@ class SalesEngine
     @invoice_items = InvoiceItemRepository.new(file_path[:invoice_items], self)
     @transactions  = TransactionRepository.new(file_path[:transactions], self)
   end
-  
+
   def self.from_csv(file_path)
    SalesEngine.new(file_path)
   end
@@ -40,5 +40,18 @@ class SalesEngine
 
   def find_merchant_from_invoice(merchant_id)
     @merchants.find_by_id(merchant_id)
+  end
+
+  def find_items_by_invoice(id)
+    arr = @invoice_items.find_all_by_invoice_id(id)
+    arr.map {|item| @items.find_by_id(item.item_id)}
+  end
+
+  def find_transactions_by_invoice(id)
+    @transactions.find_all_by_invoice_id(id)
+  end
+
+  def find_customer_by_invoice(id)
+    @customers.find_by_id(id)
   end
 end
