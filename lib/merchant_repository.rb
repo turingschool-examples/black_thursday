@@ -4,8 +4,8 @@ require_relative 'merchant'
 
 class MerchantRepository < Repository
 
-  def initialize(sales_engine, merchant_data)
-    super(Merchant, sales_engine, merchant_data)
+  def record_class
+    Merchant
   end
 
   def find_by_name(name)

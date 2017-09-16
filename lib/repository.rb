@@ -1,26 +1,25 @@
 class Repository
 
-  def initialize(record_subclass, engine, record_data)
+  def initialize(sales_engine, record_data)
     raise "Repository must be subclassed" if self.class == Repository
-    @record_subclass = record_subclass
-    @sales_engine = engine
-    @records = []
-    populate(record_data)
+    @sales_engine = sales_engine
+    @records = make_records(record_data)
   end
 
-  def populate(record_data)
-    record_data.each { |row| add_record(row) }
+  def make_records(record_data)
+    record_data.map { |data| make_record(data) }
   end
 
-  def add_record(row)
-    record = @record_subclass.new(self, row)
+  def make_record(data)
+    record_class.new(self, data)
+  end
+
+  def insert(data)
+    record = make_record(data)
     @records << record
     record
   end
 
-  def type
-    (@record_subclass.name.downcase + 's').to_sym
-  end
 
   def all
     @records.dup
@@ -42,7 +41,7 @@ class Repository
   def children(child_type, parent_id)
     child_repo = @sales_engine.repo(child_type)
     child_repo.find_all do |record|
-      record.foreign_id(type) == parent_id
+      record.foreign_id(record_class) == parent_id
     end
   end
 
@@ -52,11 +51,11 @@ class Repository
 
 
   def unused_id
-    id = rand(1_000_000) while find_by_id(id)
+    id = rand(1_000_000) until find_by_id(id).nil?
   end
 
   def inspect
-    "<#{self.class.name} with #{all.length} records>"
+    "<#{self.class.name} with #{all.length} #{record_class.plural}>"
   end
 
 end

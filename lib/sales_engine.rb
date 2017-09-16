@@ -1,5 +1,6 @@
 require_relative 'merchant_repository'
 require_relative 'item_repository'
+require_relative 'invoice_repository'
 require "csv"
 
 
@@ -15,10 +16,18 @@ class SalesEngine
     new(tables)
   end
 
-  def initialize(data)
-    @repos = {}
-    @repos[:items] = ItemRepository.new(self, data[:items]) if data[:items]
-    @repos[:merchants] = MerchantRepository.new(self, data[:merchants]) if data[:merchants]
+  def initialize(record_data)
+    @repos = repo_subclasses.each_with_object({}) do |(type, repo_class), repos|
+      repos[type] = repo_class.new(self, record_data[type])
+    end
+  end
+
+  def repo_subclasses
+    {
+      items: ItemRepository,
+      merchants: MerchantRepository,
+      invoices: InvoiceRepository
+    }
   end
 
   def repo(type)
@@ -31,6 +40,22 @@ class SalesEngine
 
   def items
     repo :items
+  end
+
+  def invoices
+    repo :invoices
+  end
+
+  def invoice_items
+    repo :invoice_items
+  end
+
+  def transactions
+    repo :transactions
+  end
+
+  def customers
+    repo :customers
   end
 
 end

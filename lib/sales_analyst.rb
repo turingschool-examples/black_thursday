@@ -33,12 +33,12 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    standard_deviation = average_items_per_merchant_standard_deviation
-    high_count_merchants = @se.merchants.all.find_all do |merchant|
-        merchant.items.count > standard_deviation
-      end
-    high_count_merchants.map do |merchant|
-      merchant.name
+    avg = average_items_per_merchant
+    std_dev = average_items_per_merchant_standard_deviation
+    threshold = avg + std_dev
+
+    @se.merchants.find_all do |merchant|
+      merchant.items.count > threshold
     end
   end
 
@@ -49,14 +49,15 @@ class SalesAnalyst
   end
 
   def golden_items
-    golden_price = average_price_per_merchant_standard_deviation * 2 + average_price
-    @se.items.all.find_all do |item|
+    std_dev = standard_deviation(@se.items.all){ |item| item.unit_price }
+    golden_price = average_price + (2 * std_dev)
+    @se.items.find_all do |item|
       item.unit_price > golden_price
     end
   end
 
   def average_price
-    average(@se.items.all) {|item| item.unit_price }
+    average(@se.items.all) { |item| item.unit_price }
   end
 
   def standard_deviation(enum, &block)

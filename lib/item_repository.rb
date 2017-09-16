@@ -3,8 +3,8 @@ require_relative 'item'
 
 class ItemRepository < Repository
 
-  def initialize(sales_engine, item_data)
-    super(Item, sales_engine, item_data)
+  def record_class
+    Item
   end
 
   def find_by_name(name)
