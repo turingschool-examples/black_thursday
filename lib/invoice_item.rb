@@ -15,8 +15,8 @@ class InvoiceItem
 
   def initialize(invoice_item_repository, csv_info)
     @id = csv_info[:id]
-    @item_id = csv_info[:item_id]
-    @invoice_id = csv_info[:invoice_id]
+    @item_id = csv_info[:item_id].to_i
+    @invoice_id = csv_info[:invoice_id].to_i
     @quantity = csv_info[:quantity]
     @unit_price = unit_price_to_dollars(csv_info[:unit_price])
     @created_at = Time.parse(csv_info[:created_at])

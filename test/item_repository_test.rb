@@ -8,7 +8,7 @@ class ItemRepositoryTest < Minitest::Test
   attr_reader :item_repo
 
   def setup
-    item_csv = "./test/test_data/items_short.csv"
+    item_csv = "./test/test_fixtures/items_short.csv"
     @item_repo = ItemRepository.new('fake_se', item_csv)
   end
 
