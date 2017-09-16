@@ -9,16 +9,21 @@ class SalesAnalystTest < Minitest::Test
               :fa
 
   def setup
-    @se = SalesEngine.from_csv({ :items     => "./data/items.csv",
-                                 :merchants => "./data/merchants.csv",
-                                 :invoices  => "./data/invoices.csv",
-                                 :customers => "./data/customers.csv"
+    @se = SalesEngine.from_csv({  :items         => "./data/items.csv",
+                                  :merchants     => "./data/merchants.csv",
+                                  :invoices      => "./data/invoices.csv",
+                                  :invoice_items => "./data/invoice_items.csv",
+                                  :transactions  => "./data/transactions.csv",
+                                  :customers     => "./data/customers.csv"
                                 })
     @sa = SalesAnalyst.new(se)
-    @fe = SalesEngine.from_csv({ :items     => "./test/fixtures/items.csv",
-                                 :merchants => "./data/merchants.csv",
-                                 :invoices  => "./test/fixtures/invoices.csv",
-                                 :customers => "./data/customers.csv"
+
+    @fe = SalesEngine.from_csv({ :items         => "./test/fixtures/items.csv",
+                                 :merchants     => "./data/merchants.csv",
+                                 :invoices      => "./test/fixtures/invoices.csv",
+                                 :customers     => "./data/customers.csv",
+                                 :invoice_items => "./test/fixtures/invoice_items.csv",
+                                 :transactions  => "./test/fixtures/transactions.csv"
                                 })
 
     @fa = SalesAnalyst.new(fe)
@@ -137,7 +142,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_merchants_by_invoice_count
-    skip # works but takes forever.
     expected = sa.top_merchants_by_invoice_count
 
     assert_equal 12, expected.length
