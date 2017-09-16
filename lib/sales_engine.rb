@@ -16,10 +16,18 @@ class SalesEngine
     new(tables)
   end
 
-  def initialize(data)
-    @repos = data.each_with_object({}) do |(type, data), repos|
-      repos[type] = repo_subclasses[type].new(self, data)
+  def initialize(record_data)
+    @repos = repo_subclasses.each_with_object({}) do |(type, repo_class), repos|
+      repos[type] = repo_class.new(self, record_data[type])
     end
+  end
+
+  def repo_subclasses
+    {
+      items: ItemRepository,
+      merchants: MerchantRepository,
+      invoices: InvoiceRepository
+    }
   end
 
   def repo(type)
@@ -48,16 +56,6 @@ class SalesEngine
 
   def customers
     repo :customers
-  end
-
-private
-
-  def repo_subclasses
-    {
-      items: ItemRepository,
-      merchants: MerchantRepository,
-      invoices: InvoiceRepository
-    }
   end
 
 end
