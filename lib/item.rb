@@ -33,16 +33,16 @@ class Item
   end
 
   def merchant
-    item_repository.sales_engine.merchants.find_by_id(merchant_id)
-  end
+     #merchant_repository.sales_engine.items.find_all_by_merchant_id(id)
+     #item_repository.se.merchants.find_by_id(id)
 
-  #   id = merchant_id.to_i
-  #
-  #   return 0 if id.nil?
-  #   se = item_repository.se
-  #   merchants = se.merchants
-  #   #binding.pry
-  #   merchants.find_by_id(id)
-  # end
+     id = merchant_id.to_i
+
+     return 0 if id.nil?
+     se = item_repository.se
+     merchants = se.merchants
+     #binding.pry
+     merchants.find_by_id(id)
+  end
 
 end
