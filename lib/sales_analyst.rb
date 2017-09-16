@@ -85,8 +85,6 @@ class SalesAnalyst
     (sum_averages / se.merchants.all.count).floor(2)
   end
 
-
-
   def average_item_price
     all_item_prices_sum = 0
     se.items.all.each do |item|
@@ -104,7 +102,7 @@ class SalesAnalyst
   end
 
   def standard_deviation_for_item_cost
-    final = Math.sqrt(square_each_item_average_difference / (@total_items_maker - 1))
+    final = Math.sqrt(square_each_item_average_difference / (se.merchants.all.count - 1))
     final.round(3)
   end
 

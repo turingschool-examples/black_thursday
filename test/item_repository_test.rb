@@ -25,7 +25,7 @@ class ItemRepositoryTest < Minitest::Test
     assert_nil  item_repo.find_by_id(1234)
   end
 
-  def test_it_returns_merchant_instance_for_id
+  def test_it_returns_item_instance_for_id
     assert_instance_of Item, item_repo.find_by_id(263395237)
   end
 
@@ -33,7 +33,7 @@ class ItemRepositoryTest < Minitest::Test
     assert_nil  item_repo.find_by_name("floof")
   end
 
-  def test_it_returns_merchant_instance_for_name
+  def test_it_returns_item_instance_for_name
     assert_instance_of Item, item_repo.find_by_name("Glitter scrabble frames")
   end
 

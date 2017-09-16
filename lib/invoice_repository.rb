@@ -11,7 +11,7 @@ class InvoiceRepository
     @all = []
     @se = se
     CSV.foreach(invoice_csv, headers: true, header_converters: :symbol) do |row|
-      all << invoice.new(self, row)
+      all << Invoice.new(self, row)
     end
   end
 
@@ -24,20 +24,15 @@ class InvoiceRepository
   end
 
 
-  def find_all_by_customer_id
-  # find_all_by_customer_id - returns either [] or one or more matches which have a matching customer ID
+  def find_all_by_customer_id(customer_id)
+    customer_id_array = []
+    all.each do |invoice|
+      if invoice.customer_id.to_i == customer_id
+        customer_id_array << invoice
+      end
+    end
+      return customer_id_array
   end
-
-
-  def find_all_by_merchant_id
-  # find_all_by_merchant_id - returns either [] or one or more matches which have a matching merchant ID
-  end
-
-
-  def find_all_by_status
-  # find_all_by_status - returns either [] or one or more matches which have a matching status
-  end
-
 
   def find_all_by_merchant_id(merchant_id)
   merchant_id_array = []
@@ -49,8 +44,18 @@ class InvoiceRepository
     return merchant_id_array
   end
 
+  def find_all_by_status(status)
+  status_array = []
+  all.each do |invoice|
+    if invoice.status == status
+      status_array << invoice
+    end
+  end
+    return status_array
+  end
+
   def inspect
     "#<#{self.class} #{:invoices.size} rows>"
   end
-
+  
 end

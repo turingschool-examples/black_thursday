@@ -7,7 +7,7 @@ class InvoiceTest < Minitest::Test
 
   def setup
     csv_hash = {id: 6,
-                custom_id: 7,
+                customer_id: 7,
                 merchant_id: 8,
                 status: "pending",
                 created_at: "2016-01-11 09:34:06 UTC",
@@ -23,8 +23,8 @@ class InvoiceTest < Minitest::Test
     assert_equal 6, invoice.id
   end
 
-  def test_invoice_has_custom_id
-    assert_equal 7, invoice.custom_id
+  def test_invoice_has_customer_id
+    assert_equal 7, invoice.customer_id
   end
 
   def test_invoice_has_merchant_id

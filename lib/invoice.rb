@@ -5,7 +5,7 @@ require 'time'
 class Invoice
 
   attr_reader :id,
-              :custom_id,
+              :customer_id,
               :merchant_id,
               :status,
               :created_at,
@@ -13,7 +13,7 @@ class Invoice
 
   def initialize(invoice_repository, csv_info)
     @id = csv_info[:id]
-    @custom_id = csv_info[:custom_id]
+    @customer_id = csv_info[:customer_id]
     @merchant_id = csv_info[:merchant_id]
     @status = csv_info[:status]
     @created_at = Time.parse(csv_info[:created_at])
