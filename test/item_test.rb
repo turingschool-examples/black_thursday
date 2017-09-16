@@ -48,7 +48,7 @@ class ItemTest < Minitest::Test
     assert_equal 2, item.merchant_id
   end
 
-  def test_unit_price_to_dollars_converts_to_float
+  def test_unit_price_to_dollars_converts
     assert_equal 10.99, item.unit_price_to_dollars(BigDecimal.new(1099,4))
   end
 
