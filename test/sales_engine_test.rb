@@ -27,4 +27,10 @@ class SalesEngineTest < Minitest::Test
 
     assert_instance_of MerchantRepository, se.merchants
   end
+
+  def test_it_has_merchant_items
+    set_up
+
+    assert_equal 1, se.find_merchant_items(12334105).count
+  end
 end
