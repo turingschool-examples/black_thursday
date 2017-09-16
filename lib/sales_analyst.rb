@@ -8,7 +8,6 @@ class SalesAnalyst
   attr_reader :merchants, :items, :price
 
   def initialize(sales_engine)
-    # binding.pry
     @merchants     = sales_engine.merchants
     @items         = sales_engine.items
   end
@@ -55,7 +54,15 @@ class SalesAnalyst
     end
     total_average = (@totals.reduce(:+) / @totals.count) / 100
     total_average.round(2)
-
     end
 
+    def average_average_price_per_merchant
+      @totals = []
+      total = @items.all_items.each {|item| item.merchant_id }
+      total.map do |t|
+      @totals << t.price
+      end
+      total_average = (@totals.reduce(:+) / @totals.count) / 100
+      total_average.round(2)
+    end
 end

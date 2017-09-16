@@ -8,7 +8,7 @@ class InvoiceRepoTest < Minitest::Test
   attr_reader :ir
 
   def setup
-    @ir = InvoiceRepo.new("./data/invoices.csv")
+    @ir = InvoiceRepo.new("./test/invoice_fixture.csv")
   end
 
   def test_it_exists
@@ -16,7 +16,7 @@ class InvoiceRepoTest < Minitest::Test
   end
 
   def test_find_all_invoices
-    assert_equal 4985, ir.all_invoices.count
+    assert_equal 200, ir.all_invoices.count
   end
 
   def test_find_by_id
@@ -32,7 +32,7 @@ class InvoiceRepoTest < Minitest::Test
   end
 
   def test_find_all_by_merchant_id
-    assert_equal 11, ir.find_all_by_merchant_id(12334269).count
+    assert_equal 1, ir.find_all_by_merchant_id(12334269).count
     assert_empty ir.find_all_by_merchant_id(2332525)
   end
 
