@@ -33,6 +33,12 @@ class SalesEngineTest < Minitest::Test
     assert_equal 4985, engine.invoices.all.length
   end
 
+  def test_sales_engine_loads_customer_repository
+    assert_instance_of Customer, engine.customers.all[0]
+    assert_instance_of Customer, engine.customers.all[-1]
+    assert_equal 1000, engine.customers.all.length
+  end
+
   def test_sales_engine_finds_merchant_by_id
     id       = 12335971
     merchant = engine.merchants.find_by_id(id)
@@ -74,8 +80,8 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_sales_engine_merchant_returns_merchant_from_invoice
-    invoice      = engine.invoices.find_by_id(20)
-    merchant     = invoice.merchant
+    invoice  = engine.invoices.find_by_id(20)
+    merchant = invoice.merchant
 
     assert_instance_of Merchant, merchant
     assert_equal 12336163, invoice.merchant.id
