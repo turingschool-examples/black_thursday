@@ -2,15 +2,25 @@ module Fixture
   class << self
 
     def sales_engine
-      SalesEngine.new({
-        merchants: merchant_data,
-        items: item_data
+      SalesEngine.from_csv({
+        merchants: './test/fixture/merchant.csv',
+        items: './test/fixture/item.csv',
+        invoices: './test/fixture/invoice.csv'
       })
     end
 
-    def repo type
+    def repo(type)
       sales_engine.repo(type)
     end
+
+    def record(type, id = 1)
+      repo(type).find_by_id(id)
+    end
+
+    def new_record(type, data)
+      repo(type).add(data)
+    end
+
 
     def merchant_data
       [
@@ -64,17 +74,5 @@ module Fixture
       }]
     end
 
-    def invoice_data
-      [
-        {
-          id: 1,
-          customer_id: "1",
-          merhcant_id: "1",
-          status: "pending",
-          created_at: '2014-03-15',
-          updated_at:'2017-03-15',
-        }
-      ]
-    end
   end
 end
