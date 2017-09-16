@@ -3,9 +3,9 @@ module Fixture
 
     def sales_engine
       SalesEngine.from_csv({
-        merchants: './test/fixture/merchant.csv',
-        items: './test/fixture/item.csv',
-        invoices: './test/fixture/invoice.csv'
+        merchants: './test/fixture/merchants.csv',
+        items: './test/fixture/items.csv',
+        invoices: './test/fixture/invoices.csv'
       })
     end
 
