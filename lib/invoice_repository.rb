@@ -7,7 +7,7 @@ class InvoiceRepository
 
   attr_reader :all, :invoices
 
-  def initialize(sales_engine., invoice_csv)
+  def initialize(sales_engine, invoice_csv)
     @all = []
     @sales_engine = sales_engine
     CSV.foreach(invoice_csv, headers: true, header_converters: :symbol) do |row|

@@ -34,10 +34,10 @@ sales_engine. = SalesEngine.from_csv({
   :merchants => "./data/merchants.csv",
   :invoices => "./data/invoices.csv"
 })
-merchant = sales_engine..merchants.find_by_id(12334159)
+merchant = sales_engine.merchants.find_by_id(12334159)
 merchant.invoices
 # => [<invoice>, <invoice>, <invoice>]
-invoice = sales_engine..invoices.find_by_id(20)
+invoice = sales_engine.invoices.find_by_id(20)
 invoice.merchant
 # => <merchant>
 =end
