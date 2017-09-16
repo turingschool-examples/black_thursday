@@ -65,40 +65,34 @@ class SalesAnalyst
     (sum_averages / sales_engine.merchants.all.count).floor(2)
   end
 
-  def average_item_price
-    all_item_prices_sum = 0
-    sales_engine.items.all.each do |item|
-       all_item_prices_sum += item.unit_price_float
-    end
-    all_item_prices_sum / sales_engine.items.all.count
-  end
+  # def average_item_price
+  #   all_item_prices_sum = 0
+  #   sales_engine.items.all.each do |item|
+  #      all_item_prices_sum += item.unit_price_float
+  #   end
+  #   all_item_prices_sum / sales_engine.items.all.count
+  # end
+  #
+  # def square_each_item_average_difference
+  #   calculation_item_array_sum = 0
+  #   sales_engine.items.all.each do |item|
+  #     calculation_item_array_sum += ((item.unit_price_float) - (average_item_price)) ** 2
+  #   end
+  #   calculation_item_array_sum
+  # end
 
-  def square_each_item_average_difference
-    calculation_item_array_sum = 0
-    sales_engine.items.all.each do |item|
-      calculation_item_array_sum += ((item.unit_price_float) - (average_item_price)) ** 2
-    end
-    calculation_item_array_sum
-  end
+  # def standard_deviation_for_item_cost
+  #   final = Math.sqrt(square_each_item_average_difference / (sales_engine.merchants.all.count - 1))
+  #   final.round(3)
+  # end
+  #
+  # def avg_item_price_plus_2x_std_dev
+  #  (average_item_price + standard_deviation_for_item_cost * 2)
+  # end
 
-  def standard_deviation_for_item_cost
-    final = Math.sqrt(square_each_item_average_difference / (sales_engine.merchants.all.count - 1))
-    final.round(3)
-  end
-
-  def avg_item_price_plus_2x_std_dev
-   (average_item_price + standard_deviation_for_item_cost * 2)
-  end
-
-  def golden_items
-    golden_items_list = []
-    sales_engine.items.all.each do |item|
-      if (item.unit_price_float)  >= avg_item_price_plus_2x_std_dev
-        golden_items_list << item
-        puts "Yowza"
-      end
-    end
-      golden_items_list
+  def golden_items(sales_engine.items, sales_engine.merchants)
+    # need to pass in the two se.objects that are needed for comparison. first is the main thing being compared. the second is the less
+    two_standard_deviations_above(sales_engine.items)
   end
 
 
