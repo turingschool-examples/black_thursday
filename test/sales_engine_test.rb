@@ -3,8 +3,8 @@ require_relative '../lib/sales_engine.rb'
 
 class SalesEngineTest < Minitest::Test
   attr_reader :engine
- 
-  def setup 
+
+  def setup
     @engine = SalesEngine.new({ :items         => "./data/items.csv",
                                 :merchants     => "./data/merchants.csv",
                                 :invoices      => "./data/invoices.csv",
@@ -40,6 +40,18 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of Customer, engine.customers.all[0]
     assert_instance_of Customer, engine.customers.all[-1]
     assert_equal 1000, engine.customers.all.length
+  end
+
+  def test_sales_engine_loads_invoice_item_repository
+    assert_instance_of InvoiceItem, engine.invoice_items.all[0]
+    assert_instance_of InvoiceItem, engine.invoice_items.all[-1]
+    assert_equal 21830, engine.invoice_items.all.length
+  end
+
+  def test_sales_engine_loads_transactions
+    assert_instance_of Transaction, engine.transactions.all[0]
+    assert_instance_of Transaction, engine.transactions.all[-1]
+    assert_equal 4985, engine.transactions.all.length
   end
 
   def test_sales_engine_finds_merchant_by_id
@@ -88,5 +100,29 @@ class SalesEngineTest < Minitest::Test
 
     assert_instance_of Merchant, merchant
     assert_equal 12336163, invoice.merchant.id
+  end
+
+  def test_invoice_items_returns_invoice_related_invoice_items
+    invoice = engine.invoices.find_by_id(106)
+
+    expected = invoice.items
+    assert_equal 7, expected.length
+    assert_instance_of Item, expected.first
+  end
+
+  def test_invoice_transactions_returns_invoice_related_transactions
+    invoice = engine.invoices.find_by_id(106)
+
+    expected = invoice.transactions
+    assert_equal 1, expected.length
+    assert_instance_of Transaction, expected.first
+  end
+
+  def test_invoice_customer_returns_customer_related_to_invoice
+    invoice = engine.invoices.find_by_id(106)
+
+    expected = invoice.customer
+    assert_equal 22, expected.id
+    assert_instance_of Customer, expected
   end
 end

@@ -32,6 +32,18 @@ class InvoiceRepository
     @parent.find_merchant_from_invoice(merchant_id)
   end
 
+  def find_items_by_invoice(id)
+    @parent.find_items_by_invoice(id)
+  end
+
+  def find_transactions_by_invoice(id)
+    @parent.find_transactions_by_invoice(id)
+  end
+
+  def find_customer_by_invoice(id)
+    @parent.find_customer_by_invoice(id)
+  end
+
   def inspect
     "#{self.class}"
   end
