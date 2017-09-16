@@ -4,26 +4,34 @@ require 'pry'
 
 class InvoiceItemRepository
 
-  attr_reader :data
+  attr_reader :all
 
   def initialize
-    @data = []
+    @all = []
   end
 
   def from_csv(file_path)
     CSV.foreach(file_path, headers: true, :header_converters => :symbol) do |row|
-      @data << InvoiceItem.new(row)
-      # binding.pry
+      @all << InvoiceItem.new(row)
     end
-    @data
   end
+
+  def find_by_id(id)
+    @all.find do |invoice_item|
+      invoice_item.id == id
+    end
+  end
+
+  def find_all_by_item_id(item_id)
+    @all.find_all do |invoice_item|
+      invoice_item.item_id == item_id
+    end
+  end
+
+  def find_all_by_invoice_id(invoice_id)
+    @all.find_all do |invoice_item|
+      invoice_item.invoice_id == invoice_id
+    end
+  end
+
 end
-
-
-
-
-
-# require from_csv
-# within csv method call on the invoice_item_truncated_file
-# Iterate through each line, create an individual instance of invoice item
-# then just call on the first instance
