@@ -1,6 +1,4 @@
 require_relative 'test_helper'
-# require './lib/merchant'
-# require './lib/sales_engine'
 require_relative '../lib/merchant'
 require_relative '../lib/sales_engine'
 
