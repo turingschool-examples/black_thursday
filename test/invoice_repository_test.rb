@@ -6,7 +6,7 @@ class InvoiceRepositoryTest < Minitest::Test
   attr_reader :ir
 
   def setup
-    @ir = InvoiceRepository.new('./test/fixtures/invoices_truncated_10.csv')
+    @ir = InvoiceRepository.new('./test/fixtures/invoices_truncated_56.csv')
   end
 
   def test_it_exists
@@ -18,10 +18,10 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_load_csv
-    assert_equal 10, ir.invoices.length
-    actual = ir.load_csv('./test/fixtures/invoices_truncated_10.csv')
+    assert_equal 56, ir.invoices.length
+    actual = ir.load_csv('./test/fixtures/invoices_truncated_56.csv')
 
-    assert_equal 20, ir.invoices.length
+    assert_equal 112, ir.invoices.length
   end
 
   def test_invoices_returns_array
@@ -29,7 +29,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
     assert_instance_of Invoice, actual[0]
     assert_instance_of Invoice, actual[-1]
-    assert_equal 10, actual.length
+    assert_equal 56, actual.length
   end
 
   def test_all_returns_array_of_all_invoices
@@ -37,7 +37,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
     assert_instance_of Invoice, actual[0]
     assert_instance_of Invoice, actual[-1]
-    assert_equal 10, actual.length
+    assert_equal 56, actual.length
   end
 
   def test_find_by_id_returns_nil_with_invalid_id
@@ -48,7 +48,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_find_by_id_returns_invoice_with_valid_id
     actual = ir.find_by_id(10)
-    expected = ir.invoices[-1]
+    expected = ir.invoices[9]
 
     assert_equal expected, actual
   end
@@ -61,7 +61,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_find_all_by_customer_id_returns_customer_with_valid_customer_id
     actual = ir.find_all_by_customer_id(2)
-    expected = [ir.invoices[-2], ir.invoices[-1]]
+    expected = [ir.invoices[8], ir.invoices[9]]
 
     assert_equal expected, actual
   end
@@ -74,7 +74,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_find_all_by_merchant_id_returns_merchants_array_with_valid_merchant_id
     actual = ir.find_all_by_merchant_id(12334105)
-    expected = [ir.invoices[-2], ir.invoices[-1]]
+    expected = [ir.invoices[0]]
 
     assert_equal expected, actual
   end
@@ -85,9 +85,9 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal [], actual
   end
 
-  def test_find_all_by_status_returns_empty_array_with_invalid_status
+  def test_find_all_by_status_returns_array_of_invoices_with_valid_status_search
     actual = ir.find_all_by_status("shipped")
-    expected = [ir.invoices[1], ir.invoices[2], ir.invoices[-3], ir.invoices[-2]]
+    expected = [ir.invoices[1], ir.invoices[2], ir.invoices[8], ir.invoices[9]]
 
     assert_equal expected, actual
   end

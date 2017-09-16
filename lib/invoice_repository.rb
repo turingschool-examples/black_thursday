@@ -47,11 +47,4 @@ class InvoiceRepository
   end
 
 
-
-
-
-
-
-
-
 end

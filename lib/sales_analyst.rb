@@ -75,6 +75,18 @@ class SalesAnalyst
       item.unit_price > bar
     end
   end
+  #
+  def average_invoices_per_merchant
+    @engine.invoices.all.count.to_f / @engine.merchants.all.count.to_f
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    squared  = @engine.merchants.all.map do |merchant|
+      (merchant.invoices.count - average_invoices_per_merchant) ** 2
+    end
+    divided = squared.inject(:+) / (@engine.merchants.merchants.count - 1)
+    Math.sqrt(divided)
+  end
 
 
 
