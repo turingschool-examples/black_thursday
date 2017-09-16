@@ -15,7 +15,7 @@ class Item
               :merchant_id,
               :item_repository
 
-  def initialize(ir, csv_info)
+  def initialize(item_repositoryr, csv_info)
     @id = csv_info[:id].to_i
     @name = csv_info[:name]
     @description = csv_info[:description]
@@ -24,7 +24,7 @@ class Item
     @created_at = Time.parse(csv_info[:created_at].to_s)
     @updated_at = Time.parse(csv_info[:updated_at].to_s)
     @merchant_id = csv_info[:merchant_id].to_i
-    @item_repository = ir
+    @item_repository = item_repository
   end
 
   def unit_price_to_dollars(unit_price)
@@ -33,16 +33,16 @@ class Item
   end
 
   def merchant
-    #merchant_repository.sales_engine.items.find_all_by_merchant_id(id)
-    #item_repository.se.merchants.find_by_id(id)
+     #merchant_repository.sales_engine.items.find_all_by_merchant_id(id)
+     #item_repository.se.merchants.find_by_id(id)
 
-    id = merchant_id.to_i
+     id = merchant_id.to_i
 
-    return 0 if id.nil?
-    se = item_repository.se
-    merchants = se.merchants
-    #binding.pry
-    merchants.find_by_id(id)
+     return 0 if id.nil?
+     se = item_repository.se
+     merchants = se.merchants
+     #binding.pry
+     merchants.find_by_id(id)
   end
 
 end

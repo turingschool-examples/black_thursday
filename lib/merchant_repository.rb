@@ -7,9 +7,9 @@ class MerchantRepository
 
   attr_reader :all, :sales_engine
 
-  def initialize(se, merchant_csv)
+  def initialize(sales_engine, merchant_csv)
     @all = []
-    @sales_engine = se
+    @sales_engine = sales_engine.
 
     CSV.foreach(merchant_csv, headers: true, header_converters: :symbol) do |row|
       @all << Merchant.new(self, row)

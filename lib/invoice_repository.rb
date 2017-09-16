@@ -7,9 +7,9 @@ class InvoiceRepository
 
   attr_reader :all, :invoices
 
-  def initialize(se, invoice_csv)
+  def initialize(sales_engine., invoice_csv)
     @all = []
-    @se = se
+    @sales_engine = sales_engine
     CSV.foreach(invoice_csv, headers: true, header_converters: :symbol) do |row|
       all << Invoice.new(self, row)
     end
@@ -57,5 +57,5 @@ class InvoiceRepository
   def inspect
     "#<#{self.class} #{:invoices.size} rows>"
   end
-  
+
 end

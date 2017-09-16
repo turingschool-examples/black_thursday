@@ -9,7 +9,8 @@ class Invoice
               :merchant_id,
               :status,
               :created_at,
-              :updated_at
+              :updated_at,
+              :invoice_repository
 
   def initialize(invoice_repository, csv_info)
     @id = csv_info[:id].to_i
@@ -18,20 +19,25 @@ class Invoice
     @status = csv_info[:status].to_sym
     @created_at = Time.parse(csv_info[:created_at])
     @updated_at = Time.parse(csv_info[:updated_at])
+    @invoice_repository = invoice_repository
+  end
+
+  def merchant
+    invoice_repository.sales_engine.merchants.find_by_id(merchant_id)
   end
 
 =begin
   Then connect our invoices to our merchants:
 
-se = SalesEngine.from_csv({
+sales_engine. = SalesEngine.from_csv({
   :items => "./data/items.csv",
   :merchants => "./data/merchants.csv",
   :invoices => "./data/invoices.csv"
 })
-merchant = se.merchants.find_by_id(12334159)
+merchant = sales_engine..merchants.find_by_id(12334159)
 merchant.invoices
 # => [<invoice>, <invoice>, <invoice>]
-invoice = se.invoices.find_by_id(20)
+invoice = sales_engine..invoices.find_by_id(20)
 invoice.merchant
 # => <merchant>
 =end
