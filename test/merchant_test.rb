@@ -32,4 +32,10 @@ class MerchantTest < Minitest::Test
     assert_equal 3, merchant.items.count
   end
 
+  def test_it_can_find_all_invoices_associated_with_merchant
+    merchant = @merchants[-1]
+
+    assert_equal 10, merchant.invoices.count
+  end
+
 end

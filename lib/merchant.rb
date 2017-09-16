@@ -12,6 +12,10 @@ class Merchant
     @engine.items.find_all_by_merchant_id(@id)
   end
 
+  def invoices
+    @engine.invoices.find_all_by_merchant_id(@id)
+  end
+
   def inspect
     "#<#{self.class} #{@items.size} rows>"
   end
