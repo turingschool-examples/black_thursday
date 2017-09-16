@@ -1,19 +1,9 @@
 require 'bigdecimal'
-require 'time'
 
 require_relative 'repository/record'
 
 
 class Item < Repository::Record
-
-  def self.singular
-    :item
-  end
-
-  def self.plural
-    :items
-  end
-
 
   attr_reader :name, :description, :unit_price, :merchant_id
   def initialize(repo, fields)
