@@ -5,7 +5,7 @@ require 'csv'
 
 class InvoiceRepository
 
-  attr_reader :all, :invoices
+  attr_reader :all, :invoices, :sales_engine
 
   def initialize(sales_engine, invoice_csv)
     @all = []
