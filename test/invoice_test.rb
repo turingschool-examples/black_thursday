@@ -91,4 +91,12 @@ class InvoiceTest < Minitest::Test
     assert_instance_of Time, invoice.created_at
   end
 
+  def test_merchant_returns_a_single_merchant
+    assert_instance_of Merchant, invoice_74.merchant
+  end
+
+  def test_merchant_has_id_same_as_merchant_id
+    assert_equal invoice_74_expected[:merchant_id], invoice_74.merchant.id
+  end
+
 end
