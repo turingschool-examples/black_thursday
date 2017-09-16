@@ -40,7 +40,7 @@ class Item
 
     return 0 if id.nil?
     se = item_repository.se
-    merchants = se.merchants
+    merchants = sales_engine.merchants
     #binding.pry
     merchants.find_by_id(id)
   end

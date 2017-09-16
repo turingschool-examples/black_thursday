@@ -4,11 +4,11 @@ require 'csv'
 
 class ItemRepository
 
-  attr_reader :all, :items, :se
+  attr_reader :all, :items, :sales_engine
 
-  def initialize(se, item_csv)
+  def initialize(sales_engine., item_csv)
     @all = []
-    @se = se
+    @sales_engine. = sales_engine.
     CSV.foreach(item_csv, headers: true, header_converters: :symbol) do |row|
       all << Item.new(self, row)
     end
