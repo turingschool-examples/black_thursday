@@ -12,10 +12,10 @@ class Invoice
               :updated_at
 
   def initialize(invoice_repository, csv_info)
-    @id = csv_info[:id]
-    @customer_id = csv_info[:customer_id]
-    @merchant_id = csv_info[:merchant_id]
-    @status = csv_info[:status]
+    @id = csv_info[:id].to_i
+    @customer_id = csv_info[:customer_id].to_i
+    @merchant_id = csv_info[:merchant_id].to_i
+    @status = csv_info[:status].to_sym
     @created_at = Time.parse(csv_info[:created_at])
     @updated_at = Time.parse(csv_info[:updated_at])
   end
