@@ -3,6 +3,7 @@ require_relative '../lib/sales_analyst'
 require_relative '../lib/sales_engine'
 require_relative '../lib/merchant_repo'
 require_relative '../lib/item_repo'
+require 'bigdecimal'
 
 class SalesAnalystTest < Minitest::Test
   attr_reader :sa
@@ -27,7 +28,7 @@ class SalesAnalystTest < Minitest::Test
   def test_find_averages
     set_up
 
-    assert_equal 6, sa.find_averages.count
+    assert_equal 6, sa.find_all_averages_by_merchant.count
   end
 
   def test_standard_deviation
@@ -46,4 +47,19 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 85, sales_a.merchants_with_high_item_count.count
   end
 
+  def test_average_item_price_for_merchant
+    files = ({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    se = SalesEngine.from_csv(files)
+    sales_a = SalesAnalyst.new(se)
+
+    assert_equal  0.315e2, sales_a.average_item_price_for_merchant(12334159)
+  end
+
+  def test_average_average_price_per_merchant
+    files = ({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    se = SalesEngine.from_csv(files)
+    sales_a = SalesAnalyst.new(se)
+
+    assert_equal BigDecimal.new('0.350294697495132463357977937150568421052631578947e3'), sales_a.average_average_price_per_merchant
+  end
 end

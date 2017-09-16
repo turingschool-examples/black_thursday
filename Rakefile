@@ -1,13 +1,6 @@
 require 'rake'
 require 'rake/testtask'
 
-# Rake::TestTask.new do |t|
-#   t.test_files = FileList['test/**/*_test.rb']
-# end
-#
-# desc "Run tests"
-# task default: :test
-
 namespace :sanitation do
   desc "Check line lengths & whitespace with Cane"
   task :lines do
