@@ -5,7 +5,7 @@ class ItemTest < Minitest::Test
   attr_reader :item_one
 
   def setup 
-    @item_one = Item.new({ :id          => 1,
+    @item_one = Item.new({ :id         => 1,
                           :name        => "Pencil",
                           :description => "You can use it to write things",
                           :unit_price  => 1099,
