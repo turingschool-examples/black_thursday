@@ -130,6 +130,15 @@ class SalesAnalystTest < Minitest::Test
     assert_equal ["Wednesday", "Thursday", "Friday", "Saturday"], @analyst.top_days_by_invoice_count
   end
 
+  def test_it_creates_a_hash_with_invoice_status_counts
+    assert_equal ({:returned => 4, :pending => 4, :shipped => 6}), @analyst.invoice_status_count
+  end
+
   def test_it_can_find_percentage_of_invoices_shipped
+    skip
+    assert_equal 28.57, @analyst.invoice_status(:returned)
+    assert_equal 28.57, @analyst.invoice_status(:pending)
+    assert_equal 42.86, @analyst.invoice_status(:shipped)
+  end
 
 end

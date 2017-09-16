@@ -192,6 +192,25 @@ class SalesAnalyst
     indices.compact.map do |index|
       week[index]
     end
+
+  end
+
+  def invoice_status_count
+    statuses = {:returned => 0, :pending => 0, :shipped => 0}
+    invoice_repo = @engine.invoices
+    invoices = invoice_repo.invoices
+    invoices.each do |invoice|
+      if invoice.status == "returned"
+        statuses[:returned] += 1
+      elsif invoice.status == "pending"
+        statuses[:pending] += 1
+      else
+        statuses[:shipped] += 1
+      end
+
+    end
+    statuses
+
   end
 
 
