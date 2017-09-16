@@ -70,7 +70,7 @@ class SalesAnalyst
                   end
     total_item_prices = item_prices.sum
     return 0.00 if total_items.length == 0
-    (total_item_prices / total_items.length)
+    total_item_prices / total_items.length
   end
 
   def average_item_price_for_merchant(merchant_id)
@@ -79,13 +79,10 @@ class SalesAnalyst
 
   def average_average_price_per_merchant
     average_price_array = se.merchants.all.map do |merchant|
-
                             average_item_price_for_merchant_unrounded(merchant.id)
                           end
     sum_averages = average_price_array.sum
-    average_average = (sum_averages / se.merchants.all.count)
-    puts average_average.class
-    '%.2f' % average_average
+    (sum_averages / se.merchants.all.count).floor(2)
   end
 
 
@@ -100,7 +97,6 @@ class SalesAnalyst
   def square_each_item_average_difference
     calculation_item_array_sum = 0
     se.items.all.each do |item|
-      # binding.pry
       calculation_item_array_sum += ((item.unit_price_float) - (average_item_price)) ** 2
     end
     calculation_item_array_sum

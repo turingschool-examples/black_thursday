@@ -14,7 +14,7 @@ class TestSalesAnalyst < Minitest::Test
 
   def setup
     csv_hash = {
-      :items     => "./test/test_data/items_medium.csv",
+      :items     => "./test/test_data/items_short.csv",
       :merchants => "./test/test_data/merchants_short.csv",
     }
     se = SalesEngine.from_csv(csv_hash)
@@ -43,7 +43,7 @@ class TestSalesAnalyst < Minitest::Test
   end
 
   def test_it_sums_averages_across_merchants_and_averages
-    assert_equal BigDecimal.new(18.41, 4), sa.average_average_price_per_merchant
+    assert_equal BigDecimal.new(3.31, 4), sa.average_average_price_per_merchant
   end
 
   def test_it_finds_average_item_price_for_merchant
@@ -59,7 +59,15 @@ class TestSalesAnalyst < Minitest::Test
   end
 
   def test_it_returns_golden_items
-    assert_equal [""], sa.golden_items
+    csv_hash = {
+      :items     => "./test/test_data/items_medium.csv",
+      :merchants => "./test/test_data/merchants_short.csv",
+    }
+    se = SalesEngine.from_csv(csv_hash)
+    sa_medium_items = SalesAnalyst.new(se)
+    assert_instance_of Array, sa_medium_items.golden_items
+    assert_instance_of Item, sa_medium_items.golden_items[0]
+    assert_equal "Test listing", sa_medium_items.golden_items[0].name
   end
 
 end
