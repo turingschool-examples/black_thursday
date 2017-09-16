@@ -17,4 +17,9 @@ class Invoice
     @updated_at = information[:updated_at]
     @parent = parent
   end
+
+  def merchant
+    sales_engine = @parent.parent
+    sales_engine.merchants.find_by_id(@merchant_id)
+  end
 end
