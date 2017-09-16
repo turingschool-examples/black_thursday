@@ -54,4 +54,18 @@ class SalesEngine
   def find_customer_by_invoice(id)
     @customers.find_by_id(id)
   end
+
+  def find_invoice_by_transaction_id(id)
+    @invoices.find_by_id(id)
+  end
+
+  def find_all_customers_per_merchant(id)
+    invoices = @invoices.find_all_by_merchant_id(id)
+    invoices.map {|invoice| @customers.find_by_id(invoice.customer_id)}.uniq
+  end
+
+  def find_merchants_by_customer(id)
+    invoices = @invoices.find_all_by_customer_id(id)
+    invoices.map {|invoice| @merchants.find_by_id(invoice.merchant_id)}
+  end
 end

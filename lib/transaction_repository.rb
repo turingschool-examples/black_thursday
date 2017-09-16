@@ -30,6 +30,10 @@ class TransactionRepository
     all.select { |transaction| transaction.result == result}
   end
 
+  def find_invoice_by_transaction_id(id)
+    @parent.find_invoice_by_transaction_id(id)
+  end
+
   def inspect
     "#{self.class}"
   end
