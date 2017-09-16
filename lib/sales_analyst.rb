@@ -5,12 +5,13 @@ require 'bigdecimal'
 
 class SalesAnalyst
 
-  attr_reader :merchants, :items, :price
+  attr_reader :merchants, :items, :price, :invoices
 
   def initialize(sales_engine)
     # binding.pry
     @merchants     = sales_engine.merchants
     @items         = sales_engine.items
+    @invoices      = sales_engine.invoices
   end
 
   def self.from_csv(sales_engine)
@@ -55,7 +56,28 @@ class SalesAnalyst
     end
     total_average = (@totals.reduce(:+) / @totals.count) / 100
     total_average.round(2)
+  end
 
+  def average_invoices_per_merchant
+    num_1 = invoices.all.count.to_f
+    num_2 = merchants.all.count.to_f
+    average = num_1 / num_2
+    average.round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    standard_dev = merchants.all.map do |merchant|
+      (merchant.invoices.count - average_invoices_per_merchant)**2
     end
+    Math.sqrt(standard_dev.inject(0,:+) / merchants.all.count).round(2)
+  end
+
+  def top_merchants_by_invoice_count
+    top_merchants = invoices.all.map do |invoice|
+      if invoice.merchant_id == invoice.merchant_id + average_invoices_per_merchant_standard_deviation * 2
+        invoice
+      end
+    end
+  end
 
 end
