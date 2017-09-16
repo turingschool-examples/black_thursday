@@ -1,6 +1,7 @@
 
 require_relative "item_repository"
 require_relative "merchant_repository"
+require_relative "invoice_repository"
 require_relative "sales_analyst"
 
 class SalesEngine
@@ -9,7 +10,8 @@ class SalesEngine
   def self.from_csv(file_names)
     @item_file = file_names[:items]
     @merchant_file = file_names[:merchants]
-    SalesEngine.new(@item_file, @merchant_file)
+    @invoice_file = file_names[:invoices]
+    SalesEngine.new(@item_file, @merchant_file, @invoice_file)
   end
 
   def initialize(item_csv, merchant_csv, invoice_csv)

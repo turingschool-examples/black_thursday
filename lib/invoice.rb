@@ -9,15 +9,21 @@ class Invoice
               :merchant_id,
               :status,
               :created_at,
-              :updated_at
+              :updated_at,
+              :invoice_repository
 
   def initialize(invoice_repository, csv_info)
-    @id = csv_info[:id]
-    @customer_id = csv_info[:customer_id]
-    @merchant_id = csv_info[:merchant_id]
+    @id = csv_info[:id].to_i
+    @customer_id = csv_info[:customer_id].to_i
+    @merchant_id = csv_info[:merchant_id].to_i
     @status = csv_info[:status]
     @created_at = Time.parse(csv_info[:created_at])
     @updated_at = Time.parse(csv_info[:updated_at])
+    @invoice_repository = invoice_repository
+  end
+
+  def merchant
+    invoice_repository.sales_engine.merchants.find_by_id(merchant_id)
   end
 
 =begin
