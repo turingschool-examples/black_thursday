@@ -61,7 +61,8 @@ class SalesAnalystTest < MiniTest::Test
 
   def test_standard_deviation_for_golden_items
     se = SalesEngine.new({merchants:"./data/merchants.csv",
-    items:"./data/items.csv"})
+    items:"./data/items.csv",
+    invoices:"./data/invoices.csv"})
     sa = SalesAnalyst.new(se)
 
     assert_equal 291154.08, sa.find_standard_deviation_of_average_item_price
@@ -69,7 +70,8 @@ class SalesAnalystTest < MiniTest::Test
 
   def test_golden_items
     se = SalesEngine.new({merchants:"./data/merchants.csv",
-    items:"./data/items.csv"})
+    items:"./data/items.csv",
+    invoices:"./data/invoices.csv"})
     sa = SalesAnalyst.new(se)
 
     assert_equal 5, sa.golden_items.count
