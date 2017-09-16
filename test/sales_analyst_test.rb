@@ -43,8 +43,9 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_golden_items_returns_items_2_standard_deviations_from_average
-    
-    # assert_equal [<item>, <item>, <item>, <item>], sales_analyst.golden_items
+
+    assert_equal 1, sales_analyst.golden_items.count
+    assert_equal "Cherry", sales_analyst.golden_items.first.name
   end
 
 
