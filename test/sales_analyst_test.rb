@@ -231,4 +231,42 @@ class SalesAnalystTest < Minitest::Test
     expected = sa.invoice_status(:returned)
     assert_equal 13.5, expected
   end
+
+
+  def test_invoice_is_paid_in_full_returns_bool 
+    expected_1 = sa.engine.invoices.find_by_id(1).is_paid_in_full?
+    expected_2 = sa.engine.invoices.find_by_id(200).is_paid_in_full?
+    expected_3 = sa.engine.invoices.find_by_id(203).is_paid_in_full?
+    expected_4 = sa.engine.invoices.find_by_id(204).is_paid_in_full?
+
+    assert expected_1
+    assert expected_2 
+    refute expected_3
+    refute expected_4
+  end
 end
+
+# context "Business Intelligence" do
+#   it "invoice#is_paid_in_full? returns true if the invoice is paid in full" do
+#     expected = engine.invoices.find_by_id(1).is_paid_in_full?
+#     expect(expected).to eq true
+
+#     expected = engine.invoices.find_by_id(200).is_paid_in_full?
+#     expect(expected).to eq true
+
+#     expected = engine.invoices.find_by_id(203).is_paid_in_full?
+#     expect(expected).to eq false
+
+#     expected = engine.invoices.find_by_id(204).is_paid_in_full?
+#     expect(expected).to eq false
+#   end
+
+#   it "invoice#total returns the total dollar amount if the invoice is paid in full" do
+#     invoice = engine.invoices.all.first
+#     expected = invoice.total
+
+#     expect(invoice.is_paid_in_full?).to eq true
+#     expect(expected).to eq 21067.77
+#     expect(expected.class).to eq BigDecimal
+#   end
+# end
