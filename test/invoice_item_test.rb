@@ -7,8 +7,6 @@ require './lib/invoice_item'
 
 class InvoiceItemTest < Minitest::Test
 
-unit_price_to_dollars - returns the price of the invoice item in dollars formatted as a Float
-
   def new_invoice(data)
     Fixture.new_record(:invoiceitem, data)
   end
@@ -39,6 +37,7 @@ unit_price_to_dollars - returns the price of the invoice item in dollars formatt
       created_at:  '2012-03-27 14:54:09 UTC',
       updated_at:  '2012-03-27 14:54:09 UTC'
       })
+  end
 
   def test_it_has_an_Integer_for_an_id
     assert_equal 1 , invoice_item_263519844.id
@@ -71,4 +70,5 @@ unit_price_to_dollars - returns the price of the invoice item in dollars formatt
   def test_unit_price_to_dollars_returns_the_price_of_the_invoice
     assert_equal 10.99 , invoice_item_263519844.unit_price_to_dollars
   end
+
 end
