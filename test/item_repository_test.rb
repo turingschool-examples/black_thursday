@@ -12,7 +12,7 @@ class ItemRepositoryTest < Minitest::Test
     @item_repo = Fixture.repo(:items)
   end
 
-  def test_it_takes_an_array_of_items
+  def test_it_takes_a_sales_engine_and_array_of_item_data
     assert_instance_of ItemRepository, item_repo
   end
 

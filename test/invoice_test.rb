@@ -6,26 +6,22 @@ require './lib/invoice'
 
 class InvoiceTest < Minitest::Test
 
-  def setup
-    @se = sales_engine
-  end
-
-  def find_invoice(id = 1)
-    Fixture.record(:invoices, id)
-  end
-
   def new_invoice(data)
-    Fixture.new_record(data)
+    Fixture.new_record(:invoices, data)
   end
 
-  def invoice_1_data(field)
+  def invoice_74
+    Fixture.find_record(:invoices, 74)
+  end
+
+  def invoice_74_expected
     {
-      id: 1,
-      merchant_id: 12335938,
-      customer_id: 1,
-      status: :pending,
-      created_at: Time.parse('2009-02-07'),
-      updated_at: Time.parse('2014-03-15')
+      id: 74,
+      customer_id: 14,
+      merchant_id: 12334105,
+      status: :returned,
+      created_at: Time.parse('2005-01-03'),
+      updated_at: Time.parse('2005-04-20')
     }
   end
 
@@ -43,23 +39,23 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_it_has_an_Integer_id
-    assert_same 2, find_invoice(2).id
+    assert_equal 74, invoice_74.id
   end
 
   def test_it_has_an_Integer_merchant_id
-    assert_same invoice_1_data[:merchant_id], invoice.merchant_id
+    assert_equal invoice_74_expected[:merchant_id], invoice_74.merchant_id
   end
 
   def test_it_has_an_Integer_customer_id
-    assert_same invoice_1_data[:customer_id], invoice.customer_id
+    assert_equal invoice_74_expected[:customer_id], invoice_74.customer_id
   end
 
   def test_it_has_a_Time_created_at
-    assert_same invoice_1_data[:created_at], invoice.created_at
+    assert_equal invoice_74_expected[:created_at], invoice_74.created_at
   end
 
-  def test_it_has_a_Time_created_at
-    assert_same invoice_1_data[:updated_at], invoice.updated_at
+  def test_it_has_a_Time_updated_at
+    assert_equal invoice_74_expected[:updated_at], invoice_74.updated_at
   end
 
   def test_id_defaults_to_Integer
