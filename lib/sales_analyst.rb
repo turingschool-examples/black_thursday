@@ -112,7 +112,7 @@ include StandardDeviation
     average = average_invoices_per_day.round(2)
     invoice_count_by_day = number_of_invoices_by_day
     std_dev = daily_invoice_standard_deviation.ceil
-    require "pry"; binding.pry
+
     top_days = invoice_count_by_day.select do |day, number|
       invoice_count_by_day[day] > (average + std_dev)
     end
