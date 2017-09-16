@@ -94,6 +94,28 @@ class SalesAnalyst
     all_items.find_all {|item| item.unit_price > standard_deviation + 2}
   end
 
+  def average_invoices_per_merchant
+    invoice_count = @engine.invoices.invoices.count
+    merchant_count = @engine.merchants.merchants.count
+
+    ((invoice_count.to_f / merchant_count.to_f)).round(2)
+  end
+
+  def sum_of_square_differences_invoice_count(merchant_repo, mean)
+    merchants = merchant_repo.merchants
+    merchants.reduce(0) do |result, merchant|
+      difference_squared = (mean - merchant.invoices.count) ** 2
+      result + difference_squared
+    end
+  end
+
+  def average_invoice_count_standard_deviation
+    merchant_repo = @engine.merchants
+    mean = average_invoices_per_merchant
+    sum = sum_of_square_differences_invoice_count(merchant_repo, mean)
+    sample_variance = find_sample_variance(merchant_repo, sum)
+    (Math.sqrt(sample_variance)).round(2)
+  end
 
 
   # def inspect

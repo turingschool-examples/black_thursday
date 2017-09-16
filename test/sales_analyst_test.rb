@@ -70,8 +70,22 @@ class SalesAnalystTest < Minitest::Test
 
   def test_golden_items_returns_array_of_items_two_standard_deviations_above_in_price
     golden_items = @analyst.golden_items
-    
+
     assert_equal 2, golden_items.count
+  end
+
+  def test_it_can_find_average_invoices_per_merchant
+    assert_equal 3.5, @analyst.average_invoices_per_merchant
+  end
+
+  def test_it_can_find_sum_of_square_differences_for_invoice_count
+    merchant_repo = @engine.merchants
+
+    assert_equal 57, @analyst.sum_of_square_differences_invoice_count(merchant_repo, 3.5)
+  end
+
+  def test_it_can_find_standard_deviation_for_merchant_invoices
+    assert_equal 4.36, @analyst.average_invoice_count_standard_deviation
   end
 
 end

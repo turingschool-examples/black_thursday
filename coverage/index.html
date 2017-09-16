@@ -14,27 +14,27 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2017-09-16T11:27:57-06:00">2017-09-16T11:27:57-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2017-09-16T12:37:59-06:00">2017-09-16T12:37:59-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="yellow">81.82%</span></span>
+    (<span class="covered_percent"><span class="yellow">83.47%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         13.08
+         16.07
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>10</b> files in total.
-    <b>231</b> relevant lines. 
-    <span class="green"><b>189</b> lines covered</span> and
-    <span class="red"><b>42</b> lines missed </span>
+    <b>248</b> relevant lines. 
+    <span class="green"><b>207</b> lines covered</span> and
+    <span class="red"><b>41</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -57,7 +57,7 @@
         <td>8</td>
         <td>8</td>
         <td>0</td>
-        <td>44.0</td>
+        <td>58.6</td>
       </tr>
       
       <tr>
@@ -67,17 +67,17 @@
         <td>14</td>
         <td>13</td>
         <td>1</td>
-        <td>72.4</td>
+        <td>105.4</td>
       </tr>
       
       <tr>
         <td class="strong"><a href="#c13bcf16b27a81e76a99a4ce5a77c0457ab9b5d6" class="src_link" title="lib/invoice_repository.rb">lib/invoice_repository.rb</a></td>
-        <td class="red strong">67.86 %</td>
+        <td class="red strong">71.43 %</td>
         <td>48</td>
         <td>28</td>
-        <td>19</td>
-        <td>9</td>
-        <td>2.3</td>
+        <td>20</td>
+        <td>8</td>
+        <td>3.0</td>
       </tr>
       
       <tr>
@@ -87,7 +87,7 @@
         <td>20</td>
         <td>19</td>
         <td>1</td>
-        <td>24.5</td>
+        <td>30.5</td>
       </tr>
       
       <tr>
@@ -97,17 +97,17 @@
         <td>34</td>
         <td>23</td>
         <td>11</td>
-        <td>3.6</td>
+        <td>4.0</td>
       </tr>
       
       <tr>
         <td class="strong"><a href="#9f5814e575f1dd4cd3a0e7b4d2f641bc1ca4fbb1" class="src_link" title="lib/merchant.rb">lib/merchant.rb</a></td>
-        <td class="yellow strong">90.0 %</td>
-        <td>20</td>
-        <td>10</td>
-        <td>9</td>
+        <td class="green strong">91.67 %</td>
+        <td>24</td>
+        <td>12</td>
+        <td>11</td>
         <td>1</td>
-        <td>18.1</td>
+        <td>18.8</td>
       </tr>
       
       <tr>
@@ -117,17 +117,17 @@
         <td>26</td>
         <td>18</td>
         <td>8</td>
-        <td>2.4</td>
+        <td>2.8</td>
       </tr>
       
       <tr>
         <td class="strong"><a href="#ee7c0f6d26d131db4c1b4885b62974a6cea3a714" class="src_link" title="lib/sales_analyst.rb">lib/sales_analyst.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>103</td>
-        <td>62</td>
-        <td>62</td>
+        <td>125</td>
+        <td>77</td>
+        <td>77</td>
         <td>0</td>
-        <td>5.6</td>
+        <td>5.0</td>
       </tr>
       
       <tr>
@@ -137,7 +137,7 @@
         <td>15</td>
         <td>11</td>
         <td>4</td>
-        <td>2.9</td>
+        <td>3.5</td>
       </tr>
       
       <tr>
@@ -147,7 +147,7 @@
         <td>14</td>
         <td>7</td>
         <td>7</td>
-        <td>24.7</td>
+        <td>33.9</td>
       </tr>
       
     </tbody>
@@ -210,8 +210,8 @@
           <code class="ruby">  def load_csv(csv_file_path)</code>
         </li>
       
-        <li class="covered" data-hits="36" data-linenumber="6">
-          <span class="hits">36</span>
+        <li class="covered" data-hits="45" data-linenumber="6">
+          <span class="hits">45</span>
           
           <code class="ruby">    CSV.read(&quot;#{csv_file_path}&quot;, headers: true, header_converters: :symbol)</code>
         </li>
@@ -234,20 +234,20 @@
           <code class="ruby">  def create_instances(csv_file_path, class_name, engine)</code>
         </li>
       
-        <li class="covered" data-hits="36" data-linenumber="10">
-          <span class="hits">36</span>
+        <li class="covered" data-hits="45" data-linenumber="10">
+          <span class="hits">45</span>
           
           <code class="ruby">    csv = load_csv(csv_file_path)</code>
         </li>
       
-        <li class="covered" data-hits="36" data-linenumber="11">
-          <span class="hits">36</span>
+        <li class="covered" data-hits="45" data-linenumber="11">
+          <span class="hits">45</span>
           
           <code class="ruby">    csv.map do |row|</code>
         </li>
       
-        <li class="covered" data-hits="240" data-linenumber="12">
-          <span class="hits">240</span>
+        <li class="covered" data-hits="330" data-linenumber="12">
+          <span class="hits">330</span>
           
           <code class="ruby">       Module.const_get(class_name).new(row, engine)</code>
         </li>
@@ -343,44 +343,44 @@
           <code class="ruby">  def initialize(invoice_info, engine)</code>
         </li>
       
-        <li class="covered" data-hits="144" data-linenumber="10">
-          <span class="hits">144</span>
+        <li class="covered" data-hits="210" data-linenumber="10">
+          <span class="hits">210</span>
           
           <code class="ruby">    @id = invoice_info[:id].to_i</code>
         </li>
       
-        <li class="covered" data-hits="144" data-linenumber="11">
-          <span class="hits">144</span>
+        <li class="covered" data-hits="210" data-linenumber="11">
+          <span class="hits">210</span>
           
           <code class="ruby">    @customer_id = invoice_info[:customer_id].to_i</code>
         </li>
       
-        <li class="covered" data-hits="144" data-linenumber="12">
-          <span class="hits">144</span>
+        <li class="covered" data-hits="210" data-linenumber="12">
+          <span class="hits">210</span>
           
           <code class="ruby">    @status = invoice_info[:status]</code>
         </li>
       
-        <li class="covered" data-hits="144" data-linenumber="13">
-          <span class="hits">144</span>
+        <li class="covered" data-hits="210" data-linenumber="13">
+          <span class="hits">210</span>
           
           <code class="ruby">    @created_at = Time.parse(invoice_info[:created_at])</code>
         </li>
       
-        <li class="covered" data-hits="144" data-linenumber="14">
-          <span class="hits">144</span>
+        <li class="covered" data-hits="210" data-linenumber="14">
+          <span class="hits">210</span>
           
           <code class="ruby">    @updated_at = Time.parse(invoice_info[:updated_at])</code>
         </li>
       
-        <li class="covered" data-hits="144" data-linenumber="15">
-          <span class="hits">144</span>
+        <li class="covered" data-hits="210" data-linenumber="15">
+          <span class="hits">210</span>
           
           <code class="ruby">    @merchant_id = invoice_info[:merchant_id].to_i</code>
         </li>
       
-        <li class="covered" data-hits="144" data-linenumber="16">
-          <span class="hits">144</span>
+        <li class="covered" data-hits="210" data-linenumber="16">
+          <span class="hits">210</span>
           
           <code class="ruby">    @engine = engine</code>
         </li>
@@ -406,7 +406,7 @@
         <li class="missed" data-hits="0" data-linenumber="20">
           
           
-          <code class="ruby">    @engine.invoices.find_by_id(@merchant_id)</code>
+          <code class="ruby">    @engine.merchants.find_by_id(@merchant_id)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="21">
@@ -429,11 +429,11 @@
         <div class="source_table" id="c13bcf16b27a81e76a99a4ce5a77c0457ab9b5d6">
   <div class="header">
     <h3>lib/invoice_repository.rb</h3>
-    <h4><span class="red">67.86 %</span> covered</h4>
+    <h4><span class="red">71.43 %</span> covered</h4>
     <div>
       <b>28</b> relevant lines. 
-      <span class="green"><b>19</b> lines covered</span> and
-      <span class="red"><b>9</b> lines missed.</span>
+      <span class="green"><b>20</b> lines covered</span> and
+      <span class="red"><b>8</b> lines missed.</span>
     </div>
   </div>
   
@@ -518,20 +518,20 @@
           <code class="ruby">  def initialize(csv_file_path, engine)</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="14">
-          <span class="hits">12</span>
+        <li class="covered" data-hits="15" data-linenumber="14">
+          <span class="hits">15</span>
           
           <code class="ruby">    @invoices = create_items(csv_file_path, engine)</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="15">
-          <span class="hits">12</span>
+        <li class="covered" data-hits="15" data-linenumber="15">
+          <span class="hits">15</span>
           
           <code class="ruby">    @engine = engine</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="16">
-          <span class="hits">12</span>
+        <li class="covered" data-hits="15" data-linenumber="16">
+          <span class="hits">15</span>
           
           <code class="ruby">    return self</code>
         </li>
@@ -554,8 +554,8 @@
           <code class="ruby">  def create_items(csv_file_path, engine)</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="20">
-          <span class="hits">12</span>
+        <li class="covered" data-hits="15" data-linenumber="20">
+          <span class="hits">15</span>
           
           <code class="ruby">    create_instances(csv_file_path, &#39;Invoice&#39;, engine)</code>
         </li>
@@ -626,8 +626,8 @@
           <code class="ruby">  def find_all_by_merchant_id(search_merchant_id)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="32">
-          
+        <li class="covered" data-hits="8" data-linenumber="32">
+          <span class="hits">8</span>
           
           <code class="ruby">    find_all_instances_by_merchant_id(@invoices, search_merchant_id)</code>
         </li>
@@ -813,50 +813,50 @@
           <code class="ruby">  def initialize(item_info, engine)</code>
         </li>
       
-        <li class="covered" data-hits="48" data-linenumber="12">
-          <span class="hits">48</span>
+        <li class="covered" data-hits="60" data-linenumber="12">
+          <span class="hits">60</span>
           
           <code class="ruby">    @id = item_info[:id].to_i</code>
         </li>
       
-        <li class="covered" data-hits="48" data-linenumber="13">
-          <span class="hits">48</span>
+        <li class="covered" data-hits="60" data-linenumber="13">
+          <span class="hits">60</span>
           
           <code class="ruby">    @name = item_info[:name]</code>
         </li>
       
-        <li class="covered" data-hits="48" data-linenumber="14">
-          <span class="hits">48</span>
+        <li class="covered" data-hits="60" data-linenumber="14">
+          <span class="hits">60</span>
           
           <code class="ruby">    @description = item_info[:description]</code>
         </li>
       
-        <li class="covered" data-hits="48" data-linenumber="15">
-          <span class="hits">48</span>
+        <li class="covered" data-hits="60" data-linenumber="15">
+          <span class="hits">60</span>
           
           <code class="ruby">    @unit_price = format_unit_price(item_info[:unit_price])</code>
         </li>
       
-        <li class="covered" data-hits="48" data-linenumber="16">
-          <span class="hits">48</span>
+        <li class="covered" data-hits="60" data-linenumber="16">
+          <span class="hits">60</span>
           
           <code class="ruby">    @created_at = Time.parse(item_info[:created_at])</code>
         </li>
       
-        <li class="covered" data-hits="48" data-linenumber="17">
-          <span class="hits">48</span>
+        <li class="covered" data-hits="60" data-linenumber="17">
+          <span class="hits">60</span>
           
           <code class="ruby">    @updated_at = Time.parse(item_info[:updated_at])</code>
         </li>
       
-        <li class="covered" data-hits="48" data-linenumber="18">
-          <span class="hits">48</span>
+        <li class="covered" data-hits="60" data-linenumber="18">
+          <span class="hits">60</span>
           
           <code class="ruby">    @merchant_id = item_info[:merchant_id].to_i</code>
         </li>
       
-        <li class="covered" data-hits="48" data-linenumber="19">
-          <span class="hits">48</span>
+        <li class="covered" data-hits="60" data-linenumber="19">
+          <span class="hits">60</span>
           
           <code class="ruby">    @engine = engine</code>
         </li>
@@ -879,14 +879,14 @@
           <code class="ruby">  def format_unit_price(unit_price_in_cents)</code>
         </li>
       
-        <li class="covered" data-hits="48" data-linenumber="23">
-          <span class="hits">48</span>
+        <li class="covered" data-hits="60" data-linenumber="23">
+          <span class="hits">60</span>
           
           <code class="ruby">    dollars = unit_price_in_cents.to_f / 100</code>
         </li>
       
-        <li class="covered" data-hits="48" data-linenumber="24">
-          <span class="hits">48</span>
+        <li class="covered" data-hits="60" data-linenumber="24">
+          <span class="hits">60</span>
           
           <code class="ruby">    BigDecimal.new(dollars, 4)</code>
         </li>
@@ -1060,20 +1060,20 @@
           <code class="ruby">  def initialize(csv_file_path, engine)</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="14">
-          <span class="hits">12</span>
+        <li class="covered" data-hits="15" data-linenumber="14">
+          <span class="hits">15</span>
           
           <code class="ruby">    @items = create_items(csv_file_path, engine)</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="15">
-          <span class="hits">12</span>
+        <li class="covered" data-hits="15" data-linenumber="15">
+          <span class="hits">15</span>
           
           <code class="ruby">    @engine = engine</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="16">
-          <span class="hits">12</span>
+        <li class="covered" data-hits="15" data-linenumber="16">
+          <span class="hits">15</span>
           
           <code class="ruby">    return self</code>
         </li>
@@ -1096,8 +1096,8 @@
           <code class="ruby">  def create_items(csv_file_path, engine)</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="20">
-          <span class="hits">12</span>
+        <li class="covered" data-hits="15" data-linenumber="20">
+          <span class="hits">15</span>
           
           <code class="ruby">    create_instances(csv_file_path, &#39;Item&#39;, engine)</code>
         </li>
@@ -1368,10 +1368,10 @@
         <div class="source_table" id="9f5814e575f1dd4cd3a0e7b4d2f641bc1ca4fbb1">
   <div class="header">
     <h3>lib/merchant.rb</h3>
-    <h4><span class="yellow">90.0 %</span> covered</h4>
+    <h4><span class="green">91.67 %</span> covered</h4>
     <div>
-      <b>10</b> relevant lines. 
-      <span class="green"><b>9</b> lines covered</span> and
+      <b>12</b> relevant lines. 
+      <span class="green"><b>11</b> lines covered</span> and
       <span class="red"><b>1</b> lines missed.</span>
     </div>
   </div>
@@ -1409,20 +1409,20 @@
           <code class="ruby">  def initialize(merchant_info, engine)</code>
         </li>
       
-        <li class="covered" data-hits="48" data-linenumber="6">
-          <span class="hits">48</span>
+        <li class="covered" data-hits="60" data-linenumber="6">
+          <span class="hits">60</span>
           
           <code class="ruby">    @id = merchant_info[:id].to_i</code>
         </li>
       
-        <li class="covered" data-hits="48" data-linenumber="7">
-          <span class="hits">48</span>
+        <li class="covered" data-hits="60" data-linenumber="7">
+          <span class="hits">60</span>
           
           <code class="ruby">    @name = merchant_info[:name]</code>
         </li>
       
-        <li class="covered" data-hits="48" data-linenumber="8">
-          <span class="hits">48</span>
+        <li class="covered" data-hits="60" data-linenumber="8">
+          <span class="hits">60</span>
           
           <code class="ruby">    @engine = engine</code>
         </li>
@@ -1466,13 +1466,13 @@
         <li class="covered" data-hits="1" data-linenumber="15">
           <span class="hits">1</span>
           
-          <code class="ruby">  def inspect</code>
+          <code class="ruby">  def invoices</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="16">
+        <li class="covered" data-hits="8" data-linenumber="16">
+          <span class="hits">8</span>
           
-          
-          <code class="ruby">    &quot;#&lt;#{self.class} #{@items.size} rows&gt;&quot;</code>
+          <code class="ruby">    @engine.invoices.find_all_by_merchant_id(@id)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="17">
@@ -1487,13 +1487,37 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="19">
+        <li class="covered" data-hits="1" data-linenumber="19">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def inspect</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="20">
+          
+          
+          <code class="ruby">    &quot;#&lt;#{self.class} #{@items.size} rows&gt;&quot;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="21">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="22">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="20">
+        <li class="never" data-hits="" data-linenumber="23">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="24">
           
           
           <code class="ruby">end</code>
@@ -1584,20 +1608,20 @@
           <code class="ruby">  def initialize(csv_file_path, engine)</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="12">
-          <span class="hits">12</span>
+        <li class="covered" data-hits="15" data-linenumber="12">
+          <span class="hits">15</span>
           
           <code class="ruby">    @merchants = create_merchants(csv_file_path, engine)</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="13">
-          <span class="hits">12</span>
+        <li class="covered" data-hits="15" data-linenumber="13">
+          <span class="hits">15</span>
           
           <code class="ruby">    @engine = engine</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="14">
-          <span class="hits">12</span>
+        <li class="covered" data-hits="15" data-linenumber="14">
+          <span class="hits">15</span>
           
           <code class="ruby">    return self</code>
         </li>
@@ -1620,8 +1644,8 @@
           <code class="ruby">  def create_merchants(csv_file_path, engine)</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="18">
-          <span class="hits">12</span>
+        <li class="covered" data-hits="15" data-linenumber="18">
+          <span class="hits">15</span>
           
           <code class="ruby">    create_instances(csv_file_path, &#39;Merchant&#39;, engine)</code>
         </li>
@@ -1804,8 +1828,8 @@
     <h3>lib/sales_analyst.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>62</b> relevant lines. 
-      <span class="green"><b>62</b> lines covered</span> and
+      <b>77</b> relevant lines. 
+      <span class="green"><b>77</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -1855,8 +1879,8 @@
           <code class="ruby">  def initialize(engine)</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="8">
-          <span class="hits">12</span>
+        <li class="covered" data-hits="15" data-linenumber="8">
+          <span class="hits">15</span>
           
           <code class="ruby">    @engine = engine</code>
         </li>
@@ -2011,8 +2035,8 @@
           <code class="ruby">  def find_sample_variance(merchant_repo, sum)</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="34">
-          <span class="hits">5</span>
+        <li class="covered" data-hits="6" data-linenumber="34">
+          <span class="hits">6</span>
           
           <code class="ruby">    sum / (merchant_repo.merchants.count-1)</code>
         </li>
@@ -2389,43 +2413,175 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="97">
+        <li class="covered" data-hits="1" data-linenumber="97">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby"></code>
+          <code class="ruby">  def average_invoices_per_merchant</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="98">
+        <li class="covered" data-hits="2" data-linenumber="98">
+          <span class="hits">2</span>
           
-          
-          <code class="ruby"></code>
+          <code class="ruby">    invoice_count = @engine.invoices.invoices.count</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="99">
+        <li class="covered" data-hits="2" data-linenumber="99">
+          <span class="hits">2</span>
           
-          
-          <code class="ruby">  # def inspect</code>
+          <code class="ruby">    merchant_count = @engine.merchants.merchants.count</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="100">
           
           
-          <code class="ruby">  #   &quot;#&lt;#{self.class} #{@items.size} rows&gt;&quot;</code>
+          <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="101">
+        <li class="covered" data-hits="2" data-linenumber="101">
+          <span class="hits">2</span>
           
-          
-          <code class="ruby">  # end</code>
+          <code class="ruby">    ((invoice_count.to_f / merchant_count.to_f)).round(2)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="102">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">  end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="103">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="104">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def sum_of_square_differences_invoice_count(merchant_repo, mean)</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="105">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    merchants = merchant_repo.merchants</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="106">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    merchants.reduce(0) do |result, merchant|</code>
+        </li>
+      
+        <li class="covered" data-hits="8" data-linenumber="107">
+          <span class="hits">8</span>
+          
+          <code class="ruby">      difference_squared = (mean - merchant.invoices.count) ** 2</code>
+        </li>
+      
+        <li class="covered" data-hits="8" data-linenumber="108">
+          <span class="hits">8</span>
+          
+          <code class="ruby">      result + difference_squared</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="109">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="110">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="111">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="112">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def average_invoice_count_standard_deviation</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="113">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    merchant_repo = @engine.merchants</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="114">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    mean = average_invoices_per_merchant</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="115">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    sum = sum_of_square_differences_invoice_count(merchant_repo, mean)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="116">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    sample_variance = find_sample_variance(merchant_repo, sum)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="117">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    (Math.sqrt(sample_variance)).round(2)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="118">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="119">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="120">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="121">
+          
+          
+          <code class="ruby">  # def inspect</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="122">
+          
+          
+          <code class="ruby">  #   &quot;#&lt;#{self.class} #{@items.size} rows&gt;&quot;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="123">
+          
+          
+          <code class="ruby">  # end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="124">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="125">
           
           
           <code class="ruby">end</code>
@@ -2495,7 +2651,7 @@
         <li class="covered" data-hits="1" data-linenumber="8">
           <span class="hits">1</span>
           
-          <code class="ruby">  attr_reader :items, :merchants</code>
+          <code class="ruby">  attr_reader :items, :merchants, :invoices</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="9">
@@ -2564,20 +2720,20 @@
           <code class="ruby">  def initialize(item_file_path, merchant_file_path, invoice_file_path)</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="20">
-          <span class="hits">12</span>
+        <li class="covered" data-hits="15" data-linenumber="20">
+          <span class="hits">15</span>
           
           <code class="ruby">    @items = ItemRepository.new(item_file_path, self)</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="21">
-          <span class="hits">12</span>
+        <li class="covered" data-hits="15" data-linenumber="21">
+          <span class="hits">15</span>
           
           <code class="ruby">    @merchants = MerchantRepository.new(merchant_file_path, self)</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="22">
-          <span class="hits">12</span>
+        <li class="covered" data-hits="15" data-linenumber="22">
+          <span class="hits">15</span>
           
           <code class="ruby">    @invoices = InvoiceRepository.new(invoice_file_path, self)</code>
         </li>
@@ -2757,20 +2913,20 @@
           <code class="ruby">  def find_all_instances_by_merchant_id(list, search_merchant_id)</code>
         </li>
       
-        <li class="covered" data-hits="57" data-linenumber="19">
-          <span class="hits">57</span>
+        <li class="covered" data-hits="65" data-linenumber="19">
+          <span class="hits">65</span>
           
           <code class="ruby">    search_merchant_id = search_merchant_id.to_i</code>
         </li>
       
-        <li class="covered" data-hits="57" data-linenumber="20">
-          <span class="hits">57</span>
+        <li class="covered" data-hits="65" data-linenumber="20">
+          <span class="hits">65</span>
           
           <code class="ruby">    list.find_all do |object|</code>
         </li>
       
-        <li class="covered" data-hits="228" data-linenumber="21">
-          <span class="hits">228</span>
+        <li class="covered" data-hits="340" data-linenumber="21">
+          <span class="hits">340</span>
           
           <code class="ruby">      object.merchant_id == search_merchant_id</code>
         </li>

@@ -5,7 +5,7 @@ require_relative 'invoice_repository'
 
 class SalesEngine
 
-  attr_reader :items, :merchants
+  attr_reader :items, :merchants, :invoices
 
   def self.from_csv(csv_file_paths)
     item_file_path = csv_file_paths[:items]
