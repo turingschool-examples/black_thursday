@@ -1,5 +1,4 @@
 require_relative 'test_helper'
-# require './lib/sales_engine'
 require_relative '../lib/sales_engine'
 
 class SalesEngineTest < MiniTest::Test

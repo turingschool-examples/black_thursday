@@ -1,6 +1,4 @@
 require_relative 'test_helper'
-# require './lib/item'
-# require './lib/sales_engine'
 require_relative '../lib/item'
 require_relative '../lib/sales_engine'
 require 'bigdecimal'
