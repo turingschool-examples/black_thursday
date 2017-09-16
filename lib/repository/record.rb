@@ -20,9 +20,5 @@ class Repository
       fields[:updated_at] ||= Time.now
     end
 
-    def ==(other)
-      @id == other.id
-    end
-
   end
 end
