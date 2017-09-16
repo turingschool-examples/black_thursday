@@ -1,7 +1,7 @@
 require_relative 'customer'
 require 'csv'
 
-class CustomerRepository 
+class CustomerRepository
   attr_accessor :all, :parent
 
   def initialize(file_path, parent=nil)
@@ -29,7 +29,11 @@ class CustomerRepository
     all.select {|customer| customer.last_name.downcase.include?(prefix.downcase)}
   end
 
-  def inspect 
+  def find_merchants_by_customer(id)
+    @parent.find_merchants_by_customer(id)    
+  end
+
+  def inspect
     "#{self.class}"
   end
 end

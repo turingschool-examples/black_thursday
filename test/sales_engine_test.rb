@@ -125,4 +125,27 @@ class SalesEngineTest < Minitest::Test
     assert_equal 22, expected.id
     assert_instance_of Customer, expected
   end
+
+  def test_transaction_invoice_returns_related_invoice
+    transaction = engine.transactions.find_by_id(1452)
+    expected = transaction.invoice
+
+    assert_equal 4746, expected.id
+    assert_instance_of Invoice, expected
+  end
+
+  def test_merchant_customers_returns_related_customers
+    expected = engine.merchants.find_by_id(12334194).customers
+
+    assert_equal 12, expected.length
+    assert_instance_of Customer, expected.first
+  end
+
+  def test_customer_merchants_returns_merchants_related_to_customer
+    customer = engine.customers.find_by_id(30)
+    expected = customer.merchants
+
+    assert_equal 5, expected.length
+    assert_instance_of Merchant, expected.first
+  end
 end
