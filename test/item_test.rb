@@ -10,7 +10,7 @@ class ItemTest < Minitest::Test
                 name: "Pencil",
                 description: "You can use it to write things",
                 unit_price: BigDecimal.new(1099,4),
-                created_at: "2016-01-11 09:34:06 UT",
+                created_at: "2016-01-11 09:34:06 UTC",
                 updated_at: "2007-06-04 21:35:10 UTC",
                 merchant_id: 2}
     @item = Item.new('fake_ir', csv_hash)

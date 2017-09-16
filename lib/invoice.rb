@@ -1,5 +1,4 @@
 require_relative 'invoice_repository'
-require 'bigdecimal'
 require 'time'
 
 
@@ -10,16 +9,15 @@ class Invoice
               :merchant_id,
               :status,
               :created_at,
-              :updated_at,
+              :updated_at
 
-
-  def initialize(ir, csv_info)
-    @id = csv_info[:id].to_i
+  def initialize(invoice_repository, csv_info)
+    @id = csv_info[:id]
     @custom_id = csv_info[:custom_id]
     @merchant_id = csv_info[:merchant_id]
     @status = csv_info[:status]
-    @created_at = Time.parse(csv_info[:created_at].to_s)
-    @updated_at = Time.parse(csv_info[:updated_at].to_s)
+    @created_at = Time.parse(csv_info[:created_at])
+    @updated_at = Time.parse(csv_info[:updated_at])
   end
 
 =begin
