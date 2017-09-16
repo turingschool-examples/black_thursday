@@ -25,7 +25,10 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    (find_averages.sum / (find_averages.sum - 1))
-    Math.sqrt(find_averages.sum / (find_averages.sum - 1)).round(2)
+    avg_avgs = find_averages.sum / find_averages.count
+    differences_squared = find_averages.map do |num|
+      (num - avg_avgs)**2
+    end
+    Math.sqrt(differences_squared.sum / (differences_squared.count - 1)).round(2)
   end
 end
