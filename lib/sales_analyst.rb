@@ -59,5 +59,7 @@ class SalesAnalyst
     end.sum / sales_engine.merchants.merchants.count
   end
 
-
+  def golden_items
+    
+  end
 end

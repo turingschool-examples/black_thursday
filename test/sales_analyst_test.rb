@@ -62,4 +62,8 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal BigDecimal.new('0.350294697495132463357977937150568421052631578947e3'), sales_a.average_average_price_per_merchant
   end
+
+  def test_golden_items
+    
+  end
 end
