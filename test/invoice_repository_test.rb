@@ -53,7 +53,7 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal expected, actual
   end
 
-  def test_find_all_by_customer_id_returns_nil_with_invalid_customer_id
+  def test_find_all_by_customer_id_returns_empty_array_with_invalid_customer_id
     actual = ir.find_all_by_customer_id(666)
 
     assert_equal [], actual
@@ -62,6 +62,32 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_find_all_by_customer_id_returns_customer_with_valid_customer_id
     actual = ir.find_all_by_customer_id(2)
     expected = [ir.invoices[-2], ir.invoices[-1]]
+
+    assert_equal expected, actual
+  end
+
+  def test_find_all_by_merchant_id_returns_empty_array_with_invalid_merchant_id
+    actual = ir.find_all_by_merchant_id(666)
+
+    assert_equal [], actual
+  end
+
+  def test_find_all_by_merchant_id_returns_merchants_array_with_valid_merchant_id
+    actual = ir.find_all_by_merchant_id(12334105)
+    expected = [ir.invoices[-2], ir.invoices[-1]]
+
+    assert_equal expected, actual
+  end
+
+  def test_find_all_by_status_returns_empty_array_with_invalid_status
+    actual = ir.find_all_by_status("queued")
+
+    assert_equal [], actual
+  end
+
+  def test_find_all_by_status_returns_empty_array_with_invalid_status
+    actual = ir.find_all_by_status("shipped")
+    expected = [ir.invoices[1], ir.invoices[2], ir.invoices[-3], ir.invoices[-2]]
 
     assert_equal expected, actual
   end
