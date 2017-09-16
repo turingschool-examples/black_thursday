@@ -11,11 +11,15 @@ class SalesAnalystTest < Minitest::Test
   def setup
     @se = SalesEngine.from_csv({ :items     => "./data/items.csv",
                                  :merchants => "./data/merchants.csv",
-                                 :invoices  => "./data/invoices.csv"})
+                                 :invoices  => "./data/invoices.csv",
+                                 :customers => "./data/customers.csv"
+                                })
     @sa = SalesAnalyst.new(se)
     @fe = SalesEngine.from_csv({ :items     => "./test/fixtures/items.csv",
                                  :merchants => "./data/merchants.csv",
-                                 :invoices  => "./test/fixtures/invoices.csv"})
+                                 :invoices  => "./test/fixtures/invoices.csv",
+                                 :customers => "./data/customers.csv"
+                                })
 
     @fa = SalesAnalyst.new(fe)
   end
@@ -150,7 +154,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_bottom_merchants_by_invoice_count
-    skip # works but takes forever.
     expected = sa.bottom_merchants_by_invoice_count
 
     assert_equal 4, expected.length
@@ -207,7 +210,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_grouped_invoices
-    require 'pry'; binding.pry
     assert_instance_of Hash, sa.grouped_invoices
   end
 
