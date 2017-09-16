@@ -1,8 +1,10 @@
 class InvoiceItem
 
+  attr_reader :id, :item_id,:invoice_id, :quantity #this is here for testing purposes
+
   def initialize(info, invoice_item_repository)
     @id = info[:id]
-    @item_id = info[:item_id]
+    @item_id = info[:item_id].to_i
     @invoice_id = info[:invoice_id]
     @quantity = info[:quantity]
     @unit_price = info[:unit_price]
