@@ -37,4 +37,8 @@ class CustomerRepository
     last_name_array
   end
 
+  def inspect
+    "#<#{self.class} #{:customers.size} rows>"
+  end
+
 end

@@ -45,4 +45,8 @@ class TransactionRepository
     transaction_array
   end
 
+  def inspect
+    "#<#{self.class} #{:transactions.size} rows>"
+  end
+
 end
