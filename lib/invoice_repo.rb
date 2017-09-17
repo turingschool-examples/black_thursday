@@ -1,6 +1,5 @@
 require 'csv'
 require_relative 'invoice'
-require 'pry'
 
 class InvoiceRepository
   attr_reader :invoices, :sales_engine
@@ -33,24 +32,28 @@ class InvoiceRepository
     invoices.find {|invoice| invoice.id == id}
   end
 
-  def find_all_by_customer_id
+  def find_all_by_customer_id(customer_id)
     invoices.find_all {|invoice| invoice.customer_id == customer_id}
   end
 
-  def find_all_by_merchant_id
+  def find_all_by_merchant_id(merchant_id)
     invoices.find_all {|invoice| invoice.merchant_id == merchant_id}
   end
 
-  def find_all_by_status
+  def find_all_by_status(status)
     invoices.find_all {|invoice| invoice.status == status}
   end
 
-  def find_by_created_at
+  def find_by_created_at(created_at)
     invoices.find {|invoice| invoice.created_at == created_at}
   end
 
-  def find_by_updated_at
+  def find_by_updated_at(updated_at)
     invoices.find {|invoice| invoice.updated_at == updated_at}
+  end
+
+  def invoice_merchant(merchant_id)
+    sales_engine.find_invoice_for_merchant(merchant_id)
   end
 
   def inspect

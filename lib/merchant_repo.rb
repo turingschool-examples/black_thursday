@@ -1,5 +1,4 @@
 require_relative 'merchant'
-require_relative 'sales_engine'
 
 class MerchantRepository
   attr_reader :merchants, :sales_engine
@@ -39,6 +38,10 @@ class MerchantRepository
 
   def merchant_items(merchant_id)
     sales_engine.find_merchant_items(merchant_id)
+  end
+
+  def merchant_invoices(merchant_id)
+    sales_engine.find_merchant_invoice(merchant_id)
   end
 
   def inspect

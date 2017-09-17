@@ -3,12 +3,13 @@ require_relative '../lib/sales_analyst'
 require_relative '../lib/sales_engine'
 require_relative '../lib/merchant_repo'
 require_relative '../lib/item_repo'
+require_relative '../lib/invoice_repo'
 require 'bigdecimal'
 
 class SalesAnalystTest < Minitest::Test
   attr_reader :sa
   def set_up
-    files = ({:items => "./test/fixtures/item_fixture.csv", :merchants => "./test/fixtures/merchant_fixture.csv"})
+    files = ({:invoices => "./test/fixtures/invoice_fixture.csv", :items => "./test/fixtures/item_fixture.csv", :merchants => "./test/fixtures/merchant_fixture.csv"})
     se = SalesEngine.from_csv(files)
     @sa = SalesAnalyst.new(se)
   end
@@ -32,7 +33,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_standard_deviation
-    files = ({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    files = ({:invoices => "./test/fixtures/invoice_fixture.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv"})
     se = SalesEngine.from_csv(files)
     sales_a = SalesAnalyst.new(se)
 
@@ -40,7 +41,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_merchants_with_high_item_count
-    files = ({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    files = ({:invoices => "./test/fixtures/invoice_fixture.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv"})
     se = SalesEngine.from_csv(files)
     sales_a = SalesAnalyst.new(se)
 
@@ -48,7 +49,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_item_price_for_merchant
-    files = ({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    files = ({:invoices => "./test/fixtures/invoice_fixture.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv"})
     se = SalesEngine.from_csv(files)
     sales_a = SalesAnalyst.new(se)
 
@@ -56,11 +57,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_average_price_per_merchant
-    files = ({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    files = ({:invoices => "./test/fixtures/invoice_fixture.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv"})
     se = SalesEngine.from_csv(files)
     sales_a = SalesAnalyst.new(se)
 
-    assert_equal BigDecimal.new('0.350294697495132463357977937150568421052631578947e3'), sales_a.average_average_price_per_merchant
+    assert_equal BigDecimal.new('0.350294697495132463357977937150568421052631578947e3').round(2), sales_a.average_average_price_per_merchant
   end
 
   def test_average_item_price
@@ -79,5 +80,19 @@ class SalesAnalystTest < Minitest::Test
     set_up
 
     assert_equal 1, sa.golden_items.count
+  end
+
+  def test_average_invoices_per_merchant
+    set_up
+
+    assert_equal 1.67, sa.average_invoices_per_merchant
+  end
+
+  def test_average_invoices_per_merchant_standard_deviation
+    files = ({:invoices => "./data/invoices.csv", :items => "./test/fixtures/item_fixture.csv", :merchants => "./test/fixtures/merchant_fixture.csv"})
+    se = SalesEngine.from_csv(files)
+    sales_a = SalesAnalyst.new(se)
+
+    assert_equal 3.29, sales_a.average_invoices_per_merchant_standard_deviation
   end
 end

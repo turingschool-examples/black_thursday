@@ -6,7 +6,7 @@ require_relative '../lib/item_repo'
 class SalesEngineTest < Minitest::Test
   attr_reader :files, :se
   def set_up
-    files = ({:items => "./test/fixtures/item_fixture.csv", :merchants => "./test/fixtures/merchant_fixture.csv"})
+    files = ({:invoices => "./test/fixtures/invoice_fixture.csv", :items => "./test/fixtures/item_fixture.csv", :merchants => "./test/fixtures/merchant_fixture.csv"})
     @se = SalesEngine.from_csv(files)
   end
 

@@ -1,5 +1,5 @@
 require_relative 'test_helper'
-require_relative '../lib/set_up'
+require_relative '../lib/item'
 
 class ItemTest < Minitest::Test
   def set_up
@@ -8,7 +8,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_item_exists
-    assert_instance_of Item, setup
+    assert_instance_of Item, set_up
   end
 
   def test_created_at_instance_of_time

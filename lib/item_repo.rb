@@ -1,5 +1,4 @@
 require_relative 'item'
-require_relative 'sales_engine'
 
 class ItemRepository
   attr_reader :items, :sales_engine

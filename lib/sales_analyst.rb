@@ -76,15 +76,46 @@ class SalesAnalyst
     Math.sqrt(differences_squared.sum/(differences_squared.count - 1)).round(2)
   end
 
-    def golden_items
-      golden_items = []
-      std_deviation = std_deviation_of_item_price
-      sales_engine.items.items.each do |item|
-        if item.unit_price > (std_deviation * 2)
-          golden_items << item
-        end
+  def golden_items
+    golden_items = []
+    std_deviation = std_deviation_of_item_price
+    sales_engine.items.items.each do |item|
+      if item.unit_price > (std_deviation * 2)
+        golden_items << item
       end
-      golden_items
     end
+    golden_items
+  end
+
+  def average_invoices_per_merchant
+    total_invoices = sales_engine.invoices.invoices.count
+    total_merchants = sales_engine.merchants.merchants.count
+    (total_invoices.to_f / total_merchants).round(2)
+  end
+
+  def invoices_mean_per_merchant
+    sales_engine.merchants.merchants.map do |merchant|
+      invoices_for_merchant = sales_engine.find_merchant_invoice(merchant.id)
+      if invoices_for_merchant.count <= 1
+        1
+      else
+        invoices_for_merchant.count.round(2)
+      end
+    end
+  end
+
+  def invoices_mean
+    merchant_invoice_avgs = invoices_mean_per_merchant
+    merchant_invoice_avgs.reduce(0.0, :+) / merchant_invoice_avgs.count
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    mean_result = invoices_mean
+    differences_squared = invoices_mean_per_merchant.map do |num|
+      (num - mean_result)**2
+    end
+    Math.sqrt(differences_squared.sum/(differences_squared.count - 1)).round(2)
+  end
+
 
 end

@@ -3,7 +3,7 @@ require_relative '../lib/invoice'
 
 class InvoiceTest < Minitest::Test
   def set_up
-    invoice_info = {:id => "1",	:customer_id => "1", :merchant_id =>	"12335938", :status	=> "pending",	:created_at => "2/7/09",	:updated_at => "3/15/14"}
+    invoice_info = ({:id => "1",	:customer_id => "1", :merchant_id =>	"12335938", :status	=> "pending",	:created_at => "2/7/09",	:updated_at => "3/15/14"})
     Invoice.new(invoice_info, [])
   end
 

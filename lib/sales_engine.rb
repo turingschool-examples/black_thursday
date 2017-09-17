@@ -8,7 +8,7 @@ class SalesEngine
     items = files[:items]
     merchants = files[:merchants]
     invoices = files[:invoices]
-    sales_engine = SalesEngine.new(items, merchants, invoices)
+    SalesEngine.new(items, merchants, invoices)
     # SalesAnalyst.new(sales_engine)
   end
 
@@ -27,4 +27,13 @@ class SalesEngine
   def find_item_merchant(merchant_id)
     merchants.find_by_id(merchant_id)
   end
+
+  def find_merchant_invoice(merchant_id)
+    invoices.find_all_by_merchant_id(merchant_id)
+  end
+
+  def find_invoice_for_merchant(merchant_id)
+    merchants.find_by_id(merchant_id)
+  end
+
 end

@@ -1,11 +1,11 @@
 require 'time'
 
 class Invoice
-  attr_reader :invoice, :invoice_item_repo
+  attr_reader :invoice, :invoice_repo
 
-  def initialize(invoice, invoice_item_repo)
+  def initialize(invoice, invoice_repo)
     @invoice = invoice
-    @invoice_item_repo = invoice_item_repo
+    @invoice_repo = invoice_repo
   end
 
   def id
@@ -30,5 +30,9 @@ class Invoice
 
   def updated_at
     Time.parse(invoice.fetch(:updated_at))
+  end
+
+  def merchant
+    invoice_repo.invoice_merchant(self.merchant_id)
   end
 end
