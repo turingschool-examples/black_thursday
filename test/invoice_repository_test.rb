@@ -35,7 +35,7 @@ class InvoiceRepositoryTest < Minitest::Test
     invoices = invoice_repo.find_all_by_merchant_id(12334105)
     assert_instance_of Array, invoices
     refute_empty invoices
-    assert invoices.all do |invoice|
+    assert invoices.all? do |invoice|
       invoice.is_a? Invoice && invoice.merchant_id == 12334105
     end
   end
@@ -48,7 +48,7 @@ class InvoiceRepositoryTest < Minitest::Test
     invoices = invoice_repo.find_all_by_customer_id(14)
     assert_instance_of Array, invoices
     refute_empty invoices
-    assert invoices.all do |invoice|
+    assert invoices.all? do |invoice|
       invoice.is_a? Invoice && invoice.customer_id == 14
     end
   end
@@ -61,7 +61,7 @@ class InvoiceRepositoryTest < Minitest::Test
     invoices = invoice_repo.find_all_by_status(:pending)
     assert_instance_of Array, invoices
     refute_empty invoices
-    assert invoices.all do |invoice|
+    assert invoices.all? do |invoice|
       invoice.is_a? Invoice && invoice.status == :pending
     end
   end
