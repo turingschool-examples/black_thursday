@@ -6,7 +6,7 @@ class MerchantRepositoryTest < Minitest::Test
   attr_reader :mr
 
   def setup
-    @mr = MerchantRepository.new('./test/fixtures/merchants_truncated_4.csv')
+    @mr = MerchantRepository.new('./test/fixtures/merchants_truncated_11.csv')
   end
 
   def test_it_exists
@@ -18,10 +18,10 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_load_csv
-    assert_equal 4, mr.merchants.length
-    actual = mr.load_csv('./test/fixtures/merchants_truncated_4.csv')
+    assert_equal 11, mr.merchants.length
+    actual = mr.load_csv('./test/fixtures/merchants_truncated_11.csv')
 
-    assert_equal 8, mr.merchants.length
+    assert_equal 22, mr.merchants.length
   end
 
   def test_merchants_returns_array
@@ -29,15 +29,15 @@ class MerchantRepositoryTest < Minitest::Test
 
     assert_instance_of Merchant, actual[0]
     assert_instance_of Merchant, actual[1]
-    assert_equal 4, actual.length
+    assert_equal 11, actual.length
   end
 
   def test_all_returns_array_of_merchants
     actual = mr.all
 
     assert_instance_of Merchant, actual[0]
-    assert_instance_of Merchant, actual[1]
-    assert_equal 4, actual.length
+    assert_instance_of Merchant, actual[-1]
+    assert_equal 11, actual.length
   end
 
   def test_find_by_id_returns_nil_with_invalid_id
@@ -80,8 +80,8 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_name_returns_merchant_with_valid_name_search
-    actual = mr.find_all_by_name("i")
-    expected = [mr.merchants[0], mr.merchants[1]]
+    actual = mr.find_all_by_name("ar")
+    expected = [mr.merchants[1], mr.merchants[3], mr.merchants[-1]]
 
     assert_equal expected, actual
   end

@@ -49,7 +49,6 @@ class SalesAnalyst
     average_prices = @engine.merchants.all.map do |merchant|
       average_item_price_for_merchant(merchant.id)
     end
-
     (average_prices.reduce(:+) / @engine.merchants.all.count).truncate(2)
   end
 
@@ -75,9 +74,62 @@ class SalesAnalyst
       item.unit_price > bar
     end
   end
+  #
+  def average_invoices_per_merchant
+    @engine.invoices.all.count.to_f / @engine.merchants.all.count.to_f
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    squared  = @engine.merchants.all.map do |merchant|
+      (merchant.invoices.count - average_invoices_per_merchant) ** 2
+    end
+    divided = squared.inject(:+) / (@engine.merchants.merchants.count - 1)
+    Math.sqrt(divided)
+  end
+
+  def top_merchants_by_invoice_count
+    bar = (2 * average_invoices_per_merchant_standard_deviation) + average_invoices_per_merchant
+    @engine.merchants.merchants.find_all do |merchant|
+      merchant.invoices.count > bar
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    bar = average_invoices_per_merchant - (2 * average_invoices_per_merchant_standard_deviation)
+    @engine.merchants.merchants.find_all do |merchant|
+      merchant.invoices.count < bar
+    end
+  end
+
+  def average_invoices_created_per_day
+    @engine.invoices.invoices.count / 7
+  end
+
+  def number_of_invoices_created_per_day
+    days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    days.map do |day|
+      @engine.invoices.invoices.find_all do |invoice|
+        invoice.created_day == day
+      end.count
+    end
+  end
+
+  def number_of_invoices_created_per_day_standard_deviation
+    squared = @engine.invoices.
+
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    squared  = @engine.merchants.all.map do |merchant|
+      (merchant.invoices.count - average_invoices_per_merchant) ** 2
+    end
+    divided = squared.inject(:+) / (@engine.merchants.merchants.count - 1)
+    Math.sqrt(divided)
+  end
 
 
-
-
+  # find average invoices created per day
+  # enumerate through invoices to find dates created
+  #
 
 end

@@ -36,4 +36,8 @@ class CustomerTest < Minitest::Test
   def test_customer_has_an_updated_time_that_is_an_instance_of_the_time_class
     assert_instance_of Time, @customer.updated_at
   end
+
+  def test_customer_has_a_parent_defaulted_to_nil
+    assert_nil @customer.parent
+  end
 end

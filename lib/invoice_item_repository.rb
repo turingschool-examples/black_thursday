@@ -1,19 +1,21 @@
 require_relative 'invoice_item'
 require 'csv'
-require 'pry'
 
 class InvoiceItemRepository
 
-  attr_reader :all
+  attr_reader :all, :parent
 
-  def initialize
-    @all = []
+  def initialize(file_path, parent = nil)
+    @all = from_csv(file_path)
+    @parent = parent
   end
 
   def from_csv(file_path)
+    invoice_items = []
     CSV.foreach(file_path, headers: true, :header_converters => :symbol) do |row|
-      @all << InvoiceItem.new(row)
+      invoice_items << InvoiceItem.new(row, self)
     end
+    invoice_items
   end
 
   def find_by_id(id)
