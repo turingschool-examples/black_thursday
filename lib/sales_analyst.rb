@@ -132,7 +132,7 @@ class SalesAnalyst
     end
     translate_days(days)
   end
-  
+
   def translate_days(array)
     array.map do |value|
       if value == 0
@@ -153,4 +153,17 @@ class SalesAnalyst
     end
   end
 
+  def total_invoices_count
+    @engine.invoices.invoices.count
+  end
+
+  def invoice_status(status)
+    count = 0
+    @engine.invoices.invoices.each do |invoice|
+      if invoice.status == status
+        count += 1
+      end
+    end
+    (count / total_invoices_count.to_f)
+  end
 end

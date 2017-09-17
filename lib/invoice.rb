@@ -12,7 +12,7 @@ class Invoice
     @id = information[:id]
     @customer_id = information[:customer_id]
     @merchant_id = information[:merchant_id]
-    @status = information[:status]
+    @status = information[:status].to_sym
     @created_at = Time.parse(information[:created_at].to_s)
     @updated_at = Time.parse(information[:updated_at].to_s)
     @parent = parent
