@@ -34,23 +34,23 @@ class InvoiceRepository
   end
 
   def find_all_by_merchant_id(merchant_id)
-  merchant_id_array = []
-  all.each do |invoice|
-    if invoice.merchant_id.to_i == merchant_id
-      merchant_id_array << invoice
+    merchant_id_array = []
+    all.each do |invoice|
+      if invoice.merchant_id.to_i == merchant_id
+        merchant_id_array << invoice
+      end
     end
-  end
-    return merchant_id_array
+      return merchant_id_array
   end
 
   def find_all_by_status(status)
-  status_array = []
-  all.each do |invoice|
-    if invoice.status == status
-      status_array << invoice
+    status_array = []
+    all.each do |invoice|
+      if invoice.status == status
+        status_array << invoice
+      end
     end
-  end
-    return status_array
+      return status_array
   end
 
   def inspect
