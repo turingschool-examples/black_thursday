@@ -11,12 +11,14 @@ class InvoiceTest < Minitest::Test
     :merchants => "./test/fixtures/merchants_fixture.csv",
     :invoices => "./test/fixtures/invoices_fixture.csv",
     :transactions => "./test/fixtures/transactions_fixture.csv",
-    :invoice_items => './test/fixtures/invoice_items_fixture.csv'
+    :invoice_items => './test/fixtures/invoice_items_fixture.csv',
+    :customers => "./test/fixtures/customers_fixture.csv"
     })
     se.items
     se.merchants
     se.transactions
     se.invoice_items
+    se.customers
     vr = se.invoices
   end
 
@@ -87,6 +89,15 @@ class InvoiceTest < Minitest::Test
     assert_instance_of Array, invoice.transactions
     assert_instance_of Transaction, invoice.transactions[0]
     assert_equal 941, invoice.transactions[0].id
+  end
+
+  def test_it_can_be_connected_with_a_customer
+    vr = setup
+
+    invoice = vr.find_by_id(139)
+
+    assert_instance_of Customer, invoice.customer
+    assert_equal 'Osinski', invoice.customer.last_name
   end
 
 end

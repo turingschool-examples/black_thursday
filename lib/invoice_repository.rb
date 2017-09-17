@@ -48,6 +48,10 @@ class InvoiceRepository
     @sales_engine.transactions.find_all_by_invoice_id(invoice_id)
   end
 
+  def find_customer_by_id(customer_id)
+    @sales_engine.customers.find_by_id(customer_id)
+  end
+
   def inspect
   "#<#{self.class} #{@merchants.size} rows>"
   end
