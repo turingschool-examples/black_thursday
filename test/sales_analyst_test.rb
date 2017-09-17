@@ -15,8 +15,11 @@ class TestSalesAnalyst < Minitest::Test
   def setup
     csv_hash = {
       :items     => "./test/test_fixtures/items_medium.csv",
-      :merchants => "./test/test_fixtures/merchants_medium.csv", :invoices => "./test/test_fixtures/invoices_medium.csv"
-
+      :merchants => "./test/test_fixtures/merchants_medium.csv",
+      :invoices => "./test/test_fixtures/invoices_medium.csv",
+      :invoice_items => "./test/test_fixtures/invoice_items_medium.csv",
+      :transactions => "./test/test_fixtures/transactions_medium.csv",
+      :customers => "./test/test_fixtures/customers_medium.csv"
     }
     sales_engine = SalesEngine.from_csv(csv_hash)
     @sa = SalesAnalyst.new(sales_engine)

@@ -55,7 +55,7 @@ module MerchantMath
 
   def avg_thing_plus_2x_std_dev(things, comparison_class)
     average_thing(things) + (standard_deviation_for_thing(things, comparison_class) * 2)
-   end
+  end
 
 
     # need to pass in the two se.objects that are needed for comparison. first is the main thing being compared. the second is the less
@@ -68,7 +68,7 @@ module MerchantMath
         end
       end
       golden_things_list
-    end
+  end
 
     def two_standard_deviations_below(things, comparison_class)
       golden_things_list = []
@@ -79,7 +79,7 @@ module MerchantMath
           end
         end
         golden_things_list
-      end
+    end
 
 
       def one_standard_deviations_above(things, comparison_class)
@@ -91,7 +91,7 @@ module MerchantMath
             end
           end
           golden_things_list
-        end
+      end
 
 
 end
