@@ -5,10 +5,10 @@
 
  class InvoiceItemRepositoryTest < Minitest::Test
 
-   attr_reader :invoice_item_repo
 
+  attr_reader :invoice_item_repo
   def setup
-    @invoice_item_repo = Fixture.repo(:InvoiceItem)
+    @invoice_item_repo = Fixture.repo(:invoice_item)
   end
 
   def test_that_an_instance_exits

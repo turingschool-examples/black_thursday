@@ -52,7 +52,7 @@ class MerchantRepositoryTest < Minitest::Test
   def test_find_all_by_name_returns_an_array_of_merchants_with_substring
     matches = merchant_repo.find_all_by_name('in')
     expected = ["MiniatureBikez", "Shopin1901"]
-    assert_equal expected, with_in.map(&:name).sort
+    assert_equal expected, matches.map(&:name).sort
   end
 
   def test_find_all_by_name_is_case_insensitive
