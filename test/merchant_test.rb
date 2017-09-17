@@ -70,4 +70,12 @@ class MerchantTest < Minitest::Test
 
     assert_equal 1, merchant.invoices.count
   end
+
+  def test_it_can_connect_with_customers
+    mr = setup
+
+    merchant = mr.find_by_id(12334123)
+require "pry"; binding.pry
+    assert_instance_of Customer, merchant.customers[0]
+  end
 end
