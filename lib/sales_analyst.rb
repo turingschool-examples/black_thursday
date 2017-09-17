@@ -25,7 +25,7 @@ class SalesAnalyst
 
   def mean
     merchant_item_avgs = find_all_averages_by_merchant
-    merchant_item_avgs.sum.to_f / merchant_item_avgs.count
+    merchant_item_avgs.reduce(0.0, :+) / merchant_item_avgs.count
   end
 
   def average_items_per_merchant_standard_deviation
