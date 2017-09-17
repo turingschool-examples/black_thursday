@@ -19,7 +19,7 @@ class TransactionRepositoryTest < Minitest::Test
    end
 
    def test_find_by_id_returns_nil_if_no_matching_id
-     assert_nil transaction_repo.find_by_id(200)
+     assert_nil transaction_repo.find_by_id("happy")
    end
 
    def test_find_by_id_returns_transaction_instance
@@ -34,7 +34,7 @@ class TransactionRepositoryTest < Minitest::Test
    end
 
    def test_find_all_by_invoice_id_returns_all_that_match_the_id
-     assert_equal 2, transaction_repo.find_all_by_invoice_id(1).count
+     assert_equal 1, transaction_repo.find_all_by_invoice_id(2179).count
    end
 
    def test_find_all_by_credit_card_number_returns_an_empty_array_with_no_match
@@ -42,14 +42,14 @@ class TransactionRepositoryTest < Minitest::Test
    end
 
    def test_find_all_by_credit_card_number_returns_all_that_match_the_id
-     assert_equal 3, transaction_repo.find_all_by_credit_card_number(00).count
+     assert_equal 3, transaction_repo.find_all_by_credit_card_number(4068631943231473).count
    end
 
    def test_find_all_by_result_returns_an_empty_array_with_no_match
-     assert_equal [], transaction_repo.find_all_by_result(00)
+     assert_equal [], transaction_repo.find_all_by_result("nil")
    end
 
    def test_find_all_by_result_returns_all_that_match_the_id
-     assert_equal 3, transaction_repo.find_all_by_result(00).count
+     assert_equal 3, transaction_repo.find_all_by_result('failed').count
    end
 end
