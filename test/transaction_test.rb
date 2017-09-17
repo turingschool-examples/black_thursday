@@ -67,5 +67,5 @@ class TransactionTest < Minitest::Test
   def test_it_has_a_updated_at_transaction
     assert_equal transaction_item_2179_expected[:updated_at], transaction_invoice_id_2179.updated_at
   end
-  
+
 end

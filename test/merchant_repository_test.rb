@@ -35,7 +35,7 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 'Shopin1901', merchant.name
   end
 
-  def test_find_by_name_returns_matching_instance_no_matter_case
+  def test_find_by_name_is_case_insensitive
     merchant = merchant_repo.find_by_name('sHoPiN1901')
     assert_instance_of Merchant, merchant
     assert_equal 'Shopin1901', merchant.name
@@ -45,19 +45,23 @@ class MerchantRepositoryTest < Minitest::Test
     assert_nil merchant_repo.find_by_name("!@{$%^&}$$$")
   end
 
+  def test_find_all_by_name_returns_all_given_an_empty_string
+    assert_equal merchant_repo.all, merchant_repo.find_all_by_name('')
+  end
+
+  def test_find_all_by_name_returns_an_array_of_merchants_with_substring
+    matches = merchant_repo.find_all_by_name('in')
+    expected = ["MiniatureBikez", "Shopin1901"]
+    assert_equal expected, with_in.map(&:name).sort
+  end
+
+  def test_find_all_by_name_is_case_insensitive
+    matches = merchant_repo.find_all_by_name("loLamaRleys")
+    assert_equal "LolaMarleys", matches.first.name
+  end
+
   def test_find_all_by_name_returns_empty_array_if_no_matches
     assert_equal [], merchant_repo.find_all_by_name("!@{$%^&}$$$")
-  end
-
-  def test_find_all_by_name_returns_all_that_match
-    skip
-    assert_equal 5, merchant_repo.find_all_by_name("merchant").count
-    assert_equal 6, merchant_repo.find_all_by_name("chant").count
-  end
-
-  def test_find_all_by_name_returns_all_that_match_case_insensitive
-    skip
-    assert_equal 5, merchant_repo.find_all_by_name("merCHANT").count
   end
 
 end
