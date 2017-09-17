@@ -6,11 +6,19 @@ class MerchantTest < Minitest::Test
 
   def setup
     se = SalesEngine.from_csv({
-          :items     => "./test/fixtures/items_fixture.csv",
-          :merchants => "./test/fixtures/merchants_fixture.csv",
-          :invoices  => "./test/fixtures/invoices_fixture.csv"
-        })
-    mr = se.merchants
+    :items     => "./test/fixtures/items_fixture.csv",
+    :merchants => "./test/fixtures/merchants_fixture.csv",
+    :invoices => "./test/fixtures/invoices_fixture.csv",
+    :transactions => "./test/fixtures/transactions_fixture.csv",
+    :invoice_items => './test/fixtures/invoice_items_fixture.csv',
+    :customers => "./test/fixtures/customers_fixture.csv"
+    })
+    se.items
+    se.transactions
+    se.invoice_items
+    se.customers
+    se.invoices
+    se.merchants
   end
 
   def test_it_exists
@@ -31,25 +39,17 @@ class MerchantTest < Minitest::Test
     assert_equal "Turing School", m1.name
   end
 
-  # def test_merchant_has_sales_engine
-  #
-  #   mr = setup
-  #
-  #   assert mr.merchants[0].sales_engine
-  # end
-
-  def test_it_can_gather_items
-    skip
+  def test_it_can_connect_to_items
     mr = setup
 
     merchant1 = mr.find_by_id(12334112)
-    merchant1_items = merchant1.gather_items
+    merchant1_items = merchant1.items
 
-    merchant2 = mr.find_by_id(12334195)
-    merchant2_items = merchant2.gather_items
+    merchant2 = mr.find_by_id(12334113)
+    merchant2_items = merchant2.items
 
     assert_equal 1, merchant1_items.count
-    assert_equal 20, merchant2_items.count
+    assert_equal 1, merchant2_items.count
   end
 
   def test_merchant_can_return_assigned_items
