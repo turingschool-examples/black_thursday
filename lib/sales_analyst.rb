@@ -135,6 +135,30 @@ class SalesAnalyst
   end
 
   def top_revenue_earners(x = 20)
-    
+    ranked_merchant.reverse.take(x)
+  end
+
+  def ranked_merchant
+    ranked_merchants_by_revenue.map! {|merchant| engine.merchants.find_by_id(merchant.first)}
+  end
+
+  def ranked_merchants_by_revenue
+    paired_merchant_invoice.sort_by { |merchant| merchant[1] }
+  end
+
+  def paired_merchant_invoice
+    merchant_invoices.keys.zip(total_revenue_by_merchant)
+  end
+
+  def total_revenue_by_merchant
+    revenue_by_merchant.values.map! {|invoices| invoices.sum}
+  end
+
+  def revenue_by_merchant
+    merchant_invoices.each_value { |invoices| invoices.map! { |invoice| invoice.total } }
+  end
+
+  def merchant_invoices
+    invoices.group_by {|invoice| invoice.merchant_id}
   end
 end
