@@ -43,4 +43,16 @@ class InvoiceRepo
     parent.invoice_merchant(id)
   end
 
+  def invoice_items_list(id)
+    parent.invoice_items_list(id)
+  end
+
+  def invoice_transactions(id)
+    parent.invoice_transactions(id)
+  end
+
+  def invoice_customer(id)
+    parent.invoice_customer(id)
+  end
+
 end

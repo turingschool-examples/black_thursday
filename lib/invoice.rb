@@ -26,4 +26,16 @@ class Invoice
     parent.invoice_merchant(self.merchant_id)
   end
 
+  def items
+    parent.invoice_items_list(self.id)
+  end
+
+  def transactions
+    parent.invoice_transactions(self.id)
+  end
+
+  def customer
+    parent.invoice_customer(customer_id)
+  end
+
 end

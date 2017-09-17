@@ -8,7 +8,10 @@ class SalesAnalystTest < MiniTest::Test
   def setup
     @se = SalesEngine.new({merchants:"./data/merchants.csv",
     items:"./data/items.csv",
-    invoices:"./data/invoices.csv"})
+    invoices:"./data/invoices.csv",
+    invoice_items:"./data/invoice_items.csv",
+    transactions:"./data/transactions.csv",
+    customers:"./data/customers.csv"})
     @sa = SalesAnalyst.new(se)
   end
 

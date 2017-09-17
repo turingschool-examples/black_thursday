@@ -20,5 +20,8 @@ class Merchant
   def invoices
     parent.merchant_invoices(self.id)
   end
-
+  
+  def customers
+    parent.merchant_customers(self.id)
+  end
 end
