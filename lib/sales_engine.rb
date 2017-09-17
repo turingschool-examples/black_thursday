@@ -66,7 +66,7 @@ class SalesEngine
     end
   end
 
-  def invoice_items
+  def invoice_items 
     if @invoice_items.nil?
       @invoice_items = InvoiceItemRepository.new(@invoice_item_csv_filepath, self)
     else

@@ -38,7 +38,7 @@ class InvoiceRepository
     end
 
     def find_all_items_by_invoice_id(id)
-      @sales_engine
+      @sales_engine.invoice_items.find_all_by_invoice_id(id)
     end
 
     def inspect
