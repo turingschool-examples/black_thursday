@@ -9,12 +9,12 @@ class Merchant
     @items = []
   end
 
- def items #refactor—make method in repo that hides sales engine and its stuff.
-  #@merchant_repository.sales_engine.items.find_all_by_merchant_id(@id)
+ def items
   @merchant_repository.find_all_by_merchant_id_in_item_repo(@id)
  end
 
  def invoices
-  @merchant_repository.sales_engine.invoices.find_all_by_merchant_id(@id)
+  # @merchant_repository.sales_engine.invoices.find_all_by_merchant_id(@id)
+  @merchant_repository.find_all_by_merchant_id_in_invoice_repo(@id)
  end
 end
