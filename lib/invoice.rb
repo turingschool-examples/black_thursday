@@ -10,8 +10,8 @@ class Invoice < Repository::Record
     @customer_id =  fields[:customer_id]
     @merchant_id =  fields[:merchant_id]
     @status =   fields[:status]
-    @created_at = Time.parse([:created_at])
-    @updated_at = Time.parse([:updated_at])
+    @created_at = Time.parse(fields[:created_at])
+    @updated_at = Time.parse(fields[:updated_at])
   end
 
   def merchant

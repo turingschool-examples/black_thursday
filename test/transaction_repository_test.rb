@@ -1,6 +1,6 @@
 require './test/test_helper'
+return
 require './lib/transacation_repository'
-
 class TransactionRepositoryTest < Minitest::Test
 
   attr_reader :transaction_repo
