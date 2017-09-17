@@ -161,4 +161,9 @@ class SalesAnalyst
   def merchant_invoices
     invoices.group_by {|invoice| invoice.merchant_id}
   end
+
+  def merchants_ranked_by_revenue
+    ranked_merchant.reverse
+  end
+
 end
