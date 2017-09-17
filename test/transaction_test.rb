@@ -2,7 +2,7 @@ require 'bigdecimal'
 require 'time'
 
 require './test/test_helper'
-
+return
 require './lib/transaction'
 
 class TransactionTest < Minitest::Test

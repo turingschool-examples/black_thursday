@@ -3,7 +3,7 @@ require 'bigdecimal'
 require './test/test_helper'
 require './lib/sales_analyst'
 
-
+return
 class SalesAnalystTest < Minitest::Test
 
   attr_reader :sales_analyst
