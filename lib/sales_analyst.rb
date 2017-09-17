@@ -101,4 +101,22 @@ class SalesAnalyst
     end
   end
 
+  def average_invoices_created_per_day
+    @engine.invoices.invoices.count / 7
+  end
+
+  def number_of_invoices_created_per_day
+    days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    days.map do |day|
+      @engine.invoices.invoices.find_all do |invoice|
+        invoice.created_day == day
+      end.count
+    end
+  end
+
+
+  # find average invoices created per day
+  # enumerate through invoices to find dates created
+  #
+
 end

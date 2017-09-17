@@ -91,4 +91,13 @@ class SalesAnalystTest < Minitest::Test
     assert_equal [@se.merchants.find_by_id(12334105)], sa.bottom_merchants_by_invoice_count
   end
 
+  def test_sa_can_find_average_invoices_created_per_day
+    assert_equal 8, sa.average_invoices_created_per_day
+  end
+
+  def test_sa_can_find_number_of_invoices_created_per_day
+    assert_equal [6, 7, 10, 2, 8, 14, 9], sa.number_of_invoices_created_per_day
+  end
+
+
 end
