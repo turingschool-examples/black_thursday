@@ -145,4 +145,31 @@ include StandardDeviation
     percentage.round(2)
   end
 
+  def total_revenue_by_date(date)
+    count = 0.00
+    se.invoice_items.invoice_items.each do |invoice_item|
+      iv_date = date_converter_to_string(invoice_item.created_at.to_s)
+      count += invoice_item.unit_price.to_i if iv_date == date
+    end
+    count
+  end
+
+  def date_converter_to_string(date)
+    split_date = date.split(' ')
+
+    return split_date[0].to_s
+  end
+
+  # def top_revenue_earners(num)
+  #   #determine the revenue total for each merchant
+  #   #Do merchants have invoice_items?
+  #   sorted_merchants = se.merchants.merchants.sort_by do |merchant|
+  #     merchant.invoice_items.reduce(0) {|sum, num| }
+  #
+  #
+  # end
+
+  # def merchant_revenue(merchant)
+  #   merchant.i
+  # end
 end
