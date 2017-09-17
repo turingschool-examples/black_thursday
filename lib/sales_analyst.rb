@@ -160,6 +160,12 @@ class SalesAnalyst
 
   def revenue_by_merchant
     merchant_invoices.each_value { |invoices| invoices.map! { |invoice| invoice.total } }
+  def merchants_with_only_one_item_registered_in_month(month)
+    month?(month) & merchants_with_only_one_item
+  end
+
+  def month?(month)
+    merchants.select {|m| m.created_at.strftime("%B") == month.capitalize}
   end
 
   def merchant_invoices
