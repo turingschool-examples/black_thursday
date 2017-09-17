@@ -11,6 +11,7 @@ class SalesEngineTest < Minitest::Test
             :merchants => './test/fixtures/merchants_truncated_11.csv',
             :invoices => './test/fixtures/invoices_truncated_56.csv',
             :invoice_items => './test/fixtures/invoice_items_truncated_10.csv',
+            :transactions => './test/fixtures/transaction_truncated_10.csv',
             :customers => './test/fixtures/customers_truncated_10.csv'
     })
   end

@@ -3,6 +3,7 @@ require_relative 'merchant_repository'
 require_relative 'invoice_repository'
 require_relative 'invoice_item_repository'
 require_relative 'customer_repository'
+require_relative 'transaction_repository'
 
 class SalesEngine
 
@@ -14,7 +15,9 @@ class SalesEngine
               :merchants,
               :invoices,
               :invoice_items,
+              :transactions,
               :customers
+
 
   def initialize(source_files)
     @items = ItemRepository.new(source_files[:items], self)
@@ -22,6 +25,7 @@ class SalesEngine
     @invoices = InvoiceRepository.new(source_files[:invoices], self)
     @invoice_items = InvoiceItemRepository.new(source_files[:invoice_items], self)
     @customers = CustomerRepository.new(source_files[:customers], self)
+    @transactions = TransactionRepository.new(source_files[:transactions], self)
   end
 
 end

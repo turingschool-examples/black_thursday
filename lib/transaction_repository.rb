@@ -6,14 +6,16 @@ class TransactionRepository
 
   attr_reader :all
 
-  def initialize
-    @all = []
+  def initialize(file_path, parent = nil)
+    @all = from_csv(file_path)
   end
 
   def from_csv(file_path)
+    trxr_array = []
     CSV.foreach(file_path, headers: true, :header_converters => :symbol) do |row|
-      @all << Transaction.new(row)
+      trxr_array << Transaction.new(row)
     end
+    trxr_array
   end
 
   def find_by_id(id)
