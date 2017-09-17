@@ -6,7 +6,7 @@ class ItemRepoTest < Minitest::Test
   attr_reader :ir
 
   def setup
-    @ir = ItemRepo.new("./data/items.csv")
+    @ir = ItemRepo.new("./data/items_fixture.csv")
   end
 
   def test_it_exists

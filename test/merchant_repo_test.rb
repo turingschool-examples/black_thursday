@@ -6,11 +6,11 @@ class MerchantRepoTest < Minitest::Test
   attr_reader :mr
 
   def setup
-    @mr = MerchantRepo.new("./data/merchants.csv")
+    @mr = MerchantRepo.new("./test/merchant_fixture.csv")
   end
 
   def test_find_all_merchants
-    assert_equal 475, mr.all_merchants.count
+    assert_equal 99, mr.all_merchants.count
 
   end
 

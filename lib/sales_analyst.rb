@@ -8,7 +8,6 @@ class SalesAnalyst
   attr_reader :merchants, :items, :price, :invoices
 
   def initialize(sales_engine)
-    # binding.pry
     @merchants     = sales_engine.merchants
     @items         = sales_engine.items
     @invoices      = sales_engine.invoices
@@ -35,7 +34,6 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-
     @high_count = []
     @merchants.all_merchants.map do |merchant|
      if merchant.items.count >= 6.12
@@ -56,21 +54,7 @@ class SalesAnalyst
     end
     total_average = (@totals.reduce(:+) / @totals.count) / 100
     total_average.round(2)
-  end
-
-  def average_invoices_per_merchant
-    num_1 = invoices.all.count.to_f
-    num_2 = merchants.all.count.to_f
-    average = num_1 / num_2
-    average.round(2)
-  end
-
-  def average_invoices_per_merchant_standard_deviation
-    standard_dev = merchants.all.map do |merchant|
-      (merchant.invoices.count - average_invoices_per_merchant)**2
     end
-    Math.sqrt(standard_dev.inject(0,:+) / merchants.all.count).round(2)
-  end
 
   def top_merchants_by_invoice_count
     target = (average_invoices_per_merchant_standard_deviation * 2) + average_invoices_per_merchant
@@ -78,7 +62,15 @@ class SalesAnalyst
     top_merchants = merchants.all.map do |merchant|
       if merchant.invoices.length > target
         merchant
+
+    def average_average_price_per_merchant
+      @totals = []
+      total = @items.all_items.each {|item| item.merchant_id }
+      total.map do |t|
+      @totals << t.price
       end
+      total_average = (@totals.reduce(:+) / @totals.count) / 100
+      total_average.round(2)
     end
     top_merchants.compact
   end
