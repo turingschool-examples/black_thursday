@@ -5,21 +5,19 @@ require './lib/invoice_item'
 class InvoiceItemRepositoryTest < Minitest::Test
 
   def setup
-    @iir = InvoiceItemRepository.new()
+    @iir = InvoiceItemRepository.new("./test/fixtures/invoice_items_truncated_10.csv")
   end
 
   def test_invoice_item_repository_class_exist
     assert_instance_of InvoiceItemRepository, @iir
   end
 
-  def test_invoice_item_repository_begins_with_empty_array_called_by_the_all_method
-    assert_equal [], @iir.all
+  def test_invoice_item_repository_is_initialized_with_an_array_populated_by_from_csv
+    assert_equal 10, @iir.all.count
   end
 
-  def test_from_csv_populates_data
-    @iir.from_csv("./test/fixtures/invoice_items_truncated_10.csv")
-
-    assert_equal 10, @iir.all.count
+  def test_invoice_item_is_initilialized_with_a_parent_defaulted_to_nil
+    assert_nil @iir.parent
   end
 
   def test_data_item_id_4_returns_correct_matching_item_id

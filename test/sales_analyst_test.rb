@@ -12,7 +12,10 @@ class SalesAnalystTest < Minitest::Test
     @se = SalesEngine.from_csv({
             :items => './test/fixtures/items_truncated_10.csv',
             :merchants => './test/fixtures/merchants_truncated_11.csv',
-            :invoices => './test/fixtures/invoices_truncated_56.csv'})
+            :invoices => './test/fixtures/invoices_truncated_56.csv',
+            :invoice_items => './test/fixtures/invoice_items_truncated_10.csv',
+            :customers => './test/fixtures/customers_truncated_10.csv'
+          })
     @sa = SalesAnalyst.new(se)
   end
 
@@ -47,7 +50,10 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv({
             :items => './test/fixtures/items_truncated_10.csv',
             :merchants => './test/fixtures/merchants_truncated_4.csv',
-            :invoices => './test/fixtures/invoices_truncated_56.csv'})
+            :invoices => './test/fixtures/invoices_truncated_56.csv',
+            :invoice_items => './test/fixtures/invoice_items_truncated_10.csv',
+            :customers => './test/fixtures/customers_truncated_10.csv'
+          })
     sa = SalesAnalyst.new(se)
 
     merchant_1_avg = sa.average_item_price_for_merchant(12334105)
