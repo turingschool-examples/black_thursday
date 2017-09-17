@@ -22,7 +22,7 @@ class Transaction
   end
 
   def invoice
-    parent.transaction_invoice(self.id)
+    parent.transaction_invoice(invoice_id)
   end
 
 end

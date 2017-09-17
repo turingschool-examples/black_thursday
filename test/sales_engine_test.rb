@@ -64,21 +64,22 @@ class SalesEngineTest < MiniTest::Test
   end
 
   def test_invoice_customer
-    invoice = se.invoices.find_by_id(20)
+    invoice = se.invoices.find_by_id(106)
 
-    assert_equal 20, invoice.customer.id
+    assert_equal 22, invoice.customer.id
+    assert_instance_of Customer, invoice.customer
   end
 
   def test_transaction_invoice
     transaction = se.transactions.find_by_id(40)
 
-    assert_equal 40, transaction.invoice.id
+    assert_instance_of Invoice, transaction.invoice
   end
 
   def test_merchant_customers
     merchant = se.merchants.find_by_id(12335938)
 
-    assert_equal 5, merchant.customers.count
+    assert_equal 16, merchant.customers.count
   end
 
   def test_customer_merchants

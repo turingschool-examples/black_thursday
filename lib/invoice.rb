@@ -35,7 +35,7 @@ class Invoice
   end
 
   def customer
-    parent.invoice_customer(self.id)
+    parent.invoice_customer(customer_id)
   end
 
 end
