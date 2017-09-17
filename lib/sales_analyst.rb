@@ -1,5 +1,7 @@
 require_relative 'sales_engine'
 require_relative 'standard_deviation'
+require 'time'
+
 class SalesAnalyst
 include StandardDeviation
   attr_reader :se
@@ -12,19 +14,6 @@ include StandardDeviation
     average = se.total_items / se.total_merchants.to_f
     average.round(2)
   end
-
-  # def average_items_per_merchant_standard_deviation
-  #   average = average_items_per_merchant
-  #
-  #   difference_from_average = se.merchant_item_count.map do |item_count|
-  #     item_count - average
-  #   end
-  #   squared_values = difference_from_average.map {|diff| diff ** 2}
-  #
-  #   sum_of_squares = squared_values.sum
-  #
-  #   Math.sqrt(sum_of_squares / (se.merchant_item_count.count - 1)).round(2)
-  # end
 
   def merchants_with_high_item_count
     std_dev = average_items_per_merchant_standard_deviation
@@ -51,21 +40,6 @@ include StandardDeviation
     average_average = merchant_price_averages.sum / merchant_price_averages.count
     average_average.round(2)
   end
-
-  # def item_standard_deviation
-  #   total_item_price = se.items.items.reduce(0) do |total_price, item|
-  #     total_price + item.unit_price
-  #   end
-  #   average_item_price = total_item_price / se.total_items.to_f
-  #
-  #   item_price_differences = se.items.items.map do |item|
-  #     (item.unit_price - average_item_price) ** 2
-  #   end
-  #
-  #   sum_of_squares = item_price_differences.sum
-  #
-  #   Math.sqrt(sum_of_squares / (se.total_items - 1))
-  # end
 
   def golden_items
     std_dev = item_standard_deviation
@@ -148,8 +122,8 @@ include StandardDeviation
   def total_revenue_by_date(date)
     count = 0.00
     se.invoice_items.invoice_items.each do |invoice_item|
-      iv_date = date_converter_to_string(invoice_item.created_at.to_s)
-      count += invoice_item.unit_price.to_i if iv_date == date
+      iv_date = date
+      count += invoice_item.unit_price.to_i if invoice_item.created_at.strftime('%Y/%m/%d') == date.strftime('%Y/%m/%d')
     end
     count
   end
@@ -160,16 +134,24 @@ include StandardDeviation
     return split_date[0].to_s
   end
 
-  # def top_revenue_earners(num)
-  #   #determine the revenue total for each merchant
-  #   #Do merchants have invoice_items?
-  #   sorted_merchants = se.merchants.merchants.sort_by do |merchant|
-  #     merchant.invoice_items.reduce(0) {|sum, num| }
-  #
-  #
-  # end
+  def top_revenue_earners(n = 20)
+    sorted_merchants = se.merchants.merchants.sort_by do |merchant|
+      merchant_revenue(merchant)
+    end
+    sorted_merchants.reverse[0,n]
+  end
 
-  # def merchant_revenue(merchant)
-  #   merchant.i
-  # end
+  def merchant_revenue(merchant)
+    revenue= 0.00
+    merchant.items.each do |item|
+      revenue += item.invoice_items.reduce(0) do |sum, invoice_item|
+        sum + invoice_item.unit_price
+      end
+    end
+    revenue
+  end
+
+  def method_name
+
+  end
 end

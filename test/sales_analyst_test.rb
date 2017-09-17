@@ -40,4 +40,12 @@ class SalesAnalystTest < MiniTest::Test
 
     assert_equal 33400.0, sa.total_revenue_by_date('2012-03-27')
   end
+
+  def test_top_revenue_earners
+    sa = setup
+
+  puts sa.top_revenue_earners(5)
+
+
+  end
 end
