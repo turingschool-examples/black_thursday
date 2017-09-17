@@ -34,8 +34,16 @@ class MerchantRepo
     merchants.find_all { |merchant| merchant.name.downcase.include?(name.downcase) }
   end
 
+  def merchant_invoices(id)
+    parent.merchant_invoices(id)
+  end
+
   def merchant_items(id)
     parent.merchant_items(id)
+  end
+
+  def merchant_customers(id)
+    parent.merchant_customers(id)
   end
 
 end

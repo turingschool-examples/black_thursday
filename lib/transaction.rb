@@ -7,7 +7,8 @@ class Transaction
               :credit_card_expiration_date,
               :result,
               :created_at,
-              :updated_at
+              :updated_at,
+              :parent
 
   def initialize(transaction, repo=nil)
     @id = transaction[:id].to_i
@@ -17,6 +18,11 @@ class Transaction
     @result = transaction[:result]
     @created_at = Time.parse(transaction[:created_at].to_s)
     @updated_at = Time.parse(transaction[:updated_at].to_s)
+    @parent = repo
+  end
+
+  def invoice
+    parent.transaction_invoice(self.id)
   end
 
 end
