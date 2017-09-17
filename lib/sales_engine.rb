@@ -29,7 +29,7 @@ class SalesEngine
     @items = ItemRepository.new(self, item_csv)
     @merchants = MerchantRepository.new(self, merchant_csv)
     @invoices = InvoiceRepository.new(self, invoice_csv)
-    @invoice_items = InvoiceItemsRepository.new(self, invoice_items_csv)
+    @invoice_items = InvoiceItemRepository.new(self, invoice_items_csv)
     @transactions = TransactionRepository.new(self, transaction_csv)
     @customers = CustomerRepository.new(self, customer_csv)
   end
