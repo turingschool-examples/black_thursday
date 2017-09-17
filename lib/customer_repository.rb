@@ -21,16 +21,16 @@ class CustomerRepository
     all.find {|customer| customer.id == id}
   end
 
-  def find_all_by_first_name(prefix)
-    all.select {|customer| customer.first_name.downcase.include?(prefix.downcase)}
+  def find_all_by_first_name(pre)
+    all.select {|customer| customer.first_name.downcase.include?(pre.downcase)}
   end
 
-  def find_all_by_last_name(prefix)
-    all.select {|customer| customer.last_name.downcase.include?(prefix.downcase)}
+  def find_all_by_last_name(pre)
+    all.select {|customer| customer.last_name.downcase.include?(pre.downcase)}
   end
 
   def find_merchants_by_customer(id)
-    @parent.find_merchants_by_customer(id)    
+    @parent.find_merchants_by_customer(id)
   end
 
   def inspect

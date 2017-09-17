@@ -47,6 +47,10 @@ class SalesEngine
     arr.map {|item| @items.find_by_id(item.item_id)}
   end
 
+  def find_item_by_id(item_id)
+    @items.find_by_id(item_id)
+  end
+
   def find_transactions_by_invoice(id)
     @transactions.find_all_by_invoice_id(id)
   end
