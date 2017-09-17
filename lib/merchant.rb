@@ -21,7 +21,7 @@ class Merchant
   def customers
     invoice_array = merchant_repository.sales_engine.invoices.find_all_by_merchant_id(id)
     customer_ids = invoice_array.map {|invoice| invoice.customer_id}
-    customer_ids.map do |customer_id|
+    customer_ids.uniq.map do |customer_id|
       merchant_repository.sales_engine.customers.find_by_id(customer_id)
     end
   end
