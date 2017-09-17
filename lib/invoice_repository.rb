@@ -17,7 +17,7 @@ class InvoiceRepository
 
   def find_by_id(id)
     all.each do |invoice|
-      return invoice if invoice.id.to_i == id
+      return invoice if invoice.id == id
     end
     nil
   end

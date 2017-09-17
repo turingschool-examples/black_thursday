@@ -8,7 +8,7 @@ require_relative "customer_repository"
 require_relative "sales_analyst"
 
 class SalesEngine
-  attr_reader :items, :merchants, :invoices
+  attr_reader :items, :merchants, :invoices, :invoice_items, :transactions, :customers
 
   def self.from_csv(file_names)
     @item_file = file_names[:items]

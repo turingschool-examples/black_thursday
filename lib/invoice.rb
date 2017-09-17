@@ -23,31 +23,27 @@ class Invoice
   end
 
   def merchant
-     #merchant_repository.sales_engine.items.find_all_by_merchant_id(id)
-     #item_repository.se.merchants.find_by_id(id)
-
      id = merchant_id.to_i
      return 0 if id.nil?
      sales_engine = invoice_repository.sales_engine
      merchants = sales_engine.merchants
-     #binding.pry
      merchants.find_by_id(id)
   end
 
-=begin
-  Then connect our invoices to our merchants:
+  def items
+    invoice_items = invoice_repository.sales_engine.invoice_items.find_all_by_invoice_id(id)
+    item_ids = invoice_items.map {|invoice_item| invoice_item.item_id}
+    item_ids.map do |item_id|
+      invoice_repository.sales_engine.items.find_by_id(item_id)
+    end
+  end
 
-sales_engine. = SalesEngine.from_csv({
-  :items => "./data/items.csv",
-  :merchants => "./data/merchants.csv",
-  :invoices => "./data/invoices.csv"
-})
-merchant = sales_engine.merchants.find_by_id(12334159)
-merchant.invoices
-# => [<invoice>, <invoice>, <invoice>]
-invoice = sales_engine.invoices.find_by_id(20)
-invoice.merchant
-# => <merchant>
-=end
+  def transactions
+    invoice_repository.sales_engine.transactions.find_all_by_invoice_id(id)
+  end
+
+  def customer
+    invoice_repository.sales_engine.customers.find_by_id(customer_id)
+  end
 
 end
