@@ -23,7 +23,19 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal [], @trxr.all
   end
 
-  def test_
+  def test_trx_cvs_file_returns_correct_matching_id
+    @trxr.from_csv("./test/fixtures/transaction_truncated_10.csv")
+
+    assert_equal "4126", @trxr.all[3].invoice_id
+  end
+
+  def test_trx_cvs_file_returns_correct_matching_id
+    @trxr.from_csv("./test/fixtures/transaction_truncated_10.csv")
+
+    assert_equal "4126", @trxr.all[3].invoice_id
+  end
+
+  def method_name
     
   end
 
