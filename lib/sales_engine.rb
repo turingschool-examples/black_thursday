@@ -3,6 +3,7 @@ require_relative 'item_repository'
 require_relative 'invoice_repository'
 require_relative 'customer_repository'
 require_relative 'invoice_item_repository'
+require_relative 'transaction_repository'
 
 class SalesEngine
 
@@ -10,7 +11,8 @@ class SalesEngine
                 :item_csv_filepath,
                 :invoice_csv_filepath,
                 :customer_csv_filepath,
-                :invoice_item_csv_filepath
+                :invoice_item_csv_filepath,
+                :transaction_csv_filepath
 
   def self.from_csv(info)
     se = SalesEngine.new
@@ -19,6 +21,7 @@ class SalesEngine
     se.invoice_csv_filepath = info[:invoices]
     se.customer_csv_filepath = info[:customers]
     se.invoice_item_csv_filepath = info[:invoice_items]
+    se.transaction_csv_filepath = info[:transactions]
     se
   end
 
@@ -28,6 +31,7 @@ class SalesEngine
     @invoice_csv_filepath = ''
     @customer_csv_filepath = ''
     @invoice_item_csv_filepath = ''
+    @transaction_csv_filepath = ''
   end
 
   def merchants
@@ -70,6 +74,14 @@ class SalesEngine
     end
   end
 
+  def transactions
+    if @transactions.nil?
+      @transactions = TransactionRepository.new(@transaction_csv_filepath, self)
+    else
+      @transactions
+    end
+  end
+
   def total_merchants
     self.merchants.merchants.length
   end
@@ -95,4 +107,5 @@ class SalesEngine
   def merchant_invoice_count
     self.merchants.merchants.map {|merchant| merchant.invoices.count}
   end
+
 end

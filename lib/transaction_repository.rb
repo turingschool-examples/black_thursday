@@ -1,19 +1,23 @@
-require_relative 'transaction'
 require_relative 'csv_parser'
+require_relative 'transaction'
 
 class TransactionRepository
-include CsvParser
+  include CsvParser
+  attr_accessor :transactions
 
-  def initialize
+  def initialize(file_name, sales_engine)
     @transactions = []
-  end
-
-  def from_csv(file_name)
     item_contents = parse_data(file_name)
     item_contents.each {|row| @transactions << Transaction.new(row,self)}
-      #should live in it's own method. too much logic in the initialize
-      #(some people will say that you should'nt have behavior in initialize, only state)
+    @sales_engine = sales_engine
   end
+
+  # def from_csv(file_name)
+  #   item_contents = parse_data(file_name)
+  #   item_contents.each {|row| @transactions << Transaction.new(row,self)}
+  #     #should live in it's own method. too much logic in the initialize
+  #     #(some people will say that you should'nt have behavior in initialize, only state)
+  # end
 
   def all
     @transactions
@@ -33,5 +37,9 @@ include CsvParser
 
   def find_all_by_result(result)
     @transactions.select {|transaction| transaction.result == result}
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end

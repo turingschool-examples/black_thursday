@@ -5,9 +5,10 @@ require_relative '../lib/transaction_repository'
 class TransactionRepositoryTest  < Minitest::Test
 
   def setup
-    tr = TransactionRepository.new
-    tr.from_csv("./test/fixtures/transactions_fixture.csv")
-    tr
+    se = SalesEngine.from_csv({
+      :transactions    => "./test/fixtures/transactions_fixture.csv"
+      })
+    se.transactions
   end
 
   def test_it_displays_all_its_transactions
