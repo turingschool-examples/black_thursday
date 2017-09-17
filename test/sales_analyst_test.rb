@@ -100,7 +100,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_sa_can_find_average_number_of_invoices_created_per_day_standard_deviation
-    assert_equal 3.6968455021365, sa.number_of_invoices_created_per_day_standard_deviation
+    assert_equal 3.696845502136472, sa.number_of_invoices_created_per_day_standard_deviation
+  end
+
+  def test_sa_can_find_top_days_by_invoice_count
+    assert_equal ["Friday"], sa.top_days_by_invoice_count
   end
 
 

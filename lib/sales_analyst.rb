@@ -3,6 +3,7 @@ class SalesAnalyst
 
   def initialize(engine)
     @engine = engine
+    @days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
   end
 
@@ -106,8 +107,7 @@ class SalesAnalyst
   end
 
   def number_of_invoices_created_per_day
-    days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-    days.map do |day|
+    @days.map do |day|
       @engine.invoices.invoices.find_all do |invoice|
         invoice.created_day == day
       end.count
@@ -115,21 +115,42 @@ class SalesAnalyst
   end
 
   def number_of_invoices_created_per_day_standard_deviation
-    squared = @engine.invoices.
-
-  end
-
-  def average_invoices_per_merchant_standard_deviation
-    squared  = @engine.merchants.all.map do |merchant|
-      (merchant.invoices.count - average_invoices_per_merchant) ** 2
+    squared = number_of_invoices_created_per_day.map do |day|
+      (day - average_invoices_created_per_day) ** 2
     end
-    divided = squared.inject(:+) / (@engine.merchants.merchants.count - 1)
+    divided = squared.inject(:+).to_f / 6
     Math.sqrt(divided)
   end
 
-
-  # find average invoices created per day
-  # enumerate through invoices to find dates created
-  #
+  def top_days_by_invoice_count
+    days = []
+    bar = average_invoices_created_per_day + number_of_invoices_created_per_day_standard_deviation
+    number_of_invoices_created_per_day.each.with_index do |invoice_count, index|
+      if invoice_count > bar
+        days << index
+      end
+    end
+    translate_days(days)
+  end
+  
+  def translate_days(array)
+    array.map do |value|
+      if value == 0
+        "Sunday"
+      elsif value == 1
+        "Monday"
+      elsif value == 2
+        "Tuesday"
+      elsif value == 3
+        "Wednesday"
+      elsif value == 4
+        "Thursday"
+      elsif value == 5
+        "Friday"
+      elsif value == 6
+        "Saturday"
+      end
+    end
+  end
 
 end
