@@ -112,6 +112,10 @@ class SalesAnalyst
     engine.merchants.all
   end
 
+  def customers   
+    engine.customers.all
+  end
+
   def average(collection)
     (collection.sum / collection.length.to_f).round(2)
   end
@@ -130,11 +134,32 @@ class SalesAnalyst
 
   def total_revenue_by_date(date)
     date = date.to_s.split(" ")[0]
-    invoice = invoices.select {|item| item.created_at.to_s.split(" ")[0] == date}
-    invoice.map {|invoice| invoice.total}.sum
+    arr  = invoices.select {|item| item.created_at.to_s.split(" ")[0] == date}
+    arr.map(&:total).sum
   end
 
   def top_revenue_earners(x = 20)
-    
+    merchants.sort_by {|merchant| merchant_revenue(merchant.id)}.reverse.shift(x)
+  end
+
+  def merchant_revenue(id)
+    invoices = engine.merchants.find_invoices_by_merchant_id(id)
+    invoices.reduce(0) {|sum, invoice| sum += invoice.total}
+  end
+
+  def merchants_ranked_by_revenue
+    top_revenue_earners(merchants.length)
+  end
+
+  def merchants_with_pending_invoices
+    merchants.select {|merchant| pending_invoices?(merchant)}
+  end
+
+  def pending_invoices?(merchant)
+    merchant.invoices.any? {|invoice| !invoice.is_paid_in_full?}
+  end
+
+  def merchants_with_only_one_item 
+    merchants.select {|merchant| merchant.items.count == 1}
   end
 end
