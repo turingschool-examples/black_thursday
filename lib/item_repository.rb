@@ -10,10 +10,9 @@ class ItemRepository
   def initialize(file_name, sales_engine)
     @items = []
     item_contents = parse_data(file_name)
-    item_contents.each do |row| #should live in it's own method. too much logic in the initialize (some people will say that you should'nt have behavior in initialize, only state)
+    item_contents.each do |row|
       @items << Item.new(row, self)
     end
-#only pass row and self to the item and assign the values in the item initialize
       @sales_engine = sales_engine
   end
 

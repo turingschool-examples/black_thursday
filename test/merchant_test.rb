@@ -2,14 +2,13 @@ require_relative 'test_helper'
 require_relative '../lib/merchant'
 require_relative '../lib/sales_engine'
 
-
 class MerchantTest < Minitest::Test
 
   def setup
     se = SalesEngine.from_csv({
           :items     => "./test/fixtures/items_fixture.csv",
           :merchants => "./test/fixtures/merchants_fixture.csv",
-          :invoices => "./test/fixtures/invoices_fixture.csv"
+          :invoices  => "./test/fixtures/invoices_fixture.csv"
         })
     mr = se.merchants
   end

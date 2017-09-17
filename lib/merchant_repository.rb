@@ -1,20 +1,17 @@
-# require './lib/csv_parser'
-# require './lib/merchant'
 require_relative 'csv_parser'
 require_relative 'merchant'
 
 class MerchantRepository
-include CsvParser
-attr_reader :sales_engine
-attr_accessor :merchants
+  include CsvParser
+  attr_reader :sales_engine
+  attr_accessor :merchants
 
   def initialize(file_name, sales_engine)
     @merchants = []
     merchant_contents = parse_data(file_name)
     merchant_contents.each do |row|
-      @merchants << Merchant.new({id: row[:id].to_i, name: row[:name]}, self)
+      @merchants << Merchant.new(row, self)
     end
-    # populate_merchants_with_items
     @sales_engine = sales_engine
   end
 
@@ -34,6 +31,10 @@ attr_accessor :merchants
     @merchants.select do |merchant|
       merchant.name.downcase.include?(name.downcase)
     end
+  end
+
+  def find_all_by_merchant_id_in_item_repo(id)
+    @sales_engine.items.find_all_by_merchant_id(id)
   end
 
   def inspect

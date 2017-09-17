@@ -12,14 +12,14 @@ class Item
 
   attr_accessor :merchant
 
-  def initialize(info, item_repository = '')
-    @id = info[:id]
+  def initialize(info, item_repository)
+    @id = info[:id].to_i
     @name = info[:name]
     @description = info[:description]
-    @unit_price = BigDecimal.new(row[:unit_price],4)/100
+    @unit_price = BigDecimal.new(info[:unit_price],4)/100
     @created_at = Time.parse(info[:created_at])
     @updated_at = Time.parse(info[:updated_at])
-    @merchant_id = info[:merchant_id]
+    @merchant_id = info[:merchant_id].to_i
     @item_repository = item_repository
     @merchant = ''
   end
