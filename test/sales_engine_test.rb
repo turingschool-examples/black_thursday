@@ -4,33 +4,32 @@ require_relative '../lib/merchant_repo'
 require_relative '../lib/item_repo'
 
 class SalesEngineTest < Minitest::Test
-  attr_reader :files, :se
   def set_up
     files = ({:invoices => "./test/fixtures/invoice_fixture.csv", :items => "./test/fixtures/item_fixture.csv", :merchants => "./test/fixtures/merchant_fixture.csv"})
-    @se = SalesEngine.from_csv(files)
+    SalesEngine.from_csv(files)
   end
 
   def test_it_exists
-    set_up
-
-    assert_instance_of SalesEngine, se
+    assert_instance_of SalesEngine, set_up
   end
 
   def test_from_csv_item
-    set_up
-
-    assert_instance_of ItemRepository, se.items
+    assert_instance_of ItemRepository, set_up.items
   end
 
   def test_from_csv_merchants
-    set_up
-
-    assert_instance_of MerchantRepository, se.merchants
+    assert_instance_of MerchantRepository, set_up.merchants
   end
 
   def test_it_has_merchant_items
-    set_up
+    assert_equal 1, set_up.find_merchant_items(12334105).count
+  end
 
-    assert_equal 1, se.find_merchant_items(12334105).count
+  def test_find_merchant_invoice
+    assert_equal 1, set_up.find_merchant_invoice(12334115).count
+  end
+
+  def test_find_invoice_for_merchant
+    assert_instance_of Merchant , set_up.find_invoice_for_merchant(12334115)
   end
 end
