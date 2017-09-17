@@ -87,10 +87,9 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_find_all_by_status_returns_array_of_invoices_with_valid_status_search
     actual = ir.find_all_by_status("shipped")
-    expected = [ir.invoices[1], ir.invoices[2], ir.invoices[8], ir.invoices[9]]
+    expected = [ir.invoices[1], ir.invoices[2], ir.invoices[7], ir.invoices[8]]
 
     assert_equal expected, actual
   end
-
 
 end

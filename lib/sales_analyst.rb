@@ -49,7 +49,6 @@ class SalesAnalyst
     average_prices = @engine.merchants.all.map do |merchant|
       average_item_price_for_merchant(merchant.id)
     end
-
     (average_prices.reduce(:+) / @engine.merchants.all.count).truncate(2)
   end
 
@@ -88,8 +87,18 @@ class SalesAnalyst
     Math.sqrt(divided)
   end
 
+  def top_merchants_by_invoice_count
+    bar = (2 * average_invoices_per_merchant_standard_deviation) + average_invoices_per_merchant
+    @engine.merchants.merchants.find_all do |merchant|
+      merchant.invoices.count > bar
+    end
+  end
 
-
-
+  def bottom_merchants_by_invoice_count
+    bar = average_invoices_per_merchant - (2 * average_invoices_per_merchant_standard_deviation)
+    @engine.merchants.merchants.find_all do |merchant|
+      merchant.invoices.count < bar
+    end
+  end
 
 end

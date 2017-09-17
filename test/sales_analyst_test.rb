@@ -44,10 +44,17 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_average_price_per_merchant_returns_average_item_price_across_all_merchants
+    se = SalesEngine.from_csv({
+            :items => './test/fixtures/items_truncated_10.csv',
+            :merchants => './test/fixtures/merchants_truncated_4.csv',
+            :invoices => './test/fixtures/invoices_truncated_56.csv'})
+    sa = SalesAnalyst.new(se)
+
     merchant_1_avg = sa.average_item_price_for_merchant(12334105)
     merchant_2_avg = sa.average_item_price_for_merchant(12334112)
     merchant_3_avg = sa.average_item_price_for_merchant(12334115)
     merchant_4_avg = sa.average_item_price_for_merchant(12334123)
+
     expected = ((merchant_1_avg + merchant_2_avg + merchant_3_avg + merchant_4_avg)/4).truncate(2)
     actual = sa.average_average_price_per_merchant
 
@@ -74,8 +81,14 @@ class SalesAnalystTest < Minitest::Test
 
   def test_sa_can_find_average_invoices_per_merchant_standard_deviation
     assert_equal 2.0225995873897267, sa.average_invoices_per_merchant_standard_deviation
-
   end
 
+  def test_sa_can_find_top_merchant_by_invoice_count
+    assert_equal [@se.merchants.find_by_id(12334146)], sa.top_merchants_by_invoice_count
+  end
+
+  def test_sa_can_find_bottom_merchants_by_invoice_count
+    assert_equal [@se.merchants.find_by_id(12334105)], sa.bottom_merchants_by_invoice_count
+  end
 
 end

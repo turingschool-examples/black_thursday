@@ -46,5 +46,4 @@ class InvoiceRepository
     end
   end
 
-
 end
