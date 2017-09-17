@@ -278,7 +278,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_revenue_earners_returns_top_x_merchants_ranked_by_revenue
-    expected = sales_analyst.top_revenue_earners(10)
+    expected = sa.top_revenue_earners(10)
     first = expected.first
     last = expected.last
 
@@ -286,20 +286,8 @@ class SalesAnalystTest < Minitest::Test
 
     assert_instance_of Merchant, expected.first
     assert_equal 12334634, expected.first.id
-  end
 
-  #
-  # it "#top_revenue_earners(x) returns the top x merchants ranked by revenue" do
-  #   expected = sales_analyst.top_revenue_earners(10)
-  #   first = expected.first
-  #   last = expected.last
-  #
-  #   expect(expected.length).to eq 10
-  #
-  #   expect(first.class).to eq Merchant
-  #   expect(first.id).to eq 12334634
-  #
-  #   expect(last.class).to eq Merchant
-  #   expect(last.id).to eq 12335747
-  # end
+    assert_instance_of Merchant, expected.last
+    assert_equal 12335747, expected.last.id
+  end
 end
