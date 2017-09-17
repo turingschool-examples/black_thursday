@@ -321,4 +321,17 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 243, expected.length 
     assert_instance_of Merchant, expected.first        
   end
+
+  def test_merchants_with_only_one_item_registered_in_month
+    expected = sa.merchants_with_only_one_item_registered_in_month("March")
+
+    assert_equal 21, expected.length 
+    assert_instance_of Merchant, expected.first        
+    
+    expected = sa.merchants_with_only_one_item_registered_in_month("June")
+    
+    assert_equal 18, expected.length 
+    assert_instance_of Merchant, expected.first            
+  end
+
 end

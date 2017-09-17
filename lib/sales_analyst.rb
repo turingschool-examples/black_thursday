@@ -162,4 +162,16 @@ class SalesAnalyst
   def merchants_with_only_one_item 
     merchants.select {|merchant| merchant.items.count == 1}
   end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    # month = merchants.select do |merchant|
+    #   merchant.created_at.strftime("%B") == month.capitalize
+    # end
+    # month & merchants_with_only_one_item
+    merchants_by_month[month].select {|merchant| merchant.items.count == 1}
+  end
+
+  def merchants_by_month
+    merchants.group_by {|merchant| Date::MONTHNAMES[merchant.created_at.month]}
+  end
 end
