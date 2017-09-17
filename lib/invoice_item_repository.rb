@@ -4,7 +4,7 @@ require_relative 'invoice_item'
 class InvoiceItemRepository < Repository
 
   def record_class
-    Invoice
+    InvoiceItem
   end
 
   def find_all_by_item_id(item_id)
