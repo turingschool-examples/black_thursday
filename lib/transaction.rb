@@ -8,7 +8,8 @@ class Transaction
             :created_at,
             :updated_at
 
-  def initialize(trx_data)
+  def initialize(trx_data, parent = nil)
+    @parent = parent
     @id = trx_data[:id]
     @invoice_id = trx_data[:invoice_id]
     @credit_card_number = trx_data[:credit_card_number]
