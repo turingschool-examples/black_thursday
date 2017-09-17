@@ -2,13 +2,15 @@ require_relative 'merchant_repository'
 require_relative 'item_repository'
 require_relative 'invoice_repository'
 require_relative 'customer_repository'
+require_relative 'invoice_item_repository'
 
 class SalesEngine
 
   attr_accessor :merchant_csv_filepath,
                 :item_csv_filepath,
                 :invoice_csv_filepath,
-                :customer_csv_filepath
+                :customer_csv_filepath,
+                :invoice_item_csv_filepath
 
   def self.from_csv(info)
     se = SalesEngine.new
@@ -16,6 +18,7 @@ class SalesEngine
     se.item_csv_filepath = info[:items]
     se.invoice_csv_filepath = info[:invoices]
     se.customer_csv_filepath = info[:customers]
+    se.invoice_item_csv_filepath = info[:invoice_items]
     se
   end
 
@@ -24,6 +27,7 @@ class SalesEngine
     @item_csv_filepath = ''
     @invoice_csv_filepath = ''
     @customer_csv_filepath = ''
+    @invoice_item_csv_filepath = ''
   end
 
   def merchants
@@ -55,6 +59,14 @@ class SalesEngine
       @customer_repository = CustomerRepository.new(@customer_csv_filepath, self)
     else
       @customer_repository
+    end
+  end
+
+  def invoice_items
+    if @invoice_items.nil?
+      @invoice_items = InvoiceItemRepository.new(@invoice_item_csv_filepath, self)
+    else
+      @invoice_items
     end
   end
 
