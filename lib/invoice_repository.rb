@@ -2,7 +2,6 @@ require_relative 'invoice'
 require_relative 'sales_engine'
 require 'csv'
 
-
 class InvoiceRepository
 
   attr_reader :all, :invoices, :sales_engine
@@ -11,7 +10,7 @@ class InvoiceRepository
     @all = []
     @sales_engine = sales_engine
     CSV.foreach(invoice_csv, headers: true, header_converters: :symbol) do |row|
-      all << Invoice.new(self, row)
+      all << Item.new(self, row)
     end
   end
 

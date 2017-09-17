@@ -7,7 +7,7 @@ class MerchantRepositoryTest < Minitest::Test
   attr_reader :mr
 
   def setup
-    merchant_csv = "./test/test_data/merchants_short.csv"
+    merchant_csv = "./test/test_fixtures/merchants_medium.csv"
     @mr = MerchantRepository.new("fake_se", merchant_csv)
 
   end

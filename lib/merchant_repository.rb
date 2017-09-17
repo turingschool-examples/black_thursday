@@ -10,11 +10,9 @@ class MerchantRepository
   def initialize(sales_engine, merchant_csv)
     @all = []
     @sales_engine = sales_engine
-
     CSV.foreach(merchant_csv, headers: true, header_converters: :symbol) do |row|
       @all << Merchant.new(self, row)
     end
-
     @id = :id
     @name = :name
   end

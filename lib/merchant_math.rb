@@ -48,13 +48,13 @@ module MerchantMath
     calculation_thing_array_sum
   end
 
-  def standard_deviation_for_thing_cost(things, comparison_class)
+  def standard_deviation_for_thing(things, comparison_class)
     final = Math.sqrt(square_each_thing_average_difference(things) / (comparison_class.all.count - 1))
     final.round(3)
   end
 
   def avg_thing_plus_2x_std_dev(things, comparison_class)
-    average_thing(things) + (standard_deviation_for_thing_cost(things, comparison_class) * 2)
+    average_thing(things) + (standard_deviation_for_thing(things, comparison_class) * 2)
    end
 
 
@@ -64,14 +64,34 @@ module MerchantMath
       things.all.each do |thing|
         if (thing.unit_price_float)  >= avg_thing_plus_2x_std_dev(things, comparison_class)
         golden_things_list << thing
-        puts "Yowza"
+        puts "Yowza - 2 STDs above"
         end
       end
       golden_things_list
     end
 
+    def two_standard_deviations_below(things, comparison_class)
+      golden_things_list = []
+        things.all.each do |thing|
+          if (thing.unit_price_float)  <= avg_thing_plus_2x_std_dev(things, comparison_class)
+          golden_things_list << thing
+          puts "Yowza - 2 STDs below"
+          end
+        end
+        golden_things_list
+      end
 
 
+      def one_standard_deviations_above(things, comparison_class)
+        golden_things_list = []
+          things.all.each do |thing|
+            if (thing.unit_price_float)  >= standard_deviation_for_thing(things, comparison_class)
+            golden_things_list << thing
+            puts "Yowza - 1 STD above"
+            end
+          end
+          golden_things_list
+        end
 
 
 end
