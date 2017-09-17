@@ -23,7 +23,7 @@ class SalesAnalystTest < MiniTest::Test
   def test_it_can_find_average_items_per_merchant
     sa = setup
 
-    assert_equal 2.86, sa.average_items_per_merchant
+    assert_equal 2, sa.average_items_per_merchant
   end
 
   def test_it_can_find_the_invoices_on_each_day
@@ -33,5 +33,4 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 7, sa.number_of_invoices_by_day.count
     assert_equal sa.number_of_invoices_by_day, {"Monday"=>5, "Tuesday"=>2, "Wednesday"=>11, "Thursday"=>9, "Friday"=>7, "Saturday"=>8, "Sunday"=>3}
   end
-
 end
