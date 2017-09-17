@@ -10,8 +10,15 @@ class InvoiceTest < Minitest::Test
     :items     => "./test/fixtures/items_fixture.csv",
     :merchants => "./test/fixtures/merchants_fixture.csv",
     :invoices => "./test/fixtures/invoices_fixture.csv",
-    :transactions => "./test/fixtures/transactions_fixture.csv"
+    :transactions => "./test/fixtures/transactions_fixture.csv",
+    :invoice_items => './test/fixtures/invoice_items_fixture.csv',
+    :customers => "./test/fixtures/customers_fixture.csv"
     })
+    se.items
+    se.merchants
+    se.transactions
+    se.invoice_items
+    se.customers
     vr = se.invoices
   end
 
@@ -69,16 +76,28 @@ class InvoiceTest < Minitest::Test
 
     invoice = vr.find_by_id(74)
 
-    assert_instance_of Invoice, invoice
+    assert_instance_of Array, invoice.items
     assert_instance_of Item, invoice.items[0]
+    assert_equal 'Knitted winter snood', invoice.items[0].name
+  end
 
+  def test_it_can_be_connected_with_transactions
+    vr = setup
 
+    invoice = vr.find_by_id(74)
 
-    # item = ir.find_by_id(263403127)
-    # seller = item.merchant
-    #
-    # assert_equal 12334403, seller.id
-    # assert_equal 'IOleynikova', seller.name
+    assert_instance_of Array, invoice.transactions
+    assert_instance_of Transaction, invoice.transactions[0]
+    assert_equal 941, invoice.transactions[0].id
+  end
+
+  def test_it_can_be_connected_with_a_customer
+    vr = setup
+
+    invoice = vr.find_by_id(139)
+
+    assert_instance_of Customer, invoice.customer
+    assert_equal 'Osinski', invoice.customer.last_name
   end
 
 end

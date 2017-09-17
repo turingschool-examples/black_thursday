@@ -28,4 +28,8 @@ class Item
     @item_repository.find_all_by_merchant_id_in_merchant_repo(@merchant_id)
   end
 
+  def invoice_items
+    @item_repository.find_all_invoice_items_by_item_id(@id)
+  end
+
 end

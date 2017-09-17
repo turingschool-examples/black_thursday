@@ -17,4 +17,6 @@ class Merchant
     @merchant_repository.find_all_by_merchant_id_in_invoice_repo(@id)
   end
 
+
+
 end

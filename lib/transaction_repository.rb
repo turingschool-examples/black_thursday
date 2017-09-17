@@ -12,13 +12,6 @@ class TransactionRepository
     @sales_engine = sales_engine
   end
 
-  # def from_csv(file_name)
-  #   item_contents = parse_data(file_name)
-  #   item_contents.each {|row| @transactions << Transaction.new(row,self)}
-  #     #should live in it's own method. too much logic in the initialize
-  #     #(some people will say that you should'nt have behavior in initialize, only state)
-  # end
-
   def all
     @transactions
   end
