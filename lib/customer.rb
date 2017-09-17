@@ -1,4 +1,4 @@
-#require_relative 'customer_repository'
+require_relative 'customer_repository'
 require 'time'
 
 class Customer
