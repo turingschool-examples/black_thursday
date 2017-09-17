@@ -33,7 +33,7 @@ class Invoice
     @parent.find_customer_by_invoice(customer_id)
   end
 
-  def invoice_items 
+  def invoice_items
     @parent.find_invoice_items(id)
   end
 
