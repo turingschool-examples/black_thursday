@@ -279,8 +279,6 @@ class SalesAnalystTest < Minitest::Test
 
   def test_top_revenue_earners_returns_top_x_merchants_ranked_by_revenue
     expected = sa.top_revenue_earners(10)
-    first = expected.first
-    last = expected.last
 
     assert_equal 10, expected.length
 
@@ -289,5 +287,90 @@ class SalesAnalystTest < Minitest::Test
 
     assert_instance_of Merchant, expected.last
     assert_equal 12335747, expected.last.id
+  end
+
+  def test_top_revenue_earners_returns_top_20_merchants_by_default
+    expected = sa.top_revenue_earners
+
+    assert_equal 20, expected.length
+    assert_instance_of Merchant, expected.first
+    assert_equal 12334634, expected.first.id
+
+    assert_instance_of Merchant, expected.last
+    assert_equal 12334159, expected.last.id
+  end
+
+  def test_merchant_ranked_by_revenue_returns_merchants_ranked_by_revenue
+    expected = sa.merchants_ranked_by_revenue
+
+    assert_instance_of Merchant, expected.first
+    assert_equal 12334634, expected.first.id
+    assert_equal 12336175, expected.last.id
+  end
+
+  def test_merchants_with_pending_invoices_returns_merchants_with_pending_invoices
+    expected = sa.merchants_with_pending_invoices
+
+    assert_equal 467, expected.length
+    assert_instance_of Merchant, expected.first
+  end
+
+  def test_merchants_with_only_one_item_returns_merchants_with_only_one_item
+    expected = sa.merchants_with_only_one_item
+
+    assert_equal 243. expected.length
+    assert_instance_of Merchant, expected.first
+  end
+
+  def test_merchants_with_only_one_item_registered_in_month_returns_merchants_with_only_one_invoice_in_given_month
+    expected = sa.merchants_with_only_one_item_registered_in_month("March")
+
+    assert_equal 21, expected.length
+    assert_instance_of Merchant, expected.first
+
+    expected = sa.merchants_with_only_one_item_registered_in_month("June")
+
+    assert_equal 18, expected.length
+    assert_instance_of Merchant, expected.first
+  end
+
+  def test_revenue_by_merchnat_returns_revenue_for_given_merchant
+    expected = sa.revenue_by_merchant(12334194)
+
+    assert_equal BigDecimal.new(expected), expected
+    assert_instance_of Bigdecimal, expected
+  end
+
+  def test_most_sold_item_for_merchant_returns_most_sold_item
+    merchant_id = 12334189
+    expected = sa.most_sold_item_for_merchant(merchant_id)
+
+    assert expected.map(&:id).include?(263524984)
+    assert expected.map(&:name).include?("Adult Princess Leia Hat")
+    assert_instance_of Item, expected.first
+
+    merchant_id = 12334768
+    expected = sa.most_sold_item_for_merchant(merchant_id)
+
+    assert expected.map(&:id).include?(263549386)
+
+    merchant_id = 12337105
+    expected = sa.most_sold_item_for_merchant(merchant_id)
+
+    assert_equal 4, expected.length
+  end
+
+  def test_best_item_for_merchant_returns_item_which_generated_most_revenue_for_given_merchant
+    merchant_id = 12334189
+    expected = sa.best_item_for_merchant(merchant_id)
+
+    assert_equal 263516130, expected.id
+    assert_instance_of Item, expected
+
+    merchant_id = 12337105
+    expected = sa.best_item_for_merchant(merchant_id)
+
+    assert_equal 263463003, expected.id
+    assert_instance_of Item, expected
   end
 end
