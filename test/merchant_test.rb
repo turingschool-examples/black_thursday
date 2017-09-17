@@ -45,11 +45,11 @@ class MerchantTest < Minitest::Test
     merchant1 = mr.find_by_id(12334112)
     merchant1_items = merchant1.items
 
-    merchant2 = mr.find_by_id(12334113)
+    merchant2 = mr.find_by_id(12334123)
     merchant2_items = merchant2.items
 
     assert_equal 1, merchant1_items.count
-    assert_equal 1, merchant2_items.count
+    assert_equal 11, merchant2_items.count
   end
 
   def test_merchant_can_return_assigned_items
