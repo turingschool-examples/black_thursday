@@ -5,11 +5,12 @@ require 'bigdecimal'
 
 class SalesAnalyst
 
-  attr_reader :merchants, :items, :price
+  attr_reader :merchants, :items, :price, :invoices
 
   def initialize(sales_engine)
     @merchants     = sales_engine.merchants
     @items         = sales_engine.items
+    @invoices      = sales_engine.invoices
   end
 
   def self.from_csv(sales_engine)

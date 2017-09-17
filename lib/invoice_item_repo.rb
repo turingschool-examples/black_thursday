@@ -15,4 +15,24 @@ class InvoiceItemRepo
       all_invoices << InvoiceItem.new(row, self)
     end
   end
+
+  def all
+    @all_invoices
+  end
+
+  def find_by_id(invoice_id)
+    all_invoices.find {|invoice| invoice.id == invoice_id }
+  end
+
+  def find_all_by_item_id(i_id)
+    all_invoices.find_all do |invoice|
+      invoice.item_id.include?(id)
+    end
+  end
+
+  def find_all_by_invoice_id(inv_id)
+    all_invoices.find_all do |invoice|
+      invoices.invoice_id.include?(id)
+    end
+  end
 end

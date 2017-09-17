@@ -18,4 +18,14 @@ class TransactionRepo
   def all
     @all_transactions
   end
+
+  def find_by_id(trans_id)
+    all_transactions.find {|transaction| transaction.id == trans_id }
+  end
+
+  def find_all_by_invoice_id(invoice_id)
+    all_transaction.find_all do |transaction|
+      transaction.invoice_id.include?(invoice_id)
+    end
+  end
 end

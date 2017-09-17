@@ -54,7 +54,7 @@ class SalesEngineTest < Minitest::Test
 
   # def test_merchant_class_returns_invoices_associated_with_given_merchant
   #   merchant = se.merchants.find_by_id(12334159)
-  #   didn;t know how to write test for this shit b
+  #   didn't know how to write test for this shit b
   #   assert_equal [], merchant.invoices
   # end
 end
