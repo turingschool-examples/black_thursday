@@ -1,6 +1,6 @@
 require './test/test_helper'
+return
 require './lib/transacation_repository'
-
 class TransactionRepositoryTest < Minitest::Test
 
   attr_reader :transaction_repo
@@ -14,7 +14,7 @@ class TransactionRepositoryTest < Minitest::Test
    end
 
    def test_all_returns_an_array_of_all_transaction_instances
-     assert_instance_of Array, transaction_repo
+     assert_instance_o Array, transaction_repo
      assert_instance_of Transaction, transaction_repo.all.first
    end
 
