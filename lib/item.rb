@@ -24,10 +24,8 @@ class Item
     @merchant = ''
   end
 
-  #create an item repository method that has find_by_id for the merchant.
-  #called dot chaining. avoid it because it makes code more brittle
-  def merchant #item knows too much here. item should only know about the item_repository
-    @item_repository.sales_engine.merchants.find_by_id(@merchant_id)
+  def merchant
+    @item_repository.find_all_by_merchant_id_in_merchant_repo(@merchant_id)
   end
 
 end

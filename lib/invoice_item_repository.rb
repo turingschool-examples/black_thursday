@@ -14,13 +14,6 @@ class InvoiceItemRepository
     @sales_engine = sales_engine
   end
 
-  # def from_csv(file_name)
-  #   item_contents = parse_data(file_name)
-  #   item_contents.each do |row| #should live in it's own method. too much logic in the initialize (some people will say that you should'nt have behavior in initialize, only state)
-  #     @invoice_items << InvoiceItem.new(row, self)
-  #   end
-  # end
-
   def all
     @invoice_items
   end

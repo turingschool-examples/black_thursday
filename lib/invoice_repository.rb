@@ -37,6 +37,10 @@ class InvoiceRepository
       @invoices.select {|invoice| invoice.status == status}
     end
 
+    def find_all_items_by_invoice_id(id)
+      @sales_engine
+    end
+
     def inspect
     "#<#{self.class} #{@merchants.size} rows>"
     end

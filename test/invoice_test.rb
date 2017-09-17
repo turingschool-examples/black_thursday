@@ -9,7 +9,8 @@ class InvoiceTest < Minitest::Test
     se = SalesEngine.from_csv({
     :items     => "./test/fixtures/items_fixture.csv",
     :merchants => "./test/fixtures/merchants_fixture.csv",
-    :invoices => "./test/fixtures/invoices_fixture.csv"
+    :invoices => "./test/fixtures/invoices_fixture.csv",
+    :transactions => "./test/fixtures/transactions_fixture.csv"
     })
     vr = se.invoices
   end
@@ -58,9 +59,26 @@ class InvoiceTest < Minitest::Test
     invoice_1 = invoice = vr.find_by_id(74)
     invoice_2 = invoice = vr.find_by_id(602)
 
-    assert_instance_of Date, invoice_1.date
-    assert_equal 'Saturday', invoice_1.day_of_the_week
-    assert_equal 'Friday', invoice_2.day_of_the_week
+    # assert_instance_of Date, invoice_1.date
+    assert_equal 'Friday', invoice_1.day_of_the_week
+    assert_equal 'Thursday', invoice_2.day_of_the_week
+  end
+
+  def test_it_can_be_connected_with_items
+    vr = setup
+
+    invoice = vr.find_by_id(74)
+
+    assert_instance_of Invoice, invoice
+    assert_instance_of Item, invoice.items[0]
+
+
+
+    # item = ir.find_by_id(263403127)
+    # seller = item.merchant
+    #
+    # assert_equal 12334403, seller.id
+    # assert_equal 'IOleynikova', seller.name
   end
 
 end

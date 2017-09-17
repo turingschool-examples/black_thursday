@@ -44,4 +44,11 @@ class Invoice
       'Friday'
     end
   end
+
+  def items
+    @invoice_repository.find_all_items_by_invoice_id(@id)
+  end
+
+
+
 end

@@ -9,12 +9,12 @@ class Merchant
     @items = []
   end
 
- def items
-  @merchant_repository.find_all_by_merchant_id_in_item_repo(@id)
- end
+  def items
+    @merchant_repository.find_all_by_merchant_id_in_item_repo(@id)
+  end
 
- def invoices
-  # @merchant_repository.sales_engine.invoices.find_all_by_merchant_id(@id)
-  @merchant_repository.find_all_by_merchant_id_in_invoice_repo(@id)
- end
+  def invoices
+    @merchant_repository.find_all_by_merchant_id_in_invoice_repo(@id)
+  end
+
 end
