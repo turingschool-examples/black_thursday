@@ -114,6 +114,19 @@ class SalesAnalyst
     end
   end
 
+  def number_of_invoices_created_per_day_standard_deviation
+    squared = @engine.invoices.
+
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    squared  = @engine.merchants.all.map do |merchant|
+      (merchant.invoices.count - average_invoices_per_merchant) ** 2
+    end
+    divided = squared.inject(:+) / (@engine.merchants.merchants.count - 1)
+    Math.sqrt(divided)
+  end
+
 
   # find average invoices created per day
   # enumerate through invoices to find dates created
