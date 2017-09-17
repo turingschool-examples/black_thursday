@@ -29,11 +29,8 @@ class SalesEngine
     @items = ItemRepository.new(self, item_csv)
     @merchants = MerchantRepository.new(self, merchant_csv)
     @invoices = InvoiceRepository.new(self, invoice_csv)
-<<<<<<< HEAD
-=======
     @invoice_items = InvoiceItemsRepository.new(self, invoice_items_csv)
     @transactions = TransactionRepository.new(self, transaction_csv)
     @customers = CustomerRepository.new(self, customer_csv)
->>>>>>> c2ed9c1b9dfe12e1e6ba9d27f257d003b08a90e7
   end
 end
