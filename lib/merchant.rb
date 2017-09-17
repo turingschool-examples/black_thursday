@@ -13,4 +13,8 @@ class Merchant < Repository::Record
     repo.children(:items, id)
   end
 
+  def invoices
+    repo.children(:invoices, id)
+  end
+
 end

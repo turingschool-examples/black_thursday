@@ -17,6 +17,13 @@ class SalesAnalyst
     rounded average(@se.merchants.all){ |merchant| average_item_price(merchant) }
   end
 
+  def average_invoice_per_merchant
+    merchants = @se.merchants.all.count.to_f
+    invoices = @se.invoices.all.count
+    rounded(invoices / merchants)
+  end
+
+
   def average_item_price_for_merchant(id)
     merchant = @se.merchants.find_by_id(id)
     rounded average_item_price(merchant)
@@ -30,6 +37,48 @@ class SalesAnalyst
     standard_deviation(@se.merchants.all) do |merchant|
       merchant.items.count.to_f
     end
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    standard_deviation(@se.merchants.all) do |merchant|
+      merchant.invoices.count.to_f
+    end
+  end
+
+  def top_merchants_by_invoice_count
+    avg = average_invoice_per_merchant
+    std_dev = average_invoices_per_merchant_standard_deviation
+    top_players = avg + (2 * std_dev)
+    @se.merchants.find_all do |merchant|
+       merchant.invoices.count > top_players
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    avg = average_invoice_per_merchant
+    std_dev = average_invoices_per_merchant_standard_deviation
+    bottom_players = avg - (2 * std_dev)
+    @se.merchants.find_all do |merchant|
+       merchant.invoices.count < bottom_players
+    end
+  end
+
+  def average_invoice_count_per_day
+    average(invoices.all){ |invoice| invoice.created_at }
+  end
+
+  def top_days_by_invoice_count
+    std_dev = average_invoices_per_merchant_standard_deviation
+    @se.invoices.find_all do |invoice|
+      average_invoice_count_per_day > std_dev
+    end
+    #strftime('%A') to convert
+  end
+
+  def invoice_status(status)
+    invoices = @se.invoices.all.count
+    invoice_status = @se.invoices.all.count { |invoice| invoice.match(status) }
+    rounded (invoice_status/ invoices) * 100
   end
 
   def merchants_with_high_item_count
