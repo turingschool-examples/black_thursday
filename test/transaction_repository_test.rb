@@ -1,6 +1,7 @@
 require_relative 'test_helper'
 require './lib/transaction'
 require './lib/transaction_repository'
+require 'pry'
 
 
 class TransactionRepositoryTest < Minitest::Test
@@ -49,30 +50,20 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal expected, actual.invoice_id
   end
 
-  
+  def test_find_by_id_returns_nil_if_there_is_no_matching_id
+    @trxr.from_csv("./test/fixtures/transaction_truncated_10.csv")
+    assert_nil @trxr.find_by_id("11")
+  end
 
+  def test_find_all_by_invoice_id_returns_array_of_invoice_items_matching_id
+    @trxr.from_csv("./test/fixtures/transaction_truncated_10.csv")
+    actual = @trxr.find_all_by_invoice_id("4126")
+    expected = @trxr.all[3], @trxr.all[5]
+
+    assert_equal expected, actual
+  end
 
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
