@@ -336,19 +336,25 @@ class SalesAnalystTest < Minitest::Test
 
   def test_revenue_by_merchant 
     expected = sa.revenue_by_merchant(12334194)
+    
     assert_instance_of BigDecimal, expected 
     assert_equal BigDecimal.new(expected), expected
   end
 
   def test_most_sold_item_for_merchant 
     merchant_id = 12334189
-    expected = sa.most_sold_item_for_merchant(merchant_id) 
+    expected    = sa.most_sold_item_for_merchant(merchant_id) 
 
     assert expected.map(&:id).include?(263524984)
     assert expected.map(&:name).include?("Adult Princess Leia Hat")
     assert_instance_of Item, expected.first
+
+    merchant_id = 12334768
+    expected    = sa.most_sold_item_for_merchant(merchant_id) 
+    
+    assert expected.map(&:id).include?(263549386)
   end
-end
+end 
 
 # it "#most_sold_item_for_merchant returns the most sold item" do
 #   merchant_id = 12334189
