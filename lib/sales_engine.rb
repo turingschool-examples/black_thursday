@@ -62,7 +62,7 @@ class SalesEngine
   def merchant_invoices(id)
     invoice_repo.find_all_by_merchant_id(id)
   end
-
+  
   def invoice_merchant(id)
     merchant_repo.find_by_id(id)
   end

@@ -47,9 +47,9 @@ class SalesAnalyst
     @se.merchants.find_by_id(merchant_id).items.each do |item|
       price_array << item.price
     end
-      total_price = price_array.reduce(:+)
-      average_price = total_price / total_item_count
-      BigDecimal.new(average_price / 100).round(2)
+    total_price = price_array.reduce(:+)
+    average_price = total_price / total_item_count
+    BigDecimal.new(average_price / 100).round(2)
   end
 
   def average_average_price_per_merchant
@@ -83,7 +83,6 @@ class SalesAnalyst
     end
     golden_items
   end
-
 
   def average_invoices_per_merchant
     (@se.invoices.all.count.to_f / @se.merchants.all.count).round(2)

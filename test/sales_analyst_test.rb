@@ -48,7 +48,6 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 5, sa.golden_items.count
   end
 
-
   def test_average_invoices_per_merchant
     assert_equal 10.49, sa.average_invoices_per_merchant
   end
@@ -74,5 +73,5 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 56.95, sa.invoice_status(:shipped)
     assert_equal 13.5, sa.invoice_status(:returned)
   end
-  
+
 end
