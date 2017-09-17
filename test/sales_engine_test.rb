@@ -10,7 +10,8 @@ class SalesEngineTest < Minitest::Test
             :items => './test/fixtures/items_truncated_3.csv',
             :merchants => './test/fixtures/merchants_truncated_11.csv',
             :invoices => './test/fixtures/invoices_truncated_56.csv',
-            :invoice_items => './test/fixtures/invoice_items_truncated_10.csv'
+            :invoice_items => './test/fixtures/invoice_items_truncated_10.csv',
+            :customers => './test/fixtures/customers_truncated_10.csv'
     })
   end
 
@@ -22,6 +23,7 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of MerchantRepository, se.merchants
     assert_instance_of ItemRepository, se.items
     assert_instance_of InvoiceItemRepository, se.invoice_items
+    assert_instance_of CustomerRepository, se.customers
   end
 
   def test_items_called_on_merchant_returns_array_of_item_objects_associated_with_merchant
