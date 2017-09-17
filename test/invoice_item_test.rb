@@ -5,10 +5,10 @@ require 'bigdecimal'
 class InvoiceItemTest < Minitest::Test
 
   def setup
-    @ii = InvoiceItem.new({id: 6, 
-                           item_id: 7, 
+    @ii = InvoiceItem.new({id: 6,
+                           item_id: 7,
                            invoice_id: 8,
-                           quantity: 1, 
+                           quantity: 1,
                            unit_price: BigDecimal.new(10.99, 4),
                            created_at: Time.now,
                            updated_at: Time.now
@@ -20,7 +20,7 @@ class InvoiceItemTest < Minitest::Test
   end
 
   def test_invoice_item_has_an_id
-    assert_equal 6, @ii.id 
+    assert_equal 6, @ii.id
   end
 
   def test_invoice_item_has_an_item_id
@@ -50,19 +50,8 @@ class InvoiceItemTest < Minitest::Test
   def test_conversion_of_unit_price_to_dollars
     assert_equal BigDecimal.new(10.99, 4).to_f, @ii.unit_price_to_dollars
   end
+
+  def test_invoice_item_has_parent_defaulted_to_nil
+    assert_nil @ii.parent
+  end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
