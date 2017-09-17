@@ -1,6 +1,7 @@
 require 'bigdecimal'
 
 require './test/test_helper'
+return
 
 require './lib/item_repository'
 require './lib/item'

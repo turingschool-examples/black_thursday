@@ -1,5 +1,3 @@
-require 'time'
-
 require_relative 'repository/record'
 
 

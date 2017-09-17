@@ -29,7 +29,10 @@ class SalesEngine
     {
       items: ItemRepository,
       merchants: MerchantRepository,
-      invoices: InvoiceRepository
+      invoices: InvoiceRepository,
+      # customers: CustomerRepository,
+      # transactions: TransactionRepository,
+      invoice_items: InvoiceItemRepository
     }
   end
 
