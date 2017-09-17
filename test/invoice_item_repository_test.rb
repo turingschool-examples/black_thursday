@@ -1,4 +1,6 @@
  require './test/test_helper'
+
+return
  require './lib/invoice_item_repository'
 
  class InvoiceItemRepositoryTest < Minitest::Test

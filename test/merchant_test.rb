@@ -103,7 +103,7 @@ class MerchantTest < Minitest::Test
       name: 'Shopin1901',
       created_at: '2010-12-10',
       updated_at: '2011-12-04'
-    }
+    })
     assert_empty bad_merchant.items
   end
 
@@ -119,13 +119,13 @@ class MerchantTest < Minitest::Test
   end
 
   def test_invoices_returns_empty_array_if_no_invoices_match
-    bad_merchant = new_merchant({
+    lazy_merchant = new_merchant({
       id: -1,
-      name: 'Shopin1901',
+      name: 'whatever',
       created_at: '2010-12-10',
       updated_at: '2011-12-04'
-    }
-    assert_empty bad_merchant.invoices
+    })
+    assert_empty lazy_merchant.invoices
   end
 
 end
