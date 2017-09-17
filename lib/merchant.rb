@@ -4,7 +4,7 @@ class Merchant
   def initialize(item, parent=nil)
     @id         = item[:id].to_i
     @name       = item[:name]
-    @created_at = Time.parse(item[:created_at].to_s)    
+    @created_at = Time.parse(item[:created_at].to_s)
     @parent     = parent
   end
 
