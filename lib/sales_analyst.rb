@@ -73,11 +73,14 @@ class SalesAnalyst
   end
 
   def top_merchants_by_invoice_count
-    top_merchants = invoices.all.map do |invoice|
-      if invoice.merchant_id == invoice.merchant_id + average_invoices_per_merchant_standard_deviation * 2
-        invoice
+    target = (average_invoices_per_merchant_standard_deviation * 2) + average_invoices_per_merchant
+    # binding.pry
+    top_merchants = merchants.all.map do |merchant|
+      if merchant.invoices.length > target
+        merchant
       end
     end
+    top_merchants.compact
   end
 
 end
