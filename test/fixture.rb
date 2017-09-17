@@ -27,7 +27,10 @@ module Fixture
       {
         merchants: './test/fixture/merchants.csv',
         items: './test/fixture/items.csv',
-        invoices: './test/fixture/invoices.csv'
+        invoices: './test/fixture/invoices.csv',
+        customers: './test/fixture/customers.csv',
+        invoice_items: './test/fixture/invoice_items.csv',
+        transactions: './test/fixture/transactions.csv'
       }
     end
 
