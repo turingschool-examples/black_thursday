@@ -48,6 +48,35 @@ class SalesAnalystTest < Minitest::Test
     assert_equal "Cherry", sales_analyst.golden_items.first.name
   end
 
+  def test_average_invoice_per_merchant_returns_average_for_all_data
+    average = sales_analyst.average_invoice_per_merchan
+    assert_equal 10.49, average
+  end
+
+  def test_average_invoices_per_merchant_standard_deviation
+    assert_equal 3.29, sales_analyst.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_top_merchants_by_invoice_count_returns_array
+    assert_equal 3, sales_analyst.top_merchants_by_invoice_count.count
+    assert_equal "Candisart", sales_analyst.top_merchants_by_invoice_count.name
+  end
+
+  def test_bottom_merchants_by_invoice_count_returns_array
+    assert_equal 1, sales_analyst.bottom_merchants_by_invoice_count.count
+    assert_equal "NA", sales_analyst.bottom_merchants_by_invoice_count.name
+  end
+
+  def test_top_days_by_invoice_count_returns_an_array_above_standard_deviation
+    assert_equal ["sunday", "monday"], sales_analyst.top_days_by_invoice_count
+  end
+
+  def test_invoice_status_returns_percentage_based_on_status
+    assert_equal 29.55, sales_analyst.invoice_status(:pending)
+    assert_equal 56.95, sales_analyst.invoice_status(:shipped)
+    assert_equal 13.5, sales_analyst.invoice_status(:returned)
+  end
+
 
 
 end
