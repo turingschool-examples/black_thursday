@@ -58,7 +58,7 @@ class InvoiceItemTest < Minitest::Test
   end
 
   def test_it_has_a_unit_price
-    assert_equal invoice_item_344_expected[:unit_price], invoice_item_344.quantity
+    assert_equal invoice_item_344_expected[:unit_price], invoice_item_344.unit_price
   end
 
   def test_it_has_a_Time_created_at
@@ -69,7 +69,9 @@ class InvoiceItemTest < Minitest::Test
     assert_equal invoice_item_344_expected[:updated_at], invoice_item_344.updated_at
   end
 
-  def test_unit_price_to_dollars_returns_the_price_of_the_invoice
+  def test_unit_price_to_dollars_returns_the_Float_price_of_the_invoice
+    dollars = invoice_item_344.unit_price_to_dollars
+    assert_instance_of Float, dollars
     assert_equal 879.09, invoice_item_344.unit_price_to_dollars
   end
 

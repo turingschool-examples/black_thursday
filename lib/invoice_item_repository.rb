@@ -11,7 +11,7 @@ class InvoiceItemRepository < Repository
     find_all {|invoice_item| invoice_item.item_id == item_id}
   end
 
-  def find_all_by_merchant_id(invoice_id)
+  def find_all_by_invoice_id(invoice_id)
     find_all {|invoice_item| invoice_item.invoice_id == invoice_id}
   end
 
