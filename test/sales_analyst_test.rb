@@ -334,4 +334,51 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Merchant, expected.first            
   end
 
+  def test_revenue_by_merchant 
+    expected = sa.revenue_by_merchant(12334194)
+    assert_instance_of BigDecimal, expected 
+    assert_equal BigDecimal.new(expected), expected
+  end
+
+  def test_most_sold_item_for_merchant 
+    merchant_id = 12334189
+    expected = sa.most_sold_item_for_merchant(merchant_id) 
+
+    assert expected.map(&:id).include?(263524984)
+    assert expected.map(&:name).include?("Adult Princess Leia Hat")
+    assert_instance_of Item, expected.first
+  end
 end
+
+# it "#most_sold_item_for_merchant returns the most sold item" do
+#   merchant_id = 12334189
+#   expected = sales_analyst.most_sold_item_for_merchant(merchant_id)
+
+#   expect(expected.map(&:id).include?(263524984)).to eq true
+#   expect(expected.map(&:name).include?("Adult Princess Leia Hat")).to eq true
+#   expect(expected.first.class).to eq Item
+
+#   merchant_id = 12334768
+#   expected = sales_analyst.most_sold_item_for_merchant(merchant_id)
+
+#   expect(expected.map(&:id).include?(263549386)).to eq true
+
+#   merchant_id = 12337105
+#   expected = sales_analyst.most_sold_item_for_merchant(merchant_id)
+
+#   expect(expected.length).to eq 4
+# end
+
+# it "#best_item_for_merchant returns the item which generated most revenue for the given merchant" do
+#   merchant_id = 12334189
+#   expected = sales_analyst.best_item_for_merchant(merchant_id)
+
+#   expect(expected.id).to eq 263516130
+#   expect(expected.class).to eq Item
+
+#   merchant_id = 12337105
+#   expected = sales_analyst.best_item_for_merchant(merchant_id)
+
+#   expect(expected.id).to eq 263463003
+#   expect(expected.class).to eq Item
+# end

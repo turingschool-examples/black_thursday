@@ -139,10 +139,10 @@ class SalesAnalyst
   end
 
   def top_revenue_earners(x = 20)
-    merchants.sort_by {|merchant| merchant_revenue(merchant.id)}.reverse.shift(x)
+    merchants.sort_by {|merchant| revenue_by_merchant(merchant.id)}.reverse.shift(x)
   end
 
-  def merchant_revenue(id)
+  def revenue_by_merchant(id)
     invoices = engine.merchants.find_invoices_by_merchant_id(id)
     invoices.reduce(0) {|sum, invoice| sum += invoice.total}
   end
@@ -173,5 +173,27 @@ class SalesAnalyst
 
   def merchants_by_month
     merchants.group_by {|merchant| Date::MONTHNAMES[merchant.created_at.month]}
+  end
+
+  def most_sold_item_for_merchant(merchant_id) 
+    items = id_and_total_quantity_of_item(merchant_id)
+    items.keys.map {|item_id| engine.find_item_by_id(item_id) }
+  end
+
+  def id_and_total_quantity_of_item(merchant_id)
+    invoices = completed_invoices(engine.find_invoices_by_merchant_id(merchant_id))
+    invoices.flat_map(&:invoice_items).reduce({}) do |hash, inv_item|
+      hash[inv_item.item_id]  = 0 if !hash[inv_item.item_id]
+      hash[inv_item.item_id] += inv_item.quantity
+      hash
+    end
+  end
+  
+  def pending?(invoice)
+    invoice.transactions.all? { |t| t.result == "failed" }
+  end
+
+  def completed_invoices(invoices)
+    invoices.reject {|invoice| pending?(invoice)}
   end
 end
