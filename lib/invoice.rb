@@ -1,17 +1,16 @@
-require_relative 'repository/record'
 require 'time'
+
+require_relative 'repository/record'
+
 
 class Invoice < Repository::Record
 
-  attr_reader :id, :customer_id, :merchant_id, :status, :created_at, :updated_at
+  attr_reader :customer_id, :merchant_id, :status
   def initialize(repo, fields)
     super(repo, fields)
-    @id =           fields[:id].to_i
     @customer_id =  fields[:customer_id]
     @merchant_id =  fields[:merchant_id]
     @status =   fields[:status]
-    @created_at = Time.parse(fields[:created_at])
-    @updated_at = Time.parse(fields[:updated_at])
   end
 
   def merchant
