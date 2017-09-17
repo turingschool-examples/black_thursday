@@ -51,7 +51,10 @@ class Invoice
     invoice_items.map do |invoice_item|
       @invoice_repository.find_item_by_item_id(invoice_item.item_id)
     end
+  end
 
+  def transactions
+    @invoice_repository.find_all_transactions_by_invoice_id(@id)
   end
 
 

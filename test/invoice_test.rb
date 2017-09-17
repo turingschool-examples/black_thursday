@@ -74,10 +74,19 @@ class InvoiceTest < Minitest::Test
 
     invoice = vr.find_by_id(74)
 
-    assert_instance_of Invoice, invoice
     assert_instance_of Array, invoice.items
     assert_instance_of Item, invoice.items[0]
     assert_equal 'Knitted winter snood', invoice.items[0].name
+  end
+
+  def test_it_can_be_connected_with_transactions
+    vr = setup
+
+    invoice = vr.find_by_id(74)
+
+    assert_instance_of Array, invoice.transactions
+    assert_instance_of Transaction, invoice.transactions[0]
+    assert_equal 941, invoice.transactions[0].id
   end
 
 end
