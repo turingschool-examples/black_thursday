@@ -22,7 +22,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_returns_nil_for_invalid_id
-    assert_nil  invoice_repo.find_by_id(1234)
+    assert_nil invoice_repo.find_by_id(17283451064)
   end
 
   def test_it_returns_invoice_instance_for_id
@@ -50,7 +50,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_returns_invoice_instance_for_status
-      assert_instance_of Invoice, invoice_repo.find_all_by_status("pending")[0]
+      assert_instance_of Invoice, invoice_repo.find_all_by_status(:pending)[0]
   end
 
 end

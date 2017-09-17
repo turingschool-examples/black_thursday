@@ -22,7 +22,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_returns_nil_for_invalid_id
-    assert_nil  item_repo.find_by_id(1234)
+    assert_nil item_repo.find_by_id(173)
   end
 
   def test_it_returns_item_instance_for_id
