@@ -7,9 +7,18 @@ class ItemTest < Minitest::Test
 
   def setup
     se = SalesEngine.from_csv({
-          :items     => "./test/fixtures/items_fixture.csv",
-          :merchants => "./test/fixtures/merchants_fixture.csv",
-        })
+    :items     => "./test/fixtures/items_fixture.csv",
+    :merchants => "./test/fixtures/merchants_fixture.csv",
+    :invoices => "./test/fixtures/invoices_fixture.csv",
+    :transactions => "./test/fixtures/transactions_fixture.csv",
+    :invoice_items => './test/fixtures/invoice_items_fixture.csv',
+    :customers => "./test/fixtures/customers_fixture.csv"
+    })
+    se.merchants
+    se.transactions
+    se.invoice_items
+    se.customers
+    se.invoices
     ir = se.items
   end
 
@@ -70,6 +79,14 @@ class ItemTest < Minitest::Test
 
     assert_equal 12334403, seller.id
     assert_equal 'IOleynikova', seller.name
+  end
+
+  def test_it_can_be_connected_with_invoice_items
+    ir = setup
+
+    item = ir.find_by_id(263403127)
+
+    assert_instance_of InvoiceItem, item.invoice_items
   end
 
 end
