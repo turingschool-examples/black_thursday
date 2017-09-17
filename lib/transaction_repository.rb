@@ -8,12 +8,13 @@ class TransactionRepository
 
   def initialize(file_path, parent = nil)
     @all = from_csv(file_path)
+    @parent = parent
   end
 
   def from_csv(file_path)
     trxr_array = []
     CSV.foreach(file_path, headers: true, :header_converters => :symbol) do |row|
-      trxr_array << Transaction.new(row)
+      trxr_array << Transaction.new(row, self)
     end
     trxr_array
   end
