@@ -15,11 +15,11 @@ class TransactionRepository
     end
   end
 
-  # def find_by_id(id)
-  #   @all.find do |transaction_item|
-  #     transaction_item.id == id
-  #   end
-  # end
+  def find_by_id(id)
+    @all.find do |transaction_item|
+      transaction_item.id == id
+    end
+  end
 
   # def find_all_by_item_id(item_id)
   #   @all.find_all do |transaction_item|
