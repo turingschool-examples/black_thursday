@@ -16,4 +16,14 @@ class Customer
     @customer_repository = customer_repository
   end
 
+
+  def invoices
+    @customer_repository.find_invoices_by_customer_id(@id)
+  end
+
+  def merchants
+    merchants = []
+
+  end
+
 end

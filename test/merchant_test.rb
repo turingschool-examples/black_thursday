@@ -74,8 +74,8 @@ class MerchantTest < Minitest::Test
   def test_it_can_connect_with_customers
     mr = setup
 
-    merchant = mr.find_by_id(12334123)
-require "pry"; binding.pry
-    assert_instance_of Customer, merchant.customers.first
+    customers = mr.find_by_id(12334123).customers
+
+    assert_instance_of Customer, customers
   end
 end
