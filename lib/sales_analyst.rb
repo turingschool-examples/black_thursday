@@ -154,4 +154,9 @@ class SalesAnalyst
     end.keys
   end
 
+  def invoice_status(status)
+    all = sales_engine.invoices.all.count
+    status_list = sales_engine.invoices.find_all_by_status(status).count
+    (status_list.to_f / all * 100).round(2)
+  end
 end

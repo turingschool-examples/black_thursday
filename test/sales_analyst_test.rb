@@ -109,4 +109,14 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal 1, sales_a.top_days_by_invoice_count.count
   end
+
+  def test_invoice_status_percentage
+    files = ({:invoices => "./data/invoices.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    se = SalesEngine.from_csv(files)
+    sales_a = SalesAnalyst.new(se)
+
+    assert_equal  29.55, sales_a.invoice_status(:pending)
+    assert_equal  56.95, sales_a.invoice_status(:shipped)
+    assert_equal  13.5, sales_a.invoice_status(:returned)
+  end
 end
