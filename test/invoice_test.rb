@@ -38,4 +38,14 @@ class InvoiceTest < Minitest::Test
     assert_equal 'Madewithgitterxx', invoice.merchant.name
   end
 
+  def test_can_find_all_invoice_items
+    invoice = @invoice_repo.find_by_id(1495)
+
+    assert_instance_of Array, invoice.items
+    assert_instance_of Item, invoice.items[0]
+  end
+
+
+
+
 end

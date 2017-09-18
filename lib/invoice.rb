@@ -1,5 +1,6 @@
 require 'csv'
 require 'time'
+require 'pry'
 
 
 class Invoice
@@ -19,4 +20,18 @@ class Invoice
   def merchant
     @engine.merchants.find_by_id(@merchant_id)
   end
+
+  def items
+    invoice_items = @engine.invoice_items.find_all_by_invoice_id(@id)
+    item_ids = invoice_items.map do |invoice_item|
+      invoice_item.item_id
+    end
+    item_ids.map do |item_id|
+
+      @engine.items.find_by_id(item_id)
+      binding.pry
+    end
+
+  end
+
 end
