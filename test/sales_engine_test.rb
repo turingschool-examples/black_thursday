@@ -65,11 +65,91 @@ class SalesEngineTest < Minitest::Test
     assert_equal invoice.merchant_id, actual.id
   end
 
+  def test_items_called_on_invoice_returns_items_associated_with_that_invoice
+    se = SalesEngine.from_csv({
+            :items => './test/fixtures/items_truncated_10.csv',
+            :merchants => './test/fixtures/merchants_truncated_11.csv',
+            :invoices => './test/fixtures/invoices_truncated_56.csv',
+            :invoice_items => './test/fixtures/invoice_items_truncated_10.csv',
+            :transactions => './test/fixtures/transaction_truncated_10.csv',
+            :customers => './test/fixtures/customers_truncated_10.csv'
+    })
+    invoice = se.invoices.find_by_id(1)
+    actual = invoice.items
+
+    actual.each do |item|
+      assert_instance_of Item, item
+    end
+    assert_equal "510+ RealPush Icon Set", actual[0].name
+    assert_equal "Glitter scrabble frames", actual[1].name
+  end
+
+  def test_transactions_called_on_invoice_returns_transactions_associated_with_that_invoice
+    invoice = se.invoices.find_by_id(1)
+    actual = invoice.transactions
+
+    actual.each do |transaction|
+      assert_instance_of Transaction, transaction
+    end
+    assert_equal se.transactions.all.first, actual.first
+  end
+
+  def test_customer_called_on_invoice_returns_customer_associated_with_that_invoice
+    invoice = se.invoices.find_by_id(1)
+    actual = invoice.customer
+
+    assert_instance_of Customer, invoice.customer
+    assert_equal se.customers.all[0], actual
+  end
+
+  def test_invoice_called_on_transaction_returns_invoice_instance_associated_with_that_transaction
+    transaction = se.transactions.find_by_id(1)
+    actual = transaction.invoice
+
+    assert_instance_of Invoice, actual
+    assert_equal se.invoices.all.first, actual
+  end
+
+  def test_customers_called_on_merchant_returns_all_customers_that_purchased_from_that_merchant
+    merchant = se.merchants.find_by_id(12334105)
+    actual = merchant.customers
+
+    actual.each do |customer|
+      assert_instance_of Customer, customer
+    end
+    assert_equal [se.customers.all[0]], actual
+  end
+
+  def test_merchants_called_on_customer_returns_all_merchants_that_customer_purchased_from
+    customer = se.customers.find_by_id(1)
+    actual = customer.merchants
+
+    actual.each do |merchant|
+      assert_instance_of Merchant, merchant
+    end
+    assert_equal se.merchants.merchants[0..2], actual
+  end
+
+  def test_invoices_called_on_customer_returns_array_of_invoices_associated_with_that_customer
+    customer = se.customers.find_by_id(1)
+    actual = customer.invoices
+
+    actual.each do |invoice|
+      assert_instance_of Invoice, invoice
+    end
+    assert_equal se.invoices.invoices[0..7], actual
+  end
+
+  def test_is_paid_in_full_can_be_called_on_invoice_and_returns_boolean_based_on_if_invoice_was_paid_in_full
+    skip
+    invoice = se.invoices.find_by_id(1)
+    actual = invoice.paid_in_full?
+  end
+
   def test_total_called_on_invoice_returns_total_from_invoice_items
     invoice = se.invoices.find_by_id(1)
 
     assert_equal 21067.77, invoice.total
   end
-
 
 end
