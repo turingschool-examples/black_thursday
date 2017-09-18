@@ -16,4 +16,13 @@ class Customer
     @parent = parent
   end
 
+  def invoices
+    sales_engine = parent.parent
+    sales_engine.invoices.find_all_by_customer_id(id)
+  end
+
+  def merchants
+    invoices.map { |invoice| invoice.merchant }.uniq
+  end
+
 end

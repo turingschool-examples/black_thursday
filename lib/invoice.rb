@@ -30,7 +30,7 @@ class Invoice
   end
 
   def items
-    self.merchant.items
+    merchant.items
   end
 
   def transactions
