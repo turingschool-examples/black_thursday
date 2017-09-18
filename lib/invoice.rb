@@ -61,6 +61,10 @@ class Invoice
     @invoice_repository.find_customer_by_id(@customer_id)
   end
 
+  def invoice_items
+    @invoice_repository.find_all_invoice_items_by_invoice_id(@id)
+  end
+
   def is_paid_in_full?
     return false if transactions.count == 0
     transactions.all? do |transaction|
@@ -68,9 +72,6 @@ class Invoice
     end
   end
 
-  def invoice_items
-    @invoice_repository.find_all_invoice_items_by_invoice_id(@id)
-  end
 
   def total
     invoice_items.reduce(BigDecimal.new(0, 4)) do |invoice_total ,invoice_item|

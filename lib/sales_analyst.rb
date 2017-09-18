@@ -145,17 +145,26 @@ include StandardDeviation
       merchant_revenue(merchant)
     end
     top_earners = sorted_merchants.reverse[0,n]
-    top_earners.reverse
+    require "pry"; binding.pry
   end
 
   def merchant_revenue(merchant)
     revenue= 0.00
-    merchant.items.each do |item|
-      revenue += item.invoice_items.reduce(0) do |sum, invoice_item|
-          sum + invoice_item.unit_price * invoice_item.quantity
-      end
+    merchant.invoices.each do |invoice|
+      revenue += invoice.total if invoice.is_paid_in_full?
     end
     revenue
   end
+
+  # def merchant_revenue(merchant)
+  #   revenue= 0.00
+  #   merchant.items.each do |item|
+  #     revenue += item.invoice_items.reduce(0) do |sum, invoice_item|
+  #
+  #         sum + invoice_item.unit_price * invoice_item.quantity
+  #     end
+  #   end
+  #   revenue
+  # end
 
 end
