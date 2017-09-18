@@ -74,4 +74,18 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 13.5, sa.invoice_status(:returned)
   end
 
+  def test_total_revenue_by_date
+    date = Time.parse("2009-02-07")
+
+    assert_equal 21067.77, sa.total_revenue_by_date(date)
+  end
+
+  def test_top_revenue_by_earners
+    assert_equal 20, sa.top_revenue_earners(20).count
+  end
+
+  # def test_ranked_by_revenue
+  #   assert_equal 12336175, sa.merchants_ranked_by_revenue.last
+  # end
+
 end

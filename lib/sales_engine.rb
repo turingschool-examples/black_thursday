@@ -62,7 +62,7 @@ class SalesEngine
   def merchant_invoices(id)
     invoice_repo.find_all_by_merchant_id(id)
   end
-  
+
   def invoice_merchant(id)
     merchant_repo.find_by_id(id)
   end
@@ -96,6 +96,14 @@ class SalesEngine
   def customer_merchants(id)
     customer_list = invoices.find_all_by_customer_id(id)
     customer_list.map { |invoice| invoice.merchant }.uniq
+  end
+
+  def total(id)
+  selected_invoices = invoice_items.find_all_by_invoice_id(id)
+  totals_of_invoice_items = selected_invoices.map do |invoice_item|
+    (invoice_item.quantity * invoice_item.unit_price)
+    end
+    totals_of_invoice_items.reduce(:+)
   end
 
 end

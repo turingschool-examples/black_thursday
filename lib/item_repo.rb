@@ -49,4 +49,8 @@ class ItemRepo
   def item_merchant(id)
     parent.item_merchant(id)
   end
+
+  def total(id)
+    parent.total(id)
+  end
 end

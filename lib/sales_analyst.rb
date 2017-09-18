@@ -167,4 +167,44 @@ class SalesAnalyst
     ((status_count.to_f / total_count)*100).round(2)
   end
 
+  def total_revenue_by_date(date)
+    invoices_for_date = @se.invoices.all.select { |i| i.created_at == date }
+    invoices_for_date.reduce(0) { |sum, i| sum += i.total }
+  end
+
+  def top_revenue_earners(x=20)
+    grouped_by_ii = paid_invoices.group_by { |t| t.merchant_id }
+    grouped_by_ii.each_value do |invoice|
+      invoice.map! { |i| i.total }
+    end
+    totals = grouped_by_ii.keys.sort_by do |merch_id|
+      grouped_by_ii[merch_id].reduce(:+)
+    end
+    top_merchants = totals.map do |merch|
+      @se.merchants.find_by_id(merch)
+    end
+    top_merchants.reverse[0..x-1]
+  end
+
+  def paid_invoices
+    @se.invoices.all.select { |i| i.is_paid_in_full? }
+  end
+
+  def unpaid_invoices
+    @se.invoices.all.select { |i| !i.is_paid_in_full? }
+  end
+
+  # def merchants_ranked_by_revenue
+  #   paid_by_merch = paid_invoices.group_by { |merch| merch.merchant_id }
+  #   paid_by_merch.each_value do |i|
+  #     i.map! { |inv| inv.total }
+  #   end
+  #   totals = paid_by_merch.keys.sort_by do |merch_id|
+  #     paid_by_merch[merch_id].reduce(:+)
+  #   end
+  #   totals.map! do |merch_id|
+  #     @se.merchants.find_by_id(merch_id)
+  #   end.reverse
+  # end
+
 end
