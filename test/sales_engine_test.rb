@@ -141,9 +141,10 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_is_paid_in_full_can_be_called_on_invoice_and_returns_boolean_based_on_if_invoice_was_paid_in_full
-    skip
     invoice = se.invoices.find_by_id(1)
-    actual = invoice.paid_in_full?
+    actual = invoice.is_paid_in_full?
+
+    assert actual
   end
 
 end

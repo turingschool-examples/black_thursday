@@ -48,4 +48,11 @@ class Invoice
     sales_engine.customers.find_by_id(customer_id)
   end
 
+  def is_paid_in_full?
+    sales_engine = @parent.parent
+    inv_transactions = sales_engine.transactions.find_all_by_invoice_id(id)
+    inv_trx_results = inv_transactions.map { |transaction| transaction.result }
+    inv_trx_results.uniq == ["success"]
+  end
+
 end
