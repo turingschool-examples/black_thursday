@@ -219,6 +219,32 @@ class SalesAnalyst
     top_item = stuff.select {|i, q| q == top_quantity[1]}
     top_item.keys.map{|id| engine.find_item_by_id(id)}
   end
-end
 
-# sa.best_item_for_merchant(merchant_id) #=> item (in terms of revenue generated)
+  def best_item_for_merchant(merchant_id)
+    item_id = revenue(merchant_id).max_by {|i, r| r}.first
+    engine.find_item_by_id(item_id)
+  end
+
+  def revenue(merchant_id)
+    paid_invoices(merchant_id).reduce({}) do |hash, item|
+      build_revenue_hash(hash, item)
+    end
+  end
+
+  def paid_invoices(merchant_id)
+    engine.merchants
+          .find_by_id(merchant_id)
+          .invoices
+          .flat_map {|inv| inv.invoice_items if inv.is_paid_in_full?}
+          .compact
+  end
+
+  def build_revenue_hash(hash, item)
+    if hash[item.item_id]
+       hash[item.item_id] += item.quantity * item.unit_price
+    else
+       hash[item.item_id]  = item.quantity * item.unit_price
+   end
+   hash
+  end
+end

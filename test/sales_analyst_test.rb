@@ -359,21 +359,17 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 4, expected.length
   end
 
-  def test_case_name
+  def test_best_item_for_merchant
+    merchant_id = 12334189
+    expected    = sa.best_item_for_merchant(merchant_id)
+    
+    assert_equal 263516130, expected.id
+    assert_instance_of Item, expected
 
+    merchant_id = 12337105
+    expected    = sa.best_item_for_merchant(merchant_id)
+
+    assert_equal 263463003, expected.id
+    assert_instance_of Item, expected
   end
 end
-
-# it "#best_item_for_merchant returns the item which generated most revenue for the given merchant" do
-#   merchant_id = 12334189
-#   expected = sales_analyst.best_item_for_merchant(merchant_id)
-
-#   expect(expected.id).to eq 263516130
-#   expect(expected.class).to eq Item
-
-#   merchant_id = 12337105
-#   expected = sales_analyst.best_item_for_merchant(merchant_id)
-
-#   expect(expected.id).to eq 263463003
-#   expect(expected.class).to eq Item
-# end
