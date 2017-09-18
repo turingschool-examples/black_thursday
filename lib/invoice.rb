@@ -21,7 +21,7 @@ class Invoice
   end
 
   def status
-    invoice.fetch(:status)
+    invoice.fetch(:status).to_sym
   end
 
   def created_at
