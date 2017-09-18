@@ -40,7 +40,7 @@ class TransactionRepository
   def find_all_by_result(result)
     transaction_array = []
     all.each do |transaction|
-      transaction_array << transaction if transaction.result.to_sym == result
+      transaction_array << transaction if transaction.result == result
     end
     transaction_array
   end

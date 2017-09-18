@@ -1,7 +1,6 @@
 require_relative 'invoice_repository'
 require 'time'
 
-
 class Invoice
 
   attr_reader :id,
@@ -44,6 +43,28 @@ class Invoice
 
   def customer
     invoice_repository.sales_engine.customers.find_by_id(customer_id)
+  end
+
+  def invoice_items
+    invoice_repository.sales_engine.invoice_items.find_all_by_invoice_id(id)
+  end
+
+  def is_paid_in_full?
+    transactions.any? {|transaction| transaction.result == "success"}
+  end
+
+  def invoice_item_quantities
+    invoice_items.map {|invoice_item| invoice_item.quantity}
+  end
+
+  def invoice_item_unit_prices
+    invoice_items.map {|invoice_item| invoice_item.unit_price}
+  end
+
+  def total
+    return 0 if !is_paid_in_full?
+      quantity_price_array = invoice_item_quantities.zip(invoice_item_unit_prices)
+      quantity_price_array.map {|quantity_price| quantity_price.reduce(:*)}.sum
   end
 
 end

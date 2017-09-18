@@ -64,4 +64,9 @@ class TestSalesAnalyst < Minitest::Test
     assert_equal 56.95, sa.invoice_status(:shipped)
     assert_equal 13.41, sa.invoice_status(:returned)
   end
+
+  def test_it_checks_if_invoice_is_paid_in_full
+    assert sa.sales_engine.invoices.all[1].is_paid_in_full?
+    refute sa.sales_engine.invoices.all[0].is_paid_in_full?
+  end
 end

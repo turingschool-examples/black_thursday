@@ -12,7 +12,7 @@ class InvoiceTest < Minitest::Test
                 status: "pending",
                 created_at: "2016-01-11 09:34:06 UTC",
                 updated_at: "2007-06-04 21:35:10 UTC"}
-    @invoice = Invoice.new('fake_ir', csv_hash)
+    @invoice = Invoice.new('fake_invoice_repository', csv_hash)
   end
 
   def test_it_exists
