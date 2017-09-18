@@ -75,4 +75,12 @@ class InvoiceItemTest < Minitest::Test
     assert_equal 879.09, invoice_item_344.unit_price_to_dollars
   end
 
+  def test_item_returns_a_single_item
+    assert_instance_of Item, invoice_item_344.item
+  end
+
+  def test_item_has_id_same_as_item_id
+    assert_equal invoice_item_344.item_id, invoice_item_344.item.id
+  end
+
 end

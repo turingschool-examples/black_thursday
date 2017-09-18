@@ -17,4 +17,8 @@ class Merchant < Repository::Record
     repo.children(:invoices, id)
   end
 
+  def customers
+    invoices.map{ |invoice| invoice.customer }.uniq
+  end
+
 end

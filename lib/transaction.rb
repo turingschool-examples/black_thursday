@@ -12,4 +12,8 @@ class Transaction < Repository::Record
     @result =                       fields[:result]
   end
 
+  def invoice
+    repo.parent(:invoices, invoice_id)
+  end
+
 end

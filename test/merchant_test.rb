@@ -128,4 +128,23 @@ class MerchantTest < Minitest::Test
     assert_empty lazy_merchant.invoices
   end
 
+  def test_customers_returns_an_array_of_customers
+    customers = merchant_12334105.customers
+    assert_instance_of Array, customers
+    refute customers.empty?
+    assert customers.all? { |customer| customer.is_a? Customer }
+  end
+
+  def test_customers_are_always_linked_through_invoices
+    merchant = merchant_12334105
+    expected_ids = merchant.invoices.map(&:customer_id).sort
+    actual_ids = merchant.customers.map(&:id).uniq.sort
+    assert expected_ids == actual_ids
+  end
+
+  def test_customers_contains_no_duplicates
+    customers = merchant_12334105.customers
+    assert_equal customers.uniq, customers
+  end
+
 end

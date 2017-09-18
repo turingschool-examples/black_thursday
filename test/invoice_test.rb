@@ -1,7 +1,9 @@
 require 'time'
-require './test/test_helper'
 
+require './test/test_helper'
 require './lib/invoice'
+require './lib/item'
+require './lib/customer'
 
 
 class InvoiceTest < Minitest::Test
@@ -97,6 +99,43 @@ class InvoiceTest < Minitest::Test
 
   def test_merchant_has_id_same_as_merchant_id
     assert_equal invoice_74_expected[:merchant_id], invoice_74.merchant.id
+  end
+
+  def test_transactions_returns_array_of_transactions_with_id_as_invoice_id
+    transactions = invoice_74.transactions
+    assert_instance_of Array, transactions
+    refute transactions.empty?
+
+    assert transactions.all? { |t| (t.is_a? Transaction) && t.invoice_id == 74 }
+  end
+
+  def test_items_returns_an_array_of_items
+    items = invoice_74.items
+    assert_instance_of Array, items
+    refute items.empty?
+    assert items.all? { |item| item.is_a? Item }
+  end
+
+  def test_items_are_always_connected_through_invoice_item
+    engine = Fixture.sales_engine
+    invoice = engine.invoices.all.first
+    items = invoice.items
+    id = invoice.id
+
+    assert items.all? do |item|
+      engine.invoice_items.find do |invoice_item|
+        invoice_item.item_id == item.id &&
+        invoice_item.invoice_id == invoice.id
+      end
+    end
+  end
+
+  def test_customer_returns_a_single_customer
+    assert_instance_of Customer, invoice_74.customer
+  end
+
+  def test_customer_has_id_same_as_customer_id
+    assert_equal invoice_74_expected[:customer_id], invoice_74.customer.id
   end
 
 end
