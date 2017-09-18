@@ -7,7 +7,8 @@ module ItemPriceAnalyst
       if item_prices.empty?
         return 0
       else
-        BigDecimal(item_prices.sum / item_prices.count).round(2)
+        avg_price = BigDecimal(item_prices.sum / item_prices.count)
+        avg_price.round(2)
       end
   end
 
