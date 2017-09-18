@@ -4,15 +4,20 @@ require_relative '../lib/sales_analyst'
 class SalesAnalystTest < MiniTest::Test
 
   def setup
-    se = SalesEngine.from_csv({
+      se = SalesEngine.from_csv({
       :items     => "./test/fixtures/items_fixture.csv",
       :merchants => "./test/fixtures/merchants_fixture.csv",
       :invoices => "./test/fixtures/invoices_fixture.csv",
-      :invoice_items => "./test/fixtures/invoice_items_fixture.csv"
-
+      :transactions => "./test/fixtures/transactions_fixture.csv",
+      :invoice_items => './test/fixtures/invoice_items_fixture.csv',
+      :customers => "./test/fixtures/customers_fixture.csv"
       })
-    se.merchants
-    se.items
+      se.items
+      se.transactions
+      se.invoice_items
+      se.customers
+      se.invoices
+      se.merchants
     SalesAnalyst.new(se)
   end
 
@@ -48,7 +53,5 @@ class SalesAnalystTest < MiniTest::Test
     sa = setup
 
   puts sa.top_revenue_earners(5)
-
-
   end
 end
