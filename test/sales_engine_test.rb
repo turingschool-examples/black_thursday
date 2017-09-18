@@ -88,4 +88,23 @@ class SalesEngineTest < MiniTest::Test
 
     assert_equal 5, customer.merchants.count
   end
+
+  def test_if_invoice_is_paid_assert
+    invoice = se.invoices.find_by_id(2179)
+
+    assert invoice.is_paid_in_full?
+  end
+
+  def test_if_invoice_isnt_paid_refute
+    invoice = se.invoices.find_by_id(516)
+
+    refute invoice.is_paid_in_full?
+  end
+
+  def test_returns_total_amount_of_the_invoice
+    invoice = se.invoices.find_by_id(1)
+
+    assert_equal 21067.77, invoice.total.to_f
+  end
+
 end
