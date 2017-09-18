@@ -47,8 +47,7 @@ class Invoice
   end
 
   def items
-    invoice_items = @invoice_repository.find_all_invoice_items_by_invoice_id(@id)
-
+    # invoice_items = @invoice_repository.find_all_invoice_items_by_invoice_id(@id)
     invoice_items.map do |invoice_item|
       @invoice_repository.find_item_by_item_id(invoice_item.item_id)
     end
@@ -69,12 +68,14 @@ class Invoice
     end
   end
 
+  def invoice_items
+    @invoice_repository.find_all_invoice_items_by_invoice_id(@id)
+  end
+
   def total
-    invoice_total = BigDecimal.new(0, 4)
-    items.each do |invoice_item|
-      invoice_total = invoice_item.unit_price + invoice_total
+    invoice_items.reduce(BigDecimal.new(0, 4)) do |invoice_total ,invoice_item|
+      (invoice_item.unit_price * invoice_item.quantity) + invoice_total
     end
-    invoice_total
   end
 
 end

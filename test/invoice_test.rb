@@ -129,7 +129,7 @@ class InvoiceTest < Minitest::Test
     invoice = vr.all.first
 
     assert_instance_of BigDecimal, invoice.total
-    assert_equal 49, invoice.total
+    assert_equal 0.494478e4, invoice.total
   end
 
 end
