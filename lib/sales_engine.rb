@@ -2,7 +2,7 @@ require_relative 'merchant_repository'
 require_relative 'item_repository'
 require_relative 'invoice_repository'
 require_relative 'invoice_item_repository'
-# require_relative 'customer_repository'
+require_relative 'customer_repository'
 require_relative 'transaction_repository'
 require "csv"
 
@@ -33,7 +33,7 @@ class SalesEngine
       items: ItemRepository,
       merchants: MerchantRepository,
       invoices: InvoiceRepository,
-      # customers: CustomerRepository,
+      customers: CustomerRepository,
       transactions: TransactionRepository,
       invoice_items: InvoiceItemRepository
     }

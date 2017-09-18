@@ -9,7 +9,7 @@ class TransactionRepositoryTest < Minitest::Test
      @transaction_repo = Fixture.repo(:Transacation)
    end
 
-   def test_that_an_instance_exits
+   def test_that_an_instance_exists
      assert_instance_of TransactionRepository, transaction_repo
    end
 
