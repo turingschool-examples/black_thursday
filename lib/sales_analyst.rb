@@ -17,7 +17,7 @@ class SalesAnalyst
     rounded average(@se.merchants.all){ |merchant| average_item_price(merchant) }
   end
 
-  def average_invoice_per_merchant
+  def average_invoices_per_merchant
     merchants = @se.merchants.all.count.to_f
     invoices = @se.invoices.all.count
     rounded(invoices / merchants)
@@ -46,7 +46,7 @@ class SalesAnalyst
   end
 
   def top_merchants_by_invoice_count
-    avg = average_invoice_per_merchant
+    avg = average_invoices_per_merchant
     std_dev = average_invoices_per_merchant_standard_deviation
     top_players = avg + (2 * std_dev)
     @se.merchants.find_all do |merchant|
@@ -55,7 +55,7 @@ class SalesAnalyst
   end
 
   def bottom_merchants_by_invoice_count
-    avg = average_invoice_per_merchant
+    avg = average_invoices_per_merchant
     std_dev = average_invoices_per_merchant_standard_deviation
     bottom_players = avg - (2 * std_dev)
     @se.merchants.find_all do |merchant|
@@ -64,21 +64,24 @@ class SalesAnalyst
   end
 
   def average_invoice_count_per_day
-    average(invoices.all){ |invoice| invoice.created_at }
+    average(@se.invoices.all){ |invoice| invoice.created_at }
   end
 
   def top_days_by_invoice_count
-    std_dev = average_invoices_per_merchant_standard_deviation
-    @se.invoices.find_all do |invoice|
-      average_invoice_count_per_day > std_dev
+    day_counts = @se.invoices.all.each_with_object(Hash.new(0)) do |invoice, counts|
+      day = invoice.created_at.strftime('%A')
+      counts[day] += 1
     end
-    #strftime('%A') to convert
+    avg = average(day_counts.each_value)
+    std_dev = standard_deviation(day_counts.each_value)
+    threshold = avg + std_dev
+    day_counts.select{ |day, count| count > threshold }.map(&:first)
   end
 
   def invoice_status(status)
-    invoices = @se.invoices.all.count
-    invoice_status = @se.invoices.all.count { |invoice| invoice.match(status) }
-    rounded (invoice_status/ invoices) * 100
+    total = @se.invoices.all.count
+    with_status = @se.invoices.all.count { |invoice| invoice.status == status }
+    rounded (with_status * 100.0 / total)
   end
 
   def merchants_with_high_item_count
