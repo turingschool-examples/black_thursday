@@ -18,9 +18,11 @@ class Merchant
   end
 
   def customers
-    invoices.select do |invoice|
-      @merchant_repository.find_all_customers(invoice.customer_id)
+    customers = []
+    invoices.each do |invoice|
+      customers << @merchant_repository.find_all_customers(invoice.customer_id)
     end
+    customers.compact.uniq
 #this is returning an invoice object because of the select. it is going through invoices and selecting the one that meets the criteria...
 #we need to go through the invoices and select the customer object that matches the criteria...
   end

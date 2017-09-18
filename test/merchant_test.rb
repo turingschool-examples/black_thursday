@@ -76,6 +76,6 @@ class MerchantTest < Minitest::Test
 
     merchant = mr.find_by_id(12334123)
 require "pry"; binding.pry
-    assert_instance_of Customer, merchant.customers[0]
+    assert_instance_of Customer, merchant.customers.first
   end
 end
