@@ -72,6 +72,11 @@ class Invoice
     end
   end
 
+  def partially_paid_transactions
+    transactions.select do |transaction|
+      transaction.result == 'success'
+    end
+  end
 
   def total
     invoice_items.reduce(BigDecimal.new(0, 4)) do |invoice_total ,invoice_item|
