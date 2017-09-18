@@ -37,5 +37,12 @@ class Invoice < Repository::Record
     end
   end
 
+  def total
+    return 0 unless paid_in_full?
+    invoice_items.reduce(0) do |total, invoice_item|
+      total + (invoice_item.unit_price * invoice_item.quantity)
+    end
+  end
+
 
 end
