@@ -30,14 +30,6 @@ class ItemsTest < Minitest::Test
     assert_instance_of Time, item.updated_at
   end
 
-  def test_it_can_format_item_price_as_big_decimal
-    items = @item_repo.items
-    item = items[0]
-
-    assert_equal 0.43e2, item.format_unit_price(4300)
-    assert_equal 43, item.format_unit_price(4300)
-  end
-
   def test_merchant_returns_merchant_object_with_matching_id
     item = @item_repo.find_by_id(263395721)
 

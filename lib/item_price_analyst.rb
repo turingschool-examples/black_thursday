@@ -21,19 +21,18 @@ module ItemPriceAnalyst
     BigDecimal(average).truncate(2)
   end
 
-  def sum_of_square_differences_item_price(merchants, mean)
-    merchants.reduce(0) do |result, merchant|
-      avg_price = average_item_price_for_merchant(merchant.id)
-      difference_squared = (mean - avg_price) ** 2
+  def sum_of_square_differences_item_price(items, mean)
+    items.reduce(0) do |result, item|
+      difference_squared = (mean - item.unit_price) ** 2
       result + difference_squared
     end
   end
 
   def average_item_price_standard_deviation
-    merchants = @engine.merchant_list
+    items = @engine.item_list
     mean = average_average_price_per_merchant
-    sum = sum_of_square_differences_item_price(merchants, mean)
-    sample_variance = find_sample_variance(merchants, sum)
+    sum = sum_of_square_differences_item_price(items, mean)
+    sample_variance = find_sample_variance(items, sum)
     standard_deviation(sample_variance)
   end
 

@@ -53,24 +53,24 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_sum_of_square_differences_for_item_price
-    merchants = @engine.merchant_list
+    items = @engine.item_list
 
-    assert_equal 93.5767, @analyst.sum_of_square_differences_item_price(merchants, 2.79)
+    assert_equal 254.3964, @analyst.sum_of_square_differences_item_price(items, 2.79)
   end
 
   def test_average_item_price_standard_deviation_returns_deviation_from_mean
-    assert_equal 5.59, @analyst.average_item_price_standard_deviation
+    assert_equal 9.21, @analyst.average_item_price_standard_deviation
   end
 
   def test_golden_items_returns_array_of_items_two_standard_deviations_above_in_price
-    item_file_path = './data/items.csv'
-    merchant_file_path = './data/merchants.csv'
-    invoice_file_path = './data/invoices.csv'
+    item_file_path = './test/fixtures/larger_items_sample.csv'
+    merchant_file_path = './test/fixtures/larger_merchants_sample.csv'
+    invoice_file_path = './test/fixtures/larger_invoices_sample.csv'
     engine = SalesEngine.new(item_file_path, merchant_file_path, invoice_file_path)
     analyst = SalesAnalyst.new(engine)
     golden_items = analyst.golden_items
 
-    assert_equal 2, golden_items.count
+    assert_equal 5, golden_items.count
   end
 
   def test_it_can_find_average_invoices_per_merchant
@@ -84,45 +84,44 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_standard_deviation_for_merchant_invoices
-    assert_equal 4.36, @analyst.average_invoice_count_standard_deviation
+    assert_equal 4.36, @analyst.average_invoices_per_merchant_standard_deviation
   end
 
   def test_it_can_find_top_merchants_by_invoice_count
-    item_file_path = './data/items.csv'
-    merchant_file_path = './data/merchants.csv'
-    invoice_file_path = './data/invoices.csv'
+    item_file_path = './test/fixtures/larger_items_sample.csv'
+    merchant_file_path = './test/fixtures/larger_merchants_sample.csv'
+    invoice_file_path = './test/fixtures/larger_invoices_sample.csv'
     engine = SalesEngine.new(item_file_path, merchant_file_path, invoice_file_path)
     analyst = SalesAnalyst.new(engine)
     top_merchants = analyst.top_merchants_by_invoice_count
 
-    assert_equal 1, top_merchants.length
+    assert_equal 8, top_merchants.length
 
   end
 
   def test_it_can_find_bottom_merchants_by_invoice_count
-    item_file_path = './data/items.csv'
-    merchant_file_path = './data/merchants.csv'
-    invoice_file_path = './data/invoices.csv'
+    item_file_path = './test/fixtures/larger_items_sample.csv'
+    merchant_file_path = './test/fixtures/larger_merchants_sample.csv'
+    invoice_file_path = './test/fixtures/larger_invoices_sample.csv'
     engine = SalesEngine.new(item_file_path, merchant_file_path, invoice_file_path)
     analyst = SalesAnalyst.new(engine)
-
     bottom_merchants = analyst.bottom_merchants_by_invoice_count
 
-    assert_equal 3, bottom_merchants.length
-    assert_instance_of Merchant, bottom_merchants[0]
-
+    assert_equal 0, bottom_merchants.length
   end
 
   def test_it_can_find_average_invoices_per_day
-    assert_equal 2, @analyst.average_invoices_per_day(@engine)
+    assert_equal 2, @analyst.average_invoices_per_day
   end
 
   def test_it_can_find_days_of_week_invoices_were_created
-    assert_equal [5, 3, 5, 4, 5, 6, 3, 4, 4, 3, 1, 3, 6, 2], @analyst.invoice_creation_days(@engine)
+    assert_equal ["Friday", "Wednesday", "Friday", "Thursday", "Friday",
+      "Saturday", "Wednesday", "Thursday", "Thursday", "Wednesday",
+      "Monday", "Wednesday", "Saturday", "Tuesday"],  @analyst.invoice_creation_days
   end
 
   def test_it_can_find_how_many_invoices_were_created_per_day
-    assert_equal [0, 1, 1, 4, 3, 3, 2], @analyst.invoices_created_per_day
+    assert_equal ({"Monday"=>1, "Tuesday"=>1, "Wednesday"=>4, "Thursday"=>3, "Friday"=>3, "Saturday"=>2, "Sunday"=>0}), @analyst.invoices_created_per_day
   end
 
   def test_it_can_find_sum_of_square_differences_for_invoices_per_day
@@ -131,11 +130,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_day_of_week_standard_deviation
-    assert_equal 0.96, @analyst.invoices_per_day_standard_deviation
+    assert_equal 1.41, @analyst.invoices_per_day_standard_deviation
   end
 
   def test_it_finds_top_days_by_invoice_count
-    assert_equal ["Wednesday", "Thursday", "Friday"], @analyst.top_days_by_invoice_count
+    assert_equal ["Wednesday"], @analyst.top_days_by_invoice_count
   end
 
   def test_it_creates_a_hash_with_invoice_status_counts
