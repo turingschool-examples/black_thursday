@@ -24,14 +24,13 @@ module Fixture
     end
 
     def filenames
-      {
-        merchants: './test/fixture/merchants.csv',
-        items: './test/fixture/items.csv',
-        invoices: './test/fixture/invoices.csv',
-        customers: './test/fixture/customers.csv',
-        invoice_items: './test/fixture/invoice_items.csv',
-        transactions: './test/fixture/transactions.csv'
-      }
+      types = %i{merchants items invoices invoice_items customers transactions}
+      paths = types.map{ |type| fixture_path(type) }
+      Hash[types.zip(paths)]
+    end
+
+    def fixture_path(type)
+      "./test/fixture/#{type}.csv"
     end
 
   end
