@@ -43,6 +43,7 @@ class Invoice
   end
 
   def is_paid_in_full?
+    return false if transactions.empty?
     transactions.any? {|transaction| transaction.result == "success"}
   end
 

@@ -20,8 +20,12 @@ class Merchant
   def invoices
     parent.merchant_invoices(self.id)
   end
-  
+
   def customers
     parent.merchant_customers(self.id)
+  end
+
+  def total_revenue
+    invoices.reduce(0) { |sum, invoice| sum + invoice.total }
   end
 end

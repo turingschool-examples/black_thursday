@@ -46,4 +46,8 @@ class MerchantRepo
     parent.merchant_customers(id)
   end
 
+  def merchants_by_total_revenue
+    all.sort_by { |merchant| merchant.total_revenue }.reverse
+  end
+
 end

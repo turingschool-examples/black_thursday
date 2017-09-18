@@ -84,8 +84,9 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 20, sa.top_revenue_earners(20).count
   end
 
-  # def test_ranked_by_revenue
-  #   assert_equal 12336175, sa.merchants_ranked_by_revenue.last
-  # end
+  def test_ranked_by_revenue
+    assert_equal 12334634, sa.merchants_ranked_by_revenue.first.id
+    assert_equal 12336175, sa.merchants_ranked_by_revenue.last.id
+  end
 
 end

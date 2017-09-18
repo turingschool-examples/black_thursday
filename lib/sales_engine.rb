@@ -99,11 +99,16 @@ class SalesEngine
   end
 
   def total(id)
+  return 0 if !invoices.find_by_id(id).is_paid_in_full?
   selected_invoices = invoice_items.find_all_by_invoice_id(id)
   totals_of_invoice_items = selected_invoices.map do |invoice_item|
     (invoice_item.quantity * invoice_item.unit_price)
     end
     totals_of_invoice_items.reduce(:+)
+  end
+
+  def merchants_by_total_revenue
+    merchants.merchants_by_total_revenue
   end
 
 end

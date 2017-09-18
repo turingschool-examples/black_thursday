@@ -194,17 +194,8 @@ class SalesAnalyst
     @se.invoices.all.select { |i| !i.is_paid_in_full? }
   end
 
-  # def merchants_ranked_by_revenue
-  #   paid_by_merch = paid_invoices.group_by { |merch| merch.merchant_id }
-  #   paid_by_merch.each_value do |i|
-  #     i.map! { |inv| inv.total }
-  #   end
-  #   totals = paid_by_merch.keys.sort_by do |merch_id|
-  #     paid_by_merch[merch_id].reduce(:+)
-  #   end
-  #   totals.map! do |merch_id|
-  #     @se.merchants.find_by_id(merch_id)
-  #   end.reverse
-  # end
+  def merchants_ranked_by_revenue
+    @se.merchants_by_total_revenue
+  end
 
 end
