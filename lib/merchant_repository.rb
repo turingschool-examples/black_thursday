@@ -33,17 +33,17 @@ class MerchantRepository
     end
   end
 
-  def find_all_by_merchant_id_in_item_repo(id)
-    @sales_engine.items.find_all_by_merchant_id(id)
+  def find_all_by_merchant_id_in_item_repo(merchant_id)
+    @sales_engine.items.find_all_by_merchant_id(merchant_id)
   end
 
-  def find_all_by_merchant_id_in_invoice_repo(id)
-    @sales_engine.invoices.find_all_by_merchant_id(id)
+  def find_all_by_merchant_id_in_invoice_repo(merchant_id)
+    @sales_engine.invoices.find_all_by_merchant_id(merchant_id)
   end
 
-  # def find_all_invoice_items_for_a_merchant(merchant_id)
-  #   @sales_engine.invoice_items.
-  # end
+  def find_all_customers(customer_id)
+    @sales_engine.invoices.find_customer_by_id(customer_id)
+  end
 
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"

@@ -5,9 +5,20 @@ require_relative '../lib/sales_engine'
 class CustomerTest < Minitest::Test
 
   def setup
-    se = SalesEngine.from_csv({:customers => "./test/fixtures/customers_fixture.csv"})
-
-    cr = se.customers
+    se = SalesEngine.from_csv({
+    :items     => "./test/fixtures/items_fixture.csv",
+    :merchants => "./test/fixtures/merchants_fixture.csv",
+    :invoices => "./test/fixtures/invoices_fixture.csv",
+    :transactions => "./test/fixtures/transactions_fixture.csv",
+    :invoice_items => './test/fixtures/invoice_items_fixture.csv',
+    :customers => "./test/fixtures/customers_fixture.csv"
+    })
+    se.items
+    se.transactions
+    se.invoice_items
+    se.invoices
+    se.merchants
+    se.customers
   end
 
   def test_customer_exists
@@ -24,4 +35,18 @@ class CustomerTest < Minitest::Test
     assert_instance_of Time, cr.all.first.updated_at
   end
 
+  def test_it_can_connect_with_invoices
+    cr = setup
+
+    customer = cr.find_by_id(1)
+    assert_instance_of Invoice, customer.invoices[0]
+  end
+
+  def test_it_can_connect_with_merchants
+    cr = setup
+
+    customer = cr.find_by_id(1)
+    merchants = customer.merchants
+    assert_instance_of Merchant, merchants[0]
+  end
 end

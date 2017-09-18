@@ -35,6 +35,14 @@ class CustomerRepository
     end
   end
 
+  def find_invoices_by_customer_id(customer_id)
+    @sales_engine.invoices.find_all_by_customer_id(customer_id)
+  end
+
+  def find_merchants(merchant_id)
+    @sales_engine.merchants.find_by_id(merchant_id)
+  end
+
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end

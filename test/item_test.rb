@@ -82,6 +82,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_can_be_connected_with_invoice_items
+    skip
     ir = setup
 
     item = ir.find_by_id(263403127)
