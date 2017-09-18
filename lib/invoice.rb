@@ -23,21 +23,34 @@ class Invoice
   end
 
   def merchant
-     #merchant_repository.sales_engine.items.find_all_by_merchant_id(id)
-     #item_repository.se.merchants.find_by_id(id)
-
      id = merchant_id.to_i
      return 0 if id.nil?
      sales_engine = invoice_repository.sales_engine
      merchants = sales_engine.merchants
-     #binding.pry
      merchants.find_by_id(id)
   end
 
+<<<<<<< HEAD
   def is_paid_in_full?
     #check all transactionsby this id to make sure there IS a transaction, and finally to see if there is at least 1 successful "result"
     sales_engine.transations.find_all_by_result(successful) #returns a transaction array.
     #search transaction array for self.merchant_id
+=======
+  def items
+    invoice_items = invoice_repository.sales_engine.invoice_items.find_all_by_invoice_id(id)
+    item_ids = invoice_items.map {|invoice_item| invoice_item.item_id}
+    item_ids.map do |item_id|
+      invoice_repository.sales_engine.items.find_by_id(item_id)
+    end
+  end
+
+  def transactions
+    invoice_repository.sales_engine.transactions.find_all_by_invoice_id(id)
+  end
+
+  def customer
+    invoice_repository.sales_engine.customers.find_by_id(customer_id)
+>>>>>>> 2649909e2ae0d6eb5ae84d6e8b27cfd8972d75ef
   end
 
 end

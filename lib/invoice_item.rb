@@ -14,7 +14,7 @@ class InvoiceItem
               :invoice_item_repository
 
   def initialize(invoice_item_repository, csv_info)
-    @id = csv_info[:id]
+    @id = csv_info[:id].to_i
     @item_id = csv_info[:item_id].to_i
     @invoice_id = csv_info[:invoice_id].to_i
     @quantity = csv_info[:quantity]
@@ -26,7 +26,7 @@ class InvoiceItem
 
   def unit_price_to_dollars(unit_price)
     dollars = unit_price.to_f / 100
-    BigDecimal.new(dollars, 4)
+    BigDecimal.new(dollars, 5)
   end
 
 end

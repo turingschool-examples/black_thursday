@@ -1,9 +1,20 @@
+<<<<<<< HEAD
+it "merchant#customers returns related customers" do
+  expected = engine.merchants.find_by_id(12334194).customers
+=======
 def top_merchants_by_invoice_count
   # get the avg # of invoices per merchant (
   make_merchants_and_invoices(invoice)
   average_items_per_merchant
+>>>>>>> l_iteration_2
 
+  expect(expected.length).to eq 12
+  expect(expected.first.class).to eq Customer
+end
 
+<<<<<<< HEAD
+#iteration 3: this should be 13, I believe
+=======
 end
 
 def make_merchants_and_invoices(invoice)
@@ -95,3 +106,4 @@ def average_items_per_merchant
    average_average = (sum_averages / se.merchants.all.count) #gets average average
     '%.2f' % average_average
  end
+>>>>>>> l_iteration_2

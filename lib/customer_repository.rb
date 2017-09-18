@@ -24,7 +24,7 @@ class CustomerRepository
   def find_all_by_first_name(first_name)
     first_name_array = []
     all.each do |customer|
-      first_name_array << customer if customer.first_name == first_name
+      first_name_array << customer if customer.first_name.downcase.include? first_name.downcase
     end
     first_name_array
   end
@@ -32,7 +32,7 @@ class CustomerRepository
   def find_all_by_last_name(last_name)
     last_name_array = []
     all.each do |customer|
-      last_name_array << customer if customer.last_name == last_name
+      last_name_array << customer if customer.last_name.downcase.include? last_name.downcase
     end
     last_name_array
   end
