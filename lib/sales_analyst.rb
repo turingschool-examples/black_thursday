@@ -77,7 +77,7 @@ class SalesAnalyst
   end
   #
   def average_invoices_per_merchant
-    @engine.invoices.all.count.to_f / @engine.merchants.all.count.to_f
+    (@engine.invoices.all.count.to_f / @engine.merchants.all.count.to_f).round(2)
   end
 
   def average_invoices_per_merchant_standard_deviation
@@ -85,7 +85,7 @@ class SalesAnalyst
       (merchant.invoices.count - average_invoices_per_merchant) ** 2
     end
     divided = squared.inject(:+) / (@engine.merchants.merchants.count - 1)
-    Math.sqrt(divided)
+    (Math.sqrt(divided)).round(2)
   end
 
   def top_merchants_by_invoice_count
@@ -123,6 +123,7 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
+
     days = []
     bar = average_invoices_created_per_day + number_of_invoices_created_per_day_standard_deviation
     number_of_invoices_created_per_day.each.with_index do |invoice_count, index|
@@ -164,6 +165,6 @@ class SalesAnalyst
         count += 1
       end
     end
-    (count / total_invoices_count.to_f)
+    ((count / total_invoices_count.to_f) * 100).round(2)
   end
 end
