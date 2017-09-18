@@ -89,16 +89,24 @@ class SalesAnalyst
 
   def top_merchants_by_invoice_count
     top_merchants = []
+<<<<<<< HEAD
+=======
+    two_std_above = two_standard_deviations_above_merchant_invoices
+>>>>>>> e3e5d4c924419e864ebe74e411864c2991ae0e51
 
     group_invoices_by_merchant.map do |key, value|
-      if value >= two_standard_deviations_above_merchant_invoices
+      if value >= two_std_above
         top_merchants << key
       end
     end
+
     top_merchants.map do |id|
       sales_engine.merchants.find_by_id(id)
     end
+<<<<<<< HEAD
     puts "Yowza -- Top merchants by invoice!"
+=======
+>>>>>>> e3e5d4c924419e864ebe74e411864c2991ae0e51
   end
 
 end
