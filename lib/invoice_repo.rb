@@ -4,7 +4,7 @@ require 'pry'
 
 class InvoiceRepo
   attr_reader :all_invoices, :parent
-  
+
   def initialize(file, se = nil)
     @parent = se
     @all_invoices = []
