@@ -12,9 +12,13 @@ class Customer < Repository::Record
 
 
 
-  def merchants
-    matching_invoices = repo.children(:invoices, id)
-    matching_invoices.find_all do |record|
-      record.foreign_id(record_class) == repo.children(:merchants, id)
+  # def merchants
+  #   matching_invoices = repo.children(:invoices, id)
+  #   matching_invoices.find_all do |record|
+  #     record.foreign_id(record_class) == repo.children(:merchants, id)
+  #
+  #     #find the invoice children of a merchant
+  #     #find the customer parent of each invoice
+  #     #eliminate duplicates, because some customers might have bought twice from the same merchant
 
 end

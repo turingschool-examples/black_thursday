@@ -8,15 +8,15 @@ class CustomerRepository < Repository
     Customer
   end
 
-  def find_all_by_first_name(first_name)
+  def find_all_by_first_name(substring)
     find_all do |customer|
-      customer.first_name.downcase.include? first_name.downcase
+      customer.first_name.downcase.include? substring.downcase
     end
   end
 
-  def find_all_by_last_name(last_name)
+  def find_all_by_last_name(substring)
     find_all do |customer|
-      customer.last_name.downcase.include? last_name.downcase
+      customer.last_name.downcase.include? substring.downcase
     end
   end
 
