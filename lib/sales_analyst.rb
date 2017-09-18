@@ -122,15 +122,14 @@ include StandardDeviation
   def total_revenue_by_date(date)
     count = 0.00
     se.invoices.invoices.each do |invoice|
-      invoice_date = invoice.created_at.strftime('%Y/%m/%d')
-      if invoice_date == date.strftime('%Y/%m/%d')
+
+      invoice_date = invoice.created_at.strftime('%Y-%m-%d')
+      if invoice_date == date.strftime('%Y-%m-%d')
+
         invoice.invoice_items.each do |invoice_item|
           count += invoice_item.unit_price * invoice_item.quantity
         end
       end
-    # se.invoice_items.invoice_items.each do |invoice_item|
-    #   iv_date = date
-    #   count += invoice_item.unit_price.to_i if invoice_item.created_at.strftime('%Y/%m/%d') == date.strftime('%Y/%m/%d')
     end
     count
   end
@@ -145,14 +144,15 @@ include StandardDeviation
     sorted_merchants = se.merchants.merchants.sort_by do |merchant|
       merchant_revenue(merchant)
     end
-    sorted_merchants.reverse[0,n]
+    top_earners = sorted_merchants.reverse[0,n]
+    top_earners.reverse
   end
 
   def merchant_revenue(merchant)
     revenue= 0.00
     merchant.items.each do |item|
       revenue += item.invoice_items.reduce(0) do |sum, invoice_item|
-        sum + invoice_item.unit_price
+          sum + invoice_item.unit_price * invoice_item.quantity
       end
     end
     revenue

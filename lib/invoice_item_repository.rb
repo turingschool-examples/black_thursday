@@ -30,7 +30,11 @@ class InvoiceItemRepository
     @invoice_items.select {|invoice_item|
        invoice_item.invoice_id == invoice_id }
   end
- 
+
+  def find_all_invoices(invoice_id)
+    @sales_engine.invoices.find_all_by_id(invoice_id)
+  end
+
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end

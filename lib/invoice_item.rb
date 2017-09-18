@@ -25,4 +25,8 @@ class InvoiceItem
   def unit_price_to_dollars
     @unit_price.to_f / 100
   end
+
+  def invoices
+    @invoice_item_repository.find_all_invoices(@invoice_id)
+  end
 end
