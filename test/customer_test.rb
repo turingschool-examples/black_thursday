@@ -1,4 +1,4 @@
-require 'bigdecimal'
+
 require 'time'
 
 require './test/test_helper'
