@@ -279,11 +279,8 @@ class SalesAnalystTest < Minitest::Test
 
   def test_top_revenue_earners_returns_top_x_merchants_ranked_by_revenue
     expected = sa.top_revenue_earners(10)
-    first    = expected.first
-    last     = expected.last
 
     assert_equal 10, expected.length
-
     assert_instance_of Merchant, expected.first
     assert_equal 12334634, expected.first.id
   end
