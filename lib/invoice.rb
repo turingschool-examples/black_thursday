@@ -48,6 +48,13 @@ class Invoice
     sales_engine.customers.find_by_id(customer_id)
   end
 
+  def is_paid_in_full?
+    sales_engine = @parent.parent
+    inv_transactions = sales_engine.transactions.find_all_by_invoice_id(id)
+    inv_trx_results = inv_transactions.map { |transaction| transaction.result }
+    inv_trx_results.uniq == ["success"]
+  end
+
   def total
     invoices = @parent.parent.invoice_items.all.find_all do |invoice_item|
       invoice_item.invoice_id == @id
@@ -57,5 +64,5 @@ class Invoice
     end
     (total.inject(:+)).round(2)
   end
-  
+
 end
