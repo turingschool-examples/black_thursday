@@ -110,14 +110,14 @@ class SalesEngineTest < Minitest::Test
     assert_equal se.invoices.all.first, actual
   end
 
-  def test_invoices_called_on_customer_returns_array_of_invoices_associated_with_that_customer
-    customer = se.customers.find_by_id(1)
-    actual = customer.invoices
+  def test_customers_called_on_merchant_returns_all_customers_that_purchased_from_that_merchant
+    merchant = se.merchants.find_by_id(12334105)
+    actual = merchant.customers
 
-    actual.each do |invoice|
-      assert_instance_of Invoice, invoice
+    actual.each do |customer|
+      assert_instance_of Customer, customer
     end
-    assert_equal se.invoices.invoices[0..7], actual
+    assert_equal [se.customers.all[0]], actual
   end
 
   def test_merchants_called_on_customer_returns_all_merchants_that_customer_purchased_from
@@ -128,6 +128,16 @@ class SalesEngineTest < Minitest::Test
       assert_instance_of Merchant, merchant
     end
     assert_equal se.merchants.merchants[0..2], actual
+  end
+
+  def test_invoices_called_on_customer_returns_array_of_invoices_associated_with_that_customer
+    customer = se.customers.find_by_id(1)
+    actual = customer.invoices
+
+    actual.each do |invoice|
+      assert_instance_of Invoice, invoice
+    end
+    assert_equal se.invoices.invoices[0..7], actual
   end
 
 end

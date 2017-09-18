@@ -1,3 +1,6 @@
+require 'time'
+require 'bigdecimal'
+
 class InvoiceItem
 
   attr_reader :id,
@@ -14,9 +17,9 @@ class InvoiceItem
     @item_id = ii_data[:item_id]
     @invoice_id = ii_data[:invoice_id]
     @quantity = ii_data[:quantity]
-    @unit_price = ii_data[:unit_price]
-    @created_at = ii_data[:created_at]
-    @updated_at = ii_data[:updated_at]
+    @unit_price = BigDecimal.new(ii_data[:unit_price].to_i/100.0,6)
+    @created_at = Time.parse(ii_data[:created_at])
+    @updated_at = Time.parse(ii_data[:updated_at])
     @parent = parent
   end
 

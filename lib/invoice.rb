@@ -30,7 +30,12 @@ class Invoice
   end
 
   def items
-    merchant.items
+    sales_engine = @parent.parent
+    inv_items = sales_engine.invoice_items.find_all_by_invoice_id(id)
+    item_ids = inv_items.map do |invoice_item|
+      invoice_item.item_id
+    end
+    item_ids.map { |item_id| sales_engine.items.find_by_id(item_id) }
   end
 
   def transactions

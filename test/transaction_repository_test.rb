@@ -7,7 +7,7 @@ require 'pry'
 class TransactionRepositoryTest < Minitest::Test
 
   def setup
-    @trxr = TransactionRepository.new()
+    @trxr = TransactionRepository.new("./test/fixtures/transaction_truncated_10.csv")
   end
 
   def test_transaction_reposirtory_class_exist
@@ -55,6 +55,14 @@ class TransactionRepositoryTest < Minitest::Test
     assert_nil @trxr.find_by_id("11")
   end
 
+  def test_find_all_by_credit_card_number_returns_array_of_transactions_associated_with_given_cc_num
+    @trxr.from_csv("./test/fixtures/transaction_truncated_10.csv")
+    actual = @trxr.find_all_by_credit_card_number(4068631943231473)
+    expected = @trxr.all[0..1]
+
+    assert_equal expected, actual
+  end
+
   def test_find_all_by_invoice_id_returns_array_of_invoice_items_matching_id
     @trxr.from_csv("./test/fixtures/transaction_truncated_10.csv")
     actual = @trxr.find_all_by_invoice_id("4126")
@@ -64,11 +72,3 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
 end
-
-
-
-
-
-
-
-

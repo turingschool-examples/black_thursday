@@ -1,3 +1,5 @@
+require 'time'
+
 class Customer
 
   attr_reader :id,
@@ -11,8 +13,8 @@ class Customer
     @id = information[:id]
     @first_name = information[:first_name]
     @last_name = information[:last_name]
-    @created_at = information[:created_at]
-    @updated_at = information[:updated_at]
+    @created_at = Time.parse(information[:created_at])
+    @updated_at = Time.parse(information[:updated_at])
     @parent = parent
   end
 

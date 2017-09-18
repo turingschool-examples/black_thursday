@@ -20,4 +20,9 @@ class Merchant
     sales_engine.invoices.find_all_by_merchant_id(@id)
   end
 
+  def customers
+    se = @parent.parent
+    customer_ids = invoices.map { |invoice| invoice.customer_id }
+    customer_ids.map { |customer_id| se.customers.find_by_id(customer_id) }.uniq
+  end
 end
