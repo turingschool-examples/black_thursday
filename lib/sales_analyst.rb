@@ -159,7 +159,4 @@ include StandardDeviation
     revenue
   end
 
-  def method_name
-
-  end
 end

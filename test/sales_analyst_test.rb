@@ -8,11 +8,16 @@ class SalesAnalystTest < MiniTest::Test
       :items     => "./test/fixtures/items_fixture.csv",
       :merchants => "./test/fixtures/merchants_fixture.csv",
       :invoices => "./test/fixtures/invoices_fixture.csv",
-      :invoice_items => "./test/fixtures/invoice_items_fixture.csv"
-
+      :transactions => "./test/fixtures/transactions_fixture.csv",
+      :invoice_items => './test/fixtures/invoice_items_fixture.csv',
+      :customers => "./test/fixtures/customers_fixture.csv"
       })
-    se.merchants
     se.items
+    se.merchants
+    se.transactions
+    se.invoice_items
+    se.customers
+    se.invoices
     SalesAnalyst.new(se)
   end
 
@@ -51,4 +56,5 @@ class SalesAnalystTest < MiniTest::Test
 
 
   end
+
 end

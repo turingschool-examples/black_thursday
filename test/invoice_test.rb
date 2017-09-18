@@ -100,4 +100,11 @@ class InvoiceTest < Minitest::Test
     assert_equal 'Osinski', invoice.customer.last_name
   end
 
+  def test_is_paid_in_full
+    vr = setup
+    invoice = vr.find_by_id(74)
+
+    assert invoice.is_paid_in_full?
+  end
+
 end
