@@ -25,7 +25,7 @@ class Invoice
 
   def created_day
     days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-    weekday= @created_at.wday
+    weekday = @created_at.wday
     days[weekday]
   end
 
