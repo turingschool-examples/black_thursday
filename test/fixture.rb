@@ -33,7 +33,5 @@ module Fixture
       "./test/fixture/#{type}.csv"
     end
 
-
-
   end
 end
