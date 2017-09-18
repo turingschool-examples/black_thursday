@@ -14,7 +14,8 @@ class SalesAnalystTest < Minitest::Test
             :merchants => './test/fixtures/merchants_truncated_11.csv',
             :invoices => './test/fixtures/invoices_truncated_56.csv',
             :invoice_items => './test/fixtures/invoice_items_truncated_10.csv',
-            :customers => './test/fixtures/customers_truncated_10.csv'
+            :customers => './test/fixtures/customers_truncated_10.csv',
+            :transactions => './test/fixtures/transaction_truncated_10.csv'
           })
     @sa = SalesAnalyst.new(se)
   end
@@ -52,7 +53,8 @@ class SalesAnalystTest < Minitest::Test
             :merchants => './test/fixtures/merchants_truncated_4.csv',
             :invoices => './test/fixtures/invoices_truncated_56.csv',
             :invoice_items => './test/fixtures/invoice_items_truncated_10.csv',
-            :customers => './test/fixtures/customers_truncated_10.csv'
+            :customers => './test/fixtures/customers_truncated_10.csv',
+            :transactions => './test/fixtures/transaction_truncated_10.csv'
           })
     sa = SalesAnalyst.new(se)
 
@@ -82,11 +84,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_sa_can_find_average_invoices_per_merchant
-    assert_equal 5.090909090909091, sa.average_invoices_per_merchant
+    assert_equal 5.09, sa.average_invoices_per_merchant
   end
 
   def test_sa_can_find_average_invoices_per_merchant_standard_deviation
-    assert_equal 2.0225995873897267, sa.average_invoices_per_merchant_standard_deviation
+    assert_equal 2.02, sa.average_invoices_per_merchant_standard_deviation
   end
 
   def test_sa_can_find_top_merchant_by_invoice_count
@@ -121,6 +123,15 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 87.50, sa.invoice_status(:pending)
     assert_equal 7.14, sa.invoice_status(:shipped)
     assert_equal 5.36, sa.invoice_status(:returned)
+  end
+
+  def test_total_revenue_by_date_returns_the_total_revenue_for_given_date
+    skip
+    actual = se.total_revenue_by_date(date)
+    expected = 1872.74
+
+    assert_instance_of BigDecimal, actual
+    assert_equal expected, actual
   end
 
 end
