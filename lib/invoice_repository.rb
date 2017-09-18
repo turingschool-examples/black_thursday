@@ -45,4 +45,9 @@ class InvoiceRepository
       invoice.status == search_status
     end
   end
+
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
+  end
+
 end

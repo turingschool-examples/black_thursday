@@ -36,4 +36,18 @@ class SalesEngineTest < Minitest::Test
     assert_equal 263395617, item.id
   end
 
+  def test_it_can_return_array_of_items_from_item_repository
+    assert_instance_of Array, @engine.item_list
+    assert_equal 4, @engine.item_list.count
+  end
+
+  def test_it_can_return_array_of_merchants_from_merchant_repository
+    assert_instance_of Array, @engine.merchant_list
+    assert_equal 4, @engine.merchant_list.count
+  end
+
+  def test_it_can_return_array_of_invoices_from_invoice_repository
+    assert_instance_of Array, @engine.invoice_list
+    assert_equal 14, @engine.invoice_list.count
+  end
 end

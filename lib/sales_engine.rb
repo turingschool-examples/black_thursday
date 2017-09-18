@@ -22,6 +22,18 @@ class SalesEngine
     @invoices = InvoiceRepository.new(invoice_file_path, self)
   end
 
+  def item_list
+    @items.items
+  end
+
+  def merchant_list
+    @merchants.merchants
+  end
+
+  def invoice_list
+    @invoices.invoices
+  end
+
   # def inspect
   #   "#<#{self.class} #{@items.size} rows>"
   # end

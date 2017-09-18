@@ -16,30 +16,24 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of SalesEngine, @engine
   end
 
-  def test_item_count_returns_total_number_of_items
-    repo = @engine.merchants
-
-    assert_equal 3, @analyst.total_item_count_per_merchant(repo)
-  end
-
   def test_average_items_per_merchant_returns_decimal_mean
-    assert_equal 0.75, @analyst.average_items_per_merchant
+    assert_equal 1, @analyst.average_items_per_merchant
   end
 
   def test_it_can_find_sum_of_square_differences_for_item_count
-    merchant_repo = @engine.merchants
+    merchants = @engine.merchant_list
 
-    assert_equal 6.75, @analyst.sum_of_square_differences_item_count(merchant_repo, 0.75)
+    assert_equal 6.75, @analyst.sum_of_square_differences_item_count(merchants, 0.75)
   end
 
   def test_it_can_find_sample_variance
-    merchant_repo = @engine.merchants
+    merchants = @engine.merchant_list
 
-    assert_equal 2.25, @analyst.find_sample_variance(merchant_repo, 6.75)
+    assert_equal 2.25, @analyst.find_sample_variance(merchants, 6.75)
   end
 
   def test_average_items_per_merchant_standard_deviation_returns_deviation_from_mean
-    assert_equal 1.5, @analyst.average_items_per_merchant_standard_deviation
+    assert_equal 1.53, @analyst.average_items_per_merchant_standard_deviation
   end
 
   def test_merchants_with_high_item_count_returns_merchants_more_than_one_standard_deviation_above
@@ -59,9 +53,9 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_sum_of_square_differences_for_item_price
-    merchant_repo = @engine.merchants
+    merchants = @engine.merchant_list
 
-    assert_equal 93.5767, @analyst.sum_of_square_differences_item_price(merchant_repo, 2.79)
+    assert_equal 93.5767, @analyst.sum_of_square_differences_item_price(merchants, 2.79)
   end
 
   def test_average_item_price_standard_deviation_returns_deviation_from_mean
@@ -69,7 +63,12 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_golden_items_returns_array_of_items_two_standard_deviations_above_in_price
-    golden_items = @analyst.golden_items
+    item_file_path = './data/items.csv'
+    merchant_file_path = './data/merchants.csv'
+    invoice_file_path = './data/invoices.csv'
+    engine = SalesEngine.new(item_file_path, merchant_file_path, invoice_file_path)
+    analyst = SalesAnalyst.new(engine)
+    golden_items = analyst.golden_items
 
     assert_equal 2, golden_items.count
   end
@@ -79,9 +78,9 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_sum_of_square_differences_for_invoice_count
-    merchant_repo = @engine.merchants
+    merchants = @engine.merchant_list
 
-    assert_equal 57, @analyst.sum_of_square_differences_invoice_count(merchant_repo, 3.5)
+    assert_equal 57, @analyst.sum_of_square_differences_invoice_count(merchants, 3.5)
   end
 
   def test_it_can_find_standard_deviation_for_merchant_invoices
@@ -89,16 +88,25 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_top_merchants_by_invoice_count
-    top_merchants = @analyst.top_merchants_by_invoice_count
-    merchant = top_merchants[0]
+    item_file_path = './data/items.csv'
+    merchant_file_path = './data/merchants.csv'
+    invoice_file_path = './data/invoices.csv'
+    engine = SalesEngine.new(item_file_path, merchant_file_path, invoice_file_path)
+    analyst = SalesAnalyst.new(engine)
+    top_merchants = analyst.top_merchants_by_invoice_count
 
-    assert_equal 12334185, merchant.id
     assert_equal 1, top_merchants.length
 
   end
 
   def test_it_can_find_bottom_merchants_by_invoice_count
-    bottom_merchants = @analyst.bottom_merchants_by_invoice_count
+    item_file_path = './data/items.csv'
+    merchant_file_path = './data/merchants.csv'
+    invoice_file_path = './data/invoices.csv'
+    engine = SalesEngine.new(item_file_path, merchant_file_path, invoice_file_path)
+    analyst = SalesAnalyst.new(engine)
+
+    bottom_merchants = analyst.bottom_merchants_by_invoice_count
 
     assert_equal 3, bottom_merchants.length
     assert_instance_of Merchant, bottom_merchants[0]
@@ -106,11 +114,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_average_invoices_per_day
-    assert_equal 2, @analyst.average_invoices_per_day
+    assert_equal 2, @analyst.average_invoices_per_day(@engine)
   end
 
   def test_it_can_find_days_of_week_invoices_were_created
-    assert_equal [5, 3, 5, 4, 5, 6, 3, 4, 4, 3, 1, 3, 6, 2], @analyst.invoice_creation_days
+    assert_equal [5, 3, 5, 4, 5, 6, 3, 4, 4, 3, 1, 3, 6, 2], @analyst.invoice_creation_days(@engine)
   end
 
   def test_it_can_find_how_many_invoices_were_created_per_day
@@ -127,15 +135,18 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_finds_top_days_by_invoice_count
-    assert_equal ["Wednesday", "Thursday", "Friday", "Saturday"], @analyst.top_days_by_invoice_count
+    assert_equal ["Wednesday", "Thursday", "Friday"], @analyst.top_days_by_invoice_count
   end
 
   def test_it_creates_a_hash_with_invoice_status_counts
     assert_equal ({:returned => 4, :pending => 4, :shipped => 6}), @analyst.invoice_status_count
   end
 
+  def test_it_creates_a_hash_with_invoice_status_percentages
+    assert_equal ({:returned => 28.57, :pending => 28.57, :shipped => 42.86}), @analyst.invoice_status_percentages
+  end
+
   def test_it_can_find_percentage_of_invoices_shipped
-    skip
     assert_equal 28.57, @analyst.invoice_status(:returned)
     assert_equal 28.57, @analyst.invoice_status(:pending)
     assert_equal 42.86, @analyst.invoice_status(:shipped)
