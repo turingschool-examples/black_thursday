@@ -77,6 +77,4 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 13.5, sales_analyst.invoice_status(:returned)
   end
 
-
-
 end
