@@ -100,6 +100,14 @@ class InvoiceTest < Minitest::Test
     assert_equal invoice_74_expected[:merchant_id], invoice_74.merchant.id
   end
 
+  def test_transactions_returns_array_of_transactions_with_id_as_invoice_id
+    transactions = invoice_74.transactions
+    assert_instance_of Array, transactions
+    refute transactions.empty?
+
+    assert transactions.all? { |t| (t.is_a? Transaction) && t.invoice_id == 74 }
+  end
+
   def test_items_returns_an_array_of_items
     items = invoice_74.items
     assert_instance_of Array, items
