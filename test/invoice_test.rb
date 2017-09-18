@@ -1,8 +1,9 @@
 require 'time'
-require './test/test_helper'
 
+require './test/test_helper'
 require './lib/invoice'
 require './lib/item'
+require './lib/customer'
 
 
 class InvoiceTest < Minitest::Test

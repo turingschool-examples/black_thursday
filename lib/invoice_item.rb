@@ -14,6 +14,10 @@ class InvoiceItem < Repository::Record
     @unit_price = BigDecimal.new(fields[:unit_price]) / 100
   end
 
+  def item
+    repo.parent(:items, item_id)
+  end
+
   def unit_price_to_dollars
     unit_price.to_f
   end
