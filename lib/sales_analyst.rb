@@ -1,10 +1,16 @@
 require_relative "sales_engine"
 require 'pry'
 require_relative './merchant_math'
+require_relative './merchant_golden_items'
+require_relative './merchant_top_merchants_by_invoice_count'
+
 
 class SalesAnalyst
 
   include MerchantMath
+  include MerchantGoldenItems
+  include MerchantTopMerchantsByInvoiceCount
+  #we can move these all back into a single module if needed -- I was just getting confused and needed to be able to separate the different methods and helper methods
 
   attr_reader :sales_engine
 
@@ -79,6 +85,21 @@ class SalesAnalyst
 
   def golden_items
     two_standard_deviations_above(sales_engine.items, sales_engine.merchants)
+  end
+
+  def top_merchants_by_invoice_count
+    top_merchants = []
+    
+    group_invoices_by_merchant.map do |key, value|
+      if value >= two_standard_deviations_above_merchant_invoices
+        top_merchants << key
+      end
+    end
+    top_merchants.map do |id|
+      sales_engine.merchants.find_by_id(id)
+    end
+    return
+    puts "Yowza -- Top merchants by invoice!"
   end
 
 end

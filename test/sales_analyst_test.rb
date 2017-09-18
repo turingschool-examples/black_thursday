@@ -7,7 +7,6 @@ require "./lib/merchant"
 require "./lib/item"
 
 
-
 class TestSalesAnalyst < Minitest::Test
 
   attr_reader :sa
@@ -52,7 +51,11 @@ class TestSalesAnalyst < Minitest::Test
 
   def test_it_returns_golden_items
     assert_instance_of Array, sa.golden_items
+    assert_instance_of Item, sa.golden_items[0]
   end
 
-
+  def test_it_returns_top_merchants_by_invoice
+    assert_instance_of Array, sa.top_merchants_by_invoice_count
+    assert_instance_of Merchant, sa.top_merchants_by_invoice_count[0]
+  end
 end
