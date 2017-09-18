@@ -30,8 +30,6 @@ module MerchantMath
    return thing_counts
   end
 
-################
-
   def average_thing(things)
     all_things_sum = 0
     things.all.each do |thing|
@@ -93,6 +91,5 @@ module MerchantMath
           end
           golden_things_list
       end
-
 
 end

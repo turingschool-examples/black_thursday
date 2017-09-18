@@ -4,10 +4,10 @@ class Merchant
 
   attr_reader :id, :name, :merchant_repository
 
-  def initialize(mr, csv_info)
-    @id = csv_info[:id].to_s.to_i
+  def initialize(merchant_repository, csv_info)
+    @id = csv_info[:id].to_i
     @name = csv_info[:name]
-    @merchant_repository = mr
+    @merchant_repository = merchant_repository
   end
 
   def items
