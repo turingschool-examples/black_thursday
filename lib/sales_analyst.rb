@@ -121,6 +121,14 @@ include StandardDeviation
 
   def total_revenue_by_date(date)
     count = 0.00
+    # se.invoices.invoices.each do |invoice|
+    #   invoice_date = invoice.created_at.strftime('%Y/%m/%d')
+    #   if invoice_date == date.strftime('%Y/%m/%d')
+    #     invoice.items.each do |item|
+    #       count += item.unit_price
+    #     end
+    #   end
+    # end
     se.invoice_items.invoice_items.each do |invoice_item|
       iv_date = date
       count += invoice_item.unit_price.to_i if invoice_item.created_at.strftime('%Y/%m/%d') == date.strftime('%Y/%m/%d')
