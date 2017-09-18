@@ -1,9 +1,10 @@
+require 'bigdecimal'
+
 class SalesAnalyst
-  attr_reader :sales_engine, :items_std_deviation
+  attr_reader :sales_engine
 
   def initialize(sales_engine)
     @sales_engine = sales_engine
-    @items_std_deviation = nil
   end
 
   def average_items_per_merchant
@@ -12,79 +13,63 @@ class SalesAnalyst
     (total_items.to_f / total_merchants).round(2)
   end
 
-  def find_all_averages_by_merchant
+  def counts_per_merchant(method)
     sales_engine.merchants.merchants.map do |merchant|
-      items_for_merchant = sales_engine.find_merchant_items(merchant.id)
-      if items_for_merchant.count <= 1
-        1
-      else
-        items_for_merchant.count.round(2)
-      end
+      method.call(merchant.id).count
     end
   end
 
-  def mean
-    merchant_item_avgs = find_all_averages_by_merchant
-    merchant_item_avgs.reduce(0.0, :+) / merchant_item_avgs.count
+  def mean(list)
+    if list.first.class == BigDecimal
+      list.reduce(BigDecimal.new("0.0"), :+) / list.count
+    else
+      list.reduce(0.0, :+) / list.count
+    end
   end
 
-  def average_items_per_merchant_standard_deviation
-    mean_result = mean
-    differences_squared = find_all_averages_by_merchant.map do |num|
-      (num - mean_result)**2
-    end
+  def standard_deviation(list)
+    mean_result = mean(list)
+    differences_squared = list.map { |num| (num - mean_result)**2 }
     Math.sqrt(differences_squared.sum/(differences_squared.count - 1)).round(2)
   end
 
+  def average_items_per_merchant_standard_deviation
+    counts = counts_per_merchant(sales_engine.method(:find_merchant_items))
+    standard_deviation(counts)
+  end
+
   def merchants_with_high_item_count
-    top_merch = []
-    mean_result = mean
-    items_std_deviation = average_items_per_merchant_standard_deviation
-    sales_engine.merchants.merchants.each do |merchant|
-      merch_item_count = sales_engine.find_merchant_items(merchant.id)
-      if merch_item_count.count > (items_std_deviation + mean_result)
-        top_merch << merchant
-      end
+    counts = counts_per_merchant(sales_engine.method(:find_merchant_items))
+    one_std_deviation = mean(counts) + standard_deviation(counts)
+    sales_engine.merchants.merchants.select do |merchant|
+      sales_engine.find_merchant_items(merchant.id).count > one_std_deviation
     end
-    top_merch
   end
 
   def average_item_price_for_merchant(merchant_id)
     items_for_merchant = sales_engine.find_merchant_items(merchant_id)
-    (items_for_merchant.map do |item|
-      item.unit_price
-    end.sum / items_for_merchant.count).round(2)
+    mean(items_for_merchant.map {|item| item.unit_price}).round(2)
   end
 
   def average_average_price_per_merchant
-    (sales_engine.merchants.merchants.map do |merchant|
+    mean(sales_engine.merchants.merchants.map do |merchant|
       average_item_price_for_merchant(merchant.id)
-    end.sum / sales_engine.merchants.merchants.count).round(2)
+    end).round(2)
   end
 
-  def average_item_price
-    sales_engine.items.items.map do |item|
-      item.unit_price
-    end.sum / sales_engine.items.items.count
+  def item_unit_price_list
+    sales_engine.items.items.map { |item| item.unit_price }
   end
 
   def std_deviation_of_item_price
-    price_avg = average_item_price
-    differences_squared = sales_engine.items.items.map do |item|
-      (item.unit_price - price_avg)**2
-    end
-    Math.sqrt(differences_squared.sum/(differences_squared.count - 1)).round(2)
+    standard_deviation(item_unit_price_list)
   end
 
   def golden_items
-    golden_items = []
     std_deviation = std_deviation_of_item_price
-    sales_engine.items.items.each do |item|
-      if item.unit_price > (std_deviation * 2)
-        golden_items << item
-      end
+    sales_engine.items.items.select do |item|
+      item.unit_price > (std_deviation * 2)
     end
-    golden_items
   end
 
   def average_invoices_per_merchant
@@ -93,29 +78,8 @@ class SalesAnalyst
     (total_invoices.to_f / total_merchants).round(2)
   end
 
-  def invoices_mean_per_merchant
-    sales_engine.merchants.merchants.map do |merchant|
-      invoices_for_merchant = sales_engine.find_merchant_invoice(merchant.id)
-      if invoices_for_merchant.count <= 1
-        1
-      else
-        invoices_for_merchant.count.round(2)
-      end
-    end
-  end
-
-  def invoices_mean
-    merchant_invoice_avgs = invoices_mean_per_merchant
-    merchant_invoice_avgs.reduce(0.0, :+) / merchant_invoice_avgs.count
-  end
-
   def average_invoices_per_merchant_standard_deviation
-    mean_result = invoices_mean
-    differences_squared = invoices_mean_per_merchant.map do |num|
-      (num - mean_result)**2
-    end
-    Math.sqrt(differences_squared.sum/(differences_squared.count - 1)).round(2)
+    counts = counts_per_merchant(sales_engine.method(:find_merchant_invoice))
+    standard_deviation(counts)
   end
-
-
 end

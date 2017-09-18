@@ -7,29 +7,23 @@ require_relative '../lib/invoice_repo'
 require 'bigdecimal'
 
 class SalesAnalystTest < Minitest::Test
-  attr_reader :sa
+  attr_reader :se, :sa
   def set_up
     files = ({:invoices => "./test/fixtures/invoice_fixture.csv", :items => "./test/fixtures/item_fixture.csv", :merchants => "./test/fixtures/merchant_fixture.csv"})
-    se = SalesEngine.from_csv(files)
+    @se = SalesEngine.from_csv(files)
     @sa = SalesAnalyst.new(se)
   end
 
   def test_it_exists
-    set_up
-
-    assert_instance_of SalesAnalyst, sa
+    assert_instance_of SalesAnalyst, set_up
   end
 
   def test_average_items_per_merchant
-    set_up
-
-    assert_equal 0.83, sa.average_items_per_merchant
+    assert_equal 0.83, set_up.average_items_per_merchant
   end
 
   def test_find_averages
-    set_up
-
-    assert_equal 6, sa.find_all_averages_by_merchant.count
+    assert_equal 6, set_up.counts_per_merchant(se.method(:find_merchant_items)).count
   end
 
   def test_standard_deviation
@@ -67,29 +61,23 @@ class SalesAnalystTest < Minitest::Test
   def test_average_item_price
     set_up
 
-    assert_equal 0.15098e2, sa.average_item_price
+    assert_equal BigDecimal.new("0.15098e2"), sa.mean(sa.item_unit_price_list)
   end
 
   def test_standard_deviation_of_item_price
-    set_up
-
-    assert_equal 8.72, sa.std_deviation_of_item_price
+    assert_equal 8.72, set_up.std_deviation_of_item_price
   end
 
   def test_golden_items
-    set_up
-
-    assert_equal 1, sa.golden_items.count
+    assert_equal 1, set_up.golden_items.count
   end
 
   def test_average_invoices_per_merchant
-    set_up
-
-    assert_equal 1.67, sa.average_invoices_per_merchant
+    assert_equal 1.67, set_up.average_invoices_per_merchant
   end
 
   def test_average_invoices_per_merchant_standard_deviation
-    files = ({:invoices => "./data/invoices.csv", :items => "./test/fixtures/item_fixture.csv", :merchants => "./test/fixtures/merchant_fixture.csv"})
+    files = ({:invoices => "./data/invoices.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv"})
     se = SalesEngine.from_csv(files)
     sales_a = SalesAnalyst.new(se)
 
