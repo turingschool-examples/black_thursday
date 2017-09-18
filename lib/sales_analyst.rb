@@ -48,6 +48,19 @@ class SalesAnalyst
 
 ########
 
+  def invoice_status(status)
+    decimal = invoices_with_status_count(status)/total_invoice_count
+    (decimal * 100).round(2)
+  end
+
+  def total_invoice_count
+    sales_engine.invoices.all.count.to_f
+  end
+
+  def invoices_with_status_count(status)
+    sales_engine.invoices.find_all_by_status(status).count
+  end
+
   def merchants_with_high_item_count
     merchant_ids = []
     one_above  = average_items_per_merchant + average_items_per_merchant_standard_deviation

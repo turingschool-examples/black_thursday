@@ -58,4 +58,10 @@ class TestSalesAnalyst < Minitest::Test
     assert_instance_of Array, sa.top_merchants_by_invoice_count
     assert_instance_of Merchant, sa.top_merchants_by_invoice_count[0]
   end
+
+  def test_it_finds_percent_status
+    assert_equal 29.64, sa.invoice_status(:pending)
+    assert_equal 56.95, sa.invoice_status(:shipped)
+    assert_equal 13.41, sa.invoice_status(:returned)
+  end
 end
