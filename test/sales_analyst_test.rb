@@ -60,7 +60,8 @@ class SalesAnalystTest < MiniTest::Test
     sa = setup
 
     assert_instance_of Merchant, sa.merchants_with_pending_invoices.first
-    assert_equal 8, sa.merchants_with_pending_invoices.count
+    assert_equal 12, sa.merchants_with_pending_invoices.count
   end
+
 
 end

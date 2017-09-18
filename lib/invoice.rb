@@ -65,6 +65,8 @@ class Invoice
     @invoice_repository.find_all_invoice_items_by_invoice_id(@id)
   end
 
+  
+
   def is_paid_in_full?
     return false if transactions.count == 0
     transactions.all? do |transaction|

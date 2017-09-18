@@ -156,9 +156,13 @@ include StandardDeviation
   end
 
   def merchants_with_pending_invoices
+    #select the merchant if all of an invoices transactions fail
     se.merchants.all.select do |merchant|
       merchant.invoices.any? do |invoice|
-        invoice.status == :pending
+        invoice.transactions.all? do |transaction|
+          transaction.result == 'failed'
+        end
+        #invoice.status == :pending || invoice.status == 'pending'
       end
     end
   end
