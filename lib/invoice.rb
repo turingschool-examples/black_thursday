@@ -29,4 +29,13 @@ class Invoice
     days[weekday]
   end
 
+  def total
+    invoices = @parent.parent.invoice_items.all.find_all do |invoice_item|
+      invoice_item.invoice_id == @id
+    end
+    total = invoices.map do |invoice|
+      invoice.unit_price * invoice.quantity
+    end
+    (total.inject(:+)).round(2)
+  end
 end

@@ -65,4 +65,11 @@ class SalesEngineTest < Minitest::Test
     assert_equal invoice.merchant_id, actual.id
   end
 
+  def test_total_called_on_invoice_returns_total_from_invoice_items
+    invoice = se.invoices.find_by_id(1)
+
+    assert_equal 21067.77, invoice.total
+  end
+
+
 end
