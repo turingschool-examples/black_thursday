@@ -10,6 +10,14 @@ class Customer < Repository::Record
     @last_name =   fields[:last_name]
   end
 
+  def invoices
+    repo.children(:invoices, id)
+  end
+
+  def merchants
+    invoices.map{ |invoice| invoice.merchant }.uniq
+  end
+
 
 
   # def merchants
