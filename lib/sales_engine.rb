@@ -14,7 +14,7 @@ class SalesEngine
     @items         = ItemRepo.new(data[:items], self)
     @invoices      = InvoiceRepo.new(data[:invoices], self)
     @invoice_items = InvoiceItemRepo.new(data[:invoice_items], self)
-    @transactions   = TransactionRepo.new(data[:transactions], self)
+    @transactions  = TransactionRepo.new(data[:transactions], self)
     @customers     = CustomersRepo.new(data[:customers], self)
   end
 

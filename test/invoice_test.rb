@@ -42,7 +42,11 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_it_returns_an_instance_of_time_updated_at
-    assert_instance_of Time, invoice.created_at
+    assert_instance_of Time, invoice.updated_at
+  end
+
+  def test_that_it_returns_the_weekday_based_on_time
+    assert_equal "Sunday", invoice.weekday_time
   end
 
   # def test_it_can_return_the_associated_merchant
