@@ -11,7 +11,7 @@ class InvoiceTest < Minitest::Test
                           :merchant_id => 8,
                           :status      => "pending",
                           :created_at  => Time.now,
-                          :updated_at  => Time.now,
+                          :updated_at  => Time.now
                           })
   end
 
@@ -32,7 +32,7 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_it_has_a_status
-    assert_equal "pending", invoice.status
+    assert_equal :pending, invoice.status
   end
 
   def test_it_has_created_at_time
@@ -46,4 +46,5 @@ class InvoiceTest < Minitest::Test
   def test_it_has_a_parent_defaulted_to_nil
     assert_nil invoice.parent
   end
+
 end
