@@ -1,10 +1,9 @@
 module MerchantTopMerchantsByInvoiceCount
 
-  def group_invoices_by_merchant
+  def group_invoices_by_merchant #works
     merchant_ids = sales_engine.invoices.all.map do |invoice|
       #collects an array of just merchant ids, not the instances.
       invoice.merchant_id
-
      end
    invoice_counts = Hash.new 0  #create an empty hash to fill
    merchant_ids.each do |merchant_id| #take the array of plain merchant_ids, and use them to make a key value where we add to the value each time there is another invoices
@@ -19,33 +18,35 @@ module MerchantTopMerchantsByInvoiceCount
     puts "average_invoices_per_merchant done"
   end
 
-def merchant_invoices_numerator
+def merchant_invoices_numerator #works!
   numerator = 0
-  binding.pry
    group_invoices_by_merchant.each do |key, value|
      numerator += (value - average_invoices_per_merchant)**2
    end
-   numerator
+   return numerator
    puts "merchant_invoices_numerator done"
 end
 
   def merchant_invoices_denominator_and_sqrt
     # binding.pry -- shows merchant invoices numerator doesn't work
-    Math.sqrt(merchant_invoices_numerator/(sales_engine.merchants.all.count - 1))
-    puts "merchant_invoices_denominator_and_sqrt done"
+    Math.sqrt((merchant_invoices_numerator) / (sales_engine.merchants.all.count - 1))
+    # puts merchant_invoices_numerator
+    # puts sales_engine.merchants.all.count
+    # puts merchant_invoices_denominator_and_sqrt #this loops a ton...
   end
 
   def standard_deviation_for_merchant_invoices
+    # binding.pry
     group_invoices_by_merchant
     average_invoices_per_merchant
     merchant_invoices_numerator
     merchant_invoices_denominator_and_sqrt
+    puts standard_deviation_for_merchant_invoices
     puts "standard_deviation_for_merchant_invoices done"
   end
 
   def two_standard_deviations_above_merchant_invoices
-    average_invoices_per_merchant + standard_deviation_for_merchant_invoices * 2
-    puts "two_standard_deviations_above_merchant_invoices done"
+    average_invoices_per_merchant + ((standard_deviation_for_merchant_invoices) * 2)
   end
 
 
