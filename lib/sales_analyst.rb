@@ -124,8 +124,8 @@ include StandardDeviation
     se.invoices.invoices.each do |invoice|
       invoice_date = invoice.created_at.strftime('%Y/%m/%d')
       if invoice_date == date.strftime('%Y/%m/%d')
-        invoice.invoice_items.each do |item|
-          count += item.unit_price * invoice_items.quantity
+        invoice.invoice_items.each do |invoice_item|
+          count += invoice_item.unit_price * invoice_item.quantity
         end
       end
     # se.invoice_items.invoice_items.each do |invoice_item|
@@ -158,7 +158,4 @@ include StandardDeviation
     revenue
   end
 
-  def method_name
-
-  end
 end

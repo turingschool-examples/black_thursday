@@ -12,12 +12,21 @@ class SalesAnalystTest < MiniTest::Test
       :invoice_items => './test/fixtures/invoice_items_fixture.csv',
       :customers => "./test/fixtures/customers_fixture.csv"
       })
+<<<<<<< HEAD
       se.items
       se.transactions
       se.invoice_items
       se.customers
       se.invoices
       se.merchants
+=======
+    se.items
+    se.merchants
+    se.transactions
+    se.invoice_items
+    se.customers
+    se.invoices
+>>>>>>> cec2664bcaa564d7b7e6f53dede06edb2eb9e97c
     SalesAnalyst.new(se)
   end
 
@@ -54,4 +63,5 @@ class SalesAnalystTest < MiniTest::Test
 
   puts sa.top_revenue_earners(5)
   end
+
 end

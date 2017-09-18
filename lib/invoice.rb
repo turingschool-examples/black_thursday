@@ -1,5 +1,6 @@
 require 'time'
 require 'date'
+require 'bigdecimal'
 
 class Invoice
 
@@ -46,8 +47,7 @@ class Invoice
   end
 
   def items
-    invoice_items = @invoice_repository.find_all_invoice_items_by_invoice_id(@id)
-
+    # invoice_items = @invoice_repository.find_all_invoice_items_by_invoice_id(@id)
     invoice_items.map do |invoice_item|
       @invoice_repository.find_item_by_item_id(invoice_item.item_id)
     end
@@ -60,4 +60,22 @@ class Invoice
   def customer
     @invoice_repository.find_customer_by_id(@customer_id)
   end
+
+  def is_paid_in_full?
+    return false if transactions.count == 0
+    transactions.all? do |transaction|
+      transaction.result == 'success'
+    end
+  end
+
+  def invoice_items
+    @invoice_repository.find_all_invoice_items_by_invoice_id(@id)
+  end
+
+  def total
+    invoice_items.reduce(BigDecimal.new(0, 4)) do |invoice_total ,invoice_item|
+      (invoice_item.unit_price * invoice_item.quantity) + invoice_total
+    end
+  end
+
 end
