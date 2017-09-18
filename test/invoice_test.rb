@@ -132,4 +132,12 @@ class InvoiceTest < Minitest::Test
     assert_equal 0.494478e4, invoice.total
   end
 
+  def test_it_can_find_partially_paid_invoices
+    vr = setup
+
+    invoice = vr.find_by_id(4085)
+
+    assert_equal 1, invoice.partially_paid_transactions
+  end
+
 end
