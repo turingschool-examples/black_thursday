@@ -150,7 +150,7 @@ class SalesAnalyst
   end
 
   def top_revenue_earners(x = 20)
-    merchants.sort_by do |merchant| 
+    merchants.sort_by do |merchant|
       revenue_by_merchant(merchant.id)
     end.reverse.shift(x)
   end
@@ -205,4 +205,20 @@ class SalesAnalyst
   def completed_invoices(invoices)
     invoices.reject {|invoice| pending?(invoice)}
   end
+
+  def most_sold_item_for_merchant(merchant_id)
+    # todo refACtor lol
+    items  = id_and_total_quantity_of_item(merchant_id)
+    sorted = items.sort_by(&:last).reverse
+    stuff = sorted.reduce({}) do |hash, element|
+      hash[element[0]]  = element[1] if !hash[element[0]]
+      hash[element[0]] += element[1]
+      hash
+    end
+    top_quantity = stuff.max_by {|i, q| q}
+    top_item = stuff.select {|i, q| q == top_quantity[1]}
+    top_item.keys.map{|id| engine.find_item_by_id(id)}
+  end
 end
+
+# sa.best_item_for_merchant(merchant_id) #=> item (in terms of revenue generated)
