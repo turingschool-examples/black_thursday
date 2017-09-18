@@ -8,8 +8,8 @@ class SalesEngineTest < Minitest::Test
       :items => './test/fixtures/items_truncated.csv',
       :merchants => './test/fixtures/merchants_truncated.csv',
       :invoices => './test/fixtures/invoices_truncated.csv',
-      :customers => './test/fixtures/invoices_truncated.csv'
-      :transactions => './test/fixtures/invoices_truncated.csv'
+      :customers => './test/fixtures/customers_truncated.csv'
+      :transactions => './test/fixtures/transactions_truncated.csv'
     })
   end
 

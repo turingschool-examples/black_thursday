@@ -17,7 +17,7 @@ class InvoiceItemRepository
   end
 
   def create_items(csv_file_path, engine)
-    create_instances(csv_file_path, 'InvoiceItems', engine)
+    create_instances(csv_file_path, 'InvoiceItem', engine)
   end
 
   def all

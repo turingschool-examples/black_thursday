@@ -7,7 +7,7 @@ require_relative 'transaction_repository'
 
 class SalesEngine
 
-  attr_reader :items, :merchants, :invoices
+  attr_reader :items, :merchants, :invoices, :customers, :transactions
 
   def self.from_csv(csv_file_paths)
     item_file_path = csv_file_paths[:items]
@@ -38,10 +38,6 @@ class SalesEngine
 
   def invoice_list
     @invoices.invoices
-  end
-
-  def invoice_list
-    @customers.customers
   end
 
   def transaction_list

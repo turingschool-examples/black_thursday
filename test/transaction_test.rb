@@ -20,12 +20,13 @@ class InvoiceItemTest < Minitest::Test
   def test_it_can_retrieve_item_attributes
     transaction = @transactions[0]
 
-    assert_equal 6667, transaction.id
-    assert_equal 263443369, transaction.credit_card_number
+    assert_equal 531, transaction.id
+    assert_equal '4134214819227763', transaction.credit_card_number
     assert_equal 1495, transaction.invoice_id
-    assert_equal BigDecimal.new(32.321, 4), transaction.credit_card_expiration_date
-    assert_equal 3, transaction.result
-    assert_instance_of Time, item.created_at
-    assert_instance_of Time, item.updated_at
-    assert_instance_of SalesEngine, item.engine
+    assert_equal '1012', transaction.credit_card_expiration_date
+    assert_equal 'success', transaction.result
+    assert_instance_of Time, transaction.created_at
+    assert_instance_of Time, transaction.updated_at
+    assert_instance_of SalesEngine, transaction.engine
   end
+end

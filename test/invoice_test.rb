@@ -23,7 +23,7 @@ class InvoiceTest < Minitest::Test
 
     assert_equal 1495, invoice.id
     assert_equal 297, invoice.customer_id
-    assert_equal "returned", invoice.status
+    assert_equal :returned, invoice.status
     assert_equal 12334185, invoice.merchant_id
     assert_instance_of Time, invoice.created_at
     assert_instance_of Time, invoice.updated_at
