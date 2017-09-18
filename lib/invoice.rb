@@ -34,20 +34,10 @@ class Invoice
      merchants.find_by_id(id)
   end
 
-=begin
-  Then connect our invoices to our merchants:
-
-sales_engine. = SalesEngine.from_csv({
-  :items => "./data/items.csv",
-  :merchants => "./data/merchants.csv",
-  :invoices => "./data/invoices.csv"
-})
-merchant = sales_engine.merchants.find_by_id(12334159)
-merchant.invoices
-# => [<invoice>, <invoice>, <invoice>]
-invoice = sales_engine.invoices.find_by_id(20)
-invoice.merchant
-# => <merchant>
-=end
+  def is_paid_in_full?
+    #check all transactionsby this id to make sure there IS a transaction, and finally to see if there is at least 1 successful "result"
+    sales_engine.transations.find_all_by_result(successful) #returns a transaction array.
+    #search transaction array for self.merchant_id
+  end
 
 end
