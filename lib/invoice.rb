@@ -1,5 +1,6 @@
 require 'time'
 require 'date'
+require 'bigdecimal'
 
 class Invoice
 
@@ -67,4 +68,13 @@ class Invoice
       transaction.result == 'success'
     end
   end
+
+  def total
+    invoice_total = BigDecimal.new(0, 4)
+    items.each do |invoice_item|
+      invoice_total = invoice_item.unit_price + invoice_total
+    end
+    invoice_total
+  end
+
 end

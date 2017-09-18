@@ -123,4 +123,13 @@ class InvoiceTest < Minitest::Test
     refute invoice.is_paid_in_full?
   end
 
+  def test_it_can_find_the_total_of_an_invoice
+    vr = setup
+
+    invoice = vr.all.first
+
+    assert_instance_of BigDecimal, invoice.total
+    assert_equal 49, invoice.total
+  end
+
 end
