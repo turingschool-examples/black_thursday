@@ -15,4 +15,12 @@ class Invoice < Repository::Record
     repo.parent(:merchants, merchant_id)
   end
 
+  def customer
+    repo.parent(:customers, customer_id)
+  end
+
+  def transactions
+    repo.children(:transactions, id)
+  end
+
 end

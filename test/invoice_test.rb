@@ -2,6 +2,7 @@ require 'time'
 require './test/test_helper'
 
 require './lib/invoice'
+require './lib/item'
 
 
 class InvoiceTest < Minitest::Test
@@ -97,6 +98,27 @@ class InvoiceTest < Minitest::Test
 
   def test_merchant_has_id_same_as_merchant_id
     assert_equal invoice_74_expected[:merchant_id], invoice_74.merchant.id
+  end
+
+  def test_items_returns_an_array_of_items
+    items = invoice_74.items
+    assert_instance_of Array, items
+    refute items.empty?
+    assert items.all? { |item| item.is_a? Item }
+  end
+
+  def test_items_are_always_connected_through_invoice_item
+    engine = Fixture.sales_engine
+    invoice = engine.invoices.all.first
+    items = invoice.items
+    id = invoice.id
+
+    assert items.all? do |item|
+      engine.invoice_items.find do |invoice_item|
+        invoice_item.item_id == item.id &&
+        invoice_item.invoice_id == invoice.id
+      end
+    end
   end
 
 end
