@@ -1,16 +1,20 @@
-require_relative 'items_repo'
-require_relative 'merchant_repo'
+# require_relative 'items_repo'
+# require_relative 'merchant_repo'
+require_relative 'sales_engine'
 require 'pry'
 require 'bigdecimal'
 
 class SalesAnalyst
 
-  attr_reader :merchants, :items, :price, :invoices
+  attr_reader :merchants, :items, :price, :invoices, :invoice_items, :transactions, :customers
 
   def initialize(sales_engine)
     @merchants     = sales_engine.merchants
     @items         = sales_engine.items
     @invoices      = sales_engine.invoices
+    @invoice_items = sales_engine.invoice_items
+    @transactions  = sales_engine.transactions
+    @customers     = sales_engine.customers
   end
 
   def self.from_csv(sales_engine)
@@ -36,7 +40,7 @@ class SalesAnalyst
   def merchants_with_high_item_count
 
     @high_count = []
-    @merchants.all_merchants.map do |merchant|
+    @merchants.all_merchants.each do |merchant|
      if merchant.items.count >= 6.12
      @high_count << merchant
       else
@@ -65,5 +69,15 @@ class SalesAnalyst
       end
       total_average = (@totals.reduce(:+) / @totals.count) / 100
       total_average.round(2)
+    end
+    def golden_items
+
+      @golden = []
+      @merchants.all_merchants.map do |merchant|
+       if merchant.item.count >= 5.02
+       @golden << item
+        @golden
+        end
+      end
     end
 end
