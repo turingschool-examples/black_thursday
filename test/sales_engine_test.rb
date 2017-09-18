@@ -85,14 +85,6 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_transactions_called_on_invoice_returns_transactions_associated_with_that_invoice
-    se = SalesEngine.from_csv({
-            :items => './test/fixtures/items_truncated_10.csv',
-            :merchants => './test/fixtures/merchants_truncated_11.csv',
-            :invoices => './test/fixtures/invoices_truncated_56.csv',
-            :invoice_items => './test/fixtures/invoice_items_truncated_10.csv',
-            :transactions => './test/fixtures/transaction_truncated_10.csv',
-            :customers => './test/fixtures/customers_truncated_10.csv'
-    })
     invoice = se.invoices.find_by_id(1)
     actual = invoice.transactions
 
@@ -100,6 +92,22 @@ class SalesEngineTest < Minitest::Test
       assert_instance_of Transaction, transaction
     end
     assert_equal se.transactions.all.first, actual.first
+  end
+
+  def test_customer_called_on_invoice_returns_customer_associated_with_that_invoice
+    invoice = se.invoices.find_by_id(1)
+    actual = invoice.customer
+
+    assert_instance_of Customer, invoice.customer
+    assert_equal se.customers.all[0], actual
+  end
+
+  def test_invoice_called_on_transaction_returns_invoice_instance_associated_with_that_transaction
+    transaction = se.transactions.find_by_id(1)
+    actual = transaction.invoice
+
+    assert_instance_of Invoice, actual
+    assert_equal se.invoices.all.first, actual
   end
 
 end

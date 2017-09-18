@@ -4,7 +4,7 @@ require 'pry'
 
 class TransactionRepository
 
-  attr_reader :all
+  attr_reader :all, :parent
 
   def initialize(file_path, parent = nil)
     @all = from_csv(file_path)

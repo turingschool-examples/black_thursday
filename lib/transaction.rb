@@ -19,4 +19,8 @@ class Transaction
     @updated_at = trx_data[:updated_at]
   end
 
+  def invoice
+    sales_engine = @parent.parent
+    sales_engine.invoices.find_by_id(invoice_id)
+  end
 end

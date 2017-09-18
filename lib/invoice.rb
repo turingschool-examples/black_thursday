@@ -38,4 +38,9 @@ class Invoice
     sales_engine.transactions.find_all_by_invoice_id(id)
   end
 
+  def customer
+    sales_engine = @parent.parent
+    sales_engine.customers.find_by_id(customer_id)
+  end
+
 end
