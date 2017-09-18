@@ -129,4 +129,12 @@ class InvoiceTest < Minitest::Test
     end
   end
 
+  def test_customer_returns_a_single_customer
+    assert_instance_of Customer, invoice_74.customer
+  end
+
+  def test_customer_has_id_same_as_customer_id
+    assert_equal invoice_74_expected[:customer_id], invoice_74.customer.id
+  end
+
 end
