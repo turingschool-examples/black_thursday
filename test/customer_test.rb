@@ -42,4 +42,11 @@ class CustomerTest < Minitest::Test
     assert_instance_of Invoice, customer.invoices[0]
   end
 
+  def test_it_can_connect_with_merchants
+    cr = setup
+
+    customer = cr.find_by_id(1)
+    merchants = customer.merchants
+    assert_instance_of Merchant, merchants[0]
+  end
 end

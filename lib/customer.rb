@@ -23,7 +23,10 @@ class Customer
 
   def merchants
     merchants = []
-
+    invoices.each do |invoice|
+      merchants << @customer_repository.find_merchants(invoice.merchant_id)
+    end
+    merchants
   end
 
 end
