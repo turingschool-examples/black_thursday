@@ -145,7 +145,6 @@ include StandardDeviation
       merchant_revenue(merchant)
     end
     top_earners = sorted_merchants.reverse[0,n]
-    require "pry"; binding.pry
   end
 
   def merchant_revenue(merchant)
@@ -154,6 +153,14 @@ include StandardDeviation
       revenue += invoice.total if invoice.is_paid_in_full?
     end
     revenue
+  end
+
+  def merchants_with_pending_invoices
+    se.merchants.all.select do |merchant|
+      merchant.invoices.any? do |invoice|
+        invoice.status == :pending
+      end
+    end
   end
 
   # def merchant_revenue(merchant)

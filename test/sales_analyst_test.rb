@@ -53,9 +53,14 @@ class SalesAnalystTest < MiniTest::Test
   def test_top_revenue_earners
     sa = setup
 
-    puts sa.top_revenue_earners(5)
+    sa.top_revenue_earners(5)
   end
 
+  def test_it_can_select_merchants_with_pending_invoices
+    sa = setup
 
+    assert_instance_of Merchant, sa.merchants_with_pending_invoices.first
+    assert_equal 8, sa.merchants_with_pending_invoices.count
+  end
 
 end
