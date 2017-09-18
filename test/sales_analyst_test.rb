@@ -123,7 +123,4 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 5.36, sa.invoice_status(:returned)
   end
 
-
-
-
 end

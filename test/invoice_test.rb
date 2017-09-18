@@ -10,7 +10,7 @@ class InvoiceTest < Minitest::Test
                           :customer_id => 7,
                           :merchant_id => 8,
                           :status      => "pending",
-                          :created_at  => Time.now,
+                          :created_at  => "2009-02-07",
                           :updated_at  => Time.now
                           })
   end
@@ -45,6 +45,10 @@ class InvoiceTest < Minitest::Test
 
   def test_it_has_a_parent_defaulted_to_nil
     assert_nil invoice.parent
+  end
+
+  def test_created_day_returns_array_of_day_invoice_created
+    assert_equal "Saturday", invoice.created_day
   end
 
 end

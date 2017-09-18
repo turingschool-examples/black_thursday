@@ -123,7 +123,6 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-
     days = []
     bar = average_invoices_created_per_day + number_of_invoices_created_per_day_standard_deviation
     number_of_invoices_created_per_day.each.with_index do |invoice_count, index|
