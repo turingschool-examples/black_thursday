@@ -31,4 +31,11 @@ class Invoice < Repository::Record
     invoice_items.map{ |invoice_item| invoice_item.item }
   end
 
+  def paid_in_full?
+    transactions.any? do |transaction|
+      transaction.result == 'success'
+    end
+  end
+
+
 end

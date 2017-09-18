@@ -16,8 +16,8 @@ class InvoiceTest < Minitest::Test
     Fixture.find_record(:invoices, 74)
   end
 
-  def invoice_2969
-    Fixture.find_record(:invoices, 2969)
+  def invoice_3737
+    Fixture.find_record(:invoices, 3737)
   end
 
   def invoice_74_expected
@@ -142,12 +142,18 @@ class InvoiceTest < Minitest::Test
     assert_equal invoice_74_expected[:customer_id], invoice_74.customer.id
   end
 
-  def test_paid_in_full_returns_invoice_if_paid_in_full
+  def test_paid_in_full_returns_true_if_any_transaction_is_success
     assert invoice_74.paid_in_full?
   end
 
-  def test_paid_in_full_returns_invoice_if_paid_in_full
-    refute invoice_2969.paid_in_full?
+  def test_paid_in_full_returns_false_if_no_transactions_are_success
+    refute invoice_3737.paid_in_full?
+  end
+
+  def test_paid_in_full_returns_false_if_none_exist
+    invoice_blank =Fixture.find_record(:invoices, 170)
+    refute invoice_blank.paid_in_full?
+
   end
 
 end
