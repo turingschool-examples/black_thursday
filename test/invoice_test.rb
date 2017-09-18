@@ -107,4 +107,11 @@ class InvoiceTest < Minitest::Test
     assert invoice.is_paid_in_full?
   end
 
+  def test_is_not_paid_in_full
+    vr = setup
+
+    invoice = vr.find_by_id(1695)
+
+    refute invoice.is_paid_in_full?
+  end
 end
