@@ -83,4 +83,6 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal 3.29, sales_a.average_invoices_per_merchant_standard_deviation
   end
+
+  
 end
