@@ -16,6 +16,10 @@ class InvoiceTest < Minitest::Test
     Fixture.find_record(:invoices, 74)
   end
 
+  def invoice_2969
+    Fixture.find_record(:invoices, 2969)
+  end
+
   def invoice_74_expected
     {
       id: 74,
@@ -136,6 +140,14 @@ class InvoiceTest < Minitest::Test
 
   def test_customer_has_id_same_as_customer_id
     assert_equal invoice_74_expected[:customer_id], invoice_74.customer.id
+  end
+
+  def test_paid_in_full_returns_invoice_if_paid_in_full
+    assert invoice_74.paid_in_full?
+  end
+
+  def test_paid_in_full_returns_invoice_if_paid_in_full
+    refute invoice_2969.paid_in_full?
   end
 
 end

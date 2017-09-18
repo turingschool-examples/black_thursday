@@ -75,4 +75,5 @@ class TransactionTest < Minitest::Test
     assert_equal transaction_115.invoice_id, transaction_115.invoice.id
   end
 
+
 end
