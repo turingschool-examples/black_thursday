@@ -29,4 +29,13 @@ class Invoice
     days[weekday]
   end
 
+  def items
+    self.merchant.items
+  end
+
+  def transactions
+    sales_engine = @parent.parent
+    sales_engine.transactions.find_all_by_invoice_id(id)
+  end
+
 end

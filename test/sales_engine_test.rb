@@ -65,4 +65,41 @@ class SalesEngineTest < Minitest::Test
     assert_equal invoice.merchant_id, actual.id
   end
 
+  def test_items_called_on_invoice_returns_items_associated_with_that_invoice
+    se = SalesEngine.from_csv({
+            :items => './test/fixtures/items_truncated_10.csv',
+            :merchants => './test/fixtures/merchants_truncated_11.csv',
+            :invoices => './test/fixtures/invoices_truncated_56.csv',
+            :invoice_items => './test/fixtures/invoice_items_truncated_10.csv',
+            :transactions => './test/fixtures/transaction_truncated_10.csv',
+            :customers => './test/fixtures/customers_truncated_10.csv'
+    })
+    invoice = se.invoices.find_by_id(1)
+    actual = invoice.items
+
+    actual.each do |item|
+      assert_instance_of Item, item
+    end
+    assert_equal "510+ RealPush Icon Set", actual[0].name
+    assert_equal "Glitter scrabble frames", actual[1].name
+  end
+
+  def test_transactions_called_on_invoice_returns_transactions_associated_with_that_invoice
+    se = SalesEngine.from_csv({
+            :items => './test/fixtures/items_truncated_10.csv',
+            :merchants => './test/fixtures/merchants_truncated_11.csv',
+            :invoices => './test/fixtures/invoices_truncated_56.csv',
+            :invoice_items => './test/fixtures/invoice_items_truncated_10.csv',
+            :transactions => './test/fixtures/transaction_truncated_10.csv',
+            :customers => './test/fixtures/customers_truncated_10.csv'
+    })
+    invoice = se.invoices.find_by_id(1)
+    actual = invoice.transactions
+
+    actual.each do |transaction|
+      assert_instance_of Transaction, transaction
+    end
+    assert_equal se.transactions.all.first, actual.first
+  end
+
 end
