@@ -24,15 +24,15 @@ class InvoiceItemRepo
     all_invoices.find {|invoice| invoice.id == invoice_id }
   end
 
-  def find_all_by_item_id(i_id)
+  def find_all_by_item_id(item_id)
     all_invoices.find_all do |invoice|
-      invoice.item_id.include?(id)
+      invoice.item_id == item_id
     end
   end
 
   def find_all_by_invoice_id(inv_id)
     all_invoices.find_all do |invoice|
-      invoices.invoice_id.include?(id)
+      invoice.invoice_id == inv_id
     end
   end
 end

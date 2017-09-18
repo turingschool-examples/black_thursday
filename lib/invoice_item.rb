@@ -20,11 +20,14 @@ class InvoiceItem
       @item_id      = data[:item_id].to_i
       @invoice_id   = data[:invoice_id].to_i
       @quanity      = data[:quantity]
-      @unit_price   = data[:unit_price_to_dollars]
+      @price       = BigDecimal.new(data[:unit_price])
+      @unit_price  = unit_price_to_dollars(@price)
       @created_at   = Time.parse(data[:created_at].to_s)
       @updated_at   = Time.parse(data[:updated_at].to_s)
       @parent       = repo
     end
 
-
+    def unit_price_to_dollars(unit_price)
+      unit_price / 100
+    end
 end

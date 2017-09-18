@@ -24,8 +24,19 @@ class TransactionRepo
   end
 
   def find_all_by_invoice_id(invoice_id)
-    all_transaction.find_all do |transaction|
-      transaction.invoice_id.include?(invoice_id)
+    all_transactions.find_all do |transaction|
+      transaction.invoice_id == invoice_id
+    end
+  end
+  def find_all_by_credit_card_number(cred_card)
+    all_transactions.find_all do |transaction|
+      transaction.credit_card_number == cred_card
+    end
+  end
+
+  def find_all_by_result(res)
+    all_transactions.find_all do |transaction|
+      transaction.result == res
     end
   end
 end
