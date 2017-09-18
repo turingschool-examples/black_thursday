@@ -198,4 +198,8 @@ class SalesAnalyst
     @se.merchants_by_total_revenue
   end
 
+  def revenue_by_merchant(merchant_id)
+    @se.revenue_by_merchant(merchant_id)
+  end
+
 end

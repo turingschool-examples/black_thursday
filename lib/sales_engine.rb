@@ -111,4 +111,8 @@ class SalesEngine
     merchants.merchants_by_total_revenue
   end
 
+  def revenue_by_merchant(merchant_id)
+    merchants.revenue_by_merchant(merchant_id)
+  end
+
 end

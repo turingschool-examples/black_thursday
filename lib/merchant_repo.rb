@@ -52,4 +52,8 @@ class MerchantRepo
     all.sort_by { |merchant| merchant.total_revenue }.reverse
   end
 
+  def revenue_by_merchant(merchant_id)
+    merchants.find { |merch| merch.id == merchant_id }.total_revenue
+  end
+
 end
