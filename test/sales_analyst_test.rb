@@ -101,4 +101,12 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal 4, sales_a.bottom_merchants_by_invoice_count.count
   end
+
+  def test_top_days_by_invoice_count
+    files = ({:invoices => "./data/invoices.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    se = SalesEngine.from_csv(files)
+    sales_a = SalesAnalyst.new(se)
+
+    assert_equal 1, sales_a.top_days_by_invoice_count.count
+  end
 end

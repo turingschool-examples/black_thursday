@@ -98,4 +98,60 @@ class SalesAnalyst
       sales_engine.find_merchant_invoice(merchant.id).count < two_std_deviations
     end
   end
+
+  def merchants_above_one_standard_deviation
+    counts = counts_per_merchant(sales_engine.method(:find_merchant_invoice))
+    one_std_deviation = mean(counts) + standard_deviation(counts)
+    sales_engine.merchants.merchants.select do |merchant|
+      sales_engine.find_merchant_invoice(merchant.id).count > one_std_deviation
+    end
+  end
+
+  def day_to_string(time)
+    if time.sunday?
+      "Sunday"
+    elsif time.monday?
+      "Monday"
+    elsif time.tuesday?
+      "Tuesday"
+    elsif time.wednesday?
+      "Wednesday"
+    elsif time.thursday?
+      "Thursday"
+    elsif time.friday?
+      "Friday"
+    elsif time.saturday?
+      "Saturday"
+    end
+  end
+
+  def create_invoice_days
+    sales_engine.invoices.invoices.group_by do |invoice|
+      day_to_string(invoice.created_at)
+    end
+  end
+
+  def create_day_count
+    day_counts = []
+    invoice_days = create_invoice_days
+    day_counts << invoice_days["Sunday"].count
+    day_counts << invoice_days["Monday"].count
+    day_counts << invoice_days["Tuesday"].count
+    day_counts << invoice_days["Wednesday"].count
+    day_counts << invoice_days["Thursday"].count
+    day_counts << invoice_days["Friday"].count
+    day_counts << invoice_days["Saturday"].count
+    day_counts
+  end
+
+  def top_days_by_invoice_count
+    invoice_days = create_invoice_days
+    day_count = create_day_count
+    mean_counts = mean(day_count)
+    std_deviation = standard_deviation(day_count)
+    invoice_days.select do |days, invoices|
+      invoices.count > (std_deviation + mean_counts)
+    end.keys
+  end
+
 end
