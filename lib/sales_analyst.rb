@@ -207,17 +207,24 @@ class SalesAnalyst
   end
 
   def most_sold_item_for_merchant(merchant_id)
-    # todo refACtor lol
-    items  = id_and_total_quantity_of_item(merchant_id)
-    sorted = items.sort_by(&:last).reverse
-    stuff = sorted.reduce({}) do |hash, element|
+    top_items(merchant_id).keys.map{|id| engine.find_item_by_id(id)}
+  end
+
+  def top_items(merchant_id)
+    top_quantity = item_quantity(merchant_id).max_by {|i, q| q}
+    item_quantity(merchant_id).select {|i, q| q == top_quantity[1]}
+  end
+
+  def item_quantity(merchant_id)
+    items_sorted(merchant_id).reduce({}) do |hash, element|
       hash[element[0]]  = element[1] if !hash[element[0]]
       hash[element[0]] += element[1]
       hash
     end
-    top_quantity = stuff.max_by {|i, q| q}
-    top_item = stuff.select {|i, q| q == top_quantity[1]}
-    top_item.keys.map{|id| engine.find_item_by_id(id)}
+  end
+
+  def items_sorted(merchant_id)
+    id_and_total_quantity_of_item(merchant_id).sort_by(&:last).reverse
   end
 
   def best_item_for_merchant(merchant_id)
