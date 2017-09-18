@@ -7,7 +7,9 @@ class SalesAnalystTest < Minitest::Test
     item_file_path = './test/fixtures/items_truncated.csv'
     merchant_file_path = './test/fixtures/merchants_truncated.csv'
     invoice_file_path = './test/fixtures/invoices_truncated.csv'
-    @engine = SalesEngine.new(item_file_path, merchant_file_path, invoice_file_path)
+    customer_file_path = './test/fixtures/customers_truncated.csv'
+    transaction_file_path = './test/fixtures/transactions_truncated.csv'
+    @engine = SalesEngine.new(item_file_path, merchant_file_path, invoice_file_path, customer_file_path, transaction_file_path)
     @analyst = SalesAnalyst.new(@engine)
   end
 
@@ -66,7 +68,9 @@ class SalesAnalystTest < Minitest::Test
     item_file_path = './test/fixtures/larger_items_sample.csv'
     merchant_file_path = './test/fixtures/larger_merchants_sample.csv'
     invoice_file_path = './test/fixtures/larger_invoices_sample.csv'
-    engine = SalesEngine.new(item_file_path, merchant_file_path, invoice_file_path)
+    customer_file_path = './test/fixtures/customers_truncated.csv'
+    transaction_file_path = './test/fixtures/transactions_truncated.csv'
+    engine = SalesEngine.new(item_file_path, merchant_file_path, invoice_file_path, customer_file_path, transaction_file_path)
     analyst = SalesAnalyst.new(engine)
     golden_items = analyst.golden_items
 
@@ -91,7 +95,9 @@ class SalesAnalystTest < Minitest::Test
     item_file_path = './test/fixtures/larger_items_sample.csv'
     merchant_file_path = './test/fixtures/larger_merchants_sample.csv'
     invoice_file_path = './test/fixtures/larger_invoices_sample.csv'
-    engine = SalesEngine.new(item_file_path, merchant_file_path, invoice_file_path)
+    customer_file_path = './test/fixtures/customers_truncated.csv'
+    transaction_file_path = './test/fixtures/transactions_truncated.csv'
+    engine = SalesEngine.new(item_file_path, merchant_file_path, invoice_file_path, customer_file_path, transaction_file_path)
     analyst = SalesAnalyst.new(engine)
     top_merchants = analyst.top_merchants_by_invoice_count
 
@@ -103,7 +109,9 @@ class SalesAnalystTest < Minitest::Test
     item_file_path = './test/fixtures/larger_items_sample.csv'
     merchant_file_path = './test/fixtures/larger_merchants_sample.csv'
     invoice_file_path = './test/fixtures/larger_invoices_sample.csv'
-    engine = SalesEngine.new(item_file_path, merchant_file_path, invoice_file_path)
+    customer_file_path = './test/fixtures/customers_truncated.csv'
+    transaction_file_path = './test/fixtures/transactions_truncated.csv'
+    engine = SalesEngine.new(item_file_path, merchant_file_path, invoice_file_path, customer_file_path, transaction_file_path)
     analyst = SalesAnalyst.new(engine)
     bottom_merchants = analyst.bottom_merchants_by_invoice_count
 

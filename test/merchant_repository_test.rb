@@ -8,7 +8,9 @@ class MerchantRepositoryTest < Minitest::Test
     item_file_path = './test/fixtures/items_truncated.csv'
     merchant_file_path = './test/fixtures/merchants_truncated.csv'
     invoice_file_path = './test/fixtures/invoices_truncated.csv'
-    engine = SalesEngine.new(item_file_path, merchant_file_path, invoice_file_path)
+    customer_file_path = './test/fixtures/customers_truncated.csv'
+    transaction_file_path = './test/fixtures/transactions_truncated.csv'
+    engine = SalesEngine.new(item_file_path, merchant_file_path, invoice_file_path, customer_file_path, transaction_file_path)
     @repository = engine.merchants
   end
 

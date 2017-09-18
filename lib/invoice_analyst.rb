@@ -44,9 +44,9 @@ module InvoiceAnalyst
     statuses = {:returned => 0, :pending => 0, :shipped => 0}
     invoices = @engine.invoice_list
     invoices.each do |invoice|
-      if invoice.status == "returned"
+      if invoice.status == :returned
         statuses[:returned] += 1
-      elsif invoice.status == "pending"
+      elsif invoice.status == :pending
         statuses[:pending] += 1
       else
         statuses[:shipped] += 1

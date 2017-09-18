@@ -36,8 +36,7 @@ class InvoiceItemRepository
   end
 
   def find_all_by_invoice_id(search_invoice_id)
-    search_invoice_id = search_invoice_id.to_i
-    @invoice_items.find_all do |invoice_item|
-      invoice_item.invoice_id == search_invoice_id
-    end
+    find_all_instances_by_invoice_id(@invoice_items, search_invoice_id)
   end
+
+end

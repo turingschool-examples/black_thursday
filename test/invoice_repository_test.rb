@@ -8,8 +8,11 @@ class InvoiceRepositoryTest < Minitest::Test
     item_file_path = './test/fixtures/items_truncated.csv'
     merchant_file_path = './test/fixtures/merchants_truncated.csv'
     invoice_file_path = './test/fixtures/invoices_truncated.csv'
-    engine = SalesEngine.new(item_file_path, merchant_file_path, invoice_file_path)
+    customer_file_path = './test/fixtures/customers_truncated.csv'
+    transaction_file_path = './test/fixtures/transactions_truncated.csv'
+    engine = SalesEngine.new(item_file_path, merchant_file_path, invoice_file_path, customer_file_path, transaction_file_path)
     @repository = engine.invoices
+    @invoices = engine.invoices_list
   end
 
 
@@ -18,11 +21,11 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_creates_invoice_objects_for_each_row
-    assert_instance_of Invoice, @repository.invoices.first
+    assert_instance_of Invoice, @invoices[0]
   end
 
   def test_all_returns_array_of_all_invoice_objects
-    assert_equal 14, @repository.invoices.count
+    assert_equal 14, @invoices.count
   end
 
   def test_find_by_id_returns_nil_if_no_id_found

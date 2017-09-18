@@ -22,4 +22,11 @@ module Search
     end
   end
 
+  def find_all_instances_by_invoice_id(list, search_invoice_id)
+    search_invoice_id = search_invoice_id.to_i
+    list.find_all do |object|
+      object.invoice_id == search_invoice_id
+    end
+  end
+
 end
