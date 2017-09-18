@@ -10,7 +10,6 @@ class SalesAnalystTest < Minitest::Test
   attr_reader :sa, :se
 
   def setup
-    # binding.pry
     @se = SalesEngine.from_csv({items: "./test/items_fixture.csv",
                                 merchants: "./test/merchant_fixture.csv",
                                 invoices: "./test/invoices_fixture.csv"})
@@ -25,9 +24,9 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 2.25, sa.average_items_per_merchant_standard_deviation
   end
 
-  def test_average_price_per_merchant
+  def test_average_average_price_per_merchant
     skip
-    assert_equal 5.65, sa.average_price_per_merchant
+    assert_equal 5.65, sa.average_average_price_per_merchant
   end
 
   def test_average_invoices_per_merchant

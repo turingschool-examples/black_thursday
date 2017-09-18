@@ -13,9 +13,9 @@ class SalesEngine
     @merchants     = MerchantRepo.new(data[:merchants], self)
     @items         = ItemRepo.new(data[:items], self)
     @invoices      = InvoiceRepo.new(data[:invoices], self)
-    @invoice_items = InvoiceItemRepo.new(data[:invoice_items], self)
-    @transactions  = TransactionRepo.new(data[:transactions], self)
-    @customers     = CustomersRepo.new(data[:customers], self)
+    # @invoice_items = InvoiceItemRepo.new(data[:invoice_items], self)
+    # @transactions  = TransactionRepo.new(data[:transactions], self)
+    # @customers     = CustomersRepo.new(data[:customers], self)
   end
 
   def self.from_csv(data)

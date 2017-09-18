@@ -56,7 +56,7 @@ class SalesAnalyst
   end
 
 
-  def average_price_per_merchant
+  def average_average_price_per_merchant
     @totals = []
     total = @items.all_items.each {|item| item.merchant_id }
       total.map do |t|
@@ -64,7 +64,6 @@ class SalesAnalyst
       end
     total_average = (@totals.reduce(:+) / @totals.count) / 100
     total_average.round(2)
-    top_merchants.compact
   end
 
   def average_invoices_per_merchant
@@ -105,13 +104,19 @@ class SalesAnalyst
       invoices.all.length / 7
   end
 
-  def top_days_by_invoice_count
-    counts = invoices.all.each_with_object(Hash.new(0)) do |invoice, count|
+  def counts
+    invoices.all.each_with_object(Hash.new(0)) do |invoice, count|
       count[invoice.weekday_time] += 1
     end
-    whatever = counts.each_value.map do |count|
-      (count - average_invoices_per_weekday) ** 2
+  end
+
+  def whatever
+    counts.each_value.map do |count|
+      (count - invoices.all.length / 7) ** 2
     end
+  end
+
+  def top_days_by_invoice_count
     standard_dev = Math.sqrt(whatever.reduce(0,:+) / 6)
     target = average_invoices_per_weekday + standard_dev
     top_days = []
@@ -137,7 +142,6 @@ class SalesAnalyst
     compacted = new_array.compact
     total = (compacted.length.to_f / invoice_amount.to_f) * 100
     total.round(2)
-    # binding.pry
   end
 
 end
