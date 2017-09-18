@@ -8,7 +8,7 @@ class InvoiceItemRepository
   include CsvLoader
   include Search
 
-  attr_reader :invoices
+  attr_reader :invoice_items
 
   def initialize(csv_file_path, engine)
     @invoice_items = create_items(csv_file_path, engine)

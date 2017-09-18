@@ -13,7 +13,7 @@ class InvoiceItem
     @created_at = Time.parse(invoice_item_info[:created_at])
     @updated_at = Time.parse(invoice_item_info[:updated_at])
     @quantity = invoice_item_info[:quantity].to_i
-    @unit_price = invoice_item_info[:unit_price]
+    @unit_price = invoice_item_info[:unit_price].to_i
     @engine = engine
   end
 

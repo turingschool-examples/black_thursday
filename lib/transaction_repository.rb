@@ -33,7 +33,7 @@ class TransactionRepository
   end
 
   def find_all_by_credit_card_number(search_card_number)
-    search_card_number = search_card_number.to_i
+    search_card_number = search_card_number.to_s
     @transactions.find_all do |transaction|
       transaction.credit_card_number == search_card_number
     end

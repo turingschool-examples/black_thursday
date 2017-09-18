@@ -5,15 +5,15 @@ require 'csv'
 class InvoiceRepositoryTest < Minitest::Test
 
   def setup
-    engine = SalesEngine.from_csv({
-      :items => './test/fixtures/items_truncated.csv',
-      :merchants => './test/fixtures/merchants_truncated.csv',
-      :invoices => './test/fixtures/invoices_truncated.csv',
-      :customers => './test/fixtures/customers_truncated.csv'
-      :transactions => './test/fixtures/transactions_truncated.csv'
-    })
+    item_file_path = './test/fixtures/items_truncated.csv'
+    merchant_file_path = './test/fixtures/merchants_truncated.csv'
+    invoice_file_path = './test/fixtures/invoices_truncated.csv'
+    invoice_item_file_path = './test/fixtures/invoice_items_truncated.csv'
+    customer_file_path = './test/fixtures/customers_truncated.csv'
+    transaction_file_path = './test/fixtures/transactions_truncated.csv'
+    engine = SalesEngine.new(item_file_path, merchant_file_path, invoice_file_path, invoice_item_file_path, customer_file_path, transaction_file_path)
     @repository = engine.invoices
-    @invoices = engine.invoices_list
+    @invoices = engine.invoice_list
   end
 
 
@@ -74,16 +74,16 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_finds_all_items_with_matching_status
-    invoices = @repository.find_all_by_status('returned')
+    invoices = @repository.find_all_by_status(:returned)
 
     assert_equal 4, invoices.count
     assert_equal 1495, invoices[0].id
 
-    invoices = @repository.find_all_by_status('shipped')
+    invoices = @repository.find_all_by_status(:shipped)
 
     assert_equal 6, invoices.count
 
-    invoices = @repository.find_all_by_status('Pending')
+    invoices = @repository.find_all_by_status(:pending)
 
     assert_equal 4, invoices.count
   end

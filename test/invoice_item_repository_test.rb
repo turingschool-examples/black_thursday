@@ -8,9 +8,10 @@ class InvoiceRepositoryTest < Minitest::Test
     item_file_path = './test/fixtures/items_truncated.csv'
     merchant_file_path = './test/fixtures/merchants_truncated.csv'
     invoice_file_path = './test/fixtures/invoices_truncated.csv'
+    invoice_item_file_path = './test/fixtures/invoice_items_truncated.csv'
     customer_file_path = './test/fixtures/customers_truncated.csv'
     transaction_file_path = './test/fixtures/transactions_truncated.csv'
-    engine = SalesEngine.new(item_file_path, merchant_file_path, invoice_file_path, customer_file_path, transaction_file_path)
+    engine = SalesEngine.new(item_file_path, merchant_file_path, invoice_file_path, invoice_item_file_path, customer_file_path, transaction_file_path)
     @repository = engine.invoice_items
     @invoice_items = engine.invoice_items_list
   end
