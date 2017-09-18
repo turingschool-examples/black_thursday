@@ -40,6 +40,9 @@ end
     average_invoices_per_merchant + ((standard_deviation_for_merchant_invoices) * 2)
   end
 
+def two_standard_deviations_below_merchant_invoices
+  average_invoices_per_merchant - ((standard_deviation_for_merchant_invoices) * 2)
+end
 
 
 end

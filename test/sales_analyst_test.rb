@@ -15,7 +15,7 @@ class TestSalesAnalyst < Minitest::Test
     csv_hash = {
       :items     => "./test/test_fixtures/items_medium.csv",
       :merchants => "./test/test_fixtures/merchants_medium.csv",
-      :invoices => "./test/test_fixtures/invoices_medium.csv",
+      :invoices => ".//test/test_fixtures/invoices_medium.csv",
       :invoice_items => "./test/test_fixtures/invoice_items_medium.csv",
       :transactions => "./test/test_fixtures/transactions_medium.csv",
       :customers => "./test/test_fixtures/customers_medium.csv"
@@ -58,4 +58,14 @@ class TestSalesAnalyst < Minitest::Test
     assert_instance_of Array, sa.top_merchants_by_invoice_count
     assert_instance_of Merchant, sa.top_merchants_by_invoice_count[0]
   end
+
+
+
+  def test_it_returns_bottom_merchants_by_invoice
+    assert_instance_of Array, sa.bottom_merchants_by_invoice_count
+
+    #to test 2 STD below, use Whole invoice csv
+    # assert_instance_of Merchant, sa.bottom_merchants_by_invoice_count[0]
+  end
+
 end
