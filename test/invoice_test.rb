@@ -143,17 +143,28 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_paid_in_full_returns_true_if_any_transaction_is_success
-    assert invoice_74.paid_in_full?
+    assert invoice_74.is_paid_in_full?
   end
 
   def test_paid_in_full_returns_false_if_no_transactions_are_success
-    refute invoice_3737.paid_in_full?
+    refute invoice_3737.is_paid_in_full?
   end
 
   def test_paid_in_full_returns_false_if_none_exist
-    invoice_blank =Fixture.find_record(:invoices, 170)
-    refute invoice_blank.paid_in_full?
-
+    invoice_blank = Fixture.find_record(:invoices, 170)
+    refute invoice_blank.is_paid_in_full?
   end
+
+
+    def test_total_only_returns_for_invoices_paid_in_full
+      invoice_blank =Fixture.find_record(:invoices, 170)
+      assert_equal 0 , invoice_blank.is_paid_in_full
+    end
+
+    def test_total_returns_the_revenue_for_the_total_transaction
+      assert_equal 1449662, invoice_74.total
+    end
+
+
 
 end
