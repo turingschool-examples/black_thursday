@@ -60,9 +60,10 @@ module MerchantMath
 
     # need to pass in the two se.objects that are needed for comparison. first is the main thing being compared. the second is the less
   def two_standard_deviations_above(things, comparison_class)
+    average = avg_thing_plus_2x_std_dev(things, comparison_class)
     golden_things_list = []
       things.all.each do |thing|
-        if (thing.unit_price_float)  >= avg_thing_plus_2x_std_dev(things, comparison_class)
+        if (thing.unit_price_float)  >= average
         golden_things_list << thing
         puts "Yowza - 2 STDs above"
         end
