@@ -1,9 +1,10 @@
 require_relative 'sales_engine'
 require_relative 'standard_deviation'
 require 'time'
+require 'bigdecimal'
 
 class SalesAnalyst
-include StandardDeviation
+  include StandardDeviation
   attr_reader :se
 
   def initialize(se)
@@ -53,19 +54,6 @@ include StandardDeviation
     average.round(2)
   end
 
-  def average_invoices_per_merchant_standard_deviation
-    average = average_invoices_per_merchant
-
-    difference_from_average = se.merchant_invoice_count.map do |invoice_count|
-      invoice_count - average
-    end
-    squared_values = difference_from_average.map {|diff| diff ** 2}
-
-    sum_of_squares = squared_values.sum
-
-    Math.sqrt(sum_of_squares / (se.merchant_invoice_count.count - 1)).round(2)
-  end
-
   def top_merchants_by_invoice_count
     average = average_invoices_per_merchant
     std_dev = average_invoices_per_merchant_standard_deviation
@@ -90,6 +78,7 @@ include StandardDeviation
     top_days = invoice_count_by_day.select do |day, number|
       invoice_count_by_day[day] > (average + std_dev)
     end
+    top_days.keys
   end
 
   def number_of_invoices_by_day
@@ -174,16 +163,15 @@ include StandardDeviation
   end
 
   def merchants_with_pending_invoices
-    #select the merchant if all of an invoices transactions fail
     se.merchants.all.select do |merchant|
       merchant.invoices.any? do |invoice|
         invoice.transactions.all? do |transaction|
           transaction.result == 'failed'
         end
-        #invoice.status == :pending || invoice.status == 'pending'
       end
     end
   end
+
 
   def paid_invoices
     se.invoices.all.select {|invoice| invoice.is_paid_in_full?}
@@ -218,6 +206,39 @@ include StandardDeviation
       revenue += invoice.total if invoice.is_paid_in_full?
     end
     revenue
+  end
+
+
+  def merchants_with_only_one_item
+    se.merchants.all.select do |merchant|
+      merchant.items.count == 1
+    end
+  end
+
+  def revenue_by_merchant(merchant_id)
+    merchant = se.merchants.find_by_id(merchant_id)
+    revenue = merchant_revenue(merchant)
+    BigDecimal.new(revenue, 4)
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    #currently, this will return a single one. in the spec, it says that if there's a tie, we should return all the items
+    #try sorting by invoice_item quantity, checking the max quantity and seeing if any other items match that # and then return it
+    merchant = se.merchants.find_by_id(merchant_id)
+    items = merchant.items
+    most_sold_item = items.find do |item|
+      item.invoice_items.max_by do |invoice_item|
+        invoice_item.quantity
+      end
+    end
+    ## trying to compare the quantity of most sold item with other
+    # quantity_sold = most_sold_item.invoice_items.quantity.max
+    # other_items_with_most_sold = items.select do |item|
+    #   item.invoice_items.each do |invoice_item|
+    #     invoice_item.quantity == quantity_sold
+    #   end
+    # end
+
   end
 
 
