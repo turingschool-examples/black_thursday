@@ -165,11 +165,11 @@ class SalesAnalyst
     def total_revenue_by_date(date)
       invoices_by_date(date).map do |invoice|
         invoice.total
-      end.sum.to_f * 100
+      end.sum.to_f.round(2) 
     end
 
   def top_revenue_earners(number = 20)
-  end 
+  end
 
 
 
