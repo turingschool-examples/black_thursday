@@ -71,10 +71,10 @@ class TestSalesAnalyst < Minitest::Test
   #   assert_instance_of Merchant, sa.top_merchants_by_invoice_count[0]
   # end
 
-  def test_it_does_stuff
-    assert_equal [], sa.stuff
-  end
 
+def test_it_finds_top_days_by_invoice_count
+  assert_equal ["Saturday", "Wednesday", "Sunday", "Thursday"], sa.top_days_by_invoice_count
+end
 
 
 end

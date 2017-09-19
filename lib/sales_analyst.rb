@@ -119,21 +119,22 @@ class SalesAnalyst
   end
 
 
-  # def top_days_by_invoice_count
-  #   # On which days are invoices created at more than one standard deviation above the mean?
-  #   # should return ["Sunday", "Saturday"]
-  #
-  #
-  #
-  # end
-
-  def stuff
-    # date_from_invoices
-    # next_step
-      # invoice_id_with_date
-      # invoices_per_day
-      average_invoices_per_day
+  def top_days_by_invoice_count   
+    find_top_days
+    convert_numbers_to_weekdays
   end
+
+
+  # def stuff
+  #   # date_from_invoices
+  #   # next_step
+  #   # invoice_id_with_date
+  #   # invoices_per_day
+  #   # average_invoices_per_day
+  #   # top_day_numerator
+  #   # top_day_denominator
+  #   top_day_standard_deviation
+  # end
 
 
 
