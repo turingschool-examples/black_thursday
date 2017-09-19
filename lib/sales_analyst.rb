@@ -180,17 +180,36 @@ class SalesAnalyst
 
   def merchants_with_only_one_item_registered_in_month(month_name)
     merchant_by_month = merchant_by_month_created
-    one_invoice_merchants = merchant_by_month[month_name].select do |merchant|
-        invoice_in_month?(merchant, month_name)
+    #for each merchant, group their invoices by month created
+    merchants = merchant_by_month[month_name]
+    one_item_merchants = merchants.select do |merchant|
+      #what sort of truth condition are we going to get here?
+      items_by_month = merchant.items.group_by do |item|
+        item.created_at.strftime('%B')
+      end
+      if items_by_month[month_name].nil?
+        false
+      else
+        items_by_month[month_name].count == 1
+      end
     end
-    one_invoice_merchants
+    one_item_merchants
   end
+
+
+
+  # def merchants_with_only_one_item_registered_in_month(month_name)
+  #   merchant_by_month = merchant_by_month_created
+  #   one_invoice_merchants = merchant_by_month[month_name].select do |merchant|
+  #       invoice_in_month?(merchant, month_name)
+  #   end
+  #   one_invoice_merchants
+  # end
 
   def invoice_in_month?(merchant, month_name)
     invoices_in_month = merchant.invoices.select do |invoice|
       invoice.created_at.strftime('%B') == month_name
     end
-    require "pry"; binding.pry
     invoices_in_month.length == 1
   end
 
