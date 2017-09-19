@@ -26,4 +26,8 @@ class Merchant
     end
   end
 
+  def has_pending_invoice?
+    invoices.any? {|invoice| invoice.is_pending?}
+  end
+
 end

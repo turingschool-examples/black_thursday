@@ -115,4 +115,21 @@ class SalesAnalyst
     end
   end
 
+  ##### Iteration 4 #####
+
+  def merchants_with_pending_invoices
+    merchants = sales_engine.merchants.all
+    merchants.select do |merchant|
+      merchant.has_pending_invoice?
+    end
+    merchants
+  end
+
+  def merchants_with_only_one_item
+    merchants = sales_engine.merchants.all
+    merchants.select do |merchant|
+      merchant.items.count == 1
+    end
+  end
+
 end

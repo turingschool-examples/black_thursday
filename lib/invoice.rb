@@ -53,6 +53,10 @@ class Invoice
     transactions.any? {|transaction| transaction.result == "success"}
   end
 
+  def is_pending?
+    transactions.none? {|transaction| transaction.result == "success"}
+  end
+
   def invoice_item_quantities
     invoice_items.map {|invoice_item| invoice_item.quantity}
   end
