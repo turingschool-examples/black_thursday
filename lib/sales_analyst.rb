@@ -165,12 +165,12 @@ class SalesAnalyst
     def total_revenue_by_date(date)
       invoices_by_date(date).map do |invoice|
         invoice.total
-      end.sum.to_f * 100
+      end.sum.round(2)
     end
 
   def top_revenue_earners(number = 20)
-  end 
 
+  end
 
 
   def merchants_with_only_one_item_registered_in_month(month)
