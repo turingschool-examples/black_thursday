@@ -16,4 +16,8 @@ class Transaction < Repository::Record
     repo.parent(:invoices, invoice_id)
   end
 
+  def success?
+    result == "success"
+  end
+
 end

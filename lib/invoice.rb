@@ -44,5 +44,4 @@ class Invoice < Repository::Record
     end
   end
 
-
 end
