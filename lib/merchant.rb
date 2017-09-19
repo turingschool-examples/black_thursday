@@ -25,4 +25,6 @@ class Merchant
     customer_ids = invoices.map { |invoice| invoice.customer_id }
     customer_ids.map { |customer_id| se.customers.find_by_id(customer_id) }.uniq
   end
+
+
 end
