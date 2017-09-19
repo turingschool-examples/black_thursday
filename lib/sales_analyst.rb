@@ -58,19 +58,6 @@ class SalesAnalyst
     average.round(2)
   end
 
-  def average_invoices_per_merchant_standard_deviation
-    average = average_invoices_per_merchant
-
-    difference_from_average = se.merchant_invoice_count.map do |invoice_count|
-      invoice_count - average
-    end
-    squared_values = difference_from_average.map {|diff| diff ** 2}
-
-    sum_of_squares = squared_values.sum
-
-    Math.sqrt(sum_of_squares / (se.merchant_invoice_count.count - 1)).round(2)
-  end
-
   def top_merchants_by_invoice_count
     average = average_invoices_per_merchant
     std_dev = average_invoices_per_merchant_standard_deviation
@@ -162,13 +149,11 @@ class SalesAnalyst
   end
 
   def merchants_with_pending_invoices
-    #select the merchant if all of an invoices transactions fail
     se.merchants.all.select do |merchant|
       merchant.invoices.any? do |invoice|
         invoice.transactions.all? do |transaction|
           transaction.result == 'failed'
         end
-        #invoice.status == :pending || invoice.status == 'pending'
       end
     end
   end
