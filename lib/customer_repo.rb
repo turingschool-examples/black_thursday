@@ -18,8 +18,8 @@ class CustomersRepo
   def all
     @all_customers
   end
-  def find_by_id(cust_id)
-    all_customers.find {|customer| customer.id == cust_id }
+  def find_by_id(customer_id)
+    all_customers.find {|customer| customer.id == customer_id }
   end
 
   def find_all_by_first_name(first_name)

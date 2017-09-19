@@ -20,8 +20,8 @@ class MerchantRepo
     @all_merchants
   end
 
-  def find_by_id(merch_id)
-    all_merchants.find {|merchant| merchant.id == merch_id }
+  def find_by_id(data)
+    all_merchants.find {|merchant| merchant.id == data }
   end
 
   def find_by_name(name)
@@ -34,7 +34,7 @@ class MerchantRepo
     end
   end
 
-  def items_of_merchant(id)
-    parent.items_of_merchant(id)
+  def items_of_merchant(merch_id)
+    parent.items_of_merchant(merch_id)
   end
 end
