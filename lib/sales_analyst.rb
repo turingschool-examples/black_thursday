@@ -16,10 +16,6 @@ class SalesAnalyst
     average.round(2)
   end
 
-  def standard_deviation_for_merchant_items
-    average_items_per_merchant_standard_deviation
-  end
-
   def merchants_with_high_item_count
     std_dev = average_items_per_merchant_standard_deviation
 
@@ -170,6 +166,15 @@ class SalesAnalyst
     BigDecimal.new(revenue, 4)
   end
 
+  def most_sold_item_for_merchant(merchant_id)
+    merchant = se.merchants.find_by_id(merchant_id)
+    items = merchant.items
+    items.find do |item|
+      item.invoice_items.max_by do |invoice_item|
+        invoice_item.quantity
+      end
+    end
+  end
 
   # def merchant_revenue(merchant)
   #   revenue= 0.00

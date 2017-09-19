@@ -82,12 +82,13 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 12334123, @sa.merchants_with_high_item_count[0].id
   end
 
-  def test_it_can_find_the_standard_deviation
-    assert_instance_of Float, @sa.standard_deviation_for_merchant_items
-    assert_equal 2.83, @sa.standard_deviation_for_merchant_items
-  end
-
   def test_it_can_find_top_days_by_invoice_count
     assert_equal ['Tuesday'], @sa.top_days_by_invoice_count
   end
+
+  def test_it_can_find_the_most_sold_item
+    assert_instance_of Item, @sa.most_sold_item_for_merchant(12334123)
+    assert_equal 'Adidas Breitner Super Fußballschuh', @sa.most_sold_item_for_merchant(12334123).name
+  end
+
 end
