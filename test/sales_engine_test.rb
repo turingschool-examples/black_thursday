@@ -57,13 +57,4 @@ class SalesEngineTest < MiniTest::Test
     assert_equal 12334123, se.merchants_with_high_item_count[0].id
   end
 
-  def test_average_item_price_for_merchant
-    se = setup
-
-    assert_equal 9545.454545454546, se.average_item_price_for_merchant(12334123)
-  end
-
-  
-
-
 end
