@@ -1,6 +1,7 @@
 require 'time'
 require 'bigdecimal'
 require 'csv'
+require 'pry'
 
 class Transaction
 
@@ -23,5 +24,8 @@ class Transaction
     @created_at                   = Time.parse(data[:created_at])
     @updated_at                   = Time.parse(data[:updated_at])
     @parent                       = repo
+  end
+  def invoice
+  @parent.parent.invoices.find_by_id(invoice_id)
   end
 end

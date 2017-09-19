@@ -37,8 +37,5 @@ class InvoiceRepo
     all_invoices.find_all { |invoice| invoice.status == status.to_sym}
   end
 
-  def merchant_item(merchant_id)
-    @parent.merchant_item(merchant_id)
-  end
 
 end

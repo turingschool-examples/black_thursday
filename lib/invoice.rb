@@ -41,6 +41,5 @@ class Invoice
     elsif day_num == 6
       "Saturday"
     end
-  end
-
+end
 end
