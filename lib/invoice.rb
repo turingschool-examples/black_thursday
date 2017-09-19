@@ -56,6 +56,7 @@ class Invoice
   end
 
   def total
+    return 0 unless is_paid_in_full?
     invoices = @parent.parent.invoice_items.all.find_all do |invoice_item|
       invoice_item.invoice_id == @id
     end
