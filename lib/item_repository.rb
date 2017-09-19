@@ -33,8 +33,10 @@ class ItemRepository
   end
 
   def find_all_with_description(search_term)
+    search_term = search_term.downcase
     @items.find_all do |item|
-      item.description.include?(search_term)
+      description = item.description.downcase
+      description.include?(search_term)
     end
   end
 
