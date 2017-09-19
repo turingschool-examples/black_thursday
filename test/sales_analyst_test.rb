@@ -9,7 +9,7 @@ require 'bigdecimal'
 class SalesAnalystTest < Minitest::Test
   attr_reader :se, :sa
   def set_up
-    files = ({:invoices => "./test/fixtures/invoice_fixture.csv", :items => "./test/fixtures/item_fixture.csv", :merchants => "./test/fixtures/merchant_fixture.csv"})
+    files = ({:invoices => "./test/fixtures/invoice_fixture.csv", :items => "./test/fixtures/item_fixture.csv", :merchants => "./test/fixtures/merchant_fixture.csv", :invoice_items => "./test/fixtures/invoice_items_fixture.csv", :transactions => "./test/fixtures/transactions_fixture.csv", :customers => "./test/fixtures/customers_fixture.csv"})
     @se = SalesEngine.from_csv(files)
     @sa = SalesAnalyst.new(se)
   end
@@ -27,7 +27,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_standard_deviation
-    files = ({:invoices => "./test/fixtures/invoice_fixture.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    files = ({:invoices => "./test/fixtures/invoice_fixture.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv", :invoice_items => "./test/fixtures/invoice_items_fixture.csv", :transactions => "./test/fixtures/transactions_fixture.csv", :customers => "./test/fixtures/customers_fixture.csv"})
     se = SalesEngine.from_csv(files)
     sales_a = SalesAnalyst.new(se)
 
@@ -35,7 +35,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_merchants_with_high_item_count
-    files = ({:invoices => "./test/fixtures/invoice_fixture.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    files = ({:invoices => "./test/fixtures/invoice_fixture.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv", :invoice_items => "./test/fixtures/invoice_items_fixture.csv", :transactions => "./test/fixtures/transactions_fixture.csv", :customers => "./test/fixtures/customers_fixture.csv"})
     se = SalesEngine.from_csv(files)
     sales_a = SalesAnalyst.new(se)
 
@@ -43,7 +43,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_item_price_for_merchant
-    files = ({:invoices => "./test/fixtures/invoice_fixture.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    files = ({:invoices => "./test/fixtures/invoice_fixture.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv", :invoice_items => "./test/fixtures/invoice_items_fixture.csv", :transactions => "./test/fixtures/transactions_fixture.csv", :customers => "./test/fixtures/customers_fixture.csv"})
     se = SalesEngine.from_csv(files)
     sales_a = SalesAnalyst.new(se)
 
@@ -51,7 +51,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_average_price_per_merchant
-    files = ({:invoices => "./test/fixtures/invoice_fixture.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    files = ({:invoices => "./test/fixtures/invoice_fixture.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv", :invoice_items => "./test/fixtures/invoice_items_fixture.csv", :transactions => "./test/fixtures/transactions_fixture.csv", :customers => "./test/fixtures/customers_fixture.csv"})
     se = SalesEngine.from_csv(files)
     sales_a = SalesAnalyst.new(se)
 
@@ -77,7 +77,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_invoices_per_merchant_standard_deviation
-    files = ({:invoices => "./data/invoices.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    files = ({:invoices => "./data/invoices.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv", :invoice_items => "./test/fixtures/invoice_items_fixture.csv", :transactions => "./test/fixtures/transactions_fixture.csv", :customers => "./test/fixtures/customers_fixture.csv"})
     se = SalesEngine.from_csv(files)
     sales_a = SalesAnalyst.new(se)
 
@@ -85,7 +85,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_merchants_by_invoice_count
-    files = ({:invoices => "./data/invoices.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    files = ({:invoices => "./data/invoices.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv", :invoice_items => "./test/fixtures/invoice_items_fixture.csv", :transactions => "./test/fixtures/transactions_fixture.csv", :customers => "./test/fixtures/customers_fixture.csv"})
     se = SalesEngine.from_csv(files)
     sales_a = SalesAnalyst.new(se)
 
@@ -94,7 +94,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_bottom_merchants_by_invoice_count
-    files = ({:invoices => "./data/invoices.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    files = ({:invoices => "./data/invoices.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv", :invoice_items => "./test/fixtures/invoice_items_fixture.csv", :transactions => "./test/fixtures/transactions_fixture.csv", :customers => "./test/fixtures/customers_fixture.csv"})
     se = SalesEngine.from_csv(files)
     sales_a = SalesAnalyst.new(se)
 
@@ -103,15 +103,15 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_days_by_invoice_count
-    files = ({:invoices => "./data/invoices.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    files = ({:invoices => "./data/invoices.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv", :invoice_items => "./test/fixtures/invoice_items_fixture.csv", :transactions => "./test/fixtures/transactions_fixture.csv", :customers => "./test/fixtures/customers_fixture.csv"})
     se = SalesEngine.from_csv(files)
     sales_a = SalesAnalyst.new(se)
 
     assert_equal 1, sales_a.top_days_by_invoice_count.count
   end
-  
+
   def test_invoice_status_percentage
-    files = ({:invoices => "./data/invoices.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    files = ({:invoices => "./data/invoices.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv", :invoice_items => "./test/fixtures/invoice_items_fixture.csv", :transactions => "./test/fixtures/transactions_fixture.csv", :customers => "./test/fixtures/customers_fixture.csv"})
     se = SalesEngine.from_csv(files)
     sales_a = SalesAnalyst.new(se)
 

@@ -24,7 +24,7 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_invoice_status
-    assert_equal "pending", set_up.status
+    assert_equal :pending, set_up.status
   end
 
   def test_invoice_created_at
