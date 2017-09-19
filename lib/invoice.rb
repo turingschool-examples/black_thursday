@@ -52,4 +52,8 @@ class Invoice
     @parent.parent.transactions_invoice_id(id)
   end
 
+  def customer
+    @parent.parent.customer_invoice_id(customer_id)
+  end
+
 end
