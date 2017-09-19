@@ -24,9 +24,9 @@ module MerchantTopDaysByInvoiceCount
       invoice_with_date[key] = value.map! {|num| num.to_i}
       #ok.{1=>[2009, 2, 7], ...]
     end
-    invoice_with_date.each do |key, value|
-      invoice_with_date[key] = Date.new(value[0], value[1], value[2]).wday
-      # VICTORYYYYYYYY {1=>6, 2=>5, 3=>3,...}
+    invoice_with_date.each do |invoice_id, date|
+      invoice_with_date[invoice_id] = Date.new(date[0], date[1], date[2]).wday
+      # VICTORYYYYYYYY invoice is associated to a day of the week {1=>6, 2=>5, 3=>3,...}
     end
   end
 
@@ -48,16 +48,16 @@ module MerchantTopDaysByInvoiceCount
     invoices_per_day.each do |wday, invoices|
       numerator += ((invoices - average_invoices_per_day)**2)
     end
-    numerator #1897
+    numerator 
   end
 
   def top_day_denominator
-    average_invoices_per_day - 1
-  end # 342
+    6  #7-1
+  end
 
   def top_day_standard_deviation
     Math.sqrt(top_day_numerator / top_day_denominator)
-  end #2.23606797749979
+  end
 
   def find_top_days
     top_days = []
@@ -87,7 +87,7 @@ module MerchantTopDaysByInvoiceCount
         day = "Saturday"
       end
     end
-    top_days 
+    top_days
   end
 
 end
