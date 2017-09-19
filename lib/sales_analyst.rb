@@ -144,6 +144,10 @@ class SalesAnalyst
     sum / count
   end
 
+  def top_revenue_earners(x = 20)
+    @se.merchants.all.sort_by(&:total_revenue).last(x).reverse
+  end
+
   def rounded(answer)
     answer.round(2)
   end
