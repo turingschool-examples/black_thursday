@@ -83,6 +83,11 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 383126, sales_analyst.test_total_revenue_by_date(date)
   end
 
+  def test_merchants_with_pending_invoices_returns_merchants_with_unsuccessful_transactions
+    assert_instance_of Array, sales_analyst.merchants_with_pending_invoices
+    assert_equal 13, sales_analyst.merchants_with_pending_invoices.count
+  end
+
 
 
 

@@ -109,8 +109,20 @@ class SalesAnalyst
   end
 
   def test_total_revenue_by_date(date)
-    mathcing_invoice = @se.invoices.find_all {|invoice| invoice.created_at == date}
-    mathcing_invoice.first.total #not sure why this method won't call on the instance of invoice
+    matching_invoice = @se.invoices.find_all {|invoice| invoice.created_at == date}
+    matching_invoice.map do |invoice|
+      invoice.total
+    end
+  end
+
+  def merchants_with_pending_invoices
+    transactions_failed = @se.transactions.find_all{|transaction| transaction.result == 'failed'}
+    invoices = transactions_failed.map do |transaction|
+      transaction.invoice
+    end
+    invoices.map do |invoice|
+      invoice.merchant
+    end
   end
 
   def average_price
