@@ -167,13 +167,23 @@ class SalesAnalyst
   end
 
   def most_sold_item_for_merchant(merchant_id)
+    #currently, this will return a single one. in the spec, it says that if there's a tie, we should return all the items
+    #try sorting by invoice_item quantity, checking the max quantity and seeing if any other items match that # and then return it
     merchant = se.merchants.find_by_id(merchant_id)
     items = merchant.items
-    items.find do |item|
+    most_sold_item = items.find do |item|
       item.invoice_items.max_by do |invoice_item|
         invoice_item.quantity
       end
     end
+    ## trying to compare the quantity of most sold item with other
+    # quantity_sold = most_sold_item.invoice_items.quantity.max
+    # other_items_with_most_sold = items.select do |item|
+    #   item.invoice_items.each do |invoice_item|
+    #     invoice_item.quantity == quantity_sold
+    #   end
+    # end
+
   end
 
   # def merchant_revenue(merchant)
