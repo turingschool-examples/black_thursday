@@ -35,4 +35,12 @@ class Invoice
   def merchant
     invoice_repo.invoice_merchant(self.merchant_id)
   end
+
+  def items
+    invoice_repo.invoices_items(self.id)
+  end
+
+  def transactions
+    invoice_repo.invoice_transactions(self.id)
+  end
 end

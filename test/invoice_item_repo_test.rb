@@ -24,6 +24,4 @@ class InvoiceItemRepositoryTest < Minitest::Test
   def test_find_by_invoice_id
     assert_instance_of InvoiceItem, set_up.find_all_by_invoice_id(1).first
   end
-
-
 end

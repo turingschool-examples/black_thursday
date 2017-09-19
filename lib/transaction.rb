@@ -9,6 +9,7 @@ class Transaction
   def id
     trans.fetch(:id).to_i
   end
+
   def invoice_id
     trans.fetch(:invoice_id).to_i
   end

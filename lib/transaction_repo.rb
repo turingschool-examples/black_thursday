@@ -13,6 +13,7 @@ class TransactionRepository
     CSV.foreach(trans_file, headers: true, header_converters: :symbol) do |row|
       trans_info = {}
       trans_info[:id] = row[:id]
+      trans_info[:invoice_id] = row[:invoice_id]
       trans_info[:credit_card_number] = row[:credit_card_number]
       trans_info[:credit_card_expiration_date]=row[:credit_card_expiration_date]
       trans_info[:result] = row[:result]
