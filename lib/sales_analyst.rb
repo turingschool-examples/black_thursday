@@ -113,13 +113,14 @@ class SalesAnalyst
       invoice.created_at == date
     end
 
-    matching_invoices.all do |invoice|
-      invoice.total
+    matching_invoices.map do |invoice|
+    invoice.total
     end
   end
 
+
   def merchants_with_pending_invoices
-    transactions_failed = @se.transactions.find_all{|transaction| transaction.result == 'failed'}
+    transactions_failed = @se.transactions.find_all{|transaction| transaction.result != 'success' }
     invoices = transactions_failed.map do |transaction|
       transaction.invoice
     end
@@ -136,7 +137,7 @@ class SalesAnalyst
 
   def merchants_with_only_one_item_registered_in_month(month_name)
     @se.merchants.find_all do |merchant|
-      merchant.created_at.strftime('%A') == month_name && merchant.items.count == 1
+      merchant.created_at.strftime('%A') == month_name
     end
   end
 
