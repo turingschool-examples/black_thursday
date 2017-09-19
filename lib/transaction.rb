@@ -14,7 +14,7 @@ class Transaction
   end
 
   def credit_card_number
-    trans.fetch(:credit_card_number)
+    trans.fetch(:credit_card_number).to_i
   end
 
   def credit_card_expiration_date

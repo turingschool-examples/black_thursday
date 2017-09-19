@@ -1,4 +1,4 @@
-require 'customer'
+require_relative 'customer'
 
 class CustomerRepository
   attr_reader :customers, :sales_engine
@@ -11,11 +11,11 @@ class CustomerRepository
     customer_list = []
     CSV.foreach(customer_file,headers: true,header_converters: :symbol) do |row|
       customer_info = {}
-      customer_info = row[:id]
-      customer_info = row[:first_name]
-      customer_info = row[:last_name]
-      customer_info = row[:created_at]
-      customer_info = row[:updated_at]
+      customer_info[:id] = row[:id]
+      customer_info[:first_name] = row[:first_name]
+      customer_info[:last_name] = row[:last_name]
+      customer_info[:created_at] = row[:created_at]
+      customer_info[:updated_at] = row[:updated_at]
       customer_list << Customer.new(customer_info, self)
     end
     customer_list

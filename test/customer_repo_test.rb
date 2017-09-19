@@ -7,7 +7,8 @@ class CustomerRepositoryTest < Minitest::Test
   attr_reader :customer_repo
 
   def set_up
-    files = ({:customer => "./test/fixtures/customer_fixture.csv"})
+    files = ({:invoices => "./test/fixtures/invoice_fixture.csv", :items => "./test/fixtures/item_fixture.csv", :merchants => "./test/fixtures/merchant_fixture.csv", :invoice_items => "./test/fixtures/invoice_items_fixture.csv", :transactions => "./test/fixtures/transactions_fixture.csv", :customers => "./test/fixtures/customers_fixture.csv"})
+
     SalesEngine.from_csv(files).customers
   end
 
@@ -16,7 +17,7 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_all_customers
-    assert_equal 9, set_up.all.count
+    assert_equal 20, set_up.all.count
   end
 
   def test_find_by_id_nil
@@ -28,6 +29,6 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_find_specific_name
-    assert_instance_of Customer, set_up.find_by_first_name("Heber")
+    assert_instance_of Customer, set_up.find_all_by_first_name("Heber")
   end
 end

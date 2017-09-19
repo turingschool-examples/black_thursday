@@ -1,3 +1,5 @@
+require_relative 'transaction'
+
 class TransactionRepository
   attr_reader :trans
 
@@ -12,7 +14,7 @@ class TransactionRepository
       trans_info = {}
       trans_info[:id] = row[:id]
       trans_info[:credit_card_number] = row[:credit_card_number]
-      trans_info[:credit_card_expiration_date] = row[:credit_card_expiration_date]
+      trans_info[:credit_card_expiration_date]=row[:credit_card_expiration_date]
       trans_info[:result] = row[:result]
       trans_info[:created_at] =row[:created_at]
       trans_info[:updated_at] = row[:updated_at]
@@ -34,8 +36,8 @@ class TransactionRepository
   end
 
   def find_all_by_credit_card_number(credit_card_number)
-    trans.find_all do
-      |trans| trans.credit_card_number == credit_card_number
+    trans.find_all do |trans|
+      trans.credit_card_number == credit_card_number
     end
   end
 
