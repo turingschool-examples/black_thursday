@@ -37,4 +37,25 @@ class MerchantAnalystTest < Minitest::Test
     assert_equal 12334185, high_earners[1].id
     assert_equal 12334115, high_earners[-1].id
   end
+
+  def test_it_can_find_merchants_with_pending_invoices
+    pending_merchants = @analyst.merchants_with_pending_invoices
+
+    assert_equal 12334185, pending_merchants[0].id
+    assert_instance_of Merchant, pending_merchants[0]
+    assert_equal 1, pending_merchants.count
+  end
+
+  def test_it_finds_merchants_with_only_one_item
+    one_item_merchants = @analyst.merchants_with_only_one_item
+
+    assert_equal 12334969, one_item_merchants[0].id
+    assert_instance_of Merchant, one_item_merchants[0]
+    assert_equal 1, one_item_merchants.count
+  end
+
+  def test_it_finds_merchants_with_only_one_item_registered_in_month
+    
+
+
 end
