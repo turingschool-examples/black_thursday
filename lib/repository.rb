@@ -11,6 +11,7 @@ class Repository
   end
 
   def make_record(data)
+    data[:id] ||= unused_id
     record_class.new(self, data)
   end
 

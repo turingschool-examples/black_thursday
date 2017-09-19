@@ -15,20 +15,17 @@ class Repository
     def initialize(repo, fields)
       raise "Repository::Record must be subclassed" if self.class == Repository::Record
       @repo = repo
-      @id = (fields[:id] || repo.unused_id).to_i
+      @id = fields[:id].to_i
+      @created_at = ensure_time(fields[:created_at])
+      @updated_at = ensure_time(fields[:updated_at])
+    end
 
-      @created_at = if fields.key? :created_at
-        Time.parse(fields[:created_at])
-      else
+    def ensure_time(given)
+      if given.nil?
         Time.now
-      end
-
-      @updated_at = if fields.key? :updated_at
-        Time.parse(fields[:updated_at])
       else
-        Time.now
+        Time.parse(given)
       end
-
     end
 
     def foreign_id(record_class)
