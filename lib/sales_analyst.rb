@@ -171,6 +171,7 @@ class SalesAnalyst
   def top_revenue_earners(number = 20)
   end
 
+
   def merchants_ranked_by_revenue
 
   end
