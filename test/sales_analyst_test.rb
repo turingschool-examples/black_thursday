@@ -111,6 +111,10 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 0, @sa.merchants_with_only_one_item_registered_in_month("October").count
   end
 
-  
+  def test_total_sold_for_item
+    item =  @sa.se.items.find_by_id(263556762)
+    assert_equal 10, @sa.total_sold_for_item(item)
+  end
+
 
 end
