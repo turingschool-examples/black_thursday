@@ -66,7 +66,7 @@ class SalesEngine
     end
   end
 
-  def invoice_items 
+  def invoice_items
     if @invoice_items.nil?
       @invoice_items = InvoiceItemRepository.new(@invoice_item_csv_filepath, self)
     else
@@ -107,5 +107,7 @@ class SalesEngine
   def merchant_invoice_count
     self.merchants.merchants.map {|merchant| merchant.invoices.count}
   end
+
+  
 
 end

@@ -152,6 +152,7 @@ include StandardDeviation
     merchant.invoices.each do |invoice|
       revenue += invoice.total if invoice.is_paid_in_full?
     end
+    require "pry"; binding.pry
     revenue
   end
 
@@ -171,6 +172,11 @@ include StandardDeviation
     se.merchants.all.select do |merchant|
       merchant.items.count == 1
     end
+  end
+
+  def revenue_by_merchant(merchant_id)
+    merchant = se.merchants.find_by_id(merchant_id)
+    merchant_revenue(merchant)
   end
   # def merchant_revenue(merchant)
   #   revenue= 0.00

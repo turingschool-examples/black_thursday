@@ -69,4 +69,11 @@ class SalesAnalystTest < MiniTest::Test
     assert_instance_of Merchant, sa.merchants_with_only_one_item.first
     assert_equal 11, sa.merchants_with_only_one_item.count
   end
+
+  def test_it_can_find_the_total_revenue_for_a_merchant
+    sa = setup
+
+    assert_instance_of BigDecimal, sa.revenue_by_merchant(12334112)
+    assert_equal 0.494478e4, sa.revenue_by_merchant(12334112)
+  end
 end

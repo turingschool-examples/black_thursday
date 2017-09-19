@@ -75,4 +75,6 @@ class SalesEngineTest < MiniTest::Test
     assert_instance_of Array, se.golden_items
     assert_equal 13, se.golden_items.count
   end
+  
+
 end
