@@ -3,8 +3,8 @@ require_relative 'invoice_item'
 class InvoiceItemRepository
   attr_reader :invoice_items
 
-  def initialize(invoice_item_file, sales_engine)
-    @invoice_items = read_invoice_item_file(invoice_item_file)
+  def initialize(i_item_file, sales_engine)
+    @invoice_items = read_invoice_item_file(i_item_file)
     @sales_engine = sales_engine
   end
 
@@ -45,4 +45,5 @@ class InvoiceItemRepository
   def inspect
     "#<#{self.class} #{@invoice_items.size} rows>"
   end
+
 end
