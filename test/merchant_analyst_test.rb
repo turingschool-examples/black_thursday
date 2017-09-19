@@ -20,7 +20,13 @@ class MerchantAnalystTest < Minitest::Test
     assert_equal 15620.53, revenue
   end
 
+  def test_revenue_per_merchant_returns_hash_with_merchant_id_key_and_revenue_value
+    p @analyst.revenue_per_merchant
+  end
+
   def test_top_revenue_earners_returns_x_number_of_top_earning_merchants
+    skip
     high_earners = @analyst.top_revenue_earners(3)
     p high_earners
+  end
 end

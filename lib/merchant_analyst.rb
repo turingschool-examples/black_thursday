@@ -11,8 +11,18 @@ module MerchantAnalyst
     calculate_total_revenue(invoices_by_date)
   end
 
-  def top_revenue_earners(x)
-    revenue_per_invoice = @engine.invoice_list.map do |invoice|
-      invoice.total
+  def revenue_per_merchant
+    @engine.invoice_list.map do |invoice|
+      @engine.merchant_list.map do |merchant|
+
   end
+
+  def total_revenue_for_all_merchants
+      revenue_per_invoice = Hash[@engine.invoice_list.map {|invoice| [invoice.merchant_id, invoice.total]}]
+    end
+
+  def top_revenue_earners(x)
+    revenue_per_invoice = Hash[@engine.invoice_list.map {|invoice| [invoice.merchant_id, invoice.total]}]
+  end
+
 end
