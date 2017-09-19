@@ -1,15 +1,18 @@
 require_relative "sales_engine"
-require 'pry'
 require_relative './merchant_math'
 require_relative './merchant_golden_items'
-require_relative './merchant_top_merchants_by_invoice_count'
+require_relative './merchant_merchants_by_invoice_count'
+require_relative "./merchant_top_days_by_invoice_count"
+require 'pry'
+require "date"
 
 
 class SalesAnalyst
 
   include MerchantMath
   include MerchantGoldenItems
-  include MerchantTopMerchantsByInvoiceCount
+  include MerchantMerchantsByInvoiceCount
+  include MerchantTopDaysByInvoiceCount
   #we can move these all back into a single module if needed -- I was just getting confused and needed to be able to separate the different methods and helper methods
 
   attr_reader :sales_engine
@@ -103,13 +106,12 @@ class SalesAnalyst
   def top_merchants_by_invoice_count
     top_merchants = []
     two_std_above = two_standard_deviations_above_merchant_invoices
-
     group_invoices_by_merchant.map do |key, value|
       if value >= two_std_above
         top_merchants << key
+        # puts "Yowza -- Top merchants by invoice!"
       end
     end
-
     top_merchants.map do |id|
       sales_engine.merchants.find_by_id(id)
     end
@@ -130,6 +132,25 @@ class SalesAnalyst
     merchants.select do |merchant|
       merchant.items.count == 1
     end
+  end
+
+  def bottom_merchants_by_invoice_count
+    bottom_merchants = []
+    two_std_below = two_standard_deviations_below_merchant_invoices
+    group_invoices_by_merchant.map do |key, value|
+      if value <= two_std_below
+        bottom_merchants << key
+        puts "Yowza -- Bottom merchants by invoice!"
+      end
+    end
+    bottom_merchants.map do |id|
+      sales_engine.merchants.find_by_id(id)
+    end
+  end
+
+  def top_days_by_invoice_count
+    find_top_days
+    convert_numbers_to_weekdays
   end
 
 end

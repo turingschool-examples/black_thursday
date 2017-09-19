@@ -53,6 +53,8 @@ class InvoiceRepository
       return status_array
   end
 
+  
+
   def inspect
     "#<#{self.class} #{:invoices.size} rows>"
   end
