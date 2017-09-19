@@ -40,7 +40,7 @@ class TransactionRepositoryTest  < Minitest::Test
   def test_it_finds_all_by_result
     tr = setup
 
-    assert_equal 26, tr.find_all_by_result(:success).count
+    assert_equal 26, tr.find_all_by_result('success').count
 
   end
 end
