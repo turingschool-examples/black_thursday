@@ -4,7 +4,7 @@ require 'time'
 require 'bigdecimal'
 
 class SalesAnalyst
-include StandardDeviation
+  include StandardDeviation
   attr_reader :se
 
   def initialize(se)
@@ -14,6 +14,10 @@ include StandardDeviation
   def average_items_per_merchant
     average = se.total_items / se.total_merchants.to_f
     average.round(2)
+  end
+
+  def standard_deviation_for_merchant_items
+    average_items_per_merchant_standard_deviation
   end
 
   def merchants_with_high_item_count

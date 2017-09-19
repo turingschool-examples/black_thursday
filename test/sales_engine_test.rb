@@ -42,11 +42,6 @@ class SalesEngineTest < MiniTest::Test
     assert_equal 11, se.merchant_item_count[4]
   end
 
-  def test_it_can_find_the_standard_deviation
-    se = setup
-
-    assert_instance_of Float, se.standard_deviation_for_merchant_items
-    assert_equal 2.833473385894321, se.standard_deviation_for_merchant_items
-  end
+  
 
 end

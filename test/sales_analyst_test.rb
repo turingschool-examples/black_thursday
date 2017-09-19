@@ -105,4 +105,11 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 4, sa.merchants_with_high_item_count.count
     assert_equal 12334123, sa.merchants_with_high_item_count[0].id
   end
+
+  def test_it_can_find_the_standard_deviation
+    sa = setup
+
+    assert_instance_of Float, sa.standard_deviation_for_merchant_items
+    assert_equal 2.83, sa.standard_deviation_for_merchant_items
+  end
 end
