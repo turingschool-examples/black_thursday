@@ -166,6 +166,7 @@ class SalesAnalyst
     end
 
   def top_revenue_earners(number = 20)
+  end 
 
 
 
