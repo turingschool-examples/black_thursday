@@ -51,4 +51,10 @@ class MerchantRepository
     "#<#{self.class} #{@merchants.size} rows>"
   end
 
+  def merchants_registered_in_month(month)
+    all.map do |merchant|
+      puts merchant.created_at
+    end
+  end
+
 end

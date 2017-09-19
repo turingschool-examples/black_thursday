@@ -124,7 +124,6 @@ class SalesAnalyst
     merchants.select do |merchant|
       merchant.has_pending_invoice?
     end
-    merchants
   end
 
   def merchants_with_only_one_item
@@ -151,6 +150,10 @@ class SalesAnalyst
   def top_days_by_invoice_count
     find_top_days
     convert_numbers_to_weekdays
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+
   end
 
 end
