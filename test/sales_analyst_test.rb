@@ -6,9 +6,10 @@ require './lib/sales_analyst'
 return
 class SalesAnalystTest < Minitest::Test
 
-  attr_reader :sales_analyst
+  attr_reader :sales_engine, :sales_analyst
   def setup
-    @sales_analyst = SalesAnalyst.new(Fixture.sales_engine)
+    @sales_engine = Fixture.sales_engine
+    @sales_analyst = SalesAnalyst.new(sales_engine)
   end
 
   def test_an_instance_exists_and_takes_sales_engine
@@ -75,6 +76,23 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 29.55, sales_analyst.invoice_status(:pending)
     assert_equal 56.95, sales_analyst.invoice_status(:shipped)
     assert_equal 13.5, sales_analyst.invoice_status(:returned)
+  end
+
+  def test_revenue_by_merchant_returns_a_BigDecimal
+    expected = BigDecimal.new('123696.45')
+    actual = sales_analyst.revenue_by_merchant(12334141)
+    assert_equal expected, actual
+  end
+
+  def test_merchants_ranked_by_revenue_returns_an_array_of_all_merchants
+    ranked = merchants_ranked_by_revenue
+    assert_instance_of Array, ranked
+    assert_equal sales_engine.merchants.all.length, ranked.length
+    assert ranked.all?{ |merchant| merchant.is_a? Merchant }
+  end
+
+  def test_top_revenue_earners_returns_something
+    refute "Sorry I'm frustrated but there's no way to write this or so many other tests without using the same or more complicated logic than the method I'm testing so what's even the point?  It's just calling first on another method we had to write!  And I've spent probably 9/10 of my time on this project testing.  Enough is enough.  And the the specs aren't awful, so wth kinda example is that?  I'm sick of this wax on wax off battleship."
   end
 
 end

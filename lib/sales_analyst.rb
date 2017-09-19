@@ -146,6 +146,7 @@ class SalesAnalyst
 
   def revenue_by_merchant(merchant_id)
     @se.merchants.find_by_id(merchant_id).total_revenue
+    # BigDecimal.new('3')
   end
 
   def top_revenue_earners(count = 20)
