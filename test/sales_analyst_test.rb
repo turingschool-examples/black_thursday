@@ -84,4 +84,11 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 13, sa.golden_items.count
   end
 
+  def test_average_average_price_per_merchant
+    sa = setup
+
+    assert_instance_of BigDecimal, sa.average_average_price_per_merchant
+    assert_equal 0.3865e2, sa.average_average_price_per_merchant
+  end
+
 end
