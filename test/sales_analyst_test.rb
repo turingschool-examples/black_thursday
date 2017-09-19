@@ -125,13 +125,19 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 5.36, sa.invoice_status(:returned)
   end
 
+  def test_invoice_items_on_date_returns_array_of_invoice_item_instances_created_on_given_date
+    actual = sa.invoices_on_date(Time.parse("2012-11-23"))
+    expected = [se.invoices.all[1]]
+
+    assert_equal expected, actual
+  end
+
   def test_total_revenue_by_date_returns_the_total_revenue_for_given_date
-    skip
-    actual = se.total_revenue_by_date(date)
+    actual = sa.total_revenue_by_date(Time.parse("2012-11-23"))
     expected = 1872.74
 
-    assert_instance_of BigDecimal, actual
     assert_equal expected, actual
+    assert_instance_of BigDecimal, actual
   end
 
 end
