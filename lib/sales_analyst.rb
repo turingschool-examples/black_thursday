@@ -164,13 +164,16 @@ class SalesAnalyst
 
     def total_revenue_by_date(date)
       invoices_by_date(date).map do |invoice|
-        invoice.total
-      end.sum.to_f.round(2) 
+        BigDecimal.new(invoice.total)
+      end.sum.round(2)
     end
 
   def top_revenue_earners(number = 20)
   end
 
+  def merchants_ranked_by_revenue
+
+  end
 
 
   def merchants_with_only_one_item_registered_in_month(month)
