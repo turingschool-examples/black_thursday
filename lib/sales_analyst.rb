@@ -177,6 +177,20 @@ class SalesAnalyst
       merchant.created_at.month == Date::MONTHNAMES.index(month)
     end
   end
+
+  def total_revenue_by_date(date)
+    invoices = invoices_on_date(date)
+    invoices.reduce(0) do |total, invoice|
+      total += invoice.total
+    end
+  end
+
+  def invoices_on_date(date)
+    @engine.invoices.all.find_all do |invoice|
+      invoice.created_at.strftime('%F') == date.strftime('%F')
+    end
+  end
+  
 end
 
 

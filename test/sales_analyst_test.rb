@@ -53,7 +53,8 @@ class SalesAnalystTest < Minitest::Test
             :merchants => './test/fixtures/merchants_truncated_4.csv',
             :invoices => './test/fixtures/invoices_truncated_56.csv',
             :invoice_items => './test/fixtures/invoice_items_truncated_10.csv',
-            :customers => './test/fixtures/customers_truncated_10.csv'
+            :customers => './test/fixtures/customers_truncated_10.csv',
+            :transactions => './test/fixtures/transaction_truncated_10.csv'
           })
     sa = SalesAnalyst.new(se)
 
@@ -83,11 +84,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_sa_can_find_average_invoices_per_merchant
-    assert_equal 5.090909090909091, sa.average_invoices_per_merchant
+    assert_equal 5.09, sa.average_invoices_per_merchant
   end
 
   def test_sa_can_find_average_invoices_per_merchant_standard_deviation
-    assert_equal 2.0225995873897267, sa.average_invoices_per_merchant_standard_deviation
+    assert_equal 2.02, sa.average_invoices_per_merchant_standard_deviation
   end
 
   def test_sa_can_find_top_merchant_by_invoice_count
@@ -124,6 +125,7 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 5.36, sa.invoice_status(:returned)
   end
 
+<<<<<<< HEAD
   def test_merchants_with_only_one_item_returns_one
     assert_equal 1, sa.merchants_with_only_one_item.count
     assert_equal Merchant, sa.merchants_with_only_one_item.first.class
@@ -132,6 +134,21 @@ class SalesAnalystTest < Minitest::Test
   def test_merchants_with_only_one_item_registered_in_month
     assert_equal 1, sa.merchants_with_only_one_item_registered_in_month('June').count
     assert_instance_of Merchant, sa.merchants_with_only_one_item_registered_in_month('June').first.class
+=======
+  def test_invoice_items_on_date_returns_array_of_invoice_item_instances_created_on_given_date
+    actual = sa.invoices_on_date(Time.parse("2012-11-23"))
+    expected = [se.invoices.all[1]]
+
+    assert_equal expected, actual
+  end
+
+  def test_total_revenue_by_date_returns_the_total_revenue_for_given_date
+    actual = sa.total_revenue_by_date(Time.parse("2012-11-23"))
+    expected = 1872.74
+
+    assert_equal expected, actual
+    assert_instance_of BigDecimal, actual
+>>>>>>> 7138b5f04d99c6a25f665ce049973111567cca62
   end
 
 end
