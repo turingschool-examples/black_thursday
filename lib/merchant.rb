@@ -1,3 +1,5 @@
+require 'time'
+
 class Merchant
   attr_reader :id,
               :name,
@@ -8,8 +10,8 @@ class Merchant
   def initialize(merchant,repo=nil)
     @id = merchant[:id].to_i
     @name = merchant[:name]
-    @created_at = merchant[:created_at]
-    @updated_at = merchant[:updated_at]
+    @created_at = Time.parse(merchant[:created_at])
+    @updated_at = Time.parse(merchant[:updated_at])
     @parent = repo
   end
 
@@ -29,5 +31,4 @@ class Merchant
     invoices.reduce(0) { |sum, invoice| sum + invoice.total }
   end
 
-  
 end

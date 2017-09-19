@@ -115,4 +115,11 @@ class SalesEngine
     merchants.revenue_by_merchant(merchant_id)
   end
 
+  def most_sold_item_for_merchant(merchant_id)
+    invoice_list = invoices.find_all_by_merchant_id(merchant_id)
+    paid_invoices = invoice_list.select { |inv| inv.is_paid_in_full? }
+    sorted_invoices = paid_invoices.max_by { |inv| inv.quantity }
+    
+  end
+
 end

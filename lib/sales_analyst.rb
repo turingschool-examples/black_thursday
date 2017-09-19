@@ -15,7 +15,6 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    number_of_merchants = @se.merchants.all.count
     count_of_each_merchant_item =
     @se.merchants.all.map do |merchant|
       merchant.items.count
@@ -55,7 +54,6 @@ class SalesAnalyst
   def average_average_price_per_merchant
     array = []
     @se.merchants.all.each do |merchant|
-      # binding.pry
       array << self.average_item_price_for_merchant(merchant.id)
     end
     BigDecimal.new(array.reduce(:+) / array.count).round(2)
@@ -89,7 +87,6 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant_standard_deviation
-    number_of_invoices = @se.invoices.all.count
     count_of_each_merchant_invoice =
     @se.merchants.all.map do |merchant|
       merchant.invoices.count
@@ -214,6 +211,16 @@ class SalesAnalyst
 
   def merchants_with_only_one_item
     @se.merchants.all.select { |merchant| merchant.items.count == 1 }
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants_with_only_one_item.select do |merch|
+      merch.created_at.month == Date::MONTHNAMES.index(month)
+    end
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    @se.most_sold_item_for_merchant(merchant_id)
   end
 
 end
