@@ -46,11 +46,15 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_that_it_returns_the_weekday_based_on_time
-    assert_equal "Sunday", invoice.weekday_time
+    assert_equal Date.today.strftime("%A"), invoice.weekday_time
   end
 
   # def test_it_can_return_the_associated_merchant
   #   binding.pry
   #   assert_instance_of Merchant, invoice.merchant
   # end
+
+  def test_invoice_items_returns_all_items_related_to_the_invoice
+    assert_equal [], invoice.items
+  end
 end

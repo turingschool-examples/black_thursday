@@ -1,5 +1,10 @@
 require 'minitest/autorun'
 require 'minitest/pride'
+require './test/items_fixture.csv'
+require './test/merchant_fixture'
+require './test/invoices_fixture'
+require './test/transactions_fixtures'
+require './test/invoice_items_fixture'
 require './lib/sales_analyst'
 require './lib/sales_engine'
 require 'csv'
@@ -10,12 +15,12 @@ class SalesAnalystTest < Minitest::Test
   attr_reader :se, :sa
 
   def setup
-    @se = SalesEngine.from_csv({items: "./data/items.csv",
-                            merchants: "./data/merchants.csv",
-                            invoices: "./data/invoices.csv",
-                            transactions: "./data/transactions.csv",
-                            invoice_items: "./data/invoice_items.csv",
-                            customers: "./data/customers.csv"})
+    @se = SalesEngine.from_csv({items: "./test/items_fixture.csv",
+                            merchants: "./test/merchant_fixture.csv",
+                            invoices: "./test/invoices_fixture.csv",
+                            transactions: "./test/transactions_fixtures.csv",
+                            invoice_items: "./test/invoice_items_fixture.csv",
+                            customers: "./test/customers.csv"})
     @sa = SalesAnalyst.new(@se)
   end
 
@@ -38,7 +43,6 @@ class SalesAnalystTest < Minitest::Test
 
   def test_invoices_standard_deviation
     assert_equal 3.29, sa.average_invoices_per_merchant_standard_deviation
-    binding.pry
   end
 
   def test_for_top_merchant_by_invoice

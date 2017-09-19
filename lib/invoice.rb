@@ -43,4 +43,8 @@ class Invoice
     end
   end
 
+  def items
+    @parent.invoice_items_list(self.id)
+  end
+
 end

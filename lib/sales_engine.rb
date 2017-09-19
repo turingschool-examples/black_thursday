@@ -13,9 +13,9 @@ class SalesEngine
     @merchants     = MerchantRepo.new(data[:merchants], self)
     @items         = ItemRepo.new(data[:items], self)
     @invoices      = InvoiceRepo.new(data[:invoices], self)
-    # @invoice_items = InvoiceItemRepo.new(data[:invoice_items], self)
-    # @transactions  = TransactionRepo.new(data[:transactions], self)
-    # @customers     = CustomersRepo.new(data[:customers], self)
+    @invoice_items = InvoiceItemRepo.new(data[:invoice_items], self)
+    @transactions  = TransactionRepo.new(data[:transactions], self)
+    @customers     = CustomersRepo.new(data[:customers], self)
   end
 
   def self.from_csv(data)
@@ -29,4 +29,27 @@ class SalesEngine
   def merchant_item(id)
     merchants.find_by_id(id)
   end
+
+  def items_of_invoice
+    invoice_items.return_item_id
+  end
+
+  def retrieve_item_id_from_items_repo(item_id)
+    items.find_all_items_by_id(item_id)
+  end
+
+  def all_items_by_id(item_id)
+    items.find_all_by_item_id(item_id)
+  end
+
+  def invoice_item_ids_list(id)
+   list = invoice_items.find_all_by_invoice_id(id)
+   list.map { |i| i.item_id }
+  end
+
+  def invoice_items_list(id)
+    invoice_item_ids_list(id).map { |i| self.items.find_by_id(i) }
+  end
+
+  # items repo return all items by item id's
 end
