@@ -2,11 +2,17 @@ require_relative "merchant_repository"
 
 class Merchant
 
-  attr_reader :id, :name, :merchant_repository
+  attr_reader :id,
+              :name,
+              :created_at,
+              :updated_at,
+              :merchant_repository
 
   def initialize(merchant_repository, csv_info)
     @id = csv_info[:id].to_i
     @name = csv_info[:name]
+    @created_at = Time.parse(csv_info[:created_at].to_s)
+    @updated_at = Time.parse(csv_info[:updated_at].to_s)
     @merchant_repository = merchant_repository
   end
 
