@@ -109,13 +109,11 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-     matching_invoices = @se.invoices.find_all do |invoice|
+    matching_invoices = @se.invoices.find_all do |invoice|
       invoice.created_at == date
     end
 
-    matching_invoices.map do |invoice|
-    invoice.total
-    end
+    matching_invoices.map(&:total).sum
   end
 
 
