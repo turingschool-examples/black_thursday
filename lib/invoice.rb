@@ -47,7 +47,6 @@ class Invoice
   end
 
   def items
-    # invoice_items = @invoice_repository.find_all_invoice_items_by_invoice_id(@id)
     invoice_items.map do |invoice_item|
       @invoice_repository.find_item_by_item_id(invoice_item.item_id)
     end
