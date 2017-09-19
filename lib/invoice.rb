@@ -1,7 +1,5 @@
 require 'csv'
 require 'time'
-require 'pry'
-
 
 class Invoice
 
@@ -21,17 +19,31 @@ class Invoice
     @engine.merchants.find_by_id(@merchant_id)
   end
 
-  def items
-    invoice_items = @engine.invoice_items.find_all_by_invoice_id(@id)
-    item_ids = invoice_items.map do |invoice_item|
+  def find_item_ids(invoice_items_by_invoice_id)
+    item_ids = invoice_items_by_invoice_id.map do |invoice_item|
       invoice_item.item_id
     end
-    item_ids.map do |item_id|
+  end
 
+  def find_items_from_item_ids(item_ids_from_invoice)
+    items = item_ids_from_invoice.map do |item_id|
       @engine.items.find_by_id(item_id)
-      binding.pry
     end
+    items.compact
+  end
 
+  def items
+    invoice_items = @engine.invoice_items.find_all_by_invoice_id(@id)
+    item_ids = find_item_ids(invoice_items)
+    find_items_from_item_ids(item_ids)
+  end
+
+  def transactions
+    @engine.transactions.find_all_by_invoice_id(@id)
+  end
+
+  def customer
+    @engine.customers.find_by_id(@customer_id)
   end
 
 end
