@@ -22,4 +22,8 @@ class InvoiceItem < Repository::Record
     unit_price.to_f
   end
 
+  def total
+    unit_price * quantity
+  end
+
 end

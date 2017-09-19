@@ -108,6 +108,59 @@ class SalesAnalyst
     end
   end
 
+  def total_revenue_by_date(date)
+    matching_invoices = @se.invoices.find_all do |invoice|
+      invoice.created_at == date
+    end
+
+    matching_invoices.map(&:total).sum
+  end
+
+  def merchant_paid_item_invoices_by_item_id(merchant_id)
+    merchant = @se.merchants.find_by_id(merchant_id)
+    paid_invoices = merchant.invoices.select(&:is_paid_in_full?)
+    iis = paid_invoices.flat_map(&:invoice_items)
+    iis.group_by(&:item_id)
+  end
+
+  def best_item_for_merchant(merchant_id)
+    item_invoices = merchant_paid_item_invoices_by_item_id(merchant_id)
+    item_revenues = item_invoices.transform_values do |list|
+      list.reduce(0) { |sum, ii| sum + ii.total }
+    end
+    best_id = item_revenues.max_by(&:last).first
+    @se.items.find_by_id(best_id)
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    item_invoices = merchant_paid_item_invoices_by_item_id(merchant_id)
+    item_revenues = item_invoices.transform_values do |list|
+      list.reduce(0) { |sum, ii| sum + ii.quantity }
+    end
+    best_id = item_revenues.max_by(&:last).first
+    @se.items.find_by_id(best_id)
+  end
+
+  def merchants_with_pending_invoices
+    @se.merchants.all.select do |merchant|
+      merchant.invoices.any? do |invoice|
+        invoice.transactions.none?(&:success?)
+      end
+    end
+  end
+
+  def merchants_with_only_one_item
+    @se.merchants.find_all do |merchant|
+      merchant.items.count == 1
+    end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month_name)
+    merchants_with_only_one_item.find_all do |merchant|
+      merchant.created_at.strftime('%B') == month_name
+    end
+  end
+
   def average_price
     average(@se.items.all) { |item| item.unit_price }
   end
@@ -142,6 +195,19 @@ class SalesAnalyst
     end
     return nil if count.zero?
     sum / count
+  end
+
+  def revenue_by_merchant(merchant_id)
+    @se.merchants.find_by_id(merchant_id).total_revenue
+    # BigDecimal.new('3')
+  end
+
+  def top_revenue_earners(count = 20)
+    merchants_ranked_by_revenue.first(count)
+  end
+
+  def merchants_ranked_by_revenue
+    @se.merchants.all.sort_by{ |merchant| -merchant.total_revenue }
   end
 
   def rounded(answer)

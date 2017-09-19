@@ -1,14 +1,16 @@
 require 'bigdecimal'
+require 'time'
 
 require './test/test_helper'
 require './lib/sales_analyst'
 
-return
+
 class SalesAnalystTest < Minitest::Test
 
-  attr_reader :sales_analyst
+  attr_reader :sales_engine, :sales_analyst
   def setup
-    @sales_analyst = SalesAnalyst.new(Fixture.sales_engine)
+    @sales_engine = Fixture.sales_engine
+    @sales_analyst = SalesAnalyst.new(sales_engine)
   end
 
   def test_an_instance_exists_and_takes_sales_engine
@@ -49,7 +51,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_invoice_per_merchant_returns_average_for_all_data
-    average = sales_analyst.average_invoice_per_merchan
+    average = sales_analyst.average_invoice_per_merchant
     assert_equal 10.49, average
   end
 
@@ -76,5 +78,38 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 56.95, sales_analyst.invoice_status(:shipped)
     assert_equal 13.5, sales_analyst.invoice_status(:returned)
   end
+
+  def test_revenue_by_merchant_returns_a_BigDecimal
+    expected = BigDecimal.new('123696.45')
+    actual = sales_analyst.revenue_by_merchant(12334141)
+    assert_equal expected, actual
+  end
+
+  def test_merchants_ranked_by_revenue_returns_an_array_of_all_merchants
+    ranked = merchants_ranked_by_revenue
+    assert_instance_of Array, ranked
+    assert_equal sales_engine.merchants.all.length, ranked.length
+    assert ranked.all?{ |merchant| merchant.is_a? Merchant }
+  end
+
+  def test_total_revenue_by_date_returns_total_for_that_day
+    date = Time.parse("2013-04-21")
+    assert_equal 383126, sales_analyst.total_revenue_by_date(date)
+  end
+
+  def test_merchants_with_pending_invoices_returns_merchants_with_unsuccessful_transactions
+    assert_instance_of Array, sales_analyst.merchants_with_pending_invoices
+    assert_equal 13, sales_analyst.merchants_with_pending_invoices.count
+  end
+
+  def test_merchants_with_only_one_item_returns_an_array_with_merchant_selling_one_item
+    assert_instance_of Array, sales_analyst.merchants_with_only_one_item
+  end
+
+  def test_merchants_with_only_one_item_registered_in_month_returns_an_array
+    input = sales_analyst.merchants_with_only_one_item_registered_in_month("May")
+    assert_instance_of Array, input
+  end
+
 
 end

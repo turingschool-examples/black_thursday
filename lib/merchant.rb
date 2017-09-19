@@ -21,4 +21,9 @@ class Merchant < Repository::Record
     invoices.map{ |invoice| invoice.customer }.uniq
   end
 
+
+  def total_revenue
+    invoices.reduce(0){ |sum, invoice| sum + invoice.total }
+  end
+
 end
