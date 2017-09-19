@@ -108,6 +108,11 @@ class SalesAnalyst
     end
   end
 
+  def test_total_revenue_by_date(date)
+    mathcing_invoice = @se.invoices.find_all {|invoice| invoice.created_at == date}
+    mathcing_invoice.first.total #not sure why this method won't call on the instance of invoice
+  end
+
   def average_price
     average(@se.items.all) { |item| item.unit_price }
   end

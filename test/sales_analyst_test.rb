@@ -1,9 +1,10 @@
 require 'bigdecimal'
+require 'time'
 
 require './test/test_helper'
 require './lib/sales_analyst'
 
-return
+
 class SalesAnalystTest < Minitest::Test
 
   attr_reader :sales_analyst
@@ -49,7 +50,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_invoice_per_merchant_returns_average_for_all_data
-    average = sales_analyst.average_invoice_per_merchan
+    average = sales_analyst.average_invoice_per_merchant
     assert_equal 10.49, average
   end
 
@@ -76,5 +77,14 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 56.95, sales_analyst.invoice_status(:shipped)
     assert_equal 13.5, sales_analyst.invoice_status(:returned)
   end
+
+  def test_total_revenue_by_date_returns_total_for_that_day
+    date = Time.parse("2013-04-21")
+    assert_equal 383126, sales_analyst.test_total_revenue_by_date(date)
+  end
+
+
+
+
 
 end
