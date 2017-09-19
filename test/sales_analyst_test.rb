@@ -80,12 +80,17 @@ class SalesAnalystTest < Minitest::Test
 
   def test_total_revenue_by_date_returns_total_for_that_day
     date = Time.parse("2013-04-21")
-    assert_equal 383126, sales_analyst.test_total_revenue_by_date(date)
+    assert_equal 383126, sales_analyst.total_revenue_by_date(date)
   end
 
   def test_merchants_with_pending_invoices_returns_merchants_with_unsuccessful_transactions
     assert_instance_of Array, sales_analyst.merchants_with_pending_invoices
     assert_equal 13, sales_analyst.merchants_with_pending_invoices.count
+  end
+
+  def test_merchants_with_only_one_item_returns_an_array_with_merchant_selling_one_item
+
+    assert_instance_of Array, sales_analyst.merchants_with_only_one_item
   end
 
 

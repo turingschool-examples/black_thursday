@@ -108,9 +108,9 @@ class SalesAnalyst
     end
   end
 
-  def test_total_revenue_by_date(date)
-    matching_invoice = @se.invoices.find_all {|invoice| invoice.created_at == date}
-    matching_invoice.map do |invoice|
+  def total_revenue_by_date(date)
+    matching_invoices = @se.invoices.find_all {|invoice| invoice.created_at == date}
+    matching_invoices.map do |invoice|
       invoice.total
     end
   end
@@ -122,6 +122,12 @@ class SalesAnalyst
     end
     invoices.map do |invoice|
       invoice.merchant
+    end
+  end
+
+  def merchants_with_only_one_item
+    @se.merchants.find_all do |merchant|
+      merchant.items.count == 1
     end
   end
 
