@@ -24,6 +24,9 @@ class ItemRepo
     all_items.find {|item| item.id == item_id }
   end
 
+  def find_all_items_by_id(item_id)
+    all_items.find_all {|item| items.id == item_id}
+  end
 
   def find_by_name(name)
     all_items.find {|item| item.name.downcase == name.downcase}

@@ -41,5 +41,10 @@ class Invoice
     elsif day_num == 6
       "Saturday"
     end
-end
+  end
+
+  def items
+    @parent.invoice_items_list(self.id)
+  end
+
 end
