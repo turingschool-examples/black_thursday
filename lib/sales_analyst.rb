@@ -75,7 +75,7 @@ class SalesAnalyst
       item.unit_price > bar
     end
   end
-  
+
   def average_invoices_per_merchant
     (@engine.invoices.all.count.to_f / @engine.merchants.all.count.to_f).round(2)
   end
@@ -165,5 +165,20 @@ class SalesAnalyst
       end
     end
     ((count / total_invoices_count.to_f) * 100).round(2)
+  end
+
+  def top_revenue_earners(number_merchants = 20)
+    @engine.merchants.total_revenue_for_each_merchant[0..(number_merchants - 1)]
+  end
+
+  def revenue_by_merchant(merchant_id)
+    merchant = @engine.merchants.find_by_id(merchant_id)
+    merchant.total_revenue
+  end
+
+  def merchants_ranked_by_revenue
+    @engine.merchants.all.sort_by do |merchant|
+      merchant.total_revenue
+    end.reverse
   end
 end
