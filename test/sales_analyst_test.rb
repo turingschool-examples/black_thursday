@@ -98,4 +98,11 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 0.9545e2, sa.average_item_price_for_merchant(12334123)
   end
 
+  def test_merchants_with_high_item_count
+    sa = setup
+
+    assert_instance_of Merchant, sa.merchants_with_high_item_count.first
+    assert_equal 4, sa.merchants_with_high_item_count.count
+    assert_equal 12334123, sa.merchants_with_high_item_count[0].id
+  end
 end

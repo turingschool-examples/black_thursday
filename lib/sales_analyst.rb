@@ -1,6 +1,7 @@
 require_relative 'sales_engine'
 require_relative 'standard_deviation'
 require 'time'
+require 'bigdecimal'
 
 class SalesAnalyst
 include StandardDeviation
@@ -152,7 +153,6 @@ include StandardDeviation
     merchant.invoices.each do |invoice|
       revenue += invoice.total if invoice.is_paid_in_full?
     end
-    require "pry"; binding.pry
     revenue
   end
 
@@ -176,7 +176,8 @@ include StandardDeviation
 
   def revenue_by_merchant(merchant_id)
     merchant = se.merchants.find_by_id(merchant_id)
-    merchant_revenue(merchant)
+    revenue = merchant_revenue(merchant)
+    BigDecimal.new(revenue, 4)
   end
   # def merchant_revenue(merchant)
   #   revenue= 0.00

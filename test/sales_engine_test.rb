@@ -49,12 +49,4 @@ class SalesEngineTest < MiniTest::Test
     assert_equal 2.833473385894321, se.standard_deviation_for_merchant_items
   end
 
-  def test_merchants_with_high_item_count
-    se = setup
-
-    assert_instance_of Array, se.merchants_with_high_item_count
-    assert_equal 8, se.merchants_with_high_item_count.count
-    assert_equal 12334123, se.merchants_with_high_item_count[0].id
-  end
-
 end
