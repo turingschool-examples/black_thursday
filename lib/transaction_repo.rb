@@ -44,4 +44,8 @@ class TransactionRepository
   def find_all_by_result(result)
     trans.find_all {|trans| trans.result == result}
   end
+
+  def inspect
+    "#<#{self.class} #{@trans.size} rows>"
+  end
 end
