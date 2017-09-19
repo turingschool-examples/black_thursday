@@ -29,7 +29,7 @@ class TransactionRepository
   end
 
   def find_all_by_result(result)
-    @transactions.select {|transaction| transaction.result == result}
+    @transactions.select {|transaction| transaction.result.to_sym == result}
   end
 
   def find_all_invoices_by_invoice_id(invoice_id)

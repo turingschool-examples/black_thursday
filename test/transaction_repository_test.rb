@@ -15,7 +15,7 @@ class TransactionRepositoryTest  < Minitest::Test
   def test_it_displays_all_its_transactions
     tr = setup
 
-    assert_equal 29,tr.all.length
+    assert_equal 30,tr.all.length
   end
 
   def test_it_finds_by_id
@@ -28,7 +28,7 @@ class TransactionRepositoryTest  < Minitest::Test
   def test_it_finds_all_by_invoice_id
     tr = setup
 
-    assert_equal 2, tr.find_all_by_invoice_id(4085).count
+    assert_equal 3, tr.find_all_by_invoice_id(4085).count
   end
 
   def test_it_finds_all_by_credit_card_number
