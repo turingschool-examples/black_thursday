@@ -4,14 +4,12 @@ require_relative '../lib/invoice'
 require_relative '../lib/sales_engine'
 
 class InvoiceRepositoryTest < Minitest::Test
-  attr_reader :invoice_repo
-
   def set_up
-    files = ({:invoices => "./test/fixtures/invoice_fixture.csv", :items => "./test/fixtures/item_fixture.csv", :merchants => "./test/fixtures/merchant_fixture.csv"})
+    files = ({:invoices => "./test/fixtures/invoice_fixture.csv", :items => "./test/fixtures/item_fixture.csv", :merchants => "./test/fixtures/merchant_fixture.csv", :invoice_items => "./test/fixtures/invoice_items_fixture.csv", :transactions => "./test/fixtures/transactions_fixture.csv", :customers => "./test/fixtures/customers_fixture.csv"})
     SalesEngine.from_csv(files).invoices
   end
 
-  def test_invoices_exists
+  def test_invoice_repo_exists
     assert_instance_of InvoiceRepository, set_up
   end
 
