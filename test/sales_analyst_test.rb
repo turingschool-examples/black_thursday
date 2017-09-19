@@ -104,5 +104,8 @@ class TestSalesAnalyst < Minitest::Test
     assert_equal [], sa.top_days_by_invoice_count
   end
 
+  def test_it_finds_total_revenue_by_date
+    assert_equal 528913.0, sa.total_revenue_by_date(Time.parse("2012-11-23"))
+  end
 
 end

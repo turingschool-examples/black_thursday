@@ -148,9 +148,24 @@ class SalesAnalyst
     end
   end
 
-  def top_days_by_invoice_count
-    find_top_days
-    convert_numbers_to_weekdays
-  end
+    def top_days_by_invoice_count
+      find_top_days
+      convert_numbers_to_weekdays
+    end
+
+    def  invoices_by_date(date)
+      sales_engine.invoices.all.select do |invoice|
+        invoice.created_at == date
+      end
+    end
+
+    def total_revenue_by_date(date)
+      invoices_by_date(date).map do |invoice|
+        invoice.total
+      end.sum.to_f * 100
+    end
+
+
+
 
 end
