@@ -141,10 +141,28 @@ include StandardDeviation
   end
 
   def top_revenue_earners(n = 20)
-    sorted_merchants = se.merchants.merchants.sort_by do |merchant|
-      merchant_revenue(merchant)
+    grouped_invoices = paid_invoices.group_by do |invoice|
+      invoice.merchant_id
     end
-    top_earners = sorted_merchants.reverse[0,n]
+
+    grouped_invoices.each_value do |invoice|
+      invoice.map! {|invoice| invoice.total}
+    end
+
+    merchant_totals = grouped_invoices.keys.sort_by do |merchant_id|
+      grouped_invoices[merchant_id].reduce(:+)
+    end
+
+    top_merchants = merchant_totals.map do |merch|
+      se.merchants.find_by_id(merch)
+    end
+
+    return top_merchants.reverse[0..n-1]
+
+    # sorted_merchants = se.merchants.merchants.sort_by do |merchant|
+    #   merchant_revenue(merchant)
+    # end
+    # top_earners = sorted_merchants.reverse[0,n]
   end
 
   def merchant_revenue(merchant)
@@ -166,6 +184,42 @@ include StandardDeviation
       end
     end
   end
+
+  def paid_invoices
+    se.invoices.all.select {|invoice| invoice.is_paid_in_full?}
+  end
+
+
+  #this is stupidly returning a weird stupidly high number
+  def merchants_with_only_one_item_registered_in_month(month_name)
+    #iterate through every merchant
+    one_invoice_merchants = se.merchants.all.select do |merchant|
+      #need a truth condition here tied to whether the merchant has any invoices in month
+      #invoices_in_month = merchant.invoices.select do |invoice|
+        invoice_in_month?(merchant, month_name)
+      #   invoice.created_at.strftime('%B') == month_name
+
+      # invoices_in_month.length == 1
+    end
+    one_invoice_merchants.uniq
+  end
+
+  def invoice_in_month?(merchant, month_name)
+    invoices_in_month = merchant.invoices.select do |invoice|
+      invoice.created_at.strftime('%B') == month_name
+    end
+    invoices_in_month.length == 1
+  end
+
+  def revenue_by_merchant(merchant_id)
+    revenue= 0.00
+    merchant = se.merchants.find_by_id(merchant_id)
+    merchant.invoices.each do |invoice|
+      revenue += invoice.total if invoice.is_paid_in_full?
+    end
+    revenue
+  end
+
 
   # def merchant_revenue(merchant)
   #   revenue= 0.00
