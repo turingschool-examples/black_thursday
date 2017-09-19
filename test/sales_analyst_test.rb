@@ -89,12 +89,13 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_merchants_with_only_one_item_returns_an_array_with_merchant_selling_one_item
-
     assert_instance_of Array, sales_analyst.merchants_with_only_one_item
   end
 
-
-
+  def test_merchants_with_only_one_item_registered_in_month_returns_an_array
+    input = sales_analyst.merchants_with_only_one_item_registered_in_month("May")
+    assert_instance_of Array, input
+  end
 
 
 end

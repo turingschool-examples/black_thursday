@@ -109,8 +109,11 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    matching_invoices = @se.invoices.find_all {|invoice| invoice.created_at == date}
-    matching_invoices.map do |invoice|
+     matching_invoices = @se.invoices.find_all do |invoice|
+      invoice.created_at == date
+    end
+
+    matching_invoices.all do |invoice|
       invoice.total
     end
   end
@@ -128,6 +131,12 @@ class SalesAnalyst
   def merchants_with_only_one_item
     @se.merchants.find_all do |merchant|
       merchant.items.count == 1
+    end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month_name)
+    @se.merchants.find_all do |merchant|
+      merchant.created_at.strftime('%A') == month_name && merchant.items.count == 1
     end
   end
 
