@@ -51,4 +51,8 @@ class SalesEngineTest < Minitest::Test
   def test_find_transactions_for_invoice
     assert_instance_of Transaction, set_up.find_transactions_for_invoice(46).first
   end
+
+  def test_find_customer_from_invoice
+    assert_instance_of Customer, set_up.find_customer_from_invoice(9)
+  end
 end
