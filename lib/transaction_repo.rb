@@ -1,6 +1,6 @@
 class TransactionRepository
   attr_reader :trans
-  
+
   def initialize(trans_file, sales_engine)
     @trans = read_trans_file(trans_file)
     @sales_engine = sales_engine
@@ -8,7 +8,7 @@ class TransactionRepository
 
   def read_trans_file(trans_file)
     trans_list =[]
-    CSV.foreach(i_item_file, headers: true, header_converters: :symbol) do |row|
+    CSV.foreach(trans_file, headers: true, header_converters: :symbol) do |row|
       trans_info = {}
       trans_info[:id] = row[:id]
       trans_info[:credit_card_number] = row[:credit_card_number]

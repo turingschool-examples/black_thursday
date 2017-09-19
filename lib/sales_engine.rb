@@ -17,7 +17,7 @@ class SalesEngine
     SalesEngine.new(items, merchs, invoices, i_items, trans, customers)
   end
 
-  attr_reader :merchants, :items, :invoices, :invoice_items, :trans, :customers
+  attr_reader :merchants, :items, :invoices, :i_items, :trans, :customers
 
   def initialize(items, merchants, invoices, i_items, trans, customers)
     @items = ItemRepository.new(items, self)
