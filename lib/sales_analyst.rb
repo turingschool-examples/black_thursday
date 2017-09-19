@@ -127,10 +127,12 @@ class SalesAnalyst
   #
   # end
 
-  def test_date_from_invoices
+  def stuff
     # date_from_invoices
     # next_step
-      invoice_id_with_date
+      # invoice_id_with_date
+      # invoices_per_day
+      average_invoices_per_day
   end
 
 

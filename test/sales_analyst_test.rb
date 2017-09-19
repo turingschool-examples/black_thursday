@@ -71,9 +71,10 @@ class TestSalesAnalyst < Minitest::Test
   #   assert_instance_of Merchant, sa.top_merchants_by_invoice_count[0]
   # end
 
-  def test_it_changes_date_format
-    assert_equal [2009,2,7], sa.test_date_from_invoices
+  def test_it_does_stuff
+    assert_equal [], sa.stuff
   end
+
 
 
 end
