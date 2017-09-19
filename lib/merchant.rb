@@ -1,3 +1,5 @@
+require 'time'
+
 class Merchant
   attr_reader :id, :name, :sales_engine, :created_at
   # attr_accessor :items
