@@ -1,9 +1,10 @@
 require 'bigdecimal'
+require 'time'
 
 require './test/test_helper'
 require './lib/sales_analyst'
 
-return
+
 class SalesAnalystTest < Minitest::Test
 
   attr_reader :sales_engine, :sales_analyst
@@ -50,7 +51,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_invoice_per_merchant_returns_average_for_all_data
-    average = sales_analyst.average_invoice_per_merchan
+    average = sales_analyst.average_invoice_per_merchant
     assert_equal 10.49, average
   end
 
@@ -91,8 +92,24 @@ class SalesAnalystTest < Minitest::Test
     assert ranked.all?{ |merchant| merchant.is_a? Merchant }
   end
 
-  def test_top_revenue_earners_returns_something
-    refute "Sorry I'm frustrated but there's no way to write this or so many other tests without using the same or more complicated logic than the method I'm testing so what's even the point?  It's just calling first on another method we had to write!  And I've spent probably 9/10 of my time on this project testing.  Enough is enough.  And the the specs aren't awful, so wth kinda example is that?  I'm sick of this wax on wax off battleship."
+  def test_total_revenue_by_date_returns_total_for_that_day
+    date = Time.parse("2013-04-21")
+    assert_equal 383126, sales_analyst.total_revenue_by_date(date)
   end
+
+  def test_merchants_with_pending_invoices_returns_merchants_with_unsuccessful_transactions
+    assert_instance_of Array, sales_analyst.merchants_with_pending_invoices
+    assert_equal 13, sales_analyst.merchants_with_pending_invoices.count
+  end
+
+  def test_merchants_with_only_one_item_returns_an_array_with_merchant_selling_one_item
+    assert_instance_of Array, sales_analyst.merchants_with_only_one_item
+  end
+
+  def test_merchants_with_only_one_item_registered_in_month_returns_an_array
+    input = sales_analyst.merchants_with_only_one_item_registered_in_month("May")
+    assert_instance_of Array, input
+  end
+
 
 end

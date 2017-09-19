@@ -108,6 +108,59 @@ class SalesAnalyst
     end
   end
 
+  def total_revenue_by_date(date)
+    matching_invoices = @se.invoices.find_all do |invoice|
+      invoice.created_at == date
+    end
+
+    matching_invoices.map(&:total).sum
+  end
+
+  def merchant_paid_item_invoices_by_item_id(merchant_id)
+    merchant = @se.merchants.find_by_id(merchant_id)
+    paid_invoices = merchant.invoices.select(&:paid_in_full?)
+    iis = paid_invoices.flat_map(&:item_invoices)
+    iis.group_by(&:item_id)
+  end
+
+  def best_item(merchant_id)
+    item_invoices = merchant_paid_item_invoices_by_item_id(merchant_id)
+    item_revenues = item_invoices.transform_values do |list|
+      list.reduce(0) { |sum, ii| sum + ii.total }
+    end
+    best_id = item_revenues.max_by(&:last).first
+    @se.items.find_by_id(best_id)
+  end
+
+  def most_sold_item(merchant_id)
+    item_invoices = merchant_paid_item_invoices_by_item_id(merchant_id)
+    item_revenues = item_invoices.transform_values do |list|
+      list.reduce(0) { |sum, ii| sum + ii.quantity }
+    end
+    best_id = item_revenues.max_by(&:last).first
+    @se.items.find_by_id(best_id)
+  end
+
+  def merchants_with_pending_invoices
+    @se.merchants.all.select do |merchant|
+      merchant.invoices.any? do |invoice|
+        invoice.transactions.none?(&:success?).to_s
+      end
+    end
+  end
+
+  def merchants_with_only_one_item
+    @se.merchants.find_all do |merchant|
+      merchant.items.count == 1
+    end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month_name)
+    merchants_with_only_one_item.find_all do |merchant|
+      merchant.created_at.strftime('%B') == month_name
+    end
+  end
+
   def average_price
     average(@se.items.all) { |item| item.unit_price }
   end
