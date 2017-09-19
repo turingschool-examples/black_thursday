@@ -35,11 +35,7 @@ class Item
   def merchant
     id = merchant_id.to_i
     return 0 if id.nil?
-    # binding.pry
-    sales_engine = item_repository.sales_engine
-    merchants = sales_engine.merchants
-    #binding.pry
-    merchants.find_by_id(id)
+    item_repository.sales_engine.merchants.find_by_id(id)
   end
 
 end
