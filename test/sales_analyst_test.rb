@@ -14,7 +14,8 @@ class SalesAnalystTest < Minitest::Test
             :merchants => './test/fixtures/merchants_truncated_11.csv',
             :invoices => './test/fixtures/invoices_truncated_56.csv',
             :invoice_items => './test/fixtures/invoice_items_truncated_10.csv',
-            :customers => './test/fixtures/customers_truncated_10.csv'
+            :customers => './test/fixtures/customers_truncated_10.csv',
+            :transactions => './test/fixtures/transaction_truncated_10.csv'
           })
     @sa = SalesAnalyst.new(se)
   end
@@ -123,4 +124,17 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 5.36, sa.invoice_status(:returned)
   end
 
+  def test_merchants_with_only_one_item_returns_one
+    assert_equal 1, sa.merchants_with_only_one_item.count
+    assert_equal Merchant, sa.merchants_with_only_one_item.first.class
+  end
+
+  def test_merchants_with_only_one_item_registered_in_month
+    assert_equal 1, sa.merchants_with_only_one_item_registered_in_month('June').count
+    assert_instance_of Merchant, sa.merchants_with_only_one_item_registered_in_month('June').first.class
+  end
+
 end
+
+
+

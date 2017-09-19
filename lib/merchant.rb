@@ -1,13 +1,17 @@
+require 'time'
+
 class Merchant
 
   attr_reader :id,
               :name,
-              :parent
+              :parent,
+              :created_at
 
   def initialize(information, parent = nil)
     @id = information[:id]
     @name = information[:name]
     @parent = parent
+    @created_at = Time.parse(information[:created_at])
   end
 
   def items

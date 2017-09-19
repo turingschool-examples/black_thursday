@@ -1,4 +1,3 @@
-
 class SalesAnalyst
 
   def initialize(engine)
@@ -166,4 +165,28 @@ class SalesAnalyst
     end
     ((count / total_invoices_count.to_f) * 100).round(2)
   end
+
+  def merchants_with_only_one_item
+    @engine.merchants.all.select do |merchant|
+      merchant.items.count == 1
+    end 
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants_with_only_one_item.select do |merchant| 
+      merchant.created_at.month == Date::MONTHNAMES.index(month)
+    end
+  end
 end
+
+
+
+
+
+
+
+
+
+
+
+
