@@ -1,6 +1,7 @@
 require "csv"
 require_relative "merchant"
 require_relative "sales_engine"
+require 'pry'
 
 
 class MerchantRepository
@@ -52,8 +53,8 @@ class MerchantRepository
   end
 
   def merchants_registered_in_month(month)
-    all.map do |merchant|
-      puts merchant.created_at
+    all.select do |merchant|
+      merchant.created_at.month == Date::MONTHNAMES.index(month)
     end
   end
 

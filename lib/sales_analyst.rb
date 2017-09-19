@@ -128,6 +128,10 @@ class SalesAnalyst
 
   def merchants_with_only_one_item
     merchants = sales_engine.merchants.all
+    only_one_item(merchants)
+  end
+
+  def only_one_item(merchants)
     merchants.select do |merchant|
       merchant.items.count == 1
     end
@@ -153,7 +157,8 @@ class SalesAnalyst
   end
 
   def merchants_with_only_one_item_registered_in_month(month)
-
+    merchants_for_month = sales_engine.merchants.merchants_registered_in_month(month)
+    only_one_item(merchants_for_month)
   end
 
 end
