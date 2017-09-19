@@ -28,17 +28,15 @@ class Merchant
   end
 
   def total_revenue
+    return 0 if invoices.empty?
     invoices.map do |invoice|
-      invoice.total
-      # if invoice.transaction_success?
-      #   invoice.total
-      # else
-      #   0
-      # end
+      return 0 if @parent.parent.transactions.find_all_by_invoice_id(id).empty?
+      if invoice.transaction_success? && invoice.is_paid_in_full?
+        invoice.total
+      else
+        0
+      end
     end.inject(:+).round(2)
   end
-
-
-
 
 end
