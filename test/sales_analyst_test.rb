@@ -11,7 +11,7 @@ class SalesAnalystTest < MiniTest::Test
     :transactions => "./test/fixtures/transactions_fixture.csv",
     :invoice_items => './test/fixtures/invoice_items_fixture.csv',
     :customers => "./test/fixtures/customers_fixture.csv"
-    })  
+    })
 
     se.items
     se.transactions
@@ -111,5 +111,11 @@ class SalesAnalystTest < MiniTest::Test
 
     assert_instance_of Float, sa.standard_deviation_for_merchant_items
     assert_equal 2.83, sa.standard_deviation_for_merchant_items
+  end
+
+  def test_it_can_find_top_days_by_invoice_count
+    sa = setup
+
+    assert_equal ['Tuesday'], sa.top_days_by_invoice_count
   end
 end

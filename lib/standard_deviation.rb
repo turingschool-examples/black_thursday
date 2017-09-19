@@ -44,7 +44,6 @@ module StandardDeviation
   def daily_invoice_standard_deviation
     average = average_invoices_per_day
     days = number_of_invoices_by_day
-    #get the invoice count for the day and substract the average from it
     difference_from_average = days.map do |day, number|
       days[day] - average
     end
@@ -52,6 +51,6 @@ module StandardDeviation
 
     sum_of_squares = squared_values.sum
 
-    Math.sqrt(sum_of_squares / 7).round(2)
+    Math.sqrt(sum_of_squares / 6).round(2)
   end
 end

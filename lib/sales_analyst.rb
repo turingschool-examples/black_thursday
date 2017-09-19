@@ -95,6 +95,7 @@ class SalesAnalyst
     top_days = invoice_count_by_day.select do |day, number|
       invoice_count_by_day[day] > (average + std_dev)
     end
+    top_days.keys
   end
 
   def number_of_invoices_by_day
@@ -184,7 +185,7 @@ class SalesAnalyst
     BigDecimal.new(revenue, 4)
   end
 
-  
+
   # def merchant_revenue(merchant)
   #   revenue= 0.00
   #   merchant.items.each do |item|
