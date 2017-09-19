@@ -165,6 +165,7 @@ class SalesAnalyst
       end.sum.to_f * 100
     end
 
+  def top_revenue_earners(number = 20)
 
 
 
