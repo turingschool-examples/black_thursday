@@ -233,7 +233,6 @@ class SalesAnalyst
     se.items.all.group_by do |item|
       item.created_at.strftime('%B')
     end
-    require "pry"; binding.pry
   end
 
 
@@ -271,18 +270,12 @@ class SalesAnalyst
     #try sorting by invoice_item quantity, checking the max quantity and seeing if any other items match that # and then return it
     merchant = se.merchants.find_by_id(merchant_id)
     items = merchant.items
-    items.find do |item|
-      item.invoice_items.max_by do |invoice_item|
-        invoice_item.quantity
-      end
+
+    items_by_total_sold = items.group_by do |item|
+      total_sold_for_item(item)
     end
-    ## trying to compare the quantity of most sold item with other
-    # quantity_sold = most_sold_item.invoice_items.quantity.max
-    # other_items_with_most_sold = items.select do |item|
-    #   item.invoice_items.each do |invoice_item|
-    #     invoice_item.quantity == quantity_sold
-    #   end
-    # end
+    max_sold = items_by_total_sold.keys.max
+    items_by_total_sold[max_sold]
   end
 
 
