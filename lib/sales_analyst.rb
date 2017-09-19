@@ -167,6 +167,11 @@ include StandardDeviation
     end
   end
 
+  def merchants_with_only_one_item
+    se.merchants.all.select do |merchant|
+      merchant.items.count == 1
+    end
+  end
   # def merchant_revenue(merchant)
   #   revenue= 0.00
   #   merchant.items.each do |item|

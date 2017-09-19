@@ -63,5 +63,10 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 12, sa.merchants_with_pending_invoices.count
   end
 
+  def test_it_can_select_merchants_with_only_one_item
+    sa = setup
 
+    assert_instance_of Merchant, sa.merchants_with_only_one_item.first
+    assert_equal 11, sa.merchants_with_only_one_item.count
+  end
 end
