@@ -161,4 +161,9 @@ class SalesAnalyst
     only_one_item(merchants_for_month)
   end
 
+  def revenue_by_merchant(merchant_id)
+    merchant_invoices = sales_engine.merchants.find_by_id(merchant_id).invoices
+    merchant_invoices.map {|invoice| invoice.total}.sum
+  end
+
 end
