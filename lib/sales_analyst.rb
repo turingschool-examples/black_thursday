@@ -8,9 +8,9 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    merchants = @se.merchants.all.count.to_f
-    items = @se.items.all.count
-    rounded(items / merchants)
+    total_merchants = @se.merchants.all.count.to_f
+    total_items = @se.items.all.count
+    rounded(total_items / total_merchants)
   end
 
   def average_average_price_per_merchant

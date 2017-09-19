@@ -51,7 +51,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_invoice_per_merchant_returns_average_for_all_data
-    average = sales_analyst.average_invoice_per_merchant
+    average = sales_analyst.average_invoices_per_merchant
     assert_equal 10.49, average
   end
 
