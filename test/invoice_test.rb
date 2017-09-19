@@ -58,4 +58,14 @@ class InvoiceTest < Minitest::Test
     skip
     assert_equal [], invoice.items
   end
+
+  def test_transactions_returns_all_transactions_related_to_the_invoice
+    skip
+    assert_equal [], invoice.transactions
+  end
+
+  def test_customer_returns_customer_related_to_the_invoice
+    skip
+    assert_equal [], invoice.customer
+  end
 end

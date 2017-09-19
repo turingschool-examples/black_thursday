@@ -56,4 +56,5 @@ class Invoice
     @parent.parent.customer_invoice_id(customer_id)
   end
 
+      
 end
