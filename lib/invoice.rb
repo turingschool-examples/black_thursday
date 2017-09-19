@@ -38,6 +38,10 @@ class Invoice
     parent.invoice_customer(customer_id)
   end
 
+  def invoice_items
+    parent.invoice_items_for_invoice(id)
+  end
+
   def total
     parent.total(id)
   end

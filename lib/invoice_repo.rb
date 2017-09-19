@@ -59,4 +59,8 @@ class InvoiceRepo
     parent.total(id)
   end
 
+  def invoice_items_for_invoice(id)
+    parent.invoice_items_for_invoice(id)
+  end
+
 end

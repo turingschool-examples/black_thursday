@@ -118,8 +118,26 @@ class SalesEngine
   def most_sold_item_for_merchant(merchant_id)
     invoice_list = invoices.find_all_by_merchant_id(merchant_id)
     paid_invoices = invoice_list.select { |inv| inv.is_paid_in_full? }
-    sorted_invoices = paid_invoices.max_by { |inv| inv.quantity }
-    
+    # binding.pry
+    iis = paid_invoices.map { |ii| ii.invoice_items }
+    turn_to_items(top_item(iis))
+  end
+
+  def top_item(iis)
+    max = iis.flatten.max_by { |ii| ii.quantity }
+    top_items = iis.flatten.select do |ii|
+      ii.quantity == max.quantity
+    end
+  end
+
+  def turn_to_items(top_item)
+    top_item.flatten.map do |ii|
+      items.find_by_id(ii.item_id)
+    end
+  end
+
+  def invoice_items_for_invoice(id)
+    invoice_items.find_all_by_invoice_id(id)
   end
 
 end
