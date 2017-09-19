@@ -1,15 +1,18 @@
 require_relative "sales_engine"
-require 'pry'
 require_relative './merchant_math'
 require_relative './merchant_golden_items'
-require_relative './merchant_top_merchants_by_invoice_count'
+require_relative './merchant_merchants_by_invoice_count'
+require_relative "./merchant_top_days_by_invoice_count"
+require 'pry'
+require "date"
 
 
 class SalesAnalyst
 
   include MerchantMath
   include MerchantGoldenItems
-  include MerchantTopMerchantsByInvoiceCount
+  include MerchantMerchantsByInvoiceCount
+  include MerchantTopDaysByInvoiceCount
   #we can move these all back into a single module if needed -- I was just getting confused and needed to be able to separate the different methods and helper methods
 
   attr_reader :sales_engine
@@ -114,5 +117,22 @@ class SalesAnalyst
       sales_engine.merchants.find_by_id(id)
     end
   end
+
+
+  # def top_days_by_invoice_count
+  #   # On which days are invoices created at more than one standard deviation above the mean?
+  #   # should return ["Sunday", "Saturday"]
+  #
+  #
+  #
+  # end
+
+  def test_date_from_invoices
+    # date_from_invoices
+    # next_step
+      invoice_id_with_date
+  end
+
+
 
 end
