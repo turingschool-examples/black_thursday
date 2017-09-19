@@ -76,4 +76,12 @@ class SalesAnalystTest < MiniTest::Test
     assert_instance_of BigDecimal, sa.revenue_by_merchant(12334112)
     assert_equal 0.494478e4, sa.revenue_by_merchant(12334112)
   end
+
+  def test_find_golden_items
+    sa = setup
+
+    assert_instance_of Item, sa.golden_items.first
+    assert_equal 13, sa.golden_items.count
+  end
+
 end

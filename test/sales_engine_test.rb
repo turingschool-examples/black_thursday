@@ -69,12 +69,4 @@ class SalesEngineTest < MiniTest::Test
     assert_equal 797.2727272727273, se.average_average_price_per_merchant
   end
 
-  def test_find_golden_items
-    se = setup
-
-    assert_instance_of Array, se.golden_items
-    assert_equal 13, se.golden_items.count
-  end
-  
-
 end
