@@ -45,9 +45,17 @@ class InvoiceRepository
       invoice.status == search_status
     end
   end
-  
-  def inspect
-    "#<#{self.class} #{@items.size} rows>"
+
+  def find_all_by_date(date)
+    @invoices.find_all do |invoice|
+      creation_date = invoice.created_at.to_s
+      creation_date.include?(date)
+    end
   end
+
+  #
+  # def inspect
+  #   "#<#{self.class} #{@items.size} rows>"
+  # end
 
 end

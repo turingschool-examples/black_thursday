@@ -88,5 +88,18 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 4, invoices.count
   end
 
+  def test_it_finds_all_by_date_returns_empty_array_if_no_match
+    invoices = @repository.find_all_by_date('2003-05-01')
+
+    assert_empty(invoices)
+  end
+
+  def test_it_finds_all_by_date
+    invoices = @repository.find_all_by_date('2003-05-16')
+
+    assert_equal 1, invoices.count
+  end
+
+
 
 end
