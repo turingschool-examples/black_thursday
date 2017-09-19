@@ -178,46 +178,66 @@ class SalesAnalyst
   end
 
 
-  def merchants_with_only_one_item_registered_in_month(month_name)
-    merchant_by_month = merchant_by_month_created
-    #for each merchant, group their invoices by month created
-    merchants = merchant_by_month[month_name]
-    one_item_merchants = merchants.select do |merchant|
-      #what sort of truth condition are we going to get here?
-      items_by_month = merchant.items.group_by do |item|
-        item.created_at.strftime('%B')
-      end
-      if items_by_month[month_name].nil?
-        false
-      else
-        items_by_month[month_name].count == 1
-      end
-    end
-    one_item_merchants
-  end
+  # def merchants_with_only_one_item_registered_in_month(month_name)
+  #   merchant_by_month = merchant_by_month_created
+  #   #for each merchant, group their invoices by month created
+  #   merchants = merchant_by_month[month_name]
+  #   one_item_merchants = merchants.select do |merchant|
+  #     #what sort of truth condition are we going to get here?
+  #     items_by_month = merchant.items.group_by do |item|
+  #       item.updated_at.strftime('%B')
+  #     end
+  #     if items_by_month[month_name].nil?
+  #       false
+  #     else
+  #       items_by_month[month_name].count == 1
+  #     end
+  #
+  #   end
+  #   one_item_merchants
+  # end
 
 
 
   # def merchants_with_only_one_item_registered_in_month(month_name)
   #   merchant_by_month = merchant_by_month_created
-  #   one_invoice_merchants = merchant_by_month[month_name].select do |merchant|
-  #       invoice_in_month?(merchant, month_name)
+  #   one_item_merchants = merchant_by_month[month_name].select do |merchant|
+  #       item_in_month?(merchant, month_name)
   #   end
-  #   one_invoice_merchants
+  #   one_item_merchants
   # end
 
-  def invoice_in_month?(merchant, month_name)
-    invoices_in_month = merchant.invoices.select do |invoice|
-      invoice.created_at.strftime('%B') == month_name
+  def merchants_with_only_one_item_registered_in_month(month_name)
+    one_item_merchants_by_month = merchants_with_only_one_item.group_by do |merchant|
+      merchant.created_at.strftime('%B')
     end
-    invoices_in_month.length == 1
+    one_item_merchants_by_month[month_name]
+  end
+
+
+
+  def item_in_month?(merchant, month_name)
+    items_in_month = merchant.items.select do |item|
+      item.created_at.strftime('%B') == month_name
+    end
+    items_in_month.length == 1
   end
 
   def merchant_by_month_created
-    merchant_by_month = se.merchants.all.group_by do |merchant|
+    se.merchants.all.group_by do |merchant|
       merchant.created_at.strftime('%B')
     end
   end
+
+  def item_by_month_created
+    se.items.all.group_by do |item|
+      item.created_at.strftime('%B')
+    end
+    require "pry"; binding.pry
+  end
+
+
+
   # def revenue_by_merchant(merchant_id)
   #   revenue= 0.00
   #   merchant = se.merchants.find_by_id(merchant_id)
