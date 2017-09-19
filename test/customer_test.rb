@@ -28,4 +28,13 @@ class CustomerTest < Minitest::Test
     assert_instance_of Time, customer.updated_at
     assert_instance_of SalesEngine, customer.engine
   end
+
+  def test_it_can_find_merchants_associated_with_customer
+    customer = @customers[0]
+    customer_merchants = customer.merchants
+
+    assert_equal 1, customer_merchants.count
+    assert_instance_of Merchant, customer_merchants[0]
+    assert_equal 12334185, customer_merchants[0].id
+  end
 end

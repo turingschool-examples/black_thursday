@@ -1,7 +1,9 @@
 require 'csv'
 require 'time'
+require_relative 'unit_price'
 
 class Invoice
+  include UnitPrice
 
   attr_reader :id, :created_at, :updated_at, :merchant_id, :customer_id, :status, :engine
 
@@ -45,5 +47,24 @@ class Invoice
   def customer
     @engine.customers.find_by_id(@customer_id)
   end
+
+  def is_paid_in_full?
+    all_transactions = transactions
+    all_transactions.each do |transaction|
+      return true if transaction.result == 'success'
+    end
+    false
+  end
+
+  def total
+    if is_paid_in_full?
+      sales = @engine.invoice_items.find_all_by_invoice_id(@id)
+      total = sales.reduce(0) do |result, invoice_item|
+        revenue = invoice_item.quantity * invoice_item.unit_price
+        result + revenue
+      end
+    end
+  end
+
 
 end

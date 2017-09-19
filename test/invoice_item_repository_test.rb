@@ -13,7 +13,7 @@ class InvoiceRepositoryTest < Minitest::Test
     transaction_file_path = './test/fixtures/transactions_truncated.csv'
     engine = SalesEngine.new(item_file_path, merchant_file_path, invoice_file_path, invoice_item_file_path, customer_file_path, transaction_file_path)
     @repository = engine.invoice_items
-    @invoice_items = engine.invoice_items_list
+    @invoice_items = engine.invoice_item_list
   end
 
   def test_it_exists
@@ -35,11 +35,11 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_it_finds_all_items_with_matching_item_id
     invoice_items = @repository.find_all_by_item_id(263443369)
 
-    assert_equal 1, invoices_items.count
+    assert_equal 1, invoice_items.count
 
     invoice_items = @repository.find_all_by_item_id('263443369')
 
-    assert_equal 1, invoices.count
+    assert_equal 1, invoice_items.count
   end
 
   def test_find_all_by_invoice_id_returns_empty_if_no_match
@@ -49,7 +49,7 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_it_finds_all_items_with_matching_invoice_id
     invoice_items = @repository.find_all_by_invoice_id(1495)
 
-    assert_equal 6, invoices.count
+    assert_equal 6, invoice_items.count
   end
 
 end

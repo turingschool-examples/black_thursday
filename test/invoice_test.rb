@@ -79,7 +79,21 @@ class InvoiceTest < Minitest::Test
     assert_equal 297, customer_for_invoice.id
   end
 
+  def test_it_knows_if_it_is_paid_in_full
+    invoice = @invoice_repo.find_by_id(1495)
 
+    assert invoice.is_paid_in_full?
+
+    invoice = @invoice_repo.find_by_id(1695)
+
+    refute invoice.is_paid_in_full?
+  end
+
+  def test_it_can_find_total_revenue
+    invoice = @invoice_repo.find_by_id(1495)
+
+    assert_equal 15620.53, invoice.total
+  end
 
 
 end

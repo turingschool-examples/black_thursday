@@ -41,4 +41,12 @@ class MerchantTest < Minitest::Test
     assert_equal 10, merchant.invoices.count
   end
 
+  def test_it_can_find_customers_associated_with_merchant
+    merchant = @merchants[-1]
+    merchant_customers = merchant.customers
+
+    assert_equal 10, merchant_customers.count
+    assert_instance_of Customer, merchant_customers[0]
+    assert_equal 297, merchant_customers[0].id
+  end
 end

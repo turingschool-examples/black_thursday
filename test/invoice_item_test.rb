@@ -24,7 +24,7 @@ class InvoiceItemTest < Minitest::Test
     assert_equal 6667, invoice_item.id
     assert_equal 263443369, invoice_item.item_id
     assert_equal 1495, invoice_item.invoice_id
-    assert_equal 32321, invoice_item.unit_price
+    assert_equal 323.21, invoice_item.unit_price
     assert_equal 3, invoice_item.quantity
     assert_instance_of Time, invoice_item.created_at
     assert_instance_of Time, invoice_item.updated_at

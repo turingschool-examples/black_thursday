@@ -33,7 +33,7 @@ class TransactionRepository
   end
 
   def find_all_by_credit_card_number(search_card_number)
-    search_card_number = search_card_number.to_s
+    search_card_number = search_card_number.to_i
     @transactions.find_all do |transaction|
       transaction.credit_card_number == search_card_number
     end
@@ -46,8 +46,8 @@ class TransactionRepository
     end
   end
 
-  # def inspect
-  #   "#<#{self.class} #{@items.size} rows>"
-  # end
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
+  end
 
 end

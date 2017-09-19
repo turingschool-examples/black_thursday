@@ -16,6 +16,15 @@ class Merchant
     @engine.invoices.find_all_by_merchant_id(@id)
   end
 
+  def customers
+    merchant_invoices = invoices
+    customer_ids = merchant_invoices.map {|invoice| invoice.customer_id}
+    customers = customer_ids.map do |customer_id|
+      @engine.customers.find_by_id(customer_id)
+    end
+    customers.uniq
+  end
+
   def inspect
     "#<#{self.class} #{@items.size} rows>"
   end
