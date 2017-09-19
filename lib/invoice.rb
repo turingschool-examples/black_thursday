@@ -8,7 +8,8 @@ class Invoice
               :merchant_id,
               :status,
               :created_at,
-              :updated_at
+              :updated_at,
+              :parent
 
   def initialize(data, repo = nil)
     @parent      = repo
@@ -45,6 +46,10 @@ class Invoice
 
   def items
     @parent.invoice_items_list(self.id)
+  end
+
+  def transactions
+    @parent.parent.transactions_invoice_id(id)
   end
 
 end

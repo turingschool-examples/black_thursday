@@ -51,5 +51,8 @@ class SalesEngine
     invoice_item_ids_list(id).map { |i| self.items.find_by_id(i) }
   end
 
-  # items repo return all items by item id's
+  def transactions_invoice_id(invoice_id)
+    transactions.find_all_by_invoice_id(invoice_id)
+  end
+
 end

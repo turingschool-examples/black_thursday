@@ -55,6 +55,7 @@ class InvoiceTest < Minitest::Test
   # end
 
   def test_invoice_items_returns_all_items_related_to_the_invoice
+    skip
     assert_equal [], invoice.items
   end
 end
