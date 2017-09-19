@@ -178,35 +178,35 @@ class SalesAnalyst
   end
 
 
-  #this is stupidly returning a weird stupidly high number
   def merchants_with_only_one_item_registered_in_month(month_name)
-    #iterate through every merchant
-    one_invoice_merchants = se.merchants.all.select do |merchant|
-      #need a truth condition here tied to whether the merchant has any invoices in month
-      #invoices_in_month = merchant.invoices.select do |invoice|
+    merchant_by_month = merchant_by_month_created
+    one_invoice_merchants = merchant_by_month[month_name].select do |merchant|
         invoice_in_month?(merchant, month_name)
-      #   invoice.created_at.strftime('%B') == month_name
-
-      # invoices_in_month.length == 1
     end
-    one_invoice_merchants.uniq
+    one_invoice_merchants
   end
 
   def invoice_in_month?(merchant, month_name)
     invoices_in_month = merchant.invoices.select do |invoice|
       invoice.created_at.strftime('%B') == month_name
     end
+    require "pry"; binding.pry
     invoices_in_month.length == 1
   end
 
-  def revenue_by_merchant(merchant_id)
-    revenue= 0.00
-    merchant = se.merchants.find_by_id(merchant_id)
-    merchant.invoices.each do |invoice|
-      revenue += invoice.total if invoice.is_paid_in_full?
+  def merchant_by_month_created
+    merchant_by_month = se.merchants.all.group_by do |merchant|
+      merchant.created_at.strftime('%B')
     end
-    revenue
   end
+  # def revenue_by_merchant(merchant_id)
+  #   revenue= 0.00
+  #   merchant = se.merchants.find_by_id(merchant_id)
+  #   merchant.invoices.each do |invoice|
+  #     revenue += invoice.total if invoice.is_paid_in_full?
+  #   end
+  #   revenue
+  # end
 
 
   def merchants_with_only_one_item

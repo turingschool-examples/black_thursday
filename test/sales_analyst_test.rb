@@ -91,4 +91,21 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 'Adidas Breitner Super Fußballschuh', @sa.most_sold_item_for_merchant(12334123).name
   end
 
+  def test_it_can_sort_merchants_by_month_created
+    assert_equal 12, @sa.merchant_by_month_created.keys.count
+  end
+
+  def test_it_can_tell_if_invoice_is_in_given_month
+    merchant1 = @sa.se.merchants.find_by_id(12334183)
+    merchant2 = @sa.se.merchants.find_by_id(12334132)
+
+    refute @sa.invoice_in_month?(merchant2, "March")
+    assert @sa.invoice_in_month?(merchant1, "October")
+  end
+
+  def test_it_can_find_merchants_with_one_invoice_in_month_they_were_created
+    assert_equal 0, @sa.merchants_with_only_one_item_registered_in_month("October").count
+
+  end
+
 end
