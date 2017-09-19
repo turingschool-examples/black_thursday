@@ -36,7 +36,6 @@ class SalesEngineTest < MiniTest::Test
   def test_it_can_find_the_items_for_each_merchant
     se = setup
 
-    assert_instance_of Array, se.merchant_item_count
     assert_equal 21, se.merchant_item_count.count
     assert_equal 2,se.merchant_item_count[0]
     assert_equal 11, se.merchant_item_count[4]

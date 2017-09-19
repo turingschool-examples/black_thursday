@@ -183,6 +183,8 @@ class SalesAnalyst
     revenue = merchant_revenue(merchant)
     BigDecimal.new(revenue, 4)
   end
+
+  
   # def merchant_revenue(merchant)
   #   revenue= 0.00
   #   merchant.items.each do |item|

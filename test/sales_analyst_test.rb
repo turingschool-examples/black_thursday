@@ -11,7 +11,7 @@ class SalesAnalystTest < MiniTest::Test
     :transactions => "./test/fixtures/transactions_fixture.csv",
     :invoice_items => './test/fixtures/invoice_items_fixture.csv',
     :customers => "./test/fixtures/customers_fixture.csv"
-    })
+    })  
 
     se.items
     se.transactions
