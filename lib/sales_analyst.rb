@@ -118,12 +118,12 @@ class SalesAnalyst
 
   def merchant_paid_item_invoices_by_item_id(merchant_id)
     merchant = @se.merchants.find_by_id(merchant_id)
-    paid_invoices = merchant.invoices.select(&:paid_in_full?)
-    iis = paid_invoices.flat_map(&:item_invoices)
+    paid_invoices = merchant.invoices.select(&:is_paid_in_full?)
+    iis = paid_invoices.flat_map(&:invoice_items)
     iis.group_by(&:item_id)
   end
 
-  def best_item(merchant_id)
+  def best_item_for_merchant(merchant_id)
     item_invoices = merchant_paid_item_invoices_by_item_id(merchant_id)
     item_revenues = item_invoices.transform_values do |list|
       list.reduce(0) { |sum, ii| sum + ii.total }
@@ -132,7 +132,7 @@ class SalesAnalyst
     @se.items.find_by_id(best_id)
   end
 
-  def most_sold_item(merchant_id)
+  def most_sold_item_for_merchant(merchant_id)
     item_invoices = merchant_paid_item_invoices_by_item_id(merchant_id)
     item_revenues = item_invoices.transform_values do |list|
       list.reduce(0) { |sum, ii| sum + ii.quantity }
@@ -144,7 +144,7 @@ class SalesAnalyst
   def merchants_with_pending_invoices
     @se.merchants.all.select do |merchant|
       merchant.invoices.any? do |invoice|
-        invoice.transactions.none?(&:success?).to_s
+        invoice.transactions.none?(&:success?)
       end
     end
   end
