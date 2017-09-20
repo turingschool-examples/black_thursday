@@ -10,6 +10,10 @@ module Finder
     sales_engine.merchants.find_by_id(merchant_id).invoices
   end
 
+  def merchant_items(merchant_id)
+    sales_engine.items.find_all_by_merchant_id(merchant_id)
+  end
+
   def merchants
     sales_engine.merchants.all
   end

@@ -166,58 +166,6 @@ class SalesAnalyst
     merchant_invoices(merchant_id).map {|invoice| invoice.total}.sum
   end
 
-
-  def most_sold_item_for_merchant(merchant_id)
-
-    ###could try using this from the item repo:
-    ###items.find_all_by_merchant_id(merchant_id) should return all items per merchant. Then find the item which occurs most in the array by using a hash?
-
-    # merchant_id = 12336617
-    # items_and_qty_hash = Hash.new(0)
-    # all_items = sales_engine.items.find_all_by_merchant_id(merchant_id)
-    # all_items.each do |item|
-    #   items_and_qty_hash[item] += 1
-    # end
-    # puts items_and_qty_hash
-    # array = items_and_qty_hash.max_by do |key, value|
-    #   value
-    #   #returns an array containing [key, value]
-    # end
-    # puts array
-    #  #this should return the item_id
-
-
-    #
-    # #####################################
-    # invoices = sales_engine.invoices.find_all_by_merchant_id(merchant_id)
-    # ###collects all invoices for a merchant
-    # invoice_items = invoices.map {|invoice| invoice.invoice_items}.flatten
-    # ###get an array of each item on each invoice, and flatten.
-    #
-    # # binding.pry
-    # invoice_item_quantities = invoice_items.map do |invoice_item|
-    #                             {invoice_item.item_id => invoice_item.quantity}
-    #                           end
-    # ###creates a hash of item_id => qty
-    #
-    # item_quantities =
-    #   invoice_item_quantities.reduce do |item_quantity, invoice_item|
-    #     item_quantity.merge(invoice_item) {|key, oldval, newval| newval + oldval}
-    #   end
-    # ###trying to merge the values so there is 1 key per value
-    #
-    # # binding.pry
-    # item_id_quantities = item_quantities.each_value {|quantity| quantity}.max
-    # ### of the values, find the max value
-    #
-    # # binding.pry
-    # item_ids = item_id_quantities.select.with_index {|id, i| i.even?}
-    # # binding.pry
-    # item_ids.map do |item_id|
-    #   sales_engine.items.find_by_id(item_id)
-    # end
-  end
-
   def merchants_ranked_by_revenue
     top_revenue_by_id = single_merchant_id_with_total_revenue.map { |key, value| key }
     top_merchants = []
@@ -230,6 +178,51 @@ class SalesAnalyst
   def top_revenue_earners(number = 20)
     range = (number-1)
     merchants_ranked_by_revenue[0..range]
+  end
+
+  ######
+
+  def most_sold_item_for_merchant(merchant_id)
+    largest_quantity_item_ids(merchant_id).map do |item_id|
+      sales_engine.items.find_by_id(item_id)
+    end
+  end
+
+  def merchant_invoices(merchant_id)
+    merchant = sales_engine.merchants.find_by_id(merchant_id)
+    merchant.invoices
+  end
+
+  def merchant_invoices_paid_in_full(merchant_id)
+    merchant_invoices(merchant_id).select do |invoice|
+      invoice.is_paid_in_full?
+    end
+  end
+
+  def invoices_to_invoice_items(merchant_id)
+    merchant_invoices_paid_in_full(merchant_id).map do |invoice|
+      invoice.invoice_items
+    end.flatten
+  end
+
+  def item_quantities(merchant_id)
+    item_quantity = {}
+    invoices_to_invoice_items(merchant_id).map do |invoice_item|
+      i_q = {invoice_item.item_id => invoice_item.quantity}
+      item_quantity.merge!(i_q){|key, oldval, newval| newval + oldval}
+    end
+    item_quantity
+  end
+
+  def largest_quantity(merchant_id)
+    item_quantities(merchant_id).values.max
+  end
+
+  def largest_quantity_item_ids(merchant_id)
+    largest_quantity = largest_quantity(merchant_id)
+    item_quantities(merchant_id).select do |key,value|
+      value == largest_quantity
+    end.keys
   end
 
 end
