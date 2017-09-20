@@ -8,8 +8,8 @@ class CustomerTest < Minitest::Test
       :id => 6,
       :first_name => "Joan",
       :last_name => "Clarke",
-      :created_at => Time.now,
-      :updated_at => Time.now
+      :created_at => "2012-03-27 14:54:09 UTC",
+      :updated_at => "2012-03-27 14:54:09 UTC"
     })
   end
 
