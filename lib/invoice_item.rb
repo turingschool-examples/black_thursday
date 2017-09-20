@@ -19,7 +19,7 @@ class InvoiceItem
     @id           = data[:id].to_i
     @item_id      = data[:item_id].to_i
     @invoice_id   = data[:invoice_id].to_i
-    @quanity      = data[:quantity]
+    @quantity      = data[:quantity]
     @price       = BigDecimal.new(data[:unit_price])
     @unit_price  = unit_price_to_dollars(@price)
     @created_at   = Time.parse(data[:created_at].to_s)
@@ -31,7 +31,7 @@ class InvoiceItem
     unit_price / 100
   end
 
-  def total_price
+  def total
     unit_price_to_dollars * quantity.to_i
   end
 end
