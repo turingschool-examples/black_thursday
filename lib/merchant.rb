@@ -1,0 +1,29 @@
+require_relative 'repository/record'
+
+
+class Merchant < Repository::Record
+
+  attr_reader :name
+  def initialize(repo, fields)
+    super(repo, fields)
+    @name = fields[:name]
+  end
+
+  def items
+    repo.children(:items, id)
+  end
+
+  def invoices
+    repo.children(:invoices, id)
+  end
+
+  def customers
+    invoices.map{ |invoice| invoice.customer }.uniq
+  end
+
+
+  def total_revenue
+    invoices.reduce(0){ |sum, invoice| sum + invoice.total }
+  end
+
+end
