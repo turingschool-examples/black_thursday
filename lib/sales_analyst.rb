@@ -158,5 +158,11 @@ class SalesAnalyst
     total.round(2)
   end
 
+  def merchants_with_only_one_item
+    @merchants.all.select do |merchant|
+      merchant.items.count == 1
+    end
+  end
+
 
 end

@@ -45,7 +45,7 @@ class Invoice
   end
 
   def items
-    @parent.invoice_items_list(self.id)
+    parent.invoice_items_list(self.id)
   end
 
   def transactions

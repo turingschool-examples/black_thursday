@@ -36,7 +36,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_invoices_standard_deviation
-    assert_equal 3.29, sa.average_invoices_per_merchant_standard_deviation
+    assert_equal 2.45, sa.average_invoices_per_merchant_standard_deviation
   end
 
   def test_for_top_merchant_by_invoice
@@ -55,6 +55,10 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 32.44, sa.invoice_status(:pending)
     assert_equal 55.52, sa.invoice_status(:shipped)
     assert_equal 12.04, sa.invoice_status(:returned)
+  end
+
+  def test_for_merchants_with_only_one_item
+    assert_equal 19, sa.merchants_with_only_one_item.length
   end
 
 
