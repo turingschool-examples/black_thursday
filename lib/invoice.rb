@@ -57,16 +57,15 @@ class Invoice
   end
 
   def total
-    return 0 unless is_paid_in_full?
-    return 0 if @parent.parent.transactions.find_all_by_invoice_id(id).empty?
     invoice_items = @parent.parent.invoice_items.all.find_all do |invoice_item|
       invoice_item.invoice_id == @id
     end
     return 0 if invoice_items.empty?
+    return 0 unless is_paid_in_full?
+    return 0 if @parent.parent.transactions.find_all_by_invoice_id(id).empty?
     total = invoice_items.map do |invoice_item|
       invoice_item.unit_price * invoice_item.quantity
-    end
-    (total.inject(:+)).round(2)
+    end.inject(:+).round(2)
   end
 
   def transaction_success?
@@ -79,5 +78,7 @@ class Invoice
       false
     end
   end
+
+
 
 end
