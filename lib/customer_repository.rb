@@ -12,7 +12,8 @@ class CustomerRepository
 
   def from_csv(file_path)
     customers = []
-    CSV.foreach(file_path, headers: true, header_converters: :symbol, converters: :numeric ) do |row|
+    options = {headers: true, header_converters: :symbol, converters: :numeric}
+    CSV.foreach(file_path, options ) do |row|
       customers << Customer.new(row, self)
     end
     customers
