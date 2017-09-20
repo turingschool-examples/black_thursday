@@ -62,9 +62,9 @@ class Invoice
   end
 
   def total
-    if is_paid_in_full?
-      @parent.parent.invoice_items_unit_price(unit_price)
+    total = @parent.parent.invoice_items.find_by_id(invoice_id)
+    total.map do |invoice|
+      invoice.quanty * invoice.unit_price
     end
   end
-
 end
