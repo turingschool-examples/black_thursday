@@ -111,28 +111,13 @@ class SalesAnalyst
   end
 
   def top_revenue_earners(n = 20)
-    grouped_invoices = paid_invoices.group_by do |invoice|
-      invoice.merchant_id
-    end
+    merchants_ranked_by_revenue[0,n]
+  end
 
-    grouped_invoices.each_value do |invoice|
-      invoice.map! {|invoice| invoice.total}
-    end
-
-    merchant_totals = grouped_invoices.keys.sort_by do |merchant_id|
-      grouped_invoices[merchant_id].reduce(:+)
-    end
-
-    top_merchants = merchant_totals.map do |merch|
-      se.merchants.find_by_id(merch)
-    end
-
-    return top_merchants.reverse[0..n-1]
-
-    # sorted_merchants = se.merchants.merchants.sort_by do |merchant|
-    #   merchant_revenue(merchant)
-    # end
-    # top_earners = sorted_merchants.reverse[0,n]
+  def merchants_ranked_by_revenue
+    se.merchants.merchants.sort_by do |merchant|
+      merchant_revenue(merchant)
+    end.reverse
   end
 
   def merchant_revenue(merchant)
