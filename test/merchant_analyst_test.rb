@@ -4,8 +4,8 @@ require './lib/sales_analyst'
 class MerchantAnalystTest < Minitest::Test
 
   def setup
-    item_file_path = './test/fixtures/items_truncated.csv'
-    merchant_file_path = './test/fixtures/merchants_truncated.csv'
+    item_file_path = './test/fixtures/merchant_analyst_item_sample.csv'
+    merchant_file_path = './test/fixtures/merchant_analyst_merchant_sample.csv'
     invoice_file_path = './test/fixtures/invoices_truncated.csv'
     invoice_item_file_path = './test/fixtures/invoice_items_truncated.csv'
     customer_file_path = './test/fixtures/customers_truncated.csv'
@@ -20,8 +20,8 @@ class MerchantAnalystTest < Minitest::Test
     assert_equal 15620.53, revenue
   end
 
-  def test_revenue_per_merchant_returns_hash_with_merchant_id_key_and_revenue_value
-    assert_equal 15620.53, @analyst.revenue_per_merchant(12334185)
+  def test_revenue_by_merchant_returns_total_revenue_value_for_merchant
+    assert_equal 15620.53, @analyst.revenue_by_merchant(12334185)
   end
 
   def test_total_revenue_for_all_merchants_returns_hash_with_merchant_id_key_and_revenue_value
@@ -50,12 +50,30 @@ class MerchantAnalystTest < Minitest::Test
     one_item_merchants = @analyst.merchants_with_only_one_item
 
     assert_equal 12334969, one_item_merchants[0].id
+    assert_equal 12334727, one_item_merchants[-1].id
     assert_instance_of Merchant, one_item_merchants[0]
-    assert_equal 1, one_item_merchants.count
+    assert_equal 2, one_item_merchants.count
   end
 
   def test_it_finds_merchants_with_only_one_item_registered_in_month
-    
+    month_merchant =  @analyst.merchants_with_only_one_item_registered_in_month("June")
+
+    assert_equal 12334969, month_merchant[0].id
+    assert_instance_of Merchant, month_merchant[0]
+    assert_equal 1, month_merchant.count
+  end
+
+  def test_it_finds_most_sold_item_for_merchant
+    most_sold = @analyst.most_sold_item_for_merchant(12334185)
+
+    assert_equal 263409041, most_sold[0].id
+  end
+
+  def test_it_can_find_best_item_for_merchant_by_highest_revenue
+    best_item = @analyst.best_item_for_merchant(12334185)
+
+    assert_equal 263409041, best_item.id
+  end
 
 
 end
