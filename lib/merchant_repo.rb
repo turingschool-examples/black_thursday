@@ -1,5 +1,6 @@
 require 'csv'
 require_relative 'merchant'
+require 'date'
 require 'pry'
 
 class MerchantRepo
@@ -31,7 +32,9 @@ class MerchantRepo
   end
 
   def find_all_by_name(name)
-    merchants.find_all { |merchant| merchant.name.downcase.include?(name.downcase) }
+    merchants.find_all do |merchant|
+      merchant.name.downcase.include?(name.downcase)
+    end
   end
 
   def merchant_invoices(id)
@@ -44,6 +47,14 @@ class MerchantRepo
 
   def merchant_customers(id)
     parent.merchant_customers(id)
+  end
+
+  def merchants_by_total_revenue
+    all.sort_by { |merchant| merchant.total_revenue }.reverse
+  end
+
+  def revenue_by_merchant(merchant_id)
+    merchants.find { |merch| merch.id == merchant_id }.total_revenue
   end
 
 end

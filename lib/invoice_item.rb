@@ -25,4 +25,8 @@ class InvoiceItem
     unit_price / 100
   end
 
+  def prices
+    unit_price * quantity
+  end
+
 end

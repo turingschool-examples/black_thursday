@@ -99,11 +99,55 @@ class SalesEngine
   end
 
   def total(id)
+  return 0 if !invoices.find_by_id(id).is_paid_in_full?
   selected_invoices = invoice_items.find_all_by_invoice_id(id)
   totals_of_invoice_items = selected_invoices.map do |invoice_item|
     (invoice_item.quantity * invoice_item.unit_price)
     end
     totals_of_invoice_items.reduce(:+)
+  end
+
+  def merchants_by_total_revenue
+    merchants.merchants_by_total_revenue
+  end
+
+  def revenue_by_merchant(merchant_id)
+    merchants.revenue_by_merchant(merchant_id)
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    invoice_list = invoices.find_all_by_merchant_id(merchant_id)
+    paid_invoices = invoice_list.select { |inv| inv.is_paid_in_full? }
+    iis = paid_invoices.map { |ii| ii.invoice_items }
+    turn_to_items(top_item(iis))
+  end
+
+  def top_item(iis)
+    max = iis.flatten.max_by { |ii| ii.quantity }
+    iis.flatten.select do |ii|
+      ii.quantity == max.quantity
+    end
+  end
+
+  def turn_to_items(top_item)
+    top_item.flatten.map do |ii|
+      items.find_by_id(ii.item_id)
+    end
+  end
+
+  def invoice_items_for_invoice(id)
+    invoice_items.find_all_by_invoice_id(id)
+  end
+
+  def best_item_for_merchant(merchant_id)
+    merchant = merchants.find_by_id(merchant_id)
+    paid_invoices = merchant.invoices.select { |inv| inv.is_paid_in_full? }
+    paid_iis = paid_invoices.map { |inv| inv.invoice_items }.flatten
+    id_p_array = paid_iis.map { |ii| [ii.id, ii.prices] }
+    max_by_p = id_p_array.max_by { |ii| ii[1] }
+    ii_id = max_by_p[0]
+    ii = invoice_items.find_by_id(ii_id).item_id
+    items.find_by_id(ii)
   end
 
 end
