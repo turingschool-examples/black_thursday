@@ -22,7 +22,7 @@ class Invoice
   end
 
   def merchant
-    @parent.merchant_item(merchant_id)
+    @parent.parent.merchant_item(merchant_id)
   end
 
   def weekday_time
@@ -58,13 +58,14 @@ class Invoice
 
   def is_paid_in_full?
     return false if transactions.empty?
+    # possibly refactor for any
     transactions.any? {|transaction| transaction.result == "success"}
   end
 
   def total
-    total = @parent.parent.invoice_items.find_by_id(invoice_id)
-    total.map do |invoice|
-      invoice.quanty * invoice.unit_price
-    end
+    return 0 if !self.is_paid_in_full?
+    invoice_items.inject(0) do |sum, invoice_item_instance|
+      sum += invoice_item_instance.quantity * invoice_item_instance.unit_price
+      end
   end
 end
