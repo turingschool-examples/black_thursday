@@ -36,32 +36,26 @@ class SalesEngine
 
   def merchants
       @merchant_repository ||= MerchantRepository.new(@merchant_csv_file, self)
-      @merchant_repository
   end
 
   def items
       @item_repository ||= ItemRepository.new(@item_csv_file, self)
-      @item_repository
   end
 
   def invoices
       @invoice_repository ||= InvoiceRepository.new(@invoice_csv_file, self)
-      @invoice_repository
   end
 
   def customers
       @customer_repository ||= CustomerRepository.new(@customer_csv_file, self)
-      @customer_repository
   end
 
   def invoice_items
       @invoice_items ||= InvoiceItemRepository.new(@invoice_item_csv_file, self)
-      @invoice_items
   end
 
   def transactions
       @transactions ||= TransactionRepository.new(@transaction_csv_file, self)
-      @transactions
   end
 
   def total_merchants
