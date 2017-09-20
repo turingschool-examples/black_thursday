@@ -1,6 +1,5 @@
 require_relative 'sales_engine'
 require_relative 'standard_deviation'
-require 'time'
 require 'bigdecimal'
 
 class SalesAnalyst
@@ -31,7 +30,7 @@ class SalesAnalyst
       total_price + item.unit_price
     end
     if not total_item_price == 0
-      return (total_item_price /merchant.items.count).round(2)
+      return (total_item_price / merchant.items.count).round(2)
     else
       return 0
     end
@@ -138,40 +137,9 @@ class SalesAnalyst
     end
   end
 
-
   def paid_invoices
     se.invoices.all.select {|invoice| invoice.is_paid_in_full?}
   end
-
-
-  # def merchants_with_only_one_item_registered_in_month(month_name)
-  #   merchant_by_month = merchant_by_month_created
-  #   #for each merchant, group their invoices by month created
-  #   merchants = merchant_by_month[month_name]
-  #   one_item_merchants = merchants.select do |merchant|
-  #     #what sort of truth condition are we going to get here?
-  #     items_by_month = merchant.items.group_by do |item|
-  #       item.updated_at.strftime('%B')
-  #     end
-  #     if items_by_month[month_name].nil?
-  #       false
-  #     else
-  #       items_by_month[month_name].count == 1
-  #     end
-  #
-  #   end
-  #   one_item_merchants
-  # end
-
-
-
-  # def merchants_with_only_one_item_registered_in_month(month_name)
-  #   merchant_by_month = merchant_by_month_created
-  #   one_item_merchants = merchant_by_month[month_name].select do |merchant|
-  #       item_in_month?(merchant, month_name)
-  #   end
-  #   one_item_merchants
-  # end
 
   def merchants_with_only_one_item_registered_in_month(month_name)
     merchants = merchants_with_only_one_item
@@ -180,8 +148,6 @@ class SalesAnalyst
     end
     one_item_merchants_by_month[month_name]
   end
-
-
 
   def item_in_month?(merchant, month_name)
     items_in_month = merchant.items.select do |item|
@@ -195,16 +161,6 @@ class SalesAnalyst
       merchant.created_at.strftime('%B')
     end
   end
-
-  # def revenue_by_merchant(merchant_id)
-  #   revenue= 0.00
-  #   merchant = se.merchants.find_by_id(merchant_id)
-  #   merchant.invoices.each do |invoice|
-  #     revenue += invoice.total if invoice.is_paid_in_full?
-  #   end
-  #   revenue
-  # end
-
 
   def merchants_with_only_one_item
     se.merchants.all.select do |merchant|
@@ -223,17 +179,6 @@ class SalesAnalyst
       total_sold + invoice_item.quantity
     end
   end
-
-  # def most_sold_item_for_merchant(merchant_id)
-  #   merchant = se.merchants.find_by_id(merchant_id)
-  #   items = merchant.items
-  #
-  #   items_by_total_sold = items.group_by do |item|
-  #     total_sold_for_item(item)
-  #   end
-  #   max_sold = items_by_total_sold.keys.max
-  #   items_by_total_sold[max_sold]
-  # end
 
   def paid_invoices(merchant)
     merchant.invoices.select do |invoice|
@@ -320,16 +265,5 @@ class SalesAnalyst
     most_sold_items_by_id = find_items_with_max_value(item_revenues)
     find_items_by_id(most_sold_items_by_id).first
   end
-
-  # def merchant_revenue(merchant)
-  #   revenue= 0.00
-  #   merchant.items.each do |item|
-  #     revenue += item.invoice_items.reduce(0) do |sum, invoice_item|
-  #
-  #         sum + invoice_item.unit_price * invoice_item.quantity
-  #     end
-  #   end
-  #   revenue
-  # end
 
 end
