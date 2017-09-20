@@ -5,10 +5,12 @@ require_relative './merchant_merchants_by_invoice_count'
 require_relative "./merchant_top_days_by_invoice_count"
 require 'pry'
 require "date"
+require_relative './finder'
 
 
 class SalesAnalyst
 
+  include Finder
   include MerchantMath
   include MerchantGoldenItems
   include MerchantMerchantsByInvoiceCount
@@ -48,8 +50,6 @@ class SalesAnalyst
     merchants_and_invoices
     average_things_per_merchant_standard_deviation(merchants_and_invoices)
   end
-
-########
 
   def invoice_status(status)
     decimal = invoices_with_status_count(status)/total_invoice_count
@@ -109,7 +109,6 @@ class SalesAnalyst
     group_invoices_by_merchant.map do |key, value|
       if value >= two_std_above
         top_merchants << key
-        # puts "Yowza -- Top merchants by invoice!"
       end
     end
     top_merchants.map do |id|
@@ -117,17 +116,13 @@ class SalesAnalyst
     end
   end
 
-  ##### Iteration 4 #####
-
   def merchants_with_pending_invoices
-    merchants = sales_engine.merchants.all
     merchants.select do |merchant|
       merchant.has_pending_invoice?
     end
   end
 
   def merchants_with_only_one_item
-    merchants = sales_engine.merchants.all
     only_one_item(merchants)
   end
 
@@ -143,7 +138,6 @@ class SalesAnalyst
     group_invoices_by_merchant.map do |key, value|
       if value <= two_std_below
         bottom_merchants << key
-        puts "Yowza -- Bottom merchants by invoice!"
       end
     end
     bottom_merchants.map do |id|
@@ -172,34 +166,11 @@ class SalesAnalyst
   end
 
   def merchants_with_only_one_item_registered_in_month(month)
-    merchants_for_month = sales_engine.merchants.merchants_registered_in_month(month)
-    only_one_item(merchants_for_month)
+    only_one_item(merchants_for_month(month))
   end
 
   def revenue_by_merchant(merchant_id)
-    merchant_invoices = sales_engine.merchants.find_by_id(merchant_id).invoices
-    merchant_invoices.map {|invoice| invoice.total}.sum
-  end
-
-  def most_sold_item_for_merchant(merchant_id)
-    invoices = sales_engine.invoices.find_all_by_merchant_id(merchant_id)
-    invoice_items = invoices.map {|invoice| invoice.invoice_items}.flatten
-    # binding.pry
-    invoice_item_quantities = invoice_items.map do |invoice_item|
-                                {invoice_item.item_id => invoice_item.quantity}
-                              end
-    item_quantities =
-      invoice_item_quantities.reduce do |item_quantity, invoice_item|
-        item_quantity.merge(invoice_item) {|key, oldval, newval| newval + oldval}
-      end
-    binding.pry
-    item_id_quantities = item_quantities.each_value {|quantity| quantity}.max
-    binding.pry
-    item_ids = item_id_quantities.select.with_index {|id, i| i.even?}
-    binding.pry
-    item_ids.map do |item_id|
-      sales_engine.items.find_by_id(item_id)
-    end
+    merchant_invoices(merchant_id).map {|invoice| invoice.total}.sum
   end
 
 end
