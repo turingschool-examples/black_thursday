@@ -25,4 +25,8 @@ class Customer
     Time.parse(customer.fetch(:updated_at))
   end
 
+  def merchants
+    customer_repo.merchant_customers(self.id)
+  end
+
 end

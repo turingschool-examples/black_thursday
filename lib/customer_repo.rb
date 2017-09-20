@@ -47,6 +47,10 @@ class CustomerRepository
     customers.find {|customer| customer.updated_at == updated_at}
   end
 
+  def merchant_customers(customer_id)
+    sales_engine.find_customer_merchant(customer_id)
+  end
+
   def inspect
     "#<#{self.class} #{@customers.size} rows>"
   end
