@@ -299,20 +299,6 @@ class SalesAnalyst
     sold_items = total_sold_for_item(sorted_invoice_items)
     most_sold_items_by_id = find_items_with_max_value(sold_items)
     find_items_by_id(most_sold_items_by_id)
-    # merchant = se.merchants.find_by_id(merchant_id)
-    # paid_invoices = merchant.invoices.select do |invoice|
-    #   invoice.is_paid_in_full?
-    # end
-    #
-    # paid_invoices do |invoice|
-    #   invoice.invoice_items
-    #
-    #
-    # items_by_total_sold = items.group_by do |item|
-    #   total_sold_for_item(item)
-    # end
-    # max_sold = items_by_total_sold.keys.max
-    # items_by_total_sold[max_sold]
   end
 
 
