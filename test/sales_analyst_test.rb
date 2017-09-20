@@ -16,7 +16,7 @@ class TestSalesAnalyst < Minitest::Test
       :items     => "./test/test_fixtures/items_medium.csv",
       :merchants => "./test/test_fixtures/merchants_medium.csv",
       :invoices => ".//test/test_fixtures/invoices_short.csv",
-      :invoice_items => "./test/test_fixtures/invoice_items_medium.csv",
+      :invoice_items => "./data/invoice_items.csv",
       :transactions => "./test/test_fixtures/transactions_medium.csv",
       :customers => "./test/test_fixtures/customers_medium.csv"
     }
@@ -107,9 +107,14 @@ class TestSalesAnalyst < Minitest::Test
   # def test_it_finds_total_revenue_by_date
   #   assert_equal 528913.0, sa.total_revenue_by_date(Time.parse("2012-11-23"))
   # end
+  #
+  # def test_it_returns_top_merchants_by_revenue
+  #   assert_equal [], sa.top_revenue_earners(5)
+  # end
 
-  def test_it_returns_top_merchants_by_revenue
-    assert_equal [], sa.top_revenue_earners(5)
+  def test_it_finds_most_sold_item_for_merchant
+
+  assert_equal [], sa.most_sold_item_for_merchant(12334768)
   end
 
 end

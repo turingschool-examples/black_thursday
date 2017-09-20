@@ -158,25 +158,17 @@ class SalesAnalyst
     convert_numbers_to_weekdays
   end
 
-
-    def total_revenue_by_date(date)
-      invoices_by_date(date).map do |invoice|
-        BigDecimal.new(invoice.total)
-      end.sum.round(2)
+  def  invoices_by_date(date)
+    sales_engine.invoices.all.select do |invoice|
+      invoice.created_at == date
     end
   end
 
   def total_revenue_by_date(date)
     invoices_by_date(date).map do |invoice|
-      invoice.total
+      BigDecimal.new(invoice.total)
     end.sum.round(2)
   end
-
-
-  def merchants_ranked_by_revenue
-
-  end
-
 
   def merchants_with_only_one_item_registered_in_month(month)
     merchants_for_month = sales_engine.merchants.merchants_registered_in_month(month)
@@ -190,38 +182,69 @@ class SalesAnalyst
 
 
   def most_sold_item_for_merchant(merchant_id)
-    invoices = sales_engine.invoices.find_all_by_merchant_id(merchant_id)
-    invoice_items = invoices.map {|invoice| invoice.invoice_items}.flatten
-    # binding.pry
-    invoice_item_quantities = invoice_items.map do |invoice_item|
-                                {invoice_item.item_id => invoice_item.quantity}
-                              end
-    item_quantities =
-      invoice_item_quantities.reduce do |item_quantity, invoice_item|
-        item_quantity.merge(invoice_item) {|key, oldval, newval| newval + oldval}
-      end
-    # binding.pry
-    item_id_quantities = item_quantities.each_value {|quantity| quantity}.max
-    # binding.pry
-    item_ids = item_id_quantities.select.with_index {|id, i| i.even?}
-    # binding.pry
-    item_ids.map do |item_id|
-      sales_engine.items.find_by_id(item_id)
+
+    ###could try using this from the item repo:
+    ###items.find_all_by_merchant_id(merchant_id) should return all items per merchant. Then find the item which occurs most in the array by using a hash?
+
+    merchant_id = 12336617
+    items_and_qty_hash = Hash.new(0)
+    all_items = sales_engine.items.find_all_by_merchant_id(merchant_id)
+    all_items.each do |item|
+      items_and_qty_hash[item] += 1
     end
+    puts items_and_qty_hash
+    array = items_and_qty_hash.max_by do |key, value|
+      value
+      #returns an array containing [key, value]
+    end
+    puts array
+     #this should return the item_id
+
+
+    #
+    # #####################################
+    # invoices = sales_engine.invoices.find_all_by_merchant_id(merchant_id)
+    # ###collects all invoices for a merchant
+    # invoice_items = invoices.map {|invoice| invoice.invoice_items}.flatten
+    # ###get an array of each item on each invoice, and flatten.
+    #
+    # # binding.pry
+    # invoice_item_quantities = invoice_items.map do |invoice_item|
+    #                             {invoice_item.item_id => invoice_item.quantity}
+    #                           end
+    # ###creates a hash of item_id => qty
+    #
+    # item_quantities =
+    #   invoice_item_quantities.reduce do |item_quantity, invoice_item|
+    #     item_quantity.merge(invoice_item) {|key, oldval, newval| newval + oldval}
+    #   end
+    # ###trying to merge the values so there is 1 key per value
+    #
+    # # binding.pry
+    # item_id_quantities = item_quantities.each_value {|quantity| quantity}.max
+    # ### of the values, find the max value
+    #
+    # # binding.pry
+    # item_ids = item_id_quantities.select.with_index {|id, i| i.even?}
+    # # binding.pry
+    # item_ids.map do |item_id|
+    #   sales_engine.items.find_by_id(item_id)
+    # end
+  end
 
   def merchants_ranked_by_revenue
     top_revenue_by_id = single_merchant_id_with_total_revenue.map do |key, value|
       key
     end
     top_merchants = []
-     top_revenue_by_id.each do |id|
-       top_merchants << sales_engine.merchants.find_by_id(id)
-     end
-     top_merchants
-   end
+    top_revenue_by_id.each do |id|
+      top_merchants << sales_engine.merchants.find_by_id(id)
+    end
+    top_merchants
+  end
 
- def top_revenue_earners(number = 20)
-      #  binding.pry
+  def top_revenue_earners(number = 20)
+  #  binding.pry
     range = (number-1)
     merchants_ranked_by_revenue[0..range]
     puts merchants_ranked_by_revenue[0..range]  #this works
