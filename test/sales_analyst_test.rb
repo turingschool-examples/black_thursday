@@ -15,7 +15,7 @@ class TestSalesAnalyst < Minitest::Test
     csv_hash = {
       :items     => "./test/test_fixtures/items_medium.csv",
       :merchants => "./test/test_fixtures/merchants_medium.csv",
-      :invoices => ".//test/test_fixtures/invoices_medium.csv",
+      :invoices => ".//test/test_fixtures/invoices_short.csv",
       :invoice_items => "./test/test_fixtures/invoice_items_medium.csv",
       :transactions => "./test/test_fixtures/transactions_medium.csv",
       :customers => "./test/test_fixtures/customers_medium.csv"
@@ -109,7 +109,7 @@ class TestSalesAnalyst < Minitest::Test
   # end
 
   def test_it_returns_top_merchants_by_revenue
-    assert_equal [], sa.top_revenue_earners(2)
+    assert_equal [], sa.top_revenue_earners(5)
   end
 
 end

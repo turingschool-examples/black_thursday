@@ -180,12 +180,22 @@ class SalesAnalyst
     merchant_invoices.map {|invoice| invoice.total}.sum
   end
 
- def top_revenue_earners(number)
-    if number == nil
-      merchants_by_revenue[0..19]
-    else
-      merchants_by_revenue[0..(number-1)]
+  def merchants_ranked_by_revenue
+    top_revenue_by_id = single_merchant_id_with_total_revenue.map do |key, value|
+      key
     end
+    top_merchants = []
+     top_revenue_by_id.each do |id|
+       top_merchants << sales_engine.merchants.find_by_id(id)
+     end
+     top_merchants
+   end
+
+ def top_revenue_earners(number = 20)
+      #  binding.pry
+    range = (number-1)
+    merchants_ranked_by_revenue[0..range]
+    # puts merchants_ranked_by_revenue[0..range]  #this works
   end
 
 end

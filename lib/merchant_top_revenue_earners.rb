@@ -1,28 +1,23 @@
 module MerchantTopRevenueEarners
 
-  def merchant_id_and_total_grouped
+  def merchant_id_and_total_grouped #works
     merchant_id_and_total_grouped = Hash.new(0)
     sales_engine.invoices.all.map do |invoice|
       merchant_id_and_total_grouped[invoice.merchant_id] = invoice.total
     end
+    merchant_id_and_total_grouped
   end
 
   def single_merchant_id_with_total_revenue
-    merchant_id_and_total_grouped.map! do |key, value|
-      key +=value
+    # binding.pry
+    merchant_id_and_total_grouped.each do |key, value|
+      merchant_id_and_total_grouped[key] = merchant_id_and_total_grouped[key] + value
     end
-    merchant_id_and_total_grouped.sort_by {|key, value| value}
+    sorted = merchant_id_and_total_grouped.sort_by {|key, value| value}.reverse
+    merchant_id_and_total_grouped = sorted
   end
 
-  def merchants_by_revenue
-    top_revenue_by_id = single_merchant_id_with_total_revenue.map do |key, value|
-      key
-    end
-    top_merchants = []
-     top_revenue_by_id.each do |id|
-       top_merchants << sales_engine.merchants.find_by_id(id)
-     end
-   end
+
 
 
 

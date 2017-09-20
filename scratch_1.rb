@@ -2,7 +2,7 @@
 ##################################
 # hash_name = hash.new(0)
 # array1.each do |thing|
-#   array2[thing] =+ 1
+#   array2[thing] += 1
 # end
 
 # h = a.zip(b).to_h
