@@ -5,7 +5,10 @@ require_relative 'repository/record'
 
 class InvoiceItem < Repository::Record
 
-  attr_reader :item_id, :invoice_id, :quantity, :unit_price
+  attr_reader :item_id,
+              :invoice_id,
+              :quantity,
+              :unit_price
   def initialize(repo, fields)
     super(repo, fields)
     @item_id =    fields[:item_id].to_i

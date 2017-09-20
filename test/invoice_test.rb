@@ -155,15 +155,14 @@ class InvoiceTest < Minitest::Test
     refute invoice_blank.is_paid_in_full?
   end
 
+  def test_total_only_returns_for_invoices_paid_in_full
+    invoice_blank = Fixture.find_record(:invoices, 170)
+    assert_equal 0 , invoice_blank.is_paid_in_full?
+  end
 
-    def test_total_only_returns_for_invoices_paid_in_full
-      invoice_blank =Fixture.find_record(:invoices, 170)
-      assert_equal 0 , invoice_blank.is_paid_in_full
-    end
-
-    def test_total_returns_the_revenue_for_the_total_transaction
-      assert_equal 1449662, invoice_74.total
-    end
+  def test_total_returns_the_revenue_for_the_total_transaction
+    assert_equal BigDecimal.new("14496.62"), invoice_74.total
+  end
 
 
 
