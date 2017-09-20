@@ -3,7 +3,9 @@ require_relative 'repository/record'
 
 class Invoice < Repository::Record
 
-  attr_reader :customer_id, :merchant_id, :status
+  attr_reader :customer_id,
+              :merchant_id,
+              :status
   def initialize(repo, fields)
     super(repo, fields)
     @customer_id =  fields[:customer_id].to_i

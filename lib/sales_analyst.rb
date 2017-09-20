@@ -1,6 +1,8 @@
 require 'bigdecimal'
 require 'pry'
 
+require_relative 'math_extension'
+
 class SalesAnalyst
 
   def initialize(sales_engine)
@@ -8,13 +10,17 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    merchants = @se.merchants.all.count.to_f
-    items = @se.items.all.count
-    rounded(items / merchants)
+    total_merchants = @se.merchants.all.count.to_f
+    total_items = @se.items.all.count
+    rounded(total_items / total_merchants)
   end
 
   def average_average_price_per_merchant
-    rounded average(@se.merchants.all){ |merchant| average_item_price(merchant) }
+    rounded(
+      Math.mean(@se.merchants.all) do |merchant|
+        average_item_price(merchant)
+      end
+    )
   end
 
   def average_invoices_per_merchant
@@ -30,52 +36,52 @@ class SalesAnalyst
   end
 
   def average_item_price(merchant)
-    average(merchant.items){ |item| item.unit_price }
+    Math.mean(merchant.items){ |item| item.unit_price }
   end
 
   def average_items_per_merchant_standard_deviation
-    standard_deviation(@se.merchants.all) do |merchant|
-      merchant.items.count.to_f
-    end
+    rounded(
+      Math.standard_deviation(@se.merchants.all) do |merchant|
+        merchant.items.count.to_f
+      end
+    )
   end
 
   def average_invoices_per_merchant_standard_deviation
-    standard_deviation(@se.merchants.all) do |merchant|
+    rounded(
+      Math.standard_deviation(@se.merchants.all) do |merchant|
+        merchant.invoices.count.to_f
+      end
+    )
+  end
+
+  def top_merchants_by_invoice_count
+    Math.standard_deviations_above(2, @se.merchants.all) do |merchant|
       merchant.invoices.count.to_f
     end
   end
 
-  def top_merchants_by_invoice_count
-    avg = average_invoices_per_merchant
-    std_dev = average_invoices_per_merchant_standard_deviation
-    top_players = avg + (2 * std_dev)
-    @se.merchants.find_all do |merchant|
-       merchant.invoices.count > top_players
-    end
-  end
-
   def bottom_merchants_by_invoice_count
-    avg = average_invoices_per_merchant
-    std_dev = average_invoices_per_merchant_standard_deviation
-    bottom_players = avg - (2 * std_dev)
-    @se.merchants.find_all do |merchant|
-       merchant.invoices.count < bottom_players
+    Math.standard_deviations_above(-2, @se.merchants.all) do |merchant|
+      merchant.invoices.count.to_f
     end
   end
 
   def average_invoice_count_per_day
-    average(@se.invoices.all){ |invoice| invoice.created_at }
+    Math.mean(@se.invoices.all){ |invoice| invoice.created_at }
   end
 
-  def top_days_by_invoice_count
-    day_counts = @se.invoices.all.each_with_object(Hash.new(0)) do |invoice, counts|
+  def invoices_by_day
+    @se.invoices.all.each_with_object(Hash.new(0)) do |invoice, counts|
       day = invoice.created_at.strftime('%A')
       counts[day] += 1
     end
-    avg = average(day_counts.each_value)
-    std_dev = standard_deviation(day_counts.each_value)
-    threshold = avg + std_dev
-    day_counts.select{ |day, count| count > threshold }.map(&:first)
+  end
+
+  def top_days_by_invoice_count
+    by_day = invoices_by_day
+    top_counts = Math.standard_deviations_above(1, by_day.values)
+    top_counts.map{ |count| by_day.key(count) }
   end
 
   def invoice_status(status)
@@ -85,26 +91,20 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    avg = average_items_per_merchant
-    std_dev = average_items_per_merchant_standard_deviation
-    threshold = avg + std_dev
-
-    @se.merchants.find_all do |merchant|
-      merchant.items.count > threshold
+    Math.standard_deviations_above(1, @se.merchants.all) do |merchant|
+      merchant.items.count.to_f
     end
   end
 
   def average_price_per_merchant_standard_deviation
-    standard_deviation(@se.merchants.all) do |merchant|
+    Math.standard_deviation(@se.merchants.all) do |merchant|
       average_item_price(merchant)
     end
   end
 
   def golden_items
-    std_dev = standard_deviation(@se.items.all){ |item| item.unit_price }
-    golden_price = average_price + (2 * std_dev)
-    @se.items.find_all do |item|
-      item.unit_price > golden_price
+    Math.standard_deviations_above(2, @se.items.all) do |item|
+      item.unit_price
     end
   end
 
@@ -116,29 +116,37 @@ class SalesAnalyst
     matching_invoices.map(&:total).sum
   end
 
-  def merchant_paid_item_invoices_by_item_id(merchant_id)
+  def paid_item_invoices_by_item_id(merchant_id)
     merchant = @se.merchants.find_by_id(merchant_id)
     paid_invoices = merchant.invoices.select(&:is_paid_in_full?)
     iis = paid_invoices.flat_map(&:invoice_items)
     iis.group_by(&:item_id)
   end
 
-  def best_item_for_merchant(merchant_id)
-    item_invoices = merchant_paid_item_invoices_by_item_id(merchant_id)
-    item_revenues = item_invoices.transform_values do |list|
+  def revenues_by_item_id(merchant_id)
+    paid_item_invoices_by_item_id(merchant_id).transform_values do |list|
       list.reduce(0) { |sum, ii| sum + ii.total }
     end
-    best_id = item_revenues.max_by(&:last).first
-    @se.items.find_by_id(best_id)
+  end
+
+  def amount_sold_by_item_id(merchant_id)
+    paid_item_invoices_by_item_id(merchant_id).transform_values do |list|
+      list.reduce(0) { |sum, ii| sum + ii.quantity }
+    end
+  end
+
+  def best_item_for_merchant(merchant_id)
+    revenues = revenues_by_item_id(merchant_id)
+    best_revenue = revenues.values.max
+    best_item_id = revenues.key(best_revenue)
+    @se.items.find_by_id(best_item_id)
   end
 
   def most_sold_item_for_merchant(merchant_id)
-    item_invoices = merchant_paid_item_invoices_by_item_id(merchant_id)
-    item_revenues = item_invoices.transform_values do |list|
-      list.reduce(0) { |sum, ii| sum + ii.quantity }
-    end
-    best_id = item_revenues.max_by(&:last).first
-    @se.items.find_by_id(best_id)
+    amounts = amount_sold_by_item_id(merchant_id)
+    most_sold = amounts.values.max
+    amounts.keep_if{ |item_id, amount| amount == most_sold }
+    amounts.keys.map{ |item_id| @se.items.find_by_id(item_id) }
   end
 
   def merchants_with_pending_invoices
@@ -162,39 +170,7 @@ class SalesAnalyst
   end
 
   def average_price
-    average(@se.items.all) { |item| item.unit_price }
-  end
-
-  def standard_deviation(enum, &block)
-    enum_average = average(enum, &block)
-    count = enum.count
-
-    sum_of_squares = enum.reduce(0) do |sum, element|
-      element = yield element if block_given?
-      unless element.nil?
-        sum + (element - enum_average) ** 2
-      else
-        count -= 1
-        sum
-      end
-    end
-    rounded Math.sqrt(sum_of_squares / (count - 1))
-  end
-
-  def average(enum)
-    count = enum.count
-
-    sum = enum.reduce(0) do |sum, element|
-      element = yield element if block_given?
-      unless element.nil?
-        sum + element
-      else
-        count -= 1
-        sum
-      end
-    end
-    return nil if count.zero?
-    sum / count
+    Math.mean(@se.items.all) { |item| item.unit_price }
   end
 
   def revenue_by_merchant(merchant_id)

@@ -3,7 +3,10 @@ require_relative 'repository/record'
 
 class Transaction < Repository::Record
 
-  attr_reader :invoice_id, :credit_card_number, :credit_card_expiration_date, :result
+  attr_reader :invoice_id,
+              :credit_card_number,
+              :credit_card_expiration_date,
+              :result
   def initialize(repo, fields)
     super(repo, fields)
     @invoice_id =                   fields[:invoice_id].to_i
