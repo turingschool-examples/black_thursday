@@ -133,7 +133,6 @@ class SalesAnalystTest < Minitest::Test
   def test_merchants_with_only_one_item_registered_in_month
     assert_equal 1, sa.merchants_with_only_one_item_registered_in_month('June').count
     assert_instance_of Merchant, sa.merchants_with_only_one_item_registered_in_month('June').first
-    assert_instance_of Merchant, sa.merchants_with_only_one_item_registered_in_month('June').first
   end
 
   def test_invoice_items_on_date_returns_array_of_invoice_item_instances_created_on_given_date
@@ -153,7 +152,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_merchants_with_pending_invoices_returns_merchants_with_pending_invoices
       assert_equal 467, sa.merchants_with_pending_invoices.length
-    end    
+    end
   end
 
   def test_top_revenue_earners_returns_array_of_top_merchants_by_revenue
@@ -164,4 +163,9 @@ class SalesAnalystTest < Minitest::Test
   end
 
 
+<<<<<<< HEAD
 end
+=======
+
+end
+>>>>>>> jung2

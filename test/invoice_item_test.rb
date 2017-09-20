@@ -9,9 +9,9 @@ class InvoiceItemTest < Minitest::Test
                            item_id: 7,
                            invoice_id: 8,
                            quantity: 1,
-                           unit_price: BigDecimal.new(10.99, 4),
-                           created_at: Time.now,
-                           updated_at: Time.now
+                           unit_price: 13635,
+                           created_at: "2012-03-27 14:54:09 UTC",
+                           updated_at: "2012-03-27 14:54:09 UTC"
                            })
   end
 
@@ -36,7 +36,8 @@ class InvoiceItemTest < Minitest::Test
   end
 
   def test_unit_price_returns_unit_price
-    assert_equal BigDecimal.new(10.99, 4), @ii.unit_price
+    expected = BigDecimal.new(13635.to_i/100.0,6)
+    assert_equal expected, @ii.unit_price
   end
 
   def test_instance_of_the_created_time
@@ -48,7 +49,7 @@ class InvoiceItemTest < Minitest::Test
   end
 
   def test_conversion_of_unit_price_to_dollars
-    assert_equal BigDecimal.new(10.99, 4).to_f, @ii.unit_price_to_dollars
+    assert_equal 136.35, @ii.unit_price_to_dollars
   end
 
   def test_invoice_item_has_parent_defaulted_to_nil

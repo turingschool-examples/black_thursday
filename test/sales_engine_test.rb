@@ -13,7 +13,7 @@ class SalesEngineTest < Minitest::Test
             :invoice_items => './test/fixtures/invoice_items_truncated_10.csv',
             :transactions => './test/fixtures/transaction_truncated_10.csv',
             :customers => './test/fixtures/customers_truncated_10.csv'
-    })
+            })
   end
 
   def test_from_csv_created_an_instance_of_sales_engine

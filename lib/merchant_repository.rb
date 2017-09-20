@@ -17,7 +17,8 @@ class MerchantRepository
   end
 
   def load_csv(file_path)
-    CSV.foreach(file_path, headers: true, header_converters: :symbol, converters: :numeric ) do |merchant|
+    options = {headers: true, header_converters: :symbol, converters: :numeric}
+    CSV.foreach(file_path, options ) do |merchant|
       merchants << Merchant.new(merchant.to_h, self)
     end
   end

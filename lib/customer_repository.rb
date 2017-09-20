@@ -12,7 +12,8 @@ class CustomerRepository
 
   def from_csv(file_path)
     customers = []
-    CSV.foreach(file_path, headers: true, header_converters: :symbol, converters: :numeric ) do |row|
+    options = {headers: true, header_converters: :symbol, converters: :numeric}
+    CSV.foreach(file_path, options ) do |row|
       customers << Customer.new(row, self)
     end
     customers
@@ -27,11 +28,15 @@ class CustomerRepository
   end
 
   def find_all_by_first_name(name)
-    @all.find_all { |customer| customer.first_name.downcase.include?(name.downcase) }
+    @all.find_all do |customer|
+      customer.first_name.downcase.include?(name.downcase)
+    end
   end
 
   def find_all_by_last_name(name)
-    @all.find_all { |customer| customer.last_name.downcase.include?(name.downcase) }
+    @all.find_all do |customer|
+      customer.last_name.downcase.include?(name.downcase)
+    end
   end
 
 end

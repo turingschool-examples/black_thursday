@@ -20,20 +20,16 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal 10, @trxr.all.count
   end
 
-  def test_transaction_repository_begins_with_empty_array_called_by_the_all_method
-    assert_equal [], @trxr.all
-  end
-
   def test_trx_cvs_item_4_returns_correct_matching_id
     @trxr.from_csv("./test/fixtures/transaction_truncated_10.csv")
 
-    assert_equal "4126", @trxr.all[3].invoice_id
+    assert_equal 4, @trxr.all[3].invoice_id
   end
 
   def test_trx_cvs_item_7_returns_correct_matching_credit_card
     @trxr.from_csv("./test/fixtures/transaction_truncated_10.csv")
 
-    assert_equal "4613250127567219", @trxr.all[6].credit_card_number
+    assert_equal 4613250127567219, @trxr.all[6].credit_card_number
   end
 
    def test_trx_cvs_item_10_returns_correct_matching_result
@@ -44,8 +40,8 @@ class TransactionRepositoryTest < Minitest::Test
 
   def test_find_by_id_returns_instance_of_transaction_item
     @trxr.from_csv("./test/fixtures/transaction_truncated_10.csv")
-    actual = @trxr.find_by_id("3")
-    expected = "750"
+    actual = @trxr.find_by_id(3)
+    expected = 3
 
     assert_equal expected, actual.invoice_id
   end
@@ -65,9 +61,8 @@ class TransactionRepositoryTest < Minitest::Test
 
   def test_find_all_by_invoice_id_returns_array_of_invoice_items_matching_id
     @trxr.from_csv("./test/fixtures/transaction_truncated_10.csv")
-    actual = @trxr.find_all_by_invoice_id("4126")
-    expected = @trxr.all[3], @trxr.all[5]
-
+    actual = @trxr.find_all_by_invoice_id(4)
+    expected = [@trxr.all[3]]
     assert_equal expected, actual
   end
 
