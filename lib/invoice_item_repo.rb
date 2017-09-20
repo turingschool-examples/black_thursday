@@ -3,14 +3,14 @@ require_relative 'invoice_item'
 class InvoiceItemRepository
   attr_reader :invoice_items
 
-  def initialize(i_item_file, sales_engine)
-    @invoice_items = read_invoice_item_file(i_item_file)
+  def initialize(invoice_item_file, sales_engine)
+    @invoice_items = read_invoice_item_file(invoice_item_file)
     @sales_engine = sales_engine
   end
 
-  def read_invoice_item_file(i_item_file)
+  def read_invoice_item_file(invoice_item_file)
     invoice_item_list =[]
-    CSV.foreach(i_item_file, headers: true, header_converters: :symbol) do |row|
+    CSV.foreach(invoice_item_file, headers: true, header_converters: :symbol) do |row|
       invoice_item_info = {}
       invoice_item_info[:id] = row[:id]
       invoice_item_info[:item_id] = row[:item_id]

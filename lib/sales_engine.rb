@@ -11,20 +11,20 @@ class SalesEngine
     items = files[:items]
     merchs = files[:merchants]
     invoices = files[:invoices]
-    i_items = files[:invoice_items]
-    trans = files[:transactions]
+    invoice_items = files[:invoice_items]
+    transactions = files[:transactions]
     customers = files[:customers]
-    SalesEngine.new(items, merchs, invoices, i_items, trans, customers)
+    SalesEngine.new(items, merchs, invoices, invoice_items, transactions, customers)
   end
 
-  attr_reader :merchants, :items, :invoices, :i_items, :trans, :customers
+  attr_reader :merchants, :items, :invoices, :invoice_items, :transactions, :customers
 
-  def initialize(items, merchants, invoices, i_items, trans, customers)
+  def initialize(items, merchants, invoices, invoice_items, transactions, customers)
     @items = ItemRepository.new(items, self)
     @merchants = MerchantRepository.new(merchants, self)
     @invoices = InvoiceRepository.new(invoices, self)
-    @i_items = InvoiceItemRepository.new(i_items, self)
-    @trans = TransactionRepository.new(trans, self)
+    @invoice_items = InvoiceItemRepository.new(invoice_items, self)
+    @transactions = TransactionRepository.new(transactions, self)
     @customers = CustomerRepository.new(customers, self)
   end
 
@@ -45,9 +45,9 @@ class SalesEngine
   end
 
   def find_item_ids(invoice_id)
-    i_items_list = i_items.find_all_by_invoice_id(invoice_id)
-    i_items_list.map do |i_item|
-      i_item.item_id
+    invoice_items_list = invoice_items.find_all_by_invoice_id(invoice_id)
+    invoice_items_list.map do |invoice_item|
+      invoice_item.item_id
     end
   end
 
@@ -59,7 +59,7 @@ class SalesEngine
   end
 
   def find_transactions_for_invoice(invoice_id)
-    trans.find_all_by_invoice_id(invoice_id)
+    transactions.find_all_by_invoice_id(invoice_id)
   end
 
   def find_customer_from_invoice(customer_id)
@@ -88,7 +88,7 @@ class SalesEngine
     customer_ids = find_customer_ids_from_invoice(merchant_id)
     customer_ids.map do |customer_id|
       customers.find_by_id(customer_id)
-    end
+    end.uniq
   end
 
   def find_merchant_ids_from_invoice(customer_id)
