@@ -224,15 +224,95 @@ class SalesAnalyst
     end
   end
 
+  # def most_sold_item_for_merchant(merchant_id)
+  #   merchant = se.merchants.find_by_id(merchant_id)
+  #   items = merchant.items
+  #
+  #   items_by_total_sold = items.group_by do |item|
+  #     total_sold_for_item(item)
+  #   end
+  #   max_sold = items_by_total_sold.keys.max
+  #   items_by_total_sold[max_sold]
+  # end
+
+  def paid_invoices(merchant)
+    merchant.invoices.select do |invoice|
+      invoice.is_paid_in_full?
+    end
+  end
+
+  def paid_invoice_items(paid_invoices)
+    paid_invoices.map do |invoice|
+      invoice.invoice_items
+    end.flatten
+  end
+
+
+  def item_id_with_invoice_items(invoice_items)
+    invoice_items.group_by do |invoice_item|
+      invoice_item.item_id
+    end
+  end
+
+  def total_sold_for_item(item_id_with_invoice_items)
+    item_id_with_invoice_items.each do |k, v|
+      total_sold = v.reduce(0) do |sum, invoice_item|
+        sum + invoice_item.quantity
+      end
+      item_id_with_invoice_items[k] = total_sold
+    end
+    item_id_with_invoice_items
+  end
+
+  def find_max_value(items_sold_hash)
+    items_sold_hash.values.max
+  end
+
+  def find_items_with_max_value(items_sold_hash)
+    max_num_sold = find_max_value(items_sold_hash)
+    item_ids = []
+    items_sold_hash.each do |item_id, num|
+      if num == max_num_sold
+        item_ids << item_id
+      end
+    end
+    item_ids
+  end
+
+  def find_items_by_id(item_id_array)
+    most_sold_items = []
+    if item_id_array.class == Integer
+      most_sold_items << se.items.find_by_id(item_id_array)
+    else
+      item_id_array.each do |item_id|
+        most_sold_items << se.items.find_by_id(item_id)
+      end
+    end
+    most_sold_items
+  end
+
   def most_sold_item_for_merchant(merchant_id)
     merchant = se.merchants.find_by_id(merchant_id)
-    items = merchant.items
-
-    items_by_total_sold = items.group_by do |item|
-      total_sold_for_item(item)
-    end
-    max_sold = items_by_total_sold.keys.max
-    items_by_total_sold[max_sold]
+    paid_invoices = paid_invoices(merchant)
+    invoice_items = paid_invoice_items(paid_invoices)
+    sorted_invoice_items = item_id_with_invoice_items(invoice_items)
+    sold_items = total_sold_for_item(sorted_invoice_items)
+    most_sold_items_by_id = find_items_with_max_value(sold_items)
+    find_items_by_id(most_sold_items_by_id)
+    # merchant = se.merchants.find_by_id(merchant_id)
+    # paid_invoices = merchant.invoices.select do |invoice|
+    #   invoice.is_paid_in_full?
+    # end
+    #
+    # paid_invoices do |invoice|
+    #   invoice.invoice_items
+    #
+    #
+    # items_by_total_sold = items.group_by do |item|
+    #   total_sold_for_item(item)
+    # end
+    # max_sold = items_by_total_sold.keys.max
+    # items_by_total_sold[max_sold]
   end
 
 

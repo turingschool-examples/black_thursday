@@ -82,7 +82,7 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_it_can_find_the_most_sold_item
-    assert_instance_of Item, @sa.most_sold_item_for_merchant(12334123)
+    assert_instance_of Item, @sa.most_sold_item_for_merchant(12334105)
     assert_equal 'Adidas Breitner Super Fußballschuh', @sa.most_sold_item_for_merchant(12334123).name
   end
 
