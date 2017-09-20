@@ -3,6 +3,7 @@ require_relative './merchant_math'
 require_relative './merchant_golden_items'
 require_relative './merchant_merchants_by_invoice_count'
 require_relative "./merchant_top_days_by_invoice_count"
+require_relative "./merchant_top_revenue_earners"
 require 'pry'
 require "date"
 
@@ -13,6 +14,7 @@ class SalesAnalyst
   include MerchantGoldenItems
   include MerchantMerchantsByInvoiceCount
   include MerchantTopDaysByInvoiceCount
+  include MerchantTopRevenueEarners
   #we can move these all back into a single module if needed -- I was just getting confused and needed to be able to separate the different methods and helper methods
 
   attr_reader :sales_engine
@@ -151,27 +153,22 @@ class SalesAnalyst
     end
   end
 
-    def top_days_by_invoice_count
-      find_top_days
-      convert_numbers_to_weekdays
-    end
-
-    def  invoices_by_date(date)
-      sales_engine.invoices.all.select do |invoice|
-        invoice.created_at == date
-      end
-    end
-
-    def total_revenue_by_date(date)
-      invoices_by_date(date).map do |invoice|
-        invoice.total
-      end.sum.round(2)
-    end
-
-  def top_revenue_earners(number = 20)
-
+  def top_days_by_invoice_count
+    find_top_days
+    convert_numbers_to_weekdays
   end
 
+  def  invoices_by_date(date)
+    sales_engine.invoices.all.select do |invoice|
+      invoice.created_at == date
+    end
+  end
+
+  def total_revenue_by_date(date)
+    invoices_by_date(date).map do |invoice|
+      invoice.total
+    end.sum.round(2)
+  end
 
   def merchants_with_only_one_item_registered_in_month(month)
     merchants_for_month = sales_engine.merchants.merchants_registered_in_month(month)
@@ -181,6 +178,14 @@ class SalesAnalyst
   def revenue_by_merchant(merchant_id)
     merchant_invoices = sales_engine.merchants.find_by_id(merchant_id).invoices
     merchant_invoices.map {|invoice| invoice.total}.sum
+  end
+
+ def top_revenue_earners(number)
+    if number == nil
+      merchants_by_revenue[0..19]
+    else
+      merchants_by_revenue[0..(number-1)]
+    end
   end
 
 end
