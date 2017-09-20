@@ -51,4 +51,10 @@ class Invoice
     transactions.any? {|transaction| transaction.result == "success"}
   end
 
+  def failed_transactions
+    transactions.all? do |transaction|
+      transaction.result == "failed"
+    end
+  end
+
 end

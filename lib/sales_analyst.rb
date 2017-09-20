@@ -201,11 +201,7 @@ class SalesAnalyst
 
   def merchants_with_pending_invoices
     @se.merchants.all.select do |merchant|
-      merchant.invoices.any? do |invoice|
-        invoice.transactions.all? do |transaction|
-          transaction.result == "failed"
-        end
-      end
+      merchant.merchant_invoices_check_failed_transactions
     end
   end
 
