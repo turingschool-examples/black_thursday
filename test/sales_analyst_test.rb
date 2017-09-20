@@ -9,7 +9,7 @@ class SalesAnalystTest < Minitest::Test
 
   attr_reader :sales_engine, :sales_analyst
   def setup
-    @sales_engine = Fixture.sales_engine
+    @sales_engine = Fixture.sales_engine(load_full_data: true)
     @sales_analyst = SalesAnalyst.new(sales_engine)
   end
 
@@ -110,6 +110,5 @@ class SalesAnalystTest < Minitest::Test
     input = sales_analyst.merchants_with_only_one_item_registered_in_month("May")
     assert_instance_of Array, input
   end
-
 
 end

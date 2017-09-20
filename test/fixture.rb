@@ -3,8 +3,8 @@ require './lib/sales_engine'
 module Fixture
   class << self
 
-    def sales_engine
-      SalesEngine.from_csv(filenames)
+    def sales_engine(load_full_data: false)
+      SalesEngine.from_csv(filenames load_full_data)
     end
 
     def data
@@ -23,9 +23,15 @@ module Fixture
       repo(type).insert(data)
     end
 
-    def filenames
+    def filenames(load_full_data)
       types = %i{merchants items invoices invoice_items customers transactions}
-      paths = types.map{ |type| fixture_path(type) }
+      paths = types.map do |type|
+        if load_full_data
+          full_data_path(type)
+        else
+          fixture_path(type)
+        end
+      end
       Hash[types.zip(paths)]
     end
 
@@ -33,5 +39,8 @@ module Fixture
       "./test/fixture/#{type}.csv"
     end
 
+    def full_data_path(type)
+      "./data/#{type}.csv"
+    end
   end
 end
