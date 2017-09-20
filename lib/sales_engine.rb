@@ -35,51 +35,33 @@ class SalesEngine
   end
 
   def merchants
-    if @merchant_repository.nil?
-      @merchant_repository = MerchantRepository.new(@merchant_csv_file, self)
-    else
+      @merchant_repository ||= MerchantRepository.new(@merchant_csv_file, self)
       @merchant_repository
-    end
   end
 
   def items
-    if @item_repository.nil?
-      @item_repository = ItemRepository.new(@item_csv_file, self)
-    else
+      @item_repository ||= ItemRepository.new(@item_csv_file, self)
       @item_repository
-    end
   end
 
   def invoices
-    if @invoice_repository.nil?
-      @invoice_repository = InvoiceRepository.new(@invoice_csv_file, self)
-    else
+      @invoice_repository ||= InvoiceRepository.new(@invoice_csv_file, self)
       @invoice_repository
-    end
   end
 
   def customers
-    if @customer_repository.nil?
-      @customer_repository = CustomerRepository.new(@customer_csv_file, self)
-    else
+      @customer_repository ||= CustomerRepository.new(@customer_csv_file, self)
       @customer_repository
-    end
   end
 
   def invoice_items
-    if @invoice_items.nil?
-      @invoice_items = InvoiceItemRepository.new(@invoice_item_csv_file, self)
-    else
+      @invoice_items ||= InvoiceItemRepository.new(@invoice_item_csv_file, self)
       @invoice_items
-    end
   end
 
   def transactions
-    if @transactions.nil?
-      @transactions = TransactionRepository.new(@transaction_csv_file, self)
-    else
+      @transactions ||= TransactionRepository.new(@transaction_csv_file, self)
       @transactions
-    end
   end
 
   def total_merchants
