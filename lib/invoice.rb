@@ -10,7 +10,6 @@ class Invoice
               :status,
               :created_at,
               :updated_at,
-              :date,
               :day_of_week
 
   def initialize(invoice_data, invoice_repository)
