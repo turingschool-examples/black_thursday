@@ -10,7 +10,7 @@ class MerchantTest < Minitest::Test
   end
 
   def merchant_12334105
-    f = Fixture.find_record(:merchants, 12334105)
+    Fixture.find_record(:merchants, 12334105)
   end
 
   def merchant_12334105_expected
@@ -91,10 +91,6 @@ class MerchantTest < Minitest::Test
     assert_instance_of Array, items
     refute_empty items
     assert items.all? { |item| item.is_a? Item }
-  end
-
-  def test_items_returns_only_items_with_own_id_as_merchant_id
-    assert merchant_12334105.items.all? { |item| item.merchant_id == 12334105 }
   end
 
   def test_items_returns_empty_array_if_no_items_match

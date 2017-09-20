@@ -15,6 +15,10 @@ class InvoiceItemTest < Minitest::Test
     Fixture.find_record(:invoice_items, 344)
   end
 
+  def invoice_item_344_full
+    Fixture.sales_engine(load_full_data: true).invoice_items.find_by_id(344)
+  end
+
   def invoice_item_344_expected
     {
       id:           344,
@@ -76,11 +80,11 @@ class InvoiceItemTest < Minitest::Test
   end
 
   def test_item_returns_a_single_item
-    assert_instance_of Item, invoice_item_344.item
+    assert_instance_of Item, invoice_item_344_full.item
   end
 
   def test_item_has_id_same_as_item_id
-    assert_equal invoice_item_344.item_id, invoice_item_344.item.id
+    assert_equal invoice_item_344.item_id, invoice_item_344_full.item.id
   end
 
 end

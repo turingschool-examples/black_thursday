@@ -12,7 +12,9 @@ module Fixture
     end
 
     def repo(type)
-      sales_engine.repo(type)
+      repo = sales_engine.repo(type)
+      raise "No repo: #{type.inspect}" unless repo
+      repo
     end
 
     def find_record(type, id)
@@ -23,7 +25,7 @@ module Fixture
       repo(type).insert(data)
     end
 
-    def filenames(load_full_data)
+    def filenames(load_full_data = false)
       types = %i{merchants items invoices invoice_items customers transactions}
       paths = types.map do |type|
         if load_full_data
