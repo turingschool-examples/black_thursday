@@ -55,4 +55,15 @@ class SalesEngineTest < Minitest::Test
   def test_find_customer_from_invoice
     assert_instance_of Customer, set_up.find_customer_from_invoice(9)
   end
+
+  def test_find_invoice_for_transaction
+    assert_instance_of Invoice, set_up.find_invoice_for_transaction(46)
+  end
+
+  def test_find_merchant_customer
+    files = ({:invoices => "./data/invoices.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"})
+    se = SalesEngine.from_csv(files)
+
+    assert_instance_of Customer, se.find_merchant_customer(12334115).first
+  end
 end

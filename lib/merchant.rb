@@ -28,4 +28,8 @@ class Merchant
   def invoices
     merchant_repo.merchant_invoices(self.id)
   end
+
+  def customers
+    merchant_repo.merchant_customer(self.id)
+  end
 end

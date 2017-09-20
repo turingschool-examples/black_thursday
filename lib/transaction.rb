@@ -33,4 +33,8 @@ class Transaction
   def updated_at
     Time.parse(trans.fetch(:updated_at))
   end
+
+  def invoice
+    trans_repo.transacion_invoice(self.invoice_id)
+  end
 end

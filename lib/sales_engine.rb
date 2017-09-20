@@ -65,4 +65,29 @@ class SalesEngine
   def find_customer_from_invoice(customer_id)
     customers.find_by_id(customer_id)
   end
+
+  def find_invoice_for_transaction(invoice_id)
+    invoices.find_by_id(invoice_id)
+  end
+
+  def find_all_invoices_for_merchant(merchant_id)
+    merchs = invoices.find_all_by_merchant_id(merchant_id)
+    merchs.map do |merch|
+      invoices.find_all_by_merchant_id(merch.merchant_id)
+    end
+  end
+
+  def find_customer_ids_from_invoice(merchant_id)
+    invoices_for_merchant = find_all_invoices_for_merchant(merchant_id).flatten
+    invoices_for_merchant.map do |invoice|
+      invoice.customer_id
+    end
+  end
+
+  def find_merchant_customer(merchant_id)
+    customer_ids = find_customer_ids_from_invoice(merchant_id)
+    customer_ids.map do |customer_id|
+      customers.find_by_id(customer_id)
+    end
+  end
 end
