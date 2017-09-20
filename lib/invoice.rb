@@ -62,6 +62,8 @@ class Invoice
     transactions.any? {|transaction| transaction.result == "success"}
   end
 
+  def total
+
 # worked in pair but i dont understand, redid
   # def total
   #   return 0 if !self.is_paid_in_full?

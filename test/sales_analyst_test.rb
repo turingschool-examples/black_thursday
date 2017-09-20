@@ -1,13 +1,14 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './test/items_fixture.csv'
-require './test/merchant_fixture'
-require './test/invoices_fixture'
-require './test/transactions_fixtures'
-require './test/invoice_items_fixture'
-require './lib/sales_analyst'
-require './lib/sales_engine'
+require_relative './fixtures/items_fixture.csv'
+require_relative '../merchant_fixture'
+require_relative '../invoices_fixture'
+require_relative '../transactions_fixtures'
+require_relative '../invoice_items_fixture'
+require_relative '../sales_analyst'
+require_relative '../sales_engine'
 require 'csv'
+require_relative 'test_helper'
 
 
 class SalesAnalystTest < Minitest::Test
@@ -62,4 +63,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 55.52, sa.invoice_status(:shipped)
     assert_equal 12.04, sa.invoice_status(:returned)
   end
+
+
 end
