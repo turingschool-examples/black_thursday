@@ -213,13 +213,10 @@ class SalesAnalyst
     pending = @engine.invoices.all.select do |invoice|
       !invoice.is_paid_in_full?
     end
-    pending.map do |invoice| 
+    pending.map do |invoice|
       @engine.merchants.find_by_id(invoice.merchant_id)
     end.uniq
   end
-
-end
-
 
 
 end
