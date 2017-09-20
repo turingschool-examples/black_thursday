@@ -39,6 +39,6 @@ class InvoiceItem
   end
 
   def total
-    unit_to_dollar * quantity.to_i
+    unit_price * quantity.to_i
   end
 end

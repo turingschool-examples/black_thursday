@@ -28,6 +28,6 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_find_specific_name
-    assert_instance_of Customer, set_up.find_all_by_first_name("Heber")
+    assert_instance_of Customer, set_up.find_all_by_first_name("Heber").first
   end
 end

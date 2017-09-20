@@ -46,8 +46,9 @@ class InvoiceTest < Minitest::Test
   def test_total
     files = ({:invoices => "./data/invoices.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"})
     se = SalesEngine.from_csv(files)
+    invoice = se.invoices.find_by_id(5)
 
-    assert_equal 21067.77, se.f(3424)
+    assert_equal 15828.16, invoice.total
   end
 
 end

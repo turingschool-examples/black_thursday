@@ -10,16 +10,17 @@ class TransactionRepository
 
   def read_transactions_file(transactions_file)
     transactions_list  = []
-    CSV.foreach(transactions_file, headers: true, header_converters: :symbol) do |row|
-      transaction_info = {}
-      transaction_info[:id] = row[:id]
-      transaction_info[:invoice_id] = row[:invoice_id]
-      transaction_info[:credit_card_number] = row[:credit_card_number]
-      transaction_info[:credit_card_expiration_date]=row[:credit_card_expiration_date]
-      transaction_info[:result] = row[:result]
-      transaction_info[:created_at] =row[:created_at]
-      transaction_info[:updated_at] = row[:updated_at]
-      transactions_list << Transaction.new(transaction_info, self)
+    CSV.foreach(transactions_file, headers: true,
+    header_converters: :symbol) do |row|
+      trans_info = {}
+      trans_info[:id] = row[:id]
+      trans_info[:invoice_id] = row[:invoice_id]
+      trans_info[:credit_card_number] = row[:credit_card_number]
+      trans_info[:credit_card_expiration_date]=row[:credit_card_expiration_date]
+      trans_info[:result] = row[:result]
+      trans_info[:created_at] =row[:created_at]
+      trans_info[:updated_at] = row[:updated_at]
+      transactions_list << Transaction.new(trans_info, self)
     end
     transactions_list
   end

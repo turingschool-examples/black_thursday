@@ -1,7 +1,5 @@
 require_relative 'test_helper'
 require_relative '../lib/sales_engine'
-require_relative '../lib/merchant_repo'
-require_relative '../lib/item_repo'
 
 class SalesEngineTest < Minitest::Test
   def set_up

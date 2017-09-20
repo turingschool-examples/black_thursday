@@ -10,7 +10,8 @@ class InvoiceItemRepository
 
   def read_invoice_item_file(invoice_item_file)
     invoice_item_list =[]
-    CSV.foreach(invoice_item_file, headers: true, header_converters: :symbol) do |row|
+    CSV.foreach(invoice_item_file, headers: true,
+    header_converters: :symbol) do |row|
       invoice_item_info = {}
       invoice_item_info[:id] = row[:id]
       invoice_item_info[:item_id] = row[:item_id]

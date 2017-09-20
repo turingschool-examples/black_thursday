@@ -14,12 +14,13 @@ class SalesEngine
     invoice_items = files[:invoice_items]
     transactions = files[:transactions]
     customers = files[:customers]
-    SalesEngine.new(items, merchs, invoices, invoice_items, transactions, customers)
+    SalesEngine.new(items,merchs,invoices,invoice_items,transactions,customers)
   end
 
-  attr_reader :merchants, :items, :invoices, :invoice_items, :transactions, :customers
+  attr_reader :merchants, :items, :invoices, :invoice_items, :transactions,
+              :customers
 
-  def initialize(items, merchants, invoices, invoice_items, transactions, customers)
+  def initialize(items,merchants,invoices,invoice_items,transactions,customers)
     @items = ItemRepository.new(items, self)
     @merchants = MerchantRepository.new(merchants, self)
     @invoices = InvoiceRepository.new(invoices, self)
@@ -117,5 +118,12 @@ class SalesEngine
     merchant_ids.map do |merchant_id|
       merchants.find_by_id(merchant_id)
     end
+  end
+
+  def total_invoice_amount(invoice_id)
+    successful_i_items = invoice_items.find_all_by_invoice_id(invoice_id)
+    successful_i_items.map do |i_item|
+      i_item.total
+    end.sum.round(2)
   end
 end

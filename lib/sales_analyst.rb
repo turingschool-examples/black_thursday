@@ -1,4 +1,5 @@
 require 'bigdecimal'
+require 'time'
 
 class SalesAnalyst
   attr_reader :sales_engine
@@ -159,4 +160,14 @@ class SalesAnalyst
     status_list = sales_engine.invoices.find_all_by_status(status).count
     (status_list.to_f / all * 100).round(2)
   end
+
+  def total_revenue_by_date(date)
+    time = date.to_s.split.first
+    invoice_for_date = sales_engine.invoices.invoices.map do |invoice|
+      if invoice.created_at.to_s.split.first == time
+        sales_engine.total_invoice_amount(invoice.id)
+      end
+    end.compact.reduce(0.0, :+)
+  end
+
 end

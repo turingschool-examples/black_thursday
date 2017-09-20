@@ -13,10 +13,6 @@ attr_reader :set_up
     assert_instance_of Merchant, set_up
   end
 
-  def test_it_contains_merchants
-    assert_equal merchant_info, set_up.merchant
-  end
-
   def test_it_has_id
     assert_equal 12337411, set_up.id
   end
