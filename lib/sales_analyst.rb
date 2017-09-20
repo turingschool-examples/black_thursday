@@ -116,29 +116,37 @@ class SalesAnalyst
     matching_invoices.map(&:total).sum
   end
 
-  def merchant_paid_item_invoices_by_item_id(merchant_id)
+  def paid_item_invoices_by_item_id(merchant_id)
     merchant = @se.merchants.find_by_id(merchant_id)
     paid_invoices = merchant.invoices.select(&:is_paid_in_full?)
     iis = paid_invoices.flat_map(&:invoice_items)
     iis.group_by(&:item_id)
   end
 
-  def best_item_for_merchant(merchant_id)
-    item_invoices = merchant_paid_item_invoices_by_item_id(merchant_id)
-    item_revenues = item_invoices.transform_values do |list|
+  def revenues_by_item_id(merchant_id)
+    paid_item_invoices_by_item_id(merchant_id).transform_values do |list|
       list.reduce(0) { |sum, ii| sum + ii.total }
     end
-    best_id = item_revenues.max_by(&:last).first
-    @se.items.find_by_id(best_id)
+  end
+
+  def amount_sold_by_item_id(merchant_id)
+    paid_item_invoices_by_item_id(merchant_id).transform_values do |list|
+      list.reduce(0) { |sum, ii| sum + ii.quantity }
+    end
+  end
+
+  def best_item_for_merchant(merchant_id)
+    revenues = revenues_by_item_id(merchant_id)
+    best_revenue = revenues.values.max
+    best_item_id = revenues.key(best_revenue)
+    @se.items.find_by_id(best_item_id)
   end
 
   def most_sold_item_for_merchant(merchant_id)
-    item_invoices = merchant_paid_item_invoices_by_item_id(merchant_id)
-    item_revenues = item_invoices.transform_values do |list|
-      list.reduce(0) { |sum, ii| sum + ii.quantity }
-    end
-    best_id = item_revenues.max_by(&:last).first
-    @se.items.find_by_id(best_id)
+    amounts = amount_sold_by_item_id(merchant_id)
+    most_sold = amounts.values.max
+    amounts.keep_if{ |item_id, amount| amount == most_sold }
+    amounts.keys.map{ |item_id| @se.items.find_by_id(item_id) }
   end
 
   def merchants_with_pending_invoices
