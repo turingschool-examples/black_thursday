@@ -187,4 +187,25 @@ class SalesAnalyst
     merchant_invoices.map {|invoice| invoice.total}.sum
   end
 
+  def most_sold_item_for_merchant(merchant_id)
+    invoices = sales_engine.invoices.find_all_by_merchant_id(merchant_id)
+    invoice_items = invoices.map {|invoice| invoice.invoice_items}.flatten
+    # binding.pry
+    invoice_item_quantities = invoice_items.map do |invoice_item|
+                                {invoice_item.item_id => invoice_item.quantity}
+                              end
+    item_quantities =
+      invoice_item_quantities.reduce do |item_quantity, invoice_item|
+        item_quantity.merge(invoice_item) {|key, oldval, newval| newval + oldval}
+      end
+    binding.pry
+    item_id_quantities = item_quantities.each_value {|quantity| quantity}.max
+    binding.pry
+    item_ids = item_id_quantities.select.with_index {|id, i| i.even?}
+    binding.pry
+    item_ids.map do |item_id|
+      sales_engine.items.find_by_id(item_id)
+    end
+  end
+
 end
