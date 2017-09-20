@@ -266,8 +266,6 @@ class SalesAnalyst
   end
 
   def most_sold_item_for_merchant(merchant_id)
-    #currently, this will return a single one. in the spec, it says that if there's a tie, we should return all the items
-    #try sorting by invoice_item quantity, checking the max quantity and seeing if any other items match that # and then return it
     merchant = se.merchants.find_by_id(merchant_id)
     items = merchant.items
 
