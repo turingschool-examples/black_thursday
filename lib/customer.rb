@@ -1,6 +1,7 @@
 require 'time'
 
 class Customer
+
   attr_reader :id,
               :first_name,
               :last_name,
@@ -22,11 +23,8 @@ class Customer
   end
 
   def merchants
-    merchants = []
-    invoices.each do |invoice|
-      merchants << @customer_repository.find_merchants(invoice.merchant_id)
+    merchants = invoices.map do |invoice|
+      @customer_repository.find_merchants(invoice.merchant_id)
     end
-    merchants
   end
-
 end

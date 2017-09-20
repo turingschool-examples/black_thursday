@@ -59,25 +59,25 @@ class SalesEngine
   end
 
   def total_merchants
-    self.merchants.merchants.length
+    self.merchants.all.length
   end
 
   def total_items
-    self.items.items.length
+    self.items.all.length
   end
 
   def merchant_item_count
-    self.merchants.merchants.map do |merchant|
+    self.merchants.all.map do |merchant|
       merchant.items.count
     end
   end
 
   def total_invoices
-    self.invoices.invoices.length
+    self.invoices.all.length
   end
 
   def merchant_invoice_count
-    self.merchants.merchants.map {|merchant| merchant.invoices.count}
+    self.merchants.all.map {|merchant| merchant.invoices.count}
   end
 
 
