@@ -31,13 +31,6 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 2.86, @sa.average_items_per_merchant
   end
 
-  def test_it_can_find_the_invoices_on_each_day
-    assert_instance_of Hash, @sa.number_of_invoices_by_day
-    assert_equal 7, @sa.number_of_invoices_by_day.count
-    
-    assert_equal @sa.number_of_invoices_by_day, {"Monday"=>2, "Tuesday"=>11, "Wednesday"=>9, "Thursday"=>7, "Friday"=>8, "Saturday"=>4, "Sunday"=>5}
-  end
-
   def test_it_adds_up_total_revenue_by_day
     date = Time.parse("2005-01-03")
 
@@ -97,10 +90,6 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 12, @sa.merchant_by_month_created.keys.count
   end
 
-  def test_it_can_sort_items_by_month_created
-    assert_equal 'January', @sa.item_by_month_created.keys.first
-  end
-
   def test_it_can_tell_if_item_is_in_given_month
     merchant1 = @sa.se.merchants.find_by_id(12334183)
     merchant2 = @sa.se.merchants.find_by_id(12334132)
@@ -129,10 +118,5 @@ class SalesAnalystTest < MiniTest::Test
 
   def test_it_can_find_bottom_merchants_by_invoice_count
     assert @sa.bottom_merchants_by_invoice_count.empty?
-  end
-
-  def test_it_can_convert_date_to_string_with_year_month_day
-    date = '2009-03-11 14:54:15 UTC'
-    assert_equal '2009-03-11', @sa.date_converter_to_string(date)
   end
 end

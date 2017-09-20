@@ -80,6 +80,20 @@ class SalesEngine
     self.merchants.all.map {|merchant| merchant.invoices.count}
   end
 
+  def number_of_invoices_by_day
+    invoices_for_each_weekday = {'Monday' => 0,
+                                 'Tuesday' => 0,
+                                 'Wednesday' => 0,
+                                 'Thursday' => 0,
+                                 'Friday' => 0,
+                                 'Saturday' => 0,
+                                 'Sunday' => 0,
+                                }
 
+    invoices.all.each do |invoice|
+      invoices_for_each_weekday[invoice.day_of_the_week] += 1
+    end
+    invoices_for_each_weekday
+  end
 
 end

@@ -74,30 +74,14 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-    average = average_invoices_per_day.round(2)
-    invoice_count_by_day = number_of_invoices_by_day
+    average = average_invoices_per_day
+    invoice_count_by_day = se.number_of_invoices_by_day
     std_dev = daily_invoice_standard_deviation.ceil
 
     top_days = invoice_count_by_day.select do |day, number|
       invoice_count_by_day[day] > (average + std_dev)
     end
     top_days.keys
-  end
-
-  def number_of_invoices_by_day
-    invoices_for_each_weekday = {'Monday' => 0,
-                                 'Tuesday' => 0,
-                                 'Wednesday' => 0,
-                                 'Thursday' => 0,
-                                 'Friday' => 0,
-                                 'Saturday' => 0,
-                                 'Sunday' => 0,
-                                }
-
-    se.invoices.invoices.each do |invoice|
-      invoices_for_each_weekday[invoice.day_of_the_week] += 1
-    end
-    invoices_for_each_weekday
   end
 
   def average_invoices_per_day
@@ -124,12 +108,6 @@ class SalesAnalyst
       end
     end
     count
-  end
-
-  def date_converter_to_string(date)
-    split_date = date.split(' ')
-
-    return split_date[0].to_s
   end
 
   def top_revenue_earners(n = 20)
@@ -232,14 +210,6 @@ class SalesAnalyst
       merchant.created_at.strftime('%B')
     end
   end
-
-  def item_by_month_created
-    se.items.all.group_by do |item|
-      item.created_at.strftime('%B')
-    end
-  end
-
-
 
   # def revenue_by_merchant(merchant_id)
   #   revenue= 0.00

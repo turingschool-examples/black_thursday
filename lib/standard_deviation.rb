@@ -43,7 +43,7 @@ module StandardDeviation
 
   def daily_invoice_standard_deviation
     average = average_invoices_per_day
-    days = number_of_invoices_by_day
+    days = se.number_of_invoices_by_day
     difference_from_average = days.map do |day, number|
       days[day] - average
     end
