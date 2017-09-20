@@ -264,6 +264,16 @@ class SalesAnalyst
     item_id_with_invoice_items
   end
 
+  def total_revenue_for_item(item_id_with_invoice_items)
+    item_id_with_invoice_items.each do |k, v|
+      total_sold = v.reduce(0) do |sum, invoice_item|
+        sum + invoice_item.quantity * invoice_item.unit_price
+      end
+      item_id_with_invoice_items[k] = total_sold
+    end
+    item_id_with_invoice_items
+  end
+
   def find_max_value(items_sold_hash)
     items_sold_hash.values.max
   end
@@ -301,6 +311,15 @@ class SalesAnalyst
     find_items_by_id(most_sold_items_by_id)
   end
 
+  def best_item_for_merchant(merchant_id)
+    merchant = se.merchants.find_by_id(merchant_id)
+    paid_invoices = paid_invoices(merchant)
+    invoice_items = paid_invoice_items(paid_invoices)
+    sorted_invoice_items = item_id_with_invoice_items(invoice_items)
+    item_revenues = total_revenue_for_item(sorted_invoice_items)
+    most_sold_items_by_id = find_items_with_max_value(item_revenues)
+    find_items_by_id(most_sold_items_by_id).first
+  end
 
   # def merchant_revenue(merchant)
   #   revenue= 0.00
