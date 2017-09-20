@@ -70,6 +70,11 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_for_total
+    skip
     assert_equal [], invoice.total
+  end
+
+  def test_new_shit
+    assert_equal [], invoice.new_shit
   end
 end

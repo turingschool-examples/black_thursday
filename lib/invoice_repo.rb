@@ -39,7 +39,7 @@ class InvoiceRepo
 
   def invoice_items_list(id)
     @parent.invoice_items_list(id)
-
   end
+
 
 end

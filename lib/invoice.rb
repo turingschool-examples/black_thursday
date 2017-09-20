@@ -62,9 +62,9 @@ class Invoice
   end
 
   def total
-    if is_paid_in_full?
-      @parent.parent.invoice_items_unit_price(unit_price)
-    end
+    @parent.parent.invoice_items_unit_price(unit_price)
   end
+
+  
 
 end
