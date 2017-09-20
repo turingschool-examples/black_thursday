@@ -45,11 +45,9 @@ class Invoice
     @invoice_repository.find_all_invoice_items_by_invoice_id(@id)
   end
 
-
-
   def is_paid_in_full?
     return false if transactions.count == 0
-    transactions.all? do |transaction|
+    transactions.any? do |transaction|
       transaction.result == 'success'
     end
   end
@@ -61,6 +59,7 @@ class Invoice
   end
 
   def total
+    return 0 unless is_paid_in_full?
     invoice_items.reduce(BigDecimal.new(0, 4)) do |invoice_total ,invoice_item|
       (invoice_item.unit_price * invoice_item.quantity) + invoice_total
     end

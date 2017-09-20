@@ -20,7 +20,7 @@ class SalesAnalyst
     std_dev = average_items_per_merchant_standard_deviation
 
     se.merchants.merchants.select do |merchant|
-      merchant.items.count >= std_dev*2
+      merchant.items.count >= std_dev * 2
     end
   end
 
