@@ -1,5 +1,6 @@
 require_relative 'test_helper'
 require_relative '../lib/invoice'
+require_relative '../lib/sales_engine'
 
 class InvoiceTest < Minitest::Test
   def set_up
@@ -34,4 +35,19 @@ class InvoiceTest < Minitest::Test
   def test_invoice_updated_at
     assert_instance_of Time, set_up.created_at
   end
+
+  def test_invoice_is_paid_in_full
+    files = ({:invoices => "./data/invoices.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"})
+    se = SalesEngine.from_csv(files).invoices
+
+    assert_equal true, se.invoices.first.is_paid_in_full?
+  end
+
+  def test_total
+    files = ({:invoices => "./data/invoices.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"})
+    se = SalesEngine.from_csv(files)
+
+    assert_equal 21067.77, se.f(3424)
+  end
+
 end
