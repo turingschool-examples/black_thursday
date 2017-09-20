@@ -24,6 +24,7 @@ class Merchant
     invoices = find_invoices
     cust_inv = parent.parent.customers
     invoices.map do |invoice|
+      # binding.pry
       cust_inv.find_by_id(invoice.customer_id)
       end
     end
