@@ -31,4 +31,10 @@ class Merchant
     invoices.reduce(0) { |sum, invoice| sum + invoice.total }
   end
 
+  def merchant_invoices_check_failed_transactions
+    invoices.any? do |invoice|
+      invoice.failed_transactions
+    end
+  end
+
 end

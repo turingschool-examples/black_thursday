@@ -201,13 +201,21 @@ class SalesAnalyst
 
   def merchants_with_pending_invoices
     @se.merchants.all.select do |merchant|
-      merchant.invoices.any? do |invoice|
-        invoice.transactions.all? do |transaction|
-          transaction.result == "failed"
-        end
-      end
+      merchant.merchant_invoices_check_failed_transactions
     end
   end
+
+  # def merchant_invoices_check_failed_transactions
+  #   merchant.invoices.any? do |invoice|
+  #     invoice.failed_transactions
+  #   end
+  # end
+
+  # def failed_transactions
+  #   invoice.transactions.all? do |transaction|
+  #     transaction.result == "failed"
+  #   end
+  # end
 
   def merchants_with_only_one_item
     @se.merchants.all.select { |merchant| merchant.items.count == 1 }
