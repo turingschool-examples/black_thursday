@@ -1,6 +1,5 @@
 require_relative 'transaction'
 require 'csv'
-require 'pry'
 
 class TransactionRepository
 
@@ -13,7 +12,8 @@ class TransactionRepository
 
   def from_csv(file_path)
     trxr_array = []
-    CSV.foreach(file_path, headers: true, :header_converters => :symbol ) do |row|
+    options = {headers: true, header_converters: :symbol}
+    CSV.foreach(file_path, options ) do |row|
       trxr_array << Transaction.new(row, self)
     end
     trxr_array
