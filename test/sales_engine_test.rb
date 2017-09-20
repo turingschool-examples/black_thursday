@@ -153,4 +153,21 @@ class SalesEngineTest < Minitest::Test
     assert_equal 21067.77, invoice.total
   end
 
+  def test_sales_engine_can_determine_invoice_success
+    invoice = se.invoices.find_by_id(1)
+
+    assert_equal true, invoice.transaction_success?
+  end
+
+  def test_merchant_knows_its_own_total_revenue
+    merchant = se.merchants.find_by_id(12334105)
+
+    assert_equal 21067.77, merchant.total_revenue
+  end
+
+  def test_quantity_sold_called_on_item_returns_the_sum_of_quantity_sold_according_to_invoice_items_data
+    skip
+    item = se.items.find_by_id(263395617)
+  end
+
 end

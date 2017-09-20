@@ -1,3 +1,6 @@
+require 'bigdecimal'
+require 'bigdecimal/util'
+
 class SalesAnalyst
 
   def initialize(engine)
@@ -74,7 +77,7 @@ class SalesAnalyst
       item.unit_price > bar
     end
   end
-  #
+
   def average_invoices_per_merchant
     (@engine.invoices.all.count.to_f / @engine.merchants.all.count.to_f).round(2)
   end
@@ -166,14 +169,29 @@ class SalesAnalyst
     ((count / total_invoices_count.to_f) * 100).round(2)
   end
 
+  def top_revenue_earners(number_merchants = 20)
+    merchants_ranked_by_revenue[0..(number_merchants - 1)]
+  end
+
+  def revenue_by_merchant(merchant_id)
+    merchant = @engine.merchants.find_by_id(merchant_id)
+    (merchant.total_revenue).to_d
+  end
+
+  def merchants_ranked_by_revenue
+    @engine.merchants.all.sort_by do |merchant|
+      merchant.total_revenue
+    end.reverse
+  end
+
   def merchants_with_only_one_item
     @engine.merchants.all.select do |merchant|
       merchant.items.count == 1
-    end 
+    end
   end
 
   def merchants_with_only_one_item_registered_in_month(month)
-    merchants_with_only_one_item.select do |merchant| 
+    merchants_with_only_one_item.select do |merchant|
       merchant.created_at.month == Date::MONTHNAMES.index(month)
     end
   end
@@ -204,12 +222,4 @@ end
 
 
 
-
-
-
-
-
-
-
-
-
+end

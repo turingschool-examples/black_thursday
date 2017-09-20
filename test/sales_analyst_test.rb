@@ -133,6 +133,8 @@ class SalesAnalystTest < Minitest::Test
   def test_merchants_with_only_one_item_registered_in_month
     assert_equal 1, sa.merchants_with_only_one_item_registered_in_month('June').count
     assert_instance_of Merchant, sa.merchants_with_only_one_item_registered_in_month('June').first.class
+    assert_instance_of Merchant, sa.merchants_with_only_one_item_registered_in_month('June').first
+  end
 
   def test_invoice_items_on_date_returns_array_of_invoice_item_instances_created_on_given_date
     actual = sa.invoices_on_date(Time.parse("2012-11-23"))
@@ -151,26 +153,16 @@ class SalesAnalystTest < Minitest::Test
 
   def test_merchants_with_pending_invoices_returns_merchants_with_pending_invoices
 
+
   end
 
+  def test_top_revenue_earners_returns_array_of_top_merchants_by_revenue
+    actual = sa.top_revenue_earners(2)
+    expected = se.merchants.all[0..1]
+
+    assert_equal expected, actual
+  end
+
+
+
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

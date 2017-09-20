@@ -29,4 +29,12 @@ class Merchant
     customer_ids = invoices.map { |invoice| invoice.customer_id }
     customer_ids.map { |customer_id| se.customers.find_by_id(customer_id) }.uniq
   end
+
+  def total_revenue
+    return 0 if invoices.empty?
+    invoices.map do |invoice|
+      invoice.total
+    end.inject(:+).round(2)
+  end
+
 end
