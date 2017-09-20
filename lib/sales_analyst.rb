@@ -186,19 +186,19 @@ class SalesAnalyst
     ###could try using this from the item repo:
     ###items.find_all_by_merchant_id(merchant_id) should return all items per merchant. Then find the item which occurs most in the array by using a hash?
 
-    merchant_id = 12336617
-    items_and_qty_hash = Hash.new(0)
-    all_items = sales_engine.items.find_all_by_merchant_id(merchant_id)
-    all_items.each do |item|
-      items_and_qty_hash[item] += 1
-    end
-    puts items_and_qty_hash
-    array = items_and_qty_hash.max_by do |key, value|
-      value
-      #returns an array containing [key, value]
-    end
-    puts array
-     #this should return the item_id
+    # merchant_id = 12336617
+    # items_and_qty_hash = Hash.new(0)
+    # all_items = sales_engine.items.find_all_by_merchant_id(merchant_id)
+    # all_items.each do |item|
+    #   items_and_qty_hash[item] += 1
+    # end
+    # puts items_and_qty_hash
+    # array = items_and_qty_hash.max_by do |key, value|
+    #   value
+    #   #returns an array containing [key, value]
+    # end
+    # puts array
+    #  #this should return the item_id
 
 
     #
@@ -233,18 +233,23 @@ class SalesAnalyst
   end
 
   def merchants_ranked_by_revenue
+    puts "sa 236"
     top_revenue_by_id = single_merchant_id_with_total_revenue.map do |key, value|
       key
+      puts "sa 239"
     end
+
     top_merchants = []
     top_revenue_by_id.each do |id|
       top_merchants << sales_engine.merchants.find_by_id(id)
+      puts "sa 245"
     end
     top_merchants
   end
 
   def top_revenue_earners(number = 20)
   #  binding.pry
+  puts "sa 252"
     range = (number-1)
     merchants_ranked_by_revenue[0..range]
     puts merchants_ranked_by_revenue[0..range]  #this works
