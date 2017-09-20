@@ -132,7 +132,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_merchants_with_only_one_item_registered_in_month
     assert_equal 1, sa.merchants_with_only_one_item_registered_in_month('June').count
-    assert_instance_of Merchant, sa.merchants_with_only_one_item_registered_in_month('June').first.class
+    assert_instance_of Class, sa.merchants_with_only_one_item_registered_in_month('June').first.class
     assert_instance_of Merchant, sa.merchants_with_only_one_item_registered_in_month('June').first
   end
 

@@ -5,7 +5,8 @@ class SalesAnalyst
 
   def initialize(engine)
     @engine = engine
-    @days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    @days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday",
+             "Friday", "Saturday"]
 
   end
 
@@ -34,7 +35,8 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    bar = average_items_per_merchant + average_items_per_merchant_standard_deviation
+    bar = average_items_per_merchant +
+          average_items_per_merchant_standard_deviation
     @engine.merchants.all.find_all do |merchant|
       merchant.items.count > bar
     end
@@ -79,7 +81,8 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
-    (@engine.invoices.all.count.to_f / @engine.merchants.all.count.to_f).round(2)
+    (@engine.invoices.all.count.to_f /
+    @engine.merchants.all.count.to_f).round(2)
   end
 
   def average_invoices_per_merchant_standard_deviation
@@ -91,14 +94,16 @@ class SalesAnalyst
   end
 
   def top_merchants_by_invoice_count
-    bar = (2 * average_invoices_per_merchant_standard_deviation) + average_invoices_per_merchant
+    bar = (2 * average_invoices_per_merchant_standard_deviation) +
+          average_invoices_per_merchant
     @engine.merchants.merchants.find_all do |merchant|
       merchant.invoices.count > bar
     end
   end
 
   def bottom_merchants_by_invoice_count
-    bar = average_invoices_per_merchant - (2 * average_invoices_per_merchant_standard_deviation)
+    bar = average_invoices_per_merchant -
+          (2 * average_invoices_per_merchant_standard_deviation)
     @engine.merchants.merchants.find_all do |merchant|
       merchant.invoices.count < bar
     end
@@ -126,7 +131,8 @@ class SalesAnalyst
 
   def top_days_by_invoice_count
     days = []
-    bar = average_invoices_created_per_day + number_of_invoices_created_per_day_standard_deviation
+    bar = average_invoices_created_per_day +
+          number_of_invoices_created_per_day_standard_deviation
     number_of_invoices_created_per_day.each.with_index do |invoice_count, index|
       if invoice_count > bar
         days << index
