@@ -74,7 +74,7 @@ class SalesAnalystTest < Minitest::Test
     assert_equal ["Wednesday"], sales_analyst.top_days_by_invoice_count
   end
 
-  def test_invoice_status_returns_percent_by_status
+  def test_invoice_status_returns_percentage_based_on_status
     assert_equal 29.55, sales_analyst.invoice_status(:pending)
     assert_equal 56.95, sales_analyst.invoice_status(:shipped)
     assert_equal 13.5, sales_analyst.invoice_status(:returned)
@@ -107,59 +107,33 @@ class SalesAnalystTest < Minitest::Test
     end
   end
 
-  def test_revenues_by_item_id_totals_invoice
+  def test_revenues_by_item_id_totals_revenue_by_invoice_id
     revenue_by_invoice_item = sales_analyst.revenues_by_item_id(12334123)
     assert_instance_of Hash, revenue_by_invoice_item
     assert revenue_by_invoice_item.all? do |item_id, total|
-      item_id.is_a?(Integer) &&
-      invoice_items.is_a?(BigDecimal) &&
-      invoice_items.all? do |ii|
-        ii.is_a? InvoiceItem
-      end
+      item_id.is_a?(Integer) && total.is_a?(BigDecimal)
     end
   end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  def test_top_days_by_invoice_count_returns_an_array_above_standard_deviation
-    assert_equal ["Wednesday"], sales_analyst.top_days_by_invoice_count
+  def test_amount_sold_by_item_id_totals_quantity_by_id
+    quantity_by_invoice_item = sales_analyst.amount_sold_by_item_id(12334123)
+    assert_instance_of Hash, quantity_by_invoice_item
+    assert quantity_by_invoice_item.all? do |item_id, quantity|
+      item_id.is_a?(Integer) && quantity.is_a?(Integer)
+    end
   end
 
-  def test_invoice_status_returns_percentage_based_on_status
-    assert_equal 29.55, sales_analyst.invoice_status(:pending)
-    assert_equal 56.95, sales_analyst.invoice_status(:shipped)
-    assert_equal 13.5, sales_analyst.invoice_status(:returned)
+  def test_best_item_for_merchant_returns_item_with_most_generated_revenue
+    best_item = sales_analyst.best_item_for_merchant(12337105)
+    assert_instance_of Item, best_item
+    assert_equal 263463003, best_item.id
   end
 
-  def test_revenue_by_merchant_returns_a_BigDecimal
-    expected = BigDecimal.new('123696.45')
-    actual = sales_analyst.revenue_by_merchant(12334141)
-    assert_equal expected, actual
+  def test_most_sold_item_sold_for_merchant_returns_item_with_highest_quantity
+    most_sold_item = sales_analyst.most_sold_item_for_merchant(12337105)
+    assert_instance_of Array, most_sold_item
+    assert_equal 4, most_sold_item.length
   end
-
-  def test_merchants_ranked_by_revenue_returns_an_array_of_all_merchants
-    ranked = sales_analyst.merchants_ranked_by_revenue
-    assert_instance_of Array, ranked
-    assert_equal sales_engine.merchants.all.length, ranked.length
-    assert ranked.all?{ |merchant| merchant.is_a? Merchant }
-  end
-
-
 
   def test_merchants_with_pending_invoices_returns_merchants_with_unsuccessful_transactions
     assert_instance_of Array, sales_analyst.merchants_with_pending_invoices
@@ -173,6 +147,52 @@ class SalesAnalystTest < Minitest::Test
   def test_merchants_with_only_one_item_registered_in_month_returns_an_array
     input = sales_analyst.merchants_with_only_one_item_registered_in_month("May")
     assert_instance_of Array, input
+  end
+
+  def test_average_price_returns_average_price
+    average_price = sales_analyst.average_price
+    expected = "0.251055106071689831748354059985e3"
+    assert_equal BigDecimal.new(expected), average_price
+    assert_instance_of BigDecimal, average_price
+  end
+
+  def test_revenue_by_merchant_returns_a_BigDecimal
+    expected = BigDecimal.new('123696.45')
+    actual = sales_analyst.revenue_by_merchant(12334141)
+    assert_equal expected, actual
+  end
+
+  def test_top_revenues_by_earners_returns_array
+    top_X = sales_analyst.top_revenue_earners(5)
+    assert_equal 5, top_X.length
+    assert_instance_of Array, top_X
+    assert_instance_of Merchant, top_X.first
+  end
+
+  def test_top_revenues_by_earners_defaults_to_20
+    top_20 = sales_analyst.top_revenue_earners
+    assert_equal 20, top_20.length
+    assert_instance_of Array, top_20
+    assert_instance_of Merchant, top_20.first
+  end
+
+  def test_merchants_ranked_by_revenue_returns_an_array_of_all_merchants
+    ranked = sales_analyst.merchants_ranked_by_revenue
+    assert_instance_of Array, ranked
+    assert_equal sales_engine.merchants.all.length, ranked.length
+    assert ranked.all?{ |merchant| merchant.is_a? Merchant }
+  end
+
+  def test_rounded_rounds_value_two_decimal_points
+    answer = 3.5556
+    expected = 3.56
+    assert_equal expected, sales_analyst.rounded(answer)
+  end
+
+  def test_rounded_rounds_value_takes_a_interger
+    answer = 4
+    expected = 4
+    assert_equal expected, sales_analyst.rounded(answer)
   end
 
 end
