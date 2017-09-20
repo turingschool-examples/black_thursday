@@ -62,10 +62,10 @@ class Invoice
     transactions.any? {|transaction| transaction.result == "success"}
   end
 
-  def total
-    return 0 if !self.is_paid_in_full?
-    invoice_items.inject(0) do |sum, invoice_item_instance|
-      sum += invoice_item_instance.quantity * invoice_item_instance.unit_price
-      end
-  end
-end
+# worked in pair but i dont understand, redid
+  # def total
+  #   return 0 if !self.is_paid_in_full?
+  #   invoice_items.inject(0) do |sum, invoice_item_instance|
+  #     sum += invoice_item_instance.quantity * invoice_item_instance.unit_price
+  #     end
+  # end
