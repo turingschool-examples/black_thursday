@@ -63,5 +63,4 @@ class Invoice
       invoice_repo.total_amount(self.id)
     end
   end
-
 end

@@ -64,5 +64,4 @@ class ItemRepositoryTest < Minitest::Test
   def test_find_by_all_by_merchant_id_exists
     assert_equal 1, set_up.find_all_by_merchant_id(12334141).count
   end
-
 end

@@ -24,5 +24,4 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_find_specific_invoice_id
     assert_instance_of Invoice, set_up.find_by_id(5)
   end
-
 end
