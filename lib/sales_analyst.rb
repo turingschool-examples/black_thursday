@@ -163,7 +163,7 @@ class SalesAnalyst
 
   def total_revenue_by_date(date)
     time = date.to_s.split.first
-    invoice_for_date = sales_engine.invoices.invoices.map do |invoice|
+    sales_engine.invoices.invoices.map do |invoice|
       if invoice.created_at.to_s.split.first == time
         sales_engine.total_invoice_amount(invoice.id)
       end
