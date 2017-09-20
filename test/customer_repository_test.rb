@@ -30,7 +30,7 @@ class CustomerRepositoryTest < Minitest::Test
     actual = @cr.find_by_id(2)
 
     assert_equal @cr.all[1], actual
-    assert_nil = @cr.find_by_id('2312312')
+    assert_nil = @cr.find_by_id(2312312)
   end
 
   def test_find_all_by_first_name_returns_array_of_all_customers_with_given_first_name
