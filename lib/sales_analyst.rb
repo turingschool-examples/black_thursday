@@ -3,6 +3,7 @@ require_relative './merchant_math'
 require_relative './merchant_golden_items'
 require_relative './merchant_merchants_by_invoice_count'
 require_relative "./merchant_top_days_by_invoice_count"
+require_relative "./merchant_top_revenue_earners"
 require 'pry'
 require "date"
 
@@ -13,6 +14,7 @@ class SalesAnalyst
   include MerchantGoldenItems
   include MerchantMerchantsByInvoiceCount
   include MerchantTopDaysByInvoiceCount
+  include MerchantTopRevenueEarners
   #we can move these all back into a single module if needed -- I was just getting confused and needed to be able to separate the different methods and helper methods
 
   attr_reader :sales_engine
@@ -151,24 +153,23 @@ class SalesAnalyst
     end
   end
 
-    def top_days_by_invoice_count
-      find_top_days
-      convert_numbers_to_weekdays
-    end
+  def top_days_by_invoice_count
+    find_top_days
+    convert_numbers_to_weekdays
+  end
 
-    def  invoices_by_date(date)
-      sales_engine.invoices.all.select do |invoice|
-        invoice.created_at == date
-      end
-    end
 
     def total_revenue_by_date(date)
       invoices_by_date(date).map do |invoice|
         BigDecimal.new(invoice.total)
       end.sum.round(2)
     end
+  end
 
-  def top_revenue_earners(number = 20)
+  def total_revenue_by_date(date)
+    invoices_by_date(date).map do |invoice|
+      invoice.total
+    end.sum.round(2)
   end
 
 
@@ -187,6 +188,7 @@ class SalesAnalyst
     merchant_invoices.map {|invoice| invoice.total}.sum
   end
 
+
   def most_sold_item_for_merchant(merchant_id)
     invoices = sales_engine.invoices.find_all_by_merchant_id(merchant_id)
     invoice_items = invoices.map {|invoice| invoice.invoice_items}.flatten
@@ -198,14 +200,31 @@ class SalesAnalyst
       invoice_item_quantities.reduce do |item_quantity, invoice_item|
         item_quantity.merge(invoice_item) {|key, oldval, newval| newval + oldval}
       end
-    binding.pry
+    # binding.pry
     item_id_quantities = item_quantities.each_value {|quantity| quantity}.max
-    binding.pry
+    # binding.pry
     item_ids = item_id_quantities.select.with_index {|id, i| i.even?}
-    binding.pry
+    # binding.pry
     item_ids.map do |item_id|
       sales_engine.items.find_by_id(item_id)
     end
+
+  def merchants_ranked_by_revenue
+    top_revenue_by_id = single_merchant_id_with_total_revenue.map do |key, value|
+      key
+    end
+    top_merchants = []
+     top_revenue_by_id.each do |id|
+       top_merchants << sales_engine.merchants.find_by_id(id)
+     end
+     top_merchants
+   end
+
+ def top_revenue_earners(number = 20)
+      #  binding.pry
+    range = (number-1)
+    merchants_ranked_by_revenue[0..range]
+    puts merchants_ranked_by_revenue[0..range]  #this works
   end
 
 end

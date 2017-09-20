@@ -31,12 +31,6 @@ class Invoice
   end
 
 
-  # def is_paid_in_full?
-  #   #check all transactionsby this id to make sure there IS a transaction, and finally to see if there is at least 1 successful "result"
-  #   sales_engine.transations.find_all_by_result(successful) #returns a transaction array.
-  #   #search transaction array for self.merchant_id
-  # end
-
   def items
     invoice_items = invoice_repository.sales_engine.invoice_items.find_all_by_invoice_id(id)
     item_ids = invoice_items.map {|invoice_item| invoice_item.item_id}
