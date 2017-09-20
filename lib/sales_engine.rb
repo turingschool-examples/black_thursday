@@ -59,4 +59,8 @@ class SalesEngine
     customers.find_by_id(customer_id)
   end
 
+  def invoice_items_unit_price(unit_price)
+    invoice_items.unit_price_to_dollars(unit_price)
+  end
+
 end

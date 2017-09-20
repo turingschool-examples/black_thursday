@@ -37,16 +37,4 @@ class InvoiceItemRepo
     end
   end
 
-    def invoice_items_list(id)
-      parent.invoice_items_list(id)
-    end
-  #   # enumerate through all and return item id
-  #   # move to items repo and return all the items for item id's
-  # end
-  #
-  # def return_item_id
-  #   find_all_by_invoice_id(inv_id).map do |invoice|
-  #     invoice.item_id
-  #   end
-  # end
 end

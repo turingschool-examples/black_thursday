@@ -56,5 +56,15 @@ class Invoice
     @parent.parent.customer_invoice_id(customer_id)
   end
 
-      
+  def is_paid_in_full?
+    return false if transactions.empty?
+    transactions.any? {|transaction| transaction.result == "success"}
+  end
+
+  def total
+    if is_paid_in_full?
+      @parent.parent.invoice_items_unit_price(unit_price)
+    end
+  end
+
 end
