@@ -28,6 +28,10 @@ class MerchantAnalystTest < Minitest::Test
     assert_equal ({12334185=>0.1562053e5, 12334113=>0, 12334112=>0, 12334115=>0.2253302e5}), @analyst.total_revenue_for_all_merchants
   end
 
+  def test_merchants_ranked_by_revenue_returns_merchant_ids_sorted_by_revenue
+    assert_equal [12334113, 12334112, 12334185, 12334115], @analyst.merchants_ranked_by_revenue
+  end
+
   def test_top_revenue_earners_returns_x_number_of_top_earning_merchants
     high_earners = @analyst.top_revenue_earners(3)
 

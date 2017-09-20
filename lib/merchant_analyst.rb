@@ -23,19 +23,22 @@ module MerchantAnalyst
     revenue_per_invoice = Hash[@engine.invoice_list.map {|invoice| [invoice.merchant_id, revenue_by_merchant(invoice.merchant_id)]}]
   end
 
-  def top_revenue_earners(x)
-    all_earners_sorted = total_revenue_for_all_merchants.sort_by {|key, value| value}.to_h
-    top_x_earner_ids = all_earners_sorted.keys[-x..-1]
+  def merchants_ranked_by_revenue
+    sorted_merchants = total_revenue_for_all_merchants.sort_by {|key, value| -value}.to_h
+    sorted_merchants.keys
+  end
+
+  def top_revenue_earners(x = 20)
+    top_x_earner_ids = merchants_ranked_by_revenue[1..x]
     top_x_earner_ids.map {|earner_id| @engine.merchants.find_by_id(earner_id)}
   end
 
   def merchants_with_pending_invoices
-    pending_invoices = @engine.invoice_list.find_all do |invoice|
-      invoice.status == :pending
-    end
+    #filter by paid in full--if it is pending and has no successful transactions
+    pending_invoices = @engine.invoices.find_all_by_status(:pending)
 
     pending_merchant_ids = pending_invoices.map do |invoice|
-      invoice.merchant_id
+      invoice.merchant_id if !invoice.is_paid_in_full?
     end
     pending_merchant_ids.uniq.map do |merchant_id|
       @engine.merchants.find_by_id(merchant_id)
@@ -75,6 +78,7 @@ module MerchantAnalyst
   end
 
   def most_sold_item_for_merchant(merchant_id)
+    #take into account only successful transaction, filter only successful ones, then find highest out of that
     merchant_invoices = @engine.invoices.find_all_by_merchant_id(merchant_id)
     invoice_ids = merchant_invoices.map {|invoice| invoice.id}
     invoice_items = invoice_ids.map do |invoice_id|

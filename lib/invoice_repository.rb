@@ -47,13 +47,14 @@ class InvoiceRepository
   end
 
   def find_all_by_date(date)
+    date = date.to_s
     @invoices.find_all do |invoice|
       creation_date = invoice.created_at.to_s
       creation_date.include?(date)
     end
   end
 
-  
+
   def inspect
     "#<#{self.class} #{@items.size} rows>"
   end
