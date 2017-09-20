@@ -219,7 +219,3 @@ class SalesAnalyst
   end
 
 end
-
-
-
-end
