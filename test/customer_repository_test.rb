@@ -27,7 +27,7 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_find_by_id_returns_instance_of_customer_according_to_given_id_or_returns_nil_if_no_matching_id
-    actual = @cr.find_by_id('2')
+    actual = @cr.find_by_id(2)
 
     assert_equal @cr.all[1], actual
     assert_nil = @cr.find_by_id('2312312')
