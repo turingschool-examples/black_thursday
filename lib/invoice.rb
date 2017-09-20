@@ -62,7 +62,12 @@ class Invoice
     transactions.any? {|transaction| transaction.result == "success"}
   end
 
+
   def total
+    @parent.parent.invoice_items_unit_price(unit_price)
+  end
+
+end
 
 # worked in pair but i dont understand, redid
   # def total
