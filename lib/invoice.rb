@@ -52,13 +52,19 @@ class Invoice
     @parent.parent.transactions_invoice_id(id)
   end
 
+  def customer
+    @parent.parent.customer_invoice_id(customer_id)
+  end
+
   def is_paid_in_full?
-    transactions.find_all do |transaction|
-      if transaction.include?("success")
-        true
-      else
-        find_all_by_last_name
-      end
+    return false if transactions.empty?
+    transactions.any? {|transaction| transaction.result == "success"}
+  end
+
+  def total
+    if is_paid_in_full?
+      @parent.parent.invoice_items_unit_price(unit_price)
     end
   end
+
 end

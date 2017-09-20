@@ -55,4 +55,12 @@ class SalesEngine
     transactions.find_all_by_invoice_id(invoice_id)
   end
 
+  def customer_invoice_id(customer_id)
+    customers.find_by_id(customer_id)
+  end
+
+  def invoice_items_unit_price(unit_price)
+    invoice_items.unit_price_to_dollars(unit_price)
+  end
+
 end

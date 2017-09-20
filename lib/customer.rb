@@ -20,6 +20,6 @@ class Customer
     @updated_at  = Time.parse(data[:updated_at].to_s)
     @parent      = repo
   end
-  def merchants
-  end
+
+  
 end
