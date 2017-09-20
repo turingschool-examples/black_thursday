@@ -34,6 +34,7 @@ class SalesAnalystTest < MiniTest::Test
   def test_it_can_find_the_invoices_on_each_day
     assert_instance_of Hash, @sa.number_of_invoices_by_day
     assert_equal 7, @sa.number_of_invoices_by_day.count
+    
     assert_equal @sa.number_of_invoices_by_day, {"Monday"=>2, "Tuesday"=>11, "Wednesday"=>9, "Thursday"=>7, "Friday"=>8, "Saturday"=>4, "Sunday"=>5}
   end
 

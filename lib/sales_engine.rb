@@ -7,36 +7,36 @@ require_relative 'transaction_repository'
 
 class SalesEngine
 
-  attr_accessor :merchant_csv_filepath,
-                :item_csv_filepath,
-                :invoice_csv_filepath,
-                :customer_csv_filepath,
-                :invoice_item_csv_filepath,
-                :transaction_csv_filepath
+  attr_accessor :merchant_csv_file,
+                :item_csv_file,
+                :invoice_csv_file,
+                :customer_csv_file,
+                :invoice_item_csv_file,
+                :transaction_csv_file
 
   def self.from_csv(info)
     se = SalesEngine.new
-    se.merchant_csv_filepath = info[:merchants]
-    se.item_csv_filepath = info[:items]
-    se.invoice_csv_filepath = info[:invoices]
-    se.customer_csv_filepath = info[:customers]
-    se.invoice_item_csv_filepath = info[:invoice_items]
-    se.transaction_csv_filepath = info[:transactions]
+    se.merchant_csv_file = info[:merchants]
+    se.item_csv_file = info[:items]
+    se.invoice_csv_file = info[:invoices]
+    se.customer_csv_file = info[:customers]
+    se.invoice_item_csv_file = info[:invoice_items]
+    se.transaction_csv_file = info[:transactions]
     se
   end
 
   def initialize
-    @merchant_csv_filepath = ''
-    @item_csv_filepath = ''
-    @invoice_csv_filepath = ''
-    @customer_csv_filepath = ''
-    @invoice_item_csv_filepath = ''
-    @transaction_csv_filepath = ''
+    @merchant_csv_file = ''
+    @item_csv_file = ''
+    @invoice_csv_file = ''
+    @customer_csv_file = ''
+    @invoice_item_csv_file = ''
+    @transaction_csv_file = ''
   end
 
   def merchants
     if @merchant_repository.nil?
-      @merchant_repository = MerchantRepository.new(@merchant_csv_filepath, self)
+      @merchant_repository = MerchantRepository.new(@merchant_csv_file, self)
     else
       @merchant_repository
     end
@@ -44,7 +44,7 @@ class SalesEngine
 
   def items
     if @item_repository.nil?
-      @item_repository = ItemRepository.new(@item_csv_filepath, self)
+      @item_repository = ItemRepository.new(@item_csv_file, self)
     else
       @item_repository
     end
@@ -52,7 +52,7 @@ class SalesEngine
 
   def invoices
     if @invoice_repository.nil?
-      @invoice_repository = InvoiceRepository.new(@invoice_csv_filepath, self)
+      @invoice_repository = InvoiceRepository.new(@invoice_csv_file, self)
     else
       @invoice_repository
     end
@@ -60,7 +60,7 @@ class SalesEngine
 
   def customers
     if @customer_repository.nil?
-      @customer_repository = CustomerRepository.new(@customer_csv_filepath, self)
+      @customer_repository = CustomerRepository.new(@customer_csv_file, self)
     else
       @customer_repository
     end
@@ -68,7 +68,7 @@ class SalesEngine
 
   def invoice_items
     if @invoice_items.nil?
-      @invoice_items = InvoiceItemRepository.new(@invoice_item_csv_filepath, self)
+      @invoice_items = InvoiceItemRepository.new(@invoice_item_csv_file, self)
     else
       @invoice_items
     end
@@ -76,7 +76,7 @@ class SalesEngine
 
   def transactions
     if @transactions.nil?
-      @transactions = TransactionRepository.new(@transaction_csv_filepath, self)
+      @transactions = TransactionRepository.new(@transaction_csv_file, self)
     else
       @transactions
     end
@@ -89,10 +89,6 @@ class SalesEngine
   def total_items
     self.items.items.length
   end
-
-  # def average_items_per_merchant
-  #   total_items / total_merchants.to_f
-  # end
 
   def merchant_item_count
     self.merchants.merchants.map do |merchant|

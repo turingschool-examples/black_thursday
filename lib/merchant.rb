@@ -27,5 +27,4 @@ class Merchant
     end
     customers.compact.uniq
   end
-
 end
