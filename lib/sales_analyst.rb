@@ -1,4 +1,3 @@
-
 class SalesAnalyst
 
   def initialize(engine)
@@ -181,4 +180,30 @@ class SalesAnalyst
       merchant.total_revenue
     end.reverse
   end
+
+  def merchants_with_only_one_item
+    @engine.merchants.all.select do |merchant|
+      merchant.items.count == 1
+    end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants_with_only_one_item.select do |merchant|
+      merchant.created_at.month == Date::MONTHNAMES.index(month)
+    end
+  end
+
+  def total_revenue_by_date(date)
+    invoices = invoices_on_date(date)
+    invoices.reduce(0) do |total, invoice|
+      total += invoice.total
+    end
+  end
+
+  def invoices_on_date(date)
+    @engine.invoices.all.find_all do |invoice|
+      invoice.created_at.strftime('%F') == date.strftime('%F')
+    end
+  end
+
 end
