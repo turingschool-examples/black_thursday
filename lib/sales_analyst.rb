@@ -30,15 +30,18 @@ class SalesAnalyst
     total_item_price = merchant.items.reduce(0) do |total_price, item|
       total_price + item.unit_price
     end
-    return (total_item_price /merchant.items.count).round(2) unless total_item_price == 0
-    return 0
+    if not total_item_price == 0
+      return (total_item_price /merchant.items.count).round(2)
+    else
+      return 0
+    end
   end
 
   def average_average_price_per_merchant
-    merchant_price_averages = se.merchants.merchants.map do |merchant|
+    price_averages = se.merchants.merchants.map do |merchant|
       average_item_price_for_merchant(merchant.id)
     end
-    average_average = merchant_price_averages.sum / merchant_price_averages.count
+    average_average = price_averages.sum / price_averages.count
     average_average.round(2)
   end
 
@@ -208,7 +211,8 @@ class SalesAnalyst
   # end
 
   def merchants_with_only_one_item_registered_in_month(month_name)
-    one_item_merchants_by_month = merchants_with_only_one_item.group_by do |merchant|
+    merchants = merchants_with_only_one_item
+    one_item_merchants_by_month = merchants.group_by do |merchant|
       merchant.created_at.strftime('%B')
     end
     one_item_merchants_by_month[month_name]
@@ -266,8 +270,6 @@ class SalesAnalyst
   end
 
   def most_sold_item_for_merchant(merchant_id)
-    #currently, this will return a single one. in the spec, it says that if there's a tie, we should return all the items
-    #try sorting by invoice_item quantity, checking the max quantity and seeing if any other items match that # and then return it
     merchant = se.merchants.find_by_id(merchant_id)
     items = merchant.items
 

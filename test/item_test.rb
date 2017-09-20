@@ -19,62 +19,53 @@ class ItemTest < Minitest::Test
     se.invoice_items
     se.customers
     se.invoices
-    ir = se.items
+    @ir = se.items
   end
 
   def test_it_exists
-    ir = setup
-    assert_instance_of Item, ir.items[0]
+    assert_instance_of Item, @ir.items[0]
   end
 
   def test_it_displays_id
-    ir = setup
 
-    assert_equal 263403127, ir.items[0].id
+    assert_equal 263403127, @ir.items[0].id
   end
 
   def test_it_has_a_name
-    ir = setup
 
-    assert_equal "Knitted winter snood", ir.items[0].name
+    assert_equal "Knitted winter snood", @ir.items[0].name
   end
 
   def test_it_has_a_description
-    ir = setup
 
     description = 'Free standing wooden Any colours'
 
-    assert_equal description, ir.items[3].description
+    assert_equal description, @ir.items[3].description
   end
 
   def test_it_has_a_unit_price
-    ir = setup
 
-    assert_instance_of BigDecimal, ir.items[3].unit_price
+    assert_instance_of BigDecimal, @ir.items[3].unit_price
   end
 
   def test_it_has_a_created_at_time
-    ir = setup
 
-    assert_instance_of Time, ir.items[3].created_at
+    assert_instance_of Time, @ir.items[3].created_at
   end
 
   def test_it_has_an_updated_at_time
-    ir = setup
 
-    assert_instance_of Time, ir.items[3].updated_at
+    assert_instance_of Time, @ir.items[3].updated_at
   end
 
   def test_it_has_a_merchant_id
-    ir = setup
 
-    assert_equal 12334185, ir.items[3].merchant_id
+    assert_equal 12334185, @ir.items[3].merchant_id
   end
 
   def test_it_can_be_assigned_a_merchant
-    ir = setup
 
-    item = ir.find_by_id(263403127)
+    item = @ir.find_by_id(263403127)
     seller = item.merchant
 
     assert_equal 12334403, seller.id
@@ -82,12 +73,9 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_can_be_connected_with_invoice_items
-    skip
-    ir = setup
 
-    item = ir.find_by_id(263403127)
-
-    assert_instance_of InvoiceItem, item.invoice_items
+    item = @ir.find_by_id(263403127)
+    assert_instance_of InvoiceItem, item.invoice_items.first
   end
 
 end

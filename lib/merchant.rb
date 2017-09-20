@@ -1,13 +1,14 @@
+require 'time'
+
 class Merchant
+
   attr_reader :id, :name, :sales_engine, :created_at
-  # attr_accessor :items
 
   def initialize(info, merchant_repository)
     @id = info[:id].to_i
     @name = info[:name]
     @created_at = Time.parse(info[:created_at])
     @merchant_repository = merchant_repository
-    # @items = []
   end
 
   def items
@@ -19,11 +20,8 @@ class Merchant
   end
 
   def customers
-    customers = []
-    invoices.each do |invoice|
-      customers << @merchant_repository.find_all_customers(invoice.customer_id)
-    end
-    customers.compact.uniq
+    customers = invoices.map do |invoice|
+      @merchant_repository.find_all_customers(invoice.customer_id)
+    end.compact.uniq
   end
-
 end

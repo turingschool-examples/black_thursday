@@ -1,5 +1,6 @@
 require_relative 'test_helper'
 require_relative '../lib/sales_analyst'
+require 'time'
 
 class SalesAnalystTest < MiniTest::Test
 
@@ -33,6 +34,7 @@ class SalesAnalystTest < MiniTest::Test
   def test_it_can_find_the_invoices_on_each_day
     assert_instance_of Hash, @sa.number_of_invoices_by_day
     assert_equal 7, @sa.number_of_invoices_by_day.count
+    
     assert_equal @sa.number_of_invoices_by_day, {"Monday"=>2, "Tuesday"=>11, "Wednesday"=>9, "Thursday"=>7, "Friday"=>8, "Saturday"=>4, "Sunday"=>5}
   end
 
@@ -108,7 +110,7 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_it_can_find_merchants_with_one_item_in_month_they_were_created
-    assert_equal 0, @sa.merchants_with_only_one_item_registered_in_month("October").count
+    assert_equal 1, @sa.merchants_with_only_one_item_registered_in_month("October").count
   end
 
   def test_total_sold_for_item
@@ -116,5 +118,21 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 10, @sa.total_sold_for_item(item)
   end
 
+  def test_it_can_find_average_invoices_per_merchant
+    assert_equal 2.19, @sa.average_invoices_per_merchant
+  end
 
+  def test_it_can_find_top_merchants_by_invoice_count
+    assert_instance_of Merchant, @sa.top_merchants_by_invoice_count.first
+    assert_equal 'jejum', @sa.top_merchants_by_invoice_count.first.name
+  end
+
+  def test_it_can_find_bottom_merchants_by_invoice_count
+    assert @sa.bottom_merchants_by_invoice_count.empty?
+  end
+
+  def test_it_can_convert_date_to_string_with_year_month_day
+    date = '2009-03-11 14:54:15 UTC'
+    assert_equal '2009-03-11', @sa.date_converter_to_string(date)
+  end
 end

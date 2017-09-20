@@ -19,14 +19,13 @@ class InvoiceItemTest < MiniTest::Test
     se.customers
     se.invoices
     se.merchants
-    se.invoice_items
+    @iir = se.invoice_items
   end
-  def test_can_be_connected_with_invoices
-    iir = setup
 
-    invoice_item = iir.find_by_id(547)
-    require "pry"; binding.pry
+  def test_can_be_connected_with_invoices
+    invoice_item = @iir.find_by_id(547)
+
     assert_instance_of Invoice, invoice_item.invoices.first
-    assert_equal 2, invoice_item.invoices.length
+    assert_equal 1, invoice_item.invoices.length
   end
 end

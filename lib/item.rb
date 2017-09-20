@@ -2,6 +2,7 @@ require 'time'
 require 'bigdecimal'
 
 class Item
+
   attr_reader :name,
               :description,
               :unit_price,
@@ -9,8 +10,6 @@ class Item
               :updated_at,
               :merchant_id,
               :id
-
-  attr_accessor :merchant
 
   def initialize(info, item_repository)
     @id = info[:id].to_i
@@ -21,7 +20,6 @@ class Item
     @updated_at = Time.parse(info[:updated_at])
     @merchant_id = info[:merchant_id].to_i
     @item_repository = item_repository
-    @merchant = ''
   end
 
   def merchant
