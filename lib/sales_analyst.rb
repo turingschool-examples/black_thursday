@@ -1,3 +1,6 @@
+require 'bigdecimal'
+require 'bigdecimal/util'
+
 class SalesAnalyst
 
   def initialize(engine)
@@ -172,7 +175,7 @@ class SalesAnalyst
 
   def revenue_by_merchant(merchant_id)
     merchant = @engine.merchants.find_by_id(merchant_id)
-    merchant.total_revenue
+    (merchant.total_revenue).to_d
   end
 
   def merchants_ranked_by_revenue
