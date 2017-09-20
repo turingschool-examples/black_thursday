@@ -6,8 +6,12 @@ class InvoiceItemRepository
               :parent
 
   def initialize(file_path, parent = nil)
-    @all = from_csv(file_path).map { |row| InvoiceItem.new(row, self) }
+    @all    = create_invoice_items(file_path)
     @parent = parent
+  end
+
+  def create_invoice_items (file_path)
+    from_csv(file_path).map { |row| InvoiceItem.new(row, self) }
   end
 
   def from_csv(file_path)
