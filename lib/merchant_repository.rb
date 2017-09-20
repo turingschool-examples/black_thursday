@@ -44,10 +44,4 @@ class MerchantRepository
     end
   end
 
-  def total_revenue_for_each_merchant
-    merchants.sort_by do |merchant|
-      merchant.total_revenue
-    end
-  end
-
 end

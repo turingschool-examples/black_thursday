@@ -167,7 +167,7 @@ class SalesAnalyst
   end
 
   def top_revenue_earners(number_merchants = 20)
-    @engine.merchants.total_revenue_for_each_merchant[0..(number_merchants - 1)]
+    merchants_ranked_by_revenue[0..(number_merchants - 1)]
   end
 
   def revenue_by_merchant(merchant_id)
