@@ -1,4 +1,4 @@
-module Math
+module Stats
 
   def self.mean(enum)
     count = enum.count
@@ -29,7 +29,7 @@ module Math
         sum
       end
     end
-    sqrt(sum_of_squares / (count - 1))
+    Math.sqrt(sum_of_squares / (count - 1))
   end
 
   def self.standard_deviations_above(x_above, enum, &transform)

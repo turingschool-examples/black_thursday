@@ -1,6 +1,6 @@
 require 'bigdecimal'
 
-require_relative 'math_extension'
+require_relative 'stats'
 
 class SalesAnalyst
 
