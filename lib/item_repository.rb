@@ -5,12 +5,16 @@ class ItemRepository
   attr_accessor :all
 
   def initialize(file_path, parent=nil)
-    @all    = csv_parse(file_path).map {|row| Item.new(row, self)}
+    @all    = create_items(file_path)
     @parent = parent
   end
 
   def csv_parse(file_path)
     CSV.open file_path, headers: true, header_converters: :symbol
+  end
+
+  def create_items(file_path)
+    csv_parse(file_path).map {|row| Item.new(row, self)}
   end
 
   def find_by_id(id_number)

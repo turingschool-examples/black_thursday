@@ -1,7 +1,10 @@
 require 'bigdecimal'
 require 'bigdecimal/util'
+require_relative 'arithmetic'
 
 class SalesAnalyst
+  include Arithmetic
+
   attr_reader :engine
 
   def initialize(engine)
@@ -109,38 +112,6 @@ class SalesAnalyst
     total     = invoices.length
     selected  = invoices.select {|invoice| invoice.status == status}
     ((selected.length.to_f / total.to_f) * 100.0).round(2)
-  end
-
-  def items
-    engine.items.all
-  end
-
-  def invoices
-    engine.invoices.all
-  end
-
-  def merchants
-    engine.merchants.all
-  end
-
-  def customers
-    engine.customers.all
-  end
-
-  def average(collection)
-    (collection.sum / collection.length.to_f).round(2)
-  end
-
-  def standard_deviation(collection)
-    Math.sqrt(s_d_numerator(collection) / collection.length).round(2)
-  end
-
-  def squared_diff(number, average)
-    (number - average)**2
-  end
-
-  def s_d_numerator(collection)
-    collection.map {|number| squared_diff(number, average(collection))}.sum
   end
 
   def total_revenue_by_date(date)
@@ -251,7 +222,24 @@ class SalesAnalyst
        hash[item.item_id] += item.quantity * item.unit_price
     else
        hash[item.item_id]  = item.quantity * item.unit_price
-   end
+    end
    hash
+  end
+
+  private
+  def items
+    engine.items.all
+  end
+
+  def invoices
+    engine.invoices.all
+  end
+
+  def merchants
+    engine.merchants.all
+  end
+
+  def customers
+    engine.customers.all
   end
 end
