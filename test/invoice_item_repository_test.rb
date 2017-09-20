@@ -23,13 +23,13 @@ class InvoiceItemRepositoryTest < Minitest::Test
   def test_data_item_id_4_returns_correct_matching_item_id
     @iir.from_csv("./test/fixtures/invoice_items_truncated_10.csv")
 
-    assert_equal "263542298", @iir.all[3].item_id
+    assert_equal 263396013, @iir.all[3].item_id
   end
 
   def test_data_item_id_8_returns_correct_matching_quantity
     @iir.from_csv("./test/fixtures/invoice_items_truncated_10.csv")
 
-    assert_equal "6", @iir.all[8].quantity
+    assert_equal 6, @iir.all[8].quantity
   end
 
   def test_data_item_id_5_returns_correct_matching_unit_price
