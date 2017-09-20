@@ -88,5 +88,9 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 12334634, sa.merchants_ranked_by_revenue.first.id
     assert_equal 12336175, sa.merchants_ranked_by_revenue.last.id
   end
+  
+  def test_best_item_for_merchant
+    assert_equal 263516130, sa.best_item_for_merchant(12334189).id
+  end
 
 end
