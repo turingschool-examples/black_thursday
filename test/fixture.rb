@@ -25,7 +25,7 @@ module Fixture
       repo(type).insert(data)
     end
 
-    def filenames(load_full_data)
+    def filenames(load_full_data = false)
       types = %i{merchants items invoices invoice_items customers transactions}
       paths = types.map do |type|
         if load_full_data

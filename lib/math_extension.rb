@@ -3,7 +3,7 @@ module Math
   def self.mean(enum)
     count = enum.count
 
-    sum = enum.reduce(0) do |sum, element|
+    total = enum.reduce(0) do |sum, element|
       element = yield element if block_given?
       unless element.nil?
         sum + element
@@ -13,7 +13,7 @@ module Math
       end
     end
     return nil if count.zero?
-    sum / count
+    total / count
   end
 
   def self.standard_deviation(enum, &transform)

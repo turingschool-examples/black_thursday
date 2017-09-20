@@ -1,7 +1,6 @@
 require 'bigdecimal'
 
 require './test/test_helper'
-return
 
 require './lib/item_repository'
 require './lib/item'
@@ -50,17 +49,18 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_with_description_returns_array_of_items_with_substring
-
+    icon_matches = item_repo.find_all_with_description("icon")
+    assert_equal 1, icon_matches.length
   end
 
   def test_find_all_with_description_can_find_multiple_items
-    other_fruits = item_repo.find_all_with_description("fruit")
-    assert_equal 3, other_fruits.length
+    fitted_matches = item_repo.find_all_with_description("fitted")
+    assert_equal 2, fitted_matches.length
   end
 
-  def test_find_all_with_description_is_case_insensitive
-    other_fruits = item_repo.find_all_with_description("frUiT")
-    assert_equal 3, other_fruits.length
+  def test_find_all_with_description_can_find_multiple_items
+    fitted_matches = item_repo.find_all_with_description("fItTed")
+    assert_equal 2, fitted_matches.length
   end
 
   def test_find_all_with_description_returns_empty_array_if_nothing_found
@@ -68,7 +68,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_price_returns_array_of_items_exactly_matching
-    bananas = item_repo.find_all_by_price(0.5)
+    bananas = item_repo.find_all_by_price()
     assert_instance_of Array, bananas
     assert_instance_of Item, bananas.first
   end
