@@ -64,15 +64,9 @@ class Invoice
 
 
   def total
-    @parent.parent.invoice_items_unit_price(unit_price)
+    #fix relationship
+    if self.is_paid_in_full?
+    @parent.total_amount(self.id)
   end
-
 end
-
-# worked in pair but i dont understand, redid
-  # def total
-  #   return 0 if !self.is_paid_in_full?
-  #   invoice_items.inject(0) do |sum, invoice_item_instance|
-  #     sum += invoice_item_instance.quantity * invoice_item_instance.unit_price
-  #     end
-  # end
+end

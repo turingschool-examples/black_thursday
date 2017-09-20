@@ -158,5 +158,6 @@ class SalesAnalyst
     total.round(2)
   end
 
+  
 
 end

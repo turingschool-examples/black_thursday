@@ -1,12 +1,12 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative './fixtures/items_fixture.csv'
-require_relative '../merchant_fixture'
-require_relative '../invoices_fixture'
-require_relative '../transactions_fixtures'
-require_relative '../invoice_items_fixture'
-require_relative '../sales_analyst'
-require_relative '../sales_engine'
+require_relative '../test/fixtures/items_fixture.csv'
+require_relative '../test/fixtures/merchant_fixture'
+require_relative '../test/fixtures/invoices_fixture'
+require_relative '../test/fixtures/transactions_fixtures'
+require_relative '../test/fixtures/invoice_items_fixture'
+require_relative '../lib/sales_analyst'
+require_relative '../lib/sales_engine'
 require 'csv'
 require_relative 'test_helper'
 
@@ -16,12 +16,12 @@ class SalesAnalystTest < Minitest::Test
   attr_reader :se, :sa
 
   def setup
-    @se = SalesEngine.from_csv({items: "./test/items_fixture.csv",
-                            merchants: "./test/merchant_fixture.csv",
-                            invoices: "./test/invoices_fixture.csv",
-                            transactions: "./test/transactions_fixtures.csv",
-                            invoice_items: "./test/invoice_items_fixture.csv",
-                            customers: "./test/customers.csv"})
+    @se = SalesEngine.from_csv({items: "./test/fixtures/items_fixture.csv",
+                            merchants: "./test/fixtures/merchant_fixture.csv",
+                            invoices: "./test/fixtures/invoices_fixture.csv",
+                            transactions: "./test/fixtures/transactions_fixture.csv",
+                            invoice_items: "./test/fixtures/invoice_items_fixture.csv",
+                            customers: "./test/fixtures/customers.csv"})
     @sa = SalesAnalyst.new(@se)
   end
 
