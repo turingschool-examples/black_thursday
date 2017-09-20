@@ -12,7 +12,9 @@ module Fixture
     end
 
     def repo(type)
-      sales_engine.repo(type)
+      repo = sales_engine.repo(type)
+      raise "No repo: #{type.inspect}" unless repo
+      repo
     end
 
     def find_record(type, id)
