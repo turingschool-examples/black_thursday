@@ -1,26 +1,20 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative 'items_fixture.csv'
-require_relative 'merchant_fixture'
-require_relative 'invoices_fixture'
-require_relative 'transactions_fixtures'
-require_relative 'invoice_items_fixture'
-require_relative 'sales_analyst'
-require_relative 'sales_engine'
 require 'csv'
-
+require_relative '../lib/sales_engine'
+require_relative '../lib/sales_analyst'
 
 class SalesAnalystTest < Minitest::Test
 
   attr_reader :se, :sa
 
   def setup
-    @se = SalesEngine.from_csv({items: "./items_fixture.csv",
-                            merchants: "./test/merchant_fixture.csv",
-                            invoices: "./test/invoices_fixture.csv",
-                            transactions: "./test/transactions_fixtures.csv",
-                            invoice_items: "./test/invoice_items_fixture.csv",
-                            customers: "./test/customers.csv"})
+    @se = SalesEngine.from_csv({items: "./test/fixtures/items_fixture.csv",
+                                merchants: "./test/fixtures/merchant_fixture.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv",
+                                invoice_items: "./test/fixtures/invoice_items_fixture.csv",
+                                transactions: "./test/fixtures/transactions_fixtures.csv",
+                                customers: "./data/customers.csv"})
     @sa = SalesAnalyst.new(@se)
   end
 
@@ -62,4 +56,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 55.52, sa.invoice_status(:shipped)
     assert_equal 12.04, sa.invoice_status(:returned)
   end
+
+
 end

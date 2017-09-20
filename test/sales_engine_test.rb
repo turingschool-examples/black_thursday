@@ -1,21 +1,23 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/sales_engine'
+require_relative '../lib/sales_engine'
 require 'pry'
+require 'csv'
 
 class SalesEngineTest < Minitest::Test
   attr_reader :se
 
   def setup
-    @se = SalesEngine.from_csv({items: "./data/items.csv",
-                                merchants: "./data/merchants.csv",
-                                invoices: "./data/invoices.csv",
-                                transactions: "./data/transactions.csv",
+    @se = SalesEngine.from_csv({items: "./test/fixtures/items_fixture.csv",
+                                merchants: "./test/fixtures/merchant_fixture.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv",
+                                invoice_items: "./test/fixtures/invoice_items_fixture.csv",
+                                transactions: "./test/fixtures/transactions_fixtures.csv",
                                 customers: "./data/customers.csv"})
   end
 
   def test_it_exists
-    assert_instance_of SalesEngine, se
+    assert_instance_of SalesEngine, @se
   end
 
   def test_engine_can_find_merchant_by_name
@@ -34,7 +36,7 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_can_find_all_items_of_particular_merchant
     merchant = se.merchants.find_by_id(12334185)
-    assert_equal 6, merchant.items.count
+    assert_equal 3, merchant.items.count
   end
 
   def test_it_can_find_merchant_by_item_id
@@ -42,19 +44,5 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of Merchant, item.merchant
   end
 
-  # def test_average_items
-  #   assert_equal 3.26, se.average_items_per_merchant
-  # end
-
-#   def test_invoice_class_returns_an_instance_of_merchant
-#     invoice = se.invoices.find_all_by_merchant_id(20)
-# # binding.pry
-#     assert_instance_of Merchant, invoice.merchant_id
-#   end
-
-  # def test_merchant_class_returns_invoices_associated_with_given_merchant
-  #   merchant = se.merchants.find_by_id(12334159)
-  #   didn't know how to write test for this shit b
-  #   assert_equal [], merchant.invoices
-  # end
+  
 end
