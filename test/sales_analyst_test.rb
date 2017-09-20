@@ -78,7 +78,7 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_it_can_find_top_days_by_invoice_count
-    assert_equal ['Tuesday'], @sa.top_days_by_invoice_count
+    assert_equal ['Tuesday', 'Friday'], @sa.top_days_by_invoice_count
   end
 
   def test_it_can_find_the_most_sold_item

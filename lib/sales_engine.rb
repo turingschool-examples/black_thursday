@@ -91,7 +91,7 @@ class SalesEngine
                                 }
 
     invoices.all.each do |invoice|
-      invoices_for_each_weekday[invoice.day_of_the_week] += 1
+      invoices_for_each_weekday[invoice.day_of_week] += 1
     end
     invoices_for_each_weekday
   end

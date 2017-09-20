@@ -63,8 +63,8 @@ class InvoiceTest < Minitest::Test
     invoice_1 = invoice = @vr.find_by_id(74)
     invoice_2 = invoice = @vr.find_by_id(602)
 
-    assert_equal 'Friday', invoice_1.day_of_the_week
-    assert_equal 'Thursday', invoice_2.day_of_the_week
+    assert_equal 'Monday', invoice_1.day_of_week
+    assert_equal 'Wednesday', invoice_2.day_of_week
   end
 
   def test_it_can_be_connected_with_items
@@ -77,7 +77,6 @@ class InvoiceTest < Minitest::Test
 
   def test_it_can_be_connected_with_transactions
     invoice = @vr.find_by_id(74)
-
     assert_instance_of Array, invoice.transactions
     assert_instance_of Transaction, invoice.transactions[0]
     assert_equal 941, invoice.transactions[0].id

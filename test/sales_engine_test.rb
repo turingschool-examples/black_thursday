@@ -39,12 +39,12 @@ class SalesEngineTest < MiniTest::Test
     assert_instance_of Hash, @se.number_of_invoices_by_day
     assert_equal 7, @se.number_of_invoices_by_day.count
 
-    days = {"Monday"=>2,
+    days = {"Monday"=>6,
             "Tuesday"=>11,
-            "Wednesday"=>9,
-            "Thursday"=>7,
-            "Friday"=>8,
-            "Saturday"=>4,
+            "Wednesday"=>5,
+            "Thursday"=>3,
+            "Friday"=>10,
+            "Saturday"=>6,
             "Sunday"=>5}
 
     assert_equal days, @se.number_of_invoices_by_day

@@ -10,7 +10,8 @@ class Invoice
               :status,
               :created_at,
               :updated_at,
-              :date
+              :date,
+              :day_of_week
 
   def initialize(invoice_data, invoice_repository)
       @id = invoice_data[:id].to_i
@@ -20,30 +21,11 @@ class Invoice
       @created_at = Time.parse(invoice_data[:created_at])
       @updated_at = Time.parse(invoice_data[:updated_at])
       @invoice_repository = invoice_repository
-      @date = Time.new(invoice_data[:created_at]).strftime('%A')
+      @day_of_week = @created_at.strftime('%A')
   end
 
   def merchant
       @invoice_repository.sales_engine.merchants.find_by_id(@merchant_id)
-  end
-
-  def day_of_the_week
-    case date
-    when 'Sunday'
-      'Saturday'
-    when 'Monday'
-      'Sunday'
-    when 'Tuesday'
-      'Monday'
-    when 'Wednesday'
-      'Tuesday'
-    when 'Thursday'
-      'Wednesday'
-    when 'Friday'
-      'Thursday'
-    when 'Saturday'
-      'Friday'
-    end
   end
 
   def items
