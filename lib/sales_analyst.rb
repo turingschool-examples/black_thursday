@@ -190,7 +190,16 @@ class SalesAnalyst
       invoice.created_at.strftime('%F') == date.strftime('%F')
     end
   end
-  
+
+  def merchants_with_pending_invoices
+    pending = @engine.invoices.all.select do |invoice|
+      !invoice.is_paid_in_full?
+    end
+    pending.map do |invoice| 
+      @engine.merchants.find_by_id(invoice.merchant_id)
+    end.uniq
+  end
+
 end
 
 

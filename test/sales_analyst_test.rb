@@ -125,7 +125,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 5.36, sa.invoice_status(:returned)
   end
 
-<<<<<<< HEAD
   def test_merchants_with_only_one_item_returns_one
     assert_equal 1, sa.merchants_with_only_one_item.count
     assert_equal Merchant, sa.merchants_with_only_one_item.first.class
@@ -134,7 +133,7 @@ class SalesAnalystTest < Minitest::Test
   def test_merchants_with_only_one_item_registered_in_month
     assert_equal 1, sa.merchants_with_only_one_item_registered_in_month('June').count
     assert_instance_of Merchant, sa.merchants_with_only_one_item_registered_in_month('June').first.class
-=======
+
   def test_invoice_items_on_date_returns_array_of_invoice_item_instances_created_on_given_date
     actual = sa.invoices_on_date(Time.parse("2012-11-23"))
     expected = [se.invoices.all[1]]
@@ -148,10 +147,30 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal expected, actual
     assert_instance_of BigDecimal, actual
->>>>>>> 7138b5f04d99c6a25f665ce049973111567cca62
+  end
+
+  def test_merchants_with_pending_invoices_returns_merchants_with_pending_invoices
+
   end
 
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
