@@ -59,11 +59,11 @@ class SalesAnalyst
   end
 
   def total_invoice_count
-    sales_engine.invoices.all.count.to_f
+    invocies.count.to_f
   end
 
   def invoices_with_status_count(status)
-    sales_engine.invoices.find_all_by_status(status).count
+    invoice_repo.find_all_by_status(status).count
   end
 
   def merchants_with_high_item_count
@@ -74,7 +74,7 @@ class SalesAnalyst
     end
     merchants = []
     merchant_ids.each do |id|
-      merchants << sales_engine.merchants.find_by_id(id)
+      merchants << merchant_repo.find_by_id(id)
     end
     merchants
   end
@@ -94,15 +94,15 @@ class SalesAnalyst
   end
 
   def average_average_price_per_merchant
-    average_price_array = sales_engine.merchants.all.map do |merchant|
+    average_price_array = merchants.map do |merchant|
                             average_item_price_for_merchant_unrounded(merchant.id)
                           end
     sum_averages = average_price_array.sum
-    (sum_averages / sales_engine.merchants.all.count).floor(2)
+    (sum_averages / merchants.count).floor(2)
   end
 
   def golden_items
-    two_standard_deviations_above(sales_engine.items, sales_engine.merchants)
+    two_standard_deviations_above(item_repo, merchant_repo)
   end
 
   def top_merchants_by_invoice_count
@@ -113,15 +113,11 @@ class SalesAnalyst
         top_merchants << key
       end
     end
-    top_merchants.map do |id|
-      sales_engine.merchants.find_by_id(id)
-    end
+    top_merchants.map { |id| sales_engine.merchants.find_by_id(id) }
   end
 
   def merchants_with_pending_invoices
-    merchants.select do |merchant|
-      merchant.has_pending_invoice?
-    end
+    merchants.select { |merchant| merchant.has_pending_invoice? }
   end
 
   def merchants_with_only_one_item
@@ -129,9 +125,7 @@ class SalesAnalyst
   end
 
   def only_one_item(merchants)
-    merchants.select do |merchant|
-      merchant.items.count == 1
-    end
+    merchants.select { |merchant| merchant.items.count == 1 }
   end
 
   def bottom_merchants_by_invoice_count
@@ -153,7 +147,7 @@ class SalesAnalyst
   end
 
   def  invoices_by_date(date)
-    sales_engine.invoices.all.select do |invoice|
+    invoices.select do |invoice|
       invoice.created_at == date
     end
   end
@@ -169,8 +163,7 @@ class SalesAnalyst
   end
 
   def revenue_by_merchant(merchant_id)
-    merchant_invoices = sales_engine.merchants.find_by_id(merchant_id).invoices
-    merchant_invoices.map {|invoice| invoice.total}.sum
+    merchant_invoices(merchant_id).map {|invoice| invoice.total}.sum
   end
 
 
@@ -226,10 +219,7 @@ class SalesAnalyst
   end
 
   def merchants_ranked_by_revenue
-    top_revenue_by_id = single_merchant_id_with_total_revenue.map do |key, value|
-      key
-    end
-
+    top_revenue_by_id = single_merchant_id_with_total_revenue.map { |key, value| key }
     top_merchants = []
     top_revenue_by_id.each do |id|
       top_merchants << sales_engine.merchants.find_by_id(id)

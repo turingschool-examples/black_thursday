@@ -14,4 +14,20 @@ module Finder
     sales_engine.merchants.all
   end
 
+  def invoices
+    sales_engine.invoices.all
+  end
+
+  def invoice_repo
+    sales_engine.invoices
+  end
+
+  def item_repo
+    sales_engine.items
+  end
+
+  def merchant_repo
+    sales_engine.merchants
+  end
+
 end
