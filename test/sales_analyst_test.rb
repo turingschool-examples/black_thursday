@@ -1,12 +1,12 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './test/items_fixture.csv'
-require './test/merchant_fixture'
-require './test/invoices_fixture'
-require './test/transactions_fixtures'
-require './test/invoice_items_fixture'
-require './lib/sales_analyst'
-require './lib/sales_engine'
+require_relative 'items_fixture.csv'
+require_relative 'merchant_fixture'
+require_relative 'invoices_fixture'
+require_relative 'transactions_fixtures'
+require_relative 'invoice_items_fixture'
+require_relative 'sales_analyst'
+require_relative 'sales_engine'
 require 'csv'
 
 
@@ -15,7 +15,7 @@ class SalesAnalystTest < Minitest::Test
   attr_reader :se, :sa
 
   def setup
-    @se = SalesEngine.from_csv({items: "./test/items_fixture.csv",
+    @se = SalesEngine.from_csv({items: "./items_fixture.csv",
                             merchants: "./test/merchant_fixture.csv",
                             invoices: "./test/invoices_fixture.csv",
                             transactions: "./test/transactions_fixtures.csv",

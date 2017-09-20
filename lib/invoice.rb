@@ -62,15 +62,13 @@ class Invoice
     transactions.any? {|transaction| transaction.result == "success"}
   end
 
-<<<<<<< HEAD
   def total
     @parent.parent.invoice_items_unit_price(unit_price)
   end
 
-  
+
 
 end
-=======
 # worked in pair but i dont understand, redid
   # def total
   #   return 0 if !self.is_paid_in_full?
@@ -78,4 +76,3 @@ end
   #     sum += invoice_item_instance.quantity * invoice_item_instance.unit_price
   #     end
   # end
->>>>>>> 9b30e9365f5a8d5d1c1512dc6250befc2cd3faf7
