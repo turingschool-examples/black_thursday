@@ -75,7 +75,9 @@ class SalesAnalystTest < Minitest::Test
     invoice_item_file_path = './test/fixtures/invoice_items_truncated.csv'
     customer_file_path = './test/fixtures/customers_truncated.csv'
     transaction_file_path = './test/fixtures/transactions_truncated.csv'
-    engine = SalesEngine.new(item_file_path, merchant_file_path, invoice_file_path, invoice_item_file_path, customer_file_path, transaction_file_path)
+    engine = SalesEngine.new(item_file_path, merchant_file_path,
+    invoice_file_path, invoice_item_file_path, customer_file_path,
+    transaction_file_path)
     analyst = SalesAnalyst.new(engine)
     golden_items = analyst.golden_items
 
@@ -88,8 +90,9 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_find_sum_of_square_differences_for_invoice_count
     merchants = @engine.merchant_list
+    sum_of_square_differences = @analyst.sum_of_square_differences_invoice_count(merchants, 3.5)
 
-    assert_equal 57, @analyst.sum_of_square_differences_invoice_count(merchants, 3.5)
+    assert_equal 57, sum_of_square_differences
   end
 
   def test_it_can_find_standard_deviation_for_merchant_invoices
@@ -108,7 +111,6 @@ class SalesAnalystTest < Minitest::Test
     top_merchants = analyst.top_merchants_by_invoice_count
 
     assert_equal 8, top_merchants.length
-
   end
 
   def test_it_can_find_bottom_merchants_by_invoice_count

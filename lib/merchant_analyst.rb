@@ -29,7 +29,7 @@ module MerchantAnalyst
   end
 
   def top_revenue_earners(x = 20)
-    merchants_ranked_by_revenue[1..x]
+    merchants_ranked_by_revenue.first(x)
   end
 
   def merchants_with_pending_invoices

@@ -15,7 +15,8 @@ module InvoiceTopDays
 
   def invoices_created_per_day
     days = invoice_creation_days
-    days_of_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    days_of_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday',
+      'Saturday', 'Sunday']
     invoice_count_per_day = Hash[days_of_week.map {|day| [day, 0]}]
     invoice_count_per_day.each do |day, invoice_count|
       invoice_count_per_day[day] = days.count(day)

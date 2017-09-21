@@ -11,7 +11,9 @@ class TransactionRepositoryTest < Minitest::Test
     invoice_item_file_path = './test/fixtures/invoice_items_truncated.csv'
     customer_file_path = './test/fixtures/customers_truncated.csv'
     transaction_file_path = './test/fixtures/transactions_truncated.csv'
-    engine = SalesEngine.new(item_file_path, merchant_file_path, invoice_file_path, invoice_item_file_path, customer_file_path, transaction_file_path)
+    engine = SalesEngine.new(item_file_path, merchant_file_path,
+    invoice_file_path, invoice_item_file_path, customer_file_path,
+    transaction_file_path)
     @repository = engine.transactions
     @transactions = engine.transaction_list
   end

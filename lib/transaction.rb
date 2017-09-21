@@ -13,7 +13,7 @@ class Transaction
     @invoice_id = transaction_info[:invoice_id].to_i
     @created_at = Time.parse(transaction_info[:created_at])
     @updated_at = Time.parse(transaction_info[:updated_at])
-    @credit_card_expiration_date = transaction_info[:credit_card_expiration_date]
+    @credit_card_expiration_date= transaction_info[:credit_card_expiration_date]
     @result = transaction_info[:result]
     @engine = engine
   end
