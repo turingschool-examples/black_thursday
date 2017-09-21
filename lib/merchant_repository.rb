@@ -1,7 +1,6 @@
 require "csv"
 require_relative "merchant"
 require_relative "sales_engine"
-require 'pry'
 
 
 class MerchantRepository
@@ -48,14 +47,14 @@ class MerchantRepository
     return merchant_array
   end
 
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
-  end
-
   def merchants_registered_in_month(month)
     all.select do |merchant|
       merchant.created_at.month == Date::MONTHNAMES.index(month)
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>" unless @merchants.nil?
   end
 
 end

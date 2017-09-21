@@ -39,4 +39,8 @@ class CustomerRepositoryTest < Minitest::Test
     assert_instance_of Customer, customer_repository.find_all_by_last_name("Osinski")[0]
   end
 
+  def test_inspect
+    assert_instance_of String, customer_repository.inspect
+  end
+
 end
