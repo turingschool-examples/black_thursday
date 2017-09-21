@@ -22,23 +22,14 @@ class InvoiceItemRepository
   end
 
   def find_all_by_item_id(item_id)
-    invoice_item_array = []
-    all.each do |invoice_item|
-      invoice_item_array << invoice_item if invoice_item.item_id == item_id
-    end
-    invoice_item_array
+    all.select {|invoice_item| invoice_item.item_id == item_id}
   end
 
   def find_all_by_invoice_id(invoice_id)
-    invoice_item_array = []
-    all.each do |invoice_item|
-      invoice_item_array << invoice_item if invoice_item.invoice_id == invoice_id
-    end
-    invoice_item_array
+    all.select {|invoice_item| invoice_item.invoice_id == invoice_id}
   end
 
   def inspect
     "#<#{self.class} #{:invoice_items.size} rows>"
   end
-
 end

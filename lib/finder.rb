@@ -1,7 +1,6 @@
 require_relative "sales_engine"
 
 module Finder
-
   def merchants_for_month(month)
     sales_engine.merchants.merchants_registered_in_month(month)
   end
@@ -33,5 +32,4 @@ module Finder
   def merchant_repo
     sales_engine.merchants
   end
-
 end
