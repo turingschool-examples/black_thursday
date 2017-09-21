@@ -1,6 +1,6 @@
 require "date"
 
-module MerchantTopDaysByInvoiceCount
+module TopDaysByInvoiceCount
 
   def date_from_invoices
     sales_engine.invoices.all.map do |invoice|
@@ -48,7 +48,7 @@ module MerchantTopDaysByInvoiceCount
     invoices_per_day.each do |wday, invoices|
       numerator += ((invoices - average_invoices_per_day)**2)
     end
-    numerator 
+    numerator
   end
 
   def top_day_denominator

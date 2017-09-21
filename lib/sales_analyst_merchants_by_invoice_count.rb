@@ -1,4 +1,4 @@
-module MerchantMerchantsByInvoiceCount
+module MerchantsByInvoiceCount
 
   def group_invoices_by_merchant
     merchant_ids = sales_engine.invoices.all.map do |invoice|

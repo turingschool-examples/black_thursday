@@ -15,11 +15,11 @@ require 'pry'
 class SalesAnalyst
 
   include Finder
-  include MerchantMath
-  include MerchantGoldenItems
-  include MerchantMerchantsByInvoiceCount
-  include MerchantTopDaysByInvoiceCount
-  include MerchantTopRevenueEarners
+  include SalesAnalystMath
+  include GoldenItems
+  include MerchantsByInvoiceCount
+  include TopDaysByInvoiceCount
+  include TopRevenueEarners
   include BestItemForMerchant
 
   attr_reader :sales_engine

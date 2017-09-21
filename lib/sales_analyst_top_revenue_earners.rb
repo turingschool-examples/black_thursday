@@ -1,4 +1,4 @@
-module MerchantTopRevenueEarners
+module TopRevenueEarners
 
   def merchant_id_and_total_grouped #works
     merchant_id_and_total_grouped = Hash.new(0)

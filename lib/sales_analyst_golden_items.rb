@@ -1,6 +1,6 @@
 require_relative './finder'
 
-module MerchantGoldenItems
+module GoldenItems
 
   include Finder
 

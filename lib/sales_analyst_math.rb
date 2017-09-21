@@ -1,4 +1,4 @@
-module MerchantMath
+module SalesAnalystMath
 
   def average_things_per_merchant(merchants_and_things)
     total_things = merchants_and_things.values.sum
