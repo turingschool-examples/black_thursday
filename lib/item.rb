@@ -25,9 +25,4 @@ class Item
     @engine.merchants.find_by_id(@merchant_id)
   end
 
-  # def inspect
-  #   "#<#{self.class} #{@merchants.size} rows>"
-  # end
-
-
 end

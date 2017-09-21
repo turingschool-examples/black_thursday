@@ -103,7 +103,10 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_finds_all_invoices_paid_in_full
-    p @repository.find_all_paid_in_full
+    paid_in_full_invoices = @repository.find_all_paid_in_full
+
+    assert_equal 7, paid_in_full_invoices.count
+    assert_equal 1495, paid_in_full_invoices[0].id
   end
 
 

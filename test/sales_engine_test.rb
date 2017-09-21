@@ -53,4 +53,21 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of Array, @engine.invoice_list
     assert_equal 14, @engine.invoice_list.count
   end
+
+  def test_it_can_return_array_of_invoice_items_from_invoice_item_repository
+    assert_instance_of Array, @engine.invoice_item_list
+    assert_equal 26, @engine.invoice_item_list.count
+  end
+
+  def test_it_can_return_array_of_customers_from_customer_repository
+    assert_instance_of Array, @engine.customer_list
+    assert_equal 14, @engine.customer_list.count
+  end
+
+  def test_it_can_return_array_of_transactions_from_transaction_repository
+    assert_instance_of Array, @engine.transaction_list
+    assert_equal 12, @engine.transaction_list.count
+  end
+
+
 end
