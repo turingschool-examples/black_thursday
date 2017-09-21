@@ -28,19 +28,6 @@ module StandardDeviation
     Math.sqrt(sum_of_squares / (se.total_items - 1))
   end
 
-  def average_invoices_per_merchant_standard_deviation
-    average = average_invoices_per_merchant.round
-
-    difference_from_average = se.merchant_invoice_count.map do |invoice_count|
-      invoice_count - average
-    end
-    squared_values = difference_from_average.map {|diff| diff ** 2}
-
-    sum_of_squares = squared_values.sum
-
-    std_dev = Math.sqrt(sum_of_squares / (se.merchant_invoice_count.count - 1))
-  end
-
   def daily_invoice_standard_deviation
     average = average_invoices_per_day
     days = se.number_of_invoices_by_day
