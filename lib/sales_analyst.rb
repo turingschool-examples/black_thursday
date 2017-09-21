@@ -3,12 +3,14 @@ require_relative 'invoice_analyst'
 require_relative 'item_count_analyst'
 require_relative 'item_price_analyst'
 require_relative 'invoice_top_days'
+require_relative 'merchant_analyst'
 
 class SalesAnalyst
   include InvoiceAnalyst
   include ItemCountAnalyst
   include ItemPriceAnalyst
   include InvoiceTopDays
+  include MerchantAnalyst
 
   attr_reader :engine
 

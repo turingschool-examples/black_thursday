@@ -10,7 +10,9 @@ class SalesAnalystTest < Minitest::Test
     invoice_item_file_path = './test/fixtures/invoice_items_truncated.csv'
     customer_file_path = './test/fixtures/customers_truncated.csv'
     transaction_file_path = './test/fixtures/transactions_truncated.csv'
-    @engine = SalesEngine.new(item_file_path, merchant_file_path, invoice_file_path, invoice_item_file_path, customer_file_path, transaction_file_path)
+    @engine = SalesEngine.new(item_file_path, merchant_file_path,
+    invoice_file_path, invoice_item_file_path, customer_file_path,
+    transaction_file_path)
     @analyst = SalesAnalyst.new(@engine)
   end
 
@@ -25,8 +27,9 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_find_sum_of_square_differences_for_item_count
     merchants = @engine.merchant_list
+    square_differences = @analyst.sum_of_square_differences_item_count(merchants, 0.75)
 
-    assert_equal 6.75, @analyst.sum_of_square_differences_item_count(merchants, 0.75)
+    assert_equal 6.75, square_differences
   end
 
   def test_it_can_find_sample_variance
@@ -35,11 +38,11 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 2.25, @analyst.find_sample_variance(merchants, 6.75)
   end
 
-  def test_average_items_per_merchant_standard_deviation_returns_deviation_from_mean
+  def test_average_items_per_merchant_standard_deviation_returns_dev_from_mean
     assert_equal 1.53, @analyst.average_items_per_merchant_standard_deviation
   end
 
-  def test_merchants_with_high_item_count_returns_merchants_more_than_one_standard_deviation_above
+  def test_merchants_with_high_item_count_returns_merchants_one_dev_above
     high_sellers = @analyst.merchants_with_high_item_count
 
     assert_equal 12334185, high_sellers[0].id
@@ -72,7 +75,9 @@ class SalesAnalystTest < Minitest::Test
     invoice_item_file_path = './test/fixtures/invoice_items_truncated.csv'
     customer_file_path = './test/fixtures/customers_truncated.csv'
     transaction_file_path = './test/fixtures/transactions_truncated.csv'
-    engine = SalesEngine.new(item_file_path, merchant_file_path, invoice_file_path, invoice_item_file_path, customer_file_path, transaction_file_path)
+    engine = SalesEngine.new(item_file_path, merchant_file_path,
+    invoice_file_path, invoice_item_file_path, customer_file_path,
+    transaction_file_path)
     analyst = SalesAnalyst.new(engine)
     golden_items = analyst.golden_items
 
@@ -85,8 +90,9 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_find_sum_of_square_differences_for_invoice_count
     merchants = @engine.merchant_list
+    sum_of_square_differences = @analyst.sum_of_square_differences_invoice_count(merchants, 3.5)
 
-    assert_equal 57, @analyst.sum_of_square_differences_invoice_count(merchants, 3.5)
+    assert_equal 57, sum_of_square_differences
   end
 
   def test_it_can_find_standard_deviation_for_merchant_invoices
@@ -105,7 +111,6 @@ class SalesAnalystTest < Minitest::Test
     top_merchants = analyst.top_merchants_by_invoice_count
 
     assert_equal 8, top_merchants.length
-
   end
 
   def test_it_can_find_bottom_merchants_by_invoice_count

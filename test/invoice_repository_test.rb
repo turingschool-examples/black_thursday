@@ -11,7 +11,9 @@ class InvoiceRepositoryTest < Minitest::Test
     invoice_item_file_path = './test/fixtures/invoice_items_truncated.csv'
     customer_file_path = './test/fixtures/customers_truncated.csv'
     transaction_file_path = './test/fixtures/transactions_truncated.csv'
-    engine = SalesEngine.new(item_file_path, merchant_file_path, invoice_file_path, invoice_item_file_path, customer_file_path, transaction_file_path)
+    engine = SalesEngine.new(item_file_path, merchant_file_path,
+    invoice_file_path, invoice_item_file_path, customer_file_path,
+    transaction_file_path)
     @repository = engine.invoices
     @invoices = engine.invoice_list
   end
@@ -87,6 +89,23 @@ class InvoiceRepositoryTest < Minitest::Test
 
     assert_equal 4, invoices.count
   end
+
+  def test_it_finds_all_by_date_returns_empty_array_if_no_match
+    invoices = @repository.find_all_by_date('2003-05-01')
+
+    assert_empty(invoices)
+  end
+
+  def test_it_finds_all_by_date
+    invoices = @repository.find_all_by_date('2003-05-16')
+
+    assert_equal 1, invoices.count
+  end
+
+  def test_it_finds_all_invoices_paid_in_full
+    p @repository.find_all_paid_in_full
+  end
+
 
 
 end

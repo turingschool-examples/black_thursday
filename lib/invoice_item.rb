@@ -6,7 +6,8 @@ require_relative 'unit_price'
 class InvoiceItem
   include UnitPrice
 
-  attr_reader :id, :item_id, :invoice_id, :quantity, :unit_price, :engine, :created_at, :updated_at
+  attr_reader :id, :item_id, :invoice_id, :quantity, :unit_price, :engine,
+  :created_at, :updated_at
 
   def initialize(invoice_item_info, engine)
     @id = invoice_item_info[:id].to_i

@@ -1,10 +1,11 @@
 class Merchant
 
-  attr_reader :id, :name, :engine
+  attr_reader :id, :name, :engine, :created_at
 
   def initialize(merchant_info, engine)
     @id = merchant_info[:id].to_i
     @name = merchant_info[:name]
+    @created_at = Date.parse(merchant_info[:created_at])
     @engine = engine
   end
 
@@ -25,9 +26,18 @@ class Merchant
     customers.uniq
   end
 
-  def inspect
-    "#<#{self.class} #{@items.size} rows>"
+  def pending_invoices?
+    invoices.any? {|invoice| !invoice.is_paid_in_full?}
   end
+
+  def invoices_paid_in_full
+    invoices.find_all {|invoice| invoice.is_paid_in_full?}
+  end
+
+
+  # def inspect
+  #   "#<#{self.class} #{@items.size} rows>"
+  # end
 
 
 end
