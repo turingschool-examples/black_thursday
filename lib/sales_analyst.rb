@@ -188,6 +188,10 @@ class SalesAnalyst
     end
   end
 
+  def most_sold_item_for_merchant
+    
+  end
+
   def get_invoice_ids(invoices_on_date)
     invoices_on_date.map do |invoice|
       invoice.id
