@@ -19,7 +19,28 @@ module MerchantAnalyst
     merchants.select {|m| m.created_at.strftime("%B") == month.capitalize}
   end
 
-  def id_and_total_quantity_of_item(merchant_id)
+  def self.most_sold_item_for_merchant(merchant_id, e, i)
+    top_items(merchant_id, e, i).keys.map{|id| e.find_item_by_id(id)}
+  end
+
+  def self.top_items(merchant_id, e, i)
+    top_quantity = item_quantity(merchant_id, e, i).max_by {|i, q| q}
+    item_quantity(merchant_id, e, i).select {|i, q| q == top_quantity[1]}
+  end
+
+  def self.item_quantity(merchant_id, engine, invoices)
+    items_sorted(merchant_id, engine, invoices).reduce({}) do |hash, element|
+      hash[element[0]]  = element[1] if !hash[element[0]]
+      hash[element[0]] += element[1]
+      hash
+    end
+  end
+
+  def self.items_sorted(merchant_id, e, i)
+    id_and_total_quantity_of_item(merchant_id, e, i).sort_by(&:last).reverse
+  end
+
+  def self.id_and_total_quantity_of_item(merchant_id, engine, invoices)
     inv = completed_invoices(engine.find_invoices_by_merchant_id(merchant_id))
     inv.flat_map(&:invoice_items).reduce({}) do |hash, inv_item|
       hash[inv_item.item_id]  = 0 if !hash[inv_item.item_id]
@@ -28,47 +49,26 @@ module MerchantAnalyst
     end
   end
 
-  def pending?(invoice)
-    invoice.transactions.all? { |t| t.result == "failed" }
-  end
-
-  def completed_invoices(invoices)
-    invoices.reject {|invoice| pending?(invoice)}
-  end
-
-  def most_sold_item_for_merchant(merchant_id)
-    top_items(merchant_id).keys.map{|id| engine.find_item_by_id(id)}
-  end
-
-  def top_items(merchant_id)
-    top_quantity = item_quantity(merchant_id).max_by {|i, q| q}
-    item_quantity(merchant_id).select {|i, q| q == top_quantity[1]}
-  end
-
-  def item_quantity(merchant_id)
-    items_sorted(merchant_id).reduce({}) do |hash, element|
-      hash[element[0]]  = element[1] if !hash[element[0]]
-      hash[element[0]] += element[1]
-      hash
-    end
-  end
-
-  def items_sorted(merchant_id)
-    id_and_total_quantity_of_item(merchant_id).sort_by(&:last).reverse
-  end
-
-  def best_item_for_merchant(merchant_id)
-    item_id = revenue(merchant_id).max_by {|i, r| r}.first
+  def self.best_item_for_merchant(merchant_id, engine)
+    item_id = revenue(merchant_id, engine).max_by {|i, r| r}.first
     engine.find_item_by_id(item_id)
   end
 
-  def revenue(merchant_id)
-    paid_invoices(merchant_id).reduce({}) do |hash, item|
+  def self.completed_invoices(invoices)
+    invoices.reject {|invoice| pending?(invoice)}
+  end
+
+  def self.pending?(invoice)
+    invoice.transactions.all? { |t| t.result == "failed" }
+  end
+
+  def self.revenue(merchant_id, engine)
+    paid_invoices(merchant_id, engine).reduce({}) do |hash, item|
       build_revenue_hash(hash, item)
     end
   end
 
-  def paid_invoices(merchant_id)
+  def self.paid_invoices(merchant_id, engine)
     engine.merchants
           .find_by_id(merchant_id)
           .invoices
@@ -76,7 +76,7 @@ module MerchantAnalyst
           .compact
   end
 
-  def build_revenue_hash(hash, item)
+  def self.build_revenue_hash(hash, item)
     if hash[item.item_id]
        hash[item.item_id] += item.quantity * item.unit_price
     else
