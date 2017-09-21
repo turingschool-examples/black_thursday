@@ -20,7 +20,7 @@ class Merchant
   end
 
   def customers
-    customers = invoices.map do |invoice|
+    invoices.map do |invoice|
       @merchant_repository.find_all_customers(invoice.customer_id)
     end.compact.uniq
   end
