@@ -218,5 +218,11 @@ class SalesAnalyst
     end.uniq
   end
 
+  def most_sold_item_for_merchant(merchant_id)
+    merchant = @engine.merchants.find_by_id(merchant_id)
+    items = merchant.items
+    max_quantity = items.max_by { |item| item.quantity_sold }.quantity_sold
+    items.find_all { |item| max_quantity == item.quantity_sold }
+  end
 
 end

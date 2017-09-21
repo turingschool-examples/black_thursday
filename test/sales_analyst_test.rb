@@ -132,7 +132,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_merchants_with_only_one_item_registered_in_month
     assert_equal 1, sa.merchants_with_only_one_item_registered_in_month('June').count
-    assert_instance_of Merchant, sa.merchants_with_only_one_item_registered_in_month('June').first.class
+
     assert_instance_of Merchant, sa.merchants_with_only_one_item_registered_in_month('June').first
   end
 
@@ -163,6 +163,12 @@ class SalesAnalystTest < Minitest::Test
     assert_equal expected, actual
   end
 
+  def test_most_sold_item_for_merchant_returns_items_of_merchant_ordered_by_most_quantity_sold
+    actual = sa.most_sold_item_for_merchant(12334105)
+    expected = [se.items.all[1]]
+
+    assert_equal expected, actual
+  end
 
 
 end

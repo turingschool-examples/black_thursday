@@ -166,8 +166,11 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_quantity_sold_called_on_item_returns_the_sum_of_quantity_sold_according_to_invoice_items_data
-    skip
     item = se.items.find_by_id(263395617)
+    actual = item.quantity_sold
+    expected = 17
+
+    assert_equal expected, actual
   end
 
 end
