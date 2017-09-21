@@ -6,10 +6,12 @@ require_relative "./merchant_top_days_by_invoice_count"
 require_relative "./merchant_top_revenue_earners"
 require 'pry'
 require "date"
+require_relative './finder'
 
 
 class SalesAnalyst
 
+  include Finder
   include MerchantMath
   include MerchantGoldenItems
   include MerchantMerchantsByInvoiceCount
@@ -51,19 +53,17 @@ class SalesAnalyst
     average_things_per_merchant_standard_deviation(merchants_and_invoices)
   end
 
-########
-
   def invoice_status(status)
     decimal = invoices_with_status_count(status)/total_invoice_count
     (decimal * 100).round(2)
   end
 
   def total_invoice_count
-    sales_engine.invoices.all.count.to_f
+    invocies.count.to_f
   end
 
   def invoices_with_status_count(status)
-    sales_engine.invoices.find_all_by_status(status).count
+    invoice_repo.find_all_by_status(status).count
   end
 
   def merchants_with_high_item_count
@@ -74,7 +74,7 @@ class SalesAnalyst
     end
     merchants = []
     merchant_ids.each do |id|
-      merchants << sales_engine.merchants.find_by_id(id)
+      merchants << merchant_repo.find_by_id(id)
     end
     merchants
   end
@@ -94,15 +94,15 @@ class SalesAnalyst
   end
 
   def average_average_price_per_merchant
-    average_price_array = sales_engine.merchants.all.map do |merchant|
+    average_price_array = merchants.map do |merchant|
                             average_item_price_for_merchant_unrounded(merchant.id)
                           end
     sum_averages = average_price_array.sum
-    (sum_averages / sales_engine.merchants.all.count).floor(2)
+    (sum_averages / merchants.count).floor(2)
   end
 
   def golden_items
-    two_standard_deviations_above(sales_engine.items, sales_engine.merchants)
+    two_standard_deviations_above(item_repo, merchant_repo)
   end
 
   def top_merchants_by_invoice_count
@@ -111,32 +111,21 @@ class SalesAnalyst
     group_invoices_by_merchant.map do |key, value|
       if value >= two_std_above
         top_merchants << key
-        # puts "Yowza -- Top merchants by invoice!"
       end
     end
-    top_merchants.map do |id|
-      sales_engine.merchants.find_by_id(id)
-    end
+    top_merchants.map { |id| sales_engine.merchants.find_by_id(id) }
   end
 
-  ##### Iteration 4 #####
-
   def merchants_with_pending_invoices
-    merchants = sales_engine.merchants.all
-    merchants.select do |merchant|
-      merchant.has_pending_invoice?
-    end
+    merchants.select { |merchant| merchant.has_pending_invoice? }
   end
 
   def merchants_with_only_one_item
-    merchants = sales_engine.merchants.all
     only_one_item(merchants)
   end
 
   def only_one_item(merchants)
-    merchants.select do |merchant|
-      merchant.items.count == 1
-    end
+    merchants.select { |merchant| merchant.items.count == 1 }
   end
 
   def bottom_merchants_by_invoice_count
@@ -145,7 +134,6 @@ class SalesAnalyst
     group_invoices_by_merchant.map do |key, value|
       if value <= two_std_below
         bottom_merchants << key
-        puts "Yowza -- Bottom merchants by invoice!"
       end
     end
     bottom_merchants.map do |id|
@@ -159,7 +147,7 @@ class SalesAnalyst
   end
 
   def  invoices_by_date(date)
-    sales_engine.invoices.all.select do |invoice|
+    invoices.select do |invoice|
       invoice.created_at == date
     end
   end
@@ -171,20 +159,15 @@ class SalesAnalyst
   end
 
   def merchants_with_only_one_item_registered_in_month(month)
-    merchants_for_month = sales_engine.merchants.merchants_registered_in_month(month)
-    only_one_item(merchants_for_month)
+    only_one_item(merchants_for_month(month))
   end
 
   def revenue_by_merchant(merchant_id)
-    merchant_invoices = sales_engine.merchants.find_by_id(merchant_id).invoices
-    merchant_invoices.map {|invoice| invoice.total}.sum
+    merchant_invoices(merchant_id).map {|invoice| invoice.total}.sum
   end
 
-
   def merchants_ranked_by_revenue
-    top_revenue_by_id = single_merchant_id_with_total_revenue.map do |key, value|
-      key
-    end
+    top_revenue_by_id = single_merchant_id_with_total_revenue.map { |key, value| key }
     top_merchants = []
     top_revenue_by_id.each do |id|
       top_merchants << sales_engine.merchants.find_by_id(id)
@@ -195,12 +178,51 @@ class SalesAnalyst
   def top_revenue_earners(number = 20)
     range = (number-1)
     merchants_ranked_by_revenue[0..range]
-    puts merchants_ranked_by_revenue[0..range]
   end
 
-  def best_item_for_merchant(merchant_id)
-    id = highest_value_item(merchant_id)
-    sales_engine.items.find_by_id(id)
+  ######
+
+  def most_sold_item_for_merchant(merchant_id)
+    largest_quantity_item_ids(merchant_id).map do |item_id|
+      sales_engine.items.find_by_id(item_id)
+    end
+  end
+
+  def merchant_invoices(merchant_id)
+    merchant = sales_engine.merchants.find_by_id(merchant_id)
+    merchant.invoices
+  end
+
+  def merchant_invoices_paid_in_full(merchant_id)
+    merchant_invoices(merchant_id).select do |invoice|
+      invoice.is_paid_in_full?
+    end
+  end
+
+  def invoices_to_invoice_items(merchant_id)
+    merchant_invoices_paid_in_full(merchant_id).map do |invoice|
+      invoice.invoice_items
+    end.flatten
+  end
+
+  def item_quantities(merchant_id)
+    item_quantity = {}
+    invoices_to_invoice_items(merchant_id).map do |invoice_item|
+      i_q = {invoice_item.item_id => invoice_item.quantity}
+      item_quantity.merge!(i_q){|key, oldval, newval| newval + oldval}
+    end
+    item_quantity
+  end
+
+  def largest_quantity(merchant_id)
+    item_quantities(merchant_id).values.max
+  end
+
+  def largest_quantity_item_ids(merchant_id)
+    largest_quantity = largest_quantity(merchant_id)
+    item_quantities(merchant_id).select do |key,value|
+      value == largest_quantity
+    end.keys
   end
 
 end

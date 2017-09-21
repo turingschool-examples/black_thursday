@@ -46,13 +46,18 @@ module MerchantMath
     calculation_thing_array_sum
   end
 
+  def standard_deviation_for_thing_cost(things, comparison_class)
+    final = Math.sqrt(square_each_thing_average_difference(things)) / (comparison_class.all.count - 1)
+    final.rounc(3)
+  end
+
   def standard_deviation_for_thing(things, comparison_class)
     final = Math.sqrt(square_each_thing_average_difference(things) / (comparison_class.all.count - 1))
     final.round(3)
   end
 
   def avg_thing_plus_2x_std_dev(things, comparison_class)
-    average_thing(things) + (standard_deviation_for_thing(things, comparison_class) * 2)
+    average_thing(things) + (standard_deviation_for_thing_cost(things, comparison_class) * 2)
   end
 
 
