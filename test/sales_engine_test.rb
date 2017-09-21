@@ -48,7 +48,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_can_find_merchant_from_item
-    assert_instance_of Merchant, new_engine.items.all[0].item
+    assert_instance_of Merchant, new_engine.items.all[0].merchant
   end
 
   def test_can_find_merchant_from_invoice
@@ -57,11 +57,27 @@ class SalesEngineTest < Minitest::Test
 
   def test_can_find_items_from_invoice
     assert_instance_of Array, new_engine.invoices.all[0].items
-    assert_instance_of Item, new_engine.invoices.all[0].items[0]
   end
 
   def test_can_find_customer_from_invoice
     assert_instance_of Customer, new_engine.invoices.all[0].customer
+  end
+
+  def test_can_find_items_from_merchant
+    assert_instance_of Array, new_engine.merchants.all[0].items
+  end
+
+  def test_can_find_customers_from_merchant
+    assert_instance_of Array, new_engine.merchants.all[0].customers
+  end
+
+  def test_can_check_if_merchant_has_pending_invoice
+    assert new_engine.merchants.find_by_id(12335938).has_pending_invoice?
+  end
+
+  def test_can_check_if_invoice_is_pending_for_transaction
+    assert new_engine.invoices.find_by_id(1752).is_pending?
+    refute new_engine.invoices.find_by_id(46).is_pending?
   end
 
 end
