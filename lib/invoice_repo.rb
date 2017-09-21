@@ -45,4 +45,8 @@ class InvoiceRepo
     parent.total_invoice_amount(invoice_id)
   end
 
+  def find_all_by_created_at(date)
+    all.find_all do |invoice|
+    invoice.created_at == date
+  end
 end

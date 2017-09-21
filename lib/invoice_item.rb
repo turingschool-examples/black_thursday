@@ -19,9 +19,9 @@ class InvoiceItem
     @id           = data[:id].to_i
     @item_id      = data[:item_id].to_i
     @invoice_id   = data[:invoice_id].to_i
-    @quantity      = data[:quantity]
-    @price       = BigDecimal.new(data[:unit_price])
-    @unit_price  = unit_price_to_dollars(@price)
+    @quantity     = data[:quantity]
+    @price        = BigDecimal.new(data[:unit_price])
+    @unit_price   = unit_price_to_dollars(@price)
     @created_at   = Time.parse(data[:created_at].to_s)
     @updated_at   = Time.parse(data[:updated_at].to_s)
     @parent       = repo
