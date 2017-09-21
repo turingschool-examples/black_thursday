@@ -44,5 +44,4 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of Merchant, item.merchant
   end
 
-  
 end

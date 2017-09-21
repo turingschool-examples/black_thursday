@@ -188,8 +188,16 @@ class SalesAnalyst
     end
   end
 
-  def most_sold_item_for_merchant
-    
+  def most_sold_item_for_merchant(merchant_id)
+    #retrieve merchant by merchant id
+    # get invoices from merchant
+    # map/select through invoice
+    # if is_paid_in_full? return invoice
+    # get the invoice items of paid invoices
+    # access quantity from invoice items
+    # create hash of item => quantity
+    # sort_by largest quantity of item
+    # find the max value and loop through sorted array for max value
   end
 
   def get_invoice_ids(invoices_on_date)
