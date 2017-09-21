@@ -174,11 +174,11 @@ class SalesAnalyst
     BigDecimal.new(revenue, 4)
   end
 
-  def total_sold_for_item(item)
-    item.invoice_items.reduce(0) do |total_sold, invoice_item|
-      total_sold + invoice_item.quantity
-    end
-  end
+  # def total_sold_for_item(item)
+  #   item.invoice_items.reduce(0) do |total_sold, invoice_item|
+  #     total_sold + invoice_item.quantity
+  #   end
+  # end
 
   def paid_invoices(merchant)
     merchant.invoices.select do |invoice|
