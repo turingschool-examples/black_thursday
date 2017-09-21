@@ -162,4 +162,21 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 18, sales_a.merchants_with_only_one_item_registered_in_month("June").count
   end
 
+  def test_revenue_by_merchants
+    files = ({:invoices => "./data/invoices.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"})
+    se = SalesEngine.from_csv(files)
+    sales_a = SalesAnalyst.new(se)
+
+    assert_equal BigDecimal.new('0.815724e5'), sales_a.revenue_by_merchant(12334194)
+  end
+
+  def test_most_sold_item_for_merchant
+    files = ({:invoices => "./data/invoices.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"})
+    se = SalesEngine.from_csv(files)
+    sales_a = SalesAnalyst.new(se)
+
+    assert_equal 1, sales_a.most_sold_item_for_merchant(12334189).count
+  end
+
+
 end

@@ -214,4 +214,32 @@ class SalesAnalyst
     end
   end
 
+  def revenue_by_merchant(merchant_id)
+    total_revenue_by_merchant(merchant_id)
+  end
+
+
+  def retrieve_merchant_invoices(merchant_id)
+    sales_engine.merchants.find_by_id(merchant_id).invoices
+  end
+
+  def retrieve_paid_invoices(merch_invoices)
+    merch_invoices.find_all {|invoice| invoice.is_paid_in_full?}
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    item_quantity = {}
+    merch_invoices = retrieve_merchant_invoices(merchant_id)
+    retrieve_paid_invoices(merch_invoices)
+    paid_invoices = merch_invoices.find_all {|invoice| invoice.is_paid_in_full?}
+    invoice_i_items = paid_invoices.map {|invoice| invoice.invoice_items}.flatten
+    invoice_i_items.each do |invoice_item|
+      item_quantity[invoice_item.item_id] = invoice_item.quantity.to_i
+    end
+    sorted = item_quantity.sort_by {|key, value| -value}
+    max_quantity = sorted.first[-1]
+    maxes = sorted.find_all {|pair| pair[1] == max_quantity}
+    maxes.map {|pair| sales_engine.items.find_by_id(pair[0])}
+  end
+
 end

@@ -44,4 +44,8 @@ class Item
   def merchant
     item_repo.item_merchant(self.merchant_id)
   end
+
+  def invoice_items
+    item_repo.item_invoice_item(self.id)
+  end
 end

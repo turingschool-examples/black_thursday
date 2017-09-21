@@ -60,4 +60,8 @@ class Invoice
     end
     0
   end
+
+  def invoice_items
+    invoice_repo.invoice_invoice_item(self.id)
+  end
 end
