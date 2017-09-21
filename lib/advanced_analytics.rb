@@ -28,10 +28,6 @@ module AdvancedAnalytics
     end
   end
 
-  def paid_invoices
-    se.invoices.all.select {|invoice| invoice.is_paid_in_full?}
-  end
-
   def merchants_with_only_one_item_registered_in_month(month_name)
     merchants = merchants_with_only_one_item
     one_item_merchants_by_month = merchants.group_by do |merchant|
