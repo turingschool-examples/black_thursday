@@ -33,15 +33,7 @@ module MerchantAnalyst
   end
 
   def merchants_with_pending_invoices
-    #filter by paid in full--if it is pending and has no successful transactions
-    pending_invoices = @engine.invoices.find_all_by_status(:pending)
-
-    pending_merchant_ids = pending_invoices.map do |invoice|
-      invoice.merchant_id
-    end
-    pending_merchant_ids.map do |merchant_id|
-      @engine.merchants.find_by_id(merchant_id)
-    end
+    @engine.merchant_list.find_all {|merchant| merchant.pending_invoices?}
   end
 
   def collect_item_merchant_ids
@@ -53,7 +45,6 @@ module MerchantAnalyst
   def find_merchant_ids_with_only_one_item
     item_merchant_ids = collect_item_merchant_ids
     one_item_merchant_ids = []
-
     item_merchant_ids.each do |merchant_id|
       if item_merchant_ids.count(merchant_id) == 1
         one_item_merchant_ids << merchant_id
@@ -64,7 +55,6 @@ module MerchantAnalyst
 
   def merchants_with_only_one_item
     one_item_merchant_ids = find_merchant_ids_with_only_one_item
-
     one_item_merchant_ids.map do |merchant_id|
       @engine.merchants.find_by_id(merchant_id)
     end
@@ -77,9 +67,8 @@ module MerchantAnalyst
   end
 
   def most_sold_item_for_merchant(merchant_id)
-    #take into account only successful transaction, filter only successful ones, then find highest out of that
     merchant_invoices = @engine.invoices.find_all_by_merchant_id(merchant_id)
-    invoice_ids = merchant_invoices.map {|invoice| invoice.id}
+    invoice_ids = merchant_invoices.map {|invoice| invoice.id if invoice.is_paid_in_full?}
     invoice_items = invoice_ids.map do |invoice_id|
       @engine.invoice_items.find_all_by_invoice_id(invoice_id)
     end
@@ -91,7 +80,7 @@ module MerchantAnalyst
 
   def best_item_for_merchant(merchant_id)
     merchant_invoices = @engine.invoices.find_all_by_merchant_id(merchant_id)
-    invoice_ids = merchant_invoices.map {|invoice| invoice.id}
+    invoice_ids = merchant_invoices.map {|invoice| invoice.id if invoice.is_paid_in_full?}
     invoice_items = invoice_ids.map do |invoice_id|
       @engine.invoice_items.find_all_by_invoice_id(invoice_id)
     end

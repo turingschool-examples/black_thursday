@@ -102,6 +102,10 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 1, invoices.count
   end
 
+  def test_it_finds_all_invoices_paid_in_full
+    p @repository.find_all_paid_in_full
+  end
+
 
 
 end

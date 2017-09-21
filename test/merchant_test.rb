@@ -51,4 +51,14 @@ class MerchantTest < Minitest::Test
     assert_instance_of Customer, merchant_customers[0]
     assert_equal 297, merchant_customers[0].id
   end
+
+  def test_it_finds_pending_invoices_for_merchant
+    merchant = @merchants[0]
+
+    assert_equal 0, merchant.invoices_paid_in_full.count
+
+    merchant = @merchants[-1]
+
+    assert_equal 6, merchant.invoices_paid_in_full.count
+  end
 end

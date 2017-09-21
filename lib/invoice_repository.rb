@@ -54,7 +54,11 @@ class InvoiceRepository
     end
   end
 
+  def find_all_paid_in_full
+    @invoices.find_all {|invoice| invoice.is_paid_in_full?}
+  end
 
+  
   def inspect
     "#<#{self.class} #{@items.size} rows>"
   end
