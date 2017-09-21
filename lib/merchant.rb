@@ -1,5 +1,6 @@
 require 'pry'
 require 'csv'
+require 'time'
 class Merchant
 
   attr_reader :id,

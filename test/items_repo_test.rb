@@ -1,12 +1,12 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/items_repo'
+require_relative '../lib/items_repo'
 
 class ItemRepoTest < Minitest::Test
   attr_reader :ir
 
   def setup
-    @ir = ItemRepo.new("./data/items_fixture.csv")
+    @ir = ItemRepo.new("./test/fixtures/items_fixture.csv")
   end
 
   def test_it_exists
@@ -19,7 +19,7 @@ class ItemRepoTest < Minitest::Test
   end
 
   def test_it_finds_all_items
-    assert_equal 1367, ir.all_items
+    assert_equal 109, ir.all_items.length
   end
 
   def test_it_can_find_by_id
@@ -41,7 +41,7 @@ class ItemRepoTest < Minitest::Test
 
   def test_it_can_find_all_by_price_in_range
     range = (11..14)
-    assert_equal 76, ir.find_all_by_price_in_range(range).count
+    assert_equal 4, ir.find_all_by_price_in_range(range).count
   end
 
   def test_it_returns_empty_array_for_invalid_price_range

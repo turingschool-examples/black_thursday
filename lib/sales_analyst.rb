@@ -50,11 +50,11 @@ class SalesAnalyst
   def merchants_with_high_item_count
     high_count = []
     @merchants.all_merchants.each do |merchant|
-     if merchant.items.count >= 6.12
-       high_count << merchant
-     else
+      if merchant.items.count >= 6.12
+        high_count << merchant
+      else
         merchant
-     end
+      end
     end
     high_count
   end
@@ -71,7 +71,7 @@ class SalesAnalyst
 
   def average_average_price_per_merchant
     sum_of_averages = @merchants.all.reduce(0) do |sum, merchant|
-    sum += average_item_price_for_merchant(merchant.id)
+      sum += average_item_price_for_merchant(merchant.id)
     end
     (sum_of_averages / total_merchants).round(2)
   end
@@ -118,30 +118,31 @@ class SalesAnalyst
   end
 
   def average_invoices_per_weekday
-      invoices.all.length / 7
+    invoices.all.length / 7
   end
-  def find_standard_deviation_of_average_item_price
-      all_items = items.all.count
-      average_price_of_items = self.average_average_price_per_merchant
-      prices = []
-      items.all.each do |item|
-        prices << ((item.price - average_price_of_items)**2)
-      end
-      summed_prices = (prices.reduce(:+)/(all_items - 1))
-      Math.sqrt(summed_prices).round(2)
-    end
 
-    def golden_items
-      average = average_average_price_per_merchant
-      standard_deviation = find_standard_deviation_of_average_item_price
-      gitems = []
+  def find_standard_deviation_of_average_item_price
+    all_items = items.all.count
+    average_price_of_items = self.average_average_price_per_merchant
+    prices = []
+    items.all.each do |item|
+      prices << ((item.price - average_price_of_items)**2)
+    end
+    summed_prices = (prices.reduce(:+)/(all_items - 1))
+    Math.sqrt(summed_prices).round(2)
+  end
+
+  def golden_items
+    average = average_average_price_per_merchant
+    standard_deviation = find_standard_deviation_of_average_item_price
+    gitems = []
       items.all.each do |item|
         if item.price > (average+(2*standard_deviation))
           gitems << item
         end
       end
-      gitems
-    end
+    gitems
+  end
 
   def counts
     invoices.all.each_with_object(Hash.new(0)) do |invoice, count|
@@ -149,14 +150,14 @@ class SalesAnalyst
     end
   end
 
-  def whatever
+  def the_counts
     counts.each_value.map do |count|
       (count - invoices.all.length / 7) ** 2
     end
   end
 
   def top_days_by_invoice_count
-    standard_dev = Math.sqrt(whatever.reduce(0,:+) / 6)
+    standard_dev = Math.sqrt(the_counts.reduce(0,:+) / 6)
     target = average_invoices_per_weekday + standard_dev
     top_days = []
     counts.each_pair do |day, num|
@@ -210,18 +211,6 @@ class SalesAnalyst
     end
   end
 
-  def most_sold_item_for_merchant(merchant_id)
-    #retrieve merchant by merchant id
-    # get invoices from merchant
-    # map/select through invoice
-    # if is_paid_in_full? return invoice
-    # get the invoice items of paid invoices
-    # access quantity from invoice items
-    # create hash of item => quantity
-    # sort_by largest quantity of item
-    # find the max value and loop through sorted array for max value
-
-
   def get_invoice_ids(invoices_on_date)
     invoices_on_date.map do |invoice|
       invoice.id
@@ -229,7 +218,7 @@ class SalesAnalyst
   end
 
   def sum_invoice_items(invoice_items)
-   invoice_items[0].map do |item|
+    invoice_items[0].map do |item|
      (item.unit_price * item.quantity.to_i)
    end.sum
   end
@@ -259,15 +248,16 @@ class SalesAnalyst
   def top_revenue_earners(x = 20)
     merch_by_revenue = {}
     @merchants.all.each do |merchant|
-      revenue = revenue_by_merchant(merchant.id)
+        revenue = revenue_by_merchant(merchant.id)
       merch_by_revenue[merchant] = revenue
     end
     merch_revenue = merch_by_revenue.sort_by {|key, value| value}.reverse.to_h
     merch_revenue.keys.take(x)
-end
+  end
 
   def merchants_ranked_by_revenue
     rank = @merchants.all.length
     top_revenue_earners(rank)
   end
+
 end

@@ -1,12 +1,12 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/merchant_repo'
+require_relative '../lib/merchant_repo'
 
 class MerchantRepoTest < Minitest::Test
   attr_reader :mr
 
   def setup
-    @mr = MerchantRepo.new("./test/merchant_fixture.csv")
+    @mr = MerchantRepo.new("./test/fixtures/merchant_fixture.csv")
   end
 
   def test_find_all_merchants

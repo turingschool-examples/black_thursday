@@ -1,7 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/sales_engine'
-require_relative 'test_helper'
 require 'csv'
 
 class SalesEngineTest < Minitest::Test
@@ -32,6 +31,13 @@ class SalesEngineTest < Minitest::Test
     item = ir.find_by_name("Glitter scrabble frames")
     assert_instance_of Item, item
     assert_equal "Glitter scrabble frames", item.name
+  end
+
+  def test_find_name_is_case_insensitive
+    mr = se.merchants
+    merchant = mr.find_by_name("MINIATUREBIKEZ")
+    assert_instance_of Merchant, merchant
+    assert_equal "MiniatureBikez", merchant.name
   end
 
   def test_it_can_find_all_items_of_particular_merchant
