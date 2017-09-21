@@ -10,9 +10,10 @@ class MerchantRepository
   def initialize(sales_engine, merchant_csv)
     @all = []
     @sales_engine = sales_engine
-    CSV.foreach(merchant_csv, headers: true, header_converters: :symbol) do |row|
-      @all << Merchant.new(self, row)
-    end
+    CSV.foreach(
+      merchant_csv, headers: true, header_converters: :symbol) do |row|
+        @all << Merchant.new(self, row)
+      end
     @id = :id
     @name = :name
   end
@@ -32,13 +33,9 @@ class MerchantRepository
   end
 
   def find_all_by_name(name)
-    merchant_array = []
-    all.each do |merchant|
-      if merchant.name.downcase.include?(name.downcase)
-        merchant_array << merchant
-      end
+    all.select do |merchant|
+      merchant.name.downcase.include?(name.downcase)
     end
-    return merchant_array
   end
 
   def merchants_registered_in_month(month)

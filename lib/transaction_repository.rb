@@ -22,27 +22,17 @@ class TransactionRepository
   end
 
   def find_all_by_invoice_id(invoice_id)
-    transaction_array = []
-    all.each do |transaction|
-      transaction_array << transaction if transaction.invoice_id == invoice_id
-    end
-    transaction_array
+    all.select {|transaction| transaction.invoice_id == invoice_id}
   end
 
   def find_all_by_credit_card_number(credit_card_number)
-    transaction_array = []
-    all.each do |transaction|
-      transaction_array << transaction if transaction.credit_card_number == credit_card_number
+    all.select do |transaction|
+      transaction.credit_card_number == credit_card_number
     end
-    transaction_array
   end
 
-  def find_all_by_result(results)
-    transaction_array = []
-    all.each do |transaction|
-      transaction_array << transaction if transaction.result == results
-    end
-    transaction_array
+  def find_all_by_result(result)
+    all.select {|transaction| transaction.result == result}
   end
 
   def inspect

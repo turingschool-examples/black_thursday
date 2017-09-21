@@ -22,10 +22,12 @@ module SalesAnalystMath
   def average_things_per_merchant_standard_deviation(merchants_and_things)
     average = average_things_per_merchant(merchants_and_things)
     individual_minus_average = []
-    individual_minus_average << merchants_and_things.values.map do |number_of_things|
-                                  number_of_things - average
-                                end
-    individual_minus_average_squared = individual_minus_average.flatten.map {|num| num ** 2}
+    individual_minus_average <<
+    merchants_and_things.values.map do |number_of_things|
+      number_of_things - average
+    end
+    individual_minus_average_squared =
+    individual_minus_average.flatten.map {|num| num ** 2}
     std_dev_top = individual_minus_average_squared.sum
     number_of_elements = merchants_and_things.values.count
     Math.sqrt(std_dev_top / (number_of_elements - 1)).round(2)

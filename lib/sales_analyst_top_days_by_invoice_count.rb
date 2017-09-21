@@ -45,7 +45,7 @@ module TopDaysByInvoiceCount
   end
 
   def top_day_denominator
-    6  
+    6
   end
 
   def top_day_standard_deviation
