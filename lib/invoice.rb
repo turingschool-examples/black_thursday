@@ -68,15 +68,4 @@ class Invoice
     end.inject(:+).round(2)
   end
 
-  def transaction_success?
-    transaction = @parent.parent.transactions.all.find do |transaction|
-      transaction.invoice_id == @id
-    end
-    if transaction.result == "success"
-      true
-    else
-      false
-    end
-  end
-
 end
