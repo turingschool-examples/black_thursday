@@ -1,4 +1,5 @@
 require_relative 'repository/record'
+require_relative 'stats'
 
 
 class Merchant < Repository::Record
@@ -18,12 +19,24 @@ class Merchant < Repository::Record
   end
 
   def customers
-    invoices.map{ |invoice| invoice.customer }.uniq
+    invoices.map(&:customer).uniq
   end
 
 
   def total_revenue
     invoices.reduce(0){ |sum, invoice| sum + invoice.total }
+  end
+
+  def average_item_price
+    Stats.mean(items, &:unit_price)
+  end
+
+  def item_count
+    items.length
+  end
+
+  def invoice_count
+    invoice.length
   end
 
 end
