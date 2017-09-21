@@ -59,76 +59,38 @@ class SalesAnalyst
     InvoiceAnalyst.top_days_by_invoice_count(invoices)
   end
 
-  # def invoice_std_deviation(invoices_per_day)
-  #   Math.sqrt(invoices_per_day.map do |total|
-  #     (total - avg_inv_per_day)**2
-  #   end.sum / 7).round
-  # end
+  def invoice_status(status)
+    InvoiceAnalyst.invoice_status(status, invoices)
+  end
 
-  # def invoices_per_day
-    # grouped_invoices.values.map(&:length)
-  # end
+  def total_revenue_by_date(date)
+    RevenueAnalyst.total_revenue_by_date(date, invoices)
+  end
 
-  # def day_array
-  #   grouped_invoices.keys.zip(invoices_per_day)
-  # end
+  def top_revenue_earners(x = 20)
+    RevenueAnalyst.top_revenue_earners(merchants, engine, x)
+  end
 
-  # def days_with_high_invoices(day_array, avg_inv_per_day, deviation)
-  #   day_array.select do |invoice|
-  #     invoice[1] > avg_inv_per_day + deviation
-  #   end.map(&:first)
-  # end
+  def merchants_ranked_by_revenue
+    top_revenue_earners(merchants.length)
+  end
 
-  # def grouped_invoices
-  #   invoices.group_by {|invoice|invoice.created_at.strftime("%A")}
-  # end
+  def merchants_with_pending_invoices
+    MerchantAnalyst.merchants_with_pending_invoices(merchants)
+  end
 
-  # def avg_inv_per_day
-  #   invoices.length / 7
-  # end
-
-  # def invoice_status(status)
-  #   total     = invoices.length
-  #   selected  = invoices.select {|invoice| invoice.status == status}
-  #   ((selected.length.to_f / total.to_f) * 100.0).round(2)
-  # end
-
-  # def total_revenue_by_date(date)
-  #   date = date.to_s.split(" ")[0]
-  #   arr  = invoices.select {|item| item.created_at.to_s.split(" ")[0] == date}
-  #   arr.map(&:total).sum
-  # end
-
-  # def top_revenue_earners(x = 20)
-  #   merchants.sort_by do |merchant|
-  #     revenue_by_merchant(merchant.id)
-  #   end.reverse.shift(x)
-  # end
-
-  # def revenue_by_merchant(id)
-  #   invoices = engine.merchants.find_invoices_by_merchant_id(id)
-  #   invoices.reduce(0) {|sum, invoice| sum += invoice.total}
-  # end
-
-  # def merchants_ranked_by_revenue
-  #   top_revenue_earners(merchants.length)
-  # end
-
-  # def merchants_with_pending_invoices
-  #   merchants.select {|merchant| pending_invoices?(merchant)}
-  # end
-
-  # def pending_invoices?(merchant)
-  #   merchant.invoices.any? {|invoice| !invoice.is_paid_in_full?}
-  # end
-
-  # def merchants_with_only_one_item
+  def merchants_with_only_one_item
+    MerchantAnalyst.merchants_with_only_one_item(merchants)
   #   merchants.select {|merchant| merchant.items.count == 1}
-  # end
+  end
 
-  # def merchants_with_only_one_item_registered_in_month(month)
-  #   merchants_by_month(month) & merchants_with_only_one_item
-  # end
+  def merchants_with_only_one_item_registered_in_month(m, a = MerchantAnalyst)
+    a.merchants_with_only_one_item_registered_in_month(m, merchants)
+  end
+
+  def revenue_by_merchant(merchant_id, engine)
+    RevenueAnalyst.revenue_by_merchant(merchant_id, engine)
+  end
 
   # def merchants_by_month(month)
   #   merchants.select {|m| m.created_at.strftime("%B") == month.capitalize}

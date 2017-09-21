@@ -60,7 +60,7 @@ module InvoiceAnalyst
     invoices.length / 7
   end
 
-  def invoice_status(status)
+  def self.invoice_status(status, invoices)
     total     = invoices.length
     selected  = invoices.select {|invoice| invoice.status == status}
     ((selected.length.to_f / total.to_f) * 100.0).round(2)

@@ -1,21 +1,21 @@
 module MerchantAnalyst
-  def merchants_with_pending_invoices
+  def self.merchants_with_pending_invoices(merchants)
     merchants.select {|merchant| pending_invoices?(merchant)}
   end
 
-  def pending_invoices?(merchant)
+  def self.pending_invoices?(merchant)
     merchant.invoices.any? {|invoice| !invoice.is_paid_in_full?}
   end
 
-  def merchants_with_only_one_item
+  def self.merchants_with_only_one_item(merchants)
     merchants.select {|merchant| merchant.items.count == 1}
   end
 
-  def merchants_with_only_one_item_registered_in_month(month)
-    merchants_by_month(month) & merchants_with_only_one_item
+  def self.merchants_with_only_one_item_registered_in_month(month, merch)
+    merchants_by_month(month, merch) & merchants_with_only_one_item(merch)
   end
 
-  def merchants_by_month(month)
+  def self.merchants_by_month(month, merchants)
     merchants.select {|m| m.created_at.strftime("%B") == month.capitalize}
   end
 
