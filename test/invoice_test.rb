@@ -3,7 +3,6 @@ require 'minitest/pride'
 require_relative '../lib/invoice_repo'
 require_relative '../lib/invoice'
 require_relative '../lib/merchant'
-require 'pry'
 
 class InvoiceTest < Minitest::Test
   attr_reader :invoice

@@ -1,6 +1,5 @@
 require 'csv'
 require_relative 'invoice_item'
-require 'pry'
 class InvoiceItemRepo
 
   attr_reader :all_invoices, :parent

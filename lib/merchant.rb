@@ -1,4 +1,3 @@
-require 'pry'
 require 'csv'
 require 'time'
 class Merchant
