@@ -120,6 +120,28 @@ class SalesAnalyst
   def average_invoices_per_weekday
       invoices.all.length / 7
   end
+  def find_standard_deviation_of_average_item_price
+      all_items = items.all.count
+      average_price_of_items = self.average_average_price_per_merchant
+      prices = []
+      items.all.each do |item|
+        prices << ((item.price - average_price_of_items)**2)
+      end
+      summed_prices = (prices.reduce(:+)/(all_items - 1))
+      Math.sqrt(summed_prices).round(2)
+    end
+
+    def golden_items
+      average = average_average_price_per_merchant
+      standard_deviation = find_standard_deviation_of_average_item_price
+      gitems = []
+      items.all.each do |item|
+        if item.price > (average+(2*standard_deviation))
+          gitems << item
+        end
+      end
+      gitems
+    end
 
   def counts
     invoices.all.each_with_object(Hash.new(0)) do |invoice, count|
@@ -198,7 +220,7 @@ class SalesAnalyst
     # create hash of item => quantity
     # sort_by largest quantity of item
     # find the max value and loop through sorted array for max value
-  end
+
 
   def get_invoice_ids(invoices_on_date)
     invoices_on_date.map do |invoice|
@@ -222,5 +244,30 @@ class SalesAnalyst
      total += item.quantity.to_i * item.unit_price
    end
    total
+  end
+
+  def revenue_by_merchant(id)
+    merchant = merchants.find_by_id(id)
+    invoices = merchant.invoices
+    total_revenue = 0
+    invoices.each do |invoice|
+      (total_revenue += invoice.total) if invoice.is_paid_in_full?
+    end
+    total_revenue
+  end
+
+  def top_revenue_earners(x = 20)
+    merch_by_revenue = {}
+    @merchants.all.each do |merchant|
+      revenue = revenue_by_merchant(merchant.id)
+      merch_by_revenue[merchant] = revenue
+    end
+    merch_revenue = merch_by_revenue.sort_by {|key, value| value}.reverse.to_h
+    merch_revenue.keys.take(x)
+end
+
+  def merchants_ranked_by_revenue
+    rank = @merchants.all.length
+    top_revenue_earners(rank)
   end
 end

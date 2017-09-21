@@ -1,8 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require_relative 'merchant_repo'
-require 'csv'
-
-class MerchantTest < Minitest::Test
-
-end
+require_relative 'test_helper'
+require_relative '../lib/merchant'
+require_relative '../lib/merchant_repository'
+require_relative '../lib/sales_engine'
