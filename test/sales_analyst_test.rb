@@ -9,7 +9,7 @@ require "./lib/item"
 
 class SalesAnalystTest < Minitest::Test
 
-  attr_reader :sales_analyst
+  attr_reader :sales_analyst, :sales_engine
 
   def setup
     csv_hash = {
@@ -20,7 +20,7 @@ class SalesAnalystTest < Minitest::Test
       :transactions => "./test/test_fixtures/transactions_medium.csv",
       :customers => "./test/test_fixtures/customers_medium.csv"
     }
-    sales_engine = SalesEngine.from_csv(csv_hash)
+    @sales_engine = SalesEngine.from_csv(csv_hash)
     @sales_analyst = SalesAnalyst.new(sales_engine)
   end
 
@@ -71,8 +71,9 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_check_if_merchant_is_pending
-    assert sales_analyst.is_pending?(12334149)
-    refute sales_analyst.is_pending?(12334105)
+    invoice = sales_analyst.merchants_with_pending_invoices[0]
+
+    assert_equal 12334105, invoice.id
   end
 
   def test_it_finds_merchants_with_pending_invoices
@@ -89,7 +90,7 @@ class SalesAnalystTest < Minitest::Test
   def test_it_returns_bottom_merchants_by_invoice
     assert_instance_of Array, sales_analyst.bottom_merchants_by_invoice_count
 
-    assert_instance_of Merchant, sales_analyst.bottom_merchants_by_invoice_count[0]
+    assert_equal [], sales_analyst.bottom_merchants_by_invoice_count
   end
 
   def test_it_finds_revenue_by_merchant

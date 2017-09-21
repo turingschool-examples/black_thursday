@@ -12,6 +12,7 @@ module SalesAnalystMath
    return thing_counts
   end
 
+
   def average_things_per_merchant(merchants_and_things)
     total_things = merchants_and_things.values.sum
     total_merchants = merchants_and_things.length
@@ -32,62 +33,5 @@ module SalesAnalystMath
     Math.sqrt(std_dev_top / (number_of_elements - 1)).round(2)
   end
 
-  def average_thing(things)
-    all_things_sum = 0
-    things.all.each do |thing|
-       all_things_sum += thing.unit_price_float
-    end
-    all_things_sum / things.all.count
-  end
 
-  def square_each_thing_average_difference(things)
-    calculation_thing_array_sum = 0
-    things.all.each do |thing|
-      calculation_thing_array_sum +=
-      ((thing.unit_price_float) - (average_thing(things))) ** 2
-    end
-    calculation_thing_array_sum
-  end
-
-  def standard_deviation_for_thing_cost(things, comparison_class)
-    numerator = Math.sqrt(square_each_thing_average_difference(things))
-    final = numerator / (comparison_class.all.count - 1)
-    final.rounc(3)
-  end
-
-  def standard_deviation_for_thing(things, comparison_class)
-    numerator = square_each_thing_average_difference(things)
-    final = Math.sqrt(numerator / (comparison_class.all.count - 1))
-    final.round(3)
-  end
-
-  def avg_thing_plus_2x_std_dev(things, comparison_class)
-    two_times_standard_deviation =
-    standard_deviation_for_thing_cost(things, comparison_class) * 2
-    average_thing(things) + two_times_standard_deviation
-  end
-
-  def two_standard_deviations_above(things, comparison_class)
-    average = avg_thing_plus_2x_std_dev(things, comparison_class)
-    things.all.select do |thing|
-      (thing.unit_price_float) >= average
-    end
-  end
-
-  def two_standard_deviations_below(things, comparison_class)
-    golden_things_list = []
-      things.all.each do |thing|
-        if (thing.unit_price_float) <= avg_thing_plus_2x_std_dev(things, comparison_class)
-          golden_things_list << thing
-        end
-      end
-    golden_things_list
-  end
-
-
-    def one_standard_deviations_above(things, comparison_class)
-      things.all.select do |thing|
-        (thing.unit_price_float) >= standard_deviation_for_thing(things, comparison_class)
-      end
-    end
 end

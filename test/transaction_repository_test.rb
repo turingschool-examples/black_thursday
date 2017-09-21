@@ -40,8 +40,8 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_result
-    assert_instance_of Array, transaction_repository.find_all_by_result(:success)
-    assert_instance_of Transaction, transaction_repository.find_all_by_result(:success)[0]
+    assert_instance_of Array, transaction_repository.find_all_by_result("success")
+    assert_instance_of Transaction, transaction_repository.find_all_by_result("success")[0]
   end
 
   def test_inspect
