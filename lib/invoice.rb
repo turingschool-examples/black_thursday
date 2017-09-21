@@ -32,7 +32,8 @@ class Invoice
 
 
   def items
-    invoice_items = invoice_repository.sales_engine.invoice_items.find_all_by_invoice_id(id)
+    invoice_items =
+    invoice_repository.sales_engine.invoice_items.find_all_by_invoice_id(id)
     item_ids = invoice_items.map {|invoice_item| invoice_item.item_id}
     item_ids.map do |item_id|
       invoice_repository.sales_engine.items.find_by_id(item_id)
@@ -69,8 +70,8 @@ class Invoice
 
   def total
     return 0 if !is_paid_in_full?
-      quantity_price_array = invoice_item_quantities.zip(invoice_item_unit_prices)
-      quantity_price_array.map {|quantity_price| quantity_price.reduce(:*)}.sum
+      quantity_prices = invoice_item_quantities.zip(invoice_item_unit_prices)
+      quantity_prices.map {|quantity_price| quantity_price.reduce(:*)}.sum
   end
 
 end

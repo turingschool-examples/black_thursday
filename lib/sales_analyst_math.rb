@@ -21,10 +21,12 @@ module SalesAnalystMath
   def average_things_per_merchant_standard_deviation(merchants_and_things)
     average = average_things_per_merchant(merchants_and_things)
     individual_minus_average = []
-    individual_minus_average << merchants_and_things.values.map do |number_of_things|
-                                  number_of_things - average
-                                end
-    individual_minus_average_squared = individual_minus_average.flatten.map {|num| num ** 2}
+    individual_minus_average <<
+    merchants_and_things.values.map do |number_of_things|
+      number_of_things - average
+    end
+    individual_minus_average_squared =
+    individual_minus_average.flatten.map {|num| num ** 2}
     std_dev_top = individual_minus_average_squared.sum
     number_of_elements = merchants_and_things.values.count
     Math.sqrt(std_dev_top / (number_of_elements - 1)).round(2)
@@ -41,57 +43,51 @@ module SalesAnalystMath
   def square_each_thing_average_difference(things)
     calculation_thing_array_sum = 0
     things.all.each do |thing|
-      calculation_thing_array_sum += ((thing.unit_price_float) - (average_thing(things))) ** 2
+      calculation_thing_array_sum +=
+      ((thing.unit_price_float) - (average_thing(things))) ** 2
     end
     calculation_thing_array_sum
   end
 
   def standard_deviation_for_thing_cost(things, comparison_class)
-    final = Math.sqrt(square_each_thing_average_difference(things)) / (comparison_class.all.count - 1)
+    numerator = Math.sqrt(square_each_thing_average_difference(things))
+    final = numerator / (comparison_class.all.count - 1)
     final.rounc(3)
   end
 
   def standard_deviation_for_thing(things, comparison_class)
-    final = Math.sqrt(square_each_thing_average_difference(things) / (comparison_class.all.count - 1))
+    numerator = square_each_thing_average_difference(things)
+    final = Math.sqrt(numerator / (comparison_class.all.count - 1))
     final.round(3)
   end
 
   def avg_thing_plus_2x_std_dev(things, comparison_class)
-    average_thing(things) + (standard_deviation_for_thing_cost(things, comparison_class) * 2)
+    two_times_standard_deviation =
+    standard_deviation_for_thing_cost(things, comparison_class) * 2
+    average_thing(things) + two_times_standard_deviation
   end
 
   def two_standard_deviations_above(things, comparison_class)
     average = avg_thing_plus_2x_std_dev(things, comparison_class)
-    golden_things_list = []
-      things.all.each do |thing|
-        if (thing.unit_price_float)  >= average
-        golden_things_list << thing
-        puts "Yowza - 2 STDs above"
-        end
-      end
-      golden_things_list
+    things.all.select do |thing|
+      (thing.unit_price_float) >= average
+    end
   end
 
-    def two_standard_deviations_below(things, comparison_class)
-      golden_things_list = []
-        things.all.each do |thing|
-          if (thing.unit_price_float)  <= avg_thing_plus_2x_std_dev(things, comparison_class)
+  def two_standard_deviations_below(things, comparison_class)
+    golden_things_list = []
+      things.all.each do |thing|
+        if (thing.unit_price_float) <= avg_thing_plus_2x_std_dev(things, comparison_class)
           golden_things_list << thing
-          puts "Yowza - 2 STDs below"
-          end
         end
-        golden_things_list
-    end
+      end
+    golden_things_list
+  end
 
 
     def one_standard_deviations_above(things, comparison_class)
-      golden_things_list = []
-        things.all.each do |thing|
-          if (thing.unit_price_float)  >= standard_deviation_for_thing(things, comparison_class)
-          golden_things_list << thing
-          puts "Yowza - 1 STD above"
-          end
-        end
-        golden_things_list
+      things.all.select do |thing|
+        (thing.unit_price_float) >= standard_deviation_for_thing(things, comparison_class)
+      end
     end
 end

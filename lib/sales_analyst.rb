@@ -69,7 +69,8 @@ class SalesAnalyst
 
   def merchants_with_high_item_count
     merchant_ids = []
-    one_above  = average_items_per_merchant + average_items_per_merchant_standard_deviation
+    one_above =
+    average_items_per_merchant + average_items_per_merchant_standard_deviation
     merchants_and_items.each do |key,value|
       merchant_ids << key.to_i if  value > one_above
     end
@@ -83,8 +84,8 @@ class SalesAnalyst
   def average_item_price_for_merchant_unrounded(merchant_id)
     total_items = sales_engine.items.find_all_by_merchant_id(merchant_id)
     item_prices = total_items.map do |item|
-                    item.unit_price
-                  end
+      item.unit_price
+    end
     total_item_prices = item_prices.sum
     return 0.00 if total_items.length == 0
     total_item_prices / total_items.length
@@ -96,8 +97,8 @@ class SalesAnalyst
 
   def average_average_price_per_merchant
     average_price_array = merchants.map do |merchant|
-                            average_item_price_for_merchant_unrounded(merchant.id)
-                          end
+      average_item_price_for_merchant_unrounded(merchant.id)
+    end
     sum_averages = average_price_array.sum
     (sum_averages / merchants.count).floor(2)
   end
@@ -168,7 +169,8 @@ class SalesAnalyst
   end
 
   def merchants_ranked_by_revenue
-    top_revenue_by_id = single_merchant_id_with_total_revenue.map { |key, value| key }
+    top_revenue_by_id =
+    single_merchant_id_with_total_revenue.map {|key, value| key}
     top_merchants = []
     top_revenue_by_id.each do |id|
       top_merchants << sales_engine.merchants.find_by_id(id)
@@ -228,5 +230,4 @@ class SalesAnalyst
     id = highest_value_item(merchant_id)
     sales_engine.items.find_by_id(id)
   end
-
 end

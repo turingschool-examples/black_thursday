@@ -29,39 +29,21 @@ class ItemRepository
   end
 
   def find_all_with_description(description)
-    item_array = []
-    all.each do |item|
-      item_array << item if item.description.downcase.include?(description.downcase)
+    all.select do |item|
+      item.description.downcase.include?(description.downcase)
     end
-    item_array
   end
 
   def find_all_by_price(price)
-    item_array = []
-    all.each do |item|
-      item_array << item if item.unit_price == price
-    end
-    item_array
+    all.select {|item| item.unit_price == price}
   end
 
   def find_all_by_price_in_range(price_range)
-    item_array = []
-    all.each do |item|
-      if price_range.include?(item.unit_price)
-        item_array << item
-      end
-    end
-    item_array
+    all.select {|item| price_range.include?(item.unit_price)}
   end
 
   def find_all_by_merchant_id(merchant_id)
-  merchant_id_array = []
-  all.each do |item|
-    if item.merchant_id.to_i == merchant_id
-      merchant_id_array << item
-    end
-  end
-    return merchant_id_array
+    all.select {|item| item.merchant_id.to_i == merchant_id}
   end
 
   def inspect

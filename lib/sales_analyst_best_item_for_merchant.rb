@@ -1,11 +1,8 @@
 module BestItemForMerchant
 
   def valid_merchant_invoices(merchant_id)
-    invoice_instance_array = []
-     sales_engine.invoices.find_all_by_merchant_id(merchant_id).select do |invoice|
-      invoice_instance_array << invoice if invoice.is_paid_in_full?
-    end
-    invoice_instance_array
+    invoices = sales_engine.invoices.find_all_by_merchant_id(merchant_id)
+    invoices.select {|invoice| invoice.is_paid_in_full?}
   end
 
   def get_invoice_id(merchant_id)
@@ -23,7 +20,10 @@ module BestItemForMerchant
   def item_ids_and_total(merchant_id)
     item_ids_with_total = Hash.new
     all_invoice_items(merchant_id).flatten.each do |item_instance|
-      i_i_t = {item_instance.item_id => item_instance.quantity * item_instance.unit_price}
+      item_id = item_instance.item_id
+      quantity = item_instance.quantity
+      unit_price = item_instance.unit_price
+      i_i_t = {item_id => quantity * unit_price}
       item_ids_with_total .merge!(i_i_t) { |k,v, new_v| v + new_v  }
     end
     item_ids_with_total

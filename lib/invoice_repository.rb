@@ -14,7 +14,6 @@ class InvoiceRepository
     end
   end
 
-
   def find_by_id(id)
     all.each do |invoice|
       return invoice if invoice.id == id
@@ -22,38 +21,17 @@ class InvoiceRepository
     nil
   end
 
-
   def find_all_by_customer_id(customer_id)
-    customer_id_array = []
-    all.each do |invoice|
-      if invoice.customer_id.to_i == customer_id
-        customer_id_array << invoice
-      end
-    end
-      return customer_id_array
+    all.select {|invoice| invoice.customer_id.to_i == customer_id}
   end
 
   def find_all_by_merchant_id(merchant_id)
-    merchant_id_array = []
-    all.each do |invoice|
-      if invoice.merchant_id.to_i == merchant_id
-        merchant_id_array << invoice
-      end
-    end
-      return merchant_id_array
+    all.select {|invoice| invoice.merchant_id.to_i == merchant_id}
   end
 
   def find_all_by_status(status)
-    status_array = []
-    all.each do |invoice|
-      if invoice.status == status
-        status_array << invoice
-      end
-    end
-      return status_array
+    all.select {|invoice| invoice.status == status}
   end
-
-  
 
   def inspect
     "#<#{self.class} #{:invoices.size} rows>"

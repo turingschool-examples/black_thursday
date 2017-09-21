@@ -8,7 +8,12 @@ require_relative "customer_repository"
 require_relative "sales_analyst"
 
 class SalesEngine
-  attr_reader :items, :merchants, :invoices, :invoice_items, :transactions, :customers
+  attr_reader :items,
+              :merchants,
+              :invoices,
+              :invoice_items,
+              :transactions,
+              :customers
 
   def self.from_csv(file_names)
     @item_file = file_names[:items]
@@ -22,10 +27,17 @@ class SalesEngine
                     @invoice_file,
                     @invoice_item_file,
                     @transaction_file,
-                    @customer_file)
+                    @customer_file
+                   )
   end
 
-  def initialize(item_csv, merchant_csv, invoice_csv, invoice_items_csv, transaction_csv, customer_csv)
+  def initialize(item_csv,
+                 merchant_csv,
+                 invoice_csv,
+                 invoice_items_csv,
+                 transaction_csv,
+                 customer_csv
+                )
     @items = ItemRepository.new(self, item_csv)
     @merchants = MerchantRepository.new(self, merchant_csv)
     @invoices = InvoiceRepository.new(self, invoice_csv)

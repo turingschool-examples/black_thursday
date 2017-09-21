@@ -9,29 +9,22 @@ module TopDaysByInvoiceCount
   end
 
   def invoice_id_with_date
-    #need hash with invoice_id: date, eventually subbing date with wday.
     invoice_with_date = Hash.new
     sales_engine.invoices.all.map do |invoice|
       invoice_with_date[invoice.id] = invoice.created_at.strftime("%Y,%-m,%-d")
-    # invoice_with_date looks like this {2402=>"2006,6,27", ...}
     end
     invoice_with_date.each do |key, value|
-      # binding.pry
       invoice_with_date[key] = value.split(",")
-      #ok. {1=>["2009", "2", "7"], ...}
     end
     invoice_with_date.each do |key, value|
       invoice_with_date[key] = value.map! {|num| num.to_i}
-      #ok.{1=>[2009, 2, 7], ...]
     end
     invoice_with_date.each do |invoice_id, date|
       invoice_with_date[invoice_id] = Date.new(date[0], date[1], date[2]).wday
-      # VICTORYYYYYYYY invoice is associated to a day of the week {1=>6, 2=>5, 3=>3,...}
     end
   end
 
   def average_invoices_per_day
-    # num invoices / num days
     sales_engine.invoices.all.count / 7
   end
 
@@ -40,7 +33,7 @@ module TopDaysByInvoiceCount
     invoice_id_with_date.each do |key, value|
       days[value] += 1
     end
-    days  #{6=>348, 5=>322, 3=>364, 1=>344, 0=>351, 2=>316, 4=>357}
+    days
   end
 
   def top_day_numerator
@@ -52,7 +45,7 @@ module TopDaysByInvoiceCount
   end
 
   def top_day_denominator
-    6  #7-1
+    6
   end
 
   def top_day_standard_deviation
