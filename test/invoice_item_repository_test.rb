@@ -1,6 +1,7 @@
 require_relative 'test_helper'
 require './lib/invoice_item_repository'
 require './lib/invoice_item'
+require 'pry'
 
 class InvoiceItemRepositoryTest < Minitest::Test
 
@@ -35,13 +36,13 @@ class InvoiceItemRepositoryTest < Minitest::Test
   def test_data_item_id_5_returns_correct_matching_unit_price
     @iir.from_csv("./test/fixtures/invoice_items_truncated_10.csv")
 
-    assert_equal "79140", @iir.all[4].unit_price
+    assert_equal 791.40, @iir.all[4].unit_price
   end
 
   def test_find_by_id_returns_instance_of_invoice_item_that_has_given_id
     @iir.from_csv("./test/fixtures/invoice_items_truncated_10.csv")
-    actual = @iir.find_by_id("3")
-    expected = "263451719"
+    actual = @iir.find_by_id(3)
+    expected = 263395721
 
     assert_equal expected, actual.item_id
   end
@@ -53,23 +54,23 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_find_all_by_item_id_returns_array_of_invoice_items_matching_id
     @iir.from_csv("./test/fixtures/invoice_items_truncated_10.csv")
-    actual = @iir.find_all_by_item_id("263519844")
-    expected = [@iir.all[0], @iir.all[1]]
+    actual = @iir.find_all_by_item_id(263396517)
+    expected = [@iir.all[-2]]
 
     assert_equal expected, actual
   end
 
   def test_find_all_by_item_id_returns_empty_array_if_no_invoice_items_has_given_item_id
     @iir.from_csv("./test/fixtures/invoice_items_truncated_10.csv")
-    actual = @iir.find_all_by_item_id("2")
-    expected = []
+    actual = @iir.find_all_by_item_id(263396517)
+    expected = [@iir.all[-2]]
 
     assert_equal expected, actual
   end
 
   def test_find_all_by_invoice_id_returns_array_of_invoice_items_with_matching_invoice_id
     @iir.from_csv("./test/fixtures/invoice_items_truncated_10.csv")
-    actual = @iir.find_all_by_invoice_id("2")
+    actual = @iir.find_all_by_invoice_id(2)
     expected = [@iir.all[-2], @iir.all[-1]]
 
     assert_equal expected, actual

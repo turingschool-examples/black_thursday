@@ -19,7 +19,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_load_csv
     assert_equal 56, ir.invoices.length
-    actual = ir.load_csv('./test/fixtures/invoices_truncated_56.csv')
+    ir.load_csv('./test/fixtures/invoices_truncated_56.csv')
 
     assert_equal 112, ir.invoices.length
   end

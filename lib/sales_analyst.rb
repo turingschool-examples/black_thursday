@@ -29,7 +29,7 @@ class SalesAnalyst
   end
 
   def square_counts(item_counts)
-    squared = item_counts.map do |count|
+    item_counts.map do |count|
       (count - average_items_per_merchant) ** 2
     end
   end

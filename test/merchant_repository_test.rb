@@ -19,7 +19,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_load_csv
     assert_equal 11, mr.merchants.length
-    actual = mr.load_csv('./test/fixtures/merchants_truncated_11.csv')
+    mr.load_csv('./test/fixtures/merchants_truncated_11.csv')
 
     assert_equal 22, mr.merchants.length
   end

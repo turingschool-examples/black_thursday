@@ -32,7 +32,7 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal 4613250127567219, @trxr.all[6].credit_card_number
   end
 
-   def test_trx_cvs_item_10_returns_correct_matching_result
+  def test_trx_cvs_item_10_returns_correct_matching_result
     @trxr.from_csv("./test/fixtures/transaction_truncated_10.csv")
 
     assert_equal "success", @trxr.all[9].result
