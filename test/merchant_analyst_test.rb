@@ -72,8 +72,6 @@ class MerchantAnalystTest < Minitest::Test
     assert_equal 1, merchant.count
   end
 
-  def test_it_can_find_invoice_ids_for_paid_invoices
-
   def test_it_finds_most_sold_item_for_merchant
     most_sold = @analyst.most_sold_item_for_merchant(12334185)
 

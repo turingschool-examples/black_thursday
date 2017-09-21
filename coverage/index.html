@@ -14,27 +14,27 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2017-09-21T07:40:30-06:00">2017-09-21T07:40:30-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2017-09-21T07:56:35-06:00">2017-09-21T07:56:35-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="red">65.47%</span></span>
+    (<span class="covered_percent"><span class="red">66.24%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         52.26
+         52.09
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>22</b> files in total.
-    <b>611</b> relevant lines. 
-    <span class="green"><b>400</b> lines covered</span> and
-    <span class="red"><b>211</b> lines missed </span>
+    <b>619</b> relevant lines. 
+    <span class="green"><b>410</b> lines covered</span> and
+    <span class="red"><b>209</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -117,7 +117,7 @@
         <td>26</td>
         <td>20</td>
         <td>6</td>
-        <td>14.9</td>
+        <td>15.3</td>
       </tr>
       
       <tr>
@@ -192,12 +192,12 @@
       
       <tr>
         <td class="strong"><a href="#08f693ce446969acd0eb05e469ea65d0777d7f6e" class="src_link" title="lib/merchant_analyst.rb">lib/merchant_analyst.rb</a></td>
-        <td class="green strong">97.14 %</td>
-        <td>120</td>
-        <td>70</td>
-        <td>68</td>
-        <td>2</td>
-        <td>14.6</td>
+        <td class="green strong">100.0 %</td>
+        <td>136</td>
+        <td>78</td>
+        <td>78</td>
+        <td>0</td>
+        <td>13.4</td>
       </tr>
       
       <tr>
@@ -237,7 +237,7 @@
         <td>18</td>
         <td>14</td>
         <td>4</td>
-        <td>1034.4</td>
+        <td>1049.9</td>
       </tr>
       
       <tr>
@@ -869,7 +869,7 @@
         <li class="missed" data-hits="0" data-linenumber="48">
           
           
-          <code class="ruby">    &quot;#&lt;#{self.class} #{@items.size} rows&gt;&quot;</code>
+          <code class="ruby">    &quot;#&lt;#{self.class} #{@customers.size} rows&gt;&quot;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="49">
@@ -2220,8 +2220,8 @@
           <code class="ruby">  def find_all_by_invoice_id(search_invoice_id)</code>
         </li>
       
-        <li class="covered" data-hits="332" data-linenumber="39">
-          <span class="hits">332</span>
+        <li class="covered" data-hits="342" data-linenumber="39">
+          <span class="hits">342</span>
           
           <code class="ruby">    find_all_instances_by_invoice_id(@invoice_items, search_invoice_id)</code>
         </li>
@@ -2253,7 +2253,7 @@
         <li class="missed" data-hits="0" data-linenumber="44">
           
           
-          <code class="ruby">    &quot;#&lt;#{self.class} #{@items.size} rows&gt;&quot;</code>
+          <code class="ruby">    &quot;#&lt;#{self.class} #{@invoice_items.size} rows&gt;&quot;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="45">
@@ -2662,7 +2662,7 @@
         <li class="missed" data-hits="0" data-linenumber="62">
           
           
-          <code class="ruby">    &quot;#&lt;#{self.class} #{@items.size} rows&gt;&quot;</code>
+          <code class="ruby">    &quot;#&lt;#{self.class} #{@invoices.size} rows&gt;&quot;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="63">
@@ -4485,11 +4485,11 @@
         <div class="source_table" id="08f693ce446969acd0eb05e469ea65d0777d7f6e">
   <div class="header">
     <h3>lib/merchant_analyst.rb</h3>
-    <h4><span class="green">97.14 %</span> covered</h4>
+    <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>70</b> relevant lines. 
-      <span class="green"><b>68</b> lines covered</span> and
-      <span class="red"><b>2</b> lines missed.</span>
+      <b>78</b> relevant lines. 
+      <span class="green"><b>78</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
   
@@ -4955,17 +4955,17 @@
         <li class="covered" data-hits="1" data-linenumber="77">
           <span class="hits">1</span>
           
-          <code class="ruby">  def invoice_ids_for_paid_invoices</code>
+          <code class="ruby">  def invoice_ids_for_paid_invoices(merchant_invoices)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="78">
+        <li class="covered" data-hits="2" data-linenumber="78">
+          <span class="hits">2</span>
           
-          
-          <code class="ruby">    invoice_ids = merchant_invoices.map do |invoice|</code>
+          <code class="ruby">    merchant_invoices.map do |invoice|</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="79">
-          
+        <li class="covered" data-hits="20" data-linenumber="79">
+          <span class="hits">20</span>
           
           <code class="ruby">      invoice.id if invoice.is_paid_in_full?</code>
         </li>
@@ -4991,49 +4991,49 @@
         <li class="covered" data-hits="1" data-linenumber="83">
           <span class="hits">1</span>
           
-          <code class="ruby">  def most_sold_item_for_merchant(merchant_id)</code>
+          <code class="ruby">  def invoice_items_for_paid_invoices(paid_invoice_ids)</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="84">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="3" data-linenumber="84">
+          <span class="hits">3</span>
           
-          <code class="ruby">    merchant_invoices = @engine.invoices.find_all_by_merchant_id(merchant_id)</code>
+          <code class="ruby">    paid_invoice_ids.map do |invoice_id|</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="85">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="30" data-linenumber="85">
+          <span class="hits">30</span>
           
-          <code class="ruby">    invoice_ids = merchant_invoices.map do |invoice|</code>
+          <code class="ruby">      @engine.invoice_items.find_all_by_invoice_id(invoice_id)</code>
         </li>
       
-        <li class="covered" data-hits="10" data-linenumber="86">
-          <span class="hits">10</span>
+        <li class="never" data-hits="" data-linenumber="86">
           
-          <code class="ruby">      invoice.id if invoice.is_paid_in_full?</code>
+          
+          <code class="ruby">    end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="87">
           
           
-          <code class="ruby">    end</code>
+          <code class="ruby">  end</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="88">
+        <li class="never" data-hits="" data-linenumber="88">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="89">
           <span class="hits">1</span>
           
-          <code class="ruby">    invoice_items = invoice_ids.map do |invoice_id|</code>
+          <code class="ruby">  def sort_invoice_items_by_quantity(invoice_ids, invoice_items)</code>
         </li>
       
-        <li class="covered" data-hits="10" data-linenumber="89">
-          <span class="hits">10</span>
+        <li class="covered" data-hits="1" data-linenumber="90">
+          <span class="hits">1</span>
           
-          <code class="ruby">      @engine.invoice_items.find_all_by_invoice_id(invoice_id)</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="90">
-          
-          
-          <code class="ruby">    end</code>
+          <code class="ruby">    invoice_items_for_paid_invoices(invoice_ids)</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="91">
@@ -5054,34 +5054,34 @@
           <code class="ruby">    end</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="94">
+        <li class="never" data-hits="" data-linenumber="94">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="95">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="96">
           <span class="hits">1</span>
           
-          <code class="ruby">    max_invoice_items = sorted_invoice_items.find_all do |invoice_item|</code>
-        </li>
-      
-        <li class="covered" data-hits="6" data-linenumber="95">
-          <span class="hits">6</span>
-          
-          <code class="ruby">      invoice_item.quantity == sorted_invoice_items[-1].quantity</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="96">
-          
-          
-          <code class="ruby">    end</code>
+          <code class="ruby">  def max_quantity_for_invoice_items(sorted_invoice_items)</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="97">
           <span class="hits">1</span>
           
-          <code class="ruby">    max_item_ids = max_invoice_items.map do |invoice_item|</code>
+          <code class="ruby">    sorted_invoice_items.find_all do |invoice_item|</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="98">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="6" data-linenumber="98">
+          <span class="hits">6</span>
           
-          <code class="ruby">      invoice_item.item_id</code>
+          <code class="ruby">      invoice_item.quantity == sorted_invoice_items[-1].quantity</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="99">
@@ -5090,127 +5090,223 @@
           <code class="ruby">    end</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="100">
-          <span class="hits">1</span>
-          
-          <code class="ruby">    most_sold_items = max_item_ids.map do |item_id|</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="101">
-          <span class="hits">1</span>
-          
-          <code class="ruby">      @engine.items.find_by_id(item_id)</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="102">
-          
-          
-          <code class="ruby">    end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="103">
+        <li class="never" data-hits="" data-linenumber="100">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="104">
+        <li class="never" data-hits="" data-linenumber="101">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="105">
+        <li class="covered" data-hits="1" data-linenumber="102">
           <span class="hits">1</span>
           
-          <code class="ruby">  def best_item_for_merchant(merchant_id)</code>
+          <code class="ruby">  def max_item_ids(max_invoice_items)</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="106">
+        <li class="covered" data-hits="1" data-linenumber="103">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    max_invoice_items.map do |invoice_item|</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="104">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      invoice_item.item_id</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="105">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="106">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="107">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="108">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def most_sold_item_for_merchant(merchant_id)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="109">
           <span class="hits">1</span>
           
           <code class="ruby">    merchant_invoices = @engine.invoices.find_all_by_merchant_id(merchant_id)</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="107">
-          <span class="hits">1</span>
-          
-          <code class="ruby">    invoice_ids = merchant_invoices.map do |invoice|</code>
-        </li>
-      
-        <li class="covered" data-hits="10" data-linenumber="108">
-          <span class="hits">10</span>
-          
-          <code class="ruby">      invoice.id if invoice.is_paid_in_full?</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="109">
-          
-          
-          <code class="ruby">    end</code>
-        </li>
-      
         <li class="covered" data-hits="1" data-linenumber="110">
           <span class="hits">1</span>
           
-          <code class="ruby">    invoice_items = invoice_ids.map do |invoice_id|</code>
+          <code class="ruby">    inv_ids = invoice_ids_for_paid_invoices(merchant_invoices)</code>
         </li>
       
-        <li class="covered" data-hits="10" data-linenumber="111">
-          <span class="hits">10</span>
+        <li class="covered" data-hits="1" data-linenumber="111">
+          <span class="hits">1</span>
           
-          <code class="ruby">      @engine.invoice_items.find_all_by_invoice_id(invoice_id)</code>
+          <code class="ruby">    inv_items = invoice_items_for_paid_invoices(inv_ids)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="112">
+        <li class="covered" data-hits="1" data-linenumber="112">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">    end</code>
+          <code class="ruby">    sorted_invoice_items = sort_invoice_items_by_quantity(inv_ids, inv_items)</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="113">
           <span class="hits">1</span>
           
-          <code class="ruby">    item_revenues = Hash[invoice_items.flatten.map do |invoice_item|</code>
+          <code class="ruby">    max_invoice_items = max_quantity_for_invoice_items(sorted_invoice_items)</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="114">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="1" data-linenumber="114">
+          <span class="hits">1</span>
           
-          <code class="ruby">      [invoice_item.item_id, invoice_item.quantity * invoice_item.unit_price]</code>
+          <code class="ruby">    max_item_ids = max_item_ids(max_invoice_items)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="115">
           
           
-          <code class="ruby">    end]</code>
+          <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="7" data-linenumber="116">
-          <span class="hits">7</span>
+        <li class="covered" data-hits="1" data-linenumber="116">
+          <span class="hits">1</span>
           
-          <code class="ruby">    best_item_id = item_revenues.max_by {|item_id,revenue| revenue}[0]</code>
+          <code class="ruby">    most_sold_items = max_item_ids.map do |item_id|</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="117">
           <span class="hits">1</span>
           
-          <code class="ruby">    @engine.items.find_by_id(best_item_id)</code>
+          <code class="ruby">      @engine.items.find_by_id(item_id)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="118">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby">    end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="119">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">  end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="120">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="121">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def item_ids_with_revenue(invoice_items)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="122">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    Hash[invoice_items.flatten.map do |invoice_item|</code>
+        </li>
+      
+        <li class="covered" data-hits="6" data-linenumber="123">
+          <span class="hits">6</span>
+          
+          <code class="ruby">      [invoice_item.item_id, invoice_item.quantity * invoice_item.unit_price]</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="124">
+          
+          
+          <code class="ruby">    end]</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="125">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="126">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="127">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def best_item_for_merchant(merchant_id)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="128">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    merchant_invoices = @engine.invoices.find_all_by_merchant_id(merchant_id)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="129">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    invoice_ids = invoice_ids_for_paid_invoices(merchant_invoices)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="130">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    invoice_items = invoice_items_for_paid_invoices(invoice_ids)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="131">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    item_revenues = item_ids_with_revenue(invoice_items)</code>
+        </li>
+      
+        <li class="covered" data-hits="7" data-linenumber="132">
+          <span class="hits">7</span>
+          
+          <code class="ruby">    best_item_id = item_revenues.max_by {|item_id,revenue| revenue}[0]</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="133">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    @engine.items.find_by_id(best_item_id)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="134">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="135">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="136">
           
           
           <code class="ruby">end</code>
@@ -6342,20 +6438,20 @@
           <code class="ruby">  def find_all_instances_by_invoice_id(list, search_invoice_id)</code>
         </li>
       
-        <li class="covered" data-hits="899" data-linenumber="26">
-          <span class="hits">899</span>
+        <li class="covered" data-hits="909" data-linenumber="26">
+          <span class="hits">909</span>
           
           <code class="ruby">    search_invoice_id = search_invoice_id.to_i</code>
         </li>
       
-        <li class="covered" data-hits="899" data-linenumber="27">
-          <span class="hits">899</span>
+        <li class="covered" data-hits="909" data-linenumber="27">
+          <span class="hits">909</span>
           
           <code class="ruby">    list.find_all do |object|</code>
         </li>
       
-        <li class="covered" data-hits="15436" data-linenumber="28">
-          <span class="hits">15436</span>
+        <li class="covered" data-hits="15696" data-linenumber="28">
+          <span class="hits">15696</span>
           
           <code class="ruby">      object.invoice_id == search_invoice_id</code>
         </li>
@@ -6869,7 +6965,7 @@
         <li class="missed" data-hits="0" data-linenumber="50">
           
           
-          <code class="ruby">    &quot;#&lt;#{self.class} #{@items.size} rows&gt;&quot;</code>
+          <code class="ruby">    &quot;#&lt;#{self.class} #{@transactions.size} rows&gt;&quot;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="51">

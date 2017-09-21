@@ -74,45 +74,61 @@ module MerchantAnalyst
     end
   end
 
-  def invoice_ids_for_paid_invoices
-    invoice_ids = merchant_invoices.map do |invoice|
+  def invoice_ids_for_paid_invoices(merchant_invoices)
+    merchant_invoices.map do |invoice|
       invoice.id if invoice.is_paid_in_full?
+    end
+  end
+
+  def invoice_items_for_paid_invoices(paid_invoice_ids)
+    paid_invoice_ids.map do |invoice_id|
+      @engine.invoice_items.find_all_by_invoice_id(invoice_id)
+    end
+  end
+
+  def sort_invoice_items_by_quantity(invoice_ids, invoice_items)
+    invoice_items_for_paid_invoices(invoice_ids)
+    sorted_invoice_items = invoice_items.flatten.sort_by do |invoice_item|
+      invoice_item.quantity
+    end
+  end
+
+  def max_quantity_for_invoice_items(sorted_invoice_items)
+    sorted_invoice_items.find_all do |invoice_item|
+      invoice_item.quantity == sorted_invoice_items[-1].quantity
+    end
+  end
+
+  def max_item_ids(max_invoice_items)
+    max_invoice_items.map do |invoice_item|
+      invoice_item.item_id
     end
   end
 
   def most_sold_item_for_merchant(merchant_id)
     merchant_invoices = @engine.invoices.find_all_by_merchant_id(merchant_id)
-    invoice_ids = merchant_invoices.map do |invoice|
-      invoice.id if invoice.is_paid_in_full?
-    end
-    invoice_items = invoice_ids.map do |invoice_id|
-      @engine.invoice_items.find_all_by_invoice_id(invoice_id)
-    end
-    sorted_invoice_items = invoice_items.flatten.sort_by do |invoice_item|
-      invoice_item.quantity
-    end
-    max_invoice_items = sorted_invoice_items.find_all do |invoice_item|
-      invoice_item.quantity == sorted_invoice_items[-1].quantity
-    end
-    max_item_ids = max_invoice_items.map do |invoice_item|
-      invoice_item.item_id
-    end
+    inv_ids = invoice_ids_for_paid_invoices(merchant_invoices)
+    inv_items = invoice_items_for_paid_invoices(inv_ids)
+    sorted_invoice_items = sort_invoice_items_by_quantity(inv_ids, inv_items)
+    max_invoice_items = max_quantity_for_invoice_items(sorted_invoice_items)
+    max_item_ids = max_item_ids(max_invoice_items)
+
     most_sold_items = max_item_ids.map do |item_id|
       @engine.items.find_by_id(item_id)
     end
   end
 
-  def best_item_for_merchant(merchant_id)
-    merchant_invoices = @engine.invoices.find_all_by_merchant_id(merchant_id)
-    invoice_ids = merchant_invoices.map do |invoice|
-      invoice.id if invoice.is_paid_in_full?
-    end
-    invoice_items = invoice_ids.map do |invoice_id|
-      @engine.invoice_items.find_all_by_invoice_id(invoice_id)
-    end
-    item_revenues = Hash[invoice_items.flatten.map do |invoice_item|
+  def item_ids_with_revenue(invoice_items)
+    Hash[invoice_items.flatten.map do |invoice_item|
       [invoice_item.item_id, invoice_item.quantity * invoice_item.unit_price]
     end]
+  end
+
+  def best_item_for_merchant(merchant_id)
+    merchant_invoices = @engine.invoices.find_all_by_merchant_id(merchant_id)
+    invoice_ids = invoice_ids_for_paid_invoices(merchant_invoices)
+    invoice_items = invoice_items_for_paid_invoices(invoice_ids)
+    item_revenues = item_ids_with_revenue(invoice_items)
     best_item_id = item_revenues.max_by {|item_id,revenue| revenue}[0]
     @engine.items.find_by_id(best_item_id)
   end
