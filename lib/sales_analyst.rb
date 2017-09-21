@@ -164,11 +164,6 @@ class SalesAnalyst
     merchants_ranked_by_revenue[0..(number_merchants - 1)]
   end
 
-  def revenue_by_merchant(merchant_id)
-    merchant = @engine.merchants.find_by_id(merchant_id)
-    (merchant.total_revenue).to_d
-  end
-
   def merchants_ranked_by_revenue
     @engine.merchants.all.sort_by do |merchant|
       merchant.total_revenue

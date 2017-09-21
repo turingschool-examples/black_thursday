@@ -24,6 +24,10 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 112, ir.invoices.length
   end
 
+  def test_inspect_returns_class_and_row_count
+    assert_equal "#<InvoiceRepository 56 rows>", @ir.inspect
+  end
+
   def test_invoices_returns_array
     actual = ir.invoices
 

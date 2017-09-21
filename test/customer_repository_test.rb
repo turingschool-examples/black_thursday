@@ -26,6 +26,10 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal "Cecelia", @cr.all[1].first_name
   end
 
+  def test_inspect_returns_class_and_row_count
+    assert_equal "#<CustomerRepository 10 rows>", @cr.inspect
+  end
+
   def test_find_by_id_returns_instance_of_customer_according_to_given_id_or_returns_nil_if_no_matching_id
     actual = @cr.find_by_id(2)
 

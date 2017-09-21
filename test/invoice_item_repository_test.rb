@@ -20,6 +20,10 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_nil @iir.parent
   end
 
+  def test_inspect_returns_class_and_row_count
+    assert_equal "#<InvoiceItemRepository 10 rows>", @iir.inspect
+  end
+
   def test_data_item_id_4_returns_correct_matching_item_id
     @iir.from_csv("./test/fixtures/invoice_items_truncated_10.csv")
 

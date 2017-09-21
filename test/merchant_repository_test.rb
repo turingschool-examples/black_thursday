@@ -24,6 +24,10 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 22, mr.merchants.length
   end
 
+  def test_inspect_returns_class_and_row_count
+    assert_equal "#<MerchantRepository 11 rows>", @mr.inspect
+  end
+
   def test_merchants_returns_array
     actual = mr.merchants
 

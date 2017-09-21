@@ -40,7 +40,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_item_price_for_merchant_returns_average_item_price_for_that_merchant
-#TODO Ask why 5 is used vs a 4 in BigDecimal.new
     expected = BigDecimal.new((13000 + 40000 + 690 + 1490 + 14900)/100.0/5.0, 5)
     actual = sa.average_item_price_for_merchant(12334123)
 

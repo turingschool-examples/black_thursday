@@ -26,6 +26,10 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 6, ir.items.length
   end
 
+  def test_inspect_returns_class_and_row_count
+    assert_equal "#<ItemRepository 3 rows>", @ir.inspect
+  end
+
   def test_items_returns_array
     actual = ir.items
 
