@@ -204,4 +204,29 @@ class SalesAnalyst
    end
    total
   end
+
+  def revenue_by_merchant(id)
+    merchant = merchants.find_by_id(id)
+    invoices = merchant.invoices
+    total_revenue = 0
+    invoices.each do |invoice|
+      (total_revenue += invoice.total) if invoice.is_paid_in_full?
+    end
+    total_revenue
+  end
+
+  def top_revenue_earners(x = 20)
+    merch_by_revenue = {}
+    @merchants.all.each do |merchant|
+      revenue = revenue_by_merchant(merchant.id)
+      merch_by_revenue[merchant] = revenue
+    end
+    merch_revenue = merch_by_revenue.sort_by {|key, value| value}.reverse.to_h
+    merch_revenue.keys.take(x)
+end
+
+  def merchants_ranked_by_revenue
+    rank = @merchants.all.length
+    top_revenue_earners(rank)
+  end
 end
