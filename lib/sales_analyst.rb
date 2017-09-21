@@ -185,16 +185,32 @@ class SalesAnalyst
     merchant_totals
   end
 
-  def top_revenue_earners(x=20)
+  def merchants_ranked_by_revenue
     earners = link_merchant_to_merchant_total.sort_by {|merchant, total| total}
     earners.map do |pair|
       pair[0]
-    end.reverse.first(x)
+    end.reverse
+  end
+
+  def top_revenue_earners(x=20)
+    merchants_ranked_by_revenue.first(x)
   end
 
   def merchants_with_pending_invoices
     sales_engine.merchants.merchants.find_all do |merchant|
       merchant.invoices.any?{ |invoice| invoice.total == 0 }
+    end
+  end
+
+  def merchants_with_only_one_item
+    sales_engine.merchants.merchants.find_all do |merchant|
+      merchant.items.count == 1
+    end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants_with_only_one_item.find_all do |merchant|
+      merchant.created_at.strftime("%B") == month
     end
   end
 

@@ -146,4 +146,20 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 467, sales_a.merchants_with_pending_invoices.count
   end
 
+  def test_merchants_with_only_one_item
+    files = ({:invoices => "./data/invoices.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"})
+    se = SalesEngine.from_csv(files)
+    sales_a = SalesAnalyst.new(se)
+
+    assert_equal 243, sales_a.merchants_with_only_one_item.count
+  end
+
+  def test_merchants_with_only_one_item_registered_in_month
+    files = ({:invoices => "./data/invoices.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"})
+    se = SalesEngine.from_csv(files)
+    sales_a = SalesAnalyst.new(se)
+
+    assert_equal 18, sales_a.merchants_with_only_one_item_registered_in_month("June").count
+  end
+
 end

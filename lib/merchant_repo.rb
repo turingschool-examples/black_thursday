@@ -13,7 +13,9 @@ class MerchantRepository
     CSV.foreach(merchant_file,headers: true,header_converters: :symbol) do |row|
       id = row[:id]
       name = row[:name]
-      merchant_list << Merchant.new({ :id => id, :name => name}, self)
+      created_at = row[:created_at]
+      merchant_list << Merchant.new({ :id => id, :name => name,
+                                      :created_at => created_at}, self)
     end
     merchant_list
   end
