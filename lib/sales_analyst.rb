@@ -158,11 +158,12 @@ class SalesAnalyst
     total.round(2)
   end
 
-  def invoices_on_date(date)
-    invoice_items.find_all do |invoice_item|
-      invoice_item.created_at.strftime("%Y-%m-%d") == date.strftime("%Y-%m-%d")
+  def merchants_with_only_one_item
+    @merchants.all.select do |merchant|
+      merchant.items.count == 1
     end
   end
+
 
     def get_invoice_ids(invoices_on_date)
       invoices_on_date.map do |invoice|
