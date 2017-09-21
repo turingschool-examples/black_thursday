@@ -220,9 +220,27 @@ class SalesAnalyst
 
   def most_sold_item_for_merchant(merchant_id)
     merchant = @engine.merchants.find_by_id(merchant_id)
-    items = merchant.items
-    max_quantity = items.max_by { |item| item.quantity_sold }.quantity_sold
-    items.find_all { |item| max_quantity == item.quantity_sold }
+    invoices = merchant.invoices
+    paid_invoices = invoices.find_all { |invoice| invoice.is_paid_in_full? }
+    invoice_items = paid_invoices.map do |invoice|
+      @engine.invoice_items.find_all_by_invoice_id(invoice.id)
+    end.flatten
+    item_ids = invoice_items.reduce(Hash.new(0)) do |hash, invoice_item|
+      hash[invoice_item.item_id] += invoice_item.quantity
+      hash
+    end
+    id_of_max_quantity = item_ids.keys.max_by { |item_id| item_ids[item_id] }
+    max_quantity = item_ids[id_of_max_quantity]
+    item_ids_with_max_quantity = item_ids.find_all do |item_id|
+      item_id[1] == max_quantity
+    end
+    item_ids_with_max_quantity.map do |item_id|
+      @engine.items.find_by_id(item_id[0])
+    end
+    # require "pry"; binding.pry
   end
 
 end
+
+# max_quantity = items.max_by { |item| item.quantity_sold }.quantity_sold
+# items.find_all { |item| max_quantity == item.quantity_sold }

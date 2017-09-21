@@ -151,11 +151,6 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of BigDecimal, actual
   end
 
-  def test_merchants_with_pending_invoices_returns_merchants_with_pending_invoices
-
-
-  end
-
   def test_top_revenue_earners_returns_array_of_top_merchants_by_revenue
     actual = sa.top_revenue_earners(2)
     expected = se.merchants.all[0..1]
