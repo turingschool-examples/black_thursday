@@ -49,18 +49,15 @@ class Invoice
   end
 
   def is_paid_in_full?
-    result = false
-    transactions.each do |transaction|
-      if transaction.result == "success"
-        result = true
-      end
+    transactions.any? do |transaction|
+      transaction.result == "success"
     end
-    result
   end
 
   def total
-    if self.is_paid_in_full?
-      invoice_repo.total_amount(self.id)
+    if is_paid_in_full?
+      return invoice_repo.total_amount(self.id)
     end
+    0
   end
 end
