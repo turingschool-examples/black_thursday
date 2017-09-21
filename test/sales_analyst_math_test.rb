@@ -57,7 +57,7 @@ class TestSalesAnalystMath < Minitest::Test
   end
 
   def test_it_squares_each_average_difference
-    assert_equal 2219300.75, sa.square_each_item_average_difference
+    assert_equal 2219300.75, sa.square_each_thing_average_difference
   end
 
   def test_divide_squared_differences_by_total_then_sqrt

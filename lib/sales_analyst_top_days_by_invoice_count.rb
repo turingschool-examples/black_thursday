@@ -28,7 +28,7 @@ module TopDaysByInvoiceCount
     sales_engine.invoices.all.count / 7
   end
 
-  def invoices_per_day #works
+  def invoices_per_day
     days = Hash.new(0)
     invoice_id_with_date.each do |key, value|
       days[value] += 1
