@@ -170,10 +170,9 @@ class SalesAnalyst
     end.compact.reduce(0.0, :+)
   end
 
-  #Find the top x performing merchants in terms of revenue
   def total_revenue_by_merchant(merchant_id)
     merchant_invoices = sales_engine.merchants.find_by_id(merchant_id).invoices
-    yes = merchant_invoices.reduce(0) do |sum, invoice|
+    merchant_invoices.reduce(0) do |sum, invoice|
       sum + invoice.total
     end
   end
@@ -191,6 +190,12 @@ class SalesAnalyst
     earners.map do |pair|
       pair[0]
     end.reverse.first(x)
+  end
+
+  def merchants_with_pending_invoices
+    sales_engine.merchants.merchants.find_all do |merchant|
+      merchant.invoices.any?{ |invoice| invoice.total == 0 }
+    end
   end
 
 end

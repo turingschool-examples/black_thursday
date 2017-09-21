@@ -13,7 +13,7 @@ class SalesAnalystTest < Minitest::Test
     @se = SalesEngine.from_csv(files)
     @sa = SalesAnalyst.new(se)
   end
-=begin
+
   def test_it_exists
     assert_instance_of SalesAnalyst, set_up
   end
@@ -125,8 +125,9 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal 21067.77, sales_a.total_revenue_by_date(Time.parse("2009-02-07"))
   end
-=end
+
   def test_top_revenue_earners
+    skip
     files = ({:invoices => "./data/invoices.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"})
     se = SalesEngine.from_csv(files)
     sales_a = SalesAnalyst.new(se)
@@ -135,6 +136,14 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 20, actual.count
     assert_equal 12334634, actual.first.id
     assert_equal 12334159, actual.last.id
+  end
+
+  def test_merchants_with_pending_invoices
+    files = ({:invoices => "./data/invoices.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"})
+    se = SalesEngine.from_csv(files)
+    sales_a = SalesAnalyst.new(se)
+
+    assert_equal 467, sales_a.merchants_with_pending_invoices.count
   end
 
 end
