@@ -7,7 +7,8 @@ require_relative 'transaction_repo'
 
 
 class SalesEngine
-  attr_reader :merchants, :items, :invoices, :invoice_items, :transactions, :customers
+  attr_reader :merchants, :items, :invoices, :invoice_items,
+              :transactions, :customers
 
   def initialize(data)
     @merchants     = MerchantRepo.new(data[:merchants], self)

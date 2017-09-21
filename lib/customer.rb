@@ -10,8 +10,6 @@ class Customer
               :created_at,
               :updated_at
 
-
-
   def initialize(data, repo = nil)
     @id          = data[:id].to_i
     @first_name  = data[:first_name]
@@ -20,6 +18,4 @@ class Customer
     @updated_at  = Time.parse(data[:updated_at].to_s)
     @parent      = repo
   end
-
-  
 end
