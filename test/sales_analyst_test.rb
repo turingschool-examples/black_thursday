@@ -125,9 +125,11 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_it_can_select_only_paid_invoices_for_a_merchant
-    invoice1 = @sa.se.invoices.all.find_by_id(1695)
-    merchant = @sa.merchants.find_by_id(12334112)
-    refute @sa.paid_invoices(merchant).includes?(invoice1)
+    invoice1 = @sa.se.invoices.find_by_id(1695)
+    merchant = @sa.se.merchants.find_by_id(12334112)
+    refute @sa.paid_invoices(merchant).include?(invoice1)
   end
+
+  
 
 end

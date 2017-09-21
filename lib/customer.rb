@@ -23,7 +23,7 @@ class Customer
   end
 
   def merchants
-    merchants = invoices.map do |invoice|
+    invoices.map do |invoice|
       @customer_repository.find_merchants(invoice.merchant_id)
     end
   end
