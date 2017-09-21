@@ -220,27 +220,42 @@ class SalesAnalyst
 
   def most_sold_item_for_merchant(merchant_id)
     merchant = @engine.merchants.find_by_id(merchant_id)
-    invoices = merchant.invoices
-    paid_invoices = invoices.find_all { |invoice| invoice.is_paid_in_full? }
-    invoice_items = paid_invoices.map do |invoice|
+    invoices = paid_invoices(merchant.invoices)
+    invoice_items = find_all_invoice_items_for_invoices(invoices)
+    item_ids = total_quantity_sold_per_item(invoice_items)
+    item_id_of_max = find_item_id_of_max_quantity(item_ids)
+    max = item_ids[item_id_of_max]
+    item_ids_with_max = find_item_ids_with_max_quantity(item_ids, max)
+    map_items_to_item_ids(item_ids_with_max)
+  end
+
+  def paid_invoices(invoices)
+    invoices.find_all { |invoice| invoice.is_paid_in_full? }
+  end
+
+  def find_all_invoice_items_for_invoices(invoices)
+    invoices.map do |invoice|
       @engine.invoice_items.find_all_by_invoice_id(invoice.id)
     end.flatten
-    item_ids = invoice_items.reduce(Hash.new(0)) do |hash, invoice_item|
-      hash[invoice_item.item_id] += invoice_item.quantity
-      hash
+  end
+
+  def total_quantity_sold_per_item(invoice_items)
+    invoice_items.reduce(Hash.new(0)) do |item_ids, invoice_item|
+      item_ids[invoice_item.item_id] += invoice_item.quantity
+      item_ids
     end
-    id_of_max_quantity = item_ids.keys.max_by { |item_id| item_ids[item_id] }
-    max_quantity = item_ids[id_of_max_quantity]
-    item_ids_with_max_quantity = item_ids.find_all do |item_id|
-      item_id[1] == max_quantity
-    end
-    item_ids_with_max_quantity.map do |item_id|
-      @engine.items.find_by_id(item_id[0])
-    end
-    # require "pry"; binding.pry
+  end
+
+  def find_item_id_of_max_quantity(item_ids)
+    item_ids.keys.max_by { |item_id| item_ids[item_id] }
+  end
+
+  def find_item_ids_with_max_quantity(item_ids, max_quantity)
+    item_ids.find_all { |item_id| item_id[1] == max_quantity }
+  end
+
+  def map_items_to_item_ids(item_ids)
+    item_ids.map { |item_id| @engine.items.find_by_id(item_id[0]) }
   end
 
 end
-
-# max_quantity = items.max_by { |item| item.quantity_sold }.quantity_sold
-# items.find_all { |item| max_quantity == item.quantity_sold }
