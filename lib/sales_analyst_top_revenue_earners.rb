@@ -1,6 +1,6 @@
 module TopRevenueEarners
 
-  def merchant_id_and_total_grouped #works
+  def merchant_id_and_total_grouped
     merchant_id_and_total_grouped = Hash.new(0)
     sales_engine.invoices.all.each do |invoice|
       merchant_id_and_total_grouped[invoice.merchant_id] += invoice.total

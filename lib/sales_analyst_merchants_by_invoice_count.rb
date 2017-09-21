@@ -11,9 +11,9 @@ module MerchantsByInvoiceCount
     invoice_counts
   end
 
-  # def average_invoices_per_merchant
-  #   sales_engine.invoices.all.count / sales_engine.merchants.all.count
-  # end
+  def average_invoices_per_merchant
+    sales_engine.invoices.all.count / sales_engine.merchants.all.count
+  end
 
   def merchant_invoices_numerator
     numerator = 0
