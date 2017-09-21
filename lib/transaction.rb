@@ -1,6 +1,6 @@
-#require_relative 'transaction_repository'
-require 'bigdecimal'
-require 'time'
+require_relative "transaction_repository"
+require "bigdecimal"
+require "time"
 
 class Transaction
 

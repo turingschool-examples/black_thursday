@@ -43,4 +43,8 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of Merchant, new_engine.merchants.all[0]
   end
 
+  def test_invoice
+    assert_instance_of Invoice, new_engine.transactions.all[0].invoice
+  end
+
 end

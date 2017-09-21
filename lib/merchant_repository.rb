@@ -48,7 +48,7 @@ class MerchantRepository
   end
 
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>" unless @merchants.nil?
+    "#<#{self.class} #{:merchants.size} rows>"
   end
 
 end
