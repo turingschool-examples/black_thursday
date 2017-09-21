@@ -9,12 +9,12 @@ class SalesAnalystTest < Minitest::Test
               :fa
 
   def setup
-    @se = SalesEngine.from_csv({  :items         => "./data/items.csv",
-                                  :merchants     => "./data/merchants.csv",
-                                  :invoices      => "./data/invoices.csv",
-                                  :invoice_items => "./data/invoice_items.csv",
-                                  :transactions  => "./data/transactions.csv",
-                                  :customers     => "./data/customers.csv"
+    @se = SalesEngine.from_csv({ :items         => "./data/items.csv",
+                                 :merchants     => "./data/merchants.csv",
+                                 :invoices      => "./data/invoices.csv",
+                                 :invoice_items => "./data/invoice_items.csv",
+                                 :transactions  => "./data/transactions.csv",
+                                 :customers     => "./data/customers.csv"
                                 })
     @sa = SalesAnalyst.new(se)
 
@@ -179,48 +179,6 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of String, expected.first
   end
 
-  def test_invoice_std_deviation
-    invoices_per_day = [1, 2, 3, 4, 5, 6, 7]
-    expected = sa.invoice_std_deviation(invoices_per_day)
-
-    assert_equal 708, expected
-  end
-
-  def test_invoices_per_day
-    expected = [729, 701, 741, 696, 708, 692, 718]
-    assert_equal expected, sa.invoices_per_day
-  end
-
-  def test_day_array
-    actual   = sa.day_array
-    expected = [["Saturday", 729],
-                ["Friday", 701],
-                ["Wednesday", 741],
-                ["Monday", 696],
-                ["Sunday", 708],
-                ["Tuesday", 692],
-                ["Thursday", 718]]
-
-    assert_equal expected, actual
-  end
-
-  def test_days_with_high_invoices
-    arg1     = sa.day_array
-    arg2     = sa.avg_inv_per_day
-    arg3     = sa.invoice_std_deviation(sa.invoices_per_day)
-    expected = sa.days_with_high_invoices(arg1, arg2, arg3)
-
-    assert_equal 'Wednesday', expected[0]
-  end
-
-  def test_grouped_invoices
-    assert_instance_of Hash, sa.grouped_invoices
-  end
-
-  def test_avg_inv_per_day
-    assert_equal 712, sa.avg_inv_per_day
-  end
-
   def test_invoice_status_returns_percentage_of_given_status
     expected = sa.invoice_status(:pending)
     assert_equal 29.55, expected
@@ -231,7 +189,6 @@ class SalesAnalystTest < Minitest::Test
     expected = sa.invoice_status(:returned)
     assert_equal 13.5, expected
   end
-
 
   def test_invoice_is_paid_in_full_returns_bool
     expected_1 = sa.engine.invoices.find_by_id(1).is_paid_in_full?
@@ -332,7 +289,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_revenue_by_merchant
-    expected = sa.revenue_by_merchant(12334194)
+    expected = sa.revenue_by_merchant(12334194, se)
 
     assert_instance_of BigDecimal, expected
     assert_equal BigDecimal.new(expected), expected
