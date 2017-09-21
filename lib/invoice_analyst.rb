@@ -25,9 +25,9 @@ module InvoiceAnalyst
   def top_merchants_by_invoice_count
     merchants = @engine.merchant_list
     mean = average_invoices_per_merchant
-    standard_deviation = average_invoices_per_merchant_standard_deviation
+    standard_dev = average_invoices_per_merchant_standard_deviation
     merchants.find_all do |merchant|
-      merchant.invoices.count > standard_deviation_above(mean, standard_deviation, 2)
+      merchant.invoices.count > standard_deviation_above(mean, standard_dev, 2)
     end
   end
 
@@ -74,8 +74,5 @@ module InvoiceAnalyst
     status_percentages = invoice_status_percentages
     status_percentages[search_status]
   end
-
-
-
 
 end

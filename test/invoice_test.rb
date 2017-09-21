@@ -10,7 +10,9 @@ class InvoiceTest < Minitest::Test
     invoice_item_file_path = './test/fixtures/invoice_items_truncated.csv'
     customer_file_path = './test/fixtures/customers_truncated.csv'
     transaction_file_path = './test/fixtures/transactions_truncated.csv'
-    @engine = SalesEngine.new(item_file_path, merchant_file_path, invoice_file_path, invoice_item_file_path, customer_file_path, transaction_file_path)
+    @engine = SalesEngine.new(item_file_path, merchant_file_path,
+    invoice_file_path, invoice_item_file_path, customer_file_path,
+    transaction_file_path)
     @invoice_repo = @engine.invoices
     @invoices = @engine.invoice_list
   end
@@ -41,8 +43,9 @@ class InvoiceTest < Minitest::Test
   def test_find_item_ids_finds_all_item_ids_with_corresponding_invoice_id
     invoice = @invoice_repo.find_by_id(1495)
     invoice_items = @engine.invoice_items.find_all_by_invoice_id(invoice.id)
+    expect = [263443369, 263529916, 263409041, 263555656, 263397919, 263422161]
 
-    assert_equal [263443369, 263529916, 263409041, 263555656, 263397919, 263422161], invoice.find_item_ids(invoice_items)
+    assert_equal expect, invoice.find_item_ids(invoice_items)
   end
 
   def test_find_items_from_item_ids_returns_items_that_match_item_ids

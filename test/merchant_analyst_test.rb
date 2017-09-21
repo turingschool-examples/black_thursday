@@ -10,7 +10,9 @@ class MerchantAnalystTest < Minitest::Test
     invoice_item_file_path = './test/fixtures/invoice_items_truncated.csv'
     customer_file_path = './test/fixtures/customers_truncated.csv'
     transaction_file_path = './test/fixtures/transactions_truncated.csv'
-    @engine = SalesEngine.new(item_file_path, merchant_file_path, invoice_file_path, invoice_item_file_path, customer_file_path, transaction_file_path)
+    @engine = SalesEngine.new(item_file_path, merchant_file_path,
+    invoice_file_path, invoice_item_file_path, customer_file_path,
+    transaction_file_path)
     @analyst = SalesAnalyst.new(@engine)
   end
 
@@ -24,12 +26,14 @@ class MerchantAnalystTest < Minitest::Test
     assert_equal 15620.53, @analyst.revenue_by_merchant(12334185)
   end
 
-  def test_total_revenue_for_all_merchants_returns_hash_with_merchant_id_key_and_revenue_value
-    assert_equal ({12334185=>0.1562053e5, 12334113=>0, 12334112=>0, 12334115=>0.2253302e5}), @analyst.total_revenue_for_all_merchants
+  def test_total_revenue_for_all_merchants_has_merchant_id_key_and_revenue_value
+    expected = ({12334185=>0.1562053e5, 12334113=>0, 12334112=>0, 12334115=>0.2253302e5})
+    assert_equal expected, @analyst.total_revenue_for_all_merchants
   end
 
   def test_merchants_ranked_by_revenue_returns_merchant_ids_sorted_by_revenue
-    assert_equal [12334113, 12334112, 12334185, 12334115], @analyst.merchants_ranked_by_revenue
+    expected = [12334113, 12334112, 12334185, 12334115]
+    assert_equal expected,  @analyst.merchants_ranked_by_revenue
   end
 
   def test_top_revenue_earners_returns_x_number_of_top_earning_merchants
@@ -60,11 +64,11 @@ class MerchantAnalystTest < Minitest::Test
   end
 
   def test_it_finds_merchants_with_only_one_item_registered_in_month
-    month_merchant =  @analyst.merchants_with_only_one_item_registered_in_month("June")
+    merchant = @analyst.merchants_with_only_one_item_registered_in_month("June")
 
-    assert_equal 12334969, month_merchant[0].id
-    assert_instance_of Merchant, month_merchant[0]
-    assert_equal 1, month_merchant.count
+    assert_equal 12334969, merchant[0].id
+    assert_instance_of Merchant, merchant[0]
+    assert_equal 1, merchant.count
   end
 
   def test_it_finds_most_sold_item_for_merchant

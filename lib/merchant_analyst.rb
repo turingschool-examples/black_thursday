@@ -24,13 +24,12 @@ module MerchantAnalyst
   end
 
   def merchants_ranked_by_revenue
-    sorted_merchants = total_revenue_for_all_merchants.sort_by {|key, value| -value}.to_h
-    sorted_merchants.keys
+    sorted_merchants = total_revenue_for_all_merchants.sort_by {|key, value| value}.to_h
+    sorted_merchants.keys.reverse.map {|merchant_id| @engine.merchants.find_by_id(merchant_id)}
   end
 
   def top_revenue_earners(x = 20)
-    top_x_earner_ids = merchants_ranked_by_revenue[1..x]
-    top_x_earner_ids.map {|earner_id| @engine.merchants.find_by_id(earner_id)}
+    merchants_ranked_by_revenue[1..x]
   end
 
   def merchants_with_pending_invoices
@@ -38,9 +37,9 @@ module MerchantAnalyst
     pending_invoices = @engine.invoices.find_all_by_status(:pending)
 
     pending_merchant_ids = pending_invoices.map do |invoice|
-      invoice.merchant_id if !invoice.is_paid_in_full?
+      invoice.merchant_id
     end
-    pending_merchant_ids.uniq.map do |merchant_id|
+    pending_merchant_ids.map do |merchant_id|
       @engine.merchants.find_by_id(merchant_id)
     end
   end
@@ -100,14 +99,6 @@ module MerchantAnalyst
     best_item_id = item_revenues.max_by{|item_id,revenue| revenue}[0]
     @engine.items.find_by_id(best_item_id)
   end
-
-
-    # Hash[invoice_items.flatten.map {|invoice_item| [invoice_item.item_id, invoice_item.quantity}
-
-
-
-
-
 
 
 end
