@@ -4,12 +4,16 @@ class Merchant
 
   attr_reader :id,
               :name,
-              :parent
+              :parent,
+              :created_at,
+              :updated_at
 
   def initialize(data, repo = nil)
+    @parent = repo
     @id     = data[:id].to_i
     @name   = data[:name]
-    @parent = repo
+    @created_at = Time.parse(data[:created_at])
+    @updated_at = Time.parse(data[:updated_at])
   end
 
   def items

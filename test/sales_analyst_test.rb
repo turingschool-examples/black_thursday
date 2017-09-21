@@ -61,5 +61,15 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 19, sa.merchants_with_only_one_item.length
   end
 
+  def test_merchants_with_only_one_item_registered_in_month_returns_month
+    actual = sa.merchants_with_only_one_item_registered_in_month("January")
+    assert_equal 2, actual.length
+    assert_instance_of Merchant, actual.first
+
+    actual2 = sa.merchants_with_only_one_item_registered_in_month("March")
+    assert_equal 2, actual.length
+    assert_instance_of Merchant, actual2.first
+  end
+
 
 end
