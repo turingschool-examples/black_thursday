@@ -41,6 +41,10 @@ class InvoiceRepo
     parent.invoice_items_list(id)
   end
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7102f062d5ebf6d4a9602593c1be0f8c20e47574
   def total_amount(invoice_id)
     parent.total_invoice_amount(invoice_id)
   end

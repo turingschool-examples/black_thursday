@@ -170,5 +170,24 @@ class SalesAnalyst
     end
   end
 
-  
+  def get_invoice_ids(invoices_on_date)
+    invoices_on_date.map do |invoice|
+      invoice.id
+    end
+  end
+
+  def sum_invoice_items(invoice_items)
+   invoice_items[0].map do |item|
+     (item.unit_price * item.quantity.to_i)
+   end.sum
+  end
+
+  def total_revenue_by_date(date)
+    time = date.to_s.split.first
+    invoices.all_invoices.map do |invoice|
+      if invoice.created_at.to_s.split.first == date
+        invoices.total_invoice_amount(invoice.id)
+      end
+    end
+  end
 end
