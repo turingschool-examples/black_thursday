@@ -229,14 +229,8 @@ class SalesAnalyst
   end
 
   def best_item_for_merchant(merchant_id)
-   puts "232"
-   id = highest_value_item(merchant_id)
-   puts id
-   sales_engine.items.find_by_id(id)
-  end
-
-  def testing
-    "spork"
+    id = highest_value_item(merchant_id)
+    sales_engine.items.find_by_id(id)
   end
 
 end
