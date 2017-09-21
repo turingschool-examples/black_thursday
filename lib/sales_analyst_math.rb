@@ -12,7 +12,6 @@ module SalesAnalystMath
    return thing_counts
   end
 
-
   def average_things_per_merchant(merchants_and_things)
     total_things = merchants_and_things.values.sum
     total_merchants = merchants_and_things.length
@@ -32,6 +31,5 @@ module SalesAnalystMath
     number_of_elements = merchants_and_things.values.count
     Math.sqrt(std_dev_top / (number_of_elements - 1)).round(2)
   end
-
 
 end
