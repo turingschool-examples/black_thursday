@@ -13,7 +13,7 @@ class SalesAnalystTest < Minitest::Test
     @se = SalesEngine.from_csv(files)
     @sa = SalesAnalyst.new(se)
   end
-
+=begin
   def test_it_exists
     assert_instance_of SalesAnalyst, set_up
   end
@@ -89,7 +89,6 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(files)
     sales_a = SalesAnalyst.new(se)
 
-
     assert_equal 12, sales_a.top_merchants_by_invoice_count.count
   end
 
@@ -97,7 +96,6 @@ class SalesAnalystTest < Minitest::Test
     files = ({:invoices => "./data/invoices.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv", :invoice_items => "./test/fixtures/invoice_items_fixture.csv", :transactions => "./test/fixtures/transactions_fixture.csv", :customers => "./test/fixtures/customers_fixture.csv"})
     se = SalesEngine.from_csv(files)
     sales_a = SalesAnalyst.new(se)
-
 
     assert_equal 4, sales_a.bottom_merchants_by_invoice_count.count
   end
@@ -115,9 +113,9 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(files)
     sales_a = SalesAnalyst.new(se)
 
-    assert_equal  29.55, sales_a.invoice_status(:pending)
-    assert_equal  56.95, sales_a.invoice_status(:shipped)
-    assert_equal  13.5, sales_a.invoice_status(:returned)
+    assert_equal 29.55, sales_a.invoice_status(:pending)
+    assert_equal 56.95, sales_a.invoice_status(:shipped)
+    assert_equal 13.5, sales_a.invoice_status(:returned)
   end
 
   def test_total_revenue_by_date
@@ -126,6 +124,17 @@ class SalesAnalystTest < Minitest::Test
     sales_a = SalesAnalyst.new(se)
 
     assert_equal 21067.77, sales_a.total_revenue_by_date(Time.parse("2009-02-07"))
+  end
+=end
+  def test_top_revenue_earners
+    files = ({:invoices => "./data/invoices.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"})
+    se = SalesEngine.from_csv(files)
+    sales_a = SalesAnalyst.new(se)
+    actual = sales_a.top_revenue_earners(20)
+
+    assert_equal 20, actual.count
+    assert_equal 12334634, actual.first.id
+    assert_equal 12334159, actual.last.id
   end
 
 end
