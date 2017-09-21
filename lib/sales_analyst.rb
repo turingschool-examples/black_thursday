@@ -6,7 +6,8 @@ require 'bigdecimal'
 
 class SalesAnalyst
 
-  attr_reader :merchants, :items, :price, :invoices, :invoice_items, :transactions, :customers
+  attr_reader :merchants, :items, :price, :invoices, :invoice_items,
+              :transactions, :customers
 
   def initialize(sales_engine)
     @merchants     = sales_engine.merchants
@@ -22,16 +23,16 @@ class SalesAnalyst
   end
 
   def total_items
-   @items.all.count.to_f
+    @items.all.count.to_f
   end
 
   def average_items_per_merchant
-    return @average_items if defined? @average_items
+    return average_items if defined? average_items
     average = @items.all_items.count.to_f
     average_1 = @merchants.all_merchants.count.to_f
     complete_average = average / average_1
-    @average_items = complete_average.round(2)
-    @average_items
+    average_items = complete_average.round(2)
+    average_items
   end
 
   def total_merchants
@@ -39,31 +40,32 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    @merchant_deviations = @merchants.all_merchants.map do |merchant|
+    merchant_deviations = @merchants.all_merchants.map do |merchant|
       (merchant.items.count - average_items_per_merchant)**2
     end
-    Math.sqrt(@merchant_deviations.inject(0,:+) / @merchants.all_merchants.count).round(2)
+    Math.sqrt(merchant_deviations.inject(0,:+)/@merchants.all_merchants.count)
+    .round(2)
   end
 
   def merchants_with_high_item_count
-    @high_count = []
+    high_count = []
     @merchants.all_merchants.each do |merchant|
      if merchant.items.count >= 6.12
-       @high_count << merchant
-      else
+       high_count << merchant
+     else
         merchant
-      end
+     end
     end
-    @high_count
+    high_count
   end
 
   def average_item_price_for_merchant(merch_id)
-    @totals = []
-    total = @items.all_items.select {|item| item.merchant_id == merch_id }
-      total.map do |t|
-        @totals << t.price
-      end
-    total_average = (@totals.reduce(:+) / @totals.count) / 100
+    totals = []
+      total = @items.all_items.select {|item| item.merchant_id == merch_id }
+        total.map do |t|
+          totals << t.price
+        end
+    total_average = (totals.reduce(:+) / totals.count) / 100
     total_average.round(2)
   end
 
@@ -85,17 +87,18 @@ class SalesAnalyst
     standard_dev = merchants.all.map do |merchant|
       (merchant.invoices.count - average_invoices_per_merchant)**2
     end
-  Math.sqrt(standard_dev.inject(0,:+) / merchants.all.count).round(2)
+    Math.sqrt(standard_dev.inject(0,:+) / merchants.all.count).round(2)
   end
 
   def item_price_standard_deviation
     item_price = Proc.new {|item| item.unit_price}
-    standard_deviation(average_item_price_for_merchant(merch_id),@items.all,item_price,total_items)
+    standard_deviation(average_item_price_for_merchant(merch_id),@items.all,
+    item_price,total_items)
   end
 
-
   def top_merchants_by_invoice_count
-    target = (average_invoices_per_merchant_standard_deviation * 2) + average_invoices_per_merchant
+    target = (average_invoices_per_merchant_standard_deviation * 2)
+     + average_invoices_per_merchant
     top_merchants = merchants.all.map do |merchant|
       if merchant.invoices.length > target
         merchant
@@ -105,7 +108,8 @@ class SalesAnalyst
   end
 
   def bottom_merchants_by_invoice_count
-    target = average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2)
+    target = average_invoices_per_merchant -
+    (average_invoices_per_merchant_standard_deviation * 2)
     bottom_merchants = merchants.all.map do |merchant|
       if merchant.invoices.length < target
         merchant
@@ -172,7 +176,7 @@ class SalesAnalyst
 
   def get_invoice_ids(invoices_on_date)
     invoices_on_date.map do |invoice|
-    invoice.id
+      invoice.id
     end
   end
 
@@ -193,5 +197,4 @@ class SalesAnalyst
    end
    total
   end
-
 end

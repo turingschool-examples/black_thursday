@@ -15,6 +15,7 @@ class TransactionRepo
       all_transactions << Transaction.new(row, self)
     end
   end
+
   def all
     @all_transactions
   end

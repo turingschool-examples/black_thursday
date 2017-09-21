@@ -21,8 +21,7 @@ class Merchant
   end
 
   def invoices
-    @se = parent.parent
-    @se.invoices.find_all_by_merchant_id(@id)
+    parent.parent.invoices.find_all_by_merchant_id(@id)
   end
 
   def customers

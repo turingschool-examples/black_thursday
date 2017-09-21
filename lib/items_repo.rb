@@ -38,9 +38,9 @@ class ItemRepo
     end
   end
 
-    def find_by_name(name)
-      all_items.find {|item| item.name.downcase == name.downcase}
-    end
+  def find_by_name(name)
+    all_items.find {|item| item.name.downcase == name.downcase}
+  end
 
   def find_all_by_price(price)
     all_items.find_all {|item| item.unit_price == price}
@@ -62,9 +62,7 @@ class ItemRepo
     all_items.find_all {|item| item.merchant_id == id}
   end
 
-
   def merchant_item(id)
     parent.merchant_item(id)
   end
-
 end
