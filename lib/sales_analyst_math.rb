@@ -1,5 +1,18 @@
 module SalesAnalystMath
 
+  def make_merchants_and_things(things)
+    thing_array = things.all
+    merchant_ids = thing_array.map do |thing|
+                     thing.merchant_id
+                   end
+   thing_counts = Hash.new 0
+   merchant_ids.each do |merchant_id|
+     thing_counts[merchant_id] += 1.0
+   end
+   return thing_counts
+  end
+
+
   def average_things_per_merchant(merchants_and_things)
     total_things = merchants_and_things.values.sum
     total_merchants = merchants_and_things.length
@@ -18,17 +31,7 @@ module SalesAnalystMath
     Math.sqrt(std_dev_top / (number_of_elements - 1)).round(2)
   end
 
-  def make_merchants_and_things(things)
-    thing_array = things.all
-    merchant_ids = thing_array.map do |thing|
-                     thing.merchant_id
-                   end
-   thing_counts = Hash.new 0
-   merchant_ids.each do |merchant_id|
-     thing_counts[merchant_id] += 1.0
-   end
-   return thing_counts
-  end
+
 
   def average_thing(things)
     all_things_sum = 0

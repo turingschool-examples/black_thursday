@@ -9,7 +9,7 @@ require "./lib/item"
 
 class TestSalesAnalystMath < Minitest::Test
 
-  attr_reader :sa, :mod, :merchant_id
+  attr_reader :sa, :mod, :merchants_and_things, :things
 
   def setup
     csv_hash = {
@@ -23,7 +23,8 @@ class TestSalesAnalystMath < Minitest::Test
     sales_engine = SalesEngine.from_csv(csv_hash)
     @sa = SalesAnalyst.new(sales_engine)
     @mod = SalesAnalystMath
-    @merchant_id = 12334189
+    @things = sales_engine.invoices
+    @merchants_and_things = sa.make_merchants_and_things(things)
   end
 
 
@@ -34,14 +35,16 @@ class TestSalesAnalystMath < Minitest::Test
   def test_its_exists
     assert_instance_of SalesAnalyst, sa
   end
-  #
-  #
-  #
-  # def test_average_things_per_merchant
-  #   assert_equal [], mr.average_things_per_merchant
-  # end
-  #
-  #
+
+  def test_it_makes_merchant_hash
+    assert_instance_of Hash, sa.make_merchants_and_things(things)
+  end
+
+  def test_average_things_per_merchant
+    assert_equal 5.07, sa.average_things_per_merchant(merchants_and_things)
+  end
+
+
   # def test_average_things_per_merchant_standard_deviation
   #
   # end

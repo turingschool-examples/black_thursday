@@ -10,8 +10,6 @@ require "date"
 require 'pry'
 
 
-
-
 class SalesAnalyst
 
   include Finder
