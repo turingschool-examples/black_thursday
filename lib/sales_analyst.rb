@@ -218,7 +218,6 @@ class SalesAnalyst
     total_revenue_by_merchant(merchant_id)
   end
 
-
   def retrieve_merchant_invoices(merchant_id)
     sales_engine.merchants.find_by_id(merchant_id).invoices
   end
@@ -227,19 +226,55 @@ class SalesAnalyst
     merch_invoices.find_all {|invoice| invoice.is_paid_in_full?}
   end
 
-  def most_sold_item_for_merchant(merchant_id)
+  def retrieve_invoice_items_for_paid_invoices(paid_invoices)
+    paid_invoices.map {|invoice| invoice.invoice_items}.flatten
+  end
+
+  def retrieve_item_quantity_link(invoices_i_items)
     item_quantity = {}
-    merch_invoices = retrieve_merchant_invoices(merchant_id)
-    retrieve_paid_invoices(merch_invoices)
-    paid_invoices = merch_invoices.find_all {|invoice| invoice.is_paid_in_full?}
-    invoice_i_items = paid_invoices.map {|invoice| invoice.invoice_items}.flatten
-    invoice_i_items.each do |invoice_item|
+    invoices_i_items.each do |invoice_item|
       item_quantity[invoice_item.item_id] = invoice_item.quantity.to_i
     end
-    sorted = item_quantity.sort_by {|key, value| -value}
+    item_quantity
+  end
+
+  def sort_item_values(item_quantity)
+    item_quantity.sort_by {|key, value| -value}
+  end
+
+  def find_max_items(sorted)
     max_quantity = sorted.first[-1]
     maxes = sorted.find_all {|pair| pair[1] == max_quantity}
     maxes.map {|pair| sales_engine.items.find_by_id(pair[0])}
   end
 
+  def most_sold_item_for_merchant(merchant_id)
+    merch_invoices = retrieve_merchant_invoices(merchant_id)
+    paid_invoices = retrieve_paid_invoices(merch_invoices)
+    invoices_i_items = retrieve_invoice_items_for_paid_invoices(paid_invoices)
+    item_quantity = retrieve_item_quantity_link(invoices_i_items)
+    sorted = sort_item_values(item_quantity)
+    find_max_items(sorted)
+  end
+
+  def retrieve_item_total_link(invoices_i_items)
+    item_total = {}
+    invoices_i_items.each do |invoice_item|
+      item_total[invoice_item.item_id] = invoice_item.total
+    end
+    item_total
+  end
+
+  def find_item_for_id(sorted)
+    sorted.map {|pair| sales_engine.items.find_by_id(pair[0])}
+  end
+
+  def best_item_for_merchant(merchant_id)
+    merch_invoices = retrieve_merchant_invoices(merchant_id)
+    paid_invoices = retrieve_paid_invoices(merch_invoices)
+    invoices_i_items = retrieve_invoice_items_for_paid_invoices(paid_invoices)
+    item_total = retrieve_item_total_link(invoices_i_items)
+    sorted = sort_item_values(item_total)
+    find_item_for_id(sorted).first
+  end
 end

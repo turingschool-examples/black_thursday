@@ -127,7 +127,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_revenue_earners
-    skip
     files = ({:invoices => "./data/invoices.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"})
     se = SalesEngine.from_csv(files)
     sales_a = SalesAnalyst.new(se)
@@ -176,6 +175,14 @@ class SalesAnalystTest < Minitest::Test
     sales_a = SalesAnalyst.new(se)
 
     assert_equal 1, sales_a.most_sold_item_for_merchant(12334189).count
+  end
+
+  def test_best_item_for_merchant
+    files = ({:invoices => "./data/invoices.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"})
+    se = SalesEngine.from_csv(files)
+    sales_a = SalesAnalyst.new(se)
+
+    assert_instance_of Item, sales_a.best_item_for_merchant(12334189)
   end
 
 
