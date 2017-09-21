@@ -1,4 +1,4 @@
-module MerchantBestByRevenue
+module MerchantBestItemForMerchant
 
   def valid_merchant_invoices(merchant_id)
     invoice_instance_array = []
@@ -34,9 +34,6 @@ module MerchantBestByRevenue
     highest_revenue = item_ids_and_total(merchant_id).values.max
     item_ids_and_total(merchant_id).key(highest_revenue)
   end
-
-
-
 
 
 end

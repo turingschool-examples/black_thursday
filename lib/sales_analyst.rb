@@ -4,6 +4,10 @@ require_relative './merchant_golden_items'
 require_relative './merchant_merchants_by_invoice_count'
 require_relative "./merchant_top_days_by_invoice_count"
 require_relative "./merchant_top_revenue_earners"
+require_relative "./merchant_best_item_for_merchant"
+
+
+
 require 'pry'
 require "date"
 require_relative './finder'
@@ -17,6 +21,7 @@ class SalesAnalyst
   include MerchantMerchantsByInvoiceCount
   include MerchantTopDaysByInvoiceCount
   include MerchantTopRevenueEarners
+  include MerchantBestItemForMerchant
   #we can move these all back into a single module if needed -- I was just getting confused and needed to be able to separate the different methods and helper methods
 
   attr_reader :sales_engine
@@ -59,7 +64,7 @@ class SalesAnalyst
   end
 
   def total_invoice_count
-    invocies.count.to_f
+    invoices.count.to_f
   end
 
   def invoices_with_status_count(status)
@@ -224,5 +229,11 @@ class SalesAnalyst
       value == largest_quantity
     end.keys
   end
+
+  def best_item_for_merchant(merchant_id)
+   id = highest_value_item(merchant_id)
+   puts id
+   sales_engine.items.find_by_id(id)
+ end
 
 end
