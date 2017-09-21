@@ -44,4 +44,8 @@ class TransactionRepositoryTest < Minitest::Test
     assert_instance_of Transaction, transaction_repository.find_all_by_result(:success)[0]
   end
 
+  def test_inspect
+    assert_instance_of String, transaction_repository.inspect
+  end
+
 end

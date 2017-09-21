@@ -39,4 +39,8 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_instance_of InvoiceItem, invoice_item_repository.find_all_by_invoice_id(1)[0]
   end
 
+  def test_inspect
+    assert_instance_of String, invoice_item_repository.inspect
+  end
+
 end
