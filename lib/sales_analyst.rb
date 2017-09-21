@@ -209,4 +209,63 @@ class SalesAnalyst
     end.uniq
   end
 
+  def most_sold_item_for_merchant(merchant_id)
+    invoice_items = find_paid_invoice_items_for_merchant(merchant_id)
+    item_ids = total_quantity_sold_per_item(invoice_items)
+    item_id_of_max = find_item_id_of_max_value(item_ids)
+    max_quantity = item_ids[item_id_of_max]
+    item_ids_with_max = find_item_ids_with_max_value(item_ids, max_quantity)
+    map_items_to_item_ids(item_ids_with_max)
+  end
+
+  def find_paid_invoice_items_for_merchant(merchant_id)
+    merchant = @engine.merchants.find_by_id(merchant_id)
+    invoices = paid_invoices(merchant.invoices)
+    find_all_invoice_items_for_invoices(invoices)
+  end
+
+  def paid_invoices(invoices)
+    invoices.find_all { |invoice| invoice.is_paid_in_full? }
+  end
+
+  def find_all_invoice_items_for_invoices(invoices)
+    invoices.map do |invoice|
+      @engine.invoice_items.find_all_by_invoice_id(invoice.id)
+    end.flatten
+  end
+
+  def total_quantity_sold_per_item(invoice_items)
+    invoice_items.reduce(Hash.new(0)) do |item_ids, invoice_item|
+      item_ids[invoice_item.item_id] += invoice_item.quantity
+      item_ids
+    end
+  end
+
+  def find_item_id_of_max_value(item_ids)
+    item_ids.keys.max_by { |item_id| item_ids[item_id] }
+  end
+
+  def find_item_ids_with_max_value(item_ids, max)
+    item_ids.find_all { |item_id| item_id[1] == max }
+  end
+
+  def map_items_to_item_ids(item_ids)
+    item_ids.map { |item_id| @engine.items.find_by_id(item_id[0]) }
+  end
+
+  def best_item_for_merchant(merchant_id)
+    invoice_items = find_paid_invoice_items_for_merchant(merchant_id)
+    item_ids = total_revenue_per_item(invoice_items)
+    item_id_of_max = find_item_id_of_max_value(item_ids)
+    @engine.items.find_by_id(item_id_of_max)
+  end
+
+  def total_revenue_per_item(invoice_items)
+    invoice_items.reduce(Hash.new(0)) do |item_ids, invoice_item|
+      item_revenue = invoice_item.quantity * invoice_item.unit_price
+      item_ids[invoice_item.item_id] = item_revenue
+      item_ids
+    end
+  end
+
 end

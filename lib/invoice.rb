@@ -53,7 +53,7 @@ class Invoice
     sales_engine = @parent.parent
     inv_transactions = sales_engine.transactions.find_all_by_invoice_id(id)
     inv_trx_results = inv_transactions.map { |transaction| transaction.result }
-    inv_trx_results.uniq == ["success"]
+    inv_trx_results.include?("success")
   end
 
   def total

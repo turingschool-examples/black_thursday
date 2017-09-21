@@ -1,7 +1,6 @@
 require_relative 'test_helper'
 require './lib/transaction'
 require './lib/transaction_repository'
-require 'pry'
 
 
 class TransactionRepositoryTest < Minitest::Test

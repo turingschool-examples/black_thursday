@@ -1,7 +1,6 @@
 require_relative 'test_helper'
 require './lib/invoice_item_repository'
 require './lib/invoice_item'
-require 'pry'
 
 class InvoiceItemRepositoryTest < Minitest::Test
 
@@ -42,7 +41,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   def test_find_by_id_returns_instance_of_invoice_item_that_has_given_id
     @iir.from_csv("./test/fixtures/invoice_items_truncated_10.csv")
     actual = @iir.find_by_id(3)
-    expected = 263395721
+    expected = 263395617
 
     assert_equal expected, actual.item_id
   end

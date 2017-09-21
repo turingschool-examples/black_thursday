@@ -33,4 +33,17 @@ class Item
     sales_engine.merchants.find_by_id(@merchant_id)
   end
 
+  def quantity_sold
+    sales_engine = @parent.parent
+    inv_items = sales_engine.invoice_items.find_all_by_item_id(id)
+    inv_items = inv_items.find_all do |inv_item|
+      invoice_id = inv_item.invoice_id
+      invoice = sales_engine.invoices.find_by_id(invoice_id)
+      invoice.is_paid_in_full?
+    end
+    inv_items.reduce(0) do |total, inv_item|
+      total += inv_item.quantity
+    end
+  end
+
 end
