@@ -95,7 +95,6 @@ class TestSalesAnalystMath < Minitest::Test
 
 
   def test_it_finds_one_standard_deviations_above
-
+    assert_equal 2.23, sa.average_things_per_merchant_standard_deviation(merchants_and_things)
   end
-
 end
