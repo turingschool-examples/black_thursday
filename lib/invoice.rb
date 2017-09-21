@@ -67,7 +67,7 @@ class Invoice
   end
 
   def total
-    return false unless is_paid_in_full?
+    return 0 unless is_paid_in_full?
     invoice_items.inject(0){ |sum, ii| sum + ii.unit_price * ii.quantity.to_i }
     end
   end

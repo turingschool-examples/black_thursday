@@ -73,8 +73,11 @@ class SalesAnalystTest < Minitest::Test
 
   def test_merchants_with_pending_invoices
     actual = sa.merchants_with_pending_invoices
-    assert_equal 97, actual
-    assert_instance_of Invoice, actual.first
+    assert_equal 49, actual.length
+  end
+
+  def test_revenue_by_merchant
+    assert_equal 0, sa.revenue_by_merchant(12334442)
   end
 
 
