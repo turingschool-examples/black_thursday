@@ -50,7 +50,11 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_returns_invoice_instance_for_status
-      assert_instance_of Invoice, invoice_repo.find_all_by_status(:pending)[0]
+    assert_instance_of Invoice, invoice_repo.find_all_by_status(:pending)[0]
+  end
+
+  def test_inspect
+    assert_instance_of String, invoice_repo.inspect
   end
 
 end
