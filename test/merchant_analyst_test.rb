@@ -31,9 +31,10 @@ class MerchantAnalystTest < Minitest::Test
     assert_equal expected, @analyst.total_revenue_for_all_merchants
   end
 
-  def test_merchants_ranked_by_revenue_returns_merchant_ids_sorted_by_revenue
-    expected = [12334113, 12334112, 12334185, 12334115]
-    assert_equal expected,  @analyst.merchants_ranked_by_revenue
+  def test_merchants_ranked_by_revenue_returns_merchants_sorted_descendingly_by_revenue
+    assert_instance_of Merchant,  @analyst.merchants_ranked_by_revenue[0]
+    assert_equal 12334115, @analyst.merchants_ranked_by_revenue[0].id
+    assert_equal 12334113, @analyst.merchants_ranked_by_revenue[-1].id
   end
 
   def test_top_revenue_earners_returns_x_number_of_top_earning_merchants
@@ -41,17 +42,17 @@ class MerchantAnalystTest < Minitest::Test
 
     assert_equal 3, high_earners.count
     assert_instance_of Merchant, high_earners[0]
-    assert_equal 12334112, high_earners[0].id
+    assert_equal 12334115, high_earners[0].id
     assert_equal 12334185, high_earners[1].id
-    assert_equal 12334115, high_earners[-1].id
+    assert_equal 12334112, high_earners[-1].id
   end
 
   def test_it_can_find_merchants_with_pending_invoices
     pending_merchants = @analyst.merchants_with_pending_invoices
 
-    assert_equal 12334185, pending_merchants[0].id
+    assert_equal 12334112, pending_merchants[0].id
     assert_instance_of Merchant, pending_merchants[0]
-    assert_equal 1, pending_merchants.count
+    assert_equal 3, pending_merchants.count
   end
 
   def test_it_finds_merchants_with_only_one_item
