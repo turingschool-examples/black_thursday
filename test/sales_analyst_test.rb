@@ -289,7 +289,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_revenue_by_merchant
-    expected = sa.revenue_by_merchant(12334194, se)
+    expected = sa.revenue_by_merchant(12334194)
 
     assert_instance_of BigDecimal, expected
     assert_equal BigDecimal.new(expected), expected

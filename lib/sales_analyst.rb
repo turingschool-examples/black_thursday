@@ -69,6 +69,10 @@ class SalesAnalyst
     RevenueAnalyst.top_revenue_earners(merchants, engine, x)
   end
 
+  def merchants_ranked_by_revenue
+    top_revenue_earners(merchants.length)
+  end
+
   def merchants_with_pending_invoices
     MerchantAnalyst.merchants_with_pending_invoices(merchants)
   end
@@ -81,7 +85,7 @@ class SalesAnalyst
     a.merchants_with_only_one_item_registered_in_month(m, merchants)
   end
 
-  def revenue_by_merchant(merchant_id, engine)
+  def revenue_by_merchant(merchant_id)
     RevenueAnalyst.revenue_by_merchant(merchant_id, engine)
   end
 
