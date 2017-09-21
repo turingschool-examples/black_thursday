@@ -7,7 +7,6 @@ class InvoiceRepository
   attr_accessor :invoices
 
   def initialize(file_name, sales_engine)
-
     @invoices = []
     contents = parse_data(file_name)
     contents.each do |row|

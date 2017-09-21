@@ -73,7 +73,6 @@ module AdvancedAnalytics
     end.flatten
   end
 
-
   def item_id_with_invoice_items(invoice_items)
     invoice_items.group_by do |invoice_item|
       invoice_item.item_id

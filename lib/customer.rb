@@ -27,4 +27,5 @@ class Customer
       @customer_repository.find_merchants(invoice.merchant_id)
     end
   end
+
 end

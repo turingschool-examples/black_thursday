@@ -43,9 +43,8 @@ class CustomerRepository
     @sales_engine.merchants.find_by_id(merchant_id)
   end
 
-private
-
   def inspect
     "#<#{self.class} #{@customers.size} rows>"
   end
+
 end

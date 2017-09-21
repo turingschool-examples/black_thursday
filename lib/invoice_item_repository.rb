@@ -27,8 +27,7 @@ class InvoiceItemRepository
   end
 
   def find_all_by_invoice_id(invoice_id)
-    @invoice_items.select {|invoice_item|
-       invoice_item.invoice_id == invoice_id }
+    @invoice_items.select {|invoice_item| invoice_item.invoice_id == invoice_id}
   end
 
   def find_all_invoices(invoice_id)

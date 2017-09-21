@@ -99,10 +99,8 @@ class SalesAnalyst
   def total_revenue_by_date(date)
     count = 0.00
     se.invoices.invoices.each do |invoice|
-
       invoice_date = invoice.created_at.strftime('%Y-%m-%d')
       if invoice_date == date.strftime('%Y-%m-%d')
-
         invoice.invoice_items.each do |invoice_item|
           count += invoice_item.unit_price * invoice_item.quantity
         end
@@ -110,4 +108,5 @@ class SalesAnalyst
     end
     count
   end
+
 end

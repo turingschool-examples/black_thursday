@@ -24,4 +24,5 @@ class Merchant
       @merchant_repository.find_all_customers(invoice.customer_id)
     end.compact.uniq
   end
+
 end

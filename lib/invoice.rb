@@ -1,5 +1,4 @@
 require 'time'
-require 'date'
 require 'bigdecimal'
 
 class Invoice

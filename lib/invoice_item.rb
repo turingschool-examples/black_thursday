@@ -29,4 +29,5 @@ class InvoiceItem
   def invoices
     @invoice_item_repository.find_all_invoices(@invoice_id)
   end
+
 end
