@@ -1,5 +1,4 @@
 require 'bigdecimal'
-require 'pry'
 
 require_relative 'math_extension'
 
@@ -67,9 +66,9 @@ class SalesAnalyst
     end
   end
 
-  def average_invoice_count_per_day
-    Math.mean(@se.invoices.all){ |invoice| invoice.created_at }
-  end
+  # def average_invoice_count_per_day
+  #   Math.mean(@se.invoices.all){ |invoice| invoice.created_at }
+  # end
 
   def invoices_by_day
     @se.invoices.all.each_with_object(Hash.new(0)) do |invoice, counts|
@@ -96,11 +95,11 @@ class SalesAnalyst
     end
   end
 
-  def average_price_per_merchant_standard_deviation
-    Math.standard_deviation(@se.merchants.all) do |merchant|
-      average_item_price(merchant)
-    end
-  end
+  # def average_price_per_merchant_standard_deviation
+  #   Math.standard_deviation(@se.merchants.all) do |merchant|
+  #     average_item_price(merchant)
+  #   end
+  # end
 
   def golden_items
     Math.standard_deviations_above(2, @se.items.all) do |item|
@@ -112,25 +111,24 @@ class SalesAnalyst
     matching_invoices = @se.invoices.find_all do |invoice|
       invoice.created_at == date
     end
-
     matching_invoices.map(&:total).sum
   end
 
-  def paid_item_invoices_by_item_id(merchant_id)
+  def paid_invoice_item_by_item_id(merchant_id)
     merchant = @se.merchants.find_by_id(merchant_id)
     paid_invoices = merchant.invoices.select(&:is_paid_in_full?)
-    iis = paid_invoices.flat_map(&:invoice_items)
-    iis.group_by(&:item_id)
+    invoice_items_selected = paid_invoices.flat_map(&:invoice_items)
+    invoice_items_selected.group_by(&:item_id)
   end
 
   def revenues_by_item_id(merchant_id)
-    paid_item_invoices_by_item_id(merchant_id).transform_values do |list|
+    paid_invoice_item_by_item_id(merchant_id).transform_values do |list|
       list.reduce(0) { |sum, ii| sum + ii.total }
     end
   end
 
   def amount_sold_by_item_id(merchant_id)
-    paid_item_invoices_by_item_id(merchant_id).transform_values do |list|
+    paid_invoice_item_by_item_id(merchant_id).transform_values do |list|
       list.reduce(0) { |sum, ii| sum + ii.quantity }
     end
   end
@@ -175,7 +173,6 @@ class SalesAnalyst
 
   def revenue_by_merchant(merchant_id)
     @se.merchants.find_by_id(merchant_id).total_revenue
-    # BigDecimal.new('3')
   end
 
   def top_revenue_earners(count = 20)

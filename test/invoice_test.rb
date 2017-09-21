@@ -16,6 +16,10 @@ class InvoiceTest < Minitest::Test
     Fixture.find_record(:invoices, 74)
   end
 
+  def invoice_74_full
+    Fixture.sales_engine(load_full_data: true).invoices.find_by_id(74)
+  end
+
   def invoice_3737
     Fixture.find_record(:invoices, 3737)
   end
@@ -114,17 +118,16 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_items_returns_an_array_of_items
-    items = invoice_74.items
+    items = invoice_74_full.items
     assert_instance_of Array, items
     refute items.empty?
     assert items.all? { |item| item.is_a? Item }
   end
 
   def test_items_are_always_connected_through_invoice_item
-    engine = Fixture.sales_engine
+    engine = Fixture.sales_engine load_full_data: true
     invoice = engine.invoices.all.first
     items = invoice.items
-    id = invoice.id
 
     assert items.all? do |item|
       engine.invoice_items.find do |invoice_item|
@@ -157,7 +160,7 @@ class InvoiceTest < Minitest::Test
 
   def test_total_only_returns_for_invoices_paid_in_full
     invoice_blank = Fixture.find_record(:invoices, 170)
-    assert_equal 0 , invoice_blank.is_paid_in_full?
+    assert_equal 0, invoice_blank.total
   end
 
   def test_total_returns_the_revenue_for_the_total_transaction

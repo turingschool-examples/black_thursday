@@ -15,7 +15,7 @@ class SalesEngine
 
   def self.parse_csv(filenames)
     options = { headers: true, header_converters: :symbol }
-    tables = filenames.transform_values do |filename|
+    filenames.transform_values do |filename|
       CSV.foreach(filename, options).map do |row|
         row.to_hash
       end

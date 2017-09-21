@@ -30,11 +30,11 @@ class Repository
   end
 
   def find(&block)
-    @records.find &block
+    @records.find(&block)
   end
 
   def find_all(&block)
-    @records.find_all &block
+    @records.find_all(&block)
   end
 
 

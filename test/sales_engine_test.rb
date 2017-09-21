@@ -33,26 +33,24 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_its_repositories_start_empty_if_given_no_data
-    skip
-    empty_data = {
+    no_data = {
       items: [],
       invoices: [],
-      # invoice_items: [],
-      # customers: [],
-      # transactions: [],
+      invoice_items: [],
+      customers: [],
+      transactions: [],
       merchants: []
     }
-    empty = SalesEngine.new(empty_data)
+    empty = SalesEngine.new(no_data)
 
-    assert empty_data.all? { |type| empty.repo(type).all.empty? }
+    assert no_data.keys.all? { |type| empty.repo(type).all.empty? }
   end
 
   def test_its_repositories_start_full_if_given_data
-    skip
-    full_data = Fixture.data
-    full = SalesEngine.new(full_data)
+    data = Fixture.data
+    full = SalesEngine.new(data)
 
-    assert full_data.none? { |type| full.repo(type).all.empty? }
+    assert data.keys.none? { |type| full.repo(type).all.empty? }
   end
 
   def test_parse_csv_returns_a_hash_of_arrays_of_hashes_of_strings
