@@ -41,16 +41,12 @@ class SalesAnalyst
   end
 
   def top_merchants_by_invoice_count
-    Stats.standard_deviations_above(2, @se.merchants, &:invoice_count)
+    Stats.standard_deviations_from_mean(2, @se.merchants, &:invoice_count)
   end
 
   def bottom_merchants_by_invoice_count
-    Stats.standard_deviations_above(-2, @se.merchants, &:invoice_count)
+    Stats.standard_deviations_from_mean(-2, @se.merchants, &:invoice_count)
   end
-
-  # def average_invoice_count_per_day
-  #   Math.mean(@se.invoices.all){ |invoice| invoice.created_at }
-  # end
 
   def invoices_by_day
     @se.invoices.each_with_object(Hash.new(0)) do |invoice, counts|
@@ -61,7 +57,7 @@ class SalesAnalyst
 
   def top_days_by_invoice_count
     by_day = invoices_by_day
-    top_counts = Stats.standard_deviations_above(1, by_day.values)
+    top_counts = Stats.standard_deviations_from_mean(1, by_day.values)
     top_counts.map{ |count| by_day.key(count) }
   end
 
@@ -72,17 +68,11 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    Stats.standard_deviations_above(1, @se.merchants, &:item_count)
+    Stats.standard_deviations_from_mean(1, @se.merchants, &:item_count)
   end
 
-  # def average_price_per_merchant_standard_deviation
-  #   Math.standard_deviation(@se.merchants.all) do |merchant|
-  #     average_item_price(merchant)
-  #   end
-  # end
-
   def golden_items
-    Stats.standard_deviations_above(2, @se.items, &:unit_price)
+    Stats.standard_deviations_from_mean(2, @se.items, &:unit_price)
   end
 
   def total_revenue_by_date(date)
@@ -101,7 +91,7 @@ class SalesAnalyst
   def scores_by_item_id(merchant_id, &score_method)
     by_item = paid_invoice_items(merchant_id).group_by(&:item_id)
     by_item.transform_values do |invoice_items|
-      invoice_items.map(&method).sum
+      invoice_items.map(&score_method).sum
     end
   end
 
@@ -113,15 +103,15 @@ class SalesAnalyst
   end
 
   def most_sold_item_for_merchant(merchant_id)
-    amounts = amount_sold_by_item_id(merchant_id, &:quantity)
-    top_quantity = amounts.values.max
-    amounts.keep_if{ |item_id, amount| amount == top_quantity }
-    amounts.keys.map{ |item_id| @se.items.find_by_id(item_id) }
+    quantities = scores_by_item_id(merchant_id, &:quantity)
+    top_quantity = quantities.values.max
+    quantities.keep_if{ |item_id, quantity| quantity == top_quantity }
+    quantities.keys.map{ |item_id| @se.items.find_by_id(item_id) }
   end
 
   def merchants_with_pending_invoices
     @se.merchants.reject do |merchant|
-      merchant.invoices.all?(&:paid_in_full)
+      merchant.invoices.all?(&:is_paid_in_full?)
     end
   end
 

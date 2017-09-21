@@ -58,7 +58,7 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 2, fitted_matches.length
   end
 
-  def test_find_all_with_description_can_find_multiple_items
+  def test_find_all_with_description_is_case_insensitive
     fitted_matches = item_repo.find_all_with_description("fItTed")
     assert_equal 2, fitted_matches.length
   end
@@ -83,7 +83,7 @@ class ItemRepositoryTest < Minitest::Test
     price_range = 10..20
     matches = item_repo.find_all_by_price_in_range(price_range)
     assert_instance_of Array, matches
-    assert_equal 4, matches.length
+    assert_equal 5, matches.length
     assert price_range.include? matches.first.unit_price
   end
 

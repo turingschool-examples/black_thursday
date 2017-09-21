@@ -88,8 +88,8 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 21067.77, sales_analyst.total_revenue_by_date(date)
   end
 
-  def test_paid_item_invoices_by_item_id_returns_item_hash
-    invoice_items = sales_analyst.paid_invoice_item_by_item_id(12334123)
+  def test_paid_invoice_items_returns_Array_of_InvoiceItems
+    invoice_items = sales_analyst.paid_invoice_items(12334123)
     assert_instance_of Array, invoice_items
     assert invoice_items.all? do |invoice_item|
       invoice_item.is_a? InvoiceItem
