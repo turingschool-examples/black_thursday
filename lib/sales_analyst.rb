@@ -46,7 +46,7 @@ class SalesAnalyst
     Math.sqrt(merchant_deviations.inject(0,:+)/@merchants.all_merchants.count)
     .round(2)
   end
-
+  
   def merchants_with_high_item_count
     high_count = []
     @merchants.all_merchants.each do |merchant|
@@ -189,7 +189,7 @@ class SalesAnalyst
   end
 
   def most_sold_item_for_merchant
-    
+
   end
 
   def get_invoice_ids(invoices_on_date)

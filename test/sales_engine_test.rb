@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/sales_engine'
-require 'pry'
+require_relative 'test_helper'
 require 'csv'
 
 class SalesEngineTest < Minitest::Test
@@ -44,5 +44,5 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of Merchant, item.merchant
   end
 
-  
+
 end
