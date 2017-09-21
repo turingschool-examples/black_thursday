@@ -2,7 +2,7 @@ require_relative 'test_helper'
 require './lib/sales_engine'
 require 'csv'
 
-class InvoiceRepositoryTest < Minitest::Test
+class InvoiceItemRepositoryTest < Minitest::Test
 
   def setup
     item_file_path = './test/fixtures/items_truncated.csv'

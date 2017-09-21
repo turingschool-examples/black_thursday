@@ -35,7 +35,7 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_nil(@repository.find_by_id(000000))
   end
 
-  def test_find_by_id_returns_item_of_matching_id
+  def test_find_by_id_returns_invoice_of_matching_id
     invoice = @repository.find_by_id(269)
 
     assert_equal 12334112, invoice.merchant_id
@@ -45,11 +45,11 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 51, invoice.customer_id
   end
 
-  def test_find_all_items_by_merchant_id_returns_empty_if_no_match
+  def test_find_all_invoices_by_merchant_id_returns_empty_if_no_match
     assert_empty(@repository.find_all_by_merchant_id(0))
   end
 
-  def test_it_finds_all_items_with_matching_merchant_id
+  def test_it_finds_all_invoices_with_matching_merchant_id
     invoices = @repository.find_all_by_merchant_id(12334185)
 
     assert_equal 10, invoices.count
@@ -59,11 +59,11 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 10, invoices.count
   end
 
-  def test_find_all_items_by_customer_id_returns_empty_if_no_match
+  def test_find_all_invoices_by_customer_id_returns_empty_if_no_match
     assert_empty(@repository.find_all_by_customer_id(0))
   end
 
-  def test_it_finds_all_items_with_matching_customer_id
+  def test_it_finds_all_invoices_with_matching_customer_id
     invoices = @repository.find_all_by_customer_id(297)
 
     assert_equal 1, invoices.count
@@ -75,7 +75,7 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 1495, invoices[0].id
   end
 
-  def test_it_finds_all_items_with_matching_status
+  def test_it_finds_all_invoices_with_matching_status
     invoices = @repository.find_all_by_status(:returned)
 
     assert_equal 4, invoices.count

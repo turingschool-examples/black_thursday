@@ -30,4 +30,8 @@ class Merchant
     invoices.any? {|invoice| !invoice.is_paid_in_full?}
   end
 
+  def invoices_paid_in_full
+    invoices.find_all {|invoice| invoice.is_paid_in_full?}
+  end
+
 end
