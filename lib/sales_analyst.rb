@@ -68,6 +68,10 @@ class SalesAnalyst
   def top_revenue_earners(x = 20)
     RevenueAnalyst.top_revenue_earners(merchants, engine, x)
   end
+  
+  def merchants_ranked_by_revenue
+    top_revenue_earners(merchants.length)
+  end
 
   def merchants_with_pending_invoices
     MerchantAnalyst.merchants_with_pending_invoices(merchants)
