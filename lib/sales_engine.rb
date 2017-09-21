@@ -66,8 +66,8 @@ class SalesEngine
   def total_invoice_amount(invoice_id)
     successful_1_items = invoice_items.find_all_by_invoice_id(invoice_id)
     successful_1_items.map do |i_item|
-      i_item.total
-    end.sum.round(2)
+    i_item.total
+  end.sum.round(2)
   end
 
 end
