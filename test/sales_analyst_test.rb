@@ -82,14 +82,6 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal ['Tuesday', 'Friday'], @sa.top_days_by_invoice_count
   end
 
-  def test_it_can_find_the_most_sold_item
-    expected = 'Knitted winter snood'
-    item = @sa.most_sold_item_for_merchant(12334105).first
-
-    assert_instance_of Item, item
-    assert_equal expected, item.name
-  end
-
   def test_it_can_sort_merchants_by_month_created
     assert_equal 12, @sa.merchant_by_month_created.keys.count
   end
@@ -129,6 +121,22 @@ class SalesAnalystTest < MiniTest::Test
     invoice1 = @sa.se.invoices.find_by_id(1695)
     merchant = @sa.se.merchants.find_by_id(12334112)
     refute @sa.paid_invoices(merchant).include?(invoice1)
+  end
+
+  def test_it_can_find_the_most_sold_item
+    expected = 'Knitted winter snood'
+    item = @sa.most_sold_item_for_merchant(12334105).first
+
+    assert_instance_of Item, item
+    assert_equal expected, item.name
+  end
+
+  def test_it_can_find_the_most_best_sold_item
+    expected = 'Knitted winter snood'
+    item = @sa.best_item_for_merchant(12334105)
+
+    assert_instance_of Item, item
+    assert_equal expected, item.name
   end
 
 end

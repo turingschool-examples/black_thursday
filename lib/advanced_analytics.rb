@@ -104,10 +104,10 @@ module AdvancedAnalytics
     items_sold_hash.values.max
   end
 
-  def find_items_with_max_value(items_sold_hash)
-    max_num_sold = find_max_value(items_sold_hash)
+  def find_items_with_max_value(items_sold)
+    max_num_sold = find_max_value(items_sold)
     item_ids = []
-    items_sold_hash.each do |item_id, num|
+    items_sold.each do |item_id, num|
       if num == max_num_sold
         item_ids << item_id
       end
