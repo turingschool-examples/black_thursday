@@ -1,5 +1,17 @@
 module SalesAnalystMath
 
+  def make_merchants_and_things(things)
+    thing_array = things.all
+    merchant_ids = thing_array.map do |thing|
+                     thing.merchant_id
+                   end
+   thing_counts = Hash.new 0
+   merchant_ids.each do |merchant_id|
+     thing_counts[merchant_id] += 1.0
+   end
+   return thing_counts
+  end
+
   def average_things_per_merchant(merchants_and_things)
     total_things = merchants_and_things.values.sum
     total_merchants = merchants_and_things.length
@@ -16,18 +28,6 @@ module SalesAnalystMath
     std_dev_top = individual_minus_average_squared.sum
     number_of_elements = merchants_and_things.values.count
     Math.sqrt(std_dev_top / (number_of_elements - 1)).round(2)
-  end
-
-  def make_merchants_and_things(things)
-    thing_array = things.all
-    merchant_ids = thing_array.map do |thing|
-                     thing.merchant_id
-                   end
-   thing_counts = Hash.new 0
-   merchant_ids.each do |merchant_id|
-     thing_counts[merchant_id] += 1.0
-   end
-   return thing_counts
   end
 
   def average_thing(things)
@@ -60,8 +60,6 @@ module SalesAnalystMath
     average_thing(things) + (standard_deviation_for_thing_cost(things, comparison_class) * 2)
   end
 
-
-    # need to pass in the two se.objects that are needed for comparison. first is the main thing being compared. the second is the less
   def two_standard_deviations_above(things, comparison_class)
     average = avg_thing_plus_2x_std_dev(things, comparison_class)
     golden_things_list = []
@@ -86,15 +84,14 @@ module SalesAnalystMath
     end
 
 
-      def one_standard_deviations_above(things, comparison_class)
-        golden_things_list = []
-          things.all.each do |thing|
-            if (thing.unit_price_float)  >= standard_deviation_for_thing(things, comparison_class)
-            golden_things_list << thing
-            puts "Yowza - 1 STD above"
-            end
+    def one_standard_deviations_above(things, comparison_class)
+      golden_things_list = []
+        things.all.each do |thing|
+          if (thing.unit_price_float)  >= standard_deviation_for_thing(things, comparison_class)
+          golden_things_list << thing
+          puts "Yowza - 1 STD above"
           end
-          golden_things_list
-      end
-
+        end
+        golden_things_list
+    end
 end
