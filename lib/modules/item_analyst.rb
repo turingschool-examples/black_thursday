@@ -12,7 +12,7 @@ module ItemAnalyst
   end
 
   def self.add_items_and_std_deviation(merchants)
-    average_items_per_merchant(merchants) + 
+    average_items_per_merchant(merchants) +
     average_items_per_merchant_standard_deviation(merchants)
   end
 
@@ -25,12 +25,12 @@ module ItemAnalyst
     items = engine.find_all_by_merchant_id(merchant_id)
     average(items.map(&:unit_price))
   end
-  
+
   def self.average_average_price_per_merchant(merchants, engine)
     avg = merchants.map {|m|average_item_price_for_merchant(m.id, engine)}
     (avg.sum / avg.length).floor(2)
   end
-  
+
   def self.golden_items(items)
     count = (avg_item_price(items) + avg_item_price_std_deviation(items) * 2)
     items.select {|item| item.unit_price > count}
