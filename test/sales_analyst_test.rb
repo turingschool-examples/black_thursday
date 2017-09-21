@@ -165,5 +165,12 @@ class SalesAnalystTest < Minitest::Test
     assert_equal expected, actual
   end
 
+  def test_best_item_for_merchant_returns_item_with_greatest_revenue_generated
+    actual = sa.best_item_for_merchant(12334105)
+    expected = se.items.all[4]
+
+    assert_equal expected, actual
+  end
+
 
 end

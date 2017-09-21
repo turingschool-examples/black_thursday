@@ -219,14 +219,18 @@ class SalesAnalyst
   end
 
   def most_sold_item_for_merchant(merchant_id)
+    invoice_items = find_paid_invoice_items_for_merchant(merchant_id)
+    item_ids = total_quantity_sold_per_item(invoice_items)
+    item_id_of_max = find_item_id_of_max_value(item_ids)
+    max_quantity = item_ids[item_id_of_max]
+    item_ids_with_max = find_item_ids_with_max_value(item_ids, max_quantity)
+    map_items_to_item_ids(item_ids_with_max)
+  end
+
+  def find_paid_invoice_items_for_merchant(merchant_id)
     merchant = @engine.merchants.find_by_id(merchant_id)
     invoices = paid_invoices(merchant.invoices)
-    invoice_items = find_all_invoice_items_for_invoices(invoices)
-    item_ids = total_quantity_sold_per_item(invoice_items)
-    item_id_of_max = find_item_id_of_max_quantity(item_ids)
-    max = item_ids[item_id_of_max]
-    item_ids_with_max = find_item_ids_with_max_quantity(item_ids, max)
-    map_items_to_item_ids(item_ids_with_max)
+    find_all_invoice_items_for_invoices(invoices)
   end
 
   def paid_invoices(invoices)
@@ -246,16 +250,31 @@ class SalesAnalyst
     end
   end
 
-  def find_item_id_of_max_quantity(item_ids)
+  def find_item_id_of_max_value(item_ids)
     item_ids.keys.max_by { |item_id| item_ids[item_id] }
   end
 
-  def find_item_ids_with_max_quantity(item_ids, max_quantity)
-    item_ids.find_all { |item_id| item_id[1] == max_quantity }
+  def find_item_ids_with_max_value(item_ids, max)
+    item_ids.find_all { |item_id| item_id[1] == max }
   end
 
   def map_items_to_item_ids(item_ids)
     item_ids.map { |item_id| @engine.items.find_by_id(item_id[0]) }
+  end
+
+  def best_item_for_merchant(merchant_id)
+    invoice_items = find_paid_invoice_items_for_merchant(merchant_id)
+    item_ids = total_revenue_per_item(invoice_items)
+    item_id_of_max = find_item_id_of_max_value(item_ids)
+    @engine.items.find_by_id(item_id_of_max)
+  end
+
+  def total_revenue_per_item(invoice_items)
+    invoice_items.reduce(Hash.new(0)) do |item_ids, invoice_item|
+      item_revenue = invoice_item.quantity * invoice_item.unit_price
+      item_ids[invoice_item.item_id] = item_revenue
+      item_ids
+    end
   end
 
 end
