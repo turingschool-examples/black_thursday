@@ -1,16 +1,15 @@
 require_relative "sales_engine"
-require_relative './merchant_math'
-require_relative './merchant_golden_items'
-require_relative './merchant_merchants_by_invoice_count'
-require_relative "./merchant_top_days_by_invoice_count"
-require_relative "./merchant_top_revenue_earners"
-require_relative "./merchant_best_item_for_merchant"
-
-
-
-require 'pry'
+require_relative "sales_analyst_math"
+require_relative "sales_analyst_golden_items"
+require_relative "sales_analyst_merchants_by_invoice_count"
+require_relative "sales_analyst_top_days_by_invoice_count"
+require_relative "sales_analyst_top_revenue_earners"
+require_relative "sales_analyst_best_item_for_merchant"
+require_relative "finder"
 require "date"
-require_relative './finder'
+require 'pry'
+
+
 
 
 class SalesAnalyst
@@ -21,8 +20,7 @@ class SalesAnalyst
   include MerchantMerchantsByInvoiceCount
   include MerchantTopDaysByInvoiceCount
   include MerchantTopRevenueEarners
-  include MerchantBestItemForMerchant
-  #we can move these all back into a single module if needed -- I was just getting confused and needed to be able to separate the different methods and helper methods
+  include BestItemForMerchant
 
   attr_reader :sales_engine
 
@@ -231,9 +229,14 @@ class SalesAnalyst
   end
 
   def best_item_for_merchant(merchant_id)
+   puts "232"
    id = highest_value_item(merchant_id)
    puts id
    sales_engine.items.find_by_id(id)
- end
+  end
+
+  def testing
+    "spork"
+  end
 
 end
