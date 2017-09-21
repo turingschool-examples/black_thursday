@@ -1,8 +1,17 @@
 class Repository
+  include Enumerable
 
   def initialize(sales_engine, record_data)
     @sales_engine = sales_engine
     @records = make_records(record_data)
+  end
+
+  def all
+    @records
+  end
+
+  def each(&block)
+    all.each(&block)
   end
 
   def make_records(record_data)
@@ -21,22 +30,9 @@ class Repository
   end
 
 
-  def all
-    @records.dup
-  end
-
   def find_by_id(id)
     find { |record| record.id == id }
   end
-
-  def find(&block)
-    @records.find(&block)
-  end
-
-  def find_all(&block)
-    @records.find_all(&block)
-  end
-
 
   def children(child_type, parent_id)
     child_repo = @sales_engine.repo(child_type)
