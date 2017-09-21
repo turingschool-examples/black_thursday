@@ -56,6 +56,11 @@ class Invoice
     @parent.parent.customer_invoice_id(customer_id)
   end
 
+  def invoice_items
+    parent.parent.invoice_items.find_all_by_invoice_id(id)
+  end
+
+
   def is_paid_in_full?
     return false if transactions.empty?
     # possibly refactor for any
@@ -63,9 +68,7 @@ class Invoice
   end
 
   def total
-    #fix relationship
-    if self.is_paid_in_full?
-    @parent.total_amount(self.id)
+    return false unless is_paid_in_full?
+    invoice_items.inject(0){ |sum, ii| sum + ii.unit_price * ii.quantity.to_i }
+    end
   end
-end
-end
