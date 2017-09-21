@@ -46,7 +46,7 @@ class SalesAnalyst
     Math.sqrt(merchant_deviations.inject(0,:+)/@merchants.all_merchants.count)
     .round(2)
   end
-  
+
   def merchants_with_high_item_count
     high_count = []
     @merchants.all_merchants.each do |merchant|
@@ -120,6 +120,28 @@ class SalesAnalyst
   def average_invoices_per_weekday
       invoices.all.length / 7
   end
+  def find_standard_deviation_of_average_item_price
+      all_items = items.all.count
+      average_price_of_items = self.average_average_price_per_merchant
+      prices = []
+      items.all.each do |item|
+        prices << ((item.price - average_price_of_items)**2)
+      end
+      summed_prices = (prices.reduce(:+)/(all_items - 1))
+      Math.sqrt(summed_prices).round(2)
+    end
+
+    def golden_items
+      average = average_average_price_per_merchant
+      standard_deviation = find_standard_deviation_of_average_item_price
+      gitems = []
+      items.all.each do |item|
+        if item.price > (average+(2*standard_deviation))
+          gitems << item
+        end
+      end
+      gitems
+    end
 
   def counts
     invoices.all.each_with_object(Hash.new(0)) do |invoice, count|
