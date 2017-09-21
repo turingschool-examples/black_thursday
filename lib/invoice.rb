@@ -1,7 +1,6 @@
 require 'csv'
 require 'time'
 require 'bigdecimal'
-require 'pry'
 
 class Invoice
   attr_reader :id,

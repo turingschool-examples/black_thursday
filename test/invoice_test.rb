@@ -1,7 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/invoice'
-require 'pry'
 
 class InvoiceTest < MiniTest::Test
   attr_reader :invoice

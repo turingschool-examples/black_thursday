@@ -4,7 +4,6 @@ require_relative 'invoice_repo'
 require_relative 'invoice_item_repo'
 require_relative 'transaction_repo'
 require_relative 'customer_repo'
-require 'pry'
 
 class SalesEngine
   attr_reader :merchant_repo,

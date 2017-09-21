@@ -1,7 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/customer'
-require 'pry'
 
 class CustomerTest < Minitest::Test
   attr_reader :c

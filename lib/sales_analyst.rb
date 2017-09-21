@@ -1,6 +1,5 @@
 require_relative 'sales_engine'
 require 'bigdecimal'
-require 'pry'
 
 class SalesAnalyst
 

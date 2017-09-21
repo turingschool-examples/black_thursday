@@ -1,7 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/customer_repo'
-require 'pry'
 
 class CustomerRepoTest < MiniTest::Test
 

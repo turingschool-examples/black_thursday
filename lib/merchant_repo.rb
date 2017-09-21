@@ -1,7 +1,6 @@
 require 'csv'
 require_relative 'merchant'
 require 'date'
-require 'pry'
 
 class MerchantRepo
   attr_reader :merchants, :parent

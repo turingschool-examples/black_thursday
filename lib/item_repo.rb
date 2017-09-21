@@ -1,6 +1,5 @@
 require 'csv'
 require_relative 'item'
-require 'pry'
 
 class ItemRepo
   attr_reader :items, :parent
