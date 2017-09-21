@@ -7,7 +7,7 @@ require "./lib/merchant"
 require "./lib/item"
 
 
-class TestSalesAnalyst < Minitest::Test
+class SalesAnalystTest < Minitest::Test
 
   attr_reader :sa
 
@@ -29,11 +29,11 @@ class TestSalesAnalyst < Minitest::Test
   end
 
   def test_it_averages_items_per_merchant
-    assert_equal 2.03, sa.average_items_per_merchant
+    assert_equal 2.02, sa.average_items_per_merchant
   end
 
   def test_it_takes_a_standard_deviation
-    assert_equal 2.45, sa.average_items_per_merchant_standard_deviation
+    assert_equal 2.44, sa.average_items_per_merchant_standard_deviation
   end
 
   def test_it_finds_merchants_with_high_item_count
@@ -60,7 +60,7 @@ class TestSalesAnalyst < Minitest::Test
   end
 
   def test_it_finds_percent_status
-    assert_equal 29.64, sa.invoice_status(:pending)
+    assert_equal 29.67, sa.invoice_status(:pending)
     assert_equal 56.95, sa.invoice_status(:shipped)
     assert_equal 13.41, sa.invoice_status(:returned)
   end
@@ -70,11 +70,9 @@ class TestSalesAnalyst < Minitest::Test
     refute sa.sales_engine.invoices.all[0].is_paid_in_full?
   end
 
-  ##### Iteration 4 #####
-
   def test_can_check_if_merchant_is_pending
-    assert sa.pending?(12334149)
-    refute sa.pending?(12334105)
+    assert sa.is_pending?(12334149)
+    refute sa.is_pending?(12334105)
   end
 
   def test_it_finds_merchants_with_pending_invoices
@@ -91,7 +89,6 @@ class TestSalesAnalyst < Minitest::Test
   def test_it_returns_bottom_merchants_by_invoice
     assert_instance_of Array, sa.bottom_merchants_by_invoice_count
 
-    #to test 2 STD below, use Whole invoice csv
     assert_instance_of Merchant, sa.bottom_merchants_by_invoice_count[0]
   end
 
@@ -101,7 +98,7 @@ class TestSalesAnalyst < Minitest::Test
   end
 
   def test_it_finds_top_days_by_invoice_count
-    assert_equal [], sa.top_days_by_invoice_count
+    assert_equal ["Wednesday"], sa.top_days_by_invoice_count
   end
 
   def test_it_finds_total_revenue_by_date
@@ -118,7 +115,7 @@ class TestSalesAnalyst < Minitest::Test
   end
 
   def test_it_finds_best_item_for_merchant
-  assert_equal ["."], sa.best_item_for_merchant(12334189)
+  assert_instance_of Item, sa.best_item_for_merchant(12334189)
   end
 
 end

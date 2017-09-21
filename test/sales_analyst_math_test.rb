@@ -45,8 +45,56 @@ class TestSalesAnalystMath < Minitest::Test
   end
 
   def test_average_things_per_merchant_standard_deviation
-    assert_equal 2.23, sa.average_things_per_merchant_standard_deviation(merchants_and_things)
+
+  end
+
+  def test_make_merchants_and_things
+
+  end
+
+  def test_it_finds_average_item_price_for_merchant
+    assert_equal 1712.25, sa. average_item_price
+  end
+
+  def test_it_squares_each_average_difference
+    assert_equal 2219300.75, sa.square_each_item_average_difference
+  end
+
+  def test_divide_squared_differences_by_total_then_sqrt
+    assert_equal 860.097, sa.standard_deviation_for_item_cost
+  end
+
+  def test_it_returns_golden_items
+
+  end
+
+  def test_it_finds_the_average
+
+  end
+
+  def test_it_squares_the_average_difference
+
+  end
+
+  def test_it_finds_standard_deviation
+
+  end
+
+  def test_it_finds_avg_plus_2x_std_dev
+
   end
 
 
+  def test_it_finds_two_standard_deviations_above
+
+  end
+
+  def test_it_finds_two_standard_deviations_below
+
+  end
+
+
+  def test_it_finds_one_standard_deviations_above
+    assert_equal 2.23, sa.average_things_per_merchant_standard_deviation(merchants_and_things)
+  end
 end

@@ -14,8 +14,4 @@ module TopRevenueEarners
     sorted
   end
 
-
-
-
-
 end

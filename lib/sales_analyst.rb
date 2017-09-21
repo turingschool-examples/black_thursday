@@ -181,8 +181,6 @@ class SalesAnalyst
     merchants_ranked_by_revenue[0..range]
   end
 
-  ######
-
   def most_sold_item_for_merchant(merchant_id)
     largest_quantity_item_ids(merchant_id).map do |item_id|
       sales_engine.items.find_by_id(item_id)
