@@ -1,11 +1,11 @@
 require './test/test_helper'
-require './lib/transacation_repository'
+require './lib/transaction_repository'
 class TransactionRepositoryTest < Minitest::Test
 
   attr_reader :transaction_repo
 
    def setup
-     @transaction_repo = Fixture.repo(:Transacation)
+     @transaction_repo = Fixture.repo(:transactions)
    end
 
    def test_that_an_instance_exists

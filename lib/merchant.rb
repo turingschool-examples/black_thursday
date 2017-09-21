@@ -36,7 +36,7 @@ class Merchant < Repository::Record
   end
 
   def invoice_count
-    invoice.length
+    invoices.length
   end
 
 end

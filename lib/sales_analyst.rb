@@ -82,7 +82,7 @@ class SalesAnalyst
   # end
 
   def golden_items
-    Stats.standard_deviations_above(2, @se.items &:unit_price)
+    Stats.standard_deviations_above(2, @se.items, &:unit_price)
   end
 
   def total_revenue_by_date(date)

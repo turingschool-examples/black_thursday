@@ -68,14 +68,11 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_price_returns_array_of_items_exactly_matching
-    bananas = item_repo.find_all_by_price()
-    assert_instance_of Array, bananas
-    assert_instance_of Item, bananas.first
-  end
-
-  def test_find_all_by_price_can_find_multiple_items
-    apples_and_durians = item_repo.find_all_by_price(1)
-    assert_equal 2, apples_and_durians.length
+    price = BigDecimal.new('9.99')
+    matches = item_repo.find_all_by_price(price)
+    assert_instance_of Array, matches
+    assert_equal 2, matches.length
+    assert_equal price, matches.first.unit_price
   end
 
   def test_find_all_by_price_returns_empty_array_if_nothing_found
@@ -83,38 +80,27 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_price_in_range_returns_array_of_items
-    bananas = item_repo.find_all_by_price_in_range(0.4..0.6)
-    assert_instance_of Array, bananas
-    assert_instance_of Item, bananas.first
-  end
-
-  def test_find_all_by_price_in_range_can_find_multiple_items
-    not_cherries = item_repo.find_all_by_price_in_range(0..2)
-    assert_equal 3, not_cherries.length
-  end
-
-  def test_find_all_by_price_in_range_is_double_inclusive
-    not_cherries = item_repo.find_all_by_price_in_range(0.5..1)
-    assert_equal 3, not_cherries.length
+    price_range = 10..20
+    matches = item_repo.find_all_by_price_in_range(price_range)
+    assert_instance_of Array, matches
+    assert_equal 4, matches.length
+    assert price_range.include? matches.first.unit_price
   end
 
   def test_find_all_by_price_in_range_returns_empty_array_if_nothing_found
-    assert_equal [], item_repo.find_all_by_price_in_range(100_001.01..100_001.02)
+    assert_equal [], item_repo.find_all_by_price_in_range(-2..-1)
   end
 
   def test_find_all_by_merchant_id_returns_array_of_items
-    apples = item_repo.find_all_by_merchant_id(1)
-    assert_instance_of Array, apples
-    assert_instance_of Item, apples.first
-  end
-
-  def test_find_all_by_merchant_id_can_find_multiple_items
-    bananas_and_cherries = item_repo.find_all_by_merchant_id(2)
-    assert_equal 2, bananas_and_cherries.length
+    merchant_id = 12334105
+    matches = item_repo.find_all_by_merchant_id(merchant_id)
+    assert_instance_of Array, matches
+    assert_equal 3, matches.length
+    assert_equal merchant_id, matches.first.merchant_id
   end
 
   def test_find_all_by_merchant_id_returns_empty_array_if_nothing_found
-    assert_equal [], item_repo.find_all_by_merchant_id(100_000)
+    assert_equal [], item_repo.find_all_by_merchant_id(-1)
   end
 
 end

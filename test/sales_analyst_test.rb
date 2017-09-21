@@ -39,14 +39,7 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of BigDecimal, average
   end
 
-  def test_average_item_price
-    merchant = sales_engine.merchants.find_by_id(12334123)
-    average = sales_analyst.average_item_price(merchant)
-    assert_equal BigDecimal.new("100.00"), average
-    assert_instance_of BigDecimal, average
-  end
-
-  def test_average_items_per_merchant_standard_deviation_standard_deviation
+  def test_average_items_per_merchant_standard_deviation
     assert_equal 3.26, sales_analyst.average_items_per_merchant_standard_deviation
   end
 
@@ -96,27 +89,23 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_paid_item_invoices_by_item_id_returns_item_hash
-    invoice_items_lists = sales_analyst.paid_invoice_item_by_item_id(12334123)
-    assert_instance_of Hash, invoice_items_lists
-    assert invoice_items_lists.all? do |item_id, invoice_items|
-      item_id.is_a?(Integer) &&
-      invoice_items.is_a?(Array) &&
-      invoice_items.all? do |ii|
-        ii.is_a? InvoiceItem && ii.item_id == item_id
-      end
+    invoice_items = sales_analyst.paid_invoice_item_by_item_id(12334123)
+    assert_instance_of Array, invoice_items
+    assert invoice_items.all? do |invoice_item|
+      invoice_item.is_a? InvoiceItem
     end
   end
 
-  def test_revenues_by_item_id_totals_revenue_by_invoice_id
-    revenue_by_invoice_item = sales_analyst.revenues_by_item_id(12334123)
+  def test_scores_by_item_id_totals_revenue_by_invoice_id
+    revenue_by_invoice_item = sales_analyst.scores_by_item_id(12334123, &:total)
     assert_instance_of Hash, revenue_by_invoice_item
     assert revenue_by_invoice_item.all? do |item_id, total|
       item_id.is_a?(Integer) && total.is_a?(BigDecimal)
     end
   end
 
-  def test_amount_sold_by_item_id_totals_quantity_by_id
-    quantity_by_invoice_item = sales_analyst.amount_sold_by_item_id(12334123)
+  def test_scores_by_item_id_can_total_quantity_by_id
+    quantity_by_invoice_item = sales_analyst.scores_by_item_id(12334123, &:quantity)
     assert_instance_of Hash, quantity_by_invoice_item
     assert quantity_by_invoice_item.all? do |item_id, quantity|
       item_id.is_a?(Integer) && quantity.is_a?(Integer)
