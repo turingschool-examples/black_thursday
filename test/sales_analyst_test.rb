@@ -124,5 +124,10 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 19.57, @sa.invoice_status(:returned)
   end
 
-  
+  def test_it_can_select_only_paid_invoices_for_a_merchant
+    invoice1 = @sa.se.invoices.all.find_by_id(1695)
+    merchant = @sa.merchants.find_by_id(12334112)
+    refute @sa.paid_invoices(merchant).includes?(invoice1)
+  end
+
 end
