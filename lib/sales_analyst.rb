@@ -1,9 +1,15 @@
 require 'bigdecimal'
 require 'bigdecimal/util'
 require_relative 'arithmetic'
+require_relative 'item_analyst'
+require_relative 'merchant_analyst'
+require_relative 'invoice_analyst'
 
 class SalesAnalyst
   include Arithmetic
+  include ItemAnalyst
+  include MerchantAnalyst
+  include InvoiceAnalyst
 
   attr_reader :engine
 
@@ -17,10 +23,6 @@ class SalesAnalyst
 
   def average_items_per_merchant_standard_deviation
     standard_deviation(merchants.map {|merchant| merchant.items.length})
-  end
-
-  def add_items_and_std_deviation
-    average_items_per_merchant + average_items_per_merchant_standard_deviation
   end
 
   def merchants_with_high_item_count
@@ -41,14 +43,6 @@ class SalesAnalyst
   def golden_items
     count = (avg_item_price + avg_item_price_std_deviation * 2)
     items.select {|item| item.unit_price > count}
-  end
-
-  def avg_item_price
-    average(items.map(&:unit_price))
-  end
-
-  def avg_item_price_std_deviation
-    standard_deviation(items.map(&:unit_price))
   end
 
   def average_invoices_per_merchant
@@ -80,33 +74,33 @@ class SalesAnalyst
     days_with_high_invoices(arg_1, arg_2, arg_3)
   end
 
-  def invoice_std_deviation(invoices_per_day)
-    Math.sqrt(invoices_per_day.map do |total|
-      (total - avg_inv_per_day)**2
-    end.sum / 7).round
-  end
-
-  def invoices_per_day
-    grouped_invoices.values.map(&:length)
-  end
-
-  def day_array
-    grouped_invoices.keys.zip(invoices_per_day)
-  end
-
-  def days_with_high_invoices(day_array, avg_inv_per_day, deviation)
-    day_array.select do |invoice|
-      invoice[1] > avg_inv_per_day + deviation
-    end.map(&:first)
-  end
-
-  def grouped_invoices
-    invoices.group_by {|invoice|invoice.created_at.strftime("%A")}
-  end
-
-  def avg_inv_per_day
-    invoices.length / 7
-  end
+  # def invoice_std_deviation(invoices_per_day)
+  #   Math.sqrt(invoices_per_day.map do |total|
+  #     (total - avg_inv_per_day)**2
+  #   end.sum / 7).round
+  # end
+  #
+  # def invoices_per_day
+  #   grouped_invoices.values.map(&:length)
+  # end
+  #
+  # def day_array
+  #   grouped_invoices.keys.zip(invoices_per_day)
+  # end
+  #
+  # def days_with_high_invoices(day_array, avg_inv_per_day, deviation)
+  #   day_array.select do |invoice|
+  #     invoice[1] > avg_inv_per_day + deviation
+  #   end.map(&:first)
+  # end
+  #
+  # def grouped_invoices
+  #   invoices.group_by {|invoice|invoice.created_at.strftime("%A")}
+  # end
+  #
+  # def avg_inv_per_day
+  #   invoices.length / 7
+  # end
 
   def invoice_status(status)
     total     = invoices.length
@@ -131,17 +125,17 @@ class SalesAnalyst
     invoices.reduce(0) {|sum, invoice| sum += invoice.total}
   end
 
-  def merchants_ranked_by_revenue
-    top_revenue_earners(merchants.length)
-  end
+  # def merchants_ranked_by_revenue
+  #   top_revenue_earners(merchants.length)
+  # end
 
   def merchants_with_pending_invoices
     merchants.select {|merchant| pending_invoices?(merchant)}
   end
 
-  def pending_invoices?(merchant)
-    merchant.invoices.any? {|invoice| !invoice.is_paid_in_full?}
-  end
+  # def pending_invoices?(merchant)
+  #   merchant.invoices.any? {|invoice| !invoice.is_paid_in_full?}
+  # end
 
   def merchants_with_only_one_item
     merchants.select {|merchant| merchant.items.count == 1}
@@ -151,80 +145,80 @@ class SalesAnalyst
     merchants_by_month(month) & merchants_with_only_one_item
   end
 
-  def merchants_by_month(month)
-    merchants.select {|m| m.created_at.strftime("%B") == month.capitalize}
-  end
+  # def merchants_by_month(month)
+  #   merchants.select {|m| m.created_at.strftime("%B") == month.capitalize}
+  # end
 
-  def most_sold_item_for_merchant(merchant_id)
-    items = id_and_total_quantity_of_item(merchant_id)
-    items.keys.map {|item_id| engine.find_item_by_id(item_id)}
-  end
+  # def most_sold_item_for_merchant(merchant_id)
+  #   items = id_and_total_quantity_of_item(merchant_id)
+  #   items.keys.map {|item_id| engine.find_item_by_id(item_id)}
+  # end
 
-  def id_and_total_quantity_of_item(merchant_id)
-    inv = completed_invoices(engine.find_invoices_by_merchant_id(merchant_id))
-    inv.flat_map(&:invoice_items).reduce({}) do |hash, inv_item|
-      hash[inv_item.item_id]  = 0 if !hash[inv_item.item_id]
-      hash[inv_item.item_id] += inv_item.quantity
-      hash
-    end
-  end
+  # def id_and_total_quantity_of_item(merchant_id)
+  #   inv = completed_invoices(engine.find_invoices_by_merchant_id(merchant_id))
+  #   inv.flat_map(&:invoice_items).reduce({}) do |hash, inv_item|
+  #     hash[inv_item.item_id]  = 0 if !hash[inv_item.item_id]
+  #     hash[inv_item.item_id] += inv_item.quantity
+  #     hash
+  #   end
+  # end
 
-  def pending?(invoice)
-    invoice.transactions.all? { |t| t.result == "failed" }
-  end
-
-  def completed_invoices(invoices)
-    invoices.reject {|invoice| pending?(invoice)}
-  end
+  # def pending?(invoice)
+  #   invoice.transactions.all? { |t| t.result == "failed" }
+  # end
+  #
+  # def completed_invoices(invoices)
+  #   invoices.reject {|invoice| pending?(invoice)}
+  # end
 
   def most_sold_item_for_merchant(merchant_id)
     top_items(merchant_id).keys.map{|id| engine.find_item_by_id(id)}
   end
 
-  def top_items(merchant_id)
-    top_quantity = item_quantity(merchant_id).max_by {|i, q| q}
-    item_quantity(merchant_id).select {|i, q| q == top_quantity[1]}
-  end
-
-  def item_quantity(merchant_id)
-    items_sorted(merchant_id).reduce({}) do |hash, element|
-      hash[element[0]]  = element[1] if !hash[element[0]]
-      hash[element[0]] += element[1]
-      hash
-    end
-  end
-
-  def items_sorted(merchant_id)
-    id_and_total_quantity_of_item(merchant_id).sort_by(&:last).reverse
-  end
+  # def top_items(merchant_id)
+  #   top_quantity = item_quantity(merchant_id).max_by {|i, q| q}
+  #   item_quantity(merchant_id).select {|i, q| q == top_quantity[1]}
+  # end
+  #
+  # def item_quantity(merchant_id)
+  #   items_sorted(merchant_id).reduce({}) do |hash, element|
+  #     hash[element[0]]  = element[1] if !hash[element[0]]
+  #     hash[element[0]] += element[1]
+  #     hash
+  #   end
+  # end
+  #
+  # def items_sorted(merchant_id)
+  #   id_and_total_quantity_of_item(merchant_id).sort_by(&:last).reverse
+  # end
 
   def best_item_for_merchant(merchant_id)
     item_id = revenue(merchant_id).max_by {|i, r| r}.first
     engine.find_item_by_id(item_id)
   end
 
-  def revenue(merchant_id)
-    paid_invoices(merchant_id).reduce({}) do |hash, item|
-      build_revenue_hash(hash, item)
-    end
-  end
-
-  def paid_invoices(merchant_id)
-    engine.merchants
-          .find_by_id(merchant_id)
-          .invoices
-          .flat_map {|inv| inv.invoice_items if inv.is_paid_in_full?}
-          .compact
-  end
-
-  def build_revenue_hash(hash, item)
-    if hash[item.item_id]
-       hash[item.item_id] += item.quantity * item.unit_price
-    else
-       hash[item.item_id]  = item.quantity * item.unit_price
-    end
-   hash
-  end
+  # def revenue(merchant_id)
+  #   paid_invoices(merchant_id).reduce({}) do |hash, item|
+  #     build_revenue_hash(hash, item)
+  #   end
+  # end
+  #
+  # def paid_invoices(merchant_id)
+  #   engine.merchants
+  #         .find_by_id(merchant_id)
+  #         .invoices
+  #         .flat_map {|inv| inv.invoice_items if inv.is_paid_in_full?}
+  #         .compact
+  # end
+  #
+  # def build_revenue_hash(hash, item)
+  #   if hash[item.item_id]
+  #      hash[item.item_id] += item.quantity * item.unit_price
+  #   else
+  #      hash[item.item_id]  = item.quantity * item.unit_price
+  #   end
+  #  hash
+  # end
 
   private
   def items
