@@ -15,6 +15,7 @@ SimpleCov.start do
   add_filter "../transaction_repository_test.rb"
   add_filter "../transaction_test.rb"
   add_filter "../sales_analyst_best_item_for_merchant_test.rb"
+  add_filter "../sales_analyst_top_days_by_invoice_count_test.rb"
 end
 
 require "minitest/autorun"
