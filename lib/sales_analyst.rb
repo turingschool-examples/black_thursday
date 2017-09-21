@@ -97,8 +97,7 @@ class SalesAnalyst
   end
 
   def top_merchants_by_invoice_count
-    target = (average_invoices_per_merchant_standard_deviation * 2)
-     + average_invoices_per_merchant
+    target = (average_invoices_per_merchant_standard_deviation * 2) + average_invoices_per_merchant
     top_merchants = merchants.all.map do |merchant|
       if merchant.invoices.length > target
         merchant
@@ -178,6 +177,14 @@ class SalesAnalyst
   def merchants_with_only_one_item_registered_in_month(month)
     merchants_with_only_one_item.find_all do |merchant|
       merchant.created_at.strftime('%B') == month
+    end
+  end
+
+  def revenue_by_merchant(merchant_id)
+    the_merch = merchants.find_by_id(merchant_id)
+    the_merch.invoices.reduce(0) do |result, invoice|
+      result += invoice.total
+      result
     end
   end
 
