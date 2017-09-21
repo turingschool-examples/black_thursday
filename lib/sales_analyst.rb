@@ -158,8 +158,15 @@ class SalesAnalyst
     total.round(2)
   end
 
+  def merchants_with_pending_invoices
+    array = merchants.all.select do |merch|
+      merch.find_unpaid_invoices.count > 0
+    end
+    array
+  end
+
   def merchants_with_only_one_item
-    @merchants.all.select do |merchant|
+    merchants.all.select do |merchant|
       merchant.items.count == 1
     end
   end

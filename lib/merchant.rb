@@ -20,6 +20,12 @@ class Merchant
     parent.items_of_merchant(id)
   end
 
+  def find_unpaid_invoices
+    invoices.select do |inv|
+      !(inv.is_paid_in_full?)
+    end
+  end
+
   def invoices
     @se = parent.parent
     @se.invoices.find_all_by_merchant_id(@id)
