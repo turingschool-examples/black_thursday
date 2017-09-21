@@ -70,7 +70,6 @@ class SalesAnalyst
     end
     divided = squared.inject(:+) / (@engine.items.items.count - 1)
     Math.sqrt(divided)
-    # TODO this is where it converts check decimal count
   end
 
   def golden_items
@@ -143,21 +142,7 @@ class SalesAnalyst
 
   def translate_days(array)
     array.map do |value|
-      if value == 0
-        "Sunday"
-      elsif value == 1
-        "Monday"
-      elsif value == 2
-        "Tuesday"
-      elsif value == 3
-        "Wednesday"
-      elsif value == 4
-        "Thursday"
-      elsif value == 5
-        "Friday"
-      elsif value == 6
-        "Saturday"
-      end
+      @days[value]
     end
   end
 

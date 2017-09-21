@@ -151,8 +151,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_merchants_with_pending_invoices_returns_merchants_with_pending_invoices
-      assert_equal 467, sa.merchants_with_pending_invoices.length
-    end
+      assert_equal 9, sa.merchants_with_pending_invoices.length
   end
 
   def test_top_revenue_earners_returns_array_of_top_merchants_by_revenue
@@ -161,11 +160,4 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal expected, actual
   end
-
-
-<<<<<<< HEAD
 end
-=======
-
-end
->>>>>>> jung2
