@@ -180,7 +180,7 @@ class SalesAnalyst
    invoice_items[0].map do |item|
      (item.unit_price * item.quantity.to_i)
    end.sum
-end
+  end
 
   def total_revenue_by_date(date)
    invoices_by_date = invoices.find_all_by_created_at(date)
