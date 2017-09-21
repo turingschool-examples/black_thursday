@@ -45,7 +45,7 @@ class Invoice
   end
 
   def items
-    parent.invoice_items_list(self.id)
+    @parent.invoice_items_list(self.id)
   end
 
   def transactions
@@ -61,7 +61,6 @@ class Invoice
     # possibly refactor for any
     transactions.any? {|transaction| transaction.result == "success"}
   end
-
 
   def total
     #fix relationship

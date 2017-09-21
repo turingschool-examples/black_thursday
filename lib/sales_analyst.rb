@@ -164,12 +164,18 @@ class SalesAnalyst
     end
   end
 
-
-    def get_invoice_ids(invoices_on_date)
-      invoices_on_date.map do |invoice|
-      invoice.id
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants_with_only_one_item.find_all do |merchant|
+      merchant.created_at.strftime('%B') == month
     end
   end
+
+  def get_invoice_ids(invoices_on_date)
+    invoices_on_date.map do |invoice|
+    invoice.id
+    end
+  end
+
   def sum_invoice_items(invoice_items)
    invoice_items[0].map do |item|
      (item.unit_price * item.quantity.to_i)
@@ -177,11 +183,15 @@ class SalesAnalyst
 end
 
   def total_revenue_by_date(date)
-    time = date.to_s.split.first
-    invoices.all_invoices.map do |invoice|
-      if invoice.created_at.to_s.split.first == date
-        invoices.total_invoice_amount(invoice.id)
-      end
-    end
+   invoices_by_date = invoices.find_all_by_created_at(date)
+   result = invoices_by_date.map do |invoice|
+     invoice_items.find_all_by_invoice_id(invoice.id)
+   end
+   total = 0
+   result.flatten.each do |item|
+     total += item.quantity.to_i * item.unit_price
+   end
+   total
   end
+
 end
