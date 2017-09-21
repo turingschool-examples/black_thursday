@@ -29,6 +29,7 @@ class TransactionRepo
       transaction.invoice_id == invoice_id
     end
   end
+  
   def find_all_by_credit_card_number(cred_card)
     all_transactions.find_all do |transaction|
       transaction.credit_card_number == cred_card
