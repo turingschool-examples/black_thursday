@@ -47,6 +47,7 @@ class InvoiceRepo
 
   def find_all_by_created_at(date)
     all.find_all do |invoice|
-    invoice.created_at == date
+      invoice.created_at == date
+    end
   end
 end
