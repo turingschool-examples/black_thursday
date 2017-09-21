@@ -161,6 +161,13 @@ class SalesAnalystTest < Minitest::Test
     assert_equal expected, actual
   end
 
+  def test_revenue_by_merchant_returns_total_revenue_of_given_merchant_id
+    actual = sa.revenue_by_merchant(12334105)
+    expected = 21067.77
+
+    assert_equal expected, actual
+  end
+
   def test_most_sold_item_for_merchant_returns_items_of_merchant_ordered_by_most_quantity_sold
     actual = sa.most_sold_item_for_merchant(12334105)
     expected = [se.items.all[1]]
