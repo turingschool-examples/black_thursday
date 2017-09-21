@@ -58,9 +58,4 @@ class SalesEngine
     @transactions.transactions
   end
 
-  # def inspect
-  #   "#<#{self.class} #{@items.size} rows>"
-  # end
-
-
 end

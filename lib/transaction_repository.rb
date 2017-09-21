@@ -47,7 +47,7 @@ class TransactionRepository
   end
 
   def inspect
-    "#<#{self.class} #{@items.size} rows>"
+    "#<#{self.class} #{@transactions.size} rows>"
   end
 
 end

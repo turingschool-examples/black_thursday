@@ -71,10 +71,10 @@ class InvoiceTest < Minitest::Test
     transactions_for_invoice = invoice.transactions
 
     assert_equal 2, transactions_for_invoice.count
-    assert_equal 263397919, transactions_for_invoice[0].id
+    assert_equal 531, transactions_for_invoice[0].id
   end
 
-  def test_transactions_returns_all_transactions_for_invoice_id
+  def test_customer_returns_all_customers_for_invoice_id
     invoice = @invoice_repo.find_by_id(1495)
     customer_for_invoice = invoice.customer
 

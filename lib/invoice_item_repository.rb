@@ -39,9 +39,8 @@ class InvoiceItemRepository
     find_all_instances_by_invoice_id(@invoice_items, search_invoice_id)
   end
 
-
   def inspect
-    "#<#{self.class} #{@items.size} rows>"
+    "#<#{self.class} #{@invoice_items.size} rows>"
   end
 
 end
