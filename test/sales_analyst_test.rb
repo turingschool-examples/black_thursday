@@ -83,9 +83,11 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_it_can_find_the_most_sold_item
-    # expected = 'Knitted winter snood'
-    assert_instance_of Item, @sa.most_sold_item_for_merchant(12334105).first
-    # assert_equal expected, @sa.most_sold_item_for_merchant(12334123).name
+    expected = 'Knitted winter snood'
+    item = @sa.most_sold_item_for_merchant(12334105).first
+
+    assert_instance_of Item, item
+    assert_equal expected, item.name
   end
 
   def test_it_can_sort_merchants_by_month_created
