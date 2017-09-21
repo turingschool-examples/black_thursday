@@ -1,5 +1,3 @@
-# require_relative 'items_repo'
-# require_relative 'merchant_repo'
 require_relative 'sales_engine'
 require 'pry'
 require 'bigdecimal'

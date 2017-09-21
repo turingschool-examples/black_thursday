@@ -1,8 +1,8 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/invoice_repo'
-require './lib/invoice'
-require './lib/merchant'
+require_relative '../lib/invoice_repo'
+require_relative '../lib/invoice'
+require_relative '../lib/merchant'
 require 'pry'
 
 class InvoiceTest < Minitest::Test
@@ -47,29 +47,5 @@ class InvoiceTest < Minitest::Test
 
   def test_that_it_returns_the_weekday_based_on_time
     assert_equal Date.today.strftime("%A"), invoice.weekday_time
-  end
-
-  def test_it_can_return_the_associated_merchant
-    skip
-    assert_instance_of Merchant, invoice.merchant
-  end
-
-  def test_invoice_items_returns_all_items_related_to_the_invoice
-    assert_equal [], invoice.items
-  end
-
-  def test_transactions_returns_all_transactions_related_to_the_invoice
-    skip
-    assert_equal [], invoice.transactions
-  end
-
-  def test_customer_returns_customer_related_to_the_invoice
-    skip
-    assert_equal [], invoice.customer
-  end
-
-  def test_for_total
-    skip
-    assert_equal [], invoice.total
   end
 end
