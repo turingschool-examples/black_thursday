@@ -17,12 +17,6 @@ class MerchantRepository
     @name = :name
   end
 
-
-  def inspect
-    "#<#{self.class} #{:merchants.size} rows>"
-  end
-
-
   def find_by_id(id)
     all.each do |merchant|
       return merchant if merchant.id == id
@@ -54,7 +48,7 @@ class MerchantRepository
   end
 
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>" unless @merchants.nil?
+    "#<#{self.class} #{:merchants.size} rows>"
   end
 
 end

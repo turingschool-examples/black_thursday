@@ -43,4 +43,25 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of Merchant, new_engine.merchants.all[0]
   end
 
+  def test_can_find_invoice_from_transaction
+    assert_instance_of Invoice, new_engine.transactions.all[0].invoice
+  end
+
+  def test_can_find_merchant_from_item
+    assert_instance_of Merchant, new_engine.items.all[0].item
+  end
+
+  def test_can_find_merchant_from_invoice
+    assert_instance_of Merchant, new_engine.invoices.all[0].merchant
+  end
+
+  def test_can_find_items_from_invoice
+    assert_instance_of Array, new_engine.invoices.all[0].items
+    assert_instance_of Item, new_engine.invoices.all[0].items[0]
+  end
+
+  def test_can_find_customer_from_invoice
+    assert_instance_of Customer, new_engine.invoices.all[0].customer
+  end
+
 end

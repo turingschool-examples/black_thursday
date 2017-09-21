@@ -71,4 +71,8 @@ class ItemRepositoryTest < Minitest::Test
       assert_instance_of Item, item_repository.find_all_by_merchant_id(12334141)[0]
   end
 
+  def test_inspect
+    assert_instance_of String, item_repository.inspect
+  end
+
 end

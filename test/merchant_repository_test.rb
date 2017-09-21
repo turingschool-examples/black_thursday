@@ -50,13 +50,13 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_finds_merchants_registered_in_month
     merchants_in_january = merchant_repository.merchants_registered_in_month("January")
-    
+
     assert_instance_of Array, merchants_in_january
     assert_instance_of Merchant, merchants_in_january[0]
   end
 
   def test_inspect
-    assert_nil merchant_repository.inspect
+    assert_instance_of String, merchant_repository.inspect
   end
 
 end
