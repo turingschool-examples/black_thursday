@@ -1,9 +1,9 @@
 class Item # < ItemRepo
 
-  attr_reader :data, :parent
+  attr_reader :name, :parent
 
   def initialize(data, parent)
-    @data = data
+    @name = data[:name]
     @parent = parent
   end
 
