@@ -1,8 +1,8 @@
-require "csv"
 require_relative "item"
+require "csv"
 
 class ItemRepository
-  attr_reader :id
+  attr_reader :items
 
   def initialize(file)
     @items = from_csv(file)
@@ -27,5 +27,9 @@ class ItemRepository
   def all
     @items
   end
-  
+
+  def find_by_id
+    @items.find {|item| item.id}
+  end
+
 end
