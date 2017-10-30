@@ -1,0 +1,12 @@
+{
+  "Unit Tests": {
+    "coverage": {
+      "/Users/kjenkins/turing/1module/black_thursday/lib/item_repository.rb": [
+        1,
+        null,
+        null
+      ]
+    },
+    "timestamp": 1509386060
+  }
+}
