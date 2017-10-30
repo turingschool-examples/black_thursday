@@ -8,10 +8,17 @@ class MerchantTest < Minitest::Test
     assert_instance_of Merchant, merchant
   end
 
-  def test_you_can_create_a_new_merchant
-    merchant = Merchant.new(id: "5", name: "Turing School")
+
+  def test_it_can_hold_attributes
+    merchant = Merchant.new(
+       id: "5",
+       name: "Turing School",
+       created_at: "2010-03-30",
+       updated_at: "2013-01-21")
 
     assert_equal 5, merchant.id
     assert_equal "Turing School", merchant.name
+    assert_equal "2010-03-30", merchant.created_at
+    assert_equal "2013-01-21", merchant.updated_at
   end
 end
