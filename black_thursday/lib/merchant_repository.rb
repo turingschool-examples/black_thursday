@@ -12,14 +12,6 @@ class MerchantRepository
     CSV.open filename, headers: true, header_converters: :symbol
   end
 
-  # def rows_from(csv_filename)
-  #   File.open csv_filename, "rb" do |f|
-  #     CSV f, headers: true, header_converters: :symbol do |csv|
-  #       csv.to_a
-  #     end
-  #   end
-  # end
-
   def all
     @merchants
   end
