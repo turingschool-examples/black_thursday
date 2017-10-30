@@ -12,13 +12,17 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_exists
-    assert_instance_of MerchantRepository, @repository    
+    assert_instance_of MerchantRepository, @repository
   end
 
   def test_it_can_return_all_merchants
     assert_equal repository.merchants, @repository.all
   end
 
+  def test_it_can_find_merchant_by_id
+    assert_equal Merchant, repository.find_by_id(12334113).class
+    assert_equal "MiniatureBikez", repository.find_by_id(12334113).name
+  end
 
 
 end
