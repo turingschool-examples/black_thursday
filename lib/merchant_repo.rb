@@ -1,10 +1,12 @@
 require './lib/merchant'
+require 'csv'
 
 class MerchantRepository
+  attr_reader :merchant_csv, :merchant_queue
 
   def initialize
     @merchant_csv = CSV.open './data/merchants.csv',
-                    headers: true, header converter: :symbol
+                    headers: true, header_converters: :symbol
     @merchant_queue = []
     @merchant_csv.map do |row|
       @merchant_queue << Merchant.new(row)
@@ -27,3 +29,5 @@ class MerchantRepository
   def find_all_by_name(name)
     #returns either [] or one or more matches which contain the supplied name fragment, case insensitive
   end
+
+end
