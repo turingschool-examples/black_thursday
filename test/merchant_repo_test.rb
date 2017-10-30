@@ -20,4 +20,13 @@ class MerchantRepoTest < Minitest::Test
 
     assert_instance_of Merchant, merch_repo.merchant_queue.first
   end
+
+  def test_it_can_reach_the_merchant_instances_through_all
+    merch_repo = MerchantRepository.new
+
+    assert_instance_of Merchant, merch_repo.all.first
+  end
+
+
+  
 end
