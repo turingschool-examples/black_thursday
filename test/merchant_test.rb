@@ -2,17 +2,37 @@ require './test/test_helper'
 
 class MerchantTest < Minitest::Test
 
-  def test_it_exists
-    me = Merchant.new
+  def test_can_be_initialized_with_attributes
+    me = Merchant.new({
+      :id         => "12334141",
+      :name       => "jejum",
+      :created_at => "2007-06-25",
+      :updated_at => "2015-09-09"
 
+    })
+
+    assert_equal "12334141", me.id
+    assert_equal "jejum", me.name
+    assert_equal "2007-06-25", me.created_at
+    assert_equal "2015-09-09", me.updated_at
     assert_instance_of Merchant, me
+
   end
 
   def test_can_be_initialized_with_attributes
-    me = Merchant.new
+    me = Merchant.new({
+      :id         => "24537741",
+      :name       => "ashton",
+      :created_at => "2007-09-10",
+      :updated_at => "2015-10-11"
 
-    assert_equal 12334112, merchant.id
-    assert_equal "Candisart", merchant.name
-    assert_instance_of SalesEngine, merchant.engine
+    })
+
+    assert_equal "24537741", me.id
+    assert_equal "ashton", me.name
+    assert_equal "2007-09-10", me.created_at
+    assert_equal "2015-10-11", me.updated_at
+    assert_instance_of Merchant, me
+
   end
 end
