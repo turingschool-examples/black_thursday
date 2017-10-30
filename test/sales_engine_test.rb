@@ -45,6 +45,6 @@ class ItemTest < Minitest:: Test
     item = se.item_repository.items.first
     # binding.pry
 
-    assert_equal merchant.id,  item.merchant_id
+    assert_equal merchant,  item.merchant
   end
 end

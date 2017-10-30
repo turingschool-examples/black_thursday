@@ -18,7 +18,7 @@ class MerchantRepository
     @merchants = []
   end
   def find_by_id(id)
-    @merchants.detect{|merchant| merchant_id == id}
+    @merchants.detect{|merchant| merchant.id == id}
   end
 
   def create_merchant(data)
