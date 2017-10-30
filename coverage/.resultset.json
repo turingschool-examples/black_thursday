@@ -1,0 +1,12 @@
+{
+  "Unit Tests": {
+    "coverage": {
+      "/Users/kjenkins/turing/1module/black_thursday/lib/sales_engine.rb": [
+        1,
+        null,
+        null
+      ]
+    },
+    "timestamp": 1509383835
+  }
+}
