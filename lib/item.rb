@@ -30,6 +30,14 @@ class Item
 
   def name
     item.fetch(:name)
-  end 
+  end
+
+  def unit_price_to_dollars
+    unit_price.to_f
+  end
+
+  def description
+    item.fetch(:description)
+  end
 
 end

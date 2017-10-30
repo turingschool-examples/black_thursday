@@ -49,4 +49,16 @@ class ItemTest < Minitest::Test
     assert_equal "Disney scrabble frames", item.name
   end
 
+  def test_unit_price_converts_to_dollars
+    item = Item.new({:id => "263395721", :name => "Disney scrabble frames", :description => "frames", :unit_price => "1350", :merchant_id => "12334185", :created_at => "2016-01-11 11:51:37 UTC", :updated_at => "2008-04-02 13:48:57 UTC"})
+
+    assert_equal 13.5, item.unit_price_to_dollars
+  end
+
+  def test_description_returns_correct_description
+    item = Item.new({:id => "263395721", :name => "Disney scrabble frames", :description => "frames", :unit_price => "1350", :merchant_id => "12334185", :created_at => "2016-01-11 11:51:37 UTC", :updated_at => "2008-04-02 13:48:57 UTC"})
+
+    assert_equal "frames", item.description
+  end
+
 end
