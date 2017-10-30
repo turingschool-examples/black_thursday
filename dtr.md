@@ -57,34 +57,38 @@ Not at this time.
 
 Template for DTR Memo:
 DTR Memo
-Project: ___________________________________________________________________
-Group Member Names: ______________________________________________________
+Project: Black Thursday
+Group Member Names: Zac Palmquist, Tyler Madsen
 Project Expectations: What does each group member hope to get out of this project? Goals and expectations:
+Meet expectations on rubric, utilize waffle.io, TDD, improve git workflow, and improve collaborative coding skills.
 
 Schedule Expectations: When are we available to work together and individually?
-
+During class worktime, weekday evenings, and weekend days.
 
 Communication Expectations: How and often will we communicate? How do we keep lines of communication open?
-
+Everyday via either slack or phone. Open to slack communication anytime and phone with warning.
 
 Abilities Expectations: Technical strengths and areas for desired improvement:
-
+Zac: Workflow, setting expectations, collaboration.
+Tyler:  Coding, past experience with databases and tables.
 
 Workload Expectations: What features do we each want to work on?
-
+We both want to work on the project together as much as possible, but getting a good mixture of all aspects of the project for both partners when not possible.
 
 Workflow Expectations: Git workflow/Tools/Code Review/Reviewing Pull Requests:
-
+We will work in our own branches and push to those branches on github. On github, we will then make pull requests to the master branch, which the other person will review before merging those changes.
 
 Expectations for giving and receiving feedback:
-
+Blunt/open communication - in person preferred. If there are criticisms, keep it constructive.
 
 Agenda to discuss project launch:
-
+Break up project into small pieces, create overall scope and workflow for project, build schedule based on scope and project pieces.
 
 Ideas:
+Wednesday before it's due is  "refactor day" - not build new code.
+Creating a written representation of the structure of the project to help conceptualize.
 
-Tools:
+Tools: Github, waffle.io, slack, Atom
 
 
-Additional Notes:
+Additional Notes: Nada.
