@@ -11,11 +11,4 @@ class SalesEngineTest < Minitest::Test
 
     assert SalesEngine, se
   end
-
-  def test_it_pulls_in_items
-    se = SalesEngine.new("./data/items.csv")
-    result = se.include?("glitter")
-
-    assert result, se.from_csv({})
-  end
 end
