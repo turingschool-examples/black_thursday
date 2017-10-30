@@ -27,8 +27,26 @@ class ItemTest < Minitest::Test
   def test_it_pulls_unit_price_in_format
     item = Item.new({:id => "263395721", :name => "Disney scrabble frames", :description => "frames", :unit_price => "1350", :merchant_id => "12334185", :created_at => "2016-01-11 11:51:37 UTC", :updated_at => "2008-04-02 13:48:57 UTC"})
 
-    assert_equal 0.135e4, item.unit_price
-    refute 1350, item.unit_price
+    assert_equal 0.135e2, item.unit_price
+    refute_equal 1350, item.unit_price
+  end
+
+  def test_merchant_id_is_correct_integer
+    item = Item.new({:id => "263395721", :name => "Disney scrabble frames", :description => "frames", :unit_price => "1350", :merchant_id => "12334185", :created_at => "2016-01-11 11:51:37 UTC", :updated_at => "2008-04-02 13:48:57 UTC"})
+
+    assert_equal 12334185, item.merchant_id
+  end
+
+  def test_id_returns_correct_integer
+    item = Item.new({:id => "263395721", :name => "Disney scrabble frames", :description => "frames", :unit_price => "1350", :merchant_id => "12334185", :created_at => "2016-01-11 11:51:37 UTC", :updated_at => "2008-04-02 13:48:57 UTC"})
+
+    assert_equal 263395721, item.id
+  end
+
+  def test_returns_correct_name
+    item = Item.new({:id => "263395721", :name => "Disney scrabble frames", :description => "frames", :unit_price => "1350", :merchant_id => "12334185", :created_at => "2016-01-11 11:51:37 UTC", :updated_at => "2008-04-02 13:48:57 UTC"})
+
+    assert_equal "Disney scrabble frames", item.name
   end
 
 end

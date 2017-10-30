@@ -5,7 +5,7 @@ class Item
   attr_reader :item
 
   def initialize(item)
-    @item =item
+    @item = item
   end
 
   def created_at
@@ -17,6 +17,19 @@ class Item
   end
 
   def unit_price
-    BigDecimal.new(item.fetch(:unit_price).to_i)
+    BigDecimal.new(item.fetch(:unit_price).to_i)/100.0
   end
+
+  def merchant_id
+    item.fetch(:merchant_id).to_i
+  end
+
+  def id
+    item.fetch(:id).to_i
+  end
+
+  def name
+    item.fetch(:name)
+  end 
+
 end

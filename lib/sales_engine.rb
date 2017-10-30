@@ -1,13 +1,13 @@
 class SalesEngine
-  attr_reader :items
+  attr_reader :item
 
-  def initialize(items)
-    @items = items
+  def initialize(item)
+    @item = item
   end
 
-  def self.from_csv(files)
-    items = files[:items]
-    SalesEngine.new(items)
+  def self.from_csv(file)
+    item = file[:item]
+    SalesEngine.new(item)
   end
 
 end
