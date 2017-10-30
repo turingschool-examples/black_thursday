@@ -24,4 +24,10 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal "MiniatureBikez", repository.find_by_id(12334113).name
     assert_equal "2010-03-30", repository.find_by_id(12334113).created_at
   end
+
+  def test_find_by_id_edge_case
+    assert_nil repository.find_by_id(67869584684)
+    assert_nil repository.find_by_id("smoosh")
+    assert_nil repository.find_by_id("12334113")
+  end
 end
