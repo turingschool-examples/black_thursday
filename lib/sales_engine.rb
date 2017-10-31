@@ -17,21 +17,10 @@ class SalesEngine
 
   def from_csv(data)
     @item_repository = ItemRepository.new(self)
-    @merchant_repository = MerchantRepository.new
-    # @items_store = []
-    # @merchant_store = []
-    # @items = data[:items]
-    # @merchants = data[:merchants]
-    # item_search =  CSV.foreach @items, headers: true, header_converters: :symbol do |row|
-    #   @items_store << row
-    # en
+    @merchant_repository = MerchantRepository.new(self)
     @item_repository.create_item(data)
     @merchant_repository.create_merchant(data)
-
-    #
-    # mr = MerchantRepository.new
-    # binding.pry
-    # mr.create_merchant(data[:merchants])
+# binding.pry
   end
 
   def merchant(id)

@@ -6,35 +6,84 @@ require 'date'
 class ItemRepositoryTest < Minitest:: Test
 
   def test_it_creates_item
-
     ir = ItemRepository.new("")
     # assert_equal 0, ir.count
     ir.create_item({
       :items   => "./data/items_fixture_5lines.csv",
     })
 
-    assert_equal "Glitter scrabble frames", ir.items_store.first.name
+    assert_equal "510+ RealPush Icon Set", ir.items_store.first.name
   end
   def test_it_can_return_all_items
+    ir  = ItemRepository.new("")
+    ir.create_item({
+      :items   => "./data/items_fixture_5lines.csv",
+    })
+    
+    assert_equal"Kindersocken (Söckchen), hangestrickt, Länge ca.15 cm, beige (eierschalenfarben)", ir.items_store.last.name
+  end
+  def test_it_can_find_all_items_by_the_id
+      ir  = ItemRepository.new("")
+      ir.create_item({
+        :items   => "./data/items_fixture_5lines.csv",
+      })
+      row = ir.items_store[1]
+
+      assert_equal row.id , ir.find_by_id("263395617")
+  end
+
+  def test_it_can_find_all_items_by_name
+    ir  = ItemRepository.new("")
+    ir.create_item({
+      :items   => "./data/items_fixture_5lines.csv",
+    })
+    row = ir.items_store[5].name
+
+    assert_equal "Cache cache à la plage",  ir.find_by_name("Cache cache à la plage")
+  end
+
+  def test_it_can_find_all_items_by_description
 
     ir  = ItemRepository.new("")
     ir.create_item({
       :items   => "./data/items_fixture_5lines.csv",
     })
-    assert_equal "Cache cache à la plage", ir.items_store.last.name
+    row = ir.items_store[5]
 
+    assert_equal "Glitter scrabble frames",  ir.find_all_by_description("Glitter scrabble frames\n\nAny colour glitter\nAny wording\n\nAvailable colour scrabble tiles\nPink\nBlue\nBlack\nWooden")
   end
-  def test_it_can_find_all_items_by_id
-  end
-  def test_it_can_find_all_items_by_name
-  end
-  def test_it_can_find_all_items_by_description
-  end
+
   def test_it_can_find_all_items_by_price
+
+    ir  = ItemRepository.new("")
+    ir.create_item({
+      :items   => "./data/items_fixture_5lines.csv",
+    })
+    row = ir.items_store[4]
+
+    assert_equal "Cache cache à la plage",  ir.find_by_price("14900")
   end
+
   def test_it_can_find_all_items_within_range
+
+    ir  = ItemRepository.new("")
+    ir.create_item({
+      :items   => "./data/items_fixture_5lines.csv",
+    })
+    row = ir.items_store
+
+    assert_equal ["Vogue Paris Original Givenchy 2307",
+       "Cache cache à la plage"],  ir.find_all_by_price_in_range("2000","15000")
   end
-  def test_it_can_find_all_items_by_id
+
+  def test_it_can_find_all_items_by_the_merchant_id
+    ir  = ItemRepository.new("")
+    ir.create_item({
+      :items   => "./data/items_fixture_5lines.csv",
+    })
+    row = ir.items_store.first
+
+    assert_equal [row] , ir.find_all_by_merchant_id("12334141")
   end
 
 

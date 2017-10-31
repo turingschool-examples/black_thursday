@@ -7,10 +7,11 @@ require 'pry'
 class MerchantRepositoryTest < Minitest:: Test
 
   def test_it_creates_merchant
-    mr = MerchantRepository.new
+    mr = MerchantRepository.new("")
     mr.create_merchant({
       :merchants => "./data/merchants_5lines.csv",
     })
+    # assert_instance_of Merchant, mr.
     assert_equal "Shopin1901", mr.merchant_store[0].name
     assert_equal "12334112", mr.merchant_store[1].id
 
@@ -18,13 +19,13 @@ class MerchantRepositoryTest < Minitest:: Test
 
   def test_return_array
 
-    result = MerchantRepository.new
+    result = MerchantRepository.new("")
 
     assert_instance_of MerchantRepository, result
   end
 
   def test_returns_array_of_all_Merchant_instances
-    mr = MerchantRepository.new
+    mr = MerchantRepository.new("")
     mr.create_merchant({
       :merchants => "./data/merchants_5lines.csv",
     })
@@ -33,7 +34,7 @@ class MerchantRepositoryTest < Minitest:: Test
 
   def test_returns_instance_of_Merchant_from_matching_id
 
-    mr = MerchantRepository.new
+    mr = MerchantRepository.new("")
     mr.create_merchant({
       :merchants => "./data/merchants_5lines.csv",
     })
@@ -45,7 +46,7 @@ class MerchantRepositoryTest < Minitest:: Test
   end
 
   def test_returns_instance_of_Merhant_from_name
-    mr = MerchantRepository.new
+    mr = MerchantRepository.new("")
     mr.create_merchant({
       :merchants => "./data/merchants_5lines.csv",
     })
@@ -57,7 +58,7 @@ class MerchantRepositoryTest < Minitest:: Test
   end
 
   def test_returns_all_instances_of_Merchant_sorted_by_name
-    mr = MerchantRepository.new
+    mr = MerchantRepository.new("")
     mr.create_merchant({
       :merchants => "./data/merchants_5lines.csv",
     })

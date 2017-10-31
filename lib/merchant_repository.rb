@@ -8,8 +8,10 @@ class MerchantRepository
               :name,
               :id
 
-  def initialize
+  def initialize(parent)
     @merchant_store = []
+    @sales_engine = parent
+
   end
 
   def find_by_id(id)
@@ -18,8 +20,7 @@ class MerchantRepository
 
   def create_merchant(data)
     my_reference = self
-    @merchants = data[:merchants]
-    merchant_search =  CSV.foreach @merchants, headers: true, header_converters: :symbol do |row|
+    merchant_search =  CSV.foreach  data[:merchants], headers: true, header_converters: :symbol do |row|
       @merchant_store << Merchant.new(row, my_reference)
       # binding.pry
     end

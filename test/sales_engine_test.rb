@@ -16,7 +16,7 @@ class SalesEngineTest < Minitest:: Test
     })
     assert se.item_repository
   end
-  
+
   def test_it_can_read_CSV
     se = SalesEngine.new
     se.from_csv({
