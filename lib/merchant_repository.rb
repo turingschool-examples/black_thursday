@@ -19,7 +19,7 @@ class MerchantRepository
 
   def find_by_name(name)
     merchants.find do |merchant|
-      merchant.name.upcase == 2
+      merchant.name.upcase == name.upcase
     end
   end
 

@@ -38,7 +38,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_can_find_merchants_by_name
-    skip
+    #skip
     mr = setup
     #binding.pry
     assert_equal "jejum", mr.find_by_name("jejum").name
