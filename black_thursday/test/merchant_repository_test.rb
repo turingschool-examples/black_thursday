@@ -32,7 +32,7 @@ class MerchantRepositoryTest < Minitest::Test
     assert_nil repository.find_by_id(nil)
   end
 
-  def test_it_can_find_by_name_returns_first_merchant_with_matching_name
+  def test_find_by_name_returns_first_merchant_with_matching_name
     assert_equal Merchant, repository.find_by_name("MiniatureBikez").class
     assert_equal "MiniatureBikez", repository.find_by_name("MiniatureBikez").name
     assert_equal 12334113, repository.find_by_name("MiniatureBikez").id

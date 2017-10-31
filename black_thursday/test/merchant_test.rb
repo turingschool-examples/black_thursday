@@ -14,7 +14,8 @@ class MerchantTest < Minitest::Test
        id: "5",
        name: "Turing School",
        created_at: "2010-03-30",
-       updated_at: "2013-01-21")
+       updated_at: "2013-01-21"
+     )
 
     assert_equal 5, merchant.id
     assert_equal "Turing School", merchant.name

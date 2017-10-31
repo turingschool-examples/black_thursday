@@ -25,7 +25,8 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_by_id_returns_nil_if_no_match_is_found
-
+    assert_nil repository.find_by_id(987654321)
+    assert_nil repository.find_by_id("smush mahn")
   end
 
   def test_find_test_by_name_find_matching_case_insensitive_name
