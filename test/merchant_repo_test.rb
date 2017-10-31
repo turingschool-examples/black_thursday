@@ -13,7 +13,7 @@ class MerchantRepoTest < Minitest::Test
   def test_it_can_create_merchant_instances
     merch_repo = MerchantRepository.new(self)
 
-    assert_instance_of Merchant, merch_repo.merchant_queue.first
+    assert_instance_of Merchant, merch_repo.merchants.first
   end
 
   def test_it_can_reach_the_merchant_instances_through_all
@@ -26,32 +26,28 @@ class MerchantRepoTest < Minitest::Test
     merch_repo = MerchantRepository.new(self)
     results = merch_repo.find_by_id("12334105")
 
-    assert_equal 1, results.count
-    assert_equal "Shopin1901", results.first.name
+    assert_equal "Shopin1901", results.name
   end
 
-  def test_find_by_id_can_return_an_empty_array
+  def test_find_by_id_can_return_nil
     merch_repo = MerchantRepository.new(self)
     results = merch_repo.find_by_id("999999")
 
-    assert_equal 0, results.count
-    assert_equal [], results
+    assert_nil results
   end
 
   def test_it_can_find_merchants_by_name
     merch_repo = MerchantRepository.new(self)
     results = merch_repo.find_by_name("Shopin1901")
 
-    assert_equal 1, results.count
-    assert_equal "12334105", results.first.id
+    assert_equal "12334105", results.id
   end
 
-  def test_find_by_name_can_return_an_empty_array
+  def test_find_by_name_can_return_nil
     merch_repo = MerchantRepository.new(self)
     results = merch_repo.find_by_name("NotARealShop")
 
-    assert_equal 0, results.count
-    assert_equal [], results
+    assert_nil results
   end
 
   def test_it_can_find_merchants_by_partial_names
