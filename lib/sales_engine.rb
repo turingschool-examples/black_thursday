@@ -11,7 +11,7 @@ class SalesEngine
 
   def from_csv(files)
     @item_repository = ItemRepository.new(load(files[:items]))
-    # @merchant_repository = MerchantRepository.new(load(files[merchants]))
+    @merchant_repository = MerchantRepository.new(load(files[:merchants]))
   end
 
   #module candidate w/ cleanup
