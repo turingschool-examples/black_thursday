@@ -30,6 +30,7 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
+    return [] if price.nil?
     items.find_all do |item|
       item.unit_price == price
     end
