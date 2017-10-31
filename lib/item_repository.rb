@@ -14,7 +14,10 @@ class ItemRepository
 
   def create_item(data)
     my_reference = self
-    @items_store << Item.new(data, my_reference)
+    @items = data[:items]
+    item_search =  CSV.foreach @items, headers: true, header_converters: :symbol do |row|
+      @items_store << Item.new(row, my_reference)
+    end
   end
 
   def merchant(id)
