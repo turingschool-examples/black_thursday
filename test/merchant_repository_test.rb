@@ -2,7 +2,7 @@ require_relative "test_helper"
 
 class MerchantRepositoryTest < MiniTest::Test
 
-  def test_it_exist
+  def test_it_exists
     mr = MerchantRepository.new
 
     assert_instance_of MerchantRepository, mr

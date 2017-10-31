@@ -1,6 +1,4 @@
-
 class SalesEngine
-
 
   def intitialize()
     @items = nil
