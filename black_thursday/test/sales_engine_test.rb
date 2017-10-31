@@ -9,7 +9,7 @@ require './lib/sales_engine'
 class SalesEngineTest < Minitest::Test
   def setup
     @engine = SalesEngine.from_csv(
-      #items: "./data/items.csv",
+      items: "./data/items.csv",
       merchants: "./data/merchants.csv"
     )
   end
@@ -19,6 +19,6 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_loads_an_item_repository
-    skip
+    assert_equal 1367, @engine.items.all.count
   end
 end
