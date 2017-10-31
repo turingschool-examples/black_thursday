@@ -21,4 +21,22 @@ class MerchantRepositoryTest < MiniTest::Test
     assert_equal merchant1, @merchant_repository.find_by_id(5)
   end
 
+  def test_that_merchant_can_be_found_by_name
+    @merchant_repository.create_merchant({:name => "Ali's Alliterations", :id => 5})
+    merchant1 = @merchant_repository.merchants[0]
+
+    assert_nil @merchant_repository.find_by_name("Jimmy Joe Bob")
+    assert_equal merchant1, @merchant_repository.find_by_name("aLi's AllIteraTions")
+  end
+
+  def test_that_it_can_find_all_by_name
+    @merchant_repository.create_merchant({:name => "Ali's Alliterations", :id => 5})
+    @merchant_repository.create_merchant({:name => "Alligator Jerky", :id => 10})
+    merchant1 = @merchant_repository.merchants[0]
+    merchant2 = @merchant_repository.merchants[1]
+
+    assert_empty @merchant_repository.find_all_by_name("Jimmy Joe Bob")
+    assert_equal [merchant1, merchant2], @merchant_repository.find_all_by_name("aLli")
+  end
+
 end

@@ -11,13 +11,17 @@ class Item # < ItemRepo
     @merchant_id = data[:merchant_id]
     @item_id = data[:id]
     @description = data[:description]
-    @unit_price = data[:unit_price]
-    @created_at = Time.now
-    @updated_at = Time.now
+    @unit_price = BigDecimal.new(data[:unit_price])/100
+    @created_at = data[:created_at]
+    @updated_at = data[:updated_at]
   end
 
   def merchant
     parent.merchant(merchant_id)
+  end
+
+  def unit_price_to_dollars
+    @unit_price.round(2).to_f
   end
 
 end
