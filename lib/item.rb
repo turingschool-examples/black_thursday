@@ -11,14 +11,19 @@ class Item
                 :unit_price_to_dollars
 
   def initialize(attributes = {}, parent = nil)
-    @id = attributes[:id]
-    @name = attributes[:name]
-    @description = attributes[:description]
-    @unit_price = attributes[:unit_price]
-    @unit_price_to_dollars = attributes[:unit_price_to_dollars]
-    @created_at = attributes[:created_at]
-    @updated_at = attributes[:updated_at]
-    @merchant_id = attributes[:merchant_id]
+    @id           = attributes[:id]
+    @name         = attributes[:name]
+    @description  = attributes[:description]
+    @unit_price   = attributes[:unit_price]
+    @created_at   = attributes[:created_at]
+    @updated_at   = attributes[:updated_at]
+    @merchant_id  = attributes[:merchant_id]
+
+    #id and merchant_id might not be given??
+  end
+
+  def unit_price_to_dollars
+    BigDecimal.new(@unit_price).to_f
   end
 
 

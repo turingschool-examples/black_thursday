@@ -14,16 +14,21 @@ class MerchantRepository
      header_converters: :symbol)
 
     contents.each do |row|
-      @all << Merchant.new(row)
+      @all << Merchant.new(row, self)
     end
-
   end
 
+  def find_by_id(id)
+    @all.find do |merchant|
+      merchant.id.to_i == id
+    end
+  end
 
+  def find_by_name
+  end
 
-  # def load_attendees(csv_path = "full_event_attendees.csv")
-  #   @attendees = Reader.new(csv_path).content
-  #   "You have successfully loaded #{csv_path}"
-  # end
+  def find_all_by_name
+  end
+
 
 end
