@@ -30,7 +30,9 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_test_by_name_find_matching_case_insensitive_name
-
+    assert_equal Item, repository.find_by_name("Custom Puppy Water Colors").class
+    assert_equal "Custom Puppy Water Colors", repository.find_by_name("Custom Puppy Water Colors").name
+    assert_instance_of Time, repository.find_by_name("Custom Puppy Water Colors").created_at
   end
 
   def test_find_by_name_returns_nil_if_no_match_is_found
