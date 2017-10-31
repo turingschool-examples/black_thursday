@@ -82,3 +82,4 @@ Ask question: driver navigator hampers progress so how to chunk and assign respo
 Retro Oct. 30 - Ideas for discussion from Theresa:
 Identify specific weak areas for each of us and what resources can address them, including Mod 2 people, mentors, other students
 Strategize how to get better at
+Zach feels weaker in these technical areas: core logic, i.e. how information is passed, merge-sort

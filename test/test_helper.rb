@@ -1,7 +1,9 @@
 require 'simplecov'
-SimpleCov.start
 
-require './lib'
+SimpleCov.start do
+  add_filter "/test/"
+end
 
-require 'Minitest/Test'
-require 'Minitest/Pride'
+require 'minitest'
+require 'minitest/autorun'
+require 'minitest/pride'
