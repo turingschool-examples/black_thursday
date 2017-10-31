@@ -13,7 +13,6 @@ class ItemTest < MiniTest::Test
   def setup
     @item_repository = ItemRepository.new(nil)
     @sales_engine = SalesEngine.new
-    @merchant = Merchant.new
   end
 
   def test_it_knows_where_it_came_from
@@ -26,6 +25,7 @@ class ItemTest < MiniTest::Test
     @sales_engine.merchant_repository.create_merchant({:name => "Mercher", :id => 24})
     merchant = @sales_engine.merchant_repository
     @sales_engine.item_repository.create_item(:name => "Thingy", :merchant_id => 24)
+    item = @sales_engine.item_repository.items.first
     assert_equal merchant, item.merchant
   end
 

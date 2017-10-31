@@ -1,6 +1,6 @@
 class Merchant
 
-  attr_reader :name, :parent
+  attr_reader :name, :parent, :id
 
   def initialize(data, parent)
     @name = data[:name]
