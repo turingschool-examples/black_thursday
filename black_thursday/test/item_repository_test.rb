@@ -41,7 +41,13 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_description_returns_all_items_with_description_keyword
-    
+    expected = "clear quartz chakra stone pendulum"
+    actual = repository.find_all_with_description("onyx")
+
+    assert_equal Array, actual.class
+    assert_equal Item, actual.first.class
+    assert_equal "Chalcedony", actual[1].name
+    assert_equal expected, actual[-2].name
   end
 
   def test_test_all_returns_empty_array_if_no_match_is_found
