@@ -45,8 +45,20 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(id)
-    items.find_all do |merchant|
-      merchant.merchant_id == id
+    items.find_all do |item|
+      item.merchant_id == id
+    end
+  end
+
+  def find_all_by_price(unit_price)
+    items.find_all do |item|
+      item.unit_price == unit_price
+    end
+  end
+
+  def find_all_by_price_in_range(low_price, high_price)
+    items.find_all do |item|
+      item.unit_price.between?(low_price, high_price)
     end
   end
 
