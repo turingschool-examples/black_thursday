@@ -58,7 +58,10 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_price_returns_items_with_matching_price
+    actual = repository.find_all_by_price(2390)
 
+    assert_equal 263397867, actual.first.id
+    assert_equal 4, actual.length
   end
 
   def test_find_all_by_price_returns_empty_array_when_no_match_is_found

@@ -28,4 +28,10 @@ class ItemRepository
       item.description.to_s.downcase.index(description.downcase)
     end
   end
+
+  def find_all_by_price(price)
+    items.find_all do |item|
+      item.unit_price == price
+    end
+  end
 end
