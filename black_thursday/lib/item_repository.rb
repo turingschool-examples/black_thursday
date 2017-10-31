@@ -49,4 +49,8 @@ class ItemRepository
       item.merchant_id == merchant_id
     end
   end
+
+  def inspect
+    "#{self.class} has #{all.count} rows"
+  end
 end

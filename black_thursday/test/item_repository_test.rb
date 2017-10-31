@@ -100,6 +100,6 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_inspect_returns_rows_in_repository
-
+    assert_equal "ItemRepository has 1367 rows", repository.inspect
   end
 end
