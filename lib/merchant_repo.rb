@@ -58,9 +58,10 @@ class MerchantRepository
   def parse_queue_partial_words(column_name, criteria)
     results = []
     @merchant_queue.map do |row|
-      next if row[column_name].downcase.include?(criteria.downcase) == false
-      results << row.to_h
+      next if row.name.include?(criteria) == false
+      results << row
     end
+    results
   end
 
 end

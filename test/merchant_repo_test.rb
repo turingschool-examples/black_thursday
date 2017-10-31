@@ -44,4 +44,12 @@ class MerchantRepoTest < Minitest::Test
     assert_equal "12334105", results.first.id
   end
 
+  def test_it_can_find_merchants_by_partial_names
+    merch_repo = MerchantRepository.new(self)
+    results = merch_repo.find_all_by_name("Shop")
+
+    assert_equal 16, results.count
+    assert_equal "SimchaCentralShop", results[5].name
+  end
+
 end
