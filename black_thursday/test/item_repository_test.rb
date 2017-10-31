@@ -93,7 +93,10 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_merchant_id_returns_empty_array_when_no_match_is_found
+    actual = repository.find_all_by_merchant_id(123341853145111124)
 
+    assert_equal [], actual
+    assert_equal [], repository.find_all_by_merchant_id(nil)
   end
 
   def test_inspect_returns_rows_in_repository

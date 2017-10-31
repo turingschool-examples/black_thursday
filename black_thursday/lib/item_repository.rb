@@ -44,6 +44,7 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(merchant_id)
+    return [] if merchant_id.nil?
     items.find_all do |item|
       item.merchant_id == merchant_id
     end
