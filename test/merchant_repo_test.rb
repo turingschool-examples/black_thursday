@@ -10,12 +10,6 @@ class MerchantRepoTest < Minitest::Test
     assert_instance_of MerchantRepository, MerchantRepository.new(self)
   end
 
-  def test_it_can_load_data_from_csv
-    merch_repo = MerchantRepository.new(self)
-
-    assert_instance_of CSV, merch_repo.merchant_csv
-  end
-
   def test_it_can_create_merchant_instances
     merch_repo = MerchantRepository.new(self)
 
@@ -36,6 +30,14 @@ class MerchantRepoTest < Minitest::Test
     assert_equal "Shopin1901", results.first.name
   end
 
+  def test_find_by_id_can_return_an_empty_array
+    merch_repo = MerchantRepository.new(self)
+    results = merch_repo.find_by_id("999999")
+
+    assert_equal 0, results.count
+    assert_equal [], results
+  end
+
   def test_it_can_find_merchants_by_name
     merch_repo = MerchantRepository.new(self)
     results = merch_repo.find_by_name("Shopin1901")
@@ -44,12 +46,28 @@ class MerchantRepoTest < Minitest::Test
     assert_equal "12334105", results.first.id
   end
 
+  def test_find_by_name_can_return_an_empty_array
+    merch_repo = MerchantRepository.new(self)
+    results = merch_repo.find_by_name("NotARealShop")
+
+    assert_equal 0, results.count
+    assert_equal [], results
+  end
+
   def test_it_can_find_merchants_by_partial_names
     merch_repo = MerchantRepository.new(self)
     results = merch_repo.find_all_by_name("Shop")
 
     assert_equal 16, results.count
     assert_equal "SimchaCentralShop", results[5].name
+  end
+
+  def test_find_by_partial_name_can_return_an_empty_array
+    merch_repo = MerchantRepository.new(self)
+    results = merch_repo.find_all_by_name("XXXXXX")
+
+    assert_equal 0, results.count
+    assert_equal [], results
   end
 
 end

@@ -8,13 +8,17 @@ class MerchantRepository
               :sales_engine
 
   def initialize(parent)
-    @merchant_csv   = CSV.open './data/merchants.csv',
-                    headers: true, header_converters: :symbol
     @merchant_queue = []
     @sales_engine   = parent
-    @merchant_csv.map do |row|
-      @merchant_queue << Merchant.new(row, self)
+    @load           = load_file
     end
+  end
+
+  def load_file
+    merchant_csv   = CSV.open './data/merchants.csv',
+                    headers: true, header_converters: :symbol
+    merchant_csv.map do |row|
+      @merchant_queue << Merchant.new(row, self)
   end
 
   def all

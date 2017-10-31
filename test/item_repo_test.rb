@@ -36,6 +36,13 @@ class ItemRepoTest < Minitest::Test
     assert_equal "263396013", results.id
   end
 
+  def test_find_by_name_can_return_an_empty_array
+    item_repo = ItemRepository.new(self)
+    results = item_repo.find_by_name('Not A Real Product')
+
+    assert_equal [], results
+  end
+
   #The method above does not result in an array
 
   def test_it_can_find_items_by_description
