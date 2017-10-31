@@ -27,6 +27,7 @@ class MerchantRepository
   end
 
   def find_all_by_name(name)
+    return [] if name.nil?
     @merchants.find_all do |merchant|
       merchant.name.to_s.downcase.index(name.downcase)
     end

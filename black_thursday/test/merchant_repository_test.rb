@@ -54,6 +54,12 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 12336411, repository.find_all_by_name("wood").last.id
   end
 
+  def test_find_all_by_name_edge_case
+    assert_equal [], repository.find_all_by_name("smush")
+    assert_equal [], repository.find_all_by_name(nil)
+    assert_equal [], repository.find_all_by_name("mike dao's twitter feed")
+  end
+
   def test_inspect
     assert_equal "MerchantRepository has 475 rows", repository.inspect
   end
