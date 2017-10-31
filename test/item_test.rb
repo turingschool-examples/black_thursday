@@ -23,10 +23,20 @@ class ItemTest < MiniTest::Test
 
   def test_it_can_find_the_merchant
     @sales_engine.merchant_repository.create_merchant({:name => "Mercher", :id => 24})
-    merchant = @sales_engine.merchant_repository
+    merchant = @sales_engine.merchant_repository.merchants.first
     @sales_engine.item_repository.create_item(:name => "Thingy", :merchant_id => 24)
     item = @sales_engine.item_repository.items.first
     assert_equal merchant, item.merchant
+  end
+
+  def test_that_item_has_attributes
+    @sales_engine.item_repository.create_item({:name => "A thing", :merchant_id => 6,
+    :id => 5, :description => "does things", :unit_price => 5000})
+    item = @sales_engine.item_repository.items.first
+    assert_equal "A thing", item.name
+    assert_equal "does things", item.description
+    assert_equal 5, item.item_id
+    assert_equal 6, item.merchant_id
   end
 
 end
