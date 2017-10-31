@@ -29,5 +29,38 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 263395237, ir.find_by_id.id
   end
 
+  def test_it_can_find_by_name
+    ir = ItemRepository.new("./data/items.csv")
+
+    assert_equal "Vogue Paris Original Givenchy", ir.find_by_name.name
+  end
+
+  def test_it_can_find_all_with_description
+    ir = ItemRepository.new("./data/items.csv")
+
+    assert_instance_of Array, ir.find_all_with_description
+    assert_equal 1, ir.find_all_with_description.count
+  end
+
+  def test_it_can_find_all_by_price
+    ir = ItemRepository.new("./data/items.csv")
+
+    assert_instance_of Array, ir.find_all_by_price
+    assert_equal 13.50, ir.find_all_by_price[3].unit_price
+  end
+
+  def test_it_can_find_all_by_price_range
+    ir = ItemRepository.new("./data/items.csv")
+
+    assert_instance_of Array, ir.find_all_by_price_in_range
+    assert_equal 2, ir.find_all_by_price_in_range.count
+  end
+  def test_it_can_find_all_by_merchant_id
+    ir = ItemRepository.new("./data/items.csv")
+
+    assert_instance_of Array, ir.find_all_by_mercahnd_id
+    assert_equal 1, ir.find_all_by_mercahnd_id
+  end
+
 
 end
