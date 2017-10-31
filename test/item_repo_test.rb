@@ -46,4 +46,15 @@ class ItemRepoTest < Minitest::Test
     assert_equal "263396013", results.first.id
   end
 
+  def test_it_can_find_all_by_merchant_id
+    item_repo = ItemRepository.new(self)
+    results = item_repo.find_all_by_merchant_id("12334185")
+
+    assert_equal 6, results.count
+    assert_equal "Glitter scrabble frames", results.first.name
+  end
+
+  #missing find_merchant test
+
+
 end

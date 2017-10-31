@@ -47,7 +47,7 @@ class ItemRepository
     @items.find_all { |item| price_range.include?(item.unit_price) } #?? not sure how this'll work
   end
 
-  def find_all_by_merchant_id
+  def find_all_by_merchant_id(merchant_id)
     @items.find_all { |item| item.merchant_id == merchant_id }
   end
 
