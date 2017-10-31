@@ -21,4 +21,8 @@ class Item
     @updated_at   = Time.parse(attributes[:updated_at])
     @parent       = parent
   end
+
+  def unit_price_to_dollars
+    unit_price.to_f.round(2)
+  end
 end

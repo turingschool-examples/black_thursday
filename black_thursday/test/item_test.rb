@@ -29,7 +29,7 @@ class ItemTest < Minitest::Test
       id: "4",
       name: "pencil",
       description: "You can use it to write things",
-      unit_price: "12.00",
+      unit_price: "1200",
       merchant_id: "10",
       created_at: created_at,
       updated_at: updated_at
@@ -42,5 +42,23 @@ class ItemTest < Minitest::Test
     assert_equal 10, item.merchant_id
     assert_equal Time.parse("2016-01-11 09:34:06 UTC"), item.created_at
     assert_equal Time.parse("2017-06-04 21:35:10 UTC"), item.updated_at
+  end
+
+
+  def test_can_change_unit_price_to_dollars
+    created_at = "2016-01-11 09:34:06 UTC"
+    updated_at = "2017-06-04 21:35:10 UTC"
+
+    item = Item.new(
+      id: "4",
+      name: "pencil",
+      description: "You can use it to write things",
+      unit_price: "1200",
+      merchant_id: "10",
+      created_at: created_at,
+      updated_at: updated_at
+    )
+
+    assert_equal 12.00, item.unit_price_to_dollars
   end
 end
