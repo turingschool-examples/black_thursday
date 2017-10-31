@@ -86,7 +86,10 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_can_find_all_items_by_merchant_id
+    actual = repository.find_all_by_merchant_id(12334185)
 
+    assert_equal 6, actual.length
+    assert_equal "Glitter scrabble frames", actual.first.name
   end
 
   def test_find_all_by_merchant_id_returns_empty_array_when_no_match_is_found
