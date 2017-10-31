@@ -9,11 +9,11 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_exists
-    assert_instance_of MerchantRepository, @repository
+    assert_instance_of ItemRepository, @repository
   end
 
-  def test_all_returns_all_items_from_repository
-
+  def test_returns_all_items_from_repository
+    assert_equal 1367, @repository.all.count
   end
 
   def test_it_can_find_by_id
