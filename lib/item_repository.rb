@@ -28,8 +28,12 @@ class ItemRepository
     @items
   end
 
-  def find_by_id
+  def find_by_id(id)
     @items.find {|item| item.id}
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    @items.find_all {|item| item.merchant_id == merchant_id}
   end
 
 end
