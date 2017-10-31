@@ -1,4 +1,5 @@
 require "./lib/sales_engine"
+require "./lib/item"
 require "csv"
 
 class ItemRepository
@@ -8,7 +9,7 @@ class ItemRepository
   def initialize(parent)
     @items        = []
     @sales_engine = parent
-    @load         = load_items(filename)
+    @load         = load_items("./data/items.csv")
   end
 
   def load_items(filename)
@@ -38,9 +39,9 @@ class ItemRepository
     @items.find_all { |item| item.description.downcase.include?(description.downcase) }
   end
 
-  def find_all_by_price(price)
-    @items.find_all { |item| item.unit_price == #something with BigDecimal
-  end
+  # def find_all_by_price(price)
+  #   @items.find_all { |item| item.unit_price == #something with BigDecimal
+  # end
 
   def find_all_by_price_in_range(price_range)
     @items.find_all { |item| price_range.include?(item.unit_price) } #?? not sure how this'll work
@@ -53,4 +54,5 @@ class ItemRepository
   def find_merchant(merchant_id)
     sales_engine.find_merchant(merchant_id)
   end
+
 end
