@@ -51,7 +51,10 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_test_all_returns_empty_array_if_no_match_is_found
+    actual = repository.find_all_with_description("nothing!")
 
+    assert_equal [], actual
+    assert_equal [], repository.find_all_with_description(nil)
   end
 
   def test_find_all_by_price_returns_items_with_matching_price

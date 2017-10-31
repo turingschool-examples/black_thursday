@@ -23,6 +23,7 @@ class ItemRepository
   end
 
   def find_all_with_description(description)
+    return [] if description.nil?
     items.find_all do |item|
       item.description.to_s.downcase.index(description.downcase)
     end
