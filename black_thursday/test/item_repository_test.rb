@@ -36,11 +36,12 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_by_name_returns_nil_if_no_match_is_found
-
+    assert_nil repository.find_by_name(["abc"])
+    assert_nil repository.find_by_name("Rare Custom Puppies")
   end
 
   def test_find_all_by_description_returns_all_items_with_description_keyword
-
+    
   end
 
   def test_test_all_returns_empty_array_if_no_match_is_found
