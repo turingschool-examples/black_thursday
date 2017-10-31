@@ -44,4 +44,13 @@ class MerchantRepositoryTest < Minitest::Test
     assert_nil repository.find_by_name("12334113")
     assert_nil repository.find_by_name(nil)
   end
+
+  def test_find_all_by_name_returns_all_matches_of_the_name_fragment
+    assert_equal Array, repository.find_all_by_name("wood").class
+    assert_equal 14, repository.find_all_by_name("wood").length
+    assert_equal "Corbeilwood", repository.find_all_by_name("wood").first.name
+    assert_equal "MacDonaldWoodworks", repository.find_all_by_name("wood").last.name
+    assert_equal 12334246, repository.find_all_by_name("wood").first.id
+    assert_equal 12336411, repository.find_all_by_name("wood").last.id
+  end
 end
