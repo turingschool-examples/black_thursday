@@ -2,12 +2,13 @@ require './lib/merchant'
 require 'csv'
 
 class MerchantRepository
-  attr_reader :merchant_csv, :merchant_queue
+  attr_reader :merchant_csv, :merchant_queue, :sales_engine
 
-  def initialize
-    @merchant_csv = CSV.open './data/merchants.csv',
+  def initialize(parent)
+    @merchant_csv   = CSV.open './data/merchants.csv',
                     headers: true, header_converters: :symbol
     @merchant_queue = []
+    @sales_engine   = parent
     @merchant_csv.map do |row|
       @merchant_queue << Merchant.new(row)
     end

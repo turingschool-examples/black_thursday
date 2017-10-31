@@ -27,6 +27,11 @@ class MerchantRepoTest < Minitest::Test
     assert_instance_of Merchant, merch_repo.all.first
   end
 
+  def test_it_can_find_merchants_by_name
+    merch_repo = MerchantRepository.new
+    results = merch_repo.find_by_id(12334105)
 
-  
+    assert_equal "got", results
+  end
+
 end
