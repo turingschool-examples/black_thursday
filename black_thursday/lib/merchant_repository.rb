@@ -31,4 +31,8 @@ class MerchantRepository
       merchant.name.to_s.downcase.index(name.downcase)
     end
   end
+
+  def inspect
+    "#{self.class} has #{all.count} rows"
+  end
 end
