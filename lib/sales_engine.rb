@@ -1,21 +1,22 @@
-require './lib/item_repo'
+require './lib/item_repository'
+require './lib/merchant_repository'
 # require './lib/merchant_repo'
 
 class SalesEngine
 
+  attr_reader :item_repository, :merchant_repository
 
-# mr = MerchantRepo.new(filename, self)
-# ItemRepo.new(filename, self)
-# OrderRepo.new(filename, self)
-  def item_repository
-    ItemRepo.new #(filename, self)
+  def initialize
+    @item_repository = ItemRepository.new(self)
+    @merchant_repository = MerchantRepository.new(self)
   end
 
   def self.from_csv
 
   end
 
-  def merchant(merchant)
-    mr.merchant(merchant)
+  def merchant(id)
+    merchant_repository.find_by_id(id)
   end
+
 end

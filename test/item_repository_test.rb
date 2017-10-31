@@ -2,13 +2,13 @@ require_relative 'test_helper'
 # require 'minitest/autorun'
 # require 'minitest/pride'
 # require 'pry'
-require './lib/item_repo'
+require './lib/item_repository'
 
 
 class ItemRepositoryTest < MiniTest::Test
 
   def setup
-    @item_repository = ItemRepo.new
+    @item_repository = ItemRepository.new
   end
 
 
