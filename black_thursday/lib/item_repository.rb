@@ -37,6 +37,7 @@ class ItemRepository
   end
 
   def find_all_by_price_in_range(range)
+    return [] if range.nil?
     items.find_all do |item|
       range.cover?(item.unit_price.to_f)
     end

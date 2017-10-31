@@ -79,7 +79,10 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_price_in_range_returns_empty_array_when_no_match_is_found
+    actual = repository.find_all_by_price_in_range(9999000..1901212480124)
 
+    assert_equal [], actual
+    assert_equal [], repository.find_all_by_price_in_range(nil)
   end
 
   def test_can_find_all_items_by_merchant_id
