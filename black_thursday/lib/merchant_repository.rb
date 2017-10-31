@@ -3,7 +3,7 @@ class MerchantRepository
   attr_reader :merchants,
               :parent
 
-  def initialize(merchants, parent = "")
+  def initialize(merchants, parent = nil)
     @merchants = load_csv(merchants).map { |row| Merchant.new(row, self) }
     @parent    = parent
   end

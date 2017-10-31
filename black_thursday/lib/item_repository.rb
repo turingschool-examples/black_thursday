@@ -1,7 +1,7 @@
 class ItemRepository
   attr_reader :items
 
-  def initialize(items, parent = "")
+  def initialize(items, parent = nil)
     @items  = load_csv(items).map { |row| Item.new(row, self) }
     @parent = parent
   end

@@ -4,10 +4,16 @@ require './lib/item'
 require './lib/item_repository'
 
 class ItemRepositoryTest < Minitest::Test
-  attr_reader :repository
+  attr_reader :repository,
+              :engine
 
   def setup
-    @repository = ItemRepository.new("./data/items.csv")
+    @engine = SalesEngine.from_csv(
+      items: "./data/items.csv",
+      merchants: "./data/merchants.csv"
+    )
+
+    @repository = ItemRepository.new("./data/items.csv", engine)
   end
 
   def test_it_exists

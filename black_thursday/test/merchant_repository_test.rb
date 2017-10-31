@@ -4,11 +4,16 @@ require './lib/merchant'
 require './lib/merchant_repository'
 
 class MerchantRepositoryTest < Minitest::Test
-  attr_reader :merchants,
-              :repository
+  attr_reader :repository,
+              :engine
 
   def setup
-    @repository = MerchantRepository.new("./data/merchants.csv")
+    @engine = SalesEngine.from_csv(
+      items: "./data/items.csv",
+      merchants: "./data/merchants.csv"
+    )
+
+    @repository = MerchantRepository.new("./data/merchants.csv", engine)
   end
 
   def test_it_exists
