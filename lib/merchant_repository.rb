@@ -8,12 +8,12 @@ class MerchantRepository
   end
 
   def all
-    @merchants
+    merchants
   end
 
   def find_by_id(id)
     merchants.find do |merchant|
-      merchant.id = id
+      merchant.id == id
     end
   end
 
