@@ -9,11 +9,11 @@ class ItemRepositoryTest < Minitest::Test
 
   def setup
     @engine = SalesEngine.from_csv(
-      items: "./data/items.csv",
+      items: "./test/fixtures/truncated_items.csv",
       merchants: "./data/merchants.csv"
     )
 
-    @repository = ItemRepository.new("./data/items.csv", engine)
+    @repository = ItemRepository.new("./test/fixtures/truncated_items.csv", engine)
   end
 
   def test_it_exists
@@ -21,7 +21,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_returns_all_items_from_repository
-    assert_equal 1367, @repository.all.count
+    assert_equal 21, @repository.all.count
   end
 
   def test_it_can_find_by_id
@@ -36,9 +36,9 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_test_by_name_find_matching_case_insensitive_name
-    assert_equal Item, repository.find_by_name("Custom Puppy Water Colors").class
-    assert_equal "Custom Puppy Water Colors", repository.find_by_name("Custom Puppy Water Colors").name
-    assert_instance_of Time, repository.find_by_name("Custom Puppy Water Colors").created_at
+    assert_equal Item, repository.find_by_name("ChRisTmas sweaters").class
+    assert_equal "Christmas Sweaters", repository.find_by_name("ChRisTmas sweaters").name
+    assert_instance_of Time, repository.find_by_name("ChRisTmas sweaters").created_at
   end
 
   def test_find_by_name_returns_nil_if_no_match_is_found
@@ -47,12 +47,12 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_description_returns_all_items_with_description_keyword
-    expected = "clear quartz chakra stone pendulum"
-    actual = repository.find_all_with_description("onyx")
+    expected = "Christmas mittens"
+    actual = repository.find_all_with_description("Ugly")
 
     assert_equal Array, actual.class
     assert_equal Item, actual.first.class
-    assert_equal "Chalcedony", actual[1].name
+    assert_equal "Christmas Socks", actual[1].name
     assert_equal expected, actual[-2].name
   end
 
@@ -67,7 +67,7 @@ class ItemRepositoryTest < Minitest::Test
     actual = repository.find_all_by_price(90)
 
     assert_equal 263414329, actual.first.id
-    assert_equal 10, actual.length
+    assert_equal 2, actual.length
   end
 
   def test_find_all_by_price_returns_empty_array_when_no_match_is_found
@@ -80,7 +80,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_find_all_by_price_in_range
     actual = repository.find_all_by_price_in_range(90..100)
 
-    assert_equal 47, actual.length
+    assert_equal 3, actual.length
     assert_equal 263407925, actual.first.id
   end
 
@@ -95,7 +95,7 @@ class ItemRepositoryTest < Minitest::Test
     actual = repository.find_all_by_merchant_id(12334185)
 
     assert_equal 6, actual.length
-    assert_equal "Glitter scrabble frames", actual.first.name
+    assert_equal "Free standing glitter dogs", actual.first.name
   end
 
   def test_find_all_by_merchant_id_returns_empty_array_when_no_match_is_found
@@ -106,6 +106,6 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_inspect_returns_rows_in_repository
-    assert_equal "ItemRepository has 1367 rows", repository.inspect
+    assert_equal "ItemRepository has 21 rows", repository.inspect
   end
 end
