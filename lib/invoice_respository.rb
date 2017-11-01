@@ -3,9 +3,8 @@ require './lib/invoice'
 
 class InvoiceRepository
 
-  def initialize(invoice_files, parent)
-    @invoices      = []
-    @invoice_files = invoice_files
+  def initialize(invoice_file, parent)
+    @invoices      = invoice_file.map {|invoice| Invoice.new(invoice, self)}
     @parent        = parent
   end
 

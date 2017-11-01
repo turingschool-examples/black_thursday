@@ -9,12 +9,14 @@ class SalesEngine
   def initialize(items_file, merchants_file)
     @item_repository = ItemRepository.new(items_file, self)
     @merchant_repository = MerchantRepository.new(merchants_file, self)
+    @invoice_repository = InvoiceRepository.new(invoice_file, self)
   end
 
   def self.from_csv(files)
     items_file = create_elements(files[:items])
     merchants_file = create_elements(files[:merchants])
-      SalesEngine.new(items_file, merchants_file)
+    invoice_file = create_elements(files[:invoices])
+      SalesEngine.new(items_file, merchants_file, invoice_file)
   end
 
   def self.create_elements(file)
