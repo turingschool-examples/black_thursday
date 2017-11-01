@@ -1,9 +1,4 @@
-require 'minitest'
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/merchant_repo'
-require 'pry'
-
+require 'test_helper'
 class MerchantRepoTest < Minitest::Test
 
   def test_it_initializes

@@ -1,8 +1,4 @@
-require 'minitest'
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/item_repo'
-require 'pry'
+require 'test_helper'
 
 class ItemRepoTest < Minitest::Test
 
