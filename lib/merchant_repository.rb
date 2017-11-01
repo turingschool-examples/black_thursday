@@ -1,5 +1,5 @@
-# require './data/merchants.csv'
 require 'csv'
+require_relative 'merchant'
 
 class MerchantRepository
 

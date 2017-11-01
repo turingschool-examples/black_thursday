@@ -1,4 +1,4 @@
-require_relative "../test/test_helper"
+require 'bigdecimal'
 
 class Item
   attr_reader   :id,
@@ -20,8 +20,6 @@ class Item
     @updated_at   = attributes[:updated_at]
     @merchant_id  = attributes[:merchant_id]
     @parent = parent
-
-    #id and merchant_id might not be given??
   end
 
   def unit_price_to_dollars
