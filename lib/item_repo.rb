@@ -6,10 +6,10 @@ class ItemRepository
   attr_reader :items,
               :sales_engine
 
-  def initialize(parent)
+  def initialize(parent, filename)
     @items        = []
     @sales_engine = parent
-    @load         = load_items("./data/items.csv")
+    @load         = load_items(filename)
   end
 
   def load_items(filename)

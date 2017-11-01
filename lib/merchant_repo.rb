@@ -7,18 +7,18 @@ class MerchantRepository
               :merchants,
               :sales_engine
 
-  def initialize(parent)
+  def initialize(parent, filename)
     @merchants      = []
     @sales_engine   = parent
-    @load           = load_file
+    @load           = load_file(filename)
     end
   end
 
-  def load_file
-    merchant_csv   = CSV.open './data/merchants.csv',
-                    headers: true, header_converters: :symbol
-    merchant_csv.map do |row|
-      @merchants << Merchant.new(row, self)
+  def load_file(filename)
+    merchant_csv = CSV.open (filename,
+                             headers: true,
+                             header_converters: :symbol
+    merchant_csv.map do |row| @merchants << Merchant.new(row, self)
   end
 
   def all
