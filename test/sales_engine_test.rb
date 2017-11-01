@@ -49,7 +49,7 @@ class SalesEngineTest < Minitest:: Test
     })
     ir = se.items
     item = ir.find_by_name("510+ RealPush Icon Set")
-    result =  ir.items[0].name
+    result =  ir.items[0]
 
     assert_equal result, item
   end

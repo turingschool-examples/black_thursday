@@ -3,6 +3,7 @@ require './lib/item'
 class ItemRepository
   attr_reader :items,
               :count,
+              :all,
               :sales_engine,
               :find_by_id,
               :merchant,
@@ -17,10 +18,6 @@ class ItemRepository
     @sales_engine = parent
   end
 
-  def count
-    @items.count
-  end
-
   def create_item(data)
       my_reference = self
       item_search =  CSV.foreach  data[:items], headers: true, header_converters: :symbol do |row|
@@ -28,25 +25,29 @@ class ItemRepository
       end
   end
 
+  def all
+    @items
+  end
+
   def find_by_id(id)
-    # binding.pry
+
       item = @items.find{|item| item.id == id}
-      item.id
+
     end
 
   def find_by_name(name)
     item =  @items.find{|item| name if item.name == name}
-    item.name
+
   end
 
   def find_all_by_description(description)
    items = @items.find_all{|item| item.description == description}
-   items.first.name
+
   end
 
   def find_by_price(price)
     items = @items.find {|item| item.unit_price == price}
-    items.name
+    # items.name
   end
 
   def find_all_by_price_in_range(low_price, high_price)
