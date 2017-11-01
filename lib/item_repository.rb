@@ -47,8 +47,6 @@ class ItemRepository
   end
 
   def find_all_by_price_in_range(range)
-    #Not sure hwo to get pull within a range... any ideas?
-    #http://ruby-doc.org/core-1.9.3/Range.html#method-i-cover-3F
     @items.find_all {|item| range.cover?(item.unit_price)}
   end
 

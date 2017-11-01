@@ -20,6 +20,6 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_find_merchant_items_things
-    assert_equal 983, setup.find_merchant_items(12334185).count
+    assert_equal 3, setup.find_merchant_items(12334185).count
   end
 end

@@ -37,7 +37,7 @@ class Item
   end
 
   def description
-    item.fetch(:description).downcase
+    item.fetch(:description)
   end
 
 end

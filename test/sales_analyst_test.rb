@@ -18,7 +18,7 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 2.88, setup.average_items_per_merchant
   end
 
-  def test_merchants_are_counted
-    assert_equal 03, setup.count_merchants(call)
+  def test_averages_for_merchants
+    assert_equal 475, setup.counts_per_merchant
   end
 end
