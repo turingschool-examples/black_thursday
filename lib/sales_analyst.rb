@@ -11,8 +11,10 @@ class SalesAnalyst
     (total_items.to_f / total_merchants.to_f).round(2)
   end
 
-  def counts_per_merchant
-    sales_engine.merchants.merchants.count
+  def counts_per_merchant(method)
+    sales_engine.merchants.merchants.map do |merchant|
+      method.call(merchant.id).count
+    end
   end
 
   def mean
