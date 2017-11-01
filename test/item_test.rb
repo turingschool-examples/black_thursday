@@ -1,4 +1,5 @@
 require './test/test_helper'
+require './lib/item'
 
 class TestItem < Minitest::Test
   def test_it_initializes_with_attributes
