@@ -38,5 +38,8 @@ class MerchantRepository
     end
   end
 
+  def find_all_by_merchant_id(merchant_id)
+    parent.find_all_by_merchant_id(merchant_id)
+  end
 
 end
