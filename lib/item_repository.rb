@@ -4,13 +4,13 @@ require "csv"
 class ItemRepository
   attr_reader :items
 
-  def initialize(file)
-    @items = from_csv(file)
+  def initialize(item_file)
+    @items = items_from_csv(item_file)
   end
 
-  def from_csv(file)
+  def items_from_csv(item_file)
     item_list = []
-    CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
+    CSV.foreach(item_file, headers: true, header_converters: :symbol) do |row|
       item_info = {}
       item_info[:id] = row[:id]
       item_info[:name] = row[:name]
@@ -33,7 +33,7 @@ class ItemRepository
   end
 
   def find_by_name(name)
-    @items.find {|item| item.name == name}
+    @items.find {|item| item.name.downcase == name.downcase}
   end
 
   def find_all_with_description(description)
@@ -52,5 +52,9 @@ class ItemRepository
 
   def find_all_by_merchant_id(merchant_id)
     @items.find_all {|item| item.merchant_id == merchant_id}
+  end
+
+  def inspect
+    "#{self.class} #{items.size} rows"
   end
 end

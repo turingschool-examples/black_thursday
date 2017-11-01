@@ -9,11 +9,11 @@ class Item
   end
 
   def created_at
-    Time.now
+    Time.parse(item.fetch(:created_at))
   end
 
   def updated_at
-    Time.now
+    Time.parse(item.fetch(:updated_at))
   end
 
   def unit_price
