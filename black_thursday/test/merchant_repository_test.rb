@@ -10,11 +10,11 @@ class MerchantRepositoryTest < Minitest::Test
 
   def setup
     @engine = SalesEngine.from_csv(
-      items: "./data/items.csv",
-      merchants: "./data/merchants.csv"
+      items: "./test/fixtures/truncated_items.csv",
+      merchants: "./test/fixtures/truncated_merchants.csv"
     )
 
-    @repository = MerchantRepository.new("./data/merchants.csv", engine)
+    @repository = MerchantRepository.new("./test/fixtures/truncated_merchants.csv", engine)
   end
 
   def test_it_exists
@@ -23,6 +23,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_can_return_all_merchants
     assert_equal repository.merchants, @repository.all
+    assert_equal 60, repository.all.length
   end
 
   def test_it_can_find_merchant_by_id
@@ -53,7 +54,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_find_all_by_name_returns_all_matches_of_the_name_fragment
     assert_equal Array, repository.find_all_by_name("wood").class
-    assert_equal 14, repository.find_all_by_name("wood").length
+    assert_equal 3, repository.find_all_by_name("wood").length
     assert_equal "Corbeilwood", repository.find_all_by_name("wood").first.name
     assert_equal "MacDonaldWoodworks", repository.find_all_by_name("wood").last.name
     assert_equal 12334246, repository.find_all_by_name("wood").first.id
@@ -67,6 +68,6 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_inspect
-    assert_equal "MerchantRepository has 475 rows", repository.inspect
+    assert_equal "MerchantRepository has 60 rows", repository.inspect
   end
 end

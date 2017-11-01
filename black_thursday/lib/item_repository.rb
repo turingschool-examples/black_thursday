@@ -1,4 +1,5 @@
 class ItemRepository
+
   attr_reader :items,
               :parent
 

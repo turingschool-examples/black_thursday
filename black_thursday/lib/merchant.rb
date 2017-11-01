@@ -1,4 +1,7 @@
+require "time"
+
 class Merchant
+
   attr_reader :id,
               :name,
               :created_at,
