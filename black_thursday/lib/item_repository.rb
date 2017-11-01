@@ -1,5 +1,6 @@
 class ItemRepository
-  attr_reader :items
+  attr_reader :items,
+              :parent
 
   def initialize(items, parent = nil)
     @items  = load_csv(items).map { |row| Item.new(row, self) }
