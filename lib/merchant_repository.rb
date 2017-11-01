@@ -11,6 +11,10 @@ class MerchantRepository
     @parent = parent
   end
 
+  def inspect
+   "#<#{self.Merchant} #{@merchants.size} rows>"
+  end
+
   def populate(filename)
     contents = CSV.open(filename, headers: true,
      header_converters: :symbol)

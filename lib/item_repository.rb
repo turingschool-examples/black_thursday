@@ -11,6 +11,10 @@ class ItemRepository
     @parent = parent
   end
 
+  def inspect
+   "#<#{self.Item} #{@items.size} rows>"
+  end
+
   def populate(filename)
     contents = CSV.open(filename, headers: true,
      header_converters: :symbol)

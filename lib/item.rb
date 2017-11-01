@@ -12,10 +12,10 @@ class Item
                 :parent
 
   def initialize(attributes = {}, parent = nil)
-    @id           = attributes[:id]
+    @id           = attributes[:id].to_i
     @name         = attributes[:name]
     @description  = attributes[:description]
-    @unit_price   = attributes[:unit_price]
+    @unit_price   = BigDecimal.new(attributes[:unit_price])/100
     @created_at   = attributes[:created_at]
     @updated_at   = attributes[:updated_at]
     @merchant_id  = attributes[:merchant_id]
@@ -23,7 +23,8 @@ class Item
   end
 
   def unit_price_to_dollars
-    BigDecimal.new(@unit_price).to_f
+    unit_price / 100
+    # BigDecimal.new(@unit_price).to_f
   end
 
 

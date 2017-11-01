@@ -12,7 +12,7 @@ class MerchantRepositoryTest < MiniTest::Test
 
   def test_repo_populated_with_merchant_objects
     mr = MerchantRepository.new
-    mr.populate('data/merchants.csv')
+    mr.populate('test/fixtures/merchants_fixture.csv')
 
     assert_instance_of Array, mr.all
     assert_instance_of Merchant, mr.all.first
