@@ -5,18 +5,14 @@ class MerchantRepository
   attr_reader :merchants, :parent, :merchants_file
 
   def initialize(merchants_file, parent)
-    @merchants = []
+    @merchants = merchants_file.map {|merchant| Merchant.new(merchant, self)}
     @merchants_file = merchants_file
     @parent = parent
   end
 
-  def create_merchant(data)
-    merchants << Merchant.new(data, self)
-  end
-
   def find_by_id(id)
     merchants.find do |merchant|
-      merchant.id == id
+      merchant.id == id.to_s
     end
   end
 
