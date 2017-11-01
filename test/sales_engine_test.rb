@@ -11,47 +11,46 @@ class SalesEngineTest < Minitest:: Test
   end
 
   def test_a_sales_engine_has_an_item_repository
-    # se = SalesEngine.new
-    skip
     se= SalesEngine.from_csv({
       :items     => "./data/items_fixture_5lines.csv",
       :merchants => "./data/merchants_5lines.csv",
     })
-    assert se.item_repository
-    assert se.merchant_repository
 
+    assert se.items
+    assert se.merchants
   end
 
-  def test_merchant_returns_instance_of_Merchant_Repository
-    skip
-    se= SalesEngine.from_csv({
-      # :items     => "./data/items_fixture_5lines.csv",
-      :merchants => "./data/merchants_5lines.csv",
-    })
-
-    assert_instance_of MerchantRepository, se
-  end
-
-  def test_Merchant_Repository_is_fully_loaded_with_instances
-skip
-    se= SalesEngine.from_csv({
-      :merchants => "./data/merchants_5lines.csv",
-    })
-    result = se.merchants.count
-    assert_equal 6, result
-  end
-
-
-  def test_it_can_read_CSV
-
+  def test_merchant_returns_instance_of_Repositories
     se= SalesEngine.from_csv({
       :items     => "./data/items_fixture_5lines.csv",
       :merchants => "./data/merchants_5lines.csv",
     })
-    # binding.pry
-    assert_equal 6, se.merchant_repository.merchants.count
-    assert_equal 8, se.item_repository.items.count # se.merchants#.item_repository #.item_repository.items_store.first.id
-    # assert_equal "12334105", se.merchant_repository.merchant_store.first.id
 
+    assert_instance_of MerchantRepository, se.merchants
+    assert_instance_of ItemRepository, se.items
+  end
+
+  def test_it_can_read_find_merchants_by_name_from_Sales_Engine
+    se= SalesEngine.from_csv({
+      :items     => "./data/items_fixture_5lines.csv",
+      :merchants => "./data/merchants_5lines.csv",
+    })
+    mr = se.merchants
+    merchant = mr.find_by_name("LolaMarleys")
+    result =  mr.merchants[3]
+
+    assert_equal result, merchant
+  end
+
+  def test_it_can_read_find_items_by_name_from_Sales_Engine
+    se= SalesEngine.from_csv({
+      :items     => "./data/items_fixture_5lines.csv",
+      :merchants => "./data/merchants_5lines.csv",
+    })
+    ir = se.items
+    item = ir.find_by_name("510+ RealPush Icon Set")
+    result =  ir.items[0].name
+
+    assert_equal result, item
   end
 end

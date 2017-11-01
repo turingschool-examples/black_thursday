@@ -6,16 +6,7 @@ require 'pry'
 
 class MerchantRepositoryTest < Minitest:: Test
 
-  def test_it_creates_merchant
-    mr = MerchantRepository.new("")
-    mr.create_merchant({
-      :merchants => "./data/merchants_5lines.csv",
-    })
-    # assert_instance_of Merchant, mr.
-    assert_equal "Shopin1901", mr.merchants[0].name
-    assert_equal "12334112", mr.merchants[1].id
 
-  end
 
   def test_return_array
     result = MerchantRepository.new("")
@@ -28,7 +19,9 @@ class MerchantRepositoryTest < Minitest:: Test
     mr.create_merchant({
       :merchants => "./data/merchants_5lines.csv",
     })
-    assert_equal 6, mr.merchants.count
+    result = mr.all
+
+    assert_equal 6, result.count
   end
 
   def test_returns_instance_of_Merchant_from_matching_id
@@ -37,11 +30,22 @@ class MerchantRepositoryTest < Minitest:: Test
     mr.create_merchant({
       :merchants => "./data/merchants_5lines.csv",
     })
-    # mr.find_by_id()
     row = mr.merchants[3]
 
 
     assert_equal row, mr.find_by_id("12334115")
+  end
+  
+  def test_it_creates_merchant
+    mr = MerchantRepository.new("")
+    mr.create_merchant({
+      :merchants => "./data/merchants_5lines.csv",
+    })
+    # binding.pry
+    # assert_instance_of Merchant, mr.
+    assert_equal "Shopin1901", mr.merchants[0].name
+    assert_equal "12334112", mr.merchants[1].id
+
   end
 
   def test_returns_instance_of_Merhant_from_name

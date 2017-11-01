@@ -6,12 +6,16 @@ class MerchantRepository
               :merchants,
               :sales_engine,
               :name,
-              :id
+              :id,
+              :all
 
   def initialize(parent)
     @merchants = []
     @sales_engine = parent
 
+  end
+  def all
+    @merchants
   end
 
   def find_by_id(id)
@@ -23,6 +27,7 @@ class MerchantRepository
     merchant_search =  CSV.foreach  data[:merchants], headers: true, header_converters: :symbol do |row|
       @merchants << Merchant.new(row, my_reference)
     end
+    @merchants
   end
 
   def find_by_name(name)

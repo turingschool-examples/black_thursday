@@ -12,16 +12,16 @@ class SalesEngine
               :items_store
 
   def initialize
-    @merchant_repository = MerchantRepository.new(self)
-    @item_repository = ItemRepository.new(self)
+    @merchants= MerchantRepository.new(self)
+    @items = ItemRepository.new(self)
   end
 
   def merchant_loader(data)
-    @merchant_repository.create_merchant(data)
+    @merchants.create_merchant(data)
   end
 
   def item_loader(data)
-    @item_repository.create_item(data)
+    @items.create_item(data)
   end
 
   def self.from_csv(data)
