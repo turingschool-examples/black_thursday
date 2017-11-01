@@ -1,4 +1,5 @@
 require_relative 'test_helper'
+require "./lib/merchant"
 
 class MerchantTest < Minitest::Test
 
@@ -18,5 +19,5 @@ class MerchantTest < Minitest::Test
     assert_equal 19, merchant.updated_at
   end
 
-  
+
 end

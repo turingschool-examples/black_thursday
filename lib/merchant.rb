@@ -11,7 +11,6 @@ class Merchant
     @parent     = parent
     @created_at = info[:created_at]
     @updated_at = info[:updated_at]
-
   end
 
   def items
