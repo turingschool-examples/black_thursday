@@ -18,4 +18,8 @@ class SalesEngineTest < Minitest::Test
   def test_item_repo_is_pulled_in
     assert_instance_of MerchantRepository, setup.merchants
   end
+
+  def test_find_merchant_items_things
+    assert_equal 983, setup.find_merchant_items(12334185).count
+  end
 end

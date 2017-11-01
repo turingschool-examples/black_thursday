@@ -16,5 +16,9 @@ class SalesEngine
     @merchants = MerchantRepository.new(merchants)
   end
 
+  def find_merchant_items(merchant_id)
+    items.find_all_by_merchant_id(merchant_id)
+  end
+
 
 end

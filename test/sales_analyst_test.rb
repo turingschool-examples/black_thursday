@@ -1,10 +1,24 @@
 require_relative 'test_helper'
 require_relative '../lib/sales_analyst'
+require_relative '../lib/sales_engine'
 
 class SalesAnalystTest < Minitest::Test
-  def test_it_exists
-    sa = SalesAnalyst.new
+  attr_reader :sa, :se
+  def setup
+    files = ({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    @se = SalesEngine.from_csv(files)
+    @sa = SalesAnalyst.new(se)
+  end
 
-    assert_instance_of SalesAnalyst, sa
+  def test_it_exists
+    assert_instance_of SalesAnalyst, setup
+  end
+
+  def test_it_averages_items_per_merchant
+    assert_equal 2.88, setup.average_items_per_merchant
+  end
+
+  def test_merchants_are_counted
+    assert_equal 03, setup.count_merchants(call)
   end
 end

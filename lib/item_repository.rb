@@ -40,7 +40,6 @@ class ItemRepository
     @items.find_all do |item|
       item.description.downcase.include?(word.downcase)
     end
-    # @items.find_all {|item| item.description.include?(word)}
   end
 
   def find_all_by_price(unit_price)
