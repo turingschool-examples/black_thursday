@@ -19,7 +19,7 @@ class ItemRepository
     CSV.foreach(items_file, headers: true, header_converters: :symbol) do |row|
       items << Item.new(row, self)
     end
-    # items << Item.new(data, self)
+    items << Item.new(data, self)
   end
 
   def merchant(id)

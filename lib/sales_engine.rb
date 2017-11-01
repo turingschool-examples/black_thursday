@@ -14,7 +14,7 @@ class SalesEngine
   def self.from_csv(files)
     items_file = files[:items]
     merchants_file = files[:merchants]
-      SalesEngine(items_file, merchants_file)
+      SalesEngine.new(items_file, merchants_file)
   end
 
   def merchant(id)
