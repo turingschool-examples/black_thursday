@@ -2,31 +2,36 @@ require_relative './test_helper'
 require './lib/sales_engine'
 
 class TestSalesEngine < Minitest::Test
-    def test_it_exists
-      se = SalesEngine.new(
-        'item_repository',
-        'merchant_repository',
-        'invoice_repository'
-      )
+    attr_reader :se
 
-      assert_instance_of SalesEngine, se
-      assert_equal 'item_repository', se.item_repository
-      assert_equal 'merchant_repository', se.merchant_repository
-      assert_equal 'invoice_repository', se.invoice_repository
+    def setup
+      @se = SalesEngine.from_csv({
+        :items => "./test/fixture/item_truncated.csv",
+        :merchants => './test/fixture/merchants_truncated.csv',
+        :invoices => './test/fixture/invoice_truncated.csv'}
+      )
     end
 
     def test_item_repository_populated_after_load
-      se = SalesEngine.from_csv({
-        :items => "./test/fixture/item_truncated.csv",
-        :merchants => './test/fixture/merchants_truncated.csv',
-        :invoices => './test/fixture/invoice_truncated.csv'
-        })
+      assert_instance_of SalesEngine, se
+      assert_instance_of ItemRepository, se.items
+      assert_equal 5, se.items.items.count
+      assert_instance_of MerchantRepository, se.merchants
+      assert_equal 6, se.merchants.merchants.count
+      assert_instance_of InvoiceRepository, se.invoices
+      assert_equal 7, se.invoices.invoices.count
+    end
 
-      assert_instance_of ItemRepository, se.item_repository
-      assert_equal 5, se.item_repository.items.count
-      assert_instance_of MerchantRepository, se.merchant_repository
-      assert_equal 6, se.merchant_repository.merchants.count
-      assert_instance_of InvoiceRepository, se.invoice_repository
-      assert_equal 7, se.invoice_repository.invoices.count
+    def test_find_items_for_merchant_by_merchant_id
+      merchant = se.merchants.find_by_id('12334185')
+
+      assert_equal 2, merchant.items.count
+    end
+
+    #do we need unit test for merchant in item_test
+    def test_find_merchant_for_item_by_merchant_id
+      item = se.items.find_by_id('263395721')
+
+      assert_equal 'Madewithgitterxx', item.merchant.name
     end
 end

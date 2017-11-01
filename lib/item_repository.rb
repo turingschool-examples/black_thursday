@@ -1,10 +1,12 @@
 require './lib/item'
 
 class ItemRepository
-  attr_reader :items
+  attr_reader :items,
+              :parent
 
-  def initialize(items)
-    @items = items.map {|item| Item.new(item)}
+  def initialize(items, parent)
+    @items = items.map {|item| Item.new(item, self)}
+    @parent = parent
   end
 
   def all
