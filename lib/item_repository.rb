@@ -3,10 +3,10 @@ require './lib/item'
 
 class ItemRepository
 
-  attr_reader :items, :parent
+  attr_reader :items, :parent, :items_file
 
-  def initialize(parent)
-    @items = []
+  def initialize(items_file, parent)
+    @items = create_items(items_file, parent)
     @parent = parent
   end
 
@@ -14,7 +14,11 @@ class ItemRepository
     items.count
   end
 
-  def create_item(data)
+  def create_item(items_file)
+    #check out readlines
+    CSV.foreach(items_file, headers: true, header_converters: :symbol) do |row|
+      items << Item.new(row, self)
+    end
     items << Item.new(data, self)
   end
 

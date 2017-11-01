@@ -2,10 +2,11 @@ require './lib/merchant'
 
 class MerchantRepository
 
-  attr_reader :merchants, :parent
+  attr_reader :merchants, :parent, :merchants_file
 
-  def initialize(parent)
+  def initialize(merchants_file, parent)
     @merchants = []
+    @merchants_file = merchants_file
     @parent = parent
   end
 
