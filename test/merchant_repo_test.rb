@@ -1,4 +1,6 @@
 require 'test_helper'
+require './lib/merch_repo'
+
 class MerchantRepoTest < Minitest::Test
 
   def test_it_initializes

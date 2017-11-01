@@ -4,11 +4,11 @@ require 'csv'
 
 class MerchantRepository
   attr_reader :merchants,
-              :sales_engine
+              :parent
 
   def initialize(parent, filename)
     @merchants      = []
-    @sales_engine   = parent
+    @parent   = parent
     @load           = load_file(filename)
   end
 
@@ -25,13 +25,11 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    @merchant_queue.find { |merchant| merchant.id == id }
     #returns either nil or an instance of Merchant with a matching ID
-      @merchants.find { |merchant| merchant.id == id }
+      @merchants.find { |merchant| merchant.id == id.to_s}
   end
 
   def find_by_name(name)
-    @merchant_queue.
     #returns either nil or an instance of Merchant having done a case insensitive search
       @merchants.find { |merhcant| merhcant.name.downcase == name.downcase }
   end

@@ -1,4 +1,5 @@
 require 'test_helper'
+require './lib/item_repo'
 
 class ItemRepoTest < Minitest::Test
 

@@ -2,12 +2,16 @@
 class Merchant
   attr_reader :id,
               :name,
-              :repository
+              :parent
 
   def initialize(row, parent)
     @id   = row[:id]
     @name = row[:name]
-    @repository = parent
+    @parent = parent
+  end
+
+  def items
+    puts parent.parent.items.find_all_by_merchant_id(self.id)
   end
 
 end

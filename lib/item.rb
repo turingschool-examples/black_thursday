@@ -10,7 +10,7 @@ CENT_TO_DOLLAR = 100
               :created_at,
               :updated_at,
               :merchant_id,
-              :repository
+              :parent
 
   def initialize(item_info, parent)
     @id          = item_info[:id]
@@ -20,11 +20,11 @@ CENT_TO_DOLLAR = 100
     @created_at  = item_info[:created_at]
     @updated_at  = item_info[:updated_at]
     @merchant_id = item_info[:merchant_id]
-    @repository  = parent
+    @parent  = parent
   end
 
   def merchant
-    repository.merchant(merchant_id)
+    puts parent.parent.merchants.find_by_id(self.merchant_id)
   end
 
   def unit_price_to_dollars
