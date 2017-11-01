@@ -48,7 +48,7 @@ class ItemRepositoryTest < MiniTest::Test
     ir = ItemRepository.new
     ir.populate('test/fixtures/items_fixture.csv')
 
-    assert_equal 1, ir.find_all_by_price(15).count
+    assert_equal 1, ir.find_all_by_price(0.15e0).count
     assert_equal [], ir.find_all_by_price(100000)
   end
 
@@ -57,7 +57,7 @@ class ItemRepositoryTest < MiniTest::Test
     ir.populate('test/fixtures/items_fixture.csv')
 
     assert_equal [], ir.find_all_by_price_in_range((10000..20000))
-    assert_equal 5, ir.find_all_by_price_in_range((3..25)).count
+    assert_equal 5, ir.find_all_by_price_in_range((0.3e-1..0.25e0)).count
 
   end
 
