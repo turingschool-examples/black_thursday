@@ -6,20 +6,12 @@ class ItemRepository
   attr_reader :items, :parent, :items_file
 
   def initialize(items_file, parent)
-    @items = create_items(items_file, parent)
+    @items = items_file.map {|item| Item.new(item, self)}
     @parent = parent
   end
 
   def count
     items.count
-  end
-
-  def create_item(items_file)
-    #check out readlines
-    CSV.foreach(items_file, headers: true, header_converters: :symbol) do |row|
-      items << Item.new(row, self)
-    end
-    items << Item.new(data, self)
   end
 
   def merchant(id)
