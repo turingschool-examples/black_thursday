@@ -1,4 +1,3 @@
-require "./lib/merchant_repo"
 
 class Merchant
   attr_reader :id,
@@ -10,4 +9,5 @@ class Merchant
     @name = row[:name]
     @repository = parent
   end
+
 end

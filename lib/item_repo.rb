@@ -1,20 +1,22 @@
-# require "./lib/sales_engine"
+require "./lib/sales_engine"
+require "./lib/item"
 require "csv"
 
 class ItemRepository
   attr_reader :items,
               :sales_engine
 
-  def initialize(parent)
-    @items        = []
-    @sales_engine = parent
-    @load         = load_items
+
+  def initialize(parent, filename)
+    @items         = []
+    @sales_engine  = parent
+    @load          = load_items(filename)
   end
 
-  def load_items
-    items_csv = CSV.open "./data/items.csv",
-                              headers: true,
-                    header_converters: :symbol
+  def load_items(filename)
+    items_csv = CSV.open filename,
+                          headers: true,
+                          header_converters: :symbol
 
     items_csv.each { |item| @items << Item.new(item, self) }
   end
