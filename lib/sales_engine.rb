@@ -17,7 +17,10 @@ class SalesEngine
     se = SalesEngine.new
     se.items.populate(items_CSV)
     se.merchants.populate(merchants_CSV)
-    binding.pry
     return se
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    @items.find_all_by_merchant_id(merchant_id)
   end
 end

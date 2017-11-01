@@ -7,9 +7,14 @@ class Merchant
 
   def initialize(info = {}, parent=nil)
     @name       = info[:name]
-    @id         = info[:id]
+    @id         = info[:id].to_i
     @parent     = parent
     @created_at = info[:created_at]
     @updated_at = info[:updated_at]
+
+  end
+
+  def items
+    parent.find_all_by_merchant_id(id)
   end
 end
