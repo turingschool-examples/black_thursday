@@ -11,7 +11,7 @@ class SalesAnalyst
     se.items.items.count / se.merchants.merchants.count
   end
 
-  def average_items_per_merchant_standard_deviation
+  def standard_deviation_items_per_merchant
       Math.sqrt(count_all_items_for_each_merchant.map do |item_count|
         (average_items_per_merchant - item_count)**2
       end.sum / (se.merchants.merchants.count - 1))
@@ -23,7 +23,23 @@ class SalesAnalyst
     end
   end
 
-  def
+  def merchants_with_high_item_count
+    se.merchants.merchants.reduce([]) do |result, merchant|
+      if merchant.items.count >= minimum_for_high_items
+        result << merchant
+       end
+       result
+    end
+  end
 
+  def minimum_for_high_items
+    average_items_per_merchant + standard_deviation_items_per_merchant
+  end
+
+  def average_item_price_for_merchant(merchant_id)
+    merchant = se.merchants.find_by_id(merchant_id.to_s)
+    merchant.items.inject(0) do |sum, item|
+      sum += item.unit_price
+    end/merchant.items.count
   end
 end

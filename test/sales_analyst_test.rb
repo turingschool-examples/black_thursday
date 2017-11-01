@@ -23,11 +23,21 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_determine_standard_deviation_items_per_merchant
-    
-    assert_equal 1.0, sa.average_items_per_merchant_standard_deviation
+
+    assert_equal 1.0, sa.standard_deviation_items_per_merchant
   end
 
   def test_count_all_items_for_each_merchant
     assert_equal [0,0,0,0,2], sa.count_all_items_for_each_merchant
+  end
+
+  def test_determine_merchants_with_most_items
+    result = sa.merchants_with_high_item_count
+    assert_equal "Madewithgitterxx", result[0].name
+  end
+
+  def test_determines_average_price_for_merchants
+    result = sa.average_item_price_for_merchant(12334185)
+    assert_equal 1025, result
   end
 end
