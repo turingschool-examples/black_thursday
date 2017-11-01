@@ -16,7 +16,7 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    @merchants.find{|merchant|  merchant.name if merchant.id == id}
+    @merchants.find{|merchant|  merchant.id == id}
   end
 
   def create_merchant(data)
@@ -25,6 +25,10 @@ class MerchantRepository
         @merchants << Merchant.new(row, self)
       end
   end
+
+  # def items
+  #   @merchants.find_all{|mer|item}
+  # end
 
   def find_by_name(name)
     @merchants.find{|merchant| merchant.name == name}

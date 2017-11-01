@@ -26,5 +26,4 @@ class SalesEngine
     sales
   end
 
-
 end

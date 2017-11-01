@@ -56,4 +56,15 @@ class SalesEngineTest < Minitest:: Test
 
     assert_equal result, item
   end
+
+  def test_merchants_can_have_items
+    se= SalesEngine.from_csv({
+      :items     => "./data/items_fixture_5lines.csv",
+      :merchants => "./data/merchants_5lines.csv",
+    })
+
+      mr = se.merchants.find_by_name("LolaMarleys")
+      
+
+  end
 end
