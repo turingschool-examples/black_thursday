@@ -7,15 +7,15 @@ class ItemRepository
               :sales_engine
 
   def initialize(parent, filename)
-    @items        = []
-    @sales_engine = parent
-    @load         = load_items(filename)
+    @items         = []
+    @sales_engine  = parent
+    @load          = load_items(filename)
   end
 
   def load_items(filename)
-    items_csv = CSV.open(filename,
+    items_csv = CSV.open filename,
                           headers: true,
-                          header_converters: :symbol)
+                          header_converters: :symbol
     items_csv.each { |item| @items << Item.new(item, self) }
   end
 

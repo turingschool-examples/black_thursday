@@ -1,24 +1,22 @@
 require './lib/merchant'
-require 'pry'
+require './lib/sales_engine'
 require 'csv'
 
 class MerchantRepository
-  attr_reader :merchant_csv,
-              :merchants,
+  attr_reader :merchants,
               :sales_engine
 
   def initialize(parent, filename)
     @merchants      = []
     @sales_engine   = parent
     @load           = load_file(filename)
-    end
   end
 
   def load_file(filename)
-    merchant_csv = CSV.open (filename,
+    merchant_csv = CSV.open filename,
                              headers: true,
                              header_converters: :symbol
-    merchant_csv.map do |row| @merchants << Merchant.new(row, self)
+    merchant_csv.each do |row| @merchants << Merchant.new(row, self) end
   end
 
   def all
