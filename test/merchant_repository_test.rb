@@ -1,4 +1,6 @@
 require_relative "test_helper"
+require './lib/merchant_repository'
+require './lib/merchant'
 
 class MerchantRepositoryTest < MiniTest::Test
 
@@ -18,14 +20,14 @@ class MerchantRepositoryTest < MiniTest::Test
 
   def test_can_retrieve_all_merchant_instances
     mr = MerchantRepository.new
-    mr.populate('data/merchants_fixture.csv')
+    mr.populate('test/fixtures/merchants_fixture.csv')
 
     assert_equal 10, mr.all.length
   end
 
   def test_can_find_merchant_by_id
     mr = MerchantRepository.new
-    mr.populate('data/merchants_fixture.csv')
+    mr.populate('./test/fixtures/merchants_fixture.csv')
 
     assert_instance_of Merchant, mr.find_by_id(12334141)
     assert_nil mr.find_by_id(52334141)
@@ -33,7 +35,7 @@ class MerchantRepositoryTest < MiniTest::Test
 
   def test_can_find_merchant_by_name
     mr = MerchantRepository.new
-    mr.populate('data/merchants_fixture.csv')
+    mr.populate('test/fixtures/merchants_fixture.csv')
 
     assert_instance_of Merchant, mr.find_by_name("MiniatureBikez")
     assert_nil mr.find_by_name("Hello World")
@@ -41,7 +43,7 @@ class MerchantRepositoryTest < MiniTest::Test
 
   def test_can_find_all_merchants_which_contain_name_fragment
     mr = MerchantRepository.new
-    mr.populate('data/merchants_fixture.csv')
+    mr.populate('test/fixtures/merchants_fixture.csv')
 
     assert_instance_of Array, mr.find_all_by_name("ol")
     assert_equal 2, mr.find_all_by_name("ol").count
