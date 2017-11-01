@@ -13,7 +13,7 @@ class SalesAnalyst
 
   def standard_deviation_items_per_merchant
       Math.sqrt(count_all_items_for_each_merchant.map do |item_count|
-        (average_items_per_merchant - item_count)**2
+        (average_items_per_merchant - item_count) ** 2
       end.sum / (se.merchants.merchants.count - 1))
   end
 
@@ -48,5 +48,11 @@ class SalesAnalyst
     se.merchants.merchants.inject(0) do |sum, merchant|
       sum += average_item_price_for_merchant(merchant.id)
     end/se.merchants.merchants.count
+  end
+
+  def standard_deviation_of_item_price
+  end
+
+  def golden_items
   end
 end
