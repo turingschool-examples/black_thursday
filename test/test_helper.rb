@@ -4,6 +4,7 @@ SimpleCov.start do
 end
 
 require './lib/item'
+require './lib/item_repository'
 require './lib/merchant_repository'
 require "./lib/merchant"
 require "./lib/sales_engine"

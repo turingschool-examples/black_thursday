@@ -2,7 +2,7 @@ require_relative "test_helper"
 
 class SalesEngineTest < Minitest::Test
 
-  def test_it_exist
+  def test_it_exists
     se = SalesEngine.new
     assert_instance_of SalesEngine, se
   end
@@ -13,8 +13,8 @@ class SalesEngineTest < Minitest::Test
     :merchants => "./data/merchants.csv",
     })
 
-    binding.pry
-    assert_equal ItemRepository, se.items
+    assert_instance_of ItemRepository, se.items
+    assert_instance_of MerchantRepository, se.merchants
   end
 
 end

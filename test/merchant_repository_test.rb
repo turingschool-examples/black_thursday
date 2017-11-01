@@ -32,9 +32,20 @@ class MerchantRepositoryTest < MiniTest::Test
   end
 
   def test_can_find_merchant_by_name
+    mr = MerchantRepository.new
+    mr.populate('data/merchants_fixture.csv')
+
+    assert_instance_of Merchant, mr.find_by_name("MiniatureBikez")
+    assert_nil mr.find_by_name("Hello World")
   end
 
   def test_can_find_all_merchants_which_contain_name_fragment
+    mr = MerchantRepository.new
+    mr.populate('data/merchants_fixture.csv')
+
+    assert_instance_of Array, mr.find_all_by_name("ol")
+    assert_equal 2, mr.find_all_by_name("ol").count
+    assert_equal [], mr.find_all_by_name("Hello WORLD")
   end
 
 end

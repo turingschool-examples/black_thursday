@@ -3,10 +3,12 @@ require 'csv'
 
 class MerchantRepository
 
-  attr_reader     :all
+  attr_reader     :all,
+                  :parent
 
-  def initialize
+  def initialize(parent = nil)
     @all = []
+    @parent = parent
   end
 
   def populate(filename)
@@ -24,10 +26,16 @@ class MerchantRepository
     end
   end
 
-  def find_by_name
+  def find_by_name(name)
+    @all.find do |merchant|
+      merchant.name.downcase == name.downcase
+    end
   end
 
-  def find_all_by_name
+  def find_all_by_name(name_fragment)
+    @all.find_all do |merchant|
+      merchant.name.downcase.include?(name_fragment.downcase)
+    end
   end
 
 
