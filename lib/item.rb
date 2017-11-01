@@ -25,7 +25,6 @@ attr_reader :id,
 
   def merchant
     @repository.merchant(merchant_id)
-    # binding.pry
   end
 
 end

@@ -18,22 +18,28 @@ class ItemTest < Minitest:: Test
   end
 
   def test_it_can_find_the_associated_merchant
-    skip
     se =SalesEngine.new
-    se.merchants.create_merchant({:name =>"the merch", :id => 24})
-    merchant = se.merchant_repository.merchants.first
-    se.items.create_item({:name => "merchthang", :merchant_id => 24})
-    item = se.item_repository.items.first
 
-    assert_equal merchant,  item.merchant
+    # binding.pry
+    se.merchants.create_merchant({
+          :items     => "./data/items_fixture_5lines.csv",
+          :merchants => "./data/merchants_5lines.csv"})
+    merchant =  se.merchants.merchants
+    se.items.create_item({
+          :items  => "./data/items_fixture_5lines.csv",
+          :merchants => "./data/merchants_5lines.csv"})
+    item = se.items.items.first
+
+    assert_equal merchant.last.id,  item.merchant_id
   end
   def test_it_can_create_an_item
-      i = Item.new({
-    :name        => "Pencil",
-    :description => "You can use it to write things",
-    :unit_price  => BigDecimal.new(10.99,4),
-    :created_at  => Time.now,
-    :updated_at  => Time.now,
+    i = Item.new({
+              :name        => "Pencil",
+              :description => "You can use it to write things",
+              :unit_price  => BigDecimal.new(10.99,4),
+              :created_at  => Time.now,
+              :updated_at  => Time.now,
+              :merchant_id => 24
       })
 
       assert_instance_of Item, i

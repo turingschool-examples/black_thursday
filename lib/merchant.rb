@@ -3,10 +3,10 @@ class Merchant
               :repository,
               :id
 
-    def initialize(data, parent)
-      @name = data[:name]
-      @id = data[:id]
-      @repository = parent
-    end
+  def initialize(data, parent)
+    @name = data[:name]
+    @id = data[:id]
+    @repository = parent
+  end
 
 end
