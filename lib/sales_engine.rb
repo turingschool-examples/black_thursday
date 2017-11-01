@@ -12,9 +12,15 @@ class SalesEngine
   end
 
   def self.from_csv(files)
-    items_file = files[:items]
-    merchants_file = files[:merchants]
+    items_file = create_elements(files[:items])
+    merchants_file = create_elements(files[:merchants])
       SalesEngine.new(items_file, merchants_file)
+  end
+
+  def self.create_elements(file)
+    CSV.readlines(file, headers: true, header_converters: :symbol) do |row|
+      row
+    end
   end
 
   def merchant(id)
