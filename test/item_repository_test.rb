@@ -58,7 +58,7 @@ class ItemRepositoryTest < Minitest::Test
     item_range = ir.find_all_by_price_in_range(2.00..3.00)
 
     assert_instance_of Array, item_range
-    assert_equal 2, item_range.count
+    assert_equal 38, item_range.count
   end
 
   def test_it_can_find_all_by_merchant_id
