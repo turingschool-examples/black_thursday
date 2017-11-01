@@ -1,10 +1,12 @@
 require './lib/merchant'
 class MerchantRepository
 
-  attr_reader :merchants
+  attr_reader :merchants,
+              :parent
 
-  def initialize(merchants)
-    @merchants = merchants.map {|merchant| Merchant.new(merchant)}
+  def initialize(merchants, parent)
+    @merchants = merchants.map {|merchant| Merchant.new(merchant, self)}
+    @parent = parent
   end
 
   def all

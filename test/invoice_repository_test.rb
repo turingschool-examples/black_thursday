@@ -18,7 +18,7 @@ class InvoiceRepositoryTest < Minitest::Test
         :created_at => '2017-1-31',
         :updated_at => '2017-1-30'
         }]
-      InvoiceRepository.new(invoices)
+      InvoiceRepository.new(invoices, self)
     end
 
     def test_setup_exists

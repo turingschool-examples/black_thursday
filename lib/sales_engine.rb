@@ -4,21 +4,22 @@ require './lib/merchant_repository'
 require './lib/invoice_repository'
 
 class SalesEngine
-  attr_reader :item_repository,
-              :merchant_repository,
-              :invoice_repository
+  attr_reader :items,
+              :merchants,
+              :invoices
 
-  def initialize(item_repository, merchant_repository, invoice_repository)
-    @item_repository = item_repository
-    @merchant_repository = merchant_repository
-    @invoice_repository = invoice_repository
+  def initialize(items, merchants, invoices)
+    @items = ItemRepository.new(items, self)
+    @merchants = MerchantRepository.new(merchants, self)
+    @invoices = InvoiceRepository.new(invoices, self)
   end
 
   def self.from_csv(files)
-    item_repository = ItemRepository.new(load_csv(files[:items]))
-    merchant_repository = MerchantRepository.new(load_csv(files[:merchants]))
-    invoice_repository = InvoiceRepository.new(load_csv(files[:invoices]))
-    SalesEngine.new(item_repository, merchant_repository, invoice_repository)
+    SalesEngine.new(
+      load_csv(files[:items]),
+      load_csv(files[:merchants]),
+      load_csv(files[:invoices])
+    )
   end
 
   def self.load_csv(file_name)

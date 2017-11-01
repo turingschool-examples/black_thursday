@@ -1,8 +1,9 @@
 class InvoiceRepository
   attr_reader :invoices
 
-  def initialize(invoices)
+  def initialize(invoices, parent)
     @invoices = invoices.map {|invoice| Invoice.new(invoice)}
+    @parent = parent
   end
 
   def all
