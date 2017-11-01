@@ -1,4 +1,5 @@
 require_relative './test_helper'
+require './lib/invoice'
 
 class InvoiceTest < Minitest::Test
   def test_invoice_accepts_attributes

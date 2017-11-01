@@ -22,8 +22,7 @@ class SalesEngine
   end
 
   def self.load_csv(file_name)
-    contents = CSV.open(file_name, headers: true, header_converters: :symbol)
-    contents.map do |row|
+    CSV.readlines(file_name, headers: true, header_converters: :symbol) do |row|
       row
     end
   end

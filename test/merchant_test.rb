@@ -1,4 +1,5 @@
 require './test/test_helper'
+require './lib/merchant'
 
 class MerchantTest < Minitest::Test
   def test_can_be_initialized_with_attributes
