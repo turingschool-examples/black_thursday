@@ -1,15 +1,16 @@
-require 'test_helper'
+require './test/test_helper'
+require "./lib/sales_engine"
 
 class SalesEngineTest < Minitest::Test
 
   def test_it_exists
-    se = SalesEngine.new
+    se = SalesEngine.new("./data/items.csv", "./data/merchants.csv")
 
     assert_instance_of SalesEngine, se
   end
 
   def test_se_has_an_item_repository
-    se = SalesEngine.new
+    se = SalesEngine.new("./data/items.csv", "./data/merchants.csv")
 
     assert se.item_repository
   end
@@ -42,7 +43,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_item_can_find_the_associated_merchant
-    se = SalesEngine.new
+    se = SalesEngine.new("./data/items.csv", "./data/merchants.csv")
     se.merchant_repository.create_merchant(name: "The Merch", id: 24)
     merchant = se.merchant_repository.merchants.first
     se.item_repository.create_item(name: "Thing 3", merchant_id: 24)

@@ -42,12 +42,12 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
-    @items.find_all { |item| item.unit_price == unit_price_to_dollars }
+    @items.find_all { |item| item.unit_price.to_f/100 == price }
   end
 
-  # def find_all_by_price_in_range(price_range)
-  #   @items.find_all { |item| price_range.include?(item.unit_price) } #?? not sure how this'll work
-  # end
+  def find_all_by_price_in_range(price_range)
+    @items.find_all { |item| price_range.include?(item.unit_price) }
+  end
 
   def find_all_by_merchant_id(merchant_id)
     @items.find_all { |item| item.merchant_id == merchant_id }
