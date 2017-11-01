@@ -1,5 +1,6 @@
 require_relative "item"
 require "csv"
+require 'pry'
 
 class ItemRepository
   attr_reader :items
@@ -29,11 +30,27 @@ class ItemRepository
   end
 
   def find_by_id(id)
-    @items.find {|item| item.id}
+    @items.find {|item| item.id == id}
+  end
+
+  def find_by_name(name)
+    @items.find {|item| item.name == name}
+  end
+
+  def find_all_with_description(description)
+    @items.find_all {|item| item.description == description.downcase}
+  end
+
+  def find_all_by_price(unit_price)
+    @items.find_all {|item| item.unit_price == unit_price}
+  end
+
+  def find_all_by_price_in_range(range)
+    #Not sure hwo to get pull within a range... any ideas?
+    @items.find_all {|item| item.unit_price}
   end
 
   def find_all_by_merchant_id(merchant_id)
     @items.find_all {|item| item.merchant_id == merchant_id}
   end
-
 end

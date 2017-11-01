@@ -31,29 +31,34 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_can_find_by_name
     ir = ItemRepository.new("./data/items.csv")
+    item_name = ir.find_by_name("Vogue Paris Original Givenchy 2307")
 
-    assert_equal "Vogue Paris Original Givenchy", ir.find_by_name.name
+    assert_equal "Vogue Paris Original Givenchy 2307", item_name.name
   end
 
   def test_it_can_find_all_with_description
     ir = ItemRepository.new("./data/items.csv")
+    item_des = ir.find_all_with_description("Acrylique sur toile et collage.")
 
-    assert_instance_of Array, ir.find_all_with_description
-    assert_equal 1, ir.find_all_with_description.count
+    assert_instance_of Array, item_des
+    assert_equal 1, item_des.count
   end
 
   def test_it_can_find_all_by_price
     ir = ItemRepository.new("./data/items.csv")
+    item_price = ir.find_all_by_price(1.00)
 
-    assert_instance_of Array, ir.find_all_by_price
-    assert_equal 13.50, ir.find_all_by_price[3].unit_price
+    assert_instance_of Array, item_price
+    assert_equal 4, item_price.count
+    assert_equal 1.00, item_price[2].unit_price
   end
 
   def test_it_can_find_all_by_price_range
     ir = ItemRepository.new("./data/items.csv")
+    item_range = ir.find_all_by_price_in_range(2.00..3.00)
 
-    assert_instance_of Array, ir.find_all_by_price_in_range
-    assert_equal 2, ir.find_all_by_price_in_range.count
+    assert_instance_of Array, item_range
+    assert_equal 2, item_range.count
   end
 
   def test_it_can_find_all_by_merchant_id
@@ -61,8 +66,8 @@ class ItemRepositoryTest < Minitest::Test
     mr = ir.find_all_by_merchant_id(12334213)
     assert_equal 2, mr.count
 
-    merch = ir.find_all_by_merchant_id(12334141)
-    assert_instance_of Array, ir.find_all_by_merchant_id(12334141)
-    assert_equal 12334141, merch.merchant_id
+    merch = ir.find_all_by_merchant_id(12334105)
+    assert_equal 3, merch.count
+    assert_instance_of Array, ir.find_all_by_merchant_id(12334105)
   end
 end
