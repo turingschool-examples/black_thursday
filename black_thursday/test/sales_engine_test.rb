@@ -1,10 +1,10 @@
 require_relative 'test_helper'
 require 'csv'
-require './lib/merchant'
-require './lib/merchant_repository'
-require './lib/item'
-require './lib/item_repository'
-require './lib/sales_engine'
+require_relative './../lib/merchant'
+require_relative './../lib/merchant_repository'
+require_relative './../lib/item'
+require_relative './../lib/item_repository'
+require_relative './../lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test
   def setup

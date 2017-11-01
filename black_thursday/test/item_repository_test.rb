@@ -1,7 +1,7 @@
 require_relative 'test_helper'
 require 'csv'
-require './lib/item'
-require './lib/item_repository'
+require_relative './../lib/item'
+require_relative './../lib/item_repository'
 
 class ItemRepositoryTest < Minitest::Test
   attr_reader :repository,
