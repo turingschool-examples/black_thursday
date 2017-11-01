@@ -1,7 +1,7 @@
 require_relative 'test_helper'
 require './lib/sales_engine'
 require './lib/item_repository'
-
+require 'pry'
 
 class ItemRepositoryTest < MiniTest::Test
 
@@ -20,43 +20,35 @@ class ItemRepositoryTest < MiniTest::Test
     assert_equal @item_repository.items, @item_repository.all
     assert_equal 10, @item_repository.items.count
   end
-  #
-  # def test_find_by_id_nil_or_with_id_number
-  #   @item_repository.create_item({:name => "sample 1", :unit_price => 5000})
-  #
-  #   assert_nil @item_repository.find_by_id(5)
-  #
-  #   @item_repository.create_item({:name => "sample 1", :id => 5, :unit_price => 5000})
-  #   item2 = @item_repository.items[1]
-  #
-  #   assert_equal item2, @item_repository.find_by_id(5)
-  # end
-  #
-  # def test_that_finds_by_name
-  #   assert_nil @item_repository.find_by_name("Trampoline")
-  #
-  #   @item_repository.create_item({:name => "sample 2", :unit_price => 5000})
-  #   item1 = @item_repository.items[0]
-  #
-  #   assert_equal item1, @item_repository.find_by_name("sample 2")
-  #
-  # end
-  #
-  # def test_that_it_matches_items_with_similar_description
-  #   @item_repository.create_item({:name => "doggo", :description => "bark", :unit_price => 5000})
-  #   @item_repository.create_item({:name => "doggette", :description => "barker", :unit_price => 5000})
-  #
-  #   assert_empty @item_repository.find_all_with_description("meow")
-  #   assert_equal @item_repository.items, @item_repository.find_all_with_description("bark")
-  # end
-  #
-  # def test_that_it_matches_items_with_similar_merch_id
-  #   @item_repository.create_item({:name => "doggo", :merchant_id => 20, :unit_price => 5000})
-  #   @item_repository.create_item({:name => "doggette", :merchant_id => 20, :unit_price => 5000})
-  #
-  #   assert_empty @item_repository.find_all_by_merchant_id(2)
-  #   assert_equal @item_repository.items, @item_repository.find_all_by_merchant_id(20)
-  # end
+
+  def test_find_by_id_nil_or_with_id_number
+    assert_nil @item_repository.find_by_id("263401670")
+    assert_equal @item_repository.items[0], @item_repository.find_by_id("263401607")
+  end
+
+  def test_that_finds_by_name
+    assert_nil @item_repository.find_by_name("Trampoline")
+    assert_equal @item_repository.items[4], @item_repository.find_by_name("Black Jorts")
+  end
+
+  def test_that_it_matches_items_with_similar_description
+    assert_equal ([]), @item_repository.find_all_with_description("meow")
+
+    item1 = @item_repository.items[2]
+    item2 = @item_repository.items[9]
+
+    assert_equal [item1, item2], @item_repository.find_all_with_description("unbelievably")
+    assert_equal [item1, item2], @item_repository.find_all_with_description("nbElIeVaBly")
+  end
+
+  def test_that_it_matches_items_with_similar_merch_id
+    assert_equal ([]), @item_repository.find_all_by_merchant_id("263401607")
+
+    item1 = @item_repository.items[0]
+    item2 = @item_repository.items[1]
+
+    assert_equal [item1, item2], @item_repository.find_all_by_merchant_id("12334112")
+  end
   #
   # def test_that_it_finds_all_items_by_price
   #   @item_repository.create_item({:name => "doggo", :merchant_id => 20, :unit_price => 5000})
