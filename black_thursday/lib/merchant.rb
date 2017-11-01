@@ -15,4 +15,8 @@ class Merchant
     @updated_at = Time.parse(attributes[:updated_at])
     @parent     = parent
   end
+
+  def items
+    @parent.find_all_items_by_merchant_id(id)
+  end
 end

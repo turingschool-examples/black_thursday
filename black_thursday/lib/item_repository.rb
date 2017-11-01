@@ -1,5 +1,7 @@
 class ItemRepository
-  attr_reader :items, :parent
+
+  attr_reader :items,
+              :parent
 
   def initialize(items, parent = nil)
     @items  = load_csv(items).map { |row| Item.new(row, self) }
@@ -48,6 +50,10 @@ class ItemRepository
     items.find_all do |item|
       item.merchant_id == merchant_id
     end
+  end
+
+  def find_merchant_for_item(item)
+    @parent.merchants.find_by_id(item.merchant_id)
   end
 
   def inspect
