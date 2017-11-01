@@ -1,3 +1,4 @@
+require 'time'
 class Merchant
   attr_reader :merchant
 
@@ -10,5 +11,13 @@ class Merchant
   end
   def name
     merchant.fetch(:name)
+  end
+
+  def created_at
+    Time.now
+  end
+
+  def updated_at
+    Time.now
   end
 end
