@@ -30,19 +30,22 @@ class SalesEngineTest < Minitest:: Test
     assert_instance_of ItemRepository, se.items
   end
 
-  def test_it_can_read_find_merchants_by_name_from_Sales_Engine
+  def test_it_can_find_merchants_by_name_from_Sales_Engine
     se= SalesEngine.from_csv({
       :items     => "./data/items_fixture_5lines.csv",
       :merchants => "./data/merchants_5lines.csv",
     })
     mr = se.merchants
-    merchant = mr.find_by_name("LolaMarleys")
-    result =  mr.merchants[3]
+    merchant1 = mr.find_by_name("LolaMarleys")
+    merchant2 = mr.find_by_name("Keckenbauer")
+    result1 =  mr.merchants[3]
+    result2 =  mr.merchants[4]
 
-    assert_equal result, merchant
+    assert_equal result1, merchant1
+    assert_equal result2, merchant2
   end
 
-  def test_it_can_read_find_items_by_name_from_Sales_Engine
+  def test_it_can_find_items_by_name_from_Sales_Engine
     se= SalesEngine.from_csv({
       :items     => "./data/items_fixture_5lines.csv",
       :merchants => "./data/merchants_5lines.csv",
