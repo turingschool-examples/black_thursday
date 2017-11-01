@@ -20,11 +20,13 @@ class MerchantRepository
   end
 
   def find_by_id(id)
+    @merchant_queue.find { |merchant| merchant.id == id }
     #returns either nil or an instance of Merchant with a matching ID
     parse_queue("id", id)
   end
 
   def find_by_name(name)
+    @merchant_queue.
     #returns either nil or an instance of Merchant having done a case insensitive search
     parse_queue_words("name", name)
   end
