@@ -33,20 +33,11 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal "BowlsByChris", merch_name.name
   end
 
-  def test_it_can_find_all_by_name
-    mr = MerchantRepository.new("./data/merchants.csv")
-
-    merch_name = mr.find_all_by_name("RigRanch")
-
-    assert_instance_of Array, merch_name
-    assert_equal "RigRanch", merch_name[0].name
-  end
-
   def test_it_can_find_all_by_fragment_of_name
     mr = MerchantRepository.new("./data/merchants.csv")
 
-    merch_name = mr.find_all_by_name("Rig")
+    merch_name = mr.find_all_by_name("style")
 
-    assert_equal "RigRanch", merch_name[0].name
+    assert_equal 3, merch_name.count
   end
 end

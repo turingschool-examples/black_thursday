@@ -33,8 +33,10 @@ class MerchantRepository
     @merchants.find {|merchant| merchant.name.downcase == name.downcase}
   end
 
-  def find_all_by_name(name)
-    @merchants.find_all {|merchant| merchant.name.include?(name) == name.include?(name)}
+  def find_all_by_name(fragment)
+    @merchants.find_all do |merchant|
+      merchant.name.downcase.include?(fragment.downcase)
+    end 
   end
 
   def inspect

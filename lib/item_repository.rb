@@ -36,8 +36,11 @@ class ItemRepository
     @items.find {|item| item.name.downcase == name.downcase}
   end
 
-  def find_all_with_description(description)
-    @items.find_all {|item| item.description == description.downcase}
+  def find_all_with_description(word)
+    @items.find_all do |item|
+      item.description.downcase.include?(word.downcase)
+    end
+    # @items.find_all {|item| item.description.include?(word)}
   end
 
   def find_all_by_price(unit_price)

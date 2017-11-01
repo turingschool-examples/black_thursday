@@ -35,8 +35,8 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_with_description
-    ir = ItemRepository.new("./data/items.csv")
-    item_des = ir.find_all_with_description("Acrylique sur toile et collage.")
+    ir = ItemRepository.new("./test/fixture/items_fixture.csv")
+    item_des = ir.find_all_with_description("Paris")
 
     assert_instance_of Array, item_des
     assert_equal 1, item_des.count
