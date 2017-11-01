@@ -12,8 +12,8 @@ class SalesEngineTest < Minitest:: Test
 
   def test_a_sales_engine_has_an_item_repository
     se= SalesEngine.from_csv({
-      :items     => "./data/items_fixture_5lines.csv",
-      :merchants => "./data/merchants_5lines.csv",
+      :items     => "./test/fixtures/items_fixture_5lines.csv",
+      :merchants => "./test/fixtures/merchants_5lines.csv",
     })
 
     assert se.items
@@ -22,8 +22,8 @@ class SalesEngineTest < Minitest:: Test
 
   def test_merchant_returns_instance_of_Repositories
     se= SalesEngine.from_csv({
-      :items     => "./data/items_fixture_5lines.csv",
-      :merchants => "./data/merchants_5lines.csv",
+      :items     => "./test/fixtures/items_fixture_5lines.csv",
+      :merchants => "./test/fixtures/merchants_5lines.csv",
     })
 
     assert_instance_of MerchantRepository, se.merchants
@@ -32,8 +32,8 @@ class SalesEngineTest < Minitest:: Test
 
   def test_it_can_find_merchants_by_name_from_Sales_Engine
     se= SalesEngine.from_csv({
-      :items     => "./data/items_fixture_5lines.csv",
-      :merchants => "./data/merchants_5lines.csv",
+      :items     => "./test/fixtures/items_fixture_5lines.csv",
+      :merchants => "./test/fixtures/merchants_5lines.csv",
     })
     mr = se.merchants
     merchant1 = mr.find_by_name("LolaMarleys")
@@ -47,8 +47,8 @@ class SalesEngineTest < Minitest:: Test
 
   def test_it_can_find_items_by_name_from_Sales_Engine
     se= SalesEngine.from_csv({
-      :items     => "./data/items_fixture_5lines.csv",
-      :merchants => "./data/merchants_5lines.csv",
+      :items     => "./test/fixtures/items_fixture_5lines.csv",
+      :merchants => "./test/fixtures/merchants_5lines.csv",
     })
     ir = se.items
     item = ir.find_by_name("510+ RealPush Icon Set")
@@ -59,12 +59,12 @@ class SalesEngineTest < Minitest:: Test
 
   def test_merchants_can_have_items
     se= SalesEngine.from_csv({
-      :items     => "./data/items_fixture_5lines.csv",
-      :merchants => "./data/merchants_5lines.csv",
+      :items     => "./test/fixtures/items_fixture_5lines.csv",
+      :merchants => "./test/fixtures/merchants_5lines.csv",
     })
 
       mr = se.merchants.find_by_name("LolaMarleys")
-      
+
 
   end
 end

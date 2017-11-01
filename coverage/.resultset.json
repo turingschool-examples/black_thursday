@@ -1,7 +1,7 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/zacharylandes/turing/1module/projects/black_thursday/lib/item_repository.rb": [
+      "/Users/tmarq/turing/1module/projects/black_thursday/lib/item_repository.rb": [
         1,
         null,
         1,
@@ -54,7 +54,7 @@
         null,
         null
       ],
-      "/Users/zacharylandes/turing/1module/projects/black_thursday/lib/item.rb": [
+      "/Users/tmarq/turing/1module/projects/black_thursday/lib/item.rb": [
         1,
         null,
         1,
@@ -86,7 +86,7 @@
         null,
         null
       ],
-      "/Users/zacharylandes/turing/1module/projects/black_thursday/lib/sales_engine.rb": [
+      "/Users/tmarq/turing/1module/projects/black_thursday/lib/sales_engine.rb": [
         1,
         1,
         1,
@@ -117,7 +117,7 @@
         null,
         null
       ],
-      "/Users/zacharylandes/turing/1module/projects/black_thursday/lib/merchant_repository.rb": [
+      "/Users/tmarq/turing/1module/projects/black_thursday/lib/merchant_repository.rb": [
         1,
         1,
         null,
@@ -142,7 +142,7 @@
         1,
         11,
         null,
-        77,
+        66,
         null,
         null,
         null,
@@ -155,7 +155,7 @@
         null,
         null,
         1,
-        8,
+        7,
         null,
         null,
         null,
@@ -167,7 +167,7 @@
         null,
         null
       ],
-      "/Users/zacharylandes/turing/1module/projects/black_thursday/lib/merchant.rb": [
+      "/Users/tmarq/turing/1module/projects/black_thursday/lib/merchant.rb": [
         1,
         1,
         null,
@@ -175,9 +175,9 @@
         null,
         null,
         1,
-        77,
-        77,
-        77,
+        66,
+        66,
+        66,
         null,
         null,
         1,
@@ -187,6 +187,6 @@
         null
       ]
     },
-    "timestamp": 1509512388
+    "timestamp": 1509559690
   }
 }
