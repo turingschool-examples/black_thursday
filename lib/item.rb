@@ -11,7 +11,7 @@ attr_reader :id,
             :unit_price_to_dollars,
             :merchant_id
 
-  def initialize(data, parent)
+  def initialize(data,*parent)
     @id = data[:id]
     @name = data[:name]
     @description = data[:description]

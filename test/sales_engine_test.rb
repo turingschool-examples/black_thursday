@@ -5,22 +5,52 @@ require 'csv'
 
 class SalesEngineTest < Minitest:: Test
   def test_a_sales_engine_can_be_instantiated
-  
-    assert SalesEngine.new
-  end
-  def test_a_sales_engine_has_an_item_repository
+    result = SalesEngine.new
 
-    se = SalesEngine.new
-    assert se.item_repository
+    assert_instance_of SalesEngine, result
   end
-  def test_it_can_read_CSV
-    se = SalesEngine.new
-    se.from_csv({
+
+  def test_a_sales_engine_has_an_item_repository
+    se= SalesEngine.from_csv({
       :items     => "./data/items_fixture_5lines.csv",
       :merchants => "./data/merchants_5lines.csv",
     })
-    assert_equal "263395617", se.items_store.first[:id]
-    assert_equal "12334105", se.merchant_store.first[:id]
 
+    assert se.items
+    assert se.merchants
+  end
+
+  def test_merchant_returns_instance_of_Repositories
+    se= SalesEngine.from_csv({
+      :items     => "./data/items_fixture_5lines.csv",
+      :merchants => "./data/merchants_5lines.csv",
+    })
+
+    assert_instance_of MerchantRepository, se.merchants
+    assert_instance_of ItemRepository, se.items
+  end
+
+  def test_it_can_read_find_merchants_by_name_from_Sales_Engine
+    se= SalesEngine.from_csv({
+      :items     => "./data/items_fixture_5lines.csv",
+      :merchants => "./data/merchants_5lines.csv",
+    })
+    mr = se.merchants
+    merchant = mr.find_by_name("LolaMarleys")
+    result =  mr.merchants[3]
+
+    assert_equal result, merchant
+  end
+
+  def test_it_can_read_find_items_by_name_from_Sales_Engine
+    se= SalesEngine.from_csv({
+      :items     => "./data/items_fixture_5lines.csv",
+      :merchants => "./data/merchants_5lines.csv",
+    })
+    ir = se.items
+    item = ir.find_by_name("510+ RealPush Icon Set")
+    result =  ir.items[0]
+
+    assert_equal result, item
   end
 end
