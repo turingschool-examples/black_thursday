@@ -3,10 +3,12 @@ require 'csv'
 
 class MerchantRepository
 
-  attr_reader     :all
+  attr_reader     :all,
+                  :parent
 
-  def initialize
+  def initialize(parent = nil)
     @all = []
+    @parent = parent
   end
 
   def populate(filename)

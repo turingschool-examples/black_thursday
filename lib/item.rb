@@ -8,7 +8,8 @@ class Item
                 :created_at,
                 :updated_at,
                 :merchant_id,
-                :unit_price_to_dollars
+                :unit_price_to_dollars,
+                :parent
 
   def initialize(attributes = {}, parent = nil)
     @id           = attributes[:id]
@@ -18,6 +19,7 @@ class Item
     @created_at   = attributes[:created_at]
     @updated_at   = attributes[:updated_at]
     @merchant_id  = attributes[:merchant_id]
+    @parent = parent
 
     #id and merchant_id might not be given??
   end
