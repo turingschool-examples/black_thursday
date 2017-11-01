@@ -36,45 +36,39 @@ class ItemRepositoryTest < MiniTest::Test
 
     item1 = @item_repository.items[2]
     item2 = @item_repository.items[9]
+    result = [item1, item2]
 
-    assert_equal [item1, item2], @item_repository.find_all_with_description("unbelievably")
-    assert_equal [item1, item2], @item_repository.find_all_with_description("nbElIeVaBly")
+    assert_equal result, @item_repository.find_all_with_description("unbelievably")
+    assert_equal result, @item_repository.find_all_with_description("nbElIeVaBly")
   end
 
   def test_that_it_matches_items_with_similar_merch_id
-    assert_equal ([]), @item_repository.find_all_by_merchant_id("263401607")
-
     item1 = @item_repository.items[0]
     item2 = @item_repository.items[1]
+    item3 = @item_repository.items[2]
+    result = [item1, item2, item3]
 
-    assert_equal [item1, item2], @item_repository.find_all_by_merchant_id("12334112")
+    assert_equal ([]), @item_repository.find_all_by_merchant_id("263401607")
+    assert_equal result, @item_repository.find_all_by_merchant_id("12334112")
   end
-  #
-  # def test_that_it_finds_all_items_by_price
-  #   @item_repository.create_item({:name => "doggo", :merchant_id => 20, :unit_price => 5000})
-  #   @item_repository.create_item({:name => "doggette", :merchant_id => 20, :unit_price => 2000})
-  #   @item_repository.create_item({:name => "doge", :merchant_id => 20, :unit_price => 2000})
-  #   item1 = @item_repository.items[0]
-  #   item2 = @item_repository.items[1]
-  #   item3 = @item_repository.items[2]
-  #
-  #   assert_empty @item_repository.find_all_by_price(70)
-  #   assert_equal [item1], @item_repository.find_all_by_price(50)
-  #   assert_equal [item2, item3], @item_repository.find_all_by_price(20)
-  # end
-  #
-  # def test_that_it_finds_all_items_by_price_in_range
-  #   @item_repository.create_item({:name => "doggo", :merchant_id => 20, :unit_price => 5000})
-  #   @item_repository.create_item({:name => "doggette", :merchant_id => 20, :unit_price => 2000})
-  #   @item_repository.create_item({:name => "doge", :merchant_id => 20, :unit_price => 4000})
-  #   item1 = @item_repository.items[0]
-  #   item2 = @item_repository.items[1]
-  #   item3 = @item_repository.items[2]
-  #
-  #   assert_empty @item_repository.find_all_by_price_in_range(70,90)
-  #   assert_equal [item1], @item_repository.find_all_by_price_in_range(45,70)
-  #   assert_equal [item2, item3], @item_repository.find_all_by_price_in_range(20,40)
-  # end
+
+  def test_that_it_finds_all_items_by_price
+    item1 = @item_repository.items[4]
+    item2 = @item_repository.items[6]
+    result = [item1, item2]
+
+    assert_equal ([]), @item_repository.find_all_by_price(9999)
+    assert_equal result, @item_repository.find_all_by_price(3000)
+  end
+
+  def test_that_it_finds_all_items_by_price_in_range
+    item1 = @item_repository.items[3]
+    item2 = @item_repository.items[5]
+    result = [item1, item2]
+
+    assert_equal ([]), @item_repository.find_all_by_price_in_range(9999,10235)
+    assert_equal result, @item_repository.find_all_by_price_in_range(4500, 4995)
+  end
   #
   #
 end
