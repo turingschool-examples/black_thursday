@@ -1,7 +1,4 @@
 require_relative 'test_helper'
-# require 'minitest/autorun'
-# require 'minitest/pride'
-# require 'pry'
 require './lib/item'
 require './lib/item_repository'
 require './lib/sales_engine'
