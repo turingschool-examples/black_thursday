@@ -58,6 +58,23 @@ class ItemTest < Minitest::Test
     assert_equal Time.parse("2017-06-04 21:35:10 UTC"), item.updated_at
   end
 
+  def test_it_knows_its_merchant
+    created_at = "2016-01-11 09:34:06 UTC"
+    updated_at = "2017-06-04 21:35:10 UTC"
+
+    item = Item.new(
+      {id: "4",
+      name: "pencil",
+      description: "You can use it to write things",
+      unit_price: "1200",
+      merchant_id: "12334135",
+      created_at: created_at,
+      updated_at: updated_at},
+      repository
+    )
+
+    assert_equal "GoldenRayPress", item.merchant.name
+  end
 
   def test_can_change_unit_price_to_dollars
     created_at = "2016-01-11 09:34:06 UTC"

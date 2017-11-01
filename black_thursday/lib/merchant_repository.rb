@@ -1,4 +1,4 @@
-require "CSV"
+require "csv"
 class MerchantRepository
   attr_reader :merchants,
               :parent
@@ -31,6 +31,10 @@ class MerchantRepository
     @merchants.find_all do |merchant|
       merchant.name.to_s.downcase.index(name.downcase)
     end
+  end
+
+  def find_all_items_by_merchant_id(merchant_id)
+    parent.items.find_all_by_merchant_id(merchant_id)
   end
 
   def inspect
