@@ -1,3 +1,5 @@
+require 'csv'
+
 class Merchant
 
   attr_reader :name, :parent, :id
