@@ -12,7 +12,7 @@ class ItemRepository
   end
 
   def inspect
-   "#<#{self.Item} #{@all.size} rows>"
+   "#<#{self.class} #{@all.size} rows>"
   end
 
   def populate(filename)
