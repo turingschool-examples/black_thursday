@@ -13,7 +13,14 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(id)
-    BigDecimal.new(sum_prices(id) / merchant_items_by_id(id).length, 4).round(2)
+    BigDecimal.new(avg(id), 4).round(2)
+  end
+
+  def average_average_price_per_merchant
+    average = @engine.merchants.all.map do |merchant|
+      avg(merchant.id)
+    end.sum
+    BigDecimal.new(average / count_merchants, 4).round(2)
   end
 
   private
@@ -31,5 +38,9 @@ class SalesAnalyst
 
   def sum_prices(id)
     merchant_items_by_id(id).map { |item| item.unit_price }.sum
+  end
+
+  def avg(id)
+    sum_prices(id) / merchant_items_by_id(id).length
   end
 end
