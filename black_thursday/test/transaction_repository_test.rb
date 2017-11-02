@@ -40,8 +40,20 @@ class TransactionRepositoryTest < Minitest::Test
 
   def test_find_by_id
     assert_instance_of Transaction, repository.find_by_id(10)
-    assert_equal "2179", repository.find_by_id(5).invoice_id
+    assert_equal 2179, repository.find_by_id(5).invoice_id
     assert_equal 'success', repository.find_by_id(1).result
+  end
+
+  def test_find_by_id_edge_cases
+    assert_nil repository.find_by_id(nil)
+    assert_nil repository.find_by_id([0,329,23099])
+    assert_nil repository.find_by_id('239')
+  end
+
+  def test_find_all_by_invoice_id
+    assert_equal 1, repository.find_all_by_invoice_id(46).length
+    assert_equal Time.parse('2012-02-26 20:56:56 UTC'), repository.find_all_by_invoice_id(46).first.created_at
+    assert_equal '4177816490204479', repository.find_all_by_invoice_id(46).first.credit_card_number
   end
 
 end
