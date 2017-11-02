@@ -3,11 +3,11 @@ require_relative '../lib/item'
 
 class ItemRepository
 
-  attr_reader :items, :parent, :items_file
+  attr_reader :items, :repository, :items_file
 
-  def initialize(items_file, parent)
+  def initialize(items_file, repository)
     @items = items_file.map {|item| Item.new(item, self)}
-    @parent = parent
+    @repository = repository
   end
 
   def count
@@ -15,7 +15,7 @@ class ItemRepository
   end
 
   def merchant(id)
-    parent.merchant(id)
+    repository.merchant(id)
   end
 
   def all
