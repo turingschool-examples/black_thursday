@@ -33,4 +33,11 @@ class SalesEngine
      merchants.find_by_id(merchant_id)
   end
 
+  def find_merchant_by_id(id)
+    # require "pry"; binding.pry
+    merchants.find_by_id(id)
+  end
+
+
+
 end

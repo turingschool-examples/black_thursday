@@ -34,7 +34,6 @@ class MerchantRepository
   end
 
   def find_items_belonging_to_merchant(id)
-    # binding.pry
     sales_engine.find_items_belonging_to_merchants(id)
   end
 
@@ -42,8 +41,9 @@ class MerchantRepository
     @merchants.find_all{|merchant| merchant.name == name}
   end
 
-
-
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 
 #   all - returns an array of all known Merchant instances
 # find_by_id - returns either nil or an instance of Merchant with a matching ID

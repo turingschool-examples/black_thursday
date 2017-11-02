@@ -13,6 +13,7 @@ attr_reader :id,
             :merchant_id
             # :unit_price_to_dollars
 
+
   def initialize(data, parent = nil)
     @id = data[:id]
     @name = data[:name]
@@ -23,6 +24,11 @@ attr_reader :id,
     @merchant_id = data[:merchant_id]
     @repository = parent
   end
+
+  # def merchant
+  #   @repository.merchant(merchant_id)
+  #   # binding.pry
+  # end
 
   def merchant
     @repository.find_merchant_by_id(@merchant_id)
