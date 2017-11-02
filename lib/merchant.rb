@@ -16,4 +16,5 @@ class Merchant
   def items
     parent.find_all_by_merchant_id(id)
   end
+  
 end

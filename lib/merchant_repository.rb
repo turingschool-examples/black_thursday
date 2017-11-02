@@ -12,7 +12,7 @@ class MerchantRepository
   end
 
   def inspect
-   "#<#{self.Merchant} #{@merchants.size} rows>"
+   "#<#{self.class} #{@all.size} rows>"
   end
 
   def populate(filename)

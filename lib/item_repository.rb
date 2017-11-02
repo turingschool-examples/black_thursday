@@ -61,4 +61,8 @@ class ItemRepository
     end
   end
 
+  def find_merchant_by_id(merchant_id)
+    parent.find_merchant_by_id(merchant_id)
+  end
+
 end
