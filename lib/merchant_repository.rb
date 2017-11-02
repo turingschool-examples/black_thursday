@@ -4,7 +4,8 @@ require 'csv'
 class MerchantRepository
   attr_reader :merchants,
               :name,
-              :id
+              :id,
+              :sales_engine
 
   def initialize(parent)
     @merchants = []
@@ -16,27 +17,31 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    @merchants.find{|merchant|  merchant.id == id}
+    # binding.pry
+    @merchants.find{|merchant|  merchant.id == id.to_s}
   end
 
   def create_merchant(data)
-      CSV.foreach  data[:merchants], headers: true, header_converters:
+      CSV.foreach  data, headers: true, header_converters:
       :symbol do |row|
         @merchants << Merchant.new(row, self)
       end
+      # binding.pry
   end
-
-  # def items
-  #   @merchants.find_all{|mer|item}
-  # end
 
   def find_by_name(name)
     @merchants.find{|merchant| merchant.name == name}
   end
 
+  def find_items_belonging_to_merchant(id)
+    # binding.pry
+    sales_engine.find_items_belonging_to_merchants(id)
+  end
+
   def find_all_by_name(name)
     @merchants.find_all{|merchant| merchant.name == name}
   end
+
 
 
 
