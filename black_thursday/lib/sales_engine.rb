@@ -20,5 +20,4 @@ class SalesEngine
     @merchants = MerchantRepository.new(repositories[:merchants], self)
     @invoices  = InvoiceRepository.new(repositories[:invoices], self)
   end
-  
 end
