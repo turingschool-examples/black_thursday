@@ -1,5 +1,3 @@
-require 'csv'
-
 class MerchantRepository
   attr_reader :merchants,
               :parent

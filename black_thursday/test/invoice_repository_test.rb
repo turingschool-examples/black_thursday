@@ -32,4 +32,19 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal "pending", repository.find_by_id(10).status
     assert_equal "12334839", repository.find_by_id(10).merchant_id
   end
+
+  def test_find_by_id_edge_case
+    assert_nil repository.find_by_id(9898989898989)
+    assert_nil repository.find_by_id("smushy")
+    assert_nil repository.find_by_id("898989898989")
+    assert_nil repository.find_by_id(nil)
+  end
+
+  def test_can_find_all_items_by_merchant_id
+    actual = repository.find_all_by_merchant_id(12334105)
+
+    assert_equal Array, actual.class
+    assert_equal 0, actual.count
+    assert_equal "Shopin1901", actual.name
+  end
 end

@@ -1,5 +1,3 @@
-require 'csv'
-
 class InvoiceRepository
   attr_reader :invoices,
               :parent
@@ -19,5 +17,12 @@ class InvoiceRepository
 
   def find_by_id(id)
     @invoices.find { |invoice| invoice.id == id }
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    return [] if merchant_id.nil?
+    invoices.find_all do |invoice|
+      invoice.merchant_id == merchant_id
+    end
   end
 end
