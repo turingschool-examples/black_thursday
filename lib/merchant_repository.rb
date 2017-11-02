@@ -5,11 +5,11 @@ class MerchantRepository
 
   include CreateElements
 
-  attr_reader :merchants, :parent, :merchants_file
+  attr_reader :merchants, :engine, :merchants_file
 
   def initialize(merchants_file, parent)
     @merchants = create_elements(merchants_file).map {|merchant| Merchant.new(merchant, self)}
-    @parent = parent
+    @engine = engine
   end
 
   def find_by_id(id)
@@ -38,8 +38,8 @@ class MerchantRepository
     end
   end
 
-  def item(id)
-    parent.item(id)
+  def find_item(id)
+    engine.find_item(id)
   end
 
   def inspect

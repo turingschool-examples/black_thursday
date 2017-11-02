@@ -2,16 +2,16 @@ require 'csv'
 
 class Merchant
 
-  attr_reader :name, :parent, :id
+  attr_reader :name, :repository, :id
 
-  def initialize(data, parent)
+  def initialize(data, repository)
     @name = data[:name]
     @id = data[:id]
-    @parent = parent
+    @repository = repository
   end
 
   def items
-    parent.item(@id)
+    repository.find_item(@id)
   end
 
 end

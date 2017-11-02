@@ -12,20 +12,20 @@ class InvoiceItemRepository
       invoice_items << InvoiceItem.new(row)
     end
   end
-
-  def all
-    return merchants
-  end
-
-  def count
-    merchants.count
-  end
-
-  def find_by_name(name)
-    merchants.find do |merchant|
-      merchant.name.downcase == name.downcase
-    end
-  end
+  #
+  # def all
+  #   return merchants
+  # end
+  #
+  # def count
+  #   merchants.count
+  # end
+  #
+  # def find_by_name(name)
+  #   merchants.find do |merchant|
+  #     merchant.name.downcase == name.downcase
+  #   end
+  # end
 
 
 end

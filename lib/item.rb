@@ -2,10 +2,10 @@ require 'bigdecimal'
 
 class Item # < ItemRepo
 
-  attr_reader :name, :parent, :merchant_id, :item_id, :description, :unit_price,
+  attr_reader :name, :repository, :merchant_id, :item_id, :description, :unit_price,
               :created_at, :updated_at
 
-  def initialize(data, parent)
+  def initialize(data, repository)
     @name = data[:name]
     @merchant_id = data[:merchant_id]
     @item_id = data[:id]
@@ -13,11 +13,11 @@ class Item # < ItemRepo
     @unit_price = BigDecimal.new(data[:unit_price])
     @created_at = data[:created_at]
     @updated_at = data[:updated_at]
-    @parent = parent
+    @repository = repository
   end
 
   def merchant
-    parent.merchant(merchant_id)
+    repository.merchant(merchant_id)
   end
 
   def unit_price_to_dollars
