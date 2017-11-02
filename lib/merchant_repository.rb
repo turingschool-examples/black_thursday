@@ -13,6 +13,10 @@ class MerchantRepository
     merchants
   end
 
+  def find_all_items_by_merchant_id(id)
+    parent.find_items_by_merchant_id(id)
+  end
+
   def find_by_id(id)
     merchants.find do |merchant|
       merchant.id == id

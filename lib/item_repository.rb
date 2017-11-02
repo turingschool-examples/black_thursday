@@ -56,4 +56,8 @@ class ItemRepository
       item.merchant_id == id.to_s
     end
   end
+
+  def find_merchant_by_id(merchant_id)
+    parent.find_merchant_by_id(merchant_id)
+  end
 end
