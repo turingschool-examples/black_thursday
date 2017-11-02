@@ -23,7 +23,7 @@ class ItemRepositoryTest < Minitest:: Test
     result1 = ir.all.first.name
     result2 = ir.all.last.name
     name1 = "510+ RealPush Icon Set"
-    name2 = "Kindersocken (Söckchen), hangestrickt, Länge ca.15 cm, beige (eierschalenfarben)"
+    name2 = "Kindersocken (Söckchen), beige (eierschalenfarben)"
 
     assert_equal name1, result1
     assert_equal name2, result2
@@ -71,8 +71,7 @@ class ItemRepositoryTest < Minitest:: Test
       :items   => "./test/fixtures/items_fixture_5lines.csv",
     })
     row = ir.items[5]
-
-    assert_equal [row],  ir.find_all_by_price("14900")
+    assert_equal [row],  ir.find_all_by_price(14900)
   end
 
   def test_it_can_find_all_items_within_range
@@ -80,9 +79,8 @@ class ItemRepositoryTest < Minitest:: Test
     ir.create_item({
       :items   => "./test/fixtures/items_fixture_5lines.csv",
     })
-
-    assert_equal ["Vogue Paris Original Givenchy 2307",
-       "Cache cache à la plage"],  ir.find_all_by_price_in_range("2000","15000")
+        row =["Free standing Woden letters", "Kindersocken (Söckchen), beige (eierschalenfarben)"]
+    assert_equal row,  ir.find_all_by_price_in_range(600,1002)
   end
 
   def test_it_can_find_all_items_by_the_merchant_id
@@ -93,7 +91,7 @@ class ItemRepositoryTest < Minitest:: Test
     })
     row = ir.items.first
 
-    assert_equal [row] , ir.find_all_by_merchant_id("12334115")
+    assert_equal [row] , ir.find_all_by_merchant_id(12334115)
   end
 
 

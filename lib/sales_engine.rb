@@ -26,4 +26,9 @@ class SalesEngine
     sales
   end
 
+  def find_items_belonging_to_merchants(id)
+    # binding.pry
+     items.find_all_by_merchant_id(id)
+  end
+
 end

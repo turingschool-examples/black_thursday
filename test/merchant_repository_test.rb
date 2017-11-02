@@ -29,8 +29,8 @@ class MerchantRepositoryTest < Minitest:: Test
     row1 = mr.merchants[3]
     row2 = mr.merchants[2]
 
-    assert_equal row1, mr.find_by_id("12334115")
-    assert_equal row2, mr.find_by_id("12334113")
+    assert_equal row1, mr.find_by_id(12334115)
+    assert_equal row2, mr.find_by_id(12334113)
   end
 
   def test_it_creates_merchant

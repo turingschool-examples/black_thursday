@@ -64,7 +64,17 @@ class SalesEngineTest < Minitest:: Test
     })
 
       mr = se.merchants.find_by_name("LolaMarleys")
-
-
   end
+    def test_it_can_match_merchants_with_items
+          se= SalesEngine.from_csv({
+            :items     => "./test/fixtures/items_fixture_5lines.csv",
+            :merchants => "./test/fixtures/merchants_5lines.csv",
+          })
+          merchant = se.merchants.find_by_id(12334112)
+          ir = se.items
+          result =  ir.items[2]
+
+          assert_equal [result], merchant.items
+    end
+
 end
