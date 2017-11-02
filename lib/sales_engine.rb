@@ -30,7 +30,7 @@ class SalesEngine
     merchants.find_by_id(id)
   end
 
-  def items(id)
+  def item(id)
     items.find_by_id(id)
   end
 

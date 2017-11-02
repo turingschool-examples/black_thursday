@@ -1,4 +1,4 @@
-# require 'csv'
+require 'csv'
 require './lib/item'
 
 class ItemRepository
