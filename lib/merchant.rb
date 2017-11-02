@@ -7,7 +7,7 @@ class Merchant
 
 
 
-  def initialize(data, parent)
+  def initialize(data, parent = nil)
     @name = data[:name]
     @id = data[:id]
     @repository = parent

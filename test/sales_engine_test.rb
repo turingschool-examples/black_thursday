@@ -77,6 +77,7 @@ class SalesEngineTest < Minitest:: Test
     result = ["Disney scrabble frames", "I Love You to the Moon and Back"]
     assert_equal 2, merchant.items.count
   end
+
   def test_it_can_find_an_items_merchant
     se= SalesEngine.from_csv({
       :items     => "./test/fixtures/items_fixture_5lines.csv",
@@ -86,6 +87,7 @@ class SalesEngineTest < Minitest:: Test
 
     assert_equal "RedefinedArt84",item.merchant.name
   end
+  
   def test_it_can_return_all_invoices
     skip
       se = SalesEngine.from_csv({:invoices => "./data/invoices.csv"})

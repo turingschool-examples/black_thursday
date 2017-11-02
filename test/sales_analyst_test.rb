@@ -87,5 +87,4 @@ skip
 
     assert_equal 2, golden_items
   end
-
 end
