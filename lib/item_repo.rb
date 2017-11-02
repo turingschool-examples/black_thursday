@@ -4,12 +4,12 @@ require "csv"
 
 class ItemRepository
   attr_reader :items,
-              :parent
+              :sales_engine
 
 
   def initialize(parent, filename)
     @items         = []
-    @parent  = parent
+    @sales_engine  = parent
     @load          = load_items(filename)
   end
 

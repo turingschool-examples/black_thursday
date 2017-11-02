@@ -66,10 +66,7 @@ class SalesAnalyst
   def average_item_price_for_merchant(merchant_id)
     list = find_the_collections_of_items(merchant_id.to_s)
     list.reduce(0) { |sum, item|
-      binding.pry
       sum + item.unit_price } / list.count
-    binding.pry
-
   end
 
   def find_the_collections_of_items(merchant_id)
@@ -82,13 +79,24 @@ class SalesAnalyst
       } / merchant_list.count
   end
 
-  def average_item_price
+  def average_unit_price
     @sales_engine.items.all.reduce(0) { |sum, item|
     sum + item.unit_price
      } / @sales_engine.items.all.count
   end
 
-  def standard_deviation_for_item_price
+  def unit_price_and_average_difference_squared_sum
+    @sales_engine.items.all.reduce(0) { |sum, item|
+    sum += (item.unit_price - average_unit_price) ** 2 }
+  end
+
+  def unit_price_squared_sum_division
+    unit_price_and_average_difference_squared_sum / ((@sales_engine.items.all.count) - 1)
+  end
+
+  def unit_price_standard_deviation
+    Math.sqrt(unit_price_squared_sum_division).round(2)
+  end
 
 
 end
