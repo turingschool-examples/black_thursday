@@ -10,8 +10,8 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_repo_pulls_in_CSV_info_from_items
     ir = ItemRepository.new("./data/items.csv")
-
-    assert_equal 1367, ir.items_from_csv("./data/items.csv").count
+    
+    assert_equal 1367, ir.all.count
   end
 
   def test_it_returns_array_of_all_items

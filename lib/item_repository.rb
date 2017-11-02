@@ -5,23 +5,14 @@ class ItemRepository
   attr_reader :items
 
   def initialize(item_file)
-    @items = items_from_csv(item_file)
+    @items = []
+    items_from_csv(item_file)
   end
 
   def items_from_csv(item_file)
-    item_list = []
     CSV.foreach(item_file, headers: true, header_converters: :symbol) do |row|
-      item_info = {}
-      item_info[:id] = row[:id]
-      item_info[:name] = row[:name]
-      item_info[:description] = row[:description]
-      item_info[:unit_price] = row[:unit_price]
-      item_info[:merchant_id] = row[:merchant_id]
-      item_info[:created_at] = row[:created_at]
-      item_info[:updated_at] = row[:updated_at]
-      item_list << Item.new(item_info)
+      @items << Item.new(row)
     end
-    item_list
   end
 
   def all
