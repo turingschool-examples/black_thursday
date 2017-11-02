@@ -6,7 +6,7 @@ class Merchant
 
   def initialize(data, repository)
     @name = data[:name]
-    @id = data[:id]
+    @id = data[:id].to_i
     @repository = repository
   end
 
