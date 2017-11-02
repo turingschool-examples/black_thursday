@@ -6,7 +6,6 @@ class ItemRepository
   attr_reader :items,
               :sales_engine
 
-
   def initialize(parent, filename)
     @items         = []
     @sales_engine  = parent
@@ -30,7 +29,7 @@ class ItemRepository
   end
 
   def find_by_id(id)
-    items.find { |item| item.id == id }
+    @items.find { |item| item.id == id.to_s }
   end
 
   def find_by_name(name)

@@ -9,4 +9,8 @@ class Merchant
     @repository = parent
   end
 
+  def items
+    puts repository.find_items(self.id)
+  end
+
 end

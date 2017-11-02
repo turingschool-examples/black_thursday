@@ -1,4 +1,3 @@
-require "pry"
 class SalesAnalyst
   attr_reader :sales_engine
 
@@ -13,9 +12,7 @@ class SalesAnalyst
   end
 
   def merchant_list
-    sales_engine.merchants.merchants.map do |merchant|
-      merchant.id
-    end
+    sales_engine.merchants.merchants.map { |merchant| merchant.id }
   end
 
   def find_items
@@ -76,6 +73,34 @@ class SalesAnalyst
     (merchant_list.reduce(0) { |sum, merchant|
       sum + average_item_price_for_merchant(merchant)
       } / merchant_list.count).round(2)
+  end
+
+  def average_unit_price
+    @sales_engine.items.all.reduce(0) { |sum, item|
+    sum + item.unit_price
+     } / @sales_engine.items.all.count
+  end
+
+  def unit_price_and_average_difference_squared_sum
+    @sales_engine.items.all.reduce(0) { |sum, item|
+    sum += (item.unit_price - average_unit_price) ** 2 }
+  end
+
+  def unit_price_squared_sum_division
+    unit_price_and_average_difference_squared_sum / ((@sales_engine.items.all.count) - 1)
+  end
+
+  def unit_price_standard_deviation
+    Math.sqrt(unit_price_squared_sum_division).round(2)
+  end
+
+  def golden_items_deviation
+    average_unit_price + (unit_price_standard_deviation * 2)
+  end
+
+  def golden_items
+    @sales_engine.items.all.map { |item|
+      item.unit_price > golden_items_deviation }
   end
 
 end

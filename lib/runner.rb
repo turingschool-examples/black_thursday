@@ -14,5 +14,4 @@ se = SalesEngine.from_csv({
 
 sa = SalesAnalyst.new(se)
 
-# p sa.create_merchant_id_item_total_list
-puts sa.average_item_price_for_merchant(12334149)
+puts sa.unit_price_and_average_difference_squared_sum
