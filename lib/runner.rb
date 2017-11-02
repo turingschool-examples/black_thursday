@@ -1,5 +1,5 @@
-require './lib/sales_engine'
-require './lib/sales_analyst'
+require_relative 'sales_engine'
+require_relative 'sales_analyst'
 
 se = SalesEngine.from_csv({
   :items     => "./data/items.csv",

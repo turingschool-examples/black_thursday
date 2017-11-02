@@ -1,16 +1,13 @@
-require "./lib/item_repo"
-require "./lib/merchant_repo"
-require 'pry'
-
+require_relative "item_repo"
+require_relative "merchant_repo"
+# require 'pry'
+#
 
 class SalesEngine
   attr_reader :items,
               :merchants
 
   def self.from_csv(directory)
-    # item_filename = directory[:items]
-    # merchant_filename = directory[:merchants]
-
     SalesEngine.new(directory)
   end
 
@@ -26,5 +23,4 @@ class SalesEngine
   def find_items(id)
     items.find_by_id(id)
   end
-
 end
