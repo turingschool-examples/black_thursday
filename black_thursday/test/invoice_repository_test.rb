@@ -47,4 +47,26 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 1, actual.count
     assert_equal "14", actual.first.customer_id
   end
+
+  def test_find_all_by_merchant_id_returns_empty_array_when_no_match_is_found
+    actual = repository.find_all_by_merchant_id("9898989898")
+
+    assert_equal [], actual
+    assert_equal [], repository.find_all_by_merchant_id(nil)
+  end
+
+  def test_can_find_all_invoices_by_customer_id
+    actual = repository.find_all_by_customer_id("1")
+
+    assert_equal Array, actual.class
+    assert_equal 8, actual.count
+    assert_equal "12337139", actual.last.merchant_id
+  end
+
+  def test_find_all_by_customer_id_returns_empty_array_when_no_match_is_found
+    actual = repository.find_all_by_customer_id("98989")
+
+    assert_equal [], actual
+    assert_equal [], repository.find_all_by_customer_id(nil)
+  end
 end

@@ -25,4 +25,11 @@ class InvoiceRepository
       invoice.merchant_id == merchant_id
     end
   end
+
+  def find_all_by_customer_id(customer_id)
+    return [] if customer_id.nil?
+    invoices.find_all do |invoice|
+      invoice.customer_id == customer_id
+    end
+  end
 end
