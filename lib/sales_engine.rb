@@ -4,10 +4,10 @@ require './lib/merchant_repository'
 
 class SalesEngine
 
-  attr_reader :item_repository, :merchant_repository
+  attr_reader :items, :merchant_repository
 
   def initialize(items_file, merchants_file)
-    @item_repository = ItemRepository.new(items_file, self)
+    @items = ItemRepository.new(items_file, self)
     @merchant_repository = MerchantRepository.new(merchants_file, self)
   end
 
