@@ -27,7 +27,7 @@ class ItemRepository
 
   def find_by_id(id)
     items.find do |item|
-      item.item_id.to_i == id.to_i
+      item.id.to_i == id.to_i
     end
   end
 
@@ -56,9 +56,9 @@ class ItemRepository
     end
   end
 
-  def find_all_by_price_in_range(low_price, high_price)
+  def find_all_by_price_in_range(range)
     items.find_all do |item|
-      item.unit_price.between?(low_price, high_price)
+      (range).include?(item.unit_price)
     end
   end
 

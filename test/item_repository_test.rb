@@ -48,8 +48,8 @@ class ItemRepositoryTest < MiniTest::Test
     item3 = @items.items[2]
     result = [item1, item2, item3]
 
-    assert_equal ([]), @items.find_all_by_merchant_id("263401607")
-    assert_equal result, @items.find_all_by_merchant_id("12334112")
+    assert_equal ([]), @items.find_all_by_merchant_id(263401607)
+    assert_equal result, @items.find_all_by_merchant_id(12334112)
   end
 
   def test_that_it_finds_all_items_by_price
@@ -57,8 +57,8 @@ class ItemRepositoryTest < MiniTest::Test
     item2 = @items.items[6]
     result = [item1, item2]
 
-    assert_equal ([]), @items.find_all_by_price(9999)
-    assert_equal result, @items.find_all_by_price(3000)
+    assert_equal ([]), @items.find_all_by_price(99.99)
+    assert_equal result, @items.find_all_by_price(30.00)
   end
 
   def test_that_it_finds_all_items_by_price_in_range
@@ -66,8 +66,8 @@ class ItemRepositoryTest < MiniTest::Test
     item2 = @items.items[5]
     result = [item1, item2]
 
-    assert_equal ([]), @items.find_all_by_price_in_range(9999,10235)
-    assert_equal result, @items.find_all_by_price_in_range(4500, 4995)
+    assert_equal ([]), @items.find_all_by_price_in_range(99.99..102.35)
+    assert_equal result, @items.find_all_by_price_in_range(45.00..49.95)
   end
   #
   #
