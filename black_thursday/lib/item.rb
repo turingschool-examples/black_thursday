@@ -27,6 +27,6 @@ class Item
   end
 
   def merchant
-    parent.find_merchant_for_item(self)
+    @parent.find_merchant_for_item(self)
   end
 end

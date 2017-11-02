@@ -5,7 +5,7 @@ require_relative './../lib/item_repository'
 require_relative './../lib/sales_engine'
 
 class ItemRepositoryTest < Minitest::Test
-  #why do we have have attr_reader? could we use @ for everything? 
+  #why do we have have attr_reader? could we use @ for everything?
   attr_reader :repository,
               :engine
 
@@ -32,7 +32,6 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of Item, subject
     assert_equal "Custom Puppy Water Colors", subject.name
     assert_instance_of Time, subject.created_at
-    #why do we have the above? 
   end
 
   def test_find_by_id_returns_nil_if_no_match_is_found

@@ -2,8 +2,8 @@ class MerchantRepository
   attr_reader :merchants,
               :parent
 
-  def initialize(merchants, parent = nil)
-    @merchants = load_csv(merchants).map { |row| Merchant.new(row, self) }
+  def initialize(csv_filename, parent = nil)
+    @merchants = load_csv(csv_filename).map { |row| Merchant.new(row, self) }
     @parent    = parent
   end
 
@@ -33,8 +33,7 @@ class MerchantRepository
   end
 
   def find_all_items_by_merchant_id(merchant_id)
-    #keep consistent
-    parent.items.find_all_by_merchant_id(merchant_id)
+    @parent.items.find_all_by_merchant_id(merchant_id)
   end
 
   def inspect

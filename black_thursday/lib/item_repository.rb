@@ -1,13 +1,19 @@
 class ItemRepository
-
   attr_reader :items,
               :parent
 
   def initialize(csv_filename, parent)
-    @items  = load_csv(csv_filename).map { |row| Item.new(row, self) }
+    # @items  =  load_csv(csv_filename).map { |row| Item.new(row, self) }
+    @items  = []
     @parent = parent
+    @load   = load_things(csv_filename)
   end
 
+  def load_things(filename)
+    CSV.foreach(filename) do |row|
+      @items << Item.new(row)
+    end
+  end
 
   def all
     @items
@@ -51,7 +57,6 @@ class ItemRepository
   end
 
   def find_merchant_for_item(item)
-    #keep consistent
     @parent.merchants.find_by_id(item.merchant_id)
   end
 
