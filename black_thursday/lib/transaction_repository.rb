@@ -26,6 +26,7 @@ class TransactionRepository
   end
 
   def find_all_by_credit_card(cc)
+    return [] if cc.class != String
     transactions.find_all {|transaction| transaction.credit_card_number == cc}
   end
 
