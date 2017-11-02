@@ -15,7 +15,7 @@ class TestSalesEngine < Minitest::Test
     def test_item_repository_populated_after_load
       assert_instance_of SalesEngine, se
       assert_instance_of ItemRepository, se.items
-      assert_equal 5, se.items.items.count
+      assert_equal 11, se.items.items.count
       assert_instance_of MerchantRepository, se.merchants
       assert_equal 5, se.merchants.merchants.count
       assert_instance_of InvoiceRepository, se.invoices
@@ -25,7 +25,7 @@ class TestSalesEngine < Minitest::Test
     def test_find_items_for_merchant_by_merchant_id
       merchant = se.merchants.find_by_id('12334185')
 
-      assert_equal 2, merchant.items.count
+      assert_equal 4, merchant.items.count
     end
 
     #do we need unit test for merchant in item_test

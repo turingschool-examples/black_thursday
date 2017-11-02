@@ -19,7 +19,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_determine_average_items_per_merchant
-    assert_equal 1, sa.average_items_per_merchant
+    assert_equal 2, sa.average_items_per_merchant
   end
 
   def test_it_can_determine_standard_deviation_items_per_merchant
@@ -28,7 +28,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_count_all_items_for_each_merchant
-    assert_equal [0,0,0,0,2], sa.count_all_items_for_each_merchant
+    assert_equal [1,1,1,1,4], sa.count_all_items_for_each_merchant
   end
 
   def test_determine_merchants_with_most_items
@@ -38,17 +38,17 @@ class SalesAnalystTest < Minitest::Test
 
   def test_determines_average_price_for_merchants
     result = sa.average_item_price_for_merchant(12334185)
-    assert_equal 1025, result
+    assert_equal 1137.5, result
   end
 
   def test_determines_average_average_price_per_merchants
     result = sa.average_average_price_per_merchant
-    assert_equal 205, result
+    assert_equal 5427.5, result
   end
 
   def test_it_can_determine_standard_deviation_items_price
     result = sa.standard_deviation_of_item_price
-    assert_equal 5991, result
+    assert_equal 5477, result
   end
 
   def test_it_can_determine_the_golden_items
