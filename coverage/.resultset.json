@@ -1,6 +1,24 @@
 {
   "Unit Tests": {
     "coverage": {
+      "/Users/leechow/turing/1module/black_thursday/lib/invoice_repository.rb": [
+        1,
+        null,
+        1,
+        null,
+        1,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        4,
+        null,
+        null,
+        null
+      ],
       "/Users/leechow/turing/1module/black_thursday/lib/invoice.rb": [
         1,
         null,
@@ -14,18 +32,18 @@
         null,
         null,
         1,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
         null,
         null,
         null
       ]
     },
-    "timestamp": 1509663583
+    "timestamp": 1509664212
   }
 }
