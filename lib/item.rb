@@ -28,5 +28,8 @@ class Item
     unit_price / 100
   end
 
+  def merchant
+    parent.find_merchant_by_id(merchant_id)
+  end
 
 end
