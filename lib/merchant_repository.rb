@@ -5,18 +5,13 @@ class MerchantRepository
   attr_reader :merchants, :parent, :merchants_file
 
   def initialize(merchants_file, parent)
-    @merchants = []
-    @merchants_file = merchants_file
+    @merchants = merchants_file.map {|merchant| Merchant.new(merchant, self)}
     @parent = parent
-  end
-
-  def create_merchant(data)
-    merchants << Merchant.new(data, self)
   end
 
   def find_by_id(id)
     merchants.find do |merchant|
-      merchant.id == id
+      merchant.id == id.to_s
     end
   end
 
@@ -41,8 +36,3 @@ class MerchantRepository
   end
 
 end
-
-
-# find_by_id - returns either nil or an instance of Merchant with a matching ID
-# find_by_name - returns either nil or an instance of Merchant having done a case insensitive search
-# find_all_by_name - returns either [] or one or more matches which contain the supplied name fragment, case insensitive
