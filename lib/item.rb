@@ -11,25 +11,25 @@ class Item
                 :updated_at,
                 :merchant_id,
                 :unit_price_to_dollars,
-                :parent
+                :item_repository
 
   def initialize(attributes = {}, parent = nil)
     @id           = attributes[:id].to_i
     @name         = attributes[:name]
     @description  = attributes[:description]
-    @unit_price   = BigDecimal.new(attributes[:unit_price])/100
+    @unit_price   = BigDecimal.new(attributes[:unit_price].to_i/100.0, 4)
     @created_at   = Time.parse(attributes[:created_at])
     @updated_at   = Time.parse(attributes[:updated_at])
     @merchant_id  = attributes[:merchant_id].to_i
-    @parent = parent
+    @item_repository = parent
   end
-
+  
   def unit_price_to_dollars
     unit_price / 100
   end
 
   def merchant
-    parent.find_merchant_by_id(merchant_id)
+    @item_repository.find_merchant_by_id(merchant_id)
   end
 
 end

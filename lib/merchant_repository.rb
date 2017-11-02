@@ -4,11 +4,11 @@ require_relative 'merchant'
 class MerchantRepository
 
   attr_reader     :all,
-                  :parent
+                  :sales_engine
 
   def initialize(parent = nil)
     @all = []
-    @parent = parent
+    @sales_engine = parent
   end
 
   def inspect
@@ -43,7 +43,7 @@ class MerchantRepository
   end
 
   def find_all_by_merchant_id(merchant_id)
-    parent.find_all_by_merchant_id(merchant_id)
+    @sales_engine.find_all_by_merchant_id(merchant_id)
   end
 
 end

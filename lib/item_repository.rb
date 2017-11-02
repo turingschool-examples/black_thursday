@@ -4,15 +4,15 @@ require_relative "item"
 class ItemRepository
 
   attr_reader     :all,
-                  :parent
+                  :sales_engine
 
   def initialize(parent = nil)
     @all = []
-    @parent = parent
+    @sales_engine = parent
   end
 
   def inspect
-   "#<#{self.Item} #{@items.size} rows>"
+   "#<#{self.Item} #{@all.size} rows>"
   end
 
   def populate(filename)
@@ -62,7 +62,7 @@ class ItemRepository
   end
 
   def find_merchant_by_id(merchant_id)
-    parent.find_merchant_by_id(merchant_id)
+    @sales_engine.find_merchant_by_id(merchant_id)
   end
 
 end
