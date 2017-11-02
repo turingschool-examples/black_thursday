@@ -1,32 +1,32 @@
-require 'bigdecimal'
 require 'time'
 
-class Item
+class Invoice
   attr_reader :id,
-              :name,
-              :description,
-              :unit_price,
+              :customer_id,
               :merchant_id,
+              :status,
               :created_at,
-              :updated_at,
-              :parent
+              :updated_at
 
   def initialize(attributes, parent)
     @id           = attributes[:id].to_i
-    @name         = attributes[:name]
-    @description  = attributes[:description]
-    @unit_price   = BigDecimal.new(attributes[:unit_price]) / 100
+    @customer_id  = attributes[:customer_id].to_i
     @merchant_id  = attributes[:merchant_id].to_i
+    @status       = attributes[:status]
     @created_at   = Time.parse(attributes[:created_at])
     @updated_at   = Time.parse(attributes[:updated_at])
     @parent       = parent
   end
 
-  def unit_price_to_dollars
-    unit_price.to_f.round(2)
-  end
-
   def merchant
     @parent.find_merchant_for_item(self)
+  end
+
+  def items
+    @parent.find_all_items_by_merchant_id(id)
+  end
+
+  def inspect
+    "#{self.class} has #{all.count} rows"
   end
 end

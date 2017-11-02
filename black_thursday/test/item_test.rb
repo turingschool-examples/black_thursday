@@ -10,11 +10,12 @@ class ItemTest < Minitest::Test
 
   def setup
     @engine = SalesEngine.from_csv(
-      items: "./test/fixtures/truncated_items.csv",
-      merchants: "./data/merchants.csv"
+      items: './test/fixtures/truncated_items.csv',
+      merchants: './test/fixtures/truncated_merchants.csv',
+      invoices: './test/fixtures/truncated_invoices.csv'
     )
 
-    @repository = ItemRepository.new("./test/fixtures/truncated_items.csv", engine)
+    @repository = ItemRepository.new('./test/fixtures/truncated_items.csv', engine)
   end
 
   def test_it_exists
@@ -85,7 +86,7 @@ class ItemTest < Minitest::Test
       {id: "4",
       name: "pencil",
       description: "You can use it to write things",
-      unit_price: "1200",
+      unit_price: "1200.1111111",
       merchant_id: "10",
       created_at: created_at,
       updated_at: updated_at},
