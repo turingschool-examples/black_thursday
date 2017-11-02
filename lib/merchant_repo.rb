@@ -8,7 +8,7 @@ class MerchantRepository
 
   def initialize(parent, filename)
     @merchants      = []
-    @parent   = parent
+    @parent         = parent
     @load           = load_file(filename)
   end
 
