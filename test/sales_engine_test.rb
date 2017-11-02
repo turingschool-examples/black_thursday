@@ -87,4 +87,12 @@ class SalesEngineTest < Minitest:: Test
 
     assert_equal "RedefinedArt84",item.merchant.name
   end
+  
+  def test_it_can_return_all_invoices
+    skip
+      se = SalesEngine.from_csv({:invoices => "./data/invoices.csv"})
+
+      assert_equal 23, se.invoices.all.count
+  end
+
 end

@@ -36,7 +36,7 @@ attr_reader :id,
   end
 
 def unit_price_to_dollars
-  unit_price.to_s("F").to_f
-end
+    (unit_price/100)
+  end
 
 end

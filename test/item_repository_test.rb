@@ -77,9 +77,12 @@ class ItemRepositoryTest < Minitest:: Test
     ir.create_item(
        "./test/fixtures/items_fixture_5lines.csv",
     )
-        row =["Free standing Woden letters", "Vintage Lego Duplo Windows 6 Red Yellow Green Windows/Doors", "Paper bag", "CAMPING REFLECTIONS", "scarf", "Gray Mudd Cardigan Medium", "Magick Golden Salve 1 oz", "Vanilla Scented Candles", "Personalized Valentines", "Vintage Album Blue Oyster Cult, Agents of Fortune, vintage, 1976, fair condition, Don&#39;t Fear the Reaper, art, music, rock and roll, classic", "Upside Down Wineglass Candle Holder", "Earflap hat for infant", "New California Republic Patch w/ hook velcro backing"]
+    row =["Free standing Woden letters", "Vintage Lego Duplo Windows 6 Red Yellow Green Windows/Doors", "Paper bag", "CAMPING REFLECTIONS", "scarf", "Gray Mudd Cardigan Medium", "Magick Golden Salve 1 oz", "Vanilla Scented Candles", "Personalized Valentines", "Vintage Album Blue Oyster Cult, Agents of Fortune, vintage, 1976, fair condition, Don&#39;t Fear the Reaper, art, music, rock and roll, classic", "Upside Down Wineglass Candle Holder", "Earflap hat for infant", "New California Republic Patch w/ hook velcro backing"]
 
-    assert_equal row,  ir.find_all_by_price_in_range(690,701)
+    items = ir.find_all_by_price_in_range(690,701)
+    items = items.map {|item|item.name}
+
+    assert_equal row, items
   end
 
   def test_it_can_find_all_items_by_the_merchant_id
