@@ -38,7 +38,9 @@ class ItemRepository
   end
 
   def find_all_with_description(description)
-    @items.find_all { |item| item.description.downcase.include?(description.downcase) }
+    @items.find_all do |item|
+      item.description.downcase.include?(description.downcase)
+    end
   end
 
   def find_all_by_price(price)
@@ -55,5 +57,11 @@ class ItemRepository
 
   def find_merchant(merchant_id)
     @sales_engine.find_merchant(merchant_id)
+  end
+
+  def group_merchants
+    group = []
+    @items.group_by { |item| group << items.merchant_id }
+    group.count
   end
 end

@@ -19,7 +19,7 @@ end
 class ItemRepositoryTest < Minitest::Test
 
   def test_it_creates_items
-    ir = ItemRepository.new(nil)
+    ir = ItemRepository.new(self, item_filename)
 
     assert_equal 0, ir.count
 
@@ -35,7 +35,7 @@ end
 class ItemTest < Minitest::Test
 
   def test_it_knows_where_it_came_from
-    item_repository = ItemRepository.new(nil)
+    item_repository = ItemRepository.new(self, item_filename)
     item_repository.create_item(name: "Something")
     item = item_repository.items.first
 
