@@ -17,6 +17,7 @@ module Math
   def standard_deviation(list)
     mean_result = mean(list)
     diff_squared = list.map { |num| (num = mean_result)**2 }
+    Math.sqrt(diff_squared.sum/(diff_squared.count-1)).round(2)
   end
 
-end 
+end

@@ -33,9 +33,6 @@ class SalesAnalyst
     end.round(2)
   end
 
-  def standard_deviation(x)
-  end
-
   def average_items_per_merchant_standard_deviation
     result = sum_array / (sales_engine.merchants.merchants.count - 1)
     Math.sqrt(result).round(2)
