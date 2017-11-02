@@ -1,6 +1,6 @@
-require "./test/test_helper"
-require "./lib/sales_analyst"
-require "./lib/sales_engine"
+require_relative "test_helper"
+require_relative "../lib/sales_analyst"
+require_relative "../lib/sales_engine"
 
 class SalesAnalystTest < Minitest::Test
 
@@ -109,8 +109,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 475, sa.create_merchant_id_item_total_list.count
     assert_equal "12334105", sa.create_merchant_id_item_total_list.first.first
     assert_equal 3, sa.create_merchant_id_item_total_list.first.last
-    # assert_equal "12337411", sa.create_merchant_id_item_total_list.last.first
-    # assert_equal 1, sa.create_merchant_id_item_total_list.last.last
   end
 
   def test_it_can_find_standard_deviation_plus_average
@@ -139,7 +137,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 7, sa.filter_merchants_by_items_in_stock[4].last
     assert_equal "12336965", sa.filter_merchants_by_items_in_stock.last.first
     assert_equal 10, sa.filter_merchants_by_items_in_stock.last.last
-    #maybe write an assertion with an enum proving no merchant in this list has less than 7 items
   end
 
   def test_it_can_find_merchants_with_high_item_count
@@ -155,16 +152,16 @@ class SalesAnalystTest < Minitest::Test
     #feel like this test should be more robust
   end
 
-  # def test_it_can_find_average_item_price_for_merchant
-  #   se = SalesEngine.from_csv({
-  #     :items     => "./data/items.csv",
-  #     :merchants => "./data/merchants.csv",
-  #   })
-  #
-  #   sa = SalesAnalyst.new(se)
-  #
-  #   assert_equal 16.65, sa.average_item_price_for_merchant(12334105)/100.to_f.round(2)
-  # end
+  def test_it_can_find_average_item_price_for_merchant
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+    })
+
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 16.66, sa.average_item_price_for_merchant(12334105)
+  end
 
 
   def test_it_can_find_the_collections_of_items
@@ -176,18 +173,16 @@ class SalesAnalystTest < Minitest::Test
     sa = SalesAnalyst.new(se)
 
     assert Array, sa.find_the_collections_of_items(12334105)
-    # assert_equal "Vogue Paris Original Givenchy 2307", sa.find_the_collections_of_items(12334105)[0].name
-    # ^ undefinded method name for Nil:NilClass
   end
 
-  # def test_it_can_find_average_average_price_per_merchant
-  #   se = SalesEngine.from_csv({
-  #     :items     => "./data/items.csv",
-  #     :merchants => "./data/merchants.csv",
-  #   })
-  #
-  #   sa = SalesAnalyst.new(se)
-  #
-  #   assert_equal 350.29, sa.average_average_price_per_merchant/100
-  # end
+  def test_it_can_find_average_average_price_per_merchant
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+    })
+
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 350.29, sa.average_average_price_per_merchant
+  end
 end

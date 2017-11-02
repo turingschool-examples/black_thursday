@@ -1,7 +1,7 @@
-require "./lib/item_repo"
-require "./lib/merchant_repo"
-require 'pry'
-
+require_relative "item_repo"
+require_relative "merchant_repo"
+# require 'pry'
+#
 
 class SalesEngine
   attr_reader :items,
@@ -15,12 +15,16 @@ class SalesEngine
   end
 
   def initialize(item_filename, merchant_filename)
-    @items      = ItemRepository.new(self,item_filename)
+    @items      = ItemRepository.new(self, item_filename)
     @merchants  = MerchantRepository.new(self, merchant_filename)
   end
 
 
-  # def merchant(id)
-  #   merchant_repository.find_by_id(id)
-  # end
+  def find_merchant(id)
+    merchants.find_by_id(id)
+  end
+
+  def highest_item_price
+    items.items.highest_item_price
+  end
 end

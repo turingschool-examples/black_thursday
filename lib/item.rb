@@ -22,10 +22,10 @@ class Item
   end
 
   def merchant
-    repository.merchant(merchant_id)
+    repository.find_merchant(self.merchant_id)
   end
 
-  def unit_price_to_dollars
-    (@unit_price / 100).round(2).to_f
+  def unit_price_to_dollars()
+    (unit_price / 100).round(2).to_f
   end
 end

@@ -1,5 +1,5 @@
-require './lib/merchant'
-require './lib/sales_engine'
+require_relative 'merchant'
+require_relative 'sales_engine'
 require 'csv'
 
 class MerchantRepository
@@ -21,22 +21,22 @@ class MerchantRepository
 
   def all
     #returns an array of all known Merchant instances
-    @merchants
+    merchants
   end
 
   def find_by_id(id)
     #returns either nil or an instance of Merchant with a matching ID
-      @merchants.find { |merchant| merchant.id == id.to_s}
+    merchants.find { |merchant| merchant.id == id.to_s}
   end
 
   def find_by_name(name)
     #returns either nil or an instance of Merchant having done a case insensitive search
-      @merchants.find { |merchant| merchant.name.downcase == name.downcase }
+    merchants.find { |merchant| merchant.name.downcase == name.downcase }
   end
 
   def find_all_by_name(name)
     #returns either [] or one or more matches which contain the supplied name fragment, case insensitive
-    @merchants.find_all do |merchant|
+    merchants.find_all do |merchant|
       merchant.name.downcase.include?(name.downcase)
     end
   end

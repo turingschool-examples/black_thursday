@@ -1,3 +1,4 @@
+require "pry"
 class SalesAnalyst
   attr_reader :sales_engine
 
@@ -12,14 +13,14 @@ class SalesAnalyst
   end
 
   def merchant_list
-    @sales_engine.merchants.merchants.map do |merchant|
+    sales_engine.merchants.merchants.map do |merchant|
       merchant.id
     end
   end
 
   def find_items
     merchant_list.map do |merchant|
-      @sales_engine.items.find_all_by_merchant_id(merchant).count
+      sales_engine.items.find_all_by_merchant_id(merchant).count
     end
   end
 
@@ -34,7 +35,7 @@ class SalesAnalyst
   end
 
   def total_merchants_minus_one
-    ((@sales_engine.merchants.all.count) -1)
+    ((sales_engine.merchants.all.count) -1)
   end
 
   def average_items_per_merchant_standard_deviation
@@ -57,24 +58,24 @@ class SalesAnalyst
 
   def merchants_with_high_item_count
     filter_merchants_by_items_in_stock.map do |merchants|
-    @sales_engine.merchants.find_by_id(merchants[0])
+    sales_engine.merchants.find_by_id(merchants[0])
     end
   end
 
 
   def average_item_price_for_merchant(merchant_id)
     list = find_the_collections_of_items(merchant_id.to_s)
-    list.reduce(0) { |sum, item| sum + item.unit_price } / list.count
+    (list.reduce(0) { |sum, item| sum + item.unit_price_to_dollars } / list.count).round(2)
   end
 
   def find_the_collections_of_items(merchant_id)
-    @sales_engine.items.find_all_by_merchant_id(merchant_id)
+    sales_engine.items.find_all_by_merchant_id(merchant_id)
   end
 
   def average_average_price_per_merchant
-    merchant_list.reduce(0) { |sum, merchant|
+    (merchant_list.reduce(0) { |sum, merchant|
       sum + average_item_price_for_merchant(merchant)
-      } / merchant_list.count
+      } / merchant_list.count).round(2)
   end
 
 end

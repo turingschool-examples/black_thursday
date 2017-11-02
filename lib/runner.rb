@@ -1,5 +1,5 @@
-require './lib/sales_engine'
-require './lib/sales_analyst'
+require_relative 'sales_engine'
+require_relative 'sales_analyst'
 
 se = SalesEngine.from_csv({
   :items     => "./data/items.csv",
@@ -14,4 +14,5 @@ se = SalesEngine.from_csv({
 
 sa = SalesAnalyst.new(se)
 
-p sa.average_average_price_per_merchant
+# p sa.create_merchant_id_item_total_list
+puts sa.average_item_price_for_merchant(12334149)
