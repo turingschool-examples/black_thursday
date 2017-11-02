@@ -1,9 +1,8 @@
-require_relative '../lib/item_repository'
-require_relative '../lib/merchant_repository'
-require_relative '../lib/invoice_repository'
+require './lib/item_repository'
+require './lib/merchant_repository'
+require './lib/invoice_repository'
 
 class SalesEngine
-
 
 
   attr_reader :items, :merchants, :invoices
@@ -15,9 +14,6 @@ class SalesEngine
   end
 
   def self.from_csv(files)
-    # items_file = create_elements(files[:items])
-    # merchants_file = create_elements(files[:merchants])
-    # invoice_file = create_elements(files[:invoices])
       SalesEngine.new(files)
   end
 
