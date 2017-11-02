@@ -60,7 +60,3 @@ class ItemRepository
   end
 
 end
-
-
-# find_all_by_price - returns either [] or instances of Item where the supplied price exactly matches
-# find_all_by_price_in_range - returns either [] or instances of Item where the supplied price is in the supplied range (a single Ruby range instance is passed in)
