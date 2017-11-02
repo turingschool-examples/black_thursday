@@ -1,6 +1,9 @@
 require 'minitest/autorun'
 require './lib/sales_engine'
 require 'pry'
+require 'bigdecimal'
+# require 'time'
+
 require 'csv'
 
 class ItemTest < Minitest:: Test
@@ -39,6 +42,19 @@ class ItemTest < Minitest:: Test
       })
 
       assert_instance_of Item, i
+  end
+
+  def test_it_can_convert_unit_price_to_dollars
+    i = Item.new({
+              :name        => "Pencils",
+              :description => "You can use them to write things",
+              :unit_price  => BigDecimal.new(10.99,4),
+              :created_at  => Time.now,
+              :updated_at  => Time.now,
+              :merchant_id => 24
+      })
+
+      assert_equal 10.99, i.unit_price_to_dollars
   end
 
 end

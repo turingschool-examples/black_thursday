@@ -13,9 +13,9 @@ class MerchantRepositoryTest < Minitest:: Test
 
   def test_returns_array_of_all_Merchant_instances
     mr = MerchantRepository.new("")
-    mr.create_merchant({
-      :merchants => "./test/fixtures/merchants_5lines.csv",
-    })
+    mr.create_merchant(
+      "./test/fixtures/merchants_5lines.csv",
+    )
     result = mr.all
 
     assert_equal 241, result.count
@@ -23,9 +23,9 @@ class MerchantRepositoryTest < Minitest:: Test
 
   def test_returns_instance_of_Merchant_from_matching_id
     mr = MerchantRepository.new("")
-    mr.create_merchant({
-      :merchants => "./test/fixtures/merchants_5lines.csv",
-    })
+    mr.create_merchant(
+    "./test/fixtures/merchants_5lines.csv",
+    )
     row1 = mr.merchants[3]
     row2 = mr.merchants[2]
 
@@ -35,9 +35,9 @@ class MerchantRepositoryTest < Minitest:: Test
 
   def test_it_creates_merchant
     mr = MerchantRepository.new("")
-    mr.create_merchant({
-      :merchants => "./test/fixtures/merchants_5lines.csv",
-    })
+    mr.create_merchant(
+       "./test/fixtures/merchants_5lines.csv",
+    )
 
     assert_equal "Shopin1901", mr.merchants[0].name
     assert_equal "12334112", mr.merchants[1].id
@@ -45,9 +45,9 @@ class MerchantRepositoryTest < Minitest:: Test
 
   def test_returns_instance_of_Merhant_from_name
     mr = MerchantRepository.new("")
-    mr.create_merchant({
-      :merchants => "./test/fixtures/merchants_5lines.csv",
-    })
+    mr.create_merchant(
+    "./test/fixtures/merchants_5lines.csv",
+    )
     result = mr.find_by_name("Keckenbauer")
     merchant = mr.merchants[4]
 
@@ -56,9 +56,9 @@ class MerchantRepositoryTest < Minitest:: Test
 
   def test_returns_all_instances_of_Merchant_sorted_by_name
     mr = MerchantRepository.new("")
-    mr.create_merchant({
-      :merchants => "./test/fixtures/merchants_5lines.csv",
-    })
+    mr.create_merchant(
+       "./test/fixtures/merchants_5lines.csv",
+    )
     result = mr.find_all_by_name("LolaMarleys")
     merchants = [mr.merchants[3],mr.merchants[5]]
 

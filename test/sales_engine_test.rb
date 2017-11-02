@@ -77,5 +77,14 @@ class SalesEngineTest < Minitest:: Test
     result = ["Disney scrabble frames", "I Love You to the Moon and Back"]
     assert_equal 2, merchant.items.count
   end
+  def test_it_can_find_an_items_merchant
+    se= SalesEngine.from_csv({
+      :items     => "./test/fixtures/items_fixture_5lines.csv",
+      :merchants => "./test/fixtures/merchants_5lines.csv",
+    })
+    item = se.items.find_by_id(263546394)
+
+    assert_equal "RedefinedArt84",item.merchant.name
+  end
 
 end
