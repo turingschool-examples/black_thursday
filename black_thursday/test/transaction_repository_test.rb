@@ -89,4 +89,18 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal Transaction, repository.find_all_by_result('success').last.class
   end
 
+  def test_find_all_by_result_with_different_result
+    assert_equal Array, repository.find_all_by_result('failed').class
+    assert_equal 22, repository.find_all_by_result('failed').length
+    assert_equal Transaction, repository.find_all_by_result('failed').first.class
+    assert_equal Transaction, repository.find_all_by_result('failed').last.class
+  end
+
+  def test_find_all_by_result_returns_empty_array_for_anything_but_string
+    assert_equal [], repository.find_all_by_result('')
+    assert_equal [], repository.find_all_by_result(34)
+    assert_equal [], repository.find_all_by_result({'hi' => 'you'})
+    assert_equal [], repository.find_all_by_result(nil)
+  end
+
 end
