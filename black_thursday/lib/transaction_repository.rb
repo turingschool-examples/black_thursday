@@ -1,13 +1,16 @@
+require_relative 'transaction'
+
 class TransactionRepository
 
-  attr_reader :transactions, :parent
+  attr_reader :transactions,
+              :parent
 
   def initialize(csv_files = './data/transactions.csv', parent = nil)
     @transactions = load_csv(csv_files).map {|row| Transaction.new(row, self)}
     @parent = parent
   end
 
-  def self.from_csv(csv_files)
+  def from_csv(csv_files)
     TransactionRepository.new(csv_files)
   end
 

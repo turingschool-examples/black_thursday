@@ -1,14 +1,14 @@
 require_relative 'test_helper'
+require 'csv'
 require_relative './../lib/transaction'
 require_relative './../lib/transaction_repository'
-require "csv"
 
 class TransactionRepositoryTest < Minitest::Test
 
   attr_reader :repository
 
   def setup
-    @repository = TransactionRepository.from_csv("./test/fixtures/truncated_transactions.csv")
+    @repository = TransactionRepository.new("./test/fixtures/truncated_transactions.csv")
   end
 
   def test_it_exists

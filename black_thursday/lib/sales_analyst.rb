@@ -23,7 +23,6 @@ class SalesAnalyst
     BigDecimal.new(average / count_merchants, 4).round(2)
   end
 
-  private
   def count_merchants
     @engine.merchants.all.count.to_f
   end

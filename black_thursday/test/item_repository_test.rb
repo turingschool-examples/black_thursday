@@ -5,26 +5,18 @@ require_relative './../lib/item_repository'
 require_relative './../lib/sales_engine'
 
 class ItemRepositoryTest < Minitest::Test
-  #why do we have have attr_reader? could we use @ for everything?
-  attr_reader :repository,
-              :engine
+  attr_reader :repository
 
   def setup
-    @engine = SalesEngine.from_csv(
-      items: './test/fixtures/truncated_items.csv',
-      merchants: './test/fixtures/truncated_merchants.csv',
-      invoices: './test/fixtures/truncated_invoices.csv'
-    )
-
-    @repository = ItemRepository.new("./test/fixtures/truncated_items.csv", engine)
+    @repository = ItemRepository.new("./test/fixtures/truncated_items.csv")
   end
 
   def test_it_exists
-    assert_instance_of ItemRepository, @repository
+    assert_instance_of ItemRepository, repository
   end
 
   def test_returns_all_items_from_repository
-    assert_equal 21, @repository.all.count
+    assert_equal 21, repository.all.count
   end
 
   def test_it_can_find_by_id
