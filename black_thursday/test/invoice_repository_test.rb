@@ -40,11 +40,11 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_nil repository.find_by_id(nil)
   end
 
-  def test_can_find_all_items_by_merchant_id
-    actual = repository.find_all_by_merchant_id(12334105)
+  def test_can_find_all_invoices_by_merchant_id
+    actual = repository.find_all_by_merchant_id("12334105")
 
     assert_equal Array, actual.class
-    assert_equal 0, actual.count
-    assert_equal "Shopin1901", actual.name
+    assert_equal 1, actual.count
+    assert_equal "14", actual.first.customer_id
   end
 end
