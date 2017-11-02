@@ -10,6 +10,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
+
     (total_items/total_merchants).round(2)
   end
 
