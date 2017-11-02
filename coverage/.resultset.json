@@ -1,7 +1,7 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/kathrine/turing/1module/projects/black_thursday/lib/item_repository.rb": [
+      "/Users/kjenkins/turing/1module/projects/black_thursday/lib/invoice_repository.rb": [
         1,
         1,
         null,
@@ -9,6 +9,10 @@
         1,
         null,
         1,
+<<<<<<< develop_1
+=======
+
+>>>>>>> master
         29,
         29,
         null,
@@ -136,6 +140,7 @@
         1,
         null,
         1,
+<<<<<<< develop_1
         2962,
         null,
         null,
@@ -194,6 +199,14 @@
         null,
         1,
         null,
+=======
+        8,
+        null,
+        null,
+        1,
+        0,
+        0,
+>>>>>>> master
         null,
         1,
         1,
@@ -202,6 +215,7 @@
         null,
         1,
         0,
+<<<<<<< develop_1
         0,
         0,
         null,
@@ -225,10 +239,20 @@
         20,
         20,
         null,
+=======
+        null,
         null,
         1,
+        0,
+        null,
+        null
+      ],
+      "/Users/kjenkins/turing/1module/projects/black_thursday/lib/invoice.rb": [
+>>>>>>> master
         null,
         1,
+        1,
+<<<<<<< develop_1
         20,
         20,
         null,
@@ -237,10 +261,24 @@
         31,
         null,
         null,
+=======
+        null,
+        1,
+        14955,
+        14955,
+        14955,
+        14955,
+        14955,
+        14955,
+>>>>>>> master
         null,
         null
       ]
     },
+<<<<<<< develop_1
     "timestamp": 1509642188
+=======
+    "timestamp": 1509643171
+>>>>>>> master
   }
 }
