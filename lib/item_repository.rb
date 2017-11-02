@@ -1,12 +1,15 @@
 require 'csv'
+require_relative '../lib/create_elements'
 require_relative '../lib/item'
 
 class ItemRepository
 
+  include CreateElements
+
   attr_reader :items, :parent, :items_file
 
   def initialize(items_file, parent)
-    @items = items_file.map {|item| Item.new(item, self)}
+    @items = create_elements(items_file).map {|item| Item.new(item, self)}
     @parent = parent
   end
 
@@ -57,6 +60,10 @@ class ItemRepository
     items.find_all do |item|
       item.unit_price.between?(low_price, high_price)
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
   end
 
 end

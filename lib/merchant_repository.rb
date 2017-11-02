@@ -1,11 +1,14 @@
 require_relative '../lib/merchant'
+require_relative '../lib/create_elements'
 
 class MerchantRepository
+
+  include CreateElements
 
   attr_reader :merchants, :parent, :merchants_file
 
   def initialize(merchants_file, parent)
-    @merchants = merchants_file.map {|merchant| Merchant.new(merchant, self)}
+    @merchants = create_elements(merchants_file).map {|merchant| Merchant.new(merchant, self)}
     @parent = parent
   end
 
@@ -37,6 +40,10 @@ class MerchantRepository
 
   def item(id)
     parent.item(id)
+  end
+
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
   end
 
 end

@@ -14,5 +14,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal @sales_analyst.sales_engine.merchants.merchants, @sales_analyst.sales_engine.merchants.all
   end
 
+  
 
 end

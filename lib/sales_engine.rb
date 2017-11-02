@@ -5,25 +5,20 @@ require_relative '../lib/invoice_repository'
 class SalesEngine
 
 
+
   attr_reader :items, :merchants, :invoices
 
-  def initialize(items_file, merchants_file, invoice_file)
-    @items = ItemRepository.new(items_file, self)
-    @merchants = MerchantRepository.new(merchants_file, self)
-    @invoices = InvoiceRepository.new(invoice_file, self)
+  def initialize(files)
+    @items = ItemRepository.new(files[:items], self)
+    @merchants = MerchantRepository.new(files[:merchants], self)
+    @invoices = InvoiceRepository.new(files[:invoices], self)
   end
 
   def self.from_csv(files)
-    items_file = create_elements(files[:items])
-    merchants_file = create_elements(files[:merchants])
-    invoice_file = create_elements(files[:invoices])
-      SalesEngine.new(items_file, merchants_file, invoice_file)
-  end
-
-  def self.create_elements(file)
-    CSV.readlines(file, headers: true, header_converters: :symbol) do |row|
-      row
-    end
+    # items_file = create_elements(files[:items])
+    # merchants_file = create_elements(files[:merchants])
+    # invoice_file = create_elements(files[:invoices])
+      SalesEngine.new(files)
   end
 
   def merchant(id)
