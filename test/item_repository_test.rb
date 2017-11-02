@@ -1,4 +1,5 @@
 require_relative './test_helper'
+require './lib/item_repository'
 
 class TestItemRepository < Minitest::Test
   def setup
@@ -19,7 +20,7 @@ class TestItemRepository < Minitest::Test
       :created_at => '2016-01-11 09:34:06 UTC',
       :updated_at => '2007-06-04 21:35:10 UTC'
     }]
-    ItemRepository.new(items)
+    ItemRepository.new(items, self)
   end
 
   def test_setup_exists

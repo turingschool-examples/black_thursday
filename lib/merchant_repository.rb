@@ -1,19 +1,25 @@
 require './lib/merchant'
 class MerchantRepository
 
-  attr_reader :merchants
+  attr_reader :merchants,
+              :parent
 
-  def initialize(merchants)
-    @merchants = merchants.map {|merchant| Merchant.new(merchant)}
+  def initialize(merchants, parent)
+    @merchants = merchants.map {|merchant| Merchant.new(merchant, self)}
+    @parent = parent
   end
 
   def all
-    @merchants
+    merchants
+  end
+
+  def find_all_items_by_merchant_id(id)
+    parent.find_items_by_merchant_id(id)
   end
 
   def find_by_id(id)
     merchants.find do |merchant|
-      merchant.id = id
+      merchant.id == id
     end
   end
 

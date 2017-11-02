@@ -1,10 +1,12 @@
 require './lib/item'
 
 class ItemRepository
-  attr_reader :items
+  attr_reader :items,
+              :parent
 
-  def initialize(items)
-    @items = items.map {|item| Item.new(item)}
+  def initialize(items, parent)
+    @items = items.map {|item| Item.new(item, self)}
+    @parent = parent
   end
 
   def all
@@ -53,5 +55,9 @@ class ItemRepository
     items.find_all do |item|
       item.merchant_id == id.to_s
     end
+  end
+
+  def find_merchant_by_id(merchant_id)
+    parent.find_merchant_by_id(merchant_id)
   end
 end

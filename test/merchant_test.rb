@@ -1,4 +1,5 @@
 require './test/test_helper'
+require './lib/merchant'
 
 class MerchantTest < Minitest::Test
   def test_can_be_initialized_with_attributes
@@ -7,7 +8,7 @@ class MerchantTest < Minitest::Test
       :name       => "jejum",
       :created_at => "2007-06-25",
       :updated_at => "2015-09-09"
-    })
+    }, self)
 
     assert_equal "12334141", me.id
     assert_equal "jejum", me.name
@@ -22,7 +23,7 @@ class MerchantTest < Minitest::Test
       :name       => "ashton john",
       :created_at => "2007-09-10",
       :updated_at => "2015-10-11"
-    })
+    }, self)
 
     assert_equal "24537741", me.id
     assert_equal "ashton john", me.name

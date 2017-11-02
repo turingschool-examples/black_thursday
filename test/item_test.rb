@@ -1,4 +1,5 @@
 require './test/test_helper'
+require './lib/item'
 
 class TestItem < Minitest::Test
   def test_it_initializes_with_attributes
@@ -11,7 +12,7 @@ class TestItem < Minitest::Test
       :created_at => Time.now.to_s,
       :updated_at => Time.now.to_s
     }
-    item = Item.new(key_pad)
+    item = Item.new(key_pad, 'parent')
 
     assert_instance_of Item, item
     assert_equal '12345', item.id
@@ -33,7 +34,7 @@ class TestItem < Minitest::Test
       :created_at => '2016-01-11 09:34:06 UTC',
       :updated_at => '2007-06-04 21:35:10 UTC'
     }
-    item = Item.new(shoe)
+    item = Item.new(shoe, 'parent')
 
     assert_instance_of Item, item
     assert_equal '23456', item.id
@@ -55,7 +56,7 @@ class TestItem < Minitest::Test
       :created_at => Time.now.to_s,
       :updated_at => Time.now.to_s
     }
-    item_key_pad = Item.new(key_pad)
+    item_key_pad = Item.new(key_pad, 'parent')
     shoe = {
       :id => '23456',
       :name => 'Nike Super Fast',
@@ -65,7 +66,7 @@ class TestItem < Minitest::Test
       :created_at => '2016-01-11 09:34:06 UTC',
       :updated_at => '2007-06-04 21:35:10 UTC'
     }
-    item_shoe = Item.new(shoe)
+    item_shoe = Item.new(shoe, 'parent')
 
     assert_equal 100.00, item_shoe.unit_price_to_dollars
     assert_equal 0.05, item_key_pad.unit_price_to_dollars
