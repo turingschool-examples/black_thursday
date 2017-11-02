@@ -25,8 +25,4 @@ class Invoice
   def items
     @parent.find_all_items_by_merchant_id(id)
   end
-
-  def inspect
-    "#{self.class} has #{all.count} rows"
-  end
 end

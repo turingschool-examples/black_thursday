@@ -40,4 +40,8 @@ class InvoiceRepository
       invoice.status == status
     end
   end
+
+  def inspect
+    "#{self.class} has #{all.count} rows"
+  end
 end

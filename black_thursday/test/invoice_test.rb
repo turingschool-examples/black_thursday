@@ -33,8 +33,4 @@ class InvoiceTest < Minitest::Test
 
     assert_instance_of Invoice, invoice
   end
-
-  # def test_inspect_returns_rows_in_repository
-  #   assert_equal "InvoiceRepository has 21 rows", @repository.inspect
-  # end
 end
