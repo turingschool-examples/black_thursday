@@ -19,4 +19,8 @@ attr_reader :id,
     @repository   = parent
   end
 
+  def merchant
+    repository.find_merchant(self.merchant_id)
+  end
+
 end

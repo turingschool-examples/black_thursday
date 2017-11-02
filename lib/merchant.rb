@@ -10,7 +10,11 @@ class Merchant
   end
 
   def items
-    puts repository.find_items(self.id)
+    repository.find_items(self.id)
+  end
+
+  def invoices
+    repository.find_invoices(self.id)
   end
 
 end

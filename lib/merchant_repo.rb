@@ -16,7 +16,7 @@ class MerchantRepository
     merchant_csv = CSV.open filename,
                              headers: true,
                              header_converters: :symbol
-    merchant_csv.each do |row| @merchants << Merchant.new(row, self) 
+    merchant_csv.each do |row| @merchants << Merchant.new(row, self)
     end
   end
 
@@ -39,6 +39,11 @@ class MerchantRepository
   end
 
   def find_items(item_id)
-    sales_engine.find_items(item_id)
+    @sales_engine.find_items(item_id)
   end
+
+  def find_invoices(id)
+    @sales_engine.find_invoices(id)
+  end
+
 end

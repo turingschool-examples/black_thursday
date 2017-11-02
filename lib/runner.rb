@@ -1,9 +1,11 @@
 require_relative 'sales_engine'
 require_relative 'sales_analyst'
+require 'pry'
 
 se = SalesEngine.from_csv({
   :items     => "./data/items.csv",
   :merchants => "./data/merchants.csv",
+  :invoices => "./data/invoices.csv"
 })
 
 # merchant = se.merchants.find_by_id(12334112)
@@ -14,4 +16,5 @@ se = SalesEngine.from_csv({
 
 sa = SalesAnalyst.new(se)
 
-puts sa.unit_price_and_average_difference_squared_sum
+invoice = se.invoices.find_by_id(20)
+puts invoice.merchant
