@@ -6,13 +6,13 @@ class Item # < ItemRepo
               :created_at, :updated_at
 
   def initialize(data, repository)
-    @name = data[:name]
-    @merchant_id = data[:merchant_id]
-    @item_id = data[:id]
-    @description = data[:description]
+    @name = data[:name]#.to_s
+    @merchant_id = data[:merchant_id].to_i
+    @item_id = data[:id].to_i
+    @description = data[:description]#.to.s
     @unit_price = BigDecimal.new(data[:unit_price])
-    @created_at = data[:created_at]
-    @updated_at = data[:updated_at]
+    @created_at = data[:created_at]#.to_s
+    @updated_at = data[:updated_at]#.to_s
     @repository = repository
   end
 

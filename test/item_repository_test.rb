@@ -22,8 +22,8 @@ class ItemRepositoryTest < MiniTest::Test
   end
 
   def test_find_by_id_nil_or_with_id_number
-    assert_nil @items.find_by_id("263401670")
-    assert_equal @items.items[0], @items.find_by_id("263401607")
+    assert_nil @items.find_by_id(263401670)
+    assert_equal @items.items[0], @items.find_by_id(263401607)
   end
 
   def test_that_finds_by_name

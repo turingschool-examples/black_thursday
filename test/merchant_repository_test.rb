@@ -24,7 +24,7 @@ class MerchantRepositoryTest < MiniTest::Test
     merchant1 = @merchants.merchants[2]
 
 
-    assert_equal merchant1, @merchants.find_by_id("12334113")
+    assert_equal merchant1, @merchants.find_by_id(12334113)
   end
 
   def test_that_merchant_can_be_found_by_name

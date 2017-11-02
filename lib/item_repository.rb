@@ -27,7 +27,7 @@ class ItemRepository
 
   def find_by_id(id)
     items.find do |item|
-      item.item_id == id
+      item.item_id.to_i == id.to_i
     end
   end
 
@@ -46,7 +46,7 @@ class ItemRepository
 
   def find_all_by_merchant_id(id)
     items.find_all do |item|
-      item.merchant_id.to_s == id.to_s
+      item.merchant_id == id
     end
   end
 

@@ -1,22 +1,13 @@
 require_relative '../lib/sales_engine'
 
 class SalesAnalyst
-  
+
   def initialize(sales_engine_from_csv)
     @sales_engine = sales_engine_from_csv
   end
 
   def average_items_per_merchant
-    (total_items/total_merchants).round(2)
-  end
 
-
-  def total_merchants
-    sales_engine.merchants.count
-  end
-
-  def total_items
-    sales_engine.items.count
   end
 
   def average_items_per_merchant_standard_deviation

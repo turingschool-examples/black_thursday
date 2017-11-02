@@ -14,7 +14,7 @@ class MerchantRepository
 
   def find_by_id(id)
     merchants.find do |merchant|
-      merchant.id == id.to_s
+      merchant.id.to_i == id.to_i
     end
   end
 
@@ -43,7 +43,7 @@ class MerchantRepository
   end
 
   def inspect
-    "#<#{self.class} #{@items.size} rows>"
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 
 end
