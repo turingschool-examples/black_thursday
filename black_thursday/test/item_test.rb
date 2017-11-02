@@ -85,7 +85,7 @@ class ItemTest < Minitest::Test
       {id: "4",
       name: "pencil",
       description: "You can use it to write things",
-      unit_price: "1200",
+      unit_price: "1200.1111111",
       merchant_id: "10",
       created_at: created_at,
       updated_at: updated_at},
