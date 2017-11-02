@@ -1,13 +1,16 @@
 require 'csv'
 require_relative '../lib/invoice'
+require_relative '../lib/create_elements'
 
 class InvoiceRepository
+
+  include CreateElements
 
   attr_reader :invoices, :parent
 
   def initialize(invoice_file, parent)
-    @invoices      = invoice_file.map {|invoice| Invoice.new(invoice, self)}
-    @parent        = parent
+    @invoices = create_elements(invoice_file).map {|invoice| Invoice.new(invoice, self)}
+    @parent   = parent
   end
 
   def find_by_id(id)
@@ -42,7 +45,9 @@ class InvoiceRepository
     end
   end
 
-
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
+  end
 
 end
 

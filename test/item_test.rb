@@ -8,13 +8,13 @@ require './lib/merchant'
 class ItemTest < MiniTest::Test
 
   def setup
-    @item_repository = ItemRepository.new(nil)
-    @sales_engine = SalesEngine.new
+    @sales_engine = SalesEngine.from_csv({:items => './test/fixtures/items_fixture.csv', :merchants => './test/fixtures/merchants.csv', :invoices => './test/fixtures/invoices.csv'})
+    @items = @sales_engine.items.items
   end
 
   def test_it_knows_where_it_came_from
     @item_repository.create_item({:name => "The Thing", :unit_price => 5000})
-    item = @item_repository.items.first
+    item = @items.first
     assert_equal @item_repository, item.parent
   end
 

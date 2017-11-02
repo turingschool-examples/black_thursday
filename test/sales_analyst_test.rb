@@ -14,5 +14,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 2.33, @sales_analyst.average_items_per_merchant
   end
 
+  
 
 end
