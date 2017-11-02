@@ -12,19 +12,21 @@ class MerchantRepository
     @sales_engine = parent
   end
 
-  def create_merchant(data)
-      CSV.foreach  data[:merchants], headers: true, header_converters:
-      :symbol do |row|
-        @merchants << Merchant.new(row, self)
-      end
-  end
-
   def all
     @merchants
   end
 
   def find_by_id(id)
+    # binding.pry
     @merchants.find{|merchant|  merchant.id == id.to_s}
+  end
+
+  def create_merchant(data)
+      CSV.foreach  data, headers: true, header_converters:
+      :symbol do |row|
+        @merchants << Merchant.new(row, self)
+      end
+      # binding.pry
   end
 
   def find_by_name(name)
@@ -38,7 +40,6 @@ class MerchantRepository
   def find_all_by_name(name)
     @merchants.find_all{|merchant| merchant.name == name}
   end
-
 
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"

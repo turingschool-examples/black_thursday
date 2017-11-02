@@ -10,17 +10,17 @@ attr_reader :id,
             :created_at,
             :updated_at,
             :repository,
-            # :unit_price_to_dollars,
             :merchant_id
+            # :unit_price_to_dollars
 
-  def initialize(data, parent=nil)
+
+  def initialize(data, parent = nil)
     @id = data[:id]
     @name = data[:name]
     @description = data[:description]
     @unit_price = BigDecimal.new(data[:unit_price])
     @created_at = data[:created_at]
     @updated_at = data[:updated_at]
-    # @unit_price_to_dollars = data[:unit_price_to_dollars]
     @merchant_id = data[:merchant_id]
     @repository = parent
   end
@@ -31,12 +31,12 @@ attr_reader :id,
   # end
 
   def merchant
-    repository.find_merchant_by_id(self.merchant_id)
+    @repository.find_merchant_by_id(@merchant_id)
+    # binding.pry
   end
 
-  def unit_price_to_dollars
-    @unit_price.truncate(2).to_f
-    # require "pry"; binding.pry
-  end
+def unit_price_to_dollars
+  unit_price.to_s("F").to_f
+end
 
 end

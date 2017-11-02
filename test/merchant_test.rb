@@ -8,13 +8,12 @@ class MerchantTest < Minitest:: Test
     merchant_repo = MerchantRepository.new("")
     merchant_repo.create_merchant({
       :merchants     => "./test/fixtures/merchants_5lines.csv",
+
     })
     merchant = merchant_repo.merchants.first
 
     assert_equal merchant_repo, merchant.repository
   end
-
-  
 
   def test_it_can_create_a_merchant
     m = Merchant.new({

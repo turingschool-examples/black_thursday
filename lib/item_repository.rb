@@ -16,7 +16,7 @@ class ItemRepository
   end
 
   def create_item(data)
-     CSV.foreach  data[:items], headers: true, header_converters: :symbol do |row|
+     CSV.foreach data, headers: true, header_converters: :symbol do |row|
       @items << Item.new(row, self)
     end
   end
@@ -51,10 +51,10 @@ class ItemRepository
   def find_all_by_merchant_id(merchant_id)
     item_name = @items.find_all do |item|
       item.merchant_id == merchant_id.to_s
-      # binding.pry
     end
-    item_name.map{|item|item.name}
-
+  end
+  def find_merchant_by_id(merchant_id)
+    @sales_engine.find_merchant_by_id(merchant_id)
   end
 
   def find_merchant_by_id(id)
