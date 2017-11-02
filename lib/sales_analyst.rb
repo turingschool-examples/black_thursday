@@ -23,7 +23,6 @@ class SalesAnalyst
     Math.sqrt(num / (numbers.count - 1)).round(2)
   end
 
-
   def average_items_per_merchant_standard_deviation
 
   end
