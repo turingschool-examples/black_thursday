@@ -21,6 +21,7 @@ class TransactionRepository
   end
 
   def find_all_by_invoice_id(id)
+    return [] if id.class != Integer
     transactions.find_all {|transaction| transaction.invoice_id == id}
   end
 

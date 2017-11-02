@@ -56,4 +56,22 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal '4177816490204479', repository.find_all_by_invoice_id(46).first.credit_card_number
   end
 
+  def test_find_all_by_invoice_id_for_multiple_matching_ids
+    assert_equal 2, repository.find_all_by_invoice_id(3477).length
+    assert_equal Transaction, repository.find_all_by_invoice_id(3477).first.class
+    assert_equal Transaction, repository.find_all_by_invoice_id(3477).last.class
+    assert_equal 24, repository.find_all_by_invoice_id(3477).first.id
+    assert_equal 25, repository.find_all_by_invoice_id(3477).last.id
+  end
+
+  def test_find_all_by_invoice_id_edge_cases
+    assert_equal [], repository.find_all_by_invoice_id(nil)
+    assert_equal [], repository.find_all_by_invoice_id([0,329,23099])
+    assert_equal [], repository.find_all_by_invoice_id('239')
+  end
+
+  def test_find_all_by_credit_card_returns_correct_transaction
+
+  end
+
 end
