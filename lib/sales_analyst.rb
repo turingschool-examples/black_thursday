@@ -34,8 +34,6 @@ class SalesAnalyst
   end
 
   def standard_deviation(x)
-
-
   end
 
   def average_items_per_merchant_standard_deviation
@@ -47,9 +45,11 @@ class SalesAnalyst
     counts = counts_per_merchant(sales_engine.method(:find_merchant_items))
     avg_items = average_items_per_merchant
     std_dev = average_items_per_merchant_standard_deviation
-
+    # counts.each_with_index
+    # make std dev method for merchant
     sales_engine.merchants.merchants.select do |merchant|
       sales_engine.find_merchant_items(merchant.id).count > (avg_items + std_dev)
+      # merchant.std_dev > 2 - math Module
     end
   end
 
