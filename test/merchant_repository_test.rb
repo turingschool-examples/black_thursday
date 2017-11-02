@@ -5,6 +5,7 @@ class MerchantRepositoryTest < Minitest::Test
   attr_reader :mr
 
   def setup
+    parent = mock('parent')
     merchants = [{
       :id => "12334141",
       :name => "jejum",
@@ -16,7 +17,7 @@ class MerchantRepositoryTest < Minitest::Test
       :created_at => "2007-09-10",
       :updated_at => "2015-10-11"
     }]
-      @mr = MerchantRepository.new(merchants, self)
+    @mr = MerchantRepository.new(merchants, parent)
   end
 
   def test_setup_it_exists
@@ -41,4 +42,11 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal [], mr.find_all_by_name("paul")
     assert_equal 1, mr.find_all_by_name("john").count
   end
+
+  def test_use_find_all_items
+    mr.parent.stubs(:find_items_by_merchant_id).with('12345')
+
+    assert_nil mr.find_all_items_by_merchant_id('12345')
+  end
+
 end
