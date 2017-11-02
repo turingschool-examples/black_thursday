@@ -11,4 +11,8 @@ class TransactionRepository
     CSV.open filename, headers: true, header_converters: :symbol
   end
 
+  def all
+    @transactions
+  end
+
 end
