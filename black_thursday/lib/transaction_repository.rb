@@ -25,6 +25,10 @@ class TransactionRepository
     transactions.find_all {|transaction| transaction.invoice_id == id}
   end
 
+  def find_all_by_credit_card(cc)
+    transactions.find_all {|transaction| transaction.credit_card_number == cc}
+  end
+
 
 
 end

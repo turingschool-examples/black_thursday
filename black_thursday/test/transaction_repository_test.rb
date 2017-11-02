@@ -71,7 +71,9 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_credit_card_returns_correct_transaction
-
+    assert_equal 1, repository.find_all_by_credit_card('4257133712179878').length
+    assert_equal Array, repository.find_all_by_credit_card('4257133712179878').class
+    assert_equal Transaction, repository.find_all_by_credit_card('4257133712179878').first.class
   end
 
 end
