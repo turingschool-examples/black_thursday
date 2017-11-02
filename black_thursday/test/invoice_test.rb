@@ -1,7 +1,6 @@
 require_relative 'test_helper'
 require 'time'
 require_relative './../lib/invoice'
-require_relative './../lib/invoice_repository'
 require_relative './../lib/sales_engine'
 
 class InvoiceTest < Minitest::Test
@@ -22,8 +21,8 @@ class InvoiceTest < Minitest::Test
     created_at = "2015-03-13"
     updated_at = "2015-04-05"
 
-    invoice = Invoice.new({
-      :id          => 6,
+    invoice = Invoice.new(
+      {:id         => 6,
       :customer_id => 7,
       :merchant_id => 8,
       :status      => "pending",
@@ -35,7 +34,7 @@ class InvoiceTest < Minitest::Test
     assert_instance_of Invoice, invoice
   end
 
-  def test_inspect_returns_rows_in_repository
-    assert_equal "InvoiceRepository has 21 rows", repository.inspect
-  end
+  # def test_inspect_returns_rows_in_repository
+  #   assert_equal "InvoiceRepository has 21 rows", @repository.inspect
+  # end
 end
