@@ -35,8 +35,8 @@ class MerchantRepository
     end
   end
 
-  def items(id)
-    parent.items(id)
+  def item(id)
+    parent.item(id)
   end
 
 end
