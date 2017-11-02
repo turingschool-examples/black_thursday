@@ -1,5 +1,5 @@
 require 'csv'
-require './lib/item'
+require_relative '../lib/item'
 
 class ItemRepository
 

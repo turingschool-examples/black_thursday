@@ -1,6 +1,6 @@
-require './lib/item_repository'
-require './lib/merchant_repository'
-require './lib/invoice_repository'
+require_relative '../lib/item_repository'
+require_relative '../lib/merchant_repository'
+require_relative '../lib/invoice_repository'
 
 class SalesEngine
 
@@ -30,7 +30,7 @@ class SalesEngine
     merchants.find_by_id(id)
   end
 
-  def item(id)
+  def items(id)
     items.find_by_id(id)
   end
 
