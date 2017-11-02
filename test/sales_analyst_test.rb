@@ -45,4 +45,14 @@ class SalesAnalystTest < Minitest::Test
     result = sa.average_average_price_per_merchant
     assert_equal 205, result
   end
+
+  def test_it_can_determine_standard_deviation_items_price
+    result = sa.standard_deviation_of_item_price
+    assert_equal 5991, result
+  end
+
+  def test_it_can_determine_the_golden_items
+    result = sa.golden_items
+    assert_equal 0, result.count
+  end
 end

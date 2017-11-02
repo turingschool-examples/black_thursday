@@ -14,7 +14,7 @@ class SalesAnalyst
   def standard_deviation_items_per_merchant
       Math.sqrt(count_all_items_for_each_merchant.map do |item_count|
         (average_items_per_merchant - item_count) ** 2
-      end.sum / (se.merchants.merchants.count - 1))
+      end.sum / (se.merchants.merchants.count - 1)).floor
   end
 
   def count_all_items_for_each_merchant
@@ -51,8 +51,27 @@ class SalesAnalyst
   end
 
   def standard_deviation_of_item_price
+    Math.sqrt(se.items.items.map do |item|
+      (average_item_price - item.unit_price) ** 2
+    end.sum / (se.items.items.count - 1)).floor
+  end
+
+  def average_item_price
+    se.items.items.inject(0) do |sum, item|
+      sum += item.unit_price
+    end/se.items.items.count
   end
 
   def golden_items
+    se.items.items.reduce([]) do |result, item|
+      if item.unit_price >= minimum_for_golden_item
+        result << item
+      end
+      result
+    end
+  end
+#We need to populate our item truncated so that we have one in golden items
+  def minimum_for_golden_item
+    average_item_price + (2 * standard_deviation_of_item_price)
   end
 end
