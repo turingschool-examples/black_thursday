@@ -28,10 +28,15 @@ class TestSalesEngine < Minitest::Test
       assert_equal 4, merchant.items.count
     end
 
-    #do we need unit test for merchant in item_test
     def test_find_merchant_for_item_by_merchant_id
       item = se.items.find_by_id('263395721')
 
       assert_equal 'Madewithgitterxx', item.merchant.name
+    end
+
+    def test_find_invoices_for_merchant
+      merchant = se.merchants.find_by_id('12334185')
+
+      assert_equal 2, merchant.invoices.count
     end
 end
