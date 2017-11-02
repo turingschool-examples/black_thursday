@@ -19,7 +19,7 @@ class MerchantRepository
 
   def find_by_id(id)
     merchants.find do |merchant|
-      merchant.id == id
+      merchant.id.to_s == id.to_s
     end
   end
 
