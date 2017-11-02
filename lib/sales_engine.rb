@@ -8,19 +8,23 @@ class SalesEngine
               :merchants
 
   def self.from_csv(directory)
-    item_filename = directory[:items]
-    merchant_filename = directory[:merchants]
+    # item_filename = directory[:items]
+    # merchant_filename = directory[:merchants]
 
-    SalesEngine.new(item_filename, merchant_filename)
+    SalesEngine.new(directory)
   end
 
-  def initialize(item_filename, merchant_filename)
-    @items      = ItemRepository.new(self,item_filename)
-    @merchants  = MerchantRepository.new(self, merchant_filename)
+  def initialize(directory)
+    @items      = ItemRepository.new(self, directory[:items])
+    @merchants  = MerchantRepository.new(self, directory[:merchants])
   end
 
+  def find_merchant(id)
+    merchants.find_by_id(id)
+  end
 
-  # def merchant(id)
-  #   merchant_repository.find_by_id(id)
-  # end
+  def find_items(id)
+    items.find_by_id(id)
+  end
+
 end

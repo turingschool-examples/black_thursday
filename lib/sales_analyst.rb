@@ -98,5 +98,14 @@ class SalesAnalyst
     Math.sqrt(unit_price_squared_sum_division).round(2)
   end
 
+  def golden_items_deviation
+    average_unit_price + (unit_price_standard_deviation * 2)
+  end
+
+  def golden_items
+    @sales_engine.items.all.map { |item|
+      item.unit_price > golden_items_deviation
+    }
+  end
 
 end

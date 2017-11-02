@@ -6,7 +6,6 @@ class ItemRepository
   attr_reader :items,
               :sales_engine
 
-
   def initialize(parent, filename)
     @items         = []
     @sales_engine  = parent

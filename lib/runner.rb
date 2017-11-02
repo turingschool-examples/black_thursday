@@ -14,4 +14,4 @@ se = SalesEngine.from_csv({
 
 sa = SalesAnalyst.new(se)
 
-puts sa.unit_price_standard_deviation
+puts sa.unit_price_and_average_difference_squared_sum
