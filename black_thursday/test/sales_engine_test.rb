@@ -62,6 +62,6 @@ class SalesEngineTest < Minitest::Test
 
     assert_instance_of Time, invoice.created_at
     assert_equal Invoice, invoice.class
-    assert_equal "12336652", invoice.merchant_id
+    assert_equal 12336652, invoice.merchant_id
   end
 end

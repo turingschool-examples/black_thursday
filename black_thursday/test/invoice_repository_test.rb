@@ -30,7 +30,7 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_it_can_find_invoice_by_id
     assert_equal Invoice, repository.find_by_id(10).class
     assert_equal "pending", repository.find_by_id(10).status
-    assert_equal "12334839", repository.find_by_id(10).merchant_id
+    assert_equal 12334839, repository.find_by_id(10).merchant_id
   end
 
   def test_find_by_id_edge_case
@@ -41,30 +41,30 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_can_find_all_invoices_by_merchant_id
-    actual = repository.find_all_by_merchant_id("12334105")
+    actual = repository.find_all_by_merchant_id(12334105)
 
     assert_equal Array, actual.class
     assert_equal 1, actual.count
-    assert_equal "14", actual.first.customer_id
+    assert_equal 14, actual.first.customer_id
   end
 
   def test_find_all_by_merchant_id_returns_empty_array_when_no_match_is_found
-    actual = repository.find_all_by_merchant_id("9898989898")
+    actual = repository.find_all_by_merchant_id(9898989898)
 
     assert_equal [], actual
     assert_equal [], repository.find_all_by_merchant_id(nil)
   end
 
   def test_can_find_all_invoices_by_customer_id
-    actual = repository.find_all_by_customer_id("1")
+    actual = repository.find_all_by_customer_id(1)
 
     assert_equal Array, actual.class
     assert_equal 8, actual.count
-    assert_equal "12337139", actual.last.merchant_id
+    assert_equal 12337139, actual.last.merchant_id
   end
 
   def test_find_all_by_customer_id_returns_empty_array_when_no_match_is_found
-    actual = repository.find_all_by_customer_id("98989")
+    actual = repository.find_all_by_customer_id(98989)
 
     assert_equal [], actual
     assert_equal [], repository.find_all_by_customer_id(nil)
@@ -74,11 +74,11 @@ class InvoiceRepositoryTest < Minitest::Test
     actual = repository.find_all_by_status(nil)
     assert_equal [], actual
 
-    actual = repository.find_all_by_status("1")
+    actual = repository.find_all_by_status(1)
 
     assert_equal 8, actual.count
 
-    actual = repository.find_all_by_status("12334105")
+    actual = repository.find_all_by_status(12334105)
 
     assert_equal 1, actual.count
   end

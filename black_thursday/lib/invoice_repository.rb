@@ -36,7 +36,7 @@ class InvoiceRepository
   def find_all_by_status(id)
     return [] if id.nil?
     # find_all_by_merchant_id(id) || find_all_by_customer_id(id)
-    if id.length > 5
+    if id > 5000
       find_all_by_merchant_id(id)
     else
       find_all_by_customer_id(id)
