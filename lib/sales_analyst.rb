@@ -1,5 +1,6 @@
 require_relative 'sales_engine'
 require 'bigdecimal'
+require 'pry'
 
 class SalesAnalyst
 
@@ -52,6 +53,13 @@ class SalesAnalyst
       item.unit_price.to_f
     end
     BigDecimal(average(prices), 4)
+  end
+
+  def average_average_price_per_merchant
+    se.merchants.all.map do |merchant|
+      # binding.pry
+      average_item_price_for_merchant(merchant.id)
+    end
   end
 
 
