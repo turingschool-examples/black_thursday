@@ -51,7 +51,6 @@ class ItemRepository
   end
 
   def find_merchant_for_item(item)
-    #keep consistent
     @parent.merchants.find_by_id(item.merchant_id)
   end
 
