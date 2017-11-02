@@ -21,4 +21,34 @@ class SalesEngineTest < Minitest::Test
   def test_it_loads_an_item_repository
     assert_equal 21, @engine.items.all.count
   end
+
+  def test_it_can_find_merchant_by_id
+    merchant = @engine.merchants.find_by_id(12334185)
+
+    assert_equal "Madewithgitterxx", merchant.name
+    assert_equal 6, merchant.items.length
+    assert_equal 263499920, merchant.items.first.id
+  end
+
+  def test_it_cant_find_merchant_by_id_if_nil
+    merchant = @engine.merchants.find_by_id(nil)
+
+    assert_nil merchant
+  end
+
+  def test_it_can_find_item_by_id
+    item = @engine.items.find_by_id(263499920)
+
+
+    assert_equal "Madewithgitterxx", item.merchant.name
+    assert_equal Merchant, item.merchant.class
+    assert_equal 12334185 , item.merchant.id
+  end
+
+  def test_it_cant_find_item_by_id_if_nil
+    item = @engine.items.find_by_id(nil)
+
+
+    assert_nil item
+  end
 end

@@ -11,7 +11,7 @@ class ItemTest < Minitest::Test
   def setup
     @engine = SalesEngine.from_csv(
       items: "./test/fixtures/truncated_items.csv",
-      merchants: "./data/merchants.csv"
+      merchants: "./test/fixtures/truncated_merchants.csv"
     )
 
     @repository = ItemRepository.new("./test/fixtures/truncated_items.csv", engine)
