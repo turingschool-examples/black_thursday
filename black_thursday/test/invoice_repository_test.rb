@@ -69,4 +69,17 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal [], actual
     assert_equal [], repository.find_all_by_customer_id(nil)
   end
+
+  def test_find_all_by_status
+    actual = repository.find_all_by_status(nil)
+    assert_equal [], actual
+
+    actual = repository.find_all_by_status("1")
+
+    assert_equal 8, actual.count
+
+    actual = repository.find_all_by_status("12334105")
+
+    assert_equal 1, actual.count
+  end
 end

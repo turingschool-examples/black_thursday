@@ -32,4 +32,14 @@ class InvoiceRepository
       invoice.customer_id == customer_id
     end
   end
+
+  def find_all_by_status(id)
+    return [] if id.nil?
+    # find_all_by_merchant_id(id) || find_all_by_customer_id(id)
+    if id.length > 5
+      find_all_by_merchant_id(id)
+    else
+      find_all_by_customer_id(id)
+    end
+  end
 end
