@@ -10,4 +10,8 @@ class Merchant
     @parent = parent
   end
 
+  def items
+    parent.items(@id)
+  end
+
 end
