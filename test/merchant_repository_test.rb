@@ -18,7 +18,7 @@ class MerchantRepositoryTest < Minitest:: Test
     })
     result = mr.all
 
-    assert_equal 6, result.count
+    assert_equal 241, result.count
   end
 
   def test_returns_instance_of_Merchant_from_matching_id

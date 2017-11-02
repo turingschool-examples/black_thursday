@@ -47,10 +47,12 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(merchant_id)
-    @items.find_all do |item|
+    item_name = @items.find_all do |item|
       item.merchant_id == merchant_id.to_s
       # binding.pry
     end
+    item_name.map{|item|item.name}
+
   end
 
 end
