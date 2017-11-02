@@ -28,10 +28,10 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_by_id
-    subject = repository.find_by_id(263420519)
-    assert_instance_of Item, subject
-    assert_equal "Custom Puppy Water Colors", subject.name
-    assert_instance_of Time, subject.created_at
+    actual = repository.find_by_id(263420519)
+    assert_instance_of Item, actual
+    assert_equal "Custom Puppy Water Colors", actual.name
+    assert_instance_of Time, actual.created_at
   end
 
   def test_find_by_id_returns_nil_if_no_match_is_found
@@ -40,9 +40,10 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_test_by_name_find_matching_case_insensitive_name
-    assert_equal Item, repository.find_by_name("ChRisTmas sweaters").class
-    assert_equal "Christmas Sweaters", repository.find_by_name("ChRisTmas sweaters").name
-    assert_instance_of Time, repository.find_by_name("ChRisTmas sweaters").created_at
+    actual = repository.find_by_name("ChRisTmas sweaters")
+    assert_equal Item, actual.class
+    assert_equal "Christmas Sweaters", actual.name
+    assert_instance_of Time, actual.created_at
   end
 
   def test_find_by_name_returns_nil_if_no_match_is_found

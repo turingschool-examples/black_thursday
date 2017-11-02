@@ -34,13 +34,10 @@ class InvoiceRepository
     end
   end
 
-  def find_all_by_status(id)
-    return [] if id.nil?
-    # find_all_by_merchant_id(id) || find_all_by_customer_id(id)
-    if id > 5000
-      find_all_by_merchant_id(id)
-    else
-      find_all_by_customer_id(id)
+  def find_all_by_status(status)
+    return [] if status.nil?
+    invoices.find_all do |invoice|
+      invoice.status == status
     end
   end
 end

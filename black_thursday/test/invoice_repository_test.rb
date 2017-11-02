@@ -71,15 +71,23 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_status
-    actual = repository.find_all_by_status(nil)
-    assert_equal [], actual
+    actual = repository.find_all_by_status("pending")
 
-    actual = repository.find_all_by_status(1)
+    assert_equal 29, actual.count
 
-    assert_equal 8, actual.count
+    actual = repository.find_all_by_status("shipped")
 
-    actual = repository.find_all_by_status(12334105)
+    assert_equal 63, actual.count
 
-    assert_equal 1, actual.count
+    actual = repository.find_all_by_status("returned")
+
+    assert_equal 9, actual.count
+  end
+
+  def test_find_all_by_status_returns_empty_array_when_no_match_is_found
+  actual = repository.find_all_by_status("derp")
+
+  assert_equal [], actual
+  assert_equal [], repository.find_all_by_status(nil)
   end
 end

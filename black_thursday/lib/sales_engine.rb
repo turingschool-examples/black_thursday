@@ -15,7 +15,6 @@ class SalesEngine
     SalesEngine.new(csv_files)
   end
 
-  private
   def initialize(repositories)
     @items     = ItemRepository.new(repositories[:items], self)
     @merchants = MerchantRepository.new(repositories[:merchants], self)
