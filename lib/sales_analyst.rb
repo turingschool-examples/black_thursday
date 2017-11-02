@@ -12,10 +12,6 @@ class SalesAnalyst
     (item_count.to_f/ merchant_count).round(2)
   end
 
-  def average_items_per_merchant_standard_deviation
-    average_items_per_merchant - (each merchant's number of item')
-  end
-
   def merchant_list
     @sales_engine.merchants.merchants.map do |merchant|
       merchant.id
@@ -69,7 +65,11 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(merchant_id)
     list = find_the_collections_of_items(merchant_id.to_s)
-    list.reduce(0) { |sum, item| sum + item.unit_price } / list.count
+    list.reduce(0) { |sum, item|
+      binding.pry
+      sum + item.unit_price } / list.count
+    binding.pry
+
   end
 
   def find_the_collections_of_items(merchant_id)
@@ -81,5 +81,14 @@ class SalesAnalyst
       sum + average_item_price_for_merchant(merchant)
       } / merchant_list.count
   end
+
+  def average_item_price
+    @sales_engine.items.all.reduce(0) { |sum, item|
+    sum + item.unit_price
+     } / @sales_engine.items.all.count
+  end
+
+  def standard_deviation_for_item_price
+
 
 end
