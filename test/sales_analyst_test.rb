@@ -1,4 +1,5 @@
 require_relative './test_helper'
+require 'bigdecimal'
 require './lib/sales_analyst'
 
 class SalesAnalystTest < Minitest::Test
@@ -38,17 +39,17 @@ class SalesAnalystTest < Minitest::Test
 
   def test_determines_average_price_for_merchants
     result = sa.average_item_price_for_merchant(12334185)
-    assert_equal 18462.5, result
+    assert_equal BigDecimal(18463)/100, result
   end
 
   def test_determines_average_average_price_per_merchants
     result = sa.average_average_price_per_merchant
-    assert_equal 8892.5, result
+    assert_equal BigDecimal(8893)/100, result
   end
 
   def test_it_can_determine_standard_deviation_items_price
     result = sa.standard_deviation_of_item_price
-    assert_equal 20331, result
+    assert_equal 20331.59, result
   end
 
   def test_it_can_determine_the_golden_items

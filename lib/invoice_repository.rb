@@ -1,10 +1,10 @@
 require_relative './invoice'
 
 class InvoiceRepository
-  attr_reader :invoices
+  attr_reader :invoices, :parent
 
   def initialize(invoices, parent)
-    @invoices = invoices.map {|invoice| Invoice.new(invoice)}
+    @invoices = invoices.map {|invoice| Invoice.new(invoice, self)}
     @parent = parent
   end
 
@@ -35,6 +35,11 @@ class InvoiceRepository
       invoice.status.downcase == status.downcase
     end
   end
+
+  def find_merchant_by_merchant_id(merchant_id)
+    parent.find_by_merchant_id(merchant_id)
+  end
+
 
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
