@@ -1,13 +1,13 @@
 
 class Invoice
-  attr_reader :id, :customer_id, :merchant_id, :status, :create_at,    :updated_at
+  attr_reader :invoice, :id, :customer_id, :merchant_id, :status, :created_at,    :updated_at
 
   def initialize(invoice)
-    @id = invoice[:id]
-    @customer_id = invoice[:customer_id]
+    @id = invoice[:id].to_i
+    @customer_id = invoice[:customer_id].to_i
     @merchant_id = invoice[:merchant_id]
     @status = invoice[:status]
-    @created_at = Time.parse(invoice[:create_at])
+    @created_at = Time.parse(invoice[:created_at])
     @updated_at = Time.parse(invoice[:updated_at])
   end
 end
