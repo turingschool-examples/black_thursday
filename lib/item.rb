@@ -1,9 +1,11 @@
 require 'bigdecimal'
 require 'time'
 
-class Item # < ItemRepo
+class Item
 
-  attr_reader :name, :repository, :merchant_id, :id, :description, :unit_price,
+  attr_reader :name, :repository,
+              :merchant_id, :item_id,
+              :description, :unit_price,
               :created_at, :updated_at
 
   def initialize(data, repository)
@@ -26,8 +28,3 @@ class Item # < ItemRepo
   end
 
 end
-
-
-# description - returns the description of the item
-# created_at - returns a Time instance for the date the item was first created
-# updated_at - returns a Time instance for the date the item was last modified
