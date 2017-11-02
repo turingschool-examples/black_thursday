@@ -26,4 +26,10 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal repository.invoices, @repository.all
     assert_equal 101, repository.all.length
   end
+
+  def test_it_can_find_invoice_by_id
+    assert_equal Invoice, repository.find_by_id(10).class
+    assert_equal "pending", repository.find_by_id(10).status
+    assert_equal "12334839", repository.find_by_id(10).merchant_id
+  end
 end
