@@ -22,4 +22,9 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_calculate_average_items_per_merchant
     assert_equal 0.35, analyst.average_items_per_merchant
   end
+
+  def test_can_find_average_item_price_for_merchant
+    result = analyst.average_item_price_for_merchant(12334185)
+    assert_equal 10.78, result
+  end
 end
