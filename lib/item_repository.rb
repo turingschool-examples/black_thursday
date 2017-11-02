@@ -51,7 +51,7 @@ class ItemRepository
       item.merchant_id == merchant_id.to_s
       # binding.pry
     end
-    item_name.map{|item|item.name}
+    # item_name.map{|item|item.name}
 
   end
 

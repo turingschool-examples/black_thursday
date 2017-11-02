@@ -29,10 +29,16 @@ class SalesAnalyst
 
   def merchants_having_high_item_count
     merchant = @parent.merchants.merchants
-    # binding.pry
     above_1_sigma = merchant.find_all do |merchant|
        merchant.items.count > (average_items_per_merchant + standard_deviation)
      end
+  end
+
+  def average_item_price_fo_merchant(id)
+    merchant = @parent.merchants.find_by_id(id)
+     sum = merchant.items.map {|item|item.unit_price}.sum
+     average = sum/ merchant.items.count
+    p  average
   end
 
 # def mean
