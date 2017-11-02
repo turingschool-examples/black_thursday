@@ -6,10 +6,10 @@ class Merchant
               :parent
 
   def initialize(attributes, parent)
-    @id =           attributes[:id]
+    @id =           attributes[:id].to_i
     @name =         attributes[:name]
-    @created_at =   attributes[:created_at]
-    @updated_at =   attributes[:updated_at]
+    @created_at =   Time.new(attributes[:created_at])
+    @updated_at =   Time.new(attributes[:updated_at])
     @parent = parent
   end
 

@@ -39,22 +39,29 @@ class SalesAnalystTest < Minitest::Test
 
   def test_determines_average_price_for_merchants
     result = sa.average_item_price_for_merchant(12334185)
-    assert_equal BigDecimal(18463)/100, result
+    assert_equal 185, result
   end
 
   def test_determines_average_average_price_per_merchants
     result = sa.average_average_price_per_merchant
-    assert_equal BigDecimal(8893)/100, result
+    assert_equal 89, result
   end
 
   def test_it_can_determine_standard_deviation_items_price
     result = sa.standard_deviation_of_item_price
-    assert_equal 20331.59, result
+    assert_equal 203.32, result
   end
 
   def test_it_can_determine_the_golden_items
     result = sa.golden_items
     assert_equal 1, result.count
     assert_equal 'Free standing Woden letters', result[0].name
+  end
+
+  def test_average_invoices_per_merchant
+    skip
+    result = sa.average_invoices_per_merchant
+
+    assert_equal 1.2, result
   end
 end

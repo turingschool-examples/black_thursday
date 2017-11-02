@@ -21,18 +21,18 @@ class MerchantTest < Minitest::Test
   end
 
   def test_can_be_initialized_with_attributes
-    assert_equal "12334141", me_1.id
+    assert_equal 12334141, me_1.id
     assert_equal "jejum", me_1.name
-    assert_equal "2007-06-25", me_1.created_at
-    assert_equal "2015-09-09", me_1.updated_at
+    assert_equal Time.new("2007-06-25"), me_1.created_at
+    assert_equal Time.new("2015-09-09"), me_1.updated_at
     assert_instance_of Merchant, me_1
   end
 
   def test_can_be_initialized_with_other_attributes
-    assert_equal "24537741", me_2.id
+    assert_equal 24537741, me_2.id
     assert_equal "ashton john", me_2.name
-    assert_equal "2007-09-10", me_2.created_at
-    assert_equal "2015-10-11", me_2.updated_at
+    assert_equal Time.new("2007-09-10"), me_2.created_at
+    assert_equal Time.new("2015-10-11"), me_2.updated_at
     assert_instance_of Merchant, me_2
   end
 

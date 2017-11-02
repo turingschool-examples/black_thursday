@@ -9,7 +9,7 @@ class TestItemRepository < Minitest::Test
       :id => '12345',
       :name => "Key Pad",
       :description => "Numberpad used for a fast lock",
-      :unit_price => '5',
+      :unit_price => '500',
       :merchant_id => '54321',
       :created_at => Time.now.to_s,
       :updated_at => Time.now.to_s
@@ -35,8 +35,8 @@ class TestItemRepository < Minitest::Test
   end
 
   def test_can_find_item_by_id
-    assert_equal '12345', items.find_by_id('12345').id
-    assert_equal '23456', items.find_by_id('23456').id
+    assert_equal 12345, items.find_by_id('12345').id
+    assert_equal 23456, items.find_by_id('23456').id
   end
 
   def test_can_find_item_by_name
@@ -50,13 +50,13 @@ class TestItemRepository < Minitest::Test
 
   def test_can_find_all_by_price
     assert_equal 'Key Pad', items.find_all_by_price(5)[0].name
-    assert_equal 'Nike Super Fast', items.find_all_by_price(10000)[0].name
+    assert_equal 'Nike Super Fast', items.find_all_by_price(100)[0].name
     assert_equal [], items.find_all_by_price(250)
   end
 
   def test_can_find_all_by_price_in_range
-    assert_equal 2, items.find_all_by_price_in_range(10001, 4).count
-    assert_equal 0, items.find_all_by_price_in_range(500, 100).count
+    assert_equal 2, items.find_all_by_price_in_range(4..10001).count
+    assert_equal 0, items.find_all_by_price_in_range(10..99).count
   end
 
   def test_can_find_by_merchant_id
@@ -65,8 +65,8 @@ class TestItemRepository < Minitest::Test
   end
 
   def test_can_use_find_merchant_by_id
-    items.parent.stubs(:find_merchant_by_id).with("54321").returns(true)
+    items.parent.stubs(:find_merchant_by_id).with(54321).returns(true)
 
-    assert items.find_merchant_by_id('54321')
+    assert items.find_merchant_by_id(54321)
   end
 end

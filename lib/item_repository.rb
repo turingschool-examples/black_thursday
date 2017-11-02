@@ -27,19 +27,19 @@ class ItemRepository
 
   def find_all_with_description(phrase)
     items.find_all do |item|
-      item.description.include?(phrase)
+      item.description.downcase.include?(phrase.downcase)
     end
   end
 
   def find_all_by_price(price)
     items.find_all do |item|
-      item.unit_price == BigDecimal.new(price)
+      item.unit_price == price
     end
   end
 
-  def find_all_by_price_in_range(upper, lower)
+  def find_all_by_price_in_range(range)
     items.find_all do |item|
-      above_lower_limit(lower, item) && below_upper_limit(upper, item)
+      range.include?(item.unit_price)
     end
   end
 

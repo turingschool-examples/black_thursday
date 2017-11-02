@@ -9,12 +9,12 @@ class Invoice
 
   def initialize(attributes, parent)
     @parent = parent
-    @id = attributes[:id]
-    @customer_id = attributes[:customer_id]
-    @merchant_id = attributes[:merchant_id]
+    @id = attributes[:id].to_i
+    @customer_id = attributes[:customer_id].to_i
+    @merchant_id = attributes[:merchant_id].to_i
     @status = attributes[:status]
-    @created_at = attributes[:created_at]
-    @updated_at = attributes[:updated_at]
+    @created_at = Time.new(attributes[:created_at])
+    @updated_at = Time.new(attributes[:updated_at])
   end
 
   def merchant

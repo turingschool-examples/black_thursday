@@ -29,8 +29,8 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_can_find_merchants_by_id
-    assert_equal "12334141", mr.find_by_id("12334141").id
-    assert_equal "24537741", mr.find_by_id("24537741").id
+    assert_equal 12334141, mr.find_by_id("12334141").id
+    assert_equal 24537741, mr.find_by_id("24537741").id
   end
 
   def test_can_find_merchants_by_name

@@ -42,7 +42,7 @@ class SalesAnalyst
     return 0 if merchant.items.count.zero?
     BigDecimal((merchant.items.inject(0) do |sum, item|
       sum += item.unit_price
-    end/merchant.items.count).round)/100
+    end/merchant.items.count).round)
   end
 
   def average_average_price_per_merchant
@@ -75,4 +75,6 @@ class SalesAnalyst
   def minimum_for_golden_item
     average_item_price + (2 * standard_deviation_of_item_price)
   end
+
+
 end

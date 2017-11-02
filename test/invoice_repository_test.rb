@@ -33,8 +33,8 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_can_find_invoice_by_id
-    assert_equal '24680', invoice_repo.find_by_id('24680').id
-    assert_equal '13579', invoice_repo.find_by_id('13579').id
+    assert_equal 24680, invoice_repo.find_by_id('24680').id
+    assert_equal 13579, invoice_repo.find_by_id('13579').id
     assert_nil invoice_repo.find_by_id("24524")
   end
 

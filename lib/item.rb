@@ -11,18 +11,18 @@ class Item
               :parent
 
   def initialize(attributes, parent)
-    @id          = attributes[:id]
+    @id          = attributes[:id].to_i
     @name        = attributes[:name]
     @description = attributes[:description]
-    @unit_price  = BigDecimal.new(attributes[:unit_price])
-    @merchant_id = attributes[:merchant_id]
-    @created_at  = attributes[:created_at]
-    @updated_at  = attributes[:updated_at]
+    @unit_price  = BigDecimal.new(attributes[:unit_price]) / 100
+    @merchant_id = attributes[:merchant_id].to_i
+    @created_at  = Time.new(attributes[:created_at])
+    @updated_at  = Time.new(attributes[:updated_at])
     @parent = parent
   end
 
   def unit_price_to_dollars
-    unit_price / 100.00
+    unit_price * 1.0
   end
 
   def merchant
