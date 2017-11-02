@@ -3,42 +3,31 @@ require './lib/sales_engine'
 require 'pry'
 require 'csv'
 
-class ItemTest < Minitest:: Test
+class MerchantTest < Minitest:: Test
   def test_it_knows_it_came_from
-    item_repo = ItemRepository.new("")
-    item_repo.create_item({
-      :items     => "./data/items_fixture_5lines.csv",
+    merchant_repo = MerchantRepository.new("")
+    merchant_repo.create_merchant({
+      :merchants     => "./test/fixtures/merchants_5lines.csv",
     })
-    item = item_repo.items.first
+    merchant = merchant_repo.merchants.first
 
-    assert_equal [item_repo], item.repository
+    assert_equal merchant_repo, merchant.repository
   end
 
-  def test_it_can_find_the_associated_merchant
-    se =SalesEngine.new
-    se.merchants.create_merchant({
-          :items     => "./data/items_fixture_5lines.csv",
-          :merchants => "./data/merchants_5lines.csv"})
-    merchant =  se.merchants.merchants
-    se.items.create_item({
-          :items  => "./data/items_fixture_5lines.csv",
-          :merchants => "./data/merchants_5lines.csv"})
-    item = se.items.items.first
+  
 
-    assert_equal merchant.last.id,  item.merchant_id
-  end
-
-  def test_it_can_create_an_item
-    i = Item.new({
-              :name        => "Pencil",
-              :description => "You can use it to write things",
-              :unit_price  => BigDecimal.new(10.99,4),
-              :created_at  => Time.now,
-              :updated_at  => Time.now,
-              :merchant_id => 24
+  def test_it_can_create_a_merchant
+    m = Merchant.new({
+              :name => "Turing School",
+              :id => 5
       })
-
-      assert_instance_of Item, i
+      assert_instance_of Merchant, m
   end
+
+
+  # def test_it_can_find_items_belonging_to_merchant(id)
+  #
+  #
+  # end
 
 end

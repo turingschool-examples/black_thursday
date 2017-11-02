@@ -44,37 +44,9 @@ class SalesAnalystTest < Minitest:: Test
     assert_equal 15, sa.merchants_having_high_item_count.count
   end
 
-  def test_it_retrieves_average_item_price_for_merchant
-    skip
-    se= SalesEngine.from_csv({
-      :items     => "./test/fixtures/items_fixture_5lines.csv",
-      :merchants => "./test/fixtures/merchants_5lines.csv",
-    })
-    sa = SalesAnalyst.new(se)
 
-    assert_equal 2, sa.average_item_price_for_merchant(id)
-  end
-  def test_it_retrieves_average_average_price_per_merchant
-    skip
-    se= SalesEngine.from_csv({
-      :items     => "./test/fixtures/items_fixture_5lines.csv",
-      :merchants => "./test/fixtures/merchants_5lines.csv",
-    })
-    sa = SalesAnalyst.new(se)
 
-    assert_equal 2, sa.average_average_price_per_merchant
-  end
-  def test_it_retrieves_golden_items
-    skip
-    se= SalesEngine.from_csv({
-      :items     => "./test/fixtures/items_fixture_5lines.csv",
-      :merchants => "./test/fixtures/merchants_5lines.csv",
-    })
-    sa = SalesAnalyst.new(se)
-
-    assert_equal 2, sa.golden_items
-  end
-
+  
 
 
 end

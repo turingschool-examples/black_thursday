@@ -77,5 +77,6 @@ class SalesEngineTest < Minitest:: Test
     result = ["Disney scrabble frames", "I Love You to the Moon and Back"]
     assert_equal 2, merchant.items.count
   end
+  
 
 end

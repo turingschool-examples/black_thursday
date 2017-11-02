@@ -1,12 +1,14 @@
 require './lib/item'
 require 'bigdecimal'
 require 'bigdecimal/util'
+require 'csv'
 
 
 class ItemRepository
   attr_reader :items,
               :find_all_by_description,
-              :find_all_by_price_in_range
+              :find_all_by_price_in_range,
+              :sales_engine
 
   def initialize(parent)
     @items = []
@@ -55,4 +57,11 @@ class ItemRepository
 
   end
 
+  def find_merchant_by_id(id)
+    sales_engine.find_merchant_by_id(id)
+  end
+
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
+  end
 end
