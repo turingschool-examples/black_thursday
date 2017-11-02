@@ -6,7 +6,7 @@ require './lib/item_repository'
 class ItemRepositoryTest < MiniTest::Test
 
   def setup
-    @sales_engine = SalesEngine.from_csv({:items => './test/fixtures/items_fixture.csv', :merchants => './test/fixtures/merchants.csv'})
+    @sales_engine = SalesEngine.from_csv({:items => './test/fixtures/items.csv', :merchants => './test/fixtures/merchants.csv', :invoices => './test/fixtures/invoices.csv'})
     @item_repository = @sales_engine.item_repository
   end
 
