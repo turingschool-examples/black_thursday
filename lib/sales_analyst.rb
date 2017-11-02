@@ -27,6 +27,14 @@ class SalesAnalyst
     return Math.sqrt(average_items_per_merchant_standard_deviation)
   end
 
+  def merchants_having_high_item_count
+    merchant = @parent.merchants.merchants
+    # binding.pry
+    above_1_sigma = merchant.find_all do |merchant|
+       merchant.items.count > (average_items_per_merchant + standard_deviation)
+     end
+  end
+
 # def mean
 #       self.sum/self.length.to_f
 #     end
