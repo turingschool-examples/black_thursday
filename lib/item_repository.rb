@@ -1,4 +1,4 @@
-require './lib/item'
+require_relative './item'
 
 class ItemRepository
   attr_reader :items,
@@ -59,5 +59,9 @@ class ItemRepository
 
   def find_merchant_by_id(merchant_id)
     parent.find_merchant_by_id(merchant_id)
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end

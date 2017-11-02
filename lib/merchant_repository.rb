@@ -1,4 +1,4 @@
-require './lib/merchant'
+require_relative './merchant'
 class MerchantRepository
 
   attr_reader :merchants,
@@ -33,5 +33,9 @@ class MerchantRepository
     merchants.find_all do |merchant|
       merchant.name.include?(word)
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end
