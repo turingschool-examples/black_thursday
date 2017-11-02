@@ -5,7 +5,8 @@ require_relative '../lib/sales_engine'
 class SalesAnalystTest < Minitest::Test
   attr_reader :sa, :se
   def setup
-    files = ({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    files = ({:items => "./data/items.csv",
+              :merchants => "./data/merchants.csv"})
     @se = SalesEngine.from_csv(files)
     @sa = SalesAnalyst.new(se)
   end
@@ -19,16 +20,16 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_item_count_for_merchants
-    assert_equal 475, setup.counts_per_merchant(se.method(:find_merchant_items)).count
+    result = setup.counts_per_merchant(se.method(:find_merchant_items))
+
+    assert_equal 475, result.count
   end
 
   def test_item_count_for_merchants_from_fixture
-    # files = ({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
-    # @se = SalesEngine.from_csv(files)
-    # @sa = SalesAnalyst.new(se)
+    result = setup.counts_per_merchant(se.method(:find_merchant_items))
 
-    assert_instance_of Array, setup.counts_per_merchant(se.method(:find_merchant_items))
-    assert_equal 3, setup.counts_per_merchant(se.method(:find_merchant_items))[0]
+    assert_instance_of Array, result
+    assert_equal 3, result[0]
   end
 
   def test_item_count_subtracts_from_average_items

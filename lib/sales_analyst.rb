@@ -1,5 +1,5 @@
-require 'pry'
 require './lib/sales_engine'
+
 class SalesAnalyst
   attr_reader :sales_engine
 
@@ -20,8 +20,9 @@ class SalesAnalyst
   end
 
   def variance_of_items
-     counts_per_merchant(sales_engine.method(:find_merchant_items)).map do |count|
-      result = count - 2.88
+     counts = counts_per_merchant(sales_engine.method(:find_merchant_items))
+     counts.map do |count|
+      result = count - average_items_per_merchant
       result.round(2)
     end
   end
@@ -39,7 +40,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    result = sum_array / 474
+    result = sum_array / (sales_engine.merchants.merchants.count - 1)
     Math.sqrt(result).round(2)
   end
 
