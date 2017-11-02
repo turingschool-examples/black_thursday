@@ -33,4 +33,8 @@ class InvoiceRepository
       invoice.status.downcase == status.downcase
     end
   end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 end
