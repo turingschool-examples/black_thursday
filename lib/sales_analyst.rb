@@ -60,5 +60,23 @@ class SalesAnalyst
     end
   end
 
+  def merchants_with_high_item_count
+    filter_merchants_by_items_in_stock.map do |merchants|
+    @sales_engine.merchants.find_by_id(merchants[0])
+    end
+  end
+
+
+  def average_item_price_for_merchant(merchant_id)
+    list = find_the_collections_of_items(merchant_id.to_s)
+    list.reduce(0) { |sum, item| sum + item.unit_price } / list.count
+  end
+
+  def find_the_collections_of_items(merchant_id)
+    @sales_engine.items.find_all_by_merchant_id(merchant_id)
+  end
+
+  # def average_average_price_per_merchant
+  #   merchant_list
 
 end

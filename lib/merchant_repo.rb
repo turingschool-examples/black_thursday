@@ -31,7 +31,7 @@ class MerchantRepository
 
   def find_by_name(name)
     #returns either nil or an instance of Merchant having done a case insensitive search
-      @merchants.find { |merhcant| merhcant.name.downcase == name.downcase }
+      @merchants.find { |merchant| merchant.name.downcase == name.downcase }
   end
 
   def find_all_by_name(name)
