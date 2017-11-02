@@ -76,7 +76,10 @@ class SalesAnalyst
     @sales_engine.items.find_all_by_merchant_id(merchant_id)
   end
 
-  # def average_average_price_per_merchant
-  #   merchant_list
+  def average_average_price_per_merchant
+    merchant_list.reduce(0) { |sum, merchant|
+      sum + average_item_price_for_merchant(merchant)
+      } / merchant_list.count
+  end
 
 end

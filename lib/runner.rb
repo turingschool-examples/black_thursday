@@ -14,4 +14,4 @@ se = SalesEngine.from_csv({
 
 sa = SalesAnalyst.new(se)
 
-puts sa.average_item_price_for_merchant(12334159)
+puts sa.average_average_price_per_merchant
