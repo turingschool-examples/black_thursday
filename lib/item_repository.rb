@@ -36,13 +36,14 @@ class ItemRepository
 
   def find_all_with_description(description)
     items.find_all do |item|
-      item.description.include?(description)
+      item.description.downcase.include?(description.downcase)
     end
+
   end
 
   def find_all_by_merchant_id(id)
     items.find_all do |item|
-      item.merchant_id == id
+      item.merchant_id.to_s == id.to_s
     end
   end
 

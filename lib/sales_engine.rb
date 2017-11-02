@@ -4,12 +4,14 @@ require './lib/invoice_repository'
 
 class SalesEngine
 
+
   attr_reader :items, :merchants, :invoices
 
   def initialize(items_file = "", merchants_file = "", invoice_file = "")
     @items = ItemRepository.new(items_file, self)
     @merchants = MerchantRepository.new(merchants_file, self)
     @invoices = InvoiceRepository.new(invoice_file, self)
+
   end
 
   def self.from_csv(files)

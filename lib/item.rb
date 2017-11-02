@@ -7,13 +7,13 @@ class Item # < ItemRepo
 
   def initialize(data, parent)
     @name = data[:name]
-    @parent = parent
     @merchant_id = data[:merchant_id]
     @item_id = data[:id]
     @description = data[:description]
     @unit_price = BigDecimal.new(data[:unit_price])
     @created_at = data[:created_at]
     @updated_at = data[:updated_at]
+    @parent = parent
   end
 
   def merchant
