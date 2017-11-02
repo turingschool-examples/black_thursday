@@ -27,8 +27,8 @@ class SalesAnalyst
     se.merchants.merchants.reduce([]) do |result, merchant|
       if merchant.items.count >= minimum_for_high_items
         result << merchant
-       end
-       result
+      end
+      result
     end
   end
 
@@ -70,7 +70,7 @@ class SalesAnalyst
       result
     end
   end
-#We need to populate our item truncated so that we have one in golden items
+
   def minimum_for_golden_item
     average_item_price + (2 * standard_deviation_of_item_price)
   end
