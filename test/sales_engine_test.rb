@@ -34,4 +34,10 @@ class TestSalesEngine < Minitest::Test
 
       assert_equal 'Madewithgitterxx', item.merchant.name
     end
+
+    def test_find_invoices_for_merchant
+      merchant = se.merchants.find_by_id('12334185')
+
+      assert_equal 2, merchant.invoices.count
+    end
 end

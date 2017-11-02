@@ -44,9 +44,14 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_use_find_all_items
-    mr.parent.stubs(:find_items_by_merchant_id).with('12345')
+    mr.parent.stubs(:find_items_by_merchant_id).with('12345').returns(true)
 
-    assert_nil mr.find_all_items_by_merchant_id('12345')
+    assert mr.find_all_items_by_merchant_id('12345')
   end
 
+  def test_use_find_all_invoices
+    mr.parent.stubs(:find_all_invoices_by_merchant_id).with('12345').returns(true)
+
+    assert mr.find_all_invoices_by_merchant_id('12345')
+  end
 end

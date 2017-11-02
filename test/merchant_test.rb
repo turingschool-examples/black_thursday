@@ -37,10 +37,18 @@ class MerchantTest < Minitest::Test
   end
 
   def test_can_use_items
-    me_1.parent.stubs(:find_all_items_by_merchant_id).with(me_1.id)
-    me_2.parent.stubs(:find_all_items_by_merchant_id).with(me_2.id)
+    me_1.parent.stubs(:find_all_items_by_merchant_id).with(me_1.id).returns(true)
+    me_2.parent.stubs(:find_all_items_by_merchant_id).with(me_2.id).returns(true)
 
-    assert_nil me_1.items
-    assert_nil me_2.items
+    assert me_1.items
+    assert me_2.items
+  end
+
+  def test_can_use_invoices
+    me_1.parent.stubs(:find_all_invoices_by_merchant_id).with(me_1.id).returns(true)
+    me_2.parent.stubs(:find_all_invoices_by_merchant_id).with(me_2.id).returns(true)
+
+    assert me_1.invoices
+    assert me_2.invoices
   end
 end
