@@ -1,3 +1,5 @@
+require_relative './invoice'
+
 class InvoiceRepository
   attr_reader :invoices
 
