@@ -56,4 +56,12 @@ class SalesEngineTest < Minitest::Test
 
     assert_nil item
   end
+
+  def test_it_can_find_invoices_by_id
+    invoice = @engine.invoices.find_by_id(23)
+
+    assert_instance_of Time, invoice.created_at
+    assert_equal Invoice, invoice.class
+    assert_equal "12336652", invoice.merchant_id
+  end
 end
