@@ -46,7 +46,6 @@ class SalesEngineTest < Minitest::Test
   def test_it_can_find_item_by_id
     item = @engine.items.find_by_id(263499920)
 
-
     assert_equal "Madewithgitterxx", item.merchant.name
     assert_equal Merchant, item.merchant.class
     assert_equal 12334185 , item.merchant.id
@@ -54,7 +53,6 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_cant_find_item_by_id_if_nil
     item = @engine.items.find_by_id(nil)
-
 
     assert_nil item
   end
