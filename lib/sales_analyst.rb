@@ -35,5 +35,14 @@ class SalesAnalyst
     end
   end
 
+  def merchants_with_high_item_count
+    average = average_items_per_merchant
+    standard_deviation = average_items_per_merchant_standard_deviation
+
+    se.merchants.all.find_all do |merchant|
+      merchant.items.count > average + standard_deviation
+    end
+  end
+
 
 end
