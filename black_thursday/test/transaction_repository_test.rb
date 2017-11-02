@@ -82,4 +82,11 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal [], repository.find_all_by_credit_card(4257133712179878)
   end
 
+  def test_find_all_by_result
+    assert_equal Array, repository.find_all_by_result('success').class
+    assert_equal 77, repository.find_all_by_result('success').length
+    assert_equal Transaction, repository.find_all_by_result('success').first.class
+    assert_equal Transaction, repository.find_all_by_result('success').last.class
+  end
+
 end

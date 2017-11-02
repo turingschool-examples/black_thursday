@@ -30,6 +30,11 @@ class TransactionRepository
     transactions.find_all {|transaction| transaction.credit_card_number == cc}
   end
 
+  def find_all_by_result(input)
+    return [] if input.class != String
+    transactions.find_all {|transaction| transaction.result == input}
+  end
+
 
 
 end
