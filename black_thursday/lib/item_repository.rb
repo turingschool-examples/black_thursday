@@ -3,17 +3,21 @@ class ItemRepository
               :parent
 
   def initialize(csv_filename, parent)
-    # @items  =  load_csv(csv_filename).map { |row| Item.new(row, self) }
-    @items  = []
+    @items  =  load_csv(csv_filename).map { |row| Item.new(row, self) }
+    # @items  = []
+    # load_things(csv_filename)
     @parent = parent
-    @load   = load_things(csv_filename)
   end
 
-  def load_things(filename)
-    CSV.foreach(filename) do |row|
-      @items << Item.new(row)
-    end
+  def load_csv(filename)
+    CSV.open filename, headers: true, header_converters: :symbol
   end
+
+  # def load_things(filename)
+  #   CSV.foreach(filename) do |row|
+  #     @items << Item.new(row)
+  #   end
+  # end
 
   def all
     @items
