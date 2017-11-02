@@ -26,7 +26,13 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    
+    standard_deviation(merchant_item_count)
+  end
+
+  def merchant_item_count
+    se.merchants.all.map do |merchant|
+      merchant.items.count
+    end
   end
 
 
