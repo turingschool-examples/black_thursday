@@ -1,4 +1,4 @@
-require "csv"
+require 'csv'
 
 class MerchantRepository
   attr_reader :merchants,

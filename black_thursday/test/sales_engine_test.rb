@@ -4,13 +4,16 @@ require_relative './../lib/merchant'
 require_relative './../lib/merchant_repository'
 require_relative './../lib/item'
 require_relative './../lib/item_repository'
+require_relative './../lib/invoice'
+require_relative './../lib/invoice_repository'
 require_relative './../lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test
   def setup
     @engine = SalesEngine.from_csv(
-      items: "./test/fixtures/truncated_items.csv",
-      merchants: "./test/fixtures/truncated_merchants.csv"
+      items: './test/fixtures/truncated_items.csv',
+      merchants: './test/fixtures/truncated_merchants.csv',
+      invoices: './test/fixtures/truncated_invoices.csv'
     )
   end
 
@@ -20,6 +23,10 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_loads_an_item_repository
     assert_equal 21, @engine.items.all.count
+  end
+
+  def test_it_loads_a_invoice_repository
+    assert_equal 101, @engine.invoices.all.count
   end
 
   def test_it_can_find_merchant_by_id
