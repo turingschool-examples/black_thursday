@@ -5,16 +5,10 @@ require_relative './../lib/sales_engine'
 
 class TransactionRepositoryTest < Minitest::Test
 
-  attr_reader :engine, :repository
+  attr_reader :repository
 
   def setup
-    @engine = SalesEngine.from_csv({
-    items: "./test/fixtures/truncated_items.csv",
-    merchants: "./test/fixtures/truncated_merchants.csv",
-    transactions: "./test/fixtures/truncated_transactions"
-                                  })
-
-    @repository = TransactionRepository.new("./test/fixtures/truncated_transactions.csv", @engine)
+    @repository = TransactionRepository.from_csv("./test/fixtures/truncated_transactions.csv")
   end
 
   def test_it_exists
@@ -24,7 +18,7 @@ class TransactionRepositoryTest < Minitest::Test
   def test_it_has_correct_attributes
     assert_instance_of Transaction, repository.transactions.first
     assert_instance_of Array, repository.transactions
-    assert_instance_of SalesEngine, repository.parent
+    assert_nil repository.parent
   end
 
   def test_load_csv_can_load_file
