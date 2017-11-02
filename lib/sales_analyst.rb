@@ -1,10 +1,13 @@
 class SalesAnalyst
 
-  def initialize
-    @sales_engine = SalesEngine.new(items_file, merchants_file)
+  attr_reader :sales_engine
+
+  def initialize(sales_engine_from_csv)
+    @sales_engine = sales_engine_from_csv
   end
 
   def average_items_per_merchant
+
 
   end
 

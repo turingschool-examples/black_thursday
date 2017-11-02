@@ -7,7 +7,7 @@ class ItemRepositoryTest < MiniTest::Test
 
   def setup
     @sales_engine = SalesEngine.from_csv({:items => './test/fixtures/items_fixture.csv', :merchants => './test/fixtures/merchants.csv', :invoices => './test/fixtures/invoices.csv'})
-    @items = @sales_engine.item
+    @items = @sales_engine.items
   end
 
   def test_it_creates_items
