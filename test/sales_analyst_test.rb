@@ -70,7 +70,22 @@ class SalesAnalystTest < MiniTest::Test
 
     sa = SalesAnalyst.new(se)
 
-    assert_equal "", sa.merchants_with_high_item_count
+    assert_instance_of Array, sa.merchants_with_high_item_count
+    assert_instance_of Merchant, sa.merchants_with_high_item_count.first
+    assert_equal 2, sa.merchants_with_high_item_count.count
+  end
+
+  def test_sa_can_find_average_item_price_for_individual_merchant
+    se = SalesEngine.from_csv({
+      :items     => "./test/fixtures/items_fixture.csv",
+      :merchants => "./test/fixtures/merchants_fixture.csv"
+    })
+    sa = SalesAnalyst.new(se)
+
+    result = sa.average_item_price_for_merchant(12334112)
+
+    assert_equal 0.55e-1, result
+
   end
 
 
