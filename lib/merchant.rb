@@ -11,7 +11,7 @@ class Merchant
   end
 
   def items
-    parent.items(@id)
+    parent.item(@id)
   end
 
 end
