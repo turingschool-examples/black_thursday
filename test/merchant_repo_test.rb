@@ -51,8 +51,8 @@ class MerchantRepoTest < Minitest::Test
     merch_repo = MerchantRepository.new(self, "./data/merchants.csv")
     results = merch_repo.find_all_by_name("Shop")
 
-    assert_equal 16, results.count
-    assert_equal "SimchaCentralShop", results[5].name
+    assert_equal 26, results.count
+    assert_equal "WoodleyShop", results[5].name
   end
 
   def test_find_by_partial_name_can_return_an_empty_array
