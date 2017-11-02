@@ -40,8 +40,6 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 2.39, sa.standard_deviation([2,3,5,6,8])
   end
 
-
-
   def test_sa_can_calculate_standard_deviation
     skip
     se = SalesEngine.from_csv({

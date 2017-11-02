@@ -32,11 +32,20 @@ class SalesEngineTest < Minitest::Test
     assert_equal 1, merchant.items.count
   end
 
-  def matches_correct_merchant
-    merchant = se.merchants.all.last
+  def test_matches_correct_merchant
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+    })
 
-    item = merchant.items.first
-    assert_equal merchant, item.merchant
+    item = se.items.find_by_id(263395237)
+    item.merchant
+
+    assert_instance_of Merchant, item.merchant
+    # merchant = se.merchants.all.last
+    #
+    # item = merchant.items.first
+    # assert_equal merchant, item.merchant
   end
 
 end

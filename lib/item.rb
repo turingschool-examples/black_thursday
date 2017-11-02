@@ -20,7 +20,7 @@ class Item
     @unit_price   = BigDecimal.new(attributes[:unit_price])/100
     @created_at   = Time.parse(attributes[:created_at])
     @updated_at   = Time.parse(attributes[:updated_at])
-    @merchant_id  = attributes[:merchant_id]
+    @merchant_id  = attributes[:merchant_id].to_i
     @parent = parent
   end
 
