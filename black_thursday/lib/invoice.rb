@@ -17,4 +17,16 @@ class Invoice
     @updated_at   = Time.parse(attributes[:updated_at])
     @parent       = parent
   end
+
+  def merchant
+    @parent.find_merchant_for_item(self)
+  end
+
+  def items
+    @parent.find_all_items_by_merchant_id(id)
+  end
+
+  def inspect
+    "#{self.class} has #{all.count} rows"
+  end
 end

@@ -5,7 +5,7 @@ require_relative './../lib/item_repository'
 require_relative './../lib/sales_engine'
 
 class ItemRepositoryTest < Minitest::Test
-  #why do we have have attr_reader? could we use @ for everything? 
+  #why do we have have attr_reader? could we use @ for everything?
   attr_reader :repository,
               :engine
 

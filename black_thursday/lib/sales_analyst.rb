@@ -33,7 +33,7 @@ class SalesAnalyst
   end
 
   def merchant_items_by_id(id)
-    engine.merchants.find_by_id(id).items
+    @engine.merchants.find_by_id(id).items
   end
 
   def sum_prices(id)
