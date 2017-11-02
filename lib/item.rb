@@ -28,6 +28,5 @@ end
 
 
 # description - returns the description of the item
-# unit_price - returns the price of the item formatted as a BigDecimal
 # created_at - returns a Time instance for the date the item was first created
 # updated_at - returns a Time instance for the date the item was last modified

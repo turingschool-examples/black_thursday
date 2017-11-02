@@ -1,9 +1,7 @@
-require './lib/sales_engine'
+require_relative '../lib/sales_engine'
 
 class SalesAnalyst
-
-  attr_reader :sales_engine
-
+  
   def initialize(sales_engine_from_csv)
     @sales_engine = sales_engine_from_csv
   end
@@ -11,6 +9,7 @@ class SalesAnalyst
   def average_items_per_merchant
     (total_items/total_merchants).round(2)
   end
+
 
   def total_merchants
     sales_engine.merchants.count
