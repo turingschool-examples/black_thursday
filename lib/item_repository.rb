@@ -42,8 +42,7 @@ class ItemRepository
   def find_all_by_price_in_range(low_price, high_price)
     items = @items.find_all do |item|
       item.unit_price > low_price && item.unit_price < high_price
-    end
-      items.map{|item|item.name}
+    end  # items.map{|item|item.name}
   end
 
   def find_all_by_merchant_id(merchant_id)
@@ -51,8 +50,13 @@ class ItemRepository
       item.merchant_id == merchant_id.to_s
     end
   end
+
   def find_merchant_by_id(merchant_id)
     @sales_engine.find_merchant_by_id(merchant_id)
+  end
+
+  def inspect
+      "#<#{self.class} #{@items.size} rows>"
   end
 
 end
