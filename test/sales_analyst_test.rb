@@ -23,10 +23,27 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_item_count_for_merchants_from_fixture
-    files = ({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
-    @se = SalesEngine.from_csv(files)
-    @sa = SalesAnalyst.new(se)
+    # files = ({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    # @se = SalesEngine.from_csv(files)
+    # @sa = SalesAnalyst.new(se)
 
-    assert_equal 3, setup.merch_id.counts_per_merchant(se.method(:find_merchant_items)).count
+    assert_instance_of Array, setup.counts_per_merchant(se.method(:find_merchant_items))
+    assert_equal 3, setup.counts_per_merchant(se.method(:find_merchant_items))[0]
+  end
+
+  def test_item_count_subtracts_from_average_items
+    assert_equal -1.88, setup.variance_of_items[1]
+  end
+
+  def test_it_squares
+    assert_instance_of Array, setup.squared
+  end
+
+  def test_it_sums_array
+    assert_equal 5034.92, setup.sum_array
+  end
+
+  def test_it_std_deviates
+    assert_equal 3.26, setup.average_items_per_merchant_standard_deviation
   end
 end
