@@ -4,14 +4,14 @@ class InvoiceRepository
 
   attr_reader     :all
 
-  def initialize(parent)
+  def initialize(parent = nil)
     @all          = []
     @sales_engine = parent
   end
 
   def inspect
    "#<#{self.class} #{@all.size} rows>"
- end
+  end
 
   def populate(filename)
     CSV.foreach(filename, headers: true, header_converters: :symbol) do |row|
@@ -41,6 +41,10 @@ class InvoiceRepository
     @all.find_all do |invoice|
       invoice.status == status
     end
+  end
+
+  def find_merchant_for_invoice(merchant_id)
+    @sales_engine.find_merchant_for_invoice(merchant_id)
   end
 
 end
