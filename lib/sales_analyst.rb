@@ -2,11 +2,16 @@ require 'bigdecimal'
 require_relative './sales_engine'
 
 class SalesAnalyst
-  attr_reader :se, :invoice_count
+  attr_reader :se,
+              :invoice_count,
+              :merchant_count,
+              :item_count
 
   def initialize(sales_engine)
     @se = sales_engine
     @invoice_count = se.invoices.invoices.count
+    @merchant_count = se.merchants.merchants.count
+    @item_count = se.items.items.count
   end
 
   def average_items_per_merchant
@@ -14,9 +19,10 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-      Math.sqrt(count_all_items_for_each_merchant.map do |item_count|
-        (average_items_per_merchant - item_count) ** 2
-      end.sum / (se.merchants.merchants.count - 1)).round(2)
+    average_items = average_items_per_merchant
+    Math.sqrt(count_all_items_for_each_merchant.map do |item_count|
+      (average_items - item_count) ** 2
+    end.sum / (merchant_count - 1)).round(2)
   end
 
   def count_all_items_for_each_merchant
@@ -25,25 +31,16 @@ class SalesAnalyst
     end
   end
 
-
-
-
   def merchants_with_high_item_count
-    merchant_items = se.items.items.reduce({}) do |result, item|
-      result[item.merchant_id] = 0 if result[item.merchant_id].nil?
-      result[item.merchant_id] += 1
+    minimum = minimum_for_high_items
+    se.merchants.merchants.reduce([]) do |result, merchant|
+      if merchant.items.count >= minimum
+        result << merchant
+      end
       result
-    end
-    high_merchants = merchant_items.reduce([]) do |result, (merchant, items)|
-      result << merchant if items >= minimum_for_high_items
-      result
-    end
-    high_merchants.map do |merchant|
-      se.find_merchant_by_id(merchant)
     end
   end
 
-  #new bottleneck
   def minimum_for_high_items
     average_items_per_merchant + average_items_per_merchant_standard_deviation
   end
@@ -63,27 +60,28 @@ class SalesAnalyst
   end
 
   def standard_deviation_of_item_price
+    average_price = average_item_price
     Math.sqrt(se.items.items.map do |item|
-      (average_item_price - item.unit_price) ** 2
-    end.sum / (se.items.items.count - 1)).round(2)
+      (average_price - item.unit_price) ** 2
+    end.sum / (item_count - 1)).round(2)
   end
 
   def average_item_price
     BigDecimal((se.items.items.inject(0) do |sum, item|
       sum += item.unit_price
-    end/se.items.items.count).round)
+    end/item_count).round)
   end
 
   def golden_items
+    minimum = minimum_for_golden_item
     se.items.items.reduce([]) do |result, item|
-      if item.unit_price >= minimum_for_golden_item
+      if item.unit_price >= minimum
         result << item
       end
       result
     end
   end
 
-#bottleneck
   def minimum_for_golden_item
     average_item_price + (2 * standard_deviation_of_item_price)
   end
