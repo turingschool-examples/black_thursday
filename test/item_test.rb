@@ -11,9 +11,9 @@ require 'csv'
 class ItemTest < Minitest:: Test
   def test_it_knows_it_came_from
     item_repo = ItemRepository.new("")
-    item_repo.create_item({
-      :items     => "./test/fixtures/items_fixture_5lines.csv",
-    })
+    item_repo.create_item(
+    "./test/fixtures/items_fixture_5lines.csv",
+    )
     item = item_repo.items.first
 
     assert_equal item_repo, item.repository

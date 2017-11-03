@@ -17,12 +17,14 @@ class InvoiceRepositoryTest < Minitest:: Test
 
     assert_equal 4985, i_repository.all.count
   end
+
   def test_it_can_find_invoice_by_id
     i_repository = InvoiceRepository.new
     i_repository.create_invoice("./data/invoices.csv")
-
-    assert_equal 23, i_repository.find_by_id(6)
+    result=  i_repository.find_by_id(6)
+    assert_equal "6", result.id
   end
+
   def test_it_can_find_by_customer_id
     skip
     i_repository = InvoiceRepository.new
