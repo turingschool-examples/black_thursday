@@ -1,3 +1,5 @@
+require_relative 'transaction'
+
 class TransactionRepository
 
   attr_reader :transactions, :parent
@@ -7,7 +9,7 @@ class TransactionRepository
     @parent = parent
   end
 
-  def self.from_csv(csv_files)
+  def from_csv(csv_files)
     TransactionRepository.new(csv_files)
   end
 
@@ -37,5 +39,9 @@ class TransactionRepository
   def find_all_by_result(input)
     return [] if input.class != String
     transactions.find_all {|transaction| transaction.result == input}
+  end
+
+  def inspect
+    "#{self.class} has #{all.count} rows"
   end
 end

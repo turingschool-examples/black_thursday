@@ -8,7 +8,7 @@ class TransactionRepositoryTest < Minitest::Test
   attr_reader :repository
 
   def setup
-    @repository = TransactionRepository.from_csv("./test/fixtures/truncated_transactions.csv")
+    @repository = TransactionRepository.new("./test/fixtures/truncated_transactions.csv")
   end
 
   def test_it_exists
