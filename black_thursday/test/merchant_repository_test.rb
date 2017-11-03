@@ -2,20 +2,12 @@ require_relative 'test_helper'
 require 'csv'
 require_relative './../lib/merchant'
 require_relative './../lib/merchant_repository'
-require_relative './../lib/sales_engine'
 
 class MerchantRepositoryTest < Minitest::Test
-  attr_reader :repository,
-              :engine
+  attr_reader :repository
 
   def setup
-    @engine = SalesEngine.from_csv(
-      items: './test/fixtures/truncated_items.csv',
-      merchants: './test/fixtures/truncated_merchants.csv',
-      invoices: './test/fixtures/truncated_invoices.csv'
-    )
-
-    @repository = MerchantRepository.new("./test/fixtures/truncated_merchants.csv", engine)
+    @repository = MerchantRepository.new("./test/fixtures/truncated_merchants.csv")
   end
 
   def test_it_exists

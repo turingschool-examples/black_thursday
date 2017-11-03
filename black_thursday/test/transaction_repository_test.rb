@@ -1,7 +1,7 @@
 require_relative 'test_helper'
+require 'csv'
 require_relative './../lib/transaction'
 require_relative './../lib/transaction_repository'
-require "csv"
 
 class TransactionRepositoryTest < Minitest::Test
 

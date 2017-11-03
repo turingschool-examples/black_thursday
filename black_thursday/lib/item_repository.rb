@@ -2,7 +2,7 @@ class ItemRepository
   attr_reader :items,
               :parent
 
-  def initialize(csv_filename, parent)
+  def initialize(csv_filename, parent = nil)
     @items  =  load_csv(csv_filename).map { |row| Item.new(row, self) }
     # @items  = []
     # load_things(csv_filename)
@@ -67,11 +67,4 @@ class ItemRepository
   def inspect
     "#{self.class} has #{all.count} rows"
   end
-
-  private
-
-  def load_csv(filename)
-    CSV.open filename, headers: true, header_converters: :symbol
-  end
-
 end

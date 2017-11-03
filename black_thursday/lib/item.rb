@@ -11,7 +11,7 @@ class Item
               :updated_at,
               :parent
 
-  def initialize(attributes, parent)
+  def initialize(attributes, parent = nil)
     @id           = attributes[:id].to_i
     @name         = attributes[:name]
     @description  = attributes[:description]

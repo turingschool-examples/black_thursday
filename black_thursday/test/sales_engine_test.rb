@@ -1,11 +1,9 @@
 require_relative 'test_helper'
 require 'csv'
-require_relative './../lib/merchant'
 require_relative './../lib/merchant_repository'
-require_relative './../lib/item'
 require_relative './../lib/item_repository'
-require_relative './../lib/invoice'
 require_relative './../lib/invoice_repository'
+require_relative './../lib/transaction_repository'
 require_relative './../lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test
@@ -13,7 +11,8 @@ class SalesEngineTest < Minitest::Test
     @engine = SalesEngine.from_csv(
       items: './test/fixtures/truncated_items.csv',
       merchants: './test/fixtures/truncated_merchants.csv',
-      invoices: './test/fixtures/truncated_invoices.csv'
+      invoices: './test/fixtures/truncated_invoices.csv',
+      transactions: './test/fixtures/truncated_transactions.csv'
     )
   end
 

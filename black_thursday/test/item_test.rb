@@ -1,21 +1,15 @@
 require_relative 'test_helper'
 require 'bigdecimal'
-require 'time'
+require 'time' 
+require 'csv'
 require_relative './../lib/item'
-require_relative './../lib/sales_engine'
+require_relative './../lib/item_repository'
 
 class ItemTest < Minitest::Test
-  attr_reader :repository,
-              :engine
+  attr_reader :repository
 
   def setup
-    @engine = SalesEngine.from_csv(
-      items: './test/fixtures/truncated_items.csv',
-      merchants: './test/fixtures/truncated_merchants.csv',
-      invoices: './test/fixtures/truncated_invoices.csv'
-    )
-
-    @repository = ItemRepository.new('./test/fixtures/truncated_items.csv', engine)
+    @repository = ItemRepository.new('./test/fixtures/truncated_items.csv')
   end
 
   def test_it_exists
