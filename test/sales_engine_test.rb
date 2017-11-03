@@ -12,14 +12,14 @@ class SalesEngineTest < Minitest::Test
       )
     end
 
-    def test_item_repository_populated_after_load
+    def test_repositories_populated_after_load
       assert_instance_of SalesEngine, se
       assert_instance_of ItemRepository, se.items
       assert_equal 8, se.items.items.count
       assert_instance_of MerchantRepository, se.merchants
       assert_equal 5, se.merchants.merchants.count
       assert_instance_of InvoiceRepository, se.invoices
-      assert_equal 9, se.invoices.invoices.count
+      assert_equal 20, se.invoices.invoices.count
     end
 
     def test_find_items_for_merchant_by_merchant_id
@@ -37,6 +37,6 @@ class SalesEngineTest < Minitest::Test
     def test_find_invoices_for_merchant
       merchant = se.merchants.find_by_id('12334185')
 
-      assert_equal 5, merchant.invoices.count
+      assert_equal 10, merchant.invoices.count
     end
 end
