@@ -101,8 +101,8 @@ class SalesAnalystTest < Minitest::Test
     shipped = sa.invoice_status(:shipped)
     returned = sa.invoice_status(:returned)
 
-    assert_equal 0.11, pending
-    assert_equal 0.67, shipped
-    assert_equal 0.22, returned
+    assert_equal 11.11, pending
+    assert_equal 66.67, shipped
+    assert_equal 22.22, returned
   end
 end

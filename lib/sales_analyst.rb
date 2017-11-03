@@ -2,10 +2,11 @@ require 'bigdecimal'
 require_relative './sales_engine'
 
 class SalesAnalyst
-  attr_reader :se
+  attr_reader :se, :invoice_count
 
   def initialize(sales_engine)
     @se = sales_engine
+    @invoice_count = se.invoices.invoices.count
   end
 
   def average_items_per_merchant
@@ -154,12 +155,16 @@ class SalesAnalyst
   end
 
   def invoice_status(status)
-    separated = se.invoices.invoices.reduce({}) do |result, invoice|
+    separated = invoice_status_accumulator
+    BigDecimal((10000 * separated[status].to_f / invoice_count).round)/100
+  end
+
+  def invoice_status_accumulator
+    se.invoices.invoices.reduce({}) do |result, invoice|
       result[invoice.status] = 0 if result[invoice.status].nil?
       result[invoice.status] += 1
       result
     end
-    (separated[status].to_f / se.invoices.invoices.count).round(2)
   end
 
 end
