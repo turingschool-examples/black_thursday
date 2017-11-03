@@ -42,4 +42,15 @@ class SalesAnalyst
   def avg(id)
     sum_prices(id) / merchant_items_by_id(id).length
   end
+
+  def average_items_per_merchant_standard_deviation
+    merchants = @engine.merchants.all
+    merchant_average_prices = merchants.map { |merchant| average_item_price_for_merchant(merchant.id)}
+    standard_deviation(merchant_average_prices)
+  end
+
+  def standard_deviation(set)
+    mean = set.sum.to_f / set.count
+    Math.sqrt((set.map { |number| (number - mean) ** 2 }.sum) / (set.count - 1))
+  end
 end
