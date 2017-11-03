@@ -10,14 +10,14 @@ class MerchantTest < Minitest::Test
   end
 
   def test_can_access_attributes
-    merchant = Merchant.new({:id => 5, :name => "Turing School",
-      :created_at => 18, :updated_at => 19})
+    merchant = Merchant.new({:id => 5,
+                             :name => "Turing School",
+                             :created_at => 18,
+                             :updated_at => 19})
 
     assert_equal 5, merchant.id
     assert_equal "Turing School", merchant.name
     assert_equal 18, merchant.created_at
     assert_equal 19, merchant.updated_at
   end
-
-
 end

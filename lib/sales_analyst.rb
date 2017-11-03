@@ -3,8 +3,7 @@ require 'bigdecimal'
 require 'pry'
 
 class SalesAnalyst
-
-  attr_reader   :se
+  attr_reader :se
 
   def initialize(se)
     @se = se
@@ -40,7 +39,6 @@ class SalesAnalyst
   def merchants_with_high_item_count
     average = average_items_per_merchant
     standard_deviation = average_items_per_merchant_standard_deviation
-
     se.merchants.all.find_all do |merchant|
       merchant.items.count > average + standard_deviation
     end
@@ -56,11 +54,24 @@ class SalesAnalyst
   end
 
   def average_average_price_per_merchant
-    se.merchants.all.map do |merchant|
-      # binding.pry
+    average_prices = se.merchants.all.map do |merchant|
       average_item_price_for_merchant(merchant.id)
+    end
+    BigDecimal(average(average_prices), 6)
+  end
+
+  def all_item_prices
+    se.items.all.map do |item|
+      item.unit_price
     end
   end
 
+  def golden_items
+    average = average_average_price_per_merchant
+    standard_deviation = standard_deviation(all_item_prices)
+     se.items.all.find_all do |item|
+        item.unit_price > average + (2 * standard_deviation)
+    end
+  end
 
 end

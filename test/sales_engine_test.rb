@@ -33,12 +33,6 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_matches_correct_merchant
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices => "./data/invoices.csv"
-    })
-
     item = se.items.find_by_id(263395237)
     item.merchant
 

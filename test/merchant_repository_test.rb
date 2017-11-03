@@ -3,15 +3,17 @@ require './lib/merchant_repository'
 require './lib/merchant'
 
 class MerchantRepositoryTest < MiniTest::Test
+  attr_reader :mr
+  
+  def setup
+    @mr = MerchantRepository.new
+  end
 
   def test_it_exists
-    mr = MerchantRepository.new
-
     assert_instance_of MerchantRepository, mr
   end
 
   def test_repo_populated_with_merchant_objects
-    mr = MerchantRepository.new
     mr.populate('test/fixtures/merchants_fixture.csv')
 
     assert_instance_of Array, mr.all
@@ -19,14 +21,12 @@ class MerchantRepositoryTest < MiniTest::Test
   end
 
   def test_can_retrieve_all_merchant_instances
-    mr = MerchantRepository.new
     mr.populate('test/fixtures/merchants_fixture.csv')
 
     assert_equal 3, mr.all.length
   end
 
   def test_can_find_merchant_by_id
-    mr = MerchantRepository.new
     mr.populate('./test/fixtures/merchants_fixture.csv')
 
     assert_instance_of Merchant, mr.find_by_id(12334112)
@@ -34,7 +34,6 @@ class MerchantRepositoryTest < MiniTest::Test
   end
 
   def test_can_find_merchant_by_name
-    mr = MerchantRepository.new
     mr.populate('test/fixtures/merchants_fixture.csv')
 
     assert_instance_of Merchant, mr.find_by_name("MiniatureBikez&co")
@@ -42,7 +41,6 @@ class MerchantRepositoryTest < MiniTest::Test
   end
 
   def test_can_find_all_merchants_which_contain_name_fragment
-    mr = MerchantRepository.new
     mr.populate('test/fixtures/merchants_fixture.csv')
 
     assert_instance_of Array, mr.find_all_by_name("ol")
