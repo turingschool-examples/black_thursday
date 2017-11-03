@@ -39,17 +39,19 @@ class SalesAnalystTest < Minitest::Test
 
   def test_determines_average_price_for_merchants
     result = sa.average_item_price_for_merchant(12334185)
-    assert_equal 185, result
+    assert_equal 184.63, result
   end
 
   def test_determines_average_average_price_per_merchants
     result = sa.average_average_price_per_merchant
-    assert_equal 89, result
+
+    assert_equal BigDecimal(8893)/100, result
   end
 
   def test_it_can_determine_standard_deviation_items_price
     result = sa.standard_deviation_of_item_price
-    assert_equal 203.32, result
+
+    assert_equal BigDecimal(20332)/100, result
   end
 
   def test_it_can_determine_the_golden_items
@@ -59,9 +61,48 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_invoices_per_merchant
-    skip
     result = sa.average_invoices_per_merchant
 
-    assert_equal 1.2, result
+    assert_equal 1.8, result
+  end
+
+  def test_top_merchants_by_invoice_count
+    result = sa.top_merchants_by_invoice_count
+
+    assert_equal 1, result.count
+  end
+
+  def test_bottom_merchants_by_invoice_count
+    result = sa.bottom_merchants_by_invoice_count
+
+    assert_equal 0, result.count
+  end
+
+  def test_top_days_by_invoice_count
+    result = sa.top_days_by_invoice_count
+
+    assert_equal ['Saturday'], result
+  end
+
+  def test_invoice_count_by_day
+    result = sa.invoice_count_by_day
+
+    assert_equal 4, result.count
+  end
+
+  def test_standard_deviation_of_invoices_per_day
+    result = sa.standard_deviation_of_invoices_per_day
+
+    assert_equal 1.41, result
+  end
+
+  def test_precentage_of_invoice_status
+    pending = sa.invoice_status(:pending)
+    shipped = sa.invoice_status(:shipped)
+    returned = sa.invoice_status(:returned)
+
+    assert_equal 0.11, pending
+    assert_equal 0.67, shipped
+    assert_equal 0.22, returned
   end
 end

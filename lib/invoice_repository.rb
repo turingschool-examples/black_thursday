@@ -32,7 +32,7 @@ class InvoiceRepository
 
   def find_all_by_status(status)
     invoices.find_all do |invoice|
-      invoice.status.downcase == status.downcase
+      invoice.status == status.downcase.to_sym
     end
   end
 

@@ -19,7 +19,7 @@ class TestSalesEngine < Minitest::Test
       assert_instance_of MerchantRepository, se.merchants
       assert_equal 5, se.merchants.merchants.count
       assert_instance_of InvoiceRepository, se.invoices
-      assert_equal 6, se.invoices.invoices.count
+      assert_equal 9, se.invoices.invoices.count
     end
 
     def test_find_items_for_merchant_by_merchant_id
@@ -37,6 +37,6 @@ class TestSalesEngine < Minitest::Test
     def test_find_invoices_for_merchant
       merchant = se.merchants.find_by_id('12334185')
 
-      assert_equal 2, merchant.invoices.count
+      assert_equal 5, merchant.invoices.count
     end
 end
