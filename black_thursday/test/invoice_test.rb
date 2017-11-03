@@ -11,7 +11,8 @@ class InvoiceTest < Minitest::Test
     @engine = SalesEngine.from_csv(
       items: './test/fixtures/truncated_items.csv',
       merchants: './test/fixtures/truncated_merchants.csv',
-      invoice: './test/fixtures/truncated_invoices.csv'
+      invoices: './test/fixtures/truncated_invoices.csv',
+      transactions: './test/fixtures/truncated_transactions.csv'
     )
 
     @repository = InvoiceRepository.new('./test/fixtures/truncated_invoices.csv', engine)
