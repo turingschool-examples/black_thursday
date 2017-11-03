@@ -67,10 +67,25 @@ class ItemRepository
     result
   end
 
-  def find_all_by_merchant_id(id)
+  def find_all_by_merchant_id_slow(id)
     items.find_all do |item|
       item.merchant_id.to_s == id.to_s
     end
+  end
+
+  def find_all_by_merchant_id(id)
+    sorted_items = sort_by('merchant_id')
+    return [] if sorted_items.last.merchant_id < id
+    start_index = sorted_items.bsearch_index do |item|
+      item.merchant_id.to_s >= id.to_s
+    end
+    result = []
+    while sorted_items[start_index].merchant_id == id
+      result << sorted_items[start_index]
+      sorted_items.delete_at(start_index)
+      return result if sorted_items[start_index].nil?
+    end
+    result
   end
 
   def find_merchant_by_id(merchant_id)

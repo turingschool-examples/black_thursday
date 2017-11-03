@@ -25,15 +25,25 @@ class SalesAnalyst
     end
   end
 
+
+
+
   def merchants_with_high_item_count
-    se.merchants.merchants.reduce([]) do |result, merchant|
-      if merchant.items.count >= minimum_for_high_items
-        result << merchant
-      end
+    merchant_items = se.items.items.reduce({}) do |result, item|
+      result[item.merchant_id] = 0 if result[item.merchant_id].nil?
+      result[item.merchant_id] += 1
       result
+    end
+    high_merchants = merchant_items.reduce([]) do |result, (merchant, items)|
+      result << merchant if items >= minimum_for_high_items
+      result
+    end
+    high_merchants.map do |merchant|
+      se.find_merchant_by_id(merchant)
     end
   end
 
+  #new bottleneck
   def minimum_for_high_items
     average_items_per_merchant + average_items_per_merchant_standard_deviation
   end
@@ -73,6 +83,7 @@ class SalesAnalyst
     end
   end
 
+#bottleneck
   def minimum_for_golden_item
     average_item_price + (2 * standard_deviation_of_item_price)
   end
