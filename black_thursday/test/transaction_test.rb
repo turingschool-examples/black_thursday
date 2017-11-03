@@ -9,10 +9,10 @@ class TransactionTest < Minitest::Test
   attr_reader :engine, :repository, :transaction
 
   def setup
-    @engine = SalesEngine.from_csv({
+    @engine = SalesEngine.new({
     items: "./test/fixtures/truncated_items.csv",
     merchants: "./test/fixtures/truncated_merchants.csv",
-    transactions: "./test/fixtures/truncated_transactions"
+    transactions: "./test/fixtures/truncated_transactions.csv"
                                   })
 
     @repository = TransactionRepository.new("./test/fixtures/truncated_transactions.csv", @engine)
