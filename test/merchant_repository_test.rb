@@ -22,14 +22,14 @@ class MerchantRepositoryTest < MiniTest::Test
     mr = MerchantRepository.new
     mr.populate('test/fixtures/merchants_fixture.csv')
 
-    assert_equal 10, mr.all.length
+    assert_equal 3, mr.all.length
   end
 
   def test_can_find_merchant_by_id
     mr = MerchantRepository.new
     mr.populate('./test/fixtures/merchants_fixture.csv')
 
-    assert_instance_of Merchant, mr.find_by_id(12334141)
+    assert_instance_of Merchant, mr.find_by_id(12334112)
     assert_nil mr.find_by_id(52334141)
   end
 
@@ -37,7 +37,7 @@ class MerchantRepositoryTest < MiniTest::Test
     mr = MerchantRepository.new
     mr.populate('test/fixtures/merchants_fixture.csv')
 
-    assert_instance_of Merchant, mr.find_by_name("MiniatureBikez")
+    assert_instance_of Merchant, mr.find_by_name("MiniatureBikez&co")
     assert_nil mr.find_by_name("Hello World")
   end
 
@@ -46,7 +46,7 @@ class MerchantRepositoryTest < MiniTest::Test
     mr.populate('test/fixtures/merchants_fixture.csv')
 
     assert_instance_of Array, mr.find_all_by_name("ol")
-    assert_equal 2, mr.find_all_by_name("ol").count
+    assert_equal 3, mr.find_all_by_name("&co").count
     assert_equal [], mr.find_all_by_name("Hello WORLD")
   end
 

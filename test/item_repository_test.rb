@@ -66,7 +66,7 @@ class ItemRepositoryTest < MiniTest::Test
     ir.populate('test/fixtures/items_fixture.csv')
 
     assert_equal [], ir.find_all_by_merchant_id(100008)
-    assert_equal 1, ir.find_all_by_merchant_id(898).count
+    assert_equal 1, ir.find_all_by_merchant_id(12334105).count
   end
 
 end
