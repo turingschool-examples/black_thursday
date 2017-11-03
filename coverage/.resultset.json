@@ -1,7 +1,7 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/kjenkins/turing/1module/projects/black_thursday/lib/invoice_repository.rb": [
+      "/Users/kjenkins/turing/1module/projects/black_thursday/lib/transaction_repository.rb": [
         1,
         1,
         null,
@@ -28,9 +28,7 @@
         null,
         null,
         1,
-        1,
-        4985,
-        null,
+        4986,
         null,
         null,
         1,
@@ -38,26 +36,28 @@
         null,
         null,
         1,
-        9972,
+        4986,
         null,
         null
       ],
-      "/Users/kjenkins/turing/1module/projects/black_thursday/lib/invoice.rb": [
+      "/Users/kjenkins/turing/1module/projects/black_thursday/lib/transaction.rb": [
+        1,
+        1,
+        1,
         null,
         1,
-        1,
+        29910,
+        29910,
+        29910,
+        29910,
+        29910,
+        29910,
+        29910,
         null,
-        1,
-        29910,
-        29910,
-        29910,
-        29910,
-        29910,
-        29910,
         null,
         null
       ]
     },
-    "timestamp": 1509656474
+    "timestamp": 1509724472
   }
 }
