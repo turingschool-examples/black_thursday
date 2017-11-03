@@ -50,6 +50,13 @@ class SalesAnalyst
     BigDecimal(average(average_prices), 6)
   end
 
+  def golden_items
+    average = average_average_price_per_merchant
+    standard_deviation = standard_deviation(all_item_prices)
+    se.items.all.find_all do |item|
+      item.unit_price > average + (2 * standard_deviation)
+    end
+  end
     private
 
       def average(numbers)
@@ -68,11 +75,4 @@ class SalesAnalyst
         end
       end
 
-      def golden_items
-        average = average_average_price_per_merchant
-        standard_deviation = standard_deviation(all_item_prices)
-         se.items.all.find_all do |item|
-            item.unit_price > average + (2 * standard_deviation)
-        end
-      end
 end

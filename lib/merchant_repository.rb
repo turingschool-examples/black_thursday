@@ -46,4 +46,8 @@ class MerchantRepository
     @sales_engine.find_all_by_merchant_id(merchant_id)
   end
 
+  def find_invoices_for_merchant(merchant_id)
+    @sales_engine.find_invoices_for_merchant(merchant_id)
+  end
+
 end
