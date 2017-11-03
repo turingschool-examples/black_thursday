@@ -15,7 +15,7 @@ class SalesEngineTest < Minitest::Test
     def test_item_repository_populated_after_load
       assert_instance_of SalesEngine, se
       assert_instance_of ItemRepository, se.items
-      assert_equal 11, se.items.items.count
+      assert_equal 8, se.items.items.count
       assert_instance_of MerchantRepository, se.merchants
       assert_equal 5, se.merchants.merchants.count
       assert_instance_of InvoiceRepository, se.invoices

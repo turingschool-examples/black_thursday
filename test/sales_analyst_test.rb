@@ -28,12 +28,15 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 1.5, sa.average_items_per_merchant_standard_deviation
   end
 
-  def test_count_all_items_for_each_merchant
-    assert_equal [1,1,1,1,4], sa.count_all_items_for_each_merchant
+  def test_all_items_for_each_merchant
+    expected = {12334185=>4, 12334112=>1, 12334113=>1, 12334115=>1, 12334123=>1}
+
+    assert_equal expected, sa.all_items_for_each_merchant
   end
 
   def test_determine_merchants_with_most_items
     result = sa.merchants_with_high_item_count
+require "pry"; binding.pry
     assert_equal "Madewithgitterxx", result[0].name
   end
 
