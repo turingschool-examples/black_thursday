@@ -14,4 +14,6 @@ class Merchant
     repository.find_item(@id)
   end
 
+
+
 end
