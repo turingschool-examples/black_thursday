@@ -10,10 +10,11 @@ class SalesAnalystTest < Minitest::Test
     @engine = SalesEngine.from_csv(
       items: './data/items.csv',
       merchants: './data/merchants.csv',
-      invoices: './test/fixtures/truncated_invoices.csv'
+      invoices: './test/fixtures/truncated_invoices.csv',
+      transactions: './test/fixtures/truncated_transactions.csv'
     )
 
-    @analyst =SalesAnalyst.new(@engine)
+    @analyst = SalesAnalyst.new(@engine)
   end
 
   def test_it_exists

@@ -2,18 +2,18 @@ require_relative 'test_helper'
 require_relative './../lib/transaction'
 require_relative './../lib/transaction_repository'
 require_relative './../lib/sales_engine'
-require "pry"
 
 class TransactionTest < Minitest::Test
 
   attr_reader :engine, :repository, :transaction
 
   def setup
-    @engine = SalesEngine.from_csv({
-    items: "./test/fixtures/truncated_items.csv",
-    merchants: "./test/fixtures/truncated_merchants.csv",
-    transactions: "./test/fixtures/truncated_transactions"
-                                  })
+    @engine = SalesEngine.from_csv(
+      items: './test/fixtures/truncated_items.csv',
+      merchants: './test/fixtures/truncated_merchants.csv',
+      invoices: './test/fixtures/truncated_invoices.csv',
+      transactions: './test/fixtures/truncated_transactions.csv'
+    )
 
     @repository = TransactionRepository.new("./test/fixtures/truncated_transactions.csv", @engine)
 
