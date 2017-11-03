@@ -1,7 +1,7 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/luissenior/turing/1module/projects/black_thursday/lib/sales_analyst.rb": [
+      "/Users/leechow/turing/1module/black_thursday/lib/sales_analyst.rb": [
         1,
         1,
         1,
@@ -27,17 +27,7 @@
         null,
         null,
         1,
-        10,
-        null,
-        null,
-        1,
         4,
-        null,
-        null,
-        1,
-        4,
-        956,
-        null,
         null,
         null,
         1,
@@ -65,8 +55,20 @@
         null,
         null,
         1,
+        null,
+        1,
+        10,
+        null,
+        null,
+        1,
         0,
         0,
+        null,
+        null,
+        null,
+        1,
+        4,
+        956,
         null,
         null,
         null,
@@ -77,10 +79,9 @@
         0,
         null,
         null,
-        null,
         null
       ],
-      "/Users/luissenior/turing/1module/projects/black_thursday/lib/sales_engine.rb": [
+      "/Users/leechow/turing/1module/black_thursday/lib/sales_engine.rb": [
         1,
         1,
         1,
@@ -120,7 +121,7 @@
         null,
         null
       ],
-      "/Users/luissenior/turing/1module/projects/black_thursday/lib/item_repository.rb": [
+      "/Users/leechow/turing/1module/black_thursday/lib/item_repository.rb": [
         1,
         1,
         null,
@@ -190,7 +191,7 @@
         null,
         null
       ],
-      "/Users/luissenior/turing/1module/projects/black_thursday/lib/item.rb": [
+      "/Users/leechow/turing/1module/black_thursday/lib/item.rb": [
         1,
         1,
         null,
@@ -227,7 +228,7 @@
         null,
         null
       ],
-      "/Users/luissenior/turing/1module/projects/black_thursday/lib/merchant_repository.rb": [
+      "/Users/leechow/turing/1module/black_thursday/lib/merchant_repository.rb": [
         1,
         1,
         null,
@@ -278,7 +279,7 @@
         null,
         null
       ],
-      "/Users/luissenior/turing/1module/projects/black_thursday/lib/merchant.rb": [
+      "/Users/leechow/turing/1module/black_thursday/lib/merchant.rb": [
         1,
         1,
         null,
@@ -300,7 +301,7 @@
         null,
         null
       ],
-      "/Users/luissenior/turing/1module/projects/black_thursday/lib/invoice_repository.rb": [
+      "/Users/leechow/turing/1module/black_thursday/lib/invoice_repository.rb": [
         1,
         null,
         1,
@@ -348,7 +349,7 @@
         null,
         null
       ],
-      "/Users/luissenior/turing/1module/projects/black_thursday/lib/invoice.rb": [
+      "/Users/leechow/turing/1module/black_thursday/lib/invoice.rb": [
         1,
         null,
         1,
@@ -372,6 +373,6 @@
         null
       ]
     },
-    "timestamp": 1509675558
+    "timestamp": 1509731838
   }
 }

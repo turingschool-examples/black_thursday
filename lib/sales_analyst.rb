@@ -22,18 +22,8 @@ class SalesAnalyst
     Math.sqrt(num / (numbers.count - 1)).round(2)
   end
 
-  def average(numbers)
-    numbers.sum.to_f / numbers.count.to_f
-  end
-
   def average_items_per_merchant_standard_deviation
     standard_deviation(merchant_item_count)
-  end
-
-  def merchant_item_count
-    se.merchants.all.map do |merchant|
-      merchant.items.count
-    end
   end
 
   def merchants_with_high_item_count
@@ -60,18 +50,29 @@ class SalesAnalyst
     BigDecimal(average(average_prices), 6)
   end
 
-  def all_item_prices
-    se.items.all.map do |item|
-      item.unit_price
-    end
-  end
+    private
 
-  def golden_items
-    average = average_average_price_per_merchant
-    standard_deviation = standard_deviation(all_item_prices)
-     se.items.all.find_all do |item|
-        item.unit_price > average + (2 * standard_deviation)
-    end
-  end
+      def average(numbers)
+        numbers.sum.to_f / numbers.count.to_f
+      end
 
+      def all_item_prices
+        se.items.all.map do |item|
+          item.unit_price
+        end
+      end
+
+      def merchant_item_count
+        se.merchants.all.map do |merchant|
+          merchant.items.count
+        end
+      end
+
+      def golden_items
+        average = average_average_price_per_merchant
+        standard_deviation = standard_deviation(all_item_prices)
+         se.items.all.find_all do |item|
+            item.unit_price > average + (2 * standard_deviation)
+        end
+      end
 end
