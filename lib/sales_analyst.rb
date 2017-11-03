@@ -68,8 +68,7 @@ class SalesAnalyst
   end
 
   def average_item_price
-    mean(sales_engine.items.all
-    all.reduce(0) do |sum, item|
+    mean(sales_engine.items.all.reduce(0) do |sum, item|
       sum += item.unit_price
     end)
   end
