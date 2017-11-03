@@ -1,11 +1,5 @@
 module Math
 
-  def all_merchants
-  end
-
-  def all_items
-  end
-
   def mean(list)
     if list.first.class == BigDecimal
       list.reduce(BigDecimal.new("0.0"), :+) / list.count

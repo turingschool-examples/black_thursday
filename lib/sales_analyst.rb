@@ -1,6 +1,8 @@
-require './lib/sales_engine'
+require_relative 'sales_engine'
+require_relative 'math'
 
 class SalesAnalyst
+  include Math
   attr_reader :sales_engine
 
   def initialize(sales_engine)
@@ -40,14 +42,22 @@ class SalesAnalyst
 
   def merchants_with_high_item_count
     counts = counts_per_merchant(sales_engine.method(:find_merchant_items))
-    avg_items = average_items_per_merchant
-    std_dev = average_items_per_merchant_standard_deviation
+    one_std_dev = mean(counts) + standard_deviation(counts)
     # counts.each_with_index
     # make std dev method for merchant
     sales_engine.merchants.merchants.select do |merchant|
-      sales_engine.find_merchant_items(merchant.id).count > (avg_items + std_dev)
+      sales_engine.find_merchant_items(merchant.id).count > one_std_dev
       # merchant.std_dev > 2 - math Module
     end
+  end
+
+  def average_item_price_per_merchant(merchant_id)
+  end
+
+  def average_average_price_per_merchant
+  end
+
+  def golden_items
   end
 
 end
