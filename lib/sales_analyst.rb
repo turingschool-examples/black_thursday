@@ -15,7 +15,37 @@ class SalesAnalyst
     (total_items.to_f / total_merchants.to_f).round(2)
   end
 
-  def standard_deviation(numbers, average =average(numbers))
+  def average_invoices_per_merchant
+    average(all_merchants_invoices).round(2)
+  end
+
+  def all_merchants_invoices
+    se.merchants.all.map do |merchant|
+      merchant.invoices.count
+    end
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    standard_deviation(all_merchants_invoices)
+  end
+
+  def top_merchants_by_invoice_count
+    average = average_invoices_per_merchant
+    standard_deviation = average_invoices_per_merchant_standard_deviation
+    se.merchants.all.find_all do |merchant|
+      merchant.invoices.count > average + (2 * standard_deviation)
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    average = average_invoices_per_merchant
+    standard_deviation = average_invoices_per_merchant_standard_deviation
+    se.merchants.all.find_all do |merchant|
+      merchant.invoices.count < average - (2 * standard_deviation)
+    end
+  end
+
+  def standard_deviation(numbers, average = average(numbers))
     num = numbers.map do |number|
       (number - average) ** 2
     end.sum
@@ -57,10 +87,11 @@ class SalesAnalyst
       item.unit_price > average + (2 * standard_deviation)
     end
   end
+
     private
 
       def average(numbers)
-        numbers.sum.to_f / numbers.count.to_f
+        numbers.sum.to_f / numbers.count
       end
 
       def all_item_prices

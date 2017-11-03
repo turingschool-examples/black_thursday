@@ -32,7 +32,7 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_sa_can_calculate_standard_deviation_for_fixture
-    assert_equal 0.58, sa.average_items_per_merchant_standard_deviation
+    assert_equal 3.26, sa.average_items_per_merchant_standard_deviation
   end
 
   def test_sa_can_calculate_standard_deviation_for_full_data_set
@@ -79,4 +79,47 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal "", result
   end
 
+  def test_sa_can_find_average_invoices_per_merchant
+    se = SalesEngine.from_csv({
+      :items     => "./test/fixtures/items_fixture.csv",
+      :merchants => "./test/fixtures/merchants_fixture.csv",
+      :invoices  => "./test/fixtures/invoices_fixture.csv"
+    })
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 1.33, sa.average_invoices_per_merchant.round(2)
+  end
+
+  def test_sa_can_find_stand_deviation_of_average_invoices_per_merchant
+    se = SalesEngine.from_csv({
+      :items     => "./test/fixtures/items_fixture.csv",
+      :merchants => "./test/fixtures/merchants_fixture.csv",
+      :invoices  => "./test/fixtures/invoices_fixture.csv"
+    })
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 0.58, sa.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_sa_can_find_merchant_with_most_invoices
+    se = SalesEngine.from_csv({
+      :items     => "./test/fixtures/items_fixture.csv",
+      :merchants => "./test/fixtures/merchants_fixture.csv",
+      :invoices  => "./test/fixtures/invoices_fixture.csv"
+    })
+    sa = SalesAnalyst.new(se)
+
+    assert_equal [], sa.top_merchants_by_invoice_count
+  end
+
+  def test_sa_can_find_merchant_with_fewest_invoices
+    se = SalesEngine.from_csv({
+      :items     => "./test/fixtures/items_fixture.csv",
+      :merchants => "./test/fixtures/merchants_fixture.csv",
+      :invoices  => "./test/fixtures/invoices_fixture.csv"
+    })
+    sa = SalesAnalyst.new(se)
+
+    assert_equal [], sa.bottom_merchants_by_invoice_count
+  end
 end
