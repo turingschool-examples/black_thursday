@@ -1,7 +1,7 @@
 require_relative './test_helper'
 require './lib/sales_engine'
 
-class TestSalesEngine < Minitest::Test
+class SalesEngineTest < Minitest::Test
     attr_reader :se
 
     def setup

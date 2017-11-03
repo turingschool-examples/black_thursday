@@ -36,8 +36,8 @@ class TestItem < Minitest::Test
     assert_equal "Numberpad used for a lock", item.description
     assert_equal 0.5e1, item.unit_price
     assert_equal 54321, item.merchant_id
-    assert_equal Time.new('2017-01-01'), item.created_at
-    assert_equal Time.new('2017-01-01'), item.updated_at
+    assert_equal Time.parse('2017-01-01'), item.created_at
+    assert_equal Time.parse('2017-01-01'), item.updated_at
   end
 
   def test_it_initializes_with_other_attributes
@@ -47,8 +47,8 @@ class TestItem < Minitest::Test
     assert_equal "Really fast shoes", item_2.description
     assert_equal 1e2, item_2.unit_price
     assert_equal 65432, item_2.merchant_id
-    assert_equal Time.new('2016-01-11 09:34:06 UTC'), item_2.created_at
-    assert_equal Time.new('2007-06-04 21:35:10 UTC'), item_2.updated_at
+    assert_equal Time.parse('2016-01-11 09:34:06 UTC'), item_2.created_at
+    assert_equal Time.parse('2007-06-04 21:35:10 UTC'), item_2.updated_at
   end
 
   def test_unit_price_to_dollars

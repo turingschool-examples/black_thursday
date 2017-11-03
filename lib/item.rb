@@ -1,4 +1,5 @@
 require 'bigdecimal'
+require 'time'
 
 class Item
   attr_reader :id,
@@ -16,8 +17,8 @@ class Item
     @description = attributes[:description]
     @unit_price  = BigDecimal.new(attributes[:unit_price]) / 100
     @merchant_id = attributes[:merchant_id].to_i
-    @created_at  = Time.new(attributes[:created_at])
-    @updated_at  = Time.new(attributes[:updated_at])
+    @created_at  = Time.parse(attributes[:created_at])
+    @updated_at  = Time.parse(attributes[:updated_at])
     @parent = parent
   end
 

@@ -39,13 +39,13 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_can_find_invoice_by_customer_id
-    assert_equal [], invoice_repo.find_by_customer_id('10293')
-    assert_equal 1, invoice_repo.find_by_customer_id('12345').count
+    assert_equal [], invoice_repo.find_all_by_customer_id('10293')
+    assert_equal 1, invoice_repo.find_all_by_customer_id('12345').count
   end
 
   def test_can_find_invoice_by_merchant_id
-    assert_equal [], invoice_repo.find_by_merchant_id('10293')
-    assert_equal 1, invoice_repo.find_by_merchant_id('54321').count
+    assert_equal [], invoice_repo.find_all_by_merchant_id('10293')
+    assert_equal 1, invoice_repo.find_all_by_merchant_id('54321').count
   end
 
   def test_can_find_invoices_by_status
@@ -55,8 +55,8 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_can_use_merchant
-    invoice_repo.parent.stubs(:find_by_merchant_id).with("54321").returns(true)
+    invoice_repo.parent.stubs(:find_all_by_merchant_id).with("54321").returns(true)
 
-    assert invoice_repo.find_merchant_by_merchant_id("54321")
+    assert invoice_repo.find_all_by_merchant_id("54321")
   end
 end

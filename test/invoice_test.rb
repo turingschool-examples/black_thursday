@@ -28,8 +28,8 @@ class InvoiceTest < Minitest::Test
     assert_equal 12345, invoice_1.customer_id
     assert_equal 54321, invoice_1.merchant_id
     assert_equal :pending, invoice_1.status
-    assert_equal Time.new('2017-10-31'), invoice_1.created_at
-    assert_equal Time.new('2017-10-30'), invoice_1.updated_at
+    assert_equal Time.parse('2017-10-31'), invoice_1.created_at
+    assert_equal Time.parse('2017-10-30'), invoice_1.updated_at
   end
 
   def test_invoice_accepts_other_attributes
@@ -38,8 +38,8 @@ class InvoiceTest < Minitest::Test
     assert_equal 23456, invoice_2.customer_id
     assert_equal 65432, invoice_2.merchant_id
     assert_equal :shipped, invoice_2.status
-    assert_equal Time.new('2017-1-31'), invoice_2.created_at
-    assert_equal Time.new('2017-1-30'), invoice_2.updated_at
+    assert_equal Time.parse('2017-1-31'), invoice_2.created_at
+    assert_equal Time.parse('2017-1-30'), invoice_2.updated_at
   end
 
   def test_can_use_merchant

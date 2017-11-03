@@ -1,3 +1,5 @@
+require 'time'
+
 class Invoice
   attr_reader :id,
               :customer_id,
@@ -13,8 +15,8 @@ class Invoice
     @customer_id = attributes[:customer_id].to_i
     @merchant_id = attributes[:merchant_id].to_i
     @status = attributes[:status].to_sym
-    @created_at = Time.new(attributes[:created_at])
-    @updated_at = Time.new(attributes[:updated_at])
+    @created_at = Time.parse(attributes[:created_at])
+    @updated_at = Time.parse(attributes[:updated_at])
   end
 
   def merchant
