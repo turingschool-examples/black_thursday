@@ -10,7 +10,6 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-
     (total_items/total_merchants).round(2)
   end
 
@@ -52,16 +51,10 @@ class SalesAnalyst
     end
   end
 
-  def average_item_price_for_merchant(merchant_id)
-
-  end
-
-  def average_average_price_per_merchant
-
-  end
-
   def golden_items
-
+    # calculate_std_dev.find_all do |merchant|
+    #   merchant ** 2
+  
   end
 
 end
