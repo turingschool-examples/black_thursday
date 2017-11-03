@@ -15,13 +15,13 @@ class ItemRepository
 
   def find_by_id(id)
     items.find do |item|
-      item.id.to_s == id.to_s
+      item.id == id.to_i
     end
   end
 
   def find_by_name(name)
     items.find do |item|
-      item.name.to_s.casecmp(name.to_s) == 0
+      item.name.downcase == name.downcase
     end
   end
 
@@ -41,14 +41,6 @@ class ItemRepository
     items.find_all do |item|
       range.include?(item.unit_price)
     end
-  end
-
-  def above_lower_limit(lower, item)
-    item.unit_price > BigDecimal.new(lower)
-  end
-
-  def below_upper_limit(upper, item)
-    item.unit_price < BigDecimal.new(upper)
   end
 
   def find_all_by_merchant_id(id)

@@ -21,15 +21,16 @@ class MerchantRepository
     parent.find_all_invoices_by_merchant_id(id)
   end
 
+
   def find_by_id(id)
     merchants.find do |merchant|
-      merchant.id.to_s == id.to_s
+      merchant.id.to_i == id.to_i
     end
   end
 
   def find_by_name(name)
     merchants.find do |merchant|
-      merchant.name.upcase == name.upcase
+      merchant.name.downcase == name.downcase.to_s
     end
   end
 

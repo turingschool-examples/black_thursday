@@ -20,20 +20,17 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_determine_average_items_per_merchant
-    assert_equal 2.2, sa.average_items_per_merchant
+    assert_equal 1.6, sa.average_items_per_merchant
   end
 
   def test_it_can_determine_standard_deviation_items_per_merchant
 
-    assert_equal 1.5, sa.average_items_per_merchant_standard_deviation
-  end
-
-  def test_count_all_items_for_each_merchant
-    assert_equal [1,1,1,1,4], sa.count_all_items_for_each_merchant
+    assert_equal 1.34, sa.average_items_per_merchant_standard_deviation
   end
 
   def test_determine_merchants_with_most_items
     result = sa.merchants_with_high_item_count
+
     assert_equal "Madewithgitterxx", result[0].name
   end
 
@@ -51,7 +48,7 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_determine_standard_deviation_items_price
     result = sa.standard_deviation_of_item_price
 
-    assert_equal BigDecimal(20332)/100, result
+    assert_equal BigDecimal(23745)/100, result
   end
 
   def test_it_can_determine_the_golden_items
@@ -63,13 +60,13 @@ class SalesAnalystTest < Minitest::Test
   def test_average_invoices_per_merchant
     result = sa.average_invoices_per_merchant
 
-    assert_equal 1.8, result
+    assert_equal 4.0, result
   end
 
   def test_top_merchants_by_invoice_count
     result = sa.top_merchants_by_invoice_count
 
-    assert_equal 1, result.count
+    assert_equal 0, result.count
   end
 
   def test_bottom_merchants_by_invoice_count
@@ -93,7 +90,7 @@ class SalesAnalystTest < Minitest::Test
   def test_standard_deviation_of_invoices_per_day
     result = sa.standard_deviation_of_invoices_per_day
 
-    assert_equal 1.41, result
+    assert_equal 3.32, result
   end
 
   def test_precentage_of_invoice_status
@@ -101,8 +98,8 @@ class SalesAnalystTest < Minitest::Test
     shipped = sa.invoice_status(:shipped)
     returned = sa.invoice_status(:returned)
 
-    assert_equal 11.11, pending
-    assert_equal 66.67, shipped
-    assert_equal 22.22, returned
+    assert_equal 15.00, pending
+    assert_equal 75.00, shipped
+    assert_equal 10.00, returned
   end
 end

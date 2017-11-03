@@ -49,8 +49,8 @@ class TestItemRepository < Minitest::Test
   end
 
   def test_can_find_all_by_price
-    assert_equal 'Key Pad', items.find_all_by_price(5)[0].name
-    assert_equal 'Nike Super Fast', items.find_all_by_price(100)[0].name
+    assert_equal 'Key Pad', items.find_all_by_price(5).first.name
+    assert_equal 'Nike Super Fast', items.find_all_by_price(100).first.name
     assert_equal [], items.find_all_by_price(250)
   end
 
