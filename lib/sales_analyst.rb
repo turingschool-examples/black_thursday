@@ -6,8 +6,8 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    merchant_count = @sales_engine.merchants.all.count
-    item_count = @sales_engine.items.all.count
+    merchant_count = @sales_engine.merchants.all.length
+    item_count = @sales_engine.items.all.length
     (item_count.to_f/ merchant_count).round(2)
   end
 
@@ -49,7 +49,7 @@ class SalesAnalyst
 
   def filter_merchants_by_items_in_stock
     create_merchant_id_item_total_list.find_all do |key, value|
-      value >= 7
+      value >= standard_deviation_plus_average
     end
   end
 
@@ -100,7 +100,57 @@ class SalesAnalyst
 
   def golden_items
     @sales_engine.items.all.map { |item|
-      item.unit_price > golden_items_deviation }
+       item.unit_price > golden_items_deviation }
   end
+
+  def average_invoices_per_merchant
+    (find_invoice_totals.reduce(0) { |sum, totals|
+      sum += totals } / find_invoice_totals.count.to_f).round(2)
+  end
+
+  def find_invoice_totals
+    merchant_list.map do |merchant|
+      sales_engine.invoices.find_all_by_merchant_id(merchant).length
+    end
+  end
+
+  def invoice_total_minus_average_squared
+    find_invoice_totals.reduce(0) { |sum, total|
+    sum += (total - average_invoices_per_merchant) ** 2 }
+  end
+
+  def invoice_difference_total_divided
+    invoice_total_minus_average_squared / (find_invoice_totals.length - 1)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    Math.sqrt(invoice_difference_total_divided).round(2)
+  end
+
+  def invoice_count_two_standard_deviations_above_mean
+    average_invoices_per_merchant +
+    (average_invoices_per_merchant_standard_deviation * 2)
+  end
+
+  def invoice_count_two_standard_deviations_below_mean
+    average_invoices_per_merchant -
+    (average_invoices_per_merchant_standard_deviation * 2)
+  end
+
+  def top_merchants_by_invoice_count
+    create_merchant_invoice_total_list.find_all do |key, value|
+      value >= invoice_count_two_standard_deviations_above_mean
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    create_merchant_invoice_total_list.find_all do |key, value|
+      value <= invoice_count_two_standard_deviations_below_mean
+    end
+  end
+
+  def create_merchant_invoice_total_list
+      Hash[merchant_list.zip find_invoice_totals]
+    end
 
 end
