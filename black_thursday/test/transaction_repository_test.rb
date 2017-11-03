@@ -1,7 +1,7 @@
 require_relative 'test_helper'
-require 'csv'
 require_relative './../lib/transaction'
 require_relative './../lib/transaction_repository'
+require "csv"
 
 class TransactionRepositoryTest < Minitest::Test
 
@@ -34,7 +34,7 @@ class TransactionRepositoryTest < Minitest::Test
 
   def test_find_by_id
     assert_instance_of Transaction, repository.find_by_id(10)
-    assert_equal 2179, repository.find_by_id(5).invoice_id
+    assert_equal 3715, repository.find_by_id(5).invoice_id
     assert_equal 'success', repository.find_by_id(1).result
   end
 
@@ -47,7 +47,7 @@ class TransactionRepositoryTest < Minitest::Test
   def test_find_all_by_invoice_id
     assert_equal 1, repository.find_all_by_invoice_id(46).length
     assert_equal Time.parse('2012-02-26 20:56:56 UTC'), repository.find_all_by_invoice_id(46).first.created_at
-    assert_equal '4177816490204479', repository.find_all_by_invoice_id(46).first.credit_card_number
+    assert_equal 4177816490204479, repository.find_all_by_invoice_id(46).first.credit_card_number
   end
 
   def test_find_all_by_invoice_id_for_multiple_matching_ids
@@ -65,15 +65,15 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_credit_card_returns_correct_transaction
-    assert_equal 1, repository.find_all_by_credit_card('4257133712179878').length
-    assert_equal Array, repository.find_all_by_credit_card('4257133712179878').class
-    assert_equal Transaction, repository.find_all_by_credit_card('4257133712179878').first.class
+    assert_equal 1, repository.find_all_by_credit_card_number(4257133712179878).length
+    assert_equal Array, repository.find_all_by_credit_card_number(4257133712179878).class
+    assert_equal Transaction, repository.find_all_by_credit_card_number(4257133712179878).first.class
   end
 
   def test_find_all_by_credit_card_returns_empty_array_if_wrong_class
-    assert_equal [], repository.find_all_by_credit_card(4257133712179878)
-    assert_equal [], repository.find_all_by_credit_card(4257133712179878)
-    assert_equal [], repository.find_all_by_credit_card(4257133712179878)
+    assert_equal [], repository.find_all_by_credit_card_number('4257133712179878')
+    assert_equal [], repository.find_all_by_credit_card_number('4257133712179878')
+    assert_equal [], repository.find_all_by_credit_card_number('4257133712179878')
   end
 
   def test_find_all_by_result

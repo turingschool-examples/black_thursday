@@ -35,4 +35,9 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal 0.35029e3, result
   end
+
+  def test_can_find_average_items_per_merchant_standard_deviation
+    result = analyst.average_items_per_merchant_standard_deviation
+    assert_equal 3.26, result
+  end
 end
