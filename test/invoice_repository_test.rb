@@ -26,11 +26,11 @@ class InvoiceRepositoryTest < Minitest:: Test
   end
 
   def test_it_can_find_by_customer_id
-    skip
+
     i_repository = InvoiceRepository.new
     i_repository.create_invoice( "./data/invoices.csv")
 
-    assert_equal 23, i_repository.find_all_by_customer_id(7)
+    assert_equal "29", i_repository.find_all_by_customer_id(7).id
   end
   def test_it_can_find_by_merchant_id
     skip
