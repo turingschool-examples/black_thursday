@@ -15,7 +15,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    (se.items.items.count.to_f / se.merchants.merchants.count).round(2)
+    (item_count.to_f / merchant_count).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
@@ -56,7 +56,7 @@ class SalesAnalyst
   def average_average_price_per_merchant
     BigDecimal((se.merchants.merchants.inject(0) do |sum, merchant|
       sum += average_item_price_for_merchant(merchant.id)
-    end/se.merchants.merchants.count)).round(2)
+    end/merchant_count)).round(2)
   end
 
   def standard_deviation_of_item_price
@@ -87,13 +87,13 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
-    (se.invoices.invoices.count.to_f / se.merchants.merchants.count).round(2)
+    (invoice_count.to_f / merchant_count).round(2)
   end
 
   def average_invoices_per_merchant_standard_deviation
     Math.sqrt(count_all_invoices_for_each_merchant.map do |invoice_count|
       (average_invoices_per_merchant - invoice_count) ** 2
-    end.sum / (se.merchants.merchants.count - 1 )).round(2)
+    end.sum / (merchant_count - 1 )).round(2)
   end
 
   def count_all_invoices_for_each_merchant
@@ -103,8 +103,9 @@ class SalesAnalyst
   end
 
   def top_merchants_by_invoice_count
+    minimum_threshold = top_merchants_by_invoice_threshold
     se.merchants.merchants.reduce([]) do |result, merchant|
-      if merchant.invoices.count >= top_merchants_by_invoice_threshold
+      if merchant.invoices.count >= minimum_threshold
         result << merchant
       end
       result
@@ -117,8 +118,9 @@ class SalesAnalyst
   end
 
   def bottom_merchants_by_invoice_count
+    maximum_threshold = bottom_merchants_by_invoice_threshold
     se.merchants.merchants.reduce([]) do |result, merchant|
-      if merchant.invoices.count <= bottom_merchants_by_invoice_threshold
+      if merchant.invoices.count <= maximum_threshold
         result << merchant
       end
       result
@@ -160,7 +162,7 @@ class SalesAnalyst
   end
 
   def average_invoices_per_day
-    (se.invoices.invoices.count) / 7
+    (invoice_count) / 7
   end
 
   def invoice_status(status)
@@ -175,5 +177,4 @@ class SalesAnalyst
       result
     end
   end
-
 end
