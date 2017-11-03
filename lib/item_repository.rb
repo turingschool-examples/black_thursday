@@ -13,15 +13,21 @@ class ItemRepository
     items
   end
 
+  def sort_by(attribute)
+    items.sort_by do |item|
+      item.send(attribute)
+    end
+  end
+
   def find_by_id(id)
-    items.find do |item|
-      item.id.to_s == id.to_s
+    items.bsearch do |item|
+      item.id.to_s >= id.to_s
     end
   end
 
   def find_by_name(name)
-    items.find do |item|
-      item.name.to_s.casecmp(name.to_s) == 0
+    sort_by('name').bsearch do |item|
+      item.name.downcase >= name.downcase
     end
   end
 
@@ -32,23 +38,33 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
-    items.find_all do |item|
-      item.unit_price == price
+    sorted_items = sort_by('unit_price')
+    return [] if sorted_items.last.unit_price < price
+    start_index = sorted_items.bsearch_index do |item|
+      item.unit_price >= price
     end
+    result = []
+    while sorted_items[start_index].unit_price == price
+      result << sorted_items[start_index]
+      sorted_items.delete_at(start_index)
+      return result if sorted_items[start_index].nil?
+    end
+    result
   end
 
   def find_all_by_price_in_range(range)
-    items.find_all do |item|
-      range.include?(item.unit_price)
+    sorted_items = sort_by('unit_price')
+    return [] if sorted_items.last.unit_price > range.last
+    start_index = sorted_items.bsearch_index do |item|
+      item.unit_price >= range.first
     end
-  end
-
-  def above_lower_limit(lower, item)
-    item.unit_price > BigDecimal.new(lower)
-  end
-
-  def below_upper_limit(upper, item)
-    item.unit_price < BigDecimal.new(upper)
+    result = []
+    while range.include?(sorted_items[start_index].unit_price)
+      result << sorted_items[start_index]
+      sorted_items.delete_at(start_index)
+      return result if sorted_items[start_index].nil?
+    end
+    result
   end
 
   def find_all_by_merchant_id(id)

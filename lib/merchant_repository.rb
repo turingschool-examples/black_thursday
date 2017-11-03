@@ -22,14 +22,20 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    merchants.find do |merchant|
-      merchant.id.to_s == id.to_s
+    merchants.bsearch do |merchant|
+      merchant.id.to_s >= id.to_s
+    end
+  end
+
+  def sort_by(attribute)
+    merchants.sort_by do |merchant|
+      merchant.send(attribute)
     end
   end
 
   def find_by_name(name)
-    merchants.find do |merchant|
-      merchant.name.upcase == name.upcase
+    sort_by('name').bsearch do |merchant|
+      merchant.name.upcase >= name.upcase
     end
   end
 
