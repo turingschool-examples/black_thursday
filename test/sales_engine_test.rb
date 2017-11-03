@@ -1,7 +1,6 @@
 require_relative "test_helper"
 require_relative "../lib/sales_engine"
 
-
 class SalesEngineTest < Minitest::Test
   attr_reader :se
 
@@ -9,6 +8,7 @@ class SalesEngineTest < Minitest::Test
     @se = SalesEngine.from_csv({
     :items     => "./data/items.csv",
     :merchants => "./data/merchants.csv",
+    :invoices => "./data/invoices.csv"
     })
   end
 
@@ -36,6 +36,7 @@ class SalesEngineTest < Minitest::Test
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
     })
 
     item = se.items.find_by_id(263395237)
