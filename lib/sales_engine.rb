@@ -1,24 +1,29 @@
 require 'pry'
 require_relative "item_repository"
 require_relative "merchant_repository"
+require_relative "invoice_repository"
 
 class SalesEngine
 
   attr_accessor   :items,
-                  :merchants
+                  :merchants,
+                  :invoices
 
   def initialize
     @items      = ItemRepository.new(self)
     @merchants  = MerchantRepository.new(self)
+    @invoices   = InvoiceRepository.new(self)
   end
 
   def self.from_csv(repo)
     items_CSV = repo[:items]
     merchants_CSV = repo[:merchants]
+    invoices_CSV = repo[:invoices]
 
     se = SalesEngine.new
     se.items.populate(items_CSV)
     se.merchants.populate(merchants_CSV)
+    se.invoices.populate(invoices_CSV)
     return se
   end
 

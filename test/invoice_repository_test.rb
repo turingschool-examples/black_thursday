@@ -13,5 +13,43 @@ class InvoiceRepositoryTest < MiniTest::Test
     assert_equal 4, invoice_repo.all.count
   end
 
+  def test_can_find_invoice_by_id
+    invoice_repo = InvoiceRepository.new
+
+    invoice_repo.populate('./test/fixtures/invoices_fixture.csv')
+
+    assert_instance_of Invoice, invoice_repo.find_by_id(2)
+    assert_nil invoice_repo.find_by_id(100)
+  end
+
+  def test_can_find_invoice_by_merchant_id
+    invoice_repo = InvoiceRepository.new
+
+    invoice_repo.populate('./test/fixtures/invoices_fixture.csv')
+
+    assert_instance_of Array, invoice_repo.find_all_by_merchant_id(12334753)
+    assert_equal 1, invoice_repo.find_all_by_merchant_id(12334753).count
+    assert_equal [], invoice_repo.find_all_by_merchant_id(100)
+  end
+
+  def test_can_find_invoice_by_customer_id
+    invoice_repo = InvoiceRepository.new
+
+    invoice_repo.populate('./test/fixtures/invoices_fixture.csv')
+
+    assert_instance_of Array, invoice_repo.find_all_by_customer_id(1)
+    assert_equal 4, invoice_repo.find_all_by_customer_id(1).count
+    assert_equal [], invoice_repo.find_all_by_customer_id(100)
+  end
+
+  def test_can_find_invoice_by_status
+    invoice_repo = InvoiceRepository.new
+    invoice_repo.populate('./test/fixtures/invoices_fixture.csv')
+
+    assert_instance_of Array, invoice_repo.find_all_by_status("shipped")
+    assert_equal 2, invoice_repo.find_all_by_status("shipped").count
+    assert_equal [], invoice_repo.find_all_by_status("hello")
+
+  end
 
 end
