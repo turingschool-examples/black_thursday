@@ -3,10 +3,10 @@ require_relative '../lib/merchant_repository'
 
 class MerchantRepositoryTest < Minitest::Test
 
-  def test_it_pulls_csv_info_from_merchants
-    mr = MerchantRepository.new("./data/merchants.csv")
+  def test_it_pulls_csv_info_from_merchants_fixture
+    mr = MerchantRepository.new("./test/fixture/merchant_fixture.csv")
 
-    assert_equal 475, mr.from_csv("./data/merchants.csv").count
+    assert_equal 6, mr.all.count
   end
 
   def test_it_returns_array_of_all_merchants

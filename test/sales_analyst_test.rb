@@ -46,4 +46,35 @@ class SalesAnalystTest < Minitest::Test
   def test_merchant_list_with_high_item_count
     assert_equal 1, setup.merchants_with_high_item_count.count
   end
+
+  def test_it_averages_item_price_per_merchant
+    assert_instance_of BigDecimal, setup.average_item_price_per_merchant(12334185)
+    assert_equal 0.1117e2, setup.average_item_price_per_merchant(12334185)
+  end
+
+  def test_average_average_price_per_merchant
+    files = ({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    se = SalesEngine.from_csv(files)
+    s_a = SalesAnalyst.new(se)
+
+    assert_instance_of BigDecimal, s_a.average_average_price_per_merchant
+    assert_equal 0.35029e3, s_a.average_average_price_per_merchant
+  end
+
+  def test_find_average_item_price
+    files = ({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    se = SalesEngine.from_csv(files)
+    s_a = SalesAnalyst.new(se)
+
+    assert_equal 0.25106e3, s_a.average_item_price
+  end
+
+  def test_golden_items
+    files = ({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    se = SalesEngine.from_csv(files)
+    s_a = SalesAnalyst.new(se)
+
+    assert_equal 234, s_a.golden_items
+  end
+
 end

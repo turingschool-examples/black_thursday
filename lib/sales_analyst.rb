@@ -52,12 +52,31 @@ class SalesAnalyst
   end
 
   def average_item_price_per_merchant(merchant_id)
+    merch_items = sales_engine.items.find_all_by_merchant_id(merchant_id)
+    sum_price = merch_items.reduce(0) do |sum, item|
+      sum += item.unit_price
+    end
+    roundy = sum_price / merch_items.count
+    roundy.round(2)
   end
 
   def average_average_price_per_merchant
+    prices = sales_engine.merchants.merchants.map do |merchant|
+      average_item_price_per_merchant(merchant.id)
+    end
+    mean(prices).round(2)
+  end
+
+  def average_item_price
+    mean(sales_engine.items.all
+    all.reduce(0) do |sum, item|
+      sum += item.unit_price
+    end)
   end
 
   def golden_items
+    standard_deviation(average_item_price)*2
+    require "pry"; binding.pry
   end
 
 end
