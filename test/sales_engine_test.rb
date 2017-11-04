@@ -5,12 +5,6 @@ class SalesEngineTest < Minitest::Test
   attr_reader :se
 
   def setup
-    # @se = SalesEngine.from_csv({
-    # :items     => "./data/items.csv",
-    # :merchants => "./data/merchants.csv",
-    # :invoices => "./data/invoices.csv"
-    # })
-
     @se = SalesEngine.from_csv({
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -59,6 +53,12 @@ class SalesEngineTest < Minitest::Test
     invoice = se.invoices.find_by_id(20)
 
     assert_instance_of Merchant, invoice.merchant
+  end
+
+  def test_invoice_communicates_with_items
+    invoice = se.invoices.find_by_id(20)
+
+    assert_instance_of Array, invoice.items
   end
 
 end

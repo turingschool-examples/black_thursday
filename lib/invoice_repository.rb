@@ -48,4 +48,14 @@ class InvoiceRepository
     @sales_engine.find_merchant_for_invoice(merchant_id)
   end
 
+  def find_item_ids_from_invoice_id(id)
+    @sales_engine.find_item_ids_from_invoice_id(id)
+  end
+
+  def find_all_items_by_item_id(item_id)
+    @sales_engine.find_all_items_by_item_id(item_id)
+  end
+
+
+
 end
