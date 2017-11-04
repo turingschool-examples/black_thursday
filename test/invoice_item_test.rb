@@ -21,7 +21,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
       :item_id => "22454278",
       :invoice_id => "2",
       :quantity => "4",
-      :unit_price => "10000",
+      :unit_price => "10001",
       :created_at => '2016-01-11 09:34:06 UTC',
       :updated_at => '2007-06-04 21:35:10 UTC'
     }, parent)
@@ -43,7 +43,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal 22454278, ir_2.item_id
     assert_equal 2, ir_2.invoice_id
     assert_equal 4, ir_2.quantity
-    assert_equal 100, ir_2.unit_price
+    assert_equal 100.01, ir_2.unit_price
     assert_equal Time.parse("2016-01-11 09:34:06 UTC"), ir_2.created_at
     assert_equal Time.parse("2007-06-04 21:35:10 UTC"), ir_2.updated_at
     assert_instance_of InvoiceItem, ir_2
@@ -51,6 +51,6 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_unit_price_to_dollars
     assert_equal 4.00, ir_1.unit_price_to_dollars
-    assert_equal 100.00, ir_2.unit_price_to_dollars
+    assert_equal 100.01, ir_2.unit_price_to_dollars
   end
 end
