@@ -47,8 +47,8 @@ class CustomerRepositoryTest < Minitest::Test
 
     assert_equal 2, all_max.count
     assert_instance_of Customer, all_max.first
-    assert_equal "Max", all_max.first_name.first.first_name
-    assert_equal "Max", all_max.first_name.last.first_name
+    assert_equal "Max", all_max.first.first_name
+    assert_equal "Max", all_max.last.first_name
   end
 
   def test_find_all_by_last_name
@@ -56,6 +56,6 @@ class CustomerRepositoryTest < Minitest::Test
 
     assert_equal 1, all_payne.count
     assert_instance_of Customer, all_payne.first
-    assert_equal "Payne", all_payne.first.first_name
+    assert_equal "Payne", all_payne.first.last_name
   end
 end
