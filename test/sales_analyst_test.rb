@@ -21,6 +21,8 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_merchants_with_high_item_count
+    binding.pry
+
     assert_equal [1,7,11], @sales_analyst.merchants_with_high_item_count
   end
 
