@@ -99,7 +99,7 @@ class SalesAnalyst
   def days_with_number_of_invoices
     days_invoice_created.transform_values do |invoices|
       invoices.count
-    end   #THIS IS A HASH
+    end
   end
 
   def average_invoices_per_day
@@ -120,6 +120,18 @@ class SalesAnalyst
       end
     end
     top_days
+  end
+
+  def total_number_of_invoices
+    se.invoices.all.count
+  end
+
+  def number_of_invoices_with_status(status)
+    se.invoices.find_all_by_status(status.to_s).count.to_f
+  end
+
+  def invoice_status(status)
+    (number_of_invoices_with_status(status) / total_number_of_invoices * 100).round(2)
   end
 
     private

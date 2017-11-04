@@ -125,6 +125,7 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_can_get_hash_with_invoices_matched_to_day_created
+    skip
     se = SalesEngine.from_csv({
       :items     => "./test/fixtures/items_fixture.csv",
       :merchants => "./test/fixtures/merchants_fixture.csv",
@@ -167,6 +168,43 @@ class SalesAnalystTest < MiniTest::Test
     sa = SalesAnalyst.new(se)
 
     assert_equal [], sa.top_days_by_invoice_count
+  end
+
+  def test_can_get_total_number_of_invoices
+    se = SalesEngine.from_csv({
+      :items     => "./test/fixtures/items_fixture.csv",
+      :merchants => "./test/fixtures/merchants_fixture.csv",
+      :invoices  => "./test/fixtures/invoices_fixture.csv"
+    })
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 4, sa.total_number_of_invoices
+  end
+
+  def test_can_find_number_of_invoices_pending_shipped_returned
+    se = SalesEngine.from_csv({
+      :items     => "./test/fixtures/items_fixture.csv",
+      :merchants => "./test/fixtures/merchants_fixture.csv",
+      :invoices  => "./test/fixtures/invoices_fixture.csv"
+    })
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 2, sa.number_of_invoices_with_status(:pending)
+    assert_equal 1, sa.number_of_invoices_with_status(:shipped)
+    assert_equal 1, sa.number_of_invoices_with_status(:returned)
+  end
+
+  def test_invoice_status_returns_percentage_of_invoices
+    se = SalesEngine.from_csv({
+      :items     => "./test/fixtures/items_fixture.csv",
+      :merchants => "./test/fixtures/merchants_fixture.csv",
+      :invoices  => "./test/fixtures/invoices_fixture.csv"
+    })
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 50.0, sa.invoice_status(:pending)
+    assert_equal 25.0, sa.invoice_status(:shipped)
+    assert_equal 25.0, sa.invoice_status(:returned)
 
   end
 
