@@ -21,7 +21,10 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_merchants_with_high_item_count
-    assert_equal ["Candis--art", "Motanki--Darena", "byMariein--London"], @sales_analyst.merchants_with_high_item_count
+    merchant_1 = @sales_analyst.sales_engine.merchants.merchants[1]
+    merchant_2 = @sales_analyst.sales_engine.merchants.merchants[7]
+    merchant_3 = @sales_analyst.sales_engine.merchants.merchants[11]
+    assert_equal [merchant_1, merchant_2, merchant_3], @sales_analyst.merchants_with_high_item_count
   end
 
   def test_it_can_determine_average_price_for_merchant
