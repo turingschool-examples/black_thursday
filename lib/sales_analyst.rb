@@ -22,8 +22,8 @@ class SalesAnalyst
   end
 
   def variance_of_items
-     counts = counts_per_merchant(sales_engine.method(:find_merchant_items))
-     counts.map do |count|
+    counts = counts_per_merchant(sales_engine.method(:find_merchant_items))
+    counts.map do |count|
       result = (count - average_items_per_merchant)**2
       result.round(2)
     end
@@ -51,7 +51,7 @@ class SalesAnalyst
     end
   end
 
-  def average_item_price_per_merchant(merchant_id)
+  def average_item_price_for_merchant(merchant_id)
     merch_items = sales_engine.items.find_all_by_merchant_id(merchant_id)
     sum_price = merch_items.reduce(0) do |sum, item|
       sum += item.unit_price
@@ -62,21 +62,23 @@ class SalesAnalyst
 
   def average_average_price_per_merchant
     prices = sales_engine.merchants.merchants.map do |merchant|
-      average_item_price_per_merchant(merchant.id)
+      average_item_price_for_merchant(merchant.id)
     end
     mean(prices).round(2)
   end
 
   def average_item_price
-    mean(sales_engine.items.all
-    all.reduce(0) do |sum, item|
+    all = sales_engine.items.all
+    avg_item = all.reduce(0) do |sum, item|
       sum += item.unit_price
-    end)
+    end
+    avg_avg = avg_item / sales_engine.items.all.count
+    avg_avg.round(2)
   end
 
   def golden_items
     standard_deviation(average_item_price)*2
-    require "pry"; binding.pry
+    # require "pry"; binding.pry
   end
 
 end
