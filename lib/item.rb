@@ -18,7 +18,7 @@ class Item # < ItemRepo
   end
 
   def merchant
-    repository.merchant(merchant_id)
+    repository.merchant(@merchant_id)
   end
 
   def unit_price_to_dollars
@@ -26,8 +26,3 @@ class Item # < ItemRepo
   end
 
 end
-
-
-# description - returns the description of the item
-# created_at - returns a Time instance for the date the item was first created
-# updated_at - returns a Time instance for the date the item was last modified

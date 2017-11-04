@@ -1,6 +1,7 @@
 require 'csv'
 require_relative '../lib/create_elements'
 require_relative '../lib/item'
+require 'pry'
 
 class ItemRepository
 
@@ -18,7 +19,7 @@ class ItemRepository
   end
 
   def merchant(id)
-    repository.merchant(id)
+    engine.merchant(id)
   end
 
   def all

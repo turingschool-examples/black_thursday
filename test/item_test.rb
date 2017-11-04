@@ -29,17 +29,4 @@ class ItemTest < MiniTest::Test
     assert_equal "Kecken--bauer", item.name
   end
 
-# 
-#   def test_that_item_has_attributes
-#     item = @items.
-#   end
-# #
-#   def test_it_converts_price_to_dollars
-#     @sales_engine.items.create_item({:name => "A thing", :merchant_id => 6,
-#     :id => 5, :description => "does things", :unit_price => 5000})
-#     item = @sales_engine.items.items.first
-#
-#     assert_equal 50.00, item.unit_price_to_dollars
-#   end
-#
 end
