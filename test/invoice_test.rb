@@ -62,8 +62,8 @@ class InvoiceTest < Minitest::Test
     invoice_1.parent.stubs(:find_transaction_by_invoice_id).with(24680).returns(true)
     invoice_2.parent.stubs(:find_transaction_by_invoice_id).with(13579).returns(true)
 
-    assert invoice_1.transaction
-    assert invoice_2.transaction
+    assert invoice_1.transactions
+    assert invoice_2.transactions
   end
 
   def test_can_use_customer

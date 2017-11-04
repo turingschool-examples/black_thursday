@@ -59,7 +59,7 @@ class TransactionTest < Minitest::Test
       :created_at => "2010-11-01",
       :updated_at => "2017-12-02"
       }, parent)
-    parent.stubs(:find_by_invoice_id).with(23456).returns(true)
+    parent.stubs(:find_invoice_by_invoice_id).with(23456).returns(true)
 
     assert transaction.invoice
   end

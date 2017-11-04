@@ -60,8 +60,8 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_can_call_find_by_customer_id
-    customers.all.first.parent.stubs(:find_by_customer_id).with(123).returns(true)
+    customers.parent.stubs(:find_merchant_by_customer_id).with(123).returns(true)
 
-    assert customers.find_by_customer_id(123)
+    assert customers.find_merchant_by_customer_id(123)
   end
 end

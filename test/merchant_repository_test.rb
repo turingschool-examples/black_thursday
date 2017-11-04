@@ -54,4 +54,10 @@ class MerchantRepositoryTest < Minitest::Test
 
     assert mr.find_all_invoices_by_merchant_id('12345')
   end
+
+  def test_use_find_all_customers
+    mr.parent.stubs(:find_all_customers_by_merchant_id).with('12345').returns(true)
+
+    assert mr.find_all_customers_by_merchant_id('12345')
+  end
 end

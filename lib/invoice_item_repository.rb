@@ -30,4 +30,8 @@ class InvoiceItemRepository
       invoice_item.invoice_id.to_i == invoice_id.to_i
     end
   end
+
+  def inspect
+    "#<#{self.class} #{@invoice_items.size} rows>"
+  end
 end
