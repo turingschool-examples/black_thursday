@@ -34,8 +34,4 @@ class CustomerRepository
   def inspect
     "#<#{self.class} #{@customers.size} rows>"
   end
-
-  def method_name
-
-  end
 end

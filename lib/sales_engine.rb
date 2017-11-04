@@ -13,12 +13,12 @@ class SalesEngine
               :customers,
               :invoice_items
 
-  def initialize(repositories)
-    @items = ItemRepository.new(repositories[:items], self)
-    @merchants = MerchantRepository.new(repositories[:merchants], self)
-    @invoices = InvoiceRepository.new(repositories[:invoices], self)
-    @transactions = TransactionRepository.new(repositories[:transactions], self)
-    @customers = CustomerRepository.new(repositories[:customers], self)
+  def initialize(repository)
+    @items = ItemRepository.new(repository[:items], self)
+    @merchants = MerchantRepository.new(repository[:merchants], self)
+    @invoices = InvoiceRepository.new(repository[:invoices], self)
+    @transactions = TransactionRepository.new(repository[:transactions], self)
+    @customers = CustomerRepository.new(repository[:customers], self)
     @invoice_items = nil
   end
 
