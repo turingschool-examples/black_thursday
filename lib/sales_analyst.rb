@@ -51,7 +51,7 @@ class SalesAnalyst
 
   def merchants_with_high_item_count
     high_item_count_merchant_ids.map do |merchant_id|
-      @sales_engine.merchants.find_by_id(merchant_id).name
+      @sales_engine.merchants.find_by_id(merchant_id)
     end
   end
 
@@ -69,9 +69,8 @@ class SalesAnalyst
   end
 
   def average_average_price_per_merchant
-    average_price = @sales_engine.items.items.reduce(0) do |result,item|
-      result += item.unit_price
-      result
+    average_price = @sales_engine.merchants.all.reduce(0) do |result,merchant|
+      result += average_item_price_for_merchant(merchant.id)
     end/total_merchants
     average_price.round(2)
   end

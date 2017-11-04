@@ -13,28 +13,24 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_that_we_find_average_items_per_merchant
-    assert_equal 0.83, @sales_analyst.average_items_per_merchant
+    assert_equal 2.0, @sales_analyst.average_items_per_merchant
   end
 
   def test_it_can_find_standard_deviation
-    assert_equal 1.06, @sales_analyst.average_items_per_merchant_standard_deviation
+    assert_equal 0.87, @sales_analyst.average_items_per_merchant_standard_deviation
   end
 
   def test_it_can_find_merchants_with_high_item_count
-<<<<<<< HEAD
-    binding.pry
+    merchant_1 = @sales_analyst.sales_engine.merchants.merchants[0]
 
-    assert_equal [1,7,11], @sales_analyst.merchants_with_high_item_count
-=======
-    assert_equal ["Candis--art", "Motanki--Darena", "byMariein--London"], @sales_analyst.merchants_with_high_item_count
->>>>>>> 2720801e5555c5d4cfd4a6f2962a9c746d897011
+    assert_equal [merchant_1], @sales_analyst.merchants_with_high_item_count
   end
 
-  def test_it_can_determine_average_price_for_merchant
+  def test_it_can_determine_average_price_for_merchant_with_id
     assert_equal 48.33, @sales_analyst.average_item_price_for_merchant(12334112)
   end
 
-  def test_it_can_determine_average_price_per_merchant
-    assert_equal 147.50, @sales_analyst.average_average_price_per_merchant
+  def test_it_can_determine_average_average_price_per_merchant
+    assert_equal 233.66, @sales_analyst.average_average_price_per_merchant
   end
 end
