@@ -1,7 +1,7 @@
 require_relative './test_helper'
 require './lib/invoice_item_repository'
 
-class InvoiceRepositoryTest < Minitest::Test
+class InvoiceItemsRepositoryTest < Minitest::Test
 
   def test_it_exists
     parent = mock('parent')
@@ -118,7 +118,7 @@ class InvoiceRepositoryTest < Minitest::Test
       :updated_at => '2007-06-04 21:35:10 UTC'
     }]
     ir = InvoiceItemRepository.new(invoice_items, parent)
-    assert_equal 7, ir.find_by_invoice_id("7")[0].invoice_id
-    assert_equal 2, ir.find_by_invoice_id("2")[0].invoice_id
+    assert_equal 7, ir.find_all_by_invoice_id("7")[0].invoice_id
+    assert_equal 2, ir.find_all_by_invoice_id("2")[0].invoice_id
   end
 end

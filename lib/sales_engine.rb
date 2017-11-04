@@ -4,6 +4,7 @@ require_relative './merchant_repository'
 require_relative './invoice_repository'
 require_relative './transaction_repository'
 require_relative './customer_repository'
+require_relative './invoice_item_repository'
 
 class SalesEngine
   attr_reader :items,
@@ -19,7 +20,7 @@ class SalesEngine
     @invoices = InvoiceRepository.new(repository[:invoices], self)
     @transactions = TransactionRepository.new(repository[:transactions], self)
     @customers = CustomerRepository.new(repository[:customers], self)
-    @invoice_items = nil
+    @invoice_items = InvoiceItemRepository.new(repository[:invoice_items], self)
   end
 
   def self.from_csv(files)
@@ -52,7 +53,11 @@ class SalesEngine
   end
 
   def find_invoice_items_by_invoice_id(invoice_id)
-    invoice_items.find_all_by_invoice_id(invoice_id)
+    current_invoice_items = invoice_items.find_all_by_invoice_id(invoice_id)
+    
+    current_invoice_items.map do |item|
+      items.find_by_id(item.item_id)
+    end
   end
 
   def find_transaction_by_invoice_id(invoice_id)

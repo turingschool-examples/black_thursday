@@ -50,7 +50,6 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_find_items_for_invoice
-    skip
     invoice = se.invoices.find_by_id(1495)
     invoice_items = invoice.items
 
