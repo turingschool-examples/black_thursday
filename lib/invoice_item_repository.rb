@@ -33,5 +33,8 @@ class InvoiceItemRepository
   # find_all_by_invoice_id - returns either [] or one or more matches which have a matching invoice ID
   #
 
+  def inspect
+      "#<#{self.class} #{@invoice_items.size} rows>"
+  end
 
 end

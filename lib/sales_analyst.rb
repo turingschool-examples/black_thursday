@@ -69,29 +69,33 @@ class SalesAnalyst
   end
 
   def average_average_price_per_merchant
-    average_price = @sales_engine.items.items.reduce(0) do |result,item|
-      result += item.unit_price
-      result
+    average_price = @sales_engine.merchants.all.reduce(0) do |result,merchant|
+      result += average_item_price_for_merchant(merchant.id)
     end/total_merchants
     average_price.round(2)
   end
 
-  def golden_items
-    # calculate_std_dev.find_all do |merchant|
-    #   merchant ** 2
-
+  def average_item_price
+    (@sales_engine.items.all.reduce(0) do |result,item|
+      result += item.unit_price
+    end/total_items).round(2)
   end
 
+  def item_std_dev
+    Math.sqrt(item_std_dev_calculate_sum / (total_items-1)).round(2)
+  end
+
+  def item_std_dev_calculate_sum
+    average_price = average_item_price
+    @sales_engine.items.all.reduce(0) do |result, item|
+      squared_difference = (average_price - item.unit_price) ** 2
+      result + squared_difference
+    end
+  end
+
+  def golden_items
+    @sales_engine.items.all.map do |item|
+      item if item.unit_price > (average_item_price + (item_std_dev*2))
+    end.compact
+  end
 end
-
-
-# merchant_ids = pull_all_merchant_ids
-# items_per_merchant = find_items_per_merchant
-# merchants_index =[]
-# items_per_merchant.each_with_index do |merchant,index|
-#   merchants_index << index if (merchant > (average_items_per_merchant + calculate_std_dev))
-# end
-# @sales_engine.merchants.merchants.map do |merchant|
-#   if
-#   merchant.name
-# end
