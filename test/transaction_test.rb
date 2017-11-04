@@ -48,4 +48,20 @@ class TransactionTest < Minitest::Test
     assert transaction.parent
   end
 
+  def test_it_can_use_invoice
+    parent = mock("parent")
+    transaction = Transaction.new({
+      :id => 443322,
+      :invoice_id => 23456,
+      :credit_card_number => 8765432187654321,
+      :credit_card_expiration_date => 1111,
+      :result => "failed",
+      :created_at => "2010-11-01",
+      :updated_at => "2017-12-02"
+      }, parent)
+    parent.stubs(:find_by_invoice_id).with(23456).returns(true)
+
+    assert transaction.invoice
+  end
+
 end
