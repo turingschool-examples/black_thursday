@@ -59,7 +59,6 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_find_customer_for_invoice
-    skip
     invoice = se.invoices.find_by_id(1495)
     customer = invoice.customer
 
@@ -68,11 +67,10 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_find_transaction_for_invoice
-    skip
     invoice = se.invoices.find_by_id(1495)
     transaction = invoice.transaction
 
-    assert_instance_of Transaction, transaction
-    assert_equal 'success', transaction.result
+    assert_instance_of Transaction, transaction.first
+    assert_equal 'success', transaction.first.result
   end
 end

@@ -36,7 +36,7 @@ class InvoiceRepository
     end
   end
 
-  def find_merchant_by_merchant_id(merchant_id)
+  def find_merchant_by_id(merchant_id)
     parent.find_merchant_by_id(merchant_id)
   end
 

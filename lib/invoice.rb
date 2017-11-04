@@ -20,7 +20,7 @@ class Invoice
   end
 
   def merchant
-    parent.find_merchant_by_merchant_id(merchant_id)
+    parent.find_merchant_by_id(merchant_id)
   end
 
   def items
@@ -32,6 +32,6 @@ class Invoice
   end
 
   def customer
-    parent.find_customer_by_id(id)
+    parent.find_customer_by_id(customer_id)
   end
 end

@@ -43,8 +43,8 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_can_use_merchant
-    invoice_1.parent.stubs(:find_merchant_by_merchant_id).with(54321).returns(true)
-    invoice_2.parent.stubs(:find_merchant_by_merchant_id).with(65432).returns(true)
+    invoice_1.parent.stubs(:find_merchant_by_id).with(54321).returns(true)
+    invoice_2.parent.stubs(:find_merchant_by_id).with(65432).returns(true)
 
     assert invoice_1.merchant
     assert invoice_2.merchant
@@ -67,8 +67,8 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_can_use_customer
-    invoice_1.parent.stubs(:find_customer_by_id).with(24680).returns(true)
-    invoice_2.parent.stubs(:find_customer_by_id).with(13579).returns(true)
+    invoice_1.parent.stubs(:find_customer_by_id).with(12345).returns(true)
+    invoice_2.parent.stubs(:find_customer_by_id).with(23456).returns(true)
 
     assert invoice_1.customer
     assert invoice_2.customer
