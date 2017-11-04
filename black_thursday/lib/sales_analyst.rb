@@ -50,14 +50,13 @@ class SalesAnalyst
     Math.sqrt(mean.sum / (engine.merchants.all.count - 1)).round(2)
   end
 
-  # def average_items_per_merchant_standard_deviation
-  #   merchants = @engine.merchants.all
-  #   merchant_average_prices = merchants.map { |merchant| average_item_price_for_merchant(merchant.id)}
-  #   standard_deviation(merchant_average_prices)
-  # end
-  #
-  # def standard_deviation(set)
-  #   mean = set.sum.to_f / set.count
-  #   Math.sqrt((set.map { |number| (number - mean) ** 2 }.sum) / (set.count - 1))
-  # end
+  def one_standard_dev
+    (average_items_per_merchant + average_items_per_merchant_standard_deviation)
+  end
+
+  def merchants_with_high_item_count
+    engine.merchants.all.find_all do |merchant|
+      merchant.items.length > one_standard_dev
+    end
+  end
 end

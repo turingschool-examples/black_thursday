@@ -8,8 +8,8 @@ class SalesAnalystTest < Minitest::Test
 
   def setup
     @engine = SalesEngine.from_csv(
-      items: './data/items.csv',
-      merchants: './data/merchants.csv',
+      items: './test/fixtures/truncated_items.csv',
+      merchants: './test/fixtures/truncated_merchants.csv',
       invoices: './test/fixtures/truncated_invoices.csv',
       transactions: './test/fixtures/truncated_transactions.csv'
     )
@@ -39,5 +39,9 @@ class SalesAnalystTest < Minitest::Test
   def test_can_find_average_items_per_merchant_standard_deviation
     result = analyst.average_items_per_merchant_standard_deviation
     assert_equal 3.26, result
+  end
+
+  def test_can_find_merchants_with_high_item_count
+    assert_equal '', analyst.merchants_with_high_item_count
   end
 end
