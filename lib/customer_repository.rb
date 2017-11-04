@@ -37,7 +37,6 @@ class CustomerRepository
     @all.find_all do |customer|
       # customer.last_name.downcase == last_name.downcase
       customer.last_name.include?(last_name)
-
     end
   end
 
