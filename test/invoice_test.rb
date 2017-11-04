@@ -49,4 +49,28 @@ class InvoiceTest < Minitest::Test
     assert invoice_1.merchant
     assert invoice_2.merchant
   end
+
+  def test_can_use_items
+    invoice_1.parent.stubs(:find_invoice_items_by_invoice_id).with(24680).returns(true)
+    invoice_2.parent.stubs(:find_invoice_items_by_invoice_id).with(13579).returns(true)
+
+    assert invoice_1.items
+    assert invoice_2.items
+  end
+
+  def test_can_use_transaction
+    invoice_1.parent.stubs(:find_transaction_by_invoice_id).with(24680).returns(true)
+    invoice_2.parent.stubs(:find_transaction_by_invoice_id).with(13579).returns(true)
+
+    assert invoice_1.transaction
+    assert invoice_2.transaction
+  end
+
+  def test_can_use_customer
+    invoice_1.parent.stubs(:find_customer_by_invoice_id).with(24680).returns(true)
+    invoice_2.parent.stubs(:find_customer_by_invoice_id).with(13579).returns(true)
+
+    assert invoice_1.customer
+    assert invoice_2.customer
+  end
 end
