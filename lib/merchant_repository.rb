@@ -2,17 +2,19 @@ require_relative "merchant"
 require "csv"
 
 class MerchantRepository
-  attr_reader :merchants
+  attr_reader :merchants, :sales_engine
 
-  def initialize(merchant_file)
+  def initialize(merchant_file, sales_engine)
     @merchants = []
     merchants_from_csv(merchant_file)
+    @sales_engine = sales_engine
   end
 
-  def merchants_from_csv(file)
-    CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
-      @merchants << Merchant.new(row)
+  def merchants_from_csv(merchant_file)
+    CSV.foreach(merchant_file, headers: true, header_converters: :symbol) do |row|
+      @merchants << Merchant.new(row, self)
     end
+    @merchants
   end
 
   def all
@@ -31,6 +33,10 @@ class MerchantRepository
     @merchants.find_all do |merchant|
       merchant.name.downcase.include?(fragment.downcase)
     end
+  end
+
+  def merch_items(merchant_id)
+    sales_engine.find_merchant_items(merchant_id)
   end
 
   def inspect

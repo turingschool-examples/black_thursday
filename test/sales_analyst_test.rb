@@ -6,7 +6,8 @@ class SalesAnalystTest < Minitest::Test
   attr_reader :sa, :se
   def setup
     files = ({:items => "./test/fixture/item_fixture.csv",
-              :merchants => "./test/fixture/merchant_fixture.csv"})
+              :merchants => "./test/fixture/merchant_fixture.csv",
+              :invoices =>"./data/invoices.csv"})
     @se = SalesEngine.from_csv(files)
     @sa = SalesAnalyst.new(se)
   end
@@ -74,12 +75,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_golden_items
-    skip
     files = ({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
     se = SalesEngine.from_csv(files)
     s_a = SalesAnalyst.new(se)
 
-    assert_equal 234, s_a.golden_items
+    assert_equal 5, s_a.golden_items.count
   end
 
 end

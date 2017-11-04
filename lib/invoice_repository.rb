@@ -4,14 +4,14 @@ require "csv"
 class InvoiceRepository
   attr_reader :invoices
 
-  def initialize(invoice_file)
+  def initialize(invoice_file, sales_engine)
     @invoices = []
     invoices_from_csv(invoice_file)
   end
 
   def invoices_from_csv(invoice_file)
     CSV.foreach(invoice_file, headers: true, header_converters: :symbol) do |row|
-      @invoices << Invoice.new(row)
+      @invoices << Invoice.new(row, self)
     end
   end
 
@@ -35,5 +35,9 @@ class InvoiceRepository
 
   def find_all_by_status(status)
     @invoices.find_all {|invoice| invoice.status == status}
+  end
+
+  def inspect
+    "#{self.class} #{invoice.size} rows"
   end
 end

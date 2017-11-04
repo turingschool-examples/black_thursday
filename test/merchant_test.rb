@@ -1,29 +1,27 @@
 require_relative 'test_helper'
 require_relative '../lib/merchant'
+require_relative '../lib/sales_engine'
 
 class MerchantTest < Minitest::Test
-  def test_it_exists
-    merchant = Merchant.new({:id => "12334113", :name => "MiniatureBikez",  :created_at => "2010-03-30", :updated_at => "2013-01-21"})
+  def setup
+    merchant = ({:id => "12334113", :name => "MiniatureBikez",  :created_at => "2010-03-30", :updated_at => "2013-01-21"})
+    merch = Merchant.new(merchant, [])
+  end
 
-    assert_instance_of Merchant, merchant
+  def test_it_exists
+    assert_instance_of Merchant, setup
   end
 
   def test_it_returns_correct_id
-    merchant = Merchant.new({:id => "12334113", :name => "MiniatureBikez",  :created_at => "2010-03-30", :updated_at => "2013-01-21"})
-
-    assert_equal 12334113, merchant.id
+    assert_equal 12334113, setup.id
   end
 
   def test_it_returns_correct_name
-    merchant = Merchant.new({:id => "12334113", :name => "MiniatureBikez",  :created_at => "2010-03-30", :updated_at => "2013-01-21"})
-
-    assert_equal "MiniatureBikez", merchant.name
+    assert_equal "MiniatureBikez", setup.name
   end
 
   def test_time_returns_time_exists
-    merchant = Merchant.new({:id => "12334113", :name => "MiniatureBikez",  :created_at => "2010-03-30", :updated_at => "2013-01-21"})
-
-    assert_instance_of Time, merchant.created_at
-    assert_instance_of Time, merchant.updated_at
+    assert_instance_of Time, setup.created_at
+    assert_instance_of Time, setup.updated_at
   end
 end

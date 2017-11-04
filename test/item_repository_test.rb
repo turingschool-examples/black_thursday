@@ -1,9 +1,10 @@
 require_relative 'test_helper'
 require_relative '../lib/item_repository'
+require_relative '../lib/sales_engine'
 
 class ItemRepositoryTest < Minitest::Test
   def test_it_exists
-    ir = ItemRepository.new("./data/items.csv")
+    ir = ItemRepository.new("./data/items.csv", sales_engine)
 
     assert_instance_of ItemRepository, ir
   end
