@@ -50,9 +50,30 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
+    high_item_count_merchant_ids.map do |merchant_id|
+      @sales_engine.merchants.find_by_id(merchant_id).name
+    end
+  end
+
+  def high_item_count_merchant_ids
     merchants_and_item_count.map do |merchant_id,item_count|
       merchant_id if item_count > (average_items_per_merchant + calculate_std_dev)
-    end
+    end.compact
+  end
+
+  def average_item_price_for_merchant(merchant_id)
+    item_prices = @sales_engine.items.items.map do |item|
+      item.unit_price if item.merchant_id == merchant_id
+    end.compact
+    (item_prices.sum/item_prices.length).round(2)
+  end
+
+  def average_average_price_per_merchant
+    average_price = @sales_engine.items.items.reduce(0) do |result,item|
+      result += item.unit_price
+      result
+    end/total_merchants
+    average_price.round(2)
   end
 
   def golden_items
