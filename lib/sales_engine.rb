@@ -22,7 +22,7 @@ class SalesEngine
     @invoices                 = InvoiceRepository.new(self)
     @customers                = CustomerRepository.new(self)
     @transactions             = TransactionRepository.new(self)
-    @invoice_item_repository  = InvoiceItemRepository.new(self)
+    @invoice_items            = InvoiceItemRepository.new(self)
   end
 
   def self.from_csv(repo)
@@ -31,7 +31,7 @@ class SalesEngine
     invoices_CSV = repo[:invoices]
     customers_CSV = repo[:customers]
     transactions_CSV = repo[:transactions]
-    inv_item_CSV = rep[:invoice_items]
+    inv_item_CSV = repo[:invoice_items]
 
     se = SalesEngine.new
     se.items.populate(items_CSV)
@@ -39,7 +39,7 @@ class SalesEngine
     se.invoices.populate(invoices_CSV)
     se.customers.populate(customers_CSV)
     se.transactions.populate(transactions_CSV)
-    se.invoice_item_repository.populate(inv_item_CSV)
+    se.invoice_items.populate(inv_item_CSV)
     return se
   end
 
