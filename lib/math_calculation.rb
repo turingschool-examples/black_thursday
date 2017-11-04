@@ -1,6 +1,5 @@
 module MathCalculation
 
-
   def average(numbers)
     numbers.sum.to_f / numbers.count
   end
