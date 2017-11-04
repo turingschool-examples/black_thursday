@@ -26,12 +26,12 @@ class SalesEngine
   end
 
   def self.from_csv(repo)
-    items_CSV = repo[:items]
-    merchants_CSV = repo[:merchants]
-    invoices_CSV = repo[:invoices]
-    customers_CSV = repo[:customers]
-    transactions_CSV = repo[:transactions]
-    inv_item_CSV = repo[:invoice_items]
+    items_CSV         = repo[:items]
+    merchants_CSV     = repo[:merchants]
+    invoices_CSV      = repo[:invoices]
+    customers_CSV     = repo[:customers]
+    transactions_CSV  = repo[:transactions]
+    inv_item_CSV      = repo[:invoice_items]
 
     se = SalesEngine.new
     se.items.populate(items_CSV)
@@ -57,6 +57,14 @@ class SalesEngine
 
   def find_merchant_for_invoice(merchant_id)
     @merchants.find_by_id(merchant_id)
+  end
+
+  def find_item_ids_from_invoice_id(id)
+    @invoice_items.find_all_by_invoice_id(id)
+  end
+
+  def find_all_items_by_item_id(item_id)
+    @items.find_by_id(item_id)
   end
 
 end

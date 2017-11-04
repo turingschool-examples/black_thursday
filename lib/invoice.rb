@@ -1,4 +1,5 @@
 require 'time'
+require 'pry'
 
 class Invoice
   attr_reader     :id,
@@ -20,6 +21,12 @@ class Invoice
 
   def merchant
     @invoice_repo.find_merchant_for_invoice(merchant_id)
+  end
+
+  def items
+    @invoice_repo.find_item_ids_from_invoice_id(id).map do |invoice_item|
+      @invoice_repo.find_all_items_by_item_id(invoice_item.item_id)
+    end
   end
 
 end
