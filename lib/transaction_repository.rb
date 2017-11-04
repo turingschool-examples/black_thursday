@@ -48,10 +48,4 @@ class TransactionRepository
     end
   end
 
-  def find_by_name(name)
-    @all.find do |transaction|
-      transaction.name.downcase.strip == name.downcase.strip
-    end
-  end
-
 end
