@@ -1,10 +1,13 @@
 require_relative 'sales_engine'
 require_relative 'time_calculation'
+require_relative 'math_calculation'
 require 'bigdecimal'
 require 'pry'
 
 class SalesAnalyst
   include TimeCalculation
+  include MathCalculation
+
   attr_reader :se
 
   def initialize(se)
@@ -45,13 +48,6 @@ class SalesAnalyst
     se.merchants.all.find_all do |merchant|
       merchant.invoices.count < average - (2 * standard_deviation)
     end
-  end
-
-  def standard_deviation(numbers, average = average(numbers))
-    num = numbers.map do |number|
-      (number - average) ** 2
-    end.sum
-    Math.sqrt(num / (numbers.count - 1)).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
@@ -135,10 +131,6 @@ class SalesAnalyst
   end
 
     private
-
-      def average(numbers)
-        numbers.sum.to_f / numbers.count
-      end
 
       def all_item_prices
         se.items.all.map do |item|
