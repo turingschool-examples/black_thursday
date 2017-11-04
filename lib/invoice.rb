@@ -32,6 +32,6 @@ class Invoice
   end
 
   def customer
-    parent.find_customer_by_invoice_id(id)
+    parent.find_customer_by_id(id)
   end
 end
