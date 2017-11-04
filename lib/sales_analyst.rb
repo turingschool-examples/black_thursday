@@ -46,9 +46,17 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    find_items_per_merchant.find_all do |merchant|
-      merchant > (average_items_per_merchant + calculate_std_dev)
-    end
+    # merchant_ids = pull_all_merchant_ids
+    # items_per_merchant = find_items_per_merchant
+    # merchants_index =[]
+    # items_per_merchant.each_with_index do |merchant,index|
+    #   merchants_index << index if (merchant > (average_items_per_merchant + calculate_std_dev))
+    # end
+    # @sales_engine.merchants.merchants.map do |merchant|
+    #   if
+    #   merchant.name
+    # end
+
   end
 
   def golden_items
