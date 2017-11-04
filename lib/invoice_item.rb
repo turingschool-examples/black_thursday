@@ -13,8 +13,4 @@ class InvoiceItem
     @updated_at = Time.parse(data[:updated_at])
     @repository = repository
   end
-
-
-
-
 end

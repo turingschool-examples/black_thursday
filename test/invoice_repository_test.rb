@@ -7,9 +7,11 @@ class InvoiceRepositoryTest < MiniTest::Test
 
   def setup
     @sales_engine = SalesEngine.from_csv({:items => './test/fixtures/items_fixture.csv',
-    :merchants => './test/fixtures/merchants.csv',
-    :invoices => './test/fixtures/invoices.csv'})
+                                          :merchants => './test/fixtures/merchants.csv',
+                                          :invoices => './test/fixtures/invoices.csv',
+                                          :invoice_items => './test/fixtures/invoice_items.csv'})
     @invoices = @sales_engine.invoices
+    @merchants = @sales_engine.merchants
   end
 
   def test_that_invoices_are_created
@@ -59,6 +61,12 @@ class InvoiceRepositoryTest < MiniTest::Test
 
     assert_equal ([]), @invoices.find_all_by_status("return")
     assert_equal result, @invoices.find_all_by_status("pending")
+  end
+
+  def test_that_it_finds_merchant_by_invoice_id
+    merchant1 = @merchants.all[0]
+
+    assert_equal merchant1, @invoices.find_merchant(12334112)
   end
 
 end

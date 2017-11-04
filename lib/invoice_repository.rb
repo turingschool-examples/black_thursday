@@ -7,7 +7,7 @@ class InvoiceRepository
 
   include CreateElements
 
-  attr_reader :invoice_file, :engine
+  attr_reader :invoices, :engine
 
   def initialize(invoice_file, engine)
     @invoices = create_elements(invoice_file).map {|invoice| Invoice.new(invoice, self)}
@@ -36,7 +36,7 @@ class InvoiceRepository
 
   def find_all_by_merchant_id(merchant_id)
     invoices.find_all do |invoice|
-      invoice.merchant_id == merchant_id.to_s
+      invoice.merchant_id == merchant_id
     end
   end
 
@@ -45,6 +45,11 @@ class InvoiceRepository
       invoice.status == status
     end
   end
+
+  def find_merchant(id)
+    engine.merchant(id)
+  end
+
 
   def inspect
     "#<#{self.class} #{@invoices.size} rows>"
