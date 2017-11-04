@@ -59,4 +59,28 @@ class InvoiceRepositoryTest < Minitest::Test
 
     assert invoice_repo.find_all_by_merchant_id("54321")
   end
+
+  def test_can_use_find_merchant_by_merchant_id
+    invoice_repo.parent.stubs(:find_merchant_by_id).with("54321").returns(true)
+
+    assert invoice_repo.find_merchant_by_id('54321')
+  end
+
+  def test_can_use_find_invoice_items_by_invoice_id
+    invoice_repo.parent.stubs(:find_invoice_items_by_invoice_id).with(24680).returns(true)
+
+    assert invoice_repo.find_invoice_items_by_invoice_id(24680)
+  end
+
+  def test_can_use_find_transaction_by_invoice_id
+    invoice_repo.parent.stubs(:find_transaction_by_invoice_id).with(24680).returns(true)
+
+    assert invoice_repo.find_transaction_by_invoice_id(24680)
+  end
+
+  def test_can_use_find_customer_by_customer_id
+    invoice_repo.parent.stubs(:find_customer_by_id).with(12345).returns(true)
+
+    assert invoice_repo.find_customer_by_id(12345)
+  end
 end

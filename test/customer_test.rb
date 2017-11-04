@@ -49,7 +49,7 @@ class CustomerTest < Minitest::Test
       :created_at => '1990-07-18',
       :updated_at => '2017-11-03'
       }, parent)
-    parent.stubs(:find_by_customer_id).with(112233).returns(true)
+    parent.stubs(:find_merchant_by_customer_id).with(112233).returns(true)
 
     assert customer.merchants
   end

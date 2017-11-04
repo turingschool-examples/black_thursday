@@ -43,10 +43,66 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_can_use_merchant
-    invoice_1.parent.stubs(:find_merchant_by_merchant_id).with(54321).returns(true)
-    invoice_2.parent.stubs(:find_merchant_by_merchant_id).with(65432).returns(true)
+    invoice_1.parent.stubs(:find_merchant_by_id).with(54321).returns(true)
+    invoice_2.parent.stubs(:find_merchant_by_id).with(65432).returns(true)
 
     assert invoice_1.merchant
     assert invoice_2.merchant
   end
+
+  def test_can_use_items
+    invoice_1.parent.stubs(:find_items_by_invoice_id).with(24680).returns(true)
+    invoice_2.parent.stubs(:find_items_by_invoice_id).with(13579).returns(true)
+
+    assert invoice_1.items
+    assert invoice_2.items
+  end
+
+  def test_can_use_transaction
+    invoice_1.parent.stubs(:find_transaction_by_invoice_id).with(24680).returns(true)
+    invoice_2.parent.stubs(:find_transaction_by_invoice_id).with(13579).returns(true)
+
+    assert invoice_1.transactions
+    assert invoice_2.transactions
+  end
+
+  def test_can_use_customer
+    invoice_1.parent.stubs(:find_customer_by_id).with(12345).returns(true)
+    invoice_2.parent.stubs(:find_customer_by_id).with(23456).returns(true)
+
+    assert invoice_1.customer
+    assert invoice_2.customer
+  end
+
+  def test_is_paid_in_full?
+    transaction_1 = mock('transaction')
+    transaction_1.stubs(:result).returns('success')
+
+    transaction_2 = mock('transaction')
+    transaction_2.stubs(:result).returns('fail')
+
+    invoice_1.parent.stubs(:find_transaction_by_invoice_id).with(24680).returns([transaction_1])
+    invoice_2.parent.stubs(:find_transaction_by_invoice_id).with(13579).returns([transaction_2])
+
+    assert invoice_1.is_paid_in_full?
+    refute invoice_2.is_paid_in_full?
+  end
+
+  def test_invoice_total
+    invoice_item_1 = mock('item')
+    invoice_item_1.stubs(:unit_price).returns(1000)
+    invoice_item_1.stubs(:quantity).returns(1)
+    invoice_item_2 = mock('item')
+    invoice_item_2.stubs(:quantity).returns(2)
+    invoice_item_2.stubs(:unit_price).returns(1500)
+    transaction = mock('transaction')
+    transaction.stubs(:result).returns('success')
+
+    invoice_1.parent.stubs(:find_invoice_items_by_invoice_id).with(24680).returns([invoice_item_1, invoice_item_2])
+    invoice_1.parent.stubs(:find_transaction_by_invoice_id).with(24680).returns([transaction])
+
+
+    assert_equal 4000, invoice_1.total
+  end
+
 end

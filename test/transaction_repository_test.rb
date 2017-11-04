@@ -68,4 +68,10 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal 1, actual.count
     assert_equal 'failed', actual.first.result
   end
+
+  def test_can_call_find_invoice_by_invoice_id
+    transactions.parent.stubs(:find_invoice_by_invoice_id).with(12345).returns(true)
+
+    assert transactions.find_invoice_by_invoice_id(12345)
+  end
 end

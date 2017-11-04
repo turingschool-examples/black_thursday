@@ -51,4 +51,12 @@ class MerchantTest < Minitest::Test
     assert me_1.invoices
     assert me_2.invoices
   end
+
+  def test_can_use_customers
+    me_1.parent.stubs(:find_all_customers_by_merchant_id).with(me_1.id).returns(true)
+    me_2.parent.stubs(:find_all_customers_by_merchant_id).with(me_2.id).returns(true)
+
+    assert me_1.customers
+    assert me_2.customers
+  end
 end
