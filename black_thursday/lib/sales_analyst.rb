@@ -59,4 +59,28 @@ class SalesAnalyst
       merchant.items.length > one_standard_dev
     end
   end
+
+  def merchants_with_no_items
+    engine.merchants.all.find_all do |merchant|
+      merchant.items.count == 0
+    end
+  end
+
+  def names_of_merchants_without_items
+    merchants_with_no_items.map do |merchant|
+      merchant.name
+    end
+  end
+
+  def merchants_with_one_or_more_items
+    engine.merchants.all.find_all do |merchant|
+      merchant.items.length > 0
+    end
+  end
+
+  def names_of_merchants_with_at_least_one_item
+    merchants_with_one_or_more_items.map do |merchant|
+      merchant.name
+    end
+  end
 end

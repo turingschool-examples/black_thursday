@@ -22,7 +22,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_calculate_average_items_per_merchant
-    assert_equal 2.88, analyst.average_items_per_merchant
+    assert_equal 0.35, analyst.average_items_per_merchant
   end
 
   def test_can_find_average_item_price_for_merchant
@@ -38,10 +38,24 @@ class SalesAnalystTest < Minitest::Test
 
   def test_can_find_average_items_per_merchant_standard_deviation
     result = analyst.average_items_per_merchant_standard_deviation
-    assert_equal 3.26, result
+    assert_equal 0.85, result
   end
 
   def test_can_find_merchants_with_high_item_count
-    assert_equal '', analyst.merchants_with_high_item_count
+    assert_equal 2, analyst.merchants_with_high_item_count.length
+  end
+
+  def test_merchants_with_no_items
+    assert_equal 54, analyst.merchants_with_no_items.length
+  end
+
+  def test_merchants_with_one_or_more_items
+    assert_equal 6, analyst.merchants_with_one_or_more_items.length
+  end
+
+  def test_names_of_merchants_with_at_least_one_item
+    expected = ["Candisart", "Keckenbauer", "thepurplepenshop", "Madewithgitterxx", "ElisabettaComotto", "MomsTshirts"]
+
+    assert_equal expected, analyst.names_of_merchants_with_at_least_one_item
   end
 end
