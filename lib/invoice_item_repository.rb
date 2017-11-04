@@ -12,10 +12,10 @@ class InvoiceItemRepository
       invoice_items << InvoiceItem.new(row)
     end
   end
-  #
-  # def all
-  #   return merchants
-  # end
+
+  def all
+    return invoice_items
+  end
   #
   # def count
   #   merchants.count
