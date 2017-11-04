@@ -20,7 +20,7 @@ class TransactionRepository
      header_converters: :symbol)
 
     contents.each do |row|
-      @all << transaction.new(row, self)
+      @all << Transaction.new(row, self)
     end
   end
 
