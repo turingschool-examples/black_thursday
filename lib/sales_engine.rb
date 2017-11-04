@@ -2,24 +2,35 @@ require 'csv'
 require_relative './item_repository'
 require_relative './merchant_repository'
 require_relative './invoice_repository'
+require_relative './transaction_repository'
+require_relative './customer_repository'
 
 class SalesEngine
   attr_reader :items,
               :merchants,
-              :invoices
+              :invoices,
+              :transactions,
+              :customers,
+              :invoice_items
 
-  def initialize(items, merchants, invoices)
-    @items = ItemRepository.new(items, self)
-    @merchants = MerchantRepository.new(merchants, self)
-    @invoices = InvoiceRepository.new(invoices, self)
+  def initialize(repository)
+    @items = ItemRepository.new(repository[:items], self)
+    @merchants = MerchantRepository.new(repository[:merchants], self)
+    @invoices = InvoiceRepository.new(repository[:invoices], self)
+    @transactions = TransactionRepository.new(repository[:transactions], self)
+    @customers = CustomerRepository.new(repository[:customers], self)
+    @invoice_items = nil
   end
 
   def self.from_csv(files)
-    SalesEngine.new(
-      load_csv(files[:items]),
-      load_csv(files[:merchants]),
-      load_csv(files[:invoices])
-    )
+    SalesEngine.new({
+      :items => load_csv(files[:items]),
+      :merchants => load_csv(files[:merchants]),
+      :invoices => load_csv(files[:invoices]),
+      :transactions => load_csv(files[:transactions]),
+      :customers => load_csv(files[:customers]),
+      :invoice_items => load_csv(files[:invoice_items])
+    })
   end
 
   def self.load_csv(file_name)
