@@ -1,13 +1,13 @@
 require_relative 'test_helper'
-require './lib/sales_engine'
-require './lib/invoice_repository'
-
+require_relative './lib/sales_engine'
+require_relative './lib/invoice_repository'
+require 'pry'
 
 class InvoiceRepositoryTest < MiniTest::Test
 
   def setup
     @sales_engine = SalesEngine.from_csv({:items => './test/fixtures/items_fixture.csv',
-                                          :merchants => './test/fixtures/merchants.csv', 
+                                          :merchants => './test/fixtures/merchants.csv',
                                           :invoices => './test/fixtures/invoices.csv',
                                           :invoice_items => './test/fixtures/invoice_items.csv'})
     @invoices = @sales_engine.invoices
@@ -16,8 +16,8 @@ class InvoiceRepositoryTest < MiniTest::Test
 
   def test_that_invoices_are_created
     assert_equal 19, @invoices.count
-    assert_equal "1", @invoices.invoices[0].id
-    assert_equal "2", @invoices.invoices[1].id
+    assert_equal 1, @invoices.invoices[0].id
+    assert_equal 2, @invoices.invoices[1].id
   end
 
   def test_that_it_finds_all_invoices
