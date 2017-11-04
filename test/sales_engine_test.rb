@@ -100,4 +100,14 @@ class SalesEngineTest < Minitest::Test
     assert_equal 12334185, merchants.last.id
     assert_equal 2, merchants.count
   end
+
+  def check_if_invoice_paid_in_full
+    invoice_1 = se.invoices.find_by_id(1495)
+    invoice_2 = se.invoices.find_by_id(4966)
+
+    assert invoice_1.is_paid_in_full?
+    refute invoice_2.is_paid_in_full?
+  end
+
+
 end

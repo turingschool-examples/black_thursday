@@ -52,7 +52,7 @@ class SalesEngine
     invoices.find_all_by_merchant_id(merchant_id)
   end
 
-  def find_invoice_items_by_invoice_id(invoice_id)
+  def find_items_by_invoice_id(invoice_id)
     current_invoice_items = invoice_items.find_all_by_invoice_id(invoice_id)
     current_invoice_items.map do |item|
       items.find_by_id(item.item_id)
@@ -87,5 +87,9 @@ class SalesEngine
       result << merchant if !result.include?(merchant)
       result
     end
+  end
+
+  def find_invoice_items_by_invoice_id(invoice_id)
+    invoice_items.find_all_by_invoice_id(invoice_id)
   end
 end

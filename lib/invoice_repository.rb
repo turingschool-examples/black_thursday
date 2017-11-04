@@ -40,8 +40,8 @@ class InvoiceRepository
     parent.find_merchant_by_id(merchant_id)
   end
 
-  def find_invoice_items_by_invoice_id(invoice_id)
-    parent.find_invoice_items_by_invoice_id(invoice_id)
+  def find_items_by_invoice_id(invoice_id)
+    parent.find_items_by_invoice_id(invoice_id)
   end
 
   def find_transaction_by_invoice_id(invoice_id)
@@ -50,6 +50,10 @@ class InvoiceRepository
 
   def find_customer_by_id(customer_id)
     parent.find_customer_by_id(customer_id)
+  end
+
+  def find_invoice_items_by_invoice_id(invoice_id)
+    parent.find_invoice_items_by_invoice_id(invoice_id)
   end
 
   def inspect
