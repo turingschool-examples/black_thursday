@@ -15,7 +15,39 @@ class CustomerTest < Minitest::Test
       customers:
       './test/fixtures/truncated_customers.csv'
     )
-    
-    @repository = MerchantRepository.new("./test/fixtures/truncated_merchants.csv", @engine)
+
+    @repository = CustomerRepository.new("./test/fixtures/truncated_customers.csv", @engine)
+  end
+
+  def test_it_exists
+    created_at = "2015-03-13"
+    updated_at = "2015-04-05"
+
+    cust = Customer.new({
+      :id => 6,
+      :first_name => "Joan",
+      :last_name => "Clarke",
+      :created_at => created_at,
+      :updated_at => updated_at
+      })
+
+      assert_instance_of Customer, cust
+  end
+
+  def test_it_can_hold_attributes
+    created_at = "2015-03-13"
+    updated_at = "2015-04-05"
+
+    cust Customer.new({
+      :id => 6,
+      :first_name => "Joan",
+      :last_name => "Clarke",
+      :created_at => created_at,
+      :updated_at => updated_at
+      })
+
+    assert_equal 6, cust.id
+    assert_equal "Joan", cust.first_name
+    assert_equal Time.parse("2010-03-30"), cust.created_at
   end
 end
