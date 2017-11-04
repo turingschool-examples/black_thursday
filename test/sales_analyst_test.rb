@@ -7,16 +7,17 @@ class SalesAnalystTest < MiniTest::Test
               :sa
 
   def setup
-    @se = SalesEngine.from_csv({
+    @se ||= SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       :invoices  => "./data/invoices.csv"
     })
 
-    @sa = SalesAnalyst.new(se)
+    @sa ||= SalesAnalyst.new(se)
   end
 
   def test_it_exists
+
     assert_instance_of SalesAnalyst, sa
     assert_instance_of SalesEngine, sa.se
     assert_instance_of MerchantRepository, sa.se.merchants
@@ -122,4 +123,54 @@ class SalesAnalystTest < MiniTest::Test
 
     assert_equal [], sa.bottom_merchants_by_invoice_count
   end
+
+  def test_can_get_hash_with_invoices_matched_to_day_created
+    se = SalesEngine.from_csv({
+      :items     => "./test/fixtures/items_fixture.csv",
+      :merchants => "./test/fixtures/merchants_fixture.csv",
+      :invoices  => "./test/fixtures/invoices_fixture.csv"
+    })
+    sa = SalesAnalyst.new(se)
+
+    assert_instance_of Hash, sa.days_invoice_created
+    assert_equal [], sa.days_with_number_of_invoices
+  end
+
+  def test_can_find_average_invoices_created_per_day
+    se = SalesEngine.from_csv({
+      :items     => "./test/fixtures/items_fixture.csv",
+      :merchants => "./test/fixtures/merchants_fixture.csv",
+      :invoices  => "./test/fixtures/invoices_fixture.csv"
+    })
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 1, sa.average_invoices_per_day
+  end
+
+  def test_can_find_standard_deviation_invoices_created_per_day
+    se = SalesEngine.from_csv({
+      :items     => "./test/fixtures/items_fixture.csv",
+      :merchants => "./test/fixtures/merchants_fixture.csv",
+      :invoices  => "./test/fixtures/invoices_fixture.csv"
+    })
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 0.0, sa.standard_deviation_invoices_per_day
+  end
+
+  def test_top_days_by_invoice_count
+    se = SalesEngine.from_csv({
+      :items     => "./test/fixtures/items_fixture.csv",
+      :merchants => "./test/fixtures/merchants_fixture.csv",
+      :invoices  => "./test/fixtures/invoices_fixture.csv"
+    })
+    sa = SalesAnalyst.new(se)
+
+    assert_equal [], sa.top_days_by_invoice_count
+
+  end
+
+
+
+
 end
