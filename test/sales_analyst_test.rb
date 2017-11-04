@@ -13,18 +13,16 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_that_we_find_average_items_per_merchant
-    assert_equal 0.83, @sales_analyst.average_items_per_merchant
+    assert_equal 2.0, @sales_analyst.average_items_per_merchant
   end
 
   def test_it_can_find_standard_deviation
-    assert_equal 1.06, @sales_analyst.average_items_per_merchant_standard_deviation
+    assert_equal 0.87, @sales_analyst.average_items_per_merchant_standard_deviation
   end
 
   def test_it_can_find_merchants_with_high_item_count
-    merchant_1 = @sales_analyst.sales_engine.merchants.merchants[1]
-    merchant_2 = @sales_analyst.sales_engine.merchants.merchants[7]
-    merchant_3 = @sales_analyst.sales_engine.merchants.merchants[11]
-    assert_equal [merchant_1, merchant_2, merchant_3], @sales_analyst.merchants_with_high_item_count
+    merchant_1 = @sales_analyst.sales_engine.merchants.merchants[0]
+    assert_equal [merchant_1], @sales_analyst.merchants_with_high_item_count
   end
 
   def test_it_can_determine_average_price_for_merchant
@@ -32,6 +30,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_determine_average_price_per_merchant
-    assert_equal 147.50, @sales_analyst.average_average_price_per_merchant
+    assert_equal 233.66, @sales_analyst.average_average_price_per_merchant
+  end
+
+  def test_it_can_find_golden_items
+    item_1 = @sales_analyst.sales_engine.items.all[8]
+    assert_equal [item_1], @sales_analyst.golden_items
   end
 end
