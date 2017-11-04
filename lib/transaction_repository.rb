@@ -1,3 +1,5 @@
+require_relative './transaction'
+
 class TransactionRepository
   attr_reader :transactions,
               :parent
@@ -34,5 +36,9 @@ class TransactionRepository
     transactions.find_all do |transaction|
       transaction.result.downcase == result.downcase
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@transactions.size} rows>"
   end
 end

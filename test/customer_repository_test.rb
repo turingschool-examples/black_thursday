@@ -58,4 +58,10 @@ class CustomerRepositoryTest < Minitest::Test
     assert_instance_of Customer, all_payne.first
     assert_equal "Payne", all_payne.first.last_name
   end
+
+  def test_can_call_find_by_customer_id
+    customers.all.first.parent.stubs(:find_by_customer_id).with(123).returns(true)
+
+    assert customers.find_by_customer_id(123)
+  end
 end
