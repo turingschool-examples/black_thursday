@@ -29,7 +29,6 @@ class ItemTest < MiniTest::Test
     assert_equal 20.00, item1.unit_price
     assert_equal Time.parse("2016-01-11 12:22:31 UTC"), item1.created_at
     assert_equal Time.parse("1978-10-14 18:48:11 UTC"), item1.updated_at
-
   end
 
   def test_it_knows_where_it_came_from

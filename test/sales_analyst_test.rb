@@ -1,6 +1,7 @@
 require_relative 'test_helper'
 require_relative '../lib/sales_analyst'
 require_relative '../lib/sales_engine'
+require 'pry'
 
 class SalesAnalystTest < Minitest::Test
 
@@ -36,5 +37,28 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_find_golden_items
     item_1 = @sales_analyst.sales_engine.items.all[8]
     assert_equal [item_1], @sales_analyst.golden_items
+  end
+
+  def test_it_can_find_average_invoices_per_merchant
+    assert_equal 3.8, @sales_analyst.average_invoices_per_merchant
+  end
+
+  def test_it_can_find_average_items_per_merchant_standard_deviation
+    assert_equal 1.79, @sales_analyst.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_it_can_find_top_merchants_by_invoice_count
+    merchant_1 = @sales_analyst.sales_engine.merchants.merchants[0]
+    assert_equal [merchant_1], @sales_analyst.top_merchants_by_invoice_count
+  end
+
+  def test_it_can_find_bottom_merchants_by_invoice_count
+    merchant_1 = @sales_analyst.sales_engine.merchants.merchants[4]
+    assert_equal [merchant_1], @sales_analyst.bottom_merchants_by_invoice_count
+  end
+
+  def test_it_detects_which_day_of_the_week_has_most_sales
+    # binding.pry
+    assert_equal ["Monday"], @sales_analyst.invoices_per_day
   end
 end
