@@ -29,6 +29,9 @@ class InvoiceItemTest < MiniTest::Test
     assert_equal 21.96, ii.unit_price
     assert_equal "2012-03-27 14:54:09 UTC", ii.created_at.to_s
     assert_equal "2012-03-27 14:54:09 UTC", ii.updated_at.to_s
+  end
+
+  def test_invoice_item_gets_unit_price_to_dollars
     assert_equal 21.96, ii.unit_price_to_dollars
   end
 
