@@ -18,10 +18,11 @@ class Transaction
     @result                       = attributes[:result]
     @created_at                   = Time.parse(attributes[:created_at])
     @updated_at                   = Time.parse(attributes[:updated_at])
+    @transaction_repo             = parent
   end
 
-  def invoices
-    @TransactionRepository.find_by_invoice_id(invoice_id)
+  def invoice
+    @transaction_repo.find_by_invoice_id(invoice_id)
   end
 
 end
