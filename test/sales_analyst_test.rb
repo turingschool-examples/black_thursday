@@ -21,7 +21,14 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_merchants_with_high_item_count
-    assert_equal [1,7,11], @sales_analyst.merchants_with_high_item_count
+    assert_equal ["Candis--art", "Motanki--Darena", "byMariein--London"], @sales_analyst.merchants_with_high_item_count
   end
 
+  def test_it_can_determine_average_price_for_merchant
+    assert_equal 48.33, @sales_analyst.average_item_price_for_merchant(12334112)
+  end
+
+  def test_it_can_determine_average_price_per_merchant
+    assert_equal 147.50, @sales_analyst.average_average_price_per_merchant
+  end
 end
