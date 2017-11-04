@@ -19,4 +19,7 @@ class Transaction
     @updated_at = Time.parse(attributes[:updated_at])
   end
 
+  def invoice
+    parent.find_by_invoice_id(invoice_id)
+  end
 end
