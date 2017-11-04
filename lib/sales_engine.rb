@@ -14,7 +14,7 @@ class SalesEngine
     @items         = ItemRepository.new(files[:items], self)
     @merchants     = MerchantRepository.new(files[:merchants], self)
     @invoices      = InvoiceRepository.new(files[:invoices], self)
-    @invoice_items = InvoiceItemRepository.new(file[:invoice_items], self)
+    @invoice_items = InvoiceItemRepository.new(files[:invoice_items], self)
   end
 
   def self.from_csv(files)

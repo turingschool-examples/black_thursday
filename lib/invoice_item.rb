@@ -1,6 +1,6 @@
 class InvoiceItem
 
-  attr_reader :id, :item_id, :invoice_item, :quality, :unit_price
+  attr_reader :id, :item_id, :invoice_item, :quality, :unit_price,
               :created_at, :updated_at, :repository
 
   def initialize(data, repository)
