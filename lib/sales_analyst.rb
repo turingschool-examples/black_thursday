@@ -45,24 +45,32 @@ class SalesAnalyst
     Math.sqrt(sum / (total_merchants-1)).round(2)
   end
 
-  def merchants_with_high_item_count
-    # merchant_ids = pull_all_merchant_ids
-    # items_per_merchant = find_items_per_merchant
-    # merchants_index =[]
-    # items_per_merchant.each_with_index do |merchant,index|
-    #   merchants_index << index if (merchant > (average_items_per_merchant + calculate_std_dev))
-    # end
-    # @sales_engine.merchants.merchants.map do |merchant|
-    #   if
-    #   merchant.name
-    # end
+  def merchants_and_item_count
+    Hash[pull_all_merchant_ids.zip find_items_per_merchant]
+  end
 
+  def merchants_with_high_item_count
+    merchants_and_item_count.map do |merchant_id,item_count|
+      merchant_id if item_count > (average_items_per_merchant + calculate_std_dev)
+    end
   end
 
   def golden_items
     # calculate_std_dev.find_all do |merchant|
     #   merchant ** 2
-  
+
   end
 
 end
+
+
+# merchant_ids = pull_all_merchant_ids
+# items_per_merchant = find_items_per_merchant
+# merchants_index =[]
+# items_per_merchant.each_with_index do |merchant,index|
+#   merchants_index << index if (merchant > (average_items_per_merchant + calculate_std_dev))
+# end
+# @sales_engine.merchants.merchants.map do |merchant|
+#   if
+#   merchant.name
+# end

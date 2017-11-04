@@ -1,16 +1,16 @@
 require 'csv'
-require './lib/invoice_item'
+require_relative '../lib/invoice_item'
+require_relative '../lib/create_elements'
 
 class InvoiceItemRepository
 
-  def initialize
-    @invoice_items      = []
-  end
+  include CreateElements
 
-  def from_csv(file)
-    CSV.readlines(file, headers: true, header_converters: :symbol) do |row|
-      invoice_items << InvoiceItem.new(row)
-    end
+  attr_reader :invoice_items, :engine
+
+  def initialize(items_file, engine)
+    @invoice_items      = create_elements(items_file).map {|item_invoice| InvoiceItem.new(item_invoice, self)}
+    @engine = engine
   end
 
   def all
