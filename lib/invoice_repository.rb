@@ -1,21 +1,22 @@
 require 'csv'
 require_relative '../lib/invoice'
 require_relative '../lib/create_elements'
+require 'pry'
 
 class InvoiceRepository
 
   include CreateElements
 
-  attr_reader :invoices, :parent
+  attr_reader :invoice_file, :engine
 
-  def initialize(invoice_file, parent)
+  def initialize(invoice_file, engine)
     @invoices = create_elements(invoice_file).map {|invoice| Invoice.new(invoice, self)}
-    @parent   = parent
+    @engine   = engine
   end
 
   def find_by_id(id)
     invoices.find do |invoice|
-      invoice.id == id.to_s
+      invoice.id == id
     end
   end
 
@@ -29,7 +30,7 @@ class InvoiceRepository
 
   def find_all_by_customer_id(customer_id)
     invoices.find_all do |invoice|
-      invoice.customer_id == customer_id.to_s
+      invoice.customer_id == customer_id
     end
   end
 
@@ -41,12 +42,12 @@ class InvoiceRepository
 
   def find_all_by_status(status)
     invoices.find_all do |invoice|
-      invoice.status == status.to_s
+      invoice.status == status
     end
   end
 
   def inspect
-    "#<#{self.class} #{@items.size} rows>"
+    "#<#{self.class} #{@invoices.size} rows>"
   end
 
 end
