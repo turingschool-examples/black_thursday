@@ -24,7 +24,7 @@ class InvoiceItemRepository
   end
 
   def find_all_by_item_id
-    
+
   end
 
   # all - returns an array of all known InvoiceItem instances
