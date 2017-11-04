@@ -14,7 +14,7 @@ class CustomerRepository
    "#<#{self.class} #{@all.size} rows>"
   end
 
-  def from_csv(filename)
+  def populate(filename)
     CSV.foreach(filename, headers: true, header_converters: :symbol) do |row|
       @all << Customer.new(row, self)
     end

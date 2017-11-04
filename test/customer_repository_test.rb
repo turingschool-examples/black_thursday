@@ -7,7 +7,7 @@ class CustomerRepositoryTest < MiniTest::Test
 
   def setup
     @cr = CustomerRepository.new
-    @cr.from_csv("./test/fixtures/customers_fixture.csv")
+    @cr.populate("./test/fixtures/customers_fixture.csv")
   end
 
   def test_existence
@@ -37,7 +37,5 @@ class CustomerRepositoryTest < MiniTest::Test
     assert_instance_of Customer, cr.find_all_by_last_name("Toy").first
     assert_equal [], cr.find_all_by_last_name("Lee")
   end
-
-
 
 end
