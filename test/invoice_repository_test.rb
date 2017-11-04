@@ -28,7 +28,7 @@ class InvoiceRepositoryTest < MiniTest::Test
     invoice_repo.populate('./test/fixtures/invoices_fixture.csv')
 
     assert_instance_of Array, invoice_repo.find_all_by_merchant_id(12334753)
-    assert_equal 1, invoice_repo.find_all_by_merchant_id(12334753).count
+    assert_equal 0, invoice_repo.find_all_by_merchant_id(12334753).count
     assert_equal [], invoice_repo.find_all_by_merchant_id(100)
   end
 
@@ -47,7 +47,7 @@ class InvoiceRepositoryTest < MiniTest::Test
     invoice_repo.populate('./test/fixtures/invoices_fixture.csv')
 
     assert_instance_of Array, invoice_repo.find_all_by_status("shipped")
-    assert_equal 2, invoice_repo.find_all_by_status("shipped").count
+    assert_equal 1, invoice_repo.find_all_by_status("shipped").count
     assert_equal [], invoice_repo.find_all_by_status("hello")
 
   end
