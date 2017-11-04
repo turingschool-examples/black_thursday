@@ -69,22 +69,48 @@ module InvoiceAnalyst
   end
 
   def invoices_per_day
-    # days = {"Sunday"=>0,"Monday"=>0,
-    #         "Tuesday"=>0,"Wednesday"=>0,
-    #         "Thursday"=>0,"Friday"=>0,
-    #         "Saturday"=>0,}
+    days = {"Sunday"=>0,"Monday"=>0,
+            "Tuesday"=>0,"Wednesday"=>0,
+            "Thursday"=>0,"Friday"=>0,
+            "Saturday"=>0,}
 
-    @sales_engine.invoices.all.group_by do |invoice|
-        invoice.created_at.Date.strftime("%A")
+    @sales_engine.invoices.all.reduce(days) do |result, invoice|
+        result[Time.parse(invoice.created_at.to_s).strftime("%A")] += 1
+        result
     end
   end
 
-  def top_days_by_invoice_count
-
+  def invoice_count_std_dev
+    average_invoices = average_invoices_per_day
+    sum = invoices_per_day.reduce(0) do |result, (day, count)|
+      squared_difference = (average_invoices - count) ** 2
+      result + squared_difference
+    end
+    Math.sqrt(sum / 7).round(2)
   end
 
+  def top_days_by_invoice_count
+    average_invoices = average_invoices_per_day
+    invoices_per_day.map do |day, invoice_count|
+      day if invoice_count > (average_invoices + invoice_count_std_dev)
+    end.compact
+  end
 
+  def invoice_status_sum
+    starting_status = {:pending=>0, :shipped=>0, :returned=>0}
+    @sales_engine.invoices.all.reduce(starting_status) do |result, invoice|
+        result[invoice.status.to_sym] += 1
+        result
+      end
+  end
 
+  def invoice_status(invoice_status)
+    thing = invoice_status_sum.reduce({}) do |result, (status, sum)|
+      result[status] = (sum / total_invoices) * 100
+      result
+    end
+    thing[invoice_status].round(2)
+  end
 
 
 end

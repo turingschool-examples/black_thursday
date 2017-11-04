@@ -58,7 +58,14 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_detects_which_day_of_the_week_has_most_sales
-    # binding.pry
-    assert_equal ["Monday"], @sales_analyst.invoices_per_day
+    assert_equal ["Friday", "Saturday"], @sales_analyst.top_days_by_invoice_count
   end
+
+  def test_percentage_of_instances_of_statuses
+    assert_equal 47.37, @sales_analyst.invoice_status(:pending)
+    assert_equal 47.37, @sales_analyst.invoice_status(:shipped)
+    assert_equal 5.26, @sales_analyst.invoice_status(:returned)
+  end
+
+
 end
