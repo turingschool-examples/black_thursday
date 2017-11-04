@@ -1,4 +1,5 @@
 require 'csv'
+require 'pry'
 
 class Merchant
 
@@ -13,5 +14,7 @@ class Merchant
   def items
     repository.find_item(@id)
   end
+
+
 
 end

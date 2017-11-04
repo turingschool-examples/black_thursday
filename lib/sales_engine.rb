@@ -1,16 +1,20 @@
-require './lib/item_repository'
-require './lib/merchant_repository'
-require './lib/invoice_repository'
+require_relative '../lib/item_repository'
+require_relative '../lib/merchant_repository'
+require_relative '../lib/invoice_repository'
+require_relative '../lib/invoice_item_repository'
+
+require 'pry'
 
 class SalesEngine
 
 
-  attr_reader :items, :merchants, :invoices
+  attr_reader :items, :merchants, :invoices, :invoice_items
 
   def initialize(files)
-    @items = ItemRepository.new(files[:items], self)
-    @merchants = MerchantRepository.new(files[:merchants], self)
-    @invoices = InvoiceRepository.new(files[:invoices], self)
+    @items         = ItemRepository.new(files[:items], self)
+    @merchants     = MerchantRepository.new(files[:merchants], self)
+    @invoices      = InvoiceRepository.new(files[:invoices], self)
+    @invoice_items = InvoiceItemRepository.new(file[:invoice_items], self)
   end
 
   def self.from_csv(files)
@@ -22,7 +26,7 @@ class SalesEngine
   end
 
   def find_item(id)
-    items.find_by_id(id)
+    items.find_all_by_merchant_id(id)
   end
 
 end

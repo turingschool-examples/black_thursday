@@ -1,11 +1,9 @@
 require 'bigdecimal'
 require 'time'
 
-class Item
+class Item # < ItemRepo
 
-  attr_reader :name, :repository,
-              :merchant_id, :item_id,
-              :description, :unit_price,
+  attr_reader :name, :repository, :merchant_id, :id, :description, :unit_price,
               :created_at, :updated_at
 
   def initialize(data, repository)
@@ -20,7 +18,7 @@ class Item
   end
 
   def merchant
-    repository.merchant(merchant_id)
+    repository.merchant(@merchant_id)
   end
 
   def unit_price_to_dollars
