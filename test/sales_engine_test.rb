@@ -3,8 +3,8 @@ require_relative '../lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test
   def setup
-    files = ({:items => "./test/fixture/items_fixture.csv",
-              :merchants => "./test/fixture/merch_fixture.csv"})
+    files = ({:items => "./test/fixture/item_fixture.csv",
+              :merchants => "./test/fixture/merchant_fixture.csv"})
     SalesEngine.from_csv(files)
   end
 

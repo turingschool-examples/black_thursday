@@ -29,7 +29,7 @@ class InvoiceTest < Minitest::Test
   def test_time_returns_time_exists
     invoice = Invoice.new({:id => "4", :customer_id => "7", :merchant_id => "12337139", :created_at => "2015-03-13", :updated_at => "2015-04-05"})
 
-    assert_instance_of Time, item.created_at
-    assert_instance_of Time, item.updated_at
+    assert_instance_of Time, invoice.created_at
+    assert_instance_of Time, invoice.updated_at
   end
 end

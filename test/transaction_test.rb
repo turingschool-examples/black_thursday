@@ -27,9 +27,9 @@ class TransactionTest < Minitest::Test
   end
 
   def test_cc_exp_date_is_correct_integer
-    transaction = Transaction.new({:id => "10", :invoice_id => "3715", :credit_card_number => "4613250127567219", :credit_card_expiration_date => "0313", :result => "success", :created_at => "2012-02-26 20:56:56 UTC", :updated_at => "2012-02-26 20:56:57 UTC"})
+    transaction = Transaction.new({:id => "10", :invoice_id => "3715", :credit_card_number => "4613250127567219", :credit_card_expiration_date => "9755", :result => "success", :created_at => "2012-02-26 20:56:56 UTC", :updated_at => "2012-02-26 20:56:57 UTC"})
 
-    assert_equal 0313, transaction.credit_card_expiration_date
+    assert_equal 9755, transaction.credit_card_expiration_date
   end
 
   def test_it_produces_correct_result

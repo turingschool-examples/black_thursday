@@ -10,7 +10,6 @@ class MathTest < Minitest::Test
     @sa = SalesAnalyst.new(se)
   end
 
-  def 
 
 
 end
