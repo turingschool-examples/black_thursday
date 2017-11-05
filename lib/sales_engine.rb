@@ -59,4 +59,8 @@ class SalesEngine
     end.uniq
   end
 
+  def find_invoice(id)
+    invoices.find_by_id(id)
+  end
+
 end

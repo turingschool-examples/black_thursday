@@ -14,6 +14,7 @@ class TransactionRepositoryTest < Minitest::Test
       :transactions => './test/fixtures/transactions.csv',
       :customers => './test/fixtures/customers.csv'})
     @transactions = @sales_engine.transactions
+    @invoices = @sales_engine.invoices
   end
 
   def test_that_it_finds_all_transactions
@@ -62,6 +63,12 @@ class TransactionRepositoryTest < Minitest::Test
 
     assert_equal ([]), @transactions.find_all_by_result("succsailed")
     assert_equal result, @transactions.find_all_by_result("failed")
+  end
+
+  def test_that_it_finds_all_by_result
+    invoice1 = @invoices.all[0]
+
+    assert_equal invoice1, @transactions.find_invoice(1)
   end
 
 end
