@@ -38,8 +38,8 @@ class MerchantRepository
     end
   end
 
-  def find_items(item_id)
-    @sales_engine.find_items(item_id)
+  def find_items(merchant_id)
+    @sales_engine.find_items(merchant_id)
   end
 
   def find_invoices(id)

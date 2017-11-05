@@ -1,9 +1,23 @@
+require 'time'
+require 'groupdate'
+
 class SalesAnalyst
+
   attr_reader :sales_engine
 
   def initialize(sales_engine)
     @sales_engine = sales_engine
   end
+
+  # private :merchant_list,
+  #         :find_items,
+  #         :find_standard_deviation_difference_total,
+  #         :find_standard_deviation_total,
+  #         :total_merchants_minus_one,
+  #         :create_merchant_id_item_total_list,
+  #         :standard_deviation_plus_average,
+  #         :filter_merchants_by_items_in_stock
+  # public
 
   def average_items_per_merchant
     merchant_count = @sales_engine.merchants.all.length
@@ -59,7 +73,6 @@ class SalesAnalyst
     end
   end
 
-
   def average_item_price_for_merchant(merchant_id)
     list = find_the_collections_of_items(merchant_id.to_s)
     (list.reduce(0) { |sum, item| sum + item.unit_price_to_dollars } / list.count).round(2)
@@ -69,7 +82,7 @@ class SalesAnalyst
     sales_engine.items.find_all_by_merchant_id(merchant_id)
   end
 
-  def average_average_price_per_merchant
+  def average_average_price_for_merchant
     (merchant_list.reduce(0) { |sum, merchant|
       sum + average_item_price_for_merchant(merchant)
       } / merchant_list.count).round(2)
@@ -99,8 +112,9 @@ class SalesAnalyst
   end
 
   def golden_items
-    @sales_engine.items.all.map { |item|
-       item.unit_price > golden_items_deviation }
+    @sales_engine.items.items.find_all do |item|
+      item if item.unit_price >= golden_items_deviation
+     end
   end
 
   def average_invoices_per_merchant
@@ -150,7 +164,58 @@ class SalesAnalyst
   end
 
   def create_merchant_invoice_total_list
-      Hash[merchant_list.zip find_invoice_totals]
+    Hash[merchant_list.zip find_invoice_totals]
+  end
+
+  def map_created_dates_to_weekdays
+    @sales_engine.invoices.invoices.map do |invoice|
+      invoice.created_at.strftime("%A")
     end
+  end
+
+  def invoice_totals_by_day
+    map_created_dates_to_weekdays.each_with_object(Hash.new(0)) do
+      |word, acc| acc[word] += 1
+    end
+  end
+
+  def invoice_per_day_average
+    invoice_totals_by_day.reduce(0) { |sum, (key, value) |
+      sum += value } / invoice_totals_by_day.count
+  end
+
+  def invoice_totals_minus_average_squared
+    invoice_totals_by_day.reduce(0) { |sum, (key, value) |
+      sum += (value - invoice_per_day_average) ** 2 }
+    end
+
+  def weekday_invoice_total_difference_divided
+    invoice_totals_minus_average_squared / ((invoice_totals_by_day.count) - 1)
+  end
+
+  def weekday_invoice_creation_standard_deviation
+    Math.sqrt(weekday_invoice_total_difference_divided).round(2)
+  end
+
+  def invoice_creation_standard_deviation_plus_average
+    weekday_invoice_creation_standard_deviation + invoice_per_day_average
+  end
+
+  def top_days_by_invoice_count
+    invoice_totals_by_day.select do |key, value|
+      value >= invoice_creation_standard_deviation_plus_average
+    end.keys
+  end
+
+  def invoice_status(status)
+    (find_all_invoices(status).length /
+    @sales_engine.invoices.all.length.to_f * 100).round(2)
+  end
+
+  def find_all_invoices(status)
+    @sales_engine.invoices.find_all_by_status(status)
+  end
+
+
 
 end

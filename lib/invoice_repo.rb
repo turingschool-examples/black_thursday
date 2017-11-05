@@ -41,11 +41,16 @@ class InvoiceRepository
 
   def find_all_by_status(status)
     # find_all_by_status - returns either [] or one or more matches which have a matching status
-    invoices.find_all { |invoice| invoice.status == status }
+    invoices.find_all { |invoice| invoice.status.to_sym == status }
   end
 
   def find_merchant(id)
     @sales_engine.find_merchant(id)
   end
+
+  def inspect
+      "#<#{self.class} #{@invoices.size} rows>"
+  end
+
 
 end
