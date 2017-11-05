@@ -20,4 +20,12 @@ class Merchant
   def invoices
     @merchant_repo.find_invoices_for_merchant(id)
   end
+
+  def customers
+    invoices.map do |invoice|
+      invoice.customer
+    end.uniq
+  end
+
+  
 end
