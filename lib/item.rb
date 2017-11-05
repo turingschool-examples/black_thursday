@@ -1,16 +1,16 @@
 require 'bigdecimal'
 require 'time'
 
-class Item # < ItemRepo
+class Item
 
   attr_reader :name, :repository, :merchant_id, :id, :description, :unit_price,
               :created_at, :updated_at
 
   def initialize(data, repository)
-    @name = data[:name]#.to_s
+    @name = data[:name]
     @merchant_id = data[:merchant_id].to_i
     @id = data[:id].to_i
-    @description = data[:description]#.to.s
+    @description = data[:description]
     @unit_price = BigDecimal.new(data[:unit_price])/100
     @created_at = Time.parse(data[:created_at])
     @updated_at = Time.parse(data[:updated_at])

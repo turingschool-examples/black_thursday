@@ -1,7 +1,6 @@
 require 'csv'
 require_relative '../lib/invoice'
 require_relative '../lib/create_elements'
-require 'pry'
 
 class InvoiceRepository
 
@@ -10,8 +9,8 @@ class InvoiceRepository
   attr_reader :invoices, :engine
 
   def initialize(invoice_file, engine)
-    @invoices = create_elements(invoice_file).map {
-      |invoice| Invoice.new(invoice, self)}
+    @invoices = create_elements(invoice_file).map {|invoice|
+      Invoice.new(invoice, self)}
     @engine   = engine
   end
 
