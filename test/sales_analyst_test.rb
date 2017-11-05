@@ -115,7 +115,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(files)
     s_a = SalesAnalyst.new(se)
 
-    assert_equal 463, s_a.bottom_merchants_by_invoice_count.count
+    assert_equal 4, s_a.bottom_merchants_by_invoice_count.count
   end
 
   def test_returns_day_of_week

@@ -111,7 +111,7 @@ class SalesAnalyst
 
   def bottom_merchants_by_invoice_count
     counts = counts_per_merchant(sales_engine.method(:find_merchant_invoices))
-    two_std_dev = mean(counts) + (standard_deviation(counts)*2)
+    two_std_dev = mean(counts) - (standard_deviation(counts)*2)
     sales_engine.merchants.merchants.select do |merchant|
       sales_engine.find_merchant_invoices(merchant.id).count < two_std_dev
     end
