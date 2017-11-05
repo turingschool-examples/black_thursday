@@ -56,7 +56,7 @@ class InvoiceItemTest < Minitest::Test
       assert_equal 263519844, invoice_item.item_id
       assert_equal 1, invoice_item.invoice_id
       assert_equal 5, invoice_item.quantity
-      assert_equal 13.635, invoice_item.unit_price
+      assert_equal 136.35, invoice_item.unit_price
       assert_equal Time.parse("2012-03-27 14:54:09 UTC"), invoice_item.created_at
       assert_equal Time.parse("2012-03-27 14:54:09 UTC"), invoice_item.updated_at
     end
