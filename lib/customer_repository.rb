@@ -36,9 +36,9 @@ class CustomerRepository
     end
   end
 
-  # def find_merchants(id)
-  #   engine.find_merchants(id)
-  # end
+  def find_merchants_by_customer_id(id)
+    engine.find_merchants_by_customer_id(id)
+  end
 
   def inspect
     "#<#{self.class} #{@customers.size} rows>"

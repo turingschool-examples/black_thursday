@@ -18,6 +18,8 @@ class InvoiceRepositoryTest < MiniTest::Test
     @invoices = @sales_engine.invoices
     @merchants = @sales_engine.merchants
     @items = @sales_engine.items
+    @transactions = @sales_engine.transactions
+    @customers = @sales_engine.customers
   end
 
   def test_that_invoices_are_created
@@ -91,6 +93,27 @@ class InvoiceRepositoryTest < MiniTest::Test
     item5 = @items.all[3]
 
     assert_equal [item1, item2, item3, item4, item5], @invoices.find_items_by_invoice_id(1)
+  end
+
+  def test_that_it_finds_transactions_by_id_by_invoice_id
+    transaction1 = @transactions.all[0]
+    transaction2 = @transactions.all[1]
+    transaction3 = @transactions.all[2]
+    transaction4 = @transactions.all[3]
+    transaction5 = @transactions.all[4]
+    transaction6 = @transactions.all[5]
+    transaction7 = @transactions.all[6]
+    transaction8 = @transactions.all[7]
+
+    assert_equal [transaction1,transaction2,transaction3,
+                  transaction4,transaction5,transaction6,
+                  transaction7,transaction8], @invoices.find_transactions_by_invoice_id(1)
+  end
+
+  def test_that_it_finds_customer_by_customer_id
+    customer1 = @customers.all[1]
+
+    assert_equal customer1, @invoices.find_customer(2)
   end
 
 end

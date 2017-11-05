@@ -43,16 +43,20 @@ class SalesEngine
     end.uniq
   end
 
-  def find_items_by_invoice_id(id)
+  def find_transactions_by_invoice_id(id)
     invoice_items.find_all_by_invoice_id(id).map do |invoice_item|
       transactions.find_all_by_invoice_id(invoice_item.id)
-    end
+    end.flatten
   end
 
-  # def find_merchants(id)
-  #   invoices.find_all_by_customer_id(id).map do |invoice|
-  #     merchant(invoice.merchant_id)
-  #   end
-  # end
+  def find_customer(id)
+    customers.find_by_id(id)
+  end
+
+  def find_merchants_by_customer_id(id)
+    invoices.find_all_by_customer_id(id).map do |invoice|
+      merchants.find_by_id(invoice.merchant_id)
+    end.uniq
+  end
 
 end

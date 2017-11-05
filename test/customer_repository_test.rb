@@ -14,6 +14,7 @@ class CustomerRepositoryTest < MiniTest::Test
       :transactions => './test/fixtures/transactions.csv',
       :customers => './test/fixtures/customers.csv'})
     @customers = @sales_engine.customers
+    @merchants = @sales_engine.merchants
   end
 
   def test_that_it_finds_all_customers
@@ -38,6 +39,13 @@ class CustomerRepositoryTest < MiniTest::Test
     customer_2 = @customers.all[10]
 
     assert_equal [customer_1, customer_2], @customers.find_all_by_last_name("bRaUn")
+  end
+
+  def test_that_it_finds_all_merchants_by_customer_id
+    merchant_1 = @merchants.all[0]
+    merchant_2 = @merchants.all[3]
+
+    assert_equal [merchant_1, merchant_2], @customers.find_merchants_by_customer_id(1)
   end
 
 end
