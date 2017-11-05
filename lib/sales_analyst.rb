@@ -127,7 +127,8 @@ class SalesAnalyst
   end
 
   def invoice_status(status)
-    (number_of_invoices_with_status(status) / total_number_of_invoices * 100).round(2)
+    total = total_number_of_invoices
+    (number_of_invoices_with_status(status) / total * 100).round(2)
   end
 
     private

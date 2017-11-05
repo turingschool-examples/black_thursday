@@ -26,6 +26,4 @@ class Merchant
       invoice.customer
     end.uniq
   end
-
-  
 end

@@ -34,12 +34,12 @@ class SalesEngine
     inv_item_CSV      = repo[:invoice_items]
 
     se = SalesEngine.new
-    se.items.populate(items_CSV)
-    se.merchants.populate(merchants_CSV)
-    se.invoices.populate(invoices_CSV)
-    se.customers.populate(customers_CSV)
-    se.transactions.populate(transactions_CSV)
-    se.invoice_items.populate(inv_item_CSV)
+    se.items.populate(items_CSV) unless items_CSV.nil?
+    se.merchants.populate(merchants_CSV) unless merchants_CSV.nil?
+    se.invoices.populate(invoices_CSV) unless invoices_CSV.nil?
+    se.customers.populate(customers_CSV) unless customers_CSV.nil?
+    se.transactions.populate(transactions_CSV) unless transactions_CSV.nil?
+    se.invoice_items.populate(inv_item_CSV) unless inv_item_CSV.nil?
     return se
   end
 

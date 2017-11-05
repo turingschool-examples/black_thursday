@@ -23,7 +23,6 @@ class Item
     @merchant_id  = attributes[:merchant_id].to_i
     @item_repository = parent
   end
-  
   def unit_price_to_dollars
     unit_price / 100
   end
