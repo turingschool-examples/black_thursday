@@ -11,7 +11,8 @@ class TransactionRepositoryTest < Minitest::Test
       :merchants => './test/fixtures/merchants.csv',
       :invoices => './test/fixtures/invoices.csv',
       :invoice_items => './test/fixtures/invoice_items.csv',
-      :transactions => './test/fixtures/transactions.csv'})
+      :transactions => './test/fixtures/transactions.csv',
+      :customers => './test/fixtures/customers.csv'})
     @transactions = @sales_engine.transactions
   end
 
