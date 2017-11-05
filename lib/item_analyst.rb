@@ -26,7 +26,7 @@ module ItemAnalyst
   end
 
   def standard_deviation_of_item_price
-    average_price = average_item_price
+    average_price = average_item_price_master
     Math.sqrt(se.items.items.map do |item|
       (average_price - item.unit_price) ** 2
     end.sum / (item_count - 1)).round(2)
@@ -44,11 +44,24 @@ module ItemAnalyst
     end
   end
 
+  def average_item_price_master
+    BigDecimal((se.items.items.inject(0) do |sum, item|
+      sum += item.unit_price
+    end/item_count).round)
+  end
+
   def average_item_price
-    averager(total_all_item_prices, item_count)
+    BigDecimal(averager(total_all_item_prices, item_count))
   end
 
   def minimum_for_golden_item
-    average_item_price + (2 * standard_deviation_of_item_price)
+    average_item_price_master + (2 * standard_deviation_of_item_price)
+  end
+
+  def find_golden_items(minimum)
+    se.items.all.reduce([]) do |result, item|
+      result << item if item.unit_price >= minimum
+      result
+    end
   end
 end

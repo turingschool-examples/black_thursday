@@ -1,14 +1,5 @@
 module InvoiceAnalyst
-  def averager(object_count, by_object_count)
-    (object_count.to_f / by_object_count).round(2)
-  end
 
-  def standard_deviation(population, object_count, by_object_count)
-    average = averager(object_count, by_object_count)
-    Math.sqrt(population.map do |sub_count|
-      (average - sub_count) ** 2
-    end.sum / (by_object_count - 1 )).round(2)
-  end
 
   def average_invoices_per_merchant
     averager(invoice_count, merchant_count)

@@ -2,10 +2,12 @@ require 'bigdecimal'
 require_relative './sales_engine'
 require_relative './invoice_analyst'
 require_relative './item_analyst'
+require_relative './statistics'
 
 class SalesAnalyst
   include InvoiceAnalyst
   include ItemAnalyst
+  include Statistics
 
   attr_reader :se,
               :invoice_count,
@@ -54,9 +56,6 @@ class SalesAnalyst
 
   def golden_items
     minimum = minimum_for_golden_item
-    se.items.all.reduce([]) do |result, item|
-      result << item if item.unit_price >= minimum
-      result
-    end
+    find_golden_items(minimum)
   end
 end
