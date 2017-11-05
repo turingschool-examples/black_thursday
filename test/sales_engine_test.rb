@@ -95,7 +95,11 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_invoice_checks_if_paid_in_full
+    invoice = se.invoices.find_by_id(20)
+    invoice_2 = se.invoices.find_by_id(1752)
 
+    assert invoice.is_paid_in_full?
+    refute invoice_2.is_paid_in_full?
   end
 
   def test_invoice_can_find_total_amount

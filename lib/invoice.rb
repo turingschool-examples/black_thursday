@@ -37,4 +37,10 @@ class Invoice
     @invoice_repo.find_customer_by_customer_id(customer_id)
   end
 
+  def is_paid_in_full?
+    transactions.any? do |transaction|
+      transaction.result.downcase == "success"
+    end
+  end
+
 end
