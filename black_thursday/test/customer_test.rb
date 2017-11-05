@@ -12,8 +12,7 @@ class CustomerTest < Minitest::Test
       merchants: './test/fixtures/truncated_merchants.csv',
       invoices: './test/fixtures/truncated_invoices.csv',
       transactions: './test/fixtures/truncated_transactions.csv',
-      customers:
-      './test/fixtures/truncated_customers.csv'
+      customers: './test/fixtures/truncated_customers.csv'
     )
 
     @repository = CustomerRepository.new("./test/fixtures/truncated_customers.csv", @engine)
@@ -38,7 +37,7 @@ class CustomerTest < Minitest::Test
     created_at = "2015-03-13"
     updated_at = "2015-04-05"
 
-    cust Customer.new({
+    cust = Customer.new({
       :id => 6,
       :first_name => "Joan",
       :last_name => "Clarke",
@@ -48,6 +47,6 @@ class CustomerTest < Minitest::Test
 
     assert_equal 6, cust.id
     assert_equal "Joan", cust.first_name
-    assert_equal Time.parse("2010-03-30"), cust.created_at
+    assert_equal Time.parse(created_at), cust.created_at
   end
 end
