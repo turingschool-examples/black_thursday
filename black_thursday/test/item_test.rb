@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 require 'bigdecimal'
-require 'time' 
+require 'time'
 require 'csv'
 require_relative './../lib/item'
 require_relative './../lib/item_repository'
@@ -13,8 +13,11 @@ class ItemTest < Minitest::Test
       items: './test/fixtures/truncated_items.csv',
       merchants: './test/fixtures/truncated_merchants.csv',
       invoices: './test/fixtures/truncated_invoices.csv',
-      transactions: './test/fixtures/truncated_transactions.csv'
+      transactions: './test/fixtures/truncated_transactions.csv',
+      customers:
+      './test/fixtures/truncated_customers.csv'
     )
+
     @repository = ItemRepository.new('./test/fixtures/truncated_items.csv', @engine)
   end
 

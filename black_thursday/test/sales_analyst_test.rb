@@ -11,7 +11,8 @@ class SalesAnalystTest < Minitest::Test
       items: './data/items.csv',
       merchants: './data/merchants.csv',
       invoices: './test/fixtures/truncated_invoices.csv',
-      transactions: './test/fixtures/truncated_transactions.csv'
+      transactions: './test/fixtures/truncated_transactions.csv',
+      customers: './test/fixtures/truncated_customers.csv'
     )
 
     @analyst = SalesAnalyst.new(@engine)

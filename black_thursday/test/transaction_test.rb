@@ -12,7 +12,9 @@ class TransactionTest < Minitest::Test
       items: './test/fixtures/truncated_items.csv',
       merchants: './test/fixtures/truncated_merchants.csv',
       invoices: './test/fixtures/truncated_invoices.csv',
-      transactions: './test/fixtures/truncated_transactions.csv'
+      transactions: './test/fixtures/truncated_transactions.csv',
+      customers:
+      './test/fixtures/truncated_customers.csv'
     )
 
     @repository = TransactionRepository.new("./test/fixtures/truncated_transactions.csv", @engine)
