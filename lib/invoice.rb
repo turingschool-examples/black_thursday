@@ -33,4 +33,14 @@ class Invoice
     repository.find_customer(customer_id)
   end
 
+  # def is_paid_in_full?
+  #   if repository.transaction_result(@invoice_id) == "success"
+  #     return true
+  #   else
+  #     return false
+  #   end
+  # end
+
+
+
 end

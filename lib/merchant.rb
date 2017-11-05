@@ -18,4 +18,8 @@ class Merchant
   def invoices
     repository.invoices(@id)
   end
+
+  def customers
+    repository.find_customers_by_merchant_id(@id)
+  end
 end
