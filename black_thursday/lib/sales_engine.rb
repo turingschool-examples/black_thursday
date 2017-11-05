@@ -12,7 +12,7 @@ class SalesEngine
               :merchants,
               :invoices,
               :transactions
-
+              
   def self.from_csv(csv_files)
     SalesEngine.new(csv_files)
   end
