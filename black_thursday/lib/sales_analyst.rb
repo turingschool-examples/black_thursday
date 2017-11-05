@@ -191,4 +191,12 @@ class SalesAnalyst
     top.map {|day| day[0]}
   end
   memoize :top_days_by_invoice_count
+
+  def invoice_status(status)
+    all = engine.invoices.all.select do |invoice|
+       invoice.status.to_sym == status
+     end
+     ((all.count.to_f / engine.invoices.all.count) * 100).round(2)
+  end
+
 end

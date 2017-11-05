@@ -170,4 +170,11 @@ class SalesAnalystTest < Minitest::Test
   def test_top_days_by_invoice_count
     assert_equal ['Friday'], analyst.top_days_by_invoice_count
   end
+
+  def test_invoice_status_returns_percentages
+    assert_equal 28.71, analyst.invoice_status(:pending)
+    assert_equal 62.38, analyst.invoice_status(:shipped)
+    assert_equal 8.91, analyst.invoice_status(:returned)
+    assert_equal 100.00, 28.71 + 62.38 + 8.91
+  end
 end
