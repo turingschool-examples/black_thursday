@@ -61,4 +61,39 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of Array, invoice.items
   end
 
+  def test_invoice_linked_to_transaction
+    invoice = se.invoices.find_by_id(20)
+
+    assert_instance_of Array, invoice.transactions
+    assert_instance_of Transaction, invoice.transactions.first
+  end
+
+  def test_invoice_linked_to_customer
+    invoice = se.invoices.find_by_id(20)
+
+    assert_instance_of Customer, invoice.customer
+  end
+
+  def test_transaction_can_be_linked_to_invoice
+    transaction = se.transactions.find_by_id(40)
+
+    assert_instance_of Invoice, transaction.invoice
+  end
+
+  def test_merchant_linked_to_its_customers
+
+  end
+
+  def test_customer_is_linked_to_merchants
+
+  end
+
+  def test_invoice_checks_if_paid_in_full
+
+  end
+
+  def test_invoice_can_find_total_amount
+    
+  end
+
 end
