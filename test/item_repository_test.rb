@@ -1,12 +1,16 @@
 require_relative 'test_helper'
-require './lib/sales_engine'
-require './lib/item_repository'
+require_relative '../lib/sales_engine'
+require_relative '../lib/item_repository'
 require 'pry'
 
 class ItemRepositoryTest < MiniTest::Test
 
   def setup
-    @sales_engine = SalesEngine.from_csv({:items => './test/fixtures/items_fixture.csv', :merchants => './test/fixtures/merchants.csv', :invoices => './test/fixtures/invoices.csv'})
+    @sales_engine = SalesEngine.from_csv({
+      :items => './test/fixtures/items_fixture.csv',
+      :merchants => './test/fixtures/merchants.csv',
+      :invoices => './test/fixtures/invoices.csv',
+      :invoice_items => './test/fixtures/invoice_items.csv'})
     @items = @sales_engine.items
   end
 
