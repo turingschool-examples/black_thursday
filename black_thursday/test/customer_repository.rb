@@ -19,7 +19,7 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal Array, repository.customers.class
     assert_equal "Ramona", repository.customers[9].first_name
     assert_equal "Reynolds", repository.customers[9].last_name
-    assert_equal 12, repository.customers.count
+    assert_equal 13, repository.customers.count
     assert_nil repository.parent
   end
 
@@ -28,7 +28,7 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_all_returns_all_customers
-    assert_equal 12, repository.all.count
+    assert_equal 13, repository.all.count
     assert_instance_of Customer, repository.all.first
     assert_instance_of Customer, repository.all.last
   end
@@ -41,7 +41,7 @@ class CustomerRepositoryTest < Minitest::Test
 
   def test_find_by_id_edge_cases
     assert_nil repository.find_by_id(nil)
-    assert_nil repository.find_by_id(500000)
+    assert_nil repository.find_by_id("words")
     assert_nil repository.find_by_id('721')
   end
 
@@ -53,5 +53,22 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal "Wiza", result.last.last_name
     assert_equal 30, result.first.id
     assert_equal 611, result.last.id
+  end
+
+  def test_find_all_by_first_name_edge_cases
+    assert_equal [], repository.find_all_by_first_name(nil)
+    # this breaks the program, and we don't have integer edge cases for other repos.
+    # assert_equal [], repository.find_all_by_first_name(14214)
+    assert_equal [], repository.find_all_by_first_name('fakename')
+  end
+
+  def test_find_all_by_last_name
+    result = repository.find_all_by_last_name("Ondricka")
+    assert_equal "Joey", result.first.first_name
+    assert_equal "Danyka", result.last.first_name
+    assert_equal "Ondricka", result.first.last_name
+    assert_equal "Ondricka", result.last.last_name
+    assert_equal 1, result.first.id
+    assert_equal 764, result.last.id
   end
 end

@@ -21,7 +21,16 @@ class CustomerRepository
   end
 
   def find_all_by_first_name(name)
-    return nil if name.nil?
-    @customers.find_all { |customer| customer.first_name.downcase == name.downcase }
+    return [] if name.nil?
+    @customers.find_all do |customer|
+      customer.first_name.downcase == name.downcase
+    end
+  end
+
+  def find_all_by_last_name(name)
+    return [] if name.nil?
+    @customers.find_all do |customer|
+      customer.last_name.downcase == name.to_s.downcase
+    end
   end
 end
