@@ -18,20 +18,20 @@ class InvoiceRepository
   end
 
   def find_by_id(id)
-    @invoices.find { |invoice| invoice.id == id }
+    @invoices.find { |invoice| invoice.id.to_i == id }
   end
 
   def find_all_by_merchant_id(merchant_id)
     return [] if merchant_id.nil?
     invoices.find_all do |invoice|
-      invoice.merchant_id == merchant_id
+      invoice.merchant_id.to_i == merchant_id
     end
   end
 
   def find_all_by_customer_id(customer_id)
     return [] if customer_id.nil?
     invoices.find_all do |invoice|
-      invoice.customer_id == customer_id
+      invoice.customer_id.to_i == customer_id
     end
   end
 
