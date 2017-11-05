@@ -1,3 +1,4 @@
+
 require_relative 'invoice'
 
 class InvoiceRepository
@@ -56,6 +57,12 @@ class InvoiceRepository
     @sales_engine.find_all_items_by_item_id(item_id)
   end
 
+  def find_transaction_by_invoice_id(invoice_id)
+    @sales_engine.find_transaction_by_invoice_id(invoice_id)
+  end
 
+  def find_customer_by_customer_id(customer_id)
+    @sales_engine.find_customer_by_customer_id(customer_id)
+  end
 
 end

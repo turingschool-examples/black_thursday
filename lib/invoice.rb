@@ -29,4 +29,12 @@ class Invoice
     end
   end
 
+  def transactions
+    @invoice_repo.find_transaction_by_invoice_id(id)
+  end
+
+  def customer
+    @invoice_repo.find_customer_by_customer_id(customer_id)
+  end
+
 end

@@ -48,4 +48,8 @@ class TransactionRepository
     end
   end
 
+  def find_by_invoice_id(invoice_id)
+    @sales_engine.find_by_invoice_id(invoice_id)
+  end
+
 end
