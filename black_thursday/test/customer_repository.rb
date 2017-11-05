@@ -17,9 +17,9 @@ class CustomerRepositoryTest < Minitest::Test
   def test_it_has_correct_attributes
     assert_equal Customer, repository.customers.first.class
     assert_equal Array, repository.customers.class
-    assert_equal "Ramona", repository.customers.last.first_name
-    assert_equal "Reynolds", repository.customers.last.last_name
-    assert_equal 10, repository.customers.count
+    assert_equal "Ramona", repository.customers[9].first_name
+    assert_equal "Reynolds", repository.customers[9].last_name
+    assert_equal 12, repository.customers.count
     assert_nil repository.parent
   end
 
@@ -28,7 +28,7 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_all_returns_all_customers
-    assert_equal 10, repository.all.count
+    assert_equal 12, repository.all.count
     assert_instance_of Customer, repository.all.first
     assert_instance_of Customer, repository.all.last
   end
@@ -37,5 +37,21 @@ class CustomerRepositoryTest < Minitest::Test
     assert_instance_of Customer, repository.find_by_id(2)
     assert_equal "Nader", repository.find_by_id(5).last_name
     assert_instance_of Time, repository.find_by_id(1).created_at
+  end
+
+  def test_find_by_id_edge_cases
+    assert_nil repository.find_by_id(nil)
+    assert_nil repository.find_by_id(500000)
+    assert_nil repository.find_by_id('721')
+  end
+
+  def test_find_all_by_first_name
+    result = repository.find_all_by_first_name("Elva")
+    assert_equal "Elva", result.first.first_name
+    assert_equal "Elva", result.last.first_name
+    assert_equal "Hermann", result.first.last_name
+    assert_equal "Wiza", result.last.last_name
+    assert_equal 30, result.first.id
+    assert_equal 611, result.last.id
   end
 end

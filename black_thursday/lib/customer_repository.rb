@@ -16,7 +16,12 @@ class CustomerRepository
   end
 
   def find_by_id(id)
-    return nil if id.class != Integer
+    return nil if id.nil?
     @customers.find { |customer| customer.id == id }
+  end
+
+  def find_all_by_first_name(name)
+    return nil if name.nil?
+    @customers.find_all { |customer| customer.first_name.downcase == name.downcase }
   end
 end
