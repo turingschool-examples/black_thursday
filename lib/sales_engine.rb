@@ -44,9 +44,7 @@ class SalesEngine
   end
 
   def find_transactions_by_invoice_id(id)
-    invoice_items.find_all_by_invoice_id(id).map do |invoice_item|
-      transactions.find_all_by_invoice_id(invoice_item.id)
-    end.flatten
+      transactions.find_all_by_invoice_id(id)
   end
 
   def find_customer(id)
