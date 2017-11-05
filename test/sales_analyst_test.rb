@@ -128,7 +128,7 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 57, s_a.day_created.count
   end
 
-  def test_it_returns_hash_of_counts
+  def test_it_returns_count
     files = ({:items => "./data/items.csv",
               :merchants => "./data/merchants.csv",
               :invoices =>"./test/fixture/invoice_fixture.csv"})
@@ -146,7 +146,7 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(files)
     s_a = SalesAnalyst.new(se)
 
-    assert_equal ["Friday", "Wednesday", "Saturday"], s_a.top_days_by_invoice_count
+    assert_equal ["Friday"], s_a.top_days_by_invoice_count
 
   end
 

@@ -124,13 +124,15 @@ class SalesAnalyst
   end
 
   def day_count
-    counts = Hash.new
-    day_created.each_with_object(Hash.new(0)) {|day, counts| counts[day] +=1}
+    day_created.each_with_object(Hash.new(0)) {|day, invoices| invoices[day] +=1}
   end
 
   def top_days_by_invoice_count
-     day_count.max_by do |key, value|
-      value
-    end
+    std_dev = standard_deviation(day_count.values)
+    mean_counts = mean(day_count.values)
+    one_std_dev = std_dev + mean_counts
+    day_count.select do |days, invoices|
+      invoices > one_std_dev
+    end.keys
   end
 end
