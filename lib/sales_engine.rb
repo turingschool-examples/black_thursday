@@ -5,22 +5,30 @@ require_relative './invoice_repository'
 require_relative './transaction_repository'
 require_relative './customer_repository'
 require_relative './invoice_item_repository'
+require_relative './engine_readers'
 
 class SalesEngine
-  attr_reader :items,
-              :merchants,
-              :invoices,
-              :transactions,
-              :customers,
-              :invoice_items
+  include EngineReaders
+  attr_reader :item_file,
+              :merchant_file,
+              :invoice_file,
+              :transaction_file,
+              :customer_file,
+              :invoice_item_file
 
   def initialize(repository)
-    @items = ItemRepository.new(repository[:items], self)
-    @merchants = MerchantRepository.new(repository[:merchants], self)
-    @invoices = InvoiceRepository.new(repository[:invoices], self)
-    @transactions = TransactionRepository.new(repository[:transactions], self)
-    @customers = CustomerRepository.new(repository[:customers], self)
-    @invoice_items = InvoiceItemRepository.new(repository[:invoice_items], self)
+    @items = nil
+    @item_file = repository[:items]
+    @merchants = nil
+    @merchant_file = repository[:merchants]
+    @invoices = nil
+    @invoice_file = repository[:invoices]
+    @transactions = nil
+    @transaction_file = repository[:transactions]
+    @customers = nil
+    @customer_file = repository[:customers]
+    @invoice_items = nil
+    @invoice_item_file = repository[:invoice_items]
   end
 
   def self.from_csv(files)
@@ -35,9 +43,7 @@ class SalesEngine
   end
 
   def self.load_csv(file_name)
-    CSV.readlines(file_name, headers: true, header_converters: :symbol) do |row|
-      row
-    end
+    CSV.readlines(file_name, headers: true, header_converters: :symbol)
   end
 
   def find_items_by_merchant_id(id)
