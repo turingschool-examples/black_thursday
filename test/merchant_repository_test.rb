@@ -15,7 +15,7 @@ class MerchantRepositoryTest < MiniTest::Test
   end
 
   def test_that_merchants_are_created
-    assert_equal 5, @merchants.count
+    assert_equal 10, @merchants.count
     assert_equal "Candis--art", @merchants.merchants[0].name
   end
 

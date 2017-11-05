@@ -16,7 +16,7 @@ class InvoiceRepositoryTest < MiniTest::Test
   end
 
   def test_that_invoices_are_created
-    assert_equal 19, @invoices.count
+    assert_equal 49, @invoices.count
     assert_equal 1, @invoices.invoices[0].id
     assert_equal 2, @invoices.invoices[1].id
   end
@@ -42,36 +42,34 @@ class InvoiceRepositoryTest < MiniTest::Test
   end
 
   def test_that_it_finds_all_by_merchant_id
-    invoice1 = @invoices.invoices[0]
-    invoice2 = @invoices.invoices[1]
-    invoice3 = @invoices.invoices[3]
-    invoice4 = @invoices.invoices[4]
-    invoice5 = @invoices.invoices[5]
-    invoice6 = @invoices.invoices[6]
+    invoice1 = @invoices.invoices[2]
+    invoice2 = @invoices.invoices[7]
+    invoice3 = @invoices.invoices[8]
+    invoice4 = @invoices.invoices[9]
+    invoice5 = @invoices.invoices[45]
 
     assert_equal ([]), @invoices.find_all_by_merchant_id(100)
     assert_equal [invoice1, invoice2,
                   invoice3, invoice4,
-                  invoice5, invoice6],
-                  @invoices.find_all_by_merchant_id(12334112)
+                  invoice5],
+                  @invoices.find_all_by_merchant_id(12334155)
   end
 
   def test_that_it_finds_all_by_status
-    invoice1 = @invoices.invoices[0]
-    invoice2 = @invoices.invoices[3]
-    invoice3 = @invoices.invoices[4]
-    invoice4 = @invoices.invoices[5]
-    invoice5 = @invoices.invoices[6]
-    invoice6 = @invoices.invoices[9]
-    invoice7 = @invoices.invoices[10]
-    invoice8 = @invoices.invoices[13]
-    invoice9 = @invoices.invoices[16]
+    invoice1 = @invoices.invoices[18]
+    invoice2 = @invoices.invoices[23]
+    invoice3 = @invoices.invoices[27]
+    invoice4 = @invoices.invoices[33]
+    invoice5 = @invoices.invoices[37]
+    invoice6 = @invoices.invoices[44]
+    invoice7 = @invoices.invoices[47]
+    invoice8 = @invoices.invoices[48]
     result = [invoice1, invoice2, invoice3,
               invoice4, invoice5, invoice6,
-              invoice7, invoice8, invoice9]
+              invoice7, invoice8]
 
     assert_equal ([]), @invoices.find_all_by_status(:return)
-    assert_equal result, @invoices.find_all_by_status(:pending)
+    assert_equal result, @invoices.find_all_by_status(:returned)
   end
 
   def test_that_it_finds_merchant_by_invoice_id

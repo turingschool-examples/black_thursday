@@ -15,11 +15,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_that_we_find_average_items_per_merchant
-    assert_equal 2.0, @sales_analyst.average_items_per_merchant
+    assert_equal 1.5, @sales_analyst.average_items_per_merchant
   end
 
   def test_it_can_find_standard_deviation
-    assert_equal 0.87, @sales_analyst.average_items_per_merchant_standard_deviation
+    assert_equal 0.71, @sales_analyst.average_items_per_merchant_standard_deviation
   end
 
   def test_it_can_find_merchants_with_high_item_count
@@ -32,7 +32,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_determine_average_price_per_merchant
-    assert_equal 233.66, @sales_analyst.average_average_price_per_merchant
+    assert_equal 201.83, @sales_analyst.average_average_price_per_merchant
   end
 
   def test_it_can_find_golden_items
@@ -41,11 +41,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_average_invoices_per_merchant
-    assert_equal 3.8, @sales_analyst.average_invoices_per_merchant
+    assert_equal 4.9, @sales_analyst.average_invoices_per_merchant
   end
 
   def test_it_can_find_average_items_per_merchant_standard_deviation
-    assert_equal 1.48, @sales_analyst.average_invoices_per_merchant_standard_deviation
+    assert_equal 1.45, @sales_analyst.average_invoices_per_merchant_standard_deviation
   end
 
   def test_it_can_find_top_merchants_by_invoice_count
@@ -63,8 +63,8 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_percentage_of_instances_of_statuses
-    assert_equal 47.37, @sales_analyst.invoice_status(:pending)
-    assert_equal 47.37, @sales_analyst.invoice_status(:shipped)
-    assert_equal 5.26, @sales_analyst.invoice_status(:returned)
+    assert_equal 51.02, @sales_analyst.invoice_status(:pending)
+    assert_equal 32.65, @sales_analyst.invoice_status(:shipped)
+    assert_equal 16.33, @sales_analyst.invoice_status(:returned)
   end
 end
