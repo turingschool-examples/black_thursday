@@ -3,7 +3,7 @@ class CustomerRepository
               :parent
 
   def initialize(csv_filename, parent = nil)
-    @invoices  = load_csv(csv_filename).map { |row| Customer.new(row, self) }
+    @customers  = load_csv(csv_filename).map { |row| Customer.new(row, self) }
     @parent    = parent
   end
 
@@ -13,5 +13,10 @@ class CustomerRepository
 
   def all
     @customers
+  end
+
+  def find_by_id(id)
+    return nil if id.class != Integer
+    @customers.find { |customer| customer.id == id }
   end
 end
