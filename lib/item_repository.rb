@@ -7,7 +7,7 @@ class ItemRepository
 
   include CreateElements
 
-  attr_reader :items, :engine, :items_file
+  attr_reader :items, :engine
 
   def initialize(items_file, engine)
     @items = create_elements(items_file).map {|item| Item.new(item, self)}
