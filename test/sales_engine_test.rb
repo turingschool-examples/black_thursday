@@ -81,11 +81,17 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_merchant_linked_to_its_customers
+    merchant = se.merchants.find_by_id(12335938)
 
+    assert_instance_of Array, merchant.customers
+    assert_instance_of Customer, merchant.customers.first
   end
 
   def test_customer_is_linked_to_merchants
+    customer = se.customers.find_by_id(30)
 
+    assert_instance_of Array, customer.merchants
+    assert_instance_of Merchant, customer.merchants.first
   end
 
   def test_invoice_checks_if_paid_in_full
@@ -93,7 +99,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_invoice_can_find_total_amount
-    
+
   end
 
 end

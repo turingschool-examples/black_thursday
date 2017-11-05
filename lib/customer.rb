@@ -18,4 +18,11 @@ class Customer
     @customer_repo  = parent
   end
 
+  def merchants
+    invoices = @customer_repo.find_invoices_by_customer_id(@id)
+    invoices.map do |invoice|
+      invoice.merchant
+    end.uniq
+  end
+
 end
