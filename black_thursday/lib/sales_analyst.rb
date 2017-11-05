@@ -2,6 +2,7 @@ require 'bigdecimal'
 require_relative 'sales_engine'
 require 'memoist'
 require "time"
+require "pry"
 
 class SalesAnalyst
 
@@ -146,9 +147,29 @@ class SalesAnalyst
   end
   memoize :bottom_merchants_by_invoice_count
 
-  def invoice_days
+  def invoice_days_count
     engine.invoices.all.map do |invoice|
       invoice.created_at.strftime('%A')
     end
+  end
+
+  def days
+    invoice_days_count.uniq
+  end
+
+  def days_count_by_day
+    days.zip(days_of_week_count)
+  end
+
+  def days_of_week_count
+    days.map {|day| invoice_days_count.count(day)}
+  end
+
+  def average_invoices_by_day
+    days_of_week_count.sum / 7
+  end
+
+  def top_days_by_invoice_count
+
   end
 end
