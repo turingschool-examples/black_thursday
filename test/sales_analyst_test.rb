@@ -63,7 +63,7 @@ class SalesAnalystTest < Minitest::Test
   def test_average_invoices_per_merchant
     result = sa.average_invoices_per_merchant
 
-    assert_equal 4.0, result
+    assert_equal 6.8, result
   end
 
   def test_top_merchants_by_invoice_count
@@ -89,8 +89,18 @@ class SalesAnalystTest < Minitest::Test
     shipped = sa.invoice_status(:shipped)
     returned = sa.invoice_status(:returned)
 
-    assert_equal 15.00, pending
-    assert_equal 75.00, shipped
-    assert_equal 10.00, returned
+    assert_equal 8.82, pending
+    assert_equal BigDecimal(8529)/100, shipped.round(2)
+    assert_equal 5.88, returned
+  end
+
+  def test_customer_analyst_top_buyers
+    two = sa.top_buyers(2)
+    twenty = sa.top_buyers
+
+    assert_instance_of Customer, two.first
+    assert_instance_of Customer, two.last
+    assert_equal 2, two.count
+    assert_equal 20, twenty.count
   end
 end
