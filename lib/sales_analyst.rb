@@ -1,5 +1,7 @@
 require_relative 'sales_engine'
 require_relative 'math'
+require 'time'
+require 'pry'
 
 class SalesAnalyst
   include Math
@@ -43,11 +45,8 @@ class SalesAnalyst
   def merchants_with_high_item_count
     counts = counts_per_merchant(sales_engine.method(:find_merchant_items))
     one_std_dev = mean(counts) + standard_deviation(counts)
-    # counts.each_with_index
-    # make std dev method for merchant
     sales_engine.merchants.merchants.select do |merchant|
       sales_engine.find_merchant_items(merchant.id).count > one_std_dev
-      # merchant.std_dev > 2 - math Module
     end
   end
 
@@ -97,4 +96,41 @@ class SalesAnalyst
     (total_invoices.to_f / total_merchants.to_f).round(2)
   end
 
+  def average_invoices_per_merchant_standard_deviation
+    counts = counts_per_merchant(sales_engine.method(:find_merchant_invoices))
+    standard_deviation(counts)
+  end
+
+  def top_merchants_by_invoice_count
+    counts = counts_per_merchant(sales_engine.method(:find_merchant_invoices))
+    two_std_dev = mean(counts) + (standard_deviation(counts)*2)
+    sales_engine.merchants.merchants.select do |merchant|
+      sales_engine.find_merchant_invoices(merchant.id).count > two_std_dev
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    counts = counts_per_merchant(sales_engine.method(:find_merchant_invoices))
+    two_std_dev = mean(counts) + (standard_deviation(counts)*2)
+    sales_engine.merchants.merchants.select do |merchant|
+      sales_engine.find_merchant_invoices(merchant.id).count < two_std_dev
+    end
+  end
+
+  def day_created
+    sales_engine.invoices.all.map do |invoice|
+      invoice.created_at.strftime("%A")
+    end
+  end
+
+  def day_count
+    counts = Hash.new
+    day_created.each_with_object(Hash.new(0)) {|day, counts| counts[day] +=1}
+  end
+
+  def top_days_by_invoice_count
+     day_count.max_by do |key, value|
+      value
+    end
+  end
 end

@@ -90,4 +90,64 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 5, s_a.golden_items.count
   end
 
+  def test_it_can_find_average_invoices_per_merchants
+    assert_equal 830.83, setup.average_invoices_per_merchant
+  end
+
+  def test_it_can_find_invoice_average_per_standard_deviation
+    assert_equal 1.72, setup.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_it_can_find_top_merchants_by_invoice_count
+    files = ({:items => "./data/items.csv",
+              :merchants => "./data/merchants.csv",
+              :invoices => "./data/invoices.csv"})
+    se = SalesEngine.from_csv(files)
+    s_a = SalesAnalyst.new(se)
+
+    assert_equal 12, s_a.top_merchants_by_invoice_count.count
+  end
+
+  def test_it_can_find_bottom_merchants_by_invoice_count
+    files = ({:items => "./data/items.csv",
+              :merchants => "./data/merchants.csv",
+              :invoices => "./data/invoices.csv"})
+    se = SalesEngine.from_csv(files)
+    s_a = SalesAnalyst.new(se)
+
+    assert_equal 463, s_a.bottom_merchants_by_invoice_count.count
+  end
+
+  def test_returns_day_of_week
+    files = ({:items => "./data/items.csv",
+              :merchants => "./data/merchants.csv",
+              :invoices =>"./test/fixture/invoice_fixture.csv"})
+    se = SalesEngine.from_csv(files)
+    s_a = SalesAnalyst.new(se)
+
+    assert_equal 57, s_a.day_created.count
+  end
+
+  def test_it_returns_hash_of_counts
+    files = ({:items => "./data/items.csv",
+              :merchants => "./data/merchants.csv",
+              :invoices =>"./test/fixture/invoice_fixture.csv"})
+    se = SalesEngine.from_csv(files)
+    s_a = SalesAnalyst.new(se)
+
+    assert_equal 9, s_a.day_count["Saturday"]
+  end
+
+
+  def test_it_can_find_top_days_by_invoice_count
+    files = ({:items => "./data/items.csv",
+              :merchants => "./data/merchants.csv",
+              :invoices =>"./test/fixture/invoice_fixture.csv"})
+    se = SalesEngine.from_csv(files)
+    s_a = SalesAnalyst.new(se)
+
+    assert_equal ["Friday", "Wednesday", "Saturday"], s_a.top_days_by_invoice_count
+
+  end
+
 end

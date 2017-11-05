@@ -2,16 +2,17 @@ require_relative "invoice"
 require "csv"
 
 class InvoiceRepository
-  attr_reader :invoices
+  attr_reader :invoices, :sales_engine
 
-  def initialize(invoice_file)
+  def initialize(invoice_file, sales_engine)
     @invoices = []
     invoices_from_csv(invoice_file)
+    @sales_engine = sales_engine
   end
 
   def invoices_from_csv(invoice_file)
     CSV.foreach(invoice_file, headers: true, header_converters: :symbol) do |row|
-      @invoices << Invoice.new(row)
+      @invoices << Invoice.new(row, self)
     end
   end
 
@@ -37,7 +38,12 @@ class InvoiceRepository
     @invoices.find_all {|invoice| invoice.status == status}
   end
 
+  def invoice_merchants(merchant_id)
+    sales_engine.find_invoice_for_merchants(merchant_id)
+  end
+
+
   def inspect
-    "#{self.class} #{invoice.size} rows"
+    "#{self.class} #{invoices.size} rows"
   end
 end

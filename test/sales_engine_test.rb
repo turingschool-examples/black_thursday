@@ -24,4 +24,16 @@ class SalesEngineTest < Minitest::Test
   def test_find_merchant_items_things
     assert_equal 3, setup.find_merchant_items(12334185).count
   end
+
+  def test_find_item_merchants
+    assert_equal 12334115, setup.find_item_merchant(12334115).id
+  end
+
+  def test_find_invoices_for_merchants
+    assert_equal 11, setup.find_merchant_invoices(12334115).count
+  end
+
+  def test_it_can_find_merchant_by_invoice
+    assert_equal 12334115, setup.find_invoice_for_merchants(12334115).id
+  end
 end
