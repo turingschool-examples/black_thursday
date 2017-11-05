@@ -41,12 +41,6 @@ module ItemAnalyst
     averager(total_all_item_prices, item_count)
   end
 
-  # def average_item_price
-  #   BigDecimal((se.items.items.inject(0) do |sum, item|
-  #     sum += item.unit_price
-  #   end/item_count).round)
-  # end
-
   def minimum_for_golden_item
     average_item_price + (2 * standard_deviation_of_item_price)
   end
