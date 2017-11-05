@@ -2,7 +2,6 @@ require 'bigdecimal'
 require_relative 'sales_engine'
 require 'memoist'
 require "time"
-require "pry"
 
 class SalesAnalyst
 
@@ -169,7 +168,27 @@ class SalesAnalyst
     days_of_week_count.sum / 7
   end
 
-  def top_days_by_invoice_count
-
+  def squares_of_day_counts
+    days_of_week_count.map do |count|
+      (count - average_invoices_by_day) ** 2
+    end
   end
+
+  def standard_deviation_of_invoices_by_day
+    Math.sqrt(squares_of_day_counts.sum.to_f / days_of_week_count.length).ceil
+  end
+  memoize :standard_deviation_of_invoices_by_day
+
+  def one_standard_deviation_of_days
+    average_invoices_by_day + standard_deviation_of_invoices_by_day
+  end
+  memoize :one_standard_deviation_of_days
+
+  def top_days_by_invoice_count
+    top = days_count_by_day.find_all do |day|
+      day[1] > one_standard_deviation_of_days
+    end
+    top.map {|day| day[0]}
+  end
+  memoize :top_days_by_invoice_count
 end

@@ -142,18 +142,32 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_days_count_by_day
+    expected = [["Saturday", 15], ["Friday", 19], ["Wednesday", 9], ["Monday", 17], ["Sunday", 12], ["Tuesday", 17], ["Thursday", 12]]
     assert_instance_of Array, analyst.days_count_by_day
     assert_equal 7, analyst.days_count_by_day.length
     assert_instance_of Array, analyst.days_count_by_day[0]
     assert_equal 15, analyst.days_count_by_day[0][1]
     assert_equal 'Saturday', analyst.days_count_by_day[0][0]
+    assert_equal expected, analyst.days_count_by_day
   end
 
   def test_average_invoices_by_day
     assert_equal 14, analyst.average_invoices_by_day
   end
 
+  def test_squares_of_day_counts
+    assert_equal [1, 25, 25, 9, 4, 9, 4], analyst.squares_of_day_counts
+  end
+
+  def test_standard_deviation_of_invoice_by_day
+    assert_equal 4, analyst.standard_deviation_of_invoices_by_day
+  end
+
+  def test_one_standard_deviation_of_days
+    assert_equal 18, analyst.one_standard_deviation_of_days
+  end
+
   def test_top_days_by_invoice_count
-    assert_equal '', analyst.top_days_by_invoice_count
+    assert_equal ['Friday'], analyst.top_days_by_invoice_count
   end
 end
