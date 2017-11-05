@@ -17,7 +17,7 @@ module ItemAnalyst
     average_items_per_merchant + average_items_per_merchant_standard_deviation
   end
 
-  def standard_deviation_of_item_price
+  def standard_deviation_of_item_price_standard
     standard_deviation(
       all_item_prices,
       total_all_item_prices,
@@ -40,6 +40,12 @@ module ItemAnalyst
   def average_item_price
     averager(total_all_item_prices, item_count)
   end
+
+  # def average_item_price
+  #   BigDecimal((se.items.items.inject(0) do |sum, item|
+  #     sum += item.unit_price
+  #   end/item_count).round)
+  # end
 
   def minimum_for_golden_item
     average_item_price + (2 * standard_deviation_of_item_price)
