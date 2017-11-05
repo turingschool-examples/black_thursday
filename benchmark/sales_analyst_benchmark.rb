@@ -15,6 +15,7 @@ Benchmark.ips do |x|
   )
   sa = SalesAnalyst.new(se)
   x.report("golden_items") {sa.golden_items}
+  x.report("std_item_price") {sa.standard_deviation_of_item_price}
   x.report("minimum_for Gs") {sa.average_items_per_merchant_standard_deviation}
 end
 
