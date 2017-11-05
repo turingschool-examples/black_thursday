@@ -15,5 +15,9 @@ class Customer
     @repository = repository
   end
 
+  def merchants
+    repository.find_merchants(@id)
+  end
+
 
 end
