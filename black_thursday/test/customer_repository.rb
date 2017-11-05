@@ -71,4 +71,10 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal 1, result.first.id
     assert_equal 764, result.last.id
   end
+
+  def test_find_all_by_last_name_edge_cases
+    # add integer edgecase
+    assert_equal [], repository.find_all_by_last_name(nil)
+    assert_equal [], repository.find_all_by_last_name('fakename')
+  end
 end
