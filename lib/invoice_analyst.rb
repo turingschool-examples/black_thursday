@@ -106,6 +106,4 @@ module InvoiceAnalyst
     end
     percent[invoice_status].round(2)
   end
-
-
 end
