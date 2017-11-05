@@ -1,38 +1,30 @@
+require_relative './statistics'
+
 module ItemAnalyst
+  include Statistics
+
   def average_items_per_merchant
-    (item_count.to_f / merchant_count).round(2)
+    averager(item_count, merchant_count)
   end
 
   def average_items_per_merchant_standard_deviation
-    average_items = average_items_per_merchant
-    Math.sqrt(all_items_for_each_merchant.map do |(key, item_count)|
-      (average_items - item_count) ** 2
-    end.sum / (merchant_count - 1)).round(2)
-  end
-
-  def all_items_for_each_merchant
-    se.items.items.reduce({}) do |result, item|
-      result[item.merchant_id] = 0 if result[item.merchant_id].nil?
-      result[item.merchant_id] += 1
-      result
-    end
+    standard_deviation(
+      all_items_for_each_merchant,
+      item_count,
+      merchant_count
+    )
   end
 
   def merchants_with_high_item_count
     minimum = minimum_for_high_items
-    all_items_for_each_merchant.reduce([]) do |result, (merchant_id, items)|
+    accumulate_merchant_items.reduce([]) do |result, (merchant_id, items)|
       result << se.merchants.find_by_id(merchant_id) if items >= minimum
       result
     end
   end
 
-  def minimum_for_high_items
-    average_items_per_merchant + average_items_per_merchant_standard_deviation
-  end
-
   def average_item_price_for_merchant(merchant_id)
     merchant = se.merchants.find_by_id(merchant_id.to_s)
-    return 0 if merchant.items.count.zero?
     BigDecimal((merchant.items.inject(0) do |sum, item|
       sum += item.unit_price
     end/merchant.items.count)).round(2)
@@ -44,30 +36,62 @@ module ItemAnalyst
     end/merchant_count)).round(2)
   end
 
-  def standard_deviation_of_item_price
-    average_price = average_item_price
-    Math.sqrt(se.items.items.map do |item|
-      (average_price - item.unit_price) ** 2
-    end.sum / (item_count - 1)).round(2)
-  end
-
-  def average_item_price
-    BigDecimal((se.items.items.inject(0) do |sum, item|
-      sum += item.unit_price
-    end/item_count).round)
-  end
-
   def golden_items
     minimum = minimum_for_golden_item
-    se.items.items.reduce([]) do |result, item|
-      if item.unit_price >= minimum
-        result << item
-      end
+    find_golden_items(minimum)
+  end
+
+  def standard_deviation_of_item_price
+    standard_deviation(
+      all_item_prices,
+      total_all_item_prices,
+      item_count
+    )
+  end
+
+  private
+  def all_items_for_each_merchant
+    accumulate_merchant_items.flat_map do |merchant_items|
+      merchant_items[1]
+    end
+  end
+
+  def accumulate_merchant_items
+    se.items.items.reduce({}) do |result, item|
+      result[item.merchant_id] = 0 if result[item.merchant_id].nil?
+      result[item.merchant_id] += 1
       result
     end
   end
 
+  def minimum_for_high_items
+    average_items_per_merchant + average_items_per_merchant_standard_deviation
+  end
+
+  def all_item_prices
+    se.items.items.map do |item|
+      item.unit_price
+    end
+  end
+
+  def total_all_item_prices
+    se.items.items.inject(0) do |sum, item|
+      sum += item.unit_price
+    end
+  end
+
+  def average_item_price
+    BigDecimal(averager(total_all_item_prices, item_count).round)
+  end
+
   def minimum_for_golden_item
     average_item_price + (2 * standard_deviation_of_item_price)
+  end
+
+  def find_golden_items(minimum)
+    se.items.all.reduce([]) do |result, item|
+      result << item if item.unit_price >= minimum
+      result
+    end
   end
 end

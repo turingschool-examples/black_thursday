@@ -1,14 +1,43 @@
+require_relative './statistics'
+
 module InvoiceAnalyst
+  include Statistics
+
   def average_invoices_per_merchant
-    (invoice_count.to_f / merchant_count).round(2)
+    averager(invoice_count, merchant_count)
   end
 
   def average_invoices_per_merchant_standard_deviation
-    Math.sqrt(count_all_invoices_for_each_merchant.map do |invoice_count|
-      (average_invoices_per_merchant - invoice_count) ** 2
-    end.sum / (merchant_count - 1 )).round(2)
+    standard_deviation(
+      count_all_invoices_for_each_merchant,
+      invoice_count,
+      merchant_count)
   end
 
+  def top_merchants_by_invoice_count
+    minimum = top_merchants_by_invoice_threshold
+    find_merchants(minimum, 'min')
+  end
+
+  def bottom_merchants_by_invoice_count
+    maximum = bottom_merchants_by_invoice_threshold
+    find_merchants(maximum, 'max')
+  end
+
+  def top_days_by_invoice_count
+    threshold = threshold_for_top_invoice_days
+    accumulate_invoice_by_day.reduce([]) do |result, (day, count)|
+      result << day if count >= threshold
+      result
+    end
+  end
+
+  def invoice_status(status)
+    separated = invoice_status_accumulator
+    BigDecimal((10000 * separated[status].to_f / invoice_count).round)/100
+  end
+
+  private
   def count_all_invoices_for_each_merchant
     se.merchants.merchants.map do |merchant|
       merchant.invoices.count
@@ -23,13 +52,16 @@ module InvoiceAnalyst
     end
   end
 
-  def top_merchants_by_invoice_count
-    minimum = top_merchants_by_invoice_threshold
+  def find_merchants(threshold, mode)
     accumulate_merchant_invoices.reduce([]) do |result, (merchant, invoices)|
-      result << se.merchants.find_by_id(merchant) if invoices >= minimum
-
+      add_merchant(merchant, result) if invoices >= threshold && mode == 'min'
+      add_merchant(merchant, result) if invoices <= threshold && mode == 'max'
       result
     end
+  end
+
+  def add_merchant(merchant_id, result)
+    result << se.merchants.find_by_id(merchant_id)
   end
 
   def top_merchants_by_invoice_threshold
@@ -37,26 +69,9 @@ module InvoiceAnalyst
     average_invoices_per_merchant + twice_stdev
   end
 
-  def bottom_merchants_by_invoice_count
-    minimum = bottom_merchants_by_invoice_threshold
-    accumulate_merchant_invoices.reduce([]) do |result, (merchant, invoices)|
-      result << se.merchants.find_by_id(merchant) if invoices <= minimum
-      result
-    end
-  end
-
   def bottom_merchants_by_invoice_threshold
     twice_stdev = (2 * average_invoices_per_merchant_standard_deviation)
     average_invoices_per_merchant - twice_stdev
-  end
-
-  def top_days_by_invoice_count
-    invoice_count_by_day.reduce([]) do |result, (day, count)|
-      if count >= threshold_for_top_invoice_days
-        result << day
-      end
-      result
-    end
   end
 
   def threshold_for_top_invoice_days
@@ -64,12 +79,20 @@ module InvoiceAnalyst
   end
 
   def standard_deviation_of_invoices_per_day
-    Math.sqrt(invoice_count_by_day.values.map do |value|
-      (average_invoices_per_day - value) ** 2
-    end.sum / (7 - 1 )).round(2)
+    standard_deviation(
+      invoice_count_by_day,
+      invoice_count,
+      7
+    )
   end
 
   def invoice_count_by_day
+    accumulate_invoice_by_day.map do |pair|
+      pair[1]
+    end
+  end
+
+  def accumulate_invoice_by_day
     se.invoices.invoices.reduce({}) do |result, invoice|
       day = invoice.created_at.strftime('%A')
       result[day] = 0 if result[day].nil?
@@ -80,11 +103,6 @@ module InvoiceAnalyst
 
   def average_invoices_per_day
     (invoice_count) / 7
-  end
-
-  def invoice_status(status)
-    separated = invoice_status_accumulator
-    BigDecimal((10000 * separated[status].to_f / invoice_count).round)/100
   end
 
   def invoice_status_accumulator
