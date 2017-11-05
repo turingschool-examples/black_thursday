@@ -36,10 +36,25 @@ class InvoiceRepository
     end
   end
 
-  def find_merchant_by_merchant_id(merchant_id)
+  def find_merchant_by_id(merchant_id)
     parent.find_merchant_by_id(merchant_id)
   end
 
+  def find_items_by_invoice_id(invoice_id)
+    parent.find_items_by_invoice_id(invoice_id)
+  end
+
+  def find_transaction_by_invoice_id(invoice_id)
+    parent.find_transaction_by_invoice_id(invoice_id)
+  end
+
+  def find_customer_by_id(customer_id)
+    parent.find_customer_by_id(customer_id)
+  end
+
+  def find_invoice_items_by_invoice_id(invoice_id)
+    parent.find_invoice_items_by_invoice_id(invoice_id)
+  end
 
   def inspect
     "#<#{self.class} #{@invoices.size} rows>"
