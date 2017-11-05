@@ -110,4 +110,12 @@ class SalesAnalystTest < Minitest::Test
   def test_average_invoices_per_merchant_standard_deviation
     assert_equal 1.58, analyst.average_invoices_per_merchant_standard_deviation
   end
+
+  def test_top_merchants_by_invoice_count
+    assert_equal [], analyst.top_merchants_by_invoice_count
+  end
+
+  def test_bottom_merchants_by_invoice_count
+    assert_equal [], analyst.bottom_merchants_by_invoice_count
+  end
 end

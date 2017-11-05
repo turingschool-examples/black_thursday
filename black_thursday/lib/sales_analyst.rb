@@ -121,4 +121,27 @@ class SalesAnalyst
     Math.sqrt(sums / (engine.merchants.all.count - 1)).round(2)
   end
   memoize :average_invoices_per_merchant_standard_deviation
+
+  def two_invoices_per_merchant_standard_deviations
+    average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2)
+  end
+  memoize :two_invoices_per_merchant_standard_deviations
+
+  def top_merchants_by_invoice_count
+    engine.merchants.all.find_all do |merchant|
+      merchant.invoices.count > two_invoices_per_merchant_standard_deviations
+    end
+  end
+  memoize :top_merchants_by_invoice_count
+
+  def two_standard_deviations_below_invoice_count
+    average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2)
+  end
+
+  def bottom_merchants_by_invoice_count
+    engine.merchants.all.find_all do |merchant|
+      merchant.invoices.count < two_standard_deviations_below_invoice_count
+    end
+  end
+  memoize :bottom_merchants_by_invoice_count
 end
