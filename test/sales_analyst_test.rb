@@ -84,18 +84,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal ['Wednesday'], result
   end
 
-  def test_invoice_count_by_day
-    result = sa.invoice_count_by_day
-
-    assert_equal 4, result.count
-  end
-
-  def test_standard_deviation_of_invoices_per_day
-    result = sa.standard_deviation_of_invoices_per_day
-
-    assert_equal 3.32, result
-  end
-
   def test_precentage_of_invoice_status
     pending = sa.invoice_status(:pending)
     shipped = sa.invoice_status(:shipped)

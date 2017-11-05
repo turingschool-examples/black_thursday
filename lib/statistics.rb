@@ -1,4 +1,5 @@
 module Statistics
+  private
   def averager(object_count, by_object_count)
     (object_count.to_f / by_object_count).round(2)
   end
@@ -9,5 +10,4 @@ module Statistics
       (average - sub_count) ** 2
     end.sum / (by_object - 1 )).round(2)
   end
-
 end
