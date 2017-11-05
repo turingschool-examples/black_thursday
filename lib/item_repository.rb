@@ -2,16 +2,17 @@ require_relative "item"
 require "csv"
 
 class ItemRepository
-  attr_reader :items
+  attr_reader :items, :sales_engine
 
-  def initialize(item_file)
+  def initialize(item_file, sales_engine)
     @items = []
     items_from_csv(item_file)
+    @sales_engine = sales_engine
   end
 
   def items_from_csv(item_file)
     CSV.foreach(item_file, headers: true, header_converters: :symbol) do |row|
-      @items << Item.new(row)
+      @items << Item.new(row, self)
     end
   end
 
@@ -43,6 +44,10 @@ class ItemRepository
 
   def find_all_by_merchant_id(merchant_id)
     @items.find_all {|item| item.merchant_id == merchant_id}
+  end
+
+  def item_merchant(merchant_id)
+    sales_engine.find_item_merchant(merchant_id)
   end
 
   def inspect

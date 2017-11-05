@@ -76,9 +76,25 @@ class SalesAnalyst
     avg_avg.round(2)
   end
 
+  def item_unit_price_list
+    sales_engine.items.items.map { |item| item.unit_price }
+  end
+
+  def std_dev_item_price
+    standard_deviation(item_unit_price_list)
+  end
+
   def golden_items
-    standard_deviation(average_item_price)*2
-    # require "pry"; binding.pry
+    std_deviation = std_dev_item_price
+    sales_engine.items.items.select do |item|
+      item.unit_price > (std_deviation * 2)
+    end
+  end
+
+  def average_invoices_per_merchant
+    total_invoices = sales_engine.invoices.invoices.count
+    total_merchants = sales_engine.merchants.merchants.count
+    (total_invoices.to_f / total_merchants.to_f).round(2)
   end
 
 end

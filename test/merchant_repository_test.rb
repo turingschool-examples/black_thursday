@@ -1,43 +1,39 @@
 require_relative 'test_helper'
 require_relative '../lib/merchant_repository'
+require_relative '../lib/sales_engine'
 
 class MerchantRepositoryTest < Minitest::Test
+  def setup
+    files = ({:items => "./test/fixture/item_fixture.csv",
+              :merchants => "./test/fixture/merchant_fixture.csv",
+              :invoices => "./data/invoices.csv",})
+    SalesEngine.from_csv(files).merchants
+  end
+
+  def test_merchant_repo_exists
+    assert_instance_of MerchantRepository, setup
+  end
 
   def test_it_pulls_csv_info_from_merchants_fixture
-    mr = MerchantRepository.new("./test/fixture/merchant_fixture.csv")
-
-    assert_equal 6, mr.all.count
+    assert_equal 6, setup.all.count
   end
 
   def test_it_returns_array_of_all_merchants
-    mr = MerchantRepository.new("./data/merchants.csv")
-
-    assert_equal 475, mr.all.count
+    assert_equal 6, setup.all.count
   end
 
   def test_it_can_find_by_id
-    mr = MerchantRepository.new("./data/merchants.csv")
-
-    assert_instance_of Merchant, mr.find_by_id(12334155)
-
-    merch_id = mr.find_by_id(12334174)
-
-    assert_equal 12334174, merch_id.id
+    assert_instance_of Merchant, setup.find_by_id(12334113)
+    assert_equal 12334113, setup.find_by_id(12334113).id
   end
 
   def test_it_can_find_by_name
-    mr = MerchantRepository.new("./data/merchants.csv")
-
-    merch_name = mr.find_by_name("BowlsByChris")
-
-    assert_equal "BowlsByChris", merch_name.name
+    merch_name = setup.find_by_name("Candisart")
+    assert_equal "Candisart", merch_name.name
   end
 
   def test_it_can_find_all_by_fragment_of_name
-    mr = MerchantRepository.new("./data/merchants.csv")
-
-    merch_name = mr.find_all_by_name("style")
-
-    assert_equal 3, merch_name.count
+    merch_name = setup.find_all_by_name("candi")
+    assert_equal 1, merch_name.count
   end
 end
