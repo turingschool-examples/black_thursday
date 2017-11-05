@@ -100,4 +100,15 @@ class SalesAnalyst
       item.unit_price > two_standard_deviations_above_price
     end
   end
+
+  def average_invoices_per_merchant
+    (engine.invoices.all.count / count_merchants).round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    sums = engine.merchants.all.map do |merchant|
+      (merchant.invoices.length - average_invoices_per_merchant)**2
+    end.sum
+    Math.sqrt(sums / (engine.merchants.all.count - 1)).round(2)
+  end
 end

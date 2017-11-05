@@ -25,4 +25,9 @@ class SalesEngine
     @customers    = CustomerRepository.new(repositories[:customers], self)
     @invoice_items = InvoiceItemRepository.new(repositories[:invoice_items], self)
   end
+
+  def find_invoices_by_merchant(id)
+    invoices.find_all_by_merchant_id(id)
+  end
+  
 end
