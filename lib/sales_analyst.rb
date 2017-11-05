@@ -10,7 +10,6 @@ class SalesAnalyst
   include ItemAnalyst
   include InvoiceAnalyst
 
-
   attr_reader :sales_engine
 
   def initialize(sales_engine_from_csv)

@@ -1,5 +1,6 @@
 require 'date'
 require 'pry'
+
 module InvoiceAnalyst
 
   def average_invoices_per_merchant
@@ -35,8 +36,9 @@ module InvoiceAnalyst
   end
 
   def high_invoice_count_merchant_ids
+    std_dev = calculate_invoice_std_dev
     merchants_and_invoice_count.map do |merchant_id,invoice_count|
-      merchant_id if invoice_count > (average_invoices_per_merchant + (calculate_std_dev**2))
+      merchant_id if invoice_count > (average_invoices_per_merchant + (std_dev*2))
     end.compact
   end
 
@@ -47,8 +49,9 @@ module InvoiceAnalyst
   end
 
   def low_invoice_count_merchant_ids
+    std_dev = calculate_invoice_std_dev
     merchants_and_invoice_count.map do |merchant_id,invoice_count|
-      merchant_id if invoice_count < (average_invoices_per_merchant - (calculate_std_dev**2))
+      merchant_id if invoice_count < (average_invoices_per_merchant - (std_dev*2))
     end.compact
   end
 
@@ -58,14 +61,6 @@ module InvoiceAnalyst
 
   def invoice_std_dev
     Math.sqrt(invoice_std_dev_calculate_sum / (total_invoices-1)).round(2)
-  end
-
-  def invoice_std_dev_calculate_sum
-    average_invoices = average_invoices_per_day
-    @sales_engine.INVOICESDAYHASH.reduce(0) do |result, invoice|
-      squared_difference = (average_invoices - invoice.unit_price) ** 2
-      result + squared_difference
-    end
   end
 
   def invoices_per_day
@@ -86,7 +81,7 @@ module InvoiceAnalyst
       squared_difference = (average_invoices - count) ** 2
       result + squared_difference
     end
-    Math.sqrt(sum / 7).round(2)
+    Math.sqrt(sum / 7)
   end
 
   def top_days_by_invoice_count
@@ -105,11 +100,11 @@ module InvoiceAnalyst
   end
 
   def invoice_status(invoice_status)
-    thing = invoice_status_sum.reduce({}) do |result, (status, sum)|
+    percent = invoice_status_sum.reduce({}) do |result, (status, sum)|
       result[status] = (sum / total_invoices) * 100
       result
     end
-    thing[invoice_status].round(2)
+    percent[invoice_status].round(2)
   end
 
 

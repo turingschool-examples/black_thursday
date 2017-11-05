@@ -28,7 +28,7 @@ class InvoiceTest < MiniTest::Test
     assert_equal 1, invoice.id
     assert_equal 1, invoice.customer_id
     assert_equal 12334112, invoice.merchant_id
-    assert_equal "pending", invoice.status
+    assert_equal :pending, invoice.status
     assert_equal Time.parse("2009-02-07"), invoice.created_at
     assert_equal Time.parse("2014-03-15"), invoice.updated_at
   end

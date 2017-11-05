@@ -9,7 +9,8 @@ class InvoiceItemRepository
   attr_reader :invoice_items, :engine
 
   def initialize(items_file, engine)
-    @invoice_items      = create_elements(items_file).map {|item_invoice| InvoiceItem.new(item_invoice, self)}
+    @invoice_items = create_elements(items_file).map {
+      |item_invoice| InvoiceItem.new(item_invoice, self)}
     @engine = engine
   end
 
@@ -19,12 +20,14 @@ class InvoiceItemRepository
 
   def find_by_id(id)
     invoice_items.find do |invoice_item|
-      invoice_item.id.to_i == id.to_i
+      invoice_item.id == id
     end
   end
 
   def find_all_by_item_id
-
+    invoice_items.find_all do |item|
+      item.item_id == id
+    end
   end
 
   # all - returns an array of all known InvoiceItem instances
