@@ -33,4 +33,8 @@ class CustomerRepository
       customer.last_name.downcase == name.to_s.downcase
     end
   end
+
+  def inspect
+    "#{self.class} has #{all.count} rows"
+  end
 end

@@ -77,4 +77,8 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal [], repository.find_all_by_last_name(nil)
     assert_equal [], repository.find_all_by_last_name('fakename')
   end
+
+  def test_inspect
+    assert_equal "CustomerRepository has 13 rows", repository.inspect
+  end
 end
