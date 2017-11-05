@@ -4,14 +4,14 @@ require "csv"
 class InvoiceRepository
   attr_reader :invoices
 
-  def initialize(invoice_file, sales_engine)
+  def initialize(invoice_file)
     @invoices = []
     invoices_from_csv(invoice_file)
   end
 
   def invoices_from_csv(invoice_file)
     CSV.foreach(invoice_file, headers: true, header_converters: :symbol) do |row|
-      @invoices << Invoice.new(row, self)
+      @invoices << Invoice.new(row)
     end
   end
 

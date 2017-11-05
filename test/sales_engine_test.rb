@@ -17,7 +17,7 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of ItemRepository, setup.items
   end
 
-  def test_item_repo_is_pulled_in
+  def test_merch_repo_is_pulled_in
     assert_instance_of MerchantRepository, setup.merchants
   end
 

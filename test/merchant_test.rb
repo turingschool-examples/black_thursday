@@ -5,7 +5,7 @@ require_relative '../lib/sales_engine'
 class MerchantTest < Minitest::Test
   def setup
     merchant = ({:id => "12334113", :name => "MiniatureBikez",  :created_at => "2010-03-30", :updated_at => "2013-01-21"})
-    merch = Merchant.new(merchant, [])
+    Merchant.new(merchant, [])
   end
 
   def test_it_exists

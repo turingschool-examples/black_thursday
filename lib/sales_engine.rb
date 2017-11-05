@@ -16,7 +16,7 @@ class SalesEngine
   def initialize(items, merchants, invoices)
     @items = ItemRepository.new(items, self)
     @merchants = MerchantRepository.new(merchants, self)
-    @invoices = InvoiceRepository.new(invoices, self)
+    @invoices = InvoiceRepository.new(invoices)
   end
 
   def find_merchant_items(merchant_id)

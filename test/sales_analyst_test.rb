@@ -46,7 +46,9 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_merchant_list_with_high_item_count
-    files = ({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    files = ({:items => "./data/items.csv",
+              :merchants => "./data/merchants.csv",
+              :invoices => "./data/invoices.csv"})
     se = SalesEngine.from_csv(files)
     s_a = SalesAnalyst.new(se)
     assert_equal 52, s_a.merchants_with_high_item_count.count
@@ -58,7 +60,9 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_average_price_per_merchant
-    files = ({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    files = ({:items => "./data/items.csv",
+              :merchants => "./data/merchants.csv",
+              :invoices => "./data/invoices.csv"})
     se = SalesEngine.from_csv(files)
     s_a = SalesAnalyst.new(se)
 
@@ -67,7 +71,9 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_find_average_item_price
-    files = ({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    files = ({:items => "./data/items.csv",
+              :merchants => "./data/merchants.csv",
+              :invoices => "./data/invoices.csv"})
     se = SalesEngine.from_csv(files)
     s_a = SalesAnalyst.new(se)
 
@@ -75,7 +81,9 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_golden_items
-    files = ({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
+    files = ({:items => "./data/items.csv",
+              :merchants => "./data/merchants.csv",
+              :invoices => "./data/invoices.csv"})
     se = SalesEngine.from_csv(files)
     s_a = SalesAnalyst.new(se)
 

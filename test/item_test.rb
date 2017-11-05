@@ -4,7 +4,7 @@ require_relative '../lib/item'
 class ItemTest < Minitest::Test
   def setup
     item_info = ({:id => "263395721", :name => "Disney scrabble frames", :description => "frames", :unit_price => "1350", :merchant_id => "12334185", :created_at => "2016-01-11 11:51:37 UTC", :updated_at => "2008-04-02 13:48:57 UTC"})
-    item = Item.new(item_info, [])
+    Item.new(item_info, [])
   end
 
   def test_it_exists
