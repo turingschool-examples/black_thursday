@@ -17,7 +17,8 @@ Benchmark.ips do |x|
     :transactions => './data/transactions.csv'
   })
   sa = SalesAnalyst.new(se)
-  x.report("average") {sa.average_item_price_master}
+  x.report("golden_items") {sa.golden_items}
+  x.report("merchant_std") {sa.average_items_per_merchant_standard_deviation}
   x.report("standard_deviation") {sa.standard_deviation_of_item_price}
   x.report("standard_deviation_std") {sa.standard_deviation_of_item_price_standard}
 end
