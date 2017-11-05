@@ -11,11 +11,14 @@ Benchmark.ips do |x|
   se = SalesEngine.from_csv({
     :items => "./data/items.csv",
     :merchants => './data/merchants.csv',
-    :invoices => './data/invoices.csv'}
-  )
+    :invoices => './data/invoices.csv',
+    :customers => './data/customers.csv',
+    :invoice_items => './data/invoice_items.csv',
+    :transactions => './data/transactions.csv'
+  })
   sa = SalesAnalyst.new(se)
-  x.report("golden_items") {sa.golden_items}
-  x.report("minimum_for Gs") {sa.average_items_per_merchant_standard_deviation}
+  x.report("std standard") {sa.standard_deviation_of_item_price_standard}
+  x.report("std custom") {sa.standard_deviation_of_item_price}
 end
 
 """

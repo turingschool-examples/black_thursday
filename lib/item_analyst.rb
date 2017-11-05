@@ -25,6 +25,13 @@ module ItemAnalyst
     )
   end
 
+  def standard_deviation_of_item_price
+    average_price = average_item_price
+    Math.sqrt(se.items.items.map do |item|
+      (average_price - item.unit_price) ** 2
+    end.sum / (item_count - 1)).round(2)
+  end
+
   def all_item_prices
     se.items.items.map do |item|
       item.unit_price
