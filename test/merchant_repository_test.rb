@@ -14,6 +14,7 @@ class MerchantRepositoryTest < MiniTest::Test
       :transactions => './test/fixtures/transactions.csv',
       :customers => './test/fixtures/customers.csv'})
     @merchants = @sales_engine.merchants
+    @customers = @sales_engine.customers
   end
 
   def test_that_merchants_are_created
@@ -38,6 +39,15 @@ class MerchantRepositoryTest < MiniTest::Test
 
     assert_equal ([]), @merchants.find_all_by_name("Jimmy Joe Bob")
     assert_equal [merchant1, merchant2], @merchants.find_all_by_name("An")
+  end
+
+  def test_that_it_can_find_all_customers_by_merchant_id
+    customer1 = @customers.all[1]
+    customer2 = @customers.all[2]
+
+
+    assert_equal [customer1, customer2],
+    @merchants.find_customers_by_merchant_id(12334123)
   end
 
 end
