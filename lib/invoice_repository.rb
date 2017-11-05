@@ -51,13 +51,7 @@ class InvoiceRepository
     engine.merchant(id)
   end
 
-
   def inspect
     "#<#{self.class} #{@invoices.size} rows>"
   end
-
 end
-
-# find_all_by_customer_id - returns either [] or one or more matches which have a matching customer ID
-# find_all_by_merchant_id - returns either [] or one or more matches which have a matching merchant ID
-# find_all_by_status - returns either [] or one or more matches which have a matching status
