@@ -30,7 +30,7 @@ class SalesEngine
   end
 
   def find_invoices(id)
-    invoices.find_by_id(id)
+    invoices.find_all_by_merchant_id(id)
   end
 
 end

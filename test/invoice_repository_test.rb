@@ -1,15 +1,16 @@
 require_relative 'test_helper'
-require_relative './lib/sales_engine'
-require_relative './lib/invoice_repository'
+require_relative '../lib/sales_engine'
+require_relative '../lib/invoice_repository'
 require 'pry'
 
 class InvoiceRepositoryTest < MiniTest::Test
 
   def setup
-    @sales_engine = SalesEngine.from_csv({:items => './test/fixtures/items_fixture.csv',
-                                          :merchants => './test/fixtures/merchants.csv',
-                                          :invoices => './test/fixtures/invoices.csv',
-                                          :invoice_items => './test/fixtures/invoice_items.csv'})
+    @sales_engine = SalesEngine.from_csv({
+      :items => './test/fixtures/items_fixture.csv',
+      :merchants => './test/fixtures/merchants.csv',
+      :invoices => './test/fixtures/invoices.csv',
+      :invoice_items => './test/fixtures/invoice_items.csv'})
     @invoices = @sales_engine.invoices
     @merchants = @sales_engine.merchants
   end
@@ -36,15 +37,23 @@ class InvoiceRepositoryTest < MiniTest::Test
     invoice3 = @invoices.invoices[14]
 
     assert_equal ([]), @invoices.find_all_by_customer_id(100)
-    assert_equal [invoice1, invoice2, invoice3], @invoices.find_all_by_customer_id(3)
+    assert_equal [invoice1, invoice2, invoice3],
+                  @invoices.find_all_by_customer_id(3)
   end
 
   def test_that_it_finds_all_by_merchant_id
     invoice1 = @invoices.invoices[0]
     invoice2 = @invoices.invoices[1]
+    invoice3 = @invoices.invoices[3]
+    invoice4 = @invoices.invoices[4]
+    invoice5 = @invoices.invoices[5]
+    invoice6 = @invoices.invoices[6]
 
     assert_equal ([]), @invoices.find_all_by_merchant_id(100)
-    assert_equal [invoice1, invoice2], @invoices.find_all_by_merchant_id(12334112)
+    assert_equal [invoice1, invoice2,
+                  invoice3, invoice4,
+                  invoice5, invoice6],
+                  @invoices.find_all_by_merchant_id(12334112)
   end
 
   def test_that_it_finds_all_by_status
@@ -57,10 +66,12 @@ class InvoiceRepositoryTest < MiniTest::Test
     invoice7 = @invoices.invoices[10]
     invoice8 = @invoices.invoices[13]
     invoice9 = @invoices.invoices[16]
-    result = [invoice1, invoice2, invoice3, invoice4, invoice5, invoice6, invoice7, invoice8, invoice9]
+    result = [invoice1, invoice2, invoice3,
+              invoice4, invoice5, invoice6,
+              invoice7, invoice8, invoice9]
 
-    assert_equal ([]), @invoices.find_all_by_status("return")
-    assert_equal result, @invoices.find_all_by_status("pending")
+    assert_equal ([]), @invoices.find_all_by_status(:return)
+    assert_equal result, @invoices.find_all_by_status(:pending)
   end
 
   def test_that_it_finds_merchant_by_invoice_id
