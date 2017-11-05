@@ -112,10 +112,24 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_merchants_by_invoice_count
+    assert_instance_of Array, analyst.top_merchants_by_invoice_count
     assert_equal [], analyst.top_merchants_by_invoice_count
+    assert_equal 0, analyst.top_merchants_by_invoice_count.length
   end
 
   def test_bottom_merchants_by_invoice_count
+    assert_instance_of Array, analyst.bottom_merchants_by_invoice_count
     assert_equal [], analyst.bottom_merchants_by_invoice_count
+    assert_equal 0, analyst.bottom_merchants_by_invoice_count.length
+  end
+
+  def test_invoice_days_returns_array_of_days
+    assert_instance_of Array, analyst.invoice_days
+    assert_equal 'Saturday', analyst.invoice_days.first
+    assert_equal 101, analyst.invoice_days.length
+  end
+
+  def test_top_days_by_invoice_count
+    assert_equal '', analyst.top_days_by_invoice_count
   end
 end

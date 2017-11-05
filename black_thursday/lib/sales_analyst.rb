@@ -1,6 +1,7 @@
 require 'bigdecimal'
 require_relative 'sales_engine'
 require 'memoist'
+require "time"
 
 class SalesAnalyst
 
@@ -144,4 +145,10 @@ class SalesAnalyst
     end
   end
   memoize :bottom_merchants_by_invoice_count
+
+  def invoice_days
+    engine.invoices.all.map do |invoice|
+      invoice.created_at.strftime('%A')
+    end
+  end
 end
