@@ -7,7 +7,7 @@ class Merchant
               :updated_at,
               :parent
 
-  def initialize(attributes, parent = nil)
+  def initialize(attributes, parent = MerchantRepository.new("./test/fixtures/truncated_merchants.csv"))
     @id         = attributes[:id].to_i
     @name       = attributes[:name]
     @created_at = Time.parse(attributes[:created_at])

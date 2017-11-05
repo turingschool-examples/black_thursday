@@ -4,21 +4,6 @@ require_relative './../lib/invoice'
 require_relative './../lib/sales_engine'
 
 class InvoiceTest < Minitest::Test
-  attr_reader :repository,
-              :engine
-
-  def setup
-    @engine = SalesEngine.from_csv(
-      items: './test/fixtures/truncated_items.csv',
-      merchants: './test/fixtures/truncated_merchants.csv',
-      invoices: './test/fixtures/truncated_invoices.csv',
-      transactions: './test/fixtures/truncated_transactions.csv',
-      customers:
-      './test/fixtures/truncated_customers.csv'
-    )
-
-    @repository = InvoiceRepository.new('./test/fixtures/truncated_invoices.csv', engine)
-  end
 
   def test_it_exists
     created_at = "2015-03-13"
@@ -30,8 +15,7 @@ class InvoiceTest < Minitest::Test
       :merchant_id => 8,
       :status      => "pending",
       :created_at  => created_at,
-      :updated_at  => updated_at},
-      repository
+      :updated_at  => updated_at}
     )
 
     assert_instance_of Invoice, invoice

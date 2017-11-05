@@ -1,29 +1,16 @@
 require_relative 'test_helper'
 require 'bigdecimal'
-require 'time' 
+require 'time'
 require 'csv'
 require_relative './../lib/invoice_item'
 require_relative './../lib/item_repository'
 
 class InvoiceItemTest < Minitest::Test
-  attr_reader :repository
-  
-    def setup
-      @engine = SalesEngine.from_csv(
-        items: './test/fixtures/truncated_items.csv',
-        merchants: './test/fixtures/truncated_merchants.csv',
-        invoices: './test/fixtures/truncated_invoices.csv',
-        transactions: './test/fixtures/truncated_transactions.csv',
-        invoice_items: './test/fixtures/truncated_invoice_items.csv',
-        customers: './test/fixtures/truncated_customers.csv'
-      )
-      @repository = InvoiceRepository.new('./test/fixtures/truncated_invoice_items.csv', @engine)
-    end
 
     def test_it_exists
       created_at = "2012-03-27 14:54:09 UTC"
       updated_at = "2012-03-27 14:54:09 UTC"
-  
+
       invoice_item = InvoiceItem.new(
         {id: "1",
         item_id: "263519844",
@@ -31,17 +18,16 @@ class InvoiceItemTest < Minitest::Test
         quantity: "5",
         unit_price: "13635",
         created_at: created_at,
-        updated_at: updated_at},
-        repository
+        updated_at: updated_at}
       )
-      
+
       assert_instance_of InvoiceItem, invoice_item
     end
 
     def test_it_can_hold_attributes
       created_at = "2012-03-27 14:54:09 UTC"
       updated_at = "2012-03-27 14:54:09 UTC"
-  
+
       invoice_item = InvoiceItem.new(
         {id: "1",
         item_id: "263519844",
@@ -49,8 +35,7 @@ class InvoiceItemTest < Minitest::Test
         quantity: "5",
         unit_price: "13635",
         created_at: created_at,
-        updated_at: updated_at},
-        repository
+        updated_at: updated_at}
       )
 
       assert_equal 1, invoice_item.id

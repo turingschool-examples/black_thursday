@@ -4,19 +4,11 @@ require_relative './../lib/merchant'
 require_relative './../lib/merchant_repository'
 
 class MerchantTest < Minitest::Test
+
   attr_reader :repository
 
   def setup
-    @engine = SalesEngine.from_csv(
-      items: './test/fixtures/truncated_items.csv',
-      merchants: './test/fixtures/truncated_merchants.csv',
-      invoices: './test/fixtures/truncated_invoices.csv',
-      transactions: './test/fixtures/truncated_transactions.csv',
-      customers:
-      './test/fixtures/truncated_customers.csv'
-    )
-
-    @repository = MerchantRepository.new("./test/fixtures/truncated_merchants.csv", @engine)
+    @repository = MerchantRepository.new("./test/fixtures/truncated_merchants.csv")
   end
 
   def test_it_exists
@@ -24,8 +16,7 @@ class MerchantTest < Minitest::Test
        {id: "5",
        name: "Turing School",
        created_at: "2010-03-30",
-       updated_at: "2013-01-21"},
-       repository
+       updated_at: "2013-01-21"}
      )
 
     assert_instance_of Merchant, merchant
@@ -37,8 +28,7 @@ class MerchantTest < Minitest::Test
        {id: "5",
        name: "Turing School",
        created_at: "2010-03-30",
-       updated_at: "2013-01-21"},
-       repository
+       updated_at: "2013-01-21"}
      )
 
     assert_equal 5, merchant.id
@@ -52,8 +42,7 @@ class MerchantTest < Minitest::Test
       {id: "12334185",
       name: "Turing School",
       created_at: "2010-03-30",
-      updated_at: "2013-01-21"},
-      repository
+      updated_at: "2013-01-21"}, repository
     )
 
     assert_equal 6, merchant.items.count
