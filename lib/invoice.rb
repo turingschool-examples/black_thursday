@@ -21,7 +21,16 @@ class Invoice
     repository.find_merchant(merchant_id)
   end
 
-  def merchant
-    repository.find_merchant(merchant_id)
+  def items
+    repository.find_items_by_invoice_id(@id)
   end
+
+  def transactions
+    repository.find_transactions_by_invoice_id(@id)
+  end
+
+  def customer
+    repository.find_customer(customer_id)
+  end
+
 end

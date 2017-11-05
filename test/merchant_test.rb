@@ -8,7 +8,9 @@ class MerchantTest < Minitest::Test
       :items => './test/fixtures/items_fixture.csv',
       :merchants => './test/fixtures/merchants.csv',
       :invoices => './test/fixtures/invoices.csv',
-      :invoice_items => './test/fixtures/invoice_items.csv'})
+      :invoice_items => './test/fixtures/invoice_items.csv',
+      :transactions => './test/fixtures/transactions.csv',
+      :customers => './test/fixtures/customers.csv'})
     merchants  = sales_engine.merchants
     @merchants = merchants.merchants
   end
