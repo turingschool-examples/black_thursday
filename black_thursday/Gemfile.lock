@@ -18,6 +18,7 @@ GEM
     equalizer (0.0.11)
     ice_nine (0.11.2)
     json (2.0.2)
+    memoist (0.16.0)
     minitest (5.10.3)
     parallel (1.12.0)
     parser (2.4.0.0)
@@ -46,6 +47,7 @@ PLATFORMS
 
 DEPENDENCIES
   cane
+  memoist
   minitest
   rake
   reek

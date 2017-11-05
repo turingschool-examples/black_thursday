@@ -1,23 +1,17 @@
+require_relative 'item'
+
 class ItemRepository
   attr_reader :items,
               :parent
 
   def initialize(csv_filename, parent = nil)
     @items  =  load_csv(csv_filename).map { |row| Item.new(row, self) }
-    # @items  = []
-    # load_things(csv_filename)
     @parent = parent
   end
 
   def load_csv(filename)
     CSV.open filename, headers: true, header_converters: :symbol
   end
-
-  # def load_things(filename)
-  #   CSV.foreach(filename) do |row|
-  #     @items << Item.new(row)
-  #   end
-  # end
 
   def all
     @items

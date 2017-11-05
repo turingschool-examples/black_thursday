@@ -1,3 +1,5 @@
+require "invoice"
+
 class InvoiceRepository
   attr_reader :invoices,
               :parent

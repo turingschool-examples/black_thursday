@@ -1,7 +1,11 @@
 require 'bigdecimal'
 require_relative 'sales_engine'
+require 'memoist'
 
 class SalesAnalyst
+
+  extend Memoist
+
   attr_reader :engine
 
   def initialize(engine)
@@ -49,6 +53,7 @@ class SalesAnalyst
     end.sum
     Math.sqrt(sum / (count_items - 1)).round(2)
   end
+  memoize :standard_deviation_of_item_price
 
   def average_items_per_merchant_standard_deviation
     mean = engine.merchants.all.map do |merchant|
@@ -56,10 +61,12 @@ class SalesAnalyst
       end
     Math.sqrt(mean.sum / (engine.merchants.all.count - 1)).round(2)
   end
+  memoize :average_items_per_merchant_standard_deviation
 
   def one_standard_deviation_of_merchant_items
     (average_items_per_merchant + average_items_per_merchant_standard_deviation)
   end
+  memoize :one_standard_deviation_of_merchant_items
 
   def merchants_with_high_item_count
     engine.merchants.all.find_all do |merchant|
@@ -94,15 +101,17 @@ class SalesAnalyst
   def two_standard_deviations_above_price
     average_average_price_per_merchant + (standard_deviation_of_item_price * 2)
   end
+  memoize :two_standard_deviations_above_price
 
   def golden_items
     engine.items.all.find_all do |item|
       item.unit_price > two_standard_deviations_above_price
     end
   end
+  memoize :golden_items
 
   def average_invoices_per_merchant
-    (engine.invoices.all.count / count_merchants).round(2)
+    (engine.invoices.all.count.to_f / count_merchants).round(2)
   end
 
   def average_invoices_per_merchant_standard_deviation
@@ -111,4 +120,5 @@ class SalesAnalyst
     end.sum
     Math.sqrt(sums / (engine.merchants.all.count - 1)).round(2)
   end
+  memoize :average_invoices_per_merchant_standard_deviation
 end

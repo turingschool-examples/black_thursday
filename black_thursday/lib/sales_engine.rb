@@ -4,6 +4,7 @@ require_relative 'item_repository'
 require_relative 'invoice_repository'
 require_relative 'transaction_repository'
 require_relative 'customer_repository'
+require_relative 'invoice_item_repository'
 
 class SalesEngine
   attr_reader :items,
@@ -29,5 +30,5 @@ class SalesEngine
   def find_invoices_by_merchant(id)
     invoices.find_all_by_merchant_id(id)
   end
-  
+
 end

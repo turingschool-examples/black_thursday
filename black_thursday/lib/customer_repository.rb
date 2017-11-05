@@ -1,4 +1,7 @@
+require_relative 'customer'
+
 class CustomerRepository
+
   attr_reader :customers,
               :parent
 

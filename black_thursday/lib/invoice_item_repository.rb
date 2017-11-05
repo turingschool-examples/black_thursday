@@ -1,4 +1,7 @@
-class InvoiceItemRepository 
+require_relative 'invoice_item'
+
+class InvoiceItemRepository
+  
   attr_reader :invoice_items
 
   def initialize(csv_filename, parent = nil)
@@ -36,4 +39,4 @@ class InvoiceItemRepository
     "#{self.class} has #{all.count} rows"
   end
 
-end 
+end
