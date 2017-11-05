@@ -15,14 +15,14 @@ class ItemRepositoryTest < MiniTest::Test
   end
 
   def test_it_creates_items
-    assert_equal 10, @items.items.count
+    assert_equal 15, @items.items.count
     assert_equal "Amy Winehouse drawing print", @items.items[0].name
     assert_equal "Sex and the city drawing print", @items.items[1].name
   end
 
   def test_that_it_finds_all
     assert_equal @items.items, @items.all
-    assert_equal 10, @items.items.count
+    assert_equal 15, @items.items.count
   end
 
   def test_find_by_id_nil_or_with_id_number
@@ -47,13 +47,14 @@ class ItemRepositoryTest < MiniTest::Test
   end
 
   def test_that_it_matches_items_with_similar_merch_id
-    item1 = @items.items[0]
-    item2 = @items.items[1]
+    item1 = @items.items[8]
+    item2 = @items.items[9]
     item3 = @items.items[2]
-    result = [item1, item2, item3]
+
+    result = [item1,item2]
 
     assert_equal ([]), @items.find_all_by_merchant_id(263401607)
-    assert_equal result, @items.find_all_by_merchant_id(12334112)
+    assert_equal result, @items.find_all_by_merchant_id(12334160)
   end
 
   def test_that_it_finds_all_items_by_price
