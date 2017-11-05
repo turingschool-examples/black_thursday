@@ -1,12 +1,24 @@
 module InvoiceAnalyst
+  def averager(object_count, by_object_count)
+    (object_count.to_f / by_object_count).round(2)
+  end
+
+  def standard_deviation(population, object_count, by_object_count)
+    average = averager(object_count, by_object_count)
+    Math.sqrt(population.map do |sub_count|
+      (average - sub_count) ** 2
+    end.sum / (by_object_count - 1 )).round(2)
+  end
+
   def average_invoices_per_merchant
-    (invoice_count.to_f / merchant_count).round(2)
+    averager(invoice_count, merchant_count)
   end
 
   def average_invoices_per_merchant_standard_deviation
-    Math.sqrt(count_all_invoices_for_each_merchant.map do |invoice_count|
-      (average_invoices_per_merchant - invoice_count) ** 2
-    end.sum / (merchant_count - 1 )).round(2)
+    standard_deviation(
+      count_all_invoices_for_each_merchant,
+      invoice_count,
+      merchant_count)
   end
 
   def count_all_invoices_for_each_merchant
@@ -27,7 +39,6 @@ module InvoiceAnalyst
     minimum = top_merchants_by_invoice_threshold
     accumulate_merchant_invoices.reduce([]) do |result, (merchant, invoices)|
       result << se.merchants.find_by_id(merchant) if invoices >= minimum
-
       result
     end
   end
