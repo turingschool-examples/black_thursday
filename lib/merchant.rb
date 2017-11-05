@@ -16,9 +16,6 @@ class Merchant
   end
 
   def invoices
-    repository.invoices(id)
+    repository.invoices(@id)
   end
-
-
-
 end
