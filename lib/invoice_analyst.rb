@@ -60,14 +60,6 @@ module InvoiceAnalyst
     Math.sqrt(invoice_std_dev_calculate_sum / (total_invoices-1)).round(2)
   end
 
-  def invoice_std_dev_calculate_sum
-    average_invoices = average_invoices_per_day
-    @sales_engine.INVOICESDAYHASH.reduce(0) do |result, invoice|
-      squared_difference = (average_invoices - invoice.unit_price) ** 2
-      result + squared_difference
-    end
-  end
-
   def invoices_per_day
     days = {"Sunday"=>0,"Monday"=>0,
             "Tuesday"=>0,"Wednesday"=>0,
