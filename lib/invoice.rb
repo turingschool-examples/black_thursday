@@ -43,4 +43,10 @@ class Invoice
     end
   end
 
+  def total
+    @invoice_repo.find_invoice_item_id(id).map do |invoice_item|
+      invoice_item.quantity * invoice_item.unit_price
+    end.sum
+  end
+
 end

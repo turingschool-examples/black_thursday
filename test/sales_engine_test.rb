@@ -31,11 +31,13 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_can_find_by_id
+
     merchant = se.merchants.find_by_id(12334112)
     assert_equal 1, merchant.items.count
   end
 
   def test_matches_correct_merchant
+
     item = se.items.find_by_id(263395237)
     item.merchant
 
@@ -43,6 +45,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_can_get_invoices_from_merchant
+
     merchant = se.merchants.find_by_id(12334159)
 
     assert_instance_of Array, merchant.invoices
@@ -50,18 +53,21 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_can_get_merchant_from_invoice
+
     invoice = se.invoices.find_by_id(20)
 
     assert_instance_of Merchant, invoice.merchant
   end
 
   def test_invoice_communicates_with_items
+
     invoice = se.invoices.find_by_id(20)
 
     assert_instance_of Array, invoice.items
   end
 
   def test_invoice_linked_to_transaction
+
     invoice = se.invoices.find_by_id(20)
 
     assert_instance_of Array, invoice.transactions
@@ -69,12 +75,14 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_invoice_linked_to_customer
+
     invoice = se.invoices.find_by_id(20)
 
     assert_instance_of Customer, invoice.customer
   end
 
   def test_transaction_can_be_linked_to_invoice
+
     transaction = se.transactions.find_by_id(40)
 
     assert_instance_of Invoice, transaction.invoice
@@ -96,14 +104,14 @@ class SalesEngineTest < Minitest::Test
 
   def test_invoice_checks_if_paid_in_full
     invoice = se.invoices.find_by_id(20)
-    invoice_2 = se.invoices.find_by_id(1752)
 
     assert invoice.is_paid_in_full?
-    refute invoice_2.is_paid_in_full?
   end
 
   def test_invoice_can_find_total_amount
+    invoice = se.invoices.find_by_id(20)
 
+    assert_equal 0.1301863e5, invoice.total
   end
 
 end

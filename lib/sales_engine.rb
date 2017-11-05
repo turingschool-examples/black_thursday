@@ -83,6 +83,10 @@ class SalesEngine
     @invoices.find_all_by_customer_id(customer_id)
   end
 
+  def find_invoice_item_id(id)
+    @invoice_items.find_all_by_invoice_id(id)
+  end
+
 
 
 end
