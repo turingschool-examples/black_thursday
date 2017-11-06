@@ -6,7 +6,8 @@ class Invoice
               :merchant_id,
               :status,
               :created_at,
-              :updated_at
+              :updated_at,
+              :parent
 
   def initialize(attributes, parent = nil)
     @id           = attributes[:id].to_i
@@ -23,6 +24,14 @@ class Invoice
   end
 
   def items
-    @parent.find_all_items_by_merchant_id(id)
+    @parent.find_item_by_invoice_id(id)
+  end
+
+  def transactions
+    @parent.find_all_transactions_by_transaction_id(id)
+  end
+
+  def is_paid_in_full?
+    @parent
   end
 end
