@@ -16,4 +16,8 @@ class Transaction
     @transaction_repo = transaction_repo
   end
 
+  def invoice
+    transaction_repo.transaction_invoice(self.invoice_id)
+  end
+
 end

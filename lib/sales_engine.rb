@@ -69,4 +69,57 @@ class SalesEngine
     customers.find_by_id(customer_id)
   end
 
+  def find_invoice_for_transaction(invoice_id)
+    invoices.find_by_id(invoice_id)
+  end
+
+  def find_all_invoices_for_merchant(merchant_id)
+    merchs = invoices.find_all_by_merchant_id(merchant_id)
+    require "pry"; binding.pry
+    merchs.map do |merch|
+      invoices.find_all_by_merchant_id(merch.merchant_id)
+    end
+  end
+
+  def find_customer_ids_from_invoice(merchant_id)
+    invoices_for_merchant = find_all_invoices_for_merchant(merchant_id).flatten
+    invoices_for_merchant.map do |invoice|
+      invoice.customer_id
+    end
+  end
+
+  def find_merchant_customer(merchant_id)
+    customer_ids = find_customer_ids_from_invoice(merchant_id)
+    customer_ids.map do |customer_id|
+      customers.find_by_id(customer_id)
+    end.uniq
+  end
+
+  def find_merchant_ids_from_invoice(customer_id)
+    invoices_for_customer = find_all_invoices_for_customer(customer_id).flatten
+    invoices_for_customer.map do |invoice|
+      invoice.merchant_id
+    end
+  end
+
+  def find_all_invoices_for_customer(customer_id)
+    counts = invoices.find_all_by_customer_id(customer_id)
+    counts.map do |count|
+      invoices.find_all_by_customer_id(count.customer_id)
+    end
+  end
+
+  def find_merchant_ids_from_invoice(customer_id)
+    counts_invoices = find_all_invoices_for_customer(customer_id).flatten
+    counts_invoices.map do |count|
+      count.merchant_id
+    end
+  end
+
+  def find_customer_merchant(customer_id)
+    merchant_ids = find_merchant_ids_from_invoice(customer_id)
+    merchant_ids.map do |merchant_id|
+      merchants.find_by_id(merchant_id)
+    end
+  end
 end

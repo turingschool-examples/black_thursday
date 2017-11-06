@@ -53,4 +53,14 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of Customer, setup.find_customer_from_invoice(9)
   end
 
+  def test_find_invoice_for_transaction
+    assert_instance_of Invoice, setup.find_invoice_for_transaction(46)
+  end
+
+  def test_find_all_invoices_for_merchant
+    #find invoices for good merch id
+    assert_equal 234, setup.find_all_invoices_for_merchant(12334115)
+  end
+  #build more tests for relationship layer
+
 end
