@@ -60,6 +60,6 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_merchant
-    
+    assert_equal '', invoice.merchant
   end
 end
