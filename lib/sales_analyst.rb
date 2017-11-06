@@ -152,8 +152,9 @@ class SalesAnalyst
   end
 
   def top_merchants_by_invoice_count
+    sum = invoice_count_two_standard_deviations_above_mean
     create_merchant_invoice_total_list.find_all do |key, value|
-      value >= invoice_count_two_standard_deviations_above_mean
+      value >= sum
     end
   end
 
@@ -215,7 +216,5 @@ class SalesAnalyst
   def find_all_invoices(status)
     @sales_engine.invoices.find_all_by_status(status)
   end
-
-
 
 end

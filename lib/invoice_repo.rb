@@ -26,7 +26,7 @@ class InvoiceRepository
 
   def find_by_id(id)
     # find_by_id - returns either nil or an instance of Invoice with a matching ID
-    invoices.find { |invoice| invoice.id == id.to_s }
+    invoices.find { |invoice| invoice.id == id.to_i }
   end
 
   def find_all_by_customer_id(customer_id)
@@ -36,7 +36,7 @@ class InvoiceRepository
 
   def find_all_by_merchant_id(merchant_id)
     # find_all_by_merchant_id - returns either [] or one or more matches which have a matching merchant ID
-    invoices.find_all { |invoice| invoice.merchant_id == merchant_id }
+    invoices.find_all { |invoice| invoice.merchant_id == merchant_id.to_i }
   end
 
   def find_all_by_status(status)

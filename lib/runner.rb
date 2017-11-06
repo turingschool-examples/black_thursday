@@ -15,4 +15,4 @@ se = SalesEngine.from_csv({
 
 sa = SalesAnalyst.new(se)
 
-p sa.invoice_status(:returned)
+p sa.top_merchants_by_invoice_count.length
