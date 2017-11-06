@@ -2,16 +2,17 @@ require_relative "transaction"
 require "csv"
 
 class TransactionRepository
-  attr_reader :transactions
+  attr_reader :transactions, :sales_engine
 
-  def initialize(transactions_file)
+  def initialize(transactions_file, sales_engine)
     @transactions = []
     items_from_csv(transactions_file)
+    @sales_engine = sales_engine
   end
 
   def items_from_csv(transactions_file)
     CSV.foreach(transactions_file, headers: true, header_converters: :symbol) do |row|
-      @transactions << Transaction.new(row)
+      @transactions << Transaction.new(row, self)
     end
   end
 
@@ -33,5 +34,9 @@ class TransactionRepository
 
   def find_all_by_result(result)
     @transactions.find_all {|transaction| transaction.result == result}
+  end
+
+  def inspect
+    "#<#{self.class} #{@transactions.size} rows>"
   end
 end

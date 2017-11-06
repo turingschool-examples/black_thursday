@@ -1,23 +1,34 @@
 require_relative 'item_repository'
 require_relative 'merchant_repository'
 require_relative 'invoice_repository'
+require_relative 'invoice_item_repository'
+require_relative 'transaction_repository'
+require_relative 'customer_repository'
 require 'csv'
-require 'pry'
 
 class SalesEngine
   def self.from_csv(files)
     items = files[:items]
     merchants = files[:merchants]
     invoices = files[:invoices]
-    SalesEngine.new(items, merchants, invoices)
+    invoice_items = files[:invoice_items]
+    transactions = files[:transactions]
+    customers = files[:customers]
+    SalesEngine.new(items, merchants, invoices, invoice_items, transactions,
+    customers)
   end
 
-  attr_reader :items, :merchants, :invoices
+  attr_reader :items, :merchants, :invoices, :invoice_items, :transactions,
+  :customers
 
-  def initialize(items, merchants, invoices)
+  def initialize(items, merchants, invoices, invoice_items, transactions,
+    customers)
     @items = ItemRepository.new(items, self)
     @merchants = MerchantRepository.new(merchants, self)
     @invoices = InvoiceRepository.new(invoices, self)
+    @invoice_items = InvoiceItemRepository.new(invoice_items, self)
+    @transactions = TransactionRepository.new(transactions, self)
+    @customers = CustomerRepository.new(customers, self)
   end
 
   def find_merchant_items(merchant_id)
