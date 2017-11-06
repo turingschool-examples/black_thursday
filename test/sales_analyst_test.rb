@@ -93,14 +93,4 @@ class SalesAnalystTest < Minitest::Test
     assert_equal BigDecimal(8529)/100, shipped.round(2)
     assert_equal 5.88, returned
   end
-
-  def test_customer_analyst_top_buyers
-    two = sa.top_buyers(2)
-    twenty = sa.top_buyers
-
-    assert_instance_of Customer, two.first
-    assert_instance_of Customer, two.last
-    assert_equal 2, two.count
-    assert_equal 20, twenty.count
-  end
 end

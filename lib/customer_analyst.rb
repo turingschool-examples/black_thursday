@@ -15,10 +15,26 @@ module CustomerAnalyst
     se.merchants.find_by_id(merchant)
   end
 
-  # def one_time_buyers
-  #   all_customer_invoices.each do (|customer, )
-  #
-  # end
+  def one_time_buyers
+    se.customers.all.reduce([]) do |result, customer|
+      result << customer if customer.fully_paid_invoices.count == 1
+      result
+    end
+  end
+
+  def one_time_buyers_top_items
+    items = one_time_buyers.map do |customer|
+      items = customer.fully_paid_invoices.first.items
+      require "pry"; binding.pry
+    end.flatten
+    item_count = items.reduce({}) do |result, item|
+      result[item] = 0 if !result[item]
+      result[item] += 1
+      result
+    end
+    # require "pry"; binding.pry
+    [item_count.max_by {|(item, count)| count}[0]]
+  end
 
   private
   def customer_total_spend_per_merchant(customer_invoices)

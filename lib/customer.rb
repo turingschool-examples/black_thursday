@@ -18,4 +18,15 @@ class Customer
   def merchants
     parent.find_merchant_by_customer_id(id)
   end
+
+  def invoices
+    parent.find_all_invoices_by_customer_id(id)
+  end
+
+  def fully_paid_invoices
+    invoices.reduce([]) do |result, invoice|
+      result << invoice if invoice.is_paid_in_full?
+      result
+    end
+  end
 end
