@@ -27,6 +27,10 @@ class SalesEngine
     @invoice_items = InvoiceItemRepository.new(repositories[:invoice_items], self)
   end
 
+  def find_invoice_item_by_invoice_id(id)
+    invoice_items.find_all_by_invoice_id(id)
+  end
+
   def find_invoices_by_merchant(id)
     invoices.find_all_by_merchant_id(id)
   end

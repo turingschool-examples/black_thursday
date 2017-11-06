@@ -7,7 +7,9 @@ class Transaction
               :credit_card_expiration_date,
               :result,
               :created_at,
-              :updated_at
+              :updated_at,
+              :parent
+
 
   def initialize(attributes, parent = nil)
     @id                 = attributes[:id].to_i

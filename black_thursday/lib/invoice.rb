@@ -32,6 +32,13 @@ class Invoice
   end
 
   def is_paid_in_full?
-    @parent
+    !transactions.empty? && transactions.all? do |transaction|
+      transaction.result == 'success'
+    end
   end
+
+  def invoice_items
+    parent.find_invoice_item_by_invoice_id(id)
+  end
+
 end
