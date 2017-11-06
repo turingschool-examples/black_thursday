@@ -1,7 +1,7 @@
 require "bigdecimal"
 require "time"
 
-class InvoiceItems
+class InvoiceItem
   attr_reader :id,
               :item_id,
               :invoice_id,
@@ -14,8 +14,8 @@ class InvoiceItems
 
   def initialize(item_info, parent)
     @id          = item_info[:id].to_i
-    @item_id     = item_info[:item_id]
-    @invoice_id  = item_info[:invoice_id]
+    @item_id     = item_info[:item_id].to_i
+    @invoice_id  = item_info[:invoice_id].to_i
     @quantity    = item_info[:quantity]
     @unit_price  = (BigDecimal.new(item_info[:unit_price]))/100
     @created_at  = Time.parse(item_info[:created_at])

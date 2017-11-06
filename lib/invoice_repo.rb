@@ -48,6 +48,10 @@ class InvoiceRepository
     @sales_engine.find_merchant(id)
   end
 
+  def find_items(id)
+    @sales_engine.find_items_by_invoice_id(id)
+  end
+
   def inspect
       "#<#{self.class} #{@invoices.size} rows>"
   end

@@ -1,14 +1,17 @@
 require_relative "item_repo"
 require_relative "merchant_repo"
 require_relative "invoice_repo"
-require_relative "invoice_items_repo"
+require_relative "invoice_item_repo"
 require_relative "transaction_repo"
 require_relative "customer_repo"
 
 class SalesEngine
   attr_reader :items,
               :merchants,
-              :invoices
+              :invoices,
+              :invoice_items,
+              :transactions,
+              :customers
 
   def self.from_csv(directory)
     SalesEngine.new(directory)
@@ -27,8 +30,12 @@ class SalesEngine
     merchants.find_by_id(id)
   end
 
-  def find_items(id)
+  def find_items_by_merchant_id(id)
     items.find_by_all_merchant_id(id)
+  end
+
+  def find_items_by_invoice_id(id)
+    @invoice_items.find_all_by_invoice_id(id)
   end
 
   def find_invoices(id)

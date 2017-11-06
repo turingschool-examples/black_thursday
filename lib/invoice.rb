@@ -24,4 +24,8 @@ attr_reader :id,
     repository.find_merchant(self.merchant_id)
   end
 
+  def items
+    repository.find_items(self.id)
+  end
+
 end
