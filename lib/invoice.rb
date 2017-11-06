@@ -16,4 +16,14 @@ class Invoice
   def merchant
     invoice_repo.invoice_merchants(self.merchant_id)
   end
+
+  def items
+    invoice_repo.invoice_items(self.id)
+  end
+
+  def transactions
+  end
+
+  def customer
+  end
 end

@@ -1,7 +1,6 @@
 require_relative 'sales_engine'
 require_relative 'math'
 require 'time'
-require 'pry'
 
 class SalesAnalyst
   include Math
