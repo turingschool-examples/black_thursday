@@ -24,15 +24,13 @@ module CustomerAnalyst
 
   def one_time_buyers_top_items
     items = one_time_buyers.map do |customer|
-      items = customer.fully_paid_invoices.first.items
-      require "pry"; binding.pry
+      customer.fully_paid_invoices.first.items
     end.flatten
     item_count = items.reduce({}) do |result, item|
       result[item] = 0 if !result[item]
       result[item] += 1
       result
     end
-    # require "pry"; binding.pry
     [item_count.max_by {|(item, count)| count}[0]]
   end
 
