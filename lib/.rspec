@@ -1,0 +1,5 @@
+--color
+--format documentation
+--tag ~invoice
+--tag ~customer
+--tag ~merchant
