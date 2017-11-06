@@ -22,8 +22,10 @@ class Invoice
   end
 
   def transactions
+    invoice_repo.invoice_transactions(self.id)
   end
 
   def customer
+    invoice_repo.invoice_customer(self.customer_id)
   end
 end

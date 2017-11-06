@@ -44,4 +44,13 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of Item, setup.find_items_for_invoices(6)[0]
     assert_equal 6, setup.find_items_for_invoices(6).count
   end
+
+  def test_find_transactions_for_invoice
+    assert_instance_of Transaction, setup.find_transactions_for_invoice(46).first
+  end
+
+  def test_find_customer_from_invoice
+    assert_instance_of Customer, setup.find_customer_from_invoice(9)
+  end
+
 end
