@@ -60,4 +60,10 @@ class SalesEngine
       items.find_by_id(invoice.item_id)
     end
   end
+
+  def find_customer_by_merchant_id(id)
+      invoices.find_all_by_merchant_id(id).map do |invoice|
+        customers.find_by_id(invoice.customer_id)
+    end.uniq
+  end
 end
