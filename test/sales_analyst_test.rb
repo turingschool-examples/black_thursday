@@ -147,7 +147,12 @@ class SalesAnalystTest < Minitest::Test
     s_a = SalesAnalyst.new(se)
 
     assert_equal ["Friday"], s_a.top_days_by_invoice_count
+  end
 
+  def test_invoices_have_a_status
+    assert_equal 29.55, setup.invoice_status(:pending)
+    assert_equal 56.95, setup.invoice_status(:shipped)
+    assert_equal 13.5, setup.invoice_status(:returned)
   end
 
 end

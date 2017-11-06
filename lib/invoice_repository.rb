@@ -42,7 +42,6 @@ class InvoiceRepository
     sales_engine.find_invoice_for_merchants(merchant_id)
   end
 
-
   def inspect
     "#{self.class} #{invoices.size} rows"
   end
