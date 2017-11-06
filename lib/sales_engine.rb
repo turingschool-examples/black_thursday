@@ -87,6 +87,4 @@ class SalesEngine
     @invoice_items.find_all_by_invoice_id(id)
   end
 
-
-
 end
