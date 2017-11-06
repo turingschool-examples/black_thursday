@@ -18,7 +18,7 @@ class InvoiceTest < Minitest::Test
     @invoice = Invoice.new({id: "1", customer_id: "1", merchant_id: "12335938", status: "pending", created_at: "2009-02-07", updated_at: "2014-03-15"}, @repository)
   end
 
-  def test_if_class_exist
+  def test_if_class_exists
     assert_instance_of Invoice, invoice
   end
 
@@ -47,5 +47,19 @@ class InvoiceTest < Minitest::Test
     assert_instance_of Array, @invoice.invoice_items
     assert_equal 8, @invoice.invoice_items.length
     assert_equal 1, @invoice.invoice_items.first.id
+  end
+
+  def test_transactions
+    assert_equal [], invoice.transactions
+  end
+
+  def test_items
+    assert_equal 1, invoice.items.compact.length
+    assert_instance_of Item, invoice.items.compact.first
+    assert_equal 8, invoice.items.length
+  end
+
+  def test_merchant
+    
   end
 end
