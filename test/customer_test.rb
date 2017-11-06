@@ -1,35 +1,30 @@
 require_relative 'test_helper'
 require_relative '../lib/customer'
 
-class MerchantTest < Minitest::Test
-  def test_it_exists
-    customer = Customer.new({:id => "9", :first_name => "Loyal", :last_name => "Considine", :created_at => "2012-03-27 14:54:12 UTC", :updated_at => "2012-03-27 14:54:13 UTC"})
+class CustomerTest < Minitest::Test
+  def setup
+    customer = ({:id => "9", :first_name => "Loyal", :last_name => "Considine", :created_at => "2012-03-27 14:54:12 UTC", :updated_at => "2012-03-27 14:54:13 UTC"})
+    Customer.new(customer, [])
+  end
 
-    assert_instance_of Customer, customer
+  def test_it_exists
+    assert_instance_of Customer, setup
   end
 
   def test_it_returns_correct_id
-    customer = Customer.new({:id => "9", :first_name => "Loyal", :last_name => "Considine", :created_at => "2012-03-27 14:54:12 UTC", :updated_at => "2012-03-27 14:54:13 UTC"})
-
-    assert_equal 9, customer.id
+    assert_equal 9, setup.id
   end
 
   def test_it_returns_correct_first_name
-    customer = Customer.new({:id => "9", :first_name => "Loyal", :last_name => "Considine", :created_at => "2012-03-27 14:54:12 UTC", :updated_at => "2012-03-27 14:54:13 UTC"})
-
-    assert_equal "Loyal", customer.first_name
+    assert_equal "Loyal", setup.first_name
   end
 
   def test_it_returns_correct_last_name
-    customer = Customer.new({:id => "9", :first_name => "Loyal", :last_name => "Considine", :created_at => "2012-03-27 14:54:12 UTC", :updated_at => "2012-03-27 14:54:13 UTC"})
-
-    assert_equal "Considine", customer.last_name
+    assert_equal "Considine", setup.last_name
   end
 
   def test_time_returns_time_exists
-    customer = Customer.new({:id => "9", :first_name => "Loyal", :last_name => "Considine", :created_at => "2012-03-27 14:54:12 UTC", :updated_at => "2012-03-27 14:54:13 UTC"})
-
-    assert_instance_of Time, customer.created_at
-    assert_instance_of Time, customer.updated_at
+    assert_instance_of Time, setup.created_at
+    assert_instance_of Time, setup.updated_at
   end
 end

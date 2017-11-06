@@ -24,7 +24,7 @@ class TransactionTest < Minitest::Test
   end
 
   def test_cc_exp_date_is_correct_integer
-    assert_equal "9755", setup.credit_card_expiration_date
+    assert_equal "0313", setup.credit_card_expiration_date
   end
 
   def test_it_produces_correct_result

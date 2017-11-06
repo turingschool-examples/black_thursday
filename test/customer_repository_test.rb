@@ -1,46 +1,46 @@
 require_relative 'test_helper'
 require_relative '../lib/customer_repository'
+require_relative '../lib/sales_engine'
 
 class CustomerRepositoryTest < Minitest::Test
+  def setup
+    files = ({:invoices => "./test/fixture/invoice_fixture.csv",
+      :items => "./test/fixture/item_fixture.csv",
+      :merchants => "./test/fixture/merchant_fixture.csv",
+      :invoice_items => "./test/fixture/invoice_item_fixture.csv",
+      :transactions => "./test/fixture/transaction_fixture.csv",
+      :customers => "./test/fixture/customer_fixture.csv"})
+    SalesEngine.from_csv(files).customers
+  end
 
   def test_it_pulls_csv_info_from_customers_file
-    cr = CustomerRepository.new("./data/customers.csv")
-
-    assert_equal 1000, cr.all.count
+    assert_equal 19, setup.all.count
   end
 
   def test_it_returns_array_of_all_customers
-    cr = CustomerRepository.new("./data/customers.csv")
-
-    assert_equal 1000, cr.all.count
-    assert_instance_of Array, cr.all
+    assert_equal 19, setup.all.count
+    assert_instance_of Array, setup.all
   end
 
   def test_it_can_find_by_id
-    cr = CustomerRepository.new("./data/customers.csv")
+    assert_instance_of Customer, setup.find_by_id(9)
 
-    assert_instance_of Customer, cr.find_by_id(9)
-
-    customer_id = cr.find_by_id(9)
+    customer_id = setup.find_by_id(9)
 
     assert_equal "Dejon", customer_id.first_name
   end
 
   def test_it_can_find_by_first_name
-    cr = CustomerRepository.new("./data/customers.csv")
+    customer_name = setup.find_all_by_first_name("He")
 
-    customer_name = cr.find_all_by_first_name("Mer")
-
-    assert_equal 8, customer_name.count
-    assert_equal "Elmer", customer_name[3].first_name
+    assert_equal 2, customer_name.count
+    assert_equal "Heber", customer_name[0].first_name
   end
 
   def test_it_can_find_by_last_name
-    cr = CustomerRepository.new("./data/customers.csv")
+    customer_name = setup.find_all_by_last_name("Nader")
 
-    customer_name = cr.find_all_by_last_name("Smith")
-
-    assert_equal 3, customer_name.count
-    assert_equal "Smith", customer_name[2].last_name
+    assert_equal 1, customer_name.count
+    assert_equal "Nader", customer_name[0].last_name
   end
 end
