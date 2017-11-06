@@ -27,6 +27,10 @@ class SalesEngine
     @invoice_items = InvoiceItemRepository.new(repositories[:invoice_items], self)
   end
 
+  def find_customer_by_invoice_id(id)
+    customers.find_by_id(id)
+  end
+
   def find_invoice_item_by_invoice_id(id)
     invoice_items.find_all_by_invoice_id(id)
   end
@@ -52,5 +56,4 @@ class SalesEngine
       items.find_by_id(invoice.item_id)
     end
   end
-
 end

@@ -50,6 +50,10 @@ class InvoiceRepository
     parent.find_item_by_invoice_id(id)
   end
 
+  def find_customer_by_invoice_id(customer_id)
+    parent.find_customer_by_invoice_id(customer_id)
+  end
+
   def inspect
     "#{self.class} has #{all.count} rows"
   end

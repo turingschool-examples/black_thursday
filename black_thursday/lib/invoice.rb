@@ -41,4 +41,13 @@ class Invoice
     parent.find_invoice_item_by_invoice_id(id)
   end
 
+  def customer
+    parent.find_customer_by_invoice_id(customer_id)
+  end
+
+  def total
+  invoice_items.reduce(0) do |unit, invoice_item|
+    unit += is_paid_in_full? ? invoice_item.unit_price_to_dollars : 0
+    end
+  end
 end
