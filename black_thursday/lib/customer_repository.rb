@@ -1,13 +1,16 @@
 require_relative 'customer'
 
 class CustomerRepository
-
   attr_reader :customers,
               :parent
 
-  def initialize(csv_filename, parent = nil)
-    @customers  = load_csv(csv_filename).map { |row| Customer.new(row, self) }
-    @parent    = parent
+  def initialize(csv_files = './data/customers.csv', parent = nil)
+    @customers = load_csv(csv_files).map { |row| Customer.new(row, self) }
+    @parent = parent
+  end
+
+  def from_csv(csv_files)
+    CustomerRepository.new(csv_files)
   end
 
   def load_csv(filename)
@@ -19,20 +22,20 @@ class CustomerRepository
   end
 
   def find_by_id(id)
-    return nil if id.nil?
-    @customers.find { |customer| customer.id == id }
+    return nil if id.class != Integer
+    customers.find { |customer| customer.id == id }
   end
 
   def find_all_by_first_name(name)
-    return [] if name.nil?
-    @customers.find_all do |customer|
-      customer.first_name.downcase == name.downcase
+    return [] if name.class != String
+    customers.find_all do |customer|
+      customer.first_name.downcase == name.to_s.downcase
     end
   end
 
   def find_all_by_last_name(name)
-    return [] if name.nil?
-    @customers.find_all do |customer|
+    return [] if name.class != String
+    customers.find_all do |customer|
       customer.last_name.downcase == name.to_s.downcase
     end
   end
