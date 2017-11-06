@@ -38,12 +38,11 @@ class ItemRepositoryTest < MiniTest::Test
   end
 
   def test_that_it_matches_items_with_similar_description
-    assert_equal ([]), @items.find_all_with_description("meow")
-
     item1 = @items.items[2]
     item2 = @items.items[9]
     result = [item1, item2]
 
+    assert_equal ([]), @items.find_all_with_description("meow")
     assert_equal result, @items.find_all_with_description("unbelievably")
     assert_equal result, @items.find_all_with_description("nbElIeVaBly")
   end
@@ -51,8 +50,6 @@ class ItemRepositoryTest < MiniTest::Test
   def test_that_it_matches_items_with_similar_merch_id
     item1 = @items.items[8]
     item2 = @items.items[9]
-    item3 = @items.items[2]
-
     result = [item1,item2]
 
     assert_equal ([]), @items.find_all_by_merchant_id(263401607)
