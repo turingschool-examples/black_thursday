@@ -127,7 +127,27 @@ class SalesAnalyst
   end
 
   def invoice_status(status)
-    (number_of_invoices_with_status(status) / total_number_of_invoices * 100).round(2)
+    total = total_number_of_invoices
+    (number_of_invoices_with_status(status) / total * 100).round(2)
+  end
+
+  def top_buyers(number_of_buyers = 20)
+    customers_with_total = Hash.new(0)
+
+    se.invoices.all.each do |invoice|
+      customers_with_total[invoice.customer] += invoice.total
+    end
+
+    sorted_customers = customers_with_total.sort_by do |customer, total|
+      total
+    end.reverse
+
+    top_spenders = sorted_customers.take(number_of_buyers)
+
+    top_spenders.map do |customer|
+      customer[0]
+    end
+
   end
 
     private

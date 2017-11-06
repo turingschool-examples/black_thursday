@@ -37,4 +37,17 @@ class Invoice
     @invoice_repo.find_customer_by_customer_id(customer_id)
   end
 
+  def is_paid_in_full?
+    transactions.any? do |transaction|
+      transaction.result.downcase == "success"
+    end
+  end
+
+  def total
+    return 0 if !self.is_paid_in_full?
+    @invoice_repo.find_invoice_item_id(id).map do |invoice_item|
+      invoice_item.quantity * invoice_item.unit_price
+    end.sum
+  end
+
 end
