@@ -18,7 +18,7 @@ class SalesEngine
     @items         = ItemRepository.new(self, directory[:items])
     @merchants     = MerchantRepository.new(self, directory[:merchants])
     @invoices      = InvoiceRepository.new(self, directory[:invoices])
-    @invoice_items = InvoiceRepository.new(self, directory[:invoice_items])
+    @invoice_items = InvoiceItemRepository.new(self, directory[:invoice_items])
     @transactions  = TransactionRepository.new(self, directory[:transactions])
     @customers     = CustomerRepository.new(self, directory[:customers])
   end
@@ -34,4 +34,6 @@ class SalesEngine
   def find_invoices(id)
     invoices.find_all_by_merchant_id(id)
   end
+
+  # def find_invoice_items(id)
 end

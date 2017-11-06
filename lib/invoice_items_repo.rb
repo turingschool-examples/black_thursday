@@ -1,9 +1,9 @@
-require_relative "invoice_items"
+require_relative "invoice_item"
 require_relative "sales_engine"
 require 'csv'
 require 'pry'
 
-class InvoiceRepository
+class InvoiceItemRepository
   attr_reader :invoice_items,
               :sales_engine
 
@@ -17,7 +17,7 @@ class InvoiceRepository
     invoice_item_csv = CSV.open filename,
                              headers: true,
                              header_converters: :symbol
-    invoice_item_csv.each do |invoice_item| @invoice_items << InvoiceItems.new(invoice_item, self) end
+    invoice_item_csv.map do |invoice_item| @invoice_items << InvoiceItems.new(invoice_item, self) end
   end
 
   def all

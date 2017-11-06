@@ -5,7 +5,7 @@ se = SalesEngine.from_csv({
   :items         => "./data/items.csv",
   :merchants     => "./data/merchants.csv",
   :invoices      => "./data/invoices.csv",
-  :invoice_items => "./data/invoices.csv"
+  :invoice_items => "./data/invoice_items.csv",
   :transactions  => "./data/transactions.csv",
   :customers     => "./data/customers.csv"
 })
@@ -19,4 +19,4 @@ se = SalesEngine.from_csv({
 
 sa = SalesAnalyst.new(se)
 
-p sa.top_merchants_by_invoice_count.length
+p se.invoices.find_by_id(20)

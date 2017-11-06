@@ -2,10 +2,10 @@ require "time"
 
 class Customer
   attr_reader :id,
-              :first_name
-              :last_name
-              :created_at
-              :updated_at
+              :first_name,
+              :last_name,
+              :created_at,
+              :updated_at,
               :repository
 
   def initialize(item_info, parent)
