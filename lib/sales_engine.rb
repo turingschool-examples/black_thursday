@@ -1,6 +1,9 @@
 require_relative "item_repo"
 require_relative "merchant_repo"
 require_relative "invoice_repo"
+require_relative "invoice_items_repo"
+require_relative "transaction_repo"
+require_relative "customer_repo"
 
 class SalesEngine
   attr_reader :items,
@@ -12,9 +15,12 @@ class SalesEngine
   end
 
   def initialize(directory)
-    @items      = ItemRepository.new(self, directory[:items])
-    @merchants  = MerchantRepository.new(self, directory[:merchants])
-    @invoices   = InvoiceRepository.new(self, directory[:invoices])
+    @items         = ItemRepository.new(self, directory[:items])
+    @merchants     = MerchantRepository.new(self, directory[:merchants])
+    @invoices      = InvoiceRepository.new(self, directory[:invoices])
+    @invoice_items = InvoiceRepository.new(self, directory[:invoice_items])
+    @transactions  = TransactionRepository.new(self, directory[:transactions])
+    @customers     = CustomerRepository.new(self, directory[:customers])
   end
 
   def find_merchant(id)

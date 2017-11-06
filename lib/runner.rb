@@ -2,10 +2,12 @@ require_relative 'sales_engine'
 require_relative 'sales_analyst'
 
 se = SalesEngine.from_csv({
-  :items     => "./data/items.csv",
-  :merchants => "./data/merchants.csv",
-  :invoices => "./data/invoices.csv",
+  :items         => "./data/items.csv",
+  :merchants     => "./data/merchants.csv",
+  :invoices      => "./data/invoices.csv",
   :invoice_items => "./data/invoices.csv"
+  :transactions  => "./data/transactions.csv",
+  :customers     => "./data/customers.csv"
 })
 
 # se = SalesEngine.from_csv({
