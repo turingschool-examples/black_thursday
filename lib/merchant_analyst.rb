@@ -76,23 +76,55 @@ module MerchantAnalyst
     end
   end
 
-  def top_revenue_earners(amount = 20)
-    revenue_by_invoice_id = @sales_engine.invoice_items.all.reduce(Hash.new(0)) do |result, invoice_item|
+  def revenue_by_invoice_id
+    @sales_engine.invoice_items.all.reduce(Hash.new(0)) do |result, invoice_item|
       result[invoice_item.invoice_id] += (invoice_item.quantity * invoice_item.unit_price)
       result
     end
-    revenue_by_merchant_id = revenue_by_invoice_id.reduce(Hash.new(0)) do |result, (invoice_id, revenue)|
+  end
+
+  def revenue_by_merchant_id
+    revenue_by_invoice_id.reduce(Hash.new(0)) do |result, (invoice_id, revenue)|
       if @sales_engine.invoices.find_by_id(invoice_id).is_paid_in_full?
         result[@sales_engine.invoices.find_by_id(invoice_id).merchant_id] += revenue
       end
       result
     end
-    revenue_by_merchant = revenue_by_merchant_id.reduce(Hash.new(0)) do |result, (merchant_id, revenue)|
+  end
+
+  def revenue_by_merchant
+    revenue_by_merchant_id.reduce(Hash.new(0)) do |result, (merchant_id, revenue)|
       result[@sales_engine.merchants.find_by_id(merchant_id)] += revenue
       result
     end
-    revenue_by_merchant.sort_by do |_, value|
-      -value
-    end.first(amount).map(&:first)
   end
+
+  def merchants_ranked_by_revenue
+    revenue_by_merchant.sort_by do |_, revenue|
+      -revenue
+    end.map(&:first)
+  end
+
+  def top_revenue_earners(amount = 20)
+    merchants_ranked_by_revenue.first(amount)
+  end
+
+  def find_pending_invoices
+    @sales_engine.invoices.all.find_all do |invoice|
+      !invoice.is_paid_in_full?
+    end
+  end
+
+  def find_pending_merchant_ids
+    find_pending_invoices.map do |invoice|
+      invoice.merchant_id
+    end.uniq
+  end
+
+  def merchants_with_pending_invoices
+    find_pending_merchant_ids.map do |merchant_id|
+      @sales_engine.merchants.find_by_id(merchant_id)
+    end
+  end
+
 end
