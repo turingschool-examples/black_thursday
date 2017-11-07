@@ -21,7 +21,11 @@ se = SalesEngine.from_csv({
 
 sa = SalesAnalyst.new(se)
 
+sa.golden_items
 
-merchant = sa.average_average_price_per_merchant
-
-p merchant
+# date = Time.parse("2009-02-07")
+#
+# expected = sa.total_revenue_by_date(date)
+#
+# p expected.class
+# p expected
