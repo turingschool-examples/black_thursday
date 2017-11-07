@@ -58,9 +58,34 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_find_all_invoices_for_merchant
-    #find invoices for good merch id
-    assert_equal 234, setup.find_all_invoices_for_merchant(12334115)
+    assert_instance_of Invoice, setup.find_all_invoices_for_merchant(12334389).first
   end
-  #build more tests for relationship layer
+
+  def test_find_merchant_customers
+    files = ({:invoices => "./data/invoices.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"})
+    se = SalesEngine.from_csv(files)
+    #this should be returning instance of customer - pry worked!
+    assert_instance_of Customer, se.find_merchant_customer(12334115).first
+  end
+
+  def test_find_merchant_ids_from_invoices
+    #this should be returning instance of merchant - pry worked!
+    assert_instance_of Merchant, setup.find_merchant_ids_from_invoice(3).first
+  end
+
+  def test_find_all_invoices_for_customer
+    assert_instance_of Invoice, setup.find_all_invoices_for_merchant(12334389).first
+  end
+
+  def test_find_merchant_ids_from_customer_invoices
+    assert_instance_of Invoice, setup.find_merchant_ids_from_customer_invoice(3).first
+  end
+
+  def test_find_customer_merchants
+    files = ({:invoices => "./data/invoices.csv", :items => "./data/items.csv", :merchants => "./data/merchants.csv", :invoice_items => "./data/invoice_items.csv", :transactions => "./data/transactions.csv", :customers => "./data/customers.csv"})
+    se = SalesEngine.from_csv(files)
+    #this should be returning instance of merchant - pry worked!
+    assert_instance_of Invoice, se.find_customer_merchant(3).first
+  end
 
 end

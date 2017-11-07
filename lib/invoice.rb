@@ -28,4 +28,10 @@ class Invoice
   def customer
     invoice_repo.invoice_customer(self.customer_id)
   end
+
+  def is_paid_in_full?
+    transactions.any? do |transaction|
+      transaction.result == "success"
+    end
+  end
 end
