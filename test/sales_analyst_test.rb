@@ -124,17 +124,20 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_find_top_days_by_invoice_count
     files = ({:items => "./data/items.csv",
               :merchants => "./data/merchants.csv",
-              :invoices =>"./test/fixture/invoice_fixture.csv"})
+              :invoices => "./data/invoices.csv",
+              :invoice_items => "./test/fixture/invoice_item_fixture.csv",
+              :transactions => "./test/fixture/transaction_fixture.csv",
+              :customers => "./test/fixture/customer_fixture.csv"})
     se = SalesEngine.from_csv(files)
     s_a = SalesAnalyst.new(se)
 
-    assert_equal ["Friday"], s_a.top_days_by_invoice_count
+    assert_equal ["Wednesday"], s_a.top_days_by_invoice_count
   end
 
   def test_invoices_have_a_status
-    assert_equal 29.55, setup.invoice_status(:pending)
-    assert_equal 56.95, setup.invoice_status(:shipped)
-    assert_equal 13.5, setup.invoice_status(:returned)
+    assert_equal 36.21, setup.invoice_status(:pending)
+    assert_equal 58.62, setup.invoice_status(:shipped)
+    assert_equal 5.17, setup.invoice_status(:returned)
   end
 
 end

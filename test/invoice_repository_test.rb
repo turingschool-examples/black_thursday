@@ -38,12 +38,4 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 7, instances[0].customer_id
     assert_equal 4, instances.count
   end
-
-  def test_it_can_find_by_status
-    instances = setup.find_all_by_status("pending")
-    assert_equal "pending", instances[5].status
-
-    instances = setup.find_all_by_status("shipped")
-    assert_equal "shipped", instances[4].status
-  end
 end

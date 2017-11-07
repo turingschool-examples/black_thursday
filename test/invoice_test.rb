@@ -4,7 +4,9 @@ require_relative '../lib/sales_engine'
 
 class InvoiceTest < Minitest::Test
   def setup
-    invoice = ({:id => "4", :customer_id => "7", :merchant_id => "12337139", :created_at => "2015-03-13", :updated_at => "2015-04-05"})
+    invoice = ({:id => "4", :customer_id => "1", :merchant_id => "12334269",
+      :status => "pending", :created_at => "2013-08-05",
+      :updated_at => "2014-06-06"})
     Invoice.new(invoice, [])
   end
 
@@ -13,7 +15,7 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_merchant_id_is_correct_integer
-    assert_equal 12337139, setup.merchant_id
+    assert_equal 12334269, setup.merchant_id
   end
 
   def test_id_returns_correct_integer
@@ -21,7 +23,7 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_customer_id_is_correct_integer
-    assert_equal 7, setup.customer_id
+    assert_equal 1, setup.customer_id
   end
 
   def test_time_returns_time_exists
