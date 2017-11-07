@@ -38,7 +38,7 @@ class SalesAnalyst
   def find_standard_deviation_difference_total
     find_items.map do |item_total|
       (item_total - average_items_per_merchant) ** 2
-    end.sum
+    end.sum.round(2)
   end
 
   def find_standard_deviation_total
@@ -74,24 +74,25 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(merchant_id)
-    list = find_the_collections_of_items(merchant_id.to_s)
-    (list.reduce(0) { |sum, item| sum + item.unit_price_to_dollars } / list.count).round(2)
+    list = find_the_collections_of_items(merchant_id)
+    (list.reduce(0) { |sum, item| sum + item.unit_price_to_dollars
+      } * 100 / list.count)
   end
 
   def find_the_collections_of_items(merchant_id)
     sales_engine.items.find_all_by_merchant_id(merchant_id)
   end
 
-  def average_average_price_for_merchant
+  def average_average_price_per_merchant
     (merchant_list.reduce(0) { |sum, merchant|
       sum + average_item_price_for_merchant(merchant)
       } / merchant_list.count).round(2)
   end
 
   def average_unit_price
-    @sales_engine.items.all.reduce(0) { |sum, item|
+    (@sales_engine.items.all.reduce(0) { |sum, item|
     sum + item.unit_price
-     } / @sales_engine.items.all.count
+  } / @sales_engine.items.all.count).round(2)
   end
 
   def unit_price_and_average_difference_squared_sum
@@ -113,7 +114,7 @@ class SalesAnalyst
 
   def golden_items
     @sales_engine.items.items.find_all do |item|
-      item if item.unit_price_to_dollars >= golden_items_deviation
+      item if item.unit_price >= golden_items_deviation
      end
   end
 
@@ -250,7 +251,7 @@ class SalesAnalyst
     # (unit_price).round(2).to_f
     (BigDecimal.new(unit_price).round(2))
   end
-  
+
   # def total_revenue_by_date(date)
   #   find_all_invoices_by_date(date).map do |invoice|
   # end

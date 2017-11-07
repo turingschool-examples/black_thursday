@@ -21,7 +21,7 @@ class ItemRepoTest < Minitest::Test
 
   def test_it_can_find_items_by_id
     item_repo = ItemRepository.new(self, "./data/items.csv")
-    results = item_repo.find_by_id("263396013")
+    results = item_repo.find_by_id(263396013)
 
     assert_equal "Free standing Woden letters", results.name
   end
@@ -30,7 +30,7 @@ class ItemRepoTest < Minitest::Test
     item_repo = ItemRepository.new(self, "./data/items.csv")
     results = item_repo.find_by_name('Free standing Woden letters')
 
-    assert_equal "263396013", results.id
+    assert_equal 263396013, results.id
   end
 
   def test_find_by_name_can_return_an_empty_array
@@ -44,15 +44,15 @@ class ItemRepoTest < Minitest::Test
 
   def test_it_can_find_items_by_description
     item_repo = ItemRepository.new(self, "./data/items.csv")
-    description = "Free standing wooden letters \n\n15cm\n\nAny colours"
+    description = "oil painting on stretched canvas 45x60 cm"
     results = item_repo.find_all_with_description(description)
 
-    assert_equal "263396013", results.first.id
+    assert_equal 263399825, results.first.id
   end
 
   def test_it_can_find_all_by_merchant_id
     item_repo = ItemRepository.new(self, "./data/items.csv")
-    results = item_repo.find_all_by_merchant_id("12334185")
+    results = item_repo.find_all_by_merchant_id(12334185)
 
     assert_equal 6, results.count
     assert_equal "Glitter scrabble frames", results.first.name
@@ -61,14 +61,14 @@ class ItemRepoTest < Minitest::Test
   def test_it_can_find_all_by_price_in_range
     item_repo = ItemRepository.new(self, "./data/items.csv")
 
-    assert_equal 6, item_repo.find_all_by_price_in_range(1..100).count
+    assert_equal 1090, item_repo.find_all_by_price_in_range(1..100).count
   end
   #missing find_merchant test
   def test_can_find_by_price
     item_repo = ItemRepository.new(self, "./data/items.csv")
     results = item_repo.find_all_by_price(12)
 
-    assert_equal "510+ RealPush Icon Set", results.first.name
-    assert_equal "Hello There Shibori kitchen tea towel", results.last.name
+    assert_equal "The Beatles Clock | Hecho a mano", results.first.name
+    assert_equal "Abbey Road Clock | Hecho a mano", results.last.name
   end
 end
