@@ -4,7 +4,7 @@ class Merchant
               :repository
 
   def initialize(row, parent)
-    @id   = row[:id]
+    @id   = row[:id].to_i
     @name = row[:name]
     @repository = parent
   end
