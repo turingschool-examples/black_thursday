@@ -217,10 +217,40 @@ class SalesAnalyst
     sales_engine.invoices.find_all_by_status(status)
   end
 
-  def find_all_invoice_items_by_date(date)
-    sales_engine.invoices.find_by_created_date(date)
+  def find_all_invoices_by_date(date)
+    sales_engine.invoices.find_all_by_created_date(date)
   end
 
+  def filter_valid_invoices(invoices)
+    invoices.reduce([]) do |result, invoice|
+      result << invoice if invoice.is_paid_in_full? == true
+    end
+  end
+
+  def find_invoice_items_for_invoice_collection(invoices)
+    invoices.reduce([]) do |result, invoice|
+      result << invoice.invoice_items
+    end.flatten
+  end
+
+  def total_invoice_items_price(invoice_items)
+    invoice_items.reduce(0) do |total, invoice_item|
+      total += (invoice_item.quantity * invoice_item.unit_price)
+    end
+  end
+
+  def total_revenue_by_date(date)
+    invoices = find_all_invoices_by_date(date)
+    filtered_invoices = filter_valid_invoices(invoices)
+    invoice_items = find_invoice_items_for_invoice_collection(invoices)
+    unit_price_to_dollars(total_invoice_items_price(invoice_items))
+  end
+
+  def unit_price_to_dollars(unit_price)
+    # (unit_price).round(2).to_f
+    (BigDecimal.new(unit_price).round(2))
+  end
+  
   # def total_revenue_by_date(date)
   #   find_all_invoices_by_date(date).map do |invoice|
   # end

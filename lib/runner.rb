@@ -21,4 +21,10 @@ se = SalesEngine.from_csv({
 
 sa = SalesAnalyst.new(se)
 
-p sa.merchants_with_high_item_count
+
+date = Time.parse("2009-02-07")
+
+expected = sa.total_revenue_by_date(date)
+
+p expected.class
+p expected

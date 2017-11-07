@@ -44,7 +44,7 @@ attr_reader :id,
 
   def total_invoice_items_price(invoice_items)
     invoice_items.reduce(0) do |total, invoice_item|
-      total += (invoice_item.quantity * invoice_item.unit_price_to_dollars)
+      total += (invoice_item.unit_price_to_dollars)
     end
   end
 
@@ -53,7 +53,7 @@ attr_reader :id,
   end
 
   def format_date(date)
-    date.strftime("%m-%d-%Y")
+    date.strftime("%Y-%m-%d")
   end
 
   def merchant

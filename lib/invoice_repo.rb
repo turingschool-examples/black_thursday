@@ -42,13 +42,13 @@ class InvoiceRepository
 
   def find_all_by_created_date(date)
     invoices.find_all do |invoice|
-      format_date(invoice.created_at) == date
+      invoice.created_at == date
     end
   end
 
-  def format_date(date)
-    date.strftime("%m-%d-%Y")
-  end
+  # def format_date(date)
+  #   date.strftime("%Y-%m-%d")
+  # end
 
   def find_merchant(id)
     @sales_engine.find_merchant(id)
