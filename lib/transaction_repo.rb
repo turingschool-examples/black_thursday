@@ -44,4 +44,8 @@ class TransactionRepository
       "#<#{self.class} #{@transactions.size} rows>"
   end
 
+  def find_invoice_by_invoice_id(id)
+    sales_engine.find_invoice_by_invoice_id(id)
+  end
+
 end

@@ -14,7 +14,13 @@ class Merchant
   end
 
   def invoices
-    repository.find_invoices(self.id)
+    repository.find_invoices_by_merchant_id(self.id)
+  end
+
+  def customers
+     invoices.map do |invoice|
+       repository.find_customer_by_customer_id(invoice.customer_id)
+     end
   end
 
 end

@@ -24,7 +24,11 @@ class Transaction
   end
 
   def merchant
-    @repository.find_merchant(self.merchant_id)
+    repository.find_merchant(self.merchant_id)
+  end
+
+  def invoice
+    repository.find_invoice_by_invoice_id(self.id)
   end
 
 end
