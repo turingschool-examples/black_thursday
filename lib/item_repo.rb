@@ -29,7 +29,7 @@ class ItemRepository
   end
 
   def find_by_id(id)
-    @items.find { |item| item.id == id.to_s }
+    @items.find { |item| item.id == id }
   end
 
   def find_by_name(name)
