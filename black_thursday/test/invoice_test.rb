@@ -64,6 +64,12 @@ class InvoiceTest < Minitest::Test
     assert_nil invoice.merchant
   end
 
+  def test_customer
+    assert_instance_of Customer, invoice.customer
+    assert_equal 1, invoice.customer.id
+    assert_nil invoice.customer.last_name
+  end
+
   def test_total
     assert_equal  0.2106777e5, invoice.total
   end
