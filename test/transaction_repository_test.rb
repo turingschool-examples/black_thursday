@@ -65,7 +65,7 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal result, @transactions.find_all_by_result("failed")
   end
 
-  def test_that_it_finds_all_by_result
+  def test_that_it_finds_invoice_by_transaction_id
     invoice1 = @invoices.all[0]
 
     assert_equal invoice1, @transactions.find_invoice(1)

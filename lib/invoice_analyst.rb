@@ -85,10 +85,11 @@ module InvoiceAnalyst
   end
 
   def top_days_by_invoice_count
-    average_invoices = average_invoices_per_day
-    invoices_per_day.map do |day, invoice_count|
-      day if invoice_count > (average_invoices + invoice_count_std_dev)
-    end.compact
+    avg_invoices = average_invoices_per_day
+    invoices_per_day.reduce([]) do |result, (day, invoice_count)|
+      result << day if invoice_count > (avg_invoices + invoice_count_std_dev)
+      result
+    end
   end
 
   def invoice_status_sum

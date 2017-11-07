@@ -20,7 +20,7 @@ class MerchantTest < Minitest::Test
    merchant = @merchants[0]
 
    assert_instance_of Merchant, merchant
- end
+  end
 
   def test_merchant_can_search_for_id
 

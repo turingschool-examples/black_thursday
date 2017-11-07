@@ -33,14 +33,23 @@ class Invoice
     repository.find_customer(customer_id)
   end
 
-  # def is_paid_in_full?
-  #   if repository.transaction_result(@invoice_id) == "success"
-  #     return true
-  #   else
-  #     return false
-  #   end
-  # end
+  def is_paid_in_full?
+    repository.transaction_result(@id).each do |transaction|
+      return true if transaction.result == "success"
+    end
+    false
+  end
 
+  def total
+    if is_paid_in_full?
+      determine_total_cost
+    end
+  end
 
-
+  def determine_total_cost
+    invoice_items = repository.find_invoice_items_by_invoice_id(@id)
+    invoice_items.reduce(0) do |result, invoice_item|
+      result += (invoice_item.quantity * invoice_item.unit_price)
+    end
+  end
 end
