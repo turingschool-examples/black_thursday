@@ -193,7 +193,13 @@ class SalesAnalyst
   end
 
   def top_revenue_earners(x = 20)
-    # binding.pry
     merchants_ranked_by_revenue.first(x)
   end
+
+  def merchants_with_pending_invoices
+    sales_engine.merchants.merchants.find_all do |merchant|
+      merchant.invoices.any? {|invoice| invoice.total == 0}
+    end
+  end
+
 end

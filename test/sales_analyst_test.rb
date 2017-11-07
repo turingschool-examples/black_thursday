@@ -149,4 +149,10 @@ class SalesAnalystTest < Minitest::Test
     assert_equal "Shopin1901", result[0].name
   end
 
+  def test_it_can_return_merchants_with_pending_invoices
+    result = setup.merchants_with_pending_invoices
+
+    assert_equal "Keckenbauer", result[0].name
+  end
+
 end
