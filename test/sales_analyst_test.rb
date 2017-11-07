@@ -26,6 +26,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_find_merchants_with_high_item_count
     merchant_1 = @sales_analyst.sales_engine.merchants.merchants[0]
+
     assert_equal [merchant_1], @sales_analyst.merchants_with_high_item_count
   end
 
@@ -39,6 +40,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_find_golden_items
     item_1 = @sales_analyst.sales_engine.items.all[8]
+
     assert_equal [item_1], @sales_analyst.golden_items
   end
 
@@ -52,11 +54,13 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_find_top_merchants_by_invoice_count
     merchant_1 = @sales_analyst.sales_engine.merchants.merchants[0]
+
     assert_equal [merchant_1], @sales_analyst.top_merchants_by_invoice_count
   end
 
   def test_it_can_find_bottom_merchants_by_invoice_count
     merchant_1 = @sales_analyst.sales_engine.merchants.merchants[4]
+
     assert_equal [merchant_1], @sales_analyst.bottom_merchants_by_invoice_count
   end
 
@@ -68,5 +72,19 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 51.02, @sales_analyst.invoice_status(:pending)
     assert_equal 32.65, @sales_analyst.invoice_status(:shipped)
     assert_equal 16.33, @sales_analyst.invoice_status(:returned)
+  end
+
+  def test_it_calculates_total_revenue_by_date
+    date = Time.parse("2009-02-07")
+    assert_equal 21067.77, @sales_analyst.total_revenue_by_date(date)
+  end
+
+  def test_it_determines_top_revenue_earners
+    merchant_1 = @sales_analyst.sales_engine.merchants.merchants[0]
+    merchant_2 = @sales_analyst.sales_engine.merchants.merchants[3]
+    merchant_3 = @sales_analyst.sales_engine.merchants.merchants[6]
+
+    assert_equal [merchant_1, merchant_2], @sales_analyst.top_revenue_earners(2)
+    # assert_equal [merchant_1, merchant_2, merchant_3], @sales_analyst.top_revenue_earners(3)
   end
 end
