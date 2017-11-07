@@ -145,8 +145,8 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_top_revenue_earners
-    result = setup.top_revenue_earners(5)
-    assert_equal "merchant", result.first.name
+    result = setup.top_revenue_earners(20)
+    assert_equal "Shopin1901", result[0].name
   end
 
 end

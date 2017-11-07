@@ -2,6 +2,7 @@ require_relative 'sales_engine'
 require_relative 'math'
 require 'memoize'
 require 'time'
+require 'pry'
 
 class SalesAnalyst
   include Math
@@ -167,7 +168,32 @@ class SalesAnalyst
     end.compact.first.round(2)
   end
 
-  def top_revenue_earners(x)
-    
+  def total_revenue_by_merchant(merchant_id)
+    merchant_revenue = sales_engine.merchants.find_by_id(merchant_id).invoices
+    merchant_revenue.reduce(0) do |sum, invoice|
+      sum + invoice.total
+    #figure out test
+    end
+  end
+
+  def add_merchant_to_merchant_total
+    merchant_totals = {}
+    sales_engine.merchants.merchants.each do |merchant|
+      merchant_totals[merchant] = total_revenue_by_merchant(merchant.id)
+    end
+    merchant_totals
+    #figure out test
+  end
+
+  def merchants_ranked_by_revenue
+    earners = add_merchant_to_merchant_total.sort_by {|merchant, total| total}
+    earners.map do |pair|
+      pair[0]
+    end.reverse
+  end
+
+  def top_revenue_earners(x = 20)
+    # binding.pry
+    merchants_ranked_by_revenue.first(x)
   end
 end
