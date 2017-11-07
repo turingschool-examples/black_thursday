@@ -17,7 +17,8 @@ class CustomerRepository
     customers_csv = CSV.open filename,
                              headers: true,
                              header_converters: :symbol
-    customers_csv.each do |customer| @customers << Customer.new(customer, self) end
+    customers_csv.each do |customer|
+      @customers << Customer.new(customer, self) end
   end
 
   def all

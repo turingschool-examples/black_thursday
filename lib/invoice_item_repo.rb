@@ -1,7 +1,6 @@
 require_relative "invoice_item"
 require_relative "sales_engine"
 require 'csv'
-require 'pry'
 
 class InvoiceItemRepository
   attr_reader :invoice_items,
@@ -17,7 +16,9 @@ class InvoiceItemRepository
     invoice_item_csv = CSV.open filename,
                              headers: true,
                              header_converters: :symbol
-    invoice_item_csv.map do |invoice_item| @invoice_items << InvoiceItem.new(invoice_item, self) end
+    invoice_item_csv.map do |invoice_item|
+      @invoice_items << InvoiceItem.new(invoice_item, self)
+    end
   end
 
   def all
@@ -33,7 +34,9 @@ class InvoiceItemRepository
   end
 
   def find_all_by_invoice_id(invoice_id)
-    invoice_items.find_all { |invoice_item| invoice_item.invoice_id == invoice_id.to_i }
+    invoice_items.find_all do |invoice_item|
+      invoice_item.invoice_id == invoice_id.to_i
+    end
   end
 
   def find_all_by_created_date(date)
@@ -53,5 +56,4 @@ class InvoiceItemRepository
   def inspect
       "#<#{self.class} #{@invoice_items.size} rows>"
   end
-
 end
