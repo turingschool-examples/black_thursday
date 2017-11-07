@@ -17,10 +17,14 @@ class InvoiceItem
   end
 
   def unit_price
-    @unit_price / 100.0
+    @unit_price/100.0
   end
 
   def unit_price_to_dollars
     unit_price.to_f
+  end
+
+  def total
+    unit_price * quantity.to_f
   end
 end

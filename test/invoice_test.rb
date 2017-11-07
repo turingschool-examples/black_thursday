@@ -39,4 +39,16 @@ class InvoiceTest < Minitest::Test
 
     assert_equal true, se.invoices.first.is_paid_in_full?
   end
+
+  def test_returns_the_total_amount_of_the_invoice
+    files = ({:invoices => "./data/invoices.csv", :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv",
+      :customers => "./data/customers.csv"})
+    se = SalesEngine.from_csv(files)
+    invoice = se.invoices.find_by_id(5)
+
+    assert_equal 0.1582816e5, invoice.total
+  end
 end

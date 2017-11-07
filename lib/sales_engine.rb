@@ -126,4 +126,12 @@ class SalesEngine
   end
   memoize :find_customer_merchant
 
+  def total_invoice_amount(invoice_id)
+    success_invoice_items = invoice_items.find_all_by_invoice_id(invoice_id)
+    success_invoice_items.map do |inv_item|
+      inv_item.total
+    end.sum.round(2)
+    #possible refactor here to do dollar amount
+  end
+
 end
