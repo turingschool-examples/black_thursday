@@ -18,8 +18,10 @@ se = SalesEngine.from_csv({
 # })
 
 sa = SalesAnalyst.new(se)
-#
-# invoice = sa.total_revenue_by_date(date)
-invoice = se.invoices.find_by_id(1752)
 
-p invoice.total
+date = Time.parse("2009-02-07")
+
+expected = sa.total_revenue_by_date(date)
+
+p expected.class
+p expected
