@@ -21,11 +21,39 @@ attr_reader :id,
   end
 
   def is_paid_in_full?
-    if status == :shipped
+    if transactions.count == successful_transactions.count
       true
     else
       false
     end
+  end
+
+  def successful_transactions
+    transactions.find_all do |transaction|
+      transaction.result == "success"
+    end
+  end
+
+  def total
+    if is_paid_in_full?
+      unit_price_to_dollars(total_invoice_items_price(invoice_items))
+    else
+      puts "Sorry, one or more of these transactions were not sucessful."
+    end
+  end
+
+  def total_invoice_items_price(invoice_items)
+    invoice_items.reduce(0) do |total, invoice_item|
+      total += (invoice_item.quantity * invoice_item.unit_price_to_dollars)
+    end
+  end
+
+  def invoice_items_for_successful_transactions
+    repository.find_invoice_items_by_invoice_id
+  end
+
+  def format_date(date)
+    date.strftime("%m-%d-%Y")
   end
 
   def merchant
@@ -46,14 +74,6 @@ attr_reader :id,
 
   def invoice_items
     repository.find_invoice_items_by_invoice_id(self.id)
-  end
-
-  def total
-    if is_paid_in_full?
-      unit_price_to_dollars(invoice_items.unit_price)
-    else
-      puts "Sorry, that invoice hasn't been paid in full."
-    end
   end
 
   def unit_price_to_dollars(unit_price)

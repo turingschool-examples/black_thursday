@@ -36,6 +36,16 @@ class InvoiceItemRepository
     invoice_items.find_all { |invoice_item| invoice_item.invoice_id == invoice_id.to_i }
   end
 
+  def find_all_by_created_date(date)
+    invoice_items.find_all do |invoice_item|
+      format_date(invoice_item.created_at) == date
+    end
+  end
+
+  def format_date(date)
+    date.strftime("%m-%d-%Y")
+  end
+
   # def find_merchant(id)
   #   @sales_engine.find_merchant(id)
   # end

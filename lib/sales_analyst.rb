@@ -210,11 +210,22 @@ class SalesAnalyst
 
   def invoice_status(status)
     (find_all_invoices(status).length /
-    @sales_engine.invoices.all.length.to_f * 100).round(2)
+    sales_engine.invoices.all.length.to_f * 100).round(2)
   end
 
   def find_all_invoices(status)
-    @sales_engine.invoices.find_all_by_status(status)
+    sales_engine.invoices.find_all_by_status(status)
   end
+
+  def find_all_invoice_items_by_date(date)
+    sales_engine.invoices.find_by_created_date(date)
+  end
+  
+  # def total_revenue_by_date(date)
+  #   find_all_invoices_by_date(date).map do |invoice|
+  # end
+
+  # def filter_invoices_for_result(invoices, status)
+  #   invoices.find_all { |invoice| invoices.}
 
 end

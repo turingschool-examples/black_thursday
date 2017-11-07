@@ -16,7 +16,7 @@ class InvoiceItem
     @id          = item_info[:id].to_i
     @item_id     = item_info[:item_id].to_i
     @invoice_id  = item_info[:invoice_id].to_i
-    @quantity    = item_info[:quantity]
+    @quantity    = item_info[:quantity].to_i
     @unit_price  = (BigDecimal.new(item_info[:unit_price]))/100
     @created_at  = Time.parse(item_info[:created_at])
     @updated_at  = Time.parse(item_info[:updated_at])
