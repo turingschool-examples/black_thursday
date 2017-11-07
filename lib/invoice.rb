@@ -50,4 +50,8 @@ class Invoice
     end.sum
   end
 
+  def invoice_items
+    @invoice_repo.find_item_ids_from_invoice_id(id)
+  end
+
 end
