@@ -167,6 +167,22 @@ class SalesAnalyst
     end.sum
   end
 
+  def one_time_buyers
+    specific_customers = Hash.new(0)
+
+    se.customers.all.each do |customer|
+      specific_customers[customer] = customer.fully_paid_invoices.count
+    end
+
+    one_time_customers = specific_customers.find_all do |cust, paid_invoices|
+      paid_invoices == 1
+    end
+
+    final = one_time_customers.map do |customer, paid_invoices|
+      customer
+    end
+  end
+
     private
 
       def all_item_prices

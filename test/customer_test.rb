@@ -27,4 +27,6 @@ class CustomerTest < MiniTest::Test
     assert_equal "2012-03-27 14:54:09 UTC", customer.updated_at.to_s
   end
 
+
+
 end
