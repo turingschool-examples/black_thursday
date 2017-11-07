@@ -24,11 +24,11 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of MerchantRepository, se.merchants
     assert_equal 5, se.merchants.all.count
     assert_instance_of InvoiceRepository, se.invoices
-    assert_equal 20, se.invoices.all.count
+    assert_equal 34, se.invoices.all.count
     assert_instance_of CustomerRepository, se.customers
-    assert_equal 10, se.customers.all.count
+    assert_equal 20, se.customers.all.count
     assert_instance_of TransactionRepository, se.transactions
-    assert_equal 6, se.transactions.all.count
+    assert_equal 23, se.transactions.all.count
   end
 
   def test_find_items_for_merchant_by_merchant_id
@@ -46,7 +46,7 @@ class SalesEngineTest < Minitest::Test
   def test_find_invoices_for_merchant
     merchant = se.merchants.find_by_id(12334185)
 
-    assert_equal 10, merchant.invoices.count
+    assert_equal 24, merchant.invoices.count
   end
 
   def test_find_items_for_invoice
@@ -87,8 +87,8 @@ class SalesEngineTest < Minitest::Test
 
     assert_instance_of Customer, customers.first
     assert_equal 297, customers.first.id
-    assert_equal 413, customers.last.id
-    assert_equal 2, customers.count
+    assert_equal 30, customers.last.id
+    assert_equal 18, customers.count
   end
 
   def test_find_all_merchants_for_customer
