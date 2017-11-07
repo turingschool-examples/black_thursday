@@ -11,7 +11,8 @@ class Item
               :updated_at,
               :parent
 
-  def initialize(attributes, parent = ItemRepository.new("./test/fixtures/truncated_items.csv"))
+  def initialize(attributes, parent =
+    ItemRepository.new("./test/fixtures/truncated_items.csv"))
     @id           = attributes[:id].to_i
     @name         = attributes[:name]
     @description  = attributes[:description]

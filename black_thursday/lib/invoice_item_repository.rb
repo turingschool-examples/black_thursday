@@ -1,12 +1,11 @@
 require_relative 'invoice_item'
 
 class InvoiceItemRepository
-  
   attr_reader :invoice_items
 
-  def initialize(csv_filename, parent = nil)
-    @invoice_items  = load_csv(csv_filename).map { |row| InvoiceItem.new(row, self) }
-    @parent         = parent
+  def initialize(csv_file, parent = nil)
+    @invoice_items = load_csv(csv_file).map {|row| InvoiceItem.new(row, self)}
+    @parent        = parent
   end
 
   def load_csv(filename)
@@ -38,5 +37,4 @@ class InvoiceItemRepository
   def inspect
     "#{self.class} has #{all.count} rows"
   end
-
 end

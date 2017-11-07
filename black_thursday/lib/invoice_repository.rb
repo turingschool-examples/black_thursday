@@ -4,8 +4,8 @@ class InvoiceRepository
   attr_reader :invoices,
               :parent
 
-  def initialize(csv_filename, parent = nil)
-    @invoices  = load_csv(csv_filename).map { |row| Invoice.new(row, self) }
+  def initialize(csv_file, parent = nil)
+    @invoices  = load_csv(csv_file).map { |row| Invoice.new(row, self) }
     @parent    = parent
   end
 

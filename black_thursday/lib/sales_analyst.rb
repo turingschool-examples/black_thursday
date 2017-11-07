@@ -1,10 +1,9 @@
 require 'bigdecimal'
-require_relative 'sales_engine'
 require 'memoist'
 require "time"
+require_relative 'sales_engine'
 
 class SalesAnalyst
-
   extend Memoist
 
   attr_reader :engine
@@ -124,7 +123,8 @@ class SalesAnalyst
   memoize :average_invoices_per_merchant_standard_deviation
 
   def two_invoices_per_merchant_standard_deviations
-    average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2)
+    average_invoices_per_merchant +
+    (average_invoices_per_merchant_standard_deviation * 2)
   end
   memoize :two_invoices_per_merchant_standard_deviations
 
@@ -136,7 +136,8 @@ class SalesAnalyst
   memoize :top_merchants_by_invoice_count
 
   def two_standard_deviations_below_invoice_count
-    average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2)
+    average_invoices_per_merchant -
+    (average_invoices_per_merchant_standard_deviation * 2)
   end
 
   def bottom_merchants_by_invoice_count

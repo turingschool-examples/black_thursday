@@ -4,13 +4,13 @@ class CustomerRepository
   attr_reader :customers,
               :parent
 
-  def initialize(csv_files = './data/customers.csv', parent = nil)
-    @customers = load_csv(csv_files).map { |row| Customer.new(row, self) }
+  def initialize(csv_file = './data/customers.csv', parent = nil)
+    @customers = load_csv(csv_file).map { |row| Customer.new(row, self) }
     @parent = parent
   end
 
-  def from_csv(csv_files)
-    CustomerRepository.new(csv_files)
+  def from_csv(csv_file)
+    CustomerRepository.new(csv_file)
   end
 
   def load_csv(filename)

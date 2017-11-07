@@ -44,7 +44,7 @@ class TransactionRepository
   def find_invoice_by_transaction_id(id)
     parent.find_invoice_by_transaction_id(id)
   end
-  
+
   def inspect
     "#{self.class} has #{all.count} rows"
   end

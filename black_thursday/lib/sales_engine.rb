@@ -18,13 +18,13 @@ class SalesEngine
     SalesEngine.new(csv_files)
   end
 
-  def initialize(repositories)
-    @items        = ItemRepository.new(repositories[:items], self)
-    @merchants    = MerchantRepository.new(repositories[:merchants], self)
-    @invoices     = InvoiceRepository.new(repositories[:invoices], self)
-    @transactions = TransactionRepository.new(repositories[:transactions], self)
-    @customers    = CustomerRepository.new(repositories[:customers], self)
-    @invoice_items = InvoiceItemRepository.new(repositories[:invoice_items], self)
+  def initialize(repos)
+    @items        = ItemRepository.new(repos[:items], self)
+    @merchants    = MerchantRepository.new(repos[:merchants], self)
+    @invoices     = InvoiceRepository.new(repos[:invoices], self)
+    @transactions = TransactionRepository.new(repos[:transactions], self)
+    @customers    = CustomerRepository.new(repos[:customers], self)
+    @invoice_items = InvoiceItemRepository.new(repos[:invoice_items], self)
   end
 
   def find_customer_by_invoice_id(id)
