@@ -52,4 +52,47 @@ module MerchantAnalyst
     average_price.round(2)
   end
 
+  def total_revenue_by_date(date)
+    find_invoices_by_date(date)
+  end
+
+  def find_invoices_by_date(date)
+    invoices = @sales_engine.invoices.all.find_all do |invoice|
+      invoice.created_at == date
+    end
+    find_invoice_items_by_invoice_date(invoices)
+  end
+
+  def find_invoice_items_by_invoice_date(invoices)
+    invoice_items = invoices.map do |invoice|
+      @sales_engine.find_invoice_items_by_invoice_id(invoice.id)
+    end.flatten
+    calculate_total_revenue_by_date(invoice_items)
+  end
+
+  def calculate_total_revenue_by_date(invoice_items)
+    invoice_items.reduce(0) do |result, invoice_item|
+      result += (invoice_item.quantity * invoice_item.unit_price)
+    end
+  end
+
+  def top_revenue_earners(amount = 20)
+    revenue_by_invoice_id = @sales_engine.invoice_items.all.reduce(Hash.new(0)) do |result, invoice_item|
+      result[invoice_item.invoice_id] += (invoice_item.quantity * invoice_item.unit_price)
+      result
+    end
+    revenue_by_merchant_id = revenue_by_invoice_id.reduce(Hash.new(0)) do |result, (invoice_id, revenue)|
+      if @sales_engine.invoices.find_by_id(invoice_id).is_paid_in_full?
+        result[@sales_engine.invoices.find_by_id(invoice_id).merchant_id] += revenue
+      end
+      result
+    end
+    revenue_by_merchant = revenue_by_merchant_id.reduce(Hash.new(0)) do |result, (merchant_id, revenue)|
+      result[@sales_engine.merchants.find_by_id(merchant_id)] += revenue
+      result
+    end
+    revenue_by_merchant.sort_by do |_, value|
+      -value
+    end.first(amount).map(&:first)
+  end
 end
