@@ -140,4 +140,13 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 5.17, setup.invoice_status(:returned)
   end
 
+  def test_it_can_find_total_revenue_by_date
+    assert_equal 0.528913e4, setup.total_revenue_by_date("2012-11-23")
+  end
+
+  def test_it_can_find_top_revenue_earners
+    result = setup.top_revenue_earners(5)
+    assert_equal "merchant", result.first.name
+  end
+
 end

@@ -157,4 +157,17 @@ class SalesAnalyst
     status_list = sales_engine.invoices.find_all_by_status(status).count
       (status_list.to_f / all * 100).round(2)
   end
+
+  def total_revenue_by_date(date)
+    time = date.to_s.split.first
+    sales_engine.invoices.invoices.map do |invoice|
+      if invoice.created_at.to_s.split.first == time
+        sales_engine.total_invoice_amount(invoice.id)
+      end
+    end.compact.first.round(2)
+  end
+
+  def top_revenue_earners(x)
+    
+  end
 end
