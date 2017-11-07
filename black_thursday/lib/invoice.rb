@@ -47,7 +47,7 @@ class Invoice
 
   def total
   invoice_items.reduce(0) do |unit, invoice_item|
-    unit += is_paid_in_full? ? invoice_item.unit_price_to_dollars : 0
+    unit += (invoice_item.unit_price * invoice_item.quantity)
     end
   end
 end

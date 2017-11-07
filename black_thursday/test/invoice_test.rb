@@ -60,6 +60,11 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_merchant
-    assert_equal '', invoice.merchant
+    invoice = Invoice.new({id: "46", customer_id: "10", merchant_id: "12336837", status: "shipped", created_at: "2005-11-11", updated_at: "2015-05-03"}, @repository)
+    assert_nil invoice.merchant
+  end
+
+  def test_total
+    assert_equal  0.2106777e5, invoice.total
   end
 end
