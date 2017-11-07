@@ -18,11 +18,11 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_pulls_csv_info_from_merchants_fixture
-    assert_equal 7, setup.all.count
+    assert_equal 18, setup.all.count
   end
 
   def test_it_returns_array_of_all_merchants
-    assert_equal 7, setup.all.count
+    assert_equal 18, setup.all.count
   end
 
   def test_it_can_find_by_id
