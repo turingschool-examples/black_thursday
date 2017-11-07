@@ -37,12 +37,6 @@ class InvoiceTest < Minitest::Test
     assert_equal false, invoice.is_paid_in_full?
   end
 
-  def test_total
-    assert_equal 0, @invoice.total
-    invoice = Invoice.new({id: "46", customer_id: "10", merchant_id: "12336837", status: "shipped", created_at: "2005-11-11", updated_at: "2015-05-03"}, @repository)
-    assert_equal 0, invoice.total
-  end
-
   def test_can_find_invoice_items_by_id_and_returns_array
     assert_instance_of Array, @invoice.invoice_items
     assert_equal 8, @invoice.invoice_items.length
