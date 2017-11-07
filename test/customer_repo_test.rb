@@ -8,87 +8,56 @@ class CustomerRepoTest < Minitest::Test
   end
 
   def test_it_can_create_invoice_item_instances
-    skip
     customer_repo = CustomerRepository.new(self, "./data/customers.csv")
 
-    assert_instance_of Transaction, customer_repo.customers.first
+    assert_instance_of Customer, customer_repo.customers.first
   end
 
   def test_it_can_reach_the_customers_instances_through_all
-    skip
     customer_repo = CustomerRepository.new(self, "./data/customers.csv")
 
-    assert_instance_of Transaction, customer_repo.all.first
+    assert_instance_of Customer, customer_repo.all.first
   end
 
   def test_it_can_find_customers_by_id
-    skip
     customer_repo = CustomerRepository.new(self, "./data/customers.csv")
-    results = customer_repo.find_by_id(580)
+    results = customer_repo.find_by_id(245)
 
-    assert_equal 1504, results.invoice_id
+    assert_equal "Norris", results.first_name
   end
 
   def test_find_by_id_can_return_nil
-    skip
     customer_repo = CustomerRepository.new(self, "./data/customers.csv")
     results = customer_repo.find_by_id(30000)
 
     assert_nil results
   end
 
-  def test_it_can_find_all_by_invoice_id
-    skip
+  def test_it_can_find_all_by_first_name
     customer_repo = CustomerRepository.new(self, "./data/customers.csv")
-    results = customer_repo.find_all_by_invoice_id(2880)
+    results = customer_repo.find_all_by_first_name("Rick")
 
-    assert_equal 2, results.length
+    assert_equal 1, results.length
+    assert_equal "Brekke", results.first.last_name
     assert_instance_of Array, results
-    assert_instance_of Transaction, results.first
+    assert_instance_of Customer, results.first
   end
 
   def test_find_all_by_item_id_can_return_an_empty_array
-    skip
     customer_repo = CustomerRepository.new(self, "./data/customers.csv")
-    results = customer_repo.find_all_by_invoice_id(000000)
+    results = customer_repo.find_all_by_first_name(000000)
 
     assert_equal [], results
   end
 
-  def test_it_can_find_all_by_credit_card_number
-    skip
+  def test_it_can_find_all_by_last_name
     customer_repo = CustomerRepository.new(self, "./data/customers.csv")
-    results = customer_repo.find_all_by_credit_card_number(4613250127567219)
+    results = customer_repo.find_all_by_last_name("DuBuque")
 
-    assert_equal 1, results.length
+    assert_equal 4, results.length
+    assert_equal "Derrick", results.first.first_name
     assert_instance_of Array, results
-    assert_equal 7, results.first.id
-  end
-
-  def test_find_all_by_credit_card_number_can_return_an_empty_array
-    skip
-    customer_repo = CustomerRepository.new(self, "./data/customers.csv")
-    results = customer_repo.find_all_by_credit_card_number(000000)
-
-    assert_equal [], results
-  end
-
-  def test_it_can_find_all_by_result
-    skip
-    customer_repo = CustomerRepository.new(self, "./data/customers.csv")
-    results = customer_repo.find_all_by_result("success")
-
-    assert_equal 4158, results.length
-    assert_instance_of Array, results
-    assert_equal 1, results.first.id
-  end
-
-  def test_find_by_result_can_return_an_empty_Array
-    skip
-    customer_repo = CustomerRepository.new(self, "./data/customers.csv")
-    results = customer_repo.find_all_by_result("dunno")
-
-    assert_equal [], results
+    assert_instance_of Customer, results.first
   end
 
 end
