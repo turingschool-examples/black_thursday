@@ -50,4 +50,8 @@ class MerchantRepository
     @sales_engine.find_customer_by_customer_id(id)
   end
 
+  def inspect
+      "#<#{self.class} #{@merchants.size} rows>"
+  end
+
 end
