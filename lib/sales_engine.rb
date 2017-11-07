@@ -62,5 +62,9 @@ class SalesEngine
     merchants.find_by_id(id)
   end
 
+  def find_invoice_items_by_invoice_id(id)
+    invoice_items.find_by_id(id)
+  end
+
   # def find_invoice_items(id)
 end

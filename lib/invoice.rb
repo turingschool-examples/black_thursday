@@ -20,6 +20,14 @@ attr_reader :id,
     @repository   = parent
   end
 
+  def is_paid_in_full?
+    if status == :shipped
+      true
+    else
+      false
+    end
+  end
+
   def merchant
     repository.find_merchant(self.merchant_id)
   end
@@ -34,6 +42,22 @@ attr_reader :id,
 
   def customer
     repository.find_customer_by_customer_id(self.customer_id)
+  end
+
+  def invoice_items
+    repository.find_invoice_items_by_invoice_id(self.id)
+  end
+
+  def total
+    if is_paid_in_full?
+      unit_price_to_dollars(invoice_items.unit_price)
+    else
+      puts "Sorry, that invoice hasn't been paid in full."
+    end
+  end
+
+  def unit_price_to_dollars(unit_price)
+    (unit_price).round(2).to_f
   end
 
 end
