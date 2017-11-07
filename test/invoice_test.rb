@@ -1,35 +1,54 @@
 require_relative 'test_helper'
 require_relative '../lib/invoice'
+require_relative '../lib/sales_engine'
 
 class InvoiceTest < Minitest::Test
-  def test_it_exists
-    invoice = Invoice.new({:id => "4", :customer_id => "7", :merchant_id => "12337139", :created_at => "2015-03-13", :updated_at => "2015-04-05"})
+  def setup
+    invoice = ({:id => "4", :customer_id => "7", :merchant_id => "12337139", :created_at => "2015-03-13", :updated_at => "2015-04-05"})
+    Invoice.new(invoice, [])
+  end
 
-    assert_instance_of Invoice, invoice
+  def test_it_exists
+    assert_instance_of Invoice, setup
   end
 
   def test_merchant_id_is_correct_integer
-    invoice = Invoice.new({:id => "4", :customer_id => "7", :merchant_id => "12337139", :created_at => "2015-03-13", :updated_at => "2015-04-05"})
-
-    assert_equal 12337139, invoice.merchant_id
+    assert_equal 12337139, setup.merchant_id
   end
 
   def test_id_returns_correct_integer
-    invoice = Invoice.new({:id => "4", :customer_id => "7", :merchant_id => "12337139", :created_at => "2015-03-13", :updated_at => "2015-04-05"})
-
-    assert_equal 4, invoice.id
+    assert_equal 4, setup.id
   end
 
   def test_customer_id_is_correct_integer
-    invoice = Invoice.new({:id => "4", :customer_id => "7", :merchant_id => "12337139", :created_at => "2015-03-13", :updated_at => "2015-04-05"})
-
-    assert_equal 7, invoice.customer_id
+    assert_equal 7, setup.customer_id
   end
 
   def test_time_returns_time_exists
-    invoice = Invoice.new({:id => "4", :customer_id => "7", :merchant_id => "12337139", :created_at => "2015-03-13", :updated_at => "2015-04-05"})
+    assert_instance_of Time, setup.created_at
+    assert_instance_of Time, setup.updated_at
+  end
 
-    assert_instance_of Time, invoice.created_at
-    assert_instance_of Time, invoice.updated_at
+  def test_invoice_is_paid_in_full
+    files = ({:invoices => "./data/invoices.csv", :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv",
+      :customers => "./data/customers.csv"})
+    se = SalesEngine.from_csv(files).invoices
+
+    assert_equal true, se.invoices.first.is_paid_in_full?
+  end
+
+  def test_returns_the_total_amount_of_the_invoice
+    files = ({:invoices => "./data/invoices.csv", :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv",
+      :customers => "./data/customers.csv"})
+    se = SalesEngine.from_csv(files)
+    invoice = se.invoices.find_by_id(5)
+
+    assert_equal 0.1582816e5, invoice.total
   end
 end

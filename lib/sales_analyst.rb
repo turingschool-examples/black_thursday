@@ -1,10 +1,11 @@
 require_relative 'sales_engine'
 require_relative 'math'
+require 'memoize'
 require 'time'
-require 'pry'
 
 class SalesAnalyst
   include Math
+  extend Memoize
   attr_reader :sales_engine
 
   def initialize(sales_engine)
@@ -41,6 +42,8 @@ class SalesAnalyst
     result = sum_array / (sales_engine.merchants.merchants.count - 1)
     Math.sqrt(result).round(2)
   end
+  memoize :average_items_per_merchant_standard_deviation
+
 
   def merchants_with_high_item_count
     counts = counts_per_merchant(sales_engine.method(:find_merchant_items))
@@ -49,6 +52,7 @@ class SalesAnalyst
       sales_engine.find_merchant_items(merchant.id).count > one_std_dev
     end
   end
+  memoize :merchants_with_high_item_count
 
   def average_item_price_for_merchant(merchant_id)
     merch_items = sales_engine.items.find_all_by_merchant_id(merchant_id)
@@ -82,6 +86,8 @@ class SalesAnalyst
   def std_dev_item_price
     standard_deviation(item_unit_price_list)
   end
+  memoize :std_dev_item_price
+
 
   def golden_items
     std_deviation = std_dev_item_price
@@ -89,17 +95,21 @@ class SalesAnalyst
       item.unit_price > (std_deviation * 2)
     end
   end
+  memoize :golden_items
 
   def average_invoices_per_merchant
     total_invoices = sales_engine.invoices.invoices.count
     total_merchants = sales_engine.merchants.merchants.count
     (total_invoices.to_f / total_merchants.to_f).round(2)
   end
+  memoize :average_invoices_per_merchant
+
 
   def average_invoices_per_merchant_standard_deviation
     counts = counts_per_merchant(sales_engine.method(:find_merchant_invoices))
     standard_deviation(counts)
   end
+  memoize :average_invoices_per_merchant_standard_deviation
 
   def top_merchants_by_invoice_count
     counts = counts_per_merchant(sales_engine.method(:find_merchant_invoices))
@@ -108,6 +118,8 @@ class SalesAnalyst
       sales_engine.find_merchant_invoices(merchant.id).count > two_std_dev
     end
   end
+  memoize :top_merchants_by_invoice_count
+
 
   def bottom_merchants_by_invoice_count
     counts = counts_per_merchant(sales_engine.method(:find_merchant_invoices))
@@ -116,16 +128,19 @@ class SalesAnalyst
       sales_engine.find_merchant_invoices(merchant.id).count < two_std_dev
     end
   end
+  memoize :bottom_merchants_by_invoice_count
 
   def day_created
     sales_engine.invoices.all.map do |invoice|
       invoice.created_at.strftime("%A")
     end
   end
+  memoize :day_created
 
   def day_count
     day_created.each_with_object(Hash.new(0)) {|day, invoices| invoices[day] +=1}
   end
+  memoize :day_count
 
   def top_days_by_invoice_count
     std_dev = standard_deviation(day_count.values)
@@ -135,11 +150,11 @@ class SalesAnalyst
       invoices > one_std_dev
     end.keys
   end
+  memoize :top_days_by_invoice_count
 
   def invoice_status(status)
     all = sales_engine.invoices.all.count
     status_list = sales_engine.invoices.find_all_by_status(status).count
       (status_list.to_f / all * 100).round(2)
   end
-  
 end

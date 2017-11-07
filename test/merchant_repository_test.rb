@@ -4,9 +4,12 @@ require_relative '../lib/sales_engine'
 
 class MerchantRepositoryTest < Minitest::Test
   def setup
-    files = ({:items => "./test/fixture/item_fixture.csv",
-              :merchants => "./test/fixture/merchant_fixture.csv",
-              :invoices => "./data/invoices.csv",})
+    files = ({:invoices => "./test/fixture/invoice_fixture.csv",
+      :items => "./test/fixture/item_fixture.csv",
+      :merchants => "./test/fixture/merchant_fixture.csv",
+      :invoice_items => "./test/fixture/invoice_item_fixture.csv",
+      :transactions => "./test/fixture/transaction_fixture.csv",
+      :customers => "./test/fixture/customer_fixture.csv"})
     SalesEngine.from_csv(files).merchants
   end
 
@@ -15,11 +18,11 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_pulls_csv_info_from_merchants_fixture
-    assert_equal 6, setup.all.count
+    assert_equal 18, setup.all.count
   end
 
   def test_it_returns_array_of_all_merchants
-    assert_equal 6, setup.all.count
+    assert_equal 18, setup.all.count
   end
 
   def test_it_can_find_by_id
