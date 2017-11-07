@@ -91,4 +91,9 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of Invoice, engine.find_invoices_by_merchant(12335938).first
     assert_equal 9, engine.find_invoices_by_merchant(12336965).last.id
   end
+
+  def test_find_merchant_by_invoice
+    assert_instance_of Merchant, engine.find_merchant_by_invoice(12334112)
+    assert_equal 'Candisart', engine.find_merchant_by_invoice(12334112).name
+  end
 end
