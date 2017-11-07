@@ -10,7 +10,17 @@ class Merchant
   end
 
   def items
-    puts repository.find_items(self.id)
+    repository.find_items(self.id)
+  end
+
+  def invoices
+    repository.find_invoices_by_merchant_id(self.id)
+  end
+
+  def customers
+     invoices.map do |invoice|
+       repository.find_customer_by_customer_id(invoice.customer_id)
+     end
   end
 
 end

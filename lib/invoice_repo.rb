@@ -1,6 +1,7 @@
 require_relative "invoice"
 require_relative "sales_engine"
 require 'csv'
+require 'pry'
 
 class InvoiceRepository
   attr_reader :invoices,
@@ -16,7 +17,7 @@ class InvoiceRepository
     invoice_csv = CSV.open filename,
                              headers: true,
                              header_converters: :symbol
-    invoice_csv.each do |invoice| @invoices << Invoice.new(invoice, self)
+    invoice_csv.each do |invoice| @invoices << Invoice.new(invoice, self) end
   end
 
   def all
@@ -24,23 +25,53 @@ class InvoiceRepository
   end
 
   def find_by_id(id)
-    # find_by_id - returns either nil or an instance of Invoice with a matching ID
-    invoices.find { |invoice| invoice.id == }id.to_s
+    invoices.find { |invoice| invoice.id == id.to_i }
   end
 
   def find_all_by_customer_id(customer_id)
-    # find_all_by_customer_id - returns either [] or one or more matches which have a matching customer ID
     invoices.find_all { |invoice| invoice.customer_id == customer_id }
   end
 
   def find_all_by_merchant_id(merchant_id)
-    # find_all_by_merchant_id - returns either [] or one or more matches which have a matching merchant ID
-    invoices.find_all { |invoice| invoice.merchant_id == merchant_id}
+    invoices.find_all { |invoice| invoice.merchant_id == merchant_id.to_i }
   end
 
   def find_all_by_status(status)
-    # find_all_by_status - returns either [] or one or more matches which have a matching status
-    invoice.find_all { |invoice| invoice.status == status}
+    invoices.find_all { |invoice| invoice.status.to_sym == status }
+  end
+
+  def find_all_by_created_date(date)
+    invoices.find_all do |invoice|
+      format_date(invoice.created_at) == date
+    end
+  end
+
+  def format_date(date)
+    date.strftime("%m-%d-%Y")
+  end
+
+  def find_merchant(id)
+    @sales_engine.find_merchant(id)
+  end
+
+  def find_items_by_invoice_id(id)
+    @sales_engine.find_items_by_invoice_id(id)
+  end
+
+  def find_transactions_by_invoice_id(id)
+    @sales_engine.find_transactions_by_invoice_id(id)
+  end
+
+  def find_customer_by_customer_id(id)
+    @sales_engine.find_customer_by_customer_id(id)
+  end
+
+  def inspect
+      "#<#{self.class} #{@invoices.size} rows>"
+  end
+
+  def find_invoice_items_by_invoice_id(id)
+    @sales_engine.find_invoice_items_by_invoice_id(id)
   end
 
 end
