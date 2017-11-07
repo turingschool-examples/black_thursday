@@ -47,8 +47,16 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_knows_its_merchant
-    created_at = "2016-01-11 09:34:06 UTC"
-    updated_at = "2017-06-04 21:35:10 UTC"
+    engine = SalesEngine.from_csv(
+      items: './test/fixtures/truncated_items.csv',
+      merchants: './test/fixtures/truncated_merchants.csv',
+      invoices: './test/fixtures/truncated_invoices.csv',
+      invoice_items: './test/fixtures/truncated_invoice_items.csv',
+      transactions: './test/fixtures/truncated_transactions.csv',
+      customers: './test/fixtures/truncated_customers.csv'
+    )
+
+    repo = ItemRepository.new("./test/fixtures/truncated_items.csv", engine)
 
     item = Item.new(
       {id: "4",
@@ -56,8 +64,8 @@ class ItemTest < Minitest::Test
       description: "You can use it to write things",
       unit_price: "1200",
       merchant_id: "12334135",
-      created_at: created_at,
-      updated_at: updated_at}
+      created_at: "2016-01-11 09:34:06 UTC",
+      updated_at: "2017-06-04 21:35:10 UTC"}, repo
     )
 
     assert_equal "GoldenRayPress", item.merchant.name
