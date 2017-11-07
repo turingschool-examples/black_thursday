@@ -64,7 +64,7 @@ class SalesAnalystTest < Minitest::Test
     sa = SalesAnalyst.new(se)
 
     assert_equal 15, sa.find_items.count
-    assert_equal 0, sa.find_items.first
+    assert_equal 3, sa.find_items.first
     assert_equal 23, sa.find_items[4]
     assert_equal 1, sa.find_items.last
   end
@@ -159,7 +159,7 @@ class SalesAnalystTest < Minitest::Test
 
     sa = SalesAnalyst.new(se)
 
-    assert_equal 8.81, sa.standard_deviation_plus_average
+    assert_equal 10.24, sa.standard_deviation_plus_average
   end
 
   def test_it_can_filter_merchants_by_items_in_stock_in_array
@@ -210,7 +210,7 @@ class SalesAnalystTest < Minitest::Test
 
     sa = SalesAnalyst.new(se)
 
-    assert_equal 9.99, sa.average_item_price_for_merchant(12334105)
+    assert_equal 10.00, sa.average_item_price_for_merchant(12334105)
   end
 
 
@@ -241,7 +241,7 @@ class SalesAnalystTest < Minitest::Test
 
     sa = SalesAnalyst.new(se)
 
-    assert_equal 35.77, sa.average_average_price_per_merchant
+    assert_equal 35.81, sa.average_average_price_per_merchant
   end
 
   def test_it_can_find_average_unit_price

@@ -44,7 +44,7 @@ class SalesAnalyst
   def find_standard_deviation_difference_total
     find_items.map do |item_total|
       (item_total - average_items_per_merchant) ** 2
-    end.sum
+    end.sum.round(2)
   end
 
   def find_standard_deviation_total
@@ -95,9 +95,9 @@ class SalesAnalyst
   end
 
   def average_unit_price
-    @sales_engine.items.all.reduce(0) { |sum, item|
+    (@sales_engine.items.all.reduce(0) { |sum, item|
     sum + item.unit_price
-     } / @sales_engine.items.all.count
+  } / @sales_engine.items.all.count).round(2)
   end
 
   def unit_price_and_average_difference_squared_sum
