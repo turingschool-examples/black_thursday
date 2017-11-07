@@ -25,4 +25,8 @@ class Customer
     end.uniq
   end
 
+  def fully_paid_invoices
+#######################
+  end
+
 end

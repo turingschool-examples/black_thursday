@@ -168,9 +168,13 @@ class SalesAnalyst
   end
 
   def one_time_buyers
-    customer_hash = Hash.new(0)
+    #want Customer to have fully_paid_invoices method 
 
-    x = se.invoices.all.group_by do |invoice|
+    filtered = se.invoices.all.find_all do |invoice|
+      invoice.is_paid_in_full?
+    end
+
+    x = filtered.group_by do |invoice|
       invoice.customer
     end
 
@@ -180,19 +184,11 @@ class SalesAnalyst
 
     done = final.find_all do |customer, number_of_invoices|
       number_of_invoices == 1
-    end.flatten
-    # binding.pry
+    end
 
-    # se.invoices.all.each do |invoice|
-    #   customer_hash[invoice.customer] = invoice.items.count if invoice.is_paid_in_full?
-    # end
-    #
-    # x = customer_hash.find_all do |customer, items_paid_in_full|
-    #   items_paid_in_full == 1
-    # end.flatten
-
-    # binding.pry
-
+    donedone = done.map do |customer|
+      customer.first
+    end
   end
 
     private
