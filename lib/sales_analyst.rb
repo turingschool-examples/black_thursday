@@ -147,7 +147,24 @@ class SalesAnalyst
     top_spenders.map do |customer|
       customer[0]
     end
+  end
 
+  def top_merchant_for_customer(customer_id)
+    all_invoices = se.invoices.find_all_by_customer_id(customer_id)
+
+    hash = Hash.new(0)
+
+    all_invoices.each do |invoice|
+      hash[invoice.merchant] = quantity(invoice.invoice_items)
+    end
+
+    hash.max_by{|merchant, item_count| item_count}.first
+  end
+
+  def quantity(invoice_items)
+    invoice_items.map do |invoice_item|
+      invoice_item.quantity
+    end.sum
   end
 
     private
