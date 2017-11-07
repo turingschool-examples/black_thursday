@@ -113,7 +113,7 @@ class SalesAnalyst
 
   def golden_items
     @sales_engine.items.items.find_all do |item|
-      item if item.unit_price >= golden_items_deviation
+      item if item.unit_price_to_dollars >= golden_items_deviation
      end
   end
 
@@ -220,7 +220,7 @@ class SalesAnalyst
   def find_all_invoice_items_by_date(date)
     sales_engine.invoices.find_by_created_date(date)
   end
-  
+
   # def total_revenue_by_date(date)
   #   find_all_invoices_by_date(date).map do |invoice|
   # end

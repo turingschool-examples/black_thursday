@@ -17,7 +17,8 @@ class TransactionRepository
     transactions_csv = CSV.open filename,
                              headers: true,
                              header_converters: :symbol
-    transactions_csv.each do |transaction| @transactions << Transaction.new(transaction, self) end
+    transactions_csv.each do |transaction| @transactions << Transaction.new(transaction, self)
+    end
   end
 
   def all
