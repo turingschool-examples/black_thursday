@@ -85,4 +85,10 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of InvoiceItem, engine.find_invoice_item_by_invoice_id(2)[0]
     assert_equal 9, engine.find_invoice_item_by_invoice_id(2)[0].id
   end
+
+  def test_find_invoices_by_merchant
+    assert_instance_of Array, engine.find_invoices_by_merchant(12335938)
+    assert_instance_of Invoice, engine.find_invoices_by_merchant(12335938).first
+    assert_equal 9, engine.find_invoices_by_merchant(12336965).last.id
+  end
 end
