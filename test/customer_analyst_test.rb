@@ -65,7 +65,7 @@ class CustomerAnalystTest < Minitest::Test
     items = sa.highest_volume_items(1)
 
     assert_equal 1, items.count
-    assert_equal 263519844, items.first.id
+    assert_equal 263519264, items.first.id
   end
 
   def test_customers_with_unpaid_invoices

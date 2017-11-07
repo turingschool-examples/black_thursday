@@ -56,25 +56,32 @@ module CustomerAnalyst
   end
 
   def best_invoice_by_quantity
-    paid_invoices = se.invoices.all.reduce([]) do |result, invoice|
-      result << invoice if invoice.is_paid_in_full?
-      result
-    end
-    invoice_item_quant = paid_invoices.reduce({}) do |result, invoice|
-      quantity = invoice.invoice_items.reduce(0) do |result, invoice_item|
-        result += invoice_item.quantity
-        result
-      end
-      result[invoice] = quantity
-      result
-    end
-    invoice_item_quant.max_by do |(invoice, count)|
+    all_invoice_quantity(paid_invoices).max_by do |(invoice, count)|
       count
     end[0]
   end
 
   private
+  def paid_invoices
+    se.invoices.all.reduce([]) do |result, invoice|
+      result << invoice if invoice.is_paid_in_full?
+      result
+    end
+  end
 
+  def all_invoice_quantity(invoices)
+    invoices.reduce({}) do |result, invoice|
+      result[invoice] = invoice_quantity(invoice)
+      result
+    end
+  end
+
+  def invoice_quantity(invoice)
+    invoice.invoice_items.reduce(0) do |result, invoice_item|
+      result += invoice_item.quantity
+      result
+    end
+  end
 
   def maximum_occuring_items(counted_invoice_items)
     counted_invoice_items.group_by do |(item_id, count)|
