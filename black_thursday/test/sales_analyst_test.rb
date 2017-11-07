@@ -11,6 +11,7 @@ class SalesAnalystTest < Minitest::Test
       items: './test/fixtures/truncated_items.csv',
       merchants: './test/fixtures/truncated_merchants.csv',
       invoices: './test/fixtures/truncated_invoices.csv',
+      invoice_items: './test/fixtures/truncated_invoice_items.csv',
       transactions: './test/fixtures/truncated_transactions.csv',
       customers: './test/fixtures/truncated_customers.csv'
     )
@@ -100,5 +101,80 @@ class SalesAnalystTest < Minitest::Test
 
   def test_golden_items
     assert_equal 2, analyst.golden_items.length
+  end
+
+  def test_average_invoices_per_merchant
+    assert_equal 1.68, analyst.average_invoices_per_merchant
+  end
+
+  def test_average_invoices_per_merchant_standard_deviation
+    assert_equal 1.58, analyst.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_top_merchants_by_invoice_count
+    assert_instance_of Array, analyst.top_merchants_by_invoice_count
+    assert_equal [], analyst.top_merchants_by_invoice_count
+    assert_equal 0, analyst.top_merchants_by_invoice_count.length
+  end
+
+  def test_bottom_merchants_by_invoice_count
+    assert_instance_of Array, analyst.bottom_merchants_by_invoice_count
+    assert_equal [], analyst.bottom_merchants_by_invoice_count
+    assert_equal 0, analyst.bottom_merchants_by_invoice_count.length
+  end
+
+  def test_invoice_days_returns_array_of_days
+    assert_instance_of Array, analyst.invoice_days_count
+    assert_equal 'Saturday', analyst.invoice_days_count.first
+    assert_equal 101, analyst.invoice_days_count.length
+  end
+
+  def test_days_of_week_count
+    assert_instance_of Array, analyst.days_of_week_count
+    assert_equal 7, analyst.days_of_week_count.length
+  end
+
+  def test_days_is_array_of_days_of_week
+    expected = ["Saturday", "Friday", "Wednesday", "Monday", "Sunday", "Tuesday", "Thursday"]
+    assert_instance_of Array, analyst.days
+    assert_equal 7, analyst.days.length
+    assert_equal expected, analyst.days
+  end
+
+  def test_days_count_by_day
+    expected = [["Saturday", 15], ["Friday", 19], ["Wednesday", 9], ["Monday", 17], ["Sunday", 12], ["Tuesday", 17], ["Thursday", 12]]
+    assert_instance_of Array, analyst.days_count_by_day
+    assert_equal 7, analyst.days_count_by_day.length
+    assert_instance_of Array, analyst.days_count_by_day[0]
+    assert_equal 15, analyst.days_count_by_day[0][1]
+    assert_equal 'Saturday', analyst.days_count_by_day[0][0]
+    assert_equal expected, analyst.days_count_by_day
+  end
+
+  def test_average_invoices_by_day
+    assert_equal 14, analyst.average_invoices_by_day
+  end
+
+  def test_squares_of_day_counts
+    assert_equal [1, 25, 25, 9, 4, 9, 4], analyst.squares_of_day_counts
+  end
+
+  def test_standard_deviation_of_invoice_by_day
+    assert_equal 4, analyst.standard_deviation_of_invoices_by_day
+  end
+
+  def test_one_standard_deviation_of_days
+    assert_equal 18, analyst.one_standard_deviation_of_days
+  end
+
+  def test_top_days_by_invoice_count
+    assert_equal ['Friday'], analyst.top_days_by_invoice_count
+  end
+
+  def test_invoice_status_returns_percentages
+    assert_equal 28.71, analyst.invoice_status(:pending)
+    assert_equal 62.38, analyst.invoice_status(:shipped)
+    assert_equal 8.91, analyst.invoice_status(:returned)
+    assert_equal 100.00, 28.71 + 62.38 + 8.91
   end
 end

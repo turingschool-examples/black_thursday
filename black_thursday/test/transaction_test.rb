@@ -1,24 +1,11 @@
 require_relative 'test_helper'
 require_relative './../lib/transaction'
-require_relative './../lib/transaction_repository'
-require_relative './../lib/sales_engine'
 
 class TransactionTest < Minitest::Test
 
-  attr_reader :engine, :repository, :transaction
+  attr_reader :transaction
 
   def setup
-    @engine = SalesEngine.from_csv(
-      items: './test/fixtures/truncated_items.csv',
-      merchants: './test/fixtures/truncated_merchants.csv',
-      invoices: './test/fixtures/truncated_invoices.csv',
-      transactions: './test/fixtures/truncated_transactions.csv',
-      customers:
-      './test/fixtures/truncated_customers.csv'
-    )
-
-    @repository = TransactionRepository.new("./test/fixtures/truncated_transactions.csv", @engine)
-
     @transaction = Transaction.new({
     id: 6,
     invoice_id: 8,
@@ -27,7 +14,7 @@ class TransactionTest < Minitest::Test
     result: "success",
     created_at: "2010-03-30",
     updated_at: "2013-01-21"
-                                    }, @repository)
+                                    })
   end
 
   def test_it_exists

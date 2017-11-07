@@ -3,23 +3,8 @@ require 'bigdecimal'
 require 'time'
 require 'csv'
 require_relative './../lib/item'
-require_relative './../lib/item_repository'
 
 class ItemTest < Minitest::Test
-  attr_reader :repository
-
-  def setup
-    @engine = SalesEngine.from_csv(
-      items: './test/fixtures/truncated_items.csv',
-      merchants: './test/fixtures/truncated_merchants.csv',
-      invoices: './test/fixtures/truncated_invoices.csv',
-      transactions: './test/fixtures/truncated_transactions.csv',
-      customers:
-      './test/fixtures/truncated_customers.csv'
-    )
-
-    @repository = ItemRepository.new('./test/fixtures/truncated_items.csv', @engine)
-  end
 
   def test_it_exists
     created_at = "2016-01-11 09:34:06 UTC"
@@ -32,8 +17,7 @@ class ItemTest < Minitest::Test
       unit_price: "1200",
       merchant_id: "10",
       created_at: created_at,
-      updated_at: updated_at},
-      repository
+      updated_at: updated_at}
     )
 
     assert_instance_of Item, item
@@ -50,8 +34,7 @@ class ItemTest < Minitest::Test
       unit_price: "1200",
       merchant_id: "10",
       created_at: created_at,
-      updated_at: updated_at},
-      repository
+      updated_at: updated_at}
     )
 
     assert_equal 4, item.id
@@ -64,8 +47,16 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_knows_its_merchant
-    created_at = "2016-01-11 09:34:06 UTC"
-    updated_at = "2017-06-04 21:35:10 UTC"
+    engine = SalesEngine.from_csv(
+      items: './test/fixtures/truncated_items.csv',
+      merchants: './test/fixtures/truncated_merchants.csv',
+      invoices: './test/fixtures/truncated_invoices.csv',
+      invoice_items: './test/fixtures/truncated_invoice_items.csv',
+      transactions: './test/fixtures/truncated_transactions.csv',
+      customers: './test/fixtures/truncated_customers.csv'
+    )
+
+    repo = ItemRepository.new("./test/fixtures/truncated_items.csv", engine)
 
     item = Item.new(
       {id: "4",
@@ -73,9 +64,8 @@ class ItemTest < Minitest::Test
       description: "You can use it to write things",
       unit_price: "1200",
       merchant_id: "12334135",
-      created_at: created_at,
-      updated_at: updated_at},
-      repository
+      created_at: "2016-01-11 09:34:06 UTC",
+      updated_at: "2017-06-04 21:35:10 UTC"}, repo
     )
 
     assert_equal "GoldenRayPress", item.merchant.name
@@ -92,8 +82,7 @@ class ItemTest < Minitest::Test
       unit_price: "1200.1111111",
       merchant_id: "10",
       created_at: created_at,
-      updated_at: updated_at},
-      repository
+      updated_at: updated_at}
     )
 
     assert_equal 12.00, item.unit_price_to_dollars

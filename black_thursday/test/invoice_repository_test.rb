@@ -21,7 +21,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_it_can_find_invoice_by_id
     assert_equal Invoice, repository.find_by_id(10).class
-    assert_equal "pending", repository.find_by_id(10).status
+    assert_equal :pending, repository.find_by_id(10).status
     assert_equal 12334839, repository.find_by_id(10).merchant_id
   end
 
@@ -63,15 +63,15 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_status
-    actual = repository.find_all_by_status("pending")
+    actual = repository.find_all_by_status(:pending)
 
     assert_equal 29, actual.count
 
-    actual = repository.find_all_by_status("shipped")
+    actual = repository.find_all_by_status(:shipped)
 
     assert_equal 63, actual.count
 
-    actual = repository.find_all_by_status("returned")
+    actual = repository.find_all_by_status(:returned)
 
     assert_equal 9, actual.count
   end

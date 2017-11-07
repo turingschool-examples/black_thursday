@@ -7,11 +7,15 @@ require_relative './../lib/transaction_repository'
 require_relative './../lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test
+
+  attr_reader :engine
+
   def setup
     @engine = SalesEngine.from_csv(
       items: './test/fixtures/truncated_items.csv',
       merchants: './test/fixtures/truncated_merchants.csv',
       invoices: './test/fixtures/truncated_invoices.csv',
+      invoice_items: './test/fixtures/truncated_invoice_items.csv',
       transactions: './test/fixtures/truncated_transactions.csv',
       customers: './test/fixtures/truncated_customers.csv'
     )
@@ -63,5 +67,33 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of Time, invoice.created_at
     assert_equal Invoice, invoice.class
     assert_equal 12336652, invoice.merchant_id
+  end
+
+  def test_find_customer_by_invoice_id
+    assert_instance_of Customer, engine.find_customer_by_invoice_id(2)
+    assert_equal 3, engine.find_customer_by_invoice_id(3).id
+  end
+
+  def test_find_invoice_by_transaction_id
+    assert_instance_of Invoice, engine.find_invoice_by_transaction_id(1)
+    assert_equal 1, engine.find_invoice_by_transaction_id(1).id
+    assert_equal 12335938, engine.find_invoice_by_transaction_id(1).merchant_id
+  end
+
+  def test_find_invoice_item_by_invoice_id
+    assert_instance_of Array, engine.find_invoice_item_by_invoice_id(2)
+    assert_instance_of InvoiceItem, engine.find_invoice_item_by_invoice_id(2)[0]
+    assert_equal 9, engine.find_invoice_item_by_invoice_id(2)[0].id
+  end
+
+  def test_find_invoices_by_merchant
+    assert_instance_of Array, engine.find_invoices_by_merchant(12335938)
+    assert_instance_of Invoice, engine.find_invoices_by_merchant(12335938).first
+    assert_equal 9, engine.find_invoices_by_merchant(12336965).last.id
+  end
+
+  def test_find_merchant_by_invoice
+    assert_instance_of Merchant, engine.find_merchant_by_invoice(12334112)
+    assert_equal 'Candisart', engine.find_merchant_by_invoice(12334112).name
   end
 end

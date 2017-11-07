@@ -1,8 +1,8 @@
 require_relative 'transaction'
 
 class TransactionRepository
-
-  attr_reader :transactions, :parent
+  attr_reader :transactions,
+              :parent
 
   def initialize(csv_files = './data/transactions.csv', parent = nil)
     @transactions = load_csv(csv_files).map {|row| Transaction.new(row, self)}
@@ -41,6 +41,10 @@ class TransactionRepository
     transactions.find_all {|transaction| transaction.result == input}
   end
 
+  def find_invoice_by_transaction_id(id)
+    parent.find_invoice_by_transaction_id(id)
+  end
+  
   def inspect
     "#{self.class} has #{all.count} rows"
   end

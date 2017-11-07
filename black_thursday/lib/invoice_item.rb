@@ -1,3 +1,6 @@
+require 'time'
+require 'bigdecimal'
+
 class InvoiceItem
   attr_reader :id,
               :item_id,
@@ -12,8 +15,8 @@ class InvoiceItem
     @id           = attributes[:id].to_i
     @item_id      = attributes[:item_id].to_i
     @invoice_id   = attributes[:invoice_id].to_i
-    @quantity     = attributes[:quantity].to_i    
-    @unit_price   = BigDecimal.new(attributes[:unit_price]).to_f / 100
+    @quantity     = attributes[:quantity].to_i
+    @unit_price   = BigDecimal.new(attributes[:unit_price]) / 100
     @created_at   = Time.parse(attributes[:created_at])
     @updated_at   = Time.parse(attributes[:updated_at])
     @parent       = parent
@@ -22,5 +25,4 @@ class InvoiceItem
   def unit_price_to_dollars
     unit_price.to_f.round(2)
   end
-
 end

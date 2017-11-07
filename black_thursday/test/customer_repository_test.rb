@@ -55,12 +55,19 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal 611, result.last.id
   end
 
+  # def test_it_can_find_a_first_name_by_a_fragment
+  #   result = repository.find_all_by_first_name("lva")
+  #
+  #   assert_equal "Elva", result.first.first_name
+  #   assert_equal 2, result.count
+  # end
+
   def test_find_all_by_first_name_edge_cases
     assert_equal [], repository.find_all_by_first_name(nil)
-    # this breaks the program, and we don't have integer edge cases for other repos.
-    # assert_equal [], repository.find_all_by_first_name(14214)
+    assert_equal [], repository.find_all_by_first_name(14214)
     assert_equal [], repository.find_all_by_first_name('fakename')
   end
+
 
   def test_find_all_by_last_name
     result = repository.find_all_by_last_name("Ondricka")
@@ -70,14 +77,14 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal "Ondricka", result.last.last_name
     assert_equal 1, result.first.id
     assert_equal 764, result.last.id
+    assert_equal 2, result.count
   end
 
   def test_find_all_by_last_name_edge_cases
-    # add integer edgecase
     assert_equal [], repository.find_all_by_last_name(nil)
+    assert_equal [], repository.find_all_by_last_name(3123)
     assert_equal [], repository.find_all_by_last_name('fakename')
   end
-
   def test_inspect
     assert_equal "CustomerRepository has 13 rows", repository.inspect
   end

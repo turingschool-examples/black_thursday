@@ -1,3 +1,5 @@
+require_relative 'merchant'
+
 class MerchantRepository
   attr_reader :merchants,
               :parent
@@ -32,8 +34,16 @@ class MerchantRepository
     end
   end
 
+  def find_customer_by_merchant_id(id)
+    parent.find_customer_by_merchant_id(id)
+  end
+
   def find_all_items_by_merchant_id(merchant_id)
     @parent.items.find_all_by_merchant_id(merchant_id)
+  end
+
+  def find_invoices_by_merchant(id)
+    parent.find_invoices_by_merchant(id)
   end
 
   def inspect
