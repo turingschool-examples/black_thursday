@@ -168,26 +168,18 @@ class SalesAnalyst
   end
 
   def one_time_buyers
-    #want Customer to have fully_paid_invoices method 
+    specific_customers = Hash.new(0)
 
-    filtered = se.invoices.all.find_all do |invoice|
-      invoice.is_paid_in_full?
+    se.customers.all.each do |customer|
+      specific_customers[customer] = customer.fully_paid_invoices.count
     end
 
-    x = filtered.group_by do |invoice|
-      invoice.customer
+    one_time_customers = specific_customers.find_all do |cust, paid_invoices|
+      paid_invoices == 1
     end
 
-    final = x.transform_values do |all_invoices|
-      all_invoices.count
-    end
-
-    done = final.find_all do |customer, number_of_invoices|
-      number_of_invoices == 1
-    end
-
-    donedone = done.map do |customer|
-      customer.first
+    final = one_time_customers.map do |customer, paid_invoices|
+      customer
     end
   end
 

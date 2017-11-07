@@ -1,4 +1,5 @@
 require 'time'
+require 'pry'
 
 class Customer
 
@@ -26,7 +27,9 @@ class Customer
   end
 
   def fully_paid_invoices
-#######################
+    @customer_repo.find_invoices_by_customer_id(id).find_all do |invoice|
+      invoice.is_paid_in_full?
+    end
   end
 
 end

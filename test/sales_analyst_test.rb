@@ -223,7 +223,7 @@ class SalesAnalystTest < MiniTest::Test
   def test_SA_can_find_one_time_buyers
     assert_instance_of Array, sa.one_time_buyers
     assert_instance_of Customer, sa.one_time_buyers.first
-    assert_equal 0, sa.one_time_buyers.count 
+    assert_equal 150, sa.one_time_buyers.count
   end
 
 
