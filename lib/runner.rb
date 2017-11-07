@@ -19,6 +19,6 @@ se = SalesEngine.from_csv({
 
 sa = SalesAnalyst.new(se)
 
-merchant = se.merchants.find_by_id(12335938)
+customer = se.customers.find_by_id(30)
 
-p merchant.customers.first.class
+p customer.merchants.first.class

@@ -40,4 +40,12 @@ class CustomerRepository
       "#<#{self.class} #{@customers.size} rows>"
   end
 
+  def find_invoices_by_customer_id(id)
+    @sales_engine.find_invoices_by_customer_id(id)
+  end
+
+  def find_merchant_by_merchant_id(id)
+    @sales_engine.find_merchant_by_merchant_id(id)
+  end
+
 end

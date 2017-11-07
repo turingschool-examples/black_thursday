@@ -17,8 +17,19 @@ class Customer
     @repository   = parent
   end
 
-  def merchant
-    @repository.find_merchant(self.merchant_id)
+  # def merchant
+  #   @repository.find_merchant(self.merchant_id)
+  # end
+
+  def invoices
+    repository.find_invoices_by_customer_id(self.id)
   end
+
+  def merchants
+    invoices.map do |invoice|
+      repository.find_merchant_by_merchant_id(invoice.merchant_id)
+    end
+  end
+
 
 end
