@@ -18,7 +18,7 @@ class Item
     @unit_price  = (BigDecimal.new(item_info[:unit_price]))/100
     @created_at  = Time.parse(item_info[:created_at])
     @updated_at  = Time.parse(item_info[:updated_at])
-    @merchant_id = item_info[:merchant_id]
+    @merchant_id = item_info[:merchant_id].to_i
     @repository = parent
   end
 

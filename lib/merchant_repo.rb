@@ -25,7 +25,7 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    merchants.find { |merchant| merchant.id == id.to_s }
+    merchants.find { |merchant| merchant.id == id }
   end
 
   def find_by_name(name)
@@ -48,6 +48,10 @@ class MerchantRepository
 
   def find_customer_by_customer_id(id)
     @sales_engine.find_customer_by_customer_id(id)
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 
 end

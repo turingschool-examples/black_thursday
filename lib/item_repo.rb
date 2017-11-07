@@ -43,7 +43,7 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
-    items.find_all { |item| item.unit_price.to_f/100 == price }
+    items.find_all { |item| item.unit_price == price }
   end
 
   def find_all_by_price_in_range(price_range)
@@ -63,4 +63,9 @@ class ItemRepository
     items.group_by { |item| group << items.merchant_id }
     group.count
   end
+
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
+  end
+
 end

@@ -21,7 +21,7 @@ class MerchantRepoTest < Minitest::Test
 
   def test_it_can_find_merchants_by_id
     merch_repo = MerchantRepository.new(self, "./data/merchants.csv")
-    results = merch_repo.find_by_id("12334105")
+    results = merch_repo.find_by_id(12334105)
 
     assert_equal "Shopin1901", results.name
   end
@@ -37,7 +37,7 @@ class MerchantRepoTest < Minitest::Test
     merch_repo = MerchantRepository.new(self, "./data/merchants.csv")
     results = merch_repo.find_by_name("Shopin1901")
 
-    assert_equal "12334105", results.id
+    assert_equal 12334105, results.id
   end
 
   def test_find_by_name_can_return_nil

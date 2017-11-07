@@ -1,12 +1,18 @@
 require 'time'
-require 'groupdate'
 
 class SalesAnalyst
-
-  attr_reader :sales_engine
+  attr_reader :sales_engine,
+              :standard_deviation,
+              :golden_items_dev,
+              :ave_inv_per_merch_std,
+              :inv_diff_total_divided
 
   def initialize(sales_engine)
-    @sales_engine = sales_engine
+    @sales_engine           = sales_engine
+    @standard_dev           = average_items_per_merchant_standard_deviation
+    @golden_items_dev       = golden_items_deviation
+    @ave_inv_per_merch_std  = average_invoices_per_merchant_standard_deviation
+    @inv_diff_total_divided = invoice_difference_total_divided
   end
 
   # private :merchant_list,
@@ -38,7 +44,7 @@ class SalesAnalyst
   def find_standard_deviation_difference_total
     find_items.map do |item_total|
       (item_total - average_items_per_merchant) ** 2
-    end.sum
+    end.sum.round(2)
   end
 
   def find_standard_deviation_total
@@ -50,7 +56,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    Math.sqrt(find_standard_deviation_total).round(2)
+    @standard_dev = (Math.sqrt(find_standard_deviation_total).round(2))
   end
 
   def create_merchant_id_item_total_list
@@ -58,7 +64,7 @@ class SalesAnalyst
   end
 
   def standard_deviation_plus_average
-    average_items_per_merchant_standard_deviation + average_items_per_merchant
+    @standard_dev + average_items_per_merchant
   end
 
   def filter_merchants_by_items_in_stock
@@ -74,24 +80,24 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(merchant_id)
-    list = find_the_collections_of_items(merchant_id.to_s)
-    (list.reduce(0) { |sum, item| sum + item.unit_price_to_dollars } / list.count).round(2)
+    list = find_the_collections_of_items(merchant_id)
+    ((((list.reduce(0) { |sum, item| sum + item.unit_price_to_dollars }) / (list.count)) * 100).floor(2))
   end
 
   def find_the_collections_of_items(merchant_id)
     sales_engine.items.find_all_by_merchant_id(merchant_id)
   end
 
-  def average_average_price_for_merchant
+  def average_average_price_per_merchant
     (merchant_list.reduce(0) { |sum, merchant|
       sum + average_item_price_for_merchant(merchant)
-      } / merchant_list.count).round(2)
+      } / merchant_list.count).floor(2)
   end
 
   def average_unit_price
-    @sales_engine.items.all.reduce(0) { |sum, item|
+    (@sales_engine.items.all.reduce(0) { |sum, item|
     sum + item.unit_price
-     } / @sales_engine.items.all.count
+  } / @sales_engine.items.all.count).round(2)
   end
 
   def unit_price_and_average_difference_squared_sum
@@ -108,12 +114,12 @@ class SalesAnalyst
   end
 
   def golden_items_deviation
-    average_unit_price + (unit_price_standard_deviation * 2)
+    @golden_items_dev = (average_unit_price + (unit_price_standard_deviation * 2))
   end
 
   def golden_items
     @sales_engine.items.items.find_all do |item|
-      item if item.unit_price_to_dollars >= golden_items_deviation
+      item if item.unit_price >= @golden_items_dev
      end
   end
 
@@ -134,21 +140,21 @@ class SalesAnalyst
   end
 
   def invoice_difference_total_divided
-    invoice_total_minus_average_squared / (find_invoice_totals.length - 1)
+    @inv_diff_total_divided = (invoice_total_minus_average_squared / (find_invoice_totals.length - 1))
   end
 
   def average_invoices_per_merchant_standard_deviation
-    Math.sqrt(invoice_difference_total_divided).round(2)
+    @ave_inv_per_merch_std = (Math.sqrt(@inv_diff_total_divided).round(2))
   end
 
   def invoice_count_two_standard_deviations_above_mean
     average_invoices_per_merchant +
-    (average_invoices_per_merchant_standard_deviation * 2)
+    (@ave_inv_per_merch_std * 2)
   end
 
   def invoice_count_two_standard_deviations_below_mean
     average_invoices_per_merchant -
-    (average_invoices_per_merchant_standard_deviation * 2)
+    (@ave_inv_per_merch_std * 2)
   end
 
   def top_merchants_by_invoice_count
@@ -250,7 +256,7 @@ class SalesAnalyst
     # (unit_price).round(2).to_f
     (BigDecimal.new(unit_price).round(2))
   end
-  
+
   # def total_revenue_by_date(date)
   #   find_all_invoices_by_date(date).map do |invoice|
   # end
