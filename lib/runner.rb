@@ -19,6 +19,6 @@ se = SalesEngine.from_csv({
 
 sa = SalesAnalyst.new(se)
 
-invoice = se.invoice_items.find_all_by_invoice_id(113)
+invoice = se.invoices.find_by_id(20)
 
-p invoice
+p invoice.customer.class

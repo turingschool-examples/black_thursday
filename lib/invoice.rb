@@ -25,7 +25,15 @@ attr_reader :id,
   end
 
   def items
-    repository.find_items(self.id)
+    repository.find_items_by_invoice_id(self.id)
+  end
+
+  def transactions
+    repository.find_transactions_by_invoice_id(self.id)
+  end
+
+  def customer
+    repository.find_customer_by_customer_id(self.customer_id)
   end
 
 end
