@@ -152,4 +152,9 @@ class SalesAnalyst
   end
   memoize :top_days_by_invoice_count
 
+  def invoice_status(status)
+    all = sales_engine.invoices.all.count
+    status_list = sales_engine.invoices.find_all_by_status(status).count
+      (status_list.to_f / all * 100).round(2)
+  end
 end
