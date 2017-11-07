@@ -167,6 +167,34 @@ class SalesAnalyst
     end.sum
   end
 
+  def one_time_buyers
+    customer_hash = Hash.new(0)
+
+    x = se.invoices.all.group_by do |invoice|
+      invoice.customer
+    end
+
+    final = x.transform_values do |all_invoices|
+      all_invoices.count
+    end
+
+    done = final.find_all do |customer, number_of_invoices|
+      number_of_invoices == 1
+    end.flatten
+    # binding.pry
+
+    # se.invoices.all.each do |invoice|
+    #   customer_hash[invoice.customer] = invoice.items.count if invoice.is_paid_in_full?
+    # end
+    #
+    # x = customer_hash.find_all do |customer, items_paid_in_full|
+    #   items_paid_in_full == 1
+    # end.flatten
+
+    # binding.pry
+
+  end
+
     private
 
       def all_item_prices
