@@ -178,9 +178,35 @@ class SalesAnalyst
       paid_invoices == 1
     end
 
-    final = one_time_customers.map do |customer, paid_invoices|
+    one_time_customers.map do |customer, paid_invoices|
       customer
     end
+  end
+
+  def one_time_buyers_top_items
+    all_invoices = one_time_buyers.map do |customer|
+      customer.fully_paid_invoices
+    end.flatten
+
+    all_invoice_items = all_invoices.map do |invoice|
+      invoice.invoice_items
+    end.flatten
+
+    items_with_quantity = Hash.new(0)
+
+    all_invoice_items.each do |invoice_item|
+      if items_with_quantity[invoice_item.item_id]
+        items_with_quantity[invoice_item.item_id] += invoice_item.quantity
+      else
+        items_with_quantity[invoice_item.item_id] = invoice_item.quantity
+      end
+    end
+
+    top_item_ID = items_with_quantity.max_by do |item, quantity|
+      quantity
+    end
+
+    Array.new << se.items.find_by_id(top_item_ID[0])
   end
 
     private

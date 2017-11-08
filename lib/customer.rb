@@ -26,10 +26,15 @@ class Customer
     end.uniq
   end
 
+  def find_invoices_linked_to_customer
+    @customer_repo.find_invoices_by_customer_id(id)
+  end
+
   def fully_paid_invoices
-    @customer_repo.find_invoices_by_customer_id(id).find_all do |invoice|
+    find_invoices_linked_to_customer.find_all do |invoice|
       invoice.is_paid_in_full?
     end
   end
+
 
 end
