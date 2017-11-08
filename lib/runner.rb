@@ -20,10 +20,11 @@ se = SalesEngine.from_csv({
 # })
 
 sa = SalesAnalyst.new(se)
-#
-p sa.top_revenue_earners
 
+date = Time.parse("2009-02-07")
 
-#12334634
-# total = invoices.reduce({}) do |result, (merchant, invoices)|
-#   result[merchant] =
+p sa.valid_inv_grouped_by_merchant.count
+
+# first - 12334634, 212,XXX revenue
+# last - 12334159
+#invoice_count 2810

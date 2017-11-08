@@ -21,30 +21,32 @@ attr_reader :id,
   end
 
   def is_paid_in_full?
-    if transactions.count == 0
-      true
-    elsif transactions.count == successful_transactions.count
-      true
-    else false
+    if successful_transactions == true
+      return true
     end
+    false
   end
 
   def successful_transactions
-    transactions.find_all do |transaction|
-      transaction.result == "success"
+    transactions.each do |transaction|
+      return true if transaction.result == "success"
     end
   end
 
+  # def find_valid_invoice_items
+  #   successful_transactions.map do |transaction|
+  #     transaction.invoice_items
+  #   end.flatten
+  # end
+
   def total
-    if is_paid_in_full?
       total_invoice_items_price(invoice_items)
-    end
   end
 
   def total_invoice_items_price(invoice_items)
-    invoice_items.map do |invoice_item|
-      (invoice_item.unit_price * invoice_item.quantity)
-    end.sum
+    invoice_items.reduce(0) do |sum, invoice_item|
+      sum += (invoice_item.unit_price * invoice_item.quantity)
+    end
   end
 
   def invoice_items_for_successful_transactions

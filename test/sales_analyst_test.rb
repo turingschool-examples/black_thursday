@@ -506,4 +506,143 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal 162, sa.map_created_dates_to_weekdays.count
   end
-end
+
+  def test_it_can_find_invoice_totals_by_day
+      se = SalesEngine.from_csv({
+        :items     => "./test/fixtures/items_truncated.csv",
+        :merchants => "./test/fixtures/merchants_truncated.csv",
+        :invoices => "./test/fixtures/invoices_truncated.csv",
+        :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
+        :transactions => "./test/fixtures/transactions_truncated.csv",
+        :customers => "./test/fixtures/customers_truncated.csv"
+      })
+
+      sa = SalesAnalyst.new(se)
+
+      assert_equal ({"Monday"=>26, "Friday"=>22, "Tuesday"=>27, "Saturday"=>27, "Thursday"=>22, "Wednesday"=>21, "Sunday"=>17}), sa.invoice_totals_by_day
+    end
+
+    def test_it_can_find_invoice_per_day_average
+      se = SalesEngine.from_csv({
+        :items     => "./test/fixtures/items_truncated.csv",
+        :merchants => "./test/fixtures/merchants_truncated.csv",
+        :invoices => "./test/fixtures/invoices_truncated.csv",
+        :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
+        :transactions => "./test/fixtures/transactions_truncated.csv",
+        :customers => "./test/fixtures/customers_truncated.csv"
+      })
+
+      sa = SalesAnalyst.new(se)
+
+      assert_equal 23, sa.invoice_per_day_average
+    end
+
+    def test_it_can_find_invoice_totals_minus_average_squared
+      se = SalesEngine.from_csv({
+        :items     => "./test/fixtures/items_truncated.csv",
+        :merchants => "./test/fixtures/merchants_truncated.csv",
+        :invoices => "./test/fixtures/invoices_truncated.csv",
+        :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
+        :transactions => "./test/fixtures/transactions_truncated.csv",
+        :customers => "./test/fixtures/customers_truncated.csv"
+      })
+
+      sa = SalesAnalyst.new(se)
+
+      assert_equal 83, sa.invoice_totals_minus_average_squared
+    end
+
+    def test_it_can_find_weekday_invoice_total_difference_divided
+      se = SalesEngine.from_csv({
+        :items     => "./test/fixtures/items_truncated.csv",
+        :merchants => "./test/fixtures/merchants_truncated.csv",
+        :invoices => "./test/fixtures/invoices_truncated.csv",
+        :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
+        :transactions => "./test/fixtures/transactions_truncated.csv",
+        :customers => "./test/fixtures/customers_truncated.csv"
+      })
+
+      sa = SalesAnalyst.new(se)
+
+      assert_equal 13, sa.weekday_invoice_total_difference_divided
+    end
+
+    def test_it_can_find_weekday_invoice_creation_standard_deviation
+      se = SalesEngine.from_csv({
+        :items     => "./test/fixtures/items_truncated.csv",
+        :merchants => "./test/fixtures/merchants_truncated.csv",
+        :invoices => "./test/fixtures/invoices_truncated.csv",
+        :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
+        :transactions => "./test/fixtures/transactions_truncated.csv",
+        :customers => "./test/fixtures/customers_truncated.csv"
+      })
+
+      sa = SalesAnalyst.new(se)
+
+      assert_equal 3.61, sa.weekday_invoice_creation_standard_deviation
+    end
+
+    def test_it_can_find_invoice_creation_standard_deviation_plus_average
+      se = SalesEngine.from_csv({
+        :items     => "./test/fixtures/items_truncated.csv",
+        :merchants => "./test/fixtures/merchants_truncated.csv",
+        :invoices => "./test/fixtures/invoices_truncated.csv",
+        :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
+        :transactions => "./test/fixtures/transactions_truncated.csv",
+        :customers => "./test/fixtures/customers_truncated.csv"
+      })
+
+      sa = SalesAnalyst.new(se)
+
+      assert_equal 26.61, sa.invoice_creation_standard_deviation_plus_average
+    end
+
+    def test_it_can_find_top_days_by_invoice_count
+      se = SalesEngine.from_csv({
+        :items     => "./test/fixtures/items_truncated.csv",
+        :merchants => "./test/fixtures/merchants_truncated.csv",
+        :invoices => "./test/fixtures/invoices_truncated.csv",
+        :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
+        :transactions => "./test/fixtures/transactions_truncated.csv",
+        :customers => "./test/fixtures/customers_truncated.csv"
+      })
+
+      sa = SalesAnalyst.new(se)
+
+      assert_equal ["Tuesday", "Saturday"], sa.top_days_by_invoice_count
+    end
+
+    def test_it_can_find_invoice_status_percentages
+      se = SalesEngine.from_csv({
+        :items     => "./test/fixtures/items_truncated.csv",
+        :merchants => "./test/fixtures/merchants_truncated.csv",
+        :invoices => "./test/fixtures/invoices_truncated.csv",
+        :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
+        :transactions => "./test/fixtures/transactions_truncated.csv",
+        :customers => "./test/fixtures/customers_truncated.csv"
+      })
+
+      sa = SalesAnalyst.new(se)
+
+      assert_equal 56.17, sa.invoice_status(:shipped)
+      assert_equal 13.58, sa.invoice_status(:returned)
+      assert_equal 30.25, sa.invoice_status(:pending)
+    end
+
+    def test_it_can_find_all_invoices_based_on_status
+      se = SalesEngine.from_csv({
+        :items     => "./test/fixtures/items_truncated.csv",
+        :merchants => "./test/fixtures/merchants_truncated.csv",
+        :invoices => "./test/fixtures/invoices_truncated.csv",
+        :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
+        :transactions => "./test/fixtures/transactions_truncated.csv",
+        :customers => "./test/fixtures/customers_truncated.csv"
+      })
+
+      sa = SalesAnalyst.new(se)
+
+      assert_equal 22, sa.find_all_invoices(:returned).count
+      assert_equal 49, sa.find_all_invoices(:pending).count
+      assert_equal 91, sa.find_all_invoices(:shipped).count
+    end
+  end

@@ -252,24 +252,29 @@ class SalesAnalyst
   end
 
   def unit_price_to_dollars(unit_price)
-    # (unit_price).round(2).to_f
     (BigDecimal.new(unit_price).round(2))
   end
 
-  def clean_inv_grouped_by_merchant
-    @sales_engine.invoices.all_clean.group_by do |invoice|
+  def valid_invoices
+    @sales_engine.invoices.all.find_all do |invoice|
+      invoice.is_paid_in_full? 
+    end
+  end
+
+  def valid_inv_grouped_by_merchant
+    valid_invoices.group_by do |invoice|
       invoice.merchant_id
     end
   end
 
   def invoice_totals(invoices)
-    invoices.map do |invoice|
-      invoice.total
-    end.sum
+    invoices.reduce(0) do |sum, invoice|
+      sum += invoice.total
+    end
   end
 
   def total_of_invoices_per_merchant
-    clean_inv_grouped_by_merchant.reduce({}) do |result, pair|
+    valid_inv_grouped_by_merchant.reduce({}) do |result, pair|
       result.update pair.first => (invoice_totals(pair.last))
     end
   end
@@ -280,10 +285,15 @@ class SalesAnalyst
     end.reverse
   end
 
-  def top_revenue_earners(x = 20)
-    merchants = merchants_by_revenue
-    merchants[0..x]
+  def convert_revenue_to_merchants
+    merchants_by_revenue.map do |merchant_rev|
+      @sales_engine.merchants.find_by_id(merchant_rev.first)
+    end
   end
 
+  def top_revenue_earners(count = 20)
+    merchants = convert_revenue_to_merchants
+    merchants.first(count)
+  end
 
 end
