@@ -2,9 +2,8 @@
 require_relative 'invoice'
 
 class InvoiceRepository
-
-  attr_reader     :all,
-                  :sales_engine
+  attr_reader :all,
+              :sales_engine
 
   def initialize(parent = nil)
     @all          = []

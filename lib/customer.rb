@@ -3,12 +3,12 @@ require 'pry'
 
 class Customer
 
-  attr_reader     :id,
-                  :first_name,
-                  :last_name,
-                  :created_at,
-                  :updated_at,
-                  :customer_repo
+  attr_reader :id,
+              :first_name,
+              :last_name,
+              :created_at,
+              :updated_at,
+              :customer_repo
 
   def initialize(attributes, parent = nil)
     @id             = attributes[:id].to_i
@@ -35,6 +35,5 @@ class Customer
       invoice.is_paid_in_full?
     end
   end
-
 
 end

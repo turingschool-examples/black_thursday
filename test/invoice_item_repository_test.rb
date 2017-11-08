@@ -2,8 +2,7 @@ require_relative 'test_helper'
 require_relative '../lib/invoice_item_repository'
 
 class InvoiceItemRepositoryTest < MiniTest::Test
-
-  attr_reader     :iir
+  attr_reader :iir
 
   def setup
     @iir = InvoiceItemRepository.new
@@ -32,6 +31,5 @@ class InvoiceItemRepositoryTest < MiniTest::Test
     assert_equal 4, iir.find_all_by_invoice_id(1).count
     assert_equal [], iir.find_all_by_invoice_id("Hello")
   end
-
 
 end

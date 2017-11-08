@@ -2,13 +2,13 @@ require 'time'
 require 'pry'
 
 class Invoice
-  attr_reader     :id,
-                  :customer_id,
-                  :merchant_id,
-                  :status,
-                  :created_at,
-                  :updated_at,
-                  :invoice_repo
+  attr_reader :id,
+              :customer_id,
+              :merchant_id,
+              :status,
+              :created_at,
+              :updated_at,
+              :invoice_repo
 
   def initialize(attributes = {}, parent = nil)
     @id           = attributes[:id].to_i

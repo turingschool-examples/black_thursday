@@ -5,13 +5,14 @@ class ItemTest < MiniTest::Test
   attr_reader :item
 
   def setup
-    @item = Item.new({:id => 1,
-                      :name => "Turing School",
+    @item = Item.new({:id          => 1,
+                      :name        => "Turing School",
                       :description => "teach me to code",
-                      :unit_price => 100,
-                      :created_at => "18",
-                      :updated_at => "19",
-                      :merchant_id => 999})
+                      :unit_price  => 100,
+                      :created_at  => "18",
+                      :updated_at  => "19",
+                      :merchant_id => 999
+                    })
   end
 
   def test_it_exists
@@ -31,4 +32,5 @@ class ItemTest < MiniTest::Test
   def test_can_convert_integer_into_dollar
     assert_equal 1.00, item.unit_price
   end
+
 end

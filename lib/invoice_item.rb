@@ -1,15 +1,14 @@
 require 'time'
 
 class InvoiceItem
-
-  attr_reader     :id,
-                  :item_id,
-                  :invoice_id,
-                  :quantity,
-                  :unit_price,
-                  :created_at,
-                  :updated_at,
-                  :invoice_item_repo
+  attr_reader :id,
+              :item_id,
+              :invoice_id,
+              :quantity,
+              :unit_price,
+              :created_at,
+              :updated_at,
+              :invoice_item_repo
 
   def initialize(attributes = {}, parent = nil)
     @id                  = attributes[:id].to_i

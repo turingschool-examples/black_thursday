@@ -3,8 +3,8 @@ require_relative 'merchant'
 
 class MerchantRepository
 
-  attr_reader     :all,
-                  :sales_engine
+  attr_reader :all,
+              :sales_engine
 
   def initialize(parent = nil)
     @all = []
@@ -12,7 +12,7 @@ class MerchantRepository
   end
 
   def inspect
-   "#<#{self.class} #{@all.size} rows>"
+    "#<#{self.class} #{@all.size} rows>"
   end
 
   def populate(filename)

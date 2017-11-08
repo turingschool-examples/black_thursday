@@ -2,9 +2,8 @@ require 'csv'
 require_relative "item"
 
 class ItemRepository
-
-  attr_reader     :all,
-                  :sales_engine
+  attr_reader :all,
+              :sales_engine
 
   def initialize(parent = nil)
     @all = []
@@ -12,7 +11,7 @@ class ItemRepository
   end
 
   def inspect
-   "#<#{self.class} #{@all.size} rows>"
+    "#<#{self.class} #{@all.size} rows>"
   end
 
   def populate(filename)
@@ -50,7 +49,6 @@ class ItemRepository
 
   def find_all_by_price_in_range(price_range)
     @all.find_all do |item|
-      # binding.pry
       price_range.include?(item.unit_price)
     end
   end
