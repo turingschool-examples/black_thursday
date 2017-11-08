@@ -25,9 +25,9 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_merchants_with_high_item_count
-    merchant_1 = @sales_analyst.sales_engine.merchants.merchants[0]
+    m_1 = @sales_analyst.sales_engine.merchants.merchants[0]
 
-    assert_equal [merchant_1], @sales_analyst.merchants_with_high_item_count
+    assert_equal [m_1], @sales_analyst.merchants_with_high_item_count
   end
 
   def test_it_can_determine_average_price_for_merchant_with_id
@@ -53,15 +53,15 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_top_merchants_by_invoice_count
-    merchant_1 = @sales_analyst.sales_engine.merchants.merchants[0]
+    m_1 = @sales_analyst.sales_engine.merchants.merchants[0]
 
-    assert_equal [merchant_1], @sales_analyst.top_merchants_by_invoice_count
+    assert_equal [m_1], @sales_analyst.top_merchants_by_invoice_count
   end
 
   def test_it_can_find_bottom_merchants_by_invoice_count
-    merchant_1 = @sales_analyst.sales_engine.merchants.merchants[4]
+    m_1 = @sales_analyst.sales_engine.merchants.merchants[4]
 
-    assert_equal [merchant_1], @sales_analyst.bottom_merchants_by_invoice_count
+    assert_equal [m_1], @sales_analyst.bottom_merchants_by_invoice_count
   end
 
   def test_it_detects_which_day_of_the_week_has_most_sales
@@ -80,11 +80,25 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_determines_top_revenue_earners
-    merchant_1 = @sales_analyst.sales_engine.merchants.merchants[0]
-    merchant_2 = @sales_analyst.sales_engine.merchants.merchants[3]
-    merchant_3 = @sales_analyst.sales_engine.merchants.merchants[6]
+    m_1 = @sales_analyst.sales_engine.merchants.merchants[0]
+    m_2 = @sales_analyst.sales_engine.merchants.merchants[3]
+    m_3 = @sales_analyst.sales_engine.merchants.merchants[6]
 
-    assert_equal [merchant_1, merchant_2], @sales_analyst.top_revenue_earners(2)
+    assert_equal [m_1, m_2], @sales_analyst.top_revenue_earners(2)
     # assert_equal [merchant_1, merchant_2, merchant_3], @sales_analyst.top_revenue_earners(3)
+  end
+
+  def test_we_find_merchants_that_sell_only_one_item
+
+    m_1 = @sales_analyst.sales_engine.merchants.merchants[1]
+    m_2 = @sales_analyst.sales_engine.merchants.merchants[3]
+    m_3 = @sales_analyst.sales_engine.merchants.merchants[5]
+    m_4 = @sales_analyst.sales_engine.merchants.merchants[6]
+    m_5 = @sales_analyst.sales_engine.merchants.merchants[7]
+    m_6 = @sales_analyst.sales_engine.merchants.merchants[8]
+    m_7 = @sales_analyst.sales_engine.merchants.merchants[9]
+
+    assert_equal [m_1, m_2, m_3, m_4, m_5, m_6, m_7],
+                @sales_analyst.find_merchants_with_only_one_item
   end
 end
