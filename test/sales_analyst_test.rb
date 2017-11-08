@@ -243,9 +243,13 @@ class SalesAnalystTest < MiniTest::Test
   #   assert_equal 786, sa.customers_with_unpaid_invoices.count
   # end
 
-  def test_SA_finds_best_invoice_by_revenue
-    assert_instance_of Invoice, sa.best_invoice_by_revenue
-  end
+  # def test_SA_finds_best_invoice_by_revenue
+  #   assert_instance_of Invoice, sa.best_invoice_by_revenue
+  # end
+
+  # def test_SA_can_find_best_invoice_by_quantity
+  #   assert_instance_of Invoice, sa.best_invoice_by_quantity
+  # end
 
 
 end

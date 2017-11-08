@@ -253,6 +253,12 @@ class SalesAnalyst
     end
   end
 
+  def best_invoice_by_quantity
+    se.invoices.all.max_by do |invoice|
+      invoice.total_item_quantities
+    end
+  end
+
     private
 
       def all_item_prices
