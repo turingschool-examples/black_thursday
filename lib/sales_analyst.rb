@@ -257,7 +257,13 @@ class SalesAnalyst
 
   def valid_invoices
     @sales_engine.invoices.all.find_all do |invoice|
-      invoice.is_paid_in_full? 
+      invoice.is_paid_in_full?
+    end
+  end
+
+  def missing_merchants
+    sales_engine.merchants.all.find_all do |merchant|
+      merchant.valid_invoices.count == 0
     end
   end
 
@@ -266,6 +272,8 @@ class SalesAnalyst
       invoice.merchant_id
     end
   end
+  #
+  # missing_merchant.each {|merchant| a.merge({merchant.id => 0})}
 
   def invoice_totals(invoices)
     invoices.reduce(0) do |sum, invoice|
@@ -279,8 +287,16 @@ class SalesAnalyst
     end
   end
 
+  def fill_in_missing_merchants
+    merchants_by_rev = total_of_invoices_per_merchant
+    missing_merchants.each do |merchant|
+      merchants_by_rev[merchant.id] = 0
+    end
+    merchants_by_rev
+  end
+
   def merchants_by_revenue
-    total_of_invoices_per_merchant.sort_by do |key, value|
+    fill_in_missing_merchants.sort_by do |key, value|
       value
     end.reverse
   end
@@ -294,6 +310,10 @@ class SalesAnalyst
   def top_revenue_earners(count = 20)
     merchants = convert_revenue_to_merchants
     merchants.first(count)
+  end
+
+  def merchants_ranked_by_revenue
+    convert_revenue_to_merchants
   end
 
 end

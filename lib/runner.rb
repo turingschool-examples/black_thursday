@@ -23,8 +23,12 @@ sa = SalesAnalyst.new(se)
 
 date = Time.parse("2009-02-07")
 
-p sa.valid_inv_grouped_by_merchant.count
+expected = sa.merchants_ranked_by_revenue
 
-# first - 12334634, 212,XXX revenue
-# last - 12334159
-#invoice_count 2810
+first = expected.first
+last = expected.last
+
+p expected.length
+
+p first.id
+p last.id

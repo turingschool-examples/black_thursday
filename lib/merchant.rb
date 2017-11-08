@@ -23,4 +23,10 @@ class Merchant
      end
   end
 
+  def valid_invoices
+    invoices.find_all do |invoice|
+      invoice.is_paid_in_full?
+    end
+  end
+
 end
