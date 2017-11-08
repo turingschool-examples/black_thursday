@@ -141,7 +141,7 @@ module MerchantAnalyst
     end.map(&:first)
   end
 
-  # def merchants_with_only_one_item_registered_in_month(provided_month)
+  def merchants_with_only_one_item_registered_in_month(provided_month)
   #   merchant_id_by_month = @sales_engine.invoices.all.reduce(Hash.new(0)) do |result, invoice|
   #     if invoice.created_at.strftime("%B") == provided_month
   #       result[invoice.merchant_id] += 1
@@ -155,7 +155,7 @@ module MerchantAnalyst
   #     result
   #   end
   #   binding.pry
-  # end
+  end
 
   def revenue_by_merchant(merchant_id)
     revenue_by_merchant_id[merchant_id]
