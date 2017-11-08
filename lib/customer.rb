@@ -1,5 +1,4 @@
 require 'time'
-require 'pry'
 
 class Customer
   attr_reader :id,
@@ -19,8 +18,7 @@ class Customer
   end
 
   def merchants
-    invoices = @customer_repo.find_invoices_by_customer_id(@id)
-    invoices.map do |invoice|
+    @customer_repo.find_invoices_by_customer_id(@id).map do |invoice|
       invoice.merchant
     end.uniq
   end

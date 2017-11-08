@@ -16,10 +16,7 @@ class MerchantRepository
   end
 
   def populate(filename)
-    contents = CSV.open(filename, headers: true,
-     header_converters: :symbol)
-
-    contents.each do |row|
+     CSV.foreach(filename, headers: true, header_converters: :symbol) do |row|
       @all << Merchant.new(row, self)
     end
   end

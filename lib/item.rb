@@ -24,7 +24,7 @@ class Item
   end
 
   def unit_price_to_dollars
-    unit_price / 100
+    unit_price
   end
 
   def merchant

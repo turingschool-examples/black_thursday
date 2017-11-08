@@ -50,7 +50,7 @@ module MerchantAnalysis
   end
 
   def average_invoices_per_merchant_standard_deviation
-    standard_deviation(all_merchants_invoices)
+    standard_deviation(all_merchants_invoices_count)
   end
 
   def top_merchants_by_invoice_count

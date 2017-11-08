@@ -1,5 +1,4 @@
 require 'time'
-require 'pry'
 
 class Invoice
   attr_reader :id,
