@@ -15,16 +15,22 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    total_items = se.items.all.count
-    total_merchants = se.merchants.all.count
-    (total_items.to_f / total_merchants.to_f).round(2)
+    (total_items.to_f / total_merchants).round(2)
+  end
+
+  def total_items
+    se.items.all.count
+  end
+
+  def total_merchants
+    se.merchants.all.count
   end
 
   def average_invoices_per_merchant
-    average(all_merchants_invoices).round(2)
+    average(all_merchants_invoices_count).round(2)
   end
 
-  def all_merchants_invoices
+  def all_merchants_invoices_count
     se.merchants.all.map do |merchant|
       merchant.invoices.count
     end
