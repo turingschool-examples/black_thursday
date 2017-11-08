@@ -99,7 +99,7 @@ module MerchantAnalyst
   end
 
   def merchants_ranked_by_revenue
-    revenue_by_merchant.sort_by do |_, revenue|
+    revenue_per_merchant.sort_by do |_, revenue|
       -revenue
     end.map(&:first)
   end
@@ -125,5 +125,50 @@ module MerchantAnalyst
       @sales_engine.merchants.find_by_id(merchant_id)
     end
   end
+
+  def merchants_with_only_one_item
+    merchant_ids_with_one_item.map do |merchant_id|
+      @sales_engine.merchants.find_by_id(merchant_id)
+    end
+  end
+
+  def merchant_ids_with_one_item
+    merchants_and_item_count.find_all do |merchant, item_count|
+      item_count == 1
+    end.map(&:first)
+  end
+
+  # def merchants_with_only_one_item_registered_in_month(provided_month)
+  #   merchant_id_by_month = @sales_engine.invoices.all.reduce(Hash.new(0)) do |result, invoice|
+  #     if invoice.created_at.strftime("%B") == provided_month
+  #       result[invoice.merchant_id] += 1
+  #     end
+  #     result
+  #   end
+  #   thing = merchant_id_by_month.reduce([]) do |result, (merchant_id, count)|
+  #     if count == 1
+  #       result << merchant_id
+  #     end
+  #     result
+  #   end
+  #   binding.pry
+  # end
+
+  def revenue_by_merchant(merchant_id)
+    revenue_by_merchant_id[merchant_id]
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    items_by_quantity = @sales_engine.invoice_items.all.reduce(Hash.new(0)) do |result, invoice_item|
+      result[invoice_item.item_id] += invoice_item.quantity
+      result
+    end
+    items_by_quantity.reduce(Hash.new(0)) do |result, (item_id, quantity)|
+      result[@sales_engine.items.find_by_id(item_id)] += quantity
+      result
+    end
+  end
+
+
 
 end
