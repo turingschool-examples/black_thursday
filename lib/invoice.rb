@@ -44,6 +44,12 @@ class Invoice
     end
   end
 
+  def not_paid_in_full?
+    transactions.any? do |transaction|
+      transaction.result.downcase == "failed"
+    end
+  end
+
   def total
     return 0 if !self.is_paid_in_full?
     @invoice_repo.find_invoice_item_id(id).map do |invoice_item|

@@ -239,6 +239,20 @@ class SalesAnalyst
     end
   end
 
+  def customers_with_unpaid_invoices
+    hash = Hash.new(0)
+
+    se.customers.all.each do |customer|
+      hash[customer] = customer.unpaid_invoices
+    end
+
+
+    # se.customers.all.map do |customer|
+    #   customer.fully_paid_invoices
+    # end
+    binding.pry
+  end
+
     private
 
       def all_item_prices
