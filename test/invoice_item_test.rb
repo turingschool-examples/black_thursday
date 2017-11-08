@@ -2,19 +2,17 @@ require_relative 'test_helper'
 require_relative '../lib/invoice_item'
 
 class InvoiceItemTest < MiniTest::Test
-
-  attr_reader   :ii
+  attr_reader :ii
 
   def setup
-    @ii = InvoiceItem.new({
-      :id => 6,
-      :item_id => 7,
-      :invoice_id => 8,
-      :quantity => 1,
-      :unit_price => 2196,
-      :created_at => "2012-03-27 14:54:09 UTC",
-      :updated_at => "2012-03-27 14:54:09 UTC"
-    })
+    @ii = InvoiceItem.new({:id => 6,
+                           :item_id => 7,
+                           :invoice_id => 8,
+                           :quantity => 1,
+                           :unit_price => 2196,
+                           :created_at => "2012-03-27 14:54:09 UTC",
+                           :updated_at => "2012-03-27 14:54:09 UTC"
+                          })
   end
 
   def test_it_exists

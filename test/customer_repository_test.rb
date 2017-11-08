@@ -2,8 +2,7 @@ require_relative 'test_helper'
 require_relative '../lib/customer_repository'
 
 class CustomerRepositoryTest < MiniTest::Test
-
-  attr_reader   :cr
+  attr_reader :cr
 
   def setup
     @cr = CustomerRepository.new

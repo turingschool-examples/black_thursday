@@ -3,8 +3,8 @@ require_relative "transaction"
 
 class TransactionRepository
 
-  attr_reader     :all,
-                  :sales_engine
+  attr_reader :all,
+              :sales_engine
 
   def initialize(parent = nil)
     @all = []
@@ -12,13 +12,12 @@ class TransactionRepository
   end
 
   def inspect
-   "#<#{self.class} #{@all.size} rows>"
+    "#<#{self.class} #{@all.size} rows>"
   end
 
   def populate(filename)
     contents = CSV.open(filename, headers: true,
      header_converters: :symbol)
-
     contents.each do |row|
       @all << Transaction.new(row, self)
     end

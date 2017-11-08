@@ -64,7 +64,6 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(merchant_id)
     merchant = se.merchants.find_by_id(merchant_id)
-
     prices = merchant.items.map do |item|
       item.unit_price.to_f
     end

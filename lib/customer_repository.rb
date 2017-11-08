@@ -1,9 +1,8 @@
 require_relative 'customer'
 
 class CustomerRepository
-
-  attr_reader   :all,
-                :sales_engine
+  attr_reader :all,
+              :sales_engine
 
   def initialize(parent = nil)
     @all = []

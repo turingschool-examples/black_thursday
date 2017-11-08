@@ -6,32 +6,31 @@ require_relative "customer_repository"
 require_relative "transaction_repository"
 require_relative "invoice_item_repository"
 
-
 class SalesEngine
 
-  attr_accessor   :items,
-                  :merchants,
-                  :invoices,
-                  :customers,
-                  :transactions,
-                  :invoice_items
+  attr_accessor :items,
+                :merchants,
+                :invoices,
+                :customers,
+                :transactions,
+                :invoice_items
 
   def initialize
-    @items                    = ItemRepository.new(self)
-    @merchants                = MerchantRepository.new(self)
-    @invoices                 = InvoiceRepository.new(self)
-    @customers                = CustomerRepository.new(self)
-    @transactions             = TransactionRepository.new(self)
-    @invoice_items            = InvoiceItemRepository.new(self)
+    @items         = ItemRepository.new(self)
+    @merchants     = MerchantRepository.new(self)
+    @invoices      = InvoiceRepository.new(self)
+    @customers     = CustomerRepository.new(self)
+    @transactions  = TransactionRepository.new(self)
+    @invoice_items = InvoiceItemRepository.new(self)
   end
 
   def self.from_csv(repo)
-    items_CSV         = repo[:items]
-    merchants_CSV     = repo[:merchants]
-    invoices_CSV      = repo[:invoices]
-    customers_CSV     = repo[:customers]
-    transactions_CSV  = repo[:transactions]
-    inv_item_CSV      = repo[:invoice_items]
+    items_CSV        = repo[:items]
+    merchants_CSV    = repo[:merchants]
+    invoices_CSV     = repo[:invoices]
+    customers_CSV    = repo[:customers]
+    transactions_CSV = repo[:transactions]
+    inv_item_CSV     = repo[:invoice_items]
 
     se = SalesEngine.new
     se.items.populate(items_CSV) unless items_CSV.nil?
