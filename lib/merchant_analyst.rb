@@ -154,7 +154,11 @@ module MerchantAnalyst
   #     end
   #     result
   #   end
-  #   binding.pry
+  #   # binding.pry
+
+  merchant_ids_with_one_item.find_all do |merchant|
+    merchants.created_at.strftime("%B") == provided_month
+    end
   end
 
   def revenue_by_merchant(merchant_id)
