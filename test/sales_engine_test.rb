@@ -107,16 +107,16 @@ class SalesEngineTest < Minitest::Test
   #   assert invoice.is_paid_in_full?
   # end
   #
-  # def test_invoice_can_find_total_amount
-  #   invoice = se.invoices.find_by_id(20)
-  #
-  #   assert_equal 0.1301863e5, invoice.total
-  # end
+  def test_invoice_can_find_total_amount
+    invoice = se.invoices.find_by_id(20)
 
-  def test_can_get_fully_paid_invoices_for_customer
-    customer = se.customers.find_by_id(30)
-
-    assert_equal [], customer.fully_paid_invoices
+    assert_equal 0.1301863e5, invoice.total
   end
+
+  # def test_can_get_fully_paid_invoices_for_customer
+  #   customer = se.customers.find_by_id(30)
+  #
+  #   assert_equal [], customer.fully_paid_invoices
+  # end
 
 end

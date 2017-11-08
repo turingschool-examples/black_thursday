@@ -240,18 +240,17 @@ class SalesAnalyst
   end
 
   def customers_with_unpaid_invoices
-    # hash = Hash.new(0)
-    #
-    # se.customers.all.each do |customer|
-    #   hash[customer] = customer.unpaid_invoices
-    # end
-
     se.customers.all.find_all do |customer|
       customer.find_invoices_linked_to_customer.any? do |invoice|
         invoice.is_paid_in_full? == false
       end
     end
+  end
 
+  def best_invoice_by_revenue
+    se.invoices.all.max_by do |invoice|
+      invoice.total
+    end
   end
 
     private

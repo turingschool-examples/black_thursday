@@ -237,12 +237,15 @@ class SalesAnalystTest < MiniTest::Test
   #   assert_equal 6, sa.highest_volume_items(200).count
   # end
 
-  def test_SA_finds_customers_with_unpaid_invoices
-    assert_instance_of Array, sa.customers_with_unpaid_invoices
-    assert_instance_of Customer, sa.customers_with_unpaid_invoices.first
-    assert_equal 786, sa.customers_with_unpaid_invoices.count
-  end
+  # def test_SA_finds_customers_with_unpaid_invoices
+  #   assert_instance_of Array, sa.customers_with_unpaid_invoices
+  #   assert_instance_of Customer, sa.customers_with_unpaid_invoices.first
+  #   assert_equal 786, sa.customers_with_unpaid_invoices.count
+  # end
 
+  def test_SA_finds_best_invoice_by_revenue
+    assert_instance_of Invoice, sa.best_invoice_by_revenue
+  end
 
 
 end
