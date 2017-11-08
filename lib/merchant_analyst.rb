@@ -96,7 +96,7 @@ module MerchantAnalyst
     revenue_by_merchant_id.reduce(Hash.new(0)) {|result, (merchant_id, revenue)|
       result[@sales_engine.merchants.find_by_id(merchant_id)] += revenue
       result
-    }
+    end}
   end
 
   def merchants_ranked_by_revenue
