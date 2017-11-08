@@ -99,6 +99,6 @@ class SalesAnalystTest < Minitest::Test
     m_7 = @sales_analyst.sales_engine.merchants.merchants[9]
 
     assert_equal [m_1, m_2, m_3, m_4, m_5, m_6, m_7],
-                @sales_analyst.find_merchants_with_only_one_item
+                @sales_analyst.merchants_with_only_one_item
   end
 end
