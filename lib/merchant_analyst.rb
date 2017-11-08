@@ -34,7 +34,7 @@ module MerchantAnalyst
 
   def high_item_count_merchant_ids
     merchants_and_item_count.map do |merchant_id,item_count|
-      merchant_id if item_count > (average_items_per_merchant+calculate_std_dev)
+      merchant_id if item_count > (average_items_per_merchant + calculate_std_dev)
     end.compact
   end
 
@@ -77,29 +77,30 @@ module MerchantAnalyst
   end
 
   def revenue_by_invoice_id
-    @sales_engine.invoice_items.all.reduce(Hash.new(0)) { |result, invoice_item|
-      result[invoice_item.invoice_id] +=
-      (invoice_item.quantity * invoice_item.unit_price)
-      result }
-  end
-
-  def revenue_by_merchant_id
-    revenue_by_invoice_id.reduce(Hash.new(0)) do |result, (invoice_id, revenue)|
-    if @sales_engine.invoices.find_by_id(invoice_id).is_paid_in_full?
-      result[@sales_engine.invoices.find_by_id(invoice_id).merchant_id]+=revenue
-    end
+    @sales_engine.invoice_items.all.reduce(Hash.new(0)) do |result, invoice_item|
+      result[invoice_item.invoice_id] += (invoice_item.quantity * invoice_item.unit_price)
       result
     end
   end
 
-  def revenue_by_merchant
-    revenue_by_merchant_id.reduce(Hash.new(0)) {|result, (merchant_id, revenue)|
+  def revenue_by_merchant_id
+    revenue_by_invoice_id.reduce(Hash.new(0)) do |result, (invoice_id, revenue)|
+      if @sales_engine.invoices.find_by_id(invoice_id).is_paid_in_full?
+        result[@sales_engine.invoices.find_by_id(invoice_id).merchant_id] += revenue
+      end
+      result
+    end
+  end
+
+  def revenue_for_each_merchant
+    revenue_by_merchant_id.reduce(Hash.new(0)) do |result, (merchant_id, revenue)|
       result[@sales_engine.merchants.find_by_id(merchant_id)] += revenue
-      result}
+      result
+    end
   end
 
   def merchants_ranked_by_revenue
-    revenue_per_merchant.sort_by do |_, revenue|
+    revenue_for_each_merchant.sort_by do |_, revenue|
       -revenue
     end.map(&:first)
   end
