@@ -10,7 +10,7 @@ class CustomerRepository
   end
 
   def inspect
-   "#<#{self.class} #{@all.size} rows>"
+    "#<#{self.class} #{@all.size} rows>"
   end
 
   def populate(filename)

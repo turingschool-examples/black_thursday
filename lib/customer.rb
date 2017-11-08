@@ -2,7 +2,6 @@ require 'time'
 require 'pry'
 
 class Customer
-
   attr_reader :id,
               :first_name,
               :last_name,
