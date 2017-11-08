@@ -7,7 +7,8 @@ class Invoice
                   :merchant_id,
                   :status,
                   :created_at,
-                  :updated_at
+                  :updated_at,
+                  :invoice_repo
 
   def initialize(attributes = {}, parent = nil)
     @id           = attributes[:id].to_i

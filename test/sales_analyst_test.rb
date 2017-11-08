@@ -219,11 +219,17 @@ class SalesAnalystTest < MiniTest::Test
   #
   #   assert_equal 0, sa.top_merchant_for_customer(100)
   # end
+  #
+  # def test_SA_can_find_one_time_buyers
+  #   assert_instance_of Array, sa.one_time_buyers
+  #   assert_instance_of Customer, sa.one_time_buyers.first
+  #   assert_equal 150, sa.one_time_buyers.count
+  # end
 
-  def test_SA_can_find_one_time_buyers
-    assert_instance_of Array, sa.one_time_buyers
-    assert_instance_of Customer, sa.one_time_buyers.first
-    assert_equal 150, sa.one_time_buyers.count
+  def test_one_time_buyers_top_items
+    assert_instance_of Array, sa.one_time_buyers_top_items
+    # assert_instance_of Item, sa.one_time_buyers_item.first
+    # assert_equal 1, sa.one_time_buyers_item.count
   end
 
 
