@@ -26,7 +26,7 @@ class InvoiceItemRepository
   end
 
   def find_by_id(id)
-    invoice_items.find { |invoice_item| invoice_item.id == id.to_i }
+    invoice_items.find { |invoice_item| invoice_item.id == id }
   end
 
   def find_all_by_item_id(item_id)

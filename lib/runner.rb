@@ -21,7 +21,7 @@ se = SalesEngine.from_csv({
 
 sa = SalesAnalyst.new(se)
 
-p sa.bottom_merchants_by_invoice_count
+p se.invoices.invoices.transactions
 
 # date = Time.parse("2009-02-07")
 #

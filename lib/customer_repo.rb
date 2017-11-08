@@ -18,7 +18,8 @@ class CustomerRepository
                              headers: true,
                              header_converters: :symbol
     customers_csv.each do |customer|
-      @customers << Customer.new(customer, self) end
+      @customers << Customer.new(customer, self)
+    end
   end
 
   def all
@@ -30,11 +31,15 @@ class CustomerRepository
   end
 
   def find_all_by_first_name(first_name)
-    customers.find_all { |customer| customer.first_name == first_name }
+    customers.find_all do |customer|
+      customer.first_name.downcase.include?(first_name.downcase)
+    end
   end
 
   def find_all_by_last_name(last_name)
-    customers.find_all { |customer| customer.last_name == last_name }
+    customers.find_all do |customer|
+      customer.last_name.downcase.include?(last_name.downcase)
+    end
   end
 
   def inspect

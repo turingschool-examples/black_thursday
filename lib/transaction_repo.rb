@@ -27,7 +27,7 @@ class TransactionRepository
   end
 
   def find_by_id(id)
-    transactions.find { |transaction| transaction.id == id.to_i }
+    transactions.find { |transaction| transaction.id  == id }
   end
 
   def find_all_by_invoice_id(invoice_id)

@@ -166,11 +166,9 @@ class SalesAnalyst
 
   def bottom_merchants_by_invoice_count
     sum = invoice_count_two_standard_deviations_below_mean
-    create_merchant_invoice_total_list.reduce([]) do |results, (key, value)|
-      if key <= sum
-        results.push key
-      end
-    end
+    create_merchant_invoice_total_list.find_all do |key, value|
+      key if value <= sum
+    end.flatten
   end
 
   def create_merchant_invoice_total_list
