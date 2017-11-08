@@ -228,8 +228,8 @@ class SalesAnalystTest < MiniTest::Test
 
   def test_one_time_buyers_top_items
     assert_instance_of Array, sa.one_time_buyers_top_items
-    # assert_instance_of Item, sa.one_time_buyers_item.first
-    # assert_equal 1, sa.one_time_buyers_item.count
+    assert_instance_of Item, sa.one_time_buyers_item.first
+    assert_equal 1, sa.one_time_buyers_item.count
   end
 
 
