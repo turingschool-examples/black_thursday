@@ -3,11 +3,13 @@ require 'pry'
 
 class Merchant
 
-  attr_reader :name, :repository, :id
+  attr_reader :name, :repository, :id, :created_at, :updated_at
 
   def initialize(data, repository)
     @name = data[:name]
     @id = data[:id].to_i
+    @created_at = Time.parse(data[:created_at])
+    @updated_at = Time.parse(data[:updated_at])
     @repository = repository
   end
 

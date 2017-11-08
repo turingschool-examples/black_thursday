@@ -101,4 +101,11 @@ class SalesAnalystTest < Minitest::Test
     assert_equal [m_1, m_2, m_3, m_4, m_5, m_6, m_7],
                 @sales_analyst.merchants_with_only_one_item
   end
+
+  def test_merchants_can_be_singled_out_by_one_item_per_month
+    m_1 = @sales_analyst.sales_engine.merchants.merchants[7]
+
+    assert_equal [m_1],
+    @sales_analyst.merchants_with_only_one_item_registered_in_month("March")
+  end
 end
