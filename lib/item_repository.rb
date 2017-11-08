@@ -6,7 +6,7 @@ class ItemRepository
               :sales_engine
 
   def initialize(parent = nil)
-    @all = []
+    @all          = []
     @sales_engine = parent
   end
 
@@ -15,10 +15,7 @@ class ItemRepository
   end
 
   def populate(filename)
-    contents = CSV.open(filename, headers: true,
-     header_converters: :symbol)
-
-    contents.each do |row|
+     CSV.foreach(filename, headers: true,header_converters: :symbol) do |row|
       @all << Item.new(row, self)
     end
   end

@@ -30,7 +30,7 @@ class ItemTest < MiniTest::Test
   end
 
   def test_can_convert_integer_into_dollar
-    assert_equal 1.00, item.unit_price
+    assert_equal 1.00, item.unit_price_to_dollars
   end
 
 end

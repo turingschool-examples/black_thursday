@@ -1,4 +1,3 @@
-
 require_relative 'invoice'
 
 class InvoiceRepository
@@ -67,7 +66,5 @@ class InvoiceRepository
   def find_invoice_item_id(id)
     @sales_engine.find_invoice_item_id(id)
   end
-
-
 
 end

@@ -2,20 +2,21 @@ require_relative 'test_helper'
 require "./lib/merchant"
 
 class MerchantTest < Minitest::Test
+  attr_reader :merchant
 
-  def test_it_exist
-    merchant = Merchant.new()
-
-    assert_instance_of Merchant, merchant
-  end
-
-  def test_can_access_attributes
-    merchant = Merchant.new({:id         => 5,
+  def setup
+    @merchant = Merchant.new({:id         => 5,
                              :name       => "Turing School",
                              :created_at => 18,
                              :updated_at => 19
                             })
+  end
 
+  def test_it_exists
+    assert_instance_of Merchant, merchant
+  end
+
+  def test_can_access_attributes
     assert_equal 5, merchant.id
     assert_equal "Turing School", merchant.name
     assert_equal 18, merchant.created_at

@@ -1,10 +1,10 @@
-require_relative "test_helper"
+require_relative 'test_helper'
 require './lib/merchant_repository'
 require './lib/merchant'
 
 class MerchantRepositoryTest < MiniTest::Test
   attr_reader :mr
-  
+
   def setup
     @mr = MerchantRepository.new
   end
