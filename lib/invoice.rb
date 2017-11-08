@@ -21,10 +21,11 @@ attr_reader :id,
   end
 
   def is_paid_in_full?
-    if transactions.count == successful_transactions.count
+    if transactions.count == 0
       true
-    else
-      false
+    elsif transactions.count == successful_transactions.count
+      true
+    else false
     end
   end
 
@@ -36,16 +37,14 @@ attr_reader :id,
 
   def total
     if is_paid_in_full?
-      unit_price_to_dollars(total_invoice_items_price(invoice_items))
-    else
-      puts "Sorry, one or more of these transactions were not sucessful."
+      total_invoice_items_price(invoice_items)
     end
   end
 
   def total_invoice_items_price(invoice_items)
-    invoice_items.reduce(0) do |total, invoice_item|
-      total += (invoice_item.unit_price_to_dollars)
-    end
+    invoice_items.map do |invoice_item|
+      (invoice_item.unit_price * invoice_item.quantity)
+    end.sum
   end
 
   def invoice_items_for_successful_transactions

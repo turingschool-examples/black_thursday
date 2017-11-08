@@ -68,7 +68,7 @@ class ItemRepoTest < Minitest::Test
     item_repo = ItemRepository.new(self, "./data/items.csv")
     results = item_repo.find_all_by_price(12)
 
-    assert_equal "The Beatles Clock | Hecho a mano", results.first.name
-    assert_equal "Abbey Road Clock | Hecho a mano", results.last.name
+    assert_equal "510+ RealPush Icon Set", results.first.name
+    assert_equal "Hello There Shibori kitchen tea towel", results.last.name
   end
 end

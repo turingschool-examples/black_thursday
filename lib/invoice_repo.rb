@@ -24,6 +24,12 @@ class InvoiceRepository
     invoices
   end
 
+  def all_clean
+    invoices.find_all do |invoice|
+      invoice if invoice.is_paid_in_full? == true
+    end
+  end
+
   def find_by_id(id)
     invoices.find { |invoice| invoice.id == id.to_i }
   end

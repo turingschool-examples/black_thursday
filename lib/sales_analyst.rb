@@ -1,18 +1,16 @@
 require 'time'
+require_relative 'sales_engine'
 
 class SalesAnalyst
   attr_reader :sales_engine,
-              :standard_deviation,
-              :golden_items_dev,
-              :ave_inv_per_merch_std,
-              :inv_diff_total_divided
+              :standard_dev,
+              :golden_items_dev
 
   def initialize(sales_engine)
     @sales_engine           = sales_engine
     @standard_dev           = average_items_per_merchant_standard_deviation
     @golden_items_dev       = golden_items_deviation
-    @ave_inv_per_merch_std  = average_invoices_per_merchant_standard_deviation
-    @inv_diff_total_divided = invoice_difference_total_divided
+    # @ave_inv_per_merch_std  = average_invoices_per_merchant_standard_deviation
   end
 
   # private :merchant_list,
@@ -56,7 +54,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    @standard_dev = (Math.sqrt(find_standard_deviation_total).round(2))
+    Math.sqrt(find_standard_deviation_total).round(2)
   end
 
   def create_merchant_id_item_total_list
@@ -81,7 +79,7 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(merchant_id)
     list = find_the_collections_of_items(merchant_id)
-    ((((list.reduce(0) { |sum, item| sum + item.unit_price_to_dollars }) / (list.count)) * 100).floor(2))
+    ((((list.reduce(0) { |sum, item| sum + item.unit_price.round(2) }) / (list.count))).round(2))
   end
 
   def find_the_collections_of_items(merchant_id)
@@ -91,7 +89,7 @@ class SalesAnalyst
   def average_average_price_per_merchant
     (merchant_list.reduce(0) { |sum, merchant|
       sum + average_item_price_for_merchant(merchant)
-      } / merchant_list.count).floor(2)
+    } / merchant_list.count).round(2)
   end
 
   def average_unit_price
@@ -114,7 +112,7 @@ class SalesAnalyst
   end
 
   def golden_items_deviation
-    @golden_items_dev = (average_unit_price + (unit_price_standard_deviation * 2))
+    (average_unit_price + (unit_price_standard_deviation * 2))
   end
 
   def golden_items
@@ -140,21 +138,21 @@ class SalesAnalyst
   end
 
   def invoice_difference_total_divided
-    @inv_diff_total_divided = (invoice_total_minus_average_squared / (find_invoice_totals.length - 1))
+    (invoice_total_minus_average_squared / (find_invoice_totals.length - 1))
   end
 
   def average_invoices_per_merchant_standard_deviation
-    @ave_inv_per_merch_std = (Math.sqrt(@inv_diff_total_divided).round(2))
+    (Math.sqrt(invoice_difference_total_divided).round(2))
   end
 
   def invoice_count_two_standard_deviations_above_mean
     average_invoices_per_merchant +
-    (@ave_inv_per_merch_std * 2)
+    (average_invoices_per_merchant_standard_deviation * 2)
   end
 
   def invoice_count_two_standard_deviations_below_mean
     average_invoices_per_merchant -
-    (@ave_inv_per_merch_std * 2)
+    (average_invoices_per_merchant_standard_deviation * 2)
   end
 
   def top_merchants_by_invoice_count
@@ -165,8 +163,9 @@ class SalesAnalyst
   end
 
   def bottom_merchants_by_invoice_count
+    sum = invoice_count_two_standard_deviations_below_mean
     create_merchant_invoice_total_list.find_all do |key, value|
-      value <= invoice_count_two_standard_deviations_below_mean
+      value <= sum
     end
   end
 
@@ -257,11 +256,34 @@ class SalesAnalyst
     (BigDecimal.new(unit_price).round(2))
   end
 
-  # def total_revenue_by_date(date)
-  #   find_all_invoices_by_date(date).map do |invoice|
-  # end
+  def clean_inv_grouped_by_merchant
+    @sales_engine.invoices.all_clean.group_by do |invoice|
+      invoice.merchant_id
+    end
+  end
 
-  # def filter_invoices_for_result(invoices, status)
-  #   invoices.find_all { |invoice| invoices.}
+  def invoice_totals(invoices)
+    invoices.map do |invoice|
+      invoice.total
+    end.sum
+  end
+
+  def total_of_invoices_per_merchant
+    clean_inv_grouped_by_merchant.reduce({}) do |result, pair|
+      result.update pair.first => (invoice_totals(pair.last))
+    end
+  end
+
+  def merchants_by_revenue
+    total_of_invoices_per_merchant.sort_by do |key, value|
+      value
+    end.reverse
+  end
+
+  def top_revenue_earners(x = 20)
+    merchants = merchants_by_revenue
+    merchants[0..x]
+  end
+
 
 end
