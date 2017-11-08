@@ -15,16 +15,22 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    total_items = se.items.all.count
-    total_merchants = se.merchants.all.count
-    (total_items.to_f / total_merchants.to_f).round(2)
+    (total_items.to_f / total_merchants).round(2)
+  end
+
+  def total_items
+    se.items.all.count
+  end
+
+  def total_merchants
+    se.merchants.all.count
   end
 
   def average_invoices_per_merchant
-    average(all_merchants_invoices).round(2)
+    average(all_merchants_invoices_count).round(2)
   end
 
-  def all_merchants_invoices
+  def all_merchants_invoices_count
     se.merchants.all.map do |merchant|
       merchant.invoices.count
     end
@@ -167,11 +173,15 @@ class SalesAnalyst
   end
 
   def one_time_buyers
-    specific_customers = Hash.new(0)
-
-    se.customers.all.each do |customer|
-      specific_customers[customer] = customer.fully_paid_invoices.count
+    specific_customers = se.customers.all.reduce({}) do |result, customer|
+      result[customer] = customer.fully_paid_invoices.count
+      result
     end
+    # specific_customers = Hash.new(0)
+    #
+    # se.customers.all.each do |customer|
+    #   specific_customers[customer] = customer.fully_paid_invoices.count
+    # end
 
     one_time_customers = specific_customers.find_all do |cust, paid_invoices|
       paid_invoices == 1
@@ -251,6 +261,29 @@ class SalesAnalyst
     se.invoices.all.max_by do |invoice|
       invoice.total
     end
+  end
+
+  def best_invoice_by_quantity
+    se.invoices.all.max_by do |invoice|
+      invoice.total_item_quantities
+    end
+  end
+
+  def items_bought_in_year(customer_id, year)
+    #first find customer by customer ID
+    customer = se.customers.find_by_id(customer_id)
+    #find all of those customer's invoices
+    invoices = customer.find_invoices_linked_to_customer
+    #filter out for invoices from that year
+    invoices_from_year = invoices.find_all do |invoice|
+      invoice.created_at.year == year
+      # binding.pry
+    end
+    #now find all items from these invoices
+    invoices_from_year.map do |invoice|
+      invoice.items
+    end.flatten
+
   end
 
     private
