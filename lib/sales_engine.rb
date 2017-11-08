@@ -19,7 +19,7 @@ class SalesEngine
     @invoices      = InvoiceRepository.new(files[:invoices], self)
     @invoice_items = InvoiceItemRepository.new(files[:invoice_items], self)
     @transactions  = TransactionRepository.new(files[:transactions], self)
-    @customers = CustomerRepository.new(files[:customers], self)
+    @customers     = CustomerRepository.new(files[:customers], self)
   end
 
   def self.from_csv(files)

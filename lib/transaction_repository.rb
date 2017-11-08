@@ -10,7 +10,8 @@ class TransactionRepository
   attr_reader :transactions, :engine
 
   def initialize(transactions_file, engine)
-    @transactions = create_elements(transactions_file).map {|transaction| Transaction.new(transaction, self)}
+    @transactions = create_elements(transactions_file).map {|transaction|
+      Transaction.new(transaction, self)}
     @engine = engine
   end
 

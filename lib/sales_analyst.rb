@@ -33,4 +33,6 @@ class SalesAnalyst
       merchant.id
     end
   end
+
+
 end
