@@ -87,6 +87,8 @@ module MerchantAnalyst
     revenue_by_invoice_id.reduce(Hash.new(0)) do |result, (invoice_id, revenue)|
       if @sales_engine.invoices.find_by_id(invoice_id).is_paid_in_full?
         result[@sales_engine.invoices.find_by_id(invoice_id).merchant_id] += revenue
+      else
+        result[@sales_engine.invoices.find_by_id(invoice_id).merchant_id] += 0
       end
       result
     end

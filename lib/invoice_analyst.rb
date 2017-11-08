@@ -81,7 +81,7 @@ module InvoiceAnalyst
       squared_difference = (average_invoices - count) ** 2
       result + squared_difference
     end
-    Math.sqrt(sum / 7)
+    Math.sqrt(sum / 6)
   end
 
   def top_days_by_invoice_count
