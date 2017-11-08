@@ -36,4 +36,10 @@ class Customer
     end
   end
 
+  def unpaid_invoices
+    find_invoices_linked_to_customer.find_all do |invoice|
+      invoice.not_paid_in_full?
+    end
+  end
+
 end

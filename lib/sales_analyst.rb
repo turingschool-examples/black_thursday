@@ -208,6 +208,51 @@ class SalesAnalyst
     Array.new << se.items.find_by_id(top_item_ID[0])
   end
 
+  def highest_volume_items(customer_ID)
+    #First step --> find that customer
+    customer = se.customers.find_by_id(customer_ID)
+    #Find all fully paid invoices from that customer
+    all_invoices = customer.find_invoices_linked_to_customer
+    #Now find all InvoiceItems for these invoices
+    all_invoice_items = all_invoices.map do |invoice|
+      invoice.invoice_items
+    end.flatten
+    #Now generate hash with itemIDs => invoice_item.quantity
+    items_with_quantity = Hash.new(0)
+
+    all_invoice_items.each do |invoice_item|
+      if items_with_quantity[invoice_item.item_id]
+        items_with_quantity[invoice_item.item_id] += invoice_item.quantity
+      else
+        items_with_quantity[invoice_item.item_id] = invoice_item.quantity
+      end
+    end
+    #Now find the item with the max cumulative quantity
+    max_item_quantity = items_with_quantity.values.max
+
+    max_items = items_with_quantity.find_all do |item, quantity|
+      quantity == max_item_quantity
+    end
+
+    max_items.map do |item_and_quantity|
+      se.items.find_by_id(item_and_quantity[0])
+    end
+  end
+
+  def customers_with_unpaid_invoices
+    se.customers.all.find_all do |customer|
+      customer.find_invoices_linked_to_customer.any? do |invoice|
+        invoice.is_paid_in_full? == false
+      end
+    end
+  end
+
+  def best_invoice_by_revenue
+    se.invoices.all.max_by do |invoice|
+      invoice.total
+    end
+  end
+
     private
 
       def all_item_prices

@@ -224,13 +224,28 @@ class SalesAnalystTest < MiniTest::Test
   #   assert_instance_of Customer, sa.one_time_buyers.first
   #   assert_equal 150, sa.one_time_buyers.count
   # end
+  #
+  # def test_one_time_buyers_top_items
+  #   assert_instance_of Array, sa.one_time_buyers_top_items
+  #   assert_instance_of Item, sa.one_time_buyers_item.first
+  #   assert_equal 1, sa.one_time_buyers_item.count
+  # end
+  #
+  # def test_SA_finds_highest_volume_item_for_a_customer
+  #   assert_instance_of Array, sa.highest_volume_items(200)
+  #   assert_instance_of Item, sa.highest_volume_items(200).first
+  #   assert_equal 6, sa.highest_volume_items(200).count
+  # end
 
-  def test_one_time_buyers_top_items
-    assert_instance_of Array, sa.one_time_buyers_top_items
-    assert_instance_of Item, sa.one_time_buyers_item.first
-    assert_equal 1, sa.one_time_buyers_item.count
+  # def test_SA_finds_customers_with_unpaid_invoices
+  #   assert_instance_of Array, sa.customers_with_unpaid_invoices
+  #   assert_instance_of Customer, sa.customers_with_unpaid_invoices.first
+  #   assert_equal 786, sa.customers_with_unpaid_invoices.count
+  # end
+
+  def test_SA_finds_best_invoice_by_revenue
+    assert_instance_of Invoice, sa.best_invoice_by_revenue
   end
-
 
 
 end
