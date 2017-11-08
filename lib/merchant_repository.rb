@@ -8,7 +8,8 @@ class MerchantRepository
   attr_reader :merchants, :engine, :merchants_file
 
   def initialize(merchants_file, engine)
-    @merchants = create_elements(merchants_file).map {|merchant| Merchant.new(merchant, self)}
+    @merchants = create_elements(merchants_file).map {|merchant|
+       Merchant.new(merchant, self)}
     @engine = engine
   end
 

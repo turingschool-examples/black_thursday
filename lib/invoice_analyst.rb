@@ -38,7 +38,7 @@ module InvoiceAnalyst
   def high_invoice_count_merchant_ids
     std_dev = calculate_invoice_std_dev
     merchants_and_invoice_count.map do |merchant_id,invoice_count|
-      merchant_id if invoice_count > (average_invoices_per_merchant + (std_dev*2))
+      merchant_id if invoice_count > (average_invoices_per_merchant+(std_dev*2))
     end.compact
   end
 
@@ -51,7 +51,7 @@ module InvoiceAnalyst
   def low_invoice_count_merchant_ids
     std_dev = calculate_invoice_std_dev
     merchants_and_invoice_count.map do |merchant_id,invoice_count|
-      merchant_id if invoice_count < (average_invoices_per_merchant - (std_dev*2))
+      merchant_id if invoice_count < (average_invoices_per_merchant-(std_dev*2))
     end.compact
   end
 
