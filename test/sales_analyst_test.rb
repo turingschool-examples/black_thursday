@@ -224,7 +224,7 @@ class SalesAnalystTest < MiniTest::Test
   #   assert_instance_of Customer, sa.one_time_buyers.first
   #   assert_equal 150, sa.one_time_buyers.count
   # end
-  #
+
   # def test_one_time_buyers_top_items
   #   assert_instance_of Array, sa.one_time_buyers_top_items
   #   assert_instance_of Item, sa.one_time_buyers_item.first
@@ -250,6 +250,12 @@ class SalesAnalystTest < MiniTest::Test
   # def test_SA_can_find_best_invoice_by_quantity
   #   assert_instance_of Invoice, sa.best_invoice_by_quantity
   # end
+
+  def test_SA_can_find_which_items_customer_bought_in_certain_year
+    assert_instance_of Array, sa.items_bought_in_year(400, 2002)
+    assert_equal 2, sa.items_bought_in_year(400, 2002).count
+    assert_instance_of Item, sa.items_bought_in_year(400, 2002).first
+  end
 
 
 end
