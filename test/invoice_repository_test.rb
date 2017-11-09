@@ -85,13 +85,13 @@ class InvoiceRepositoryTest < MiniTest::Test
   end
 
   def test_that_it_finds_items_by_invoice_id
-    item1 = @items.all[1]
-    item2 = @items.all[14]
-    item3 = @items.all[0]
-    item4 = @items.all[2]
-    item5 = @items.all[3]
+    i1 = @items.all[1]
+    i2 = @items.all[14]
+    i3 = @items.all[0]
+    i4 = @items.all[2]
+    i5 = @items.all[3]
 
-    assert_equal [item1, item2, item3, item4, item5], @invoices.find_items_by_invoice_id(1)
+    assert_equal [i1, i2, i3, i4, i5], @invoices.find_items_by_invoice_id(1)
   end
 
   def test_that_it_finds_transactions_by_invoice_id
