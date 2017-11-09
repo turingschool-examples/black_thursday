@@ -22,9 +22,4 @@ class MerchantTest < Minitest::Test
    assert_instance_of Merchant, merchant
   end
 
-  def test_merchant_can_search_for_id
-
-  end
-
-
 end

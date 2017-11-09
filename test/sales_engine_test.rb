@@ -9,7 +9,3 @@ class SalesEngineTest < MiniTest::Test
   end
 
 end
-
-
-# NEEDS INTEGRATION TESTS
-# NEEDS UNIT TESTS
