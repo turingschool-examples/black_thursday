@@ -9,7 +9,7 @@ module InvoiceAnalyst
 
   def find_invoices_per_merchant
     pull_all_merchant_ids.map do |merchant_id|
-      @sales_engine.invoices.find_all_by_merchant_id(merchant_id).count
+      @invoices.find_all_by_merchant_id(merchant_id).count
     end
   end
 
@@ -18,10 +18,9 @@ module InvoiceAnalyst
   end
 
   def calculate_invoice_std_dev
-    sum = find_invoices_per_merchant.reduce(0) do |result, merchant|
+    sum = find_invoices_per_merchant.reduce(0) {|result, merchant|
       squared_difference = (average_invoices_per_merchant - merchant) ** 2
-      result + squared_difference
-    end
+      result + squared_difference}
     Math.sqrt(sum / (total_merchants-1)).round(2)
   end
 
@@ -31,7 +30,7 @@ module InvoiceAnalyst
 
   def top_merchants_by_invoice_count
     high_invoice_count_merchant_ids.map do |merchant_id|
-      @sales_engine.merchants.find_by_id(merchant_id)
+      @merchants.find_by_id(merchant_id)
     end
   end
 
@@ -44,7 +43,7 @@ module InvoiceAnalyst
 
   def bottom_merchants_by_invoice_count
     low_invoice_count_merchant_ids.map do |merchant_id|
-      @sales_engine.merchants.find_by_id(merchant_id)
+      @merchants.find_by_id(merchant_id)
     end
   end
 
@@ -63,24 +62,24 @@ module InvoiceAnalyst
     Math.sqrt(invoice_std_dev_calculate_sum / (total_invoices-1)).round(2)
   end
 
-  def invoices_per_day
-    days = {"Sunday"=>0,"Monday"=>0,
-            "Tuesday"=>0,"Wednesday"=>0,
-            "Thursday"=>0,"Friday"=>0,
-            "Saturday"=>0,}
+  def days_of_the_week
+    {"Sunday"=>0,"Monday"=>0,
+    "Tuesday"=>0,"Wednesday"=>0,
+    "Thursday"=>0,"Friday"=>0,
+    "Saturday"=>0,}
+  end
 
-    @sales_engine.invoices.all.reduce(days) do |result, invoice|
+  def invoices_per_day
+    @invoices.all.reduce(days_of_the_week) do |result, invoice|
         result[Time.parse(invoice.created_at.to_s).strftime("%A")] += 1
         result
     end
   end
 
   def invoice_count_std_dev
-    average_invoices = average_invoices_per_day
-    sum = invoices_per_day.reduce(0) do |result, (day, count)|
-      squared_difference = (average_invoices - count) ** 2
-      result + squared_difference
-    end
+    sum = invoices_per_day.reduce(0) { |result, (_, count)|
+      squared_difference = (average_invoices_per_day - count) ** 2
+      result + squared_difference}
     Math.sqrt(sum / 6)
   end
 
@@ -94,7 +93,7 @@ module InvoiceAnalyst
 
   def invoice_status_sum
     starting_status = {:pending=>0, :shipped=>0, :returned=>0}
-    @sales_engine.invoices.all.reduce(starting_status) do |result, invoice|
+    @invoices.all.reduce(starting_status) do |result, invoice|
         result[invoice.status.to_sym] += 1
         result
       end
