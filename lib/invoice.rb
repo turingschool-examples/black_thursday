@@ -62,7 +62,9 @@ attr_reader :id,
   end
 
   def items
-    repository.find_items_by_invoice_id(self.id)
+    invoice_items.find_all do |invoice_item|
+      invoice_item.item
+    end
   end
 
   def transactions

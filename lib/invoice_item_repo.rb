@@ -42,13 +42,9 @@ class InvoiceItemRepository
     end
   end
 
-  def format_date(date)
-    date.strftime("%m-%d-%Y")
+  def find_items_by_item_id(id)
+    sales_engine.find_item_by_item_id(id)
   end
-
-  # def find_merchant(id)
-  #   @sales_engine.find_merchant(id)
-  # end
 
   def inspect
       "#<#{self.class} #{@invoice_items.size} rows>"

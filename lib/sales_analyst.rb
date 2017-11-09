@@ -261,6 +261,12 @@ class SalesAnalyst
     end
   end
 
+  def invalid_invoices
+    @sales_engine.invoices.all.find_all do |invoice|
+      invoice.is_paid_in_full? == false
+    end
+  end
+
   def missing_merchants
     sales_engine.merchants.all.find_all do |merchant|
       merchant.valid_invoices.count == 0
@@ -314,6 +320,71 @@ class SalesAnalyst
 
   def merchants_ranked_by_revenue
     convert_revenue_to_merchants
+  end
+
+  def merchants_with_only_one_item
+    @sales_engine.merchants.all.find_all do |merchant|
+      merchant.items.count == 1
+    end
+  end
+
+  def merchants_with_invalid_invoices
+    invalid_invoices.map do |invoice|
+      invoice.merchant_id
+    end.uniq
+  end
+
+  def merchants_with_pending_invoices
+    merchants_with_invalid_invoices.map do |merchant_id|
+      sales_engine.merchants.find_by_id(merchant_id)
+    end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+      merchants_with_only_one_item.find_all do |merchant|
+        (merchant.created_at).strftime("%B") == month
+      end
+    end
+
+  def revenue_by_merchant(id)
+    invoice_totals(@sales_engine.merchants.find_by_id(id).invoices)
+  end
+
+  def valid_invoices_for_merchant(id)
+    valid_invoices.find_all do |invoice|
+      invoice.merchant_id == id
+    end.flatten
+  end
+
+  def invoice_items_for_merchant(id)
+    valid_invoices_for_merchant(id).map do |invoice|
+      invoice.invoice_items
+    end.flatten
+  end
+
+  def item_id_list_for_given_merchant(id)
+    invoice_items_for_merchant(id).map do |invoice_item|
+      invoice_item.item_id
+    end
+  end
+
+  def frequency_list_for_items(id)
+    item_id_list_for_given_merchant(id).reduce(Hash.new(0)) do |result, item|
+      result[item] += 1
+      result
+    end
+  end
+
+  def most_frequent_item_on_list(id)
+    frequency_list_for_items(id).max_by do |key, value|
+        value
+    end
+  end
+
+  def most_sold_item_for_merchant(id)
+    most_frequent_item_on_list(id).map do |item_id|
+      sales_engine.items.find_by_id(item_id)
+    end
   end
 
 end

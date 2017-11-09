@@ -1,5 +1,6 @@
 require_relative 'sales_engine'
 require_relative 'sales_analyst'
+require 'time'
 
 se = SalesEngine.from_csv({
   :items         => "./data/items.csv",
@@ -23,12 +24,8 @@ sa = SalesAnalyst.new(se)
 
 date = Time.parse("2009-02-07")
 
-expected = sa.merchants_ranked_by_revenue
+expected = sa.most_sold_item_for_merchant(12334189)
 
-first = expected.first
-last = expected.last
+p expected
 
-p expected.length
-
-p first.id
-p last.id
+# p Date::MONTHNAMES[date]
