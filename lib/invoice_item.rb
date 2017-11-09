@@ -36,6 +36,6 @@ class InvoiceItem
   end
 
   def item
-    repository.find_items_by_item_id(self.item_id)
+    repository.find_item_by_item_id(self.item_id)
   end
 end

@@ -29,4 +29,3 @@ expected = sa.best_item_for_merchant(12337105)
 p expected.id
 p expected.class
 
-# p Date::MONTHNAMES[date]

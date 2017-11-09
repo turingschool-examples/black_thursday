@@ -10,8 +10,8 @@ class Customer
 
   def initialize(item_info, parent)
     @id           = item_info[:id].to_i
-    @first_name   = item_info[:first_name]
-    @last_name    = item_info[:last_name]
+    @first_name   = item_info[:first_name].to_s
+    @last_name    = item_info[:last_name].to_s
     @created_at   = Time.parse(item_info[:created_at])
     @updated_at   = Time.parse(item_info[:updated_at])
     @repository   = parent

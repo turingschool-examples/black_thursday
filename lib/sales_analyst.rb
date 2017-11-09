@@ -1,16 +1,16 @@
 require 'time'
-require_relative 'sales_engine'
 
 class SalesAnalyst
   attr_reader :sales_engine,
-              :standard_dev,
-              :golden_items_dev
+              :standard_deviation,
+              :golden_items_dev,
+              :ave_inv_per_merch        
 
   def initialize(sales_engine)
     @sales_engine           = sales_engine
     @standard_dev           = average_items_per_merchant_standard_deviation
     @golden_items_dev       = golden_items_deviation
-    # @ave_inv_per_merch_std  = average_invoices_per_merchant_standard_deviation
+    @ave_inv_per_merch      = average_invoices_per_merchant
   end
 
   # private :merchant_list,
@@ -26,7 +26,7 @@ class SalesAnalyst
   def average_items_per_merchant
     merchant_count = @sales_engine.merchants.all.length
     item_count = @sales_engine.items.all.length
-    (item_count.to_f/ merchant_count).round(2)
+    (item_count.to_f / merchant_count).round(2)
   end
 
   def merchant_list
@@ -79,7 +79,8 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(merchant_id)
     list = find_the_collections_of_items(merchant_id)
-    ((((list.reduce(0) { |sum, item| sum + item.unit_price.round(2) }) / (list.count))).round(2))
+    reduced = list.reduce(0) { |sum, item| sum + item.unit_price }
+    (reduced / list.count).round(2)
   end
 
   def find_the_collections_of_items(merchant_id)
@@ -95,16 +96,16 @@ class SalesAnalyst
   def average_unit_price
     (@sales_engine.items.all.reduce(0) { |sum, item|
     sum + item.unit_price
-  } / @sales_engine.items.all.count).round(2)
+     } / @sales_engine.items.all.count).round(2).to_f
   end
 
-  def unit_price_and_average_difference_squared_sum
+  def unit_price_and_average_diff_sq_sum
     @sales_engine.items.all.reduce(0) { |sum, item|
     sum += (item.unit_price - average_unit_price) ** 2 }
   end
 
   def unit_price_squared_sum_division
-    unit_price_and_average_difference_squared_sum / ((@sales_engine.items.all.count) - 1)
+    unit_price_and_average_diff_sq_sum / ((@sales_engine.items.all.count) - 1)
   end
 
   def unit_price_standard_deviation
@@ -134,7 +135,7 @@ class SalesAnalyst
 
   def invoice_total_minus_average_squared
     find_invoice_totals.reduce(0) { |sum, total|
-    sum += (total - average_invoices_per_merchant) ** 2 }
+    sum += (total - @ave_inv_per_merch) ** 2 }
   end
 
   def invoice_difference_total_divided
@@ -146,27 +147,33 @@ class SalesAnalyst
   end
 
   def invoice_count_two_standard_deviations_above_mean
-    average_invoices_per_merchant +
-    (average_invoices_per_merchant_standard_deviation * 2)
+    @ave_inv_per_merch + (average_invoices_per_merchant_standard_deviation * 2)
   end
 
   def invoice_count_two_standard_deviations_below_mean
-    average_invoices_per_merchant -
-    (average_invoices_per_merchant_standard_deviation * 2)
+    @ave_inv_per_merch - (average_invoices_per_merchant_standard_deviation * 2)
   end
 
-  def top_merchants_by_invoice_count
+  def top_merchants
     sum = invoice_count_two_standard_deviations_above_mean
     create_merchant_invoice_total_list.find_all do |key, value|
-      value >= sum
+      key if value >= sum
+    end
+  end
+  
+  def top_merchants_by_invoice_count
+    top_merchants.map { |item| sales_engine.merchants.find_by_id(item.first) }
+  end
+
+  def bottom_merchants
+    sum = invoice_count_two_standard_deviations_below_mean
+    create_merchant_invoice_total_list.find_all do |key, value|
+      key if value <= sum
     end
   end
 
   def bottom_merchants_by_invoice_count
-    sum = invoice_count_two_standard_deviations_below_mean
-    create_merchant_invoice_total_list.find_all do |key, value|
-      value <= sum
-    end
+    bottom_merchants.map {|item| sales_engine.merchants.find_by_id(item.first)}
   end
 
   def create_merchant_invoice_total_list
@@ -252,7 +259,7 @@ class SalesAnalyst
   end
 
   def unit_price_to_dollars(unit_price)
-    (BigDecimal.new(unit_price).round(2))
+    (BigDecimal.new(unit_price)/100).round(2).to_f
   end
 
   def valid_invoices
@@ -278,8 +285,6 @@ class SalesAnalyst
       invoice.merchant_id
     end
   end
-  #
-  # missing_merchant.each {|merchant| a.merge({merchant.id => 0})}
 
   def invoice_totals(invoices)
     invoices.reduce(0) do |sum, invoice|
@@ -410,5 +415,4 @@ class SalesAnalyst
   def best_item_for_merchant(id)
     @sales_engine.items.find_by_id(highest_inv_item_revenue(id).first.item_id)
   end
-
 end

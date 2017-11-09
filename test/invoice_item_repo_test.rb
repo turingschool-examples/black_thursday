@@ -64,4 +64,20 @@ class InvoiceItemRepoTest < Minitest::Test
     assert_equal [], results
   end
 
+  def test_it_can_find_item_by_item_id
+    se = SalesEngine.from_csv({
+      :items         => "./data/items.csv",
+      :merchants     => "./data/merchants.csv",
+      :invoices      => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions  => "./data/transactions.csv",
+      :customers     => "./data/customers.csv"
+    })
+
+    invoice_item_repo = InvoiceItemRepository.new(se, "./data/invoice_items.csv")
+    results = invoice_item_repo.find_item_by_item_id(263395237)
+
+    assert_equal 263395237, results.id
+    assert_equal "510+ RealPush Icon Set", results.name
+  end
 end
