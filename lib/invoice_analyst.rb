@@ -85,25 +85,22 @@ module InvoiceAnalyst
 
   def top_days_by_invoice_count
     avg_invoices = average_invoices_per_day
-    invoices_per_day.reduce([]) do |result, (day, invoice_count)|
+    invoices_per_day.reduce([]) {|result, (day, invoice_count)|
       result << day if invoice_count > (avg_invoices + invoice_count_std_dev)
-      result
-    end
+      result}
   end
 
   def invoice_status_sum
     starting_status = {:pending=>0, :shipped=>0, :returned=>0}
-    @invoices.all.reduce(starting_status) do |result, invoice|
+    @invoices.all.reduce(starting_status) {|result, invoice|
         result[invoice.status.to_sym] += 1
-        result
-      end
+        result}
   end
 
   def invoice_status(invoice_status)
-    percent = invoice_status_sum.reduce({}) do |result, (status, sum)|
+    percent = invoice_status_sum.reduce({}) {|result, (status, sum)|
       result[status] = (sum / total_invoices) * 100
-      result
-    end
+      result}
     percent[invoice_status].round(2)
   end
 end
