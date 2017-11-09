@@ -126,7 +126,6 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_can_get_hash_with_invoices_matched_to_day_created
-    skip
     se = SalesEngine.from_csv({
       :items     => "./test/fixtures/items_fixture.csv",
       :merchants => "./test/fixtures/merchants_fixture.csv",
