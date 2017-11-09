@@ -44,7 +44,6 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_can_get_invoices_from_merchant
-
     merchant = se.merchants.find_by_id(12334159)
 
     assert_instance_of Array, merchant.invoices
@@ -52,21 +51,18 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_can_get_merchant_from_invoice
-
     invoice = se.invoices.find_by_id(20)
 
     assert_instance_of Merchant, invoice.merchant
   end
 
   def test_invoice_communicates_with_items
-
     invoice = se.invoices.find_by_id(20)
 
     assert_instance_of Array, invoice.items
   end
 
   def test_invoice_linked_to_transaction
-
     invoice = se.invoices.find_by_id(20)
 
     assert_instance_of Array, invoice.transactions
@@ -74,14 +70,12 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_invoice_linked_to_customer
-
     invoice = se.invoices.find_by_id(20)
 
     assert_instance_of Customer, invoice.customer
   end
 
   def test_transaction_can_be_linked_to_invoice
-
     transaction = se.transactions.find_by_id(40)
 
     assert_instance_of Invoice, transaction.invoice
