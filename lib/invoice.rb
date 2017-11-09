@@ -1,4 +1,5 @@
 require 'time'
+require 'pry'
 
 class Invoice
 
@@ -61,7 +62,9 @@ attr_reader :id,
   end
 
   def items
-    repository.find_items_by_invoice_id(self.id)
+    invoice_items.map do |invoice_item|
+      invoice_item.item
+    end
   end
 
   def transactions

@@ -210,7 +210,7 @@ class SalesAnalystTest < Minitest::Test
 
     sa = SalesAnalyst.new(se)
 
-    assert_equal 10.00, sa.average_item_price_for_merchant(12334105)
+    assert_equal 9.99, sa.average_item_price_for_merchant(12334105)
   end
 
 
@@ -241,7 +241,7 @@ class SalesAnalystTest < Minitest::Test
 
     sa = SalesAnalyst.new(se)
 
-    assert_equal 35.81, sa.average_average_price_per_merchant
+    assert_equal 35.77, sa.average_average_price_per_merchant
   end
 
   def test_it_can_find_average_unit_price
@@ -271,7 +271,7 @@ class SalesAnalystTest < Minitest::Test
 
     sa = SalesAnalyst.new(se)
 
-    assert_equal 126898.96, sa.unit_price_and_average_difference_squared_sum.round(2)
+    assert_equal 126898.96, sa.unit_price_and_average_diff_sq_sum.round(2)
   end
 
   def test_it_can_find_unit_price_squared_sum_division
@@ -473,8 +473,9 @@ class SalesAnalystTest < Minitest::Test
 
     sa = SalesAnalyst.new(se)
 
-    assert_equal 12334132, sa.bottom_merchants_by_invoice_count.first.first
-    assert_equal 0, sa.bottom_merchants_by_invoice_count.first.last
+    assert_equal 12334132, sa.bottom_merchants_by_invoice_count.first.id
+    assert_equal "perlesemoi", sa.bottom_merchants_by_invoice_count.first.name
+    assert_equal 1, sa.bottom_merchants_by_invoice_count.count
   end
 
   def test_it_can_find_top_merchants_by_invoice_count
@@ -489,7 +490,7 @@ class SalesAnalystTest < Minitest::Test
 
     sa = SalesAnalyst.new(se)
 
-    assert_equal [], sa.top_merchants_by_invoice_count
+    assert_equal 0, sa.top_merchants_by_invoice_count.count
   end
 
   def test_it_can_map_created_dates_to_weekdays
@@ -644,5 +645,88 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 22, sa.find_all_invoices(:returned).count
     assert_equal 49, sa.find_all_invoices(:pending).count
     assert_equal 91, sa.find_all_invoices(:shipped).count
+  end
+
+  def test_it_can_find_all_invoices_by_date
+    se = SalesEngine.from_csv({
+      :items     => "./test/fixtures/items_truncated.csv",
+      :merchants => "./test/fixtures/merchants_truncated.csv",
+      :invoices => "./test/fixtures/invoices_truncated.csv",
+      :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
+      :transactions => "./test/fixtures/transactions_truncated.csv",
+      :customers => "./test/fixtures/customers_truncated.csv"
+    })
+
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 14, sa.find_all_invoices_by_date(Time.parse("2005-01-03")).first.customer_id
+    assert_equal 12334105, sa.find_all_invoices_by_date(Time.parse("2005-01-03")).first.merchant_id
+  end
+
+  def test_it_can_find_total_revenue_by_date
+    se = SalesEngine.from_csv({
+      :items     => "./test/fixtures/items_truncated.csv",
+      :merchants => "./test/fixtures/merchants_truncated.csv",
+      :invoices => "./test/fixtures/invoices_truncated.csv",
+      :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
+      :transactions => "./test/fixtures/transactions_truncated.csv",
+      :customers => "./test/fixtures/customers_truncated.csv"
+    })
+
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 144.97, sa.total_revenue_by_date(Time.parse("2005-01-03"))
+  end
+
+  def test_it_can_find_unit_price_to_dollars
+    se = SalesEngine.from_csv({
+      :items     => "./test/fixtures/items_truncated.csv",
+      :merchants => "./test/fixtures/merchants_truncated.csv",
+      :invoices => "./test/fixtures/invoices_truncated.csv",
+      :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
+      :transactions => "./test/fixtures/transactions_truncated.csv",
+      :customers => "./test/fixtures/customers_truncated.csv"
+    })
+
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 15, sa.unit_price_to_dollars(1500)
+  end
+
+  def test_it_can_find_all_invoices_by_date
+    se = SalesEngine.from_csv({
+      :items     => "./test/fixtures/items_truncated.csv",
+      :merchants => "./test/fixtures/merchants_truncated.csv",
+      :invoices => "./test/fixtures/invoices_truncated.csv",
+      :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
+      :transactions => "./data/transactions.csv",
+      :customers => "./test/fixtures/customers_truncated.csv"
+    })
+
+    sa = SalesAnalyst.new(se)
+
+    assert_equal true, sa.find_all_invoices_by_date(Time.parse("2005-01-03")).first.is_paid_in_full?
+
+    invoice = sa.find_all_invoices_by_date(Time.parse("2005-01-03"))
+    assert_equal 74, sa.filter_valid_invoices(invoice).first.id
+  end
+
+  def test_it_can_find_invoice_items_for_invoice_collection
+    se = SalesEngine.from_csv({
+      :items     => "./test/fixtures/items_truncated.csv",
+      :merchants => "./test/fixtures/merchants_truncated.csv",
+      :invoices => "./test/fixtures/invoices_truncated.csv",
+      :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
+      :transactions => "./data/transactions.csv",
+      :customers => "./test/fixtures/customers_truncated.csv"
+    })
+
+    sa = SalesAnalyst.new(se)
+
+    invoice = sa.find_all_invoices_by_date(Time.parse("2005-01-03"))
+
+    assert_equal 6, sa.find_invoice_items_for_invoice_collection(invoice).count
+    assert_equal 344, sa.find_invoice_items_for_invoice_collection(invoice).first.id
+    assert_equal 349, sa.find_invoice_items_for_invoice_collection(invoice).last.id
   end
 end

@@ -45,7 +45,7 @@ class SalesAnalyst
   def find_standard_deviation_difference_total
     find_items.map do |item_total|
       (item_total - average_items_per_merchant) ** 2
-    end.sum
+    end.sum.round(2)
   end
 
   def find_standard_deviation_total
@@ -82,7 +82,7 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(merchant_id)
     list = find_the_collections_of_items(merchant_id)
-    reduced = list.reduce(0) { |sum, item| sum + item.unit_price.round(2) }
+    reduced = list.reduce(0) { |sum, item| sum + item.unit_price }
     (reduced / list.count).round(2)
   end
 
@@ -97,9 +97,9 @@ class SalesAnalyst
   end
 
   def average_unit_price
-    @sales_engine.items.all.reduce(0) { |sum, item|
+    (@sales_engine.items.all.reduce(0) { |sum, item|
     sum + item.unit_price
-     } / @sales_engine.items.all.count
+     } / @sales_engine.items.all.count).round(2).to_f
   end
 
   def unit_price_and_average_diff_sq_sum
@@ -157,18 +157,26 @@ class SalesAnalyst
     @ave_inv_per_merch - (average_invoices_per_merchant_standard_deviation * 2)
   end
 
-  def top_merchants_by_invoice_count
+  def top_merchants
     sum = invoice_count_two_standard_deviations_above_mean
     create_merchant_invoice_total_list.find_all do |key, value|
       key if value >= sum
-    end.flatten
+    end
   end
 
-  def bottom_merchants_by_invoice_count
+  def top_merchants_by_invoice_count
+    top_merchants.map { |item| sales_engine.merchants.find_by_id(item.first) }
+  end
+
+  def bottom_merchants
     sum = invoice_count_two_standard_deviations_below_mean
     create_merchant_invoice_total_list.find_all do |key, value|
       key if value <= sum
-    end.flatten
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    bottom_merchants.map {|item| sales_engine.merchants.find_by_id(item.first)}
   end
 
   def create_merchant_invoice_total_list
@@ -255,7 +263,7 @@ class SalesAnalyst
 
   def unit_price_to_dollars(unit_price)
     # (unit_price).round(2).to_f
-    (BigDecimal.new(unit_price).round(2))
+    (BigDecimal.new(unit_price)/100).round(2).to_f
   end
 
   # def total_revenue_by_date(date)

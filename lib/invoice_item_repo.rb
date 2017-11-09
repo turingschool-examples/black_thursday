@@ -49,6 +49,10 @@ class InvoiceItemRepository
     date.strftime("%m-%d-%Y")
   end
 
+  def find_item_by_item_id(id)
+    sales_engine.find_item_by_item_id(id)
+  end
+
   # def find_merchant(id)
   #   @sales_engine.find_merchant(id)
   # end
