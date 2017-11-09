@@ -152,16 +152,36 @@ module MerchantAnalyst
   end
 
   def most_sold_item_for_merchant(merchant_id)
-    items_by_quantity = @sales_engine.invoice_items.all.reduce(Hash.new(0)) do |result, invoice_item|
-      result[invoice_item.item_id] += invoice_item.quantity
+    merchant = @sales_engine.merchants.find_by_id(merchant_id)
+    invoices =  @sales_engine.invoices.all.find_all do |invoice|
+        invoice.merchant_id == merchant.id
+      end
+    invoice_items = invoices.map do |invoice|
+      @sales_engine.invoice_items.find_all_by_invoice_id(invoice.id)
+    end.flatten
+    item_ids = invoice_items.reduce(Hash.new(0)) do |result, invoice_item|
+      result[@sales_engine.items.find_by_id(invoice_item.item_id)] += invoice_item.quantity
       result
     end
-    items_by_quantity.reduce(Hash.new(0)) do |result, (item_id, quantity)|
-      result[@sales_engine.items.find_by_id(item_id)] += quantity
-      result
-    end
-  end
+    #   thing = item_ids.reduce(Hash.new(0)) do |result, (item_id, quantity)|
+    #     result[@sales_engine.items.find_by_id(invoice_items.item_id)] += quantity
+    #     result
+      # end
 
+    # items_by_quantity = @sales_engine.invoice_items.all.reduce(Hash.new(0)) do |result, invoice_item|
+    #   result[invoice_item.item_id] += invoice_item.quantity
+    #   result
+    # end
+    # thing = items_by_quantity.reduce(Hash.new(0)) do |result, (item_id, quantity)|
+    #   if @sales_engine.items.find_by_id(item_id).merchant_id == merchant_id
+    #     result[@sales_engine.items.find_by_id(item_id)] += quantity
+    #   end
+    #   result
+    stuff = item_ids.find_all do |item, quantity|
+       quantity == item_ids.values.max
+     end.map(&:first)
+    #  binding.pry
+  end
 
 
 end
