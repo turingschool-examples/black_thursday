@@ -28,7 +28,7 @@ class Merchant
   def customers
      invoices.map do |invoice|
        repository.find_customer_by_customer_id(invoice.customer_id)
-     end
+     end.uniq
   end
 
   def valid_invoices

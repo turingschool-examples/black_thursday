@@ -675,7 +675,7 @@ class SalesAnalystTest < Minitest::Test
 
     sa = SalesAnalyst.new(se)
 
-    assert_equal 144.97, sa.total_revenue_by_date(Time.parse("2005-01-03"))
+    assert_equal 14496.62, sa.total_revenue_by_date(Time.parse("2005-01-03"))
   end
 
   def test_it_can_find_unit_price_to_dollars
