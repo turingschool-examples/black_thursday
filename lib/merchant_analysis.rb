@@ -2,9 +2,8 @@ module MerchantAnalysis
 
   def golden_items
     average = average_average_price_per_merchant
-    standard_deviation = standard_deviation(all_item_prices)
     se.items.all.find_all do |item|
-      item.unit_price > average + (2 * standard_deviation)
+      item.unit_price > average + (2 * standard_deviation(all_item_prices))
     end
   end
 
@@ -12,12 +11,11 @@ module MerchantAnalysis
     average_prices = se.merchants.all.map do |merchant|
       average_item_price_for_merchant(merchant.id)
     end
-    BigDecimal(average(average_prices), 6)
+    BigDecimal(average(average_prices), 6).floor(2)
   end
 
   def average_item_price_for_merchant(merchant_id)
-    merchant = se.merchants.find_by_id(merchant_id)
-    prices = merchant.items.map do |item|
+    prices = se.merchants.find_by_id(merchant_id).items.map do |item|
       item.unit_price.to_f
     end
     BigDecimal(average(prices), 4)
@@ -28,10 +26,9 @@ module MerchantAnalysis
   end
 
   def merchants_with_high_item_count
-    average = average_items_per_merchant
     standard_deviation = average_items_per_merchant_standard_deviation
     se.merchants.all.find_all do |merchant|
-      merchant.items.count > average + standard_deviation
+      merchant.items.count > average_items_per_merchant + standard_deviation
     end
   end
 

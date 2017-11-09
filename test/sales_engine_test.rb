@@ -116,7 +116,9 @@ class SalesEngineTest < Minitest::Test
   def test_can_get_fully_paid_invoices_for_customer
     customer = se.customers.find_by_id(30)
 
-    assert_equal [], customer.fully_paid_invoices
+    assert_instance_of Array, customer.fully_paid_invoices
+    assert_instance_of Invoice, customer.fully_paid_invoices.last
+    assert_equal 3, customer.fully_paid_invoices.count
   end
 
 end

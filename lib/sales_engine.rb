@@ -1,4 +1,3 @@
-require 'pry'
 require_relative "item_repository"
 require_relative "merchant_repository"
 require_relative "invoice_repository"
@@ -25,20 +24,13 @@ class SalesEngine
   end
 
   def self.from_csv(repo)
-    items_CSV        = repo[:items]
-    merchants_CSV    = repo[:merchants]
-    invoices_CSV     = repo[:invoices]
-    customers_CSV    = repo[:customers]
-    transactions_CSV = repo[:transactions]
-    inv_item_CSV     = repo[:invoice_items]
-
     se = SalesEngine.new
-    se.items.populate(items_CSV) unless items_CSV.nil?
-    se.merchants.populate(merchants_CSV) unless merchants_CSV.nil?
-    se.invoices.populate(invoices_CSV) unless invoices_CSV.nil?
-    se.customers.populate(customers_CSV) unless customers_CSV.nil?
-    se.transactions.populate(transactions_CSV) unless transactions_CSV.nil?
-    se.invoice_items.populate(inv_item_CSV) unless inv_item_CSV.nil?
+    se.items.populate(repo[:items]) if repo[:items]
+    se.merchants.populate(repo[:merchants]) if repo[:merchants]
+    se.invoices.populate(repo[:invoices]) if repo[:invoices]
+    se.customers.populate(repo[:customers]) if repo[:customers]
+    se.transactions.populate(repo[:transactions]) if repo[:transactions]
+    se.invoice_items.populate(repo[:invoice_items]) if repo[:invoice_items]
     return se
   end
 
