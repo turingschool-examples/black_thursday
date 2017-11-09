@@ -10,10 +10,15 @@ class SalesAnalyst
   include ItemAnalyst
   include InvoiceAnalyst
 
-  attr_reader :sales_engine
+  attr_reader :sales_engine, :invoices, :items,
+              :invoice_items, :merchants
 
   def initialize(sales_engine_from_csv)
     @sales_engine = sales_engine_from_csv
+    @invoices = @sales_engine.invoices
+    @items = @sales_engine.items
+    @invoice_items = @sales_engine.invoice_items
+    @merchants = @sales_engine.merchants
   end
 
   def total_items
@@ -29,7 +34,7 @@ class SalesAnalyst
   end
 
   def pull_all_merchant_ids
-    @sales_engine.merchants.merchants.map do |merchant|
+    merchants.merchants.map do |merchant|
       merchant.id
     end
   end

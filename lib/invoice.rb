@@ -37,7 +37,7 @@ class Invoice
     repository.transaction_result(@id).each do |transaction|
       return true if transaction.result == "success"
     end
-    false
+    false 
   end
 
   def total
