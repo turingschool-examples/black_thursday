@@ -54,4 +54,8 @@ class TransactionRepository
     sales_engine.find_invoice_by_invoice_id(id)
   end
 
+  def find_invoice_items_by_invoice_id(id)
+    sales_engine.find_invoice_items_by_invoice_id(id)
+  end
+
 end

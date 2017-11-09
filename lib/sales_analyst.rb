@@ -1,19 +1,16 @@
 require 'time'
+
 class SalesAnalyst
   attr_reader :sales_engine,
               :standard_deviation,
               :golden_items_dev,
-              :ave_inv_per_merch
-              # :inv_diff_total_divided,
-              # :ave_inv_per_merch_std
+              :ave_inv_per_merch        
 
   def initialize(sales_engine)
     @sales_engine           = sales_engine
     @standard_dev           = average_items_per_merchant_standard_deviation
     @golden_items_dev       = golden_items_deviation
     @ave_inv_per_merch      = average_invoices_per_merchant
-    # # @inv_diff_total_divided = invoice_difference_total_divided
-    # @ave_inv_per_merch_std  = average_invoices_per_merchant_standard_deviation
   end
 
   # private :merchant_list,
@@ -57,7 +54,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    (Math.sqrt(find_standard_deviation_total).round(2))
+    Math.sqrt(find_standard_deviation_total).round(2)
   end
 
   def create_merchant_id_item_total_list
@@ -93,7 +90,7 @@ class SalesAnalyst
   def average_average_price_per_merchant
     (merchant_list.reduce(0) { |sum, merchant|
       sum + average_item_price_for_merchant(merchant)
-      } / merchant_list.count).floor(2)
+    } / merchant_list.count).round(2)
   end
 
   def average_unit_price
@@ -142,7 +139,7 @@ class SalesAnalyst
   end
 
   def invoice_difference_total_divided
-    ((invoice_total_minus_average_squared / (find_invoice_totals.length - 1)))
+    (invoice_total_minus_average_squared / (find_invoice_totals.length - 1))
   end
 
   def average_invoices_per_merchant_standard_deviation
@@ -163,7 +160,7 @@ class SalesAnalyst
       key if value >= sum
     end
   end
-
+  
   def top_merchants_by_invoice_count
     top_merchants.map { |item| sales_engine.merchants.find_by_id(item.first) }
   end
@@ -262,15 +259,160 @@ class SalesAnalyst
   end
 
   def unit_price_to_dollars(unit_price)
-    # (unit_price).round(2).to_f
     (BigDecimal.new(unit_price)/100).round(2).to_f
   end
 
-  # def total_revenue_by_date(date)
-  #   find_all_invoices_by_date(date).map do |invoice|
-  # end
+  def valid_invoices
+    @sales_engine.invoices.all.find_all do |invoice|
+      invoice.is_paid_in_full?
+    end
+  end
 
-  # def filter_invoices_for_result(invoices, status)
-  #   invoices.find_all { |invoice| invoices.}
+  def invalid_invoices
+    @sales_engine.invoices.all.find_all do |invoice|
+      invoice.is_paid_in_full? == false
+    end
+  end
 
+  def missing_merchants
+    sales_engine.merchants.all.find_all do |merchant|
+      merchant.valid_invoices.count == 0
+    end
+  end
+
+  def valid_inv_grouped_by_merchant
+    valid_invoices.group_by do |invoice|
+      invoice.merchant_id
+    end
+  end
+
+  def invoice_totals(invoices)
+    invoices.reduce(0) do |sum, invoice|
+      sum += invoice.total
+    end
+  end
+
+  def total_of_invoices_per_merchant
+    valid_inv_grouped_by_merchant.reduce({}) do |result, pair|
+      result.update pair.first => (invoice_totals(pair.last))
+    end
+  end
+
+  def fill_in_missing_merchants
+    merchants_by_rev = total_of_invoices_per_merchant
+    missing_merchants.each do |merchant|
+      merchants_by_rev[merchant.id] = 0
+    end
+    merchants_by_rev
+  end
+
+  def merchants_by_revenue
+    fill_in_missing_merchants.sort_by do |key, value|
+      value
+    end.reverse
+  end
+
+  def convert_revenue_to_merchants
+    merchants_by_revenue.map do |merchant_rev|
+      @sales_engine.merchants.find_by_id(merchant_rev.first)
+    end
+  end
+
+  def top_revenue_earners(count = 20)
+    merchants = convert_revenue_to_merchants
+    merchants.first(count)
+  end
+
+  def merchants_ranked_by_revenue
+    convert_revenue_to_merchants
+  end
+
+  def merchants_with_only_one_item
+    @sales_engine.merchants.all.find_all do |merchant|
+      merchant.items.count == 1
+    end
+  end
+
+  def merchants_with_invalid_invoices
+    invalid_invoices.map do |invoice|
+      invoice.merchant_id
+    end.uniq
+  end
+
+  def merchants_with_pending_invoices
+    merchants_with_invalid_invoices.map do |merchant_id|
+      sales_engine.merchants.find_by_id(merchant_id)
+    end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+      merchants_with_only_one_item.find_all do |merchant|
+        (merchant.created_at).strftime("%B") == month
+      end
+    end
+
+  def revenue_by_merchant(id)
+    invoice_totals(@sales_engine.merchants.find_by_id(id).invoices)
+  end
+
+  def valid_invoices_for_merchant(id)
+    valid_invoices.find_all do |invoice|
+      invoice.merchant_id == id
+    end.flatten
+  end
+
+  def invoice_items_for_merchant(id)
+    valid_invoices_for_merchant(id).map do |invoice|
+      invoice.invoice_items
+    end.flatten
+  end
+
+  def item_id_list_for_given_merchant(id)
+    invoice_items_for_merchant(id).map do |invoice_item|
+      invoice_item.item_id
+    end
+  end
+
+  def frequency_list_for_items(id)
+    item_id_list_for_given_merchant(id).reduce(Hash.new(0)) do |result, item|
+      result[item] += 1
+      result
+    end
+  end
+
+  def most_frequent_item_on_list(id)
+    frequency_list_for_items(id).max_by do |key, value|
+        value
+    end
+  end
+
+  def most_sold_item_for_merchant(id)
+    most_frequent_item_on_list(id).map do |item_id|
+      sales_engine.items.find_by_id(item_id)
+    end
+  end
+
+  def freq_of_inv_item_for_merch(id)
+    invoice_items_for_merchant(id).reduce(Hash.new(0)) do |result, item|
+      result[item] += 1
+      result
+    end
+  end
+
+  def total_of_items_sold_assigned_to_invoice_item(id)
+    freq_of_inv_item_for_merch(id).reduce(Hash.new(0)) do |result,(key, value)|
+      result[key] = (key.unit_price * key.quantity * value)
+      result
+    end
+  end
+
+  def highest_inv_item_revenue(id)
+    total_of_items_sold_assigned_to_invoice_item(id).max_by do |key, value|
+      value
+    end
+  end
+
+  def best_item_for_merchant(id)
+    @sales_engine.items.find_by_id(highest_inv_item_revenue(id).first.item_id)
+  end
 end
