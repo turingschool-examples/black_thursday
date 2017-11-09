@@ -133,8 +133,9 @@ class SalesAnalystTest < MiniTest::Test
     })
     sa = SalesAnalyst.new(se)
 
+    expected = ({"Saturday"=>1, "Friday"=>1, "Wednesday"=>1, "Monday"=>1})
     assert_instance_of Hash, sa.days_invoice_created
-    assert_equal [], sa.days_with_number_of_invoices
+    assert_equal expected, sa.days_with_number_of_invoices
   end
 
   def test_can_find_average_invoices_created_per_day
@@ -145,7 +146,7 @@ class SalesAnalystTest < MiniTest::Test
     })
     sa = SalesAnalyst.new(se)
 
-    assert_equal 1, sa.average_invoices_per_day
+    assert_equal 1, sa.average_invoices_a_day
   end
 
   def test_can_find_standard_deviation_invoices_created_per_day
@@ -210,7 +211,6 @@ class SalesAnalystTest < MiniTest::Test
 
   def test_SA_can_find_some_number_of_top_buyers
     assert_equal 20, sa.top_buyers.count
-    assert_equal 5, sa.top_buyers.count(5)
   end
 
   def test_SA_top_merchant_for_customer
@@ -225,8 +225,8 @@ class SalesAnalystTest < MiniTest::Test
 
   def test_one_time_buyers_top_items
     assert_instance_of Array, sa.one_time_buyers_top_items
-    assert_instance_of Item, sa.one_time_buyers_top_item.first
-    assert_equal 1, sa.one_time_buyers_item.count
+    assert_instance_of Item, sa.one_time_buyers_top_items.first
+    assert_equal 1, sa.one_time_buyers_top_items.count
   end
 
   def test_SA_finds_highest_volume_item_for_a_customer

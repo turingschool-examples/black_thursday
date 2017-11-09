@@ -5,7 +5,6 @@ require_relative 'merchant_analysis'
 require_relative 'invoice_analysis'
 require_relative 'customers_analysis'
 require 'bigdecimal'
-require 'pry'
 
 class SalesAnalyst
   include MerchantAnalysis
