@@ -108,7 +108,7 @@ class SalesAnalystTest < Minitest::Test
     @sales_analyst.merchants_with_only_one_item_registered_in_month("March")
   end
 
-  def test_most_sold_item_for_merchant_method
+  def test_best_item_for_merchant_method
     item = @sales_analyst.items.items[2]
 
     assert_equal item, @sales_analyst.best_item_for_merchant(12334112)
