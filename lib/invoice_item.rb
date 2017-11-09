@@ -34,4 +34,8 @@ class InvoiceItem
   def unit_price_to_dollars()
     (unit_price / 100).round(2)
   end
+
+  def item
+    repository.find_item_by_item_id(self.item_id)
+  end
 end

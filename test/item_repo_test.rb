@@ -63,12 +63,47 @@ class ItemRepoTest < Minitest::Test
 
     assert_equal 1090, item_repo.find_all_by_price_in_range(1..100).count
   end
-  #missing find_merchant test
+
   def test_can_find_by_price
     item_repo = ItemRepository.new(self, "./data/items.csv")
     results = item_repo.find_all_by_price(12)
 
-    assert_equal "The Beatles Clock | Hecho a mano", results.first.name
-    assert_equal "Abbey Road Clock | Hecho a mano", results.last.name
+    assert_equal "510+ RealPush Icon Set", results.first.name
+    assert_equal "Hello There Shibori kitchen tea towel", results.last.name
   end
+
+  def test_it_can_count_items
+    se = SalesEngine.from_csv({
+      :items         => "./data/items.csv",
+      :merchants     => "./data/merchants.csv",
+      :invoices      => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions  => "./data/transactions.csv",
+      :customers     => "./data/customers.csv"
+    })
+
+    item_repo = ItemRepository.new(se, "./data/items.csv")
+    results = item_repo.count
+
+    assert_equal 1367, results
+  end
+
+  def test_it_can_find_merchant_by_merchant_id
+    se = SalesEngine.from_csv({
+      :items         => "./data/items.csv",
+      :merchants     => "./data/merchants.csv",
+      :invoices      => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions  => "./data/transactions.csv",
+      :customers     => "./data/customers.csv"
+    })
+
+    item_repo = ItemRepository.new(se, "./data/items.csv")
+    results = item_repo.find_merchant(12334105)
+
+    assert_equal 12334105, results.id
+    assert_equal "Shopin1901", results.name
+  end
+
+
 end
