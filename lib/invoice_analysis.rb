@@ -11,24 +11,21 @@ module InvoiceAnalysis
     end
   end
 
-  def average_invoices_per_day
+  def average_invoices_a_day
     average(days_with_number_of_invoices.values)
   end
 
-  def standard_deviation_invoices_per_day
+  def standard_deviation_invoices_a_day
     standard_deviation(days_with_number_of_invoices.values)
   end
 
   def top_days_by_invoice_count
-    top_days = []
-    average = average_invoices_per_day
-    standard_deviation = standard_deviation_invoices_per_day
-    days_with_number_of_invoices.each do |day, invoices|
-      if invoices > average + standard_deviation
-        top_days << day
+    days_with_number_of_invoices.reduce([]) do |result, (day, invoices)|
+      if invoices > average_invoices_a_day + standard_deviation_invoices_a_day
+        result << day
       end
+      result
     end
-    top_days
   end
 
   def total_number_of_invoices
