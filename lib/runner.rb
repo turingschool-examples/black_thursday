@@ -25,6 +25,6 @@ sa = SalesAnalyst.new(se)
 
 date = Time.parse("2009-02-07")
 
-expected = sa.item_ids_for_most_sold(12337105)
+expected = sa.most_sold_item_for_merchant(12337105)
 
 p expected.count

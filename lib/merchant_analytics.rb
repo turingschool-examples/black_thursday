@@ -191,14 +191,15 @@ module MerchantAnalytics
   end
 
   def item_id_list_for_given_merchant(id)
-    invoice_items_for_merchant(id).map do |invoice_item|
-      invoice_item.item_id
+    invoice_items_for_merchant(id).reduce({}) do |result, invoice_item|
+      result[invoice_item.item_id] = invoice_item.quantity
+      result
     end
   end
 
   def frequency_list_for_items(id)
     item_id_list_for_given_merchant(id).reduce(Hash.new(0)) do |result, item|
-      result[item] += 1
+      result[item.first] += (1 * item.last)
       result
     end
   end
