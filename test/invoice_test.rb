@@ -3,6 +3,7 @@ require_relative '../lib/sales_engine'
 require_relative '../lib/invoice'
 require_relative '../lib/merchant'
 require "time"
+require 'pry'
 
 
 class InvoiceTest < MiniTest::Test
@@ -42,6 +43,12 @@ class InvoiceTest < MiniTest::Test
 
     assert_instance_of Merchant, merchant
     assert_equal merchant, invoice.merchant
+  end
+
+  def test_determines_total_cost
+    invoice = @invoices.invoices.first
+
+    assert_equal 21067.77, invoice.determine_total_cost
   end
 
 end
