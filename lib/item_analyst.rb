@@ -11,10 +11,9 @@ module ItemAnalyst
 
   def item_std_dev_calculate_sum
     average_price = average_item_price
-    @items.all.reduce(0) do |result, item|
+    @items.all.reduce(0) {|result, item|
       squared_difference = (average_price - item.unit_price) ** 2
-      result + squared_difference
-    end
+      result + squared_difference}
   end
 
   def golden_items

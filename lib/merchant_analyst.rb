@@ -33,7 +33,8 @@ module MerchantAnalyst
 
   def high_item_count_merchant_ids
     merchants_and_item_count.map do |merchant_id,item_count|
-      merchant_id if item_count > (average_items_per_merchant + calculate_std_dev)
+      merchant_id if item_count >
+      (average_items_per_merchant + calculate_std_dev)
     end.compact
   end
 
