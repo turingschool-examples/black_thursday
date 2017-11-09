@@ -387,4 +387,28 @@ class SalesAnalyst
     end
   end
 
+  def freq_of_inv_item_for_merch(id)
+    invoice_items_for_merchant(id).reduce(Hash.new(0)) do |result, item|
+      result[item] += 1
+      result
+    end
+  end
+
+  def total_of_items_sold_assigned_to_invoice_item(id)
+    freq_of_inv_item_for_merch(id).reduce(Hash.new(0)) do |result,(key, value)|
+      result[key] = (key.unit_price * key.quantity * value)
+      result
+    end
+  end
+
+  def highest_inv_item_revenue(id)
+    total_of_items_sold_assigned_to_invoice_item(id).max_by do |key, value|
+      value
+    end
+  end
+
+  def best_item_for_merchant(id)
+    @sales_engine.items.find_by_id(highest_inv_item_revenue(id).first.item_id)
+  end
+
 end

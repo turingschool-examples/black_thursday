@@ -24,8 +24,9 @@ sa = SalesAnalyst.new(se)
 
 date = Time.parse("2009-02-07")
 
-expected = sa.most_sold_item_for_merchant(12334189)
+expected = sa.best_item_for_merchant(12337105)
 
-p expected
+p expected.id
+p expected.class
 
 # p Date::MONTHNAMES[date]
