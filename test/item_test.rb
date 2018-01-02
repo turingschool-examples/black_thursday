@@ -51,4 +51,10 @@ class ItemTest < Minitest::Test
     assert_equal "13:03", item.updated_at
   end
 
+  def test_unit_price_to_dollars_returns_a_dollar_amount
+    item = Item.new("1", "Brian", "What what", "50.05", "123", "13:02", "13:03")
+
+    assert_equal 50.05, item.unit_price_to_dollars
+  end
+
 end

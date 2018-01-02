@@ -20,4 +20,8 @@ class Item
     @updated_at  = updated_at
   end
 
+  def unit_price_to_dollars
+
+  end
+
 end
