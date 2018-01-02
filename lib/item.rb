@@ -8,7 +8,7 @@ class Item
               :created_at,
               :updated_at
 
-  def initialize(info, item_repository)
+  def initialize(info, item_repository = "")
     @id = info[:id]
     @name = info[:name]
     @description = info[:description]

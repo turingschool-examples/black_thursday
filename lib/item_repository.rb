@@ -4,7 +4,7 @@ require './lib/item.rb'
 class ItemRepository
   attr_reader :items
 
-  def initialize(path, sales_engine)
+  def initialize(path, sales_engine = "")
     @items = []
     item_creator_and_storer(path)
   end
