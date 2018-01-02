@@ -1,17 +1,29 @@
 require 'csv'
-require './lib/item.rb'
+require './lib/item_repository'
+require './lib/merchant_repository'
 
 class SalesEngine
+  attr_reader :items,
+              :merchants
 
-  def self.from_csv(data = {})
-    @items = data[:items],
-    @merchants = data[:merchants]
+  def initialize(items, merchants)
+    @items = items
+    @merchants = merchants
+  end
+
+  def self.from_csv(data)
+    items = ItemRepository.new(data[:items], self)
+    merchants = MerchantRepository.new(data[:merchants], self)
+    SalesEngine.new(items, merchants)
   end
 
 end
 
-# se = SalesEngine.new
-# a = se.csv_reader('./data/items.csv')
-# s = a.each do |row|
-#   Item.new(row)
-# end
+
+se = SalesEngine.from_csv({
+  :items     => "./data/items.csv",
+  :merchants => "./data/merchants.csv",
+})
+mr = se.merchants
+merchant = mr.find_by_name("LivingArtspace")
+p merchant
