@@ -5,7 +5,8 @@ class Item
               :description,
               :unit_price,
               :created_at,
-              :updated_at
+              :updated_at,
+              :merchant_id
 
  def initialize(item)
    @id   = item[:id]
@@ -15,6 +16,7 @@ class Item
    @created_at = item[:created_at]
    @updated_at = item[:updated_at]
    @merchant_id = item[:merchant_id]
+   @item_repository = self
  end
 
  def unit_price_to_dollars
