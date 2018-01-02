@@ -59,7 +59,7 @@ MERCH_NAMES = ["", "Shopin1901",
   end
 
   def id_setter
-    @id = merchant_ids.sample(1).join.to_i
+    @id = counter
   end
 
   def name_setter
