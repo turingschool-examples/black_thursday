@@ -1,13 +1,18 @@
 require 'csv'
+require './lib/item_repository'
+require './lib/merchant_repository'
 
 class SalesEngine
 
-  def initialize(data = {})
-    @items = data[:items],
-    @merchants = data[:merchants]
+  def self.from_csv()
+    @items = ItemRepository.new(self)
+    @merchants = MerchantRepository.new(self)
   end
+
 
 end
 
-se = SalesEngine.new
-a = se.csv_reader('./data/items.csv')
+
+## given a hash with keys = objects, values = path to the objects
+## t
+##
