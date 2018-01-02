@@ -1,13 +1,13 @@
-require './lib/item_respository'
+require './lib/item_repository'
 require './lib/merchant_repository'
 
 class SalesEngine
 
-  attr_reader :item_respository,
+  attr_reader :item_repository,
               :merchant_repository
 
   def initialize
-    @item_respository = ItemRespository.new
+    @item_repository = ItemRepository.new
     @merchant_repository = MerchantRepository.new
   end
 
