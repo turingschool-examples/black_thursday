@@ -1,5 +1,5 @@
-require_relative "./lib/merchant"
-require_relative "./lib/sales_engine"
+require_relative "merchant"
+require_relative "sales_engine"
 
 class MerchantRepo
   attr_reader :merchants,
@@ -8,10 +8,10 @@ class MerchantRepo
   def initialize(parent, filename)
     @merchants    = []
     @sales_engine = parent
-    load_file(filename)
+    load_merchants(filename)
   end
 
-  def load_file(filename)
+  def load_merchants(filename)
     merchant_csv = CSV.open filename,
                             headers: true,
                             header_converters: :symbol,

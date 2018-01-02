@@ -1,5 +1,5 @@
-require_relative "./lib/merchant_repo"
-
+require_relative "merchant_repo"
+require_relative "item_repo"
 class SalesEngine
   attr_reader :merchants,
               :items
@@ -12,4 +12,6 @@ class SalesEngine
     @merchants = MerchantRepo.new(self, directory[:merchants])
     @items     = ItemRepo.new(self, directory[:items])
   end
+
+
 end

@@ -1,4 +1,8 @@
-require_relative "./lib/sales_engine"
+require "bigdecimal"
+require "csv"
+require "time"
+require_relative "sales_engine"
+
 
   se = SalesEngine.from_csv({
     :items         => "./test/fixtures/items_truncated.csv",
@@ -8,3 +12,8 @@ require_relative "./lib/sales_engine"
     :transactions  => "./test/fixtures/transactions_truncated.csv",
     :customers     => "./test/fixtures/customers_truncated.csv"
   })
+
+i = se.items.find_by_id(263500432)
+
+puts i.unit_price.class
+puts i.unit_price_to_dollars.class
