@@ -46,7 +46,7 @@ class MerchantRepositoryTest < MiniTest::Test
     mr = MerchantRepository.new('./data/merchants.csv')
     name = 'name'
 
-    result = mr.find_all_by(name)
+    result = mr.find_all_by_name(name)
 
     assert result.all? do |merchant|
       merchant.name == name
@@ -57,7 +57,7 @@ class MerchantRepositoryTest < MiniTest::Test
     mr = MerchantRepository.new('./data/merchants.csv')
     name = 'name2'
 
-    result = mr.find_all_by(name)
+    result = mr.find_all_by_name(name)
 
     assert result.empty?
   end
