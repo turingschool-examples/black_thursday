@@ -1,7 +1,7 @@
 require './test/test_helper'
 require './lib/sales_engine'
 
-class SalesEngineTest
+class SalesEngineTest < Minitest::Test
 
   def test_creates_instance_of_item_repository
     se = SalesEngine.new
@@ -14,6 +14,4 @@ class SalesEngineTest
 
     assert_instance_of MerchantRepository, se.merchants
   end
-
-
 end
