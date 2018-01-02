@@ -1,3 +1,4 @@
+require './lib/item.rb'
 class ItemRepository
 
   def initialize

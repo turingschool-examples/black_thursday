@@ -1,5 +1,4 @@
 require 'csv'
-require './lib/item.rb'
 
 class SalesEngine
 
@@ -12,6 +11,3 @@ end
 
 se = SalesEngine.new
 a = se.csv_reader('./data/items.csv')
-s = a.each do |row|
-  Item.new(row)
-end
