@@ -1,15 +1,20 @@
-class ItemRepository
+require 'csv'
+require './lib/item.rb'
 
-  def initialize
+class ItemRepository
+  attr_reader :items
+
+  def initialize(path, sales_engine = "")
     @items = []
+    item_creator_and_storer(path)
   end
 
-  def csv_reader(path)
+  def csv_opener(path)
     CSV.open path, headers: true, header_converters: :symbol
   end
 
-  def item_creator_and_storer
-    csv_reader(path).each do |item|
+  def item_creator_and_storer(path)
+    csv_opener(path).each do |item|
       @items << Item.new(item, self)
     end
   end
