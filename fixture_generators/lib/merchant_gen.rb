@@ -1,7 +1,9 @@
 require_relative 'similar_attributes'
 
 class MerchantGenerator
-  attr_accessor :id, :name, :created_at, :updated_at
+  include SimilarAttributes
+
+  attr_accessor :id, :name, :created_at, :updated_at, :counter
 
   def initialize
     @counter = 0
@@ -52,6 +54,10 @@ MERCH_NAMES = ["", "Shopin1901",
   "TheAssemblyRooms",
   "BrattyGirlGems"]
 
+  def counter_setter
+    @counter += 1
+  end
+
   def id_setter
     @id = merchant_ids.sample(1).join.to_i
   end
@@ -69,7 +75,7 @@ MERCH_NAMES = ["", "Shopin1901",
   end
 
   def output
-    puts "#{@id_setter}, #{@name_setter}, #{@created_at}, #{@updated_at}"
+    puts "#{@id}, #{@name}, #{@created_at}, #{@updated_at}"
   end
 
 end
@@ -77,7 +83,7 @@ end
 mg = MerchantGenerator.new
 puts "id,name,created_at,updated_at"
 40.times do MerchantGenerator.new
-  @counter += 1
+  mg.counter_setter
   mg.id_setter
   mg.name_setter
   mg.created_at_setter
