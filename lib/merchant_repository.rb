@@ -22,8 +22,8 @@ class MerchantRepository
   end
 
 
-  def find_all_by_name
-    @merchants.select {|merchant| merchant.name.downcase = name.downcase}
+  def find_all_by_name(name)
+    @merchants.select {|merchant| merchant if merchant.name.downcase.include?(name.downcase)}
   end
 
   def csv_opener(path)
