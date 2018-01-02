@@ -12,7 +12,7 @@ ITEM_DESCRIPTIONS = ["", "Its the friggen best thing ever you don't want to miss
 "We could do better but we didn't", "Bless you", "You da best please by my thing", "plz mattis!", "much design", "very word!", "i can haz consectetur.",
 "much text.", "oh my full!", "want full.", "i iz cute?!", "many layout!", "go swag.", "want aenean", "so elit", "With a point as sharp as a razor this weapon will make sure your enemies are full of holes with deadly speed and precision",
 "The blade itself is engraved.", "The cross-guard has an elegant owl head on each side", "grip wrapped in common, light brown boar hide.", "this weapon wasn't created by just any blacksmith",
-"watch", "clock", "crossbow", "handlebar-moustache", "xylophone made by xylophonists for xylophonists", "my little brony repellant", "a really awesome thing", "Adorned with tiny gold wings, this vacuum cleaner enhances the user's memory",
+"watch", "clock", "crossbow", "handlebar-moustache", "xylophone made by xylophonists for xylophonists", "my little brony repellant", "a really awesome thing", "Adorned with tiny gold wings this vacuum cleaner enhances the user's memory",
 "Any memories forgotten due to losing the item are regained when the item is put back into use.", "spice up your love life", "spicyyyy meatballlss", "best jambalaya the world has seen", "asdgfh", "gumba gumba", "clean up after yourself"]
 
 NAMES = ["", "Tiny Toaster", "Large Toaster", "Medium Toaster", "Sick red boots", "Stupid Shoes", "Dingers", "Blingers", "Poppers", "Stoppers", "Table-Thing", "Beatbox machine", "Goosebump Factory", "Banana Peelers", "coffee pot",
