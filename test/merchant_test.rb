@@ -1,7 +1,7 @@
 require './test/test_helper'
 require './lib/merchant'
 
-class MerchantTest
+class MerchantTest < MiniTest::Test
 
   def test_it_has_id
     m = Merchant.new({:id => 5, :name => "Turing School"})
@@ -13,5 +13,5 @@ class MerchantTest
     m = Merchant.new({:id => 5, :name => "Turing School"})
 
     assert_equal "Turing School", m.name
-  end 
+  end
 end
