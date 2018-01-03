@@ -11,8 +11,8 @@ class SalesEngine
     @merchant_repository = MerchantRepository.new
   end
 
-  # def self.from_csv({:items => "./data/items.csv", :merchants => "./data/merchants.csv"})
-  #
-  # end
+  def self.from_csv(csv_file_hash)
+    csv_file_hash
+  end
 
 end
