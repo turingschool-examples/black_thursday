@@ -53,4 +53,12 @@ class ItemRepo
   def find_merchant(merchant_id)
     sales_engine.find_merchant(merchant_id)
   end
+
+  def find_items_by_merchant_id(merchant_id)
+    items.find_all { |item| item.merchant_id }
+  end
+
+  def inspect
+    "#<#{self.class} #{items.size} rows>"
+  end
 end
