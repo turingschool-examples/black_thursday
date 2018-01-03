@@ -96,22 +96,30 @@ class MerchantRepoTest < Minitest::Test
     expected = mr.find_all_by_name("shop")
 
     assert_equal 26, expected.count
+    expected.each do |merchant|
+      assert_instance_of Merchant, merchant
+    end
     assert_equal "Shopin1901", expected.first.name
     assert_equal "RanaParvaShop", expected.last.name
   end
 
-  # def test_find_items_returns_items_sold_by_merchant_id
-  #   se = SalesEngine.from_csv({
-  #     :items         => "./data/items.csv",
-  #     :merchants     => "./data/merchants.csv",
-  #     :invoices      => "./data/invoices.csv",
-  #     :invoice_items => "./data/invoice_items.csv",
-  #     :transactions  => "./data/transactions.csv",
-  #     :customers     => "./data/customers.csv"
-  #   })
-  #
-  #   mr = MerchantRepo.new(se, "./data/merchants.csv")
-  #   expected = mr.items(12334105)
-  #
-  # end
+  def test_find_items_returns_items_sold_by_merchant_id
+    se = SalesEngine.from_csv({
+      :items         => "./data/items.csv",
+      :merchants     => "./data/merchants.csv",
+      :invoices      => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions  => "./data/transactions.csv",
+      :customers     => "./data/customers.csv"
+    })
+
+    mr = MerchantRepo.new(se, "./data/merchants.csv")
+    expected = mr.find_items(12334105)
+
+    expected.each do |item|
+      assert_instance_of Item, item
+      assert_equal 12334105, item.merchant_id
+    end
+    assert_equal 3, expected.count
+  end
 end
