@@ -1,15 +1,15 @@
 require './lib/item'
 
 class ItemRepository
-  def initialize(file_path)
+  def initialize(file)
     @items = []
-    item_data = CSV.open file_path, headers: true, header_converters: :symbol, converters: :numeric
+    item_data = CSV.open file, headers: true, header_converters: :symbol, converters: :numeric
     parse(item_data)
   end
 
   def parse(item_data)
     item_data.each do |row|
-      @items << Item.new(row.to_hash)
+      @items << Item.new(row.to_hash, self)
     end
   end
 
@@ -30,25 +30,25 @@ class ItemRepository
   end
 
   def find_all_with_description(description)
-    @items.find_all do |item|
+    @items.keep_if do |item|
       item.description == description
     end
   end
 
-  def find_by_price(price)
-    @items.find do |item|
-      item.price == price
+  def find_all_by_price(price)
+    @items.keep_if do |item|
+      item.unit_price_in_dollars == price
     end
   end
 
-  def find_by_all_by_price_in_range(price_range)
-    @items.find do |item|
-      price_range.cover?(item.price)
+  def find_all_by_price_in_range(price_range)
+    @items.keep_if do |item|
+      price_range.cover?(item.unit_price_in_dollars)
     end
   end
 
   def find_all_by_merchant_id(merchant_id)
-    @items.find_all do |item|
+    @items.keep_if do |item|
       item.merchant_id == merchant_id
     end
   end

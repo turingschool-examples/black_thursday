@@ -14,7 +14,7 @@ class ItemTest < MiniTest::Test
       created_at: @time,
       updated_at: @time,
       merchant_id: 426
-    })
+    }, mock('ItemRepository'))
   end
 
   def test_it_has_an_id
