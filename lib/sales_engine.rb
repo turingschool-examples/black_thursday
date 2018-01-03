@@ -24,6 +24,7 @@ se = SalesEngine.from_csv({
   :items     => "./data/items.csv",
   :merchants => "./data/merchants.csv",
 })
-mr = se.merchants
-merchant = mr.find_by_name("LivingArtspace")
-p merchant
+
+
+
+ 
