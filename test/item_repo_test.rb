@@ -1,12 +1,20 @@
 require './test/test_helper'
 require './lib/item_repo'
+require './lib/sales_engine'
+require './lib/merchant_repo'
 
 class ItemRepoTest < Minitest::Test
 
-  def test_item_repo_exists
-    item_repo = ItemRepo.new
+  def setup
+    @sales_engine = SalesEngine.from_csv({
+      items: 'test/fixtures/item_fixture.csv',
+      merchants: 'test/fixtures/merchant_fixture.csv'
+      })
+    @items = @sales_engine.item_repo
+  end
 
-    assert_instance_of ItemRepo, item_repo
+  def test_repo_finds_all_items
+    assert_equal 40, items.all.count
   end
 
 end
