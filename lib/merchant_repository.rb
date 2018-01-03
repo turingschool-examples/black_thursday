@@ -3,7 +3,7 @@ require 'csv'
 class MerchantRepository
   def initialize(file_path, parent)
     @merchants = []
-    @parent = parent
+    @sales_engine = parent
     merchant_data = CSV.open file_path, headers: true, header_converters: :symbol, converters: :numeric
     parse(merchant_data)
   end
@@ -36,5 +36,9 @@ class MerchantRepository
     @merchants.find_all do |merchant|
       merchant.name == name
     end
+  end
+
+  def find_items_by_id(id)
+    @sales_engine.find_items_by_merchant_id(id)
   end
 end

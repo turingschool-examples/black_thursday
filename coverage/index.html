@@ -14,11 +14,7 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-<<<<<<< HEAD
-      <div class="timestamp">Generated <abbr class="timeago" title="2018-01-02T13:31:32-07:00">2018-01-02T13:31:32-07:00</abbr></div>
-=======
-      <div class="timestamp">Generated <abbr class="timeago" title="2018-01-02T13:31:11-07:00">2018-01-02T13:31:11-07:00</abbr></div>
->>>>>>> b3caef17a5a3a1060945f2d9bf7e8ea09060f2d4
+      <div class="timestamp">Generated <abbr class="timeago" title="2018-01-03T12:50:42-07:00">2018-01-03T12:50:42-07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -29,15 +25,15 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         1.4
+         1.8
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>1</b> files in total.
-    <b>5</b> relevant lines. 
-    <span class="green"><b>5</b> lines covered</span> and
+    <b>8</b> relevant lines. 
+    <span class="green"><b>8</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -55,17 +51,13 @@
     <tbody>
       
       <tr>
-<<<<<<< HEAD
         <td class="strong"><a href="#94386dedd73daee538094c22577e5262f4828b64" class="src_link" title="lib/merchant.rb">lib/merchant.rb</a></td>
-=======
-        <td class="strong"><a href="#6ae19a45c4b8b73b41fb1a01ff3695bc38c4ad3e" class="src_link" title="lib/merchant.rb">lib/merchant.rb</a></td>
->>>>>>> b3caef17a5a3a1060945f2d9bf7e8ea09060f2d4
         <td class="green strong">100.0 %</td>
-        <td>11</td>
-        <td>5</td>
-        <td>5</td>
+        <td>14</td>
+        <td>8</td>
+        <td>8</td>
         <td>0</td>
-        <td>1.4</td>
+        <td>1.8</td>
       </tr>
       
     </tbody>
@@ -89,8 +81,8 @@
     <h3>lib/merchant.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>5</b> relevant lines. 
-      <span class="green"><b>5</b> lines covered</span> and
+      <b>8</b> relevant lines. 
+      <span class="green"><b>8</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -104,46 +96,46 @@
           <code class="ruby">class Merchant</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="2">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="3">
+        <li class="covered" data-hits="1" data-linenumber="2">
           <span class="hits">1</span>
           
           <code class="ruby">  attr_reader :id,</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="4">
+        <li class="never" data-hits="" data-linenumber="3">
           
           
           <code class="ruby">              :name</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="5">
+        <li class="never" data-hits="" data-linenumber="4">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="6">
+        <li class="covered" data-hits="1" data-linenumber="5">
           <span class="hits">1</span>
           
-          <code class="ruby">  def initialize(data)</code>
+          <code class="ruby">  def initialize(data, parent)</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="7">
-          <span class="hits">2</span>
+        <li class="covered" data-hits="3" data-linenumber="6">
+          <span class="hits">3</span>
           
           <code class="ruby">    @id = data[:id]</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="8">
-          <span class="hits">2</span>
+        <li class="covered" data-hits="3" data-linenumber="7">
+          <span class="hits">3</span>
           
           <code class="ruby">    @name = data[:name]</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="8">
+          <span class="hits">3</span>
+          
+          <code class="ruby">    @merchant_repository = parent</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="9">
@@ -158,7 +150,25 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="11">
+        <li class="covered" data-hits="1" data-linenumber="11">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def items</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="12">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    @merchant_repository.find_items_by_id(@id)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="13">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="14">
           
           
           <code class="ruby">end</code>
