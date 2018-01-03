@@ -9,7 +9,7 @@ class MerchantRepository
   end
 
   def parse(merchant_data)
-    @merchant_data.each do |row|
+    merchant_data.each do |row|
       id = row[:id]
       name = row[:name]
       @merchants << Merchant.new({id: id, name: name})
