@@ -1,9 +1,10 @@
 require 'csv'
 
 class MerchantRepository
-  def initialize(file)
+  def initialize(file_path, parent)
     @merchants = []
-    merchant_data = CSV.open file, headers: true, header_converters: :symbol, converters: :numeric
+    @parent = parent
+    merchant_data = CSV.open file_path, headers: true, header_converters: :symbol, converters: :numeric
     parse(merchant_data)
   end
 
@@ -11,7 +12,7 @@ class MerchantRepository
     merchant_data.each do |row|
       id = row[:id]
       name = row[:name]
-      @merchants << Merchant.new({id: id, name: name})
+      @merchants << Merchant.new({id: id, name: name}, self)
     end
   end
 

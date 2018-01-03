@@ -1,9 +1,10 @@
 require './lib/item'
 
 class ItemRepository
-  def initialize(file)
+  def initialize(file_path, parent)
     @items = []
-    item_data = CSV.open file, headers: true, header_converters: :symbol, converters: :numeric
+    @parent = parent
+    item_data = CSV.open file_path, headers: true, header_converters: :symbol, converters: :numeric
     parse(item_data)
   end
 
