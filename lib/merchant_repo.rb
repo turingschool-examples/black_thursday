@@ -8,6 +8,7 @@ class MerchantRepo
   def initialize(data, parent)
     @data = create_elements(data).reduce(Hash.new(0)) do |merchant_collection, merchant|
       merchant_collection[merchant[:id].to_i] = Merchant.new(merchant, self)
+      merchant_collection
     end
     @parent = parent
   end

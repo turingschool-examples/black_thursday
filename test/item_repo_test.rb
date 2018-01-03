@@ -14,7 +14,7 @@ class ItemRepoTest < Minitest::Test
   end
 
   def test_repo_finds_all_items
-    assert_equal 40, items.all.count
+    assert_equal 40, @items.all.count
   end
 
 end
