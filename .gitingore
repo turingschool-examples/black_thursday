@@ -106,5 +106,5 @@ bower.json
 *.zip
 
 # Ignore test-related files
-/coverage.data
+coverage.data
 coverage/
