@@ -26,4 +26,10 @@ class MerchantRepoTest < MiniTest::Test
     assert_equal " jejum", merchant.name
   end
 
+  def test_find_all_merchants_by_name
+    merchant = @merchants.find_all_by_name(" Uniford")
+
+    assert_equal 2, merchant.count
+  end
+
 end
