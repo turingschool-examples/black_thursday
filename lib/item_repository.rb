@@ -52,4 +52,22 @@ class ItemRepository
     end
   end
 
+  def find_all_by_price(price)
+    @items.find_all do |item|
+      item if item.unit_price == price.gsub("$", "").gsub(".", "")
+    end
+  end
+
+  def find_all_by_price_in_range(range)
+    @items.find_all do |item|
+      item if range.include?(item.unit_price)
+    end
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    @items.find_all do |item|
+      item if item.merchant_id == merchant_id
+    end
+  end
+
 end
