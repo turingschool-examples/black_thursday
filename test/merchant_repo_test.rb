@@ -1,5 +1,6 @@
 require_relative 'test_helper'
 require './lib/merchant_repo'
+require './lib/sales_engine'
 
 class MerchantRepoTest < MiniTest::Test
 
@@ -8,13 +9,21 @@ class MerchantRepoTest < MiniTest::Test
       items: 'test/fixtures/item_fixture.csv',
       merchants: 'test/fixtures/merchant_fixture.csv'
       })
-    @items = @sales_engine.merchant_repo
+    @merchants = @sales_engine.merchants
   end
 
-  def test_merchant_repo_exists
-    merchant_repo = MerchantRepo.new
+  def test_find_merchant_by_id
+    merchant = @merchants.find_by_id("1")
 
-    assert_instance_of MerchantRepo, merchant_repo
+    assert_instance_of Merchant, merchant
+    assert_equal "1", merchant.id
+  end
+
+  def test_find_merchant_by_name
+    merchant = @merchants.find_by_name(" jejum")
+
+    assert_instance_of Merchant, merchant
+    assert_equal " jejum", merchant.name
   end
 
 end

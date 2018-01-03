@@ -11,7 +11,7 @@ class Item
               :updated_at
 
 
-  def initialize(data, repository)
+  def initialize(data)
     @id          = data[:id]
     @name        = data[:name]
     @description = data[:description]

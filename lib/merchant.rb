@@ -6,14 +6,14 @@ class Merchant
               :name,
               :created_at,
               :updated_at,
-              :repository
+              :parent
 
-  def initialize(data, respository)
+  def initialize(data, parent = nil)
     @id         = data[:id]
     @name       = data[:name]
     @created_at = data[:created_at]
     @updated_at = data[:updated_at]
-    @repository = respository
+    @parent     = parent
   end
 
 end
