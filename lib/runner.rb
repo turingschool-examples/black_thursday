@@ -15,5 +15,5 @@ require_relative "sales_engine"
 
 i = se.items.find_by_id(263500432)
 
-puts i.unit_price.class
-puts i.unit_price_to_dollars.class
+merchant = se.merchants.find_by_id(12334112)
+p merchant.items

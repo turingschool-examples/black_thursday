@@ -37,4 +37,8 @@ class MerchantRepo
       merchant.name.downcase.include?(name.downcase)
     end
   end
+
+  def items(merchant_id)
+    merchants.map { |merchant| merchant.id == merchant_id }
+  end
 end

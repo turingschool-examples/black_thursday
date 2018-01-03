@@ -12,6 +12,4 @@ class SalesEngine
     @merchants = MerchantRepo.new(self, directory[:merchants])
     @items     = ItemRepo.new(self, directory[:items])
   end
-
-
 end
