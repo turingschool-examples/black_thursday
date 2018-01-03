@@ -29,7 +29,7 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
-    argument_raiser(price)
+    argument_raiser(price, Integer)
     @items.select {|item| item if item.unit_price == price}
   end
 
