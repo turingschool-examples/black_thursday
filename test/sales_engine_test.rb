@@ -1,5 +1,5 @@
-require './test/test_helper'
-require './lib/sales_engine'
+require '../test/test_helper'
+require '../lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test
   def setup
@@ -15,5 +15,10 @@ class SalesEngineTest < Minitest::Test
 
   def test_creates_instance_of_merchant_repository
     assert_instance_of MerchantRepository, @se.merchants
+  end
+
+  def test_it_finds_items_by_merchant_id
+    merchant_id = ####
+    result = @se.find_items_by_merchant_id(merchant_id)
   end
 end
