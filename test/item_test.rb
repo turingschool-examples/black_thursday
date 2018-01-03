@@ -10,9 +10,7 @@ class ItemTest < MiniTest::Test
       id: 321,
       name: "Pencil",
       description: "You can use it to write things",
-      unit_price: BigDecimal.new(10.99,4),
-      created_at: @time,
-      updated_at: @time,
+      unit_price: BigDecimal.new(10.99, 4),
       merchant_id: 426
     }, mock('ItemRepository'))
   end
@@ -34,11 +32,15 @@ class ItemTest < MiniTest::Test
   end
 
   def test_it_has_created_at
-    assert_equal @time, @item.created_at
+    result = @item.created_at
+
+    assert_equal Time.now.inspect, result.inspect
   end
 
   def test_it_has_updated_at
-    assert_equal @time, @item.updated_at
+    result = @item.updated_at
+
+    assert_equal Time.now.inspect, result.inspect
   end
 
   def test_it_has_merchant_id
