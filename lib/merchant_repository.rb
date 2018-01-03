@@ -1,7 +1,6 @@
 require 'csv'
 
 class MerchantRepository
-
   def initialize(file)
     @merchants = []
     merchant_data = CSV.open file, headers: true, header_converters: :symbol, converters: :numeric

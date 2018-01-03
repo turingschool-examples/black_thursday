@@ -1,5 +1,4 @@
 class SalesEngine
-
   attr_reader :items,
               :merchants
 
@@ -7,5 +6,4 @@ class SalesEngine
     @items = ItemRepository.new(data[:items])
     @merchants = MerchantRepository.new(data[:merchants])
   end
-
 end

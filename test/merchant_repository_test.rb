@@ -15,30 +15,30 @@ class MerchantRepositoryTest < MiniTest::Test
   def test_find_by_id_returns_nil_if_merchant_does_not_exist
     mr = MerchantRepository.new('./test/fixtures/merchants_truncated.csv')
 
-    assert nil, mr.find_by_id(789)
+    assert_nil mr.find_by_id(789)
   end
 
   def test_find_by_id_returns_merchant_instance_with_matching_id
     mr = MerchantRepository.new('./test/fixtures/merchants_truncated.csv')
 
-    result = mr.find_by_id(568)
+    result = mr.find_by_id(12334113)
 
-    assert_equal 568, result.id
+    assert_equal 12334113, result.id
     assert_instance_of Merchant, result
   end
 
   def test_find_by_name_returns_nil_if_merchant_does_not_exist
     mr = MerchantRepository.new('./test/fixtures/merchants_truncated.csv')
 
-    assert nil, mr.find_by_name('bill robbins')
+    assert_nil mr.find_by_name('bill robbins')
   end
 
   def test_find_by_name_returns_merchant_instance_with_matching_name
     mr = MerchantRepository.new('./test/fixtures/merchants_truncated.csv')
 
-    result = mr.find_by_names('name')
+    result = mr.find_by_name('LolaMarleys')
 
-    assert_equal 'name', result.name
+    assert_equal 'LolaMarleys', result.name
     assert_instance_of Merchant, result
   end
 
