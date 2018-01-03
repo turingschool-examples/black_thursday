@@ -18,7 +18,6 @@ class ItemRepoTest < Minitest::Test
   end
 
   def test_items_order
-    require "pry"; binding.pry
     assert_equal 1, @items.first.id
   end
 
