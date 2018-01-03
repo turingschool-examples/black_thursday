@@ -30,6 +30,8 @@ class MerchantRepoTest < MiniTest::Test
     merchant = @merchants.find_all_by_name(" Uniford")
 
     assert_equal 2, merchant.count
+    assert_equal " Uniford", merchant[0].name
+    assert_equal " Uniford", merchant[1].name
   end
 
 end
