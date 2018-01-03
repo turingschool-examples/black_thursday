@@ -3,8 +3,8 @@ require './lib/item_repository'
 require './lib/merchant_repository'
 
 class SalesEngine
-  attr_reader :items,
-              :merchants
+  attr_reader   :items,
+                :merchants
 
   def initialize(items, merchants)
     @items = items
@@ -25,4 +25,5 @@ se = SalesEngine.from_csv({
   :merchants => "./data/merchants.csv",
 })
 
-p merchant = se.merchants.find_by_id(12334112)
+merchant = se.merchants.find_by_id(12334112)
+p merchant.items
