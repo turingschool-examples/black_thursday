@@ -14,8 +14,8 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    argument_raiser(id)
-    @merchants.find {|merchant| merchant.id == id}
+    argument_raiser(id, Integer)
+    @merchants.find {|merchant| merchant.id.to_i == id}
   end
 
   def find_by_name(name)

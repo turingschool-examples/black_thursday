@@ -14,8 +14,8 @@ class ItemRepository
   end
 
   def find_by_id(id)
-    argument_raiser(id)
-    @items.find {|item| item.id == id}
+    argument_raiser(id, Integer)
+    @items.find {|item| item.id.to_i == id}
   end
 
   def find_by_name(name)

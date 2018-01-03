@@ -12,12 +12,14 @@ class ItemRepositoryTest < MiniTest::Test
   end
 
   def test_find_by_id_returns_instance_of_item
-    assert_instance_of Item, @items.find_by_id("263395237")
+    assert_instance_of Item, @items.find_by_id(263395237)
+
+    assert_equal "263395237", @items.find_by_id(263395237).id
   end
 
-  def test_find_by_id_only_accepts_strings
+  def test_find_by_id_only_accepts_integers
     assert_raises ArgumentError do
-      @items.find_by_id(1)
+      @items.find_by_id("a")
     end
 
     assert_raises ArgumentError do
