@@ -17,4 +17,9 @@ class ItemRepoTest < Minitest::Test
     assert_equal 40, @items.all.count
   end
 
+  def test_items_order
+    require "pry"; binding.pry
+    assert_equal 1, @items.first.id
+  end
+
 end

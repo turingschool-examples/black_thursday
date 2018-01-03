@@ -9,7 +9,6 @@ class Merchant
               :repository
 
   def initialize(data, respository)
-    # require "pry"; binding.pry
     @id         = data[:id]
     @name       = data[:name]
     @created_at = data[:created_at]
