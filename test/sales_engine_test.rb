@@ -1,9 +1,9 @@
-require '../test/test_helper'
-require '../lib/sales_engine'
+require './test/test_helper'
+require './lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test
   def setup
-    @se = SalesEngine.new({
+    @se = SalesEngine.from_csv({
       items:     './test/fixtures/items_truncated.csv',
       merchants: './test/fixtures/merchants_truncated.csv'
     })

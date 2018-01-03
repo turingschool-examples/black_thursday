@@ -53,12 +53,12 @@ class MerchantRepositoryTest < MiniTest::Test
     assert result.empty?
   end
 
-  def test_it_finds_a_merchants_items_by_merchant_id
-    id = ####
-    result = @mr.find_items_by_id(id)
-
-    assert result.all? do |item|
-      item.merchant_id == id
-    end
-  end
+  # def test_it_finds_a_merchants_items_by_merchant_id
+  #   id = ####
+  #   result = @mr.find_items_by_id(id)
+  #
+  #   assert result.all? do |item|
+  #     item.merchant_id == id
+  #   end
+  # end
 end
