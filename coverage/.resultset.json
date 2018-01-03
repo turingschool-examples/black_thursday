@@ -1,7 +1,12 @@
 {
   "Unit Tests": {
     "coverage": {
+<<<<<<< HEAD
       "/Users/andrewjeffery/turing/1module/projects/black_thursday/lib/merchant_repository.rb": [
+=======
+      "/Users/AndrewDymond/turing/1module/projects/black_thursday/lib/item_repository.rb": [
+        1,
+>>>>>>> e88d671e0067df73a38e9d63efb676f485e7edb0
         1,
         1,
         null,
@@ -10,9 +15,22 @@
         1,
         null,
         1,
+<<<<<<< HEAD
         5,
         5,
         25,
+=======
+        8,
+        8,
+        72,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+>>>>>>> e88d671e0067df73a38e9d63efb676f485e7edb0
         null,
         null,
         null,
@@ -23,19 +41,30 @@
         null,
         null,
         1,
+<<<<<<< HEAD
         4,
         11,
+=======
+        3,
+        15,
+>>>>>>> e88d671e0067df73a38e9d63efb676f485e7edb0
         null,
         null,
         null,
         1,
+<<<<<<< HEAD
         4,
         20,
+=======
+        3,
+        27,
+>>>>>>> e88d671e0067df73a38e9d63efb676f485e7edb0
         null,
         null,
         null,
         null
       ],
+<<<<<<< HEAD
       "/Users/andrewjeffery/turing/1module/projects/black_thursday/lib/merchant.rb": [
         1,
         null,
@@ -45,11 +74,42 @@
         1,
         25,
         25,
+=======
+      "/Users/AndrewDymond/turing/1module/projects/black_thursday/lib/item.rb": [
+        1,
+        null,
+        1,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        72,
+        72,
+        72,
+        72,
+        72,
+        72,
+        72,
+        null,
+        null,
+        1,
+        0,
+>>>>>>> e88d671e0067df73a38e9d63efb676f485e7edb0
         null,
         null,
         null
       ]
     },
+<<<<<<< HEAD
     "timestamp": 1514938525
+=======
+    "timestamp": 1514943690
+>>>>>>> e88d671e0067df73a38e9d63efb676f485e7edb0
   }
 }
