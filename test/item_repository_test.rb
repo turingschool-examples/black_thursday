@@ -44,7 +44,40 @@ class ItemRepositoryTest < Minitest::Test
     item = ItemRepository.new
     found_descriptions = item.find_all_with_description('Pillow')
 
-    assert_equal 14, found_descriptions.count # need to add new assertion 
+    assert_equal 14, found_descriptions.count # need to add new assertion
+  end
+
+  def test_it_returns_empty_array_if_nothing_matches
+    item = ItemRepository.new
+    found_descriptions = item.find_all_with_description('areguhaeig7324')
+
+    assert_equal [], found_descriptions
+  end
+
+  def test_it_finds_all_by_price
+    item = ItemRepository.new
+    price = item.find_all_by_price('$13.00')
+
+    assert_equal 8, price.count
+    assert_instance_of Item, price.first
+    assert_instance_of Item, price.last
+  end
+
+  def test_it_finds_all_within_price_range
+    item = ItemRepository.new
+    price_range = item.find_all_by_price_in_range('1300'..'1500')
+
+    assert_equal 87, price_range.count
+    assert_instance_of Item, price_range.first
+    assert_instance_of Item, price_range.last
+  end
+
+  def test_it_finds_by_merchant_id
+    item = ItemRepository.new
+    merchants_inventory = item.find_all_by_merchant_id("12334185")
+
+    assert_equal 6, merchants_inventory.count
+    assert_instance_of Item, merchants_inventory.first
   end
 
 end
