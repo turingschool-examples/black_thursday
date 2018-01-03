@@ -1,4 +1,5 @@
 require 'csv'
+require './lib/merchant'
 
 class MerchantRepository
   def initialize(file)
@@ -27,7 +28,7 @@ class MerchantRepository
 
   def find_by_name(name)
     @merchants.find do |merchant|
-      merchant.name == name
+      merchant.name.downcase == name.downcase
     end
   end
 
