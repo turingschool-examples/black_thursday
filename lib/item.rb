@@ -17,7 +17,6 @@ class Item
     @merchant_id = info[:merchant_id]
     @created_at = info[:created_at]
     @updated_at = info[:updated_at]
-    require 'pry' ; binding.pry
   end
 
 
