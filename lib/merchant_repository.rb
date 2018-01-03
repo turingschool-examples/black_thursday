@@ -2,11 +2,13 @@ require 'csv'
 require './lib/merchant.rb'
 
 class MerchantRepository
-  attr_reader :merchants
+  attr_reader :merchants,
+              :parent
 
   def initialize(path, sales_engine = "")
     @merchants = []
     merchant_creator_and_storer(path)
+    @parent = sales_engine
   end
 
   def all
@@ -27,6 +29,10 @@ class MerchantRepository
   def find_all_by_name(name)
     argument_raiser(name)
     @merchants.select {|merchant| merchant if merchant.name.downcase.include?(name.downcase)}
+  end
+
+  def items
+    @parent.items
   end
 
   def csv_opener(path)
