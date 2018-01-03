@@ -7,6 +7,7 @@ class ItemRepository
   def initialize(path, sales_engine = "")
     @items = []
     item_creator_and_storer(path)
+    @parent = sales_engine
   end
 
   def csv_opener(path)
@@ -51,6 +52,10 @@ class ItemRepository
   def find_all_by_merchant_id(merchant_id)
     argument_raiser(merchant_id)
     @items.select {|item| item if item.merchant_id == merchant_id}
+  end
+
+  def merchants
+    @parent.merchants
   end
 
   def argument_raiser(data_type, desired_class = String)

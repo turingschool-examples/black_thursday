@@ -11,6 +11,18 @@ class MerchantRepository
     @parent = sales_engine
   end
 
+  def csv_opener(path)
+    argument_raiser(path)
+    CSV.open path, headers: true, header_converters: :symbol
+  end
+
+  def merchant_creator_and_storer(path)
+    argument_raiser(path)
+    csv_opener(path).each do |merchant|
+      @merchants << Merchant.new(merchant, self)
+    end
+  end
+
   def all
     @merchants
   end
@@ -33,18 +45,6 @@ class MerchantRepository
 
   def items
     @parent.items
-  end
-
-  def csv_opener(path)
-    argument_raiser(path)
-    CSV.open path, headers: true, header_converters: :symbol
-  end
-
-  def merchant_creator_and_storer(path)
-    argument_raiser(path)
-    csv_opener(path).each do |merchant|
-      @merchants << Merchant.new(merchant, self)
-    end
   end
 
   def argument_raiser(data_type, desired_class = String)

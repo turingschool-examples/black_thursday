@@ -3,18 +3,18 @@ require './lib/item_repository'
 require './lib/merchant_repository'
 
 class SalesEngine
-  attr_reader   :items,
-                :merchants
-
-  def initialize(items, merchants)
-    @items = items
-    @merchants = merchants
+  def self.from_csv(data)
+    @items = ItemRepository.new(data[:items], self)
+    @merchants = MerchantRepository.new(data[:merchants], self)
+    self
   end
 
-  def self.from_csv(data)
-    items = ItemRepository.new(data[:items], self)
-    merchants = MerchantRepository.new(data[:merchants], self)
-    SalesEngine.new(items, merchants)
+  def self.items
+    @items
+  end
+
+  def self.merchants
+    @merchants
   end
 
 end

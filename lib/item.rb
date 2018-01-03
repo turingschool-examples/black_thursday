@@ -17,10 +17,15 @@ class Item
     @merchant_id = info[:merchant_id]
     @created_at = info[:created_at]
     @updated_at = info[:updated_at]
+    @parent = item_repository
   end
-
 
   def unit_price_to_dollars
     (@unit_price/100).to_f
   end
+
+  def merchants
+    @parent.merchants
+  end
+  
 end
