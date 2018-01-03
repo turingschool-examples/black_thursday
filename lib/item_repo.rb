@@ -1,9 +1,11 @@
 require 'pry'
+
 require_relative 'item'
 require_relative 'create_elements'
 
 class ItemRepo
-  attr_reader :items, :parent
+  attr_reader :items, 
+              :parent
 
   include CreateElements
 

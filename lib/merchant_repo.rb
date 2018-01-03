@@ -1,7 +1,9 @@
+require 'pry'
 require_relative 'merchant'
 
 class MerchantRepo
-  attr_reader :data, :parent
+  attr_reader :data, 
+              :parent
 
   include CreateElements
 

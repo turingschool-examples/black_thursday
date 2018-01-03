@@ -11,6 +11,10 @@ class MerchantRepoTest < MiniTest::Test
     @items = @sales_engine.merchant_repo
   end
 
-  deft
+  def test_merchant_repo_exists
+    merchant_repo = MerchantRepo.new
+
+    assert_instance_of MerchantRepo, merchant_repo
+  end
 
 end

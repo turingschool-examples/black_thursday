@@ -1,3 +1,4 @@
+require 'pry'
 require_relative 'merchant_repo'
 require_relative 'item_repo'
 

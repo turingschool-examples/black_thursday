@@ -20,5 +20,11 @@ class ItemRepoTest < Minitest::Test
   def test_items_order
     assert_equal 1, @items.first.id
   end
+  
+  def test_item_repo_exists
+    item_repo = ItemRepo.new
+
+    assert_instance_of ItemRepo, item_repo
+  end
 
 end
