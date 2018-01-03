@@ -1,4 +1,6 @@
-require 'pry'
+require './lib/item_repository'
+require './lib/merchant_repository'
+
 class SalesEngine
   attr_reader :items,
               :merchants
@@ -12,4 +14,3 @@ class SalesEngine
     @items.find_all_by_merchant_id(id)
   end
 end
-binding.pry

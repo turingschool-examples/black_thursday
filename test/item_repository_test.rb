@@ -37,10 +37,29 @@ class ItemRepositoryTest < MiniTest::Test
     assert_instance_of Item, result
   end
 
+  def test_find_by_name_returns_item_instance_with_matching_name_case_insensitive
+    ir = ItemRepository.new('./test/fixtures/items_truncated.csv')
+
+    result = ir.find_by_name('disney scrabble frames')
+
+    assert_equal 'Disney scrabble frames', result.name
+  end
+
   def test_find_all_with_description_returns_all_items_with_a_matching_description
     description = 'You can use it to write things'
 
     result = @ir.find_all_with_description(description)
+
+    assert result.all? do |item|
+      item.description == description
+    end
+  end
+
+  def test_find_all_with_description_returns_all_items_with_a_matching_description_case_insensitive
+    ir = ItemRepository.new('./test/fixtures/items_truncated.csv')
+    description = 'you can use it to write things'
+
+    result = ir.find_all_with_description(description)
 
     assert result.all? do |item|
       item.description == description

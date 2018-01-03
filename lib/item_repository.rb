@@ -1,3 +1,4 @@
+require 'csv'
 require './lib/item'
 
 class ItemRepository
@@ -26,13 +27,13 @@ class ItemRepository
 
   def find_by_name(name)
     @items.find do |item|
-      item.name == name
+      item.name.downcase == name.downcase
     end
   end
 
   def find_all_with_description(description)
     @items.keep_if do |item|
-      item.description == description
+      item.description.downcase == description.downcase
     end
   end
 

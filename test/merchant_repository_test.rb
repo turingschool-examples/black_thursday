@@ -37,6 +37,14 @@ class MerchantRepositoryTest < MiniTest::Test
     assert_instance_of Merchant, result
   end
 
+  def test_find_by_name_returns_merchant_instance_with_matching_name_case_insensitive
+    mr = MerchantRepository.new('./test/fixtures/merchants_truncated.csv')
+
+    result = mr.find_by_name('lolamarleys')
+
+    assert_equal 'LolaMarleys', result.name
+  end
+
   def test_it_returns_all_merchants_with_a_matching_name
     name = 'LolaMarleys'
 
