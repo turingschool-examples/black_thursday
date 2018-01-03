@@ -8,3 +8,4 @@ require 'minitest/pride'
 require "pry"
 require "time"
 require "bigdecimal"
+require "csv"
