@@ -11,18 +11,18 @@ class MerchantRepositoryTest < MiniTest::Test
     assert_equal @merchants.merchants, @merchants.all
   end
   def test_find_by_id_is_nil_when_passed_non_matching_id
-    assert_nil @merchants.find_by_id("a")
+    assert_nil @merchants.find_by_id(2)
   end
 
   def test_find_by_id_returns_instance_of_merchant
-    assert_instance_of Merchant, @merchants.find_by_id("12336189")
+    assert_instance_of Merchant, @merchants.find_by_id(12336189)
 
-    assert_equal "12336189", @merchants.find_by_id("12336189").id
+    assert_equal "12336189", @merchants.find_by_id(12336189).id
   end
 
-  def test_find_by_id_only_accepts_strings
+  def test_find_by_id_only_accepts_integers
     assert_raises ArgumentError do
-      @merchants.find_by_id(1)
+      @merchants.find_by_id("l")
     end
 
     assert_raises ArgumentError do
