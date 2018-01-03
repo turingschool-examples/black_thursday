@@ -4,7 +4,7 @@ require './lib/item'
 class ItemRepository
   def initialize(file_path, parent)
     @items = []
-    @parent = parent
+    @sales_engine = parent
     item_data = CSV.open file_path, headers: true, header_converters: :symbol, converters: :numeric
     parse(item_data)
   end
@@ -53,5 +53,9 @@ class ItemRepository
     @items.keep_if do |item|
       item.merchant_id == merchant_id
     end
+  end
+
+  def find_merchant_by_merchant_id(merchant_id)
+    @sales_engine.find_merchant_by_merchant_id(merchant_id)
   end
 end

@@ -17,9 +17,14 @@ class Item
     @created_at = Time.now
     @updated_at = Time.now
     @merchant_id = data[:merchant_id]
+    @item_repository = parent
   end
 
   def unit_price_in_dollars
     @unit_price.to_f.round(2)
+  end
+
+  def merchant
+    @item_repository.find_merchant_by_merchant_id(@merchant_id)
   end
 end
