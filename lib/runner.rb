@@ -26,9 +26,3 @@ require_relative "sales_analyst"
 
   sa = SalesAnalyst.new(se)
 
-
-item_one = se.items.all.first
-
-
-p item_one.description.class
-p item_one.description.length
