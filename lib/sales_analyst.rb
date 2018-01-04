@@ -48,7 +48,7 @@ class SalesAnalyst
 
   def merchants_by_items_in_stock
     merchants_by_item_count.find_all do |_, value|
-      value <= standard_dev_plus_average
+      value >= standard_dev_plus_average
     end
   end
 
@@ -57,7 +57,13 @@ class SalesAnalyst
       sales_engine.merchants.find_by_id(merchant[0])
     end    
   end
+
+  def average_item_price_for_merchant(merchant_id)
+    
+  end
+
 end
+
 
 
 
