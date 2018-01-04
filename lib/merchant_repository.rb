@@ -3,13 +3,19 @@ require_relative '../lib/merchant'
 
 class MerchantRepository
   # do we need contents as attr_reader
-  attr_reader :all
+  attr_reader :all,
+              :parent
 
-  def initialize(file_path)
+  def initialize(file_path, parent)
     contents = CSV.open(file_path, headers: true, header_converters: :symbol)
     @all = contents.map do |row|
-      Merchant.new({:id => row[:id], :name => row[:name]})
+      Merchant.new({:id => row[:id], :name => row[:name]}, self)
     end
+    @parent = parent
+  end
+
+  def call_sales_engine_items(id)
+    parent.from_merchant_to_item(id)
   end
 
   def find_by_id(id)

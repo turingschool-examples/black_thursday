@@ -52,6 +52,32 @@ class SalesEngineTest < Minitest::Test
     end
   end
 
+  def test_item_is_linked_to_merchant
+    se = SalesEngine.new
+
+    se.from_csv({merchants: "./test/test_data/test_merchants.csv",
+                      items: "./test/test_data/test_items.csv"})
+
+    item = se.items.find_by_id("263395237")
+
+    assert_equal "Zzz", item.merchant.name
+  end
+
+  def test_merchant_is_linked_to_item
+    se = SalesEngine.new
+
+    se.from_csv({merchants: "./test/test_data/test_merchants.csv",
+                      items: "./test/test_data/test_items.csv"})
+
+    merchant = se.merchants.find_by_id("12334141")
+
+    assert_equal "510+ RealPush Icon Set", merchant.items.first.name
+    merchant.items.each do |item|
+      assert_instance_of Item, item
+    end
+    
+    assert_equal 1, merchant.items.count
+  end
 
 
 end
