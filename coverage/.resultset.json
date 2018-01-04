@@ -1,7 +1,11 @@
 {
   "Unit Tests": {
     "coverage": {
+<<<<<<< HEAD
       "/Users/meganmcmahon/turing/1module/projects/black_thursday/lib/item_repository.rb": [
+=======
+      "/Users/mgmilton/turing/projects/black_thursday/lib/item_repository.rb": [
+>>>>>>> 28a84fc0132a30d77497ab852e7eee71d0464c86
         1,
         1,
         null,
@@ -71,7 +75,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/Users/meganmcmahon/turing/1module/projects/black_thursday/lib/item.rb": [
+=======
+      "/Users/mgmilton/turing/projects/black_thursday/lib/item.rb": [
+>>>>>>> 28a84fc0132a30d77497ab852e7eee71d0464c86
         1,
         null,
         1,
@@ -108,7 +116,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/Users/meganmcmahon/turing/1module/projects/black_thursday/lib/merchant_repository.rb": [
+=======
+      "/Users/mgmilton/turing/projects/black_thursday/lib/merchant_repository.rb": [
+>>>>>>> 28a84fc0132a30d77497ab852e7eee71d0464c86
         1,
         1,
         null,
@@ -166,7 +178,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/Users/meganmcmahon/turing/1module/projects/black_thursday/lib/merchant.rb": [
+=======
+      "/Users/mgmilton/turing/projects/black_thursday/lib/merchant.rb": [
+>>>>>>> 28a84fc0132a30d77497ab852e7eee71d0464c86
         1,
         1,
         null,
@@ -191,6 +207,7 @@
         null,
         null,
         null
+<<<<<<< HEAD
       ],
       "/Users/meganmcmahon/turing/1module/projects/black_thursday/lib/sales_engine.rb": [
         1,
@@ -226,5 +243,10 @@
       ]
     },
     "timestamp": 1515025024
+=======
+      ]
+    },
+    "timestamp": 1515024491
+>>>>>>> 28a84fc0132a30d77497ab852e7eee71d0464c86
   }
 }
