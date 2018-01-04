@@ -13,7 +13,7 @@ require_relative "sales_engine"
     :customers     => "./test/fixtures/customers_truncated.csv"
   })
 
-i = se.items.find_by_id(263500432)
 
-merchant = se.merchants.find_by_id(12334112)
-p merchant.items
+
+item =  se.items.find_merchant(12334105)
+puts item
