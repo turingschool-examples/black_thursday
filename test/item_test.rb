@@ -1,5 +1,5 @@
-require './test/test_helper'
-require './lib/item'
+require_relative 'test_helper'
+require_relative '../lib/item'
 
 class ItemTest < MiniTest::Test
 
@@ -9,7 +9,7 @@ class ItemTest < MiniTest::Test
       id: 321,
       name: "Pencil",
       description: "You can use it to write things",
-      unit_price: 10.99,
+      unit_price: 1099,
       merchant_id: 426
     }, mock('ItemRepository'))
   end
@@ -27,7 +27,7 @@ class ItemTest < MiniTest::Test
   end
 
   def test_it_has_unit_price
-    assert_equal 10.99, @item.unit_price
+    assert_equal 1099, @item.unit_price
   end
 
   def test_it_has_created_at

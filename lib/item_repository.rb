@@ -1,5 +1,5 @@
 require 'csv'
-require './lib/item'
+require_relative '../lib/item'
 
 class ItemRepository
   def initialize(file_path, parent)
@@ -52,11 +52,14 @@ class ItemRepository
   def find_all_by_merchant_id(merchant_id)
     @items.find_all do |item|
       item.merchant_id == merchant_id
-      require 'pry'; binding.pry
     end
   end
 
   def find_merchant_by_merchant_id(merchant_id)
     @sales_engine.find_merchant_by_merchant_id(merchant_id)
+  end
+
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
   end
 end

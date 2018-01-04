@@ -1,5 +1,5 @@
 require 'csv'
-require './lib/merchant'
+require_relative '../lib/merchant'
 
 class MerchantRepository
   def initialize(file_path, parent)
@@ -33,13 +33,17 @@ class MerchantRepository
     end
   end
 
-  def find_all_by_name(name)
+  def find_all_by_name(name_fragment)
     @merchants.find_all do |merchant|
-      merchant.name == name
+      merchant.name.downcase.include?(name_fragment.downcase)
     end
   end
 
   def find_items_by_id(id)
     @sales_engine.find_items_by_merchant_id(id)
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end

@@ -1,10 +1,11 @@
-require './test/test_helper'
-require './lib/merchant_repository'
+require_relative 'test_helper'
+require_relative '../lib/merchant_repository'
 
 class MerchantRepositoryTest < MiniTest::Test
   def setup
+    @se = mock('sales_engine')
     file_path = './test/fixtures/merchants_truncated.csv'
-    @mr = MerchantRepository.new(file_path, mock('SalesEngine'))
+    @mr = MerchantRepository.new(file_path, @se)
   end
 
   def test_all_returns_an_array_of_merchant_instances
@@ -43,14 +44,14 @@ class MerchantRepositoryTest < MiniTest::Test
     assert_equal 'LolaMarleys', result.name
   end
 
-  def test_it_returns_all_merchants_with_a_matching_name
-    name = 'LolaMarleys'
+  def test_it_returns_all_merchants_with_a_matching_name_fragment
+    name = 'BowlsBy'
 
-    result = @mr.find_all_by_name(name)
-
-    assert result.all? do |merchant|
-      merchant.name == name
+    result = @mr.find_all_by_name(name).map do |merchant|
+      merchant.name
     end
+
+    assert_equal ['BowlsByChris', 'BowlsByAnna'], result
   end
 
   def test_it_returns_an_empty_array_if_no_merchants_match_name
@@ -61,8 +62,7 @@ class MerchantRepositoryTest < MiniTest::Test
 
   def test_it_calls_sales_engine_to_return_items_by_merchant_id
     item = mock('item')
-    sales_engine = mock('salesengine')
-    sales_engine.expects(:find_items_by_merchant_id).returns([item, item, item])
+    @se.expects(:find_items_by_merchant_id).returns([item, item, item])
 
     assert_equal [item, item, item], @mr.find_items_by_id(12334105)
   end
