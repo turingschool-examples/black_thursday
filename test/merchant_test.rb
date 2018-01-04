@@ -18,4 +18,9 @@ class MerchantTest < Minitest::Test
     assert_instance_of Time, m.updated_at
     assert_nil m.parent
   end
+
+  def test_items_returns_all_items_of_given_merchant
+    
+
+  end
 end
