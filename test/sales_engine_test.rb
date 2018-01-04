@@ -43,6 +43,10 @@ class SalesEngineTest < Minitest::Test
     })
 
     assert_equal "jejum", se.find_merchant(12334141).name
+    assert_equal 475, se.merchants.merchants.count
+    assert_equal 1367, se.items.items.count
+    assert_instance_of Merchant, se.merchants.merchants.first
+    assert_instance_of Item, se.items.items.first
   end
 
 end
