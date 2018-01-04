@@ -4,7 +4,7 @@ SimpleCov.start do
 end
 require "minitest/autorun"
 require "minitest/pride"
-require "./lib/item"
+require_relative "../lib/item"
 require "bigdecimal"
 require "pry"
 
