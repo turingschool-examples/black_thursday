@@ -5,8 +5,8 @@ class MerchantRepository
 
   attr_reader :merchants
 
-  def initialize
-    @merchants_csv = CSV.open './data/merchants.csv', headers: true, header_converters: :symbol
+  def initialize(csv_file, se)
+    @merchants_csv = CSV.open csv_file, headers: true, header_converters: :symbol
     @merchants = []
     @merchants_csv.each do |row|
       id          = row[:id]

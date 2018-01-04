@@ -6,8 +6,8 @@ class ItemRepository
   attr_reader :items_csv,
               :items
 
-  def initialize
-    @items_csv = CSV.open './data/items.csv', headers: true, header_converters: :symbol
+  def initialize(csv_file, se)
+    @items_csv = CSV.open csv_file, headers: true, header_converters: :symbol
     @items = []
     items_csv.each do |row|
       id          = row[:id]
