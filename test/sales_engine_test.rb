@@ -16,5 +16,52 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of SalesEngine, se
   end
 
-  
+  def test_se_has_instances_child_classes
+    se = SalesEngine.from_csv({
+      :items         => "./data/items.csv",
+      :merchants     => "./data/merchants.csv",
+      :invoices      => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions  => "./data/transactions.csv",
+      :customers     => "./data/customers.csv"
+    })
+
+    assert_instance_of MerchantRepo, se.merchants
+    assert_instance_of ItemRepo, se.items
+    # assert_instance_of InvoiceItemRepo, se.invoice_items
+    # assert_instance_of CustomerRepo, se.customers
+  end
+
+  def test_item_merchant_can_be_found
+    se = SalesEngine.from_csv({
+      :items         => "./data/items.csv",
+      :merchants     => "./data/merchants.csv",
+      :invoices      => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions  => "./data/transactions.csv",
+      :customers     => "./data/customers.csv"
+    })
+
+    assert_equal "jejum", se.find_merchant(12334141).name
+  end
+
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
