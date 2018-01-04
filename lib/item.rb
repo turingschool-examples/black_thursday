@@ -27,5 +27,9 @@ class Item
   def merchants
     @parent.merchants
   end
-  
+
+  def downcaser
+    @name.downcase
+  end
+
 end

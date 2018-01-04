@@ -6,7 +6,7 @@ class MerchantRepository
               :parent
 
   def initialize(path, sales_engine = "")
-    @merchants = []
+    @merchants = {}
     merchant_creator_and_storer(path)
     @parent = sales_engine
   end
@@ -19,28 +19,28 @@ class MerchantRepository
   def merchant_creator_and_storer(path)
     argument_raiser(path)
     csv_opener(path).each do |merchant|
-      @merchants << Merchant.new(merchant, self)
+      new_merchant = Merchant.new(merchant, self)
+      @merchants[new_merchant.id.to_i] = new_merchant
     end
   end
 
   def all
-    @merchants
+    @merchants.values
   end
 
   def find_by_id(id)
     argument_raiser(id, Integer)
-    @merchants.find {|merchant| merchant.id.to_i == id}
+    @merchants[id]
   end
 
   def find_by_name(name)
     argument_raiser(name)
-    @merchants.find {|merchant| merchant.name.downcase == name.downcase}
+    @merchants.find {|id, merchant| merchant.downcaser == name.downcase}[1]
   end
-
 
   def find_all_by_name(name)
     argument_raiser(name)
-    @merchants.select {|merchant| merchant if merchant.name.downcase.include?(name.downcase)}
+    @merchants.select {|id, merchant| merchant.downcaser.include?(name.downcase)}.values
   end
 
   def items

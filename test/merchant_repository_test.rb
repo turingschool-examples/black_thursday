@@ -8,8 +8,9 @@ class MerchantRepositoryTest < MiniTest::Test
   end
 
   def test_all_returns_merchants
-    assert_equal @merchants.merchants, @merchants.all
+    assert_equal @merchants.merchants.values, @merchants.all
   end
+
   def test_find_by_id_is_nil_when_passed_non_matching_id
     assert_nil @merchants.find_by_id(2)
   end
@@ -88,6 +89,7 @@ class MerchantRepositoryTest < MiniTest::Test
   end
 
   def test_argument_raiser_raises_argument_when_passed_a_float
+
     assert_raises ArgumentError do
       @merchants.argument_raiser(0.2)
     end
