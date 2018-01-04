@@ -6,6 +6,7 @@ class SalesAnalyst
   def initialize(sales_engine)
     @sales_engine = sales_engine
     @stand_dev = average_items_per_merchant_standard_deviation
+    @golden_stnd_dev = golden_items_stnd_dev
   end
 
   def average_items_per_merchant
@@ -73,6 +74,34 @@ class SalesAnalyst
     (merchant_list.reduce(0) { |sum, merchant|
       sum + average_item_price_for_merchant(merchant)
       } / merchant_list.count).round(2)
+  end
+
+  def average_unit_price
+    (sales_engine.items.all.reduce(0) { |sum, item| 
+      sum + item.unit_price } / sales_engine.items.all.count).round(2).to_f
+  end
+
+  def unit_price_and_average_sqr_sum
+    sales_engine.items.all.reduce(0) { |sum, item| 
+      sum += (item.unit_price - average_unit_price) ** 2 }
+  end
+
+  def unit_price_std_dev_sum_minus_one
+    unit_price_and_average_sqr_sum / (sales_engine.items.all.count - 1)
+  end
+
+  def unit_price_stnd_dev
+    Math.sqrt(unit_price_std_dev_sum_minus_one).round(2)
+  end
+
+  def golden_items_stnd_dev
+    average_unit_price + (unit_price_stnd_dev * 2) 
+  end
+
+  def golden_items
+    sales_engine.items.items.find_all do |item| 
+      item.unit_price >= @golden_stnd_dev
+    end
   end
 
 end
