@@ -1,3 +1,4 @@
+require 'bigdecimal'
 require './lib/sales_engine'
 
 class SalesAnalyst
@@ -44,7 +45,30 @@ class SalesAnalyst
     end
   end
 
+  def average_item_price_for_merchant(id)
+    BigDecimal(merchant_items_sum(id) / @sales_engine.items.find_all_by_merchant_id(id).length)
+  end
 
+  def merchant_items_sum(id)
+    @sales_engine.items.find_all_by_merchant_id(id).reduce(0) do |sum, item|
+      sum += item.unit_price
+    end
+  end
+
+
+  def average_price_per_merchant
+    @sales_engine.merchants.merchants.map do |id, merchant|
+      average_item_price_for_merchant(id)
+    end
+  end
+
+  def average_price_per_merchant_sum
+    average_price_per_merchant.sum
+  end
+
+  def average_average_price_per_merchant
+    BigDecimal(average_price_per_merchant_sum / average_price_per_merchant.length)
+  end
 end
 
 
@@ -54,5 +78,4 @@ se = SalesEngine.from_csv({
 })
 
 sa = SalesAnalyst.new(se)
-
-p sa.merchants_with_high_item_count.length
+p sa.average_average_price_per_merchant

@@ -47,7 +47,7 @@ class MerchantRepository
     @merchants.select {|id, merchant| merchant.downcaser.include?(name.downcase)}.values
   end
 
-  def items
+  def items(parent)
     parent_generator(parent).items
   end
 
