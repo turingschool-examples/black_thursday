@@ -1,4 +1,4 @@
-require './lib/merchant'
+require_relative 'merchant'
 require 'csv'
 
 class MerchantRepository
@@ -42,5 +42,7 @@ class MerchantRepository
       merchant if merchant.name.downcase.include?(name.downcase)
     end
   end
+
+  def items
 
 end
