@@ -1,10 +1,11 @@
 require_relative "sales_engine"
 
 class SalesAnalyst
-  attr_reader :sales_engine
+  attr_reader :sales_engine, :stand_dev
 
   def initialize(sales_engine)
     @sales_engine = sales_engine
+    @stand_dev = average_items_per_merchant_standard_deviation
   end
 
   def average_items_per_merchant
@@ -37,7 +38,60 @@ class SalesAnalyst
     (Math.sqrt(total_std_dev_sum_minus_one).round(2))
   end
 
-  def merchants_with_high_item_count
-
+  def merchants_by_item_count
+    Hash[merchant_list.zip(find_items)] 
   end
+
+  def standard_dev_plus_average
+    @stand_dev + average_items_per_merchant
+  end
+
+  def merchants_by_items_in_stock
+    merchants_by_item_count.find_all do |_, value|
+      value >= standard_dev_plus_average
+    end
+  end
+
+  def merchants_with_high_item_count
+    merchants_by_items_in_stock.map do |merchant|
+      sales_engine.merchants.find_by_id(merchant[0])
+    end    
+  end
+
+  def average_item_price_for_merchant(merchant_id)
+    
+  end
+
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
