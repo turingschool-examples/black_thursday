@@ -1,19 +1,30 @@
 require "bigdecimal"
 require "csv"
 require "time"
+# require "math"
 require_relative "sales_engine"
+require_relative "sales_analyst"
 
+
+  # se = SalesEngine.from_csv({
+  #   :items         => "./test/fixtures/items_truncated.csv",
+  #   :merchants     => "./test/fixtures/merchants_truncated.csv",
+  #   :invoices      => "./test/fixtures/invoices_truncated.csv",
+  #   :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
+  #   :transactions  => "./test/fixtures/transactions_truncated.csv",
+  #   :customers     => "./test/fixtures/customers_truncated.csv"
+  # })
 
   se = SalesEngine.from_csv({
-    :items         => "./test/fixtures/items_truncated.csv",
-    :merchants     => "./test/fixtures/merchants_truncated.csv",
-    :invoices      => "./test/fixtures/invoices_truncated.csv",
-    :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
-    :transactions  => "./test/fixtures/transactions_truncated.csv",
-    :customers     => "./test/fixtures/customers_truncated.csv"
-  })
+  :items         => "./data/items.csv",
+  :merchants     => "./data/merchants.csv",
+  :invoices      => "./data/invoices.csv",
+  :invoice_items => "./data/invoice_items.csv",
+  :transactions  => "./data/transactions.csv",
+  :customers     => "./data/customers.csv"
+})
 
-i = se.items.find_by_id(263500432)
+  sa = SalesAnalyst.new(se)
 
-merchant = se.merchants.find_by_id(12334112)
-p merchant.items
+
+  puts sa.average_items_per_merchant_standard_deviation
