@@ -7,7 +7,11 @@ class ItemRepository
   def initialize(path, sales_engine = "")
     @items = {}
     item_creator_and_storer(path)
-    @parent = sales_engine
+    parent_generator(sales_engine)
+  end
+
+  def parent_generator(parent)
+    parent
   end
 
   def csv_opener(path)
@@ -56,7 +60,7 @@ class ItemRepository
   end
 
   def merchants
-    @parent.merchants
+    parent_generator(parent).merchants
   end
 
   def argument_raiser(data_type, desired_class = String)

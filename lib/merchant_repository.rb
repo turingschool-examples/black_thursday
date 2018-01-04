@@ -8,7 +8,11 @@ class MerchantRepository
   def initialize(path, sales_engine = "")
     @merchants = {}
     merchant_creator_and_storer(path)
-    @parent = sales_engine
+    parent_generator(sales_engine)
+  end
+
+  def parent_generator(parent)
+    parent
   end
 
   def csv_opener(path)
@@ -43,8 +47,12 @@ class MerchantRepository
     @merchants.select {|id, merchant| merchant.downcaser.include?(name.downcase)}.values
   end
 
-  def items
-    @parent.items
+  def items(parent)
+    parent_generator(parent).items
+  end
+
+  def assign_item_count(id, num)
+    @merchants[id].item_count = num
   end
 
   def argument_raiser(data_type, desired_class = String)
