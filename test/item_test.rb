@@ -1,5 +1,6 @@
 require_relative "test_helper"
 require_relative "../lib/item"
+require_relative "../lib/sales_engine"
 
 class ItemTest < Minitest::Test
 
@@ -29,7 +30,7 @@ class ItemTest < Minitest::Test
     assert_instance_of Time, i.created_at
     assert_instance_of Time, i.updated_at
     assert_equal 100, i.merchant_id
-    assert_nil i.parent
+    assert_nil i.item_repo
   end
 
   def test_unit_price_to_dollars_displays_price_as_float
@@ -40,5 +41,21 @@ class ItemTest < Minitest::Test
 
     assert_instance_of Float, i.unit_price_to_dollars
     assert_equal 49.7, i.unit_price_to_dollars
+  end
+
+  def test_merchant_returns_merchant_of_given_item
+    se = SalesEngine.from_csv({
+      :items         => "./data/items.csv",
+      :merchants     => "./data/merchants.csv",
+      :invoices      => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions  => "./data/transactions.csv",
+      :customers     => "./data/customers.csv"
+    })
+
+    ir = ItemRepo.new(se, "./data/items.csv")
+
+    assert_instance_of Merchant, ir.items.first.merchant
+    assert_equal 12334141, ir.items.first.merchant.id
   end
 end
