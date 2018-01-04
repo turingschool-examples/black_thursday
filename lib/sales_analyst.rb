@@ -24,7 +24,7 @@ class SalesAnalyst
     square = item_array_maker.map do |item|
       (item-mean) ** 2
     end.sum
-    (square/(item_array_maker.count-1)) ** (0.5)
+    ((square/(item_array_maker.count-1)) ** (0.5)).round(2)
   end
 end
 
