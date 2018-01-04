@@ -73,10 +73,4 @@ class ItemRepository
     end
   end
 
-  def merchant
-    se.merchant_repository.merchants.find_all do |merchant|
-      item.merchant_id == merchant.id
-    end
-  end
-
 end
