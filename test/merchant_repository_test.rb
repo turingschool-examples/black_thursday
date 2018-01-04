@@ -4,29 +4,13 @@ require_relative "../lib/merchant_repository"
 class MerchantRepositoryTest < Minitest::Test
 
   def test_it_exists
-    mr = MerchantRepository.new('./test/test_data/test_merchants.csv')
+    mr = MerchantRepository.new('./test/test_data/test_merchants.csv', "parent")
 
     assert_instance_of MerchantRepository, mr
   end
 
-  # def test_contents_are_csv_object
-  #   mr = MerchantRepository.new('./test/test_data/test_merchants.csv')
-  #
-  #   assert_instance_of CSV, mr.contents
-  # end
-
-  # def test_contents_are_accessible_by_headers
-  #   mr = MerchantRepository.new('./test/test_data/test_merchants.csv')
-  #
-  #   ids = mr.contents.map do |row|
-  #     id = row[:id]
-  #   end
-  #
-  #   assert_equal ["12334105", "12334112", "12334113", "12334113", "12334123"], ids
-  # end
-
   def test_all_returns_array_of_merchants
-    mr = MerchantRepository.new('./test/test_data/test_merchants.csv')
+    mr = MerchantRepository.new('./test/test_data/test_merchants.csv', "parent")
 
     assert_instance_of Array, mr.all
     mr.all.each do |merchant|
@@ -37,7 +21,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_by_id_returns_appropriate_merchant
-    mr = MerchantRepository.new('./test/test_data/test_merchants.csv')
+    mr = MerchantRepository.new('./test/test_data/test_merchants.csv', "parent")
 
     merchant = mr.find_by_id("12334123")
 
@@ -47,7 +31,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_by_name_returns_appropriate_merchant
-    mr = MerchantRepository.new('./test/test_data/test_merchants.csv')
+    mr = MerchantRepository.new('./test/test_data/test_merchants.csv', "parent")
 
     merchant_1 = mr.find_by_name("Candisart")
     merchant_2 = mr.find_by_name("candisart")
@@ -63,7 +47,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_name_returns_all_names_containing_name_fragment
-    mr = MerchantRepository.new('./test/test_data/test_merchants.csv')
+    mr = MerchantRepository.new('./test/test_data/test_merchants.csv', "parent")
 
     merchants_1 = mr.find_all_by_name("candisart")
     merchants_2 = mr.find_all_by_name("k")
