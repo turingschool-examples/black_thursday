@@ -1,3 +1,5 @@
+require "time"
+
 class Merchant
   attr_reader :id,
               :name,
@@ -11,5 +13,9 @@ class Merchant
     @created_at    = Time.parse(row[:created_at])
     @updated_at    = Time.parse(row[:updated_at])
     @merchant_repo = parent
+  end
+
+  def items
+    @merchant_repo.find_items(self.id)
   end
 end
