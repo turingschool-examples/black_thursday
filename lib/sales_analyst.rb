@@ -42,6 +42,7 @@ class SalesAnalyst
         merchants << @sales_engine.merchants.find_by_id(id)
       end
     end
+    require 'pry' ; binding.pry
     merchants
   end
 end
@@ -54,4 +55,5 @@ se = SalesEngine.from_csv({
 
 sa = SalesAnalyst.new(se)
 
-p sa.merchants_with_high_item_count
+# p sa.merchants_with_high_item_count
+p sa.mean_plus_standard_deviation

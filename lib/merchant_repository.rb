@@ -8,7 +8,11 @@ class MerchantRepository
   def initialize(path, sales_engine = "")
     @merchants = {}
     merchant_creator_and_storer(path)
-    @parent = sales_engine
+    parent_generator(sales_engine)
+  end
+
+  def parent_generator(parent)
+    parent
   end
 
   def csv_opener(path)
@@ -44,7 +48,7 @@ class MerchantRepository
   end
 
   def items
-    @parent.items
+    parent_generator(parent).items
   end
 
   def argument_raiser(data_type, desired_class = String)

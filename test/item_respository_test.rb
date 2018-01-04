@@ -82,14 +82,14 @@ class ItemRepositoryTest < MiniTest::Test
   end
 
   def test_find_all_by_merchant_id_returns_an_array_of_item_instances
-    assert_instance_of Array, @items.find_all_by_merchant_id("12334609")
+    assert_instance_of Array, @items.find_all_by_merchant_id(12334609)
 
-    assert_instance_of Item, @items.find_all_by_merchant_id("12334609")[0]
+    assert_instance_of Item, @items.find_all_by_merchant_id(12334609)[0]
   end
 
-  def test_find_all_by_merchant_id_only_accepts_strings
+  def test_find_all_by_merchant_id_only_accepts_integers
     assert_raises ArgumentError do
-      @items.find_all_by_merchant_id(1)
+      @items.find_all_by_merchant_id("d")
     end
 
     assert_raises ArgumentError do

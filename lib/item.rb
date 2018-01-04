@@ -17,15 +17,19 @@ class Item
     @merchant_id = info[:merchant_id]
     @created_at = info[:created_at]
     @updated_at = info[:updated_at]
-    @parent = item_repository
+    parent_generator(item_repository)
   end
 
   def unit_price_to_dollars
     (@unit_price/100).to_f
   end
 
-  def merchants
-    @parent.merchants.merchants.values
+  def merchants(parent)
+    parent_generator(parent).merchants.merchants.values
+  end
+
+  def parent_generator(parent)
+    parent
   end
 
   def downcaser
