@@ -59,7 +59,5 @@ class ItemTest < MiniTest::Test
       unit_price: 10.99,
       merchant_id: 12334185
     }, ir)
-    ir.
-
-
+  end
 end
