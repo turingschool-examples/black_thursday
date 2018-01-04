@@ -65,14 +65,14 @@ class SalesAnalyst
   def average_item_price_for_merchant(merchant_id)
     list = all_merchant_items(merchant_id)
     list.reduce(0) do |sum, item| 
-      sum + item.unit_price_to_dollars / list.count
+      sum + item.unit_price / list.count
     end.round(2)
   end
 
   def average_average_price_per_merchant
-    merchant_list.reduce(0) do |sum, merchant|
-      (sum + average_item_price_for_merchant(merchant)) / merchant_list.count
-    end.round(2)
+    (merchant_list.reduce(0) { |sum, merchant|
+      sum + average_item_price_for_merchant(merchant)
+      } / merchant_list.count).round(2)
   end
 
 end
