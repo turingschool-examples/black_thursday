@@ -8,9 +8,9 @@ class Item
               :created_at,
               :updated_at,
               :merchant_id,
-              :parent
+              :item_repo
 
-  def initialize(row, parent)
+  def initialize(row, item_repo)
     @id          = row[:id]
     @name        = row[:name]
     @description = row[:description]
@@ -18,7 +18,7 @@ class Item
     @created_at  = Time.parse(row[:created_at])
     @updated_at  = Time.parse(row[:updated_at])
     @merchant_id = row[:merchant_id]
-    @parent      = parent
+    @item_repo   = item_repo
   end
 
   def unit_price_to_dollars
@@ -26,6 +26,6 @@ class Item
   end
 
   def merchant
-    parent.find_merchant(self.merchant_id)
+    item_repo.find_merchant(self.merchant_id)
   end
 end

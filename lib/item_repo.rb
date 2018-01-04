@@ -3,11 +3,11 @@ require_relative "item"
 
 class ItemRepo
   attr_reader :items,
-              :parent
+              :sales_engine
 
-  def initialize(parent, filename)
+  def initialize(sales_engine, filename)
     @items        = []
-    @sales_engine = parent
+    @sales_engine = sales_engine
     load_items(filename)
   end
 

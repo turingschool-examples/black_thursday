@@ -26,3 +26,4 @@ require_relative "sales_analyst"
 
   sa = SalesAnalyst.new(se)
 
+  p se.items.items.size

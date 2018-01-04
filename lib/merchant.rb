@@ -5,14 +5,14 @@ class Merchant
               :name,
               :created_at,
               :updated_at,
-              :parent
+              :merchant_repo
 
-  def initialize(row, parent)
+  def initialize(row, merchant_repo)
     @id            = row[:id]
     @name          = row[:name]
     @created_at    = Time.parse(row[:created_at])
     @updated_at    = Time.parse(row[:updated_at])
-    @merchant_repo = parent
+    @merchant_repo = merchant_repo
   end
 
   def items

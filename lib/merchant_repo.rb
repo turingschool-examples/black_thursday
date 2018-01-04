@@ -3,11 +3,11 @@ require_relative "sales_engine"
 
 class MerchantRepo
   attr_reader :merchants,
-              :parent
+              :sales_engine
 
-  def initialize(parent, filename)
+  def initialize(sales_engine, filename)
     @merchants    = []
-    @sales_engine = parent
+    @sales_engine = sales_engine
     load_merchants(filename)
   end
 
