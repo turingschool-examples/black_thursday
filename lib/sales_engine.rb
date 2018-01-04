@@ -1,5 +1,6 @@
 require './lib/item_repository'
 require './lib/merchant_repository'
+require 'pry'
 
 class SalesEngine
 
