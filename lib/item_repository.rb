@@ -1,5 +1,5 @@
 require 'csv'
-require_relative 'item'
+require_relative '../lib/item'
 
 class ItemRepository
 
@@ -71,6 +71,16 @@ class ItemRepository
     @items.find_all do |item|
       item if item.merchant_id == merchant_id
     end
+  end
+
+  def find_item(id)
+    items.find_all do |item|
+      item if item.merchant_id == id
+    end
+  end
+
+  def find_merchant(id)
+    se.find_merchant_by_id(id)
   end
 
 end
