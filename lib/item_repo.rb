@@ -34,7 +34,7 @@ class ItemRepo
 
   def find_all_with_description(description)
     items.find_all do |item|
-      items.description.downcase.include?(description.downcase)
+      item.description.downcase.include?(description.downcase)
     end
   end
 

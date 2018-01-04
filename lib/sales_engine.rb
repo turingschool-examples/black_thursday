@@ -1,3 +1,4 @@
+require "csv"
 require_relative "merchant_repo"
 require_relative "item_repo"
 
@@ -22,4 +23,3 @@ class SalesEngine
     merchants.find_by_id(merchant_id)
   end
 end
-  
