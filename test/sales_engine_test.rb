@@ -60,7 +60,7 @@ class SalesEngineTest < Minitest::Test
 
     item = se.items.find_by_id("263395237")
 
-    assert_equal "Zzz", item.merchant.name
+    assert_equal "SeriousCompany", item.merchant.name
   end
 
   def test_merchant_is_linked_to_item
@@ -69,14 +69,18 @@ class SalesEngineTest < Minitest::Test
     se.from_csv({merchants: "./test/fixtures/merchants_fixture.csv",
                       items: "./test/fixtures/items_fixture.csv"})
 
-    merchant = se.merchants.find_by_id("12334141")
+    merchant_1 = se.merchants.find_by_id("12334141")
+    merchant_2 = se.merchants.find_by_id("12334185")
 
-    assert_equal "510+ RealPush Icon Set", merchant.items.first.name
-    merchant.items.each do |item|
+    assert_equal "510+ RealPush Icon Set", merchant_1.items.first.name
+    merchant_1.items.each do |item|
       assert_instance_of Item, item
     end
-
-    assert_equal 1, merchant.items.count
+    assert_equal 1, merchant_1.items.count
+    merchant_2.items.each do |item|
+      assert_instance_of Item, item
+    end
+    assert_equal 3, merchant_2.items.count
   end
 
 
