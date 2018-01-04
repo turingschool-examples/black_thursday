@@ -1,11 +1,5 @@
-require 'simplecov'
-SimpleCov.start do
-  add_filter "/test/"
-end
-require "minitest/autorun"
-require "minitest/pride"
+require_relative 'test_helper'
 require_relative "../lib/merchant_repository"
-require "pry"
 
 class MerchantRepositoryTest < Minitest::Test
 
