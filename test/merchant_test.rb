@@ -4,7 +4,7 @@ SimpleCov.start do
 end
 require "minitest/autorun"
 require "minitest/pride"
-require "./lib/merchant"
+require_relative "../lib/merchant"
 require "pry"
 
 class MerchantTest < Minitest::Test
@@ -20,7 +20,7 @@ class MerchantTest < Minitest::Test
   def test_it_has_an_id
     assert_equal 5, @merchant.id
   end
-  
+
   def test_it_has_a_name
     assert_equal "Turing School", @merchant.name
   end
