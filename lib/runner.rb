@@ -27,4 +27,4 @@ require_relative "sales_analyst"
   sa = SalesAnalyst.new(se)
 
 
-  p sa.merchants_with_high_item_count.count
+  p sa.average_average_price_per_merchant

@@ -58,8 +58,21 @@ class SalesAnalyst
     end    
   end
 
+  def all_merchant_items(merchant_id)
+    sales_engine.items.find_all_by_merchant_id(merchant_id)
+  end
+
   def average_item_price_for_merchant(merchant_id)
-    
+    list = all_merchant_items(merchant_id)
+    list.reduce(0) do |sum, item| 
+      sum + item.unit_price_to_dollars / list.count
+    end.round(2)
+  end
+
+  def average_average_price_per_merchant
+    merchant_list.reduce(0) do |sum, merchant|
+      (sum + average_item_price_for_merchant(merchant)) / merchant_list.count
+    end.round(2)
   end
 
 end
