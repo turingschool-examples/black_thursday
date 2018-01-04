@@ -8,7 +8,7 @@ class ItemRepositoryTest < MiniTest::Test
   end
 
   def test_all_returns_array_of_item_intances
-    assert_equal @items.items ,@items.all
+    assert_equal @items.items.values ,@items.all
   end
 
   def test_find_by_id_returns_instance_of_item
