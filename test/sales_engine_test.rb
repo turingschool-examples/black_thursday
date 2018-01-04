@@ -12,8 +12,8 @@ class SalesEngineTest < Minitest::Test
   def test_sales_engine_instaniates_merchant_repository
     se = SalesEngine.new
 
-    se.from_csv({merchants: "./test/test_data/test_merchants.csv",
-                      items: "./test/test_data/test_items.csv"})
+    se.from_csv({merchants: "./test/fixtures/merchants_fixture.csv",
+                      items: "./test/fixtures/merchants_fixture.csv"})
 
     assert_instance_of MerchantRepository, se.merchants
   end
@@ -21,8 +21,8 @@ class SalesEngineTest < Minitest::Test
   def test_sales_engine_instaniates_merchant_repository
     se = SalesEngine.new
 
-    se.from_csv({merchants: "./test/test_data/test_merchants.csv",
-                      items: "./test/test_data/test_items.csv"})
+    se.from_csv({merchants: "./test/fixtures/merchants_fixture.csv",
+                      items: "./test/fixtures/items_fixture.csv"})
 
     assert_instance_of ItemRepository, se.items
   end
@@ -30,8 +30,8 @@ class SalesEngineTest < Minitest::Test
   def test_merchant_repository_has_merchants
     se = SalesEngine.new
 
-    se.from_csv({merchants: "./test/test_data/test_merchants.csv",
-                      items: "./test/test_data/test_items.csv"})
+    se.from_csv({merchants: "./test/fixtures/merchants_fixture.csv",
+                      items: "./test/fixtures/items_fixture.csv"})
     all_merchants = se.merchants.all
 
     all_merchants.map do |merchant|
@@ -42,8 +42,8 @@ class SalesEngineTest < Minitest::Test
   def test_item_repository_has_items
     se = SalesEngine.new
 
-    se.from_csv({merchants: "./test/test_data/test_merchants.csv",
-                      items: "./test/test_data/test_items.csv"})
+    se.from_csv({merchants: "./test/fixtures/merchants_fixture.csv",
+                      items: "./test/fixtures/items_fixture.csv"})
 
     all_items = se.items.all
 
@@ -55,8 +55,8 @@ class SalesEngineTest < Minitest::Test
   def test_item_is_linked_to_merchant
     se = SalesEngine.new
 
-    se.from_csv({merchants: "./test/test_data/test_merchants.csv",
-                      items: "./test/test_data/test_items.csv"})
+    se.from_csv({merchants: "./test/fixtures/merchants_fixture.csv",
+                      items: "./test/fixtures/items_fixture.csv"})
 
     item = se.items.find_by_id("263395237")
 
@@ -66,8 +66,8 @@ class SalesEngineTest < Minitest::Test
   def test_merchant_is_linked_to_item
     se = SalesEngine.new
 
-    se.from_csv({merchants: "./test/test_data/test_merchants.csv",
-                      items: "./test/test_data/test_items.csv"})
+    se.from_csv({merchants: "./test/fixtures/merchants_fixture.csv",
+                      items: "./test/fixtures/items_fixture.csv"})
 
     merchant = se.merchants.find_by_id("12334141")
 
