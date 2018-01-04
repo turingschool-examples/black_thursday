@@ -32,19 +32,19 @@ class ItemRepository
   end
 
   def find_all_with_description(description)
-    @items.keep_if do |item|
+    @items.find_all do |item|
       item.description.downcase == description.downcase
     end
   end
 
   def find_all_by_price(price)
-    @items.keep_if do |item|
+    @items.find_all do |item|
       item.unit_price_in_dollars == price
     end
   end
 
   def find_all_by_price_in_range(price_range)
-    @items.keep_if do |item|
+    @items.find_all do |item|
       price_range.cover?(item.unit_price_in_dollars)
     end
   end
