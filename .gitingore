@@ -1,0 +1,110 @@
+# Git #
+########
+*.orig
+
+
+# macOS #
+#########
+*.DS_Store
+.DS_Store?
+.AppleDouble
+.LSOverride
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Ignore Spring Files #
+#######################
+/spring/*.pid
+
+# Ignore RubyMine Files #
+#######################
+.idea/
+
+
+# Rails #
+#########
+*.rbc
+capybara-*.html
+.rspec
+/public/system
+*/coverage/
+/spec/tmp
+**.orig
+rerun.txt
+pickle-email-*.html
+.env
+
+# Logs and Databases #
+######################
+*.log
+*.sql
+*.sqlite
+/log
+/tmp
+/db/*.sqlite3
+/db/*.sqlite3-journal
+
+# Environment normalization #
+#############################
+/.bundle
+/vendor/bundle
+.powenv
+
+# if using bower-rails ignore default bower_components path bower.json files
+/vendor/assets/bower_components
+*.bowerrc
+bower.json
+
+# Ruby #
+########
+*.gem
+/.config
+/InstalledFiles
+/pkg/
+/spec/reports/
+/spec/examples.txt
+/test/tmp/
+/test/version_tmp/
+/tmp/
+.rvmrc
+
+# Ignore Byebug command history file.
+.byebug_history
+
+# Documentation cache and generated files #
+###########################################
+/.yardoc/
+/_yardoc/
+/doc/
+/rdoc/
+
+# Environment normalization #
+#############################
+/.bundle/
+/lib/bundler/man/
+
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Packages #
+############
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Ignore test-related files
+coverage.data
+coverage/
