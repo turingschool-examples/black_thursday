@@ -24,4 +24,10 @@ class Item
    "$#{unit_price.to_f}"
  end
 
+ def merchant
+   item_repo.se.merchant_repository.merchants.find_all do |merchant|
+     merchant_id == merchant.id
+   end
+ end
+
 end
