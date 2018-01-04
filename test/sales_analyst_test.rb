@@ -29,10 +29,22 @@ class SalesAnalystTest < Minitest::Test
   def test_average_items_per_merchant_returns_proper_value
     sales_engine = stub(:get_all_merchant_items => [['a', 'b', 'c'],
                                                     ['d', 'e'],
-                                                    ['f']])
+                                                    ['f'],
+                                                    ['g', 'h', 'i', 'j', 'k']])
     sa = SalesAnalyst.new(sales_engine)
 
-    assert_equal 2, sa.average_items_per_merchant
+    assert_equal 2.75, sa.average_items_per_merchant
+  end
+
+  def test_average_items_per_merchant_standard_deviation
+    sales_engine = stub(:get_all_merchant_items => [['a', 'b', 'c'],
+                                                    ['d', 'e'],
+                                                    ['f'],
+                                                    ['g', 'h', 'i', 'j', 'k']])
+    sa = SalesAnalyst.new(sales_engine)
+
+    assert_equal 1.707825127659933, sa.average_items_per_merchant_standard_deviation
+    assert_equal 1.71, sa.average_items_per_merchant_standard_deviation.round(2)
   end
 
 end

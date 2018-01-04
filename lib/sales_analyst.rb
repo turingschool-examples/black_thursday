@@ -1,3 +1,4 @@
+require 'bigdecimal'
 
 class SalesAnalyst
   attr_reader :sales_engine
@@ -9,7 +10,7 @@ class SalesAnalyst
   def items_per_merchant
     merchants_items = sales_engine.get_all_merchant_items
     merchants_items.map do |merchant_items|
-      merchant_items.count
+      BigDecimal.new(merchant_items.count)
     end
   end
 
@@ -18,7 +19,10 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    
+    variance = items_per_merchant.map do |number_of_items|
+      ((average_items_per_merchant - number_of_items).abs) ** 2
+    end.sum / (items_per_merchant.count - 1)
+    Math.sqrt(variance)
   end
 
 end
