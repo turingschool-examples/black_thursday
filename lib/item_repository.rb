@@ -51,6 +51,8 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(merchant_id)
+    argument_raiser(merchant_id, Integer)
+    @items.select {|id, item| item.merchant_id.to_i == merchant_id}.values
   end
 
   def merchants
