@@ -10,10 +10,12 @@
         1,
         null,
         null,
+        null,
         1,
         12,
         12,
         12,
+        12,
         16404,
         16404,
         16404,
@@ -21,6 +23,7 @@
         16404,
         16404,
         16404,
+        null,
         null,
         null,
         null,
@@ -74,12 +77,19 @@
         null,
         null,
         null,
+        1,
+        0,
+        0,
+        null,
+        null,
+        null,
         null
       ],
       "/Users/lihkin/turing/1module/mod1_project/black_thursday/lib/item.rb": [
         1,
         null,
         1,
+        null,
         null,
         null,
         null,
@@ -112,12 +122,15 @@
         null,
         1,
         null,
+        null,
         1,
         8,
         8,
         8,
+        8,
         3800,
         3800,
+        null,
         null,
         null,
         null,
@@ -147,6 +160,9 @@
         null,
         null,
         null,
+        1,
+        null,
+        null,
         null
       ],
       "/Users/lihkin/turing/1module/mod1_project/black_thursday/lib/merchant.rb": [
@@ -156,6 +172,7 @@
         null,
         null,
         1,
+        3803,
         3803,
         3803,
         null,
@@ -184,6 +201,6 @@
         null
       ]
     },
-    "timestamp": 1515089992
+    "timestamp": 1515090601
   }
 }

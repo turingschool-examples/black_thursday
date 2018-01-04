@@ -27,7 +27,7 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of ItemRepository, se.item_repository
   end
 
-  def test_it_initializes_new_merchants
+  def test_it_initializes_new_merchants\
     se = SalesEngine.new(CSV_FILES)
 
     assert_instance_of MerchantRepository, se.merchant_repository
