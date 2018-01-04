@@ -3,17 +3,20 @@ require 'csv'
 
 class MerchantRepository
 
-  attr_reader :merchants
+  attr_reader :merchants,
+              :se
 
-  def initialize
-    @merchants_csv = CSV.open './data/merchants.csv', headers: true, header_converters: :symbol
+  def initialize(csv_file, se)
+    @merchants_csv = CSV.open csv_file, headers: true, header_converters: :symbol
     @merchants = []
+    @se = se
     @merchants_csv.each do |row|
       id          = row[:id]
       name        = row[:name]
       @merchants << Merchant.new({
         name: name,
-        id: id
+        id: id,
+        merchant_repo: self
         })
     end
   end
