@@ -39,7 +39,7 @@ class ItemRepo
   end
 
   def find_all_by_price(price)
-    items.find_all { |item| items.unit_price == price }
+    items.find_all { |item| item.unit_price == price }
   end
 
   def find_all_by_price_in_range(range)
@@ -51,7 +51,7 @@ class ItemRepo
   end
 
   def find_merchant(merchant_id)
-    sales_engine.find_merchant(merchant_id)
+    @sales_engine.find_merchant(merchant_id)
   end
 
   def find_items_by_merchant_id(merchant_id)
