@@ -52,6 +52,16 @@ class SalesEngineTest < Minitest::Test
     end
   end
 
+  def test_item_is_linked_to_merchant
+    se = SalesEngine.new
+
+    se.from_csv({merchants: "./test/test_data/test_merchants.csv",
+                      items: "./test/test_data/test_items.csv"})
+
+    item = se.items.find_by_id("263395237")
+
+    assert_equal "Zzz", item.merchant.name
+  end
 
 
 end

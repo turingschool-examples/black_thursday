@@ -4,9 +4,10 @@ require 'pry'
 
 class ItemRepository
 # shared behaviors between item & merchant repos can be pulled to module?
-  attr_reader :all
+  attr_reader :all,
+              :parent
 
-  def initialize(file_path)
+  def initialize(file_path, parent)
     contents = CSV.open(file_path, headers: true, header_converters: :symbol)
     @all = contents.map do |row|
       Item.new({:id          => row[:id],
@@ -16,8 +17,13 @@ class ItemRepository
                 :unit_price  => row[:unit_price],
                 :created_at  => row[:created_at],
                 :updated_at  => row[:updated_at]
-                })
+                }, self)
     end
+    @parent = parent
+  end
+
+  def call_sales_engine_merchants(merchant_id)
+    parent.merchant_id_search(merchant_id)
   end
 
   def find_by_id(id)
