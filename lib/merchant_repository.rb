@@ -39,12 +39,12 @@ class MerchantRepository
 
   def find_by_name(name)
     argument_raiser(name)
-    @merchants.find {|id, merchant| merchant.downcaser == name.downcase}[1]
+    all.find {|merchant| merchant.downcaser == name.downcase}
   end
 
   def find_all_by_name(name)
     argument_raiser(name)
-    @merchants.select {|id, merchant| merchant.downcaser.include?(name.downcase)}.values
+    all.select {|merchant| merchant.downcaser.include?(name.downcase)}
   end
 
   def assign_item_count(id, num)
@@ -55,6 +55,10 @@ class MerchantRepository
     if data_type.class != desired_class
       raise ArgumentError
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 
 end

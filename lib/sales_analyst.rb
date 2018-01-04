@@ -46,7 +46,7 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(id)
-    BigDecimal(merchant_items_sum(id) / @sales_engine.items.find_all_by_merchant_id(id).length)
+    BigDecimal(merchant_items_sum(id) / @sales_engine.items.find_all_by_merchant_id(id).length).round(2)
   end
 
   def merchant_items_sum(id)
@@ -66,7 +66,7 @@ class SalesAnalyst
   end
 
   def average_average_price_per_merchant
-    BigDecimal(average_price_per_merchant_sum / average_price_per_merchant.length)
+    BigDecimal(average_price_per_merchant_sum / average_price_per_merchant.length).floor(2)
   end
 
   def price_standard_deviation
@@ -74,7 +74,7 @@ class SalesAnalyst
     square = @sales_engine.all_items.map do |item|
       (item.unit_price - mean) ** 2
     end.sum
-    ((square/(@sales_engine.items.items.length-1)) ** (0.5)).round(2)
+    ((square/(@sales_engine.items.items.length-1)) ** (0.5)).floor(2)
   end
 
   def golden_items
