@@ -57,14 +57,14 @@ class ItemRepositoryTest < Minitest::Test
     parent = mock("parent")
     ir = ItemRepository.new("./test/fixtures/items_fixture.csv", parent)
 
-    items_1 = ir.find_all_with_description("excellent")
-    items_2 = ir.find_all_with_description("the")
+    items_1 = ir.find_all_with_description("total")
+    items_2 = ir.find_all_with_description("toile")
     items_2_ids = items_2.map { |item| item.id }
     unknown_item = ir.find_all_with_description("oogabooga")
 
     assert_equal [], unknown_item
     assert_equal "263395237", items_1[0].id
-    assert_equal ["263395237", "263396209", "263396255", "263396517"], items_2_ids
+    assert_equal ["263396255", "263396517"], items_2_ids
   end
 
   def test_find_all_by_price_returns_array_of_appropriate_items
