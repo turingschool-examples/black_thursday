@@ -15,10 +15,11 @@ class MerchantTest < Minitest::Test
   end
 
   def test_items_returns_an_array_of_all_merchants_items
-    id = 12334105
+    item = mock('item')
     mr = mock('MerchantRepository')
-    mr.expects(:find_items_by_id).with(id).at_least_once
-    m = Merchant.new({:id => id, :name => "Shopin1901"}, mr)
-    m.items
+    mr.expects(:find_items_by_id).returns([item, item, item])
+    m = Merchant.new({:id => 12334105, :name => "Shopin1901"}, mr)
+    
+    assert_equal [item, item, item], m.items
   end
 end

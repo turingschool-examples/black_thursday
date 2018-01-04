@@ -58,4 +58,12 @@ class MerchantRepositoryTest < MiniTest::Test
 
     assert result.empty?
   end
+
+  def test_it_calls_sales_engine_to_return_items_by_merchant_id
+    item = mock('item')
+    sales_engine = mock('salesengine')
+    sales_engine.expects(:find_items_by_merchant_id).returns([item, item, item])
+
+    assert_equal [item, item, item], @mr.find_items_by_id(12334105)
+  end
 end
