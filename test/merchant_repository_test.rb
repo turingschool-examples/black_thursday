@@ -18,7 +18,7 @@ class MerchantRepositoryTest < MiniTest::Test
   def test_find_by_id_returns_instance_of_merchant
     assert_instance_of Merchant, @merchants.find_by_id(12336189)
 
-    assert_equal "12336189", @merchants.find_by_id(12336189).id
+    assert_equal 12336189, @merchants.find_by_id(12336189).id
   end
 
   def test_find_by_id_only_accepts_integers
