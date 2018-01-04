@@ -7,6 +7,7 @@ class SalesEngine
   def self.from_csv(data)
     @items = ItemRepository.new(data[:items], self)
     @merchants = MerchantRepository.new(data[:merchants], self)
+    @sales_analyst = SalesAnalyst.new(self)
     self
   end
 
@@ -18,13 +19,8 @@ class SalesEngine
     @merchants
   end
 
-end
+  def self.assign_item_count(id, num)
+    @merchants.assign_item_count(id, num)
+  end
 
-# 
-# se = SalesEngine.from_csv({
-#   :items     => "./data/items.csv",
-#   :merchants => "./data/merchants.csv",
-# })
-#
-# merchant = se.merchants.find_by_id(12336189)
-# p merchant.items.count
+end

@@ -51,6 +51,10 @@ class MerchantRepository
     parent_generator(parent).items
   end
 
+  def assign_item_count(id, num)
+    @merchants[id].item_count = num
+  end
+
   def argument_raiser(data_type, desired_class = String)
     if data_type.class != desired_class
       raise ArgumentError

@@ -20,7 +20,9 @@ class SalesAnalyst
   end
 
   def item_counter(id)
-    @sales_engine.items.find_all_by_merchant_id(id).count
+    num = @sales_engine.items.find_all_by_merchant_id(id).count
+    @sales_engine.assign_item_count(id, num)
+    num
   end
 
   def average_items_per_merchant_standard_deviation
@@ -36,15 +38,13 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    merchants = []
-    @sales_engine.merchants.merchants.each do |id, merchant|
-      if item_counter(id) > mean_plus_standard_deviation
-        merchants << @sales_engine.merchants.find_by_id(id)
-      end
+    base_line = mean_plus_standard_deviation
+    @sales_engine.merchants.merchants.select do |id, merchant|
+      merchant.item_count > base_line
     end
-    require 'pry' ; binding.pry
-    merchants
   end
+
+
 end
 
 
@@ -55,5 +55,4 @@ se = SalesEngine.from_csv({
 
 sa = SalesAnalyst.new(se)
 
-# p sa.merchants_with_high_item_count
-p sa.mean_plus_standard_deviation
+p sa.merchants_with_high_item_count.length
