@@ -75,7 +75,7 @@ class SalesEngineTest < Minitest::Test
     merchant.items.each do |item|
       assert_instance_of Item, item
     end
-    
+
     assert_equal 1, merchant.items.count
   end
 

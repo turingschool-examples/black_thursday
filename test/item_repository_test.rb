@@ -4,13 +4,13 @@ require_relative "../lib/item_repository"
 class ItemRepositoryTest < Minitest::Test
 
   def test_it_exists
-    ir = ItemRepository.new("./test/test_data/test_items.csv", "parent")
+    ir = ItemRepository.new("./test/fixtures/items_fixture.csv", "parent")
 
     assert_instance_of ItemRepository, ir
   end
 
   def test_all_returns_array_of_all_items_in_file
-    ir = ItemRepository.new("./test/test_data/test_items.csv", "parent")
+    ir = ItemRepository.new("./test/fixtures/items_fixture.csv", "parent")
 
     assert_instance_of Array, ir.all
     ir.all.each do |item|
@@ -21,7 +21,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_by_id_returns_appropriate_item
-    ir = ItemRepository.new("./test/test_data/test_items.csv", "parent")
+    ir = ItemRepository.new("./test/fixtures/items_fixture.csv", "parent")
 
     item = ir.find_by_id("263395237")
     unknown_item = ir.find_by_id("oogabooga")
@@ -31,7 +31,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_by_name_returns_appropriate_item
-    ir = ItemRepository.new("./test/test_data/test_items.csv", "parent")
+    ir = ItemRepository.new("./test/fixtures/items_fixture.csv", "parent")
 
     item_1 = ir.find_by_name("Disney scrabble frames")
     item_2 = ir.find_by_name("DISNEY SCRABBLE framEs")
@@ -43,7 +43,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_with_description_returns_array_of_appropriate_items
-    ir = ItemRepository.new("./test/test_data/test_items.csv", "parent")
+    ir = ItemRepository.new("./test/fixtures/items_fixture.csv", "parent")
 
     items_1 = ir.find_all_with_description("excellent")
     items_2 = ir.find_all_with_description("the")
@@ -56,7 +56,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_price_returns_array_of_appropriate_items
-    ir = ItemRepository.new("./test/test_data/test_items.csv", "parent")
+    ir = ItemRepository.new("./test/fixtures/items_fixture.csv", "parent")
 
     item_1 = ir.find_all_by_price("1200")
     item_1_ids = item_1.map { |item| item.id }
@@ -72,7 +72,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_price_in_range_returns_array_of_appropriate_items
-    ir = ItemRepository.new("./test/test_data/test_items.csv", "parent")
+    ir = ItemRepository.new("./test/fixtures/items_fixture.csv", "parent")
 
     items_1 = ir.find_all_by_price_in_range((1200..1201))
     items_1_ids = items_1.map { |item| item.id }
@@ -86,7 +86,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_merchant_id_returns_array_of_appropriate_items
-    ir = ItemRepository.new("./test/test_data/test_items.csv", "parent")
+    ir = ItemRepository.new("./test/fixtures/items_fixture.csv", "parent")
 
       item_1 = ir.find_all_by_merchant_id("12334185")
       item_1_ids = item_1.map { |item| item.id }
