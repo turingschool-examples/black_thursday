@@ -8,7 +8,7 @@ class SalesAnalyst
   end
 
   def items_per_merchant
-    merchants_items = sales_engine.get_all_merchant_items
+    merchants_items = sales_engine.get_all_merchant_items.values
     merchants_items.map do |merchant_items|
       BigDecimal.new(merchant_items.count)
     end
@@ -23,6 +23,18 @@ class SalesAnalyst
       ((average_items_per_merchant - number_of_items).abs) ** 2
     end.sum / (items_per_merchant.count - 1)
     Math.sqrt(variance)
+  end
+
+  def merchants_with_high_item_count
+    stdev = average_items_per_merchant_standard_deviation
+    sales_engine.get_all_merchant_items.map do |merchant, items|
+      merchant if items.count > average_items_per_merchant + stdev
+    end.compact
+  end
+
+  def average_item_price_for_merchant
+    merchant_prices = sales_engine.get_all_merchant_prices
+    merchant_prices.sum / merchant_prices.count
   end
 
 end
