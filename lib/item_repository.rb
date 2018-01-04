@@ -50,7 +50,7 @@ class ItemRepository
   end
 
   def find_all_by_merchant_id(merchant_id)
-    @items.keep_if do |item|
+    @items.find_all do |item|
       item.merchant_id == merchant_id
     end
   end

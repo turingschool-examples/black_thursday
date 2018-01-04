@@ -20,9 +20,9 @@ class ItemRepositoryTest < MiniTest::Test
   end
 
   def test_find_by_id_returns_item_instance_with_matching_id
-    result = @ir.find_by_id(263395617)
+    result = @ir.find_by_id(263396209)
 
-    assert_equal 263395617, result.id
+    assert_equal 263396209, result.id
     assert_instance_of Item, result
   end
 
@@ -38,9 +38,7 @@ class ItemRepositoryTest < MiniTest::Test
   end
 
   def test_find_by_name_returns_item_instance_with_matching_name_case_insensitive
-    ir = ItemRepository.new('./test/fixtures/items_truncated.csv')
-
-    result = ir.find_by_name('disney scrabble frames')
+    result = @ir.find_by_name('disney scrabble frames')
 
     assert_equal 'Disney scrabble frames', result.name
   end
@@ -56,10 +54,9 @@ class ItemRepositoryTest < MiniTest::Test
   end
 
   def test_find_all_with_description_returns_all_items_with_a_matching_description_case_insensitive
-    ir = ItemRepository.new('./test/fixtures/items_truncated.csv')
     description = 'you can use it to write things'
 
-    result = ir.find_all_with_description(description)
+    result = @ir.find_all_with_description(description)
 
     assert result.all? do |item|
       item.description == description
