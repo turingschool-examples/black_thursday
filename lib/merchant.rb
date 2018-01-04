@@ -14,11 +14,11 @@ class Merchant
   end
 
   def items
-    @parent.items
+    @parent.items.items.values
   end
 
   def downcaser
     @name.downcase
   end
-  
+
 end

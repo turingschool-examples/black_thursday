@@ -26,5 +26,5 @@ end
 #   :merchants => "./data/merchants.csv",
 # })
 #
-# merchant = se.items.find_all_by_price('Art')
-# p merchant
+# merchant = se.merchants.find_by_id(12336189)
+# p merchant.items.count
