@@ -27,4 +27,4 @@ require_relative "sales_analyst"
   sa = SalesAnalyst.new(se)
 
 
-  puts sa.average_items_per_merchant_standard_deviation
+  p sa.merchants_with_high_item_count.count
