@@ -49,4 +49,17 @@ class ItemTest < MiniTest::Test
   def test_unit_price_in_dollars
     assert_equal 10.99, @item.unit_price_in_dollars
   end
+
+  def test_it_calls_item_repository_to_return_merchant
+    ir = mock("item_repository")
+    item = Item.new({
+      id: 321,
+      name: "Pencil",
+      description: "You can use it to write things",
+      unit_price: 10.99,
+      merchant_id: 12334185
+    }, ir)
+    ir.
+
+
 end
