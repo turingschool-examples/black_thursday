@@ -1,5 +1,5 @@
 require 'csv'
-require './lib/merchant.rb'
+require_relative 'merchant.rb'
 
 class MerchantRepository
   attr_reader :merchants,
@@ -7,15 +7,15 @@ class MerchantRepository
 
   def initialize(path, sales_engine = "")
     @merchants = {}
+    @parent = sales_engine
     merchant_creator_and_storer(path)
-    parent_generator(sales_engine)
   end
 
-  def parent_generator(parent)
-    parent
+  def items_by_id(id)
+    @parent.items_by_id(id)
   end
 
-  def csv_opener(path)
+  def csv_opener(path = "./data/merchants.csv")
     argument_raiser(path)
     CSV.open path, headers: true, header_converters: :symbol
   end
@@ -45,10 +45,6 @@ class MerchantRepository
   def find_all_by_name(name)
     argument_raiser(name)
     @merchants.select {|id, merchant| merchant.downcaser.include?(name.downcase)}.values
-  end
-
-  def items(parent)
-    parent_generator(parent).items
   end
 
   def assign_item_count(id, num)

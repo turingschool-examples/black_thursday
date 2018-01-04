@@ -14,26 +14,26 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2018-01-04T11:32:23-07:00">2018-01-04T11:32:23-07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2018-01-04T14:25:38-07:00">2018-01-04T14:25:38-07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="green">95.58%</span></span>
+    (<span class="covered_percent"><span class="green">95.24%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         2309.32
+         2261.47
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>4</b> files in total.
-    <b>113</b> relevant lines. 
-    <span class="green"><b>108</b> lines covered</span> and
+    <b>105</b> relevant lines. 
+    <span class="green"><b>100</b> lines covered</span> and
     <span class="red"><b>5</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -52,42 +52,42 @@
       
       <tr>
         <td class="strong"><a href="#30e1cb1ed27015fdff4ed12dcee96d2b47e28351" class="src_link" title="lib/item.rb">lib/item.rb</a></td>
-        <td class="green strong">95.0 %</td>
-        <td>39</td>
-        <td>20</td>
-        <td>19</td>
+        <td class="green strong">94.44 %</td>
+        <td>36</td>
+        <td>18</td>
+        <td>17</td>
         <td>1</td>
-        <td>7997.9</td>
+        <td>7899.2</td>
       </tr>
       
       <tr>
         <td class="strong"><a href="#209b8394194ee530d16b7d5dc65f44e2bfbfdfc7" class="src_link" title="lib/item_repository.rb">lib/item_repository.rb</a></td>
-        <td class="green strong">97.56 %</td>
-        <td>72</td>
-        <td>41</td>
-        <td>40</td>
+        <td class="green strong">97.44 %</td>
+        <td>68</td>
+        <td>39</td>
+        <td>38</td>
         <td>1</td>
-        <td>1137.5</td>
+        <td>1195.5</td>
       </tr>
       
       <tr>
         <td class="strong"><a href="#8ce5f73d287cc9ade6b699f3d1105b402def4c25" class="src_link" title="lib/merchant.rb">lib/merchant.rb</a></td>
-        <td class="green strong">93.75 %</td>
-        <td>30</td>
-        <td>16</td>
-        <td>15</td>
+        <td class="green strong">92.86 %</td>
+        <td>26</td>
+        <td>14</td>
+        <td>13</td>
         <td>1</td>
-        <td>2583.5</td>
+        <td>2545.4</td>
       </tr>
       
       <tr>
         <td class="strong"><a href="#176bbe54b1c08299b35462ec39c3fa03ee5a069d" class="src_link" title="lib/merchant_repository.rb">lib/merchant_repository.rb</a></td>
-        <td class="green strong">94.44 %</td>
+        <td class="green strong">94.12 %</td>
         <td>64</td>
-        <td>36</td>
         <td>34</td>
+        <td>32</td>
         <td>2</td>
-        <td>361.7</td>
+        <td>382.6</td>
       </tr>
       
     </tbody>
@@ -109,10 +109,10 @@
         <div class="source_table" id="30e1cb1ed27015fdff4ed12dcee96d2b47e28351">
   <div class="header">
     <h3>lib/item.rb</h3>
-    <h4><span class="green">95.0 %</span> covered</h4>
+    <h4><span class="green">94.44 %</span> covered</h4>
     <div>
-      <b>20</b> relevant lines. 
-      <span class="green"><b>19</b> lines covered</span> and
+      <b>18</b> relevant lines. 
+      <span class="green"><b>17</b> lines covered</span> and
       <span class="red"><b>1</b> lines missed.</span>
     </div>
   </div>
@@ -192,163 +192,145 @@
           <code class="ruby">  def initialize(info, item_repository = &quot;&quot;)</code>
         </li>
       
-        <li class="covered" data-hits="17772" data-linenumber="13">
-          <span class="hits">17772</span>
+        <li class="never" data-hits="" data-linenumber="13">
           
-          <code class="ruby">    @id = info[:id]</code>
+          
+          <code class="ruby">    #change updated_at and created_at</code>
         </li>
       
         <li class="covered" data-hits="17772" data-linenumber="14">
           <span class="hits">17772</span>
           
-          <code class="ruby">    @name = info[:name]</code>
+          <code class="ruby">    @id = info[:id]</code>
         </li>
       
         <li class="covered" data-hits="17772" data-linenumber="15">
           <span class="hits">17772</span>
           
-          <code class="ruby">    @description = info[:description]</code>
+          <code class="ruby">    @name = info[:name]</code>
         </li>
       
         <li class="covered" data-hits="17772" data-linenumber="16">
           <span class="hits">17772</span>
           
-          <code class="ruby">    @unit_price = BigDecimal(info[:unit_price])</code>
+          <code class="ruby">    @description = info[:description]</code>
         </li>
       
         <li class="covered" data-hits="17772" data-linenumber="17">
           <span class="hits">17772</span>
           
-          <code class="ruby">    @merchant_id = info[:merchant_id]</code>
+          <code class="ruby">    @unit_price = BigDecimal(info[:unit_price])</code>
         </li>
       
         <li class="covered" data-hits="17772" data-linenumber="18">
           <span class="hits">17772</span>
           
-          <code class="ruby">    @created_at = info[:created_at]</code>
+          <code class="ruby">    @merchant_id = info[:merchant_id]</code>
         </li>
       
         <li class="covered" data-hits="17772" data-linenumber="19">
           <span class="hits">17772</span>
           
-          <code class="ruby">    @updated_at = info[:updated_at]</code>
+          <code class="ruby">    @created_at = info[:created_at]</code>
         </li>
       
         <li class="covered" data-hits="17772" data-linenumber="20">
           <span class="hits">17772</span>
           
-          <code class="ruby">    parent_generator(item_repository)</code>
+          <code class="ruby">    @updated_at = info[:updated_at]</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="21">
+        <li class="covered" data-hits="17772" data-linenumber="21">
+          <span class="hits">17772</span>
           
-          
-          <code class="ruby">  end</code>
+          <code class="ruby">    @parent = item_repository</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="22">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">  end</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="23">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="23">
           
-          <code class="ruby">  def unit_price_to_dollars</code>
+          
+          <code class="ruby"></code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="24">
           <span class="hits">1</span>
           
-          <code class="ruby">    (@unit_price/100).to_f</code>
+          <code class="ruby">  def unit_price_to_dollars</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="25">
+        <li class="covered" data-hits="1" data-linenumber="25">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">  end</code>
+          <code class="ruby">    (@unit_price/100).to_f</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="26">
           
           
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="27">
+          
+          
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="27">
+        <li class="covered" data-hits="1" data-linenumber="28">
           <span class="hits">1</span>
           
-          <code class="ruby">  def merchants(parent)</code>
+          <code class="ruby">  def merchant</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="28">
+        <li class="missed" data-hits="0" data-linenumber="29">
           
           
-          <code class="ruby">    parent_generator(parent).merchants.merchants.values</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="29">
-          
-          
-          <code class="ruby">  end</code>
+          <code class="ruby">    @parent.find_merchant_by_id(@merchant_id.to_i)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="30">
           
           
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="31">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  def parent_generator(parent)</code>
-        </li>
-      
-        <li class="covered" data-hits="17772" data-linenumber="32">
-          <span class="hits">17772</span>
-          
-          <code class="ruby">    parent</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="33">
-          
-          
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="34">
+        <li class="never" data-hits="" data-linenumber="31">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="35">
+        <li class="covered" data-hits="1" data-linenumber="32">
           <span class="hits">1</span>
           
           <code class="ruby">  def downcaser</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="36">
+        <li class="covered" data-hits="1" data-linenumber="33">
           <span class="hits">1</span>
           
           <code class="ruby">    @name.downcase</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="37">
+        <li class="never" data-hits="" data-linenumber="34">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="38">
+        <li class="never" data-hits="" data-linenumber="35">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="39">
+        <li class="never" data-hits="" data-linenumber="36">
           
           
           <code class="ruby">end</code>
@@ -362,10 +344,10 @@
         <div class="source_table" id="209b8394194ee530d16b7d5dc65f44e2bfbfdfc7">
   <div class="header">
     <h3>lib/item_repository.rb</h3>
-    <h4><span class="green">97.56 %</span> covered</h4>
+    <h4><span class="green">97.44 %</span> covered</h4>
     <div>
-      <b>41</b> relevant lines. 
-      <span class="green"><b>40</b> lines covered</span> and
+      <b>39</b> relevant lines. 
+      <span class="green"><b>38</b> lines covered</span> and
       <span class="red"><b>1</b> lines missed.</span>
     </div>
   </div>
@@ -382,7 +364,7 @@
         <li class="covered" data-hits="1" data-linenumber="2">
           <span class="hits">1</span>
           
-          <code class="ruby">require &#39;./lib/item.rb&#39;</code>
+          <code class="ruby">require_relative &#39;item.rb&#39;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="3">
@@ -430,7 +412,7 @@
         <li class="covered" data-hits="13" data-linenumber="10">
           <span class="hits">13</span>
           
-          <code class="ruby">    parent_generator(sales_engine)</code>
+          <code class="ruby">    @parent = sales_engine</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="11">
@@ -448,13 +430,13 @@
         <li class="covered" data-hits="1" data-linenumber="13">
           <span class="hits">1</span>
           
-          <code class="ruby">  def parent_generator(parent)</code>
+          <code class="ruby">  def find_merchant_by_id(id)</code>
         </li>
       
-        <li class="covered" data-hits="13" data-linenumber="14">
-          <span class="hits">13</span>
+        <li class="missed" data-hits="0" data-linenumber="14">
           
-          <code class="ruby">    parent</code>
+          
+          <code class="ruby">    @parent.find_merchant_by_id(id)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="15">
@@ -472,7 +454,7 @@
         <li class="covered" data-hits="1" data-linenumber="17">
           <span class="hits">1</span>
           
-          <code class="ruby">  def csv_opener(path)</code>
+          <code class="ruby">  def csv_opener(path = &quot;./data/items.csv&quot;)</code>
         </li>
       
         <li class="covered" data-hits="13" data-linenumber="18">
@@ -742,64 +724,40 @@
         <li class="covered" data-hits="1" data-linenumber="62">
           <span class="hits">1</span>
           
-          <code class="ruby">  def merchants</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="63">
-          
-          
-          <code class="ruby">    parent_generator(parent).merchants</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="64">
-          
-          
-          <code class="ruby">  end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="65">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="66">
-          <span class="hits">1</span>
-          
           <code class="ruby">  def argument_raiser(data_type, desired_class = String)</code>
         </li>
       
-        <li class="covered" data-hits="21" data-linenumber="67">
+        <li class="covered" data-hits="21" data-linenumber="63">
           <span class="hits">21</span>
           
           <code class="ruby">    if data_type.class != desired_class</code>
         </li>
       
-        <li class="covered" data-hits="10" data-linenumber="68">
+        <li class="covered" data-hits="10" data-linenumber="64">
           <span class="hits">10</span>
           
           <code class="ruby">      raise ArgumentError</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="69">
+        <li class="never" data-hits="" data-linenumber="65">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="70">
+        <li class="never" data-hits="" data-linenumber="66">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="71">
+        <li class="never" data-hits="" data-linenumber="67">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="72">
+        <li class="never" data-hits="" data-linenumber="68">
           
           
           <code class="ruby">end</code>
@@ -813,10 +771,10 @@
         <div class="source_table" id="8ce5f73d287cc9ade6b699f3d1105b402def4c25">
   <div class="header">
     <h3>lib/merchant.rb</h3>
-    <h4><span class="green">93.75 %</span> covered</h4>
+    <h4><span class="green">92.86 %</span> covered</h4>
     <div>
-      <b>16</b> relevant lines. 
-      <span class="green"><b>15</b> lines covered</span> and
+      <b>14</b> relevant lines. 
+      <span class="green"><b>13</b> lines covered</span> and
       <span class="red"><b>1</b> lines missed.</span>
     </div>
   </div>
@@ -911,7 +869,7 @@
         <li class="covered" data-hits="5700" data-linenumber="15">
           <span class="hits">5700</span>
           
-          <code class="ruby">    parent_generator(merchant_repository)</code>
+          <code class="ruby">    @parent = merchant_repository</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="16">
@@ -929,13 +887,13 @@
         <li class="covered" data-hits="1" data-linenumber="18">
           <span class="hits">1</span>
           
-          <code class="ruby">  def items(parent)</code>
+          <code class="ruby">  def items</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="19">
           
           
-          <code class="ruby">    parent_generator(parent).items.items.values</code>
+          <code class="ruby">    @parent.items_by_id(@id.to_i)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="20">
@@ -953,13 +911,13 @@
         <li class="covered" data-hits="1" data-linenumber="22">
           <span class="hits">1</span>
           
-          <code class="ruby">  def parent_generator(parent)</code>
+          <code class="ruby">  def downcaser</code>
         </li>
       
-        <li class="covered" data-hits="5700" data-linenumber="23">
-          <span class="hits">5700</span>
+        <li class="covered" data-hits="1429" data-linenumber="23">
+          <span class="hits">1429</span>
           
-          <code class="ruby">    parent</code>
+          <code class="ruby">    @name.downcase</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="24">
@@ -974,31 +932,7 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="26">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  def downcaser</code>
-        </li>
-      
-        <li class="covered" data-hits="1429" data-linenumber="27">
-          <span class="hits">1429</span>
-          
-          <code class="ruby">    @name.downcase</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="28">
-          
-          
-          <code class="ruby">  end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="29">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="30">
+        <li class="never" data-hits="" data-linenumber="26">
           
           
           <code class="ruby">end</code>
@@ -1012,10 +946,10 @@
         <div class="source_table" id="176bbe54b1c08299b35462ec39c3fa03ee5a069d">
   <div class="header">
     <h3>lib/merchant_repository.rb</h3>
-    <h4><span class="green">94.44 %</span> covered</h4>
+    <h4><span class="green">94.12 %</span> covered</h4>
     <div>
-      <b>36</b> relevant lines. 
-      <span class="green"><b>34</b> lines covered</span> and
+      <b>34</b> relevant lines. 
+      <span class="green"><b>32</b> lines covered</span> and
       <span class="red"><b>2</b> lines missed.</span>
     </div>
   </div>
@@ -1032,7 +966,7 @@
         <li class="covered" data-hits="1" data-linenumber="2">
           <span class="hits">1</span>
           
-          <code class="ruby">require &#39;./lib/merchant.rb&#39;</code>
+          <code class="ruby">require_relative &#39;merchant.rb&#39;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="3">
@@ -1080,13 +1014,13 @@
         <li class="covered" data-hits="12" data-linenumber="10">
           <span class="hits">12</span>
           
-          <code class="ruby">    merchant_creator_and_storer(path)</code>
+          <code class="ruby">    @parent = sales_engine</code>
         </li>
       
         <li class="covered" data-hits="12" data-linenumber="11">
           <span class="hits">12</span>
           
-          <code class="ruby">    parent_generator(sales_engine)</code>
+          <code class="ruby">    merchant_creator_and_storer(path)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="12">
@@ -1104,13 +1038,13 @@
         <li class="covered" data-hits="1" data-linenumber="14">
           <span class="hits">1</span>
           
-          <code class="ruby">  def parent_generator(parent)</code>
+          <code class="ruby">  def items_by_id(id)</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="15">
-          <span class="hits">12</span>
+        <li class="missed" data-hits="0" data-linenumber="15">
           
-          <code class="ruby">    parent</code>
+          
+          <code class="ruby">    @parent.items_by_id(id)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="16">
@@ -1128,7 +1062,7 @@
         <li class="covered" data-hits="1" data-linenumber="18">
           <span class="hits">1</span>
           
-          <code class="ruby">  def csv_opener(path)</code>
+          <code class="ruby">  def csv_opener(path = &quot;./data/merchants.csv&quot;)</code>
         </li>
       
         <li class="covered" data-hits="14" data-linenumber="19">
@@ -1317,22 +1251,22 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="50">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="50">
           
-          <code class="ruby">  def items</code>
+          
+          <code class="ruby">  # def items(parent)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="51">
+        <li class="never" data-hits="" data-linenumber="51">
           
           
-          <code class="ruby">    parent_generator(parent).items</code>
+          <code class="ruby">  #   parent_generator(parent).items</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="52">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby">  # end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="53">

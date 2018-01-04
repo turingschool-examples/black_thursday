@@ -10,26 +10,23 @@ class Item
               :updated_at
 
   def initialize(info, item_repository = "")
-    @id = info[:id]
+    #change updated_at and created_at
+    @id = info[:id].to_i
     @name = info[:name]
     @description = info[:description]
     @unit_price = BigDecimal(info[:unit_price])
-    @merchant_id = info[:merchant_id]
+    @merchant_id = info[:merchant_id].to_i
     @created_at = info[:created_at]
     @updated_at = info[:updated_at]
-    parent_generator(item_repository)
+    @parent = item_repository
   end
 
   def unit_price_to_dollars
     (@unit_price/100).to_f
   end
 
-  def merchants(parent)
-    parent_generator(parent).merchants.merchants.values
-  end
-
-  def parent_generator(parent)
-    parent
+  def merchant
+    @parent.find_merchant_by_id(@merchant_id.to_i)
   end
 
   def downcaser

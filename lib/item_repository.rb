@@ -1,5 +1,5 @@
 require 'csv'
-require './lib/item.rb'
+require_relative 'item.rb'
 
 class ItemRepository
   attr_reader :items
@@ -7,14 +7,14 @@ class ItemRepository
   def initialize(path, sales_engine = "")
     @items = {}
     item_creator_and_storer(path)
-    parent_generator(sales_engine)
+    @parent = sales_engine
   end
 
-  def parent_generator(parent)
-    parent
+  def find_merchant_by_id(id)
+    @parent.find_merchant_by_id(id)
   end
 
-  def csv_opener(path)
+  def csv_opener(path = "./data/items.csv")
     CSV.open path, headers: true, header_converters: :symbol
   end
 
@@ -57,10 +57,6 @@ class ItemRepository
   def find_all_by_merchant_id(merchant_id)
     argument_raiser(merchant_id, Integer)
     @items.select {|id, item| item.merchant_id.to_i == merchant_id}.values
-  end
-
-  def merchants
-    parent_generator(parent).merchants
   end
 
   def argument_raiser(data_type, desired_class = String)
