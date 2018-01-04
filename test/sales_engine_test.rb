@@ -18,12 +18,21 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_calls_item_repository_to_return_items_by_merchant_id
-    merchant_id = 263395721
+    merchant_id = 12334113
 
     result = @se.find_items_by_merchant_id(merchant_id)
 
     assert result.all? do |item|
       item.merchant_id == merchant_id
     end
+  end
+
+  def test_it_calls_merchant_repository_to_return_merchant_by_merchant_id
+    merchant_id = 12334113
+
+    result = @se.find_merchant_by_merchant_id(merchant_id)
+
+    assert result.id, merchant_id
+    assert_instance_of Merchant, result
   end
 end
