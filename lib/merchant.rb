@@ -7,20 +7,16 @@ class Merchant
   attr_accessor :item_count
 
   def initialize(info, merchant_repository = "")
-    @id = info[:id]
+    @id = info[:id].to_i
     @name = info[:name]
     @created_at = info[:created_at]
     @updated_at = info[:updated_at]
     @item_count = 0
-    parent_generator(merchant_repository)
+    @parent = merchant_repository
   end
 
-  def items(parent)
-    parent_generator(parent).items.items.values
-  end
-
-  def parent_generator(parent)
-    parent
+  def items
+    @parent.items_by_id(@id.to_i)
   end
 
   def downcaser

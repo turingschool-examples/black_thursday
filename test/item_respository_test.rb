@@ -14,7 +14,7 @@ class ItemRepositoryTest < MiniTest::Test
   def test_find_by_id_returns_instance_of_item
     assert_instance_of Item, @items.find_by_id(263395237)
 
-    assert_equal "263395237", @items.find_by_id(263395237).id
+    assert_equal 263395237, @items.find_by_id(263395237).id
   end
 
   def test_find_by_id_only_accepts_integers
@@ -50,12 +50,12 @@ class ItemRepositoryTest < MiniTest::Test
   end
 
   def test_find_all_by_price_returns_array_of_item_instances
-    assert_instance_of Array, @items.find_all_by_price(12000)
+    assert_instance_of Array, @items.find_all_by_price(1200)
 
-    assert_instance_of Item, @items.find_all_by_price(12000)[0]
+    assert_instance_of Item, @items.find_all_by_price(1200)[0]
   end
 
-  def test_find_all_by_price_only_accepts_fixnums
+  def test_find_all_by_price_only_accepts_integers
     assert_raises ArgumentError do
       @items.find_all_by_price('a')
     end
