@@ -8,7 +8,7 @@ class MerchantRepository
   def initialize(file_path)
     contents = CSV.open(file_path, headers: true, header_converters: :symbol)
     @all = contents.map do |row|
-      Merchant.new({:id => row[:id],:name => row[:name]})
+      Merchant.new({:id => row[:id], :name => row[:name]})
     end
   end
 
