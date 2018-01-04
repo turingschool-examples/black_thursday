@@ -2,31 +2,13 @@ require 'csv'
 require './lib/merchant.rb'
 
 class MerchantRepository
-  attr_reader :merchants
+  attr_reader :merchants,
+              :parent
 
   def initialize(path, sales_engine = "")
-    @merchants = []
+    @merchants = {}
     merchant_creator_and_storer(path)
-  end
-
-  def all
-    @merchants
-  end
-
-  def find_by_id(id)
-    argument_raiser(id, Integer)
-    @merchants.find {|merchant| merchant.id.to_i == id}
-  end
-
-  def find_by_name(name)
-    argument_raiser(name)
-    @merchants.find {|merchant| merchant.name.downcase == name.downcase}
-  end
-
-
-  def find_all_by_name(name)
-    argument_raiser(name)
-    @merchants.select {|merchant| merchant if merchant.name.downcase.include?(name.downcase)}
+    @parent = sales_engine
   end
 
   def csv_opener(path)
@@ -37,8 +19,32 @@ class MerchantRepository
   def merchant_creator_and_storer(path)
     argument_raiser(path)
     csv_opener(path).each do |merchant|
-      @merchants << Merchant.new(merchant, self)
+      new_merchant = Merchant.new(merchant, self)
+      @merchants[new_merchant.id.to_i] = new_merchant
     end
+  end
+
+  def all
+    @merchants.values
+  end
+
+  def find_by_id(id)
+    argument_raiser(id, Integer)
+    @merchants[id]
+  end
+
+  def find_by_name(name)
+    argument_raiser(name)
+    @merchants.find {|id, merchant| merchant.downcaser == name.downcase}[1]
+  end
+
+  def find_all_by_name(name)
+    argument_raiser(name)
+    @merchants.select {|id, merchant| merchant.downcaser.include?(name.downcase)}.values
+  end
+
+  def items
+    @parent.items
   end
 
   def argument_raiser(data_type, desired_class = String)
