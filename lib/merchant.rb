@@ -11,9 +11,7 @@ class Merchant
   end
 
   def items
-    merchant_repo.se.item_repository.items.find_all do |item|
-      id == item.merchant_id
-    end
+    merchant_repo.find_item(id)
   end
 
 end

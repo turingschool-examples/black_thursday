@@ -43,7 +43,14 @@ class MerchantRepository
     end
   end
 
-  def items
+  def find_item(id)
+    se.find_item_by_merchant_id(id)
+  end
+
+  def find_merchant(id)
+    merchants.find do |merchant|
+      merchant if merchant.id == id
+    end
   end
 
 end
