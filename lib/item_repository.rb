@@ -4,11 +4,13 @@ require './lib/item'
 class ItemRepository
 
   attr_reader :items_csv,
-              :items
+              :items,
+              :se
 
   def initialize(csv_file, se)
     @items_csv = CSV.open csv_file, headers: true, header_converters: :symbol
     @items = []
+    @se = se
     items_csv.each do |row|
       id          = row[:id]
       name        = row[:name]
@@ -24,7 +26,8 @@ class ItemRepository
         unit_price: unit_price,
         created_at: created_at,
         updated_at: updated_at,
-        merchant_id: merchant_id
+        merchant_id: merchant_id,
+        item_repo: self
         })
     end
   end
@@ -68,6 +71,12 @@ class ItemRepository
     @items.find_all do |item|
       item if item.merchant_id == merchant_id
     end
+  end
+
+  def merchant
+    item.item_repo.se.merchant_repository.merchants.find_all do |merchant|
+      item.merchant_id == merchant.id
+    end 
   end
 
 end
