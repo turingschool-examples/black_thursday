@@ -18,4 +18,8 @@ class MerchantTest < Minitest::Test
     assert_instance_of Time, m.updated_at
     assert_nil m.parent
   end
+
+  def test_case_name
+    
+  end
 end
