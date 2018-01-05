@@ -1,10 +1,11 @@
 require 'csv'
-require './lib/merchant'
+require_relative '../lib/merchant'
 
 class MerchantRepository
-  def initialize(file)
+  def initialize(file_path, parent)
     @merchants = []
-    merchant_data = CSV.open file, headers: true, header_converters: :symbol, converters: :numeric
+    @sales_engine = parent
+    merchant_data = CSV.open file_path, headers: true, header_converters: :symbol, converters: :numeric
     parse(merchant_data)
   end
 
@@ -12,7 +13,7 @@ class MerchantRepository
     merchant_data.each do |row|
       id = row[:id]
       name = row[:name]
-      @merchants << Merchant.new({id: id, name: name})
+      @merchants << Merchant.new({id: id, name: name}, self)
     end
   end
 
@@ -32,9 +33,17 @@ class MerchantRepository
     end
   end
 
-  def find_all_by_name(name)
+  def find_all_by_name(name_fragment)
     @merchants.find_all do |merchant|
-      merchant.name == name
+      merchant.name.downcase.include?(name_fragment.downcase)
     end
+  end
+
+  def find_items_by_id(id)
+    @sales_engine.find_items_by_merchant_id(id)
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end
