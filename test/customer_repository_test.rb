@@ -2,7 +2,19 @@ require_relative 'test_helper'
 require_relative '../lib/customer_repository'
 
 class CustomerRepositoryTest < Minitest::Test
+  def setup
+    @cr = CustomerRepository.new
+    @cr.from_csv('./test/fixtures/customers_truncated.csv')
+  end
 
+  def test_all_returns_all_known_customers
+    customers = @cr.all
+
+    assert_equal , customers.length
+    assert customers.all? do |customer|
+      customer.class == Customer
+    end
+  end
 end
 #
 # all - returns an array of all known Customers instances

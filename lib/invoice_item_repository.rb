@@ -2,8 +2,11 @@ require_relative '../lib/invoice_item'
 require 'csv'
 
 class InvoiceItemRepository
-  def from_csv(file_path)
+  def initialize
     @invoice_items = []
+  end
+  
+  def from_csv(file_path)
     invoice_item_data = CSV.open file_path, headers: true, header_converters: :symbol, converters: :numeric
     parse(invoice_item_data)
   end
