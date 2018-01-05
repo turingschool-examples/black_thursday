@@ -2,14 +2,10 @@ require 'csv'
 require './lib/transaction'
 
 class TransactionRepository
-  def initialize(file_path)
+  def from_csv(file_path)
     @transactions = []
     transaction_data = CSV.open file_path, headers: true, header_converters: :symbol, converters: :numeric
     parse(transaction_data)
-  end
-
-  def self.from_csv(file_path)
-    new(file_path)
   end
 
   def parse(transaction_data)

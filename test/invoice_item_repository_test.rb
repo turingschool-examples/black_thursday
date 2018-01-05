@@ -4,7 +4,8 @@ require_relative '../lib/invoice_item_repository'
 class InvoiceItemRepositoryTest < Minitest::Test
   def setup
     file_path = './test/fixtures/invoice_items_truncated.csv'
-    @ir = InvoiceItemRepository.new(file_path)
+    @ir = InvoiceItemRepository.new
+    @ir.from_csv(file_path)
   end
 
   def test_it_returns_all_known_invoice_items

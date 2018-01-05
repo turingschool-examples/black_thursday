@@ -4,7 +4,8 @@ require_relative '../lib/transaction_repository'
 class TransactionRepositoryTest < Minitest::Test
   def setup
     file_path = './test/fixtures/transactions_truncated.csv'
-    @tr = TransactionRepository.from_csv(file_path)
+    @tr = TransactionRepository.new
+    @tr.from_csv(file_path)
   end
 
   def test_it_can_find_all_known_transactions
