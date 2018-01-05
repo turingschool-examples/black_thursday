@@ -105,15 +105,15 @@ class ItemRepositoryTest < Minitest::Test
 
       item_1 = ir.find_all_by_merchant_id(12334185)
       item_1_ids = item_1.map { |item| item.id }
-      item_2 = ir.find_all_by_merchant_id(12334195)
+      item_2 = ir.find_all_by_merchant_id(12334141)
       item_2_ids = item_2.map { |item| item.id }
       unknown_item = ir.find_all_by_merchant_id(101011100)
 
       assert_equal [], unknown_item
       assert_equal 263395617, item_1.first.id
       assert_equal [263395617, 263395721, 263396013], item_1_ids
-      assert_equal 263396255, item_2.first.id
-      assert_equal [263396255, 263396517], item_2_ids
+      assert_equal 263395237, item_2.first.id
+      assert_equal [263395237, 263396463, 263396517], item_2_ids
   end
 
 end

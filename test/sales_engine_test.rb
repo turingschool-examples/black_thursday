@@ -49,7 +49,7 @@ class SalesEngineTest < Minitest::Test
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
                                 items: "./test/fixtures/items_fixture.csv"})
 
-    item = se.items.find_by_id("263395237")
+    item = se.items.find_by_id(263395237)
 
     assert_equal "SeriousCompany", item.merchant.name
   end
@@ -58,14 +58,14 @@ class SalesEngineTest < Minitest::Test
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
                                 items: "./test/fixtures/items_fixture.csv"})
 
-    merchant_1 = se.merchants.find_by_id("12334141")
-    merchant_2 = se.merchants.find_by_id("12334185")
+    merchant_1 = se.merchants.find_by_id(12334141)
+    merchant_2 = se.merchants.find_by_id(12334185)
 
     assert_equal "510+ RealPush Icon Set", merchant_1.items.first.name
     merchant_1.items.each do |item|
       assert_instance_of Item, item
     end
-    assert_equal 1, merchant_1.items.count
+    assert_equal 3, merchant_1.items.count
     merchant_2.items.each do |item|
       assert_instance_of Item, item
     end
@@ -73,8 +73,6 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_get_all_merchant_items_returns_hash_of_merchants_and_items
-    # items sort_by will work if all item_fixtures match merchant_fixtures
-    # make sure all items merchant_ids are associated with merchants
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
                                 items: "./test/fixtures/items_fixture.csv"})
 
@@ -82,11 +80,13 @@ class SalesEngineTest < Minitest::Test
     merchants = merchants_and_items.keys
     items = merchants_and_items.values.flatten
 
-    assert_instance_of Hash, merchants_and_items
+    sorted_items = items.sort_by {|item| item.id}
+    sorted_items = sorted_items.map {|item| item.id}
+    sorted_expected_items = se.items.all.sort_by {|item| item.id}
+    sorted_expected_items = sorted_expected_items.map {|item| item.id}
+
     assert_equal se.merchants.all, merchants
-    items.each do |item|
-      assert_instance_of Item, item
-    end
+    assert_equal sorted_expected_items, sorted_items
   end
 
   def test_get_all_merchant_prices_returns_hash_of_merchant_and_prices
@@ -104,7 +104,7 @@ class SalesEngineTest < Minitest::Test
     end
   end
 
-  def test_get_one_merchant_prices_returns_hash_of_merchant_and_prices
+  def test_get_one_merchant_prices_returns_array_of_merchant_prices
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
                                 items: "./test/fixtures/items_fixture.csv"})
 
@@ -118,7 +118,7 @@ class SalesEngineTest < Minitest::Test
     items =  se.search_ir_by_price(1200)
     item_ids = items.map { |item| item.id }
 
-    assert_equal ["263395237", "263395617"], item_ids
+    assert_equal [263395237, 263395617], item_ids
   end
 
 end

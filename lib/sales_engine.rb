@@ -43,7 +43,7 @@ class SalesEngine
 
   def get_one_merchant_prices(merchant_id)
     get_all_merchant_prices.find do |merchant, prices|
-      merchant.id == merchant_id.to_s
+      merchant.id == merchant_id
     end.last.flatten
   end
 
