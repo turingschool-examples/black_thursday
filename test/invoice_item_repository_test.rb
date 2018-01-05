@@ -57,7 +57,3 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert invoices.empty?
   end
 end
-
-# find_by_id - returns either nil or an instance of InvoiceItem with a matching ID
-# find_all_by_item_id - returns either [] or one or more matches which have a matching item ID
-# find_all_by_invoice_id - returns either [] or one or more matches which have a matching invoice ID
