@@ -51,6 +51,10 @@ class MerchantRepository
     @merchants[id].item_count = num
   end
 
+  def find_invoice_by_merchant_id(id)
+    @parent.find_invoice_by_merchant_id(id)
+  end
+
   def argument_raiser(data_type, desired_class = String)
     if data_type.class != desired_class
       raise ArgumentError

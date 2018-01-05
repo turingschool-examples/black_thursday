@@ -83,4 +83,52 @@ class SalesAnalyst
     end
   end
 
+  def count_invoices
+    @sales_engine.all_invoices.count.to_f
+  end
+
+  def count_merchants
+    @sales_engine.all_merchants.count.to_f
+  end
+
+  def invoice_array_maker
+    @sales_engine.all_merchants.map do |merchant|
+      merchant.invoices.count
+    end
+  end
+
+  def average_invoices_per_merchant
+    (count_invoices / count_merchants).round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    mean = average_invoices_per_merchant
+    square = invoice_array_maker.map do |invoice|
+      (invoice-mean) ** 2
+    end.sum
+    ((square/(invoice_array_maker.length-1)) ** (0.5)).round(2)
+  end
+
+  def top_merchants_by_invoice_count
+    base_line = average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation*2)
+    @sales_engine.all_merchants.select do |merchant|
+      merchant.invoices.count > base_line
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    base_line = average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation*2)
+    @sales_engine.all_merchants.select do |merchant|
+      merchant.invoices.count < base_line
+    end
+  end
+
+  def top_days_by_invoice_count
+  end
+
+  def invoice_status(status)
+    ((@sales_engine.all_invoices.select do |invoice|
+      invoice.status == status
+    end.length / count_invoices) * 100).round(2)
+  end
 end
