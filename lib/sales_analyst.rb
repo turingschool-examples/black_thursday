@@ -25,6 +25,12 @@ class SalesAnalyst
     (number_of_items_per_merchant.stdev).round(2)
   end
 
+  def item_price_standard_deviation # NEEDS TEST
+    items = se.grab_all_items
+    item_prices = items.map { |item| item.unit_price.to_i }
+    (item_prices.stdev).round(2)
+  end
+
   def merchants_with_high_item_count
     se.grab_merchants_with_high_items(self)
   end
@@ -46,13 +52,11 @@ class SalesAnalyst
   end
 
   def golden_items
-    skip
-    merchants = se.grab_all_merchants
-    merchants.map do |merch|
-      price = average_item_price_for_merchant(merch.id)
-      if price >= (average_items_per_merchant_standard_deviation*2)
-        se.find_item_by_merchant_id(merch.id)
-        binding.pry
+    items = se.grab_all_items
+    items.find_all do |item|
+      price = item.unit_price.to_i
+      if price >= (item_price_standard_deviation * 2)
+        item
       end
     end
   end

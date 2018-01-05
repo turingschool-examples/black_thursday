@@ -8,8 +8,8 @@ class SalesAnalystTest < Minitest::Test
 
   def setup
     @se = SalesEngine.new({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
+      :items     => "./test/fixtures/items_sample.csv",
+      :merchants => "./test/fixtures/merchants_sample.csv",
     })
     @sales_analyst = SalesAnalyst.new(@se)
   end
@@ -52,9 +52,10 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 0.2999e4, sales_analyst.average_price_for_all_merchants
   end
 
-  def test_it_returns_merchants_with_golden_items
-    assert_equal 7, sales_analyst.golden_items.count
+  def test_it_returns_golden_items
+    assert_equal 6, sales_analyst.golden_items.count
     refute_equal 10, sales_analyst.golden_items.count
+    assert_instance_of Item, sales_analyst.golden_items.first
   end
 
 
