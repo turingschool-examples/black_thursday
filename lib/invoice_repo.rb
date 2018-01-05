@@ -9,7 +9,7 @@ class InvoiceRepo
   def initialize(sales_engine, filename)
     @invoices     = []
     @sales_engine = sales_engine
-    @load_invoices(filename)
+    load_invoices(filename)
   end
 
   def load_invoices(filename)
