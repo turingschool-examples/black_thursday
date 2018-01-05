@@ -45,6 +45,10 @@ class InvoiceRepo
     invoices.find_all { |invoice| invoice.created_at == date }
   end
 
+  def find_merchant_by_invoice_id(invoice_id)
+    @sales_engine.find_merchant_by_invoice_id(invoice_id)    
+  end  
+
   def inspect
     "#<#{self.class} #{invoice.size} rows>"
   end
