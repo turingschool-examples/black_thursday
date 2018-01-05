@@ -50,12 +50,12 @@ class ItemRepositoryTest < MiniTest::Test
   end
 
   def test_find_all_by_price_returns_array_of_item_instances
-    assert_instance_of Array, @items.find_all_by_price(1200)
+    assert_instance_of Array, @items.find_all_by_price(BigDecimal.new(1200))
 
-    assert_instance_of Item, @items.find_all_by_price(1200)[0]
+    assert_instance_of Item, @items.find_all_by_price(BigDecimal.new(1200))[0]
   end
 
-  def test_find_all_by_price_only_accepts_integers
+  def test_find_all_by_price_only_accepts_bigdecimal
     assert_raises ArgumentError do
       @items.find_all_by_price('a')
     end
