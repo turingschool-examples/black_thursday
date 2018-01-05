@@ -13,15 +13,15 @@ class SalesAnalystTest < MiniTest::Test
 
   def test_it_finds_all_the_merchants
     result = @sa.merchants
-    assert_equal 8, result.count
+    assert_equal 9, result.count
   end
 
   def test_it_finds_the_number_of_items_for_each_merchant
-    assert_equal [3, 1, 1, 1, 3, 1, 1, 1], @sa.items_per_merchant
+    assert_equal [3, 1, 1, 1, 3, 1, 1, 1, 0], @sa.items_per_merchant
   end
 
   def test_it_finds_average_items_per_merchant
-    assert_equal 1.5, @sa.average_items_per_merchant
+    assert_equal 1.3333333333333333, @sa.average_items_per_merchant
   end
 
   def test_it_finds_the_total_number_of_items
@@ -29,6 +29,6 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_it_finds_the_average_items_per_merchant_standard_deviation
-    assert_equal 0.7385489458759964, @sa.average_items_per_merchant_standard_deviation
+    assert_equal 0.8528028654224418, @sa.average_items_per_merchant_standard_deviation
   end
 end

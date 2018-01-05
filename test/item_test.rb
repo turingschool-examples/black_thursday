@@ -10,6 +10,8 @@ class ItemTest < MiniTest::Test
       name: "Pencil",
       description: "You can use it to write things",
       unit_price: 1099,
+      created_at: Time.now.inspect,
+      updated_at: Time.now.inspect,
       merchant_id: 426
     }, mock('ItemRepository'))
   end
@@ -27,7 +29,7 @@ class ItemTest < MiniTest::Test
   end
 
   def test_it_has_unit_price
-    assert_equal 1099, @item.unit_price
+    assert_equal 0.1099e2, @item.unit_price
   end
 
   def test_it_has_created_at
@@ -57,9 +59,13 @@ class ItemTest < MiniTest::Test
       name: "Pencil",
       description: "You can use it to write things",
       unit_price: 10.99,
-      merchant_id: 12334185
-    }, ir)
-    ir.
+      created_at: Time.now.inspect,
+      updated_at: Time.now.inspect,
+      merchant_id: 12334185}, ir)
 
+      merchant = mock("Merchant")
+      ir.expects(:find_merchant_by_merchant_id).returns(merchant)
 
+      assert_equal merchant, item.merchant
+  end
 end

@@ -8,10 +8,10 @@ class SalesAnalyst
   end
 
   def items_per_merchant
-     merchants.map do |merchant|
-       merchant.items.count
-     end
+   merchants.map do |merchant|
+     merchant.items.count
    end
+  end
 
    def total_items
      items_per_merchant.sum
