@@ -10,10 +10,17 @@ class TransactionRepositoryTest < Minitest::Test
   def test_it_can_find_all_known_transactions
     transactions = @tr.all
 
-    assert_equal , transactions.length
+    assert_equal 10, transactions.length
     assert transactions.all? do |transaction|
       transaction.class == Transaction
     end
+  end
+
+  def test_find_by_id_returns_a_transaction_with_a_matching_id
+    transaction = @tr.find_by_id(234)
+
+    assert_instance_of Transaction, transaction
+    assert 234, transaction.id
   end
 end
 
