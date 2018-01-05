@@ -22,6 +22,19 @@ class TransactionRepositoryTest < Minitest::Test
     assert_instance_of Transaction, transaction
     assert 234, transaction.id
   end
+
+  def test_find_by_id_returns_an_nil_if_no_transaction_with_id
+    assert_nil @tr.find_by_id(34)
+  end
+
+  def test_find_all_by_invoice_id_returns_all_transactions_with_matching_invoice_id
+    transactions = @tr.find_all_by_invoice_id(3343)
+
+    assert_equal 3, transactions.length
+    assert transactions.all? do |transaction|
+      transaction.invoice_id == 3343 && transaction.class == Transaction
+    end
+  end
 end
 
 # all - returns an array of all known Transaction instances
