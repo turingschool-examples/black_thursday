@@ -4,10 +4,16 @@ require "./lib/sales_engine"
 
 class SalesAnalystTest < MiniTest::Test
 
+  def setup
+    @sales_engine = SalesEngine.from_csv({
+      :items      => "./test/fixtures/items_fixtures.csv",
+      :merchants  => "./test/fixtures/merchants_fixtures.csv"
+    })
+    @sales_analyst = SalesAnalyst.new(@sales_engine)
+  end
+
   def test_it_exists
-    sales = "sales"
-    sales_analyst = SalesAnalyst.new(sales)
-    assert_instance_of SalesAnalyst, sales_analyst
+    assert_instance_of SalesAnalyst, @sales_analyst
   end
 
   def test_item_counter_returns_amount_of_items
