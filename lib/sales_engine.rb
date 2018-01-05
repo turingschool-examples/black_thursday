@@ -1,5 +1,6 @@
 require_relative "item_repository"
 require_relative "merchant_repository"
+require "bigdecimal"
 require 'pry'
 
 class SalesEngine
@@ -18,6 +19,22 @@ class SalesEngine
 
   def from_merchant_to_item(id)
     items.find_all_by_merchant_id(id)
+  end
+
+  def get_all_merchant_items
+    merchants_and_items = {}
+    merchants.all.map do |merchant|
+      merchants_and_items[merchant] = items.find_all_by_merchant_id(merchant.id)
+    end
+    merchants_and_items
+  end
+
+  def get_all_merchant_prices
+    get_all_merchant_items.transform_values do |item_array|
+      item_array.map do |item|
+        BigDecimal(item.unit_price)
+      end
+    end
   end
 
 end
