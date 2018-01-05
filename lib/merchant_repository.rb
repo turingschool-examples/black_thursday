@@ -11,7 +11,7 @@ class MerchantRepository
     @merchants = []
     @se = se
     @merchants_csv.each do |row|
-      id          = row[:id]
+      id          = row[:id].to_i
       name        = row[:name]
       @merchants << Merchant.new({
         name: name,
@@ -19,6 +19,11 @@ class MerchantRepository
         merchant_repo: self
         })
     end
+    @invoices = []
+  end
+
+  def inspect
+    "#<#{self.class} #{@invoices.size} rows>"
   end
 
   def all
