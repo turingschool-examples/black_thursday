@@ -1,10 +1,10 @@
-require './test/test_helper'
-require './lib/merchant_repository'
+require "./test/test_helper"
+require "./lib/merchant_repository"
 
 class MerchantRepositoryTest < MiniTest::Test
 
   def setup
-    @merchants = MerchantRepository.new("./data/merchants.csv")
+    @merchants = MerchantRepository.new("./test/fixtures/merchants_fixtures.csv")
   end
 
   def test_all_returns_merchants
@@ -16,9 +16,9 @@ class MerchantRepositoryTest < MiniTest::Test
   end
 
   def test_find_by_id_returns_instance_of_merchant
-    assert_instance_of Merchant, @merchants.find_by_id(12336189)
+    assert_instance_of Merchant, @merchants.find_by_id(12335521)
 
-    assert_equal 12336189, @merchants.find_by_id(12336189).id
+    assert_equal 12335521, @merchants.find_by_id(12335521).id
   end
 
   def test_find_by_id_only_accepts_integers
@@ -32,9 +32,9 @@ class MerchantRepositoryTest < MiniTest::Test
   end
 
   def test_find_by_name_returns_instance_of_merchant
-    assert_instance_of Merchant, @merchants.find_by_name("Candisart")
+    assert_instance_of Merchant, @merchants.find_by_name("IvyMoonCat")
 
-    assert_equal "Candisart", @merchants.find_by_name("Candisart").name
+    assert_equal "IvyMoonCat", @merchants.find_by_name("IvyMoonCat").name
   end
 
   def test_find_by_name_only_accepts_strings
@@ -89,7 +89,6 @@ class MerchantRepositoryTest < MiniTest::Test
   end
 
   def test_argument_raiser_raises_argument_when_passed_a_float
-
     assert_raises ArgumentError do
       @merchants.argument_raiser(0.2)
     end
