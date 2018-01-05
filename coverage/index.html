@@ -14,7 +14,7 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2018-01-04T17:59:04-07:00">2018-01-04T17:59:04-07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2018-01-04T19:12:15-07:00">2018-01-04T19:12:15-07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -25,7 +25,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         2208.52
+         34.41
        </span>
     </span> hits/line)
   </h2>
@@ -57,7 +57,7 @@
         <td>19</td>
         <td>18</td>
         <td>1</td>
-        <td>7771.3</td>
+        <td>92.8</td>
       </tr>
       
       <tr>
@@ -67,7 +67,7 @@
         <td>41</td>
         <td>39</td>
         <td>2</td>
-        <td>1137.4</td>
+        <td>17.1</td>
       </tr>
       
       <tr>
@@ -77,7 +77,7 @@
         <td>14</td>
         <td>13</td>
         <td>1</td>
-        <td>2545.4</td>
+        <td>59.6</td>
       </tr>
       
       <tr>
@@ -87,7 +87,7 @@
         <td>36</td>
         <td>33</td>
         <td>3</td>
-        <td>361.5</td>
+        <td>13.5</td>
       </tr>
       
     </tbody>
@@ -198,50 +198,50 @@
           <code class="ruby">  def initialize(info, item_repository = &quot;&quot;)</code>
         </li>
       
-        <li class="covered" data-hits="17772" data-linenumber="14">
-          <span class="hits">17772</span>
+        <li class="covered" data-hits="211" data-linenumber="14">
+          <span class="hits">211</span>
           
           <code class="ruby">    @id = info[:id].to_i</code>
         </li>
       
-        <li class="covered" data-hits="17772" data-linenumber="15">
-          <span class="hits">17772</span>
+        <li class="covered" data-hits="211" data-linenumber="15">
+          <span class="hits">211</span>
           
           <code class="ruby">    @name = info[:name]</code>
         </li>
       
-        <li class="covered" data-hits="17772" data-linenumber="16">
-          <span class="hits">17772</span>
+        <li class="covered" data-hits="211" data-linenumber="16">
+          <span class="hits">211</span>
           
           <code class="ruby">    @description = info[:description]</code>
         </li>
       
-        <li class="covered" data-hits="17772" data-linenumber="17">
-          <span class="hits">17772</span>
+        <li class="covered" data-hits="211" data-linenumber="17">
+          <span class="hits">211</span>
           
           <code class="ruby">    @unit_price = BigDecimal.new((info[:unit_price].to_i)/100.0, 4)</code>
         </li>
       
-        <li class="covered" data-hits="17772" data-linenumber="18">
-          <span class="hits">17772</span>
+        <li class="covered" data-hits="211" data-linenumber="18">
+          <span class="hits">211</span>
           
           <code class="ruby">    @merchant_id = info[:merchant_id].to_i</code>
         </li>
       
-        <li class="covered" data-hits="17772" data-linenumber="19">
-          <span class="hits">17772</span>
+        <li class="covered" data-hits="211" data-linenumber="19">
+          <span class="hits">211</span>
           
           <code class="ruby">    @created_at = Time.strptime(info[:created_at],&quot;%Y-%m-%d %H:%M:%S %Z&quot;)</code>
         </li>
       
-        <li class="covered" data-hits="17772" data-linenumber="20">
-          <span class="hits">17772</span>
+        <li class="covered" data-hits="211" data-linenumber="20">
+          <span class="hits">211</span>
           
           <code class="ruby">    @updated_at = Time.strptime(info[:updated_at],&quot;%Y-%m-%d %H:%M:%S %Z&quot;)</code>
         </li>
       
-        <li class="covered" data-hits="17772" data-linenumber="21">
-          <span class="hits">17772</span>
+        <li class="covered" data-hits="211" data-linenumber="21">
+          <span class="hits">211</span>
           
           <code class="ruby">    @parent = item_repository</code>
         </li>
@@ -264,8 +264,8 @@
           <code class="ruby">  def unit_price_to_dollars</code>
         </li>
       
-        <li class="covered" data-hits="5469" data-linenumber="25">
-          <span class="hits">5469</span>
+        <li class="covered" data-hits="65" data-linenumber="25">
+          <span class="hits">65</span>
           
           <code class="ruby">    @unit_price.to_f</code>
         </li>
@@ -291,7 +291,7 @@
         <li class="missed" data-hits="0" data-linenumber="29">
           
           
-          <code class="ruby">    @parent.find_merchant_by_id(@merchant_id.to_i)</code>
+          <code class="ruby">    @parent.find_merchant_by_id(@merchant_id)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="30">
@@ -312,8 +312,8 @@
           <code class="ruby">  def downcaser</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="33">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="2" data-linenumber="33">
+          <span class="hits">2</span>
           
           <code class="ruby">    @name.downcase</code>
         </li>
@@ -487,16 +487,16 @@
           <code class="ruby">    csv_opener(path).each do |item|</code>
         </li>
       
-        <li class="covered" data-hits="17771" data-linenumber="23">
-          <span class="hits">17771</span>
+        <li class="covered" data-hits="208" data-linenumber="23">
+          <span class="hits">208</span>
           
           <code class="ruby">      new_item = Item.new(item, self)</code>
         </li>
       
-        <li class="covered" data-hits="17771" data-linenumber="24">
-          <span class="hits">17771</span>
+        <li class="covered" data-hits="208" data-linenumber="24">
+          <span class="hits">208</span>
           
-          <code class="ruby">      @items[new_item.id.to_i] = new_item</code>
+          <code class="ruby">      @items[new_item.id] = new_item</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="25">
@@ -613,8 +613,8 @@
           <code class="ruby">    argument_raiser(description)</code>
         </li>
       
-        <li class="covered" data-hits="2736" data-linenumber="44">
-          <span class="hits">2736</span>
+        <li class="covered" data-hits="34" data-linenumber="44">
+          <span class="hits">34</span>
           
           <code class="ruby">    all.select {|item| item.description.downcase.include?(description.downcase)}</code>
         </li>
@@ -643,8 +643,8 @@
           <code class="ruby">    argument_raiser(price, BigDecimal)</code>
         </li>
       
-        <li class="covered" data-hits="2736" data-linenumber="49">
-          <span class="hits">2736</span>
+        <li class="covered" data-hits="34" data-linenumber="49">
+          <span class="hits">34</span>
           
           <code class="ruby">    all.select {|item| item.unit_price_to_dollars == price}</code>
         </li>
@@ -673,8 +673,8 @@
           <code class="ruby">    argument_raiser(range, Range)</code>
         </li>
       
-        <li class="covered" data-hits="2736" data-linenumber="54">
-          <span class="hits">2736</span>
+        <li class="covered" data-hits="34" data-linenumber="54">
+          <span class="hits">34</span>
           
           <code class="ruby">    all.select {|item| range.include?(item.unit_price_to_dollars)}</code>
         </li>
@@ -703,10 +703,10 @@
           <code class="ruby">    argument_raiser(merchant_id, Integer)</code>
         </li>
       
-        <li class="covered" data-hits="2736" data-linenumber="59">
-          <span class="hits">2736</span>
+        <li class="covered" data-hits="34" data-linenumber="59">
+          <span class="hits">34</span>
           
-          <code class="ruby">    all.select {|item| item.merchant_id.to_i == merchant_id}</code>
+          <code class="ruby">    all.select {|item| item.merchant_id == merchant_id}</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="60">
@@ -730,7 +730,7 @@
         <li class="covered" data-hits="21" data-linenumber="63">
           <span class="hits">21</span>
           
-          <code class="ruby">    if data_type.class != desired_class</code>
+          <code class="ruby">    if data_type.class != desired_class </code>
         </li>
       
         <li class="covered" data-hits="10" data-linenumber="64">
@@ -860,38 +860,38 @@
           <code class="ruby">  def initialize(info, merchant_repository = &quot;&quot;)</code>
         </li>
       
-        <li class="covered" data-hits="5700" data-linenumber="10">
-          <span class="hits">5700</span>
+        <li class="covered" data-hits="132" data-linenumber="10">
+          <span class="hits">132</span>
           
           <code class="ruby">    @id = info[:id].to_i</code>
         </li>
       
-        <li class="covered" data-hits="5700" data-linenumber="11">
-          <span class="hits">5700</span>
+        <li class="covered" data-hits="132" data-linenumber="11">
+          <span class="hits">132</span>
           
           <code class="ruby">    @name = info[:name]</code>
         </li>
       
-        <li class="covered" data-hits="5700" data-linenumber="12">
-          <span class="hits">5700</span>
+        <li class="covered" data-hits="132" data-linenumber="12">
+          <span class="hits">132</span>
           
           <code class="ruby">    @created_at = info[:created_at]</code>
         </li>
       
-        <li class="covered" data-hits="5700" data-linenumber="13">
-          <span class="hits">5700</span>
+        <li class="covered" data-hits="132" data-linenumber="13">
+          <span class="hits">132</span>
           
           <code class="ruby">    @updated_at = info[:updated_at]</code>
         </li>
       
-        <li class="covered" data-hits="5700" data-linenumber="14">
-          <span class="hits">5700</span>
+        <li class="covered" data-hits="132" data-linenumber="14">
+          <span class="hits">132</span>
           
           <code class="ruby">    @item_count = 0</code>
         </li>
       
-        <li class="covered" data-hits="5700" data-linenumber="15">
-          <span class="hits">5700</span>
+        <li class="covered" data-hits="132" data-linenumber="15">
+          <span class="hits">132</span>
           
           <code class="ruby">    @parent = merchant_repository</code>
         </li>
@@ -917,7 +917,7 @@
         <li class="missed" data-hits="0" data-linenumber="19">
           
           
-          <code class="ruby">    @parent.items_by_id(@id.to_i)</code>
+          <code class="ruby">    @parent.items_by_id(@id)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="20">
@@ -938,8 +938,8 @@
           <code class="ruby">  def downcaser</code>
         </li>
       
-        <li class="covered" data-hits="1429" data-linenumber="23">
-          <span class="hits">1429</span>
+        <li class="covered" data-hits="37" data-linenumber="23">
+          <span class="hits">37</span>
           
           <code class="ruby">    @name.downcase</code>
         </li>
@@ -1131,16 +1131,16 @@
           <code class="ruby">    csv_opener(path).each do |merchant|</code>
         </li>
       
-        <li class="covered" data-hits="5700" data-linenumber="26">
-          <span class="hits">5700</span>
+        <li class="covered" data-hits="132" data-linenumber="26">
+          <span class="hits">132</span>
           
           <code class="ruby">      new_merchant = Merchant.new(merchant, self)</code>
         </li>
       
-        <li class="covered" data-hits="5700" data-linenumber="27">
-          <span class="hits">5700</span>
+        <li class="covered" data-hits="132" data-linenumber="27">
+          <span class="hits">132</span>
           
-          <code class="ruby">      @merchants[new_merchant.id.to_i] = new_merchant</code>
+          <code class="ruby">      @merchants[new_merchant.id] = new_merchant</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="28">
@@ -1257,8 +1257,8 @@
           <code class="ruby">    argument_raiser(name)</code>
         </li>
       
-        <li class="covered" data-hits="1428" data-linenumber="47">
-          <span class="hits">1428</span>
+        <li class="covered" data-hits="36" data-linenumber="47">
+          <span class="hits">36</span>
           
           <code class="ruby">    all.select {|merchant| merchant.downcaser.include?(name.downcase)}</code>
         </li>

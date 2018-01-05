@@ -21,7 +21,7 @@ class ItemRepository
   def item_creator_and_storer(path)
     csv_opener(path).each do |item|
       new_item = Item.new(item, self)
-      @items[new_item.id.to_i] = new_item
+      @items[new_item.id] = new_item
     end
   end
 
@@ -56,11 +56,11 @@ class ItemRepository
 
   def find_all_by_merchant_id(merchant_id)
     argument_raiser(merchant_id, Integer)
-    all.select {|item| item.merchant_id.to_i == merchant_id}
+    all.select {|item| item.merchant_id == merchant_id}
   end
 
   def argument_raiser(data_type, desired_class = String)
-    if data_type.class != desired_class
+    if data_type.class != desired_class 
       raise ArgumentError
     end
   end

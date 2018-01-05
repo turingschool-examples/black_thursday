@@ -26,7 +26,7 @@ class Item
   end
 
   def merchant
-    @parent.find_merchant_by_id(@merchant_id.to_i)
+    @parent.find_merchant_by_id(@merchant_id)
   end
 
   def downcaser

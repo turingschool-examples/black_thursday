@@ -24,7 +24,7 @@ class MerchantRepository
     argument_raiser(path)
     csv_opener(path).each do |merchant|
       new_merchant = Merchant.new(merchant, self)
-      @merchants[new_merchant.id.to_i] = new_merchant
+      @merchants[new_merchant.id] = new_merchant
     end
   end
 
