@@ -116,4 +116,33 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal 103.28, sa.item_prices_standard_deviation.round(2)
   end
+
+  def test_find_golden_prices_returns_golden_prices
+    sales_engine = stub(:get_all_merchant_prices => { m1: [100.00, 100.00, 100.00],
+                                                      m2: [100.00, 100.00],
+                                                      m3: [100.00],
+                                                      m4: [100.00, 100.00, 100.00, 100.00, 100.00],
+                                                      m5: [100.00, 100.00, 100.00, 600.00, 700.00]})
+
+    sa = SalesAnalyst.new(sales_engine)
+
+    assert_equal [600.00, 700.00], sa.golden_prices
+  end
+
+  def test_golden_items_returns_golden_priced_items
+    # golden_prices argument not being passed
+    item_1 = mock('shoe')
+    item_2 = mock('paintbrush')
+    sales_engine = stub(:get_all_merchant_prices => { m1: [100.00, 100.00, 100.00],
+                                                      m2: [100.00, 100.00],
+                                                      m3: [100.00],
+                                                      m4: [100.00, 100.00, 100.00, 100.00, 100.00],
+                                                      m5: [100.00, 100.00, 100.00, 600.00, 700.00]},
+                        :search_ir_by_price => [item_1, item_2])
+
+    sa = SalesAnalyst.new(sales_engine)
+
+    assert_equal [item_1, item_2], sa.golden_items
+  end
+
 end

@@ -59,4 +59,15 @@ class SalesAnalyst
     Math.sqrt(variance)
   end
 
+  def golden_prices
+    golden_limit = average_item_price + 2 * item_prices_standard_deviation
+    all_item_prices.select do |item_price|
+      item_price >= golden_limit
+    end
+  end
+
+  def golden_items
+    sales_engine.search_ir_by_price(golden_prices)
+  end
+
 end
