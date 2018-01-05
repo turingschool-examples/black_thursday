@@ -2,7 +2,7 @@ require 'CSV'
 require_relative '../lib/merchant'
 
 class MerchantRepository
-  # do we need contents as attr_reader
+  
   attr_reader :all,
               :parent
 
