@@ -19,7 +19,7 @@ class SalesAnalyst
     long_number.round(2)
   end
 
-  def item_counter(id)
+  def item_counter(id = 0)
     num = @sales_engine.items.find_all_by_merchant_id(id).count
     @sales_engine.assign_item_count(id, num)
     num
