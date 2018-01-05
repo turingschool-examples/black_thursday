@@ -4,12 +4,12 @@ require 'pry'
 
 class SalesEngine
 
-  attr_reader :item_repository,
-              :merchant_repository
+  attr_reader :items,
+              :merchants
 
   def initialize(csv_files)
-    @item_repository = ItemRepository.new(csv_files[:items], self)
-    @merchant_repository = MerchantRepository.new(csv_files[:merchants], self)
+    @items = ItemRepository.new(csv_files[:items], self)
+    @merchants = MerchantRepository.new(csv_files[:merchants], self)
   end
 
   def self.from_csv(csv_files)
