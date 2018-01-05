@@ -29,7 +29,7 @@ class Merchant
   end
 
   def invoices
-    @parent.find_invoice_by_merchant_id(@id.to_i)
+    @parent.find_invoice_by_merchant_id(@id)
   end
 
   def downcaser
