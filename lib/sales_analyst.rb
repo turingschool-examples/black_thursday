@@ -1,4 +1,4 @@
-require 'ruby_native_statistics'
+# require 'ruby_native_statistics'
 require 'bigdecimal'
 require 'pry'
 require_relative 'sales_engine'

@@ -19,6 +19,11 @@ class MerchantRepository
         merchant_repo: self
         })
     end
+    @invoices = []
+  end
+
+  def inspect
+    "#<#{self.class} #{@invoices.size} rows>"
   end
 
   def all

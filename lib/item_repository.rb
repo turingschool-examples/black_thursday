@@ -30,8 +30,12 @@ class ItemRepository
         item_repo: self
         })
     end
+    @invoices = []
   end
 
+  def inspect
+    "#<#{self.class} #{@invoices.size} rows>"
+  end
 
   def all
     @items
@@ -57,7 +61,7 @@ class ItemRepository
 
   def find_all_by_price(price) # NEEDS TESTS!!
     @items.find_all do |item|
-      item if item.unit_price == price.gsub("$", "").gsub(".", "")
+      item if item.unit_price == price
     end
   end
 
