@@ -24,4 +24,24 @@ class SalesEngine
     merchant_repository.find_merchant(id)
   end
 
+  def grab_total_amount_of_items
+    item_repository.total_items
+  end
+
+  def grab_total_amount_of_merchants
+    merchant_repository.total_merchants
+  end
+
+  def grab_array_of_merchant_items
+    merchant_repository.grab_array_of_items
+  end
+
+  def grab_merchants_with_high_items(sales_analyst)
+    merchant_repository.grab_merchants(sales_analyst)
+  end
+
+  def grab_all_merchants
+    merchant_repository.create_merchant_list
+  end
+
 end
