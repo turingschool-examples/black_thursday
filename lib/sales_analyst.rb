@@ -33,8 +33,30 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant
-    merchant_prices = sales_engine.get_all_merchant_prices
+    merchant_prices = sales_engine.get_one_merchant_prices
     merchant_prices.sum / merchant_prices.count
+  end
+
+  def average_average_price_per_merchant
+    merchants_prices = sales_engine.get_all_merchant_prices.values
+    merchants_prices.map do |merchant_prices|
+      merchant_prices.sum / merchant_prices.count
+    end.sum / merchants_prices.count
+  end
+
+  def all_item_prices
+    sales_engine.get_all_merchant_prices.values.flatten
+  end
+
+  def average_item_price
+    all_item_prices.sum / all_item_prices.count
+  end
+
+  def item_prices_standard_deviation
+    variance = all_item_prices.map do |item_price|
+      ((average_item_price - item_price).abs) ** 2
+    end.sum / (all_item_prices.count - 1)
+    Math.sqrt(variance)
   end
 
 end
