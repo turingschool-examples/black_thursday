@@ -53,4 +53,22 @@ class MerchantRepository
     end
   end
 
+  def total_merchants
+    merchants.count
+  end
+
+  def grab_array_of_items
+    merchants.map { |merchant| merchant.items.count }
+  end
+
+  def grab_merchants(sales_analyst)
+    merchants.map do |merchant|
+      merchant if merchant.items.count > sales_analyst.average_items_per_merchant_standard_deviation
+    end
+  end
+
+  def create_merchant_list
+    merchants.map { |merchant| merchant }
+  end
+
 end
