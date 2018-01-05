@@ -8,6 +8,10 @@ class InvoiceItemRepository
     parse(invoice_item_data)
   end
 
+  def self.from_csv(file_path)
+    new(file_path)
+  end
+
   def parse(invoice_item_data)
     invoice_item_data.each do |row|
       @invoice_items << InvoiceItem.new(row.to_hash)
