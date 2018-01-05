@@ -46,6 +46,7 @@ class SalesAnalyst
   end
 
   def golden_items
+    skip
     merchants = se.grab_all_merchants
     merchants.map do |merch|
       price = average_item_price_for_merchant(merch.id)
