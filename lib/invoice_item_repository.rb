@@ -1,4 +1,6 @@
 require_relative '../lib/invoice_item'
+require 'csv'
+
 class InvoiceItemRepository
   def initialize(file_path)
     @invoice_items = []
@@ -6,8 +8,13 @@ class InvoiceItemRepository
     parse(invoice_item_data)
   end
 
-  def parse
+  def parse(invoice_item_data)
     invoice_item_data.each do |row|
       @invoice_items << InvoiceItem.new(row.to_hash)
+    end
+  end
+
+  def all
+    return @invoice_items
   end
 end
