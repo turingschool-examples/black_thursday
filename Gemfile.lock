@@ -27,6 +27,7 @@ GEM
       codeclimate-engine-rb (~> 0.4.0)
       parser (>= 2.4.0.0, < 2.5)
       rainbow (~> 2.0)
+    ruby_native_statistics (0.8)
     thread_safe (0.3.6)
     virtus (1.0.5)
       axiom-types (~> 0.1)
@@ -42,6 +43,7 @@ DEPENDENCIES
   minitest
   rake
   reek
+  ruby_native_statistics
 
 BUNDLED WITH
    1.16.0
