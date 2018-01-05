@@ -19,6 +19,10 @@
         null,
         null,
         1,
+        0,
+        null,
+        null,
+        1,
         13,
         null,
         null,
@@ -30,7 +34,7 @@
         null,
         null,
         1,
-        1,
+        10,
         null,
         null,
         1,
@@ -64,13 +68,13 @@
         null,
         null,
         1,
-        0,
-        null,
-        null,
-        1,
         21,
         10,
         null,
+        null,
+        null,
+        1,
+        0,
         null,
         null,
         null
@@ -81,6 +85,7 @@
       "/Users/mgmilton/turing/projects/black_thursday/lib/item.rb": [
 >>>>>>> 28a84fc0132a30d77497ab852e7eee71d0464c86
         1,
+        1,
         null,
         1,
         1,
@@ -103,7 +108,7 @@
         null,
         null,
         1,
-        1,
+        5469,
         null,
         null,
         1,
@@ -135,6 +140,10 @@
         null,
         null,
         1,
+        0,
+        null,
+        null,
+        1,
         14,
         12,
         null,
@@ -148,7 +157,7 @@
         null,
         null,
         1,
-        1,
+        6,
         null,
         null,
         1,
@@ -176,6 +185,10 @@
         null,
         null,
         null,
+        1,
+        0,
+        null,
+        null,
         null
       ],
 <<<<<<< HEAD
@@ -189,8 +202,10 @@
         null,
         null,
         null,
+        1,
         null,
         1,
+        5700,
         5700,
         5700,
         5700,
@@ -246,7 +261,11 @@
 =======
       ]
     },
+<<<<<<< HEAD
     "timestamp": 1515024491
 >>>>>>> 28a84fc0132a30d77497ab852e7eee71d0464c86
+=======
+    "timestamp": 1515106656
+>>>>>>> 5083feb6659c89fa461d1b04db33d13047251a2f
   }
 }

@@ -1,4 +1,5 @@
 require 'bigdecimal'
+require 'time'
 
 class Item
   attr_reader :id,
@@ -10,26 +11,22 @@ class Item
               :updated_at
 
   def initialize(info, item_repository = "")
-    @id = info[:id]
+    @id = info[:id].to_i
     @name = info[:name]
     @description = info[:description]
-    @unit_price = BigDecimal(info[:unit_price])
-    @merchant_id = info[:merchant_id]
-    @created_at = info[:created_at]
-    @updated_at = info[:updated_at]
+    @unit_price = BigDecimal.new((info[:unit_price].to_i)/100.0, 4)
+    @merchant_id = info[:merchant_id].to_i
+    @created_at = Time.strptime(info[:created_at],"%Y-%m-%d %H:%M:%S %Z")
+    @updated_at = Time.strptime(info[:updated_at],"%Y-%m-%d %H:%M:%S %Z")
     @parent = item_repository
   end
 
   def unit_price_to_dollars
-    (@unit_price/100).to_f
+    @unit_price.to_f
   end
 
-  def merchants
-
-    @parent.merchants
-
-    @parent.merchants.merchants.values
-
+  def merchant
+    @parent.find_merchant_by_id(@merchant_id.to_i)
   end
 
   def downcaser

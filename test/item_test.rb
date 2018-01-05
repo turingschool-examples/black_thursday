@@ -7,8 +7,8 @@ class ItemTest < MiniTest::Test
       :name        => "Pencil",
       :description => "You can use it to write things",
       :unit_price  => BigDecimal.new(1099),
-      :created_at  => Time.now,
-      :updated_at  => Time.now})
+      :created_at  => "2016-01-11 09:34:06 UTC",
+      :updated_at  => "2016-01-11 09:34:06 UTC"})
   end
 
   def test_unit_price_to_dollars

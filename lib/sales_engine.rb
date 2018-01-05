@@ -1,12 +1,14 @@
 require 'csv'
-require './lib/item_repository'
-require './lib/merchant_repository'
+require_relative 'item_repository'
+require_relative 'merchant_repository'
+require_relative 'sales_analyst'
 
 class SalesEngine
 
   def self.from_csv(data)
     @items = ItemRepository.new(data[:items], self)
     @merchants = MerchantRepository.new(data[:merchants], self)
+    @sales_analyst = SalesAnalyst.new(self)
     self
   end
 
@@ -14,11 +16,25 @@ class SalesEngine
     @items
   end
 
+  def self.all_items
+    @items.all
+  end
+
   def self.merchants
     @merchants
   end
 
-end
+  def self.all_merchants
+    @merchants.all
+  end
+
+  def self.assign_item_count(id, num)
+    @merchants.assign_item_count(id, num)
+  end
+
+  def self.find_merchant_by_id(id)
+    @merchants.find_by_id(id)
+  end
 
 # 
 # se = SalesEngine.from_csv({
@@ -26,10 +42,12 @@ end
 #   :merchants => "./data/merchants.csv",
 # })
 #
-<<<<<<< HEAD
 # merchant = se.items.find_all_by_price('Art')
 # p merchant
-=======
 # merchant = se.merchants.find_by_id(12336189)
 # p merchant.items.count
->>>>>>> 28a84fc0132a30d77497ab852e7eee71d0464c86
+
+  def self.items_by_id(id)
+    @items.find_all_by_merchant_id(id)
+  end
+end

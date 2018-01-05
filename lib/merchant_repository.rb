@@ -1,5 +1,5 @@
 require 'csv'
-require './lib/merchant.rb'
+require_relative 'merchant.rb'
 
 class MerchantRepository
   attr_reader :merchants,
@@ -7,11 +7,15 @@ class MerchantRepository
 
   def initialize(path, sales_engine = "")
     @merchants = {}
-    merchant_creator_and_storer(path)
     @parent = sales_engine
+    merchant_creator_and_storer(path)
   end
 
-  def csv_opener(path)
+  def items_by_id(id)
+    @parent.items_by_id(id)
+  end
+
+  def csv_opener(path = "./data/merchants.csv")
     argument_raiser(path)
     CSV.open path, headers: true, header_converters: :symbol
   end
@@ -35,22 +39,26 @@ class MerchantRepository
 
   def find_by_name(name)
     argument_raiser(name)
-    @merchants.find {|id, merchant| merchant.downcaser == name.downcase}[1]
+    all.find {|merchant| merchant.downcaser == name.downcase}
   end
 
   def find_all_by_name(name)
     argument_raiser(name)
-    @merchants.select {|id, merchant| merchant.downcaser.include?(name.downcase)}.values
+    all.select {|merchant| merchant.downcaser.include?(name.downcase)}
   end
 
-  def items
-    @parent.items
+  def assign_item_count(id, num)
+    @merchants[id].item_count = num
   end
 
   def argument_raiser(data_type, desired_class = String)
     if data_type.class != desired_class
       raise ArgumentError
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 
 end
