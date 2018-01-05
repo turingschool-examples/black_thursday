@@ -4,6 +4,7 @@ require "time"
 # require "math"
 require_relative "sales_engine"
 require_relative "sales_analyst"
+require_relative "invoice_repo"
 
 
   # se = SalesEngine.from_csv({
@@ -24,6 +25,7 @@ require_relative "sales_analyst"
   :customers     => "./data/customers.csv"
 })
 
-  sa = SalesAnalyst.new(se)
+ir = InvoiceRepo.new(se, "./data/invoices.csv")
 
-  p se.items.items.size
+i = ir.find_by_id(20)
+p i.merchant

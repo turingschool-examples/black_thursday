@@ -25,7 +25,7 @@ class MerchantRepo
   end
 
   def find_by_id(id)
-    merchants.find { |merchant| merchant.id == id}
+    merchants.find { |merchant| merchant.id == id }
   end
 
   def find_by_name(name)
@@ -44,10 +44,6 @@ class MerchantRepo
 
   def find_invoices_by_merchant_id(merchant_id)
     @sales_engine.find_invoices_by_merchant_id(merchant_id)
-  end
-
-  def find_merchant_by_invoice_id(invoice_id)
-    @sales_engine.find_merchant(invoice_id)    
   end
 
   def inspect

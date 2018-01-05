@@ -3,7 +3,7 @@ require_relative 'sales_engine'
 require 'csv'
 
 class InvoiceRepo
-  attr_reader :invoices, 
+  attr_reader :invoices,
               :sales_engine
 
   def initialize(sales_engine, filename)
@@ -15,10 +15,10 @@ class InvoiceRepo
   def load_invoices(filename)
     invoice_csv = CSV.open filename,
                            headers: true,
-                           header_converters: :symbols,
+                           header_converters: :symbol,
                            converters: :numeric
-    invoice_csv.each do |row| @invoices << Invoice.new(row, self) 
-    end   
+    invoice_csv.each do |row| @invoices << Invoice.new(row, self)
+    end
   end
 
   def all
@@ -45,12 +45,12 @@ class InvoiceRepo
     invoices.find_all { |invoice| invoice.created_at == date }
   end
 
-  def find_merchant_by_invoice_id(invoice_id)
-    @sales_engine.find_merchant_by_invoice_id(invoice_id)    
-  end  
+  def find_merchant_by_id(merchant_id)
+    @sales_engine.find_merchant(merchant_id)
+  end
 
   def inspect
-    "#<#{self.class} #{invoice.size} rows>"
+    "#<#{self.class} #{invoices.size} rows>"
   end
 
 end
