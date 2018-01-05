@@ -43,31 +43,31 @@ class MerchantRepository
     end
   end
 
-  def find_item(id)
+  def find_item(id) # NEEDS TESTS
     se.find_item_by_merchant_id(id)
   end
 
-  def find_merchant(id)
+  def find_merchant(id) # NEEDS TESTS
     merchants.find do |merchant|
       merchant if merchant.id == id
     end
   end
 
-  def total_merchants
+  def total_merchants # NEEDS TESTS
     merchants.count
   end
 
-  def grab_array_of_items
+  def grab_array_of_items # NEEDS TESTS
     merchants.map { |merchant| merchant.items.count }
   end
 
-  def grab_merchants(sales_analyst)
+  def grab_merchants(sales_analyst) # NEEDS TESTS
     merchants.map do |merchant|
       merchant if merchant.items.count > sales_analyst.average_items_per_merchant_standard_deviation
     end
   end
 
-  def create_merchant_list
+  def create_merchant_list # NEEDS TESTS
     merchants.map { |merchant| merchant }
   end
 
