@@ -1,6 +1,7 @@
 require "csv"
 require_relative "merchant_repo"
 require_relative "item_repo"
+require_relative "invoice_repo"
 
 class SalesEngine
   attr_reader :merchants,
@@ -26,7 +27,6 @@ class SalesEngine
   end
 
   def find_invoices_by_merchant_id(merchant_id)
-    invoices.find_all_by_merchant_id(merchant_id)    
+    invoices.find_all_by_merchant_id(merchant_id)
   end
-
 end

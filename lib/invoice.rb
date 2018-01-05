@@ -1,5 +1,6 @@
 require 'time'
 require 'bigdecimal'
+require_relative "invoice_repo"
 
 class Invoice
   attr_reader :id,
@@ -21,7 +22,6 @@ class Invoice
   end
 
   def merchant
-    @invoice_repo.find_merchant_by_invoice_id(self.id)
+    @invoice_repo.find_merchant_by_id(self.merchant_id)
   end
-
 end
