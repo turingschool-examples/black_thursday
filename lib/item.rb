@@ -12,10 +12,10 @@ class Item
               :parent
 
   def initialize(data, parent)
-    @id           = data[:id]
+    @id           = data[:id].to_i
     @name         = data[:name]
     @description  = data[:description]
-    @merchant_id  = data[:merchant_id]
+    @merchant_id  = data[:merchant_id].to_i
     @unit_price   = data[:unit_price]
     @created_at   = data[:created_at]
     @updated_at   = data[:updated_at]
