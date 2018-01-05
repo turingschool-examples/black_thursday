@@ -17,7 +17,7 @@ class Merchant
   end
 
   def items
-    @parent.items_by_id(@id.to_i)
+    @parent.items_by_id(@id)
   end
 
   def downcaser
