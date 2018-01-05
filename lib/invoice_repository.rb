@@ -45,7 +45,7 @@ class InvoiceRepository
   end
 
   def find_all_by_status(status)
-    argument_raiser(status)
+    argument_raiser(status, Symbol)
     all.select {|invoice| invoice.status == status}
   end
 

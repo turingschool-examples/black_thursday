@@ -7,9 +7,6 @@ se = SalesEngine.from_csv({
   :invoices  => "./data/invoices.csv"
 })
 
-merchant = se.merchants.find_by_id(12334159)
-p merchant.invoices.class
-p merchant.invoices.count
+sa = SalesAnalyst.new(se)
 
-invoice = se.invoices.find_by_id(20)
-p invoice.merchant.class
+p sa.top_merchants_by_invoice_count.count
