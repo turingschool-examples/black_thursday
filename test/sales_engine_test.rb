@@ -114,8 +114,29 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of Hash, merchants_and_prices
     assert_equal se.merchants.all, merchants
     prices.each do |price|
-      assert_instance_of BigDecimal, price
+      assert_instance_of Float, price
     end
+  end
+
+  def test_get_one_merchant_prices_returns_hash_of_merchant_and_prices
+    se = SalesEngine.new
+
+    se.from_csv({merchants: "./test/fixtures/merchants_fixture.csv",
+                 items: "./test/fixtures/items_fixture.csv"})
+
+    assert_equal [1200.0, 1350.0, 700.0],  se.get_one_merchant_prices(12334185)
+  end
+
+  def test_search_ir_by_price_returns_all_items_with_given_price
+    se = SalesEngine.new
+
+    se.from_csv({merchants: "./test/fixtures/merchants_fixture.csv",
+      items: "./test/fixtures/items_fixture.csv"})
+
+    items =  se.search_ir_by_price(1200)
+    item_ids = items.map { |item| item.id }
+
+    assert_equal ["263395237", "263395617"], item_ids
   end
 
 end
