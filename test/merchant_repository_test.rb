@@ -18,7 +18,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_returns_matches_by_id
     merchant = MerchantRepository.new("./test/fixtures/merchants_sample.csv", "se")
-    found_id = merchant.find_by_id("12334185")
+    found_id = merchant.find_by_id(12334185)
 
     assert_equal "Madewithgitterxx", found_id.name
   end
@@ -27,7 +27,7 @@ class MerchantRepositoryTest < Minitest::Test
     merchant = MerchantRepository.new("./test/fixtures/merchants_sample.csv", "se")
     found_name = merchant.find_by_name("FlavienCouche")
 
-    assert_equal "12334195", found_name.id
+    assert_equal 12334195, found_name.id
     refute_equal "123223", found_name.id
   end
 

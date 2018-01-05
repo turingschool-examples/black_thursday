@@ -19,11 +19,11 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_initializes_new_items
-    assert_instance_of ItemRepository, se.item_repository
+    assert_instance_of ItemRepository, se.items
   end
 
   def test_it_initializes_new_merchants
-    assert_instance_of MerchantRepository, se.merchant_repository
+    assert_instance_of MerchantRepository, se.merchants
   end
 
 end
