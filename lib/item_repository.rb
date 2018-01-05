@@ -1,5 +1,7 @@
 require 'csv'
+require 'time'
 require_relative '../lib/item'
+
 
 class ItemRepository
 
@@ -15,8 +17,8 @@ class ItemRepository
       id          = row[:id]
       name        = row[:name]
       unit_price  = row[:unit_price]
-      created_at  = row[:created_at]
-      updated_at  = row[:updated_at]
+      created_at  = Time.parse(row[:created_at])
+      updated_at  = Time.parse(row[:updated_at])
       description = row[:description]
       merchant_id = row[:merchant_id]
       @items << Item.new({
@@ -43,25 +45,25 @@ class ItemRepository
 
   def find_by_id(id)
     @items.find do |item|
-      item.id if item.id == id
+      item.id == id
     end
   end
 
   def find_by_name(name)
     @items.find do |item|
-      item.name if item.name == name
+      item.name == name
     end
   end
 
   def find_all_with_description(description)
     @items.find_all do |item|
-      item if item.description.downcase.include?(description.downcase)
+      item.description.downcase.include?(description.downcase)
     end
   end
 
   def find_all_by_price(price) # NEEDS TESTS!!
     @items.find_all do |item|
-      item if item.unit_price == price
+      item.unit_price == price
     end
   end
 
@@ -73,13 +75,13 @@ class ItemRepository
 
   def find_all_by_merchant_id(merchant_id) # NEEDS TESTS!!
     @items.find_all do |item|
-      item if item.merchant_id == merchant_id
+      item.merchant_id == merchant_id
     end
   end
 
   def find_item(id) # NEEDS TESTS!!
     items.find_all do |item|
-      item if item.merchant_id == id
+      item.merchant_id == id
     end
   end
 
