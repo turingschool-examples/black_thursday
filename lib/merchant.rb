@@ -11,8 +11,7 @@ class Merchant
     @created_at = info[:created_at]
     @updated_at = info[:updated_at]
     @parent = merchant_repository
-<<<<<<< HEAD
-=======
+
   end
 
   def items
@@ -21,7 +20,6 @@ class Merchant
 
   def downcaser
     @name.downcase
->>>>>>> 28a84fc0132a30d77497ab852e7eee71d0464c86
   end
 
   def items
@@ -31,5 +29,5 @@ class Merchant
   def downcaser
     @name.downcase
   end
-  
+
 end

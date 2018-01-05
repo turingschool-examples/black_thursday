@@ -25,11 +25,11 @@ class Item
   end
 
   def merchants
-<<<<<<< HEAD
+
     @parent.merchants
-=======
+
     @parent.merchants.merchants.values
->>>>>>> 28a84fc0132a30d77497ab852e7eee71d0464c86
+
   end
 
   def downcaser
