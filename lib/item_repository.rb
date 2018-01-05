@@ -55,38 +55,40 @@ class ItemRepository
     end
   end
 
-  def find_all_by_price(price)
+  def find_all_by_price(price) # NEEDS TESTS!!
     @items.find_all do |item|
       item if item.unit_price == price.gsub("$", "").gsub(".", "")
     end
   end
 
-  def find_all_by_price_in_range(range)
+  def find_all_by_price_in_range(range) # NEEDS TESTS!!
     @items.find_all do |item|
       item if range.include?(item.unit_price)
     end
   end
 
-  def find_all_by_merchant_id(merchant_id)
+  def find_all_by_merchant_id(merchant_id) # NEEDS TESTS!!
     @items.find_all do |item|
       item if item.merchant_id == merchant_id
     end
   end
 
-  def find_item(id)
+  def find_item(id) # NEEDS TESTS!!
     items.find_all do |item|
       item if item.merchant_id == id
     end
   end
 
-  def find_merchant(id)
+  def find_merchant(id) # NEEDS TESTS!!
     se.find_merchant_by_id(id)
   end
 
-  def total_items
+  def total_items # NEEDS TESTS!!
     items.count
   end
 
-  
+  def create_item_list # NEEDS TESTS!!!
+    items.map { |item| item }
+  end
 
 end
