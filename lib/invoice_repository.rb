@@ -49,6 +49,10 @@ class InvoiceRepository
     all.select {|invoice| invoice.status == status}
   end
 
+  def merchant(id)
+    @parent.find_merchant_by_id(id)
+  end
+
   def argument_raiser(data_type, desired_class = String)
     if data_type.class != desired_class
       raise ArgumentError

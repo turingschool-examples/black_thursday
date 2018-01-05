@@ -18,4 +18,8 @@ class Invoice
     @updated_at = Time.strptime(info[:updated_at], "%Y-%m-%d")
     @parent = invoice_repository
   end
+
+  def merchant
+    @parent.merchant(@merchant_id)
+  end
 end

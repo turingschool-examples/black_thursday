@@ -8,10 +8,8 @@ se = SalesEngine.from_csv({
 })
 
 merchant = se.merchants.find_by_id(12334159)
-require 'pry'; binding.pry
-merchant.invoices
-
-require 'pry'; binding.pry
+p merchant.invoices.class
+p merchant.invoices.count
 
 invoice = se.invoices.find_by_id(20)
-invoice.merchant
+p invoice.merchant.class
