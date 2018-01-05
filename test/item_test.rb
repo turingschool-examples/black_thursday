@@ -29,7 +29,7 @@ class ItemTest < MiniTest::Test
   end
 
   def test_it_has_unit_price
-    assert_equal 1099, @item.unit_price
+    assert_equal 0.1099e2, @item.unit_price
   end
 
   def test_it_has_created_at
