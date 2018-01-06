@@ -26,14 +26,14 @@ class ItemRepositoryTest < Minitest::Test
       assert_instance_of Item, item
     end
     assert_equal "510+ RealPush Icon Set", ir.all[0].name
-    assert_equal "263395237", ir.all[0].id
+    assert_equal 263395237, ir.all[0].id
   end
 
   def test_find_by_id_returns_appropriate_item
     parent = mock("parent")
     ir = ItemRepository.new("./test/fixtures/items_fixture.csv", parent)
 
-    item = ir.find_by_id("263395237")
+    item = ir.find_by_id(263395237)
     unknown_item = ir.find_by_id("oogabooga")
 
     assert_nil unknown_item
@@ -49,8 +49,8 @@ class ItemRepositoryTest < Minitest::Test
     unknown_item = ir.find_by_name("oogabooga")
 
     assert_nil unknown_item
-    assert_equal "263395721", item_1.id
-    assert_equal "263395721", item_2.id
+    assert_equal 263395721, item_1.id
+    assert_equal 263395721, item_2.id
   end
 
   def test_find_all_with_description_returns_array_of_appropriate_items
@@ -63,39 +63,39 @@ class ItemRepositoryTest < Minitest::Test
     unknown_item = ir.find_all_with_description("oogabooga")
 
     assert_equal [], unknown_item
-    assert_equal "263395237", items_1[0].id
-    assert_equal ["263396255", "263396517"], items_2_ids
+    assert_equal 263395237, items_1[0].id
+    assert_equal [263396255, 263396517], items_2_ids
   end
 
   def test_find_all_by_price_returns_array_of_appropriate_items
     parent = mock("parent")
     ir = ItemRepository.new("./test/fixtures/items_fixture.csv", parent)
 
-    item_1 = ir.find_all_by_price("1200")
+    item_1 = ir.find_all_by_price(BigDecimal.new(12))
     item_1_ids = item_1.map { |item| item.id }
-    item_2 = ir.find_all_by_price("40000")
+    item_2 = ir.find_all_by_price(BigDecimal.new(400))
     item_2_ids = item_2.map { |item| item.id }
-    unknown_item = ir.find_all_by_price("5000650")
+    unknown_item = ir.find_all_by_price(BigDecimal.new(50650))
 
     assert_equal [], unknown_item
-    assert_equal "263395237", item_1.first.id
-    assert_equal ["263395237", "263395617"], item_1_ids
-    assert_equal "263396517", item_2.first.id
-    assert_equal ["263396517"], item_2_ids
+    assert_equal [263395237, 263395617], item_1_ids
+    assert_equal 2, item_1.count
+    assert_equal [263396517], item_2_ids
+    assert_equal 1, item_2.count
   end
 
   def test_find_all_by_price_in_range_returns_array_of_appropriate_items
     parent = mock("parent")
     ir = ItemRepository.new("./test/fixtures/items_fixture.csv", parent)
 
-    items_1 = ir.find_all_by_price_in_range((1200..1201))
+    items_1 = ir.find_all_by_price_in_range((12.00..12.01))
     items_1_ids = items_1.map { |item| item.id }
-    items_2 = ir.find_all_by_price_in_range((39380..40000))
+    items_2 = ir.find_all_by_price_in_range((393.80..400.00))
     items_2_ids = items_2.map { |item| item.id }
-    unknown_items = ir.find_all_by_price_in_range(5000650..6000000)
+    unknown_items = ir.find_all_by_price_in_range(5000.00..6000.00)
 
-    assert_equal ["263395237", "263395617"], items_1_ids
-    assert_equal ["263396517"], items_2_ids
+    assert_equal [263395237, 263395617], items_1_ids
+    assert_equal [263396517], items_2_ids
     assert_equal [], unknown_items
   end
 
@@ -103,17 +103,17 @@ class ItemRepositoryTest < Minitest::Test
     parent = mock("parent")
     ir = ItemRepository.new("./test/fixtures/items_fixture.csv", parent)
 
-      item_1 = ir.find_all_by_merchant_id("12334185")
+      item_1 = ir.find_all_by_merchant_id(12334185)
       item_1_ids = item_1.map { |item| item.id }
-      item_2 = ir.find_all_by_merchant_id("12334195")
+      item_2 = ir.find_all_by_merchant_id(12334141)
       item_2_ids = item_2.map { |item| item.id }
-      unknown_item = ir.find_all_by_merchant_id("101011100")
+      unknown_item = ir.find_all_by_merchant_id(101011100)
 
       assert_equal [], unknown_item
-      assert_equal "263395617", item_1.first.id
-      assert_equal ["263395617", "263395721", "263396013"], item_1_ids
-      assert_equal "263396255", item_2.first.id
-      assert_equal ["263396255", "263396517"], item_2_ids
+      assert_equal 263395617, item_1.first.id
+      assert_equal [263395617, 263395721, 263396013], item_1_ids
+      assert_equal 263395237, item_2.first.id
+      assert_equal [263395237, 263396463, 263396517], item_2_ids
   end
 
 end

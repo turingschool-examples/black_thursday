@@ -52,7 +52,7 @@ class ItemRepository
 
   def find_all_by_price_in_range(range)
     all.select do |item|
-      (range).include?(item.unit_price.to_i)
+      (range).include?(item.unit_price)
     end
   end
 
@@ -60,6 +60,10 @@ class ItemRepository
     all.select do |item|
       item.merchant_id == merchant_id
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
   end
 
 end

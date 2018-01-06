@@ -4,34 +4,29 @@ require_relative "../lib/sales_engine"
 class SalesEngineTest < Minitest::Test
 
   def test_it_exists
-    se = SalesEngine.new
+    se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                items: "./test/fixtures/merchants_fixture.csv"})
 
     assert_instance_of SalesEngine, se
   end
 
   def test_sales_engine_instaniates_merchant_repository
-    se = SalesEngine.new
-
-    se.from_csv({merchants: "./test/fixtures/merchants_fixture.csv",
-                      items: "./test/fixtures/merchants_fixture.csv"})
+    se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                items: "./test/fixtures/merchants_fixture.csv"})
 
     assert_instance_of MerchantRepository, se.merchants
   end
 
   def test_sales_engine_instaniates_merchant_repository
-    se = SalesEngine.new
-
-    se.from_csv({merchants: "./test/fixtures/merchants_fixture.csv",
-                      items: "./test/fixtures/items_fixture.csv"})
+    se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                items: "./test/fixtures/merchants_fixture.csv"})
 
     assert_instance_of ItemRepository, se.items
   end
 
   def test_merchant_repository_has_merchants
-    se = SalesEngine.new
-
-    se.from_csv({merchants: "./test/fixtures/merchants_fixture.csv",
-                      items: "./test/fixtures/items_fixture.csv"})
+    se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                items: "./test/fixtures/merchants_fixture.csv"})
     all_merchants = se.merchants.all
 
     all_merchants.map do |merchant|
@@ -40,10 +35,8 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_item_repository_has_items
-    se = SalesEngine.new
-
-    se.from_csv({merchants: "./test/fixtures/merchants_fixture.csv",
-                      items: "./test/fixtures/items_fixture.csv"})
+    se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                items: "./test/fixtures/merchants_fixture.csv"})
 
     all_items = se.items.all
 
@@ -53,30 +46,26 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_item_is_linked_to_merchant
-    se = SalesEngine.new
+    se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                items: "./test/fixtures/items_fixture.csv"})
 
-    se.from_csv({merchants: "./test/fixtures/merchants_fixture.csv",
-                      items: "./test/fixtures/items_fixture.csv"})
-
-    item = se.items.find_by_id("263395237")
+    item = se.items.find_by_id(263395237)
 
     assert_equal "SeriousCompany", item.merchant.name
   end
 
   def test_merchant_is_linked_to_item
-    se = SalesEngine.new
+    se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                items: "./test/fixtures/items_fixture.csv"})
 
-    se.from_csv({merchants: "./test/fixtures/merchants_fixture.csv",
-                      items: "./test/fixtures/items_fixture.csv"})
-
-    merchant_1 = se.merchants.find_by_id("12334141")
-    merchant_2 = se.merchants.find_by_id("12334185")
+    merchant_1 = se.merchants.find_by_id(12334141)
+    merchant_2 = se.merchants.find_by_id(12334185)
 
     assert_equal "510+ RealPush Icon Set", merchant_1.items.first.name
     merchant_1.items.each do |item|
       assert_instance_of Item, item
     end
-    assert_equal 1, merchant_1.items.count
+    assert_equal 3, merchant_1.items.count
     merchant_2.items.each do |item|
       assert_instance_of Item, item
     end
@@ -84,29 +73,26 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_get_all_merchant_items_returns_hash_of_merchants_and_items
-    # items sort_by will work if all item_fixtures match merchant_fixtures
-    # make sure all items merchant_ids are associated with merchants
-    se = SalesEngine.new
+    se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                items: "./test/fixtures/items_fixture.csv"})
 
-
-    se.from_csv({merchants: "./test/fixtures/merchants_fixture.csv",
-                 items: "./test/fixtures/items_fixture.csv"})
     merchants_and_items = se.get_all_merchant_items
     merchants = merchants_and_items.keys
     items = merchants_and_items.values.flatten
 
-    assert_instance_of Hash, merchants_and_items
+    sorted_items = items.sort_by {|item| item.id}
+    sorted_items = sorted_items.map {|item| item.id}
+    sorted_expected_items = se.items.all.sort_by {|item| item.id}
+    sorted_expected_items = sorted_expected_items.map {|item| item.id}
+
     assert_equal se.merchants.all, merchants
-    items.each do |item|
-      assert_instance_of Item, item
-    end
+    assert_equal sorted_expected_items, sorted_items
   end
 
   def test_get_all_merchant_prices_returns_hash_of_merchant_and_prices
-    se = SalesEngine.new
+    se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                items: "./test/fixtures/items_fixture.csv"})
 
-    se.from_csv({merchants: "./test/fixtures/merchants_fixture.csv",
-                 items: "./test/fixtures/items_fixture.csv"})
     merchants_and_prices = se.get_all_merchant_prices
     merchants = merchants_and_prices.keys
     prices = merchants_and_prices.values.flatten
@@ -118,25 +104,21 @@ class SalesEngineTest < Minitest::Test
     end
   end
 
-  def test_get_one_merchant_prices_returns_hash_of_merchant_and_prices
-    se = SalesEngine.new
+  def test_get_one_merchant_prices_returns_array_of_merchant_prices
+    se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                items: "./test/fixtures/items_fixture.csv"})
 
-    se.from_csv({merchants: "./test/fixtures/merchants_fixture.csv",
-                 items: "./test/fixtures/items_fixture.csv"})
-
-    assert_equal [1200.0, 1350.0, 700.0],  se.get_one_merchant_prices(12334185)
+    assert_equal [12.0, 13.5, 7.0],  se.get_one_merchant_prices(12334185)
   end
 
   def test_search_ir_by_price_returns_all_items_with_given_price
-    se = SalesEngine.new
-
-    se.from_csv({merchants: "./test/fixtures/merchants_fixture.csv",
-      items: "./test/fixtures/items_fixture.csv"})
+    se = SalesEngine.from_csv({merchants: "./test/fixtures/merchants_fixture.csv",
+                      items: "./test/fixtures/items_fixture.csv"})
 
     items =  se.search_ir_by_price(1200)
     item_ids = items.map { |item| item.id }
 
-    assert_equal ["263395237", "263395617"], item_ids
+    assert_equal [263395237, 263395617], item_ids
   end
 
 end

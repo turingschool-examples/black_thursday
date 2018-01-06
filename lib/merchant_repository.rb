@@ -2,7 +2,7 @@ require 'CSV'
 require_relative '../lib/merchant'
 
 class MerchantRepository
-  
+
   attr_reader :all,
               :parent
 
@@ -34,6 +34,10 @@ class MerchantRepository
     all.select do |merchant|
       merchant.name.downcase.include?(name_fragment.downcase)
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
   end
 
 end
