@@ -25,7 +25,7 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_it_finds_the_average_items_per_merchant_standard_deviation
-    assert_equal 0.8528028654224418, @sa.average_items_per_merchant_standard_deviation
+    assert_equal 3.26, @sa.average_items_per_merchant_standard_deviation
   end
 
   def test_it_finds_the_merchants_with_the_highest_item_counts
@@ -35,4 +35,4 @@ class SalesAnalystTest < MiniTest::Test
   end
 end
 
-# time to run test: 0.022248s
+# time to run test: 0.021840s

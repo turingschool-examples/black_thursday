@@ -18,14 +18,17 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    total_items.to_f / merchants.count.to_f
+    (total_items.to_f / merchants.count.to_f).round(2)
+  end
+
+  def sum_squared_differences_from_average
+    merchants.reduce(0) do |sum, merchant|
+      sum + ((average_items_per_merchant - merchant.item_count)**2)
+    end
   end
 
   def average_items_per_merchant_standard_deviation
-    standard_deviations = merchants.map do |merchant|
-      (merchant.item_count - average_items_per_merchant)**2
-    end
-    Math.sqrt(standard_deviations.sum / (total_items - 1))
+    Math.sqrt(sum_squared_differences_from_average / (total_items - 1)).round(2)
   end
 
   def one_standard_deviation_above_average
