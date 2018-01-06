@@ -13,7 +13,7 @@ class ItemRepoTest < Minitest::Test
       :transactions  => "./data/transactions.csv",
       :customers     => "./data/customers.csv"
     })
-    
+
     ir = ItemRepo.new(se, "./data/items.csv")
 
     assert_instance_of ItemRepo, ir
@@ -134,5 +134,71 @@ class ItemRepoTest < Minitest::Test
     expected = ir.items.count
 
     assert_equal 1367, expected
+  end
+
+  def test_inspect_shortens_output
+    se = SalesEngine.from_csv({
+      :items         => "./data/items.csv",
+      :merchants     => "./data/merchants.csv",
+      :invoices      => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions  => "./data/transactions.csv",
+      :customers     => "./data/customers.csv"
+    })
+
+    ir = ItemRepo.new(se, "./data/items.csv")
+
+    assert_equal "#<ItemRepo 1367 rows>", ir.inspect
+  end
+
+  def test_find_all_with_description_finds_all_items_by_description
+    se = SalesEngine.from_csv({
+      :items         => "./data/items.csv",
+      :merchants     => "./data/merchants.csv",
+      :invoices      => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions  => "./data/transactions.csv",
+      :customers     => "./data/customers.csv"
+    })
+
+    ir = ItemRepo.new(se, "./data/items.csv")
+
+    assert_instance_of Array, ir.find_all_with_description("great")
+    assert_equal 115, ir.find_all_with_description("great").count
+    ir.find_all_with_description("great").each do |item|
+      assert_instance_of Item, item
+    end
+  end
+
+  def test_find_all_by_price_in_range_finds_all_items_in_price_range
+    se = SalesEngine.from_csv({
+      :items         => "./data/items.csv",
+      :merchants     => "./data/merchants.csv",
+      :invoices      => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions  => "./data/transactions.csv",
+      :customers     => "./data/customers.csv"
+    })
+
+    ir = ItemRepo.new(se, "./data/items.csv")
+
+    assert_instance_of Array, ir.find_all_by_price_in_range(50..500)
+    assert_equal 385, ir.find_all_by_price_in_range(50..500).count
+    assert_instance_of BigDecimal, ir.find_all_by_price_in_range(50..500).first.unit_price
+  end
+
+  def test_find_items_by_merchant_id_finds_items_by_merchant_it
+    se = SalesEngine.from_csv({
+      :items         => "./data/items.csv",
+      :merchants     => "./data/merchants.csv",
+      :invoices      => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions  => "./data/transactions.csv",
+      :customers     => "./data/customers.csv"
+    })
+
+    ir = ItemRepo.new(se, "./data/items.csv")
+
+    assert_instance_of Array, ir.find_items_by_merchant_id(12334141)
   end
 end

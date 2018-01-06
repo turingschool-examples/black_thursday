@@ -122,4 +122,38 @@ class MerchantRepoTest < Minitest::Test
     end
     assert_equal 3, expected.count
   end
+
+  def test_inspect_shortens_output
+    se = SalesEngine.from_csv({
+      :items         => "./data/items.csv",
+      :merchants     => "./data/merchants.csv",
+      :invoices      => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions  => "./data/transactions.csv",
+      :customers     => "./data/customers.csv"
+    })
+
+    mr = MerchantRepo.new(se, "./data/merchants.csv")
+
+    assert_equal "#<MerchantRepo 475 rows>", mr.inspect
+  end
+
+  def test_find_invoices_by_merchant_id_finds_invoices_by_merchant_id
+    se = SalesEngine.from_csv({
+      :items         => "./data/items.csv",
+      :merchants     => "./data/merchants.csv",
+      :invoices      => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions  => "./data/transactions.csv",
+      :customers     => "./data/customers.csv"
+    })
+
+    mr = MerchantRepo.new(se, "./data/merchants.csv")
+
+    assert_instance_of Array, mr.find_invoices_by_merchant_id(12334105)
+    assert_equal 10, mr.find_invoices_by_merchant_id(12334105).count
+    mr.find_invoices_by_merchant_id(12334105).each do |invoice|
+      assert_instance_of Invoice, invoice
+    end
+  end
 end

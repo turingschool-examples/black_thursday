@@ -14,9 +14,9 @@ class InvoiceRepoTest < Minitest::Test
         :customers     => "./data/customers.csv"
       })
 
-    invoice_repo = InvoiceRepo.new(se, "./data/invoices.csv")
+    ir = InvoiceRepo.new(se, "./data/invoices.csv")
 
-    assert_instance_of InvoiceRepo, invoice_repo
+    assert_instance_of InvoiceRepo, ir
   end
 
   def test_it_can_create_invoice_instances
@@ -29,9 +29,9 @@ class InvoiceRepoTest < Minitest::Test
         :customers     => "./data/customers.csv"
       })
 
-    invoice_repo = InvoiceRepo.new(se, "./data/invoices.csv")
+    ir = InvoiceRepo.new(se, "./data/invoices.csv")
 
-    assert_instance_of Invoice, invoice_repo.invoices.first
+    assert_instance_of Invoice, ir.invoices.first
   end
 
   def test_it_can_reach_the_invoice_instances_through_all
@@ -44,9 +44,9 @@ class InvoiceRepoTest < Minitest::Test
         :customers     => "./data/customers.csv"
       })
 
-    invoice_repo = InvoiceRepo.new(se, "./data/invoices.csv")
+    ir = InvoiceRepo.new(se, "./data/invoices.csv")
 
-    assert_instance_of Invoice, invoice_repo.all.first
+    assert_instance_of Invoice, ir.all.first
   end
 
   def test_it_can_find_invoices_by_id
@@ -59,9 +59,9 @@ class InvoiceRepoTest < Minitest::Test
         :customers     => "./data/customers.csv"
       })
 
-    invoice_repo = InvoiceRepo.new(se, "./data/invoices.csv")
+    ir = InvoiceRepo.new(se, "./data/invoices.csv")
 
-    results = invoice_repo.find_by_id(3311)
+    results = ir.find_by_id(3311)
 
     assert_equal 12335660, results.merchant_id
   end
@@ -76,9 +76,9 @@ class InvoiceRepoTest < Minitest::Test
         :customers     => "./data/customers.csv"
       })
 
-    invoice_repo = InvoiceRepo.new(se, "./data/invoices.csv")
+    ir = InvoiceRepo.new(se, "./data/invoices.csv")
 
-    results = invoice_repo.find_all_by_customer_id(300)
+    results = ir.find_all_by_customer_id(300)
 
     assert_equal 10, results.length
   end
@@ -93,9 +93,9 @@ class InvoiceRepoTest < Minitest::Test
         :customers     => "./data/customers.csv"
       })
 
-    invoice_repo = InvoiceRepo.new(se, "./data/invoices.csv")
+    ir = InvoiceRepo.new(se, "./data/invoices.csv")
 
-    results = invoice_repo.find_all_by_customer_id(000000)
+    results = ir.find_all_by_customer_id(000000)
 
     assert_equal [], results
   end
@@ -110,9 +110,9 @@ class InvoiceRepoTest < Minitest::Test
         :customers     => "./data/customers.csv"
       })
 
-    invoice_repo = InvoiceRepo.new(se, "./data/invoices.csv")
+    ir = InvoiceRepo.new(se, "./data/invoices.csv")
 
-    results = invoice_repo.find_all_by_merchant_id(12334185)
+    results = ir.find_all_by_merchant_id(12334185)
 
     assert_equal 10, results.count
     assert_equal 1495, results.first.id
@@ -128,9 +128,9 @@ class InvoiceRepoTest < Minitest::Test
         :customers     => "./data/customers.csv"
       })
 
-    invoice_repo = InvoiceRepo.new(se, "./data/invoices.csv")
+    ir = InvoiceRepo.new(se, "./data/invoices.csv")
 
-    results = invoice_repo.find_all_by_merchant_id(000000)
+    results = ir.find_all_by_merchant_id(000000)
 
     assert_equal [], results
   end
@@ -145,9 +145,9 @@ class InvoiceRepoTest < Minitest::Test
         :customers     => "./data/customers.csv"
       })
 
-    invoice_repo = InvoiceRepo.new(se, "./data/invoices.csv")
+    ir = InvoiceRepo.new(se, "./data/invoices.csv")
 
-    results = invoice_repo.find_all_by_status(:pending)
+    results = ir.find_all_by_status(:pending)
 
     assert_equal 1473, results.length
   end
@@ -162,9 +162,9 @@ class InvoiceRepoTest < Minitest::Test
         :customers     => "./data/customers.csv"
       })
 
-    invoice_repo = InvoiceRepo.new(se, "./data/invoices.csv")
+    ir = InvoiceRepo.new(se, "./data/invoices.csv")
 
-    results = invoice_repo.find_all_by_status(:received)
+    results = ir.find_all_by_status(:received)
 
     assert_equal [], results
   end
@@ -179,9 +179,9 @@ class InvoiceRepoTest < Minitest::Test
         :customers     => "./data/customers.csv"
       })
 
-    invoice_repo = InvoiceRepo.new(se, "./data/invoices.csv")
+    ir = InvoiceRepo.new(se, "./data/invoices.csv")
 
-    results = invoice_repo.find_all_by_created_date(Time.parse("2009-02-07"))
+    results = ir.find_all_by_created_date(Time.parse("2009-02-07"))
 
     assert_equal 1, results.count
     assert_equal 1, results.first.id
@@ -198,15 +198,25 @@ class InvoiceRepoTest < Minitest::Test
       :customers     => "./data/customers.csv"
     })
 
-    invoice_repo = InvoiceRepo.new(se, "./data/invoices.csv")
-    
-    results = invoice_repo.find_merchant_by_id(12335938)
+    ir = InvoiceRepo.new(se, "./data/invoices.csv")
+
+    results = ir.find_merchant_by_id(12335938)
 
     assert_equal 12335938, results.id
   end
 
+  def test_inspect_shortens_output
+    se = SalesEngine.from_csv({
+      :items         => "./data/items.csv",
+      :merchants     => "./data/merchants.csv",
+      :invoices      => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions  => "./data/transactions.csv",
+      :customers     => "./data/customers.csv"
+    })
+
+    ir = InvoiceRepo.new(se, "./data/invoices.csv")
+
+    assert_equal "#<InvoiceRepo 4985 rows>", ir.inspect
+  end
 end
-
-
-
-
