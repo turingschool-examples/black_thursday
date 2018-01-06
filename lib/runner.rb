@@ -27,5 +27,5 @@ require_relative "invoice_repo"
 
 sa = SalesAnalyst.new(se)
 
-puts sa.top_days_by_invoice_count
+puts sa.invoice_status(:returned)
 
