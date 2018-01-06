@@ -10,7 +10,7 @@ class ItemTest < Minitest::Test
             :name        => "Pencil",
             :description => "You can use it to write things",
             :merchant_id => 01234567,
-            :unit_price  => BigDecimal.new(10.99,4),
+            :unit_price  => BigDecimal.new(1099,4),
             :created_at  => Time.now,
             :updated_at  => Time.now
             }, mock("parent"))
@@ -24,7 +24,7 @@ class ItemTest < Minitest::Test
             :name        => "Pencil",
             :description => "You can use it to write things",
             :merchant_id => 01234567,
-            :unit_price  => BigDecimal.new(10.99,4),
+            :unit_price  => BigDecimal.new(1099,4),
             :created_at  => Time.now,
             :updated_at  => Time.now
             }, mock("parent"))
@@ -39,7 +39,7 @@ class ItemTest < Minitest::Test
             :name        => "Pencil",
             :description => "You can use it to write things",
             :merchant_id => 01234567,
-            :unit_price  => BigDecimal.new(10.99,4),
+            :unit_price  => BigDecimal.new(1099,4),
             :created_at  => Time.now,
             :updated_at  => Time.now
             }, parent)
@@ -54,7 +54,7 @@ class ItemTest < Minitest::Test
             :name        => "Pencil",
             :description => "You can use it to write things",
             :merchant_id => 01234567,
-            :unit_price  => BigDecimal.new(10.99,4),
+            :unit_price  => BigDecimal.new(1099,4),
             :created_at  => Time.now,
             :updated_at  => Time.now
             }, parent)
@@ -69,7 +69,7 @@ class ItemTest < Minitest::Test
             :name        => "Pencil",
             :description => "You can use it to write things",
             :merchant_id => 01234567,
-            :unit_price  => BigDecimal.new(10.99,4),
+            :unit_price  => BigDecimal.new(1099,4),
             :created_at  => Time.now,
             :updated_at  => Time.now
             }, parent)
@@ -84,7 +84,7 @@ class ItemTest < Minitest::Test
             :name        => "Pencil",
             :description => "You can use it to write things",
             :merchant_id => 01234567,
-            :unit_price  => BigDecimal.new(10.99,4),
+            :unit_price  => BigDecimal.new(1099,4),
             :created_at  => Time.now,
             :updated_at  => Time.now
             }, parent)
@@ -99,12 +99,12 @@ class ItemTest < Minitest::Test
             :name        => "Pencil",
             :description => "You can use it to write things",
             :merchant_id => 01234567,
-            :unit_price  => BigDecimal.new(10.99,4),
-            :created_at  => "11:30:34",
-            :updated_at  => "18:17:19"
+            :unit_price  => BigDecimal.new(1099,4),
+            :created_at  => "2016-01-11 11:30:35 UTC",
+            :updated_at  => "1994-05-07 23:38:43 UTC"
             }, parent)
 
-    assert_equal "11:30:34", item.created_at
+    assert_equal Time.parse("2016-01-11 11:30:35 UTC"), item.created_at
   end
 
   def test_it_has_updated_at
@@ -114,12 +114,12 @@ class ItemTest < Minitest::Test
             :name        => "Pencil",
             :description => "You can use it to write things",
             :merchant_id => 01234567,
-            :unit_price  => BigDecimal.new(10.99,4),
-            :created_at  => "11:30:34",
-            :updated_at  => "18:17:19"
+            :unit_price  => BigDecimal.new(1099,4),
+            :created_at  => "2016-01-11 11:30:35 UTC",
+            :updated_at  => "1994-05-07 23:38:43 UTC"
             }, parent)
 
-    assert_equal "18:17:19", item.updated_at
+    assert_equal Time.parse("1994-05-07 23:38:43 UTC"), item.updated_at
   end
 
   def test_item_has_a_parent
@@ -129,7 +129,7 @@ class ItemTest < Minitest::Test
             :name        => "Pencil",
             :description => "You can use it to write things",
             :merchant_id => 01234567,
-            :unit_price  => BigDecimal.new(10.99,4),
+            :unit_price  => BigDecimal.new(1099,4),
             :created_at  => "11:30:34",
             :updated_at  => "18:17:19"
             }, parent)
@@ -144,7 +144,7 @@ class ItemTest < Minitest::Test
             :name        => "Pencil",
             :description => "You can use it to write things",
             :merchant_id => 01234567,
-            :unit_price  => BigDecimal.new(10.99,4),
+            :unit_price  => BigDecimal.new(1099,4),
             :created_at  => "11:30:34",
             :updated_at  => "18:17:19"
             }, parent)
