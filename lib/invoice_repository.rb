@@ -20,7 +20,7 @@ class InvoiceRepository
       status    =   row [:status]
       created_at =  row[:created_at]
       updated_at = row[:updated_at]
-      @invoice << Invoices.new({
+      @invoices << Invoice.new({
         id: id,
         customer_id: customer_id,
         merchant_id: merchant_id,
