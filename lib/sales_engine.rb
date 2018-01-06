@@ -20,11 +20,11 @@ class SalesEngine
     self.new(file_paths)
   end
   #need specific tests for merchant_id_search, merchant_to_item, get_invoices
-  def merchant_id_search(merchant_id)
+  def get_merchant(merchant_id)
     merchants.find_by_id(merchant_id)
   end
 
-  def from_merchant_to_item(id)
+  def get_item(id)
     items.find_all_by_merchant_id(id)
   end
 

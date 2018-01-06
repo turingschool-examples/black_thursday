@@ -24,7 +24,7 @@ class InvoiceRepository
   end
 
   def call_sales_engine_merchants(merchant_id)
-    parent.merchant_id_search(merchant_id)
+    parent.get_merchant(merchant_id)
   end
 
   def find_by_id(id)
@@ -47,7 +47,7 @@ class InvoiceRepository
 
   def find_all_by_status(status)
     all.select do |invoice|
-      invoice.status == status
+      invoice.status == status.to_sym
     end
   end
 

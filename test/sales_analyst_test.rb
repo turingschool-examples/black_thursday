@@ -282,8 +282,11 @@ class SalesAnalystTest < Minitest::Test
     sa = SalesAnalyst.new(sales_engine)
 
     assert_equal 45.0, sa.invoice_status("pending")
+    assert_equal 45.0, sa.invoice_status(:pending)
     assert_equal 55.0, sa.invoice_status("shipped")
+    assert_equal 55.0, sa.invoice_status(:shipped)
     assert_equal 0.0, sa.invoice_status("returned")
+    assert_equal 0.0, sa.invoice_status(:returned)
   end
 
 end

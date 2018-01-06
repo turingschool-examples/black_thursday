@@ -62,11 +62,13 @@ class InvoiceRepositoryTest < Minitest::Test
     iir = InvoiceRepository.new("./test/fixtures/invoices_fixture.csv", parent)
 
     unknown_invoice = iir.find_all_by_status("confiscated")
-    invoices = iir.find_all_by_status("pending")
+    invoices_1 = iir.find_all_by_status(:pending)
+    invoices_2 = iir.find_all_by_status("shipped")
 
     assert_equal [], unknown_invoice
-    assert_equal 9, invoices.count
-    assert_equal 1, invoices[0].id
+    assert_equal 9, invoices_1.count
+    assert_equal 11, invoices_2.count
+    assert_equal 1, invoices_1[0].id
   end
 
 end

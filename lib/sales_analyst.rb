@@ -152,7 +152,7 @@ class SalesAnalyst
   def invoice_status(status)
     all_invoices = sales_engine.invoices.all
     invoices_by_status = all_invoices.select do |invoice|
-      invoice.status == status
+      invoice.status == status.to_sym
     end
     status_ratio = ((all_invoices.count - invoices_by_status.count) / all_invoices.count.to_f)
     ((1 - status_ratio) * 100).round(2)
