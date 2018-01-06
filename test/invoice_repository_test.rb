@@ -13,7 +13,7 @@ class InvoiceRepositoryTest < Minitest::Test
     ir = InvoiceRepository.new
     all_invoices = ir.all
 
-    assert_instance_of Invoice
+    assert_instance_of Invoice, ir
   end
 
 end

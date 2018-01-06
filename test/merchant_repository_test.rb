@@ -40,6 +40,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_returns_items_for_a_merchant
+    skip
     se = SalesEngine.from_csv({
     :items     => "./test/fixtures/items_sample.csv",
     :merchants => "./test/fixtures/merchants_sample.csv",

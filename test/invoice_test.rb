@@ -1,5 +1,5 @@
 require_relative 'test_helper'
-require_relative '../lib/invoices'
+require_relative '../lib/invoice'
 
 
 class InvoicesTest < Minitest::Test
