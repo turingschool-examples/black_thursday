@@ -1,3 +1,4 @@
+require 'csv'
 require_relative '../lib/item_repository'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/invoice_repository'
@@ -16,8 +17,17 @@ class SalesEngine
     @invoices = InvoiceRepository.new(csv_files[:invoices], self)
   end
 
-  def self.from_csv(csv_files)
-    SalesEngine.new(csv_files)
+  def self.from_csv(files)
+    SalesEngine.new({
+      :items => read_csv(files[:items]),
+      :merchants => read_csv(files[:merchants]),
+      :invoices => read_csv(files[:invoices])
+      })
+
+  end
+
+  def self.read_csv(file_path)
+    CSV.foreach(file_path, headers: true, header_converters: :symbol)
   end
 
   def find_item_by_merchant_id(id) # NEEDS TESTS || RETURNS ITEM IF MERCHANT ID == ID
