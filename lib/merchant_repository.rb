@@ -52,7 +52,7 @@ class MerchantRepository
     se.find_item_by_merchant_id(id)
   end
 
-  def total_merchants # NEEDS TESTS
+  def total_merchants #Duplicate
     merchants.count
   end
 
