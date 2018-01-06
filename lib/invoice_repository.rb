@@ -10,7 +10,7 @@ class InvoiceRepository
               :se
 
   def initialize(csv_file, se)
-    @invoices_csv = CSV.open(csv_file, headers: true, header_converters: :symbol)
+    @invoices_csv = csv_file#CSV.open csv_file, headers: true, header_converters: :symbol
     @invoices = []
     @se = se
     invoices_csv.each do |row|
@@ -30,12 +30,16 @@ class InvoiceRepository
         invoice_repo: self
         })
     end
-
+   @invoices
   end
 
 
   def all
     @invoices
+  end
+
+  def inspect
+    "#<#{self.class} #{@invoices.size} rows>"
   end
 
 end
