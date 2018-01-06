@@ -1,5 +1,6 @@
 require_relative '../test/test_helper'
 require_relative '../lib/sales_analyst'
+require_relative '../lib/sales_engine'
 
 class SalesAnalystTest < Minitest::Test
 
@@ -113,7 +114,7 @@ class SalesAnalystTest < Minitest::Test
 
     sa = SalesAnalyst.new(sales_engine)
 
-    assert_equal 103.28, sa.item_prices_standard_deviation
+    assert_equal 103.28, sa.item_prices_standard_deviation.round(2)
   end
 
   def test_find_golden_prices_returns_golden_prices
@@ -141,6 +142,15 @@ class SalesAnalystTest < Minitest::Test
     sa = SalesAnalyst.new(sales_engine)
 
     assert_equal [item, item], sa.golden_items
+  end
+
+  def test_golden_items_returns_proper_amount_of_items
+    #DONT FORGET ITEMS COPY FIXTURE
+    se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                items: "./test/fixtures/items_copy.csv"})
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 2, sa.golden_items.count
   end
 
 end

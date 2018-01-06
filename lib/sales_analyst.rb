@@ -34,7 +34,7 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(merchant_id)
     merchant_prices = sales_engine.get_one_merchant_prices(merchant_id)
-    merchant_prices.sum / merchant_prices.count
+    (merchant_prices.sum / merchant_prices.count).round(2)
   end
 
   def average_average_price_per_merchant
@@ -57,14 +57,14 @@ class SalesAnalyst
     variance = all_item_prices.map do |item_price|
       ((average_item_price - item_price).abs) ** 2
     end.sum / (all_item_prices.count - 1)
-    Math.sqrt(variance).round(2)
+    Math.sqrt(variance)
   end
 
   def golden_prices
     golden_limit = average_item_price + (2 * item_prices_standard_deviation)
     all_item_prices.select do |item_price|
-      item_price > golden_limit
-    end
+      item_price >= golden_limit
+    end.uniq
   end
 
   def golden_items

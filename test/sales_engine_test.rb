@@ -112,8 +112,8 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_search_ir_by_price_returns_all_items_with_given_price
-    se = SalesEngine.from_csv({merchants: "./test/fixtures/merchants_fixture.csv",
-                      items: "./test/fixtures/items_fixture.csv"})
+    se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                items: "./test/fixtures/items_fixture.csv"})
 
     items =  se.search_ir_by_price(12.00)
     item_ids = items.map { |item| item.id }
