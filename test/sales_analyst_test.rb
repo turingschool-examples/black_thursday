@@ -113,6 +113,27 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal [], @sales_analyst.bottom_merchants_by_invoice_count
   end
 
+  def test_created_at_day_counter
+    skip
+    assert_equal 0, @sales_analyst.created_at_day_counter
+  end
+
+  def test_created_at_day_hash_counter
+    skip
+    assert_equal 0, @sales_analyst.created_at_day_hash_counter
+  end
+
+  def test_created_at_day_mean
+    assert_equal 17, @sales_analyst.created_at_day_mean
+  end
+
+  def test_created_at_standard_dev
+    assert_equal 5.39, @sales_analyst.created_at_standard_deviation
+  end
+
+  def test_top_days_by_invoice_count
+    assert_equal ["Monday"], @sales_analyst.top_days_by_invoice_count
+  end
 
   def test_invoice_status_returns_number_of_invoices_with_status
     assert_equal 18.49, @sales_analyst.invoice_status(:returned)
