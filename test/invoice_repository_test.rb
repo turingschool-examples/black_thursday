@@ -41,7 +41,7 @@ class InvoiceRepositoryTest < Minitest::Test
     assert @invoices.find_all_by_customer_id(3).empty?
   end
 
-  def test_find_all_raises_argumenterror_if_passed_non_integer
+  def test_find_all_by_customer_id_raises_argumenterror_if_passed_non_integer
     assert_raises ArgumentError do
       @invoices.find_all_by_customer_id('carl')
     end
@@ -49,5 +49,55 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_raises ArgumentError do
       @invoices.find_all_by_customer_id([3, 405])
     end
+  end
+
+  def test_find_all_by_merchant_id_returns_array_of_invoices
+    assert_instance_of Array, @invoices.find_all_by_merchant_id(12335519)
+
+    assert_instance_of Invoice, @invoices.find_all_by_merchant_id(12335519).first
+    assert_equal 11, @invoices.find_all_by_merchant_id(12335519).count
+  end
+
+  def test_find_all_by_merchant_id_return_empty_array_if_passed_nonmatching_id
+    assert @invoices.find_all_by_merchant_id(3).empty?
+  end
+
+  def test_find_all_by_customer_id_raises_argumenterror_if_passed_non_integer
+    assert_raises ArgumentError do
+      @invoices.find_all_by_merchant_id('carl')
+    end
+
+    assert_raises ArgumentError do
+      @invoices.find_all_by_merchant_id([3, 405])
+    end
+  end
+
+  def test_find_all_by_status_returns_array_of_invoices
+    assert_instance_of Array, @invoices.find_all_by_status(:pending)
+
+    assert_instance_of Invoice, @invoices.find_all_by_status(:pending).first
+    assert_equal 12, @invoices.find_all_by_status(:pending).count
+  end
+
+  def test_find_all_by_merchant_id_return_empty_array_if_passed_nonmatching_id
+    assert @invoices.find_all_by_status(:silly).empty?
+  end
+
+  def test_find_all_by_customer_id_raises_argumenterror_if_passed_non_symbol
+    assert_raises ArgumentError do
+      @invoices.find_all_by_status('carl')
+    end
+
+    assert_raises ArgumentError do
+      @invoices.find_all_by_status([3, 405])
+    end
+  end
+
+  def test_merchant_returns_instance_of_merchant
+    skip
+  end
+
+  def test_inspect_returns_string
+    assert_equal "#<InvoiceRepository 42 rows>", @invoices.inspect
   end
 end
