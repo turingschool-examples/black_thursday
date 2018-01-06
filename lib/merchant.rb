@@ -20,14 +20,6 @@ class Merchant
     @parent.items_by_id(@id)
   end
 
-  def downcaser
-    @name.downcase
-  end
-
-  def items
-    @parent.items
-  end
-
   def invoices
     @parent.find_invoice_by_merchant_id(@id)
   end
