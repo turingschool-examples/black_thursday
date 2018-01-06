@@ -25,7 +25,7 @@ require_relative "invoice_repo"
   :customers     => "./data/customers.csv"
 })
 
-ir = InvoiceRepo.new(se, "./data/invoices.csv")
+sa = SalesAnalyst.new(se)
 
-i = ir.find_by_id(20)
-p i.merchant
+puts sa.bottom_merchants_by_invoice_count
+

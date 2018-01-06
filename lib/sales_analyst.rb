@@ -7,6 +7,7 @@ class SalesAnalyst
     @sales_engine = sales_engine
     @stand_dev = average_items_per_merchant_standard_deviation
     @golden_stnd_dev = golden_items_stnd_dev
+    @avg_inv_per_merch = average_invoices_per_merchant
   end
 
   def average_items_per_merchant
@@ -104,4 +105,90 @@ class SalesAnalyst
     end
   end
 
+  def find_invoices 
+    merchant_list.map do |merchant|
+      sales_engine.invoices.find_all_by_merchant_id(merchant).count
+    end
+  end
+
+  def average_invoices_per_merchant 
+    (find_invoices.reduce(0) { |sum, totals|
+      sum += totals } / find_invoices.count.to_f).round(2)
+  end
+
+  def invoice_total_minus_average_squared
+    find_invoices.reduce(0) { |sum, total|
+      sum += (total - @avg_inv_per_merch) ** 2 }
+  end
+
+  def invoice_diff_total_divided
+    invoice_total_minus_average_squared / (find_invoices.length - 1)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    Math.sqrt(invoice_diff_total_divided).round(2)
+  end
+
+  def invoice_count_two_stnd_deviations_above_mean
+    @avg_inv_per_merch + average_invoices_per_merchant_standard_deviation * 2
+  end
+
+  def invoice_count_two_stnd_deviations_below_mean
+    @avg_inv_per_merch - average_invoices_per_merchant_standard_deviation * 2
+  end
+
+  def merchants_invoice_total_list
+    Hash[merchant_list.zip(find_invoices)] 
+  end
+
+  def top_merchants
+    sum = invoice_count_two_stnd_deviations_above_mean
+    merchants_invoice_total_list.find_all { |key, value| 
+      key if value >= sum }
+  end
+
+  def top_merchants_by_invoice_count
+    top_merchants.map { |merchant| 
+      sales_engine.merchants.find_by_id(merchant.first) }
+  end
+
+  def bottom_merchants
+    sum = invoice_count_two_stnd_deviations_below_mean
+    merchants_invoice_total_list.find_all { |key, value| 
+      key if value <= sum }
+  end
+
+  def bottom_merchants_by_invoice_count
+    bottom_merchants.map { |merchant| 
+      sales_engine.merchants.find_by_id(merchant.first) }
+  end
+
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
