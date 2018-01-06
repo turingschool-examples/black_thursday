@@ -63,9 +63,10 @@ class SalesAnalyst
 
   def golden_items
     items = se.grab_all_items
+    double_deviation = (item_price_standard_deviation * 2)
     items.find_all do |item|
       price = item.unit_price
-      if price > (item_price_standard_deviation * 2)
+      if price > double_deviation
         item
       end
     end
