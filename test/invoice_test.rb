@@ -41,4 +41,30 @@ require_relative "../lib/sales_engine"
     assert_equal "2014-07-22 00:00:00 -0600", i.updated_at.to_s
   end
  
+  def test_invoice_repo_returns_instance_merchant_by_id
+    se = SalesEngine.from_csv({
+      :items         => "./data/items.csv",
+      :merchants     => "./data/merchants.csv",
+      :invoices      => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions  => "./data/transactions.csv",
+      :customers     => "./data/customers.csv"
+    })
+
+    ir = InvoiceRepo.new(se, "./data/invoices.csv")
+    i  = ir.invoices.first
+
+    assert_instance_of Invoice, i
+    assert_instance_of Merchant, i.merchant
+    assert_equal 12335938, i.merchant.id
+    assert_equal 12335938, i.merchant_id
+  end
+
  end
+
+
+
+
+
+
+
