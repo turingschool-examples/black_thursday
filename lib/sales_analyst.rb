@@ -15,7 +15,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    (items_per_merchant.sum / items_per_merchant.count).round(2)
+    (items_per_merchant.sum / items_per_merchant.count).to_f.round(2)
   end
 
   def average_items_per_merchant_standard_deviation
@@ -63,7 +63,7 @@ class SalesAnalyst
   def golden_prices
     golden_limit = average_item_price + (2 * item_prices_standard_deviation)
     all_item_prices.select do |item_price|
-      item_price >= golden_limit
+      item_price > golden_limit
     end
   end
 
