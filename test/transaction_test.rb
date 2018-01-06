@@ -17,7 +17,7 @@ class TransactionTest < MiniTest::Test
   end
 
   def test_it_exists
-    assert_equal 0, @transaction.id
+    assert_instance_of Transaction, @transaction
   end
 
 end
