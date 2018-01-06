@@ -11,7 +11,7 @@ class SalesEngine
               :invoices
 
   def initialize(csv_files)
-    @items = ItemRepository.new(csv_files[:items], self)
+    @items     = ItemRepository.new(csv_files[:items], self)
     @merchants = MerchantRepository.new(csv_files[:merchants], self)
     @invoices = InvoiceRepository.new(csv_files[:invoices], self)
   end
@@ -20,35 +20,23 @@ class SalesEngine
     SalesEngine.new(csv_files)
   end
 
-  def find_item_by_merchant_id(id) # NEEDS TESTS
+  def find_item_by_merchant_id(id) # NEEDS TESTS || RETURNS ITEM IF MERCHANT ID == ID
     items.find_item(id)
   end
 
-  def find_merchant_by_id(id) # NEEDS TESTS
+  def find_merchant_by_id(id) # NEEDS TESTS || RETURNS MERCHNAT IF MERCHANT ID == ID
     merchants.find_by_id(id)
   end
 
-  def grab_total_amount_of_items # NEEDS TESTS
-    items.total_items
-  end
-
-  def grab_total_amount_of_merchants # NEEDS TESTS
-    merchants.total_merchants
-  end
-
-  def grab_array_of_merchant_items # NEEDS TESTS
+  def grab_array_of_merchant_items # NEEDS TESTS || Returns array of items per merchant
     merchants.grab_array_of_items
   end
 
-  def grab_merchants_with_high_items(sales_analyst) # NEEDS TESTS
-    merchants.grab_merchants(sales_analyst)
-  end
-
-  def grab_all_merchants # NEEDS TESTS
+  def grab_all_merchants # PRIVATE
     merchants.all
   end
 
-  def grab_all_items # NEEDS TESTS
+  def grab_all_items # PRIVATE
     items.all
   end
 

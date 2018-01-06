@@ -89,8 +89,4 @@ class ItemRepository
     se.find_merchant_by_id(id)
   end
 
-  def total_items # NEEDS TESTS!!
-    items.count
-  end
-
 end
