@@ -1,5 +1,5 @@
 require 'csv'
-require_relative '../lib/invoices'
+require_relative '../lib/invoice'
 
 
 
@@ -10,7 +10,7 @@ class InvoiceRepository
               :se
 
   def initialize(csv_file, se)
-    @invoices_csv = CSV.foreach(csv_file, headers: true, header_converters: :symbol)
+    @invoices_csv = CSV.open(csv_file, headers: true, header_converters: :symbol)
     @invoices = []
     @se = se
     invoices_csv.each do |row|
@@ -20,7 +20,7 @@ class InvoiceRepository
       status    =   row [:status]
       created_at =  row[:created_at]
       updated_at = row[:updated_at]
-      @invoices << Invoices.new({
+      @invoice << Invoices.new({
         id: id,
         customer_id: customer_id,
         merchant_id: merchant_id,
