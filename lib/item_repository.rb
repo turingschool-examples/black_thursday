@@ -93,8 +93,4 @@ class ItemRepository
     items.count
   end
 
-  def create_item_list # NEEDS TESTS!!!
-    items.map { |item| item }
-  end
-
 end

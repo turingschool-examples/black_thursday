@@ -48,7 +48,7 @@ class MerchantRepository
     end
   end
 
-  def find_item(id) # NEEDS TESTS
+  def find_item(id)
     se.find_item_by_merchant_id(id)
   end
 
@@ -58,7 +58,7 @@ class MerchantRepository
     end
   end
 
-  def total_merchants # NEEDS TESTS
+  def total_merchants
     merchants.count
   end
 
