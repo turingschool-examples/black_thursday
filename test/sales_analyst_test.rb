@@ -147,10 +147,56 @@ class SalesAnalystTest < Minitest::Test
   def test_golden_items_returns_proper_amount_of_items
     #DONT FORGET ITEMS COPY FIXTURE
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
-                                items: "./test/fixtures/items_copy.csv"})
+                                items: "./test/fixtures/items_copy.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv" })
     sa = SalesAnalyst.new(se)
 
     assert_equal 2, sa.golden_items.count
+  end
+
+  def test_invoice_count_per_merchant_returns_hash_of_invoice_count_per_merchant
+    sales_engine = stub(:get_all_merchant_invoices => { m1: ['a', 'b', 'c'],
+                                                        m2: ['d', 'e'],
+                                                        m3: ['f'],
+                                                        m4: ['g', 'h', 'i', 'j', 'k']})
+    sa = SalesAnalyst.new(sales_engine)
+
+    assert_equal({m1: 3, m2: 2, m3: 1, m4: 5}, sa.invoice_count_per_merchant)
+  end
+
+  def test_average_invoices_per_merchant_works
+    sales_engine = stub(:get_all_merchant_invoices => { m1: ['a', 'b', 'c'],
+                                                        m2: ['d', 'e'],
+                                                        m3: ['f'],
+                                                        m4: ['g', 'h', 'i', 'j', 'k']})
+    sa = SalesAnalyst.new(sales_engine)
+
+    assert_equal 2.75, sa.average_invoices_per_merchant
+  end
+
+  def test_average_invoices_per_merchant_standard_deviation
+    sales_engine = stub(:get_all_merchant_invoices => { m1: ['a', 'b', 'c'],
+                                                        m2: ['d', 'e'],
+                                                        m3: ['f'],
+                                                        m4: ['g', 'h', 'i', 'j', 'k']})
+    sa = SalesAnalyst.new(sales_engine)
+
+    assert_equal 1.71, sa.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_top_merchants_by_invoice_count_returns_top_performing_merchants
+    # need test fixture below???
+    sales_engine = stub(:get_all_merchant_invoices => { m1: ['a', 'b', 'c', 'z'],
+                                                        m2: ['d', 'e', 'r', 'z'],
+                                                        m3: ['f', 'p', 'q', 'z'],
+                                                        m4: ['g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o'],
+                                                        m5: ['a', 'b', 'c', 'z'],
+                                                        m6: ['a', 'b', 'c', 'z'],
+                                                        m7: ['a', 'b', 'c', 'z'],
+                                                        m8: ['a', 'b', 'c', 'z']})
+    sa = SalesAnalyst.new(sales_engine)
+
+    assert_equal [:m4], sa.top_merchants_by_invoice_count
   end
 
 end

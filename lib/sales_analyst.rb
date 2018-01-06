@@ -73,4 +73,30 @@ class SalesAnalyst
     end.flatten
   end
 
+  def invoice_count_per_merchant
+    merchants_invoices = sales_engine.get_all_merchant_invoices
+    merchants_invoices.transform_values do |invoices|
+      BigDecimal(invoices.count, 4)
+    end
+  end
+
+  def average_invoices_per_merchant
+    (invoice_count_per_merchant.values.sum / invoice_count_per_merchant.count).round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    variance = invoice_count_per_merchant.values.map do |invoice_count|
+      ((average_invoices_per_merchant - invoice_count).abs) ** 2
+    end.sum / (invoice_count_per_merchant.count - 1)
+    Math.sqrt(variance).round(2)
+  end
+
+# CAN WE DO SAME BELOW FOR GOLDEN ITEMS?
+  def top_merchants_by_invoice_count
+    limit = average_invoices_per_merchant + (2 * average_invoices_per_merchant_standard_deviation)
+    invoice_count_per_merchant.select do |merchant, invoice_count|
+      invoice_count >= limit
+    end.keys
+  end
+
 end
