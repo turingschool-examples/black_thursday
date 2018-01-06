@@ -8,6 +8,7 @@ class MerchantRepository
 
   def initialize(csv_file, se)
     @merchants = []
+    @se = se
     CSV.foreach csv_file, headers: true, header_converters: :symbol do |row|
       @merchants << Merchant.new({
         name: row[:name],
@@ -15,8 +16,8 @@ class MerchantRepository
         merchant_repo: self
         })
     end
-    @se = se
   end
+    
 
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"

@@ -28,7 +28,7 @@ class SalesEngine
   end
 
   def self.from_csv(csv_files)
-    SalesEngine.new(csv_files)
+    new(csv_files)
   end
 
   def find_item_by_merchant_id(id) # NEEDS TESTS || RETURNS ITEM IF MERCHANT ID == ID
