@@ -25,6 +25,10 @@ class InvoiceRepository
   def inspect
     "#<#{self.class} #{@invoices.size} rows>"
   end
+<<<<<<< HEAD
+=======
+
+>>>>>>> joe_it_2_new_branch
 
   def all
     @invoices
