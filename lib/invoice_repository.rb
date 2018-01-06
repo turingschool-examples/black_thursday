@@ -22,6 +22,10 @@ class InvoiceRepository
     @se = se
   end
 
+  def inspect
+    "#<#{self.class} #{@invoices.size} rows>"
+  end
+
 
   def all
     @invoices
