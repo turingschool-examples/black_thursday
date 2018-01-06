@@ -7,7 +7,7 @@ class MerchantRepository
               :se
 
   def initialize(csv_file, se)
-    @merchants_csv = CSV.open csv_file, headers: true, header_converters: :symbol
+    @merchants_csv = csv_file   #CSV.open csv_file, headers: true, header_converters: :symbol
     @merchants = []
     @se = se
     @merchants_csv.each do |row|
