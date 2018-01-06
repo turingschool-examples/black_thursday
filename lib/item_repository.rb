@@ -10,7 +10,7 @@ class ItemRepository
               :se
 
   def initialize(csv_file, se)
-    @items_csv = CSV.open csv_file, headers: true, header_converters: :symbol
+    @items_csv =  csv_file#CSV.readlines(csv_file, headers: true, header_converters: :symbol
     @items = []
     @se = se
     items_csv.each do |row|
@@ -35,9 +35,9 @@ class ItemRepository
     @invoices = []
   end
 
-  def inspect
-    "#<#{self.class} #{@invoices.size} rows>"
-  end
+#  def inspect
+#    "#<#{self.class} #{@invoices.size} rows>"
+#  end
 
   def all
     @items
