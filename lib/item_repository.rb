@@ -11,6 +11,8 @@ class ItemRepository
 
   def initialize(csv_file, se)
     @items = []
+    @se = se
+    @invoices = []
     CSV.foreach csv_file, headers: true, header_converters: :symbol do |row|
       @items << Item.new({
         name: row[:name],
@@ -23,8 +25,6 @@ class ItemRepository
         item_repo: self
         })
     end
-    @se = se
-    @invoices = []
   end
 
   def inspect
