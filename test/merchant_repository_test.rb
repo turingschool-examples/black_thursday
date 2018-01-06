@@ -54,9 +54,9 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_returns_total_merchants
     expected = merchant.merchants.count
 
-    assert_equal expected, merchant.total_merchants
+    assert_equal expected, merchant.all.count
   end
 
-  
+
 
 end
