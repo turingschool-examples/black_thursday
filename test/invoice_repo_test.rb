@@ -49,23 +49,75 @@ class InvoiceRepoTest < Minitest::Test
     assert_instance_of Invoice, invoice_repo.all.first
   end
 
+  def test_it_can_find_invoices_by_id
+    se = SalesEngine.from_csv({
+        :items         => "./data/items.csv",
+        :merchants     => "./data/merchants.csv",
+        :invoices      => "./data/invoices.csv",
+        :invoice_items => "./data/invoice_items.csv",
+        :transactions  => "./data/transactions.csv",
+        :customers     => "./data/customers.csv"
+      })
+
+    invoice_repo = InvoiceRepo.new(se, "./data/invoices.csv")
+
+    results = invoice_repo.find_by_id(3311)
+
+    assert_equal 12335660, results.merchant_id
+  end
+
+  def test_it_can_find_invoices_by_customer_id
+    se = SalesEngine.from_csv({
+        :items         => "./data/items.csv",
+        :merchants     => "./data/merchants.csv",
+        :invoices      => "./data/invoices.csv",
+        :invoice_items => "./data/invoice_items.csv",
+        :transactions  => "./data/transactions.csv",
+        :customers     => "./data/customers.csv"
+      })
+
+    invoice_repo = InvoiceRepo.new(se, "./data/invoices.csv")
+
+    results = invoice_repo.find_all_by_customer_id(300)
+
+    assert_equal 10, results.length
+  end
+
+  def test_find_by_customer_id_can_return_an_empty_array
+    se = SalesEngine.from_csv({
+        :items         => "./data/items.csv",
+        :merchants     => "./data/merchants.csv",
+        :invoices      => "./data/invoices.csv",
+        :invoice_items => "./data/invoice_items.csv",
+        :transactions  => "./data/transactions.csv",
+        :customers     => "./data/customers.csv"
+      })
+
+    invoice_repo = InvoiceRepo.new(se, "./data/invoices.csv")
+
+    results = invoice_repo.find_all_by_customer_id(000000)
+
+    assert_equal [], results
+  end
+
+  def test_it_can_find_all_by_merchant_id
+    se = SalesEngine.from_csv({
+        :items         => "./data/items.csv",
+        :merchants     => "./data/merchants.csv",
+        :invoices      => "./data/invoices.csv",
+        :invoice_items => "./data/invoice_items.csv",
+        :transactions  => "./data/transactions.csv",
+        :customers     => "./data/customers.csv"
+      })
+
+    invoice_repo = InvoiceRepo.new(se, "./data/invoices.csv")
+
+    results = invoice_repo.find_all_by_merchant_id(12334185)
+
+    assert_equal 10, results.count
+    assert_equal 1495, results.first.id
+  end
+
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
