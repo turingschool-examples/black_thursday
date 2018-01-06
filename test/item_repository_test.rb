@@ -71,17 +71,17 @@ class ItemRepositoryTest < Minitest::Test
     parent = mock("parent")
     ir = ItemRepository.new("./test/fixtures/items_fixture.csv", parent)
 
-    item_1 = ir.find_all_by_price("1200")
+    item_1 = ir.find_all_by_price(BigDecimal.new(12))
     item_1_ids = item_1.map { |item| item.id }
-    item_2 = ir.find_all_by_price("40000")
+    item_2 = ir.find_all_by_price(BigDecimal.new(400))
     item_2_ids = item_2.map { |item| item.id }
-    unknown_item = ir.find_all_by_price("5000650")
+    unknown_item = ir.find_all_by_price(BigDecimal.new(50650))
 
     assert_equal [], unknown_item
-    assert_equal 263395237, item_1.first.id
     assert_equal [263395237, 263395617], item_1_ids
-    assert_equal 263396517, item_2.first.id
+    assert_equal 2, item_1.count
     assert_equal [263396517], item_2_ids
+    assert_equal 1, item_2.count
   end
 
   def test_find_all_by_price_in_range_returns_array_of_appropriate_items
