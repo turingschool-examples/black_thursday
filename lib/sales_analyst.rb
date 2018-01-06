@@ -42,13 +42,10 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    merchants = se.grab_all_merchants
-    merchants.find_all do |merchant|
-      item_count = number_of_items_per_merchant.sum
-      binding.pry
-      merchant if item_count > average_items_per_merchant_standard_deviation
-    end
-    # se.grab_merchants_with_high_items(self)
+    count = average_items_per_merchant + average_items_per_merchant_standard_deviation
+    se.grab_all_merchants.find_all do |merchant|
+      merchant if merchant.items.count > count
+    end 
   end
 
   def average_item_price_for_merchant(merchant_id)
