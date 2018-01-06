@@ -12,7 +12,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    (se.grab_total_amount_of_items / se.grab_total_amount_of_merchants.to_f).round(2)
+    (se.grab_all_items.count / se.grab_all_merchants.count.to_f).round(2)
   end
 
   def number_of_items_per_merchant
@@ -20,7 +20,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    mean = average_items_per_merchant
+    mean     = average_items_per_merchant
     variance = number_of_items_per_merchant.reduce(0) do |var, items|
       var + (items - mean) ** 2
     end
@@ -28,7 +28,7 @@ class SalesAnalyst
   end
 
   def item_prices_mean
-    items = se.grab_all_items
+    items       = se.grab_all_items
     item_prices = items.reduce(0) { |result, item| result += item.unit_price.to_i}
     (item_prices / items.count).round(2)
   end
@@ -42,13 +42,10 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    merchants = se.grab_all_merchants
-    merchants.find_all do |merchant|
-      item_count = number_of_items_per_merchant.sum
-      binding.pry
-      merchant if item_count > average_items_per_merchant_standard_deviation
+    count = average_items_per_merchant + average_items_per_merchant_standard_deviation
+    se.grab_all_merchants.find_all do |merchant|
+      merchant if merchant.items.count > count
     end
-    # se.grab_merchants_with_high_items(self)
   end
 
   def average_item_price_for_merchant(merchant_id)

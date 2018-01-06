@@ -30,40 +30,30 @@ class MerchantRepository
     @merchants
   end
 
-  def find_by_id(id)
+  def find_by_id(id)  # Returns Merchant by Id
     @merchants.find do |merchant|
       merchant if merchant.id == id
     end
   end
 
-  def find_by_name(name)
+  def find_by_name(name) # Returns if merchant name is == to name
     @merchants.find do |merchant|
       merchant if merchant.name.downcase == name.downcase
     end
   end
 
-  def find_all_by_name(name)
+  def find_all_by_name(name) # Returns if name is included with Merchant Name
     @merchants.find_all do |merchant|
       merchant if merchant.name.downcase.include?(name.downcase)
     end
   end
 
-  def find_item(id)
+  def find_item(id) # Returns Item by Merchant Id
     se.find_item_by_merchant_id(id)
   end
 
-  def total_merchants #Duplicate
-    merchants.count
-  end
-
-  def grab_array_of_items # NEEDS TESTS
+  def grab_array_of_items # NEEDS TESTS || Returns array of items per merchant
     merchants.map { |merchant| merchant.items.count }
-  end
-
-  def grab_merchants(sales_analyst) # NEEDS TESTS
-    merchants.find_all do |merchant|
-      merchant if merchant.items.count > sales_analyst.average_items_per_merchant_standard_deviation
-    end
   end
 
 end
