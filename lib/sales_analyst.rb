@@ -163,6 +163,46 @@ class SalesAnalyst
       sales_engine.merchants.find_by_id(merchant.first) }
   end
 
+  def created_days_to_week_days
+    sales_engine.invoices.invoices.map do |invoice|
+      invoice.created_at.strftime("%A")
+    end
+  end
+
+  def invoice_totals_by_day
+    created_days_to_week_days.each_with_object(Hash.new(0)) do |week_day, hash|
+      hash[week_day] += 1
+    end
+  end
+
+  def invoices_per_day_average
+    invoice_totals_by_day.reduce(0) { |sum, (_, value)| 
+      sum += value } / invoice_totals_by_day.count
+  end
+
+  def invoice_totals_minus_avg_sqrd 
+    invoice_totals_by_day.reduce(0) { |sum, (_, value)|
+    sum += (value - invoices_per_day_average) ** 2 }    
+  end
+
+  def invoice_total_diff_sqrd
+    invoice_totals_minus_avg_sqrd / (invoice_totals_by_day.count - 1)
+  end
+
+  def weekday_invoice_stnd_deviation
+    Math.sqrt(invoice_total_diff_sqrd).round(2)
+  end
+
+  def weekday_invoice_stnd_deviation_plus_avg
+    weekday_invoice_stnd_deviation + invoices_per_day_average
+  end
+
+  def top_days_by_invoice_count
+    invoice_totals_by_day.select do |key, value| 
+      value >= weekday_invoice_stnd_deviation_plus_avg
+    end.keys
+  end
+
 end
 
 
