@@ -52,12 +52,6 @@ class MerchantRepository
     se.find_item_by_merchant_id(id)
   end
 
-  def find_merchant(id) # NEEDS TESTS
-    merchants.find do |merchant|
-      merchant if merchant.id == id
-    end
-  end
-
   def total_merchants # NEEDS TESTS
     merchants.count
   end
@@ -67,13 +61,9 @@ class MerchantRepository
   end
 
   def grab_merchants(sales_analyst) # NEEDS TESTS
-    merchants.map do |merchant|
+    merchants.find_all do |merchant|
       merchant if merchant.items.count > sales_analyst.average_items_per_merchant_standard_deviation
     end
-  end
-
-  def create_merchant_list # NEEDS TESTS
-    merchants.map { |merchant| merchant }
   end
 
 end

@@ -21,7 +21,7 @@ class SalesEngine
   end
 
   def find_merchant_by_id(id) # NEEDS TESTS
-    merchants.find_merchant(id)
+    merchants.find_by_id(id)
   end
 
   def grab_total_amount_of_items # NEEDS TESTS
@@ -41,11 +41,11 @@ class SalesEngine
   end
 
   def grab_all_merchants # NEEDS TESTS
-    merchants.create_merchant_list
+    merchants.all
   end
 
   def grab_all_items # NEEDS TESTS
-    items.create_item_list
+    items.all
   end
 
 end
