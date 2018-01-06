@@ -199,4 +199,44 @@ class SalesAnalystTest < Minitest::Test
     assert_equal [:m4], sa.top_merchants_by_invoice_count
   end
 
+  def test_bottom_merchants_by_invoice_count_returns_bottom_performing_merchants
+    sales_engine = stub(:get_all_merchant_invoices => { m1: ['a', 'b', 'c', 'z'],
+                                                        m2: ['d', 'e', 'r', 'z'],
+                                                        m3: ['f', 'p', 'q', 'z'],
+                                                        m4: ['g'],
+                                                        m5: ['a', 'b', 'c', 'z'],
+                                                        m6: ['a', 'b', 'c', 'z'],
+                                                        m7: ['a', 'b', 'c', 'z'],
+                                                        m8: ['a', 'b', 'c', 'z']})
+    sa = SalesAnalyst.new(sales_engine)
+
+    assert_equal [:m4], sa.bottom_merchants_by_invoice_count
+  end
+
+  def test_invoices_per_weekday_returns_hash_of_days_with_associated_invoices
+    sales_engine = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                items: "./test/fixtures/items_copy.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv" })
+    sa = SalesAnalyst.new(sales_engine)
+
+    assert_equal 1, sa.invoices_per_weekday["Sunday"].count
+    assert_equal 4, sa.invoices_per_weekday["Monday"].count
+    assert_equal 2, sa.invoices_per_weekday["Tuesday"].count
+    assert_equal 1, sa.invoices_per_weekday["Wednesday"].count
+    assert_equal 1, sa.invoices_per_weekday["Thursday"].count
+    assert_equal 5, sa.invoices_per_weekday["Friday"].count
+    assert_equal 6, sa.invoices_per_weekday["Saturday"].count
+  end
+
+  def test_invoice_counts_per_weekday_returns_hash_of_days_with_associated_invoice_counts
+    sales_engine = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                items: "./test/fixtures/items_copy.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv" })
+    sa = SalesAnalyst.new(sales_engine)
+
+    counts_per_weekday = {"Sunday" => 1, "Monday" => 4, "Tuesday" => 2, "Wednesday" => 1, "Thursday" => 1, "Friday" => 5, "Saturday" => 6}
+
+    assert_equal counts_per_weekday, sa.invoice_counts_per_weekday
+  end
+
 end

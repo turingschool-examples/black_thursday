@@ -99,4 +99,39 @@ class SalesAnalyst
     end.keys
   end
 
+  def bottom_merchants_by_invoice_count
+    limit = average_invoices_per_merchant - (2 * average_invoices_per_merchant_standard_deviation)
+    invoice_count_per_merchant.select do |merchant, invoice_count|
+      invoice_count <= limit
+    end.keys
+  end
+
+  def invoices_per_weekday
+    x = sales_engine.invoices.all.group_by do |invoice|
+      date_time = DateTime.strptime(invoice.created_at.to_s, '%Y-%m-%d')
+      date_time.wday.to_s.gsub(/[0-6]/, "0" => "Sunday", "1" => "Monday",
+                                   "2" => "Tuesday", "3" => "Wednesday",
+                                   "4" => "Thursday", "5" => "Friday",
+                                   "6" => "Saturday" )
+    end
+  end
+
+  def invoice_counts_per_weekday
+    invoices_per_weekday.transform_values do |invoices|
+      invoices.count
+    end
+  end
+
+  def method_name
+
+  end
+
+  def invoices_per_day_week
+
+  end
+
+  def top_days_by_invoice_count
+
+  end
+
 end
