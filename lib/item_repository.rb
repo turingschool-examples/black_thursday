@@ -10,28 +10,20 @@ class ItemRepository
               :se
 
   def initialize(csv_file, se)
-    @items_csv = CSV.open csv_file, headers: true, header_converters: :symbol
     @items = []
-    @se = se
-    items_csv.each do |row|
-      id          = row[:id]
-      name        = row[:name]
-      unit_price  = row[:unit_price]
-      created_at  = Time.parse(row[:created_at])
-      updated_at  = Time.parse(row[:updated_at])
-      description = row[:description]
-      merchant_id = row[:merchant_id]
+    CSV.foreach csv_file, headers: true, header_converters: :symbol do |row|
       @items << Item.new({
-        name: name,
-        id: id,
-        description: description,
-        unit_price: unit_price,
-        created_at: created_at,
-        updated_at: updated_at,
-        merchant_id: merchant_id,
+        name: row[:name],
+        id: row[:id],
+        description: row[:description],
+        unit_price: row[:unit_price],
+        created_at: Time.parse(row[:created_at]),
+        updated_at: Time.parse(row[:updated_at]),
+        merchant_id: row[:merchant_id],
         item_repo: self
         })
     end
+    @se = se
     @invoices = []
   end
 
