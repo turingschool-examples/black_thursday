@@ -11,9 +11,20 @@ class SalesEngine
               :invoices
 
   def initialize(csv_files)
-    @items     ||= ItemRepository.new(csv_files[:items], self)
-    @merchants ||= MerchantRepository.new(csv_files[:merchants], self)
-    @invoices  ||= InvoiceRepository.new(csv_files[:invoices], self)
+    csv_files  = merge_in_given_csvs(csv_files)
+    @invoices  = InvoiceRepository.new(csv_files[:invoices], self)
+    @items     = ItemRepository.new(csv_files[:items], self)
+    @merchants = MerchantRepository.new(csv_files[:merchants], self)
+  end
+
+  def merge_in_given_csvs(given_csvs)
+    default_csvs.merge(given_csvs)
+  end
+
+  def default_csvs
+    { items: './data/items_blank.csv',
+      merchants: './data/merchants_blank.csv',
+      invoices: './data/invoices_blank.csv' }
   end
 
   def self.from_csv(csv_files)
