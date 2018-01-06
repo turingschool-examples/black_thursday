@@ -5,28 +5,32 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_exists
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
-                                items: "./test/fixtures/merchants_fixture.csv"})
+                                items: "./test/fixtures/merchants_fixture.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv"})
 
     assert_instance_of SalesEngine, se
   end
 
   def test_sales_engine_instaniates_merchant_repository
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
-                                items: "./test/fixtures/merchants_fixture.csv"})
+                                items: "./test/fixtures/merchants_fixture.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv"})
 
     assert_instance_of MerchantRepository, se.merchants
   end
 
   def test_sales_engine_instaniates_merchant_repository
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
-                                items: "./test/fixtures/merchants_fixture.csv"})
+                                items: "./test/fixtures/merchants_fixture.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv"})
 
     assert_instance_of ItemRepository, se.items
   end
 
   def test_merchant_repository_has_merchants
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
-                                items: "./test/fixtures/merchants_fixture.csv"})
+                                items: "./test/fixtures/merchants_fixture.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv"})
     all_merchants = se.merchants.all
 
     all_merchants.map do |merchant|
@@ -36,7 +40,8 @@ class SalesEngineTest < Minitest::Test
 
   def test_item_repository_has_items
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
-                                items: "./test/fixtures/merchants_fixture.csv"})
+                                items: "./test/fixtures/merchants_fixture.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv"})
 
     all_items = se.items.all
 
@@ -47,7 +52,8 @@ class SalesEngineTest < Minitest::Test
 
   def test_item_is_linked_to_merchant
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
-                                items: "./test/fixtures/items_fixture.csv"})
+                                items: "./test/fixtures/items_fixture.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv"})
 
     item = se.items.find_by_id(263395237)
 
@@ -56,7 +62,8 @@ class SalesEngineTest < Minitest::Test
 
   def test_merchant_is_linked_to_item
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
-                                items: "./test/fixtures/items_fixture.csv"})
+                                items: "./test/fixtures/items_fixture.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv"})
 
     merchant_1 = se.merchants.find_by_id(12334141)
     merchant_2 = se.merchants.find_by_id(12334185)
@@ -74,7 +81,8 @@ class SalesEngineTest < Minitest::Test
 
   def test_get_all_merchant_items_returns_hash_of_merchants_and_items
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
-                                items: "./test/fixtures/items_fixture.csv"})
+                                items: "./test/fixtures/items_fixture.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv"})
 
     merchants_and_items = se.get_all_merchant_items
     merchants = merchants_and_items.keys
@@ -91,7 +99,8 @@ class SalesEngineTest < Minitest::Test
 
   def test_get_all_merchant_prices_returns_hash_of_merchant_and_prices
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
-                                items: "./test/fixtures/items_fixture.csv"})
+                                items: "./test/fixtures/items_fixture.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv"})
 
     merchants_and_prices = se.get_all_merchant_prices
     merchants = merchants_and_prices.keys
@@ -106,19 +115,41 @@ class SalesEngineTest < Minitest::Test
 
   def test_get_one_merchant_prices_returns_array_of_merchant_prices
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
-                                items: "./test/fixtures/items_fixture.csv"})
+                                items: "./test/fixtures/items_fixture.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv"})
 
     assert_equal [12.0, 13.5, 7.0],  se.get_one_merchant_prices(12334185)
   end
 
   def test_search_ir_by_price_returns_all_items_with_given_price
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
-                                items: "./test/fixtures/items_fixture.csv"})
+                                items: "./test/fixtures/items_fixture.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv" })
 
     items =  se.search_ir_by_price(12.00)
     item_ids = items.map { |item| item.id }
 
     assert_equal [263395237, 263395617], item_ids
+  end
+
+  def test_get_invoices_returns_invoices_specific_to_merchant
+    se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                items: "./test/fixtures/items_fixture.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv" })
+
+    merchant_1 = se.merchants.find_by_id(12334141)
+    merchant_2 = se.merchants.find_by_id(12334185)
+
+    merchant_1.invoices.each do |invoice|
+      assert_instance_of Invoice, invoice
+    end
+    merchant_2.invoices.each do |invoice|
+      assert_instance_of Invoice, invoice
+    end
+    assert_equal 5, merchant_1.invoices.count
+    assert_equal 9, merchant_2.invoices.count
+    assert_equal 4, merchant_1.invoices.first.id
+    assert_equal 1, merchant_2.invoices.first.id
   end
 
 end

@@ -42,7 +42,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
     assert_equal [], unknown_invoice
     assert_equal 4, invoices.count
-    assert_equal 12334105, invoices[0].merchant_id
+    assert_equal 12334141, invoices[0].merchant_id
   end
 
   def test_find_all_by_merchant_id_returns_array_of_invoices_with_matching_ids
@@ -54,7 +54,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
     assert_equal [], unknown_invoice
     assert_equal 3, invoices.count
-    assert_equal 13, invoices[0].id
+    assert_equal 2, invoices[0].id
   end
 
   def test_find_all_by_status_returns_array_of_invoices_with_matching_ids

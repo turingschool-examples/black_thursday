@@ -18,6 +18,10 @@ class MerchantRepository
     parent.from_merchant_to_item(id)
   end
 
+  def call_sales_engine_invoices(id)
+    parent.get_invoices(id)
+  end
+
   def find_by_id(id)
     all.find do |merchant|
       merchant.id == id
