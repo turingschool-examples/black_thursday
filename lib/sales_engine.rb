@@ -8,28 +8,16 @@ class SalesEngine
 
   attr_reader :items,
               :merchants,
-              :invoices,
-              :csv_files
+              :invoices
 
   def initialize(csv_files)
-    csv_files  = default_csvs_from(csv_files)
-    @items     = ItemRepository.new(csv_files[:items], self)
-    @merchants = MerchantRepository.new(csv_files[:merchants], self)
-    @invoices  = InvoiceRepository.new(csv_files[:invoices], self)
-  end
-
-  def default_csvs_from(given_csvs)
-    given_csvs.merge(default_csvs)
-  end
-
-  def default_csvs
-    { items: './data/items_blank.csv',
-      merchants: './data/merchants_blank.csv',
-      invoices: './data/invoices_blank.csv' }
+    @items     ||= ItemRepository.new(csv_files[:items], self)
+    @merchants ||= MerchantRepository.new(csv_files[:merchants], self)
+    @invoices  ||= InvoiceRepository.new(csv_files[:invoices], self)
   end
 
   def self.from_csv(csv_files)
-    new(csv_files)
+    SalesEngine.new(csv_files)
   end
 
   def find_item_by_merchant_id(id) # NEEDS TESTS || RETURNS ITEM IF MERCHANT ID == ID
