@@ -2,6 +2,16 @@ require 'bigdecimal'
 
 class SalesAnalyst
 
+  DAYS = {
+    0 => "Sunday",
+    1 => "Monday",
+    2 => "Tuesday",
+    3 => "Wednesday",
+    4 => "Thursday",
+    5 => "Friday",
+    6 => "Saturday"
+  }
+
   def initialize(sales_engine = "")
     @sales_engine = sales_engine
   end
@@ -123,7 +133,38 @@ class SalesAnalyst
     end
   end
 
+  def created_at_day_hash_maker
+    @sales_engine.all_invoices.group_by do |invoice|
+      invoice.created_at.wday
+    end
+  end
+
+  def created_at_day_counter
+    created_at_day_hash_maker.transform_values do |value|
+      value.count
+    end
+  end
+
+  def created_at_day_mean
+    created_at_day_counter.values.reduce(:+) / (created_at_day_counter.values.length)
+  end
+
+  def created_at_standard_deviation
+    mean = created_at_day_mean
+    square = created_at_day_hash_maker.map do |day, invoice_array|
+      (invoice_array.count - mean) ** 2
+    end.sum
+    ((square/(created_at_day_hash_maker.length-1)) ** (0.5)).round(2)
+  end
+
   def top_days_by_invoice_count
+    base_line = created_at_day_mean + created_at_standard_deviation
+    days = created_at_day_hash_maker.select do |day, invoice_array|
+      invoice_array.count > base_line
+    end.keys
+    days.map do |day|
+      DAYS[day]
+    end
   end
 
   def invoice_status(status)
