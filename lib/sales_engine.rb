@@ -1,28 +1,35 @@
 require_relative "item_repository"
 require_relative "merchant_repository"
+require_relative "invoice_repository"
 require "bigdecimal"
 require 'pry'
 
 class SalesEngine
 
   attr_reader :merchants,
-              :items
+              :items,
+              :invoices
 
   def initialize(file_paths)
     @merchants = MerchantRepository.new(file_paths[:merchants], self)
     @items     = ItemRepository.new(file_paths[:items], self)
+    @invoices  = InvoiceRepository.new(file_paths[:invoices], self)
   end
 
   def self.from_csv(file_paths)
     self.new(file_paths)
   end
-
+  #need specific tests for merchant_id_search, merchant_to_item, get_invoices
   def merchant_id_search(merchant_id)
     merchants.find_by_id(merchant_id)
   end
 
   def from_merchant_to_item(id)
     items.find_all_by_merchant_id(id)
+  end
+
+  def get_invoices(id)
+    invoices.find_all_by_merchant_id(id)
   end
 
   def get_all_merchant_items

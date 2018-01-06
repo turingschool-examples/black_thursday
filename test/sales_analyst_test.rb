@@ -147,10 +147,143 @@ class SalesAnalystTest < Minitest::Test
   def test_golden_items_returns_proper_amount_of_items
     #DONT FORGET ITEMS COPY FIXTURE
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
-                                items: "./test/fixtures/items_copy.csv"})
+                                items: "./test/fixtures/items_copy.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv" })
     sa = SalesAnalyst.new(se)
 
     assert_equal 2, sa.golden_items.count
+  end
+
+  def test_invoice_count_per_merchant_returns_hash_of_invoice_count_per_merchant
+    sales_engine = stub(:get_all_merchant_invoices => { m1: ['a', 'b', 'c'],
+                                                        m2: ['d', 'e'],
+                                                        m3: ['f'],
+                                                        m4: ['g', 'h', 'i', 'j', 'k']})
+    sa = SalesAnalyst.new(sales_engine)
+
+    assert_equal({m1: 3, m2: 2, m3: 1, m4: 5}, sa.invoice_count_per_merchant)
+  end
+
+  def test_average_invoices_per_merchant_works
+    sales_engine = stub(:get_all_merchant_invoices => { m1: ['a', 'b', 'c'],
+                                                        m2: ['d', 'e'],
+                                                        m3: ['f'],
+                                                        m4: ['g', 'h', 'i', 'j', 'k']})
+    sa = SalesAnalyst.new(sales_engine)
+
+    assert_equal 2.75, sa.average_invoices_per_merchant
+  end
+
+  def test_average_invoices_per_merchant_standard_deviation
+    sales_engine = stub(:get_all_merchant_invoices => { m1: ['a', 'b', 'c'],
+                                                        m2: ['d', 'e'],
+                                                        m3: ['f'],
+                                                        m4: ['g', 'h', 'i', 'j', 'k']})
+    sa = SalesAnalyst.new(sales_engine)
+
+    assert_equal 1.71, sa.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_top_merchants_by_invoice_count_returns_top_performing_merchants
+    # need test fixture below???
+    sales_engine = stub(:get_all_merchant_invoices => { m1: ['a', 'b', 'c', 'z'],
+                                                        m2: ['d', 'e', 'r', 'z'],
+                                                        m3: ['f', 'p', 'q', 'z'],
+                                                        m4: ['g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o'],
+                                                        m5: ['a', 'b', 'c', 'z'],
+                                                        m6: ['a', 'b', 'c', 'z'],
+                                                        m7: ['a', 'b', 'c', 'z'],
+                                                        m8: ['a', 'b', 'c', 'z']})
+    sa = SalesAnalyst.new(sales_engine)
+
+    assert_equal [:m4], sa.top_merchants_by_invoice_count
+  end
+
+  def test_bottom_merchants_by_invoice_count_returns_bottom_performing_merchants
+    sales_engine = stub(:get_all_merchant_invoices => { m1: ['a', 'b', 'c', 'z'],
+                                                        m2: ['d', 'e', 'r', 'z'],
+                                                        m3: ['f', 'p', 'q', 'z'],
+                                                        m4: ['g'],
+                                                        m5: ['a', 'b', 'c', 'z'],
+                                                        m6: ['a', 'b', 'c', 'z'],
+                                                        m7: ['a', 'b', 'c', 'z'],
+                                                        m8: ['a', 'b', 'c', 'z']})
+    sa = SalesAnalyst.new(sales_engine)
+
+    assert_equal [:m4], sa.bottom_merchants_by_invoice_count
+  end
+
+  def test_invoices_per_weekday_returns_hash_of_days_with_associated_invoices
+    sales_engine = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                items: "./test/fixtures/items_copy.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv" })
+    sa = SalesAnalyst.new(sales_engine)
+
+    assert_equal 1, sa.invoices_per_weekday["Sunday"].count
+    assert_equal 4, sa.invoices_per_weekday["Monday"].count
+    assert_equal 2, sa.invoices_per_weekday["Tuesday"].count
+    assert_equal 1, sa.invoices_per_weekday["Wednesday"].count
+    assert_equal 1, sa.invoices_per_weekday["Thursday"].count
+    assert_equal 5, sa.invoices_per_weekday["Friday"].count
+    assert_equal 6, sa.invoices_per_weekday["Saturday"].count
+  end
+
+  def test_invoice_counts_per_weekday_returns_hash_of_days_with_associated_invoice_counts
+    sales_engine = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                items: "./test/fixtures/items_copy.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv" })
+    sa = SalesAnalyst.new(sales_engine)
+
+    counts_per_weekday = {"Sunday" => 1, "Monday" => 4, "Tuesday" => 2, "Wednesday" => 1, "Thursday" => 1, "Friday" => 5, "Saturday" => 6}
+
+    assert_equal counts_per_weekday, sa.invoice_counts_per_weekday
+  end
+
+  def test_average_invoice_counts_per_day_works
+    sales_engine = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                items: "./test/fixtures/items_copy.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv" })
+    sa = SalesAnalyst.new(sales_engine)
+
+    assert_equal 2.86, sa.average_invoice_counts_per_day.round(2)
+  end
+
+  def test_average_invoices_per_day_standard_deviation_works
+    sales_engine = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                          items: "./test/fixtures/items_copy.csv",
+                                          invoices: "./test/fixtures/invoices_fixture.csv" })
+    sa = SalesAnalyst.new(sales_engine)
+
+    assert_equal 2.12, sa.average_invoices_per_day_standard_deviation
+  end
+
+  def test_sort_array_by_weekday_works
+    sales_engine = "POOP"
+    sa = SalesAnalyst.new(sales_engine)
+
+    mixed_up_weekdays = ["Friday", "Sunday", "Monday"]
+
+    assert_equal ["Sunday", "Monday", "Friday"], sa.sort_by_weekday(mixed_up_weekdays)
+  end
+
+  def test_top_days_by_invoice_count
+    sales_engine = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                          items: "./test/fixtures/items_copy.csv",
+                                          invoices: "./test/fixtures/invoices_fixture.csv" })
+    sa = SalesAnalyst.new(sales_engine)
+
+    assert_equal ["Friday", "Saturday"], sa.top_days_by_invoice_count
+  end
+
+  def test_invoice_status_returns_percent_of_status
+    sales_engine = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                          items: "./test/fixtures/items_copy.csv",
+                                          invoices: "./test/fixtures/invoices_fixture.csv" })
+    sa = SalesAnalyst.new(sales_engine)
+
+    assert_equal 45.0, sa.invoice_status("pending")
+    assert_equal 55.0, sa.invoice_status("shipped")
+    assert_equal 0.0, sa.invoice_status("returned")
   end
 
 end

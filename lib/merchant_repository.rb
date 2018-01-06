@@ -1,4 +1,4 @@
-require 'CSV'
+require 'csv'
 require_relative '../lib/merchant'
 
 class MerchantRepository
@@ -16,6 +16,10 @@ class MerchantRepository
 
   def call_sales_engine_items(id)
     parent.from_merchant_to_item(id)
+  end
+
+  def call_sales_engine_invoices(id)
+    parent.get_invoices(id)
   end
 
   def find_by_id(id)
