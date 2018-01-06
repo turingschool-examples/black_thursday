@@ -19,6 +19,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_has_id
+    parent = mock("parent")
     item = Item.new({
             :id          => 1,
             :name        => "Pencil",
@@ -27,7 +28,7 @@ class ItemTest < Minitest::Test
             :unit_price  => BigDecimal.new(1099,4),
             :created_at  => Time.now,
             :updated_at  => Time.now
-            }, mock("parent"))
+            }, parent)
 
     assert_equal 1, item.id
   end
