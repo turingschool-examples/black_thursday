@@ -16,11 +16,10 @@ class MerchantRepository
         })
     end
     @se = se
-    @invoices = []
   end
 
   def inspect
-    "#<#{self.class} #{@invoices.size} rows>"
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 
   def all
