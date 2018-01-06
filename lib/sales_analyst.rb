@@ -203,6 +203,15 @@ class SalesAnalyst
     end.keys
   end
 
+  def all_invoices_by_status(status)
+    sales_engine.invoices.find_all_by_status(status)    
+  end
+
+  def invoice_status(status)
+    (all_invoices_by_status(status).length / 
+    sales_engine.invoices.all.length.to_f * 100).round(2)
+  end
+
 end
 
 
