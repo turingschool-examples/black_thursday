@@ -34,11 +34,12 @@ class SalesEngine
   end
 
   def get_all_merchant_prices
-    get_all_merchant_items.transform_values do |item_array|
+    x = get_all_merchant_items.transform_values do |item_array|
       item_array.map do |item|
-        item.unit_price.to_f
+        item.unit_price
       end
     end
+    binding.pry
   end
 
   def get_one_merchant_prices(merchant_id)
@@ -48,7 +49,7 @@ class SalesEngine
   end
 
   def search_ir_by_price(price)
-    items.find_all_by_price(price.to_s)
+    items.find_all_by_price(price)
   end
 
 end

@@ -100,7 +100,7 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of Hash, merchants_and_prices
     assert_equal se.merchants.all, merchants
     prices.each do |price|
-      assert_instance_of Float, price
+      assert_instance_of BigDecimal, price
     end
   end
 
@@ -115,7 +115,7 @@ class SalesEngineTest < Minitest::Test
     se = SalesEngine.from_csv({merchants: "./test/fixtures/merchants_fixture.csv",
                       items: "./test/fixtures/items_fixture.csv"})
 
-    items =  se.search_ir_by_price(1200)
+    items =  se.search_ir_by_price(12.00)
     item_ids = items.map { |item| item.id }
 
     assert_equal [263395237, 263395617], item_ids

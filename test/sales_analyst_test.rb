@@ -44,8 +44,7 @@ class SalesAnalystTest < Minitest::Test
                                                      m4: ['g', 'h', 'i', 'j', 'k']})
     sa = SalesAnalyst.new(sales_engine)
 
-    assert_equal 1.707825127659933, sa.average_items_per_merchant_standard_deviation
-    assert_equal 1.71, sa.average_items_per_merchant_standard_deviation.round(2)
+    assert_equal 1.71, sa.average_items_per_merchant_standard_deviation
   end
 
   def test_merchants_with_high_item_count_returns_merchant_above_stdev
@@ -64,7 +63,7 @@ class SalesAnalystTest < Minitest::Test
 
     sa = SalesAnalyst.new(sales_engine)
 
-    assert_equal 250.00, sa.average_item_price_for_merchant
+    assert_equal 250.00, sa.average_item_price_for_merchant(123)
   end
 
   def test_average_average_item_price_for_merchant_works
@@ -76,7 +75,7 @@ class SalesAnalystTest < Minitest::Test
 
     sa = SalesAnalyst.new(sales_engine)
 
-    assert_equal 169.33, sa.average_average_price_per_merchant.round(2)
+    assert_equal 169.33, sa.average_average_price_per_merchant
   end
 
   def test_all_item_prices_returns_array_of_prices_from_hash
@@ -114,7 +113,7 @@ class SalesAnalystTest < Minitest::Test
 
     sa = SalesAnalyst.new(sales_engine)
 
-    assert_equal 103.28, sa.item_prices_standard_deviation.round(2)
+    assert_equal 103.28, sa.item_prices_standard_deviation
   end
 
   def test_find_golden_prices_returns_golden_prices
@@ -131,18 +130,17 @@ class SalesAnalystTest < Minitest::Test
 
   def test_golden_items_returns_golden_priced_items
     # golden_prices argument not being passed
-    item_1 = mock('shoe')
-    item_2 = mock('paintbrush')
+    item = mock('shoe')
     sales_engine = stub(:get_all_merchant_prices => { m1: [100.00, 100.00, 100.00],
                                                       m2: [100.00, 100.00],
                                                       m3: [100.00],
                                                       m4: [100.00, 100.00, 100.00, 100.00, 100.00],
                                                       m5: [100.00, 100.00, 100.00, 600.00, 700.00]},
-                        :search_ir_by_price => [item_1, item_2])
+                        :search_ir_by_price => item)
 
     sa = SalesAnalyst.new(sales_engine)
 
-    assert_equal [item_1, item_2], sa.golden_items
+    assert_equal [item, item], sa.golden_items
   end
 
 end
