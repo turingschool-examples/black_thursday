@@ -11,4 +11,8 @@ class Merchant
   def items
     @merchant_repository.find_items_by_id(@id)
   end
+
+  def item_count
+    return items.count
+  end
 end
