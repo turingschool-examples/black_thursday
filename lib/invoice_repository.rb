@@ -11,13 +11,12 @@ class InvoiceRepository
     invoice_creator_and_storer(path)
   end
 
-  def csv_opener(path = './data/invoices.csv')
-    # argument_raiser(path)
+
+  def csv_opener(path = "./data/invoices.csv")
     CSV.open path, headers: true, header_converters: :symbol
   end
 
   def invoice_creator_and_storer(path)
-    # argument_raiser(path)
     csv_opener(path)
     csv_opener(path).each do |invoice|
       new_invoice = Invoice.new(invoice, self)

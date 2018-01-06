@@ -97,26 +97,6 @@ class InvoiceRepositoryTest < Minitest::Test
     skip
   end
 
-  def test_csv_opener_only_accepts_strings
-    assert_raises ArgumentError do
-      @invoices.csv_opener(1)
-    end
-
-    assert_raises ArgumentError do
-      @invoices.csv_opener(["a", "b"])
-    end
-  end
-
-  def test_invoice_creator_and_storer_only_accepts_strings
-    assert_raises ArgumentError do
-      @invoices.invoice_creator_and_storer(1)
-    end
-
-    assert_raises ArgumentError do
-      @invoices.invoice_creator_and_storer(["a", "b"])
-    end
-  end
-
   def test_inspect_returns_string
     assert_equal "#<InvoiceRepository 42 rows>", @invoices.inspect
   end
