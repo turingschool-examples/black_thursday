@@ -62,7 +62,7 @@ class InvoiceRepositoryTest < Minitest::Test
     assert @invoices.find_all_by_merchant_id(3).empty?
   end
 
-  def test_find_all_by_customer_id_raises_argumenterror_if_passed_non_integer
+  def test_find_all_by_merchant_id_raises_argumenterror_if_passed_non_integer
     assert_raises ArgumentError do
       @invoices.find_all_by_merchant_id('carl')
     end
@@ -79,7 +79,7 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 12, @invoices.find_all_by_status(:pending).count
   end
 
-  def test_find_all_by_merchant_id_return_empty_array_if_passed_nonmatching_id
+  def test_find_all_by_status_return_empty_array_if_passed_nonmatching_id
     assert @invoices.find_all_by_status(:silly).empty?
   end
 
