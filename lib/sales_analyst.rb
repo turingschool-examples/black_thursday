@@ -149,4 +149,14 @@ class SalesAnalyst
     days_as_numbers.sort.map { |element| WEEKDAYS[element] }
   end
 
+  def invoice_status(status)
+    all_invoices = sales_engine.invoices.all
+    invoices_by_status = all_invoices.select do |invoice|
+      invoice.status == status
+    end
+    status_ratio = ((all_invoices.count - invoices_by_status.count) / all_invoices.count.to_f)
+    ((1 - status_ratio) * 100).round(2)
+    #do we want status percentage to be bigdecimal?
+  end
+
 end
