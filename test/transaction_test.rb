@@ -11,7 +11,7 @@ class TransactionTest < Minitest::Test
       :result => "success",
       :created_at => Time.now.inspect,
       :updated_at => Time.now.inspect
-    })
+    }, mock('transaction_repository'))
   end
 
   def test_it_has_an_id

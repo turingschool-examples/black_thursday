@@ -7,7 +7,7 @@ class Transaction
               :created_at,
               :updated_at
 
-  def initialize(data)
+  def initialize(data, parent)
     @id = data[:id]
     @invoice_id = data[:invoice_id]
     @credit_card_number = data[:credit_card_number]
@@ -15,5 +15,6 @@ class Transaction
     @result = data[:result]
     @created_at = Time.parse(data[:created_at])
     @updated_at = Time.parse(data[:updated_at])
+    @transaction_repository = parent
   end
 end

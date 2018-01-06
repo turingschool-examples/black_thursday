@@ -10,7 +10,7 @@ class InvoiceItem
               :created_at,
               :updated_at
 
-  def initialize(data)
+  def initialize(data, parent)
     @id = data[:id]
     @item_id = data[:item_id]
     @invoice_id = data[:invoice_id]
@@ -18,6 +18,7 @@ class InvoiceItem
     @unit_price = BigDecimal.new(data[:unit_price]) / 100
     @created_at = Time.parse(data[:created_at])
     @updated_at = Time.parse(data[:updated_at])
+    @invoice_item_repository = parent
   end
 
   def unit_price_to_dollars

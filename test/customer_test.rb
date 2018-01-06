@@ -9,7 +9,7 @@ class CustomerTest < Minitest::Test
       :last_name => "Clarke",
       :created_at => Time.now.inspect,
       :updated_at => Time.now.inspect
-    })
+    }, mock('customer_repository'))
   end
 
   def test_it_has_an_id

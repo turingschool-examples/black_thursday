@@ -5,7 +5,7 @@ class InvoiceItemRepository
   def initialize
     @invoice_items = []
   end
-  
+
   def from_csv(file_path)
     invoice_item_data = CSV.open file_path, headers: true, header_converters: :symbol, converters: :numeric
     parse(invoice_item_data)
@@ -13,7 +13,7 @@ class InvoiceItemRepository
 
   def parse(invoice_item_data)
     invoice_item_data.each do |row|
-      @invoice_items << InvoiceItem.new(row.to_hash)
+      @invoice_items << InvoiceItem.new(row.to_hash, self)
     end
   end
 

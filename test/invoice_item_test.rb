@@ -11,7 +11,7 @@ class InvoiceItemTest < Minitest::Test
       unit_price: 1099,
       created_at: Time.now.inspect,
       updated_at: Time.now.inspect
-      })
+      }, mock('invoice_item_repository'))
   end
 
   def test_it_has_an_id
