@@ -7,11 +7,15 @@ class SalesAnalyst
     @sales_engine.merchants.all
   end
 
-   def total_items
-     merchants.reduce(0) do |total, merchant|
-       total + merchant.item_count
-     end
-   end
+  # def total_items
+  #  merchants.reduce(0) do |total, merchant|
+  #    total + merchant.item_count
+  #  end
+  # end
+
+  def total_items
+    @sales_engine.item_count
+  end
 
   def average_items_per_merchant
     total_items.to_f / merchants.count.to_f

@@ -34,3 +34,5 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 2, merchants.count
   end
 end
+
+# time to run test: 0.022248s

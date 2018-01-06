@@ -33,7 +33,7 @@ class ItemRepository
 
   def find_all_with_description(description)
     @items.find_all do |item|
-      item.description.downcase == description.downcase
+      item.description.downcase.include?(description.downcase)
     end
   end
 
@@ -61,5 +61,9 @@ class ItemRepository
 
   def inspect
     "#<#{self.class} #{@items.size} rows>"
+  end
+
+  def total_count
+    return @items.count
   end
 end
