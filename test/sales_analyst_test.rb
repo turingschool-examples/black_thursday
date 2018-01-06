@@ -239,4 +239,41 @@ class SalesAnalystTest < Minitest::Test
     assert_equal counts_per_weekday, sa.invoice_counts_per_weekday
   end
 
+  def test_average_invoice_counts_per_day_works
+    sales_engine = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                items: "./test/fixtures/items_copy.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv" })
+    sa = SalesAnalyst.new(sales_engine)
+
+    assert_equal 2.86, sa.average_invoice_counts_per_day.round(2)
+  end
+
+  def test_average_invoices_per_day_standard_deviation_works
+    sales_engine = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                          items: "./test/fixtures/items_copy.csv",
+                                          invoices: "./test/fixtures/invoices_fixture.csv" })
+    sa = SalesAnalyst.new(sales_engine)
+
+    assert_equal 2.12, sa.average_invoices_per_day_standard_deviation
+  end
+
+  def test_sort_array_by_weekday_works
+    sales_engine = "POOP"
+    sa = SalesAnalyst.new(sales_engine)
+
+    mixed_up_weekdays = ["Friday", "Sunday", "Monday"]
+
+    assert_equal ["Sunday", "Monday", "Friday"], sa.sort_by_weekday(mixed_up_weekdays)
+  end
+
+  def test_top_days_by_invoice_count
+    sales_engine = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                          items: "./test/fixtures/items_copy.csv",
+                                          invoices: "./test/fixtures/invoices_fixture.csv" })
+    sa = SalesAnalyst.new(sales_engine)
+
+    assert_equal ["Friday", "Saturday"], sa.top_days_by_invoice_count
+  end
+
+
 end
