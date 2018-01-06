@@ -7,18 +7,15 @@ class MerchantRepository
               :se
 
   def initialize(csv_file, se)
-    @merchants_csv = CSV.open csv_file, headers: true, header_converters: :symbol
     @merchants = []
-    @se = se
-    @merchants_csv.each do |row|
-      id          = row[:id].to_i
-      name        = row[:name]
+    CSV.foreach csv_file, headers: true, header_converters: :symbol do |row|
       @merchants << Merchant.new({
-        name: name,
-        id: id,
+        name: row[:name],
+        id: row[:id].to_i,
         merchant_repo: self
         })
     end
+    @se = se
     @invoices = []
   end
 
