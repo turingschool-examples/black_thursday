@@ -2,7 +2,8 @@ require_relative '../lib/invoice'
 require 'csv'
 
 class InvoiceRepository
-  attr_reader :all
+  attr_reader :all,
+              :parent
 
   def initialize(file_path, parent)
     contents = CSV.open(file_path, headers: true, header_converters: :symbol)
@@ -20,6 +21,10 @@ class InvoiceRepository
 
   def inspect
     "#<#{self.class} #{@all.size} rows>"
+  end
+
+  def call_sales_engine_merchants(merchant_id)
+    parent.merchant_id_search(merchant_id)
   end
 
   def find_by_id(id)

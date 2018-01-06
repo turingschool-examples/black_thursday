@@ -65,18 +65,18 @@ class SalesEngineTest < Minitest::Test
                                 items: "./test/fixtures/items_fixture.csv",
                                 invoices: "./test/fixtures/invoices_fixture.csv"})
 
-    merchant_1 = se.merchants.find_by_id(12334141)
-    merchant_2 = se.merchants.find_by_id(12334185)
+    invoice_1 = se.merchants.find_by_id(12334141)
+    invoice_2 = se.merchants.find_by_id(12334185)
 
-    assert_equal "510+ RealPush Icon Set", merchant_1.items.first.name
-    merchant_1.items.each do |item|
+    assert_equal "510+ RealPush Icon Set", invoice_1.items.first.name
+    invoice_1.items.each do |item|
       assert_instance_of Item, item
     end
-    assert_equal 3, merchant_1.items.count
-    merchant_2.items.each do |item|
+    assert_equal 3, invoice_1.items.count
+    invoice_2.items.each do |item|
       assert_instance_of Item, item
     end
-    assert_equal 3, merchant_2.items.count
+    assert_equal 3, invoice_2.items.count
   end
 
   def test_get_all_merchant_items_returns_hash_of_merchants_and_items
@@ -137,19 +137,34 @@ class SalesEngineTest < Minitest::Test
                                 items: "./test/fixtures/items_fixture.csv",
                                 invoices: "./test/fixtures/invoices_fixture.csv" })
 
-    merchant_1 = se.merchants.find_by_id(12334141)
-    merchant_2 = se.merchants.find_by_id(12334185)
+    invoice_1 = se.merchants.find_by_id(12334141)
+    invoice_2 = se.merchants.find_by_id(12334185)
 
-    merchant_1.invoices.each do |invoice|
+    invoice_1.invoices.each do |invoice|
       assert_instance_of Invoice, invoice
     end
-    merchant_2.invoices.each do |invoice|
+    invoice_2.invoices.each do |invoice|
       assert_instance_of Invoice, invoice
     end
-    assert_equal 5, merchant_1.invoices.count
-    assert_equal 9, merchant_2.invoices.count
-    assert_equal 4, merchant_1.invoices.first.id
-    assert_equal 1, merchant_2.invoices.first.id
+    assert_equal 5, invoice_1.invoices.count
+    assert_equal 9, invoice_2.invoices.count
+    assert_equal 4, invoice_1.invoices.first.id
+    assert_equal 1, invoice_2.invoices.first.id
+  end
+
+  def test_get_invoices_returns_invoices_specific_to_merchant
+    se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                items: "./test/fixtures/items_fixture.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv" })
+
+    invoice_1 = se.invoices.find_by_id(6)
+    invoice_2 = se.invoices.find_by_id(18)
+
+    assert_instance_of Invoice, invoice_1
+    assert_instance_of Invoice, invoice_2
+
+    assert_equal 12334185, invoice_1.merchant.id
+    assert_equal 12334141, invoice_2.merchant.id
   end
 
 end
