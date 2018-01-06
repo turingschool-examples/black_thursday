@@ -108,7 +108,7 @@ class SalesEngineTest < Minitest::Test
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
                                 items: "./test/fixtures/items_fixture.csv"})
 
-    assert_equal [1200.0, 1350.0, 700.0],  se.get_one_merchant_prices(12334185)
+    assert_equal [12.0, 13.5, 7.0],  se.get_one_merchant_prices(12334185)
   end
 
   def test_search_ir_by_price_returns_all_items_with_given_price

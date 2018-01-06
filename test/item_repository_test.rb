@@ -88,11 +88,11 @@ class ItemRepositoryTest < Minitest::Test
     parent = mock("parent")
     ir = ItemRepository.new("./test/fixtures/items_fixture.csv", parent)
 
-    items_1 = ir.find_all_by_price_in_range((1200..1201))
+    items_1 = ir.find_all_by_price_in_range((12.00..12.01))
     items_1_ids = items_1.map { |item| item.id }
-    items_2 = ir.find_all_by_price_in_range((39380..40000))
+    items_2 = ir.find_all_by_price_in_range((393.80..400.00))
     items_2_ids = items_2.map { |item| item.id }
-    unknown_items = ir.find_all_by_price_in_range(5000650..6000000)
+    unknown_items = ir.find_all_by_price_in_range(5000.00..6000.00)
 
     assert_equal [263395237, 263395617], items_1_ids
     assert_equal [263396517], items_2_ids

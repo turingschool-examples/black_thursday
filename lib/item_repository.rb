@@ -46,13 +46,13 @@ class ItemRepository
 
   def find_all_by_price(price)
     all.select do |item|
-      item.unit_price == price
+      item.unit_price == BigDecimal.new(price.to_i / 100.0, 4)
     end
   end
 
   def find_all_by_price_in_range(range)
     all.select do |item|
-      (range).include?(item.unit_price.to_i)
+      (range).include?(item.unit_price)
     end
   end
 
