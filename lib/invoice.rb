@@ -1,6 +1,6 @@
 require 'time'
 require 'bigdecimal'
-require_relative "invoice_repo"
+# require_relative "invoice_repo"
 
 class Invoice
   attr_reader :id,
