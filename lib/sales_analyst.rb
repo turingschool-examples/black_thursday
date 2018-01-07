@@ -37,7 +37,7 @@ class SalesAnalyst
 
   def average_invoices_per_merchant_standard_deviation
     variance = number_of_invoices_per_merchant.reduce(0) do |var, invoice|
-      var + (invoice) ** 1.975
+      var + (invoice) ** 2
     end
     (Math.sqrt(variance/(se.grab_all_invoices.count - 1))).round(2)
   end
