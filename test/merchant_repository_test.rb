@@ -15,13 +15,13 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_Merchants_is_filled
-    assert_instance_of Merchant, merchant.merchants.first
-    assert_instance_of Merchant, merchant.merchants.last
+    assert merchant.merchants.all? { |merch| merch.class == Merchant }
   end
 
   def test_it_returns_matches_by_id
     found_id = merchant.find_by_id(12334185)
 
+    refute_equal "SomeOtherNAME!!", found_id.name
     assert_equal "Madewithgitterxx", found_id.name
   end
 
@@ -40,24 +40,21 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_returns_items_for_a_merchant
-    skip
+    # skip
     se = SalesEngine.from_csv({
-    :items     => "./test/fixtures/items_sample.csv",
-    :merchants => "./test/fixtures/merchants_sample.csv",
-  })
+      :items     => "./test/fixtures/items_sample.csv",
+      :merchants => "./test/fixtures/merchants_sample.csv",
+    })
+
     merchants = se.merchants
     merchant_id = 12334185
     found_id = merchants.find_item(merchant_id)
 
+    found_id.each do |item|
+      assert_instance_of Item, item
+    end
+    refute_equal 5, found_id.count
     assert_equal 3, found_id.count
   end
-
-  def test_it_returns_total_merchants
-    expected = merchant.merchants.count
-
-    assert_equal expected, merchant.all.count
-  end
-
-
 
 end
