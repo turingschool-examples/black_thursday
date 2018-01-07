@@ -96,4 +96,29 @@ class SalesAnalyst
     end
   end
 
+  #Creating Business Intelligence methods for Invoices
+  def average_invoices_per_merchant
+    (se.grab_all_invoices.count / se.grab_all_merchants.count.to_f).round(2)
+  end
+
+  def number_of_invoices_per_merchant
+    se.grab_array_of_merchant_invoices
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    mean     = average_invoices_per_merchant
+    variance = number_of_invoices_per_merchant.reduce(0) do |var, invoices|
+      var + (invoices - mean) ** 2
+    end
+    (Math.sqrt(variance/(se.grab_all_invoices.count - 1))).round(2)
+  end
+
+  # def invoice_status(status)
+  #   var ={}
+  #   se.grab_all_invoices.map do |invoice|
+  #     var[invoice.status] =
+  # end
+
+
+
 end

@@ -67,4 +67,9 @@ class SalesEngine
     merchants.find_by_id(id)
   end
 
+  # For Invoices BI
+  def grab_all_invoices
+    invoices.all
+  end
+
 end

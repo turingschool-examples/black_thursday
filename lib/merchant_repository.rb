@@ -49,7 +49,7 @@ class MerchantRepository
     se.find_item_by_merchant_id(id)
   end
 
-  def grab_array_of_items # NEEDS TESTS || Returns array of items per merchant
+  def grab_array_of_items # NEEDS TESTS || Returns array of item count per merchant
     merchants.map { |merchant| merchant.items.count }
   end
 
