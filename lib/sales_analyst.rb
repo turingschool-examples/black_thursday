@@ -15,8 +15,16 @@ class SalesAnalyst
     (se.grab_all_items.count / se.grab_all_merchants.count.to_f).round(2)
   end
 
+  def average_invoices_per_merchant
+    (se.grab_all_invoices.count / se.grab_all_merchants.count.to_f).round(2)
+  end
+
   def number_of_items_per_merchant
     se.grab_array_of_merchant_items
+  end
+
+  def number_of_invoices_per_merchant
+    se.grab_array_of_merchant_invoices
   end
 
   def average_items_per_merchant_standard_deviation
@@ -27,10 +35,22 @@ class SalesAnalyst
     (Math.sqrt(variance/(se.grab_all_merchants.count - 1))).round(2)
   end
 
+  def average_invoices_per_merchant_standard_deviation
+    variance = number_of_invoices_per_merchant.reduce(0) do |var, invoice|
+      var + (invoice) ** 1.975
+    end
+    (Math.sqrt(variance/(se.grab_all_invoices.count - 1))).round(2)
+  end
+
   def item_prices_mean
     items       = se.grab_all_items
     item_prices = items.reduce(0) { |result, item| result += item.unit_price.to_i}
     (item_prices / items.count).round(2)
+  end
+
+  def invoice_mean
+    array = se.grab_array_of_merchant_invoices
+    array.inject(0) { |sum, x| sum += x } / array.size.to_f
   end
 
   def item_price_standard_deviation # NEEDS TEST
@@ -59,6 +79,10 @@ class SalesAnalyst
     merchants = se.grab_all_merchants
     price = merchants.map {|merch| average_item_price_for_merchant(merch.id)}.sum
     (price / merchants.count).round(2)
+  end
+
+  def top_merchants_by_invoice_count
+
   end
 
   def golden_items
