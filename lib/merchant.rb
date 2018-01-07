@@ -1,3 +1,5 @@
+require 'bigdecimal'
+
 class Merchant
   attr_reader :id,
               :name
@@ -15,4 +17,12 @@ class Merchant
   def item_count
     return items.count
   end
+
+  def average_item_price
+    sum = items.reduce(0) do |total, item|
+      total + item.unit_price
+    end
+    BigDecimal.new(sum / item_count)
+  end
+
 end
