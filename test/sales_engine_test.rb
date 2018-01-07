@@ -7,7 +7,10 @@ class SalesEngineTest < MiniTest::Test
     @sales_engine = SalesEngine.from_csv({
       :items      => "./test/fixtures/items_fixtures.csv",
       :merchants  => "./test/fixtures/merchants_fixtures.csv",
-      :invoices   => "./test/fixtures/invoices_fixtures.csv"
+      :invoices   => "./test/fixtures/invoices_fixtures.csv",
+      :invoice_items => "./test/fixtures/invoice_items_fixtures.csv",
+      :transactions => "./test/fixtures/transactions_fixtures.csv",
+      :customers => "./test/fixtures/customers_fixtures.csv"
     })
   end
 
