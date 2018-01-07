@@ -27,4 +27,5 @@ require_relative "invoice_repo"
 
 sa = SalesAnalyst.new(se)
 
-puts sa.invoice_status(:pending)
+invoice = se.invoices.find_by_id(20)
+puts invoice.invoice_items

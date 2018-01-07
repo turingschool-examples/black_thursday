@@ -4,6 +4,7 @@ require_relative "item_repo"
 require_relative "invoice_repo"
 require_relative "invoice_item_repo"
 require_relative "customer_repo"
+require_relative "transaction_repo"
 
 class SalesEngine
   attr_reader :merchants,
@@ -36,5 +37,21 @@ class SalesEngine
 
   def find_invoices_by_merchant_id(merchant_id)
     invoices.find_all_by_merchant_id(merchant_id)
+  end
+
+  def find_invoice_items_by_invoice_id(id)
+    invoice_items.find_all_by_invoice_id(id)
+  end
+
+  def find_item_by_item_id(id)
+    items.find_by_id(id)
+  end
+
+  def find_transactions_by_invoice_id(id)
+    transactions.find_all_by_invoice_id(id)
+  end
+
+  def find_customer_by_id(id)
+    customers.find_by_id(id)
   end
 end

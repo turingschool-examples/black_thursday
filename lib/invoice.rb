@@ -24,4 +24,28 @@ class Invoice
   def merchant
     @invoice_repo.find_merchant_by_id(self.merchant_id)
   end
+
+  def items
+    invoice_items.map do |invoice_item|
+      invoice_item.item
+    end
+  end
+
+  def invoice_items
+    invoice_repo.find_invoice_items_by_invoice_id(self.id)
+  end
+
+  def items
+    invoice_items.map do |invoice_item|
+      invoice_item.item
+    end
+  end
+
+  def transactions
+    invoice_repo.find_transactions_by_invoice_id(self.id)
+  end
+
+  def customer
+    invoice_repo.find_customer_by_id(self.customer_id)
+  end
 end
