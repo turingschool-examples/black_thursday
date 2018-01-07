@@ -5,7 +5,9 @@ require_relative '../lib/invoice'
 class InvoicesTest < Minitest::Test
 
   def test_it_exists
-    invoice = Invoices.new
+    invoice = Invoice.new
+
+    assert_instance_of Invoice, invoice
   end
 
 end
