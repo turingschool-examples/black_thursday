@@ -1,0 +1,1 @@
+>  It-2, allow from_csv to take arbitrary number of args(file_paths)
