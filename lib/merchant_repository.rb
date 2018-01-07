@@ -15,7 +15,7 @@ class MerchantRepository
   end
 
   def call_sales_engine_items(id)
-    parent.get_item(id)
+    parent.get_items(id)
   end
 
   def call_sales_engine_invoices(id)

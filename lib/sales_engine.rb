@@ -24,7 +24,7 @@ class SalesEngine
     merchants.find_by_id(merchant_id)
   end
 
-  def get_item(id)
+  def get_items(id)
     items.find_all_by_merchant_id(id)
   end
 
@@ -52,6 +52,14 @@ class SalesEngine
     get_all_merchant_prices.find do |merchant, prices|
       merchant.id == merchant_id
     end.last.flatten
+  end
+
+  def get_all_merchant_invoices
+    merchants_and_invoices = {}
+    merchants.all.map do |merchant|
+      merchants_and_invoices[merchant] = get_invoices(merchant.id)
+    end
+    merchants_and_invoices
   end
 
   def search_ir_by_price(price)
