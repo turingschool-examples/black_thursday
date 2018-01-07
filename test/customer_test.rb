@@ -1,4 +1,5 @@
 require_relative 'test_helper'
+require 'time'
 require_relative "../lib/customer"
 
 
@@ -31,11 +32,11 @@ class CustomerTest < Minitest::Test
   end
 
   def test_it_creates_at_a_time
-    assert_equal ("2018-01-02 14:37:20 -0700"), @customer.created_at
+    assert_equal Time.parse("2018-01-02 14:37:20 -0700"), @customer.created_at
   end
 
   def test_it_returns_time_updated_at
-    assert_equal ("2018-01-02 14:37:25 -0700"), @customer.updated_at
+    assert_equal Time.parse("2018-01-02 14:37:25 -0700"), @customer.updated_at
   end
 
 end
