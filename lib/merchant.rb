@@ -13,7 +13,6 @@ class Merchant
     @updated_at = info[:updated_at]
     @item_count = 0
     @parent = merchant_repository
-
   end
 
   def items
@@ -27,5 +26,4 @@ class Merchant
   def downcaser
     @name.downcase
   end
-
 end

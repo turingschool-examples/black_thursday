@@ -32,5 +32,4 @@ class Item
   def downcaser
     @name.downcase
   end
-
 end
