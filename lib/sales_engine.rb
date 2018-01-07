@@ -2,6 +2,7 @@ require_relative '../lib/item_repository'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/invoice_repository'
 require_relative '../lib/invoice_item_repository'
+require_relative '../lib/customer_repository'
 require 'pry'
 
 
@@ -10,14 +11,16 @@ class SalesEngine
   attr_reader :items,
               :merchants,
               :invoices,
-              :invoice_items
+              :invoice_items,
+              :customers
 
   def initialize(csv_files)
-    csv_files  = merge_in_given_csvs(csv_files)
-    @invoices  = InvoiceRepository.new(csv_files[:invoices], self)
-    @items     = ItemRepository.new(csv_files[:items], self)
-    @merchants = MerchantRepository.new(csv_files[:merchants], self)
+    csv_files      = merge_in_given_csvs(csv_files)
+    @invoices      = InvoiceRepository.new(csv_files[:invoices], self)
+    @items         = ItemRepository.new(csv_files[:items], self)
+    @merchants     = MerchantRepository.new(csv_files[:merchants], self)
     @invoice_items = InvoiceItemRepository.new(csv_files[:invoice_items], self)
+    @customers     = CustomerRepository.new(csv_files[:customers], self)
   end
 
   def merge_in_given_csvs(given_csvs)

@@ -36,6 +36,7 @@ class CustomerRepositoryTest < Minitest::Test
     customers = cr.find_all_by_first_name("Joey")
 
     assert customers.all? { |customer| customer.class == Customer }
+    assert_eqaul 2, customers.count
   end
 
   def test_it_finds_all_by_last_name
