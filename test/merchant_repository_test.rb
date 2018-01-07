@@ -61,10 +61,20 @@ class MerchantRepositoryTest < MiniTest::Test
     assert merchants.empty?
   end
 
+  def test_it_finds_average_item_price_for_merchant
+    item_1 = stub(:unit_price => 29.99)
+    item_2 = stub(:unit_price => 9.99)
+    item_3 = stub(:unit_price => 9.99)
+    @se.stubs(:find_items_by_merchant_id).returns([item_1, item_2, item_3])
+
+    assert_equal 16.656666666666666, @mr.find_average_item_price_for_merchant(12334105)
+  end
+
   def test_it_calls_sales_engine_to_return_items_by_merchant_id
     item = mock('item')
     @se.expects(:find_items_by_merchant_id).returns([item, item, item])
 
     assert_equal [item, item, item], @mr.find_items_by_id(12334105)
   end
+
 end

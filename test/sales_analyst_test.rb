@@ -33,6 +33,18 @@ class SalesAnalystTest < MiniTest::Test
 
     assert_equal 3, merchants.count
   end
-end
 
-# time to run test: 0.021840s
+  def test_it_finds_average_item_price_for_merchant
+    assert_equal 20.00, @sa.average_item_price_for_merchant(12334115)
+  end
+
+  def test_it_finds_average_average_price_per_merchant
+    assert_equal 0.310636666666666666666666666667e3, @sa.average_average_price_per_merchant
+  end
+
+  def test_it_finds_golden_items
+    golden_items = @sa.golden_items
+
+    assert_equal 2, golden_items.count
+  end
+end
