@@ -13,5 +13,4 @@ class Customer
     @updated_at = Time.strptime(info[:updated_at],"%Y-%m-%d %H:%M:%S %Z")
     @parent = customer_repository
   end
-
 end

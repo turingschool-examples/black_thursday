@@ -4,9 +4,12 @@ require './lib/sales_analyst'
 se = SalesEngine.from_csv({
   :items     => "./data/items.csv",
   :merchants => "./data/merchants.csv",
-  :invoices  => "./data/invoices.csv"
+  :invoices  => "./data/invoices.csv",
+  :invoice_items => "./data/invoice_items.csv",
+  :transactions => "./data/transactions.csv",
+  :customers => "./data/customers.csv"
 })
 
-sa = SalesAnalyst.new(se)
+invoice = se.invoices.find_by_id(12)
 
-p sa.top_merchants_by_invoice_count.count
+p invoice.items

@@ -29,7 +29,6 @@ class CustomerRepository
   end
 
   def find_by_id(id)
-    argument_raiser(id)
     @customers[id]
   end
 
