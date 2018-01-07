@@ -9,9 +9,10 @@ class MerchantRepositoryTest < MiniTest::Test
   end
 
   def test_all_returns_an_array_of_merchant_instances
-    result = @mr.all
+    merchants = @mr.all
 
-    assert result.all? do |element|
+    assert_equal 11, merchants.count
+    assert merchants.all? do |element|
       element.class == Merchant
     end
   end
@@ -21,10 +22,10 @@ class MerchantRepositoryTest < MiniTest::Test
   end
 
   def test_find_by_id_returns_merchant_instance_with_matching_id
-    result = @mr.find_by_id(12334113)
+    merchant = @mr.find_by_id(12334113)
 
-    assert_equal 12334113, result.id
-    assert_instance_of Merchant, result
+    assert_equal 12334113, merchant.id
+    assert_instance_of Merchant, merchant
   end
 
   def test_find_by_name_returns_nil_if_merchant_does_not_exist
@@ -32,32 +33,32 @@ class MerchantRepositoryTest < MiniTest::Test
   end
 
   def test_find_by_name_returns_merchant_instance_with_matching_name
-    result = @mr.find_by_name('LolaMarleys')
+    merchant = @mr.find_by_name('LolaMarleys')
 
-    assert_equal 'LolaMarleys', result.name
-    assert_instance_of Merchant, result
+    assert_equal 'LolaMarleys', merchant.name
+    assert_instance_of Merchant, merchant
   end
 
   def test_find_by_name_returns_merchant_instance_with_matching_name_case_insensitive
-    result = @mr.find_by_name('lolamarleys')
+    merchant = @mr.find_by_name('lolamarleys')
 
-    assert_equal 'LolaMarleys', result.name
+    assert_equal 'LolaMarleys', merchant.name
   end
 
   def test_it_returns_all_merchants_with_a_matching_name_fragment
     name = 'BowlsBy'
 
-    result = @mr.find_all_by_name(name).map do |merchant|
+    merchant_names = @mr.find_all_by_name(name).map do |merchant|
       merchant.name
     end
 
-    assert_equal ['BowlsByChris', 'BowlsByAnna'], result
+    assert_equal ['BowlsByChris', 'BowlsByAnna'], merchant_names
   end
 
   def test_it_returns_an_empty_array_if_no_merchants_match_name
-    result = @mr.find_all_by_name('name')
+    merchants = @mr.find_all_by_name('name')
 
-    assert result.empty?
+    assert merchants.empty?
   end
 
   def test_it_finds_average_item_price_for_merchant

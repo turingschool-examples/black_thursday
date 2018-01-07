@@ -10,21 +10,20 @@ class SalesAnalyst
     @sales_engine.merchants.all
   end
 
-   def total_items
-     merchants.reduce(0) do |total, merchant|
-       total + merchant.item_count
-     end
-   end
+  def total_items
+    @sales_engine.item_count
+  end
 
   def average_items_per_merchant
-    total_items.to_f / merchants.count.to_f
+    (total_items.to_f / merchants.count).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
-    standard_deviations = merchants.map do |merchant|
-      (merchant.item_count - average_items_per_merchant)**2
-    end
-    Math.sqrt(standard_deviations.sum / (total_items - 1))
+    Math.sqrt(
+      merchants.reduce(0) do |sum, merchant|
+        sum + ((merchant.item_count - average_items_per_merchant)**2)
+      end / (merchants.count - 1)
+    ).round(2)
   end
 
   def one_standard_deviation_above_average

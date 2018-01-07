@@ -22,4 +22,7 @@ class SalesEngine
     @merchants.find_by_id(merchant_id)
   end
 
+  def item_count
+    @items.all.count
+  end
 end
