@@ -30,17 +30,17 @@ class InvoiceItemRepository
     @invoice_items[id]
   end
 
-  def find_all_by_item_id(id)
-    argument_raiser(id, Integer)
-    @invoice_items.select do |invoice_item|
-      invoice_item.item_id == id
+  def find_all_by_item_id(item_id)
+    argument_raiser(item_id, Integer)
+    all.select do |invoice_item|
+      invoice_item.item_id == item_id
     end
   end
 
-  def find_all_by_invoice_id(id)
-    argument_raiser(id, Integer)
-    @invoice_items.select do |invoice_item|
-      invoice_item.invoice_id == id
+  def find_all_by_invoice_id(invoice_id)
+    argument_raiser(invoice_id, Integer)
+    all.select do |invoice_item|
+      invoice_item.invoice_id == invoice_id
     end
   end
 
