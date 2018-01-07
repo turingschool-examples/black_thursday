@@ -19,10 +19,9 @@ class Merchant
   end
 
   def average_item_price
-    sum = items.reduce(0) do |total, item|
+    sum_prices = items.reduce(0) do |total, item|
       total + item.unit_price
     end
-    BigDecimal.new((sum / item_count).to_s)
+    return (sum_prices / item_count).round(2)
   end
-
 end
