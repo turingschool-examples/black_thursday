@@ -1,7 +1,10 @@
 require_relative '../lib/merchant'
+require_relative '../lib/csv_parser'
 require 'csv'
 
 class MerchantRepository
+
+  include CsvParser
 
   attr_reader :merchants,
               :se
@@ -9,15 +12,8 @@ class MerchantRepository
   def initialize(csv_file, se)
     @merchants = []
     @se = se
-    CSV.foreach csv_file, headers: true, header_converters: :symbol do |row|
-      @merchants << Merchant.new({
-        name: row[:name],
-        id: row[:id].to_i,
-        merchant_repo: self
-        })
-    end
+    parser(csv_file).each { |row| @merchants << Merchant.creator(row, self) }
   end
-    
 
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"

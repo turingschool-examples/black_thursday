@@ -40,7 +40,6 @@ class SalesEngineTest < Minitest::Test
   def test_it_returns_merchants_by_id
     merchant = se.find_merchant_by_id(12334195)
 
-
     assert_instance_of Merchant, merchant
     refute_instance_of Item, merchant
     assert merchant.id == 12334195
@@ -49,7 +48,6 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_returns_array_of_items_per_merchant
     items_per = se.grab_array_of_merchant_items
-
 
     assert_equal 7, items_per.count
     refute_equal 23, items_per.count

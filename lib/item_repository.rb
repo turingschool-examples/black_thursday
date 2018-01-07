@@ -1,9 +1,12 @@
 require 'csv'
 require 'time'
 require_relative '../lib/item'
+require_relative '../lib/csv_parser'
 
 
 class ItemRepository
+
+  include CsvParser
 
   attr_reader :items_csv,
               :items,
@@ -12,18 +15,7 @@ class ItemRepository
   def initialize(csv_file, se)
     @items = []
     @se = se
-    CSV.foreach csv_file, headers: true, header_converters: :symbol do |row|
-      @items << Item.new({
-        name: row[:name],
-        id: row[:id],
-        description: row[:description],
-        unit_price: row[:unit_price],
-        created_at: Time.parse(row[:created_at]),
-        updated_at: Time.parse(row[:updated_at]),
-        merchant_id: row[:merchant_id],
-        item_repo: self
-        })
-    end
+    parser(csv_file).each { |row| @items << Item.creator(row, self) }
   end
 
   def inspect
