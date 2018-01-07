@@ -4,7 +4,7 @@ require "./lib/customer_repository"
 class CustomerRepositoryTest < MiniTest::Test
 
   def setup
-    @customers = customerRepository.new("./test/fixtures/customers_fixtures.csv")
+    @customers = CustomerRepository.new("./test/fixtures/customers_fixtures.csv")
   end
 
   def test_all_returns_customers
@@ -21,30 +21,10 @@ class CustomerRepositoryTest < MiniTest::Test
     assert_equal 732, @customers.find_by_id(732).id
   end
 
-  def test_find_by_id_only_accepts_integers
-    assert_raises ArgumentError do
-      @customers.find_by_id("l")
-    end
-
-    assert_raises ArgumentError do
-      @customers.find_by_id(["a", "b"])
-    end
-  end
-
   def test_find_all_by_first_name_returns_array
     assert_instance_of Array, @customers.find_all_by_first_name("Jermey")
 
-    assert_equal "Jermey", @customers.find_all_by_name("Jermey").first.first_name
-  end
-
-  def test_find_by_first_name_only_accepts_strings
-    assert_raises ArgumentError do
-      @customers.find_all_by_first_name(1)
-    end
-
-    assert_raises ArgumentError do
-      @customers.find_all_by_first_name(["a", "b"])
-    end
+    assert_equal "Jermey", @customers.find_all_by_first_name("Jermey").first.first_name
   end
 
   def test_find_all_by_first_name_returns_empty_array_when_none_found
@@ -54,44 +34,16 @@ class CustomerRepositoryTest < MiniTest::Test
   def test_find_all_by_last_name_returns_array
     assert_instance_of Array, @customers.find_all_by_last_name("Quigley")
 
-    assert_equal "Quigley", @customers.find_all_by_last_name("Quigley").first.first_name
+    assert_equal "Quigley", @customers.find_all_by_last_name("Quigley").first.last_name
   end
 
-  def test_find_by_first_name_only_accepts_strings
-    assert_raises ArgumentError do
-      @customers.find_all_by_last_name(1)
-    end
-
-    assert_raises ArgumentError do
-      @customers.find_all_by_last_name(["a", "b"])
-    end
-  end
 
   def test_find_all_by_last_name_returns_empty_array_when_none_found
     assert_equal [], @customers.find_all_by_last_name("Potter")
   end
 
-  def test_csv_opener_only_accepts_strings
-    assert_raises ArgumentError do
-      @customers.csv_opener(1)
-    end
-
-    assert_raises ArgumentError do
-      @customers.csv_opener(["a", "b"])
-    end
-  end
-
-  def test_customer_creator_and_storer_only_accepts_strings
-    assert_raises ArgumentError do
-      @customers.customer_creator_and_storer(1)
-    end
-
-    assert_raises ArgumentError do
-      @customers.customer_creator_and_storer(["a", "b"])
-    end
-  end
 
   def test_inspect_returns_correct_string
-    assert_equal "CustomerRepository 4 rows", @customers.inspect
+    assert_equal "#<CustomerRepository 4 rows>", @customers.inspect
   end
 end
