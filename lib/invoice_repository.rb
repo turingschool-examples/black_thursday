@@ -1,6 +1,7 @@
 require 'csv'
 require_relative '../lib/invoice'
 require_relative '../lib/csv_parser'
+require 'pry'
 
 class InvoiceRepository
 
@@ -22,6 +23,14 @@ class InvoiceRepository
   def all
     @invoices
   end
+
+  def items(merchant_id)
+    se.items.find_all_by_merchant_id(merchant_id)
+  end
+
+  # def transactions(invoice_id)
+  #   se.transactions.find_all_by_invoice_id(invoice_id)
+  # end
 
   def find_by_id(id)
     @invoices.find do |id_num|
@@ -51,7 +60,6 @@ class InvoiceRepository
     se.merchant_by_invoice_id(id)
   end
 
-  #BI
   def grab_array_of_invoices # NEEDS TESTS || Returns array of invoice count per merchant
     merchants.map { |merchant| merchant.invoices.count }
   end
