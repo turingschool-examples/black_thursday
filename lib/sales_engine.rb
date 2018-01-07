@@ -3,6 +3,7 @@ require_relative '../lib/merchant_repository'
 require_relative '../lib/invoice_repository'
 require_relative '../lib/invoice_item_repository'
 require_relative '../lib/customer_repository'
+require_relative '../lib/transaction_repository'
 require 'pry'
 
 
@@ -12,7 +13,8 @@ class SalesEngine
               :merchants,
               :invoices,
               :invoice_items,
-              :customers
+              :customers,
+              :transactions
 
   def initialize(csv_files)
     csv_files      = merge_in_given_csvs(csv_files)
@@ -21,6 +23,7 @@ class SalesEngine
     @merchants     = MerchantRepository.new(csv_files[:merchants], self)
     @invoice_items = InvoiceItemRepository.new(csv_files[:invoice_items], self)
     @customers     = CustomerRepository.new(csv_files[:customers], self)
+    @transactions  = TransactionRepository.new(csv_files[:transactions], self)
   end
 
   def merge_in_given_csvs(given_csvs)
@@ -28,9 +31,14 @@ class SalesEngine
   end
 
   def default_csvs
-    { items: './data/items_blank.csv',
-      merchants: './data/merchants_blank.csv',
-      invoices: './data/invoices_blank.csv' }
+    {
+      items: './data/blanks/items_blank.csv',
+      merchants: './data/blanks/merchants_blank.csv',
+      invoices: './data/blanks/invoices_blank.csv',
+      invoice_items: './data/blanks/invoice_items_blank.csv',
+      customers: './data/blanks/customers_blank.csv',
+      transactions: './data/blanks/transactions_blank.csv'
+    }
   end
 
   def self.from_csv(csv_files)

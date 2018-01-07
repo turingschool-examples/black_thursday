@@ -20,13 +20,13 @@ class TransactionRepositoryTest < Minitest::Test
     transaction = TransactionRepository.new("./test/fixtures/transactions_sample.csv", "se")
     found_id = transaction.find_by_id(4)
 
-    assert_equal "4048033451067370", found_id.credit_card_number
-    assert_equal "4126", found_id.invoice_id
+    assert_equal 4048033451067370, found_id.credit_card_number
+    assert_equal 4126, found_id.invoice_id
   end
 
   def test_it_finds_all_by_invoice_id
     transaction = TransactionRepository.new("./test/fixtures/transactions_sample.csv", "se")
-    found_id = transaction.find_all_by_invoice_id("2179")
+    found_id = transaction.find_all_by_invoice_id(2179)
 
     assert_equal 2, found_id.count
     refute_equal 1, found_id.count
@@ -34,7 +34,7 @@ class TransactionRepositoryTest < Minitest::Test
 
   def test_it_finds_all_by_card_number
     transaction = TransactionRepository.new("./test/fixtures/transactions_sample.csv", "se")
-    found_id = transaction.find_all_by_credit_card_number("4068631943231473")
+    found_id = transaction.find_all_by_credit_card_number(4068631943231473)
 
     assert_equal 2, found_id.count
     refute_equal 1, found_id.count

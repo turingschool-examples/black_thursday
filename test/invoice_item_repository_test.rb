@@ -44,7 +44,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   def test_it_returns_all_invoice_items_by_invoice_id
     invoice_items = ir.find_all_by_invoice_id(1)
 
-    assert invoice_items.all? { |ii| ii.class == InvoiceItems }
+    assert invoice_items.all? { |ii| ii.class == InvoiceItem }
     assert invoice_items.all? { |ii| ii.invoice_id == 1 }
   end
 

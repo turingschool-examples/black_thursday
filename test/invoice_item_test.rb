@@ -14,8 +14,8 @@ class InvoiceItemTest < Minitest::Test
       :invoice_id => 8,
       :quantity => 1,
       :unit_price => 10.99,
-      :created_at => Time.parse("2018-01-07 09:22:04 -0700"),
-      :updated_at => Time.parse("2015-02-18 09:22:04 -0700")
+      :created_at => "2018-01-07 09:22:04 -0700",
+      :updated_at => "2015-02-18 09:22:04 -0700"
     })
   end
 
@@ -40,7 +40,7 @@ class InvoiceItemTest < Minitest::Test
   end
 
   def test_it_has_unit_price
-    assert_equal BigDecimal.new(10.99, 4), invoice_item.unit_price
+    assert_equal BigDecimal.new(10.99, 4) / 100, invoice_item.unit_price
   end
 
   def test_it_has_created_at

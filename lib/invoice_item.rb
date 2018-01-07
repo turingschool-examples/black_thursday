@@ -1,5 +1,6 @@
 require 'bigdecimal'
 require 'time'
+require 'pry'
 
 class InvoiceItem
 
@@ -36,7 +37,7 @@ class InvoiceItem
   end
 
   def unit_price_to_dollars
-    (unit_price.to_f).round(2)
+    (unit_price.to_f * 100).round(2)
   end
 
 
