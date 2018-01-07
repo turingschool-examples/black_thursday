@@ -20,8 +20,9 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 1.64, @sa.average_items_per_merchant
   end
 
-  def test_it_finds_the_total_number_of_items
-    assert_equal 18, @sa.total_items
+  def test_it_finds_all_the_items
+    items = @sa.items
+    assert_equal 18, items.count
   end
 
   def test_it_finds_the_average_items_per_merchant_standard_deviation
@@ -39,7 +40,7 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_it_finds_average_average_price_per_merchant
-    assert_equal BigDecimal.new(0.31245151515151515151515151515181818181818181818e2), @sa.average_average_price_per_merchant
+    assert_equal 0.31245151515151515151515151515181818181818181818e2, @sa.average_average_price_per_merchant
   end
 
   def test_it_finds_golden_items
