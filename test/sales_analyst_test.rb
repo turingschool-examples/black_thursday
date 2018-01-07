@@ -46,7 +46,7 @@ class SalesAnalystTest < Minitest::Test
 
   #Invoices BI Tests
   def test_it_returns_average_invoices_per_merchant
-    assert_equal 1.43, sales_analyst.average_invoices_per_merchant
+    assert_equal 1.71, sales_analyst.average_invoices_per_merchant
     refute_equal 2.00, sales_analyst.average_invoices_per_merchant
   end
 

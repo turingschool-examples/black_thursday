@@ -2,6 +2,7 @@ require 'csv'
 require 'time'
 require_relative '../lib/item'
 require_relative '../lib/csv_parser'
+require 'pry'
 
 
 class ItemRepository

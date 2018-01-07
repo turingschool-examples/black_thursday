@@ -31,11 +31,16 @@ class Invoice
     })
   end
 
+  def items
+    invoice_repo.items(@merchant_id)
+  end
+
+  def transactions
+    invoice_repo.transactions(@id)
+  end
+
   def merchant
     invoice_repo.find_merchant_by_invoice(merchant_id)
   end
-
-
-
 
 end

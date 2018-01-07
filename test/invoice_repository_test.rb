@@ -1,7 +1,13 @@
 require_relative 'test_helper'
 require_relative '../lib/invoice_repository'
+require_relative '../lib/sales_engine'
 
 class InvoiceRepositoryTest < Minitest::Test
+
+  def setup
+
+    @invoice = InvoiceRepository.new("./test/fixtures/invoices_sample.csv", "se")
+  end
 
   def test_it_exists
     invoice = InvoiceRepository.new("./test/fixtures/invoices_sample.csv", "se")
@@ -38,7 +44,7 @@ class InvoiceRepositoryTest < Minitest::Test
     invoices = InvoiceRepository.new("./test/fixtures/invoices_sample.csv", "se")
     invoice_ticket = invoices.all
 
-    assert_equal 10, invoice_ticket.count
+    assert_equal 12, invoice_ticket.count
   end
 
 end
