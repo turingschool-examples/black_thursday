@@ -10,7 +10,8 @@ class SalesEngine
               :items,
               :invoices,
               :invoice_items,
-              :customers
+              :customers,
+              :transactions
 
   def self.from_csv(directory)
     SalesEngine.new(directory)
@@ -22,6 +23,7 @@ class SalesEngine
     @invoices      = InvoiceRepo.new(self, directory[:invoices])
     @invoice_items = InvoiceItemRepo.new(self, directory[:invoice_items])
     @customers     = CustomerRepo.new(self, directory[:customers])
+    @transactions  = TransactionRepo.new(self, directory[:transactions])
   end
 
   def find_items_by_merchant_id(merchant_id)
