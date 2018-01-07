@@ -31,23 +31,23 @@ class SalesEngine
     new(csv_files)
   end
 
-  def find_item_by_merchant_id(id) # NEEDS TESTS || RETURNS ITEM IF MERCHANT ID == ID
+  def find_item_by_merchant_id(id)
     items.find_item(id)
   end
 
-  def find_merchant_by_id(id) # NEEDS TESTS || RETURNS MERCHNAT IF MERCHANT ID == ID
+  def find_merchant_by_id(id)
     merchants.find_by_id(id)
   end
 
-  def grab_array_of_merchant_items # NEEDS TESTS || Returns array of items per merchant
+  def grab_array_of_merchant_items
     merchants.grab_array_of_items
   end
 
-  def grab_all_merchants # PRIVATE
+  def grab_all_merchants 
     merchants.all
   end
 
-  def grab_all_items # PRIVATE
+  def grab_all_items
     items.all
   end
 
