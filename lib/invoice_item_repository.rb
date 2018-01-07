@@ -14,6 +14,10 @@ class InvoiceItemRepository
     parser(csv_file).each { |row| @invoice_items << InvoiceItem.creator(row, self)}
   end
 
+  def inspect
+    "#<#{self.class} #{@invoice_items.size} rows>"
+  end
+
   def all
     invoice_items
   end
