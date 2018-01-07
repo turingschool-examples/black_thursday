@@ -11,8 +11,7 @@ class CustomerRepository
     customer_creator_and_storer(path)
   end
 
-  def customer_creator_and_storer
-    argument_raiser(path, String)
+  def customer_creator_and_storer(path)
     csv_opener(path).each do |customer|
       new_customer = Customer.new(customer, self)
       @customers[new_customer.id] = new_customer
@@ -20,7 +19,6 @@ class CustomerRepository
   end
 
   def csv_opener(path = "./data/customers.csv")
-    argument_raiser(path, String)
     CSV.open path, headers: true, header_converters: :symbol
   end
 
@@ -29,19 +27,16 @@ class CustomerRepository
   end
 
   def find_by_id(id)
-    argument_raiser(id)
     @customers[id]
   end
 
   def find_all_by_first_name(first_name)
-    argument_raiser(first_name, String)
     all.select do |customer|
       customer.first_name == first_name
     end
   end
 
   def find_all_by_last_name(last_name)
-    argument_raiser
     all.select do |customer|
       customer.last_name == last_name
     end
@@ -54,5 +49,6 @@ class CustomerRepository
   end
 
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{@customers.size} rows>"
   end
+end
