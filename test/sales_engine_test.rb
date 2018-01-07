@@ -1,6 +1,5 @@
 require_relative 'test_helper'
 require_relative '../lib/sales_engine'
-
 class SalesEngineTest < Minitest::Test
   def setup
     @se = SalesEngine.from_csv({
@@ -10,15 +9,15 @@ class SalesEngineTest < Minitest::Test
     })
   end
 
-  def test_creates_instance_of_item_repository
+  def test_it_creates_instance_of_item_repository
     assert_instance_of ItemRepository, @se.items
   end
 
-  def test_creates_instance_of_merchant_repository
+  def test_it_creates_instance_of_merchant_repository
     assert_instance_of MerchantRepository, @se.merchants
   end
 
-  def test_creates_instance_of_invoice_repository
+  def test_it_creates_instance_of_invoice_repository
     assert_instance_of InvoiceRepository, @se.invoices
   end
 
@@ -41,7 +40,7 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of Merchant, result
   end
 
-  def test_finds_invoices_by_merchant_id_returns_invoices_with_matching_id
+  def test_it_finds_invoices_by_merchant_id_returns_invoices_with_matching_id
     merchant = @se.merchants.find_by_id(12335938)
     invoices = merchant.invoices
 
@@ -52,7 +51,7 @@ class SalesEngineTest < Minitest::Test
     assert value
   end
 
-  def test_finds_merchant_by_invoice_id_returns_merchant_with_matching_id
+  def test_it_finds_merchant_by_invoice_id_returns_merchant_with_matching_id
     invoice = @se.invoices.find_by_id(12)
     merchant = invoice.merchant
 
@@ -62,5 +61,4 @@ class SalesEngineTest < Minitest::Test
 
     assert value
   end
-
 end

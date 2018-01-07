@@ -1,11 +1,10 @@
 require_relative 'test_helper'
 require_relative '../lib/invoice_repository'
-
 class InvoiceRepositoryTest < Minitest::Test
-
   def setup
+    parent = mock("SalesEngine")
     file_path = './test/fixtures/invoices_truncated.csv'
-    @ir = InvoiceRepository.new(file_path)
+    @ir = InvoiceRepository.new(file_path, parent)
   end
 
   def test_all_returns_array_of_invoice_instances
@@ -69,7 +68,4 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_find_all_by_status_returns_empty_array_if_no_matching_status
     assert_equal [], @ir.find_all_by_status("shiped")
   end
-
 end
-
-# require 'pry'; binding.pry

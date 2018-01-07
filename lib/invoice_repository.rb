@@ -1,8 +1,6 @@
 require_relative 'invoice'
 require 'csv'
-
 class InvoiceRepository
-
   def initialize(file_path, parent)
     @invoices = []
     @sales_engine = parent
@@ -47,5 +45,4 @@ class InvoiceRepository
   def find_merchant(merchant_id)
     @sales_engine.find_merchant_by_merchant_id(merchant_id)
   end
-
 end

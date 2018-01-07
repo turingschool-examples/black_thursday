@@ -15,5 +15,4 @@ class Merchant
   def invoices
     @merchant_repository.find_invoices_by_id(@id)
   end
-
 end

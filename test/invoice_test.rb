@@ -1,8 +1,6 @@
 require_relative 'test_helper'
 require_relative '../lib/invoice'
-
 class InvoiceTest < Minitest::Test
-
   def setup
     parent = mock("ItemRepository")
     @invoice = Invoice.new({id: 1,
@@ -40,5 +38,4 @@ class InvoiceTest < Minitest::Test
   def test_it_has_an_updated_at
     assert_equal Time.now.inspect, @invoice.updated_at.inspect
   end
-
 end

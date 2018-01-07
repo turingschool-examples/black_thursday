@@ -1,5 +1,4 @@
 class Invoice
-
   attr_reader :id,
               :customer_id,
               :merchant_id,
@@ -20,5 +19,4 @@ class Invoice
   def merchant
     @invoice_repository.find_merchant(@merchant_id)
   end
-
 end
