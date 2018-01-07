@@ -24,16 +24,18 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
+    average = average_items_per_merchant
     variance = items_per_merchant.map do |number_of_items|
-      ((average_items_per_merchant - number_of_items)) ** 2
+      ((average - number_of_items)) ** 2
     end.sum / (items_per_merchant.count - 1)
     Math.sqrt(variance).round(2)
   end
 
   def merchants_with_high_item_count
     stdev = average_items_per_merchant_standard_deviation
+    limit = average_items_per_merchant + stdev
     sales_engine.get_all_merchant_items.map do |merchant, items|
-      merchant if items.count > average_items_per_merchant + stdev
+      merchant if items.count > limit
     end.compact
   end
 
@@ -59,8 +61,9 @@ class SalesAnalyst
   end
 
   def item_prices_standard_deviation
+    average = average_item_price
     variance = all_item_prices.map do |item_price|
-      ((average_item_price - item_price).abs) ** 2
+      ((average - item_price).abs) ** 2
     end.sum / (all_item_prices.count - 1)
     Math.sqrt(variance)
   end
@@ -90,8 +93,9 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant_standard_deviation
+    average = average_invoices_per_merchant
     variance = invoice_count_per_merchant.values.map do |invoice_count|
-      ((average_invoices_per_merchant - invoice_count).abs) ** 2
+      ((average - invoice_count).abs) ** 2
     end.sum / (invoice_count_per_merchant.count - 1)
     Math.sqrt(variance).round(2)
   end
@@ -130,8 +134,9 @@ class SalesAnalyst
   end
 
   def average_invoices_per_day_standard_deviation
+    average = average_invoice_counts_per_day
     variance = invoice_counts_per_weekday.values.map do |invoice_count|
-      (average_invoice_counts_per_day - invoice_count) ** 2
+      (average - invoice_count) ** 2
     end.sum / (invoice_counts_per_weekday.count - 1)
     Math.sqrt(variance).round(2)
   end
