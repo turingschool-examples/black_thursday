@@ -4,7 +4,7 @@ require_relative '../lib/item_repository'
 class ItemRepositoryTest < MiniTest::Test
   def setup
     file_path = './test/fixtures/items_truncated.csv'
-    @ir = ItemRepository.from_csv(file_path, mock('SalesEngine'))
+    @ir = ItemRepository.new(file_path, mock('SalesEngine'))
   end
 
   def test_all_returns_an_array_of_item_instances
