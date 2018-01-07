@@ -23,6 +23,12 @@ class Merchant
     @parent.find_invoice_by_merchant_id(@id)
   end
 
+  def customers
+    @parent.find_all_customers_by_merchant_id(@id).map do |invoice|
+      invoice.customer
+    end
+  end
+
   def downcaser
     @name.downcase
   end

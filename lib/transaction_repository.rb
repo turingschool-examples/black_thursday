@@ -52,6 +52,10 @@ class TransactionRepository
     end
   end
 
+  def find_invoice_by_invoice_id(invoice_id)
+    @parent.find_invoice_by_invoice_id(invoice_id)
+  end
+
   def argument_raiser(data_type, desired_class = Integer)
     if data_type.class != desired_class
       raise ArgumentError

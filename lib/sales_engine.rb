@@ -44,6 +44,14 @@ class SalesEngine
     @invoices.all
   end
 
+  def self.transactions
+    @transactions
+  end
+
+  def self.customers
+    @customers
+  end
+
   def self.assign_item_count(id, num)
     @merchants.assign_item_count(id, num)
   end
@@ -72,4 +80,15 @@ class SalesEngine
     @customers.find_by_id(id)
   end
 
+  def self.find_invoice_by_invoice_id(invoice_id)
+    @invoices.find_by_id(invoice_id)
+  end
+
+  def self.find_all_customers_by_merchant_id(id)
+    @merchants.find_invoice_by_merchant_id(id)
+  end
+
+  def self.find_all_merchants_by_customer_id(id)
+    @invoices.find_all_by_customer_id(id)
+  end
 end
