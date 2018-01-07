@@ -22,4 +22,8 @@ class Merchant
     merchant_repo.find_item(id)
   end
 
+  def invoices
+    merchant_repo.find_invoice(id)
+  end 
+
 end

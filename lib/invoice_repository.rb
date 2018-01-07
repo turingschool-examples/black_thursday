@@ -47,4 +47,13 @@ class InvoiceRepository
     end
   end
 
+  def find_merchant_by_invoice(id)
+    se.merchant_by_invoice_id(id)
+  end
+
+  #BI
+  def grab_array_of_invoices # NEEDS TESTS || Returns array of invoice count per merchant
+    merchants.map { |merchant| merchant.invoices.count }
+  end
+
 end

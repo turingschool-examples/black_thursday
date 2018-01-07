@@ -18,6 +18,7 @@ class Invoice
     @invoice_repo = invoice[:invoice_repo]
   end
 
+
   def self.creator(row, parent)
     new({
       id: row[:id],
@@ -29,5 +30,12 @@ class Invoice
       invoice_repo: parent
     })
   end
+
+  def merchant
+    invoice_repo.find_merchant_by_invoice(merchant_id)
+  end
+
+
+
 
 end
