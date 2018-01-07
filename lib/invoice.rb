@@ -36,14 +36,18 @@ class Invoice
   end
 
   def is_paid_in_full?
-    @parent.is_paid_in_full?(@id).all? do |transaction|
-       transaction.result == "success"
+    if @parent.is_paid_in_full?(@id).empty?
+      return false
+    else
+      @parent.is_paid_in_full?(@id).all? do |transaction|
+        transaction.result == "success"
+      end
     end
   end
 
   def total
     @parent.total(@id).reduce(0) do |sum, invoice_item|
-      sum += invoice_item.unit_price_to_dollars
+      sum += invoice_item.unit_price * invoice_item.quantity
     end
   end
 
