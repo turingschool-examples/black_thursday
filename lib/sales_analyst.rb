@@ -25,7 +25,7 @@ class SalesAnalyst
 
   def average_items_per_merchant_standard_deviation
     variance = items_per_merchant.map do |number_of_items|
-      ((average_items_per_merchant - number_of_items).abs) ** 2
+      ((average_items_per_merchant - number_of_items)) ** 2
     end.sum / (items_per_merchant.count - 1)
     Math.sqrt(variance).round(2)
   end
@@ -81,7 +81,7 @@ class SalesAnalyst
   def invoice_count_per_merchant
     merchants_invoices = sales_engine.get_all_merchant_invoices
     merchants_invoices.transform_values do |invoices|
-      BigDecimal(invoices.count, 4)
+      invoices.count.to_f
     end
   end
 
@@ -152,7 +152,7 @@ class SalesAnalyst
   def invoice_status(status)
     all_invoices = sales_engine.invoices.all
     invoices_by_status = all_invoices.select do |invoice|
-      invoice.status == status
+      invoice.status == status.to_sym
     end
     status_ratio = ((all_invoices.count - invoices_by_status.count) / all_invoices.count.to_f)
     ((1 - status_ratio) * 100).round(2)

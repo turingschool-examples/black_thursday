@@ -23,7 +23,7 @@ class ItemRepository
   end
 
   def call_sales_engine_merchants(merchant_id)
-    parent.merchant_id_search(merchant_id)
+    parent.get_merchant(merchant_id)
   end
 
   def find_by_id(id)

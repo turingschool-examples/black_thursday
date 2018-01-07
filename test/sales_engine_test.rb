@@ -11,7 +11,7 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of SalesEngine, se
   end
 
-  def test_sales_engine_instaniates_merchant_repository
+  def test_sales_engine_instantiates_merchant_repository
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
                                 items: "./test/fixtures/merchants_fixture.csv",
                                 invoices: "./test/fixtures/invoices_fixture.csv"})
@@ -19,12 +19,20 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of MerchantRepository, se.merchants
   end
 
-  def test_sales_engine_instaniates_merchant_repository
+  def test_sales_engine_instantiates_item_repository
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
                                 items: "./test/fixtures/merchants_fixture.csv",
                                 invoices: "./test/fixtures/invoices_fixture.csv"})
 
     assert_instance_of ItemRepository, se.items
+  end
+
+  def test_sales_engine_instantiates_invoice_repository
+    se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                items: "./test/fixtures/merchants_fixture.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv"})
+
+    assert_instance_of InvoiceRepository, se.invoices
   end
 
   def test_merchant_repository_has_merchants
@@ -132,7 +140,7 @@ class SalesEngineTest < Minitest::Test
     assert_equal [263395237, 263395617], item_ids
   end
 
-  def test_get_invoices_returns_invoices_specific_to_merchant
+  def test_find_by_merchant_id_invoices_specific_to_merchant
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
                                 items: "./test/fixtures/items_fixture.csv",
                                 invoices: "./test/fixtures/invoices_fixture.csv" })
@@ -152,7 +160,7 @@ class SalesEngineTest < Minitest::Test
     assert_equal 1, invoice_2.invoices.first.id
   end
 
-  def test_get_invoices_returns_invoices_specific_to_merchant
+  def test_find_by_invoice_id_returns_merchant_id
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
                                 items: "./test/fixtures/items_fixture.csv",
                                 invoices: "./test/fixtures/invoices_fixture.csv" })
