@@ -62,6 +62,10 @@ class MerchantRepository
     @parent.find_invoice_by_merchant_id(id)
   end
 
+  def find_all_customers_by_merchant_id(id)
+    @parent.find_all_customers_by_merchant_id(id)
+  end
+
   def argument_raiser(data_type, desired_class = Integer)
     if data_type.class != desired_class
       raise ArgumentError

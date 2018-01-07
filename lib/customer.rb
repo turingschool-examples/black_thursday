@@ -13,4 +13,10 @@ class Customer
     @updated_at = Time.strptime(info[:updated_at],"%Y-%m-%d %H:%M:%S %Z")
     @parent = customer_repository
   end
+
+  def merchants
+    @parent.find_all_merchants_by_customer_id(@id).map do |invoice|
+      invoice.merchant
+    end
+  end
 end

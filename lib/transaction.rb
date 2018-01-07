@@ -19,4 +19,8 @@ class Transaction
     @updated_at = Time.strptime(info[:updated_at],"%Y-%m-%d %H:%M:%S %Z")
     @parent = transaction_repository
   end
+
+  def invoice
+    @parent.find_invoice_by_invoice_id(@invoice_id)
+  end
 end
