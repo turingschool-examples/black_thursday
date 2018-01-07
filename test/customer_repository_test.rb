@@ -37,9 +37,11 @@ class CustomerRepositoryTest < MiniTest::Test
     assert_equal "Quigley", @customers.find_all_by_last_name("Quigley").first.last_name
   end
 
+
   def test_find_all_by_last_name_returns_empty_array_when_none_found
     assert_equal [], @customers.find_all_by_last_name("Potter")
   end
+
 
   def test_inspect_returns_correct_string
     assert_equal "#<CustomerRepository 4 rows>", @customers.inspect
