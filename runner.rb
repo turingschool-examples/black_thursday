@@ -10,6 +10,6 @@ se = SalesEngine.from_csv({
   :customers => "./data/customers.csv"
 })
 
-customer = se.customers.find_by_id(30)
+invoice = se.invoices.find_by_id(15)
 
-p customer.merchants[0].class
+p invoice.total

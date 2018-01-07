@@ -34,4 +34,16 @@ class Invoice
   def customer
     @parent.customer(@customer_id)
   end
+
+  def is_paid_in_full?
+    @parent.is_paid_in_full?(@id).all? do |transaction|
+       transaction.result == "success"
+    end
+  end
+
+  def total
+    @parent.total(@id).reduce(0) do |sum, invoice_item|
+      sum += invoice_item.unit_price_to_dollars
+    end
+  end
 end
