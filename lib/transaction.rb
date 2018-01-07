@@ -6,16 +6,18 @@ class Transaction
               :credit_card_expiration_date,
               :result,
               :created_at,
-              :updated_at
+              :updated_at,
+              :parent
 
-  def initialize(data)
-    @id = data[:id]
-    @invoice_id = data[:invoice_id]
-    @credit_card_number = data[:credit_card_number]
+  def initialize(data, parent = "unknown")
+    @id = data[:id].to_i
+    @invoice_id = data[:invoice_id].to_i
+    @credit_card_number = data[:credit_card_number].to_i
     @credit_card_expiration_date = data[:credit_card_expiration_date]
     @result = data[:result]
     @created_at = Time.parse(data[:created_at].to_s)
     @updated_at = Time.parse(data[:updated_at].to_s)
+    @parent = parent
   end
 
 end
