@@ -20,4 +20,8 @@ class TransactionTest < MiniTest::Test
     assert_instance_of Transaction, @transaction
   end
 
+  def test_credit_card_number_returns
+    assert_equal "4763150000000000", @transaction.credit_card_number
+  end
+
 end
