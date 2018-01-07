@@ -24,4 +24,8 @@ class InvoiceItem
   def unit_price_to_dollars
     @unit_price.to_f
   end
+
+  def items
+    @parent.items_by_invoice_item_id(@id)
+  end
 end
