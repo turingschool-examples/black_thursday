@@ -16,8 +16,8 @@ class InvoiceItem
     @invoice_id = info[:invoice_id].to_i
     @quantity   = info[:quantity].to_i
     @unit_price = BigDecimal.new((info[:unit_price].to_i)/100.0, 4)
-    @created_at = Time.strptime(info[:created_at],"%Y-%m-%d %H:%M:%S %Z")
-    @updated_at = Time.strptime(info[:updated_at],"%Y-%m-%d %H:%M:%S %Z")
+    @created_at = Time.strptime(info[:created_at],"%Y-%m-%d")
+    @updated_at = Time.strptime(info[:updated_at],"%Y-%m-%d")
     @parent     = invoice_item_repository
   end
 
