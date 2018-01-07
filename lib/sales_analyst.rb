@@ -36,8 +36,9 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant_standard_deviation
+    mean = invoice_mean
     variance = number_of_invoices_per_merchant.reduce(0) do |var, invoice|
-      var + (invoice) ** 2
+      var + (invoice - mean) ** 2
     end
     (Math.sqrt(variance/(se.grab_all_invoices.count - 1))).round(2)
   end
@@ -50,7 +51,7 @@ class SalesAnalyst
 
   def invoice_mean
     array = se.grab_array_of_merchant_invoices
-    array.inject(0) { |sum, x| sum += x } / array.size.to_f
+    (array.inject(0) { |sum, x| sum += x } / array.size.to_f).round(2)
   end
 
   def item_price_standard_deviation # NEEDS TEST
@@ -95,30 +96,5 @@ class SalesAnalyst
       end
     end
   end
-
-  #Creating Business Intelligence methods for Invoices
-  def average_invoices_per_merchant
-    (se.grab_all_invoices.count / se.grab_all_merchants.count.to_f).round(2)
-  end
-
-  def number_of_invoices_per_merchant
-    se.grab_array_of_merchant_invoices
-  end
-
-  def average_invoices_per_merchant_standard_deviation
-    mean     = average_invoices_per_merchant
-    variance = number_of_invoices_per_merchant.reduce(0) do |var, invoices|
-      var + (invoices - mean) ** 2
-    end
-    (Math.sqrt(variance/(se.grab_all_invoices.count - 1))).round(2)
-  end
-
-  # def invoice_status(status)
-  #   var ={}
-  #   se.grab_all_invoices.map do |invoice|
-  #     var[invoice.status] =
-  # end
-
-
 
 end
