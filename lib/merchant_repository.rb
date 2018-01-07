@@ -17,7 +17,7 @@ class MerchantRepository
         })
     end
   end
-    
+
 
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
@@ -52,5 +52,9 @@ class MerchantRepository
   def grab_array_of_items # NEEDS TESTS || Returns array of items per merchant
     merchants.map { |merchant| merchant.items.count }
   end
+
+  def find_invoice(id)
+    se.invoice_by_merchant_id(id)
+  end 
 
 end
