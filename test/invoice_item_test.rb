@@ -3,7 +3,7 @@ require './lib/invoice_item'
 
 class InvoiceItemTest < Minitest::Test
   def setup
-    @ii = InvoiceItem.new({
+    @invoice_items = InvoiceItem.new({
       :id => 6,
       :item_id => 7,
       :invoice_id => 8,
@@ -15,37 +15,37 @@ class InvoiceItemTest < Minitest::Test
   end
 
   def test_it_returns_id
-    assert_equal 6, @ii.id
+    assert_equal 6, @invoice_items.id
   end
 
   def test_it_returns_item_id
-    assert_equal 7, @ii.item_id
+    assert_equal 7, @invoice_items.item_id
   end
 
   def test_it_returns_invoice_id
-    assert_equal 8, @ii.invoice_id
+    assert_equal 8, @invoice_items.invoice_id
   end
 
   def test_it_returns_quantity
-    assert_equal 1, @ii.quantity
+    assert_equal 1, @invoice_items.quantity
   end
 
   def test_it_returns_unit_price
-    assert_instance_of BigDecimal, @ii.unit_price
-    assert_equal 0.1099e2, @ii.unit_price
+    assert_instance_of BigDecimal, @invoice_items.unit_price
+    assert_equal 0.1099e2, @invoice_items.unit_price
   end
 
   def test_it_returns_created_at
-    assert_instance_of Time, @ii.created_at
-    assert_equal "2012-03-27 14:54:44 UTC", @ii.created_at.to_s
+    assert_instance_of Time, @invoice_items.created_at
+    assert_equal "2012-03-27 14:54:44 UTC", @invoice_items.created_at.to_s
   end
 
   def test_it_returns_updated_at
-    assert_instance_of Time, @ii.updated_at
-    assert_equal "2012-03-27 14:54:44 UTC", @ii.updated_at.to_s
+    assert_instance_of Time, @invoice_items.updated_at
+    assert_equal "2012-03-27 14:54:44 UTC", @invoice_items.updated_at.to_s
   end
 
   def test_it_returns_unit_price_to_dollars
-    assert_equal 10.99, @ii.unit_price_to_dollars
+    assert_equal 10.99, @invoice_items.unit_price_to_dollars
   end
 end
