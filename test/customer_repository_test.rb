@@ -45,4 +45,11 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal 2, found_id.count
   end
 
+  def test_it_returns_items_by_last_name
+    cr = CustomerRepository.new("./test/fixtures/customers_sample.csv", "se")
+    customers = cr.find_all_by_last_name("Toy")
+
+    assert customers.all? { |customer| customer.class == Customer }
+  end
+
 end
