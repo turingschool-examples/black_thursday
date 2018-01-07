@@ -21,7 +21,7 @@ class MerchantTest < Minitest::Test
     item_3 = stub(:unit_price => 9.99)
     m.stubs(:items).returns([item_1, item_2, item_3])
 
-    assert_equal 16.656666666666666, m.average_item_price
+    assert_equal BigDecimal.new((0.16656666666666666e2).to_s), m.average_item_price
   end
 
   def test_it_calls_merchant_repository_to_return_array_of_all_items

@@ -22,7 +22,7 @@ class Merchant
     sum = items.reduce(0) do |total, item|
       total + item.unit_price
     end
-    BigDecimal.new(sum / item_count)
+    BigDecimal.new((sum / item_count).to_s)
   end
 
 end
