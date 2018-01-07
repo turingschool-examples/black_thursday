@@ -26,4 +26,12 @@ class Invoice
   def items
     @parent.invoice_items(@id)
   end
+
+  def transactions
+    @parent.transactions(@id)
+  end
+
+  def customer
+    @parent.customer(@customer_id)
+  end
 end

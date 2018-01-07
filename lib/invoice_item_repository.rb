@@ -44,6 +44,11 @@ class InvoiceItemRepository
     end
   end
 
+  # def transactions
+  #
+  #   @parent.transac
+  # end
+
   def argument_raiser(data_type, desired_class = Integer)
     if data_type.class != desired_class
       raise ArgumentError
