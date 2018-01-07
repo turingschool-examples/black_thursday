@@ -20,6 +20,10 @@ class SalesAnalyst
     (sum / length.to_f)
   end
 
+  def sqrt(squares)
+    squares ** 0.5
+  end
+
   def item_count_array_maker
     @sales_engine.all_merchants.map do |merchant|
       item_counter(merchant.id)
@@ -90,7 +94,7 @@ class SalesAnalyst
     square = @sales_engine.all_items.map do |item|
       (item.unit_price - mean) ** 2
     end.sum
-    ((square/(@sales_engine.items.items.length-1)) ** (0.5)).floor(2)
+    ((square/(@sales_engine.all_items.length-1)) ** (0.5)).floor(2)
   end
 
   def golden_items
@@ -141,8 +145,14 @@ class SalesAnalyst
     end
   end
 
+  def bottom_merchants_by_invoice_baseline
+    mean = average_invoices_per_merchant
+    double_deviation = average_invoices_per_merchant_standard_deviation*2
+    mean - double_deviation
+  end
+
   def bottom_merchants_by_invoice_count
-    base_line = average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation*2)
+    base_line = bottom_merchants_by_invoice_baseline
     @sales_engine.all_merchants.select do |merchant|
       merchant.invoices.count < base_line
     end
