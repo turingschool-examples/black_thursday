@@ -31,11 +31,11 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_creates_at_a_time
-    assert_equal "2018-01-02 14:37:20 -0700", @item.created_at
+    assert_equal Time.parse("2018-01-02 14:37:20 -0700"), @item.created_at
   end
 
   def test_it_returns_time_updated_at
-    assert_equal "2018-01-02 14:37:25 -0700", @item.updated_at
+    assert_equal Time.parse("2018-01-02 14:37:25 -0700"), @item.updated_at
   end
 
   def test_it_returns_unit_price_to_dollars
