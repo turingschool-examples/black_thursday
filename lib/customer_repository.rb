@@ -12,7 +12,6 @@ class CustomerRepository
   end
 
   def customer_creator_and_storer(path)
-    # argument_raiser(path, String)
     csv_opener(path).each do |customer|
       new_customer = Customer.new(customer, self)
       @customers[new_customer.id] = new_customer
@@ -20,7 +19,6 @@ class CustomerRepository
   end
 
   def csv_opener(path = "./data/customers.csv")
-    # argument_raiser(path, String)
     CSV.open path, headers: true, header_converters: :symbol
   end
 
