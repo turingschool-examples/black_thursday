@@ -38,7 +38,9 @@ class TransactionRepository
   end
 
   def find_all_by_credit_card_number(credit_card_number)
-    credit_card_numbers = all.map {|transaction| transaction.credit_card_number}
+    credit_card_numbers = all.map do |transaction|
+      transaction.credit_card_number
+    end
     credit_card_numbers.select do |card_number|
       card_number.to_i == credit_card_number
     end
