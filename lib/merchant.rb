@@ -26,7 +26,7 @@ class Merchant
   def customers
     @parent.find_all_customers_by_merchant_id(@id).map do |invoice|
       invoice.customer
-    end
+    end.uniq
   end
 
   def downcaser

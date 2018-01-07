@@ -52,6 +52,10 @@ class SalesEngine
     @customers
   end
 
+  def self.invoice_items
+    @invoice_items
+  end
+
   def self.assign_item_count(id, num)
     @merchants.assign_item_count(id, num)
   end

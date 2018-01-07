@@ -65,7 +65,8 @@ class ItemRepository
 
   def find_all_by_merchant_id(merchant_id)
     argument_raiser(merchant_id)
-    all.select do |item| item.merchant_id == merchant_id
+    all.select do |item|
+      item.merchant_id == merchant_id
     end
   end
 
