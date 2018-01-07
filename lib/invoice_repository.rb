@@ -8,6 +8,7 @@ class InvoiceRepository
 
   def initialize(csv_file, se)
     @invoices = []
+    @se = se
     CSV.foreach csv_file, headers: true, header_converters: :symbol do |row|
       @invoices << Invoice.new({
         id: row[:id].to_i,
@@ -19,7 +20,6 @@ class InvoiceRepository
         invoice_repo: self
         })
       end
-    @se = se
   end
 
   def inspect
@@ -56,6 +56,11 @@ class InvoiceRepository
 
   def find_merchant_by_invoice(id)
     se.merchant_by_invoice_id(id)
+  end
+
+  #BI
+  def grab_array_of_invoices # NEEDS TESTS || Returns array of invoice count per merchant
+    merchants.map { |merchant| merchant.invoices.count }
   end
 
 end

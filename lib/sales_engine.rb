@@ -43,7 +43,7 @@ class SalesEngine
     merchants.grab_array_of_items
   end
 
-  def grab_all_merchants 
+  def grab_all_merchants
     merchants.all
   end
 
@@ -57,6 +57,15 @@ class SalesEngine
 
   def merchant_by_invoice_id(id)
     merchants.find_by_id(id)
+  end
+
+  # For Invoices BI
+  def grab_all_invoices
+    invoices.all
+  end
+
+  def grab_array_of_merchant_invoices
+    invoices.grab_array_of_invoices
   end
 
 end

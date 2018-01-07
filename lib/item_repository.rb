@@ -52,19 +52,19 @@ class ItemRepository
     end
   end
 
-  def find_all_by_price(price) # NEEDS TESTS!!
+  def find_all_by_price(price)
     @items.find_all do |item|
       item.unit_price == price
     end
   end
 
-  def find_all_by_price_in_range(range) # NEEDS TESTS!!
+  def find_all_by_price_in_range(range)
     @items.find_all do |item|
       item if range.include?(item.unit_price)
     end
   end
 
-  def find_all_by_merchant_id(merchant_id) # NEEDS TESTS!!
+  def find_all_by_merchant_id(merchant_id)
     @items.find_all do |item|
       item.merchant_id == merchant_id
     end
