@@ -15,9 +15,9 @@ class InvoiceItem
     @item_id    = info[:item_id].to_i
     @invoice_id = info[:invoice_id].to_i
     @quantity   = info[:quantity].to_i
-    @unit_price = BigDecimal.new((info[:unit_price].to_i)/100.0, 4)
-    @created_at = Time.strptime(info[:created_at],"%Y-%m-%d")
-    @updated_at = Time.strptime(info[:updated_at],"%Y-%m-%d")
+    @unit_price = BigDecimal.new((info[:unit_price].to_i)/100.0, 5)
+    @created_at = Time.strptime(info[:created_at],time_analyzer(info[:created_at]))
+    @updated_at = Time.strptime(info[:updated_at],time_analyzer(info[:updated_at]))
     @parent     = invoice_item_repository
   end
 
@@ -25,7 +25,22 @@ class InvoiceItem
     @unit_price.to_f
   end
 
-  def items
-    @parent.items_by_invoice_item_id(@id)
+  def time_analyzer(info)
+    if info.length > 10
+      "%Y-%m-%d %H:%M:%S %Z"
+    else
+      "%Y-%m-%d"
+    end
   end
+
 end
+
+
+# created_at = Time.strptime(
+#   case info[:created_at].length
+#   when info[:created_at].length > 10
+#     info[:created_at], "%Y-%m-%d %H:%M:%S %Z"
+#   else
+#     info[:created_at], "%Y-%m-%d"
+#   end
+# )

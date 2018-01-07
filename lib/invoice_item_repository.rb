@@ -44,10 +44,11 @@ class InvoiceItemRepository
     end
   end
 
-  # def transactions
-  #
-  #   @parent.transac
-  # end
+  def find_all_by_invoice_item_id(id)
+    all.select do |invoice_item|
+      invoice_item.id == id
+    end
+  end
 
   def argument_raiser(data_type, desired_class = Integer)
     if data_type.class != desired_class
