@@ -16,17 +16,24 @@ class SalesAnalyst
     @sales_engine = sales_engine
   end
 
-  def item_array_maker
+  def average(sum, length)
+    (sum / length.to_f)
+  end
+
+  def sqrt(squares)
+    squares ** 0.5
+  end
+
+  def item_count_array_maker
     @sales_engine.all_merchants.map do |merchant|
       item_counter(merchant.id)
     end
   end
 
   def average_items_per_merchant
-    long_number = item_array_maker.reduce(0) do |sum, number|
-      sum += number
-    end/item_array_maker.count.to_f
-    long_number.round(2)
+    sum = item_count_array_maker.sum
+    length = item_count_array_maker.count
+    average(sum, length).round(2)
   end
 
   def item_counter(id = 0)
@@ -37,10 +44,10 @@ class SalesAnalyst
 
   def average_items_per_merchant_standard_deviation
     mean = average_items_per_merchant
-    square = item_array_maker.map do |item|
+    square = item_count_array_maker.map do |item|
       (item-mean) ** 2
     end.sum
-    ((square/(item_array_maker.length-1)) ** (0.5)).round(2)
+    ((square/(item_count_array_maker.length-1)) ** (0.5)).round(2)
   end
 
   def mean_plus_standard_deviation
@@ -55,7 +62,9 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(id)
-    BigDecimal(merchant_items_sum(id) / @sales_engine.items.find_all_by_merchant_id(id).length).round(2)
+    sum = merchant_items_sum(id)
+    length = @sales_engine.items.find_all_by_merchant_id(id).length
+    average(sum, length).round(2)
   end
 
   def merchant_items_sum(id)
@@ -64,18 +73,20 @@ class SalesAnalyst
     end
   end
 
-  def average_price_per_merchant
+  def average_price_per_merchant_array_maker
     @sales_engine.all_merchants.map do |merchant|
       average_item_price_for_merchant(merchant.id)
     end
   end
 
   def average_price_per_merchant_sum
-    average_price_per_merchant.sum
+    average_price_per_merchant_array_maker.sum
   end
 
   def average_average_price_per_merchant
-    BigDecimal(average_price_per_merchant_sum / average_price_per_merchant.length).floor(2)
+    sum = average_price_per_merchant_sum
+    length = average_price_per_merchant_array_maker.count
+    average(sum, length).floor(2)
   end
 
   def price_standard_deviation
@@ -83,7 +94,7 @@ class SalesAnalyst
     square = @sales_engine.all_items.map do |item|
       (item.unit_price - mean) ** 2
     end.sum
-    ((square/(@sales_engine.items.items.length-1)) ** (0.5)).floor(2)
+    ((square/(@sales_engine.all_items.length-1)) ** (0.5)).floor(2)
   end
 
   def golden_items
@@ -108,7 +119,9 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
-    (count_invoices / count_merchants).round(2)
+    sum = count_invoices
+    length = count_merchants
+    average(sum, length).round(2)
   end
 
   def average_invoices_per_merchant_standard_deviation
@@ -119,15 +132,27 @@ class SalesAnalyst
     ((square/(invoice_array_maker.length-1)) ** (0.5)).round(2)
   end
 
+  def top_merchant_by_invoice_baseline
+    mean = average_invoices_per_merchant
+    double_deviation = average_invoices_per_merchant_standard_deviation*2
+    mean + double_deviation
+  end
+
   def top_merchants_by_invoice_count
-    base_line = average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation*2)
+    base_line = top_merchant_by_invoice_baseline
     @sales_engine.all_merchants.select do |merchant|
       merchant.invoices.count > base_line
     end
   end
 
+  def bottom_merchants_by_invoice_baseline
+    mean = average_invoices_per_merchant
+    double_deviation = average_invoices_per_merchant_standard_deviation*2
+    mean - double_deviation
+  end
+
   def bottom_merchants_by_invoice_count
-    base_line = average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation*2)
+    base_line = bottom_merchants_by_invoice_baseline
     @sales_engine.all_merchants.select do |merchant|
       merchant.invoices.count < base_line
     end
@@ -146,7 +171,9 @@ class SalesAnalyst
   end
 
   def created_at_day_mean
-    created_at_day_counter.values.reduce(:+) / (created_at_day_counter.values.length)
+    sum = created_at_day_counter.values.sum
+    length = created_at_day_counter.values.length
+    average(sum, length)
   end
 
   def created_at_standard_deviation
@@ -167,9 +194,13 @@ class SalesAnalyst
     end
   end
 
-  def invoice_status(status)
-    ((@sales_engine.all_invoices.select do |invoice|
+  def invoices_by_status(status)
+    @sales_engine.all_invoices.select do |invoice|
       invoice.status == status
-    end.length / count_invoices) * 100).round(2)
+    end
+  end
+
+  def invoice_status(status)
+    ((invoices_by_status(status).length / count_invoices) * 100).round(2)
   end
 end

@@ -9,10 +9,6 @@ class TransactionRepository
     transaction_creator_and_storer(path)
   end
 
-  def csv_opener(path = "./data/transactions.csv")
-    CSV.open path, headers: true, header_converters: :symbol
-  end
-
   def transaction_creator_and_storer(path)
     csv_opener(path).each do |transaction|
       new_transaction = Transaction.new(transaction, self)
@@ -20,17 +16,21 @@ class TransactionRepository
     end
   end
 
+  def csv_opener(path = "./data/transactions.csv")
+    CSV.open path, headers: true, header_converters: :symbol
+  end
+
   def all
     @transactions.values
   end
 
   def find_by_id(id)
-    argument_raiser(id, Integer)
+    argument_raiser(id)
     @transactions[id]
   end
 
   def find_all_by_invoice_id(invoice_id)
-    argument_raiser(invoice_id, Integer)
+    argument_raiser(invoice_id)
     all.select do |transaction|
       transaction.invoice_id == invoice_id
     end
@@ -48,7 +48,7 @@ class TransactionRepository
     end
   end
 
-  def argument_raiser(data_type, desired_class = String)
+  def argument_raiser(data_type, desired_class = Integer)
     if data_type.class != desired_class
       raise ArgumentError
     end

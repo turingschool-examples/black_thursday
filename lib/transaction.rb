@@ -1,4 +1,5 @@
 require 'bigdecimal'
+
 class Transaction
   attr_reader   :id,
                 :invoice_id,
@@ -18,5 +19,4 @@ class Transaction
     @updated_at = Time.strptime(info[:updated_at],"%Y-%m-%d %H:%M:%S %Z")
     @parent = transaction_repository
   end
-
 end
