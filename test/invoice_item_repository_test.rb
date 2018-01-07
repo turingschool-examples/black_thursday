@@ -7,7 +7,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   attr_reader :ir
 
   def setup
-    @ir = InvoiceItemRepositoryTest.new("./test/fixtures/invoice_items_sample.csv")
+    @ir = InvoiceItemRepository.new("./test/fixtures/invoice_items_sample.csv", "se")
   end
 
   def test_it_exists
@@ -16,11 +16,11 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_invoice_items_is_filled
     assert ir.invoice_items.all? { |ii| ii.class == InvoiceItem }
-    assert_equal 4, ir.invoice_items.count
+    assert_equal 7, ir.invoice_items.count
   end
 
   def test_all_returns_all_invoice_items
-    assert_equal 4, ir.all
+    assert_equal 7, ir.all.count
     assert ir.all.all? { |ii| ii.class == InvoiceItem}
   end
 
@@ -36,7 +36,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   def test_it_returns_all_items_by_id
     invoice_items = ir.find_all_by_item_id(263454779)
 
-    assert invoice_items.all? { |ii| ii.class == InvoiceItems }
+    assert invoice_items.all? { |ii| ii.class == InvoiceItem }
     assert invoice_items.all? { |ii| ii.item_id == 263454779 }
     refute invoice_items.any? { |ii| ii.item_id == 263454234 }
   end

@@ -12,9 +12,9 @@ class InvoiceItem
               :updated_at
 
   def initialize(inv_item)
-    @id            = inv_item[:id]
-    @item_id       = inv_item[:item_id]
-    @invoice_id    = inv_item[:invoice_id]
+    @id            = inv_item[:id].to_i
+    @item_id       = inv_item[:item_id].to_i
+    @invoice_id    = inv_item[:invoice_id].to_i
     @quantity      = inv_item[:quantity]
     @unit_price    = BigDecimal.new(inv_item[:unit_price], 4)
     @created_at    = inv_item[:created_at]
