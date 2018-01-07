@@ -61,8 +61,9 @@ class SalesAnalyst
   end
 
   def golden_items
+    golden_price_floor = two_standard_deviations_above_average_price
     items.find_all do |item|
-      item.unit_price > two_standard_deviations_above_average_price
+      item.unit_price > golden_price_floor
     end
   end
 end
