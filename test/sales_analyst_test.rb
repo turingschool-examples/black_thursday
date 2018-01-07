@@ -14,7 +14,7 @@ class SalesAnalystTest < Minitest::Test
     })
 
     sa = SalesAnalyst.new(se)
-    
+
     assert_instance_of SalesAnalyst, sa
   end
 
@@ -44,7 +44,7 @@ class SalesAnalystTest < Minitest::Test
     })
 
     sa = SalesAnalyst.new(se)
-    
+
     assert_equal 475, sa.merchant_list.count
     assert_equal 12334105, sa.merchant_list.first
     assert_equal 12337411, sa.merchant_list.last
@@ -454,7 +454,7 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 12334105, sa.merchants_invoice_total_list.first.first
     assert_equal 10, sa.merchants_invoice_total_list.first.last
     assert_instance_of Hash, sa.merchants_invoice_total_list
-  end  
+  end
 
   def test_top_merchants_are_returned
     se = SalesEngine.from_csv({
@@ -471,7 +471,7 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 12, sa.top_merchants.count
     assert_equal [12334141, 18], sa.top_merchants.first
     assert_equal [12336430, 20], sa.top_merchants.last
-  end  
+  end
 
   def test_correct_top_merchants_by_invoice_count_are_returned
     se = SalesEngine.from_csv({
@@ -523,9 +523,165 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 4, sa.bottom_merchants_by_invoice_count.count
     assert_equal "WellnessNeelsen", sa.bottom_merchants_by_invoice_count.first.name
     assert_equal "LoganNortonPhotos", sa.bottom_merchants_by_invoice_count.last.name
-  end  
+  end
 
+  def test_created_days_to_week_days_returns_days_of_week
+    se = SalesEngine.from_csv({
+      :items         => "./data/items.csv",
+      :merchants     => "./data/merchants.csv",
+      :invoices      => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions  => "./data/transactions.csv",
+      :customers     => "./data/customers.csv"
+    })
+
+    sa = SalesAnalyst.new(se)
+
+
+    assert_instance_of Array, sa.created_days_to_week_days
+    assert_equal 4985, sa.created_days_to_week_days.count
+  end
+
+  def test_invoice_totals_by_day_returns_hash_of_weekdays_with_total_invoices_created
+    se = SalesEngine.from_csv({
+      :items         => "./data/items.csv",
+      :merchants     => "./data/merchants.csv",
+      :invoices      => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions  => "./data/transactions.csv",
+      :customers     => "./data/customers.csv"
+    })
+
+    sa = SalesAnalyst.new(se)
+
+    assert_instance_of Hash, sa.invoice_totals_by_day
+    assert_equal ({"Saturday"=>729, "Friday"=>701, "Wednesday"=>741, "Monday"=>696, "Sunday"=>708, "Tuesday"=>692, "Thursday"=>718}), sa.invoice_totals_by_day
+  end
+
+  def test_invoices_per_day_average_returns_invoices_per_day_average
+    se = SalesEngine.from_csv({
+      :items         => "./data/items.csv",
+      :merchants     => "./data/merchants.csv",
+      :invoices      => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions  => "./data/transactions.csv",
+      :customers     => "./data/customers.csv"
+    })
+
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 712, sa.invoices_per_day_average
+  end
+
+  def test_invoice_totals_minus_avg_sqrd_returns_invoice_totals_minus_avg_sqrd
+    se = SalesEngine.from_csv({
+      :items         => "./data/items.csv",
+      :merchants     => "./data/merchants.csv",
+      :invoices      => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions  => "./data/transactions.csv",
+      :customers     => "./data/customers.csv"
+    })
+
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 1959, sa.invoice_totals_minus_avg_sqrd
+  end
+
+  def test_invoice_total_diff_sqrd_returns_invoice_total_diff_sqrd
+    se = SalesEngine.from_csv({
+      :items         => "./data/items.csv",
+      :merchants     => "./data/merchants.csv",
+      :invoices      => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions  => "./data/transactions.csv",
+      :customers     => "./data/customers.csv"
+    })
+
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 326, sa.invoice_total_diff_sqrd
+  end
+
+  def test_weekday_invoice_stnd_deviation_returns_weekday_invoice_stnd_deviation
+    se = SalesEngine.from_csv({
+      :items         => "./data/items.csv",
+      :merchants     => "./data/merchants.csv",
+      :invoices      => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions  => "./data/transactions.csv",
+      :customers     => "./data/customers.csv"
+    })
+
+    sa = SalesAnalyst.new(se)
+
+  assert_equal 18.06, sa.weekday_invoice_stnd_deviation
+  end
+
+  def test_weekday_invoice_stnd_deviation_plus_avg_returns_weekday_invoice_stnd_deviation_plus_avg
+    se = SalesEngine.from_csv({
+      :items         => "./data/items.csv",
+      :merchants     => "./data/merchants.csv",
+      :invoices      => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions  => "./data/transactions.csv",
+      :customers     => "./data/customers.csv"
+    })
+
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 730.06, sa.weekday_invoice_stnd_deviation_plus_avg
+  end
+
+  def test_top_days_by_invoice_count_returns_top_day_by_invoice_count
+    se = SalesEngine.from_csv({
+      :items         => "./data/items.csv",
+      :merchants     => "./data/merchants.csv",
+      :invoices      => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions  => "./data/transactions.csv",
+      :customers     => "./data/customers.csv"
+    })
+
+    sa = SalesAnalyst.new(se)
+
+    assert_equal ["Wednesday"], sa.top_days_by_invoice_count
+  end
+
+  def test_all_invoices_by_status_returns_all_invoices_by_status
+    se = SalesEngine.from_csv({
+      :items         => "./data/items.csv",
+      :merchants     => "./data/merchants.csv",
+      :invoices      => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions  => "./data/transactions.csv",
+      :customers     => "./data/customers.csv"
+    })
+
+    sa = SalesAnalyst.new(se)
+
+    assert_instance_of Array, sa.all_invoices_by_status(:pending)
+    assert_instance_of Array, sa.all_invoices_by_status(:shipped)
+    assert_instance_of Array, sa.all_invoices_by_status(:returned)
+    assert_equal 1473, sa.all_invoices_by_status(:pending).count
+    assert_equal 2839, sa.all_invoices_by_status(:shipped).count
+    assert_equal 673, sa.all_invoices_by_status(:returned).count
+  end
+
+  def test_invoice_status_returns_percent_based_on_given_status
+    se = SalesEngine.from_csv({
+      :items         => "./data/items.csv",
+      :merchants     => "./data/merchants.csv",
+      :invoices      => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions  => "./data/transactions.csv",
+      :customers     => "./data/customers.csv"
+    })
+
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 13.5, sa.invoice_status(:returned)
+    assert_equal 56.95, sa.invoice_status(:shipped)
+    assert_equal 29.55, sa.invoice_status(:pending)
+  end
 end
-
-
-
