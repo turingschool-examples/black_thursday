@@ -54,4 +54,8 @@ class InvoiceRepository
     end
   end
 
+  def find_merchant_by_invoice(id)
+    se.merchant_by_invoice_id(id)
+  end
+
 end
