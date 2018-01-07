@@ -23,6 +23,6 @@ class SalesEngine
   end
 
   def item_count
-    @items.total_count
+    @items.all.count
   end
 end

@@ -62,8 +62,4 @@ class ItemRepository
   def inspect
     "#<#{self.class} #{@items.size} rows>"
   end
-
-  def total_count
-    return @items.count
-  end
 end
