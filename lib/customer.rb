@@ -1,3 +1,5 @@
+require 'time'
+
 class Customer
 
   attr_reader :id,
