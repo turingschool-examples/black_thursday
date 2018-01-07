@@ -9,19 +9,31 @@ class Invoice
               :invoice_repo
 
   def initialize(invoice)
-    @id           = invoice[:id]
-    @customer_id  = invoice[:customer_id]
-    @merchant_id  = invoice[:merchant_id]
-    @status       = invoice[:status]
-    @created_at   = invoice[:created_at]
-    @updated_at   = invoice[:updated_at]
+    @id           = invoice[:id].to_i
+    @customer_id  = invoice[:customer_id].to_i
+    @merchant_id  = invoice[:merchant_id].to_i
+    @status       = invoice[:status].to_sym
+    @created_at   = Time.parse(invoice[:created_at])
+    @updated_at   = Time.parse(invoice[:updated_at])
     @invoice_repo = invoice[:invoice_repo]
+  end
+
+
+  def self.creator(row, parent)
+    new({
+      id: row[:id],
+      customer_id: row[:customer_id],
+      merchant_id: row[:merchant_id],
+      status: row[:status],
+      created_at: row[:created_at],
+      updated_at: row[:updated_at],
+      invoice_repo: parent
+    })
   end
 
   def merchant
     invoice_repo.find_merchant_by_invoice(merchant_id)
   end
-
 
 
 

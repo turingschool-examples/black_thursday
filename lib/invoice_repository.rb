@@ -1,7 +1,10 @@
 require 'csv'
 require_relative '../lib/invoice'
+require_relative '../lib/csv_parser'
 
 class InvoiceRepository
+
+  include CsvParser
 
   attr_reader :invoices,
               :se
@@ -9,17 +12,7 @@ class InvoiceRepository
   def initialize(csv_file, se)
     @invoices = []
     @se = se
-    CSV.foreach csv_file, headers: true, header_converters: :symbol do |row|
-      @invoices << Invoice.new({
-        id: row[:id].to_i,
-        customer_id: row[:customer_id].to_i,
-        merchant_id: row[:merchant_id].to_i,
-        status: row[:status].to_sym ,
-        created_at: Time.parse(row[:created_at]),
-        updated_at: Time.parse(row[:updated_at]),
-        invoice_repo: self
-        })
-      end
+    parser(csv_file).each { |row| @invoices << Invoice.creator(row, self) }
   end
 
   def inspect
