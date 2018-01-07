@@ -14,14 +14,10 @@ class Merchant
     @merchant_repository.find_items_by_id(@id)
   end
 
-  def item_count
-    return items.count
-  end
-
   def average_item_price
     sum_prices = items.reduce(0) do |total, item|
       total + item.unit_price
     end
-    return (sum_prices / item_count).round(2)
+    return (sum_prices / items.count).round(2)
   end
 end
