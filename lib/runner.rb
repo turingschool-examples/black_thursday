@@ -27,5 +27,4 @@ require_relative "invoice_repo"
 
 sa = SalesAnalyst.new(se)
 
-puts sa.invoice_total_minus_average_squared
-
+puts sa.invoice_status(:pending)
