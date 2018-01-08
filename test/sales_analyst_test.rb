@@ -54,7 +54,17 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 1.1, @sa.average_invoices_per_merchant
   end
 
-  def test_average_invoices_per_merchant_standard_deviation_returns_standard_deviation
+  def test_average_invoices_per_merchant_standard_deviation_returns_correct_value
     assert_equal 0.3, @sa.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_two_standard_deviations_above_average_invoices_returns_correct_value
+    assert_equal 1.7, @sa.two_standard_deviations_above_average_invoices
+  end
+
+  def test_top_merchants_by_invoice_count_returns_merchants_with_highest_invoice_count
+    merchants_with_high_invoice_count = @sa.top_merchants_by_invoice_count
+
+    assert_equal 1, merchants_with_high_invoice_count.count 
   end
 end
