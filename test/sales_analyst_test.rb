@@ -27,7 +27,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_returns_item_price_standard_deviation
     assert_equal 235.37, sales_analyst.item_price_standard_deviation
-    refute_equal 3.20, sales_analyst.item_price_standard_deviation
+    refute_equal 300, sales_analyst.item_price_standard_deviation
   end
 
   def test_it_returns_standard_deviation
