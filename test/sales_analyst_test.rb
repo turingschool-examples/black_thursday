@@ -21,12 +21,12 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_average
-    assert_equal 3.43, sales_analyst.average_items_per_merchant
+    assert_equal 3.57, sales_analyst.average_items_per_merchant
     refute_equal 0.43, sales_analyst.average_items_per_merchant
   end
 
   def test_it_returns_standard_deviation
-    assert_equal 3.25, sales_analyst.average_items_per_merchant_standard_deviation
+    assert_equal 3.27, sales_analyst.average_items_per_merchant_standard_deviation
     refute_equal 3.20, sales_analyst.average_items_per_merchant_standard_deviation
   end
 
@@ -51,8 +51,8 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_standard_deviation_for_invoices
-    skip
-    assert_equal 3.25, sales_analyst.average_invoices_per_merchant_standard_deviation
+    # skip
+    assert_equal 0.84, sales_analyst.average_invoices_per_merchant_standard_deviation
     refute_equal 3.20, sales_analyst.average_invoices_per_merchant_standard_deviation
   end
 

@@ -18,10 +18,10 @@ class InvoicesTest < Minitest::Test
     assert_instance_of Invoice, invoice
   end
 
-  def test_it_returns_items_by_merchant_id
+  def test_it_returns_items_by_id_in_invoice_items
     se = SalesEngine.from_csv({
       invoices: "./test/fixtures/invoices_sample.csv",
-      merchants: "./test/fixtures/merchants_sample.csv",
+      invoice_items: "./test/fixtures/invoice_items_sample.csv",
       items: "./test/fixtures/items_sample.csv"
     })
     invoice = se.invoices.find_by_id(641)
