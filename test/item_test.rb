@@ -61,11 +61,12 @@ class ItemTest < MiniTest::Test
       unit_price: 10.99,
       created_at: Time.now.inspect,
       updated_at: Time.now.inspect,
-      merchant_id: 12334185}, ir)
+      merchant_id: 12334185
+    }, ir)
 
-      merchant = mock("Merchant")
-      ir.expects(:find_merchant_by_merchant_id).returns(merchant)
+    merchant = mock('merchant')
+    ir.expects(:find_merchant_by_merchant_id).returns(merchant)
 
-      assert_equal merchant, item.merchant
+    assert_equal merchant, item.merchant
   end
 end
