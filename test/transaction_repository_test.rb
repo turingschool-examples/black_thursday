@@ -4,15 +4,15 @@ require_relative "../lib/transaction_repository"
 class TransactionRepositoryTest < Minitest::Test
 
   def test_it_exists
-    tr = TransactionRepository.new
-    tr.from_csv("./test/fixtures/transactions_fixture.csv")
+    parent = mock("parent")
+    tr = TransactionRepository.new("./test/fixtures/transactions_fixture.csv", parent)
 
     assert_instance_of TransactionRepository, tr
   end
 
   def test_all_returns_array_of_all_transactions
-    tr = TransactionRepository.new
-    tr.from_csv("./test/fixtures/transactions_fixture.csv")
+    parent = mock("parent")
+    tr = TransactionRepository.new("./test/fixtures/transactions_fixture.csv", parent)
 
     assert_instance_of Array, tr.all
     tr.all.each do |transaction|
@@ -23,8 +23,8 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_find_by_id_returns_nil_or_transaction_with_matching_id
-    tr = TransactionRepository.new
-    tr.from_csv("./test/fixtures/transactions_fixture.csv")
+    parent = mock("parent")
+    tr = TransactionRepository.new("./test/fixtures/transactions_fixture.csv", parent)
 
     assert_nil tr.find_by_id(40)
 
@@ -32,20 +32,20 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_invoice_id_returns_all_matches_with_invoice_id
-    tr = TransactionRepository.new
-    tr.from_csv("./test/fixtures/transactions_fixture.csv")
+    parent = mock("parent")
+    tr = TransactionRepository.new("./test/fixtures/transactions_fixture.csv", parent)
 
     assert_equal [], tr.find_all_by_invoice_id("a")
-    assert_equal 4126, tr.find_all_by_invoice_id(4126)[0].invoice_id
-    assert_equal 2, tr.find_all_by_invoice_id(750).count
-    tr.find_all_by_invoice_id(750).each { |t| assert_equal 750, t.invoice_id }
-    assert_equal 3, tr.find_all_by_invoice_id(547).count
-    tr.find_all_by_invoice_id(547).each { |t| assert_equal 547, t.invoice_id }
+    assert_equal 18, tr.find_all_by_invoice_id(18)[0].invoice_id
+    assert_equal 2, tr.find_all_by_invoice_id(20).count
+    tr.find_all_by_invoice_id(20).each { |t| assert_equal 20, t.invoice_id }
+    assert_equal 3, tr.find_all_by_invoice_id(19).count
+    tr.find_all_by_invoice_id(19).each { |t| assert_equal 19, t.invoice_id }
   end
 
   def test_find_all_by_credit_card_number_returns_all_transactions_w_matching_ccn
-    tr = TransactionRepository.new
-    tr.from_csv("./test/fixtures/transactions_fixture.csv")
+    parent = mock("parent")
+    tr = TransactionRepository.new("./test/fixtures/transactions_fixture.csv", parent)
 
     assert_equal [], tr.find_all_by_credit_card_number("a")
     assert_equal 4558368405929183, tr.find_all_by_credit_card_number(4558368405929183)[0].credit_card_number
@@ -54,8 +54,8 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_result_returns_all_transactions_w_matching_result
-    tr = TransactionRepository.new
-    tr.from_csv("./test/fixtures/transactions_fixture.csv")
+    parent = mock("parent")
+    tr = TransactionRepository.new("./test/fixtures/transactions_fixture.csv", parent)
 
     assert_equal [], tr.find_all_by_result("a")
     assert_equal "success", tr.find_all_by_result("success")[0].result

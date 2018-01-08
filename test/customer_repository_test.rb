@@ -4,15 +4,16 @@ require_relative '../lib/customer_repository'
 class CustomerRepositoryTest < Minitest::Test
 
   def test_it_exists
-    cr = CustomerRepository.new
+    parent = mock("parent")
+    cr = CustomerRepository.new("./test/fixtures/customer_fixture.csv", parent)
 
     assert_instance_of CustomerRepository, cr
   end
 
   def test_from_csv_creates_all_which_returns_array_of_customers
-    cr = CustomerRepository.new
+    parent = mock("parent")
+    cr = CustomerRepository.new("./test/fixtures/customer_fixture.csv", parent)
 
-    cr.from_csv("./test/fixtures/customer_fixture.csv")
 
     cr.all.each do |customer|
       assert_instance_of Customer, customer
@@ -23,9 +24,9 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_find_by_id_returns_matching_customer_or_nil
-    cr = CustomerRepository.new
+    parent = mock("parent")
+    cr = CustomerRepository.new("./test/fixtures/customer_fixture.csv", parent)
 
-    cr.from_csv("./test/fixtures/customer_fixture.csv")
     customer = cr.find_by_id(18)
     unknown_customer = cr.find_by_id(13333451)
 
@@ -35,9 +36,9 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_first_name_returns_matching
-    cr = CustomerRepository.new
+    parent = mock("parent")
+    cr = CustomerRepository.new("./test/fixtures/customer_fixture.csv", parent)
 
-    cr.from_csv("./test/fixtures/customer_fixture.csv")
     customers_1 = cr.find_all_by_first_name("Magnus")
     customers_2 = cr.find_all_by_first_name("ar")
     unknown_customer = cr.find_all_by_first_name("Cosmo")
@@ -52,9 +53,9 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_last_name_returns_matching
-    cr = CustomerRepository.new
+    parent = mock("parent")
+    cr = CustomerRepository.new("./test/fixtures/customer_fixture.csv", parent)
 
-    cr.from_csv("./test/fixtures/customer_fixture.csv")
     customers = cr.find_all_by_last_name("es")
     unknown_customer = cr.find_all_by_last_name("Cosmo")
 

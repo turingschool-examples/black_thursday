@@ -2,9 +2,10 @@ require_relative '../lib/invoice_item'
 require 'csv'
 
 class InvoiceItemRepository
-  attr_reader :all
+  attr_reader :all,
+              :parent
 
-  def from_csv(file_path)
+  def initialize(file_path, parent)
     contents = CSV.open(file_path, headers: true, header_converters: :symbol)
     @all = contents.map do |row|
       InvoiceItem.new({:id         => row[:id],
@@ -16,6 +17,7 @@ class InvoiceItemRepository
                        :updated_at => row[:updated_at]
                        }, self)
     end
+    @parent = parent
   end
 
   def find_by_id(id)

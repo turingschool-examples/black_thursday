@@ -26,11 +26,11 @@ class Invoice
   end
 
   def transactions
-
+    parent.call_transactions_from_invoice_id(id)
   end
 
-  def customers
-
+  def customer
+    parents.call_customer_from_customer_id(customer_id)
   end
 
 end

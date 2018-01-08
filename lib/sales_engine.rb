@@ -8,21 +8,21 @@ require "bigdecimal"
 require 'pry'
 
 class SalesEngine
-
+  #ADD UNDERSCORE TO INVOICEITEMS
   attr_reader :merchants,
               :items,
-              :invoices
+              :invoices,
+              :transactions,
+              :customers,
+              :invoiceitems
 
   def initialize(file_paths)
     @merchants = MerchantRepository.new(file_paths[:merchants], self)
     @items     = ItemRepository.new(file_paths[:items], self)
     @invoices  = InvoiceRepository.new(file_paths[:invoices], self)
-    iir = InvoiceItemRepository.new
-    @invoice_items = irr.from_csv(file_paths[:invoice_items], self)
-    tr = TransactionRepository.new
-    @transactions = tr.from_csv(file_paths[:transactions], self)
-    cr = CustomerRepository.new
-    @customers = cr.from_csv(file_paths[:customers], self)
+    @invoiceitems = InvoiceItemRepository.new(file_paths[:invoice_items], self)
+    @transactions = TransactionRepository.new(file_paths[:transactions], self)
+    @customers = CustomerRepository.new(file_paths[:customers], self)
   end
 
   def self.from_csv(file_paths)
@@ -43,17 +43,24 @@ class SalesEngine
 
   def get_items_from_invoice_id(invoice_id)
     item_ids = get_item_ids_from_invoice_id(invoice_id)
-    ir = items.all
     item_ids.map do |item_id|
-      ir.find_by_id(item_id)
+      items.find_by_id(item_id)
     end
   end
 
   def get_item_ids_from_invoice_id(invoice_id)
-    invoice_items = invoice_items.find_all_by_invoice_id(invoice_id)
+    invoice_items = invoiceitems.find_all_by_invoice_id(invoice_id)
     invoice_items.map do |invoice_item|
       invoice_item.item_id
     end
+  end
+
+  def get_transactions_from_invoice_id(invoice_id)
+    transactions.find_all_by_invoice_id(invoice_id)
+  end
+
+  def get_customer_from_customer_id(customer_id)
+    customers.find_by_id(customer_id)
   end
 
   def get_all_merchant_items

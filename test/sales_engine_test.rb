@@ -218,4 +218,59 @@ class SalesEngineTest < Minitest::Test
     assert_equal 12334141, invoice_2.merchant.id
   end
 
+  def test_get_item_ids_from_invoice_id_works
+    se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                items: "./test/fixtures/items_fixture.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv",
+                                invoice_items: "./test/fixtures/invoice_items_fixture.csv",
+                                transactions: "./test/fixtures/transactions_fixture.csv",
+                                customers: "./test/fixtures/customer_fixture.csv" })
+
+    assert_equal [263396517, 263396255], se.get_item_ids_from_invoice_id(13)
+  end
+
+  def test_get_items_from_invoice_id_works
+    se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                items: "./test/fixtures/items_fixture.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv",
+                                invoice_items: "./test/fixtures/invoice_items_fixture.csv",
+                                transactions: "./test/fixtures/transactions_fixture.csv",
+                                customers: "./test/fixtures/customer_fixture.csv" })
+
+    items = se.get_items_from_invoice_id(13)
+
+    assert_equal 2, items.count
+    assert_equal 400.00, items[0].unit_price
+    assert_equal 149.00, items[1].unit_price
+  end
+
+  def test_get_transactions_from_invoice_id_works
+    se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                items: "./test/fixtures/items_fixture.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv",
+                                invoice_items: "./test/fixtures/invoice_items_fixture.csv",
+                                transactions: "./test/fixtures/transactions_fixture.csv",
+                                customers: "./test/fixtures/customer_fixture.csv" })
+
+    transactions = se.get_transactions_from_invoice_id(19)
+
+    assert_equal 3, transactions.count
+    assert_equal 4177816490204479, transactions[0].credit_card_number
+    assert_equal 4035885351912165, transactions[1].credit_card_number
+    assert_equal 4147902004736100, transactions[2].credit_card_number
+  end
+
+  def test_get_customer_from_customer_id_works
+    se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                items: "./test/fixtures/items_fixture.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv",
+                                invoice_items: "./test/fixtures/invoice_items_fixture.csv",
+                                transactions: "./test/fixtures/transactions_fixture.csv",
+                                customers: "./test/fixtures/customer_fixture.csv" })
+
+    customer = se.get_customer_from_customer_id(13)
+
+    assert_equal "Hegmann", customer.last_name
+  end
+
 end
