@@ -27,7 +27,7 @@ class SalesAnalyst
     se.grab_array_of_merchant_invoices
   end
 
-  def item_price_standard_deviation # NEEDS TEST
+  def item_price_standard_deviation
     items = se.grab_all_items
     price_variance = items.reduce(0) do |result, item|
       result += (item.unit_price.to_i - item_prices_mean) ** 2
@@ -84,7 +84,7 @@ class SalesAnalyst
     (price / merchants.count).round(2)
   end
 
-  def top_merchants_by_invoice_count # TESTS!!!
+  def top_merchants_by_invoice_count
     double_deviation = (average_invoices_per_merchant_standard_deviation * 2)
     mean = average_invoices_per_merchant + double_deviation
     se.merchants.all.find_all do |merchant|
@@ -92,7 +92,7 @@ class SalesAnalyst
     end
   end
 
-  def bottom_merchants_by_invoice_count # TESTS!!!
+  def bottom_merchants_by_invoice_count
     double_deviation = (average_invoices_per_merchant_standard_deviation * 2)
     mean = average_invoices_per_merchant - double_deviation
     se.merchants.all.find_all do |merchant|
@@ -111,17 +111,17 @@ class SalesAnalyst
     end
   end
 
-  def group_invoices_by_day # TEST!!!
+  def group_invoices_by_day
     se.invoices.all.group_by do |invoice|
       invoice.created_at.strftime("%A")
     end
   end
 
-  def average_invoices_per_day # TEST!!!
+  def average_invoices_per_day
     (se.invoices.all.count / 7)
   end
 
-  def average_invoices_per_day_standard_deviation # TEST!!!
+  def average_invoices_per_day_standard_deviation
     mean = average_invoices_per_day
     invoices_count = group_invoices_by_day.values.map { |invoice| invoice.count }
     invoice_variance = invoices_count.reduce(0) do |result, inv_count|
@@ -130,15 +130,14 @@ class SalesAnalyst
       (Math.sqrt(invoice_variance/6)).round(2)
   end
 
-  def top_days_by_invoice_count # NEEDS TEST
-    # binding.pry
+  def top_days_by_invoice_count
     mean = average_invoices_per_day + average_invoices_per_day_standard_deviation
     group_invoices_by_day.map do |day, invoices|
       day if invoices.count > mean
     end.delete_if { |day| day.nil? }
   end
 
-  def group_by_status # NEEDS TEST
+  def group_by_status
     se.invoices.all.group_by do |invoice|
       invoice.status
     end

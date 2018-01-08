@@ -37,14 +37,14 @@ class InvoiceRepositoryTest < Minitest::Test
     invoices = InvoiceRepository.new("./test/fixtures/invoices_sample.csv", "se")
     invoice_ticket = invoices.find_all_by_merchant_id(12334141)
 
-    assert_equal 3, invoice_ticket.count
+    assert_equal 8, invoice_ticket.count
   end
 
   def test_it_returns_all_invoices
     invoices = InvoiceRepository.new("./test/fixtures/invoices_sample.csv", "se")
     invoice_ticket = invoices.all
 
-    assert_equal 12, invoice_ticket.count
+    assert_equal 17, invoice_ticket.count
   end
 
 end
