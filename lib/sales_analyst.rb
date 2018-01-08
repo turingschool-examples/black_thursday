@@ -12,6 +12,21 @@ class SalesAnalyst
     6 => "Saturday"
   }
 
+  MONTHS = {
+    "january" => "01",
+    "february" => "02",
+    "march" => "03",
+    "april" => "04",
+    "may" => "05",
+    "june" => "06",
+    "july" => "07",
+    "august" => "08",
+    "september" => "09",
+    "october" => "10",
+    "november" => "11",
+    "december" => "12"
+  }
+
   def initialize(sales_engine = "")
     @sales_engine = sales_engine
   end
@@ -234,6 +249,19 @@ class SalesAnalyst
   def merchants_with_only_one_item
     @sales_engine.all_merchants.select do |merchant|
       merchant.items.count == 1
+    end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants_by_month(month).select do |merchant|
+      merchant.items
+    end
+
+  end
+
+  def merchants_by_month(month)
+    @sales_engine.all_merchants.select do |merchant|
+      merchant.created_at[5..6] == MONTHS[month.downcase]
     end
   end
 end
