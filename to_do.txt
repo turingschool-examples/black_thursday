@@ -5,6 +5,7 @@
 >  test caller and get methods explicitly
 >  integrate items_copy.csv into fixture Y
 >  check simplecov coverage & increase coverage where possible
+>  pull_out item - merchant hash to state
 
 ___ final_refactoring ___
 >  from_csv for customer, invoice_items, transactions
