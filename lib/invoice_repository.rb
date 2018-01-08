@@ -1,5 +1,6 @@
 require_relative 'invoice'
 require 'csv'
+
 class InvoiceRepository
   def initialize(file_path, parent)
     @invoices = []

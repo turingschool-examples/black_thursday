@@ -41,24 +41,24 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_finds_invoices_by_merchant_id_returns_invoices_with_matching_id
-    merchant = @se.merchants.find_by_id(12335938)
+    merchant = @se.merchants.find_by_id(12334105)
     invoices = merchant.invoices
 
-    value = invoices.all? do |invoice|
+    assert_equal 3, invoices.count
+    assert invoices.all? do |invoice|
       invoice.merchant_id == 12335938
     end
-
-    assert value
   end
 
   def test_it_finds_merchant_by_invoice_id_returns_merchant_with_matching_id
     invoice = @se.invoices.find_by_id(12)
     merchant = invoice.merchant
+    merchant_id = 12334135
 
-    value = merchant.invoices.any? do |invoice|
+    assert_equal merchant_id, invoice.merchant_id
+    assert_equal merchant_id, merchant.id
+    assert merchant.invoices.any? do |invoice|
       invoice.id == 12
     end
-
-    assert value
   end
 end
