@@ -109,4 +109,8 @@ class SalesEngine
   def self.find_all_merchants_by_customer_id(id)
     @invoices.find_all_by_customer_id(id)
   end
+
+  def self.find_invoices_by_date(date)
+    @invoices.find_all_by_date(date)
+  end
 end
