@@ -20,4 +20,8 @@ class Merchant
     parent.call_sales_engine_invoices(id)
   end
 
+  def customers
+    parent.call_customers_from_merchant_id(id)
+  end
+
 end

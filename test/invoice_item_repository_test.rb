@@ -4,15 +4,15 @@ require_relative '../lib/invoice_item_repository'
 class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_it_exists
-    iir = InvoiceItemRepository.new
+    parent = mock("parent")
+    iir = InvoiceItemRepository.new("./test/fixtures/invoice_items_fixture.csv", parent)
 
     assert_instance_of InvoiceItemRepository, iir
   end
 
   def test_from_csv_creates_all_which_returns_array_of_invoice_items
-    iir = InvoiceItemRepository.new
-
-    iir.from_csv("./test/fixtures/invoice_items_fixture.csv")
+    parent = mock("parent")
+    iir = InvoiceItemRepository.new("./test/fixtures/invoice_items_fixture.csv", parent)
 
     iir.all.each do |invoice_item|
       assert_instance_of InvoiceItem, invoice_item
@@ -23,18 +23,18 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_find_by_id_returns_proper_invoice_item_or_nil
-    iir = InvoiceItemRepository.new
+    parent = mock("parent")
+    iir = InvoiceItemRepository.new("./test/fixtures/invoice_items_fixture.csv", parent)
 
-    iir.from_csv("./test/fixtures/invoice_items_fixture.csv")
     invoice_item = iir.find_by_id(13)
 
     assert_equal 263396255, invoice_item.item_id
   end
 
   def test_find_all_by_item_id_returns_array_of_matching
-    iir = InvoiceItemRepository.new
+    parent = mock("parent")
+    iir = InvoiceItemRepository.new("./test/fixtures/invoice_items_fixture.csv", parent)
 
-    iir.from_csv("./test/fixtures/invoice_items_fixture.csv")
     invoice_items = iir.find_all_by_item_id(263396517)
 
     assert_equal 7, invoice_items.count
@@ -43,9 +43,9 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_invoice_id_returns_array_of_matching
-    iir = InvoiceItemRepository.new
+    parent = mock("parent")
+    iir = InvoiceItemRepository.new("./test/fixtures/invoice_items_fixture.csv", parent)
 
-    iir.from_csv("./test/fixtures/invoice_items_fixture.csv")
     invoice_items = iir.find_all_by_invoice_id(13)
 
     assert_equal 2, invoice_items.count

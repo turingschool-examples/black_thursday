@@ -27,6 +27,18 @@ class InvoiceRepository
     parent.get_merchant(merchant_id)
   end
 
+  def call_items_from_invoice_id(invoice_id)
+    parent.get_items_from_invoice_id(invoice_id)
+  end
+
+  def call_transactions_from_invoice_id(invoice_id)
+    parent.get_transactions_from_invoice_id(invoice_id)
+  end
+
+  def call_customer_from_customer_id(customer_id)
+    parent.get_customer_from_customer_id(customer_id)
+  end
+
   def find_by_id(id)
     all.find do |invoice|
       invoice.id == id
