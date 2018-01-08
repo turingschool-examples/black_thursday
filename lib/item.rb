@@ -26,6 +26,7 @@ class Item
   end
 
   def merchant
+    require 'pry' ; binding.pry
     @parent.find_merchant_by_id(@merchant_id)
   end
 

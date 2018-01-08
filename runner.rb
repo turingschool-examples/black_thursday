@@ -10,6 +10,6 @@ se = SalesEngine.from_csv({
   :customers => "./data/customers.csv"
 })
 
-invoice = se.invoices.find_by_id(15)
-
-p invoice.total
+invoice = se.items.all.map do |x|
+  x.merchant
+end
