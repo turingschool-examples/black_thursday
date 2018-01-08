@@ -30,7 +30,7 @@ class Invoice
   end
 
   def customer
-    parents.call_customer_from_customer_id(customer_id)
+    parent.call_customer_from_customer_id(customer_id)
   end
 
 end

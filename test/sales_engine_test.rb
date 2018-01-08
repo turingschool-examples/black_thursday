@@ -237,7 +237,8 @@ class SalesEngineTest < Minitest::Test
                                 transactions: "./test/fixtures/transactions_fixture.csv",
                                 customers: "./test/fixtures/customer_fixture.csv" })
 
-    items = se.get_items_from_invoice_id(13)
+    invoice = se.invoices.find_by_id(13)
+    items = invoice.items
 
     assert_equal 2, items.count
     assert_equal 400.00, items[0].unit_price
@@ -252,12 +253,12 @@ class SalesEngineTest < Minitest::Test
                                 transactions: "./test/fixtures/transactions_fixture.csv",
                                 customers: "./test/fixtures/customer_fixture.csv" })
 
-    transactions = se.get_transactions_from_invoice_id(19)
+    invoice = se.invoices.find_by_id(13)
+    transactions = invoice.transactions
 
-    assert_equal 3, transactions.count
-    assert_equal 4177816490204479, transactions[0].credit_card_number
-    assert_equal 4035885351912165, transactions[1].credit_card_number
-    assert_equal 4147902004736100, transactions[2].credit_card_number
+    assert_equal 2, transactions.count
+    assert_equal 4297222478855497, transactions[0].credit_card_number
+    assert_equal 4890371279632775, transactions[1].credit_card_number
   end
 
   def test_get_customer_from_customer_id_works
@@ -268,9 +269,56 @@ class SalesEngineTest < Minitest::Test
                                 transactions: "./test/fixtures/transactions_fixture.csv",
                                 customers: "./test/fixtures/customer_fixture.csv" })
 
-    customer = se.get_customer_from_customer_id(13)
+    invoice = se.invoices.find_by_id(13)
+    customer = invoice.customer
 
-    assert_equal "Hegmann", customer.last_name
+    assert_equal "Mariah", customer.first_name
+    assert_equal "Toy", customer.last_name
+  end
+
+  def test_get_invoice_from_invoice_id_works
+    se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                items: "./test/fixtures/items_fixture.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv",
+                                invoice_items: "./test/fixtures/invoice_items_fixture.csv",
+                                transactions: "./test/fixtures/transactions_fixture.csv",
+                                customers: "./test/fixtures/customer_fixture.csv" })
+
+    transaction = se.transactions.find_by_id(13)
+    invoice = transaction.invoice
+
+    assert_equal 12334141, invoice.merchant_id
+  end
+
+  def test_get_customer_ids_from_merchant_id_works
+    se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                items: "./test/fixtures/items_fixture.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv",
+                                invoice_items: "./test/fixtures/invoice_items_fixture.csv",
+                                transactions: "./test/fixtures/transactions_fixture.csv",
+                                customers: "./test/fixtures/customer_fixture.csv" })
+
+    customer_ids = se.get_customer_ids_from_merchant_id(12334185)
+
+    assert_equal 4, customer_ids.count
+  end
+
+  def test_get_customers_from_merchant_id_works
+    se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                items: "./test/fixtures/items_fixture.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv",
+                                invoice_items: "./test/fixtures/invoice_items_fixture.csv",
+                                transactions: "./test/fixtures/transactions_fixture.csv",
+                                customers: "./test/fixtures/customer_fixture.csv" })
+
+    merchant = se.merchants.find_by_id(12334185)
+    customers = merchant.customers
+
+    assert_equal 4, customers.count
+    assert_equal "Ondricka", customers[0].last_name
+    assert_equal "Osinski", customers[1].last_name
+    assert_equal "Toy", customers[2].last_name
+    assert_equal "Nader", customers[3].last_name
   end
 
 end

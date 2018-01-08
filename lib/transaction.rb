@@ -20,4 +20,8 @@ class Transaction
     @parent = parent
   end
 
+  def invoice
+    parent.call_invoice_from_invoice_id(invoice_id)
+  end
+
 end

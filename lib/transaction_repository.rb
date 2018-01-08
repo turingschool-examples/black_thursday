@@ -45,4 +45,8 @@ class TransactionRepository
     end
   end
 
+  def call_invoice_from_invoice_id(invoice_id)
+    parent.get_invoice_from_invoice_id(invoice_id)
+  end
+
 end

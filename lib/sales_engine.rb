@@ -63,6 +63,25 @@ class SalesEngine
     customers.find_by_id(customer_id)
   end
 
+  def get_invoice_from_invoice_id(invoice_id)
+    invoices.find_by_id(invoice_id)
+  end
+
+  #ATTR READER BELOW SHOULD WORK!!!! (@invoices to invoices)
+  def get_customer_ids_from_merchant_id(merchant_id)
+    invoices = @invoices.find_all_by_merchant_id(merchant_id)
+    x = invoices.map do |invoice|
+      invoice.customer_id
+    end.uniq
+  end
+
+  def get_customers_from_merchant_id(merchant_id)
+    customer_ids = get_customer_ids_from_merchant_id(merchant_id)
+    customer_ids.map do |customer_id|
+      customers.find_by_id(customer_id)
+    end
+  end
+
   def get_all_merchant_items
     merchants_and_items = {}
     merchants.all.map do |merchant|
