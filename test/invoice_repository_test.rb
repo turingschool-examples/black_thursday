@@ -93,4 +93,11 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 3, transactions.count
     assert_instance_of Transaction, transactions.first
   end
+
+  def test_it_finds_customer_by_customer_id
+    customer = @ir.find_customer_by_customer_id(3)
+
+    assert_instance_of Customer, customer
+    assert_equal 3, customer.id
+  end
 end

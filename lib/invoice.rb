@@ -27,4 +27,8 @@ class Invoice
   def transactions
     @invoice_repository.find_transactions_by_invoice_id(@id)
   end
+
+  def customer
+    @invoice_repository.find_customer_by_customer_id(@customer_id)
+  end
 end

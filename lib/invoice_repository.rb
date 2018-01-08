@@ -21,7 +21,7 @@ class InvoiceRepository
     end
     @invoice_items.from_csv(data[:invoice_items])
     @transactions.from_csv(data[:transactions])
-    @customers.from_csv(data[:transactions])
+    @customers.from_csv(data[:customers])
   end
 
   def all
@@ -65,5 +65,9 @@ class InvoiceRepository
 
   def find_transactions_by_invoice_id(invoice_id)
     @transactions.find_all_by_invoice_id(invoice_id)
+  end
+
+  def find_customer_by_customer_id(customer_id)
+    @customers.find_by_id(customer_id)
   end
 end
