@@ -321,4 +321,35 @@ class SalesEngineTest < Minitest::Test
     assert_equal "Nader", customers[3].last_name
   end
 
+  def test_get_merchant_ids_from_customer_ids_works
+    se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                items: "./test/fixtures/items_fixture.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv",
+                                invoice_items: "./test/fixtures/invoice_items_fixture.csv",
+                                transactions: "./test/fixtures/transactions_fixture.csv",
+                                customers: "./test/fixtures/customer_fixture.csv" })
+
+    merchant_ids = se.get_merchant_ids_from_customer_ids(2)
+
+    assert_equal 3, merchant_ids.count
+    assert_equal 12334141, merchant_ids[0]
+    assert_equal 12334185, merchant_ids[2]
+  end
+
+  def test_get_customers_from_merchant_id_works
+    se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                items: "./test/fixtures/items_fixture.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv",
+                                invoice_items: "./test/fixtures/invoice_items_fixture.csv",
+                                transactions: "./test/fixtures/transactions_fixture.csv",
+                                customers: "./test/fixtures/customer_fixture.csv" })
+
+    customer = se.customers.find_by_id(2)
+    merchants = customer.merchants
+
+    assert_equal 3, merchants.count
+    assert_equal "SeriousCompany", merchants[0].name
+    assert_equal "Disney", merchants[2].name
+  end
+
 end

@@ -36,4 +36,8 @@ class CustomerRepository
     end
   end
 
+  def call_merchants_from_customer_id(customer_id)
+    parent.get_merchants_from_customer_id(customer_id)
+  end
+
 end
