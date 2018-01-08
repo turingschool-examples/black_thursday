@@ -254,14 +254,19 @@ class SalesAnalyst
 
   def merchants_with_only_one_item_registered_in_month(month)
     merchants_by_month(month).select do |merchant|
-      merchant.items
+      merchant.item_count == 1
     end
-
   end
 
   def merchants_by_month(month)
     @sales_engine.all_merchants.select do |merchant|
-      merchant.created_at[5..6] == MONTHS[month.downcase]
+      if merchant.created_at[5..6] == MONTHS[month.downcase]
+        @sales_engine.assign_item_count(merchant.id, merchant.items.count)
+      end
     end
+  end
+
+  def merchants_with_pending_invoices
+    @sales_engine.all_invoices
   end
 end
