@@ -1,10 +1,21 @@
 require_relative 'test_helper'
 require_relative '../lib/invoice_repository'
+require_relative '../lib/invoice_item_repository'
+require_relative '../lib/transaction_repository'
+require_relative '../lib/customer_repository'
+
 class InvoiceRepositoryTest < Minitest::Test
   def setup
-    parent = mock("SalesEngine")
-    file_path = './test/fixtures/invoices_truncated.csv'
-    @ir = InvoiceRepository.new(file_path, parent)
+    @sales_engine = mock("salesengine")
+    data = {
+      items:     './test/fixtures/items_truncated.csv',
+      merchants: './test/fixtures/merchants_truncated.csv',
+      invoices: './test/fixtures/invoices_truncated.csv',
+      invoice_items: './test/fixtures/invoice_items_truncated.csv',
+      transactions: './test/fixtures/transactions_truncated.csv',
+      customers: './test/fixtures/customers_truncated.csv'
+    }
+    @ir = InvoiceRepository.new(data, @sales_engine)
   end
 
   def test_all_returns_array_of_invoice_instances

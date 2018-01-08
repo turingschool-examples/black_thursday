@@ -1,18 +1,27 @@
 require_relative 'invoice'
+require_relative '../lib/invoice_item_repository'
+require_relative '../lib/transaction_repository'
+require_relative '../lib/customer_repository'
 require 'csv'
 
 class InvoiceRepository
-  def initialize(file_path, parent)
+  def initialize(data, parent)
     @invoices = []
     @sales_engine = parent
-    invoice_data = CSV.open file_path, headers: true, header_converters: :symbol, converters: :numeric
-    parse(invoice_data)
+    @invoice_items = InvoiceItemRepository.new(self)
+    @transactions = TransactionRepository.new(self)
+    @customers = CustomerRepository.new(self)
+    from_csv(data)
   end
 
-  def parse(invoice_data)
+  def from_csv(data)
+    invoice_data = CSV.open data[:invoices], headers: true, header_converters: :symbol, converters: :numeric
     invoice_data.each do |row|
       @invoices << Invoice.new(row.to_hash, self)
     end
+    @invoice_items.from_csv(data[:invoice_items])
+    @transactions.from_csv(data[:transactions])
+    @customers.from_csv(data[:transactions])
   end
 
   def all

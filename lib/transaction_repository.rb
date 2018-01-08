@@ -2,16 +2,13 @@ require 'csv'
 require './lib/transaction'
 
 class TransactionRepository
-  def initialize
+  def initialize(parent)
     @transactions = []
+    @invoices = parent
   end
 
   def from_csv(file_path)
     transaction_data = CSV.open file_path, headers: true, header_converters: :symbol, converters: :numeric
-    parse(transaction_data)
-  end
-
-  def parse(transaction_data)
     transaction_data.each do |row|
       @transactions << Transaction.new(row.to_hash, self)
     end

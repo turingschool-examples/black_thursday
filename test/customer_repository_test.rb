@@ -3,7 +3,8 @@ require_relative '../lib/customer_repository'
 
 class CustomerRepositoryTest < Minitest::Test
   def setup
-    @cr = CustomerRepository.new
+    @invoices = mock('invoicerepository')
+    @cr = CustomerRepository.new(@invoices)
     @cr.from_csv('./test/fixtures/customers_truncated.csv')
   end
 
