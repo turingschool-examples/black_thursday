@@ -30,8 +30,9 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
+    high_item_count = one_standard_deviation_above_average
     merchants.find_all do |merchant|
-      merchant.items.count > one_standard_deviation_above_average
+      merchant.items.count > high_item_count
     end
   end
 
@@ -50,9 +51,9 @@ class SalesAnalyst
   def average_price_per_merchant_standard_deviation
     all_merchant_average = average_average_price_per_merchant
     Math.sqrt(
-      merchants.reduce(0) do |sum, merchant|
-        sum + (merchant.average_item_price - all_merchant_average)**2
-      end / (merchants.count - 1)
+      items.reduce(0) do |sum, item|
+        sum + (item.unit_price - all_merchant_average)**2
+      end / (items.count - 1)
     ).round(2)
   end
 
