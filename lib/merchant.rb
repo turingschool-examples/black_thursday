@@ -24,6 +24,10 @@ class Merchant
 
   def invoices
     merchant_repo.find_invoice(id)
-  end 
+  end
+
+  def customers
+    
+  end
 
 end
