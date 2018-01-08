@@ -17,6 +17,18 @@ class SalesEngine
     @invoices = InvoiceRepository.new(data, self)
   end
 
+  def invoice_items
+    @invoices.invoice_items
+  end
+
+  def transactions
+    @invoices.transactions
+  end
+
+  def customers
+    @invoices.customers
+  end
+
   def find_items_by_merchant_id(merchant_id)
     @items.find_all_by_merchant_id(merchant_id)
   end

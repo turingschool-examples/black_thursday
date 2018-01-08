@@ -5,6 +5,10 @@ require_relative '../lib/customer_repository'
 require 'csv'
 
 class InvoiceRepository
+  attr_reader :invoice_items,
+              :transactions,
+              :customers
+              
   def initialize(data, parent)
     @invoices = []
     @sales_engine = parent
