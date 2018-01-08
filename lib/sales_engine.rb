@@ -119,7 +119,7 @@ class SalesEngine
   def get_all_merchant_invoices
     merchants_and_invoices = {}
     merchants.all.map do |merchant|
-      merchants_and_invoices[merchant] = get_invoices(merchant.id)
+      merchants_and_invoices[merchant] = get_invoices_from_merchant_id(merchant.id)
     end
     merchants_and_invoices
   end
