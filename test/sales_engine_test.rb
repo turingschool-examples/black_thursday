@@ -352,4 +352,36 @@ class SalesEngineTest < Minitest::Test
     assert_equal "Disney", merchants[2].name
   end
 
+  def test_is_invoice_paid_in_full_returns_true_if_all_transaction_results_are_successful
+    se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                items: "./test/fixtures/items_fixture.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv",
+                                invoice_items: "./test/fixtures/invoice_items_fixture.csv",
+                                transactions: "./test/fixtures/transactions_fixture.csv",
+                                customers: "./test/fixtures/customer_fixture.csv" })
+
+    invoice_1 = se.invoices.find_by_id(19)
+    invoice_2 = se.invoices.find_by_id(20)
+    invoice_3 = se.invoices.find_by_id(5)
+
+    refute invoice_3.is_paid_in_full?
+    refute invoice_1.is_paid_in_full?
+    assert invoice_2.is_paid_in_full?
+  end
+
+  def test_is_get_invoice_total_returns_total_cost_of_all_items_for_invoice
+    se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                items: "./test/fixtures/items_fixture.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv",
+                                invoice_items: "./test/fixtures/invoice_items_fixture.csv",
+                                transactions: "./test/fixtures/transactions_fixture.csv",
+                                customers: "./test/fixtures/customer_fixture.csv" })
+
+    invoice_1 = se.invoices.find_by_id(19)
+    invoice_2 = se.invoices.find_by_id(20)
+
+    assert_equal 4912.10, invoice_1.total
+    assert_equal 10251.94, invoice_2.total
+  end
+
 end

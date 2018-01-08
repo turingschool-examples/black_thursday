@@ -8,19 +8,18 @@ require "bigdecimal"
 require 'pry'
 
 class SalesEngine
-  #ADD UNDERSCORE TO INVOICEITEMS
   attr_reader :merchants,
               :items,
               :invoices,
               :transactions,
               :customers,
-              :invoiceitems
+              :invoice_items
 
   def initialize(file_paths)
     @merchants = MerchantRepository.new(file_paths[:merchants], self)
     @items     = ItemRepository.new(file_paths[:items], self)
     @invoices  = InvoiceRepository.new(file_paths[:invoices], self)
-    @invoiceitems = InvoiceItemRepository.new(file_paths[:invoice_items], self)
+    @invoice_items = InvoiceItemRepository.new(file_paths[:invoice_items], self)
     @transactions = TransactionRepository.new(file_paths[:transactions], self)
     @customers = CustomerRepository.new(file_paths[:customers], self)
   end
@@ -49,8 +48,8 @@ class SalesEngine
   end
 
   def get_item_ids_from_invoice_id(invoice_id)
-    invoice_items = invoiceitems.find_all_by_invoice_id(invoice_id)
-    invoice_items.map do |invoice_item|
+    invoice_item_array = invoice_items.find_all_by_invoice_id(invoice_id)
+    invoice_item_array.map do |invoice_item|
       invoice_item.item_id
     end
   end
@@ -127,6 +126,21 @@ class SalesEngine
 
   def search_ir_by_price(price)
     items.find_all_by_price(price)
+  end
+
+  def is_invoice_paid_in_full?(invoice_id)
+    invoice_transactions = get_transactions_from_invoice_id(invoice_id)
+    return false if invoice_transactions.empty?
+    invoice_transactions.all? do |transaction|
+      transaction.result == "success"
+    end
+  end
+
+  def get_invoice_total(invoice_id)
+    invoice_item_array = invoice_items.find_all_by_invoice_id(invoice_id)
+    invoice_item_array.reduce(0) do |total, invoice_item|
+      total + (invoice_item.quantity * invoice_item.unit_price)
+    end
   end
 
 end

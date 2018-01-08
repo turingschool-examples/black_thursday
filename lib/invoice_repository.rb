@@ -63,4 +63,12 @@ class InvoiceRepository
     end
   end
 
+  def invoice_paid_in_full?(invoice_id)
+    parent.is_invoice_paid_in_full?(invoice_id)
+  end
+
+  def invoice_total(invoice_id)
+    parent.get_invoice_total(invoice_id)
+  end
+
 end
