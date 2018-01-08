@@ -12,7 +12,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   def test_it_returns_all_known_invoice_items
     invoices = @invoice_items.all
 
-    assert_equal 21, invoices.length
+    assert_equal 10, invoices.length
     assert invoices.all? do |invoice|
       invoice.class = InvoiceItem
     end
@@ -45,7 +45,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_finds_all_by_invoice_id
-    invoices = @invoice_items.find_all_by_invoice_id(1635)
+    invoices = @invoice_items.find_all_by_invoice_id(4)
 
     assert_equal 4, invoices.length
     assert invoices.all? do |invoice|

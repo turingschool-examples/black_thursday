@@ -81,6 +81,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_find_invoice_items_by_invoice_id_returns_all_invoice_items_with_invoice_id
-    assert_equal [], @ir.find_invoice_items_by_invoice_id()
+    invoice_items = @ir.find_invoice_items_by_invoice_id(4)
+    assert_equal 4, invoice_items.count
   end
 end
