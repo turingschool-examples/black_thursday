@@ -28,9 +28,13 @@ class InvoiceRepository
     se.items.find_all_by_merchant_id(merchant_id)
   end
 
-  # def transactions(invoice_id)
-  #   se.transactions.find_all_by_invoice_id(invoice_id)
-  # end
+  def transactions(invoice_id)
+    se.transactions.find_all_by_invoice_id(invoice_id)
+  end
+
+  def customer(customer_id)
+    se.customers.find_by_id(customer_id)
+  end
 
   def find_by_id(id)
     @invoices.find do |id_num|

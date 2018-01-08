@@ -50,8 +50,7 @@ class InvoicesTest < Minitest::Test
     })
     invoice = se.invoices.find_by_id(819)
 
-    assert_instance_of Merchant, invoice.merchant
-    assert_equal 1, invoice.merchant.count
+    assert_instance_of Customer, invoice.customer
   end
 
 end
