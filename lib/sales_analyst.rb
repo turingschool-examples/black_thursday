@@ -108,4 +108,32 @@ class SalesAnalyst
       merchant.invoices.count < low_invoice_count
     end
   end
+
+  def average_invoices_created_per_weekday
+    (@sales_engine.invoices.all.count / 7.00).round(2)
+  end
+
+  def average_invoices_created_per_weekday_standard_deviation
+    Math.sqrt(
+      @sales_engine.invoices.invoices_created_each_weekday.reduce(0) do |sum, element|
+      sum + (element[1] - average_invoices_created_per_weekday)**2
+    end / (7 - 1)
+  ).round(2)
+  end
+
+  def one_standard_deviation_above_average_invoices_created_per_weekday
+    return (average_invoices_created_per_weekday + average_invoices_created_per_weekday_standard_deviation).round(2)
+  end
+
+  def top_days_by_invoice_count
+    high_invoice_count = one_standard_deviation_above_average_invoices_created_per_weekday
+    @sales_engine.invoices.invoices_created_each_weekday.find_all do |element|
+      element[1] > high_invoice_count
+    end.flatten[0].split
+  end
+
+  def invoice_status(status)
+    number_of_invoices_with_status = @sales_engine.invoices.find_all_by_status(status.to_s).count
+    ((number_of_invoices_with_status / @sales_engine.invoices.all.count.to_f) * 100).round(1)
+  end
 end

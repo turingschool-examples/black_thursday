@@ -1,3 +1,4 @@
+require 'time'
 class Invoice
   attr_reader :id,
               :customer_id,
@@ -18,5 +19,9 @@ class Invoice
 
   def merchant
     @invoice_repository.find_merchant(@merchant_id)
+  end
+
+  def weekday
+    @created_at.strftime('%A')
   end
 end

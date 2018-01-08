@@ -38,4 +38,8 @@ class InvoiceTest < Minitest::Test
   def test_it_has_an_updated_at
     assert_equal Time.now.inspect, @invoice.updated_at.inspect
   end
+
+  def test_weekday_returns_day_of_the_week_it_was_created_at
+    assert_equal "Monday", @invoice.weekday
+  end
 end
