@@ -51,9 +51,6 @@ class InvoiceRepository
     @invoices.group_by do |invoice|
       invoice.weekday
     end
-    # new_hash = invoices_grouped_by_weekday.transform_values do |invoices|
-    #   invoices.count
-    # end
   end
 
   def inspect

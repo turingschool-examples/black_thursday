@@ -18,9 +18,10 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
+    average_items_count = average_items_per_merchant
     Math.sqrt(
       merchants.reduce(0) do |sum, merchant|
-        sum + (merchant.items.count - average_items_per_merchant)**2
+        sum + (merchant.items.count - average_items_count)**2
       end / (merchants.count - 1)
     ).round(2)
   end
@@ -117,8 +118,8 @@ class SalesAnalyst
   def average_invoices_created_per_weekday_standard_deviation
     average = average_invoices_created_per_weekday
     Math.sqrt(
-      @sales_engine.invoices.invoices_created_each_weekday.reduce(0) do |sum, element|
-      sum + (element[1].count - average)**2
+      @sales_engine.invoices.invoices_created_each_weekday.values.reduce(0) do |sum, invoices|
+      sum + (invoices.count - average)**2
     end / (7 - 1)
   ).round(2)
   end
@@ -129,9 +130,9 @@ class SalesAnalyst
 
   def top_days_by_invoice_count
     high_invoice_count = one_standard_deviation_above_average_invoices_created_per_weekday
-    @sales_engine.invoices.invoices_created_each_weekday.find_all do |element|
-      element[1].count > high_invoice_count
-    end.flatten[0].split
+    @sales_engine.invoices.invoices_created_each_weekday.keep_if do |weekday, invoices|
+      invoices.count > high_invoice_count
+    end.keys
   end
 
   def invoice_status(status)
