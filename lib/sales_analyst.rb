@@ -62,14 +62,14 @@ class SalesAnalyst
     (Math.sqrt(price_variance/(items.count - 1))).round(2)
   end
 
-  def invoice_count_standard_deviation
-    invoices = se.grab_array_of_merchant_invoices
-    mean     = invoice_mean
-    invoice_variance = invoices.reduce(0) do |result, num_of_inv|
-      result += (num_of_inv - mean) ** 2
-    end
-    (Math.sqrt(invoice_variance/(se.grab_all_invoices.count - 1)).round(2)
-  end
+  # def invoice_count_standard_deviation
+  #   invoices = se.grab_array_of_merchant_invoices
+  #   mean     = invoice_mean
+  #   invoice_variance = invoices.reduce(0) do |result, num_of_inv|
+  #     result += (num_of_inv - mean) ** 2
+  #   end
+  #   (Math.sqrt(invoice_variance/(se.grab_all_invoices.count - 1)).round(2)
+  # end
 
   def merchants_with_high_item_count
     count = average_items_per_merchant + average_items_per_merchant_standard_deviation
