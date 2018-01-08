@@ -25,9 +25,11 @@ class InvoicesTest < Minitest::Test
       items: "./test/fixtures/items_sample.csv"
     })
     invoice = se.invoices.find_by_id(641)
+    items = invoice.items
 
     assert invoice.items.all? { |item| item.class == Item }
-    assert_equal 1, invoice.items.count
+    assert_equal 1, items.count
+    assert_equal 263445483, items[0].id
   end
 
   def test_it_returns_transactions_by_invoice_id
@@ -51,8 +53,6 @@ class InvoicesTest < Minitest::Test
     invoice = se.invoices.find_by_id(819)
 
     assert_instance_of Customer, invoice.customer
-    assert_equal 1, invoice.customer.count
-
   end
 
 end
