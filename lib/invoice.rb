@@ -35,12 +35,6 @@ class Invoice
     invoice_repo.find_invoice_items_by_invoice_id(self.id)
   end
 
-  def items
-    invoice_items.map do |invoice_item|
-      invoice_item.item
-    end
-  end
-
   def transactions
     invoice_repo.find_transactions_by_invoice_id(self.id)
   end
@@ -51,7 +45,11 @@ class Invoice
 
   def successful_transactions
     transactions.each do |transaction|
-      return true if transaction.result == "success"
+      if transaction.result == "success"
+        return true
+      else
+        return false
+      end
     end
   end
 
@@ -63,13 +61,9 @@ class Invoice
     end
   end
 
-  def total_invoice_items_price(invoice_items)
+  def total
     invoice_items.reduce(0) do |sum, invoice_item|
       sum += (invoice_item.unit_price * invoice_item.quantity)
     end
-  end
-
-  def total
-    total_invoice_items_price(invoice_items)
   end
 end
