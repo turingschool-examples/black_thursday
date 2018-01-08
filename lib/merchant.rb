@@ -16,10 +16,16 @@ class Merchant
   end
 
   def items
-    @merchant_repo.find_items(self.id)
+    merchant_repo.find_items(self.id)
   end
 
   def invoices
-    @merchant_repo.find_invoices_by_merchant_id(self.id)
+    merchant_repo.find_invoices_by_merchant_id(self.id)
+  end
+
+  def customers
+     invoices.map do |invoice|
+       merchant_repo.find_customer_by_customer_id(invoice.customer_id)
+     end.uniq
   end
 end

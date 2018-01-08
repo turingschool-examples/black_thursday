@@ -1,8 +1,11 @@
 require_relative "customer"
 require_relative "sales_engine"
+require "memoist"
 require "csv"
 
 class CustomerRepo
+  extend Memoist
+
   attr_reader :customers,
               :sales_engine
 
@@ -24,6 +27,7 @@ class CustomerRepo
     def all
       customers
     end
+    memoize :all
 
     def find_by_id(id)
       customers.find { |customer| customer.id == id }
@@ -40,4 +44,12 @@ class CustomerRepo
         customer.last_name.downcase.include?(last_name.downcase)
       end
     end
+
+    def find_invoices_by_customer_id(id)
+      sales_engine.find_invoices_by_customer_id(id)
+    end
+
+    # def find_merchant_by_merchant_id(id)
+    #   sales_engine.find_all_merchants_by_id(id)
+    # end
   end
