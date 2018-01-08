@@ -6,8 +6,7 @@ require_relative '../lib/customer_repository'
 
 class InvoiceRepositoryTest < Minitest::Test
   def setup
-    @sales_engine = mock("salesengine")
-    data = {
+    @data = {
       items:     './test/fixtures/items_truncated.csv',
       merchants: './test/fixtures/merchants_truncated.csv',
       invoices: './test/fixtures/invoices_truncated.csv',
@@ -15,7 +14,7 @@ class InvoiceRepositoryTest < Minitest::Test
       transactions: './test/fixtures/transactions_truncated.csv',
       customers: './test/fixtures/customers_truncated.csv'
     }
-    @ir = InvoiceRepository.new(data, @sales_engine)
+    @ir = InvoiceRepository.new(@data, mock('salesengine'))
   end
 
   def test_all_returns_array_of_invoice_instances
@@ -80,8 +79,11 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal [], @ir.find_all_by_status("shiped")
   end
 
-  def test_find_invoice_items_by_invoice_id_returns_all_invoice_items_with_invoice_id
-    invoice_items = @ir.find_invoice_items_by_invoice_id(4)
-    assert_equal 4, invoice_items.count
+  def test_find_items_by_invoice_id_returns_all_items_with_invoice_id
+    item = mock('item')
+    salesengine = stub(:find_item_by_item_id => item)
+    ir = InvoiceRepository.new(@data, salesengine)
+
+    assert_equal [item, item, item, item], ir.find_items_by_invoice_id(4)
   end
 end

@@ -65,4 +65,11 @@ class SalesEngineTest < Minitest::Test
       invoice.id == 12
     end
   end
+
+  def test_it_finds_item_by_item_id
+    item = @se.find_item_by_item_id(263395617)
+
+    assert_instance_of Item, item
+    assert_equal 263395617, item.id
+  end
 end

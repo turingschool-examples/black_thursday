@@ -40,10 +40,10 @@ class InvoiceTest < Minitest::Test
     assert_equal Time.now.inspect, @invoice.updated_at.inspect
   end
 
-  def test_it_calls_its_parent_to_find_its_invoice_items
-    invoice_item = mock('invoiceitem')
-    @invoices.expects(:find_invoice_items_by_id).returns([invoice_item, invoice_item])
+  def test_it_calls_its_parent_to_find_its_items
+    item = mock('item')
+    @invoices.expects(:find_items_by_invoice_id).returns([item, item])
 
-    assert_equal [invoice_item, invoice_item], @invoice.invoice_items
+    assert_equal [item, item], @invoice.items
   end
 end
