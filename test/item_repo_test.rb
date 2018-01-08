@@ -187,6 +187,27 @@ class ItemRepoTest < Minitest::Test
     assert_instance_of BigDecimal, ir.find_all_by_price_in_range(50..500).first.unit_price
   end
 
+  def test_find_all_by_merchant_id_finds_merchant_by_id
+    se = SalesEngine.from_csv({
+      :items         => "./data/items.csv",
+      :merchants     => "./data/merchants.csv",
+      :invoices      => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions  => "./data/transactions.csv",
+      :customers     => "./data/customers.csv"
+    })
+
+    ir = ItemRepo.new(se, "./data/items.csv")
+
+    assert_instance_of Array, ir.find_all_by_merchant_id(50..500)
+    assert_instance_of Array, ir.find_all_by_merchant_id(12334115)
+    assert_instance_of String, ir.find_all_by_merchant_id(12334115).first.description
+    assert_equal 263499400, ir.find_all_by_merchant_id(12334115).first.id
+    assert_instance_of String, ir.find_all_by_merchant_id(12334115).first.name
+    assert_equal 0.2e2, ir.find_all_by_merchant_id(12334115).first.unit_price
+
+  end
+
   def test_find_items_by_merchant_id_finds_items_by_merchant_it
     se = SalesEngine.from_csv({
       :items         => "./data/items.csv",
@@ -202,3 +223,13 @@ class ItemRepoTest < Minitest::Test
     assert_instance_of Array, ir.find_items_by_merchant_id(12334141)
   end
 end
+
+
+
+
+
+
+
+
+
+

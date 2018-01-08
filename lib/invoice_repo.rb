@@ -19,7 +19,7 @@ class InvoiceRepo
                            converters: :numeric
     invoice_csv.each do |row| @invoices << Invoice.new(row, self)
     end
-  end
+  end 
 
   def all
     invoices
