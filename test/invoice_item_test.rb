@@ -37,12 +37,12 @@ class InvoiceItemTest < Minitest::Test
 
   def test_it_returns_created_at
     assert_instance_of Time, @invoice_items.created_at
-    assert_equal "2012-03-27 00:00:00 -0600", @invoice_items.created_at.to_s
+    assert_equal "2012-03-27 14:54:44 UTC", @invoice_items.created_at.to_s
   end
 
   def test_it_returns_updated_at
     assert_instance_of Time, @invoice_items.updated_at
-    assert_equal "2012-03-27 00:00:00 -0600", @invoice_items.updated_at.to_s
+    assert_equal "2012-03-27 14:54:44 UTC", @invoice_items.updated_at.to_s
   end
 
   def test_it_returns_unit_price_to_dollars

@@ -28,8 +28,8 @@ class TransactionTest < MiniTest::Test
     assert_equal 3675, @transaction.invoice_id
   end
 
-  def test_credit_card_number_returns_string_with_zeros
-    assert_equal "4763150000000000", @transaction.credit_card_number
+  def test_credit_card_number_returns_integer_with_zeros
+    assert_equal 4763150000000000, @transaction.credit_card_number
   end
 
   def test_credit_card_exp_date_returns_string_with_zero_padding
