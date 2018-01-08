@@ -41,13 +41,13 @@ class MerchantTest < Minitest::Test
 
     assert_equal [invoice, invoice, invoice], m.invoices
   end
-  
+
   def test_it_finds_its_customers_from_its_invoices
     customer = mock('customer')
     invoice = stub(:customer => customer)
     mr = stub(:find_invoices_by_id => [invoice, invoice, invoice])
     m = Merchant.new({:id => 12334105, :name => "Shopin1901"}, mr)
 
-    assert_equal [customer, customer, customer], m.customer
+    assert_equal [customer, customer, customer], m.customers
   end
 end
