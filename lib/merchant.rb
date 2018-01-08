@@ -4,15 +4,16 @@ class Merchant
                 :created_at,
                 :updated_at
 
-  attr_accessor :item_count
+  attr_accessor :item_count, :total_revenue
 
   def initialize(info, merchant_repository = "")
-    @id = info[:id].to_i
-    @name = info[:name]
-    @created_at = info[:created_at]
-    @updated_at = info[:updated_at]
-    @item_count = 0
-    @parent = merchant_repository
+    @id             = info[:id].to_i
+    @name           = info[:name]
+    @created_at     = info[:created_at]
+    @updated_at     = info[:updated_at]
+    @item_count     = 0
+    @total_revenue  = 0
+    @parent         = merchant_repository
   end
 
   def items

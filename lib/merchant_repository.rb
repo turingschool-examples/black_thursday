@@ -57,6 +57,10 @@ class MerchantRepository
     @merchants[id].item_count = num
   end
 
+  def assign_total_revenue(id, num)
+    @merchants[id].total_revenue = num
+  end
+
   def find_invoice_by_merchant_id(id)
     argument_raiser(id)
     @parent.find_invoice_by_merchant_id(id)
