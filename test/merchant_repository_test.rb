@@ -67,5 +67,4 @@ class MerchantRepositoryTest < MiniTest::Test
 
     assert_equal [item, item, item], @mr.find_items_by_id(12334105)
   end
-
 end
