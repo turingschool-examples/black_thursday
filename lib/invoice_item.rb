@@ -25,6 +25,10 @@ class InvoiceItem
     @unit_price.to_f
   end
 
+  def items
+    @parent.items_by_invoice_id(@id)
+  end
+
   def time_analyzer(info)
     if info.length > 10
       "%Y-%m-%d %H:%M:%S %Z"

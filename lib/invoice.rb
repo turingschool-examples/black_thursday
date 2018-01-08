@@ -45,10 +45,4 @@ class Invoice
     end
   end
 
-  def total
-    @parent.total(@id).reduce(0) do |sum, invoice_item|
-      sum += invoice_item.unit_price * invoice_item.quantity
-    end
-  end
-
 end

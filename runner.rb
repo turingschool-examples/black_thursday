@@ -10,6 +10,6 @@ se = SalesEngine.from_csv({
   :customers => "./data/customers.csv"
 })
 
-invoice = se.items.all.map do |x|
-  x.merchant
-end
+invoice =  se.invoices.find_by_id(106)
+require 'pry' ; binding.pry
+invoice.items
