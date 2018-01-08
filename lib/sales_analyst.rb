@@ -118,7 +118,7 @@ class SalesAnalyst
     average = average_invoices_created_per_weekday
     Math.sqrt(
       @sales_engine.invoices.invoices_created_each_weekday.reduce(0) do |sum, element|
-      sum + (element[1] - average)**2
+      sum + (element[1].count - average)**2
     end / (7 - 1)
   ).round(2)
   end
@@ -130,7 +130,7 @@ class SalesAnalyst
   def top_days_by_invoice_count
     high_invoice_count = one_standard_deviation_above_average_invoices_created_per_weekday
     @sales_engine.invoices.invoices_created_each_weekday.find_all do |element|
-      element[1] > high_invoice_count
+      element[1].count > high_invoice_count
     end.flatten[0].split
   end
 
