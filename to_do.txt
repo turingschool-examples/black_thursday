@@ -1,6 +1,3 @@
->  add unknown items to invoice_item_repository_test REW
->  change invoice_test variables from iir to invoice_repo REW
->  rename both calling and getting methods for item & merchant REW
 >  test caller and get methods explicitly
 >  check simplecov coverage & increase coverage where possible
 >  pull_out item - merchant hash to state

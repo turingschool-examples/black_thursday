@@ -23,8 +23,8 @@ class InvoiceRepository
     "#<#{self.class} #{@all.size} rows>"
   end
 
-  def call_sales_engine_merchants(merchant_id)
-    parent.get_merchant(merchant_id)
+  def call_merchant_from_merchant_id(merchant_id)
+    parent.get_merchant_from_merchant_id(merchant_id)
   end
 
   def call_items_from_invoice_id(invoice_id)

@@ -11,13 +11,12 @@ class Merchant
     @parent = parent
   end
 
-  #how to test items & invoices?
   def items
-    parent.call_sales_engine_items(id)
+    parent.call_items_from_merchant_id(id)
   end
 
   def invoices
-    parent.call_sales_engine_invoices(id)
+    parent.call_invoices_from_merchant_id(id)
   end
 
   def customers

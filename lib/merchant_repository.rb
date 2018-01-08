@@ -14,12 +14,12 @@ class MerchantRepository
     @parent = parent
   end
 
-  def call_sales_engine_items(id)
-    parent.get_items(id)
+  def call_items_from_merchant_id(merchant_id)
+    parent.get_items_from_merchant_id(merchant_id)
   end
 
-  def call_sales_engine_invoices(id)
-    parent.get_invoices(id)
+  def call_invoices_from_merchant_id(merchant_id)
+    parent.get_invoices_from_merchant_id(merchant_id)
   end
 
   def find_by_id(id)
