@@ -222,4 +222,12 @@ class SalesAnalyst
       merchant.total_revenue
     end[-num..-1].reverse
   end
+
+  def merchants_with_pending_invoices
+    invoices = @sales_engine.find_pending_invoices
+
+    invoices.map do |invoice|
+      invoice.merchant
+    end.uniq
+  end
 end

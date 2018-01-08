@@ -13,4 +13,4 @@ se = SalesEngine.from_csv({
 
 sa = SalesAnalyst.new(se)
 
-p sa.top_revenue_earners(5)
+p sa.merchants_with_pending_invoices.count
