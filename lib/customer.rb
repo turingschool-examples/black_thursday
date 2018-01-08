@@ -17,4 +17,14 @@ class Customer
     @updated_at    = Time.parse(row[:updated_at])
     @customer_repo = customer_repo
   end
+
+  def invoices
+    customer_repo.find_invoices_by_customer_id(self.id)
+  end
+
+  def merchants
+    invoices.map do |invoice|
+      customer_repo.find_all_merchants_by_id(invoice.merchant_id)
+    end
+  end
 end

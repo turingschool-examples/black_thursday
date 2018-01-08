@@ -43,4 +43,8 @@ class TransactionRepo
   def find_all_by_result(result)
     transactions.find_all { |transaction| transaction.result == result }
   end
+
+  def find_by_invoice_id(id)
+    @sales_engine.find_by_invoice_id(id)
+  end
 end

@@ -61,7 +61,4 @@ class TransactionTest < Minitest::Test
     assert_instance_of Array, trans_repo.transactions
     assert_equal 4985, trans_repo.transactions.count
   end
-
 end
-
-

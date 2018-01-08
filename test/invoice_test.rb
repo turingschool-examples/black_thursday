@@ -3,7 +3,7 @@ require_relative "../lib/invoice"
 require_relative "../lib/sales_engine"
 
  class InvoiceTest < Minitest::Test
- 
+
    def test_it_exist
     se = SalesEngine.from_csv({
       :items         => "./data/items.csv",
@@ -16,7 +16,7 @@ require_relative "../lib/sales_engine"
 
     i = Invoice.new({id: 5, customer_id: 1, merchant_id: 12335311, status: "pending", created_at: "2014-02-08", updated_at: "2014-07-22"}, se)
 
-     assert_instance_of Invoice, i 
+     assert_instance_of Invoice, i
    end
 
   def test_it_has_attributes
@@ -40,7 +40,7 @@ require_relative "../lib/sales_engine"
     assert_instance_of Time, i.updated_at
     assert_equal "2014-07-22 00:00:00 -0600", i.updated_at.to_s
   end
- 
+
   def test_invoice_repo_returns_instance_merchant_by_id
     se = SalesEngine.from_csv({
       :items         => "./data/items.csv",
@@ -59,12 +59,4 @@ require_relative "../lib/sales_engine"
     assert_equal 12335938, i.merchant.id
     assert_equal 12335938, i.merchant_id
   end
-
  end
-
-
-
-
-
-
-
