@@ -32,7 +32,6 @@ class InvoiceItem
       "%Y-%m-%d"
     end
   end
-
 end
 
 

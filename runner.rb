@@ -12,4 +12,4 @@ se = SalesEngine.from_csv({
 
 invoice = se.invoices.find_by_id(15)
 
-p invoice.total
+p invoice.items.count

@@ -75,7 +75,7 @@ class InvoiceRepository
   end
 
   def total(id)
-    @parent.find_items_by_invoice_id(id)
+    @parent.find_cost_by_invoice_id(id)
   end
 
   def argument_raiser(data_type, desired_class = Integer)
