@@ -58,11 +58,11 @@ class SalesEngineTest < Minitest::Test
     invoice_1.items.each do |item|
       assert_instance_of Item, item
     end
-    assert_equal 3, invoice_1.items.count
+    assert_equal 6, invoice_1.items.count
     invoice_2.items.each do |item|
       assert_instance_of Item, item
     end
-    assert_equal 3, invoice_2.items.count
+    assert_equal 6, invoice_2.items.count
   end
 
   def test_get_all_merchant_items_returns_hash_of_merchants_and_items
@@ -92,14 +92,14 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_get_one_merchant_prices_returns_array_of_merchant_prices
-    assert_equal [12.0, 13.5, 7.0],  @sales_engine.get_one_merchant_prices(12334185)
+    assert_equal [12.0, 13.5, 7.0, 12.0, 13.5, 7.0],  @sales_engine.get_one_merchant_prices(12334185)
   end
 
   def test_search_ir_by_price_returns_all_items_with_given_price
     items =  @sales_engine.search_ir_by_price(12.00)
     item_ids = items.map { |item| item.id }
 
-    assert_equal [263395237, 263395617], item_ids
+    assert_equal [263395237, 263395617, 263395232, 263395612], item_ids
   end
 
   def test_find_by_merchant_id_invoices_specific_to_merchant
