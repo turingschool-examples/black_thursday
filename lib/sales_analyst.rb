@@ -127,7 +127,7 @@ class SalesAnalyst
     invoice_variance = invoices_count.reduce(0) do |result, inv_count|
       result += (inv_count - mean) ** 2
     end
-    (Math.sqrt(invoice_variance/7)).round(2)
+      (Math.sqrt(invoice_variance/6)).round(2)
   end
 
   def top_days_by_invoice_count
