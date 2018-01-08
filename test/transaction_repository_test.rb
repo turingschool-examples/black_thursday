@@ -78,4 +78,11 @@ class TransactionRepositoryTest < Minitest::Test
 
     assert transactions.empty?
   end
+
+  def test_it_calls_its_parent_to_find_invoice_by_invoice_id
+    invoice = mock('invoice')
+    @invoices.expects(:find_by_id).returns(invoice)
+
+    assert_equal invoice, @tr.find_invoice_by_invoice_id(3)
+  end
 end

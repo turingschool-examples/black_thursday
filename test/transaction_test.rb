@@ -3,6 +3,7 @@ require_relative '../lib/transaction'
 
 class TransactionTest < Minitest::Test
   def setup
+    @tr = mock('transactionrepository')
     @t = Transaction.new({
       :id => 6,
       :invoice_id => 8,
@@ -11,7 +12,7 @@ class TransactionTest < Minitest::Test
       :result => "success",
       :created_at => Time.now.inspect,
       :updated_at => Time.now.inspect
-    }, mock('transaction_repository'))
+    }, @tr)
   end
 
   def test_it_has_an_id
@@ -40,5 +41,12 @@ class TransactionTest < Minitest::Test
 
   def test_it_has_a_time_updated_at
     assert_equal Time.now.inspect, @t.updated_at.inspect
+  end
+
+  def test_it_calls_its_parent_to_find_its_invoice
+    invoice = mock('invoice')
+    @tr.expects(:find_invoice_by_invoice_id).returns(invoice)
+
+    assert_equal invoice, @t.invoice
   end
 end
