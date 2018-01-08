@@ -62,4 +62,8 @@ class InvoiceRepository
       @sales_engine.find_item_by_item_id(invoice_item.item_id)
     end
   end
+
+  def find_transactions_by_invoice_id(invoice_id)
+    @transactions.find_all_by_invoice_id(invoice_id)
+  end
 end

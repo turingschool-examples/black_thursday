@@ -29,9 +29,9 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_invoice_id_returns_all_transactions_with_matching_invoice_id
-    transactions = @tr.find_all_by_invoice_id(3343)
+    transactions = @tr.find_all_by_invoice_id(7)
 
-    assert_equal 4, transactions.length
+    assert_equal 3, transactions.length
     assert transactions.all? do |transaction|
       transaction.invoice_id == 3343 && transaction.class == Transaction
     end

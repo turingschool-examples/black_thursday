@@ -46,4 +46,11 @@ class InvoiceTest < Minitest::Test
 
     assert_equal [item, item], @invoice.items
   end
+
+  def test_it_calls_its_parent_to_find_its_transactions
+    transaction = mock('transaction')
+    @invoices.expects(:find_transactions_by_invoice_id).returns([transaction, transaction])
+
+    assert_equal [transaction, transaction], @invoice.transactions
+  end
 end

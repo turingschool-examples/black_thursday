@@ -86,4 +86,11 @@ class InvoiceRepositoryTest < Minitest::Test
 
     assert_equal [item, item, item, item], ir.find_items_by_invoice_id(4)
   end
+
+  def test_it_finds_transactions_by_invoice_id
+    transactions = @ir.find_transactions_by_invoice_id(7)
+
+    assert_equal 3, transactions.count
+    assert_instance_of Transaction, transactions.first
+  end
 end
