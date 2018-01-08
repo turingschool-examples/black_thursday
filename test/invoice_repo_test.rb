@@ -205,6 +205,70 @@ class InvoiceRepoTest < Minitest::Test
     assert_equal 12335938, results.id
   end
 
+  def test_it_can_find_invoice_items_by_invoice_id
+     se = SalesEngine.from_csv({
+      :items         => "./data/items.csv",
+      :merchants     => "./data/merchants.csv",
+      :invoices      => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions  => "./data/transactions.csv",
+      :customers     => "./data/customers.csv"
+    })
+
+    ir = InvoiceRepo.new(se, "./data/invoices.csv")
+
+    results = ir.find_invoice_items_by_invoice_id(12)
+
+    assert_instance_of Array, results
+    assert_equal 6, results.count
+    assert_instance_of Integer, results.first.id
+    assert_equal 56, results.first.id
+    assert_equal 12, results.first.invoice_id
+  end
+
+  def test_it_can_find_transactions_by_invoice_id
+     se = SalesEngine.from_csv({
+      :items         => "./data/items.csv",
+      :merchants     => "./data/merchants.csv",
+      :invoices      => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions  => "./data/transactions.csv",
+      :customers     => "./data/customers.csv"
+    })
+
+    ir = InvoiceRepo.new(se, "./data/invoices.csv")
+
+    results = ir.find_transactions_by_invoice_id(12)
+
+    assert_instance_of Array, results
+    assert_equal 1, results.count
+    assert_instance_of Integer, results.first.id
+    assert_equal 814, results.first.id
+    assert_equal 12, results.first.invoice_id
+  end
+
+  def test_it_can_find_customer_by_id
+     se = SalesEngine.from_csv({
+      :items         => "./data/items.csv",
+      :merchants     => "./data/merchants.csv",
+      :invoices      => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions  => "./data/transactions.csv",
+      :customers     => "./data/customers.csv"
+    })
+
+    ir = InvoiceRepo.new(se, "./data/invoices.csv")
+
+    results = ir.find_customer_by_id(12)
+
+    assert_instance_of Integer, results.id
+    assert_equal 12, results.id
+    assert_equal "Ilene", results.first_name
+    assert_equal "Pfannerstill", results.last_name
+    assert_instance_of Customer, results
+     
+  end
+
   def test_inspect_shortens_output
     se = SalesEngine.from_csv({
       :items         => "./data/items.csv",
