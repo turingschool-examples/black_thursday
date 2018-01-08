@@ -57,7 +57,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_status_of_invoices_as_percentage
-
+    assert_equal 
   end
 
 

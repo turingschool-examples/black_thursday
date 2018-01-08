@@ -112,7 +112,7 @@ class SalesAnalyst
   end
 
   def group_invoices_by_day # TEST!!!
-    invoices_by_day = se.invoices.all.group_by do |invoice|
+    se.invoices.all.group_by do |invoice|
       invoice.created_at.strftime("%A")
     end
   end
@@ -131,14 +131,21 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
+    # binding.pry
     mean = average_invoices_per_day + average_invoices_per_day_standard_deviation
     group_invoices_by_day.map do |day, invoices|
       day if invoices.count > mean
     end.delete_if { |day| day.nil? }
   end
 
-  def invoice_status(status)
+  def group_by_status
+    se.invoices.all.group_by do |invoice|
+      invoice.status
+    end
+  end
 
+  def invoice_status(status)
+    ((group_by_status[status].count / se.invoices.all.count.to_f) * 100).round(2)
   end
 
 end
