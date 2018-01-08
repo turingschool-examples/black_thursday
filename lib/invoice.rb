@@ -39,6 +39,10 @@ class Invoice
     invoice_repo.transactions(@id)
   end
 
+  def customer
+    invoice_repo.customer(@customer_id)
+  end 
+
   def merchant
     invoice_repo.find_merchant_by_invoice(merchant_id)
   end
