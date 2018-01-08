@@ -14,4 +14,6 @@ se = SalesEngine.from_csv({
 sa = SalesAnalyst.new(se)
 
 
-p sa.merchants_by_month("January")
+p sa.merchants_with_only_one_item_registered_in_month("January").count
+p sa.merchants_with_only_one_item_registered_in_month("March").count
+p sa.merchants_with_only_one_item_registered_in_month("june").count
