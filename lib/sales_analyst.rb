@@ -130,7 +130,7 @@ class SalesAnalyst
       (Math.sqrt(invoice_variance/6)).round(2)
   end
 
-  def top_days_by_invoice_count
+  def top_days_by_invoice_count # NEEDS TEST
     # binding.pry
     mean = average_invoices_per_day + average_invoices_per_day_standard_deviation
     group_invoices_by_day.map do |day, invoices|
@@ -138,7 +138,7 @@ class SalesAnalyst
     end.delete_if { |day| day.nil? }
   end
 
-  def group_by_status
+  def group_by_status # NEEDS TEST
     se.invoices.all.group_by do |invoice|
       invoice.status
     end

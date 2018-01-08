@@ -44,20 +44,21 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 0.2999e2, sales_analyst.average_item_price_for_merchant(12334105)
   end
 
-  #Invoices BI Tests
   def test_it_returns_average_invoices_per_merchant
     assert_equal 1.71, sales_analyst.average_invoices_per_merchant
     refute_equal 2.00, sales_analyst.average_invoices_per_merchant
   end
 
   def test_it_returns_standard_deviation_for_invoices
-    # skip
+
     assert_equal 0.84, sales_analyst.average_invoices_per_merchant_standard_deviation
     refute_equal 3.20, sales_analyst.average_invoices_per_merchant_standard_deviation
   end
 
   def test_it_returns_status_of_invoices_as_percentage
-    assert_equal 
+    assert_equal 25.0, sales_analyst.invoice_status(:pending)
+    assert_equal 41.67, sales_analyst.invoice_status(:shipped)
+    assert_equal 33.33, sales_analyst.invoice_status(:returned)
   end
 
 
