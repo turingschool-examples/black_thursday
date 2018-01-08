@@ -40,4 +40,8 @@ class CustomerRepository
     parent.get_merchants_from_customer_id(customer_id)
   end
 
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
+  end
+
 end

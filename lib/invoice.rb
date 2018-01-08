@@ -33,4 +33,12 @@ class Invoice
     parent.call_customer_from_customer_id(customer_id)
   end
 
+  def is_paid_in_full?
+    parent.invoice_paid_in_full?(id)
+  end
+
+  def total
+    parent.invoice_total(id)
+  end
+
 end

@@ -129,4 +129,18 @@ class SalesEngine
     items.find_all_by_price(price)
   end
 
+  def is_invoice_paid_in_full?(invoice_id)
+    invoice_transactions = get_transactions_from_invoice_id(invoice_id)
+    invoice_transactions.all? do |transaction|
+      transaction.result == "success"
+    end
+  end
+
+  def get_invoice_total(invoice_id)
+    invoice_items = invoiceitems.find_all_by_invoice_id(invoice_id)
+    invoice_items.reduce(0) do |total, invoice_item|
+      total + (invoice_item.quantity * invoice_item.unit_price)
+    end
+  end
+
 end

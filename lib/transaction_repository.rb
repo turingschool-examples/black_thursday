@@ -49,4 +49,8 @@ class TransactionRepository
     parent.get_invoice_from_invoice_id(invoice_id)
   end
 
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
+  end
+
 end
