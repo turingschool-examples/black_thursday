@@ -64,7 +64,7 @@ class ItemRepositoryTest < Minitest::Test
 
     assert_equal [], unknown_item
     assert_equal 263395237, items_1[0].id
-    assert_equal [263396255, 263396517], items_2_ids
+    assert_equal [263396255, 263396517, 263396252, 263396512], items_2_ids
   end
 
   def test_find_all_by_price_returns_array_of_appropriate_items
@@ -78,10 +78,10 @@ class ItemRepositoryTest < Minitest::Test
     unknown_item = ir.find_all_by_price(BigDecimal.new(50650))
 
     assert_equal [], unknown_item
-    assert_equal [263395237, 263395617], item_1_ids
-    assert_equal 2, item_1.count
-    assert_equal [263396517], item_2_ids
-    assert_equal 1, item_2.count
+    assert_equal [263395237, 263395617, 263395232, 263395612], item_1_ids
+    assert_equal 4, item_1.count
+    assert_equal [263396517, 263396512], item_2_ids
+    assert_equal 2, item_2.count
   end
 
   def test_find_all_by_price_in_range_returns_array_of_appropriate_items
@@ -94,8 +94,8 @@ class ItemRepositoryTest < Minitest::Test
     items_2_ids = items_2.map { |item| item.id }
     unknown_items = ir.find_all_by_price_in_range(5000.00..6000.00)
 
-    assert_equal [263395237, 263395617], items_1_ids
-    assert_equal [263396517], items_2_ids
+    assert_equal [263395237, 263395617, 263395232, 263395612], items_1_ids
+    assert_equal [263396517, 263396512], items_2_ids
     assert_equal [], unknown_items
   end
 
@@ -111,9 +111,9 @@ class ItemRepositoryTest < Minitest::Test
 
       assert_equal [], unknown_item
       assert_equal 263395617, item_1.first.id
-      assert_equal [263395617, 263395721, 263396013], item_1_ids
+      assert_equal [263395617, 263395721, 263396013, 263395612, 263395722, 263396012], item_1_ids
       assert_equal 263395237, item_2.first.id
-      assert_equal [263395237, 263396463, 263396517], item_2_ids
+      assert_equal [263395237, 263396463, 263396517, 263395232, 263396462, 263396512], item_2_ids
   end
 
 end
