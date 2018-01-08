@@ -29,6 +29,10 @@ class InvoiceItem
     @parent.items_by_invoice_id(@id)
   end
 
+  def invoice_items_by_date
+    @parent.invoice_items_by_date(@created_at)
+  end
+
   def time_analyzer(info)
     if info.length > 10
       "%Y-%m-%d %H:%M:%S %Z"

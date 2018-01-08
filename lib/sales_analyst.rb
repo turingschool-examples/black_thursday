@@ -263,5 +263,10 @@ class SalesAnalyst
     @sales_engine.all_merchants.select do |merchant|
       merchant.created_at[5..6] == MONTHS[month.downcase]
     end
+    end.last(num).reverse
+  end
+
+  def merchants_with_pending_invoices
+    @sales_engine.all_invoices
   end
 end

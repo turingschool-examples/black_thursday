@@ -13,4 +13,5 @@ se = SalesEngine.from_csv({
 
 sa = SalesAnalyst.new(se)
 
+
 p sa.merchants_by_month("January")
