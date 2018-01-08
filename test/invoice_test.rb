@@ -60,4 +60,19 @@ class InvoiceTest < Minitest::Test
 
     assert_equal customer, @invoice.customer
   end
+
+  def test_it_returns_whether_invoice_is_paid_in_full
+    transaction = stub(:status => "success")
+    @invoices.expects(:find_transactions_by_invoice_id).returns([transaction, transaction])
+
+    assert @invoice.is_paid_in_full?
+  end
+
+  def test_it_returns_false_if_invoice_is_not_paid_in_full
+    transaction_1 = stub(:status => "success")
+    transaction_2 = stub(:status => "failure")
+    @invoices.expects(:find_transactions_by_invoice_id).returns([transaction_1, transaction_2])
+
+    refute @invoice.is_paid_in_full?
+  end
 end

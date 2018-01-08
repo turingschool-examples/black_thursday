@@ -18,9 +18,10 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
+    average_item_count = average_items_per_merchant
     Math.sqrt(
       merchants.reduce(0) do |sum, merchant|
-        sum + (merchant.items.count - average_items_per_merchant)**2
+        sum + (merchant.items.count - average_item_count)**2
       end / (merchants.count - 1)
     ).round(2)
   end
