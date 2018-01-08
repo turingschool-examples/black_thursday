@@ -79,4 +79,8 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_find_all_by_status_returns_empty_array_if_no_matching_status
     assert_equal [], @ir.find_all_by_status("shiped")
   end
+
+  def test_find_invoice_items_by_invoice_id_returns_all_invoice_items_with_invoice_id
+    assert_equal [], @ir.find_invoice_items_by_invoice_id()
+  end
 end

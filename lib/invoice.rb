@@ -19,4 +19,8 @@ class Invoice
   def merchant
     @invoice_repository.find_merchant(@merchant_id)
   end
+
+  def invoice_items
+    @invoice_repository.find_invoice_items_by_id(@id)
+  end
 end
