@@ -42,12 +42,27 @@ class Invoice
     invoice_repo.transactions(@id)
   end
 
+  def invoice_item
+    invoice_repo.find_all_by_invoice_id(id)
+  end
+
   def customer
     invoice_repo.customer(@customer_id)
   end
 
   def merchant
     invoice_repo.find_merchant_by_invoice(merchant_id)
+  end
+
+  def is_paid_in_full?
+    transactions.any? do |transaction|
+      transaction.result == "success"
+    end
+  end
+
+  def total
+    invoice_item.reduce(0)
+
   end
 
 end
