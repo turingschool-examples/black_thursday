@@ -1,10 +1,9 @@
 >  add unknown items to invoice_item_repository_test REW
 >  change invoice_test variables from iir to invoice_repo REW
->  set up hash for sales_engine_test Y
 >  rename both calling and getting methods for item & merchant REW
 >  test caller and get methods explicitly
->  integrate items_copy.csv into fixture Y
 >  check simplecov coverage & increase coverage where possible
+>  pull_out item - merchant hash to state
 
 ___ final_refactoring ___
 >  from_csv for customer, invoice_items, transactions

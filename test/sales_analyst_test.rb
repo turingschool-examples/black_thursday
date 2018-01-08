@@ -4,6 +4,15 @@ require_relative '../lib/sales_engine'
 
 class SalesAnalystTest < Minitest::Test
 
+  def setup
+    @sales_engine = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
+                                           items: "./test/fixtures/items_fixture.csv",
+                                           invoices: "./test/fixtures/invoices_fixture.csv",
+                                           invoice_items: "./test/fixtures/invoice_items_fixture.csv",
+                                           transactions: "./test/fixtures/transactions_fixture.csv",
+                                           customers: "./test/fixtures/customer_fixture.csv" })
+  end
+
   def test_it_exists
     sales_engine = mock('se')
     sa = SalesAnalyst.new(sales_engine)
@@ -145,14 +154,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_golden_items_returns_proper_amount_of_items
-    #DONT FORGET ITEMS COPY FIXTURE
-    se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
-                                items: "./test/fixtures/items_copy.csv",
-                                invoices: "./test/fixtures/invoices_fixture.csv",
-                                invoice_items: "./test/fixtures/invoice_items_fixture.csv",
-                                transactions: "./test/fixtures/transactions_fixture.csv",
-                                customers: "./test/fixtures/customer_fixture.csv" })
-    sa = SalesAnalyst.new(se)
+    sa = SalesAnalyst.new(@sales_engine)
 
     assert_equal 2, sa.golden_items.count
   end
@@ -217,13 +219,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_invoices_per_weekday_returns_hash_of_days_with_associated_invoices
-    sales_engine = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
-                                          items: "./test/fixtures/items_fixture.csv",
-                                          invoices: "./test/fixtures/invoices_fixture.csv",
-                                          invoice_items: "./test/fixtures/invoice_items_fixture.csv",
-                                          transactions: "./test/fixtures/transactions_fixture.csv",
-                                          customers: "./test/fixtures/customer_fixture.csv" })
-    sa = SalesAnalyst.new(sales_engine)
+    sa = SalesAnalyst.new(@sales_engine)
 
     assert_equal 1, sa.invoices_per_weekday["Sunday"].count
     assert_equal 4, sa.invoices_per_weekday["Monday"].count
@@ -235,13 +231,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_invoice_counts_per_weekday_returns_hash_of_days_with_associated_invoice_counts
-    sales_engine = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
-                                          items: "./test/fixtures/items_fixture.csv",
-                                          invoices: "./test/fixtures/invoices_fixture.csv",
-                                          invoice_items: "./test/fixtures/invoice_items_fixture.csv",
-                                          transactions: "./test/fixtures/transactions_fixture.csv",
-                                          customers: "./test/fixtures/customer_fixture.csv" })
-    sa = SalesAnalyst.new(sales_engine)
+    sa = SalesAnalyst.new(@sales_engine)
 
     counts_per_weekday = {"Sunday" => 1, "Monday" => 4, "Tuesday" => 2, "Wednesday" => 1, "Thursday" => 1, "Friday" => 5, "Saturday" => 6}
 
@@ -249,25 +239,13 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_invoice_counts_per_day_works
-    sales_engine = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
-                                          items: "./test/fixtures/items_fixture.csv",
-                                          invoices: "./test/fixtures/invoices_fixture.csv",
-                                          invoice_items: "./test/fixtures/invoice_items_fixture.csv",
-                                          transactions: "./test/fixtures/transactions_fixture.csv",
-                                          customers: "./test/fixtures/customer_fixture.csv" })
-    sa = SalesAnalyst.new(sales_engine)
+    sa = SalesAnalyst.new(@sales_engine)
 
     assert_equal 2.86, sa.average_invoice_counts_per_day.round(2)
   end
 
   def test_average_invoices_per_day_standard_deviation_works
-    sales_engine = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
-                                          items: "./test/fixtures/items_fixture.csv",
-                                          invoices: "./test/fixtures/invoices_fixture.csv",
-                                          invoice_items: "./test/fixtures/invoice_items_fixture.csv",
-                                          transactions: "./test/fixtures/transactions_fixture.csv",
-                                          customers: "./test/fixtures/customer_fixture.csv" })
-    sa = SalesAnalyst.new(sales_engine)
+  sa = SalesAnalyst.new(@sales_engine)
 
     assert_equal 2.12, sa.average_invoices_per_day_standard_deviation
   end
@@ -282,25 +260,13 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_days_by_invoice_count
-    sales_engine = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
-                                          items: "./test/fixtures/items_fixture.csv",
-                                          invoices: "./test/fixtures/invoices_fixture.csv",
-                                          invoice_items: "./test/fixtures/invoice_items_fixture.csv",
-                                          transactions: "./test/fixtures/transactions_fixture.csv",
-                                          customers: "./test/fixtures/customer_fixture.csv" })
-    sa = SalesAnalyst.new(sales_engine)
+    sa = SalesAnalyst.new(@sales_engine)
 
     assert_equal ["Friday", "Saturday"], sa.top_days_by_invoice_count
   end
 
   def test_invoice_status_returns_percent_of_status
-    sales_engine = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
-                                          items: "./test/fixtures/items_fixture.csv",
-                                          invoices: "./test/fixtures/invoices_fixture.csv",
-                                          invoice_items: "./test/fixtures/invoice_items_fixture.csv",
-                                          transactions: "./test/fixtures/transactions_fixture.csv",
-                                          customers: "./test/fixtures/customer_fixture.csv" })
-    sa = SalesAnalyst.new(sales_engine)
+    sa = SalesAnalyst.new(@sales_engine)
 
     assert_equal 45.0, sa.invoice_status("pending")
     assert_equal 45.0, sa.invoice_status(:pending)
