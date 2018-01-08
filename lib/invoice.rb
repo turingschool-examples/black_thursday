@@ -50,5 +50,4 @@ class Invoice
       sum += invoice_item.unit_price * invoice_item.quantity
     end
   end
-
 end
