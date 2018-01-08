@@ -230,4 +230,10 @@ class SalesAnalyst
       invoice.merchant
     end.uniq
   end
+
+  def merchants_with_only_one_item
+    @sales_engine.all_merchants.select do |merchant|
+      merchant.items.count == 1
+    end
+  end
 end

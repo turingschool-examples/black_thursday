@@ -13,4 +13,4 @@ se = SalesEngine.from_csv({
 
 sa = SalesAnalyst.new(se)
 
-p sa.merchants_with_pending_invoices.count
+p sa.merchants_with_only_one_item.count
