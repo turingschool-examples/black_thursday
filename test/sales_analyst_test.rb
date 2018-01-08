@@ -49,4 +49,12 @@ class SalesAnalystTest < MiniTest::Test
 
     assert_equal 1, golden_items.count
   end
+
+  def test_average_invoices_per_merchant_returns_average_invoices
+    assert_equal 1.1, @sa.average_invoices_per_merchant
+  end
+
+  def test_average_invoices_per_merchant_standard_deviation_returns_standard_deviation
+    assert_equal 0.3, @sa.average_invoices_per_merchant_standard_deviation
+  end
 end

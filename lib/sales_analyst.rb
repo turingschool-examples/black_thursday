@@ -68,4 +68,20 @@ class SalesAnalyst
       item.unit_price > golden_price_floor
     end
   end
+
+#if a merchant does not have any invoices, it will bring down the average. Do we want that or should we remove those merchants with no invoices?
+  def average_invoices_per_merchant
+    sum_invoices = merchants.reduce(0) do |sum, merchant|
+      sum + merchant.invoices.count
+    end
+    (sum_invoices.to_f / merchants.count).round(1)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    Math.sqrt(
+      merchants.reduce(0) do |sum, merchant|
+      sum + (merchant.invoices.count - average_invoices_per_merchant)**2
+    end / (merchants.count - 1)
+  ).round(1)
+  end
 end
