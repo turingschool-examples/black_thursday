@@ -7,7 +7,6 @@ class SalesAnalystTest < Minitest::Test
   attr_reader :sales_analyst
 
   def setup
-
     @se = SalesEngine.new({
       :items     => "./test/fixtures/items_sample.csv",
       :merchants => "./test/fixtures/merchants_sample.csv",
@@ -51,8 +50,8 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_standard_deviation_for_invoices
-    skip
-    assert_equal 3.25, sales_analyst.average_invoices_per_merchant_standard_deviation
+    # skip
+    assert_equal 0.84, sales_analyst.average_invoices_per_merchant_standard_deviation
     refute_equal 3.20, sales_analyst.average_invoices_per_merchant_standard_deviation
   end
 
