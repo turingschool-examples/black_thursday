@@ -51,7 +51,10 @@ class InvoicesTest < Minitest::Test
     invoice = se.invoices.find_by_id(819)
 
     assert_instance_of Customer, invoice.customer
+<<<<<<< HEAD
     assert_equal 1, invoice.customer.count
+=======
+>>>>>>> 315a23ee28b77ef5893d669b98c687ab9d39faa8
   end
 
 end
