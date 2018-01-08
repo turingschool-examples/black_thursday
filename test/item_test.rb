@@ -54,11 +54,10 @@ class ItemTest < Minitest::Test
     })
 
     ir = ItemRepo.new(se, "./test/fixtures/items_truncated.csv")
+    i = ir.items.first
 
-    assert_instance_of Array, ir.items
-    assert_equal 65, ir.items.count
-    ir.items.each do |item|
-      assert_instance_of Item, item
-    end
+    assert_instance_of Item, i
+    assert_instance_of Merchant, i.merchant
+    assert_equal 12334189, i.merchant.id
   end
 end
