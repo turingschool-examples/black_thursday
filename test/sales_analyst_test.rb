@@ -77,4 +77,22 @@ class SalesAnalystTest < MiniTest::Test
 
     assert_equal 0, merchants_with_lowest_invoice_count.count
   end
+
+  def test_top_days_by_invoice_count_returns_array_of_popular_days
+    popular_days = @sa.top_days_by_invoice_count
+
+    assert_equal ["Sunday"], popular_days
+  end
+
+  def test_invoice_status_with_status_argument_returns_percentage_of_status
+    assert_equal 55, @sa.invoice_status(:shipped)
+    assert_equal 40, @sa.invoice_status(:pending)
+    assert_equal 5, @sa.invoice_status(:returned)
+
+    #OR
+    
+    sum_of_status_percentages = @sa.invoice_status(:shipped) + @sa.invoice_status(:pending) + @sa.invoice_status(:returned)
+
+    assert_equal 100, sum_of_status_percentages
+  end
 end
