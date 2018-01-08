@@ -12,6 +12,21 @@ class SalesAnalyst
     6 => "Saturday"
   }
 
+  MONTHS = {
+    "january" => "01",
+    "february" => "02",
+    "march" => "03",
+    "april" => "04",
+    "may" => "05",
+    "june" => "06",
+    "july" => "07",
+    "august" => "08",
+    "september" => "09",
+    "october" => "10",
+    "november" => "11",
+    "december" => "12"
+  }
+
   def initialize(sales_engine = "")
     @sales_engine = sales_engine
   end
@@ -202,5 +217,51 @@ class SalesAnalyst
 
   def invoice_status(status)
     ((invoices_by_status(status).length / count_invoices) * 100).round(2)
+  end
+
+  def total_revenue_by_date(date)
+    @sales_engine.find_invoices_by_date(date).reduce(0) do |sum, invoice|
+      sum += invoice.total
+    end
+  end
+
+  def top_revenue_earners(num = 20)
+    @sales_engine.all_merchants.map do |merchant|
+      total = merchant.invoices.reduce(0) do |sum, invoice|
+        sum += invoice.total
+      end
+      @sales_engine.assign_total_revenue(merchant.id, total)
+    end
+
+    @sales_engine.all_merchants.sort_by do |merchant|
+      merchant.total_revenue
+    end[-num..-1].reverse
+  end
+
+  def merchants_with_pending_invoices
+    invoices = @sales_engine.find_pending_invoices
+
+    invoices.map do |invoice|
+      invoice.merchant
+    end.uniq
+  end
+
+  def merchants_with_only_one_item
+    @sales_engine.all_merchants.select do |merchant|
+      merchant.items.count == 1
+    end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants_by_month(month).select do |merchant|
+      merchant.items
+    end
+
+  end
+
+  def merchants_by_month(month)
+    @sales_engine.all_merchants.select do |merchant|
+      merchant.created_at[5..6] == MONTHS[month.downcase]
+    end
   end
 end

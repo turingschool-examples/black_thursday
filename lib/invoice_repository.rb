@@ -53,6 +53,12 @@ class InvoiceRepository
     end
   end
 
+  def find_all_by_date(date)
+    all.select do |invoice|
+      invoice.created_at.strftime("%Y-%m-%d") == date
+    end
+  end
+
   def merchant(id)
     argument_raiser(id)
     @parent.find_merchant_by_id(id)
