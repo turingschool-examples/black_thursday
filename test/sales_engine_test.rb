@@ -59,11 +59,9 @@ class SalesEngineTest < Minitest::Test
     merchant = invoice.merchant
     merchant_id = 12334135
 
+    assert_instance_of Merchant, merchant
     assert_equal merchant_id, invoice.merchant_id
     assert_equal merchant_id, merchant.id
-    assert merchant.invoices.any? do |invoice|
-      invoice.id == 12
-    end
   end
 
   def test_it_finds_item_by_item_id

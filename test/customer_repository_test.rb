@@ -61,4 +61,11 @@ class CustomerRepositoryTest < Minitest::Test
 
     assert customers.empty?
   end
+
+  def test_it_calls_its_parent_to_find_invoices_by_customer_id
+    invoice = mock('invoice')
+    @invoices.expects(:find_invoices_by_customer_id).returns([invoice, invoice])
+
+    assert_equal [invoice, invoice], @cr.find_invoices_by_customer_id(3)
+  end
 end

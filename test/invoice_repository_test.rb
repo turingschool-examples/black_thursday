@@ -100,4 +100,6 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_instance_of Customer, customer
     assert_equal 3, customer.id
   end
+
+  
 end

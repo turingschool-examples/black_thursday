@@ -35,4 +35,8 @@ class CustomerRepository
       customer.last_name.downcase.include?(name_fragment.downcase)
     end
   end
+
+  def find_invoices_by_customer_id(customer_id)
+    @invoices.find_invoices_by_customer_id(customer_id)
+  end
 end
