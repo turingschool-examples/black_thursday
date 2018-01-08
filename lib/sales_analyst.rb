@@ -272,23 +272,29 @@ class SalesAnalyst
     end / 100.0).to_f
   end
 
+  # def l_most_sold_item_for_merchant(merchant_id)
+  #   invoice_items = @sales_engine.find_cost_by_invoice_id()
+  # end
+
   def most_sold_item_for_merchant(merchant_id)
     invoices = @sales_engine.find_invoice_by_merchant_id(merchant_id).select do |invoice|
       invoice.status != :pending
     end
-    require 'pry' ; binding.pry
+
     ids = invoices.map do |invoice|
       invoice.id
     end
 
-    items = ids.map do |id|
-      @sales_engine.find_items_by_invoice_id(id)
-    end.flatten
-
-    items.sort_by do |item|
-      item.unit_price
+    invoice_items = ids.group_by do |id|
+      @sales_engine.find_cost_by_invoice_id(id)
     end
+    require 'pry' ; binding.pry
+    # items.sort_by do |item|
+    #   item.quantity
+    # end
   end
+
+
 
   def merchants_with_pending_invoices
     @sales_engine.all_invoices
