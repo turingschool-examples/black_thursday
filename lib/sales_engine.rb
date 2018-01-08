@@ -60,6 +60,10 @@ class SalesEngine
     @merchants.assign_item_count(id, num)
   end
 
+  def self.assign_total_revenue(id, num)
+    @merchants.assign_total_revenue(id, num)
+  end
+
   def self.find_merchant_by_id(id)
     @merchants.find_by_id(id)
   end

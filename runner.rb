@@ -13,4 +13,4 @@ se = SalesEngine.from_csv({
 
 sa = SalesAnalyst.new(se)
 
-p sa.total_revenue_by_date('2005-02-02')
+p sa.top_revenue_earners(5)

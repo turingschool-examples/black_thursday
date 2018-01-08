@@ -210,4 +210,16 @@ class SalesAnalyst
     end
   end
 
+  def top_revenue_earners(num = 20)
+    @sales_engine.all_merchants.map do |merchant|
+      total = merchant.invoices.reduce(0) do |sum, invoice|
+        sum += invoice.total
+      end
+      @sales_engine.assign_total_revenue(merchant.id, total)
+    end
+
+    @sales_engine.all_merchants.sort_by do |merchant|
+      merchant.total_revenue
+    end.last(num).reverse
+  end
 end
