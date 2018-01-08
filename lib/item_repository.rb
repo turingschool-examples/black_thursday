@@ -22,8 +22,8 @@ class ItemRepository
     @parent = parent
   end
 
-  def call_sales_engine_merchants(merchant_id)
-    parent.get_merchant(merchant_id)
+  def call_merchant_from_merchant_id(merchant_id)
+    parent.get_merchant_from_merchant_id(merchant_id)
   end
 
   def find_by_id(id)

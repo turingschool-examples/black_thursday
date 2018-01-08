@@ -27,17 +27,17 @@ class SalesEngine
   def self.from_csv(file_paths)
     self.new(file_paths)
   end
-  #need specific tests for merchant_id_search, merchant_to_item, get_invoices
-  def get_merchant(merchant_id)
+
+  def get_merchant_from_merchant_id(merchant_id)
     merchants.find_by_id(merchant_id)
   end
 
-  def get_items(merchant_id)
+  def get_items_from_merchant_id(merchant_id)
     items.find_all_by_merchant_id(merchant_id)
   end
 
-  def get_invoices(id)
-    invoices.find_all_by_merchant_id(id)
+  def get_invoices_from_merchant_id(merchant_id)
+    invoices.find_all_by_merchant_id(merchant_id)
   end
 
   def get_items_from_invoice_id(invoice_id)
