@@ -32,7 +32,10 @@ class Invoice
   end
 
   def items
-    invoice_repo.items(@merchant_id)
+    invoice_items = invoice_repo.items(@id)
+    invoice_items.map do |invoice_item|
+      invoice_repo.find_item_by_id(invoice_item.item_id)
+    end
   end
 
   def transactions
@@ -41,7 +44,7 @@ class Invoice
 
   def customer
     invoice_repo.customer(@customer_id)
-  end 
+  end
 
   def merchant
     invoice_repo.find_merchant_by_invoice(merchant_id)

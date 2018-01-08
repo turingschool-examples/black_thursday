@@ -24,8 +24,8 @@ class InvoiceRepository
     @invoices
   end
 
-  def items(merchant_id)
-    se.items.find_all_by_merchant_id(merchant_id)
+  def items(invoice_id)
+    se.invoice_items.find_all_by_invoice_id(invoice_id)
   end
 
   def transactions(invoice_id)
@@ -66,6 +66,10 @@ class InvoiceRepository
 
   def grab_array_of_invoices # NEEDS TESTS || Returns array of invoice count per merchant
     merchants.map { |merchant| merchant.invoices.count }
+  end
+
+  def find_item_by_id(item_id)
+    se.items.find_by_id(item_id)
   end
 
 end
