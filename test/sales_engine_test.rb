@@ -362,7 +362,9 @@ class SalesEngineTest < Minitest::Test
 
     invoice_1 = se.invoices.find_by_id(19)
     invoice_2 = se.invoices.find_by_id(20)
+    invoice_3 = se.invoices.find_by_id(5)
 
+    refute invoice_3.is_paid_in_full?
     refute invoice_1.is_paid_in_full?
     assert invoice_2.is_paid_in_full?
   end
