@@ -51,7 +51,7 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_average_invoices_per_merchant_returns_average_invoices
-    assert_equal 1.1, @sa.average_invoices_per_merchant
+    assert_equal 1.09, @sa.average_invoices_per_merchant
   end
 
   def test_average_invoices_per_merchant_standard_deviation_returns_correct_value
@@ -97,8 +97,8 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_invoice_status_with_status_argument_returns_percentage_of_status
-    assert_equal 58.3, @sa.invoice_status(:shipped)
-    assert_equal 33.3, @sa.invoice_status(:pending)
-    assert_equal 8.3, @sa.invoice_status(:returned)
+    assert_equal 58.33, @sa.invoice_status(:shipped)
+    assert_equal 33.33, @sa.invoice_status(:pending)
+    assert_equal 8.33, @sa.invoice_status(:returned)
   end
 end

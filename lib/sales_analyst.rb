@@ -74,15 +74,16 @@ class SalesAnalyst
     sum_invoices = merchants.reduce(0) do |sum, merchant|
       sum + merchant.invoices.count
     end
-    (sum_invoices.to_f / merchants.count).round(1)
+    (sum_invoices.to_f / merchants.count).round(2)
   end
 
   def average_invoices_per_merchant_standard_deviation
+    average = average_invoices_per_merchant
     Math.sqrt(
       merchants.reduce(0) do |sum, merchant|
-      sum + (merchant.invoices.count - average_invoices_per_merchant)**2
+      sum + (merchant.invoices.count - average)**2
     end / (merchants.count - 1)
-  ).round(1)
+  ).round(2)
   end
 
   def two_standard_deviations_above_average_invoices
@@ -114,9 +115,10 @@ class SalesAnalyst
   end
 
   def average_invoices_created_per_weekday_standard_deviation
+    average = average_invoices_created_per_weekday
     Math.sqrt(
       @sales_engine.invoices.invoices_created_each_weekday.reduce(0) do |sum, element|
-      sum + (element[1] - average_invoices_created_per_weekday)**2
+      sum + (element[1] - average)**2
     end / (7 - 1)
   ).round(2)
   end
@@ -133,7 +135,7 @@ class SalesAnalyst
   end
 
   def invoice_status(status)
-    number_of_invoices_with_status = @sales_engine.invoices.find_all_by_status(status.to_s).count
-    ((number_of_invoices_with_status / @sales_engine.invoices.all.count.to_f) * 100).round(1)
+    number_of_invoices_with_status = @sales_engine.invoices.find_all_by_status(status).count
+    ((number_of_invoices_with_status / @sales_engine.invoices.all.count.to_f) * 100).round(2)
   end
 end
