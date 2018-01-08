@@ -222,4 +222,8 @@ class SalesAnalyst
       merchant.total_revenue
     end.last(num).reverse
   end
+
+  def merchants_with_pending_invoices
+    @sales_engine.all_invoices
+  end
 end
