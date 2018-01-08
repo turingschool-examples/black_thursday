@@ -11,6 +11,6 @@ se = SalesEngine.from_csv({
 })
 
 
-invoice = se.invoices.find_by_id(15)
+sa = SalesAnalyst.new(se)
 
-p invoice.items.count
+p sa.total_revenue_by_date('2005-02-02')

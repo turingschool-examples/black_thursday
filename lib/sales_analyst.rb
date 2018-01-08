@@ -203,4 +203,11 @@ class SalesAnalyst
   def invoice_status(status)
     ((invoices_by_status(status).length / count_invoices) * 100).round(2)
   end
+
+  def total_revenue_by_date(date)
+    @sales_engine.find_invoices_by_date(date).reduce(0) do |sum, invoice|
+      sum += invoice.total
+    end
+  end
+
 end

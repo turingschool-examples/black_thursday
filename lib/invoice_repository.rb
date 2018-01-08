@@ -78,6 +78,12 @@ class InvoiceRepository
     @parent.find_cost_by_invoice_id(id)
   end
 
+  def find_all_by_date(date)
+    all.select do |invoice|
+      invoice.created_at.strftime("%Y-%m-%d") == date
+    end
+  end
+
   def argument_raiser(data_type, desired_class = Integer)
     if data_type.class != desired_class
       raise ArgumentError
