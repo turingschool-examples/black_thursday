@@ -1,6 +1,9 @@
 require_relative "item_repository"
 require_relative "merchant_repository"
 require_relative "invoice_repository"
+require_relative "invoice_item_repository"
+require_relative "transaction_repository"
+require_relative "customer_repository"
 require "bigdecimal"
 require 'pry'
 
@@ -14,6 +17,12 @@ class SalesEngine
     @merchants = MerchantRepository.new(file_paths[:merchants], self)
     @items     = ItemRepository.new(file_paths[:items], self)
     @invoices  = InvoiceRepository.new(file_paths[:invoices], self)
+    iir = InvoiceItemRepository.new
+    @invoice_items = irr.from_csv(file_paths[:invoice_items], self)
+    tr = TransactionRepository.new
+    @transactions = tr.from_csv(file_paths[:transactions], self)
+    cr = CustomerRepository.new
+    @customers = cr.from_csv(file_paths[:customers], self)
   end
 
   def self.from_csv(file_paths)
@@ -24,12 +33,27 @@ class SalesEngine
     merchants.find_by_id(merchant_id)
   end
 
-  def get_items(id)
-    items.find_all_by_merchant_id(id)
+  def get_items(merchant_id)
+    items.find_all_by_merchant_id(merchant_id)
   end
 
   def get_invoices(id)
     invoices.find_all_by_merchant_id(id)
+  end
+
+  def get_items_from_invoice_id(invoice_id)
+    item_ids = get_item_ids_from_invoice_id(invoice_id)
+    ir = items.all
+    item_ids.map do |item_id|
+      ir.find_by_id(item_id)
+    end
+  end
+
+  def get_item_ids_from_invoice_id(invoice_id)
+    invoice_items = invoice_items.find_all_by_invoice_id(invoice_id)
+    invoice_items.map do |invoice_item|
+      invoice_item.item_id
+    end
   end
 
   def get_all_merchant_items

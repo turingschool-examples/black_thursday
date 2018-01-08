@@ -21,4 +21,16 @@ class Invoice
     parent.call_sales_engine_merchants(merchant_id)
   end
 
+  def items
+   parent.call_items_from_invoice_id(id)
+  end
+
+  def transactions
+
+  end
+
+  def customers
+
+  end
+
 end

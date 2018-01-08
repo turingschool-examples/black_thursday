@@ -5,40 +5,56 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_exists
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
-                                items: "./test/fixtures/merchants_fixture.csv",
-                                invoices: "./test/fixtures/invoices_fixture.csv"})
+                                items: "./test/fixtures/items_fixture.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv",
+                                invoice_items: "./test/fixtures/invoice_items_fixture.csv",
+                                transactions: "./test/fixtures/transactions_fixture.csv",
+                                customers: "./test/fixtures/customer_fixture.csv" })
 
     assert_instance_of SalesEngine, se
   end
 
   def test_sales_engine_instantiates_merchant_repository
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
-                                items: "./test/fixtures/merchants_fixture.csv",
-                                invoices: "./test/fixtures/invoices_fixture.csv"})
+                                items: "./test/fixtures/items_fixture.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv",
+                                invoice_items: "./test/fixtures/invoice_items_fixture.csv",
+                                transactions: "./test/fixtures/transactions_fixture.csv",
+                                customers: "./test/fixtures/customer_fixture.csv" })
 
     assert_instance_of MerchantRepository, se.merchants
   end
 
   def test_sales_engine_instantiates_item_repository
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
-                                items: "./test/fixtures/merchants_fixture.csv",
-                                invoices: "./test/fixtures/invoices_fixture.csv"})
+                                items: "./test/fixtures/items_fixture.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv",
+                                invoice_items: "./test/fixtures/invoice_items_fixture.csv",
+                                transactions: "./test/fixtures/transactions_fixture.csv",
+                                customers: "./test/fixtures/customer_fixture.csv" })
 
     assert_instance_of ItemRepository, se.items
   end
 
   def test_sales_engine_instantiates_invoice_repository
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
-                                items: "./test/fixtures/merchants_fixture.csv",
-                                invoices: "./test/fixtures/invoices_fixture.csv"})
+                                items: "./test/fixtures/items_fixture.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv",
+                                invoice_items: "./test/fixtures/invoice_items_fixture.csv",
+                                transactions: "./test/fixtures/transactions_fixture.csv",
+                                customers: "./test/fixtures/customer_fixture.csv" })
 
     assert_instance_of InvoiceRepository, se.invoices
   end
 
   def test_merchant_repository_has_merchants
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
-                                items: "./test/fixtures/merchants_fixture.csv",
-                                invoices: "./test/fixtures/invoices_fixture.csv"})
+                                items: "./test/fixtures/items_fixture.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv",
+                                invoice_items: "./test/fixtures/invoice_items_fixture.csv",
+                                transactions: "./test/fixtures/transactions_fixture.csv",
+                                customers: "./test/fixtures/customer_fixture.csv" })
+
     all_merchants = se.merchants.all
 
     all_merchants.map do |merchant|
@@ -48,8 +64,11 @@ class SalesEngineTest < Minitest::Test
 
   def test_item_repository_has_items
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
-                                items: "./test/fixtures/merchants_fixture.csv",
-                                invoices: "./test/fixtures/invoices_fixture.csv"})
+                                items: "./test/fixtures/items_fixture.csv",
+                                invoices: "./test/fixtures/invoices_fixture.csv",
+                                invoice_items: "./test/fixtures/invoice_items_fixture.csv",
+                                transactions: "./test/fixtures/transactions_fixture.csv",
+                                customers: "./test/fixtures/customer_fixture.csv" })
 
     all_items = se.items.all
 
@@ -61,7 +80,10 @@ class SalesEngineTest < Minitest::Test
   def test_item_is_linked_to_merchant
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
                                 items: "./test/fixtures/items_fixture.csv",
-                                invoices: "./test/fixtures/invoices_fixture.csv"})
+                                invoices: "./test/fixtures/invoices_fixture.csv",
+                                invoice_items: "./test/fixtures/invoice_items_fixture.csv",
+                                transactions: "./test/fixtures/transactions_fixture.csv",
+                                customers: "./test/fixtures/customer_fixture.csv" })
 
     item = se.items.find_by_id(263395237)
 
@@ -71,7 +93,10 @@ class SalesEngineTest < Minitest::Test
   def test_merchant_is_linked_to_item
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
                                 items: "./test/fixtures/items_fixture.csv",
-                                invoices: "./test/fixtures/invoices_fixture.csv"})
+                                invoices: "./test/fixtures/invoices_fixture.csv",
+                                invoice_items: "./test/fixtures/invoice_items_fixture.csv",
+                                transactions: "./test/fixtures/transactions_fixture.csv",
+                                customers: "./test/fixtures/customer_fixture.csv" })
 
     invoice_1 = se.merchants.find_by_id(12334141)
     invoice_2 = se.merchants.find_by_id(12334185)
@@ -90,7 +115,10 @@ class SalesEngineTest < Minitest::Test
   def test_get_all_merchant_items_returns_hash_of_merchants_and_items
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
                                 items: "./test/fixtures/items_fixture.csv",
-                                invoices: "./test/fixtures/invoices_fixture.csv"})
+                                invoices: "./test/fixtures/invoices_fixture.csv",
+                                invoice_items: "./test/fixtures/invoice_items_fixture.csv",
+                                transactions: "./test/fixtures/transactions_fixture.csv",
+                                customers: "./test/fixtures/customer_fixture.csv" })
 
     merchants_and_items = se.get_all_merchant_items
     merchants = merchants_and_items.keys
@@ -108,7 +136,10 @@ class SalesEngineTest < Minitest::Test
   def test_get_all_merchant_prices_returns_hash_of_merchant_and_prices
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
                                 items: "./test/fixtures/items_fixture.csv",
-                                invoices: "./test/fixtures/invoices_fixture.csv"})
+                                invoices: "./test/fixtures/invoices_fixture.csv",
+                                invoice_items: "./test/fixtures/invoice_items_fixture.csv",
+                                transactions: "./test/fixtures/transactions_fixture.csv",
+                                customers: "./test/fixtures/customer_fixture.csv" })
 
     merchants_and_prices = se.get_all_merchant_prices
     merchants = merchants_and_prices.keys
@@ -124,7 +155,10 @@ class SalesEngineTest < Minitest::Test
   def test_get_one_merchant_prices_returns_array_of_merchant_prices
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
                                 items: "./test/fixtures/items_fixture.csv",
-                                invoices: "./test/fixtures/invoices_fixture.csv"})
+                                invoices: "./test/fixtures/invoices_fixture.csv",
+                                invoice_items: "./test/fixtures/invoice_items_fixture.csv",
+                                transactions: "./test/fixtures/transactions_fixture.csv",
+                                customers: "./test/fixtures/customer_fixture.csv" })
 
     assert_equal [12.0, 13.5, 7.0],  se.get_one_merchant_prices(12334185)
   end
@@ -132,7 +166,10 @@ class SalesEngineTest < Minitest::Test
   def test_search_ir_by_price_returns_all_items_with_given_price
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
                                 items: "./test/fixtures/items_fixture.csv",
-                                invoices: "./test/fixtures/invoices_fixture.csv" })
+                                invoices: "./test/fixtures/invoices_fixture.csv",
+                                invoice_items: "./test/fixtures/invoice_items_fixture.csv",
+                                transactions: "./test/fixtures/transactions_fixture.csv",
+                                customers: "./test/fixtures/customer_fixture.csv" })
 
     items =  se.search_ir_by_price(12.00)
     item_ids = items.map { |item| item.id }
@@ -143,7 +180,10 @@ class SalesEngineTest < Minitest::Test
   def test_find_by_merchant_id_invoices_specific_to_merchant
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
                                 items: "./test/fixtures/items_fixture.csv",
-                                invoices: "./test/fixtures/invoices_fixture.csv" })
+                                invoices: "./test/fixtures/invoices_fixture.csv",
+                                invoice_items: "./test/fixtures/invoice_items_fixture.csv",
+                                transactions: "./test/fixtures/transactions_fixture.csv",
+                                customers: "./test/fixtures/customer_fixture.csv" })
 
     invoice_1 = se.merchants.find_by_id(12334141)
     invoice_2 = se.merchants.find_by_id(12334185)
@@ -163,7 +203,10 @@ class SalesEngineTest < Minitest::Test
   def test_find_by_invoice_id_returns_merchant_id
     se = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
                                 items: "./test/fixtures/items_fixture.csv",
-                                invoices: "./test/fixtures/invoices_fixture.csv" })
+                                invoices: "./test/fixtures/invoices_fixture.csv",
+                                invoice_items: "./test/fixtures/invoice_items_fixture.csv",
+                                transactions: "./test/fixtures/transactions_fixture.csv",
+                                customers: "./test/fixtures/customer_fixture.csv" })
 
     invoice_1 = se.invoices.find_by_id(6)
     invoice_2 = se.invoices.find_by_id(18)
