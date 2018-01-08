@@ -23,12 +23,18 @@ class TransactionRepositoryTest < MiniTest::Test
 
   def test_find_all_by_invoice_id_returns_an_array
     assert_instance_of Transaction, @transaction.find_all_by_invoice_id(3675)[0]
-    #add id assertion
+
+    assert_equal 2213, @transaction.find_all_by_invoice_id(3675)[0].id
+
+  end
+
+  def test_find_all_by_invoice_id_returns_empty_array_when_given_dummy_id
     assert_equal [], @transaction.find_all_by_invoice_id(3)
   end
 
   def test_find_all_by_credit_card_number_returns_array_of_transactions
-    assert_equal ["4763150000000000"], @transaction.find_all_by_credit_card_number(4.76315E+15)
+    assert_instance_of Transaction, @transaction.find_all_by_credit_card_number(4.76315E+15)[0]
+    assert_equal 4763150000000000, @transaction.find_all_by_credit_card_number(4.76315E+15)[0].credit_card_number
   end
 
   def test_find_all_by_result_returns_array_of_transactions

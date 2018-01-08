@@ -34,13 +34,3 @@ class InvoiceItem
   end
 
 end
-
-
-# created_at = Time.strptime(
-#   case info[:created_at].length
-#   when info[:created_at].length > 10
-#     info[:created_at], "%Y-%m-%d %H:%M:%S %Z"
-#   else
-#     info[:created_at], "%Y-%m-%d"
-#   end
-# )
