@@ -6,12 +6,12 @@ class InvoiceItemTest < Minitest::Test
 
   def test_it_exists
     se = SalesEngine.from_csv({
-      :items         => "./data/items.csv",
-      :merchants     => "./data/merchants.csv",
-      :invoices      => "./data/invoices.csv",
-      :invoice_items => "./data/invoice_items.csv",
-      :transactions  => "./data/transactions.csv",
-      :customers     => "./data/customers.csv"
+      :items         => "./test/fixtures/items_truncated.csv",
+      :merchants     => "./test/fixtures/merchants_truncated.csv",
+      :invoices      => "./test/fixtures/invoices_truncated.csv",
+      :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
+      :transactions  => "./test/fixtures/transactions_truncated.csv",
+      :customers     => "./test/fixtures/customers_truncated.csv"
     })
 
     ii = InvoiceItem.new({id: 1, item_id: 263519844, invoice_id: 1, quantity: 5, unit_price: 13635, created_at: "2012-03-27", updated_at: "2012-03-27"}, se)
@@ -21,12 +21,12 @@ class InvoiceItemTest < Minitest::Test
 
   def test_it_has_attributes
     se = SalesEngine.from_csv({
-      :items         => "./data/items.csv",
-      :merchants     => "./data/merchants.csv",
-      :invoices      => "./data/invoices.csv",
-      :invoice_items => "./data/invoice_items.csv",
-      :transactions  => "./data/transactions.csv",
-      :customers     => "./data/customers.csv"
+      :items         => "./test/fixtures/items_truncated.csv",
+      :merchants     => "./test/fixtures/merchants_truncated.csv",
+      :invoices      => "./test/fixtures/invoices_truncated.csv",
+      :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
+      :transactions  => "./test/fixtures/transactions_truncated.csv",
+      :customers     => "./test/fixtures/customers_truncated.csv"
     })
 
     ii = InvoiceItem.new({id: 1, item_id: 263519844, invoice_id: 1, quantity: 5, unit_price: 13635, created_at: "2012-03-27", updated_at: "2012-03-27"}, se)
@@ -44,12 +44,12 @@ class InvoiceItemTest < Minitest::Test
 
   def test_unit_price_to_dollars_converts_to_dollars
     se = SalesEngine.from_csv({
-      :items         => "./data/items.csv",
-      :merchants     => "./data/merchants.csv",
-      :invoices      => "./data/invoices.csv",
-      :invoice_items => "./data/invoice_items.csv",
-      :transactions  => "./data/transactions.csv",
-      :customers     => "./data/customers.csv"
+      :items         => "./test/fixtures/items_truncated.csv",
+      :merchants     => "./test/fixtures/merchants_truncated.csv",
+      :invoices      => "./test/fixtures/invoices_truncated.csv",
+      :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
+      :transactions  => "./test/fixtures/transactions_truncated.csv",
+      :customers     => "./test/fixtures/customers_truncated.csv"
     })
 
     ii = InvoiceItem.new({id: 1, item_id: 263519844, invoice_id: 1, quantity: 5, unit_price: 13635, created_at: "2012-03-27", updated_at: "2012-03-27"}, se)
@@ -59,17 +59,17 @@ class InvoiceItemTest < Minitest::Test
 
   def test_item_returns_item_of_invoice_item
     se = SalesEngine.from_csv({
-      :items         => "./data/items.csv",
-      :merchants     => "./data/merchants.csv",
-      :invoices      => "./data/invoices.csv",
-      :invoice_items => "./data/invoice_items.csv",
-      :transactions  => "./data/transactions.csv",
-      :customers     => "./data/customers.csv"
+      :items         => "./test/fixtures/items_truncated.csv",
+      :merchants     => "./test/fixtures/merchants_truncated.csv",
+      :invoices      => "./test/fixtures/invoices_truncated.csv",
+      :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
+      :transactions  => "./test/fixtures/transactions_truncated.csv",
+      :customers     => "./test/fixtures/customers_truncated.csv"
     })
 
-    ii = InvoiceItem.new({id: 1, item_id: 263519844, invoice_id: 1, quantity: 5, unit_price: 13635, created_at: "2012-03-27", updated_at: "2012-03-27"}, se)
+    ii = InvoiceItem.new({id: 1, item_id: 263500432, invoice_id: 74, quantity: 5, unit_price: 13635, created_at: "2012-03-27", updated_at: "2012-03-27"}, se)
 
     assert_instance_of Item, ii.item
-    assert_equal 263519844, ii.item.id
+    assert_equal 263500432, ii.item.id
   end
 end

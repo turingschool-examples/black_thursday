@@ -19,7 +19,7 @@ class MerchantRepoTest < Minitest::Test
     assert_instance_of MerchantRepo, mr
     assert_equal 12334105, mr.merchants.first.id
     assert_equal "Shopin1901", mr.merchants.first.name
-    assert_equal 15, mr.merchants.count
+    assert_equal 16, mr.merchants.count
   end
 
   def test_all_returns_all_merchants
@@ -34,7 +34,7 @@ class MerchantRepoTest < Minitest::Test
 
     mr = MerchantRepo.new(se, "./test/fixtures/merchants_truncated.csv")
 
-    assert_equal 15, mr.all.count
+    assert_equal 16, mr.all.count
     assert_instance_of Merchant, mr.merchants.first
   end
 
@@ -134,7 +134,7 @@ class MerchantRepoTest < Minitest::Test
 
     mr = MerchantRepo.new(se, "./test/fixtures/merchants_truncated.csv")
 
-    assert_equal "#<MerchantRepo 15 rows>", mr.inspect
+    assert_equal "#<MerchantRepo 16 rows>", mr.inspect
   end
 
   def test_find_invoices_by_merchant_id_finds_invoices_by_merchant_id

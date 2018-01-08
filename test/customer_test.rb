@@ -6,12 +6,12 @@ class CustomerTest < Minitest::Test
 
   def test_it_exists
     se = SalesEngine.from_csv({
-      :items         => "./data/items.csv",
-      :merchants     => "./data/merchants.csv",
-      :invoices      => "./data/invoices.csv",
-      :invoice_items => "./data/invoice_items.csv",
-      :transactions  => "./data/transactions.csv",
-      :customers     => "./data/customers.csv"
+      :items         => "./test/fixtures/items_truncated.csv",
+      :merchants     => "./test/fixtures/merchants_truncated.csv",
+      :invoices      => "./test/fixtures/invoices_truncated.csv",
+      :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
+      :transactions  => "./test/fixtures/transactions_truncated.csv",
+      :customers     => "./test/fixtures/customers_truncated.csv"
     })
 
     c = Customer.new({id: 1, first_name: "Joey", last_name: "Ondricka", created_at: "2012-03-27 14:54:09 UTC", updated_at: "2012-03-27 14:54:09 UTC"}, se)
@@ -21,12 +21,12 @@ class CustomerTest < Minitest::Test
 
   def test_it_has_attributes
     se = SalesEngine.from_csv({
-      :items         => "./data/items.csv",
-      :merchants     => "./data/merchants.csv",
-      :invoices      => "./data/invoices.csv",
-      :invoice_items => "./data/invoice_items.csv",
-      :transactions  => "./data/transactions.csv",
-      :customers     => "./data/customers.csv"
+      :items         => "./test/fixtures/items_truncated.csv",
+      :merchants     => "./test/fixtures/merchants_truncated.csv",
+      :invoices      => "./test/fixtures/invoices_truncated.csv",
+      :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
+      :transactions  => "./test/fixtures/transactions_truncated.csv",
+      :customers     => "./test/fixtures/customers_truncated.csv"
     })
 
     c = Customer.new({id: 1, first_name: "Joey", last_name: "Ondricka", created_at: "2012-03-27 14:54:09 UTC", updated_at: "2012-03-27 14:54:09 UTC"}, se)
@@ -42,37 +42,37 @@ class CustomerTest < Minitest::Test
 
   def test_invoice_returns_invoices_of_customer
     se = SalesEngine.from_csv({
-      :items         => "./data/items.csv",
-      :merchants     => "./data/merchants.csv",
-      :invoices      => "./data/invoices.csv",
-      :invoice_items => "./data/invoice_items.csv",
-      :transactions  => "./data/transactions.csv",
-      :customers     => "./data/customers.csv"
+      :items         => "./test/fixtures/items_truncated.csv",
+      :merchants     => "./test/fixtures/merchants_truncated.csv",
+      :invoices      => "./test/fixtures/invoices_truncated.csv",
+      :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
+      :transactions  => "./test/fixtures/transactions_truncated.csv",
+      :customers     => "./test/fixtures/customers_truncated.csv"
     })
 
-    c = Customer.new({id: 1, first_name: "Joey", last_name: "Ondricka", created_at: "2012-03-27 14:54:09 UTC", updated_at: "2012-03-27 14:54:09 UTC"}, se)
+    c = Customer.new({id: 14, first_name: "Casimer", last_name: "Hettinger", created_at: "2012-03-27 14:54:13 UTC", updated_at: "2012-03-27 14:54:13 UTC"}, se)
 
     assert_instance_of Array, c.invoices
-    assert_equal 8, c.invoices.count
+    assert_equal 2, c.invoices.count
     c.invoices.each do |invoice|
       assert_instance_of Invoice, invoice
-      assert_equal 1, invoice.customer_id
+      assert_equal 14, invoice.customer_id
     end
   end
 
   def test_merchants_returns_merchants_of_customer
     se = SalesEngine.from_csv({
-      :items         => "./data/items.csv",
-      :merchants     => "./data/merchants.csv",
-      :invoices      => "./data/invoices.csv",
-      :invoice_items => "./data/invoice_items.csv",
-      :transactions  => "./data/transactions.csv",
-      :customers     => "./data/customers.csv"
+      :items         => "./test/fixtures/items_truncated.csv",
+      :merchants     => "./test/fixtures/merchants_truncated.csv",
+      :invoices      => "./test/fixtures/invoices_truncated.csv",
+      :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
+      :transactions  => "./test/fixtures/transactions_truncated.csv",
+      :customers     => "./test/fixtures/customers_truncated.csv"
     })
 
-    c = Customer.new({id: 1, first_name: "Joey", last_name: "Ondricka", created_at: "2012-03-27 14:54:09 UTC", updated_at: "2012-03-27 14:54:09 UTC"}, se)
+    c = Customer.new({id: 14, first_name: "Casimer", last_name: "Hettinger", created_at: "2012-03-27 14:54:13 UTC", updated_at: "2012-03-27 14:54:13 UTC"}, se)
 
     assert_instance_of Array, c.merchants
-    assert_equal 8, c.merchants.count
+    assert_equal 2, c.merchants.count
   end
 end

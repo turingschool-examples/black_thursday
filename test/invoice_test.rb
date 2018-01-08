@@ -2,31 +2,31 @@ require_relative "test_helper"
 require_relative "../lib/invoice"
 require_relative "../lib/sales_engine"
 
- class InvoiceTest < Minitest::Test
+class InvoiceTest < Minitest::Test
 
-   def test_it_exist
+  def test_it_exist
     se = SalesEngine.from_csv({
-      :items         => "./data/items.csv",
-      :merchants     => "./data/merchants.csv",
-      :invoices      => "./data/invoices.csv",
-      :invoice_items => "./data/invoice_items.csv",
-      :transactions  => "./data/transactions.csv",
-      :customers     => "./data/customers.csv"
-    })
+      :items         => "./test/fixtures/items_truncated.csv",
+      :merchants     => "./test/fixtures/merchants_truncated.csv",
+      :invoices      => "./test/fixtures/invoices_truncated.csv",
+      :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
+      :transactions  => "./test/fixtures/transactions_truncated.csv",
+      :customers     => "./test/fixtures/customers_truncated.csv"
+      })
 
-    i = Invoice.new({id: 5, customer_id: 1, merchant_id: 12335311, status: "pending", created_at: "2014-02-08", updated_at: "2014-07-22"}, se)
+      i = Invoice.new({id: 5, customer_id: 1, merchant_id: 12335311, status: "pending", created_at: "2014-02-08", updated_at: "2014-07-22"}, se)
 
-     assert_instance_of Invoice, i
-   end
+      assert_instance_of Invoice, i
+  end
 
   def test_it_has_attributes
     se = SalesEngine.from_csv({
-      :items         => "./data/items.csv",
-      :merchants     => "./data/merchants.csv",
-      :invoices      => "./data/invoices.csv",
-      :invoice_items => "./data/invoice_items.csv",
-      :transactions  => "./data/transactions.csv",
-      :customers     => "./data/customers.csv"
+      :items         => "./test/fixtures/items_truncated.csv",
+      :merchants     => "./test/fixtures/merchants_truncated.csv",
+      :invoices      => "./test/fixtures/invoices_truncated.csv",
+      :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
+      :transactions  => "./test/fixtures/transactions_truncated.csv",
+      :customers     => "./test/fixtures/customers_truncated.csv"
     })
 
     i = Invoice.new({id: 5, customer_id: 1, merchant_id: 12335311, status: "pending", created_at: "2014-02-08", updated_at: "2014-07-22"}, se)
@@ -43,31 +43,30 @@ require_relative "../lib/sales_engine"
 
   def test_invoice_repo_returns_instance_merchant_by_id
     se = SalesEngine.from_csv({
-      :items         => "./data/items.csv",
-      :merchants     => "./data/merchants.csv",
-      :invoices      => "./data/invoices.csv",
-      :invoice_items => "./data/invoice_items.csv",
-      :transactions  => "./data/transactions.csv",
-      :customers     => "./data/customers.csv"
+      :items         => "./test/fixtures/items_truncated.csv",
+      :merchants     => "./test/fixtures/merchants_truncated.csv",
+      :invoices      => "./test/fixtures/invoices_truncated.csv",
+      :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
+      :transactions  => "./test/fixtures/transactions_truncated.csv",
+      :customers     => "./test/fixtures/customers_truncated.csv"
     })
 
-    ir = InvoiceRepo.new(se, "./data/invoices.csv")
+    ir = InvoiceRepo.new(se, "./test/fixtures/invoices_truncated.csv")
     i  = ir.invoices.first
 
     assert_instance_of Invoice, i
     assert_instance_of Merchant, i.merchant
-    assert_equal 12335938, i.merchant.id
-    assert_equal 12335938, i.merchant_id
+    assert_equal 12334105, i.merchant.id
   end
 
   def test_items_returns_items_of_invoice
     se = SalesEngine.from_csv({
-      :items         => "./data/items.csv",
-      :merchants     => "./data/merchants.csv",
-      :invoices      => "./data/invoices.csv",
-      :invoice_items => "./data/invoice_items.csv",
-      :transactions  => "./data/transactions.csv",
-      :customers     => "./data/customers.csv"
+      :items         => "./test/fixtures/items_truncated.csv",
+      :merchants     => "./test/fixtures/merchants_truncated.csv",
+      :invoices      => "./test/fixtures/invoices_truncated.csv",
+      :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
+      :transactions  => "./test/fixtures/transactions_truncated.csv",
+      :customers     => "./test/fixtures/customers_truncated.csv"
     })
 
     i = Invoice.new({id: 5, customer_id: 1, merchant_id: 12335311, status: "pending", created_at: "2014-02-08", updated_at: "2014-07-22"}, se)
@@ -80,12 +79,12 @@ require_relative "../lib/sales_engine"
 
   def test_transactions_returns_transactions_of_invoice
     se = SalesEngine.from_csv({
-      :items         => "./data/items.csv",
-      :merchants     => "./data/merchants.csv",
-      :invoices      => "./data/invoices.csv",
-      :invoice_items => "./data/invoice_items.csv",
-      :transactions  => "./data/transactions.csv",
-      :customers     => "./data/customers.csv"
+      :items         => "./test/fixtures/items_truncated.csv",
+      :merchants     => "./test/fixtures/merchants_truncated.csv",
+      :invoices      => "./test/fixtures/invoices_truncated.csv",
+      :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
+      :transactions  => "./test/fixtures/transactions_truncated.csv",
+      :customers     => "./test/fixtures/customers_truncated.csv"
     })
 
     i = Invoice.new({id: 5, customer_id: 1, merchant_id: 12335311, status: "pending", created_at: "2014-02-08", updated_at: "2014-07-22"}, se)
@@ -99,12 +98,12 @@ require_relative "../lib/sales_engine"
 
   def test_customer_returns_customer_of_invoice
     se = SalesEngine.from_csv({
-      :items         => "./data/items.csv",
-      :merchants     => "./data/merchants.csv",
-      :invoices      => "./data/invoices.csv",
-      :invoice_items => "./data/invoice_items.csv",
-      :transactions  => "./data/transactions.csv",
-      :customers     => "./data/customers.csv"
+      :items         => "./test/fixtures/items_truncated.csv",
+      :merchants     => "./test/fixtures/merchants_truncated.csv",
+      :invoices      => "./test/fixtures/invoices_truncated.csv",
+      :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
+      :transactions  => "./test/fixtures/transactions_truncated.csv",
+      :customers     => "./test/fixtures/customers_truncated.csv"
     })
 
     i = Invoice.new({id: 5, customer_id: 1, merchant_id: 12335311, status: "pending", created_at: "2014-02-08", updated_at: "2014-07-22"}, se)
@@ -115,12 +114,12 @@ require_relative "../lib/sales_engine"
 
   def test_successful_transactions_returns_successful_transactions
     se = SalesEngine.from_csv({
-      :items         => "./data/items.csv",
-      :merchants     => "./data/merchants.csv",
-      :invoices      => "./data/invoices.csv",
-      :invoice_items => "./data/invoice_items.csv",
-      :transactions  => "./data/transactions.csv",
-      :customers     => "./data/customers.csv"
+      :items         => "./test/fixtures/items_truncated.csv",
+      :merchants     => "./test/fixtures/merchants_truncated.csv",
+      :invoices      => "./test/fixtures/invoices_truncated.csv",
+      :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
+      :transactions  => "./test/fixtures/transactions_truncated.csv",
+      :customers     => "./test/fixtures/customers_truncated.csv"
     })
 
     i = Invoice.new({id: 5, customer_id: 1, merchant_id: 12335311, status: "pending", created_at: "2014-02-08", updated_at: "2014-07-22"}, se)
@@ -132,34 +131,34 @@ require_relative "../lib/sales_engine"
 
   def test_is_paid_in_full_returns_true_or_false
     se = SalesEngine.from_csv({
-      :items         => "./data/items.csv",
-      :merchants     => "./data/merchants.csv",
-      :invoices      => "./data/invoices.csv",
-      :invoice_items => "./data/invoice_items.csv",
-      :transactions  => "./data/transactions.csv",
-      :customers     => "./data/customers.csv"
+      :items         => "./test/fixtures/items_truncated.csv",
+      :merchants     => "./test/fixtures/merchants_truncated.csv",
+      :invoices      => "./test/fixtures/invoices_truncated.csv",
+      :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
+      :transactions  => "./test/fixtures/transactions_truncated.csv",
+      :customers     => "./test/fixtures/customers_truncated.csv"
     })
 
-    i = Invoice.new({id: 5, customer_id: 1, merchant_id: 12335311, status: "pending", created_at: "2014-02-08", updated_at: "2014-07-22"}, se)
+    i = Invoice.new({id: 74, customer_id: 14, merchant_id: 12334105, status: "returned", created_at: "2014-02-08", updated_at: "2014-07-22"}, se)
     i2 = Invoice.new({id: 1752, customer_id: 348, merchant_id: 12334174, status: "shipped", created_at: "2002-09-01", updated_at: "2003-08-11"}, se)
 
-    assert i.is_paid_in_full?
+    refute i.is_paid_in_full?
     refute i2.is_paid_in_full?
   end
 
   def test_total_invoice_items_price_returns_total_price_of_invoice
     se = SalesEngine.from_csv({
-      :items         => "./data/items.csv",
-      :merchants     => "./data/merchants.csv",
-      :invoices      => "./data/invoices.csv",
-      :invoice_items => "./data/invoice_items.csv",
-      :transactions  => "./data/transactions.csv",
-      :customers     => "./data/customers.csv"
+      :items         => "./test/fixtures/items_truncated.csv",
+      :merchants     => "./test/fixtures/merchants_truncated.csv",
+      :invoices      => "./test/fixtures/invoices_truncated.csv",
+      :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
+      :transactions  => "./test/fixtures/transactions_truncated.csv",
+      :customers     => "./test/fixtures/customers_truncated.csv"
     })
 
-    i = Invoice.new({id: 5, customer_id: 1, merchant_id: 12335311, status: "pending", created_at: "2014-02-08", updated_at: "2014-07-22"}, se)
+    i = Invoice.new({id: 74, customer_id: 14, merchant_id: 12334105, status: "returned", created_at: "2014-02-08", updated_at: "2014-07-22"}, se)
 
     assert_instance_of BigDecimal, i.total
-    assert_equal 0.1582816e5, i.total
+    assert_equal 0.1449662e5, i.total
   end
 end

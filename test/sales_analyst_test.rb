@@ -30,7 +30,7 @@ class SalesAnalystTest < Minitest::Test
 
     sa = SalesAnalyst.new(se)
 
-    assert_equal 4.33, sa.average_items_per_merchant
+    assert_equal 4.06, sa.average_items_per_merchant
   end
 
   def test_it_can_find_merchant_list
@@ -45,9 +45,9 @@ class SalesAnalystTest < Minitest::Test
 
     sa = SalesAnalyst.new(se)
 
-    assert_equal 15, sa.merchant_list.count
+    assert_equal 16, sa.merchant_list.count
     assert_equal 12334105, sa.merchant_list.first
-    assert_equal 12334160, sa.merchant_list.last
+    assert_equal 12334189, sa.merchant_list.last
   end
 
   def test_it_can_find_number_of_items_merchant_sells
@@ -63,7 +63,7 @@ class SalesAnalystTest < Minitest::Test
     sa = SalesAnalyst.new(se)
 
     assert_instance_of Array, sa.find_items
-    assert_equal 15, sa.find_items.count
+    assert_equal 16, sa.find_items.count
     assert_equal 3, sa.find_items.first
     assert_equal 23, sa.find_items[4]
     assert_equal 1, sa.find_items.last
@@ -81,7 +81,7 @@ class SalesAnalystTest < Minitest::Test
 
     sa = SalesAnalyst.new(se)
 
-    assert_equal 488.99, sa.find_standard_dev_difference_total
+    assert_equal 498.94, sa.find_standard_dev_difference_total
   end
 
   def test_it_can_find_standard_deviation_total
@@ -96,7 +96,7 @@ class SalesAnalystTest < Minitest::Test
 
     sa = SalesAnalyst.new(se)
 
-    assert_equal 34.93, sa.total_std_dev_sum_minus_one.round(2)
+    assert_equal 33.26, sa.total_std_dev_sum_minus_one.round(2)
     assert_instance_of Float, sa.total_std_dev_sum_minus_one
   end
 
@@ -112,7 +112,7 @@ class SalesAnalystTest < Minitest::Test
 
     sa = SalesAnalyst.new(se)
 
-    assert_equal 5.91, sa.average_items_per_merchant_standard_deviation
+    assert_equal 5.77, sa.average_items_per_merchant_standard_deviation
     assert_instance_of Float, sa.average_items_per_merchant_standard_deviation
   end
 
@@ -129,7 +129,7 @@ class SalesAnalystTest < Minitest::Test
     sa = SalesAnalyst.new(se)
 
     assert Hash, sa.merchants_by_item_count
-    assert_equal 15, sa.merchants_by_item_count.count
+    assert_equal 16, sa.merchants_by_item_count.count
     assert_equal 12334105, sa.merchants_by_item_count.first.first
     assert_equal 3, sa.merchants_by_item_count[12334105]
   end
@@ -146,7 +146,7 @@ class SalesAnalystTest < Minitest::Test
 
     sa = SalesAnalyst.new(se)
 
-    assert_equal 10.24, sa.standard_dev_plus_average
+    assert_equal 9.829999999999998, sa.standard_dev_plus_average
     assert_instance_of Float, sa.standard_dev_plus_average
   end
 
@@ -165,8 +165,8 @@ class SalesAnalystTest < Minitest::Test
     assert Array, sa.merchants_by_items_in_stock
     assert_equal 12334123, sa.merchants_by_items_in_stock.first.first
     assert_equal 23, sa.merchants_by_items_in_stock.first.last
-    assert_equal 12334123, sa.merchants_by_items_in_stock.last.first
-    assert_equal 23, sa.merchants_by_items_in_stock.last.last
+    assert_equal 12334159, sa.merchants_by_items_in_stock.last.first
+    assert_equal 10, sa.merchants_by_items_in_stock.last.last
   end
 
   def test_it_can_find_merchants_with_high_item_count
@@ -181,7 +181,7 @@ class SalesAnalystTest < Minitest::Test
 
     sa = SalesAnalyst.new(se)
 
-    assert_equal 1, sa.merchants_with_high_item_count.count
+    assert_equal 2, sa.merchants_with_high_item_count.count
     assert_equal 12334123, sa.merchants_with_high_item_count.first.id
   end
 
@@ -229,7 +229,7 @@ class SalesAnalystTest < Minitest::Test
 
     sa = SalesAnalyst.new(se)
 
-    assert_equal 35.77, sa.average_average_price_per_merchant.to_f.round(2)
+    assert_equal 36.6, sa.average_average_price_per_merchant.to_f.round(2)
     assert_instance_of BigDecimal, sa.average_average_price_per_merchant
   end
 
@@ -338,9 +338,9 @@ class SalesAnalystTest < Minitest::Test
 
     sa = SalesAnalyst.new(se)
 
-    assert_equal 15, sa.find_invoices.count
+    assert_equal 16, sa.find_invoices.count
     assert_equal 10, sa.find_invoices.first
-    assert_equal 9, sa.find_invoices.last
+    assert_equal 0, sa.find_invoices.last
   end
 
   def test_it_can_find_average_invoices_per_merchant
@@ -355,7 +355,7 @@ class SalesAnalystTest < Minitest::Test
 
     sa = SalesAnalyst.new(se)
 
-    assert_equal 10.8, sa.average_invoices_per_merchant
+    assert_equal 10.13, sa.average_invoices_per_merchant
     assert_instance_of Float, sa.average_invoices_per_merchant
   end
 
@@ -371,7 +371,7 @@ class SalesAnalystTest < Minitest::Test
 
     sa = SalesAnalyst.new(se)
 
-    assert_equal 340.40000000000003, sa.invoice_total_minus_average_squared
+    assert_equal 449.7504, sa.invoice_total_minus_average_squared
   end
 
   def test_invoice_diff_total_divided_returns_correct_amount
@@ -386,7 +386,7 @@ class SalesAnalystTest < Minitest::Test
 
     sa = SalesAnalyst.new(se)
 
-    assert_equal 24.314285714285717, sa.invoice_diff_total_divided
+    assert_equal 29.98336, sa.invoice_diff_total_divided
     assert_instance_of Float, sa.invoice_diff_total_divided
   end
 
@@ -402,7 +402,7 @@ class SalesAnalystTest < Minitest::Test
 
     sa = SalesAnalyst.new(se)
 
-    assert_equal 4.93, sa.average_invoices_per_merchant_standard_deviation
+    assert_equal 5.48, sa.average_invoices_per_merchant_standard_deviation
     assert_instance_of Float, sa.average_invoices_per_merchant_standard_deviation
   end
 
@@ -418,7 +418,7 @@ class SalesAnalystTest < Minitest::Test
 
     sa = SalesAnalyst.new(se)
 
-    assert_equal 20.66, sa.invoice_count_two_stnd_deviations_above_mean
+    assert_equal 21.090000000000003, sa.invoice_count_two_stnd_deviations_above_mean
     assert_instance_of Float, sa.invoice_count_two_stnd_deviations_above_mean
   end
 
@@ -434,7 +434,7 @@ class SalesAnalystTest < Minitest::Test
 
     sa = SalesAnalyst.new(se)
 
-    assert_equal 0.9400000000000013, sa.invoice_count_two_stnd_deviations_below_mean
+    assert_equal -0.8300000000000001, sa.invoice_count_two_stnd_deviations_below_mean
     assert_instance_of Float, sa.invoice_count_two_stnd_deviations_below_mean
   end
 
@@ -450,7 +450,7 @@ class SalesAnalystTest < Minitest::Test
 
     sa = SalesAnalyst.new(se)
 
-    assert_equal 15, sa.merchants_invoice_total_list.count
+    assert_equal 16, sa.merchants_invoice_total_list.count
     assert_equal 12334105, sa.merchants_invoice_total_list.first.first
     assert_equal 10, sa.merchants_invoice_total_list.first.last
     assert_instance_of Hash, sa.merchants_invoice_total_list
@@ -492,35 +492,35 @@ class SalesAnalystTest < Minitest::Test
 
   def test_bottom_merchants_are_returned
     se = SalesEngine.from_csv({
-      :items         => "./test/fixtures/items_truncated.csv",
-      :merchants     => "./test/fixtures/merchants_truncated.csv",
-      :invoices      => "./test/fixtures/invoices_truncated.csv",
-      :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
-      :transactions  => "./test/fixtures/transactions_truncated.csv",
-      :customers     => "./test/fixtures/customers_truncated.csv"
-    })
+      :items         => "./data/items.csv",
+      :merchants     => "./data/merchants.csv",
+      :invoices      => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions  => "./data/transactions.csv",
+      :customers     => "./data/customers.csv"
+      })
 
     sa = SalesAnalyst.new(se)
 
-    assert_equal 1, sa.bottom_merchants.count
-    assert_equal [12334132, 0], sa.bottom_merchants.first
+    assert_equal 4, sa.bottom_merchants.count
+    assert_equal [12334235, 3], sa.bottom_merchants.first
   end
 
   def test_the_bottom_merchants_by_invoice_count_is_returned
     se = SalesEngine.from_csv({
-      :items         => "./test/fixtures/items_truncated.csv",
-      :merchants     => "./test/fixtures/merchants_truncated.csv",
-      :invoices      => "./test/fixtures/invoices_truncated.csv",
-      :invoice_items => "./test/fixtures/invoice_items_truncated.csv",
-      :transactions  => "./test/fixtures/transactions_truncated.csv",
-      :customers     => "./test/fixtures/customers_truncated.csv"
-    })
+      :items         => "./data/items.csv",
+      :merchants     => "./data/merchants.csv",
+      :invoices      => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions  => "./data/transactions.csv",
+      :customers     => "./data/customers.csv"
+      })
 
     sa = SalesAnalyst.new(se)
 
     assert_instance_of Array, sa.bottom_merchants_by_invoice_count
-    assert_equal 1, sa.bottom_merchants_by_invoice_count.count
-    assert_equal "perlesemoi", sa.bottom_merchants_by_invoice_count.first.name
+    assert_equal 4, sa.bottom_merchants_by_invoice_count.count
+    assert_equal "WellnessNeelsen", sa.bottom_merchants_by_invoice_count.first.name
   end
 
   def test_created_days_to_week_days_returns_days_of_week
