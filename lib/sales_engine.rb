@@ -77,6 +77,16 @@ class SalesEngine
   end
 
   def self.find_items_by_invoice_id(id)
+    item_ids = @invoice_items.find_all_by_invoice_id(id).map do |invoice_item|
+      invoice_item.item_id
+    end
+
+    item_ids.map do |item_id|
+      @items.find_by_id(item_id)
+    end
+  end
+
+  def self.find_cost_by_invoice_id(id)
     @invoice_items.find_all_by_invoice_id(id)
   end
 
