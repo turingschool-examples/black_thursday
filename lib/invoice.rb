@@ -43,7 +43,7 @@ class Invoice
     if @parent.is_paid_in_full?(@id).empty?
       return false
     else
-      @parent.is_paid_in_full?(@id).all? do |transaction|
+      @parent.is_paid_in_full?(@id).any? do |transaction|
         transaction.result == "success"
       end
     end

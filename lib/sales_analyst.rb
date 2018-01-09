@@ -225,21 +225,18 @@ class SalesAnalyst
     end
   end
 
-  def top_revenue_earners(num = 20)
+  def merchants_ranked_by_revenue
     @sales_engine.all_merchants.map do |merchant|
-      invoices = merchant.invoices.select do |invoice|
-        invoice.is_paid_in_full?
-      end
-
-      total = invoices.reduce(0) do |sum, invoice|
-        sum += invoice.total
-      end
-      @sales_engine.assign_total_revenue(merchant.id, total)
+      @sales_engine.assign_total_revenue(merchant.id, revenue_by_merchant(merchant.id))
     end
 
     @sales_engine.all_merchants.sort_by do |merchant|
-      merchant.total_revenue
-    end[-num..-1].reverse
+      0 - merchant.total_revenue
+    end
+  end
+
+  def top_revenue_earners(num = 20)
+    merchants_ranked_by_revenue[0..num-1]
   end
 
   def merchants_with_pending_invoices
@@ -271,11 +268,14 @@ class SalesAnalyst
   end
 
   def revenue_by_merchant(id)
-    (@sales_engine.find_invoice_by_merchant_id(id).reduce(0) do |sum, invoice|
-      sum += invoice.total
-    end / 100.0).to_f
+    BigDecimal.new(@sales_engine.find_invoice_by_merchant_id(id).reduce(0) do |sum, invoice|
+      if invoice.is_paid_in_full?
+        sum += invoice.total
+      else
+        sum += 0
+      end
+    end / 100.0, 6)
   end
-
 
   def most_sold_item_for_merchant(id)
     paid_invoices = @sales_engine.find_invoice_by_merchant_id(id).select do |invoice|
