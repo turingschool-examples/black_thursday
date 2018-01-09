@@ -55,4 +55,19 @@ class InvoicesTest < Minitest::Test
     assert_instance_of Customer, invoice.customer
   end
 
+
+  def test_it_returns_success_for_is_paid_in_full
+    se = SalesEngine.from_csv({
+      invoices: "./test/fixtures/invoices_sample.csv",
+      transactions: "./test/fixtures/transactions_sample.csv",
+      items: "./test/fixtures/items_sample.csv"
+    })
+    invoice = se.invoices.find_by_id(2179)
+
+
+    assert_equal 2, invoice.transactions(2179).count
+  end
+
+
+
 end
