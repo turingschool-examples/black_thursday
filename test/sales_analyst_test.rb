@@ -98,4 +98,8 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 3, sales_analyst.group_by_status.count
   end
 
+  def test_it_returns_array_of_invoices_per_day
+    assert_equal [6, 6, 1, 1, 2, 1, 1], sales_analyst.invoices_per_day
+  end
+
 end

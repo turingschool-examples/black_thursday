@@ -1,8 +1,11 @@
 require 'bigdecimal'
 require 'pry'
 require_relative 'sales_engine'
+require_relative 'calculations'
 
 class SalesAnalyst
+
+  include Calculations
 
   attr_reader :se,
               :average_item_prices
@@ -28,27 +31,20 @@ class SalesAnalyst
   end
 
   def item_price_standard_deviation
-    items = se.grab_all_items
-    price_variance = items.reduce(0) do |result, item|
+    price_variance = se.items.all.reduce(0) do |result, item|
       result += (item.unit_price.to_i - item_prices_mean) ** 2
     end
-    (Math.sqrt(price_variance/(items.count - 1))).round(2)
+    (Math.sqrt(price_variance/(se.items.all.count - 1))).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
-    mean     = average_items_per_merchant
-    variance = number_of_items_per_merchant.reduce(0) do |var, items|
-      var + (items - mean) ** 2
-    end
-    (Math.sqrt(variance/(se.grab_all_merchants.count - 1))).round(2)
+    var = variance(average_items_per_merchant, number_of_items_per_merchant)
+    standard_dev(var, se.grab_all_merchants.count - 1)
   end
 
   def average_invoices_per_merchant_standard_deviation
-    mean = average_invoices_per_merchant
-    variance = number_of_invoices_per_merchant.reduce(0) do |var, invoice|
-      var + (invoice - mean) ** 2
-    end
-    (Math.sqrt(variance/(se.grab_all_merchants.count - 1))).round(2)
+    var = variance(average_invoices_per_merchant, number_of_invoices_per_merchant)
+    standard_dev(var, se.merchants.all.count - 1)
   end
 
   def item_prices_mean
@@ -121,13 +117,13 @@ class SalesAnalyst
     (se.invoices.all.count / 7)
   end
 
+  def invoices_per_day # NEEDS TESTS
+    group_invoices_by_day.values.map { |invoice| invoice.count }
+  end
+
   def average_invoices_per_day_standard_deviation
-    mean = average_invoices_per_day
-    invoices_count = group_invoices_by_day.values.map { |invoice| invoice.count }
-    invoice_variance = invoices_count.reduce(0) do |result, inv_count|
-      result += (inv_count - mean) ** 2
-    end
-      (Math.sqrt(invoice_variance/6)).round(2)
+    var = variance(average_invoices_per_day, invoices_per_day)
+    standard_dev(var, 6)
   end
 
   def top_days_by_invoice_count
