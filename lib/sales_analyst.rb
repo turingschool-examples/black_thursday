@@ -309,8 +309,15 @@ class SalesAnalyst
     end
   end
 
+  def best_item_for_merchant(id)
+    invoice_items = @sales_engine.find_invoice_by_merchant_id(id).map do |invoice|
+      invoice.invoice_items if invoice.is_paid_in_full?
+    end.compact.flatten
 
-  def merchants_with_pending_invoices
-    @sales_engine.all_invoices
+    most_sold = invoice_items.sort_by do |invoice_item|
+      invoice_item.unit_price * invoice_item.quantity
+    end.last
+
+    @sales_engine.find_item_by_id(most_sold.item_id)
   end
 end
