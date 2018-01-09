@@ -1,3 +1,4 @@
+require 'time'
 class Invoice
   attr_reader :id,
               :customer_id,
@@ -10,7 +11,7 @@ class Invoice
     @id = data[:id]
     @customer_id = data[:customer_id]
     @merchant_id = data[:merchant_id]
-    @status = data[:status]
+    @status = data[:status].to_sym
     @created_at = Time.parse(data[:created_at])
     @updated_at = Time.parse(data[:updated_at])
     @invoice_repository = parent
@@ -47,5 +48,9 @@ class Invoice
     invoice_items.sum do |invoice_item|
       invoice_item.total_cost
     end
+  end
+
+  def weekday
+    @created_at.strftime('%A')
   end
 end

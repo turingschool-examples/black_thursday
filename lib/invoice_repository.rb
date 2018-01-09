@@ -63,7 +63,7 @@ class InvoiceRepository
   def find_invoice_items_by_invoice_id(invoice_id)
     @invoice_items.find_all_by_invoice_id(invoice_id)
   end
-  
+
   def find_items_by_invoice_id(invoice_id)
     invoice_items = find_invoice_items_by_invoice_id(invoice_id)
     invoice_items.map do |invoice_item|
@@ -77,6 +77,12 @@ class InvoiceRepository
 
   def find_customer_by_customer_id(customer_id)
     @customers.find_by_id(customer_id)
+  end
+
+  def invoices_created_each_weekday
+    @invoices.group_by do |invoice|
+      invoice.weekday
+    end
   end
 
   def inspect
