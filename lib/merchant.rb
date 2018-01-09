@@ -31,8 +31,14 @@ class Merchant
     end.uniq
   end
 
+  def paid_invoices
+    invoices.find_all do |invoice|
+      invoice.is_paid_in_full?
+    end
+  end
+
   def revenue
-    invoices.sum do |invoice|
+    paid_invoices.sum do |invoice|
       invoice.total
     end
   end

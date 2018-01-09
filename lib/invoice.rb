@@ -38,10 +38,10 @@ class Invoice
   end
 
   def is_paid_in_full?
-    all_succesful = transactions.all? do |transaction|
+    succesful = transactions.any? do |transaction|
       transaction.result == 'success'
     end
-    return all_succesful && !transactions.empty?
+    return succesful && !transactions.empty?
   end
 
   def total
