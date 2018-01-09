@@ -1,6 +1,7 @@
 require_relative 'test_helper'
 require 'time'
 require_relative "../lib/transaction"
+require_relative "../lib/sales_engine"
 
 
 class TransactionTest < Minitest::Test
@@ -42,6 +43,17 @@ class TransactionTest < Minitest::Test
 
   def test_it_returns_time_updated_at
     assert_equal Time.parse("2018-01-02 14:37:25 -0700"), @transaction.updated_at
+  end
+
+  def test_it_grabs_invoice_by_invoice_id
+    se = SalesEngine.from_csv({
+      invoices: "./test/fixtures/invoices_sample.csv",
+      transactions: "./test/fixtures/transactions_sample.csv"
+    })
+    tr = se.transactions.find_by_id(4)
+    invoice = se.invoices.find_by_id(4126)
+
+    assert_equal invoice.id, tr.invoice.id
   end
 
 end

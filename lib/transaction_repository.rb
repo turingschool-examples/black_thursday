@@ -48,13 +48,7 @@ class TransactionRepository
       end
     end
 
-
-
-
-
-
-
-
-
-
+    def find_invoice_by_id(invoice_id)
+      se.invoices.find_by_id(invoice_id)
+    end
 end

@@ -8,6 +8,7 @@ class Transaction
               :result,
               :created_at,
               :updated_at,
+              :transaction_repo,
               :credit_card_expiration_date
 
   def initialize(transaction)
@@ -32,6 +33,10 @@ class Transaction
       updated_at: row[:updated_at],
       transaction_repo: parent
     })
+  end
+
+  def invoice
+    transaction_repo.find_invoice_by_id(invoice_id)
   end
 
 end
