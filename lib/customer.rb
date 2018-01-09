@@ -29,4 +29,12 @@ class Customer
     })
   end
 
+  def invoices
+    customer_repo.find_all_invoices_by_id(id)
+  end
+
+  def merchants
+    invoices.map { |invoice| invoice.merchants }.uniq
+  end
+
 end

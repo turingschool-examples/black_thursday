@@ -42,4 +42,8 @@ class CustomerRepository
     end
   end
 
+  def find_all_invoices_by_id(id)
+    se.invoices.find_all_by_customer_id(id)
+  end 
+
 end
