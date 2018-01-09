@@ -271,11 +271,10 @@ class SalesAnalyst
   end
 
   def revenue_by_merchant(id)
-    (@sales_engine.find_invoice_by_merchant_id(id).reduce(0) do |sum, invoice|
+    BigDecimal.new(@sales_engine.find_invoice_by_merchant_id(id).reduce(0) do |sum, invoice|
       sum += invoice.total
-    end / 100.0).to_f
+    end / 100.0, 6)
   end
-
 
   def most_sold_item_for_merchant(id)
     paid_invoices = @sales_engine.find_invoice_by_merchant_id(id).select do |invoice|
