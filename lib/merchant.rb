@@ -42,4 +42,10 @@ class Merchant
       invoice.total
     end
   end
+
+  def pending_invoices?
+    invoices.any? do |invoice|
+      invoice.status == :pending
+    end
+  end  
 end

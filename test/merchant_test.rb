@@ -52,11 +52,26 @@ class MerchantTest < Minitest::Test
   end
 
   def test_revenue_returns_merchants_total_revenue
-    invoice_1 = stub(:total => 13.00)
-    invoice_2 = stub(:total => 15.00)
+    invoice_1 = stub(:total => 13.00,
+                     :is_paid_in_full? => true)
+    invoice_2 = stub(:total => 15.00,
+                     :is_paid_in_full? => true)
     mr = stub(:find_invoices_by_id => [invoice_1, invoice_2])
     m = Merchant.new({:id => 12334105, :name => "Shopin1901"}, mr)
 
     assert_equal 28.00, m.revenue
+  end
+
+  def test_pending_invoices_returns_whether_merchant_has_pending_invoices
+    invoice_1 = stub(:status => :shipped)
+    invoice_2 = stub(:status => :returned)
+    invoice_3 = stub(:status => :pending)
+    mr_1 = stub(:find_invoices_by_id => [invoice_1, invoice_2])
+    mr_2 = stub(:find_invoices_by_id => [invoice_1, invoice_2, invoice_3])
+    m_1 = Merchant.new({:id => 12334105, :name => "Shopin1901"}, mr_1)
+    m_2 = Merchant.new({:id => 22334105, :name => "Shopin1301"}, mr_2)
+
+    refute m_1.pending_invoices?
+    assert m_2.pending_invoices?
   end
 end
