@@ -18,16 +18,16 @@ class Merchant
     })
   end
 
-  def items
+  def items # NEEDS TEST
     merchant_repo.find_item(id)
   end
 
-  def invoices
+  def invoices # NEEDS TEST
     merchant_repo.find_invoice(id)
   end
 
   def customers # NEEDS TESTS
-    invoices.map { |invoice| invoice.customer }.uniq
+    invoices.map(&:customer).uniq
   end
 
 end

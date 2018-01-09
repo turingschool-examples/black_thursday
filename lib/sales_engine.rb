@@ -77,8 +77,4 @@ class SalesEngine
     merchants.find_by_id(id)
   end
 
-  def grab_all_invoices # DUPLICATION
-    invoices.all
-  end
-
 end

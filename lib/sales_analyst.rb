@@ -117,8 +117,8 @@ class SalesAnalyst
     (se.invoices.all.count / 7)
   end
 
-  def invoices_per_day # NEEDS TESTS
-    group_invoices_by_day.values.map { |invoice| invoice.count }
+  def invoices_per_day
+    group_invoices_by_day.values.map(&:count)
   end
 
   def average_invoices_per_day_standard_deviation
@@ -134,9 +134,7 @@ class SalesAnalyst
   end
 
   def group_by_status
-    se.invoices.all.group_by do |invoice|
-      invoice.status
-    end
+    se.invoices.all.group_by(&:status)
   end
 
   def invoice_status(status)

@@ -54,7 +54,7 @@ class InvoiceRepository
     end
   end
 
-  def find_all_by_invoice_id(id)
+  def find_all_by_invoice_id(id) #TESTS
     @invoices.find_all do |id_num|
       id_num.id.to_i == id
     end
