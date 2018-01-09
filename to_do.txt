@@ -1,6 +1,7 @@
 >  test caller and get methods explicitly
 >  check simplecov coverage & increase coverage where possible
 >  pull_out item - merchant hash to state
+>  add test sales_engine initializes properly
 
 ___ final_refactoring ___
 >  from_csv for customer, invoice_items, transactions
