@@ -54,7 +54,7 @@ class MerchantRepository
   end
 
   def find_invoice(id)
-    se.invoice_by_merchant_id(id)
+    se.invoices.find_all_by_merchant_id(id)
   end
 
 end

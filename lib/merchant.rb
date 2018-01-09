@@ -26,8 +26,8 @@ class Merchant
     merchant_repo.find_invoice(id)
   end
 
-  def customers
-    
+  def customers # NEEDS TESTS
+    invoices.map { |invoice| invoice.customer }.uniq
   end
 
 end
