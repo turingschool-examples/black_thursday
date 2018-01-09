@@ -161,7 +161,11 @@ class SalesAnalyst
     end
     status_ratio = ((all_invoices.count - invoices_by_status.count) / all_invoices.count.to_f)
     ((1 - status_ratio) * 100).round(2)
-    #do we want status percentage to be bigdecimal?
+  end
+
+  def total_revenue_by_date(date)
+    price_array = sales_engine.get_invoice_items_total_cost_by_date(date)
+    price_array.sum
   end
 
 end

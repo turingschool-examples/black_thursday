@@ -218,4 +218,29 @@ class SalesEngineTest < Minitest::Test
     assert_equal 10251.94, invoice_2.total
   end
 
+  def test_get_invoice_ids_by_date
+    invoice_ids = @sales_engine.get_invoice_ids_by_date(Time.parse("2012-11-23"))
+
+    assert_equal 2, invoice_ids.count
+    assert_equal 2, invoice_ids[0]
+    assert_equal 16, invoice_ids[1]
+  end
+
+  def test_get_invoice_items_by_date
+    invoice_items = @sales_engine.get_invoice_items_by_date(Time.parse("2012-11-23"))
+
+    assert_equal 3, invoice_items.count
+    assert_equal 12.00, invoice_items[0].unit_price
+    assert_equal 422.03, invoice_items[2].unit_price
+  end
+
+  def test_get_invoice_items_total_cost_by_date
+    invoice_items_total_cost = @sales_engine.get_invoice_items_total_cost_by_date(Time.parse("2012-11-23"))
+    invoice_items_total_cost = invoice_items_total_cost.map do |cost|
+      cost.to_f
+    end 
+
+    assert_equal [96.00, 1107.00, 844.06], invoice_items_total_cost
+  end
+
 end

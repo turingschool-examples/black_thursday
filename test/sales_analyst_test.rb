@@ -226,14 +226,14 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 2, sa.invoices_per_weekday["Tuesday"].count
     assert_equal 1, sa.invoices_per_weekday["Wednesday"].count
     assert_equal 1, sa.invoices_per_weekday["Thursday"].count
-    assert_equal 5, sa.invoices_per_weekday["Friday"].count
-    assert_equal 6, sa.invoices_per_weekday["Saturday"].count
+    assert_equal 6, sa.invoices_per_weekday["Friday"].count
+    assert_equal 5, sa.invoices_per_weekday["Saturday"].count
   end
 
   def test_invoice_counts_per_weekday_returns_hash_of_days_with_associated_invoice_counts
     sa = SalesAnalyst.new(@sales_engine)
 
-    counts_per_weekday = {"Sunday" => 1, "Monday" => 4, "Tuesday" => 2, "Wednesday" => 1, "Thursday" => 1, "Friday" => 5, "Saturday" => 6}
+    counts_per_weekday = {"Sunday" => 1, "Monday" => 4, "Tuesday" => 2, "Wednesday" => 1, "Thursday" => 1, "Friday" => 6, "Saturday" => 5}
 
     assert_equal counts_per_weekday, sa.invoice_counts_per_weekday
   end
@@ -250,7 +250,7 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 2.12, sa.average_invoices_per_day_standard_deviation
   end
 
-  def test_sort_array_by_weekday_works
+  def test_sort_by_weekday_works
     sales_engine = "POOP"
     sa = SalesAnalyst.new(sales_engine)
 
@@ -274,6 +274,13 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 55.0, sa.invoice_status(:shipped)
     assert_equal 0.0, sa.invoice_status("returned")
     assert_equal 0.0, sa.invoice_status(:returned)
+  end
+
+  def test_total_revenue_by_date_works
+    sa = SalesAnalyst.new(@sales_engine)
+
+    assert_equal 2047.06, sa.total_revenue_by_date("2012-11-23")
+    assert_equal 2047.06, sa.total_revenue_by_date(Time.parse("2012-11-23"))
   end
 
 end

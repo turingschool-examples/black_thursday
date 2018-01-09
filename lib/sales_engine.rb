@@ -143,4 +143,24 @@ class SalesEngine
     end
   end
 
+  def get_invoice_ids_by_date(date)
+    invoices_array = invoices.find_by_date(date)
+    invoices_array.map do |invoice|
+      invoice.id
+    end
+  end
+
+  def get_invoice_items_by_date(date)
+    invoice_ids_array = get_invoice_ids_by_date(date)
+    invoice_ids_array.map do |invoice_id|
+      invoice_items.find_all_by_invoice_id(invoice_id)
+    end.flatten
+  end
+
+  def get_invoice_items_total_cost_by_date(date)
+    get_invoice_items_by_date(date).map do |invoice_item|
+      invoice_item.unit_price * invoice_item.quantity
+    end
+  end
+
 end
