@@ -8,7 +8,8 @@ class InvoiceItem
               :quantity,
               :unit_price,
               :created_at,
-              :updated_at
+              :updated_at,
+              :total_cost
 
   def initialize(data, parent)
     @id = data[:id]
@@ -18,6 +19,7 @@ class InvoiceItem
     @unit_price = BigDecimal.new(data[:unit_price]) / 100
     @created_at = Time.parse(data[:created_at])
     @updated_at = Time.parse(data[:updated_at])
+    @total_cost = @unit_price * @quantity
     @invoice_item_repository = parent
   end
 

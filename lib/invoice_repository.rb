@@ -8,7 +8,7 @@ class InvoiceRepository
   attr_reader :invoice_items,
               :transactions,
               :customers
-              
+
   def initialize(data, parent)
     @invoices = []
     @sales_engine = parent
@@ -60,8 +60,12 @@ class InvoiceRepository
     @sales_engine.find_merchant_by_merchant_id(merchant_id)
   end
 
+  def find_invoice_items_by_invoice_id(invoice_id)
+    @invoice_items.find_all_by_invoice_id(invoice_id)
+  end
+  
   def find_items_by_invoice_id(invoice_id)
-    invoice_items = @invoice_items.find_all_by_invoice_id(invoice_id)
+    invoice_items = find_invoice_items_by_invoice_id(invoice_id)
     invoice_items.map do |invoice_item|
       @sales_engine.find_item_by_item_id(invoice_item.item_id)
     end
@@ -73,5 +77,9 @@ class InvoiceRepository
 
   def find_customer_by_customer_id(customer_id)
     @customers.find_by_id(customer_id)
+  end
+
+  def inspect
+    "#<#{self.class} #{@invoices.size} rows>"
   end
 end

@@ -28,6 +28,6 @@ class Merchant
   def customers
     invoices.map do |invoice|
       invoice.customer
-    end
+    end.uniq
   end
 end

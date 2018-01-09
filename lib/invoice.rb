@@ -20,8 +20,12 @@ class Invoice
     @invoice_repository.find_merchant(@merchant_id)
   end
 
+  def invoice_items
+    @invoice_repository.find_invoice_items_by_invoice_id(@id)
+  end
+
   def items
-    @invoice_repository.find_items_by_invoice_id(@id)
+    @invoice_repository.find_items_by_invoice_id
   end
 
   def transactions
@@ -33,8 +37,15 @@ class Invoice
   end
 
   def is_paid_in_full?
-    transactions.all? do |transaction|
-      transaction.status == 'success'
+    all_succesful = transactions.all? do |transaction|
+      transaction.result == 'success'
+    end
+    return all_succesful && !transactions.empty?
+  end
+
+  def total
+    invoice_items.sum do |invoice_item|
+      invoice_item.total_cost
     end
   end
 end

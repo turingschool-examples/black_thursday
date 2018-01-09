@@ -101,5 +101,12 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 3, customer.id
   end
 
-  
+  def test_it_can_find_invoice_items_by_invoice_id
+    invoice_items = @ir.find_invoice_items_by_invoice_id(4)
+
+    assert_equal 4, invoice_items.count
+    assert invoice_items.all? do |invoice_item|
+      invoice_item.invoice_id == 4 && invoice_item.class == InvoiceItem
+    end
+  end
 end

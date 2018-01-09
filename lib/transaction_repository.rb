@@ -1,5 +1,5 @@
 require 'csv'
-require './lib/transaction'
+require_relative '../lib/transaction'
 
 class TransactionRepository
   def initialize(parent)
@@ -8,7 +8,7 @@ class TransactionRepository
   end
 
   def from_csv(file_path)
-    transaction_data = CSV.open file_path, headers: true, header_converters: :symbol, converters: :numeric
+    transaction_data = CSV.open file_path, headers: true, header_converters: :symbol
     transaction_data.each do |row|
       @transactions << Transaction.new(row.to_hash, self)
     end
@@ -44,5 +44,9 @@ class TransactionRepository
 
   def find_invoice_by_invoice_id(invoice_id)
     @invoices.find_by_id(invoice_id)
+  end
+
+  def inspect
+    "#<#{self.class} #{@transactions.size} rows>"
   end
 end

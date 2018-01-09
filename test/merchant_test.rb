@@ -48,6 +48,6 @@ class MerchantTest < Minitest::Test
     mr = stub(:find_invoices_by_id => [invoice, invoice, invoice])
     m = Merchant.new({:id => 12334105, :name => "Shopin1901"}, mr)
 
-    assert_equal [customer, customer, customer], m.customers
+    assert_equal [customer], m.customers
   end
 end

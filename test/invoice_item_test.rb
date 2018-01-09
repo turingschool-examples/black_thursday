@@ -3,6 +3,7 @@ require_relative '../lib/invoice_item'
 
 class InvoiceItemTest < Minitest::Test
   def setup
+    @iir = mock('invoiceitemrepository')
     @ii = InvoiceItem.new({
       id: 6,
       item_id: 7,
@@ -11,7 +12,7 @@ class InvoiceItemTest < Minitest::Test
       unit_price: 1099,
       created_at: Time.now.inspect,
       updated_at: Time.now.inspect
-      }, mock('invoice_item_repository'))
+      }, @iir)
   end
 
   def test_it_has_an_id

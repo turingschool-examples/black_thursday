@@ -4,12 +4,13 @@ require_relative '../lib/invoice'
 class InvoiceTest < Minitest::Test
   def setup
     @invoices = mock("invoicerepository")
-    @invoice = Invoice.new({id: 1,
-                    customer_id: 3,
-                    merchant_id: 12335938,
-                    status: "pending",
-                    created_at: Time.now.inspect,
-                    updated_at: Time.now.inspect}, @invoices)
+    @data = {id: 1,
+            customer_id: 3,
+            merchant_id: 12335938,
+            status: "pending",
+            created_at: Time.now.inspect,
+            updated_at: Time.now.inspect}
+    @invoice = Invoice.new(@data, @invoices)
   end
 
   def test_it_exists
@@ -62,17 +63,26 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_it_returns_whether_invoice_is_paid_in_full
-    transaction = stub(:status => "success")
-    @invoices.expects(:find_transactions_by_invoice_id).returns([transaction, transaction])
+    transaction = stub(:result => "success")
+    invoice_repository = stub(:find_transactions_by_invoice_id => [transaction, transaction])
+    invoice = Invoice.new(@data, invoice_repository)
 
-    assert @invoice.is_paid_in_full?
+    assert invoice.is_paid_in_full?
   end
 
   def test_it_returns_false_if_invoice_is_not_paid_in_full
-    transaction_1 = stub(:status => "success")
-    transaction_2 = stub(:status => "failure")
+    transaction_1 = stub(:result => "success")
+    transaction_2 = stub(:result => "failure")
     @invoices.expects(:find_transactions_by_invoice_id).returns([transaction_1, transaction_2])
 
     refute @invoice.is_paid_in_full?
+  end
+
+  def test_it_returns_total_amount_of_invoice
+    invoice_item_1 = stub(:total_cost => 1300)
+    invoice_item_2 = stub(:total_cost => 1200)
+    @invoices.expects(:find_invoice_items_by_invoice_id).returns([invoice_item_1, invoice_item_2])
+
+    assert_equal 2500, @invoice.total
   end
 end
