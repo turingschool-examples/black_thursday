@@ -248,8 +248,104 @@ class SalesAnalyst
   memoize :all_invoices_by_status
 
   def invoice_status(status)
-    (all_invoices_by_status(status).length /
-    sales_engine.invoices.all.length.to_f * 100).round(2)
+    (all_invoices_by_status(status).length / sales_engine.invoices.all.length.to_f * 100).round(2)
   end
   memoize :invoice_status
+
+  def find_all_invoices_by_date(date)
+    sales_engine.invoices.find_all_by_created_date(date)
+  end
+  memoize :find_all_invoices_by_date
+
+  def find_invoice_items_for_invoice_collection(invoices)
+    invoices.reduce([]) do |result, invoice|
+      result << invoice.invoice_items
+    end.flatten
+  end
+  memoize :find_invoice_items_for_invoice_collection
+
+  def total_invoice_items_price(invoice_items)
+    invoice_items.reduce(0) do |total, invoice_item|
+      total += (invoice_item.quantity * invoice_item.unit_price)
+    end
+  end
+  memoize :total_invoice_items_price
+
+  def total_revenue_by_date(date)
+    invoices = find_all_invoices_by_date(date)
+    invoice_items = find_invoice_items_for_invoice_collection(invoices)
+    total_invoice_items_price(invoice_items)
+  end
+  memoize :total_revenue_by_date
+
+  def valid_invoices
+    @sales_engine.invoices.all.find_all do |invoice|
+      invoice.is_paid_in_full?
+    end
+  end
+  memoize :valid_invoices
+
+  def invalid_invoices
+    sales_engine.invoices.all.find_all do |invoice|
+      invoice.is_paid_in_full? == false
+    end
+  end
+  memoize :invalid_invoices
+
+  def missing_merchants
+    sales_engine.merchants.all.find_all do |merchant|
+      merchant.valid_invoices.count == 0
+    end
+  end
+  memoize :missing_merchants
+
+  def valid_invoices_grouped_by_merchant
+    valid_invoices.group_by do |invoice|
+      invoice.merchant_id
+    end
+  end
+  memoize :valid_invoices_grouped_by_merchant
+
+  def invoice_totals(invoices)
+    invoices.reduce(0) do |sum, invoice|
+      sum += invoice.total
+    end
+  end
+  memoize :invoice_totals
+
+  def total_of_invoices_per_merchant
+    valid_invoices_grouped_by_merchant.reduce({}) do |result, pair|
+      result.update pair.first => (invoice_totals(pair.last))
+    end
+  end
+  memoize :total_of_invoices_per_merchant
+
+  def fill_missing_merchants
+    merchants_by_rev = total_of_invoices_per_merchant
+    missing_merchants.each do |merchant|
+      merchants_by_rev[merchant.id] = 0
+    end
+    merchants_by_rev
+  end
+  memoize :fill_missing_merchants
+
+  def merchants_by_revenue
+    fill_missing_merchants.sort_by do |_, value|
+      value
+    end.reverse
+  end
+  memoize :merchants_by_revenue
+
+  def convert_revenue_to_merchants
+    merchants_by_revenue.map do |merchant_rev|
+      @sales_engine.merchants.find_by_id(merchant_rev.first)
+    end
+  end
+  memoize :convert_revenue_to_merchants
+
+  def top_revenue_earners(count = 20)
+    merchants = convert_revenue_to_merchants
+    merchants.first(count)
+  end
+  memoize :top_revenue_earners
 end

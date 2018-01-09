@@ -27,5 +27,5 @@ require_relative "invoice_repo"
 
 sa = SalesAnalyst.new(se)
 
-cr = CustomerRepo.new(se, "./data/customers.csv")
-puts cr.all.count
+puts sa.top_revenue_earners(5)
+puts sa.top_revenue_earners(5)

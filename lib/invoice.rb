@@ -45,20 +45,15 @@ class Invoice
 
   def successful_transactions
     transactions.each do |transaction|
-      if transaction.result == "success"
-        return true
-      else
-        return false
-      end
+      return true if transaction.result == "success"
     end
   end
 
   def is_paid_in_full?
     if successful_transactions == true
-      true
-    else
-      false
+      return true
     end
+    false
   end
 
   def total

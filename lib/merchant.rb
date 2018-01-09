@@ -28,4 +28,10 @@ class Merchant
       merchant_repo.find_customer_by_customer_id(invoice.customer_id)
     end.uniq
   end
+
+  def valid_invoices
+    invoices.find_all do |invoice|
+      invoice.is_paid_in_full?
+    end
+  end
 end
