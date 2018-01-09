@@ -23,7 +23,6 @@ class ItemRepositoryTest < Minitest::Test
 
     assert_equal "Disney scrabble frames", found_id.name
     assert_equal 12334185,found_id.merchant_id
-    # assert_equal 0.135e2, found_id.unit_price
   end
 
   def test_it_returns_correct_name
