@@ -5,8 +5,14 @@ require_relative '../lib/sales_engine'
 class InvoiceRepositoryTest < Minitest::Test
 
   def setup
-
     @invoice = InvoiceRepository.new("./test/fixtures/invoices_sample.csv", "se")
+  end
+
+  def test_it_returns_all_invoices
+    invoices = InvoiceRepository.new("./test/fixtures/invoices_sample.csv", "se")
+    invoice_ticket = invoices.all
+
+    assert_equal 18, invoice_ticket.count
   end
 
   def test_it_exists
@@ -40,11 +46,5 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 8, invoice_ticket.count
   end
 
-  def test_it_returns_all_invoices
-    invoices = InvoiceRepository.new("./test/fixtures/invoices_sample.csv", "se")
-    invoice_ticket = invoices.all
-
-    assert_equal 18, invoice_ticket.count
-  end
 
 end

@@ -34,7 +34,7 @@ class Customer
   end
 
   def merchants
-    invoices.map { |invoice| invoice.merchants }.uniq
+    invoices.map(&:merchants).uniq
   end
 
 end
