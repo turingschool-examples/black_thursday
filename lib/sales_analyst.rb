@@ -151,4 +151,10 @@ class SalesAnalyst
       merchant.revenue
     end
   end
+
+  def merchants_with_pending_invoices
+    merchants.find_all do |merchant|
+      merchant.pending_invoices?
+    end
+  end 
 end

@@ -125,4 +125,16 @@ class SalesAnalystTest < MiniTest::Test
 
     assert_equal 20, merchants.count
   end
+
+  def test_it_returns_all_merchants_that_have_pending_invoices
+    merchants = @sa.merchants_with_pending_invoices
+
+    assert_equal 5, merchants.count
+
+    all_pending = merchants.all? do |merchant|
+      merchant.pending_invoices?
+    end
+
+    assert all_pending
+  end
 end

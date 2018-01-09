@@ -63,9 +63,9 @@ class MerchantTest < Minitest::Test
   end
 
   def test_pending_invoices_returns_whether_merchant_has_pending_invoices
-    invoice_1 = stub(:status => :shipped)
-    invoice_2 = stub(:status => :returned)
-    invoice_3 = stub(:status => :pending)
+    invoice_1 = stub(:is_paid_in_full? => true)
+    invoice_2 = stub(:is_paid_in_full? => true)
+    invoice_3 = stub(:is_paid_in_full? => false)
     mr_1 = stub(:find_invoices_by_id => [invoice_1, invoice_2])
     mr_2 = stub(:find_invoices_by_id => [invoice_1, invoice_2, invoice_3])
     m_1 = Merchant.new({:id => 12334105, :name => "Shopin1901"}, mr_1)

@@ -45,7 +45,7 @@ class Merchant
 
   def pending_invoices?
     invoices.any? do |invoice|
-      invoice.status == :pending
+      !invoice.is_paid_in_full?
     end
-  end  
+  end
 end
