@@ -110,9 +110,9 @@ class InvoiceRepositoryTest < Minitest::Test
     end
   end
 
-  def test_find_all_by_date_finds_all_paid_invoices_created_on_a_given_date
+  def test_find_all_by_date_finds_all_invoices_created_on_a_given_date
     date = Time.parse("2010-09-17")
-    invoices = @ir.find_all_paid_in_full_by_date(date)
+    invoices = @ir.find_all_by_date(date)
 
     assert_equal 3, invoices.count
     all_created_on_date = invoices.all? do |invoice|
