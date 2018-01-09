@@ -170,16 +170,16 @@ class SalesAnalyst
 
   def top_earners_ids(number_of_merchants)
     all_merchants_revenues = sales_engine.transform_invoice_items_to_total_revenue_per_merchant
-    top_earners_revenues = all_merchants_revenues.sort_by do |key, value|
-      value
+    top_earners_revenues = all_merchants_revenues.sort_by do |merchant, revenue|
+      revenue
     end.reverse.slice(0..(number_of_merchants - 1))
-    binding.pry
+    # end.slice(-number_of_merchants..-1)
     top_earners_revenues.map do |top_earners|
       top_earners[0]
     end
   end
 
-  def top_revenue_earners(number_of_merchants)
+  def top_revenue_earners(number_of_merchants=20)
     top_earners_ids(number_of_merchants).map do |merchant_id|
       sales_engine.get_merchant_from_merchant_id(merchant_id)
     end

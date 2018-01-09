@@ -131,7 +131,7 @@ class SalesEngine
   def is_invoice_paid_in_full?(invoice_id)
     invoice_transactions = get_transactions_from_invoice_id(invoice_id)
     return false if invoice_transactions.empty?
-    invoice_transactions.all? do |transaction|
+    invoice_transactions.any? do |transaction|
       transaction.result == "success"
     end
   end
@@ -166,7 +166,7 @@ class SalesEngine
   def get_merchant_ids_and_invoice_ids_from_invoices
     merchant_ids_and_invoice_ids = Hash.new { |hash, key| hash[key] = [] }
     invoices.all.each do |invoice|
-      merchant_ids_and_invoice_ids[invoice.merchant_id] << invoice.id
+      merchant_ids_and_invoice_ids[invoice.merchant_id] << invoice.id if invoice.is_paid_in_full?
     end
     merchant_ids_and_invoice_ids
   end

@@ -286,14 +286,14 @@ class SalesAnalystTest < Minitest::Test
   def test_top_earners_ids
     sa = SalesAnalyst.new(@sales_engine)
 
-    assert_equal [12334185, 12334141, 12334113, 12334105], sa.top_earners_ids(4)
+    assert_equal [12334141, 12334185, 12334113, 12334105], sa.top_earners_ids(4)
   end
 
   def test_top_revenue_earners
     sa = SalesAnalyst.new(@sales_engine)
 
-    assert_equal 12334185, sa.top_revenue_earners(4)[0].id
-    assert_equal 12334141, sa.top_revenue_earners(4)[1].id
+    assert_equal 12334141, sa.top_revenue_earners(4)[0].id
+    assert_equal 12334185, sa.top_revenue_earners(4)[1].id
     assert_equal 12334113, sa.top_revenue_earners(4)[2].id
     assert_equal 12334105, sa.top_revenue_earners(4)[3].id
   end
