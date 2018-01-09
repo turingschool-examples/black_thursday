@@ -68,6 +68,10 @@ class InvoiceRepository
     @parent.find_items_by_invoice_id(invoice_id)
   end
 
+  def invoice_invoice_items(invoice_id)
+    @parent.find_cost_by_invoice_id(invoice_id)
+  end
+
   def transactions(id)
     @parent.find_transactions_by_invoice_id(id)
   end

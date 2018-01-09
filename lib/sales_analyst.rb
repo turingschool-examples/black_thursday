@@ -266,6 +266,50 @@ class SalesAnalyst
     end
   end
 
+  def revenue_by_merchant(id)
+    (@sales_engine.find_invoice_by_merchant_id(id).reduce(0) do |sum, invoice|
+      sum += invoice.total
+    end / 100.0).to_f
+  end
+
+
+  def most_sold_item_for_merchant(id)
+    paid_invoices = @sales_engine.find_invoice_by_merchant_id(id).select do |invoice|
+      invoice.is_paid_in_full?
+    end
+
+    invoice_items = paid_invoices.map do |invoice|
+      invoice.invoice_items
+    end.flatten
+
+    grouped_invoice_items = invoice_items.group_by do |invoice_item|
+      invoice_item.item_id
+    end
+
+    transformed = grouped_invoice_items.transform_values do |value|
+      value.map do |invoice_item|
+        invoice_item.quantity
+      end
+    end
+
+    item_id_and_quantity = transformed.sort_by do |pair|
+      pair.flatten![1]
+    end
+
+    quantity_hash = item_id_and_quantity.group_by do |value|
+      value[1]
+    end
+
+    item_ids = quantity_hash.values.last.map do |item_id|
+        item_id[0]
+    end
+
+    item_ids.map do |item_id|
+      @sales_engine.find_item_by_id(item_id)
+    end
+  end
+
+
   def merchants_with_pending_invoices
     @sales_engine.all_invoices
   end
