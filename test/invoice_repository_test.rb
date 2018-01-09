@@ -1,10 +1,20 @@
 require_relative 'test_helper'
 require_relative '../lib/invoice_repository'
+require_relative '../lib/invoice_item_repository'
+require_relative '../lib/transaction_repository'
+require_relative '../lib/customer_repository'
+
 class InvoiceRepositoryTest < Minitest::Test
   def setup
-    parent = mock("SalesEngine")
-    file_path = './test/fixtures/invoices_truncated.csv'
-    @ir = InvoiceRepository.new(file_path, parent)
+    @data = {
+      items:     './test/fixtures/items_truncated.csv',
+      merchants: './test/fixtures/merchants_truncated.csv',
+      invoices: './test/fixtures/invoices_truncated.csv',
+      invoice_items: './test/fixtures/invoice_items_truncated.csv',
+      transactions: './test/fixtures/transactions_truncated.csv',
+      customers: './test/fixtures/customers_truncated.csv'
+    }
+    @ir = InvoiceRepository.new(@data, mock('salesengine'))
   end
 
   def test_all_returns_array_of_invoice_instances
@@ -56,21 +66,47 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_status_returns_all_invoice_instances_with_matching_status
-    invoices = @ir.find_all_by_status("shipped")
+    invoices = @ir.find_all_by_status(:shipped)
 
-    value = invoices.all? do |invoice|
-      invoice.status == "shipped"
+    all_succesful = invoices.all? do |invoice|
+      invoice.status == :shipped
     end
 
-    assert value
+    assert all_succesful
   end
 
   def test_find_all_by_status_returns_empty_array_if_no_matching_status
     assert_equal [], @ir.find_all_by_status("shiped")
   end
 
-  def
-    skip test_invoices_created_each_weekday_returns_hash_of_weekedays_with_number_of_invoices_created_on_weekday
-    assert_equal Hash.new + {"Saturday"=>3, "Friday"=>5, "Sunday"=>1, "Monday"=>1, "Thursday"=>1, "Tuesday"=>1}, @ir.invoices_created_each_weekday
+  def test_find_items_by_invoice_id_returns_all_items_with_invoice_id
+    item = mock('item')
+    salesengine = stub(:find_item_by_item_id => item)
+    ir = InvoiceRepository.new(@data, salesengine)
+
+    assert_equal [item, item, item, item], ir.find_items_by_invoice_id(4)
+  end
+
+  def test_it_finds_transactions_by_invoice_id
+    transactions = @ir.find_transactions_by_invoice_id(7)
+
+    assert_equal 3, transactions.count
+    assert_instance_of Transaction, transactions.first
+  end
+
+  def test_it_finds_customer_by_customer_id
+    customer = @ir.find_customer_by_customer_id(3)
+
+    assert_instance_of Customer, customer
+    assert_equal 3, customer.id
+  end
+
+  def test_it_can_find_invoice_items_by_invoice_id
+    invoice_items = @ir.find_invoice_items_by_invoice_id(4)
+
+    assert_equal 4, invoice_items.count
+    assert invoice_items.all? do |invoice_item|
+      invoice_item.invoice_id == 4 && invoice_item.class == InvoiceItem
+    end
   end
 end

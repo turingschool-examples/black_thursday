@@ -14,7 +14,19 @@ class SalesEngine
   def initialize(data)
     @items = ItemRepository.new(data[:items], self)
     @merchants = MerchantRepository.new(data[:merchants], self)
-    @invoices = InvoiceRepository.new(data[:invoices], self)
+    @invoices = InvoiceRepository.new(data, self)
+  end
+
+  def invoice_items
+    @invoices.invoice_items
+  end
+
+  def transactions
+    @invoices.transactions
+  end
+
+  def customers
+    @invoices.customers
   end
 
   def find_items_by_merchant_id(merchant_id)
@@ -27,5 +39,9 @@ class SalesEngine
 
   def find_invoices_by_merchant_id(id)
     @invoices.find_all_by_merchant_id(id)
+  end
+
+  def find_item_by_item_id(item_id)
+    @items.find_by_id(item_id)
   end
 end

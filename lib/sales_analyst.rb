@@ -18,10 +18,10 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    average_items_count = average_items_per_merchant
+    average_item_count = average_items_per_merchant
     Math.sqrt(
       merchants.reduce(0) do |sum, merchant|
-        sum + (merchant.items.count - average_items_count)**2
+        sum + (merchant.items.count - average_item_count)**2
       end / (merchants.count - 1)
     ).round(2)
   end
@@ -70,7 +70,6 @@ class SalesAnalyst
     end
   end
 
-#if a merchant does not have any invoices, it will bring down the average. Do we want that or should we remove those merchants with no invoices?
   def average_invoices_per_merchant
     sum_invoices = merchants.reduce(0) do |sum, merchant|
       sum + merchant.invoices.count

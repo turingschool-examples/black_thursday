@@ -1,11 +1,15 @@
 require_relative 'test_helper'
 require_relative '../lib/sales_engine'
+
 class SalesEngineTest < Minitest::Test
   def setup
     @se = SalesEngine.from_csv({
       items:     './test/fixtures/items_truncated.csv',
       merchants: './test/fixtures/merchants_truncated.csv',
-      invoices: './test/fixtures/invoices_truncated.csv'
+      invoices: './test/fixtures/invoices_truncated.csv',
+      invoice_items: './test/fixtures/invoice_items_truncated.csv',
+      transactions: './test/fixtures/transactions_truncated.csv',
+      customers: './test/fixtures/customers_truncated.csv'
     })
   end
 
@@ -40,11 +44,11 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of Merchant, result
   end
 
-  def test_it_finds_invoices_by_merchant_id_returns_invoices_with_matching_id
+  def test_find_invoices_by_merchant_id_returns_invoices_with_matching_id
     merchant = @se.merchants.find_by_id(12334105)
     invoices = merchant.invoices
 
-    assert_equal 3, invoices.count
+    assert_equal 2, invoices.count
     assert invoices.all? do |invoice|
       invoice.merchant_id == 12335938
     end
@@ -55,10 +59,15 @@ class SalesEngineTest < Minitest::Test
     merchant = invoice.merchant
     merchant_id = 12334135
 
+    assert_instance_of Merchant, merchant
     assert_equal merchant_id, invoice.merchant_id
     assert_equal merchant_id, merchant.id
-    assert merchant.invoices.any? do |invoice|
-      invoice.id == 12
-    end
+  end
+
+  def test_it_finds_item_by_item_id
+    item = @se.find_item_by_item_id(263395617)
+
+    assert_instance_of Item, item
+    assert_equal 263395617, item.id
   end
 end
