@@ -66,13 +66,13 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_status_returns_all_invoice_instances_with_matching_status
-    invoices = @ir.find_all_by_status("shipped")
+    invoices = @ir.find_all_by_status(:shipped)
 
-    value = invoices.all? do |invoice|
-      invoice.status == "shipped"
+    all_succesful = invoices.all? do |invoice|
+      invoice.status == :shipped
     end
 
-    assert value
+    assert all_succesful
   end
 
   def test_find_all_by_status_returns_empty_array_if_no_matching_status
