@@ -13,6 +13,21 @@ se = SalesEngine.from_csv({
 
 sa = SalesAnalyst.new(se)
 
-# p sa.most_sold_item_for_merchant(12334189)
+p sa.merchants_with_pending_invoices.count
 
+<<<<<<< HEAD
 p sa.merchants_with_pending_invoices
+=======
+# invoices =  se.find_invoice_by_merchant_id(12334105)
+# paid_invoices = invoices.select do |invoice|
+#   invoice.is_paid_in_full?
+# end
+# total = paid_invoices.reduce(0) do |sum, invoice|
+#   sum += invoice.total
+# end
+# p total
+
+# sa.top_revenue_earners(10).map do |merchant|
+#     puts "#{merchant.id} #{merchant.total_revenue.class}"
+#   end
+>>>>>>> 336b6d20a3478ed57df3c988dd2971035cb73bd4
