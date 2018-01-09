@@ -102,4 +102,8 @@ class SalesAnalystTest < Minitest::Test
     assert_equal [6, 6, 1, 1, 2, 1, 1], sales_analyst.invoices_per_day
   end
 
+  def test_it_returns_total_revenue_by_date
+    assert_equal [], sales_analyst.total_revenue_by_date
+  end
+
 end

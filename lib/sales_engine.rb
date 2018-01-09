@@ -73,8 +73,4 @@ class SalesEngine
     invoices.all
   end
 
-  def merchant_by_invoice_id(id) # DUPLICATION
-    merchants.find_by_id(id)
-  end
-
 end

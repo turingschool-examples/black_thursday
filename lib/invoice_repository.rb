@@ -60,7 +60,7 @@ class InvoiceRepository
     end
   end
 
-  def find_all_by_status(status_input)
+  def find_all_by_status(status_input) 
     @invoices.find_all do |num|
       num.status == status_input
     end
