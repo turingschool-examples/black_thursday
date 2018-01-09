@@ -107,6 +107,6 @@ class SalesAnalystTest < MiniTest::Test
 
   def test_total_revenue_by_date_finds_total_revenue_on_a_given_date
     date = Time.parse("2010-09-17")
-    assert_equal 103614, @sa.total_revenue_by_date(date)
+    assert_equal 8079.08, @sa.total_revenue_by_date(date)
   end
 end

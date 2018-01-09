@@ -140,7 +140,7 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    invoices = @sales_engine.invoices.find_all_by_date(date)
+    invoices = @sales_engine.invoices.find_all_paid_in_full_by_date(date)
     invoices.sum do |invoice|
       invoice.total
     end

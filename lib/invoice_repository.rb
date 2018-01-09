@@ -85,9 +85,9 @@ class InvoiceRepository
     end
   end
 
-  def find_all_by_date(date)
+  def find_all_paid_in_full_by_date(date)
     @invoices.find_all do |invoice|
-      invoice.created_at == date
+      invoice.created_at == date && invoice.is_paid_in_full?
     end
   end
 
