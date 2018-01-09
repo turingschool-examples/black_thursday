@@ -42,10 +42,6 @@ class Invoice
     invoice_repo.transactions(@id)
   end
 
-  def invoice_item
-    invoice_repo.find_all_by_invoice_id(id)
-  end
-
   def customer
     invoice_repo.customer(@customer_id)
   end
@@ -61,8 +57,9 @@ class Invoice
   end
 
   def total
-    invoice_item.reduce(0)
-
+    items.reduce(0) do |result, item|
+      result += item.unit_price
+    end
   end
 
 end
