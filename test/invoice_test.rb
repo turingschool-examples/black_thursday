@@ -87,6 +87,6 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_weekday_returns_day_of_the_week_it_was_created_at
-    assert_equal "Monday", @invoice.weekday
+    assert_equal "Tuesday", @invoice.weekday
   end
 end

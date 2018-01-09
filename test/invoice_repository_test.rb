@@ -109,4 +109,15 @@ class InvoiceRepositoryTest < Minitest::Test
       invoice_item.invoice_id == 4 && invoice_item.class == InvoiceItem
     end
   end
+
+  def test_find_all_by_date_finds_all_invoices_created_on_a_given_date
+    date = Time.parse("2010-09-17")
+    invoices = @ir.find_all_by_date(date)
+
+    assert_equal 3, invoices.count
+    all_created_on_date = invoices.all? do |invoice|
+      invoice.created_at == date
+    end
+    assert all_created_on_date
+  end
 end

@@ -138,4 +138,11 @@ class SalesAnalyst
     number_of_invoices_with_status = @sales_engine.invoices.find_all_by_status(status).count
     ((number_of_invoices_with_status / @sales_engine.invoices.all.count.to_f) * 100).round(2)
   end
+
+  def total_revenue_by_date(date)
+    invoices = @sales_engine.invoices.find_all_by_date(date)
+    invoices.sum do |invoice|
+      invoice.total
+    end
+  end
 end

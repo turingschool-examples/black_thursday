@@ -104,4 +104,9 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 33.33, @sa.invoice_status(:pending)
     assert_equal 8.33, @sa.invoice_status(:returned)
   end
+
+  def test_total_revenue_by_date_finds_total_revenue_on_a_given_date
+    date = Time.parse("2010-09-17")
+    assert_equal 103614, @sa.total_revenue_by_date(date)
+  end
 end
