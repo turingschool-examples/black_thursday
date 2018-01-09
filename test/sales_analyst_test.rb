@@ -27,7 +27,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_returns_item_price_standard_deviation
     assert_equal 235.37, sales_analyst.item_price_standard_deviation
-    refute_equal 3.20, sales_analyst.item_price_standard_deviation
+    refute_equal 300, sales_analyst.item_price_standard_deviation
   end
 
   def test_it_returns_standard_deviation
@@ -60,20 +60,20 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_average_invoices_per_merchant
-    assert_equal 2.43, sales_analyst.average_invoices_per_merchant
+    assert_equal 2.57, sales_analyst.average_invoices_per_merchant
     refute_equal 2.00, sales_analyst.average_invoices_per_merchant
   end
 
   def test_it_returns_standard_deviation_for_invoices
 
-    assert_equal 2.63, sales_analyst.average_invoices_per_merchant_standard_deviation
+    assert_equal 2.65, sales_analyst.average_invoices_per_merchant_standard_deviation
     refute_equal 3.20, sales_analyst.average_invoices_per_merchant_standard_deviation
   end
 
   def test_it_returns_status_of_invoices_as_percentage
-    assert_equal 17.65, sales_analyst.invoice_status(:pending)
-    assert_equal 58.82, sales_analyst.invoice_status(:shipped)
-    assert_equal 23.53, sales_analyst.invoice_status(:returned)
+    assert_equal 16.67, sales_analyst.invoice_status(:pending)
+    assert_equal 61.11, sales_analyst.invoice_status(:shipped)
+    assert_equal 22.22, sales_analyst.invoice_status(:returned)
   end
 
   def test_it_returns_group_invoices_by_day
@@ -86,7 +86,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_returns_average_invoices_per_day_standard_deviation
 
-    assert_equal 2.00, sales_analyst.average_invoices_per_day_standard_deviation
+    assert_equal 2.45, sales_analyst.average_invoices_per_day_standard_deviation
     refute_equal 2.63, sales_analyst.average_invoices_per_day_standard_deviation
   end
 
