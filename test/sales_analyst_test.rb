@@ -117,7 +117,7 @@ class SalesAnalystTest < MiniTest::Test
     top_two_revenues = merchants.map do |merchant|
       merchant.revenue
     end
-    assert_equal [0.4792194e5, 0.2977622e5], top_two_revenues
+    assert_equal [0.85319e4, 0.701334e4], top_two_revenues
   end
 
   def test_top_revenue_earners_returns_20_merchants_by_default
@@ -136,5 +136,13 @@ class SalesAnalystTest < MiniTest::Test
     end
 
     assert all_pending
+  end
+
+  def test_it_returns_all_merchants_ranked_by_revenue
+    merchants = @sa.merchants_ranked_by_revenue
+
+    assert_equal 21, merchants.count
+    assert_equal 0.85319e4, merchants.first.revenue
+    assert_equal 0, merchants.last.revenue
   end
 end

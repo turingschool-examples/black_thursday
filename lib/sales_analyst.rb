@@ -156,5 +156,9 @@ class SalesAnalyst
     merchants.find_all do |merchant|
       merchant.pending_invoices?
     end
-  end 
+  end
+
+  def merchants_ranked_by_revenue
+    top_revenue_earners(merchants.count)
+  end
 end
