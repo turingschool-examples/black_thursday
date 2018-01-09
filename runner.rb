@@ -15,5 +15,4 @@ sa = SalesAnalyst.new(se)
 
 # p sa.most_sold_item_for_merchant(12334189)
 
-p sa.most_sold_item_for_merchant(12337105).count
-p sa.most_sold_item_for_merchant(12334189).count
+p sa.best_item_for_merchant(12337105)
