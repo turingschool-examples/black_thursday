@@ -60,13 +60,13 @@ class InvoiceRepository
     end
   end
 
-  def find_all_by_status(status_input)
+  def find_all_by_status(status_input) 
     @invoices.find_all do |num|
       num.status == status_input
     end
   end
 
-  def find_merchant_by_invoice(id)
+  def find_merchant_by_invoice(id) # Needs Test
     se.merchant_by_invoice_id(id)
   end
 
@@ -75,11 +75,11 @@ class InvoiceRepository
     merchants.map { |merchant| merchant.invoices.count }
   end
 
-  def find_item_by_id(item_id)
+  def find_item_by_id(item_id) # Needs Test
     se.items.find_by_id(item_id)
   end
 
-  def grab_all_items
+  def grab_all_items # Needs Test
     se.items.all
   end
 
