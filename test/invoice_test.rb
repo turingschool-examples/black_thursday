@@ -65,7 +65,7 @@ class InvoicesTest < Minitest::Test
     invoice = se.invoices.find_by_id(2179)
 
 
-    assert_equal 2, invoice.transactions(2179).count
+    assert_equal 2, invoice.transactions.count
   end
 
 
