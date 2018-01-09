@@ -227,12 +227,12 @@ class SalesAnalyst
 
   def top_revenue_earners(num = 20)
     @sales_engine.all_merchants.map do |merchant|
-      total = merchant.invoices.reduce(0) do |sum, invoice|
-        if invoice.is_paid_in_full?
-          sum += invoice.total
-        else
-          sum
-        end
+      invoices = merchant.invoices.select do |invoice|
+        invoice.is_paid_in_full?
+      end
+
+      total = invoices.reduce(0) do |sum, invoice|
+        sum += invoice.total
       end
       @sales_engine.assign_total_revenue(merchant.id, total)
     end
