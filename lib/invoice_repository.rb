@@ -46,6 +46,14 @@ class InvoiceRepository
     end
   end
 
+  def find_pending_invoices
+    all.select do |invoice|
+      invoce.transactions.all? do |transaction|
+        transaction.result == "failed"
+      end
+    end
+  end
+
   def find_all_by_status(status)
     argument_raiser(status, Symbol)
     all.select do |invoice|

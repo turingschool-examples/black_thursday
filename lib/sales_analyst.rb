@@ -237,8 +237,9 @@ class SalesAnalyst
       @sales_engine.assign_total_revenue(merchant.id, total)
     end
 
-    @sales_engine.all_merchants.sort_by do |merchant|
+    s = @sales_engine.all_merchants.sort_by do |merchant|
       merchant.total_revenue
+
     end[-num..-1].reverse
   end
 
