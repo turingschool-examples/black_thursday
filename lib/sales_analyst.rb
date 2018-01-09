@@ -70,7 +70,6 @@ class SalesAnalyst
     end
   end
 
-#if a merchant does not have any invoices, it will bring down the average. Do we want that or should we remove those merchants with no invoices?
   def average_invoices_per_merchant
     sum_invoices = merchants.reduce(0) do |sum, merchant|
       sum + merchant.invoices.count
@@ -136,7 +135,7 @@ class SalesAnalyst
   end
 
   def invoice_status(status)
-    number_of_invoices_with_status = @sales_engine.invoices.find_all_by_status(status).count
+    number_of_invoices_with_status = @sales_engine.invoices.find_all_by_status(status.to_s).count
     ((number_of_invoices_with_status / @sales_engine.invoices.all.count.to_f) * 100).round(2)
   end
 end
