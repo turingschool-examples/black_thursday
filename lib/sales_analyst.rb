@@ -145,4 +145,10 @@ class SalesAnalyst
       invoice.total
     end
   end
+
+  def top_revenue_earners(number_of_merchants = 20)
+    merchants.max_by(number_of_merchants) do |merchant|
+      merchant.revenue
+    end
+  end
 end

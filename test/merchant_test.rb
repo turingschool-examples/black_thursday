@@ -50,4 +50,13 @@ class MerchantTest < Minitest::Test
 
     assert_equal [customer], m.customers
   end
+
+  def test_revenue_returns_merchants_total_revenue
+    invoice_1 = stub(:total => 13.00)
+    invoice_2 = stub(:total => 15.00)
+    mr = stub(:find_invoices_by_id => [invoice_1, invoice_2])
+    m = Merchant.new({:id => 12334105, :name => "Shopin1901"}, mr)
+
+    assert_equal 28.00, m.revenue
+  end
 end

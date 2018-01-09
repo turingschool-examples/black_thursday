@@ -109,4 +109,20 @@ class SalesAnalystTest < MiniTest::Test
     date = Time.parse("2010-09-17")
     assert_equal 8079.08, @sa.total_revenue_by_date(date)
   end
+
+  def test_top_revenue_earners_returns_given_number_of_merchants_with_highest_revenue
+    merchants = @sa.top_revenue_earners(2)
+
+    assert_equal 2, merchants.count
+    top_two_revenues = merchants.map do |merchant|
+      merchant.revenue
+    end
+    assert_equal [0.4792194e5, 0.2977622e5], top_two_revenues
+  end
+
+  def test_top_revenue_earners_returns_20_merchants_by_default
+    merchants = @sa.top_revenue_earners
+
+    assert_equal 20, merchants.count
+  end
 end

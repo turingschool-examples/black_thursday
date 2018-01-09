@@ -30,4 +30,10 @@ class Merchant
       invoice.customer
     end.uniq
   end
+
+  def revenue
+    invoices.sum do |invoice|
+      invoice.total
+    end
+  end
 end
