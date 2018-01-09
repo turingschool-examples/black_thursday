@@ -54,6 +54,12 @@ class InvoiceRepository
     end
   end
 
+  def find_all_by_invoice_id(id)
+    @invoices.find_all do |id_num|
+      id_num.id.to_i == id
+    end
+  end
+
   def find_all_by_status(status_input)
     @invoices.find_all do |num|
       num.status == status_input
