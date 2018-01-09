@@ -68,4 +68,9 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_find_all_by_status_returns_empty_array_if_no_matching_status
     assert_equal [], @ir.find_all_by_status("shiped")
   end
+
+  def
+    skip test_invoices_created_each_weekday_returns_hash_of_weekedays_with_number_of_invoices_created_on_weekday
+    assert_equal Hash.new + {"Saturday"=>3, "Friday"=>5, "Sunday"=>1, "Monday"=>1, "Thursday"=>1, "Tuesday"=>1}, @ir.invoices_created_each_weekday
+  end
 end

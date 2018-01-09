@@ -46,4 +46,14 @@ class InvoiceRepository
   def find_merchant(merchant_id)
     @sales_engine.find_merchant_by_merchant_id(merchant_id)
   end
+
+  def invoices_created_each_weekday
+    @invoices.group_by do |invoice|
+      invoice.weekday
+    end
+  end
+
+  def inspect
+    "#<#{self.class} #{@invoices.size} rows>"
+  end
 end

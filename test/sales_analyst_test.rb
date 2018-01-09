@@ -49,4 +49,56 @@ class SalesAnalystTest < MiniTest::Test
 
     assert_equal 1, golden_items.count
   end
+
+  def test_average_invoices_per_merchant_returns_average_invoices
+    assert_equal 1.09, @sa.average_invoices_per_merchant
+  end
+
+  def test_average_invoices_per_merchant_standard_deviation_returns_correct_value
+    assert_equal 0.3, @sa.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_two_standard_deviations_above_average_invoices_returns_correct_value
+    assert_equal 1.7, @sa.two_standard_deviations_above_average_invoices
+  end
+
+  def test_top_merchants_by_invoice_count_returns_merchants_with_highest_invoice_count
+    merchants_with_high_invoice_count = @sa.top_merchants_by_invoice_count
+
+    assert_equal 1, merchants_with_high_invoice_count.count
+  end
+
+  def test_two_standard_deviations_below_average_invoices_returns_correct_value
+    assert_equal 0.5, @sa.two_standard_deviations_below_average_invoices
+  end
+
+  def test_bottom_merchants_by_invoice_count_returns_merchants_with_lowest_invoice_count
+    merchants_with_lowest_invoice_count = @sa.bottom_merchants_by_invoice_count
+
+    assert_equal 0, merchants_with_lowest_invoice_count.count
+  end
+
+  def test_average_invoices_created_per_weekday
+    assert_equal 1.71, @sa.average_invoices_created_per_weekday
+  end
+
+  def test_average_invoices_created_per_weekday_standard_deviation
+    assert_equal 1.55, @sa.average_invoices_created_per_weekday_standard_deviation
+  end
+
+  def test_one_standard_deviations_above_average_invoices_returns_correct_value
+    assert_equal 3.26, @sa.one_standard_deviation_above_average_invoices_created_per_weekday
+  end
+
+  def test_top_days_by_invoice_count_returns_array_of_popular_days
+    popular_days = @sa.top_days_by_invoice_count
+
+    assert_equal ["Friday"], popular_days
+  end
+
+  def test_invoice_status_with_status_argument_returns_percentage_of_status
+    assert_equal 58.33, @sa.invoice_status(:shipped)
+    assert_equal 33.33, @sa.invoice_status(:pending)
+    assert_equal 8.33, @sa.invoice_status(:returned)
+  end
 end
