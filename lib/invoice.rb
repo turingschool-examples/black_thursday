@@ -57,8 +57,9 @@ class Invoice
   end
 
   def total
-    items.reduce(0) do |result, item|
-      result += item.unit_price
+    invoice_items = invoice_repo.items(@id)
+    invoice_items.map do |invoice_item|
+      invoice_repo.find_item_by_id(invoice_item.item_id).unit_price
     end
   end
 
