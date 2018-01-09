@@ -163,4 +163,28 @@ class SalesEngine
     end
   end
 
+  def get_merchant_ids_and_invoice_ids_from_invoices
+    merchant_ids_and_invoice_ids = Hash.new { |hash, key| hash[key] = [] }
+    invoices.all.each do |invoice|
+      merchant_ids_and_invoice_ids[invoice.merchant_id] << invoice.id
+    end
+    merchant_ids_and_invoice_ids
+  end
+
+  def transform_invoice_ids_to_invoice_items
+    get_merchant_ids_and_invoice_ids_from_invoices.transform_values do |invoice_ids|
+      invoice_ids.map do |invoice_id|
+        invoice_items.find_all_by_invoice_id(invoice_id)
+      end.flatten
+    end
+  end
+
+  def transform_invoice_items_to_total_revenue_per_merchant
+    transform_invoice_ids_to_invoice_items.transform_values do |invoice_items|
+      invoice_items.map do |invoice_item|
+        invoice_item.unit_price * invoice_item.quantity
+      end.sum
+    end
+  end
+
 end
