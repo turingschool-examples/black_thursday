@@ -13,5 +13,6 @@ se = SalesEngine.from_csv({
 
 sa = SalesAnalyst.new(se)
 
-p sa.most_sold_item_for_merchant(12334189).count
-p sa.most_sold_item_for_merchant(12334768).count
+# p sa.most_sold_item_for_merchant(12334189)
+
+p sa.most_sold_item_for_merchant(12337105)

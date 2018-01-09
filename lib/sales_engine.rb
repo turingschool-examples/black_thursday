@@ -121,4 +121,8 @@ class SalesEngine
   def self.find_pending_invoices
     @invoices.find_all_by_status(:pending)
   end
+
+  def self.find_item_by_id(id)
+    @items.find_by_id(id)
+  end
 end

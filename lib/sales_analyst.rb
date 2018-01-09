@@ -272,27 +272,72 @@ class SalesAnalyst
     end / 100.0).to_f
   end
 
+
+  def most_sold_item_for_merchant(id)
+    paid_invoices = @sales_engine.find_invoice_by_merchant_id(id).select do |invoice|
+      invoice.is_paid_in_full?
+    end
+
+    invoice_items = paid_invoices.map do |invoice|
+      invoice.invoice_items
+    end.flatten
+
+    grouped_invoice_items = invoice_items.group_by do |invoice_item|
+      invoice_item.item_id
+    end
+
+    transformed = grouped_invoice_items.transform_values do |value|
+      value.map do |invoice_item|
+        invoice_item.quantity
+      end
+    end
+
+    s = transformed.sort_by do |pair|
+      pair.flatten![1]
+    end
+
+    d = s.group_by do |value|
+      value[1]
+    end
+
+    d.values.last[0].map do |item_id|
+      @sales_engine.find_item_by_id(item_id)
+    end
+    # @sales_engine.items.find_by_id(d.values.last[0][0])
+    # require 'pry' ; binding.pry
+  end
   # def l_most_sold_item_for_merchant(merchant_id)
   #   invoice_items = @sales_engine.find_cost_by_invoice_id()
   # end
 
-  def most_sold_item_for_merchant(merchant_id)
-    invoices = @sales_engine.find_invoice_by_merchant_id(merchant_id).select do |invoice|
-      invoice.status != :pending
-    end
-
-    ids = invoices.map do |invoice|
-      invoice.id
-    end
-
-    invoice_items = ids.group_by do |id|
-      @sales_engine.find_cost_by_invoice_id(id)
-    end
-    require 'pry' ; binding.pry
-    # items.sort_by do |item|
-    #   item.quantity
-    # end
-  end
+  # def most_sold_item_for_merchant(merchant_id)
+  #
+  #
+  #   invoices = @sales_engine.find_invoice_by_merchant_id(merchant_id).select do |invoice|
+  #     invoice.status != :pending
+  #   end
+  #
+  #   ids = invoices.map do |invoice|
+  #     invoice.id
+  #   end
+  #
+  #
+  #   invoice_items = ids.map do |id|
+  #     @sales_engine.find_cost_by_invoice_id(id)
+  #   end
+  #
+  #   s = invoice_items.sort do |x, y|
+  #     x.count > y.count
+  #   end
+  #   require 'pry' ; binding.pry
+  #   # invoice_items_hash = invoice_items.group_by do |invoice_item|
+  #   #   invoice_item.count
+  #   # end
+  #
+  #   # items.sort_by do |item|
+  #   #   item.quantity
+  #   # end
+  # end
 
 
 
