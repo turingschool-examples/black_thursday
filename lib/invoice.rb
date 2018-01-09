@@ -58,8 +58,8 @@ class Invoice
 
   def total
     invoice_items = invoice_repo.items(@id)
-    invoice_items.map do |invoice_item|
-      invoice_repo.find_item_by_id(invoice_item.item_id).unit_price
+    invoice_items.reduce(0) do |result, invoice_item|
+      result += (invoice_item.unit_price * invoice_item.quantity)
     end
   end
 

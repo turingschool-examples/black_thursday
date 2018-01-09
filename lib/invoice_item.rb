@@ -28,7 +28,7 @@ class InvoiceItem
       id: row[:id].to_i,
       item_id: row[:item_id].to_i,
       invoice_id: row[:invoice_id].to_i,
-      quantity: row[:quantity],
+      quantity: row[:quantity].to_i,
       unit_price: row[:unit_price],
       created_at: row[:created_at],
       updated_at: row[:updated_at],
