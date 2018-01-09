@@ -131,7 +131,7 @@ class SalesEngine
   def is_invoice_paid_in_full?(invoice_id)
     invoice_transactions = get_transactions_from_invoice_id(invoice_id)
     return false if invoice_transactions.empty?
-    invoice_transactions.all? do |transaction|
+    invoice_transactions.any? do |transaction|
       transaction.result == "success"
     end
   end
@@ -140,6 +140,50 @@ class SalesEngine
     invoice_item_array = invoice_items.find_all_by_invoice_id(invoice_id)
     invoice_item_array.reduce(0) do |total, invoice_item|
       total + (invoice_item.quantity * invoice_item.unit_price)
+    end
+  end
+
+  def get_invoice_ids_by_date(date)
+    invoices_array = invoices.find_by_date(date)
+    invoices_array.map do |invoice|
+      invoice.id
+    end
+  end
+
+  def get_invoice_items_by_date(date)
+    invoice_ids_array = get_invoice_ids_by_date(date)
+    invoice_ids_array.map do |invoice_id|
+      invoice_items.find_all_by_invoice_id(invoice_id)
+    end.flatten
+  end
+
+  def get_invoice_items_total_cost_by_date(date)
+    get_invoice_items_by_date(date).map do |invoice_item|
+      invoice_item.unit_price * invoice_item.quantity
+    end
+  end
+
+  def get_merchant_ids_and_invoice_ids_from_invoices
+    merchant_ids_and_invoice_ids = Hash.new { |hash, key| hash[key] = [] }
+    invoices.all.each do |invoice|
+      merchant_ids_and_invoice_ids[invoice.merchant_id] << invoice.id if invoice.is_paid_in_full?
+    end
+    merchant_ids_and_invoice_ids
+  end
+
+  def transform_invoice_ids_to_invoice_items
+    get_merchant_ids_and_invoice_ids_from_invoices.transform_values do |invoice_ids|
+      invoice_ids.map do |invoice_id|
+        invoice_items.find_all_by_invoice_id(invoice_id)
+      end.flatten
+    end
+  end
+
+  def transform_invoice_items_to_total_revenue_per_merchant
+    transform_invoice_ids_to_invoice_items.transform_values do |invoice_items|
+      invoice_items.map do |invoice_item|
+        invoice_item.unit_price * invoice_item.quantity
+      end.sum
     end
   end
 

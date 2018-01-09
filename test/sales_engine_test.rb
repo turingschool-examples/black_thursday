@@ -206,7 +206,7 @@ class SalesEngineTest < Minitest::Test
     invoice_3 = @sales_engine.invoices.find_by_id(5)
 
     refute invoice_3.is_paid_in_full?
-    refute invoice_1.is_paid_in_full?
+    assert invoice_1.is_paid_in_full?
     assert invoice_2.is_paid_in_full?
   end
 
@@ -216,6 +216,56 @@ class SalesEngineTest < Minitest::Test
 
     assert_equal 4912.10, invoice_1.total
     assert_equal 10251.94, invoice_2.total
+  end
+
+  def test_get_invoice_ids_by_date
+    invoice_ids = @sales_engine.get_invoice_ids_by_date(Time.parse("2012-11-23"))
+
+    assert_equal 2, invoice_ids.count
+    assert_equal 2, invoice_ids[0]
+    assert_equal 16, invoice_ids[1]
+  end
+
+  def test_get_invoice_items_by_date
+    invoice_items = @sales_engine.get_invoice_items_by_date(Time.parse("2012-11-23"))
+
+    assert_equal 3, invoice_items.count
+    assert_equal 12.00, invoice_items[0].unit_price
+    assert_equal 422.03, invoice_items[2].unit_price
+  end
+
+  def test_get_invoice_items_total_cost_by_date
+    invoice_items_total_cost = @sales_engine.get_invoice_items_total_cost_by_date(Time.parse("2012-11-23"))
+    invoice_items_total_cost = invoice_items_total_cost.map do |cost|
+      cost.to_f
+    end
+
+    assert_equal [96.00, 1107.00, 844.06], invoice_items_total_cost
+  end
+
+  def test_get_merchant_ids_and_invoice_ids_from_invoices
+    assert_equal [12334141, 12334105, 12334185, 12334113], @sales_engine.get_merchant_ids_and_invoice_ids_from_invoices.keys
+    assert_equal [[9, 16, 18, 20], [10, 17], [11, 15, 19], [13, 14]], @sales_engine.get_merchant_ids_and_invoice_ids_from_invoices.values
+  end
+
+  def test_transform_invoice_ids_to_invoice_items
+    merchants_and_their_invoice_items = @sales_engine.transform_invoice_ids_to_invoice_items
+    assert_equal 11, @sales_engine.transform_invoice_ids_to_invoice_items.values.flatten.first.id
+    assert_equal 18, @sales_engine.transform_invoice_ids_to_invoice_items.values.flatten.last.id
+
+    assert_equal 4, merchants_and_their_invoice_items[12334185].count
+    assert_equal 786.60, merchants_and_their_invoice_items[12334185].first.unit_price
+    assert_equal 491.21, merchants_and_their_invoice_items[12334185].last.unit_price
+    assert_equal 2, merchants_and_their_invoice_items[12334105].count
+    assert_equal 310.99, merchants_and_their_invoice_items[12334105].first.unit_price
+    assert_equal 373.33, merchants_and_their_invoice_items[12334105].last.unit_price
+  end
+
+  def test_transform_invoice_items_to_total_revenue_per_merchant
+    merchants_and_total_revenue = @sales_engine.transform_invoice_items_to_total_revenue_per_merchant
+
+    assert_equal [12334141, 12334105, 12334185, 12334113], merchants_and_total_revenue.keys
+    assert_equal [13795.59, 3607.91, 12254.42, 8860.77], merchants_and_total_revenue.values
   end
 
 end

@@ -161,7 +161,28 @@ class SalesAnalyst
     end
     status_ratio = ((all_invoices.count - invoices_by_status.count) / all_invoices.count.to_f)
     ((1 - status_ratio) * 100).round(2)
-    #do we want status percentage to be bigdecimal?
+  end
+
+  def total_revenue_by_date(date)
+    price_array = sales_engine.get_invoice_items_total_cost_by_date(date)
+    price_array.sum
+  end
+
+  def top_earners_ids(number_of_merchants)
+    all_merchants_revenues = sales_engine.transform_invoice_items_to_total_revenue_per_merchant
+    top_earners_revenues = all_merchants_revenues.sort_by do |merchant, revenue|
+      revenue
+    end.reverse.slice(0..(number_of_merchants - 1))
+    # end.slice(-number_of_merchants..-1)
+    top_earners_revenues.map do |top_earners|
+      top_earners[0]
+    end
+  end
+
+  def top_revenue_earners(number_of_merchants=20)
+    top_earners_ids(number_of_merchants).map do |merchant_id|
+      sales_engine.get_merchant_from_merchant_id(merchant_id)
+    end
   end
 
 end

@@ -71,4 +71,10 @@ class InvoiceRepository
     parent.get_invoice_total(invoice_id)
   end
 
+  def find_by_date(date)
+    all.select do |invoice|
+      Date.parse(invoice.created_at.to_s) == Date.parse(date.to_s)
+    end
+  end
+
 end

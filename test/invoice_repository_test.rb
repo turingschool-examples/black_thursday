@@ -71,4 +71,15 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 1, invoices_1[0].id
   end
 
+  def test_find_by_date_returns_invoices_for_given_date
+    parent = mock("parent")
+    inr = InvoiceRepository.new("./test/fixtures/invoices_fixture.csv", parent)
+
+    invoices = inr.find_by_date("2012-11-23")
+
+    assert_equal 2, invoices.count
+    assert_equal 12334113, invoices[0].merchant_id
+    assert_equal 12334141, invoices[1].merchant_id
+  end
+
 end
