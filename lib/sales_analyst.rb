@@ -161,4 +161,10 @@ class SalesAnalyst
   def merchants_ranked_by_revenue
     top_revenue_earners(merchants.count)
   end
+
+  def merchants_with_only_one_item
+    merchants.find_all do |merchant|
+      merchant.items.count == 1
+    end
+  end
 end

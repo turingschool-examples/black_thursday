@@ -17,7 +17,7 @@ class SalesAnalystTest < MiniTest::Test
 
   def test_it_finds_all_the_merchants
     merchants = @sa.merchants
-    assert_equal 11, merchants.count
+    assert_equal 21, merchants.count
   end
 
   def test_it_finds_average_items_per_merchant
@@ -129,7 +129,7 @@ class SalesAnalystTest < MiniTest::Test
   def test_it_returns_all_merchants_that_have_pending_invoices
     merchants = @sa.merchants_with_pending_invoices
 
-    assert_equal 5, merchants.count
+    assert_equal 12, merchants.count
 
     all_pending = merchants.all? do |merchant|
       merchant.pending_invoices?
@@ -144,5 +144,15 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 21, merchants.count
     assert_equal 0.85319e4, merchants.first.revenue
     assert_equal 0, merchants.last.revenue
+  end
+
+  def test_it_returns_all_merchants_with_only_one_item
+    merchants = @sa.merchants_with_only_one_item
+    all_have_only_one = merchants.all? do |merchant|
+      merchant.items.count == 1
+    end
+
+    assert all_have_only_one
+    assert_equal 8,  merchants.count
   end
 end
