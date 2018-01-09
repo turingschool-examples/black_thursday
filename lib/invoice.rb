@@ -50,4 +50,17 @@ class Invoice
     invoice_repo.find_merchant_by_invoice(merchant_id)
   end
 
+  def is_paid_in_full?
+    transactions.any? do |transaction|
+      transaction.result == "success"
+    end
+  end
+
+  def total
+    invoice_items = invoice_repo.items(@id)
+    invoice_items.map do |invoice_item|
+      invoice_repo.find_item_by_id(invoice_item.item_id).unit_price
+    end
+  end
+
 end
