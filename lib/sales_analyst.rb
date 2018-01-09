@@ -292,53 +292,22 @@ class SalesAnalyst
       end
     end
 
-    s = transformed.sort_by do |pair|
+    item_id_and_quantity = transformed.sort_by do |pair|
       pair.flatten![1]
     end
 
-    d = s.group_by do |value|
+    quantity_hash = item_id_and_quantity.group_by do |value|
       value[1]
     end
 
-    d.values.last[0].map do |item_id|
+    item_ids = quantity_hash.values.last.map do |item_id|
+        item_id[0]
+    end
+
+    item_ids.map do |item_id|
       @sales_engine.find_item_by_id(item_id)
     end
-    # @sales_engine.items.find_by_id(d.values.last[0][0])
-    # require 'pry' ; binding.pry
   end
-  # def l_most_sold_item_for_merchant(merchant_id)
-  #   invoice_items = @sales_engine.find_cost_by_invoice_id()
-  # end
-
-  # def most_sold_item_for_merchant(merchant_id)
-  #
-  #
-  #   invoices = @sales_engine.find_invoice_by_merchant_id(merchant_id).select do |invoice|
-  #     invoice.status != :pending
-  #   end
-  #
-  #   ids = invoices.map do |invoice|
-  #     invoice.id
-  #   end
-  #
-  #
-  #   invoice_items = ids.map do |id|
-  #     @sales_engine.find_cost_by_invoice_id(id)
-  #   end
-  #
-  #   s = invoice_items.sort do |x, y|
-  #     x.count > y.count
-  #   end
-  #   require 'pry' ; binding.pry
-  #   # invoice_items_hash = invoice_items.group_by do |invoice_item|
-  #   #   invoice_item.count
-  #   # end
-  #
-  #   # items.sort_by do |item|
-  #   #   item.quantity
-  #   # end
-  # end
-
 
 
   def merchants_with_pending_invoices
