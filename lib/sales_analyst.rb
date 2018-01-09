@@ -135,7 +135,7 @@ class SalesAnalyst
   end
 
   def invoice_status(status)
-    number_of_invoices_with_status = @sales_engine.invoices.find_all_by_status(status.to_s).count
+    number_of_invoices_with_status = @sales_engine.invoices.find_all_by_status(status).count
     ((number_of_invoices_with_status / @sales_engine.invoices.all.count.to_f) * 100).round(2)
   end
 end

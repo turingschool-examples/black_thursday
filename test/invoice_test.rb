@@ -30,7 +30,7 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_it_has_a_status
-    assert_equal "pending", @invoice.status
+    assert_equal :pending, @invoice.status
   end
 
   def test_it_has_a_created_at
@@ -85,7 +85,7 @@ class InvoiceTest < Minitest::Test
 
     assert_equal 2500, @invoice.total
   end
-  
+
   def test_weekday_returns_day_of_the_week_it_was_created_at
     assert_equal "Monday", @invoice.weekday
   end
