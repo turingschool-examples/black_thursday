@@ -269,12 +269,12 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_get_merchant_ids_with_pending_invoices
-    assert_equal [12334105], @sales_engine.get_merchant_ids_with_pending_invoices
+    assert_equal [12334185, 12334113, 12334141, 12334105], @sales_engine.get_merchant_ids_with_pending_invoices
   end
 
   def test_get_merchants_with_pending_invoices
-    assert_equal 12334105, @sales_engine.get_merchants_with_pending_invoices[0].id
-    assert_equal "Shopin1901", @sales_engine.get_merchants_with_pending_invoices[0].name
+    assert_equal 12334185, @sales_engine.get_merchants_with_pending_invoices[0].id
+    assert_equal "Disney", @sales_engine.get_merchants_with_pending_invoices[0].name
   end
 
 end

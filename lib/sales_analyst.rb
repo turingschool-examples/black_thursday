@@ -6,6 +6,11 @@ class SalesAnalyst
               "3" => "Wednesday", "4" => "Thursday", "5" => "Friday",
               "6" => "Saturday"}
 
+  MONTHS = {"1" => "January", "2" => "February", "3" => "March",
+            "4" => "April", "5" => "May", "6" => "June",
+            "7" => "July", "8" => "August", "9" => "September",
+            "10" => "October", "11" => "November", "12" => "December"}
+
   attr_reader :sales_engine
 
   def initialize(sales_engine)
@@ -194,6 +199,24 @@ class SalesAnalyst
 
   def merchants_with_pending_invoices
     sales_engine.get_merchants_with_pending_invoices
+  end
+
+  def merchants_with_only_one_item
+    sales_engine.get_all_merchant_items.select do |merchant, items|
+      items.count == 1
+    end.keys
+  end
+
+  def one_item_merchants_by_month
+    merchants_with_only_one_item.group_by do |merchant|
+      Date.parse(merchant.created_at.to_s).month
+    end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month_name)
+    one_item_merchants_by_month.select do |month_num, merchants|
+      MONTHS.invert[month_name] == month_num
+    end.values
   end
 
 end

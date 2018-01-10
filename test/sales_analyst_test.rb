@@ -284,14 +284,12 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_earners_ids
-    skip
     sa = SalesAnalyst.new(@sales_engine)
 
     assert_equal [12334141, 12334185, 12334113, 12334105], sa.top_earners_ids(4)
   end
 
   def test_top_revenue_earners
-    skip
     sa = SalesAnalyst.new(@sales_engine)
 
     assert_equal 12334141, sa.top_revenue_earners(4)[0].id
@@ -303,14 +301,23 @@ class SalesAnalystTest < Minitest::Test
   def test_merchants_with_pending_invoices
     sa = SalesAnalyst.new(@sales_engine)
 
-    assert_equal 12334105, sa.merchants_with_pending_invoices[0].id
-    assert_equal "Shopin1901", sa.merchants_with_pending_invoices[0].name
+    assert_equal 12334185, sa.merchants_with_pending_invoices[0].id
+    assert_equal "Disney", sa.merchants_with_pending_invoices[0].name
   end
 
   def test_merchants_ranked_by_revenue
     sa = SalesAnalyst.new(@sales_engine)
 
-    assert_equal [], sa.merchants_ranked_by_revenue
+    assert_equal "SeriousCompany", sa.merchants_ranked_by_revenue.first.name
+    assert_equal "Shopin1901", sa.merchants_ranked_by_revenue.last.name
+  end
+
+  def test_merchants_with_only_one_item
+    #MOCK....YEAH.....ING......YEAH.....BIRD......YEAH.....YEAH......YEAH
+    sa = SalesAnalyst.new(@sales_engine)
+
+    assert_equal 0, sa.merchants_with_only_one_item.count
+    assert_equal [], sa.merchants_with_only_one_item
   end
 
 end
