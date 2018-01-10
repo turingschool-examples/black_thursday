@@ -39,7 +39,7 @@ class Merchant
       result += 0
     end
     data
-  #   require 'pry'; binding.pry 
-  # end
+  #   require 'pry'; binding.pry
+  end
 
 end
