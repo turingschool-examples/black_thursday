@@ -166,8 +166,8 @@ class SalesEngine
   def get_merchant_ids_and_invoice_ids_from_invoices
     merchant_ids_and_invoice_ids = Hash.new { |hash, key| hash[key] = [] }
     invoices.all.each do |invoice|
-      merchant_ids_and_invoice_ids[invoice.merchant_id] << invoice.id if invoice.is_paid_in_full?
-    end
+        merchant_ids_and_invoice_ids[invoice.merchant_id] << invoice.id if invoice.is_paid_in_full?
+      end
     merchant_ids_and_invoice_ids
   end
 
@@ -185,6 +185,26 @@ class SalesEngine
         invoice_item.unit_price * invoice_item.quantity
       end.sum
     end
+  end
+
+  def get_merchant_ids_with_pending_invoices
+    invoices.all.map do |invoice|
+      invoice.merchant_id unless invoice.is_paid_in_full?
+    end.uniq.compact
+  end
+
+  def get_merchants_with_pending_invoices
+    get_merchant_ids_with_pending_invoices.map do |merchant_id|
+      merchants.find_by_id(merchant_id)
+    end
+  end
+
+  def missing_merchant_ids
+    merchant_ids = Hash.new { |hash, key| hash[key] = [] }
+    invoices.all.each do |invoice|
+        merchant_ids[invoice.merchant_id] = 0 if !invoice.is_paid_in_full?
+      end
+    merchant_ids
   end
 
 end
