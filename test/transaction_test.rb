@@ -5,6 +5,7 @@ require './lib/transaction'
 class TransactionTest < MiniTest::Test
 
   def setup
+    parent = stub(:find_invoice_by_invoice_id => "invoice")
     @transaction = Transaction.new({
       :id => 2213,
       :invoice_id => 3675,
@@ -13,7 +14,7 @@ class TransactionTest < MiniTest::Test
       :result => "success",
       :created_at => "2012-02-26 20:58:09 UTC",
       :updated_at => "2012-02-26 20:58:09 UTC"
-      })
+      }, parent)
   end
 
   def test_it_exists
@@ -42,6 +43,10 @@ class TransactionTest < MiniTest::Test
 
   def test_created_at_returns_time
     assert_instance_of Time, @transaction.created_at
+  end
+
+  def test_invoice_returns_invoice_string
+    assert_equal "invoice", @transaction.invoice
   end
 
 

@@ -32,9 +32,8 @@ class CustomerTest < MiniTest::Test
     assert_instance_of Time, @customer.created_at
   end
 
-  #add time value tests
-
   def test_updated_at_returns_time_value
     assert_instance_of Time, @customer.updated_at
   end
+
 end

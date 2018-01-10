@@ -3,18 +3,26 @@ require './lib/merchant'
 
 class MerchantTest < MiniTest::Test
   def setup
-    @merchant ||= Merchant.new({
+    parent = stub(items_by_id: "Items")
+    @merchant = Merchant.new({
       :id          => 12335519,
       :name        => "Paul Bunyan Lake Creator",
       :created_at  => "2016-01-11 09:34:06 UTC",
-      :updated_at  => "2016-01-11 09:34:06 UTC"})
+      :updated_at  => "2016-01-11 09:34:06 UTC"}, parent)
   end
 
-  def test_items
-    # stub something out
+  def test_items_returns_items
+    assert_equal "Items", @merchant.items
+  end
+
+  def test_invoices_returns_invoices_string
     skip
-    merchant_1 = stub(merchant: Mocha)
-    assert_equal Mocha, merchant_1.merchant
+    assert_equal "", merchant.invoices
+  end
+
+  def test_custumer_returns_customer_
+    skip
+    assert_equal "", @merchant.customers
   end
 
   def test_downcase_returns_a_lowercase_name

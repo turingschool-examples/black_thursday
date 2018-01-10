@@ -3,13 +3,14 @@ require './lib/item'
 
 class ItemTest < MiniTest::Test
   def setup
+    parent = stub(:find_merchant_by_id => "merchant")
     @item = Item.new({
       :name        => "Pencil",
       :description => "You can use it to write things",
       :unit_price  => BigDecimal.new(1099),
       :merchant_id => 12334123,
       :created_at  => "2016-01-11 09:34:06 UTC",
-      :updated_at  => "2016-01-11 09:34:06 UTC"})
+      :updated_at  => "2016-01-11 09:34:06 UTC"}, parent)
   end
 
   def test_unit_price_to_dollars
@@ -32,12 +33,8 @@ class ItemTest < MiniTest::Test
     assert_equal Float, @item.unit_price_to_dollars.class
   end
 
-  def test_merchant
-    skip
-    merchant = Merchant.new
-    item = Item.new("", merchant)
-    merchant.expects(:created_at).returns("2007-06-25")
-    assert_equal 'd', item.merchant
+  def test_merchant_returns_merchant
+    assert_equal "merchant", @item.merchant
   end
 
   def test_downcase_returns_a_lowercase_name

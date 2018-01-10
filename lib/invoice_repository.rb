@@ -63,7 +63,7 @@ class InvoiceRepository
 
   def find_all_by_date(date)
     all.select do |invoice|
-      invoice.created_at.strftime("%Y-%m-%d") == date
+      invoice.created_at == date
     end
   end
 
