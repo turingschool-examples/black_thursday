@@ -107,7 +107,7 @@ class SalesEngineTest < MiniTest::Test
   end
 
   def test_find_all_merchants_by_customer_id_returns_array_of_invoices
-    assert_instance_of Invoice, @sales_engine.find_all_merchants_by_customer_id(732).first
+    assert_instance_of Merchant, @sales_engine.find_all_merchants_by_customer_id(732).first
     assert_equal 1, @sales_engine.find_all_merchants_by_customer_id(732).count
   end
 

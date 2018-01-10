@@ -246,6 +246,7 @@ class SalesAnalyst
   end
 
   def most_sold_item_for_merchant(id)
+
     paid_invoices = @sales_engine.find_invoice_by_merchant_id(id).select do |invoice|
       invoice.is_paid_in_full?
     end

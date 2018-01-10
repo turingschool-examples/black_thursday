@@ -77,7 +77,7 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_price_price_standard_deviation_returns_standard_dev_for_all_item_prices
-    assert_equal 0.3469e2, @sales_analyst.price_standard_deviation
+    assert_equal 0.3425e2, @sales_analyst.price_standard_deviation
   end
 
   def test_golden_items_returns_array_of_expensive_items
@@ -170,8 +170,37 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 11, @sales_analyst.merchants_with_pending_invoices.count
   end
 
-  def test_merchants_with_only_one_item
+  def test_merchants_with_only_one_item_returns_merchants_selling_single_items
     assert_instance_of Merchant, @sales_analyst.merchants_with_only_one_item[0]
+    assert_equal "TIGHTpinch", @sales_analyst.merchants_with_only_one_item[0].name
+    assert_equal 8, @sales_analyst.merchants_with_only_one_item.count
   end
 
+  def test_merchants_with_only_one_item_registered_in_month_locates_merchant_with_single_items_in_month
+    skip
+   assert_equal 0, @sales_analyst.merchants_with_only_one_
+  end
+
+  def test_merchants_by_month_returns_merchants_by_item_created
+    assert_equal "IsisMoonArtesanias" , @sales_analyst.merchants_by_month("July")[0].name
+  end
+
+
+  def test_merchants_returns_nil_when_passed_arbitrary_month
+    assert_nil @sales_analyst.merchants_by_month("January")[0]
+  end
+
+  def test_revenue_by_merchant_returns_revenue_in_scientific_notation
+    assert_instance_of BigDecimal, @sales_analyst.revenue_by_merchant(12335524)
+    assert_equal 0.1925252e3, @sales_analyst.revenue_by_merchant(12335524)
+  end
+
+
+  def test_most_sold_item_for_merchant_id_returns_maximum_purchased_items_by_merchant
+    assert_equal 263504308, @sales_analyst.most_sold_item_for_merchant(12335521)[0].id
+  end
+
+  def test_best_item_form_merchant_returns_the_item
+    assert_equal "Sale Adidas originals For Small Kids", @sales_analyst.best_item_for_merchant(12335521).name
+  end
 end
