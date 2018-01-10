@@ -38,9 +38,10 @@ class CustomerTest < MiniTest::Test
 
   def test_merchants
     skip
-    invoice = stub(:merchant => 0)
-    parent = stub(:find_all_merchants_by_customer_id => 0)
+    Customer.stub :merchants, ["array", "of", "merchants"] do
+      super
+    end
 
-    assert_equal 0, @customer.merchants
+    assert_equal 3, @customer.merchants.count
   end
 end
