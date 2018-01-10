@@ -172,7 +172,7 @@ class SalesEngineTest < Minitest::Test
     assert_equal 4, customer_ids.count
   end
 
-  def test_get_customers_from_merchant_id_works
+  def test_merchant_can_get_customers
     merchant = @sales_engine.merchants.find_by_id(12334185)
     customers = merchant.customers
 
@@ -191,7 +191,7 @@ class SalesEngineTest < Minitest::Test
     assert_equal 12334185, merchant_ids[2]
   end
 
-  def test_get_customers_from_merchant_id_works
+  def test_get_customer_can_get_merchants
     customer = @sales_engine.customers.find_by_id(2)
     merchants = customer.merchants
 
@@ -291,7 +291,7 @@ class SalesEngineTest < Minitest::Test
                   12334105 => [263396255]}, @sales_engine.merchant_ids_with_most_sold_item_ids)
   end
 
-  def test_merchant_ids_with_most_sold_item_ids
+  def test_merchant_ids_with_most_sold_item
     assert_equal "Course contre la montre", @sales_engine.merchant_ids_with_most_sold_items[12334185].first.name
     assert_equal "Cache cache à la plage", @sales_engine.merchant_ids_with_most_sold_items[12334105].first.name
   end

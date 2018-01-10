@@ -396,7 +396,7 @@ class SalesAnalystTest < Minitest::Test
     assert_equal ['d', 'e', 'r', 'z'], sa.most_sold_item_for_merchant(2)
   end
 
-  def test_most_sold_item_for_merchant
+  def test_best_item_for_merchant
     sales_engine = stub(:merchant_ids_with_best_items => { 1 => 50,
                                                                 2 => 100,
                                                                 3 => 25,

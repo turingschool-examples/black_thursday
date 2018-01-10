@@ -40,17 +40,17 @@ class SalesEngine
     invoices.find_all_by_merchant_id(merchant_id)
   end
 
-  def get_items_from_invoice_id(invoice_id)
-    item_ids = get_item_ids_from_invoice_id(invoice_id)
-    item_ids.map do |item_id|
-      items.find_by_id(item_id)
-    end
-  end
-
   def get_item_ids_from_invoice_id(invoice_id)
     invoice_item_array = invoice_items.find_all_by_invoice_id(invoice_id)
     invoice_item_array.map do |invoice_item|
       invoice_item.item_id
+    end
+  end
+
+  def get_items_from_invoice_id(invoice_id)
+    item_ids = get_item_ids_from_invoice_id(invoice_id)
+    item_ids.map do |item_id|
+      items.find_by_id(item_id)
     end
   end
 
