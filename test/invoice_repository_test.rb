@@ -75,7 +75,7 @@ class InvoiceRepositoryTest < Minitest::Test
       merchants: "./test/fixtures/merchants_sample.csv",
       items: "./test/fixtures/items_sample.csv"
     })
-    merchant = se.invoices.find_merchant_by_invoice(12334141)
+    merchant = se.invoices.find_merchant_by_merchant_id(12334141)
 
     assert_equal "jejum", merchant.name
   end

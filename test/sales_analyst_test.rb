@@ -125,7 +125,13 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_grabs_merchants_with_pending_invoices
-    assert_equal [], sales_analyst.merchants_with_pendings_invoices
+    assert sales_analyst.merchants_with_pending_invoices.all? do |merchant|
+       merchant.class == Merchant
+    end
+    assert_equal 7, sales_analyst.merchants_with_pending_invoices.count
+    assert_equal 12334141, sales_analyst.merchants_with_pending_invoices.first.id
   end
+
+
 
 end

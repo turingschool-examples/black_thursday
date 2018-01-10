@@ -174,11 +174,14 @@ class SalesAnalyst
   end
 
   def merchants_with_pending_invoices
-    binding.pry
     se.grab_all_merchants.find_all do |merchant|
-      merchant.invoices.any? { |invoice| invoice.status == :pending }
+      merchant.invoices.any? { |invoice| invoice.is_pending? }
     end
   end
+
+  def merchants_ranked_by_revenue
+
+  end 
 
 #  def merchants_with_only_one_item_registered_in_month("Month name")
 #    merchants_with_only_one_item.
