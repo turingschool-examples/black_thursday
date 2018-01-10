@@ -10,7 +10,7 @@ class TransactionTest < MiniTest::Test
       :id => 2213,
       :invoice_id => 3675,
       :credit_card_number => 4.76315E+15,
-      :credit_card_expiration_date => 112,
+      :credit_card_expiration => 112,
       :result => "success",
       :created_at => "2012-02-26 20:58:09 UTC",
       :updated_at => "2012-02-26 20:58:09 UTC"
@@ -33,8 +33,8 @@ class TransactionTest < MiniTest::Test
     assert_equal 4763150000000000, @transaction.credit_card_number
   end
 
-  def test_credit_card_exp_date_returns_string_with_zero_padding
-    assert_equal "0112", @transaction.credit_card_expiration_date
+  def test_credit_card_expiration_eturns_string_with_zero_padding
+    assert_equal "0112", @transaction.credit_card_expiration
   end
 
   def test_result_returns_symbol_string
