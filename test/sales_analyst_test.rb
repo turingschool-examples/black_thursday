@@ -124,8 +124,8 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 12334183, sales_analyst.top_revenue_earners.first.id
   end
 
-  def test_it_grabs_merchants_with_only_one_item
-    
+  def test_it_grabs_merchants_with_pending_invoices
+    assert_equal [], sales_analyst.merchants_with_pendings_invoices
   end
 
 end

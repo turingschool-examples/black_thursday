@@ -161,7 +161,7 @@ class SalesAnalyst
     end
   end
 
-  def top_revenue_earners(totals = 20) 
+  def top_revenue_earners(totals = 20)
     top_earners = se.grab_all_merchants.sort_by(&:revenue).reverse
     top_earners[0...totals]
   end
@@ -171,6 +171,13 @@ class SalesAnalyst
       merchant.items.count == 1
     end
     found_merchants
+  end
+
+  def merchants_with_pending_invoices
+    binding.pry
+    se.grab_all_merchants.find_all do |merchant|
+      merchant.invoices.any? { |invoice| invoice.status == :pending }
+    end
   end
 
 #  def merchants_with_only_one_item_registered_in_month("Month name")
