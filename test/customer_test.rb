@@ -35,10 +35,4 @@ class CustomerTest < MiniTest::Test
   def test_updated_at_returns_time_value
     assert_instance_of Time, @customer.updated_at
   end
-
-  def test_merchant_error
-    skip
-    assert_instance
-  end
-
 end

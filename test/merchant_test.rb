@@ -15,16 +15,6 @@ class MerchantTest < MiniTest::Test
     assert_equal "Items", @merchant.items
   end
 
-  def test_invoices_returns_invoices_string
-    skip
-    assert_equal "", merchant.invoices
-  end
-
-  def test_custumer_returns_customer_
-    skip
-    assert_equal "", @merchant.customers
-  end
-
   def test_downcase_returns_a_lowercase_name
     assert_equal "paul bunyan lake creator", @merchant.downcaser
   end

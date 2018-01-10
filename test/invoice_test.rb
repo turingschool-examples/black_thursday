@@ -22,12 +22,4 @@ class InvoiceTest < Minitest::Test
     assert_instance_of Time, @invoice.updated_at
   end
 
-  def test_it_can_return_merchant
-    skip 
-    parent = mock('merchant_repository')
-    parent.expects(:merchant).returns("Merchant")
-
-
-    assert_equal "Merchant", @invoice.merchant
-  end
 end
