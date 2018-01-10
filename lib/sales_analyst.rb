@@ -153,5 +153,8 @@ class SalesAnalyst
     found_merchants
   end
 
+#  def merchants_with_only_one_item_registered_in_month("Month name")
+#    merchants_with_only_one_item.
+#  end 
 
 end
