@@ -28,4 +28,19 @@ class CalculatorTest < MiniTest::Test
    assert_equal "11", MONTHS["november"]
    assert_equal "12", MONTHS["december"]
  end
+
+ def test_average_rerutns_average_as_a_float
+  assert_instance_of Float, average(9, 30)
+  assert_equal 0.3, average(9, 30)
+ end
+
+ def test_sqrt_exponentiates_by_half_return_square_as_float
+   assert_instance_of Float, sqrt(9)
+
+   assert_equal 3, sqrt(9)
+ end
+
+ def test_sqrt_works_for_prime_number
+   assert_equal 4.123105625617661, sqrt(17)
+ end
 end
