@@ -118,4 +118,8 @@ class SalesAnalystTest < Minitest::Test
     assert invoice_items.all? { |invoice_item| invoice_item.class == InvoiceItem }
   end
 
+  def test_it_returns_top_earners
+    assert_equal [], sales_analyst.top_revenue_earners
+  end
+
 end
