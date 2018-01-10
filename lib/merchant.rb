@@ -21,19 +21,19 @@ class Merchant
     })
   end
 
-  def items # NEEDS TEST
+  def items
     merchant_repo.find_item(id)
   end
 
-  def invoices # NEEDS TEST
+  def invoices
     merchant_repo.find_invoice(id)
   end
 
-  def customers # NEEDS TESTS
+  def customers
     invoices.map(&:customer).uniq
   end
 
-  def revenue # NEEDS TEST
+  def revenue # TEST NEEDS FIXING
     invoices.reduce(0) do |result, invoice|
       result += invoice.total if invoice.is_paid_in_full?
       result += 0

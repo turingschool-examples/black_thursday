@@ -9,10 +9,11 @@ class SalesAnalystTest < Minitest::Test
   def setup
 
     @se = SalesEngine.new({
-      :items     => "./test/fixtures/items_sample.csv",
-      :merchants => "./test/fixtures/merchants_sample.csv",
-      :invoices => "./test/fixtures/invoices_sample.csv",
-      :invoice_items => "./test/fixtures/invoice_items_sample.csv"
+      :items         => "./test/fixtures/items_sample.csv",
+      :merchants     => "./test/fixtures/merchants_sample.csv",
+      :invoices      => "./test/fixtures/invoices_sample.csv",
+      :invoice_items => "./test/fixtures/invoice_items_sample.csv",
+      :customers     => "./test/fixtures/customers_sample.csv"
     })
     @sales_analyst = SalesAnalyst.new(@se)
   end
@@ -132,7 +133,9 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 12334141, sales_analyst.merchants_with_pending_invoices.first.id
   end
 
-  def 
+  def test_it_grabs_merchants_with_only_one_item
+    assert_equal 3, sales_analyst.merchants_with_only_one_item.count
+  end
 
 
 
