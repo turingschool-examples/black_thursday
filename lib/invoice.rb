@@ -47,7 +47,7 @@ class Invoice
   end
 
   def merchant
-    invoice_repo.find_merchant_by_invoice(merchant_id)
+    invoice_repo.find_merchant_by_merchant_id(merchant_id)
   end
 
   def is_paid_in_full?
