@@ -80,21 +80,16 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal "jejum", merchant.name
   end
 
-###
+  def test_it_grabs_array_of_invoices
+    se = SalesEngine.from_csv({
+      :merchants => "./test/fixtures/merchants_sample.csv",
+      :invoices => "./test/fixtures/invoices_sample.csv"
+    })
+    found_merchants = se.merchants.grab_array_of_invoices
 
-# def test_it_finds_item_by_id
-#   se = SalesEngine.from_csv({
-#     invoices: "./test/fixtures/invoices_sample.csv",
-#     invoice_items: "./test/fixtures/invoice_items_sample.csv",
-#     customers: "./test/fixtures/customers_sample.csv",
-#     merchants: "./test/fixtures/merchants_sample.csv",
-#     items: "./test/fixtures/items_sample.csv"
-#   })
-#   result = se.invoices.find_by_id(263519844)
-#   require 'pry'; binding.pry
-#
-#   assert_equal 12334141, se.items.merchant_id
-# end
+    assert_equal [8, 2, 1, 1, 1, 1, 1], found_merchants
+    assert_equal 7, found_merchants.count
+  end
 
   def test_it_grabs_all_items
     se = SalesEngine.from_csv({

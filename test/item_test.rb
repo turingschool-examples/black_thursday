@@ -42,6 +42,4 @@ class ItemTest < Minitest::Test
     assert_equal "$10.0", @item.unit_price_to_dollars
   end
 
-  
-
 end
