@@ -42,6 +42,7 @@ class Merchant
       result += invoice.total if invoice.is_paid_in_full?
       result += 0
     end
+    data
   end
 
 end
