@@ -16,11 +16,11 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_invoice_items_is_filled
     assert ir.invoice_items.all? { |ii| ii.class == InvoiceItem }
-    assert_equal 8, ir.invoice_items.count
+    assert_equal 14, ir.invoice_items.count
   end
 
   def test_all_returns_all_invoice_items
-    assert_equal 8, ir.all.count
+    assert_equal 14, ir.all.count
     assert ir.all.all? { |ii| ii.class == InvoiceItem}
   end
 

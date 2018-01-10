@@ -2,6 +2,7 @@ require 'bigdecimal'
 require 'pry'
 require_relative 'sales_engine'
 require_relative 'calculations'
+require 'pry'
 
 class SalesAnalyst
 
@@ -140,5 +141,36 @@ class SalesAnalyst
   def invoice_status(status)
     ((group_by_status[status].count / se.invoices.all.count.to_f) * 100).round(2)
   end
+
+  def total_revenue_by_date(date)
+    # binding.pry
+    grab_invoice_items_by_invoice_date(date).sum do |invoice_item|
+      (invoice_item.unit_price * invoice_item.quantity)
+    end
+  end
+
+  def grab_invoice_by_date(date)
+    se.invoices.all.select do |invoice|
+      invoice.created_at.to_i == date.to_i
+    end
+  end
+
+  def grab_invoice_items_by_invoice_date(date)
+    invoice = grab_invoice_by_date(date)
+    se.invoice_items.all.find_all do |invoice_item|
+      invoice_item.invoice_id == invoice.first.id
+    end
+  end
+
+  def merchants_with_only_one_item
+    found_merchants = se.merchants.all.find_all do |merchant|
+      merchant.items.count == 1
+    end
+    found_merchants
+  end
+
+#  def merchants_with_only_one_item_registered_in_month("Month name")
+#    merchants_with_only_one_item.
+#  end 
 
 end
