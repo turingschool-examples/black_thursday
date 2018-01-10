@@ -19,13 +19,13 @@ class InvoiceRepository
   end
 
   def from_csv(data)
+    @invoice_items.from_csv(data[:invoice_items])
+    @transactions.from_csv(data[:transactions])
+    @customers.from_csv(data[:customers])
     invoice_data = CSV.open data[:invoices], headers: true, header_converters: :symbol, converters: :numeric
     invoice_data.each do |row|
       @invoices << Invoice.new(row.to_hash, self)
     end
-    @invoice_items.from_csv(data[:invoice_items])
-    @transactions.from_csv(data[:transactions])
-    @customers.from_csv(data[:customers])
   end
 
   def all

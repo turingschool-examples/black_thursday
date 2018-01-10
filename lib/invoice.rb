@@ -5,7 +5,9 @@ class Invoice
               :merchant_id,
               :status,
               :created_at,
-              :updated_at
+              :updated_at,
+              :transactions,
+              :invoice_items
 
   def initialize(data, parent)
     @id = data[:id]
@@ -15,22 +17,16 @@ class Invoice
     @created_at = Time.parse(data[:created_at])
     @updated_at = Time.parse(data[:updated_at])
     @invoice_repository = parent
+    @transactions = @invoice_repository.find_transactions_by_invoice_id(@id)
+    @invoice_items = @invoice_repository.find_invoice_items_by_invoice_id(@id)
   end
 
   def merchant
     @invoice_repository.find_merchant(@merchant_id)
   end
 
-  def invoice_items
-    @invoice_repository.find_invoice_items_by_invoice_id(@id)
-  end
-
   def items
     @invoice_repository.find_items_by_invoice_id(@id)
-  end
-
-  def transactions
-    @invoice_repository.find_transactions_by_invoice_id(@id)
   end
 
   def customer
