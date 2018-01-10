@@ -21,12 +21,12 @@ class ItemRepositoryTest < Minitest::Test
     parent = mock("parent")
     ir = ItemRepository.new("./test/fixtures/items_fixture.csv", parent)
 
-    assert_instance_of Array, ir.all
-    ir.all.each do |item|
-      assert_instance_of Item, item
-    end
-    assert_equal "510+ RealPush Icon Set", ir.all[0].name
-    assert_equal 263395237, ir.all[0].id
+    ir.all.each {|item| assert_instance_of Item, item}
+    assert_equal 18, ir.all.count
+    assert_equal "510+ RealPush Icon Set", ir.all.first.name
+    assert_equal 263395237, ir.all.first.id
+    assert_equal "Course contre la montre", ir.all.last.name
+    assert_equal 263396512, ir.all.last.id
   end
 
   def test_find_by_id_returns_appropriate_item
@@ -59,11 +59,11 @@ class ItemRepositoryTest < Minitest::Test
 
     items_1 = ir.find_all_with_description("total")
     items_2 = ir.find_all_with_description("toile")
-    items_2_ids = items_2.map { |item| item.id }
+    items_2_ids = items_2.map {|item| item.id}
     unknown_item = ir.find_all_with_description("oogabooga")
 
     assert_equal [], unknown_item
-    assert_equal 263395237, items_1[0].id
+    assert_equal 263395237, items_1.first.id
     assert_equal [263396255, 263396517, 263396252, 263396512], items_2_ids
   end
 
@@ -72,9 +72,9 @@ class ItemRepositoryTest < Minitest::Test
     ir = ItemRepository.new("./test/fixtures/items_fixture.csv", parent)
 
     item_1 = ir.find_all_by_price(BigDecimal.new(12))
-    item_1_ids = item_1.map { |item| item.id }
+    item_1_ids = item_1.map {|item| item.id}
     item_2 = ir.find_all_by_price(BigDecimal.new(400))
-    item_2_ids = item_2.map { |item| item.id }
+    item_2_ids = item_2.map {|item| item.id}
     unknown_item = ir.find_all_by_price(BigDecimal.new(50650))
 
     assert_equal [], unknown_item
@@ -89,9 +89,9 @@ class ItemRepositoryTest < Minitest::Test
     ir = ItemRepository.new("./test/fixtures/items_fixture.csv", parent)
 
     items_1 = ir.find_all_by_price_in_range((12.00..12.01))
-    items_1_ids = items_1.map { |item| item.id }
+    items_1_ids = items_1.map {|item| item.id}
     items_2 = ir.find_all_by_price_in_range((393.80..400.00))
-    items_2_ids = items_2.map { |item| item.id }
+    items_2_ids = items_2.map {|item| item.id}
     unknown_items = ir.find_all_by_price_in_range(5000.00..6000.00)
 
     assert_equal [263395237, 263395617, 263395232, 263395612], items_1_ids
@@ -104,9 +104,9 @@ class ItemRepositoryTest < Minitest::Test
     ir = ItemRepository.new("./test/fixtures/items_fixture.csv", parent)
 
       item_1 = ir.find_all_by_merchant_id(12334185)
-      item_1_ids = item_1.map { |item| item.id }
+      item_1_ids = item_1.map {|item| item.id}
       item_2 = ir.find_all_by_merchant_id(12334141)
-      item_2_ids = item_2.map { |item| item.id }
+      item_2_ids = item_2.map {|item| item.id}
       unknown_item = ir.find_all_by_merchant_id(101011100)
 
       assert_equal [], unknown_item

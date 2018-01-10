@@ -4,12 +4,12 @@ require_relative "../lib/sales_engine"
 class SalesEngineTest < Minitest::Test
 
   def setup
-    @sales_engine = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
-                                items: "./test/fixtures/items_fixture.csv",
-                                invoices: "./test/fixtures/invoices_fixture.csv",
-                                invoice_items: "./test/fixtures/invoice_items_fixture.csv",
-                                transactions: "./test/fixtures/transactions_fixture.csv",
-                                customers: "./test/fixtures/customer_fixture.csv" })
+    @sales_engine = SalesEngine.from_csv({merchants: "./test/fixtures/merchants_fixture.csv",
+                                          items: "./test/fixtures/items_fixture.csv",
+                                          invoices: "./test/fixtures/invoices_fixture.csv",
+                                          invoice_items: "./test/fixtures/invoice_items_fixture.csv",
+                                          transactions: "./test/fixtures/transactions_fixture.csv",
+                                          customers: "./test/fixtures/customer_fixture.csv" })
   end
 
   def test_it_exists

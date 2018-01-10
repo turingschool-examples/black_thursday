@@ -18,8 +18,8 @@ class Item
     @description  = data[:description]
     @merchant_id  = data[:merchant_id].to_i
     @unit_price   = BigDecimal.new((data[:unit_price].to_i / 100.0), 5)
-    @created_at   = Time.parse(data[:created_at].to_s)
-    @updated_at   = Time.parse(data[:updated_at].to_s)
+    @created_at   = Time.parse(data[:created_at])
+    @updated_at   = Time.parse(data[:updated_at])
     @parent       = parent
   end
 

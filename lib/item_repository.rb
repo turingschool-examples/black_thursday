@@ -16,8 +16,8 @@ class ItemRepository
                 :merchant_id => row[:merchant_id],
                 :unit_price  => row[:unit_price],
                 :created_at  => row[:created_at],
-                :updated_at  => row[:updated_at]
-                }, self)
+                :updated_at  => row[:updated_at]},
+                self)
     end
     @parent = parent
   end

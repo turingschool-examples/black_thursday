@@ -15,12 +15,10 @@ class CustomerRepositoryTest < Minitest::Test
     cr = CustomerRepository.new("./test/fixtures/customer_fixture.csv", parent)
 
 
-    cr.all.each do |customer|
-      assert_instance_of Customer, customer
-    end
+    cr.all.each {|customer| assert_instance_of Customer, customer}
     assert_equal 20, cr.all.count
-    assert_equal 1, cr.all[0].id
-    assert_equal "Joey", cr.all[0].first_name
+    assert_equal 1, cr.all.first.id
+    assert_equal "Joey", cr.all.first.first_name
   end
 
   def test_find_by_id_returns_matching_customer_or_nil
@@ -44,9 +42,9 @@ class CustomerRepositoryTest < Minitest::Test
     unknown_customer = cr.find_all_by_first_name("Cosmo")
 
     assert_equal 2, customers_1.count
-    assert_equal "Sipes", customers_1[0].last_name
+    assert_equal "Sipes", customers_1.first.last_name
     assert_equal "Hoppe", customers_1[1].last_name
-    assert_equal "Mariah", customers_2[0].first_name
+    assert_equal "Mariah", customers_2.first.first_name
     assert_equal "Parker", customers_2[1].first_name
     assert_equal 2, customers_2.count
     assert_equal [], unknown_customer
@@ -60,7 +58,7 @@ class CustomerRepositoryTest < Minitest::Test
     unknown_customer = cr.find_all_by_last_name("Cosmo")
 
     assert_equal 2, customers.count
-    assert_equal "Considines", customers[0].last_name
+    assert_equal "Considines", customers.first.last_name
     assert_equal "Sipes", customers[1].last_name
     assert_equal [], unknown_customer
   end

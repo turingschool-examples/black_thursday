@@ -22,11 +22,9 @@ class MerchantRepositoryTest < Minitest::Test
     mr = MerchantRepository.new('./test/fixtures/merchants_fixture.csv', parent)
 
     assert_instance_of Array, mr.all
-    mr.all.each do |merchant|
-      assert_instance_of Merchant, merchant
-    end
-    assert_equal "Shopin1901", mr.all[0].name
-    assert_equal 12334123, mr.all[4].id
+    mr.all.each {|merchant| assert_instance_of Merchant, merchant}
+    assert_equal "Shopin1901", mr.all.first.name
+    assert_equal 12334185, mr.all.last.id
   end
 
   def test_find_by_id_returns_appropriate_merchant
@@ -66,10 +64,10 @@ class MerchantRepositoryTest < Minitest::Test
     merchants_3 = mr.find_all_by_name("K")
 
     assert_equal [], mr.find_all_by_name("monkey")
-    assert_equal "Candisart", merchants_1[0].name
-    assert_equal "MiniatureBikez", merchants_2[0].name
+    assert_equal "Candisart", merchants_1.first.name
+    assert_equal "MiniatureBikez", merchants_2.first.name
     assert_equal "Keckenbauer", merchants_2[1].name
-    assert_equal "MiniatureBikez", merchants_3[0].name
+    assert_equal "MiniatureBikez", merchants_3.first.name
     assert_equal "Keckenbauer", merchants_3[1].name
   end
 

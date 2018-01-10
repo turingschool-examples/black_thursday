@@ -42,12 +42,11 @@ class MerchantRepository
     end
   end
 
-  def inspect
-    "#<#{self.class} #{@all.size} rows>"
-  end
-
   def call_customers_from_merchant_id(merchant_id)
     parent.get_customers_from_merchant_id(merchant_id)
   end
 
+  def inspect
+    "#<#{self.class} #{@all.size} rows>"
+  end
 end
