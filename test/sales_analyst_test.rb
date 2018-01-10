@@ -132,6 +132,8 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 12334141, sales_analyst.merchants_with_pending_invoices.first.id
   end
 
+  def 
+
 
 
 end

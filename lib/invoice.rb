@@ -31,10 +31,6 @@ class Invoice
     })
   end
 
-  def is_pending?
-    transactions.none? { |transaction| transaction.result == "success" }
-  end
-
   def items
     invoice_items = invoice_repo.items(@id)
     invoice_items.map do |invoice_item|

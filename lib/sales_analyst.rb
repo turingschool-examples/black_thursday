@@ -98,13 +98,10 @@ class SalesAnalyst
   end
 
   def golden_items
-    items = se.grab_all_items
     double_deviation = (item_price_standard_deviation * 2)
-    items.find_all do |item|
+    se.grab_all_items.find_all do |item|
       price = item.unit_price
-      if price > double_deviation
-        item
-      end
+      item if price > double_deviation
     end
   end
 
@@ -162,29 +159,35 @@ class SalesAnalyst
   end
 
   def top_revenue_earners(totals = 20)
-    top_earners = se.grab_all_merchants.sort_by(&:revenue).reverse
-    top_earners[0...totals]
+    merchants_ranked_by_revenue[0...totals]
   end
 
-  def merchants_with_only_one_item
-    found_merchants = se.grab_all_merchants.find_all do |merchant|
+  def merchants_with_only_one_item #TESTS
+    se.grab_all_merchants.find_all do |merchant|
       merchant.items.count == 1
     end
-    found_merchants
   end
 
   def merchants_with_pending_invoices
     se.grab_all_merchants.find_all do |merchant|
-      merchant.invoices.any? { |invoice| invoice.is_pending? }
+      merchant.invoices.any? do |invoice|
+        invoice.transactions.none? { |transaction| transaction.result == "success" }
+      end
     end
   end
 
-  def merchants_ranked_by_revenue
+  def merchants_ranked_by_revenue #TESTS
+    se.grab_all_merchants.sort_by(&:revenue).reverse
+  end
 
-  end 
+  def revenue_by_merchant(merchant_id) # TESTS
+    se.find_merchant_by_id(merchant_id).revenue
+  end
 
-#  def merchants_with_only_one_item_registered_in_month("Month name")
-#    merchants_with_only_one_item.
-#  end
+  def merchants_with_only_one_item_registered_in_month(month_name) #TESTS
+    merchants_with_only_one_item.find_all do |merchant|
+      merchant.created_at.strftime("%B") == month_name
+    end
+  end
 
 end
