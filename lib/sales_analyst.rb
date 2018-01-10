@@ -11,10 +11,6 @@ class SalesAnalyst
     (sum / length.to_f)
   end
 
-  def sqrt(squares)
-    squares ** 0.5
-  end
-
   def item_count_array_maker
     @sales_engine.all_merchants.map do |merchant|
       item_counter(merchant.id)

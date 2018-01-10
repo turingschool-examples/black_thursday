@@ -36,12 +36,4 @@ class CustomerTest < MiniTest::Test
     assert_instance_of Time, @customer.updated_at
   end
 
-  def test_merchants
-    skip
-    Customer.stub :merchants, ["array", "of", "merchants"] do
-      super
-    end
-
-    assert_equal 3, @customer.merchants.count
-  end
 end
