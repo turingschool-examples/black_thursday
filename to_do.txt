@@ -1,0 +1,10 @@
+>  iniate sales analyst without passing in sales engine? (see it 4)
+>  test caller and get methods explicitly
+>  check simplecov coverage & increase coverage where possible
+>  pull_out item - merchant hash to state
+>  add test sales_engine initializes properly
+
+___ final_refactoring ___
+>  from_csv for customer, invoice_items, transactions
+>  should customers, invoice_items, and transactions live under invoices?
+>  It-2, allow from_csv to take arbitrary number of args(file_paths)
