@@ -110,4 +110,20 @@ class SalesEngineTest < MiniTest::Test
     assert_instance_of Invoice, @sales_engine.find_all_merchants_by_customer_id(732).first
     assert_equal 1, @sales_engine.find_all_merchants_by_customer_id(732).count
   end
+
+  def test_find_invoices_by_date_returns_array_of_invoices
+    date = Time.parse("2007-09-24")
+    assert_instance_of Invoice, @sales_engine.find_invoices_by_date(date).first
+    assert_equal 1, @sales_engine.find_invoices_by_date(date).count
+  end
+
+  def test_find_pending_invoices_returns_array_of_invoices
+    assert_instance_of Invoice, @sales_engine.find_pending_invoices.first
+    assert_equal 116, @sales_engine.find_pending_invoices.count
+  end
+
+  def test_find_item_by_id_returns_instance_of_item
+    assert_instance_of Item, @sales_engine.find_item_by_id(263421633)
+    assert_equal 263421633, @sales_engine.find_item_by_id(263421633).id
+  end
 end
