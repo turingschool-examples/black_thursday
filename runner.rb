@@ -13,7 +13,7 @@ se = SalesEngine.from_csv({
 
 sa = SalesAnalyst.new(se)
 
-p sa.merchants_ranked_by_revenue.last
+p sa.average_items_per_merchant
 
 # invoices =  se.find_invoice_by_merchant_id(12334105)
 # paid_invoices = invoices.select do |invoice|

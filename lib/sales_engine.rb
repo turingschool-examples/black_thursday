@@ -17,7 +17,6 @@ class SalesEngine
     @transactions  = TransactionRepository.new(data[:transactions], self)
     @customers     = CustomerRepository.new(data[:customers], self)
     @sales_analyst = SalesAnalyst.new(self)
-    self
   end
 
   def self.from_csv(data)
