@@ -168,12 +168,19 @@ class SalesAnalyst
     price_array.sum
   end
 
+  def merchants_ranked_by_revenue
+    missing_merchants = sales_engine.missing_merchant_ids.keys.map do |merchant_id|
+      sales_engine.get_merchant_from_merchant_id(merchant_id)
+    end
+    all = top_revenue_earners(sales_engine.merchants.all.count) + missing_merchants
+    all.uniq
+  end
+
   def top_earners_ids(number_of_merchants)
     all_merchants_revenues = sales_engine.transform_invoice_items_to_total_revenue_per_merchant
     top_earners_revenues = all_merchants_revenues.sort_by do |merchant, revenue|
       revenue
     end.reverse.slice(0..(number_of_merchants - 1))
-    # end.slice(-number_of_merchants..-1)
     top_earners_revenues.map do |top_earners|
       top_earners[0]
     end
@@ -183,6 +190,10 @@ class SalesAnalyst
     top_earners_ids(number_of_merchants).map do |merchant_id|
       sales_engine.get_merchant_from_merchant_id(merchant_id)
     end
+  end
+
+  def merchants_with_pending_invoices
+    sales_engine.get_merchants_with_pending_invoices
   end
 
 end
