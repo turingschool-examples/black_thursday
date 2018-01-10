@@ -5,7 +5,7 @@ require "./lib/item"
 require "./lib/merchant"
 
 class SalesAnalystTest < MiniTest::Test
-
+  include Calculator
   def setup
     sales_engine = SalesEngine.from_csv({
       :items      => "./test/fixtures/items_fixtures.csv",
@@ -64,7 +64,6 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_average_price_per_merchant_returns_array_of_averages
-    #change big decimals
     assert_equal [0.37e1, 0.35e2, 0.933e1, 0.1e1, 0.125e3, 0.3995e2, 0.315e2, 0.55e2, 0.12e2, 0.15e2, 0.75e0], @sales_analyst.average_price_per_merchant_array_maker
   end
 

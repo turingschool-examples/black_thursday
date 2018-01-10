@@ -32,9 +32,15 @@ class CustomerTest < MiniTest::Test
     assert_instance_of Time, @customer.created_at
   end
 
-  #add time value tests
-
   def test_updated_at_returns_time_value
     assert_instance_of Time, @customer.updated_at
+  end
+
+  def test_merchants
+    skip
+    invoice = stub(:merchant => 0)
+    parent = stub(:find_all_merchants_by_customer_id => 0)
+
+    assert_equal 0, @customer.merchants
   end
 end
