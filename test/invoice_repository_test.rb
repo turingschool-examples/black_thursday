@@ -8,17 +8,18 @@ class InvoiceRepositoryTest < Minitest::Test
     @invoice = InvoiceRepository.new("./test/fixtures/invoices_sample.csv", "se")
   end
 
-  def test_it_returns_all_invoices
-    invoices = InvoiceRepository.new("./test/fixtures/invoices_sample.csv", "se")
-    invoice_ticket = invoices.all
-
-    assert_equal 18, invoice_ticket.count
-  end
 
   def test_it_exists
     invoice = InvoiceRepository.new("./test/fixtures/invoices_sample.csv", "se")
 
     assert_instance_of InvoiceRepository, invoice
+  end
+
+  def test_it_returns_all_invoices
+    invoices = InvoiceRepository.new("./test/fixtures/invoices_sample.csv", "se")
+
+    assert_equal 19, invoices.all.count
+    refute_equal "19", invoices.all.count
   end
 
   def test_it_finds_by_id
@@ -28,6 +29,7 @@ class InvoiceRepositoryTest < Minitest::Test
     invoice_ticket3 = invoices.find_by_id(4800)
 
     assert_equal 12334141, invoice_ticket1.merchant_id
+    refute_equal "12334141", invoice_ticket1.merchant_id
     assert_equal 12334141, invoice_ticket2.merchant_id
     assert_equal 12334183, invoice_ticket3.merchant_id
   end
@@ -60,13 +62,6 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 12, invoice_ticket.count
   end
 
-  def test_it_returns_all_invoices
-    invoices = InvoiceRepository.new("./test/fixtures/invoices_sample.csv", "se")
-    invoice_ticket = invoices.all
-
-    assert_equal 19, invoice_ticket.count
-  end
-
   def test_it_finds_merchant_by_invoice
     se = SalesEngine.from_csv({
       invoices: "./test/fixtures/invoices_sample.csv",
@@ -78,6 +73,7 @@ class InvoiceRepositoryTest < Minitest::Test
     merchant = se.invoices.find_merchant_by_merchant_id(12334141)
 
     assert_equal "jejum", merchant.name
+    refute_equal "jjum", merchant.name
   end
 
   def test_it_grabs_array_of_invoices

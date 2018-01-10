@@ -30,6 +30,7 @@ class InvoicesTest < Minitest::Test
     assert invoice.items.all? { |item| item.class == Item }
     assert_equal 1, items.count
     assert_equal 263445483, items[0].id
+    refute_equal "263445483", items[0].id
   end
 
   def test_it_returns_transactions_by_invoice_id
@@ -66,6 +67,7 @@ class InvoicesTest < Minitest::Test
     invoice = se.invoices.find_by_id(2179)
 
     assert_equal 12334633, invoice.merchant_id
+    refute_equal "12334633", invoice.merchant_id
   end
 
   def test_it_returns_success_for_is_paid_in_full
@@ -89,6 +91,7 @@ class InvoicesTest < Minitest::Test
     invoice = se.invoices.find_by_id(641)
 
     assert_equal 0.429506e4, invoice.total
+    refute_equal 4.29506e4, invoice.total
   end
 
 end

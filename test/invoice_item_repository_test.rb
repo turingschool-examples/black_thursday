@@ -17,6 +17,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   def test_invoice_items_is_filled
     assert ir.invoice_items.all? { |ii| ii.class == InvoiceItem }
     assert_equal 14, ir.invoice_items.count
+    refute_equal "14", ir.invoice_items.count
   end
 
   def test_all_returns_all_invoice_items
@@ -31,6 +32,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
     refute_instance_of InvoiceItemRepository, invoice_item
     assert_equal 4, invoice_item.id
     refute_equal 2, invoice_item.id
+    refute_equal "4", invoice_item.id
   end
 
   def test_it_returns_all_items_by_id
