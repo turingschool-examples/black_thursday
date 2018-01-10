@@ -28,7 +28,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_items_per_merchant_returns_array_of_items_per_merchant
-    sales_engine = stub(:get_all_merchant_items => { m1: ['a', 'b', 'c'],
+    sales_engine = stub(:merchants_with_items => { m1: ['a', 'b', 'c'],
                                                      m2: ['d', 'e'],
                                                      m3: ['f'],
                                                      m4: ['g', 'h', 'i', 'j', 'k']})
@@ -38,7 +38,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_items_per_merchant_returns_proper_value
-    sales_engine = stub(:get_all_merchant_items => { m1: ['a', 'b', 'c'],
+    sales_engine = stub(:merchants_with_items => { m1: ['a', 'b', 'c'],
                                                      m2: ['d', 'e'],
                                                      m3: ['f'],
                                                      m4: ['g', 'h', 'i', 'j', 'k']})
@@ -48,7 +48,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_items_per_merchant_standard_deviation
-    sales_engine = stub(:get_all_merchant_items => { m1: ['a', 'b', 'c'],
+    sales_engine = stub(:merchants_with_items => { m1: ['a', 'b', 'c'],
                                                      m2: ['d', 'e'],
                                                      m3: ['f'],
                                                      m4: ['g', 'h', 'i', 'j', 'k']})
@@ -58,7 +58,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_merchants_with_high_item_count_returns_merchant_above_stdev
-    sales_engine = stub(:get_all_merchant_items => { m1: ['a', 'b', 'c'],
+    sales_engine = stub(:merchants_with_items => { m1: ['a', 'b', 'c'],
                                                      m2: ['d', 'e'],
                                                      m3: ['f'],
                                                      m4: ['g', 'h', 'i', 'j', 'k'],
@@ -313,7 +313,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_merchants_with_only_one_item
-    sales_engine = stub(:get_all_merchant_items => { m1: ['a'],
+    sales_engine = stub(:merchants_with_items => { m1: ['a'],
                                                      m2: ['d', 'e', 'r', 'z'],
                                                      m3: ['f', 'p', 'q', 'z'],
                                                      m4: ['g'],
@@ -334,7 +334,7 @@ class SalesAnalystTest < Minitest::Test
     m1 = stub(:created_at => "2009-03-21")
     m4 = stub(:created_at => "2011-05-08")
     m8 = stub(:created_at => "20014-03-12")
-    sales_engine = stub(:get_all_merchant_items => { m1  => ['a'],
+    sales_engine = stub(:merchants_with_items => { m1  => ['a'],
                                                      :m2 => ['d', 'e', 'r', 'z'],
                                                      :m3 => ['f', 'p', 'q', 'z'],
                                                      m4  => ['g'],
@@ -356,7 +356,7 @@ class SalesAnalystTest < Minitest::Test
     m1 = stub(:created_at => "2009-03-21")
     m4 = stub(:created_at => "2011-05-08")
     m8 = stub(:created_at => "20014-03-12")
-    sales_engine = stub(:get_all_merchant_items => { m1  => ['a'],
+    sales_engine = stub(:merchants_with_items => { m1  => ['a'],
                                                      :m2 => ['d', 'e', 'r', 'z'],
                                                      :m3 => ['f', 'p', 'q', 'z'],
                                                      m4  => ['g'],

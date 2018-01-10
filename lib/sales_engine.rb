@@ -13,15 +13,56 @@ class SalesEngine
               :invoices,
               :transactions,
               :customers,
-              :invoice_items
+              :invoice_items,
+              :merchants_with_items
 
   def initialize(file_paths)
-    @merchants = MerchantRepository.new(file_paths[:merchants], self)
-    @items     = ItemRepository.new(file_paths[:items], self)
-    @invoices  = InvoiceRepository.new(file_paths[:invoices], self)
-    @invoice_items = InvoiceItemRepository.new(file_paths[:invoice_items], self)
-    @transactions = TransactionRepository.new(file_paths[:transactions], self)
-    @customers = CustomerRepository.new(file_paths[:customers], self)
+    @merchants     ||= MerchantRepository.new(file_paths[:merchants], self)
+    @items         ||= ItemRepository.new(file_paths[:items], self)
+    @invoices      ||= InvoiceRepository.new(file_paths[:invoices], self)
+    @invoice_items ||= InvoiceItemRepository.new(file_paths[:invoice_items], self)
+    @transactions  ||= TransactionRepository.new(file_paths[:transactions], self)
+    @customers     ||= CustomerRepository.new(file_paths[:customers], self)
+    generate_relationships
+  end
+
+  def generate_relationships
+    @merchant_ids_with_invoice_ids   ||= get_merchant_ids_and_invoice_ids_from_invoices
+    #change name to associate merchant ids with invoice items (assoc for hash, get for array)
+    @merchant_ids_with_invoice_items ||= transform_invoice_ids_to_invoice_items
+    @merchants_with_items            ||= get_all_merchant_items
+  end
+
+  def get_merchant_ids_and_invoice_ids_from_invoices
+    merchant_ids_and_invoice_ids = Hash.new { |hash, key| hash[key] = [] }
+    invoices.all.each do |invoice|
+        merchant_ids_and_invoice_ids[invoice.merchant_id] << invoice.id if invoice.is_paid_in_full?
+      end
+    merchant_ids_and_invoice_ids
+  end
+
+  def get_all_merchant_invoices
+    merchants_and_invoices = {}
+    merchants.all.map do |merchant|
+      merchants_and_invoices[merchant] = get_invoices_from_merchant_id(merchant.id)
+    end
+    merchants_and_invoices
+  end
+
+  def get_all_merchant_items
+    merchants_and_items = {}
+    merchants.all.map do |merchant|
+      merchants_and_items[merchant] = items.find_all_by_merchant_id(merchant.id)
+    end
+    merchants_and_items
+  end
+
+  def transform_invoice_ids_to_invoice_items
+    @merchant_ids_with_invoice_ids.transform_values do |invoice_ids|
+      invoice_ids.map do |invoice_id|
+        invoice_items.find_all_by_invoice_id(invoice_id)
+      end.flatten
+    end
   end
 
   def self.from_csv(file_paths)
@@ -94,16 +135,8 @@ class SalesEngine
     end
   end
 
-  def get_all_merchant_items
-    merchants_and_items = {}
-    merchants.all.map do |merchant|
-      merchants_and_items[merchant] = items.find_all_by_merchant_id(merchant.id)
-    end
-    merchants_and_items
-  end
-
   def get_all_merchant_prices
-    get_all_merchant_items.transform_values do |item_array|
+    merchants_with_items.transform_values do |item_array|
       item_array.map do |item|
         item.unit_price
       end
@@ -114,14 +147,6 @@ class SalesEngine
     get_all_merchant_prices.find do |merchant, prices|
       merchant.id == merchant_id
     end.last.flatten
-  end
-
-  def get_all_merchant_invoices
-    merchants_and_invoices = {}
-    merchants.all.map do |merchant|
-      merchants_and_invoices[merchant] = get_invoices_from_merchant_id(merchant.id)
-    end
-    merchants_and_invoices
   end
 
   def search_ir_by_price(price)
@@ -163,25 +188,8 @@ class SalesEngine
     end
   end
 
-  def get_merchant_ids_and_invoice_ids_from_invoices
-    merchant_ids_and_invoice_ids = Hash.new { |hash, key| hash[key] = [] }
-    invoices.all.each do |invoice|
-        merchant_ids_and_invoice_ids[invoice.merchant_id] << invoice.id if invoice.is_paid_in_full?
-      end
-    merchant_ids_and_invoice_ids
-  end
-
-  def transform_invoice_ids_to_invoice_items
-    get_merchant_ids_and_invoice_ids_from_invoices.transform_values do |invoice_ids|
-      invoice_ids.map do |invoice_id|
-        invoice_items.find_all_by_invoice_id(invoice_id)
-      end.flatten
-    end
-  end
-
   def transform_invoice_items_to_total_revenue_per_merchant
-    #actually_per_merchant_id
-    transform_invoice_ids_to_invoice_items.transform_values do |invoice_items|
+    @merchant_ids_with_invoice_items.transform_values do |invoice_items|
       invoice_items.map do |invoice_item|
         invoice_item.unit_price * invoice_item.quantity
       end.sum
@@ -209,7 +217,7 @@ class SalesEngine
   end
 
   def merchant_ids_with_item_ids_and_quantities
-    transform_invoice_ids_to_invoice_items.transform_values do |invoice_items|
+    @merchant_ids_with_invoice_items.transform_values do |invoice_items|
       item_ids_with_quantities = Hash.new(0)
       invoice_items.map do |invoice_item|
         if invoice_item.quantity > item_ids_with_quantities[invoice_item.item_id]
@@ -235,7 +243,7 @@ class SalesEngine
   end
 
   def merchant_ids_with_item_ids_and_revenue
-    transform_invoice_ids_to_invoice_items.transform_values do |invoice_items|
+    @merchant_ids_with_invoice_items.transform_values do |invoice_items|
       item_ids_with_revenue = Hash.new(0)
       invoice_items.map do |invoice_item|
         revenue = invoice_item.unit_price * invoice_item.quantity

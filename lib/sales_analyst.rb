@@ -18,7 +18,7 @@ class SalesAnalyst
   end
 
   def items_per_merchant
-    merchants_items = sales_engine.get_all_merchant_items.values
+    merchants_items = sales_engine.merchants_with_items.values
     merchants_items.map do |merchant_items|
       BigDecimal.new(merchant_items.count)
     end
@@ -39,7 +39,7 @@ class SalesAnalyst
   def merchants_with_high_item_count
     stdev = average_items_per_merchant_standard_deviation
     limit = average_items_per_merchant + stdev
-    sales_engine.get_all_merchant_items.map do |merchant, items|
+    sales_engine.merchants_with_items.map do |merchant, items|
       merchant if items.count > limit
     end.compact
   end
@@ -202,7 +202,7 @@ class SalesAnalyst
   end
 
   def merchants_with_only_one_item
-    sales_engine.get_all_merchant_items.select do |merchant, items|
+    sales_engine.merchants_with_items.select do |merchant, items|
       items.count == 1
     end.keys
   end
