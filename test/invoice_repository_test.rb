@@ -46,6 +46,13 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 8, invoice_ticket.count
   end
 
+  def test_it_finds_all_invoice_id
+    invoices = InvoiceRepository.new("./test/fixtures/invoices_sample.csv", "se")
+    invoice_ticket = invoices.find_all_by_invoice_id(1053)
+
+    assert_equal 4, invoice_ticket.count
+  end
+
   def test_it_finds_all_by_status
     invoices = InvoiceRepository.new("./test/fixtures/invoices_sample.csv", "se")
     invoice_ticket = invoices.find_all_by_status(:shipped)
@@ -58,6 +65,43 @@ class InvoiceRepositoryTest < Minitest::Test
     invoice_ticket = invoices.all
 
     assert_equal 19, invoice_ticket.count
+  end
+
+  def test_it_finds_merchant_by_invoice
+    se = SalesEngine.from_csv({
+      invoices: "./test/fixtures/invoices_sample.csv",
+      invoice_items: "./test/fixtures/invoice_items_sample.csv",
+      customers: "./test/fixtures/customers_sample.csv",
+      merchants: "./test/fixtures/merchants_sample.csv",
+      items: "./test/fixtures/items_sample.csv"
+    })
+    merchant = se.invoices.find_merchant_by_invoice(12334141)
+
+    assert_equal "jejum", merchant.name
+  end
+
+  def test_it_grabs_array_of_invoices
+    se = SalesEngine.from_csv({
+      :merchants => "./test/fixtures/merchants_sample.csv",
+      :invoices => "./test/fixtures/invoices_sample.csv"
+    })
+    found_merchants = se.merchants.grab_array_of_invoices
+
+    assert_equal [8, 2, 1, 1, 1, 1, 1], found_merchants
+    assert_equal 7, found_merchants.count
+  end
+
+  def test_it_grabs_all_items
+    se = SalesEngine.from_csv({
+      invoices: "./test/fixtures/invoices_sample.csv",
+      invoice_items: "./test/fixtures/invoice_items_sample.csv",
+      customers: "./test/fixtures/customers_sample.csv",
+      merchants: "./test/fixtures/merchants_sample.csv",
+      items: "./test/fixtures/items_sample.csv"
+    })
+    result = se.invoices.grab_all_items
+
+    assert_equal 25, result.count
   end
 
 end

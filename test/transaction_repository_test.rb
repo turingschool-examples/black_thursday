@@ -48,4 +48,18 @@ class TransactionRepositoryTest < Minitest::Test
     refute_equal 4, found_id.count
   end
 
+  def test_it_finds_invoices_by_id
+    se = SalesEngine.from_csv({
+      :merchants => "./test/fixtures/merchants_sample.csv",
+      :invoices => "./test/fixtures/invoices_sample.csv",
+      :transactions => "./test/fixtures/transactions_sample.csv"
+    })
+    found_transaction = se.transactions.find_invoice_by_id(2179)
+
+    assert_equal 12334633, found_transaction.merchant_id
+    assert_equal :returned, found_transaction.status
+    assert_equal 433, found_transaction.customer_id
+    refute_equal :shipped, found_transaction.status
+  end
+
 end

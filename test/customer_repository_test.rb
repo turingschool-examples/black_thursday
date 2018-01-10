@@ -46,8 +46,6 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal 2, found_id.count
   end
 
-###
-
   def test_it_finds_all_invoices_by_customer_id
     se = SalesEngine.from_csv({
       invoices: "./test/fixtures/invoices_sample.csv",
@@ -55,7 +53,7 @@ class CustomerRepositoryTest < Minitest::Test
       customers: "./test/fixtures/customers_sample.csv",
       items: "./test/fixtures/items_sample.csv"
     })
-    
+
     found_id = se.customers.find_all_invoices_by_id(206)
     assert_equal 4, found_id.count
   end
