@@ -234,4 +234,29 @@ class SalesEngine
     end
   end
 
+  def merchant_ids_with_item_ids_and_revenue
+    transform_invoice_ids_to_invoice_items.transform_values do |invoice_items|
+      item_ids_with_revenue = Hash.new(0)
+      invoice_items.map do |invoice_item|
+        revenue = invoice_item.unit_price * invoice_item.quantity
+        item_ids_with_revenue[invoice_item.item_id] += revenue
+      end
+      item_ids_with_revenue
+    end
+  end
+
+  def merchant_ids_with_best_item_ids
+    merchant_ids_with_item_ids_and_revenue.transform_values do |item_ids_with_revenue|
+      item_ids_with_revenue.select do |item_id, revenue|
+        revenue == item_ids_with_revenue.values.max
+      end.to_a.flatten.first
+    end
+  end
+
+  def merchant_ids_with_best_items
+    merchant_ids_with_best_item_ids.transform_values do |item_id|
+      items.find_by_id(item_id)
+    end
+  end
+
 end
