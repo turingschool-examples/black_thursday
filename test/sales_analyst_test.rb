@@ -21,7 +21,7 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_it_finds_average_items_per_merchant
-    assert_equal 1.64, @sa.average_items_per_merchant
+    assert_equal 0.86, @sa.average_items_per_merchant
   end
 
   def test_it_finds_all_the_items
@@ -30,7 +30,7 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_it_finds_the_average_items_per_merchant_standard_deviation
-    assert_equal 1.12, @sa.average_items_per_merchant_standard_deviation
+    assert_equal 1.34, @sa.average_items_per_merchant_standard_deviation
   end
 
   def test_it_finds_the_merchants_with_the_highest_item_counts
@@ -54,7 +54,7 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_average_invoices_per_merchant_returns_average_invoices
-    assert_equal 1.09, @sa.average_invoices_per_merchant
+    assert_equal 1.24, @sa.average_invoices_per_merchant
   end
 
   def test_average_invoices_per_merchant_standard_deviation_returns_correct_value
@@ -62,7 +62,7 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_two_standard_deviations_above_average_invoices_returns_correct_value
-    assert_equal 1.7, @sa.two_standard_deviations_above_average_invoices
+    assert_equal 2.8, @sa.two_standard_deviations_above_average_invoices
   end
 
   def test_top_merchants_by_invoice_count_returns_merchants_with_highest_invoice_count
@@ -82,7 +82,7 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_average_invoices_created_per_weekday
-    assert_equal 1.71, @sa.average_invoices_created_per_weekday
+    assert_equal 3.43, @sa.average_invoices_created_per_weekday
   end
 
   def test_average_invoices_created_per_weekday_standard_deviation
@@ -90,7 +90,7 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_one_standard_deviations_above_average_invoices_returns_correct_value
-    assert_equal 3.26, @sa.one_standard_deviation_above_average_invoices_created_per_weekday
+    assert_equal 5.06, @sa.one_standard_deviation_above_average_invoices_created_per_weekday
   end
 
   def test_top_days_by_invoice_count_returns_array_of_popular_days
@@ -160,7 +160,7 @@ class SalesAnalystTest < MiniTest::Test
     month = "january"
     merchants = @sa.merchants_with_only_one_item_registered_in_month(month)
 
-    assert_equal 2, merchants.count
+    assert_equal 1, merchants.count
     assert_equal 1, merchants.first.items.count
     assert_equal month, merchants.first.month_registered
   end
