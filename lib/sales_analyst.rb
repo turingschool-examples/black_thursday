@@ -45,7 +45,7 @@ class SalesAnalyst
 
   def average_invoices_per_merchant_standard_deviation
     var = variance(average_invoices_per_merchant, number_of_invoices_per_merchant)
-    standard_dev(var, se.merchants.all.count - 1)
+    standard_dev(var, se.grab_all_merchants.count - 1)
   end
 
   def item_prices_mean
@@ -84,7 +84,7 @@ class SalesAnalyst
   def top_merchants_by_invoice_count
     double_deviation = (average_invoices_per_merchant_standard_deviation * 2)
     mean = average_invoices_per_merchant + double_deviation
-    se.merchants.all.find_all do |merchant|
+    se.grab_all_merchants.find_all do |merchant|
       merchant if merchant.invoices.count > mean
     end
   end
@@ -92,7 +92,7 @@ class SalesAnalyst
   def bottom_merchants_by_invoice_count
     double_deviation = (average_invoices_per_merchant_standard_deviation * 2)
     mean = average_invoices_per_merchant - double_deviation
-    se.merchants.all.find_all do |merchant|
+    se.grab_all_merchants.find_all do |merchant|
       merchant if merchant.invoices.count < mean
     end
   end
@@ -109,13 +109,13 @@ class SalesAnalyst
   end
 
   def group_invoices_by_day
-    se.invoices.all.group_by do |invoice|
+    se.grab_all_invoices.group_by do |invoice|
       invoice.created_at.strftime("%A")
     end
   end
 
   def average_invoices_per_day
-    (se.invoices.all.count / 7)
+    (se.grab_all_invoices.count / 7)
   end
 
   def invoices_per_day
@@ -135,11 +135,11 @@ class SalesAnalyst
   end
 
   def group_by_status
-    se.invoices.all.group_by(&:status)
+    se.grab_all_invoices.group_by(&:status)
   end
 
   def invoice_status(status)
-    ((group_by_status[status].count / se.invoices.all.count.to_f) * 100).round(2)
+    ((group_by_status[status].count / se.grab_all_invoices.count.to_f) * 100).round(2)
   end
 
   def total_revenue_by_date(date)
@@ -149,7 +149,7 @@ class SalesAnalyst
   end
 
   def grab_invoice_by_date(date)
-    se.invoices.all.select do |invoice|
+    se.grab_all_invoices.select do |invoice|
       invoice.created_at.to_i == date.to_i
     end
   end
@@ -161,12 +161,25 @@ class SalesAnalyst
     end
   end
 
-  def top_revenue_earners(date = nil)
+  def merchant_revenues #TEST
+    se.grab_all_merchants.group_by(&:revenue).invert
+  end
+
+  def sort_merchant_revenues #TEST
+    merchant_revenues.sort_by { |merchant, revenue| revenue }.flatten(2)
+  end
+
+  def top_earners #TEST
     binding.pry
+    sort_merchant_revenues.each_slice(2).map(&:first).reverse
+  end
+
+  def top_revenue_earners(totals = 20)
+    top_earners[0...totals]
   end
 
   def merchants_with_only_one_item
-    found_merchants = se.merchants.all.find_all do |merchant|
+    found_merchants = se.grab_all_merchants.find_all do |merchant|
       merchant.items.count == 1
     end
     found_merchants
@@ -174,6 +187,6 @@ class SalesAnalyst
 
 #  def merchants_with_only_one_item_registered_in_month("Month name")
 #    merchants_with_only_one_item.
-#  end 
+#  end
 
 end

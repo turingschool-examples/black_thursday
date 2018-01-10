@@ -30,4 +30,15 @@ class Merchant
     invoices.map(&:customer).uniq
   end
 
+  def revenue
+    invoices.reduce(0) do |result, invoice|
+      if invoice.is_paid_in_full?
+        result += invoice.total
+      else
+        result += 0
+      end
+      result
+    end
+  end
+
 end
