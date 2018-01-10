@@ -11,9 +11,7 @@ class MerchantRepository
 
   def parse(merchant_data)
     merchant_data.each do |row|
-      id = row[:id]
-      name = row[:name]
-      @merchants << Merchant.new({id: id, name: name}, self)
+      @merchants << Merchant.new(row.to_hash, self)
     end
   end
 
