@@ -44,14 +44,14 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant_standard_deviation
-    var = variance(average_invoices_per_merchant, number_of_invoices_per_merchant)
-    standard_dev(var, se.grab_all_merchants.count - 1)
+    b = variance(average_invoices_per_merchant, number_of_invoices_per_merchant)
+    standard_dev(b, se.grab_all_merchants.count - 1)
   end
 
   def item_prices_mean
     items       = se.grab_all_items
-    item_prices = items.reduce(0) { |result, item| result += item.unit_price.to_i}
-    (item_prices / items.count).round(2)
+    prices = items.reduce(0) { |result, item| result += item.unit_price.to_i}
+    (prices / items.count).round(2)
   end
 
   def invoice_mean
@@ -60,7 +60,8 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    count = average_items_per_merchant + average_items_per_merchant_standard_deviation
+    count = average_items_per_merchant +
+            average_items_per_merchant_standard_deviation
     se.grab_all_merchants.find_all do |merchant|
       merchant if merchant.items.count > count
     end
@@ -125,9 +126,9 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-    mean = average_invoices_per_day + average_invoices_per_day_standard_deviation
+    m = average_invoices_per_day + average_invoices_per_day_standard_deviation
     group_invoices_by_day.map do |day, invoices|
-      day if invoices.count > mean
+      day if invoices.count > m
     end.delete_if { |day| day.nil? }
   end
 
@@ -171,7 +172,7 @@ class SalesAnalyst
   def merchants_with_pending_invoices
     se.grab_all_merchants.find_all do |merchant|
       merchant.invoices.any? do |invoice|
-        invoice.transactions.none? { |transaction| transaction.result == "success" }
+        invoice.transactions.none? { |sale| sale.result == "success" }
       end
     end
   end
