@@ -21,6 +21,7 @@ class CustomerTest < Minitest::Test
 
   def test_it_has_first_name
     assert_equal "Joey", @customer.first_name
+    refute_equal "Billy", @customer.first_name
   end
 
   def test_it_has_last_name
@@ -29,6 +30,7 @@ class CustomerTest < Minitest::Test
 
   def test_it_has_an_id
     assert_equal 1, @customer.id
+    refute_equal "1", @customer.id
   end
 
   def test_it_creates_at_a_time
