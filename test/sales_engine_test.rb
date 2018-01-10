@@ -34,4 +34,40 @@ class SalesEngineTest < MiniTest::Test
     assert_equal Merchant, @sales_engine.all_merchants[0].class
   end
 
+  def test_invoices_returns_instance_of_invoice_repository
+    assert_instance_of InvoiceRepository, @sales_engine.invoices
+  end
+
+  def test_all_invoices_returns_an_array_of_invoices
+    assert_equal Array, @sales_engine.all_invoices.class
+
+    assert_equal Invoice, @sales_engine.all_invoices[0].class
+  end
+
+  def test_transactions_returns_instance_of_transaction_repository
+    assert_instance_of TransactionRepository, @sales_engine.transactions
+  end
+
+  def test_customers_returns_instance_of_customer_repository
+    assert_instance_of CustomerRepository, @sales_engine.customers
+  end
+
+  def test_invoice_items_returns_instance_of_invoice_item_repository
+    assert_instance_of InvoiceItemRepository, @sales_engine.invoice_items
+  end
+
+  def test_assign_item_count_assigns_an_item_count_to_merchant
+    assert_equal 45, @sales_engine.assign_item_count(12335519, 45)
+    assert_equal 45, @sales_engine.merchants.find_by_id(12335519).item_count
+  end
+
+  def test_assign_total_revenue_assigns_total_revenue_to_merchant
+    assert_equal 75404, @sales_engine.assign_total_revenue(12335519, 75404)
+    assert_equal 75404, @sales_engine.merchants.find_by_id(12335519).total_revenue
+  end
+
+  def test_find_merchants_by_id_returns_instance_of_merchant
+    assert_instance_of Merchant, @sales_engine.find_merchant_by_id(12335519)
+    assert_equal "TIGHTpinch", @sales_engine.find_merchant_by_id(12335519).name
+  end
 end
