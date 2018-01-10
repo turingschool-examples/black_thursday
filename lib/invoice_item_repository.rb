@@ -50,10 +50,6 @@ class InvoiceItemRepository
     end
   end
 
-  def items(id)
-    @parent.items_by_invoice_id(@id)
-  end
-
   def argument_raiser(data_type, desired_class = Integer)
     if data_type.class != desired_class
       raise ArgumentError
