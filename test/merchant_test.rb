@@ -20,8 +20,4 @@ class MerchantTest < Minitest::Test
     assert_equal "Turing School", @merchant.name
   end
 
-  def test_it_returns_customers
-    
-  end
-
 end
