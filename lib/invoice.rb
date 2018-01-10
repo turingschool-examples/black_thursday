@@ -31,6 +31,10 @@ class Invoice
     })
   end
 
+  def invoice_items # TESTS
+    invoice_repo.items(@id)
+  end
+
   def items
     invoice_items = invoice_repo.items(@id)
     invoice_items.map do |invoice_item|
