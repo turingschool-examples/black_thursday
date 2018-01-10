@@ -34,10 +34,12 @@ class Merchant
   end
 
   def revenue # TEST NEEDS FIXING
-    invoices.reduce(0) do |result, invoice|
+    data = invoices.reduce(0) do |result, invoice|
       result += invoice.total if invoice.is_paid_in_full?
       result += 0
     end
+    data
+  #   require 'pry'; binding.pry
   end
 
 end
