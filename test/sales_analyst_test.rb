@@ -72,7 +72,7 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_two_standard_deviations_below_average_invoices_returns_correct_value
-    assert_equal 0.5, @sa.two_standard_deviations_below_average_invoices
+    assert_equal -0.3, @sa.two_standard_deviations_below_average_invoices
   end
 
   def test_bottom_merchants_by_invoice_count_returns_merchants_with_lowest_invoice_count
@@ -86,7 +86,7 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_average_invoices_created_per_weekday_standard_deviation
-    assert_equal 1.55, @sa.average_invoices_created_per_weekday_standard_deviation
+    assert_equal 1.63, @sa.average_invoices_created_per_weekday_standard_deviation
   end
 
   def test_one_standard_deviations_above_average_invoices_returns_correct_value
@@ -100,7 +100,7 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_invoice_status_with_status_argument_returns_percentage_of_status
-    assert_equal 58.33, @sa.invoice_status(:shipped)
+    assert_equal 66.67, @sa.invoice_status(:shipped)
     assert_equal 33.33, @sa.invoice_status(:pending)
     assert_equal 8.33, @sa.invoice_status(:returned)
   end
@@ -163,5 +163,10 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 1, merchants.count
     assert_equal 1, merchants.first.items.count
     assert_equal month, merchants.first.month_registered
+  end
+
+  def test_revenue_by_merchant_finds_revenue_for_merchant_with_given_id
+    assert_equal 93820, @sa.revenue_by_merchant(12334132)
+    assert_equal 785, @sa.revenue_by_merchant(12334144)
   end
 end

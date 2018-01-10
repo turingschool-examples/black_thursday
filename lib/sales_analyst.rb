@@ -71,19 +71,19 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
-    sum_invoices = merchants.reduce(0) do |sum, merchant|
-      sum + merchant.invoices.count
+    sum_invoices = merchants.sum do |merchant|
+      merchant.invoices.count
     end
-    (sum_invoices.to_f / merchants.count).round(2)
+    return (sum_invoices.to_f / merchants.count).round(2)
   end
 
   def average_invoices_per_merchant_standard_deviation
     average = average_invoices_per_merchant
     Math.sqrt(
-      merchants.reduce(0) do |sum, merchant|
-      sum + (merchant.invoices.count - average)**2
-    end / (merchants.count - 1)
-  ).round(2)
+      merchants.sum do |merchant|
+        (merchant.invoices.count - average)**2
+      end / (merchants.count - 1)
+    ).round(2)
   end
 
   def two_standard_deviations_above_average_invoices
@@ -117,10 +117,10 @@ class SalesAnalyst
   def average_invoices_created_per_weekday_standard_deviation
     average = average_invoices_created_per_weekday
     Math.sqrt(
-      @sales_engine.invoices.invoices_created_each_weekday.values.reduce(0) do |sum, invoices|
-      sum + (invoices.count - average)**2
-    end / (7 - 1)
-  ).round(2)
+      @sales_engine.invoices.invoices_created_each_weekday.values.sum do |invoices|
+        (invoices.count - average)**2
+      end / (7 - 1)
+    ).round(2)
   end
 
   def one_standard_deviation_above_average_invoices_created_per_weekday
@@ -172,5 +172,10 @@ class SalesAnalyst
     merchants_with_only_one_item.find_all do |merchant|
       merchant.month_registered == month.downcase
     end
+  end
+
+  def revenue_by_merchant(merchant_id)
+    merchant = @sales_engine.merchants.find_by_id(merchant_id)
+    return merchant.revenue
   end
 end
