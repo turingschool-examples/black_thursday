@@ -9,6 +9,7 @@ class InvoiceItem
               :unit_price,
               :created_at,
               :updated_at,
+              :item_and_quantity,
               :total_cost
 
   def initialize(data, parent)
@@ -20,6 +21,7 @@ class InvoiceItem
     @created_at = Time.parse(data[:created_at])
     @updated_at = Time.parse(data[:updated_at])
     @total_cost = @unit_price * @quantity
+    @item_and_quantity = {@item_id => @quantity}
     @invoice_item_repository = parent
   end
 

@@ -17,8 +17,8 @@ class Merchant
   end
 
   def average_item_price
-    sum_prices = items.reduce(0) do |total, item|
-      total + item.unit_price
+    sum_prices = items.sum do |item|
+      item.unit_price
     end
     return (sum_prices / items.count).round(2)
   end

@@ -178,4 +178,9 @@ class SalesAnalyst
     merchant = @sales_engine.merchants.find_by_id(merchant_id)
     return merchant.revenue
   end
+
+  def most_sold_item_for_a_merchant(merchant_id)
+    merchant = @sales_engine.merchants.find_by_id(merchant_id)
+    return merchant.most_sold_item
+  end
 end

@@ -74,4 +74,8 @@ class MerchantTest < Minitest::Test
     refute m_1.pending_invoices?
     assert m_2.pending_invoices?
   end
+
+  def test_most_sold_item_returns_item_with_highest_quantity_sold
+    
+  end
 end
