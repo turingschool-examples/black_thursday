@@ -85,4 +85,29 @@ class SalesEngineTest < MiniTest::Test
     assert_instance_of InvoiceItem, @sales_engine.find_cost_by_invoice_id(724).first
     assert_equal 6, @sales_engine.find_cost_by_invoice_id(724).count
   end
+
+  def test_find_transactions_by_invoice_id_returns_array_of_transactions
+    assert_instance_of Transaction, @sales_engine.find_transactions_by_invoice_id(3675).first
+    assert_equal 1, @sales_engine.find_transactions_by_invoice_id(3675).count
+  end
+
+  def test_find_customer_by_customer_id_returns_array_of_customers
+    assert_instance_of Customer, @sales_engine.find_customer_by_customer_id(732)
+    assert_equal "Jermey", @sales_engine.find_customer_by_customer_id(732).first_name
+  end
+
+  def test_find_invoice_by_invoice_id_returns_instance_of_invoice
+    assert_instance_of Invoice, @sales_engine.find_invoice_by_invoice_id(2565)
+    assert_equal 2565, @sales_engine.find_invoice_by_invoice_id(2565).id
+  end
+
+  def test_find_all_customers_by_merchant_id_returns_array_of_invoices
+    assert_instance_of Invoice, @sales_engine.find_all_customers_by_merchant_id(12335519).first
+    assert_equal 11, @sales_engine.find_all_customers_by_merchant_id(12335519).count
+  end
+
+  def test_find_all_merchants_by_customer_id_returns_array_of_invoices
+    assert_instance_of Invoice, @sales_engine.find_all_merchants_by_customer_id(732).first
+    assert_equal 1, @sales_engine.find_all_merchants_by_customer_id(732).count
+  end
 end
