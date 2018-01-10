@@ -23,3 +23,4 @@ id,customer_id,merchant_id,status,created_at,updated_at
 26,6,12334189,shipped,2008-04-04,2009-04-27
 27,6,12334189,shipped,2011-06-21,2013-07-22
 28,6,12334189,shipped,2013-05-26,2014-11-20
+29,6,12334135,shipped,2013-05-26,2014-11-20
