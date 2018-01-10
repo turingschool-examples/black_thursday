@@ -25,7 +25,7 @@ class Merchant
   end
 
   def customers
-    @parent.find_all_customers_by_merchant_id(@id).map do |invoice|
+    invoices.map do |invoice|
       invoice.customer
     end.uniq
   end
