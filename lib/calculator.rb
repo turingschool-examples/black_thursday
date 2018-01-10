@@ -25,5 +25,11 @@ module Calculator
     "december" => "12"
   }
 
+  def average(sum, length)
+    (sum / length.to_f)
+  end
 
+  def sqrt(num)
+    num ** (0.5)
+  end
 end

@@ -15,8 +15,7 @@ class Customer
   end
 
   def merchants
-    @parent.find_all_merchants_by_customer_id(@id).map do |invoice|
-      invoice.merchant
-    end
+    #should work at a higher level
+    @parent.find_all_merchants_by_customer_id(@id)
   end
 end

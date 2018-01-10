@@ -110,7 +110,9 @@ class SalesEngine
   end
 
   def find_all_merchants_by_customer_id(id)
-    @invoices.find_all_by_customer_id(id)
+    @invoices.find_all_by_customer_id(id).map do |invoice|
+      invoice.merchant
+    end
   end
 
   def find_invoices_by_date(date)

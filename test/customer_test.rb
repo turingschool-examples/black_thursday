@@ -36,4 +36,9 @@ class CustomerTest < MiniTest::Test
     assert_instance_of Time, @customer.updated_at
   end
 
+  def test_merchant_error
+    skip
+    assert_instance
+  end
+
 end
