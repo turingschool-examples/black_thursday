@@ -2,11 +2,13 @@ require 'bigdecimal'
 
 class Merchant
   attr_reader :id,
-              :name
+              :name,
+              :month_registered
 
   def initialize(data, parent)
     @id = data[:id]
     @name = data[:name]
+    @month_registered = data[:created_at].strftime(%B).downcase
     @merchant_repository = parent
   end
 

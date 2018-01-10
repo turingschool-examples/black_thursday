@@ -155,4 +155,13 @@ class SalesAnalystTest < MiniTest::Test
     assert all_have_only_one
     assert_equal 8,  merchants.count
   end
+
+  def test_it_returns_all_merchants_with_only_one_item_registered_in_given_month
+    month = "january"
+    merchants = @sa.merchants_with_only_one_item_registered_in_month(month)
+
+    assert_equal 2, merchants.count
+    assert_equal 1, merchants.first.items.count
+    assert_equal month, merchants.first.month_registered
+  end
 end

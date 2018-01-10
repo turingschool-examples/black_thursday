@@ -2,7 +2,6 @@ require 'csv'
 require_relative '../lib/merchant'
 
 class MerchantRepository
-
   def initialize(file_path, parent)
     @merchants = []
     @sales_engine = parent

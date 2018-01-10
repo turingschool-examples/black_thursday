@@ -167,4 +167,10 @@ class SalesAnalyst
       merchant.items.count == 1
     end
   end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants_with_only_one_item.find_all do |merchant|
+      merchant.month_registered == month.downcase
+    end
+  end
 end
