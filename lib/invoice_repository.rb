@@ -60,16 +60,15 @@ class InvoiceRepository
     end
   end
 
-  def find_all_by_status(status_input) 
+  def find_all_by_status(status_input)
     @invoices.find_all do |num|
       num.status == status_input
     end
   end
 
-  def find_merchant_by_invoice(id) # Needs Test
-    se.merchant_by_invoice_id(id)
+  def find_merchant_by_merchant_id(merchant_id) # Needs Test
+    se.merchants.find_by_id(merchant_id)
   end
-
 
   def grab_array_of_invoices # NEEDS TESTS || Returns array of invoice count per merchant
     merchants.map { |merchant| merchant.invoices.count }

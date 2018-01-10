@@ -142,7 +142,23 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
+    # binding.pry
+    grab_invoice_items_by_invoice_date(date).sum do |invoice_item|
+      (invoice_item.unit_price * invoice_item.quantity)
+    end
+  end
 
+  def grab_invoice_by_date(date)
+    se.invoices.all.select do |invoice|
+      invoice.created_at.to_i == date.to_i
+    end
+  end
+
+  def grab_invoice_items_by_invoice_date(date)
+    invoice = grab_invoice_by_date(date)
+    se.invoice_items.all.find_all do |invoice_item|
+      invoice_item.invoice_id == invoice.first.id
+    end
   end
 
 end

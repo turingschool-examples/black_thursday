@@ -11,7 +11,8 @@ class SalesAnalystTest < Minitest::Test
     @se = SalesEngine.new({
       :items     => "./test/fixtures/items_sample.csv",
       :merchants => "./test/fixtures/merchants_sample.csv",
-      :invoices => "./test/fixtures/invoices_sample.csv"
+      :invoices => "./test/fixtures/invoices_sample.csv",
+      :invoice_items => "./test/fixtures/invoice_items_sample.csv"
     })
     @sales_analyst = SalesAnalyst.new(@se)
   end
@@ -46,7 +47,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_top_merchants_by_invoice_count
-    assert_equal 1, sales_analyst.top_merchants_by_invoice_count.count
+    assert_equal 0, sales_analyst.top_merchants_by_invoice_count.count
     refute_equal 3, sales_analyst.top_merchants_by_invoice_count.count
   end
 
@@ -60,20 +61,20 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_average_invoices_per_merchant
-    assert_equal 2.57, sales_analyst.average_invoices_per_merchant
+    assert_equal 2.71, sales_analyst.average_invoices_per_merchant
     refute_equal 2.00, sales_analyst.average_invoices_per_merchant
   end
 
   def test_it_returns_standard_deviation_for_invoices
 
-    assert_equal 2.65, sales_analyst.average_invoices_per_merchant_standard_deviation
+    assert_equal 2.68, sales_analyst.average_invoices_per_merchant_standard_deviation
     refute_equal 3.20, sales_analyst.average_invoices_per_merchant_standard_deviation
   end
 
   def test_it_returns_status_of_invoices_as_percentage
-    assert_equal 16.67, sales_analyst.invoice_status(:pending)
-    assert_equal 61.11, sales_analyst.invoice_status(:shipped)
-    assert_equal 22.22, sales_analyst.invoice_status(:returned)
+    assert_equal 15.79, sales_analyst.invoice_status(:pending)
+    assert_equal 63.16 , sales_analyst.invoice_status(:shipped)
+    assert_equal 21.05, sales_analyst.invoice_status(:returned)
   end
 
   def test_it_returns_group_invoices_by_day
@@ -86,7 +87,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_returns_average_invoices_per_day_standard_deviation
 
-    assert_equal 2.45, sales_analyst.average_invoices_per_day_standard_deviation
+    assert_equal 2.24, sales_analyst.average_invoices_per_day_standard_deviation
     refute_equal 2.63, sales_analyst.average_invoices_per_day_standard_deviation
   end
 
@@ -99,11 +100,22 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_array_of_invoices_per_day
-    assert_equal [6, 6, 1, 1, 2, 1, 1], sales_analyst.invoices_per_day
+    assert_equal [2, 6, 6, 1, 2, 1, 1], sales_analyst.invoices_per_day
   end
 
   def test_it_returns_total_revenue_by_date
-    assert_equal [], sales_analyst.total_revenue_by_date
+    assert_equal 0.2023211e5, sales_analyst.total_revenue_by_date(Time.parse('2009-12-09'))
+  end
+
+  def test_it_grabs_invoice_by_date
+    invoice = sales_analyst.grab_invoice_by_date(Time.parse('2009-12-09'))
+    assert_equal 3, invoice.first.id
+    assert_equal (Time.parse('2009-12-09')).to_i, invoice.first.created_at.to_i
+  end
+
+  def test_it_grabs_invoice_by_date
+    invoice_items = sales_analyst.grab_invoice_items_by_invoice_date(Time.parse('2009-12-09'))
+    assert invoice_items.all? { |invoice_item| invoice_item.class == InvoiceItem }
   end
 
 end
