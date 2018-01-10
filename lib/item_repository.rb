@@ -73,5 +73,8 @@ class ItemRepository
     se.find_merchant_by_id(id)
   end
 
+  def find_invoice_items_by_id(item_id) #TESTS
+    se.invoice_items.find_all_by_item_id(item_id)
+  end
 
 end
