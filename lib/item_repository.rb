@@ -63,13 +63,13 @@ class ItemRepository
     end
   end
 
-  def find_item(id) # NEEDS TESTS!!
+  def find_item(id)
     items.find_all do |item|
       item.merchant_id == id
     end
   end
 
-  def find_merchant(id) # NEEDS TESTS!!
+  def find_merchant(id)
     se.find_merchant_by_id(id)
   end
 

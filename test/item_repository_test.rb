@@ -74,4 +74,21 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of Item, merchants_inventory.first
   end
 
+  def test_it_finds_merchant_id
+    item = ItemRepository.new("./test/fixtures/items_sample.csv", "se")
+    found_id = item.find_item(12336075)
+
+    assert_equal 1, found_id.count
+  end
+
+  def test_it_finds_merchant
+    se = SalesEngine.from_csv({
+      :items     => "./test/fixtures/items_sample.csv",
+      :merchants => "./test/fixtures/merchants_sample.csv",
+    })
+    found_id = se.items.find_merchant(12334315)
+
+    assert_equal "Soudoveshop", found_id.name
+  end
+
 end
