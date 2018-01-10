@@ -106,4 +106,5 @@ class SalesAnalystTest < Minitest::Test
     assert_equal [], sales_analyst.total_revenue_by_date
   end
 
+
 end
