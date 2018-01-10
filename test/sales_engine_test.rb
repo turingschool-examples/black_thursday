@@ -70,4 +70,19 @@ class SalesEngineTest < MiniTest::Test
     assert_instance_of Merchant, @sales_engine.find_merchant_by_id(12335519)
     assert_equal "TIGHTpinch", @sales_engine.find_merchant_by_id(12335519).name
   end
+
+  def test_items_by_id_returns_items_by_merchant_id
+    assert_instance_of Item, @sales_engine.items_by_id(12335519).first
+    assert_equal 1, @sales_engine.items_by_id(12335519).count
+  end
+
+  def test_find_invoice_by_merchant_id_returns_array_of_invoices
+    assert_instance_of Invoice, @sales_engine.find_invoice_by_merchant_id(12335519).first
+    assert_equal 11, @sales_engine.find_invoice_by_merchant_id(12335519).count
+  end
+
+  def test_find_cost_by_invoice_returns_invoice_items_by_invoice_id
+    assert_instance_of InvoiceItem, @sales_engine.find_cost_by_invoice_id(724).first
+    assert_equal 6, @sales_engine.find_cost_by_invoice_id(724).count
+  end
 end
