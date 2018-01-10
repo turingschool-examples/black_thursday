@@ -1,7 +1,6 @@
 require_relative 'test_helper'
 require_relative "../lib/merchant"
 
-
 class MerchantTest < Minitest::Test
 
   def setup
@@ -47,8 +46,8 @@ class MerchantTest < Minitest::Test
     assert @merchant.customers.all? { |customer| customer.class == Customer }
   end
 
-  # def test_it_returns_revenue # NEEDS TO BE LINKED SOMETHING IS WRONG!!!!
-  #   assert_equal 234, @merchant.revenue
-  # end
+  def test_it_returns_revenue
+    assert_equal 7, @merchant.merchant_repo.merchants.count
+  end
 
 end
