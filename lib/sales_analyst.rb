@@ -45,7 +45,7 @@ class SalesAnalyst
 
   def average_invoices_per_merchant_standard_deviation
     var = variance(average_invoices_per_merchant, number_of_invoices_per_merchant)
-    standard_dev(var, se.merchants.all.count - 1)
+    standard_dev(var, se.grab_all_merchants.count - 1)
   end
 
   def item_prices_mean
@@ -84,7 +84,7 @@ class SalesAnalyst
   def top_merchants_by_invoice_count
     double_deviation = (average_invoices_per_merchant_standard_deviation * 2)
     mean = average_invoices_per_merchant + double_deviation
-    se.merchants.all.find_all do |merchant|
+    se.grab_all_merchants.find_all do |merchant|
       merchant if merchant.invoices.count > mean
     end
   end
@@ -92,30 +92,27 @@ class SalesAnalyst
   def bottom_merchants_by_invoice_count
     double_deviation = (average_invoices_per_merchant_standard_deviation * 2)
     mean = average_invoices_per_merchant - double_deviation
-    se.merchants.all.find_all do |merchant|
+    se.grab_all_merchants.find_all do |merchant|
       merchant if merchant.invoices.count < mean
     end
   end
 
   def golden_items
-    items = se.grab_all_items
     double_deviation = (item_price_standard_deviation * 2)
-    items.find_all do |item|
+    se.grab_all_items.find_all do |item|
       price = item.unit_price
-      if price > double_deviation
-        item
-      end
+      item if price > double_deviation
     end
   end
 
   def group_invoices_by_day
-    se.invoices.all.group_by do |invoice|
+    se.grab_all_invoices.group_by do |invoice|
       invoice.created_at.strftime("%A")
     end
   end
 
   def average_invoices_per_day
-    (se.invoices.all.count / 7)
+    (se.grab_all_invoices.count / 7)
   end
 
   def invoices_per_day
@@ -135,22 +132,21 @@ class SalesAnalyst
   end
 
   def group_by_status
-    se.invoices.all.group_by(&:status)
+    se.grab_all_invoices.group_by(&:status)
   end
 
   def invoice_status(status)
-    ((group_by_status[status].count / se.invoices.all.count.to_f) * 100).round(2)
+    ((group_by_status[status].count / se.grab_all_invoices.count.to_f) * 100).round(2)
   end
 
   def total_revenue_by_date(date)
-    # binding.pry
     grab_invoice_items_by_invoice_date(date).sum do |invoice_item|
       (invoice_item.unit_price * invoice_item.quantity)
     end
   end
 
   def grab_invoice_by_date(date)
-    se.invoices.all.select do |invoice|
+    se.grab_all_invoices.select do |invoice|
       invoice.created_at.to_i == date.to_i
     end
   end
@@ -162,15 +158,36 @@ class SalesAnalyst
     end
   end
 
-  def merchants_with_only_one_item
-    found_merchants = se.merchants.all.find_all do |merchant|
-      merchant.items.count == 1
-    end
-    found_merchants
+  def top_revenue_earners(totals = 20)
+    merchants_ranked_by_revenue[0...totals]
   end
 
-#  def merchants_with_only_one_item_registered_in_month("Month name")
-#    merchants_with_only_one_item.
-#  end 
+  def merchants_with_only_one_item #TESTS
+    se.grab_all_merchants.find_all do |merchant|
+      merchant.items.count == 1
+    end
+  end
+
+  def merchants_with_pending_invoices
+    se.grab_all_merchants.find_all do |merchant|
+      merchant.invoices.any? do |invoice|
+        invoice.transactions.none? { |transaction| transaction.result == "success" }
+      end
+    end
+  end
+
+  def merchants_ranked_by_revenue #TESTS
+    se.grab_all_merchants.sort_by(&:revenue).reverse
+  end
+
+  def revenue_by_merchant(merchant_id) # TESTS
+    se.find_merchant_by_id(merchant_id).revenue
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month_name) #TESTS
+    merchants_with_only_one_item.find_all do |merchant|
+      merchant.created_at.strftime("%B") == month_name
+    end
+  end
 
 end

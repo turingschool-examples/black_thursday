@@ -66,7 +66,7 @@ class InvoiceRepository
     end
   end
 
-  def find_merchant_by_invoice(merchant_id)
+  def find_merchant_by_merchant_id(merchant_id)
     se.find_merchant_by_id(merchant_id)
   end
 

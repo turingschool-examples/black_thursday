@@ -9,10 +9,11 @@ class SalesAnalystTest < Minitest::Test
   def setup
 
     @se = SalesEngine.new({
-      :items     => "./test/fixtures/items_sample.csv",
-      :merchants => "./test/fixtures/merchants_sample.csv",
-      :invoices => "./test/fixtures/invoices_sample.csv",
-      :invoice_items => "./test/fixtures/invoice_items_sample.csv"
+      :items         => "./test/fixtures/items_sample.csv",
+      :merchants     => "./test/fixtures/merchants_sample.csv",
+      :invoices      => "./test/fixtures/invoices_sample.csv",
+      :invoice_items => "./test/fixtures/invoice_items_sample.csv",
+      :customers     => "./test/fixtures/customers_sample.csv"
     })
     @sales_analyst = SalesAnalyst.new(@se)
   end
@@ -117,6 +118,25 @@ class SalesAnalystTest < Minitest::Test
     invoice_items = sales_analyst.grab_invoice_items_by_invoice_date(Time.parse('2009-12-09'))
     assert invoice_items.all? { |invoice_item| invoice_item.class == InvoiceItem }
   end
+
+  def test_it_returns_top_earners
+    assert sales_analyst.top_revenue_earners.all? { |merch| merch.class == Merchant }
+    assert_equal 7, sales_analyst.top_revenue_earners.count
+    assert_equal 12334183, sales_analyst.top_revenue_earners.first.id
+  end
+
+  def test_it_grabs_merchants_with_pending_invoices
+    assert sales_analyst.merchants_with_pending_invoices.all? do |merchant|
+       merchant.class == Merchant
+    end
+    assert_equal 7, sales_analyst.merchants_with_pending_invoices.count
+    assert_equal 12334141, sales_analyst.merchants_with_pending_invoices.first.id
+  end
+
+  def test_it_grabs_merchants_with_only_one_item
+    assert_equal 3, sales_analyst.merchants_with_only_one_item.count
+  end
+
 
 
 end
