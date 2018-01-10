@@ -215,8 +215,8 @@ class SalesAnalyst
 
   def merchants_with_only_one_item_registered_in_month(month_name)
     one_item_merchants_by_month.select do |month_num, merchants|
-      MONTHS.invert[month_name] == month_num
-    end.values
+      MONTHS.invert[month_name].to_i == month_num
+    end.values.flatten
   end
 
 end
