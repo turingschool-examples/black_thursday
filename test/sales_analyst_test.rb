@@ -122,4 +122,5 @@ class SalesAnalystTest < Minitest::Test
     assert_equal [], sales_analyst.top_revenue_earners
   end
 
+
 end

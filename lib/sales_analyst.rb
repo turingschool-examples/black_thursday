@@ -2,6 +2,7 @@ require 'bigdecimal'
 require 'pry'
 require_relative 'sales_engine'
 require_relative 'calculations'
+require 'pry'
 
 class SalesAnalyst
 
@@ -163,5 +164,16 @@ class SalesAnalyst
   def top_revenue_earners(date = nil)
     binding.pry
   end
+
+  def merchants_with_only_one_item
+    found_merchants = se.merchants.all.find_all do |merchant|
+      merchant.items.count == 1
+    end
+    found_merchants
+  end
+
+#  def merchants_with_only_one_item_registered_in_month("Month name")
+#    merchants_with_only_one_item.
+#  end 
 
 end
