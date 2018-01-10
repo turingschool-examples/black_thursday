@@ -284,14 +284,12 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_earners_ids
-    skip
     sa = SalesAnalyst.new(@sales_engine)
 
     assert_equal [12334141, 12334185, 12334113, 12334105], sa.top_earners_ids(4)
   end
 
   def test_top_revenue_earners
-    skip
     sa = SalesAnalyst.new(@sales_engine)
 
     assert_equal 12334141, sa.top_revenue_earners(4)[0].id
@@ -303,14 +301,99 @@ class SalesAnalystTest < Minitest::Test
   def test_merchants_with_pending_invoices
     sa = SalesAnalyst.new(@sales_engine)
 
-    assert_equal 12334105, sa.merchants_with_pending_invoices[0].id
-    assert_equal "Shopin1901", sa.merchants_with_pending_invoices[0].name
+    assert_equal 12334185, sa.merchants_with_pending_invoices[0].id
+    assert_equal "Disney", sa.merchants_with_pending_invoices[0].name
   end
 
   def test_merchants_ranked_by_revenue
     sa = SalesAnalyst.new(@sales_engine)
 
-    assert_equal [], sa.merchants_ranked_by_revenue
+    assert_equal "SeriousCompany", sa.merchants_ranked_by_revenue.first.name
+    assert_equal "Shopin1901", sa.merchants_ranked_by_revenue.last.name
+  end
+
+  def test_merchants_with_only_one_item
+    sales_engine = stub(:get_all_merchant_items => { m1: ['a'],
+                                                     m2: ['d', 'e', 'r', 'z'],
+                                                     m3: ['f', 'p', 'q', 'z'],
+                                                     m4: ['g'],
+                                                     m5: ['a', 'b', 'c', 'z'],
+                                                     m6: ['a', 'b', 'c', 'z'],
+                                                     m7: ['a', 'b', 'c', 'z'],
+                                                     m8: ['z']})
+    sa = SalesAnalyst.new(sales_engine)
+
+    one_item_merchants = sa.merchants_with_only_one_item
+
+    assert_equal 3, one_item_merchants.count
+    assert_equal :m1, one_item_merchants.first
+    assert_equal :m8, one_item_merchants.last
+  end
+
+  def test_one_item_merchants_by_month
+    m1 = stub(:created_at => "2009-03-21")
+    m4 = stub(:created_at => "2011-05-08")
+    m8 = stub(:created_at => "20014-03-12")
+    sales_engine = stub(:get_all_merchant_items => { m1  => ['a'],
+                                                     :m2 => ['d', 'e', 'r', 'z'],
+                                                     :m3 => ['f', 'p', 'q', 'z'],
+                                                     m4  => ['g'],
+                                                     :m5 => ['a', 'b', 'c', 'z'],
+                                                     :m6 => ['a', 'b', 'c', 'z'],
+                                                     :m7 => ['a', 'b', 'c', 'z'],
+                                                     m8  => ['z']})
+    sa = SalesAnalyst.new(sales_engine)
+
+    merchants_by_month = sa.one_item_merchants_by_month
+
+    assert_equal 2, merchants_by_month.count
+    assert_equal m4, merchants_by_month[5].first
+    assert_equal m1, merchants_by_month[3].first
+    assert_equal m8, merchants_by_month[3].last
+  end
+
+  def test_merchants_with_only_one_item_registered_in_month
+    m1 = stub(:created_at => "2009-03-21")
+    m4 = stub(:created_at => "2011-05-08")
+    m8 = stub(:created_at => "20014-03-12")
+    sales_engine = stub(:get_all_merchant_items => { m1  => ['a'],
+                                                     :m2 => ['d', 'e', 'r', 'z'],
+                                                     :m3 => ['f', 'p', 'q', 'z'],
+                                                     m4  => ['g'],
+                                                     :m5 => ['a', 'b', 'c', 'z'],
+                                                     :m6 => ['a', 'b', 'c', 'z'],
+                                                     :m7 => ['a', 'b', 'c', 'z'],
+                                                     m8  => ['z']})
+    sa = SalesAnalyst.new(sales_engine)
+
+    one_item_merchants_registered_by_month = sa.merchants_with_only_one_item_registered_in_month("March")
+
+    assert_equal 2, one_item_merchants_registered_by_month.count
+    assert_equal m1, one_item_merchants_registered_by_month.first
+    assert_equal m8, one_item_merchants_registered_by_month.last
+  end
+
+  def test_revenue_by_merchant
+    sa = SalesAnalyst.new(@sales_engine)
+
+    assert_equal 13795.59, sa.revenue_by_merchant(12334141)
+    assert_equal 3607.91, sa.revenue_by_merchant(12334105)
+    assert_equal 12254.42, sa.revenue_by_merchant(12334185)
+    assert_equal 8860.77, sa.revenue_by_merchant(12334113)
+  end
+
+  def test_most_sold_item_for_merchant
+    sales_engine = stub(:merchant_ids_with_most_sold_items => { 1 => ['a'],
+                                                                2 => ['d', 'e', 'r', 'z'],
+                                                                3 => ['f', 'p', 'q', 'z'],
+                                                                4 => ['g'],
+                                                                5 => ['a', 'b', 'c', 'z'],
+                                                                6 => ['a', 'b', 'c', 'z'],
+                                                                7 => ['a', 'b', 'c', 'z'],
+                                                                8 => ['z']})
+    sa = SalesAnalyst.new(sales_engine)
+
+    assert_equal ['d', 'e', 'r', 'z'], sa.most_sold_item_for_merchant(2)
   end
 
 end

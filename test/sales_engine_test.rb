@@ -269,12 +269,31 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_get_merchant_ids_with_pending_invoices
-    assert_equal [12334105], @sales_engine.get_merchant_ids_with_pending_invoices
+    assert_equal [12334185, 12334113, 12334141, 12334105], @sales_engine.get_merchant_ids_with_pending_invoices
   end
 
   def test_get_merchants_with_pending_invoices
-    assert_equal 12334105, @sales_engine.get_merchants_with_pending_invoices[0].id
-    assert_equal "Shopin1901", @sales_engine.get_merchants_with_pending_invoices[0].name
+    assert_equal 12334185, @sales_engine.get_merchants_with_pending_invoices[0].id
+    assert_equal "Disney", @sales_engine.get_merchants_with_pending_invoices[0].name
+  end
+
+  def test_merchant_ids_with_item_ids_and_quantities
+    assert_equal({12334141 => {263396517 => 10, 263395237 => 9, 263396463 => 1},
+                  12334105 => {263396255 => 8, 263396209 => 3},
+                  12334185 => {263396255 => 4, 263396279 => 8, 263396517 => 10},
+                  12334113 => {263396517 => 9, 263396255 => 5, 263395237 => 5}}, @sales_engine.merchant_ids_with_item_ids_and_quantities)
+  end
+
+  def test_merchant_ids_with_most_sold_item_ids
+    assert_equal({12334185 => [263396517],
+                  12334113 => [263396517],
+                  12334141 => [263396517],
+                  12334105 => [263396255]}, @sales_engine.merchant_ids_with_most_sold_item_ids)
+  end
+
+  def test_merchant_ids_with_most_sold_item_ids
+    assert_equal "Course contre la montre", @sales_engine.merchant_ids_with_most_sold_items[12334185].first.name
+    assert_equal "Cache cache à la plage", @sales_engine.merchant_ids_with_most_sold_items[12334105].first.name
   end
 
 end

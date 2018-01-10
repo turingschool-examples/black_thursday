@@ -180,6 +180,7 @@ class SalesEngine
   end
 
   def transform_invoice_items_to_total_revenue_per_merchant
+    #actually_per_merchant_id
     transform_invoice_ids_to_invoice_items.transform_values do |invoice_items|
       invoice_items.map do |invoice_item|
         invoice_item.unit_price * invoice_item.quantity
@@ -205,6 +206,32 @@ class SalesEngine
         merchant_ids[invoice.merchant_id] = 0 if !invoice.is_paid_in_full?
       end
     merchant_ids
+  end
+
+  def merchant_ids_with_item_ids_and_quantities
+    transform_invoice_ids_to_invoice_items.transform_values do |invoice_items|
+      item_ids_with_quantities = Hash.new(0)
+      invoice_items.map do |invoice_item|
+        if invoice_item.quantity > item_ids_with_quantities[invoice_item.item_id]
+          item_ids_with_quantities[invoice_item.item_id] = invoice_item.quantity
+        end
+      end
+      item_ids_with_quantities
+    end
+  end
+
+  def merchant_ids_with_most_sold_item_ids
+    merchant_ids_with_item_ids_and_quantities.transform_values do |item_ids_with_qtys|
+      item_ids_with_qtys.select do |item_id, qty|
+        qty == item_ids_with_qtys.max_by {|ii, q| q}[1]
+      end.keys
+    end
+  end
+
+  def merchant_ids_with_most_sold_items
+    merchant_ids_with_most_sold_item_ids.transform_values do |item_ids|
+      item_ids.map {|item_id| items.find_by_id(item_id)}
+    end
   end
 
 end
