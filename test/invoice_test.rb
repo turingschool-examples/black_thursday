@@ -71,11 +71,12 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_it_returns_false_if_invoice_is_not_paid_in_full
-    transaction_1 = stub(:result => "success")
+    transaction_1 = stub(:result => "failure")
     transaction_2 = stub(:result => "failure")
-    @invoices.expects(:find_transactions_by_invoice_id).returns([transaction_1, transaction_2])
+    invoice_repository = stub(:find_transactions_by_invoice_id => [transaction_1, transaction_2])
+    invoice = Invoice.new(@data, invoice_repository)
 
-    refute @invoice.is_paid_in_full?
+    refute invoice.is_paid_in_full?
   end
 
   def test_it_returns_total_amount_of_invoice
@@ -87,6 +88,6 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_weekday_returns_day_of_the_week_it_was_created_at
-    assert_equal "Tuesday", @invoice.weekday
+    assert_equal Time.now.strftime('%A'), @invoice.weekday
   end
 end

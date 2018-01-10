@@ -3,19 +3,19 @@ require_relative '../lib/merchant'
 
 class MerchantTest < Minitest::Test
   def test_it_has_id
-    m = Merchant.new({:id => 5, :name => "Turing School", date: Time.now.inspect}, mock('MerchantRepository'))
+    m = Merchant.new({:id => 5, :name => "Turing School", created_at: Time.now.inspect}, mock('MerchantRepository'))
 
     assert_equal 5, m.id
   end
 
   def test_it_has_name
-    m = Merchant.new({:id => 5, :name => "Turing School"}, mock('MerchantRepository'))
+    m = Merchant.new({:id => 5, :name => "Turing School", created_at: Time.now.inspect}, mock('MerchantRepository'))
 
     assert_equal "Turing School", m.name
   end
 
   def test_it_finds_average_item_price
-    m = Merchant.new({:id => 12334105, :name => "Shopin1901"}, mock('MerchantRepository'))
+    m = Merchant.new({:id => 12334105, :name => "Shopin1901", created_at: Time.now.inspect}, mock('MerchantRepository'))
     item_1 = stub(:unit_price => 29.99)
     item_2 = stub(:unit_price => 9.99)
     item_3 = stub(:unit_price => 9.99)
@@ -28,7 +28,7 @@ class MerchantTest < Minitest::Test
     item = mock('item')
     mr = mock('MerchantRepository')
     mr.expects(:find_items_by_id).returns([item, item, item])
-    m = Merchant.new({:id => 12334105, :name => "Shopin1901"}, mr)
+    m = Merchant.new({:id => 12334105, :name => "Shopin1901", created_at: Time.now.inspect}, mr)
 
     assert_equal [item, item, item], m.items
   end
@@ -37,7 +37,7 @@ class MerchantTest < Minitest::Test
     invoice = mock('invoice')
     mr = mock('MerchantRepository')
     mr.expects(:find_invoices_by_id).returns([invoice, invoice, invoice])
-    m = Merchant.new({:id => 12334105, :name => "Shopin1901"}, mr)
+    m = Merchant.new({:id => 12334105, :name => "Shopin1901", created_at: Time.now.inspect}, mr)
 
     assert_equal [invoice, invoice, invoice], m.invoices
   end
@@ -46,7 +46,7 @@ class MerchantTest < Minitest::Test
     customer = mock('customer')
     invoice = stub(:customer => customer)
     mr = stub(:find_invoices_by_id => [invoice, invoice, invoice])
-    m = Merchant.new({:id => 12334105, :name => "Shopin1901"}, mr)
+    m = Merchant.new({:id => 12334105, :name => "Shopin1901", created_at: Time.now.inspect}, mr)
 
     assert_equal [customer], m.customers
   end
@@ -57,7 +57,7 @@ class MerchantTest < Minitest::Test
     invoice_2 = stub(:total => 15.00,
                      :is_paid_in_full? => true)
     mr = stub(:find_invoices_by_id => [invoice_1, invoice_2])
-    m = Merchant.new({:id => 12334105, :name => "Shopin1901"}, mr)
+    m = Merchant.new({:id => 12334105, :name => "Shopin1901", created_at: Time.now.inspect}, mr)
 
     assert_equal 28.00, m.revenue
   end
@@ -68,14 +68,10 @@ class MerchantTest < Minitest::Test
     invoice_3 = stub(:is_paid_in_full? => false)
     mr_1 = stub(:find_invoices_by_id => [invoice_1, invoice_2])
     mr_2 = stub(:find_invoices_by_id => [invoice_1, invoice_2, invoice_3])
-    m_1 = Merchant.new({:id => 12334105, :name => "Shopin1901"}, mr_1)
-    m_2 = Merchant.new({:id => 22334105, :name => "Shopin1301"}, mr_2)
+    m_1 = Merchant.new({:id => 12334105, :name => "Shopin1901", created_at: Time.now.inspect}, mr_1)
+    m_2 = Merchant.new({:id => 22334105, :name => "Shopin1301", created_at: Time.now.inspect}, mr_2)
 
     refute m_1.pending_invoices?
     assert m_2.pending_invoices?
-  end
-
-  def test_most_sold_item_returns_item_with_highest_quantity_sold
-    
   end
 end

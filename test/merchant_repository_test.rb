@@ -11,10 +11,12 @@ class MerchantRepositoryTest < MiniTest::Test
   def test_all_returns_an_array_of_merchant_instances
     merchants = @mr.all
 
-    assert_equal 11, merchants.count
-    assert merchants.all? do |element|
+    all_merchants = merchants.all? do |element|
       element.class == Merchant
     end
+
+    assert_equal 21, merchants.count
+    assert all_merchants
   end
 
   def test_find_by_id_returns_nil_if_merchant_does_not_exist

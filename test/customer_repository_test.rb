@@ -11,10 +11,12 @@ class CustomerRepositoryTest < Minitest::Test
   def test_all_returns_all_known_customers
     customers = @cr.all
 
-    assert_equal 8, customers.length
-    assert customers.all? do |customer|
+    all_customers = customers.all? do |customer|
       customer.class == Customer
     end
+
+    assert_equal 6, customers.length
+    assert all_customers
   end
 
   def test_it_can_find_a_customer_by_id
@@ -32,10 +34,12 @@ class CustomerRepositoryTest < Minitest::Test
     fragment = "ann"
     customers = @cr.find_all_by_first_name(fragment)
 
-    assert_equal 3, customers.length
-    assert customers.all? do |customer|
-      customer.first_name.downcase.include?(first_name.downcase)
+    all_match_fragment = customers.all? do |customer|
+      customer.first_name.include?(fragment.downcase)
     end
+
+    assert_equal 2, customers.length
+    assert all_match_fragment
   end
 
   def test_find_all_by_first_name_returns_empty_array_when_no_customers_name_matches_given_fragment
@@ -46,13 +50,15 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_last_name_finds_all_customers_with_given_fragment_in_last_name
-    fragment = "toy"
+    fragment = "ond"
     customers = @cr.find_all_by_last_name(fragment)
 
-    assert_equal 2, customers.length
-    assert customers.all? do |customer|
-    customer.last_name.downcase.include?(last_name.downcase)
+    all_have_name = customers.all? do |customer|
+      customer.last_name.downcase.include?(fragment.downcase)
     end
+
+    assert_equal 2, customers.length
+    assert all_have_name
   end
 
   def test_find_all_by_last_name_returns_empty_array_when_no_customers_name_matches_given_fragment

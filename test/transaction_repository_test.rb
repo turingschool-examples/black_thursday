@@ -11,17 +11,19 @@ class TransactionRepositoryTest < Minitest::Test
   def test_it_can_find_all_known_transactions
     transactions = @tr.all
 
-    assert_equal 14, transactions.length
-    assert transactions.all? do |transaction|
+    all_transactions = transactions.all? do |transaction|
       transaction.class == Transaction
     end
+
+    assert_equal 38, transactions.length
+    assert all_transactions
   end
 
   def test_find_by_id_returns_a_transaction_with_a_matching_id
-    transaction = @tr.find_by_id(234)
+    transaction = @tr.find_by_id(1)
 
     assert_instance_of Transaction, transaction
-    assert 234, transaction.id
+    assert 1, transaction.id
   end
 
   def test_find_by_id_returns_an_nil_if_no_transaction_with_id
@@ -31,10 +33,12 @@ class TransactionRepositoryTest < Minitest::Test
   def test_find_all_by_invoice_id_returns_all_transactions_with_matching_invoice_id
     transactions = @tr.find_all_by_invoice_id(7)
 
-    assert_equal 3, transactions.length
-    assert transactions.all? do |transaction|
-      transaction.invoice_id == 3343 && transaction.class == Transaction
+    all_match_invoice_id = transactions.all? do |transaction|
+      transaction.invoice_id == 7 && transaction.class == Transaction
     end
+
+    assert_equal 2, transactions.length
+    assert all_match_invoice_id
   end
 
   def test_find_all_by_invoice_id_returns_empty_array_when_no_transaction_with_invoice_id
@@ -47,10 +51,12 @@ class TransactionRepositoryTest < Minitest::Test
     credit_card_number = 4399131883281206
     transactions = @tr.find_all_by_credit_card_number(credit_card_number)
 
-    assert_equal 3, transactions.length
-    assert transactions.all? do |transaction|
+    all_match_card_number = transactions.all? do |transaction|
       transaction.credit_card_number == credit_card_number && transaction.class == Transaction
     end
+
+    assert_equal 3, transactions.length
+    assert all_match_card_number
   end
 
   def test_it_returns_an_empty_array_if_no_transactions_match_credit_card_number
@@ -62,15 +68,17 @@ class TransactionRepositoryTest < Minitest::Test
     succesful_transactions = @tr.find_all_by_result('success')
     failed_transactions = @tr.find_all_by_result('failed')
 
-    assert_equal 12, succesful_transactions.length
-    assert succesful_transactions.all? do |transaction|
+    all_succesful = succesful_transactions.all? do |transaction|
       transaction.result == 'success' && transaction.class == Transaction
     end
-
-    assert_equal 2, failed_transactions.length
-    assert failed_transactions.all? do |transaction|
+    all_failed = failed_transactions.all? do |transaction|
       transaction.result == 'failed' && transaction.class == Transaction
     end
+
+    assert_equal 29, succesful_transactions.length
+    assert all_succesful
+    assert_equal 9, failed_transactions.length
+    assert all_failed
   end
 
   def test_find_all_by_result_returns_an_empty_array_if_no_transactions_match_result

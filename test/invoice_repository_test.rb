@@ -20,11 +20,11 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_all_returns_array_of_invoice_instances
     invoices = @ir.all
 
-    value = invoices.all? do |invoice|
+    all_invoices = invoices.all? do |invoice|
       invoice.class == Invoice
     end
 
-    assert value
+    assert all_invoices
   end
 
   def test_find_by_id_returns_nil_if_no_matching_id
@@ -40,11 +40,11 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_find_all_by_customer_id_returns_all_invoice_instances_with_matching_id
     invoices = @ir.find_all_by_customer_id(5)
 
-    value = invoices.all? do |invoice|
+    all_match_customer_id = invoices.all? do |invoice|
       invoice.customer_id == 5
     end
 
-    assert value
+    assert all_match_customer_id
   end
 
   def test_find_all_by_customer_id_returns_empty_array_if_no_matching_id
@@ -54,11 +54,11 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_find_all_by_merchant_id_returns_all_invoice_instances_with_matching_id
     invoices = @ir.find_all_by_merchant_id(12334753)
 
-    value = invoices.all? do |invoice|
+    all_match_merchant_id = invoices.all? do |invoice|
       invoice.merchant_id == 12334753
     end
 
-    assert value
+    assert all_match_merchant_id
   end
 
   def test_find_all_by_merchant_id_returns_empty_array_if_no_matching_id
@@ -84,13 +84,13 @@ class InvoiceRepositoryTest < Minitest::Test
     salesengine = stub(:find_item_by_item_id => item)
     ir = InvoiceRepository.new(@data, salesengine)
 
-    assert_equal [item, item, item, item], ir.find_items_by_invoice_id(4)
+    assert_equal [item, item, item], ir.find_items_by_invoice_id(25)
   end
 
   def test_it_finds_transactions_by_invoice_id
     transactions = @ir.find_transactions_by_invoice_id(7)
 
-    assert_equal 3, transactions.count
+    assert_equal 2, transactions.count
     assert_instance_of Transaction, transactions.first
   end
 
@@ -102,22 +102,25 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_invoice_items_by_invoice_id
-    invoice_items = @ir.find_invoice_items_by_invoice_id(4)
+    invoice_items = @ir.find_invoice_items_by_invoice_id(25)
 
-    assert_equal 4, invoice_items.count
-    assert invoice_items.all? do |invoice_item|
-      invoice_item.invoice_id == 4 && invoice_item.class == InvoiceItem
+    all_match_invoice_id = invoice_items.all? do |invoice_item|
+      invoice_item.invoice_id == 25 && invoice_item.class == InvoiceItem
     end
+
+    assert_equal 3, invoice_items.count
+    assert all_match_invoice_id
   end
 
   def test_find_all_by_date_finds_all_invoices_created_on_a_given_date
     date = Time.parse("2010-09-17")
     invoices = @ir.find_all_by_date(date)
 
-    assert_equal 3, invoices.count
     all_created_on_date = invoices.all? do |invoice|
       invoice.created_at == date
     end
+
+    assert_equal 2, invoices.count
     assert all_created_on_date
   end
 end

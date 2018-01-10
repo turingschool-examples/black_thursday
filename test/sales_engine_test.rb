@@ -57,7 +57,7 @@ class SalesEngineTest < Minitest::Test
   def test_it_finds_merchant_by_invoice_id_returns_merchant_with_matching_id
     invoice = @se.invoices.find_by_id(12)
     merchant = invoice.merchant
-    merchant_id = 12334135
+    merchant_id = 12334149
 
     assert_instance_of Merchant, merchant
     assert_equal merchant_id, invoice.merchant_id

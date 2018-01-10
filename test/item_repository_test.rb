@@ -10,10 +10,12 @@ class ItemRepositoryTest < MiniTest::Test
   def test_all_returns_an_array_of_item_instances
     items = @ir.all
 
-    assert_equal 18, items.length
-    assert items.all? do |element|
+    all_items = items.all? do |element|
       element.class == Item
     end
+
+    assert_equal 34, items.length
+    assert all_items
   end
 
   def test_find_by_id_returns_nil_if_item_does_not_exist
@@ -32,16 +34,16 @@ class ItemRepositoryTest < MiniTest::Test
   end
 
   def test_find_by_name_returns_item_instance_with_matching_name
-    item = @ir.find_by_name('Disney scrabble frames')
+    item = @ir.find_by_name('Glitter scrabble frames')
 
-    assert_equal 'Disney scrabble frames', item.name
+    assert_equal 'Glitter scrabble frames', item.name
     assert_instance_of Item, item
   end
 
   def test_find_by_name_returns_item_instance_with_matching_name_case_insensitive
-    item = @ir.find_by_name('disney scrabble frames')
+    item = @ir.find_by_name('glitter scrabble Frames')
 
-    assert_equal 'Disney scrabble frames', item.name
+    assert_equal 'Glitter scrabble frames', item.name
   end
 
   def test_find_all_with_description_returns_all_items_with_a_matching_description
@@ -49,21 +51,25 @@ class ItemRepositoryTest < MiniTest::Test
 
     items = @ir.find_all_with_description(description)
 
-    assert_equal 2, items.count
-    assert items.all? do |item|
-      item.description == description
+    all_match_description = items.all? do |item|
+      item.description.downcase.include?(description)
     end
+
+    assert_equal 4, items.count
+    assert all_match_description
   end
 
   def test_find_all_with_description_returns_all_items_with_a_matching_description_case_insensitive
-    description = 'french bulldog'
+    description = 'French buLldog'
 
     items = @ir.find_all_with_description(description)
 
-    assert_equal 2, items.length
-    assert items.all? do |item|
-      item.description == description
+    all_match_description = items.all? do |item|
+      item.description.downcase.include?(description.downcase)
     end
+
+    assert_equal 4, items.length
+    assert all_match_description
   end
 
   def test_find_all_with_description_returns_an_empty_array_if_no_items_match_description
@@ -79,10 +85,12 @@ class ItemRepositoryTest < MiniTest::Test
 
     items = @ir.find_all_by_price(price)
 
-    assert_equal 3, items.count
-    assert items.all? do |item|
+    all_match_price = items.all? do |item|
       item.unit_price_in_dollars == price
     end
+
+    assert_equal 4, items.count
+    assert all_match_price
   end
 
   def test_find_by_price_returns_an_empty_array_if_no_items_match_price
@@ -98,10 +106,12 @@ class ItemRepositoryTest < MiniTest::Test
 
     items = @ir.find_all_by_price_in_range(price_range)
 
-    assert_equal 7, items.count
-    assert items.all? do |item|
-      item.price_in_range == price_in_range
+    all_in_range = items.all? do |item|
+      price_range.cover?(item.unit_price_in_dollars)
     end
+
+    assert_equal 12, items.count
+    assert all_in_range
   end
 
   def test_find_all_by_price_in_range_returns_an_empty_array_if_no_items_are_within_price_range
@@ -116,11 +126,12 @@ class ItemRepositoryTest < MiniTest::Test
     merchant_id = 12334185
 
     items = @ir.find_all_by_merchant_id(merchant_id)
-
-    assert_equal 4, items.count
-    assert items.all? do |item|
+    all_match_merchant = items.all? do |item|
       item.merchant_id == merchant_id
     end
+
+    assert_equal 6, items.count
+    assert all_match_merchant
   end
 
   def test_find_all_by_merchant_id_returns_an_empty_array_if_no_items_match_merchant_id
