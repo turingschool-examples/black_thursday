@@ -137,6 +137,14 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 3, sales_analyst.merchants_with_only_one_item.count
   end
 
+  def test_it_grabs_merchants_ranked_by_revenue
+    assert_equal 7, sales_analyst.merchants_ranked_by_revenue.count
+  end
+
+  def test_it_grabs_merchants_with_only_one_item_registered_in_month
+    assert_equal 1, sales_analyst.merchants_with_only_one_item_registered_in_month("June").count
+  end
+
 
 
 end

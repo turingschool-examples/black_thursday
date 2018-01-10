@@ -163,7 +163,7 @@ class SalesAnalyst
     merchants_ranked_by_revenue[0...totals]
   end
 
-  def merchants_with_only_one_item #TESTS
+  def merchants_with_only_one_item
     se.grab_all_merchants.find_all do |merchant|
       merchant.items.count == 1
     end
@@ -177,7 +177,7 @@ class SalesAnalyst
     end
   end
 
-  def merchants_ranked_by_revenue #TESTS
+  def merchants_ranked_by_revenue
     se.grab_all_merchants.sort_by(&:revenue).reverse
   end
 
@@ -185,7 +185,7 @@ class SalesAnalyst
     se.find_merchant_by_id(merchant_id).revenue
   end
 
-  def merchants_with_only_one_item_registered_in_month(month_name) #TESTS
+  def merchants_with_only_one_item_registered_in_month(month_name)
     merchants_with_only_one_item.find_all do |merchant|
       merchant.created_at.strftime("%B") == month_name
     end
