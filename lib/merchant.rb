@@ -1,5 +1,4 @@
 require 'bigdecimal'
-require 'Time'
 
 class Merchant
   attr_reader :id,
