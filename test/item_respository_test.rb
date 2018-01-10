@@ -97,4 +97,7 @@ class ItemRepositoryTest < MiniTest::Test
     end
   end
 
+  def test_inspect_returns_correct_string
+    assert_equal "#<ItemRepository 16 rows>", @items.inspect
+  end
 end

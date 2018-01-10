@@ -93,4 +93,8 @@ class MerchantRepositoryTest < MiniTest::Test
       @merchants.argument_raiser(0.2)
     end
   end
+
+  def test_inspect_returns_correct_string
+    assert_equal "#<MerchantRepository 11 rows>", @merchants.inspect
+  end
 end
