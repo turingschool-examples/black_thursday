@@ -13,7 +13,7 @@ se = SalesEngine.from_csv({
 
 sa = SalesAnalyst.new(se)
 
-p sa.merchants_ranked_by_revenue.last
+p sa.average_items_per_merchant
 
 <<<<<<< HEAD
 p sa.merchants_with_pending_invoices

@@ -42,4 +42,8 @@ class TransactionRepositoryTest < MiniTest::Test
 
     assert_equal 3, @transaction.find_all_by_result("success").count
   end
+
+  def test_inspect_returns_correct_string
+    assert_equal "#<TransactionRepository 3 rows>", @transaction.inspect
+  end
 end
