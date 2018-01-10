@@ -33,13 +33,12 @@ class Merchant
     invoices.map(&:customer).uniq
   end
 
-  def revenue # TEST NEEDS FIXING
+  def revenue
     data = invoices.reduce(0) do |result, invoice|
       result += invoice.total if invoice.is_paid_in_full?
       result += 0
     end
     data
-  #   require 'pry'; binding.pry
   end
 
 end
