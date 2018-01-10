@@ -246,36 +246,57 @@ class SalesAnalyst
   end
 
   def most_sold_item_for_merchant(id)
-    paid = @se.find_invoice_by_merchant_id(id).select do |invoice|
+    invoices = @se.find_invoice_by_merchant_id(id).select do |invoice|
       invoice.is_paid_in_full?
     end
+    invoice_items_by_invoice(invoices)
+  end
 
-    invoice_items = paid.map do |invoice|
+  def invoice_items_by_invoice(invoices)
+    invoice_items = invoices.map do |invoice|
       invoice.invoice_items
     end.flatten
+    invoice_items_grouped_by_id(invoice_items)
+  end
 
+  def invoice_items_grouped_by_id(invoice_items)
     grouped_invoice_items = invoice_items.group_by do |invoice_item|
       invoice_item.item_id
     end
+    invoice_item_focus_on_quantity(grouped_invoice_items)
+  end
 
-    transformed = grouped_invoice_items.transform_values do |value|
+  def invoice_item_focus_on_quantity(grouped_invoice_items)
+    invoice_items = grouped_invoice_items.transform_values do |value|
       value.map do |invoice_item|
         invoice_item.quantity
       end
     end
+    sort_invoice_items_by_quantity(invoice_items)
+  end
 
-    item_id_and_quantity = transformed.sort_by do |pair|
-      pair.flatten![1]
+  def sort_invoice_items_by_quantity(invoice_items)
+    invoice_items = invoice_items.sort_by do |invoice_item|
+      invoice_item.flatten![1]
     end
+    group_invoices_by_quantity(invoice_items)
+  end
 
-    quantity_hash = item_id_and_quantity.group_by do |value|
-      value[1]
+  def group_invoices_by_quantity(invoice_items)
+    invoice_items = invoice_items.group_by do |invoice_item|
+      invoice_item[1]
     end
+    find_item_id_for_most_sold_items(invoice_items)
+  end
 
-    item_ids = quantity_hash.values.last.map do |item_id|
-        item_id[0]
+  def find_item_id_for_most_sold_items(invoice_items)
+    item_ids = invoice_items.values.last.map do |invoice_item|
+      invoice_item[0]
     end
+    find_item_by_item_ids(item_ids)
+  end
 
+  def find_item_by_item_ids(item_ids)
     item_ids.map do |item_id|
       @se.find_item_by_id(item_id)
     end
