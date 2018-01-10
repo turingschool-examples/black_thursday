@@ -14,12 +14,12 @@ class InvoiceItemRepositoryTest < Minitest::Test
     parent = mock("parent")
     iir = InvoiceItemRepository.new("./test/fixtures/invoice_items_fixture.csv", parent)
 
-    iir.all.each do |invoice_item|
-      assert_instance_of InvoiceItem, invoice_item
-    end
+    iir.all.each {|invoice_item| assert_instance_of InvoiceItem, invoice_item}
     assert_equal 26, iir.all.count
-    assert_equal 1, iir.all[0].id
-    assert_equal 263395237, iir.all[0].item_id
+    assert_equal 1, iir.all.first.id
+    assert_equal 263395237, iir.all.first.item_id
+    assert_equal 26, iir.all.last.id
+    assert_equal 263396517, iir.all.last.item_id
   end
 
   def test_find_by_id_returns_proper_invoice_item_or_nil
@@ -40,10 +40,10 @@ class InvoiceItemRepositoryTest < Minitest::Test
     invoice_items = iir.find_all_by_item_id(263396517)
     unknown = iir.find_all_by_item_id(21312)
 
-    assert_equal 7, invoice_items.count
-    assert_equal 9, invoice_items[2].invoice_id
-    assert_equal 309.49, invoice_items[2].unit_price
     assert_equal [], unknown
+    assert_equal 7, invoice_items.count
+    assert_equal 233.24, invoice_items.first.unit_price
+    assert_equal 734.08, invoice_items.last.unit_price
   end
 
   def test_find_all_by_invoice_id_returns_array_of_matching
@@ -53,10 +53,10 @@ class InvoiceItemRepositoryTest < Minitest::Test
     invoice_items = iir.find_all_by_invoice_id(13)
     unknown = iir.find_all_by_invoice_id(21312)
 
-    assert_equal 2, invoice_items.count
-    assert_equal 263396517, invoice_items[0].item_id
-    assert_equal 5, invoice_items[1].quantity
     assert_equal [], unknown
+    assert_equal 2, invoice_items.count
+    assert_equal 263396517, invoice_items.first.item_id
+    assert_equal 263396255, invoice_items.last.item_id
   end
 
 end
