@@ -373,4 +373,27 @@ class SalesAnalystTest < Minitest::Test
     assert_equal m8, one_item_merchants_registered_by_month.last
   end
 
+  def test_revenue_by_merchant
+    sa = SalesAnalyst.new(@sales_engine)
+
+    assert_equal 13795.59, sa.revenue_by_merchant(12334141)
+    assert_equal 3607.91, sa.revenue_by_merchant(12334105)
+    assert_equal 12254.42, sa.revenue_by_merchant(12334185)
+    assert_equal 8860.77, sa.revenue_by_merchant(12334113)
+  end
+
+  def test_most_sold_item_for_merchant
+    sales_engine = stub(:merchant_ids_with_most_sold_items => { 1 => ['a'],
+                                                                2 => ['d', 'e', 'r', 'z'],
+                                                                3 => ['f', 'p', 'q', 'z'],
+                                                                4 => ['g'],
+                                                                5 => ['a', 'b', 'c', 'z'],
+                                                                6 => ['a', 'b', 'c', 'z'],
+                                                                7 => ['a', 'b', 'c', 'z'],
+                                                                8 => ['z']})
+    sa = SalesAnalyst.new(sales_engine)
+
+    assert_equal ['d', 'e', 'r', 'z'], sa.most_sold_item_for_merchant(2)
+  end
+
 end

@@ -219,4 +219,12 @@ class SalesAnalyst
     end.values.flatten
   end
 
+  def revenue_by_merchant(merchant_id)
+    sales_engine.transform_invoice_items_to_total_revenue_per_merchant[merchant_id]
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    sales_engine.merchant_ids_with_most_sold_items[merchant_id]
+  end
+
 end
