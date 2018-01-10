@@ -296,4 +296,23 @@ class SalesEngineTest < Minitest::Test
     assert_equal "Cache cache à la plage", @sales_engine.merchant_ids_with_most_sold_items[12334105].first.name
   end
 
+  def test_merchant_ids_with_item_ids_and_revenue
+    assert_equal({12334141 => {263396517 => 0.911333e4, 263395237 => 0.401814e4, 263396463 => 0.66412e3},
+                  12334105 => {263396255 => 0.248792e4, 263396209 => 0.111999e4},
+                  12334185 => {263396255 => 0.31464e4, 263396279 => 0.419592e4, 263396517 => 0.49121e4},
+                  12334113 => {263396517 => 0.648162e4, 263396255 => 0.231915e4, 263395237 => 0.6e2}}, @sales_engine.merchant_ids_with_item_ids_and_revenue)
+  end
+
+  def test_merchant_ids_with_best_item_ids
+    assert_equal({12334141 => 263396517,
+                  12334105 => 263396255,
+                  12334185 => 263396517,
+                  12334113 => 263396517}, @sales_engine.merchant_ids_with_best_item_ids)
+  end
+
+  def test_merchant_ids_with_best_ids
+    assert_equal "Course contre la montre", @sales_engine.merchant_ids_with_best_items[12334185].name
+    assert_equal "Cache cache à la plage", @sales_engine.merchant_ids_with_best_items[12334105].name
+  end
+
 end
