@@ -142,9 +142,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_grabs_merchants_with_only_one_item_registered_in_month
-    assert_equal 1, sales_analyst.merchants_with_only_one_item_registered_in_month("June").count
+    assert_equal 2, sales_analyst.merchants_with_only_one_item_registered_in_month("June").count
   end
-
-
 
 end

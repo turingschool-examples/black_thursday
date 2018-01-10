@@ -182,6 +182,7 @@ class SalesAnalyst
   end
 
   def revenue_by_merchant(merchant_id) # TESTS
+    require 'pry'; binding.pry 
     se.find_merchant_by_id(merchant_id).revenue
   end
 
