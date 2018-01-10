@@ -195,7 +195,7 @@ class SalesAnalyst
     # binding.pry
   end
 
-  def group_merchants_items_to_invoice_items(merchant_id)
+  def group_merchants_items_to_invoice_items(merchant_id) #TESTS
     merchant = se.merchants.find_by_id(merchant_id)
     invoice_items = merchant.invoices.map do |invoice|
       invoice.invoice_items if invoice.is_paid_in_full?
@@ -203,20 +203,20 @@ class SalesAnalyst
     invoice_items.flatten(1).group_by(&:item_id)
   end
 
-  def group_items_to_revenue(merchant_id)
+  def group_items_to_revenue(merchant_id) #TESTS
     items_to_invoices = group_merchants_items_to_invoice_items(merchant_id)
     items_to_invoices.transform_values do |invoice_item|
       (invoice_item[0].unit_price * invoice_item[0].quantity)
     end
   end
 
-  def top_item_by_revenue_id(merchant_id)
+  def top_item_by_revenue_id(merchant_id) #TESTS
     group_items_to_revenue(merchant_id).sort_by do |items, revenue|
       revenue
     end.reverse.flatten(2)[0]
   end
 
-  def best_item_for_merchant(merchant_id)
+  def best_item_for_merchant(merchant_id) #TESTS
     se.items.find_by_id(top_item_by_revenue_id(merchant_id))
   end
 
