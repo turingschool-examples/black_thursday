@@ -4,11 +4,11 @@ require_relative "calculator"
 class SalesAnalyst
   include Calculator
   def initialize(sales_engine = "")
-    @sales_engine = sales_engine
+    @se = sales_engine
   end
 
   def item_count_array_maker
-    @sales_engine.all_merchants.map do |merchant|
+    @se.all_merchants.map do |merchant|
       item_counter(merchant.id)
     end
   end
@@ -20,8 +20,8 @@ class SalesAnalyst
   end
 
   def item_counter(id = 0)
-    num = @sales_engine.items.find_all_by_merchant_id(id).count
-    @sales_engine.assign_item_count(id, num)
+    num = @se.items.find_all_by_merchant_id(id).count
+    @se.assign_item_count(id, num)
     num
   end
 
@@ -39,25 +39,25 @@ class SalesAnalyst
 
   def merchants_with_high_item_count
     base_line = mean_plus_standard_deviation
-    @sales_engine.all_merchants.select do |merchant|
+    @se.all_merchants.select do |merchant|
       merchant.item_count > base_line
     end
   end
 
   def average_item_price_for_merchant(id)
     sum = merchant_items_sum(id)
-    length = @sales_engine.items.find_all_by_merchant_id(id).length
+    length = @se.items.find_all_by_merchant_id(id).length
     average(sum, length).round(2)
   end
 
   def merchant_items_sum(id)
-    @sales_engine.items.find_all_by_merchant_id(id).reduce(0) do |sum, item|
+    @se.items.find_all_by_merchant_id(id).reduce(0) do |sum, item|
       sum += item.unit_price
     end
   end
 
   def average_price_per_merchant_array_maker
-    @sales_engine.all_merchants.map do |merchant|
+    @se.all_merchants.map do |merchant|
       average_item_price_for_merchant(merchant.id)
     end
   end
@@ -74,29 +74,29 @@ class SalesAnalyst
 
   def price_standard_deviation
     mean = average_average_price_per_merchant
-    square = @sales_engine.all_items.map do |item|
+    square = @se.all_items.map do |item|
       (item.unit_price - mean) ** 2
     end.sum
-    sqrt(square/(@sales_engine.all_items.length-1)).floor(2)
+    sqrt(square/(@se.all_items.length-1)).floor(2)
   end
 
   def golden_items
-    double_deviation = average_average_price_per_merchant + price_standard_deviation * 2
-    @sales_engine.all_items.select do |item|
-      item.unit_price > double_deviation
+    baseline = average_average_price_per_merchant + price_standard_deviation * 2
+    @se.all_items.select do |item|
+      item.unit_price > baseline
     end
   end
 
   def count_invoices
-    @sales_engine.all_invoices.count.to_f
+    @se.all_invoices.count.to_f
   end
 
   def count_merchants
-    @sales_engine.all_merchants.count.to_f
+    @se.all_merchants.count.to_f
   end
 
   def invoice_array_maker
-    @sales_engine.all_merchants.map do |merchant|
+    @se.all_merchants.map do |merchant|
       merchant.invoices.count
     end
   end
@@ -123,7 +123,7 @@ class SalesAnalyst
 
   def top_merchants_by_invoice_count
     base_line = top_merchant_by_invoice_baseline
-    @sales_engine.all_merchants.select do |merchant|
+    @se.all_merchants.select do |merchant|
       merchant.invoices.count > base_line
     end
   end
@@ -136,13 +136,13 @@ class SalesAnalyst
 
   def bottom_merchants_by_invoice_count
     base_line = bottom_merchants_by_invoice_baseline
-    @sales_engine.all_merchants.select do |merchant|
+    @se.all_merchants.select do |merchant|
       merchant.invoices.count < base_line
     end
   end
 
   def created_at_day_hash_maker
-    @sales_engine.all_invoices.group_by do |invoice|
+    @se.all_invoices.group_by do |invoice|
       invoice.created_at.wday
     end
   end
@@ -178,7 +178,7 @@ class SalesAnalyst
   end
 
   def invoices_by_status(status)
-    @sales_engine.all_invoices.select do |invoice|
+    @se.all_invoices.select do |invoice|
       invoice.status == status
     end
   end
@@ -188,17 +188,17 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    @sales_engine.find_invoices_by_date(date).reduce(0) do |sum, invoice|
+    @se.find_invoices_by_date(date).reduce(0) do |sum, invoice|
       sum += invoice.total
     end
   end
 
   def merchants_ranked_by_revenue
-    @sales_engine.all_merchants.map do |merchant|
-      @sales_engine.assign_total_revenue(merchant.id, revenue_by_merchant(merchant.id))
+    @se.all_merchants.map do |merchant|
+      @se.assign_total_revenue(merchant.id, revenue_by_merchant(merchant.id))
     end
 
-    @sales_engine.all_merchants.sort_by do |merchant|
+    @se.all_merchants.sort_by do |merchant|
       0 - merchant.total_revenue
     end
   end
@@ -208,7 +208,7 @@ class SalesAnalyst
   end
 
   def merchants_with_pending_invoices
-    invoices = @sales_engine.find_pending_invoices
+    invoices = @se.find_pending_invoices
 
     invoices.map do |invoice|
       invoice.merchant
@@ -216,7 +216,7 @@ class SalesAnalyst
   end
 
   def merchants_with_only_one_item
-    @sales_engine.all_merchants.select do |merchant|
+    @se.all_merchants.select do |merchant|
       merchant.items.count == 1
     end
   end
@@ -228,17 +228,17 @@ class SalesAnalyst
   end
 
   def merchants_by_month(month)
-    @sales_engine.all_merchants.select do |merchant|
+    @se.all_merchants.select do |merchant|
       if merchant.created_at[5..6] == MONTHS[month.downcase]
-        @sales_engine.assign_item_count(merchant.id, merchant.items.count)
+        @se.assign_item_count(merchant.id, merchant.items.count)
       end
     end
   end
 
   def revenue_by_merchant(id)
-    BigDecimal.new(@sales_engine.find_invoice_by_merchant_id(id).reduce(0) do |sum, invoice|
-      if invoice.is_paid_in_full?
-        sum += invoice.total
+    BigDecimal.new(@se.find_invoice_by_merchant_id(id).reduce(0) do |sum, inv|
+      if inv.is_paid_in_full?
+        sum += inv.total
       else
         sum += 0
       end
@@ -246,12 +246,11 @@ class SalesAnalyst
   end
 
   def most_sold_item_for_merchant(id)
-
-    paid_invoices = @sales_engine.find_invoice_by_merchant_id(id).select do |invoice|
+    paid = @se.find_invoice_by_merchant_id(id).select do |invoice|
       invoice.is_paid_in_full?
     end
 
-    invoice_items = paid_invoices.map do |invoice|
+    invoice_items = paid.map do |invoice|
       invoice.invoice_items
     end.flatten
 
@@ -278,19 +277,19 @@ class SalesAnalyst
     end
 
     item_ids.map do |item_id|
-      @sales_engine.find_item_by_id(item_id)
+      @se.find_item_by_id(item_id)
     end
   end
 
   def best_item_for_merchant(id)
-    invoice_items = @sales_engine.find_invoice_by_merchant_id(id).map do |invoice|
-      invoice.invoice_items if invoice.is_paid_in_full?
+    invoice_items = @se.find_invoice_by_merchant_id(id).map do |iv|
+      iv.invoice_items if iv.is_paid_in_full?
     end.compact.flatten
 
     most_sold = invoice_items.sort_by do |invoice_item|
       invoice_item.unit_price * invoice_item.quantity
     end.last
 
-    @sales_engine.find_item_by_id(most_sold.item_id)
+    @se.find_item_by_id(most_sold.item_id)
   end
 end

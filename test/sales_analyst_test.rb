@@ -176,11 +176,6 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 8, @sales_analyst.merchants_with_only_one_item.count
   end
 
-  def test_merchants_with_only_one_item_registered_in_month_locates_merchant_with_single_items_in_month
-    skip
-   assert_equal 0, @sales_analyst.merchants_with_only_one_
-  end
-
   def test_merchants_by_month_returns_merchants_by_item_created
     assert_equal "IsisMoonArtesanias" , @sales_analyst.merchants_by_month("July")[0].name
   end

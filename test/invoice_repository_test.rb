@@ -93,10 +93,6 @@ class InvoiceRepositoryTest < Minitest::Test
     end
   end
 
-  def test_merchant_returns_instance_of_merchant
-    skip
-  end
-
   def test_inspect_returns_string
     assert_equal "#<InvoiceRepository 119 rows>", @invoices.inspect
   end
