@@ -7,10 +7,6 @@ class SalesAnalyst
     @sales_engine = sales_engine
   end
 
-  def average(sum, length)
-    (sum / length.to_f)
-  end
-
   def item_count_array_maker
     @sales_engine.all_merchants.map do |merchant|
       item_counter(merchant.id)
@@ -34,7 +30,7 @@ class SalesAnalyst
     square = item_count_array_maker.map do |item|
       (item-mean) ** 2
     end.sum
-    ((square/(item_count_array_maker.length-1)) ** (0.5)).round(2)
+    sqrt(square/(item_count_array_maker.length-1)).round(2)
   end
 
   def mean_plus_standard_deviation
@@ -81,7 +77,7 @@ class SalesAnalyst
     square = @sales_engine.all_items.map do |item|
       (item.unit_price - mean) ** 2
     end.sum
-    ((square/(@sales_engine.all_items.length-1)) ** (0.5)).floor(2)
+    sqrt(square/(@sales_engine.all_items.length-1)).floor(2)
   end
 
   def golden_items
@@ -116,7 +112,7 @@ class SalesAnalyst
     square = invoice_array_maker.map do |invoice|
       (invoice-mean) ** 2
     end.sum
-    ((square/(invoice_array_maker.length-1)) ** (0.5)).round(2)
+    sqrt(square/(invoice_array_maker.length-1)).round(2)
   end
 
   def top_merchant_by_invoice_baseline
@@ -168,7 +164,7 @@ class SalesAnalyst
     square = created_at_day_hash_maker.map do |day, invoice_array|
       (invoice_array.count - mean) ** 2
     end.sum
-    ((square/(created_at_day_hash_maker.length-1)) ** (0.5)).round(2)
+    sqrt(square/(created_at_day_hash_maker.length-1)).round(2)
   end
 
   def top_days_by_invoice_count
