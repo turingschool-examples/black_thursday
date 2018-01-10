@@ -33,6 +33,10 @@ class Merchant
     invoices.map(&:customer).uniq
   end
 
+  def invoice_items(merchant_id)
+    merchant_repo.find_invoice_items_by_id(merchant_id)
+  end
+
   def revenue # TEST NEEDS FIXING
     invoices.reduce(0) do |result, invoice|
       result += invoice.total if invoice.is_paid_in_full?

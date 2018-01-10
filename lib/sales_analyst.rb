@@ -162,6 +162,10 @@ class SalesAnalyst
     merchants_ranked_by_revenue[0...totals]
   end
 
+  def merchants_ranked_by_revenue #TESTS
+    se.grab_all_merchants.sort_by(&:revenue).reverse
+  end
+
   def merchants_with_only_one_item #TESTS
     se.grab_all_merchants.find_all do |merchant|
       merchant.items.count == 1
@@ -176,10 +180,6 @@ class SalesAnalyst
     end
   end
 
-  def merchants_ranked_by_revenue #TESTS
-    se.grab_all_merchants.sort_by(&:revenue).reverse
-  end
-
   def revenue_by_merchant(merchant_id) # TESTS
     se.find_merchant_by_id(merchant_id).revenue
   end
@@ -188,6 +188,35 @@ class SalesAnalyst
     merchants_with_only_one_item.find_all do |merchant|
       merchant.created_at.strftime("%B") == month_name
     end
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    # binding.pry
+  end
+
+  def group_merchants_items_to_invoice_items(merchant_id)
+    merchant = se.merchants.find_by_id(merchant_id)
+    invoice_items = merchant.invoices.map do |invoice|
+      invoice.invoice_items if invoice.is_paid_in_full?
+    end.delete_if(&:nil?)
+    invoice_items.flatten(1).group_by(&:item_id)
+  end
+
+  def group_items_to_revenue(merchant_id)
+    items_to_invoices = group_merchants_items_to_invoice_items(merchant_id)
+    items_to_invoices.transform_values do |invoice_item|
+      (invoice_item[0].unit_price * invoice_item[0].quantity)
+    end
+  end
+
+  def top_item_by_revenue_id(merchant_id)
+    group_items_to_revenue(merchant_id).sort_by do |items, revenue|
+      revenue
+    end.reverse.flatten(2)[0]
+  end
+
+  def best_item_for_merchant(merchant_id)
+    se.items.find_by_id(top_item_by_revenue_id(merchant_id))
   end
 
 end
