@@ -119,8 +119,13 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_top_earners
-    assert_equal [], sales_analyst.top_revenue_earners
+    assert sales_analyst.top_revenue_earners.all? { |merch| merch.class == Merchant }
+    assert_equal 7, sales_analyst.top_revenue_earners.count
+    assert_equal 12334183, sales_analyst.top_revenue_earners.first.id
   end
 
+  def test_it_grabs_merchants_with_only_one_item
+    
+  end
 
 end

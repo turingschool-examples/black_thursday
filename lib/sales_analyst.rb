@@ -161,20 +161,8 @@ class SalesAnalyst
     end
   end
 
-  def merchant_revenues #TEST
-    se.grab_all_merchants.group_by(&:revenue).invert
-  end
-
-  def sort_merchant_revenues #TEST
-    merchant_revenues.sort_by { |merchant, revenue| revenue }.flatten(2)
-  end
-
-  def top_earners #TEST
-    binding.pry
-    sort_merchant_revenues.each_slice(2).map(&:first).reverse
-  end
-
-  def top_revenue_earners(totals = 20)
+  def top_revenue_earners(totals = 20) 
+    top_earners = se.grab_all_merchants.sort_by(&:revenue).reverse
     top_earners[0...totals]
   end
 
