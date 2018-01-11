@@ -41,4 +41,14 @@ class CustomerTest < Minitest::Test
     assert_equal Time.parse("2018-01-02 14:37:25 -0700"), @customer.updated_at
   end
 
+  def test_it_returns_invoices_by_id
+    se = SalesEngine.from_csv({
+      invoices: "./test/fixtures/invoices_sample.csv",
+      customers: "./test/fixtures/customers_sample.csv",
+    })
+    customer = se.customers.find_by_id(206)
+
+    assert_equal 4, customer.invoices.count
+  end
+
 end

@@ -33,8 +33,4 @@ class Customer
     customer_repo.find_all_invoices_by_id(id)
   end
 
-  def merchants
-    invoices.map(&:merchants).uniq
-  end
-
 end

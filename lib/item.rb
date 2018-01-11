@@ -51,6 +51,6 @@ class Item
     invoice_items.reduce(0) do |result, invoice_item|
       result += (invoice_item.unit_price * invoice_item.quantity)
     end
-  end 
+  end
 
 end
