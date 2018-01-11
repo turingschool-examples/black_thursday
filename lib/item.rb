@@ -43,7 +43,7 @@ class Item
     "$#{unit_price.to_f}"
   end
 
-  def merchant # TESTS!!!
+  def merchant
     item_repo.find_merchant(merchant_id)
   end
 
