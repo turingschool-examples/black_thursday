@@ -23,6 +23,7 @@ class CustomerRepositoryTest < Minitest::Test
     found_id_3 = customer.find_by_id(963)
 
     assert_equal "Leanne", found_id_1.first_name
+    refute_equal "12232211", found_id_1.first_name
     assert_equal "Braun", found_id_1.last_name
     assert_equal "Oda", found_id_2.first_name
     assert_equal "Schinner", found_id_2.last_name
@@ -37,6 +38,7 @@ class CustomerRepositoryTest < Minitest::Test
     found_id_3 = customer.find_all_by_first_name("Cecelia")
 
     assert_equal 2, found_id_1.count
+    refute_equal -1, found_id_1.count
     assert_equal 1, found_id_2.count
     assert_equal 1, found_id_3.count
   end
@@ -57,6 +59,7 @@ class CustomerRepositoryTest < Minitest::Test
 
     assert_equal 2, found_id_1.count
     assert_equal 1, found_id_2.count
+    refute_equal -1, found_id_2.count
     assert_equal 1, found_id_3.count
   end
 

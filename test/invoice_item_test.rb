@@ -29,6 +29,7 @@ class InvoiceItemTest < Minitest::Test
 
   def test_it_has_item_id
     assert_equal 7, invoice_item.item_id
+    refute_equal "7", invoice_item.item_id
   end
 
   def test_it_has_invoice_id
@@ -37,10 +38,12 @@ class InvoiceItemTest < Minitest::Test
 
   def test_it_has_quantity
     assert_equal 1, invoice_item.quantity
+    refute_equal "1", invoice_item.quantity
   end
 
   def test_it_has_unit_price
     assert_equal BigDecimal.new(10.99, 4) / 100, invoice_item.unit_price
+    refute_equal BigDecimal.new(10.99, 4) / 1000, invoice_item.unit_price
   end
 
   def test_it_has_created_at
@@ -53,6 +56,7 @@ class InvoiceItemTest < Minitest::Test
 
   def test_it_returns_unit_price_to_dollars
     assert_equal 10.99, invoice_item.unit_price_to_dollars
+    refute_equal "10.99", invoice_item.unit_price_to_dollars
   end
 
 end

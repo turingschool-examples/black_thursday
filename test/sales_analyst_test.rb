@@ -24,11 +24,13 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_returns_average
     assert_equal 3.57, sales_analyst.average_items_per_merchant
+    refute_equal "3.57", sales_analyst.average_items_per_merchant
     refute_equal 0.43, sales_analyst.average_items_per_merchant
   end
 
   def test_it_returns_item_price_standard_deviation
     assert_equal 235.37, sales_analyst.item_price_standard_deviation
+    refute_equal "235.37", sales_analyst.item_price_standard_deviation
     refute_equal 300, sales_analyst.item_price_standard_deviation
   end
 
@@ -144,5 +146,9 @@ class SalesAnalystTest < Minitest::Test
   def test_it_grabs_merchants_with_only_one_item_registered_in_month
     assert_equal 2, sales_analyst.merchants_with_only_one_item_registered_in_month("June").count
   end
+
+  # def test_it_group_merchants_items_to_invoice_items
+  #   assert_equal 2, sales_analyst.group_merchants_items_to_invoice_items(12334185)
+  # end
 
 end

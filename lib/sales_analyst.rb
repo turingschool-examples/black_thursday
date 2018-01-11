@@ -163,10 +163,6 @@ class SalesAnalyst
     merchants_ranked_by_revenue[0...totals]
   end
 
-  def merchants_ranked_by_revenue
-    se.grab_all_merchants.sort_by(&:revenue).reverse
-  end
-
   def merchants_with_only_one_item
     se.grab_all_merchants.find_all do |merchant|
       merchant.items.count == 1
@@ -238,7 +234,12 @@ class SalesAnalyst
   end
 
   def best_item_for_merchant(merchant_id) #TESTS
+<<<<<<< HEAD
     se.items.find_by_id(top_item_by_revenue_id(merchant_id).first)
+=======
+      require 'pry'; binding.pry
+    se.items.find_by_id(top_item_by_revenue_id(merchant_id))
+>>>>>>> master
   end
 
 end

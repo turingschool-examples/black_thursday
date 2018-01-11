@@ -23,6 +23,7 @@ class ItemRepositoryTest < Minitest::Test
 
     assert_equal "Disney scrabble frames", found_id.name
     assert_equal 12334185,found_id.merchant_id
+    refute_equal "12334185",found_id.merchant_id
   end
 
   def test_it_returns_correct_name
@@ -71,6 +72,7 @@ class ItemRepositoryTest < Minitest::Test
     merchants_inventory = item.find_all_by_merchant_id(12334195)
 
     assert_equal 10, merchants_inventory.count
+    refute_equal "10", merchants_inventory.count
     assert_instance_of Item, merchants_inventory.first
   end
 
