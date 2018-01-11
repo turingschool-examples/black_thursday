@@ -179,8 +179,17 @@ class SalesAnalyst
     return merchant.revenue
   end
 
-  def most_sold_item_for_a_merchant(merchant_id)
+  def most_sold_item_for_merchant(merchant_id)
     merchant = @sales_engine.merchants.find_by_id(merchant_id)
-    return merchant.most_sold_item
+    item_id = merchant.most_sold_item_id
+    item_id.map do |item_id|
+      @sales_engine.find_item_by_item_id(item_id)
+    end
+  end
+
+  def best_item_for_merchant(merchant_id)
+    merchant = @sales_engine.merchants.find_by_id(merchant_id)
+    item_id = merchant.best_item_id
+    return @sales_engine.find_item_by_item_id(item_id)
   end
 end

@@ -8,7 +8,7 @@ class InvoiceTest < Minitest::Test
     @invoice_item = stub(:total_cost => 1300)
     @invoices = stub(:find_transactions_by_invoice_id => [@transaction],
                      :find_invoice_items_by_invoice_id => [@invoice_item, @invoice_item],
-                     :find_items_by_invoice_id => [@item, @item],)
+                     :find_items_by_invoice_id => [@item, @item])
     @data = {id: 1,
             customer_id: 3,
             merchant_id: 12335938,
