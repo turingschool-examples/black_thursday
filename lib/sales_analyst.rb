@@ -191,7 +191,7 @@ class SalesAnalyst
     end
   end
 
-  def grab_invoices_from_merchants(merchant_id) #TEST
+  def grab_paid_invoice_items_from_merchants(merchant_id)
     merchant = se.merchants.find_by_id(merchant_id)
     invoice_items = merchant.invoices.map do |invoice|
       invoice.invoice_items if invoice.is_paid_in_full?
@@ -199,38 +199,38 @@ class SalesAnalyst
   end
 
   def group_items_to_invoice_attributes(merchant_id)
-    invoice_items = grab_invoices_from_merchants(merchant_id)
+    invoice_items = grab_paid_invoice_items_from_merchants(merchant_id)
     invoice_items.reduce(Hash.new(0)) do |result, inv_item|
       result.merge!({inv_item.item_id => [inv_item.quantity, inv_item.unit_price]})
     end
   end
 
-  def sort_by_quantity(merchant_id) #TEST
+  def sort_by_quantity(merchant_id)
     item_attributes = group_items_to_invoice_attributes(merchant_id)
     item_attributes.sort_by { |item, attributes| attributes[0] }.reverse
   end
 
-  def grab_most_sold_items(merchant_id) # TEST
+  def grab_most_sold_items(merchant_id)
     highest_quantity = sort_by_quantity(merchant_id)[0][1][0]
     sort_by_quantity(merchant_id).map do |item|
       item[0] if item[1][0] == highest_quantity
     end.compact
   end
 
-  def most_sold_item_for_merchant(merchant_id) # TEST
+  def most_sold_item_for_merchant(merchant_id)
     grab_most_sold_items(merchant_id).map do |item_id|
       se.items.find_by_id(item_id)
     end
   end
 
-  def group_items_to_revenue(merchant_id) #TESTS
+  def group_items_to_revenue(merchant_id)
     items_to_invoices = group_items_to_invoice_attributes(merchant_id)
     items_to_invoices.transform_values do |attributes|
       (attributes[0] * attributes[1])
     end
   end
 
-  def top_item_by_revenue_id(merchant_id) #TESTS
+  def top_item_by_revenue_id(merchant_id)
     group_items_to_revenue(merchant_id).sort_by do |items, revenue|
       revenue
     end.reverse.flatten(2)
