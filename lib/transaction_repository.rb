@@ -9,14 +9,15 @@ class TransactionRepository
   def initialize(file_path, parent)
     contents = CSV.open(file_path, headers: true, header_converters: :symbol)
     @all = contents.map do |row|
-      Transaction.new({ :id => row[:id],
-                        :invoice_id => row[:invoice_id],
-                        :credit_card_number => row[:credit_card_number],
-                        :credit_card_expiration_date => row[:credit_card_expiration_date],
-                        :result => row[:result],
-                        :created_at => row[:created_at],
-                        :updated_at => row[:updated_at]},
-                        self)
+      Transaction.new({
+            :id => row[:id],
+            :invoice_id => row[:invoice_id],
+            :credit_card_number => row[:credit_card_number],
+            :credit_card_expiration_date => row[:credit_card_expiration_date],
+            :result => row[:result],
+            :created_at => row[:created_at],
+            :updated_at => row[:updated_at]},
+            self)
     end
     @parent = parent
   end

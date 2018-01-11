@@ -14,7 +14,7 @@ class SalesAnalyst
   attr_reader :sales_engine
 
   def initialize(sales_engine)
-    @sales_engine = sales_engine
+    @sales_engine ||= sales_engine
   end
 
   def items_per_merchant
@@ -87,14 +87,16 @@ class SalesAnalyst
   end
 
   def invoice_count_per_merchant
-    merchants_invoices = sales_engine.link_merchants_with_invoices
+    merchants_invoices = sales_engine.merchants_with_invoices
     merchants_invoices.transform_values do |invoices|
       invoices.count.to_f
     end
   end
 
   def average_invoices_per_merchant
-    (invoice_count_per_merchant.values.sum / invoice_count_per_merchant.count).round(2)
+    sum = invoice_count_per_merchant.values.sum
+    count = invoice_count_per_merchant.count
+    (sum / count).round(2)
   end
 
   def average_invoices_per_merchant_standard_deviation
@@ -105,16 +107,17 @@ class SalesAnalyst
     Math.sqrt(variance).round(2)
   end
 
-# CAN WE DO SAME BELOW FOR GOLDEN ITEMS?
   def top_merchants_by_invoice_count
-    limit = average_invoices_per_merchant + (2 * average_invoices_per_merchant_standard_deviation)
+    doubled_stdev = 2 * average_invoices_per_merchant_standard_deviation
+    limit = average_invoices_per_merchant + doubled_stdev
     invoice_count_per_merchant.select do |merchant, invoice_count|
       invoice_count >= limit
     end.keys
   end
 
   def bottom_merchants_by_invoice_count
-    limit = average_invoices_per_merchant - (2 * average_invoices_per_merchant_standard_deviation)
+    doubled_stdev = 2 * average_invoices_per_merchant_standard_deviation
+    limit = average_invoices_per_merchant - doubled_stdev
     invoice_count_per_merchant.select do |merchant, invoice_count|
       invoice_count <= limit
     end.keys
@@ -147,7 +150,8 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-    limit = average_invoice_counts_per_day + average_invoices_per_day_standard_deviation
+    stdev = average_invoices_per_day_standard_deviation
+    limit = average_invoice_counts_per_day + stdev
     top_days = invoice_counts_per_weekday.select do |day, count|
       count >= limit
     end.keys
@@ -160,11 +164,11 @@ class SalesAnalyst
   end
 
   def invoice_status(status)
-    all_invoices = sales_engine.invoices.all
-    invoices_by_status = all_invoices.select do |invoice|
+    all = sales_engine.invoices.all
+    invoices_by_status = all.select do |invoice|
       invoice.status == status.to_sym
     end
-    status_ratio = ((all_invoices.count - invoices_by_status.count) / all_invoices.count.to_f)
+    status_ratio = ((all.count - invoices_by_status.count) / all.count.to_f)
     ((1 - status_ratio) * 100).round(2)
   end
 
@@ -174,10 +178,10 @@ class SalesAnalyst
   end
 
   def merchants_ranked_by_revenue
-    missing_merchants = sales_engine.missing_merchant_ids.keys.map do |merchant_id|
+    missing = sales_engine.missing_merchant_ids.keys.map do |merchant_id|
       sales_engine.get_merchant_from_merchant_id(merchant_id)
     end
-    (top_revenue_earners(sales_engine.merchants.all.count) + missing_merchants).uniq
+    (top_revenue_earners(sales_engine.merchants.all.count) + missing).uniq
   end
 
   def top_earners_ids(number_of_merchants)

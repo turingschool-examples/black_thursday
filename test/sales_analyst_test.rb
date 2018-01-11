@@ -5,12 +5,12 @@ require_relative '../lib/sales_engine'
 class SalesAnalystTest < Minitest::Test
 
   def setup
-    @sales_engine = SalesEngine.from_csv({ merchants: "./test/fixtures/merchants_fixture.csv",
-                                           items: "./test/fixtures/items_fixture.csv",
-                                           invoices: "./test/fixtures/invoices_fixture.csv",
-                                           invoice_items: "./test/fixtures/invoice_items_fixture.csv",
-                                           transactions: "./test/fixtures/transactions_fixture.csv",
-                                           customers: "./test/fixtures/customer_fixture.csv" })
+    @sales_engine = SalesEngine.from_csv({merchants: "./test/fixtures/merchants_fixture.csv",
+                                          items: "./test/fixtures/items_fixture.csv",
+                                          invoices: "./test/fixtures/invoices_fixture.csv",
+                                          invoice_items: "./test/fixtures/invoice_items_fixture.csv",
+                                          transactions: "./test/fixtures/transactions_fixture.csv",
+                                          customers: "./test/fixtures/customer_fixture.csv" })
   end
 
   def test_it_exists
@@ -29,9 +29,9 @@ class SalesAnalystTest < Minitest::Test
 
   def test_items_per_merchant_returns_array_of_items_per_merchant
     sales_engine = stub(:merchants_with_items => { m1: ['a', 'b', 'c'],
-                                                     m2: ['d', 'e'],
-                                                     m3: ['f'],
-                                                     m4: ['g', 'h', 'i', 'j', 'k']})
+                                                   m2: ['d', 'e'],
+                                                   m3: ['f'],
+                                                   m4: ['g', 'h', 'i', 'j', 'k']})
     sa = SalesAnalyst.new(sales_engine)
 
     assert_equal [3, 2, 1, 5], sa.items_per_merchant
@@ -39,9 +39,9 @@ class SalesAnalystTest < Minitest::Test
 
   def test_average_items_per_merchant_returns_proper_value
     sales_engine = stub(:merchants_with_items => { m1: ['a', 'b', 'c'],
-                                                     m2: ['d', 'e'],
-                                                     m3: ['f'],
-                                                     m4: ['g', 'h', 'i', 'j', 'k']})
+                                                   m2: ['d', 'e'],
+                                                   m3: ['f'],
+                                                   m4: ['g', 'h', 'i', 'j', 'k']})
     sa = SalesAnalyst.new(sales_engine)
 
     assert_equal 2.75, sa.average_items_per_merchant
@@ -49,9 +49,9 @@ class SalesAnalystTest < Minitest::Test
 
   def test_average_items_per_merchant_standard_deviation
     sales_engine = stub(:merchants_with_items => { m1: ['a', 'b', 'c'],
-                                                     m2: ['d', 'e'],
-                                                     m3: ['f'],
-                                                     m4: ['g', 'h', 'i', 'j', 'k']})
+                                                   m2: ['d', 'e'],
+                                                   m3: ['f'],
+                                                   m4: ['g', 'h', 'i', 'j', 'k']})
     sa = SalesAnalyst.new(sales_engine)
 
     assert_equal 1.71, sa.average_items_per_merchant_standard_deviation
@@ -59,10 +59,10 @@ class SalesAnalystTest < Minitest::Test
 
   def test_merchants_with_high_item_count_returns_merchant_above_stdev
     sales_engine = stub(:merchants_with_items => { m1: ['a', 'b', 'c'],
-                                                     m2: ['d', 'e'],
-                                                     m3: ['f'],
-                                                     m4: ['g', 'h', 'i', 'j', 'k'],
-                                                     m5: ['z', 'x', 'y', 'w', 'u']})
+                                                   m2: ['d', 'e'],
+                                                   m3: ['f'],
+                                                   m4: ['g', 'h', 'i', 'j', 'k'],
+                                                   m5: ['z', 'x', 'y', 'w', 'u']})
     sa = SalesAnalyst.new(sales_engine)
 
     assert_equal [:m4, :m5], sa.merchants_with_high_item_count
@@ -78,10 +78,10 @@ class SalesAnalystTest < Minitest::Test
 
   def test_average_average_item_price_for_merchant_works
     sales_engine = stub(:merchants_with_prices => { m1: [100.00, 100.00, 300.00],
-                                                      m2: [100.00, 100.00],
-                                                      m3: [100.00],
-                                                      m4: [100.00, 100.00, 300.00, 300.00, 300.00],
-                                                      m5: [100.00, 300.00, 300.00, 300.00, 300.00]})
+                                                    m2: [100.00, 100.00],
+                                                    m3: [100.00],
+                                                    m4: [100.00, 100.00, 300.00, 300.00, 300.00],
+                                                    m5: [100.00, 300.00, 300.00, 300.00, 300.00]})
 
     sa = SalesAnalyst.new(sales_engine)
 
@@ -90,10 +90,10 @@ class SalesAnalystTest < Minitest::Test
 
   def test_all_item_prices_returns_array_of_prices_from_hash
     sales_engine = stub(:merchants_with_prices => { m1: [100.00, 100.00, 300.00],
-                                                      m2: [100.00, 100.00],
-                                                      m3: [100.00],
-                                                      m4: [100.00, 100.00, 300.00, 300.00, 300.00],
-                                                      m5: [100.00, 300.00, 300.00, 300.00, 300.00]})
+                                                    m2: [100.00, 100.00],
+                                                    m3: [100.00],
+                                                    m4: [100.00, 100.00, 300.00, 300.00, 300.00],
+                                                    m5: [100.00, 300.00, 300.00, 300.00, 300.00]})
 
     sa = SalesAnalyst.new(sales_engine)
 
@@ -104,10 +104,10 @@ class SalesAnalystTest < Minitest::Test
 
   def test_average_item_price_works
     sales_engine = stub(:merchants_with_prices => { m1: [100.00, 100.00, 300.00],
-                                                      m2: [100.00, 100.00],
-                                                      m3: [100.00],
-                                                      m4: [100.00, 100.00, 300.00, 300.00, 300.00],
-                                                      m5: [100.00, 300.00, 300.00, 300.00, 300.00]})
+                                                    m2: [100.00, 100.00],
+                                                    m3: [100.00],
+                                                    m4: [100.00, 100.00, 300.00, 300.00, 300.00],
+                                                    m5: [100.00, 300.00, 300.00, 300.00, 300.00]})
 
     sa = SalesAnalyst.new(sales_engine)
 
@@ -116,10 +116,10 @@ class SalesAnalystTest < Minitest::Test
 
   def test_item_prices_standard_deviation_returns_standard_deviation
     sales_engine = stub(:merchants_with_prices => { m1: [100.00, 100.00, 300.00],
-                                                      m2: [100.00, 100.00],
-                                                      m3: [100.00],
-                                                      m4: [100.00, 100.00, 300.00, 300.00, 300.00],
-                                                      m5: [100.00, 300.00, 300.00, 300.00, 300.00]})
+                                                    m2: [100.00, 100.00],
+                                                    m3: [100.00],
+                                                    m4: [100.00, 100.00, 300.00, 300.00, 300.00],
+                                                    m5: [100.00, 300.00, 300.00, 300.00, 300.00]})
 
     sa = SalesAnalyst.new(sales_engine)
 
@@ -128,10 +128,10 @@ class SalesAnalystTest < Minitest::Test
 
   def test_find_golden_prices_returns_golden_prices
     sales_engine = stub(:merchants_with_prices => { m1: [100.00, 100.00, 100.00],
-                                                      m2: [100.00, 100.00],
-                                                      m3: [100.00],
-                                                      m4: [100.00, 100.00, 100.00, 100.00, 100.00],
-                                                      m5: [100.00, 100.00, 100.00, 600.00, 700.00]})
+                                                    m2: [100.00, 100.00],
+                                                    m3: [100.00],
+                                                    m4: [100.00, 100.00, 100.00, 100.00, 100.00],
+                                                    m5: [100.00, 100.00, 100.00, 600.00, 700.00]})
 
     sa = SalesAnalyst.new(sales_engine)
 
@@ -142,11 +142,11 @@ class SalesAnalystTest < Minitest::Test
     # golden_prices argument not being passed
     item = mock('shoe')
     sales_engine = stub(:merchants_with_prices => { m1: [100.00, 100.00, 100.00],
-                                                      m2: [100.00, 100.00],
-                                                      m3: [100.00],
-                                                      m4: [100.00, 100.00, 100.00, 100.00, 100.00],
-                                                      m5: [100.00, 100.00, 100.00, 600.00, 700.00]},
-                        :get_items_by_price => item)
+                                                    m2: [100.00, 100.00],
+                                                    m3: [100.00],
+                                                    m4: [100.00, 100.00, 100.00, 100.00, 100.00],
+                                                    m5: [100.00, 100.00, 100.00, 600.00, 700.00]},
+                        :get_items_by_price    => item)
 
     sa = SalesAnalyst.new(sales_engine)
 
@@ -160,59 +160,58 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_invoice_count_per_merchant_returns_hash_of_invoice_count_per_merchant
-    sales_engine = stub(:link_merchants_with_invoices => { m1: ['a', 'b', 'c'],
-                                                        m2: ['d', 'e'],
-                                                        m3: ['f'],
-                                                        m4: ['g', 'h', 'i', 'j', 'k']})
+    sales_engine = stub(:merchants_with_invoices => { m1: ['a', 'b', 'c'],
+                                                      m2: ['d', 'e'],
+                                                      m3: ['f'],
+                                                      m4: ['g', 'h', 'i', 'j', 'k']})
     sa = SalesAnalyst.new(sales_engine)
 
     assert_equal({m1: 3, m2: 2, m3: 1, m4: 5}, sa.invoice_count_per_merchant)
   end
 
   def test_average_invoices_per_merchant_works
-    sales_engine = stub(:link_merchants_with_invoices => { m1: ['a', 'b', 'c'],
-                                                        m2: ['d', 'e'],
-                                                        m3: ['f'],
-                                                        m4: ['g', 'h', 'i', 'j', 'k']})
+    sales_engine = stub(:merchants_with_invoices => { m1: ['a', 'b', 'c'],
+                                                      m2: ['d', 'e'],
+                                                      m3: ['f'],
+                                                      m4: ['g', 'h', 'i', 'j', 'k']})
     sa = SalesAnalyst.new(sales_engine)
 
     assert_equal 2.75, sa.average_invoices_per_merchant
   end
 
   def test_average_invoices_per_merchant_standard_deviation
-    sales_engine = stub(:link_merchants_with_invoices => { m1: ['a', 'b', 'c'],
-                                                        m2: ['d', 'e'],
-                                                        m3: ['f'],
-                                                        m4: ['g', 'h', 'i', 'j', 'k']})
+    sales_engine = stub(:merchants_with_invoices => { m1: ['a', 'b', 'c'],
+                                                      m2: ['d', 'e'],
+                                                      m3: ['f'],
+                                                      m4: ['g', 'h', 'i', 'j', 'k']})
     sa = SalesAnalyst.new(sales_engine)
 
     assert_equal 1.71, sa.average_invoices_per_merchant_standard_deviation
   end
 
   def test_top_merchants_by_invoice_count_returns_top_performing_merchants
-    # need test fixture below???
-    sales_engine = stub(:link_merchants_with_invoices => { m1: ['a', 'b', 'c', 'z'],
-                                                        m2: ['d', 'e', 'r', 'z'],
-                                                        m3: ['f', 'p', 'q', 'z'],
-                                                        m4: ['g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o'],
-                                                        m5: ['a', 'b', 'c', 'z'],
-                                                        m6: ['a', 'b', 'c', 'z'],
-                                                        m7: ['a', 'b', 'c', 'z'],
-                                                        m8: ['a', 'b', 'c', 'z']})
+    sales_engine = stub(:merchants_with_invoices => { m1: ['a', 'b', 'c', 'z'],
+                                                      m2: ['d', 'e', 'r', 'z'],
+                                                      m3: ['f', 'p', 'q', 'z'],
+                                                      m4: ['g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o'],
+                                                      m5: ['a', 'b', 'c', 'z'],
+                                                      m6: ['a', 'b', 'c', 'z'],
+                                                      m7: ['a', 'b', 'c', 'z'],
+                                                      m8: ['a', 'b', 'c', 'z']})
     sa = SalesAnalyst.new(sales_engine)
 
     assert_equal [:m4], sa.top_merchants_by_invoice_count
   end
 
   def test_bottom_merchants_by_invoice_count_returns_bottom_performing_merchants
-    sales_engine = stub(:link_merchants_with_invoices => { m1: ['a', 'b', 'c', 'z'],
-                                                        m2: ['d', 'e', 'r', 'z'],
-                                                        m3: ['f', 'p', 'q', 'z'],
-                                                        m4: ['g'],
-                                                        m5: ['a', 'b', 'c', 'z'],
-                                                        m6: ['a', 'b', 'c', 'z'],
-                                                        m7: ['a', 'b', 'c', 'z'],
-                                                        m8: ['a', 'b', 'c', 'z']})
+    sales_engine = stub(:merchants_with_invoices => { m1: ['a', 'b', 'c', 'z'],
+                                                      m2: ['d', 'e', 'r', 'z'],
+                                                      m3: ['f', 'p', 'q', 'z'],
+                                                      m4: ['g'],
+                                                      m5: ['a', 'b', 'c', 'z'],
+                                                      m6: ['a', 'b', 'c', 'z'],
+                                                      m7: ['a', 'b', 'c', 'z'],
+                                                      m8: ['a', 'b', 'c', 'z']})
     sa = SalesAnalyst.new(sales_engine)
 
     assert_equal [:m4], sa.bottom_merchants_by_invoice_count
@@ -314,13 +313,13 @@ class SalesAnalystTest < Minitest::Test
 
   def test_merchants_with_only_one_item
     sales_engine = stub(:merchants_with_items => { m1: ['a'],
-                                                     m2: ['d', 'e', 'r', 'z'],
-                                                     m3: ['f', 'p', 'q', 'z'],
-                                                     m4: ['g'],
-                                                     m5: ['a', 'b', 'c', 'z'],
-                                                     m6: ['a', 'b', 'c', 'z'],
-                                                     m7: ['a', 'b', 'c', 'z'],
-                                                     m8: ['z']})
+                                                   m2: ['d', 'e', 'r', 'z'],
+                                                   m3: ['f', 'p', 'q', 'z'],
+                                                   m4: ['g'],
+                                                   m5: ['a', 'b', 'c', 'z'],
+                                                   m6: ['a', 'b', 'c', 'z'],
+                                                   m7: ['a', 'b', 'c', 'z'],
+                                                   m8: ['z']})
     sa = SalesAnalyst.new(sales_engine)
 
     one_item_merchants = sa.merchants_with_only_one_item
@@ -335,13 +334,13 @@ class SalesAnalystTest < Minitest::Test
     m4 = stub(:created_at => "2011-05-08")
     m8 = stub(:created_at => "20014-03-12")
     sales_engine = stub(:merchants_with_items => { m1  => ['a'],
-                                                     :m2 => ['d', 'e', 'r', 'z'],
-                                                     :m3 => ['f', 'p', 'q', 'z'],
-                                                     m4  => ['g'],
-                                                     :m5 => ['a', 'b', 'c', 'z'],
-                                                     :m6 => ['a', 'b', 'c', 'z'],
-                                                     :m7 => ['a', 'b', 'c', 'z'],
-                                                     m8  => ['z']})
+                                                   :m2 => ['d', 'e', 'r', 'z'],
+                                                   :m3 => ['f', 'p', 'q', 'z'],
+                                                   m4  => ['g'],
+                                                   :m5 => ['a', 'b', 'c', 'z'],
+                                                   :m6 => ['a', 'b', 'c', 'z'],
+                                                   :m7 => ['a', 'b', 'c', 'z'],
+                                                   m8  => ['z']})
     sa = SalesAnalyst.new(sales_engine)
 
     merchants_by_month = sa.one_item_merchants_by_month
@@ -357,13 +356,13 @@ class SalesAnalystTest < Minitest::Test
     m4 = stub(:created_at => "2011-05-08")
     m8 = stub(:created_at => "20014-03-12")
     sales_engine = stub(:merchants_with_items => { m1  => ['a'],
-                                                     :m2 => ['d', 'e', 'r', 'z'],
-                                                     :m3 => ['f', 'p', 'q', 'z'],
-                                                     m4  => ['g'],
-                                                     :m5 => ['a', 'b', 'c', 'z'],
-                                                     :m6 => ['a', 'b', 'c', 'z'],
-                                                     :m7 => ['a', 'b', 'c', 'z'],
-                                                     m8  => ['z']})
+                                                   :m2 => ['d', 'e', 'r', 'z'],
+                                                   :m3 => ['f', 'p', 'q', 'z'],
+                                                   m4  => ['g'],
+                                                   :m5 => ['a', 'b', 'c', 'z'],
+                                                   :m6 => ['a', 'b', 'c', 'z'],
+                                                   :m7 => ['a', 'b', 'c', 'z'],
+                                                   m8  => ['z']})
     sa = SalesAnalyst.new(sales_engine)
 
     one_item_merchants_registered_by_month = sa.merchants_with_only_one_item_registered_in_month("March")
@@ -384,13 +383,13 @@ class SalesAnalystTest < Minitest::Test
 
   def test_most_sold_item_for_merchant
     sales_engine = stub(:link_merchant_ids_with_most_sold_items => { 1 => ['a'],
-                                                                2 => ['d', 'e', 'r', 'z'],
-                                                                3 => ['f', 'p', 'q', 'z'],
-                                                                4 => ['g'],
-                                                                5 => ['a', 'b', 'c', 'z'],
-                                                                6 => ['a', 'b', 'c', 'z'],
-                                                                7 => ['a', 'b', 'c', 'z'],
-                                                                8 => ['z']})
+                                                                     2 => ['d', 'e', 'r', 'z'],
+                                                                     3 => ['f', 'p', 'q', 'z'],
+                                                                     4 => ['g'],
+                                                                     5 => ['a', 'b', 'c', 'z'],
+                                                                     6 => ['a', 'b', 'c', 'z'],
+                                                                     7 => ['a', 'b', 'c', 'z'],
+                                                                     8 => ['z']})
     sa = SalesAnalyst.new(sales_engine)
 
     assert_equal ['d', 'e', 'r', 'z'], sa.most_sold_item_for_merchant(2)

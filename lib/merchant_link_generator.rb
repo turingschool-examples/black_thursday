@@ -12,8 +12,10 @@ module MerchantRelationshipGenerator
   def link_merchant_ids_with_invoice_ids
     merchant_ids_and_invoice_ids = Hash.new { |hash, key| hash[key] = [] }
     invoices.all.each do |invoice|
-        merchant_ids_and_invoice_ids[invoice.merchant_id] << invoice.id if invoice.is_paid_in_full?
+      if invoice.is_paid_in_full?
+        merchant_ids_and_invoice_ids[invoice.merchant_id] << invoice.id
       end
+    end
     merchant_ids_and_invoice_ids
   end
 
@@ -43,8 +45,8 @@ module MerchantRelationshipGenerator
 
   def link_merchants_with_invoices
     merchants_and_invoices = {}
-    merchants.all.map do |merchant|
-      merchants_and_invoices[merchant] = get_invoices_from_merchant_id(merchant.id)
+    merchants.all.map do |merch|
+      merchants_and_invoices[merch] = get_invoices_from_merchant_id(merch.id)
     end
     merchants_and_invoices
   end
@@ -57,12 +59,18 @@ module MerchantRelationshipGenerator
     end
   end
 
+  def get_prices_from_one_merchant(merchant_id)
+    merchants_with_prices.find do |merchant, prices|
+      merchant.id == merchant_id
+    end.last.flatten
+  end
+
   def link_merchant_ids_with_item_ids_linked_to_quantities
     @merchant_ids_with_invoice_items.transform_values do |invoice_items|
       item_ids_with_quantities = Hash.new(0)
-      invoice_items.map do |invoice_item|
-        if invoice_item.quantity > item_ids_with_quantities[invoice_item.item_id]
-          item_ids_with_quantities[invoice_item.item_id] = invoice_item.quantity
+      invoice_items.map do |inv_item|
+        if inv_item.quantity > item_ids_with_quantities[inv_item.item_id]
+          item_ids_with_quantities[inv_item.item_id] = inv_item.quantity
         end
       end
       item_ids_with_quantities

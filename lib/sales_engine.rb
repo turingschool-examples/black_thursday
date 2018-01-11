@@ -19,6 +19,7 @@ class SalesEngine
               :invoice_items,
               :merchants_with_items,
               :merchants_with_prices,
+              :merchants_with_invoices,
               :merchant_ids_with_total_revenue
 
   def initialize(file_paths)
@@ -101,12 +102,6 @@ class SalesEngine
     end
   end
 
-  def get_prices_from_one_merchant(merchant_id)
-    merchants_with_prices.find do |merchant, prices|
-      merchant.id == merchant_id
-    end.last.flatten
-  end
-
   def get_items_by_price(price)
     items.find_all_by_price(price)
   end
@@ -115,6 +110,14 @@ class SalesEngine
     invoice_item_array = invoice_items.find_all_by_invoice_id(invoice_id)
     invoice_item_array.reduce(0) do |total, invoice_item|
       total + (invoice_item.quantity * invoice_item.unit_price)
+    end
+  end
+
+  def is_invoice_paid_in_full?(invoice_id)
+    invoice_transactions = get_transactions_from_invoice_id(invoice_id)
+    return false if invoice_transactions.empty?
+    invoice_transactions.any? do |transaction|
+      transaction.result == "success"
     end
   end
 
@@ -147,14 +150,6 @@ class SalesEngine
   def get_merchants_with_pending_invoices
     get_merchant_ids_with_pending_invoices.map do |merchant_id|
       merchants.find_by_id(merchant_id)
-    end
-  end
-
-  def is_invoice_paid_in_full?(invoice_id)
-    invoice_transactions = get_transactions_from_invoice_id(invoice_id)
-    return false if invoice_transactions.empty?
-    invoice_transactions.any? do |transaction|
-      transaction.result == "success"
     end
   end
 
