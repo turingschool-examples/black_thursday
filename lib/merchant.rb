@@ -55,8 +55,18 @@ class Merchant
     paid_invoices.map(&:invoice_items).flatten
   end
 
+  def all_item_ids
+    paid_invoice_items.map(&:all_items).flatten
+  end
+
+  def grouped_item_ids
+    all_item_ids.group_by do |item_id|
+      item_id
+    end
+  end
+
   def item_ids_by_amount_sold
-    by_item.transform_values do |item_ids|
+    grouped_item_ids.transform_values do |item_ids|
       item_ids.count
     end
   end
@@ -80,22 +90,12 @@ class Merchant
     item_ids_by_revenue.key(max_revenue)
   end
 
-  def all_item_ids
-    paid_invoice_items.map(&:all_items).flatten
-  end
-
-  def by_item
-    all_item_ids.group_by do |item_id|
-      item_id
-    end
-  end
-
   def most_sold
     item_ids_by_amount_sold.values.max
   end
 
   def most_sold_item_ids
-    by_item.keep_if do |item_id, item_ids|
+    grouped_item_ids.keep_if do |item_id, item_ids|
       item_ids.count == most_sold
     end.keys
   end
