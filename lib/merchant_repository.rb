@@ -7,10 +7,10 @@ class MerchantRepository
     @sales_engine = parent
     merchant_data = CSV.open file_path, headers: true,
       header_converters: :symbol, converters: :numeric
-    parse(merchant_data)
+    from_csv(merchant_data)
   end
 
-  def parse(merchant_data)
+  def from_csv(merchant_data)
     merchant_data.each do |row|
       @merchants << Merchant.new(row.to_hash, self)
     end
