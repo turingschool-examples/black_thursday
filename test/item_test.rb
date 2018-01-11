@@ -52,4 +52,14 @@ class ItemTest < Minitest::Test
     assert_equal 12334105, @item.merchant_id
   end
 
+  def test_it_returns_merchant_by_id
+    se = SalesEngine.from_csv({
+      merchants: "./test/fixtures/merchants_sample.csv",
+      items: "./test/fixtures/items_sample.csv",
+    })
+    item = se.items.find_by_id(263395237)
+
+    assert_equal "jejum", item.merchant.name
+  end
+
 end
