@@ -5,7 +5,8 @@ class MerchantRepository
   def initialize(file_path, parent)
     @merchants = []
     @sales_engine = parent
-    merchant_data = CSV.open file_path, headers: true, header_converters: :symbol, converters: :numeric
+    merchant_data = CSV.open file_path, headers: true,
+      header_converters: :symbol, converters: :numeric
     parse(merchant_data)
   end
 

@@ -70,13 +70,12 @@ class Merchant
   end
 
   def item_ids_by_revenue
-    item_ids_by_total_cost.merge(item_ids_by_amount_sold) do |item_id, total_cost, amount_sold|
-      total_cost * amount_sold
+    item_ids_by_total_cost.merge(item_ids_by_amount_sold) do |id, cost, amount|
+      cost * amount
     end
   end
 
   def best_item_id
-    # require 'pry'; binding.pry
     max_revenue = item_ids_by_revenue.values.max
     item_ids_by_revenue.key(max_revenue)
   end
@@ -95,7 +94,7 @@ class Merchant
     item_ids_by_amount_sold.values.max
   end
 
-  def most_sold_item_id
+  def most_sold_item_ids
     by_item.keep_if do |item_id, item_ids|
       item_ids.count == most_sold
     end.keys

@@ -8,7 +8,8 @@ class CustomerRepository
   end
 
   def from_csv(file_path)
-    customer_data = CSV.open file_path, headers: true, header_converters: :symbol, converters: :numeric
+    customer_data = CSV.open file_path, headers: true,
+      header_converters: :symbol, converters: :numeric
     customer_data.each do |row|
       @customers << Customer.new(row.to_hash, self)
     end

@@ -29,8 +29,8 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 34, items.count
   end
 
-  def test_it_finds_the_average_items_per_merchant_standard_deviation
-    assert_equal 1.64, @sa.average_items_per_merchant_standard_deviation
+  def test_it_finds_the_average_items_per_merchant_stdev
+    assert_equal 1.64, @sa.average_items_per_merchant_stdev
   end
 
   def test_it_finds_the_merchants_with_the_highest_item_counts
@@ -57,12 +57,12 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 1.29, @sa.average_invoices_per_merchant
   end
 
-  def test_average_invoices_per_merchant_standard_deviation_returns_correct_value
-    assert_equal 0.72, @sa.average_invoices_per_merchant_standard_deviation
+  def test_average_invoices_per_merchant_stdev_returns_correct_value
+    assert_equal 0.72, @sa.average_invoices_per_merchant_stdev
   end
 
-  def test_two_standard_deviations_above_average_invoices_returns_correct_value
-    assert_equal 2.7, @sa.two_standard_deviations_above_average_invoices
+  def test_two_stdevs_above_average_invoices_returns_correct_value
+    assert_equal 2.7, @sa.two_stdevs_above_average_invoices
   end
 
   def test_top_merchants_by_invoice_count_returns_merchants_with_highest_invoice_count
@@ -71,8 +71,8 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 1, merchants_with_high_invoice_count.count
   end
 
-  def test_two_standard_deviations_below_average_invoices_returns_correct_value
-    assert_equal -0.1, @sa.two_standard_deviations_below_average_invoices
+  def test_two_stdevs_below_average_invoices_returns_correct_value
+    assert_equal (-0.1), @sa.two_stdevs_below_average_invoices
   end
 
   def test_bottom_merchants_by_invoice_count_returns_merchants_with_lowest_invoice_count
@@ -81,16 +81,16 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 0, merchants_with_lowest_invoice_count.count
   end
 
-  def test_average_invoices_created_per_weekday
-    assert_equal 3.57, @sa.average_invoices_created_per_weekday
+  def test_average_invoices_per_weekday
+    assert_equal 3.57, @sa.average_invoices_per_weekday
   end
 
-  def test_average_invoices_created_per_weekday_standard_deviation
-    assert_equal 1.47, @sa.average_invoices_created_per_weekday_standard_deviation
+  def test_average_invoices_per_weekday_stdev
+    assert_equal 1.47, @sa.average_invoices_per_weekday_stdev
   end
 
   def test_one_standard_deviations_above_average_invoices_returns_correct_value
-    assert_equal 5.04, @sa.one_standard_deviation_above_average_invoices_created_per_weekday
+    assert_equal 5.04, @sa.one_stdev_above_average_invoices_per_weekday
   end
 
   def test_top_days_by_invoice_count_returns_array_of_popular_days

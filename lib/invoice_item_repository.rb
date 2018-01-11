@@ -8,7 +8,8 @@ class InvoiceItemRepository
   end
 
   def from_csv(file_path)
-    invoice_item_data = CSV.open file_path, headers: true, header_converters: :symbol, converters: :numeric
+    invoice_item_data = CSV.open file_path, headers: true,
+      header_converters: :symbol, converters: :numeric
     invoice_item_data.each do |row|
       @invoice_items[row[:invoice_id]] << InvoiceItem.new(row.to_hash, self)
     end

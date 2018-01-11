@@ -5,7 +5,8 @@ class ItemRepository
   def initialize(file_path, parent)
     @items = []
     @sales_engine = parent
-    item_data = CSV.open file_path, headers: true, header_converters: :symbol, converters: :numeric
+    item_data = CSV.open file_path, headers: true,
+      header_converters: :symbol, converters: :numeric
     parse(item_data)
   end
 

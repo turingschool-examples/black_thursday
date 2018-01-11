@@ -22,7 +22,8 @@ class InvoiceRepository
     @invoice_items.from_csv(data[:invoice_items])
     @transactions.from_csv(data[:transactions])
     @customers.from_csv(data[:customers])
-    invoice_data = CSV.open data[:invoices], headers: true, header_converters: :symbol, converters: :numeric
+    invoice_data = CSV.open data[:invoices], headers: true,
+      header_converters: :symbol, converters: :numeric
     invoice_data.each do |row|
       @invoices << Invoice.new(row.to_hash, self)
     end
@@ -79,7 +80,7 @@ class InvoiceRepository
     @customers.find_by_id(customer_id)
   end
 
-  def invoices_created_each_weekday
+  def invoices_each_weekday
     @invoices.group_by do |invoice|
       invoice.weekday
     end

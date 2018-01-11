@@ -8,7 +8,8 @@ class TransactionRepository
   end
 
   def from_csv(file_path)
-    transaction_data = CSV.open file_path, headers: true, header_converters: :symbol
+    transaction_data = CSV.open file_path, headers: true,
+      header_converters: :symbol
     transaction_data.each do |row|
       @transactions[row[:invoice_id]] << Transaction.new(row.to_hash, self)
     end
