@@ -177,10 +177,6 @@ class SalesAnalyst
     end
   end
 
-  def merchants_ranked_by_revenue
-    se.grab_all_merchants.sort_by(&:revenue).reverse
-  end
-
   def revenue_by_merchant(merchant_id) # TESTS
     se.find_merchant_by_id(merchant_id).revenue
   end
@@ -206,6 +202,7 @@ class SalesAnalyst
   end
 
   def sort_by_quantity(merchant_id) #TEST
+    binding.pry
     item_attributes = group_items_to_invoice_attributes(merchant_id)
     item_attributes.sort_by { |item, attributes| attributes[0] }.reverse
   end
@@ -223,26 +220,26 @@ class SalesAnalyst
     end
   end
 
-  def group_merchants_items_to_invoice_items(merchant_id) #TESTS
-    grab_invoices_from_merchants(merchant_id).group_by(&:item_id)
-  end
-
   def group_items_to_revenue(merchant_id) #TESTS
-    items_to_invoices = group_merchants_items_to_invoice_items(merchant_id)
-    items_to_invoices.transform_values do |invoice_item|
-      (invoice_item[0].unit_price * invoice_item[0].quantity)
+    items_to_invoices = group_items_to_invoice_attributes(merchant_id)
+    items_to_invoices.transform_values do |attributes|
+      (attributes[0] * attributes[1])
     end
   end
 
   def top_item_by_revenue_id(merchant_id) #TESTS
     group_items_to_revenue(merchant_id).sort_by do |items, revenue|
       revenue
-    end.reverse.flatten(2)[0]
+    end.reverse.flatten(2)
   end
 
   def best_item_for_merchant(merchant_id) #TESTS
+<<<<<<< HEAD
+    se.items.find_by_id(top_item_by_revenue_id(merchant_id).first)
+=======
       require 'pry'; binding.pry
     se.items.find_by_id(top_item_by_revenue_id(merchant_id))
+>>>>>>> master
   end
 
 end
