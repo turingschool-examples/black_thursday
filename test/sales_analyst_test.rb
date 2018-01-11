@@ -69,7 +69,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_item_price_for_merchant_works
-    sales_engine = stub(:get_one_merchant_prices => [100.00, 200.00, 300.00, 400.00])
+    sales_engine = stub(:get_prices_from_one_merchant => [100.00, 200.00, 300.00, 400.00])
 
     sa = SalesAnalyst.new(sales_engine)
 
@@ -77,7 +77,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_average_item_price_for_merchant_works
-    sales_engine = stub(:get_all_merchant_prices => { m1: [100.00, 100.00, 300.00],
+    sales_engine = stub(:merchants_with_prices => { m1: [100.00, 100.00, 300.00],
                                                       m2: [100.00, 100.00],
                                                       m3: [100.00],
                                                       m4: [100.00, 100.00, 300.00, 300.00, 300.00],
@@ -89,7 +89,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_all_item_prices_returns_array_of_prices_from_hash
-    sales_engine = stub(:get_all_merchant_prices => { m1: [100.00, 100.00, 300.00],
+    sales_engine = stub(:merchants_with_prices => { m1: [100.00, 100.00, 300.00],
                                                       m2: [100.00, 100.00],
                                                       m3: [100.00],
                                                       m4: [100.00, 100.00, 300.00, 300.00, 300.00],
@@ -103,7 +103,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_item_price_works
-    sales_engine = stub(:get_all_merchant_prices => { m1: [100.00, 100.00, 300.00],
+    sales_engine = stub(:merchants_with_prices => { m1: [100.00, 100.00, 300.00],
                                                       m2: [100.00, 100.00],
                                                       m3: [100.00],
                                                       m4: [100.00, 100.00, 300.00, 300.00, 300.00],
@@ -115,7 +115,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_item_prices_standard_deviation_returns_standard_deviation
-    sales_engine = stub(:get_all_merchant_prices => { m1: [100.00, 100.00, 300.00],
+    sales_engine = stub(:merchants_with_prices => { m1: [100.00, 100.00, 300.00],
                                                       m2: [100.00, 100.00],
                                                       m3: [100.00],
                                                       m4: [100.00, 100.00, 300.00, 300.00, 300.00],
@@ -127,7 +127,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_find_golden_prices_returns_golden_prices
-    sales_engine = stub(:get_all_merchant_prices => { m1: [100.00, 100.00, 100.00],
+    sales_engine = stub(:merchants_with_prices => { m1: [100.00, 100.00, 100.00],
                                                       m2: [100.00, 100.00],
                                                       m3: [100.00],
                                                       m4: [100.00, 100.00, 100.00, 100.00, 100.00],
@@ -141,12 +141,12 @@ class SalesAnalystTest < Minitest::Test
   def test_golden_items_returns_golden_priced_items
     # golden_prices argument not being passed
     item = mock('shoe')
-    sales_engine = stub(:get_all_merchant_prices => { m1: [100.00, 100.00, 100.00],
+    sales_engine = stub(:merchants_with_prices => { m1: [100.00, 100.00, 100.00],
                                                       m2: [100.00, 100.00],
                                                       m3: [100.00],
                                                       m4: [100.00, 100.00, 100.00, 100.00, 100.00],
                                                       m5: [100.00, 100.00, 100.00, 600.00, 700.00]},
-                        :search_ir_by_price => item)
+                        :get_items_by_price => item)
 
     sa = SalesAnalyst.new(sales_engine)
 
@@ -160,7 +160,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_invoice_count_per_merchant_returns_hash_of_invoice_count_per_merchant
-    sales_engine = stub(:get_all_merchant_invoices => { m1: ['a', 'b', 'c'],
+    sales_engine = stub(:link_merchants_with_invoices => { m1: ['a', 'b', 'c'],
                                                         m2: ['d', 'e'],
                                                         m3: ['f'],
                                                         m4: ['g', 'h', 'i', 'j', 'k']})
@@ -170,7 +170,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_invoices_per_merchant_works
-    sales_engine = stub(:get_all_merchant_invoices => { m1: ['a', 'b', 'c'],
+    sales_engine = stub(:link_merchants_with_invoices => { m1: ['a', 'b', 'c'],
                                                         m2: ['d', 'e'],
                                                         m3: ['f'],
                                                         m4: ['g', 'h', 'i', 'j', 'k']})
@@ -180,7 +180,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_invoices_per_merchant_standard_deviation
-    sales_engine = stub(:get_all_merchant_invoices => { m1: ['a', 'b', 'c'],
+    sales_engine = stub(:link_merchants_with_invoices => { m1: ['a', 'b', 'c'],
                                                         m2: ['d', 'e'],
                                                         m3: ['f'],
                                                         m4: ['g', 'h', 'i', 'j', 'k']})
@@ -191,7 +191,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_top_merchants_by_invoice_count_returns_top_performing_merchants
     # need test fixture below???
-    sales_engine = stub(:get_all_merchant_invoices => { m1: ['a', 'b', 'c', 'z'],
+    sales_engine = stub(:link_merchants_with_invoices => { m1: ['a', 'b', 'c', 'z'],
                                                         m2: ['d', 'e', 'r', 'z'],
                                                         m3: ['f', 'p', 'q', 'z'],
                                                         m4: ['g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o'],
@@ -205,7 +205,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_bottom_merchants_by_invoice_count_returns_bottom_performing_merchants
-    sales_engine = stub(:get_all_merchant_invoices => { m1: ['a', 'b', 'c', 'z'],
+    sales_engine = stub(:link_merchants_with_invoices => { m1: ['a', 'b', 'c', 'z'],
                                                         m2: ['d', 'e', 'r', 'z'],
                                                         m3: ['f', 'p', 'q', 'z'],
                                                         m4: ['g'],
@@ -383,7 +383,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_most_sold_item_for_merchant
-    sales_engine = stub(:merchant_ids_with_most_sold_items => { 1 => ['a'],
+    sales_engine = stub(:link_merchant_ids_with_most_sold_items => { 1 => ['a'],
                                                                 2 => ['d', 'e', 'r', 'z'],
                                                                 3 => ['f', 'p', 'q', 'z'],
                                                                 4 => ['g'],
@@ -397,7 +397,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_best_item_for_merchant
-    sales_engine = stub(:merchant_ids_with_best_items => { 1 => 50,
+    sales_engine = stub(:link_merchant_ids_with_best_items => { 1 => 50,
                                                                 2 => 100,
                                                                 3 => 25,
                                                                 4 => 75,

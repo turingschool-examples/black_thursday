@@ -45,12 +45,12 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(merchant_id)
-    merchant_prices = sales_engine.get_one_merchant_prices(merchant_id)
+    merchant_prices = sales_engine.get_prices_from_one_merchant(merchant_id)
     (merchant_prices.sum / merchant_prices.count).round(2)
   end
 
   def average_average_price_per_merchant
-    merchants_prices = sales_engine.get_all_merchant_prices.values
+    merchants_prices = sales_engine.merchants_with_prices.values
     full_average = merchants_prices.map do |merchant_prices|
       merchant_prices.sum / merchant_prices.count
     end.sum / merchants_prices.count
@@ -58,7 +58,7 @@ class SalesAnalyst
   end
 
   def all_item_prices
-    sales_engine.get_all_merchant_prices.values.flatten
+    sales_engine.merchants_with_prices.values.flatten
   end
 
   def average_item_price
@@ -68,7 +68,7 @@ class SalesAnalyst
   def item_prices_standard_deviation
     average = average_item_price
     variance = all_item_prices.map do |item_price|
-      ((average - item_price).abs) ** 2
+      (average - item_price) ** 2
     end.sum / (all_item_prices.count - 1)
     Math.sqrt(variance)
   end
@@ -82,12 +82,12 @@ class SalesAnalyst
 
   def golden_items
     golden_prices.map do |golden_price|
-      sales_engine.search_ir_by_price(golden_price)
+      sales_engine.get_items_by_price(golden_price)
     end.flatten
   end
 
   def invoice_count_per_merchant
-    merchants_invoices = sales_engine.get_all_merchant_invoices
+    merchants_invoices = sales_engine.link_merchants_with_invoices
     merchants_invoices.transform_values do |invoices|
       invoices.count.to_f
     end
@@ -100,7 +100,7 @@ class SalesAnalyst
   def average_invoices_per_merchant_standard_deviation
     average = average_invoices_per_merchant
     variance = invoice_count_per_merchant.values.map do |invoice_count|
-      ((average - invoice_count).abs) ** 2
+      (average - invoice_count) ** 2
     end.sum / (invoice_count_per_merchant.count - 1)
     Math.sqrt(variance).round(2)
   end
@@ -177,12 +177,11 @@ class SalesAnalyst
     missing_merchants = sales_engine.missing_merchant_ids.keys.map do |merchant_id|
       sales_engine.get_merchant_from_merchant_id(merchant_id)
     end
-    all = top_revenue_earners(sales_engine.merchants.all.count) + missing_merchants
-    all.uniq
+    (top_revenue_earners(sales_engine.merchants.all.count) + missing_merchants).uniq
   end
 
   def top_earners_ids(number_of_merchants)
-    all_merchants_revenues = sales_engine.transform_invoice_items_to_total_revenue_per_merchant
+    all_merchants_revenues = sales_engine.merchant_ids_with_total_revenue
     top_earners_revenues = all_merchants_revenues.sort_by do |merchant, revenue|
       revenue
     end.reverse.slice(0..(number_of_merchants - 1))
@@ -220,15 +219,15 @@ class SalesAnalyst
   end
 
   def revenue_by_merchant(merchant_id)
-    sales_engine.transform_invoice_items_to_total_revenue_per_merchant[merchant_id]
+    sales_engine.merchant_ids_with_total_revenue[merchant_id]
   end
 
   def most_sold_item_for_merchant(merchant_id)
-    sales_engine.merchant_ids_with_most_sold_items[merchant_id]
+    sales_engine.link_merchant_ids_with_most_sold_items[merchant_id]
   end
 
   def best_item_for_merchant(merchant_id)
-    sales_engine.merchant_ids_with_best_items[merchant_id]
+    sales_engine.link_merchant_ids_with_best_items[merchant_id]
   end
 
 end

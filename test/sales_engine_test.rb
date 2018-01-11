@@ -65,8 +65,8 @@ class SalesEngineTest < Minitest::Test
     assert_equal 6, invoice_2.items.count
   end
 
-  def test_get_all_merchant_items_returns_hash_of_merchants_and_items
-    merchants_and_items = @sales_engine.get_all_merchant_items
+  def test_link_merchants_with_items_returns_hash_of_merchants_and_items
+    merchants_and_items = @sales_engine.link_merchants_with_items
     merchants = merchants_and_items.keys
     items = merchants_and_items.values.flatten
 
@@ -79,24 +79,22 @@ class SalesEngineTest < Minitest::Test
     assert_equal sorted_expected_items, sorted_items
   end
 
-  def test_get_all_merchant_prices_returns_hash_of_merchant_and_prices
-    merchants_and_prices = @sales_engine.get_all_merchant_prices
+  def test_link_merchants_with_prices_returns_hash_of_merchant_and_prices
+    merchants_and_prices = @sales_engine.link_merchants_with_prices
     merchants = merchants_and_prices.keys
     prices = merchants_and_prices.values.flatten
 
     assert_instance_of Hash, merchants_and_prices
     assert_equal @sales_engine.merchants.all, merchants
-    prices.each do |price|
-      assert_instance_of BigDecimal, price
-    end
+    prices.each {|price| assert_instance_of BigDecimal, price}
   end
 
-  def test_get_one_merchant_prices_returns_array_of_merchant_prices
-    assert_equal [12.0, 13.5, 7.0, 12.0, 13.5, 7.0],  @sales_engine.get_one_merchant_prices(12334185)
+  def test_get_prices_from_one_merchant_returns_array_of_merchant_prices
+    assert_equal [12.0, 13.5, 7.0, 12.0, 13.5, 7.0],  @sales_engine.get_prices_from_one_merchant(12334185)
   end
 
-  def test_search_ir_by_price_returns_all_items_with_given_price
-    items =  @sales_engine.search_ir_by_price(12.00)
+  def test_get_items_by_price_returns_all_items_with_given_price
+    items =  @sales_engine.get_items_by_price(12.00)
     item_ids = items.map { |item| item.id }
 
     assert_equal [263395237, 263395617, 263395232, 263395612], item_ids
@@ -243,16 +241,16 @@ class SalesEngineTest < Minitest::Test
     assert_equal [96.00, 1107.00, 844.06], invoice_items_total_cost
   end
 
-  def test_get_merchant_ids_and_invoice_ids_from_invoices
-    assert_equal [12334141, 12334105, 12334185, 12334113], @sales_engine.get_merchant_ids_and_invoice_ids_from_invoices.keys
-    assert_equal [[9, 16, 18, 20], [10, 17], [11, 15, 19], [13, 14]], @sales_engine.get_merchant_ids_and_invoice_ids_from_invoices.values
+  def test_link_merchant_ids_with_invoice_ids
+    assert_equal [12334141, 12334105, 12334185, 12334113], @sales_engine.link_merchant_ids_with_invoice_ids.keys
+    assert_equal [[9, 16, 18, 20], [10, 17], [11, 15, 19], [13, 14]], @sales_engine.link_merchant_ids_with_invoice_ids.values
   end
 
-  def test_transform_invoice_ids_to_invoice_items
-    merchants_and_their_invoice_items = @sales_engine.transform_invoice_ids_to_invoice_items
-    assert_equal 11, @sales_engine.transform_invoice_ids_to_invoice_items.values.flatten.first.id
-    assert_equal 18, @sales_engine.transform_invoice_ids_to_invoice_items.values.flatten.last.id
+  def test_link_merchant_ids_with_invoice_items
+    merchants_and_their_invoice_items = @sales_engine.link_merchant_ids_with_invoice_items
 
+    assert_equal 11, merchants_and_their_invoice_items.values.flatten.first.id
+    assert_equal 18, merchants_and_their_invoice_items.values.flatten.last.id
     assert_equal 4, merchants_and_their_invoice_items[12334185].count
     assert_equal 786.60, merchants_and_their_invoice_items[12334185].first.unit_price
     assert_equal 491.21, merchants_and_their_invoice_items[12334185].last.unit_price
@@ -261,8 +259,8 @@ class SalesEngineTest < Minitest::Test
     assert_equal 373.33, merchants_and_their_invoice_items[12334105].last.unit_price
   end
 
-  def test_transform_invoice_items_to_total_revenue_per_merchant
-    merchants_and_total_revenue = @sales_engine.transform_invoice_items_to_total_revenue_per_merchant
+  def test_link_merchants_with_total_revenue
+    merchants_and_total_revenue = @sales_engine.link_merchants_with_total_revenue
 
     assert_equal [12334141, 12334105, 12334185, 12334113], merchants_and_total_revenue.keys
     assert_equal [13795.59, 3607.91, 12254.42, 8860.77], merchants_and_total_revenue.values
@@ -277,42 +275,42 @@ class SalesEngineTest < Minitest::Test
     assert_equal "Disney", @sales_engine.get_merchants_with_pending_invoices[0].name
   end
 
-  def test_merchant_ids_with_item_ids_and_quantities
+  def test_link_merchant_ids_with_item_ids_linked_to_quantities
     assert_equal({12334141 => {263396517 => 10, 263395237 => 9, 263396463 => 1},
                   12334105 => {263396255 => 8, 263396209 => 3},
                   12334185 => {263396255 => 4, 263396279 => 8, 263396517 => 10},
-                  12334113 => {263396517 => 9, 263396255 => 5, 263395237 => 5}}, @sales_engine.merchant_ids_with_item_ids_and_quantities)
+                  12334113 => {263396517 => 9, 263396255 => 5, 263395237 => 5}}, @sales_engine.link_merchant_ids_with_item_ids_linked_to_quantities)
   end
 
-  def test_merchant_ids_with_most_sold_item_ids
+  def test_link_merchant_ids_with_most_sold_item_ids
     assert_equal({12334185 => [263396517],
                   12334113 => [263396517],
                   12334141 => [263396517],
-                  12334105 => [263396255]}, @sales_engine.merchant_ids_with_most_sold_item_ids)
+                  12334105 => [263396255]}, @sales_engine.link_merchant_ids_with_most_sold_item_ids)
   end
 
   def test_merchant_ids_with_most_sold_item
-    assert_equal "Course contre la montre", @sales_engine.merchant_ids_with_most_sold_items[12334185].first.name
-    assert_equal "Cache cache à la plage", @sales_engine.merchant_ids_with_most_sold_items[12334105].first.name
+    assert_equal "Course contre la montre", @sales_engine.link_merchant_ids_with_most_sold_items[12334185].first.name
+    assert_equal "Cache cache à la plage", @sales_engine.link_merchant_ids_with_most_sold_items[12334105].first.name
   end
 
-  def test_merchant_ids_with_item_ids_and_revenue
+  def test_link_merchant_ids_with_item_ids_linked_to_revenue
     assert_equal({12334141 => {263396517 => 0.911333e4, 263395237 => 0.401814e4, 263396463 => 0.66412e3},
                   12334105 => {263396255 => 0.248792e4, 263396209 => 0.111999e4},
                   12334185 => {263396255 => 0.31464e4, 263396279 => 0.419592e4, 263396517 => 0.49121e4},
-                  12334113 => {263396517 => 0.648162e4, 263396255 => 0.231915e4, 263395237 => 0.6e2}}, @sales_engine.merchant_ids_with_item_ids_and_revenue)
+                  12334113 => {263396517 => 0.648162e4, 263396255 => 0.231915e4, 263395237 => 0.6e2}}, @sales_engine.link_merchant_ids_with_item_ids_linked_to_revenue)
   end
 
-  def test_merchant_ids_with_best_item_ids
+  def test_link_merchant_ids_with_best_item_ids
     assert_equal({12334141 => 263396517,
                   12334105 => 263396255,
                   12334185 => 263396517,
-                  12334113 => 263396517}, @sales_engine.merchant_ids_with_best_item_ids)
+                  12334113 => 263396517}, @sales_engine.link_merchant_ids_with_best_item_ids)
   end
 
   def test_merchant_ids_with_best_ids
-    assert_equal "Course contre la montre", @sales_engine.merchant_ids_with_best_items[12334185].name
-    assert_equal "Cache cache à la plage", @sales_engine.merchant_ids_with_best_items[12334105].name
+    assert_equal "Course contre la montre", @sales_engine.link_merchant_ids_with_best_items[12334185].name
+    assert_equal "Cache cache à la plage", @sales_engine.link_merchant_ids_with_best_items[12334105].name
   end
 
 end
