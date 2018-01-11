@@ -57,6 +57,7 @@ class TransactionRepositoryTest < Minitest::Test
     found_transaction = se.transactions.find_invoice_by_id(2179)
 
     assert_equal 12334633, found_transaction.merchant_id
+    refute_equal 12222222, found_transaction.merchant_id
     assert_equal :returned, found_transaction.status
     assert_equal 433, found_transaction.customer_id
     refute_equal :shipped, found_transaction.status

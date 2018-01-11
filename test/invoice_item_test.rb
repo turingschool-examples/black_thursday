@@ -9,10 +9,10 @@ class InvoiceItemTest < Minitest::Test
 
   def setup
     @invoice_item = InvoiceItem.new({
-      :id => 6,
-      :item_id => 7,
+      :id         => 6,
+      :item_id    => 7,
       :invoice_id => 8,
-      :quantity => 1,
+      :quantity   => 1,
       :unit_price => 10.99,
       :created_at => "2018-01-07 09:22:04 -0700",
       :updated_at => "2015-02-18 09:22:04 -0700"
