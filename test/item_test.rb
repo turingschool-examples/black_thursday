@@ -6,11 +6,13 @@ class ItemTest < Minitest::Test
 
   def setup
     @item = Item.new({
+      :id          => "263519844",
       :name        => "Pencil",
       :description => "You can use it to write things",
       :unit_price  => BigDecimal.new(1000.99,1),
       :created_at  => "2018-01-02 14:37:20 -0700",
       :updated_at  => "2018-01-02 14:37:25 -0700",
+      :merchant_id => "12334105"
     })
   end
 
@@ -40,6 +42,24 @@ class ItemTest < Minitest::Test
 
   def test_it_returns_unit_price_to_dollars
     assert_equal "$10.0", @item.unit_price_to_dollars
+  end
+
+  def test_has_item_id
+    assert_equal 263519844, @item.id
+  end
+
+  def test_has_merchant_id
+    assert_equal 12334105, @item.merchant_id
+  end
+
+  def test_it_returns_merchant_by_id
+    se = SalesEngine.from_csv({
+      merchants: "./test/fixtures/merchants_sample.csv",
+      items: "./test/fixtures/items_sample.csv",
+    })
+    item = se.items.find_by_id(263395237)
+
+    assert_equal "jejum", item.merchant.name
   end
 
 end
