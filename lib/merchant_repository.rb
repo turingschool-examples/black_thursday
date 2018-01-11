@@ -50,7 +50,7 @@ class MerchantRepository
   end
 
   def grab_array_of_invoices
-    merchants.map { |merchant| merchant.invoices.count}
+    merchants.map { |merchant| merchant.invoices.count }
   end
 
   def find_invoice(id)

@@ -181,7 +181,7 @@ class SalesAnalyst
     end
   end
 
-  def revenue_by_merchant(merchant_id) # TESTS
+  def revenue_by_merchant(merchant_id)
     se.find_merchant_by_id(merchant_id).revenue
   end
 
@@ -236,7 +236,7 @@ class SalesAnalyst
     end.reverse.flatten(2)
   end
 
-  def best_item_for_merchant(merchant_id) #TESTS
+  def best_item_for_merchant(merchant_id)
     se.items.find_by_id(top_item_by_revenue_id(merchant_id).first)
   end
 

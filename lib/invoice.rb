@@ -31,7 +31,7 @@ class Invoice
     })
   end
 
-  def invoice_items # TESTS
+  def invoice_items
     invoice_repo.items(@id)
   end
 
