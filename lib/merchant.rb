@@ -62,11 +62,11 @@ class Merchant
   end
 
   def item_ids_by_total_cost
-    hash = Hash.new
+    ids_by_cost = {}
     paid_invoice_items.each do |invoice_item|
-      hash[invoice_item.item_id] = invoice_item.total_cost
+      ids_by_cost[invoice_item.item_id] = invoice_item.total_cost
     end
-    hash
+    return ids_by_cost
   end
 
   def item_ids_by_revenue

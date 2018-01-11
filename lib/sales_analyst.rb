@@ -17,7 +17,7 @@ class SalesAnalyst
     (items.count.to_f / merchants.count).round(2)
   end
 
-  def average_items_per_merchant_stdev
+  def average_items_per_merchant_standard_deviation
     average_item_count = average_items_per_merchant
     Math.sqrt(
       merchants.reduce(0) do |sum, merchant|
@@ -27,7 +27,7 @@ class SalesAnalyst
   end
 
   def one_stdev_above_average
-    average_items_per_merchant + average_items_per_merchant_stdev
+    average_items_per_merchant + average_items_per_merchant_standard_deviation
   end
 
   def merchants_with_high_item_count
@@ -77,7 +77,7 @@ class SalesAnalyst
     return (sum_invoices.to_f / merchants.count).round(2)
   end
 
-  def average_invoices_per_merchant_stdev
+  def average_invoices_per_merchant_standard_deviation
     average = average_invoices_per_merchant
     Math.sqrt(
       merchants.sum do |merchant|
@@ -87,7 +87,7 @@ class SalesAnalyst
   end
 
   def two_stdevs_above_average_invoices
-    two_stdevs = average_invoices_per_merchant_stdev * 2
+    two_stdevs = average_invoices_per_merchant_standard_deviation * 2
     return (average_invoices_per_merchant + two_stdevs).round(1)
   end
 
@@ -99,7 +99,7 @@ class SalesAnalyst
   end
 
   def two_stdevs_below_average_invoices
-    two_stdevs = average_invoices_per_merchant_stdev * 2
+    two_stdevs = average_invoices_per_merchant_standard_deviation * 2
     return (average_invoices_per_merchant - two_stdevs).round(1)
   end
 

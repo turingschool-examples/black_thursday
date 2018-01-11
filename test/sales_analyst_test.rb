@@ -30,7 +30,7 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_it_finds_the_average_items_per_merchant_stdev
-    assert_equal 1.64, @sa.average_items_per_merchant_stdev
+    assert_equal 1.64, @sa.average_items_per_merchant_standard_deviation
   end
 
   def test_it_finds_the_merchants_with_the_highest_item_counts
@@ -58,7 +58,7 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_average_invoices_per_merchant_stdev_returns_correct_value
-    assert_equal 0.72, @sa.average_invoices_per_merchant_stdev
+    assert_equal 0.72, @sa.average_invoices_per_merchant_standard_deviation
   end
 
   def test_two_stdevs_above_average_invoices_returns_correct_value
