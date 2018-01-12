@@ -13,7 +13,7 @@ class CustomerTest < Minitest::Test
       :created_at   => "2018-01-02 14:37:20 -0700",
       :updated_at   => "2018-01-02 14:37:25 -0700"}
       parent = mock('repository')
-      @customer = Customer.new(customer_data, parent)
+    @customer = Customer.new(customer_data, parent)
   end
 
   def test_it_exists

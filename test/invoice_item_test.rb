@@ -17,7 +17,7 @@ class InvoiceItemTest < Minitest::Test
       :created_at => "2018-01-07 09:22:04 -0700",
       :updated_at => "2015-02-18 09:22:04 -0700"})
       parent = mock('repository')
-      @invoice_item = InvoiceItem.new(invoice_item_data, parent)
+    @invoice_item = InvoiceItem.new(invoice_item_data, parent)
   end
 
   def test_it_exists
