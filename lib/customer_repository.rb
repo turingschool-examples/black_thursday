@@ -13,7 +13,7 @@ class CustomerRepository
   def initialize(csv_file, se)
     @customers = []
     @se = se
-    parser(csv_file).each { |row| @customers << Customer.creator(row, self) }
+    parser(csv_file).each { |row| @customers << Customer.new(row, self) }
   end
 
   def inspect

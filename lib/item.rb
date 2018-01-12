@@ -11,7 +11,7 @@ class Item
               :merchant_id,
               :item_repo
 
- def initialize(item)
+ def initialize(item, parent)
     @id          = item[:id].to_i
     @name        = item[:name]
     @description = item[:description]
@@ -19,21 +19,8 @@ class Item
     @created_at  = Time.parse(item[:created_at])
     @updated_at  = Time.parse(item[:updated_at])
     @merchant_id = item[:merchant_id].to_i
-    @item_repo   = item[:item_repo]
+    @item_repo   = parent
  end
-
-  def self.creator(row, parent)
-    new({
-      id: row[:id],
-      name: row[:name],
-      description: row[:description],
-      unit_price: row[:unit_price],
-      created_at: row[:created_at],
-      updated_at: row[:updated_at],
-      merchant_id: row[:merchant_id],
-      item_repo: parent
-    })
-  end
 
   def invoice_items
     item_repo.find_invoice_items_by_id(@id)

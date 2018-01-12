@@ -16,7 +16,7 @@ class ItemRepository
   def initialize(csv_file, se)
     @items = []
     @se    = se
-    parser(csv_file).each { |row| @items << Item.creator(row, self) }
+    parser(csv_file).each { |row| @items << Item.new(row, self) }
   end
 
   def inspect
