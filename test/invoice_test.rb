@@ -5,17 +5,18 @@ require_relative '../lib/sales_engine'
 
 class InvoicesTest < Minitest::Test
 
-  def test_it_exists
-    invoice = Invoice.new({
+  attr_reader :invoice
+
+  def setup
+    invoice_data = {
       :id          => 6,
       :customer_id => 7,
       :merchant_id => 8,
       :status      => "pending",
       :created_at  => "2012-01-07 15:15:22 -0700",
-      :updated_at  => "2018-01-07 15:15:22 -0700",
-    })
-
-    assert_instance_of Invoice, invoice
+      :updated_at  => "2018-01-07 15:15:22 -0700"}
+    parent = mock("repository")
+    @invoice = Invoice.new(invoice_data, parent)
   end
 
   def test_it_returns_items_by_id_in_invoice_items

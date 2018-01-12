@@ -78,7 +78,7 @@ class MerchantTest < Minitest::Test
     invoice_2.invoice_repo.stubs(:customer).with(23).returns([merchant_1, merchant_2])
     @merchant.merchant_repo.stubs(:find_invoice).with(23).returns([invoice_1, invoice_2])
 
-    binding.pry
+
 
     assert_equal 2, @merchant.customers.flatten(1).count
   end
@@ -86,7 +86,7 @@ class MerchantTest < Minitest::Test
   def test_it_returns_revenue
     invoice_1 = mock('invoice')
     invoice_2 = mock('invoice')
-    
+
 
     assert_equal 7, @merchant.merchant_repo.merchants.count
   end
