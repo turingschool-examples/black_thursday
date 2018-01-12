@@ -11,7 +11,7 @@ class InvoiceItemRepository
   def initialize(csv_file, se)
     @invoice_items = []
     @se = se
-    parser(csv_file).each { |row| @invoice_items << InvoiceItem.creator(row, self)}
+    parser(csv_file).each { |row| @invoice_items << InvoiceItem.new(row, self)}
   end
 
   def inspect
