@@ -1,52 +1,98 @@
 require_relative 'test_helper'
 require_relative "../lib/merchant"
+require_relative "../lib/invoice"
 
 class MerchantTest < Minitest::Test
 
+  attr_reader :merchant
+
   def setup
-    @se = SalesEngine.new({
-      :items         => "./test/fixtures/items_sample.csv",
-      :merchants     => "./test/fixtures/merchants_sample.csv",
-      :invoices      => "./test/fixtures/invoices_sample.csv",
-      :customers     => "./test/fixtures/customers_sample.csv",
-      :invoice_items => "./test/fixtures/invoice_items_sample.csv"
-      })
-    @merchant = @se.merchants.find_by_id(12334183)
+    merchant_data = {id: 23,
+                      name: "Yonkers Bonkers Yo",
+                      created_at: "2002-03-30"}
+    parent = mock('repository')
+    @merchant = Merchant.new(merchant_data, parent)
   end
 
   def test_it_exists
     assert_instance_of Merchant, @merchant
   end
 
-  def test_it_has_an_id
-    assert_equal 12334183, @merchant.id
-  end
-
-  def test_it_has_a_name
-    assert_equal "handicraftcallery", @merchant.name
-  end
-
-  def test_it_has_a_created_at
+  def test_it_has_attributes
+    assert_equal 23, @merchant.id
+    assert_equal "Yonkers Bonkers Yo", @merchant.name
     assert_equal Time.parse("2002-03-30"), @merchant.created_at
   end
 
-  def test_it_grab_items
-    assert_equal 1, @merchant.items.count
-    assert @merchant.items.all? { |item| item.class == Item }
+  def test_it_grab_items_by_merchant_id
+    item_1 = mock('Item')
+    item_2 = mock('Item')
+    item_3 = mock('Item')
+    merchant.merchant_repo.stubs(:find_item).with(23).returns([item_1, item_2, item_3])
+
+    assert_equal 3, @merchant.items.count
+    merchant.items.each do |item|
+      assert_instance_of Mocha::Mock, item
+    end
   end
 
-  def test_it_grabs_all_invoices
-    assert_equal 1, @merchant.invoices.count
-    assert @merchant.invoices.all? { |invoice| invoice.class == Invoice }
+  def test_it_grabs_all_invoices_by_merchant_id
+    invoice_1 = mock('Invoice')
+    invoice_2 = mock('Invoice')
+    invoice_3 = mock('Invoice')
+    merchant.merchant_repo.stubs(:find_invoice).with(23).returns([invoice_1, invoice_2, invoice_3])
+
+    assert_equal 3, @merchant.invoices.count
+    merchant.items.each do |item|
+      assert_instance_of Mocha::Mock, item
+    end
   end
 
   def test_it_grabs_all_customers
-    assert_equal 1, @merchant.customers.count
-    assert_equal 963, @merchant.customers.first.id
-    assert @merchant.customers.all? { |customer| customer.class == Customer }
+    invoice_1 = mock('Invoice')
+    invoice_2 = mock('Invoice')
+    invoice_3 = mock('Invoice')
+    merchant.merchant_repo.stubs(:find_invoice).with(23).returns([invoice_1, invoice_2, invoice_3])
+
+    assert_equal 3, @merchant.invoice.count
+    merchant.items.each do |item|
+      assert_instance_of Mocha::Mock, item
+    end
+  end
+
+  def test_it_grabs_all_customers
+    parent = mock('respository')
+    invoice_1, invoice_2 = mock('invoice'), mock('invoice')
+    merchant_1, merchant_2 = mock('merchant'), mock('merchant')
+    # invoice_1 = Invoice.new({id: 3,
+    #                          customer_id: 34,
+    #                          merchant_id: 23,
+    #                          status: 'shipped',
+    #                          created_at: "2007-03-30",
+    #                          updated_at: "2010-10-23",
+    #                          invoice_repo: parent})
+    # invoice_2 = Invoice.new({id: 2,
+    #                          customer_id: 23,
+    #                          merchant_id: 23,
+    #                          status: 'pending',
+    #                          created_at: "2010-03-30",
+    #                          updated_at: "2010-05-30",
+    #                          invoice_repo: parent})
+
+    @merchant.merchant_repo.stubs(:find_invoice).with(23).returns([invoice_1, invoice_2])
+    invoice_1.stubs(:customer).with(1234).returns([merchant_1, merchant_2])
+    invoice_2.stubs(:customer).with(1234).returns([merchant_1, merchant_2])
+
+    # binding.pry
+
+    assert_equal 2, @merchant.customers.count
+    # assert_equal 963, @merchant.customers.first.id
+    # assert @merchant.customers.all? { |customer| customer.class == Customer }
   end
 
   def test_it_returns_revenue
+    skip
+
     assert_equal 7, @merchant.merchant_repo.merchants.count
   end
 
