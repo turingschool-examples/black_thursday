@@ -6,15 +6,18 @@ require_relative "../lib/sales_engine"
 
 class TransactionTest < Minitest::Test
 
+  attr_reader :transaction
+
   def setup
-    @transaction = Transaction.new({
+    transaction_data = {
       :id                 => "1",
       :invoice_id         => "2179",
       :credit_card_number => "4068631943231473",
       :result             => "success",
       :created_at         => "2018-01-02 14:37:20 -0700",
-      :updated_at         => "2018-01-02 14:37:25 -0700"
-    })
+      :updated_at         => "2018-01-02 14:37:25 -0700"}
+    parent = mock('repository')
+    @transaction = Transaction.new(transaction_data, parent)
   end
 
   def test_it_exists

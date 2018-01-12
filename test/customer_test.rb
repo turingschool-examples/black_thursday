@@ -6,13 +6,14 @@ require_relative "../lib/customer"
 class CustomerTest < Minitest::Test
 
   def setup
-    @customer = Customer.new({
+    customer_data = {
       :id           => "1",
       :first_name   => "Joey",
       :last_name    => "Ondricka",
       :created_at   => "2018-01-02 14:37:20 -0700",
-      :updated_at   => "2018-01-02 14:37:25 -0700"
-    })
+      :updated_at   => "2018-01-02 14:37:25 -0700"}
+      parent = mock('repository')
+    @customer = Customer.new(customer_data, parent)
   end
 
   def test_it_exists
