@@ -52,7 +52,7 @@ class MerchantTest < Minitest::Test
     invoice2 = stub(customer: c2)
     invoice3 = stub(customer: c3)
     merchant.merchant_repo.stubs(:find_invoice).returns([invoice, invoice2, invoice3])
-g
+
     assert_equal [c, c2, c3], merchant.customers
   end
 
