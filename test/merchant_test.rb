@@ -81,12 +81,12 @@ class MerchantTest < Minitest::Test
     binding.pry
 
     assert_equal 2, @merchant.customers.flatten(1).count
-    # assert_equal 963, @merchant.customers.first.id
-    # assert @merchant.customers.all? { |customer| customer.class == Customer }
   end
 
   def test_it_returns_revenue
-    skip
+    invoice_1 = mock('invoice')
+    invoice_2 = mock('invoice')
+    
 
     assert_equal 7, @merchant.merchant_repo.merchants.count
   end
