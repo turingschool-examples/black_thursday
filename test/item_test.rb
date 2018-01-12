@@ -7,14 +7,13 @@ class ItemTest < Minitest::Test
   attr_reader :item
 
   def setup
-    item_data = {
-      :id          => "263519844",
-      :name        => "Pencil",
-      :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(1000.99,1),
-      :created_at  => "2018-01-02 14:37:20 -0700",
-      :updated_at  => "2018-01-02 14:37:25 -0700",
-      :merchant_id => "12334105"}
+    item_data = {:id          => "263519844",
+                 :name        => "Pencil",
+                 :description => "You can use it to write things",
+                 :unit_price  => BigDecimal.new(1000.99,1),
+                 :created_at  => "2018-01-02 14:37:20 -0700",
+                 :updated_at  => "2018-01-02 14:37:25 -0700",
+                 :merchant_id => "12334105"}
     parent = mock('repository')
     @item = Item.new(item_data, parent)
   end
