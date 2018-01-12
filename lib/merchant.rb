@@ -5,20 +5,11 @@ class Merchant
               :merchant_repo,
               :created_at
 
-  def initialize(description)
-    @id            = description[:id]
+  def initialize(description, parent)
+    @id            = description[:id].to_i
     @name          = description[:name]
-    @merchant_repo = description[:merchant_repo]
     @created_at    = Time.parse(description[:created_at])
-  end
-
-  def self.creator(row, parent)
-    new({
-      id: row[:id].to_i,
-      name: row[:name],
-      created_at: row[:created_at],
-      merchant_repo: parent
-    })
+    @merchant_repo = parent
   end
 
   def items

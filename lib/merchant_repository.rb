@@ -12,7 +12,7 @@ class MerchantRepository
   def initialize(csv_file, se)
     @merchants = []
     @se = se
-    parser(csv_file).each { |row| @merchants << Merchant.creator(row, self) }
+    parser(csv_file).each { |row| @merchants << Merchant.new(row, self) }
   end
 
   def inspect

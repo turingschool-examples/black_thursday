@@ -13,7 +13,7 @@ class InvoiceRepository
   def initialize(csv_file, se)
     @invoices = []
     @se = se
-    parser(csv_file).each { |row| @invoices << Invoice.creator(row, self) }
+    parser(csv_file).each { |row| @invoices << Invoice.new(row, self) }
   end
 
   def inspect

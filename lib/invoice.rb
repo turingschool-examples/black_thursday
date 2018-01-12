@@ -8,27 +8,14 @@ class Invoice
               :updated_at,
               :invoice_repo
 
-  def initialize(invoice)
+  def initialize(invoice, parent)
     @id           = invoice[:id].to_i
     @customer_id  = invoice[:customer_id].to_i
     @merchant_id  = invoice[:merchant_id].to_i
     @status       = invoice[:status].to_sym
     @created_at   = Time.parse(invoice[:created_at])
     @updated_at   = Time.parse(invoice[:updated_at])
-    @invoice_repo = invoice[:invoice_repo]
-  end
-
-
-  def self.creator(row, parent)
-    new({
-      id: row[:id],
-      customer_id: row[:customer_id],
-      merchant_id: row[:merchant_id],
-      status: row[:status],
-      created_at: row[:created_at],
-      updated_at: row[:updated_at],
-      invoice_repo: parent
-    })
+    @invoice_repo = parent
   end
 
   def invoice_items
