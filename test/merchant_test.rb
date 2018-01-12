@@ -8,8 +8,8 @@ class MerchantTest < Minitest::Test
 
   def setup
     merchant_data = {id: 23,
-                      name: "Yonkers Bonkers Yo",
-                      created_at: "2002-03-30"}
+                     name: "Yonkers Bonkers Yo",
+                     created_at: "2002-03-30"}
     parent = mock('repository')
     @merchant = Merchant.new(merchant_data, parent)
   end
@@ -38,19 +38,17 @@ class MerchantTest < Minitest::Test
 
   def test_it_grabs_all_invoices_by_merchant_id
     invoice_1 = mock('invoice')
-    merchant.merchant_repo.stubs(:find_invoice).with(23).returns([invoice_1, invoice_1, invoice_1])
+    merchant.merchant_repo.stubs(:find_invoice).with(23).returns(invoice_1)
 
-    assert_equal 3, @merchant.invoices.count
-    merchant.items.each do |item|
-      assert_instance_of Mocha::Mock, item
-    end
+    assert_equal invoice_1, @merchant.invoices
   end
 
   def test_it_grabs_all_customers
+    skip
     customer_1 = mock('Invoice')
     customer_2 = mock('Invoice')
     customer_3 = mock('Invoice')
-    merchant.merchant_repo.stubs(:find_invoice).with(23).returns([customer_1, customer_2, customer_3])
+    merchant.merchant_repo.stubs(:customer).with(23).returns([customer_1, customer_2, customer_3])
 
     assert_equal 3, @merchant.invoice.count
     merchant.items.each do |item|
@@ -58,37 +56,45 @@ class MerchantTest < Minitest::Test
     end
   end
 
-  def test_it_grabs_all_customers
+  def test_it_grabs_all_customers # NEEDS WORK!!!!
+    skip
     parent = mock('respository')
-    merchant_1, merchant_2 = mock('merchant'), mock('merchant_2')
+    customer_1 = mock('customer', id: 3343)
+    customer_1a = mock('customer', id: 3423)
+    customer_2 = mock('customer_2', id: 3423)
+    customer_3 = mock('customer_3', id: 3423)
     invoice_1 = Invoice.new({id: 3,
-                             customer_id: 34,
+                             customer_id: 3343,
                              merchant_id: 23,
                              status: 'shipped',
                              created_at: "2007-03-30",
                              updated_at: "2010-10-23"}, parent)
     invoice_2 = Invoice.new({id: 2,
-                             customer_id: 23,
+                             customer_id: 3423,
                              merchant_id: 23,
                              status: 'pending',
                              created_at: "2010-03-30",
                              updated_at: "2010-05-30"}, parent)
 
-    invoice_1.invoice_repo.stubs(:customer).with(34).returns([merchant_1, merchant_2])
-    invoice_2.invoice_repo.stubs(:customer).with(23).returns([merchant_1, merchant_2])
+    invoice_1.invoice_repo.stubs(:customer).with(3343).returns([customer_1])
+    invoice_2.invoice_repo.stubs(:customer).with(3423).returns([customer_1a, customer_2, customer_3])
     @merchant.merchant_repo.stubs(:find_invoice).with(23).returns([invoice_1, invoice_2])
 
     binding.pry
 
-    assert_equal 2, @merchant.customers.flatten(1).count
+    assert_equal 2, @merchant.customers.count
+    assert_equal 3343, merchant.customers[0][0].id
+    assert_equal 3423, merchant.customers[1][0].id
   end
 
   def test_it_returns_revenue
     invoice_1 = mock('invoice')
     invoice_2 = mock('invoice')
+    invoice_2 = mock('invoice')
+
     
 
-    assert_equal 7, @merchant.merchant_repo.merchants.count
+    # assert_equal 7, @merchant.merchant_repo.merchants.count
   end
 
 end
