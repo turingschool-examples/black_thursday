@@ -21,7 +21,7 @@ class Merchant
   end
 
   def customers
-    invoices.map(&:customer).uniq
+    invoices.map(&:customer).uniq.compact
   end
 
   def revenue
