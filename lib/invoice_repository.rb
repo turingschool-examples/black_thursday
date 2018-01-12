@@ -24,7 +24,7 @@ class InvoiceRepository
     @invoices
   end
 
-  def items(invoice_id)
+  def find_invoice_items_by_id(invoice_id)
     se.invoice_items.find_all_by_invoice_id(invoice_id)
   end
 
