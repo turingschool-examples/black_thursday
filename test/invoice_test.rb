@@ -28,44 +28,32 @@ class InvoicesTest < Minitest::Test
   end
 
   def test_it_returns_transactions_by_invoice_id
-    skip
     item1 = mock('item')
     item2 = mock('item2')
     item3 = mock('item3')
-    ii = stub(item_id: item1)
-    ii_2 = stub(item_id: item2)
-    ii_3 = stub(item_id: item3)
-    invoice.invoice_repo.stubs(:find_invoice_items_by_id).returns([ii, ii_2, ii_3])
-    invoice.invoice_repo.stubs(:find_item_by_id).
+    ii = stub(item_id: [item1, item2, item3])
+    invoice.invoice_repo.stubs(:find_invoice_items_by_id).returns([ii])
+    invoice.invoice_repo.stubs(:find_item_by_id).returns(ii.item_id)
 
-    assert_equal [item1, item2, item3], invoice.items
+    # binding.pry
+
+    assert_equal [item1, item2, item3], invoice.items.flatten(1)
   end
 
   def test_it_returns_customers_by_invoice_id
-    skip
-    se = SalesEngine.from_csv({
-      invoices: "./test/fixtures/invoices_sample.csv",
-      customers: "./test/fixtures/customers_sample.csv",
-      items: "./test/fixtures/items_sample.csv"
-    })
+    c = mock('customer')
+    ii = stub(customer_id: c)
+    invoice.invoice_repo.stubs(:customer).returns(ii.customer_id)
 
-    invoice = se.invoices.find_by_id(819)
-
-    assert_instance_of Customer, invoice.customer
-    assert_equal 819, invoice.id
+    assert_equal c, invoice.customer
   end
 
   def test_it_returns_merchant_by_invoice_id
     skip
-    se = SalesEngine.from_csv({
-      invoices: "./test/fixtures/invoices_sample.csv",
-      customers: "./test/fixtures/customers_sample.csv",
-      items: "./test/fixtures/items_sample.csv"
-    })
-    invoice = se.invoices.find_by_id(2179)
+    m = mock('merchant')
+    invoice.invoice_repo.stubs(:merchant).returns(m)
 
-    assert_equal 12334633, invoice.merchant_id
-    refute_equal "12334633", invoice.merchant_id
+    assert_equal m, invoice.merchant
   end
 
   def test_it_returns_success_for_is_paid_in_full
