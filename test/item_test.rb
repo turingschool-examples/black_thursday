@@ -1,3 +1,4 @@
+require 'pry'
 require_relative 'test_helper'
 require_relative "../lib/item"
 require "bigdecimal"
@@ -22,46 +23,51 @@ class ItemTest < Minitest::Test
     assert_instance_of Item, @item
   end
 
-  def test_it_has_name
+  def test_it_has_attributes
     assert_equal "Pencil", @item.name
-  end
-
-  def test_it_has_a_description
     assert_equal "You can use it to write things", @item.description
-  end
-
-  def test_it_has_unit_price
     assert_equal 0.1e2, @item.unit_price
-  end
-
-  def test_it_creates_at_a_time
     assert_equal Time.parse("2018-01-02 14:37:20 -0700"), @item.created_at
-  end
-
-  def test_it_returns_time_updated_at
     assert_equal Time.parse("2018-01-02 14:37:25 -0700"), @item.updated_at
-  end
-
-  def test_it_returns_unit_price_to_dollars
     assert_equal "$10.0", @item.unit_price_to_dollars
-  end
-
-  def test_has_item_id
     assert_equal 263519844, @item.id
-  end
-
-  def test_has_merchant_id
     assert_equal 12334105, @item.merchant_id
   end
 
-  def test_it_returns_merchant_by_id
-    se = SalesEngine.from_csv({
-      merchants: "./test/fixtures/merchants_sample.csv",
-      items: "./test/fixtures/items_sample.csv",
-    })
-    item = se.items.find_by_id(263395237)
+  def test_returns_invoice_item_by_id
+    item_id_1 = mock('263395237')
+    item_id_2 = mock('263395237')
+    item_id_3 = mock('263395237')
 
-    assert_equal "jejum", item.merchant.name
+    item.item_repo.stubs(:find_invoice_items_by_id).returns([item_id_1, item_id_2, item_id_3])
+
+    assert_equal 3, item.invoice_items.count
+    assert_equal [item_id_1, item_id_2, item_id_3], item.invoice_items
   end
+
+  def test_it_returns_unit_price_to_dollars
+    price_1 = stub('10')
+
+    item.item_repo.stubs(:find_invoice_items_by_id).returns([price_1])
+
+    assert_equal '$10.0', item.unit_price_to_dollars
+  end
+
+  def test_item_returns_merchant
+    merchant_1 = mock('263395237')
+    merchant_2 = mock('263395237')
+    merchant_3 = mock("263395237")
+    item.item_repo.stubs(:find_merchant).returns([merchant_1, merchant_2, merchant_3])
+
+    assert_equal 3, item.merchant.count
+    assert_equal [merchant_1, merchant_2, merchant_3], item.merchant
+  end
+
+
+
+
+
+
+
 
 end
