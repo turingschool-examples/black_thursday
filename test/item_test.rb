@@ -63,4 +63,12 @@ class ItemTest < Minitest::Test
     assert_equal [merchant_1, merchant_2, merchant_3], item.merchant
   end
 
+  def test_it_returns_revenue
+    revenue_return_1 = stub("100")
+
+    item.item_repo.stubs(:find_invoice_items_by_id).returns([revenue_return_1])
+
+    assert_equal 0.1e2, item.unit_price
+  end
+
 end
