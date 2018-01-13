@@ -36,17 +36,10 @@ class InvoiceItemTest < Minitest::Test
   end
 
   def test_finds_invoice_item_by_id
-    invoice_item_1 = mock("Invoice_Item")
-    invoice_item_2 = mock("Invoice_Item")
-    invoice_item_3 = mock("Invoice_Item")
-    invoice_item.inv_item_repo.stubs(:find_by_id).with(13).returns([invoice_item_1, invoice_item_2, invoice_item_3])
+    price_1 = mock("100")
+    invoice_item.inv_item_repo.stubs(:find_by_id).with(13).returns([price_1])
 
-    assert_equal 3, @invoice_item.id.count
-    invoice_item.id.each do |invoice_id|
-      assert_instance_of Mocha::Mock, invoice_id
-    end
+    assert_equal 10.99, invoice_item.unit_price_to_dollars
   end
-
-
 
 end
