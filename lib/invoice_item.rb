@@ -10,7 +10,8 @@ class InvoiceItem
               :quantity,
               :unit_price,
               :created_at,
-              :updated_at
+              :updated_at,
+              :inv_item_repo
 
   def initialize(row, parent)
     @id            = row[:id].to_i
