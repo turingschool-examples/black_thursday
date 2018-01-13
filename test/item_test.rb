@@ -47,7 +47,6 @@ class ItemTest < Minitest::Test
 
   def test_it_returns_unit_price_to_dollars
     price_1 = stub('10')
-
     item.item_repo.stubs(:find_invoice_items_by_id).returns([price_1])
 
     assert_equal '$10.0', item.unit_price_to_dollars
