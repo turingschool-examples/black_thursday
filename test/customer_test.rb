@@ -5,6 +5,8 @@ require_relative "../lib/customer"
 
 class CustomerTest < Minitest::Test
 
+  attr_reader :customer
+  
   def setup
     customer_data = {
       :id           => "1",
@@ -20,36 +22,21 @@ class CustomerTest < Minitest::Test
     assert_instance_of Customer, @customer
   end
 
-  def test_it_has_first_name
+  def test_it_has_attributes
     assert_equal "Joey", @customer.first_name
-    refute_equal "Billy", @customer.first_name
-  end
-
-  def test_it_has_last_name
-    assert_equal "Ondricka", @customer.last_name
-  end
-
-  def test_it_has_an_id
     assert_equal 1, @customer.id
-    refute_equal "1", @customer.id
-  end
-
-  def test_it_creates_at_a_time
     assert_equal Time.parse("2018-01-02 14:37:20 -0700"), @customer.created_at
-  end
-
-  def test_it_returns_time_updated_at
     assert_equal Time.parse("2018-01-02 14:37:25 -0700"), @customer.updated_at
   end
 
-  def test_it_returns_invoices_by_id
-    se = SalesEngine.from_csv({
-      invoices: "./test/fixtures/invoices_sample.csv",
-      customers: "./test/fixtures/customers_sample.csv",
-    })
-    customer = se.customers.find_by_id(206)
 
-    assert_equal 4, customer.invoices.count
+  def test_it_returns_invoices_customer_id
+    invoice_1 = mock("invoice")
+    invoice_2 = mock("invoice")
+    invoice_3 = mock("invoice")
+    customer.customer_repo.stubs(:find_all_invoices_by_id).returns([invoice_1, invoice_2, invoice_3])
+
+    assert_equal 3, customer.invoices.count
   end
 
 end
