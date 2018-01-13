@@ -63,11 +63,4 @@ class ItemTest < Minitest::Test
     assert_equal [merchant_1, merchant_2, merchant_3], item.merchant
   end
 
-
-
-
-
-
-
-
 end
