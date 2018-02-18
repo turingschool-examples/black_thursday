@@ -17,8 +17,12 @@ class MerchantRepository
     merchants
   end
 
-  def find_by_id
-
+  def find_by_id(id)
+    all.find { |merchant| merchant.id == id }
   end
 
+  def find_by_name(name)
+    lower_case_name = name.downcase
+    all.find { |merchant| merchant.name.downcase == lower_case_name }
+  end
 end

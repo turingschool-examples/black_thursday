@@ -35,5 +35,29 @@ class MerchantRepositoryTest < Minitest::Test
     mr = se.merchants
 
     assert_nil mr.find_by_id('10101010')
+    assert mr.find_by_id('12334112').is_a?(Merchant)
+    assert_equal 'Candisart', mr.find_by_id('12334112').name
+  end
+
+  def test_for_find_by_name_method
+    se = SalesEngine.new
+    se.from_csv(items: './data/items.csv',
+                merchants: './test/fixtures/merchants_list_truncated.csv')
+    mr = se.merchants
+
+    assert_nil mr.find_by_name('Mesander')
+    assert mr.find_by_name('LolaMarleys').is_a?(Merchant)
+    assert_equal '12334123', mr.find_by_name('Keckenbauer').id
+    assert mr.find_by_name('lolamarleys').is_a?(Merchant)
+    assert mr.find_by_name('Shopin1901').is_a?(Merchant)
+  end
+
+  def test_for_find_all_by_name_method
+    se = SalesEngine.new
+    se.from_csv(items: './data/items.csv',
+                merchants: './test/fixtures/merchants_list_truncated.csv')
+    mr = se.merchants
+
+    
   end
 end
