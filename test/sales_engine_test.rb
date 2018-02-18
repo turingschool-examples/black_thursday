@@ -3,12 +3,14 @@ require_relative '../lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test
   def test_it_exists
+    skip
     sales_engine = SalesEngine.new
 
     assert_instance_of SalesEngine, sales_engine
   end
 
   def test_for_from_csv_method
+    skip
     sales_engine = SalesEngine.new
     information = {:items => './data/items.csv',
                    :merchants => './data/merchants.csv'}
@@ -19,6 +21,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_for_items_method
+    skip
     sales_engine = SalesEngine.new
     information = {:items => './data/items.csv',
                    :merchants => './data/merchants.csv'}
@@ -29,6 +32,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_for_merchants_method
+    skip
     sales_engine = SalesEngine.new
     information = {:items => './data/items.csv',
                    :merchants => './data/merchants.csv'}

@@ -1,5 +1,6 @@
 require 'pry'
 
+# This is an item repository class
 class ItemRepository
   attr_reader :item_list, :parent, :items
 
