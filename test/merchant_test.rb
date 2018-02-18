@@ -16,6 +16,7 @@ class MerchantTest < Minitest::Test
   end
 
   def test_other_attributes
+    skip
     merchant = Merchant.new({:id => 1, :name => "Haliburton"})
 
     assert_equal 1, merchant.id
