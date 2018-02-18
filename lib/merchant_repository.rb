@@ -22,7 +22,12 @@ class MerchantRepository
   end
 
   def find_by_name(name)
-    lower_case_name = name.downcase
-    all.find { |merchant| merchant.name.downcase == lower_case_name }
+    all.find { |merchant| merchant.name.downcase == name.downcase }
+  end
+
+  def find_all_by_name(name)
+    all.find_all do |merchant|
+      merchant.name.downcase.include?(name.downcase)
+    end
   end
 end

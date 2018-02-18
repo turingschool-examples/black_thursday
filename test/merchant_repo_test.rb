@@ -25,7 +25,7 @@ class MerchantRepositoryTest < Minitest::Test
 
     assert_instance_of Array, mr.all
     assert mr.all[0].is_a?(Merchant)
-    assert_equal 6, mr.all.count
+    assert_equal 7, mr.all.count
   end
 
   def test_for_find_by_id_method
@@ -49,7 +49,7 @@ class MerchantRepositoryTest < Minitest::Test
     assert mr.find_by_name('LolaMarleys').is_a?(Merchant)
     assert_equal '12334123', mr.find_by_name('Keckenbauer').id
     assert mr.find_by_name('lolamarleys').is_a?(Merchant)
-    assert mr.find_by_name('Shopin1901').is_a?(Merchant)
+    assert mr.find_by_name('shopin1901').is_a?(Merchant)
   end
 
   def test_for_find_all_by_name_method
@@ -58,6 +58,9 @@ class MerchantRepositoryTest < Minitest::Test
                 merchants: './test/fixtures/merchants_list_truncated.csv')
     mr = se.merchants
 
-    
+    assert_equal [], mr.find_all_by_name('Mesan')
+    assert_equal 2, mr.find_all_by_name('PeRle').count
+    assert_equal 2, mr.find_all_by_name('perle').count
+    assert mr.find_all_by_name('perle')[0].is_a?(Merchant)
   end
 end
