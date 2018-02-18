@@ -1,7 +1,7 @@
 require './test/test_helper'
 require './lib/item'
 
-class MerchantTest < Minitest::Test
+class ItemTest < Minitest::Test
   def test_item_class_exists
     item = Item.new({:name => "Pencil",
     :description => "You can use it to write things",
