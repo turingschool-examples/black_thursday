@@ -19,12 +19,21 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_for_all_method
     se = SalesEngine.new
-    se.from_csv({:items => './data/items.csv',
-                 :merchants => './fixtures/merchants_list_truncated.csv'})
+    se.from_csv(items: './data/items.csv',
+                merchants: './test/fixtures/merchants_list_truncated.csv')
     mr = se.merchants
 
     assert_instance_of Array, mr.all
-    assert mr[0].is_a?(Merchant)
+    assert mr.all[0].is_a?(Merchant)
     assert_equal 6, mr.all.count
+  end
+
+  def test_for_find_by_id_method
+    se = SalesEngine.new
+    se.from_csv(items: './data/items.csv',
+                merchants: './test/fixtures/merchants_list_truncated.csv')
+    mr = se.merchants
+
+    assert_nil mr.find_by_id('10101010')
   end
 end

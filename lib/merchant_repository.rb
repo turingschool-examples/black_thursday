@@ -1,4 +1,5 @@
 require 'csv'
+require_relative 'merchant'
 
 class MerchantRepository
   attr_reader :merchant_csv_path, :parent
@@ -15,4 +16,9 @@ class MerchantRepository
     end
     merchants
   end
+
+  def find_by_id
+
+  end
+
 end
