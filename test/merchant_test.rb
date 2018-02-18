@@ -2,17 +2,17 @@ require './test/test_helper'
 require './lib/merchant'
 
 class MerchantTest < Minitest::Test
-  def test_merchant_class_exists
-    merchant = Merchant.new({:id => 5, :name => "Turing School"})
+  def setup
+    @merchant = Merchant.new({:id => 5, :name => "Turing School"})
+  end
 
-    assert_instance_of Merchant, merchant
+  def test_merchant_class_exists
+    assert_instance_of Merchant, @merchant
   end
 
   def test_id_and_name
-    merchant = Merchant.new({:id => 5, :name => "Turing School"})
-
-    assert_equal 5, merchant.id
-    assert_equal "Turing School", merchant.name
+    assert_equal 5, @merchant.id
+    assert_equal "Turing School", @merchant.name
   end
 
   def test_other_attributes
