@@ -41,4 +41,13 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of Item, item_repository.find_by_name(name_case_insensitive)
   end
 
+  def test_find_all_with_description
+    item_repo = ItemRepository.new('./test/fixtures/items.csv')
+    string = 'Any colour glitter'
+
+    assert_equal [], item_repo.find_all_with_description('lajsfh')
+    assert_instance_of Item, item_repo.find_all_with_description(string)[0]
+    assert_equal 9, item_repo.find_all_with_description('a').count
+  end
+
 end
