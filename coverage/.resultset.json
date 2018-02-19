@@ -1,14 +1,13 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/margaretwilliford/turing/1module/black_thursday/lib/item.rb": [
+      "/Users/margaretwilliford/turing/1module/black_thursday/lib/item_repository.rb": [
         1,
-        null,
         1,
         null,
         null
       ]
     },
-    "timestamp": 1519010456
+    "timestamp": 1519011907
   }
 }
