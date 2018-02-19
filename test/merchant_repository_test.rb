@@ -3,7 +3,7 @@ require_relative '../lib/merchant_repository.rb'
 
 class MerchantRepositoryTest < Minitest::Test
   def test_merchant_repository_initializes
-    merchant_repository = MerchantRepository.new('./data/items.csv')
+    merchant_repository = MerchantRepository.new('./test/fixtures/merchants_fix.csv')
 
     assert_instance_of MerchantRepository, merchant_repository
   end
@@ -51,8 +51,8 @@ class MerchantRepositoryTest < Minitest::Test
     result = merchant_repository.find_all_by_name('se')
 
     assert_instance_of Array, result
-    assert_equal 'perlesemoi', result[0]
-    assert_equal 'Urcase17', result[1]
+    assert_equal 'perlesemoi', result[0].name
+    assert_equal 'Urcase17', result[1].name
     assert_equal 2, result.length
 
     result_nil = merchant_repository.find_all_by_name('Xtzxtx')
