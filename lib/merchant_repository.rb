@@ -1,5 +1,4 @@
 require 'csv'
-require 'pry'
 require_relative 'merchant.rb'
 
 class MerchantRepository
