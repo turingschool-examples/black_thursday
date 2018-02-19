@@ -2,7 +2,7 @@ require 'pry'
 
 
 class Merchant
-  attr_reader :id,m   
+  attr_reader :id,
               :name
   def initialize(data)
     @id   = data[:id]
