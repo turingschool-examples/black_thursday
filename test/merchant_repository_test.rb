@@ -13,7 +13,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_if_merchant_repository_has_merchants
     assert_instance_of Array, @merchant_repo.all
-    assert_equal 7, @merchant_repo.all.count
+    assert_equal 8, @merchant_repo.all.count
     assert @merchant_repo.all.all? { |merchant| merchant.is_a?(Merchant)}
   end
 
@@ -85,6 +85,21 @@ class MerchantRepositoryTest < Minitest::Test
     result = @merchant_repo.find_by_name("Mike Dao's Shop")
 
     assert_nil result
+  end
+
+  def test_it_can_find_all_merchants_by_merchant_name
+    result = @merchant_repo.find_all_by_name("Shopin1901")
+
+    assert_instance_of Merchant, result.first
+    assert_equal "Shopin1901", result.first.name
+    assert_equal 12334105, result.first.id
+    assert_equal 22334105, result.last.id
+  end
+
+  def test_it_can_return_empty_array_when_there_is_no_match_for_find_all_name
+    result = @merchant_repo.find_all_by_name("Mike Dao's Shop")
+
+    assert_equal [], result
   end
 
 end
