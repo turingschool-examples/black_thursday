@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative './lib/merchant.rb'
+require './lib/merchant.rb'
 
 class MerchantTest < Minitest::Test
 
@@ -19,10 +19,10 @@ class MerchantTest < Minitest::Test
   end
 
   def test_it_has_different_attributes
-    merchant = Merchant.new({:id => 5, :name => "Turing School"})
+    merchant = Merchant.new({:id => 3, :name => "UNT"})
 
-    assert_equal 5, merchant.id
-    assert_equal "Turing School", merchant.name
+    assert_equal 3, merchant.id
+    assert_equal "UNT", merchant.name
   end
 
 end
