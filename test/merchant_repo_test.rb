@@ -20,7 +20,7 @@ class MerchantRepositoryTest < Minitest::Test
   def test_for_all_method
     assert_instance_of Array, @mr.all
     assert @mr.all[0].is_a?(Merchant)
-    assert_equal 8, @mr.all.count
+    assert_equal 20, @mr.all.count
   end
 
   def test_for_find_by_id_method

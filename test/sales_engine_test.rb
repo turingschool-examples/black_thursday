@@ -3,8 +3,8 @@ require_relative '../lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test
   def setup
-    @information = {:items => './data/items.csv',
-                   :merchants => './data/merchants.csv'}
+    @information = {:items => './test/fixtures/items_list_truncated.csv',
+                   :merchants => './test/fixtures/merchants_list_truncated.csv'}
     @sales_engine = SalesEngine.new(@information)
   end
 

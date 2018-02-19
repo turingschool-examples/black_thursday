@@ -16,7 +16,7 @@ class MerchantTest < Minitest::Test
   end
 
   def test_finding_items_associated_with_merchant
-    information = {:items => './test/fixtures/item_repository_abreviated.csv',
+    information = {:items => './test/fixtures/items_list_truncated.csv',
                    :merchants => './test/fixtures/merchants_list_truncated.csv'}
     sales_engine = SalesEngine.from_csv(information)
     merchant = sales_engine.merchants.find_by_id(123_341_12)
