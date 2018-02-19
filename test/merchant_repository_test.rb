@@ -15,7 +15,32 @@ class MerchantRepositoryTest < Minitest::Test
     assert_instance_of Array, @merchant_repo.all
     assert_equal 7, @merchant_repo.all.count
     assert @merchant_repo.all.all? { |merchant| merchant.is_a?(Merchant)}
+  end
+
+  def test_if_it_can_load_correct_ids
+    assert_equal 12334141, @merchant_repo.all.first.id
+    assert_equal 12334213, @merchant_repo.all[4].id
+  end
+
+  def test_if_it_can_load_correct_names
     assert_equal "jejum", @merchant_repo.all.first.name
+    assert_equal "MuttisStrickwaren", @merchant_repo.all[4].name
+  end
+
+  def test_it_can_find_a_merchant_by_id
+    result = @merchant_repo.find_by_id(12334141)
+
+    assert_instance_of Merchant, result
+    assert_equal "jejum", result.name
+    assert_equal 12334141, result.id
+  end
+
+  def test_it_can_find_another_merchant_by_id
+    result = @merchant_repo.find_by_id(12334315)
+
+    assert_instance_of Merchant, result
+    assert_equal "Soudoveshop", result.name
+    assert_equal 12334315, result.id
   end
 
 
