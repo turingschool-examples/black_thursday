@@ -42,4 +42,10 @@ class ItemRepository
       range.include?(item.unit_price_to_dollars)
     end
   end
+
+  def find_all_by_merchant_id(id)
+    @items.find_all do |item|
+      item.merchant_id == id.to_s
+    end
+  end
 end

@@ -7,8 +7,8 @@
         1,
         1,
         1,
-        8,
-        8,
+        9,
+        9,
         null,
         null,
         1,
@@ -16,8 +16,8 @@
         null,
         null,
         1,
-        9,
-        45,
+        10,
+        50,
         null,
         null,
         null,
@@ -46,6 +46,12 @@
         15,
         null,
         null,
+        null,
+        1,
+        2,
+        10,
+        null,
+        null,
         null
       ],
       "/Users/margaretwilliford/turing/1module/black_thursday/lib/item.rb": [
@@ -59,13 +65,13 @@
         null,
         null,
         1,
-        45,
-        45,
-        45,
-        45,
-        45,
-        45,
-        45,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
         null,
         null,
         1,
@@ -74,6 +80,6 @@
         null
       ]
     },
-    "timestamp": 1519061982
+    "timestamp": 1519062326
   }
 }
