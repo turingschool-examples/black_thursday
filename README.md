@@ -1,8 +1,7 @@
 ---
-layout: page
-title: Black Thursday
-partner 1: Jake Rambold
-partner 2: Nikhil Shahi
+Project Title: Black Thursday
+Partner 1: Jake Rambold
+Partner 2: Nikhil Shahi
 ---
 
 Black Thursday
