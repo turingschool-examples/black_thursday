@@ -43,5 +43,10 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 12334315, result.id
   end
 
+  def test_it_can_return_nil_when_there_is_no_match
+    result = @merchant_repo.find_by_id(32334388)
+
+    assert_nil result
+  end
 
 end
