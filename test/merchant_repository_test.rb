@@ -33,6 +33,7 @@ class MerchantRepositoryTest < Minitest::Test
     merchant_repository = MerchantRepository.new("./test/fixtures/merchants.csv")
 
     result = merchant_repository.find_by_id(48484)
+
     assert_nil result
   end
 
@@ -49,10 +50,13 @@ class MerchantRepositoryTest < Minitest::Test
     merchant_repository = MerchantRepository.new("./test/fixtures/merchants.csv")
 
     result = merchant_repository.find_by_name("lsFDDFslfj")
+
     assert_nil result
   end
 
   def test_it_can_find_all_by_name
+    merchant_repository = MerchantRepository.new("./test/fixtures/merchants.csv")
+
 
   end
 end
