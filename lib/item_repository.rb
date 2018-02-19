@@ -4,7 +4,7 @@ require_relative 'item'
 
 # This is an item repository class
 class ItemRepository
-  attr_reader :item_list, :parent, :items
+  attr_reader :parent, :items
 
   def initialize(item_csv, parent)
     @parent = parent
