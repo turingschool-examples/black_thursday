@@ -44,4 +44,72 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 12336075, result.merchant_id
   end
 
+  def test_it_can_find_another_item_by_id
+    result = @item_repo.find_by_id(263395721)
+
+    assert_instance_of Item, result
+    assert_equal 263395721, result.id
+    assert_equal "Disney scrabble frames", result.name
+    assert result.description.include?("glitter available and")
+    assert_equal 12334185, result.merchant_id
+  end
+
+  def test_it_can_return_nil_when_there_is_no_match_for_id
+    result = @item_repo.find_by_id(32334388)
+
+    assert_nil result
+  end
+
+  def test_it_can_find_item_by_name
+    result = @item_repo.find_by_name("Disney scrabble frames")
+
+    assert_instance_of Item, result
+    assert_equal 263395721, result.id
+    assert_equal "Disney scrabble frames", result.name
+    assert result.description.include?("glitter available and")
+    assert_equal 12334185, result.merchant_id
+  end
+
+  def test_it_can_find_another_item_by_name
+    result = @item_repo.find_by_name("Art Deco Stained Glass")
+
+    assert_instance_of Item, result
+    assert_equal 263445483, result.id
+    assert_equal "Art Deco Stained Glass", result.name
+    assert result.description.include?("This piece is foil/solder")
+    assert_equal 12336075, result.merchant_id
+  end
+
+  def test_it_can_find_item_regardless_of_item_name_case
+    result = @item_repo.find_by_name("DiSNEY sCRAbble fraMES")
+
+    assert_instance_of Item, result
+    assert_equal 263395721, result.id
+    assert_equal "Disney scrabble frames", result.name
+    assert result.description.include?("glitter available and")
+    assert_equal 12334185, result.merchant_id
+  end
+
+  def test_it_can_return_nil_when_there_is_no_match_for_item_name
+    result = @item_repo.find_by_name("Mike Dao's Muffin")
+
+    assert_nil result
+  end
+
+  def test_it_can_find_all_items_with_same_item_description
+    result = @item_repo.find_all_with_description("Hand")
+
+    assert_instance_of Item, result.first
+    assert_equal "Eule - Topflappen, handgehäkelt, Paar", result.first.name
+    assert result.last.name.include?("HandMade pillow cases")
+    assert_equal 263396279, result.first.id
+    assert_equal 263398203, result.last.id
+  end
+
+  def test_it_returns_empty_array_when_there_is_no_match_for_item_description
+    result = @item_repo.find_all_with_description("Mike Dao's Muffin")
+
+    assert_equal [], result
+  end
+
 end
