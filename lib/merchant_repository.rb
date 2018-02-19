@@ -6,27 +6,27 @@ class MerchantRepository
   def initialize(merchant_csv_path, parent)
     @merchant_csv_path = merchant_csv_path
     @parent            = parent
+    @merchants         = []
+    contents = CSV.open @merchant_csv_path, headers: true
+    contents.each do |row|
+      @merchants << Merchant.new(id: row[0], name: row[1])
+    end
   end
 
   def all
-    merchants = []
-    contents = CSV.open @merchant_csv_path, headers: true
-    contents.each do |row|
-      merchants << Merchant.new(id: row[0], name: row[1])
-    end
-    merchants
+    @merchants
   end
 
   def find_by_id(id)
-    all.find { |merchant| merchant.id == id }
+    @merchants.find { |merchant| merchant.id == id }
   end
 
   def find_by_name(name)
-    all.find { |merchant| merchant.name.downcase == name.downcase }
+    @merchants.find { |merchant| merchant.name.downcase == name.downcase }
   end
 
   def find_all_by_name(name)
-    all.find_all do |merchant|
+    @merchants.find_all do |merchant|
       merchant.name.downcase.include?(name.downcase)
     end
   end
