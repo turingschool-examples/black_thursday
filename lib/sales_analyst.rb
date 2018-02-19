@@ -16,4 +16,18 @@ class SalesAnalyst
       sum + num
     end / items_per_merchant.count
   end
+
+  def differences_squared
+    items_per_merchant.map do |num|
+      (num - average_items_per_merchant)**2
+    end
+  end
+
+  def sum_of_differences_squared
+    differences_squared.inject(0) { |sum, num| sum + num }
+  end
+
+  def average_items_per_merchant_standard_deviation
+    Math.sqrt(sum_of_differences_squared / (items_per_merchant.count - 1))
+  end
 end
