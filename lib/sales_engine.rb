@@ -10,7 +10,11 @@ class SalesEngine
   end
 
   def initialize(hash)
-    @items = ItemRepository.new(hash[:items])
-    @merchants = MerchantRepository.new(hash[:merchants])
+    @items = ItemRepository.new(hash[:items], self)
+    @merchants = MerchantRepository.new(hash[:merchants], self)
+  end
+
+  def item_repo_finds_all_by_merchant_id(id)
+    @items.find_all_by_merchant_id(id)
   end
 end

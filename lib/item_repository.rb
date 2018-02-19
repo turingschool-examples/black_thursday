@@ -2,8 +2,9 @@ require 'csv'
 require_relative 'item'
 
 class ItemRepository
-  def initialize(filepath)
+  def initialize(filepath, parent)
     @items = []
+    @parent = parent
     load_items(filepath)
   end
 
@@ -13,7 +14,7 @@ class ItemRepository
 
   def load_items(filepath)
     CSV.foreach(filepath, headers: true, header_converters: :symbol) do |row|
-      @items << Item.new(row)
+      @items << Item.new(row, self)
     end
   end
 

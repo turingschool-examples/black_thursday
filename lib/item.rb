@@ -8,7 +8,7 @@ class Item
               :created_at,
               :updated_at
 
-  def initialize(data)
+  def initialize(data, parent)
     @id = data[:id].to_i
     #get input ^^ do we want that to be an integer for any reason?
     @name = data[:name]
@@ -17,6 +17,7 @@ class Item
     @merchant_id = data[:merchant_id].to_i
     @created_at  = data[:created_at]
     @updated_at  = data[:updated_at]
+    @parent = parent
   end
 
   def unit_price_to_dollars
