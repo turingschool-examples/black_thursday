@@ -45,7 +45,7 @@ From a technical perspective, this project will emphasize:
 Because the requirements for this project are lengthy and complex, we've broken
 them into Iterations in their own files. Your project *must* implement iterations 0 through 3 and either 4 or 5.
 
-*   [Iteration 0](./black_thursday_iterations/iteration_0) - Merchants & Items
+*   [Iteration 0](black_thursday_iterations/iteration_0) - Merchants & Items
 *   [Iteration 1](black_thursday_iterations/iteration_1) - Beginning Relationships and Business Intelligence
 *   [Iteration 2](black_thursday_iterations/iteration_2) - Basic Invoices
 *   [Iteration 3](black_thursday_iterations/iteration_3) - Item Sales
