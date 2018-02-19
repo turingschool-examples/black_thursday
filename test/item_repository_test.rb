@@ -126,4 +126,10 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 12334185, result.last.merchant_id
   end
 
+  def test_it_returns_empty_array_when_there_is_no_match_for_merchant_id
+    result = @item_repo.find_all_by_merchant_id(6666666)
+
+    assert_equal [], result
+  end
+
 end
