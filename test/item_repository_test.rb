@@ -15,6 +15,6 @@ class ItemRepositoryTest < Minitest::Test
 
     assert_equal 9, item_repository.all.count
     assert_instance_of Array, item_repository.all
-    assert item_repository.all.all? { |item| item.is_a?(Item) }
+    assert(item_repository.all.all?) { |item| item.is_a?(Item) }
   end
 end
