@@ -1,18 +1,19 @@
-require './test/test_helper'
-require './lib/merchant'
+require_relative 'test_helper'
+require_relative '../lib/merchant'
 
 class MerchantTest < Minitest::Test
 
-  def test_it_exists
-    merchant = Merchant.new({:id => 5, :name => "Turing School"})
+  def setup
+    data = {:id => 5, :name => "Turing School"}
+    @merchant = Merchant.new(data)
+  end
 
-    assert_instance_of Merchant, merchant
+  def test_it_exists
+    assert_instance_of Merchant, @merchant
   end
 
   def test_it_returns_an_id
-    merchant = Merchant.new({:id => 5, :name => "Turing School"})
-
-    assert_equal 5, merchant.id
+    assert_equal 5, @merchant.id
   end
 
   def test_it_returns_a_different_id
@@ -22,9 +23,7 @@ class MerchantTest < Minitest::Test
   end
 
   def test_it_returns_a_name
-    merchant = Merchant.new({:id => 5, :name => "Turing School"})
-
-    assert_equal "Turing School", merchant.name
+    assert_equal "Turing School", @merchant.name
   end
 
   def test_it_returns_a_different_name
