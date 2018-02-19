@@ -1,6 +1,5 @@
-require "minitest/pride"
-require "minitest/autorun"
-require "./lib/item_repository"
+require_relative 'test_helper.rb'
+require_relative '../lib/item_repository'
 
 class ItemRepositoryTest < Minitest::Test
   def test_it_exists
@@ -29,33 +28,33 @@ class ItemRepositoryTest < Minitest::Test
     result = item_repository.find_by_name("510+ RealPush Icon Set")
 
     assert_instance_of Item, result
-    assert_equal 1200, result.unit_price
+    assert_equal "1200", result.unit_price
     assert_equal "510+ RealPush Icon Set", result.name
   end
 
   def test_it_can_find_item_by_id
     item_repository = ItemRepository.new("./test/fixtures/items.csv")
 
-    result = item_repository.find_by_id(263395617)
+    result = item_repository.find_by_id("263395617")
 
     assert_instance_of Item, result
     assert_equal "Glitter scrabble frames", result.name
-    assert_equal 263395617, result.id
+    assert_equal "263395617", result.id
   end
 
   def test_it_can_find_all_with_description
-    skip
+    # skip
     item_repository = ItemRepository.new("./test/fixtures/items.csv")
 
     result = item_repository.find_all_with_description("Disney glitter frames")
 
     assert_instance_of Item, result
-    assert_equal 1350, result.unit_price
+    assert_equal "1350", result.unit_price
     assert_equal "Disney scrabble frames", result.name
   end
 
   def test_it_can_find_all_by_price
-    skip
+    # skip
     item_repository = ItemRepository.new("./test/fixtures/items.csv")
 
     result = item_repository.find_all_by_price(700)

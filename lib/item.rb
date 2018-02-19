@@ -8,9 +8,10 @@ class Item
 
   def initialize(data)
     @id = data[:id]
+    #get input ^^ do we want that to be an integer for any reason?
     @name = data[:name]
     @description = data[:description]
-    @unit_price  = data[:unit_price].to_i
+    @unit_price  = data[:unit_price]
     @merchant_id = data[:merchant_id]
     @created_at  = data[:created_at]
     @updated_at  = data[:updated_at]

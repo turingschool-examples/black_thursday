@@ -1,7 +1,6 @@
-require "minitest/pride"
-require "minitest/autorun"
 require "bigdecimal"
-require "./lib/item"
+require_relative 'test_helper.rb'
+require_relative "../lib/item"
 
 
 class ItemTest < Minitest::Test

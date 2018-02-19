@@ -1,5 +1,5 @@
 require "csv"
-require "./lib/item"
+require_relative "item"
 
 class ItemRepository
   def initialize(filepath)
@@ -17,9 +17,40 @@ class ItemRepository
     end
   end
 
+  def find_by_id(id)
+    @items.find do |item|
+      item.id == id
+    end
+  end
+
   def find_by_name(name)
     @items.find do |item|
       item.name.downcase == name.downcase
     end
   end
+
+  def find_all_with_description(my_description)
+    @items.find_all do |item|
+      item.description.include?(my_description)
+    end
+  end
+
+  def find_all_by_price(price)
+    @items.find_all do |item|
+      item.unit_price == price
+    end
+  end
+
+  def find_all_by_price(price)
+    @items.find_all do |item|
+      item.unit_price == price
+    end
+  end
+
+  def find_all_by_price(price)
+    @items.find_all do |item|
+      item.unit_price == price
+    end
+  end
+
 end
