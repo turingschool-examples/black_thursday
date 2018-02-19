@@ -14,7 +14,7 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2018-02-19T09:32:42-07:00">2018-02-19T09:32:42-07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2018-02-19T09:41:28-07:00">2018-02-19T09:41:28-07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -25,7 +25,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         6.8
+         13.0
        </span>
     </span> hits/line)
   </h2>
@@ -57,7 +57,7 @@
         <td>12</td>
         <td>11</td>
         <td>1</td>
-        <td>10.8</td>
+        <td>21.3</td>
       </tr>
       
       <tr>
@@ -67,7 +67,7 @@
         <td>12</td>
         <td>12</td>
         <td>0</td>
-        <td>2.8</td>
+        <td>4.7</td>
       </tr>
       
     </tbody>
@@ -160,44 +160,44 @@
           <code class="ruby">  def initialize(data)</code>
         </li>
       
-        <li class="covered" data-hits="18" data-linenumber="11">
-          <span class="hits">18</span>
+        <li class="covered" data-hits="36" data-linenumber="11">
+          <span class="hits">36</span>
           
           <code class="ruby">    @id = data[:id]</code>
         </li>
       
-        <li class="covered" data-hits="18" data-linenumber="12">
-          <span class="hits">18</span>
+        <li class="covered" data-hits="36" data-linenumber="12">
+          <span class="hits">36</span>
           
           <code class="ruby">    @name = data[:name]</code>
         </li>
       
-        <li class="covered" data-hits="18" data-linenumber="13">
-          <span class="hits">18</span>
+        <li class="covered" data-hits="36" data-linenumber="13">
+          <span class="hits">36</span>
           
           <code class="ruby">    @description = data[:description]</code>
         </li>
       
-        <li class="covered" data-hits="18" data-linenumber="14">
-          <span class="hits">18</span>
+        <li class="covered" data-hits="36" data-linenumber="14">
+          <span class="hits">36</span>
           
           <code class="ruby">    @unit_price = data[:unit_price]</code>
         </li>
       
-        <li class="covered" data-hits="18" data-linenumber="15">
-          <span class="hits">18</span>
+        <li class="covered" data-hits="36" data-linenumber="15">
+          <span class="hits">36</span>
           
           <code class="ruby">    @merchant_id = data[:merchant_id]</code>
         </li>
       
-        <li class="covered" data-hits="18" data-linenumber="16">
-          <span class="hits">18</span>
+        <li class="covered" data-hits="36" data-linenumber="16">
+          <span class="hits">36</span>
           
           <code class="ruby">    @created_at = data[:created_at]</code>
         </li>
       
-        <li class="covered" data-hits="18" data-linenumber="17">
-          <span class="hits">18</span>
+        <li class="covered" data-hits="36" data-linenumber="17">
+          <span class="hits">36</span>
           
           <code class="ruby">    @updated_at = data[:updated_at]</code>
         </li>
@@ -287,14 +287,14 @@
           <code class="ruby">  def initialize(filepath)</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="6">
-          <span class="hits">2</span>
+        <li class="covered" data-hits="3" data-linenumber="6">
+          <span class="hits">3</span>
           
           <code class="ruby">    @items = []</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="7">
-          <span class="hits">2</span>
+        <li class="covered" data-hits="3" data-linenumber="7">
+          <span class="hits">3</span>
           
           <code class="ruby">    find_items(filepath)</code>
         </li>
@@ -341,14 +341,14 @@
           <code class="ruby">  def find_items(filepath)</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="15">
-          <span class="hits">2</span>
+        <li class="covered" data-hits="4" data-linenumber="15">
+          <span class="hits">4</span>
           
           <code class="ruby">    CSV.foreach(filepath, headers: true, header_converters: :symbol) do |data|</code>
         </li>
       
-        <li class="covered" data-hits="18" data-linenumber="16">
-          <span class="hits">18</span>
+        <li class="covered" data-hits="36" data-linenumber="16">
+          <span class="hits">36</span>
           
           <code class="ruby">      @items &lt;&lt; Item.new(data)</code>
         </li>

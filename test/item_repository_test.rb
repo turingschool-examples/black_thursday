@@ -17,4 +17,12 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of Array, item_repository.all
     assert(item_repository.all.all?) { |item| item.is_a?(Item) }
   end
+
+  def test_find_items
+    item_repository = ItemRepository.new('./test/fixtures/items.csv')
+
+    assert_nil item_repository.find_items('./test/fixtures/items.csv')
+  end
+
+
 end
