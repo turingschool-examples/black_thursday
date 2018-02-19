@@ -38,4 +38,21 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal [], @ir.find_all_with_description('help me')
     assert_equal 1, @ir.find_all_with_description('Free standing woo').length
   end
+
+  def test_find_all_by_price
+    assert_equal [], @ir.find_all_by_price(111_245_6)
+    assert_equal 700, @ir.find_all_by_price(700).first.unit_price
+  end
+
+  def test_find_all_by_price_in_range
+    assert_equal [], @ir.find_all_by_price_in_range(1..2)
+    assert_equal 2, @ir.find_all_by_price_in_range(1300..1400).length
+  end
+
+  def test_find_all_by_merchant_id
+    assert_equal [], @ir.find_all_by_merchant_id(1)
+    assert_equal 263_395_617, @ir.find_all_by_merchant_id(123_341_85).first.id
+    assert_equal 263_396_013, @ir.find_all_by_merchant_id(123_341_85).last.id
+    assert_equal 3, @ir.find_all_by_merchant_id(123_341_85).length
+  end
 end
