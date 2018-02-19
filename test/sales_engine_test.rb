@@ -1,5 +1,6 @@
 require_relative 'test_helper.rb'
 require_relative '../lib/sales_engine.rb'
+require 'pry'
 
 class SalesEngineTest < Minitest::Test
   def test_sales_engine_initializes
@@ -35,5 +36,18 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of ItemRepository, item_repo
     assert_instance_of Item, item
     assert_equal 'Glitter scrabble frames', item.name
+  end
+
+  def test_merchant_items_returns_items_array
+    sales_engine = SalesEngine.from_csv({
+      items: './data/items.csv',
+      merchants: './data/merchants.csv'
+      })
+
+    merchant = sales_engine.merchants.find_by_id(12334112)
+
+    merchant.items
+
+    assert_equal 1, merchant.items.count
   end
 end
