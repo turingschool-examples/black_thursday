@@ -1,5 +1,6 @@
 require_relative 'test_helper'
 require_relative '../lib/item'
+require 'time'
 
 class ItemTest < Minitest::Test
   def setup
@@ -9,8 +10,8 @@ class ItemTest < Minitest::Test
       :description => 'Disney glitter frames...',
       :unit_price => 1350,
       :merchant_id => 12334185,
-      :created_at => [2016, 01, 11, 11, 51, 37],
-      :updated_at => [2008, 04, 02, 13, 48, 57]
+      :created_at => "2016-01-11 11:51:37 UTC",
+      :updated_at => "2008-04-02 13:48:57 UTC"
     }
     @item = Item.new(@data)
   end
@@ -24,8 +25,8 @@ class ItemTest < Minitest::Test
     assert_equal 'Disney scrabble frames', @item.name
     assert_equal 'Disney glitter frames...', @item.description
     assert_equal 1350, @item.unit_price
-    assert_equal Time.new(2016, 01, 11, 11, 51, 37).utc, @item.created_at
-    assert_equal Time.new(2008, 04, 02, 13, 48, 57).utc, @item.updated_at
+    assert_equal Time.utc(2016, 01, 11, 11, 51, 37), @item.created_at
+    assert_equal Time.utc(2008, 04, 02, 13, 48, 57), @item.updated_at
   end
 
   def test_item_attributes_have_correct_class

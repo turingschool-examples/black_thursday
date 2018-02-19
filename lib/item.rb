@@ -1,5 +1,6 @@
 require 'pry'
 require 'bigdecimal'
+# require 'time'
 
 class Item
   attr_reader :id,
@@ -11,13 +12,13 @@ class Item
               :updated_at
 
   def initialize(data)
-    @id = data[:id]
+    @id = data[:id].to_i
     @name = data[:name]
     @description = data[:description]
-    @unit_price = BigDecimal.new(data[:unit_price])
-    @merchant_id = data[:merchant_id]
-    @created_at = Time.new(data[:created_at][0], data[:created_at][1], data[:created_at][2], data[:created_at][3], data[:created_at][4], data[:created_at][5]).utc#data[:created_at]
-    @updated_at = Time.new(data[:updated_at][0], data[:updated_at][1], data[:updated_at][2], data[:updated_at][3], data[:updated_at][4], data[:updated_at][5]).utc
+    @unit_price = BigDecimal.new(data[:unit_price].to_i)
+    @merchant_id = data[:merchant_id].to_i
+    @created_at = Time.parse(data[:created_at])
+    @updated_at = Time.parse(data[:updated_at])
   end
 
   def unit_price_to_dollars
