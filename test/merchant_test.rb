@@ -13,4 +13,8 @@ class MerchantTest < Minitest::Test
 
     assert_equal 5, merchant.id
   end
+
+  def test_finding_items_associated_with_merchant
+    
+  end
 end
