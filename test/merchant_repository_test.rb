@@ -65,6 +65,22 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 12334315, result.id
   end
 
+  def test_it_can_find_a_merchant_by_name_that_is_upcase
+    result = @merchant_repo.find_by_name("SOUDOVESHOP")
+
+    assert_instance_of Merchant, result
+    assert_equal "Soudoveshop", result.name
+    assert_equal 12334315, result.id
+  end
+
+  def test_it_can_find_a_merchant_by_name_case_insenstive
+    result = @merchant_repo.find_by_name("SOUdoVeSHOP")
+
+    assert_instance_of Merchant, result
+    assert_equal "Soudoveshop", result.name
+    assert_equal 12334315, result.id
+  end
+
   def test_it_can_return_nil_when_there_is_no_match_for_name
     result = @merchant_repo.find_by_name("Mike Dao's Shop")
 
