@@ -8,7 +8,6 @@ class SalesEngineTest < Minitest::Test
     @sales_eng = SalesEngine.from_csv(
       items:     "./data/sample_data/items.csv",
       merchants: "./data/sample_data/merchants.csv")
-      binding.pry
   end
 
   def test_sales_engine_class_exists
