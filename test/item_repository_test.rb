@@ -13,7 +13,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_item_repo_has_items
     item_repository = ItemRepository.new('./test/fixtures/items.csv')
 
-    assert_equal 9, item_repository.all.count
+    assert_equal 5, item_repository.all.count
     assert_instance_of Array, item_repository.all
     assert(item_repository.all.all?) { |item| item.is_a?(Item) }
   end
@@ -47,7 +47,7 @@ class ItemRepositoryTest < Minitest::Test
 
     assert_equal [], item_repo.find_all_with_description('lajsfh')
     assert_instance_of Item, item_repo.find_all_with_description(string)[0]
-    assert_equal 9, item_repo.find_all_with_description('a').count
+    assert_equal 5, item_repo.find_all_with_description('a').count
   end
 
   def test_find_all_by_price
@@ -55,5 +55,13 @@ class ItemRepositoryTest < Minitest::Test
 
     assert_equal [], item_repo.find_all_by_price(1000.00)
     assert_instance_of Item, item_repo.find_all_by_price(1200)[0]
+  end
+
+  def test_find_all_by_price_in_range
+    item_repo = ItemRepository.new('./test/fixtures/items.csv')
+
+    assert_equal [], item_repo.find_all_by_price_in_range((1..2))
+    assert_instance_of Item, item_repo.find_all_by_price_in_range((1..1000))[0]
+    assert_equal 5, item_repo.find_all_by_price_in_range((1..15_000)).length
   end
 end
