@@ -15,21 +15,18 @@ class SalesEngine
     self.new(hash)
   end
 
-  # def items
-  #   @item_repo
-  # end
-  #
-  # def merchants
-  #   @merchant_repo = MerchantRepository.new(@merchant_csv_path, self)
-  # end
-
   def route(payload)
     case payload[0]
     when 'item_repository' then find_items_by_merchant_id(payload[1])
+    when 'merchant_repository' then find_merchant_of_item(payload[1])
     end
   end
 
   def find_items_by_merchant_id(attribute_used)
     @items.find_all_by_merchant_id(attribute_used)
+  end
+
+  def find_merchant_of_item(attribute_used)
+    @merchants.find_by_id(attribute_used)
   end
 end

@@ -23,6 +23,6 @@ class MerchantTest < Minitest::Test
 
     assert_instance_of Array, merchant.items
     assert_instance_of Item, merchant.items.first
-    binding.pry
+    assert_equal 263_410_021, merchant.items.first.id
   end
 end
