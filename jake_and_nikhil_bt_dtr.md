@@ -15,8 +15,8 @@ Have fun, learn and help each other</br>
 
 **Goals and expectations:**
 
-Target completion of iteration 0 and 1 by Thursday, February 22nd
-Target completion of iteration 3 by the afternoon of Sunday, February 25th
+Target completion of iteration 0 and 1 by Thursday, February 22nd  
+Target completion of iteration 3 by the afternoon of Sunday, February 25th  
 Target completion of full project by the afternoon of Tuesday, Feb 27</br>
 Break up the project into milestones and complete each milestone by the set deadline</br>
 Develop a good git workflow as a team</br>
@@ -27,7 +27,7 @@ Ensure we run rspec after completion of each iteration</br>
 
 We do not have egos</br>
 We have great communication</br>
-We are receptive to learning from each other</br>  
+We are receptive to learning from each other  
 We are hard workers willing to put in the time to get this completed in a timely manner</br>
 
 **How to overcome obstacles:**
