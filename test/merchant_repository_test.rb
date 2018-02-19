@@ -5,65 +5,68 @@ require './lib/merchant_repository.rb'
 
 class MerchantRepositoryTest < Minitest::Test
   def test_it_exists
-    merchant_repository = MerchantRepository.new("./test/fixtures/merchants.csv")
+    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv')
 
-    assert_instance_of MerchantRepository, merchant_repository
+    assert_instance_of MerchantRepository, merchant_repo
   end
 
   def test_merchant_repo_has_merchants
-    merchant_repository = MerchantRepository.new("./test/fixtures/merchants.csv")
+    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv')
 
-    assert_equal 4, merchant_repository.all.count
-    assert_instance_of Array, merchant_repository.all
-    assert merchant_repository.all { |merchant| merchant.is_a?(Merchant)}
-    assert_equal "Shopin1901", merchant_repository.all.first.name
+    assert_equal 4, merchant_repo.all.count
+    assert_instance_of Array, merchant_repo.all
+    assert(merchant_repo.all) { |merchant| merchant.is_a?(Merchant) }
+    assert_equal 'Shopin1901', merchant_repo.all.first.name
   end
 
   def test_it_can_find_merchant_by_id
-    merchant_repository = MerchantRepository.new("./test/fixtures/merchants.csv")
+    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv')
 
-    result = merchant_repository.find_by_id(1)
+    result = merchant_repo.find_by_id(1)
 
     assert_instance_of Merchant, result
-    assert_equal "Shopin1901", result.name
+    assert_equal 'Shopin1901', result.name
     assert_equal 1, result.id
   end
 
-  def test_it_returns_nil_when_no_find_match
-    merchant_repository = MerchantRepository.new("./test/fixtures/merchants.csv")
+  def test_id_returns_nil_when_no_find_match
+    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv')
 
-    result = merchant_repository.find_by_id(48484)
+    result = merchant_repo.find_by_id(48_484)
 
     assert_nil result
   end
 
   def test_it_can_find_merchant_by_name
-    merchant_repository = MerchantRepository.new("./test/fixtures/merchants.csv")
+    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv')
 
-    result = merchant_repository.find_by_name("Shopin1901")
+    result = merchant_repo.find_by_name('Shopin1901')
 
     assert_instance_of Merchant, result
-    assert_equal "Shopin1901", result.name
+    assert_equal 'Shopin1901', result.name
   end
 
-  def test_it_returns_nil_when_no_find_match
-    merchant_repository = MerchantRepository.new("./test/fixtures/merchants.csv")
+  def test_name_returns_nil_when_no_find_match
+    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv')
 
-    result = merchant_repository.find_by_name("lsFDDFslfj")
+    result = merchant_repo.find_by_name('lsFDDFslfj')
 
     assert_nil result
   end
 
   def test_it_can_find_all_by_name
-    merchant_repository = MerchantRepository.new("./test/fixtures/merchants.csv")
+    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv')
 
-    result = merchant_repository.find_all_by_name("Shopin1901")
+    result = merchant_repo.find_all_by_name('Shopin1901')
 
     assert_instance_of Merchant, result[0]
-    assert_equal "Shopin1901", result[0].name
+    assert_equal 'Shopin1901', result[0].name
 
-    result = merchant_repository.find_all_by_name("Sho")
+    result = merchant_repo.find_all_by_name('Sho')
 
-    assert_equal "Shopin1901", result[0].name
+    assert_equal 'Shopin1901', result[0].name
+
+    result = merchant_repo.find_all_by_name('ksjadhf')
+    assert_equal [], result
   end
 end
