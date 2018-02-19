@@ -96,6 +96,15 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 22334105, result.last.id
   end
 
+  def test_it_can_find_all_merchants_by_merchant_name_case_insenstive
+    result = @merchant_repo.find_all_by_name("ShOPiN1901")
+
+    assert_instance_of Merchant, result.first
+    assert_equal "Shopin1901", result.first.name
+    assert_equal 12334105, result.first.id
+    assert_equal 22334105, result.last.id
+  end
+
   def test_it_can_return_empty_array_when_there_is_no_match_for_find_all_name
     result = @merchant_repo.find_all_by_name("Mike Dao's Shop")
 
