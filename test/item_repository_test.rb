@@ -50,4 +50,10 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 9, item_repo.find_all_with_description('a').count
   end
 
+  def test_find_all_by_price
+    item_repo = ItemRepository.new('./test/fixtures/items.csv')
+
+    assert_equal [], item_repo.find_all_by_price(1000.00)
+    assert_instance_of Item, item_repo.find_all_by_price(1200)[0]
+  end
 end
