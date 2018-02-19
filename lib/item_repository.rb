@@ -36,5 +36,8 @@ class ItemRepository
     result = @items.find_all { |item| item.merchant_id == merchant_id }
   end
 
+  def find_all_by_price(price)
+    @items.find_all { |item| item.unit_price == price }
+  end
 
 end

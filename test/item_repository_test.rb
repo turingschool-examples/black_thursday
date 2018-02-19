@@ -135,4 +135,21 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal [], result
   end
 
+  def test_it_can_find_all_items_with_same_price
+    result = @item_repo.find_all_by_price(60000)
+
+    assert result.class == Array
+    assert_instance_of Item, result.first
+    assert_equal "Introspection virginalle", result.first.name
+    assert_equal "Les raisons", result.last.name
+    assert_equal 263397313, result.first.id
+    assert_equal 263398653, result.last.id
+  end
+
+  def test_it_returns_empty_array_when_there_is_no_match_for_price
+    result = @item_repo.find_all_by_price(12345)
+
+    assert_equal [], result
+  end
+
 end
