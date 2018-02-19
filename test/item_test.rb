@@ -5,15 +5,15 @@ require 'time'
 class ItemTest < Minitest::Test
   def setup
     @data = {
-      :id => 263395721,
-      :name => 'Disney scrabble frames',
-      :description => 'Disney glitter frames...',
-      :unit_price => 1350,
-      :merchant_id => 12334185,
-      :created_at => "2016-01-11 11:51:37 UTC",
-      :updated_at => "2008-04-02 13:48:57 UTC"
+      id: 263_395_721,
+      name: 'Disney scrabble frames',
+      description: 'Disney glitter frames...',
+      unit_price: 1350,
+      merchant_id: 123_341_85,
+      created_at: '2016-01-11 11:51:37 UTC',
+      updated_at: '2008-04-02 13:48:57 UTC'
     }
-    @item = Item.new(@data)
+    @item = Item.new(@data, 'ItemRepository pointer')
   end
 
   def test_it_exists
@@ -21,12 +21,13 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_initializes_with_information
-    assert_equal 263395721, @item.id
+    assert_equal 263_395_721, @item.id
     assert_equal 'Disney scrabble frames', @item.name
     assert_equal 'Disney glitter frames...', @item.description
     assert_equal 1350, @item.unit_price
     assert_equal Time.utc(2016, 01, 11, 11, 51, 37), @item.created_at
     assert_equal Time.utc(2008, 04, 02, 13, 48, 57), @item.updated_at
+    assert_equal 'ItemRepository pointer', @item.parent
   end
 
   def test_item_attributes_have_correct_class

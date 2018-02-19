@@ -12,7 +12,7 @@ class ItemRepository
 
     csv_file = CSV.open(item_csv, headers: true, header_converters: :symbol)
     csv_file.each do |row|
-      @items << Item.new(row)
+      @items << Item.new(row, self)
     end
   end
 
@@ -25,7 +25,6 @@ class ItemRepository
   end
 
   def find_by_name(name)
-    # @items.find { |item| name.casecmp(item.name) } #can't get this to work
     @items.find { |item| name.downcase == item.name.downcase }
   end
 
