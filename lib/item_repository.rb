@@ -1,5 +1,5 @@
-require "csv"
-require_relative "item"
+require 'csv'
+require_relative 'item'
 
 class ItemRepository
   def initialize(filepath)
@@ -41,16 +41,15 @@ class ItemRepository
     end
   end
 
-  def find_all_by_price(price)
+  def find_all_by_price_in_range(range)
     @items.find_all do |item|
-      item.unit_price == price
+      item.unit_price.between?(range.begin, range.end)
     end
   end
 
-  def find_all_by_price(price)
+  def find_all_by_merchant_id(merchant_id)
     @items.find_all do |item|
-      item.unit_price == price
+      item.merchant_id == merchant_id
     end
   end
-
 end
