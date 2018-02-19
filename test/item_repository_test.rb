@@ -24,5 +24,10 @@ class ItemRepositoryTest < Minitest::Test
     assert_nil item_repository.find_items('./test/fixtures/items.csv')
   end
 
+  def test_find_by_id
+    item_repository = ItemRepository.new('./test/fixtures/items.csv')
 
+    assert_nil item_repository.find_by_id(12345)
+    assert_instance_of Item, item_repository.find_by_id(1)
+  end
 end

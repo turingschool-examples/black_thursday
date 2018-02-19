@@ -16,4 +16,8 @@ class ItemRepository
       @items << Item.new(data)
     end
   end
+
+  def find_by_id(id)
+    @items.find { |item| item.id == id.to_s }
+  end
 end
