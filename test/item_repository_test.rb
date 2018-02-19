@@ -22,4 +22,15 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal "510+ RealPush Icon Set", item_repository.all.first.name
     assert_equal 1200, item_repository.all.first.unit_price
   end
+
+  def test_it_can_find_item_by_name
+    item_repository = ItemRepository.new("./test/fixtures/items.csv")
+
+    result = item_repository.find_by_name("510+ RealPush Icon Set")
+
+    assert_instance_of Item, result
+    assert_equal 1200, result.unit_price
+    assert_equal "510+ RealPush Icon Set", result.name
+  end
+
 end
