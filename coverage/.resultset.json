@@ -4,10 +4,42 @@
       "/Users/margaretwilliford/turing/1module/black_thursday/lib/item_repository.rb": [
         1,
         1,
+        1,
+        1,
+        1,
+        2,
+        2,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        2,
+        18,
+        null,
+        null,
+        null
+      ],
+      "/Users/margaretwilliford/turing/1module/black_thursday/lib/item.rb": [
+        1,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        18,
+        18,
+        18,
+        18,
+        18,
         null,
         null
       ]
     },
-    "timestamp": 1519011907
+    "timestamp": 1519013886
   }
 }
