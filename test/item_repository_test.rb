@@ -14,12 +14,12 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_item_csv_parsed
-    assert_equal 4, @ir.items.length
+    assert_equal 5, @ir.items.length
     assert_equal 263_395_237, @ir.items.first.id
   end
 
   def test_all_items
-    assert_equal 4, @ir.all.length
+    assert_equal 5, @ir.all.length
     assert @ir.all[3].is_a?(Item)
     assert @ir.all[0].description.include?('googlepicasa')
   end
