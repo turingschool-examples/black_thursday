@@ -8,7 +8,7 @@ class ItemTest < Minitest::Test
     item = Item.new(id: 1,
                     name: 'Pencil',
                     description: 'You can use it to write things',
-                    unit_price: BigDecimal.new(10.99, 4),
+                    unit_price: 1200,
                     merchant_id: 2,
                     created_at: Time.now,
                     updated_at: Time.now)
@@ -20,7 +20,7 @@ class ItemTest < Minitest::Test
     item = Item.new(id: 1,
                     name: 'Pencil',
                     description: 'You can use it to write things',
-                    unit_price: BigDecimal.new(10.99, 4),
+                    unit_price: 1200,
                     merchant_id: 2,
                     created_at: Time.now,
                     updated_at: Time.now)
@@ -28,7 +28,7 @@ class ItemTest < Minitest::Test
     assert_equal 1, item.id
     assert_equal 'Pencil', item.name
     assert_equal 'You can use it to write things', item.description
-    assert_equal BigDecimal.new(10.99, 4), item.unit_price
+    assert_equal 1200, item.unit_price
     assert_equal 2, item.merchant_id
     assert_instance_of Time, item.created_at
     assert_instance_of Time, item.updated_at
@@ -38,11 +38,11 @@ class ItemTest < Minitest::Test
     item = Item.new(id: 1,
                     name: 'Pencil',
                     description: 'You can use it to write things',
-                    unit_price: BigDecimal.new(10.99, 4),
+                    unit_price: 1200,
                     merchant_id: 2,
                     created_at: Time.now,
                     updated_at: Time.now)
 
-    assert_equal 10.99, item.unit_price_to_dollars
+    assert_equal 12, item.unit_price_to_dollars
   end
 end
