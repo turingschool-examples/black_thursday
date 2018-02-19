@@ -30,4 +30,15 @@ class ItemRepositoryTest < Minitest::Test
     assert_nil item_repository.find_by_id(12345)
     assert_instance_of Item, item_repository.find_by_id(1)
   end
+
+  def test_find_by_name
+    item_repository = ItemRepository.new('./test/fixtures/items.csv')
+    name = 'Glitter scrabble frames'
+    name_case_insensitive = 'gLiTTeR ScRabBle FrAmEs'
+
+    assert_nil item_repository.find_by_name('sjadfhal')
+    assert_instance_of Item, item_repository.find_by_name(name)
+    assert_instance_of Item, item_repository.find_by_name(name_case_insensitive)
+  end
+
 end
