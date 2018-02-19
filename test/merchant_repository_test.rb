@@ -90,6 +90,7 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_can_find_all_merchants_by_merchant_name
     result = @merchant_repo.find_all_by_name("Shopin1901")
 
+    assert result.class == Array
     assert_instance_of Merchant, result.first
     assert_equal "Shopin1901", result.first.name
     assert_equal 12334105, result.first.id
@@ -99,6 +100,7 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_can_find_all_merchants_by_merchant_name_case_insenstive
     result = @merchant_repo.find_all_by_name("ShOPiN1901")
 
+    assert result.class == Array
     assert_instance_of Merchant, result.first
     assert_equal "Shopin1901", result.first.name
     assert_equal 12334105, result.first.id
@@ -108,6 +110,7 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_can_return_empty_array_when_there_is_no_match_for_find_all_name
     result = @merchant_repo.find_all_by_name("Mike Dao's Shop")
 
+    assert result.class == Array
     assert_equal [], result
   end
 

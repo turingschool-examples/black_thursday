@@ -99,6 +99,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_find_all_items_with_same_item_description
     result = @item_repo.find_all_with_description("Hand")
 
+    assert result.class == Array
     assert_instance_of Item, result.first
     assert_equal "Eule - Topflappen, handgehäkelt, Paar", result.first.name
     assert result.last.name.include?("HandMade pillow cases")
@@ -115,6 +116,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_find_all_items_by_merchant_id
     result = @item_repo.find_all_by_merchant_id(12334185)
 
+    assert result.class == Array
     assert_instance_of Item, result.first
     assert_equal 263395617, result.first.id
     assert_equal 263396013, result.last.id
@@ -129,6 +131,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_returns_empty_array_when_there_is_no_match_for_merchant_id
     result = @item_repo.find_all_by_merchant_id(6666666)
 
+    assert result.class == Array
     assert_equal [], result
   end
 
