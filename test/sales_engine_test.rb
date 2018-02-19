@@ -8,4 +8,10 @@ class SalesEngineTest < Minitest::Test
 
     assert_instance_of SalesEngine, se
   end
+
+  def test_it_has_repos
+    se = SalesEngine.from_csv(items: './test/fixtures/items.csv')
+
+    assert_instance_of ItemRepository, se.items
+  end
 end
