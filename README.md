@@ -1,6 +1,8 @@
 ---
 layout: page
 title: Black Thursday
+partner 1: Jake Rambold
+partner 2: Nikhil Shahi
 ---
 
 Black Thursday
