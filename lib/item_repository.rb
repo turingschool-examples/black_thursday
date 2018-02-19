@@ -1,4 +1,5 @@
 require 'csv'
+require 'pry'
 
 class ItemRepository
 
@@ -29,6 +30,10 @@ class ItemRepository
     @items.find_all do |item|
       item.description.downcase.include?(description.downcase)
     end
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    result = @items.find_all { |item| item.merchant_id == merchant_id }
   end
 
 

@@ -112,4 +112,18 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal [], result
   end
 
+  def test_it_can_find_all_items_by_merchant_id
+    result = @item_repo.find_all_by_merchant_id(12334185)
+
+    assert_instance_of Item, result.first
+    assert_equal 263395617, result.first.id
+    assert_equal 263396013, result.last.id
+    assert_equal "Glitter scrabble frames", result.first.name
+    assert_equal "Free standing Woden letters", result.last.name
+    assert result.first.description.include?("Glitter scrabble frames")
+    assert result.last.description.include?("Free standing wooden")
+    assert_equal 12334185, result.first.merchant_id
+    assert_equal 12334185, result.last.merchant_id
+  end
+
 end
