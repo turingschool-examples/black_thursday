@@ -5,10 +5,7 @@ require_relative '../lib/sales_engine'
 class MerchantRepositoryTest < Minitest::Test
 
   def setup
-    @se = SalesEngine.new
-    @se.from_csv(items: './data/items.csv',
-                merchants: './test/fixtures/merchants_list_truncated.csv')
-    @mr = @se.merchants
+    @mr = MerchantRepository.new('./test/fixtures/merchants_list_truncated.csv', 'parent')
   end
 
   def test_it_exists
@@ -17,7 +14,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_for_initialized_arguments
     assert_equal './test/fixtures/merchants_list_truncated.csv', @mr.merchant_csv_path
-    assert @mr.parent.is_a?(SalesEngine)
+    assert_equal 'parent', @mr.parent
   end
 
   def test_for_all_method
