@@ -5,6 +5,7 @@ require_relative '../lib/merchant_repository'
 require_relative '../lib/item'
 require_relative '../lib/sales_engine'
 
+
 class MerchantTest < Minitest::Test
   def test_it_exists
     merchant = Merchant.new({ id: '5', name: 'Turing School' }, 'parent')

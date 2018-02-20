@@ -1,6 +1,6 @@
 require 'CSV'
 require 'pry'
-require './lib/merchant'
+require_relative '../lib/merchant'
 
 # Merchant Repository class
 class MerchantRepository
@@ -34,6 +34,10 @@ class MerchantRepository
     end
   end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+  
   def pass_id_to_se(id)
     @parent.pass_id_to_item_repo(id)
   end

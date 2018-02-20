@@ -1,7 +1,11 @@
 require 'CSV'
 require_relative '../lib/item'
 require 'pry'
+require 'bigdecimal'
+require 'time'
+
 # class to hold the item repository
+
 class ItemRepository
   attr_reader :items, :parent
   def initialize(filepath, parent)
@@ -21,7 +25,7 @@ class ItemRepository
   end
 
   def find_by_id(id)
-    @items.find { |item| item.id == id.to_s }
+    @items.find { |item| item.id == id }
   end
 
   def find_by_name(name)
@@ -52,6 +56,11 @@ class ItemRepository
     end
   end
 
+
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
+  end
+  
   def pass_merchant_id_to_se(id)
     @parent.pass_merchant_id_to_merchant_repo(id)
   end

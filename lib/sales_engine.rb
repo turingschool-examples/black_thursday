@@ -1,5 +1,5 @@
-require_relative './item_repository'
-require_relative './merchant_repository'
+require_relative '../lib/item_repository'
+require_relative '../lib/merchant_repository'
 
 # sales engine class
 class SalesEngine
