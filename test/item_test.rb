@@ -24,7 +24,7 @@ class ItemTest < Minitest::Test
     assert_equal 263_395_721, @item.id
     assert_equal 'Disney scrabble frames', @item.name
     assert_equal 'Disney glitter frames...', @item.description
-    assert_equal 1350, @item.unit_price
+    assert_equal 0.135e2, @item.unit_price
     assert_equal Time.utc(2016, 01, 11, 11, 51, 37), @item.created_at
     assert_equal Time.utc(2008, 04, 02, 13, 48, 57), @item.updated_at
     assert_equal 'ItemRepository pointer', @item.parent
@@ -42,7 +42,8 @@ class ItemTest < Minitest::Test
 
   def test_finding_merchant_associated_with_item
     information = { items: './test/fixtures/items_list_truncated.csv',
-                    merchants: './test/fixtures/merchants_list_truncated.csv' }
+                    merchants: './test/fixtures/merchants_list_truncated.csv',
+                    invoices: './test/fixtures/invoices_list_truncated.csv' }
     sales_engine = SalesEngine.from_csv(information)
     item = sales_engine.items.find_by_id(263_395_237)
 

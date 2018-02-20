@@ -1,5 +1,6 @@
 require 'pry'
 require 'bigdecimal'
+require 'time'
 
 class Item
   attr_reader :id,
@@ -15,7 +16,7 @@ class Item
     @id = data[:id].to_i
     @name = data[:name]
     @description = data[:description]
-    @unit_price = BigDecimal.new(data[:unit_price].to_i)
+    @unit_price = BigDecimal.new(data[:unit_price].to_i) / 100
     @merchant_id = data[:merchant_id].to_i
     @created_at = Time.parse(data[:created_at])
     @updated_at = Time.parse(data[:updated_at])
@@ -23,11 +24,11 @@ class Item
   end
 
   def unit_price_to_dollars
-    unit_price.to_f / 100
+    unit_price.to_f
   end
 
   def merchant
-    payload = ['merchant_repository', merchant_id]
+    payload = ['items merchant', merchant_id]
     current_location = self
     while current_location.respond_to?('parent')
       current_location = current_location.parent

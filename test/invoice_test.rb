@@ -1,5 +1,6 @@
 require_relative 'test_helper'
 require_relative '../lib/invoice'
+require_relative '../lib/sales_engine'
 
 class InvoiceTest < Minitest::Test
   def setup
@@ -24,7 +25,18 @@ class InvoiceTest < Minitest::Test
     assert_equal 1, @invoice.customer_id
     assert_equal 123_359_38, @invoice.merchant_id
     assert_equal 'pending', @invoice.status
-    assert_equal '2009-02-07', @invoice.created_at
-    assert_equal '2014-03-15', @invoice.updated_at
+    assert_equal Time.new(2009, 02, 07), @invoice.created_at
+    assert_equal Time.new(2014, 03, 15), @invoice.updated_at
+  end
+
+  def test_finding_merchant_associated_with_invoice
+    information = { items: './test/fixtures/items_list_truncated.csv',
+                    merchants: './test/fixtures/merchants_list_truncated.csv',
+                    invoices: './test/fixtures/invoices_list_truncated.csv' }
+    sales_engine = SalesEngine.from_csv(information)
+    invoice = sales_engine.invoices.find_by_id(20)
+
+    assert_instance_of Merchant, invoice.merchant
+    assert_equal 123_361_63, invoice.merchant.id
   end
 end
