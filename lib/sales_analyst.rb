@@ -1,7 +1,4 @@
 require 'bigdecimal'
-require 'ruby_native_statistics'
-require 'descriptive_statistics'
-require 'pry'
 
 class SalesAnalyst
   attr_reader :sales_engine
@@ -17,11 +14,14 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    items_per_merchant.mean
+    count = items_per_merchant.count
+    items_per_merchant.inject { |sum, num| sum + num }.to_f / count
   end
 
   def average_items_per_merchant_standard_deviation
-    items_per_merchant.stdev.round(2)
+    dif = items_per_merchant.map { |num| (num - average_items_per_merchant)**2 }
+    added = dif.inject { |sum, num| sum + num }.to_f
+    Math.sqrt(added / (items_per_merchant.count - 1)).round(2)
   end
 
   def merchants_with_high_item_count
