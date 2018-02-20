@@ -95,7 +95,7 @@ class MerchantRepositoryTest < Minitest::Test
     result = @merchant_repo.find_all_by_name("Shopin1901")
 
     assert result.class == Array
-    #assert to see count
+    assert_equal 2, result.length
     assert_instance_of Merchant, result.first
     assert_equal "Shopin1901", result.first.name
     assert_equal 12334105, result.first.id
@@ -105,8 +105,6 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_can_find_all_merchants_by_merchant_name_case_insenstive
     result = @merchant_repo.find_all_by_name("ShOPiN1901")
 
-    assert result.class == Array
-    #assert to check count
     assert_instance_of Merchant, result.first
     assert_equal "Shopin1901", result.first.name
     assert_equal 12334105, result.first.id
