@@ -18,7 +18,7 @@ class ItemRepository
 
   def find_all_with_description(fragment)
     @all.find_all do |obj|
-      obj.description.include?(fragment)
+      obj.description.downcase.include?(fragment.downcase)
     end
   end
 
