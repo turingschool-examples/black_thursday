@@ -7,6 +7,7 @@ class InvoiceRepository
 
 	def initialize(file_name) 
 		@file_name = file_name 
+		@all = []
 	end
 
 
