@@ -1,5 +1,6 @@
-require_relative 'searching'
 require 'Time'
+require 'Date'
+require_relative 'searching'
 
 class Invoice
   attr_reader :id,
