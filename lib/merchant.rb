@@ -1,11 +1,13 @@
 class Merchant
 
   attr_reader :id,
-              :name
+              :name,
+              :parent
 
-  def initialize(data)
-    @id   = data[:id].to_i
-    @name = data[:name]
+  def initialize(data, parent = nil)
+    @id       = data[:id].to_i
+    @name     = data[:name]
+    @parent   = parent
   end
 
 end

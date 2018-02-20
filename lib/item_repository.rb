@@ -4,8 +4,11 @@ require 'pry'
 
 class ItemRepository
 
-  def initialize(filepath)
-    @items = []
+  attr_reader :parent
+
+  def initialize(filepath, parent = nil)
+    @items  = []
+    @parent = parent
     load_items(filepath)
   end
 
@@ -19,7 +22,7 @@ class ItemRepository
 
   def load_items(filepath)
     CSV.foreach(filepath, headers: true, header_converters: :symbol) do |data|
-      @items << Item.new(data)
+      @items << Item.new(data, self)
     end
   end
 

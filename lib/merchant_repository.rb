@@ -4,8 +4,11 @@ require 'pry'
 
 class MerchantRepository
 
-  def initialize(filepath)
-    @merchants = []
+  attr_reader :parent
+
+  def initialize(filepath, parent = nil)
+    @merchants  = []
+    @parent     = parent
     load_merchants(filepath)
   end
 
@@ -19,7 +22,7 @@ class MerchantRepository
 
   def load_merchants(filepath)
     CSV.foreach(filepath, headers: true, header_converters: :symbol) do |data|
-      @merchants << Merchant.new(data)
+      @merchants << Merchant.new(data, self)
     end
   end
 
