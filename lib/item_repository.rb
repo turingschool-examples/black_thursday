@@ -37,4 +37,11 @@ class ItemRepository
       name == item.name.downcase
     end.first
   end
+
+  def find_all_with_description(pattern)
+    pattern = pattern.downcase
+    @items.select do |item|
+      item.description.downcase.include? pattern
+    end
+  end
 end
