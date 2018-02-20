@@ -1,3 +1,4 @@
+# Calculates Standard Deviation
 class StandardDeviation
   attr_reader :data
   def initialize(data)
@@ -14,7 +15,7 @@ class StandardDeviation
 
   def sum_squares_differences
     squares_of_differences = @data.map do |datum|
-      (datum - average) ** 2
+      (datum - average)**2
     end
     sum = 0
     squares_of_differences.each do |square|
