@@ -73,4 +73,16 @@ class ItemReposityTest < Minitest::Test
 
     assert_equal [], @ir.find_all_by_price_in_range(1..10)
   end
+
+  def test_can_find_items_by_merchant_id
+    items = @ir.find_all_by_merchant_id 400
+    assert_instance_of Array, items
+    assert_equal 1, items.length
+    items.each do |item|
+      assert_instance_of Item, item
+      assert_equal 'Item D', item.name
+    end
+
+    assert_equal [], @ir.find_all_by_merchant_id(8000)
+  end
 end
