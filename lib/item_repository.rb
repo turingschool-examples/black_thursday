@@ -44,4 +44,10 @@ class ItemRepository
       item.description.downcase.include? pattern
     end
   end
+
+  def find_all_by_price(price)
+    @items.select do |item|
+      price == item.unit_price
+    end
+  end
 end

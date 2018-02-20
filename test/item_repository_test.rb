@@ -56,7 +56,7 @@ class ItemReposityTest < Minitest::Test
     assert_equal 2, items.length
     items.each do |item|
       assert_instance_of Item, item
-      assert_equal 2000, item.price
+      assert_equal 2000, item.unit_price
     end
 
     assert_equal [], @ir.find_all_by_price(8000)
