@@ -15,4 +15,8 @@ class SalesEngine
     SalesEngine.new(data)
   end
 
+  def find_items_by_merchant_id(id)
+    items.find_all_by_merchant_id(id)
+  end
+
 end

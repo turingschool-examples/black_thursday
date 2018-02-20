@@ -11,7 +11,7 @@ class Merchant
   end
 
   def items
-    merchant_repo.engine.items.find_all_by_merchant_id(id)
+    merchant_repo.find_items(id)
   end
 
 end
