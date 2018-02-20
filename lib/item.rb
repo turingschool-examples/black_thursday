@@ -1,4 +1,5 @@
 require 'bigdecimal'
+require 'time'
 
 # Item class
 class Item
@@ -17,8 +18,8 @@ class Item
     @description = data[:description]
     @unit_price  = data[:unit_price]
     @merchant_id = data[:merchant_id].to_i
-    @created_at  = data[:created_at]
-    @updated_at  = data[:updated_at]
+    @created_at  = Time.parse(data[:created_at])
+    @updated_at  = Time.parse(data[:updated_at])
     @parent      = parent
   end
 
