@@ -7,12 +7,12 @@
 Kelly - Want to learn how it works and get all threes, a passing grade
 Megan - Passing grade, love to learn more methods and unconventional problem solving
 
-##Goals and expectations:
+## Goals and expectations:
 Megan - not be mad at each other. Try to communicate more than necessary.
 Kelly - not making other people do all the work/ same team
 Both - we’d like define function, how much we’ll do separately ahead of time
 
-##Team strengths:
+## Team strengths:
 Megan
 * positive attitude, reinforcement
 * Not totally horrible at TDD
@@ -24,36 +24,36 @@ Kelly
 
 ## How to overcome obstacles: We expect to use communication, research
 
-##Schedule Expectations:
+## Schedule Expectations:
 Megan - am and pm hours. I don’t go super late. Can travel so we can work other places.
 Kelly - anytime outside of school hours, will have San Diego trip
 
-##Communication Expectation
+## Communication Expectation
 Megan - not strong on text. Slack notifications ok
 Kelly -  Slack, phone, open to anything,
 
 Let’s try Slack as first line of communication, can reassess
 
-##Abilities Expectations (Technical strengths and areas for desired improvement):
+## Abilities Expectations (Technical strengths and areas for desired improvement):
 Kelly - problem solving
 Megan - patient with error messages.
 
-##Workload Expectations (What features do we each want to work on?):
+## Workload Expectations (What features do we each want to work on?):
 Try to be fair.
 
-##Workflow Expectations (Git workflow/Tools/Code Review/Reviewing Pull Requests):
+## Workflow Expectations (Git workflow/Tools/Code Review/Reviewing Pull Requests):
 We expect to do some ping pong pairing.
 We aspire to plan backward
 We will comment on each other’s pulls
 
-##Expectations for giving and receiving feedback:
+## Expectations for giving and receiving feedback:
 Megan - expects to ask how things are working
-kelly - open lines of communication
+Kelly - open lines of communication
 
-##Agenda to discuss project launch:
+## Agenda to discuss project launch:
 Saturday — We’ll independently work on event manager.
-Sunday — Let’s be ready to talk about Black Thursday
+Sunday — Let’s be ready to talk about Black Thursday.
 
-##Bonus
-Kelly's pet peeve - making people do the work while your
+## Bonus
+Kelly's pet peeve - making others do the work while you just sit there
 Megan pet peeve — not listening
