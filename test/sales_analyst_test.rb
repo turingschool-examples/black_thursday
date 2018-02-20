@@ -37,4 +37,15 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 1, actual.count
     assert_equal 'Madewithgitterxx', actual[0].name
   end
+
+  def test_for_average_item_price_for_merchant
+    actual = @sales_analyst.average_item_price_for_merchant(12334185)
+    assert_equal 0.1116e4, actual
+  end
+
+  def test_for_average_average_price_per_merchant
+    actual = @sales_analyst.average_average_price_per_merchant
+
+    assert_equal 0.34075e3, actual
+  end
 end
