@@ -39,4 +39,35 @@ class MerchantRepositoryTest < Minitest::Test
 
     assert_nil result
   end
+
+  def test_it_can_find_merchant_by_name
+    merchant_repo = MerchantRepository.new('./fixtures/merchants.csv')
+
+    result = merchant_repo.find_by_name('Candisart')
+
+    assert_instance_of Merchant, result
+    assert_equal 'Candisart', result.name
+    assert_equal 2, result.id
+  end
+
+  def test_it_can_find_merchant_by_name_case_insensitive
+    merchant_repo = MerchantRepository.new('./fixtures/merchants.csv')
+
+    result = merchant_repo.find_by_name('lolamarleys')
+
+    assert_instance_of Merchant, result
+    assert_equal 'LolaMarleys', result.name
+    assert_equal 4, result.id
+  end
+
+  def test_it_can_find_an_array_of_matches_by_name_fragment
+    merchant_repo = MerchantRepository.new('./fixtures/merchants.csv')
+
+    result = merchant_repo.find_all_by_name('minitaure')
+
+    assert_instance_of Array, result
+    assert_instance_of Merchant, result[0]
+    assert_instance_of Merchant, result[1]
+    assert_equal result[0]
+  end
 end
