@@ -14,6 +14,10 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of ItemRepository, @item_repo
   end
 
+  def test_merchant_repository_adds_self_to_merchant
+    assert_equal @item_repo, @item_repo.all.first.parent
+  end
+
   def test_all_method
     assert_instance_of Array, @item_repo.all
     assert_instance_of Item, @item_repo.all.first
@@ -64,5 +68,9 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal [], @item_repo.find_all_by_merchant_id('2')
     assert_equal 2, actual.length
     assert_instance_of Item, actual.first
+  end
+
+  def test_it_asks_parent_for_items
+    assert_instance_of MockMerchant, @item_repo.merchant('id')
   end
 end

@@ -13,7 +13,7 @@ class ItemRepository
   end
 
   def add_items
-    data.map { |row| Item.new(row) }
+    data.map { |row| Item.new(row, self) }
   end
 
   def find_all_with_description(fragment)
@@ -30,5 +30,9 @@ class ItemRepository
     @all.find_all do |obj|
       range.include?(obj.unit_price.to_i)
     end
+  end
+
+  def merchant(id)
+    @sales_engine.find_item_merchant(id)
   end
 end
