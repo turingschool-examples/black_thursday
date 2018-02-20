@@ -6,11 +6,11 @@ require_relative 'item'
 # Defines ItemRepository, holding a list of Items
 class ItemRepository
   def initialize(filename)
+    @items = []
     load_csv filename
   end
 
   def load_csv(filename)
-    @items = []
     CSV.foreach(
       filename,
       headers: true,
@@ -19,5 +19,9 @@ class ItemRepository
       item = Item.new item_info
       @items.push item
     end
+  end
+
+  def all
+    @items
   end
 end
