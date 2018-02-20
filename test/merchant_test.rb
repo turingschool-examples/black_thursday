@@ -1,3 +1,4 @@
+# Merchant Test uses require relative
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/merchant'
