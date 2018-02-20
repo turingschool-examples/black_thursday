@@ -11,7 +11,7 @@ module Searching
   end
 
   def find_by_name(name)
-    @all.find { |obj| obj.name.casecmp == name.casesmp }
+    @all.find { |obj| obj.name.casecmp(name).zero? }
   end
 
   def find_all_by_merchant_id(id)
