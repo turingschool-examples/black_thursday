@@ -4,11 +4,11 @@ require 'pry'
 
 class ItemRepository
 
-  attr_reader :parent
+  attr_reader :engine
 
   def initialize(filepath, parent = nil)
-    @items  = []
-    @parent = parent
+    @items    = []
+    @engine   = parent
     load_items(filepath)
   end
 

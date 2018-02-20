@@ -11,7 +11,7 @@ class Item
               :created_at,
               :updated_at,
               :merchant_id,
-              :parent
+              :item_repo
 
   def initialize(data, parent = nil)
     @id           = data[:id].to_i
@@ -21,7 +21,7 @@ class Item
     @created_at   = Time.parse(data[:created_at])
     @updated_at   = Time.parse(data[:updated_at])
     @merchant_id  = data[:merchant_id].to_i
-    @parent       = parent
+    @item_repo    = parent
   end
 
   def unit_price_to_dollars

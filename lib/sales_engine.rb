@@ -4,13 +4,11 @@ require_relative 'merchant_repository'
 class SalesEngine
 
   attr_reader   :items,
-                :merchants,
-                :parent
+                :merchants
 
-  def initialize(filepath = nil, parent = nil)
+  def initialize(filepath = nil)
     @items      = ItemRepository.new(filepath[:items], self)
     @merchants  = MerchantRepository.new(filepath[:merchants], self)
-    @parent     = parent
   end
 
   def self.from_csv(data)

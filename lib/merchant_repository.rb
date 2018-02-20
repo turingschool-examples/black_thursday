@@ -4,11 +4,11 @@ require 'pry'
 
 class MerchantRepository
 
-  attr_reader :parent
+  attr_reader :engine
 
   def initialize(filepath, parent = nil)
-    @merchants  = []
-    @parent     = parent
+    @merchants   = []
+    @engine      = parent
     load_merchants(filepath)
   end
 
