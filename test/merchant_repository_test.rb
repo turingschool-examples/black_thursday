@@ -20,17 +20,15 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_find_by_id_method
     assert_nil @merch_repo.find_by_id('8')
-#   or an instance of Merchant with a matching ID
     assert_instance_of Merchant, @merch_repo.find_by_id('12334105')
+    assert_equal 'Shopin1901', @merch_repo.find_by_id('12334105').name
   end
 
   def test_find_by_name
-#   find_by_name - returns either nil
-    skip
     assert_nil @merch_repo.find_by_name('Satisfaction')
-#   or an instance of Merchant having done
-#   a case insensitive search
     assert_instance_of Merchant, @merch_repo.find_by_name('LolaMarleys')
+    assert_instance_of Merchant, @merch_repo.find_by_name('lolAmarLeYs')
+    assert_equal '12334115', @merch_repo.find_by_name('lolAmarLeYs').id
   end
 
   def test_find_all_by_name
