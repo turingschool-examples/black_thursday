@@ -5,25 +5,27 @@ require 'pry'
 
 class ItemTest < Minitest::Test
   def test_it_exits
-    item = Item.new(id: 1,
-                    name: 'Pencil',
-                    description: 'You can use it to write things',
-                    unit_price: 1200,
-                    merchant_id: 2,
-                    created_at: Time.now,
-                    updated_at: Time.now)
+    data = { id: 1,
+             name: 'Pencil',
+             description: 'You can use it to write things',
+             unit_price: 1200,
+             merchant_id: 2,
+             created_at: Time.now,
+             updated_at: Time.now }
+    item = Item.new(data, 'parent')
 
     assert_instance_of Item, item
   end
 
   def test_it_has_attributes
-    item = Item.new(id: 1,
-                    name: 'Pencil',
-                    description: 'You can use it to write things',
-                    unit_price: 1200,
-                    merchant_id: 2,
-                    created_at: Time.now,
-                    updated_at: Time.now)
+    data = { id: 1,
+             name: 'Pencil',
+             description: 'You can use it to write things',
+             unit_price: 1200,
+             merchant_id: 2,
+             created_at: Time.now,
+             updated_at: Time.now }
+    item = Item.new(data, 'parent')
 
     assert_equal 1, item.id
     assert_equal 'Pencil', item.name
@@ -32,16 +34,18 @@ class ItemTest < Minitest::Test
     assert_equal 2, item.merchant_id
     assert_instance_of Time, item.created_at
     assert_instance_of Time, item.updated_at
+    assert_equal 'parent', item.parent
   end
 
   def test_unit_price_to_dollars
-    item = Item.new(id: 1,
-                    name: 'Pencil',
-                    description: 'You can use it to write things',
-                    unit_price: 1200,
-                    merchant_id: 2,
-                    created_at: Time.now,
-                    updated_at: Time.now)
+    data = { id: 1,
+             name: 'Pencil',
+             description: 'You can use it to write things',
+             unit_price: 1200,
+             merchant_id: 2,
+             created_at: Time.now,
+             updated_at: Time.now }
+    item = Item.new(data, 'parent')
 
     assert_equal 12, item.unit_price_to_dollars
   end
