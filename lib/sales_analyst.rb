@@ -25,7 +25,7 @@ class SalesAnalyst
   def merchants_with_high_item_count
     avg_item_std_dev = average_items_per_merchant_standard_deviation
     merchant_collector.map do |merchant|
-      merchant if (merchant.items.length - avg_item_std_dev) > 1
+      merchant if (merchant.items.length - avg_item_std_dev) > avg_item_std_dev
     end.compact
   end
 
@@ -43,7 +43,25 @@ class SalesAnalyst
     end.sum / all_merchants.length
   end
 
+  def golden_items
+    all_items = item_collector
+    price_stdev = price_standard_deviation
+    all_items.map do |item|
+      item if (item.unit_price.truncate - price_stdev) > (2 * price_stdev)
+    end.compact
+  end
+
   def merchant_collector
-    engine.merchants.find_all_by_name('')
+    engine.merchants.all
+  end
+
+  def item_collector
+    engine.items.all
+  end
+
+  def price_standard_deviation
+    item_collector.map do |item|
+      item.unit_price.truncate
+    end.stdev.round(2)
   end
 end

@@ -17,20 +17,13 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of SalesAnalyst, @sales_analyst
   end
 
-  def test_merchant_collector_helper_method_works
-    result = @sales_analyst.merchant_collector
-
-    assert_instance_of Array, result
-    assert_instance_of Merchant, result[0]
-  end
-
   def test_can_return_average_items_per_merchant
     result = @sales_analyst.average_items_per_merchant
 
     assert_equal 2.88, result
   end
 
-  def test_can_return_standard_deviation
+  def test_can_return_standard_deviation_items_per_merchant
     result = @sales_analyst.average_items_per_merchant_standard_deviation
 
     assert_equal 3.26, result
@@ -53,5 +46,33 @@ class SalesAnalystTest < Minitest::Test
     result = @sales_analyst.average_average_price_per_merchant
 
     assert_instance_of BigDecimal, result
+  end
+
+  def test_can_find_golden_items
+    result = @sales_analyst.golden_items
+
+    assert_instance_of Array, result
+    assert_instance_of Item, result[0]
+  end
+
+  def test_merchant_collector_helper_method_works
+    result = @sales_analyst.merchant_collector
+
+    assert_instance_of Array, result
+    assert_instance_of Merchant, result[0]
+  end
+
+  def test_item_collect_helper_method_works
+    result = @sales_analyst.item_collector
+
+    assert_instance_of Array, result
+    assert_instance_of Item, result[0]
+  end
+
+  def test_gets_standard_deviation_of_all_item_prices_helper_method
+    result = @sales_analyst.price_standard_deviation
+
+    assert_instance_of Float, result
+    assert_equal 290_099.0, result
   end
 end
