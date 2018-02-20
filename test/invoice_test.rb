@@ -24,7 +24,7 @@ class InvoiceTest < Minitest::Test
     assert_equal 1, @invoice.customer_id
     assert_equal 123_359_38, @invoice.merchant_id
     assert_equal 'pending', @invoice.status
-    assert_equal '2009-02-07', @invoice.created_at
-    assert_equal '2014-03-15', @invoice.updated_at
+    assert_equal Time.new(2009, 02, 07), @invoice.created_at
+    assert_equal Time.new(2014, 03, 15), @invoice.updated_at
   end
 end
