@@ -23,9 +23,9 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    this = average_items_per_merchant_standard_deviation
+    avg_item_std_dev = average_items_per_merchant_standard_deviation
     merchant_collector.map do |merchant|
-      merchant if (merchant.items.length - this) > 1
+      merchant if (merchant.items.length - avg_item_std_dev) > 1
     end.compact
   end
 
@@ -36,10 +36,12 @@ class SalesAnalyst
     end.sum / merch_items.length
   end
 
-  # def average_average_price_per_merchant
-  #   merchant_collector.map do |merchant|
-  #
-  # end
+  def average_average_price_per_merchant
+    all_merchants = merchant_collector
+    all_merchants.map do |merchant|
+      average_item_price_for_merchant(merchant.id)
+    end.sum / all_merchants.length
+  end
 
   def merchant_collector
     engine.merchants.find_all_by_name('')
