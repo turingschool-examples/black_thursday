@@ -30,4 +30,11 @@ class ItemReposityTest < Minitest::Test
     assert_instance_of Item, item
     assert_equal 1, item.id
   end
+
+  def test_can_find_item_by_name
+    item = @ir.find_by_name 'Item B'
+    assert_instance_of Item, item
+    assert_equal 2, item.id
+    assert_equal 'Item B', item.name
+  end
 end
