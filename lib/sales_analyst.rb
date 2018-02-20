@@ -8,7 +8,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    all_merchants = self.engine.merchants.find_all_by_name('')
+    all_merchants = merchant_collector
     total_items = all_merchants.map do |merchant|
       merchant.items.length
     end.sum.to_f
@@ -23,4 +23,11 @@ class SalesAnalyst
     total_items.stdev.round(2)
   end
 
+  def merchants_with_high_item_count
+
+  end
+
+  def merchant_collector
+    self.engine.merchants.find_all_by_name('')
+  end
 end

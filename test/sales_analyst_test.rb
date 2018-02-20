@@ -12,10 +12,17 @@ class SalesAnalystTest < Minitest::Test
 
     @sales_analyst = SalesAnalyst.new(@sales_engine)
   end
+
   def test_analyst_initializes
     assert_instance_of SalesAnalyst, @sales_analyst
   end
 
+  def test_merchant_collector_helper_method_works
+    result = @sales_analyst.merchant_collector
+
+    assert_instance_of Array, result
+    assert_instance_of Merchant, result[0]
+  end
   def test_can_return_average_items_per_merchant
     result = @sales_analyst.average_items_per_merchant
 
