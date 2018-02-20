@@ -11,12 +11,12 @@ class SalesEngineTest < Minitest::Test
       binding.pry
   end
 
-  def test_sales_engine_class_exists
-    assert_instance_of SalesEngine, @sales_eng
-  end
-
-  def test_sales_engine_creates_instances_of_repositories
-    assert_instance_of ItemRepository, @sales_eng.items
-    assert_instance_of MerchantRepository, @sales_eng.merchants
-  end
+  # def test_sales_engine_class_exists
+  #   assert_instance_of SalesEngine, @sales_eng
+  # end
+  #
+  # def test_sales_engine_creates_instances_of_repositories
+  #   assert_instance_of ItemRepository, @sales_eng.items
+  #   assert_instance_of MerchantRepository, @sales_eng.merchants
+  # end
 end

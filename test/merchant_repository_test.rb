@@ -19,8 +19,6 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_by_id_method
-#   find_by_id - returns either nil
-    skip
     assert_nil @merch_repo.find_by_id('8')
 #   or an instance of Merchant with a matching ID
     assert_instance_of Merchant, @merch_repo.find_by_id('12334105')
