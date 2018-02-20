@@ -10,20 +10,28 @@ class SalesAnalyst
   def average_items_per_merchant
     @total = 0
     @sales_engine.merchants.all.map do |merchant|
-     @total += merchant.items.length
+      @total += merchant.items.length
     end
-    (((@total.to_f / @sales_engine.merchants.all.length.to_f) * 100).round)/100.0
+    ((@total.to_f / @sales_engine.merchants.all.length.to_f) * 100).round / 100.0
   end
 
   def average_items_per_merchant_standard_deviation
-    lengths = @sales_engine.merchants.all.map do |merchant|
+    squares = number_of_items_for_each_merchant.map do |num|
+      (num - average_items_per_merchant)**2
+    end
+    chaos = squares.sum / (@sales_engine.merchants.all.length - 1)
+    Math.sqrt(chaos)
+  end
+
+  def number_of_items_for_each_merchant
+    @sales_engine.merchants.all.map do |merchant|
       merchant.items.length
     end
-    squares = lengths.map do |num|
-      (num - average_items_per_merchant) ** 2
-    end
-    chaos = (squares.sum) / (@sales_engine.merchants.all.length - 1)
-    # binding.pry
-    Math.sqrt(chaos)
+  end
+
+  def merchants_with_high_item_count
+    @sales_engine.merchants.all.collect do |merchant|
+      merchant if (merchant.items.length - average_items_per_merchant) > average_items_per_merchant_standard_deviation
+    end.compact
   end
 end

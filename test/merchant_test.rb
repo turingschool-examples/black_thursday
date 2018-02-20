@@ -33,10 +33,10 @@ class MerchantTest < Minitest::Test
                               merchants: './test/fixtures/merchants.csv')
     parent = MerchantRepository.new('./test/fixtures/merchants.csv',
                                     se)
-    merchant = Merchant.new({ id: '12334141', name: '' }, parent)
+    merchant = Merchant.new({ id: '2', name: '' }, parent)
 
     assert_instance_of Array, merchant.items
     assert_instance_of Item, merchant.items[0]
-    assert_equal 1, merchant.items.length
+    assert_equal 3, merchant.items.length
   end
 end
