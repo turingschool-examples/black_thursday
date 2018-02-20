@@ -23,5 +23,5 @@ end
 
 desc "run all the tests"
 task :test do
-  ruby "./test/*_test.rb"
+  ruby './test/*.rb'
 end

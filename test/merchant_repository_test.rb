@@ -2,22 +2,25 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/merchant_repository.rb'
 
-
+# test for Merchant Repository class
 class MerchantRepositoryTest < Minitest::Test
   def test_it_exists
-    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv')
+    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv',
+                                           'parent')
 
     assert_instance_of MerchantRepository, merchant_repo
   end
 
   def test_it_can_load_merchants
-    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv')
+    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv',
+                                           'parent')
 
     assert_nil merchant_repo.load_merchants('./test/fixtures/merchants.csv')
   end
 
   def test_merchant_repo_has_merchants
-    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv')
+    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv',
+                                           'parent')
 
     assert_equal 4, merchant_repo.all.count
     assert_instance_of Array, merchant_repo.all
@@ -26,7 +29,8 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_merchant_by_id
-    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv')
+    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv',
+                                           'parent')
 
     result = merchant_repo.find_by_id(1)
 
@@ -36,7 +40,8 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_id_returns_nil_when_no_find_match
-    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv')
+    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv',
+                                           'parent')
 
     result = merchant_repo.find_by_id(48_484)
 
@@ -44,7 +49,8 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_merchant_by_name
-    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv')
+    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv',
+                                           'parent')
 
     result = merchant_repo.find_by_name('Shopin1901')
 
@@ -53,7 +59,8 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_name_returns_nil_when_no_find_match
-    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv')
+    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv',
+                                           'parent')
 
     result = merchant_repo.find_by_name('lsFDDFslfj')
 
@@ -61,7 +68,8 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_name
-    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv')
+    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv',
+                                           'parent')
 
     result = merchant_repo.find_all_by_name('Shopin1901')
 
