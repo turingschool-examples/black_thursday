@@ -1,14 +1,15 @@
+# frozen_string_literal: true
+
 require_relative 'test_helper.rb'
 require_relative '../lib/sales_analyst.rb'
 require_relative '../lib/sales_engine.rb'
 
 class SalesAnalystTest < Minitest::Test
-
   def setup
-    @sales_engine = SalesEngine.from_csv({
+    @sales_engine = SalesEngine.from_csv(
       items: './data/items.csv',
       merchants: './data/merchants.csv'
-      })
+    )
 
     @sales_analyst = SalesAnalyst.new(@sales_engine)
   end
@@ -37,7 +38,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_find_average_item_price_of_merchant
-    result = @sales_analyst.average_item_price_for_merchant(12334159)
+    result = @sales_analyst.average_item_price_for_merchant(12_334_159)
 
     assert_instance_of BigDecimal, result
   end
