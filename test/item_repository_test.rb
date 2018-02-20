@@ -37,4 +37,15 @@ class ItemReposityTest < Minitest::Test
     assert_equal 2, item.id
     assert_equal 'Item B', item.name
   end
+
+  def test_can_find_items_by_partial_desc
+    items = @ir.find_all_with_description 'C'
+    assert_instance_of Array, items
+    items.each do |item|
+      assert_instance_of Item, item
+      assert item.description.downcase.include?('c')
+    end
+
+    assert_equal [], @ir.find_all_with_description('Jack')
+  end
 end
