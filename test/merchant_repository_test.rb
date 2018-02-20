@@ -71,4 +71,10 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 'MiniatureBikez', result[0].name
     assert_equal 'Miniaturepeople', result[1].name
   end
+
+  def test_overrides_inspect
+    merchant_repo = MerchantRepository.new './test/fixtures/merchants.csv'
+
+    assert_equal '#<MerchantRepository 9 rows>', merchant_repo.inspect
+  end
 end

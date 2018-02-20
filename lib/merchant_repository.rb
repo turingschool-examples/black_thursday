@@ -39,4 +39,8 @@ class MerchantRepository
       merchant.name.downcase.include?(segment)
     end
   end
+
+  def inspect
+    "#<#{self.class} #{@merchants.length} rows>"
+  end
 end
