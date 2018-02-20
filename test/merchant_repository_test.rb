@@ -73,6 +73,8 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_overrides_inspect
-    assert_equal "#<MerchantRepository 5 rows>", @ir.inspect
+    merchant_repo = MerchantRepository.new './test/fixtures/merchants.csv'
+
+    assert_equal "#<MerchantRepository 9 rows>", merchant_repo.inspect
   end
 end
