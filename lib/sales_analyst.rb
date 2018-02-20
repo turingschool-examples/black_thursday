@@ -31,11 +31,15 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(merch_id)
     merch_items = engine.merchants.find_by_id(merch_id).items
-    avg_price = merch_items.map do |item|
+    merch_items.map do |item|
       item.unit_price
-    end.sum
-    avg_price / merch_items.length
+    end.sum / merch_items.length
   end
+
+  # def average_average_price_per_merchant
+  #   merchant_collector.map do |merchant|
+  #
+  # end
 
   def merchant_collector
     engine.merchants.find_all_by_name('')
