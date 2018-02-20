@@ -87,6 +87,6 @@ class ItemReposityTest < Minitest::Test
   end
 
   def test_overrides_inspect
-    assert_equal "#<ItemRepository 5 rows>", @ir.inspect
+    assert_equal '#<ItemRepository 5 rows>', @ir.inspect
   end
 end
