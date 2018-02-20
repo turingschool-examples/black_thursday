@@ -63,15 +63,15 @@ class ItemReposityTest < Minitest::Test
   end
 
   def test_can_find_all_in_price_range
-    items = @ir.find_all_by_price_in_range(1000..3000)
+    items = @ir.find_all_by_price_in_range(10.00..30.00)
     assert_instance_of Array, items
     assert_equal 3, items.length
     items.each do |item|
       assert_instance_of Item, item
-      assert_equal true, (1000..3000).cover?(item.unit_price.to_f * 100)
+      assert_equal true, (10..30).cover?(item.unit_price.to_f)
     end
 
-    assert_equal [], @ir.find_all_by_price_in_range(1..10)
+    assert_equal [], @ir.find_all_by_price_in_range(1000..100000)
   end
 
   def test_can_find_items_by_merchant_id
