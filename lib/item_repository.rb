@@ -47,13 +47,13 @@ class ItemRepository
 
   def find_all_by_price(price)
     @items.select do |item|
-      price == item.unit_price
+      price.eql? item.unit_price
     end
   end
 
   def find_all_by_price_in_range(range)
     @items.select do |item|
-      range.include? item.unit_price
+      range.cover? item.unit_price.to_f
     end
   end
 
