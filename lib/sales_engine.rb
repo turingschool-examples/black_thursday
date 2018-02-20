@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'bigdecimal'
 
 require_relative 'item_repository'
 require_relative 'merchant_repository'
