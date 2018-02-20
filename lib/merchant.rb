@@ -10,7 +10,8 @@ class Merchant
     @merchant_repo   = parent
   end
 
-  # def items
-
+  def items
+    merchant_repo.engine.items.find_all_by_merchant_id(id)
+  end
 
 end

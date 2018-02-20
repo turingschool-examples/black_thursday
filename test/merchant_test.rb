@@ -1,5 +1,6 @@
 require_relative 'test_helper'
 require_relative '../lib/merchant'
+require_relative '../lib/sales_engine'
 
 class MerchantTest < Minitest::Test
 
@@ -30,6 +31,23 @@ class MerchantTest < Minitest::Test
     merchant = Merchant.new({:id => 5, :name => "Yale Business School"})
 
     assert_equal "Yale Business School", merchant.name
+  end
+
+  def test_if_items_returns_all_items_for_a_merchant
+    data = {
+          :items     => "./test/fixtures/items_sample.csv",
+          :merchants => "./test/fixtures/merchants_sample.csv",
+            }
+    sales_engine = SalesEngine.new(data)
+    id = 12334185
+    merchant = sales_engine.merchants.find_by_id(id)
+
+    assert merchant.items.all? do |item|
+      item.merchant_id == id
+    end
+    assert merchant.items.class == Array
+    assert merchant.items.first.class == Item
+    assert_equal 3, merchant.items.length
   end
 
 end
