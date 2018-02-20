@@ -1,4 +1,5 @@
 require 'csv'
+require_relative 'item'
 require 'pry'
 
 class ItemRepository
@@ -6,6 +7,10 @@ class ItemRepository
   def initialize(filepath)
     @items = []
     load_items(filepath)
+  end
+
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
   end
 
   def all
@@ -34,6 +39,10 @@ class ItemRepository
 
   def find_all_by_price(price)
     @items.find_all { |item| item.unit_price == price }
+  end
+
+  def find_all_by_price_in_range(range)
+    @items.find_all { |item| item if range.include?(item.unit_price) }
   end
 
   def find_all_by_merchant_id(merchant_id)

@@ -1,5 +1,5 @@
 require 'csv'
-require_relative '../lib/merchant'
+require_relative 'merchant'
 require 'pry'
 
 class MerchantRepository
@@ -7,6 +7,10 @@ class MerchantRepository
   def initialize(filepath)
     @merchants = []
     load_merchants(filepath)
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 
   def all
@@ -28,7 +32,9 @@ class MerchantRepository
   end
 
   def find_all_by_name(name)
-    @merchants.find_all { |merchant| merchant.name.downcase == name.downcase }
+    @merchants.find_all do |merchant|
+      merchant.name.downcase.include?(name.downcase)
+    end
   end
 
 end

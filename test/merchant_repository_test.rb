@@ -11,6 +11,10 @@ class MerchantRepositoryTest < Minitest::Test
     assert_instance_of MerchantRepository, @merchant_repo
   end
 
+  def test_inspect_method
+    assert_instance_of String, @merchant_repo.inspect
+  end
+
   def test_if_merchant_repository_has_merchants
     assert_instance_of Array, @merchant_repo.all
     assert_equal 8, @merchant_repo.all.count
@@ -91,6 +95,7 @@ class MerchantRepositoryTest < Minitest::Test
     result = @merchant_repo.find_all_by_name("Shopin1901")
 
     assert result.class == Array
+    #assert to see count
     assert_instance_of Merchant, result.first
     assert_equal "Shopin1901", result.first.name
     assert_equal 12334105, result.first.id
@@ -101,6 +106,7 @@ class MerchantRepositoryTest < Minitest::Test
     result = @merchant_repo.find_all_by_name("ShOPiN1901")
 
     assert result.class == Array
+    #assert to check count
     assert_instance_of Merchant, result.first
     assert_equal "Shopin1901", result.first.name
     assert_equal 12334105, result.first.id
