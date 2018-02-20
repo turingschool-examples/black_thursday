@@ -14,8 +14,8 @@ class ItemTest < Minitest::Test
               description: 'You can use it to write things',
               unit_price: 1200,
               merchant_id: 2,
-              created_at: Time.now,
-              updated_at: Time.now }
+              created_at: '2016-01-11 11:51:37 UTC',
+              updated_at: '2016-01-11 11:51:37 UTC' }
   end
 
   def test_it_exits
@@ -30,7 +30,7 @@ class ItemTest < Minitest::Test
     assert_equal 1, item.id
     assert_equal 'Pencil', item.name
     assert_equal 'You can use it to write things', item.description
-    assert_equal 1200, item.unit_price
+    assert_equal 12.00, item.unit_price
   end
 
   def test_it_has_more_attributes
