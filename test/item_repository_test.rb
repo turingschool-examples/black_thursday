@@ -1,10 +1,13 @@
 require './test/test_helper'
+require './test/fixtures/mock_sales_engine'
 require './lib/item_repository'
 
+# Tests Item Repository
 class ItemRepositoryTest < Minitest::Test
   def setup
-    file_path  = './data/sample_data/items.csv'
-    @item_repo = ItemRepository.new(file_path)
+    file_path = './data/sample_data/items.csv'
+    mock_se = MockSalesEngine.new
+    @item_repo = ItemRepository.new(file_path, mock_se)
   end
 
   def test_item_repository_class_exists
@@ -56,9 +59,9 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_merchant_id
-    actual = @item_repo.find_all_by_merchant_id("2345")
+    actual = @item_repo.find_all_by_merchant_id('12334105')
 
-    assert_equal [], @item_repo.find_all_by_merchant_id("2")
+    assert_equal [], @item_repo.find_all_by_merchant_id('2')
     assert_equal 2, actual.length
     assert_instance_of Item, actual.first
   end

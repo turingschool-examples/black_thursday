@@ -1,14 +1,21 @@
 require './test/test_helper'
 require './lib/merchant_repository'
+require './test/fixtures/mock_sales_engine'
 
+# Tests merchant repository
 class MerchantRepositoryTest < Minitest::Test
   def setup
-    file_name   = "./data/sample_data/merchants.csv"
-    @merch_repo = MerchantRepository.new(file_name)
+    file_name = './data/sample_data/merchants.csv'
+    mock_se = MockSalesEngine.new
+    @merch_repo = MerchantRepository.new(file_name, mock_se)
   end
 
   def test_merchant_repository_class_exists
     assert_instance_of MerchantRepository, @merch_repo
+  end
+
+  def test_merchant_repository_adds_self_to_merchant
+    assert_equal @merch_repo, @merch_repo.all.first.parent
   end
 
   def test_all_method
@@ -38,5 +45,12 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 2, actual.length
     assert_equal 'Candisart', actual.first.name
     assert_equal 'LolaMarleys', actual.last.name
+  end
+
+  def test_it_asks_parent_for_items
+    assert_equal 2, @merch_repo.items('1234').length
+    @merch_repo.items('1234').each do |item|
+      assert_instance_of MockItem, item
+    end
   end
 end

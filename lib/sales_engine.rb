@@ -7,11 +7,15 @@ class SalesEngine
   attr_accessor :items, :merchants
 
   def initialize(repositories)
-    @items = ItemRepository.new(repositories[:items])
-    @merchants = MerchantRepository.new(repositories[:merchants])
+    @items = ItemRepository.new(repositories[:items], self)
+    @merchants = MerchantRepository.new(repositories[:merchants], self)
   end
 
   def self.from_csv(repositories)
     new(repositories)
+  end
+
+  def find_merchant_items(id)
+    @items.find_all_by_merchant_id(id)
   end
 end
