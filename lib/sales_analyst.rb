@@ -7,6 +7,7 @@ class SalesAnalyst
     @merchants         = sales_engine.merchants
     @merchant_items    = items_per_merchant
     @all_items         = sales_engine.items.all
+    @merch_invoices    = invoices_per_merchant
     @invoices          = sales_engine.invoices
   end
 
@@ -89,12 +90,25 @@ class SalesAnalyst
     @merchants.all.map do |merchant|
       @invoices.find_all_by_merchant_id(merchant.id).count
     end
-    binding.pry
   end
 
   def average_invoices_per_merchant
-    count = @merchant_invoices.count
-    average = @merchant_items.inject { |sum, num| sum + num }.to_f / count
+    count = @merch_invoices.count
+    average = invoices_per_merchant.inject { |sum, num| sum + num }.to_f / count
     average.round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    dif = @merch_invoices.map { |num| (num - average_invoices_per_merchant)**2 }
+    added = dif.inject { |sum, num| sum + num }.to_f
+    Math.sqrt(added / (@merch_invoices.count - 1)).round(2)
+  end
+
+  def top_merchants_by_invoice_count
+    zipped = @merchant_invoices.zip(@merchants.all)
+    average = average_invoices_per_merchant
+    stdev = average_invoices_per_merchant_standard_deviation
+    found = zipped.find_all { |invoice| invoice[0] > (average + (stdev * 2)) }
+    found.map { |invoice| invoice[1] }
   end
 end

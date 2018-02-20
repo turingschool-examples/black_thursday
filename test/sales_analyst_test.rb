@@ -86,6 +86,20 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_for_average_invoices_per_merchant
-    assert_equal 0.30, @sales_analyst.average_invoices_per_merchant
+    assert_equal 0.14, @sales_analyst.average_invoices_per_merchant
+  end
+
+  def test_for_average_invoices_per_merchant_standard_deviation
+    actual = @sales_analyst.average_invoices_per_merchant_standard_deviation
+    assert_equal 0.48, actual
+  end
+
+  def test_for_top_merchants_by_invoice_count
+    actual = @sales_analyst.top_merchants_by_invoice_count
+
+    ssert actual.is_a?(Array)
+    assert actual[0].is_a?(Merchant)
+    assert_equal 1, actual.count
+    assert_equal 'Madewithgitterxx', actual[0].name
   end
 end
