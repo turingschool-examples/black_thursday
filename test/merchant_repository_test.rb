@@ -21,21 +21,21 @@ class MerchantRepositoryTest < Minitest::Test
   def test_all_method
     assert_instance_of Array, @merch_repo.all
     assert_instance_of Merchant, @merch_repo.all.first
-    assert_equal '12334105', @merch_repo.all.first.id
+    assert_equal 12334105, @merch_repo.all.first.id
     assert_equal 'LolaMarleys', @merch_repo.all.last.name
   end
 
   def test_find_by_id_method
     assert_nil @merch_repo.find_by_id('8')
-    assert_instance_of Merchant, @merch_repo.find_by_id('12334105')
-    assert_equal 'Shopin1901', @merch_repo.find_by_id('12334105').name
+    assert_instance_of Merchant, @merch_repo.find_by_id(12334105)
+    assert_equal 'Shopin1901', @merch_repo.find_by_id(12334105).name
   end
 
   def test_find_by_name
     assert_nil @merch_repo.find_by_name('Satisfaction')
     assert_instance_of Merchant, @merch_repo.find_by_name('LolaMarleys')
     assert_instance_of Merchant, @merch_repo.find_by_name('lolAmarLeYs')
-    assert_equal '12334115', @merch_repo.find_by_name('lolAmarLeYs').id
+    assert_equal 12334115, @merch_repo.find_by_name('lolAmarLeYs').id
   end
 
   def test_find_all_by_name
@@ -52,5 +52,10 @@ class MerchantRepositoryTest < Minitest::Test
     @merch_repo.items('1234').each do |item|
       assert_instance_of MockItem, item
     end
+  end
+
+  def test_inspect
+    assert_equal @merch_repo, @merch_repo.inspect
+    refute @merch_repo.inspect.to_s.length > 50
   end
 end

@@ -18,7 +18,7 @@ class ItemRepository
 
   def find_all_with_description(fragment)
     @all.find_all do |obj|
-      obj.description.include?(fragment)
+      obj.description.downcase.include?(fragment.downcase)
     end
   end
 
@@ -34,5 +34,9 @@ class ItemRepository
 
   def merchant(id)
     @sales_engine.find_item_merchant(id)
+  end
+
+  def inspect
+    self
   end
 end

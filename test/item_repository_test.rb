@@ -21,21 +21,21 @@ class ItemRepositoryTest < Minitest::Test
   def test_all_method
     assert_instance_of Array, @item_repo.all
     assert_instance_of Item, @item_repo.all.first
-    assert_equal '1', @item_repo.all.first.id
+    assert_equal 1, @item_repo.all.first.id
     assert_equal 'Eraser', @item_repo.all.last.name
   end
 
   def test_find_by_id_method
-    assert_nil @item_repo.find_by_id('8')
-    assert_instance_of Item, @item_repo.find_by_id('2')
-    assert_equal 'Pen', @item_repo.find_by_id('3').name
+    assert_nil @item_repo.find_by_id(8)
+    assert_instance_of Item, @item_repo.find_by_id(2)
+    assert_equal 'Pen', @item_repo.find_by_id(3).name
   end
 
   def test_find_by_name
     assert_nil @item_repo.find_by_name('Satisfaction')
     assert_instance_of Item, @item_repo.find_by_name('Pencil')
     assert_instance_of Item, @item_repo.find_by_name('pEnCiL')
-    assert_equal '1', @item_repo.find_by_name('pEnCiL').id
+    assert_equal 1, @item_repo.find_by_name('pEnCiL').id
   end
 
   def test_find_all_with_description
@@ -63,14 +63,19 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_merchant_id
-    actual = @item_repo.find_all_by_merchant_id('12334105')
+    actual = @item_repo.find_all_by_merchant_id(12334105)
 
-    assert_equal [], @item_repo.find_all_by_merchant_id('2')
+    assert_equal [], @item_repo.find_all_by_merchant_id(2)
     assert_equal 2, actual.length
     assert_instance_of Item, actual.first
   end
 
   def test_it_asks_parent_for_items
     assert_instance_of MockMerchant, @item_repo.merchant('id')
+  end
+
+  def test_inspect
+    assert_equal @item_repo, @item_repo.inspect
+    refute @merch_repo.inspect.to_s.length > 50
   end
 end

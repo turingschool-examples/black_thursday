@@ -11,8 +11,8 @@ class ItemTest < Minitest::Test
                        description: 'You can use it to write things',
                        unit_price: BigDecimal.new(10.99, 4),
                        merchant_id: 6,
-                       created_at: Time.now,
-                       updated_at: Time.now }, mock_repo)
+                       created_at: Time.now.to_s,
+                       updated_at: Time.now.to_s }, mock_repo)
   end
 
   def test_item_class_exists
@@ -38,8 +38,8 @@ class ItemTest < Minitest::Test
                       description: 'It gets you drunk',
                       unit_price: BigDecimal.new(79.59, 4),
                       merchant_id: 343_414,
-                      created_at: Time.now,
-                      updated_at: Time.now }, 'parent')
+                      created_at: Time.now.to_s,
+                      updated_at: Time.now.to_s }, 'parent')
 
     assert_equal 1, item.id
     assert_equal 'Wine', item.name
