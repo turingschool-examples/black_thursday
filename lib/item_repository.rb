@@ -27,7 +27,7 @@ class ItemRepository
 
   def find_all_by_price_in_range(range)
     @all.find_all do |obj|
-      range.include?(obj.unit_price.to_i / 100)
+      range.include?(obj.unit_price.to_i)
     end
   end
 end
