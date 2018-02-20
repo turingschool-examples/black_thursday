@@ -31,6 +31,10 @@ class InvoiceRepository
   def find_all_by_status(status)
     @invoices.find_all { |invoice| invoice.status == status }
   end
+
+  def inspect
+    "#<#{self.class} #{@invoices.size} rows>"
+  end
 end
 
 # find_all_by_status - returns either [] or one or more matches which have a matching status
