@@ -15,6 +15,7 @@
     </div>
     <div id="wrapper" style="display:none;">
       <div class="timestamp">Generated <abbr class="timeago" title="2018-02-19T21:31:56-07:00">2018-02-19T21:31:56-07:00</abbr></div>
+
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -26,6 +27,7 @@
      <span class="covered_strength">
        <span class="green">
          5.6
+
        </span>
     </span> hits/line)
   </h2>
@@ -99,7 +101,7 @@
         <td>2</td>
         <td>2.0</td>
       </tr>
-      
+     
     </tbody>
   </table>
 </div>
@@ -202,30 +204,35 @@
           <code class="ruby">  def initialize(data, parent)</code>
         </li>
       
+
         <li class="covered" data-hits="30" data-linenumber="13">
           <span class="hits">30</span>
           
           <code class="ruby">    @id = data[:id]</code>
         </li>
       
+
         <li class="covered" data-hits="30" data-linenumber="14">
           <span class="hits">30</span>
-          
+
           <code class="ruby">    @name = data[:name]</code>
         </li>
       
+
         <li class="covered" data-hits="30" data-linenumber="15">
           <span class="hits">30</span>
           
           <code class="ruby">    @description = data[:description]</code>
         </li>
       
+
         <li class="covered" data-hits="30" data-linenumber="16">
           <span class="hits">30</span>
           
           <code class="ruby">    @unit_price = data[:unit_price]</code>
         </li>
       
+
         <li class="covered" data-hits="30" data-linenumber="17">
           <span class="hits">30</span>
           
@@ -268,8 +275,10 @@
           <code class="ruby">  def unit_price_to_dollars</code>
         </li>
       
+
         <li class="covered" data-hits="5" data-linenumber="24">
           <span class="hits">5</span>
+
           
           <code class="ruby">    @unit_price.to_f / 100</code>
         </li>
@@ -373,6 +382,7 @@
       
         <li class="covered" data-hits="6" data-linenumber="8">
           <span class="hits">6</span>
+
           
           <code class="ruby">    @items = []</code>
         </li>
@@ -385,6 +395,7 @@
       
         <li class="covered" data-hits="6" data-linenumber="10">
           <span class="hits">6</span>
+
           
           <code class="ruby">    find_items(filepath)</code>
         </li>
@@ -409,6 +420,7 @@
       
         <li class="covered" data-hits="1" data-linenumber="14">
           <span class="hits">1</span>
+
           
           <code class="ruby">    @items</code>
         </li>
@@ -433,12 +445,14 @@
       
         <li class="covered" data-hits="6" data-linenumber="18">
           <span class="hits">6</span>
+
           
           <code class="ruby">    CSV.foreach(filepath, headers: true, header_converters: :symbol) do |data|</code>
         </li>
       
         <li class="covered" data-hits="30" data-linenumber="19">
           <span class="hits">30</span>
+
           
           <code class="ruby">      @items &lt;&lt; Item.new(data, self)</code>
         </li>
@@ -469,6 +483,7 @@
       
         <li class="covered" data-hits="2" data-linenumber="24">
           <span class="hits">2</span>
+
           
           <code class="ruby">    @items.find { |item| item.id == id.to_s }</code>
         </li>
@@ -493,6 +508,7 @@
       
         <li class="covered" data-hits="3" data-linenumber="28">
           <span class="hits">3</span>
+
           
           <code class="ruby">    @items.find { |item| item.name.downcase == name.downcase }</code>
         </li>
@@ -517,12 +533,14 @@
       
         <li class="covered" data-hits="1" data-linenumber="32">
           <span class="hits">1</span>
+
           
           <code class="ruby">    @items.find_all do |item|</code>
         </li>
       
         <li class="covered" data-hits="5" data-linenumber="33">
           <span class="hits">5</span>
+
           
           <code class="ruby">      item.description.downcase.include?(string.downcase)</code>
         </li>
@@ -553,12 +571,14 @@
       
         <li class="covered" data-hits="1" data-linenumber="38">
           <span class="hits">1</span>
+
           
           <code class="ruby">    @items.find_all do |item|</code>
         </li>
       
         <li class="covered" data-hits="5" data-linenumber="39">
           <span class="hits">5</span>
+
           
           <code class="ruby">      item.unit_price_to_dollars == price</code>
         </li>
@@ -589,12 +609,13 @@
       
         <li class="missed" data-hits="0" data-linenumber="44">
           
+
           
           <code class="ruby">    @items.find_all do |item|</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="45">
-          
+
           
           <code class="ruby">      range.include?(item.unit_price_to_dollars)</code>
         </li>
@@ -625,12 +646,13 @@
       
         <li class="covered" data-hits="1" data-linenumber="50">
           <span class="hits">1</span>
-          
+
           <code class="ruby">    @items.find_all do |item|</code>
         </li>
       
         <li class="covered" data-hits="5" data-linenumber="51">
           <span class="hits">5</span>
+
           
           <code class="ruby">      item.merchant_id == id.to_s</code>
         </li>
@@ -1223,8 +1245,6 @@
     </ol>
   </pre>
 </div>
-
-      
       </div>
     </div>
   </body>
