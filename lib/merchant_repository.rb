@@ -7,8 +7,11 @@ class MerchantRepository
     @file_path = file_path
   end
 
-  def all
+  def data
     data = CSV.open(@file_path, headers: true, header_converters: :symbol)
+  end
+
+  def all
     data.map {|row| Merchant.new(row)}
   end
 
