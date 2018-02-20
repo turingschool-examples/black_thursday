@@ -4,13 +4,13 @@ require 'pry'
 
 class SalesEngineTest < Minitest::Test
   def test_it_exists
-    se = SalesEngine.from_csv(items: './test/fixtures/items.csv')
+    se = SalesEngine.from_csv(items: './test/fixtures/items.csv', merchants: './test/fixtures/merchants.csv')
 
     assert_instance_of SalesEngine, se
   end
 
-  def test_it_has_repos
-    se = SalesEngine.from_csv(items: './test/fixtures/items.csv')
+  def test_it_has_item_repo
+    se = SalesEngine.from_csv(items: './test/fixtures/items.csv', merchants: './test/fixtures/merchants.csv')
     name = 'Glitter scrabble frames'
     string = 'Any colour glitter'
 
@@ -24,8 +24,15 @@ class SalesEngineTest < Minitest::Test
     assert_equal [], se.items.find_all_by_merchant_id(12_345)
   end
 
+  def test_it_has_merchant_repo
+    se = SalesEngine.from_csv(items: './test/fixtures/items.csv', merchants: './test/fixtures/merchants.csv')
+
+    assert_instance_of MerchantRepository, se.merchants
+    assert_instance_of Array, se.merchants.all
+  end
+
   def test_initialize
-    se = SalesEngine.new(items: './test/fixtures/items.csv')
+    se = SalesEngine.from_csv(items: './test/fixtures/items.csv', merchants: './test/fixtures/merchants.csv')
 
     assert_instance_of SalesEngine, se
   end
