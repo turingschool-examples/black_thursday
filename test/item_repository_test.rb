@@ -48,7 +48,6 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_price_in_range
-    skip
     actual = @item_repo.find_all_by_price_in_range(11..20)
 
     assert_equal [], @item_repo.find_all_by_price_in_range(0..10)
@@ -57,7 +56,6 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_merchant_id
-    skip
     actual = @item_repo.find_all_by_merchant_id("2345")
 
     assert_equal [], @item_repo.find_all_by_merchant_id("2")

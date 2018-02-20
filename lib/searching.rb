@@ -12,4 +12,8 @@ module Searching
   def find_by_name(name)
     all.find {|obj| obj.name.upcase == name.upcase}
   end
+
+  def find_all_by_merchant_id(id)
+    all.find_all {|obj| obj.merchant_id == id}
+  end
 end
