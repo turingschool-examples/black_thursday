@@ -10,6 +10,12 @@ class MerchantRepositoryTest < Minitest::Test
     assert_instance_of MerchantRepository, merchant_repo
   end
 
+  def test_it_can_load_merchants
+    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv')
+
+    assert_nil merchant_repo.load_merchants('./test/fixtures/merchants.csv')
+  end
+
   def test_merchant_repo_has_merchants
     merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv')
 

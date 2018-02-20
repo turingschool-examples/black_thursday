@@ -26,9 +26,13 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_has_merchant_repo
     se = SalesEngine.from_csv(items: './test/fixtures/items.csv', merchants: './test/fixtures/merchants.csv')
+    name = 'Shopin1901'
 
     assert_instance_of MerchantRepository, se.merchants
     assert_instance_of Array, se.merchants.all
+    assert_instance_of Merchant, se.merchants.find_by_name(name)
+    assert_instance_of Merchant, se.merchants.find_by_id(1)
+    assert_instance_of Merchant, se.merchants.find_all_by_name("Sho")[0]
   end
 
   def test_initialize
