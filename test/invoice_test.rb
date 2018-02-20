@@ -1,5 +1,3 @@
-require 'Time'
-require 'Date'
 require './test/test_helper'
 require './lib/invoice'
 
@@ -11,8 +9,8 @@ class MerchantTest < Minitest::Test
 			:customer_id => 7,
 			:merchant_id => 8,
 			:status      => "pending",
-			:created_at  => Time.parse("1969-07-20 20:17:40")
-			# :updated_at  => Time.parse,
+			:created_at  => Time.parse("1969-07-20 20:17:40 - 0600"),
+			:updated_at  => Time.parse("1969-07-20 20:17:40 - 0600")
 													})
   end
 
@@ -37,7 +35,11 @@ class MerchantTest < Minitest::Test
 	end 
 
 	def test_it_returns_a_time_when_created
-		# require 'pry'; binding.pry 
-		assert_equal "1969-07-20 20:17:40", @invoice.created_at 
+		assert_equal ("1969-07-20 20:17:40 -0600"), @invoice.created_at.to_s 
 	end
+
+	def test_it_returns_time_when_updated
+		assert_equal ("1969-07-20 20:17:40 -0600"), @invoice.updated_at.to_s
+	end
+
 end 
