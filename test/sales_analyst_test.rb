@@ -83,4 +83,8 @@ class SalesAnalystTest < Minitest::Test
     assert actual[0].is_a?(Item)
     assert_equal 'La prière', actual[0].name
   end
+
+  def test_for_average_invoices_per_merchant
+    assert_equal 0.30, @sales_analyst.average_invoices_per_merchant
+  end
 end
