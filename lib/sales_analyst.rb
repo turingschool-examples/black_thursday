@@ -1,7 +1,4 @@
 require 'bigdecimal'
-require 'ruby_native_statistics'
-require 'descriptive_statistics'
-require 'pry'
 
 class SalesAnalyst
   attr_reader :sales_engine
@@ -17,11 +14,14 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    items_per_merchant.mean
+    count = items_per_merchant.count
+    items_per_merchant.inject { |sum, num| sum + num }.to_f / count
   end
 
   def average_items_per_merchant_standard_deviation
-    items_per_merchant.stdev.round(2)
+    dif = items_per_merchant.map { |num| (num - average_items_per_merchant)**2 }
+    added = dif.inject { |sum, num| sum + num }.to_f
+    Math.sqrt(added / (items_per_merchant.count - 1)).round(2)
   end
 
   def merchants_with_high_item_count
@@ -34,22 +34,27 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(merchant_id)
     merchant = @sales_engine.merchants.find_by_id(merchant_id)
-    merchant_items = merchant.items
-    item_prices = merchant_items.map(&:unit_price)
-    item_average_price = item_prices.mean
+    prices = merchant.items.map(&:unit_price)
+    count = prices.count
+    item_average_price = prices.inject { |sum, num| sum + num }.to_f / count
     BigDecimal.new(item_average_price, 6)
   end
 
+  def find_average_price(merchant)
+    if merchant.items.empty?
+      0
+    else
+      average_item_price_for_merchant(merchant.id)
+    end
+  end
+
   def average_average_price_per_merchant
-    merchants = @sales_engine.merchants.all
-    merchant_average_price = merchants.map do |merchant|
-      if merchant.items.empty?
-        0
-      else
-        average_item_price_for_merchant(merchant.id)
-      end
-    end.mean
-    BigDecimal.new(merchant_average_price, 6)
+    prices = @sales_engine.merchants.all.map do |merchant|
+      find_average_price(merchant)
+    end
+    count = prices.count
+    average_average_price = prices.inject { |sum, num| sum + num }.to_f / count
+    BigDecimal.new(average_average_price, 6)
   end
 
   def item_unit_prices
@@ -58,11 +63,14 @@ class SalesAnalyst
   end
 
   def average_item_price
-    item_unit_prices.mean.round(2)
+    count = item_unit_prices.count
+    item_unit_prices.inject { |sum, num| sum + num }.to_f / count.round(2)
   end
 
   def item_price_standard_deviation
-    item_unit_prices.stdev.round(2)
+    dif = item_unit_prices.map { |num| (num - average_item_price)**2 }
+    added = dif.inject { |sum, num| sum + num }.to_f
+    Math.sqrt(added / (item_unit_prices.count - 1)).round(2)
   end
 
   def golden_items
