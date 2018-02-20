@@ -73,4 +73,9 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_asks_parent_for_items
     assert_instance_of MockMerchant, @item_repo.merchant('id')
   end
+
+  def test_inspect
+    assert_equal @item_repo, @item_repo.inspect
+    refute @merch_repo.inspect.to_s.length > 50
+  end
 end

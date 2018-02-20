@@ -35,4 +35,8 @@ class ItemRepository
   def merchant(id)
     @sales_engine.find_item_merchant(id)
   end
+
+  def inspect
+    self
+  end
 end
