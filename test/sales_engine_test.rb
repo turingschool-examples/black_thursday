@@ -48,7 +48,7 @@ class SalesEngineTest < Minitest::Test
 
     merchant = sales_engine.merchants.find_by_id(12334141)
     merchant.items
-
+    
     assert_equal 1, merchant.items.count
     assert_equal "510+ RealPush Icon Set", merchant.items[0].name
   end
