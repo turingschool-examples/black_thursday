@@ -2,8 +2,12 @@ require_relative 'test_helper.rb'
 require_relative '../lib/merchant_repository.rb'
 
 class MerchantRepositoryTest < Minitest::Test
+  # def setup
+  #   sales_engine = SalesEngine.new(requisite arguments)
+  #   merchant_repository = sales_engine.merchants
+  # end
   def test_merchant_repository_initializes
-    merchant_repository = MerchantRepository.new('./test/fixtures/merchants_fix.csv')
+    merchant_repository = MerchantRepository.new('./test/fixtures/merchants_fix.csv', parent)
 
     assert_instance_of MerchantRepository, merchant_repository
   end

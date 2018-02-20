@@ -73,7 +73,6 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_price_range
-    # skip
     item_repository = ItemRepository.new("./test/fixtures/items.csv")
 
     result = item_repository.find_all_by_price_in_range((0..900))
