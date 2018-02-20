@@ -50,10 +50,10 @@ class SalesAnalyst
 
   def average_average_price_per_merchant
     merchants = @sales_engine.merchants.all
-    merchant_average_prices = merchants.map do |merchant|
-      merchant_items = merchant.items
-      merchant_items.map(&:unit_price).mean
-    end
-    BigDecimal.new merchant_average_prices.mean
+    merchant_average_price = merchants.map do |merchant|
+      average_item_price_for_merchant(merchant.id)
+    end.mean
+
+    BigDecimal.new(merchant_average_price.to_s, 0)
   end
 end
