@@ -8,10 +8,7 @@ class StandardDeviation
   end
 
   def average
-    sum = 0
-    @data.each do |datum|
-      sum += datum
-    end
+    sum = @data.reduce(:+)
     sum / @data.length
   end
 
@@ -19,11 +16,7 @@ class StandardDeviation
     squares_of_differences = @data.map do |datum|
       (datum - average)**2
     end
-    sum = 0
-    squares_of_differences.each do |square|
-      sum += square
-    end
-    sum
+    squares_of_differences.reduce(:+)
   end
 
   def calculate
