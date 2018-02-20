@@ -12,7 +12,6 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_all_method
-    skip
     assert_instance_of Array, @item_repo.all
     assert_instance_of Item, @item_repo.all.first
     assert_equal '1', @item_repo.all.first.id
@@ -20,14 +19,12 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_by_id_method
-    skip
     assert_nil @item_repo.find_by_id('8')
     assert_instance_of Item, @item_repo.find_by_id('2')
     assert_equal 'Pen', @item_repo.find_by_id('3').name
   end
 
   def test_find_by_name
-    skip
     assert_nil @item_repo.find_by_name('Satisfaction')
     assert_instance_of Item, @item_repo.find_by_name('Pencil')
     assert_instance_of Item, @item_repo.find_by_name('pEnCiL')

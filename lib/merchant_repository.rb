@@ -2,7 +2,6 @@ require './lib/searching'
 
 class MerchantRepository
   include Searching
-  attr_reader :file_path
 
   def initialize(file_path)
     @file_path = file_path
