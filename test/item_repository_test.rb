@@ -3,7 +3,7 @@ require_relative '../lib/item_repository'
 
 class ItemRepositoryTest < Minitest::Test
   def setup
-    item_csv = './test/fixtures/item_repository_abreviated.csv'
+    item_csv = './test/fixtures/items_list_truncated.csv'
     parent = 'parent'
     @ir = ItemRepository.new(item_csv, parent)
   end
@@ -14,12 +14,12 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_item_csv_parsed
-    assert_equal 4, @ir.items.length
+    assert_equal 20, @ir.items.length
     assert_equal 263_395_237, @ir.items.first.id
   end
 
   def test_all_items
-    assert_equal 4, @ir.all.length
+    assert_equal 20, @ir.all.length
     assert @ir.all[3].is_a?(Item)
     assert @ir.all[0].description.include?('googlepicasa')
   end
