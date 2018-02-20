@@ -1,5 +1,6 @@
 require_relative 'test_helper'
 require_relative '../lib/item'
+require_relative '../lib/item_repository'
 require 'bigdecimal'
 require 'pry'
 
@@ -48,5 +49,35 @@ class ItemTest < Minitest::Test
     item = Item.new(data, 'parent')
 
     assert_equal 12, item.unit_price_to_dollars
+  end
+
+  def test_parent_instance_of_item_repo
+    data = { id: 1,
+             name: 'Pencil',
+             description: 'You can use it to write things',
+             unit_price: 1200,
+             merchant_id: 2,
+             created_at: Time.now,
+             updated_at: Time.now }
+    parent = ItemRepository.new('./test/fixtures/items.csv', 'engine')
+    item = Item.new(data, parent)
+
+    assert_instance_of ItemRepository, item.parent
+    assert_equal 5, item.parent.all.count
+  end
+
+  def test_merchant_method_sends_to_repo
+    data = { id: 1,
+             name: 'Pencil',
+             description: 'You can use it to write things',
+             unit_price: 1200,
+             merchant_id: 2,
+             created_at: Time.now,
+             updated_at: Time.now }
+    parent = ItemRepository.new('./test/fixtures/items.csv', 'engine')
+    item = Item.new(data, parent)
+
+    assert_instance_of Array, item.merchant
+    assert_equal 5, item.merchant.count
   end
 end

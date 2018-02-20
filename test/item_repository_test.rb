@@ -68,7 +68,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_find_all_by_merchant_id
     item_repo = ItemRepository.new('./test/fixtures/items.csv', 'parent')
 
-    assert_equal [], item_repo.find_all_by_merchant_id(12345)
-    assert_instance_of Item, item_repo.find_all_by_merchant_id(12334141)[0]
+    assert_equal [], item_repo.find_all_by_merchant_id(12_345)
+    assert_instance_of Item, item_repo.find_all_by_merchant_id(12_334_141)[0]
   end
 end

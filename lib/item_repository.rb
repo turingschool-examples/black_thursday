@@ -2,6 +2,7 @@ require 'CSV'
 require_relative '../lib/item'
 require 'pry'
 class ItemRepository
+  attr_reader :items
   def initialize(filepath, parent)
     @items = []
     find_items(filepath)
