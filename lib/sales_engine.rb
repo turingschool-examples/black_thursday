@@ -17,4 +17,8 @@ class SalesEngine
   def item_repo_finds_all_by_merchant_id(id)
     @items.find_all_by_merchant_id(id)
   end
+
+  def merch_repo_find_all_by_id(id)
+    @merchants.find_by_id(id)
+  end
 end
