@@ -22,8 +22,19 @@ class SalesEngineTest < Minitest::Test
 
   def test_sales_engine_can_find_merchant_items
     merchant = @sales_eng.merchants.find_by_id('12334105')
+    item_ids = %w[1 2]
 
-    assert_instance_of Item, merchant.items[0]
     assert_equal 2, merchant.items.length
+    (0...item_ids.length).each do |index|
+      assert_equal item_ids[index], merchant.items[index].id
+      assert_instance_of Item, merchant.items[index]
+    end
+  end
+
+  def test_sales_engine_can_find_items_merchant
+    item = @sales_eng.items.find_by_id('1')
+
+    assert_instance_of Merchant, item.merchant
+    assert_equal '12334105', item.merchant.id
   end
 end

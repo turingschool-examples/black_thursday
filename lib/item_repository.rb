@@ -31,4 +31,8 @@ class ItemRepository
       range.include?(obj.unit_price.to_i)
     end
   end
+
+  def merchant(id)
+    @sales_engine.find_item_merchant(id)
+  end
 end
