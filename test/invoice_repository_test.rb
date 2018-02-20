@@ -49,6 +49,7 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_nil result_nil
   end
 
+
   def test_it_can_find_all_invoices_by_merchant_id
     invoice_repository = InvoiceRepository.new('./test/fixtures/invoices.csv')
 
