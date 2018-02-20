@@ -13,7 +13,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_items_per_merchant
-    skip
     assert_equal 2.88, @sa.average_items_per_merchant
   end
 
@@ -30,12 +29,14 @@ class SalesAnalystTest < Minitest::Test
 
   def test_average_item_price_for_merchant
     skip
-  # sa.average_item_price_for_merchant(12334159) # => BigDecimal
+    actual = @sa.average_item_price_for_merchant(12334159)
+  #  # => BigDecimal
   end
 
   def test_average_average_price_per_merchant
     skip
-  # sa.average_average_price_per_merchant # => BigDecimal
+    actual = @sa.average_average_price_per_merchant
+  #  # => BigDecimal
   end
 
   def test_golden_items
