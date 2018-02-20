@@ -21,16 +21,20 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_for_average_items_per_merchant
-    assert_equal 0.3, @sales_analyst.average_items_per_merchant
+    assert_equal 0.30, @sales_analyst.average_items_per_merchant
   end
 
   def test_average_items_per_merchant_standard_deviation
-    expected = @sales_analyst.average_items_per_merchant_standard_deviation
-    assert_equal 0.7326950970650465, expected
+    actual = @sales_analyst.average_items_per_merchant_standard_deviation
+    assert_equal 0.73, actual
   end
 
   def test_merchants_with_high_item_count
-    expected = @sales_engine.merchants_with_high_item_count
-    
+    actual = @sales_analyst.merchants_with_high_item_count
+
+    assert actual.is_a?(Array)
+    assert actual[0].is_a?(Merchant)
+    assert_equal 1, actual.count
+    assert_equal 'Madewithgitterxx', actual[0].name
   end
 end
