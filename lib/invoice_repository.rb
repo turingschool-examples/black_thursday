@@ -4,9 +4,9 @@ require_relative 'searching'
 class InvoiceRepository
 	include Searching
 	attr_reader :all
-	
+
 	def initialize(file_name) 
-		
+		@file_name = file_name 
 	end
 
 
