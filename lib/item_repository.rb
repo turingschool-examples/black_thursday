@@ -6,9 +6,10 @@ class ItemRepository
   include Searching
   attr_reader :all
 
-  def initialize(file_path)
+  def initialize(file_path, sales_engine)
     @file_path = file_path
     @all = add_items
+    @sales_engine = sales_engine
   end
 
   def add_items
