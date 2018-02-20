@@ -71,7 +71,7 @@ class ItemReposityTest < Minitest::Test
       assert_equal true, (10..30).cover?(item.unit_price.to_f)
     end
 
-    assert_equal [], @ir.find_all_by_price_in_range(1000..100000)
+    assert_equal [], @ir.find_all_by_price_in_range(1_000..100_000)
   end
 
   def test_can_find_items_by_merchant_id
