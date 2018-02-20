@@ -21,4 +21,17 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal 2.88, result
   end
+
+  def test_can_return_standard_deviation
+    result = @sales_analyst.average_items_per_merchant_standard_deviation
+
+    assert_equal 3.26, result
+  end
+
+  def test_can_find_merchants_with_high_item_count
+    result = @sales_analyst.merchants_with_high_item_count
+
+    assert_instance_of Array, result
+    assert_instance_of Merchant, result[0]
+  end
 end
