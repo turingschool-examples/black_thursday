@@ -1,5 +1,6 @@
 require 'csv'
 
+# Module of search methods
 module Searching
   def data
     CSV.open(@file_path, headers: true, header_converters: :symbol)
