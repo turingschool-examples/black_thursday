@@ -9,7 +9,7 @@ class MerchantRepository
     @merchants         = []
     contents = CSV.open @merchant_csv_path, headers: true
     contents.each do |row|
-      @merchants << Merchant.new({id: row[0], name: row[1]}, self)
+      @merchants << Merchant.new( {id: row[0], name: row[1] }, self)
     end
   end
 
@@ -29,5 +29,9 @@ class MerchantRepository
     @merchants.find_all do |merchant|
       merchant.name.downcase.include?(name.downcase)
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end
