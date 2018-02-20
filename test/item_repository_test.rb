@@ -24,4 +24,10 @@ class ItemReposityTest < Minitest::Test
 
     assert_equal 'Desc A', items[0].description
   end
+
+  def test_can_find_item_by_id
+    item = @ir.find_by_id 1
+    assert_instance_of Item, item
+    assert_equal 1, item.id
+  end
 end
