@@ -11,7 +11,7 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_invoice_repository_holds_all_invoices
     invoice_repository = InvoiceRepository.new('./test/fixtures/invoices.csv')
 
-    assert_equal 14, invoice_repository.all.count
+    assert_equal 14, invoice_repository.all.length
     assert (invoice_repository.all.all? { |invoice| invoice.is_a?(Invoice)})
   end
 
@@ -46,7 +46,7 @@ class InvoiceRepositoryTest < Minitest::Test
     assert result.length == 8
     assert_equal 3, result[2].id
     assert_equal 12_335_955, result[2].merchant_id
-    assert_nil result_nil
+    assert result_nil.empty?
   end
 
 
