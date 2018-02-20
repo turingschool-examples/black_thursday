@@ -1,6 +1,8 @@
 require 'time'
 require 'bigdecimal'
 
+# class for individual items
+
 class Item
   attr_reader :id,
               :name,
@@ -8,7 +10,8 @@ class Item
               :unit_price,
               :merchant_id,
               :created_at,
-              :updated_at
+              :updated_at,
+              :parent
 
   def initialize(data)
     @id = data[:id].to_i
@@ -22,5 +25,9 @@ class Item
 
   def unit_price_to_dollars
     @unit_price
+  end
+
+  def merchant
+    @parent.pass_merchant_id_to_se(@merchant_id)
   end
 end
