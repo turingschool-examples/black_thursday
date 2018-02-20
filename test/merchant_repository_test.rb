@@ -13,13 +13,18 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_all_method
 #   all - returns an array of all known Merchant instances
-    skip
+    assert_instance_of Array, @merch_repo.all
+    assert_instance_of Merchant, @merch_repo.all.first
+    assert_equal '12334105', @merch_repo.all.first.id
+    assert_equal 'LolaMarleys', @merch_repo.all.last.name
   end
 
   def test_find_by_id_method
 #   find_by_id - returns either nil
-#   or an instance of Merchant with a matching ID
     skip
+    assert_nil @merch_repo.find_by_id('8')
+#   or an instance of Merchant with a matching ID
+    assert_instance_of Merchant, @merch_repo.find_by_id('12334105')
   end
 
   def test_find_by_name
