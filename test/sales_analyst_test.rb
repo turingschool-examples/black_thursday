@@ -97,9 +97,27 @@ class SalesAnalystTest < Minitest::Test
   def test_for_top_merchants_by_invoice_count
     actual = @sales_analyst.top_merchants_by_invoice_count
 
-    ssert actual.is_a?(Array)
+    assert actual.is_a?(Array)
     assert actual[0].is_a?(Merchant)
     assert_equal 1, actual.count
-    assert_equal 'Madewithgitterxx', actual[0].name
+    assert_equal 'Candisart', actual[0].name
+  end
+
+  def test_for_bottom_merchants_by_invoice_count
+    actual = @sales_analyst.bottom_merchants_by_invoice_count
+
+    assert actual.is_a?(Array)
+    assert actual[0].is_a?(Merchant)
+    assert_equal 1, actual.count
+    assert_equal 'Candisart', actual[0].name
+  end
+
+  def test_top_days_by_invoice_count
+    actual = @sales_analyst.top_days_by_invoice_count
+
+    assert actual.is_a?(Array)
+    assert actual[0].is_a?(String)
+    assert_equal 2, actual.count
+    assert_equal 'Friday', actual[0]
   end
 end
