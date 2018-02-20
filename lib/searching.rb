@@ -7,7 +7,7 @@ module Searching
   end
 
   def find_by_id(id)
-    @all.find { |obj| obj.id == id }
+    @all.find { |obj| obj.id == id.to_s }
   end
 
   def find_by_name(name)
@@ -15,6 +15,6 @@ module Searching
   end
 
   def find_all_by_merchant_id(id)
-    @all.find_all { |obj| obj.merchant_id == id }
+    @all.find_all { |obj| obj.merchant_id == id.to_s }
   end
 end
