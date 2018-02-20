@@ -47,7 +47,7 @@ class SalesEngineTest < Minitest::Test
     merchant = sales_engine.merchants.find_by_id(12334112)
 
     merchant.items
-
+    
     assert_equal 1, merchant.items.count
   end
 end
