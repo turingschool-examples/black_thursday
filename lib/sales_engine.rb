@@ -4,17 +4,14 @@ require 'pry'
 
 # Data Access Layer that interacts with repositories
 class SalesEngine
-  attr_reader :items, :merchants
+  attr_accessor :items, :merchants
 
-  def initialize
-    @items = nil
-    @merchants = nil
+  def initialize(repositories)
+    @items = ItemRepository.new(repositories[:items])
+    @merchants = MerchantRepository.new(repositories[:merchants])
   end
 
   def self.from_csv(repositories)
-    engine = self.new
-    engine.items = ItemRepository.new(repositories[:items])
-    engine.merchants = MerchantRepository.new(repositories[:merchants])
-    engine
+    new(repositories)
   end
 end
