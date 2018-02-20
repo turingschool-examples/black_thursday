@@ -85,4 +85,8 @@ class ItemReposityTest < Minitest::Test
 
     assert_equal [], @ir.find_all_by_merchant_id(8000)
   end
+
+  def test_overrides_inspect
+    assert_equal "#<ItemRepository 5 rows>", @ir.inspect
+  end
 end

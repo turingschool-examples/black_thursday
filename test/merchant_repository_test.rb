@@ -71,4 +71,8 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 'MiniatureBikez', result[0].name
     assert_equal 'Miniaturepeople', result[1].name
   end
+
+  def test_overrides_inspect
+    assert_equal "#<MerchantRepository 5 rows>", @ir.inspect
+  end
 end
