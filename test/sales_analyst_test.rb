@@ -24,15 +24,20 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 2.88, result
   end
 
+  def test_standard_deviation_method_is_accurate
+    data_set = [3,4,5]
+    result = @sales_analyst.standard_deviation(4, data_set)
+
+    assert_equal 0.82, result
+  end
+
   def test_can_return_standard_deviation_items_per_merchant
-    skip
     result = @sales_analyst.average_items_per_merchant_standard_deviation
 
     assert_equal 3.26, result
   end
 
   def test_can_find_merchants_with_high_item_count
-    skip
     result = @sales_analyst.merchants_with_high_item_count
 
     assert_instance_of Array, result
@@ -40,21 +45,18 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_find_average_item_price_of_merchant
-    skip
     result = @sales_analyst.average_item_price_for_merchant(12_334_159)
 
     assert_instance_of BigDecimal, result
   end
 
   def test_can_find_average_of_average_merchant_item_price
-    skip
     result = @sales_analyst.average_average_price_per_merchant
 
     assert_instance_of BigDecimal, result
   end
 
   def test_can_find_golden_items
-    skip
     result = @sales_analyst.golden_items
 
     assert_instance_of Array, result
@@ -62,7 +64,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_merchant_collector_helper_method_works
-    skip
     result = @sales_analyst.merchant_collector
 
     assert_instance_of Array, result
@@ -70,7 +71,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_item_collect_helper_method_works
-    skip
     result = @sales_analyst.item_collector
 
     assert_instance_of Array, result
@@ -78,7 +78,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_gets_standard_deviation_of_all_item_prices_helper_method
-    skip
     result = @sales_analyst.price_standard_deviation
 
     assert_instance_of Float, result
