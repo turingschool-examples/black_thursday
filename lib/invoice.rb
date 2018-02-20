@@ -9,4 +9,8 @@ class Invoice
     @created_time = hash[:created_time]
     @parent = parent
   end
+
+  def merchant
+    @parent.invoice_repo_finds_merchant_via_engine(self.id)
+  end
 end
