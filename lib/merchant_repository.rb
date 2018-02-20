@@ -1,4 +1,3 @@
-require 'csv'
 require './lib/searching'
 
 class MerchantRepository
@@ -7,6 +6,10 @@ class MerchantRepository
 
   def initialize(file_path)
     @file_path = file_path
+  end
+
+  def all
+    data.map {|row| Merchant.new(row)}
   end
 
   def find_all_by_name(fragment)

@@ -25,9 +25,27 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of Merchant, @merch_repo.find_by_id('12334105')
     assert_equal 'Shopin1901', @merch_repo.find_by_id('12334105').name
   end
-# find_by_name - returns either nil or an instance of Item having done a case insensitive search
-# find_all_with_description - returns either [] or instances of Item where the supplied string appears in the item description (case insensitive)
-# find_all_by_price - returns either [] or instances of Item where the supplied price exactly matches
-# find_all_by_price_in_range - returns either [] or instances of Item where the supplied price is in the supplied range (a single Ruby range instance is passed in)
-# find_all_by_merchant_id - returns either [] or instances of Item where the supplied merchant ID matches that supplied
+
+  def test_find_by_name
+    assert_nil @merch_repo.find_by_name('Satisfaction')
+    assert_instance_of Merchant, @merch_repo.find_by_name('LolaMarleys')
+    assert_instance_of Merchant, @merch_repo.find_by_name('lolAmarLeYs')
+    assert_equal '12334115', @merch_repo.find_by_name('lolAmarLeYs').id
+  end
+
+
+# find_all_with_description - returns either []
+# or instances of Item where the supplied string appears
+# in the item description (case insensitive)
+
+# find_all_by_price - returns either []
+# or instances of Item where the supplied price exactly matches
+
+# find_all_by_price_in_range - returns either []
+# or instances of Item where the supplied price is
+# in the supplied range (a single Ruby range instance is passed in)
+
+# find_all_by_merchant_id - returns either []
+# or instances of Item where the supplied merchant ID
+# matches that supplied
 end
