@@ -28,8 +28,9 @@ class MerchantRepository
   end
 
   def find_by_name(name)
+    name = name.downcase
     @merchants.find do |merchant|
-      merchant.name.casecmp?(name)
+      name == merchant.name.downcase
     end
   end
 
