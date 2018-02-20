@@ -5,7 +5,7 @@ require_relative '../lib/sales_engine'
 class SalesAnalystTest < Minitest::Test
   def setup
     @se = SalesEngine.from_csv(
-      items:     './test/fixtures/item_repository_abreviated.csv',
+      items:     './test/fixtures/items_list_truncated.csv',
       merchants: './test/fixtures/merchants_list_truncated.csv'
     )
     @sales_analyst = SalesAnalyst.new(@se)
@@ -17,15 +17,20 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_for_items_per_merchant
-    assert_equal [2, 3, 4, 5, 6, 7], @sales_analyst.items_per_merchant
+    assert_equal [1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3], @sales_analyst.items_per_merchant
   end
 
   def test_for_average_items_per_merchant
-    assert_equal 2.88, @sales_analyst.average_items_per_merchant
+    assert_equal 0.3, @sales_analyst.average_items_per_merchant
   end
 
   def test_average_items_per_merchant_standard_deviation
     expected = @sales_analyst.average_items_per_merchant_standard_deviation
-    assert_equal 3.26, expected
+    assert_equal 0.7326950970650465, expected
+  end
+
+  def test_merchants_with_high_item_count
+    expected = @sales_engine.merchants_with_high_item_count
+    
   end
 end
