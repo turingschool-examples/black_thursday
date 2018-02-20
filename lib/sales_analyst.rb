@@ -16,18 +16,19 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    all_merchants = self.engine.merchants.find_all_by_name('')
-    total_items = all_merchants.map do |merchant|
+    merchant_collector.map do |merchant|
       merchant.items.length
-    end
-    total_items.stdev.round(2)
+    end.stdev.round(2)
   end
 
   def merchants_with_high_item_count
-
+    this = average_items_per_merchant_standard_deviation
+    merchant_collector.map do |merchant|
+      merchant if (merchant.items.length - this) > 1
+    end.compact
   end
 
   def merchant_collector
-    self.engine.merchants.find_all_by_name('')
+    engine.merchants.find_all_by_name('')
   end
 end
