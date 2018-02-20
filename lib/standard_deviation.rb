@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Calculates Standard Deviation
 class StandardDeviation
   attr_reader :data
