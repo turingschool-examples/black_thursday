@@ -1,29 +1,32 @@
 require_relative 'test_helper'
 require_relative '../lib/invoice'
+require_relative '../lib/sales_engine.rb'
 
 class InvoiceTest < Minitest::Test
-  def test_it_exists
-    invoice = Invoice.new({
-      id:          6,
-      customer_id: 7,
-      merchant_id: 8,
-      status:      'pending',
-      created_at:  Time.now,
-      updated_at:  Time.now
+  def setup
+    @sales_engine = SalesEngine.new({
+      items: './test/fixtures/items.csv',
+      merchants: './test/fixtures/merchants_fix.csv',
+      invoices: './test/fixtures/invoices.csv'
       })
+      @invoice = Invoice.new({
+        id:          6,
+        customer_id: 7,
+        merchant_id: 8,
+        status:      'pending',
+        created_at:  Time.now,
+        updated_at:  Time.now
+        }, @sales_engine.invoices)
+  end
+
+  def test_it_exists
+    invoice = @invoice
 
     assert_instance_of Invoice, invoice
   end
 
   def test_invoice_attributes_accessible
-    invoice = Invoice.new({
-      id:          6,
-      customer_id: 7,
-      merchant_id: 8,
-      status:      'pending',
-      created_at:  Time.now,
-      updated_at:  Time.now
-      })
+    invoice = @invoice
 
     assert_equal 6, invoice.id
     assert_equal 7, invoice.customer_id
@@ -40,7 +43,7 @@ class InvoiceTest < Minitest::Test
       status:      'ready',
       created_at:  Time.at(1_498_280_000),
       updated_at:  Time.at(1_498_280_000)
-      })
+      }, @sales_engine.invoices)
     created_time = Time.at(1_498_280_000)
 
     assert_equal 66, invoice.id

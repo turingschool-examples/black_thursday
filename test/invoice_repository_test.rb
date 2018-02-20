@@ -1,29 +1,39 @@
 require_relative 'test_helper.rb'
 require_relative '../lib/invoice_repository'
+require_relative '../lib/sales_engine.rb'
 
 class InvoiceRepositoryTest < Minitest::Test
+  def setup
+    sales_engine = SalesEngine.new({
+      items: './test/fixtures/items.csv',
+      merchants: './test/fixtures/merchants_fix.csv',
+      invoices: './test/fixtures/invoices.csv'
+      })
+      @invoice_repository = sales_engine.invoices
+  end
+
   def test_it_exists
-    invoice_repository = InvoiceRepository.new('./test/fixtures/invoices.csv')
+    invoice_repository = @invoice_repository
 
     assert_instance_of InvoiceRepository, invoice_repository
   end
 
   def test_invoice_repository_holds_all_invoices
-    invoice_repository = InvoiceRepository.new('./test/fixtures/invoices.csv')
+    invoice_repository = @invoice_repository
 
     assert_equal 14, invoice_repository.all.length
     assert (invoice_repository.all.all? { |invoice| invoice.is_a?(Invoice)})
   end
 
   def test_invoice_repository_holds_invoice_attributes
-    invoice_repository = InvoiceRepository.new('./test/fixtures/invoices.csv')
+    invoice_repository = @invoice_repository
 
     assert_equal 1, invoice_repository.all.first.id
     assert_equal 12335938, invoice_repository.all.first.merchant_id
   end
 
   def test_it_can_find_invoice_by_id
-    invoice_repository = InvoiceRepository.new('./test/fixtures/invoices.csv')
+    invoice_repository = @invoice_repository
 
     result = invoice_repository.find_by_id(7)
 
@@ -36,7 +46,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_invoices_by_customer_id
-    invoice_repository = InvoiceRepository.new('./test/fixtures/invoices.csv')
+    invoice_repository = @invoice_repository
 
     result = invoice_repository.find_all_by_customer_id(1)
 
@@ -51,7 +61,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
 
   def test_it_can_find_all_invoices_by_merchant_id
-    invoice_repository = InvoiceRepository.new('./test/fixtures/invoices.csv')
+    invoice_repository = @invoice_repository
 
     result = invoice_repository.find_all_by_merchant_id(12335955)
 
@@ -63,7 +73,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_invoices_by_status
-    invoice_repository = InvoiceRepository.new('./test/fixtures/invoices.csv')
+    invoice_repository = @invoice_repository
 
     result = invoice_repository.find_all_by_status('pending')
 

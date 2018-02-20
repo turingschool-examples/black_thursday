@@ -10,4 +10,8 @@ class Merchant
     @parent.merch_repo_goes_to_sales_engine_with_merchant_id(self.id)
            #.get_items_merch_to_repo(self.id)
   end
+
+  def invoices
+    @parent.merch_repo_finds_invoices_via_engine(self.id)
+  end
 end

@@ -6,7 +6,8 @@ class MerchantTest < Minitest::Test
   def setup
     sales_engine = SalesEngine.new({
       items: './test/fixtures/items.csv',
-      merchants: './test/fixtures/merchants_fix.csv'
+      merchants: './test/fixtures/merchants_fix.csv',
+      invoices: './test/fixtures/invoices.csv'
       })
     @merchant = Merchant.new({:id => '5', :name => 'Turing School'}, sales_engine.merchants)
   end

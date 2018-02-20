@@ -24,10 +24,6 @@ class MerchantRepository
     end
   end
 
-  def merch_repo_goes_to_sales_engine_with_merchant_id(id)
-    @parent.item_repo_finds_all_by_merchant_id(id)
-  end
-
   def find_by_name(merch_name)
     @merchants.find do |merchant|
       merchant.name.downcase == merch_name.downcase
@@ -40,5 +36,11 @@ class MerchantRepository
     end
   end
 
+  def merch_repo_goes_to_sales_engine_with_merchant_id(id)
+    @parent.item_repo_finds_all_by_merchant_id(id)
+  end
 
+  def merch_repo_finds_invoices_via_engine(id)
+    @parent.engine_finds_invoices_via_invoice_repo(id)
+  end
 end
