@@ -1,4 +1,5 @@
 require 'ruby_native_statistics'
+require 'bigdecimal'
 require_relative 'sales_engine.rb'
 
 class SalesAnalyst
@@ -26,6 +27,14 @@ class SalesAnalyst
     merchant_collector.map do |merchant|
       merchant if (merchant.items.length - this) > 1
     end.compact
+  end
+
+  def average_item_price_for_merchant(merch_id)
+    merch_items = engine.merchants.find_by_id(merch_id).items
+    avg_price = merch_items.map do |item|
+      item.unit_price
+    end.sum
+    avg_price / merch_items.length
   end
 
   def merchant_collector

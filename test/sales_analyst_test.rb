@@ -23,6 +23,7 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Array, result
     assert_instance_of Merchant, result[0]
   end
+
   def test_can_return_average_items_per_merchant
     result = @sales_analyst.average_items_per_merchant
 
@@ -40,5 +41,11 @@ class SalesAnalystTest < Minitest::Test
 
     assert_instance_of Array, result
     assert_instance_of Merchant, result[0]
+  end
+
+  def test_can_find_average_item_price_of_merchant
+    result = @sales_analyst.average_item_price_for_merchant(12334159)
+
+    assert_instance_of BigDecimal, result
   end
 end
