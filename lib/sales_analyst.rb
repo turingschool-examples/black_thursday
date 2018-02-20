@@ -1,4 +1,4 @@
-require 'ruby_native_statistics'
+
 require 'bigdecimal'
 require_relative 'sales_engine.rb'
 
@@ -9,17 +9,32 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    all_merchants = merchant_collector
-    total_items = all_merchants.map do |merchant|
-      merchant.items.length
-    end.sum.to_f
-    (total_items / all_merchants.length).round(2)
+    all_merchants = merchant_collector.length
+    total_items = item_collector.length
+    (total_items.to_f / all_merchants).round(2)
+  end
+
+  def standard_deviation(mean, data_set)
+    squared_distance_sum = data_set.map do |data_point|
+      (data_point - mean.to_f.abs) ** 2
+    end.sum
+
+    ((squared_distance_sum/data_set.length) ** 0.5).round(2)
+  end
+
+  def find_mean(data_set)
+    total = data_set.inject(0.0) do |sum, data_point|
+      sum + data_point
+    end
+
+    total / data_set.length
   end
 
   def average_items_per_merchant_standard_deviation
-    merchant_collector.map do |merchant|
+    merchant_item_array = merchant_collector.map do |merchant|
       merchant.items.length
-    end.stdev.round(2)
+    end
+    standard_deviation(average_items_per_merchant, merchant_item_array)
   end
 
   def merchants_with_high_item_count
@@ -60,8 +75,11 @@ class SalesAnalyst
   end
 
   def price_standard_deviation
-    item_collector.map do |item|
-      item.unit_price.truncate
-    end.stdev.round(2)
+    item_price_array = item_collector.map do |item|
+      item.unit_price
+    end
+
+    mean = find_mean(item_price_array)
+    standard_deviation(mean, item_price_array)
   end
 end
