@@ -34,4 +34,10 @@ class SalesAnalyst
       merchant if (merchant.items.length - average_items_per_merchant) > average_items_per_merchant_standard_deviation
     end.compact
   end
+
+  def average_item_price_for_merchant(id)
+    @sales_engine.pass_id_to_item_repo(id).map do |item|
+      item.unit_price.to_f
+    end.sum / @sales_engine.merchants.find_by_id(id).items.length
+  end
 end
