@@ -3,8 +3,9 @@ require 'pry'
 require './lib/merchant'
 
 class MerchantRepository
-  def initialize(filepath)
+  def initialize(filepath, parent)
     @merchants = []
+    @parent = parent
     load_merchants(filepath)
   end
 
@@ -17,7 +18,7 @@ class MerchantRepository
     @merchants << Merchant.new(data)
     end
   end
- 
+
   def find_by_id(id)
     @merchants.find { |merchant| merchant.id == id}
   end

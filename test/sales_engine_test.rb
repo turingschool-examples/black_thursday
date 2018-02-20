@@ -40,4 +40,7 @@ class SalesEngineTest < Minitest::Test
 
     assert_instance_of SalesEngine, se
   end
+
+  def test_pass_merchant_id_to_merchant_repo
+  end
 end

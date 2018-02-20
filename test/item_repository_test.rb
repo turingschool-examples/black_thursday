@@ -8,6 +8,7 @@ class ItemRepositoryTest < Minitest::Test
     item_repository = ItemRepository.new('./test/fixtures/items.csv', 'parent')
 
     assert_instance_of ItemRepository, item_repository
+    assert_equal 'parent', item_repository.parent
   end
 
   def test_item_repo_has_items
@@ -70,5 +71,13 @@ class ItemRepositoryTest < Minitest::Test
 
     assert_equal [], item_repo.find_all_by_merchant_id(12_345)
     assert_instance_of Item, item_repo.find_all_by_merchant_id(12_334_141)[0]
+  end
+
+  def test_pass_merchant_id_to_se
+    parent = SalesEngine.from_csv(items: './test/fixtures/items.csv', merchants: './test/fixtures/merchants.csv')
+    item_repo = ItemRepository.new('./test/fixtures/items.csv', parent)
+    item_repo.pass_merchant_id_to_se(2)
+
+    #not sure what to assert for unit testing
   end
 end

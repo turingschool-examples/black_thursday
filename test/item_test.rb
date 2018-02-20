@@ -1,6 +1,8 @@
 require_relative 'test_helper'
 require_relative '../lib/item'
 require_relative '../lib/item_repository'
+require_relative '../lib/merchant'
+require_relative '../lib/sales_engine'
 require 'bigdecimal'
 require 'pry'
 
@@ -74,10 +76,11 @@ class ItemTest < Minitest::Test
              merchant_id: 2,
              created_at: Time.now,
              updated_at: Time.now }
-    parent = ItemRepository.new('./test/fixtures/items.csv', 'engine')
+    se = SalesEngine.from_csv(items: './test/fixtures/items.csv', merchants: './test/fixtures/merchants.csv')
+    parent = ItemRepository.new('./test/fixtures/items.csv', se)
     item = Item.new(data, parent)
 
-    assert_instance_of Array, item.merchant
-    assert_equal 5, item.merchant.count
+    assert_instance_of Merchant, item.merchant
+    assert_equal item.merchant.id, item.merchant_id
   end
 end

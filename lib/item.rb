@@ -24,6 +24,6 @@ class Item
   end
 
   def merchant
-    @parent.items
+    @parent.pass_merchant_id_to_se(@merchant_id)
   end
 end

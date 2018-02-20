@@ -2,9 +2,10 @@ require 'CSV'
 require_relative '../lib/item'
 require 'pry'
 class ItemRepository
-  attr_reader :items
+  attr_reader :items, :parent
   def initialize(filepath, parent)
     @items = []
+    @parent = parent
     find_items(filepath)
   end
 
@@ -48,5 +49,9 @@ class ItemRepository
     @items.find_all do |item|
       item.merchant_id == id.to_s
     end
+  end
+
+  def pass_merchant_id_to_se(id)
+    @parent.pass_merchant_id_to_merchant_repo(id)
   end
 end
