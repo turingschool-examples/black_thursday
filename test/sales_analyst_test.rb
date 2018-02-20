@@ -10,8 +10,12 @@ class SalesAnalystTest < Minitest::Test
     @sales_analyst = SalesAnalyst.new(@se)
   end
 
-  def tets_it_exists
+  def test_it_exists
     assert_instance_of SalesAnalyst, @sales_analyst
-    assert_instance_of @se, @sales_analyst.sales_engine.downcase
+    assert_equal @se, @sales_analyst.sales_engine
+  end
+
+  def test_average_items_per_merchant
+    assert_equal 1, @sales_analyst.average_items_per_merchant
   end
 end
