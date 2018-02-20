@@ -4,7 +4,9 @@ require_relative 'invoice_repository'
 
 # Data Access Layer that interacts with repositories
 class SalesEngine
-  attr_accessor :items, :merchants, :invoices 
+  attr_accessor :items, 
+                :merchants, 
+                :invoices 
 
   def initialize(repositories)
     @items = ItemRepository.new(repositories[:items])
