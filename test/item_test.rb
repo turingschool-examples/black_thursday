@@ -37,9 +37,7 @@ class ItemTest < Minitest::Test
                       name: 'Wine',
                       description: 'It gets you drunk',
                       unit_price: BigDecimal.new(79.59, 4),
-                      merchant_id: 343_414,
-                      created_at: Time.now,
-                      updated_at: Time.now }, 'parent')
+                      merchant_id: 343_414 }, 'parent')
 
     assert_equal 1, item.id
     assert_equal 'Wine', item.name

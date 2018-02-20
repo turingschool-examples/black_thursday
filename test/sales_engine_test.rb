@@ -24,7 +24,6 @@ class SalesEngineTest < Minitest::Test
     merchant = @sales_eng.merchants.find_by_id('12334105')
     item_ids = %w[1 2]
 
-    assert_equal 2, merchant.items.length
     (0...item_ids.length).each do |index|
       assert_equal item_ids[index], merchant.items[index].id
       assert_instance_of Item, merchant.items[index]
