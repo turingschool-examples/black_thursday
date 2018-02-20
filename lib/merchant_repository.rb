@@ -16,7 +16,7 @@ class MerchantRepository
 
   def load_merchants(filepath)
     CSV.foreach(filepath, headers: true, header_converters: :symbol) do |data|
-    @merchants << Merchant.new(data)
+      @merchants << Merchant.new(data, self)
     end
   end
 
@@ -25,12 +25,16 @@ class MerchantRepository
   end
 
   def find_by_name(name)
-    @merchants.find { |merchant| merchant.name.casecmp(name) }
+    @merchants.find { |merchant| merchant.name.downcase == name.downcase }
   end
 
   def find_all_by_name(name)
     @merchants.find_all do |merchant|
       merchant.name.downcase.include?(name.to_s.downcase)
     end
+  end
+
+  def pass_id_to_se(id)
+    @parent.pass_id_to_item_repo(id)
   end
 end
