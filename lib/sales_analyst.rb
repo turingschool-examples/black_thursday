@@ -3,10 +3,11 @@ require 'bigdecimal'
 class SalesAnalyst
   attr_reader :sales_engine
   def initialize(sales_engine)
-    @sales_engine   = sales_engine
-    @merchants      = sales_engine.merchants
-    @merchant_items = items_per_merchant
-    @all_items      = sales_engine.items.all
+    @sales_engine      = sales_engine
+    @merchants         = sales_engine.merchants
+    @merchant_items    = items_per_merchant
+    @all_items         = sales_engine.items.all
+    @invoices          = sales_engine.invoices
   end
 
   def items_per_merchant
@@ -82,5 +83,18 @@ class SalesAnalyst
     stdev = item_price_standard_deviation
     found = zipped.find_all { |item| item[0] > (average + (stdev * 2)) }
     found.map { |item| item[1] }
+  end
+
+  def invoices_per_merchant
+    @merchants.all.map do |merchant|
+      @invoices.find_all_by_merchant_id(merchant.id).count
+    end
+    binding.pry
+  end
+
+  def average_invoices_per_merchant
+    count = @merchant_invoices.count
+    average = @merchant_items.inject { |sum, num| sum + num }.to_f / count
+    average.round(2)
   end
 end
