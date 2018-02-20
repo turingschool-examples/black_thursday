@@ -14,7 +14,7 @@ class MerchantRepositoryTest < Minitest::Test
   def test_a_merchant_repo_has_merchants
     merchant_repo = MerchantRepository.new('./fixtures/merchants.csv')
 
-    assert_equal 8, merchant_repo.all.count
+    assert_equal 9, merchant_repo.all.count
     assert_instance_of Array, merchant_repo.all
     assert merchant_repo.all.all? do |merchant|
       merchant.is_a?(Merchant)
@@ -63,11 +63,12 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_can_find_an_array_of_matches_by_name_fragment
     merchant_repo = MerchantRepository.new('./fixtures/merchants.csv')
 
-    result = merchant_repo.find_all_by_name('minitaure')
+    result = merchant_repo.find_all_by_name('mini')
 
     assert_instance_of Array, result
     assert_instance_of Merchant, result[0]
     assert_instance_of Merchant, result[1]
-    assert_equal result[0]
+    assert_equal 'MiniatureBikez', result[0].name
+    assert_equal 'Miniaturepeople', result[1].name
   end
 end
