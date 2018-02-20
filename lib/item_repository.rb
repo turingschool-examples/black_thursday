@@ -1,9 +1,12 @@
 require 'CSV'
 require_relative '../lib/item'
 require 'pry'
+# class to hold the item repository
 class ItemRepository
-  def initialize(filepath)
+  attr_reader :items, :parent
+  def initialize(filepath, parent)
     @items = []
+    @parent = parent
     find_items(filepath)
   end
 
@@ -13,7 +16,7 @@ class ItemRepository
 
   def find_items(filepath)
     CSV.foreach(filepath, headers: true, header_converters: :symbol) do |data|
-      @items << Item.new(data)
+      @items << Item.new(data, self)
     end
   end
 
@@ -47,5 +50,9 @@ class ItemRepository
     @items.find_all do |item|
       item.merchant_id == id.to_s
     end
+  end
+
+  def pass_merchant_id_to_se(id)
+    @parent.pass_merchant_id_to_merchant_repo(id)
   end
 end

@@ -24,6 +24,7 @@ namespace :sanitation do
   task :all => [:lines, :methods]
 end
 
+
 require "rake"
 require "rake/testtask"
 
