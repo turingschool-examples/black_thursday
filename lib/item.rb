@@ -23,4 +23,8 @@ class Item
   def unit_price_to_dollars
     @unit_price.to_f
   end
+
+  def merchant
+    @parent.item_repo_goes_to_sales_engine_with_merchant_id(self.merchant_id)
+  end
 end

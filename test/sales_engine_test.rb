@@ -47,10 +47,21 @@ class SalesEngineTest < Minitest::Test
       })
 
     merchant = sales_engine.merchants.find_by_id(12334141)
-
     merchant.items
 
     assert_equal 1, merchant.items.count
     assert_equal "510+ RealPush Icon Set", merchant.items[0].name
+  end
+
+  def test_item_merchant_returns_merchant_instance
+    sales_engine = SalesEngine.from_csv({
+      items: './test/fixtures/items.csv',
+      merchants: './test/fixtures/merchants_fix.csv'
+      })
+
+    item = sales_engine.items.find_by_id(263395237)
+    item.merchant
+
+    assert_equal "jejum", item.merchant.name
   end
 end
