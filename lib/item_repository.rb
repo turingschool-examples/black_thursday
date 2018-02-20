@@ -30,4 +30,11 @@ class ItemRepository
       id == item.id
     end.first
   end
+
+  def find_by_name(name)
+    name = name.downcase
+    @items.select do |item|
+      name == item.name.downcase
+    end.first
+  end
 end
