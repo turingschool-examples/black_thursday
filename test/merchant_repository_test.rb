@@ -12,7 +12,6 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_all_method
-#   all - returns an array of all known Merchant instances
     assert_instance_of Array, @merch_repo.all
     assert_instance_of Merchant, @merch_repo.all.first
     assert_equal '12334105', @merch_repo.all.first.id
@@ -29,14 +28,18 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_find_by_name
 #   find_by_name - returns either nil
+    skip
+    assert_nil @merch_repo.find_by_name('Satisfaction')
 #   or an instance of Merchant having done
 #   a case insensitive search
-    skip
+    assert_instance_of Merchant, @merch_repo.find_by_name('LolaMarleys')
   end
 
   def test_find_all_by_name
 #   find_all_by_name - returns either [] or one or more matches
-#   which contain the supplied name fragment, case insensitive
     skip
+    assert_nil @merch_repo.find_all_by_name('Bullets')
+#   which contain the supplied name fragment, case insensitive
+    # assert_equal , @merch_repo.find_all_by_name('ar')
   end
 end
