@@ -66,19 +66,6 @@ class SalesAnalyst
     end.compact
   end
 
-  # def golden_items
-  #   item_price_array = item_collector.map do |item|
-  #     item.unit_price
-  #   end
-  #
-  #   mean = find_mean(item_price_array)
-  #   standard_deviation(mean, item_price_array)
-  #
-  #   gold.map do |item|
-  #     item if (item.unit_price.truncate - price_stdev) > (2 * price_stdev)
-  #   end.compact
-  # end
-
   def merchant_collector
     engine.merchants.all
   end
@@ -86,12 +73,6 @@ class SalesAnalyst
   def item_collector
     engine.items.all
   end
-
-  # def price_standard_deviation
-  #   item_collector.map do |item|
-  #     item.unit_price.truncate
-  #   end.stdev.round(2)
-  # end
 
   def price_standard_deviation
     item_price_array = item_collector.map do |item|

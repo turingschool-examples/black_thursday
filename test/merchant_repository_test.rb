@@ -1,19 +1,22 @@
 require_relative 'test_helper.rb'
 require_relative '../lib/merchant_repository.rb'
+require_relative '../lib/sales_engine.rb'
 
 class MerchantRepositoryTest < Minitest::Test
-  # def setup
-  #   sales_engine = SalesEngine.new(requisite arguments)
-  #   merchant_repository = sales_engine.merchants
-  # end
+  def setup
+    sales_engine = SalesEngine.new({
+      items: './test/fixtures/items.csv',
+      merchants: './test/fixtures/merchants_fix.csv'
+      })
+    @merchant_repository = sales_engine.merchants
+  end
+  
   def test_merchant_repository_initializes
-    merchant_repository = MerchantRepository.new('./test/fixtures/merchants_fix.csv', parent)
-
-    assert_instance_of MerchantRepository, merchant_repository
+    assert_instance_of MerchantRepository, @merchant_repository
   end
 
   def test_merchant_repository_has_merchants
-    merchant_repository = MerchantRepository.new('./test/fixtures/merchants_fix.csv')
+    merchant_repository = @merchant_repository
 
     assert_equal 9, merchant_repository.all.count
     assert_instance_of Array, merchant_repository.all
@@ -22,7 +25,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_merchant_repository_can_be_searched_by_id
-    merchant_repository = MerchantRepository.new('./test/fixtures/merchants_fix.csv')
+    merchant_repository = @merchant_repository
 
     result = merchant_repository.find_by_id(12334112)
 
@@ -36,7 +39,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_merchant_repository_can_be_searched_by_name
-    merchant_repository = MerchantRepository.new('./test/fixtures/merchants_fix.csv')
+    merchant_repository = @merchant_repository
 
     result = merchant_repository.find_by_name('Candisart')
 
@@ -50,7 +53,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_merchant_repository_can_find_all_by_name
-    merchant_repository = MerchantRepository.new('./test/fixtures/merchants_fix.csv')
+    merchant_repository = @merchant_repository
 
     result = merchant_repository.find_all_by_name('se')
 

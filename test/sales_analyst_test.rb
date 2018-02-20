@@ -31,6 +31,13 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 0.82, result
   end
 
+  def test_mean_method_is_accurate
+    data_set = [3,4,5]
+    result = @sales_analyst.find_mean(data_set)
+
+    assert_equal 4, result
+  end
+
   def test_can_return_standard_deviation_items_per_merchant
     result = @sales_analyst.average_items_per_merchant_standard_deviation
 
@@ -80,7 +87,7 @@ class SalesAnalystTest < Minitest::Test
   def test_gets_standard_deviation_of_all_item_prices_helper_method
     result = @sales_analyst.price_standard_deviation
 
-    assert_instance_of Float, result
-    assert_equal 290_099.0, result
+    assert_instance_of BigDecimal, result
+    assert_equal 0.28999287e6, result
   end
 end

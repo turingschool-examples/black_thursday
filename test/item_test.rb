@@ -1,29 +1,32 @@
 require "bigdecimal"
 require_relative 'test_helper.rb'
 require_relative "../lib/item"
+require_relative '../lib/sales_engine.rb'
 
 
 class ItemTest < Minitest::Test
-  def test_it_exists
-    item = Item.new({
+  def setup
+    @sales_engine = SalesEngine.new({
+      items: './test/fixtures/items.csv',
+      merchants: './test/fixtures/merchants_fix.csv'
+      })
+    @item = Item.new({
       :name        => "Pencil",
       :description => "You can use it to write things",
       :unit_price  => BigDecimal.new(10.99,4),
       :created_at  => Time.now,
       :updated_at  => Time.now,
-      })
+      }, @sales_engine.items)
+  end
+
+  def test_it_exists
+    item = @item
 
     assert_instance_of Item, item
   end
 
   def test_it_has_attributes
-    item = Item.new({
-      :name        => "Pencil",
-      :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(10.99,4),
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
-      })
+    item = @item
 
     assert_equal "Pencil", item.name
     assert_equal "You can use it to write things", item.description
@@ -39,7 +42,7 @@ class ItemTest < Minitest::Test
       :unit_price  => BigDecimal.new(3.99,4),
       :created_at  => Time.at(1498232400),
       :updated_at  => Time.at(1498280000),
-      })
+      }, @sales_engine.items)
     created_time = Time.at(1498232400)
     updated_time = Time.at(1498280000)
 
@@ -51,13 +54,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_unit_price_converts_to_dollar
-    item = Item.new({
-      :name        => "Pencil",
-      :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(10.99,4),
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
-      })
+    item = @item
 
     assert_equal 10.99, item.unit_price_to_dollars
   end
