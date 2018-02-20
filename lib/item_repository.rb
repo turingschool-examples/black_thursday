@@ -1,16 +1,29 @@
-require 'csv'
-require_relative 'item'
-require 'pry'
+require './lib/searching'
 
-# Creates and manages a database of items
 class ItemRepository
-  attr_reader :items
+  include Searching
 
   def initialize(file_path)
-    @items = []
-    contents = CSV.open(file_path, headers: true, header_converters: :symbol)
-    contents.each do |row|
-      @items.push(Item.new(row))
+    @file_path = file_path
+  end
+
+  def all
+    data.map {|row| Item.new(row)}
+  end
+
+  def find_all_with_description(fragment)
+    all.find_all do |obj|
+      obj.description.include?(fragment)
+    end
+  end
+
+  def find_all_by_price(price)
+    all.find_all {|obj| obj.unit_price == price}
+  end
+
+  def find_all_by_price_in_range(range)
+    all.find_all do |obj|
+      range.include?(obj.unit_price.to_i / 100)
     end
   end
 end
