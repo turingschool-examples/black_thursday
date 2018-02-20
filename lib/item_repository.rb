@@ -13,7 +13,7 @@ class ItemRepository
   end
 
   def add_items
-    data.map { |row| Item.new(row) }
+    data.map { |row| Item.new(row, self) }
   end
 
   def find_all_with_description(fragment)

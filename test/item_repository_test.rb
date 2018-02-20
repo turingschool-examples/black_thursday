@@ -14,6 +14,10 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of ItemRepository, @item_repo
   end
 
+  def test_merchant_repository_adds_self_to_merchant
+    assert_equal @item_repo, @item_repo.all.first.parent
+  end
+
   def test_all_method
     assert_instance_of Array, @item_repo.all
     assert_instance_of Item, @item_repo.all.first
