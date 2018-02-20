@@ -19,9 +19,9 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_by_id_method
-    assert_nil @item_repo.find_by_id('8')
-    assert_instance_of Item, @item_repo.find_by_id('2')
-    assert_equal 'Pen', @item_repo.find_by_id('3').name
+    assert_nil @item_repo.find_by_id(8)
+    assert_instance_of Item, @item_repo.find_by_id(2)
+    assert_equal 'Pen', @item_repo.find_by_id(3).name
   end
 
   def test_find_by_name

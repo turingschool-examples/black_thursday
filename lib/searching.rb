@@ -8,6 +8,7 @@ module Searching
 
   def find_by_id(id)
     @all.find { |obj| obj.id == id.to_s }
+    # require 'pry'; binding.pry 
   end
 
   def find_by_name(name)
