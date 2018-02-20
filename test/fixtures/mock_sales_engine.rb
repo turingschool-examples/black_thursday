@@ -13,7 +13,7 @@ class MockSalesEngine
     2.times { @items.push(MockItem.new) }
   end
 
-  def find_merchant_items(id)
+  def find_merchant_items(_id)
     @items
   end
 end

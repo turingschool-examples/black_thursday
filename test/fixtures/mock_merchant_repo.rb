@@ -11,7 +11,7 @@ class MockMerchantRepo
     2.times { @items.push(MockItem.new) }
   end
 
-  def items(id)
+  def items(_id)
     @items
   end
 end
