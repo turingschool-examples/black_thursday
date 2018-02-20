@@ -49,5 +49,4 @@ class ItemRepository
     @items.find_all { |item| item.merchant_id == merchant_id }
   end
 
-
 end
