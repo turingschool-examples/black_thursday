@@ -32,11 +32,11 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_name
-    skip
-#   find_all_by_name - returns either []
-    assert_nil @merch_repo.find_all_by_name('Bullets')
-#   or one or more matches which contain the supplied name fragment,
-#   case insensitive
-    assert_equal "a", @merch_repo.find_all_by_name('ar')
+    actual = @merch_repo.find_all_by_name('ar')
+
+    assert_equal [], @merch_repo.find_all_by_name('Bullets')
+    assert_equal 2, actual.length
+    assert_equal 'Candisart', actual.first.name
+    assert_equal 'LolaMarleys', actual.last.name
   end
 end
