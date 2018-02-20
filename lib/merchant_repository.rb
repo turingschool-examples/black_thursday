@@ -1,6 +1,6 @@
 require 'CSV'
 require 'pry'
-require './lib/merchant'
+require_relative '../lib/merchant'
 
 class MerchantRepository
   def initialize(filepath)
@@ -17,7 +17,7 @@ class MerchantRepository
     @merchants << Merchant.new(data)
     end
   end
- 
+
   def find_by_id(id)
     @merchants.find { |merchant| merchant.id == id}
   end
@@ -30,5 +30,9 @@ class MerchantRepository
     @merchants.find_all do |merchant|
       merchant.name.downcase.include?(name.to_s.downcase)
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end

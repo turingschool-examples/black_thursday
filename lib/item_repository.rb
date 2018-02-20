@@ -1,6 +1,9 @@
 require 'CSV'
 require_relative '../lib/item'
 require 'pry'
+require 'bigdecimal'
+require 'time'
+
 class ItemRepository
   def initialize(filepath)
     @items = []
@@ -18,7 +21,7 @@ class ItemRepository
   end
 
   def find_by_id(id)
-    @items.find { |item| item.id == id.to_s }
+    @items.find { |item| item.id == id }
   end
 
   def find_by_name(name)
@@ -47,5 +50,9 @@ class ItemRepository
     @items.find_all do |item|
       item.merchant_id == id.to_s
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
   end
 end

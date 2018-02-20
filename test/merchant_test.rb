@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/merchant.rb'
+require_relative '../lib/merchant.rb'
 
 class MerchantTest < Minitest::Test
   def test_it_exists
