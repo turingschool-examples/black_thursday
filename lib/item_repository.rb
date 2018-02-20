@@ -29,7 +29,8 @@ class ItemRepository
   end
 
   def find_all_with_description(string)
-    @items.find_all { |item| item.description.include?(string) }
+    string = string.downcase
+    @items.find_all { |item| item.description.downcase.include?(string) }
   end
 
   def find_all_by_price(price)
@@ -38,11 +39,15 @@ class ItemRepository
 
   def find_all_by_price_in_range(range)
     @items.find_all do |item|
-      range.member?(item.unit_price.to_i)
+      range.member?(item.unit_price)
     end
   end
 
   def find_all_by_merchant_id(id)
     @items.find_all { |item| item.merchant_id == id }
+  end
+
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
   end
 end
