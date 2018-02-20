@@ -33,28 +33,37 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_find_all_with_description
     skip
-    assert_equal [], @item_repo.find_all_with_description("qwijybo")
-# or instances of Item where the supplied string appears
-# in the item description (case insensitive)
+    actual = @item_repo.find_all_with_description('write things')
+
+    assert_equal [], @item_repo.find_all_with_description('qwijybo')
+    assert_equal 3, actual.length
+    assert_instance_of Item, actual.first
   end
 
   def test_find_all_by_price
     skip
-    assert_equal [], @item_repo.find_all_by_price("0012")
-# or instances of Item where the supplied price exactly matches
+    actual = @item_repo.find_all_by_price('1299')
+
+    assert_equal [], @item_repo.find_all_by_price('0012')
+    assert_equal 2, actual.length
+    assert_instance_of Item, actual.first
   end
 
   def test_find_all_by_price_in_range
     skip
-    assert_equal [], @item_repo.find_all_by_price_in_range("0012")
-# or instances of Item where the supplied price is
-# in the supplied range (a single Ruby range instance is passed in)
+    actual = @item_repo.find_all_by_price_in_range(11..20)
+
+    assert_equal [], @item_repo.find_all_by_price_in_range(0..10)
+    assert_equal 3, actual.length
+    assert_instance_of Item, actual.first
   end
 
   def test_find_all_by_merchant_id
     skip
+    actual = @item_repo.find_all_by_merchant_id("2345")
+    
     assert_equal [], @item_repo.find_all_by_merchant_id("2")
-# or instances of Item where the supplied merchant ID
-# matches that supplied
+    assert_equal 2, actual.length
+    assert_instance_of Item, actual.first
   end
 end

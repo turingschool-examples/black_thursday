@@ -1,5 +1,5 @@
 id,name,description,unit_price,merchant_id,created_at,updated_at
 1,Pencil,You can use it to write things,1099,2345,2016-01-11 09:34:06 UTC,2007-06-04 21:35:10 UTC
 2,Pad,You can write things on it,1199,13465,2016-01-11 09:34:06 UTC,2007-06-04 21:35:10 UTC
-3,Pen,You can write things with it,1299,134534,2016-01-11 09:34:06 UTC,2007-06-04 21:35:10 UTC
-4,Eraser,You can use it to erase things,1399,2345345,2016-01-11 09:34:06 UTC,2007-06-04 21:35:10 UTC
+3,Pen,You can write things with it,1299,2345,2016-01-11 09:34:06 UTC,2007-06-04 21:35:10 UTC
+4,Eraser,You can use it to erase things,1299,2345345,2016-01-11 09:34:06 UTC,2007-06-04 21:35:10 UTC
