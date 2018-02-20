@@ -6,11 +6,12 @@ class MerchantRepositoryTest < Minitest::Test
   def setup
     sales_engine = SalesEngine.new({
       items: './test/fixtures/items.csv',
-      merchants: './test/fixtures/merchants_fix.csv'
+      merchants: './test/fixtures/merchants_fix.csv',
+      invoices: './test/fixtures/invoices.csv'
       })
     @merchant_repository = sales_engine.merchants
   end
-  
+
   def test_merchant_repository_initializes
     assert_instance_of MerchantRepository, @merchant_repository
   end

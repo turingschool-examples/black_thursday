@@ -2,9 +2,9 @@ require 'csv'
 require_relative 'invoice.rb'
 
 class InvoiceRepository
-  def initialize(filepath)
+  def initialize(filepath, parent)
     @invoices = []
-    # @parent = parent
+    @parent = parent
     load_items(filepath)
   end
 
@@ -14,7 +14,7 @@ class InvoiceRepository
 
   def load_items(filepath)
     CSV.foreach(filepath, headers: true, header_converters: :symbol) do |row|
-      @invoices << Invoice.new(row)
+      @invoices << Invoice.new(row, self)
     end
   end
 
