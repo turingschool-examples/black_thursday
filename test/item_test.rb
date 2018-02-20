@@ -26,7 +26,7 @@ class ItemTest < Minitest::Test
     assert_equal 23, @item.id
     assert_equal 'Pencil', @item.name
     assert_equal 'You can use it to write things', @item.description
-    assert_equal BigDecimal.new(1099), @item.unit_price
+    assert_equal BigDecimal.new(1099 / 100.0, 4), @item.unit_price
     assert_equal Time.parse('2016-01-11 17:42:32 UTC'), @item.created_at
     assert_equal Time.parse('2016-01-11 17:42:32 UTC'), @item.updated_at
     assert_equal 7, @item.merchant_id
