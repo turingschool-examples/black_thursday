@@ -24,4 +24,10 @@ class ItemRepository
   def all
     @items
   end
+
+  def find_by_id(id)
+    @items.select do |item|
+      id == item.id
+    end.first
+  end
 end
