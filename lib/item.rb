@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'time'
+
 # Defines an item in the store
 class Item
   attr_reader :id,

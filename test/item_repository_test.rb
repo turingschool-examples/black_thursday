@@ -51,15 +51,15 @@ class ItemReposityTest < Minitest::Test
   end
 
   def test_can_find_items_by_price
-    items = @ir.find_all_by_price 2000
+    items = @ir.find_all_by_price BigDecimal.new(2000)
     assert_instance_of Array, items
     assert_equal 2, items.length
     items.each do |item|
       assert_instance_of Item, item
-      assert_equal 2000, item.unit_price
+      assert_equal BigDecimal.new(2000), item.unit_price
     end
 
-    assert_equal [], @ir.find_all_by_price(8000)
+    assert_equal [], @ir.find_all_by_price(BigDecimal.new(8000))
   end
 
   def test_can_find_all_in_price_range
