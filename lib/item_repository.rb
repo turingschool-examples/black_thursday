@@ -2,7 +2,7 @@ require 'CSV'
 require_relative '../lib/item'
 require 'pry'
 class ItemRepository
-  def initialize(filepath)
+  def initialize(filepath, parent)
     @items = []
     find_items(filepath)
   end
@@ -13,7 +13,7 @@ class ItemRepository
 
   def find_items(filepath)
     CSV.foreach(filepath, headers: true, header_converters: :symbol) do |data|
-      @items << Item.new(data)
+      @items << Item.new(data, self)
     end
   end
 
