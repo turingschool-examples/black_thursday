@@ -17,7 +17,9 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_for_items_per_merchant
-    assert_equal [1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3], @sales_analyst.items_per_merchant
+    expected = [1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3]
+    actual = @sales_analyst.items_per_merchant
+    assert_equal expected, actual
   end
 
   def test_for_average_items_per_merchant
@@ -39,17 +41,17 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_for_average_item_price_for_merchant
-    actual = @sales_analyst.average_item_price_for_merchant(12334185)
+    actual = @sales_analyst.average_item_price_for_merchant(12_334_185)
 
     assert actual.is_a?(BigDecimal)
-    assert_equal 0.111667e4, actual
+    assert_equal 0.111_667e4, actual
   end
 
   def test_for_average_average_price_per_merchant
     actual = @sales_analyst.average_average_price_per_merchant
 
     assert actual.is_a?(BigDecimal)
-    assert_equal 0.340784e3, actual
+    assert_equal 0.340_784e3, actual
   end
 
   def test_for_item_unit_prices
@@ -65,13 +67,13 @@ class SalesAnalystTest < Minitest::Test
   def test_for_average_item_price
     actual = @sales_analyst.average_item_price
 
-    assert_equal 16065.40, actual
+    assert_equal 16_065.40, actual
   end
 
   def test_for_item_price_standard_deviation
     actual = @sales_analyst.item_price_standard_deviation
 
-    assert_equal 22670.45, actual
+    assert_equal 22_670.45, actual
   end
 
   def test_for_golden_items

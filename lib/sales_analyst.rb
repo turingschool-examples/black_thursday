@@ -46,7 +46,7 @@ class SalesAnalyst
       if merchant.items.empty?
         0
       else
-      average_item_price_for_merchant(merchant.id)
+        average_item_price_for_merchant(merchant.id)
       end
     end.mean
     BigDecimal.new(merchant_average_price, 6)
