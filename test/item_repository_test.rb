@@ -67,8 +67,8 @@ class ItemReposityTest < Minitest::Test
     assert_instance_of Array, items
     assert_equal 3, items.length
     items.each do |item|
-      assert_instance_if Item, item
-      assert_equal true, (1000..3000).cover?(item.price)
+      assert_instance_of Item, item
+      assert_equal true, (1000..3000).cover?(item.unit_price)
     end
 
     assert_equal [], @ir.find_all_by_price_in_range(1..10)
