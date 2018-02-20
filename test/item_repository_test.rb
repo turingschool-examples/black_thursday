@@ -1,8 +1,10 @@
 require_relative 'test_helper'
 require_relative '../lib/item_repository'
+require_relative '../lib/sales_engine'
 require 'bigdecimal'
 require 'pry'
 
+# test for Item Repository Class
 class ItemRepositoryTest < Minitest::Test
   def test_it_exists
     item_repository = ItemRepository.new('./test/fixtures/items.csv', 'parent')
@@ -37,7 +39,7 @@ class ItemRepositoryTest < Minitest::Test
     name = 'Glitter scrabble frames'
     name_case_insensitive = 'gLiTTeR ScRabBle FrAmEs'
 
-    assert_nil item_repository.find_by_name('sjadfhal')
+    assert_nil item_repository.find_by_name('sjadfhhgfhkal')
     assert_instance_of Item, item_repository.find_by_name(name)
     assert_instance_of Item, item_repository.find_by_name(name_case_insensitive)
   end
@@ -74,10 +76,11 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_pass_merchant_id_to_se
-    parent = SalesEngine.from_csv(items: './test/fixtures/items.csv', merchants: './test/fixtures/merchants.csv')
+    parent = SalesEngine.from_csv(items: './test/fixtures/items.csv',
+                                  merchants: './test/fixtures/merchants.csv')
     item_repo = ItemRepository.new('./test/fixtures/items.csv', parent)
     item_repo.pass_merchant_id_to_se(2)
 
-    #not sure what to assert for unit testing
+    # not sure what to assert for unit testing
   end
 end

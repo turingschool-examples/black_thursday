@@ -1,3 +1,4 @@
+# class for individual items
 class Item
   attr_reader :id,
               :name,

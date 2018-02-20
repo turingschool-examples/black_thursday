@@ -1,6 +1,7 @@
 require 'CSV'
 require_relative '../lib/item'
 require 'pry'
+# class to hold the item repository
 class ItemRepository
   attr_reader :items, :parent
   def initialize(filepath, parent)

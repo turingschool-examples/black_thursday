@@ -1,6 +1,7 @@
 require_relative './item_repository'
 require_relative './merchant_repository'
 
+# sales engine class
 class SalesEngine
   attr_reader :items,
               :merchants

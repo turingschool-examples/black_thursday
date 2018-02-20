@@ -2,6 +2,7 @@ require 'CSV'
 require 'pry'
 require './lib/merchant'
 
+# Merchant Repository class
 class MerchantRepository
   def initialize(filepath, parent)
     @merchants = []
@@ -20,11 +21,11 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    @merchants.find { |merchant| merchant.id == id}
+    @merchants.find { |merchant| merchant.id == id }
   end
 
   def find_by_name(name)
-    @merchants.find { |merchant| merchant.name.downcase == name.downcase}
+    @merchants.find { |merchant| merchant.name.casecmp(name) }
   end
 
   def find_all_by_name(name)
