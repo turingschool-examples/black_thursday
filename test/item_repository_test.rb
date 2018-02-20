@@ -32,7 +32,6 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_with_description
-    skip
     actual = @item_repo.find_all_with_description('write things')
 
     assert_equal [], @item_repo.find_all_with_description('qwijybo')
@@ -41,7 +40,6 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_price
-    skip
     actual = @item_repo.find_all_by_price('1299')
 
     assert_equal [], @item_repo.find_all_by_price('0012')
@@ -61,7 +59,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_find_all_by_merchant_id
     skip
     actual = @item_repo.find_all_by_merchant_id("2345")
-    
+
     assert_equal [], @item_repo.find_all_by_merchant_id("2")
     assert_equal 2, actual.length
     assert_instance_of Item, actual.first
