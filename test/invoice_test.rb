@@ -11,7 +11,7 @@ class MerchantTest < Minitest::Test
 			:status      => "pending",
 			:created_at  => Time.now,
 			:updated_at  => Time.now,
-														})
+													})
   end
 
 	def test_it_exists
@@ -26,4 +26,15 @@ class MerchantTest < Minitest::Test
 		assert_equal 7, @invoice.customer_id
 	end 
 
+	def test_it_returns_merchant_id
+		assert_equal 8, @invoice.merchant_id
+	end 
+
+	def test_it_returns_status
+		assert_equal "pending", @invoice.status 
+	end 
+
+	def test_it_returns_a_time_when_created
+		assert_instance_of Time.now, @invoice.created_at 
+	end
 end 
