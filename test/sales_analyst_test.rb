@@ -46,15 +46,13 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 4, result
   end
 
-  def test_can_return_standard_deviation_items_per_merchants
-    skip
+  def test_can_return_standard_deviation_items_per_merchant
     result = @sales_analyst.average_items_per_merchant_standard_deviation
 
     assert_equal 3.26, result
   end
 
   def test_can_find_merchants_with_high_item_count
-    skip
     result = @sales_analyst.merchants_with_high_item_count
 
     assert_instance_of Array, result
@@ -62,14 +60,12 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_find_average_item_price_of_merchant
-    skip
     result = @sales_analyst.average_item_price_for_merchant(12_334_159)
 
     assert_instance_of BigDecimal, result
   end
 
   def test_can_find_average_of_average_merchant_item_price
-    skip
     result = @sales_analyst.average_average_price_per_merchant
 
     assert_instance_of BigDecimal, result
