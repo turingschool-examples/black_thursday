@@ -35,19 +35,4 @@ class TransactionTest < Minitest::Test
     assert_instance_of Time, @transaction.created_at
     assert_instance_of Time, @transaction.updated_at
   end
-  #
-  # def test_unit_price_to_dollars
-  #   assert_equal 13.50, @item.unit_price_to_dollars
-  # end
-  #
-  # def test_finding_merchant_associated_with_item
-  #   information = { items: './test/fixtures/items_list_truncated.csv',
-  #                   merchants: './test/fixtures/merchants_list_truncated.csv',
-  #                   invoices: './test/fixtures/invoices_list_truncated.csv' }
-  #   sales_engine = SalesEngine.from_csv(information)
-  #   item = sales_engine.items.find_by_id(263_395_237)
-  #
-  #   assert_instance_of Merchant, item.merchant
-  #   assert_equal 12_334_141, item.merchant.id
-  # end
 end
