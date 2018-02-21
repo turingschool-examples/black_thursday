@@ -33,6 +33,23 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_does_get_merchants_with_high_item_count
+    merchants = @sa.merchants_with_high_item_count
 
+    assert_instance_of Array, merchants
+    assert_equal 2, merchants.length
+    merchants.each do |merchant|
+      assert_instance_of Merchant, merchant
+    end
+    assert_equal 3, merchants.first.id
+    assert_equal 7, merchants[1].id
+  end
+
+  def test_does_get_average_item_merchant_price
+    assert_equal 35.0, @sa.average_item_price_for_merchant(7)
+    assert_equal 0, @sa.average_item_price_for_merchant(9)
+  end
+
+  def test_can_get_average_price_for_all_merchants
+    assert_equal Rational(115.0 / 9.0).to_f, @sa.average_average_price_per_merchant
   end
 end

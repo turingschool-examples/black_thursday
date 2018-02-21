@@ -10,7 +10,7 @@ class StandardDeviation
 
   def average
     sum = @data.reduce(:+)
-    sum / @data.length
+    sum / @data.length.to_f
   end
 
   def sum_squares_differences
