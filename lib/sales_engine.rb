@@ -1,6 +1,7 @@
 require_relative 'item_repository'
 require_relative 'merchant_repository'
 require_relative 'invoice_repository'
+require_relative 'transaction_repository'
 
 class SalesEngine
   attr_reader :item_csv_path,
@@ -8,15 +9,18 @@ class SalesEngine
               :invoice_csv_path,
               :items,
               :merchants,
-              :invoices
+              :invoices,
+              :transactions
 
   def initialize(hash)
     @item_csv_path = hash[:items]
     @merchant_csv_path = hash[:merchants]
     @invoice_csv_path = hash[:invoices]
+    @transaction_csv_path = hash[:transactions]
     @items = ItemRepository.new(@item_csv_path, self)
     @merchants = MerchantRepository.new(@merchant_csv_path, self)
     @invoices = InvoiceRepository.new(@invoice_csv_path, self)
+    @transactions = TransactionRepository.new(@transaction_csv_path, self)
   end
 
   def self.from_csv(hash)
