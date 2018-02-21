@@ -33,7 +33,7 @@ class InvoiceTest < Minitest::Test
     information = { items: './test/fixtures/items_list_truncated.csv',
                     merchants: './test/fixtures/merchants_list_truncated.csv',
                     invoices: './test/fixtures/invoices_list_truncated.csv',
-                    invoice_item: './test/fixtures/invoice_items_lits_truncated',
+                    invoice_item: './test/fixtures/invoice_items_list_truncated.csv',
                     transactions: './test/fixtures/transactions_list_truncated.csv' }
     sales_engine = SalesEngine.from_csv(information)
     invoice = sales_engine.invoices.find_by_id(20)
