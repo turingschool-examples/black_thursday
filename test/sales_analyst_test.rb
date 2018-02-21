@@ -18,6 +18,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_calculate_average_item_cost
-    assert_equal 2.6, @sa.average_item_cost
+    assert_equal 28.0, @sa.average_item_cost
   end
 end
