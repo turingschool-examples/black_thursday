@@ -1,14 +1,13 @@
 require_relative 'test_helper'
 require_relative '../lib/invoice'
 require_relative '../lib/sales_engine.rb'
+require_relative './master_hash.rb'
+
 
 class InvoiceTest < Minitest::Test
   def setup
-    @sales_engine = SalesEngine.new({
-      items: './test/fixtures/items.csv',
-      merchants: './test/fixtures/merchants_fix.csv',
-      invoices: './test/fixtures/invoices.csv'
-      })
+    test_engine = TestEngine.new.god_hash
+    @sales_engine = SalesEngine.new(test_engine)
       @invoice = Invoice.new({
         id:          6,
         customer_id: 7,

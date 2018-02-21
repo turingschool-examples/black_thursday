@@ -1,14 +1,12 @@
 require_relative 'test_helper.rb'
 require_relative '../lib/sales_engine.rb'
-require 'pry'
+require_relative './master_hash.rb'
+require_relative './master_hash.rb'
 
 class SalesEngineTest < Minitest::Test
   def setup
-    @sales_engine = SalesEngine.new({
-      items: './test/fixtures/items.csv',
-      merchants: './test/fixtures/merchants_fix.csv',
-      invoices: './test/fixtures/invoices.csv'
-      })
+    test_engine = TestEngine.new.god_hash
+    @sales_engine = SalesEngine.new(test_engine)
   end
 
   def test_sales_engine_initializes
@@ -39,16 +37,16 @@ class SalesEngineTest < Minitest::Test
     assert_equal 'Glitter scrabble frames', item.name
   end
 
-  # def test_sales_engine_has_invoice_repo
-  #   sales_engine = @sales_engine
-  #   item_repo = sales_engine.items
-  #   item = item_repo.find_by_name('Glitter scrabble frames')
-  #
-  #   assert_instance_of ItemRepository, item_repo
-  #   assert_instance_of Item, item
-  #   assert_equal 263395617, item.id
-  #   assert_equal 'Glitter scrabble frames', item.name
-  # end
+  def test_sales_engine_has_invoice_repo
+    sales_engine = @sales_engine
+    invoice_repo = sales_engine.invoices
+    invoice = invoice_repo.find_by_id(1)
+
+    assert_instance_of InvoiceRepository, invoice_repo
+    assert_instance_of Invoice, invoice
+    assert_equal 1, invoice.id
+    assert_equal 12335938, invoice.merchant_id
+  end
 
   def test_merchant_items_returns_items_array
     sales_engine = @sales_engine

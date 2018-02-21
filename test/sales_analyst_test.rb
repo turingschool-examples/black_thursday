@@ -3,16 +3,14 @@
 require_relative 'test_helper.rb'
 require_relative '../lib/sales_analyst.rb'
 require_relative '../lib/sales_engine.rb'
-require 'pry'
+
+require_relative './master_hash.rb'
+
 
 class SalesAnalystTest < Minitest::Test
   def setup
-    @sales_engine = SalesEngine.new({
-      items: './data/items.csv',
-      merchants: './data/merchants.csv',
-      invoices: './data/invoices.csv'
-      })
-
+    test_engine = TestEngine.new.god_hash
+    @sales_engine = SalesEngine.new(test_engine)
     @sales_analyst = SalesAnalyst.new(@sales_engine)
   end
 
