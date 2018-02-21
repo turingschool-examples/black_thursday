@@ -1,5 +1,6 @@
 require 'time'
 require 'bigdecimal'
+require_relative '../lib/invoice'
 
 # class for invoices
 class InvoiceRepository
