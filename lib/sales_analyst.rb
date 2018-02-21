@@ -150,12 +150,13 @@ class SalesAnalyst
   end
 
   def day_invoice_created
-    @invoices.map {|invoice| invoice.created_at.strftime("%A")}
+    @invoices.map {|invoice| invoice.created_at.strftime('%A')}
   end
 
   def days_of_week_invoice_count
-    @days = %w['Monday Tuesday Wednesday Thursday Friday Saturday Sunday]
-    @days.map { |day| @day_invoice_created.count(day) }
+    @days = %w[Monday Tuesday Wednesday Thursday Friday Saturday Sunday]
+    @days.map {|day| @day_invoice_created.count(day)}
+    # binding.pry
   end
 
   def average_invoices_per_day
