@@ -20,4 +20,8 @@ class SalesAnalystTest < Minitest::Test
   def test_can_calculate_average_item_cost
     assert_equal 28.0, @sa.average_item_cost
   end
+
+  def test_can_calculate_item_cost_standard_deviation
+    assert_equal Math.sqrt(30) * 3, @sa.item_cost_standard_deviation
+  end
 end
