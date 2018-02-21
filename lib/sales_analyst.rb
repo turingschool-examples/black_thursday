@@ -6,6 +6,7 @@ class SalesAnalyst
   attr_reader :sales_engine
   def initialize(se)
     @sales_engine = se
+    @std_dev = average_items_per_merchant_standard_deviation
   end
 
   def merchants
@@ -32,7 +33,7 @@ class SalesAnalyst
       total + square
     end
     denominator = (merchants.length - 1)
-    Math.sqrt(numerator / denominator)
+    Math.sqrt(numerator / denominator).round(2)
   end
 
   def number_of_items_for_every_merchant
@@ -69,7 +70,7 @@ class SalesAnalyst
   def golden_items
     result = @sales_engine.items.all.collect do |item|
       difference = (item.unit_price - average_average_price_per_merchant).to_f
-      item if difference > average_items_per_merchant_standard_deviation * 2
+      item if difference > @std_dev * 2
     end.compact
   end
 end
