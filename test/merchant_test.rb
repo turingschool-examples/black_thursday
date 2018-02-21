@@ -3,6 +3,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/merchant'
+require_relative 'mocks/test_engine'
 
 class MerchantTest < Minitest::Test
   def test_it_exists
@@ -27,6 +28,8 @@ class MerchantTest < Minitest::Test
 
   def test_can_find_all_items
     merchant = MOCK_SALES_ENGINE.merchants.find_by_id 7
+    merchant2 = MOCK_SALES_ENGINE.merchants.find_by_id 9
     assert_equal 2, merchant.items.length
+    assert_equal 0, merchant2.items.length
   end
 end

@@ -54,6 +54,14 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(id)
     items = @sales_engine.merchants.find_by_id(id).items
+    return 0 if items.empty?
     items.map(&:unit_price).reduce(:+) / items.length
+  end
+
+  def average_average_price_per_merchant
+    avgs = @sales_engine.merchants.all.map do |merchant|
+      average_item_price_for_merchant merchant.id
+    end
+    avgs.map(&:to_f).reduce(:+) / avgs.length.to_f
   end
 end
