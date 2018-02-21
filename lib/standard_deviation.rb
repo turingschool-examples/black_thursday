@@ -3,6 +3,7 @@
 # Calculates Standard Deviation
 class StandardDeviation
   attr_reader :data
+
   def initialize(data)
     @data = data
   end
@@ -21,5 +22,10 @@ class StandardDeviation
 
   def calculate
     Math.sqrt(sum_squares_differences / (@data.length - 1))
+  end
+
+  def self.calculate(data)
+    calculator = new data
+    calculator.calculate
   end
 end
