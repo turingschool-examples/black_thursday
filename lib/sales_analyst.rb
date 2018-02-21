@@ -37,8 +37,8 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(id)
     result = @sales_engine.pass_id_to_item_repo(id).map do |item|
-      item.unit_price.to_f
+      item.unit_price
     end.sum
-    (result / @sales_engine.merchants.find_by_id(id).items.length * 100).round / 100.0
+    BigDecimal.new((result / @sales_engine.merchants.find_by_id(id).items.length).to_s).round(2)
   end
 end
