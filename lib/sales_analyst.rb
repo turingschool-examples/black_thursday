@@ -11,7 +11,7 @@ class SalesAnalyst
   def item_collector
     engine.items.all
   end
-  
+
   def average_items_per_merchant
     all_merchants = merchant_collector.length
     total_items = item_collector.length
@@ -74,6 +74,10 @@ class SalesAnalyst
     engine.merchants.all
   end
 
+  def invoice_collector
+    engine.invoices.all
+  end
+
   def price_standard_deviation
     item_price_array = item_collector.map do |item|
       item.unit_price
@@ -81,5 +85,60 @@ class SalesAnalyst
 
     mean = find_mean(item_price_array)
     standard_deviation(mean, item_price_array)
+  end
+
+  def average_invoices_per_merchant
+    all_merchants = merchant_collector.length
+    total_invoices = invoice_collector.length
+    (total_invoices.to_f / all_merchants).round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    merchant_invoices_array = merchant_collector.map do |merchant|
+      merchant.invoices.length
+    end
+    standard_deviation(average_invoices_per_merchant, merchant_invoices_array)
+  end
+
+  def top_merchants_by_invoice_count
+    two_standard_deviations = average_invoices_per_merchant_standard_deviation * 2
+
+    merchant_collector.map do |merchant|
+      merchant if merchant.invoices.length > (average_invoices_per_merchant + two_standard_deviations)
+    end.compact
+  end
+
+  def bottom_merchants_by_invoice_count
+    two_standard_deviations = average_invoices_per_merchant_standard_deviation * 2
+
+    merchant_collector.map do |merchant|
+      merchant if merchant.invoices.length > (average_invoices_per_merchant - two_standard_deviations)
+    end.compact
+  end
+
+  def average_invoices_per_weekday
+    (invoice_collector.length / 7.0).round(2)
+  end
+
+  def average_invoices_per_weekday_standard_deviation
+    standard_deviation(average_invoices_per_weekday, invoice_collector.length)
+  end
+
+  def show_wkdays
+    weekday_array = invoice_collector.group_by do |invoice|
+      (invoice.created_at.strftime("%w")).count
+    end
+  end
+
+  def sum_wkdays
+    show_wkdays.group_by do |weekday|
+      weekday.count
+    end
+  end
+
+  def top_days_by_invoice_count
+    merchant_collector.group_by do |merchant|
+      merchant.invoices.created_at.strftime("%w")
+    end
   end
 end

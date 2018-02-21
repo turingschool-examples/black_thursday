@@ -1,3 +1,4 @@
+require 'date'
 class Invoice
   attr_reader :id, :customer_id, :merchant_id, :status, :created_at, :created_time
   def initialize(hash, parent)
@@ -5,7 +6,7 @@ class Invoice
     @customer_id = hash[:customer_id].to_i
     @merchant_id = hash[:merchant_id].to_i
     @status = hash[:status]
-    @created_at = hash[:created_at]
+    @created_at = Date.parse(hash[:created_at])
     @created_time = hash[:created_time]
     @parent = parent
   end
