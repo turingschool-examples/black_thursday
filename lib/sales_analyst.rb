@@ -133,10 +133,10 @@ class SalesAnalyst
 
   def average_invoices_per_merchant_standard_deviation
     dif = @invoices_per_merchant.map do |num|
-      num - (@avg_invoices_per_merchant**2)
+      (num - @avg_invoices_per_merchant)**2
     end
     added = dif.inject { |sum, num| sum + num }.to_f
-    Math.sqrt(added / (@invoices_per_merchant.count - 1)).round(2)
+    Math.sqrt(added / (@invoices_per_merchant.count - 1)).round 2
   end
 
   def top_merchants_by_invoice_count

@@ -91,7 +91,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_for_average_invoices_per_merchant_standard_deviation
     actual = @sales_analyst.average_invoices_per_merchant_standard_deviation
-    assert_equal 0.36, actual
+    assert_equal 0.48, actual
   end
 
   def test_for_top_merchants_by_invoice_count
@@ -99,7 +99,7 @@ class SalesAnalystTest < Minitest::Test
 
     assert actual.is_a?(Array)
     assert actual[0].is_a?(Merchant)
-    assert_equal 2, actual.count
+    assert_equal 1, actual.count
     assert_equal 'Candisart', actual[0].name
   end
 
