@@ -8,6 +8,10 @@ class SalesAnalyst
     @engine = engine
   end
 
+  def item_collector
+    engine.items.all
+  end
+  
   def average_items_per_merchant
     all_merchants = merchant_collector.length
     total_items = item_collector.length
@@ -68,10 +72,6 @@ class SalesAnalyst
 
   def merchant_collector
     engine.merchants.all
-  end
-
-  def item_collector
-    engine.items.all
   end
 
   def price_standard_deviation
