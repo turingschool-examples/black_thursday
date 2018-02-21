@@ -2,6 +2,7 @@ require_relative 'test_helper'
 require_relative '../lib/sales_analyst'
 require_relative '../lib/sales_engine'
 
+# This is a class for tests of the sales analyst class.
 class SalesAnalystTest < Minitest::Test
   def setup
     @se = SalesEngine.from_csv(
@@ -86,6 +87,43 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_for_average_invoices_per_merchant
-    assert_equal 0.30, @sales_analyst.average_invoices_per_merchant
+    assert_equal 0.14, @sales_analyst.average_invoices_per_merchant
+  end
+
+  def test_for_average_invoices_per_merchant_standard_deviation
+    actual = @sales_analyst.average_invoices_per_merchant_standard_deviation
+    assert_equal 0.48, actual
+  end
+
+  def test_for_top_merchants_by_invoice_count
+    actual = @sales_analyst.top_merchants_by_invoice_count
+
+    assert actual.is_a?(Array)
+    assert actual[0].is_a?(Merchant)
+    assert_equal 1, actual.count
+    assert_equal 'Candisart', actual[0].name
+  end
+
+  def test_for_bottom_merchants_by_invoice_count
+    actual = @sales_analyst.bottom_merchants_by_invoice_count
+
+    assert actual.is_a?(Array)
+    assert actual.empty?
+    assert_equal 0, actual.count
+  end
+
+  def test_top_days_by_invoice_count
+    actual = @sales_analyst.top_days_by_invoice_count
+
+    assert actual.is_a?(Array)
+    assert actual[0].is_a?(String)
+    assert_equal 2, actual.count
+    assert_equal 'Friday', actual[0]
+  end
+
+  def test_for_invoice_status
+    assert_equal 40.91, @sales_analyst.invoice_status(:pending)
+    assert_equal 50.0, @sales_analyst.invoice_status(:shipped)
+    assert_equal 9.09, @sales_analyst.invoice_status(:returned)
   end
 end
