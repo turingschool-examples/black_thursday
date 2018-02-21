@@ -16,4 +16,8 @@ class SalesAnalystTest < Minitest::Test
   def test_does_have_sales_engine
     assert_instance_of SalesEngine, @sa.sales_engine
   end
+
+  def test_can_calculate_average_item_cost
+    assert_equal 2.6, @sa.average_item_cost
+  end
 end
