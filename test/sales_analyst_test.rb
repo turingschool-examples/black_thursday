@@ -43,4 +43,8 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 3, merchants.first.id
     assert_equal 7, merchants[1].id
   end
+
+  def test_does_get_average_item_merchant_price
+    assert_equal 35.0, @sa.average_item_price_for_merchant(7)
+  end
 end
