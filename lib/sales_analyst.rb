@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'standard_deviation'
+
 # Uses the sales engine to perform calculations
 class SalesAnalyst
   attr_reader :sales_engine
@@ -12,5 +14,11 @@ class SalesAnalyst
     items = @sales_engine.items.all
     costs = items.map { |item| item.unit_price.to_f }
     costs.reduce(:+) / costs.length.to_f
+  end
+
+  def item_cost_standard_deviation
+    items = @sales_engine.items.all
+    costs = items.map { |item| item.unit_price.to_f }
+    StandardDeviation.calculate costs
   end
 end
