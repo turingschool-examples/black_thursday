@@ -33,6 +33,10 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_does_get_merchants_with_high_item_count
+    skip
+  end
 
+  def test_can_find_average_items_per_merchant
+    assert_equal 1.3333, @sa.average_items_per_merchant.round(4)
   end
 end
