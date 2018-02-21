@@ -1,48 +1,43 @@
 require_relative 'test_helper'
 require_relative '../lib/invoice_item_repository'
 
-# This is a class for tests of the invoice repo class.
-class InvoiceRepositoryTest < Minitest::Test
+# This is a class for tests of the invoice item repo class.
+class InvoiceItemRepositoryTest < Minitest::Test
   def setup
-    invoice_csv = './test/fixtures/invoices_list_truncated.csv'
+    invoice_item_csv = './test/fixtures/invoice_items_list_truncated.csv'
     parent = 'parent'
-    @invoice_repo = InvoiceRepository.new(invoice_csv, parent)
+    @invoice_item_repo = InvoiceItemRepository.new(invoice_item_csv, parent)
   end
 
   def test_it_exists
-    assert_instance_of InvoiceRepository, @invoice_repo
+    assert_instance_of InvoiceItemRepository, @invoice_item_repo
   end
 
   def test_all_invoices
-    assert_instance_of Invoice, @invoice_repo.all.first
-    assert_equal 22, @invoice_repo.all.length
+    assert_instance_of InvoiceItem, @invoice_item_repo.all.first
+    assert_equal 19, @invoice_item_repo.all.length
   end
 
   def test_find_by_id
-    assert_instance_of Invoice, @invoice_repo.find_by_id(19)
-    assert_equal 123_343_72, @invoice_repo.find_by_id(19).merchant_id
-    assert_nil @invoice_repo.find_by_id(21)
+    assert_instance_of InvoiceItem, @invoice_item_repo.find_by_id(19)[0]
+    assert_equal 263_509_232, @invoice_item_repo.find_by_id(19)[0].item_id
+    assert_nil @invoice_item_repo.find_by_id(21)[0]
   end
 
-  def test_find_all_by_customer_id
-    assert_instance_of Array, @invoice_repo.find_all_by_customer_id(1)
-    assert_equal 8, @invoice_repo.find_all_by_customer_id(1).length
-    assert_instance_of Invoice, @invoice_repo.find_all_by_customer_id(1).first
-    assert_equal [], @invoice_repo.find_all_by_customer_id(10)
+  def test_find_all_by_item_id
+    actual = @invoice_item_repo.find_all_by_item_id(263_533_242)
+    assert_instance_of Array, actual
+    assert_equal 1, @invoice_item_repo.find_all_by_item_id(263_533_242).length
+    actual = @invoice_item_repo.find_all_by_item_id(263_533_242)[0]
+    assert_instance_of InvoiceItem, actual
+    assert_equal [], @invoice_item_repo.find_all_by_item_id(263_503_202)
   end
 
-  def test_find_all_by_merchant_id
-    assert_instance_of Array, @invoice_repo.find_all_by_merchant_id(123_350_09)
-    assert_equal 1, @invoice_repo.find_all_by_merchant_id(123_350_09).length
-    actual = @invoice_repo.find_all_by_merchant_id(123_350_09).first
-    assert_instance_of Invoice, actual
-    assert_equal [], @invoice_repo.find_all_by_merchant_id(123)
-  end
-
-  def test_find_all_by_status
-    assert_instance_of Array, @invoice_repo.find_all_by_status(:shipped)
-    assert_equal 9, @invoice_repo.find_all_by_status(:pending).length
-    assert_instance_of Invoice, @invoice_repo.find_all_by_status(:shipped).first
-    assert_equal [], @invoice_repo.find_all_by_status(:dummy_symbol)
+  def test_find_all_by_invoice_id
+    assert_instance_of Array, @invoice_item_repo.find_all_by_invoice_id(1)
+    assert_equal 8, @invoice_item_repo.find_all_by_invoice_id(1).length
+    actual = @invoice_item_repo.find_all_by_invoice_id(1).first
+    assert_instance_of InvoiceItem, actual
+    assert_equal [], @invoice_item_repo.find_all_by_invoice_id(4)
   end
 end
