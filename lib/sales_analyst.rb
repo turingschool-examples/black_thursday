@@ -66,8 +66,9 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    merchants_items = @sales_engine.merchants.all.select do |merchant|
-      merchant.find_by_id merchant.id
+    merchants_items = @sales_engine.merchants.all.map do |merchant|
+      merchant.items.length
     end
-    merchants_items.reduce(:+) / merchants.items.length.to_f
+    merchants_items.reduce(:+) / merchants_items.length.to_f
+  end
 end
