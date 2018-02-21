@@ -1,4 +1,4 @@
-module Calculations
+module Analytics
 
   def variance(mean, totals)
     totals.reduce(0) do |result, total|
