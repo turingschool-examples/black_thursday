@@ -4,8 +4,8 @@ require './lib/sales_analyst'
 
 class SalesAnalystTest < Minitest::Test
   def setup
-    repositories = {items: './data/sample_data/items.csv',
-                merchants: './data/sample_data/merchants.csv'}
+    repositories = { items: './data/sample_data/items.csv',
+                     merchants: './data/sample_data/merchants.csv' }
     sales_eng    = SalesEngine.new(repositories)
     @sa          = SalesAnalyst.new(sales_eng)
   end
@@ -29,7 +29,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_item_price_for_merchant
-    actual = @sa.average_item_price_for_merchant(12334105)
+    actual = @sa.average_item_price_for_merchant(123_341_05)
     assert_equal 0.1149e2, actual
   end
 
@@ -40,6 +40,6 @@ class SalesAnalystTest < Minitest::Test
 
   def test_golden_items
     skip
-    assert_equal ";h", @sa.golden_items
+    assert_equal ';h', @sa.golden_items
   end
 end

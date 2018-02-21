@@ -39,7 +39,7 @@ class SalesAnalyst
   end
 
   def total_avg_price
-    thing = @se.merchants.all.map do |merchant|
+    @se.merchants.all.map do |merchant|
       average_item_price_for_merchant(merchant.id)
     end.sum
   end

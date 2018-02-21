@@ -63,7 +63,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_merchant_id
-    actual = @item_repo.find_all_by_merchant_id(12334105)
+    actual = @item_repo.find_all_by_merchant_id(123_341_05)
 
     assert_equal [], @item_repo.find_all_by_merchant_id(2)
     assert_equal 2, actual.length
