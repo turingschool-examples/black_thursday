@@ -18,11 +18,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_calculate_average_item_cost
-    assert_equal 28.0, @sa.average_item_cost
+    assert_equal Rational(95.0 / 4.0), @sa.average_item_cost
   end
 
   def test_can_calculate_item_cost_standard_deviation
-    assert_equal Math.sqrt(30) * 3, @sa.item_cost_standard_deviation
+    assert_equal Math.sqrt(Rational(79.0 / 14.0)) * 5, @sa.item_cost_standard_deviation
   end
 
   def test_can_find_golden_items
