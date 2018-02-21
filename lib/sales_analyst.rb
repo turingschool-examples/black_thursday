@@ -6,6 +6,7 @@ class SalesAnalyst
   attr_reader :sales_engine
   def initialize(se)
     @sales_engine = se
+    @std_dev_price = average_items_price_standard_deviation
   end
 
   def merchants
@@ -16,21 +17,23 @@ class SalesAnalyst
     @sales_engine.items.all
   end
 
-  # I think we can break out average and std deviation into a module
   def average(numerator, denominator)
-    (BigDecimal(numerator) / BigDecimal(denominator)).round(2)
+    (BigDecimal(numerator, 4) / BigDecimal(denominator, 4)).round(2)
   end
 
   def average_items_per_merchant
-    average(items.length, merchants.length)
+    average(items.length, merchants.length).to_f
   end
 
   def average_items_per_merchant_standard_deviation
     squares = number_of_items_for_every_merchant.map do |num|
       (num - average_items_per_merchant)**2
     end
-    chaos = squares.sum / (merchants.length - 1)
-    Math.sqrt(chaos)
+    numerator = squares.reduce(0) do |total, square|
+      total + square
+    end
+    denominator = (merchants.length - 1)
+    Math.sqrt(numerator / denominator).round(2)
   end
 
   def number_of_items_for_every_merchant
@@ -64,10 +67,25 @@ class SalesAnalyst
     average(result, merchants.length)
   end
 
+  def all_item_prices
+    items.map(&:unit_price)
+  end
+
+  def average_items_price_standard_deviation
+    squares = all_item_prices.map do |num|
+        (num - average_average_price_per_merchant)**2
+      end
+      numerator = squares.reduce(0) do |total, square|
+        total + square
+      end
+      denominator = (items.length - 1)
+      Math.sqrt(numerator / denominator).round(2)
+    end
+
   def golden_items
     result = @sales_engine.items.all.collect do |item|
       difference = (item.unit_price - average_average_price_per_merchant).to_f
-      item if difference > average_items_per_merchant_standard_deviation * 2
+      item if difference > @std_dev_price * 2
     end.compact
   end
 end
