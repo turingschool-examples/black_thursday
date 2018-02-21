@@ -21,4 +21,14 @@ class SalesAnalyst
     costs = items.map { |item| item.unit_price.to_f }
     StandardDeviation.calculate costs
   end
+
+  def golden_items
+    standard_deviation = item_cost_standard_deviation
+    average_price = average_item_cost
+
+    @sales_engine.items.all.select do |item|
+      item.unit_price >= (average_price + standard_deviation * 2)
+    end
+
+  end
 end

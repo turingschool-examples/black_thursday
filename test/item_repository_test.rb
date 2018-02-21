@@ -44,7 +44,7 @@ class ItemReposityTest < Minitest::Test
   def test_can_find_items_by_partial_desc
     items = @ir.find_all_with_description 'C'
     assert_instance_of Array, items
-    assert_equal 5, items.length
+    assert_equal 8, items.length
     items.each do |item|
       assert_instance_of Item, item
       assert item.description.downcase.include?('c')
@@ -56,7 +56,7 @@ class ItemReposityTest < Minitest::Test
   def test_can_find_items_by_price
     items = @ir.find_all_by_price BigDecimal.new(2000 / 100.0, 4)
     assert_instance_of Array, items
-    assert_equal 2, items.length
+    assert_equal 5, items.length
     items.each do |item|
       assert_instance_of Item, item
       assert_equal BigDecimal.new(2000 / 100.0, 4), item.unit_price
@@ -68,7 +68,7 @@ class ItemReposityTest < Minitest::Test
   def test_can_find_all_in_price_range
     items = @ir.find_all_by_price_in_range(10.00..30.00)
     assert_instance_of Array, items
-    assert_equal 3, items.length
+    assert_equal 7, items.length
     items.each do |item|
       assert_instance_of Item, item
       assert_equal true, (10..30).cover?(item.unit_price.to_f)
@@ -90,7 +90,7 @@ class ItemReposityTest < Minitest::Test
   end
 
   def test_overrides_inspect
-    assert_equal '#<ItemRepository 5 rows>', @ir.inspect
+    assert_equal '#<ItemRepository 8 rows>', @ir.inspect
   end
 
   def test_can_request_merchant_repository
