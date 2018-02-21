@@ -1,14 +1,12 @@
 require_relative 'test_helper.rb'
-require_relative '../lib/item_repository'
+require_relative '../lib/item_repository.rb'
 require_relative '../lib/sales_engine.rb'
+require_relative './master_hash.rb'
 
 class ItemRepositoryTest < Minitest::Test
   def setup
-    sales_engine = SalesEngine.new({
-      items: './test/fixtures/items.csv',
-      merchants: './test/fixtures/merchants_fix.csv',
-      invoices: './test/fixtures/invoices.csv'
-      })
+    test_engine = TestEngine.new.god_hash
+    sales_engine = SalesEngine.new(test_engine)
     @item_repository = sales_engine.items
   end
 

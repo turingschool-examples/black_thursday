@@ -1,14 +1,13 @@
 require_relative 'test_helper.rb'
 require_relative '../lib/merchant_repository.rb'
 require_relative '../lib/sales_engine.rb'
+require_relative './master_hash.rb'
+
 
 class MerchantRepositoryTest < Minitest::Test
   def setup
-    sales_engine = SalesEngine.new({
-      items: './test/fixtures/items.csv',
-      merchants: './test/fixtures/merchants_fix.csv',
-      invoices: './test/fixtures/invoices.csv'
-      })
+    test_engine = TestEngine.new.god_hash
+    sales_engine = SalesEngine.new(test_engine)
     @merchant_repository = sales_engine.merchants
   end
 
