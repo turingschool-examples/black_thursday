@@ -141,4 +141,9 @@ class SalesAnalyst
       merchant.invoices.created_at.strftime("%w")
     end
   end
+
+  def invoice_status(status)
+    invoice_status_count = engine.invoices.find_all_by_status(status).length
+    ((invoice_status_count * 100)/ invoice_collector.length.to_f).round(2)
+  end
 end

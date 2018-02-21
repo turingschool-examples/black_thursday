@@ -13,7 +13,7 @@ class SalesAnalystTest < Minitest::Test
       })
 
     @sales_analyst = SalesAnalyst.new(@sales_engine)
-    binding.pry
+    # binding.pry
   end
 
   def test_analyst_initializes
@@ -130,7 +130,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_return_invoice_statuses_as_percent_share
-    skip
+    # skip
     pending_result = @sales_analyst.invoice_status(:pending)
     shipped_result = @sales_analyst.invoice_status(:shipped)
     returned_result = @sales_analyst.invoice_status(:returned)
