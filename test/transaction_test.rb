@@ -2,7 +2,7 @@ require_relative 'test_helper'
 require_relative '../lib/transaction'
 require 'time'
 
-class ItemTest < Minitest::Test
+class TransactionTest < Minitest::Test
   def setup
     @data = {
       id: 6,
@@ -20,15 +20,15 @@ class ItemTest < Minitest::Test
     assert_instance_of Transaction, @transaction
   end
 
-  # def test_it_initializes_with_information
-  #   assert_equal 263_395_721, @item.id
-  #   assert_equal 'Disney scrabble frames', @item.name
-  #   assert_equal 'Disney glitter frames...', @item.description
-  #   assert_equal 0.135e2, @item.unit_price
-  #   assert_equal Time.utc(2016, 01, 11, 11, 51, 37), @item.created_at
-  #   assert_equal Time.utc(2008, 04, 02, 13, 48, 57), @item.updated_at
-  #   assert_equal 'ItemRepository pointer', @item.parent
-  # end
+  def test_it_initializes_with_information
+    assert_equal 6, @transaction.id
+    assert_equal 8, @transaction.invoice_id
+    assert_equal '4242424242424242', @transaction.credit_card_number
+    assert_equal '0220', @transaction.credit_card_expiration_date
+    assert_equal Time.utc(2012, 02, 26, 20, 56, 56), @transaction.created_at
+    assert_equal Time.utc(2012, 02, 26, 20, 56, 56), @transaction.updated_at
+    assert_equal 'TransactionRepo pointer', @transaction.parent
+  end
   #
   # def test_item_attributes_have_correct_class
   #   assert_instance_of BigDecimal, @item.unit_price
