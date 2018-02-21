@@ -47,17 +47,17 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_price
-    actual = @item_repo.find_all_by_price('1299')
+    actual = @item_repo.find_all_by_price(12.99)
 
-    assert_equal [], @item_repo.find_all_by_price('0012')
+    assert_equal [], @item_repo.find_all_by_price(0.12)
     assert_equal 2, actual.length
     assert_instance_of Item, actual.first
   end
 
   def test_find_all_by_price_in_range
-    actual = @item_repo.find_all_by_price_in_range(1100..2000)
+    actual = @item_repo.find_all_by_price_in_range(11.0..20.0)
 
-    assert_equal [], @item_repo.find_all_by_price_in_range(0..1000)
+    assert_equal [], @item_repo.find_all_by_price_in_range(0..10.0)
     assert_equal 3, actual.length
     assert_instance_of Item, actual.first
   end

@@ -16,7 +16,7 @@ class Item
     @id          = data[:id].to_i
     @name        = data[:name]
     @description = data[:description]
-    @unit_price  = data[:unit_price]
+    @unit_price  = BigDecimal.new(data[:unit_price])/100
     @merchant_id = data[:merchant_id].to_i
     @created_at  = Time.parse(data[:created_at])
     @updated_at  = Time.parse(data[:updated_at])
@@ -24,7 +24,7 @@ class Item
   end
 
   def unit_price_to_dollars
-    @unit_price
+    @unit_price.to_f * 100
   end
 
   def merchant
