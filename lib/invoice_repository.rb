@@ -1,5 +1,5 @@
 require_relative 'searching'
-# require_relative 'invoice'
+require_relative 'invoice'
 
 class InvoiceRepository
 	include Searching
@@ -9,6 +9,7 @@ class InvoiceRepository
 		@file_name = file_name 
 		@all = []
 	end
+
 
 
 end

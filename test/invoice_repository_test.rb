@@ -6,7 +6,8 @@ require './lib/searching'
 class InvoiceRepositoryTest < Minitest::Test
   def setup
     file_name   = "./data/sample-data/invoices.csv"
-    @invoice_repo = InvoiceRepository.new(file_name)
+		@invoice_repo = InvoiceRepository.new(file_name)
+		# se = SalesEngine.from_csv({:invoices => "./data/invoices.csv"})
   end
 
 	def test_it_exists
@@ -16,8 +17,8 @@ class InvoiceRepositoryTest < Minitest::Test
 	def	test_it_finds_invoice_id
 		assert_instance_of Array, @invoice_repo.all
 		assert_nil @invoice_repo.find_by_id(10)
+		# require 'pry'; binding.pry
 		assert_equal " ", @invoice_repo.find_by_id(4)
-    # assert_instance_of Invoice, @invoice_repo.find_by_id(6)
   end
 
 end
