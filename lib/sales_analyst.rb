@@ -71,4 +71,8 @@ class SalesAnalyst
     end
     merchants_items.reduce(:+) / merchants_items.length.to_f
   end
+
+  def average_items_per_merchant_standard_deviation
+
+  end
 end
