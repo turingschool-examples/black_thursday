@@ -4,8 +4,11 @@ require 'pry'
 
 class ItemRepository
 
-  def initialize(filepath)
-    @items = []
+  attr_reader :engine
+
+  def initialize(filepath, parent = nil)
+    @items    = []
+    @engine   = parent
     load_items(filepath)
   end
 
@@ -19,7 +22,7 @@ class ItemRepository
 
   def load_items(filepath)
     CSV.foreach(filepath, headers: true, header_converters: :symbol) do |data|
-      @items << Item.new(data)
+      @items << Item.new(data, self)
     end
   end
 
@@ -47,6 +50,10 @@ class ItemRepository
 
   def find_all_by_merchant_id(merchant_id)
     @items.find_all { |item| item.merchant_id == merchant_id }
+  end
+
+  def find_merchant_by_merchant_id(id)
+    engine.find_merchant_by_merchant_id(id)
   end
 
 end

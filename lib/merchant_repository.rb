@@ -4,8 +4,11 @@ require 'pry'
 
 class MerchantRepository
 
-  def initialize(filepath)
-    @merchants = []
+  attr_reader :engine
+
+  def initialize(filepath, parent = nil)
+    @merchants   = []
+    @engine      = parent
     load_merchants(filepath)
   end
 
@@ -19,7 +22,7 @@ class MerchantRepository
 
   def load_merchants(filepath)
     CSV.foreach(filepath, headers: true, header_converters: :symbol) do |data|
-      @merchants << Merchant.new(data)
+      @merchants << Merchant.new(data, self)
     end
   end
 
@@ -35,6 +38,10 @@ class MerchantRepository
     @merchants.find_all do |merchant|
       merchant.name.downcase.include?(name.downcase)
     end
+  end
+
+  def find_items_by_merchant_id(id)
+    engine.find_items_by_merchant_id(id)
   end
 
 end

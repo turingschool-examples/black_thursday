@@ -7,12 +7,20 @@ class SalesEngine
                 :merchants
 
   def initialize(filepath = nil)
-    @items      = ItemRepository.new(filepath[:items])
-    @merchants  = MerchantRepository.new(filepath[:merchants])
+    @items      = ItemRepository.new(filepath[:items], self)
+    @merchants  = MerchantRepository.new(filepath[:merchants], self)
   end
 
   def self.from_csv(data)
     SalesEngine.new(data)
+  end
+
+  def find_items_by_merchant_id(id)
+    items.find_all_by_merchant_id(id)
+  end
+
+  def find_merchant_by_merchant_id(id)
+    merchants.find_by_id(id)
   end
 
 end
