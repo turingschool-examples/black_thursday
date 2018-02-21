@@ -29,6 +29,5 @@ class SalesAnalyst
     @sales_engine.items.all.select do |item|
       item.unit_price >= (average_price + standard_deviation * 2)
     end
-
   end
 end
