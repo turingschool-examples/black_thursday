@@ -29,6 +29,7 @@ class InvoiceItemTest < Minitest::Test
   end
 
   def test_attributes_set_correctly_part_2
+    skip
     assert_equal 5, @invoice_item.quantity
     assert_equal 34_873, @invoice_item.unit_price
     assert_equal Time.new(2009, 0o2, 0o7), @invoice_item.created_at
