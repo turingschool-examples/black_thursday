@@ -15,8 +15,9 @@ class InvoiceRepository
 	end
 
 	def find_all_by_customer_id(id)
+		# require 'pry'; binding.pry
 		@all.find_all do |obj|
-			obj.customer_id.include?(id)
+			obj.customer_id == id
 		end
 	end
 end
