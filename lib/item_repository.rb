@@ -57,4 +57,8 @@ class ItemRepository
   def item_repo_goes_to_sales_engine_with_merchant_id(id)
     @parent.merch_repo_find_all_by_id(id)
   end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 end
