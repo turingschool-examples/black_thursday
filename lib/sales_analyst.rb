@@ -28,8 +28,11 @@ class SalesAnalyst
     squares = number_of_items_for_every_merchant.map do |num|
       (num - average_items_per_merchant)**2
     end
-    chaos = squares.sum / (merchants.length - 1)
-    Math.sqrt(chaos)
+    numerator = squares.reduce(0) do |total, square|
+      total + square
+    end
+    denominator = (merchants.length - 1)
+    Math.sqrt(numerator / denominator)
   end
 
   def number_of_items_for_every_merchant
@@ -63,10 +66,10 @@ class SalesAnalyst
     average(result, merchants.length)
   end
 
-  # def golden_items
-  #   result = @sales_engine.items.all.collect do |item|
-  #     difference = (item.unit_price - average_average_price_per_merchant).to_f
-  #     item if difference > average_items_per_merchant_standard_deviation * 2
-  #   end.compact
-  # end
+  def golden_items
+    result = @sales_engine.items.all.collect do |item|
+      difference = (item.unit_price - average_average_price_per_merchant).to_f
+      item if difference > average_items_per_merchant_standard_deviation * 2
+    end.compact
+  end
 end

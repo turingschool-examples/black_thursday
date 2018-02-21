@@ -41,7 +41,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_golden_items
-    skip
     se = SalesEngine.from_csv(items: './test/fixtures/items.csv',
                               merchants: './test/fixtures/merchants.csv')
     sales_analyst = SalesAnalyst.new(se)
