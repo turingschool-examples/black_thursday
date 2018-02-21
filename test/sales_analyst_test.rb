@@ -47,4 +47,8 @@ class SalesAnalystTest < Minitest::Test
   def test_does_get_average_item_merchant_price
     assert_equal 35.0, @sa.average_item_price_for_merchant(7)
   end
+
+  def test_can_get_average_price_for_all_merchants
+    assert_equal Rational(115.0 / 9.0), @sa.average_average_price_per_merchant
+  end
 end
