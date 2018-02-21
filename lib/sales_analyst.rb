@@ -31,10 +31,43 @@ class SalesAnalyst
     end
   end
 
+  def merchants_with_high_item_count
+    count = merchant_item_count
+    count_array = count.map { |merchant| merchant[:item_count] }
+    deviation = StandardDeviation.calculate count_array
+    average = count_array.reduce(:+) / count_array.length.to_f
+
+    select_merchants deviation, average
+  end
+
+  def select_merchants(deviation, average)
+    @sales_engine.merchants.all.select do |merchant|
+      merchant.items.length >= average + deviation
+    end
+  end
+
+  def merchant_item_count
+    @sales_engine.merchants.all.map do |merchant|
+      { id: merchant.id, item_count: merchant.items.length }
+    end
+  end
+
+  def average_item_price_for_merchant(id)
+    items = @sales_engine.merchants.find_by_id(id).items
+    return 0 if items.empty?
+    items.map(&:unit_price).reduce(:+) / items.length
+  end
+
+  def average_average_price_per_merchant
+    avgs = @sales_engine.merchants.all.map do |merchant|
+      average_item_price_for_merchant merchant.id
+    end
+    avgs.map(&:to_f).reduce(:+) / avgs.length.to_f
+  end
+
   def average_items_per_merchant
     merchants_items = @sales_engine.merchants.all.select do |merchant|
       merchant.find_by_id merchant.id
     end
     merchants_items.reduce(:+) / merchants.items.length.to_f
-  end
 end
