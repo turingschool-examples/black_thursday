@@ -73,6 +73,9 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-
+    merchants_items = @sales_engine.merchants.all.map do |merchant|
+      merchant.items.length
+    end
+    StandardDeviation.calculate merchants_items
   end
 end
