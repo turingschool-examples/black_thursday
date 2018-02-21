@@ -69,4 +69,8 @@ class ItemRepository
   def inspect
     "#<#{self.class} #{@items.length} rows>"
   end
+
+  def find_merchant(id)
+    @sales_engine.merchants.find_by_id id
+  end
 end
