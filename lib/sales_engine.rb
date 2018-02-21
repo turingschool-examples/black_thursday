@@ -10,14 +10,12 @@ class SalesEngine
   attr_reader :items,
               :merchants
 
-  def initialize(items, merchants)
-    @items = items
-    @merchants = merchants
+  def initialize(files)
+    @items = ItemRepository.new files[:items], self
+    @merchants = MerchantRepository.new files[:merchants]
   end
 
   def self.from_csv(files)
-    items = ItemRepository.new files[:items]
-    merchants = MerchantRepository.new files[:merchants]
-    new items, merchants
+    new files
   end
 end

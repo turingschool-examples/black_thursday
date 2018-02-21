@@ -5,8 +5,11 @@ require_relative 'item'
 
 # Defines ItemRepository, holding a list of Items
 class ItemRepository
-  def initialize(filename)
+  attr_reader :sales_engine
+
+  def initialize(filename, sales_engine)
     @items = []
+    @sales_engine = sales_engine
     load_csv filename
   end
 

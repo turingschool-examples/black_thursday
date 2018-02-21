@@ -4,11 +4,14 @@ require_relative 'test_helper'
 
 require 'bigdecimal'
 require_relative '../lib/item_repository'
+require_relative '../lib/merchant_repository'
+require_relative '../lib/sales_engine'
 require_relative '../lib/item'
+require_relative 'mocks/test_engine'
 
 class ItemReposityTest < Minitest::Test
   def setup
-    @ir = ItemRepository.new './test/fixtures/items.csv'
+    @ir = ItemRepository.new './test/fixtures/items.csv', MOCK_SALES_ENGINE
   end
 
   def test_does_create_repository
@@ -88,5 +91,10 @@ class ItemReposityTest < Minitest::Test
 
   def test_overrides_inspect
     assert_equal '#<ItemRepository 5 rows>', @ir.inspect
+  end
+
+  def test_can_request_merchant_repository
+    assert_instance_of SalesEngine, @ir.sales_engine
+    assert_instance_of MerchantRepository, @ir.sales_engine.merchants
   end
 end
