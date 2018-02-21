@@ -35,7 +35,7 @@ class SalesAnalyst
 
   def merchants_with_high_item_count
     @se.merchants.all.find_all do |obj|
-      
+    end
 
     # Which merchants are more than one standard deviation above
     # the average number of products offered?
