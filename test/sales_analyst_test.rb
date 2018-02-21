@@ -31,4 +31,8 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 1, items.length
     assert_equal 'Item E', items.first.name
   end
+
+  def test_does_get_merchants_with_high_item_count
+
+  end
 end
