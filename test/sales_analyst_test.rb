@@ -3,6 +3,7 @@ require_relative '../lib/sales_engine'
 require_relative 'test_helper'
 require 'pry'
 
+# test for sales analyst class
 class SalesAnalystTest < Minitest::Test
   def setup
     @se = SalesEngine.from_csv(items: './test/fixtures/items.csv',
@@ -46,6 +47,6 @@ class SalesAnalystTest < Minitest::Test
 
     assert_instance_of Array, sales_analyst.golden_items
     assert_instance_of Item, sales_analyst.golden_items[0]
-    assert_equal 1, sales_analyst.golden_items.length
+    assert_equal 4, sales_analyst.golden_items.length
   end
 end
