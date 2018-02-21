@@ -27,4 +27,8 @@ class Item
   def price_to_big_decimal(price)
     BigDecimal.new(price.to_i) / 100.0
   end
+
+  def merchant
+    @item_repository.find_merchant @merchant_id
+  end
 end
