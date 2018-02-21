@@ -7,7 +7,8 @@ class SalesAnalyst
     set_repo_variables
     set_all_item_variables
     set_relational_variables
-    set_math_result_variables
+    set_item_math_result_variables
+    set_invoice_math_result_variables
   end
 
   def set_repo_variables
@@ -27,18 +28,21 @@ class SalesAnalyst
     @invoices_per_merchant = invoices_per_merchant
   end
 
-  def set_math_result_variables
-    @average_items_per_merchant = average_items_per_merchant
-    @average_items_per_merchant_standard_deviation = average_items_per_merchant_standard_deviation
+  def set_item_math_result_variables
+    @avg_items_per_merchant = average_items_per_merchant
+    @avg_items_per_merchant_stdev = average_items_per_merchant_standard_deviation
     @item_unit_prices = item_unit_prices
-    @average_item_price = average_item_price
-    @item_price_standard_deviation = item_price_standard_deviation
-    @average_invoices_per_merchant = average_invoices_per_merchant
-    @average_invoices_per_merchant_standard_deviation = average_invoices_per_merchant_standard_deviation
+    @avg_item_price = average_item_price
+    @item_price_stdev = item_price_standard_deviation
+  end
+
+  def set_invoice_math_result_variables
+    @avg_invoices_per_merchant = average_invoices_per_merchant
+    @avg_invoices_per_merchant_stdev = average_invoices_per_merchant_standard_deviation
     @day_invoice_created = day_invoice_created
     @days_of_week_invoice_count = days_of_week_invoice_count
-    @average_invoices_per_day = average_invoices_per_day
-    @invoices_per_day_standard_deviation = invoices_per_day_standard_deviation
+    @avg_invoices_per_day = average_invoices_per_day
+    @invoices_per_day_stdev = invoices_per_day_standard_deviation
   end
 
   def items_per_merchant
@@ -60,15 +64,15 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    dif = @items_per_merchant.map { |num| (num - @average_items_per_merchant)**2 }
+    dif = @items_per_merchant.map { |num| (num - @avg_items_per_merchant)**2 }
     added = dif.inject { |sum, num| sum + num }.to_f
     Math.sqrt(added / (@items_per_merchant.count - 1)).round(2)
   end
 
   def merchants_with_high_item_count
     zipped = @items_per_merchant.zip(@merchants)
-    average = @average_items_per_merchant
-    stdev = @average_items_per_merchant_standard_deviation
+    average = @avg_items_per_merchant
+    stdev = @avg_items_per_merchant_stdev
     found = zipped.find_all { |merchant| merchant[0] > (average + stdev) }
     found.map { |merchant| merchant[1] }
   end
@@ -108,74 +112,85 @@ class SalesAnalyst
   end
 
   def item_price_standard_deviation
-    dif = @item_unit_prices.map { |num| (num - @average_item_price)**2 }
+    dif = @item_unit_prices.map { |num| (num - @avg_item_price)**2 }
     added = dif.inject { |sum, num| sum + num }.to_f
     Math.sqrt(added / (@item_unit_prices.count - 1)).round(2)
   end
 
   def golden_items
     zipped = @item_unit_prices.zip(@items)
-    average = @average_item_price
-    stdev = @item_price_standard_deviation
+    average = @avg_item_price
+    stdev = @item_price_stdev
     found = zipped.find_all { |item| item[0] > (average + (stdev * 2)) }
     found.map { |item| item[1] }
   end
 
   def average_invoices_per_merchant
     count = @invoices_per_merchant.count
-    average = @invoices_per_merchant.inject { |sum, num| sum + num }.to_f / count
-    average.round(2)
+    avg = @invoices_per_merchant.inject { |sum, num| sum + num }.to_f / count
+    avg.round(2)
   end
 
   def average_invoices_per_merchant_standard_deviation
-    dif = @invoices_per_merchant.map { |num| (num - @average_invoices_per_merchant)**2 }
+    dif = @invoices_per_merchant.map do |num|
+      num - (@avg_invoices_per_merchant**2)
+    end
     added = dif.inject { |sum, num| sum + num }.to_f
     Math.sqrt(added / (@invoices_per_merchant.count - 1)).round(2)
   end
 
   def top_merchants_by_invoice_count
     zipped = @invoices_per_merchant.zip(@merchants)
-    average = @average_invoices_per_merchant
-    stdev = @average_invoices_per_merchant_standard_deviation
+    average = @avg_invoices_per_merchant
+    stdev = @avg_invoices_per_merchant_stdev
     found = zipped.find_all { |invoice| invoice[0] > (average + (stdev * 2)) }
     found.map { |invoice| invoice[1] }
   end
 
   def bottom_merchants_by_invoice_count
     zipped = @invoices_per_merchant.zip(@merchants)
-    average = @average_invoices_per_merchant
-    stdev = @average_invoices_per_merchant_standard_deviation
+    average = @avg_invoices_per_merchant
+    stdev = @avg_invoices_per_merchant_stdev
     found = zipped.find_all { |invoice| invoice[0] < (average - (stdev * 2)) }
     found.map { |invoice| invoice[1] }
   end
 
   def day_invoice_created
-    @invoices.map {|invoice| invoice.created_at.strftime('%A')}
+    @invoices.map { |invoice| invoice.created_at.strftime('%A') }
   end
 
   def days_of_week_invoice_count
     @days = %w[Monday Tuesday Wednesday Thursday Friday Saturday Sunday]
-    @days.map {|day| @day_invoice_created.count(day)}
-    # binding.pry
+    @days.map { |day| @day_invoice_created.count(day) }
   end
 
   def average_invoices_per_day
     count = @days_of_week_invoice_count.count
-    average = @days_of_week_invoice_count.inject { |sum, num| sum + num }.to_f / count
+    average = @days_of_week_invoice_count.inject do |sum, num|
+      sum + num
+    end.to_f / count
     average.round(2)
   end
 
   def invoices_per_day_standard_deviation
-    dif = @days_of_week_invoice_count.map { |num| (num - @average_invoices_per_day)**2 }
+    dif = @days_of_week_invoice_count.map do |num|
+      (num - @avg_invoices_per_day)**2
+    end
     added = dif.inject { |sum, num| sum + num }.to_f
     Math.sqrt(added / (@days_of_week_invoice_count.count - 1)).round(2)
   end
 
   def top_days_by_invoice_count
     zipped = @days_of_week_invoice_count.zip(@days)
-    average = @average_invoices_per_day
-    stdev = @invoices_per_day_standard_deviation
+    average = @avg_invoices_per_day
+    stdev = @invoices_per_day_stdev
     found = zipped.find_all { |invoice| invoice[0] > (average + (stdev * 1)) }
     found.map { |day| day[1] }
+  end
+
+  def invoice_status(status)
+    numerator = @invoice_repo.find_all_by_status(status).count.to_f
+    denominator = @invoices.count
+    ((numerator / denominator) * 100).round 2
   end
 end

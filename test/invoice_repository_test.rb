@@ -38,9 +38,9 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_status
-    assert_instance_of Array, @invoice_repo.find_all_by_status('shipped')
-    assert_equal 9, @invoice_repo.find_all_by_status('pending').length
-    assert_instance_of Invoice, @invoice_repo.find_all_by_status('shipped').first
-    assert_equal [], @invoice_repo.find_all_by_status('dummy string')
+    assert_instance_of Array, @invoice_repo.find_all_by_status(:shipped)
+    assert_equal 9, @invoice_repo.find_all_by_status(:pending).length
+    assert_instance_of Invoice, @invoice_repo.find_all_by_status(:shipped).first
+    assert_equal [], @invoice_repo.find_all_by_status(:dummy_symbol)
   end
 end
