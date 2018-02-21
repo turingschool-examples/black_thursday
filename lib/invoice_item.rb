@@ -1,3 +1,4 @@
+# This is the invoice item class.
 class InvoiceItem
   attr_reader :parent,
               :id,
@@ -15,6 +16,9 @@ class InvoiceItem
     @invoice_id  = data[:invoice_id].to_i
     @quantity    = data[:quantity].to_i
     @unit_price  = data[:unit_price].to_i
+  end
+
+  def set_time_instance_variables
     @created_at  = Time.parse(data[:created_at])
     @updated_at  = Time.parse(data[:updated_at])
   end
