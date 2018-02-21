@@ -28,7 +28,17 @@ class SalesAnalyst
     Math.sqrt(divided_sum).round(2)
   end
 
+  def one_std_deviation_item_count
+    a = average_items_per_merchant_standard_deviation
+    average_items_per_merchant + a
+  end
+
   def merchants_with_high_item_count
+    @se.merchants.all.find_all do |obj|
+      
+
+    # Which merchants are more than one standard deviation above
+    # the average number of products offered?
   end
 
   def average_item_price_for_merchant(id)
@@ -47,5 +57,6 @@ class SalesAnalyst
   end
 
   def golden_items
+    # two standard-deviations above the average item price
   end
 end

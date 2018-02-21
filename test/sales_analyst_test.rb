@@ -24,9 +24,9 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_merchants_with_high_item_count
-    skip
     actual = @sa.merchants_with_high_item_count
-  # [merchant, merchant, merchant]
+    assert_equal ";h", actual
+# [merchant, merchant, merchant]
   end
 
   def test_average_item_price_for_merchant
@@ -41,6 +41,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_golden_items
     skip
-  # sa.golden_items # => [<item>, <item>, <item>, <item>]
+    assert_equal ";h", @sa.golden_items
+# [<item>, <item>, <item>, <item>]
   end
 end
