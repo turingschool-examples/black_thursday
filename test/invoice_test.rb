@@ -32,7 +32,9 @@ class InvoiceTest < Minitest::Test
   def test_finding_merchant_associated_with_invoice
     information = { items: './test/fixtures/items_list_truncated.csv',
                     merchants: './test/fixtures/merchants_list_truncated.csv',
-                    invoices: './test/fixtures/invoices_list_truncated.csv' }
+                    invoices: './test/fixtures/invoices_list_truncated.csv',
+                    invoice_item: './test/fixtures/invoice_items_lits_truncated',
+                    transactions: './test/fixtures/transactions_list_truncated.csv' }
     sales_engine = SalesEngine.from_csv(information)
     invoice = sales_engine.invoices.find_by_id(20)
 

@@ -3,9 +3,11 @@ require_relative '../lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test
   def setup
-    @information = {:items => './test/fixtures/items_list_truncated.csv',
-                    :merchants => './test/fixtures/merchants_list_truncated.csv',
-                    :invoices => './test/fixtures/invoices_list_truncated.csv'}
+    @information = {items: './test/fixtures/items_list_truncated.csv',
+                    merchants: './test/fixtures/merchants_list_truncated.csv',
+                    invoices: './test/fixtures/invoices_list_truncated.csv',
+                    invoice_item: './test/fixtures/invoice_items_lits_truncated',
+                    transactions: './test/fixtures/transactions_list_truncated.csv' }
     @sales_engine = SalesEngine.new(@information)
   end
 

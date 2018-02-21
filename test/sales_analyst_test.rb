@@ -8,7 +8,9 @@ class SalesAnalystTest < Minitest::Test
     @se = SalesEngine.from_csv(
       items:     './test/fixtures/items_list_truncated.csv',
       merchants: './test/fixtures/merchants_list_truncated.csv',
-      invoices:  './test/fixtures/invoices_list_truncated.csv'
+      invoices:  './test/fixtures/invoices_list_truncated.csv',
+      invoice_item: './test/fixtures/invoice_items_lits_truncated',
+      transactions: './test/fixtures/transactions_list_truncated.csv'
     )
     @sales_analyst = SalesAnalyst.new(@se)
   end

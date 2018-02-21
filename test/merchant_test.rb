@@ -18,7 +18,9 @@ class MerchantTest < Minitest::Test
   def test_finding_items_associated_with_merchant
     information = { items: './test/fixtures/items_list_truncated.csv',
                     merchants: './test/fixtures/merchants_list_truncated.csv',
-                    invoices: './test/fixtures/invoices_list_truncated.csv' }
+                    invoices: './test/fixtures/invoices_list_truncated.csv',
+                    invoice_item: './test/fixtures/invoice_items_lits_truncated',
+                    transactions: './test/fixtures/transactions_list_truncated.csv' }
     sales_engine = SalesEngine.from_csv(information)
     merchant = sales_engine.merchants.find_by_id(123_341_12)
 
@@ -30,7 +32,9 @@ class MerchantTest < Minitest::Test
   def test_finding_invoices_associated_with_merchant
     information = { items: './test/fixtures/items_list_truncated.csv',
                     merchants: './test/fixtures/merchants_list_truncated.csv',
-                    invoices: './test/fixtures/invoices_list_truncated.csv' }
+                    invoices: './test/fixtures/invoices_list_truncated.csv',
+                    invoice_item: './test/fixtures/invoice_items_lits_truncated',
+                    transactions: './test/fixtures/transactions_list_truncated.csv' }
     sales_engine = SalesEngine.from_csv(information)
     merchant = sales_engine.merchants.find_by_id(12_334_112)
 
