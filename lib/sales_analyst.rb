@@ -30,4 +30,21 @@ class SalesAnalyst
       item.unit_price >= (average_price + standard_deviation * 2)
     end
   end
+
+  def merchants_with_high_item_count
+    count = merchant_item_count
+    count_array = count.map { |merchant| merchant[:item_count] }
+    deviation = StandardDeviation.calculate count_array
+    average = count_array.reduce(:+) / count_array.length.to_f
+
+    @sales_engine.merchants.all.select do |merchant|
+      merchant.items.length >= average + deviation
+    end
+  end
+
+  def merchant_item_count
+    @sales_engine.merchants.all.map do |merchant|
+      { id: merchant.id, item_count: merchant.items.length }
+    end
+  end
 end
