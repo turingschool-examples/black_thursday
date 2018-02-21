@@ -33,6 +33,14 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_does_get_merchants_with_high_item_count
+    merchants = @sa.merchants_with_high_item_count
 
+    assert_instance_of Array, merchants
+    assert_equal 2, merchants.length
+    merchants.each do |merchant|
+      assert_instance_of Merchant, merchant
+    end
+    assert_equal 3, merchants.first.id
+    assert_equal 7, merchants[1].id
   end
 end
