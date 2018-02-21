@@ -9,7 +9,7 @@ class MerchantRepository
     @merchants         = []
     contents = CSV.open @merchant_csv_path, headers: true
     contents.each do |row|
-      @merchants << Merchant.new( {id: row[0], name: row[1] }, self)
+      @merchants << Merchant.new({ id: row[0], name: row[1] }, self)
     end
   end
 
@@ -22,7 +22,7 @@ class MerchantRepository
   end
 
   def find_by_name(name)
-    @merchants.find { |merchant| merchant.name.downcase == name.downcase }
+    @merchants.find { |merchant| merchant.name.casecmp(name.downcase).zero? }
   end
 
   def find_all_by_name(name)

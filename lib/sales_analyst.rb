@@ -30,7 +30,7 @@ class SalesAnalyst
 
   def set_item_math_result_variables
     @avg_items_per_merchant = average_items_per_merchant
-    @avg_items_per_merchant_stdev = average_items_per_merchant_standard_deviation
+    @avg_items_per_merch_stdev = average_items_per_merchant_standard_deviation
     @item_unit_prices = item_unit_prices
     @avg_item_price = average_item_price
     @item_price_stdev = item_price_standard_deviation
@@ -38,7 +38,7 @@ class SalesAnalyst
 
   def set_invoice_math_result_variables
     @avg_invoices_per_merchant = average_invoices_per_merchant
-    @avg_invoices_per_merchant_stdev = average_invoices_per_merchant_standard_deviation
+    @avg_inv_per_merch_stdev = average_invoices_per_merchant_standard_deviation
     @day_invoice_created = day_invoice_created
     @days_of_week_invoice_count = days_of_week_invoice_count
     @avg_invoices_per_day = average_invoices_per_day
@@ -72,7 +72,7 @@ class SalesAnalyst
   def merchants_with_high_item_count
     zipped = @items_per_merchant.zip(@merchants)
     average = @avg_items_per_merchant
-    stdev = @avg_items_per_merchant_stdev
+    stdev = @avg_items_per_merch_stdev
     found = zipped.find_all { |merchant| merchant[0] > (average + stdev) }
     found.map { |merchant| merchant[1] }
   end
@@ -142,7 +142,7 @@ class SalesAnalyst
   def top_merchants_by_invoice_count
     zipped = @invoices_per_merchant.zip(@merchants)
     average = @avg_invoices_per_merchant
-    stdev = @avg_invoices_per_merchant_stdev
+    stdev = @avg_inv_per_merch_stdev
     found = zipped.find_all { |invoice| invoice[0] > (average + (stdev * 2)) }
     found.map { |invoice| invoice[1] }
   end
@@ -150,7 +150,7 @@ class SalesAnalyst
   def bottom_merchants_by_invoice_count
     zipped = @invoices_per_merchant.zip(@merchants)
     average = @avg_invoices_per_merchant
-    stdev = @avg_invoices_per_merchant_stdev
+    stdev = @avg_inv_per_merch_stdev
     found = zipped.find_all { |invoice| invoice[0] < (average - (stdev * 2)) }
     found.map { |invoice| invoice[1] }
   end

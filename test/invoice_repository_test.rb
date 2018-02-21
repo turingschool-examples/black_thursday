@@ -1,6 +1,7 @@
 require_relative 'test_helper'
 require_relative '../lib/invoice_repository'
 
+# This is a class for tests of the invoice repo class.
 class InvoiceRepositoryTest < Minitest::Test
   def setup
     invoice_csv = './test/fixtures/invoices_list_truncated.csv'
@@ -33,7 +34,8 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_find_all_by_merchant_id
     assert_instance_of Array, @invoice_repo.find_all_by_merchant_id(123_350_09)
     assert_equal 1, @invoice_repo.find_all_by_merchant_id(123_350_09).length
-    assert_instance_of Invoice, @invoice_repo.find_all_by_merchant_id(123_350_09).first
+    actual = @invoice_repo.find_all_by_merchant_id(123_350_09).first
+    assert_instance_of Invoice, actual
     assert_equal [], @invoice_repo.find_all_by_merchant_id(123)
   end
 
