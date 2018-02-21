@@ -52,4 +52,8 @@ class ItemRepository
     @items.find_all { |item| item.merchant_id == merchant_id }
   end
 
+  def find_merchant_by_merchant_id(id)
+    engine.find_merchant_by_merchant_id(id)
+  end
+
 end

@@ -35,4 +35,18 @@ class ItemTest < Minitest::Test
     assert_equal "$0.1099", @item.unit_price_to_dollars
   end
 
+  def test_if_it_returns_the_merchant_for_an_item
+    data = {
+          :items     => "./test/fixtures/items_sample.csv",
+          :merchants => "./test/fixtures/merchants_sample.csv",
+            }
+    sales_engine = SalesEngine.new(data)
+    id = 263395721
+    item = sales_engine.items.find_by_id(id)
+
+    assert item.id == id
+    assert item.merchant.name == "Madewithgitterxx"
+    assert item.merchant.class == Merchant
+  end
+
 end

@@ -28,4 +28,8 @@ class Item
     "$#{unit_price.to_f}"
   end
 
+  def merchant
+    item_repo.find_merchant_by_merchant_id(merchant_id)
+  end
+
 end

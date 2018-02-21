@@ -40,7 +40,7 @@ class MerchantRepository
     end
   end
 
-  def find_items(id)
+  def find_items_by_merchant_id(id)
     engine.find_items_by_merchant_id(id)
   end
 

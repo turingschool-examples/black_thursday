@@ -33,7 +33,7 @@ class MerchantTest < Minitest::Test
     assert_equal "Yale Business School", merchant.name
   end
 
-  def test_if_items_returns_all_items_for_a_merchant
+  def test_if_it_returns_all_items_for_a_merchant
     data = {
           :items     => "./test/fixtures/items_sample.csv",
           :merchants => "./test/fixtures/merchants_sample.csv",
