@@ -36,8 +36,16 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_average_price_per_merchant
+    assert_equal BigDecimal.new('7.35'), @sales_analyst.average_average_price_per_merchant
   end
 
   def test_golden_items
+    se = SalesEngine.from_csv(items: './test/fixtures/items.csv',
+                              merchants: './test/fixtures/merchants.csv')
+    sales_analyst = SalesAnalyst.new(se)
+
+    assert_instance_of Array, sales_analyst.golden_items
+    assert_instance_of Item, sales_analyst.golden_items[0]
+    assert_equal 1, sales_analyst.golden_items.length
   end
 end
