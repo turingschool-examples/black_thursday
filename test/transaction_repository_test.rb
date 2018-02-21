@@ -38,31 +38,11 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal [], @tr.find_all_by_credit_card_number(2345)
     assert_equal 18, @tr.find_all_by_credit_card_number('4055813232766404').first.id
   end
-  #
-  # def test_find_by_name
-  #   assert_nil @ir.find_by_name('help meadsfadsf')
-  #   assert_equal '510+ RealPush Icon Set', @ir.find_by_name('510+ RealPush Icon Set').name
-  # end
-  #
-  # def test_find_all_with_description
-  #   assert_equal [], @ir.find_all_with_description('help me')
-  #   assert_equal 1, @ir.find_all_with_description('Free standing woo').length
-  # end
-  #
-  # def test_find_all_by_price
-  #   assert_equal [], @ir.find_all_by_price(111_245_6)
-  #   assert_equal 7.00, @ir.find_all_by_price(7.00).first.unit_price_to_dollars
-  # end
-  #
-  # def test_find_all_by_price_in_range
-  #   assert_equal [], @ir.find_all_by_price_in_range(1..2)
-  #   assert_equal 2, @ir.find_all_by_price_in_range(13.00..14.00).length
-  # end
-  #
-  # def test_find_all_by_merchant_id
-  #   assert_equal [], @ir.find_all_by_merchant_id(1)
-  #   assert_equal 263_395_617, @ir.find_all_by_merchant_id(123_341_85).first.id
-  #   assert_equal 263_396_013, @ir.find_all_by_merchant_id(123_341_85).last.id
-  #   assert_equal 3, @ir.find_all_by_merchant_id(123_341_85).length
-  # end
+
+  def test_find_all_by_result
+    assert_equal [], @tr.find_all_by_result('pending')
+    assert_equal 3, @tr.find_all_by_result('failed').length
+    assert_instance_of Transaction, @tr.find_all_by_result('failed').first
+    assert_equal 9, @tr.find_all_by_result('failed').first.id
+  end
 end

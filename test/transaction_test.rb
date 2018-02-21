@@ -25,6 +25,7 @@ class TransactionTest < Minitest::Test
     assert_equal 8, @transaction.invoice_id
     assert_equal '4242424242424242', @transaction.credit_card_number
     assert_equal '0220', @transaction.credit_card_expiration_date
+    assert_equal 'success', @transaction.result
     assert_equal Time.utc(2012, 02, 26, 20, 56, 56), @transaction.created_at
     assert_equal Time.utc(2012, 02, 26, 20, 56, 56), @transaction.updated_at
     assert_equal 'TransactionRepo pointer', @transaction.parent

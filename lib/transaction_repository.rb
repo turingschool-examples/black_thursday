@@ -31,5 +31,8 @@ class TransactionRepository
   def find_all_by_credit_card_number(cc_num)
     @transactions.find_all { |transaction| transaction.credit_card_number == cc_num }
   end
-# find_all_by_result - returns either [] or one or more matches which have a matching status
+
+  def find_all_by_result(result)
+    @transactions.find_all { |transaction| transaction.result == result }
+  end
 end
