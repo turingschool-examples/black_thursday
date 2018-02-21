@@ -6,8 +6,11 @@ require_relative 'merchant'
 
 # Merchant Repository gets data from CSV
 class MerchantRepository
-  def initialize(filepath)
+  attr_reader :sales_engine
+  
+  def initialize(filepath, sales_engine)
     @merchants = []
+    @sales_engine = sales_engine
     load_merchants(filepath)
   end
 
@@ -17,7 +20,7 @@ class MerchantRepository
 
   def load_merchants(filepath)
     CSV.foreach(filepath, headers: true, header_converters: :symbol) do |data|
-      @merchants << Merchant.new(data)
+      @merchants << Merchant.new(data, self)
     end
   end
 
@@ -43,5 +46,9 @@ class MerchantRepository
 
   def inspect
     "#<#{self.class} #{@merchants.length} rows>"
+  end
+
+  def items(id)
+    @sales_engine.items.find_all_by_merchant_id id
   end
 end

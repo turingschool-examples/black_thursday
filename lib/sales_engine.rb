@@ -12,7 +12,7 @@ class SalesEngine
 
   def initialize(files)
     @items = ItemRepository.new files[:items], self
-    @merchants = MerchantRepository.new files[:merchants]
+    @merchants = MerchantRepository.new files[:merchants], self
   end
 
   def self.from_csv(files)
