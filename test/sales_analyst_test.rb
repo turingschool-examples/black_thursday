@@ -4,8 +4,8 @@ require './lib/sales_analyst'
 
 class SalesAnalystTest < Minitest::Test
   def setup
-    repositories = {items: './data/items.csv',
-                merchants: './data/merchants.csv'}
+    repositories = {items: './data/sample_data/items.csv',
+                merchants: './data/sample_data/merchants.csv'}
     sales_eng    = SalesEngine.new(repositories)
     @sa          = SalesAnalyst.new(sales_eng)
   end
@@ -15,33 +15,31 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_items_per_merchant
-    assert_equal 2.88, @sa.average_items_per_merchant
+    assert_equal 2.5, @sa.average_items_per_merchant
   end
 
   def test_average_items_per_merchant_standard_deviation
     actual = @sa.average_items_per_merchant_standard_deviation
-    assert_equal 3.26, actual
+    assert_equal 2.38, actual
   end
 
   def test_merchants_with_high_item_count
-    actual = @sa.merchants_with_high_item_count
-    assert_equal ";h", actual
-# [merchant, merchant, merchant]
+    actual = @sa.merchants_with_high_item_count.first.name
+    assert_equal 'MiniatureBikez', actual
   end
 
   def test_average_item_price_for_merchant
-    actual = @sa.average_item_price_for_merchant(12334159)
-    assert_equal 0.315e2, actual
+    actual = @sa.average_item_price_for_merchant(12334105)
+    assert_equal 0.1149e2, actual
   end
 
   def test_average_average_price_per_merchant
     actual = @sa.average_average_price_per_merchant
-    assert_equal 350.29, actual
+    assert_equal 21.95, actual
   end
 
   def test_golden_items
     skip
     assert_equal ";h", @sa.golden_items
-# [<item>, <item>, <item>, <item>]
   end
 end

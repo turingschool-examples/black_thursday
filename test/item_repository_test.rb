@@ -22,7 +22,7 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of Array, @item_repo.all
     assert_instance_of Item, @item_repo.all.first
     assert_equal 1, @item_repo.all.first.id
-    assert_equal 'Some stuff', @item_repo.all.last.name
+    assert_equal 'Garbage', @item_repo.all.last.name
   end
 
   def test_find_by_id_method
@@ -58,7 +58,7 @@ class ItemRepositoryTest < Minitest::Test
     actual = @item_repo.find_all_by_price_in_range(11.0..20.0)
 
     assert_equal [], @item_repo.find_all_by_price_in_range(0..10.0)
-    assert_equal 6, actual.length
+    assert_equal 7, actual.length
     assert_instance_of Item, actual.first
   end
 
