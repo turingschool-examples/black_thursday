@@ -37,6 +37,10 @@ class SalesAnalyst
     deviation = StandardDeviation.calculate count_array
     average = count_array.reduce(:+) / count_array.length.to_f
 
+    select_merchants deviation, average
+  end
+
+  def select_merchants(deviation, average)
     @sales_engine.merchants.all.select do |merchant|
       merchant.items.length >= average + deviation
     end
