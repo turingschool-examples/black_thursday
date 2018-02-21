@@ -28,6 +28,7 @@ class SalesAnalystTest < Minitest::Test
   def test_can_find_golden_items
     items = @sa.golden_items
     assert_instance_of Array, items
+    assert_equal 1, items.length
     assert_equal 'Item E', items.first.name
   end
 end
