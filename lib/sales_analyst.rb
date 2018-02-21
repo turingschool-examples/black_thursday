@@ -22,8 +22,8 @@ class SalesAnalyst
     squared_distance_sum = data_set.map do |data_point|
       (data_point - mean.to_f.abs) ** 2
     end.sum
-
-    ((squared_distance_sum/data_set.length) ** 0.5).round(2)
+# binding.pry
+    ((squared_distance_sum/((data_set.length) -1 )) ** 0.5).round(2)
   end
 
   def find_mean(data_set)
@@ -121,24 +121,31 @@ class SalesAnalyst
   end
 
   def average_invoices_per_weekday_standard_deviation
-    standard_deviation(average_invoices_per_weekday, invoice_collector.length)
+    mean = average_invoices_per_weekday
+    merchant_invoices_array_per_wkday = show_wkdays.map do |key, value|
+      value
+    end
+
+    standard_deviation(average_invoices_per_weekday, merchant_invoices_array_per_wkday)
   end
 
   def show_wkdays
-    weekday_array = invoice_collector.group_by do |invoice|
-      (invoice.created_at.strftime("%w")).count
-    end
-  end
-
-  def sum_wkdays
-    show_wkdays.group_by do |weekday|
-      weekday.count
+    invoice_collector.reduce(Hash.new(0)) do |weekdays, invoice|
+      weekday = invoice.created_at.strftime("%w")
+      weekdays[weekday] += 1
+      weekdays
     end
   end
 
   def top_days_by_invoice_count
-    merchant_collector.group_by do |merchant|
-      merchant.invoices.created_at.strftime("%w")
+    mean = average_invoices_per_weekday
+    standard_deviation = average_invoices_per_weekday_standard_deviation
+
+    show_wkdays.each do |key, value|
+      # binding.pry
+      if (value - mean) > standard_deviation
+        return key
+      end
     end
   end
 

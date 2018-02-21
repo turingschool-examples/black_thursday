@@ -3,6 +3,7 @@
 require_relative 'test_helper.rb'
 require_relative '../lib/sales_analyst.rb'
 require_relative '../lib/sales_engine.rb'
+require 'pry'
 
 class SalesAnalystTest < Minitest::Test
   def setup
@@ -13,7 +14,6 @@ class SalesAnalystTest < Minitest::Test
       })
 
     @sales_analyst = SalesAnalyst.new(@sales_engine)
-    # binding.pry
   end
 
   def test_analyst_initializes
@@ -28,7 +28,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_return_average_items_per_merchant
-    skip
     result = @sales_analyst.average_items_per_merchant
 
     assert_equal 2.88, result
@@ -38,7 +37,7 @@ class SalesAnalystTest < Minitest::Test
     data_set = [3,4,5]
     result = @sales_analyst.standard_deviation(4, data_set)
 
-    assert_equal 0.82, result
+    assert_equal 1.0, result
   end
 
   def test_mean_method_is_accurate
@@ -95,7 +94,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_find_average_invoices_per_merchant
-    # skip
     result = @sales_analyst.average_invoices_per_merchant
 
     assert_equal 10.49, result
@@ -122,15 +120,13 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_find_top_days_by_invoice_count
-    skip
+    # skip
     result = @sales_analyst.top_days_by_invoice_count
-
-    assert_instance_of Array, result
-    assert_instance_of "Wednesday", result[0]
+    # assert_instance_of Hash, result
+    assert_equal "Wednesday", result[0]
   end
 
   def test_can_return_invoice_statuses_as_percent_share
-    # skip
     pending_result = @sales_analyst.invoice_status(:pending)
     shipped_result = @sales_analyst.invoice_status(:shipped)
     returned_result = @sales_analyst.invoice_status(:returned)
