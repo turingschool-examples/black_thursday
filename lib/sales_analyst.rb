@@ -64,10 +64,10 @@ class SalesAnalyst
     average(result, merchants.length)
   end
 
-  def golden_items
-    result = @sales_engine.items.all.collect do |item|
-      difference = (item.unit_price - average_average_price_per_merchant).to_f
-      item if difference > average_items_per_merchant_standard_deviation * 2
-    end.compact
-  end
+  # def golden_items
+  #   result = @sales_engine.items.all.collect do |item|
+  #     difference = (item.unit_price - average_average_price_per_merchant).to_f
+  #     item if difference > average_items_per_merchant_standard_deviation * 2
+  #   end.compact
+  # end
 end

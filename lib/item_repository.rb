@@ -52,7 +52,7 @@ class ItemRepository
 
   def find_all_by_merchant_id(id)
     @items.find_all do |item|
-      item.merchant_id == id.to_s
+      item.merchant_id == id
     end
   end
 
@@ -60,7 +60,7 @@ class ItemRepository
   def inspect
     "#<#{self.class} #{@items.size} rows>"
   end
-  
+
   def pass_merchant_id_to_se(id)
     @parent.pass_merchant_id_to_merchant_repo(id)
   end
