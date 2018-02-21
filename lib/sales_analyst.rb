@@ -16,13 +16,12 @@ class SalesAnalyst
     @sales_engine.items.all
   end
 
-  # I think we can break out average and std deviation into a module
   def average(numerator, denominator)
-    (BigDecimal(numerator) / BigDecimal(denominator)).round(2)
+    (BigDecimal(numerator, 4) / BigDecimal(denominator, 4)).round(2)
   end
 
   def average_items_per_merchant
-    average(items.length, merchants.length)
+    average(items.length, merchants.length).to_f
   end
 
   def average_items_per_merchant_standard_deviation

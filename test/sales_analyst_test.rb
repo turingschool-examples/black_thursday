@@ -32,9 +32,8 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_item_price_for_merchant
-    skip
-    assert_instance_of Float, @sa.average_item_price_for_merchant(2)
-    assert_equal 16.66, @sa.average_item_price_for_merchant(2)
+    assert_instance_of BigDecimal, @sa.average_item_price_for_merchant(2)
+    assert_equal BigDecimal.new('16.66'), @sa.average_item_price_for_merchant(2)
   end
 
   def test_average_average_price_per_merchant
