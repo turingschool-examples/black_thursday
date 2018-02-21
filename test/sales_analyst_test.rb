@@ -24,4 +24,10 @@ class SalesAnalystTest < Minitest::Test
   def test_can_calculate_item_cost_standard_deviation
     assert_equal Math.sqrt(30) * 3, @sa.item_cost_standard_deviation
   end
+
+  def test_can_find_golden_items
+    items = @sa.golden_items
+    assert_instance_of Array, items
+    assert_equal 'Item E', items.first.name
+  end
 end
