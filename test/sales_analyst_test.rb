@@ -35,11 +35,11 @@ class SalesAnalystTest < Minitest::Test
 
   def test_average_average_price_per_merchant
     actual = @sa.average_average_price_per_merchant
-    assert_equal 21.95, actual
+    assert_equal 63.61, actual
   end
 
   def test_golden_items
-    skip
-    assert_equal ';h', @sa.golden_items
+    golden_items = @sa.golden_items
+    assert_equal 'Some stuff', golden_items.first.name
   end
 end

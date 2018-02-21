@@ -48,7 +48,16 @@ class SalesAnalyst
     (total_avg_price / @se.merchants.all.length).round(2)
   end
 
+  def all_item_prices
+    @se.items.all.map(&:unit_price)
+  end
+
   def golden_items
-    # two standard-deviations above the average item price
+    average = average(all_item_prices)
+    st_dev = standard_deviation(all_item_prices, average)
+    two_sigma = average + (2 * st_dev)
+    stuff = @se.items.all.find_all do |item|
+      item.unit_price > two_sigma
+    end
   end
 end

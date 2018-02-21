@@ -58,7 +58,7 @@ class ItemRepositoryTest < Minitest::Test
     actual = @item_repo.find_all_by_price_in_range(11.0..20.0)
 
     assert_equal [], @item_repo.find_all_by_price_in_range(0..10.0)
-    assert_equal 7, actual.length
+    assert_equal 8, actual.length
     assert_instance_of Item, actual.first
   end
 
