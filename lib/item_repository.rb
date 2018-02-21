@@ -16,7 +16,7 @@ class ItemRepository
       headers: true,
       header_converters: :symbol
     ) do |item_info|
-      item = Item.new item_info
+      item = Item.new item_info, self
       @items.push item
     end
   end
