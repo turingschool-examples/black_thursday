@@ -72,13 +72,13 @@ class SalesAnalyst
   end
 
   def average_items_price_standard_deviation
-      squares = all_item_prices.map do |num|
-        (num - average_items_per_merchant)**2
+    squares = all_item_prices.map do |num|
+        (num - average_average_price_per_merchant)**2
       end
       numerator = squares.reduce(0) do |total, square|
         total + square
       end
-      denominator = (merchants.length - 1)
+      denominator = (items.length - 1)
       Math.sqrt(numerator / denominator).round(2)
     end
 

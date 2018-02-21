@@ -52,7 +52,6 @@ class SalesAnalystTest < Minitest::Test
     sales_analyst = SalesAnalyst.new(se)
 
     assert_instance_of Array, sales_analyst.golden_items
-    # assert_instance_of Item, sales_analyst.golden_items[0]
     assert_equal 0, sales_analyst.golden_items.length
   end
 end
