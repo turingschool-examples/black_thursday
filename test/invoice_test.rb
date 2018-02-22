@@ -13,8 +13,8 @@ class InvoiceTest < Minitest::Test
         customer_id: 7,
         merchant_id: 8,
         status:      'pending',
-        created_at:  Time.now,
-        updated_at:  Time.now
+        created_at:  '2011-08-29 19:23:23 UTC',
+        updated_at:  '2006-12-25 19:23:23 UTC'
         }, @sales_engine.invoices)
   end
 
@@ -30,7 +30,7 @@ class InvoiceTest < Minitest::Test
     assert_equal 6, invoice.id
     assert_equal 7, invoice.customer_id
     assert_equal 8, invoice.merchant_id
-    assert_equal 'pending', invoice.status
+    assert_equal :pending, invoice.status
     assert_instance_of Time, invoice.created_at
   end
 
@@ -40,15 +40,15 @@ class InvoiceTest < Minitest::Test
       customer_id: 77,
       merchant_id: 88,
       status:      'ready',
-      created_at:  Time.at(1_498_280_000),
-      updated_at:  Time.at(1_498_280_000)
+      created_at:  '2341-08-20 19:23:23 UTC',
+      updated_at:  '1981-05-09 19:23:23 UTC'
       }, @sales_engine.invoices)
-    created_time = Time.at(1_498_280_000)
+
 
     assert_equal 66, invoice.id
     assert_equal 77, invoice.customer_id
     assert_equal 88, invoice.merchant_id
-    assert_equal 'ready', invoice.status
-    assert_equal created_time, invoice.created_at
+    assert_equal :ready, invoice.status
+    assert_instance_of Time, invoice.created_at
   end
 end

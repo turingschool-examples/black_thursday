@@ -9,11 +9,8 @@ require_relative './master_hash.rb'
 
 class SalesAnalystTest < Minitest::Test
   def setup
-    @sales_engine = SalesEngine.new({
-      items: './data/items.csv',
-      merchants: './data/merchants.csv',
-      invoices: './data/invoices.csv'
-      })
+    test_engine = TestEngine.new.god_hash
+    @sales_engine = SalesEngine.new(test_engine)
     @sales_analyst = SalesAnalyst.new(@sales_engine)
   end
 
@@ -88,7 +85,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_gets_standard_deviation_of_all_item_prices_helper_method
-    skip
     result = @sales_analyst.price_standard_deviation
 
     assert_instance_of BigDecimal, result
@@ -122,10 +118,9 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_find_top_days_by_invoice_count
-    skip
     result = @sales_analyst.top_days_by_invoice_count
-    assert_instance_of Hash, result
-    assert_equal "Wednesday", result[0]
+
+    assert_equal "wednesday", result
   end
 
   def test_can_return_invoice_statuses_as_percent_share
