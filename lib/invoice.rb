@@ -20,4 +20,8 @@ class Invoice
     @updated_at = Time.parse(data[:updated_at])
     @parent = parent
   end
+
+  def merchant
+    @parent.pass_merchant_id_to_se_for_invoice(@merchant_id)
+  end
 end

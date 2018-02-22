@@ -41,4 +41,8 @@ class InvoiceRepository
       invoice.status == status
     end
   end
+
+  def pass_merchant_id_to_se_for_invoice(id)
+    @parent.pass_merchant_id_to_merchant_repo(id)
+  end
 end
