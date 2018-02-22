@@ -48,12 +48,8 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_golden_items
-    se = SalesEngine.from_csv(items: './test/fixtures/items.csv',
-                              merchants: './test/fixtures/merchants.csv')
-    sales_analyst = SalesAnalyst.new(se)
-
-    assert_instance_of Array, sales_analyst.golden_items
-    assert_equal 0, sales_analyst.golden_items.length
+    assert_instance_of Array, @sa.golden_items
+    assert_equal 0, @sa.golden_items.length
   end
 
   def test_average_invoices_per_merchant
@@ -62,5 +58,15 @@ class SalesAnalystTest < Minitest::Test
 
   def test_average_invoices_per_merchant_standard_deviation
     assert_equal 1.26, @sa.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_top_merchants_by_invoice_count
+    assert_instance_of Array, @sa.top_merchants_by_invoice_count
+    assert_equal 0, @sa.top_merchants_by_invoice_count.length
+  end
+
+  def test_bottom_merchants_by_invoice_count
+    assert_instance_of Array, @sa.bottom_merchants_by_invoice_count
+    assert_equal 0, @sa.bottom_merchants_by_invoice_count.length
   end
 end

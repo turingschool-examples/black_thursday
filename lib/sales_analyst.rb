@@ -7,6 +7,7 @@ class SalesAnalyst
   def initialize(se)
     @sales_engine = se
     @std_dev_price = average_items_price_standard_deviation
+    @std_dev_invoice = average_invoices_per_merchant_standard_deviation
   end
 
   def merchants
@@ -87,7 +88,20 @@ class SalesAnalyst
 
   def average_invoices_per_merchant_standard_deviation
     total_invoices = merchants.map { |merchant| merchant.invoices.length }
-    binding.pry
     standard_deviation(total_invoices, average_invoices_per_merchant).round(2)
+  end
+
+  def top_merchants_by_invoice_count
+    @sales_engine.merchants.all.collect do |merchant|
+      difference = (merchant.invoices.length - average_invoices_per_merchant).to_f
+      merchant if difference.abs > @std_dev_invoice * 2 && merchant.invoices.length > average_invoices_per_merchant
+    end.compact
+  end
+
+  def bottom_merchants_by_invoice_count
+    @sales_engine.merchants.all.collect do |merchant|
+      difference = (merchant.invoices.length - average_invoices_per_merchant).to_f
+      merchant if difference.abs > @std_dev_invoice * 2 && merchant.invoices.length < average_invoices_per_merchant
+    end.compact
   end
 end
