@@ -1,20 +1,20 @@
 require 'bigdecimal'
 require 'time'
-class Item
+class InvoiceItem
   attr_reader :id,
-              :name,
-              :description,
+              :item_id,
+              :invoice_id,
+              :quantity,
               :unit_price,
-              :merchant_id,
               :created_at,
               :updated_at
 
   def initialize(data, parent)
     @id = data[:id].to_i
-    @name = data[:name]
-    @description = data[:description]
-    @unit_price  = BigDecimal.new(data[:unit_price])/100
-    @merchant_id = data[:merchant_id].to_i
+    @item_id = data[:item_id]
+    @invoice_id = data[:invoice_id]
+    @quantity = data[:quantity]
+    @unit_price  = BigDecimal.new(data[:unit_price], 4)/100
     @created_at  = Time.parse(data[:created_at])
     @updated_at  = Time.parse(data[:updated_at])
     @parent = parent
@@ -24,7 +24,7 @@ class Item
     (@unit_price.to_f)
   end
 
-  def merchant
-    @parent.item_repo_goes_to_sales_engine_with_merchant_id(self.merchant_id)
-  end
+  # def merchant
+  #   @parent.item_repo_goes_to_sales_engine_with_merchant_id(self.merchant_id)
+  # end
 end
