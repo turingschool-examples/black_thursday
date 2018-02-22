@@ -36,6 +36,10 @@ class InvoiceItemTest < Minitest::Test
     assert_equal Time.new(2014, 0o3, 15), @invoice_item.updated_at
   end
 
+  def test_unit_price_to_dollars
+    assert_equal 34_873.0, @invoice_item.unit_price_to_dollars
+  end
+
   # def test_finding_merchant_associated_with_invoice
   #   information = { items: './test/fixtures/items_list_truncated.csv',
   #                   merchants: './test/fixtures/merchants_list_truncated.csv',
