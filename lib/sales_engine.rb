@@ -17,12 +17,7 @@ class SalesEngine
               :customers
 
   def initialize(hash)
-    @item_csv_path = hash[:items]
-    @merchant_csv_path = hash[:merchants]
-    @invoice_csv_path = hash[:invoices]
-    @transaction_csv_path = hash[:transactions]
-    @invoice_items_csv_path = hash[:invoice_item]
-    @customer_csv_path = hash[:customers]
+    get_csv_paths(hash)
     @items = ItemRepository.new(@item_csv_path, self)
     @merchants = MerchantRepository.new(@merchant_csv_path, self)
     @invoices = InvoiceRepository.new(@invoice_csv_path, self)
@@ -31,8 +26,17 @@ class SalesEngine
     @customers = CustomerRepository.new(@customer_csv_path, self)
   end
 
+  def get_csv_paths(hash)
+    @item_csv_path = hash[:items]
+    @merchant_csv_path = hash[:merchants]
+    @invoice_csv_path = hash[:invoices]
+    @transaction_csv_path = hash[:transactions]
+    @invoice_items_csv_path = hash[:invoice_item]
+    @customer_csv_path = hash[:customers]
+  end
+
   def self.from_csv(hash)
-    self.new(hash)
+    new(hash)
   end
 
   def route(payload)

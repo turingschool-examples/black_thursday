@@ -1,6 +1,7 @@
 require 'csv'
 require_relative 'merchant'
 
+# This is the merchant repository class
 class MerchantRepository
   attr_reader :merchant_csv_path, :parent
   def initialize(merchant_csv_path, parent)

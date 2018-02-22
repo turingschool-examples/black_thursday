@@ -1,5 +1,6 @@
 require 'bigdecimal'
 
+# This is the sales analyst class
 class SalesAnalyst
   attr_reader :sales_engine
   def initialize(sales_engine)

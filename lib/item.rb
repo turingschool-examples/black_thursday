@@ -1,7 +1,7 @@
-require 'pry'
 require 'bigdecimal'
 require 'time'
 
+# This is the item class
 class Item
   attr_reader :id,
               :name,

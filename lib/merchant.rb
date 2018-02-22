@@ -1,3 +1,4 @@
+# This is the merchant class
 class Merchant
   attr_reader :id, :name, :parent
   def initialize(hash, parent = nil)
