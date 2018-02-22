@@ -56,7 +56,7 @@ class SalesAnalyst
     average = average(all_item_prices)
     st_dev = standard_deviation(all_item_prices, average)
     two_sigma = average + (2 * st_dev)
-    stuff = @se.items.all.find_all do |item|
+    @se.items.all.find_all do |item|
       item.unit_price > two_sigma
     end
   end
