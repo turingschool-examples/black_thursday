@@ -6,18 +6,19 @@ class ItemRepository
   include Searching
   attr_reader :all
 
-  def initialize(file_path)
+  def initialize(file_path, sales_engine)
     @file_path = file_path
     @all = add_items
+    @sales_engine = sales_engine
   end
 
   def add_items
-    data.map { |row| Item.new(row) }
+    data.map { |row| Item.new(row, self) }
   end
 
   def find_all_with_description(fragment)
     @all.find_all do |obj|
-      obj.description.include?(fragment)
+      obj.description.downcase.include?(fragment.downcase)
     end
   end
 
@@ -27,7 +28,15 @@ class ItemRepository
 
   def find_all_by_price_in_range(range)
     @all.find_all do |obj|
-      range.include?(obj.unit_price.to_i)
+      range.include?(obj.unit_price.to_f)
     end
+  end
+
+  def merchant(id)
+    @sales_engine.find_item_merchant(id)
+  end
+
+  def inspect
+    self
   end
 end

@@ -1,9 +1,16 @@
+# Merchant class
 class Merchant
   attr_reader :id,
-              :name
+              :name,
+              :parent
 
-  def initialize(data)
-    @id   = data[:id]
+  def initialize(data, parent)
+    @id   = data[:id].to_i
     @name = data[:name]
+    @parent = parent
+  end
+
+  def items
+    @parent.items(@id)
   end
 end
