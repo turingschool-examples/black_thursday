@@ -7,6 +7,7 @@ class SalesAnalyst
   def initialize(se)
     @sales_engine = se
     @std_dev_price = average_items_price_standard_deviation
+    @std_dev_invoice = average_invoices_per_merchant_standard_deviation
   end
 
   def merchants
@@ -17,8 +18,19 @@ class SalesAnalyst
     @sales_engine.items.all
   end
 
+  def invoices
+    @sales_engine.invoices.all
+  end
+
   def average(numerator, denominator)
     (BigDecimal(numerator, 4) / BigDecimal(denominator, 4)).round(2)
+  end
+
+  def standard_deviation(data, average)
+    result = data.map do |item|
+      (item - average)**2
+    end.reduce(:+) / (data.length - 1)
+    Math.sqrt(result)
   end
 
   def average_items_per_merchant
@@ -26,20 +38,8 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    squares = number_of_items_for_every_merchant.map do |num|
-      (num - average_items_per_merchant)**2
-    end
-    numerator = squares.reduce(0) do |total, square|
-      total + square
-    end
-    denominator = (merchants.length - 1)
-    Math.sqrt(numerator / denominator).round(2)
-  end
-
-  def number_of_items_for_every_merchant
-    merchants.map do |merchant|
-      merchant.items.length
-    end
+    total_items = merchants.map { |merchant| merchant.items.length }
+    standard_deviation(total_items, average_items_per_merchant).round(2)
   end
 
   def merchants_with_high_item_count
@@ -72,20 +72,36 @@ class SalesAnalyst
   end
 
   def average_items_price_standard_deviation
-    squares = all_item_prices.map do |num|
-        (num - average_average_price_per_merchant)**2
-      end
-      numerator = squares.reduce(0) do |total, square|
-        total + square
-      end
-      denominator = (items.length - 1)
-      Math.sqrt(numerator / denominator).round(2)
-    end
+    standard_deviation(all_item_prices, average_average_price_per_merchant)
+  end
 
   def golden_items
     result = @sales_engine.items.all.collect do |item|
       difference = (item.unit_price - average_average_price_per_merchant).to_f
       item if difference > @std_dev_price * 2
+    end.compact
+  end
+
+  def average_invoices_per_merchant
+    average(invoices.length, merchants.length).to_f
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    total_invoices = merchants.map { |merchant| merchant.invoices.length }
+    standard_deviation(total_invoices, average_invoices_per_merchant).round(2)
+  end
+
+  def top_merchants_by_invoice_count
+    @sales_engine.merchants.all.collect do |merchant|
+      difference = (merchant.invoices.length - average_invoices_per_merchant).to_f
+      merchant if difference.abs > @std_dev_invoice * 2 && merchant.invoices.length > average_invoices_per_merchant
+    end.compact
+  end
+
+  def bottom_merchants_by_invoice_count
+    @sales_engine.merchants.all.collect do |merchant|
+      difference = (merchant.invoices.length - average_invoices_per_merchant).to_f
+      merchant if difference.abs > @std_dev_invoice * 2 && merchant.invoices.length < average_invoices_per_merchant
     end.compact
   end
 end
