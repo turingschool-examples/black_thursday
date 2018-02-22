@@ -5,7 +5,7 @@ require_relative '../lib/sales_engine'
 require 'bigdecimal'
 require 'pry'
 
-
+# tests for invoice item class
 class InvoiceItemTest < Minitest::Test
   def setup
     @ii = InvoiceItem.new({ id: 6,
