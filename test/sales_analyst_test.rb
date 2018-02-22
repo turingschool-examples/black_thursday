@@ -69,4 +69,26 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Array, @sa.bottom_merchants_by_invoice_count
     assert_equal 0, @sa.bottom_merchants_by_invoice_count.length
   end
+
+  def test_can_find_how_many_invoices_there_are_per_day
+    assert_instance_of Hash, @sa.finding_number_of_invoices_per_day
+  end
+
+  def test_can_find_number_of_invoices_for_days_of_week
+    assert_equal 9, @sa.invoice_dates.length
+    assert_equal 2, @sa.finding_number_of_invoices_per_day["Saturday"]
+  end
+
+  def test_can_find_standard_deviation_for_invoices_on_days
+    assert_equal 1.8888378261071894, @sa.invoice_deviation
+  end
+
+  def test_can_find_top_days_by_invoice_count
+    assert_equal "Friday", @sa.top_days_by_invoice_count
+  end
+
+  def test_can_find_percentage_of_certain_status
+    assert_equal 55.55555555555556, @sa.status(:pending)
+    assert_equal 44.44444444444444, @sa.status(:shipped)
+  end
 end

@@ -22,6 +22,18 @@ class SalesAnalyst
     @sales_engine.invoices.all
   end
 
+  def invoice_count
+    merchants.map do |merchant|
+      merchant.invoices.count
+    end
+  end
+
+  def invoice_dates
+    invoices.map do |invoice|
+      invoice.created_at.strftime('%A')
+    end
+  end
+
   def average(numerator, denominator)
     (BigDecimal(numerator, 4) / BigDecimal(denominator, 4)).round(2)
   end
@@ -104,4 +116,35 @@ class SalesAnalyst
       merchant if difference.abs > @std_dev_invoice * 2 && merchant.invoices.length < average_invoices_per_merchant
     end.compact
   end
+
+  def finding_number_of_invoices_per_day
+    invoices_per_day = Hash.new(0)
+      invoice_dates.each do |day|
+        invoices_per_day[day] += 1
+      end
+      invoices_per_day
+    end
+
+    def invoice_deviation
+      days = finding_number_of_invoices_per_day
+      total = days.map do |day, count|
+        (count - average_invoices_per_merchant) ** 2
+      end
+      standard_deviation(total, average_invoices_per_merchant)
+    end
+
+    def top_days_by_invoice_count
+      days = finding_number_of_invoices_per_day
+        days.each do |day, number|
+          return day if number > (average_invoices_per_merchant_standard_deviation + invoice_deviation)
+        end.keys
+    end
+
+    def status(status)
+      total = 0
+      invoices.each do |invoice|
+        total += 1 if invoice.status == status
+      end
+      (total.to_f / invoices.count.to_f) * 100
+    end
 end
