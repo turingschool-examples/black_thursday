@@ -28,5 +28,11 @@ class InvoiceItemTest < Minitest::Test
     assert_equal 8, @ii.invoice_id
   end
 
+  def test_it_has_more_attributes
+    assert_equal Time.parse('2012-03-27 14:54:09 UTC'), @ii.created_at
+    assert_equal Time.parse('2012-03-27 14:54:09 UTC'), @ii.updated_at
+    assert_equal 'parent', @ii.parent
+  end
+
 
 end
