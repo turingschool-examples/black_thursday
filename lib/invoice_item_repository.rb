@@ -34,6 +34,4 @@ class InvoiceItemRepository
       invoice.id == id
     end
   end
-
-#find_all_by_invoice_id - returns either [] or one or more matches which have a matching invoice ID
 end

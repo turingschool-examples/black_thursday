@@ -34,5 +34,6 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_find_by_invoice_id
     assert_equal [], @repo.find_all_by_invoice_id(12_345)
+    assert_instance_of InvoiceItem, @repo.find_all_by_invoice_id(1)[0]
   end
 end
