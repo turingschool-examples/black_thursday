@@ -72,12 +72,22 @@ class SalesAnalyst
 
   def average_items_price_standard_deviation
     standard_deviation(all_item_prices, average_average_price_per_merchant)
-    end
+  end
 
   def golden_items
     result = @sales_engine.items.all.collect do |item|
       difference = (item.unit_price - average_average_price_per_merchant).to_f
       item if difference > @std_dev_price * 2
     end.compact
+  end
+
+  def average_invoices_per_merchant
+    average(invoices.length, merchants.length).to_f
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    total_invoices = merchants.map { |merchant| merchant.invoices.length }
+    binding.pry
+    standard_deviation(total_invoices, average_invoices_per_merchant).round(2)
   end
 end

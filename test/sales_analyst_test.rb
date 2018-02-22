@@ -7,7 +7,8 @@ require 'pry'
 class SalesAnalystTest < Minitest::Test
   def setup
     @se = SalesEngine.from_csv(items: './test/fixtures/items.csv',
-                               merchants: './test/fixtures/merchants.csv')
+                               merchants: './test/fixtures/merchants.csv',
+                               invoices: './test/fixtures/truncated_invoices.csv')
     @sa = SalesAnalyst.new(@se)
   end
 
@@ -53,5 +54,13 @@ class SalesAnalystTest < Minitest::Test
 
     assert_instance_of Array, sales_analyst.golden_items
     assert_equal 0, sales_analyst.golden_items.length
+  end
+
+  def test_average_invoices_per_merchant
+    assert_equal 2.25, @sa.average_invoices_per_merchant
+  end
+
+  def test_average_invoices_per_merchant_standard_deviation
+    assert_equal 1.26, @sa.average_invoices_per_merchant_standard_deviation
   end
 end
