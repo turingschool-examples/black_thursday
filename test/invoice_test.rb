@@ -14,7 +14,7 @@ class InvoiceTest < Minitest::Test
       merchant_id: 8,
       status: 'pending',
       created_at: TIME,
-      updated_time: TIME
+      updated_at: TIME
     )
   end
 
