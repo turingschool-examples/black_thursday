@@ -26,6 +26,9 @@ class InvoiceTest < Minitest::Test
     assert_equal 7, @i.customer_id
     assert_equal 8, @i.merchant_id
     assert_equal 'pending', @i.status
+  end
+
+  def test_it_has_more_attributes
     assert_equal Time.parse('2009-02-07'), @i.created_at
     assert_equal Time.parse('2014-03-15'), @i.updated_at
     assert_equal 'parent', @i.parent

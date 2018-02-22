@@ -38,7 +38,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_customer_id
-    result = @repo.find_all_by_customer_id(12345)
+    result = @repo.find_all_by_customer_id(12_345)
     assert_equal [], result
 
     result = @repo.find_all_by_customer_id(1)
@@ -48,10 +48,10 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_merchant_id
-    result = @repo.find_all_by_merchant_id(12345)
+    result = @repo.find_all_by_merchant_id(12_345)
     assert_equal [], result
 
-    result = @repo.find_all_by_merchant_id(12335938)
+    result = @repo.find_all_by_merchant_id(12_335_938)
 
     assert_instance_of Array, result
     assert_instance_of Invoice, result[0]
