@@ -102,7 +102,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_can_request_invoice_repository
-    mr = MerchantRepository.new './test/fixutres/merchants.csv',
+    mr = MerchantRepository.new './test/fixtures/merchants.csv',
                                 MOCK_SALES_ENGINE
 
     assert_instance_of SalesEngine, mr.sales_engine

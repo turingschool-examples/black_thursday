@@ -3,10 +3,11 @@
 require_relative 'test_helper'
 
 require_relative '../lib/invoice_repository'
+require_relative 'mocks/test_engine'
 
 class InvoiceRepositoryTest < Minitest::Test
   def setup
-    @invoice_repo = InvoiceRepository.new './test/fixtures/invoices.csv'
+    @invoice_repo = InvoiceRepository.new './test/fixtures/invoices.csv', MOCK_SALES_ENGINE
   end
 
   def test_does_create_repository
