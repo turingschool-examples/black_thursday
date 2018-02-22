@@ -15,9 +15,14 @@ class InvoiceRepository
 	end
 
 	def find_all_by_customer_id(id)
-		# require 'pry'; binding.pry
 		@all.find_all do |obj|
 			obj.customer_id == id
+		end
+	end
+
+	def find_all_by_status(status)
+		@all.find_all do |obj|
+			obj.status == status
 		end
 	end
 end
