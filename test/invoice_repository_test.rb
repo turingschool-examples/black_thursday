@@ -15,7 +15,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_all_invoices
     assert_instance_of Invoice, @invoice_repo.all.first
-    assert_equal 22, @invoice_repo.all.length
+    assert_equal 23, @invoice_repo.all.length
   end
 
   def test_find_by_id
@@ -28,7 +28,7 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_instance_of Array, @invoice_repo.find_all_by_customer_id(1)
     assert_equal 8, @invoice_repo.find_all_by_customer_id(1).length
     assert_instance_of Invoice, @invoice_repo.find_all_by_customer_id(1).first
-    assert_equal [], @invoice_repo.find_all_by_customer_id(10)
+    assert_equal [], @invoice_repo.find_all_by_customer_id(35)
   end
 
   def test_find_all_by_merchant_id

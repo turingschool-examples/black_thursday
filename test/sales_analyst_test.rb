@@ -124,8 +124,8 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_for_invoice_status
-    assert_equal 40.91, @sales_analyst.invoice_status(:pending)
-    assert_equal 50.0, @sales_analyst.invoice_status(:shipped)
-    assert_equal 9.09, @sales_analyst.invoice_status(:returned)
+    assert_equal 39.13, @sales_analyst.invoice_status(:pending)
+    assert_equal 52.17, @sales_analyst.invoice_status(:shipped)
+    assert_equal 8.7, @sales_analyst.invoice_status(:returned)
   end
 end

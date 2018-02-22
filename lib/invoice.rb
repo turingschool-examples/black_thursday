@@ -35,4 +35,22 @@ class Invoice
     end
     current_location.route(payload)
   end
+
+  def transactions
+    payload = ['invoice transactions', id]
+    current_location = self
+    while current_location.respond_to?('parent')
+      current_location = current_location.parent
+    end
+    current_location.route(payload)
+  end
+
+  def customer
+    payload = ['invoice customer', customer_id]
+    current_location = self
+    while current_location.respond_to?('parent')
+      current_location = current_location.parent
+    end
+    current_location.route(payload)
+  end[0]
 end
