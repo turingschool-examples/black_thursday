@@ -38,4 +38,20 @@ class TransactionTest < Minitest::Test
     assert_instance_of Time, @transaction.created_at
     assert_instance_of Time, @transaction.updated_at
   end
+
+  def test_finding_invoice_associated_with_transaction
+    information = {
+      items: './test/fixtures/items_list_truncated.csv',
+      merchants: './test/fixtures/merchants_list_truncated.csv',
+      invoices: './test/fixtures/invoices_list_truncated.csv',
+      invoice_item: './test/fixtures/invoice_items_list_truncated.csv',
+      transactions: './test/fixtures/transactions_list_truncated.csv',
+      customers: './test/fixtures/customer_list_truncated.csv'
+    }
+    sales_engine = SalesEngine.from_csv(information)
+    transaction = sales_engine.transactions.find_by_id(20)
+
+    assert_instance_of Invoice, transaction.invoice
+    assert_equal 2668, transaction.invoice.id
+  end
 end

@@ -48,6 +48,7 @@ class SalesEngine
     when 'invoice items' then find_items_by_invoice_id(payload[1])
     when 'invoice transactions' then find_transactions_by_invoice_id(payload[1])
     when 'invoice customer' then find_customer_by_customer_id(payload[1])
+    when 'transaction invoice' then find_invoice(payload[1])
     end
   end
 
@@ -74,5 +75,9 @@ class SalesEngine
 
   def find_customer_by_customer_id(customer_id)
     @customers.find_by_id(customer_id)
+  end
+
+  def find_invoice(invoice_id)
+    @invoices.find_by_id(invoice_id)
   end
 end
