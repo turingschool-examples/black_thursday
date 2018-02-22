@@ -138,11 +138,16 @@ class SalesAnalyst
   end
 
   def invoice_status(status)
+    count = invoice_status_count
+    total = count.values.reduce(:+)
+    binding.pry
+  end
+
+  def invoice_status_count
     invoices = @sales_engine.invoices.all
-    total = invoices.length
     grouped = invoices.group_by(&:status)
-    res = grouped.map do |status, invoice_array|
-      {status: status, count: invoice_array.length}
+    grouped.reduce({}) do |result, (in_status, list)|
+      result.update in_status => list.length
     end
   end
 end
