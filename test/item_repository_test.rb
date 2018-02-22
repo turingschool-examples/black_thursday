@@ -14,12 +14,12 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_item_csv_parsed
-    assert_equal 21, @ir.items.length
+    assert_equal 22, @ir.items.length
     assert_equal 263_395_237, @ir.items.first.id
   end
 
   def test_all_items
-    assert_equal 21, @ir.all.length
+    assert_equal 22, @ir.all.length
     assert @ir.all[3].is_a?(Item)
     assert @ir.all[0].description.include?('googlepicasa')
   end
@@ -47,7 +47,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_price_in_range
-    assert_equal [], @ir.find_all_by_price_in_range(1..2)
+    assert_equal 1, @ir.find_all_by_price_in_range(0..2).length
     assert_equal 2, @ir.find_all_by_price_in_range(13.00..14.00).length
   end
 

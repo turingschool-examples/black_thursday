@@ -26,4 +26,21 @@ class CustomerTest < Minitest::Test
     assert_equal Time.utc(2012, 3, 27, 14, 54, 9), @customer.updated_at
     assert_equal 'CustomerRepository pointer', @customer.parent
   end
+
+  def test_finding_merchants_associated_with_customer
+    information = {
+      items: './test/fixtures/items_list_truncated.csv',
+      merchants: './test/fixtures/merchants_list_truncated.csv',
+      invoices: './test/fixtures/invoices_list_truncated.csv',
+      invoice_item: './test/fixtures/invoice_items_list_truncated.csv',
+      transactions: './test/fixtures/transactions_list_truncated.csv',
+      customers: './test/fixtures/customer_list_truncated.csv'
+    }
+    sales_engine = SalesEngine.from_csv(information)
+    customer = sales_engine.customers.find_by_id(51)
+
+    assert_instance_of Array, customer.merchants
+    assert_instance_of Merchant, customer.merchants[0]
+    assert_equal 12_334_112, customer.merchants[0].id
+  end
 end

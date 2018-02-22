@@ -17,4 +17,13 @@ class Customer
     @updated_at = Time.parse(data[:updated_at])
     @parent = parent
   end
+
+  def merchants
+    payload = ['customer merchants', id]
+    current_location = self
+    while current_location.respond_to?('parent')
+      current_location = current_location.parent
+    end
+    current_location.route(payload)
+  end
 end

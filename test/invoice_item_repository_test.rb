@@ -15,7 +15,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_all_invoices
     assert_instance_of InvoiceItem, @invoice_item_repo.all.first
-    assert_equal 19, @invoice_item_repo.all.length
+    assert_equal 20, @invoice_item_repo.all.length
   end
 
   def test_find_by_id

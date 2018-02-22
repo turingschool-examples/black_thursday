@@ -62,7 +62,7 @@ class SalesAnalystTest < Minitest::Test
   def test_for_item_unit_prices
     expected = [0.12e2, 0.13e2, 0.135e2, 0.7e1, 0.15e2, 0.2999e2, 0.149e3,
                 0.149e2, 0.69e1, 0.4e3, 0.13e3, 0.399e1, 0.8e2, 0.6e3, 0.65e3,
-                0.4e2, 0.239e2, 0.5e3, 0.239e2, 0.5e3, 0.5e1]
+                0.4e2, 0.239e2, 0.5e3, 0.239e2, 0.5e3, 0.5e1, 0.2e1]
     actual = @sales_analyst.item_unit_prices
 
     assert_equal expected, actual
@@ -71,13 +71,13 @@ class SalesAnalystTest < Minitest::Test
   def test_for_average_item_price
     actual = @sales_analyst.average_item_price
 
-    assert_equal 153.24190476190475, actual
+    assert_equal 146.36727272727273, actual
   end
 
   def test_for_item_price_standard_deviation
     actual = @sales_analyst.item_price_standard_deviation
 
-    assert_equal 223.56, actual
+    assert_equal 220.54, actual
   end
 
   def test_for_golden_items
@@ -85,7 +85,7 @@ class SalesAnalystTest < Minitest::Test
 
     assert actual.is_a?(Array)
     assert actual[0].is_a?(Item)
-    assert_equal 'La prière', actual[0].name
+    assert_equal 'Introspection virginalle', actual[0].name
   end
 
   def test_for_average_invoices_per_merchant

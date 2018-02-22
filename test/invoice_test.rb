@@ -46,7 +46,6 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_finding_items_associated_with_invoice
-    skip
     information = {
       items: './test/fixtures/items_list_truncated.csv',
       merchants: './test/fixtures/merchants_list_truncated.csv',
@@ -60,7 +59,7 @@ class InvoiceTest < Minitest::Test
 
     assert_instance_of Array, invoice.items
     assert_instance_of Item, invoice.items[0]
-    assert_equal 263_509_232, invoice.items[0].id
+    assert_equal 263_504_126, invoice.items[0].id
   end
 
   def test_finding_transactions_associated_with_invoice
