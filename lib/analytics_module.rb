@@ -13,7 +13,6 @@ module Analytics
   end
 
   def average(elements)
-    average = (elements.sum / elements.length).round(2)
-    # binding.pry
+    (elements.sum / elements.length).round(2)
   end
 end
