@@ -5,6 +5,7 @@ require_relative '../../lib/item_repository'
 require_relative '../../lib/merchant_repository'
 
 MOCK_SALES_ENGINE = SalesEngine.from_csv(
+  invoices: './test/fixtures/invoices.csv',
   items: './test/fixtures/items.csv',
   merchants: './test/fixtures/merchants.csv'
 )

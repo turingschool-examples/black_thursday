@@ -8,6 +8,7 @@ require_relative '../lib/merchant_repository'
 require_relative '../lib/merchant'
 require_relative '../lib/item_repository'
 require_relative '../lib/sales_engine'
+require_relative '../lib/invoice_repository'
 require_relative 'mocks/test_engine'
 
 class MerchantRepositoryTest < Minitest::Test
@@ -98,5 +99,13 @@ class MerchantRepositoryTest < Minitest::Test
 
     assert_instance_of SalesEngine, mr.sales_engine
     assert_instance_of ItemRepository, mr.sales_engine.items
+  end
+
+  def test_can_request_invoice_repository
+    mr = MerchantRepository.new './test/fixtures/merchants.csv',
+                                MOCK_SALES_ENGINE
+
+    assert_instance_of SalesEngine, mr.sales_engine
+    assert_instance_of InvoiceRepository, mr.sales_engine.invoices
   end
 end

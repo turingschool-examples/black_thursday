@@ -3,6 +3,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/merchant'
+require_relative '../lib/invoice'
 require_relative 'mocks/test_engine'
 
 class MerchantTest < Minitest::Test
@@ -33,5 +34,16 @@ class MerchantTest < Minitest::Test
     merchant2 = MOCK_SALES_ENGINE.merchants.find_by_id 9
     assert_equal 2, merchant.items.length
     assert_equal 0, merchant2.items.length
+  end
+
+  def test_can_find_invoices
+    merchant = MOCK_SALES_ENGINE.merchants.find_by_id 7
+    invoices = merchant.invoices
+
+    assert_instance_of Array, invoices
+    invoices.each do |invoice|
+      assert_instance_of Invoice, invoice
+      assert_equal 7, invoice.merchant_id
+    end
   end
 end
