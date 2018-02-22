@@ -6,4 +6,12 @@ class TestEngine
     invoices: './test/fixtures/invoices.csv'
     }
   end
+
+  # def god_hash
+  #   {
+  #   items: './data/items.csv',
+  #   merchants: './data/merchants.csv',
+  #   invoices: './data/invoices.csv'
+  #   }
+  # end
 end
