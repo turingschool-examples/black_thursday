@@ -86,4 +86,11 @@ class SalesAnalyst
     end
     (merchants_invoices.reduce(:+) / merchants_invoices.length.to_f). round 2
   end
+
+  def average_invoices_per_merchant_standard_deviation
+    merchants_invoices = @sales_engine.merchants.all.map do |merchant|
+      merchant.invoices.length
+    end
+    (StandardDeviation.calculate merchants_invoices).round 2
+  end
 end
