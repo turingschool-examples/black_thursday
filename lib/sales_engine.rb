@@ -4,6 +4,7 @@ require 'bigdecimal'
 
 require_relative 'item_repository'
 require_relative 'merchant_repository'
+require_relative 'invoice_repository'
 
 # Defines sales engine
 class SalesEngine
@@ -13,6 +14,7 @@ class SalesEngine
   def initialize(files)
     @items = ItemRepository.new files[:items], self
     @merchants = MerchantRepository.new files[:merchants], self
+    @invoices = InvoiceRepository.new files[:invoices], self
   end
 
   def self.from_csv(files)
