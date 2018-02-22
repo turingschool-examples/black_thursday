@@ -4,6 +4,7 @@ require_relative '../lib/merchant'
 
 # Merchant Repository class
 class MerchantRepository
+  attr_reader :parent
   def initialize(filepath, parent)
     @merchants = []
     @parent = parent
@@ -37,8 +38,12 @@ class MerchantRepository
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
-  
+
   def pass_id_to_se(id)
     @parent.pass_id_to_item_repo(id)
+  end
+
+  def pass_id_to_se_for_invoice(id)
+    @parent.pass_id_to_invoice_repo(id)
   end
 end

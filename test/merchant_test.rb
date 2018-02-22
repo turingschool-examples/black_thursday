@@ -39,4 +39,17 @@ class MerchantTest < Minitest::Test
     assert_instance_of Item, merchant.items[0]
     assert_equal 3, merchant.items.length
   end
+
+  def test_invoices_method
+    se = SalesEngine.from_csv(items: './test/fixtures/items.csv',
+                              merchants: './test/fixtures/merchants.csv',
+                              invoices: './test/fixtures/truncated_invoices.csv')
+    parent = MerchantRepository.new('./test/fixtures/merchants.csv',
+                                    se)
+    merchant = Merchant.new({ id: '2', name: '' }, parent)
+
+    assert_instance_of Array, merchant.invoices
+    assert_instance_of Invoice, merchant.invoices[0]
+    assert_equal 4, merchant.invoices.length
+  end
 end
