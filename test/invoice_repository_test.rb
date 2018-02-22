@@ -68,4 +68,8 @@ class InvoiceRepositoryTest < Minitest::Test
       assert_equal :shipped, invoice.status
     end
   end
+
+  def test_it_overrides_inspect
+    assert_equal '#<InvoiceRepository 18 rows>', @invoice_repo.inspect
+  end
 end
