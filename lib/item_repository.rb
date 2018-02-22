@@ -5,8 +5,11 @@ require_relative 'item'
 
 # Defines ItemRepository, holding a list of Items
 class ItemRepository
-  def initialize(filename)
+  attr_reader :sales_engine
+
+  def initialize(filename, sales_engine)
     @items = []
+    @sales_engine = sales_engine
     load_csv filename
   end
 
@@ -65,5 +68,9 @@ class ItemRepository
 
   def inspect
     "#<#{self.class} #{@items.length} rows>"
+  end
+
+  def find_merchant(id)
+    @sales_engine.merchants.find_by_id id
   end
 end

@@ -34,8 +34,8 @@ class StandardDeviationTest < Minitest::Test
   end
 
   def test_the_final_calculation
-    calculator = StandardDeviation.new(@values)
+    result = StandardDeviation.calculate @values
 
-    assert_equal 13.4766, calculator.calculate.round(4)
+    assert_equal 13.4766, result.round(4)
   end
 end

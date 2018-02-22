@@ -36,4 +36,8 @@ class ItemTest < Minitest::Test
     assert_equal Time.parse('2016-01-11 17:42:32 UTC'), @item.updated_at
     assert_equal 7, @item.merchant_id
   end
+
+  def test_can_find_merchant
+    assert_equal 'GoldenRayPress', @item.merchant.name
+  end
 end
