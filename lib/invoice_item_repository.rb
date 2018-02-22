@@ -1,4 +1,5 @@
 
+require_relative '../lib/invoice_item'
 #class for invoice items
 class InvoiceItemRepository
   attr_reader :parent,

@@ -1,22 +1,29 @@
 require_relative '../lib/item_repository'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/invoice_repository'
+require_relative '../lib/invoice_item_repository'
+require_relative '../lib/transaction_repository'
+require_relative '../lib/customer_repository'
 
 # sales engine class
 class SalesEngine
   attr_reader :items,
               :merchants,
-              :invoices
+              :invoices,
+              :transactions,
+              :customers
 
   def self.from_csv(files)
-    SalesEngine.new(files)
+    new(files)
   end
 
   def initialize(files)
-    @files = files
     @items = ItemRepository.new(files[:items], self)
     @merchants = MerchantRepository.new(files[:merchants], self)
-    @invoices = InvoiceRepository.new(@files[:invoices], self)
+    @invoices = InvoiceRepository.new(files[:invoices], self)
+    @invoice_items = InvoiceItemRepository.new(files[:invoice_items],self)
+    @transactions = TransactionRepository.new(files[:transactions], self)
+    @customers = CustomerRepository.new(files[:customers], self)
   end
 
   def pass_merchant_id_to_merchant_repo(id)
