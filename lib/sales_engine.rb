@@ -4,6 +4,7 @@ require_relative 'invoice_repository'
 require_relative 'transaction_repository'
 require_relative 'invoice_item_repository'
 require_relative 'customer_repository'
+require 'pry'
 
 class SalesEngine
   attr_reader :item_csv_path,
@@ -31,7 +32,7 @@ class SalesEngine
     @merchant_csv_path = hash[:merchants]
     @invoice_csv_path = hash[:invoices]
     @transaction_csv_path = hash[:transactions]
-    @invoice_items_csv_path = hash[:invoice_item]
+    @invoice_items_csv_path = hash[:invoice_items]
     @customer_csv_path = hash[:customers]
   end
 
@@ -85,7 +86,7 @@ class SalesEngine
 
   def find_customers_by_merchant_id(merchant_id)
     customers = @invoices.find_all_by_merchant_id(merchant_id)
-    customer_ids = customers.map(&:customer_id)
+    customer_ids = customers.map(&:customer_id).uniq
     customer_ids.map { |customer_id| @customers.find_by_id(customer_id) }
   end
 
