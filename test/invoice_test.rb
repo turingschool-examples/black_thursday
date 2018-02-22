@@ -35,7 +35,7 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_it_can_return_merchant_class
-    skip #stub
+    skip # stub
     se = SalesEngine.from_csv(items: './test/fixtures/items.csv',
                               merchants: './test/fixtures/merchants.csv',
                               invoices: './test/fixtures/invoices.csv')

@@ -76,7 +76,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_pass_merchant_id_to_se
-    skip #stub
+    skip # stub
     parent = SalesEngine.from_csv(items: './test/fixtures/items.csv',
                                   merchants: './test/fixtures/merchants.csv')
     item_repo = ItemRepository.new('./test/fixtures/items.csv', parent)
