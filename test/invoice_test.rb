@@ -25,7 +25,7 @@ class InvoiceTest < Minitest::Test
     assert_equal 6, @i.id
     assert_equal 7, @i.customer_id
     assert_equal 8, @i.merchant_id
-    assert_equal 'pending', @i.status
+    assert_equal :pending, @i.status
   end
 
   def test_it_has_more_attributes
@@ -42,7 +42,7 @@ class InvoiceTest < Minitest::Test
     data = { id: 6,
              customer_id: 7,
              merchant_id: 2,
-             status: 'pending',
+             status: :pending,
              created_at: '2009-02-07',
              updated_at: '2014-03-15' }
     invoice = Invoice.new(data, parent)
