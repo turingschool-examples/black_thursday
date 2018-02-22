@@ -69,14 +69,13 @@ class SalesAnalystTest < Minitest::Test
     merchants = @sa.top_merchants_by_invoice_count
     assert_instance_of Array, merchants
     assert_equal 1, merchants.length
-    assert_equal 3, merchants.first.id
+    assert_equal 4, merchants.first.id
   end
 
   def test_it_can_get_bottom_merchants_by_invoice_count
     merchants = @sa.bottom_merchants_by_invoice_count
     assert_instance_of Array, merchants
-    assert_equal 2, merchants.length
-    assert_equal 8, merchants[0].id
-    assert_equal 9, merchants[1].id
+    assert_equal 1, merchants.length
+    assert_equal 9, merchants.first.id
   end
 end

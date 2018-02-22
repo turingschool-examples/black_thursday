@@ -78,27 +78,62 @@ class SalesAnalyst
       merchant.items.length
     end
     (StandardDeviation.calculate merchants_items).round 2
+
   end
 
   def top_merchants_by_invoice_count
-    count = invoice_count_by_merchant
-    avg = count.values.reduce(:+) / count.length
-    deviation = StandardDeviation.calculate count.values
+    invoice_count = invoice_count_by_merchant
+    count = invoice_count.map do |merchant|
+      merchant[:invoices]
+    end
 
-    ids = merchant_ids_with_high_invoice_count count, avg, deviation
+    avg = count.reduce(:+) / count.length.to_f
+    deviation = StandardDeviation.calculate count
+
+    ids = merchant_ids_with_high_invoice_count invoice_count, avg, deviation
+    ids.map do |id|
+      @sales_engine.merchants.find_by_id id
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    invoice_count = invoice_count_by_merchant
+    count = invoice_count.map do |merchant|
+      merchant[:invoices]
+    end
+
+    avg = count.reduce(:+) / count.length.to_f
+    deviation = StandardDeviation.calculate count
+
+    ids = merchant_ids_with_low_invoice_count invoice_count, avg, deviation
     ids.map do |id|
       @sales_engine.merchants.find_by_id id
     end
   end
 
   def merchant_ids_with_high_invoice_count(merchants, avg, deviation)
-    merchants.select do |_id, invoice_count|
-      invoice_count > avg + (2 * deviation)
-    end.keys
+    list = merchants.select do |merchant|
+      merchant[:invoices] >= avg + (2 * deviation)
+    end
+
+    list.map do |merchant|
+      merchant[:id]
+    end
+  end
+
+  def merchant_ids_with_low_invoice_count(merchants, avg, deviation)
+    list = merchants.select do |merchant|
+      merchant[:invoices] <= avg - (2 * deviation)
+    end
+
+    list.map do |merchant|
+      merchant[:id]
+    end
   end
 
   def invoice_count_by_merchant
-    grouped = @sales_engine.invoices.all.group_by(&:merchant_id)
-    grouped.transform_values(&:length)
+    @sales_engine.merchants.all.map do |merchant|
+      { id: merchant.id, invoices: merchant.invoices.length }
+    end
   end
 end
