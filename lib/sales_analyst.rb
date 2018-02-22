@@ -57,12 +57,11 @@ class SalesAnalyst
 
   def average_average_price_per_merchant
     all_merchants = merchant_collector
-    all_merchants.map do |merchant|
-      average_item_price_for_merchant(merchant.id).to_f
-    end.sum
-binding.pry
-    # / all_merchants.length).round(2)
+    (all_merchants.map do |merchant|
+      average_item_price_for_merchant(merchant.id)
+    end.sum / all_merchants.length).round(2)
   end
+
 
   def golden_items
     mean = average_average_price_per_merchant
