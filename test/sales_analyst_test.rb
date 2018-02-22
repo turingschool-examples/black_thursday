@@ -65,7 +65,10 @@ class SalesAnalystTest < Minitest::Test
                  @sa.average_items_per_merchant_standard_deviation
   end
 
-  def test_it_can_get_average_invoices_per_merchant
-
+  def test_it_can_get_top_merchants_by_invoice_count
+    merchants = @sa.top_merchants_by_invoice_count
+    assert_instance_of Array, merchants
+    assert_equal 1, merchants.length
+    assert_equal 3, merchants.first.id
   end
 end

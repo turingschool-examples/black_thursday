@@ -79,4 +79,26 @@ class SalesAnalyst
     end
     (StandardDeviation.calculate merchants_items).round 2
   end
+
+  def top_merchants_by_invoice_count
+    count = invoice_count_by_merchant
+    avg = count.values.reduce(:+) / count.length
+    deviation = StandardDeviation.calculate count.values
+
+    ids = merchant_ids_with_high_invoice_count count, avg, deviation
+    ids.map do |id|
+      @sales_engine.merchants.find_by_id id
+    end
+  end
+
+  def merchant_ids_with_high_invoice_count(merchants, avg, deviation)
+    merchants.select do |_id, invoice_count|
+      invoice_count > avg + (2 * deviation)
+    end.keys
+  end
+
+  def invoice_count_by_merchant
+    grouped = @sales_engine.invoices.all.group_by(&:merchant_id)
+    grouped.transform_values(&:length)
+  end
 end
