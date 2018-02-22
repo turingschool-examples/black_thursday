@@ -28,4 +28,19 @@ class InvoiceTest < Minitest::Test
     assert @invoice.updated_at.class == Time
   end
 
+  def test_if_it_returns_the_merchant_for_an_invoice
+    data = {
+          :items     => "./test/fixtures/items_sample.csv",
+          :merchants => "./test/fixtures/merchants_sample.csv",
+          :invoices => "./test/fixtures/invoices_sample.csv"
+            }
+    sales_engine = SalesEngine.new(data)
+    id = 641
+    invoice = sales_engine.invoices.find_by_id(id)
+
+    assert invoice.id == id
+    assert invoice.merchant.name == "jejum"
+    assert invoice.merchant.class == Merchant
+  end
+
 end

@@ -42,4 +42,8 @@ class InvoiceRepository
     @invoices.find_all { |invoice| invoice.status == status }
   end
 
+  def find_merchant_by_merchant_id(id)
+    engine.find_merchant_by_merchant_id(id)
+  end
+
 end
