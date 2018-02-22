@@ -25,17 +25,19 @@ class InvoiceTest < Minitest::Test
     assert_equal 1, @invoice.customer_id
     assert_equal 123_359_38, @invoice.merchant_id
     assert_equal :pending, @invoice.status
-    assert_equal Time.new(2009, 02, 07), @invoice.created_at
-    assert_equal Time.new(2014, 03, 15), @invoice.updated_at
+    assert_equal Time.new(2009, 0o2, 0o7), @invoice.created_at
+    assert_equal Time.new(2014, 0o3, 15), @invoice.updated_at
   end
 
   def test_finding_merchant_associated_with_invoice
-    information = { items: './test/fixtures/items_list_truncated.csv',
-                    merchants: './test/fixtures/merchants_list_truncated.csv',
-                    invoices: './test/fixtures/invoices_list_truncated.csv',
-                    invoice_item: './test/fixtures/invoice_items_list_truncated.csv',
-                    transactions: './test/fixtures/transactions_list_truncated.csv',
-                    customers: './test/fixtures/customer_list_truncated.csv' }
+    information = {
+      items: './test/fixtures/items_list_truncated.csv',
+      merchants: './test/fixtures/merchants_list_truncated.csv',
+      invoices: './test/fixtures/invoices_list_truncated.csv',
+      invoice_item: './test/fixtures/invoice_items_list_truncated.csv',
+      transactions: './test/fixtures/transactions_list_truncated.csv',
+      customers: './test/fixtures/customer_list_truncated.csv'
+    }
     sales_engine = SalesEngine.from_csv(information)
     invoice = sales_engine.invoices.find_by_id(20)
 
