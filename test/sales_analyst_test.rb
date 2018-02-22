@@ -69,6 +69,7 @@ class SalesAnalystTest < Minitest::Test
   def test_can_find_average_of_average_merchant_item_price
     # skip
     result = @sales_analyst.average_average_price_per_merchant
+    #some merchants don't have items in fixture data, hence div by 0 error
 
     assert_instance_of BigDecimal, result
   end
@@ -93,7 +94,7 @@ class SalesAnalystTest < Minitest::Test
     result = @sales_analyst.price_standard_deviation
 
     assert_instance_of BigDecimal, result
-    assert_equal 0.872e1, result
+    assert_equal BigDecimal.new(8.72, 3), result
   end
 
   def test_find_average_invoices_per_merchant
