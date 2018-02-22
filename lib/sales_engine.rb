@@ -53,6 +53,7 @@ class SalesEngine
     when 'merchant customers' then find_customers_by_merchant_id(payload[1])
     when 'customer merchants' then find_merchants_by_customer_id(payload[1])
     when 'transaction payment' then find_transaction_payment_status(payload[1])
+    when 'total invoice cost' then total_invoice_cost(payload[1])
     end
   end
 
@@ -101,5 +102,13 @@ class SalesEngine
     payment_status = @transactions.find_all_by_invoice_id(invoice_id)
     transaction_results = payment_status.map(&:result)
     transaction_results.include?('success')
+  end
+
+  def total_invoice_cost(invoice_id)
+    invoice_items = @invoice_items.find_all_by_invoice_id(invoice_id)
+    total_prices = invoice_items.map do |invoice_item|
+      invoice_item.quantity * invoice_item.unit_price
+    end
+    total_prices.reduce(:+)
   end
 end
