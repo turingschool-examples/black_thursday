@@ -35,7 +35,7 @@ class InvoiceItemTest < Minitest::Test
   end
 
   def test_unit_price_to_dollars
-    assert_instance_of Float, @ii.unit_price_to_dollars
-    assert_equal 10.99, @ii.unit_price_to_dollars
+    assert_instance_of Float, @invoice_item.unit_price_to_dollars
+    assert_equal 10.99, @invoice_item.unit_price_to_dollars
   end
 end

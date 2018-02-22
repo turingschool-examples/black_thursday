@@ -8,7 +8,7 @@ require 'pry'
 # tests for invoice item repository class
 class InvoiceItemRepositoryTest < Minitest::Test
   def setup
-    @repo = InvoiceItemRepository.new('./test/fixtures/truncated_invoice_items.csv',
+    @repo = InvoiceItemRepository.new('./test/fixtures/invoice_items.csv',
                                       'parent')
   end
 
