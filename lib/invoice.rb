@@ -1,3 +1,4 @@
+# Class for storing invoice information
 class Invoice
   attr_reader :id,
               :customer_id,
@@ -5,7 +6,6 @@ class Invoice
               :status,
               :created_at,
               :updated_at
-
 
   def initialize(data)
     @id          = data[:id].to_i
@@ -15,5 +15,4 @@ class Invoice
     @created_at  = data[:created_at]
     @updated_at  = data[:updated_at]
   end
-
 end
