@@ -13,9 +13,9 @@ class InvoiceItemTest < Minitest::Test
                             invoice_id: 8,
                             quantity: 1,
                             unit_price: BigDecimal.new(10.99, 4),
-                            created_at: "2012-03-27 14:54:09 UTC",
-                            updated_at: "2012-03-27 14:54:09 UTC"},
-                          'parent' )
+                            created_at: '2012-03-27 14:54:09 UTC',
+                            updated_at: ';2012-03-27 14:54:09 UTC'},
+                          'parent')
   end
 
   def test_it_exists
