@@ -20,6 +20,10 @@ class InvoiceItemRepository
     @invoice_items
   end
 
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
+  end
+
   def find_by_id(id)
     @invoice_items.find { |item| item.id == id }
   end
