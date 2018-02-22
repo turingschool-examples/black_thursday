@@ -78,7 +78,6 @@ class SalesAnalyst
       merchant.items.length
     end
     (StandardDeviation.calculate merchants_items).round 2
-
   end
 
   def top_merchants_by_invoice_count
