@@ -30,6 +30,10 @@ class InvoiceRepository
     end
   end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
   def find_all_by_merchant_id(id)
     @invoices.find_all do |invoice|
       invoice.merchant_id == id
@@ -40,5 +44,9 @@ class InvoiceRepository
     @invoices.find_all do |invoice|
       invoice.status == status
     end
+  end
+
+  def pass_merchant_id_to_se_for_invoice(id)
+    @parent.pass_merchant_id_to_merchant_repo(id)
   end
 end
