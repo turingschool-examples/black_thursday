@@ -42,4 +42,21 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal '2014-04-13', result[1].created_at
   end
 
+  def test_can_find_all_invoices_by_merchant_id
+    result = @invoice_repo.find_all_by_merchant_id 3
+
+    assert_instance_of Invoice, result[1]
+    assert_instance_of Invoice, result[2]
+    assert_equal '2012-11-23', result[1].created_at
+    assert_equal '2009-12-09', result[2].created_at
+  end
+
+  def test_it_can_find_all_invoices_by_status
+    result = @invoice_repo.find_all_by_status 'shipped'
+
+    assert_instance_of Invoice, result[1]
+    assert_instance_of Invoice, result[2]
+    assert_equal '2009-12-09', result[1].created_at
+    assert_equal '2003-11-07', result[2].created_at
+  end
 end
