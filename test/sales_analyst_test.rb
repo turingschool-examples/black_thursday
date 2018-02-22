@@ -64,7 +64,7 @@ class SalesAnalystTest < Minitest::Test
     assert_equal (Math.sqrt(10) / 3).round(2),
                  @sa.average_items_per_merchant_standard_deviation
   end
-  
+
   def test_it_can_get_top_merchants_by_invoice_count
     merchants = @sa.top_merchants_by_invoice_count
     assert_instance_of Array, merchants
@@ -83,13 +83,14 @@ class SalesAnalystTest < Minitest::Test
     assert_equal (10.0 / 18.0).round(2), @sa.invoice_status(:pending)
     assert_equal (6.0 / 18.0).round(2), @sa.invoice_status(:shipped)
     assert_equal (2.0 / 18.0).round(2), @sa.invoice_status(:returned)
+  end
 
   def test_it_can_get_average_invoices_per_merchant
-    assert_equal (10 / 9.0).round(2), @sa.average_invoices_per_merchant
+    assert_equal 2.0, @sa.average_invoices_per_merchant
   end
 
   def test_it_can_standard_deviate_average_invoices_per_merchant
-    assert_equal 0.93,
+    assert_equal 1.0,
                  @sa.average_invoices_per_merchant_standard_deviation
   end
 end
