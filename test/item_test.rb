@@ -13,9 +13,9 @@ class ItemTest < Minitest::Test
     @item = Item.new({
       :name        => "Pencil",
       :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(10.99,4),
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
+      :unit_price  => BigDecimal.new(1099,4),
+      :created_at  => '2018-02-21 19:23:23 UTC',
+      :updated_at  => '2018-02-21 19:23:23 UTC',
       }, @sales_engine.items)
   end
 
@@ -30,7 +30,7 @@ class ItemTest < Minitest::Test
 
     assert_equal "Pencil", item.name
     assert_equal "You can use it to write things", item.description
-    assert_equal 0.1099e2, item.unit_price
+    assert_equal 10.99, item.unit_price
     assert_instance_of Time, item.created_at
     assert_instance_of Time, item.updated_at
   end
@@ -39,18 +39,16 @@ class ItemTest < Minitest::Test
     item = Item.new({
       :name        => "Apple",
       :description => "A fruit that grows on trees",
-      :unit_price  => BigDecimal.new(3.99,4),
-      :created_at  => Time.at(1498232400),
-      :updated_at  => Time.at(1498280000),
+      :unit_price  => BigDecimal.new(3600,4),
+      :created_at  => '2017-01-12 19:23:23 UTC',
+      :updated_at  => '1917-01-12 19:23:23 UTC',
       }, @sales_engine.items)
-    created_time = Time.at(1498232400)
-    updated_time = Time.at(1498280000)
 
     assert_equal "Apple", item.name
     assert_equal "A fruit that grows on trees", item.description
-    assert_equal 0.0399e2, item.unit_price
-    assert_equal created_time, item.created_at
-    assert_equal updated_time, item.updated_at
+    assert_equal 36, item.unit_price
+    assert_instance_of Time, item.created_at
+    assert_instance_of Time, item.updated_at
   end
 
   def test_unit_price_converts_to_dollar

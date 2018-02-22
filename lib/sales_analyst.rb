@@ -57,9 +57,11 @@ class SalesAnalyst
 
   def average_average_price_per_merchant
     all_merchants = merchant_collector
-    (all_merchants.map do |merchant|
-      average_item_price_for_merchant(merchant.id)
-    end.sum / all_merchants.length).round(2)
+    all_merchants.map do |merchant|
+      average_item_price_for_merchant(merchant.id).to_f
+    end.sum
+binding.pry
+    # / all_merchants.length).round(2)
   end
 
   def golden_items
@@ -131,7 +133,7 @@ class SalesAnalyst
 
   def show_wkdays
     invoice_collector.reduce(Hash.new(0)) do |weekdays, invoice|
-      weekday = invoice.created_at.strftime("%w")
+      weekday = invoice.created_at.strftime("%A")
       weekdays[weekday] += 1
       weekdays
     end

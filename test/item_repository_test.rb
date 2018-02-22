@@ -2,12 +2,14 @@ require_relative 'test_helper.rb'
 require_relative '../lib/item_repository.rb'
 require_relative '../lib/sales_engine.rb'
 require_relative './master_hash.rb'
+require 'pry'
 
 class ItemRepositoryTest < Minitest::Test
   def setup
     test_engine = TestEngine.new.god_hash
     sales_engine = SalesEngine.new(test_engine)
     @item_repository = sales_engine.items
+    # binding.pry
   end
 
   def test_it_exists
@@ -21,7 +23,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_item_repository_holds_item_attributes
     assert_equal "510+ RealPush Icon Set", @item_repository.all.first.name
-    assert_equal 0.12e4, @item_repository.all.first.unit_price
+    assert_equal 0.12e2, @item_repository.all.first.unit_price
   end
 
   def test_it_can_find_item_by_name
@@ -30,7 +32,7 @@ class ItemRepositoryTest < Minitest::Test
     result_nil = @item_repository.find_by_name("kittens")
 
     assert_instance_of Item, result
-    assert_equal 0.12e4, result.unit_price
+    assert_equal 0.12e2, result.unit_price
     assert_equal "510+ RealPush Icon Set", result.name
     assert_nil result_nil
   end
@@ -51,25 +53,25 @@ class ItemRepositoryTest < Minitest::Test
 
     result_nil = @item_repository.find_all_with_description("Gilded dog turd")
 
-    assert_equal 0.135e4, result[0].unit_price
+    assert_equal 0.135e2, result[0].unit_price
     assert_equal "Disney scrabble frames", result[0].name
     assert result_nil.empty?
   end
 
   def test_it_can_find_all_by_price
-    result = @item_repository.find_all_by_price(700)
+    result = @item_repository.find_all_by_price(7.0)
 
     result_nil = @item_repository.find_all_by_price(999)
 
     assert_equal 263396013, result[0].id
-    assert_equal 0.7e3, result[0].unit_price
+    assert_equal 0.7e1, result[0].unit_price
     assert result_nil.empty?
   end
 
   def test_it_can_find_all_by_price_range
-    result = @item_repository.find_all_by_price_in_range((0..900))
+    result = @item_repository.find_all_by_price_in_range((0..9.0))
 
-    assert_equal 0.7e3, result[0].unit_price
+    assert_equal 0.7e1, result[0].unit_price
     assert_equal "Free standing Woden letters", result[0].name
   end
 
