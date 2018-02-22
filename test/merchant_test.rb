@@ -29,6 +29,7 @@ class MerchantTest < Minitest::Test
   end
 
   def test_items_method
+    skip #stub
     se = SalesEngine.from_csv(items: './test/fixtures/items.csv',
                               merchants: './test/fixtures/merchants.csv')
     parent = MerchantRepository.new('./test/fixtures/merchants.csv',
@@ -41,9 +42,10 @@ class MerchantTest < Minitest::Test
   end
 
   def test_invoices_method
+    skip # stub
     se = SalesEngine.from_csv(items: './test/fixtures/items.csv',
                               merchants: './test/fixtures/merchants.csv',
-                              invoices: './test/fixtures/truncated_invoices.csv')
+                              invoices: './test/fixtures/invoices.csv')
     parent = MerchantRepository.new('./test/fixtures/merchants.csv',
                                     se)
     merchant = Merchant.new({ id: '2', name: '' }, parent)

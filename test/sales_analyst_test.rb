@@ -7,8 +7,12 @@ require 'pry'
 class SalesAnalystTest < Minitest::Test
   def setup
     @se = SalesEngine.from_csv(items: './test/fixtures/items.csv',
-                               merchants: './test/fixtures/merchants.csv',
-                               invoices: './test/fixtures/truncated_invoices.csv')
+                              merchants: './test/fixtures/merchants.csv',
+                              invoices: './test/fixtures/invoices.csv',
+                              invoice_items: './test/fixtures/invoice_items.csv',
+                              transactions: './test/fixtures/transactions.csv',
+                              customers: './test/fixtures/customers.csv'
+                              )
     @sa = SalesAnalyst.new(@se)
   end
 

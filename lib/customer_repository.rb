@@ -1,8 +1,8 @@
 require_relative 'customer'
+require 'CSV'
 require 'pry'
 
 class CustomerRepository
-
   def initialize(filepath, parent = nil)
     @customers = []
     load_customers(filepath)

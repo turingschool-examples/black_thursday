@@ -1,4 +1,6 @@
 require_relative '../lib/transaction'
+require 'CSV'
+
 class TransactionRepository
 
   def initialize(filepath, parent = nil)

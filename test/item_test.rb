@@ -18,7 +18,7 @@ class ItemTest < Minitest::Test
               updated_at: '2016-01-11 11:51:37 UTC' }
   end
 
-  def test_it_exits
+  def test_it_exists
     item = Item.new(@data, 'parent')
 
     assert_instance_of Item, item
@@ -57,8 +57,14 @@ class ItemTest < Minitest::Test
   end
 
   def test_merchant_method_sends_to_repo
+    skip #create a stub
     se = SalesEngine.from_csv(items: './test/fixtures/items.csv',
-                              merchants: './test/fixtures/merchants.csv')
+                              merchants: './test/fixtures/merchants.csv',
+                              invoices: './test/fixtures/invoices.csv',
+                              invoice_items: './test/fixtures/invoice_items.csv',
+                              transactions: './test/fixtures/transactions.csv',
+                              customers: './test/fixtures/customers.csv'
+                              )
     parent = ItemRepository.new('./test/fixtures/items.csv', se)
     item = Item.new(@data, parent)
 
