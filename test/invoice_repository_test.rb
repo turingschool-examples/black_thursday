@@ -21,6 +21,7 @@ class InvoiceRepositoryTest < Minitest::Test
     check_invoice_array
     assert_equal 1, @invoice_repo.all.first.customer_id
     assert_equal 1, @invoice_repo.all.first.merchant_id
+    assert_equal :pending, @invoice_repo.all.first.status
   end
 
   def check_invoice_array
@@ -35,7 +36,7 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_instance_of Invoice, result
     assert_equal 1, result.customer_id
     assert_equal 4, result.merchant_id
-    assert_equal 'shipped', result.status
+    assert_equal :shipped, result.status
   end
 
   def test_can_find__all_invoices_by_customer_id
@@ -59,12 +60,12 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_invoices_by_status
-    result = @invoice_repo.find_all_by_status 'shipped'
+    result = @invoice_repo.find_all_by_status :shipped
 
     assert_equal 6, result.length
     result.each do |invoice|
       assert_instance_of Invoice, invoice
-      assert_equal 'shipped', invoice.status
+      assert_equal :shipped, invoice.status
     end
   end
 end
