@@ -7,7 +7,8 @@ class SalesEngineTest < Minitest::Test
   def setup
     @sales_eng = SalesEngine.from_csv(
       items:     './data/sample_data/items.csv',
-      merchants: './data/sample_data/merchants.csv'
+      merchants: './data/sample_data/merchants.csv',
+      invoices: './data/sample_data/invoices.csv'
     )
   end
 
