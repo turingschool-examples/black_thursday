@@ -7,7 +7,7 @@ require 'pry'
 
 class InvoiceTest < Minitest::Test
 
-  def test_it_exits
+  def test_it_exists
     i = Invoice.new({id: 6,
                      customer_id: 7,
                      merchant_id: 8,

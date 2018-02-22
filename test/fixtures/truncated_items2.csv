@@ -1,9 +1,0 @@
-id,name,description,unit_price,merchant_id,created_at,updated_at
-
-
-
-1,'Pencil','You can use it to write things',1200,2,'2016-01-11 11:51:37 UTC','2016-01-11 11:51:37 UTC'
-2,'Pencil','You can use it to write things',3233,2,'2016-01-11 11:51:37 UTC','2016-01-11 11:51:37 UTC'
-3,'Pencil','You can use it to write things',4244,2,'2016-01-11 11:51:37 UTC','2016-01-11 11:51:37 UTC'
-4,'Pencil','You can use it to write things',1111,2,'2016-01-11 11:51:37 UTC','2016-01-11 11:51:37 UTC'
-5,'Pencil','You can use it to write things',2222,2,'2016-01-11 11:51:37 UTC','2016-01-11 11:51:37 UTC'
