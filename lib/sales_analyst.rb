@@ -76,7 +76,7 @@ class SalesAnalyst
   end
 
   def golden_items
-    result = @sales_engine.items.all.collect do |item|
+    @sales_engine.items.all.collect do |item|
       difference = (item.unit_price - average_average_price_per_merchant).to_f
       item if difference > @std_dev_price * 2
     end.compact
@@ -93,15 +93,17 @@ class SalesAnalyst
 
   def top_merchants_by_invoice_count
     @sales_engine.merchants.all.collect do |merchant|
-      difference = (merchant.invoices.length - average_invoices_per_merchant).to_f
-      merchant if difference.abs > @std_dev_invoice * 2 && merchant.invoices.length > average_invoices_per_merchant
+      diff = (merchant.invoices.length - average_invoices_per_merchant).to_f
+      higher = merchant.invoices.length > average_invoices_per_merchant
+      merchant if diff.abs > @std_dev_invoice * 2 && higher
     end.compact
   end
 
   def bottom_merchants_by_invoice_count
     @sales_engine.merchants.all.collect do |merchant|
-      difference = (merchant.invoices.length - average_invoices_per_merchant).to_f
-      merchant if difference.abs > @std_dev_invoice * 2 && merchant.invoices.length < average_invoices_per_merchant
+      diff = (merchant.invoices.length - average_invoices_per_merchant).to_f
+      lower = merchant.invoices.length < average_invoices_per_merchant
+      merchant if diff.abs > @std_dev_invoice * 2 && lower
     end.compact
   end
 end
