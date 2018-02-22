@@ -4,15 +4,13 @@ require 'pry'
 
 # test for the sales engine
 class SalesengineTest < Minitest::Test
-
   def setup
     @se = SalesEngine.from_csv(items: './test/fixtures/items.csv',
-                              merchants: './test/fixtures/merchants.csv',
-                              invoices: './test/fixtures/invoices.csv',
-                              invoice_items: './test/fixtures/invoice_items.csv',
-                              transactions: './test/fixtures/transactions.csv',
-                              customers: './test/fixtures/customers.csv'
-                              )
+                               merchants: './test/fixtures/merchants.csv',
+                               invoices: './test/fixtures/invoices.csv',
+                               invoice_items: './test/fixtures/invoice_items.csv',
+                               transactions: './test/fixtures/transactions.csv',
+                               customers: './test/fixtures/customers.csv')
   end
 
   def test_it_exists
@@ -20,7 +18,6 @@ class SalesengineTest < Minitest::Test
   end
 
   def test_it_has_item_repo
-
     name = 'Glitter scrabble frames'
 
     assert_instance_of ItemRepository, @se.items

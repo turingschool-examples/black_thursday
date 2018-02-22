@@ -29,7 +29,7 @@ class MerchantTest < Minitest::Test
   end
 
   def test_items_method
-    skip #stub
+    skip # stub
     se = SalesEngine.from_csv(items: './test/fixtures/items.csv',
                               merchants: './test/fixtures/merchants.csv')
     parent = MerchantRepository.new('./test/fixtures/merchants.csv',

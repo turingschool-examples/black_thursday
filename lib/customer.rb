@@ -1,3 +1,4 @@
+# customer class
 class Customer
   attr_reader :id,
               :first_name,
