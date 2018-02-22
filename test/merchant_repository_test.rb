@@ -106,6 +106,6 @@ class MerchantRepositoryTest < Minitest::Test
                                 MOCK_SALES_ENGINE
 
     assert_instance_of SalesEngine, mr.sales_engine
-    assert_instance_of InvoiceRepository, mr.invoices
+    assert_instance_of InvoiceRepository, mr.sales_engine.invoices
   end
 end

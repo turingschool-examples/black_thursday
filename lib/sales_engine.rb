@@ -9,7 +9,8 @@ require_relative 'invoice_repository'
 # Defines sales engine
 class SalesEngine
   attr_reader :items,
-              :merchants
+              :merchants,
+              :invoices
 
   def initialize(files)
     @items = ItemRepository.new files[:items], self
