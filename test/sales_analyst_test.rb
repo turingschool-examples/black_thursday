@@ -66,6 +66,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_get_average_invoices_per_merchant
-
+    assert_equal (10 / 9.0).round(2), @sa.average_invoices_per_merchant
   end
 end
