@@ -1,7 +1,7 @@
 require './test/test_helper'
 require './lib/invoice'
 
-class MerchantTest < Minitest::Test
+class InvoiceTest < Minitest::Test
 
 	def setup
 		@invoice = Invoice.new({

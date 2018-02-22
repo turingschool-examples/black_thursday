@@ -25,4 +25,8 @@ class InvoiceRepository
 			obj.status == status
 		end
 	end
+
+	def inspect
+		self
+	end
 end

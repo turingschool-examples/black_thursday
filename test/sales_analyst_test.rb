@@ -5,7 +5,8 @@ require './lib/sales_analyst'
 class SalesAnalystTest < Minitest::Test
   def setup
     repositories = { items: './data/sample_data/items.csv',
-                     merchants: './data/sample_data/merchants.csv' }
+                     merchants: './data/sample_data/merchants.csv',
+                     invoices: './data/sample_data/invoices.csv' }
     sales_eng    = SalesEngine.new(repositories)
     @sa          = SalesAnalyst.new(sales_eng)
   end
