@@ -3,6 +3,7 @@
 require_relative 'test_helper.rb'
 require_relative '../lib/sales_analyst.rb'
 require_relative '../lib/sales_engine.rb'
+require 'bigdecimal'
 
 require_relative './master_hash.rb'
 
@@ -67,15 +68,14 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_find_average_of_average_merchant_item_price
-    # skip
     result = @sales_analyst.average_average_price_per_merchant
     #some merchants don't have items in fixture data, hence div by 0 error
 
-    assert_instance_of BigDecimal, result
+    assert_equal 41.99, result.round(2)
+    assert_instance_of Float, result
   end
 
   def test_can_find_golden_items
-    skip
     result = @sales_analyst.golden_items
 
     assert_instance_of Array, result
