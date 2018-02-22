@@ -14,12 +14,12 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_transactions_csv_parsed
-    assert_equal 20, @tr.transactions.length
+    assert_equal 21, @tr.transactions.length
     assert_equal 1, @tr.transactions.first.id
   end
 
   def test_all_transactions
-    assert_equal 20, @tr.all.length
+    assert_equal 21, @tr.all.length
     assert @tr.all[3].is_a?(Transaction)
     assert_equal '4048033451067370', @tr.all[3].credit_card_number
   end

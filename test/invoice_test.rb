@@ -75,9 +75,9 @@ class InvoiceTest < Minitest::Test
     sales_engine = SalesEngine.from_csv(information)
     invoice = sales_engine.invoices.find_by_id(19)
 
-    assert_instance_of Array, invoice.items
+    assert_instance_of Array, invoice.transactions
     assert_instance_of Transaction, invoice.transactions[0]
-    assert_equal 263_509_232, invoice.transactions[0].id
+    assert_equal 587, invoice.transactions[0].id
   end
 
   def test_finding_customer_associated_with_invoice
