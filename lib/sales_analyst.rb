@@ -4,7 +4,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    mean_items_per_merchant(items_count_per_merchant)
+    mean_items_per_merchant(items_count_per_merchant).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
@@ -15,7 +15,7 @@ class SalesAnalyst
       std_dev += (count - mean)**2
     end
     std_dev /= num_items.length - 1
-    Math.sqrt(std_dev)
+    Math.sqrt(std_dev).round(2)
   end
 
   def mean_items_per_merchant(item_array)
