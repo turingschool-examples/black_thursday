@@ -1,15 +1,13 @@
 require 'bigdecimal'
-require_relative 'test_helper'
-require 'mocha/mini_test'
-require_relative '../lib/invoice_item'
-# require_relative '../lib/sales_engine'
-# require_relative './master_hash'
+require_relative 'test_helper.rb'
+require_relative '../lib/invoice_item.rb'
+require_relative '../lib/sales_engine.rb'
+require_relative './master_hash.rb'
 
 class InvoiceItemTest < Minitest::Test
   def setup
-    # test_engine = TestEngine.new.god_hash
-    # @sales_engine = SalesEngine.new(test_engine)
-    @parent = mock('parent')
+    test_engine = TestEngine.new.god_hash
+    @sales_engine = SalesEngine.new(test_engine)
     @invoice_item = InvoiceItem.new({
       :id          => 1,
       :item_id     => 263_519_844,
@@ -18,7 +16,7 @@ class InvoiceItemTest < Minitest::Test
       :unit_price  => BigDecimal.new(13635,5),
       :created_at  => '2012-03-27 14:54:09 UTC',
       :updated_at  => '2012-03-27 14:54:09 UTC',
-      }, @parent)
+      }, @sales_engine.invoice_items)
   end
 
   def test_it_exists
@@ -48,7 +46,7 @@ class InvoiceItemTest < Minitest::Test
       :unit_price  => BigDecimal.new(63635,5),
       :created_at  => '2012-03-27 14:54:09 UTC',
       :updated_at  => '2012-03-27 14:54:09 UTC',
-      }, @parent) ## << ???
+      }, @sales_engine.invoice_items)
 
     assert_equal 13, invoice_item.id
     assert_equal 999_519_844, invoice_item.item_id

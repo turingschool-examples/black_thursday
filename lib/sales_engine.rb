@@ -1,11 +1,12 @@
 require 'csv'
-require_relative 'merchant_repository.rb'
-require_relative 'item_repository.rb'
+require_relative 'merchant_repository'
+require_relative 'item_repository'
 require_relative 'invoice_repository'
+require_relative 'invoice_item_repository'
 
 
 class SalesEngine
-  attr_reader :items, :merchants, :invoices
+  attr_reader :items, :merchants, :invoices, :invoice_items
   def self.from_csv(hash)
     SalesEngine.new(hash)
   end
@@ -14,6 +15,7 @@ class SalesEngine
     @items = ItemRepository.new(hash[:items], self)
     @merchants = MerchantRepository.new(hash[:merchants], self)
     @invoices = InvoiceRepository.new(hash[:invoices], self)
+    @invoice_items = InvoiceItemRepository.new(hash[:invoice_items], self)
   end
 
   def item_repo_finds_all_by_merchant_id(id)
