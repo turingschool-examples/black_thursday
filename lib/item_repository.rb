@@ -32,7 +32,7 @@ class ItemRepository
 
   def find_all_with_description(my_description)
     @items.find_all do |item|
-      item.description.include?(my_description)
+      item.description.downcase.include?(my_description.downcase)
     end
   end
 
