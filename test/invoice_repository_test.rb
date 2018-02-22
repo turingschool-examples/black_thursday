@@ -7,7 +7,8 @@ require_relative 'mocks/test_engine'
 
 class InvoiceRepositoryTest < Minitest::Test
   def setup
-    @invoice_repo = InvoiceRepository.new './test/fixtures/invoices.csv', MOCK_SALES_ENGINE
+    @invoice_repo = InvoiceRepository.new './test/fixtures/invoices.csv',
+                                          MOCK_SALES_ENGINE
   end
 
   def test_does_create_repository
@@ -17,11 +18,15 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_loads_invoices
     assert_equal 10, @invoice_repo.all.count
     assert_instance_of Array, @invoice_repo.all
+    check_invoice_array
+    assert_equal 1, @invoice_repo.all.first.customer_id
+    assert_equal 3, @invoice_repo.all.first.merchant_id
+  end
+
+  def check_invoice_array
     @invoice_repo.all.each do |invoice|
       assert_instance_of Invoice, invoice
     end
-    assert_equal 1, @invoice_repo.all.first.customer_id
-    assert_equal 3, @invoice_repo.all.first.merchant_id
   end
 
   def test_can_find_invoices_by_id
