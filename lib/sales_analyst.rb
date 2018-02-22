@@ -50,23 +50,23 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(merch_id)
     merch_items = engine.merchants.find_by_id(merch_id).items
-    merch_items.map do |item|
-      item.unit_price
-    end.sum / merch_items.length
+    (merch_items.map do |item|
+      item.unit_price.truncate(2)
+    end.sum / merch_items.length).round(2)
   end
 
   def average_average_price_per_merchant
     all_merchants = merchant_collector
-    all_merchants.map do |merchant|
+    (all_merchants.map do |merchant|
       average_item_price_for_merchant(merchant.id)
-    end.sum / all_merchants.length
+    end.sum / all_merchants.length).round(2)
   end
 
   def golden_items
-    all_items = item_collector
+    mean = average_average_price_per_merchant
     price_stdev = price_standard_deviation
-    all_items.map do |item|
-      item if (item.unit_price.truncate - price_stdev) > (2 * price_stdev)
+    item_collector.map do |item|
+      item if (item.unit_price.truncate - mean) > (2 * price_stdev)
     end.compact
   end
 
@@ -112,7 +112,7 @@ class SalesAnalyst
     two_standard_deviations = average_invoices_per_merchant_standard_deviation * 2
 
     merchant_collector.map do |merchant|
-      merchant if merchant.invoices.length > (average_invoices_per_merchant - two_standard_deviations)
+      merchant if merchant.invoices.length < (average_invoices_per_merchant - two_standard_deviations)
     end.compact
   end
 
@@ -144,7 +144,7 @@ class SalesAnalyst
     show_wkdays.each do |key, value|
       # binding.pry
       if (value - mean) > standard_deviation
-        return key
+        return [] << key
       end
     end
   end
