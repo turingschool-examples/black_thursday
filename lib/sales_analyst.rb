@@ -163,4 +163,11 @@ class SalesAnalyst
     end
     (StandardDeviation.calculate merchants_invoices).round 2
   end
+
+  def top_days_by_invoice_count
+    res = @sales_engine.invoices.all.map do |invoice|
+      invoice.created_at.strftime '%A'
+    end
+    binding.pry
+  end
 end

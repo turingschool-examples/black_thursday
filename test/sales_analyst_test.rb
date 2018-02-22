@@ -93,4 +93,8 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 1.0,
                  @sa.average_invoices_per_merchant_standard_deviation
   end
+
+  def test_it_can_get_busiest_days
+    @sa.top_days_by_invoice_count
+  end
 end
