@@ -14,12 +14,12 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_item_csv_parsed
-    assert_equal 20, @ir.items.length
+    assert_equal 21, @ir.items.length
     assert_equal 263_395_237, @ir.items.first.id
   end
 
   def test_all_items
-    assert_equal 20, @ir.all.length
+    assert_equal 21, @ir.all.length
     assert @ir.all[3].is_a?(Item)
     assert @ir.all[0].description.include?('googlepicasa')
   end
@@ -31,7 +31,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_find_by_name
     actual = @ir.find_by_name('510+ RealPush Icon Set').name
-    
+
     assert_nil @ir.find_by_name('help meadsfadsf')
     assert_equal '510+ RealPush Icon Set', actual
   end

@@ -45,6 +45,7 @@ class SalesEngine
     when 'items merchant' then find_merchant(payload[1])
     when 'invoices merchant' then find_merchant(payload[1])
     when 'merchant invoices' then find_invoices_by_merchant_id(payload[1])
+    when 'invoice items' then find_items_by_invoice_id(payload[1])
     end
   end
 
@@ -58,5 +59,10 @@ class SalesEngine
 
   def find_invoices_by_merchant_id(merchant_id)
     @invoices.find_all_by_merchant_id(merchant_id)
+  end
+
+  def find_items_by_invoice_id(invoice_id)
+    item_ids = @invoice_items.find_all_by_invoice_id(invoice_id).map(&:item_id)
+    item_ids.map { |item_id| @items.find_by_id(item_id) }
   end
 end
