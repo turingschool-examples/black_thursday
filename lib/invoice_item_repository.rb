@@ -23,4 +23,17 @@ class InvoiceItemRepository
     @invoice_items.find { |item| item.id == id }
   end
 
+  def find_all_by_item_id(id)
+    @invoice_items.find_all do |item|
+      item.id == id
+    end
+  end
+
+  def find_all_by_invoice_id(id)
+    @invoice_items.find_all do |invoice|
+      invoice.id == id
+    end
+  end
+
+#find_all_by_invoice_id - returns either [] or one or more matches which have a matching invoice ID
 end
