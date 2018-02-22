@@ -32,4 +32,14 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 'pending', result.status
   end
 
+  def test_can_find__all_invoices_by_customer_id
+    result = @invoice_repo.find_all_by_customer_id 2
+
+    assert_instance_of Array, result
+    assert_instance_of Invoice, result[0]
+    assert_instance_of Invoice, result[1]
+    assert_equal '2003-03-07', result[0].created_at
+    assert_equal '2014-04-13', result[1].created_at
+  end
+
 end
