@@ -136,4 +136,13 @@ class SalesAnalyst
       { id: merchant.id, invoices: merchant.invoices.length }
     end
   end
+
+  def invoice_status(status)
+    invoices = @sales_engine.invoices.all
+    total = invoices.length
+    grouped = invoices.group_by(&:status)
+    res = grouped.map do |status, invoice_array|
+      {status: status, count: invoice_array.length}
+    end
+  end
 end
