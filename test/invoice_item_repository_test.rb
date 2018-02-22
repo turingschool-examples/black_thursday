@@ -21,4 +21,10 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal 20, @repo.all.length
     assert_instance_of InvoiceItem, @repo.all[0]
   end
+
+  def test_find_by_id
+    assert_nil @repo.find_by_id(12_345)
+    assert_instance_of InvoiceItem, @repo.find_by_id(1)
+  end
+
 end
