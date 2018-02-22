@@ -49,6 +49,7 @@ class SalesEngine
     when 'invoice transactions' then find_transactions_by_invoice_id(payload[1])
     when 'invoice customer' then find_customer_by_customer_id(payload[1])
     when 'transaction invoice' then find_invoice(payload[1])
+    when 'merchant customers' then find_customers_by_merchant_id(payload[1])
     end
   end
 
@@ -79,5 +80,10 @@ class SalesEngine
 
   def find_invoice(invoice_id)
     @invoices.find_by_id(invoice_id)
+  end
+
+  def find_customers_by_merchant_id(merchant_id)
+    cus_ids = @invoices.find_all_by_merchant_id(merchant_id).map(&:customer_id)
+    cus_ids.map { |customer_id| @customers.find_by_id(customer_id) }
   end
 end

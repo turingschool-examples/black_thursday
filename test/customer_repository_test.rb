@@ -14,12 +14,12 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_customer_csv_parsed
-    assert_equal 19, @cr.customers.length
+    assert_equal 21, @cr.customers.length
     assert_equal 1, @cr.customers.first.id
   end
 
   def test_all_customers
-    assert_equal 19, @cr.all.length
+    assert_equal 21, @cr.all.length
     assert @cr.all[3].is_a?(Customer)
     assert @cr.all[0].last_name.include?('Ondricka')
   end

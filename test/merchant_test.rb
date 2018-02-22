@@ -49,4 +49,22 @@ class MerchantTest < Minitest::Test
     assert_instance_of Invoice, merchant.invoices.first
     assert_equal 269, merchant.invoices.first.id
   end
+
+  def test_finding_customers_associated_with_merchant
+    information = {
+      items: './test/fixtures/items_list_truncated.csv',
+      merchants: './test/fixtures/merchants_list_truncated.csv',
+      invoices: './test/fixtures/invoices_list_truncated.csv',
+      invoice_item: './test/fixtures/invoice_items_list_truncated.csv',
+      transactions: './test/fixtures/transactions_list_truncated.csv',
+      customers: './test/fixtures/customer_list_truncated.csv'
+    }
+    sales_engine = SalesEngine.from_csv(information)
+    merchant = sales_engine.merchants.find_by_id(123_341_12)
+
+    assert_instance_of Array, merchant.customers
+    assert_instance_of Customer, merchant.customers.first
+    assert_equal 51, merchant.customers.first.id
+    assert_equal 2, merchant.customers.length
+  end
 end
