@@ -26,7 +26,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_by_id_method
-    assert_nil @merch_repo.find_by_id('8')
+    assert_nil @merch_repo.find_by_id(8)
     assert_instance_of Merchant, @merch_repo.find_by_id(12334105)
     assert_equal 'Shopin1901', @merch_repo.find_by_id(12334105).name
   end
