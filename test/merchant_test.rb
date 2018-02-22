@@ -37,6 +37,7 @@ class MerchantTest < Minitest::Test
     data = {
           :items     => "./test/fixtures/items_sample.csv",
           :merchants => "./test/fixtures/merchants_sample.csv",
+          :invoices => "./test/fixtures/invoices_sample.csv",
             }
     sales_engine = SalesEngine.new(data)
     id = 12334185
@@ -48,6 +49,24 @@ class MerchantTest < Minitest::Test
     assert merchant.items.class == Array
     assert merchant.items.first.class == Item
     assert_equal 3, merchant.items.length
+  end
+
+  def test_if_it_returns_all_invoices_for_a_merchant
+    data = {
+          :items     => "./test/fixtures/items_sample.csv",
+          :merchants => "./test/fixtures/merchants_sample.csv",
+          :invoices => "./test/fixtures/invoices_sample.csv",
+            }
+    sales_engine = SalesEngine.new(data)
+    id = 12334141
+    merchant = sales_engine.merchants.find_by_id(id)
+
+    assert merchant.invoices.all? do |invoice|
+      invoice.merchant_id == id
+    end
+    assert merchant.invoices.class == Array
+    assert merchant.invoices.first.class == Invoice
+    assert_equal 9, merchant.invoices.length
   end
 
 end

@@ -7,6 +7,7 @@ class SalesEngineTest < Minitest::Test
     @data = {
       :items     => "./test/fixtures/items_sample.csv",
       :merchants => "./test/fixtures/merchants_sample.csv",
+      :invoices => "./test/fixtures/invoices_sample.csv"
         }
     @sales_engine = SalesEngine.new(@data)
   end
@@ -18,6 +19,7 @@ class SalesEngineTest < Minitest::Test
   def test_from_csv_method
     assert SalesEngine.from_csv(@data).items.class == ItemRepository
     assert SalesEngine.from_csv(@data).merchants.class == MerchantRepository
+    assert SalesEngine.from_csv(@data).invoices.class == InvoiceRepository
   end
 
 end
