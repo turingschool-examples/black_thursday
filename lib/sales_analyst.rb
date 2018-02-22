@@ -14,7 +14,7 @@ class SalesAnalyst
 
   def items_for_each_merchant
     @se.merchants.all.map do |merchant|
-      merchant.items.length
+      merchant.items.length.to_f
     end
   end
 
@@ -41,7 +41,7 @@ class SalesAnalyst
   def total_avg_price
     @se.merchants.all.map do |merchant|
       average_item_price_for_merchant(merchant.id)
-    end.sum
+    end.reduce(&:+)
   end
 
   def average_average_price_per_merchant

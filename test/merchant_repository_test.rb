@@ -6,7 +6,9 @@ require './test/fixtures/mock_sales_engine'
 class MerchantRepositoryTest < Minitest::Test
   def setup
     file_name = './data/sample_data/merchants.csv'
-    mock_se = MockSalesEngine.new
+    mock_item_one = mock('Item')
+    mock_item_two = mock('Item')
+    mock_se = stub(find_merchant_items: [mock_item_one, mock_item_two])
     @merch_repo = MerchantRepository.new(file_name, mock_se)
   end
 
@@ -48,9 +50,9 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_asks_parent_for_items
-    assert_equal 2, @merch_repo.items('1234').length
-    @merch_repo.items('1234').each do |item|
-      assert_instance_of MockItem, item
+    assert_equal 2, @merch_repo.items('id').length
+    @merch_repo.items('id').each do |item|
+      assert_instance_of Mocha::Mock, item
     end
   end
 
