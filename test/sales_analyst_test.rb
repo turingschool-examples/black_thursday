@@ -80,7 +80,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_find_standard_deviation_for_invoices_on_days
-    assert_equal 1.8888378261071894, @sa.invoice_deviation
+    assert_equal 1.8888378261071894, @sa.invoice_day_deviation
   end
 
   def test_can_find_top_days_by_invoice_count

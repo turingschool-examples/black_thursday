@@ -95,26 +95,34 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
-    average(invoices.length, merchants.length).to_f
+    @invoice_average = average(invoices.length, merchants.length).to_f
   end
 
   def average_invoices_per_merchant_standard_deviation
     total_invoices = merchants.map { |merchant| merchant.invoices.length }
-    standard_deviation(total_invoices, average_invoices_per_merchant).round(2)
+    @invoice_deviation = standard_deviation(total_invoices, average_invoices_per_merchant).round(2)
   end
 
   def top_merchants_by_invoice_count
-    @sales_engine.merchants.all.collect do |merchant|
-      difference = (merchant.invoices.length - average_invoices_per_merchant).to_f
-      merchant if difference.abs > @std_dev_invoice * 2 && merchant.invoices.length > average_invoices_per_merchant
-    end.compact
+    top_merchants = []
+    average_invoices_per_merchant_standard_deviation
+      merchants.each do |merchant|
+        if merchant.invoices.count > ((@invoice_deviation * 2) + @invoice_average)
+          top_merchants << merchant
+        end
+      end
+    top_merchants
   end
 
   def bottom_merchants_by_invoice_count
-    @sales_engine.merchants.all.collect do |merchant|
-      difference = (merchant.invoices.length - average_invoices_per_merchant).to_f
-      merchant if difference.abs > @std_dev_invoice * 2 && merchant.invoices.length < average_invoices_per_merchant
-    end.compact
+    bottom_merchants = []
+    average_invoices_per_merchant_standard_deviation
+      merchants.each do |merchant|
+        if merchant.invoices.count < (@invoice_average - (@invoice_deviation * 2))
+          bottom_merchants << merchant
+        end
+      end
+    bottom_merchants
   end
 
   def finding_number_of_invoices_per_day
@@ -125,7 +133,7 @@ class SalesAnalyst
       invoices_per_day
     end
 
-    def invoice_deviation
+    def invoice_day_deviation
       days = finding_number_of_invoices_per_day
       total = days.map do |day, count|
         (count - average_invoices_per_merchant) ** 2
@@ -134,11 +142,13 @@ class SalesAnalyst
     end
 
     def top_days_by_invoice_count
+      average_invoices_per_merchant_standard_deviation
       days = finding_number_of_invoices_per_day
-        days.each do |day, number|
-          return day if number > (average_invoices_per_merchant_standard_deviation + invoice_deviation)
+        days.map do |day, number|
+          return day if number > (invoice_day_deviation + @invoice_deviation)
         end.keys
     end
+
 
     def status(status)
       total = 0
