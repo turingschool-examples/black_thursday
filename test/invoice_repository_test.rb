@@ -5,7 +5,7 @@ require_relative '../lib/sales_engine'
 require 'bigdecimal'
 require 'pry'
 
-# test for item class
+# test for invoice repository class
 class InvoiceRepositoryTest < Minitest::Test
   def setup
     @repo = InvoiceRepository.new('./test/fixtures/truncated_invoices.csv',
