@@ -38,7 +38,7 @@ class CustomerRepositoryTest < Minitest::Test
   def test_find_all_by_last_name
     assert_equal [], @cr.find_all_by_last_name('Adam')
     assert_equal 2, @cr.find_all_by_last_name('si').first.id
-    assert_equal 2, @cr.find_all_by_last_name('si').length
+    assert_equal 3, @cr.find_all_by_last_name('si').length
     assert_equal 8, @cr.find_all_by_last_name('Considine').first.id
   end
 end

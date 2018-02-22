@@ -19,9 +19,9 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_find_by_id
-    assert_instance_of InvoiceItem, @invoice_item_repo.find_by_id(19)[0]
-    assert_equal 263_509_232, @invoice_item_repo.find_by_id(19)[0].item_id
-    assert_nil @invoice_item_repo.find_by_id(21)[0]
+    assert_instance_of InvoiceItem, @invoice_item_repo.find_by_id(19)
+    assert_equal 263_509_232, @invoice_item_repo.find_by_id(19).item_id
+    assert_nil @invoice_item_repo.find_by_id(21)
   end
 
   def test_find_all_by_item_id

@@ -30,13 +30,13 @@ class InvoiceItemTest < Minitest::Test
 
   def test_attributes_set_correctly_part_2
     assert_equal 5, @invoice_item.quantity
-    assert_equal 34_873, @invoice_item.unit_price
+    assert_equal 348.73, @invoice_item.unit_price
     assert_equal Time.new(2009, 0o2, 0o7), @invoice_item.created_at
     assert_equal Time.new(2014, 0o3, 15), @invoice_item.updated_at
   end
 
   def test_unit_price_to_dollars
-    assert_equal 34_873.0, @invoice_item.unit_price_to_dollars
+    assert_equal 348.73, @invoice_item.unit_price_to_dollars
   end
 
   # def test_finding_merchant_associated_with_invoice

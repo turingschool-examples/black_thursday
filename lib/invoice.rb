@@ -52,5 +52,5 @@ class Invoice
       current_location = current_location.parent
     end
     current_location.route(payload)
-  end[0]
+  end
 end

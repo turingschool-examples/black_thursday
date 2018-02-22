@@ -23,7 +23,7 @@ class TransactionTest < Minitest::Test
   def test_initializes_with_information_1
     assert_equal 6, @transaction.id
     assert_equal 8, @transaction.invoice_id
-    assert_equal '4242424242424242', @transaction.credit_card_number
+    assert_equal 424_242_424_242_424_2, @transaction.credit_card_number
     assert_equal '0220', @transaction.credit_card_expiration_date
   end
 
@@ -44,7 +44,7 @@ class TransactionTest < Minitest::Test
       items: './test/fixtures/items_list_truncated.csv',
       merchants: './test/fixtures/merchants_list_truncated.csv',
       invoices: './test/fixtures/invoices_list_truncated.csv',
-      invoice_item: './test/fixtures/invoice_items_list_truncated.csv',
+      invoice_items: './test/fixtures/invoice_items_list_truncated.csv',
       transactions: './test/fixtures/transactions_list_truncated.csv',
       customers: './test/fixtures/customer_list_truncated.csv'
     }

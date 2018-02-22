@@ -37,7 +37,7 @@ class SalesEngine
   end
 
   def self.from_csv(hash)
-    new(hash)
+    self.new(hash)
   end
 
   def route(payload)

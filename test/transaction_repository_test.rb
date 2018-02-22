@@ -21,7 +21,7 @@ class TransactionRepositoryTest < Minitest::Test
   def test_all_transactions
     assert_equal 21, @tr.all.length
     assert @tr.all[3].is_a?(Transaction)
-    assert_equal '4048033451067370', @tr.all[3].credit_card_number
+    assert_equal 4048033451067370, @tr.all[3].credit_card_number
   end
 
   def test_find_by_id
@@ -33,11 +33,11 @@ class TransactionRepositoryTest < Minitest::Test
     actual = @tr.find_all_by_invoice_id(2668).first.credit_card_number
 
     assert_equal [], @tr.find_all_by_invoice_id(5)
-    assert_equal '4890371279632775', actual
+    assert_equal 4890371279632775, actual
   end
 
   def test_find_all_by_credit_card_number
-    actual = @tr.find_all_by_credit_card_number('4055813232766404').first.id
+    actual = @tr.find_all_by_credit_card_number(4055813232766404).first.id
 
     assert_equal [], @tr.find_all_by_credit_card_number(2345)
     assert_equal 18, actual

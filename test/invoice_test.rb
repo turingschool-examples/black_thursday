@@ -34,7 +34,7 @@ class InvoiceTest < Minitest::Test
       items: './test/fixtures/items_list_truncated.csv',
       merchants: './test/fixtures/merchants_list_truncated.csv',
       invoices: './test/fixtures/invoices_list_truncated.csv',
-      invoice_item: './test/fixtures/invoice_items_list_truncated.csv',
+      invoice_items: './test/fixtures/invoice_items_list_truncated.csv',
       transactions: './test/fixtures/transactions_list_truncated.csv',
       customers: './test/fixtures/customer_list_truncated.csv'
     }
@@ -50,7 +50,7 @@ class InvoiceTest < Minitest::Test
       items: './test/fixtures/items_list_truncated.csv',
       merchants: './test/fixtures/merchants_list_truncated.csv',
       invoices: './test/fixtures/invoices_list_truncated.csv',
-      invoice_item: './test/fixtures/invoice_items_list_truncated.csv',
+      invoice_items: './test/fixtures/invoice_items_list_truncated.csv',
       transactions: './test/fixtures/transactions_list_truncated.csv',
       customers: './test/fixtures/customer_list_truncated.csv'
     }
@@ -67,7 +67,7 @@ class InvoiceTest < Minitest::Test
       items: './test/fixtures/items_list_truncated.csv',
       merchants: './test/fixtures/merchants_list_truncated.csv',
       invoices: './test/fixtures/invoices_list_truncated.csv',
-      invoice_item: './test/fixtures/invoice_items_list_truncated.csv',
+      invoice_items: './test/fixtures/invoice_items_list_truncated.csv',
       transactions: './test/fixtures/transactions_list_truncated.csv',
       customers: './test/fixtures/customer_list_truncated.csv'
     }
@@ -84,7 +84,7 @@ class InvoiceTest < Minitest::Test
       items: './test/fixtures/items_list_truncated.csv',
       merchants: './test/fixtures/merchants_list_truncated.csv',
       invoices: './test/fixtures/invoices_list_truncated.csv',
-      invoice_item: './test/fixtures/invoice_items_list_truncated.csv',
+      invoice_items: './test/fixtures/invoice_items_list_truncated.csv',
       transactions: './test/fixtures/transactions_list_truncated.csv',
       customers: './test/fixtures/customer_list_truncated.csv'
     }
