@@ -119,13 +119,13 @@ class SalesAnalystTest < Minitest::Test
 
     assert actual.is_a?(Array)
     assert actual[0].is_a?(String)
-    assert_equal 2, actual.count
+    assert_equal 1, actual.count
     assert_equal 'Friday', actual[0]
   end
 
   def test_for_invoice_status
-    assert_equal 37.5, @sales_analyst.invoice_status(:pending)
-    assert_equal 54.17, @sales_analyst.invoice_status(:shipped)
-    assert_equal 8.33, @sales_analyst.invoice_status(:returned)
+    assert_equal 36.0, @sales_analyst.invoice_status(:pending)
+    assert_equal 56.0, @sales_analyst.invoice_status(:shipped)
+    assert_equal 8.0, @sales_analyst.invoice_status(:returned)
   end
 end

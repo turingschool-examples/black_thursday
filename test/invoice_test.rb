@@ -94,4 +94,19 @@ class InvoiceTest < Minitest::Test
     assert_instance_of Customer, invoice.customer
     assert_equal 5, invoice.customer.id
   end
+
+  def test_is_paid_in_full?
+    information = {
+      items: './test/fixtures/items_list_truncated.csv',
+      merchants: './test/fixtures/merchants_list_truncated.csv',
+      invoices: './test/fixtures/invoices_list_truncated.csv',
+      invoice_items: './test/fixtures/invoice_items_list_truncated.csv',
+      transactions: './test/fixtures/transactions_list_truncated.csv',
+      customers: './test/fixtures/customer_list_truncated.csv'
+    }
+    sales_engine = SalesEngine.from_csv(information)
+
+    assert sales_engine.invoices.find_by_id(19).is_paid_in_full?
+    refute sales_engine.invoices.find_by_id(4702).is_paid_in_full?
+  end
 end

@@ -52,6 +52,7 @@ class SalesEngine
     when 'transaction invoice' then find_invoice(payload[1])
     when 'merchant customers' then find_customers_by_merchant_id(payload[1])
     when 'customer merchants' then find_merchants_by_customer_id(payload[1])
+    when 'transaction payment' then find_transaction_payment_status(payload[1])
     end
   end
 
@@ -94,5 +95,11 @@ class SalesEngine
     merchants = @invoices.find_all_by_customer_id(customer_id)
     merchant_ids = merchants.map(&:merchant_id)
     merchant_ids.map { |merch_id| @merchants.find_by_id(merch_id) }
+  end
+
+  def find_transaction_payment_status(invoice_id)
+    payment_status = @transactions.find_all_by_invoice_id(invoice_id)
+    transaction_results = payment_status.map(&:result)
+    transaction_results.include?('success')
   end
 end
