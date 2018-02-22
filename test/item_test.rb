@@ -1,5 +1,6 @@
 require_relative 'test_helper'
 require_relative '../lib/item'
+require_relative '../lib/sales_engine'
 require 'bigdecimal'
 require 'time'
 
@@ -39,6 +40,7 @@ class ItemTest < Minitest::Test
     data = {
           :items     => "./test/fixtures/items_sample.csv",
           :merchants => "./test/fixtures/merchants_sample.csv",
+          :invoices => "./test/fixtures/invoices_sample.csv"
             }
     sales_engine = SalesEngine.new(data)
     id = 263395721

@@ -37,6 +37,7 @@ class MerchantTest < Minitest::Test
     data = {
           :items     => "./test/fixtures/items_sample.csv",
           :merchants => "./test/fixtures/merchants_sample.csv",
+          :invoices => "./test/fixtures/invoices_sample.csv",
             }
     sales_engine = SalesEngine.new(data)
     id = 12334185
