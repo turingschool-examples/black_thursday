@@ -3,6 +3,7 @@ require_relative 'merchant_repository'
 require_relative 'invoice_repository'
 require_relative 'transaction_repository'
 require_relative 'invoice_item_repository'
+require_relative 'customer_repository'
 
 class SalesEngine
   attr_reader :item_csv_path,
@@ -12,23 +13,30 @@ class SalesEngine
               :merchants,
               :invoices,
               :transactions,
-              :invoice_items
+              :invoice_items,
+              :customers
 
   def initialize(hash)
-    @item_csv_path = hash[:items]
-    @merchant_csv_path = hash[:merchants]
-    @invoice_csv_path = hash[:invoices]
-    @transaction_csv_path = hash[:transactions]
-    @invoice_item_repository = hash[:invoice_item]
+    get_csv_paths(hash)
     @items = ItemRepository.new(@item_csv_path, self)
     @merchants = MerchantRepository.new(@merchant_csv_path, self)
     @invoices = InvoiceRepository.new(@invoice_csv_path, self)
     @transactions = TransactionRepository.new(@transaction_csv_path, self)
-    @invoice_items = InvoiceItemRepository.new(@invoice_item_repository, self)
+    @invoice_items = InvoiceItemRepository.new(@invoice_items_csv_path, self)
+    @customers = CustomerRepository.new(@customer_csv_path, self)
+  end
+
+  def get_csv_paths(hash)
+    @item_csv_path = hash[:items]
+    @merchant_csv_path = hash[:merchants]
+    @invoice_csv_path = hash[:invoices]
+    @transaction_csv_path = hash[:transactions]
+    @invoice_items_csv_path = hash[:invoice_item]
+    @customer_csv_path = hash[:customers]
   end
 
   def self.from_csv(hash)
-    self.new(hash)
+    new(hash)
   end
 
   def route(payload)

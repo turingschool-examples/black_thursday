@@ -3,9 +3,9 @@ require_relative '../lib/merchant_repository'
 require_relative '../lib/sales_engine'
 
 class MerchantRepositoryTest < Minitest::Test
-
   def setup
-    @mr = MerchantRepository.new('./test/fixtures/merchants_list_truncated.csv', 'parent')
+    @csv_path = './test/fixtures/merchants_list_truncated.csv'
+    @mr = MerchantRepository.new(@csv_path, 'parent')
   end
 
   def test_it_exists
@@ -13,7 +13,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_for_initialized_arguments
-    assert_equal './test/fixtures/merchants_list_truncated.csv', @mr.merchant_csv_path
+    assert_equal @csv_path, @mr.merchant_csv_path
     assert_equal 'parent', @mr.parent
   end
 
@@ -25,14 +25,14 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_for_find_by_id_method
     assert_nil @mr.find_by_id('10101010')
-    assert @mr.find_by_id(12334112).is_a?(Merchant)
-    assert_equal 'Candisart', @mr.find_by_id(12334112).name
+    assert @mr.find_by_id(123_341_12).is_a?(Merchant)
+    assert_equal 'Candisart', @mr.find_by_id(123_341_12).name
   end
 
   def test_for_find_by_name_method
     assert_nil @mr.find_by_name('Mesander')
     assert @mr.find_by_name('LolaMarleys').is_a?(Merchant)
-    assert_equal 12334123, @mr.find_by_name('Keckenbauer').id
+    assert_equal 123_341_23, @mr.find_by_name('Keckenbauer').id
     assert @mr.find_by_name('lolamarleys').is_a?(Merchant)
     assert @mr.find_by_name('shopin1901').is_a?(Merchant)
   end

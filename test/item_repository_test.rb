@@ -30,8 +30,10 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_by_name
+    actual = @ir.find_by_name('510+ RealPush Icon Set').name
+    
     assert_nil @ir.find_by_name('help meadsfadsf')
-    assert_equal '510+ RealPush Icon Set', @ir.find_by_name('510+ RealPush Icon Set').name
+    assert_equal '510+ RealPush Icon Set', actual
   end
 
   def test_find_all_with_description

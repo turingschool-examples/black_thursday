@@ -1,3 +1,4 @@
+# This is the invoice class
 class Invoice
   attr_reader :parent,
               :id,

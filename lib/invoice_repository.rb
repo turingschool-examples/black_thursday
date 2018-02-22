@@ -1,5 +1,6 @@
 require_relative 'invoice'
 
+# This is the invoice repository class
 class InvoiceRepository
   attr_reader :parent, :invoices
   def initialize(invoice_csv, parent)
