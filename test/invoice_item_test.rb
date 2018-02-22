@@ -34,5 +34,8 @@ class InvoiceItemTest < Minitest::Test
     assert_equal 'parent', @ii.parent
   end
 
-
+  def test_unit_price_to_dollars
+    assert_instance_of Float, @ii.unit_price_to_dollars
+    assert_equal 10.99, @ii.unit_price_to_dollars
+  end
 end
