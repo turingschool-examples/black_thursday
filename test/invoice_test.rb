@@ -13,8 +13,8 @@ class InvoiceTest < Minitest::Test
       customer_id: 7,
       merchant_id: 8,
       status: 'pending',
-      created_at: TIME,
-      updated_at: TIME
+      created_at: '2016-01-11 17:42:32 UTC',
+      updated_at: '2016-01-11 17:42:32 UTC'
     )
   end
 
