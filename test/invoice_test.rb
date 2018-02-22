@@ -8,7 +8,7 @@ class MerchantTest < Minitest::Test
 			:id          => 6,
 			:customer_id => 7,
 			:merchant_id => 8,
-			:status      => "pending",
+			:status      => 'pending',
 			:created_at  => Time.parse("1969-07-20 20:17:40 - 0600"),
 			:updated_at  => Time.parse("1969-07-20 20:17:40 - 0600")
 													})
