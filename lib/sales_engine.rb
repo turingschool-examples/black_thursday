@@ -16,13 +16,7 @@ class SalesEngine
     @files = files
     @items = ItemRepository.new(files[:items], self)
     @merchants = MerchantRepository.new(files[:merchants], self)
-    @invoices = invoices
-  end
-
-  def invoices
-    if @files.keys.include?(:invoices)
-      @invoices = InvoiceRepository.new(@files[:invoices], self)
-    end
+    @invoices = InvoiceRepository.new(@files[:invoices], self)
   end
 
   def pass_merchant_id_to_merchant_repo(id)

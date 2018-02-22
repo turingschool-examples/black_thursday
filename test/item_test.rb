@@ -18,7 +18,7 @@ class ItemTest < Minitest::Test
               updated_at: '2016-01-11 11:51:37 UTC' }
   end
 
-  def test_it_exits
+  def test_it_exists
     item = Item.new(@data, 'parent')
 
     assert_instance_of Item, item
