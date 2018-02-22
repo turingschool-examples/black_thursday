@@ -140,7 +140,7 @@ class SalesAnalyst
   def invoice_status(status)
     count = invoice_status_count
     total = count.values.reduce(:+)
-    binding.pry
+    (count[status] / total.to_f).round 2
   end
 
   def invoice_status_count
