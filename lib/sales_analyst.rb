@@ -17,8 +17,19 @@ class SalesAnalyst
     @sales_engine.items.all
   end
 
+  def invoices
+    @sales_engine.invoices.all
+  end
+
   def average(numerator, denominator)
     (BigDecimal(numerator, 4) / BigDecimal(denominator, 4)).round(2)
+  end
+
+  def standard_deviation(data, average)
+    result = data.map do |item|
+      (item - average)**2
+    end.reduce(:+) / (data.length - 1)
+    Math.sqrt(result)
   end
 
   def average_items_per_merchant
@@ -26,20 +37,8 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    squares = number_of_items_for_every_merchant.map do |num|
-      (num - average_items_per_merchant)**2
-    end
-    numerator = squares.reduce(0) do |total, square|
-      total + square
-    end
-    denominator = (merchants.length - 1)
-    Math.sqrt(numerator / denominator).round(2)
-  end
-
-  def number_of_items_for_every_merchant
-    merchants.map do |merchant|
-      merchant.items.length
-    end
+    total_items = merchants.map { |merchant| merchant.items.length }
+    standard_deviation(total_items, average_items_per_merchant).round(2)
   end
 
   def merchants_with_high_item_count
@@ -72,14 +71,7 @@ class SalesAnalyst
   end
 
   def average_items_price_standard_deviation
-    squares = all_item_prices.map do |num|
-        (num - average_average_price_per_merchant)**2
-      end
-      numerator = squares.reduce(0) do |total, square|
-        total + square
-      end
-      denominator = (items.length - 1)
-      Math.sqrt(numerator / denominator).round(2)
+    standard_deviation(all_item_prices, average_average_price_per_merchant)
     end
 
   def golden_items
