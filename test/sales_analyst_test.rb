@@ -64,4 +64,8 @@ class SalesAnalystTest < Minitest::Test
     assert_equal (Math.sqrt(10) / 3).round(2),
                  @sa.average_items_per_merchant_standard_deviation
   end
+
+  def test_it_can_get_average_invoices_per_merchant
+
+  end
 end
