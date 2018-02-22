@@ -7,13 +7,15 @@ require_relative 'mocks/test_engine'
 
 class MerchantTest < Minitest::Test
   def test_it_exists
-    merchant = Merchant.new({ id: '5', name: 'Turing School' }, MOCK_MERCHANT_REPOSITORY)
+    merchant = Merchant.new({ id: '5', name: 'Turing School' },
+                            MOCK_MERCHANT_REPOSITORY)
 
     assert_instance_of Merchant, merchant
   end
 
   def test_it_has_attributes
-    merchant = Merchant.new({ id: '5', name: 'Turing School' }, MOCK_MERCHANT_REPOSITORY)
+    merchant = Merchant.new({ id: '5', name: 'Turing School' },
+                            MOCK_MERCHANT_REPOSITORY)
 
     assert_equal 5, merchant.id
     assert_equal 'Turing School', merchant.name

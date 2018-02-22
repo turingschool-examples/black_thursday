@@ -6,8 +6,7 @@ require_relative 'merchant'
 
 # Merchant Repository gets data from CSV
 class MerchantRepository
-  attr_reader :sales_engine,
-              :items
+  attr_reader :sales_engine
 
   def initialize(filepath, sales_engine)
     @merchants = []
