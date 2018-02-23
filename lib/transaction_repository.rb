@@ -30,9 +30,22 @@ class TransactionRepository
     end.first
   end
 
-  # def find_all_by_id(id)
-  #   @transactions.select do |transaction|
-  #     transaction.invoice_id == id
-  #   end
-  # end
+  def find_all_by_invoice_id(id)
+    @transactions.select do |transaction|
+      transaction.invoice_id == id
+    end
+  end
+
+  def find_all_by_credit_card_number(num)
+    @transactions.select do |transaction|
+      transaction.credit_card_number == num
+    end
+  end
+
+  def find_all_by_result(status)
+    @transactions.select do |transaction|
+      transaction.result == status
+    end
+  end
+
 end
