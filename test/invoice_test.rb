@@ -51,4 +51,18 @@ class InvoiceTest < Minitest::Test
     assert_equal :ready, invoice.status
     assert_instance_of Time, invoice.created_at
   end
+
+  def test_invoice_merchant_returns_merchant
+    invoice = @sales_engine.invoices.find_by_id(12)
+    invoice.merchant
+
+    assert_nil invoice.merchant
+  end
+
+  def test_merchant_invoices_returns_items_array
+    invoice = @sales_engine.invoices.find_by_id(2)
+    invoice.items
+
+    assert_equal 4, invoice.items.length
+  end
 end
