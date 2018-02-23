@@ -1,5 +1,5 @@
 require 'csv'
-require_relative 'invoice.rb'
+require_relative 'invoice'
 
 class InvoiceRepository
   def initialize(filepath, parent)

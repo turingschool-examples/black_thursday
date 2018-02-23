@@ -1,7 +1,6 @@
 require_relative 'test_helper.rb'
 require_relative '../lib/sales_engine.rb'
 require_relative './master_hash.rb'
-require_relative './master_hash.rb'
 
 class SalesEngineTest < Minitest::Test
   def setup
