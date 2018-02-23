@@ -84,4 +84,11 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal "Free standing Woden letters", result[2].name
     assert result_nil.empty?
   end
+
+  def test_item_repo_goes_to_sales_engine_with_merchant_id
+    ir = @item_repository
+    result = ir.item_repo_goes_to_sales_engine_with_merchant_id(263395617)
+
+    assert result.empty?
+  end
 end
