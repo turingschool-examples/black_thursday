@@ -1,6 +1,6 @@
 require_relative '../lib/transaction'
 require 'CSV'
-# transaction repository class
+
 class TransactionRepository
   def initialize(filepath, parent = nil)
     @transactions = []
@@ -44,5 +44,9 @@ class TransactionRepository
     @transactions.find_all do |transaction|
       transaction.result == result
     end
+  end
+
+  def pass_id_to_se_for_invoice(id)
+    @parent.pass_id_for_invoice(id)
   end
 end

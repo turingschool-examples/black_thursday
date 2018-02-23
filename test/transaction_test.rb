@@ -26,4 +26,17 @@ class TransactionTest < Minitest::Test
     assert_instance_of Time, @transaction.created_at
     assert_instance_of Time, @transaction.updated_at
   end
+
+  def test_it_can_get_invoice
+    se = SalesEngine.from_csv(items:         './test/fixtures/items.csv',
+                              merchants:     './test/fixtures/merchants.csv',
+                              invoices:      './test/fixtures/invoices.csv',
+                              invoice_items: './test/fixtures/invoice_items.csv',
+                              transactions:  './test/fixtures/transactions.csv',
+                              customers:     './test/fixtures/customers.csv')
+
+    transaction = se.transactions.find_by_id(3)
+    assert_instance_of Invoice, transaction.invoice
+    assert_equal 1, transaction.invoice.id
+  end
 end
