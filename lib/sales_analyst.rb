@@ -168,6 +168,13 @@ class SalesAnalyst
     res = @sales_engine.invoices.all.map do |invoice|
       invoice.created_at.strftime '%A'
     end
-    binding.pry
+
+    res = res.group_by { |day| day }
+    day_hash = {}
+    res.each do |day, array|
+      day_hash[day] = array.length
+    end
+
+
   end
 end

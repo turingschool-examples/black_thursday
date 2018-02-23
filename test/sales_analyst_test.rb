@@ -95,6 +95,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_get_busiest_days
-    @sa.top_days_by_invoice_count
+    assert_equal ['Friday'], @sa.top_days_by_invoice_count
   end
 end
