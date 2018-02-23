@@ -52,4 +52,8 @@ class InvoiceItemTest < Minitest::Test
     assert_equal '1979-07-20 20:17:40  0600', @invoice.updated_at
   end
 
+  def test_it_coverts_unit_price_to_dollars
+    assert_instance_of Float, @invoice.unit_price_to_dollars
+    assert_equal 345.67, @invoice.unit_price_to_dollars
+  end
 end
