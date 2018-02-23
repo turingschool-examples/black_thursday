@@ -23,4 +23,16 @@ class TransactionRepository
       @transactions << Transaction.new(data, self)
     end
   end
+
+  def find_by_id(id)
+    @transactions.select do |transaction|
+      id == transaction.id
+    end.first
+  end
+
+  # def find_all_by_id(id)
+  #   @transactions.select do |transaction|
+  #     transaction.invoice_id == id
+  #   end
+  # end
 end
