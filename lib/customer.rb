@@ -14,4 +14,12 @@ class Customer
     @updated_at = Time.parse(data[:updated_at].to_s)
     @parent     = parent
   end
+
+  def merchants
+    invoices = @parent.pass_customer_id_to_se(@id)
+    merchant_ids = invoices.map(&:merchant_id)
+    merchant_ids.map do |merchant_id|
+      @parent.pass_merchant_id_to_se(merchant_id)
+    end
+  end
 end
