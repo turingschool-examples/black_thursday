@@ -1,3 +1,4 @@
+
 class SalesAnalyst
   def initialize(sales_engine)
     @se = sales_engine
@@ -30,6 +31,33 @@ class SalesAnalyst
     @se.merchants.all.map do |merchant|
       @se.find_items_by_merchant_id(merchant.id).length
     end
+  end
+
+  def average_item_price_for_merchant(merchant_id)
+    items = @se.find_items_by_merchant_id(merchant_id)
+    avg = 0
+    items.each do |item|
+      avg += item.unit_price
+    end
+    if items.length == 0
+      0
+    else
+      (avg /= items.length).round(2)
+    end
+  end
+
+  def average_average_price_per_merchant
+    avg = 0
+    merchants = @se.merchants.all
+    merchants.map do |merchant|
+      avg += average_item_price_for_merchant(merchant.id)
+    end
+    (avg /= merchants.length).round(2)
+  end
+
+  def golden_items
+    std_dev = average_items_per_merchant_standard_deviation
+    @se.items.all.find_all { |item| item.unit_price >= (std_dev * 2) }
   end
 
 end
