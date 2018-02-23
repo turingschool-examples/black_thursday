@@ -82,7 +82,7 @@ class SalesAnalyst
   end
 
   def golden_items
-    result = @sales_engine.items.all.collect do |item|
+    @sales_engine.items.all.collect do |item|
       difference = (item.unit_price - average_average_price_per_merchant).to_f
       item if difference > @std_dev_price * 2
     end.compact
@@ -161,4 +161,5 @@ class SalesAnalyst
       end
       ((total.to_f / invoices.count.to_f) * 100).round(2)
     end
+
 end

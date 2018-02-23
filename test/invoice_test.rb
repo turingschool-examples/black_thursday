@@ -35,10 +35,11 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_it_can_return_merchant_class
+    skip # stub
     se = SalesEngine.from_csv(items: './test/fixtures/items.csv',
                               merchants: './test/fixtures/merchants.csv',
-                              invoices: './test/fixtures/truncated_invoices.csv')
-    parent = InvoiceRepository.new('./test/fixtures/truncated_invoices.csv', se)
+                              invoices: './test/fixtures/invoices.csv')
+    parent = InvoiceRepository.new('./test/fixtures/invoices.csv', se)
     data = { id: 6,
              customer_id: 7,
              merchant_id: 2,

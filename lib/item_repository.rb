@@ -5,7 +5,6 @@ require 'bigdecimal'
 require 'time'
 
 # class to hold the item repository
-
 class ItemRepository
   attr_reader :items, :parent
   def initialize(filepath, parent)
@@ -55,7 +54,6 @@ class ItemRepository
       item.merchant_id == id
     end
   end
-
 
   def inspect
     "#<#{self.class} #{@items.size} rows>"

@@ -1,12 +1,13 @@
 require_relative 'customer'
+require 'CSV'
 require 'pry'
 
+# customer repository class
 class CustomerRepository
-
   def initialize(filepath, parent = nil)
     @customers = []
     load_customers(filepath)
-    @parent    = parent
+    @parent = parent
   end
 
   def inspect
@@ -14,8 +15,7 @@ class CustomerRepository
   end
 
   def load_customers(filepath)
-    CSV.foreach(filepath, headers: true,
-                header_converters: :symbol) do |data|
+    CSV.foreach(filepath, headers: true, header_converters: :symbol) do |data|
       @customers << Customer.new(data, self)
     end
   end

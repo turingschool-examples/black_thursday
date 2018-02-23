@@ -83,4 +83,8 @@ class MerchantRepositoryTest < Minitest::Test
     result = merchant_repo.find_all_by_name('ksjadhf')
     assert_equal [], result
   end
+
+  def test_pass_to_se_methods
+    skip # stub
+  end
 end
