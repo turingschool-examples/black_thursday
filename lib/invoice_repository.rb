@@ -17,14 +17,14 @@ class InvoiceRepository
 
   def find_all_by_customer_id(id)
     @all.find_all do |obj|
-      # require 'pry'; binding.pry
       obj.customer_id == id
     end
   end
 
   def find_all_by_status(status)
     @all.find_all do |obj|
-      obj.status == status
+      # require 'pry'; binding.pry
+      obj.status == status.to_sym
     end
   end
 
