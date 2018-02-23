@@ -23,7 +23,6 @@ class InvoiceRepository
 
   def find_all_by_status(status)
     @all.find_all do |obj|
-      # require 'pry'; binding.pry
       obj.status == status.to_sym
     end
   end
