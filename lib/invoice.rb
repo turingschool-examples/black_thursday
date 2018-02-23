@@ -17,4 +17,8 @@ class Invoice
     @updated_at  = data[:updated_at]
     @parent      = parent
   end
+
+  def merchant
+    @parent.merchant(@id)
+  end
 end

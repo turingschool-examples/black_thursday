@@ -19,7 +19,8 @@ class InvoiceTest < Minitest::Test
     assert_instance_of Invoice, @invoice
   end
 
-  def test_it_returns_integer_id
+  def test_it_returns_id_as_integer
+    assert_instance_of Integer, @invoice.id
     assert_equal 6, @invoice.id
   end
 
@@ -41,5 +42,10 @@ class InvoiceTest < Minitest::Test
 
   def test_it_returns_time_when_updated
     assert_equal '1969-07-20 20:17:40 -0600', @invoice.updated_at.to_s
+  end
+
+  def test_it_asks_parent_for_merchant
+
+    assert_instance_of Mocha::Mock, @invoice.merchant
   end
 end
