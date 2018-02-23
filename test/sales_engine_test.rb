@@ -44,7 +44,7 @@ class SalesEngineTest < Minitest::Test
 
     assert_instance_of Invoice, merchant.invoices[0]
     assert_equal 'pending', merchant.invoices[0].status
-    assert_equal 1, merchant.invoices[0].id
+    assert_equal 4, merchant.invoices[0].id
   end
 
   def test_se_finds_merchant_by_invoice_id
