@@ -10,14 +10,15 @@ require './test/mocks/test_engine'
 class InvoiceTest < Minitest::Test
   TIME = Time.parse '2016-01-11 17:42:32 UTC'
   def setup
-    @invoice = Invoice.new({
+    invoice_data = {
       id: 6,
       customer_id: 7,
       merchant_id: 8,
       status: 'pending',
       created_at: '2016-01-11 17:42:32 UTC',
       updated_at: '2016-01-11 17:42:32 UTC'
-    }, MOCK_INVOICE_REPOSITORY)
+    }
+    @invoice = Invoice.new(invoice_data, MOCK_INVOICE_REPOSITORY)
   end
 
   def test_does_create_invoice
