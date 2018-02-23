@@ -1,11 +1,10 @@
-require 'minitest/autorun'
-require 'minitest/pride'
 require_relative '../lib/merchant'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/item'
 require_relative '../lib/sales_engine'
+require_relative 'test_helper'
 
-
+# test for merchant class
 class MerchantTest < Minitest::Test
   def test_it_exists
     merchant = Merchant.new({ id: '5', name: 'Turing School' }, 'parent')
@@ -38,7 +37,8 @@ class MerchantTest < Minitest::Test
   end
 
   def test_invoices_method
-    parent = stub(pass_id_to_se_for_invoice: '2')
+    parent = mock
+    parent.stubs(:pass_id_to_se_for_invoice).returns('invoice')
     merchant = Merchant.new({ id: '2', name: '' }, parent)
     assert_equal merchant.invoices, parent.pass_id_to_se_for_invoice
   end
