@@ -19,7 +19,7 @@ class InvoiceRepository
       headers: true,
       header_converters: :symbol
     ) do |data|
-      @invoices << Invoice.new(data)
+      @invoices << Invoice.new(data, self)
     end
   end
 
@@ -49,5 +49,13 @@ class InvoiceRepository
     @invoices.select do |invoice|
       invoice.status == status
     end
+  end
+
+  def merchant(id)
+    @sales_engine.merchants.find_by_id id
+  end
+
+  def inspect
+    "#<#{self.class} #{@invoices.length} rows>"
   end
 end
