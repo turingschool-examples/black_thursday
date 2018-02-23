@@ -30,10 +30,6 @@ class MerchantTest < Minitest::Test
 
   def test_items_method
     skip # stub
-    se = SalesEngine.from_csv(items: './test/fixtures/items.csv',
-                              merchants: './test/fixtures/merchants.csv')
-    parent = MerchantRepository.new('./test/fixtures/merchants.csv',
-                                    se)
     merchant = Merchant.new({ id: '2', name: '' }, parent)
 
     assert_instance_of Array, merchant.items
@@ -42,16 +38,15 @@ class MerchantTest < Minitest::Test
   end
 
   def test_invoices_method
-    skip # stub
-    se = SalesEngine.from_csv(items: './test/fixtures/items.csv',
-                              merchants: './test/fixtures/merchants.csv',
-                              invoices: './test/fixtures/invoices.csv')
-    parent = MerchantRepository.new('./test/fixtures/merchants.csv',
-                                    se)
+    parent = stub(pass_id_to_se_for_invoice: '2')
     merchant = Merchant.new({ id: '2', name: '' }, parent)
+    assert_equal merchant.invoices, parent.pass_id_to_se_for_invoice
+  end
 
-    assert_instance_of Array, merchant.invoices
-    assert_instance_of Invoice, merchant.invoices[0]
-    assert_equal 4, merchant.invoices.length
+  def test_customers_method
+    skip # need to fix test, works in spec harness
+    parent = stub(pass_customer_id_to_se: [], pass_id_to_se_for_invoice: [1,2,3])
+    merchant = Merchant.new({ id: 2, name: '' }, parent)
+    assert_equal merchant.customers, parent.pass_customer_id_to_se([])
   end
 end

@@ -1,8 +1,7 @@
 require_relative '../lib/transaction'
 require 'CSV'
-
+# transaction repository class
 class TransactionRepository
-
   def initialize(filepath, parent = nil)
     @transactions = []
     load_transactions(filepath)

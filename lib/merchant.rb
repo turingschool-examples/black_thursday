@@ -18,4 +18,9 @@ class Merchant
   def invoices
     @parent.pass_id_to_se_for_invoice(@id)
   end
+
+  def customers
+    ids = invoices.map(&:customer_id)
+    @parent.pass_customer_id_to_se(ids)
+  end
 end

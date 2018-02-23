@@ -25,18 +25,18 @@ class InvoiceItemRepository
   end
 
   def find_by_id(id)
-    @invoice_items.find { |item| item.id == id }
+    @invoice_items.find { |invoice| invoice.id == id }
   end
 
   def find_all_by_item_id(id)
-    @invoice_items.find_all do |item|
-      item.id == id
+    @invoice_items.find_all do |invoice|
+      invoice.item_id == id
     end
   end
 
   def find_all_by_invoice_id(id)
     @invoice_items.find_all do |invoice|
-      invoice.id == id
+      invoice.invoice_id == id
     end
   end
 end

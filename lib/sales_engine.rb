@@ -10,6 +10,7 @@ class SalesEngine
   attr_reader :items,
               :merchants,
               :invoices,
+              :invoice_items,
               :transactions,
               :customers
 
@@ -37,4 +38,5 @@ class SalesEngine
   def pass_id_to_invoice_repo(id)
     @invoices.find_all_by_merchant_id(id)
   end
+  
 end
