@@ -63,6 +63,7 @@ class SalesAnalyst
     end.reduce(&:+) / all_merchants.length).round(2)
   end
 
+
   def golden_items
     mean = average_average_price_per_merchant
     price_stdev = price_standard_deviation
