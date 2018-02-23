@@ -80,9 +80,9 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_get_percentage_of_status
-    assert_equal (10.0 / 18.0).round(2), @sa.invoice_status(:pending)
-    assert_equal (6.0 / 18.0).round(2), @sa.invoice_status(:shipped)
-    assert_equal (2.0 / 18.0).round(2), @sa.invoice_status(:returned)
+    assert_equal ((10.0 / 18.0) * 100).round(2), @sa.invoice_status(:pending)
+    assert_equal ((6.0 / 18.0) * 100).round(2), @sa.invoice_status(:shipped)
+    assert_equal ((2.0 / 18.0) * 100).round(2), @sa.invoice_status(:returned)
   end
 
   def test_it_can_get_average_invoices_per_merchant
