@@ -100,66 +100,65 @@ class SalesAnalyst
   def top_merchants_by_invoice_count
     top_merchants = []
     average_invoices_per_merchant_standard_deviation
-      merchants.each do |merchant|
-        if merchant.invoices.count > ((@invoice_deviation * 2) + @invoice_average)
-          top_merchants << merchant
-        end
+    merchants.each do |merchant|
+      if merchant.invoices.count > ((@invoice_deviation * 2) + @invoice_average)
+        top_merchants << merchant
       end
+    end
     top_merchants
   end
 
   def bottom_merchants_by_invoice_count
     bottom_merchants = []
     average_invoices_per_merchant_standard_deviation
-      merchants.each do |merchant|
-        if merchant.invoices.count < (@invoice_average - (@invoice_deviation * 2))
-          bottom_merchants << merchant
-        end
+    merchants.each do |merchant|
+      if merchant.invoices.count < (@invoice_average - (@invoice_deviation * 2))
+        bottom_merchants << merchant
       end
+    end
     bottom_merchants
   end
 
   def finding_number_of_invoices_per_day
     invoices_per_day = Hash.new(0)
-      invoice_dates.each do |day|
-        invoices_per_day[day] += 1
-      end
-      invoices_per_day
+    invoice_dates.each do |day|
+      invoices_per_day[day] += 1
     end
+    invoices_per_day
+  end
 
-    def invoice_dates
-      invoices.map do |invoice|
-        invoice.created_at.strftime('%A')
-      end
+  def invoice_dates
+    invoices.map do |invoice|
+      invoice.created_at.strftime('%A')
     end
+  end
 
-    def average_invoice_per_day
-      invoice_count.sum / 7.0
+  def average_invoice_per_day
+    invoice_count.reduce(:+) / 7.0
+  end
+
+  def invoice_day_deviation
+    days = finding_number_of_invoices_per_day
+    total = days.map do |day, count|
+      (count - average_invoice_per_day)**2
     end
+    Math.sqrt(total.reduce(:+) / (total.length - 1)).round(2)
+  end
 
-    def invoice_day_deviation
-      days = finding_number_of_invoices_per_day
-      total = days.map do |day, count|
-        (count - average_invoice_per_day) ** 2
-      end
-      Math.sqrt(total.sum / (total.length - 1)).round(2)
+  def top_days_by_invoice_count
+    average = average_invoice_per_day
+    deviation = invoice_day_deviation
+    days = finding_number_of_invoices_per_day
+    days.select do |day, number|
+      day if number > (deviation + average)
+    end.keys
+  end
+
+  def invoice_status(status)
+    total = 0
+    invoices.each do |invoice|
+      total += 1 if invoice.status == status
     end
-
-    def top_days_by_invoice_count
-      average = average_invoice_per_day
-      deviation = invoice_day_deviation
-      days = finding_number_of_invoices_per_day
-        days.select do |day, number|
-          day if number > (deviation + average)
-        end.keys
-    end
-
-    def invoice_status(status)
-      total = 0
-      invoices.each do |invoice|
-        total += 1 if invoice.status == status
-      end
-      ((total.to_f / invoices.count.to_f) * 100).round(2)
-    end
-
+    ((total.to_f / invoices.count.to_f) * 100).round(2)
+  end
 end

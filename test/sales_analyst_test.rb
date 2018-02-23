@@ -83,20 +83,15 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_find_standard_deviation_for_invoices_on_days
-    assert_equal 1.8888378261071894, @sa.invoice_day_deviation
+    assert_equal 1.68, @sa.invoice_day_deviation
   end
 
   def test_can_find_top_days_by_invoice_count
-    se = SalesEngine.from_csv(items: './test/fixtures/items.csv',
-                               merchants: './test/fixtures/merchants.csv',
-                               invoices: './test/fixtures:name/invoices.csv')
-    sa = SalesAnalyst.new(se)
-    binding.pry
-    assert_equal [],sa.top_days_by_invoice_count
+    assert_equal ['Friday'], @sa.top_days_by_invoice_count
   end
 
   def test_can_find_percentage_of_certain_status
-    assert_equal 55.55555555555556, @sa.invoice_status(:pending)
-    assert_equal 44.44444444444444, @sa.invoice_status(:shipped)
+    assert_equal 55.56, @sa.invoice_status(:pending)
+    assert_equal 44.44, @sa.invoice_status(:shipped)
   end
 end
