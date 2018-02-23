@@ -3,6 +3,7 @@ require_relative 'merchant_repository'
 require_relative 'item_repository'
 require_relative 'invoice_repository'
 require_relative 'invoice_item_repository'
+require_relative 'transaction_repository'
 
 
 class SalesEngine
@@ -15,7 +16,7 @@ class SalesEngine
     @items = ItemRepository.new(hash[:items], self)
     @merchants = MerchantRepository.new(hash[:merchants], self)
     @invoices = InvoiceRepository.new(hash[:invoices], self)
-    @invoice_items = InvoiceItemRepository.new(hash[:invoice_items], self),
+    @invoice_items = InvoiceItemRepository.new(hash[:invoice_items], self)
     @transactions = TransactionRepository.new(hash[:transactions], self)
   end
 
