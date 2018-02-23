@@ -1,3 +1,4 @@
+require_relative 'test_helper'
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/merchant_repository'
@@ -85,6 +86,11 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_pass_to_se_methods
-    skip # stub
+    skip
+  parent = mock
+  parent.stubs(:find_all_by_customer_id).returns('customer')
+  merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv',
+                                          parent)
+  assert_equal merchant_repo.pass_customer_id_to_se(2), parent.invoices.find_all_by_customer_id(2)
   end
 end
