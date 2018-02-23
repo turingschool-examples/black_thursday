@@ -175,6 +175,14 @@ class SalesAnalyst
       day_hash[day] = array.length
     end
 
+    day_values = day_hash.values
+    day_values.concat Array.new(7 - day_values.length, 0)
 
+    avg = day_values.reduce(:+) / day_values.length.to_f
+    deviation = StandardDeviation.calculate day_values
+
+    day_hash.select do |_day, num_invoices|
+      num_invoices >= avg + deviation
+    end.keys
   end
 end
