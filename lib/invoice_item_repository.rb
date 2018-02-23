@@ -2,7 +2,7 @@ require 'csv'
 require_relative 'invoice_item'
 
 class InvoiceItemRepository
-  def initialize(filepath, parent)
+  def initialize(filepath= nil, parent = nil)
     @invoice_items = []
     @parent = parent
     load_items(filepath)
