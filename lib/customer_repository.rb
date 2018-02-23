@@ -30,15 +30,15 @@ class CustomerRepository
     end
   end
 
-  def find_by_first_name(name)
+  def find_all_by_first_name(name)
     @customers.find_all do |customer|
-      customer.first_name == name
+      customer.first_name.downcase.include?(name.downcase)
     end
   end
 
-  def find_by_last_name(name)
+  def find_all_by_last_name(name)
     @customers.find_all do |customer|
-      customer.last_name == name
+      customer.last_name.downcase.include?(name.downcase)
     end
   end
 end

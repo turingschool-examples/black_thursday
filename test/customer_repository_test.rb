@@ -23,12 +23,12 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_can_find_by_first_name
-    assert_equal [], @customer_repo.find_by_first_name('Alex')
-    assert_equal 1, @customer_repo.find_by_first_name('Joey').count
+    assert_equal [], @customer_repo.find_all_by_first_name('Alex')
+    assert_equal 1, @customer_repo.find_all_by_first_name('Joey').count
   end
 
   def test_can_find_by_last_name
-    assert_equal [], @customer_repo.find_by_last_name('Cutschall')
-    assert_equal 1, @customer_repo.find_by_last_name('Ondricka').count
+    assert_equal [], @customer_repo.find_all_by_last_name('Cutschall')
+    assert_equal 1, @customer_repo.find_all_by_last_name('Ondricka').count
   end
 end
