@@ -43,8 +43,8 @@ class CustomerTest < Minitest::Test
       }, @sales_engine.customers)
 
     assert_equal 12, customer2.id
-    assert_equal "Bob", customer2.description
-    assert_equal "Hope", customer2.unit_price
+    assert_equal "Bob", customer2.first_name
+    assert_equal "Hope", customer2.last_name
     assert_instance_of Time, customer2.created_at
     assert_instance_of Time, customer2.updated_at
   end

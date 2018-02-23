@@ -4,7 +4,8 @@ class TestEngine
     items: './test/fixtures/items.csv',
     merchants: './test/fixtures/merchants_fix.csv',
     invoices: './test/fixtures/invoices.csv',
-    invoice_items: './test/fixtures/invoice_items.csv'
+    invoice_items: './test/fixtures/invoice_items.csv',
+    customers: 'test/fixtures/customers.csv'
     }
   end
 

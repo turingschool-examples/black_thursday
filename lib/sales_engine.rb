@@ -3,10 +3,11 @@ require_relative 'merchant_repository'
 require_relative 'item_repository'
 require_relative 'invoice_repository'
 require_relative 'invoice_item_repository'
+require_relative 'customer_repository'
 
 
 class SalesEngine
-  attr_reader :items, :merchants, :invoices, :invoice_items
+  attr_reader :items, :merchants, :invoices, :invoice_items, :customers
   def self.from_csv(hash)
     SalesEngine.new(hash)
   end
@@ -16,6 +17,7 @@ class SalesEngine
     @merchants = MerchantRepository.new(hash[:merchants], self)
     @invoices = InvoiceRepository.new(hash[:invoices], self)
     @invoice_items = InvoiceItemRepository.new(hash[:invoice_items], self)
+    @customers = CustomerRepository.new(hash[:customers], self)
   end
 
   def item_repo_finds_all_by_merchant_id(id)
