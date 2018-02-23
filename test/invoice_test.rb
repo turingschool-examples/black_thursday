@@ -1,6 +1,7 @@
 require_relative 'test_helper'
 require_relative '../lib/invoice_repository'
 require_relative '../lib/invoice'
+require_relative '../lib/invoice_item'
 require_relative '../lib/sales_engine'
 require 'bigdecimal'
 require 'pry'
@@ -35,7 +36,7 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_it_can_return_merchant_class
-    skip # stub
+    skip
     se = SalesEngine.from_csv(items: './test/fixtures/items.csv',
                               merchants: './test/fixtures/merchants.csv',
                               invoices: './test/fixtures/invoices.csv')
@@ -50,5 +51,19 @@ class InvoiceTest < Minitest::Test
 
     assert_instance_of Merchant, invoice.merchant
     assert_equal invoice.merchant.id, invoice.merchant_id
+  end
+
+  def test_it_can_get_invoice_items
+    se = SalesEngine.from_csv(items:         './test/fixtures/items.csv',
+                              merchants:     './test/fixtures/merchants.csv',
+                              invoices:      './test/fixtures/invoices.csv',
+                              invoice_items: './test/fixtures/invoice_items.csv',
+                              transactions:  './test/fixtures/transactions.csv',
+                              customers:     './test/fixtures/invoices.csv')
+    parent = InvoiceRepository.new('./test/fixtures/invoices.csv', se)
+    invoice = se.invoices.find_by_id(1)
+
+    assert_instance_of InvoiceItem, invoice.items.first
+    assert_equal 1, invoice.items.first.id
   end
 end

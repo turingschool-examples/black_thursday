@@ -24,4 +24,8 @@ class Invoice
   def merchant
     @parent.pass_merchant_id_to_se_for_invoice(@merchant_id)
   end
+
+  def items
+    @parent.pass_id_to_se_for_item(@id)
+  end
 end

@@ -62,4 +62,5 @@ class ItemRepository
   def pass_merchant_id_to_se(id)
     @parent.pass_merchant_id_to_merchant_repo(id)
   end
+
 end
