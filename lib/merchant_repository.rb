@@ -46,4 +46,10 @@ class MerchantRepository
   def pass_id_to_se_for_invoice(id)
     @parent.pass_id_to_invoice_repo(id)
   end
+
+  def pass_customer_id_to_se(ids)
+    ids.map do |id|
+      @parent.customers.find_by_id(id)
+    end.uniq
+  end
 end
