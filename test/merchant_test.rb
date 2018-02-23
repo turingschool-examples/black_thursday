@@ -37,4 +37,16 @@ class MerchantTest < Minitest::Test
       assert_instance_of Mocha::Mock, item
     end
   end
+
+  def test_it_asks_parent_for_invoices
+    invoice_1 = mock
+    invoice_2 = mock
+    mock_repo = stub(invoices: [invoice_1, invoice_2])
+    merchant = Merchant.new({ id: 3, name: 'ASU' }, mock_repo)
+
+    assert_equal 2, merchant.invoices.length
+    merchant.invoices.each do |invoice|
+      assert_instance_of Mocha::Mock, invoice
+    end
+  end
 end

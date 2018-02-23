@@ -8,7 +8,10 @@ class MerchantRepositoryTest < Minitest::Test
     file_name = './data/sample_data/merchants.csv'
     mock_item_one = mock('Item')
     mock_item_two = mock('Item')
-    mock_se = stub(find_merchant_items: [mock_item_one, mock_item_two])
+    invoice_1     = mock
+    invoice_2     = mock
+    mock_se = stub(find_merchant_items: [mock_item_one, mock_item_two],
+                   find_merchant_invoices: [invoice_1, invoice_2])
     @merch_repo = MerchantRepository.new(file_name, mock_se)
   end
 
@@ -53,6 +56,13 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 2, @merch_repo.items('id').length
     @merch_repo.items('id').each do |item|
       assert_instance_of Mocha::Mock, item
+    end
+  end
+
+  def test_it_asks_parent_for_invoices
+    assert_equal 2, @merch_repo.invoices('id').length
+    @merch_repo.items('id').each do |invoice|
+      assert_instance_of Mocha::Mock, invoice
     end
   end
 

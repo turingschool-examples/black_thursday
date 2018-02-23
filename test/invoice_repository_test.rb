@@ -5,8 +5,9 @@ require './lib/searching'
 
 class InvoiceRepositoryTest < Minitest::Test
   def setup
-    file_name = './data/sample_data/invoices.csv'
-    @invoice_repo = InvoiceRepository.new(file_name)
+    file_name     = './data/sample_data/invoices.csv'
+    sales_eng     = mock
+    @invoice_repo = InvoiceRepository.new(file_name, sales_eng)
   end
 
   def test_it_exists
@@ -20,10 +21,11 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_customer_id
+    # binding.pry
     assert_equal [], @invoice_repo.find_all_by_customer_id('20')
-    assert_instance_of Array, @invoice_repo.find_all_by_customer_id('1')
-    assert_instance_of Invoice, @invoice_repo.find_all_by_customer_id('1')[0]
-    assert_equal 'shipped', @invoice_repo.find_all_by_customer_id('1')[0].status
+    assert_instance_of Array, @invoice_repo.find_all_by_customer_id(1)
+    assert_instance_of Invoice, @invoice_repo.find_all_by_customer_id(1)[0]
+    assert_equal 'shipped', @invoice_repo.find_all_by_customer_id(1)[0].status
   end
 
   def test_it_can_find_all_by_status
