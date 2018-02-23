@@ -74,6 +74,6 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_can_get_merchant
-    assert_equal 'GoldenRayPress', @invoice_repo.merchant(7)
+    assert_equal 'GoldenRayPress', @invoice_repo.merchant(7).name
   end
 end

@@ -21,6 +21,6 @@ class Invoice
   end
 
   def merchant
-    @invoice_repository.merchant @id
+    @invoice_repository.merchant @merchant_id
   end
 end
