@@ -165,24 +165,35 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-    res = @sales_engine.invoices.all.map do |invoice|
+    count = count_days invoice_days
+    days_array = invoices_by_day count
+
+    avg = days_array.reduce(:+) / days_array.length.to_f
+    deviation = StandardDeviation.calculate days_array
+
+    count.select do |_day, num_invoices|
+      num_invoices >= avg + deviation
+    end.keys
+  end
+
+  def invoice_days
+    @sales_engine.invoices.all.map do |invoice|
       invoice.created_at.strftime '%A'
     end
+  end
 
-    res = res.group_by { |day| day }
+  def count_days(days)
+    grouped = days.group_by { |day| day }
     day_hash = {}
-    res.each do |day, array|
+    grouped.each do |day, array|
       day_hash[day] = array.length
     end
 
-    day_values = day_hash.values
+    day_hash
+  end
+
+  def invoices_by_day(days)
+    day_values = days.values
     day_values.concat Array.new(7 - day_values.length, 0)
-
-    avg = day_values.reduce(:+) / day_values.length.to_f
-    deviation = StandardDeviation.calculate day_values
-
-    day_hash.select do |_day, num_invoices|
-      num_invoices >= avg + deviation
-    end.keys
   end
 end
