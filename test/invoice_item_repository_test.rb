@@ -42,7 +42,17 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_it_can_find_all_invoice_items_by_invoice_id
     result = @invoice_item_repository.find_all_by_invoice_id(1)
-    
+
+    result_nil = @invoice_item_repository.find_all_by_invoice_id(1_989)
+
+    assert_equal 8, result.length
+    assert_instance_of InvoiceItem, result[0]
+    assert result_nil.empty?
+  end
+
+  def test_it_can_find_all_invoice_items_by_invoice_id
+    result = @invoice_item_repository.find_all_by_invoice_id(1)
+
     result_nil = @invoice_item_repository.find_all_by_invoice_id(1_989)
 
     assert_equal 8, result.length
