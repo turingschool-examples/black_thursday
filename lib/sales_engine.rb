@@ -33,4 +33,8 @@ class SalesEngine
   def engine_finds_merchant_via_merchant_repo(id)
     @merchants.find_by_id(id)
   end
+
+  def engine_finds_items_via_invoice_items_repo(id)
+    @invoice_items.find_all_by_invoice_id(id)
+  end
 end

@@ -11,8 +11,8 @@ class InvoiceItem
 
   def initialize(data, parent)
     @id = data[:id].to_i
-    @item_id = data[:item_id]
-    @invoice_id = data[:invoice_id]
+    @item_id = data[:item_id].to_i
+    @invoice_id = data[:invoice_id].to_i
     @quantity = data[:quantity]
     @unit_price  = BigDecimal.new(data[:unit_price], 4)/100
     @created_at  = Time.parse(data[:created_at])
@@ -23,8 +23,4 @@ class InvoiceItem
   def unit_price_to_dollars
     (@unit_price.to_f)
   end
-
-  # def merchant
-  #   @parent.item_repo_goes_to_sales_engine_with_merchant_id(self.merchant_id)
-  # end
 end

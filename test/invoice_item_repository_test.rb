@@ -9,7 +9,6 @@ class InvoiceItemRepositoryTest < Minitest::Test
     test_engine = TestEngine.new.god_hash
     sales_engine = SalesEngine.new(test_engine)
     @invoice_item_repository = sales_engine.invoice_items
-    binding.pry
   end
 
   def test_it_exists
@@ -33,21 +32,21 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_it_can_find_all_invoice_items_by_item_id
     result = @invoice_item_repository.find_all_by_item_id(263_529_264)
-    # binding.pry
-    result_nil = @invoice_item_repository.find_all_by_item_id(25)
+
+    result_nil = @invoice_item_repository.find_all_by_item_id(55)
 
     assert_equal 2, result.length
     assert_instance_of InvoiceItem, result[0]
-    assert_nil result_nil
+    assert result_nil.empty?
   end
 
   def test_it_can_find_all_invoice_items_by_invoice_id
-    result = @invoice_item_repository.find_all_by_invoice_id(78_660)
-
+    result = @invoice_item_repository.find_all_by_invoice_id(1)
+    
     result_nil = @invoice_item_repository.find_all_by_invoice_id(1_989)
 
-    assert_equal 2, result.length
+    assert_equal 8, result.length
     assert_instance_of InvoiceItem, result[0]
-    assert_nil result_nil
+    assert result_nil.empty?
   end
 end

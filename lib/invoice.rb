@@ -15,4 +15,8 @@ class Invoice
   def merchant
     @parent.invoice_repo_finds_merchant_via_engine(self.merchant_id)
   end
+
+  def items
+    @parent.invoice_repo_finds_items_via_engine(self.id)
+  end
 end
