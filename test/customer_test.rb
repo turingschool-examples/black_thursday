@@ -22,4 +22,29 @@ class CustomerTest < Minitest::Test
     assert_instance_of Time, @customer.created_at
     assert_instance_of Time, @customer.updated_at
   end
+
+  def test_invoices_method
+    parent = mock
+    parent.stubs(:pass_customer_id_to_se).returns([])
+    customer = Customer.new({ id: 6,
+                              first_name: 'Joan',
+                              last_name: 'Clarke',
+                              created_at: Time.now,
+                              updated_at: Time.now }, parent)
+
+    assert_equal customer.invoices, parent.pass_customer_id_to_se
+  end
+
+  def test_merchants_methods
+    parent = mock
+    invoice = mock
+    parent.stubs(:pass_customer_id_to_se).returns([invoice])
+    invoice.stubs(:merchant_id).returns(2)
+    customer = Customer.new({ id: 6,
+                              first_name: 'Joan',
+                              last_name: 'Clarke',
+                              created_at: Time.now,
+                              updated_at: Time.now }, parent)
+    assert_equal customer.invoices, parent.pass_customer_id_to_se
+  end
 end
