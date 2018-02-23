@@ -48,9 +48,9 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_se_finds_merchant_by_invoice_id
-    skip
-    invoice = @sales_eng.invoices.find_by_id(20)
+    invoice = @sales_eng.invoices.find_by_id(2)
 
     assert_instance_of Merchant, invoice.merchant
+    assert_equal 12334753, invoice.merchant.merchant_id
   end
 end
