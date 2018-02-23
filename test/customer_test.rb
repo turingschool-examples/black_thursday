@@ -4,8 +4,6 @@ require_relative '../lib/customer'
 require_relative '../lib/sales_engine'
 require_relative './master_hash'
 
-
-
 class CustomerTest < Minitest::Test
   def setup
     test_engine = TestEngine.new.god_hash
