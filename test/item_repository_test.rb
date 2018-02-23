@@ -77,7 +77,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_inspect
-    assert_equal @item_repo, @item_repo.inspect
-    refute @merch_repo.inspect.to_s.length > 50
+    expected = '#<ItemRepository 10 rows>'
+    assert_equal expected, @item_repo.inspect
   end
 end

@@ -35,6 +35,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_asks_parent_for_merchant
+
   end
 
   def test_inspect

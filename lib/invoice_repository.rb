@@ -6,14 +6,12 @@ class InvoiceRepository
   include Searching
   attr_reader :all
 
-  def initialize(file_path, sales_engine)
-    @file_path    = file_path
-    @all          = add_invoices
-    @sales_engine = sales_engine
+  def initialize(file_path)
+    @all = from_csv(file_path)
   end
 
-  def add_invoices
-    data.map { |row| Invoice.new(row, self) }
+  def add_elements(data)
+    data.map { |row| Invoice.new(row) }
   end
 
   def find_all_by_customer_id(id)
@@ -32,6 +30,6 @@ class InvoiceRepository
   end
 
   def inspect
-    self
+    "#<#{self.class} #{@all.length} rows>"
   end
 end

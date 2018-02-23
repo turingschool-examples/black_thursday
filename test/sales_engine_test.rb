@@ -8,7 +8,8 @@ class SalesEngineTest < Minitest::Test
     @sales_eng = SalesEngine.from_csv(
       items:     './data/sample_data/items.csv',
       merchants: './data/sample_data/merchants.csv',
-      invoices: './data/sample_data/invoices.csv'
+      invoices: './data/sample_data/invoices.csv',
+      transactions: './data/sample_data/transactions.csv'
     )
   end
 
@@ -52,5 +53,12 @@ class SalesEngineTest < Minitest::Test
 
     assert_instance_of Merchant, invoice.merchant
     assert_equal 12334753, invoice.merchant.merchant_id
+  end
+
+  def test_sales_engine_can_find_transactions_invoice
+    transaction = @sales_eng.transactions.find_by_id(2)
+
+    assert_instance_of Invoice, transaction.invoice
+    assert_equal 46, transaction.invoice.id
   end
 end
