@@ -134,7 +134,7 @@ class SalesAnalyst
     end
 
     def average_invoice_per_day
-      @average_days = invoice_count.sum / 7.0
+      invoice_count.sum / 7.0
     end
 
     def invoice_day_deviation
@@ -142,11 +142,10 @@ class SalesAnalyst
       total = days.map do |day, count|
         (count - average_invoice_per_day) ** 2
       end
-      @days_deviation = Math.sqrt(total.sum / (total.length - 1)).round(2)
+      Math.sqrt(total.sum / (total.length - 1)).round(2)
     end
 
     def top_days_by_invoice_count
-      days = finding_number_of_invoices_per_day
       average = average_invoice_per_day
       deviation = invoice_day_deviation
       days = finding_number_of_invoices_per_day
