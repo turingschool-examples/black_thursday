@@ -21,7 +21,7 @@ class SalesAnalyst
   def standard_deviation(mean, data_set)
     squared_distance_sum = data_set.map do |data_point|
       (data_point - mean.to_f.abs) ** 2
-    end.sum
+    end.reduce(&:+)
 # binding.pry
     ((squared_distance_sum/((data_set.length) -1 )) ** 0.5).round(2)
   end
@@ -50,16 +50,17 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(merch_id)
     merch_items = engine.merchants.find_by_id(merch_id).items
+    return 0 if merch_items.empty?
     (merch_items.map do |item|
       item.unit_price.truncate(2)
-    end.sum / merch_items.length).round(2)
+    end.reduce(:+) / merch_items.length).round(2)
   end
 
   def average_average_price_per_merchant
     all_merchants = merchant_collector
     (all_merchants.map do |merchant|
       average_item_price_for_merchant(merchant.id)
-    end.sum / all_merchants.length).round(2)
+    end.reduce(&:+) / all_merchants.length).round(2)
   end
 
 
@@ -143,7 +144,6 @@ class SalesAnalyst
     standard_deviation = average_invoices_per_weekday_standard_deviation
 
     show_wkdays.each do |key, value|
-      # binding.pry
       if (value - mean) > standard_deviation
         return [] << key
       end

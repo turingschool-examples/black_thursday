@@ -46,7 +46,11 @@ class InvoiceRepository
     @parent.engine_finds_merchant_via_merchant_repo(id)
   end
 
+  def invoice_repo_finds_items_via_engine(id)
+    @parent.engine_finds_items_via_invoice_items_repo(id)
+  end
+
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{@invoice_items.size} rows>"
   end
 end

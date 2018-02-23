@@ -78,7 +78,6 @@ class InvoiceRepositoryTest < Minitest::Test
     result_nil = invoice_repository.find_all_by_status('in space')
 
     assert_instance_of Array, result
-    # assert result.length == 8
     assert result_nil.empty?
   end
 end

@@ -57,4 +57,11 @@ class ItemTest < Minitest::Test
     assert_equal 10.99, item.unit_price_to_dollars
   end
 
+  def test_item_merchant_returns_merchant
+    item = @sales_engine.items.find_by_id(263395237)
+    result = item.merchant
+
+    assert_instance_of Merchant, result
+  end
+
 end
