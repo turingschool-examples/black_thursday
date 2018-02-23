@@ -1,8 +1,6 @@
 require_relative 'test_helper'
 require_relative '../lib/item'
 require_relative '../lib/item_repository'
-require_relative '../lib/merchant'
-require_relative '../lib/sales_engine'
 require 'bigdecimal'
 require 'pry'
 
@@ -57,18 +55,8 @@ class ItemTest < Minitest::Test
   end
 
   def test_merchant_method_sends_to_repo
-    skip #create a stub
-    se = SalesEngine.from_csv(items: './test/fixtures/items.csv',
-                              merchants: './test/fixtures/merchants.csv',
-                              invoices: './test/fixtures/invoices.csv',
-                              invoice_items: './test/fixtures/invoice_items.csv',
-                              transactions: './test/fixtures/transactions.csv',
-                              customers: './test/fixtures/customers.csv'
-                              )
-    parent = ItemRepository.new('./test/fixtures/items.csv', se)
+    parent = stub(pass_merchant_id_to_se: 2)
     item = Item.new(@data, parent)
-
-    assert_instance_of Merchant, item.merchant
-    assert_equal item.merchant.id, item.merchant_id
+    assert_equal item.merchant, parent.pass_merchant_id_to_se
   end
 end
