@@ -10,6 +10,7 @@ class SalesEngine
   attr_reader :items,
               :merchants,
               :invoices,
+              :invoice_items,
               :transactions,
               :customers
 
