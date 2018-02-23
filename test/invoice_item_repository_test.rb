@@ -1,7 +1,5 @@
 require './test/test_helper'
 require './lib/invoice_item_repository'
-require './lib/sales_engine'
-require './lib/searching'
 
 class InvoiceItemRepositoryTest < Minitest::Test
   def setup
@@ -14,8 +12,8 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_finds_by_item_id
-    assert_instance_of Array, @invoice_item_repo.all
-    assert_nil @invoice_item_repo.find_all_by_item_id(10)
-    # assert_instance_of Invoice, @invoice_repo.find_by_id(4)
+    assert_instance_of Array, @invoice_item_repo.find_all_by_item_id(10)
+    assert_equal 0, @invoice_item_repo.find_all_by_item_id(10).length
+    assert_equal 1, @invoice_item_repo.find_all_by_item_id(263454779).length
   end
 end
