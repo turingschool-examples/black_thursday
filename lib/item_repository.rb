@@ -37,6 +37,6 @@ class ItemRepository
   end
 
   def inspect
-    self
+    "#<#{self.class} #{@all.length} rows>"
   end
 end
