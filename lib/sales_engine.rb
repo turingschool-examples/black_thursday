@@ -51,4 +51,7 @@ class SalesEngine
     @customers.find_by_id(id)
   end
 
+  def pass_id_for_invoice(id)
+    @invoices.find_by_id(id)
+  end
 end

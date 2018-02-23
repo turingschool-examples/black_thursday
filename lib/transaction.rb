@@ -19,4 +19,8 @@ class Transaction
     @updated_at                  = Time.parse(data[:updated_at].to_s)
     @parent                      = parent
   end
+
+  def invoice
+    @parent.pass_id_to_se_for_invoice(@invoice_id)
+  end
 end
