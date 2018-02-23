@@ -1,7 +1,7 @@
 require_relative 'searching'
 require_relative 'invoice'
 
-# Repository for handling and storing invoice items
+# Repository for handling and storing invoices
 class InvoiceRepository
   include Searching
   attr_reader :all

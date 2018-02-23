@@ -37,4 +37,18 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of Merchant, item.merchant
     assert_equal 123_341_05, item.merchant.id
   end
+
+  def test_se_finds_invoices_by_merchant_id
+    merchant = @sales_eng.merchants.find_by_id(12335938)
+    assert_instance_of Invoice, merchant.invoices[0]
+    assert_equal 'pending', merchant.invoices[0].status
+    assert_equal 1, merchant.invoices[0].id
+  end
+
+  def test_se_finds_merchant_by_invoice_id
+    skip
+    invoice = @sales_eng.invoices.find_by_id(20)
+    assert_instance_of Merchant, invoice.merchant
+    assert_equal
+  end
 end
