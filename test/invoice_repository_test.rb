@@ -6,7 +6,8 @@ require './lib/searching'
 class InvoiceRepositoryTest < Minitest::Test
   def setup
     file_name     = './data/sample_data/invoices.csv'
-    sales_eng     = mock
+    merchant      = mock
+    sales_eng     = stub(find_invoice_merchant: merchant)
     @invoice_repo = InvoiceRepository.new(file_name, sales_eng)
   end
 
@@ -35,7 +36,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_asks_parent_for_merchant
-
+    assert_instance_of Mocha::Mock, @invoice_repo.merchant('id')
   end
 
   def test_inspect

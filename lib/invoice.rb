@@ -19,6 +19,6 @@ class Invoice
   end
 
   def merchant
-    @parent.merchant(@id)
+    @parent.merchant(@merchant_id)
   end
 end

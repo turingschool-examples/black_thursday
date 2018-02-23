@@ -6,10 +6,10 @@ require 'pry'
 class SalesEngineTest < Minitest::Test
   def setup
     @sales_eng = SalesEngine.from_csv(
-      items:     './data/sample_data/items.csv',
+          items: './data/sample_data/items.csv',
       merchants: './data/sample_data/merchants.csv',
-      invoices: './data/sample_data/invoices.csv',
-      transactions: './data/sample_data/transactions.csv'
+       invoices: './data/sample_data/invoices.csv',
+   transactions: './data/sample_data/transactions.csv'
     )
   end
 
@@ -44,15 +44,15 @@ class SalesEngineTest < Minitest::Test
     merchant = @sales_eng.merchants.find_by_id(12334105)
 
     assert_instance_of Invoice, merchant.invoices[0]
-    assert_equal 'pending', merchant.invoices[0].status
-    assert_equal 4, merchant.invoices[0].id
+    assert_equal 'shipped', merchant.invoices[0].status
+    assert_equal 46, merchant.invoices[0].id
   end
 
   def test_se_finds_merchant_by_invoice_id
     invoice = @sales_eng.invoices.find_by_id(2)
 
     assert_instance_of Merchant, invoice.merchant
-    assert_equal 12334753, invoice.merchant.merchant_id
+    assert_equal 12334115, invoice.merchant.id
   end
 
   def test_sales_engine_can_find_transactions_invoice

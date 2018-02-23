@@ -28,6 +28,7 @@ class InvoiceRepository
   end
 
   def merchant(id)
+    @sales_eng.find_invoice_merchant(id)
   end
 
   def inspect
