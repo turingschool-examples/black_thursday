@@ -10,8 +10,8 @@ class InvoiceTest < Minitest::Test
                            customer_id: 7,
                            merchant_id: 8,
                            status: 'pending',
-                           created_at: Time.parse('1969-07-20 20:17:40 - 0600'),
-                           updated_at: Time.parse('1969-07-20 20:17:40 - 0600')},
+                           created_at: '1969-07-20 20:17:40 - 0600',
+                           updated_at: '1969-07-20 20:17:40 - 0600'},
                            invoice_repo)
 
   end
@@ -34,7 +34,7 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_it_returns_status
-    assert_equal 'pending', @invoice.status
+    assert_equal :pending, @invoice.status
   end
 
   def test_it_returns_a_time_when_created

@@ -9,8 +9,7 @@ class SalesEngineTest < Minitest::Test
           items: './data/sample_data/items.csv',
       merchants: './data/sample_data/merchants.csv',
        invoices: './data/sample_data/invoices.csv',
-   transactions: './data/sample_data/transactions.csv'
-    )
+   transactions: './data/sample_data/transactions.csv')
   end
 
   def test_sales_engine_class_exists
@@ -44,7 +43,7 @@ class SalesEngineTest < Minitest::Test
     merchant = @sales_eng.merchants.find_by_id(12334105)
 
     assert_instance_of Invoice, merchant.invoices[0]
-    assert_equal 'shipped', merchant.invoices[0].status
+    assert_equal :shipped, merchant.invoices[0].status
     assert_equal 46, merchant.invoices[0].id
   end
 
