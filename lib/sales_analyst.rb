@@ -56,8 +56,27 @@ class SalesAnalyst
   end
 
   def golden_items
-    std_dev = average_items_per_merchant_standard_deviation
-    @se.items.all.find_all { |item| item.unit_price >= (std_dev * 2) }
+    item_array = @se.items.all
+    mean = avg_item_price(item_array)
+    std_dev = std_dev_item_price(mean, item_array)
+    item_array.find_all { |item| item.unit_price > ((std_dev * 2) + mean) }
+  end
+
+  def avg_item_price(item_array)
+    avg = 0
+    item_array.each do |item|
+      avg += item.unit_price
+    end
+    avg /= item_array.length
+  end
+
+  def std_dev_item_price(mean, item_array)
+    std_dev = 0
+    item_array.each do |item|
+      std_dev += (item.unit_price - mean)**2
+    end
+    std_dev /= item_array.length - 1
+    Math.sqrt(std_dev).round(2)
   end
 
 end
