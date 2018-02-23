@@ -8,7 +8,7 @@ class ItemRepositoryTest < Minitest::Test
     file_path  = './data/sample_data/items.csv'
     item_1     = mock
     item_2     = mock
-    sales_eng  = stub(items: [item_1, item_2])
+    sales_eng  = stub(find_item_merchant: [item_1, item_2])
     @item_repo = ItemRepository.new(file_path, sales_eng)
   end
 
@@ -73,7 +73,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_asks_parent_for_items
-    assert_instance_of Mocha::Mock, @item_repo.merchant('id')
+    assert_instance_of Mocha::Mock, @item_repo.merchant('id')[0]
   end
 
   def test_inspect

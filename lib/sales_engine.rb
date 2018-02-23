@@ -13,7 +13,7 @@ class SalesEngine
   def initialize(repositories)
     @items     = ItemRepository.new(repositories[:items], self)
     @merchants = MerchantRepository.new(repositories[:merchants], self)
-    @invoices = InvoiceRepository.new(repositories[:invoices])
+    @invoices = InvoiceRepository.new(repositories[:invoices], self)
     @transactions = TransactionRepository.new(repositories[:transactions], self)
   end
 

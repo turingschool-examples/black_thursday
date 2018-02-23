@@ -39,7 +39,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_inspect
-    assert_equal @invoice_repo, @invoice_repo.inspect
-    refute @invoice_repo.inspect.to_s.length > 50
+    expected = '#<InvoiceRepository 4 rows>'
+    assert_equal expected, @invoice_repo.inspect
   end
 end
