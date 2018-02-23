@@ -6,13 +6,12 @@ class ItemRepository
   include Searching
   attr_reader :all
 
-  def initialize(file_path, sales_engine)
-    @file_path = file_path
-    @all = add_items
+  def initialize(file_path, sales_engine = nil)
+    @all = from_csv(file_path)
     @sales_engine = sales_engine
   end
 
-  def add_items
+  def add_elements(data)
     data.map { |row| Item.new(row, self) }
   end
 
@@ -37,6 +36,6 @@ class ItemRepository
   end
 
   def inspect
-    self
+    "#<#{self.class} #{@all.length} rows>"
   end
 end
