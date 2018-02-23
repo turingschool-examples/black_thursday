@@ -81,4 +81,18 @@ class InvoiceTest < Minitest::Test
     assert_instance_of Transaction, invoice.transactions.first
     assert_equal 1, invoice.transactions.first.id
   end
+
+  def test_it_can_get_transactions
+    se = SalesEngine.from_csv(items:         './test/fixtures/items.csv',
+                              merchants:     './test/fixtures/merchants.csv',
+                              invoices:      './test/fixtures/invoices.csv',
+                              invoice_items: './test/fixtures/invoice_items.csv',
+                              transactions:  './test/fixtures/transactions_test.csv',
+                              customers:     './test/fixtures/invoices.csv')
+    parent = InvoiceRepository.new('./test/fixtures/invoices.csv', se)
+    invoice = se.invoices.find_by_id(1)
+
+    assert_instance_of Customer, invoice.customer
+    assert_equal 1, invoice.transactions.first.id
+  end
 end

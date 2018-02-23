@@ -46,4 +46,9 @@ class SalesEngine
   def pass_id_to_transaction_repo(id)
     @transactions.find_all_by_invoice_id(id)
   end
+
+  def pass_id_to_customer_repo(id)
+    @customers.find_by_id(id)
+  end
+
 end

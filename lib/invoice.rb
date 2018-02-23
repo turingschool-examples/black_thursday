@@ -32,4 +32,8 @@ class Invoice
   def transactions
     @parent.pass_id_to_se_for_transaction(@id)
   end
+
+  def customer
+    @parent.pass_id_to_se_for_customer(@customer_id)
+  end
 end
