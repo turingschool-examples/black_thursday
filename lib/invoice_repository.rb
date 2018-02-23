@@ -28,6 +28,9 @@ class InvoiceRepository
     end
   end
 
+  def merchant(id)
+  end
+
   def inspect
     self
   end

@@ -34,6 +34,9 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 2, @invoice_repo.find_all_by_status('shipped').length
   end
 
+  def test_it_asks_parent_for_merchant
+  end
+
   def test_inspect
     assert_equal @invoice_repo, @invoice_repo.inspect
     refute @invoice_repo.inspect.to_s.length > 50

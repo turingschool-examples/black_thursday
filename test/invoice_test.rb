@@ -4,7 +4,8 @@ require './lib/invoice'
 # Tests the invoice class
 class InvoiceTest < Minitest::Test
   def setup
-    invoice_repo = mock
+    merchant     = mock
+    invoice_repo = stub(merchant: merchant)
     @invoice = Invoice.new({id: 6,
                            customer_id: 7,
                            merchant_id: 8,
@@ -45,7 +46,6 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_it_asks_parent_for_merchant
-
     assert_instance_of Mocha::Mock, @invoice.merchant
   end
 end
