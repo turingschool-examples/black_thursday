@@ -31,4 +31,11 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal [], @customer_repo.find_all_by_last_name('Cutschall')
     assert_equal 1, @customer_repo.find_all_by_last_name('Ondricka').count
   end
+
+  def test_it_can_pass_customer_id
+    parent = mock
+    parent.stubs(:pass_customer_id_to_invoices).returns('invoice')
+    customer_repo = CustomerRepository.new('./test/fixtures/customers.csv', parent)
+    assert_equal customer_repo.pass_customer_id_to_se(2), parent.pass_customer_id_to_invoices(2)
+  end
 end

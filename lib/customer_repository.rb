@@ -41,4 +41,12 @@ class CustomerRepository
       customer.last_name.downcase.include?(name.downcase)
     end
   end
+
+  def pass_customer_id_to_se(id)
+    @parent.pass_customer_id_to_invoices(id)
+  end
+
+  def pass_merchant_id_to_se(merchant_id)
+    @parent.pass_merchant_id_to_merchant_repo(merchant_id)
+  end
 end
