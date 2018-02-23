@@ -19,7 +19,7 @@ class InvoiceRepository
       headers: true,
       header_converters: :symbol
     ) do |data|
-      @invoices << Invoice.new(data)
+      @invoices << Invoice.new(data, self)
     end
   end
 

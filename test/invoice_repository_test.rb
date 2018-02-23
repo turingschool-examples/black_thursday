@@ -72,4 +72,8 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_it_overrides_inspect
     assert_equal '#<InvoiceRepository 18 rows>', @invoice_repo.inspect
   end
+
+  def test_can_get_merchant
+    assert_equal 'GoldenRayPress', @invoice_repo.merchant(7)
+  end
 end
