@@ -28,4 +28,8 @@ class Invoice
   def items
     @parent.pass_id_to_se_for_item(@id)
   end
+
+  def transactions
+    @parent.pass_id_to_se_for_transaction(@id)
+  end
 end
