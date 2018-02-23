@@ -12,7 +12,8 @@ class SalesEngineTest < Minitest::Test
     @se = SalesEngine.from_csv(
       items: './test/fixtures/items.csv',
       merchants: './test/fixtures/merchants.csv',
-      invoices: './test/fixtures/invoices.csv'
+      invoices: './test/fixtures/invoices.csv',
+      transactions: './test/fixtures/transactions.csv'
     )
   end
 
@@ -30,5 +31,9 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_has_invoice_repository
     assert_instance_of InvoiceRepository, @se.invoices
+  end
+
+  def test_it_has_transaction_repository
+    assert_instance_of TransactionRepository, @se.transactions
   end
 end
