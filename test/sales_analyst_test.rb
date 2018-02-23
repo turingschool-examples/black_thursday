@@ -89,7 +89,7 @@ class SalesAnalystTest < Minitest::Test
                                invoices: './test/fixtures:name/invoices.csv')
     sa = SalesAnalyst.new(se)
     binding.pry
-    assert_equal [], assert sa.top_days_by_invoice_count
+    assert_equal [],sa.top_days_by_invoice_count
   end
 
   def test_can_find_percentage_of_certain_status

@@ -28,12 +28,6 @@ class SalesAnalyst
     end
   end
 
-  def invoice_dates
-    invoices.map do |invoice|
-      invoice.created_at.strftime('%A')
-    end
-  end
-
   def average(numerator, denominator)
     (BigDecimal(numerator, 4) / BigDecimal(denominator, 4)).round(2)
   end
@@ -133,25 +127,31 @@ class SalesAnalyst
       invoices_per_day
     end
 
-    def average_per_day
-      days = finding_number_of_invoices_per_day
-      @average_days = (days.values.sum / 7)
+    def invoice_dates
+      invoices.map do |invoice|
+        invoice.created_at.strftime('%A')
+      end
+    end
+
+    def average_invoice_per_day
+      @average_days = invoice_count.sum / 7.0
     end
 
     def invoice_day_deviation
       days = finding_number_of_invoices_per_day
       total = days.map do |day, count|
-        (count - average_invoices_per_merchant) ** 2
+        (count - average_invoice_per_day) ** 2
       end
-      @days_deviation = Math.sqrt(total.sum / (total.count - 1)).round(2)
+      @days_deviation = Math.sqrt(total.sum / (total.length - 1)).round(2)
     end
 
     def top_days_by_invoice_count
-      invoice_day_deviation
-      average_invoices_per_merchant_standard_deviation
       days = finding_number_of_invoices_per_day
-        days.each do |day, number|
-          return day if number > (@days_deviation + @average_days)
+      average = average_invoice_per_day
+      deviation = invoice_day_deviation
+      days = finding_number_of_invoices_per_day
+        days.select do |day, number|
+          day if number > (deviation + average)
         end.keys
     end
 
