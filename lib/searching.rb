@@ -2,7 +2,7 @@ require 'csv'
 
 # Module of search methods
 module Searching
-  def data
+  def from_csv
     CSV.open(@file_path, headers: true, header_converters: :symbol)
   end
 

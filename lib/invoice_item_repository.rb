@@ -1,3 +1,13 @@
-class InvoiceItemRepository
+require_relative 'searching'
 
-end 
+class InvoiceItemRepository
+  attr_reader :all
+
+  def initialize(file_path)
+    @all =[]
+  end
+
+  def find_all_by_item_id(id)
+    @all.find_all { |obj| obj.item_id == id }
+  end
+end

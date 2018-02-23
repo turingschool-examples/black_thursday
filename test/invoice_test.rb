@@ -8,8 +8,8 @@ class InvoiceTest < Minitest::Test
                            customer_id: 7,
                            merchant_id: 8,
                            status: 'pending',
-                           created_at: Time.parse('1969-07-20 20:17:40 - 0600'),
-                           updated_at: Time.parse('1969-07-20 20:17:40 - 0600'))
+                           created_at: '1969-07-20 20:17:40 - 0600',
+                           updated_at:  '1969-07-20 20:17:40 - 0600')
   end
 
   def test_it_exists
