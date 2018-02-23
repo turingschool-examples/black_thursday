@@ -9,7 +9,6 @@ class InvoiceItemRepositoryTest < Minitest::Test
     test_engine = TestEngine.new.god_hash
     sales_engine = SalesEngine.new(test_engine)
     @invoice_item_repository = sales_engine.invoice_items
-    binding.pry
   end
 
   def test_it_exists
