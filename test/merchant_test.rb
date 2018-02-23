@@ -1,8 +1,8 @@
+require_relative 'test_helper'
 require_relative '../lib/merchant'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/item'
 require_relative '../lib/sales_engine'
-require_relative 'test_helper'
 
 # test for merchant class
 class MerchantTest < Minitest::Test
@@ -44,8 +44,11 @@ class MerchantTest < Minitest::Test
   end
 
   def test_customers_method
-    skip # need to fix test, works in spec harness
-    parent = stub(pass_customer_id_to_se: [], pass_id_to_se_for_invoice: [1,2,3])
+    parent = mock
+    parent.stubs(:pass_customer_id_to_se).returns([])
+    invoice = mock
+    invoice.stubs(:customer_id).returns(1)
+    parent.stubs(:pass_id_to_se_for_invoice).returns([invoice])
     merchant = Merchant.new({ id: 2, name: '' }, parent)
     assert_equal merchant.customers, parent.pass_customer_id_to_se([])
   end
