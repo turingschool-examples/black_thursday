@@ -76,11 +76,8 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_pass_merchant_id_to_se
-    skip # stub
-    parent = SalesEngine.from_csv(items: './test/fixtures/items.csv',
-                                  merchants: './test/fixtures/merchants.csv')
+    parent = stub(pass_merchant_id_to_merchant_repo: 2)
     item_repo = ItemRepository.new('./test/fixtures/items.csv', parent)
-    item_repo.pass_merchant_id_to_se(2)
-    # not sure what to assert for unit testing
+    assert_equal item_repo.pass_merchant_id_to_se(2), parent.pass_merchant_id_to_merchant_repo(2)
   end
 end

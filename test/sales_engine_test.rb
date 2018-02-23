@@ -48,6 +48,6 @@ class SalesengineTest < Minitest::Test
   end
 
   def test_pass_merchant_id_to_merchant_repo
-    # not sure how to unit test
+    assert_equal @se.pass_merchant_id_to_merchant_repo(2), @se.merchants.find_by_id(2)
   end
 end
