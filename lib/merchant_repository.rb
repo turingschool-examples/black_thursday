@@ -7,12 +7,11 @@ class MerchantRepository
   attr_reader :all
 
   def initialize(file_path, sales_engine)
-    @file_path = file_path
-    @all = add_merchants
+    @all = from_csv(file_path)
     @sales_engine = sales_engine
   end
 
-  def add_merchants
+  def add_elements(data)
     data.map { |row| Merchant.new(row, self) }
   end
 

@@ -7,11 +7,10 @@ class InvoiceRepository
   attr_reader :all
 
   def initialize(file_path)
-    @file_path = file_path
-    @all = add_invoices
+    @all = from_csv(file_path)
   end
 
-  def add_invoices
+  def add_elements(data)
     data.map { |row| Invoice.new(row) }
   end
 
