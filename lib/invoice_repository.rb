@@ -15,15 +15,11 @@ class InvoiceRepository
   end
 
   def find_all_by_customer_id(id)
-    @all.find_all do |obj|
-      obj.customer_id == id
-    end
+    @all.find_all { |obj| obj.customer_id == id }
   end
 
   def find_all_by_status(status)
-    @all.find_all do |obj|
-      obj.status == status
-    end
+    @all.find_all { |obj| obj.status == status.to_sym }
   end
 
   def inspect
