@@ -185,6 +185,7 @@ class SalesAnalyst
   end
 
   def finding_invoice_bought_in_a_year(id, year)
+    binding.pry
     customer = customers.find_by_id(id)
     customer.invoices.find_all do |invoice|
       invoice.created_at.to_s[0..3].to_i == year
@@ -198,5 +199,17 @@ class SalesAnalyst
         item
       end
     end.flatten
+  end
+
+  def customers_with_unpaid_invoices
+    unpaid = []
+      customers.all.map do |customer|
+        customer.invoices
+      end.flatten.each do |invoice|
+        if invoice.is_paid_in_full? == false
+          unpaid << invoice.customer
+        end
+      end
+  unpaid.uniq
   end
 end
