@@ -4,7 +4,6 @@ require_relative 'invoice_repository'
 require_relative 'transaction_repository'
 require_relative 'invoice_item_repository'
 require_relative 'customer_repository'
-require 'pry'
 
 class SalesEngine
   attr_reader :item_csv_path,

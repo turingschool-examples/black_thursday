@@ -1,4 +1,5 @@
 require 'bigdecimal'
+require 'pry'
 
 # This is the sales analyst class
 class SalesAnalyst
@@ -13,15 +14,21 @@ class SalesAnalyst
   end
 
   def set_repo_variables
-    @merchant_repo         = sales_engine.merchants
-    @item_repo             = sales_engine.items
-    @invoice_repo          = sales_engine.invoices
+    @merchant_repo     = sales_engine.merchants
+    @item_repo         = sales_engine.items
+    @invoice_repo      = sales_engine.invoices
+    @transaction_repo  = sales_engine.transactions
+    @invoice_item_repo = sales_engine.invoice_items
+    @customer_repo     = sales_engine.customers
   end
 
   def set_all_item_variables
-    @merchants             = @merchant_repo.all
-    @items                 = @item_repo.all
-    @invoices              = @invoice_repo.all
+    @merchants     = @merchant_repo.all
+    @items         = @item_repo.all
+    @invoices      = @invoice_repo.all
+    @transactions  = @transaction_repo.all
+    @invoice_items = @invoice_item_repo.all
+    @customers     = @customer_repo.all
   end
 
   def set_relational_variables
@@ -193,5 +200,21 @@ class SalesAnalyst
     numerator = @invoice_repo.find_all_by_status(status).count.to_f
     denominator = @invoices.count
     ((numerator / denominator) * 100).round 2
+  end
+
+  def top_buyers(num_customers = 20)
+    hash = {}
+    @customers.each do |customer|
+      invoices = get_invoices_for_customer(customer.id)
+      paid_invoices = invoices.find_all(&:is_paid_in_full?)
+      invoice_costs = paid_invoices.map(&:total)
+      hash[invoice_costs.inject(:+).to_f] = customer
+    end
+    top_customers = hash.keys.max(num_customers)
+    top_customers.map { |key| hash[key] }
+  end
+
+  def get_invoices_for_customer(customer_id)
+    @invoice_repo.find_all_by_customer_id(customer_id)
   end
 end

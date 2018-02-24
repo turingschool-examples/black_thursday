@@ -128,4 +128,12 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 56.0, @sales_analyst.invoice_status(:shipped)
     assert_equal 8.0, @sales_analyst.invoice_status(:returned)
   end
+
+  def test_top_buyers
+    assert_equal 3, @sales_analyst.top_buyers(3).length
+    assert_equal 'customer_id', @sales_analyst.top_buyers(3).first.id
+
+    assert_equal 20, @sales_analyst.top_buyers.length
+    assert_equal 'customer_id', @sales_analyst.top_buyers.last.id
+  end
 end
