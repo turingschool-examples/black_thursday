@@ -96,6 +96,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_find_top_merchant_for_customer
-    assert_instance_of Merchant, @sa.top_merchant_for_customer(1).first
+    assert_instance_of Merchant, @sa.top_merchant_for_customer(1)
   end
 end

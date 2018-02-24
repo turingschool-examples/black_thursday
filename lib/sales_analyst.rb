@@ -166,18 +166,22 @@ class SalesAnalyst
     ((total.to_f / invoices.count.to_f) * 100).round(2)
   end
 
-  def finding_top_merchants(id)
+  def finding_invoice_items(id)
+    new_stuff = Hash.new
     customer = customers.find_by_id(id)
-    top_merchants = Hash.new(0)
-    customer.merchants.each do |merchant|
-      top_merchants[merchant] += 1
+    high = customer.invoices.map do |invoice|
+      new_stuff[invoice] = invoice.invoice_items.map do |invoice_item|
+        invoice_item.quantity.to_i
+      end.sum
     end
-    top_merchants
+    new_stuff
   end
 
   def top_merchant_for_customer(id)
-    finding_top_merchants(id).max_by do |merchant, orders|
+    high = finding_invoice_items(id).max_by do|invoice, orders|
       orders
     end
+    high[0].merchant
   end
+
 end
