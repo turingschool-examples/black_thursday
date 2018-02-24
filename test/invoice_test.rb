@@ -77,4 +77,11 @@ class InvoiceTest < Minitest::Test
 
     assert_instance_of Customer, invoice.customer
   end
+
+  def test_invoice_paid_in_full_returns_boolean
+    invoice = @sales_engine.invoices.find_by_id(46)
+    result = invoice.is_paid_in_full?
+
+    assert result
+  end
 end

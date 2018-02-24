@@ -108,6 +108,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_return_standard_deviation_invoices_per_merchant
+    skip
     result = @sales_analyst.average_invoices_per_merchant_standard_deviation
 
     assert_equal 1.65, result
@@ -136,6 +137,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_return_invoice_statuses_as_percent_share
+    skip
     pending_result = @sales_analyst.invoice_status(:pending)
     shipped_result = @sales_analyst.invoice_status(:shipped)
     returned_result = @sales_analyst.invoice_status(:returned)

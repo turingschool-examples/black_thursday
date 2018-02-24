@@ -60,4 +60,12 @@ class SalesEngine
       @merchants.find_by_id(invoice.merchant_id)
     end.compact
   end
+
+  def engine_finds_invoice_transactions_and_evaluates(id)
+    transactions = @transactions.find_all_by_invoice_id(id)
+
+    result = transactions.any? do |transaction|
+      transaction.result.downcase == "success"
+    end
+  end
 end

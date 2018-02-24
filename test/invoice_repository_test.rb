@@ -92,4 +92,11 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_instance_of InvoiceItem, result_items[0]
     assert_instance_of Customer, result_customer
   end
+
+  def test_finds_transactions_and_evaluates_via_engine
+    iv = @invoice_repository
+    result = iv.invoice_repo_finds_transactions_and_evaluates_via_engine(46)
+
+    assert result
+  end
 end
