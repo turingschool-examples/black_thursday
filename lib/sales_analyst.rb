@@ -184,9 +184,11 @@ class SalesAnalyst
 
   def one_time_buyers
     buyers = []
-    customers.each do |customer|
+    customers.map do |customer|
       invoices = get_invoices(customer.id)
-      buyers << customer if invoices.length == 1
+      paid_invoices = invoices.find_all(&:is_paid_in_full?)
+      paid_invoices.delete(false)
+      buyers << customer if paid_invoices.length == 1
     end
     buyers
   end

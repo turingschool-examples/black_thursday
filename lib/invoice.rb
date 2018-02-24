@@ -42,16 +42,19 @@ class Invoice
   end
 
   def is_paid_in_full?
-    return false if transactions.empty?
+    if transactions.empty?
+      false
+    else
     paid = transactions.any? do |transaction|
-      transaction.result == "failed"
+      transaction.result == 'failed'
     end
-    return ! paid
+    ! paid
+  end
   end
 
   def total
     invoice_items.reduce(0) do |total, invoice_item|
-      total + invoice_item.quantity.to_i * invoice_item.unit_price
+      total + invoice_item.quantity.to_f * invoice_item.unit_price.to_f
     end
   end
 
