@@ -74,9 +74,9 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_engine_finds_customer_merchants_via_invoice_repo
-    result = @sales_engine.engine_finds_merchant_customers_via_invoice_repo(1)
+    result = @sales_engine.engine_finds_customer_merchants_via_invoice_repo(1)
 
-    assert_equal 2, result.length
-    assert_instance_of Customer, result[0]
+    assert_equal 1, result.length
+    assert_instance_of Merchant, result[0]
   end
 end

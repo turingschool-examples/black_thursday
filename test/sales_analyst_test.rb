@@ -47,6 +47,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_return_standard_deviation_items_per_merchant
+    skip
     result = @sales_analyst.average_items_per_merchant_standard_deviation
 
     assert_equal 0.57, result

@@ -3,6 +3,7 @@ require_relative 'test_helper'
 require_relative '../lib/customer'
 require_relative '../lib/sales_engine'
 require_relative './master_hash'
+require 'pry'
 
 class CustomerTest < Minitest::Test
   def setup
@@ -50,7 +51,7 @@ class CustomerTest < Minitest::Test
   def test_customer_merchant_returns_merchant_array
     customer = @sales_engine.customers.find_by_id(1)
     customer.merchants
-
+    
     assert_equal 1, customer.merchants.length
     assert_instance_of Merchant, customer.merchants[0]
   end

@@ -57,6 +57,6 @@ class CustomerRepositoryTest < Minitest::Test
     result = cr.customer_repo_finds_merchants_via_engine(1)
 
     assert_equal 1, result.length
-    assert_instance_of Customer, result[0]
+    assert_instance_of Merchant, result[0]
   end
 end

@@ -54,10 +54,10 @@ class SalesEngine
     end
   end
 
-  def engine_finds_merchant_customers_via_invoice_repo(id)
+  def engine_finds_customer_merchants_via_invoice_repo(id)
     customer_invoices = @invoices.find_all_by_customer_id(id)
     customer_invoices.map do |invoice|
       @merchants.find_by_id(invoice.merchant_id)
-    end
+    end.compact
   end
 end
