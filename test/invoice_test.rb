@@ -30,10 +30,13 @@ class InvoiceTest < Minitest::Test
 
   def test_if_it_returns_the_merchant_for_an_invoice
     data = {
-          :items     => "./test/fixtures/items_sample.csv",
-          :merchants => "./test/fixtures/merchants_sample.csv",
-          :invoices => "./test/fixtures/invoices_sample.csv"
-            }
+      :items          => "./test/fixtures/items_sample.csv",
+      :merchants      => "./test/fixtures/merchants_sample.csv",
+      :invoices       => "./test/fixtures/invoices_sample.csv",
+      :invoice_items  => "./test/fixtures/invoice_items_sample.csv",
+      :transactions   => "./test/fixtures/transactions_sample.csv",
+      :customers      => "./test/fixtures/customers_sample.csv"
+        }
     sales_engine = SalesEngine.new(data)
     id = 641
     invoice = sales_engine.invoices.find_by_id(id)
