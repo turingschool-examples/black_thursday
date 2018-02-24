@@ -53,10 +53,9 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_invoice_merchant_returns_merchant
-    invoice = @sales_engine.invoices.find_by_id(12)
-    invoice.merchant
+    result = @sales_engine.invoices.find_by_id(12).merchant
 
-    assert_nil invoice.merchant
+    assert_instance_of Merchant, result
   end
 
   def test_invoice_items_returns_items_array
@@ -65,7 +64,7 @@ class InvoiceTest < Minitest::Test
 
     assert_equal 4, invoice.items.length
 
-    invoice_bad = @sales_engine.invoices.find_by_id(64)
+    invoice_bad = @sales_engine.invoices.find_by_id(99)
 
     assert_equal 4, invoice.items.length
     assert_nil invoice_bad

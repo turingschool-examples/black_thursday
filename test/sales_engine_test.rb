@@ -69,7 +69,7 @@ class SalesEngineTest < Minitest::Test
   def test_engine_finds_merchant_customers_via_invoice_repo
     result = @sales_engine.engine_finds_merchant_customers_via_invoice_repo(12_335_955)
 
-    assert_equal 2, result.length
+    assert_equal 7, result.length
     assert_instance_of Customer, result[0]
   end
 

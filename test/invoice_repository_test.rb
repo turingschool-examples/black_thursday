@@ -19,7 +19,7 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_invoice_repository_holds_all_invoices
     invoice_repository = @invoice_repository
 
-    assert_equal 15, invoice_repository.all.length
+    assert_equal 65, invoice_repository.all.length
     assert (invoice_repository.all.all? { |invoice| invoice.is_a?(Invoice)})
   end
 
@@ -35,11 +35,11 @@ class InvoiceRepositoryTest < Minitest::Test
 
     result = invoice_repository.find_by_id(7)
 
-    result_nil = invoice_repository.find_by_id(21)
+    result_nil = invoice_repository.find_by_id(99)
 
     assert_instance_of Invoice, result
     assert_equal 1, result.customer_id
-    assert_equal 12335009, result.merchant_id
+    assert_equal 12_334_135, result.merchant_id
     assert_nil result_nil
   end
 
@@ -48,7 +48,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
     result = invoice_repository.find_all_by_customer_id(1)
 
-    result_nil = invoice_repository.find_all_by_customer_id(6)
+    result_nil = invoice_repository.find_all_by_customer_id(12)
 
     assert_instance_of Array, result
     assert result.length == 8
@@ -61,12 +61,12 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_it_can_find_all_invoices_by_merchant_id
     invoice_repository = @invoice_repository
 
-    result = invoice_repository.find_all_by_merchant_id(12335955)
+    result = invoice_repository.find_all_by_merchant_id(12_335_955)
 
     result_nil = invoice_repository.find_all_by_merchant_id(666)
 
     assert_instance_of Array, result
-    assert result.length == 2
+    assert result.length == 13
     assert result_nil.empty?
   end
 

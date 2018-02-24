@@ -2,6 +2,7 @@ require_relative 'test_helper.rb'
 require_relative '../lib/merchant.rb'
 require_relative '../lib/sales_engine.rb'
 require_relative './master_hash.rb'
+require 'pry'
 
 class MerchantTest < Minitest::Test
   def setup
@@ -31,10 +32,10 @@ class MerchantTest < Minitest::Test
     merchant = @sales_engine.merchants.find_by_id(12335955)
     merchant.invoices
 
-    merchant_no_invoice = @sales_engine.merchants.find_by_id(12334141)
+    merchant_no_invoice = @sales_engine.merchants.find_by_id(12334145)
     merchant_no_invoice.invoices
 
-    assert_equal 2, merchant.invoices.length
+    assert_equal 13, merchant.invoices.length
     assert merchant_no_invoice.invoices.empty?
   end
 
@@ -42,7 +43,7 @@ class MerchantTest < Minitest::Test
     merchant = @sales_engine.merchants.find_by_id(12335955)
     merchant.customers
 
-    assert_equal 2, merchant.customers.length
+    assert_equal 7, merchant.customers.length
     assert_instance_of Customer, merchant.customers[0]
   end
 end
