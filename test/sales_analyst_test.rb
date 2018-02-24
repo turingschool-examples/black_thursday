@@ -22,18 +22,18 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_for_items_per_merchant
-    expected = [1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0]
+    expected = [1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0]
     actual = @sales_analyst.items_per_merchant
     assert_equal expected, actual
   end
 
   def test_for_average_items_per_merchant
-    assert_equal 0.29, @sales_analyst.average_items_per_merchant
+    assert_equal 0.27, @sales_analyst.average_items_per_merchant
   end
 
   def test_average_items_per_merchant_standard_deviation
     actual = @sales_analyst.average_items_per_merchant_standard_deviation
-    assert_equal 0.72, actual
+    assert_equal 0.7, actual
   end
 
   def test_merchants_with_high_item_count
@@ -41,8 +41,8 @@ class SalesAnalystTest < Minitest::Test
 
     assert actual.is_a?(Array)
     assert actual[0].is_a?(Merchant)
-    assert_equal 1, actual.count
-    assert_equal 'Madewithgitterxx', actual[0].name
+    assert_equal 4, actual.count
+    assert_equal 'Shopin1901', actual[0].name
   end
 
   def test_for_average_item_price_for_merchant
@@ -56,7 +56,7 @@ class SalesAnalystTest < Minitest::Test
     actual = @sales_analyst.average_average_price_per_merchant
 
     assert actual.is_a?(BigDecimal)
-    assert_equal 0.324e1, actual
+    assert_equal 0.309e1, actual
   end
 
   def test_for_item_unit_prices
@@ -89,12 +89,12 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_for_average_invoices_per_merchant
-    assert_equal 0.14, @sales_analyst.average_invoices_per_merchant
+    assert_equal 0.18, @sales_analyst.average_invoices_per_merchant
   end
 
   def test_for_average_invoices_per_merchant_standard_deviation
     actual = @sales_analyst.average_invoices_per_merchant_standard_deviation
-    assert_equal 0.48, actual
+    assert_equal 0.5, actual
   end
 
   def test_for_top_merchants_by_invoice_count
@@ -130,10 +130,23 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_buyers
-    assert_equal 3, @sales_analyst.top_buyers(3).length
-    assert_equal 'customer_id', @sales_analyst.top_buyers(3).first.id
+    assert_equal 2, @sales_analyst.top_buyers(2).length
+    assert_equal 5, @sales_analyst.top_buyers(3).first.id
 
-    assert_equal 20, @sales_analyst.top_buyers.length
-    assert_equal 'customer_id', @sales_analyst.top_buyers.last.id
+    assert_equal 2, @sales_analyst.top_buyers.length
+    assert_equal 339, @sales_analyst.top_buyers.last.id
+  end
+
+  def test_top_merchant_for_customer
+    expected = @se.merchants.find_by_id(123_359_38)
+
+    assert_equal expected, @sales_analyst.top_merchant_for_customer(1)
+  end
+
+  def test_one_time_buyers
+    expected = @se.customers.find_by_id(5)
+
+    assert_equal 2, @sales_analyst.one_time_buyers.length
+    assert_equal expected, @sales_analyst.one_time_buyers.first
   end
 end

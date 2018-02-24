@@ -217,4 +217,26 @@ class SalesAnalyst
   def get_invoices_for_customer(customer_id)
     @invoice_repo.find_all_by_customer_id(customer_id)
   end
+
+  def top_merchant_for_customer(customer_id)
+    hash = {}
+    get_invoices_for_customer(customer_id).each do |invoice|
+      merchant = invoice.merchant
+      invoice_items = @invoice_item_repo.find_all_by_invoice_id(invoice.id)
+      quantities = invoice_items.map(&:quantity)
+      hash[merchant] = quantities.inject(:+).to_f
+    end
+    hash.key(hash.values.max)
+  end
+
+  def one_time_buyers
+    one_invoice = []
+    @customers.map do |customer|
+      cust_invoices = get_invoices_for_customer(customer.id)
+      paid_invoices = cust_invoices.map(&:is_paid_in_full?)
+      paid_invoices.delete(false)
+      one_invoice << customer if paid_invoices.length == 1
+    end
+    one_invoice
+  end
 end
