@@ -65,4 +65,11 @@ class SalesEngineTest < Minitest::Test
 
     assert_equal "jejum", item.merchant.name
   end
+
+  def test_engine_finds_merchant_customers_via_invoice_repo
+    result = @sales_engine.engine_finds_merchant_customers_via_invoice_repo(12335955)
+
+    assert_equal 2, result.length
+    assert_instance_of Customer, result[0]
+  end
 end
