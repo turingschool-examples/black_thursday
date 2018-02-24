@@ -110,4 +110,15 @@ class InvoiceTest < Minitest::Test
 
     refute invoice_2.is_paid_in_full?
   end
+
+  def test_it_can_find_a_total_amount
+    se = SalesEngine.from_csv(items:         './test/fixtures/items.csv',
+                              merchants:     './test/fixtures/merchants.csv',
+                              invoices:      './test/fixtures/invoices.csv',
+                              invoice_items: './test/fixtures/invoice_items.csv',
+                              transactions:  './test/fixtures/transactions.csv',
+                              customers:     './test/fixtures/invoices.csv')
+    invoice = se.invoices.find_by_id(1)
+    assert_equal 0.2106777e5, invoice.total
+  end
 end
