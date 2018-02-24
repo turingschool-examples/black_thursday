@@ -161,4 +161,21 @@ class SalesAnalyst
     end
     ((total.to_f / invoices.count.to_f) * 100).round(2)
   end
+
+  def top_buyers(num = 20)
+    paid_invoices = invoices.map do |invoice|
+      invoice if invoice.is_paid_in_full?
+    end.compact
+    hash = {}
+    paid_invoices.each do |invoice|
+      hash[invoice] = invoice.total
+    end
+    sorted_invoices_and_totals = hash.sort_by {|invoice, total| total}
+    sorted_invoices = sorted_invoices_and_totals.map do |invoice_total_pair|
+      invoice_total_pair[0]
+    end.reverse
+    results = sorted_invoices.map(&:customer)
+    results.take num
+  end
+
 end

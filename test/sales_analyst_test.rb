@@ -94,4 +94,8 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 55.56, @sa.invoice_status(:pending)
     assert_equal 44.44, @sa.invoice_status(:shipped)
   end
+
+  def test_it_can_find_top_buyers
+    assert_equal 0, @sa.top_buyers
+  end
 end
