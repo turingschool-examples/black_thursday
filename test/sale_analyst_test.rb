@@ -34,4 +34,9 @@ class SATest < Minitest::Test
     assert_equal expected, golden
   end
 
+  def test_top_days_by_invoice_count
+    top = @sales_analyst.top_days_by_invoice_count
+    assert_equal ["Tuesday", "Friday"], top
+  end
+
 end

@@ -9,7 +9,7 @@ class SalesAnalyst
     item_array.each do |count|
       mean += count
     end
-    if item_array.length == 0
+    if item_array.length.zero?
       0
     else
       mean / item_array.length
@@ -69,7 +69,7 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
-    mean_per_merchant(invoice_count_per_merchant)
+    mean_finder(invoice_count_per_merchant).round(2)
   end
 
   def invoice_count_per_merchant
@@ -80,21 +80,45 @@ class SalesAnalyst
 
   def average_invoices_per_merchant_standard_deviation
     invoice_list = invoice_count_per_merchant
-    mean = mean_per_merchant(invoice_count_per_merchant)
+    mean = mean_finder(invoice_count_per_merchant)
     standard_devation(mean, invoice_list).round(2)
   end
 
-  # def top_merchants_by_invoice_count
-  #
-  # end
-  #
-  # def bottom_merchants_by_invoice_count
-  # end
-  #
-  # def top_days_by_invoice_count
-  #
-  # end
-  #
+  def top_merchants_by_invoice_count
+    mean = average_invoices_per_merchant
+    std_dev = average_invoices_per_merchant_standard_deviation
+    @se.merchants.all.find_all do |merchant|
+      @se.find_invoices_by_merchant_id(merchant.id).length > ((std_dev * 2) + mean)
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    mean = average_invoices_per_merchant
+    std_dev = average_invoices_per_merchant_standard_deviation
+    @se.merchants.all.find_all do |merchant|
+      @se.find_invoices_by_merchant_id(merchant.id).length < (mean - (std_dev * 2))
+    end
+  end
+
+  def top_days_by_invoice_count
+    days = invoice_days
+    mean = mean_finder(days.values)
+    std_dev = standard_devation(mean, days.values)
+    days = days.find_all { |_day, count| count > (std_dev + mean) }
+    days.map { |day| day[0] }
+  end
+
+  def invoice_days
+    invoices = @se.invoices.all
+    invoices = invoices.map {|invoice| invoice.created_at.strftime("%A")}
+    days = {"Monday" => 0, "Tuesday" => 0, "Wednesday" => 0, "Thursday" => 0,
+            "Friday" => 0, "Saturday" => 0, "Sunday" => 0}
+    invoices.each do |day|
+      days[day] += 1
+    end
+    days
+  end
+
   # def invoice_status(status)
   # end
 end
