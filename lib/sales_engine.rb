@@ -19,12 +19,12 @@ class SalesEngine
   end
 
   def initialize(files)
-    @items = ItemRepository.new(files[:items], self)
-    @merchants = MerchantRepository.new(files[:merchants], self)
-    @invoices = InvoiceRepository.new(files[:invoices], self)
+    @items         = ItemRepository.new(files[:items], self)
+    @merchants     = MerchantRepository.new(files[:merchants], self)
+    @invoices      = InvoiceRepository.new(files[:invoices], self)
     @invoice_items = InvoiceItemRepository.new(files[:invoice_items], self)
-    @transactions = TransactionRepository.new(files[:transactions], self)
-    @customers = CustomerRepository.new(files[:customers], self)
+    @transactions  = TransactionRepository.new(files[:transactions], self)
+    @customers     = CustomerRepository.new(files[:customers], self)
   end
 
   def pass_merchant_id_to_merchant_repo(id)

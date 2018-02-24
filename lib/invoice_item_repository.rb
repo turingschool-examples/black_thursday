@@ -6,7 +6,7 @@ class InvoiceItemRepository
               :invoice_items
   def initialize(filepath, parent)
     @invoice_items = []
-    @parent = parent
+    @parent        = parent
     load_invoice_items(filepath)
   end
 

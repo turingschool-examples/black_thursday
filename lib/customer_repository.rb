@@ -7,7 +7,7 @@ class CustomerRepository
   def initialize(filepath, parent = nil)
     @customers = []
     load_customers(filepath)
-    @parent = parent
+    @parent    = parent
   end
 
   def inspect
