@@ -4,7 +4,7 @@ require './lib/customer'
 class CustomerTest < Minitest::Test
   def setup
     @customer = Customer.new({
-      :id => 6,
+      :id => '6',
       :first_name => 'Joan',
       :last_name => 'Clarke',
       :created_at => '1969-07-20 20:17:40  0600',
@@ -25,7 +25,7 @@ class CustomerTest < Minitest::Test
 
   def test_different_attributes
     customer = Customer.new({
-      :id => 925235,
+      :id => '925235',
       :first_name => 'Happy',
       :last_name => 'Loman',
       :created_at => '1982-07-20 20:17:40  0600',
@@ -33,10 +33,10 @@ class CustomerTest < Minitest::Test
     expected  = '1982-07-20 20:17:40  0600'
     expected2 = '1990-07-20 20:17:40  0600'
 
-    assert_equal 925235, @customer.id
-    assert_equal 'Happy', @customer.first_name
-    assert_equal 'Loman', @customer.last_name
-    assert_equal expected, @customer.created_at
-    assert_equal expected2, @customer.updated_at
+    assert_equal 925235, customer.id
+    assert_equal 'Happy', customer.first_name
+    assert_equal 'Loman', customer.last_name
+    assert_equal expected, customer.created_at
+    assert_equal expected2, customer.updated_at
   end
 end
