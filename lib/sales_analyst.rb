@@ -22,6 +22,10 @@ class SalesAnalyst
     @sales_engine.invoices.all
   end
 
+  def customers
+    @sales_engine.customers
+  end
+
   def invoice_count
     merchants.map do |merchant|
       merchant.invoices.count
@@ -160,5 +164,20 @@ class SalesAnalyst
       total += 1 if invoice.status == status
     end
     ((total.to_f / invoices.count.to_f) * 100).round(2)
+  end
+
+  def finding_top_merchants(id)
+    customer = customers.find_by_id(id)
+    top_merchants = Hash.new(0)
+    customer.merchants.each do |merchant|
+      top_merchants[merchant] += 1
+    end
+    top_merchants
+  end
+
+  def top_merchant_for_customer(id)
+    finding_top_merchants(id).max_by do |merchant, orders|
+      orders
+    end
   end
 end
