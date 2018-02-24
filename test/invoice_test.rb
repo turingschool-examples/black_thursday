@@ -86,9 +86,12 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_invoice_total_returns
-    invoice = @sales_engine.invoices.find_by_id(46)
-    result = invoice.total
+    paid_invoice = @sales_engine.invoices.find_by_id(46)
+    unpaid_invoice = @sales_engine.invoices.find_by_id(14)
 
-    assert 986.68, result
+
+    assert_instance_of BigDecimal, paid_invoice.total
+    assert_equal BigDecimal.new(986.68, 5), paid_invoice.total
+    assert_equal "This invoice is unpaid", unpaid_invoice.total
   end
 end

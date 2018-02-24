@@ -101,10 +101,9 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_invoice_total_returns_cost_for_paid_invoice
-    skip
-    invoice = @invoice_repository
-    result = iv.invoice_repo_finds_invoice_items_cost_if_paid(46)
+    iv = @invoice_repository
+    result = iv.invoice_repo_finds_invoice_items_total_via_engine(46)
 
-    assert 986.68, result
+    assert_equal BigDecimal.new(986.68, 5), result
   end
 end

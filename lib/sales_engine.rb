@@ -70,10 +70,14 @@ class SalesEngine
   end
 
   def engine_finds_paid_invoice_and_evaluates_cost(id)
-    invoice_items = @invoice_items.find_all_by_invoice_id(id)
+    if engine_finds_invoice_transactions_and_evaluates(id)
+      invoice_items = @invoice_items.find_all_by_invoice_id(id)
 
-    result = invoice_items.reduce(0) do |sum, invoice_item|
-      sum += invoice_item.unit_price
+      result = invoice_items.reduce(0) do |sum, invoice_item|
+        sum += invoice_item.unit_price
+      end
+    else
+      "This invoice is unpaid"
     end
   end
 end
