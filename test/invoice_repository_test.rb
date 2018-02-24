@@ -15,7 +15,7 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_instance_of InvoiceRepository, @invoice_repo
   end
 
-  def	test_it_finds_invoice_id
+  def	test_it_finds_id
     assert_instance_of Array, @invoice_repo.all
     assert_nil @invoice_repo.find_by_id(10)
     assert_instance_of Invoice, @invoice_repo.find_by_id(4)
