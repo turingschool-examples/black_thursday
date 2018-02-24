@@ -5,8 +5,8 @@ require 'pry'
 class SalesAnalyst
   attr_reader :sales_engine
   def initialize(se)
-    @sales_engine = se
-    @std_dev_price = average_items_price_standard_deviation
+    @sales_engine    = se
+    @std_dev_price   = average_items_price_standard_deviation
     @std_dev_invoice = average_invoices_per_merchant_standard_deviation
   end
 

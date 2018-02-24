@@ -7,7 +7,7 @@ class MerchantRepository
   attr_reader :parent
   def initialize(filepath, parent)
     @merchants = []
-    @parent = parent
+    @parent    = parent
     load_merchants(filepath)
   end
 

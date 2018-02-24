@@ -8,7 +8,7 @@ require 'time'
 class ItemRepository
   attr_reader :items, :parent
   def initialize(filepath, parent)
-    @items = []
+    @items  = []
     @parent = parent
     find_items(filepath)
   end
