@@ -103,7 +103,9 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_invoice_total_returns_cost_for_paid_invoice
     iv = @invoice_repository
     result = iv.invoice_repo_finds_invoice_items_total_via_engine(46)
+    unpaid_result = iv.invoice_repo_finds_invoice_items_total_via_engine(14)
 
     assert_equal BigDecimal.new(986.68, 5), result
+    assert_equal "This invoice is unpaid", unpaid_result
   end
 end

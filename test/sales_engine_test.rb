@@ -88,7 +88,9 @@ class SalesEngineTest < Minitest::Test
 
   def test_engine_finds_paid_invoice_and_returns_cost
     result = @sales_engine.engine_finds_paid_invoice_and_evaluates_cost(46)
+    unpaid = @sales_engine.engine_finds_paid_invoice_and_evaluates_cost(14)
 
     assert_equal BigDecimal.new(986.68, 5), result
+    assert_equal "This invoice is unpaid", unpaid
   end
 end
