@@ -22,6 +22,10 @@ class SalesAnalyst
     @sales_engine.invoices.all
   end
 
+  def customers
+    @sales_engine.customers.all
+  end
+
   def invoice_count
     merchants.map do |merchant|
       merchant.invoices.count
@@ -176,6 +180,13 @@ class SalesAnalyst
     end.reverse
     results = sorted_invoices.map(&:customer)
     results.take num
+  end
+
+  def one_time_buyers
+    customer_and_invoices = {}
+    customers.each do |customer|
+      customer_and_invoices[customer] = customer.invoices
+    end
   end
 
 end
