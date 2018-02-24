@@ -79,7 +79,7 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_empty_credit_result_array_returns_when_no_match
-    result = @tr.find_all_by_result '_______' 
+    result = @tr.find_all_by_result '_______'
 
     assert_instance_of Array, result
     assert result.empty?
