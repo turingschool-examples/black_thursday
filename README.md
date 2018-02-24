@@ -5,3 +5,4 @@ Find the [project spec here](https://github.com/turingschool/curriculum/blob/mas
 bundle exec rspec spec/iteration_1_spec.rb
 bundle exec rspec spec/iteration_2_spec.rb
 bundle exec rspec spec/iteration_3_spec.rb
+bundle exec rspec spec/iteration_5_spec.rb

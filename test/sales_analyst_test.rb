@@ -94,4 +94,8 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 55.56, @sa.invoice_status(:pending)
     assert_equal 44.44, @sa.invoice_status(:shipped)
   end
+
+  def test_can_find_top_merchant_for_customer
+    assert_instance_of Merchant, @sa.top_merchant_for_customer(1)
+  end
 end
