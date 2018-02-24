@@ -58,6 +58,10 @@ class InvoiceRepository
     @parent.engine_finds_invoice_transactions_and_evaluates(id)
   end
 
+  def invoice_repo_finds_invoice_items_total_via_engine(id)
+    @parent.engine_finds_paid_invoice_and_evaluates_cost(id)
+  end
+
   def inspect
     "#<#{self.class} #{@invoices.size} rows>"
   end

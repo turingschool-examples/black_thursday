@@ -87,9 +87,8 @@ class InvoiceTest < Minitest::Test
 
   def test_invoice_total_returns
     invoice = @sales_engine.invoices.find_by_id(46)
-    result = invoice.is_paid_in_full?
-    result.total
+    result = invoice.total
 
-    assert 986.68, result.total
+    assert 986.68, result
   end
 end

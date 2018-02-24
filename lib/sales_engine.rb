@@ -68,4 +68,12 @@ class SalesEngine
       transaction.result.downcase == "success"
     end
   end
+
+  def engine_finds_paid_invoice_and_evaluates_cost(id)
+    invoice_items = @invoice_items.find_all_by_invoice_id(id)
+
+    result = invoice_items.reduce(0) do |sum, invoice_item|
+      sum += invoice_item.unit_price
+    end
+  end
 end
