@@ -9,7 +9,8 @@ class SalesEngineTest < Minitest::Test
           items: './data/sample_data/items.csv',
       merchants: './data/sample_data/merchants.csv',
        invoices: './data/sample_data/invoices.csv',
-   transactions: './data/sample_data/transactions.csv')
+   transactions: './data/sample_data/transactions.csv',
+      customers: './data/sample_data/customers.csv')
   end
 
   def test_sales_engine_class_exists
@@ -59,5 +60,21 @@ class SalesEngineTest < Minitest::Test
 
     assert_instance_of Invoice, transaction.invoice
     assert_equal 46, transaction.invoice.id
+  end
+
+  def test_it_can_find_customer_merchants
+    skip
+    customer = se.customers.find_by_id(30)
+
+    assert_instance_of Merchant, customer.merchants[0]
+    assert_equal 3, customer.merchants[0].id
+  end
+
+  def test_it_can_find_merchant_customers
+    skip
+    merchant = se.merchants.find_by_id(12335938)
+
+    assert_instance_of Customer, merchant.customers[0]
+    assert_equal 'Joey', merchant.customers[0].first_name
   end
 end
