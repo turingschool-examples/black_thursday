@@ -25,8 +25,17 @@ class Invoice
     @parent.pass_merchant_id_to_se_for_invoice(@merchant_id)
   end
 
-  def items
+  def invoice_items
     @parent.pass_id_to_se_for_item(@id)
+  end
+
+  def items
+    item_ids = invoice_items.map do |invoice_item|
+      invoice_item.item_id
+    end
+    item_ids.map do |item_id|
+      @parent.pass_item_id_to_se(item_id)
+    end
   end
 
   def transactions
