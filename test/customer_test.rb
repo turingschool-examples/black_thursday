@@ -46,4 +46,12 @@ class CustomerTest < Minitest::Test
     assert_instance_of Time, customer2.created_at
     assert_instance_of Time, customer2.updated_at
   end
+
+  def test_customer_merchant_returns_merchant_array
+    customer = @sales_engine.customers.find_by_id(1)
+    customer.merchants
+
+    assert_equal 1, customer.merchants.length
+    assert_instance_of Merchant, customer.merchants[0]
+  end
 end

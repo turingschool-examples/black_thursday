@@ -53,5 +53,4 @@ class SalesEngine
       @customers.find_by_id(invoice.customer_id)
     end
   end
-
 end
