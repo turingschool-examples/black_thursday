@@ -32,4 +32,8 @@ class InvoiceItemTest < Minitest::Test
     assert @invoice_item.updated_at.class == Time
   end
 
+  def test_if_it_can_return_unit_price_in_dollars
+    assert_equal "$0.1099", @invoice_item.unit_price_to_dollars
+  end
+
 end
