@@ -6,7 +6,7 @@ class CustomerTest < Minitest::Test
   def setup
     merch_1   = mock
     merch_2   = mock
-    cust_repo = stub(merhants: [merch_1, merch_2])
+    cust_repo = stub(merchants: [merch_1, merch_2])
     @customer = Customer.new({
             id: '6',
     first_name: 'Joan',
@@ -48,6 +48,6 @@ class CustomerTest < Minitest::Test
   end
 
   def test_it_asks_parent_for_merchants
-    assert_instance_of Mocha::Mock, @customer.merchants
+    assert_instance_of Mocha::Mock, @customer.merchants[0]
   end
 end

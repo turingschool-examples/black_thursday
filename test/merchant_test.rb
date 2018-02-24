@@ -43,5 +43,5 @@ class MerchantTest < Minitest::Test
     @merchant.invoices.each do |invoice|
       assert_instance_of Mocha::Mock, invoice
     end
-  end
+  end  
 end

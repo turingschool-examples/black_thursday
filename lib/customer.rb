@@ -15,4 +15,8 @@ class Customer
     @updated_at = data[:updated_at]
     @parent     = parent
   end
+
+  def merchants
+    @parent.merchants(@id)
+  end
 end

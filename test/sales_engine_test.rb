@@ -9,7 +9,8 @@ class SalesEngineTest < Minitest::Test
           items: './data/sample_data/items.csv',
       merchants: './data/sample_data/merchants.csv',
        invoices: './data/sample_data/invoices.csv',
-   transactions: './data/sample_data/transactions.csv')
+   transactions: './data/sample_data/transactions.csv',
+      customers: './data/sample_data/customers.csv')
   end
 
   def test_sales_engine_class_exists

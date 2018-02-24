@@ -4,8 +4,9 @@ class CustomerRepository
   include Searching
   attr_reader :all
 
-  def initialize(file_path)
-    @all = from_csv(file_path)
+  def initialize(file_path, sales_eng)
+    @all       = from_csv(file_path)
+    @sales_eng = sales_eng
   end
 
   def add_elements(data)
@@ -22,6 +23,10 @@ class CustomerRepository
     @all.find_all do |cust|
       cust.last_name.upcase.include?(name.upcase)
     end
+  end
+
+  def merchants(id)
+    @sales_eng.merchants.find_all_by_id(id)
   end
 
   def inspect

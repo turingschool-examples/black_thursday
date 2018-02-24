@@ -4,8 +4,11 @@ require './lib/customer_repository'
 # test for customer repository class
 class CustomerRepositoryTest < Minitest::Test
   def setup
+    merch_1 = mock
+    merch_2 = mock
+    mock_se = stub(find_customer_merchants: [merch_1, merch_2])
     file_path  = './data/sample_data/customers.csv'
-    @cust_repo = CustomerRepository.new(file_path)
+    @cust_repo = CustomerRepository.new(file_path, mock_se)
   end
 
   def test_it_exists
@@ -43,6 +46,13 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal [], @cust_repo.find_by_last_name('SOUOU')
     assert_equal 2, actual.length
     assert_equal 'Joey', actual[0].first_name
+  end
+
+  def test_it_asks_parent_for_merchants
+    assert_equal 2, @cust_repo.merchants('id').length
+    @cust_repo.items('id').each do |merch|
+      assert_instance_of Mocha::Mock, merch
+    end
   end
 
   def test_inspect
