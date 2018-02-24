@@ -185,7 +185,6 @@ class SalesAnalyst
   end
 
   def finding_invoice_bought_in_a_year(id, year)
-    binding.pry
     customer = customers.find_by_id(id)
     customer.invoices.find_all do |invoice|
       invoice.created_at.to_s[0..3].to_i == year
