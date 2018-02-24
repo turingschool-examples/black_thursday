@@ -85,4 +85,10 @@ class SalesEngineTest < Minitest::Test
 
     assert result
   end
+
+  def test_engine_finds_paid_invoice_and_returns_cost
+    result = @sales_engine.engine_finds_paid_invoice_and_evaluates_cost(46)
+
+    assert result
+  end
 end

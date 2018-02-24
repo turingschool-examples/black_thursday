@@ -99,4 +99,11 @@ class InvoiceRepositoryTest < Minitest::Test
 
     assert result
   end
+
+  def test_invoice_total_returns_cost_for_paid_invoice
+    invoice = @invoice_repository
+    result = iv.invoice_repo_finds_invoice_items_cost_if_paid(46)
+
+    assert 986.68, result
+  end
 end
