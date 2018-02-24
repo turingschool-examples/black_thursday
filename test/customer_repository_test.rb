@@ -49,6 +49,7 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_it_asks_parent_for_merchants
+    skip
     assert_equal 2, @cust_repo.merchants('id').length
     @cust_repo.items('id').each do |merch|
       assert_instance_of Mocha::Mock, merch

@@ -1,4 +1,5 @@
 require_relative 'searching'
+require_relative 'customer'
 
 class CustomerRepository
   include Searching
@@ -26,7 +27,7 @@ class CustomerRepository
   end
 
   def merchants(id)
-    @sales_eng.merchants.find_all_by_id(id)
+    @sales_eng.find_customer_merchants(id)
   end
 
   def inspect
