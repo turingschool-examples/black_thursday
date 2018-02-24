@@ -41,6 +41,14 @@ class Invoice
     @parent.pass_id_to_se_for_transaction(@id)
   end
 
+  def is_paid_in_full?
+    return false if transactions.empty?
+    paid = transactions.any? do |transaction|
+      transaction.result == "failed"
+    end
+    return ! paid
+  end
+
   def customer
     @parent.pass_id_to_se_for_customer(@customer_id)
   end
