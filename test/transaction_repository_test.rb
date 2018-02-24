@@ -32,7 +32,7 @@ class TransactionRepositoryTest < Minitest::Test
     assert_instance_of Transaction, result
     assert_equal 8, result.id
     assert_equal 4898, result.invoice_id
-    assert_equal "4839506591130477", result.credit_card_number
+    assert_equal 4839506591130477, result.credit_card_number
   end
 
   def test_it_can_find_another_transaction_by_id
@@ -41,7 +41,7 @@ class TransactionRepositoryTest < Minitest::Test
     assert_instance_of Transaction, result
     assert_equal 4842, result.id
     assert_equal 819, result.invoice_id
-    assert_equal "4735941324612447", result.credit_card_number
+    assert_equal 4735941324612447, result.credit_card_number
     assert_equal "0620", result.credit_card_expiration_date
   end
 
@@ -59,7 +59,7 @@ class TransactionRepositoryTest < Minitest::Test
     assert_instance_of Transaction, result.first
     assert_equal 1, result.first.id
     assert_equal 2179, result.first.invoice_id
-    assert_equal "4068631943231473", result.first.credit_card_number
+    assert_equal 4068631943231473, result.first.credit_card_number
     assert_equal "0217", result.last.credit_card_expiration_date
   end
 
@@ -77,7 +77,7 @@ class TransactionRepositoryTest < Minitest::Test
     assert_instance_of Transaction, result.first
     assert_equal 9, result.last.id
     assert_equal 2179, result.first.invoice_id
-    assert_equal "4068631943231473", result.first.credit_card_number
+    assert_equal 4068631943231473, result.first.credit_card_number
     assert_equal "0217", result.last.credit_card_expiration_date
   end
 
@@ -95,7 +95,7 @@ class TransactionRepositoryTest < Minitest::Test
     assert_instance_of Transaction, result.first
     assert_equal 4842, result.last.id
     assert_equal 2179, result.first.invoice_id
-    assert_equal "4068631943231473", result.first.credit_card_number
+    assert_equal 4068631943231473, result.first.credit_card_number
     assert_equal "0620", result.last.credit_card_expiration_date
   end
 

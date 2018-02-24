@@ -70,16 +70,16 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_invoice_items_by_invoice_id
-    result = @invoice_item_repo.find_all_by_invoice_id(190)
+    result = @invoice_item_repo.find_all_by_invoice_id(819)
 
     assert result.class == Array
-    assert_equal 2, result.length
+    assert_equal 5, result.length
     assert_instance_of InvoiceItem, result.first
-    assert_equal 190, result.first.id
-    assert_equal 42, result.first.invoice_id
-    assert_equal 43, result.last.invoice_id
-    assert_equal 2, result.first.quantity
-    assert_equal 7, result.last.quantity
+    assert_equal 3661, result.first.id
+    assert_equal 3665, result.last.id
+    assert_equal 819, result.first.invoice_id
+    assert_equal 7, result.first.quantity
+    assert_equal 10, result.last.quantity
   end
 
   def test_it_returns_empty_array_when_there_is_no_match_for_invoice_id
