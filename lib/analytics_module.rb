@@ -9,10 +9,10 @@ module Analytics
   def sum_square_differences(elements, average)
     elements.map do |element|
       (element - average)**2
-    end.reduce(&:+)
+    end.reduce(:+)
   end
 
   def average(elements)
-    (elements.reduce(&:+) / elements.length).round(2)
+    (elements.reduce(:+) / elements.length).round(2)
   end
 end

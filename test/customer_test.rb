@@ -4,7 +4,9 @@ require './lib/customer'
 # test for customer class
 class CustomerTest < Minitest::Test
   def setup
-    cust_repo = mock
+    merch_1   = mock
+    merch_2   = mock
+    cust_repo = stub(merhants: [merch_1, merch_2])
     @customer = Customer.new({
             id: '6',
     first_name: 'Joan',
@@ -43,5 +45,9 @@ class CustomerTest < Minitest::Test
     assert_equal 'Loman', customer.last_name
     assert_equal expected, customer.created_at
     assert_equal expected2, customer.updated_at
+  end
+
+  def test_it_asks_parent_for_merchants
+    assert_instance_of Mocha::Mock, @customer.merchants
   end
 end

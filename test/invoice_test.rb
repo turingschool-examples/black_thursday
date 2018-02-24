@@ -7,12 +7,12 @@ class InvoiceTest < Minitest::Test
     merchant     = mock
     invoice_repo = stub(merchant: merchant)
     @invoice = Invoice.new({id: 6,
-                           customer_id: 7,
-                           merchant_id: 8,
-                           status: 'pending',
-                           created_at: '1969-07-20 20:17:40 - 0600',
-                           updated_at: '1969-07-20 20:17:40 - 0600'},
-                           invoice_repo)
+                   customer_id: 7,
+                   merchant_id: 8,
+                        status: 'pending',
+                    created_at: '1969-07-20 20:17:40 - 0600',
+                    updated_at: '1969-07-20 20:17:40 - 0600'},
+                    invoice_repo)
   end
 
   def test_it_exists
@@ -36,8 +36,13 @@ class InvoiceTest < Minitest::Test
     assert_instance_of Time, @invoice.created_at
     assert_instance_of Time, @invoice.updated_at
   end
-  
+
   def test_it_asks_parent_for_merchant
     assert_instance_of Mocha::Mock, @invoice.merchant
+  end
+
+  def test_it_asks_parent_for_customer
+    skip
+    assert_instance_of Mocha::Mock, @invoice.customer
   end
 end
