@@ -184,4 +184,19 @@ class SalesAnalyst
     high[0].merchant
   end
 
+  def finding_invoice_bought_in_a_year(id, year)
+    customer = customers.find_by_id(id)
+    customer.invoices.find_all do |invoice|
+      invoice.created_at.to_s[0..3].to_i == year
+    end
+  end
+
+  def items_bought_in_year(id, year)
+    invoices = finding_invoice_bought_in_a_year(id, year)
+    invoices.map do |invoice|
+      invoice.items.map do |item|
+        item
+      end
+    end.flatten
+  end
 end
