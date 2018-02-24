@@ -1,7 +1,5 @@
-require_relative 'searching'
-
+# class for customer objects
 class Customer
-  include Searching
   attr_reader :id,
               :first_name,
               :last_name,
