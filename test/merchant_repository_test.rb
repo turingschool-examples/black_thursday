@@ -76,8 +76,15 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_merch_repo_finds_invoices_via_engine
     mr = @merchant_repository
-    result = mr.merch_repo_finds_invoices_via_engine(12334144)
+    result = mr.merch_repo_finds_invoices_via_engine(12335955)
 
-    assert result.empty?
+    assert_equal 2, result.length
+  end
+
+  def test_merch_repo_finds_invoices_via_engine
+    mr = @merchant_repository
+    result = mr.merch_repo_finds_customers_via_engine(12335955)
+
+    assert_equal 2, result.length
   end
 end

@@ -37,4 +37,12 @@ class MerchantTest < Minitest::Test
     assert_equal 2, merchant.invoices.length
     assert merchant_no_invoice.invoices.empty?
   end
+
+  def test_merchant_customers_returns_customers_array
+    merchant = @sales_engine.merchants.find_by_id(12335955)
+    merchant.customers
+
+    assert_equal 2, merchant.customers.length
+    assert_instance_of Customer, merchant.customers[0]
+  end
 end
