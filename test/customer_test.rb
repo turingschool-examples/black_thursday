@@ -4,12 +4,14 @@ require './lib/customer'
 # test for customer class
 class CustomerTest < Minitest::Test
   def setup
+    cust_repo = mock
     @customer = Customer.new({
       :id => '6',
       :first_name => 'Joan',
       :last_name => 'Clarke',
       :created_at => '1969-07-20 20:17:40  0600',
-      :updated_at => '1970-07-20 20:17:40  0600'})
+      :updated_at => '1970-07-20 20:17:40  0600'},
+      cust_repo)
   end
 
   def test_it_exists_and_has_attributes
@@ -25,12 +27,14 @@ class CustomerTest < Minitest::Test
   end
 
   def test_different_attributes
-    customer = Customer.new({
+    cust_repo = mock
+    customer  = Customer.new({
       :id => '925235',
       :first_name => 'Happy',
       :last_name => 'Loman',
       :created_at => '1982-07-20 20:17:40  0600',
-      :updated_at => '1990-07-20 20:17:40  0600'})
+      :updated_at => '1990-07-20 20:17:40  0600'},
+      cust_repo)
     expected  = '1982-07-20 20:17:40  0600'
     expected2 = '1990-07-20 20:17:40  0600'
 

@@ -12,8 +12,7 @@ class CustomerRepositoryTest < Minitest::Test
     assert_instance_of CustomerRepository, @cust_repo
   end
 
-  def test_merchant_repository_adds_self_to_merchant
-    skip
+  def test_customer_repository_adds_self_to_customer
     assert_equal @cust_repo, @cust_repo.all.first.parent
   end
 

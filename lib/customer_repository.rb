@@ -9,7 +9,7 @@ class CustomerRepository
   end
 
   def add_elements(data)
-    data.map { |row| Customer.new(row) }
+    data.map { |row| Customer.new(row, self) }
   end
 
   def find_by_first_name(name)

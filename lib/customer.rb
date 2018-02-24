@@ -7,11 +7,12 @@ class Customer
               :updated_at,
               :parent
 
-  def initialize(data)
-    @id = data[:id].to_i
+  def initialize(data, parent)
+    @id         = data[:id].to_i
     @first_name = data[:first_name]
-    @last_name = data[:last_name]
+    @last_name  = data[:last_name]
     @created_at = data[:created_at]
     @updated_at = data[:updated_at]
+    @parent     = parent
   end
 end
