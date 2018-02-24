@@ -11,7 +11,7 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_can_return_all_transactions
-    assert_equal 5, @transaction_repo.all.count
+    assert_equal 6, @transaction_repo.all.count
   end
 
   def test_can_find_by_id

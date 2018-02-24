@@ -64,8 +64,8 @@ class InvoiceTest < Minitest::Test
     parent = InvoiceRepository.new('./test/fixtures/invoices.csv', se)
     invoice = se.invoices.find_by_id(1)
 
-    assert_instance_of InvoiceItem, invoice.items.first
-    assert_equal 1, invoice.items.first.id
+    assert_instance_of InvoiceItem, invoice.invoice_items.first
+    assert_equal 1, invoice.invoice_items.first.id
   end
 
   def test_it_can_get_transactions
@@ -94,5 +94,31 @@ class InvoiceTest < Minitest::Test
 
     assert_instance_of Customer, invoice.customer
     assert_equal 1, invoice.transactions.first.id
+  end
+
+  def test_it_can_find_if_paid_in_full
+    se = SalesEngine.from_csv(items:         './test/fixtures/items.csv',
+                              merchants:     './test/fixtures/merchants.csv',
+                              invoices:      './test/fixtures/invoices.csv',
+                              invoice_items: './test/fixtures/invoice_items.csv',
+                              transactions:  './test/fixtures/transactions.csv',
+                              customers:     './test/fixtures/invoices.csv')
+    invoice = se.invoices.find_by_id(1)
+    assert invoice.is_paid_in_full?
+
+    invoice_2 = se.invoices.find_by_id(9)
+
+    refute invoice_2.is_paid_in_full?
+  end
+
+  def test_it_can_find_a_total_amount
+    se = SalesEngine.from_csv(items:         './test/fixtures/items.csv',
+                              merchants:     './test/fixtures/merchants.csv',
+                              invoices:      './test/fixtures/invoices.csv',
+                              invoice_items: './test/fixtures/invoice_items.csv',
+                              transactions:  './test/fixtures/transactions.csv',
+                              customers:     './test/fixtures/invoices.csv')
+    invoice = se.invoices.find_by_id(1)
+    assert_equal 0.2106777e5, invoice.total
   end
 end
