@@ -167,26 +167,27 @@ class SalesAnalyst
   end
 
   def top_buyers(num = 20)
-    paid_invoices = invoices.map do |invoice|
-      invoice if invoice.is_paid_in_full?
-    end.compact
     hash = {}
-    paid_invoices.each do |invoice|
-      hash[invoice] = invoice.total
+    customers.each do |customer|
+      invoices = get_invoices(customer.id)
+      paid_invoices = invoices.find_all(&:is_paid_in_full?)
+      invoice_costs = paid_invoices.map(&:total)
+      hash[invoice_costs.reduce(:+).to_f] = customer
     end
-    sorted_invoices_and_totals = hash.sort_by {|invoice, total| total}
-    sorted_invoices = sorted_invoices_and_totals.map do |invoice_total_pair|
-      invoice_total_pair[0]
-    end.reverse
-    results = sorted_invoices.map(&:customer)
-    results.take num
+    top_customers = hash.keys.max(num)
+    top_customers.map { |key| hash[key] }
+  end
+
+  def get_invoices(customer_id)
+    @sales_engine.invoices.find_all_by_customer_id(customer_id)
   end
 
   def one_time_buyers
-    customer_and_invoices = {}
+    buyers = []
     customers.each do |customer|
-      customer_and_invoices[customer] = customer.invoices
+      invoices = get_invoices(customer.id)
+      buyers << customer if invoices.length == 1
     end
+    buyers
   end
-
 end
