@@ -87,7 +87,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_item_repo_goes_to_sales_engine_with_merchant_id
     ir = @item_repository
-    result = ir.item_repo_goes_to_sales_engine_with_merchant_id(263395617)
+    result = ir.item_repo_goes_to_sales_engine_with_merchant_id(263396209)
 
     assert result.empty?
   end
