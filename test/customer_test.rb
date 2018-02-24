@@ -1,6 +1,7 @@
 require './test/test_helper'
 require './lib/customer'
 
+# test for customer class
 class CustomerTest < Minitest::Test
   def setup
     @customer = Customer.new({
