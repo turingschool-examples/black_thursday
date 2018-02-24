@@ -12,6 +12,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_finds_by_item_id
+    skip
     assert_instance_of Array, @invoice_item_repo.find_all_by_item_id(10)
     assert_equal 0, @invoice_item_repo.find_all_by_item_id(10).length
     assert_equal 1, @invoice_item_repo.find_all_by_item_id(263454779).length
