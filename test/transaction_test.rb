@@ -31,4 +31,24 @@ class TransactionTest < Minitest::Test
     assert @transaction.updated_at.class == Time
   end
 
+  def test_if_it_returns_invoice_based_on_invoice_id
+    data = {
+      :items          => "./test/fixtures/items_sample.csv",
+      :merchants      => "./test/fixtures/merchants_sample.csv",
+      :invoices       => "./test/fixtures/invoices_sample.csv",
+      :invoice_items  => "./test/fixtures/invoice_items_sample.csv",
+      :transactions   => "./test/fixtures/transactions_sample.csv",
+      :customers      => "./test/fixtures/customers_sample.csv"
+        }
+    sales_engine = SalesEngine.new(data)
+    id = 1
+    transaction = sales_engine.transactions.find_by_id(id)
+
+    assert_instance_of Invoice, transaction.invoice
+    assert transaction.invoice.class == Invoice
+    assert transaction.invoice.customer_id == 433
+    assert transaction.invoice.merchant_id == 12334633
+    assert transaction.invoice.status == :returned
+  end
+
 end

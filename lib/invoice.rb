@@ -25,17 +25,19 @@ class Invoice
     invoice_repo.find_merchant_by_merchant_id(merchant_id)
   end
 
-  def find_invoice_items_by_invoice_id
+  def items
     invoice_items = invoice_repo.find_invoice_items_by_invoice_id(id)
-    invoice_items.find_all do |invoice_item|
+    invoice_items.map do |invoice_item|
       invoice_repo.find_item_by_id(invoice_item.item_id)
-    end
+    end.compact
   end
 
-  def items
-    find_invoice_items_by_invoice_id.map do |invoice_item|
-      invoice_repo.find_item_by_id(invoice_item.item_id)
-    end
+  def transactions
+    invoice_repo.find_transactions_by_invoice_id(id)
+  end
+
+  def customer
+    invoice_repo.find_customer_by_customer_id(customer_id)
   end
 
 end

@@ -54,4 +54,12 @@ class InvoiceRepository
     engine.find_item_by_id(item_id)
   end
 
+  def find_transactions_by_invoice_id(invoice_id)
+    engine.find_transactions_by_invoice_id(invoice_id)
+  end
+
+  def find_customer_by_customer_id(customer_id)
+    engine.find_customer_by_customer_id(customer_id)
+  end
+
 end
