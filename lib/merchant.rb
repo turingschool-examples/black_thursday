@@ -5,12 +5,16 @@ class Merchant
               :parent
 
   def initialize(data, parent)
-    @id   = data[:id].to_i
-    @name = data[:name]
+    @id     = data[:id].to_i
+    @name   = data[:name]
     @parent = parent
   end
 
   def items
     @parent.items(@id)
+  end
+
+  def invoices
+    @parent.invoices(@id)
   end
 end

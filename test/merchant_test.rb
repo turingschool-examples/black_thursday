@@ -4,7 +4,12 @@ require './lib/merchant'
 # Tests merchant class
 class MerchantTest < Minitest::Test
   def setup
-    mock_repo = mock('Merchant Repo')
+    invoice_1 = mock
+    invoice_2 = mock
+    item_one  = mock
+    item_two  = mock
+    mock_repo = stub(items: [item_one, item_two],
+                  invoices: [invoice_1, invoice_2])
     @merchant = Merchant.new({ id: 5, name: 'Turing School' }, mock_repo)
   end
 
@@ -27,14 +32,16 @@ class MerchantTest < Minitest::Test
   end
 
   def test_it_asks_parent_for_items
-    mock_item_one = mock('Item')
-    mock_item_two = mock('Item')
-    mock_repo = stub(items: [mock_item_one, mock_item_two])
-    merchant = Merchant.new({ id: 1, name: 'Haliburton' }, mock_repo)
-
-    assert_equal 2, merchant.items.length
-    merchant.items.each do |item|
+    assert_equal 2, @merchant.items.length
+    @merchant.items.each do |item|
       assert_instance_of Mocha::Mock, item
+    end
+  end
+
+  def test_it_asks_parent_for_invoices
+    assert_equal 2, @merchant.invoices.length
+    @merchant.invoices.each do |invoice|
+      assert_instance_of Mocha::Mock, invoice
     end
   end
 end

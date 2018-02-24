@@ -5,14 +5,16 @@ require './lib/item'
 # Tests Item class
 class ItemTest < Minitest::Test
   def setup
-    mock_repo = MockItemRepo.new
+    merchant  = mock
+    item_repo = stub(merchant: merchant)
     @item = Item.new({ id: 5,
                        name: 'Pencil',
                        description: 'You can use it to write things',
                        unit_price: BigDecimal.new(10.99, 4),
                        merchant_id: 6,
                        created_at: '2016-01-11 09:34:06 UTC',
-                       updated_at: '2016-01-11 09:34:06 UTC' }, mock_repo)
+                       updated_at: '2016-01-11 09:34:06 UTC' },
+                       item_repo)
   end
 
   def test_item_class_exists
@@ -53,6 +55,6 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_asks_parent_for_merchant
-    assert_instance_of MockMerchant, @item.merchant
+    assert_instance_of Mocha::Mock, @item.merchant
   end
 end

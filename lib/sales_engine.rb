@@ -10,9 +10,9 @@ class SalesEngine
                 :transactions
 
   def initialize(repositories)
-    @items = ItemRepository.new(repositories[:items], self)
+    @items     = ItemRepository.new(repositories[:items], self)
     @merchants = MerchantRepository.new(repositories[:merchants], self)
-    @invoices = InvoiceRepository.new(repositories[:invoices])
+    @invoices = InvoiceRepository.new(repositories[:invoices], self)
     @transactions = TransactionRepository.new(repositories[:transactions], self)
   end
 
@@ -30,5 +30,13 @@ class SalesEngine
 
   def find_transaction_invoice(invoice_id)
     @invoices.find_by_id(invoice_id)
+  end
+
+  def find_merchant_invoices(id)
+    @invoices.find_all_by_merchant_id(id)
+  end
+
+  def find_invoice_merchant(id)
+    @merchants.find_by_id(id)
   end
 end
