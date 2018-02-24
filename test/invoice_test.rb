@@ -59,10 +59,22 @@ class InvoiceTest < Minitest::Test
     assert_nil invoice.merchant
   end
 
-  def test_merchant_invoices_returns_items_array
+  def test_invoice_items_returns_items_array
     invoice = @sales_engine.invoices.find_by_id(2)
     invoice.items
 
     assert_equal 4, invoice.items.length
+
+    invoice_bad = @sales_engine.invoices.find_by_id(64)
+
+    assert_equal 4, invoice.items.length
+    assert_nil invoice_bad
+  end
+
+  def test_invoice_customer_returns_customer
+    invoice = @sales_engine.invoices.find_by_id(9)
+    invoice.customer
+
+    assert_instance_of Customer, invoice.customer
   end
 end

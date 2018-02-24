@@ -50,7 +50,11 @@ class InvoiceRepository
     @parent.engine_finds_items_via_invoice_items_repo(id)
   end
 
+  def invoice_repo_finds_customer_via_engine(id)
+    @parent.engine_finds_customer_via_customer_repo(id)
+  end
+
   def inspect
-    "#<#{self.class} #{@invoice_items.size} rows>"
+    "#<#{self.class} #{@invoices.size} rows>"
   end
 end

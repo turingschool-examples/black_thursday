@@ -19,4 +19,8 @@ class Invoice
   def items
     @parent.invoice_repo_finds_items_via_engine(self.id)
   end
+
+  def customer
+    @parent.invoice_repo_finds_customer_via_engine(self.id)
+  end
 end

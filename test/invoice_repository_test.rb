@@ -80,4 +80,16 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_instance_of Array, result
     assert result_nil.empty?
   end
+
+  def test_it_can_go_to_sales_engine_with_id
+    iv = @invoice_repository
+    # result_merchant = iv.invoice_repo_finds_merchant_via_engine(1)
+    result_items = iv.invoice_repo_finds_items_via_engine(1)
+    result_customer = iv.invoice_repo_finds_customer_via_engine(1)
+
+    # assert_instance_of Merchant, result[0]
+    # ^^ comment in after fixture data is updated
+    assert_instance_of InvoiceItem, result_items[0]
+    assert_instance_of Customer, result_customer
+  end
 end
