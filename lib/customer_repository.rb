@@ -36,6 +36,10 @@ class CustomerRepository
     end
   end
 
+  def customer_repo_finds_merchants_via_engine(id)
+    @parent.engine_finds_customer_merchants_via_invoice_repo(id)
+  end
+
   def inspect
     "#<#{self.class} #{@customers.size} rows>"
   end
