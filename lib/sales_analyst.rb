@@ -4,27 +4,34 @@ class SalesAnalyst
     @se = sales_engine
   end
 
-  def average_items_per_merchant
-    mean_items_per_merchant(items_count_per_merchant).round(2)
-  end
-
-  def average_items_per_merchant_standard_deviation
-    num_items = items_count_per_merchant
-    mean = mean_items_per_merchant(num_items)
-    std_dev = 0.0
-    num_items.each do |count|
-      std_dev += (count - mean)**2
-    end
-    std_dev /= num_items.length - 1
-    Math.sqrt(std_dev).round(2)
-  end
-
-  def mean_items_per_merchant(item_array)
+  def mean_finder(item_array)
     mean = 0.0
     item_array.each do |count|
       mean += count
     end
-    mean / item_array.length
+    if item_array.length == 0
+      0
+    else
+      mean / item_array.length
+    end
+  end
+
+  def standard_devation(mean, item_array)
+    std_dev = 0.0
+    item_array.each do |count|
+      std_dev += (count - mean)**2
+    end
+    std_dev /= item_array.length - 1
+    Math.sqrt(std_dev)
+  end
+
+  def average_items_per_merchant
+    mean_finder(items_count_per_merchant).round(2)
+  end
+
+  def average_items_per_merchant_standard_deviation
+    num_items = items_count_per_merchant
+    standard_devation(mean_finder(num_items), num_items).round(2)
   end
 
   def items_count_per_merchant
@@ -43,48 +50,51 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(merchant_id)
     items = @se.find_items_by_merchant_id(merchant_id)
-    avg = 0
-    items.each do |item|
-      avg += item.unit_price
-    end
-    if items.length == 0
-      0
-    else
-      (avg /= items.length).round(2)
-    end
+    mean_finder(items.map(&:unit_price)).round(2)
   end
 
   def average_average_price_per_merchant
-    avg = 0
-    merchants = @se.merchants.all
-    merchants.map do |merchant|
-      avg += average_item_price_for_merchant(merchant.id)
+    avg_array = @se.merchants.all.map do |merchant|
+      average_item_price_for_merchant(merchant.id)
     end
-    (avg /= merchants.length).round(2)
+    mean_finder(avg_array).round(2)
   end
 
   def golden_items
     item_array = @se.items.all
-    mean = avg_item_price(item_array)
-    std_dev = std_dev_item_price(mean, item_array)
+    price_array = item_array.map(&:unit_price)
+    mean = mean_finder(price_array)
+    std_dev = standard_devation(mean, price_array)
     item_array.find_all { |item| item.unit_price > ((std_dev * 2) + mean) }
   end
 
-  def avg_item_price(item_array)
-    avg = 0
-    item_array.each do |item|
-      avg += item.unit_price
-    end
-    avg /= item_array.length
+  def average_invoices_per_merchant
+    mean_per_merchant(invoice_count_per_merchant)
   end
 
-  def std_dev_item_price(mean, item_array)
-    std_dev = 0
-    item_array.each do |item|
-      std_dev += (item.unit_price - mean)**2
+  def invoice_count_per_merchant
+    @se.merchants.all.map do |merchant|
+      @se.find_invoices_by_merchant_id(merchant.id).length
     end
-    std_dev /= item_array.length - 1
-    Math.sqrt(std_dev).round(2)
   end
 
+  def average_invoices_per_merchant_standard_deviation
+    invoice_list = invoice_count_per_merchant
+    mean = mean_per_merchant(invoice_count_per_merchant)
+    standard_devation(mean, invoice_list).round(2)
+  end
+
+  # def top_merchants_by_invoice_count
+  #
+  # end
+  #
+  # def bottom_merchants_by_invoice_count
+  # end
+  #
+  # def top_days_by_invoice_count
+  #
+  # end
+  #
+  # def invoice_status(status)
+  # end
 end

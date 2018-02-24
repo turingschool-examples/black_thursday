@@ -20,11 +20,6 @@ class SATest < Minitest::Test
     assert_equal 3.16, @sales_analyst.average_items_per_merchant_standard_deviation
   end
 
-  def test_mean_items_per_merchant
-    item_array = [3,4,5]
-    assert_equal 4, @sales_analyst.mean_items_per_merchant(item_array)
-  end
-
   def test_avg_item_per_merchant
     assert_equal 0.1117e2, @sales_analyst.average_item_price_for_merchant(12334185)
   end

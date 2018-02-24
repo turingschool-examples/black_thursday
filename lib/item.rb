@@ -16,7 +16,7 @@ class Item
   def initialize(data, parent = nil)
     @id           = data[:id].to_i
     @name         = data[:name]
-    @description  = data[:description].gsub("\n", "")
+    @description  = data[:description]
     @unit_price   = BigDecimal.new(data[:unit_price], 4) / 100
     @created_at   = Time.parse(data[:created_at])
     @updated_at   = Time.parse(data[:updated_at])
