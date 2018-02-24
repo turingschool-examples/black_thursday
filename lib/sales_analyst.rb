@@ -199,4 +199,16 @@ class SalesAnalyst
       end
     end.flatten
   end
+
+  def customers_with_unpaid_invoices
+    unpaid = []
+      customers.all.map do |customer|
+        customer.invoices
+      end.flatten.each do |invoice|
+        if invoice.is_paid_in_full? == false
+          unpaid << invoice.customer
+        end
+      end
+  unpaid.uniq
+  end
 end
