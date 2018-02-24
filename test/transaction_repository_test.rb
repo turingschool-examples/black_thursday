@@ -44,6 +44,13 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal '4318767847968505', result[1].credit_card_number
   end
 
+  def test_empty_invoice_id_array_returns_when_no_match
+    result = @tr.find_all_by_invoice_id '_____'
+
+    assert_instance_of Array, result
+    assert result.empty?
+  end
+
   def test_can_find_all_by_credit_card_number
     result = @tr.find_all_by_credit_card_number '4518913442963142'
 
@@ -52,6 +59,13 @@ class TransactionRepositoryTest < Minitest::Test
     assert_instance_of Transaction, result[1]
     assert_equal 2747, result[0].invoice_id
     assert_equal 3560, result[1].invoice_id
+  end
+
+  def test_empty_credit_card_array_returns_when_no_match
+    result = @tr.find_all_by_credit_card_number '0123012301230123'
+
+    assert_instance_of Array, result
+    assert result.empty?
   end
 
   def test_can_find_all_by_result
@@ -64,11 +78,10 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal 3560, result[1].invoice_id
   end
 
-  def test_empty_invoice_id_array_returns_when_no_match
+  def test_empty_credit_result_array_returns_when_no_match
+    result = @tr.find_all_by_result '_______' 
 
-  end
-
-  def test_empty_credit_card_array_returns_when_no_match
-
+    assert_instance_of Array, result
+    assert result.empty?
   end
 end

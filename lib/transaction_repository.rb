@@ -31,21 +31,23 @@ class TransactionRepository
   end
 
   def find_all_by_invoice_id(id)
-    @transactions.select do |transaction|
+    selected = @transactions.select do |transaction|
       transaction.invoice_id == id
     end
+    selected.nil? ? [] : selected
   end
 
   def find_all_by_credit_card_number(num)
-    @transactions.select do |transaction|
+    selected = @transactions.select do |transaction|
       transaction.credit_card_number == num
     end
+    selected.nil? ? [] : selected
   end
 
   def find_all_by_result(status)
-    @transactions.select do |transaction|
+    selected = @transactions.select do |transaction|
       transaction.result == status
     end
+    selected.nil? ? [] : selected
   end
-
 end
