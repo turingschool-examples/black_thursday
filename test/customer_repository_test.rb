@@ -18,7 +18,6 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_all
-    skip
     assert_instance_of Array, @cust_repo.all
     assert_instance_of Customer, @cust_repo.all.first
     assert_equal 1, @cust_repo.all.first.id
@@ -26,14 +25,12 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_find_by_id
-    skip
     assert_nil @cust_repo.find_by_id(8)
     assert_instance_of Customer, @cust_repo.find_by_id(3)
-    assert_equal 'Joey', @cust_repo.find_by_id(1).name
+    assert_equal 'Joey', @cust_repo.find_by_id(1).first_name
   end
 
   def test_find_by_first_name
-    skip
     actual = @cust_repo.find_by_first_name('IA')
 
     assert_equal [], @cust_repo.find_by_first_name('SOUOU')
@@ -42,7 +39,6 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_find_by_last_name
-    skip
     actual = @cust_repo.find_by_last_name('I')
 
     assert_equal [], @cust_repo.find_by_last_name('SOUOU')
@@ -51,7 +47,6 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_inspect
-    skip
     expected = '#<CustomerRepository 4 rows>'
     assert_equal expected, @cust_repo.inspect
   end
