@@ -14,4 +14,8 @@ class Merchant
   def invoices
     @parent.merch_repo_finds_invoices_via_engine(self.id)
   end
+
+  def customers
+    @parent.merch_repo_finds_customers_via_engine(self.id)
+  end
 end

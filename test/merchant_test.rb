@@ -27,10 +27,14 @@ class MerchantTest < Minitest::Test
     assert_equal "510+ RealPush Icon Set", merchant.items[0].name
   end
 
-  def test_merchant_invoices_returns_items_array
-    merchant = @sales_engine.merchants.find_by_id(12334141)
+  def test_merchant_invoices_returns_invoices_array
+    merchant = @sales_engine.merchants.find_by_id(12335955)
     merchant.invoices
 
-    assert merchant.invoices.empty?
+    merchant_no_invoice = @sales_engine.merchants.find_by_id(12334141)
+    merchant_no_invoice.invoices
+
+    assert_equal 2, merchant.invoices.length
+    assert merchant_no_invoice.invoices.empty?
   end
 end

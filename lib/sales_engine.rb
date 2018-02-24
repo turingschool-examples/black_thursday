@@ -46,4 +46,12 @@ class SalesEngine
   def engine_finds_customer_via_customer_repo(id)
     @customers.find_by_id(id)
   end
+
+  def engine_finds_merchant_customers_via_invoice_repo(id)
+    merchant_invoices = engine_finds_invoices_via_invoice_repo(id)
+    merchant_invoices.map do |invoice|
+      @customers.find_by_id(invoice.customer_id)
+    end
+  end
+
 end
