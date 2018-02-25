@@ -23,7 +23,7 @@ class Invoice
   end
 
   def customer
-    @parent.customer(@id)
+    @parent.customer(@customer_id)
   end
 
   def items
