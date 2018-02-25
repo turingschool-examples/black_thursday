@@ -195,11 +195,18 @@ class SalesAnalyst
   end
 
   def one_time_buyers_top_items
-    items = one_time_buyers.map do |customer|
-      paid_invoices = customer.invoices.find_all(&:is_paid_in_full?).flatten
-      paid_invoices.map(&:items)
-    end.flatten
-    # need to finish
+    customers = one_time_buyers
+    hash = Hash.new(0)
+    customers.each do |customer|
+      invoices = customer.fully_paid_invoices
+      invoices.each do |invoice|
+        invoice_items = @sales_engine.invoice_items.find_all_by_invoice_id(invoice.id)
+        invoice_items.each do |invoice_item|
+          hash[@sales_engine.items.find_by_id(invoice_item.item_id)] += invoice_item.quantity
+        end
+      end
+    end
+    [hash.key(hash.values.sort.last)]
   end
 
   def finding_invoice_items(id)
@@ -238,8 +245,18 @@ class SalesAnalyst
 
   def highest_volume_items(customer_id)
     customer = @sales_engine.customers.find_by_id(customer_id)
-    items = customer.invoices.map(&:items).flatten
-    items.sort_by { |item| items.count(item) }
+    invoices = customer.invoices
+    invoice_items = invoices.map do |invoice|
+      @sales_engine.invoice_items.find_all_by_invoice_id(invoice.id)
+    end.flatten
+    quantities = invoice_items.map(&:quantity)
+    array = []
+    quantities.each_with_index do |num, index|
+      if num == quantities.max
+        array << @sales_engine.items.find_by_id(invoice_items[index].item_id)
+      end
+    end
+    array
   end
 
   def customers_with_unpaid_invoices

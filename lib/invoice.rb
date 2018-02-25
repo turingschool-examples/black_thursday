@@ -62,7 +62,7 @@ class Invoice
   def quantity
   @quantity = invoice_items.map do |invoice_item|
       invoice_item.quantity.to_i
-    end.sum
+    end.reduce(:+)
   end
 
   def customer

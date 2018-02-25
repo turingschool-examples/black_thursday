@@ -104,7 +104,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_one_time_buyers_top_items
-    assert_equal 0, @sa.one_time_buyers_top_items
+    assert_equal [nil], @sa.one_time_buyers_top_items
   end
 
   def test_can_find_unpaid_invoices
