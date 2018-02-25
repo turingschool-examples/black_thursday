@@ -10,9 +10,10 @@ class InvoiceTest < Minitest::Test
       id:           6,
       customer_id:  7,
       merchant_id:  8,
-      status:       "pending",
-      created_at:   "2018-02-02 14:37:20 -0700",
-      updated_at:   "2018-02-02 14:37:20 -0700"}
+      status:       'pending',
+      created_at:   '2018-02-02 14:37:20 -0700',
+      updated_at:   '2018-02-02 14:37:20 -0700'
+    }
     @invoice = Invoice.new(data)
   end
 
@@ -31,31 +32,31 @@ class InvoiceTest < Minitest::Test
 
   def test_if_it_returns_the_merchant_for_an_invoice
     data = {
-      :items          => "./test/fixtures/items_sample.csv",
-      :merchants      => "./test/fixtures/merchants_sample.csv",
-      :invoices       => "./test/fixtures/invoices_sample.csv",
-      :invoice_items  => "./test/fixtures/invoice_items_sample.csv",
-      :transactions   => "./test/fixtures/transactions_sample.csv",
-      :customers      => "./test/fixtures/customers_sample.csv"
-        }
+      items:         './test/fixtures/items_sample.csv',
+      merchants:     './test/fixtures/merchants_sample.csv',
+      invoices:      './test/fixtures/invoices_sample.csv',
+      invoice_items: './test/fixtures/invoice_items_sample.csv',
+      transactions:  './test/fixtures/transactions_sample.csv',
+      customers:     './test/fixtures/customers_sample.csv'
+    }
     sales_engine = SalesEngine.new(data)
     id = 641
     invoice = sales_engine.invoices.find_by_id(id)
 
     assert invoice.id == id
-    assert invoice.merchant.name == "jejum"
+    assert invoice.merchant.name == 'jejum'
     assert invoice.merchant.class == Merchant
   end
 
   def test_if_it_returns_all_items_for_an_invoice
     data = {
-      :items          => "./test/fixtures/items_sample.csv",
-      :merchants      => "./test/fixtures/merchants_sample.csv",
-      :invoices       => "./test/fixtures/invoices_sample.csv",
-      :invoice_items  => "./test/fixtures/invoice_items_sample.csv",
-      :transactions   => "./test/fixtures/transactions_sample.csv",
-      :customers      => "./test/fixtures/customers_sample.csv"
-        }
+      items:         './test/fixtures/items_sample.csv',
+      merchants:     './test/fixtures/merchants_sample.csv',
+      invoices:      './test/fixtures/invoices_sample.csv',
+      invoice_items: './test/fixtures/invoice_items_sample.csv',
+      transactions:  './test/fixtures/transactions_sample.csv',
+      customers:     './test/fixtures/customers_sample.csv'
+    }
     sales_engine = SalesEngine.new(data)
     id = 819
     invoice = sales_engine.invoices.find_by_id(id)
@@ -70,13 +71,13 @@ class InvoiceTest < Minitest::Test
 
   def test_if_it_returns_all_transactions_for_an_invoice
     data = {
-      :items          => "./test/fixtures/items_sample.csv",
-      :merchants      => "./test/fixtures/merchants_sample.csv",
-      :invoices       => "./test/fixtures/invoices_sample.csv",
-      :invoice_items  => "./test/fixtures/invoice_items_sample.csv",
-      :transactions   => "./test/fixtures/transactions_sample.csv",
-      :customers      => "./test/fixtures/customers_sample.csv"
-        }
+      items:         './test/fixtures/items_sample.csv',
+      merchants:     './test/fixtures/merchants_sample.csv',
+      invoices:      './test/fixtures/invoices_sample.csv',
+      invoice_items: './test/fixtures/invoice_items_sample.csv',
+      transactions:  './test/fixtures/transactions_sample.csv',
+      customers:     './test/fixtures/customers_sample.csv'
+    }
     sales_engine = SalesEngine.new(data)
     id = 2179
     invoice = sales_engine.invoices.find_by_id(id)
@@ -90,13 +91,13 @@ class InvoiceTest < Minitest::Test
 
   def test_if_it_returns_customer_based_on_customer_id
     data = {
-      :items          => "./test/fixtures/items_sample.csv",
-      :merchants      => "./test/fixtures/merchants_sample.csv",
-      :invoices       => "./test/fixtures/invoices_sample.csv",
-      :invoice_items  => "./test/fixtures/invoice_items_sample.csv",
-      :transactions   => "./test/fixtures/transactions_sample.csv",
-      :customers      => "./test/fixtures/customers_sample.csv"
-        }
+      items:         './test/fixtures/items_sample.csv',
+      merchants:     './test/fixtures/merchants_sample.csv',
+      invoices:      './test/fixtures/invoices_sample.csv',
+      invoice_items: './test/fixtures/invoice_items_sample.csv',
+      transactions:  './test/fixtures/transactions_sample.csv',
+      customers:     './test/fixtures/customers_sample.csv'
+    }
     sales_engine = SalesEngine.new(data)
     id = 1053
     invoice = sales_engine.invoices.find_by_id(id)
@@ -106,6 +107,38 @@ class InvoiceTest < Minitest::Test
     assert invoice.customer.class == Customer
     assert invoice.customer.first_name == "Oda"
     assert invoice.customer.last_name == "Schinner"
+  end
+
+  def test_is_paid_in_full
+    data = {
+      items:         './test/fixtures/items_sample.csv',
+      merchants:     './test/fixtures/merchants_sample.csv',
+      invoices:      './test/fixtures/invoices_sample.csv',
+      invoice_items: './test/fixtures/invoice_items_sample.csv',
+      transactions:  './test/fixtures/transactions_sample.csv',
+      customers:     './test/fixtures/customers_sample.csv'
+    }
+    sales_engine = SalesEngine.new(data)
+    id = 1053
+    invoice = sales_engine.invoices.find_by_id(id)
+
+    assert_equal true, invoice.is_paid_in_full?
+  end
+
+  def test_total
+    data = {
+      items:         './test/fixtures/items_sample.csv',
+      merchants:     './test/fixtures/merchants_sample.csv',
+      invoices:      './test/fixtures/invoices_sample.csv',
+      invoice_items: './test/fixtures/invoice_items_sample.csv',
+      transactions:  './test/fixtures/transactions_sample.csv',
+      customers:     './test/fixtures/customers_sample.csv'
+    }
+    sales_engine = SalesEngine.new(data)
+    id = 1053
+    invoice = sales_engine.invoices.find_by_id(id)
+
+    assert_equal 302.50, invoice.total
   end
 
 end
