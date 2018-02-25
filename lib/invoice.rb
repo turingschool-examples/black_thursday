@@ -29,4 +29,8 @@ class Invoice
   def items
     @parent.items(@id)
   end
+
+  def transactions
+    @parent.transactions(@id)
+  end
 end

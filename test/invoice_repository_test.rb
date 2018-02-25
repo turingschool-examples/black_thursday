@@ -9,7 +9,8 @@ class InvoiceRepositoryTest < Minitest::Test
     sales_eng = stub(
       find_invoice_merchant: mock('merchant'),
       find_invoice_items: [mock('item'), mock('item')],
-      find_invoice_customer: mock('customer')
+      find_invoice_customer: mock('customer'),
+      find_invoice_transactions: [mock, mock]
     )
     @invoice_repo = InvoiceRepository.new(file_name, sales_eng)
   end
@@ -54,6 +55,10 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_it_asks_parent_for_customers
     assert_instance_of Mocha::Mock, @invoice_repo.customer('id')
+  end
+
+  def test_it_asks_parent_for_transactions
+    assert_instance_of Mocha::Mock, @invoice_repo.transactions('id')[0]
   end
 
   def test_inspect

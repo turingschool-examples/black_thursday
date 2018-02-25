@@ -35,6 +35,10 @@ class InvoiceRepository
     @sales_eng.find_invoice_customer(customer_id)
   end
 
+  def transactions(invoice_id)
+    @sales_eng.find_invoice_transactions(invoice_id)
+  end
+
   def inspect
     "#<#{self.class} #{@all.length} rows>"
   end

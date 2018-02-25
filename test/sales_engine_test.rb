@@ -80,6 +80,13 @@ class SalesEngineTest < Minitest::Test
     assert_equal 46, invoice.items[0].name
   end
 
+  def test_find_invoice_transactions
+    invoice = @se.invoices.find_by_id(46)
+
+    assert_instance_of Transaction, invoice.transactions[0]
+    assert_equal 2, invoice.transactions[0].id
+  end
+
   def test_find_customer_merchants
     customer = @se.customers.find_by_id(3)
 
