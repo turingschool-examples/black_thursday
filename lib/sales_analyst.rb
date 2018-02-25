@@ -265,4 +265,20 @@ class SalesAnalyst
       @item_repo.find_by_id(ii.item_id)
     end
   end
+
+  def highest_volume_items(customer_id)
+    customer = @customer_repo.find_by_id(customer_id)
+    customer_invoices = @invoice_repo.find_all_by_customer_id(customer.id)
+    invoice_items = customer_invoices.map do |invoice|
+      @invoice_item_repo.find_all_by_invoice_id(invoice.id)
+    end.flatten
+    occurances = invoice_items.map(&:quantity)
+    array = []
+    occurances.each_with_index do |num, index|
+      if num == occurances.max
+        array << @item_repo.find_by_id(invoice_items[index].item_id)
+      end
+    end
+    array
+  end
 end

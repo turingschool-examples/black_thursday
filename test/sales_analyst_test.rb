@@ -62,7 +62,7 @@ class SalesAnalystTest < Minitest::Test
   def test_for_item_unit_prices
     expected = [0.12e2, 0.13e2, 0.135e2, 0.7e1, 0.15e2, 0.2999e2, 0.149e3,
                 0.149e2, 0.69e1, 0.4e3, 0.13e3, 0.399e1, 0.8e2, 0.6e3, 0.65e3,
-                0.4e2, 0.239e2, 0.5e3, 0.239e2, 0.5e3, 0.5e1, 0.2e1, 0.35e1]
+                0.4e2, 0.239e2, 0.5e3, 0.239e2, 0.5e3, 0.5e1, 0.2e1, 0.35e1, 0.406e3]
     actual = @sales_analyst.item_unit_prices
 
     assert_equal expected, actual
@@ -71,13 +71,13 @@ class SalesAnalystTest < Minitest::Test
   def test_for_average_item_price
     actual = @sales_analyst.average_item_price
 
-    assert_equal 140.15565217391304, actual
+    assert_equal 151.2325, actual
   end
 
   def test_for_item_price_standard_deviation
     actual = @sales_analyst.item_price_standard_deviation
 
-    assert_equal 217.52, actual
+    assert_equal 219.55, actual
   end
 
   def test_for_golden_items
@@ -157,6 +157,12 @@ class SalesAnalystTest < Minitest::Test
 
   def test_items_bought_in_year
     assert_equal 4, @sales_analyst.items_bought_in_year(1, 2012).length
-    assert_equal 263519844, @sales_analyst.items_bought_in_year(1, 2009).first.id
+    assert_equal 263_519_844, @sales_analyst.items_bought_in_year(1, 2009).first.id
+  end
+
+  def test_highest_volume_items
+    assert_equal 2, @sales_analyst.highest_volume_items(1).length
+    assert_equal 263_454_779, @sales_analyst.highest_volume_items(1).first.id
+    assert_equal Item, @sales_analyst.highest_volume_items(1).first.class
   end
 end
