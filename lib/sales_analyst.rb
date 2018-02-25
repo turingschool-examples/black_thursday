@@ -14,7 +14,7 @@ class SalesAnalyst
 
   def standard_devation(mean, item_array)
     std_dev = 0.0
-    item_array.each { |count| std_dev += (count - mean)**2 }
+    item_array.each { |count| std_dev += (count - mean) ** 2 }
     std_dev /= item_array.length - 1
     Math.sqrt(std_dev)
   end
