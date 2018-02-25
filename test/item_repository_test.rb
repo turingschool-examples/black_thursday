@@ -4,7 +4,6 @@ require_relative '../lib/sales_engine'
 require 'bigdecimal'
 require 'pry'
 
-# test for Item Repository Class
 class ItemRepositoryTest < Minitest::Test
   def test_it_exists
     item_repository = ItemRepository.new('./test/fixtures/items.csv', 'parent')

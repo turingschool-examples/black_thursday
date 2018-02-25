@@ -86,7 +86,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_pass_to_se_methods
-    skip
+  skip
   parent = mock
   parent.stubs(:find_all_by_customer_id).returns('customer')
   merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv',

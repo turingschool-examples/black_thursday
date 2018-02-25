@@ -105,6 +105,7 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Invoice, @sa.get_invoices(1)[0]
   end
 
+
   def test_can_find_one_time_buyers
     assert_instance_of Array, @sa.one_time_buyers
     assert_instance_of Customer, @sa.one_time_buyers[0]
@@ -112,6 +113,14 @@ class SalesAnalystTest < Minitest::Test
 
   def test_one_time_buyers_top_items
     assert_equal [nil], @sa.one_time_buyers_top_items
+  end
+
+  def test_can_find_invoice_items
+    assert_instance_of Hash, @sa.finding_invoice_items(1)
+  end
+
+  def test_can_find_number_of_invoice_bought_in_a_year
+    assert_equal [], @sa.items_bought_in_year(1, 2013)
   end
 
   def test_can_find_unpaid_invoices
