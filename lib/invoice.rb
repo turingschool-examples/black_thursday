@@ -52,14 +52,6 @@ class Invoice
       end
   end
 
-  # def is_paid_in_full?
-  #   return false if transactions.empty?
-  #   paid = transactions.any? do |transaction|
-  #     transaction.result == "failed"
-  #   end
-  #   return ! paid
-  # end
-
   def total
     invoice_items.reduce(0) do |total, invoice_item|
       total + invoice_item.quantity.to_i * invoice_item.unit_price
@@ -69,7 +61,7 @@ class Invoice
   def quantity
     invoice_items.map do |invoice_item|
       invoice_item.quantity.to_i
-    end
+    end.sum
   end
 
   def customer

@@ -167,14 +167,14 @@ class SalesAnalyst
   end
 
   def finding_invoice_items(id)
-    new_stuff = Hash.new
+    invoice_collection = Hash.new
     customer = customers.find_by_id(id)
     high = customer.invoices.map do |invoice|
-      new_stuff[invoice] = invoice.invoice_items.map do |invoice_item|
+      invoice_collection[invoice] = invoice.invoice_items.map do |invoice_item|
         invoice_item.quantity.to_i
       end.sum
     end
-    new_stuff
+    invoice_collection
   end
 
   def top_merchant_for_customer(id)
@@ -210,5 +210,21 @@ class SalesAnalyst
         end
       end
     unpaid.uniq
+    binding.pry
+  end
+
+  def sorting_invoices_by_quantity
+    quantity_hash = Hash.new
+    invoices.each do |invoice|
+      quantity_hash[invoice] = invoice.quantity
+    end
+    quantity_hash
+  end
+
+  def best_invoice_by_quantity
+    high_quantity = sorting_invoices_by_quantity.max_by do |invoice, quantity|
+      quantity
+    end
+    high_quantity
   end
 end
