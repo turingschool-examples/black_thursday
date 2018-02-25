@@ -1,6 +1,7 @@
 require_relative 'test_helper.rb'
 require_relative '../lib/sales_engine.rb'
 require_relative './master_hash.rb'
+require 'pry'
 
 class SalesEngineTest < Minitest::Test
   def setup
@@ -44,12 +45,11 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of InvoiceRepository, invoice_repo
     assert_instance_of Invoice, invoice
     assert_equal 1, invoice.id
-    assert_equal 12335938, invoice.merchant_id
   end
 
   def test_merchant_items_returns_items_array
     sales_engine = @sales_engine
-
+binding.pry
     merchant = sales_engine.merchants.find_by_id(12334141)
     merchant.items
 

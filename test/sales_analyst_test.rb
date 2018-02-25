@@ -70,15 +70,15 @@ class SalesAnalystTest < Minitest::Test
     result = @sales_analyst.average_average_price_per_merchant
     #some merchants don't have items in fixture data, hence div by 0 error
 
-    assert_equal 41.99, result.round(2)
-    assert_instance_of Float, result
+    assert_equal 0.123e2, result
+    assert_instance_of BigDecimal, result
   end
 
   def test_can_find_golden_items
     result = @sales_analyst.golden_items
 
     assert_instance_of Array, result
-  
+
     assert_instance_of Item, result[0]
   end
 

@@ -1,7 +1,8 @@
-require_relative 'test_helper.rb'
+require_relative 'test_helper'
 require_relative '../lib/invoice_repository'
-require_relative '../lib/sales_engine.rb'
-require_relative './master_hash.rb'
+require_relative '../lib/sales_engine'
+require_relative './master_hash'
+require 'pry'
 
 class InvoiceRepositoryTest < Minitest::Test
   def setup
@@ -84,12 +85,12 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_it_can_go_to_sales_engine_with_id
     iv = @invoice_repository
     # result_merchant = iv.invoice_repo_finds_merchant_via_engine(1)
-    result_items = iv.invoice_repo_finds_items_via_engine(1)
+    result_items = iv.invoice_repo_finds_items_via_engine(2)
     result_customer = iv.invoice_repo_finds_customer_via_engine(1)
-
+    # binding.pry
     # assert_instance_of Merchant, result[0]
     # ^^ comment in after fixture data is updated
-    assert_instance_of InvoiceItem, result_items[0]
+    assert_instance_of Item, result_items[0]
     assert_instance_of Customer, result_customer
   end
 
