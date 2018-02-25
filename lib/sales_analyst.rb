@@ -210,7 +210,6 @@ class SalesAnalyst
         end
       end
     unpaid.uniq
-    binding.pry
   end
 
   def sorting_invoices_by_quantity
@@ -225,6 +224,21 @@ class SalesAnalyst
     high_quantity = sorting_invoices_by_quantity.max_by do |invoice, quantity|
       quantity
     end
-    high_quantity
+    high_quantity[0]
+  end
+
+  def sorting_invoices_by_revenue
+    revenue_hash = Hash.new
+    invoices.each do |invoice|
+      revenue_hash[invoice] = invoice.total
+    end
+    revenue_hash
+  end
+
+  def best_invoice_by_revenue
+    high_revenue = sorting_invoices_by_revenue.max_by do |invoice, revenue|
+      revenue
+    end
+    high_revenue[0]
   end
 end
