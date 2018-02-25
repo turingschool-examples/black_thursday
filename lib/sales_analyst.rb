@@ -196,9 +196,10 @@ class SalesAnalyst
 
   def one_time_buyers_top_items
     items = one_time_buyers.map do |customer|
-      paid = customer.invoices.find_all(&:is_paid_in_full?)
-      paid.map(&:items)
+      paid_invoices = customer.invoices.find_all(&:is_paid_in_full?).flatten
+      paid_invoices.map(&:items)
     end.flatten
+    # need to finish
   end
 
   def finding_invoice_items(id)
@@ -235,6 +236,12 @@ class SalesAnalyst
     end.flatten
   end
 
+  def highest_volume_items(customer_id)
+    customer = @sales_engine.customers.find_by_id(customer_id)
+    items = customer.invoices.map(&:items).flatten
+    items.sort_by { |item| items.count(item) }
+  end
+
   def customers_with_unpaid_invoices
     unpaid = []
       customers.map do |customer|
@@ -245,5 +252,46 @@ class SalesAnalyst
         end
       end
   unpaid.uniq
+  end
+
+  def sorting_invoices_by_quantity
+  quantity_hash = Hash.new
+  invoices.each do |invoice|
+    if invoice.is_paid_in_full?
+      quantity_hash[invoice] = invoice.quantity
+    end
+  end
+  quantity_hash
+end
+
+def best_invoice_by_quantity
+  high_quantity = sorting_invoices_by_quantity.max_by do |invoice, quantity|
+    quantity
+  end
+  high_quantity[0]
+end
+
+def sorting_invoices_by_revenue
+  revenue_hash = Hash.new
+  invoices.each do |invoice|
+    if invoice.is_paid_in_full?
+      revenue_hash[invoice] = invoice.total
+    end
+  end
+  revenue_hash
+end
+
+def best_invoice_by_revenue
+  high_revenue = sorting_invoices_by_revenue.max_by do |invoice, revenue|
+    revenue
+  end
+  high_revenue[0]
+end
+
+def highest_quantity
+    high_revenue = sorting_invoices_by_revenue.max_by do |invoice, revenue|
+      revenue
+    end
+    high_revenue[1]
   end
 end
