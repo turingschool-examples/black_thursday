@@ -213,10 +213,8 @@ class SalesAnalyst
   new_stuff = Hash.new
   customer = @sales_engine.customers.find_by_id(id)
   customer.invoices.map do |invoice|
-    new_stuff[invoice] = invoice.invoice_items.map do |invoice_item|
-      invoice_item.quantity.to_i
+    new_stuff[invoice] = invoice.quantity
     end
-  end
   new_stuff
   end
 
