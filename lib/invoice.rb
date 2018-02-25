@@ -40,4 +40,12 @@ class Invoice
     invoice_repo.find_customer_by_customer_id(customer_id)
   end
 
+  def is_paid_in_full?
+
+  end
+
+  def total
+
+  end
+
 end
