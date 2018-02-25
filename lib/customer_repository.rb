@@ -1,9 +1,8 @@
 require 'csv'
 require_relative 'customer'
-require 'pry'
 
+# Customer Repo
 class CustomerRepository
-
   attr_reader :engine
 
   def initialize(filepath, parent = nil)
@@ -41,5 +40,4 @@ class CustomerRepository
       customer.last_name.downcase.include?(name.downcase)
     end
   end
-
 end

@@ -1,9 +1,8 @@
 require 'csv'
 require_relative 'item'
-require 'pry'
 
+# Item Repo
 class ItemRepository
-
   attr_reader :engine
 
   def initialize(filepath, parent = nil)
@@ -31,7 +30,7 @@ class ItemRepository
   end
 
   def find_by_name(name)
-    @items.find { |item| item.name.downcase == name.downcase }
+    @items.find { |item| item.name.casecmp(name.downcase).zero? }
   end
 
   def find_all_with_description(description)
@@ -55,5 +54,4 @@ class ItemRepository
   def find_merchant_by_merchant_id(id)
     engine.find_merchant_by_merchant_id(id)
   end
-
 end

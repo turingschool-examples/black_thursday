@@ -2,16 +2,15 @@ require_relative 'test_helper'
 require_relative '../lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test
-
   def setup
     @data = {
-      :items          => "./test/fixtures/items_sample.csv",
-      :merchants      => "./test/fixtures/merchants_sample.csv",
-      :invoices       => "./test/fixtures/invoices_sample.csv",
-      :invoice_items  => "./test/fixtures/invoice_items_sample.csv",
-      :transactions   => "./test/fixtures/transactions_sample.csv",
-      :customers      => "./test/fixtures/customers_sample.csv"
-        }
+      items:         './test/fixtures/items_sample.csv',
+      merchants:     './test/fixtures/merchants_sample.csv',
+      invoices:      './test/fixtures/invoices_sample.csv',
+      invoice_items: './test/fixtures/invoice_items_sample.csv',
+      transactions:  './test/fixtures/transactions_sample.csv',
+      customers:     './test/fixtures/customers_sample.csv'
+    }
     @sales_engine = SalesEngine.new(@data)
   end
 
@@ -27,5 +26,4 @@ class SalesEngineTest < Minitest::Test
     assert SalesEngine.from_csv(@data).transactions.class == TransactionRepository
     assert SalesEngine.from_csv(@data).customers.class == CustomerRepository
   end
-
 end
