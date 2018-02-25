@@ -18,27 +18,27 @@ class SalesEngine
     @items         = ItemRepository.new(
       repositories[:items],
       self
-      )
+    )
     @merchants     = MerchantRepository.new(
       repositories[:merchants],
       self
-      )
+    )
     @invoices      = InvoiceRepository.new(
       repositories[:invoices],
       self
-      )
+    )
     @transactions  = TransactionRepository.new(
       repositories[:transactions],
       self
-      )
+    )
     @customers     = CustomerRepository.new(
       repositories[:customers],
       self
-      )
+    )
     @invoice_items = InvoiceItemRepository.new(
       repositories[:invoice_items],
       self
-      )
+    )
   end
 
   def self.from_csv(repositories)

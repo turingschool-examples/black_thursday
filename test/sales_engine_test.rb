@@ -11,7 +11,7 @@ class SalesEngineTest < Minitest::Test
       transactions: './data/sample_data/transactions.csv',
       customers: './data/sample_data/customers.csv',
       invoice_items: './data/sample_data/items.csv'
-      )
+    )
   end
 
   def test_sales_engine_class_exists
