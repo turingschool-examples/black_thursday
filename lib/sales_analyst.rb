@@ -289,4 +289,17 @@ class SalesAnalyst
       invoice_status.include?(false)
     end
   end
+
+  def best_invoice_by_revenue
+    paid_invoices = @invoices.map do |invoice|
+      invoice if invoice.is_paid_in_full?
+    end.compact
+    paid_invoices.max_by do |invoice|
+      invoice_items = @invoice_item_repo.find_all_by_invoice_id(invoice.id)
+      revenues = invoice_items.map do |ii|
+        ii.unit_price * ii.quantity
+      end
+      revenues.reduce(:+).to_f
+    end
+  end
 end

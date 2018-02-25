@@ -171,4 +171,9 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 1, @sales_analyst.customers_with_unpaid_invoices.first.id
     assert_equal 339, @sales_analyst.customers_with_unpaid_invoices.last.id
   end
+
+  def test_best_invoice_by_revenue
+    assert_instance_of Invoice, @sales_analyst.best_invoice_by_revenue
+    assert_equal 19, @sales_analyst.best_invoice_by_revenue.id
+  end
 end
