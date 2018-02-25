@@ -50,8 +50,9 @@ class Invoice
 
   def total
     amount = 0
-    items.each do |item|
-      amount += item.unit_price
+    invoice_items = invoice_repo.find_invoice_items_by_invoice_id(id)
+    invoice_items.each do |invoice_item|
+      amount += invoice_item.unit_price * invoice_item.quantity
     end
     amount.round(2)
   end
