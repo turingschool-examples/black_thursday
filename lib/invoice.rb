@@ -56,7 +56,7 @@ class Invoice
   def total
     invoice_items.reduce(0) do |total, invoice_item|
       total + invoice_item.quantity.to_f * invoice_item.unit_price.to_f
-    end
+    end.round(2)
   end
 
   def quantity
