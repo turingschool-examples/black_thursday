@@ -195,11 +195,18 @@ class SalesAnalyst
   end
 
   def one_time_buyers_top_items
-    items = one_time_buyers.map do |customer|
-      paid_invoices = customer.invoices.find_all(&:is_paid_in_full?).flatten
-      paid_invoices.map(&:items)
-    end.flatten
-    # need to finish
+    customers = one_time_buyers
+    hash = Hash.new(0)
+    customers.each do |customer|
+      invoices = customer.fully_paid_invoices
+      invoices.each do |invoice|
+        invoice_items = @sales_engine.invoice_items.find_all_by_invoice_id(invoice.id)
+        invoice_items.each do |invoice_item|
+          hash[@sales_engine.items.find_by_id(invoice_item.item_id)] += invoice_item.quantity
+        end
+      end
+    end
+    [hash.key(hash.values.sort.last)]
   end
 
   def finding_invoice_items(id)
