@@ -1,4 +1,5 @@
 require 'time'
+require 'pry'
 
 class Invoice
 
@@ -22,6 +23,21 @@ class Invoice
 
   def merchant
     invoice_repo.find_merchant_by_merchant_id(merchant_id)
+  end
+
+  def items
+    invoice_items = invoice_repo.find_invoice_items_by_invoice_id(id)
+    invoice_items.map do |invoice_item|
+      invoice_repo.find_item_by_id(invoice_item.item_id)
+    end.compact
+  end
+
+  def transactions
+    invoice_repo.find_transactions_by_invoice_id(id)
+  end
+
+  def customer
+    invoice_repo.find_customer_by_customer_id(customer_id)
   end
 
 end
