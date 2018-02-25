@@ -99,12 +99,16 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 0, @sa.top_buyers
   end
 
-  def test_can_find_top_merchant_for_customer
-    assert_instance_of Merchant, @sa.top_merchant_for_customer(1)
-  end
-
   def test_one_time_buyers_top_items
     assert_equal [nil], @sa.one_time_buyers_top_items
+  end
+
+  def test_can_find_invoice_items
+    assert_instance_of Hash, @sa.finding_invoice_items(1)
+  end
+
+  def test_can_find_number_of_invoice_bought_in_a_year
+    assert_equal [], @sa.items_bought_in_year(1, 2012)
   end
 
   def test_can_find_unpaid_invoices

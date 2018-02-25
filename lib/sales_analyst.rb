@@ -227,10 +227,11 @@ class SalesAnalyst
 
   def finding_invoice_bought_in_a_year(id, year)
     customer = @sales_engine.customers.find_by_id(id)
-    customer.invoices.find_all do |invoice|
-      invoice.created_at.to_s[0..3].to_i == year
+    invoices = customer.invoices.find_all do |invoice|
+        invoice.created_at.to_s[0..3].to_i == year
+      end
+    invoices
     end
-  end
 
   def items_bought_in_year(id, year)
     invoices = finding_invoice_bought_in_a_year(id, year)
