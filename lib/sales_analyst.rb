@@ -98,7 +98,8 @@ class SalesAnalyst
 
   def average_invoices_per_merchant_standard_deviation
     total_invoices = merchants.map { |merchant| merchant.invoices.length }
-    @invoice_deviation = standard_deviation(total_invoices, average_invoices_per_merchant).round(2)
+    avg = average_invoices_per_merchant
+    @invoice_deviation = standard_deviation(total_invoices, avg).round(2)
   end
 
   def top_merchants_by_invoice_count
@@ -267,11 +268,11 @@ class SalesAnalyst
   end
 
   def sorting_invoices_by_quantity
-  quantity_hash = {}
-  invoices.each do |invoice|
-    quantity_hash[invoice] = invoice.quantity if invoice.is_paid_in_full?
-  end
-  quantity_hash
+    quantity_hash = {}
+    invoices.each do |invoice|
+      quantity_hash[invoice] = invoice.quantity if invoice.is_paid_in_full?
+    end
+    quantity_hash
   end
 
   def best_invoice_by_quantity

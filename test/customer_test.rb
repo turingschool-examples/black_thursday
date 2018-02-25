@@ -34,5 +34,4 @@ class CustomerTest < Minitest::Test
 
     assert_equal customer.invoices, parent.pass_customer_id_to_se
   end
-
 end
