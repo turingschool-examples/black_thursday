@@ -4,13 +4,23 @@ require './lib/merchant'
 # Tests merchant class
 class MerchantTest < Minitest::Test
   def setup
-    invoice_1 = mock
-    invoice_2 = mock
-    item_one  = mock
-    item_two  = mock
-    mock_repo = stub(items: [item_one, item_two],
-                  invoices: [invoice_1, invoice_2])
-    @merchant = Merchant.new({ id: 5, name: 'Turing School' }, mock_repo)
+    invoice_one = mock
+    invoice_two = mock
+    item_one    = mock
+    item_two    = mock
+    cust_one    = mock
+    cust_two    = mock
+    mock_repo   = stub(
+      items: [item_one, item_two],
+      invoices: [invoice_one, invoice_two],
+      customers: [cust_one, cust_two]
+    )
+    @merchant = Merchant.new({
+      id: 5,
+      name: 'Turing School'
+    },
+      mock_repo
+    )
   end
 
   def test_merchant_class_exists
@@ -24,7 +34,12 @@ class MerchantTest < Minitest::Test
 
   def test_other_attributes
     mock_repo = stub(name: 'Merchant Repo')
-    merchant = Merchant.new({ id: 1, name: 'Haliburton' }, mock_repo)
+    merchant  = Merchant.new({
+      id: 1,
+      name: 'Haliburton'
+    },
+      mock_repo
+    )
 
     assert_equal 1, merchant.id
     assert_equal 'Haliburton', merchant.name
@@ -43,5 +58,12 @@ class MerchantTest < Minitest::Test
     @merchant.invoices.each do |invoice|
       assert_instance_of Mocha::Mock, invoice
     end
-  end  
+  end
+
+  def test_it_asks_parent_for_customers
+    assert_equal 2, @merchant.invoices.length
+    @merchant.invoices.each do |invoice|
+      assert_instance_of Mocha::Mock, invoice
+    end
+  end
 end

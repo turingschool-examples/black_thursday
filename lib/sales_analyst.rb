@@ -33,6 +33,7 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(merchant_id)
+    # binding.pry
     merchant = @se.merchants.find_by_id(merchant_id)
     item_prices = merchant.items.map(&:unit_price)
     average(item_prices)
@@ -41,7 +42,7 @@ class SalesAnalyst
   def total_avg_price
     @se.merchants.all.map do |merchant|
       average_item_price_for_merchant(merchant.id)
-    end.reduce(&:+)
+    end.reduce(:+)
   end
 
   def average_average_price_per_merchant

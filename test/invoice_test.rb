@@ -5,14 +5,23 @@ require './lib/invoice'
 class InvoiceTest < Minitest::Test
   def setup
     merchant     = mock
-    invoice_repo = stub(merchant: merchant)
-    @invoice = Invoice.new({id: 6,
-                   customer_id: 7,
-                   merchant_id: 8,
-                        status: 'pending',
-                    created_at: '1969-07-20 20:17:40 - 0600',
-                    updated_at: '1969-07-20 20:17:40 - 0600'},
-                    invoice_repo)
+    customer     = mock
+    item_1       = mock
+    item_2       = mock
+    invoice_repo = stub(
+      merchant: merchant,
+      customer: customer,
+      items: [item_2, item_2]
+    )
+    @invoice = Invoice.new(
+      {id: 6,
+      customer_id: 7,
+      merchant_id: 8,
+      status: 'pending',
+      created_at: '1969-07-20 20:17:40 - 0600',
+      updated_at: '1969-07-20 20:17:40 - 0600'},
+      invoice_repo
+    )
   end
 
   def test_it_exists
@@ -42,7 +51,10 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_it_asks_parent_for_customer
-    skip
     assert_instance_of Mocha::Mock, @invoice.customer
+  end
+
+  def test_it_asks_parent_for_items
+    assert_instance_of Mocha::Mock, @invoice.items[0]
   end
 end

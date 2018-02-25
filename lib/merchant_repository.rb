@@ -29,6 +29,10 @@ class MerchantRepository
     @sales_engine.find_merchant_invoices(id)
   end
 
+  def customers(id)
+    @sales_engine.find_merchant_customers(id)
+  end
+
   def inspect
     "#<#{self.class} #{@all.length} rows>"
   end

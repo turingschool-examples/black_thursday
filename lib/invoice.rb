@@ -21,4 +21,12 @@ class Invoice
   def merchant
     @parent.merchant(@merchant_id)
   end
+
+  def customer
+    @parent.customer(@id)
+  end
+
+  def items
+    @parent.items(@id)
+  end
 end

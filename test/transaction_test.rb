@@ -27,7 +27,7 @@ class TransactionTest < Minitest::Test
     assert_equal 8, @transaction.invoice_id
     assert_equal expected, @transaction.credit_card_number
     assert_equal '0220', @transaction.credit_card_expiration_date
-    assert_equal :success, @transaction.result
+    assert_equal 'success', @transaction.result
     assert_equal expected2, @transaction.created_at
     assert_equal expected2, @transaction.updated_at
   end

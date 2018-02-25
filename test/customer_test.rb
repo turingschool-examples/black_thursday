@@ -17,8 +17,8 @@ class CustomerTest < Minitest::Test
   end
 
   def test_it_exists_and_has_attributes
-    expected  = '1969-07-20 20:17:40  0600'
-    expected2 = '1970-07-20 20:17:40  0600'
+    expected  = Time.parse('1969-07-20 20:17:40  0600')
+    expected2 = Time.parse('1970-07-20 20:17:40  0600')
 
     assert_instance_of Customer, @customer
     assert_equal 6, @customer.id
@@ -37,8 +37,8 @@ class CustomerTest < Minitest::Test
       created_at: '1982-07-20 20:17:40  0600',
       updated_at: '1990-07-20 20:17:40  0600'},
       cust_repo)
-    expected  = '1982-07-20 20:17:40  0600'
-    expected2 = '1990-07-20 20:17:40  0600'
+    expected  = Time.parse('1982-07-20 20:17:40  0600')
+    expected2 = Time.parse('1990-07-20 20:17:40  0600')
 
     assert_equal 925235, customer.id
     assert_equal 'Happy', customer.first_name

@@ -1,5 +1,4 @@
 require './test/test_helper'
-require './test/fixtures/mock_item_repo'
 require './lib/item'
 
 # Tests Item class
@@ -7,14 +6,16 @@ class ItemTest < Minitest::Test
   def setup
     merchant  = mock
     item_repo = stub(merchant: merchant)
-    @item = Item.new({ id: 5,
-                       name: 'Pencil',
-                       description: 'You can use it to write things',
-                       unit_price: BigDecimal.new(10.99, 4),
-                       merchant_id: 6,
-                       created_at: '2016-01-11 09:34:06 UTC',
-                       updated_at: '2016-01-11 09:34:06 UTC' },
-                       item_repo)
+    @item = Item.new({
+      id: '5',
+      name: 'Pencil',
+      description: 'You can use it to write things',
+      unit_price: BigDecimal.new(10.99, 4),
+      merchant_id: '6',
+      created_at: '2016-01-11 09:34:06 UTC',
+      updated_at: '2016-01-11 09:34:06 UTC' },
+      item_repo
+    )
   end
 
   def test_item_class_exists
@@ -35,13 +36,17 @@ class ItemTest < Minitest::Test
   end
 
   def test_item_can_have_different_attributes
-    item = Item.new({ id: 1,
-                      name: 'Wine',
-                      description: 'It gets you drunk',
-                      unit_price: '7959',
-                      merchant_id: 343_414,
-                      created_at: Time.now.to_s,
-                      updated_at: Time.now.to_s }, 'parent')
+    item = Item.new({
+               id: 1,
+             name: 'Wine',
+      description: 'It gets you drunk',
+       unit_price: '7959',
+      merchant_id: 343_414,
+       created_at: Time.now.to_s,
+       updated_at: Time.now.to_s
+    },
+      'parent'
+    )
 
     assert_equal 1, item.id
     assert_equal 'Wine', item.name

@@ -17,4 +17,8 @@ class Merchant
   def invoices
     @parent.invoices(@id)
   end
+
+  def customers
+    @parent.customers(@id)
+  end
 end
