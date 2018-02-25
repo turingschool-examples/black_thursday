@@ -16,4 +16,8 @@ class Customer
     @updated_at  = Time.parse(data[:updated_at])
     @parent = parent
   end
+
+  def merchants
+    @parent.customer_repo_finds_merchants_via_engine(self.id)
+  end
 end

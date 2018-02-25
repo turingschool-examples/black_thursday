@@ -1,7 +1,6 @@
 require_relative 'test_helper.rb'
 require_relative '../lib/sales_engine.rb'
 require_relative './master_hash.rb'
-require_relative './master_hash.rb'
 
 class SalesEngineTest < Minitest::Test
   def setup
@@ -61,9 +60,37 @@ class SalesEngineTest < Minitest::Test
   def test_item_merchant_returns_merchant_instance
     sales_engine = @sales_engine
 
-    item = sales_engine.items.find_by_id(263395237)
+    item = sales_engine.items.find_by_id(263_395_237)
     item.merchant
 
     assert_equal "jejum", item.merchant.name
+  end
+
+  def test_engine_finds_merchant_customers_via_invoice_repo
+    result = @sales_engine.engine_finds_merchant_customers_via_invoice_repo(12_335_955)
+
+    assert_equal 7, result.length
+    assert_instance_of Customer, result[0]
+  end
+
+  def test_engine_finds_customer_merchants_via_invoice_repo
+    result = @sales_engine.engine_finds_customer_merchants_via_invoice_repo(1)
+
+    assert_equal 1, result.length
+    assert_instance_of Merchant, result[0]
+  end
+
+  def test_engine_finds_customer_merchants_via_invoice_repo
+    result = @sales_engine.engine_finds_invoice_transactions_and_evaluates(46)
+
+    assert result
+  end
+
+  def test_engine_finds_paid_invoice_and_returns_cost
+    result = @sales_engine.engine_finds_paid_invoice_and_evaluates_cost(46)
+    unpaid = @sales_engine.engine_finds_paid_invoice_and_evaluates_cost(14)
+
+    assert_equal BigDecimal.new(986.68, 5), result
+    assert_equal "This invoice is unpaid", unpaid
   end
 end

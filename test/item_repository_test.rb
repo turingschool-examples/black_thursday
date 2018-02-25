@@ -16,7 +16,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_item_repository_can_hold_items
-    assert_equal 5, @item_repository.all.count
+    assert_equal 10, @item_repository.all.count
     assert (@item_repository.all.all? { |item| item.is_a?(Item)})
   end
 
@@ -87,8 +87,11 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_item_repo_goes_to_sales_engine_with_merchant_id
     ir = @item_repository
-    result = ir.item_repo_goes_to_sales_engine_with_merchant_id(263395617)
+    result = ir.item_repo_goes_to_sales_engine_with_merchant_id(12334141)
 
-    assert result.empty?
+    result_nil = ir.item_repo_goes_to_sales_engine_with_merchant_id(263396209)
+
+    assert_instance_of Merchant, result
+    assert_nil result_nil
   end
 end

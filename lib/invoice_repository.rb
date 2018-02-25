@@ -1,5 +1,5 @@
 require 'csv'
-require_relative 'invoice.rb'
+require_relative 'invoice'
 
 class InvoiceRepository
   def initialize(filepath, parent)
@@ -50,7 +50,19 @@ class InvoiceRepository
     @parent.engine_finds_items_via_invoice_items_repo(id)
   end
 
+  def invoice_repo_finds_customer_via_engine(id)
+    @parent.engine_finds_customer_via_customer_repo(id)
+  end
+
+  def invoice_repo_finds_transactions_and_evaluates_via_engine(id)
+    @parent.engine_finds_invoice_transactions_and_evaluates(id)
+  end
+
+  def invoice_repo_finds_invoice_items_total_via_engine(id)
+    @parent.engine_finds_paid_invoice_and_evaluates_cost(id)
+  end
+
   def inspect
-    "#<#{self.class} #{@invoice_items.size} rows>"
+    "#<#{self.class} #{@invoices.size} rows>"
   end
 end

@@ -18,7 +18,7 @@ class MerchantRepositoryTest < Minitest::Test
   def test_merchant_repository_has_merchants
     merchant_repository = @merchant_repository
 
-    assert_equal 9, merchant_repository.all.count
+    assert_equal 10, merchant_repository.all.count
     assert_instance_of Array, merchant_repository.all
     assert merchant_repository.all.all? { |merchant| merchant.is_a?(Merchant) }
     assert_equal 'Shopin1901', merchant_repository.all.first.name
@@ -76,8 +76,17 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_merch_repo_finds_invoices_via_engine
     mr = @merchant_repository
-    result = mr.merch_repo_finds_invoices_via_engine(12334144)
+    result = mr.merch_repo_finds_invoices_via_engine(12335955)
 
-    assert result.empty?
+    assert_equal 13, result.length
+    assert_instance_of Invoice, result[0]
+  end
+
+  def test_merch_repo_finds_customers_via_engine
+    mr = @merchant_repository
+    result = mr.merch_repo_finds_customers_via_engine(12335955)
+
+    assert_equal 7, result.length
+    assert_instance_of Customer, result[0]
   end
 end

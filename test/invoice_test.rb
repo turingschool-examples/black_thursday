@@ -53,16 +53,44 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_invoice_merchant_returns_merchant
-    invoice = @sales_engine.invoices.find_by_id(12)
-    invoice.merchant
+    result = @sales_engine.invoices.find_by_id(12).merchant
 
-    assert_nil invoice.merchant
+    assert_instance_of Merchant, result
   end
 
-  def test_merchant_invoices_returns_items_array
+  def test_invoice_items_returns_items_array
     invoice = @sales_engine.invoices.find_by_id(2)
     invoice.items
 
     assert_equal 4, invoice.items.length
+
+    invoice_bad = @sales_engine.invoices.find_by_id(99)
+
+    assert_equal 4, invoice.items.length
+    assert_nil invoice_bad
+  end
+
+  def test_invoice_customer_returns_customer
+    invoice = @sales_engine.invoices.find_by_id(9)
+    invoice.customer
+
+    assert_instance_of Customer, invoice.customer
+  end
+
+  def test_invoice_paid_in_full_returns_boolean
+    invoice = @sales_engine.invoices.find_by_id(46)
+    result = invoice.is_paid_in_full?
+
+    assert result
+  end
+
+  def test_invoice_total_returns
+    paid_invoice = @sales_engine.invoices.find_by_id(46)
+    unpaid_invoice = @sales_engine.invoices.find_by_id(14)
+
+
+    assert_instance_of BigDecimal, paid_invoice.total
+    assert_equal BigDecimal.new(986.68, 5), paid_invoice.total
+    assert_equal "This invoice is unpaid", unpaid_invoice.total
   end
 end
