@@ -4,16 +4,16 @@ require './lib/merchant'
 # Tests merchant class
 class MerchantTest < Minitest::Test
   def setup
-    invoice_1 = mock
-    invoice_2 = mock
-    item_1    = mock
-    item_2    = mock
-    cust_1    = mock
-    cust_2    = mock
-    mock_repo = stub({
-      items: [item_1, item_2],
-      invoices: [invoice_1, invoice_2],
-      customers: [cust_1, cust_2]
+    invoice_one = mock
+    invoice_two = mock
+    item_one    = mock
+    item_two    = mock
+    cust_one    = mock
+    cust_two    = mock
+    mock_repo   = stub({
+      items: [item_one, item_two],
+      invoices: [invoice_one, invoice_two],
+      customers: [cust_one, cust_two]
       })
     @merchant = Merchant.new({
       id: 5,
