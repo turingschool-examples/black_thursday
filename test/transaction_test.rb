@@ -55,4 +55,13 @@ class TransactionTest < Minitest::Test
     assert_equal 'failed', transaction.result
     assert_instance_of Time, transaction.created_at
   end
+
+  def test_transaction_to_repo_to_engine_can_return_invoice
+    result = @transaction.invoice
+
+    assert_equal 8, result.id
+    assert_equal 1, result.customer_id
+    assert_equal 12334141, result.merchant_id
+    assert_equal :shipped, result.status
+  end
 end
