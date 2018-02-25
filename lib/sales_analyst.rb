@@ -238,8 +238,18 @@ class SalesAnalyst
 
   def highest_volume_items(customer_id)
     customer = @sales_engine.customers.find_by_id(customer_id)
-    items = customer.invoices.map(&:items).flatten
-    items.sort_by { |item| items.count(item) }
+    invoices = customer.invoices
+    invoice_items = invoices.map do |invoice|
+      @sales_engine.invoice_items.find_all_by_invoice_id(invoice.id)
+    end.flatten
+    quantities = invoice_items.map(&:quantity)
+    array = []
+    quantities.each_with_index do |num, index|
+      if num == quantities.max
+        array << @sales_engine.items.find_by_id(invoice_items[index].item_id)
+      end
+    end
+    array
   end
 
   def customers_with_unpaid_invoices
