@@ -194,15 +194,23 @@ class SalesAnalyst
     buyers
   end
 
-    def finding_invoice_items(id)
-    invoice_collection = Hash.new
-    customer = customers.find_by_id(id)
-    high = customer.invoices.map do |invoice|
-      invoice_collection[invoice] = invoice.invoice_items.map do |invoice_item|
-        invoice_item.quantity.to_i
-      end.sum
-    end
-    invoice_collection
+  def one_time_buyers_top_items
+    items = one_time_buyers.map do |customer|
+      paid_invoices = customer.invoices.find_all(&:is_paid_in_full?).flatten
+      paid_invoices.map(&:items)
+    end.flatten
+    # need to finish
+  end
+
+  def finding_invoice_items(id)
+  new_stuff = Hash.new
+  customer = @sales_engine.customers.find_by_id(id)
+  customer.invoices.map do |invoice|
+    new_stuff[invoice] = invoice.invoice_items.map do |invoice_item|
+      invoice_item.quantity.to_i
+    end.reduce(:+)
+  end
+  new_stuff
   end
 
   def top_merchant_for_customer(id)
@@ -213,7 +221,7 @@ class SalesAnalyst
   end
 
   def finding_invoice_bought_in_a_year(id, year)
-    customer = customers.find_by_id(id)
+    customer = @sales_engine.customers.find_by_id(id)
     customer.invoices.find_all do |invoice|
       invoice.created_at.to_s[0..3].to_i == year
     end
@@ -228,49 +236,62 @@ class SalesAnalyst
     end.flatten
   end
 
+  def highest_volume_items(customer_id)
+    customer = @sales_engine.customers.find_by_id(customer_id)
+    items = customer.invoices.map(&:items).flatten
+    items.sort_by { |item| items.count(item) }
+  end
+
   def customers_with_unpaid_invoices
     unpaid = []
-      customers.all.map do |customer|
+      customers.map do |customer|
         customer.invoices
       end.flatten.each do |invoice|
         if invoice.is_paid_in_full? == false
           unpaid << invoice.customer
         end
       end
-    unpaid.uniq
+  unpaid.uniq
   end
 
   def sorting_invoices_by_quantity
-    quantity_hash = Hash.new
-    invoices.each do |invoice|
-      if invoice.is_paid_in_full?
-        quantity_hash[invoice] = invoice.quantity
-      end
+  quantity_hash = Hash.new
+  invoices.each do |invoice|
+    if invoice.is_paid_in_full?
+      quantity_hash[invoice] = invoice.quantity
     end
-    quantity_hash
   end
+  quantity_hash
+end
 
-  def best_invoice_by_quantity
-    high_quantity = sorting_invoices_by_quantity.max_by do |invoice, quantity|
-      quantity
+def best_invoice_by_quantity
+  high_quantity = sorting_invoices_by_quantity.max_by do |invoice, quantity|
+    quantity
+  end
+  high_quantity[0]
+end
+
+def sorting_invoices_by_revenue
+  revenue_hash = Hash.new
+  invoices.each do |invoice|
+    if invoice.is_paid_in_full?
+      revenue_hash[invoice] = invoice.total
     end
-    high_quantity[0]
   end
+  revenue_hash
+end
 
-  def sorting_invoices_by_revenue
-    revenue_hash = Hash.new
-    invoices.each do |invoice|
-      if invoice.is_paid_in_full?
-        revenue_hash[invoice] = invoice.total
-      end
-    end
-    revenue_hash
+def best_invoice_by_revenue
+  high_revenue = sorting_invoices_by_revenue.max_by do |invoice, revenue|
+    revenue
   end
+  high_revenue[0]
+end
 
-  def best_invoice_by_revenue
+def highest_quantity
     high_revenue = sorting_invoices_by_revenue.max_by do |invoice, revenue|
       revenue
     end
-    high_revenue[0]
+    high_revenue[1]
   end
 end

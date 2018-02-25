@@ -97,9 +97,13 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_find_top_buyers
     assert_equal 0, @sa.top_buyers
-  end 
-  
+  end
+
   def test_can_find_top_merchant_for_customer
     assert_instance_of Merchant, @sa.top_merchant_for_customer(1)
+  end
+
+  def test_one_time_buyers_top_items
+    assert_equal 0, @sa.one_time_buyers_top_items
   end
 end
