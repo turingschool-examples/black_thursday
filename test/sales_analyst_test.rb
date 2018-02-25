@@ -108,7 +108,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_find_number_of_invoice_bought_in_a_year
-    assert_equal [], @sa.items_bought_in_year(1, 2012)
+    assert_equal [], @sa.items_bought_in_year(1, 2013)
   end
 
   def test_can_find_unpaid_invoices

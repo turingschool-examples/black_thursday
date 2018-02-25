@@ -4,7 +4,6 @@ require_relative '../lib/merchant_repository'
 require_relative '../lib/item'
 require_relative '../lib/sales_engine'
 
-# test for merchant class
 class MerchantTest < Minitest::Test
   def test_it_exists
     merchant = Merchant.new({ id: '5', name: 'Turing School' }, 'parent')
@@ -28,12 +27,17 @@ class MerchantTest < Minitest::Test
   end
 
   def test_items_method
-    skip # stub
-    merchant = Merchant.new({ id: '2', name: '' }, parent)
+    se = SalesEngine.from_csv(items:         './test/fixtures/items.csv',
+                              merchants:     './test/fixtures/merchants.csv',
+                              invoices:      './test/fixtures/invoices.csv',
+                              invoice_items: './test/fixtures/invoice_items.csv',
+                              transactions:  './test/fixtures/transactions.csv',
+                              customers:     './test/fixtures/invoices.csv')
+    merchant = se.merchants.find_by_id(1)
 
     assert_instance_of Array, merchant.items
     assert_instance_of Item, merchant.items[0]
-    assert_equal 3, merchant.items.length
+    assert_equal 2, merchant.items.length
   end
 
   def test_invoices_method
