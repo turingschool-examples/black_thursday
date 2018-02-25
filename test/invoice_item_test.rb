@@ -3,17 +3,15 @@ require './lib/invoice_item'
 
 class InvoiceItemTest < Minitest::Test
   def setup
-    invoice_item_repo = mock
     @invoice = InvoiceItem.new({
-      id: '6',
-      item_id: '7',
-      invoice_id: '8',
-      quantity: '9',
-      unit_price: '34567',
-      created_at: '1969-07-20 20:17:40  0600',
-      updated_at: '1979-07-20 20:17:40  0600'},
-      invoice_item_repo
-    )
+                                 id: '6',
+                                 item_id: '7',
+                                 invoice_id: '8',
+                                 quantity: '9',
+                                 unit_price: '34567',
+                                 created_at: '1969-07-20 20:17:40  0600',
+                                 updated_at: '1979-07-20 20:17:40  0600'
+                               }, mock)
   end
 
   def test_it_exists

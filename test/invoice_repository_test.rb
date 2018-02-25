@@ -5,13 +5,12 @@ require './lib/searching'
 
 class InvoiceRepositoryTest < Minitest::Test
   def setup
-    file_name     = './data/sample_data/invoices.csv'
-    merchant      = mock
-    item_1        = mock
-    item_2        = mock
-    sales_eng     = stub(
-      find_invoice_merchant: merchant,
-      find_invoice_items: [item_1, item_2]
+    file_name = './data/sample_data/invoices.csv'
+    sales_eng = stub(
+      find_invoice_merchant: mock('merchant'),
+      find_invoice_items: [mock('item'), mock('item')],
+      find_invoice_customer: mock('customer'),
+      find_invoice_transactions: [mock, mock]
     )
     @invoice_repo = InvoiceRepository.new(file_name, sales_eng)
   end
@@ -33,7 +32,7 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal [], actual
     assert_instance_of Array, actual2
     assert_instance_of Invoice, actual2[0]
-    assert_equal :shipped, actual2[0].status
+    assert_equal :pending, actual2[0].status
   end
 
   def test_it_can_find_all_by_status
@@ -52,6 +51,14 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_it_asks_parent_for_items
     assert_instance_of Mocha::Mock, @invoice_repo.items('id')[0]
+  end
+
+  def test_it_asks_parent_for_customers
+    assert_instance_of Mocha::Mock, @invoice_repo.customer('id')
+  end
+
+  def test_it_asks_parent_for_transactions
+    assert_instance_of Mocha::Mock, @invoice_repo.transactions('id')[0]
   end
 
   def test_inspect

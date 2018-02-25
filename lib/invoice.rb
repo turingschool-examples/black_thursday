@@ -5,7 +5,7 @@ class Invoice
               :merchant_id,
               :status,
               :created_at,
-              :updated_at
+              :updated_at,
               :parent
 
   def initialize(data, parent)
@@ -23,10 +23,14 @@ class Invoice
   end
 
   def customer
-    @parent.customer(@id)
+    @parent.customer(@customer_id)
   end
 
   def items
     @parent.items(@id)
+  end
+
+  def transactions
+    @parent.transactions(@id)
   end
 end

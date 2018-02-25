@@ -23,12 +23,20 @@ class InvoiceRepository
     @all.find_all { |obj| obj.status == status.to_sym }
   end
 
-  def merchant(id)
-    @sales_eng.find_invoice_merchant(id)
+  def merchant(merchant_id)
+    @sales_eng.find_invoice_merchant(merchant_id)
   end
 
-  def items(id)
-    @sales_eng.find_invoice_items(id)
+  def items(invoice_id)
+    @sales_eng.find_invoice_items(invoice_id)
+  end
+
+  def customer(customer_id)
+    @sales_eng.find_invoice_customer(customer_id)
+  end
+
+  def transactions(invoice_id)
+    @sales_eng.find_invoice_transactions(invoice_id)
   end
 
   def inspect

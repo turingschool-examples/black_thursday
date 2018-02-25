@@ -14,31 +14,13 @@ class SalesEngine
                 :customers,
                 :invoice_items
 
-  def initialize(repositories)
-    @items         = ItemRepository.new(
-      repositories[:items],
-      self
-    )
-    @merchants     = MerchantRepository.new(
-      repositories[:merchants],
-      self
-    )
-    @invoices      = InvoiceRepository.new(
-      repositories[:invoices],
-      self
-    )
-    @transactions  = TransactionRepository.new(
-      repositories[:transactions],
-      self
-    )
-    @customers     = CustomerRepository.new(
-      repositories[:customers],
-      self
-    )
-    @invoice_items = InvoiceItemRepository.new(
-      repositories[:invoice_items],
-      self
-    )
+  def initialize(repos)
+    @items = ItemRepository.new(repos[:items], self)
+    @merchants = MerchantRepository.new(repos[:merchants], self)
+    @invoices = InvoiceRepository.new(repos[:invoices], self)
+    @transactions = TransactionRepository.new(repos[:transactions], self)
+    @customers = CustomerRepository.new(repos[:customers], self)
+    @invoice_items = InvoiceItemRepository.new(repos[:invoice_items], self)
   end
 
   def self.from_csv(repositories)
@@ -61,6 +43,14 @@ class SalesEngine
     @merchants.find_by_id(id)
   end
 
+  def find_invoice_transactions(invoice_id)
+    @transactions.find_all_by_invoice_id(invoice_id)
+  end
+
+  def find_invoice_customer(customer_id)
+    @customers.find_by_id(customer_id)
+  end
+
   def find_transaction_invoice(invoice_id)
     @invoices.find_by_id(invoice_id)
   end
@@ -80,6 +70,6 @@ class SalesEngine
   def find_merchant_customers(id)
     @invoices.find_all_by_merchant_id(id).map do |inv|
       @customers.find_by_id(inv.customer_id)
-    end
+    end.uniq
   end
 end

@@ -44,6 +44,13 @@ class SalesEngineTest < Minitest::Test
     assert_equal 12_334_105, item.merchant.id
   end
 
+  def test_find_invoice_customer
+    invoice = @se.invoices.find_by_id(2)
+
+    assert_instance_of Customer, invoice.customer
+    assert_equal 'Joey', invoice.customer.first_name
+  end
+
   def test_find_merchant_invoices
     merchant = @se.merchants.find_by_id(12_334_105)
 
@@ -56,7 +63,7 @@ class SalesEngineTest < Minitest::Test
     invoice = @se.invoices.find_by_id(2)
 
     assert_instance_of Merchant, invoice.merchant
-    assert_equal 12334115, invoice.merchant.id
+    assert_equal 123_341_15, invoice.merchant.id
   end
 
   def test_find_transaction_invoice
@@ -73,6 +80,13 @@ class SalesEngineTest < Minitest::Test
     assert_equal 46, invoice.items[0].name
   end
 
+  def test_find_invoice_transactions
+    invoice = @se.invoices.find_by_id(46)
+
+    assert_instance_of Transaction, invoice.transactions[0]
+    assert_equal 2, invoice.transactions[0].id
+  end
+
   def test_find_customer_merchants
     customer = @se.customers.find_by_id(3)
 
@@ -84,6 +98,6 @@ class SalesEngineTest < Minitest::Test
     merchant = @se.merchants.find_by_id(12_334_105)
 
     assert_instance_of Customer, merchant.customers[0]
-    assert_equal 'Joey', merchant.customers[0].first_name
+    assert_equal 'Cecelia', merchant.customers[0].first_name
   end
 end
