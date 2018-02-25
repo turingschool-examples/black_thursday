@@ -25,4 +25,10 @@ class Customer
       @parent.pass_merchant_id_to_se(merchant_id)
     end
   end
+
+  def fully_paid_invoices
+    invoices.find_all do |invoice|
+      invoice.is_paid_in_full?
+    end
+  end
 end
