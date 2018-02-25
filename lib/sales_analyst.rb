@@ -281,4 +281,12 @@ class SalesAnalyst
     end
     array
   end
+
+  def customers_with_unpaid_invoices
+    @customers.find_all do |customer|
+      customer_invoices = @invoice_repo.find_all_by_customer_id(customer.id)
+      invoice_status = customer_invoices.map(&:is_paid_in_full?)
+      invoice_status.include?(false)
+    end
+  end
 end

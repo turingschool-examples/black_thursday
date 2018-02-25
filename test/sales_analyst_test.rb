@@ -165,4 +165,10 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 263_454_779, @sales_analyst.highest_volume_items(1).first.id
     assert_equal Item, @sales_analyst.highest_volume_items(1).first.class
   end
+
+  def test_customers_with_unpaid_invoices
+    assert_equal 6, @sales_analyst.customers_with_unpaid_invoices.length
+    assert_equal 1, @sales_analyst.customers_with_unpaid_invoices.first.id
+    assert_equal 339, @sales_analyst.customers_with_unpaid_invoices.last.id
+  end
 end
