@@ -48,4 +48,13 @@ class SalesAnalystTest < Minitest::Test
     golden_items = @sa.golden_items
     assert_equal 'Some stuff', golden_items.first.name
   end
+
+  def test_it_finds_invoices_for_each_merchant
+    assert_equal [2.0, 1.0, 1.0], @sa.invoices_for_each_merchant
+  end
+
+  def test_average_invoices_per_merchant
+    actual = @sa.average_invoices_per_merchant
+    assert_equal 1, actual
+  end
 end

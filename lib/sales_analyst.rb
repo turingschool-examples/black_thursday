@@ -61,4 +61,14 @@ class SalesAnalyst
       item.unit_price > two_sigma
     end
   end
+
+  def invoices_for_each_merchant
+    @se.merchants.all.map do |merchant|
+      merchant.invoices.length.to_f
+    end
+  end
+
+  def average_invoices_per_merchant
+    average(invoices_for_each_merchant)
+  end
 end
