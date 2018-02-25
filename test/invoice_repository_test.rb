@@ -17,8 +17,8 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_has_invoices
-    assert_instance_of Array, @repo.all
-    assert_equal 9, @repo.all.length
+    assert_instance_of Array,   @repo.all
+    assert_equal 9,             @repo.all.length
     assert_instance_of Invoice, @repo.all[0]
   end
 
@@ -49,19 +49,19 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_it_can_find_all_by_merchant_id
     result = @repo.find_all_by_merchant_id(12_345)
-    assert_equal [], result
+    assert_equal [],            result
 
     result = @repo.find_all_by_merchant_id(3)
 
-    assert_instance_of Array, result
+    assert_instance_of Array,   result
     assert_instance_of Invoice, result[0]
   end
 
   def test_it_can_find_all_by_status
     result = @repo.find_all_by_status(:pending)
 
-    assert_instance_of Array, result
+    assert_instance_of Array,   result
     assert_instance_of Invoice, result[0]
-    assert_equal 5, result.length
+    assert_equal 5,             result.length
   end
 end

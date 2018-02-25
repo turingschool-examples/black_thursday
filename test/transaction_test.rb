@@ -18,13 +18,13 @@ class TransactionTest < Minitest::Test
   end
 
   def test_class_has_attributes_from_data
-    assert_equal 6, @transaction.id
-    assert_equal 8, @transaction.invoice_id
+    assert_equal 6,                @transaction.id
+    assert_equal 8,                @transaction.invoice_id
     assert_equal 4242424242424242, @transaction.credit_card_number
-    assert_equal '0220', @transaction.credit_card_expiration_date
-    assert_equal 'success', @transaction.result
-    assert_instance_of Time, @transaction.created_at
-    assert_instance_of Time, @transaction.updated_at
+    assert_equal '0220',           @transaction.credit_card_expiration_date
+    assert_equal 'success',        @transaction.result
+    assert_instance_of Time,       @transaction.created_at
+    assert_instance_of Time,       @transaction.updated_at
   end
 
   def test_it_can_get_invoice
@@ -37,6 +37,6 @@ class TransactionTest < Minitest::Test
 
     transaction = se.transactions.find_by_id(3)
     assert_instance_of Invoice, transaction.invoice
-    assert_equal 1, transaction.invoice.id
+    assert_equal 1,             transaction.invoice.id
   end
 end

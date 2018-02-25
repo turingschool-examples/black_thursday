@@ -31,11 +31,11 @@ class InvoiceItemTest < Minitest::Test
   def test_it_has_more_attributes
     assert_equal Time.parse('2012-03-27 14:54:09 UTC'), @invoice_item.created_at
     assert_equal Time.parse('2012-03-27 14:54:09 UTC'), @invoice_item.updated_at
-    assert_equal 'parent', @invoice_item.parent
+    assert_equal 'parent',                              @invoice_item.parent
   end
 
   def test_unit_price_to_dollars
     assert_instance_of Float, @invoice_item.unit_price_to_dollars
-    assert_equal 10.99, @invoice_item.unit_price_to_dollars
+    assert_equal 10.99,       @invoice_item.unit_price_to_dollars
   end
 end

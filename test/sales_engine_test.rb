@@ -21,22 +21,22 @@ class SalesengineTest < Minitest::Test
     name = 'Glitter scrabble frames'
 
     assert_instance_of ItemRepository, @se.items
-    assert_instance_of Array, @se.items.all
-    assert_instance_of Item, @se.items.find_by_name(name)
-    assert_instance_of Item, @se.items.find_by_id(1)
+    assert_instance_of Array,          @se.items.all
+    assert_instance_of Item,           @se.items.find_by_name(name)
+    assert_instance_of Item,           @se.items.find_by_id(1)
   end
 
   def test_item_repo_integration
     string = 'Any colour glitter'
 
     assert_instance_of Item, @se.items.find_all_with_description(string)[0]
-    assert_equal [], @se.items.find_all_by_price(1000.00)
-    assert_equal [], @se.items.find_all_by_merchant_id(12_345)
+    assert_equal [],         @se.items.find_all_by_price(1000.00)
+    assert_equal [],         @se.items.find_all_by_merchant_id(12_345)
   end
 
   def test_it_has_merchant_repo
     assert_instance_of MerchantRepository, @se.merchants
-    assert_instance_of Array, @se.merchants.all
+    assert_instance_of Array,              @se.merchants.all
   end
 
   def test_merchant_repo_integration_tests
