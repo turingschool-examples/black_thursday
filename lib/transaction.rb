@@ -1,8 +1,7 @@
 require 'time'
-require 'pry'
 
+# Transaction Class
 class Transaction
-
   attr_reader :id,
               :invoice_id,
               :credit_card_number,
@@ -26,5 +25,4 @@ class Transaction
   def invoice
     transaction_repo.find_invoice_by_invoice_id(invoice_id)
   end
-
 end

@@ -1,8 +1,7 @@
 require 'time'
-require 'pry'
 
+# Invoice
 class Invoice
-
   attr_reader :id,
               :customer_id,
               :merchant_id,
@@ -40,4 +39,20 @@ class Invoice
     invoice_repo.find_customer_by_customer_id(customer_id)
   end
 
+  def is_paid_in_full?
+    success = transactions.find do |transaction|
+      transaction.result == 'success'
+    end
+    return true if success
+    false
+  end
+
+  def total
+    amount = 0
+    invoice_items = invoice_repo.find_invoice_items_by_invoice_id(id)
+    invoice_items.each do |invoice_item|
+      amount += invoice_item.unit_price * invoice_item.quantity
+    end
+    amount.round(2)
+  end
 end

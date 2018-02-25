@@ -1,9 +1,8 @@
 require 'bigdecimal'
 require 'time'
-require 'pry'
 
+# Item
 class Item
-
   attr_reader :id,
               :name,
               :description,
@@ -31,5 +30,4 @@ class Item
   def merchant
     item_repo.find_merchant_by_merchant_id(merchant_id)
   end
-
 end

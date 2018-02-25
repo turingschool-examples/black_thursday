@@ -1,9 +1,8 @@
 require 'csv'
 require_relative 'invoice_item'
-require 'pry'
 
+# Repository Linking items to invoices
 class InvoiceItemRepository
-
   attr_reader :engine
 
   def initialize(filepath, parent = nil)
@@ -37,5 +36,4 @@ class InvoiceItemRepository
   def find_all_by_invoice_id(id)
     @invoice_items.find_all { |invoice_item| invoice_item.invoice_id == id }
   end
-
 end

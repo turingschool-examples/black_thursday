@@ -1,5 +1,5 @@
+# Statistics for SalesEngine
 class SalesAnalyst
-
   def initialize(sales_engine)
     @se = sales_engine
   end
@@ -8,12 +8,12 @@ class SalesAnalyst
     mean = 0.0
     item_array.each { |count| mean += count }
     return 0 if item_array.length.zero?
-    return mean / item_array.length
+    mean / item_array.length
   end
 
   def standard_devation(mean, item_array)
     std_dev = 0.0
-    item_array.each { |count| std_dev += (count - mean) ** 2 }
+    item_array.each { |count| std_dev += (count - mean)**2 }
     std_dev /= item_array.length - 1
     Math.sqrt(std_dev)
   end
@@ -81,8 +81,8 @@ class SalesAnalyst
     mean = average_invoices_per_merchant
     std_dev = average_invoices_per_merchant_standard_deviation
     @se.merchants.all.find_all do |merchant|
-      @se.find_invoices_by_merchant_id(merchant.id).\
-      length > ((std_dev * 2) + mean)
+      @se.find_invoices_by_merchant_id(merchant.id)\
+         .length > ((std_dev * 2) + mean)
     end
   end
 
@@ -90,8 +90,8 @@ class SalesAnalyst
     mean = average_invoices_per_merchant
     std_dev = average_invoices_per_merchant_standard_deviation
     @se.merchants.all.find_all do |merchant|
-      @se.find_invoices_by_merchant_id(merchant.id).\
-      length < (mean - (std_dev * 2))
+      @se.find_invoices_by_merchant_id(merchant.id)\
+         .length < (mean - (std_dev * 2))
     end
   end
 
@@ -116,5 +116,4 @@ class SalesAnalyst
     invoices = @se.invoices.all.map(&:status)
     (100 * invoices.count(check) / invoices.length.to_f).round(2)
   end
-
 end

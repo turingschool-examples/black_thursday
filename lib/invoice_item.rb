@@ -2,8 +2,8 @@ require 'bigdecimal'
 require 'time'
 require 'pry'
 
+# Item linked to Invoice
 class InvoiceItem
-
   attr_reader :id,
               :item_id,
               :invoice_id,
@@ -27,5 +27,4 @@ class InvoiceItem
   def unit_price_to_dollars
     "$#{unit_price.to_f}"
   end
-
 end

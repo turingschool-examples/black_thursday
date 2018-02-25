@@ -1,7 +1,7 @@
 require 'time'
 
+# Customer
 class Customer
-
   attr_reader :id,
               :first_name,
               :last_name,
@@ -18,5 +18,4 @@ class Customer
     @updated_at     = Time.parse(data[:updated_at])
     @customer_repo  = parent
   end
-
 end

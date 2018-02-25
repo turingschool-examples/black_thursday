@@ -1,9 +1,8 @@
 require 'csv'
 require_relative 'merchant'
-require 'pry'
 
+# Merchant Repo
 class MerchantRepository
-
   attr_reader :engine
 
   def initialize(filepath, parent = nil)
@@ -31,7 +30,7 @@ class MerchantRepository
   end
 
   def find_by_name(name)
-    @merchants.find { |merchant| merchant.name.downcase == name.downcase }
+    @merchants.find { |merchant| merchant.name.casecmp(name.downcase).zero? }
   end
 
   def find_all_by_name(name)
@@ -47,5 +46,4 @@ class MerchantRepository
   def find_invoices_by_merchant_id(id)
     engine.find_invoices_by_merchant_id(id)
   end
-
 end
