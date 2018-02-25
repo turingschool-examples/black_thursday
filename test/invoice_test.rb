@@ -119,10 +119,13 @@ class InvoiceTest < Minitest::Test
       customers:     './test/fixtures/customers_sample.csv'
     }
     sales_engine = SalesEngine.new(data)
-    id = 1053
+    id = 2179
     invoice = sales_engine.invoices.find_by_id(id)
+    id2 = 4097
+    invoice2 = sales_engine.invoices.find_by_id(id2)
 
     assert_equal true, invoice.is_paid_in_full?
+    assert_equal false, invoice2.is_paid_in_full?
   end
 
   def test_total
@@ -135,10 +138,10 @@ class InvoiceTest < Minitest::Test
       customers:     './test/fixtures/customers_sample.csv'
     }
     sales_engine = SalesEngine.new(data)
-    id = 1053
+    id = 2179
     invoice = sales_engine.invoices.find_by_id(id)
 
-    assert_equal 302.50, invoice.total
+    assert_equal 0, invoice.total
   end
 
 end

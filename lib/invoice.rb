@@ -1,4 +1,5 @@
 require 'time'
+require 'pry'
 
 # Invoice
 class Invoice
@@ -40,10 +41,18 @@ class Invoice
   end
 
   def is_paid_in_full?
-
+    success = transactions.find do |transaction|
+      transaction.result == 'success'
+    end
+    return true if success
+    false
   end
 
   def total
-
+    amount = 0
+    items.each do |item|
+      amount += item.unit_price
+    end
+    amount.round(2)
   end
 end
