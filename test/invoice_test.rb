@@ -109,7 +109,7 @@ class InvoiceTest < Minitest::Test
     assert invoice.customer.last_name == "Schinner"
   end
 
-  def test_is_paid_in_full
+  def test_return_value_if_invoice_is_paid_in_full
     data = {
       items:         './test/fixtures/items_sample.csv',
       merchants:     './test/fixtures/merchants_sample.csv',
@@ -128,7 +128,7 @@ class InvoiceTest < Minitest::Test
     assert_equal false, invoice2.is_paid_in_full?
   end
 
-  def test_total
+  def test_it_returns_total_dollar_amount_of_the_invoice
     data = {
       items:         './test/fixtures/items_sample.csv',
       merchants:     './test/fixtures/merchants_sample.csv',
@@ -138,9 +138,9 @@ class InvoiceTest < Minitest::Test
       customers:     './test/fixtures/customers_sample.csv'
     }
     sales_engine = SalesEngine.new(data)
-    id = 2179
+    id = 819
     invoice = sales_engine.invoices.find_by_id(id)
 
-    assert_equal 0, invoice.total
+    assert_equal 0.219028e5, invoice.total
   end
 end
