@@ -50,9 +50,9 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_result
-    expected = @trans_repo.find_all_by_result(:success)
+    expected = @trans_repo.find_all_by_result('success')
 
-    assert_empty @trans_repo.find_all_by_result(:fail)
+    assert_empty @trans_repo.find_all_by_result('fail')
     assert_equal 5, expected.length
   end
 

@@ -32,26 +32,25 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal 'Joey', @cust_repo.find_by_id(1).first_name
   end
 
-  def test_find_by_first_name
-    actual = @cust_repo.find_by_first_name('IA')
+  def test_find_all_by_first_name
+    actual = @cust_repo.find_all_by_first_name('IA')
 
-    assert_equal [], @cust_repo.find_by_first_name('SOUOU')
+    assert_equal [], @cust_repo.find_all_by_first_name('SOUOU')
     assert_equal 2, actual.length
     assert_equal 'Cecelia', actual[0].first_name
   end
 
-  def test_find_by_last_name
-    actual = @cust_repo.find_by_last_name('I')
+  def test_find_all_by_last_name
+    actual = @cust_repo.find_all_by_last_name('I')
 
-    assert_equal [], @cust_repo.find_by_last_name('SOUOU')
+    assert_equal [], @cust_repo.find_all_by_last_name('SOUOU')
     assert_equal 2, actual.length
     assert_equal 'Joey', actual[0].first_name
   end
 
   def test_it_asks_parent_for_merchants
-    skip
     assert_equal 2, @cust_repo.merchants('id').length
-    @cust_repo.items('id').each do |merch|
+    @cust_repo.merchants('id').each do |merch|
       assert_instance_of Mocha::Mock, merch
     end
   end

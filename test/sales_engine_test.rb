@@ -63,16 +63,14 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_can_find_customer_merchants
-    skip
-    customer = se.customers.find_by_id(30)
+    customer = @sales_eng.customers.find_by_id(30)
 
     assert_instance_of Merchant, customer.merchants[0]
     assert_equal 3, customer.merchants[0].id
   end
 
   def test_it_can_find_merchant_customers
-    skip
-    merchant = se.merchants.find_by_id(12335938)
+    merchant = @sales_eng.merchants.find_by_id(12335938)
 
     assert_instance_of Customer, merchant.customers[0]
     assert_equal 'Joey', merchant.customers[0].first_name

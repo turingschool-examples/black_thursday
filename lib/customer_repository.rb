@@ -14,13 +14,13 @@ class CustomerRepository
     data.map { |row| Customer.new(row, self) }
   end
 
-  def find_by_first_name(name)
+  def find_all_by_first_name(name)
     @all.find_all do |cust|
       cust.first_name.upcase.include?(name.upcase)
     end
   end
 
-  def find_by_last_name(name)
+  def find_all_by_last_name(name)
     @all.find_all do |cust|
       cust.last_name.upcase.include?(name.upcase)
     end
