@@ -19,7 +19,7 @@ class Merchant
   end
 
   def customers
-    invoices.map(&:customer).uniq.compact
+    invoices.map { |invoice| invoice.customer }.uniq.compact
   end
 
 end
