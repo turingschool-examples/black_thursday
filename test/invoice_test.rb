@@ -143,5 +143,4 @@ class InvoiceTest < Minitest::Test
 
     assert_equal 0, invoice.total
   end
-
 end
