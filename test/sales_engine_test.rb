@@ -1,16 +1,17 @@
 require './test/test_helper'
 require './lib/sales_engine'
-require 'pry'
 
 # Tests Sales Engine class
 class SalesEngineTest < Minitest::Test
   def setup
-    @sales_eng = SalesEngine.from_csv(
+    @sales_eng = SalesEngine.from_csv({
           items: './data/sample_data/items.csv',
       merchants: './data/sample_data/merchants.csv',
        invoices: './data/sample_data/invoices.csv',
    transactions: './data/sample_data/transactions.csv',
-      customers: './data/sample_data/customers.csv')
+      customers: './data/sample_data/customers.csv',
+  invoice_items: './data/sample_data/items.csv'
+  })
   end
 
   def test_sales_engine_class_exists
@@ -70,9 +71,16 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_can_find_merchant_customers
-    merchant = @sales_eng.merchants.find_by_id(12335938)
+    merchant = @sales_eng.merchants.find_by_id(12334105)
 
     assert_instance_of Customer, merchant.customers[0]
     assert_equal 'Joey', merchant.customers[0].first_name
+  end
+
+  def test_it_can_find_items_by_invoice_id
+    invoice = @sales_eng.invoices.find_by_id(46)
+
+    assert_instance_of Item, invoice.items[0]
+    assert_equal 46, invoice.items[0].name
   end
 end

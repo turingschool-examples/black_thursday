@@ -7,7 +7,12 @@ class InvoiceRepositoryTest < Minitest::Test
   def setup
     file_name     = './data/sample_data/invoices.csv'
     merchant      = mock
-    sales_eng     = stub(find_invoice_merchant: merchant)
+    item_1        = mock
+    item_2        = mock
+    sales_eng     = stub(
+      find_invoice_merchant: merchant,
+      find_invoice_items: [item_1, item_2]
+    )
     @invoice_repo = InvoiceRepository.new(file_name, sales_eng)
   end
 
@@ -22,21 +27,31 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_customer_id
-    assert_equal [], @invoice_repo.find_all_by_customer_id('20')
-    assert_instance_of Array, @invoice_repo.find_all_by_customer_id(1)
-    assert_instance_of Invoice, @invoice_repo.find_all_by_customer_id(1)[0]
-    assert_equal :shipped, @invoice_repo.find_all_by_customer_id(1)[0].status
+    actual  = @invoice_repo.find_all_by_customer_id('20')
+    actual2 = @invoice_repo.find_all_by_customer_id(1)
+
+    assert_equal [], actual
+    assert_instance_of Array, actual2
+    assert_instance_of Invoice, actual2[0]
+    assert_equal :shipped, actual2[0].status
   end
 
   def test_it_can_find_all_by_status
-    assert_equal [], @invoice_repo.find_all_by_status(:dropped)
-    assert_instance_of Array, @invoice_repo.find_all_by_status(:shipped)
-    assert_equal 2, @invoice_repo.find_all_by_status(:pending).length
-    assert_equal 2, @invoice_repo.find_all_by_status(:shipped).length
+    actual  = @invoice_repo.find_all_by_status(:dropped)
+    actual2 = @invoice_repo.find_all_by_status(:shipped)
+
+    assert_equal [], actual
+    assert_instance_of Array, actual2
+    assert_equal 2, actual2.length
+    assert_equal 2, actual2.length
   end
 
   def test_it_asks_parent_for_merchant
     assert_instance_of Mocha::Mock, @invoice_repo.merchant('id')
+  end
+
+  def test_it_asks_parent_for_items
+    assert_instance_of Mocha::Mock, @invoice_repo.items('id')[0]
   end
 
   def test_inspect

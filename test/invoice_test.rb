@@ -6,9 +6,12 @@ class InvoiceTest < Minitest::Test
   def setup
     merchant     = mock
     customer     = mock
+    item_1       = mock
+    item_2       = mock
     invoice_repo = stub(
       merchant: merchant,
-      customer: customer
+      customer: customer,
+      items: [item_2, item_2]
     )
     @invoice = Invoice.new(
       {id: 6,
@@ -49,5 +52,9 @@ class InvoiceTest < Minitest::Test
 
   def test_it_asks_parent_for_customer
     assert_instance_of Mocha::Mock, @invoice.customer
+  end
+
+  def test_it_asks_parent_for_items
+    assert_instance_of Mocha::Mock, @invoice.items[0]
   end
 end
