@@ -16,12 +16,18 @@ class SalesAnalyst
     @merchant_repo         = sales_engine.merchants
     @item_repo             = sales_engine.items
     @invoice_repo          = sales_engine.invoices
+    @invoice_item_repo     = sales_engine.invoice_items
+    @customers_repo        = sales_engine.customers
+    @transaction_repo      = sales_engine.transactions
   end
 
   def set_all_item_variables
     @merchants             = @merchant_repo.all
     @items                 = @item_repo.all
     @invoices              = @invoice_repo.all
+    @invoice_items         = @invoice_item_repo.all
+    @customers             = @customers_repo.all
+    @transactions          = @transaction_repo.all
   end
 
   def set_relational_variables
@@ -193,5 +199,16 @@ class SalesAnalyst
     numerator = @invoice_repo.find_all_by_status(status).count.to_f
     denominator = @invoices.count
     ((numerator / denominator) * 100).round 2
+  end
+
+  def total_revenue_by_date(date)
+    transactions = @transactions.find_all { |transaction| transaction.created_at.to_s[0..9] == date }
+    successful_transactions = transactions.find_all { |transaction| transaction.result == 'success' }
+    invoice_ids = successful_transactions.map(&:invoice_id)
+    invoice_items = invoice_ids.map do |invoice_id|
+      @invoice_items.find_all { |invoice_item| invoice_item.invoice_id == invoice_id }
+    end.flatten
+    item_prices = invoice_items.map(&:unit_price)
+    item_prices.inject { |sum, num| sum + num }.to_f
   end
 end
