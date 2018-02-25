@@ -106,4 +106,29 @@ class SalesAnalystTest < Minitest::Test
   def test_one_time_buyers_top_items
     assert_equal 0, @sa.one_time_buyers_top_items
   end
+
+  def test_can_find_unpaid_invoices
+    assert_instance_of Customer, @sa.customers_with_unpaid_invoices.first
+    assert_equal "Joey", @sa.customers_with_unpaid_invoices.first.first_name
+  end
+
+  def test_can_sort_invoices_by_quantity
+    assert_instance_of Hash, @sa.sorting_invoices_by_quantity
+    assert_instance_of Invoice, @sa.sorting_invoices_by_quantity.first.first
+    assert_equal 47, @sa.sorting_invoices_by_quantity.first.first.quantity
+  end
+
+  def test_can_find_best_invoice_by_quantity
+    assert_instance_of Invoice, @sa.best_invoice_by_quantity
+    assert_equal 1, @sa.best_invoice_by_quantity.id
+  end
+
+  def test_find_best_invoice_by_revenue
+    assert_instance_of Invoice, @sa.best_invoice_by_revenue
+  end
+
+  def test_can_sort_invoices_by_revenue
+    assert_instance_of Hash, @sa.sorting_invoices_by_revenue
+    assert_instance_of Invoice, @sa.sorting_invoices_by_revenue.first.first
+  end
 end

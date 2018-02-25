@@ -208,7 +208,7 @@ class SalesAnalyst
   customer.invoices.map do |invoice|
     new_stuff[invoice] = invoice.invoice_items.map do |invoice_item|
       invoice_item.quantity.to_i
-    end.reduce(:+)
+    end
   end
   new_stuff
   end
@@ -264,34 +264,27 @@ class SalesAnalyst
   quantity_hash
 end
 
-def best_invoice_by_quantity
-  high_quantity = sorting_invoices_by_quantity.max_by do |invoice, quantity|
-    quantity
-  end
-  high_quantity[0]
-end
-
-def sorting_invoices_by_revenue
-  revenue_hash = Hash.new
-  invoices.each do |invoice|
-    if invoice.is_paid_in_full?
-      revenue_hash[invoice] = invoice.total
+  def best_invoice_by_quantity
+    high_quantity = sorting_invoices_by_quantity.max_by do |invoice, quantity|
+      quantity
     end
+    high_quantity[0]
   end
-  revenue_hash
-end
 
-def best_invoice_by_revenue
-  high_revenue = sorting_invoices_by_revenue.max_by do |invoice, revenue|
-    revenue
+  def sorting_invoices_by_revenue
+    revenue_hash = Hash.new
+    invoices.each do |invoice|
+      if invoice.is_paid_in_full?
+        revenue_hash[invoice] = invoice.total
+      end
+    end
+    revenue_hash
   end
-  high_revenue[0]
-end
 
-def highest_quantity
+  def best_invoice_by_revenue
     high_revenue = sorting_invoices_by_revenue.max_by do |invoice, revenue|
       revenue
     end
-    high_revenue[1]
+    high_revenue[0]
   end
 end
