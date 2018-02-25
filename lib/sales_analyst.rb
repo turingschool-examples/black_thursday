@@ -88,7 +88,8 @@ class SalesAnalyst
     mean = average_invoices_per_merchant
     std_dev = average_invoices_per_merchant_standard_deviation
     @se.merchants.all.find_all do |merchant|
-      @se.find_invoices_by_merchant_id(merchant.id).length > ((std_dev * 2) + mean)
+      @se.find_invoices_by_merchant_id(merchant.id).\
+      length > ((std_dev * 2) + mean)
     end
   end
 
@@ -96,7 +97,8 @@ class SalesAnalyst
     mean = average_invoices_per_merchant
     std_dev = average_invoices_per_merchant_standard_deviation
     @se.merchants.all.find_all do |merchant|
-      @se.find_invoices_by_merchant_id(merchant.id).length < (mean - (std_dev * 2))
+      @se.find_invoices_by_merchant_id(merchant.id).\
+      length < (mean - (std_dev * 2))
     end
   end
 
@@ -113,9 +115,7 @@ class SalesAnalyst
     invoices = invoices.map { |invoice| invoice.created_at.strftime('%A') }
     days = { 'Monday' => 0, 'Tuesday' => 0, 'Wednesday' => 0, 'Thursday' => 0,
              'Friday' => 0, 'Saturday' => 0, 'Sunday' => 0 }
-    invoices.each do |day|
-      days[day] += 1
-    end
+    invoices.each { |day| days[day] += 1 }
     days
   end
 
