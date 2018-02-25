@@ -23,7 +23,8 @@ class SalesAnalyst
   end
 
   def customers
-    @sales_engine.customers
+    @sales_engine.customers.all
+
   end
 
   def invoice_count
@@ -166,7 +167,34 @@ class SalesAnalyst
     ((total.to_f / invoices.count.to_f) * 100).round(2)
   end
 
-  def finding_invoice_items(id)
+  def top_buyers(num = 20)
+    hash = {}
+    customers.each do |customer|
+      invoices = get_invoices(customer.id)
+      paid_invoices = invoices.find_all(&:is_paid_in_full?)
+      invoice_costs = paid_invoices.map(&:total)
+      hash[invoice_costs.reduce(:+).to_f] = customer
+    end
+    top_customers = hash.keys.max(num)
+    top_customers.map { |key| hash[key] }
+  end
+
+  def get_invoices(customer_id)
+    @sales_engine.invoices.find_all_by_customer_id(customer_id)
+  end
+
+  def one_time_buyers
+    buyers = []
+    customers.map do |customer|
+      invoices = get_invoices(customer.id)
+      paid_invoices = invoices.find_all(&:is_paid_in_full?)
+      paid_invoices.delete(false)
+      buyers << customer if paid_invoices.length == 1
+    end
+    buyers
+  end
+
+    def finding_invoice_items(id)
     invoice_collection = Hash.new
     customer = customers.find_by_id(id)
     high = customer.invoices.map do |invoice|
