@@ -95,6 +95,10 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 44.44, @sa.invoice_status(:shipped)
   end
 
+  def test_it_can_find_top_buyers
+    assert_equal 0, @sa.top_buyers
+  end 
+  
   def test_can_find_top_merchant_for_customer
     assert_instance_of Merchant, @sa.top_merchant_for_customer(1)
   end
