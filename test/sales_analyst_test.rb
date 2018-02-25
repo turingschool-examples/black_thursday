@@ -107,7 +107,8 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 0, @sa.one_time_buyers_top_items
   end
 
-  def test_it_can_find_total
-    assert_equal 21067.77, @se.invoices.find_by_id(1).total
+  def test_can_find_unpaid_invoices
+    assert_instance_of Customer, @sa.customers_with_unpaid_invoices.first
+    assert_equal "Joey", @sa.customers_with_unpaid_invoices.first.first_name
   end
 end

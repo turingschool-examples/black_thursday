@@ -121,4 +121,24 @@ class InvoiceTest < Minitest::Test
     invoice = se.invoices.find_by_id(1)
     assert_equal 0.2106777e5, invoice.total
   end
+
+  def test_it_can_find_total
+    se = SalesEngine.from_csv(items:         './test/fixtures/items.csv',
+                              merchants:     './test/fixtures/merchants.csv',
+                              invoices:      './test/fixtures/invoices.csv',
+                              invoice_items: './test/fixtures/invoice_items.csv',
+                              transactions:  './test/fixtures/transactions.csv',
+                              customers:     './test/fixtures/invoices.csv')
+    assert_equal 21067.77, se.invoices.find_by_id(1).total
+  end
+
+  def test_it_can_find_quantity
+    se = SalesEngine.from_csv(items:         './test/fixtures/items.csv',
+                              merchants:     './test/fixtures/merchants.csv',
+                              invoices:      './test/fixtures/invoices.csv',
+                              invoice_items: './test/fixtures/invoice_items.csv',
+                              transactions:  './test/fixtures/transactions.csv',
+                              customers:     './test/fixtures/invoices.csv')
+    assert_equal 47, se.invoices.find_by_id(1).quantity
+  end
 end
