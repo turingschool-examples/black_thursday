@@ -93,4 +93,20 @@ class SalesEngineTest < Minitest::Test
     assert_equal BigDecimal.new(986.68, 5), result
     assert_equal "This invoice is unpaid", unpaid
   end
+
+  def test_engine_can_find_invoice_using_id_passed_by_tran_repo
+    result = @sales_engine.engine_finds_invoice_via_invoice_id(18)
+
+    assert_equal 18, result.id
+    assert_equal 5, result.customer_id
+    assert_equal 12334123, result.merchant_id
+    assert_equal :shipped, result.status
+  end
+
+  def test_engine_can_find_transaction_using_invoice_id_passed_from_inv_repo
+    result = @sales_engine.engine_finds_transactions_via_invoice_id(2779)
+
+    assert_equal 19, result[0].id
+    assert_equal 4318767847968505, result[0].credit_card_number
+  end
 end
