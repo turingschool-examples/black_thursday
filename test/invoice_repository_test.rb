@@ -108,4 +108,11 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal BigDecimal.new(986.68, 5), result
     assert_equal "This invoice is unpaid", unpaid_result
   end
+
+  def test_invoice_transactions_returns_transactions
+    result = @invoice_repository.invoice_repo_finds_transactions_via_engine(2779)
+
+    assert_equal 19, result[0].id
+    assert_equal 4318767847968505, result[0].credit_card_number
+  end
 end

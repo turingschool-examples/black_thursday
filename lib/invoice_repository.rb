@@ -54,6 +54,10 @@ class InvoiceRepository
     @parent.engine_finds_customer_via_customer_repo(id)
   end
 
+  def invoice_repo_finds_transactions_via_engine(id)
+    @parent.engine_finds_transactions_via_invoice_id(id)
+  end
+
   def invoice_repo_finds_transactions_and_evaluates_via_engine(id)
     @parent.engine_finds_invoice_transactions_and_evaluates(id)
   end

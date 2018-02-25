@@ -65,4 +65,13 @@ class TransactionRepositoryTest < Minitest::Test
     assert_instance_of Array, result
     assert_equal [], result3
   end
+
+  def test_transaction_repo_to_engine_can_return_invoice
+    result = @transaction_repository.transaction_repo_finds_invoice_via_engine(18)
+
+    assert_equal 18, result.id
+    assert_equal 5, result.customer_id
+    assert_equal 12334123, result.merchant_id
+    assert_equal :shipped, result.status
+  end
 end

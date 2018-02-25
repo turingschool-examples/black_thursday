@@ -8,14 +8,14 @@ class InvoiceTest < Minitest::Test
   def setup
     test_engine = TestEngine.new.god_hash
     @sales_engine = SalesEngine.new(test_engine)
-      @invoice = Invoice.new({
-        id:          6,
-        customer_id: 7,
-        merchant_id: 8,
-        status:      'pending',
-        created_at:  '2011-08-29 19:23:23 UTC',
-        updated_at:  '2006-12-25 19:23:23 UTC'
-        }, @sales_engine.invoices)
+    @invoice = Invoice.new({
+      id:          6,
+      customer_id: 7,
+      merchant_id: 8,
+      status:      'pending',
+      created_at:  '2011-08-29 19:23:23 UTC',
+      updated_at:  '2006-12-25 19:23:23 UTC'
+      }, @sales_engine.invoices)
   end
 
   def test_it_exists
@@ -92,5 +92,12 @@ class InvoiceTest < Minitest::Test
     assert_instance_of BigDecimal, paid_invoice.total
     assert_equal BigDecimal.new(986.68, 5), paid_invoice.total
     assert_equal "This invoice is unpaid", unpaid_invoice.total
+  end
+
+  def test_invoice_transactions_returns_transactions
+    result = @invoice.transactions
+
+    assert_equal 29, result[0].id
+    assert_equal 4619850044750256, result[1].credit_card_number
   end
 end
