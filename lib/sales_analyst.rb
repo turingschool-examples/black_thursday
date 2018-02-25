@@ -110,15 +110,17 @@ class SalesAnalyst
 
   def invoice_days
     invoices = @se.invoices.all
-    invoices = invoices.map {|invoice| invoice.created_at.strftime("%A")}
-    days = {"Monday" => 0, "Tuesday" => 0, "Wednesday" => 0, "Thursday" => 0,
-            "Friday" => 0, "Saturday" => 0, "Sunday" => 0}
+    invoices = invoices.map { |invoice| invoice.created_at.strftime('%A') }
+    days = { 'Monday' => 0, 'Tuesday' => 0, 'Wednesday' => 0, 'Thursday' => 0,
+             'Friday' => 0, 'Saturday' => 0, 'Sunday' => 0 }
     invoices.each do |day|
       days[day] += 1
     end
     days
   end
 
-  # def invoice_status(status)
-  # end
+  def invoice_status(check)
+    invoices = @se.invoices.all.map(&:status)
+    (100 * invoices.count(check) / invoices.length.to_f).round(2)
+  end
 end
