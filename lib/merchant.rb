@@ -1,5 +1,5 @@
+# Merchant Class
 class Merchant
-
   attr_reader :id,
               :name,
               :merchant_repo
@@ -19,7 +19,6 @@ class Merchant
   end
 
   def customers
-    invoices.map { |invoice| invoice.customer }.uniq.compact
+    invoices.map(&:customer).uniq.compact
   end
-
 end

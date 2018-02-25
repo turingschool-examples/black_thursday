@@ -4,10 +4,9 @@ require_relative 'invoice_repository'
 require_relative 'invoice_item_repository'
 require_relative 'transaction_repository'
 require_relative 'customer_repository'
-require 'pry'
 
+# Sales Engine to run repos
 class SalesEngine
-
   attr_reader   :items,
                 :merchants,
                 :invoices,
@@ -59,5 +58,4 @@ class SalesEngine
   def find_invoice_by_invoice_id(invoice_id)
     invoices.find_by_id(invoice_id)
   end
-
 end

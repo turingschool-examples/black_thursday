@@ -1,14 +1,13 @@
 require 'csv'
 require_relative 'transaction'
-require 'pry'
 
+# Transation Repo
 class TransactionRepository
-
   attr_reader :engine
 
   def initialize(filepath, parent = nil)
-    @transactions    = []
-    @engine           = parent
+    @transactions = []
+    @engine       = parent
     load_items(filepath)
   end
 
@@ -47,5 +46,4 @@ class TransactionRepository
   def find_invoice_by_invoice_id(invoice_id)
     engine.find_invoice_by_invoice_id(invoice_id)
   end
-
 end
