@@ -80,6 +80,6 @@ class SalesEngine
   def find_merchant_customers(id)
     @invoices.find_all_by_merchant_id(id).map do |inv|
       @customers.find_by_id(inv.customer_id)
-    end
+    end.uniq
   end
 end
