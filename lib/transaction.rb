@@ -20,7 +20,7 @@ class Transaction
     @parent = parent
   end
 
-  # def merchant
-  #   @parent.item_repo_goes_to_sales_engine_with_merchant_id(self.merchant_id)
-  # end
+  def invoice
+    @parent.transaction_repo_finds_invoice_via_engine(self.invoice_id)
+  end
 end

@@ -22,7 +22,6 @@ class SalesAnalyst
     squared_distance_sum = data_set.map do |data_point|
       (data_point - mean.to_f.abs) ** 2
     end.reduce(&:+)
-# binding.pry
     ((squared_distance_sum/((data_set.length) -1 )) ** 0.5).round(2)
   end
 

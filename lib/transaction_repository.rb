@@ -42,8 +42,8 @@ class TransactionRepository
     end
   end
 
-  def invoice_repo_finds_merchant_via_engine(id)
-    @parent.engine_finds_merchant_via_merchant_repo(id)
+  def transaction_repo_finds_invoice_via_engine(id)
+    @parent.engine_finds_invoice_via_invoice_id(id)
   end
 
   def inspect
