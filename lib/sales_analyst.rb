@@ -194,15 +194,21 @@ class SalesAnalyst
     buyers
   end
 
-    def finding_invoice_items(id)
-    new_stuff = Hash.new
-    customer = @sales_engine.customers.find_by_id(id)
-    high = customer.invoices.map do |invoice|
-      new_stuff[invoice] = invoice.invoice_items.map do |invoice_item|
-        invoice_item.quantity.to_i
-      end.reduce(:+)
+  def one_time_buyers_top_items
+    one_time_buyers.map do |customer|
+      customer.invoices.map(&:items)
     end
-    new_stuff
+  end
+
+  def finding_invoice_items(id)
+  new_stuff = Hash.new
+  customer = @sales_engine.customers.find_by_id(id)
+  customer.invoices.map do |invoice|
+    new_stuff[invoice] = invoice.invoice_items.map do |invoice_item|
+      invoice_item.quantity.to_i
+    end.reduce(:+)
+  end
+  new_stuff
   end
 
   def top_merchant_for_customer(id)
