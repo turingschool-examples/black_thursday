@@ -1,4 +1,5 @@
 require 'bigdecimal'
+require 'date'
 
 # This is the sales analyst class
 class SalesAnalyst
@@ -202,13 +203,31 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    transactions = @transactions.find_all { |transaction| transaction.created_at.to_s[0..9] == date }
-    successful_transactions = transactions.find_all { |transaction| transaction.result == 'success' }
-    invoice_ids = successful_transactions.map(&:invoice_id)
+    invoices = @invoices.find_all do |invoice|
+      invoice.created_at == date
+    end
+    paid_invoices = invoices.find_all(&:is_paid_in_full?)
+    invoice_ids = paid_invoices.map(&:id)
     invoice_items = invoice_ids.map do |invoice_id|
       @invoice_items.find_all { |invoice_item| invoice_item.invoice_id == invoice_id }
     end.flatten
-    item_prices = invoice_items.map(&:unit_price)
-    item_prices.inject { |sum, num| sum + num }.to_f
+    item_prices = invoice_items.map { |invoice_item| invoice_item.unit_price * invoice_item.quantity }
+    item_prices.inject { |sum, num| sum + num }
+  end
+
+  def top_revenue_earners(num_merchants = 20)
+    hash = {}
+    @merchants.map do |merchant|
+      invoices = @invoice_repo.find_all_by_merchant_id(merchant.id)
+      invoice_ids = invoices.map(&:id)
+      invoice_items = invoice_ids.map do |invoice_id|
+        @invoice_items.find_all { |invoice_item| invoice_item.invoice_id == invoice_id }
+      end.flatten
+      prices = invoice_items.map(&:unit_price)
+      revenue = prices.reduce(:+)
+      hash[revenue.to_f] = merchant
+    end
+    top_earners = hash.keys.max(num_merchants)
+    top_earners.map { |key| hash[key] }
   end
 end
