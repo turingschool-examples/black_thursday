@@ -1,27 +1,20 @@
 
 class SalesAnalyst
-  
+
   def initialize(sales_engine)
     @se = sales_engine
   end
 
   def mean_finder(item_array)
     mean = 0.0
-    item_array.each do |count|
-      mean += count
-    end
-    if item_array.length.zero?
-      0
-    else
-      mean / item_array.length
-    end
+    item_array.each { |count| mean += count }
+    return 0 if item_array.length.zero?
+    return mean / item_array.length
   end
 
   def standard_devation(mean, item_array)
     std_dev = 0.0
-    item_array.each do |count|
-      std_dev += (count - mean)**2
-    end
+    item_array.each { |count| std_dev += (count - mean)**2 }
     std_dev /= item_array.length - 1
     Math.sqrt(std_dev)
   end
@@ -124,4 +117,5 @@ class SalesAnalyst
     invoices = @se.invoices.all.map(&:status)
     (100 * invoices.count(check) / invoices.length.to_f).round(2)
   end
+  
 end
