@@ -42,14 +42,14 @@ class Invoice
   end
 
   def is_paid_in_full?
-    if transactions.empty?
-      false
-    else
-    paid = transactions.any? do |transaction|
-      transaction.result == 'failed'
-    end
-    ! paid
-  end
+    pass = transactions.map(&:result)
+      if transactions.empty?
+        false
+      elsif pass.all? {|result| result == "failed"}
+        false
+      else
+        true
+      end
   end
 
   def total
@@ -61,7 +61,7 @@ class Invoice
   def quantity
     invoice_items.map do |invoice_item|
       invoice_item.quantity.to_i
-    end
+    end.sum
   end
 
   def customer
