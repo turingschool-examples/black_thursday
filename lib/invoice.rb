@@ -8,7 +8,8 @@ class Invoice
               :status,
               :created_at,
               :updated_at,
-              :parent
+              :parent,
+              :quantity
 
   def initialize(data, parent)
     @id          = data[:id].to_i
@@ -59,7 +60,7 @@ class Invoice
   end
 
   def quantity
-    invoice_items.map do |invoice_item|
+  @quantity = invoice_items.map do |invoice_item|
       invoice_item.quantity.to_i
     end.sum
   end

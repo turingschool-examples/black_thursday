@@ -245,11 +245,4 @@ class SalesAnalyst
     end
     high_revenue[0]
   end
-
-  def highest_quantity
-      high_revenue = sorting_invoices_by_revenue.max_by do |invoice, revenue|
-        revenue
-      end
-      high_revenue[1]
-    end
 end
