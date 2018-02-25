@@ -239,4 +239,32 @@ class SalesAnalyst
     end
     one_invoice
   end
+
+  def one_time_buyers_top_items
+    customer_list = one_time_buyers
+    hash = Hash.new(0)
+    customer_list.map do |customer|
+      invoices = customer.fully_paid_invoices
+      # invoices = @invoice_repo.find_all_by_customer_id(customer.id)
+      items_bought = invoices.map(&:items)
+      items_bought.flatten.each do |item|
+        hash[item] += find_invoice_item_quantity(customer.id, item.id, invoices)
+      end
+      binding.pry
+    end
+    # items_bought.flatten.each do |item|
+    #   hash[item] =
+    # end
+    # customer_list.find_all do |customer|
+    #   customer
+    # end
+  end
+
+  def find_invoice_item_quantity(item_id, invoices)
+    thing_i_want = @invoice_items.find { |invoice_item| invoice_item.item_id == item_id && invoices.map(&:id).include?(invoice_item.invoice_id)}
+    thing_i_want.quantity
+    # where item id == invoice item.item_id
+    # and
+    # where invoice_item.invoice_id.include?(customer.fully_paid_invoices.map(&:id))
+  end
 end
