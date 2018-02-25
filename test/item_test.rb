@@ -1,5 +1,4 @@
 require './test/test_helper'
-require './test/fixtures/mock_item_repo'
 require './lib/item'
 
 # Tests Item class

@@ -14,7 +14,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_it_finds_by_item_id
     actual  = @invoice_item_repo.find_all_by_item_id(4)
-    actual2 = @invoice_item_repo.find_all_by_item_id(263454779)
+    actual2 = @invoice_item_repo.find_all_by_item_id(10)
 
     assert_instance_of Array, actual
     assert_equal 0, actual.length

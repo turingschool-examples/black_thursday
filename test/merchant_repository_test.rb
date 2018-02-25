@@ -1,17 +1,21 @@
 require './test/test_helper'
 require './lib/merchant_repository'
-require './test/fixtures/mock_sales_engine'
 
 # Tests merchant repository
 class MerchantRepositoryTest < Minitest::Test
   def setup
     file_name = './data/sample_data/merchants.csv'
-    mock_item_one = mock('Item')
-    mock_item_two = mock('Item')
-    invoice_1     = mock
-    invoice_2     = mock
-    mock_se = stub(find_merchant_items: [mock_item_one, mock_item_two],
-                   find_merchant_invoices: [invoice_1, invoice_2])
+    item_1    = mock
+    item_2    = mock
+    invoice_1 = mock
+    invoice_2 = mock
+    cust_1    = mock
+    cust_2    = mock
+    mock_se   = stub(
+      find_merchant_items: [item_1, item_2],
+      find_merchant_invoices: [invoice_1, invoice_2],
+      find_merchant_customers: [cust_1, cust_2]
+    )
     @merch_repo = MerchantRepository.new(file_name, mock_se)
   end
 
@@ -61,8 +65,15 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_asks_parent_for_invoices
     assert_equal 2, @merch_repo.invoices('id').length
-    @merch_repo.items('id').each do |invoice|
+    @merch_repo.invoices('id').each do |invoice|
       assert_instance_of Mocha::Mock, invoice
+    end
+  end
+
+  def test_it_asks_parent_for_customers
+    assert_equal 2, @merch_repo.customers('id').length
+    @merch_repo.customers('id').each do |cust|
+      assert_instance_of Mocha::Mock, cust
     end
   end
 

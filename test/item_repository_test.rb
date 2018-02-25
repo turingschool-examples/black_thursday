@@ -1,5 +1,4 @@
 require './test/test_helper'
-require './test/fixtures/mock_sales_engine'
 require './lib/item_repository'
 
 # Tests Item Repository

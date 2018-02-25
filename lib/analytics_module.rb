@@ -13,6 +13,7 @@ module Analytics
   end
 
   def average(elements)
+    return 0 if elements == []
     (elements.reduce(:+) / elements.length).round(2)
   end
 end
