@@ -118,6 +118,15 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-
+    invoice_items = @se.invoice_items.all.find_all do |item|
+      item.created_at.year == date.year && \
+        item.created_at.mon == date.mon && \
+        item.created_at.mday == date.mday
+    end
+    amount = 0
+    invoice_items.each do |item|
+      amount += item.unit_price * item.quantity
+    end
+    amount
   end
 end

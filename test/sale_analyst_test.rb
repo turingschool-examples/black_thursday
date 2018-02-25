@@ -98,7 +98,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_total_revenue_by_date
-    date = Date.new(2012,03,27)
-    assert_equal 681.75, @sales_analyst.total_revenue_by_date(date)
+    date = Date.new(2012, 3, 27)
+    assert_equal 80_785.47, @sales_analyst.total_revenue_by_date(date)
   end
 end
