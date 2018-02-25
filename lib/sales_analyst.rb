@@ -24,7 +24,6 @@ class SalesAnalyst
 
   def customers
     @sales_engine.customers.all
-
   end
 
   def invoice_count
@@ -144,7 +143,7 @@ class SalesAnalyst
 
   def invoice_day_deviation
     days = finding_number_of_invoices_per_day
-    total = days.map do |day, count|
+    total = days.map do |_day, count|
       (count - average_invoice_per_day)**2
     end
     Math.sqrt(total.reduce(:+) / (total.length - 1)).round(2)
@@ -210,16 +209,16 @@ class SalesAnalyst
   end
 
   def finding_invoice_items(id)
-  new_stuff = Hash.new
+  new_stuff = {}
   customer = @sales_engine.customers.find_by_id(id)
   customer.invoices.map do |invoice|
     new_stuff[invoice] = invoice.quantity
-    end
+  end
   new_stuff
   end
 
   def top_merchant_for_customer(id)
-    high = finding_invoice_items(id).max_by do|invoice, orders|
+    high = finding_invoice_items(id).max_by do|_invoice, orders|
       orders
     end
     high[0].merchant
@@ -260,45 +259,38 @@ class SalesAnalyst
 
   def customers_with_unpaid_invoices
     unpaid = []
-      customers.map do |customer|
-        customer.invoices
-      end.flatten.each do |invoice|
-        if invoice.is_paid_in_full? == false
-          unpaid << invoice.customer
-        end
-      end
-  unpaid.uniq
+    invoices = customers.map(&:invoices)
+    invoices.flatten.each do |invoice|
+    unpaid << invoice.customer if invoice.is_paid_in_full? == false
+    end
+    unpaid.uniq
   end
 
   def sorting_invoices_by_quantity
-  quantity_hash = Hash.new
+  quantity_hash = {}
   invoices.each do |invoice|
-    if invoice.is_paid_in_full?
-      quantity_hash[invoice] = invoice.quantity
-    end
+    quantity_hash[invoice] = invoice.quantity if invoice.is_paid_in_full?
   end
   quantity_hash
-end
+  end
 
   def best_invoice_by_quantity
-    high_quantity = sorting_invoices_by_quantity.max_by do |invoice, quantity|
+    high_quantity = sorting_invoices_by_quantity.max_by do |_invoice, quantity|
       quantity
     end
     high_quantity[0]
   end
 
   def sorting_invoices_by_revenue
-    revenue_hash = Hash.new
+    revenue_hash = {}
     invoices.each do |invoice|
-      if invoice.is_paid_in_full?
-        revenue_hash[invoice] = invoice.total
-      end
+      revenue_hash[invoice] = invoice.total if invoice.is_paid_in_full?
     end
     revenue_hash
   end
 
   def best_invoice_by_revenue
-    high_revenue = sorting_invoices_by_revenue.max_by do |invoice, revenue|
+    high_revenue = sorting_invoices_by_revenue.max_by do |_invoice, revenue|
       revenue
     end
     high_revenue[0]

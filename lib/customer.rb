@@ -1,4 +1,4 @@
-
+# customer class
 class Customer
   attr_reader :id,
               :first_name,
@@ -27,8 +27,6 @@ class Customer
   end
 
   def fully_paid_invoices
-    invoices.find_all do |invoice|
-      invoice.is_paid_in_full?
-    end
+    invoices.find_all(&:is_paid_in_full?)
   end
 end
