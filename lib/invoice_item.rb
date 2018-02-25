@@ -1,6 +1,7 @@
 require 'time'
 require 'bigdecimal'
 
+# invoice item class
 class InvoiceItem
   attr_reader :id,
               :item_id,

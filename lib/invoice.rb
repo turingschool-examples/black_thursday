@@ -1,6 +1,7 @@
 require 'time'
 require 'bigdecimal'
 
+# invoice class
 class Invoice
   attr_reader :id,
               :customer_id,
@@ -8,8 +9,7 @@ class Invoice
               :status,
               :created_at,
               :updated_at,
-              :parent,
-              :quantity
+              :parent
 
   def initialize(data, parent)
     @id          = data[:id].to_i
@@ -30,9 +30,7 @@ class Invoice
   end
 
   def items
-    item_ids = invoice_items.map do |invoice_item|
-      invoice_item.item_id
-    end
+    item_ids = invoice_items.map(&:item_id)
     item_ids.map do |item_id|
       @parent.pass_item_id_to_se(item_id)
     end
@@ -44,23 +42,23 @@ class Invoice
 
   def is_paid_in_full?
     pass = transactions.map(&:result)
-      if transactions.empty?
-        false
-      elsif pass.all? {|result| result == "failed"}
-        false
-      else
-        true
-      end
+    if transactions.empty?
+      false
+    elsif pass.all? { |result| result == 'failed' }
+      false
+    else
+      true
+    end
   end
 
   def total
     invoice_items.reduce(0) do |total, invoice_item|
-      total + invoice_item.quantity* invoice_item.unit_price
+      total + invoice_item.quantity * invoice_item.unit_price
     end.round(2)
   end
 
   def quantity
-  @quantity = invoice_items.map do |invoice_item|
+    invoice_items.map do |invoice_item|
       invoice_item.quantity.to_i
     end.reduce(:+)
   end

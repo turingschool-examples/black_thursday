@@ -1,6 +1,6 @@
+require_relative 'test_helper'
 require_relative '../lib/sales_analyst'
 require_relative '../lib/sales_engine'
-require_relative 'test_helper'
 require 'pry'
 
 # test for sales analyst class
@@ -79,7 +79,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_can_find_number_of_invoices_for_days_of_week
     assert_equal 9, @sa.invoice_dates.length
-    assert_equal 2, @sa.finding_number_of_invoices_per_day["Saturday"]
+    assert_equal 2, @sa.finding_number_of_invoices_per_day['Saturday']
   end
 
   def test_can_find_standard_deviation_for_invoices_on_days
@@ -95,12 +95,19 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 44.44, @sa.invoice_status(:shipped)
   end
 
-  def test_it_can_find_top_buyers
-    assert_equal 0, @sa.top_buyers
+  def test_can_find_top_buyers
+    assert_instance_of Array, @sa.top_buyers
+    assert_instance_of Customer, @sa.top_buyers[1]
   end
 
-  def test_can_find_top_merchant_for_customer
-    assert_instance_of Merchant, @sa.top_merchant_for_customer(1)
+  def test_it_can_get_invoices
+    assert_instance_of Array, @sa.get_invoices(1)
+    assert_instance_of Invoice, @sa.get_invoices(1)[0]
+  end
+
+  def test_can_find_one_time_buyers
+    assert_instance_of Array, @sa.one_time_buyers
+    assert_instance_of Customer, @sa.one_time_buyers[0]
   end
 
   def test_one_time_buyers_top_items
@@ -109,7 +116,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_can_find_unpaid_invoices
     assert_instance_of Customer, @sa.customers_with_unpaid_invoices.first
-    assert_equal "Joey", @sa.customers_with_unpaid_invoices.first.first_name
+    assert_equal 'Joey', @sa.customers_with_unpaid_invoices.first.first_name
   end
 
   def test_can_sort_invoices_by_quantity
@@ -121,6 +128,10 @@ class SalesAnalystTest < Minitest::Test
   def test_can_find_best_invoice_by_quantity
     assert_instance_of Invoice, @sa.best_invoice_by_quantity
     assert_equal 1, @sa.best_invoice_by_quantity.id
+  end
+
+  def test_can_find_highest_volume_item
+    assert_instance_of Array, @sa.highest_volume_items(1)
   end
 
   def test_find_best_invoice_by_revenue
