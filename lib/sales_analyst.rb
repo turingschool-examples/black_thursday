@@ -208,7 +208,7 @@ class SalesAnalyst
   customer.invoices.map do |invoice|
     new_stuff[invoice] = invoice.invoice_items.map do |invoice_item|
       invoice_item.quantity.to_i
-    end.reduce(:+)
+    end
   end
   new_stuff
   end

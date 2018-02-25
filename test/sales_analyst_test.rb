@@ -106,4 +106,8 @@ class SalesAnalystTest < Minitest::Test
   def test_one_time_buyers_top_items
     assert_equal 0, @sa.one_time_buyers_top_items
   end
+
+  def test_it_can_find_total
+    assert_equal 21067.77, @se.invoices.find_by_id(1).total
+  end
 end
