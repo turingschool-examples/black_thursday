@@ -195,9 +195,10 @@ class SalesAnalyst
   end
 
   def one_time_buyers_top_items
-    one_time_buyers.map do |customer|
-      customer.invoices.map(&:items)
-    end
+    items = one_time_buyers.map do |customer|
+      paid = customer.invoices.find_all(&:is_paid_in_full?)
+      paid.map(&:items)
+    end.flatten
   end
 
   def finding_invoice_items(id)
