@@ -4,14 +4,14 @@ require './lib/sales_engine'
 # Tests Sales Engine class
 class SalesEngineTest < Minitest::Test
   def setup
-    @se = SalesEngine.from_csv({
-          items: './data/sample_data/items.csv',
+    @se = SalesEngine.from_csv(
+      items: './data/sample_data/items.csv',
       merchants: './data/sample_data/merchants.csv',
-       invoices: './data/sample_data/invoices.csv',
-   transactions: './data/sample_data/transactions.csv',
+      invoices: './data/sample_data/invoices.csv',
+      transactions: './data/sample_data/transactions.csv',
       customers: './data/sample_data/customers.csv',
-  invoice_items: './data/sample_data/items.csv'
-  })
+      invoice_items: './data/sample_data/items.csv'
+      )
   end
 
   def test_sales_engine_class_exists
@@ -41,11 +41,11 @@ class SalesEngineTest < Minitest::Test
     item = @se.items.find_by_id(1)
 
     assert_instance_of Merchant, item.merchant
-    assert_equal 123_341_05, item.merchant.id
+    assert_equal 12_334_105, item.merchant.id
   end
 
   def test_find_merchant_invoices
-    merchant = @se.merchants.find_by_id(12334105)
+    merchant = @se.merchants.find_by_id(12_334_105)
 
     assert_instance_of Invoice, merchant.invoices[0]
     assert_equal :shipped, merchant.invoices[0].status
@@ -81,7 +81,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_find_merchant_customers
-    merchant = @se.merchants.find_by_id(12334105)
+    merchant = @se.merchants.find_by_id(12_334_105)
 
     assert_instance_of Customer, merchant.customers[0]
     assert_equal 'Joey', merchant.customers[0].first_name

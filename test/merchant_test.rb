@@ -13,13 +13,14 @@ class MerchantTest < Minitest::Test
     mock_repo = stub({
       items: [item_1, item_2],
       invoices: [invoice_1, invoice_2],
-      customers: [cust_1, cust_2]}
-    )
+      customers: [cust_1, cust_2]
+                    })
     @merchant = Merchant.new({
       id: 5,
-      name: 'Turing School' },
+      name: 'Turing School'
+      },
       mock_repo
-    )
+      )
   end
 
   def test_merchant_class_exists
@@ -35,9 +36,10 @@ class MerchantTest < Minitest::Test
     mock_repo = stub(name: 'Merchant Repo')
     merchant = Merchant.new({
       id: 1,
-      name: 'Haliburton' },
+      name: 'Haliburton'
+      },
       mock_repo
-    )
+      )
 
     assert_equal 1, merchant.id
     assert_equal 'Haliburton', merchant.name
