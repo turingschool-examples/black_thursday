@@ -84,6 +84,6 @@ class SalesEngineTest < Minitest::Test
     merchant = @se.merchants.find_by_id(12_334_105)
 
     assert_instance_of Customer, merchant.customers[0]
-    assert_equal 'Joey', merchant.customers[0].first_name
+    assert_equal 'Cecelia', merchant.customers[0].first_name
   end
 end

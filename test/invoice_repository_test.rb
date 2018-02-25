@@ -30,7 +30,7 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal [], actual
     assert_instance_of Array, actual2
     assert_instance_of Invoice, actual2[0]
-    assert_equal :shipped, actual2[0].status
+    assert_equal :pending, actual2[0].status
   end
 
   def test_it_can_find_all_by_status
