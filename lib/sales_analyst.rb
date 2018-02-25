@@ -254,17 +254,15 @@ class SalesAnalyst
     end
     [hash.key(hash.values.sort.last)]
   end
-    # # hash = Hash.new(0)
-    # items_bought = customer_list.map do |customer|
-    #   invoices = customer.fully_paid_invoices
-    #   invoices.map(&:items)
-    #   # items_bought.flatten.each do |item|
-    #   #   hash[item] += find_invoice_item_quantity(item.id, invoices)
-    #   # end
-    # end
 
-  # def find_invoice_item_quantity(item_id, invoices)
-  #   thing_i_want = @invoice_items.find { |invoice_item| invoice_item.item_id == item_id && invoices.map(&:id).include?(invoice_item.invoice_id)}
-  #   thing_i_want.quantity
-  # end
+  def items_bought_in_year(customer_id, year)
+    customer_invoices = @invoice_repo.find_all_by_customer_id(customer_id)
+    invoices = customer_invoices.find_all { |invoice| invoice.created_at.year == year }
+    invoice_item = invoices.map do |invoice|
+      @invoice_item_repo.find_all_by_invoice_id(invoice.id)
+    end
+    invoice_item.flatten.map do |ii|
+      @item_repo.find_by_id(ii.item_id)
+    end
+  end
 end
