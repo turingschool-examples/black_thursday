@@ -24,6 +24,7 @@ class SalesAnalyst
 
   def customers
     @sales_engine.customers.all
+
   end
 
   def invoice_count
@@ -191,5 +192,52 @@ class SalesAnalyst
       buyers << customer if paid_invoices.length == 1
     end
     buyers
+  end
+
+    def finding_invoice_items(id)
+    new_stuff = Hash.new
+    customer = customers.find_by_id(id)
+    high = customer.invoices.map do |invoice|
+      new_stuff[invoice] = invoice.invoice_items.map do |invoice_item|
+        invoice_item.quantity.to_i
+      end.sum
+    end
+    new_stuff
+  end
+
+  def top_merchant_for_customer(id)
+    high = finding_invoice_items(id).max_by do|invoice, orders|
+      orders
+    end
+    high[0].merchant
+  end
+
+  def finding_invoice_bought_in_a_year(id, year)
+    customer = customers.find_by_id(id)
+    customer.invoices.find_all do |invoice|
+      invoice.created_at.to_s[0..3].to_i == year
+    end
+  end
+
+  def items_bought_in_year(id, year)
+    invoices = finding_invoice_bought_in_a_year(id, year)
+    invoices.map do |invoice|
+      invoice.items.map do |item|
+        item
+      end
+    end.flatten
+  end
+
+  def customers_with_unpaid_invoices
+    unpaid = []
+      customers.all.map do |customer|
+        customer.invoices
+      end.flatten.each do |invoice|
+        if invoice.is_paid_in_full? == false
+          unpaid << invoice.customer
+        end
+      end
+  unpaid.uniq
+
   end
 end

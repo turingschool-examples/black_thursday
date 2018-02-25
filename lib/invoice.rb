@@ -58,6 +58,12 @@ class Invoice
     end
   end
 
+  def quantity
+    invoice_items.map do |invoice_item|
+      invoice_item.quantity.to_i
+    end
+  end
+
   def customer
     @parent.pass_id_to_se_for_customer(@customer_id)
   end
