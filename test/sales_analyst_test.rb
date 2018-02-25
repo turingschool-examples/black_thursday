@@ -2,7 +2,8 @@ require_relative 'test_helper'
 require_relative '../lib/sales_analyst'
 require_relative '../lib/sales_engine'
 
-class SATest < Minitest::Test
+class SalesAnalystTest < Minitest::Test
+
   def setup
     @data = {
       :items          => "./test/fixtures/items_sample.csv",
@@ -26,11 +27,13 @@ class SATest < Minitest::Test
 
   def test_item_count_per_merchant
     expected = [1, 3, 1, 10, 2, 3, 1, 0]
+
     assert_equal expected, @sales_analyst.items_count_per_merchant
   end
 
   def test_merchants_with_high_item_count
     expected = [@se.find_merchant_by_merchant_id(12334195)]
+
     assert_equal expected, @sales_analyst.merchants_with_high_item_count
   end
 
@@ -45,6 +48,7 @@ class SATest < Minitest::Test
   def test_golden_items
     golden = @sales_analyst.golden_items.map { |item| item.id }
     expected = []
+
     assert_equal expected, golden
   end
 
@@ -54,6 +58,7 @@ class SATest < Minitest::Test
 
   def test_invoice_count_per_merchant
     expected = [9, 2, 1, 1, 1, 1, 1, 0]
+
     assert_equal expected, @sales_analyst.invoice_count_per_merchant
   end
 
@@ -63,22 +68,26 @@ class SATest < Minitest::Test
 
   def test_top_merchants_by_invoice_count
     merchants = @sales_analyst.top_merchants_by_invoice_count
+
     assert_equal [@se.find_merchant_by_merchant_id(12334141)], merchants
   end
 
   def test_bottom_merchants_by_invoice_count
     merchants = @sales_analyst.bottom_merchants_by_invoice_count
+
     assert_equal [], merchants
   end
 
   def test_top_days_by_invoice_count
     top = @sales_analyst.top_days_by_invoice_count
+
     assert_equal ["Tuesday", "Friday"], top
   end
 
   def test_invoice_days
     expected = { "Monday"=>1, "Tuesday"=>6, "Wednesday"=>2, "Thursday"=>2,
                  "Friday"=>7, "Saturday"=>1, "Sunday"=>1 }
+                 
     assert_equal expected, @sales_analyst.invoice_days
   end
 
@@ -91,4 +100,5 @@ class SATest < Minitest::Test
     assert_equal 65.00, shipped
     assert_equal 20.00,returned
   end
+
 end
