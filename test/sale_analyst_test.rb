@@ -2,6 +2,7 @@ require_relative 'test_helper'
 require_relative '../lib/sales_analyst'
 require_relative '../lib/sales_engine'
 
+# Sales SalesAnalyst Testing
 class SalesAnalystTest < Minitest::Test
   def setup
     @data = {
@@ -21,7 +22,8 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_items_per_merchant_standard_deviation
-    assert_equal 3.16, @sales_analyst.average_items_per_merchant_standard_deviation
+    std_dev = @sales_analyst.average_items_per_merchant_standard_deviation
+    assert_equal 3.16, std_dev
   end
 
   def test_item_count_per_merchant
@@ -30,12 +32,13 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_merchants_with_high_item_count
-    expected = [@se.find_merchant_by_merchant_id(12334195)]
+    expected = [@se.find_merchant_by_merchant_id(12_334_195)]
     assert_equal expected, @sales_analyst.merchants_with_high_item_count
   end
 
   def test_avg_item_price_for_merchant
-    assert_equal 0.1117e2, @sales_analyst.average_item_price_for_merchant(12334185)
+    avg = @sales_analyst.average_item_price_for_merchant(12_334_185)
+    assert_equal 0.1117e2, avg
   end
 
   def test_avg_avg_price_for_merchant
@@ -43,7 +46,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_golden_items
-    golden = @sales_analyst.golden_items.map { |item| item.id }
+    golden = @sales_analyst.golden_items.map(&:id)
     expected = []
     assert_equal expected, golden
   end
@@ -58,12 +61,13 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_invoices_per_merchant_standard_deviation
-    assert_equal 2.88, @sales_analyst.average_invoices_per_merchant_standard_deviation
+    std_dev = @sales_analyst.average_invoices_per_merchant_standard_deviation
+    assert_equal 2.88, std_dev
   end
 
   def test_top_merchants_by_invoice_count
     merchants = @sales_analyst.top_merchants_by_invoice_count
-    assert_equal [@se.find_merchant_by_merchant_id(12334141)], merchants
+    assert_equal [@se.find_merchant_by_merchant_id(12_334_141)], merchants
   end
 
   def test_bottom_merchants_by_invoice_count
