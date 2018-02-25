@@ -4,7 +4,7 @@ require './lib/sales_engine'
 # Tests Sales Engine class
 class SalesEngineTest < Minitest::Test
   def setup
-    @sales_eng = SalesEngine.from_csv({
+    @se = SalesEngine.from_csv({
           items: './data/sample_data/items.csv',
       merchants: './data/sample_data/merchants.csv',
        invoices: './data/sample_data/invoices.csv',
@@ -15,17 +15,20 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_sales_engine_class_exists
-    assert_instance_of SalesEngine, @sales_eng
+    assert_instance_of SalesEngine, @se
   end
 
-  def test_sales_engine_creates_instances_of_repositories
-    assert_instance_of ItemRepository, @sales_eng.items
-    assert_instance_of MerchantRepository, @sales_eng.merchants
-    assert_instance_of InvoiceRepository, @sales_eng.invoices
+  def test_it_creates_instances_of_repositories
+    assert_instance_of ItemRepository, @se.items
+    assert_instance_of MerchantRepository, @se.merchants
+    assert_instance_of InvoiceRepository, @se.invoices
+    assert_instance_of CustomerRepository, @se.customers
+    assert_instance_of InvoiceItemRepository, @se.invoices_items
+    assert_instance_of TransactionRepository, @se.transactions
   end
 
-  def test_sales_engine_can_find_merchant_items
-    merchant = @sales_eng.merchants.find_by_id(123_341_05)
+  def test_it_finds_items_by_merchant_id
+    merchant = @se.merchants.find_by_id(123_341_05)
     item_ids = [1, 2]
 
     (0...item_ids.length).each do |index|
@@ -34,51 +37,51 @@ class SalesEngineTest < Minitest::Test
     end
   end
 
-  def test_sales_engine_can_find_items_merchant
-    item = @sales_eng.items.find_by_id(1)
+  def test_it_finds_merchant_by_item_id
+    item = @se.items.find_by_id(1)
 
     assert_instance_of Merchant, item.merchant
     assert_equal 123_341_05, item.merchant.id
   end
 
-  def test_se_finds_invoices_by_merchant_id
-    merchant = @sales_eng.merchants.find_by_id(12334105)
+  def test_it_finds_invoices_by_merchant_id
+    merchant = @se.merchants.find_by_id(12334105)
 
     assert_instance_of Invoice, merchant.invoices[0]
     assert_equal :shipped, merchant.invoices[0].status
     assert_equal 46, merchant.invoices[0].id
   end
 
-  def test_se_finds_merchant_by_invoice_id
-    invoice = @sales_eng.invoices.find_by_id(2)
+  def test_it_finds_merchant_by_invoice_id
+    invoice = @se.invoices.find_by_id(2)
 
     assert_instance_of Merchant, invoice.merchant
     assert_equal 12334115, invoice.merchant.id
   end
 
-  def test_sales_engine_can_find_transactions_invoice
-    transaction = @sales_eng.transactions.find_by_id(2)
+  def test_it_finds_invoice_by_transaction_id
+    transaction = @se.transactions.find_by_id(2)
 
     assert_instance_of Invoice, transaction.invoice
     assert_equal 46, transaction.invoice.id
   end
 
-  def test_it_can_find_customer_merchants
-    customer = @sales_eng.customers.find_by_id(30)
+  def test_it_finds_merchants_by_customer_id
+    customer = @se.customers.find_by_id(30)
 
     assert_instance_of Merchant, customer.merchants[0]
     assert_equal 3, customer.merchants[0].id
   end
 
-  def test_it_can_find_merchant_customers
-    merchant = @sales_eng.merchants.find_by_id(12334105)
+  def test_it_finds_customers_by_merchant_id
+    merchant = @se.merchants.find_by_id(12334105)
 
     assert_instance_of Customer, merchant.customers[0]
     assert_equal 'Joey', merchant.customers[0].first_name
   end
 
-  def test_it_can_find_items_by_invoice_id
-    invoice = @sales_eng.invoices.find_by_id(46)
+  def test_it_finds_items_by_invoice_id
+    invoice = @se.invoices.find_by_id(46)
 
     assert_instance_of Item, invoice.items[0]
     assert_equal 46, invoice.items[0].name

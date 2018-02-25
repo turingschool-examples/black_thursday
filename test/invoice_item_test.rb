@@ -42,7 +42,7 @@ class InvoiceItemTest < Minitest::Test
 
   def test_it_returns_unit_price
     assert_instance_of BigDecimal, @invoice.unit_price
-    assert_equal 0.34567e5, @invoice.unit_price
+    assert_equal 0.34567e3, @invoice.unit_price
   end
 
   def test_it_returns_a_time_when_created
