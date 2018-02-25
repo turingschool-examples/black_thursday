@@ -209,6 +209,6 @@ class SalesAnalyst
           unpaid << invoice.customer
         end
       end
-  unpaid.uniq
+    unpaid.uniq
   end
 end

@@ -42,12 +42,23 @@ class Invoice
   end
 
   def is_paid_in_full?
-    return false if transactions.empty?
-    paid = transactions.any? do |transaction|
-      transaction.result == "failed"
-    end
-    return ! paid
+    pass = transactions.map(&:result)
+      if transactions.empty?
+        false
+      elsif pass.all? {|result| result == "failed"}
+        false
+      else
+        true
+      end
   end
+
+  # def is_paid_in_full?
+  #   return false if transactions.empty?
+  #   paid = transactions.any? do |transaction|
+  #     transaction.result == "failed"
+  #   end
+  #   return ! paid
+  # end
 
   def total
     invoice_items.reduce(0) do |total, invoice_item|
