@@ -215,7 +215,9 @@ class SalesAnalyst
   def sorting_invoices_by_quantity
     quantity_hash = Hash.new
     invoices.each do |invoice|
-      quantity_hash[invoice] = invoice.quantity
+      if invoice.is_paid_in_full?
+        quantity_hash[invoice] = invoice.quantity
+      end
     end
     quantity_hash
   end
@@ -230,7 +232,9 @@ class SalesAnalyst
   def sorting_invoices_by_revenue
     revenue_hash = Hash.new
     invoices.each do |invoice|
-      revenue_hash[invoice] = invoice.total
+      if invoice.is_paid_in_full?
+        revenue_hash[invoice] = invoice.total
+      end
     end
     revenue_hash
   end
@@ -241,4 +245,11 @@ class SalesAnalyst
     end
     high_revenue[0]
   end
+
+  def highest_quantity
+      high_revenue = sorting_invoices_by_revenue.max_by do |invoice, revenue|
+        revenue
+      end
+      high_revenue[1]
+    end
 end
