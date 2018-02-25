@@ -4,9 +4,7 @@ require './lib/customer_repository'
 # test for customer repository class
 class CustomerRepositoryTest < Minitest::Test
   def setup
-    merch_1 = mock
-    merch_2 = mock
-    mock_se = stub(find_customer_merchants: [merch_1, merch_2])
+    mock_se = stub(find_customer_merchants: [mock, mock])
     file_path  = './data/sample_data/customers.csv'
     @cust_repo = CustomerRepository.new(file_path, mock_se)
   end

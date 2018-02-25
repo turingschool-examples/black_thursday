@@ -56,7 +56,7 @@ class SalesEngineTest < Minitest::Test
     invoice = @se.invoices.find_by_id(2)
 
     assert_instance_of Merchant, invoice.merchant
-    assert_equal 12334115, invoice.merchant.id
+    assert_equal 123_341_15, invoice.merchant.id
   end
 
   def test_find_transaction_invoice

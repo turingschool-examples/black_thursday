@@ -4,24 +4,19 @@ require './lib/invoice'
 # Tests the invoice class
 class InvoiceTest < Minitest::Test
   def setup
-    merchant     = mock
-    customer     = mock
-    item_1       = mock
-    item_2       = mock
     invoice_repo = stub(
-      merchant: merchant,
-      customer: customer,
-      items: [item_2, item_2]
+      merchant: mock('merchant'),
+      customer: mock('customer'),
+      items: [mock('item'), mock('item')]
     )
-    @invoice = Invoice.new(
-      {id: 6,
-      customer_id: 7,
-      merchant_id: 8,
-      status: 'pending',
-      created_at: '1969-07-20 20:17:40 - 0600',
-      updated_at: '1969-07-20 20:17:40 - 0600'},
-      invoice_repo
-    )
+    @invoice = Invoice.new({
+                             id: 6,
+                             customer_id: 7,
+                             merchant_id: 8,
+                             status: 'pending',
+                             created_at: '1969-07-20 20:17:40 - 0600',
+                             updated_at: '1969-07-20 20:17:40 - 0600'
+                           }, invoice_repo)
   end
 
   def test_it_exists

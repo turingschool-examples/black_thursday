@@ -5,13 +5,10 @@ require './lib/searching'
 
 class InvoiceRepositoryTest < Minitest::Test
   def setup
-    file_name     = './data/sample_data/invoices.csv'
-    merchant      = mock
-    item_1        = mock
-    item_2        = mock
-    sales_eng     = stub(
-      find_invoice_merchant: merchant,
-      find_invoice_items: [item_1, item_2]
+    file_name = './data/sample_data/invoices.csv'
+    sales_eng = stub(
+      find_invoice_merchant: mock('merchant'),
+      find_invoice_items: [mock('item'), mock('item')]
     )
     @invoice_repo = InvoiceRepository.new(file_name, sales_eng)
   end

@@ -5,16 +5,10 @@ require './lib/merchant_repository'
 class MerchantRepositoryTest < Minitest::Test
   def setup
     file_name = './data/sample_data/merchants.csv'
-    item_1    = mock
-    item_2    = mock
-    invoice_1 = mock
-    invoice_2 = mock
-    cust_1    = mock
-    cust_2    = mock
     mock_se   = stub(
-      find_merchant_items: [item_1, item_2],
-      find_merchant_invoices: [invoice_1, invoice_2],
-      find_merchant_customers: [cust_1, cust_2]
+      find_merchant_items: [mock('item'), mock('item')],
+      find_merchant_invoices: [mock, mock],
+      find_merchant_customers: [mock, mock]
     )
     @merch_repo = MerchantRepository.new(file_name, mock_se)
   end

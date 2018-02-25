@@ -5,9 +5,7 @@ require './lib/item_repository'
 class ItemRepositoryTest < Minitest::Test
   def setup
     file_path  = './data/sample_data/items.csv'
-    item_1     = mock
-    item_2     = mock
-    sales_eng  = stub(find_item_merchant: [item_1, item_2])
+    sales_eng  = stub(find_item_merchant: [mock, mock])
     @item_repo = ItemRepository.new(file_path, sales_eng)
   end
 
