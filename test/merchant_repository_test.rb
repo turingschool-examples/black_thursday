@@ -23,7 +23,7 @@ class MerchantRepositoryTest < Minitest::Test
     merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv',
                                            'parent')
 
-    assert_equal 4, merchant_repo.all.count
+    assert_equal 4,           merchant_repo.all.count
     assert_instance_of Array, merchant_repo.all
     assert(merchant_repo.all) { |merchant| merchant.is_a?(Merchant) }
     assert_equal 'Shopin1901', merchant_repo.all.first.name
@@ -36,8 +36,8 @@ class MerchantRepositoryTest < Minitest::Test
     result = merchant_repo.find_by_id(1)
 
     assert_instance_of Merchant, result
-    assert_equal 'Shopin1901', result.name
-    assert_equal 1, result.id
+    assert_equal 'Shopin1901',   result.name
+    assert_equal 1,              result.id
   end
 
   def test_id_returns_nil_when_no_find_match
@@ -56,7 +56,7 @@ class MerchantRepositoryTest < Minitest::Test
     result = merchant_repo.find_by_name('Shopin1901')
 
     assert_instance_of Merchant, result
-    assert_equal 'Shopin1901', result.name
+    assert_equal 'Shopin1901',   result.name
   end
 
   def test_name_returns_nil_when_no_find_match
@@ -75,14 +75,14 @@ class MerchantRepositoryTest < Minitest::Test
     result = merchant_repo.find_all_by_name('Shopin1901')
 
     assert_instance_of Merchant, result[0]
-    assert_equal 'Shopin1901', result[0].name
+    assert_equal 'Shopin1901',   result[0].name
 
     result = merchant_repo.find_all_by_name('Sho')
 
-    assert_equal 'Shopin1901', result[0].name
+    assert_equal 'Shopin1901',   result[0].name
 
     result = merchant_repo.find_all_by_name('ksjadhf')
-    assert_equal [], result
+    assert_equal [],             result
   end
 
   def test_pass_to_se_methods

@@ -23,16 +23,16 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_it_has_attributes
-    assert_equal 6, @invoice.id
-    assert_equal 7, @invoice.customer_id
-    assert_equal 8, @invoice.merchant_id
+    assert_equal 6,        @invoice.id
+    assert_equal 7,        @invoice.customer_id
+    assert_equal 8,        @invoice.merchant_id
     assert_equal :pending, @invoice.status
   end
 
   def test_it_has_more_attributes
     assert_equal Time.parse('2009-02-07'), @invoice.created_at
     assert_equal Time.parse('2014-03-15'), @invoice.updated_at
-    assert_equal 'parent', @invoice.parent
+    assert_equal 'parent',                 @invoice.parent
   end
 
   def test_it_can_return_merchant_class
@@ -45,7 +45,7 @@ class InvoiceTest < Minitest::Test
 
     invoice = se.invoices.find_by_id(1)
     assert_instance_of Merchant, invoice.merchant
-    assert_equal 1, invoice.merchant_id
+    assert_equal 1,              invoice.merchant_id
   end
 
   def test_it_can_get_invoice_items
@@ -59,7 +59,7 @@ class InvoiceTest < Minitest::Test
     invoice = se.invoices.find_by_id(1)
 
     assert_instance_of InvoiceItem, invoice.invoice_items.first
-    assert_equal 1, invoice.invoice_items.first.id
+    assert_equal 1,                 invoice.invoice_items.first.id
   end
 
   def test_it_can_get_transactions
@@ -73,7 +73,7 @@ class InvoiceTest < Minitest::Test
     invoice = se.invoices.find_by_id(1)
 
     assert_instance_of Transaction, invoice.transactions.first
-    assert_equal 1, invoice.transactions.first.id
+    assert_equal 1,                 invoice.transactions.first.id
   end
 
   def test_it_can_get_transactions
@@ -87,7 +87,7 @@ class InvoiceTest < Minitest::Test
     invoice = se.invoices.find_by_id(1)
 
     assert_instance_of Customer, invoice.customer
-    assert_equal 1, invoice.transactions.first.id
+    assert_equal 1,              invoice.transactions.first.id
   end
 
   def test_it_can_find_if_paid_in_full

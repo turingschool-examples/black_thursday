@@ -17,7 +17,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_exists
     assert_instance_of SalesAnalyst, @sa
-    assert_equal @se, @sa.sales_engine
+    assert_equal @se,                @sa.sales_engine
   end
 
   def test_average_items_per_merchant
@@ -30,13 +30,13 @@ class SalesAnalystTest < Minitest::Test
 
   def test_merchants_with_high_item_count
     high_count = @sa.merchants_with_high_item_count
-    assert_instance_of Array, high_count
+    assert_instance_of Array,    high_count
     assert_instance_of Merchant, high_count[0]
-    assert_equal 2, high_count[0].id
+    assert_equal 2,              high_count[0].id
   end
 
   def test_average_item_price_for_merchant
-    assert_instance_of BigDecimal, @sa.average_item_price_for_merchant(2)
+    assert_instance_of BigDecimal,        @sa.average_item_price_for_merchant(2)
     assert_equal BigDecimal.new('16.66'), @sa.average_item_price_for_merchant(2)
   end
 
@@ -45,14 +45,14 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_all_item_prices
-    assert_instance_of Array, @sa.all_item_prices
-    assert_equal 5, @sa.all_item_prices.length
+    assert_instance_of Array,     @sa.all_item_prices
+    assert_equal 5,                @sa.all_item_prices.length
     assert_instance_of BigDecimal, @sa.all_item_prices[0]
   end
 
   def test_golden_items
     assert_instance_of Array, @sa.golden_items
-    assert_equal 0, @sa.golden_items.length
+    assert_equal 0,           @sa.golden_items.length
   end
 
   def test_average_invoices_per_merchant
@@ -65,12 +65,12 @@ class SalesAnalystTest < Minitest::Test
 
   def test_top_merchants_by_invoice_count
     assert_instance_of Array, @sa.top_merchants_by_invoice_count
-    assert_equal 0, @sa.top_merchants_by_invoice_count.length
+    assert_equal 0,           @sa.top_merchants_by_invoice_count.length
   end
 
   def test_bottom_merchants_by_invoice_count
     assert_instance_of Array, @sa.bottom_merchants_by_invoice_count
-    assert_equal 0, @sa.bottom_merchants_by_invoice_count.length
+    assert_equal 0,           @sa.bottom_merchants_by_invoice_count.length
   end
 
   def test_can_find_how_many_invoices_there_are_per_day
@@ -96,18 +96,18 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_find_top_buyers
-    assert_instance_of Array, @sa.top_buyers
+    assert_instance_of Array,    @sa.top_buyers
     assert_instance_of Customer, @sa.top_buyers[1]
   end
 
   def test_it_can_get_invoices
-    assert_instance_of Array, @sa.get_invoices(1)
+    assert_instance_of Array,   @sa.get_invoices(1)
     assert_instance_of Invoice, @sa.get_invoices(1)[0]
   end
 
 
   def test_can_find_one_time_buyers
-    assert_instance_of Array, @sa.one_time_buyers
+    assert_instance_of Array,    @sa.one_time_buyers
     assert_instance_of Customer, @sa.one_time_buyers[0]
   end
 
@@ -125,18 +125,18 @@ class SalesAnalystTest < Minitest::Test
 
   def test_can_find_unpaid_invoices
     assert_instance_of Customer, @sa.customers_with_unpaid_invoices.first
-    assert_equal 'Joey', @sa.customers_with_unpaid_invoices.first.first_name
+    assert_equal 'Joey',         @sa.customers_with_unpaid_invoices.first.first_name
   end
 
   def test_can_sort_invoices_by_quantity
-    assert_instance_of Hash, @sa.sorting_invoices_by_quantity
+    assert_instance_of Hash,    @sa.sorting_invoices_by_quantity
     assert_instance_of Invoice, @sa.sorting_invoices_by_quantity.first.first
-    assert_equal 47, @sa.sorting_invoices_by_quantity.first.first.quantity
+    assert_equal 47,            @sa.sorting_invoices_by_quantity.first.first.quantity
   end
 
   def test_can_find_best_invoice_by_quantity
     assert_instance_of Invoice, @sa.best_invoice_by_quantity
-    assert_equal 1, @sa.best_invoice_by_quantity.id
+    assert_equal 1,             @sa.best_invoice_by_quantity.id
   end
 
   def test_can_find_highest_volume_item
@@ -148,7 +148,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_sort_invoices_by_revenue
-    assert_instance_of Hash, @sa.sorting_invoices_by_revenue
+    assert_instance_of Hash,    @sa.sorting_invoices_by_revenue
     assert_instance_of Invoice, @sa.sorting_invoices_by_revenue.first.first
   end
 end

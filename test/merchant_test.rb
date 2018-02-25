@@ -14,15 +14,15 @@ class MerchantTest < Minitest::Test
   def test_it_has_attributes
     merchant = Merchant.new({ id: '5', name: 'Turing School' }, 'parent')
 
-    assert_equal 5, merchant.id
+    assert_equal 5,               merchant.id
     assert_equal 'Turing School', merchant.name
-    assert_equal 'parent', merchant.parent
+    assert_equal 'parent',        merchant.parent
   end
 
   def test_it_has_different_attributes
     merchant = Merchant.new({ id: '3', name: 'UNT' }, 'parent')
 
-    assert_equal 3, merchant.id
+    assert_equal 3,     merchant.id
     assert_equal 'UNT', merchant.name
   end
 
@@ -36,8 +36,8 @@ class MerchantTest < Minitest::Test
     merchant = se.merchants.find_by_id(1)
 
     assert_instance_of Array, merchant.items
-    assert_instance_of Item, merchant.items[0]
-    assert_equal 2, merchant.items.length
+    assert_instance_of Item,  merchant.items[0]
+    assert_equal 2,           merchant.items.length
   end
 
   def test_invoices_method

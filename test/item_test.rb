@@ -25,19 +25,19 @@ class ItemTest < Minitest::Test
   def test_it_has_attributes
     item = Item.new(@data, 'parent')
 
-    assert_equal 1, item.id
-    assert_equal 'Pencil', item.name
+    assert_equal 1,                                item.id
+    assert_equal 'Pencil',                         item.name
     assert_equal 'You can use it to write things', item.description
-    assert_equal 12.00, item.unit_price
+    assert_equal 12.00,                            item.unit_price
   end
 
   def test_it_has_more_attributes
     item = Item.new(@data, 'parent')
 
-    assert_equal 2, item.merchant_id
+    assert_equal 2,          item.merchant_id
     assert_instance_of Time, item.created_at
     assert_instance_of Time, item.updated_at
-    assert_equal 'parent', item.parent
+    assert_equal 'parent',   item.parent
   end
 
   def test_unit_price_to_dollars
@@ -51,7 +51,7 @@ class ItemTest < Minitest::Test
     item = Item.new(@data, parent)
 
     assert_instance_of ItemRepository, item.parent
-    assert_equal 5, item.parent.all.count
+    assert_equal 5,                    item.parent.all.count
   end
 
   def test_merchant_method_sends_to_repo
