@@ -1,13 +1,12 @@
 require 'csv'
 require_relative 'invoice'
-require 'pry'
 
+# Repository of Invoices
 class InvoiceRepository
-
   attr_reader :engine
 
   def initialize(filepath, parent = nil)
-    @invoices    = []
+    @invoices = []
     @engine   = parent
     load_items(filepath)
   end
@@ -61,5 +60,4 @@ class InvoiceRepository
   def find_customer_by_customer_id(customer_id)
     engine.find_customer_by_customer_id(customer_id)
   end
-
 end
