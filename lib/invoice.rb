@@ -21,7 +21,7 @@ class Invoice
   end
 
   def customer
-    @parent.invoice_repo_finds_customer_via_engine(self.id)
+    @parent.invoice_repo_finds_customer_via_engine(self.customer_id)
   end
 
   def is_paid_in_full?

@@ -40,7 +40,10 @@ class SalesEngine
   end
 
   def engine_finds_items_via_invoice_items_repo(id)
-    @invoice_items.find_all_by_invoice_id(id)
+    invoice_items = @invoice_items.find_all_by_invoice_id(id)
+    invoice_items.map do |invoice_item|
+      @items.find_by_id(invoice_item.item_id)
+    end
   end
 
   def engine_finds_customer_via_customer_repo(id)
@@ -74,7 +77,9 @@ class SalesEngine
       invoice_items = @invoice_items.find_all_by_invoice_id(id)
 
       result = invoice_items.reduce(0) do |sum, invoice_item|
-        sum += invoice_item.unit_price
+        cost = invoice_item.unit_price_to_dollars * invoice_item.quantity.to_i
+        sum += cost
+        BigDecimal.new(sum, 5)
       end
     else
       "This invoice is unpaid"

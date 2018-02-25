@@ -49,7 +49,7 @@ class SalesAnalystTest < Minitest::Test
   def test_can_return_standard_deviation_items_per_merchant
     result = @sales_analyst.average_items_per_merchant_standard_deviation
 
-    assert_equal 0.57, result
+    assert_equal 0.58, result
   end
 
   def test_can_find_merchants_with_high_item_count
@@ -75,12 +75,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_find_golden_items
-    skip
     result = @sales_analyst.golden_items
 
     assert_instance_of Array, result
-    #fixture data too small for golden item
-    assert_nil result[0]
+  
+    assert_instance_of Item, result[0]
   end
 
   def test_merchant_collector_helper_method_works
