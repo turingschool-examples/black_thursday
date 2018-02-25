@@ -116,4 +116,8 @@ class SalesAnalyst
     invoices = @se.invoices.all.map(&:status)
     (100 * invoices.count(check) / invoices.length.to_f).round(2)
   end
+
+  def total_revenue_by_date(date)
+
+  end
 end
