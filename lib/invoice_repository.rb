@@ -63,10 +63,6 @@ class InvoiceRepository
     @parent.pass_id_to_customer_repo(id)
   end
 
-  def pass_id_to_se_for_customer(id)
-    @parent.pass_id_to_customer_repo(id)
-  end
-
   def pass_item_id_to_se(id)
     @parent.items.find_by_id(id)
   end

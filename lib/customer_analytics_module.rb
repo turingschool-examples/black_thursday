@@ -133,4 +133,4 @@ module CustomerAnalytics
     end
     high_revenue[0]
   end
-end 
+end
