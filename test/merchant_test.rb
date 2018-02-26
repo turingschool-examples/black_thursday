@@ -4,13 +4,13 @@ require_relative '../lib/sales_engine'
 
 class MerchantTest < Minitest::Test
   def test_it_exists
-    merchant = Merchant.new(id: 5, name: 'Turing School')
+    merchant = Merchant.new(id: 5, name: 'Turing School', created_at: '2010-12-10')
 
     assert_instance_of Merchant, merchant
   end
 
   def test_it_has_an_id
-    merchant = Merchant.new(id: 5, name: 'Turing School')
+    merchant = Merchant.new(id: 5, name: 'Turing School', created_at: '2010-12-10')
 
     assert_equal 5, merchant.id
   end
@@ -45,7 +45,7 @@ class MerchantTest < Minitest::Test
     merchant = sales_engine.merchants.find_by_id(12_334_112)
 
     assert_instance_of Array, merchant.invoices
-    assert_equal 2, merchant.invoices.length
+    assert_equal 3, merchant.invoices.length
     assert_instance_of Invoice, merchant.invoices.first
     assert_equal 269, merchant.invoices.first.id
   end

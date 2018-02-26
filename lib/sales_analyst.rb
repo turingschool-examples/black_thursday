@@ -279,7 +279,15 @@ class SalesAnalyst
     only_one.map { |subarray| subarray[0] }
   end
 
-  def most_sold_item_for_merchant
-    
+  def most_sold_item_for_merchant(merchant_id)
+    merchant = @merchant_repo.find_by_id(merchant_id)
+    items = merchant.items
+    item_ids = items.map(&:id)
+    invoice_items_count = item_ids.map do |item_id|
+      (@invoice_items.find_all { |invoice_item| invoice_item.item_id == item_id }).length
+    end
+    zipped = items.zip(invoice_items_count)
+    sorted = zipped.sort_by { |_k, v| v }.reverse
+    sorted[0]
   end
 end
