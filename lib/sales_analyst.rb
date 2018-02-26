@@ -251,4 +251,29 @@ class SalesAnalyst
     sorted = zipped.max_by { |k,v| v }
     sorted.map { |merchant| merchant[0] }
   end
+
+  def merchants_with_pending_invoices
+    pending_invoices = @invoices.find_all { |invoice| invoice.status == :pending }
+    merchant_ids = pending_invoices.map(&:merchant_id)
+    merchants = merchant_ids.map do |merchant_id|
+      @merchants.find_all { |merchant| merchant.id == merchant_id }
+    end
+    merchants.uniq
+  end
+
+  def merchants_with_only_one_item
+    merchant_items = @merchants.map { |merchant| merchant.items.length }
+    zipped = @merchants.zip(merchant_items)
+    only_one = zipped.find_all { |subarray| subarray[1] == 1 }
+    only_one.map { |subarray| subarray[0] }
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    months = { 'January' => '01', 'February' => '02', 'March' => '03',
+                'April' => '04', 'May' => '05', 'June' => '06',
+                'July' => '07', 'August' => '08', 'September' => '09',
+                'October' => '10', 'November' => '11', 'December' => '12' }
+    month_digits = months[month]
+    merchants = @merchants.map { |merchant| merchant.created_at.to_s[0..1] == month_digits }
+  end
 end

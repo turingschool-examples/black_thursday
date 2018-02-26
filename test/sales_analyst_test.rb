@@ -163,7 +163,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_for_merchants_with_pending_invoices
-    skip
     assert @sales_analyst.top_revenue_earners.is_a?(Array)
     assert @sales_analyst.top_revenue_earners[0].is_a?(Merchant)
   end
@@ -182,6 +181,12 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_for_merchants_total_revenue
+    skip
     assert_equal 10, @sales_analyst.merchants_ranked_by_revenue
+  end
+
+  def test_for_merchants_with_only_one_item
+    assert @sales_analyst.merchants_with_only_one_item.is_a?(Array)
+    assert @sales_analyst.merchants_with_only_one_item[0].is_a?(Merchant)
   end
 end
