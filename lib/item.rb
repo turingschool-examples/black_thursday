@@ -1,8 +1,10 @@
 require 'bigdecimal'
 require 'time'
+require_relative 'traversal'
 
 # This is the item class
 class Item
+  include Traversal
   attr_reader :id,
               :name,
               :description,
@@ -28,11 +30,6 @@ class Item
   end
 
   def merchant
-    payload = ['items merchant', merchant_id]
-    current_location = self
-    while current_location.respond_to?('parent')
-      current_location = current_location.parent
-    end
-    current_location.route(payload)
+    traverse('items merchant', merchant_id)
   end
 end

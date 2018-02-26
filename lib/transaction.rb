@@ -1,4 +1,7 @@
+require_relative 'traversal'
+
 class Transaction
+  include Traversal
   attr_reader :id,
               :invoice_id,
               :credit_card_number,
@@ -19,13 +22,7 @@ class Transaction
     @parent = parent
   end
 
-
   def invoice
-    payload = ['transaction invoice', invoice_id]
-    current_location = self
-    while current_location.respond_to?('parent')
-      current_location = current_location.parent
-    end
-    current_location.route(payload)
-  end[0]
+    traverse('transaction invoice', invoice_id)
+  end
 end

@@ -1,7 +1,9 @@
 require 'time'
-
+require_relative 'traversal'
 # this is a customer class
 class Customer
+  include Traversal
+
   attr_reader :id,
               :first_name,
               :last_name,
@@ -19,20 +21,10 @@ class Customer
   end
 
   def merchants
-    payload = ['customer merchants', id]
-    current_location = self
-    while current_location.respond_to?('parent')
-      current_location = current_location.parent
-    end
-    current_location.route(payload)
+    traverse('customer merchants', id)
   end
 
   def fully_paid_invoices
-    payload = ['fully paid invoices', id]
-    current_location = self
-    while current_location.respond_to?('parent')
-      current_location = current_location.parent
-    end
-    current_location.route(payload)
+    traverse('fully paid invoices', id)
   end
 end

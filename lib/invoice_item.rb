@@ -24,13 +24,4 @@ class InvoiceItem
   def unit_price_to_dollars
     unit_price.to_f
   end
-
-  # def merchant
-  #   payload = ['invoices merchant', merchant_id]
-  #   current_location = self
-  #   while current_location.respond_to?('parent')
-  #     current_location = current_location.parent
-  #   end
-  #   current_location.route(payload)
-  # end
 end
