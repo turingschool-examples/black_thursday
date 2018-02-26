@@ -1,4 +1,5 @@
 require 'bigdecimal'
+require 'pry'
 
 # This is the sales analyst class
 class SalesAnalyst
@@ -13,15 +14,21 @@ class SalesAnalyst
   end
 
   def set_repo_variables
-    @merchant_repo         = sales_engine.merchants
-    @item_repo             = sales_engine.items
-    @invoice_repo          = sales_engine.invoices
+    @merchant_repo     = sales_engine.merchants
+    @item_repo         = sales_engine.items
+    @invoice_repo      = sales_engine.invoices
+    @transaction_repo  = sales_engine.transactions
+    @invoice_item_repo = sales_engine.invoice_items
+    @customer_repo     = sales_engine.customers
   end
 
   def set_all_item_variables
-    @merchants             = @merchant_repo.all
-    @items                 = @item_repo.all
-    @invoices              = @invoice_repo.all
+    @merchants     = @merchant_repo.all
+    @items         = @item_repo.all
+    @invoices      = @invoice_repo.all
+    @transactions  = @transaction_repo.all
+    @invoice_items = @invoice_item_repo.all
+    @customers     = @customer_repo.all
   end
 
   def set_relational_variables
@@ -193,5 +200,117 @@ class SalesAnalyst
     numerator = @invoice_repo.find_all_by_status(status).count.to_f
     denominator = @invoices.count
     ((numerator / denominator) * 100).round 2
+  end
+
+  def top_buyers(num_customers = 20)
+    hash = {}
+    @customers.each do |customer|
+      invoices = get_invoices_for_customer(customer.id)
+      paid_invoices = invoices.find_all(&:is_paid_in_full?)
+      invoice_costs = paid_invoices.map(&:total)
+      hash[invoice_costs.inject(:+).to_f] = customer
+    end
+    top_customers = hash.keys.max(num_customers)
+    top_customers.map { |key| hash[key] }
+  end
+
+  def get_invoices_for_customer(customer_id)
+    @invoice_repo.find_all_by_customer_id(customer_id)
+  end
+
+  def top_merchant_for_customer(customer_id)
+    hash = {}
+    get_invoices_for_customer(customer_id).each do |invoice|
+      merchant = invoice.merchant
+      invoice_items = @invoice_item_repo.find_all_by_invoice_id(invoice.id)
+      quantities = invoice_items.map(&:quantity)
+      hash[merchant] = quantities.inject(:+).to_f
+    end
+    hash.key(hash.values.max)
+  end
+
+  def one_time_buyers
+    one_invoice = []
+    @customers.map do |customer|
+      cust_invoices = get_invoices_for_customer(customer.id)
+      paid_invoices = cust_invoices.map(&:is_paid_in_full?)
+      paid_invoices.delete(false)
+      one_invoice << customer if paid_invoices.length == 1
+    end
+    one_invoice
+  end
+
+  def one_time_buyers_top_items
+    customer_list = one_time_buyers
+    hash = Hash.new(0)
+    customer_list.each do |customer|
+      invoices = customer.fully_paid_invoices
+      invoices.each do |invoice|
+        invoice_items = @invoice_item_repo.find_all_by_invoice_id(invoice.id)
+        invoice_items.each do |invoice_item|
+          hash[@item_repo.find_by_id(invoice_item.item_id)] += invoice_item.quantity
+        end
+      end
+    end
+    [hash.key(hash.values.sort.last)]
+  end
+
+  def items_bought_in_year(customer_id, year)
+    customer_invoices = @invoice_repo.find_all_by_customer_id(customer_id)
+    invoices = customer_invoices.find_all { |invoice| invoice.created_at.year == year }
+    invoice_item = invoices.map do |invoice|
+      @invoice_item_repo.find_all_by_invoice_id(invoice.id)
+    end
+    invoice_item.flatten.map do |ii|
+      @item_repo.find_by_id(ii.item_id)
+    end
+  end
+
+  def highest_volume_items(customer_id)
+    customer = @customer_repo.find_by_id(customer_id)
+    customer_invoices = @invoice_repo.find_all_by_customer_id(customer.id)
+    invoice_items = customer_invoices.map do |invoice|
+      @invoice_item_repo.find_all_by_invoice_id(invoice.id)
+    end.flatten
+    occurances = invoice_items.map(&:quantity)
+    array = []
+    occurances.each_with_index do |num, index|
+      if num == occurances.max
+        array << @item_repo.find_by_id(invoice_items[index].item_id)
+      end
+    end
+    array
+  end
+
+  def customers_with_unpaid_invoices
+    @customers.find_all do |customer|
+      customer_invoices = @invoice_repo.find_all_by_customer_id(customer.id)
+      invoice_status = customer_invoices.map(&:is_paid_in_full?)
+      invoice_status.include?(false)
+    end
+  end
+
+  def best_invoice_by_revenue
+    paid_invoices = @invoices.map do |invoice|
+      invoice if invoice.is_paid_in_full?
+    end.compact
+    paid_invoices.max_by do |invoice|
+      invoice_items = @invoice_item_repo.find_all_by_invoice_id(invoice.id)
+      revenues = invoice_items.map do |ii|
+        ii.unit_price * ii.quantity
+      end
+      revenues.reduce(:+).to_f
+    end
+  end
+
+  def best_invoice_by_quantity
+    paid_invoices = @invoices.map do |invoice|
+      invoice if invoice.is_paid_in_full?
+    end.compact
+    paid_invoices.max_by do |invoice|
+      invoice_items = @invoice_item_repo.find_all_by_invoice_id(invoice.id)
+      quantity = invoice_items.map(&:quantity)
+      quantity.reduce(:+).to_f
+    end
   end
 end
