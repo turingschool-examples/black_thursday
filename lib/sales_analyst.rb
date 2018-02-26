@@ -121,7 +121,6 @@ class SalesAnalyst
   end
 
   def average_invoices_per_weekday_standard_deviation
-    mean = average_invoices_per_weekday
     merchant_invoices_array_per_wkday = weekday_totals.map do |key, value|
       value
     end

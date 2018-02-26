@@ -8,7 +8,7 @@ class MerchantTest < Minitest::Test
   def setup
     test_engine = TestEngine.new.god_hash
     @sales_engine = SalesEngine.new(test_engine)
-    @merchant = Merchant.new({:id => '5', :name => 'Turing School'}, @sales_engine.merchants)
+    @merchant = Merchant.new({:id => '5', :name => 'Turing School', :created_at => '2010-12-10'}, @sales_engine.merchants)
   end
 
   def test_merchant_initializes
@@ -25,7 +25,7 @@ class MerchantTest < Minitest::Test
     merchant.items
 
     assert_equal 1, merchant.items.count
-    assert_equal "510+ RealPush Icon Set", merchant.items[0].name
+    assert_equal '510+ RealPush Icon Set', merchant.items[0].name
   end
 
   def test_merchant_invoices_returns_invoices_array
