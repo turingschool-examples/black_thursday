@@ -1,5 +1,8 @@
+require_relative 'traversal'
 # This is the invoice class
 class Invoice
+  include Traversal
+
   attr_reader :parent,
               :id,
               :customer_id,
@@ -19,65 +22,30 @@ class Invoice
   end
 
   def merchant
-    payload = ['invoices merchant', merchant_id]
-    current_location = self
-    while current_location.respond_to?('parent')
-      current_location = current_location.parent
-    end
-    current_location.route(payload)
+    traverse('invoices merchant', merchant_id)
   end
 
   def items
-    payload = ['invoice items', id]
-    current_location = self
-    while current_location.respond_to?('parent')
-      current_location = current_location.parent
-    end
-    current_location.route(payload)
+    traverse('invoice items', id)
   end
 
   def transactions
-    payload = ['invoice transactions', id]
-    current_location = self
-    while current_location.respond_to?('parent')
-      current_location = current_location.parent
-    end
-    current_location.route(payload)
+    traverse('invoice transactions', id)
   end
 
   def customer
-    payload = ['invoice customer', customer_id]
-    current_location = self
-    while current_location.respond_to?('parent')
-      current_location = current_location.parent
-    end
-    current_location.route(payload)
+    traverse('invoice customer', customer_id)
   end
 
   def is_paid_in_full?
-    payload = ['transaction payment', id]
-    current_location = self
-    while current_location.respond_to?('parent')
-      current_location = current_location.parent
-    end
-    current_location.route(payload)
+    traverse('transaction payment', id)
   end
 
   def total
-    payload = ['total invoice cost', id]
-    current_location = self
-    while current_location.respond_to?('parent')
-      current_location = current_location.parent
-    end
-    current_location.route(payload)
+    traverse('total invoice cost', id)
   end
 
   def invoice_items
-    payload = ['find invoice items', id]
-    current_location = self
-    while current_location.respond_to?('parent')
-      current_location = current_location.parent
-    end
-    current_location.route(payload)
+    traverse('find invoice items', id)
   end
 end

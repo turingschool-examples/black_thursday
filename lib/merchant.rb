@@ -1,6 +1,10 @@
 require 'time'
+require 'pry'
+require_relative 'traversal'
 # This is the merchant class
 class Merchant
+  include Traversal
+
   attr_reader :id, :name, :parent, :created_at
   def initialize(hash, parent = nil)
     @id         = hash[:id].to_i
@@ -10,29 +14,20 @@ class Merchant
   end
 
   def items
-    payload = ['merchant items', id]
-    current_location = self
-    while current_location.respond_to?('parent')
-      current_location = current_location.parent
-    end
-    current_location.route(payload)
+    traverse('merchant items', id)
   end
 
   def invoices
-    payload = ['merchant invoices', id]
-    current_location = self
-    while current_location.respond_to?('parent')
-      current_location = current_location.parent
-    end
-    current_location.route(payload)
+    traverse('merchant invoices', id)
+  end
+
+  def invoice_items
+    invoices.map do |invoice|
+      traverse('merchant invoice items', invoice.id)
+    end.flatten
   end
 
   def customers
-    payload = ['merchant customers', id]
-    current_location = self
-    while current_location.respond_to?('parent')
-      current_location = current_location.parent
-    end
-    current_location.route(payload)
+    traverse('merchant customers', id)
   end
 end

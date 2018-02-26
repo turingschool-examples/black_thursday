@@ -55,6 +55,7 @@ class SalesEngine
     when 'total invoice cost' then total_invoice_cost(payload[1])
     when 'fully paid invoices' then find_fully_paid_invoices(payload[1])
     when 'find invoice items' then find_invoice_items(payload[1])
+    when 'merchant invoice items' then find_invoice_items(payload[1])
     end
   end
 

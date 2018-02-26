@@ -91,12 +91,12 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_for_average_invoices_per_merchant
-    assert_equal 0.27, @sales_analyst.average_invoices_per_merchant
+    assert_equal 0.23, @sales_analyst.average_invoices_per_merchant
   end
 
   def test_for_average_invoices_per_merchant_standard_deviation
     actual = @sales_analyst.average_invoices_per_merchant_standard_deviation
-    assert_equal 0.7, actual
+    assert_equal 0.53, actual
   end
 
   def test_for_top_merchants_by_invoice_count
@@ -126,9 +126,9 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_for_invoice_status
-    assert_equal 33.33, @sales_analyst.invoice_status(:pending)
-    assert_equal 51.85, @sales_analyst.invoice_status(:shipped)
-    assert_equal 14.81, @sales_analyst.invoice_status(:returned)
+    assert_equal 34.62, @sales_analyst.invoice_status(:pending)
+    assert_equal 53.85, @sales_analyst.invoice_status(:shipped)
+    assert_equal 11.54, @sales_analyst.invoice_status(:returned)
   end
 
   def test_for_total_revenue_by_date
