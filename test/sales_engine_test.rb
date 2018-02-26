@@ -1,7 +1,6 @@
-require_relative 'test_helper.rb'
-require_relative '../lib/sales_engine.rb'
-require_relative './master_hash.rb'
-require 'pry'
+require_relative 'test_helper'
+require_relative '../lib/sales_engine'
+require_relative './master_hash'
 
 class SalesEngineTest < Minitest::Test
   def setup
@@ -49,7 +48,7 @@ class SalesEngineTest < Minitest::Test
 
   def test_merchant_items_returns_items_array
     sales_engine = @sales_engine
-binding.pry
+
     merchant = sales_engine.merchants.find_by_id(12334141)
     merchant.items
 
@@ -91,7 +90,7 @@ binding.pry
     unpaid = @sales_engine.engine_finds_paid_invoice_and_evaluates_cost(14)
 
     assert_equal BigDecimal.new(986.68, 5), result
-    assert_equal "This invoice is unpaid", unpaid
+    assert_nil unpaid
   end
 
   def test_engine_can_find_invoice_using_id_passed_by_tran_repo

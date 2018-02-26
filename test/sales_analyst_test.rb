@@ -4,6 +4,7 @@ require_relative 'test_helper.rb'
 require_relative '../lib/sales_analyst.rb'
 require_relative '../lib/sales_engine.rb'
 require 'bigdecimal'
+require 'pry'
 
 require_relative './master_hash.rb'
 
@@ -136,5 +137,13 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 32.31, pending_result
     assert_equal 63.08, shipped_result
     assert_equal 4.62, returned_result
+  end
+
+  def test_can_find_total_revenue_by_date
+    # binding.pry
+    result = @sales_analyst.total_revenue_by_date('2005-11-11')
+
+    assert_equal 0.197336e4, result
+    assert_instance_of BigDecimal, result
   end
 end

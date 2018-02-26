@@ -84,12 +84,11 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_it_can_go_to_sales_engine_with_id
     iv = @invoice_repository
-    # result_merchant = iv.invoice_repo_finds_merchant_via_engine(1)
+    result_merchant = iv.invoice_repo_finds_merchant_via_engine(3)
     result_items = iv.invoice_repo_finds_items_via_engine(2)
     result_customer = iv.invoice_repo_finds_customer_via_engine(1)
-    # binding.pry
-    # assert_instance_of Merchant, result[0]
-    # ^^ comment in after fixture data is updated
+
+    assert_instance_of Merchant, result_merchant[0]
     assert_instance_of Item, result_items[0]
     assert_instance_of Customer, result_customer
   end
@@ -107,7 +106,7 @@ class InvoiceRepositoryTest < Minitest::Test
     unpaid_result = iv.invoice_repo_finds_invoice_items_total_via_engine(14)
 
     assert_equal BigDecimal.new(986.68, 5), result
-    assert_equal "This invoice is unpaid", unpaid_result
+    assert_nil unpaid_result
   end
 
   def test_invoice_transactions_returns_transactions
