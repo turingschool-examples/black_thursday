@@ -158,9 +158,7 @@ class SalesAnalyst
   end
 
   def merchants_ranked_by_revenue
-    @se.merchants.all.sort_by do |merchant|
-      merchant.revenue
-    end.reverse
+    @se.merchants.all.sort_by { |merchant| merchant.revenue }.reverse
   end
 
 end
