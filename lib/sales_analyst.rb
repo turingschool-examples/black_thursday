@@ -302,4 +302,15 @@ class SalesAnalyst
       revenues.reduce(:+).to_f
     end
   end
+
+  def best_invoice_by_quantity
+    paid_invoices = @invoices.map do |invoice|
+      invoice if invoice.is_paid_in_full?
+    end.compact
+    paid_invoices.max_by do |invoice|
+      invoice_items = @invoice_item_repo.find_all_by_invoice_id(invoice.id)
+      quantity = invoice_items.map(&:quantity)
+      quantity.reduce(:+).to_f
+    end
+  end
 end

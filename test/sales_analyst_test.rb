@@ -176,4 +176,9 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Invoice, @sales_analyst.best_invoice_by_revenue
     assert_equal 19, @sales_analyst.best_invoice_by_revenue.id
   end
+
+  def test_best_invoice_by_quantity
+    assert_instance_of Invoice, @sales_analyst.best_invoice_by_quantity
+    assert_equal 19, @sales_analyst.best_invoice_by_quantity.id
+  end
 end
