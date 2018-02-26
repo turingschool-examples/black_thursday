@@ -10,7 +10,7 @@ class MerchantRepository
     @merchants         = []
     contents = CSV.open @merchant_csv_path, headers: true
     contents.each do |row|
-      @merchants << Merchant.new({ id: row[0], name: row[1] }, self)
+      @merchants << Merchant.new({ id: row[0], name: row[1], created_at: row[2] }, self)
     end
   end
 

@@ -269,16 +269,17 @@ class SalesAnalyst
   end
 
   def merchants_with_only_one_item_registered_in_month(month)
-    months = { 'January' => '01', 'February' => '02', 'March' => '03',
-                'April' => '04', 'May' => '05', 'June' => '06',
-                'July' => '07', 'August' => '08', 'September' => '09',
-                'October' => '10', 'November' => '11', 'December' => '12' }
-    month_digits = months[month]
-    items_for_month = @items.find_all do |item|
-      item.created_at.to_s[5..6].to_i == month_digits.to_i
+    month_digit = Date::MONTHNAMES.index(month)
+    merchants = @merchants.find_all do |merchant|
+      merchant.created_at.to_s[5..6].to_i == month_digit
     end
-    merchant_ids = items_for_month.map
+    item_count = merchants.map { |merchant| merchant.items.length }
+    zipped = merchants.zip(item_count)
+    only_one = zipped.find_all { |subarray| subarray[1] == 1 }
+    only_one.map { |subarray| subarray[0] }
   end
 
-  def 
+  def most_sold_item_for_merchant
+    
+  end
 end

@@ -1,10 +1,12 @@
+require 'time'
 # This is the merchant class
 class Merchant
-  attr_reader :id, :name, :parent
+  attr_reader :id, :name, :parent, :created_at
   def initialize(hash, parent = nil)
-    @id   = hash[:id].to_i
-    @name = hash[:name]
-    @parent = parent
+    @id         = hash[:id].to_i
+    @name       = hash[:name]
+    @created_at = Time.parse(hash[:created_at])
+    @parent     = parent
   end
 
   def items

@@ -131,7 +131,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_days_by_invoice_count
-    skip
     actual = @sales_analyst.top_days_by_invoice_count
 
     assert actual.is_a?(Array)
@@ -141,20 +140,17 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_for_invoice_status
-    skip
     assert_equal 36.0, @sales_analyst.invoice_status(:pending)
     assert_equal 56.0, @sales_analyst.invoice_status(:shipped)
     assert_equal 8.0, @sales_analyst.invoice_status(:returned)
   end
 
   def test_for_total_revenue_by_date
-    skip
     date = Time.parse("2012-11-23")
     assert_equal 407.67, @sales_analyst.total_revenue_by_date(date)
   end
 
   def test_for_top_revenue_earners
-    skip
     assert @sales_analyst.top_revenue_earners.is_a?(Array)
     assert @sales_analyst.top_revenue_earners[0].is_a?(Merchant)
 
@@ -168,12 +164,10 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_for_revenue_by_merchant
-    skip
     assert_equal 10, @sales_analyst.revenue_by_merchant(12334194)
   end
 
   def test_for_merchants_ranked_by_revenue
-    skip
     assert @sales_analyst.merchants_ranked_by_revenue.is_a?(Array)
     assert @sales_analyst.merchants_ranked_by_revenue[0].is_a?(Merchant)
 
@@ -181,7 +175,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_for_merchants_total_revenue
-    skip
     assert_equal 10, @sales_analyst.merchants_ranked_by_revenue
   end
 
