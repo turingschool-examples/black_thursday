@@ -32,6 +32,16 @@ class InvoiceItemRepository
     end
   end
 
+  def find_all_by_mult_invoice_ids(invoice_id_array)
+    invoice_id_array.map { |invoice_id| find_all_by_invoice_id(invoice_id) }
+  end
+
+  def find_total_item_prices(invoice_item_array)
+    invoice_item_array.map do |invoice_item|
+      invoice_item.unit_price * invoice_item.quantity
+    end
+  end
+
   def inspect
     "#<#{self.class} #{@invoice_items.size} rows>"
   end

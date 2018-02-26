@@ -181,47 +181,35 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    invoices = @invoices.find_all do |invoice|
-      invoice.created_at == date
-    end
-    paid_invoices = invoices.find_all(&:is_paid_in_full?)
-    invoice_ids = paid_invoices.map(&:id)
+    invoices = @invoice_repo.find_all_by_date(date)
+    invoice_ids = invoices.find_all(&:is_paid_in_full?).map(&:id)
     invoice_items = invoice_ids.map do |invoice_id|
-      @invoice_items.find_all { |invoice_item| invoice_item.invoice_id == invoice_id }
+      @invoice_item_repo.find_all_by_invoice_id(invoice_id)
     end.flatten
-    item_prices = invoice_items.map { |invoice_item| invoice_item.unit_price * invoice_item.quantity }
-    item_prices.inject { |sum, num| sum + num }
+    invoice_items.map { |ii| ii.unit_price * ii.quantity }.reduce :+
   end
 
   def top_revenue_earners(num_merchants = 20)
     merchant_revenues = @merchants.map do |merchant|
-      invoices = @invoices.find_all { |invoice| invoice.merchant_id == merchant.id }
-      paid_invoices = invoices.find_all(&:is_paid_in_full?)
-      invoice_ids = paid_invoices.map(&:id)
-      invoice_items = invoice_ids.map do |invoice_id|
-        @invoice_items.find_all { |invoice_item| invoice_item.invoice_id == invoice_id }
-      end.flatten
-      item_prices = invoice_items.map { |invoice_item| invoice_item.unit_price * invoice_item.quantity }
-      item_prices.inject { |sum, num| sum + num }.to_f
+      revenue_by_merchant(merchant.id).to_f
     end
     zipped = @merchants.zip(merchant_revenues).to_h
-    sorted = zipped.max_by(num_merchants) { |k,v| v }
+    sorted = zipped.max_by(num_merchants) { |_k, v| v }
     sorted.map { |subarray| subarray[0] }
   end
 
   def revenue_by_merchant(merchant_id)
-    invoices = @invoices.find_all { |invoice| invoice.merchant_id == merchant_id }
-    paid_invoices = invoices.find_all(&:is_paid_in_full?)
-    invoice_ids = paid_invoices.map(&:id)
-    invoice_items = invoice_ids.map do |invoice_id|
-      @invoice_items.find_all { |invoice_item| invoice_item.invoice_id == invoice_id }
-    end.flatten
-    item_prices = invoice_items.map { |invoice_item| invoice_item.unit_price * invoice_item.quantity }
-    item_prices.inject { |sum, num| sum + num }
+    invoices = @invoice_repo.find_all_by_merchant_id(merchant_id)
+    invoice_ids = invoices.find_all(&:is_paid_in_full?).map(&:id)
+    invoice_items = @invoice_item_repo.find_all_by_mult_invoice_ids(invoice_ids)
+    invoice_items.flatten!
+    @invoice_item_repo.find_total_item_prices(invoice_items).reduce :+
   end
 
   def merchants_total_revenue
-    total_revenue = @merchants.map { |merchant| revenue_by_merchant(merchant.id) }
+    total_revenue = @merchants.map do |merchant|
+      revenue_by_merchant(merchant.id)
+    end
     total_revenue.map { |num| num || 0 }
   end
 
@@ -290,7 +278,7 @@ class SalesAnalyst
       invoices = get_invoices_for_customer(customer.id)
       paid_invoices = invoices.find_all(&:is_paid_in_full?)
       invoice_costs = paid_invoices.map(&:total)
-      hash[invoice_costs.inject(:+).to_f] = customer
+      hash[invoice_costs.reduce(:+).to_f] = customer
     end
     top_customers = hash.keys.max(num_customers)
     top_customers.map { |key| hash[key] }
@@ -306,7 +294,7 @@ class SalesAnalyst
       merchant = invoice.merchant
       invoice_items = @invoice_item_repo.find_all_by_invoice_id(invoice.id)
       quantities = invoice_items.map(&:quantity)
-      hash[merchant] = quantities.inject(:+).to_f
+      hash[merchant] = quantities.reduce(:+).to_f
     end
     hash.key(hash.values.max)
   end
