@@ -152,4 +152,15 @@ class SalesAnalyst
   def merchants_with_only_one_item
     @se.merchants.all.find_all { |merchant| merchant.items.count == 1 }
   end
+
+  def top_revenue_earners(totals = 20)
+    merchants_ranked_by_revenue[0...totals]
+  end
+
+  def merchants_ranked_by_revenue
+    @se.merchants.all.sort_by do |merchant|
+      merchant.revenue
+    end.reverse
+  end
+
 end
