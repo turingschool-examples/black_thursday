@@ -4,7 +4,6 @@ require_relative '../lib/sales_engine'
 require 'time'
 
 class InvoiceTest < Minitest::Test
-
   def setup
     data = {
       id:           6,

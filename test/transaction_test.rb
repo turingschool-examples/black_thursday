@@ -3,7 +3,6 @@ require_relative '../lib/transaction'
 require 'time'
 
 class TransactionTest < Minitest::Test
-
   def setup
     data = {
       id:                             6,
@@ -50,5 +49,4 @@ class TransactionTest < Minitest::Test
     assert transaction.invoice.merchant_id == 12334633
     assert transaction.invoice.status == :returned
   end
-
 end

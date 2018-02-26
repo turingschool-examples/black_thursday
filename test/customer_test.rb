@@ -3,7 +3,6 @@ require_relative '../lib/customer'
 require 'time'
 
 class CustomerTest < Minitest::Test
-
   def setup
     data = {
       id:           6,
@@ -25,5 +24,4 @@ class CustomerTest < Minitest::Test
     assert @customer.created_at.class == Time
     assert @customer.updated_at.class == Time
   end
-
 end

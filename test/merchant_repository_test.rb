@@ -2,7 +2,6 @@ require_relative 'test_helper'
 require_relative '../lib/merchant_repository'
 
 class MerchantRepositoryTest < Minitest::Test
-
   def setup
     @merchant_repo = MerchantRepository.new('./test/fixtures/merchants_sample.csv')
   end
@@ -117,5 +116,4 @@ class MerchantRepositoryTest < Minitest::Test
     assert result.class == Array
     assert_equal [], result
   end
-
 end

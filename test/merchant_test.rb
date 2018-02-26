@@ -3,7 +3,6 @@ require_relative '../lib/merchant'
 require_relative '../lib/sales_engine'
 
 class MerchantTest < Minitest::Test
-
   def setup
     data = { id: 5, name: 'Turing School' }
     @merchant = Merchant.new(data)
@@ -92,4 +91,19 @@ class MerchantTest < Minitest::Test
     assert_equal 2, merchant.customers.length
   end
 
+  def test_if_it_returns_revenue_for_invoices_paid_in_full
+    data = {
+      items:         './test/fixtures/items_sample.csv',
+      merchants:     './test/fixtures/merchants_sample.csv',
+      invoices:      './test/fixtures/invoices_sample.csv',
+      invoice_items: './test/fixtures/invoice_items_sample.csv',
+      transactions:  './test/fixtures/transactions_sample.csv',
+      customers:     './test/fixtures/customers_sample.csv'
+    }
+    sales_engine = SalesEngine.new(data)
+    id = 12_334_141
+    merchant = sales_engine.merchants.find_by_id(id)
+
+    assert_equal 0.438056e5, merchant.revenue
+  end
 end

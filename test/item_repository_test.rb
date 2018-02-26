@@ -2,7 +2,6 @@ require_relative 'test_helper'
 require_relative '../lib/item_repository'
 
 class ItemRepositoryTest < Minitest::Test
-
   def setup
     @item_repo = ItemRepository.new('./test/fixtures/items_sample.csv')
   end
@@ -165,5 +164,4 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 263445483, result.first.id
     assert_equal 263415463, result.last.id
   end
-
 end

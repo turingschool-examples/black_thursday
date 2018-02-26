@@ -2,7 +2,6 @@ require_relative 'test_helper'
 require_relative '../lib/customer_repository'
 
 class CustomerRepositoryTest < Minitest::Test
-
   def setup
     @customer_repo = CustomerRepository.new('./test/fixtures/customers_sample.csv')
   end
@@ -83,5 +82,4 @@ class CustomerRepositoryTest < Minitest::Test
 
     assert_equal [], result
   end
-
 end
