@@ -1,5 +1,6 @@
 require 'bigdecimal'
 require 'date'
+require 'pry'
 
 # This is the sales analyst class
 class SalesAnalyst
@@ -201,7 +202,7 @@ class SalesAnalyst
     denominator = @invoices.count
     ((numerator / denominator) * 100).round 2
   end
-  
+
   def total_revenue_by_date(date)
     invoices = @invoices.find_all do |invoice|
       invoice.created_at == date
@@ -280,15 +281,30 @@ class SalesAnalyst
   end
 
   def most_sold_item_for_merchant(merchant_id)
-    merchant = @merchant_repo.find_by_id(merchant_id)
-    items = merchant.items
-    item_ids = items.map(&:id)
-    invoice_items_count = item_ids.map do |item_id|
-      (@invoice_items.find_all { |invoice_item| invoice_item.item_id == item_id }).length
+    merchants_invoices = @invoice_repo.find_all_by_merchant_id(merchant_id)
+    paid_invoices = merchants_invoices.find_all(&:is_paid_in_full?)
+    invoice_items = paid_invoices.map do |invoice|
+      @invoice_item_repo.find_all_by_invoice_id(invoice.id)
+    end.flatten
+    highest_num = invoice_items.max_by(&:quantity).quantity
+    highest_quantity = invoice_items.find_all do |invoice_item|
+      invoice_item.quantity == highest_num
     end
-    zipped = items.zip(invoice_items_count)
-    sorted = zipped.sort_by { |_k, v| v }.reverse
-    sorted[0]
+    highest_quantity.map do |invoice_item|
+      @item_repo.find_by_id(invoice_item.item_id)
+    end
+  end
+
+  def best_item_for_merchant(merchant_id)
+    merchants_invoices = @invoice_repo.find_all_by_merchant_id(merchant_id)
+    paid_invoices = merchants_invoices.find_all(&:is_paid_in_full?)
+    invoice_items = paid_invoices.map do |invoice|
+      @invoice_item_repo.find_all_by_invoice_id(invoice.id)
+    end.flatten
+    highest_revenue = invoice_items.max_by do |invoice_item|
+      invoice_item.quantity * invoice_item.unit_price
+    end
+    @item_repo.find_by_id(highest_revenue.item_id)
   end
 
   def top_buyers(num_customers = 20)

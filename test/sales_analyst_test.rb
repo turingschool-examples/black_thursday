@@ -63,7 +63,8 @@ class SalesAnalystTest < Minitest::Test
   def test_for_item_unit_prices
     expected = [0.12e2, 0.13e2, 0.135e2, 0.7e1, 0.15e2, 0.2999e2, 0.149e3,
                 0.149e2, 0.69e1, 0.4e3, 0.13e3, 0.399e1, 0.8e2, 0.6e3, 0.65e3,
-                0.4e2, 0.239e2, 0.5e3, 0.239e2, 0.5e3, 0.5e1, 0.2e1, 0.35e1, 0.406e3]
+                0.4e2, 0.239e2, 0.5e3, 0.239e2, 0.5e3, 0.5e1, 0.2e1, 0.35e1,
+                0.406e3, 0.5e2]
     actual = @sales_analyst.item_unit_prices
 
     assert_equal expected, actual
@@ -72,13 +73,13 @@ class SalesAnalystTest < Minitest::Test
   def test_for_average_item_price
     actual = @sales_analyst.average_item_price
 
-    assert_equal 151.2325, actual
+    assert_equal 147.1832, actual
   end
 
   def test_for_item_price_standard_deviation
     actual = @sales_analyst.item_price_standard_deviation
 
-    assert_equal 219.55, actual
+    assert_equal 215.88, actual
   end
 
   def test_for_golden_items
@@ -90,14 +91,12 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_for_average_invoices_per_merchant
-    assert_equal 0.24, @sales_analyst.average_invoices_per_merchant
-    assert_equal 0.18, @sales_analyst.average_invoices_per_merchant
+    assert_equal 0.27, @sales_analyst.average_invoices_per_merchant
   end
 
   def test_for_average_invoices_per_merchant_standard_deviation
     actual = @sales_analyst.average_invoices_per_merchant_standard_deviation
     assert_equal 0.7, actual
-    assert_equal 0.5, actual
   end
 
   def test_for_top_merchants_by_invoice_count
@@ -144,14 +143,14 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 20, @sales_analyst.top_revenue_earners.length
     assert_equal 7, @sales_analyst.top_revenue_earners(7).length
     assert_equal 12_334_105, @sales_analyst.top_revenue_earners.first.id
-    assert_equal 12_334_115, @sales_analyst.top_revenue_earners.last.id
+    assert_equal 12_334_123, @sales_analyst.top_revenue_earners.last.id
   end
 
   def test_for_merchants_with_pending_invoices
     assert @sales_analyst.merchants_with_pending_invoices.is_a?(Array)
     assert @sales_analyst.merchants_with_pending_invoices[0].is_a?(Merchant)
 
-    assert_equal 2, @sales_analyst.merchants_with_pending_invoices.length
+    assert_equal 3, @sales_analyst.merchants_with_pending_invoices.length
   end
 
   def test_for_revenue_by_merchant
@@ -177,23 +176,31 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_for_merchants_with_only_one_item_registered_in_month
-    assert @sales_analyst.merchants_with_only_one_item_registered_in_month('July').is_a?(Array)
-    assert @sales_analyst.merchants_with_only_one_item_registered_in_month('July')[0].is_a?(Merchant)
+    assert @sales_analyst.merchants_with_only_one_item_registered_in_month('May').is_a?(Array)
+    assert @sales_analyst.merchants_with_only_one_item_registered_in_month('May')[0].is_a?(Merchant)
 
-    assert_equal 2, @sales_analyst.merchants_with_only_one_item_registered_in_month('July').length
+    assert_equal 1, @sales_analyst.merchants_with_only_one_item_registered_in_month('May').length
   end
 
   def test_for_most_sold_item_for_merchant
-    assert @sales_analyst.most_sold_item_for_merchant(12334105).is_a?(Item)
+    expected = @sales_analyst.most_sold_item_for_merchant(12_334_105)
+    assert expected[0].is_a?(Item)
 
-    assert_equal 45, @sales_analyst.most_sold_item_for_merchant(12334105).id
+    assert_equal 263506360, expected[0].id
+  end
+
+  def test_best_item_for_merchant
+    expected = @sales_analyst.best_item_for_merchant(12_334_105)
+
+    assert_instance_of Item, expected
+    assert_equal 263_506_360, expected.id
   end
 
   def test_top_buyers
     assert_equal 2, @sales_analyst.top_buyers(2).length
     assert_equal 5, @sales_analyst.top_buyers(3).first.id
 
-    assert_equal 2, @sales_analyst.top_buyers.length
+    assert_equal 3, @sales_analyst.top_buyers.length
     assert_equal 339, @sales_analyst.top_buyers.last.id
   end
 
@@ -206,7 +213,7 @@ class SalesAnalystTest < Minitest::Test
   def test_one_time_buyers
     expected = @se.customers.find_by_id(5)
 
-    assert_equal 2, @sales_analyst.one_time_buyers.length
+    assert_equal 3, @sales_analyst.one_time_buyers.length
     assert_equal expected, @sales_analyst.one_time_buyers.first
   end
 
