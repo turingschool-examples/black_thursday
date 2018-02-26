@@ -216,18 +216,18 @@ class SalesAnalyst
   end
 
   def top_revenue_earners(num_merchants = 20)
-    hash = {}
-    @merchants.map do |merchant|
-      invoices = @invoice_repo.find_all_by_merchant_id(merchant.id)
-      invoice_ids = invoices.map(&:id)
+    merchant_revenues = @merchants.map do |merchant|
+      invoices = @invoices.find_all { |invoice| invoice.merchant_id == merchant.id }
+      paid_invoices = invoices.find_all(&:is_paid_in_full?)
+      invoice_ids = paid_invoices.map(&:id)
       invoice_items = invoice_ids.map do |invoice_id|
         @invoice_items.find_all { |invoice_item| invoice_item.invoice_id == invoice_id }
       end.flatten
-      prices = invoice_items.map(&:unit_price)
-      revenue = prices.reduce(:+)
-      hash[revenue.to_f] = merchant
+      item_prices = invoice_items.map { |invoice_item| invoice_item.unit_price * invoice_item.quantity }
+      item_prices.inject { |sum, num| sum + num }.to_f
     end
-    top_earners = hash.keys.max(num_merchants)
-    top_earners.map { |key| hash[key] }
+    zipped = @merchants.zip(merchant_revenues).to_h
+    sorted = zipped.max_by(num_merchants) { |k,v| v }
+    sorted.map { |subarray| subarray[0] }
   end
 end

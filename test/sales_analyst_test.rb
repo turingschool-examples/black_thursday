@@ -148,12 +148,12 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_for_total_revenue_by_date
+    skip
     date = Time.parse("2012-11-23")
     assert_equal 407.67, @sales_analyst.total_revenue_by_date(date)
   end
 
   def test_for_top_revenue_earners
-    skip
     assert @sales_analyst.top_revenue_earners.is_a?(Array)
     assert @sales_analyst.top_revenue_earners[0].is_a?(Merchant)
 
