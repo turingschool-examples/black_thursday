@@ -42,16 +42,16 @@ module CustomerAnalytics
   end
 
   def finding_invoice_items(id)
-  new_stuff = Hash.new
-  customer = @sales_engine.customers.find_by_id(id)
-  customer.invoices.map do |invoice|
-    new_stuff[invoice] = invoice.quantity
+    invoice_items = {}
+    customer = @sales_engine.customers.find_by_id(id)
+    customer.invoices.map do |invoice|
+      invoice_items[invoice] = invoice.quantity
     end
-  new_stuff
+    invoice_items
   end
 
   def top_merchant_for_customer(id)
-    high = finding_invoice_items(id).max_by do|invoice, orders|
+    high = finding_invoice_items(id).max_by do |_invoice, orders|
       orders
     end
     high[0].merchant
@@ -60,10 +60,10 @@ module CustomerAnalytics
   def finding_invoice_bought_in_a_year(id, year)
     customer = @sales_engine.customers.find_by_id(id)
     invoices = customer.invoices.find_all do |invoice|
-        invoice.created_at.to_s[0..3].to_i == year
-      end
-    invoices
+      invoice.created_at.to_s[0..3].to_i == year
     end
+    invoices
+  end
 
   def items_bought_in_year(id, year)
     invoices = finding_invoice_bought_in_a_year(id, year)
@@ -81,6 +81,10 @@ module CustomerAnalytics
       @sales_engine.invoice_items.find_all_by_invoice_id(invoice.id)
     end.flatten
     quantities = invoice_items.map(&:quantity)
+    highest_volume_item_array(invoice_items, quantities)
+  end
+
+  def highest_volume_item_array(invoice_items, quantities)
     array = []
     quantities.each_with_index do |num, index|
       if num == quantities.max
@@ -92,14 +96,11 @@ module CustomerAnalytics
 
   def customers_with_unpaid_invoices
     unpaid = []
-      customers.map do |customer|
-        customer.invoices
-      end.flatten.each do |invoice|
-        if invoice.is_paid_in_full? == false
-          unpaid << invoice.customer
-        end
-      end
-  unpaid.uniq
+    invoices = customers.map(&:invoices)
+    invoices.flatten.each do |invoice|
+      unpaid << invoice.customer unless invoice.is_paid_in_full?
+    end
+    unpaid.uniq
   end
 
   def sorting_invoices_by_quantity
