@@ -145,4 +145,22 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 'jejum', @sales_analyst.merchants_with_only_one_item[0].name
     assert_equal 12_334_183, @sales_analyst.merchants_with_only_one_item.last.id
   end
+
+  def test_to_find_top_revenue_earners
+    @sales_analyst.top_revenue_earners do |merchant|
+      assert_instance_of Merchant, merchant
+    end
+    assert_equal 8, @sales_analyst.merchants_ranked_by_revenue.length
+    assert_equal 12334141, @sales_analyst.merchants_ranked_by_revenue.first.id
+    assert_equal 22334105, @sales_analyst.merchants_ranked_by_revenue.last.id
+  end
+
+  def test_to_find_merchants_ranked_by_revenue
+    @sales_analyst.merchants_ranked_by_revenue do |merchant|
+      assert_instance_of Merchant, merchant
+    end
+    assert_equal 8, @sales_analyst.merchants_ranked_by_revenue.length
+    assert_equal 12334141, @sales_analyst.merchants_ranked_by_revenue.first.id
+    assert_equal 22334105, @sales_analyst.merchants_ranked_by_revenue.last.id
+  end
 end
