@@ -1,6 +1,6 @@
-require_relative 'test_helper.rb'
-require_relative '../lib/sales_engine.rb'
-require_relative './master_hash.rb'
+require_relative 'test_helper'
+require_relative '../lib/sales_engine'
+require_relative './master_hash'
 
 class SalesEngineTest < Minitest::Test
   def setup
@@ -44,7 +44,6 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of InvoiceRepository, invoice_repo
     assert_instance_of Invoice, invoice
     assert_equal 1, invoice.id
-    assert_equal 12335938, invoice.merchant_id
   end
 
   def test_merchant_items_returns_items_array
@@ -64,6 +63,12 @@ class SalesEngineTest < Minitest::Test
     item.merchant
 
     assert_equal "jejum", item.merchant.name
+  end
+
+  def test_engine_finds_merchant_via_merch_repo
+    result = @sales_engine.engine_finds_merchant_via_merchant_repo(12_334_105)
+
+    assert_instance_of Merchant, result
   end
 
   def test_engine_finds_merchant_customers_via_invoice_repo
@@ -91,7 +96,7 @@ class SalesEngineTest < Minitest::Test
     unpaid = @sales_engine.engine_finds_paid_invoice_and_evaluates_cost(14)
 
     assert_equal BigDecimal.new(986.68, 5), result
-    assert_equal "This invoice is unpaid", unpaid
+    assert_nil unpaid
   end
 
   def test_engine_can_find_invoice_using_id_passed_by_tran_repo
@@ -109,4 +114,5 @@ class SalesEngineTest < Minitest::Test
     assert_equal 19, result[0].id
     assert_equal 4318767847968505, result[0].credit_card_number
   end
+
 end

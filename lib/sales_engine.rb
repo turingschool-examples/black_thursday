@@ -80,6 +80,10 @@ class SalesEngine
     end
   end
 
+  def invoice_items_from_invoice(id)
+    @invoice_items.find_all_by_invoice_id(id)
+  end
+
   def engine_finds_paid_invoice_and_evaluates_cost(id)
     if engine_finds_invoice_transactions_and_evaluates(id)
       invoice_items = @invoice_items.find_all_by_invoice_id(id)
@@ -89,8 +93,6 @@ class SalesEngine
         sum += cost
         BigDecimal.new(sum, 5)
       end
-    else
-      "This invoice is unpaid"
     end
   end
 end

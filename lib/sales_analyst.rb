@@ -1,6 +1,7 @@
 
 require 'bigdecimal'
 require_relative 'sales_engine.rb'
+require 'pry'
 
 class SalesAnalyst
   attr_reader :engine
@@ -62,17 +63,12 @@ class SalesAnalyst
     end.reduce(&:+) / all_merchants.length).round(2)
   end
 
-
   def golden_items
     mean = average_average_price_per_merchant
     price_stdev = price_standard_deviation
     item_collector.map do |item|
       item if (item.unit_price.truncate - mean) > (2 * price_stdev)
     end.compact
-  end
-
-  def merchant_collector
-    engine.merchants.all
   end
 
   def invoice_collector
@@ -86,6 +82,10 @@ class SalesAnalyst
 
     mean = find_mean(item_price_array)
     standard_deviation(mean, item_price_array)
+  end
+
+  def merchant_collector
+    engine.merchants.all
   end
 
   def average_invoices_per_merchant
@@ -123,14 +123,14 @@ class SalesAnalyst
 
   def average_invoices_per_weekday_standard_deviation
     mean = average_invoices_per_weekday
-    merchant_invoices_array_per_wkday = show_wkdays.map do |key, value|
+    merchant_invoices_array_per_wkday = weekday_totals.map do |key, value|
       value
     end
 
     standard_deviation(average_invoices_per_weekday, merchant_invoices_array_per_wkday)
   end
 
-  def show_wkdays
+  def weekday_totals
     invoice_collector.reduce(Hash.new(0)) do |weekdays, invoice|
       weekday = invoice.created_at.strftime("%A")
       weekdays[weekday] += 1
@@ -142,7 +142,7 @@ class SalesAnalyst
     mean = average_invoices_per_weekday
     standard_deviation = average_invoices_per_weekday_standard_deviation
 
-    show_wkdays.each do |key, value|
+    weekday_totals.each do |key, value|
       if (value - mean) > standard_deviation
         return [] << key
       end
@@ -152,5 +152,59 @@ class SalesAnalyst
   def invoice_status(status)
     invoice_status_count = engine.invoices.find_all_by_status(status).length
     ((invoice_status_count * 100)/ invoice_collector.length.to_f).round(2)
+  end
+
+  def date_invoices(date)
+    invoice_collector.find_all do |invoice|
+      invoice.created_at == date
+    end.uniq
+  end
+
+  def valid_invoices(invoice_array)
+    invoice_array.find_all do |invoice|
+      @engine.engine_finds_invoice_transactions_and_evaluates(invoice.id)
+    end.uniq
+  end
+
+  def convert_to_invoice_items(invoice_array)
+    invoice_array.map do |invoice|
+      @engine.invoice_items_from_invoice(invoice.id)
+    end
+  end
+
+  def total_revenue_by_date(date)
+    valid_invoices = valid_invoices(date_invoices(date))
+    invoice_items = convert_to_invoice_items(valid_invoices).flatten
+
+    invoice_items.reduce(0) do |sum, invoice_item|
+      sum += (invoice_item.unit_price * invoice_item.quantity.to_i)
+    end
+  end
+
+  def revenue_by_merchant(merchant_id)
+    merchant_invoices = invoice_collector.find_all do |invoice|
+      invoice.merchant_id == merchant_id
+    end
+
+    merchant_invoices.reduce(0) do |sum, invoice|
+      revenue = @engine.engine_finds_paid_invoice_and_evaluates_cost(invoice.id)
+      if !revenue.nil?
+        sum += revenue
+      else
+        sum
+      end
+    end
+  end
+
+  def top_revenue_earners(number)
+    money_totals = merchant_collector.reduce(Hash.new(0)) do |money_totals, merchant|
+      money_totals[merchant] = revenue_by_merchant(merchant.id)
+      money_totals
+    end
+
+    max = money_totals.values.max(number)
+    money_totals.collect do |key, value|
+      return key if max.include?(value)
+    end
   end
 end
