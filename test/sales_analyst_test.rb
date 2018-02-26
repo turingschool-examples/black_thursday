@@ -1,13 +1,10 @@
 # frozen_string_literal: true
 
+require 'bigdecimal'
 require_relative 'test_helper.rb'
+require_relative './master_hash.rb'
 require_relative '../lib/sales_analyst.rb'
 require_relative '../lib/sales_engine.rb'
-require 'bigdecimal'
-require 'pry'
-
-require_relative './master_hash.rb'
-
 
 class SalesAnalystTest < Minitest::Test
   def setup
@@ -48,6 +45,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_return_standard_deviation_items_per_merchant
+    #possible renaming opportunity ^
     result = @sales_analyst.average_items_per_merchant_standard_deviation
 
     assert_equal 0.58, result
@@ -69,7 +67,6 @@ class SalesAnalystTest < Minitest::Test
 
   def test_can_find_average_of_average_merchant_item_price
     result = @sales_analyst.average_average_price_per_merchant
-    #some merchants don't have items in fixture data, hence div by 0 error
 
     assert_equal 0.123e2, result
     assert_instance_of BigDecimal, result
@@ -83,18 +80,18 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Item, result[0]
   end
 
-  def test_merchant_collector_helper_method_works
-    result = @sales_analyst.merchant_collector
-
-    assert_instance_of Array, result
-    assert_instance_of Merchant, result[0]
-  end
-
   def test_gets_standard_deviation_of_all_item_prices_helper_method
     result = @sales_analyst.price_standard_deviation
 
     assert_instance_of BigDecimal, result
     assert_equal BigDecimal.new(5.98, 3), result
+  end
+
+  def test_merchant_collector_helper_method_works
+    result = @sales_analyst.merchant_collector
+
+    assert_instance_of Array, result
+    assert_instance_of Merchant, result[0]
   end
 
   def test_find_average_invoices_per_merchant
@@ -124,8 +121,15 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_find_top_days_by_invoice_count
+    mean_weekday = @sales_analyst.average_invoices_per_weekday
+    st_dv_weekday = @sales_analyst.average_invoices_per_weekday
+    invoices_by_weekday = @sales_analyst.weekday_totals
     result = @sales_analyst.top_days_by_invoice_count
 
+    assert_equal 9.29, mean_weekday
+    assert_equal 9.29, st_dv_weekday
+    assert_equal 7, invoices_by_weekday.length
+    assert_equal 0, invoices_by_weekday[:Friday]
     assert_equal ["Friday"], result
   end
 
@@ -147,23 +151,33 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_find_total_revenue_by_date
+    skip
+    date_invs = @sales_analyst.date_invoices('2005-11-11')
+    valid_invs = @sales_analyst.valid_invoices(date_invs)
+    invoice_items = @sales_analyst.convert_to_invoice_items(valid_invs)
     result = @sales_analyst.total_revenue_by_date('2005-11-11')
-
+# binding.pry
+    assert_equal 1, date_invs.length
+    assert_equal 1, valid_invs.length
+    assert_equal 7, invoice_items
     assert_equal 0.197336e4, result
+    assert_instance_of BigDecimal, result
+  end
+
+  def test_can_find_revenue_by_merchant
+    result = @sales_analyst.revenue_by_merchant(12336837)
+
+    assert_equal BigDecimal.new(986.68, 5), result
     assert_instance_of BigDecimal, result
   end
 
   def test_can_find_top_revenue_earners
     skip
-    result = @sales_analyst.top_revenue_earners(3)
+    result = @sales_analyst.top_revenue_earners(1)
 
     assert_instance_of Array, result
     assert_instance_of Merchant, result[0]
     assert_equal 3, result.length
   end
 
-  def test_can_find_revenue_by_merchant
-    skip
-    result = @sales_analyst.revenue_by_merchant(46)
-  end
 end
