@@ -33,7 +33,6 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(merchant_id)
-    # binding.pry
     merchant = @se.merchants.find_by_id(merchant_id)
     item_prices = merchant.items.map(&:unit_price)
     average(item_prices)
@@ -63,14 +62,9 @@ class SalesAnalyst
   end
 
   def invoices_for_each_merchant
-    # @se.invoices.all.map do |merchant|
-      # require 'pry'; binding.pry
-      # merchant.id
-      invoice = @se.invoices.find_by_id(id)
-      number_of_invoices = invoices.items.map(&:invoices)
-      average(item_prices)
-
-    # end
+    @se.merchants.all.map do |merchant|
+      merchant.invoices.length.to_f
+    end
   end
 
   def average_invoices_per_merchant
