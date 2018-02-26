@@ -155,28 +155,6 @@ class SalesAnalyst
     ((invoice_status_count * 100)/ invoice_collector.length.to_f).round(2)
   end
 
-#   def total_revenue_by_date(date)
-#     date_invoices = invoice_collector.find_all do |invoice|
-#       invoice.created_at == Time.parse(date)
-#     end
-#
-#     date_invoices.reduce(0) do |sum, invoice|
-#       unless @engine.engine_finds_invoice_transactions_and_evaluates(invoice.id) == false
-#         sum += @engine.engine_finds_paid_invoice_and_evaluates_cost(invoice.id)
-#       end
-#     end
-#   end
-# end
-
-  def total_revenue_by_date(date)
-    valid_invoices = valid_invoices(date_invoices(date))
-    invoice_items = convert_to_invoice_items(valid_invoices).flatten
-# binding.pry
-    invoice_items.reduce(0) do |sum, invoice_item|
-      sum += invoice_item.unit_price
-    end
-  end
-
   def date_invoices(date)
     invoice_collector.find_all do |invoice|
       invoice.created_at == Time.parse(date)
@@ -192,6 +170,15 @@ class SalesAnalyst
   def convert_to_invoice_items(invoice_array)
     invoice_array.map do |invoice|
       @engine.invoice_items_from_invoice(invoice.id)
+    end
+  end
+
+  def total_revenue_by_date(date)
+    valid_invoices = valid_invoices(date_invoices(date))
+    invoice_items = convert_to_invoice_items(valid_invoices).flatten
+
+    invoice_items.reduce(0) do |sum, invoice_item|
+      sum += invoice_item.unit_price
     end
   end
 end

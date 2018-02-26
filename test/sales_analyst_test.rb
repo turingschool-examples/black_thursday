@@ -140,10 +140,30 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_find_total_revenue_by_date
-    # binding.pry
     result = @sales_analyst.total_revenue_by_date('2005-11-11')
 
     assert_equal 0.197336e4, result
     assert_instance_of BigDecimal, result
+  end
+
+  def test_can_find_total_revenue_by_date
+    result = @sales_analyst.total_revenue_by_date('2005-11-11')
+
+    assert_equal 0.197336e4, result
+    assert_instance_of BigDecimal, result
+  end
+
+  def test_can_find_top_revenue_earners
+    skip
+    result = @sales_analyst.top_revenue_earners(3)
+
+    assert_instance_of Array, result
+    assert_instance_of Merchant, result[0]
+    assert_equal 3, result.length
+  end
+
+  def test_can_find_revenue_by_merchant
+    skip
+    result = @sales_analyst.revenue_by_merchant(46)
   end
 end

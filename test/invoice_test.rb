@@ -53,7 +53,8 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_invoice_merchant_returns_merchant
-    result = @sales_engine.invoices.find_by_id(12).merchant
+    invoice = @sales_engine.invoices.find_by_id(12)
+    result = invoice.merchant
 
     assert_instance_of Merchant, result
   end
