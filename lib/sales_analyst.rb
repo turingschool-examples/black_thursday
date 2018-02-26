@@ -271,7 +271,7 @@ class SalesAnalyst
   def merchants_with_only_one_item_registered_in_month(month)
     month_digit = Date::MONTHNAMES.index(month)
     merchants = @merchants.find_all do |merchant|
-      merchant.created_at.to_s[5..6].to_i == month_digit
+      merchant.created_at.month.to_i == month_digit
     end
     item_count = merchants.map { |merchant| merchant.items.length }
     zipped = merchants.zip(item_count)
