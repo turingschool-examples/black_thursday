@@ -143,6 +143,13 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 4.62, returned_result
   end
 
+  def test_merchants_ranked_by_revenue
+    result = @sales_analyst.merchants_ranked_by_revenue
+
+    assert_instance_of Array, result
+    assert_instance_of Merchant, result[0]
+  end
+
   def test_can_find_total_revenue_by_date
     result = @sales_analyst.total_revenue_by_date('2005-11-11')
 
@@ -156,7 +163,7 @@ class SalesAnalystTest < Minitest::Test
     valid_invs = @sales_analyst.valid_invoices(date_invs)
     invoice_items = @sales_analyst.convert_to_invoice_items(valid_invs)
     result = @sales_analyst.total_revenue_by_date('2005-11-11')
-# binding.pry
+
     assert_equal 1, date_invs.length
     assert_equal 1, valid_invs.length
     assert_equal 7, invoice_items
@@ -172,12 +179,42 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_find_top_revenue_earners
-    skip
-    result = @sales_analyst.top_revenue_earners(1)
+    result = @sales_analyst.top_revenue_earners(10)
 
     assert_instance_of Array, result
     assert_instance_of Merchant, result[0]
-    assert_equal 3, result.length
+    assert_equal 10, result.length
   end
 
+  def test_merchants_with_pending_invoices
+    result = @sales_analyst.merchants_with_pending_invoices
+
+    assert_equal 10, result.length
+    assert_equal 'Candisart', result[1].name
+    assert_equal result, result.uniq
+  end
+
+  def test_merchants_with_only_one_item
+    result = @sales_analyst.merchants_with_only_one_item
+
+    assert_equal 7, result.length
+    assert_equal 'Shopin1901', result[0].name
+    assert_equal 12334115, result[3].id
+  end
+
+  def test_merchants_with_only_one_item_registered_in_month
+    result = @sales_analyst.merchants_with_only_one_item_registered_in_month('March')
+
+    assert_instance_of Array, result
+    assert_instance_of Merchant, result[0]
+    assert_equal 2, result.length
+  end
+
+  def test_revenue_by_merchant
+    skip
+    result = @sales_analyst.revenue_by_merchant(12334135)
+
+    assert_instance_of BigDecimal, result
+    assert_equal 1, result
+  end
 end

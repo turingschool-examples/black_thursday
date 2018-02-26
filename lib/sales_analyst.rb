@@ -1,4 +1,3 @@
-
 require 'bigdecimal'
 require_relative 'sales_engine.rb'
 require 'pry'
@@ -10,7 +9,7 @@ class SalesAnalyst
   end
 
   def item_collector
-    engine.items.all
+    @item_collector ||= engine.items.all
   end
 
   def average_items_per_merchant
@@ -72,7 +71,7 @@ class SalesAnalyst
   end
 
   def invoice_collector
-    engine.invoices.all
+    @invoice_collector ||= engine.invoices.all
   end
 
   def price_standard_deviation
@@ -85,7 +84,7 @@ class SalesAnalyst
   end
 
   def merchant_collector
-    engine.merchants.all
+    @merchant_collector ||= engine.merchants.all
   end
 
   def average_invoices_per_merchant
@@ -172,6 +171,12 @@ class SalesAnalyst
     end
   end
 
+  def merchants_ranked_by_revenue
+    @merch_rev_rank ||= merchant_collector.sort_by do |merchant|
+      revenue_by_merchant(merchant.id)
+    end.reverse
+  end
+
   def total_revenue_by_date(date)
     valid_invoices = valid_invoices(date_invoices(date))
     invoice_items = convert_to_invoice_items(valid_invoices).flatten
@@ -196,15 +201,33 @@ class SalesAnalyst
     end
   end
 
-  def top_revenue_earners(number)
-    money_totals = merchant_collector.reduce(Hash.new(0)) do |money_totals, merchant|
-      money_totals[merchant] = revenue_by_merchant(merchant.id)
-      money_totals
-    end
-
-    max = money_totals.values.max(number)
-    money_totals.collect do |key, value|
-      return key if max.include?(value)
-    end
+  def top_revenue_earners(number = 20)
+    merchants_ranked_by_revenue[0..(number - 1)]
   end
+
+  def merchants_with_pending_invoices
+    invoices = @engine.invoices.all
+    invoices.map do |invoice|
+      invoice if invoice.transactions.all? { |trans| trans.result == 'failed' }
+    end.compact.map(&:merchant).uniq
+  end
+
+  def merchants_with_only_one_item
+    merchant_collector.map do |merchant|
+      merchant if merchant.items.length == 1
+    end.compact
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    month_digit = Date::MONTHNAMES.index(month)
+    merchant_collector.map do |merchant|
+      merchant if merchant.created_at.month == month_digit
+    end.compact.map do |merchant|
+      merchant if merchant.items.length == 1
+    end.compact
+  end
+
+  # def revenue_by_merchant(merchant_id)
+  #   @engine.
+  # end
 end
