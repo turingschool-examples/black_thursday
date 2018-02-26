@@ -116,4 +116,20 @@ class SalesAnalyst
     invoices = @se.invoices.all.map(&:status)
     (100 * invoices.count(check) / invoices.length.to_f).round(2)
   end
+
+  def merchants_with_pending_invoices
+    @se.merchants.all.find_all do |merchant|
+      check_if_merchant_invoices_are_successful(merchant)
+    end
+  end
+
+  def check_if_merchant_invoices_are_successful(merchant)
+    merchant.invoices.any? do |invoice|
+      invoice.transactions.none? { |sale| sale.result == "success" }
+    end
+  end
+
+  def merchants_with_only_one_item
+    @se.merchants.all.find_all { |merchant| merchant.items.count == 1 }
+  end
 end

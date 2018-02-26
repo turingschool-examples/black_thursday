@@ -3,16 +3,15 @@ require_relative '../lib/sales_analyst'
 require_relative '../lib/sales_engine'
 
 class SalesAnalystTest < Minitest::Test
-
   def setup
     @data = {
-      :items          => "./test/fixtures/items_sample.csv",
-      :merchants      => "./test/fixtures/merchants_sample.csv",
-      :invoices       => "./test/fixtures/invoices_sample.csv",
-      :invoice_items  => "./test/fixtures/invoice_items_sample.csv",
-      :transactions   => "./test/fixtures/transactions_sample.csv",
-      :customers      => "./test/fixtures/customers_sample.csv"
-        }
+      items:         './test/fixtures/items_sample.csv',
+      merchants:     './test/fixtures/merchants_sample.csv',
+      invoices:      './test/fixtures/invoices_sample.csv',
+      invoice_items: './test/fixtures/invoice_items_sample.csv',
+      transactions:  './test/fixtures/transactions_sample.csv',
+      customers:     './test/fixtures/customers_sample.csv'
+    }
     @se = SalesEngine.new(@data)
     @sales_analyst = SalesAnalyst.new(@se)
   end
@@ -81,24 +80,53 @@ class SalesAnalystTest < Minitest::Test
   def test_top_days_by_invoice_count
     top = @sales_analyst.top_days_by_invoice_count
 
-    assert_equal ["Tuesday", "Friday"], top
+    assert_equal %w[Tuesday Friday], top
   end
 
   def test_invoice_days
-    expected = { "Monday"=>1, "Tuesday"=>6, "Wednesday"=>2, "Thursday"=>2,
-                 "Friday"=>7, "Saturday"=>1, "Sunday"=>1 }
-                 
+    expected = { 'Monday' => 1, 'Tuesday' => 6, 'Wednesday' => 2,
+                 'Thursday' => 2, 'Friday' => 7, 'Saturday' => 1,
+                 'Sunday' => 1 }
+
     assert_equal expected, @sales_analyst.invoice_days
   end
 
   def test_invoice_status
     pending = @sales_analyst.invoice_status(:pending)
     shipped = @sales_analyst.invoice_status(:shipped)
-    returned =  @sales_analyst.invoice_status(:returned)
+    returned = @sales_analyst.invoice_status(:returned)
 
     assert_equal 15.00, pending
     assert_equal 65.00, shipped
-    assert_equal 20.00,returned
+    assert_equal 20.00, returned
   end
 
+  def test_merchants_with_pending_invoices
+    @sales_analyst.merchants_with_pending_invoices do |merchant|
+      assert_instance_of Merchant, merchant
+    end
+    assert_equal 7, @sales_analyst.merchants_with_pending_invoices.length
+    assert_equal 12334141, @sales_analyst.merchants_with_pending_invoices.first.id
+    assert_equal "handicraftcallery", @sales_analyst.merchants_with_pending_invoices.last.name
+  end
+
+  def test_to_check_if_merchant_invoices_are_successful
+    merchant_1 = @se.merchants.all[0]
+    merchant_2 = @se.merchants.all[1]
+    merchant_3 = @se.merchants.all[7]
+
+    assert @sales_analyst.check_if_merchant_invoices_are_successful(merchant_1)
+    assert @sales_analyst.check_if_merchant_invoices_are_successful(merchant_2)
+    refute @sales_analyst.check_if_merchant_invoices_are_successful(merchant_3)
+  end
+
+  def test_to_find_which_merchants_only_has_one_item
+    @sales_analyst.merchants_with_only_one_item.length do |merchant|
+      assert_instance_of Merchant, merchant
+    end
+
+    assert_equal 3, @sales_analyst.merchants_with_only_one_item.length
+    assert_equal "jejum", @sales_analyst.merchants_with_only_one_item[0].name
+    assert_equal 12334183, @sales_analyst.merchants_with_only_one_item.last.id
+  end
 end
