@@ -1,40 +1,32 @@
 require 'csv'
 require_relative 'merchant'
+require_relative 'repository'
 
 # Merchant Repo
 class MerchantRepository
+  include Repository
   attr_reader :engine
 
   def initialize(filepath, parent = nil)
-    @merchants   = []
-    @engine      = parent
-    load_merchants(filepath)
+    @csv_items = []
+    @engine   = parent
+    load_children(filepath)
   end
 
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+  def merchants
+    @csv_items
   end
 
-  def all
-    @merchants
-  end
-
-  def load_merchants(filepath)
-    CSV.foreach(filepath, headers: true, header_converters: :symbol) do |data|
-      @merchants << Merchant.new(data, self)
-    end
-  end
-
-  def find_by_id(id)
-    @merchants.find { |merchant| merchant.id == id }
+  def child
+    Merchant
   end
 
   def find_by_name(name)
-    @merchants.find { |merchant| merchant.name.casecmp(name.downcase).zero? }
+    merchants.find { |merchant| merchant.name.casecmp(name.downcase).zero? }
   end
 
   def find_all_by_name(name)
-    @merchants.find_all do |merchant|
+    merchants.find_all do |merchant|
       merchant.name.downcase.include?(name.downcase)
     end
   end
