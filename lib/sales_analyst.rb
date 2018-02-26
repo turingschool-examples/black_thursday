@@ -198,12 +198,18 @@ class SalesAnalyst
     sorted.map { |subarray| subarray[0] }
   end
 
+  def find_total_item_prices(invoice_item_array)
+    invoice_item_array.map do |invoice_item|
+      invoice_item.unit_price * invoice_item.quantity
+    end
+  end
+
   def revenue_by_merchant(merchant_id)
     invoices = @invoice_repo.find_all_by_merchant_id(merchant_id)
     invoice_ids = invoices.find_all(&:is_paid_in_full?).map(&:id)
     invoice_items = @invoice_item_repo.find_all_by_mult_invoice_ids(invoice_ids)
     invoice_items.flatten!
-    @invoice_item_repo.find_total_item_prices(invoice_items).reduce :+
+    find_total_item_prices(invoice_items).reduce :+
   end
 
   def merchants_total_revenue
@@ -220,7 +226,7 @@ class SalesAnalyst
   end
 
   def merchants_with_pending_invoices
-    pending_invoices = @invoices.find_all { |invoice| !invoice.is_paid_in_full? }
+    pending_invoices = @invoices.reject(&:is_paid_in_full?)
     merchant_ids = pending_invoices.map(&:merchant_id).uniq
     merchant_ids.map do |merchant_id|
       @merchants.find_all { |merchant| merchant.id == merchant_id }
@@ -235,14 +241,12 @@ class SalesAnalyst
   end
 
   def merchants_with_only_one_item_registered_in_month(month)
-    month_digit = Date::MONTHNAMES.index(month)
     merchants = @merchants.find_all do |merchant|
-      merchant.created_at.month.to_i == month_digit
+      merchant.created_at.month == Date::MONTHNAMES.index(month)
     end
     item_count = merchants.map { |merchant| merchant.items.length }
-    zipped = merchants.zip(item_count)
-    only_one = zipped.find_all { |subarray| subarray[1] == 1 }
-    only_one.map { |subarray| subarray[0] }
+    one = merchants.zip(item_count).find_all { |subarray| subarray[1] == 1 }
+    one.map { |subarray| subarray[0] }
   end
 
   def most_sold_item_for_merchant(merchant_id)
