@@ -70,4 +70,10 @@ class SalesAnalyst
   def average_invoices_per_merchant
     average(invoices_for_each_merchant)
   end
+
+  def average_invoices_per_merchant_standard_deviation
+    invoice_counts = invoices_for_each_merchant
+    standard_deviation(invoice_counts, average(invoice_counts))
+  end
+
 end
