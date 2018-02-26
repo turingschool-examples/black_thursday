@@ -230,4 +230,25 @@ class SalesAnalyst
     sorted = zipped.max_by(num_merchants) { |k,v| v }
     sorted.map { |subarray| subarray[0] }
   end
+
+  def revenue_by_merchant(merchant_id)
+    invoices = @invoices.find_all { |invoice| invoice.merchant_id == merchant_id }
+    paid_invoices = invoices.find_all(&:is_paid_in_full?)
+    invoice_ids = paid_invoices.map(&:id)
+    invoice_items = invoice_ids.map do |invoice_id|
+      @invoice_items.find_all { |invoice_item| invoice_item.invoice_id == invoice_id }
+    end.flatten
+    item_prices = invoice_items.map { |invoice_item| invoice_item.unit_price * invoice_item.quantity }
+    item_prices.inject { |sum, num| sum + num }
+  end
+
+  def merchants_total_revenue
+    @merchants.map { |merchant| revenue_by_merchant(merchant.id) }
+  end
+
+  def merchants_ranked_by_revenue
+    zipped = @merchants.zip(merchants_total_revenue).to_h
+    sorted = zipped.max_by { |k,v| v }
+    sorted.map { |merchant| merchant[0] }
+  end
 end

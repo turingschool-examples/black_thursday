@@ -154,10 +154,34 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_for_top_revenue_earners
+    skip
     assert @sales_analyst.top_revenue_earners.is_a?(Array)
     assert @sales_analyst.top_revenue_earners[0].is_a?(Merchant)
 
     assert_equal 20, @sales_analyst.top_revenue_earners.length
     assert_equal 7, @sales_analyst.top_revenue_earners(7).length
+  end
+
+  def test_for_merchants_with_pending_invoices
+    skip
+    assert @sales_analyst.top_revenue_earners.is_a?(Array)
+    assert @sales_analyst.top_revenue_earners[0].is_a?(Merchant)
+  end
+
+  def test_for_revenue_by_merchant
+    skip
+    assert_equal 10, @sales_analyst.revenue_by_merchant(12334194)
+  end
+
+  def test_for_merchants_ranked_by_revenue
+    skip
+    assert @sales_analyst.merchants_ranked_by_revenue.is_a?(Array)
+    assert @sales_analyst.merchants_ranked_by_revenue[0].is_a?(Merchant)
+
+    assert_equal 12334634, @sales_analyst.merchants_ranked_by_revenue[0].id
+  end
+
+  def test_for_merchants_total_revenue
+    assert_equal 10, @sales_analyst.merchants_ranked_by_revenue
   end
 end
