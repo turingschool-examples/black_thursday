@@ -1,3 +1,4 @@
+# module that runs customer analytics
 module CustomerAnalytics
   def top_buyers(num = 20)
     hash = {}
@@ -30,28 +31,33 @@ module CustomerAnalytics
     customers = one_time_buyers
     hash = Hash.new(0)
     customers.each do |customer|
-      invoices = customer.fully_paid_invoices
-      invoices.each do |invoice|
-        invoice_items = @sales_engine.invoice_items.find_all_by_invoice_id(invoice.id)
-        invoice_items.each do |invoice_item|
-          hash[@sales_engine.items.find_by_id(invoice_item.item_id)] += invoice_item.quantity
-        end
-      end
+      find_top_items(customer, hash)
     end
     [hash.key(hash.values.sort.last)]
   end
 
-  def finding_invoice_items(id)
-  new_stuff = Hash.new
-  customer = @sales_engine.customers.find_by_id(id)
-  customer.invoices.map do |invoice|
-    new_stuff[invoice] = invoice.quantity
+  def find_top_items(customer, hash)
+    invoices = customer.fully_paid_invoices
+    invoices.each do |invoice|
+      invoice_items = @sales_engine.invoice_items.find_all_by_invoice_id(invoice.id)
+      invoice_items.each do |invoice_item|
+        item = @sales_engine.items.find_by_id(invoice_item.item_id)
+        hash[item] += invoice_item.quantity
+      end
     end
-  new_stuff
+  end
+
+  def finding_invoice_items(id)
+    invoice_items = {}
+    customer = @sales_engine.customers.find_by_id(id)
+    customer.invoices.map do |invoice|
+      invoice_items[invoice] = invoice.quantity
+    end
+    invoice_items
   end
 
   def top_merchant_for_customer(id)
-    high = finding_invoice_items(id).max_by do|invoice, orders|
+    high = finding_invoice_items(id).max_by do |_invoice, orders|
       orders
     end
     high[0].merchant
@@ -60,10 +66,10 @@ module CustomerAnalytics
   def finding_invoice_bought_in_a_year(id, year)
     customer = @sales_engine.customers.find_by_id(id)
     invoices = customer.invoices.find_all do |invoice|
-        invoice.created_at.to_s[0..3].to_i == year
-      end
-    invoices
+      invoice.created_at.to_s[0..3].to_i == year
     end
+    invoices
+  end
 
   def items_bought_in_year(id, year)
     invoices = finding_invoice_bought_in_a_year(id, year)
@@ -81,6 +87,10 @@ module CustomerAnalytics
       @sales_engine.invoice_items.find_all_by_invoice_id(invoice.id)
     end.flatten
     quantities = invoice_items.map(&:quantity)
+    highest_volume_item_array(invoice_items, quantities)
+  end
+
+  def highest_volume_item_array(invoice_items, quantities)
     array = []
     quantities.each_with_index do |num, index|
       if num == quantities.max
@@ -92,14 +102,11 @@ module CustomerAnalytics
 
   def customers_with_unpaid_invoices
     unpaid = []
-      customers.map do |customer|
-        customer.invoices
-      end.flatten.each do |invoice|
-        if invoice.is_paid_in_full? == false
-          unpaid << invoice.customer
-        end
-      end
-  unpaid.uniq
+    invoices = customers.map(&:invoices)
+    invoices.flatten.each do |invoice|
+      unpaid << invoice.customer unless invoice.is_paid_in_full?
+    end
+    unpaid.uniq
   end
 
   def sorting_invoices_by_quantity
@@ -111,24 +118,22 @@ module CustomerAnalytics
   end
 
   def best_invoice_by_quantity
-    high_quantity = sorting_invoices_by_quantity.max_by do |invoice, quantity|
+    high_quantity = sorting_invoices_by_quantity.max_by do |_invoice, quantity|
       quantity
     end
     high_quantity[0]
   end
 
   def sorting_invoices_by_revenue
-    revenue_hash = Hash.new
+    revenue_hash = {}
     invoices.each do |invoice|
-      if invoice.is_paid_in_full?
-        revenue_hash[invoice] = invoice.total
-      end
+      revenue_hash[invoice] = invoice.total if invoice.is_paid_in_full?
     end
     revenue_hash
   end
 
   def best_invoice_by_revenue
-    high_revenue = sorting_invoices_by_revenue.max_by do |invoice, revenue|
+    high_revenue = sorting_invoices_by_revenue.max_by do |_invoice, revenue|
       revenue
     end
     high_revenue[0]
