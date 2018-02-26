@@ -1,19 +1,19 @@
 # module that runs customer analytics
 module CustomerAnalytics
   def top_buyers(num = 20)
-    hash = {}
+    customer_total_spend = {}
     customers.each do |customer|
-      create_buyers_hash(customer, hash)
+      create_buyers_hash(customer, customer_total_spend)
     end
-    top_customers = hash.keys.max(num)
-    top_customers.map { |key| hash[key] }
+    top_customers = customer_total_spend.keys.max(num)
+    top_customers.map { |key| customer_total_spend[key] }
   end
 
-  def create_buyers_hash(customer, hash)
+  def create_buyers_hash(customer, customer_total_spend)
     invoices = get_invoices(customer.id)
     paid_invoices = invoices.find_all(&:is_paid_in_full?)
     invoice_costs = paid_invoices.map(&:total)
-    hash[invoice_costs.reduce(:+).to_f] = customer
+    customer_total_spend[invoice_costs.reduce(:+).to_f] = customer
   end
 
   def get_invoices(customer_id)
@@ -43,8 +43,8 @@ module CustomerAnalytics
   def find_top_items(customer, hash)
     invoices = customer.fully_paid_invoices
     invoices.each do |invoice|
-      invoice_items = @sales_engine.invoice_items.find_all_by_invoice_id(invoice.id)
-      invoice_items.each do |invoice_item|
+      inv_items = @sales_engine.invoice_items.find_all_by_invoice_id(invoice.id)
+      inv_items.each do |invoice_item|
         item = @sales_engine.items.find_by_id(invoice_item.item_id)
         hash[item] += invoice_item.quantity
       end
