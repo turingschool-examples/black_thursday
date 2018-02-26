@@ -1,3 +1,5 @@
+require 'pry'
+
 # Statistics for SalesEngine
 class SalesAnalyst
   def initialize(sales_engine)
@@ -118,14 +120,19 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    invoice_items = @se.invoice_items.all.find_all do |item|
-      item.created_at.year == date.year && \
-        item.created_at.mon == date.mon && \
-        item.created_at.mday == date.mday
+    invoices = @se.invoices.all.find_all do |invoice|
+      invoice.created_at.year == date.year && \
+        invoice.created_at.mon == date.mon && \
+        invoice.created_at.mday == date.mday
+    end
+    invoices = invoices.map do |invoice|
+      @se.invoice_items.find_all_by_invoice_id(invoice.id)
     end
     amount = 0
-    invoice_items.each do |item|
-      amount += item.unit_price * item.quantity
+    invoices.each do |invoice_item|
+      invoice_item.each do |item|
+        amount += item.unit_price * item.quantity
+      end
     end
     amount
   end
