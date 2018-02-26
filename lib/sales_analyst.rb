@@ -1,9 +1,10 @@
 require 'bigdecimal'
 require 'date'
-require 'pry'
+require_relative '../lib/statistics'
 
 # This is the sales analyst class
 class SalesAnalyst
+  include Statistics
   attr_reader :sales_engine
   def initialize(sales_engine)
     @sales_engine = sales_engine
@@ -67,15 +68,11 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    count = @merchants.count
-    average = @items_per_merchant.inject { |sum, num| sum + num }.to_f / count
-    average.round(2)
+    average(@items_per_merchant, @merchants.length).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
-    dif = @items_per_merchant.map { |num| (num - @avg_items_per_merchant)**2 }
-    added = dif.inject { |sum, num| sum + num }.to_f
-    Math.sqrt(added / (@items_per_merchant.count - 1)).round(2)
+    stdev(@items_per_merchant, @avg_items_per_merchant).round(2)
   end
 
   def merchants_with_high_item_count
@@ -89,8 +86,7 @@ class SalesAnalyst
   def average_item_price_for_merchant(merchant_id)
     merchant = @merchant_repo.find_by_id(merchant_id)
     prices = merchant.items.map(&:unit_price)
-    count = prices.count
-    item_average_price = prices.inject { |sum, num| sum + num }.to_f / count
+    item_average_price = average(prices, prices.length)
     BigDecimal.new item_average_price, 4
   end
 
@@ -103,11 +99,8 @@ class SalesAnalyst
   end
 
   def average_average_price_per_merchant
-    prices = @merchants.map do |merchant|
-      find_average_price(merchant)
-    end
-    count = prices.count
-    average_average_price = prices.inject { |sum, num| sum + num }.to_f / count
+    prices = @merchants.map { |merchant| find_average_price(merchant) }
+    average_average_price = average(prices, prices.length)
     BigDecimal.new(average_average_price, 0).truncate 2
   end
 
@@ -116,14 +109,11 @@ class SalesAnalyst
   end
 
   def average_item_price
-    count = @item_unit_prices.count
-    @item_unit_prices.inject { |sum, num| sum + num }.to_f / count.round(2)
+    average(@item_unit_prices, @item_unit_prices.length.round(2))
   end
 
   def item_price_standard_deviation
-    dif = @item_unit_prices.map { |num| (num - @avg_item_price)**2 }
-    added = dif.inject { |sum, num| sum + num }.to_f
-    Math.sqrt(added / (@item_unit_prices.count - 1)).round(2)
+    stdev(@item_unit_prices, @avg_item_price).round(2)
   end
 
   def golden_items
@@ -135,17 +125,11 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
-    count = @invoices_per_merchant.count
-    avg = @invoices_per_merchant.inject { |sum, num| sum + num }.to_f / count
-    avg.round(2)
+    average(@invoices_per_merchant, @invoices_per_merchant.length).round(2)
   end
 
   def average_invoices_per_merchant_standard_deviation
-    dif = @invoices_per_merchant.map do |num|
-      (num - @avg_invoices_per_merchant)**2
-    end
-    added = dif.inject { |sum, num| sum + num }.to_f
-    Math.sqrt(added / (@invoices_per_merchant.count - 1)).round 2
+    stdev(@invoices_per_merchant, @avg_invoices_per_merchant).round(2)
   end
 
   def top_merchants_by_invoice_count
@@ -174,19 +158,12 @@ class SalesAnalyst
   end
 
   def average_invoices_per_day
-    count = @days_of_week_invoice_count.count
-    average = @days_of_week_invoice_count.inject do |sum, num|
-      sum + num
-    end.to_f / count
-    average.round(2)
+    invoice_count = @days_of_week_invoice_count
+    average(invoice_count, invoice_count.length).round(2)
   end
 
   def invoices_per_day_standard_deviation
-    dif = @days_of_week_invoice_count.map do |num|
-      (num - @avg_invoices_per_day)**2
-    end
-    added = dif.inject { |sum, num| sum + num }.to_f
-    Math.sqrt(added / (@days_of_week_invoice_count.count - 1)).round(2)
+    stdev(@days_of_week_invoice_count, @avg_invoices_per_day).round(2)
   end
 
   def top_days_by_invoice_count
