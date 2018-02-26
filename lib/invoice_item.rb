@@ -10,7 +10,7 @@ class InvoiceItem
               :updated_at
 
   def initialize(data, parent)
-    @data        = data
+    # @data        = data
     @parent      = parent
     @id          = data[:id].to_i
     @item_id     = data[:item_id].to_i

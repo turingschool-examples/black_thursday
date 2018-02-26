@@ -27,4 +27,20 @@ class Customer
   def fully_paid_invoices
     traverse('fully paid invoices', id)
   end
+
+  def all_invoices
+    traverse('all invoices', id)
+  end
+
+  def items
+    fully_paid_invoices.map(&:items).flatten
+  end
+
+  def fully_paid_invoice_items
+    fully_paid_invoices.map(&:invoice_items).flatten
+  end
+
+  def all_invoice_items
+    all_invoices.map(&:invoice_items).flatten
+  end
 end

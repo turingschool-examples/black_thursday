@@ -200,8 +200,8 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 2, @sales_analyst.top_buyers(2).length
     assert_equal 5, @sales_analyst.top_buyers(3).first.id
 
-    assert_equal 3, @sales_analyst.top_buyers.length
-    assert_equal 339, @sales_analyst.top_buyers.last.id
+    assert_equal 20, @sales_analyst.top_buyers.length
+    assert_equal 3, @sales_analyst.top_buyers.last.id
   end
 
   def test_top_merchant_for_customer
@@ -223,12 +223,12 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_items_bought_in_year
-    assert_equal 4, @sales_analyst.items_bought_in_year(1, 2012).length
+    assert_equal 0, @sales_analyst.items_bought_in_year(1, 2012).length
     assert_equal 263_519_844, @sales_analyst.items_bought_in_year(1, 2009).first.id
   end
 
   def test_highest_volume_items
-    assert_equal 2, @sales_analyst.highest_volume_items(1).length
+    assert_equal 1, @sales_analyst.highest_volume_items(1).length
     assert_equal 263_454_779, @sales_analyst.highest_volume_items(1).first.id
     assert_equal Item, @sales_analyst.highest_volume_items(1).first.class
   end
