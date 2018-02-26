@@ -5,7 +5,6 @@ require 'bigdecimal'
 require 'time'
 
 class ItemTest < Minitest::Test
-
   def setup
     data = {
       id:           "137519844",
@@ -53,5 +52,4 @@ class ItemTest < Minitest::Test
     assert item.merchant.name == "Madewithgitterxx"
     assert item.merchant.class == Merchant
   end
-
 end

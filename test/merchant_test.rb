@@ -3,7 +3,6 @@ require_relative '../lib/merchant'
 require_relative '../lib/sales_engine'
 
 class MerchantTest < Minitest::Test
-
   def setup
     data = { id: 5, name: 'Turing School' }
     @merchant = Merchant.new(data)
@@ -107,5 +106,4 @@ class MerchantTest < Minitest::Test
 
     assert_equal 0.438056e5, merchant.revenue
   end
-
 end

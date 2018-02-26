@@ -2,7 +2,6 @@ require_relative 'test_helper'
 require_relative '../lib/invoice_repository'
 
 class InvoiceRepositoryTest < Minitest::Test
-
   def setup
     @invoice_repo = InvoiceRepository.new('./test/fixtures/invoices_sample.csv')
   end
@@ -112,5 +111,4 @@ class InvoiceRepositoryTest < Minitest::Test
 
     assert_equal [], result
   end
-
 end

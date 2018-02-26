@@ -2,7 +2,6 @@ require_relative 'test_helper'
 require_relative '../lib/transaction_repository'
 
 class TransactionRepositoryTest < Minitest::Test
-
   def setup
     @transaction_repo = TransactionRepository.new('./test/fixtures/transactions_sample.csv')
   end
@@ -104,5 +103,4 @@ class TransactionRepositoryTest < Minitest::Test
 
     assert_equal [], result
   end
-
 end
