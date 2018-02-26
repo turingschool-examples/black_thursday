@@ -26,11 +26,13 @@ class SalesAnalystTest < Minitest::Test
 
   def test_item_count_per_merchant
     expected = [1, 3, 1, 10, 2, 3, 1, 0]
+
     assert_equal expected, @sales_analyst.items_count_per_merchant
   end
 
   def test_merchants_with_high_item_count
     expected = [@se.find_merchant_by_merchant_id(12334195)]
+
     assert_equal expected, @sales_analyst.merchants_with_high_item_count
   end
 
@@ -45,6 +47,7 @@ class SalesAnalystTest < Minitest::Test
   def test_golden_items
     golden = @sales_analyst.golden_items.map { |item| item.id }
     expected = []
+
     assert_equal expected, golden
   end
 
@@ -54,6 +57,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_invoice_count_per_merchant
     expected = [9, 2, 1, 1, 1, 1, 1, 0]
+
     assert_equal expected, @sales_analyst.invoice_count_per_merchant
   end
 
@@ -63,16 +67,19 @@ class SalesAnalystTest < Minitest::Test
 
   def test_top_merchants_by_invoice_count
     merchants = @sales_analyst.top_merchants_by_invoice_count
+
     assert_equal [@se.find_merchant_by_merchant_id(12334141)], merchants
   end
 
   def test_bottom_merchants_by_invoice_count
     merchants = @sales_analyst.bottom_merchants_by_invoice_count
+
     assert_equal [], merchants
   end
 
   def test_top_days_by_invoice_count
     top = @sales_analyst.top_days_by_invoice_count
+
     assert_equal %w[Tuesday Friday], top
   end
 
@@ -80,6 +87,7 @@ class SalesAnalystTest < Minitest::Test
     expected = { 'Monday' => 1, 'Tuesday' => 6, 'Wednesday' => 2,
                  'Thursday' => 2, 'Friday' => 7, 'Saturday' => 1,
                  'Sunday' => 1 }
+
     assert_equal expected, @sales_analyst.invoice_days
   end
 
@@ -91,5 +99,34 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 15.00, pending
     assert_equal 65.00, shipped
     assert_equal 20.00, returned
+  end
+
+  def test_merchants_with_pending_invoices
+    @sales_analyst.merchants_with_pending_invoices do |merchant|
+      assert_instance_of Merchant, merchant
+    end
+    assert_equal 7, @sales_analyst.merchants_with_pending_invoices.length
+    assert_equal 12334141, @sales_analyst.merchants_with_pending_invoices.first.id
+    assert_equal "handicraftcallery", @sales_analyst.merchants_with_pending_invoices.last.name
+  end
+
+  def test_to_check_if_merchant_invoices_are_successful
+    merchant_1 = @se.merchants.all[0]
+    merchant_2 = @se.merchants.all[1]
+    merchant_3 = @se.merchants.all[7]
+
+    assert @sales_analyst.check_if_merchant_invoices_are_successful(merchant_1)
+    assert @sales_analyst.check_if_merchant_invoices_are_successful(merchant_2)
+    refute @sales_analyst.check_if_merchant_invoices_are_successful(merchant_3)
+  end
+
+  def test_to_find_which_merchants_only_has_one_item
+    @sales_analyst.merchants_with_only_one_item.length do |merchant|
+      assert_instance_of Merchant, merchant
+    end
+
+    assert_equal 3, @sales_analyst.merchants_with_only_one_item.length
+    assert_equal "jejum", @sales_analyst.merchants_with_only_one_item[0].name
+    assert_equal 12334183, @sales_analyst.merchants_with_only_one_item.last.id
   end
 end
