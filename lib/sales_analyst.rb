@@ -243,13 +243,14 @@ class SalesAnalyst
   end
 
   def merchants_total_revenue
-    @merchants.map { |merchant| revenue_by_merchant(merchant.id) }
+    total_revenue = @merchants.map { |merchant| revenue_by_merchant(merchant.id) }
+    total_revenue.map { |num| num || 0 }
   end
 
   def merchants_ranked_by_revenue
     zipped = @merchants.zip(merchants_total_revenue).to_h
-    sorted = zipped.max_by { |k,v| v }
-    sorted.map { |merchant| merchant[0] }
+    sorted = zipped.sort_by { |_k, v| v }
+    sorted.map { |merchant| merchant[0] }.reverse
   end
 
   def merchants_with_pending_invoices
@@ -274,6 +275,7 @@ class SalesAnalyst
                 'July' => '07', 'August' => '08', 'September' => '09',
                 'October' => '10', 'November' => '11', 'December' => '12' }
     month_digits = months[month]
-    merchants = @merchants.map { |merchant| merchant.created_at.to_s[0..1] == month_digits }
+    merchants = @merchants.map { |merchant| merchant.created_at.to_s[5..6] == month_digits }
+    merchant_items = merchants.map(&:items)
   end
 end
