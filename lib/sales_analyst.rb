@@ -254,12 +254,11 @@ class SalesAnalyst
   end
 
   def merchants_with_pending_invoices
-    pending_invoices = @invoices.find_all { |invoice| invoice.status == :pending }
-    merchant_ids = pending_invoices.map(&:merchant_id)
-    merchants = merchant_ids.map do |merchant_id|
+    pending_invoices = @invoices.find_all { |invoice| !invoice.is_paid_in_full? }
+    merchant_ids = pending_invoices.map(&:merchant_id).uniq
+    merchant_ids.map do |merchant_id|
       @merchants.find_all { |merchant| merchant.id == merchant_id }
-    end
-    merchants.uniq
+    end.flatten
   end
 
   def merchants_with_only_one_item
@@ -275,7 +274,11 @@ class SalesAnalyst
                 'July' => '07', 'August' => '08', 'September' => '09',
                 'October' => '10', 'November' => '11', 'December' => '12' }
     month_digits = months[month]
-    merchants = @merchants.map { |merchant| merchant.created_at.to_s[5..6] == month_digits }
-    merchant_items = merchants.map(&:items)
+    items_for_month = @items.find_all do |item|
+      item.created_at.to_s[5..6].to_i == month_digits.to_i
+    end
+    merchant_ids = items_for_month.map
   end
+
+  def 
 end
