@@ -63,9 +63,9 @@ class SalesAnalyst
   end
 
   def invoices_for_each_merchant
-    @se.merchants.all.map do |merchant|
-      require 'pry'; binding.pry
-      merchant.invoices.length.to_f
+    @se.invoices.all.map do |merchant|
+      # require 'pry'; binding.pry
+      merchant.id
     end
   end
 
