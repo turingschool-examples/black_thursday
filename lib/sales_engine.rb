@@ -75,7 +75,7 @@ class SalesEngine
   def engine_finds_invoice_transactions_and_evaluates(id)
     transactions = @transactions.find_all_by_invoice_id(id)
 
-    result = transactions.any? do |transaction|
+    transactions.any? do |transaction|
       transaction.result.downcase == "success"
     end
   end
@@ -88,7 +88,7 @@ class SalesEngine
     if engine_finds_invoice_transactions_and_evaluates(id)
       invoice_items = @invoice_items.find_all_by_invoice_id(id)
 
-      result = invoice_items.reduce(0) do |sum, invoice_item|
+      invoice_items.reduce(0) do |sum, invoice_item|
         cost = invoice_item.unit_price_to_dollars * invoice_item.quantity.to_i
         sum += cost
         BigDecimal.new(sum, 5)
