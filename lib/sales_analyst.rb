@@ -76,4 +76,8 @@ class SalesAnalyst
     standard_deviation(invoice_counts, average(invoice_counts))
   end
 
+  def top_merchants_by_invoice_count
+
+  end
+
 end
