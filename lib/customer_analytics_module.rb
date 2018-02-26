@@ -1,3 +1,4 @@
+# module that runs customer analytics
 module CustomerAnalytics
   def top_buyers(num = 20)
     hash = {}
@@ -30,15 +31,20 @@ module CustomerAnalytics
     customers = one_time_buyers
     hash = Hash.new(0)
     customers.each do |customer|
-      invoices = customer.fully_paid_invoices
-      invoices.each do |invoice|
-        invoice_items = @sales_engine.invoice_items.find_all_by_invoice_id(invoice.id)
-        invoice_items.each do |invoice_item|
-          hash[@sales_engine.items.find_by_id(invoice_item.item_id)] += invoice_item.quantity
-        end
-      end
+      find_top_items(customer, hash)
     end
     [hash.key(hash.values.sort.last)]
+  end
+
+  def find_top_items(customer, hash)
+    invoices = customer.fully_paid_invoices
+    invoices.each do |invoice|
+      invoice_items = @sales_engine.invoice_items.find_all_by_invoice_id(invoice.id)
+      invoice_items.each do |invoice_item|
+        item = @sales_engine.items.find_by_id(invoice_item.item_id)
+        hash[item] += invoice_item.quantity
+      end
+    end
   end
 
   def finding_invoice_items(id)
@@ -112,24 +118,22 @@ module CustomerAnalytics
   end
 
   def best_invoice_by_quantity
-    high_quantity = sorting_invoices_by_quantity.max_by do |invoice, quantity|
+    high_quantity = sorting_invoices_by_quantity.max_by do |_invoice, quantity|
       quantity
     end
     high_quantity[0]
   end
 
   def sorting_invoices_by_revenue
-    revenue_hash = Hash.new
+    revenue_hash = {}
     invoices.each do |invoice|
-      if invoice.is_paid_in_full?
-        revenue_hash[invoice] = invoice.total
-      end
+      revenue_hash[invoice] = invoice.total if invoice.is_paid_in_full?
     end
     revenue_hash
   end
 
   def best_invoice_by_revenue
-    high_revenue = sorting_invoices_by_revenue.max_by do |invoice, revenue|
+    high_revenue = sorting_invoices_by_revenue.max_by do |_invoice, revenue|
       revenue
     end
     high_revenue[0]
