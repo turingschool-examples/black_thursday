@@ -101,23 +101,28 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 20.00, returned
   end
 
+  def test_total_revenue_by_date
+    date = Date.new(2003, 3, 28)
+    assert_equal 0.859012e4, @sales_analyst.total_revenue_by_date(date)
+  end
+
   def test_merchants_with_pending_invoices
     @sales_analyst.merchants_with_pending_invoices do |merchant|
       assert_instance_of Merchant, merchant
     end
     assert_equal 7, @sales_analyst.merchants_with_pending_invoices.length
-    assert_equal 12334141, @sales_analyst.merchants_with_pending_invoices.first.id
-    assert_equal "handicraftcallery", @sales_analyst.merchants_with_pending_invoices.last.name
+    assert_equal 12_334_141, @sales_analyst.merchants_with_pending_invoices.first.id
+    assert_equal 'handicraftcallery', @sales_analyst.merchants_with_pending_invoices.last.name
   end
 
   def test_to_check_if_merchant_invoices_are_successful
-    merchant_1 = @se.merchants.all[0]
-    merchant_2 = @se.merchants.all[1]
-    merchant_3 = @se.merchants.all[7]
+    merchant1 = @se.merchants.all[0]
+    merchant2 = @se.merchants.all[1]
+    merchant3 = @se.merchants.all[7]
 
-    assert @sales_analyst.check_if_merchant_invoices_are_successful(merchant_1)
-    assert @sales_analyst.check_if_merchant_invoices_are_successful(merchant_2)
-    refute @sales_analyst.check_if_merchant_invoices_are_successful(merchant_3)
+    assert @sales_analyst.check_if_merchant_invoices_are_successful(merchant1)
+    assert @sales_analyst.check_if_merchant_invoices_are_successful(merchant2)
+    refute @sales_analyst.check_if_merchant_invoices_are_successful(merchant3)
   end
 
   def test_to_find_which_merchants_only_has_one_item
@@ -126,7 +131,7 @@ class SalesAnalystTest < Minitest::Test
     end
 
     assert_equal 3, @sales_analyst.merchants_with_only_one_item.length
-    assert_equal "jejum", @sales_analyst.merchants_with_only_one_item[0].name
-    assert_equal 12334183, @sales_analyst.merchants_with_only_one_item.last.id
+    assert_equal 'jejum', @sales_analyst.merchants_with_only_one_item[0].name
+    assert_equal 12_334_183, @sales_analyst.merchants_with_only_one_item.last.id
   end
 end

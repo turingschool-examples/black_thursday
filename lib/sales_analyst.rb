@@ -1,3 +1,5 @@
+require 'pry'
+
 # Statistics for SalesEngine
 class SalesAnalyst
   def initialize(sales_engine)
@@ -115,6 +117,24 @@ class SalesAnalyst
   def invoice_status(check)
     invoices = @se.invoices.all.map(&:status)
     (100 * invoices.count(check) / invoices.length.to_f).round(2)
+  end
+
+  def total_revenue_by_date(date)
+    invoices = @se.invoices.all.find_all do |invoice|
+      invoice.created_at.year == date.year && \
+        invoice.created_at.mon == date.mon && \
+        invoice.created_at.mday == date.mday
+    end
+    invoices = invoices.map do |invoice|
+      @se.invoice_items.find_all_by_invoice_id(invoice.id)
+    end
+    amount = 0
+    invoices.each do |invoice_item|
+      invoice_item.each do |item|
+        amount += item.unit_price * item.quantity
+      end
+    end
+    amount
   end
 
   def merchants_with_pending_invoices
