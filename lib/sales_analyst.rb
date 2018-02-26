@@ -1,4 +1,3 @@
-
 require 'bigdecimal'
 require_relative 'sales_engine.rb'
 require 'pry'
@@ -206,5 +205,27 @@ class SalesAnalyst
     money_totals.collect do |key, value|
       return key if max.include?(value)
     end
+  end
+
+  def merchants_with_pending_invoices
+    invoices = @engine.invoices.all
+    invoices.map do |invoice|
+      invoice if invoice.transactions.all? { |trans| trans.result == 'failed' }
+    end.compact.map(&:merchant).uniq
+  end
+
+  def merchants_with_only_one_item
+    merchant_collector.map do |merchant|
+      merchant if merchant.items.length == 1
+    end.compact
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    month_digit = Date::MONTHNAMES.index(month)
+    merchant_collector.map do |merchant|
+      merchant if merchant.created_at.month == month_digit
+    end.compact.map do |merchant|
+      merchant if merchant.items.length == 1
+    end.compact
   end
 end
