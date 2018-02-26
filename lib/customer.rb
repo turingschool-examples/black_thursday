@@ -26,4 +26,13 @@ class Customer
     end
     current_location.route(payload)
   end
+
+  def fully_paid_invoices
+    payload = ['fully paid invoices', id]
+    current_location = self
+    while current_location.respond_to?('parent')
+      current_location = current_location.parent
+    end
+    current_location.route(payload)
+  end
 end

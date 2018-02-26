@@ -4,7 +4,6 @@ require_relative 'invoice_repository'
 require_relative 'transaction_repository'
 require_relative 'invoice_item_repository'
 require_relative 'customer_repository'
-require 'pry'
 
 class SalesEngine
   attr_reader :item_csv_path,
@@ -54,6 +53,8 @@ class SalesEngine
     when 'customer merchants' then find_merchants_by_customer_id(payload[1])
     when 'transaction payment' then find_transaction_payment_status(payload[1])
     when 'total invoice cost' then total_invoice_cost(payload[1])
+    when 'fully paid invoices' then find_fully_paid_invoices(payload[1])
+    when 'find invoice items' then find_invoice_items(payload[1])
     end
   end
 
@@ -110,5 +111,14 @@ class SalesEngine
       invoice_item.quantity * invoice_item.unit_price
     end
     total_prices.reduce(:+)
+  end
+
+  def find_fully_paid_invoices(customer_id)
+    invoices = @invoices.find_all_by_customer_id(customer_id)
+    invoices.find_all(&:is_paid_in_full?)
+  end
+
+  def find_invoice_items(invoice_id)
+    @invoice_items.find_all_by_invoice_id(invoice_id)
   end
 end

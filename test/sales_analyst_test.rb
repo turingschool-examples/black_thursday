@@ -23,18 +23,18 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_for_items_per_merchant
-    expected = [1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0]
+    expected = [1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0]
     actual = @sales_analyst.items_per_merchant
     assert_equal expected, actual
   end
 
   def test_for_average_items_per_merchant
-    assert_equal 0.29, @sales_analyst.average_items_per_merchant
+    assert_equal 0.27, @sales_analyst.average_items_per_merchant
   end
 
   def test_average_items_per_merchant_standard_deviation
     actual = @sales_analyst.average_items_per_merchant_standard_deviation
-    assert_equal 0.72, actual
+    assert_equal 0.7, actual
   end
 
   def test_merchants_with_high_item_count
@@ -42,8 +42,8 @@ class SalesAnalystTest < Minitest::Test
 
     assert actual.is_a?(Array)
     assert actual[0].is_a?(Merchant)
-    assert_equal 1, actual.count
-    assert_equal 'Madewithgitterxx', actual[0].name
+    assert_equal 4, actual.count
+    assert_equal 'Shopin1901', actual[0].name
   end
 
   def test_for_average_item_price_for_merchant
@@ -57,13 +57,13 @@ class SalesAnalystTest < Minitest::Test
     actual = @sales_analyst.average_average_price_per_merchant
 
     assert actual.is_a?(BigDecimal)
-    assert_equal 0.324e1, actual
+    assert_equal 0.309e1, actual
   end
 
   def test_for_item_unit_prices
     expected = [0.12e2, 0.13e2, 0.135e2, 0.7e1, 0.15e2, 0.2999e2, 0.149e3,
                 0.149e2, 0.69e1, 0.4e3, 0.13e3, 0.399e1, 0.8e2, 0.6e3, 0.65e3,
-                0.4e2, 0.239e2, 0.5e3, 0.239e2, 0.5e3, 0.5e1, 0.2e1]
+                0.4e2, 0.239e2, 0.5e3, 0.239e2, 0.5e3, 0.5e1, 0.2e1, 0.35e1, 0.406e3]
     actual = @sales_analyst.item_unit_prices
 
     assert_equal expected, actual
@@ -72,13 +72,13 @@ class SalesAnalystTest < Minitest::Test
   def test_for_average_item_price
     actual = @sales_analyst.average_item_price
 
-    assert_equal 146.36727272727273, actual
+    assert_equal 151.2325, actual
   end
 
   def test_for_item_price_standard_deviation
     actual = @sales_analyst.item_price_standard_deviation
 
-    assert_equal 220.54, actual
+    assert_equal 219.55, actual
   end
 
   def test_for_golden_items
@@ -91,11 +91,13 @@ class SalesAnalystTest < Minitest::Test
 
   def test_for_average_invoices_per_merchant
     assert_equal 0.24, @sales_analyst.average_invoices_per_merchant
+    assert_equal 0.18, @sales_analyst.average_invoices_per_merchant
   end
 
   def test_for_average_invoices_per_merchant_standard_deviation
     actual = @sales_analyst.average_invoices_per_merchant_standard_deviation
     assert_equal 0.7, actual
+    assert_equal 0.5, actual
   end
 
   def test_for_top_merchants_by_invoice_count
@@ -185,5 +187,58 @@ class SalesAnalystTest < Minitest::Test
     assert @sales_analyst.most_sold_item_for_merchant(12334105).is_a?(Item)
 
     assert_equal 45, @sales_analyst.most_sold_item_for_merchant(12334105).id
+  end
+
+  def test_top_buyers
+    assert_equal 2, @sales_analyst.top_buyers(2).length
+    assert_equal 5, @sales_analyst.top_buyers(3).first.id
+
+    assert_equal 2, @sales_analyst.top_buyers.length
+    assert_equal 339, @sales_analyst.top_buyers.last.id
+  end
+
+  def test_top_merchant_for_customer
+    expected = @se.merchants.find_by_id(123_359_38)
+
+    assert_equal expected, @sales_analyst.top_merchant_for_customer(1)
+  end
+
+  def test_one_time_buyers
+    expected = @se.customers.find_by_id(5)
+
+    assert_equal 2, @sales_analyst.one_time_buyers.length
+    assert_equal expected, @sales_analyst.one_time_buyers.first
+  end
+
+  def test_one_time_buyers_top_items
+    assert_equal 1, @sales_analyst.one_time_buyers_top_items.length
+    assert_equal 263_504_126, @sales_analyst.one_time_buyers_top_items.first.id
+  end
+
+  def test_items_bought_in_year
+    assert_equal 4, @sales_analyst.items_bought_in_year(1, 2012).length
+    assert_equal 263_519_844, @sales_analyst.items_bought_in_year(1, 2009).first.id
+  end
+
+  def test_highest_volume_items
+    assert_equal 2, @sales_analyst.highest_volume_items(1).length
+    assert_equal 263_454_779, @sales_analyst.highest_volume_items(1).first.id
+    assert_equal Item, @sales_analyst.highest_volume_items(1).first.class
+  end
+
+  def test_customers_with_unpaid_invoices
+    assert_equal 6, @sales_analyst.customers_with_unpaid_invoices.length
+    assert_equal 1, @sales_analyst.customers_with_unpaid_invoices.first.id
+    assert_equal 339, @sales_analyst.customers_with_unpaid_invoices.last.id
+  end
+
+  def test_best_invoice_by_revenue
+    assert_instance_of Invoice, @sales_analyst.best_invoice_by_revenue
+    assert_equal 19, @sales_analyst.best_invoice_by_revenue.id
+  end
+
+  def test_best_invoice_by_quantity
+    assert_instance_of Invoice, @sales_analyst.best_invoice_by_quantity
+    assert_equal 19, @sales_analyst.best_invoice_by_quantity.id
   end
 end
