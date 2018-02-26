@@ -8,7 +8,7 @@ class CustomerRepository
   def initialize(filepath, parent = nil)
     @customers    = []
     @engine       = parent
-    load_items(filepath)
+    load_customers(filepath)
   end
 
   def inspect
@@ -19,7 +19,7 @@ class CustomerRepository
     @customers
   end
 
-  def load_items(filepath)
+  def load_customers(filepath)
     CSV.foreach(filepath, headers: true, header_converters: :symbol) do |data|
       @customers << Customer.new(data, self)
     end

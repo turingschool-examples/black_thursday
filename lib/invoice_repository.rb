@@ -8,14 +8,14 @@ class InvoiceRepository
   def initialize(filepath, parent = nil)
     @invoices = []
     @engine   = parent
-    load_items(filepath)
+    load_invoices(filepath)
   end
 
   def inspect
     "#<#{self.class} #{@invoices.size} rows>"
   end
 
-  def load_items(filepath)
+  def load_invoices(filepath)
     CSV.foreach(filepath, headers: true, header_converters: :symbol) do |data|
       @invoices << Invoice.new(data, self)
     end

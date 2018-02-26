@@ -8,7 +8,7 @@ class TransactionRepository
   def initialize(filepath, parent = nil)
     @transactions = []
     @engine       = parent
-    load_items(filepath)
+    load_transactions(filepath)
   end
 
   def inspect
@@ -19,7 +19,7 @@ class TransactionRepository
     @transactions
   end
 
-  def load_items(filepath)
+  def load_transactions(filepath)
     CSV.foreach(filepath, headers: true, header_converters: :symbol) do |data|
       @transactions << Transaction.new(data, self)
     end

@@ -8,7 +8,7 @@ class InvoiceItemRepository
   def initialize(filepath, parent = nil)
     @invoice_items    = []
     @engine           = parent
-    load_items(filepath)
+    load_invoice_items(filepath)
   end
 
   def inspect
@@ -19,7 +19,7 @@ class InvoiceItemRepository
     @invoice_items
   end
 
-  def load_items(filepath)
+  def load_invoice_items(filepath)
     CSV.foreach(filepath, headers: true, header_converters: :symbol) do |data|
       @invoice_items << InvoiceItem.new(data, self)
     end
