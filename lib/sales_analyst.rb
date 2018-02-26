@@ -1,5 +1,5 @@
 require 'bigdecimal'
-require 'pry'
+require 'date'
 
 # This is the sales analyst class
 class SalesAnalyst
@@ -200,6 +200,95 @@ class SalesAnalyst
     numerator = @invoice_repo.find_all_by_status(status).count.to_f
     denominator = @invoices.count
     ((numerator / denominator) * 100).round 2
+  end
+  
+  def total_revenue_by_date(date)
+    invoices = @invoices.find_all do |invoice|
+      invoice.created_at == date
+    end
+    paid_invoices = invoices.find_all(&:is_paid_in_full?)
+    invoice_ids = paid_invoices.map(&:id)
+    invoice_items = invoice_ids.map do |invoice_id|
+      @invoice_items.find_all { |invoice_item| invoice_item.invoice_id == invoice_id }
+    end.flatten
+    item_prices = invoice_items.map { |invoice_item| invoice_item.unit_price * invoice_item.quantity }
+    item_prices.inject { |sum, num| sum + num }
+  end
+
+  def top_revenue_earners(num_merchants = 20)
+    merchant_revenues = @merchants.map do |merchant|
+      invoices = @invoices.find_all { |invoice| invoice.merchant_id == merchant.id }
+      paid_invoices = invoices.find_all(&:is_paid_in_full?)
+      invoice_ids = paid_invoices.map(&:id)
+      invoice_items = invoice_ids.map do |invoice_id|
+        @invoice_items.find_all { |invoice_item| invoice_item.invoice_id == invoice_id }
+      end.flatten
+      item_prices = invoice_items.map { |invoice_item| invoice_item.unit_price * invoice_item.quantity }
+      item_prices.inject { |sum, num| sum + num }.to_f
+    end
+    zipped = @merchants.zip(merchant_revenues).to_h
+    sorted = zipped.max_by(num_merchants) { |k,v| v }
+    sorted.map { |subarray| subarray[0] }
+  end
+
+  def revenue_by_merchant(merchant_id)
+    invoices = @invoices.find_all { |invoice| invoice.merchant_id == merchant_id }
+    paid_invoices = invoices.find_all(&:is_paid_in_full?)
+    invoice_ids = paid_invoices.map(&:id)
+    invoice_items = invoice_ids.map do |invoice_id|
+      @invoice_items.find_all { |invoice_item| invoice_item.invoice_id == invoice_id }
+    end.flatten
+    item_prices = invoice_items.map { |invoice_item| invoice_item.unit_price * invoice_item.quantity }
+    item_prices.inject { |sum, num| sum + num }
+  end
+
+  def merchants_total_revenue
+    total_revenue = @merchants.map { |merchant| revenue_by_merchant(merchant.id) }
+    total_revenue.map { |num| num || 0 }
+  end
+
+  def merchants_ranked_by_revenue
+    zipped = @merchants.zip(merchants_total_revenue).to_h
+    sorted = zipped.sort_by { |_k, v| v }
+    sorted.map { |merchant| merchant[0] }.reverse
+  end
+
+  def merchants_with_pending_invoices
+    pending_invoices = @invoices.find_all { |invoice| !invoice.is_paid_in_full? }
+    merchant_ids = pending_invoices.map(&:merchant_id).uniq
+    merchant_ids.map do |merchant_id|
+      @merchants.find_all { |merchant| merchant.id == merchant_id }
+    end.flatten
+  end
+
+  def merchants_with_only_one_item
+    merchant_items = @merchants.map { |merchant| merchant.items.length }
+    zipped = @merchants.zip(merchant_items)
+    only_one = zipped.find_all { |subarray| subarray[1] == 1 }
+    only_one.map { |subarray| subarray[0] }
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    month_digit = Date::MONTHNAMES.index(month)
+    merchants = @merchants.find_all do |merchant|
+      merchant.created_at.month.to_i == month_digit
+    end
+    item_count = merchants.map { |merchant| merchant.items.length }
+    zipped = merchants.zip(item_count)
+    only_one = zipped.find_all { |subarray| subarray[1] == 1 }
+    only_one.map { |subarray| subarray[0] }
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    merchant = @merchant_repo.find_by_id(merchant_id)
+    items = merchant.items
+    item_ids = items.map(&:id)
+    invoice_items_count = item_ids.map do |item_id|
+      (@invoice_items.find_all { |invoice_item| invoice_item.item_id == item_id }).length
+    end
+    zipped = items.zip(invoice_items_count)
+    sorted = zipped.sort_by { |_k, v| v }.reverse
+    sorted[0]
   end
 
   def top_buyers(num_customers = 20)

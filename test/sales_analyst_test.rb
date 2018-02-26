@@ -1,6 +1,7 @@
 require_relative 'test_helper'
 require_relative '../lib/sales_analyst'
 require_relative '../lib/sales_engine'
+require 'date'
 
 # This is a class for tests of the sales analyst class.
 class SalesAnalystTest < Minitest::Test
@@ -89,11 +90,13 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_for_average_invoices_per_merchant
+    assert_equal 0.24, @sales_analyst.average_invoices_per_merchant
     assert_equal 0.18, @sales_analyst.average_invoices_per_merchant
   end
 
   def test_for_average_invoices_per_merchant_standard_deviation
     actual = @sales_analyst.average_invoices_per_merchant_standard_deviation
+    assert_equal 0.7, actual
     assert_equal 0.5, actual
   end
 
@@ -124,9 +127,66 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_for_invoice_status
-    assert_equal 36.0, @sales_analyst.invoice_status(:pending)
-    assert_equal 56.0, @sales_analyst.invoice_status(:shipped)
-    assert_equal 8.0, @sales_analyst.invoice_status(:returned)
+    assert_equal 33.33, @sales_analyst.invoice_status(:pending)
+    assert_equal 51.85, @sales_analyst.invoice_status(:shipped)
+    assert_equal 14.81, @sales_analyst.invoice_status(:returned)
+  end
+
+  def test_for_total_revenue_by_date
+    date = Time.parse("2005-01-03")
+    assert_equal 0.87909e3, @sales_analyst.total_revenue_by_date(date)
+  end
+
+  def test_for_top_revenue_earners
+    assert @sales_analyst.top_revenue_earners.is_a?(Array)
+    assert @sales_analyst.top_revenue_earners[0].is_a?(Merchant)
+
+    assert_equal 20, @sales_analyst.top_revenue_earners.length
+    assert_equal 7, @sales_analyst.top_revenue_earners(7).length
+    assert_equal 12_334_105, @sales_analyst.top_revenue_earners.first.id
+    assert_equal 12_334_115, @sales_analyst.top_revenue_earners.last.id
+  end
+
+  def test_for_merchants_with_pending_invoices
+    assert @sales_analyst.merchants_with_pending_invoices.is_a?(Array)
+    assert @sales_analyst.merchants_with_pending_invoices[0].is_a?(Merchant)
+
+    assert_equal 2, @sales_analyst.merchants_with_pending_invoices.length
+  end
+
+  def test_for_revenue_by_merchant
+    assert_equal 0.87909e3, @sales_analyst.revenue_by_merchant(12334105)
+  end
+
+  def test_for_merchants_ranked_by_revenue
+    assert @sales_analyst.merchants_ranked_by_revenue.is_a?(Array)
+    assert @sales_analyst.merchants_ranked_by_revenue[0].is_a?(Merchant)
+
+    assert_equal 12334105, @sales_analyst.merchants_ranked_by_revenue[0].id
+  end
+
+  def test_for_merchants_total_revenue
+    assert_equal 0.87909e3, @sales_analyst.merchants_total_revenue[0]
+  end
+
+  def test_for_merchants_with_only_one_item
+    assert @sales_analyst.merchants_with_only_one_item.is_a?(Array)
+    assert @sales_analyst.merchants_with_only_one_item[0].is_a?(Merchant)
+
+    assert_equal 3, @sales_analyst.merchants_with_only_one_item.length
+  end
+
+  def test_for_merchants_with_only_one_item_registered_in_month
+    assert @sales_analyst.merchants_with_only_one_item_registered_in_month('July').is_a?(Array)
+    assert @sales_analyst.merchants_with_only_one_item_registered_in_month('July')[0].is_a?(Merchant)
+
+    assert_equal 2, @sales_analyst.merchants_with_only_one_item_registered_in_month('July').length
+  end
+
+  def test_for_most_sold_item_for_merchant
+    assert @sales_analyst.most_sold_item_for_merchant(12334105).is_a?(Item)
+
+    assert_equal 45, @sales_analyst.most_sold_item_for_merchant(12334105).id
   end
 
   def test_top_buyers

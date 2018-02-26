@@ -1,5 +1,6 @@
 require 'csv'
 require_relative 'transaction'
+require 'pry'
 
 # This is an transaction repository class
 class TransactionRepository
