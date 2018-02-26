@@ -3,13 +3,17 @@ module CustomerAnalytics
   def top_buyers(num = 20)
     hash = {}
     customers.each do |customer|
-      invoices = get_invoices(customer.id)
-      paid_invoices = invoices.find_all(&:is_paid_in_full?)
-      invoice_costs = paid_invoices.map(&:total)
-      hash[invoice_costs.reduce(:+).to_f] = customer
+      create_buyers_hash(customer, hash)
     end
     top_customers = hash.keys.max(num)
     top_customers.map { |key| hash[key] }
+  end
+
+  def create_buyers_hash(customer, hash)
+    invoices = get_invoices(customer.id)
+    paid_invoices = invoices.find_all(&:is_paid_in_full?)
+    invoice_costs = paid_invoices.map(&:total)
+    hash[invoice_costs.reduce(:+).to_f] = customer
   end
 
   def get_invoices(customer_id)
