@@ -145,7 +145,7 @@ class SalesAnalyst
 
   def check_if_merchant_invoices_are_successful(merchant)
     merchant.invoices.any? do |invoice|
-      invoice.transactions.none? { |sale| sale.result == "success" }
+      invoice.transactions.none? { |sale| sale.result == 'success' }
     end
   end
 

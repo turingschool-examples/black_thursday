@@ -21,7 +21,9 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_items_per_merchant_standard_deviation
-    assert_equal 3.16, @sales_analyst.average_items_per_merchant_standard_deviation
+    std_dev = @sales_analyst.average_items_per_merchant_standard_deviation
+
+    assert_equal 3.16, std_dev
   end
 
   def test_item_count_per_merchant
@@ -31,13 +33,14 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_merchants_with_high_item_count
-    expected = [@se.find_merchant_by_merchant_id(12334195)]
+    expected = [@se.find_merchant_by_merchant_id(12_334_195)]
 
     assert_equal expected, @sales_analyst.merchants_with_high_item_count
   end
 
   def test_avg_item_price_for_merchant
-    assert_equal 0.1117e2, @sales_analyst.average_item_price_for_merchant(12334185)
+    price = @sales_analyst.average_item_price_for_merchant(12_334_185)
+    assert_equal 0.1117e2, price
   end
 
   def test_avg_avg_price_for_merchant
@@ -45,7 +48,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_golden_items
-    golden = @sales_analyst.golden_items.map { |item| item.id }
+    golden = @sales_analyst.golden_items.map(&:id)
     expected = []
 
     assert_equal expected, golden
@@ -62,13 +65,15 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_invoices_per_merchant_standard_deviation
-    assert_equal 2.88, @sales_analyst.average_invoices_per_merchant_standard_deviation
+    std_dev = @sales_analyst.average_invoices_per_merchant_standard_deviation
+
+    assert_equal 2.88, std_dev
   end
 
   def test_top_merchants_by_invoice_count
     merchants = @sales_analyst.top_merchants_by_invoice_count
 
-    assert_equal [@se.find_merchant_by_merchant_id(12334141)], merchants
+    assert_equal [@se.find_merchant_by_merchant_id(12_334_141)], merchants
   end
 
   def test_bottom_merchants_by_invoice_count
@@ -103,16 +108,22 @@ class SalesAnalystTest < Minitest::Test
 
   def test_total_revenue_by_date
     date = Date.new(2003, 3, 28)
-    assert_equal 0.859012e4, @sales_analyst.total_revenue_by_date(date)
+    revenue = @sales_analyst.total_revenue_by_date(date)
+
+    assert_equal BigDecimal.new('8590.12'), revenue
   end
 
   def test_merchants_with_pending_invoices
     @sales_analyst.merchants_with_pending_invoices do |merchant|
       assert_instance_of Merchant, merchant
     end
-    assert_equal 7, @sales_analyst.merchants_with_pending_invoices.length
-    assert_equal 12_334_141, @sales_analyst.merchants_with_pending_invoices.first.id
-    assert_equal 'handicraftcallery', @sales_analyst.merchants_with_pending_invoices.last.name
+    pending = @sales_analyst.merchants_with_pending_invoices.length
+    first = @sales_analyst.merchants_with_pending_invoices.first.id
+    last = @sales_analyst.merchants_with_pending_invoices.last.name
+
+    assert_equal 7, pending
+    assert_equal 12_334_141, first
+    assert_equal 'handicraftcallery', last
   end
 
   def test_to_check_if_merchant_invoices_are_successful
