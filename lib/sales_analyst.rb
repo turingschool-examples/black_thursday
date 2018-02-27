@@ -284,6 +284,7 @@ class SalesAnalyst
   end
 
   def top_buyers(num_customers = 20)
+    #create hash with customer as key and value as fully paid invoices
     @customers.max_by(num_customers) do |customer|
       invoice_costs = customer.fully_paid_invoices.map(&:total)
       invoice_costs.inject(:+).to_f
