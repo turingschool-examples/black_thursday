@@ -4,6 +4,7 @@ require_relative 'invoice_repository'
 require_relative 'transaction_repository'
 require_relative 'invoice_item_repository'
 require_relative 'customer_repository'
+require 'pry'
 
 class SalesEngine
   attr_reader :item_csv_path,
@@ -36,29 +37,7 @@ class SalesEngine
   end
 
   def self.from_csv(hash)
-    self.new(hash)
-  end
-
-  def route(payload)
-    case payload[0]
-    when 'merchant items' then find_items_by_merchant_id(payload[1])
-    when 'items merchant' then find_merchant(payload[1])
-    when 'invoices merchant' then find_merchant(payload[1])
-    when 'merchant invoices' then find_invoices_by_merchant_id(payload[1])
-    when 'invoice items' then find_items_by_invoice_id(payload[1])
-    when 'invoice transactions' then find_transactions_by_invoice_id(payload[1])
-    when 'invoice customer' then find_customer_by_customer_id(payload[1])
-    when 'transaction invoice' then find_invoice(payload[1])
-    when 'merchant customers' then find_customers_by_merchant_id(payload[1])
-    when 'customer merchants' then find_merchants_by_customer_id(payload[1])
-    when 'transaction payment' then find_transaction_payment_status(payload[1])
-    when 'total invoice cost' then total_invoice_cost(payload[1])
-    when 'fully paid invoices' then find_fully_paid_invoices(payload[1])
-    when 'find invoice items' then find_invoice_items(payload[1])
-    when 'merchant invoice items' then find_invoice_items(payload[1])
-    when 'all invoices' then find_invoice_by_customer(payload[1])
-    when 'customer items' then find_invoice_items(payload[1])
-    end
+    new(hash)
   end
 
   def find_merchant(attribute_used)

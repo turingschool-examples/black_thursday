@@ -22,30 +22,30 @@ class Invoice
   end
 
   def merchant
-    traverse('invoices merchant', merchant_id)
+    traverse('find_merchant', merchant_id)
   end
 
   def items
-    traverse('invoice items', id)
+    traverse('find_items_by_invoice_id', id)
   end
 
   def transactions
-    traverse('invoice transactions', id)
+    traverse('find_transactions_by_invoice_id', id)
   end
 
   def customer
-    traverse('invoice customer', customer_id)
+    traverse('find_customer_by_customer_id', customer_id)
   end
 
   def is_paid_in_full?
-    traverse('transaction payment', id)
+    traverse('find_transaction_payment_status', id)
   end
 
   def total
-    traverse('total invoice cost', id)
+    traverse('total_invoice_cost', id)
   end
 
   def invoice_items
-    traverse('find invoice items', id)
+    traverse('find_invoice_items', id)
   end
 end
