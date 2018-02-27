@@ -30,6 +30,6 @@ class Item
   end
 
   def merchant
-    traverse('items merchant', merchant_id)
+    traverse('find_merchant', merchant_id)
   end
 end
