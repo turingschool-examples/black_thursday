@@ -20,11 +20,44 @@ class SalesAnalystTest < Minitest::Test
     assert_equal @se,                @sa.sales_engine
   end
 
+  def test_it_can_load_merchants
+    assert_instance_of Array,    @sa.merchants
+    assert_instance_of Merchant, @sa.merchants[0]
+  end
+
+  def test_it_can_load_items
+    assert_instance_of Array, @sa.items
+    assert_instance_of Item,  @sa.items[0]
+  end
+
+  def test_it_can_load_invoices
+    assert_instance_of Array,   @sa.invoices
+    assert_instance_of Invoice, @sa.invoices[0]
+  end
+
+  def test_it_can_load_customers
+    assert_instance_of Array,    @sa.customers
+    assert_instance_of Customer, @sa.customers[0]
+  end
+
+  def test_it_can_count_invoices
+    assert_equal [2, 4, 2, 1], @sa.invoice_count
+  end
+
+  def test_it_can_average
+    assert_equal 1,                @sa.average(3, 3)
+    assert_instance_of BigDecimal, @sa.average(3, 3)
+  end
+
+  def test_standard_deviation_calc
+    assert_equal 1, @sa.standard_deviation([1, 2, 3], 2)
+  end
+
   def test_average_items_per_merchant
     assert_equal 1.25, @sa.average_items_per_merchant
   end
 
-  def test_standard_deviation
+  def test_items_per_merchant_standard_deviation
     assert_equal 1.5, @sa.average_items_per_merchant_standard_deviation
   end
 
@@ -40,6 +73,12 @@ class SalesAnalystTest < Minitest::Test
     assert_equal BigDecimal.new('16.66'), @sa.average_item_price_for_merchant(2)
   end
 
+  def test_find_items_with_merchant_id
+    assert_equal 3,          @sa.find_items_with_merchant_id(2).length
+    assert_instance_of Item, @sa.find_items_with_merchant_id(2)[0]
+    assert_equal 2,          @sa.find_items_with_merchant_id(2)[0].merchant_id
+  end
+
   def test_average_average_price_per_merchant
     assert_equal BigDecimal.new('7.35'), @sa.average_average_price_per_merchant
   end
@@ -48,6 +87,10 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Array,      @sa.all_item_prices
     assert_equal 5,                @sa.all_item_prices.length
     assert_instance_of BigDecimal, @sa.all_item_prices[0]
+  end
+
+  def test_avg_items_price_standard_deviation
+    assert_equal 12.288811984890973, @sa.average_items_price_standard_deviation
   end
 
   def test_golden_items
@@ -75,6 +118,10 @@ class SalesAnalystTest < Minitest::Test
 
   def test_can_find_how_many_invoices_there_are_per_day
     assert_instance_of Hash, @sa.finding_number_of_invoices_per_day
+  end
+
+  def test_average_invoice_per_day
+    assert_equal 1.2857142857142858, @sa.average_invoice_per_day
   end
 
   def test_can_find_number_of_invoices_for_days_of_week
