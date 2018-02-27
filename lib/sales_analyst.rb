@@ -27,7 +27,6 @@ class SalesAnalyst
 
   def customers
     @sales_engine.customers.all
-
   end
 
   def invoice_count
@@ -93,7 +92,7 @@ class SalesAnalyst
 
   def golden_items
     average = average_average_price_per_merchant
-    @sales_engine.items.all.collect do |item|
+    items.collect do |item|
       difference = (item.unit_price - average).to_f
       item if difference > @std_dev_price * 2
     end.compact
@@ -114,7 +113,7 @@ class SalesAnalyst
     invoice_deviation = average_invoices_per_merchant_standard_deviation
     top_merchants     = merchants.find_all do |merchant|
       merchant.invoices.count > ((invoice_deviation * 2) + invoice_average)
-      end
+    end
     top_merchants
   end
 
@@ -148,7 +147,7 @@ class SalesAnalyst
   def invoice_day_deviation
     days  = finding_number_of_invoices_per_day
     average = average_invoice_per_day
-    total = days.map do |day, count|
+    total = days.map do |_day, count|
       (count - average)**2
     end
     Math.sqrt(total.reduce(:+) / (total.length - 1)).round(2)

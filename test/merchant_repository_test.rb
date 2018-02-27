@@ -84,13 +84,4 @@ class MerchantRepositoryTest < Minitest::Test
     result = merchant_repo.find_all_by_name('ksjadhf')
     assert_equal [],             result
   end
-
-  def test_pass_to_se_methods
-  skip
-  parent = mock
-  parent.stubs(:find_all_by_customer_id).returns('customer')
-  merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv',
-                                          parent)
-  assert_equal merchant_repo.pass_customer_id_to_se(2), parent.invoices.find_all_by_customer_id(2)
-  end
 end
