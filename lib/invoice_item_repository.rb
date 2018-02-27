@@ -36,12 +36,6 @@ class InvoiceItemRepository
     invoice_id_array.map { |invoice_id| find_all_by_invoice_id(invoice_id) }
   end
 
-  def find_all_by_quantity(quantity)
-    @invoice_items.find_all do |invoice_item|
-      invoice_item.quantity == quantity
-    end
-  end
-
   def find_all_invoice_invoice_items(invoices)
     invoices.map do |invoice|
       @invoice_item_repo.find_all_by_invoice_id(invoice.id)

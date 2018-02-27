@@ -253,8 +253,14 @@ class SalesAnalyst
     invoice_ids = merchants_invoices.find_all(&:is_paid_in_full?).map(&:id)
     i_items = @invoice_item_repo.find_all_by_mult_invoice_ids(invoice_ids)
     sorted = i_items.flatten.max_by(&:quantity).quantity
-    highest_quantity = @invoice_item_repo.find_all_by_quantity(sorted)
+    highest_quantity = search_invoice_items_by_quantity(i_items.flatten, sorted)
     @item_repo.find_all_by_invoice_item_ids(highest_quantity)
+  end
+
+  def search_invoice_items_by_quantity(invoice_item_array, quantity)
+    invoice_item_array.find_all do |invoice_item|
+      invoice_item.quantity == quantity
+    end
   end
 
   def best_item_for_merchant(merchant_id)
