@@ -158,6 +158,63 @@ class SalesAnalyst
   end
 
   def merchants_ranked_by_revenue
-    @se.merchants.all.sort_by { |merchant| merchant.revenue }.reverse
+    @se.merchants.all.sort_by(&:revenue).reverse
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    month_digit = Date::MONTHNAMES.index(month)
+    merchants = []
+    @se.merchants.all.each do |merchant|
+      if merchant.created_at == month_digit
+        merchants << merchant
+      end
+    end
+    one_item_merch = []
+    merchants.each do |merchant|
+      if @se.find_items_by_merchant_id(merchant).length == 1
+        one_item_merch << merchant
+      end
+    end
+    one_item_merch
+  end
+
+  def revenue_by_merchant(merchant_id)
+    invoices = @se.find_invoices_by_merchant_id(merchant_id)
+    revenue = 0
+    invoices.each do |invoice|
+      invoice_item = @se.find_invoice_items_by_invoice_id(invoice.id)
+      invoice_item.each do |item|
+        revenue += item.quantity * item.unit_price
+      end
+    end
+    revenue
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    invoices = @se.find_invoices_by_merchant_id(merchant_id)
+    invoices.map do |invoice|
+      @se.find_invoice_items_by_invoice_id(invoice.id)
+    end
+    invoices.flatten
+    invoices.max_by(&:quantity)
+  end
+
+  def best_item_for_merchant(merchant_id)
+    invoices = @se.find_invoices_by_merchant_id(merchant_id)
+    items = {}
+    invoices.each do |invoice|
+      if invoice.is_paid_in_full?
+        invoice_items = @se.find_invoice_items_by_invoice_id(invoice.id)
+        invoice_items.each do |invoice_item|
+          if items.has_key?(invoice_item.item_id)
+            items[invoice_item.item_id] += invoice_item.quantity * invoice_item.unit_price
+          else
+            items[invoice_item.item_id] = invoice_item.quantity * invoice_item.unit_price
+          end
+        end
+      end
+    end
+    best_item_id = (items.max_by { |key, value| value })[0]
+    @se.find_item_by_id(best_item_id)
   end
 end

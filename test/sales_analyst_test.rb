@@ -163,4 +163,8 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 12334141, @sales_analyst.merchants_ranked_by_revenue.first.id
     assert_equal 22334105, @sales_analyst.merchants_ranked_by_revenue.last.id
   end
+
+  def test_revenue_by_merchant
+    assert_equal 52395.72, @sales_analyst.revenue_by_merchant(12334141)
+  end
 end
