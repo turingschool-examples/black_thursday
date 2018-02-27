@@ -14,12 +14,18 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_it_exists
     assert_instance_of InvoiceItemRepository, @repo
+    assert_equal       'parent', @repo.parent
   end
 
   def test_it_has_invoice_items
     assert_instance_of Array,       @repo.all
     assert_equal 20,                @repo.all.length
     assert_instance_of InvoiceItem, @repo.all[0]
+    assert_nil                      @repo.load_invoice_items('./test/fixtures/invoice_items.csv')
+  end
+
+  def test_inspect
+    assert_equal "#<InvoiceItemRepository 20 rows>", @repo.inspect
   end
 
   def test_find_by_id

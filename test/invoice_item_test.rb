@@ -23,9 +23,11 @@ class InvoiceItemTest < Minitest::Test
   end
 
   def test_it_has_attributes
-    assert_equal 6, @invoice_item.id
-    assert_equal 7, @invoice_item.item_id
-    assert_equal 8, @invoice_item.invoice_id
+    assert_equal 6,        @invoice_item.id
+    assert_equal 7,        @invoice_item.item_id
+    assert_equal 8,        @invoice_item.invoice_id
+    assert_equal 1,        @invoice_item.quantity
+    assert_equal 0.1099e2, @invoice_item.unit_price
   end
 
   def test_it_has_more_attributes

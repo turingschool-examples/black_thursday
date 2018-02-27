@@ -49,4 +49,19 @@ class CustomerTest < Minitest::Test
                               updated_at: Time.now }, parent)
     assert_equal ['merchant'], customer.merchants
   end
+
+  def test_fully_paid_invoices
+    parent = mock
+    invoice = mock
+    parent.stubs(:pass_customer_id_to_se).returns([invoice])
+    invoice.stubs(:merchant_id).returns(1)
+    invoice.stubs(:is_paid_in_full?).returns(true)
+    parent.stubs(:pass_merchant_id_to_se).returns('merchant')
+    customer = Customer.new({ id: 6,
+                              first_name: 'Joan',
+                              last_name: 'Clarke',
+                              created_at: Time.now,
+                              updated_at: Time.now }, parent)
+    assert_equal [invoice], customer.fully_paid_invoices
+  end
 end
