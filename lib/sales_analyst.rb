@@ -180,47 +180,41 @@ class SalesAnalyst
   end
 
   def total_revenue_by_date(date)
-    invoices = @invoices.find_all do |invoice|
-      invoice.created_at == date
-    end
-    paid_invoices = invoices.find_all(&:is_paid_in_full?)
-    invoice_ids = paid_invoices.map(&:id)
+    invoices = @invoice_repo.find_all_by_date(date)
+    invoice_ids = invoices.find_all(&:is_paid_in_full?).map(&:id)
     invoice_items = invoice_ids.map do |invoice_id|
-      @invoice_items.find_all { |invoice_item| invoice_item.invoice_id == invoice_id }
+      @invoice_item_repo.find_all_by_invoice_id(invoice_id)
     end.flatten
-    item_prices = invoice_items.map { |invoice_item| invoice_item.unit_price * invoice_item.quantity }
-    item_prices.inject { |sum, num| sum + num }
+    invoice_items.map { |ii| ii.unit_price * ii.quantity }.reduce :+
   end
 
   def top_revenue_earners(num_merchants = 20)
     merchant_revenues = @merchants.map do |merchant|
-      invoices = @invoices.find_all { |invoice| invoice.merchant_id == merchant.id }
-      paid_invoices = invoices.find_all(&:is_paid_in_full?)
-      invoice_ids = paid_invoices.map(&:id)
-      invoice_items = invoice_ids.map do |invoice_id|
-        @invoice_items.find_all { |invoice_item| invoice_item.invoice_id == invoice_id }
-      end.flatten
-      item_prices = invoice_items.map { |invoice_item| invoice_item.unit_price * invoice_item.quantity }
-      item_prices.inject { |sum, num| sum + num }.to_f
+      revenue_by_merchant(merchant.id).to_f
     end
     zipped = @merchants.zip(merchant_revenues).to_h
-    sorted = zipped.max_by(num_merchants) { |k,v| v }
+    sorted = zipped.max_by(num_merchants) { |_k, v| v }
     sorted.map { |subarray| subarray[0] }
   end
 
+  def find_total_item_prices(invoice_item_array)
+    invoice_item_array.map do |invoice_item|
+      invoice_item.unit_price * invoice_item.quantity
+    end
+  end
+
   def revenue_by_merchant(merchant_id)
-    invoices = @invoices.find_all { |invoice| invoice.merchant_id == merchant_id }
-    paid_invoices = invoices.find_all(&:is_paid_in_full?)
-    invoice_ids = paid_invoices.map(&:id)
-    invoice_items = invoice_ids.map do |invoice_id|
-      @invoice_items.find_all { |invoice_item| invoice_item.invoice_id == invoice_id }
-    end.flatten
-    item_prices = invoice_items.map { |invoice_item| invoice_item.unit_price * invoice_item.quantity }
-    item_prices.inject { |sum, num| sum + num }
+    invoices = @invoice_repo.find_all_by_merchant_id(merchant_id)
+    invoice_ids = invoices.find_all(&:is_paid_in_full?).map(&:id)
+    invoice_items = @invoice_item_repo.find_all_by_mult_invoice_ids(invoice_ids)
+    invoice_items.flatten!
+    find_total_item_prices(invoice_items).reduce :+
   end
 
   def merchants_total_revenue
-    total_revenue = @merchants.map { |merchant| revenue_by_merchant(merchant.id) }
+    total_revenue = @merchants.map do |merchant|
+      revenue_by_merchant(merchant.id)
+    end
     total_revenue.map { |num| num || 0 }
   end
 
@@ -231,7 +225,7 @@ class SalesAnalyst
   end
 
   def merchants_with_pending_invoices
-    pending_invoices = @invoices.find_all { |invoice| !invoice.is_paid_in_full? }
+    pending_invoices = @invoices.reject(&:is_paid_in_full?)
     merchant_ids = pending_invoices.map(&:merchant_id).uniq
     merchant_ids.map do |merchant_id|
       @merchants.find_all { |merchant| merchant.id == merchant_id }
@@ -246,45 +240,38 @@ class SalesAnalyst
   end
 
   def merchants_with_only_one_item_registered_in_month(month)
-    month_digit = Date::MONTHNAMES.index(month)
     merchants = @merchants.find_all do |merchant|
-      merchant.created_at.month.to_i == month_digit
+      merchant.created_at.month == Date::MONTHNAMES.index(month)
     end
     item_count = merchants.map { |merchant| merchant.items.length }
-    zipped = merchants.zip(item_count)
-    only_one = zipped.find_all { |subarray| subarray[1] == 1 }
-    only_one.map { |subarray| subarray[0] }
+    one = merchants.zip(item_count).find_all { |subarray| subarray[1] == 1 }
+    one.map { |subarray| subarray[0] }
   end
 
   def most_sold_item_for_merchant(merchant_id)
     merchants_invoices = @invoice_repo.find_all_by_merchant_id(merchant_id)
-    paid_invoices = merchants_invoices.find_all(&:is_paid_in_full?)
-    invoice_items = paid_invoices.map do |invoice|
-      @invoice_item_repo.find_all_by_invoice_id(invoice.id)
-    end.flatten
-    highest_num = invoice_items.max_by(&:quantity).quantity
-    highest_quantity = invoice_items.find_all do |invoice_item|
-      invoice_item.quantity == highest_num
-    end
-    highest_quantity.map do |invoice_item|
-      @item_repo.find_by_id(invoice_item.item_id)
-    end
+    invoice_ids = merchants_invoices.find_all(&:is_paid_in_full?).map(&:id)
+    i_items = @invoice_item_repo.find_all_by_mult_invoice_ids(invoice_ids)
+    sorted = i_items.flatten.max_by(&:quantity).quantity
+    highest_quantity = @invoice_item_repo.find_all_by_quantity(sorted)
+    @item_repo.find_all_by_invoice_item_ids(highest_quantity)
   end
 
   def best_item_for_merchant(merchant_id)
     merchants_invoices = @invoice_repo.find_all_by_merchant_id(merchant_id)
-    paid_invoices = merchants_invoices.find_all(&:is_paid_in_full?)
-    invoice_items = paid_invoices.map do |invoice|
-      @invoice_item_repo.find_all_by_invoice_id(invoice.id)
-    end.flatten
-    highest_revenue = invoice_items.max_by do |invoice_item|
-      invoice_item.quantity * invoice_item.unit_price
-    end
+    invoice_ids = merchants_invoices.find_all(&:is_paid_in_full?).map(&:id)
+    invoice_items = @invoice_item_repo.find_all_by_mult_invoice_ids(invoice_ids)
+    highest_revenue = sort_invoice_items_by_total_revenue(invoice_items)
     @item_repo.find_by_id(highest_revenue.item_id)
   end
 
+  def sort_invoice_items_by_total_revenue(invoice_items)
+    invoice_items.flatten.max_by do |invoice_item|
+      invoice_item.quantity * invoice_item.unit_price
+    end
+  end
+
   def top_buyers(num_customers = 20)
-    #create hash with customer as key and value as fully paid invoices
     @customers.max_by(num_customers) do |customer|
       invoice_costs = customer.fully_paid_invoices.map(&:total)
       invoice_costs.inject(:+).to_f
