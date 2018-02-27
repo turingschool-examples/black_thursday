@@ -167,7 +167,7 @@ class SalesAnalyst
   def convert_to_invoice_items(invoice_array)
     invoice_array.map do |invoice|
       @engine.invoice_items_from_invoice(invoice.id)
-    end
+    end.flatten
   end
 
   def merchants_ranked_by_revenue
@@ -178,17 +178,21 @@ class SalesAnalyst
 
   def total_revenue_by_date(date)
     valid_invoices = valid_invoices(date_invoices(date))
-    invoice_items = convert_to_invoice_items(valid_invoices).flatten
+    invoice_items = convert_to_invoice_items(valid_invoices)
 
     invoice_items.reduce(0) do |sum, invoice_item|
       sum += (invoice_item.unit_price * invoice_item.quantity.to_i)
     end
   end
 
-  def revenue_by_merchant(merchant_id)
-    merchant_invoices = invoice_collector.find_all do |invoice|
+  def find_merchant_invoices(merchant_id)
+    invoice_collector.find_all do |invoice|
       invoice.merchant_id == merchant_id
     end
+  end
+
+  def revenue_by_merchant(merchant_id)
+    merchant_invoices = find_merchant_invoices(merchant_id)
 
     merchant_invoices.reduce(0) do |sum, invoice|
       revenue = @engine.engine_finds_paid_invoice_and_evaluates_cost(invoice.id)
@@ -226,7 +230,19 @@ class SalesAnalyst
     end.compact
   end
 
-  # def revenue_by_merchant(merchant_id)
-  #   @engine.
-  # end
+  def invoice_items_collector
+    @invoice_items_collector ||= engine.invoice_items.all
+  end
+
+  def best_item_for_merchant(merchant_id)
+    good_invoices = valid_invoices(find_merchant_invoices(merchant_id))
+
+    invoice_items = convert_to_invoice_items(good_invoices)
+
+    best_invoice_item = invoice_items.max_by do |invoice_item|
+      invoice_item.unit_price_to_dollars * invoice_item.quantity.to_i
+    end
+
+    @engine.items.find_by_id(best_invoice_item.item_id)
+  end
 end
