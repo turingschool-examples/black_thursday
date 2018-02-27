@@ -221,10 +221,12 @@ class SalesAnalystTest < Minitest::Test
 
   def test_most_sold_item_for_merchant
     result = @sales_analyst.most_sold_item_for_merchant(12334135)
-    
+
     assert_instance_of Array, result
+  end
 
   def test_can_find_best_item_for_merchant
+    skip
     result = @sales_analyst.best_item_for_merchant(12336837)
 
     assert_instance_of Item, result

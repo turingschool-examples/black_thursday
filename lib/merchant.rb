@@ -8,7 +8,7 @@ class Merchant
   end
 
   def items
-    @parent.merch_repo_goes_to_sales_engine_with_merchant_id(@id)
+    @parent.merch_repo_find_items_via_engine(@id)
   end
 
   def invoices
