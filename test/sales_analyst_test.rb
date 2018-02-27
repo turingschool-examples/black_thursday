@@ -63,9 +63,9 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 0.96, actual
   end
 
-  def test_top_merchants_by_index_count
+  def test_top_merchants_by_invoice_count
     actual = @sa.top_merchants_by_invoice_count
-    assert_equal 1, actual
+    assert_equal [1, 2, 3], actual
   end
 
 end

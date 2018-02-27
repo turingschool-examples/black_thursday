@@ -77,7 +77,16 @@ class SalesAnalyst
   end
 
   def top_merchants_by_invoice_count
-
+    invoices = invoices_for_each_merchant
+    avg_invc = average_invoices_per_merchant
+    st_dev = standard_deviation(invoices, avg_invc)
+    two_sigma = avg_invc + (2 * st_dev)
+    top_merchants = []
+    invoices.find_all do |invoice|
+      if invoice > two_sigma
+        top_merchants << invoice.merchant_id
+      end
+    end
   end
 
 end
