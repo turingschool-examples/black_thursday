@@ -4,7 +4,8 @@ class Customer
               :first_name,
               :last_name,
               :created_at,
-              :updated_at
+              :updated_at,
+              :parent
 
   def initialize(data, parent = nil)
     @id         = data[:id].to_i
