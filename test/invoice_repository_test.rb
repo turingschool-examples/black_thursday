@@ -45,4 +45,16 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_instance_of Invoice, @invoice_repo.find_all_by_status(:shipped).first
     assert_equal [], @invoice_repo.find_all_by_status(:dummy_symbol)
   end
+
+  def test_find_all_by_date
+    date = Time.parse('2005-01-03')
+    assert_instance_of Array, @invoice_repo.find_all_by_date(date)
+    assert_equal 1, @invoice_repo.find_all_by_date(date).length
+    assert_instance_of Invoice, @invoice_repo.find_all_by_date(date).first
+    assert_equal [], @invoice_repo.find_all_by_date(Time.parse('2000-01-01'))
+  end
+
+  def test_inspect
+    assert_equal '#<InvoiceRepository 26 rows>', @invoice_repo.inspect
+  end
 end

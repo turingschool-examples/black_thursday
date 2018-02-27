@@ -49,8 +49,8 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal 3, actual.length
     assert_instance_of InvoiceItem, actual[0].flatten[0]
 
-    invalid_invoice_ids = [100, 103, 104]
-    actual = @invoice_item_repo.find_all_by_mult_invoice_ids(invalid_invoice_ids)
+    invalid_inv_ids = [100, 103, 104]
+    actual = @invoice_item_repo.find_all_by_mult_invoice_ids(invalid_inv_ids)
     assert_equal [], actual.flatten
   end
 

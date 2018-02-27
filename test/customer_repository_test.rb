@@ -1,6 +1,7 @@
 require_relative 'test_helper'
 require_relative '../lib/customer_repository'
 
+# This is the tests for the customer repo.
 class CustomerRepositoryTest < Minitest::Test
   def setup
     customer_csv = './test/fixtures/customer_list_truncated.csv'

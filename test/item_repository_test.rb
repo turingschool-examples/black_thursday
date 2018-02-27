@@ -57,4 +57,19 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 263_396_013, @ir.find_all_by_merchant_id(123_341_85).last.id
     assert_equal 3, @ir.find_all_by_merchant_id(123_341_85).length
   end
+
+  def test_find_all_by_invoice_item_ids
+    skip
+    invoice_item_ids = [111]
+    assert_equal [], @ir.find_all_by_invoice_item_ids(invoice_item_ids)
+    actual = @ir.find_all_by_invoice_item_ids(invoice_item_ids)
+
+    assert_equal 263_395_617, actual.first.id
+    assert_equal 263_396_013, actual.last.id
+    assert_equal 3, actual.length
+  end
+
+  def test_inspect
+    assert_equal '#<ItemRepository 25 rows>', @ir.inspect
+  end
 end

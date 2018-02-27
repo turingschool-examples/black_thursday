@@ -125,4 +125,21 @@ class InvoiceTest < Minitest::Test
     assert invoice.is_paid_in_full?
     assert_equal 2446.02, invoice.total
   end
+
+  def test_finding_invoice_items_associated_with_invoice
+    information = {
+      items: './test/fixtures/items_list_truncated.csv',
+      merchants: './test/fixtures/merchants_list_truncated.csv',
+      invoices: './test/fixtures/invoices_list_truncated.csv',
+      invoice_items: './test/fixtures/invoice_items_list_truncated.csv',
+      transactions: './test/fixtures/transactions_list_truncated.csv',
+      customers: './test/fixtures/customer_list_truncated.csv'
+    }
+    sales_engine = SalesEngine.from_csv(information)
+    invoice = sales_engine.invoices.find_by_id(19)
+
+    assert_instance_of Array, invoice.invoice_items
+    assert_instance_of InvoiceItem, invoice.invoice_items[0]
+    assert_equal 95, invoice.invoice_items[0].id
+  end
 end

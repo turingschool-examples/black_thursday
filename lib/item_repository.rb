@@ -47,8 +47,8 @@ class ItemRepository
   end
 
   def find_all_by_invoice_item_ids(invoice_item_ids)
-    invoice_item_ids.map do |invoice_item|
-      find_by_id(invoice_item.item_id)
+    invoice_item_ids.map do |invoice_item_id|
+      find_by_id(invoice_item_id.item_id)
     end
   end
 

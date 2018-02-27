@@ -38,15 +38,4 @@ class InvoiceItemTest < Minitest::Test
   def test_unit_price_to_dollars
     assert_equal 348.73, @invoice_item.unit_price_to_dollars
   end
-
-  # def test_finding_merchant_associated_with_invoice
-  #   information = { items: './test/fixtures/items_list_truncated.csv',
-  #                   merchants: './test/fixtures/merchants_list_truncated.csv',
-  #                   invoices: './test/fixtures/invoices_list_truncated.csv' }
-  #   sales_engine = SalesEngine.from_csv(information)
-  #   invoice = sales_engine.invoices.find_by_id(20)
-  #
-  #   assert_instance_of Merchant, invoice.merchant
-  #   assert_equal 123_361_63, invoice.merchant.id
-  # end
 end
