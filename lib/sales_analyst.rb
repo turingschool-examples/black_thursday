@@ -255,6 +255,7 @@ class SalesAnalyst
     invoice_list.map do |invoice|
       invoice if invoice.transactions.all? { |trans| trans.result == 'failed' }
     end.compact
+  end
 
   def invoice_items_collector
     @invoice_items_collector ||= engine.invoice_items.all
