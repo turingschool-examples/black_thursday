@@ -42,19 +42,19 @@ module CustomerAnalytics
   end
 
   def finding_invoice_items(id)
-  new_stuff = Hash.new
+  collected_items = Hash.new
   customer = @sales_engine.customers.find_by_id(id)
   customer.invoices.map do |invoice|
-    new_stuff[invoice] = invoice.quantity
+    collected_items[invoice] = invoice.quantity
     end
-  new_stuff
+  collected_items
   end
 
   def top_merchant_for_customer(id)
-    high = finding_invoice_items(id).max_by do|invoice, orders|
+    top_invoice = finding_invoice_items(id).max_by do|invoice, orders|
       orders
     end
-    high[0].merchant
+    top_invoice[0].merchant
   end
 
   def finding_invoice_bought_in_a_year(id, year)
@@ -118,13 +118,13 @@ module CustomerAnalytics
   end
 
   def sorting_invoices_by_revenue
-    revenue_hash = Hash.new
+    revenue = Hash.new
     invoices.each do |invoice|
       if invoice.is_paid_in_full?
-        revenue_hash[invoice] = invoice.total
+        revenue[invoice] = invoice.total
       end
     end
-    revenue_hash
+    revenue
   end
 
   def best_invoice_by_revenue

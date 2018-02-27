@@ -105,23 +105,23 @@ class SalesAnalyst
 
   def average_invoices_per_merchant_standard_deviation
     total_invoices = merchants.map { |merchant| merchant.invoices.length }
-    avg = average_invoices_per_merchant
+    avg            = average_invoices_per_merchant
     standard_deviation(total_invoices, avg).round(2)
   end
 
   def top_merchants_by_invoice_count
-    invoice_average = average_invoices_per_merchant
+    invoice_average   = average_invoices_per_merchant
     invoice_deviation = average_invoices_per_merchant_standard_deviation
-    top_merchants = merchants.find_all do |merchant|
+    top_merchants     = merchants.find_all do |merchant|
       merchant.invoices.count > ((invoice_deviation * 2) + invoice_average)
       end
     top_merchants
   end
 
   def bottom_merchants_by_invoice_count
-    invoice_average = average_invoices_per_merchant
+    invoice_average   = average_invoices_per_merchant
     invoice_deviation = average_invoices_per_merchant_standard_deviation
-    bottom_merchants = merchants.find_all do |merchant|
+    bottom_merchants  = merchants.find_all do |merchant|
       merchant.invoices.count < (invoice_average - (invoice_deviation * 2))
     end
     bottom_merchants
@@ -146,17 +146,18 @@ class SalesAnalyst
   end
 
   def invoice_day_deviation
-    days = finding_number_of_invoices_per_day
+    days  = finding_number_of_invoices_per_day
+    average = average_invoice_per_day
     total = days.map do |day, count|
-      (count - average_invoice_per_day)**2
+      (count - average)**2
     end
     Math.sqrt(total.reduce(:+) / (total.length - 1)).round(2)
   end
 
   def top_days_by_invoice_count
-    average = average_invoice_per_day
+    average   = average_invoice_per_day
     deviation = invoice_day_deviation
-    days = finding_number_of_invoices_per_day
+    days      = finding_number_of_invoices_per_day
     days.select do |day, number|
       day if number > (deviation + average)
     end.keys
