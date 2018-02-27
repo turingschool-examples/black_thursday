@@ -4,7 +4,7 @@ require_relative '../lib/sales_engine'
 
 class MerchantTest < Minitest::Test
   def setup
-    data = { id: 5, name: 'Turing School' }
+    data = { id: 5, name: 'Turing School', created_at: "2018-02-02 14:37:20 -0700" }
     @merchant = Merchant.new(data)
   end
 
@@ -17,7 +17,7 @@ class MerchantTest < Minitest::Test
   end
 
   def test_it_returns_a_different_id
-    merchant = Merchant.new({ id: 23, name: 'Turing School' })
+    merchant = Merchant.new({ id: 23, name: 'Turing School', created_at: "2018-02-02 14:37:20 -0700" })
 
     assert_equal 23, merchant.id
   end
@@ -27,7 +27,7 @@ class MerchantTest < Minitest::Test
   end
 
   def test_it_returns_a_different_name
-    merchant = Merchant.new({ id: 5, name: 'Yale Business School' })
+    merchant = Merchant.new({ id: 5, name: 'Yale Business School', created_at: "2018-02-02 14:37:20 -0700" })
 
     assert_equal 'Yale Business School', merchant.name
   end
