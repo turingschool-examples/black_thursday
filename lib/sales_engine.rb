@@ -56,6 +56,8 @@ class SalesEngine
     when 'fully paid invoices' then find_fully_paid_invoices(payload[1])
     when 'find invoice items' then find_invoice_items(payload[1])
     when 'merchant invoice items' then find_invoice_items(payload[1])
+    when 'all invoices' then find_invoice_by_customer(payload[1])
+    when 'customer items' then find_invoice_items(payload[1])
     end
   end
 
@@ -121,5 +123,9 @@ class SalesEngine
 
   def find_invoice_items(invoice_id)
     @invoice_items.find_all_by_invoice_id(invoice_id)
+  end
+
+  def find_invoice_by_customer(customer_id)
+    @invoices.find_all_by_customer_id(customer_id)
   end
 end
