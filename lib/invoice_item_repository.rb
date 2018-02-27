@@ -38,7 +38,7 @@ class InvoiceItemRepository
 
   def find_all_invoice_invoice_items(invoices)
     invoices.map do |invoice|
-      @invoice_item_repo.find_all_by_invoice_id(invoice.id)
+      find_all_by_invoice_id(invoice.id)
     end
   end
 
