@@ -3,13 +3,13 @@ module CustomerAnalytics
   def top_buyers(num = 20)
     customer_total_spend = {}
     customers.each do |customer|
-      create_buyers_hash(customer, customer_total_spend)
+      calculate_total_spend(customer, customer_total_spend)
     end
     top_customers = customer_total_spend.keys.max(num)
     top_customers.map { |key| customer_total_spend[key] }
   end
 
-  def create_buyers_hash(customer, customer_total_spend)
+  def calculate_total_spend(customer, customer_total_spend)
     invoices = get_invoices(customer.id)
     paid_invoices = invoices.find_all(&:is_paid_in_full?)
     invoice_costs = paid_invoices.map(&:total)

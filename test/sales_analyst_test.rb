@@ -45,7 +45,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_all_item_prices
-    assert_instance_of Array,     @sa.all_item_prices
+    assert_instance_of Array,      @sa.all_item_prices
     assert_equal 5,                @sa.all_item_prices.length
     assert_instance_of BigDecimal, @sa.all_item_prices[0]
   end
@@ -98,6 +98,16 @@ class SalesAnalystTest < Minitest::Test
   def test_can_find_top_buyers
     assert_instance_of Array,    @sa.top_buyers
     assert_instance_of Customer, @sa.top_buyers[1]
+    assert_equal 2,              @sa.top_buyers.length
+  end
+
+  def test_calculate_total_spend
+    customer = Customer.new(id: 6,
+                            first_name: 'Joan',
+                            last_name: 'Clarke',
+                            created_at: Time.now,
+                            updated_at: Time.now)
+    assert_equal customer, @sa.calculate_total_spend(customer, {})
   end
 
   def test_it_can_get_invoices
@@ -105,22 +115,39 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Invoice, @sa.get_invoices(1)[0]
   end
 
-
   def test_can_find_one_time_buyers
     assert_instance_of Array,    @sa.one_time_buyers
     assert_instance_of Customer, @sa.one_time_buyers[0]
+    assert_equal 1,              @sa.one_time_buyers.length
   end
 
   def test_one_time_buyers_top_items
     assert_equal [nil], @sa.one_time_buyers_top_items
+    assert_equal 1, @sa.one_time_buyers_top_items.length
+  end
+
+  def test_find_top_items_method
+    parent = @se.customers
+    customer = Customer.new({ id: 6,
+                              first_name: 'Joan',
+                              last_name: 'Clarke',
+                              created_at: Time.now,
+                              updated_at: Time.now}, parent)
+    assert_equal [], @sa.find_top_items(customer, {})
   end
 
   def test_can_find_invoice_items
     assert_instance_of Hash, @sa.finding_invoice_items(1)
+    assert_equal 8,          @sa.finding_invoice_items(1).length
   end
 
   def test_can_find_number_of_invoice_bought_in_a_year
     assert_equal [], @sa.items_bought_in_year(1, 2013)
+  end
+
+  def test_can_find_items_bought_in_a_year
+    assert_instance_of Array, @sa.items_bought_in_year(1, 2009)
+    assert_equal 16,          @sa.items_bought_in_year(1, 2009).length
   end
 
   def test_can_find_unpaid_invoices
@@ -141,6 +168,11 @@ class SalesAnalystTest < Minitest::Test
 
   def test_can_find_highest_volume_item
     assert_instance_of Array, @sa.highest_volume_items(1)
+    assert_equal 3,           @sa.highest_volume_items(1).length
+  end
+
+  def test_highest_volume_item_array
+    assert_equal [nil], @sa.highest_volume_item_array(@se.invoice_items.all, [2,3])
   end
 
   def test_find_best_invoice_by_revenue
