@@ -218,6 +218,12 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 1, result
   end
 
+
+  def test_most_sold_item_for_merchant
+    result = @sales_analyst.most_sold_item_for_merchant(12334135)
+    
+    assert_instance_of Array, result
+
   def test_can_find_best_item_for_merchant
     result = @sales_analyst.best_item_for_merchant(12336837)
 

@@ -209,10 +209,8 @@ class SalesAnalyst
   end
 
   def merchants_with_pending_invoices
-    invoices = @engine.invoices.all
-    invoices.map do |invoice|
-      invoice if invoice.transactions.all? { |trans| trans.result == 'failed' }
-    end.compact.map(&:merchant).uniq
+    invoices = pending_invoices(@engine.invoices.all)
+    invoices.map(&:merchant).uniq
   end
 
   def merchants_with_only_one_item
@@ -229,6 +227,34 @@ class SalesAnalyst
       merchant if merchant.items.length == 1
     end.compact
   end
+
+
+  def most_sold_item_for_merchant(id)
+    merch_inv = @engine.merchants.find_by_id(id).invoices
+
+    good_invoices = valid_invoices(merch_inv)
+
+    good_invoice_items = good_invoices.map do |invoice|
+      @engine.invoice_items.find_all_by_invoice_id(invoice.id)
+    end.flatten
+
+    winning_items = good_invoice_items.sort_by do |invoice_item|
+      invoice_item.quantity.to_i
+    end.reverse
+
+    this = good_invoice_items.map do |invoice_item|
+      invoice_item if invoice_item.quantity == winning_items[0].quantity
+    end.compact
+
+    this.map do |invoice_item|
+      @engine.items.find_by_id(invoice_item.item_id)
+    end
+  end
+
+  def pending_invoices(invoice_list)
+    invoice_list.map do |invoice|
+      invoice if invoice.transactions.all? { |trans| trans.result == 'failed' }
+    end.compact
 
   def invoice_items_collector
     @invoice_items_collector ||= engine.invoice_items.all
