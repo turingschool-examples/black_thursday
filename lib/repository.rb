@@ -1,5 +1,4 @@
 module Repository
-
   def all
     @csv_items
   end
@@ -17,5 +16,4 @@ module Repository
       @csv_items << child.new(data, self)
     end
   end
-
 end
