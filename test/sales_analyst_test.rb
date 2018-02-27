@@ -217,4 +217,10 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of BigDecimal, result
     assert_equal 1, result
   end
+
+  def test_most_sold_item_for_merchant
+    result = @sales_analyst.most_sold_item_for_merchant(12334135)
+    
+    assert_instance_of Array, result
+  end
 end
