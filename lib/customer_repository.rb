@@ -4,10 +4,11 @@ require 'pry'
 
 # customer repository class
 class CustomerRepository
+  attr_reader :parent
   def initialize(filepath, parent = nil)
     @customers = []
     load_customers(filepath)
-    @parent    = parent
+    @parent = parent
   end
 
   def inspect

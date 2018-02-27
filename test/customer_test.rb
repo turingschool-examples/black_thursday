@@ -33,6 +33,7 @@ class CustomerTest < Minitest::Test
                               updated_at: Time.now }, parent)
 
     assert_equal customer.invoices, parent.pass_customer_id_to_se
+    assert_equal parent, customer.parent
   end
 
   def test_merchants_method
