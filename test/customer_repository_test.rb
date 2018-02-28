@@ -1,6 +1,7 @@
 require_relative 'test_helper'
 require_relative '../lib/customer_repository'
 
+# This is the tests for the customer repo.
 class CustomerRepositoryTest < Minitest::Test
   def setup
     customer_csv = './test/fixtures/customer_list_truncated.csv'
@@ -40,5 +41,9 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal 2, @cr.find_all_by_last_name('si').first.id
     assert_equal 3, @cr.find_all_by_last_name('si').length
     assert_equal 8, @cr.find_all_by_last_name('Considine').first.id
+  end
+
+  def test_inspect
+    assert_equal '#<CustomerRepository 21 rows>', @cr.inspect
   end
 end

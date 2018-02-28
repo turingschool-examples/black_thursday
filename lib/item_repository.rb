@@ -46,8 +46,8 @@ class ItemRepository
     @items.find_all { |item| item.merchant_id == id }
   end
 
-  def find_all_by_invoice_item_ids(invoice_item_ids)
-    invoice_item_ids.map do |invoice_item|
+  def find_all_by_invoice_items(invoice_items)
+    invoice_items.map do |invoice_item|
       find_by_id(invoice_item.item_id)
     end
   end

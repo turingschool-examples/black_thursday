@@ -49,4 +49,8 @@ class TransactionRepositoryTest < Minitest::Test
     assert_instance_of Transaction, @tr.find_all_by_result('failed').first
     assert_equal 9, @tr.find_all_by_result('failed').first.id
   end
+
+  def test_inspect
+    assert_equal '#<TransactionRepository 22 rows>', @tr.inspect
+  end
 end

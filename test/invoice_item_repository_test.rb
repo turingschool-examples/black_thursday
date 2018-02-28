@@ -40,4 +40,21 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_instance_of InvoiceItem, actual
     assert_equal [], @invoice_item_repo.find_all_by_invoice_id(4)
   end
+
+  def test_find_all_by_multiple_invoice_ids
+    invoice_id_array = [1, 2, 3]
+    actual = @invoice_item_repo.find_all_by_mult_invoice_ids(invoice_id_array)
+
+    assert_instance_of Array, actual
+    assert_equal 3, actual.length
+    assert_instance_of InvoiceItem, actual[0].flatten[0]
+
+    invalid_inv_ids = [100, 103, 104]
+    actual = @invoice_item_repo.find_all_by_mult_invoice_ids(invalid_inv_ids)
+    assert_equal [], actual.flatten
+  end
+
+  def test_inspect
+    assert_equal '#<InvoiceItemRepository 23 rows>', @invoice_item_repo.inspect
+  end
 end

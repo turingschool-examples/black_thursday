@@ -37,10 +37,6 @@ class InvoiceRepository
     @invoices.find_all { |invoice| invoice.created_at == date }
   end
 
-  def find_all_by_multiple_ids(id_array)
-    id_array.map { |id| find_all_by_id(id) }
-  end
-
   def inspect
     "#<#{self.class} #{@invoices.size} rows>"
   end
