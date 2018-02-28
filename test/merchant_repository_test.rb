@@ -79,9 +79,9 @@ class MerchantRepositoryTest < Minitest::Test
 
     result = merchant_repo.find_all_by_name('Sho')
 
-    assert_equal 'Shopin1901',   result[0].name
+    assert_equal 'Shopin1901', result[0].name
 
     result = merchant_repo.find_all_by_name('ksjadhf')
-    assert_equal [],             result
+    assert_equal [], result
   end
 end

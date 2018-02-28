@@ -4,6 +4,7 @@ require_relative '../lib/sales_engine'
 require 'bigdecimal'
 require 'pry'
 
+# class for Item Repository Testing
 class ItemRepositoryTest < Minitest::Test
   def test_it_exists
     item_repository = ItemRepository.new('./test/fixtures/items.csv', 'parent')
@@ -62,9 +63,9 @@ class ItemRepositoryTest < Minitest::Test
   def test_find_all_by_price_in_range
     item_repo = ItemRepository.new('./test/fixtures/items.csv', 'parent')
 
-    assert_equal [],         item_repo.find_all_by_price_in_range((1..2))
+    assert_equal [], item_repo.find_all_by_price_in_range((1..2))
     assert_instance_of Item, item_repo.find_all_by_price_in_range((1..1000))[0]
-    assert_equal 5,          item_repo.find_all_by_price_in_range((1..15_000)).length
+    assert_equal 5, item_repo.find_all_by_price_in_range((1..15_000)).length
   end
 
   def test_find_all_by_merchant_id
@@ -77,6 +78,14 @@ class ItemRepositoryTest < Minitest::Test
   def test_pass_merchant_id_to_se
     parent = stub(pass_merchant_id_to_merchant_repo: 2)
     item_repo = ItemRepository.new('./test/fixtures/items.csv', parent)
-    assert_equal item_repo.pass_merchant_id_to_se(2), parent.pass_merchant_id_to_merchant_repo(2)
+
+    expected = item_repo.pass_merchant_id_to_se(2)
+    assert_equal expected, parent.pass_merchant_id_to_merchant_repo(2)
+  end
+
+  def test_inspect
+    item_repository = ItemRepository.new('./test/fixtures/items.csv', 'parent')
+
+    assert_equal '#<ItemRepository 5 rows>', item_repository.inspect
   end
 end
