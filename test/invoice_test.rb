@@ -10,12 +10,12 @@ require 'pry'
 class InvoiceTest < Minitest::Test
   def setup
     @invoice = Invoice.new({ id: 6,
-                       customer_id: 7,
-                       merchant_id: 8,
-                       status: 'pending',
-                       created_at: '2009-02-07',
-                       updated_at: '2014-03-15' },
-                     'parent')
+                             customer_id: 7,
+                             merchant_id: 8,
+                             status: 'pending',
+                             created_at: '2009-02-07',
+                             updated_at: '2014-03-15' },
+                           'parent')
   end
 
   def test_it_exists
@@ -55,7 +55,6 @@ class InvoiceTest < Minitest::Test
                               invoice_items: './test/fixtures/invoice_items.csv',
                               transactions:  './test/fixtures/transactions.csv',
                               customers:     './test/fixtures/invoices.csv')
-    parent = InvoiceRepository.new('./test/fixtures/invoices.csv', se)
     invoice = se.invoices.find_by_id(1)
 
     assert_instance_of InvoiceItem, invoice.invoice_items.first
@@ -69,8 +68,6 @@ class InvoiceTest < Minitest::Test
                               invoice_items: './test/fixtures/invoice_items.csv',
                               transactions:  './test/fixtures/transactions_test.csv',
                               customers:     './test/fixtures/invoices.csv')
-    parent = InvoiceRepository.new('./test/fixtures/invoices.csv', se)
-    invoice = se.invoices.find_by_id(1)
 
     assert_instance_of Transaction, invoice.transactions.first
     assert_equal 1,                 invoice.transactions.first.id
@@ -83,7 +80,6 @@ class InvoiceTest < Minitest::Test
                               invoice_items: './test/fixtures/invoice_items.csv',
                               transactions:  './test/fixtures/transactions_test.csv',
                               customers:     './test/fixtures/invoices.csv')
-    parent = InvoiceRepository.new('./test/fixtures/invoices.csv', se)
     invoice = se.invoices.find_by_id(1)
 
     assert_instance_of Customer, invoice.customer
@@ -100,9 +96,9 @@ class InvoiceTest < Minitest::Test
     invoice = se.invoices.find_by_id(1)
     assert invoice.is_paid_in_full?
 
-    invoice_2 = se.invoices.find_by_id(9)
+    invoice = se.invoices.find_by_id(9)
 
-    refute invoice_2.is_paid_in_full?
+    refute invoice.is_paid_in_full?
   end
 
   def test_it_can_find_a_total_amount

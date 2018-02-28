@@ -48,7 +48,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_inspect
-    assert_equal "#<InvoiceRepository 9 rows>", @repo.inspect
+    assert_equal'#<InvoiceRepository 9 rows>', @repo.inspect
   end
 
   def test_it_can_find_all_by_merchant_id
@@ -75,8 +75,7 @@ class InvoiceRepositoryTest < Minitest::Test
     parent.stubs(:pass_id_to_invoice_items_repo).returns('item')
     parent.stubs(:pass_id_to_transaction_repo).returns('transaction')
     parent.stubs(:pass_id_to_customer_repo).returns('customer')
-    repo = InvoiceRepository.new('./test/fixtures/invoices.csv',
-                                   parent)
+    repo = InvoiceRepository.new('./test/fixtures/invoices.csv', parent)
 
     assert_equal 'invoice',     repo.pass_merchant_id_to_se_for_invoice(1)
     assert_equal 'item',        repo.pass_id_to_se_for_item(1)

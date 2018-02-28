@@ -21,11 +21,12 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_instance_of Array,       @repo.all
     assert_equal 20,                @repo.all.length
     assert_instance_of InvoiceItem, @repo.all[0]
-    assert_nil                      @repo.load_invoice_items('./test/fixtures/invoice_items.csv')
+    assert_nil                      @repo.load_invoice_items('./test/fixtures'\
+                                    '/invoice_items.csv')
   end
 
   def test_inspect
-    assert_equal "#<InvoiceItemRepository 20 rows>", @repo.inspect
+    assert_equal '#<InvoiceItemRepository 20 rows>', @repo.inspect
   end
 
   def test_find_by_id
@@ -35,10 +36,10 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_find_all_by_item_id
     assert_equal [],                @repo.find_all_by_item_id(12_345)
-    assert_instance_of InvoiceItem, @repo.find_all_by_item_id(263519844)[0]
+    assert_instance_of InvoiceItem, @repo.find_all_by_item_id(263_519_844)[0]
   end
 
-  def test_find_by_invoice_id
+  def test_find_all_by_invoice_id
     assert_equal [],                @repo.find_all_by_invoice_id(12_345)
     assert_instance_of InvoiceItem, @repo.find_all_by_invoice_id(1)[0]
   end
