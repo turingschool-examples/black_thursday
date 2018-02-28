@@ -103,6 +103,8 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
+    # merchants = top_merchants_by_sigma
+
     invoices = @se.invoices.all
     merchants = @se.merchants.all
     avg_invc = average_invoices_per_merchant
@@ -110,15 +112,26 @@ class SalesAnalyst
     sigma = avg_invc + st_dev
     top_days = []
     merchants.find_all do |merchant|
-      require 'pry'; binding.pry
-      if merchant.invoices.length > sigma
+      if merchant.invoices.length > sigma && 
         top_days << merchant.created_at.strftime("%A")
+        require 'pry'; binding.pry
       end
     end
     top_days
   end
 
-  def top_days
+  def top_merchants_by_sigma
+    # merchants = @se.merchants.all
+    # avg_invc = average_invoices_per_merchant
+    # st_dev = average_invoices_per_merchant_standard_deviation
+    # sigma = avg_invc + st_dev
+    # top_merchants = []
+    # merchants.find_all do |merchant|
+    #   if merchant.invoices.length > sigma
+    #     top_merchants << merchant.id
+    #   end
+    # end
+
     invoices = @se.invoices.all
     days = {}
     day_counter = 0

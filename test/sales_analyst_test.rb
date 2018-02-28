@@ -79,6 +79,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_days_returns_appropriate_hash
+    skip
     actual = @sa.top_days
     assert_equal ({}), actual
   end
