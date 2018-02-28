@@ -212,32 +212,27 @@ class SalesAnalyst
 
   def merchants_with_only_one_item_registered_in_month(month)
     month_digit = Date::MONTHNAMES.index(month)
-    merchant_collector.map do |merchant|
-      merchant if merchant.created_at.month == month_digit
-    end.compact.map do |merchant|
+    merch_by_month = find_merchants_by_month_registered(month_digit)
+
+    merch_by_month.map do |merchant|
       merchant if merchant.items.length == 1
     end.compact
   end
 
-
-  def most_sold_item_for_merchant(id)
-    merch_inv = @engine.merchants.find_by_id(id).invoices
-
-    good_invoices = valid_invoices(merch_inv)
-
-    good_invoice_items = good_invoices.map do |invoice|
-      @engine.invoice_items.find_all_by_invoice_id(invoice.id)
-    end.flatten
-
-    winning_items = good_invoice_items.sort_by do |invoice_item|
-      invoice_item.quantity.to_i
-    end.reverse
-
-    this = good_invoice_items.map do |invoice_item|
-      invoice_item if invoice_item.quantity == winning_items[0].quantity
+  def find_merchants_by_month_registered(month_digit)
+    merchant_collector.map do |merchant|
+      merchant if merchant.created_at.month == month_digit
     end.compact
+  end
 
-    this.map do |invoice_item|
+  def most_sold_item_for_merchant(merchant_id)
+    good_invoice_items = find_good_invoice_items(merchant_id)
+
+    item_quantities = good_invoice_items.group_by do |invoice_item|
+      invoice_item.quantity.to_i
+    end
+
+    item_quantities[item_quantities.keys.max].map do |invoice_item|
       @engine.items.find_by_id(invoice_item.item_id)
     end
   end
@@ -253,12 +248,17 @@ class SalesAnalyst
   end
 
   def best_item_for_merchant(merchant_id)
-    good_invoices = valid_invoices(find_merchant_invoices(merchant_id))
-    invoice_items = convert_to_invoice_items(good_invoices)
-    best_invoice_item = invoice_items.max_by do |invoice_item|
+    good_invoice_items = find_good_invoice_items(merchant_id)
+
+    best_invoice_item = good_invoice_items.max_by do |invoice_item|
       invoice_item.unit_price_to_dollars * invoice_item.quantity.to_i
     end
 
     @engine.items.find_by_id(best_invoice_item.item_id)
+  end
+
+  def find_good_invoice_items(merchant_id)
+    good_invoices = valid_invoices(find_merchant_invoices(merchant_id))
+    convert_to_invoice_items(good_invoices)
   end
 end
