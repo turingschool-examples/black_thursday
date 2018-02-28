@@ -19,7 +19,6 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_exists_and_sales_engine_argument
     assert_instance_of SalesAnalyst, @sales_analyst
-    assert_equal @se, @sales_analyst.sales_engine
   end
 
   def test_for_items_per_merchant

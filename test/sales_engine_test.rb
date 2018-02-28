@@ -18,23 +18,6 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of SalesEngine, @sales_engine
   end
 
-  def test_for_from_csv_method
-    actual_item_path = SalesEngine.from_csv(@information).item_csv_path
-    actual_merchant_path = SalesEngine.from_csv(@information).merchant_csv_path
-    actual_invoice_path = SalesEngine.from_csv(@information).invoice_csv_path
-
-    assert_equal @information[:items], actual_item_path
-    assert_equal @information[:merchants], actual_merchant_path
-    assert_equal @information[:invoices], actual_invoice_path
-  end
-
-  def test_find_merchant_by_merchant_id
-    actual = @sales_engine.find_merchant(12_334_141)
-
-    assert actual.is_a?(Merchant)
-    assert_equal 'jejum', actual.name
-  end
-
   def test_find_items_by_merchant_id
     actual = @sales_engine.find_items_by_merchant_id(12_334_141)
 
