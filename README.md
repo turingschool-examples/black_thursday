@@ -1,5 +1,5 @@
 ---
-Project Title: Black Thursday
+Project Title: Black Thursday - 1801 Backend
 Partner 1: Jake Rambold
 Partner 2: Nikhil Shahi
 ---
