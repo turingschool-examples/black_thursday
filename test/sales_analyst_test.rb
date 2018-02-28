@@ -17,11 +17,14 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_mean_finder
-    items = [3,4,5,6,2,7,1]
-    assert_equal 4, mean_finder(items)
+    items = [3, 4, 5, 6, 2, 7, 1]
+    assert_equal 4, @sales_analyst.mean_finder(items)
   end
 
-  
+  def test_standard_deviation
+    items = [3, 4, 5, 6, 2, 7, 1]
+    assert_equal 2.16, @sales_analyst.standard_devation(4,items).round(2)
+  end
 
   def test_average_items_per_merchant
     assert_equal 2.63, @sales_analyst.average_items_per_merchant
