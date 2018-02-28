@@ -21,15 +21,15 @@ class Customer
   end
 
   def merchants
-    traverse('customer merchants', id)
+    traverse('find_merchants_by_customer_id', id)
   end
 
   def fully_paid_invoices
-    traverse('fully paid invoices', id)
+    traverse('find_fully_paid_invoices', id)
   end
 
   def all_invoices
-    traverse('all invoices', id)
+    traverse('find_invoice_by_customer', id)
   end
 
   def items

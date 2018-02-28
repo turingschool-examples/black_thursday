@@ -23,6 +23,6 @@ class Transaction
   end
 
   def invoice
-    traverse('transaction invoice', invoice_id)
+    traverse('find_invoice', invoice_id)
   end
 end

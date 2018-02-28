@@ -14,20 +14,20 @@ class Merchant
   end
 
   def items
-    traverse('merchant items', id)
+    traverse('find_items_by_merchant_id', id)
   end
 
   def invoices
-    traverse('merchant invoices', id)
+    traverse('find_invoices_by_merchant_id', id)
   end
 
   def invoice_items
     invoices.map do |invoice|
-      traverse('merchant invoice items', invoice.id)
+      traverse('find_invoice_items', invoice.id)
     end.flatten
   end
 
   def customers
-    traverse('merchant customers', id)
+    traverse('find_customers_by_merchant_id', id)
   end
 end
