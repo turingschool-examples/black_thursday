@@ -62,19 +62,28 @@ class SalesengineTest < Minitest::Test
     assert_instance_of Array,                 @se.transactions.all
   end
 
+  def test_it_has_customer_repo
+    assert_instance_of CustomerRepository, @se.customers
+    assert_instance_of Array,              @se.customers.all
+  end
+
   def test_pass_merchant_id_to_merchant_repo
-    assert_equal @se.pass_merchant_id_to_merchant_repo(2), @se.merchants.find_by_id(2)
+    expected = @se.pass_merchant_id_to_merchant_repo(2)
+    assert_equal expected, @se.merchants.find_by_id(2)
   end
 
   def test_pass_id_to_item_repo
-    assert_equal @se.pass_id_to_item_repo(2), @se.items.find_all_by_merchant_id(2)
+    expected = @se.pass_id_to_item_repo(2)
+    assert_equal expected, @se.items.find_all_by_merchant_id(2)
   end
 
   def test_pass_id_to_invoice_repo
-    assert_equal @se.pass_id_to_invoice_repo(2), @se.invoices.find_all_by_merchant_id(2)
+    expected = @se.pass_id_to_invoice_repo(2)
+    assert_equal expected, @se.invoices.find_all_by_merchant_id(2)
   end
 
   def test_pass_customer_id_to_invoices
-    assert_equal @se.pass_customer_id_to_invoices(2), @se.invoices.find_all_by_customer_id(2)
+    expected = @se.pass_customer_id_to_invoices(2)
+    assert_equal expected, @se.invoices.find_all_by_customer_id(2)
   end
 end
