@@ -161,21 +161,10 @@ class SalesAnalyst
     @se.merchants.all.sort_by(&:revenue).reverse
   end
 
-  def merchants_with_only_one_item_registered_in_month(month)
-    month_digit = Date::MONTHNAMES.index(month)
-    merchants = []
-    @se.merchants.all.each do |merchant|
-      if merchant.created_at == month_digit
-        merchants << merchant
-      end
+  def merchants_with_only_one_item_registered_in_month(month_name)
+    merchants_with_only_one_item.find_all do |merchant|
+      merchant.created_at.strftime("%B") == month_name
     end
-    one_item_merch = []
-    merchants.each do |merchant|
-      if @se.find_items_by_merchant_id(merchant).length == 1
-        one_item_merch << merchant
-      end
-    end
-    one_item_merch
   end
 
   def revenue_by_merchant(merchant_id)
