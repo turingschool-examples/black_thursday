@@ -145,16 +145,7 @@ class SalesAnalystTest < Minitest::Test
   def test_can_find_top_buyers
     assert_instance_of Array,    @sa.top_buyers
     assert_instance_of Customer, @sa.top_buyers[1]
-    assert_equal 2,              @sa.top_buyers.length
-  end
-
-  def test_calculate_total_spend
-    customer = Customer.new(id: 6,
-                            first_name: 'Joan',
-                            last_name: 'Clarke',
-                            created_at: Time.now,
-                            updated_at: Time.now)
-    assert_equal customer, @sa.calculate_total_spend(customer, {})
+    assert_equal 5,              @sa.top_buyers.length
   end
 
   def test_it_can_get_invoices

@@ -1,19 +1,10 @@
 # module that runs customer analytics
 module CustomerAnalytics
   def top_buyers(num = 20)
-    customer_total_spend = {}
-    customers.each do |customer|
-      calculate_total_spend(customer, customer_total_spend)
+    customers.max_by(num) do |customer|
+      invoice_totals = customer.fully_paid_invoices.map(&:total)
+      invoice_totals.reduce(:+).to_f
     end
-    top_customers = customer_total_spend.keys.max(num)
-    top_customers.map { |key| customer_total_spend[key] }
-  end
-
-  def calculate_total_spend(customer, customer_total_spend)
-    invoices = get_invoices(customer.id)
-    paid_invoices = invoices.find_all(&:is_paid_in_full?)
-    invoice_costs = paid_invoices.map(&:total)
-    customer_total_spend[invoice_costs.reduce(:+).to_f] = customer
   end
 
   def get_invoices(customer_id)
@@ -21,14 +12,11 @@ module CustomerAnalytics
   end
 
   def one_time_buyers
-    buyers = []
-    customers.map do |customer|
-      invoices = get_invoices(customer.id)
-      paid_invoices = invoices.find_all(&:is_paid_in_full?)
+    customers.find_all do |customer|
+      paid_invoices = customer.fully_paid_invoices
       paid_invoices.delete(false)
-      buyers << customer if paid_invoices.length == 1
+      paid_invoices.length == 1
     end
-    buyers
   end
 
   def one_time_buyers_top_items
