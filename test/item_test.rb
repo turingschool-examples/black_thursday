@@ -43,7 +43,7 @@ class ItemTest < Minitest::Test
   def test_unit_price_to_dollars
     item = Item.new(@data, 'parent')
 
-    assert_equal 12, item.unit_price_to_dollars
+    assert_equal 12.00, item.unit_price_to_dollars
   end
 
   def test_parent_instance_of_item_repo

@@ -47,6 +47,21 @@ class SalesengineTest < Minitest::Test
     assert_instance_of Merchant, @se.merchants.find_all_by_name('Sho')[0]
   end
 
+  def test_it_has_invoice_repo
+    assert_instance_of InvoiceRepository, @se.invoices
+    assert_instance_of Array,             @se.invoices.all
+  end
+
+  def test_it_has_invoice_item_repo
+    assert_instance_of InvoiceItemRepository, @se.invoice_items
+    assert_instance_of Array,                 @se.invoice_items.all
+  end
+
+  def test_it_has_transaction_repo
+    assert_instance_of TransactionRepository, @se.transactions
+    assert_instance_of Array,                 @se.transactions.all
+  end
+
   def test_pass_merchant_id_to_merchant_repo
     assert_equal @se.pass_merchant_id_to_merchant_repo(2), @se.merchants.find_by_id(2)
   end
