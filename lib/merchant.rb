@@ -25,9 +25,9 @@ class Merchant
   end
 
   def revenue
-   invoices.reduce(0) do |result, invoice|
-     result += invoice.total if invoice.is_paid_in_full?
-     result += 0
-   end
- end
+    invoices.reduce(0) do |result, invoice|
+      result += invoice.total if invoice.is_paid_in_full?
+      result
+    end
+  end
 end

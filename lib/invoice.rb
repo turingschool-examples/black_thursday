@@ -51,6 +51,7 @@ class Invoice
     invoice_items = invoice_repo.find_invoice_items_by_invoice_id(id)
     invoice_items.reduce(0) do |amount, invoice_item|
       amount += invoice_item.unit_price * invoice_item.quantity
+      amount
     end.round(2)
   end
 end
