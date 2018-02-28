@@ -1,6 +1,6 @@
 require 'time'
 require 'pry'
-require_relative 'traversal'
+require_relative '../modules/traversal'
 # This is the merchant class
 class Merchant
   include Traversal

@@ -1,4 +1,4 @@
-require_relative 'traversal'
+require_relative '../modules/traversal'
 # This is the invoice class
 class Invoice
   include Traversal

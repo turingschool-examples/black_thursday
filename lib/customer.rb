@@ -1,5 +1,5 @@
 require 'time'
-require_relative 'traversal'
+require_relative '../modules/traversal'
 # this is a customer class
 class Customer
   include Traversal

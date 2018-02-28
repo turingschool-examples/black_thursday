@@ -1,6 +1,6 @@
 require 'bigdecimal'
 require 'time'
-require_relative 'traversal'
+require_relative '../modules/traversal'
 
 # This is the item class
 class Item

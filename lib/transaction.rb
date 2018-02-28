@@ -1,4 +1,4 @@
-require_relative 'traversal'
+require_relative '../modules/traversal'
 
 class Transaction
   include Traversal
