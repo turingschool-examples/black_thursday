@@ -126,7 +126,10 @@ class SalesAnalyst
     invoices.map! do |invoice|
       @se.invoice_items.find_all_by_invoice_id(invoice.id)
     end
-    amount = 0
+    compute_total_amount(invoices)
+  end
+
+  def compute_total_amount(invoices, amount = 0)
     invoices.each do |invoice_item|
       invoice_item.each do |item|
         amount += item.unit_price * item.quantity
