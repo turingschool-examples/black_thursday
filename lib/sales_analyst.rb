@@ -109,8 +109,12 @@ class SalesAnalyst
     invoices.reduce({}) do |results, invoice|
 	     day = invoice.created_at.strftime("%A")
 	     results[day] = counter += 1
-           # require 'pry'; binding.pry
 	     results
+       require 'pry'; binding.pry
+       standard_deviation(results, average(results.values))
+
+       # avg_values = average(results.values)
+       # std_dev =
       end
 
 
@@ -150,7 +154,6 @@ class SalesAnalyst
         days[invoice.created_at.strftime("%A")] = day_counter
       end
     end
-    days
     # require 'pry'; binding.pry
   end
 
