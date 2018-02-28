@@ -109,20 +109,21 @@ class SalesAnalyst
     invoices.reduce({}) do |results, invoice|
 	     day = invoice.created_at.strftime("%A")
 	     results[day] = counter += 1
-	     results
-       require 'pry'; binding.pry
-       standard_deviation(results, average(results.values))
 
        # avg_values = average(results.values)
        # std_dev =
+       results
+       require 'pry'; binding.pry
       end
+      average = average(results.values)
+      st_dev = standard_deviation(results.to_a, average)
+      sigma = average + st_dev
 
 
 
     # merchants = @se.merchants.all
   #   avg_invc = average_invoices_per_merchant
   #   st_dev = average_invoices_per_merchant_standard_deviation
-  #   sigma = avg_invc + st_dev
   #   top_days = []
   #   invoices.find_all do |invoice|
   #     if invoice > sigma
