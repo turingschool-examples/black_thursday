@@ -43,4 +43,8 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 2, @mr.find_all_by_name('perle').count
     assert @mr.find_all_by_name('perle')[0].is_a?(Merchant)
   end
+
+  def test_inspect
+    assert_equal '#<MerchantRepository 22 rows>', @mr.inspect
+  end
 end

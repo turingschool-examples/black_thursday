@@ -15,6 +15,13 @@ class MerchantTest < Minitest::Test
     assert_equal 5, merchant.id
   end
 
+  def test_it_has_a_date_created
+    merchant = Merchant.new(id: 5, name: 'Turing School', created_at: '2010-12-10')
+    date = Time.parse('2010-12-10')
+    
+    assert_equal date, merchant.created_at
+  end
+
   def test_finding_items_associated_with_merchant
     information = {
       items: './test/fixtures/items_list_truncated.csv',
