@@ -40,8 +40,7 @@ module CustomerAnalytics
   end
 
   def finding_invoice_items(id)
-
-  collected_items = {}
+  collected_items = Hash.new
   customer = @sales_engine.customers.find_by_id(id)
   customer.invoices.map do |invoice|
     collected_items[invoice] = invoice.quantity
@@ -50,7 +49,18 @@ module CustomerAnalytics
   end
 
   def top_merchant_for_customer(id)
-    top_invoice = finding_invoice_items(id).max_by do|_invoice, orders|
+    top_invoice = finding_invoice_items(id).max_by do|invoice, orders|
+    invoice_items = {}
+    customer = @sales_engine.customers.find_by_id(id)
+    customer.invoices.map do |invoice|
+      invoice_items[invoice] = invoice.quantity
+    end
+  end 
+    invoice_items
+  end
+
+  def top_merchant_for_customer(id)
+    high = finding_invoice_items(id).max_by do |_invoice, orders|
       orders
     end
     top_invoice[0].merchant
