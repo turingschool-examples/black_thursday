@@ -254,7 +254,7 @@ class SalesAnalyst
     i_items = @invoice_item_repo.find_all_by_mult_invoice_ids(invoice_ids)
     sorted = i_items.flatten.max_by(&:quantity).quantity
     highest_quantity = search_invoice_items_by_quantity(i_items.flatten, sorted)
-    @item_repo.find_all_by_invoice_item_ids(highest_quantity)
+    @item_repo.find_all_by_invoice_items(highest_quantity)
   end
 
   def search_invoice_items_by_quantity(invoice_item_array, quantity)

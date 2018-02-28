@@ -58,15 +58,24 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 3, @ir.find_all_by_merchant_id(123_341_85).length
   end
 
-  def test_find_all_by_invoice_item_ids
-    skip
-    invoice_item_ids = [111]
-    assert_equal [], @ir.find_all_by_invoice_item_ids(invoice_item_ids)
-    actual = @ir.find_all_by_invoice_item_ids(invoice_item_ids)
+  def test_find_all_by_invoice_items
+    data = {
+      id: 1,
+      item_id: 263_395_237,
+      invoice_id: 1227,
+      quantity: 5,
+      unit_price: 34_873,
+      created_at: '2009-02-07',
+      updated_at: '2014-03-15'
+    }
+    invoice_items = [InvoiceItem.new(data, 'InvoiceItemRepository pointer')]
+    actual = @ir.find_all_by_invoice_items(invoice_items)
 
-    assert_equal 263_395_617, actual.first.id
-    assert_equal 263_396_013, actual.last.id
-    assert_equal 3, actual.length
+    assert @ir.find_all_by_invoice_items([]).empty?
+    assert_instance_of Array, actual
+    assert_instance_of Item, actual.first
+    assert_equal 263_395_237, actual.first.id
+    assert_equal 1, actual.length
   end
 
   def test_inspect
