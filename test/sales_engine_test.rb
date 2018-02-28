@@ -28,15 +28,65 @@ class SalesEngineTest < Minitest::Test
     assert_equal @information[:invoices], actual_invoice_path
   end
 
-  def test_for_items_method
-    ir = @sales_engine.items
+  def test_find_merchant_by_attribute
+    actual = @sales_engine.find_merchant(12_334_141)
 
-    assert ir.is_a?(ItemRepository)
+    assert actual.is_a?(Merchant)
+    assert_equal 'jejum', actual.name
   end
 
-  def test_for_merchants_method
-    mr = @sales_engine.merchants
+  def test_find_items_by_merchant_id
+    actual = @sales_engine.find_items_by_merchant_id(12_334_141)
 
-    assert mr.is_a?(MerchantRepository)
+    assert actual.is_a?(Array)
+    assert actual[0].is_a?(Item)
+    assert_equal '510+ RealPush Icon Set', actual[0].name
   end
+
+  def test_find_invoices_by_merchant_id
+    actual = @sales_engine.find_invoices_by_merchant_id(12_334_753)
+
+    assert actual.is_a?(Array)
+    assert actual[0].is_a?(Invoice)
+    assert_equal 2, actual[0].id
+  end
+
+  def test_find_items_by_invoice_id
+    actual = @sales_engine.find_items_by_invoice_id(74)
+
+    assert actual.is_a?(Array)
+    assert actual[0].is_a?(Item)
+    assert_equal 'Knitted wool hat', actual[0].name
+  end
+
+  def test_find_transactions_by_invoice_id
+    actual = @sales_engine.find_transactions_by_invoice_id(74)
+
+    assert actual.is_a?(Array)
+    assert actual[0].is_a?(Transaction)
+    assert_equal 3285, actual[0].id
+  end
+
+  def test_find_customer_by_customer_id
+    actual = @sales_engine.find_customer_by_customer_id(339)
+
+    assert actual.is_a?(Customer)
+    assert_equal 'Becker', actual.last_name
+  end
+
+  def test_find_invoice
+    actual = @sales_engine.find_invoice(15)
+
+    assert actual.is_a?(Invoice)
+    assert_equal 3, actual.customer_id
+  end
+
+  def test_find_customers_by_merchant_id
+    actual = @sales_engine.find_customers_by_merchant_id(12_334_141)
+
+    assert actual.is_a?(Array)
+    assert actual[0].is_a?(Customer)
+    assert_equal 3285, actual[0].id
+  end
+
 end
