@@ -190,11 +190,8 @@ class SalesAnalyst
 
     merchant_invoices.reduce(0) do |sum, invoice|
       revenue = @engine.engine_finds_paid_invoice_and_evaluates_cost(invoice.id)
-      if !revenue.nil?
-        sum += revenue
-      else
-        sum
-      end
+      sum += revenue unless revenue.nil?
+      sum
     end
   end
 
