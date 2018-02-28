@@ -181,11 +181,25 @@ class SalesAnalyst
 
   def most_sold_item_for_merchant(merchant_id)
     invoices = @se.find_invoices_by_merchant_id(merchant_id)
-    invoices.map do |invoice|
-      @se.find_invoice_items_by_invoice_id(invoice.id)
+    items = {}
+    invoices.each do |invoice|
+      if invoice.is_paid_in_full?
+        invoice_items = @se.find_invoice_items_by_invoice_id(invoice.id)
+        invoice_items.each do |invoice_item|
+          if items.has_key?(invoice_item.item_id)
+            items[invoice_item.item_id] += invoice_item.quantity
+          else
+            items[invoice_item.item_id] = invoice_item.quantity
+          end
+        end
+      end
     end
-    invoices.flatten
-    invoices.max_by(&:quantity)
+    best_value = (items.max_by { |key, value| value })[1]
+    items = items.find_all { |key, value| value == best_value}
+    best = items.map do |item|
+      @se.find_item_by_id(item[0])
+    end
+    best
   end
 
   def best_item_for_merchant(merchant_id)
