@@ -5,7 +5,8 @@ require_relative 'repository'
 # Customer Repo
 class CustomerRepository
   include Repository
-  attr_reader :engine
+  attr_reader :engine,
+              :csv_items
 
   def initialize(filepath, parent = nil)
     @csv_items = []
