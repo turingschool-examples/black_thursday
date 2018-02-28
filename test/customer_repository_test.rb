@@ -1,9 +1,7 @@
-require_relative 'test_helper.rb'
-require_relative '../lib/sales_engine.rb'
-require_relative '../lib/customer_repository.rb'
-
-require_relative './master_hash.rb'
-require 'pry'
+require_relative 'test_helper'
+require_relative '../lib/sales_engine'
+require_relative '../lib/customer_repository'
+require_relative './master_hash'
 
 class CustomerRepositoryTest < Minitest::Test
   def setup
@@ -32,20 +30,20 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_customers_by_first_name
-    result = @customer_repository.find_all_by_first_name("Mariah")
+    result = @customer_repository.find_all_by_first_name('Mariah')
 
-    result2= @customer_repository.find_all_by_first_name("Megan")
+    result2 = @customer_repository.find_all_by_first_name('Megan')
 
     assert_equal 1, result.length
-    assert_equal "Mariah", result[0].first_name
+    assert_equal 'Mariah', result[0].first_name
     assert_instance_of Customer, result[0]
     assert_equal [], result2
   end
 
   def test_it_can_find_all_customers_by_last_name
-    result = @customer_repository.find_all_by_last_name("Toy")
+    result = @customer_repository.find_all_by_last_name('Toy')
 
-    result_nil = @customer_repository.find_all_by_last_name("Arellano")
+    result_nil = @customer_repository.find_all_by_last_name('Arellano')
 
     assert_equal 1, result.length
     assert_instance_of Customer, result[0]

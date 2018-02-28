@@ -1,7 +1,7 @@
-require_relative 'test_helper.rb'
-require_relative '../lib/invoice_item_repository.rb'
-require_relative '../lib/sales_engine.rb'
-require_relative './master_hash.rb'
+require_relative 'test_helper'
+require_relative '../lib/invoice_item_repository'
+require_relative '../lib/sales_engine'
+require_relative './master_hash'
 require 'pry'
 
 class InvoiceItemRepositoryTest < Minitest::Test
@@ -17,7 +17,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_invoice_item_repository_can_hold_items
     assert_equal 31, @invoice_item_repository.all.count
-    assert (@invoice_item_repository.all.all? { |invoice_item| invoice_item.is_a?(InvoiceItem)})
+    assert (@invoice_item_repository.all.all? { |inv_i| inv_i.is_a?(InvoiceItem)})
   end
 
   def test_it_can_find_invoice_item_by_id
@@ -36,16 +36,6 @@ class InvoiceItemRepositoryTest < Minitest::Test
     result_nil = @invoice_item_repository.find_all_by_item_id(55)
 
     assert_equal 2, result.length
-    assert_instance_of InvoiceItem, result[0]
-    assert result_nil.empty?
-  end
-
-  def test_it_can_find_all_invoice_items_by_invoice_id
-    result = @invoice_item_repository.find_all_by_invoice_id(1)
-
-    result_nil = @invoice_item_repository.find_all_by_invoice_id(1_989)
-
-    assert_equal 8, result.length
     assert_instance_of InvoiceItem, result[0]
     assert result_nil.empty?
   end

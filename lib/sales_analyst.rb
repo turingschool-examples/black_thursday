@@ -196,11 +196,10 @@ class SalesAnalyst
 
     merchant_invoices.reduce(0) do |sum, invoice|
       revenue = @engine.engine_finds_paid_invoice_and_evaluates_cost(invoice.id)
-      if !revenue.nil?
+      unless revenue.nil?
         sum += revenue
-      else
-        sum
       end
+      sum
     end
   end
 
@@ -227,7 +226,6 @@ class SalesAnalyst
       merchant if merchant.items.length == 1
     end.compact
   end
-
 
   def most_sold_item_for_merchant(id)
     merch_inv = @engine.merchants.find_by_id(id).invoices
