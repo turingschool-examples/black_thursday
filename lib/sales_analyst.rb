@@ -104,10 +104,12 @@ class SalesAnalyst
 
   def top_days_by_invoice_count
     invoices = @se.invoices.all
+    results = {}
+    counter = 0
     invoices.reduce({}) do |results, invoice|
 	     day = invoice.created_at.strftime("%A")
-	     results[day] += 1
-           require 'pry'; binding.pry
+	     results[day] = counter += 1
+           # require 'pry'; binding.pry
 	     results
       end
 
@@ -154,7 +156,7 @@ class SalesAnalyst
 
   def invoice_status(status)
     invoices = @se.invoices.all
-    invoices.map(&status).length 
+    invoices.map(&status).length
 
     # require 'pry'; binding.pry
 
