@@ -16,6 +16,16 @@ class SalesAnalystTest < Minitest::Test
     @sales_analyst = SalesAnalyst.new(@se)
   end
 
+  def test_mean_finder
+    items = [3, 4, 5, 6, 2, 7, 1]
+    assert_equal 4, @sales_analyst.mean_finder(items)
+  end
+
+  def test_standard_deviation
+    items = [3, 4, 5, 6, 2, 7, 1]
+    assert_equal 2.16, @sales_analyst.standard_devation(4, items).round(2)
+  end
+
   def test_average_items_per_merchant
     assert_equal 2.63, @sales_analyst.average_items_per_merchant
   end
@@ -144,8 +154,8 @@ class SalesAnalystTest < Minitest::Test
 
   def test_merchants_with_only_one_item_registered_in_month
     merchants = @sales_analyst.merchants_with_only_one_item_registered_in_month('June')
-    assert_equal 12334141, merchants.first.id
-    assert_equal 12334105, merchants.last.id
+    assert_equal 12_334_141, merchants.first.id
+    assert_equal 12_334_105, merchants.last.id
   end
 
   def test_to_check_if_merchant_invoices_are_successful
@@ -173,8 +183,8 @@ class SalesAnalystTest < Minitest::Test
       assert_instance_of Merchant, merchant
     end
     assert_equal 8, @sales_analyst.top_revenue_earners.length
-    assert_equal 12334141, @sales_analyst.top_revenue_earners.first.id
-    assert_equal 22334105, @sales_analyst.top_revenue_earners.last.id
+    assert_equal 12_334_141, @sales_analyst.top_revenue_earners.first.id
+    assert_equal 22_334_105, @sales_analyst.top_revenue_earners.last.id
   end
 
   def test_to_find_merchants_ranked_by_revenue
@@ -182,34 +192,34 @@ class SalesAnalystTest < Minitest::Test
       assert_instance_of Merchant, merchant
     end
     assert_equal 8, @sales_analyst.merchants_ranked_by_revenue.length
-    assert_equal 12334141, @sales_analyst.merchants_ranked_by_revenue.first.id
-    assert_equal 22334105, @sales_analyst.merchants_ranked_by_revenue.last.id
+    assert_equal 12_334_141, @sales_analyst.merchants_ranked_by_revenue.first.id
+    assert_equal 22_334_105, @sales_analyst.merchants_ranked_by_revenue.last.id
   end
 
   def test_revenue_by_merchant
-    assert_equal 52395.72, @sales_analyst.revenue_by_merchant(12334141)
+    assert_equal 52_395.72, @sales_analyst.revenue_by_merchant(12_334_141)
   end
 
   def test_most_sold_item_for_merchant
-    items = @sales_analyst.most_sold_item_for_merchant(12334141)
+    items = @sales_analyst.most_sold_item_for_merchant(12_334_141)
 
-    assert_equal 263415463, items.first.id
+    assert_equal 263_415_463, items.first.id
   end
 
   def test_invoice_item_keys
-    invoices = @se.find_invoices_by_merchant_id(12334141)
-    result = @sales_analyst.invoice_items_keys(invoices, items = {})
+    invoices = @se.find_invoices_by_merchant_id(12_334_141)
+    result = @sales_analyst.invoice_items_keys(invoices, {})
 
     result.each { |invoice| assert_instance_of Invoice, invoice }
     assert_equal 9, result.length
   end
 
   def test_populate_items
-    invoices = @se.find_invoices_by_merchant_id(12334141)
+    invoices = @se.find_invoices_by_merchant_id(12_334_141)
     invoices.each do |invoice|
       next unless invoice.is_paid_in_full?
       invoice_items = @se.find_invoice_items_by_invoice_id(invoice.id)
-      result = @sales_analyst.populate_items(invoice_items, items = {})
+      result = @sales_analyst.populate_items(invoice_items, {})
 
       result.each { |invoiceitem| assert_instance_of InvoiceItem, invoiceitem }
       assert_equal 5, result.length
@@ -217,7 +227,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_find_best_items
-    invoices = @se.find_invoices_by_merchant_id(12334141)
+    invoices = @se.find_invoices_by_merchant_id(12_334_141)
     @sales_analyst.invoice_items_keys(invoices, items = {})
     best_value = (items.max_by { |_, value| value })[1]
     items = items.find_all { |_, value| value == best_value }
@@ -228,13 +238,13 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_best_item_for_merchant
-    item = @sales_analyst.best_item_for_merchant(12334141)
-    assert_equal 263415463, item.id
+    item = @sales_analyst.best_item_for_merchant(12_334_141)
+    assert_equal 263_415_463, item.id
   end
 
   def test_parse_invoice_items
-    invoices = @se.find_invoices_by_merchant_id(12334141)
-    result = @sales_analyst.parse_invoice_items(invoices, items = {})
+    invoices = @se.find_invoices_by_merchant_id(12_334_141)
+    result = @sales_analyst.parse_invoice_items(invoices, {})
 
     result.each { |invoice| assert_instance_of Invoice, invoice }
     assert_equal 9, result.length
@@ -242,7 +252,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_item_pricing
     items = {}
-    invoices = @se.find_invoices_by_merchant_id(12334141)
+    invoices = @se.find_invoices_by_merchant_id(12_334_141)
     invoices.each do |invoice|
       next unless invoice.is_paid_in_full?
       invoice_items = @se.find_invoice_items_by_invoice_id(invoice.id)
@@ -255,7 +265,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_get_total_price_for_item
     items = {}
-    invoices = @se.find_invoices_by_merchant_id(12334141)
+    invoices = @se.find_invoices_by_merchant_id(12_334_141)
     invoices.each do |invoice|
       next unless invoice.is_paid_in_full?
       invoice_items = @se.find_invoice_items_by_invoice_id(invoice.id)
