@@ -5,6 +5,14 @@ require_relative '../lib/sales_engine'
 class MerchantTest < Minitest::Test
   def setup
     data = { id: 5, name: 'Turing School', created_at: "2018-02-02 14:37:20 -0700" }
+    @data_se = {
+      items:         './test/fixtures/items_sample.csv',
+      merchants:     './test/fixtures/merchants_sample.csv',
+      invoices:      './test/fixtures/invoices_sample.csv',
+      invoice_items: './test/fixtures/invoice_items_sample.csv',
+      transactions:  './test/fixtures/transactions_sample.csv',
+      customers:     './test/fixtures/customers_sample.csv'
+      }
     @merchant = Merchant.new(data)
   end
 
@@ -33,15 +41,7 @@ class MerchantTest < Minitest::Test
   end
 
   def test_if_it_returns_all_items_for_a_merchant
-    data = {
-      items:         './test/fixtures/items_sample.csv',
-      merchants:     './test/fixtures/merchants_sample.csv',
-      invoices:      './test/fixtures/invoices_sample.csv',
-      invoice_items: './test/fixtures/invoice_items_sample.csv',
-      transactions:  './test/fixtures/transactions_sample.csv',
-      customers:     './test/fixtures/customers_sample.csv'
-    }
-    sales_engine = SalesEngine.new(data)
+    sales_engine = SalesEngine.new(@data_se)
     id = 12_334_185
     merchant = sales_engine.merchants.find_by_id(id)
 
@@ -54,15 +54,7 @@ class MerchantTest < Minitest::Test
   end
 
   def test_if_it_returns_all_invoices_for_a_merchant
-    data = {
-      items:         './test/fixtures/items_sample.csv',
-      merchants:     './test/fixtures/merchants_sample.csv',
-      invoices:      './test/fixtures/invoices_sample.csv',
-      invoice_items: './test/fixtures/invoice_items_sample.csv',
-      transactions:  './test/fixtures/transactions_sample.csv',
-      customers:     './test/fixtures/customers_sample.csv'
-    }
-    sales_engine = SalesEngine.new(data)
+    sales_engine = SalesEngine.new(@data_se)
     id = 12_334_141
     merchant = sales_engine.merchants.find_by_id(id)
 
@@ -75,15 +67,7 @@ class MerchantTest < Minitest::Test
   end
 
   def test_if_it_returns_all_customers_for_a_merchant
-    data = {
-      items:         './test/fixtures/items_sample.csv',
-      merchants:     './test/fixtures/merchants_sample.csv',
-      invoices:      './test/fixtures/invoices_sample.csv',
-      invoice_items: './test/fixtures/invoice_items_sample.csv',
-      transactions:  './test/fixtures/transactions_sample.csv',
-      customers:     './test/fixtures/customers_sample.csv'
-    }
-    sales_engine = SalesEngine.new(data)
+    sales_engine = SalesEngine.new(@data_se)
     id = 12_334_141
     merchant = sales_engine.merchants.find_by_id(id)
 
@@ -92,15 +76,7 @@ class MerchantTest < Minitest::Test
   end
 
   def test_if_it_returns_revenue_for_invoices_paid_in_full
-    data = {
-      items:         './test/fixtures/items_sample.csv',
-      merchants:     './test/fixtures/merchants_sample.csv',
-      invoices:      './test/fixtures/invoices_sample.csv',
-      invoice_items: './test/fixtures/invoice_items_sample.csv',
-      transactions:  './test/fixtures/transactions_sample.csv',
-      customers:     './test/fixtures/customers_sample.csv'
-    }
-    sales_engine = SalesEngine.new(data)
+    sales_engine = SalesEngine.new(@data_se)
     id = 12_334_141
     merchant = sales_engine.merchants.find_by_id(id)
 

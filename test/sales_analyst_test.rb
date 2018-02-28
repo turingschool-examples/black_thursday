@@ -4,7 +4,7 @@ require_relative '../lib/sales_engine'
 
 class SalesAnalystTest < Minitest::Test
   def setup
-    @data = {
+    data = {
       items:         './test/fixtures/items_sample.csv',
       merchants:     './test/fixtures/merchants_sample.csv',
       invoices:      './test/fixtures/invoices_sample.csv',
@@ -12,7 +12,7 @@ class SalesAnalystTest < Minitest::Test
       transactions:  './test/fixtures/transactions_sample.csv',
       customers:     './test/fixtures/customers_sample.csv'
     }
-    @se = SalesEngine.new(@data)
+    @se = SalesEngine.new(data)
     @sales_analyst = SalesAnalyst.new(@se)
   end
 

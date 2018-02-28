@@ -1,5 +1,6 @@
 require_relative 'test_helper'
 require_relative '../lib/transaction'
+require_relative '../lib/sales_engine'
 require 'time'
 
 class TransactionTest < Minitest::Test

@@ -13,6 +13,14 @@ class InvoiceTest < Minitest::Test
       created_at:   '2018-02-02 14:37:20 -0700',
       updated_at:   '2018-02-02 14:37:20 -0700'
     }
+    @data_se = {
+      items:         './test/fixtures/items_sample.csv',
+      merchants:     './test/fixtures/merchants_sample.csv',
+      invoices:      './test/fixtures/invoices_sample.csv',
+      invoice_items: './test/fixtures/invoice_items_sample.csv',
+      transactions:  './test/fixtures/transactions_sample.csv',
+      customers:     './test/fixtures/customers_sample.csv'
+      }
     @invoice = Invoice.new(data)
   end
 
@@ -30,15 +38,7 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_if_it_returns_the_merchant_for_an_invoice
-    data = {
-      items:         './test/fixtures/items_sample.csv',
-      merchants:     './test/fixtures/merchants_sample.csv',
-      invoices:      './test/fixtures/invoices_sample.csv',
-      invoice_items: './test/fixtures/invoice_items_sample.csv',
-      transactions:  './test/fixtures/transactions_sample.csv',
-      customers:     './test/fixtures/customers_sample.csv'
-    }
-    sales_engine = SalesEngine.new(data)
+    sales_engine = SalesEngine.new(@data_se)
     id = 641
     invoice = sales_engine.invoices.find_by_id(id)
 
@@ -48,15 +48,7 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_if_it_returns_all_items_for_an_invoice
-    data = {
-      items:         './test/fixtures/items_sample.csv',
-      merchants:     './test/fixtures/merchants_sample.csv',
-      invoices:      './test/fixtures/invoices_sample.csv',
-      invoice_items: './test/fixtures/invoice_items_sample.csv',
-      transactions:  './test/fixtures/transactions_sample.csv',
-      customers:     './test/fixtures/customers_sample.csv'
-    }
-    sales_engine = SalesEngine.new(data)
+    sales_engine = SalesEngine.new(@data_se)
     id = 819
     invoice = sales_engine.invoices.find_by_id(id)
 
@@ -69,15 +61,7 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_if_it_returns_all_transactions_for_an_invoice
-    data = {
-      items:         './test/fixtures/items_sample.csv',
-      merchants:     './test/fixtures/merchants_sample.csv',
-      invoices:      './test/fixtures/invoices_sample.csv',
-      invoice_items: './test/fixtures/invoice_items_sample.csv',
-      transactions:  './test/fixtures/transactions_sample.csv',
-      customers:     './test/fixtures/customers_sample.csv'
-    }
-    sales_engine = SalesEngine.new(data)
+    sales_engine = SalesEngine.new(@data_se)
     id = 2179
     invoice = sales_engine.invoices.find_by_id(id)
 
@@ -89,15 +73,7 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_if_it_returns_customer_based_on_customer_id
-    data = {
-      items:         './test/fixtures/items_sample.csv',
-      merchants:     './test/fixtures/merchants_sample.csv',
-      invoices:      './test/fixtures/invoices_sample.csv',
-      invoice_items: './test/fixtures/invoice_items_sample.csv',
-      transactions:  './test/fixtures/transactions_sample.csv',
-      customers:     './test/fixtures/customers_sample.csv'
-    }
-    sales_engine = SalesEngine.new(data)
+    sales_engine = SalesEngine.new(@data_se)
     id = 1053
     invoice = sales_engine.invoices.find_by_id(id)
 
@@ -109,15 +85,7 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_return_value_if_invoice_is_paid_in_full
-    data = {
-      items:         './test/fixtures/items_sample.csv',
-      merchants:     './test/fixtures/merchants_sample.csv',
-      invoices:      './test/fixtures/invoices_sample.csv',
-      invoice_items: './test/fixtures/invoice_items_sample.csv',
-      transactions:  './test/fixtures/transactions_sample.csv',
-      customers:     './test/fixtures/customers_sample.csv'
-    }
-    sales_engine = SalesEngine.new(data)
+    sales_engine = SalesEngine.new(@data_se)
     id = 2179
     invoice = sales_engine.invoices.find_by_id(id)
     id2 = 4097
@@ -128,15 +96,7 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_it_returns_total_dollar_amount_of_the_invoice
-    data = {
-      items:         './test/fixtures/items_sample.csv',
-      merchants:     './test/fixtures/merchants_sample.csv',
-      invoices:      './test/fixtures/invoices_sample.csv',
-      invoice_items: './test/fixtures/invoice_items_sample.csv',
-      transactions:  './test/fixtures/transactions_sample.csv',
-      customers:     './test/fixtures/customers_sample.csv'
-    }
-    sales_engine = SalesEngine.new(data)
+    sales_engine = SalesEngine.new(@data_se)
     id = 819
     invoice = sales_engine.invoices.find_by_id(id)
 
