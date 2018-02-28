@@ -28,7 +28,7 @@ class SalesEngineTest < Minitest::Test
     assert_equal @information[:invoices], actual_invoice_path
   end
 
-  def test_find_merchant_by_attribute
+  def test_find_merchant_by_merchant_id
     actual = @sales_engine.find_merchant(12_334_141)
 
     assert actual.is_a?(Merchant)
@@ -82,11 +82,31 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_find_customers_by_merchant_id
-    actual = @sales_engine.find_customers_by_merchant_id(12_334_141)
+    actual = @sales_engine.find_customers_by_merchant_id(12335938)
 
     assert actual.is_a?(Array)
     assert actual[0].is_a?(Customer)
-    assert_equal 3285, actual[0].id
+    assert_equal 1, actual[0].id
   end
 
+  def test_find_merchants_by_customer_id
+    actual = @sales_engine.find_merchants_by_customer_id(339)
+
+    assert actual.is_a?(Array)
+    assert actual[0].is_a?(Merchant)
+    assert_equal 12_334_112, actual[0].id
+  end
+
+  def test_find_transaction_payment_status
+    actual = @sales_engine.find_transaction_payment_status(74)
+
+    assert actual
+  end
+
+  def test_total_invoice_cost
+    actual = @sales_engine.total_invoice_cost(74)
+
+    assert actual.is_a?(BigDecimal)
+    assert_equal 0.87909e3, actual
+  end
 end

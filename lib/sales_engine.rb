@@ -40,8 +40,8 @@ class SalesEngine
     new(hash)
   end
 
-  def find_merchant(attribute_used)
-    @merchants.find_by_id(attribute_used)
+  def find_merchant(merchant_id)
+    @merchants.find_by_id(merchant_id)
   end
 
   def find_items_by_merchant_id(merchant_id)
