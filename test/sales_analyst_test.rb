@@ -85,7 +85,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_invoice_status_percentages
-    skip
     actual = @sa.invoice_status(:pending)
     assert_equal 34.33, actual
   end
