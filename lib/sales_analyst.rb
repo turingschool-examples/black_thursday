@@ -104,66 +104,26 @@ class SalesAnalyst
 
   def top_days_by_invoice_count
     invoices = @se.invoices.all
-    results = {}
-    counter = 0
-    invoices.reduce({}) do |results, invoice|
+    top_days = invoices.reduce({}) do |results, invoice|
 	     day = invoice.created_at.strftime("%A")
-	     results[day] = counter += 1
-
-       # avg_values = average(results.values)
-       # std_dev =
-       results
-       require 'pry'; binding.pry
+       results[day] = 0 if results[day].nil?
+	     results[day] += 1
+	     results
       end
-      average = average(results.values)
-      st_dev = standard_deviation(results.to_a, average)
-      sigma = average + st_dev
-
-
-
-    # merchants = @se.merchants.all
-  #   avg_invc = average_invoices_per_merchant
-  #   st_dev = average_invoices_per_merchant_standard_deviation
-  #   top_days = []
-  #   invoices.find_all do |invoice|
-  #     if invoice > sigma
-  #       top_days << invoice.invoices[0].created_at.strftime("%A")
-  #     end
-  #   end
-  #   top_days
-  end
-
-  def top_merchants_by_sigma
-    # merchants = @se.merchants.all
-    # avg_invc = average_invoices_per_merchant
-    # st_dev = average_invoices_per_merchant_standard_deviation
-    # sigma = avg_invc + st_dev
-    # top_merchants = []
-    # merchants.find_all do |merchant|
-    #   if merchant.invoices.length > sigma
-    #     top_merchants << merchant.id
-    #   end
-    # end
-
-    invoices = @se.invoices.all
-    days = []
-    day_counter = 0
-    invoices.find_all do |invoice|
-      if days.key?(invoice.created_at.strftime("%A"))
-        days[invoice.created_at.strftime("%A")] = day_counter += 1
-      else
-        days[invoice.created_at.strftime("%A")] = day_counter
-      end
-    end
-    # require 'pry'; binding.pry
+      avg_by_day = average(top_days.values)
+      std_by_day = standard_deviation(top_days.values, avg_by_day)
+      sigma = std_by_day + avg_by_day
+      shit = top_days.map do |day, revenue|
+        day if revenue > sigma
+      end.compact
   end
 
   def invoice_status(status)
-    invoices = @se.invoices.all
-    invoices.map(&status).length
-
-    # require 'pry'; binding.pry
-
+    invoices = @se.invoices.all.find_all do |invoice|
+      invoice.status == status
+    end
+    percent = (invoices.length / @se.invoices.all.length.to_f) * 100
+    percent.round(2)
   end
 
 end
