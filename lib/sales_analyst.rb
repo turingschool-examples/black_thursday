@@ -109,10 +109,10 @@ class SalesAnalyst
     st_dev = average_invoices_per_merchant_standard_deviation
     sigma = avg_invc + st_dev
     top_days = []
-    invoices.find_all do |invoice|
+    merchants.find_all do |merchant|
       require 'pry'; binding.pry
-      if invoice > sigma
-        top_days << invoice.created_at.strftime("%A")
+      if merchant.invoices.length > sigma
+        top_days << merchant.created_at.strftime("%A")
       end
     end
     top_days
@@ -130,7 +130,7 @@ class SalesAnalyst
       end
     end
     days
-    require 'pry'; binding.pry
+    # require 'pry'; binding.pry
   end
 
 end

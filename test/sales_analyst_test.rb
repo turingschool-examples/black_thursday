@@ -74,7 +74,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_days_by_invoice_count
-    skip
     actual = @sa.top_days_by_invoice_count
     assert_equal ["Monday"], actual
   end
@@ -83,6 +82,7 @@ class SalesAnalystTest < Minitest::Test
     actual = @sa.top_days
     assert_equal ({}), actual
   end
+
   def test_it_returns_invoice_status_percentages
     skip
     actual = @sa.invoice_status(:pending)
