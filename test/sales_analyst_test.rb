@@ -235,11 +235,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_for_merchants_with_only_one_item_registered_in_month
-    actual = @sales_analyst.merchants_with_only_one_item_registered_in_month('May')
+    act = @sales_analyst.merchants_with_only_one_item_registered_in_month('May')
 
-    assert actual.is_a?(Array)
-    assert actual[0].is_a?(Merchant)
-    assert_equal 1, actual.length
+    assert act.is_a?(Array)
+    assert act[0].is_a?(Merchant)
+    assert_equal 1, act.length
   end
 
   def test_for_most_sold_item_for_merchant
@@ -319,23 +319,33 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_find_fully_paid_invoices
-    skip
     customer = mock('customer')
-    assert_equal 50, @sales_analyst.find_fully_paid_invoices(customer, hash)
+    invoice1 = mock('invoice')
+    customer.stubs(:fully_paid_invoices).returns([invoice1])
+
+    invoice_item1 = mock('invoice_item')
+    invoice_item1.stubs(:unit_price).returns(5)
+    invoice_item1.stubs(:quantity).returns(2)
+    invoice_item1.stubs(:item_id).returns(26_352_926)
+    invoice1.stubs(:invoice_items).returns([invoice_item1])
+
+    actual = @sales_analyst.find_fully_paid_invoices(customer, Hash.new(0))
+
+    assert_equal [invoice1], actual
   end
 
   def test_find_quantities
-    skip
     invoice_item1 = mock('invoice_item')
     invoice_item1.expects(:item_id).returns('263_519_844')
-    invoice_item1.expects(:quantity).returns('5')
+    invoice_item1.expects(:quantity).returns(5)
     invoice_item2 = mock('invoice_item')
     invoice_item2.expects(:item_id).returns('263_563_764')
-    invoice_item2.expects(:quantity).returns('7')
+    invoice_item2.expects(:quantity).returns(7)
     invoice = mock('invoice')
     invoice.stubs(:invoice_items).returns([invoice_item1, invoice_item2])
+    actual = @sales_analyst.find_quantities(invoice, Hash.new(0))
 
-    assert_equal 50, @sales_analyst.find_quantities(invoice)
+    assert_equal [invoice_item1, invoice_item2], actual
   end
 
   def test_items_bought_in_year
