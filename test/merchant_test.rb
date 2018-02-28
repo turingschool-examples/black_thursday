@@ -8,7 +8,10 @@ class MerchantTest < Minitest::Test
   def setup
     test_engine = TestEngine.new.god_hash
     @sales_engine = SalesEngine.new(test_engine)
-    @merchant = Merchant.new({:id => '5', :name => 'Turing School', :created_at => '2010-12-10'}, @sales_engine.merchants)
+    @merchant = Merchant.new({ :id         => '5',
+                               :name       => 'Turing School',
+                               :created_at => '2010-12-10' },
+                               @sales_engine.merchants)
   end
 
   def test_merchant_initializes
@@ -21,7 +24,7 @@ class MerchantTest < Minitest::Test
   end
 
   def test_merchant_items_returns_items_array
-    merchant = @sales_engine.merchants.find_by_id(12334141)
+    merchant = @sales_engine.merchants.find_by_id(12_334_141)
     merchant.items
 
     assert_equal 1, merchant.items.count
@@ -29,10 +32,10 @@ class MerchantTest < Minitest::Test
   end
 
   def test_merchant_invoices_returns_invoices_array
-    merchant = @sales_engine.merchants.find_by_id(12335955)
+    merchant = @sales_engine.merchants.find_by_id(12_335_955)
     merchant.invoices
 
-    merchant_no_invoice = @sales_engine.merchants.find_by_id(12334145)
+    merchant_no_invoice = @sales_engine.merchants.find_by_id(12_334_145)
     merchant_no_invoice.invoices
 
     assert_equal 13, merchant.invoices.length
@@ -40,7 +43,7 @@ class MerchantTest < Minitest::Test
   end
 
   def test_merchant_customers_returns_customers_array
-    merchant = @sales_engine.merchants.find_by_id(12335955)
+    merchant = @sales_engine.merchants.find_by_id(12_335_955)
     merchant.customers
 
     assert_equal 7, merchant.customers.length

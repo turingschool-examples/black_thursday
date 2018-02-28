@@ -57,4 +57,8 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal 7, result.length
     assert_instance_of Merchant, result[0]
   end
+
+  def test_inspect
+    assert_equal "#<CustomerRepository 50 rows>", @customer_repository.inspect
+  end
 end

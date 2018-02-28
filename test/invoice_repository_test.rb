@@ -114,4 +114,8 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 19, result[0].id
     assert_equal 4318767847968505, result[0].credit_card_number
   end
+
+  def test_inspect
+    assert_equal "#<InvoiceRepository 65 rows>", @invoice_repository.inspect
+  end
 end

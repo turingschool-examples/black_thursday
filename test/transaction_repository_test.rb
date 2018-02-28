@@ -74,4 +74,8 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal 12334123, result.merchant_id
     assert_equal :shipped, result.status
   end
+
+  def test_inspect
+    assert_equal "#<TransactionRepository 30 rows>", @transaction_repository.inspect
+  end
 end

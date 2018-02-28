@@ -49,4 +49,9 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_instance_of InvoiceItem, result[0]
     assert result_nil.empty?
   end
+
+  def test_inspect
+    exp_result = "#<InvoiceItemRepository 31 rows>"
+    assert_equal exp_result, @invoice_item_repository.inspect
+  end
 end
