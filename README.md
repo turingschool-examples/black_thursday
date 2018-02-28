@@ -29,8 +29,8 @@ Project Overview
 1.  Nikhil forked the repository [here](https://github.com/turingschool-examples/black_thursday) and added Jake as a collaborator
 2.  Jake and Nikhil then cloned this repository
 3.  We created a [Waffle.io](http://waffle.io) account for project management. We entered and assigned tasks as we thought of them in the 'To Do' column
-    These tasks were then moved to the 'In Progress' column as the person assigned to them, started to work on them. Finally, upon completing a task, the task was moved to the 'Done' column. Since waffle is linked to our GitHub, any changes made to waffle were automatically reflected in our GitHub repo
-4.  We setup [SimpleCov](https://github.com/colszowka/simplecov) to monitor test coverage along the way
+    These tasks were then moved to the 'In Progress' column, as the person assigned to them started to work on them. Finally, upon completing a task, the task was moved to the 'Done' column. Since waffle is linked to our GitHub, any changes made to waffle were automatically reflected in our GitHub repo
+4.  We setup [SimpleCov](https://github.com/colszowka/simplecov) to monitor test coverage along the way as it was our intent to achieve 100% test coverage
 
 ### Project Iterations
 
@@ -46,4 +46,4 @@ We chose to complete iteration 4 as it was considered more complex of the two.
 
 ### Spec Harness
 
-This project will be assessed with the help of a [spec harness](https://github.com/turingschool/black_thursday_spec_harness). The `README.md` file includes instructions for setup and usage. This spec harness **does not** replace our own test suite (where we intend to have full 100% coverage using TDD).
+This project is being assessed with the help of a [spec harness](https://github.com/turingschool/black_thursday_spec_harness). The `README.md` file includes instructions for setup and usage. This spec harness **does not** replace our own test suite (where we intend to have full 100% coverage using TDD).
