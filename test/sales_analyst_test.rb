@@ -6,8 +6,8 @@ class SalesAnalystTest < Minitest::Test
   def setup
     repositories = {
       items: './data/sample_data/items.csv',
-      merchants: './data/sample_data/merchants.csv',
-      invoices: './data/sample_data/invoices.csv',
+      merchants: './data/merchants.csv',
+      invoices: './data/invoices.csv',
       transactions: './data/sample_data/transactions.csv',
       customers: './data/sample_data/customers.csv',
       invoice_items: './data/sample_data/invoice_items.csv'
@@ -73,8 +73,19 @@ class SalesAnalystTest < Minitest::Test
     assert_equal [1, 2, 3], actual
   end
 
-  def test_top_days_by_index_count
+  def test_top_days_by_invoice_count
+    skip
     actual = @sa.top_days_by_invoice_count
     assert_equal ["Monday"], actual
+  end
+
+  def test_top_days_returns_appropriate_hash
+    actual = @sa.top_days
+    assert_equal ({}), actual
+  end
+  def test_it_returns_invoice_status_percentages
+    skip
+    actual = @sa.invoice_status(:pending)
+    assert_equal 34.33, actual
   end
 end
