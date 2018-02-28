@@ -63,7 +63,7 @@ class SalesAnalyst
 
   def invoices_per_merchant
     @merchants.map do |merchant|
-      @invoice_repo.find_all_by_merchant_id(merchant.id).count
+      @invoice_repo.find_all_by_merchant_id(merchant.id).length
     end
   end
 
@@ -256,7 +256,7 @@ class SalesAnalyst
     highest_quantity = search_invoice_items_by_quantity(i_items.flatten, sorted)
     @item_repo.find_all_by_invoice_items(highest_quantity)
   end
-
+# here!
   def search_invoice_items_by_quantity(invoice_item_array, quantity)
     invoice_item_array.find_all do |invoice_item|
       invoice_item.quantity == quantity
@@ -270,7 +270,7 @@ class SalesAnalyst
     highest_revenue = sort_invoice_items_by_total_revenue(invoice_items)
     @item_repo.find_by_id(highest_revenue.item_id)
   end
-
+# here!
   def sort_invoice_items_by_total_revenue(invoice_items)
     invoice_items.flatten.max_by do |invoice_item|
       invoice_item.quantity * invoice_item.unit_price
@@ -283,7 +283,7 @@ class SalesAnalyst
       invoice_costs.inject(:+).to_f
     end
   end
-
+# here!
   def get_invoices_for_customer(customer_id)
     @invoice_repo.find_all_by_customer_id(customer_id)
   end
@@ -311,13 +311,13 @@ class SalesAnalyst
     end
     [hash.key(hash.values.sort.last)]
   end
-
+# here!
   def find_fully_paid_invoices(customer, hash)
     customer.fully_paid_invoices.each do |invoice|
       find_quantities(invoice, hash)
     end
   end
-
+# here!
   def find_quantities(invoice, hash)
     invoice.invoice_items.each do |invoice_item|
       hash[@item_repo.find_by_id(invoice_item.item_id)] += invoice_item.quantity
