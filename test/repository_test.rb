@@ -19,5 +19,4 @@ class RepositoryTest < Minitest::Test
 
     assert_equal "#<TestRepository 3 rows>", dummy_repository.inspect
   end
-
 end
