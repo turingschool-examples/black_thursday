@@ -1,5 +1,3 @@
-require 'pry'
-
 # Statistics for SalesEngine
 class SalesAnalyst
   def initialize(sales_engine)
@@ -125,7 +123,7 @@ class SalesAnalyst
         invoice.created_at.mon == date.mon && \
         invoice.created_at.mday == date.mday
     end
-    invoices = invoices.map do |invoice|
+    invoices.map! do |invoice|
       @se.invoice_items.find_all_by_invoice_id(invoice.id)
     end
     amount = 0
@@ -183,19 +181,18 @@ class SalesAnalyst
     invoices = @se.find_invoices_by_merchant_id(merchant_id)
     items = {}
     invoices.each do |invoice|
-      if invoice.is_paid_in_full?
-        invoice_items = @se.find_invoice_items_by_invoice_id(invoice.id)
-        invoice_items.each do |invoice_item|
-          if items.has_key?(invoice_item.item_id)
-            items[invoice_item.item_id] += invoice_item.quantity
-          else
-            items[invoice_item.item_id] = invoice_item.quantity
-          end
+      next unless invoice.is_paid_in_full?
+      invoice_items = @se.find_invoice_items_by_invoice_id(invoice.id)
+      invoice_items.each do |invoice_item|
+        if items.key?(invoice_item.item_id)
+          items[invoice_item.item_id] += invoice_item.quantity
+        else
+          items[invoice_item.item_id] = invoice_item.quantity
         end
       end
     end
-    best_value = (items.max_by { |key, value| value })[1]
-    items = items.find_all { |key, value| value == best_value}
+    best_value = (items.max_by { |_, value| value })[1]
+    items = items.find_all { |_, value| value == best_value }
     best = items.map do |item|
       @se.find_item_by_id(item[0])
     end
@@ -206,18 +203,17 @@ class SalesAnalyst
     invoices = @se.find_invoices_by_merchant_id(merchant_id)
     items = {}
     invoices.each do |invoice|
-      if invoice.is_paid_in_full?
-        invoice_items = @se.find_invoice_items_by_invoice_id(invoice.id)
-        invoice_items.each do |invoice_item|
-          if items.has_key?(invoice_item.item_id)
-            items[invoice_item.item_id] += invoice_item.quantity * invoice_item.unit_price
-          else
-            items[invoice_item.item_id] = invoice_item.quantity * invoice_item.unit_price
-          end
+      next unless invoice.is_paid_in_full?
+      invoice_items = @se.find_invoice_items_by_invoice_id(invoice.id)
+      invoice_items.each do |iitem|
+        if items.key?(iitem.item_id)
+          items[iitem.item_id] += iitem.quantity * iitem.unit_price
+        else
+          items[iitem.item_id] = iitem.quantity * iitem.unit_price
         end
       end
     end
-    best_item_id = (items.max_by { |key, value| value })[0]
+    best_item_id = (items.max_by { |_, value| value })[0]
     @se.find_item_by_id(best_item_id)
   end
 end
