@@ -16,6 +16,17 @@ class TransactionTest < Minitest::Test
     @transaction = Transaction.new(@data, 'TransactionRepo pointer')
   end
 
+  def information
+    {
+      items: './test/fixtures/items_list_truncated.csv',
+      merchants: './test/fixtures/merchants_list_truncated.csv',
+      invoices: './test/fixtures/invoices_list_truncated.csv',
+      invoice_items: './test/fixtures/invoice_items_list_truncated.csv',
+      transactions: './test/fixtures/transactions_list_truncated.csv',
+      customers: './test/fixtures/customer_list_truncated.csv'
+    }
+  end
+
   def test_it_exists
     assert_instance_of Transaction, @transaction
   end
@@ -40,14 +51,6 @@ class TransactionTest < Minitest::Test
   end
 
   def test_finding_invoice_associated_with_transaction
-    information = {
-      items: './test/fixtures/items_list_truncated.csv',
-      merchants: './test/fixtures/merchants_list_truncated.csv',
-      invoices: './test/fixtures/invoices_list_truncated.csv',
-      invoice_items: './test/fixtures/invoice_items_list_truncated.csv',
-      transactions: './test/fixtures/transactions_list_truncated.csv',
-      customers: './test/fixtures/customer_list_truncated.csv'
-    }
     sales_engine = SalesEngine.from_csv(information)
     transaction = sales_engine.transactions.find_by_id(20)
 

@@ -82,7 +82,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_find_customers_by_merchant_id
-    actual = @sales_engine.find_customers_by_merchant_id(12335938)
+    actual = @sales_engine.find_customers_by_merchant_id(12_335_938)
 
     assert actual.is_a?(Array)
     assert actual[0].is_a?(Customer)

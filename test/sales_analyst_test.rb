@@ -23,9 +23,9 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_for_items_per_merchant
-    expected = [1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0]
+    expect = [1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0]
     actual = @sales_analyst.items_per_merchant
-    assert_equal expected, actual
+    assert_equal expect, actual
   end
 
   def test_for_invoices_per_merchant
@@ -174,7 +174,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_for_total_revenue_by_date
-    date = Time.parse("2005-01-03")
+    date = Time.parse('2005-01-03')
     assert_equal 0.87909e3, @sales_analyst.total_revenue_by_date(date)
   end
 
@@ -199,13 +199,15 @@ class SalesAnalystTest < Minitest::Test
 
     invoice_item_array = [invoice_item1, invoice_item2]
 
-    assert @sales_analyst.find_total_item_prices(invoice_item_array).is_a?(Array)
-    assert_equal 2, @sales_analyst.find_total_item_prices(invoice_item_array).length
-    assert_equal 10, @sales_analyst.find_total_item_prices(invoice_item_array).first
+    actual = @sales_analyst.find_total_item_prices(invoice_item_array)
+
+    assert actual.is_a?(Array)
+    assert_equal 2, actual.length
+    assert_equal 10, actual.first
   end
 
   def test_for_revenue_by_merchant
-    assert_equal 0.87909e3, @sales_analyst.revenue_by_merchant(12334105)
+    assert_equal 0.87909e3, @sales_analyst.revenue_by_merchant(12_334_105)
   end
 
   def test_for_merchants_total_revenue
@@ -216,7 +218,7 @@ class SalesAnalystTest < Minitest::Test
     assert @sales_analyst.merchants_ranked_by_revenue.is_a?(Array)
     assert @sales_analyst.merchants_ranked_by_revenue[0].is_a?(Merchant)
 
-    assert_equal 12334105, @sales_analyst.merchants_ranked_by_revenue[0].id
+    assert_equal 12_334_105, @sales_analyst.merchants_ranked_by_revenue[0].id
   end
 
   def test_for_merchants_with_pending_invoices
@@ -234,17 +236,18 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_for_merchants_with_only_one_item_registered_in_month
-    assert @sales_analyst.merchants_with_only_one_item_registered_in_month('May').is_a?(Array)
-    assert @sales_analyst.merchants_with_only_one_item_registered_in_month('May')[0].is_a?(Merchant)
+    actual = @sales_analyst.merchants_with_only_one_item_registered_in_month('May')
 
-    assert_equal 1, @sales_analyst.merchants_with_only_one_item_registered_in_month('May').length
+    assert actual.is_a?(Array)
+    assert actual[0].is_a?(Merchant)
+    assert_equal 1, actual.length
   end
 
   def test_for_most_sold_item_for_merchant
     expected = @sales_analyst.most_sold_item_for_merchant(12_334_105)
     assert expected[0].is_a?(Item)
 
-    assert_equal 263506360, expected[0].id
+    assert_equal 263_506_360, expected[0].id
   end
 
   def test_search_invoice_items_by_quantity
@@ -253,8 +256,8 @@ class SalesAnalystTest < Minitest::Test
     invoice_item1.stubs(:id).returns(29)
     invoice_item2 = mock('invoice_item')
     invoice_item2.stubs(:quantity).returns(7)
-    invoice_item_array = [invoice_item1, invoice_item2]
-    actual = @sales_analyst.search_invoice_items_by_quantity(invoice_item_array, 5)
+    ii_array = [invoice_item1, invoice_item2]
+    actual = @sales_analyst.search_invoice_items_by_quantity(ii_array, 5)
 
     assert actual.is_a?(Array)
     assert_equal 29, actual[0].id
@@ -279,7 +282,9 @@ class SalesAnalystTest < Minitest::Test
 
     invoice_items = [invoice_item1, invoice_item2]
 
-    assert_equal 3, @sales_analyst.sort_invoice_items_by_total_revenue(invoice_items).unit_price
+    actual = @sales_analyst.sort_invoice_items_by_total_revenue(invoice_items)
+
+    assert_equal 3, actual.unit_price
   end
 
   def test_top_buyers
@@ -331,12 +336,13 @@ class SalesAnalystTest < Minitest::Test
     invoice = mock('invoice')
     invoice.stubs(:invoice_items).returns([invoice_item1, invoice_item2])
 
-    assert_equal 50, @sales_analyst.find_quantities(invoice, {5=>2})
+    assert_equal 50, @sales_analyst.find_quantities(invoice)
   end
 
   def test_items_bought_in_year
     assert_equal 0, @sales_analyst.items_bought_in_year(1, 2012).length
-    assert_equal 263_519_844, @sales_analyst.items_bought_in_year(1, 2009).first.id
+    actual = @sales_analyst.items_bought_in_year(1, 2009)
+    assert_equal 263_519_844, actual.first.id
   end
 
   def test_highest_volume_items

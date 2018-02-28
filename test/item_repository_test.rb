@@ -8,6 +8,18 @@ class ItemRepositoryTest < Minitest::Test
     @ir = ItemRepository.new(item_csv, parent)
   end
 
+  def data
+    {
+      id: 1,
+      item_id: 263_395_237,
+      invoice_id: 1227,
+      quantity: 5,
+      unit_price: 34_873,
+      created_at: '2009-02-07',
+      updated_at: '2014-03-15'
+    }
+  end
+
   def test_it_exists
     assert_instance_of ItemRepository, @ir
     assert_equal 'parent', @ir.parent
@@ -59,15 +71,6 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_invoice_items
-    data = {
-      id: 1,
-      item_id: 263_395_237,
-      invoice_id: 1227,
-      quantity: 5,
-      unit_price: 34_873,
-      created_at: '2009-02-07',
-      updated_at: '2014-03-15'
-    }
     invoice_items = [InvoiceItem.new(data, 'InvoiceItemRepository pointer')]
     actual = @ir.find_all_by_invoice_items(invoice_items)
 
