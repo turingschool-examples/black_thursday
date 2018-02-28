@@ -40,6 +40,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_avg_item_price_for_merchant
     price = @sales_analyst.average_item_price_for_merchant(12_334_185)
+
     assert_equal 0.1117e2, price
   end
 
@@ -113,6 +114,21 @@ class SalesAnalystTest < Minitest::Test
     assert_equal BigDecimal.new('8590.12'), revenue
   end
 
+  def test_compute_total_amount
+    date = Date.new(2003, 3, 28)
+    invoices = @se.invoices.all.find_all do |invoice|
+      invoice.created_at.year == date.year && \
+        invoice.created_at.mon == date.mon && \
+        invoice.created_at.mday == date.mday
+    end
+    invoices.map! do |invoice|
+      @se.invoice_items.find_all_by_invoice_id(invoice.id)
+    end
+    result = @sales_analyst.compute_total_amount(invoices)
+
+    assert_equal BigDecimal.new('8590.12'), result
+  end
+
   def test_merchants_with_pending_invoices
     @sales_analyst.merchants_with_pending_invoices do |merchant|
       assert_instance_of Merchant, merchant
@@ -156,9 +172,9 @@ class SalesAnalystTest < Minitest::Test
     @sales_analyst.top_revenue_earners do |merchant|
       assert_instance_of Merchant, merchant
     end
-    assert_equal 8, @sales_analyst.merchants_ranked_by_revenue.length
-    assert_equal 12334141, @sales_analyst.merchants_ranked_by_revenue.first.id
-    assert_equal 22334105, @sales_analyst.merchants_ranked_by_revenue.last.id
+    assert_equal 8, @sales_analyst.top_revenue_earners.length
+    assert_equal 12334141, @sales_analyst.top_revenue_earners.first.id
+    assert_equal 22334105, @sales_analyst.top_revenue_earners.last.id
   end
 
   def test_to_find_merchants_ranked_by_revenue
@@ -176,11 +192,78 @@ class SalesAnalystTest < Minitest::Test
 
   def test_most_sold_item_for_merchant
     items = @sales_analyst.most_sold_item_for_merchant(12334141)
+
     assert_equal 263415463, items.first.id
+  end
+
+  def test_invoice_item_keys
+    invoices = @se.find_invoices_by_merchant_id(12334141)
+    result = @sales_analyst.invoice_items_keys(invoices, items = {})
+
+    result.each { |invoice| assert_instance_of Invoice, invoice }
+    assert_equal 9, result.length
+  end
+
+  def test_populate_items
+    invoices = @se.find_invoices_by_merchant_id(12334141)
+    invoices.each do |invoice|
+      next unless invoice.is_paid_in_full?
+      invoice_items = @se.find_invoice_items_by_invoice_id(invoice.id)
+      result = @sales_analyst.populate_items(invoice_items, items = {})
+
+      result.each { |invoiceitem| assert_instance_of InvoiceItem, invoiceitem }
+      assert_equal 5, result.length
+    end
+  end
+
+  def test_find_best_items
+    invoices = @se.find_invoices_by_merchant_id(12334141)
+    @sales_analyst.invoice_items_keys(invoices, items = {})
+    best_value = (items.max_by { |_, value| value })[1]
+    items = items.find_all { |_, value| value == best_value }
+    result = @sales_analyst.find_best_item(items)
+
+    result.each { |item| assert_instance_of Item, item }
+    assert_equal 1, result.length
   end
 
   def test_best_item_for_merchant
     item = @sales_analyst.best_item_for_merchant(12334141)
     assert_equal 263415463, item.id
+  end
+
+  def test_parse_invoice_items
+    invoices = @se.find_invoices_by_merchant_id(12334141)
+    result = @sales_analyst.parse_invoice_items(invoices, items = {})
+
+    result.each { |invoice| assert_instance_of Invoice, invoice }
+    assert_equal 9, result.length
+  end
+
+  def test_item_pricing
+    items = {}
+    invoices = @se.find_invoices_by_merchant_id(12334141)
+    invoices.each do |invoice|
+      next unless invoice.is_paid_in_full?
+      invoice_items = @se.find_invoice_items_by_invoice_id(invoice.id)
+      result = @sales_analyst.item_pricing(invoice_items, items)
+
+      result.each { |invoiceitem| assert_instance_of InvoiceItem, invoiceitem }
+      assert_equal 5, result.length
+    end
+  end
+
+  def test_it_can_get_total_price_for_item
+    items = {}
+    invoices = @se.find_invoices_by_merchant_id(12334141)
+    invoices.each do |invoice|
+      next unless invoice.is_paid_in_full?
+      invoice_items = @se.find_invoice_items_by_invoice_id(invoice.id)
+      invoice_items.each do |iitem|
+        result = @sales_analyst.get_total_price_for_item(items, iitem)
+
+        assert result.class == BigDecimal
+      end
+    end
   end
 end
