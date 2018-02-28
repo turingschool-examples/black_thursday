@@ -10,7 +10,7 @@ class InvoiceItemRepository
 
   def initialize(filepath, parent = nil)
     @csv_items = []
-    @engine   = parent
+    @engine    = parent
     load_children(filepath)
   end
 

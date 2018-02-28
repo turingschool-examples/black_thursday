@@ -126,6 +126,12 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 'handicraftcallery', last
   end
 
+  def test_merchants_with_only_one_item_registered_in_month
+    merchants = @sales_analyst.merchants_with_only_one_item_registered_in_month('June')
+    assert_equal 12334141, merchants.first.id
+    assert_equal 12334105, merchants.last.id
+  end
+
   def test_to_check_if_merchant_invoices_are_successful
     merchant1 = @se.merchants.all[0]
     merchant2 = @se.merchants.all[1]
@@ -166,5 +172,15 @@ class SalesAnalystTest < Minitest::Test
 
   def test_revenue_by_merchant
     assert_equal 52395.72, @sales_analyst.revenue_by_merchant(12334141)
+  end
+
+  def test_most_sold_item_for_merchant
+    items = @sales_analyst.most_sold_item_for_merchant(12334141)
+    assert_equal 263415463, items.first.id
+  end
+
+  def test_best_item_for_merchant
+    item = @sales_analyst.best_item_for_merchant(12334141)
+    assert_equal 263415463, item.id
   end
 end
