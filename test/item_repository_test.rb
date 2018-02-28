@@ -94,4 +94,8 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of Merchant, result
     assert_nil result_nil
   end
+
+  def test_inspect
+    assert_equal "#<ItemRepository 10 rows>", @item_repository.inspect
+  end
 end

@@ -67,26 +67,26 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal [], result_nil
   end
 
-  def test_merch_repo_goes_to_sales_engine_with_merchant_id
-    mr = @merchant_repository
-    result = mr.merch_repo_goes_to_sales_engine_with_merchant_id(12334144)
+  def test_merch_repo_find_items_via_engine
+    result = @merchant_repository.merch_repo_find_items_via_engine(12_334_144)
 
     assert result.empty?
   end
 
   def test_merch_repo_finds_invoices_via_engine
-    mr = @merchant_repository
-    result = mr.merch_repo_finds_invoices_via_engine(12335955)
+    result = @merchant_repository.merch_repo_finds_invoices_via_engine(12_335_955)
 
-    assert_equal 13, result.length
     assert_instance_of Invoice, result[0]
   end
 
   def test_merch_repo_finds_customers_via_engine
-    mr = @merchant_repository
-    result = mr.merch_repo_finds_customers_via_engine(12335955)
+    result = @merchant_repository.merch_repo_finds_customers_via_engine(12_335_955)
 
     assert_equal 7, result.length
     assert_instance_of Customer, result[0]
+  end
+
+  def test_inspect
+    assert_equal "#<MerchantRepository 10 rows>", @merchant_repository.inspect
   end
 end
