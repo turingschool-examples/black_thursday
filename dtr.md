@@ -56,42 +56,43 @@ Jerrel: Quiet space, frequent breaks
 
 ### What scheduling restraints do you have? What are your scheduling preferences?
 
-Jamison:
+Jamison: Not available on Thursday evening or Sunday until 6 PM.
 Jerrel:
 
 ### What is your style for giving feedback? Does anything ever hold you back from giving feedback?
 
-Jamison:
+Jamison: Follow the PD guidelines as closely as possible (Applicable, specific, kind). Always prefer to give and receive feedback as long as
+it is constructive
 Jerrel:
 
 ### What do you identify as being your biggest strength(s) technically, as they relate to this project? Where do you feel you could use improvement in your technical skills, as they relate to this project? How can our team help support you in improving these skills?
 
-Jamison:
+Jamison: I am becoming more confident in TDD. I need more practice with interacting classes and parsing files.
 Jerrel:
 
 ### What tools do you want to use to manage the project?
 
-Jamison:
+Jamison: SimpleCov, Hound CI, Rubocop
 Jerrel:
 
 ### How do you want the group to solve problems when members run into issues with features of the project?
 
-Jamison:
+Jamison: Slow down and review material if necessary, work on relevant exercises, take a break, and come back to project
 Jerrel:
 
 ### How do you know if a project is successful? How can we achieve that as a group?
 
-Jamison:
+Jamison: Keeping spec harness in mind, asking clarifying questions before moving forward in order to make sure that we're on the same page
 Jerrel:
 
 ### How will we recognize each other's successes and celebrate them?
 
-Jamison:
+Jamison: reviewing our work before working on next iteration, working somewhere other than the Turing basement :)
 Jerrel:
 
 ### Any additional questions that you would like to add:
 
-Jamison:
+Jamison: 
 Jerrel:
 
 # Template for DTR Memo
