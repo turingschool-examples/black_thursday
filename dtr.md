@@ -6,48 +6,53 @@ Use this template to when conducting DTR with your project partners. It's recomm
 
 ### What are your learning goals for this project? What drives us in this project?
 
-Jamison:
-Jerrel:
+Jamison: Improve workflow, get more comfortable working with large data sets and a variety of data types. Develop an understanding of fundamental
+concepts.
+Jerrel: Get more comfortable dealing with nested collections and data coming in from different sources
 
 ### What is your collaboration style? How do you feel about pair programming vs. divide-and-conquer approaches?
 
-Jamison:
-Jerrel:
+Jamison: focus on pair programming, maybe divide-and-conquer in later iterations
+Jerrel: focus on paring especially earlier in the project (iterations 1-3)
 
 ### How do you communicate best? How do you appreciate receiving communication from others?
 
-Jamison:
-Jerrel:
+Jamison: Slack, except for thursday evenings and sunday morning/early afternoon
+Jerrel: Slack, text messages, one hour ish response
 
 ### How would you describe your work style?
 
-Jamison:
-Jerrel:
+Jamison: Input-- taking time to familiarize self project or task beforehand
+Jerrel: Take one chunk of work at a time, working on small pieces before implementing them into project
 
 ### What are your strengths? How can our strengths complement each other?
 
-Jamison:
-Jerrel:
+Jamison: Input, Individualization, Introspection
+Jerrel: Developer, Relator, Empathizer, Adaptability, Learner
+
+working on small fundamental pieces one at a time is something that we both do well.
+touching base regularly regarding git workflow
+Jerrel will direct regular pomodoros
 
 ### What’s gone well or poorly in your previous projects?
 
-Jamison:
-Jerrel:
+Jamison: Scheduling has gone well, reaching out to multiple sources when understanding isn't clear
+Jerrel: Time management is going better, would like to work on keeping a consistent pace and checking in with partner before skipping ahead
 
 ### How will we set direction and make decisions as a team?
 
-Jamison:
-Jerrel:
+Jamison: Checking in after each iteration to set goals and make design decisions
+Jerrel: Communicating to each other about specific parts of the projects
 
 ### How will we overcome obstacles?
 
-Jamison:
-Jerrel:
+Jamison: Taking time to thoroughly understand each problem
+Jerrel: Reach out early and often
 
 ### What do you need (resources, environment, communication) to do your best work?
 
-Jamison:
-Jerrel:
+Jamison: Regular breaks, being fed
+Jerrel: Quiet space, frequent breaks
 
 ### What scheduling restraints do you have? What are your scheduling preferences?
 
