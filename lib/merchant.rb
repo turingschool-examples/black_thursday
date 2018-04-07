@@ -13,4 +13,12 @@ class Merchant
       updated_at:       merchants[:updated_at]
     }
   end
+
+  def id
+    @merchant_specs[:id]
+  end
+
+  def name
+    @merchant_specs[:name]
+  end
 end
