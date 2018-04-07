@@ -1,3 +1,4 @@
 class Item
-
-end 
+  def intitialize(data)
+  end 
+end
