@@ -27,14 +27,14 @@ class SalesEngine
   # This conditional checks to see if @items has been defined as a new
   # repository and if it has not been defined it runs the load_file method
   # from the FileLoader module that loads in the CSV.
-  def load_items
+  def items
     loaded_file = load_file(load_path[:items])
-    @load_items ||= ItemRepository.new(loaded_file, self)
+    @items ||= ItemRepository.new(loaded_file, self)
   end
 
-  def load_merchants
-    loaded_file = FileLoader.load_file(load_path[:merchants], self)
-    @load_merchants ||= MerchantRepository.new(loaded_file)
+  def merchants
+    loaded_file = load_file(load_path[:merchants], self)
+    @merchants ||= MerchantRepository.new(loaded_file)
   end
 end
 

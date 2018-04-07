@@ -1,6 +1,6 @@
 module Search
-  def find_by_id(id)
-
+  def find_by_id(id, list)
+    list.find_all { |item| item.id == id }
   end
 
   def find_by_name(name)

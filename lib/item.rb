@@ -20,9 +20,13 @@ class Item
     @description            = items[:description]
     @unit_price             = BigDecimal(items[:unit_price]) / 100
     @merchant_id            = items[:merchant_id]
-    @created_at             = Time.now
-    @updated_at             = Time.now
+    @created_at             = items[:created_at]
+    @updated_at             = items[:updated_at]
     @unit_price_to_dollars  = unit_price.to_f
     @parent                 = parent
-  end
+
+    item.update("555", {name: "new", id: "21321"})
+
+
+
 end
