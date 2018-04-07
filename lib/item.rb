@@ -14,7 +14,7 @@ class Item
       name:                   items[:name],
       description:            items[:description],
       unit_price:             BigDecimal(items[:unit_price]) / 100,
-      merchant_id:            items[:merchant_id],
+      merchant_id:            items[:merchant_id].to_i,
       created_at:             items[:created_at],
       updated_at:             items[:updated_at]
     }
@@ -46,5 +46,9 @@ class Item
 
   def updated_at
     @item_specs[:updated_at]
+  end
+
+  def unit_price
+    @item_specs[:unit_price]
   end
 end
