@@ -1,7 +1,7 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require './test/test_helper'
 require 'bigdecimal'
-require_relative '../lib/item'
+SimpleCov.start
+require './lib/item'
 
 class ItemTest < Minitest::Test
   def setup
