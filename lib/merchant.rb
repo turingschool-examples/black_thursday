@@ -3,7 +3,7 @@
 # This class holds the infromation about the merchants grabbed from the CSV
 # file.
 class Merchant
-  attr_reader :merchant_specs
+  attr_accessor :merchant_specs
   def initialize(merchants)
     @merchant_specs = {
       id:               merchants[:id].to_i,

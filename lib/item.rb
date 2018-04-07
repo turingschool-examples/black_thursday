@@ -7,7 +7,7 @@ require 'bigdecimal'
 # variables are stored as instance variables so they can be read outside of
 # the class.
 class Item
-  attr_reader :item_specs
+  attr_accessor :item_specs
   def initialize(items)
     @item_specs = {
       id:                     items[:id].to_i,

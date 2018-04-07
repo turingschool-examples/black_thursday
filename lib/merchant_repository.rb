@@ -32,7 +32,7 @@ class MerchantRepository
 
   def find_all_by_name(name)
     @merchant_list.find_all do |merchant|
-      merchant.merchant_specs[:searchable_name] = name.downcase
+      merchant.merchant_specs[:searchable_name] == name.downcase
     end
   end
 
@@ -44,9 +44,9 @@ class MerchantRepository
   def update(id, attributes)
     merchant = find_by_id(id)
     attributes.each do |key, value|
-      if  == key
-        merchant.key = value
-        merchant.updated_at = Time.now
+      if merchant.merchant_specs.keys.include?(key)
+        merchant.merchant_specs[key] = value
+        merchant.merchant_specs[:updated_at] = Time.now
       end
     end
   end
