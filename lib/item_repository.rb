@@ -35,19 +35,21 @@ class ItemRepository
   # This method will find the items by searching the entire list for the item
   # with a description instance variable that matches the one given.
   def find_all_with_description(item_description)
-    @item_list.find_all { |item| item.description == item_description }
+    @item_list.find_all { |item| item.item_specs[:description] == item_description }
   end
 
   def find_all_by_price(price)
-    @item_list.find_all { |item| item.unit_price == Bigdecimal.new(price) }
+    @item_list.find_all { |item| item.item_specs[:unit_price] == Bigdecimal.new(price) }
   end
 
   def find_all_by_price_in_range(price_range)
-    @item_list.find_all { |item| price_range.to_i.include?(item.unit_price) }
+    @item_list.find_all do |item|
+      price_range.to_i.include?(item.item_specs[:unit_price])
+    end
   end
 
   def find_all_by_merchant_id(id)
-    @item_list.find_all { |item| item.merchant_id == id }
+    @item_list.find_all { |item| item.item_specs[:id] == id }
   end
 
   def create(attributes)
@@ -62,9 +64,9 @@ class ItemRepository
   def update(id, attributes)
     item = find_by_id(id)
     attributes.each do |key, value|
-      if item.keys.include?(key)
-        item[key] = value
-        item[:updated_at] = Time.now
+      if item.item_specs.keys.include?(key)
+        item.item_specs[key] = value
+        item.item_specs[:updated_at] = Time.now
       end
     end
   end
