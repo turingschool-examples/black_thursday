@@ -2,7 +2,7 @@ require 'simplecov'
 SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative '../lib/'
+require_relative '../lib/merchant_repository'
 
 class MerchantRepositoryTest < Minitest::Test
   def setup
@@ -14,6 +14,6 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_merchant_repository_can_have_data_file_attribute
-    assert_equal '../data/merchatns.csv', @merchant_repository.data_file
+    assert_equal '../data/merchants.csv', @merchant_repository.data_file
   end
 end
