@@ -6,7 +6,5 @@ class MerchantTest < Minitest::Test
     merchant = Merchant.new({:id => 5,:name => "Turing School"})
     assert_equal 5, merchant.id
     assert_equal "Turing School", merchant.name
-  end 
-end 
-    
-
+  end
+end

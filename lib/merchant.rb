@@ -5,4 +5,4 @@ class Merchant
     @id = data[:id]
     @name = data[:name]
   end
-end 
+end
