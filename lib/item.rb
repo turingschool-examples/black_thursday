@@ -20,7 +20,7 @@ class Item
     @attributes[:unit_price]
   end
 
-  def created_at 
+  def created_at
     @attributes[:created_at]
   end
 
@@ -28,4 +28,11 @@ class Item
     @attributes[:updated_at]
   end
 
+  def merchant_id
+    @attributes[:merchant_id]
+  end
+
+  def unit_price_to_dollars
+    @attributes[:unit_price].to_f
+  end
 end
