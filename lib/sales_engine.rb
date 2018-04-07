@@ -11,6 +11,7 @@ class SalesEngine
   end
 
   def self.from_csv(items_and_merchants)
+    items_repo = ItemRepository.new()
     new(items_and_merchants)
   end
 end
