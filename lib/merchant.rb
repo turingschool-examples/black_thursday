@@ -3,11 +3,14 @@
 # This class holds the infromation about the merchants grabbed from the CSV
 # file.
 class Merchant
-  def initialize(data, parent)
-    @id         = data[:id].to_i
-    @name       = data[:name]
-    @parent     = parent
-    @created_at = Date.now
-    @updated_at = Date.now
+  attr_reader :merchant_specs
+  def initialize(merchants)
+    @merchant_specs = {
+      id:               merchants[:id].to_i,
+      name:             merchants[:name],
+      searchable_name:  name.downcase,
+      created_at:       merchants[:created_at],
+      updated_at:       merchants[:updated_at]
+    }
   end
 end
