@@ -67,13 +67,23 @@ class MerchantRepository < Minitest::Test
 
   def test_method_create
     mr = MerchantRepository.new(@merchants)
+    assert_equal @merchants, mr.all
+    mr.create(name: 'NewMerchant')
+    # tests new merchant creation and tests that new merchants have iterated id
+    assert_equal mr.find_by_id(6).name, 'NewMerchant'
   end
 
   def test_method_update
     mr = MerchantRepository.new(@merchants)
+    assert_equal 'Turing School', find_by_id(1)
+    mr.update(id: 1, name: 'ZachsMerchant')
+    assert_equal 'ZachsMerchant', find_by_id(1)
   end
 
   def test_method_delete
     mr = MerchantRepository.new(@merchants)
+    assert_equal 'Turing School'.find_by_id(1)
+    mr.delete(1)
+    assert_nil find_by_id(1)
   end
 end
