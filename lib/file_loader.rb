@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'csv'
 # This module is strictly to load in the CSV files which allow the lists to be
 # populated. We turn on headers to store the first row as the headers and
