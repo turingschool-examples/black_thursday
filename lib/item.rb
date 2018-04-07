@@ -1,7 +1,7 @@
 class Item
 
   def initialize(data)
-    @id =
+    @id = 
     @name =
     @description =
     @unit_price =

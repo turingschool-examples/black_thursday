@@ -1,4 +1,4 @@
-Module Search
+module Search
   def find_by_id(id)
 
   end
@@ -8,6 +8,6 @@ Module Search
   end
 
   def all
-
+    
   end
 end
