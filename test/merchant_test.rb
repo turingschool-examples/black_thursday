@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require './test/test_helper'
-require './lib/merchant'
 SimpleCov.start
+require './lib/merchant'
 class MerchantTest < Minitest::Test
   def test_it_exists
     merchant = Merchant.new(id: 5, name: 'Turing School')
