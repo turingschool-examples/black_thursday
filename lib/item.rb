@@ -14,7 +14,7 @@ class Item
               :merchant_id,
               :created_at,
               :updated_at
-  def initialize(items, parent)
+  def initialize(items)
     @id                     = items[:id].to_i
     @name                   = items[:name]
     @description            = items[:description]
@@ -23,10 +23,5 @@ class Item
     @created_at             = items[:created_at]
     @updated_at             = items[:updated_at]
     @unit_price_to_dollars  = unit_price.to_f
-    @parent                 = parent
-
-    item.update("555", {name: "new", id: "21321"})
-
-
-
+  end
 end
