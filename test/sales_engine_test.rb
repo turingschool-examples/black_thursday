@@ -6,4 +6,10 @@ class SalesEngineTest < Minitest::Test
     se = SalesEngine.new
     assert_instance_of SalesEngine, se
   end
+
+  def test_it_loads_files
+    se = SalesEngine.from_csv( { :items     => "./data/items.csv",
+                                 :merchants => "./data/merchants.csv",
+                                } )
+  end
 end
