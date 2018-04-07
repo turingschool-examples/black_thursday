@@ -1,0 +1,14 @@
+{
+  "Unit Tests": {
+    "coverage": {
+      "/Users/brickstar/turing/module1/projects/bt/black_thursday/lib/sales_engine.rb": [
+        1,
+        null,
+        1,
+        null,
+        null
+      ]
+    },
+    "timestamp": 1523125205
+  }
+}
