@@ -8,6 +8,7 @@ module Search
   end
 
   def find_all_by_name(name)
+  end
 
   def all
 
