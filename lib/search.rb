@@ -7,7 +7,9 @@ module Search
 
   end
 
+  def find_all_by_name(name)
+
   def all
-    
+
   end
 end
