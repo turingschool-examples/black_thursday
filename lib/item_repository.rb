@@ -1,14 +1,34 @@
 require 'csv'
+require_relative 'item'
 class ItemRepository
+  attr_reader :items
+
+  def initialize
+    @items = []
+  end
 
   def from_csv(csv)
 
     rows = []
-    csv = CSV.read(csv, headers: true)
+    file = CSV.read(csv, headers: true)
+    # binding.pry
+    # file.header_convert.to_sym    # = file.headers.map do |header|
+      # header.to_sym
+    # end
     # do |row|
-    count = csv.count
+    count = file.count
     elements = (1..count).to_a.map do |index|
-      csv[index].to_h
+
+      # binding.pry
+      file[index].to_a.map do |row|
+        [row[0].to_sym, row[1]]
+      end.to_h
+      # binding.pry
+
+    end
+
+    elements.each do |element|
+      @items << Item.new(element)
     end
     #   rows << row[0].split("\t")
     # end

@@ -5,7 +5,7 @@ class Item
   end
 
   def id
-    @attributes[:id]
+    @attributes[:id].to_i
   end
 
   def name
