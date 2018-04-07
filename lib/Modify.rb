@@ -2,7 +2,7 @@
 
 # This module will be used to change attributes or delete an item, whether
 # it's a merchant or item.
-module ChangeModule
+module Modify
   def update(id, attribute)
   end
 
