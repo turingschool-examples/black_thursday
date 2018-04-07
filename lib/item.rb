@@ -24,6 +24,10 @@ class Item
     @item_specs[:unit_price].to_f
   end
 
+  def unit_price
+    @item_spec[:unit_price]
+  end
+
   def id
     @item_specs[:id]
   end
