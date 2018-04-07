@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require './lib/item.rb'
+require_relative 'item.rb'
 # require './lib/search.rb'
 # require './lib/change_module.rb'
 # This object holds all of the items. On initialization, we feed in the
@@ -15,7 +15,8 @@ class ItemRepository
   attr_reader :item_list,
               :parent
   def initialize(items, parent)
-    @item_list = items.map { |item| Item.new(item, self) }
+    @item_list = items.map { |item| Item.new(item) }
+    require "pry"; binding.pry
     @parent = parent
   end
 
@@ -61,7 +62,10 @@ class ItemRepository
   def update(id, attributes)
     item = find_by_id(id)
     attributes.each do |key, value|
-      item[key] = value if item.keys.include?(key)
+      if item.keys.include?(key)
+        item[key] = value
+        item[:updated_at] = Time.now
+      end
     end
   end
 end

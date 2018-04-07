@@ -7,8 +7,6 @@
 # merchant_list isntance variable, allowing us to reference the list outside of
 # this class. The list is stored as an array.
 class MerchantRepository
-  include Search
-  include ChangeModule
   attr_reader :merchant_list,
               :parent
   def initialize(merchants, parent)
@@ -18,5 +16,38 @@ class MerchantRepository
 
   def create(attributes)
     @merchant_list << Merchant.new(attributes)
+  end
+
+  def find_by_id(id)
+    @merchant_list.find { |merchant| merchant[:id] == id }
+  end
+
+  def find_by_name(name)
+    @merchant_list.find { |merchant| merchant.name == name }
+  end
+
+  def all
+    @merchant_list
+  end
+
+  def find_all_by_name(name)
+    @merchant_list.find_all do |merchant|
+      merchant.searchable_name = name.downcase
+    end
+  end
+
+  def delete(id)
+    merchant_to_delete = find_by_id(id)
+    @merchant_list.delete(merchant_to_delete)
+  end
+
+  def update(id, attributes)
+    merchant = find_by_id(id)
+    attributes.each do |key, value|
+      if merchant.name == key
+        merchant.key = value
+        merchant.updated_at = Time.now
+      end
+    end
   end
 end

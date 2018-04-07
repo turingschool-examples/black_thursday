@@ -7,26 +7,17 @@ require 'bigdecimal'
 # variables are stored as instance variables so they can be read outside of
 # the class.
 class Item
-  attr_reader :id,
-              :name,
-              :description,
-              :unit_price,
-              :merchant_id,
-              :created_at,
-              :updated_at
-  def initialize(items, parent)
-    @id                     = items[:id].to_i
-    @name                   = items[:name]
-    @description            = items[:description]
-    @unit_price             = BigDecimal(items[:unit_price]) / 100
-    @merchant_id            = items[:merchant_id]
-    @created_at             = items[:created_at]
-    @updated_at             = items[:updated_at]
-    @unit_price_to_dollars  = unit_price.to_f
-    @parent                 = parent
-
-    item.update("555", {name: "new", id: "21321"})
-
-
-
+  attr_reader :item_specs
+  def initialize(items)
+    @item_specs = {
+      id:                     items[:id].to_i,
+      name:                   items[:name],
+      description:            items[:description],
+      unit_price:             BigDecimal(items[:unit_price]) / 100,
+      merchant_id:            items[:merchant_id],
+      created_at:             items[:created_at],
+      updated_at:             items[:updated_at],
+      unit_price_to_dollars:  unit_price.to_f
+    }
+  end
 end
