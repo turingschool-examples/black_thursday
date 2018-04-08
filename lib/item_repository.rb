@@ -1,10 +1,12 @@
 require 'csv'
 require_relative 'item'
+
+# This class is a repo for items
 class ItemRepository
   attr_reader :elements # can be in module
 
   def initialize
-    @elements = Hash.new
+    @elements = {}
   end
 
   def from_csv(csv) # module
@@ -23,5 +25,4 @@ class ItemRepository
       @elements[item.id] = item # unless (item.id.class != Fixnum)
     end
   end
-
 end
