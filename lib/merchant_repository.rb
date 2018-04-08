@@ -24,7 +24,7 @@ class MerchantRepository
   end
 
   def find_by_name(name)
-    @merchant_list.find { |merchant| merchant.merchant_specs[:name] == name }
+    @merchant_list.find { |merchant| merchant.merchant_specs[:searchable_name] == name.downcase }
   end
 
   def all

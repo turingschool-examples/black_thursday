@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'bigdecimal'
-
+require 'time'
 # This object stores all of the data that is connected to the items, along with
 # a reference to the parent, which is the item repository. All of these
 # variables are stored as instance variables so they can be read outside of
@@ -14,9 +14,10 @@ class Item
       name:                   items[:name],
       description:            items[:description],
       unit_price:             BigDecimal(items[:unit_price]) / 100,
-      merchant_id:            items[:merchant_id],
+      merchant_id:            items[:merchant_id].to_i,
       created_at:             items[:created_at],
-      updated_at:             items[:updated_at]
+      updated_at:             items[:updated_at],
+      searchable_desc:        items[:description].downcase
     }
   end
 

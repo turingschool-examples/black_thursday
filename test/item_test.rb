@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'simplecov'
 SimpleCov.start
 require 'minitest'
@@ -11,7 +13,7 @@ class ItemTest < Minitest::Test
   attr_reader :i
 
   def setup
-    @i = Item.new({
+    @i = Item.new(
       id: '263395721',
       name: 'Disney scrabble frames',
       description: 'Disney glitter frames
@@ -28,7 +30,7 @@ class ItemTest < Minitest::Test
       merchant_id: '12334185',
       created_at: '2016-01-11 11:51:37 UTC',
       updated_at: '2008-04-02 13:48:57 UTC'
-      })
+    )
   end
 
   def test_item_exists
@@ -54,11 +56,11 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_returns_items_creation_time
-    assert_equal "2016-01-11 11:51:37 UTC", i.created_at
+    assert_equal '2016-01-11 11:51:37 UTC', i.created_at
   end
 
   def test_it_returns_items_updated_time
-    assert_equal "2008-04-02 13:48:57 UTC", i.updated_at
+    assert_equal '2008-04-02 13:48:57 UTC', i.updated_at
   end
 
   def test_unit_price_returns_in_dollars
