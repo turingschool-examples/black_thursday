@@ -15,8 +15,8 @@ class ItemRepository
   # include ChangeModule
   attr_reader :item_list,
               :parent
-  def initialize(items)
-    @item_list = items.map { |item| Item.new(item) }
+  def initialize(items, parent)
+    @item_list = items.map { |item| Item.new(item, self) }
     @parent = parent
   end
 
@@ -35,11 +35,15 @@ class ItemRepository
   # This method will find the items by searching the entire list for the item
   # with a description instance variable that matches the one given.
   def find_all_with_description(item_description)
-    @item_list.find_all { |item| item.item_specs[:description] == item_description }
+    @item_list.find_all do |item|
+      item.item_specs[:searchable_desc] == item_description.downcase
+    end
   end
 
   def find_all_by_price(price)
-    @item_list.find_all { |item| item.item_specs[:unit_price] == BigDecimal.new(price) }
+    @item_list.find_all do |item|
+      item.item_specs[:unit_price] == BigDecimal(price)
+    end
   end
 
   def find_all_by_price_in_range(price_range)
@@ -69,6 +73,10 @@ class ItemRepository
         item.item_specs[:updated_at] = Time.now
       end
     end
+  end
+
+  def find_merchant_by_merchant_id(merchant_id)
+    @parent.find_merchant_by_merchant_id(merchant_id)
   end
 
   def inspect
