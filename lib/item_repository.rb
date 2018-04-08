@@ -62,4 +62,25 @@ class ItemRepository
       range.include?(cost)
     end
   end
+
+  def find_all_by_merchant_id(merch_id)
+    all.find_all do |item|
+      item.merchant_id == merch_id
+    end
+  end
+
+  def create(attributes)
+    create_id_number
+    attributes[:id] = create_id_number
+    item = Item.new(attributes)
+    @elements[create_id_number] = item
+  end
+
+  def create_id_number
+    if @elements.empty?
+      1
+    else
+      @elements.keys.max + 1
+    end
+  end
 end

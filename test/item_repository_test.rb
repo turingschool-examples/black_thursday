@@ -124,4 +124,50 @@ class ItemRepositoryTest < Minitest::Test
     items3 = @ir.find_all_by_price_in_range(9999999999..99999999999)
     assert_equal [], items3
   end
+
+  def test_find_all_by_merchant_id
+    @ir.from_csv('./data/items.csv')
+    items = @ir.find_all_by_merchant_id(12334257)
+    assert_instance_of Array, items
+    find = @ir.find_by_id(263397843)
+    assert items.include?(find)
+
+    items2 = @ir.find_all_by_merchant_id(12334185)
+    assert_instance_of Array, items2
+    find = @ir.find_by_id(263395617)
+    find2 = @ir.find_by_id(263395721)
+    find3 = @ir.find_by_id(263397201)
+    assert items2.include?(find)
+    assert items2.include?(find2)
+    refute items2.include?(find3)
+
+    items3 = @ir.find_all_by_merchant_id(9999999999)
+    assert_equal [], items3
+  end
+
+  def test_it_can_create_a_new_item
+    assert_equal 0, @ir.all.count
+    time = Time.now
+    @ir.create({
+                :name        => "Pencil",
+                :description => "You can use it to write things",
+                :unit_price  => BigDecimal.new(10.99,4),
+                :created_at  => time,
+                :updated_at  => time,
+                :merchant_id => 7
+                })
+    assert_equal 1, @ir.all.count
+    assert_equal 'Pencil', @ir.find_by_id(1).name
+
+    @ir.create({
+                :name        => "Pen",
+                :description => "NASA's response to Russian",
+                :unit_price  => BigDecimal.new(0.02,4),
+                :created_at  => time,
+                :updated_at  => time,
+                :merchant_id => 8
+                })
+    assert_equal 2, @ir.all.count
+    assert_equal 'Pen', @ir.find_by_id(2).name
+  end
 end

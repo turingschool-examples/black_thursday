@@ -29,7 +29,7 @@ class Item
   end
 
   def merchant_id
-    @attributes[:merchant_id]
+    @attributes[:merchant_id].to_i
   end
 
   def unit_price_to_dollars
