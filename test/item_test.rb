@@ -1,6 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require 'bigdecimal'
+require_relative 'test_helper'
 require './lib/item'
 class ItemTest < Minitest::Test
   def setup
@@ -32,7 +30,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_has_a_description
-    item = Item.new(@data)
+    item = Item.new(@data, parent)
 
     assert_equal 'You can use it to write things', item.description
   end
