@@ -67,7 +67,7 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 5, @ir.items.count
 
     @ir.delete(1)
-    
+
     assert_equal 4, @ir.items.count
   end
 end
