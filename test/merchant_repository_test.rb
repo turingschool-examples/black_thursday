@@ -6,30 +6,30 @@ require_relative '../lib/fileio'
 class MerchantRepositoryTest < Minitest::Test
   def setup
     file_path = FileIO.load('./test/fixtures/test_merchants.csv')
-    @merchant_repository = MerchantRepository.new(file_path)
+    @m_repo = MerchantRepository.new(file_path)
   end
 
   def test_merchant_repository_exists
-    assert_instance_of MerchantRepository, @merchant_repository
+    assert_instance_of MerchantRepository, @m_repo
   end
 
   def test_creating_an_index_of_merchants_from_data
-    assert_instance_of Hash, @merchant_repository.merchants
-    assert_instance_of Merchant, @merchant_repository.merchants['12334105']
-    assert_instance_of Merchant, @merchant_repository.merchants['12334112']
-    assert_instance_of Merchant, @merchant_repository.merchants['12334113']
-    assert_instance_of Merchant, @merchant_repository.merchants['12334115']
-    assert_instance_of Merchant, @merchant_repository.merchants['12334123']
-    assert_instance_of Merchant, @merchant_repository.merchants['12334132']
-    assert_instance_of Merchant, @merchant_repository.merchants['12334135']
+    assert_instance_of Hash, @m_repo.merchants
+    assert_instance_of Merchant, @m_repo.merchants['12334105']
+    assert_instance_of Merchant, @m_repo.merchants['12334112']
+    assert_instance_of Merchant, @m_repo.merchants['12334113']
+    assert_instance_of Merchant, @m_repo.merchants['12334115']
+    assert_instance_of Merchant, @m_repo.merchants['12334123']
+    assert_instance_of Merchant, @m_repo.merchants['12334132']
+    assert_instance_of Merchant, @m_repo.merchants['12334135']
   end
 
   def test_all_returns_an_array_of_all_merchant_instances
-    assert_instance_of Array, @merchant_repository.all
+    assert_instance_of Array, @m_repo.all
   end
 
   def test_all_returns_correct_names
-    all_merchants = @merchant_repository.all
+    all_merchants = @m_repo.all
     actual_all_names = all_merchants.map(&:name)
     expected = %w[Shopin1901
                   Candisart
@@ -42,8 +42,8 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_can_find_by_id
-    actual_shopin = @merchant_repository.find_by_id('12334105')
-    actual_candis = @merchant_repository.find_by_id('12334112')
+    actual_shopin = @m_repo.find_by_id('12334105')
+    actual_candis = @m_repo.find_by_id('12334112')
     assert_instance_of Merchant, actual_shopin
     assert_instance_of Merchant, actual_candis
     assert_equal 'Shopin1901', actual_shopin.name
@@ -51,8 +51,8 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_can_find_by_name
-    actual_shopin = @merchant_repository.find_by_name('Shopin1901')
-    actual_candis = @merchant_repository.find_by_name('Candisart')
+    actual_shopin = @m_repo.find_by_name('Shopin1901')
+    actual_candis = @m_repo.find_by_name('Candisart')
     assert_instance_of Merchant, actual_shopin
     assert_instance_of Merchant, actual_candis
     assert_equal '12334105', actual_shopin.id
@@ -60,13 +60,23 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_can_find_name_by_fragment
-    actual = @merchant_repository.find_all_by_name('re')
+    actual = @m_repo.find_all_by_name('re')
     assert_equal %w[MiniatureBikez GoldenRayPress], actual
   end
 
+  def test_it_can_generate_next_merchant_id
+    expected = '12334136'
+    actual = @m_repo.create_new_id
+    assert_equal expected, actual
+  end
+
   def test_can_create_new_merchant
-    actual_judd = @merchant_repository.create(10011011, 'JuddIsAwesome')
-    actual_judd = @merchant_repository.create('1001102', 'ColeIsToo')
-    assert_equal %w[MiniatureBikez GoldenRayPress], actual_judd
+    actual_jude = @m_repo.create('JudeIsAwesome')
+    actual_cole = @m_repo.create('ColeIsToo')
+    assert_instance_of Merchant, actual_jude
+    assert_instance_of Merchant, actual_cole
+    assert_equal 9, @m_repo.merchants.count
+    assert_equal "JudeIsAwesome", @m_repo.find_by_id(12334136).name
+    assert_equal "ColeIsToo", @m_repo.find_by_id(12334137).name
   end
 end

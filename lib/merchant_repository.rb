@@ -1,18 +1,15 @@
-# frozen_string_literal:true
-
 require 'csv'
 require './lib/merchant'
 
 # A class for containing all Merchant objects
 class MerchantRepository
-  attr_reader :data_file,
-              :merchants
+  attr_reader :merchants
 
   def initialize(csv_parsed_array)
     @merchants = create_index(csv_parsed_array)
     # @by_name = {}
   end
-
+  
   def create_index(csv_data)
     csv_data.shift
     merchant_data = {}
@@ -40,5 +37,14 @@ class MerchantRepository
     @merchants.values.map do |merchant|
       merchant.name if merchant.name.downcase.include?(fragment.downcase)
     end.compact
+  end
+
+  def create_new_id
+    highest_id = @merchants.keys.max
+    (highest_id.to_i + 1).to_s
+  end
+
+  def create(name, id = create_new_id)
+    @merchants[id] = Merchant.new(id, name)
   end
 end
