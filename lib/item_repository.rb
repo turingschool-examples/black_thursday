@@ -37,4 +37,29 @@ class ItemRepository
   def find_by_id(id_number)
     @elements[id_number]
   end
+
+  def find_by_name(name)
+    all.find do |item|
+      item.name.casecmp(name).zero?
+    end
+  end
+
+  def find_all_with_description(text)
+    all.find_all do |item|
+      item.description.downcase.include?(text.downcase)
+    end
+  end
+
+  def find_all_by_price(price)
+    all.find_all do |item|
+      item.unit_price_to_dollars == price
+    end
+  end
+
+  def find_all_by_price_in_range(range)
+    all.find_all do |item|
+      cost = item.unit_price_to_dollars
+      range.include?(cost)
+    end
+  end
 end
