@@ -35,6 +35,10 @@ class ItemTest < Minitest::Test
     assert_instance_of Item, i
   end
 
+  def test_it_intializes_with_item_spec_hash
+    assert_instance_of Hash, i.item_specs
+  end
+
   def test_it_returns_items_id
     assert_equal 263395721, i.id
   end
@@ -48,6 +52,10 @@ class ItemTest < Minitest::Test
     assert_equal 182, i.description.length
   end
 
+  def test_it_returns_items_merchant_id
+    assert_equal 12334185, i.merchant_id
+  end
+
   def test_it_returns_items_unit_price
     assert_equal 13.50, i.unit_price
     assert_equal BigDecimal, i.unit_price.class
@@ -58,10 +66,10 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_returns_items_updated_time
-    assert_equal "2008-04-02 13:48:57 UTC", i.created_at
+    assert_equal "2008-04-02 13:48:57 UTC", i.updated_at
   end
 
   def test_unit_price_returns_in_dollars
-    assert_instance_of Float, i.unit_price_dollars
+    assert_instance_of Float, i.unit_price_to_dollars
   end
 end
