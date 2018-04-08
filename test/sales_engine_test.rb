@@ -10,8 +10,8 @@ require_relative '../lib/merchant_repository'
 class SalesEngineTest < Minitest::Test
   def setup
     @sales_engine = SalesEngine.from_csv({
-      items: '../data/items.csv',
-      merchants: '../data/merchants.csv'
+      items: './data/items.csv',
+      merchants: './data/test_merchants.csv'
     })
   end
 
@@ -26,4 +26,5 @@ class SalesEngineTest < Minitest::Test
   def test_sales_engine_merchants_is_merchant_repo
     assert_instance_of MerchantRepository, @sales_engine.merchants
   end
+
 end
