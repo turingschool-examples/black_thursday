@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'simplecov'
 SimpleCov.start
 require 'minitest'
@@ -43,7 +45,7 @@ class MerchantTest < Minitest::Test
   end
 
   def test_it_returns_merchants_id
-    assert_equal 12_334_105, merchant.id
+    assert_equal 12334105, merchant.id
   end
 
   def test_it_returns_merchants_name
