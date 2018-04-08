@@ -12,7 +12,7 @@ class ItemRepositoryTest < Minitest::Test
     item_repo = ItemRepository.new('./test/items.csv')
     assert_instance_of Array, item_repo.items
     assert_equal 263395237, item_repo.items.first.id
-    assert_equal "2016-01-11 09:34:06 UTC", item_repo.items.first.created_at
+    assert_equal '2016-01-11 09:34:06 UTC', item_repo.items.first.created_at
   end
 
   def test_it_loads_items
@@ -27,7 +27,7 @@ class ItemRepositoryTest < Minitest::Test
 
     result = item_repo.find_by_id(263395237)
     assert_instance_of Item, result
-    assert_equal "510+ RealPush Icon Set", result.name
+    assert_equal '510+ RealPush Icon Set', result.name
   end
 
   def test_it_can_return_nil_if_no_id_matched
@@ -40,7 +40,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_fiind_by_name
     item_repo = ItemRepository.new('./test/items.csv')
 
-    result = item_repo.find_by_name("510+ realPush Icon Set")
+    result = item_repo.find_by_name('510+ realPush Icon Set')
 
     assert_equal 263395237, result.id
   end
@@ -48,7 +48,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_find_all_by_description
     item_repo = ItemRepository.new('./test/items.csv')
 
-    result = item_repo.find_all_with_description("Disney")
+    result = item_repo.find_all_with_description('Disney')
     assert_instance_of Array, result
     assert result.all? {|item|item.is_a?(Item)}
     assert_equal 263395721, result.first.id
@@ -57,7 +57,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_retun_empty_array_when_no_description_matched
     item_repo = ItemRepository.new('./test/items.csv')
 
-    result = item_repo.find_all_with_description("manoj")
+    result = item_repo.find_all_with_description('manoj')
     assert_equal [], result
   end
 
@@ -86,7 +86,7 @@ class ItemRepositoryTest < Minitest::Test
     item_repo = ItemRepository.new('./test/items.csv')
 
     result = item_repo.find_all_by_merchant_id(12334141)
-    assert_equal "510+ RealPush Icon Set", result.first.name
+    assert_equal '510+ RealPush Icon Set', result.first.name
     assert_instance_of Item, result.first
   end
 
@@ -100,27 +100,42 @@ class ItemRepositoryTest < Minitest::Test
   def test_creates_attributes
     item_repo = ItemRepository.new('./test/items.csv')
 
-    result = item_repo.create({unit_price: 15, merchant_id: 12345, name: "Mango", description: "Tasty fruit"})
-    assert_equal "Mango", result.last.name
-    result1 = item_repo.find_by_name("Mango")
+    result = item_repo.create({unit_price: 15, merchant_id: 12345, name: 'Mango', description: 'Tasty fruit'})
+    assert_equal 'Mango', result.last.name
+    result1 = item_repo.find_by_name('Mango')
     assert_equal 12345, result1.merchant_id
     assert_equal true, item_repo.find_all_by_price(15).include?(result1)
   end
 
   def test_updates_merchant_instance
     item_repo = ItemRepository.new('./test/items.csv')
-    result = item_repo.create({unit_price: 15, merchant_id: 12345, name: "Mango", description: "Tasty fruit"})
-    assert_equal "Mango", result.last.name
+    result = item_repo.create({unit_price: 15, merchant_id: 12345, name: 'Mango', description: 'Tasty fruit'})
+    assert_equal 'Mango', result.last.name
     assert_equal 263567475, result.last.id
 
-    item_repo.update(263567475, {name: "dinosaur", description: "extincted", unit_price: 1000})
+    item_repo.update(263567475, {name: 'dinosaur', description: 'extincted', unit_price: 1000})
 
     result = item_repo.find_by_id(263567475)
-    assert_equal "dinosaur", result.name
+    assert_equal 'dinosaur', result.name
     assert_equal 1000, result.unit_price
-    assert_equal "extincted", result.description
+    assert_equal 'extincted', result.description
     assert_equal 12345, result.merchant_id
+  end
 
+  def test_we_can_delete_item
+    item_repo = ItemRepository.new('./test/items.csv')
+
+    assert_equal 1367, item_repo.items.count
+    result = item_repo.create({unit_price: 15, merchant_id: 12345, name: 'Mango', description: 'Tasty fruit'})
+    assert_equal 263567475, item_repo.items.last.id
+
+    assert_equal 1368, item_repo.items.count
+
+    result = item_repo.delete(263567475)
+    assert_equal 1367, item_repo.items.count
+
+    assert_equal 'Mango', result.name # this is the name of deleted item
+    assert_equal 263567475, result.id # thid id the of deleted item
 
   end
 

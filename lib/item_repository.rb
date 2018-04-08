@@ -76,4 +76,7 @@ class ItemRepository
     find_by_id(id).unit_price = attributes[:unit_price]
   end
 
+  def delete(id)
+    @items.delete(find_by_id(id))
+  end
 end
