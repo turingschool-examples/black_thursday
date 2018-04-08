@@ -17,12 +17,12 @@ class ItemRepositoryTest < Minitest::Test
     assert(@ir.all.all?) { |item| item.is_a?(Item) }
   end
 
-  def test_find_items
+  def test_find_items_by_id
     assert_nil @ir.find_by_id(777)
     assert_instance_of Item, @ir.find_by_id(1)
   end
 
-  def test_find_by_name
+  def test_find_items_by_name
     name = 'Disney scrabble frames'
     name_case_insensitive = 'disney SCRABBLE FraMeS'
 
@@ -64,6 +64,10 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_delete_item
+    assert_equal 5, @ir.items.count
 
+    @ir.delete(1)
+    
+    assert_equal 4, @ir.items.count
   end
 end
