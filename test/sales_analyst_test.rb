@@ -36,10 +36,31 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal expected, actual
   end
 
-# Need to create mocks for testing
+  # Need to create mocks for testing
   def test_it_can_calculate_merchants_with_high_item_counts
     actual = @s.merchants_with_high_item_count.first.name
     expected = 'Keckenbauer'
+    assert_equal expected, actual
+  end
+
+  def test_it_finds_max_price
+    expected = 99999
+    actual = @s.find_max_price
+
+    assert_equal expected, actual
+  end
+
+  def test_it_returns_correct_standard_deviation_for_price
+    expected = 2902.69
+    actual = @s.standard_deviation_of_item_price.round(2)
+
+    assert_equal expected, actual
+  end
+
+  def test_it_can_find_the_golden_items
+    expected = 5
+    actual = @s.golden_items.length
+
     assert_equal expected, actual
   end
 end
