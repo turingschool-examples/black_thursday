@@ -25,6 +25,7 @@ end
 desc "Run all tests"
 task :test do
   ruby "test/sales_engine_test.rb"
-  ruby "test/item_repository_test.rb"
+  # ruby "test/item_repository_test.rb"
   ruby "test/merchant_repository_test.rb"
+  ruby "test/merchant_test.rb"
 end
