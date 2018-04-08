@@ -37,6 +37,10 @@ class ItemTest < Minitest::Test
     assert_instance_of Item, i
   end
 
+  def test_it_intializes_with_item_spec_hash
+    assert_instance_of Hash, i.item_specs
+  end
+
   def test_it_returns_items_id
     assert_equal 263395721, i.id
   end
@@ -48,6 +52,10 @@ class ItemTest < Minitest::Test
   def test_it_returns_items_description_with_length
     assert_instance_of String, i.description
     assert_equal 182, i.description.length
+  end
+
+  def test_it_returns_items_merchant_id
+    assert_equal 12334185, i.merchant_id
   end
 
   def test_it_returns_items_unit_price
