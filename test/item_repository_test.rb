@@ -136,7 +136,5 @@ class ItemRepositoryTest < Minitest::Test
 
     assert_equal 'Mango', result.name # this is the name of deleted item
     assert_equal 263567475, result.id # thid id the of deleted item
-
   end
-
 end

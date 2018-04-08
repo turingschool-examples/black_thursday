@@ -118,15 +118,15 @@ class MerchantRepositoryTest< MiniTest::Test
 
   end
 
-  def test_it_can_update_merchant_with_attributes_for_diff_merchant\
+  def test_it_can_update_merchant_with_attributes_for_diff_merchant
     merchant_repo = MerchantRepository.new('./test/merchants.csv')
     result1 =  merchant_repo.find_by_id(12334132)
     assert_equal "perlesemoi", result1.name
 
-    merchant_repo.update(12334132, "kingsooper")
+    merchant_repo.update(12334132, {name: "kingsooper"})
     result = merchant_repo.find_by_id(12334132)
 
-    assert_equal "2018-04-07", result.updated_at
+    assert_equal "2018-04-08", result.updated_at
     assert_equal "kingsooper", result.name
   end
 
