@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
-require './lib/file_loader.rb'
+require_relative 'file_loader.rb'
 require_relative 'item_repository.rb'
+require_relative 'merchant_repository.rb'
+require_relative 'merchant.rb'
 require_relative 'item.rb'
+# require_relative '../data/items.csv'
+# require_relative '../data/merchants.csv'
 
 # This class is the heart of the project. It contains references to the item and
 # merchant repositories, which contain the references to the items and
@@ -29,17 +33,17 @@ class SalesEngine
   # from the FileLoader module that loads in the CSV.
   def items
     loaded_file = load_file(load_path[:items])
-    @items ||= ItemRepository.new(loaded_file, self)
+    @items ||= ItemRepository.new(loaded_file)
   end
 
   def merchants
-    loaded_file = load_file(load_path[:merchants], self)
+    loaded_file = load_file(load_path[:merchants])
     @merchants ||= MerchantRepository.new(loaded_file)
   end
 end
 
-x = SalesEngine.from_csv({
-  :items     => "./data/items.csv",
-  :merchants => "./data/merchants.csv",
-})
-x.items
+# x = SalesEngine.from_csv({
+#   :items     => "./data/items.csv",
+#   :merchants => "./data/merchants.csv",
+# })
+# x.items

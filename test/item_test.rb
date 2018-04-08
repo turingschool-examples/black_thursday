@@ -58,10 +58,10 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_returns_items_updated_time
-    assert_equal "2008-04-02 13:48:57 UTC", i.created_at
+    assert_equal "2008-04-02 13:48:57 UTC", i.updated_at
   end
 
   def test_unit_price_returns_in_dollars
-    assert_instance_of Float, i.unit_price_dollars
+    assert_instance_of Float, i.unit_price_to_dollars
   end
 end

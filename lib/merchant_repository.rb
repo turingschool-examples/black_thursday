@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative 'merchant.rb'
 # This object holds all of the merchants. On initialization, we feed in the
 # seperated out list of merchants, which we obtained from the CSV file. For each
 # row, denoted here by the merchant variable, we insantiate a new item object
@@ -9,8 +10,8 @@
 class MerchantRepository
   attr_reader :merchant_list,
               :parent
-  def initialize(merchants, parent)
-    @merchant_list = merchants.map { |merchant| Merchant.new(merchant, self) }
+  def initialize(merchants)
+    @merchant_list = merchants.map { |merchant| Merchant.new(merchant) }
     @parent = parent
   end
 
@@ -32,8 +33,12 @@ class MerchantRepository
 
   def find_all_by_name(name)
     @merchant_list.find_all do |merchant|
-      merchant.merchant_specs[:searchable_name] == name.downcase
+      merchant.merchant_specs[:searchable_name].include?(name.downcase)
     end
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    @merchant_list.find_all { |merchant| merchant.merchant_specs[:id] == merchant_id }
   end
 
   def delete(id)
@@ -49,5 +54,9 @@ class MerchantRepository
         merchant.merchant_specs[:updated_at] = Time.now
       end
     end
+  end
+
+  def inspect
+    "<#{self.class} #{@merchant_list.size} rows>"
   end
 end

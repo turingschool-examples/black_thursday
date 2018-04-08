@@ -25,7 +25,7 @@ class Item
   end
 
   def unit_price
-    @item_spec[:unit_price]
+    @item_specs[:unit_price]
   end
 
   def id
@@ -45,10 +45,10 @@ class Item
   end
 
   def created_at
-    @item_specs[:created_at]
+    Time.parse(@item_specs[:created_at])
   end
 
   def updated_at
-    @item_specs[:updated_at]
+    Time.parse(@item_specs[:updated_at])
   end
 end

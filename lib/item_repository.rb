@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'bigdecimal'
 require_relative 'item.rb'
 # require './lib/search.rb'
 # require './lib/change_module.rb'
@@ -14,9 +15,8 @@ class ItemRepository
   # include ChangeModule
   attr_reader :item_list,
               :parent
-  def initialize(items, parent)
+  def initialize(items)
     @item_list = items.map { |item| Item.new(item) }
-    require "pry"; binding.pry
     @parent = parent
   end
 
@@ -39,17 +39,17 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
-    @item_list.find_all { |item| item.item_specs[:unit_price] == Bigdecimal.new(price) }
+    @item_list.find_all { |item| item.item_specs[:unit_price] == BigDecimal.new(price) }
   end
 
   def find_all_by_price_in_range(price_range)
     @item_list.find_all do |item|
-      price_range.to_i.include?(item.item_specs[:unit_price])
+      price_range.include?(item.item_specs[:unit_price])
     end
   end
 
   def find_all_by_merchant_id(id)
-    @item_list.find_all { |item| item.item_specs[:id] == id }
+    @item_list.find_all { |item| item.item_specs[:merchant_id] == id }
   end
 
   def create(attributes)
@@ -69,5 +69,9 @@ class ItemRepository
         item.item_specs[:updated_at] = Time.now
       end
     end
+  end
+
+  def inspect
+    "<#{self.class} #{@item_list.size} rows>"
   end
 end
