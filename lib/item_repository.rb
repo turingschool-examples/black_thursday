@@ -1,40 +1,27 @@
 require 'csv'
 require_relative 'item'
 class ItemRepository
-  attr_reader :items
+  attr_reader :elements # can be in module
 
   def initialize
-    @items = []
+    @elements = Hash.new
   end
 
-  def from_csv(csv)
-
-    rows = []
-    file = CSV.read(csv, headers: true)
-    # binding.pry
-    # file.header_convert.to_sym    # = file.headers.map do |header|
-      # header.to_sym
-    # end
-    # do |row|
-    count = file.count
-    elements = (1..count).to_a.map do |index|
-
-      # binding.pry
-      file[index].to_a.map do |row|
+  def from_csv(csv) # module
+    records = CSV.read(csv, headers: true)
+    elements = (0..records.count).to_a.map do |index|
+      records[index].to_a.map do |row|
         [row[0].to_sym, row[1]]
       end.to_h
-      # binding.pry
-
     end
-
-    elements.each do |element|
-      @items << Item.new(element)
-    end
-    #   rows << row[0].split("\t")
-    # end
-    # rows[1]
-    # # CSV.read(csv, :quote_char => "|")
+    build_elements_hash(elements)
   end
 
+  def build_elements_hash(elements) # need this method in each repo class
+    elements.each do |element|
+      item = Item.new(element)
+      @elements[item.id] = item
+    end
+  end
 
 end
