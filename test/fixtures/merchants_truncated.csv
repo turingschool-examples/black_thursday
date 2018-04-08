@@ -1,5 +1,7 @@
-12337321,HeadyMamaCreations,2013-04-04,2013-11-23
-12337339,LovesVariety,2003-07-14,2006-05-11
-12337341,CoetographyPrints,2008-05-07,2011-11-05
-12337409,cardsbymarykate,2002-09-23,2011-02-01
-12337411,CJsDecor,2011-12-09,2016-01-08
+id,name,created_at,updated_at
+1,HeadyMamaCreations,2013-04-04,2013-11-23
+2,LovesVariety,2003-07-14,2006-05-11
+3,CoetographyPrints,2008-05-07,2011-11-05
+4,cardsbymarykate,2002-09-23,2011-02-01
+5,CJsDecor,2011-12-09,2016-01-08
+6,CJsDecorTEST,2011-12-09,2016-01-08
