@@ -16,7 +16,10 @@ class MerchantRepository
   end
 
   def create(attributes)
-    @merchant_list << Merchant.new(attributes)
+    id_array = @merchant_list.map(&:id)
+    new_id = id_array.max + 1
+    attributes[:id] = new_id.to_s
+    @merchant_list << Merchant.new(attributes, self)
   end
 
   def find_by_id(id)
@@ -25,7 +28,7 @@ class MerchantRepository
 
   def find_by_name(name)
     @merchant_list.find do |merchant|
-      merchant.merchant_specs[:searchable_name] == name.downcase
+      merchant.searchable_name == name.downcase
     end
   end
 
@@ -35,7 +38,7 @@ class MerchantRepository
 
   def find_all_by_name(name)
     @merchant_list.find_all do |merchant|
-      merchant.merchant_specs[:searchable_name].include?(name.downcase)
+      merchant.searchable_name.include?(name.downcase)
     end
   end
 

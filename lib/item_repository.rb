@@ -25,7 +25,7 @@ class ItemRepository
   end
 
   def find_by_name(name)
-    @item_list.find { |item| item.name == name }
+    @item_list.find { |item| item.searchable_name == name.downcase }
   end
 
   def all
@@ -36,7 +36,7 @@ class ItemRepository
   # with a description instance variable that matches the one given.
   def find_all_with_description(item_description)
     @item_list.find_all do |item|
-      item.item_specs[:searchable_desc] == item_description.downcase
+      item.searchable_desc == item_description.downcase
     end
   end
 
@@ -57,7 +57,10 @@ class ItemRepository
   end
 
   def create(attributes)
-    @item_list << Item.new(attributes)
+    id_array = @item_list.map(&:id)
+    new_id = id_array.max + 1
+    attributes[:id] = new_id.to_s
+    @item_list << Item.new(attributes, self)
   end
 
   def delete(id)
@@ -67,7 +70,9 @@ class ItemRepository
 
   def update(id, attributes)
     item = find_by_id(id)
+    unchangeable_keys = [:id, :item_id, :created_at]
     attributes.each do |key, value|
+      next if (attributes.keys & unchangeable_keys).any?
       if item.item_specs.keys.include?(key)
         item.item_specs[key] = value
         item.item_specs[:updated_at] = Time.now
