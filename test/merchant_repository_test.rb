@@ -5,7 +5,8 @@ require_relative '../lib/fileio'
 # merchant repository class
 class MerchantRepositoryTest < Minitest::Test
   def setup
-    @merchant_repository = MerchantRepository.new(FileIO.load('./test/fixtures/test_merchants.csv'))
+    file_path = FileIO.load('./test/fixtures/test_merchants.csv')
+    @merchant_repository = MerchantRepository.new(file_path)
   end
 
   def test_merchant_repository_exists
@@ -29,12 +30,16 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_all_returns_correct_names
     all_merchants = @merchant_repository.all
-    actual_all_names = all_merchants.map do |merchant|
-      merchant.name
-    end
-    expected = %w[Shopin1901 Candisart MiniatureBikez LolaMarleys Keckenbauer perlesemoi GoldenRayPress]
+    actual_all_names = all_merchants.map(&:name)
+    expected = %w[Shopin1901
+                  Candisart
+                  MiniatureBikez
+                  LolaMarleys
+                  Keckenbauer
+                  perlesemoi
+                  GoldenRayPress]
     assert_equal expected, actual_all_names
-  end  
+  end
 
   def test_can_find_by_id
     actual_shopin = @merchant_repository.find_by_id('12334105')
@@ -54,4 +59,14 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal '12334112', actual_candis.id
   end
 
+  def test_can_find_name_by_fragment
+    actual = @merchant_repository.find_all_by_name('re')
+    assert_equal %w[MiniatureBikez GoldenRayPress], actual
+  end
+
+  def test_can_create_new_merchant
+    actual_judd = @merchant_repository.create(10011011, 'JuddIsAwesome')
+    actual_judd = @merchant_repository.create('1001102', 'ColeIsToo')
+    assert_equal %w[MiniatureBikez GoldenRayPress], actual_judd
+  end
 end

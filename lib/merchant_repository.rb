@@ -12,9 +12,9 @@ class MerchantRepository
     @merchants = create_index(csv_parsed_array)
     # @by_name = {}
   end
-  
+
   def create_index(csv_data)
-    merchant_information = csv_data.shift
+    csv_data.shift
     merchant_data = {}
     csv_data.each do |merchant|
       merchant_data[merchant[0]] = Merchant.new(merchant[0], merchant[1])
@@ -36,4 +36,9 @@ class MerchantRepository
     end
   end
 
+  def find_all_by_name(fragment)
+    @merchants.values.map do |merchant|
+      merchant.name if merchant.name.downcase.include?(fragment.downcase)
+    end.compact
+  end
 end
