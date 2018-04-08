@@ -4,7 +4,7 @@ require_relative '../lib/merchant_repository'
 # merchant repository class
 class MerchantRepositoryTest < Minitest::Test
   def setup
-    @merchant_repository = MerchantRepository.new('./data/test_merchants.csv')
+    @merchant_repository = MerchantRepository.new('./test/fixtures/test_merchants.csv')
   end
 
   def test_merchant_repository_exists
