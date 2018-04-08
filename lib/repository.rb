@@ -24,33 +24,39 @@ module Repository
   end
 
   def find_by_name(name)
-    all.find do |item|
-      item.name.casecmp(name).zero?
+    all.find do |element|
+      element.name.casecmp(name).zero?
     end
   end
 
   def find_all_with_description(text)
-    all.find_all do |item|
-      item.description.downcase.include?(text.downcase)
+    all.find_all do |element|
+      element.description.downcase.include?(text.downcase)
+    end
+  end
+
+  def find_all_by_name(name)
+    all.find_all do |element|
+      element.name.downcase.include?(name.downcase)
     end
   end
 
   def find_all_by_price(price)
-    all.find_all do |item|
-      item.unit_price_to_dollars == price
+    all.find_all do |element|
+      element.unit_price_to_dollars == price
     end
   end
 
   def find_all_by_price_in_range(range)
-    all.find_all do |item|
-      cost = item.unit_price_to_dollars
+    all.find_all do |element|
+      cost = element.unit_price_to_dollars
       range.include?(cost)
     end
   end
 
   def find_all_by_merchant_id(merch_id)
-    all.find_all do |item|
-      item.merchant_id == merch_id
+    all.find_all do |element|
+      element.merchant_id == merch_id
     end
   end
 
@@ -63,11 +69,11 @@ module Repository
   end
 
   def update(id, attributes)
-    item = find_by_id(id)
-    item.attributes[:name] = attributes[:name] if attributes[:name]
-    item.attributes[:description] = attributes[:description] if attributes[:description]
-    item.attributes[:unit_price] = attributes[:unit_price] if attributes[:unit_price]
-    item.attributes[:updated_at] = Time.now
+    element = find_by_id(id)
+    element.attributes[:name] = attributes[:name] if attributes[:name]
+    element.attributes[:description] = attributes[:description] if attributes[:description]
+    element.attributes[:unit_price] = attributes[:unit_price] if attributes[:unit_price]
+    element.attributes[:updated_at] = Time.now
   end
 
   def delete(id)

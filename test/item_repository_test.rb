@@ -24,9 +24,6 @@ class ItemRepositoryTest < Minitest::Test
     assert_nil @ir.elements['id']
     assert_nil @ir.elements[999999999]
     assert_nil @ir.elements[0]
-    # i = @ir.elements
-    # binding.pry
-    # assert_instance_of Item, @ir.elements[-1]
   end
 
   def test_all_method
