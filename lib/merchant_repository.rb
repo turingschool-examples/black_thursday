@@ -9,7 +9,7 @@ class MerchantRepository
     @merchants = create_index(csv_parsed_array)
     # @by_name = {}
   end
-  
+
   def create_index(csv_data)
     csv_data.shift
     merchant_data = {}
@@ -46,5 +46,13 @@ class MerchantRepository
 
   def create(name, id = create_new_id)
     @merchants[id] = Merchant.new(id, name)
+  end
+
+  def update(id, new_name)
+    @merchants[id].name = new_name
+  end
+
+  def delete(id)
+    @merchants.delete(id)
   end
 end

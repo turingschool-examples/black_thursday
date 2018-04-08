@@ -71,12 +71,23 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_can_create_new_merchant
-    actual_jude = @m_repo.create('JudeIsAwesome')
-    actual_cole = @m_repo.create('ColeIsToo')
+    actual_jude = @m_repo.create('Jude')
+    actual_cole = @m_repo.create('Cole')
     assert_instance_of Merchant, actual_jude
     assert_instance_of Merchant, actual_cole
     assert_equal 9, @m_repo.merchants.count
-    assert_equal "JudeIsAwesome", @m_repo.find_by_id(12334136).name
-    assert_equal "ColeIsToo", @m_repo.find_by_id(12334137).name
+    assert_equal 'Jude', @m_repo.merchants['12334136'].name
+    assert_equal 'Cole', @m_repo.merchants['12334137'].name
+  end
+
+  def test_merchant_can_be_updated
+    @m_repo.update('12334135', 'ColeIsAwesomer')
+    assert_equal 'ColeIsAwesomer', @m_repo.merchants['12334135'].name
+  end
+
+  def test_merchant_can_be_deleted
+    @m_repo.delete('12334135')
+    assert_equal 6, @m_repo.merchants.count
+    assert_equal nil, @m_repo.merchants['12334135']
   end
 end
