@@ -44,5 +44,36 @@ class ItemRepository
     end
   end
 
+  def find_all_by_price_in_range(price_range)
+    @items.find_all do |item|
+      price_range.include?(item.unit_price)
+    end
+  end
+
+  def find_all_by_merchant_id(id)
+    @items.find_all do |item|
+      item.merchant_id == id
+    end
+  end
+
+  def create_new_id
+    @items.map do |item|
+      item.id
+    end.max + 1
+  end
+
+  def create(attributes)
+    attributes[:id] = create_new_id
+    attributes[:created_at] = Time.now.utc
+    attributes[:updated_at] = Time.now.utc
+    @items << Item.new(attributes)
+  end
+
+  def update(id, attributes)
+    find_by_id(id).updated_at = Time.now.utc
+    find_by_id(id).name = attributes[:name]
+    find_by_id(id).description = attributes[:description]
+    find_by_id(id).unit_price = attributes[:unit_price]
+  end
 
 end

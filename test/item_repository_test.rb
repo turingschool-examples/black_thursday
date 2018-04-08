@@ -71,6 +71,57 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 8, result.count
   end
 
-  def test_it_can_
+  def test_it_can_find_all_by_price_range
+    item_repo = ItemRepository.new('./test/items.csv')
+
+    result = item_repo.find_all_by_price_in_range((1..100))
+
+    assert_instance_of Array, result
+    assert result.all? {|item|item.is_a?(Item)}
+
+    assert_equal 6, result.count
+  end
+
+  def test_it_can_find_merchant_id
+    item_repo = ItemRepository.new('./test/items.csv')
+
+    result = item_repo.find_all_by_merchant_id(12334141)
+    assert_equal "510+ RealPush Icon Set", result.first.name
+    assert_instance_of Item, result.first
+  end
+
+  def test_find_all_merchant_id_returns_empty_array_for_unknown_merchant_id
+    item_repo = ItemRepository.new('./test/items.csv')
+
+    result = item_repo.find_all_by_merchant_id(0000000)
+    assert_equal [], result
+  end
+
+  def test_creates_attributes
+    item_repo = ItemRepository.new('./test/items.csv')
+
+    result = item_repo.create({unit_price: 15, merchant_id: 12345, name: "Mango", description: "Tasty fruit"})
+    assert_equal "Mango", result.last.name
+    result1 = item_repo.find_by_name("Mango")
+    assert_equal 12345, result1.merchant_id
+    assert_equal true, item_repo.find_all_by_price(15).include?(result1)
+  end
+
+  def test_updates_merchant_instance
+    item_repo = ItemRepository.new('./test/items.csv')
+    result = item_repo.create({unit_price: 15, merchant_id: 12345, name: "Mango", description: "Tasty fruit"})
+    assert_equal "Mango", result.last.name
+    assert_equal 263567475, result.last.id
+
+    item_repo.update(263567475, {name: "dinosaur", description: "extincted", unit_price: 1000})
+
+    result = item_repo.find_by_id(263567475)
+    assert_equal "dinosaur", result.name
+    assert_equal 1000, result.unit_price
+    assert_equal "extincted", result.description
+    assert_equal 12345, result.merchant_id
+
+
+  end
 
 end
