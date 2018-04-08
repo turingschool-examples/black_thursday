@@ -1,34 +1,61 @@
-# frozen_string_literal:true
-
-require 'csv'
 require './lib/merchant'
 
 # A class for containing all Merchant objects
 class MerchantRepository
-  attr_reader :data_file,
-              :by_id
+  attr_reader :merchants
 
-  def initialize(data_file)
-    @by_id = generate_merchants_data(data_file)
-    # @by_name = {}
+  def initialize(csv_parsed_array)
+    csv_parsed_array.shift
+    attributes = csv_parsed_array.map do |merchant|
+      {id: merchant[0], name: merchant[1]}
+    end
+    @merchants = create_index(attributes)
   end
 
-  def generate_merchants_data(data_file)
-    csv_string = File.read(data_file)
-    data = CSV.parse(csv_string)
-    create_index(data)
-  end
-  
-  def create_index(data)
-    merchant_information = data.shift
+  def create_index(attributes)
     merchant_data = {}
-    data.each do |merchant|
-      # require 'pry';binding.pry
-      merchant_data[merchant[0]] = Merchant.new(merchant[0], merchant[1])
+
+    attributes.each do |attribute_set|
+      merchant_data[attribute_set[:id]] = Merchant.new(attribute_set)
     end
     merchant_data
   end
 
   def all
+    @merchants.values
+  end
+
+  def find_by_id(id)
+    @merchants[id.to_s]
+  end
+
+  def find_by_name(name)
+    @merchants.values.each do |merchant|
+      return merchant if merchant.name.downcase == name.downcase
+    end
+  end
+
+  def find_all_by_name(fragment)
+    @merchants.values.map do |merchant|
+      merchant.name if merchant.name.downcase.include?(fragment.downcase)
+    end.compact
+  end
+
+  def create_new_id
+    highest_id = @merchants.keys.max
+    (highest_id.to_i + 1).to_s
+  end
+
+  def create(name)
+    new_attributes = {id: create_new_id, name: name}
+    @merchants[new_attributes[:id]] = Merchant.new(new_attributes)
+  end
+
+  def update(id, new_name)
+    @merchants[id].name = new_name
+  end
+
+  def delete(id)
+    @merchants.delete(id)
   end
 end
