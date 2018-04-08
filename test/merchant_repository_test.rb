@@ -1,10 +1,11 @@
 require_relative 'test_helper'
 require_relative '../lib/merchant_repository'
+require_relative '../lib/fileio'
 
 # merchant repository class
 class MerchantRepositoryTest < Minitest::Test
   def setup
-    @merchant_repository = MerchantRepository.new('./test/fixtures/test_merchants.csv')
+    @merchant_repository = MerchantRepository.new(FileIO.load('./test/fixtures/test_merchants.csv'))
   end
 
   def test_merchant_repository_exists
@@ -12,13 +13,13 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_creating_an_index_of_merchants_from_data
-    assert_instance_of Hash, @merchant_repository.by_id
-    assert_instance_of Merchant, @merchant_repository.by_id['12334105']
-    assert_instance_of Merchant, @merchant_repository.by_id['12334112']
-    assert_instance_of Merchant, @merchant_repository.by_id['12334113']
-    assert_instance_of Merchant, @merchant_repository.by_id['12334115']
-    assert_instance_of Merchant, @merchant_repository.by_id['12334123']
-    assert_instance_of Merchant, @merchant_repository.by_id['12334132']
-    assert_instance_of Merchant, @merchant_repository.by_id['12334135']
+    assert_instance_of Hash, @merchant_repository.merchants
+    assert_instance_of Merchant, @merchant_repository.merchants['12334105']
+    assert_instance_of Merchant, @merchant_repository.merchants['12334112']
+    assert_instance_of Merchant, @merchant_repository.merchants['12334113']
+    assert_instance_of Merchant, @merchant_repository.merchants['12334115']
+    assert_instance_of Merchant, @merchant_repository.merchants['12334123']
+    assert_instance_of Merchant, @merchant_repository.merchants['12334132']
+    assert_instance_of Merchant, @merchant_repository.merchants['12334135']
   end
 end
