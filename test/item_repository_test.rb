@@ -7,6 +7,7 @@ require 'minitest/emoji'
 require 'minitest/autorun'
 require './lib/item_repository.rb'
 require './lib/sales_engine.rb'
+require 'pry'
 
 # Tests the functionality of the item repository
 class ItemRepositoryTest < Minitest::Test
@@ -22,7 +23,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_all_returns_all_items
-    assert_equal 4, @items.all.length
+    assert_equal 5, @items.all.length
   end
 
   def test_it_finds_item_by_id
@@ -51,5 +52,26 @@ class ItemRepositoryTest < Minitest::Test
 
     assert_equal 34567, expected.first.id
     assert_equal 'badass batman themed watch', expected.first.description
+  end
+
+  def test_it_finds_all_matching_items_by_price
+    expected = @items.find_all_by_price(600.00)
+
+    assert_instance_of Array, expected
+    assert_equal 1, expected.length
+  end
+
+  def test_it_finds_all_within_price_range
+    expected = @items.find_all_by_price_in_range(11.99..50.00)
+
+    assert_instance_of Array, expected
+    assert_equal 4, expected.length
+  end
+
+  def test_find_all_merchant_items_by_id
+    expected = @items.find_all_by_merchant_id(92929)
+
+    assert_instance_of Array, expected
+    assert_equal 2, expected.length
   end
 end

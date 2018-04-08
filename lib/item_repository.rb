@@ -42,7 +42,7 @@ class ItemRepository
 
   def find_all_by_price(price)
     @item_list.find_all do |item|
-      item.item_specs[:unit_price] == BigDecimal(price)
+      item.unit_price_to_dollars == price
     end
   end
 
