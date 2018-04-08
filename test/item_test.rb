@@ -27,4 +27,8 @@ class ItemTest < Minitest::Test
     assert_equal Time.now, item.created_at
     assert_equal Time.now, item.updated_at
   end
+
+  def test_its_price_in_dollar_amount_is_formatted_as_a_float
+    assert_instance_of Float, item.price_to_dollars
+  end
 end
