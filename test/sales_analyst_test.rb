@@ -31,7 +31,7 @@ class SalesAnalystTest < MiniTest::Test
 
   def test_it_can_calculate_standard_deviation
     expected = 3.26
-    actual = @s.average_items_per_merchant_standard_deviation
+    actual = BigDecimal(@s.average_items_per_merchant_standard_deviation, 3)
 
     assert_equal expected, actual
   end
