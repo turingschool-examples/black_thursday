@@ -14,7 +14,11 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of ItemRepository, @item_repository
   end
 
-  def test_item_respository_has_data_file_attribute
-    assert_equal '../data/items.csv', @item_repository.data_file
+  # def test_item_respository_has_data_file_attribute
+  #   assert_equal '../data/items.csv', @item_repository.data_file
+  # end
+
+
+  def test_items_are_item_objects
   end
 end

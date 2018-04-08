@@ -1,7 +1,12 @@
+require 'csv'
+
 class ItemRepository
-  attr_reader :data_file
+  attr_reader :data_file,
+              :items
   
   def initialize(data_file)
-    @data_file = data_file
+    @items = nil
   end
+
+
 end
