@@ -26,4 +26,17 @@ class SalesAnalyst
       @sales_engine.merchants.find_by_id(merchant.id).items.length
     end
   end
+
+  def average_item_price_for_merchant(merchant_id)
+  end
+
+  def merchants_with_high_item_count
+    std_dev = average_items_per_merchant_standard_deviation
+    average = average_items_per_merchant
+    amount_of_items = average + std_dev
+    @sales_engine.merchants.all.map do |merchant|
+      amount = @sales_engine.merchants.find_by_id(merchant.id).items.length
+      merchant if amount > amount_of_items
+    end.compact
+  end
 end
