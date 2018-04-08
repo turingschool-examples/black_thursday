@@ -158,6 +158,7 @@ class ItemRepositoryTest < Minitest::Test
                 })
     assert_equal 1, @ir.all.count
     assert_equal 'Pencil', @ir.find_by_id(1).name
+    # Need to test time of update
 
     @ir.create({
                 :name        => "Pen",
