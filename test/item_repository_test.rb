@@ -51,10 +51,11 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_merchant_id
-
+    assert_equal [], @ir.find_all_by_merchant_id(7_77)
+    assert_instance_of Item, @ir.find_all_by_merchant_id(2)[0]
   end
 
-  def test_create_item_attribute
+  def test_create_item_attributes
 
   end
 
