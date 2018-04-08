@@ -1,5 +1,4 @@
-# frozen_string_literal: true
-
+require_relative 'fileio'
 # Sales Engine class for managing data
 class SalesEngine
   attr_reader :items,
@@ -11,8 +10,8 @@ class SalesEngine
   end
 
   def self.from_csv(items_and_merchants)
-    items_repo = ItemRepository.new(items_and_merchants[:items])
-    merchants_repo = MerchantRepository.new(items_and_merchants[:merchants])
+    items_repo = ItemRepository.new(FileIO.load(items_and_merchants[:items]))
+    merchants_repo = MerchantRepository.new(FileIO.load(items_and_merchants[:merchants]))
     new(items_repo, merchants_repo)
   end
 end
