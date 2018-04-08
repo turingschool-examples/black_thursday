@@ -4,7 +4,8 @@
 # file.
 class Merchant
   attr_accessor :merchant_specs
-  def initialize(merchants)
+  attr_reader   :parent
+  def initialize(merchants, parent)
     @merchant_specs = {
       id:               merchants[:id].to_i,
       name:             merchants[:name],
@@ -12,6 +13,7 @@ class Merchant
       created_at:       merchants[:created_at],
       updated_at:       merchants[:updated_at]
     }
+    @parent = parent
   end
 
   def id
@@ -21,11 +23,8 @@ class Merchant
   def name
     @merchant_specs[:name]
   end
+
+  def items
+    @parent.find_items_by_merchant_id(id)
+  end
 end
-#
-# x = Merchant.new({:id=>263550472,
-#     :name=>"The others could only Watch",
-#
-#     :merchant_id=>"12334296",
-#     :created_at=>"2016-01-11 19:14:50 UTC",
-#     :updated_at=>"2011-06-09 19:31:11 UTC"})

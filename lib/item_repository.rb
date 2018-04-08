@@ -15,8 +15,8 @@ class ItemRepository
   # include ChangeModule
   attr_reader :item_list,
               :parent
-  def initialize(items)
-    @item_list = items.map { |item| Item.new(item) }
+  def initialize(items, parent)
+    @item_list = items.map { |item| Item.new(item, self) }
     @parent = parent
   end
 
@@ -73,6 +73,10 @@ class ItemRepository
         item.item_specs[:updated_at] = Time.now
       end
     end
+  end
+
+  def find_merchant_by_merchant_id(merchant_id)
+    @parent.find_merchant_by_merchant_id(merchant_id)
   end
 
   def inspect

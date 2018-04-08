@@ -10,8 +10,8 @@ require_relative 'merchant.rb'
 class MerchantRepository
   attr_reader :merchant_list,
               :parent
-  def initialize(merchants)
-    @merchant_list = merchants.map { |merchant| Merchant.new(merchant) }
+  def initialize(merchants, parent)
+    @merchant_list = merchants.map { |merchant| Merchant.new(merchant, self) }
     @parent = parent
   end
 
@@ -24,7 +24,9 @@ class MerchantRepository
   end
 
   def find_by_name(name)
-    @merchant_list.find { |merchant| merchant.merchant_specs[:searchable_name] == name.downcase }
+    @merchant_list.find do |merchant|
+      merchant.merchant_specs[:searchable_name] == name.downcase
+    end
   end
 
   def all
@@ -38,7 +40,9 @@ class MerchantRepository
   end
 
   def find_all_by_merchant_id(merchant_id)
-    @merchant_list.find_all { |merchant| merchant.merchant_specs[:id] == merchant_id }
+    @merchant_list.find_all do |merchant|
+      merchant.merchant_specs[:id] == merchant_id
+    end
   end
 
   def delete(id)
@@ -54,6 +58,10 @@ class MerchantRepository
         merchant.merchant_specs[:updated_at] = Time.now
       end
     end
+  end
+
+  def find_items_by_merchant_id(merchant_id)
+    @parent.find_all_items_by_merchant_id(merchant_id)
   end
 
   def inspect

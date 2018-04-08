@@ -8,7 +8,8 @@ require 'time'
 # the class.
 class Item
   attr_accessor :item_specs
-  def initialize(items)
+  attr_reader   :parent
+  def initialize(items, parent)
     @item_specs = {
       id:                     items[:id].to_i,
       name:                   items[:name],
@@ -19,6 +20,7 @@ class Item
       updated_at:             items[:updated_at],
       searchable_desc:        items[:description].downcase
     }
+    @parent = parent
   end
 
   def unit_price_to_dollars
@@ -51,5 +53,9 @@ class Item
 
   def updated_at
     Time.parse(@item_specs[:updated_at])
+  end
+
+  def merchant
+    @parent.find_merchant_by_merchant_id(merchant_id)
   end
 end

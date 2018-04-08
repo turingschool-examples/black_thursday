@@ -5,6 +5,7 @@ require_relative 'item_repository.rb'
 require_relative 'merchant_repository.rb'
 require_relative 'merchant.rb'
 require_relative 'item.rb'
+require_relative 'connections.rb'
 # require_relative '../data/items.csv'
 # require_relative '../data/merchants.csv'
 
@@ -13,6 +14,7 @@ require_relative 'item.rb'
 # merchants.
 class SalesEngine
   include FileLoader
+  include Connections
 
   attr_reader :load_path
   def initialize(load_path)
@@ -33,17 +35,11 @@ class SalesEngine
   # from the FileLoader module that loads in the CSV.
   def items
     loaded_file = load_file(load_path[:items])
-    @items ||= ItemRepository.new(loaded_file)
+    @items ||= ItemRepository.new(loaded_file, self)
   end
 
   def merchants
     loaded_file = load_file(load_path[:merchants])
-    @merchants ||= MerchantRepository.new(loaded_file)
+    @merchants ||= MerchantRepository.new(loaded_file, self)
   end
 end
-
-# x = SalesEngine.from_csv({
-#   :items     => "./data/items.csv",
-#   :merchants => "./data/merchants.csv",
-# })
-# x.items
