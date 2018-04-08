@@ -21,4 +21,14 @@ class ItemRepository
   def find_by_id(id)
     @items.find { |item| item.id == id }
   end
+
+  def find_by_name(name)
+    @items.find { |item| item.name.downcase == name.downcase }
+  end
+
+  def find_all_with_description(item_description)
+    @items.find_all do |item|
+      item.description.downcase.include?(item_description.downcase)
+    end
+  end
 end

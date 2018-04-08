@@ -30,7 +30,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_has_a_description
-    item = Item.new(@data, parent)
+    item = Item.new(@data)
 
     assert_equal 'You can use it to write things', item.description
   end

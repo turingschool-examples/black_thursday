@@ -14,12 +14,52 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_has_items
     assert_equal 5, @ir.all.count
     assert_instance_of Array, @ir.all
-    assert_instance_of Item, @ir.items[0]
-    # assert(@ir.all.all?) { |item| item.is_a?(Item) }
+    assert(@ir.all.all?) { |item| item.is_a?(Item) }
   end
 
   def test_find_items
     assert_nil @ir.find_by_id(777)
     assert_instance_of Item, @ir.find_by_id(1)
+  end
+
+  def test_find_by_name
+    name = 'Disney scrabble frames'
+    name_case_insensitive = 'disney SCRABBLE FraMeS'
+
+    assert_nil @ir.find_by_name('beebop')
+    assert_instance_of Item, @ir.find_by_name(name)
+    assert_instance_of Item, @ir.find_by_name(name_case_insensitive)
+  end
+
+  def test_find_all_with_description
+    description = 'Almost every social icon on the planet earth'
+
+    assert_equal [], @ir.find_all_with_description('beebop')
+    assert_instance_of Item, @ir.find_all_with_description(description)[0]
+    assert_equal 5, @ir.find_all_with_description('a').count
+  end
+
+  def test_find_all_by_price
+
+  end
+
+  def test_find_all_by_price_in_range
+
+  end
+
+  def test_find_all_by_merchant_id
+
+  end
+
+  def test_create_item_attribute
+
+  end
+
+  def test_update_item
+
+  end
+
+  def test_delete_item
+
   end
 end
