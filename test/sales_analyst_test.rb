@@ -37,10 +37,9 @@ class SalesAnalystTest < MiniTest::Test
   end
 
 # Need to create mocks for testing
-  # def test_it_can_calculate_merchants_with_high_item_counts
-  #   expected = ''
-  #   actual = @s.merchants_with_high_item_count
-  #
-  #   assert_equal expected, actual
-  # end
+  def test_it_can_calculate_merchants_with_high_item_counts
+    actual = @s.merchants_with_high_item_count.first.name
+    expected = 'Keckenbauer'
+    assert_equal expected, actual
+  end
 end
