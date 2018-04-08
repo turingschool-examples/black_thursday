@@ -1,3 +1,5 @@
+require 'bigdecimal'
+require 'csv'
 require_relative 'fileio'
 # Sales Engine class for managing data
 class SalesEngine
@@ -10,8 +12,10 @@ class SalesEngine
   end
 
   def self.from_csv(items_and_merchants)
-    items_repo = ItemRepository.new(FileIO.load(items_and_merchants[:items]))
-    merchants_repo = MerchantRepository.new(FileIO.load(items_and_merchants[:merchants]))
+    items_file_path = FileIO.load(items_and_merchants[:items])
+    items_repo = ItemRepository.new(items_file_path)
+    merchants_file_path = FileIO.load(items_and_merchants[:merchants])
+    merchants_repo = MerchantRepository.new(merchants_file_path)
     new(items_repo, merchants_repo)
   end
 end

@@ -1,4 +1,3 @@
-require 'csv'
 require './lib/merchant'
 
 # A class for containing all Merchant objects
@@ -6,14 +5,18 @@ class MerchantRepository
   attr_reader :merchants
 
   def initialize(csv_parsed_array)
-    @merchants = create_index(csv_parsed_array)
+    csv_parsed_array.shift
+    attributes = csv_parsed_array.map do |merchant|
+      {id: merchant[0], name: merchant[1]}
+    end
+    @merchants = create_index(attributes)
   end
 
-  def create_index(csv_data)
-    csv_data.shift
+  def create_index(attributes)
     merchant_data = {}
-    csv_data.each do |merchant|
-      merchant_data[merchant[0]] = Merchant.new(merchant[0], merchant[1])
+
+    attributes.each do |attribute_set|
+      merchant_data[attribute_set[:id]] = Merchant.new(attribute_set)
     end
     merchant_data
   end
@@ -43,8 +46,9 @@ class MerchantRepository
     (highest_id.to_i + 1).to_s
   end
 
-  def create(name, id = create_new_id)
-    @merchants[id] = Merchant.new(id, name)
+  def create(name)
+    new_attributes = {id: create_new_id, name: name}
+    @merchants[new_attributes[:id]] = Merchant.new(new_attributes)
   end
 
   def update(id, new_name)

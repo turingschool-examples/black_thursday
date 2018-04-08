@@ -1,4 +1,3 @@
-require 'bigdecimal'
 # item class
 class Item
   attr_reader :id,

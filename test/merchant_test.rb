@@ -4,7 +4,7 @@ require './lib/merchant'
 # merchant class
 class MerchantTest < Minitest::Test
   def setup
-    @merchant = Merchant.new(1234567, 'aCoolMerchant')
+    @merchant = Merchant.new(id: 1234567, name: 'aCoolMerchant')
   end
 
   def test_merchant_exists

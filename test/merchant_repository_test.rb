@@ -18,10 +18,6 @@ class MerchantRepositoryTest < Minitest::Test
     assert_instance_of Merchant, @m_repo.merchants['12334105']
     assert_instance_of Merchant, @m_repo.merchants['12334112']
     assert_instance_of Merchant, @m_repo.merchants['12334113']
-    assert_instance_of Merchant, @m_repo.merchants['12334115']
-    assert_instance_of Merchant, @m_repo.merchants['12334123']
-    assert_instance_of Merchant, @m_repo.merchants['12334132']
-    assert_instance_of Merchant, @m_repo.merchants['12334135']
   end
 
   def test_all_returns_an_array_of_all_merchant_instances
@@ -72,12 +68,16 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_can_create_new_merchant
     actual_jude = @m_repo.create('Jude')
-    actual_cole = @m_repo.create('Cole')
     assert_instance_of Merchant, actual_jude
-    assert_instance_of Merchant, actual_cole
-    assert_equal 9, @m_repo.merchants.count
+    assert_equal 8, @m_repo.merchants.count
     assert_equal 'Jude', @m_repo.merchants['12334136'].name
-    assert_equal 'Cole', @m_repo.merchants['12334137'].name
+  end
+
+  def test_can_create_a_different_merchant
+    actual_cole = @m_repo.create('Cole')
+    assert_instance_of Merchant, actual_cole
+    assert_equal 8, @m_repo.merchants.count
+    assert_equal 'Cole', @m_repo.merchants['12334136'].name
   end
 
   def test_merchant_can_be_updated

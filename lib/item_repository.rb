@@ -1,5 +1,6 @@
 require_relative '../lib/item'
 
+# item repo class
 class ItemRepository
   attr_reader :items
 
