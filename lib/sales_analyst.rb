@@ -39,8 +39,9 @@ class SalesAnalyst
   def golden_items
     std_dev = standard_deviation_of_item_price
     average = average_average_price_per_merchant
-    price_of_item = average + (2*std_dev)
-    @sales_engine.items.find_all_by_price_in_range((price_of_item.to_i)..find_max_price)
+    price_of_item = average + (2 * std_dev)
+    price_range = price_of_item.to_i..find_max_price
+    @sales_engine.items.find_all_by_price_in_range(price_range)
   end
 
   def average_item_price_for_merchant(merchant_id)
@@ -73,6 +74,4 @@ class SalesAnalyst
   def find_max_price
     @sales_engine.items.all.map(&:unit_price).max.to_i
   end
-
-
 end
