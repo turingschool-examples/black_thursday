@@ -1,5 +1,6 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+# frozen_string_literal:true
+
+require_relative 'test_helper'
 require './lib/merchant'
 
 class MerchantTest < Minitest::Test
