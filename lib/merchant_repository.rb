@@ -7,7 +7,6 @@ class MerchantRepository
 
   def initialize(csv_parsed_array)
     @merchants = create_index(csv_parsed_array)
-    # @by_name = {}
   end
 
   def create_index(csv_data)
