@@ -1,4 +1,5 @@
 require './test/test_helper'
+require 'bigdecimal'
 require_relative '../lib/item'
 
 class ItemTest < Minitest::Test
@@ -7,9 +8,10 @@ class ItemTest < Minitest::Test
     @item = Item.new(
       name: 'Pencil',
       description: 'Can be used to write things',
-      unit_price: BigDecimal.new(10.99, 4),
-      created_at: Time.now,
-      updated_at: Time.now
+      unit_price: '1099',
+      created_at: '2016-01-11 17:42:32 UTC',
+      updated_at: '2016-01-11 17:42:32 UTC',
+      merchant_id: '7'
     )
   end
 
@@ -24,8 +26,10 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_can_show_times_when_created_and_updated
-    assert_equal Time.now, item.created_at
-    assert_equal Time.now, item.updated_at
+    created = '2016-01-11 17:42:32 UTC'
+    updated = '2016-01-11 17:42:32 UTC'
+    assert_equal created, item.created_at
+    assert_equal updated, item.updated_at
   end
 
   def test_its_price_in_dollar_amount_is_formatted_as_a_float
