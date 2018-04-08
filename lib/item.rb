@@ -1,3 +1,4 @@
+require 'bigdecimal'
 # item class
 class Item
   attr_reader :id,
@@ -8,14 +9,14 @@ class Item
               :created_at,
               :updated_at
 
-  def initialize(data = Hash.new(0))
-    @id          = data[:id].to_i
-    @name        = data[:name]
-    @description = data[:description]
-    @unit_price  = BigDecimal(data[:unit_price], 4)
-    @merchant_id = data[:merchant_id].to_i
-    @created_at  = data[:created_at]
-    @updated_at  = data[:updated_at]
+  def initialize(item_attributes_array)
+    @id          = item_attributes_array[0]
+    @name        = item_attributes_array[1]
+    @description = item_attributes_array[2]
+    @unit_price  = BigDecimal(item_attributes_array[3], 4)
+    @merchant_id = item_attributes_array[4].to_i
+    @created_at  = item_attributes_array[5]
+    @updated_at  = item_attributes_array[6]
   end
 
   def set_unit_price_to_dollars

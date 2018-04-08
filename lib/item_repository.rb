@@ -1,8 +1,7 @@
-require 'csv'
+require_relative '../lib/item'
 
 class ItemRepository
-  attr_reader :data_file,
-              :items
+  attr_reader :items
 
   def initialize(csv_parsed_array)
     @items = create_index(csv_parsed_array)
@@ -10,10 +9,10 @@ class ItemRepository
 
   def create_index(csv_data)
     csv_data.shift
-    merchant_data = {}
-    csv_data.each do |merchant|
-      merchant_data[merchant[0]] = Merchant.new(merchant[0], merchant[1])
+    item_data = {}
+    csv_data.each do |item|
+      item_data[item[0]] = Item.new(item)
     end
-    merchant_data
+    item_data
   end
 end
