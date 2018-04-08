@@ -4,13 +4,6 @@ require 'csv'
 class FileIO
   def self.load(path)
     CSV.read path
-    require "pry"; binding.pry
-    # contents.each do |row|
-    #   id = row['id']
-    #   name = row['name']
-    #   @id << id
-    #   @name << name
-    # end
   end
 end
 
