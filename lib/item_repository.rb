@@ -7,7 +7,7 @@ class ItemRepository
     @items = []
     find_items(filepath)
   end
-  
+
   def find_items(filepath)
     CSV.foreach(filepath, headers: true, header_converters: :symbol) do |data|
       @items << Item.new(data)
@@ -18,4 +18,7 @@ class ItemRepository
     @items
   end
 
+  def find_by_id(id)
+    @items.find { |item| item.id == id }
+  end
 end

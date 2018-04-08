@@ -17,4 +17,9 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of Item, @ir.items[0]
     # assert(@ir.all.all?) { |item| item.is_a?(Item) }
   end
+
+  def test_find_items
+    assert_nil @ir.find_by_id(777)
+    assert_instance_of Item, @ir.find_by_id(1)
+  end
 end
