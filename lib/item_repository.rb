@@ -83,4 +83,16 @@ class ItemRepository
       @elements.keys.max + 1
     end
   end
+
+  def update(id, attributes)
+    item = find_by_id(id)
+    item.attributes[:name] = attributes[:name] if attributes[:name]
+    item.attributes[:description] = attributes[:description] if attributes[:description]
+    item.attributes[:unit_price] = attributes[:unit_price] if attributes[:unit_price]
+    item.attributes[:updated_at] = Time.now
+  end
+
+  def delete(id)
+    @elements.delete(id)
+  end
 end

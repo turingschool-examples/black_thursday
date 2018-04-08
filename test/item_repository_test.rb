@@ -170,4 +170,51 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 2, @ir.all.count
     assert_equal 'Pen', @ir.find_by_id(2).name
   end
+
+  def test_it_can_update_an_existing_item
+    assert_equal 0, @ir.all.count
+    time = Time.now
+    @ir.create({
+                :name        => "Pencil",
+                :description => "You can use it to write things",
+                :unit_price  => BigDecimal.new(10.99,4),
+                :created_at  => time,
+                :updated_at  => time,
+                :merchant_id => 7
+                })
+    assert_equal 1, @ir.all.count
+    assert_equal 'Pencil', @ir.find_by_id(1).name
+    assert_equal 7, @ir.find_by_id(1).merchant_id
+
+    @ir.update(1, {
+                    :name        => "Pen",
+                    :description => "NASA's response to Russian",
+                    :unit_price  => BigDecimal.new(0.02,4),
+                    :created_at  => time,
+                    :updated_at  => time,
+                    :merchant_id => 8
+                    })
+    assert_equal 1, @ir.all.count
+    assert_equal 'Pen', @ir.find_by_id(1).name
+    assert_equal "NASA's response to Russian", @ir.find_by_id(1).description
+    assert_equal 7, @ir.find_by_id(1).merchant_id
+  end
+
+  def test_it_can_delete_an_existing_item
+    assert_equal 0, @ir.all.count
+    time = Time.now
+    @ir.create({
+                :name        => "Pencil",
+                :description => "You can use it to write things",
+                :unit_price  => BigDecimal.new(10.99,4),
+                :created_at  => time,
+                :updated_at  => time,
+                :merchant_id => 7
+                })
+    assert_equal 1, @ir.all.count
+    assert_equal 'Pencil', @ir.find_by_id(1).name
+
+    @ir.delete(1)
+    assert_equal 0, @ir.all.count
+  end
 end
