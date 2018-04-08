@@ -2,6 +2,7 @@
 
 require 'bigdecimal'
 require 'time'
+require 'date'
 # This object stores all of the data that is connected to the items, along with
 # a reference to the parent, which is the item repository. All of these
 # variables are stored as instance variables so they can be read outside of
@@ -17,10 +18,17 @@ class Item
       unit_price:             BigDecimal(items[:unit_price]) / 100,
       merchant_id:            items[:merchant_id].to_i,
       created_at:             items[:created_at],
-      updated_at:             items[:updated_at],
-      searchable_desc:        items[:description].downcase
+      updated_at:             items[:updated_at]
     }
     @parent = parent
+  end
+
+  def searchable_name
+    @item_specs[:name].downcase
+  end
+
+  def searchable_desc
+    @item_specs[:description].downcase
   end
 
   def unit_price_to_dollars
@@ -48,11 +56,11 @@ class Item
   end
 
   def created_at
-    Time.parse(@item_specs[:created_at])
+    Time.parse(@item_specs[:created_at].to_s)
   end
 
   def updated_at
-    Time.parse(@item_specs[:updated_at])
+    Time.parse(@item_specs[:updated_at].to_s)
   end
 
   def merchant
