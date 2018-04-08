@@ -27,7 +27,7 @@ class SalesEngine
   # load_path method form the FileLoader module. The new SalesEngine object
   # is instantiated this way
   def self.from_csv(load_path)
-    SalesEngine.new(load_path)
+    new(load_path)
   end
 
   # This conditional checks to see if @items has been defined as a new

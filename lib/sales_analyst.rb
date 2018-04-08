@@ -7,14 +7,9 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    merchant_item_array = []
     all_items = @sales_engine.merchants.all.map do |merchant|
-      merchant = @sales_engine.merchants.find_by_id(merchant.id)
-      merchant_item_array = merchant.items
-      merchant_item_array.length
+      @sales_engine.merchants.find_by_id(merchant.id).items.length
     end
-    all_items.inject(:+)
-
+    all_items.inject(:+).to_f / @sales_engine.merchants.all.length
   end
-
 end
