@@ -12,12 +12,6 @@ class MerchantRepository
     @merchants = create_index(csv_parsed_array)
     # @by_name = {}
   end
-
-  # def generate_merchants_data(data_file)
-  #   csv_string = File.read(data_file)
-  #   data = CSV.parse(csv_string)
-  #   create_index(data)
-  # end
   
   def create_index(csv_data)
     merchant_information = csv_data.shift
@@ -27,4 +21,19 @@ class MerchantRepository
     end
     merchant_data
   end
+
+  def all
+    @merchants.values
+  end
+
+  def find_by_id(id)
+    @merchants[id.to_s]
+  end
+
+  def find_by_name(name)
+    @merchants.values.each do |merchant|
+      return merchant if merchant.name.downcase == name.downcase
+    end
+  end
+
 end
