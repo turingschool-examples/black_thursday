@@ -1,4 +1,6 @@
 require 'csv'
+require 'time'
+require 'date'
 require_relative 'merchant'
 
 class MerchantRepository
@@ -24,12 +26,12 @@ class MerchantRepository
 
   def find_by_id(id)
     @merchants.find do |merchant|
-      merchant.id == id
+      merchant.id == id.to_i
     end
   end
 
   def find_by_name(name)
-    @merchants.find do|merchant|
+    @merchants.find do |merchant|
       merchant.name.downcase == name.downcase
     end
   end
@@ -48,15 +50,22 @@ class MerchantRepository
 
   def create(attribute)
     attribute[:id] = create_new_id
+    attribute[:created_at] = Time.now.strftime('%F')
+    attribute[:updated_at] = Time.now.strftime('%F')
     @merchants << Merchant.new(attribute)
   end
 
   def update(id, attribute)
-    find_by_id(id).name = attribute
+    return nil if find_by_id(id).nil?
+    find_by_id(id).updated_at = Time.now.strftime('%F')
+    find_by_id(id).name = attribute[:name]
   end
 
   def delete(id)
     @merchants.delete(find_by_id(id))
   end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 end

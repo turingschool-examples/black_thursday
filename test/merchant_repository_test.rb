@@ -84,13 +84,17 @@ class MerchantRepositoryTest< MiniTest::Test
 
     merchant_repo = MerchantRepository.new('./test/merchants.csv')
 
-    result = merchant_repo.create({:name => "manoj"})
+    merchant_repo.create({:name => "manoj"})
     assert_equal "manoj", merchant_repo.merchants.last.name
     assert_equal 12334142, merchant_repo.merchants.last.id
+    # assert_equal "2018-04-08", merchant_repo.merchants.last.created_at
+    # assert_equal "2018-04-08", merchant_repo.merchants.last.updated_at
 
-    result = merchant_repo.create({:name => "tylor"})
+    merchant_repo.create({:name => "tylor"})
     assert_equal "tylor", merchant_repo.merchants.last.name
     assert_equal 12334143, merchant_repo.merchants.last.id
+    # assert_equal "2018-04-08", merchant_repo.merchants.last.created_at
+    # assert_equal "2018-04-08", merchant_repo.merchants.last.updated_at
   end
 
   def test_it_can_create_a_new_merchant_for_next_one
@@ -107,21 +111,22 @@ class MerchantRepositoryTest< MiniTest::Test
     result1 =  merchant_repo.find_by_id(12334141)
     assert_equal "jejum", result1.name
 
-    merchant_repo.update(12334141, "walmartinnepal")
+    merchant_repo.update(12334141, {name: "walmartinnepal"})
      result = merchant_repo.find_by_id(12334141)
 
     assert_equal "walmartinnepal", result.name
 
   end
 
-  def test_it_can_update_merchant_with_attributes_for_diff_merchant\
+  def test_it_can_update_merchant_with_attributes_for_diff_merchant
     merchant_repo = MerchantRepository.new('./test/merchants.csv')
     result1 =  merchant_repo.find_by_id(12334132)
     assert_equal "perlesemoi", result1.name
 
-    merchant_repo.update(12334132, "kingsooper")
+    merchant_repo.update(12334132, {name: "kingsooper"})
     result = merchant_repo.find_by_id(12334132)
 
+    assert_equal "2018-04-08", result.updated_at
     assert_equal "kingsooper", result.name
   end
 

@@ -22,5 +22,4 @@ class MerchantTest< MiniTest::Test
     assert_equal 'Walmart', merchant.name
     assert_equal 3, merchant.id
   end
-
 end
