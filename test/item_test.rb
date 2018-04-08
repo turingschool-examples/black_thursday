@@ -50,7 +50,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_returns_items_id
-    assert_equal 263_395_721, item.id
+    assert_equal 263395721, item.id
   end
 
   def test_it_returns_items_name
@@ -63,7 +63,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_returns_items_merchant_id
-    assert_equal 12_334_185, item.merchant_id
+    assert_equal 12334185, item.merchant_id
   end
 
   def test_it_returns_items_unit_price
