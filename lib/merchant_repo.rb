@@ -16,4 +16,10 @@ class MerchantRepo
       all << Merchant.new(row)
     end
   end
+
+  def find_by_id(id)
+    all.find do |merchant|
+      merchant.id == id
+    end
+  end
 end

@@ -17,4 +17,9 @@ class MerchantRepoTest < Minitest::Test
     assert_instance_of Array, mr.all
     assert_instance_of Merchant, mr.all.sample
   end
+
+  def test_it_finds_by_id
+    expected = "TheCullenChronicles"
+    assert_equal expected, mr.find_by_id("12336927").name
+  end
 end
