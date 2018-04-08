@@ -1,0 +1,26 @@
+{
+  "Unit Tests": {
+    "coverage": {
+      "/Users/kelveaux/turing/1module/projects/black_thursday_project/black_thursday/lib/item.rb": [
+        1,
+        1,
+        null,
+        null,
+        null,
+        null,
+        1,
+        4,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        1,
+        null,
+        null
+      ]
+    },
+    "timestamp": 1523226591
+  }
+}
