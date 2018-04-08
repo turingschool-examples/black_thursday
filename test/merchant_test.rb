@@ -1,11 +1,10 @@
-# frozen_string_literal:true
-
 require_relative 'test_helper'
 require './lib/merchant'
 
+# merchant class
 class MerchantTest < Minitest::Test
   def setup
-    @merchant = Merchant.new(1234567, "aCoolMerchant")
+    @merchant = Merchant.new(1234567, 'aCoolMerchant')
   end
 
   def test_merchant_exists
@@ -17,6 +16,6 @@ class MerchantTest < Minitest::Test
   end
 
   def test_merchant_has_name
-    assert_equal "aCoolMerchant", @merchant.name
+    assert_equal 'aCoolMerchant', @merchant.name
   end
 end

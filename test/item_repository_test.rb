@@ -1,5 +1,3 @@
-# frozen_string_literal:true
-
 require_relative 'test_helper'
 require_relative '../lib/item_repository'
 
@@ -16,7 +14,6 @@ class ItemRepositoryTest < Minitest::Test
   # def test_item_respository_has_data_file_attribute
   #   assert_equal '../data/items.csv', @item_repository.data_file
   # end
-
 
   def test_items_are_item_objects
   end
