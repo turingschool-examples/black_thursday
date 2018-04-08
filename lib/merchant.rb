@@ -9,11 +9,14 @@ class Merchant
     @merchant_specs = {
       id:               merchants[:id].to_i,
       name:             merchants[:name],
-      searchable_name:  merchants[:name].downcase,
       created_at:       merchants[:created_at],
       updated_at:       merchants[:updated_at]
     }
     @parent = parent
+  end
+
+  def searchable_name
+    @merchant_specs[:name].downcase
   end
 
   def id
