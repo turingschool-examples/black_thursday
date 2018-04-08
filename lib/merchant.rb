@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'date'
 # This class holds the infromation about the merchants grabbed from the CSV
 # file.
 class Merchant
@@ -25,6 +26,14 @@ class Merchant
 
   def name
     @merchant_specs[:name]
+  end
+
+  def created_at
+    @merchant_specs[:created_at]
+  end
+
+  def updated_at
+    @merchant_specs[:updated_at]
   end
 
   def items
