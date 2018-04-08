@@ -37,6 +37,6 @@ class MerchantRepositoryTest < Minitest::Test
 
     assert_equal [], mr.find_all_by_name("Buffalo Bill")
     assert_equal ['HeadyMamaCreations'], mr.find_all_by_name('headyMamacreations')
-    assert_equal [CJsDecor]
+    assert_equal ['CJsDecor', 'CJsDecorTEST'], mr.find_all_by_name('cj')
   end
 end

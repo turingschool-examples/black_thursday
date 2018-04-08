@@ -33,4 +33,13 @@ class MerchantRepository
     end
   end
 
+  def find_all_by_name(name)
+    found = merchants.map do |merchant|
+      if merchant.name.downcase.include?(name.downcase)
+        merchant.name
+      end
+    end
+    found.compact
+  end
+
 end
