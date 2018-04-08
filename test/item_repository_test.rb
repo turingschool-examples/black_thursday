@@ -40,11 +40,14 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_price
-
+    assert_equal [], @ir.find_all_by_price(777)
+    assert_instance_of Item, @ir.find_all_by_price(13.5)[0]
   end
 
   def test_find_all_by_price_in_range
-
+    assert_equal [], @ir.find_all_by_price_in_range((0..1))
+    assert_instance_of Item, @ir.find_all_by_price_in_range((1..15))[0]
+    assert_equal 5, @ir.find_all_by_price_in_range((1..10000)).count
   end
 
   def test_find_all_by_merchant_id
