@@ -1,26 +1,22 @@
 require_relative 'item_repository'
 require_relative 'merchant_repository'
+require_relative 'sales_analyst'
 
 class SalesEngine
-  attr_reader :path
+  attr_reader :path,
+              :items,
+              :merchants
 
-  def initialize(path)
-    @path = path
+  def initialize(path = nil)
+    @items ||= ItemRepository.new(path[:items])
+    @merchants ||= MerchantRepository.new(path[:merchants])
   end
 
   def self.from_csv(path)
     SalesEngine.new(path)
   end
 
-  def items
-    @items ||= ItemRepository.new(@path[:items])
-  end
-
-  def merchants
-    @merchants ||= MerchantRepository.new(@path[:merchants])
-  end
-
-  def sales_analyst
-    
+  def analyst
+    SalesAnalyst.new(self)
   end
 end
