@@ -72,6 +72,8 @@ class ItemRepositoryTest < Minitest::Test
     find = @ir.find_by_id(263396279)
     find2 = @ir.find_by_id(263396463)
     find3 = @ir.find_by_id(263396255)
+    binding.pry
+
     assert items2.include?(find)
     assert items2.include?(find2)
     refute items2.include?(find3)

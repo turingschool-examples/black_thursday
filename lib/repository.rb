@@ -76,7 +76,11 @@ module Repository
     element.attributes[:name] = attributes[:name] if attributes[:name]
     element.attributes[:description] = attributes[:description] if attributes[:description]
     element.attributes[:unit_price] = attributes[:unit_price] * 100 if attributes[:unit_price]
-    element.attributes[:updated_at] = Time.now if attributes[:updated_at]
+    if element.attributes[:updated_at]
+      element.attributes[:updated_at] = Time.now
+    else
+      puts "nope" + element.class.to_s
+    end
   end
 
   def delete(id)
