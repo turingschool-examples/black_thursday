@@ -27,8 +27,12 @@ class MerchantRepoTest < Minitest::Test
     assert_equal expected, mr.find_by_id("12336927").name
   end
 
-  def test_it_returns_nil_without_name
-    assert_equal Merchant, mr.find_by_name("Shopin1901")
+  # def test_it_returns_nil_without_name
+  #   assert_nil mr.find_by_name("Shopin1901")
+  # end
+
+  def test_it_finds_one_merchant_by_name
+    assert_equal Merchant, mr.find_by_name("Shopin1901").class
   end
-  
+
 end

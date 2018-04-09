@@ -24,6 +24,8 @@ class MerchantRepo
   end
 
   def find_by_name(name)
-
+    all.find do |merchant|
+      merchant.name.downcase == name.downcase
+    end
   end
 end
