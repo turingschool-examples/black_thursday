@@ -9,6 +9,15 @@ class ItemRepositoryTest < Minitest::Test
   def setup
     file_path = FileIO.load('./test/fixtures/test_items.csv')
     @i_repo = ItemRepository.new(file_path)
+    @time = Time.now
+    @actual_jude = @i_repo.create(
+      name: 'St. Jude Action Figure',
+      description: 'Worst toy ever.',
+      unit_price: 3.00,
+      merchant_id: '12334135',
+      created_at: '2009-12-09 12:08:04 UTC',
+      updated_at: '2010-12-09 12:08:04 UTC'
+    )
   end
 
   def test_item_repository_exists
@@ -22,80 +31,121 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of Item, @i_repo.items['263567474']
   end
 
-  def test_all_returns_an_array_of_all_merchant_instances
-    skip
-    assert_instance_of Array, @m_repo.all
+  def test_all_returns_an_array_of_all_item_instances
+    assert_instance_of Array, @i_repo.all
   end
 
   def test_all_returns_correct_names
-    skip
-    all_merchants = @m_repo.all
-    actual_all_names = all_merchants.map(&:name)
-    expected = %w[Shopin1901
-                  Candisart
-                  MiniatureBikez
-                  LolaMarleys
-                  Keckenbauer
-                  perlesemoi
-                  GoldenRayPress]
+    all_items = @i_repo.all
+    actual_all_names = all_items.map(&:name)
+    expected = ['Intricate Sunset',
+                'The Gold Coast, Chicago, Illinois',
+                'Minty Green Knit Crochet Infinity Scarf',
+                'St. Jude Action Figure']
     assert_equal expected, actual_all_names
   end
 
   def test_can_find_by_id
-    skip
-    actual_shopin = @m_repo.find_by_id('12334105')
-    actual_candis = @m_repo.find_by_id('12334112')
-    assert_instance_of Merchant, actual_shopin
-    assert_instance_of Merchant, actual_candis
-    assert_equal 'Shopin1901', actual_shopin.name
-    assert_equal 'Candisart', actual_candis.name
+    actual_intri_sun = @i_repo.find_by_id('263567292')
+    actual_gold_coast = @i_repo.find_by_id('263567376')
+    assert_instance_of Item, actual_intri_sun
+    assert_instance_of Item, actual_gold_coast
+    assert_equal 'Intricate Sunset', actual_intri_sun.name
+    assert_equal 'The Gold Coast, Chicago, Illinois', actual_gold_coast.name
   end
 
   def test_can_find_by_name
-    skip
-    actual_shopin = @m_repo.find_by_name('Shopin1901')
-    actual_candis = @m_repo.find_by_name('Candisart')
-    assert_instance_of Merchant, actual_shopin
-    assert_instance_of Merchant, actual_candis
-    assert_equal '12334105', actual_shopin.id
-    assert_equal '12334112', actual_candis.id
+    actual_intri_sun = @i_repo.find_by_name('Intricate Sunset')
+    actual_gold_coast = @i_repo.find_by_name('The Gold Coast, Chicago, Illinois')
+    assert_instance_of Item, actual_intri_sun
+    assert_instance_of Item, actual_gold_coast
+    assert_equal '263567292', actual_intri_sun.id
+    assert_equal '263567376', actual_gold_coast.id
   end
 
   def test_can_find_name_by_fragment
-    skip
-    actual = @m_repo.find_all_by_name('re')
-    assert_equal %w[MiniatureBikez GoldenRayPress], actual
+    actual = @i_repo.find_all_by_name('o')
+    result = actual.all? do |item|
+      item.class == Item
+    end
+    assert result
+    names = actual.map(&:name)
+    assert_equal ['The Gold Coast, Chicago, Illinois',
+                  'Minty Green Knit Crochet Infinity Scarf',
+                  'St. Jude Action Figure'], names
   end
 
-  def test_it_can_generate_next_merchant_id
-    skip
-    expected = '12334136'
-    actual = @m_repo.create_new_id
+  def test_can_find_items_by_description
+    actual = @i_repo.find_all_with_description('acrylic')
+    result = actual.all? do |item|
+      item.class == Item
+    end
+    assert result
+    names = actual.map(&:name)
+    assert_equal ['Intricate Sunset',
+                  'Minty Green Knit Crochet Infinity Scarf'], names
+  end
+
+  def test_can_find_all_by_price
+    actual = @i_repo.find_all_by_price(3.00)
+    result = actual.all? do |item|
+      item.class == Item
+    end
+    assert result
+    names = actual.map(&:name)
+    assert_equal ['St. Jude Action Figure'], names
+  end
+
+  def test_can_find_all_by_price_in_range
+    actual = @i_repo.find_all_by_price_in_range(2..4)
+    result = actual.all? do |item|
+      item.class == Item
+    end
+    assert result
+    names = actual.map(&:name)
+    assert_equal ['St. Jude Action Figure'], names
+  end
+
+  def test_can_find_all_by_merchant_id
+    actual = @i_repo.find_all_by_merchant_id(12334135)
+    result = actual.all? do |item|
+      item.class == Item
+    end
+    assert result
+    names = actual.map(&:name)
+    assert_equal ['St. Jude Action Figure'], names
+  end
+
+  def test_it_can_generate_next_item_id
+    expected = '263567476'
+    actual = @i_repo.create_new_id
     assert_equal expected, actual
   end
 
-  def test_can_create_new_merchant
-    skip
-    actual_jude = @m_repo.create('Jude')
-    actual_cole = @m_repo.create('Cole')
-    assert_instance_of Merchant, actual_jude
-    assert_instance_of Merchant, actual_cole
-    assert_equal 9, @m_repo.merchants.count
-    assert_equal 'Jude', @m_repo.merchants['12334136'].name
-    assert_equal 'Cole', @m_repo.merchants['12334137'].name
+  def test_can_create_new_item
+    assert_instance_of Item, @actual_jude
+    assert_equal 4, @i_repo.items.count
+    assert_equal 'St. Jude Action Figure', @i_repo.items['263567475'].name
+    assert_equal 'Worst toy ever.', @i_repo.items['263567475'].description
+    assert_equal 3.00, @i_repo.items['263567475'].unit_price
+    assert_equal 12334135, @i_repo.items['263567475'].merchant_id
+    assert_equal '2009-12-09 12:08:04 UTC', @i_repo.items['263567475'].created_at
+    assert_equal '2010-12-09 12:08:04 UTC', @i_repo.items['263567475'].updated_at
   end
 
-  def test_merchant_can_be_updated
-    skip
-    @m_repo.update('12334135', 'ColeIsAwesomer')
-    assert_equal 'ColeIsAwesomer', @m_repo.merchants['12334135'].name
+  def test_item_can_be_updated
+    @i_repo.update('263567475', name: 'Roly Poly Coley',
+                                description: 'Best toy ever.',
+                                unit_price: 15.00,
+                                merchant_id: '12334135',
+                                created_at: '2009-12-09 12:08:04 UTC',
+                                updated_at: @time)
+    assert_equal 'Roly Poly Coley', @i_repo.items['263567475'].name
   end
 
-  def test_merchant_can_be_deleted
-    skip
-    @m_repo.delete('12334135')
-    assert_equal 6, @m_repo.merchants.count
-    assert_equal nil, @m_repo.merchants['12334135']
+  def test_item_can_be_deleted
+    @i_repo.delete('263567475')
+    assert_equal 3, @i_repo.items.count
+    assert_equal nil, @i_repo.items['263567475']
   end
-
 end

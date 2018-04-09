@@ -1,21 +1,23 @@
 # item class
 class Item
   attr_reader :id,
-              :name,
-              :description,
-              :unit_price,
               :merchant_id,
-              :created_at,
-              :updated_at
+              :created_at
 
-  def initialize(item_attributes_array)
-    @id          = item_attributes_array[0]
-    @name        = item_attributes_array[1]
-    @description = item_attributes_array[2]
-    @unit_price  = BigDecimal(item_attributes_array[3], 4)
-    @merchant_id = item_attributes_array[4].to_i
-    @created_at  = item_attributes_array[5]
-    @updated_at  = item_attributes_array[6]
+  attr_accessor :name,
+                :description,
+                :unit_price,
+                :updated_at
+
+  def initialize(item_hash = Hash.new(0))
+    sigdigits    = item_hash[:unit_price].to_s.length - 1
+    @id          = item_hash[:id]
+    @name        = item_hash[:name]
+    @description = item_hash[:description]
+    @unit_price  = BigDecimal(item_hash[:unit_price], sigdigits)
+    @merchant_id = item_hash[:merchant_id].to_i
+    @created_at  = item_hash[:created_at]
+    @updated_at  = item_hash[:updated_at]
   end
 
   def set_unit_price_to_dollars

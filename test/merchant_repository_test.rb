@@ -57,7 +57,12 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_can_find_name_by_fragment
     actual = @m_repo.find_all_by_name('re')
-    assert_equal %w[MiniatureBikez GoldenRayPress], actual
+    result = actual.all? do |merchant|
+      merchant.class == Merchant
+    end
+    assert result
+    names = actual.map(&:name)
+    assert_equal %w[MiniatureBikez GoldenRayPress], names
   end
 
   def test_it_can_generate_next_merchant_id
@@ -67,21 +72,21 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_can_create_new_merchant
-    actual_jude = @m_repo.create('Jude')
+    actual_jude = @m_repo.create(name: 'Jude')
     assert_instance_of Merchant, actual_jude
     assert_equal 8, @m_repo.merchants.count
     assert_equal 'Jude', @m_repo.merchants['12334136'].name
   end
 
   def test_can_create_a_different_merchant
-    actual_cole = @m_repo.create('Cole')
+    actual_cole = @m_repo.create(name: 'Cole')
     assert_instance_of Merchant, actual_cole
     assert_equal 8, @m_repo.merchants.count
     assert_equal 'Cole', @m_repo.merchants['12334136'].name
   end
 
   def test_merchant_can_be_updated
-    @m_repo.update('12334135', 'ColeIsAwesomer')
+    @m_repo.update('12334135', name: 'ColeIsAwesomer')
     assert_equal 'ColeIsAwesomer', @m_repo.merchants['12334135'].name
   end
 
