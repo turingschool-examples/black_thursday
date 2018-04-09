@@ -42,4 +42,8 @@ class MerchantRepository
     found.compact
   end
 
+  def create(name)
+    id = merchants.count + 1
+    merchants << Merchant.new(id: id, name: name)
+  end
 end

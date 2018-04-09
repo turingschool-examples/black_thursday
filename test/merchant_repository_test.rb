@@ -39,4 +39,11 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal ['HeadyMamaCreations'], mr.find_all_by_name('headyMamacreations')
     assert_equal ['CJsDecor', 'CJsDecorTEST'], mr.find_all_by_name('cj')
   end
+
+  def test_create
+    mr = MerchantRepository.new('./test/fixtures/merchants_truncated.csv')
+    mr.create("IggyPop")
+    assert_equal "IggyPop", mr.all[6].name
+    assert_equal 7, mr.all[6].id
+  end
 end
