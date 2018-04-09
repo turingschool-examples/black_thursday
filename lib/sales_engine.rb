@@ -8,6 +8,7 @@ require_relative 'item.rb'
 require_relative 'connections.rb'
 require_relative 'invoice_repository.rb'
 require_relative 'invoice.rb'
+require_relative 'transaction_repository.rb'
 # require_relative '../data/items.csv'
 # require_relative '../data/merchants.csv'
 
@@ -40,17 +41,22 @@ class SalesEngine
   # repository and if it has not been defined it runs the load_file method
   # from the FileLoader module that loads in the CSV.
   def items
-    loaded_file = load_file(load_path[:items])
-    @items ||= ItemRepository.new(loaded_file, self)
+    @items ||= ItemRepository.new(load_file(load_path[:items]), self)
   end
 
   def merchants
-    loaded_file = load_file(load_path[:merchants])
-    @merchants ||= MerchantRepository.new(loaded_file, self)
+    @merchants ||= MerchantRepository.new(
+      load_file(load_path[:merchants]), self
+    )
   end
 
   def invoices
-    loaded_file = load_file(load_path[:invoices])
-    @invoices ||= InvoiceRepository.new(loaded_file, self)
+    @invoices ||= InvoiceRepository.new(load_file(load_path[:invoices]), self)
+  end
+
+  def transactions
+    @transactions ||= TransactionRepository.new(
+      load_file(load_path[:transactions]), self
+    )
   end
 end
