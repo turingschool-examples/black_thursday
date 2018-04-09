@@ -57,4 +57,15 @@ class ItemRepository
     attributes[:id] = create_new_id
     @items[attributes[:id]] = Item.new(attributes)
   end
+
+  def update(id, attributes)
+    @items[id].name = attributes[:name]
+    @items[id].description = attributes[:description]
+    @items[id].unit_price = attributes[:unit_price]
+    @items[id].updated_at = Time.now
+  end
+
+  def delete(id)
+    @items.delete(id)
+  end
 end

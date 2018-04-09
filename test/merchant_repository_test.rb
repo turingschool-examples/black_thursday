@@ -81,7 +81,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_merchant_can_be_updated
-    @m_repo.update('12334135', 'ColeIsAwesomer')
+    @m_repo.update('12334135', { name: 'ColeIsAwesomer' })
     assert_equal 'ColeIsAwesomer', @m_repo.merchants['12334135'].name
   end
 

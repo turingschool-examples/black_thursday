@@ -9,13 +9,14 @@ class ItemRepositoryTest < Minitest::Test
   def setup
     file_path = FileIO.load('./test/fixtures/test_items.csv')
     @i_repo = ItemRepository.new(file_path)
+    @time = Time.now
     @actual_jude = @i_repo.create(
       name: 'St. Jude Action Figure',
       description: 'Worst toy ever.',
       unit_price: 3.00,
       merchant_id: '12334135',
-      created_at: Time.now,
-      updated_at: Time.now
+      created_at: '2009-12-09 12:08:04 UTC',
+      updated_at: '2010-12-09 12:08:04 UTC'
     )
   end
 
@@ -39,7 +40,8 @@ class ItemRepositoryTest < Minitest::Test
     actual_all_names = all_items.map(&:name)
     expected = ['Intricate Sunset',
                 'The Gold Coast, Chicago, Illinois',
-                'Minty Green Knit Crochet Infinity Scarf']
+                'Minty Green Knit Crochet Infinity Scarf',
+                'St. Jude Action Figure']
     assert_equal expected, actual_all_names
   end
 
@@ -64,11 +66,12 @@ class ItemRepositoryTest < Minitest::Test
   def test_can_find_name_by_fragment
     actual = @i_repo.find_all_by_name('o')
     assert_equal ['The Gold Coast, Chicago, Illinois',
-                  'Minty Green Knit Crochet Infinity Scarf'], actual
+                  'Minty Green Knit Crochet Infinity Scarf',
+                  'St. Jude Action Figure'], actual
   end
 
   def test_it_can_generate_next_item_id
-    expected = '263567475'
+    expected = '263567476'
     actual = @i_repo.create_new_id
     assert_equal expected, actual
   end
@@ -79,21 +82,24 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 'St. Jude Action Figure', @i_repo.items['263567475'].name
     assert_equal 'Worst toy ever.', @i_repo.items['263567475'].description
     assert_equal 3.00, @i_repo.items['263567475'].unit_price
-    assert_equal '12334135', @i_repo.items['263567475'].merchant_id
-    assert_equal Time.now, @i_repo.items['263567475'].created_at
-    assert_equal Time.now, @i_repo.items['263567475'].updated_at
+    assert_equal 12334135, @i_repo.items['263567475'].merchant_id
+    assert_equal '2009-12-09 12:08:04 UTC', @i_repo.items['263567475'].created_at
+    assert_equal '2010-12-09 12:08:04 UTC', @i_repo.items['263567475'].updated_at
   end
 
-  # def test_item_can_be_updated
-  #   skip
-  #   @i_repo.update('12334135', 'ColeIsAwesomer')
-  #   assert_equal 'ColeIsAwesomer', @i_repo.items['12334135'].name
-  # end
-  #
-  # def test_item_can_be_deleted
-  #   skip
-  #   @i_repo.delete('12334135')
-  #   assert_equal 6, @i_repo.items.count
-  #   assert_equal nil, @i_repo.items['12334135']
-  # end
+  def test_item_can_be_updated
+    @i_repo.update('263567475', { name: 'Roly Poly Coley',
+                                  description: 'Best toy ever.',
+                                  unit_price: 15.00,
+                                  merchant_id: '12334135',
+                                  created_at: '2009-12-09 12:08:04 UTC',
+                                  updated_at: @time})
+    assert_equal 'Roly Poly Coley', @i_repo.items['263567475'].name
+  end
+  
+  def test_item_can_be_deleted
+    @i_repo.delete('263567475')
+    assert_equal 3, @i_repo.items.count
+    assert_equal nil, @i_repo.items['263567475']
+  end
 end

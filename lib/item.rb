@@ -1,11 +1,12 @@
 # item class
 class Item
   attr_reader :id,
-              :name,
+              :merchant_id,
+              :created_at
+
+attr_accessor :name,
               :description,
               :unit_price,
-              :merchant_id,
-              :created_at,
               :updated_at
 
   def initialize(item_hash = Hash.new(0))
