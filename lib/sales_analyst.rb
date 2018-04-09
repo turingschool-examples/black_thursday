@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Sales analyst class to perform analysis.
 class SalesAnalyst
   attr_reader :sales_engine
   def initialize(sales_engine)
