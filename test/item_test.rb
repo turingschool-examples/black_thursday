@@ -16,6 +16,16 @@ class ItemTest < Minitest::Test
       :updated_at  => @time,
     })
 
+    assert_instance_of Iterm, item
+  end 
+  def test_it_has_attributes
+    item = Item.new({
+      :name        => 'Pencil',
+      :description => 'You can use it to write things',
+      :unit_price  => BigDecimal.new(10.99, 4),
+      :created_at  => @time,
+      :updated_at  => @time,
+    })
     assert_equal "Pencil", item.name
     assert_equal "You can use it to write things", item.description
     assert_equal 10.99, item.unit_price
