@@ -18,6 +18,6 @@ class SalesEngine
   end
 
   def analyst
-    @analyst ||= SalesAnalyst.new
+    @analyst ||= SalesAnalyst.new(self)
   end
 end
