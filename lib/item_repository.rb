@@ -13,7 +13,7 @@ class ItemRepository
         unit_price: item[3],
         merchant_id: item[4],
         created_at: item[5],
-        updated_at: item[6]}
+        updated_at: item[6] }
     end
     @items = create_index(attributes)
   end
@@ -37,7 +37,7 @@ class ItemRepository
 
   def find_by_name(name)
     @items.values.each do |item|
-      return item if item.name.downcase == name.downcase
+      return item if item.name.casecmp(name).zero?
     end
   end
 

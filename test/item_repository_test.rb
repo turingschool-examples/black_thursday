@@ -69,9 +69,7 @@ class ItemRepositoryTest < Minitest::Test
       item.class == Item
     end
     assert result
-    names = actual.map do |item|
-      item.name
-    end
+    names = actual.map(&:name)
     assert_equal ['The Gold Coast, Chicago, Illinois',
                   'Minty Green Knit Crochet Infinity Scarf',
                   'St. Jude Action Figure'], names
@@ -83,10 +81,9 @@ class ItemRepositoryTest < Minitest::Test
       item.class == Item
     end
     assert result
-    names = actual.map do |item|
-      item.name
-    end
-    assert_equal ['Intricate Sunset', 'Minty Green Knit Crochet Infinity Scarf'], names
+    names = actual.map(&:name)
+    assert_equal ['Intricate Sunset',
+                  'Minty Green Knit Crochet Infinity Scarf'], names
   end
 
   def test_can_find_all_by_price
@@ -95,9 +92,7 @@ class ItemRepositoryTest < Minitest::Test
       item.class == Item
     end
     assert result
-    names = actual.map do |item|
-      item.name
-    end
+    names = actual.map(&:name)
     assert_equal ['St. Jude Action Figure'], names
   end
 
@@ -107,9 +102,7 @@ class ItemRepositoryTest < Minitest::Test
       item.class == Item
     end
     assert result
-    names = actual.map do |item|
-      item.name
-    end
+    names = actual.map(&:name)
     assert_equal ['St. Jude Action Figure'], names
   end
 
@@ -119,9 +112,7 @@ class ItemRepositoryTest < Minitest::Test
       item.class == Item
     end
     assert result
-    names = actual.map do |item|
-      item.name
-    end
+    names = actual.map(&:name)
     assert_equal ['St. Jude Action Figure'], names
   end
 
