@@ -1,4 +1,4 @@
-# Item 
+# done for now
 class Item
   attr_reader :id,
               :name,

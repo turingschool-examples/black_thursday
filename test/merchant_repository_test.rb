@@ -17,24 +17,27 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_items_data_type
     mr = MerchantRepository.new('./test/fixtures/merchant_fixture.csv')
-    assert_equal 5, mr.all.count
+    assert_equal 6, mr.all.count
   end
 
-  def test_it_has_id
+  def test_it_finds_by_id
     mr = MerchantRepository.new('./test/fixtures/merchant_fixture.csv')
-
-    assert '12334112', mr.contents[2].id
-  end
-
-  def test_it_returns_row_of_a_given_id
-    mr = MerchantRepository.new('./test/fixtures/merchant_fixture.csv')
-
     assert_equal '12334112', mr.find_by_id('12334112').id
   end
 
-  def test_it_returns_row_of_a_given_name
+  def test_it_finds_by_name
     mr = MerchantRepository.new('./test/fixtures/merchant_fixture.csv')
-
     assert_equal 'Candisart', mr.find_by_name('Candisart').name
   end
+
+  def test_it_finds_all_by_name
+    mr = MerchantRepository.new('./test/fixtures/merchant_fixture.csv')
+    assert_equal 2, mr.find_all_by_name('Candisart').count
+  end
+
+  def test_it_create_and_id_the_new_merchant
+        mr = MerchantRepository.new('./test/fixtures/merchant_fixture.csv')
+        assert_equal 12334567, mr.create("Sabrina")
+  end
+
 end

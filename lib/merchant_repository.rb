@@ -1,5 +1,4 @@
-# frozen_string_literal: true
-
+# need to finish building the remaining methods from spec
 require 'CSV'
 # Merchant Repository Class
 class MerchantRepository
@@ -30,18 +29,8 @@ class MerchantRepository
     end
   end
 
-  # def find_all_by_name(name)
-  #   @contet.find_all do |row|
-  #
-  # end
-end
-
-#
-# def create(attributes)
-# end
-#
-# def update(id, attributes)
-# end
-#
-# def delete(id)
-# end
+  def find_all_by_name(name)
+    @contents.find_all do |row|
+      row.name.downcase == name.downcase
+    end
+  end
