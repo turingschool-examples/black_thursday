@@ -6,6 +6,8 @@ require_relative 'merchant_repository.rb'
 require_relative 'merchant.rb'
 require_relative 'item.rb'
 require_relative 'connections.rb'
+require_relative 'invoice_repository.rb'
+require_relative 'invoice.rb'
 # require_relative '../data/items.csv'
 # require_relative '../data/merchants.csv'
 
@@ -19,6 +21,10 @@ class SalesEngine
   attr_reader :load_path
   def initialize(load_path)
     @load_path = load_path
+  end
+
+  def anlayst
+    SaleAnalyst.new(self)
   end
 
   # Here we create a new SalesEngine object with the load paths specified in the
@@ -41,5 +47,10 @@ class SalesEngine
   def merchants
     loaded_file = load_file(load_path[:merchants])
     @merchants ||= MerchantRepository.new(loaded_file, self)
+  end
+
+  def invoices
+    loaded_file = load_file(load_path[:invoices])
+    @invoices ||= InvoiceRepository.new(loaded_file, self)
   end
 end

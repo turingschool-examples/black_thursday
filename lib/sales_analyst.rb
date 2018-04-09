@@ -74,4 +74,37 @@ class SalesAnalyst
   def find_max_price
     @sales_engine.items.all.map(&:unit_price).max.to_i
   end
+
+  def average_invoices_per_merchant
+    all_invoices = total_number_of_invoices_for_all_merchants
+    (all_invoices.inject(:+).to_f / @sales_engine.merchants.all.length).round(2)
+  end
+
+  def total_number_of_invoices_for_all_merchants
+    @sales_engine.merchants.all.map do |merchant|
+      @sales_engine.merchants.find_by_id(merchant.id).invoices.length
+    end
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    average_num_of_invoices = average_invoices_per_merchant
+    list_of_invoices = total_number_of_invoices_for_all_merchants
+    squared_num_items = list_of_invoices.map do |invoices|
+      (invoices.to_f - average_num_of_invoices.to_f)**2
+    end
+    calculation = squared_num_items.inject(:+) / (list_of_invoices.length - 1)
+    Math.sqrt(calculation).round(2)
+  end
+
+  def top_merchants_by_invoice_count
+  end
+
+  def bottom_merchants_by_invoice_count
+  end
+
+  def top_days_by_invoice_count
+  end
+
+  def invoice_status(status)
+  end
 end

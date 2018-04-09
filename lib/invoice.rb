@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'time'
 # This class holds the data for each invoice.
 class Invoice
   attr_reader :invoice_list,
@@ -29,11 +30,11 @@ class Invoice
   end
 
   def status
-    @invoice_specs[:status]
+    @invoice_specs[:status].to_sym
   end
 
   def created_at
-    Time.parse(@invoice_spec[:created_at])
+    Time.parse(@invoice_specs[:created_at])
   end
 
   def updated_at
