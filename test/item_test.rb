@@ -9,7 +9,6 @@ require './lib/item_repository.rb'
 require 'minitest'
 require 'minitest/autorun'
 require 'minitest/emoji'
-require 'mocha/mini_test'
 require 'ostruct'
 require 'pry'
 
