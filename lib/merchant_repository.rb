@@ -11,12 +11,9 @@ class MerchantRepository < Repository
       { id: merchant[0].to_i, name: merchant[1] }
     end
     @merchants = create_index(Merchant, attributes)
+    super(merchants)
   end
-
-  # def all
-  #   @merchants.values
-  # end
-
+  
   def find_by_id(id)
     @merchants[id]
   end

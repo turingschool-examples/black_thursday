@@ -17,11 +17,8 @@ class ItemRepository < Repository
         updated_at: Time.parse(item[6]) }
     end
     @items = create_index(Item, attributes)
+    super(items)
   end
-
-  # def all
-  #   @items.values
-  # end
 
   def find_by_id(id)
     @items[id]
