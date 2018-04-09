@@ -6,11 +6,13 @@ require_relative 'merchant'
 class MerchantRepository
 
   attr_reader :path,
-              :merchants
+              :merchants,
+              :sales_engine
 
-  def initialize(path)
+  def initialize(path, sales_engine)
     @merchants = []
     @path = path
+    @sales_engine = sales_engine
     load_path(path)
   end
 
@@ -20,7 +22,7 @@ class MerchantRepository
 
   def load_path(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |data|
-      @merchants << Merchant.new(data)
+      @merchants << Merchant.new(data, self)
     end
   end
 
@@ -52,7 +54,7 @@ class MerchantRepository
     attribute[:id] = create_new_id
     attribute[:created_at] = Time.now.strftime('%F')
     attribute[:updated_at] = Time.now.strftime('%F')
-    @merchants << Merchant.new(attribute)
+    @merchants << Merchant.new(attribute, self)
   end
 
   def update(id, attribute)

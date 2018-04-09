@@ -4,16 +4,18 @@ require 'date'
 require_relative 'item'
 
 class ItemRepository
-  attr_reader :items
+  attr_reader :items,
+              :sales_engine
 
-  def initialize(path)
+  def initialize(path, sales_engine)
     @items = []
+    @sales_engine = sales_engine
     load_path(path)
   end
 
   def load_path(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |data|
-      @items << Item.new(data)
+      @items << Item.new(data, self)
     end
   end
 
@@ -67,7 +69,7 @@ class ItemRepository
     attributes[:id] = create_new_id
     attributes[:created_at] = Time.now.to_s
     attributes[:updated_at] = Time.now.to_s
-    @items << Item.new(attributes)
+    @items << Item.new(attributes,self)
   end
 
   def update(id, attributes)
@@ -83,6 +85,6 @@ class ItemRepository
   end
 
   def inspect
-   "#<#{self.class} #{@merchants.size} rows>"
+   "#<#{self.class} #{@items.size} rows>"
   end
 end
