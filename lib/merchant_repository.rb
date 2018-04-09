@@ -53,14 +53,9 @@ class MerchantRepository
     find_highest_id + 1
   end
 
-  # def create(attributes)
-  #   attributes[:id] = create_new_id
-  #   attributes[:name] =
-  #   binding.pry
-  #   merchants << Merchant.new(attributes)
-  # end
-
-  def update(id, name)
+  def create(attributes)
+    attributes[:id] = create_new_id
+    merchants << Merchant.new(attributes)
   end
 
   def delete(id)
@@ -68,5 +63,4 @@ class MerchantRepository
       merchant.id == id
     end
   end
-
 end
