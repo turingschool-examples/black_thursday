@@ -9,6 +9,7 @@ require_relative 'connections.rb'
 require_relative 'invoice_repository.rb'
 require_relative 'invoice.rb'
 require_relative 'transaction_repository.rb'
+require_relative 'customer_repository.rb'
 # require_relative '../data/items.csv'
 # require_relative '../data/merchants.csv'
 
@@ -57,6 +58,12 @@ class SalesEngine
   def transactions
     @transactions ||= TransactionRepository.new(
       load_file(load_path[:transactions]), self
+    )
+  end
+
+  def customers
+    @customers ||= CustomerRepository.new(
+      load_file(load_path[:customers]), self
     )
   end
 end
