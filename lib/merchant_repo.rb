@@ -22,4 +22,8 @@ class MerchantRepo
       merchant.id == id
     end
   end
+
+  def find_by_name(name)
+
+  end
 end
