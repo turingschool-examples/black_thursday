@@ -1,7 +1,9 @@
 require_relative '../lib/item'
+require_relative 'findable'
 
 # item repo class
 class ItemRepository
+  include Findable
   attr_reader :items
 
   def initialize(csv_parsed_array)

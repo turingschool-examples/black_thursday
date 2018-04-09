@@ -1,7 +1,9 @@
 require_relative '../lib/merchant'
+require_relative 'findable'
 
 # A class for containing all Merchant objects
 class MerchantRepository
+  include Findable
   attr_reader :merchants
 
   def initialize(csv_parsed_array)
