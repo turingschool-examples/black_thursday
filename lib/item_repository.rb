@@ -15,7 +15,6 @@ class ItemRepository
   end
 
   def all
-    binding.pry
     items
   end
 

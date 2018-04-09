@@ -1,5 +1,5 @@
 require 'csv'
-require './lib/merchant'
+require_relative './lib/merchant'
 
 class MerchantRepository
   attr_reader :path,
@@ -58,13 +58,9 @@ class MerchantRepository
     merchants << Merchant.new(attributes)
   end
 
-  def update(id, name)
-  end
-
   def delete(id)
     merchants.delete_if do |merchant|
       merchant.id == id
     end
   end
-
 end

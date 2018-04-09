@@ -58,20 +58,6 @@ class MerchantRepositoryTest < Minitest::Test
 
     mr.create ()
     assert_equal 7, mr.all[6].id
+    assert_equal "Turing School", mr.all[6].name
   end
-  #
-  # def test_update
-  #
-  # end
-  #
-  # def test_delete
-  #   mr = MerchantRepository.new('./test/fixtures/merchants_truncated.csv')
-  #
-  #   id = mr.merchants.count + 1
-  #   attributes = ({:name => "IggyPop", :id => id})
-  #   mr.create(attributes)
-  #
-  #   mr.delete(7)
-  #   assert_nil mr.all[6]
-  # end
 end
