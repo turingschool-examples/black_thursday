@@ -74,4 +74,29 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of Array, expected
     assert_equal 2, expected.length
   end
+
+  def test_it_can_create_a_new_item
+    expected = @items.create({
+      id: '263395721',
+      name: 'Disney scrabble frames',
+      description: 'Disney glitter frames
+      Any colour glitter available and can do any characters you require
+      Different colour scrabble tiles
+      Blue
+      Black
+      Pink
+      Wooden',
+      unit_price: '1350',
+      merchant_id: '12334185',
+      created_at: '2016-01-11 11:51:37 UTC',
+      updated_at: '2008-04-02 13:48:57 UTC' })
+
+      assert_instance_of Array, expected
+      assert_equal 6, expected.length
+      assert_equal 6, @items.all.length
+  end
+
+  def test_it_can_delete_item_by_id
+    
+  end
 end
