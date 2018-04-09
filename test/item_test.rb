@@ -38,7 +38,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_has_merchant_id
-    assert_equal 12_334_185, @item.merchant_id
+    assert_equal 12334185, @item.merchant_id
   end
 
   def test_it_has_created_at

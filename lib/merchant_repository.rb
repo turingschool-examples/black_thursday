@@ -7,7 +7,7 @@ class MerchantRepository
   def initialize(csv_parsed_array)
     csv_parsed_array.shift
     attributes = csv_parsed_array.map do |merchant|
-      { id: merchant[0], name: merchant[1] }
+      { id: merchant[0].to_i, name: merchant[1] }
     end
     @merchants = create_index(attributes)
   end
@@ -26,13 +26,15 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    @merchants[id.to_s]
+    @merchants[id]
   end
 
   def find_by_name(name)
+    result = nil
     @merchants.values.each do |merchant|
-      merchant.name.casecmp(name).zero? ? merchant : nil
+      result = merchant if merchant.name.casecmp(name).zero?
     end
+    result
   end
 
   def find_all_by_name(fragment)
@@ -43,7 +45,7 @@ class MerchantRepository
 
   def create_new_id
     highest_id = @merchants.keys.max
-    (highest_id.to_i + 1).to_s
+    (highest_id.to_i + 1)
   end
 
   def create(attributes)
