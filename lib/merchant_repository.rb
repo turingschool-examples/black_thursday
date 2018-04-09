@@ -1,9 +1,8 @@
 require_relative '../lib/merchant'
-require_relative 'findable'
+require_relative 'repository'
 
 # A class for containing all Merchant objects
-class MerchantRepository
-  include Findable
+class MerchantRepository < Repository
   attr_reader :merchants
 
   def initialize(csv_parsed_array)
@@ -11,16 +10,7 @@ class MerchantRepository
     attributes = csv_parsed_array.map do |merchant|
       { id: merchant[0].to_i, name: merchant[1] }
     end
-    @merchants = create_index(attributes)
-  end
-
-  def create_index(attributes)
-    merchant_data = {}
-
-    attributes.each do |attribute_set|
-      merchant_data[attribute_set[:id]] = Merchant.new(attribute_set)
-    end
-    merchant_data
+    @merchants = create_index(Merchant, attributes)
   end
 
   def all

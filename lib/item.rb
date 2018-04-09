@@ -1,12 +1,11 @@
-require_relative 'findable'
-
 # item class
 class Item
-  include Findable
-  attr_reader :merchant_id,
+  attr_reader :id,
+              :merchant_id,
               :created_at
 
-  attr_accessor :description,
+  attr_accessor :name,
+                :description,
                 :unit_price,
                 :updated_at
 

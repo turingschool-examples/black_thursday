@@ -1,9 +1,8 @@
 require_relative '../lib/item'
-require_relative 'findable'
+require_relative 'repository'
 
 # item repo class
-class ItemRepository
-  include Findable
+class ItemRepository < Repository
   attr_reader :items
 
   def initialize(csv_parsed_array)
@@ -17,16 +16,7 @@ class ItemRepository
         created_at: Time.parse(item[5]),
         updated_at: Time.parse(item[6]) }
     end
-    @items = create_index(attributes)
-  end
-
-  def create_index(attributes)
-    item_data = {}
-
-    attributes.each do |attribute_set|
-      item_data[attribute_set[:id]] = Item.new(attribute_set)
-    end
-    item_data
+    @items = create_index(Item, attributes)
   end
 
   def all
