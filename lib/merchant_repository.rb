@@ -4,8 +4,7 @@ require 'CSV'
 # Merchant Repository Class
 class MerchantRepository
   attr_reader :contents,
-              :parent,
-              :items
+              :parent
 
   def initialize(path, parent = nil)
     @contents = []
@@ -20,23 +19,23 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    @contents.map do |row|
-      row.id == @contents[0].id
-      # binding.pry
+    @contents.find do |row|
+      row.id == id
     end
-    @contents[0].id
   end
+
+  def find_by_name(name)
+    @contents.find do |row|
+      row.name == name
+    end
+  end
+
+  # def find_all_by_name(name)
+  #   @contet.find_all do |row|
+  #
+  # end
 end
 
-# def all
-#   load_children
-# end
-
-# def find_by_name(name)
-# end
-#
-# def find_all_by_name(name)
-# end
 #
 # def create(attributes)
 # end

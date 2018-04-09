@@ -20,10 +20,21 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 5, mr.all.count
   end
 
-  def test_find_by_id
+  def test_it_has_id
     mr = MerchantRepository.new('./test/fixtures/merchant_fixture.csv')
-    result = '12334112,Candisart,2009-05-30,2010-08-29'
 
-    assert_equal result, mr.find_by_id(3)
+    assert '12334112', mr.contents[2].id
+  end
+
+  def test_it_returns_row_of_a_given_id
+    mr = MerchantRepository.new('./test/fixtures/merchant_fixture.csv')
+
+    assert_equal '12334112', mr.find_by_id('12334112').id
+  end
+
+  def test_it_returns_row_of_a_given_name
+    mr = MerchantRepository.new('./test/fixtures/merchant_fixture.csv')
+
+    assert_equal 'Candisart', mr.find_by_name('Candisart').name
   end
 end
