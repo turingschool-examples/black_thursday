@@ -13,7 +13,7 @@ class ItemRepositoryTest < Minitest::Test
     @actual_jude = @i_repo.create(
       name: 'St. Jude Action Figure',
       description: 'Worst toy ever.',
-      unit_price: 3.00,
+      unit_price: 300,
       merchant_id: 12334135,
       created_at: '2009-12-09 12:08:04 UTC',
       updated_at: '2010-12-09 12:08:04 UTC'
@@ -101,7 +101,7 @@ class ItemRepositoryTest < Minitest::Test
     end
     assert result
     names = actual.map(&:name)
-    assert_equal ['St. Jude Action Figure'], names
+    assert_equal ['25 Dollars'], names
   end
 
   def test_can_get_one_item_at_25_dollars
@@ -164,6 +164,6 @@ class ItemRepositoryTest < Minitest::Test
   def test_item_can_be_deleted
     @i_repo.delete(263567475)
     assert_equal 3, @i_repo.items.count
-    assert_equal nil, @i_repo.items[263567475]
+    assert_nil @i_repo.items[263567475]
   end
 end
