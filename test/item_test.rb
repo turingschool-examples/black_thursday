@@ -36,6 +36,7 @@ class ItemTest < Minitest::Test
     created_at: '2016-01-11 11:51:37 UTC',
     updated_at: '2008-04-02 13:48:57 UTC'
   }.freeze
+
   attr_reader :item
 
   def setup
