@@ -8,8 +8,8 @@ class SalesEngine
               :merchants
 
   def initialize(path = nil)
-    @items ||= ItemRepository.new(path[:items])
-    @merchants ||= MerchantRepository.new(path[:merchants])
+    @items ||= ItemRepository.new(path[:items], self)
+    @merchants ||= MerchantRepository.new(path[:merchants], self)
   end
 
   def self.from_csv(path)

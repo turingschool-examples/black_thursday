@@ -15,7 +15,15 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.new({:items=> "./data/items.csv",:merchants => "./data/merchants.csv"})
     sales_analyst = SalesAnalyst.new(se)
 
-    assert_equal 2, sales_analyst.average_items_per_merchant
+    assert_equal 2.88, sales_analyst.average_items_per_merchant
   end
+
+  def test_it_can_find_items_with_merchant_id
+    se = SalesEngine.new({:items=> "./data/items.csv",:merchants => "./data/merchants.csv"})
+    sales_analyst = SalesAnalyst.new(se)
+
+    assert_equal 0, sales_analyst.items
+  end
+
 
 end
