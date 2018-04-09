@@ -69,7 +69,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_merchant_items_by_id
-    expected = @items.find_all_by_merchant_id(92929)
+    expected = @items_list.find_all_by_merchant_id(92929)
 
     assert_instance_of Array, expected
     assert_equal 2, expected.length
@@ -79,24 +79,19 @@ class ItemRepositoryTest < Minitest::Test
     expected = @items.create({
       id: '263395721',
       name: 'Disney scrabble frames',
-      description: 'Disney glitter frames
-      Any colour glitter available and can do any characters you require
-      Different colour scrabble tiles
-      Blue
-      Black
-      Pink
-      Wooden',
+      description: 'Disney glitter frames Any colour glitter available and can do any characters you require',
       unit_price: '1350',
       merchant_id: '12334185',
       created_at: '2016-01-11 11:51:37 UTC',
       updated_at: '2008-04-02 13:48:57 UTC' })
 
-      assert_instance_of Array, expected
-      assert_equal 6, expected.length
-      assert_equal 6, @items.all.length
+    assert_instance_of Array, expected
+    assert_equal 6, @items.all.length
   end
 
   def test_it_can_delete_item_by_id
-    
+    @items.delete(92929)
+
+    assert_equal 4, @items.all.length
   end
 end
