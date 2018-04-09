@@ -22,4 +22,15 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 3.26, @sa.average_items_per_merchant_standard_deviation
   end
 
+  def test_it_can_return_merchants_with_high_item_count
+    top_sellers = @sa.merchants_with_high_item_count
+    assert_instance_of Array, top_sellers
+    m1 = top_sellers[0]
+    assert_instance_of Merchant, m1
+    m1_items = @sa.engine.items.find_all_by_merchant_id(m1.id)
+    assert m1_items.count > (2.88 + (3.26 * 2))
+    assert_instance_of Merchant, top_sellers[5]
+    assert_instance_of Merchant, top_sellers[-1]
+    # assert item count is > (2.88 + (3.26 * 2))
+  end
 end
