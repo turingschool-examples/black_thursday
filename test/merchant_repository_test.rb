@@ -119,18 +119,17 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_method_update
-    skip
     mr = MerchantRepository.new(@merchants)
-    assert_equal 'Turing School', find_by_id(1)
-    mr.update(id: 1, name: 'ZachsMerchant')
-    assert_equal 'ZachsMerchant', find_by_id(1)
+    assert_equal 'Turing School', mr.find_by_id(1).name
+    mr.update(1, name: 'ZachsMerchant')
+    assert_equal 'ZachsMerchant', mr.find_by_id(1).name
   end
 
   def test_method_delete
-    skip
+    
     mr = MerchantRepository.new(@merchants)
-    assert_equal 'Turing School'.find_by_id(1)
+    assert_equal 'Turing School', mr.find_by_id(1).name
     mr.delete(1)
-    assert_nil find_by_id(1)
+    assert_nil mr.find_by_id(1)
   end
 end
