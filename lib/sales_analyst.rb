@@ -33,4 +33,13 @@ attr_reader :engine
       merch_count > threshold
     end
   end
+
+  def average_item_price_for_merchant(merchant_id)
+    items = @engine.items.find_all_by_merchant_id(merchant_id)
+    total_cost = 0.0
+    items.each do |item|
+      total_cost += item.unit_price
+    end
+    (total_cost / items.count).round(2)
+  end
 end

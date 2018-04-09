@@ -35,8 +35,8 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_item_price_for_merchant
-    average = @sa.average_item_price_for_merchant(12335009)
+    average = @sa.average_item_price_for_merchant(12334105)
     assert_instance_of BigDecimal, average
-    assert_equal 100, average
+    assert_equal 16.66, average
   end
 end
