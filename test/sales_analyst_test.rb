@@ -39,4 +39,27 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of BigDecimal, average
     assert_equal 16.66, average
   end
+
+  def test_average_average_price_per_merchant
+    average = @sa.average_average_price_per_merchant
+    assert_instance_of BigDecimal, average
+    assert_equal 350.29, average
+  end
+
+  def test_average_item_cost
+    assert_equal 251.06, @sa.average_item_cost
+  end
+
+  def test_standard_deviation
+    assert_equal 2900.99, @sa.standard_deviation
+  end
+
+  def test_golden_items
+    golden = @sa.golden_items
+    assert_instance_of Array, golden
+    assert_instance_of Item, golden[0]
+    assert_instance_of Item, golden[-1]
+    assert golden.include?(@sa.engine.items.find_by_id(263554072))
+    refute golden.include?(@sa.engine.items.find_by_id(263529916))
+  end
 end

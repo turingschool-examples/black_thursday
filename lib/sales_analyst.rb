@@ -20,7 +20,6 @@ attr_reader :engine
       item_count = items.find_all_by_merchant_id(merchant_id).count
       deviation_sum += (item_count.to_f - average).abs ** 2
     end
-    # binding.pry
     divided_deviation = deviation_sum / (merchants.count - 1)
     Math.sqrt(divided_deviation).round(2)
   end
@@ -41,5 +40,42 @@ attr_reader :engine
       total_cost += item.unit_price
     end
     (total_cost / items.count).round(2)
+  end
+
+  def average_average_price_per_merchant
+    merchants = @engine.merchants.all
+    total_cost = 0.0
+    merchants.each do |merchant|
+      total_cost += average_item_price_for_merchant(merchant.id)
+    end
+    (total_cost / merchants.count).round(2)
+  end
+
+  def average_item_cost
+    items = @engine.items.all
+    total_cost = 0.0
+    items.each do |item|
+      total_cost += item.unit_price
+    end
+    (total_cost / items.count).round(2)
+  end
+
+  def golden_items
+    threshold = average_item_cost +
+      (standard_deviation * 2)
+    @engine.items.all.find_all do |item|
+      item.unit_price > threshold
+    end
+  end
+
+  def standard_deviation
+    items = @engine.items.all
+    deviation_sum = 0
+    average = average_item_cost
+    items.each do |item|
+      deviation_sum += (item.unit_price - average).abs ** 2
+    end
+    divided_deviation = deviation_sum / (items.count - 1)
+    Math.sqrt(divided_deviation).round(2).to_f
   end
 end
