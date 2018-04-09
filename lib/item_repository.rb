@@ -35,4 +35,26 @@ class ItemRepository
   def find_by_id(id)
     @items[id.to_s]
   end
+
+  def find_by_name(name)
+    @items.values.each do |item|
+      return item if item.name.downcase == name.downcase
+    end
+  end
+
+  def find_all_by_name(fragment)
+    @items.values.map do |item|
+      item.name if item.name.downcase.include?(fragment.downcase)
+    end.compact
+  end
+
+  def create_new_id
+    highest_id = @items.keys.max
+    (highest_id.to_i + 1).to_s
+  end
+
+  def create(attributes)
+    attributes[:id] = create_new_id
+    @items[attributes[:id]] = Item.new(attributes)
+  end
 end

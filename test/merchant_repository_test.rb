@@ -67,14 +67,14 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_can_create_new_merchant
-    actual_jude = @m_repo.create('Jude')
+    actual_jude = @m_repo.create(name: 'Jude')
     assert_instance_of Merchant, actual_jude
     assert_equal 8, @m_repo.merchants.count
     assert_equal 'Jude', @m_repo.merchants['12334136'].name
   end
 
   def test_can_create_a_different_merchant
-    actual_cole = @m_repo.create('Cole')
+    actual_cole = @m_repo.create(name: 'Cole')
     assert_instance_of Merchant, actual_cole
     assert_equal 8, @m_repo.merchants.count
     assert_equal 'Cole', @m_repo.merchants['12334136'].name

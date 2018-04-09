@@ -46,9 +46,9 @@ class MerchantRepository
     (highest_id.to_i + 1).to_s
   end
 
-  def create(name)
-    new_attributes = { id: create_new_id, name: name }
-    @merchants[new_attributes[:id]] = Merchant.new(new_attributes)
+  def create(attributes)
+    attributes[:id] = create_new_id
+    @merchants[attributes[:id]] = Merchant.new(attributes)
   end
 
   def update(id, new_name)
