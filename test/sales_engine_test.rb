@@ -13,6 +13,7 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_exists
     assert_instance_of SalesEngine, @se
+    binding.pry
   end
 
   def test_it_loads_csv_data

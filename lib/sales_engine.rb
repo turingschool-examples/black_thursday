@@ -6,19 +6,19 @@ require 'pry'
 class SalesEngine
 
   attr_reader :item_repository, :merchant_repository
-  def initialize(data)
+  def initialize(path = filepath)
     @item_repository ||= ItemRepository.new
     @merchant_repository ||= MerchantRepository.new
-    load_data(filepath)
+    load_data(path = filepath)
   end
 
   def self.from_csv(path = filepath)
     new(path)
   end
 
-  def load_data(filepath)
-    load_items(filepath)
-    load_merchants(filepath)
+  def load_data(path = filepath)
+    load_items(path)
+    load_merchants(path)
   end
 
   def filepath
