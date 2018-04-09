@@ -55,8 +55,6 @@ class MerchantRepository
 
   def create(attributes)
     attributes[:id] = create_new_id
-    attributes[:name] =
-    binding.pry
     merchants << Merchant.new(attributes)
   end
 

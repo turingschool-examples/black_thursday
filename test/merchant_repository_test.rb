@@ -1,4 +1,4 @@
- require './test/test_helper'
+require './test/test_helper'
 require './lib/merchant_repository'
 require 'pry'
 
@@ -56,8 +56,7 @@ class MerchantRepositoryTest < Minitest::Test
   def test_create
     mr = MerchantRepository.new('./test/fixtures/merchants_truncated.csv')
 
-    mr.create ({})
-
+    mr.create ()
     assert_equal 7, mr.all[6].id
   end
   #
