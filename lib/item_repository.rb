@@ -56,9 +56,8 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
-    # require 'pry';binding.pry
     @items.values.map do |item|
-      item if item.unit_price == price.to_i
+      item if item.unit_price == price
     end.compact
   end
 
@@ -85,9 +84,9 @@ class ItemRepository
   end
 
   def update(id, attributes)
-    @items[id].name = attributes[:name]
-    @items[id].description = attributes[:description]
-    @items[id].unit_price = attributes[:unit_price]
+    @items[id].name = attributes[:name] if attributes[:name]
+    @items[id].description = attributes[:description] if attributes[:description]
+    @items[id].unit_price = attributes[:unit_price] if attributes[:unit_price]
     @items[id].updated_at = Time.now
   end
 
