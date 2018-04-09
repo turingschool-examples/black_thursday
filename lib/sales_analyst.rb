@@ -15,13 +15,13 @@ class SalesAnalyst
     (item_repo.items.length.to_f / merchant_repo.merchants.length).round(2)
   end
 
-  def items
-    # merchant_repo.merchants.map do |merchant|
-      item_repo.find_all_by_merchant_id(12335971).count
-  end
-
   def average_items_per_merchant_standard_deviation
-
+    numbers_of_item = merchant_repo.merchants.map do |merchant|
+      merchant.items.count
+    end
+    a = numbers_of_item.reduce(0) do |sum,number|
+      sum + (number - average_items_per_merchant) ** 2
+    end/(numbers_of_item.count - 1)
+    Math.sqrt(a).round(2)
   end
-
 end
