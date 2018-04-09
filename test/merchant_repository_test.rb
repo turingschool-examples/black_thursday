@@ -4,13 +4,13 @@ require 'pry'
 
 class MerchantRepositoryTest < Minitest::Test
   def test_merchant_repository_exists
-    mr = MerchantRepository.new('./test/fixtures/merchants_truncated.csv')
+    mr = MerchantRepository.new
 
     assert_instance_of MerchantRepository, mr
   end
 
   def test_returns_all_instances
-    mr = MerchantRepository.new('./test/fixtures/merchants_truncated.csv')
+    mr = MerchantRepository.new
 
     refute mr.merchants.empty?, mr.merchants
     assert_equal 6, mr.all.count
@@ -18,14 +18,14 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_by_id
-    mr = MerchantRepository.new('./test/fixtures/merchants_truncated.csv')
+    mr = MerchantRepository.new
 
     assert_nil mr.find_by_id(7834)
     assert_instance_of Merchant, mr.find_by_id(1)
   end
 
   def test_find_by_name
-    mr = MerchantRepository.new('./test/fixtures/merchants_truncated.csv')
+    mr = MerchantRepository.new
 
     assert_nil mr.find_by_name("Buffalo Bill")
     assert_instance_of Merchant, mr.find_by_name('HeadyMamaCreations')
@@ -33,7 +33,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_name
-    mr = MerchantRepository.new('./test/fixtures/merchants_truncated.csv')
+    mr = MerchantRepository.new
 
     assert_equal [], mr.find_all_by_name("Buffalo Bill")
     assert_equal ['HeadyMamaCreations'], mr.find_all_by_name('headyMamacreations')

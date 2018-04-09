@@ -4,7 +4,7 @@ require 'pry'
 
 class ItemRepositoryTest < Minitest::Test
   def setup
-    @ir = ItemRepository.new('./test/fixtures/items_truncated.csv')
+    @ir = ItemRepository.new
   end
 
   def test_it_exists

@@ -1,20 +1,12 @@
 require 'csv'
-require './lib/merchant'
+require_relative 'merchant'
 
 class MerchantRepository
   attr_reader :path,
               :merchants
 
-  def initialize(path)
-    @path = path
+  def initialize
     @merchants = []
-    pack_merchants(path)
-  end
-
-  def pack_merchants(path)
-    CSV.foreach(path, headers: true, header_converters: :symbol) do |merchant|
-    merchants << Merchant.new(merchant)
-    end
   end
 
   def all
@@ -42,4 +34,7 @@ class MerchantRepository
     found.compact
   end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 end

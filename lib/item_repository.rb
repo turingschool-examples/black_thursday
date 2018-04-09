@@ -3,19 +3,11 @@ require_relative 'item'
 class ItemRepository
   attr_reader :items
 
-  def initialize(filepath)
+  def initialize
     @items = []
-    find_items(filepath)
-  end
-
-  def find_items(filepath)
-    CSV.foreach(filepath, headers: true, header_converters: :symbol) do |data|
-      items << Item.new(data)
-    end
   end
 
   def all
-    binding.pry
     items
   end
 
@@ -52,5 +44,9 @@ class ItemRepository
   def delete(id)
     to_delete = find_by_id(id)
     items.delete(to_delete)
+  end
+
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
   end
 end
