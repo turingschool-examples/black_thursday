@@ -54,12 +54,11 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_create
-    skip
     mr = MerchantRepository.new('./test/fixtures/merchants_truncated.csv')
 
-    mr.create ({})
-
+    mr.create({:id => 5, :name => "Turing School"})
     assert_equal 7, mr.all[6].id
+    assert_equal "Turing School", mr.all[6].name
   end
   #
   # def test_update
