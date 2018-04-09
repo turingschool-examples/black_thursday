@@ -100,20 +100,21 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal [], mr.find_all_by_name('za')
   end
 
-  def test_method_create
-    skip
+  def test_helper_find_highest_id
     mr = MerchantRepository.new(@merchants)
-    assert_equal @merchants, mr.all
-    mr.create('NewMerchant')
+    assert_equal 5, mr.find_highest_id
+  end
+
+  def test_method_create
+    mr = MerchantRepository.new(@merchants)
+    mr.create(name: 'NewMerchant')
     # tests new merchant creation and tests that new merchants have iterated id
     assert_equal 'NewMerchant', mr.find_by_name('NewMerchant').name
   end
 
   def test_method_create_makes_new_id_by_incrementing_highest_id
-    skip
     mr = MerchantRepository.new(@merchants)
-    assert_equal @merchants, mr.all
-    mr.create('NewMerchant')
+    mr.create(name: 'NewMerchant')
     assert_equal 6, mr.find_by_name('NewMerchant').id
   end
 

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'pry'
+
 # holds, and provides methods for finding, merchants
 class MerchantRepository
   def initialize(merchants)
@@ -42,11 +42,12 @@ class MerchantRepository
   end
 
   def find_highest_id
-    @merchants.max_by{|merchant| merchant.id}
+    merchant = @merchants.values.max_by{ |merchant| merchant.id}
+    merchant.id
   end
 
-  def create(name)
-    @merchants << Merchant.new(id: (find_highest_id.id + 1), name: name)
+  def create(attributes)
+    attributes[:id] = (find_highest_id + 1)
+    @merchants[(find_highest_id + 1)] = Merchant.new(attributes)
   end
-
 end
