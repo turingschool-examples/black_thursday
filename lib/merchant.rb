@@ -16,5 +16,4 @@ class Merchant
   def items
     merchant_repo.sales_engine.items.find_all_by_merchant_id(id)
   end
-
 end
