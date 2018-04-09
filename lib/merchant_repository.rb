@@ -35,4 +35,8 @@ class MerchantRepository
   def create(name)
     @merchants << Merchant.new(id: (find_highest_id.id + 1), name: name)
   end
+
+  def update(attributes)
+    find_by_id[attributes[id]]
+  end 
 end
