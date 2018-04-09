@@ -19,9 +19,9 @@ class ItemRepository < Repository
     @items = create_index(Item, attributes)
   end
 
-  def all
-    @items.values
-  end
+  # def all
+  #   @items.values
+  # end
 
   def find_by_id(id)
     @items[id]

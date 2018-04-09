@@ -4,6 +4,7 @@ require 'time'
 require_relative 'fileio'
 require_relative 'item_repository'
 require_relative 'merchant_repository'
+require_relative 'repository'
 # Sales Engine class for managing data
 class SalesEngine
   attr_reader :items,

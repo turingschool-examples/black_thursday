@@ -1,6 +1,13 @@
 # Shared methods for searching repository classes
 class Repository
 
+  # def klass
+  #   @types = {
+  #     MerchantRepository: merchants,
+  #     ItemRepository: items
+  #   }
+  # end
+
   def create_index(data_type, attributes)
     data = {}
     attributes.each do |attribute_set|
@@ -9,10 +16,13 @@ class Repository
     data
   end
 
-  # def all
-  #   require 'pry';binding.pry
-  #   klass(self.class).values
-  # end
+  def all
+    if self == MerchantRepository
+      @merchants.values
+    else
+      @items.values
+    end
+  end
 
   # def find_by_id(id)
   # end
