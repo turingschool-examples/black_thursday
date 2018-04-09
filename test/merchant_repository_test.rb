@@ -1,4 +1,4 @@
- require './test/test_helper'
+require './test/test_helper'
 require './lib/merchant_repository'
 require 'pry'
 
@@ -61,7 +61,7 @@ class MerchantRepositoryTest < Minitest::Test
 
     assert_equal 7, mr.all[6].id
   end
-  #
+  #  #
   # def test_update
   #
   # end
