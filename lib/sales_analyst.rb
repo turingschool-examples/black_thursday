@@ -97,14 +97,61 @@ class SalesAnalyst
   end
 
   def top_merchants_by_invoice_count
+    std_dev = average_invoices_per_merchant_standard_deviation
+    average = average_invoices_per_merchant
+    bottom_of_range = (std_dev * 2) + average
+    @sales_engine.merchants.all.map do |merchant|
+      amount = @sales_engine.merchants.find_by_id(merchant.id).invoices.length
+      merchant if amount > bottom_of_range
+    end.compact
   end
 
   def bottom_merchants_by_invoice_count
+    std_dev = average_invoices_per_merchant_standard_deviation
+    average = average_invoices_per_merchant
+    bottom_of_range = average - (std_dev * 2)
+    @sales_engine.merchants.all.map do |merchant|
+      amount = @sales_engine.merchants.find_by_id(merchant.id).invoices.length
+      merchant if amount < bottom_of_range
+    end.compact
+  end
+
+  def day_count_hash
+    days = @sales_engine.invoices.all.map { |invoice| invoice.created_at.wday }
+    group = days.group_by { |day| day }
+    group.each { |key, value| group[key] = value.length }
+  end
+
+  def find_top_days
+    average = day_count_hash.values.inject(:+) / 7
+    std_dev = standard_deviation_of_invoices_by_weekday
+    amount = std_dev + average
+    day_count_hash.select do |_, value|
+      value > amount
+    end
   end
 
   def top_days_by_invoice_count
+    find_top_days.keys.map { |day| Date::DAYNAMES[day] }
   end
 
-  def invoice_status(status)
+  def standard_deviation_of_invoices_by_weekday
+    average = day_count_hash.values.inject(:+) / 7
+    total_invoices_by_day = day_count_hash.values
+    squared_num_invoice = total_invoices_by_day.map { |day| (day - average)**2 }
+    value = squared_num_invoice.inject(:+) / (total_invoices_by_day.length - 1)
+    Math.sqrt(value)
+  end
+
+  def invoice_status(status_symbol)
+    status_hash = find_status_hash
+    value = status_hash.select { |key, _| key == status_symbol }.values
+    ((value[0].to_f / status_hash.values.inject(:+)) * 100).round(2)
+  end
+
+  def find_status_hash
+    all_status = @sales_engine.invoices.all.map(&:status)
+    group = all_status.group_by { |status| status }
+    group.each { |key, value| group[key] = value.length }
   end
 end
