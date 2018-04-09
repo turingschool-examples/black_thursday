@@ -56,8 +56,9 @@ class ItemRepository
   end
 
   def find_all_by_price(price)
+    # require 'pry';binding.pry
     @items.values.map do |item|
-      item if item.unit_price == price
+      item if item.unit_price == price.to_i
     end.compact
   end
 

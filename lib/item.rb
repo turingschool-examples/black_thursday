@@ -18,9 +18,11 @@ class Item
     @merchant_id = item_hash[:merchant_id].to_i
     @created_at  = item_hash[:created_at]
     @updated_at  = item_hash[:updated_at]
+
+    set_unit_price_to_dollars
   end
 
   def set_unit_price_to_dollars
-    @unit_price = @unit_price.to_f
+    @unit_price = (@unit_price.to_f / 100).round(2)
   end
 end

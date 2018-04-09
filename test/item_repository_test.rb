@@ -87,6 +87,24 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_can_find_all_by_price
+    @i_repo.create(
+      name: '25 Dollars',
+      description: 'Worst toy ever.',
+      unit_price: 2500,
+      merchant_id: 12334135,
+      created_at: '2009-12-09 12:08:04 UTC',
+      updated_at: '2010-12-09 12:08:04 UTC'
+    )
+    actual = @i_repo.find_all_by_price(BigDecimal.new(25))
+    result = actual.all? do |item|
+      item.class == Item
+    end
+    assert result
+    names = actual.map(&:name)
+    assert_equal ['St. Jude Action Figure'], names
+  end
+
+  def test_can_get_one_item_at_25_dollars
     actual = @i_repo.find_all_by_price(3.00)
     result = actual.all? do |item|
       item.class == Item
