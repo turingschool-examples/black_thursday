@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'simplecov'
+SimpleCov.start
 require './lib/file_loader.rb'
 require './lib/merchant.rb'
 require './lib/merchant_repository.rb'
@@ -9,8 +11,6 @@ require 'minitest/emoji'
 require 'mocha/mini_test'
 require 'ostruct'
 require 'pry'
-require 'simplecov'
-SimpleCov.start
 require 'time'
 
 # Provides an API of merchant repo for testing merchant class.
