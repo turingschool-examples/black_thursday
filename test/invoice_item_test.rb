@@ -2,6 +2,7 @@
 
 require 'simplecov'
 SimpleCov.start
+require 'date'
 require './lib/file_loader.rb'
 require './lib/invoice_item.rb'
 require './lib/item.rb'
@@ -12,6 +13,7 @@ require 'minitest/emoji'
 require 'mocha/mini_test'
 require 'ostruct'
 require 'pry'
+require 'time'
 
 # Provides an API of invoice item repo for testing invoice item class
 class MockInvoiceItemRepo
@@ -57,5 +59,23 @@ class InvoiceItemTest < Minitest::Test
 
   def test_it_returns_invoice_id
     assert_equal 1, invoice_item.invoice_id
+  end
+
+  def test_it_returns_quantity
+    assert_equal 5, invoice_item.quantity
+  end
+
+  def test_it_returns_unit_price
+    assert_equal 136.35, invoice_item.unit_price
+  end
+
+  def test_it_returns_created_time
+    expected = Time.parse('2012-03-27 14:54:09 UTC')
+    assert_equal expected, invoice_item.created_at
+  end
+
+  def test_it_returns_updated_time
+    expected = Time.parse('2012-03-27 14:54:09 UTC')
+    assert_equal expected, invoice_item.updated_at
   end
 end

@@ -2,7 +2,6 @@
 
 require 'simplecov'
 SimpleCov.start
-require 'time'
 require './lib/file_loader.rb'
 require './lib/item.rb'
 require './lib/item_repository.rb'
@@ -11,6 +10,7 @@ require 'minitest/autorun'
 require 'minitest/emoji'
 require 'ostruct'
 require 'pry'
+require 'time'
 
 # Provides an API of item repo for testing item class.
 class MockItemRepository

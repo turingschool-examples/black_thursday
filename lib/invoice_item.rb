@@ -33,4 +33,20 @@ class InvoiceItem
   def invoice_id
     invoice_items_specs[:invoice_id]
   end
+
+  def quantity
+    invoice_items_specs[:quantity]
+  end
+
+  def unit_price
+    invoice_items_specs[:unit_price]
+  end
+
+  def created_at
+    Time.parse(invoice_items_specs[:created_at])
+  end
+
+  def updated_at
+    Time.parse(invoice_items_specs[:updated_at])
+  end
 end
