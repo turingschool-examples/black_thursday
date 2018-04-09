@@ -14,7 +14,7 @@ class ItemRepositoryTest < Minitest::Test
       name: 'St. Jude Action Figure',
       description: 'Worst toy ever.',
       unit_price: 3.00,
-      merchant_id: '12334135',
+      merchant_id: 12334135,
       created_at: '2009-12-09 12:08:04 UTC',
       updated_at: '2010-12-09 12:08:04 UTC'
     )

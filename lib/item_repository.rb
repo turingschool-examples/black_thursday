@@ -7,7 +7,7 @@ class ItemRepository
   def initialize(csv_parsed_array)
     csv_parsed_array.shift
     attributes = csv_parsed_array.map do |item|
-      { id: item[0],
+      { id: item[0].to_i,
         name: item[1],
         description: item[2],
         unit_price: item[3],
@@ -32,13 +32,15 @@ class ItemRepository
   end
 
   def find_by_id(id)
-    @items[id.to_s]
+    @items[id]
   end
 
   def find_by_name(name)
+    result = nil
     @items.values.each do |item|
-      return item if item.name.casecmp(name).zero?
+      result = item if item.name.casecmp(name).zero?
     end
+    result
   end
 
   def find_all_by_name(fragment)
@@ -73,7 +75,7 @@ class ItemRepository
 
   def create_new_id
     highest_id = @items.keys.max
-    (highest_id.to_i + 1).to_s
+    (highest_id.to_i + 1)
   end
 
   def create(attributes)
