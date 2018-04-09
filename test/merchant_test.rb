@@ -9,4 +9,8 @@ class MerchantTest < Minitest::Test
     assert_equal 5, merchant.id
     assert_equal 'Turing School', merchant.name
   end
+  def test_it_has_id
+    merchant = Merchant.new(id: 5, name: 'Turing School')
+    assert_equal 5, merchant.id
+  end 
 end

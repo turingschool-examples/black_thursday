@@ -30,8 +30,8 @@ class MerchantRepository
 
   def find_by_name(name)
     @merchants.values.find do |merchant|
-      binding.pry
-      merchant.name == name.downcase
+      # binding.pry
+      merchant.name.downcase == name.downcase
     end
   end
 

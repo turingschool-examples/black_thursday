@@ -5,6 +5,7 @@ require './lib/merchant'
 SimpleCov.start
 require './lib/merchant_repository'
 class MerchantRepositoryTest < Minitest::Test
+
   def setup
     @turing = Merchant.new(id: 1, name: 'Turing School')
     @candisart = Merchant.new(id: 2, name: 'Candisart')
@@ -64,14 +65,14 @@ class MerchantRepositoryTest < Minitest::Test
   def test_method_find_by_name
     mr = MerchantRepository.new(@merchants)
     mr = MerchantRepository.new(@merchants)
-    expected = @turing.attributes
-    actual = mr.find_by_name(expected).attributes
+    expected = @turing.name
+    actual = mr.find_by_name(expected).name
     assert_equal expected, actual
-    expected = @miniaturebikez.attributes
-    actual = mr.find_by_name(expected).attributes
+    expected = @miniaturebikez.name
+    actual = mr.find_by_name(expected).name
     assert_equal expected, actual
-    expected = @urcase17.attributes
-    actual = mr.find_by_name(expected).attributes
+    expected = @urcase17.name
+    actual = mr.find_by_name(expected).name
     assert_equal expected, actual
     expected = 'Missing Merchant'
     actual = mr.find_by_name(expected)
@@ -88,11 +89,15 @@ class MerchantRepositoryTest < Minitest::Test
   def test_method_find_all_by_name
     mr = MerchantRepository.new(@merchants)
     actual = mr.find_all_by_name('ca')
-    assert actual.all?{|merchant| merchant.class == Merchant}
-    assert_equal [@candisart, @urcase17], actual
+    assert(actual.all? { |merchant| merchant.class == Merchant })
+    expected = [@candisart, @urcase17].map do |merchant|
+      merchant.attributes
+    end 
+    actual = actual.map do |merchant|
+      merchant.attributes
+    end 
+    assert_equal expected, actual
     assert_equal [], mr.find_all_by_name('za')
-    actual = mr.find_all_by_name('tur')
-    assert_equal [@turing, @miniaturebikez], actual
   end
 
   def test_method_create
