@@ -54,7 +54,7 @@ class MerchantRepository
   end
 
   def update(id, attributes)
-    @merchants[id].name = attributes[:name]
+    @merchants[id].name = attributes[:name] if @merchants[id]
   end
 
   def delete(id)

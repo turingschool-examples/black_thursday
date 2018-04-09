@@ -95,6 +95,20 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 'ColeIsAwesomer', @m_repo.merchants[12334135].name
   end
 
+  def test_it_wont_update_id
+    attributes = {
+      id: 13000000
+    }
+    @m_repo.update(12334112, attributes)
+    actual = @m_repo.merchants[13000000]
+    assert_nil actual
+  end
+
+  def test_update_on_unknown_merchant_does_nothing
+    actual = @m_repo.update(13000000, {})
+    assert_nil actual
+  end
+
   def test_merchant_can_be_deleted
     @m_repo.delete(12334135)
     assert_equal 6, @m_repo.merchants.count
