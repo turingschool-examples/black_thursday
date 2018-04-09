@@ -1,7 +1,8 @@
 class ItemRepository
+  attr_reader       :item_details
 
-  def initialize
-
+  def initialize()
+    @items =  
   end
 
 end
