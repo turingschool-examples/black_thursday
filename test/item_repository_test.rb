@@ -1,6 +1,7 @@
 require 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'bigdecimal'
 require 'simplecov'
 simpcov.start
 require './lib/item_repository'
@@ -12,7 +13,7 @@ class ItemRepositoryTest < Minitest::Test
       id: 263395237,
       name: "RealPush Icon Set",
       description: "It writes things.",
-      unit_price: "1200",
+      unit_price: BigDecimal("1200"),
       merchant_id: 12334141,
       created_at: Time.now,
       updated_at: Time.now
@@ -20,8 +21,8 @@ class ItemRepositoryTest < Minitest::Test
     @glitter_frames = Item.new({
       id: 263395617,
       name: "Glitter Scrabble Frames",
-      description: "Any colour glitter, any wording.",
-      unit_price: "1300",
+      description: "Any colour glitter.",
+      unit_price: BigDecimal("1300"),
       merchant_id: 12334185,
       created_at: Time.now,
       updated_at: Time.now
@@ -30,7 +31,7 @@ class ItemRepositoryTest < Minitest::Test
       id: 263396013,
       name: "Free Standing Wooden Letters",
       description: "Free standing wooden letters, 15cm, any color.",
-      unit_price: "700",
+      unit_price: BigDecimal("700"),
       merchant_id: 12334105,
       created_at: Time.now,
       updated_at: Time.now
@@ -75,7 +76,7 @@ class ItemRepositoryTest < Minitest::Test
     ir = ItemRepository.new(@items)
 
     assert_equal @icons, ir.find_by_name("RealPush Icon Set")
-    assert_equal @glitter_frames, ir.find_by_name("Any colour glitter, any wording.")
+    assert_equal @glitter_frames, ir.find_by_name("Any colour glitter.")
     assert_equal @wooden_letters, ir.find_by_name("Free Standing Wooden Letters")
     assert_equal nil, ir.find_by_name("My Little Pony")
   end
@@ -91,8 +92,26 @@ class ItemRepositoryTest < Minitest::Test
   def test_can_find_by_price
     ir = ItemRepository.new(@items)
 
-    assert_equal [@icons], ir.find_all_by_
-  end 
+    assert_equal [@icons], ir.find_all_by_price(9)
+  end
+
+  def test_item_can_be_created
+    ir = ItemRepository.new(@items)
+    assert_instance_of @items = ir.all
+
+    ir.create Item.new(name: "Bootees", )
+    assert_equal @items.find_by_id(263395237).name, "Bootees"
+  end
+
+  def test_item_can_be_updated
+    ir = ItemRepository.new(@items)
+    assert_instance_of @items = ir.all
+
+    ir.update Item.new(name: )
+
+  end
+
+
 
 
 end
