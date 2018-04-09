@@ -95,7 +95,7 @@ class ItemRepositoryTest < Minitest::Test
       created_at: '2009-12-09 12:08:04 UTC',
       updated_at: '2010-12-09 12:08:04 UTC'
     )
-    actual = @i_repo.find_all_by_price(BigDecimal.new(25))
+    actual = @i_repo.find_all_by_price(BigDecimal(25))
     result = actual.all? do |item|
       item.class == Item
     end
