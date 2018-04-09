@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'simplecov'
+SimpleCov.start
+require 'time'
 require './lib/file_loader.rb'
 require './lib/item.rb'
 require './lib/item_repository.rb'
@@ -9,9 +12,6 @@ require 'minitest/emoji'
 require 'mocha/mini_test'
 require 'ostruct'
 require 'pry'
-require 'simplecov'
-SimpleCov.start
-require 'time'
 
 # Provides an API of item repo for testing item class.
 class MockItemRepository
@@ -53,6 +53,15 @@ class ItemTest < Minitest::Test
 
   def test_it_initializes_with_parent
     assert_equal MockItemRepository, item.parent.class
+  end
+
+  def test_it_has_searchable_name
+    assert_equal 'disney scrabble frames', item.searchable_name
+  end
+
+  def test_it_has_searchable_desc
+    expected = ITEM_BODY[:description].downcase
+    assert_equal expected, item.searchable_desc
   end
 
   def test_it_returns_items_id
