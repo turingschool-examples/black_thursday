@@ -59,10 +59,9 @@ class SalesAnalyst
   end
 
   def golden_items
-    a = standard_deviation_for_item_price
-    b = average_price_of_items
+    two_standard_deviation = (average_price_of_items + standard_deviation_for_item_price) * 2
     @item_repo.items.map do |item|
-      item if item.unit_price > (a + b) * 2
+      item if item.unit_price > two_standard_deviation
     end.compact
   end
 end
