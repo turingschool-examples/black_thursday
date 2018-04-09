@@ -1,17 +1,24 @@
 # frozen_string_literal: true
 
-require 'simplecov'
-SimpleCov.start
-require 'minitest'
-require 'minitest/emoji'
-require 'minitest/autorun'
-require 'mocha/mini_test'
-require 'time'
+require './lib/file_loader.rb'
 require './lib/merchant.rb'
 require './lib/merchant_repository.rb'
-require './lib/file_loader.rb'
+require 'minitest'
+require 'minitest/autorun'
+require 'minitest/emoji'
+require 'mocha/mini_test'
+require 'ostruct'
 require 'pry'
+require 'simplecov'
+SimpleCov.start
+require 'time'
 
+# Provides an API of merchant repo for testing merchant class.
+class MockMerchantRepository
+  def find_merchant_by_merchant_id(_merchant_id)
+    OpenStruct.new(name: 'Shopin1901', id: 12334185)
+  end
+end
 # Tests Merchant class and functionality of methods.
 class MerchantTest < Minitest::Test
   attr_reader :merchant,

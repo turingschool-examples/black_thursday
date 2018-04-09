@@ -1,18 +1,17 @@
 # frozen_string_literal: true
 
-require 'simplecov'
-SimpleCov.start
-require 'minitest'
-require 'minitest/emoji'
-require 'minitest/autorun'
-require 'mocha/mini_test'
-require 'time'
-require 'ostruct'
-# alphabetize list moves files ^
+require './lib/file_loader.rb'
 require './lib/item.rb'
 require './lib/item_repository.rb'
-require './lib/file_loader.rb'
+require 'minitest'
+require 'minitest/autorun'
+require 'minitest/emoji'
+require 'mocha/mini_test'
+require 'ostruct'
 require 'pry'
+require 'simplecov'
+SimpleCov.start
+require 'time'
 
 # Provides an API of item repo for testing item class.
 class MockItemRepository
@@ -65,7 +64,7 @@ class ItemTest < Minitest::Test
 
   def test_it_returns_items_description_with_length
     assert_instance_of String, item.description
-    assert_equal 191, item.description.length
+    assert_equal 167, item.description.length
   end
 
   def test_it_returns_items_merchant_id
