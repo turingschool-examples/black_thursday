@@ -13,6 +13,10 @@ require 'mocha/mini_test'
 require 'ostruct'
 require 'pry'
 
+# Provides an API of invoice item repo for testing invoice item class
+class MockInvoiceItemRepo
+end
+
 # Tests invoice item class and functionality with invoice item repo
 class InvoiceItemTest < Minitest::Test
   INVOICE_ITEM_BODY = {
@@ -24,4 +28,14 @@ class InvoiceItemTest < Minitest::Test
     created_at: '2012-03-27 14:54:09 UTC',
     updated_at: '2012-03-27 14:54:09 UTC'
   }.freeze
+
+  attr_reader :invoice_item
+
+  def setup
+    @invoice_item = InvoiceItem.new(INVOICE_ITEM_BODY, MockInvoiceItemRepo.new)
+  end
+
+  def test_invoice_item_exists
+    assert_instance_of InvoiceItem, @invoice_item
+  end
 end
