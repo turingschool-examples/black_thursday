@@ -1,3 +1,4 @@
+require 'time'
 module Element
   attr_accessor :attributes
 
@@ -19,11 +20,21 @@ module Element
   end
 
   def created_at
-    @attributes[:created_at]
+    time = @attributes[:created_at]
+    if time.class == Time
+      time
+    else
+    Time.parse(@attributes[:created_at])
+    end
   end
 
   def updated_at
-    @attributes[:updated_at]
+    time = @attributes[:updated_at]
+    if time.class == Time
+      time
+    else
+    Time.parse(@attributes[:updated_at])
+    end
   end
 
   def merchant_id

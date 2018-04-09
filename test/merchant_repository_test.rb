@@ -95,7 +95,7 @@ class MerchantRepositoryTest < Minitest::Test
     @merch.create(:name => 'PenCo')
     assert_equal 1, @merch.all.count
     assert_equal 'PenCo', @merch.find_by_id(1).name
-
+    
     @merch.update(1, {:name => 'Pen'})
     assert_equal 1, @merch.all.count
     assert_equal 'Pen', @merch.find_by_id(1).name
