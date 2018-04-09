@@ -8,12 +8,14 @@ class Item
                 :merchant_id,
                 :created_at,
                 :updated_at,
-                :parent
+                :parent,
+                :downcased_description
 
     def initialize(data, parent)
         @id = data[:id].to_i
         @name = data[:name]
         @description = data[:description]
+        @downcased_description = description.downcase
         @unit_price = BigDecimal.new(data[:unit_price])/100
         @merchant_id = data[:merchant_id].to_i
         @created_at = Time.parse(data[:created_at])
