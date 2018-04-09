@@ -1,21 +1,36 @@
+# frozen_string_literal: true
 
+require 'CSV'
 # Merchant Repository Class
 class MerchantRepository
-  # include Repository
+  attr_reader :contents,
+              :parent,
+              :items
 
-  attr_reader :merchants,
-              :parent
-
-  def initialize(merchants, parent = nil)
-    @merchants =  merchants
+  def initialize(path, parent = nil)
+    @contents = []
     @parent = parent
+    CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
+      @contents << Merchant.new(row, self)
+    end
   end
 
+  def all
+    @contents
+  end
 
-  # def all
-  #   load_children
-  # end
+  def find_by_id(id)
+    @contents.map do |row|
+      row.id == @contents[0].id
+      # binding.pry
+    end
+    @contents[0].id
+  end
 end
+
+# def all
+#   load_children
+# end
 
 # def find_by_name(name)
 # end

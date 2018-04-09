@@ -3,36 +3,27 @@
 require './test/test_helper'
 require './lib/merchant_repository'
 require './lib/merchant'
-require './lib/loader'
-# Merchant Repository Test
-class MerchantRepositoryTest < Minitest::Test
-  attr_reader :parent,
-              :merchant_repo
-  def setup
-    file_path = './test/fixtures/merchant_fixtures.csv'
-    # contents = Runner.load(file_path)
-    @merchant_repo = MerchantRepository.new(file_path)
-    # @parent = Minitest::mock.new(contents, parent)
-  end
 
+class MerchantRepositoryTest < Minitest::Test
   def test_it_exists
-    assert_instance_of MerchantRepository, @merchant_repo
+    mr = MerchantRepository.new('./test/fixtures/merchant_fixture.csv')
+    assert_instance_of MerchantRepository, mr
   end
 
   def test_contents_data_type
-skip
-    assert_equal Array, @merchant_repo.csv_data.class
+    mr = MerchantRepository.new('./test/fixtures/merchant_fixture.csv')
+    assert_equal Array, mr.contents.class
   end
 
   def test_items_data_type
-skip
-    assert_equal 5, @merchant_repo.all.count
+    mr = MerchantRepository.new('./test/fixtures/merchant_fixture.csv')
+    assert_equal 5, mr.all.count
   end
 
   def test_find_by_id
-skip
-    result = '3,Mariah,Toy,2012-03-27 14:54:10 UTC,2012-03-27 14:54:10 UTC'
+    mr = MerchantRepository.new('./test/fixtures/merchant_fixture.csv')
+    result = '12334112,Candisart,2009-05-30,2010-08-29'
 
-    assert_equal result, @merchant_repo.find_by_id(3).id
+    assert_equal result, mr.find_by_id(3)
   end
 end
