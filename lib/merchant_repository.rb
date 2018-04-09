@@ -54,7 +54,7 @@ class MerchantRepository
     attribute[:id] = create_new_id
     attribute[:created_at] = Time.now.strftime('%F')
     attribute[:updated_at] = Time.now.strftime('%F')
-    @merchants << Merchant.new(attribute)
+    @merchants << Merchant.new(attribute, self)
   end
 
   def update(id, attribute)

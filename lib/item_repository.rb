@@ -69,7 +69,7 @@ class ItemRepository
     attributes[:id] = create_new_id
     attributes[:created_at] = Time.now.to_s
     attributes[:updated_at] = Time.now.to_s
-    @items << Item.new(attributes)
+    @items << Item.new(attributes,self)
   end
 
   def update(id, attributes)
@@ -85,6 +85,6 @@ class ItemRepository
   end
 
   def inspect
-   "#<#{self.class} #{@merchants.size} rows>"
+   "#<#{self.class} #{@items.size} rows>"
   end
 end

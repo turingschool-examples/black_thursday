@@ -7,7 +7,7 @@ class SalesEngine
               :items,
               :merchants
 
-  def initialize(path = nil)
+  def initialize(path)
     @items ||= ItemRepository.new(path[:items], self)
     @merchants ||= MerchantRepository.new(path[:merchants], self)
   end

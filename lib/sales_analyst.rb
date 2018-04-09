@@ -10,9 +10,8 @@ class SalesAnalyst
     @item_repo = sales_engine.items
   end
 
-
   def average_items_per_merchant
-    (item_repo.items.length.to_f / merchant_repo.merchants.length).round(2)
+    (item_repo.items.count.to_f / merchant_repo.merchants.count).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
@@ -27,10 +26,9 @@ class SalesAnalyst
 
   def merchants_with_high_item_count
     one_standard_deviation = average_items_per_merchant  + average_items_per_merchant_standard_deviation
-
     merchant_repo.merchants.map do |merchant|
     merchant if merchant.items.count > one_standard_deviation
-  end.compact
+    end.compact
   end
 
   def average_item_price_for_merchant(merchant_id)
@@ -39,5 +37,4 @@ class SalesAnalyst
       sum + item.unit_price/merchant.items.length
     end.round(2)
   end
-
 end
