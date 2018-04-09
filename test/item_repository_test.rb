@@ -5,13 +5,10 @@ require './lib/item_repository'
 
 class ItemRepositoryTest < Minitest::Test
   def setup
-    
-  end
-
+    @item_repo = ItemRepository.new
   end
 
   def test_it_exists
-    ir = ItemRepository.new
-    assert_instance_of ItemRepository, ir
+    assert_instance_of ItemRepository, @item_repo
   end
 end
