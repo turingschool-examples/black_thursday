@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 require './test/test_helper'
 require_relative '../lib/item_repository'
 
+# :nodoc:
 class ItemRepositoryTest < Minitest::Test
   attr_reader :item_repository
   def setup

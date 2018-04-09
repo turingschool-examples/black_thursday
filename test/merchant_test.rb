@@ -1,10 +1,13 @@
 require './test/test_helper'
-require_relative '../lib/item'
+require_relative '../lib/merchant'
 
 class MerchantTest < Minitest::Test
   attr_reader :merchant
   def setup
-    @merchant = Merchant.new(id: 5, name: 'Turing School')
+    @merchant = Merchant.new(
+      id:   '5',
+      name: 'Turing School'
+    )
   end
 
   def test_it_exists

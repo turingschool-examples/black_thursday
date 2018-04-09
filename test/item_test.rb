@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 require './test/test_helper'
 require 'bigdecimal'
 require_relative '../lib/item'
 
+# :nodoc:
 class ItemTest < Minitest::Test
   attr_reader :item
   def setup
