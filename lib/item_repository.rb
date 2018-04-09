@@ -7,13 +7,13 @@ class ItemRepository
   def initialize(csv_parsed_array)
     csv_parsed_array.shift
     attributes = csv_parsed_array.map do |item|
-      { id: item[0],
+      { id: item[0].to_i,
         name: item[1],
         description: item[2],
         unit_price: item[3],
         merchant_id: item[4],
-        created_at: item[5],
-        updated_at: item[6] }
+        created_at: Time.parse(item[5]),
+        updated_at: Time.parse(item[6]) }
     end
     @items = create_index(attributes)
   end
@@ -32,13 +32,15 @@ class ItemRepository
   end
 
   def find_by_id(id)
-    @items[id.to_s]
+    @items[id]
   end
 
   def find_by_name(name)
+    result = nil
     @items.values.each do |item|
-      return item if item.name.casecmp(name).zero?
+      result = item if item.name.casecmp(name).zero?
     end
+    result
   end
 
   def find_all_by_name(fragment)
@@ -73,7 +75,7 @@ class ItemRepository
 
   def create_new_id
     highest_id = @items.keys.max
-    (highest_id.to_i + 1).to_s
+    (highest_id.to_i + 1)
   end
 
   def create(attributes)
@@ -82,10 +84,12 @@ class ItemRepository
   end
 
   def update(id, attributes)
-    @items[id].name = attributes[:name]
-    @items[id].description = attributes[:description]
-    @items[id].unit_price = attributes[:unit_price]
-    @items[id].updated_at = Time.now
+    if @items[id]
+      @items[id].name = attributes[:name] if attributes[:name]
+      @items[id].description = attributes[:description] if attributes[:description]
+      @items[id].unit_price = attributes[:unit_price] if attributes[:unit_price]
+      @items[id].updated_at = Time.now
+    end
   end
 
   def delete(id)

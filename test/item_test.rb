@@ -1,4 +1,5 @@
 require 'bigdecimal'
+require 'time'
 require_relative 'test_helper'
 require_relative '../lib/item'
 
@@ -10,7 +11,7 @@ class ItemTest < Minitest::Test
       id:           1,
       name:         'Pencil',
       description:  'It is yellow.',
-      unit_price:   10.99,
+      unit_price:   1099,
       merchant_id:  12334185,
       created_at:   @time,
       updated_at:   @time
@@ -38,7 +39,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_has_merchant_id
-    assert_equal 12_334_185, @item.merchant_id
+    assert_equal 12334185, @item.merchant_id
   end
 
   def test_it_has_created_at
@@ -50,8 +51,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_can_set_unit_price_to_dollars
-    @item.set_unit_price_to_dollars
-    assert_instance_of Float, @item.unit_price
+    assert_instance_of BigDecimal, @item.unit_price
     assert_equal 10.99, @item.unit_price
   end
 end
