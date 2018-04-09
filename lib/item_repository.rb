@@ -91,4 +91,8 @@ class ItemRepository
   def delete(id)
     @items.delete(id)
   end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 end

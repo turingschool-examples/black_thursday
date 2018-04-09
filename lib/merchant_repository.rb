@@ -1,4 +1,4 @@
-require './lib/merchant'
+require_relative '../lib/merchant'
 
 # A class for containing all Merchant objects
 class MerchantRepository
@@ -57,5 +57,9 @@ class MerchantRepository
 
   def delete(id)
     @merchants.delete(id)
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 end
