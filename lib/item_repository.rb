@@ -12,8 +12,8 @@ class ItemRepository
         description: item[2],
         unit_price: item[3],
         merchant_id: item[4],
-        created_at: item[5],
-        updated_at: item[6] }
+        created_at: Time.parse(item[5]),
+        updated_at: Time.parse(item[6]) }
     end
     @items = create_index(attributes)
   end

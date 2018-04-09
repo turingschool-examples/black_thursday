@@ -1,5 +1,6 @@
 require 'bigdecimal'
 require 'csv'
+require 'time'
 require_relative 'fileio'
 require_relative 'item_repository'
 require_relative 'merchant_repository'
