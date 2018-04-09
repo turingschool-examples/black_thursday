@@ -37,12 +37,8 @@ class MerchantRepositoryTest < Minitest::Test
       assert_instance_of Merchant, merchant
     end
 
-    expected_names = @merchants_obj.map do |merchant|
-      merchant.name
-    end
-    actual_names = mr.all.map do |merchant|
-      merchant.name
-    end
+    expected_names = @merchants_obj.map(&:name)
+    actual_names = mr.all.map(&:name)
     # these enums are neccesary because merchant repo creates new merchants objects from 
     # passed in values. Therefore object ids cannot be checked, only values
     assert_equal expected_names, actual_names
@@ -90,12 +86,8 @@ class MerchantRepositoryTest < Minitest::Test
     mr = MerchantRepository.new(@merchants)
     actual = mr.find_all_by_name('ca')
     assert(actual.all? { |merchant| merchant.class == Merchant })
-    expected = [@candisart, @urcase17].map do |merchant|
-      merchant.attributes
-    end 
-    actual = actual.map do |merchant|
-      merchant.attributes
-    end 
+    expected = [@candisart, @urcase17].map(&:attributes)
+    actual = actual.map(&:attributes)
     assert_equal expected, actual
     assert_equal [], mr.find_all_by_name('za')
   end
@@ -126,7 +118,6 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_method_delete
-    
     mr = MerchantRepository.new(@merchants)
     assert_equal 'Turing School', mr.find_by_id(1).name
     mr.delete(1)

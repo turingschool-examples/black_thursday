@@ -38,7 +38,7 @@ class MerchantRepository
   end
 
   def find_highest_id
-    highest_merchant = @merchants.values.max_by{|merchant| merchant.id}
+    highest_merchant = @merchants.values.max_by(&:id)
     highest_merchant.id
   end
 
