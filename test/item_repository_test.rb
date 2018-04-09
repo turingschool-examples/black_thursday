@@ -65,14 +65,20 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_can_find_name_by_fragment
     actual = @i_repo.find_all_by_name('o')
+    result = actual.all? do |item|
+      item.class == Item
+    end
+    assert result
+    names = actual.map do |item|
+      item.name
+    end
     assert_equal ['The Gold Coast, Chicago, Illinois',
                   'Minty Green Knit Crochet Infinity Scarf',
-                  'St. Jude Action Figure'], actual
+                  'St. Jude Action Figure'], names
   end
 
   def test_can_find_items_by_description
     actual = @i_repo.find_all_with_description('acrylic')
-    # Check that result is array with instances of Items
     result = actual.all? do |item|
       item.class == Item
     end
@@ -84,27 +90,39 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_can_find_all_by_price
-    skip
     actual = @i_repo.find_all_by_price(3.00)
-    # results = enumerator to find names
-    assert_equal ['St. Jude Action Figure'], actual
-    # assert result
+    result = actual.all? do |item|
+      item.class == Item
+    end
+    assert result
+    names = actual.map do |item|
+      item.name
+    end
+    assert_equal ['St. Jude Action Figure'], names
   end
 
   def test_can_find_all_by_price_in_range
-    skip
-    actual = @i_repo.find_all_by_price(2.00..4.00)
-    # results = enumerator to find names
-    assert_equal ['St. Jude Action Figure'], actual
-    # assert result
+    actual = @i_repo.find_all_by_price_in_range(2..4)
+    result = actual.all? do |item|
+      item.class == Item
+    end
+    assert result
+    names = actual.map do |item|
+      item.name
+    end
+    assert_equal ['St. Jude Action Figure'], names
   end
 
   def test_can_find_all_by_merchant_id
-    skip
     actual = @i_repo.find_all_by_merchant_id(12334135)
-    # results = enumerator to find names
-    assert_equal ['St. Jude Action Figure'], actual
-    # assert result
+    result = actual.all? do |item|
+      item.class == Item
+    end
+    assert result
+    names = actual.map do |item|
+      item.name
+    end
+    assert_equal ['St. Jude Action Figure'], names
   end
 
   def test_it_can_generate_next_item_id

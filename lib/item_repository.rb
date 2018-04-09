@@ -43,7 +43,7 @@ class ItemRepository
 
   def find_all_by_name(fragment)
     @items.values.map do |item|
-      item.name if item.name.downcase.include?(fragment.downcase)
+      item if item.name.downcase.include?(fragment.downcase)
     end.compact
   end
 
@@ -61,7 +61,7 @@ class ItemRepository
 
   def find_all_by_price_in_range(range)
     @items.values.map do |item|
-      item if item.unit_price <=> range
+      item if range.include?(item.unit_price)
     end.compact
   end
 
