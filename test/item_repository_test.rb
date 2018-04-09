@@ -24,6 +24,8 @@ class ItemRepositoryTest < Minitest::Test
     assert_nil @ir.elements['id']
     assert_nil @ir.elements[999999999]
     assert_nil @ir.elements[0]
+    assert_instance_of Time, @ir.elements[263395237].created_at
+    assert_instance_of Time, @ir.elements[263414049].updated_at
   end
 
   def test_all_method
@@ -72,7 +74,7 @@ class ItemRepositoryTest < Minitest::Test
     find = @ir.find_by_id(263396279)
     find2 = @ir.find_by_id(263396463)
     find3 = @ir.find_by_id(263396255)
-    binding.pry
+    # binding.pry
 
     assert items2.include?(find)
     assert items2.include?(find2)
@@ -157,7 +159,7 @@ class ItemRepositoryTest < Minitest::Test
                 })
     assert_equal 1, @ir.all.count
     assert_equal 'Pencil', @ir.find_by_id(1).name
-    # Need to test time of update
+    assert_equal time, @ir.find_by_id(1).updated_at
 
     @ir.create({
                 :name        => "Pen",
@@ -173,7 +175,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_can_update_an_existing_item
     assert_equal 0, @ir.all.count
-    time = Time.now
+    time = Time.now - 1
     @ir.create({
                 :name        => "Pencil",
                 :description => "You can use it to write things",
@@ -198,6 +200,7 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 'Pen', @ir.find_by_id(1).name
     assert_equal "NASA's response to Russian", @ir.find_by_id(1).description
     assert_equal 7, @ir.find_by_id(1).merchant_id
+    assert time < @ir.find_by_id(1).updated_at
   end
 
   def test_it_can_delete_an_existing_item

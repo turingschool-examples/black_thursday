@@ -31,6 +31,35 @@ class SalesAnalystTest < Minitest::Test
     assert m1_items.count > (2.88 + (3.26 * 2))
     assert_instance_of Merchant, top_sellers[5]
     assert_instance_of Merchant, top_sellers[-1]
-    # assert item count is > (2.88 + (3.26 * 2))
+    refute top_sellers.include?(@sa.engine.merchants.find_by_id(12335009))
+  end
+
+  def test_average_item_price_for_merchant
+    average = @sa.average_item_price_for_merchant(12334105)
+    assert_instance_of BigDecimal, average
+    assert_equal 16.66, average
+  end
+
+  def test_average_average_price_per_merchant
+    average = @sa.average_average_price_per_merchant
+    assert_instance_of BigDecimal, average
+    assert_equal 350.29, average
+  end
+
+  def test_average_item_cost
+    assert_equal 251.06, @sa.average_item_cost
+  end
+
+  def test_standard_deviation
+    assert_equal 2900.99, @sa.standard_deviation
+  end
+
+  def test_golden_items
+    golden = @sa.golden_items
+    assert_instance_of Array, golden
+    assert_instance_of Item, golden[0]
+    assert_instance_of Item, golden[-1]
+    assert golden.include?(@sa.engine.items.find_by_id(263554072))
+    refute golden.include?(@sa.engine.items.find_by_id(263529916))
   end
 end
