@@ -56,10 +56,15 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_can_find_name_by_fragment
-    skip
-    #need to redo to grab instance of merchant
     actual = @m_repo.find_all_by_name('re')
-    assert_equal %w[MiniatureBikez GoldenRayPress], actual
+    result = actual.all? do |merchant|
+      merchant.class == Merchant
+    end
+    assert result
+    names = actual.map do |merchant|
+      merchant.name
+    end
+    assert_equal %w[MiniatureBikez GoldenRayPress], names
   end
 
   def test_it_can_generate_next_merchant_id

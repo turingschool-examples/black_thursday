@@ -13,8 +13,7 @@ class ItemRepository
         unit_price: item[3],
         merchant_id: item[4],
         created_at: item[5],
-        updated_at: item[6]
-      }
+        updated_at: item[6]}
     end
     @items = create_index(attributes)
   end

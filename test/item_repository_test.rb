@@ -71,11 +71,16 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_can_find_items_by_description
-    skip
     actual = @i_repo.find_all_with_description('acrylic')
-    # results = enumerator to find names
-    assert_equal ['Intricate Sunset', 'Minty Green Knit Crochet Infinity Scarf'], actual
-    # assert result
+    # Check that result is array with instances of Items
+    result = actual.all? do |item|
+      item.class == Item
+    end
+    assert result
+    names = actual.map do |item|
+      item.name
+    end
+    assert_equal ['Intricate Sunset', 'Minty Green Knit Crochet Infinity Scarf'], names
   end
 
   def test_can_find_all_by_price
