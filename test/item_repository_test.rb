@@ -22,80 +22,73 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of Item, @i_repo.items['263567474']
   end
 
-  def test_all_returns_an_array_of_all_merchant_instances
-    skip
-    assert_instance_of Array, @m_repo.all
+  def test_all_returns_an_array_of_all_item_instances
+    assert_instance_of Array, @i_repo.all
   end
 
   def test_all_returns_correct_names
-    skip
-    all_merchants = @m_repo.all
-    actual_all_names = all_merchants.map(&:name)
-    expected = %w[Shopin1901
-                  Candisart
-                  MiniatureBikez
-                  LolaMarleys
-                  Keckenbauer
-                  perlesemoi
-                  GoldenRayPress]
+    all_items = @i_repo.all
+    actual_all_names = all_items.map(&:name)
+    expected = ['Intricate Sunset', 
+                'The Gold Coast, Chicago, Illinois',
+                'Minty Green Knit Crochet Infinity Scarf']
     assert_equal expected, actual_all_names
   end
 
   def test_can_find_by_id
-    skip
-    actual_shopin = @m_repo.find_by_id('12334105')
-    actual_candis = @m_repo.find_by_id('12334112')
-    assert_instance_of Merchant, actual_shopin
-    assert_instance_of Merchant, actual_candis
-    assert_equal 'Shopin1901', actual_shopin.name
-    assert_equal 'Candisart', actual_candis.name
+    actual_intri_sun = @i_repo.find_by_id('263567292')
+    actual_gold_coast = @i_repo.find_by_id('263567376')
+    assert_instance_of Item, actual_intri_sun
+    assert_instance_of Item, actual_gold_coast
+    assert_equal 'Intricate Sunset', actual_intri_sun.name
+    assert_equal 'The Gold Coast, Chicago, Illinois', actual_gold_coast.name
   end
 
   def test_can_find_by_name
     skip
-    actual_shopin = @m_repo.find_by_name('Shopin1901')
-    actual_candis = @m_repo.find_by_name('Candisart')
-    assert_instance_of Merchant, actual_shopin
-    assert_instance_of Merchant, actual_candis
+    actual_shopin = @i_repo.find_by_name('Shopin1901')
+    actual_candis = @i_repo.find_by_name('Candisart')
+    assert_instance_of Item, actual_shopin
+    assert_instance_of Item, actual_candis
     assert_equal '12334105', actual_shopin.id
     assert_equal '12334112', actual_candis.id
   end
 
   def test_can_find_name_by_fragment
     skip
-    actual = @m_repo.find_all_by_name('re')
+    actual = @i_repo.find_all_by_name('re')
     assert_equal %w[MiniatureBikez GoldenRayPress], actual
   end
 
-  def test_it_can_generate_next_merchant_id
+  def test_it_can_generate_next_item_id
     skip
     expected = '12334136'
-    actual = @m_repo.create_new_id
+    actual = @i_repo.create_new_id
     assert_equal expected, actual
   end
 
-  def test_can_create_new_merchant
+  def test_can_create_new_item
     skip
-    actual_jude = @m_repo.create('Jude')
-    actual_cole = @m_repo.create('Cole')
-    assert_instance_of Merchant, actual_jude
-    assert_instance_of Merchant, actual_cole
-    assert_equal 9, @m_repo.merchants.count
-    assert_equal 'Jude', @m_repo.merchants['12334136'].name
-    assert_equal 'Cole', @m_repo.merchants['12334137'].name
+    actual_jude = @i_repo.create('Jude')
+    actual_cole = @i_repo.create('Cole')
+    assert_instance_of Item, actual_jude
+    assert_instance_of Item, actual_cole
+    assert_equal 9, @i_repo.items.count
+    assert_equal 'Jude', @i_repo.items['12334136'].name
+    assert_equal 'Cole', @i_repo.items['12334137'].name
   end
 
-  def test_merchant_can_be_updated
+  def test_item_can_be_updated
     skip
-    @m_repo.update('12334135', 'ColeIsAwesomer')
-    assert_equal 'ColeIsAwesomer', @m_repo.merchants['12334135'].name
+    @i_repo.update('12334135', 'ColeIsAwesomer')
+    assert_equal 'ColeIsAwesomer', @i_repo.items['12334135'].name
   end
 
-  def test_merchant_can_be_deleted
+  def test_item_can_be_deleted
     skip
-    @m_repo.delete('12334135')
-    assert_equal 6, @m_repo.merchants.count
-    assert_equal nil, @m_repo.merchants['12334135']
+    @i_repo.delete('12334135')
+    assert_equal 6, @i_repo.items.count
+    assert_equal nil, @i_repo.items['12334135']
   end
 
 end

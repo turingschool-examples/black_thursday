@@ -7,7 +7,7 @@ class MerchantRepository
   def initialize(csv_parsed_array)
     csv_parsed_array.shift
     attributes = csv_parsed_array.map do |merchant|
-      {id: merchant[0], name: merchant[1]}
+      { id: merchant[0], name: merchant[1] }
     end
     @merchants = create_index(attributes)
   end
@@ -47,7 +47,7 @@ class MerchantRepository
   end
 
   def create(name)
-    new_attributes = {id: create_new_id, name: name}
+    new_attributes = { id: create_new_id, name: name }
     @merchants[new_attributes[:id]] = Merchant.new(new_attributes)
   end
 
