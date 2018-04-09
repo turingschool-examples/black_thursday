@@ -28,7 +28,7 @@ class MerchantRepoTest < Minitest::Test
   end
 
   def test_it_returns_nil_without_name
-    assert_nil mr.find_by_name("Turing School")
+    assert_nil mr.find_by_name('Turing School')
   end
 
   def test_it_finds_one_merchant_by_name
@@ -37,5 +37,12 @@ class MerchantRepoTest < Minitest::Test
 
   def test_it_can_find_all_merchant_by_name
     assert_equal 1, mr.find_all_by_name("Shopin1901").count
+  end
+
+  def test_it_can_create_a_new_merchant_with_attributes
+    assert_equal 475, mr.all.length
+    attrs = {name: 'BreadCo'}
+    mr.create(attrs)
+    assert_equal 476, mr.all.length
   end
 end

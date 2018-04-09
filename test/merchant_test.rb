@@ -5,7 +5,7 @@ class MerchantTest < Minitest::Test
   attr_reader :m
 
   def setup
-    @m = Merchant.new({:id => 5, :name => "Turing School"})
+    @m = Merchant.new({ :id => 5, :name => 'Turing School'})
   end
 
   def test_it_exists
