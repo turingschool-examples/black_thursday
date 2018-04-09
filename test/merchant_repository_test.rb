@@ -1,4 +1,4 @@
-require './test/test_helper'
+ require './test/test_helper'
 require './lib/merchant_repository'
 require 'pry'
 
@@ -39,4 +39,40 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal ['HeadyMamaCreations'], mr.find_all_by_name('headyMamacreations')
     assert_equal ['CJsDecor', 'CJsDecorTEST'], mr.find_all_by_name('cj')
   end
+
+  def test_find_highest_id
+    mr = MerchantRepository.new('./test/fixtures/merchants_truncated.csv')
+
+    assert_equal 6, mr.find_highest_id
+  end
+
+
+  def test_create_new_id
+    mr = MerchantRepository.new('./test/fixtures/merchants_truncated.csv')
+
+    assert_equal 7, mr.create_new_id
+  end
+
+  def test_create
+    mr = MerchantRepository.new('./test/fixtures/merchants_truncated.csv')
+
+    mr.create ({})
+
+    assert_equal 7, mr.all[6].id
+  end
+  #
+  # def test_update
+  #
+  # end
+  #
+  # def test_delete
+  #   mr = MerchantRepository.new('./test/fixtures/merchants_truncated.csv')
+  #
+  #   id = mr.merchants.count + 1
+  #   attributes = ({:name => "IggyPop", :id => id})
+  #   mr.create(attributes)
+  #
+  #   mr.delete(7)
+  #   assert_nil mr.all[6]
+  # end
 end

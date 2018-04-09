@@ -6,8 +6,9 @@ class MerchantRepository
               :merchants
 
   def initialize(path)
-    @path = path
     @merchants = []
+    @path      = path
+    @time      = Time.new
     pack_merchants(path)
   end
 
@@ -40,6 +41,32 @@ class MerchantRepository
       end
     end
     found.compact
+  end
+
+  def find_highest_id
+    merchants.map do |merchant|
+      merchant.id
+    end.max
+  end
+
+  def create_new_id
+    find_highest_id + 1
+  end
+
+  def create(attributes)
+    attributes[:id] = create_new_id
+    attributes[:name] =
+    binding.pry
+    merchants << Merchant.new(attributes)
+  end
+
+  def update(id, name)
+  end
+
+  def delete(id)
+    merchants.delete_if do |merchant|
+      merchant.id == id
+    end
   end
 
 end
