@@ -1,6 +1,6 @@
-# need to build Item Repository 
+# Item Repository
 class ItemRepository
   include Repository
   def initialize
-  end
+  end 
 end

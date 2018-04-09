@@ -1,4 +1,4 @@
-# Merchant- done for now
+# Merchant
 class Merchant
   attr_reader :id,
               :name

@@ -1,4 +1,4 @@
-# done for now
+# frozen_string_literal: true
 
 require 'csv'
 # Runner
