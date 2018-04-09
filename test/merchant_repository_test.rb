@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 require './test/test_helper'
+require './lib/merchant'
 SimpleCov.start
 require './lib/merchant_repository'
-class MerchantRepository < Minitest::Test
+class MerchantRepositoryTest < Minitest::Test
   def setup
     @turing = Merchant.new(id: 1, name: 'Turing School')
     @candisart = Merchant.new(id: 2, name: 'Candisart')
@@ -24,8 +25,8 @@ class MerchantRepository < Minitest::Test
 
   def test_it_returns_all_merchants
     mr = MerchantRepository.new(@merchants)
-    assert_instance_of Array mr.all
-    mr.all? do |merchant|
+    assert_instance_of Array, mr.all
+    mr.all.all? do |merchant|
       assert_instance_of Merchant, merchant
     end
     assert_equal @merchants, mr.all
@@ -50,6 +51,7 @@ class MerchantRepository < Minitest::Test
     assert_nil mr.find_by_name('Zach')
   end
   def test_method_find_by_name_is_case_insensitive
+    skip
     mr = MerchantRepository.new(@merchants)
     assert_equal @turing, mr.find_by_name('Turing School')
     assert_equal @turing, mr.find_by_name('TurRiNg ScHoOl')
@@ -62,10 +64,11 @@ class MerchantRepository < Minitest::Test
     assert_equal [@candisart, @urcase17], actual
     assert_equal [], mr.find_all_by_name('za')
     actual = mr.find_all_by_name('tur')
-    assert_equal [@turing], actual
+    assert_equal [@turing, @miniaturebikez], actual
   end
 
   def test_method_create
+    skip
     mr = MerchantRepository.new(@merchants)
     assert_equal @merchants, mr.all
     mr.create(name: 'NewMerchant')
@@ -74,6 +77,7 @@ class MerchantRepository < Minitest::Test
   end
 
   def test_method_update
+    skip
     mr = MerchantRepository.new(@merchants)
     assert_equal 'Turing School', find_by_id(1)
     mr.update(id: 1, name: 'ZachsMerchant')
@@ -81,6 +85,7 @@ class MerchantRepository < Minitest::Test
   end
 
   def test_method_delete
+    skip
     mr = MerchantRepository.new(@merchants)
     assert_equal 'Turing School'.find_by_id(1)
     mr.delete(1)
