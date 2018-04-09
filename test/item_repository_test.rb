@@ -70,6 +70,38 @@ class ItemRepositoryTest < Minitest::Test
                   'St. Jude Action Figure'], actual
   end
 
+  def test_can_find_items_by_description
+    skip
+    actual = @i_repo.find_all_with_description('acrylic')
+    # results = enumerator to find names
+    assert_equal ['Intricate Sunset', 'Minty Green Knit Crochet Infinity Scarf'], actual
+    # assert result
+  end
+
+  def test_can_find_all_by_price
+    skip
+    actual = @i_repo.find_all_by_price(3.00)
+    # results = enumerator to find names
+    assert_equal ['St. Jude Action Figure'], actual
+    # assert result
+  end
+
+  def test_can_find_all_by_price_in_range
+    skip
+    actual = @i_repo.find_all_by_price(2.00..4.00)
+    # results = enumerator to find names
+    assert_equal ['St. Jude Action Figure'], actual
+    # assert result
+  end
+
+  def test_can_find_all_by_merchant_id
+    skip
+    actual = @i_repo.find_all_by_merchant_id(12334135)
+    # results = enumerator to find names
+    assert_equal ['St. Jude Action Figure'], actual
+    # assert result
+  end
+
   def test_it_can_generate_next_item_id
     expected = '263567476'
     actual = @i_repo.create_new_id
@@ -88,15 +120,15 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_item_can_be_updated
-    @i_repo.update('263567475', { name: 'Roly Poly Coley',
-                                  description: 'Best toy ever.',
-                                  unit_price: 15.00,
-                                  merchant_id: '12334135',
-                                  created_at: '2009-12-09 12:08:04 UTC',
-                                  updated_at: @time})
+    @i_repo.update('263567475', name: 'Roly Poly Coley',
+                                description: 'Best toy ever.',
+                                unit_price: 15.00,
+                                merchant_id: '12334135',
+                                created_at: '2009-12-09 12:08:04 UTC',
+                                updated_at: @time)
     assert_equal 'Roly Poly Coley', @i_repo.items['263567475'].name
   end
-  
+
   def test_item_can_be_deleted
     @i_repo.delete('263567475')
     assert_equal 3, @i_repo.items.count

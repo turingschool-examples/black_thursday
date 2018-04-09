@@ -48,6 +48,30 @@ class ItemRepository
     end.compact
   end
 
+  def find_all_with_description(fragment)
+    @items.values.map do |item|
+      item if item.description.downcase.include?(fragment.downcase)
+    end.compact
+  end
+
+  def find_all_by_price(price)
+    @items.values.map do |item|
+      item if item.unit_price == price
+    end.compact
+  end
+
+  def find_all_by_price_in_range(range)
+    @items.values.map do |item|
+      item if item.unit_price <=> range
+    end.compact
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    @items.values.map do |item|
+      item if item.merchant_id == merchant_id
+    end.compact
+  end
+
   def create_new_id
     highest_id = @items.keys.max
     (highest_id.to_i + 1).to_s
