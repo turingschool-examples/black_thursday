@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 require './test/test_helper'
 require_relative '../lib/merchant'
 
+# :nodoc:
 class MerchantTest < Minitest::Test
   attr_reader :merchant
   def setup
