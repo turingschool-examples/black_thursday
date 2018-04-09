@@ -1,16 +1,39 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/jlivingston1/Turing/1module/black_thursday_final_project/black_thursday/lib/load_file.rb": [
+      "/Users/jlivingston1/Turing/1module/black_thursday_final_project/black_thursday/lib/item.rb": [
+        1,
+        1,
         1,
         null,
         1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
         1,
-        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        null,
         null,
         null
+      ],
+      "/Users/jlivingston1/Turing/1module/black_thursday_final_project/black_thursday/lib/item_repo.rb": [
+
       ]
     },
-    "timestamp": 1523314856
+    "timestamp": 1523316570
   }
 }

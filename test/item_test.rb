@@ -9,14 +9,16 @@ class ItemTest < Minitest::Test
 
   def setup
     @data = {
-            :name        => "Pencil",
-            :description => "You can use it to write things",
-            :unit_price  => BigDecimal.new(10.99,4),
-            :created_at  => Time.now,
-            :updated_at  => Time.now,
-            }
+            :id          => "263395721",
+            :name        => "Disney scrabble frames",
+            :description => "Disney glitter frames ...",
+            :unit_price  => "1350",
+            :merchant_id => "12334185",
+            :created_at  => "2016-01-11 11:51:37 UTC",
+            :updated_at  => "2008-04-02 13:48:57 UTC"}
     @parent = Minitest::Mock.new
-    @item = Item.new(data, parent)  
+    @item = Item.new(data, parent)
+    binding.pry  
   end
  
   def test_it_exists
@@ -24,10 +26,11 @@ class ItemTest < Minitest::Test
   end
 
   def test_item_takes_in_proper_values
-    assert_equal "Pencil", item.name
-    assert_equal "You can use it to write things", item.description
-    assert_equal BigDecimal.new(10.99,4), item.unit_price 
-    assert_equal Time.now, item.created_at
-    assert_equal Time.now, item.updated_at 
+    assert_equal 263395721, item.id
+    assert_equal "Disney scrabble frames", item.name
+    assert_equal "Disney glitter frames ...", item.description
+    assert_equal BigDecimal.new("1350")/100, item.unit_price 
+    assert_equal Time.parse("2016-01-11 11:51:37 UTC"), item.created_at
+    assert_equal Time.parse("2008-04-02 13:48:57 UTC"), item.updated_at 
   end
 end
