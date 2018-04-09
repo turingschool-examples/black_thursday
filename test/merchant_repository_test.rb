@@ -56,7 +56,7 @@ class MerchantRepositoryTest < Minitest::Test
   def test_create
     mr = MerchantRepository.new('./test/fixtures/merchants_truncated.csv')
 
-    mr.create ()
+    mr.create({:id => 5, :name => "Turing School"})
     assert_equal 7, mr.all[6].id
     assert_equal "Turing School", mr.all[6].name
   end
