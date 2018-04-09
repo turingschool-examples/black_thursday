@@ -26,15 +26,11 @@ attr_reader :engine
   end
 
   def merchants_with_high_item_count
-    threshold = average_items_per_merchant + (average_items_per_merchant_standard_deviation * 2)
-
-    # high_count_merchs = []
+    threshold = average_items_per_merchant +
+      (average_items_per_merchant_standard_deviation * 2)
     @engine.merchants.all.find_all do |merchant|
       merch_count = @engine.items.find_all_by_merchant_id(merchant.id).count
       merch_count > threshold
     end
-
-    #find all items.find_all_by_merchant_id
   end
-
 end

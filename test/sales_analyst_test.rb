@@ -31,6 +31,12 @@ class SalesAnalystTest < Minitest::Test
     assert m1_items.count > (2.88 + (3.26 * 2))
     assert_instance_of Merchant, top_sellers[5]
     assert_instance_of Merchant, top_sellers[-1]
-    # assert item count is > (2.88 + (3.26 * 2))
+    refute top_sellers.include?(@sa.engine.merchants.find_by_id(12335009))
+  end
+
+  def test_average_item_price_for_merchant
+    average = @sa.average_item_price_for_merchant(12335009)
+    assert_instance_of BigDecimal, average
+    assert_equal 100, average
   end
 end
