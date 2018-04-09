@@ -27,6 +27,14 @@ class MerchantRepositoryTest < Minitest::Test
   def test_find_by_name
     mr = MerchantRepository.new('./test/fixtures/merchants_truncated.csv')
 
+    assert_nil mr.find_by_name("Buffalo Bill")
+    assert_instance_of Merchant, mr.find_by_name('HeadyMamaCreations')
+    assert_instance_of Merchant, mr.find_by_name('headyMAMACreations')
+  end
+
+  def test_find_all_by_name
+    mr = MerchantRepository.new('./test/fixtures/merchants_truncated.csv')
+
     assert_equal [], mr.find_all_by_name("Buffalo Bill")
     assert_equal ['HeadyMamaCreations'], mr.find_all_by_name('headyMamacreations')
     assert_equal ['CJsDecor', 'CJsDecorTEST'], mr.find_all_by_name('cj')
@@ -53,7 +61,7 @@ class MerchantRepositoryTest < Minitest::Test
 
     assert_equal 7, mr.all[6].id
   end
-  #
+  #  #
   # def test_update
   #
   # end
