@@ -24,4 +24,14 @@ class SalesAnalyst
     end/(numbers_of_item.count - 1)
     Math.sqrt(a).round(2)
   end
+
+  def merchants_with_high_item_count
+    a = average_items_per_merchant  + average_items_per_merchant_standard_deviation
+
+    merchant_repo.merchants.map do |merchant|
+    merchant if merchant.items.count > (a)
+  end.compact
+  end
+
+  def 
 end
