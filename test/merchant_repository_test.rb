@@ -50,11 +50,11 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal @urcase17, mr.find_by_name('urcase17')
     assert_nil mr.find_by_name('Zach')
   end
+
   def test_method_find_by_name_is_case_insensitive
-    skip
     mr = MerchantRepository.new(@merchants)
-    assert_equal @turing, mr.find_by_name('Turing School')
-    assert_equal @turing, mr.find_by_name('TurRiNg ScHoOl')
+    assert_equal @turing, mr.find_by_name('turing school')
+    assert_equal @turing, mr.find_by_name('TuRinG ScHooL')
   end
 
   # returns a hash of all merchants which contain a name substring
@@ -68,12 +68,18 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_method_create
-    skip
     mr = MerchantRepository.new(@merchants)
     assert_equal @merchants, mr.all
-    mr.create(name: 'NewMerchant')
+    mr.create('NewMerchant')
     # tests new merchant creation and tests that new merchants have iterated id
-    assert_equal mr.find_by_id(6).name, 'NewMerchant'
+    assert_equal 'NewMerchant', mr.find_by_name('NewMerchant').name
+  end
+
+  def test_method_create_makes_new_id_by_incrementing_highest_id
+    mr = MerchantRepository.new(@merchants)
+    assert_equal @merchants, mr.all
+    mr.create('NewMerchant')
+    assert_equal 6, mr.find_by_name('NewMerchant').id
   end
 
   def test_method_update
