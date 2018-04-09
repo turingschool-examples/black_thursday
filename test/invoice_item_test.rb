@@ -38,4 +38,24 @@ class InvoiceItemTest < Minitest::Test
   def test_invoice_item_exists
     assert_instance_of InvoiceItem, @invoice_item
   end
+
+  def test_it_intializes_with_item_spec_hash
+    assert_instance_of Hash, invoice_item.invoice_items_specs
+  end
+
+  def test_it_initializes_with_parent
+    assert_equal MockInvoiceItemRepo, invoice_item.parent.class
+  end
+
+  def test_it_returns_integer_id
+    assert_equal 1, invoice_item.id
+  end
+
+  def test_it_returns_items_id
+    assert_equal 263519844, invoice_item.item_id
+  end
+
+  def test_it_returns_invoice_id
+    assert_equal 1, invoice_item.invoice_id
+  end
 end

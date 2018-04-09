@@ -6,7 +6,7 @@ require 'time'
 
 # Processes invoices for individual items
 class InvoiceItem
-  attr_reader :invoice_item_specs,
+  attr_reader :invoice_items_specs,
               :parent
 
   def initialize(invoice_items, parent)
@@ -20,5 +20,17 @@ class InvoiceItem
       updated_at:             invoice_items[:updated_at]
     }
     @parent = parent
+  end
+
+  def id
+    invoice_items_specs[:id]
+  end
+
+  def item_id
+    invoice_items_specs[:item_id]
+  end
+
+  def invoice_id
+    invoice_items_specs[:invoice_id]
   end
 end
