@@ -1,38 +1,46 @@
 # frozen_string_literal: true
 
-require 'simplecov'
-SimpleCov.start
-require 'minitest'
-require 'minitest/emoji'
-require 'minitest/autorun'
-require 'mocha/mini_test'
-require 'time'
+require './lib/file_loader.rb'
 require './lib/item.rb'
 require './lib/item_repository.rb'
-require './lib/file_loader.rb'
+require 'minitest'
+require 'minitest/autorun'
+require 'minitest/emoji'
+require 'mocha/mini_test'
+require 'ostruct'
 require 'pry'
+require 'simplecov'
+SimpleCov.start
+require 'time'
 
+# Provides an API of item repo for testing item class.
+class MockItemRepository
+  def find_merchant_by_merchant_id(_merchant_id)
+    OpenStruct.new(name: 'Shopin1901', id: 12334185)
+  end
+end
 # Tests item class and functionality of methods.
 class ItemTest < Minitest::Test
-  attr_reader :item,
-              :parent
+  ITEM_BODY = {
+    id: '263395721',
+    name: 'Disney scrabble frames',
+    description: 'Disney glitter frames
+    Any colour glitter available and can do any characters you require
+    Different colour scrabble tiles
+    Blue
+    Black
+    Pink
+    Wooden',
+    unit_price: '1350',
+    merchant_id: '12334185',
+    created_at: '2016-01-11 11:51:37 UTC',
+    updated_at: '2008-04-02 13:48:57 UTC'
+  }.freeze
+
+  attr_reader :item
 
   def setup
-    @item = Item.new(
-      { id: '263395721',
-        name: 'Disney scrabble frames',
-        description: 'Disney glitter frames
-        Any colour glitter available and can do any characters you require
-        Different colour scrabble tiles
-        Blue
-        Black
-        Pink
-        Wooden',
-        unit_price: '1350',
-        merchant_id: '12334185',
-        created_at: '2016-01-11 11:51:37 UTC',
-        updated_at: '2008-04-02 13:48:57 UTC' }, @parent
-    )
+    @item = Item.new(ITEM_BODY, MockItemRepository.new)
   end
 
   def test_item_exists
@@ -44,10 +52,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_initializes_with_parent
-    @parent = mock('ItemRepository')
-    @parent.expects(:class).returns(ItemRepository)
-
-    assert_equal ItemRepository, parent.class
+    assert_equal MockItemRepository, item.parent.class
   end
 
   def test_it_returns_items_id
@@ -60,7 +65,7 @@ class ItemTest < Minitest::Test
 
   def test_it_returns_items_description_with_length
     assert_instance_of String, item.description
-    assert_equal 191, item.description.length
+    assert_equal 167, item.description.length
   end
 
   def test_it_returns_items_merchant_id
@@ -87,14 +92,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_finds_merchant_by_merchant_id
-    skip
-    @parent = mock('ItemRepository')
-    @parent.expects(:merchant_name).returns('Shopin1901')
-    @parent.expects(:merchant_id).returns(12334185)
-    allow(@parent).to recieve(:find_merchant_by_merchant_id).with(merchant_id)
-
-    assert_equal 'Shopin1901', @parent.merchant_name
-    assert_equal 12334185, @parent.merchant_id
-    assert_equal 'Shopin1901', item.merchant
+    assert_equal 'Shopin1901', item.merchant.name
+    assert_equal 12334185, item.merchant.id
   end
 end
