@@ -11,7 +11,7 @@ class Item
 
   def initialize(item_hash = Hash.new(0))
     sigdigits    = item_hash[:unit_price].to_s.length - 1
-    @id          = item_hash[:id]
+    @id          = item_hash[:id].to_i
     @name        = item_hash[:name]
     @description = item_hash[:description]
     @unit_price  = BigDecimal(item_hash[:unit_price], sigdigits)
