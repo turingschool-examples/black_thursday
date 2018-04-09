@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 require_relative '../lib/item'
-require_relative '../lib/item_repository'
+require_relative '../lib/item_repo'
 
 class ItemTest < Minitest::Test
     attr_reader :data,
@@ -18,7 +18,7 @@ class ItemTest < Minitest::Test
     @parent = Minitest::Mock.new
     @item = Item.new(data, parent)  
   end
-
+ 
   def test_it_exists
     assert_instance_of Item, item
   end
