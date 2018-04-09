@@ -3,8 +3,7 @@ require './lib/item'
 
 class ItemTest < Minitest::Test
   def setup
-    id: '263414049, name 'Snow fallen',"Snow fallen
-10&quot;x10&quot;
+    id: '263414049, name 'Snow fallen',"Snow fallen 10&quot;x10&quot;
 Oil on canvas",50000,12334895,2016-01-11 15:21:02 UTC,1999-09-26 18:42:40 UTC'
   end
 
