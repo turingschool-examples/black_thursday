@@ -58,13 +58,9 @@ class MerchantRepository
     merchants << Merchant.new(attributes)
   end
 
-  def update(id, name)
-  end
-
   def delete(id)
     merchants.delete_if do |merchant|
       merchant.id == id
     end
   end
-
 end
