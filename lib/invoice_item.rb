@@ -49,4 +49,8 @@ class InvoiceItem
   def updated_at
     Time.parse(invoice_items_specs[:updated_at])
   end
+
+  def unit_price_to_dollars
+    invoice_items_specs[:unit_price]
+  end
 end

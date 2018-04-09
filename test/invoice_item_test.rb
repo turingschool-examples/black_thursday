@@ -78,4 +78,8 @@ class InvoiceItemTest < Minitest::Test
     expected = Time.parse('2012-03-27 14:54:09 UTC')
     assert_equal expected, invoice_item.updated_at
   end
+
+  def test_it_has_unit_price_to_dollars
+    assert_equal 136.35, invoice_item.unit_price_to_dollars
+  end
 end
