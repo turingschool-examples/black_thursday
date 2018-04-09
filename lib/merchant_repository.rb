@@ -32,6 +32,7 @@ class MerchantRepository
   def find_by_name(name)
     @merchants.values.each do |merchant|
       return merchant if merchant.name.casecmp(name).zero?
+      return nil
     end
   end
 
