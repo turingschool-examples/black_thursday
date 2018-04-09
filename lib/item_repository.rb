@@ -84,10 +84,12 @@ class ItemRepository
   end
 
   def update(id, attributes)
-    @items[id].name = attributes[:name] if attributes[:name]
-    @items[id].description = attributes[:description] if attributes[:description]
-    @items[id].unit_price = attributes[:unit_price] if attributes[:unit_price]
-    @items[id].updated_at = Time.now
+    if @items[id]
+      @items[id].name = attributes[:name] if attributes[:name]
+      @items[id].description = attributes[:description] if attributes[:description]
+      @items[id].unit_price = attributes[:unit_price] if attributes[:unit_price]
+      @items[id].updated_at = Time.now
+    end
   end
 
   def delete(id)
