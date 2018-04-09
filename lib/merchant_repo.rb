@@ -28,4 +28,10 @@ class MerchantRepo
       merchant.name.downcase == name.downcase
     end
   end
+
+  def find_all_by_name(name)
+    all.find_all do |merchant|
+      merchant.name.downcase.include?(name.downcase)
+    end
+  end
 end
