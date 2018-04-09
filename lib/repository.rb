@@ -1,7 +1,8 @@
 # Shared methods for searching repository classes
 class Repository
-  def initialize(collection)
+  def initialize(collection, klass)
     @collection = collection
+    @klass = klass
   end
 
   def create_index(data_type, attributes)
@@ -16,6 +17,39 @@ class Repository
     @collection.values
   end
 
-  # def find_by_id(id)
-  # end
+  def find_by_id(id)
+    @collection[id]
+  end
+
+  def find_by_name(name)
+    result = nil
+    @collection.values.each do |thing|
+      result = thing if thing.name.casecmp(name).zero?
+    end
+    result
+  end
+
+  def find_all_by_name(fragment)
+    @collection.values.map do |thing|
+      thing if thing.name.downcase.include?(fragment.downcase)
+    end.compact
+  end
+
+  def create_new_id
+    highest_id = @collection.keys.max
+    (highest_id.to_i + 1)
+  end
+
+  def create(attributes)
+    attributes[:id] = create_new_id
+    @collection[attributes[:id]] = @klass.new(attributes)
+  end
+
+  def delete(id)
+    @collection.delete(id)
+  end
+
+  def inspect
+    "#<#{self.class} #{@collection.size} rows>"
+  end
 end

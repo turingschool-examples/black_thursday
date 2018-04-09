@@ -17,25 +17,7 @@ class ItemRepository < Repository
         updated_at: Time.parse(item[6]) }
     end
     @items = create_index(Item, attributes)
-    super(items)
-  end
-
-  def find_by_id(id)
-    @items[id]
-  end
-
-  def find_by_name(name)
-    result = nil
-    @items.values.each do |item|
-      result = item if item.name.casecmp(name).zero?
-    end
-    result
-  end
-
-  def find_all_by_name(fragment)
-    @items.values.map do |item|
-      item if item.name.downcase.include?(fragment.downcase)
-    end.compact
+    super(items, Item)
   end
 
   def find_all_with_description(fragment)
@@ -62,16 +44,6 @@ class ItemRepository < Repository
     end.compact
   end
 
-  def create_new_id
-    highest_id = @items.keys.max
-    (highest_id.to_i + 1)
-  end
-
-  def create(attributes)
-    attributes[:id] = create_new_id
-    @items[attributes[:id]] = Item.new(attributes)
-  end
-
   def update(id, attributes)
     if @items[id]
       @items[id].name = attributes[:name] if attributes[:name]
@@ -79,13 +51,5 @@ class ItemRepository < Repository
       @items[id].unit_price = attributes[:unit_price] if attributes[:unit_price]
       @items[id].updated_at = Time.now
     end
-  end
-
-  def delete(id)
-    @items.delete(id)
-  end
-
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
   end
 end
