@@ -1,5 +1,8 @@
 module Repository
   attr_reader :elements
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 
   def from_csv(csv) # module
     records = CSV.read(csv, headers: true)
@@ -72,8 +75,8 @@ module Repository
     element = find_by_id(id)
     element.attributes[:name] = attributes[:name] if attributes[:name]
     element.attributes[:description] = attributes[:description] if attributes[:description]
-    element.attributes[:unit_price] = attributes[:unit_price] if attributes[:unit_price]
-    element.attributes[:updated_at] = Time.now
+    element.attributes[:unit_price] = attributes[:unit_price] * 100 if attributes[:unit_price]
+    element.attributes[:updated_at] = Time.now if attributes[:updated_at]
   end
 
   def delete(id)

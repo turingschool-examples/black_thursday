@@ -14,7 +14,8 @@ module Element
   end
 
   def unit_price
-    @attributes[:unit_price]
+    price = @attributes[:unit_price].to_i
+    BigDecimal.new(price)/100
   end
 
   def created_at
@@ -30,6 +31,6 @@ module Element
   end
 
   def unit_price_to_dollars
-    @attributes[:unit_price].to_f
+    @attributes[:unit_price].to_f/100
   end
 end

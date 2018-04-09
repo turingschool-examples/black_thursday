@@ -82,12 +82,12 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_find_all_by_price
     @ir.from_csv('./data/items.csv')
-    items = @ir.find_all_by_price(399)
+    items = @ir.find_all_by_price(3.99)
     assert_instance_of Array, items
     find = @ir.find_by_id(263397163)
     assert items.include?(find)
 
-    items2 = @ir.find_all_by_price(5000)
+    items2 = @ir.find_all_by_price(50.00)
     assert_instance_of Array, items2
     find = @ir.find_by_id(263399749)
     find2 = @ir.find_by_id(263399825)
@@ -102,12 +102,12 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_find_all_by_price_in_range
     @ir.from_csv('./data/items.csv')
-    items = @ir.find_all_by_price_in_range(390..400)
+    items = @ir.find_all_by_price_in_range(3.90..4.00)
     assert_instance_of Array, items
     find = @ir.find_by_id(263397163)
     assert items.include?(find)
 
-    items2 = @ir.find_all_by_price_in_range(4750..5010)
+    items2 = @ir.find_all_by_price_in_range(47.50..50.10)
     assert_instance_of Array, items2
     find = @ir.find_by_id(263399749)
     find2 = @ir.find_by_id(263399825)
