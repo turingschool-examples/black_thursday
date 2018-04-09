@@ -46,6 +46,7 @@ class ItemTest < Minitest::Test
   def test_it_initializes_with_parent
     @parent = mock('ItemRepository')
     @parent.expects(:class).returns(ItemRepository)
+
     assert_equal ItemRepository, parent.class
   end
 
