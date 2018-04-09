@@ -1,3 +1,4 @@
+require 'bigdecimal'
 class SalesAnalyst
 attr_reader :engine
 
@@ -26,7 +27,7 @@ attr_reader :engine
 
   def merchants_with_high_item_count
     threshold = average_items_per_merchant +
-      (average_items_per_merchant_standard_deviation * 2)
+      (average_items_per_merchant_standard_deviation * 1)
     @engine.merchants.all.find_all do |merchant|
       merch_count = @engine.items.find_all_by_merchant_id(merchant.id).count
       merch_count > threshold
