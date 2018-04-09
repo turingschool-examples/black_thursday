@@ -70,4 +70,32 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal 16.66, sales_analyst.average_item_price_for_merchant(12334105)
   end
+
+  def test_it_can_calculate_average_average_price_per_merchant
+    se = SalesEngine.new({:items=> './test/items.csv',:merchants => './data/merchants.csv'})
+    sales_analyst = SalesAnalyst.new(se)
+
+    assert_equal 350.29, sales_analyst.average_average_price_per_merchant
+  end
+
+  def test_it_can_find_average_price_of_items
+    se = SalesEngine.new({:items=> './test/items.csv',:merchants => './data/merchants.csv'})
+    sales_analyst = SalesAnalyst.new(se)
+
+    assert_equal 251.06, sales_analyst.average_price_of_items
+  end
+
+  def test_it_can_find_standard_deviation_for_item_price
+    se = SalesEngine.new({:items=> './test/items.csv',:merchants => './data/merchants.csv'})
+    sales_analyst = SalesAnalyst.new(se)
+
+    assert_equal 2900.99, sales_analyst.standard_deviation_for_item_price
+  end
+
+  def test_it_can_find_golden_items
+    se = SalesEngine.new({:items=> './test/items.csv',:merchants => './data/merchants.csv'})
+    sales_analyst = SalesAnalyst.new(se)
+
+    assert_equal 5, sales_analyst.golden_items.count
+  end
 end
