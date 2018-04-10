@@ -72,11 +72,10 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal expected, actual
   end
 
-  # def test_it_can_delete
-  #   expected = nil
-  #   @t.delete(9)
-  #   actual = @t.find_by_id(9)
-  #
-  #   assert_equal expected, actual
-  # end
+  def test_it_can_delete
+    @t.delete(9)
+    actual = @t.find_by_id(9)
+
+    assert_nil actual
+  end
 end
