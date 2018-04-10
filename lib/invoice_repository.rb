@@ -63,10 +63,10 @@ class InvoiceRepository
   def update(id, attributes)
     return nil if find_by_id(id).nil?
     to_update = find_by_id(id)
-    to_update.updated_at = Time.now.strftime('%F')
-    to_update.status = attributes[:status].to_sym
-    to_update.merchant_id = attributes[:merchant_id]
-    to_update.customer_id = attributes[:customer_id]
+    to_update.update_updated_time
+    to_update.update_status(attributes[:status].to_sym) if attributes.keys.include?(:status)
+    to_update.update_merchant_id(attributes[:merchant_id]) if attributes.keys.include?(:merchant_id)
+    to_update.update_customer_id(attributes[:customer_id]) if attributes.keys.include?(:customer_id)
   end
 
   def delete(id)

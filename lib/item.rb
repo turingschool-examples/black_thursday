@@ -4,11 +4,12 @@ class Item
   attr_reader :id,
               :created_at,
               :merchant_id,
-              :item_repo
-  attr_accessor :name,
-                :description,
-                :unit_price,
-                :updated_at
+              :item_repo,
+              :name,
+              :description,
+              :unit_price,
+              :updated_at
+
   def initialize(data, item_repo)
     @id = data[:id].to_i
     @name = data[:name]
@@ -26,5 +27,21 @@ class Item
 
   def merchant
     item_repo.sales_engine.merchants.find_by_id(merchant_id)
+  end
+
+  def update_updated_at
+    @updated_at = Time.now
+  end
+
+  def update_name(name)
+    @name = name
+  end
+
+  def update_description(description)
+    @description = description
+  end
+
+  def update_unit_price(price)
+    @unit_price = price
   end
 end

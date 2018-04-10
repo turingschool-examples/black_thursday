@@ -2,9 +2,9 @@
 class Merchant
   attr_reader :id,
               :created_at,
-              :merchant_repo
-  attr_accessor :name,
-                :updated_at
+              :merchant_repo,
+              :name,
+              :updated_at
   def initialize(data, merchant_repo)
     @id = data[:id].to_i
     @name = data[:name]
@@ -19,5 +19,13 @@ class Merchant
 
   def invoices
     merchant_repo.sales_engine.invoices.find_all_by_merchant_id(id)
+  end
+
+  def change_update_time
+    @updated_at = Time.now.strftime('%F')
+  end
+
+  def change_name(name)
+    @name  = name
   end
 end

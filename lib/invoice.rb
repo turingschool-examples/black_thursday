@@ -2,12 +2,13 @@ require 'time'
 
 class Invoice
   attr_reader :id,
+              :customer_id,
+              :merchant_id,
+              :status,
               :created_at,
+              :updated_at,
               :invoice_repo
-  attr_accessor :status,
-                :updated_at,
-                :customer_id,
-                :merchant_id
+
 
   def initialize(data, invoice_repo)
     @invoice_repo = invoice_repo
@@ -22,4 +23,21 @@ class Invoice
   def merchant
     invoice_repo.sales_engine.merchants.find_by_id(merchant_id)
   end
+
+  def update_updated_time
+    @updated_time = Time.now.strftime('%F')
+  end
+
+  def update_status(status)
+    @status = status
+  end
+
+  def update_merchant_id(id)
+    @merchant_id = id
+  end
+
+  def update_customer_id(id)
+    @customer_id = id
+  end
+
 end
