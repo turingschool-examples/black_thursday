@@ -146,4 +146,14 @@ class SalesAnalyst
     average = average_days(days)
     standard_deviation(days.values, average, 0)
   end
+
+  def invoice_status(status)
+    statuses = @engine.invoices.all.group_by do |invoice|
+      invoice.status
+    end
+    mapped_statuses = statuses.map do |status, invoices|
+      [status, invoices.count]
+    end.to_h
+    ((mapped_statuses[status].to_f / @engine.invoices.all.count.to_f) * 100).round(2)
+  end
 end
