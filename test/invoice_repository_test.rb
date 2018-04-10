@@ -13,7 +13,7 @@ class InvoiceRepositoryTest < Minitest::Test
     @new_invoice = @inv_repo.create(
       customer_id: '7',
       merchant_id: '12334105',
-      status: 'pending',
+      status: :pending,
       created_at: '2009-12-09 12:08:04 UTC',
       updated_at: '2010-12-09 12:08:04 UTC'
     )
@@ -78,9 +78,9 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_can_find_all_by_status
-    actual_pending = @inv_repo.find_all_by_status('pending')
-    actual_shipped = @inv_repo.find_all_by_status('shipped')
-    actual_returned = @inv_repo.find_all_by_status('returned')
+    actual_pending = @inv_repo.find_all_by_status(:pending)
+    actual_shipped = @inv_repo.find_all_by_status(:shipped)
+    actual_returned = @inv_repo.find_all_by_status(:returned)
     assert_instance_of Invoice, actual_pending[0]
     assert_instance_of Invoice, actual_shipped[0]
     assert_instance_of Invoice, actual_returned[0]
@@ -103,6 +103,7 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 13, @inv_repo.invoices.count
     assert_equal 7, @inv_repo.invoices[38].customer_id
     assert_equal 12334105, @inv_repo.invoices[38].merchant_id
+    assert_equal :pending, @inv_repo.invoices[38].status
     assert_equal '2009-12-09 12:08:04 UTC', @inv_repo.invoices[38].created_at
     assert_equal '2010-12-09 12:08:04 UTC', @inv_repo.invoices[38].updated_at
   end
