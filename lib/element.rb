@@ -57,6 +57,7 @@ module Element
     @engine.merchants.find_by_id(merchant_id)
   end
 
-  def invoices #return the [invoices] of a merchant
+  def invoices
+    @engine.invoices.find_all_by_merchant_id(id)
   end
 end
