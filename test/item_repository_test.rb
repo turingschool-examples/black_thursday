@@ -1,3 +1,5 @@
+require 'time'
+require 'timecop'
 require_relative 'test_helper'
 require './lib/item_repository'
 require 'pry'
@@ -63,13 +65,15 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 263396210, @ir.create_new_id
   end
 
-  def test_create
+  def test_create_item
+    Timecop.freeze
+    time = Time.now.to_s
     assert_equal 263396210, @ir.create_new_id
 
     @ir.create({
                   :name        => 'Pencil',
                   :description => 'You can use it to write things',
-                  :unit_price  => BigDecimal.new(10.99,4),
+                  :unit_price  => BigDecimal.new(10.99, 4),
                   :created_at  => '1995-03-19 10:02:43 UTC',
                   :updated_at  => '1995-03-19 10:02:43 UTC',
                 })
@@ -77,18 +81,38 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 263396210, @ir.items.last.id
     assert_equal 'Pencil', @ir.items.last.name
     assert_equal 'You can use it to write things', @ir.items.last.description
+    assert_equal time, @ir.items.last.created_at
+    Timecop.return
   end
 
   def test_update_item
-    
+    attributes = ({
+                    :name        => 'Pencil',
+                    :description => 'You can use it to write things',
+                    :unit_price  => BigDecimal.new(10.99,4),
+                    :created_at  => '1995-03-19 10:02:43 UTC',
+                    :updated_at  => '1995-03-19 10:02:43 UTC',
+                  })
+
+    to_update = @ir.find_by_id(263396209)
+
+    assert_equal 'Vogue Paris Original Givenchy 2307', to_update.name
+    assert_equal 29.99, to_update.unit_price
+
+    @ir.update(263396209, attributes)
+
+    assert_equal 'Pencil', to_update.name
+    assert_equal 10.99, to_update.unit_price
   end
 
   def test_delete_item
-    binding.pry
+    found = @ir.find_by_id(1)
+
     assert_equal 5, @ir.items.count
 
     @ir.delete(1)
 
+    assert_nil @ir.find_by_id(1)
     assert_equal 4, @ir.items.count
   end
 end
