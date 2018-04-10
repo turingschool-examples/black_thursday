@@ -17,8 +17,8 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_loads_csv_data
-    assert_instance_of ItemRepository, @se.items
-    assert_instance_of MerchantRepository, @se.merchants
+    assert_instance_of ItemRepository, @se.item_repository
+    assert_instance_of MerchantRepository, @se.merchant_repository
   end
 
   def test_it_can_access_items

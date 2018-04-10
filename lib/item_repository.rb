@@ -11,6 +11,10 @@ class ItemRepository
     @items = []
   end
 
+  def all
+    @items
+  end
+
   def find_by_id(id)
     @items.find { |item| item.id == id }
   end
@@ -68,10 +72,6 @@ class ItemRepository
   def delete(id)
     to_delete = find_by_id(id)
     @items.delete(to_delete)
-  end
-
-  def inspect
-    "#<#{self.class} #{@items.size} rows>"
   end
 
   def inspect
