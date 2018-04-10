@@ -27,12 +27,9 @@ class MerchantRepository
   end
 
   def find_all_by_name(name)
-    found = merchants.map do |merchant|
-      if merchant.name.downcase.include?(name.downcase)
-        merchant.name
-      end
-    end
-    found.compact
+    @merchants.find_all do |merchant|
+      merchant.name.downcase.include?(name.downcase)
+    end.compact
   end
 
   def find_highest_id
@@ -48,10 +45,14 @@ class MerchantRepository
     merchants << Merchant.new(attributes)
   end
 
+  def change_name(name)
+    @name = name
+  end
+
   def update(id, attributes)
-    delete(id)
-    attributes[:id] = id
-    merchants << Merchant.new(attributes)
+    return nil if find_by_id(id).nil?
+    found = find_by_id(id)
+    found.change_name(attributes[:name])
   end
 
   def delete(id)

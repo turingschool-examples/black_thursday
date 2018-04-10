@@ -37,17 +37,10 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_name
-<<<<<<< HEAD
-    mr = MerchantRepository.new('./test/fixtures/merchants_truncated.csv')
-
-    # assert_equal [], mr.find_all_by_name("Buffalo Bill")
-    assert_equal ['HeadyMamaCreations'], mr.find_all_by_name('headyMamacreations')
-    assert_equal ['CJsDecor', 'CJsDecorTEST'], mr.find_all_by_name('cj')
-=======
+    skip
     assert_equal [], @mr.find_all_by_name('Buffalo Bill')
     assert_equal ['HeadyMamaCreations'], @mr.find_all_by_name('headyMamacreations')
     assert_equal ['CJsDecor', 'CJsDecorTEST'], @mr.find_all_by_name('cj')
->>>>>>> f964923b7d19eee6a4ad3933e2abeda8c3b643fb
   end
 
   def test_find_highest_id
@@ -65,8 +58,13 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_update
+    found = @mr.find_by_id(1)
+    assert_equal 'HeadyMamaCreations', found.name
+    assert_equal 1, found.id
     @mr.update(1, {:name => 'FuzzysBuzzMachine'})
-    assert_equal 'FuzzysBuzzMachine', @mr.find_by_id(1).name
+    assert_equal 'FuzzysBuzzMachine', found.name
+    assert_equal 1, found.id
+    assert_nil @mr.update(64, {:name => "felbert"})
   end
 
   def test_delete
