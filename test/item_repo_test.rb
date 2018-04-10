@@ -3,9 +3,17 @@ require_relative '../lib/item'
 require_relative '../lib/item_repo'
 
 class ItemRepoTest < Minitest::Test
-    attr_reader :parent, :item_repo
+    attr_reader :parent, :item_repo, :attrs
    
     def setup
+        @attrs = {
+            :id          => "263395721",
+            :name        => "Disney scrabble frames",
+            :description => "Disney glitter frames ...",
+            :unit_price  => "1350",
+            :merchant_id => "12334185",
+            :created_at  => "2016-01-11 11:51:37 UTC",
+            :updated_at  => "2008-04-02 13:48:57 UTC"}
         data = LoadFile.load('./test/fixture_data/item_repo_fixture.csv')
         @parent = Minitest::Mock.new
         @item_repo = ItemRepo.new(data, parent)
@@ -76,4 +84,16 @@ class ItemRepoTest < Minitest::Test
         merchant = item_repo.find_merchant_by_merchant_id(merchant_id)
         assert_equal "merchant", merchant
     end
+
+    def test_it_can_find_item_with_max_id
+        max_id = item_repo.find_max_id
+        assert_equal 263396013, max_id
+    end
+
+    def test_it_can_create_new_item
+        new_item = item_repo.create(attrs)
+        assert_instance_of Item, new_item
+    end
+
+
 end
