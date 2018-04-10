@@ -21,6 +21,18 @@ class InvoiceItemRepository
   end
 
   def find_all_by_item_id(item_id)
-    @repository.find { |invoice_item| if invoice_item.item_id == item_id }
+    invoice_items = @repository.find_all do |invoice_item|
+      invoice_item.item_id == item_id
+    end
+    return [] if invoice_items.nil?
+    invoice_items
+  end
+
+  def create(attributes)
+    id_array = @repository.map(&:id)
+    new_id = id_array.max + 1
+    attributes[:id] = new_id.to_s
+    @repository << InvoiceItem.new(attributes, self)
+    binding.pry
   end
 end
