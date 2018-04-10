@@ -17,23 +17,24 @@
         null,
         null,
         1,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
         null,
         null,
         null
       ],
       "/Users/jlivingston1/Turing/1module/black_thursday_final_project/black_thursday/lib/item_repo.rb": [
-
+        1,
+        null
       ]
     },
-    "timestamp": 1523316570
+    "timestamp": 1523321048
   }
 }

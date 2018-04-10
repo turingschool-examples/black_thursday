@@ -18,7 +18,6 @@ class ItemTest < Minitest::Test
             :updated_at  => "2008-04-02 13:48:57 UTC"}
     @parent = Minitest::Mock.new
     @item = Item.new(data, parent)
-    binding.pry  
   end
  
   def test_it_exists
@@ -33,4 +32,14 @@ class ItemTest < Minitest::Test
     assert_equal Time.parse("2016-01-11 11:51:37 UTC"), item.created_at
     assert_equal Time.parse("2008-04-02 13:48:57 UTC"), item.updated_at 
   end
+
+  def test_item_has_correct_parent
+    parent.expect(:class, ItemRepo)
+    assert_equal ItemRepo, item.parent.class
+  end
+
+  def test_item_knows_its_merchant
+    skip
+  end
+  
 end
