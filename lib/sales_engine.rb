@@ -5,11 +5,13 @@ require_relative 'item_repo'
 class SalesEngine
   attr_accessor :items, :merchants
 
-  def initialize()
-    @items = ItemRepo.new
-    @merchants = MerchantRepo.new
+  def self.from_csv(hash)
+    new(hash)
   end
 
-  def self.from_csv(gtbwkejbn)
+  def initialize(hash)
+    @items = ItemRepo.new
+    @merchants = MerchantRepo.new(hash[:merchants])
+
   end
 end

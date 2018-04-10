@@ -49,8 +49,15 @@ class MerchantRepo
 
   def update(id, attrs)
     merchant = find_by_id(id)
-    merchant.name = attrs[:name]
-    merchant.updated_at = Time.now.strftime("%Y-%m-%d")
+    if merchant == nil
+      return nil
+      # this elsif block may be unnecessary may be able to use original update
+    elsif attrs.key?(:id) == true
+      return nil
+    else
+      merchant.name = attrs[:name]
+      merchant.updated_at = Time.now.strftime("%Y-%m-%d")
+    end
   end
 
   def delete(id)
