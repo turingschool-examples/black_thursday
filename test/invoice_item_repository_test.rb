@@ -45,22 +45,34 @@ class InvoiceItemRepositorytest < Minitest::Test
     assert_equal [], expected
   end
 
-  def test_it_finds_invoice_item_by_invoice_id
+  def test_it_finds_invoice_item_by_item_id
     expected = invoice_items.find_all_by_item_id(263519844)
 
     assert_equal 263519844, expected.first.item_id
   end
 
+  def test_it_returns_empty_array_for_invalid_invoice_item_by_invoice_id
+    expected = invoice_items.find_all_by_invoice_id(8)
+
+    assert_equal [], expected
+  end
+
+  def test_it_finds_invoice_item_by_invoice_id
+    expected = invoice_items.find_all_by_invoice_id(1)
+
+    assert_equal 1, expected.first.invoice_id
+  end
+
   def test_it_can_create_a_new_invoice_item_with_attributes
     expected = invoice_items.create({
-      id: '8',
+      item_id: '2534536',
       invoice_id: '8',
       quantity: '5',
       unit_price: '199',
       created_at: '2012-03-27 12:54:09 UTC',
       updated_at: '2012-03-27 12:54:09 UTC' })
 
-    assert_equal 4, expected.id
+    assert_equal 4, expected.last.id
     assert_equal 4, invoice_items.all.length
   end
 end
