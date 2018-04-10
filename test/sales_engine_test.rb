@@ -1,13 +1,14 @@
-frozen_string_literal:true
+# frozen_string_literal: true
 
 require_relative 'test_helper'
 require './lib/sales_engine'
 
+# This is a SalesEngineTest Class
 class SalesEngineTest < Minitest::Test
   def setup
-    @se = SalesEngine.from_csv( { :items     => './data/items.csv',
+    @se = SalesEngine.from_csv({  :items     => './data/items.csv',
                                   :merchants => './data/merchants.csv',
-                                } )
+                                })
   end
 
   def test_it_exists

@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 require 'time'
 require 'bigdecimal'
 
+# This is an Item Class
 class Item
   attr_reader :id,
               :merchant_id,

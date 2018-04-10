@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
 require_relative 'test_helper'
 require './lib/item'
+
+# This is an ItemTest Class
 class ItemTest < Minitest::Test
   def setup
     @data = { id: 1,
@@ -65,10 +69,5 @@ class ItemTest < Minitest::Test
     item = Item.new(@data)
 
     assert_equal 12, item.unit_price
-  end
-
-  def test_create_with_attributes
-
-
   end
 end

@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
 require 'csv'
 require_relative 'item'
+
+# This is an ItemRepositoryTest class
 class ItemRepository
   attr_reader :items
 
@@ -49,9 +53,7 @@ class ItemRepository
   end
 
   def find_highest_id
-    @items.map do |item|
-      item.id
-    end.max
+    @items.map(&:id).max
   end
 
   def create_new_id
