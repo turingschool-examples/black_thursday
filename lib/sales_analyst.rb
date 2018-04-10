@@ -22,9 +22,8 @@ class SalesAnalyst
 
   def average_items_per_merchant_standard_deviation
     ipm = items_per_merchant.values.sort
-    avg = average_items_per_merchant
     array = ipm.map do |items_per_merch|
-      (items_per_merch - avg)**2
+      (items_per_merch - average_items_per_merchant)**2
     end
 
     variance = array.inject(0) do |sum, num|
@@ -39,10 +38,7 @@ class SalesAnalyst
     std_dev = average_items_per_merchant_standard_deviation
     avg = average_items_per_merchant
     items_per_merchant.map do |id, num_of_items|
-      if num_of_items >= avg + std_dev
-        result = @engine.merchants.find_by_id(id)
-      end
-      result
+      @engine.merchants.find_by_id(id) if num_of_items >= avg + std_dev
     end.compact
   end
 
@@ -61,5 +57,23 @@ class SalesAnalyst
       average_item_price_for_merchant(merchant.id)
     end
     all_averages.inject(:+) / all_averages.count
+  end
+
+  def average_item_price
+    total_items = @engine.items.all.count
+    all_item_prices = @engine.items.all.map(&:unit_price)
+    all_item_prices.inject(:+) / total_items
+  end
+
+  def average_item_price_standard_deviation
+    array = @engine.items.items.values.map(&:unit_price).sort
+    variance = array.inject(0) do |sum, price|
+      sum + ((price - average_item_price)**2)
+    end
+    std_dev = variance / (array.count - 1)
+    Math.sqrt(std_dev).to_f.round(2)
+  end
+
+  def golden_items
   end
 end

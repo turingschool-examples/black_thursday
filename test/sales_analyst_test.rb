@@ -22,9 +22,9 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_items_per_merchant_std_dev
-    @sales_analyst.average_items_per_merchant_standard_deviation
-    assert_equal 2.65, @sales_analyst.average_items_per_merchant_standard_deviation
-    assert_instance_of Float, @sales_analyst.average_items_per_merchant_standard_deviation
+    result = @sales_analyst.average_items_per_merchant_standard_deviation
+    assert_equal 2.65, result
+    assert_instance_of Float, result
   end
 
   def test_items_per_merchant
@@ -51,5 +51,26 @@ class SalesAnalystTest < Minitest::Test
     result = @sales_analyst.average_average_price_per_merchant
     assert_instance_of BigDecimal, result
     assert_equal 116.10, result.to_f.round(2)
+  end
+
+  def test_average_item_price
+    assert_equal 231.40, @sales_analyst.average_item_price
+  end
+
+  def test_average_item_price_standard_deviation
+    result = @sales_analyst. average_item_price_standard_deviation
+    assert_equal 256.05, result
+    assert_instance_of Float, result
+  end
+
+  def test_golden_items
+    skip
+    result = @sales_analyst.golden_items
+    assert_equal ['Course contre la montre',
+                  'Introspection virginalle',
+                  'La prière',
+                  'Le câlin',
+                  'Le corps et la chauffeuse'], result.map(&:name)
+    assert_instance_of Item, result[0]
   end
 end
