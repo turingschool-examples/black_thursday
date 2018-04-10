@@ -1,4 +1,3 @@
-require_relative '../lib/sales_engine'
 # Sales Analyst class for analyzing data
 class SalesAnalyst
   attr_reader :engine
@@ -9,7 +8,7 @@ class SalesAnalyst
   def average_items_per_merchant
     merch_count = @engine.merchants.all.count
     item_count = @engine.items.all.count
-    (item_count / merch_count).to_f.round(2)
+    (BigDecimal(item_count) / BigDecimal(merch_count)).round(2).to_f
   end
 
   def items_per_merchant
@@ -48,7 +47,7 @@ class SalesAnalyst
     sum_of_prices = items_by_merch[merchant_id].inject(0) do |sum, item|
       sum + item.unit_price
     end
-    sum_of_prices / total
+    (sum_of_prices / total).round(2)
   end
 
   def average_average_price_per_merchant
@@ -56,7 +55,7 @@ class SalesAnalyst
     all_averages = all_merchants.map do |merchant|
       average_item_price_for_merchant(merchant.id)
     end
-    all_averages.inject(:+) / all_averages.count
+    (all_averages.inject(:+) / all_averages.count).round(2)
   end
 
   def average_item_price
@@ -73,12 +72,12 @@ class SalesAnalyst
     std_dev = variance / (array.count - 1)
     Math.sqrt(std_dev).to_f.round(2)
   end
-  
+
   def golden_items
     items = @engine.items.all
-    # array = @engine.items.items.values.map(&:unit_price).sort
-    golden = items.map do |item|
-      item if item.unit_price >= average_item_price + (average_item_price_standard_deviation * 2)
+    deviation = average_item_price + (average_item_price_standard_deviation * 2)
+    items.map do |item|
+      item if item.unit_price >= deviation
     end.compact
   end
 end
