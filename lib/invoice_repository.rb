@@ -22,4 +22,10 @@ class InvoiceRepository
     invoice = Invoice.new(attributes)
     @elements[create_id_number] = invoice
   end
+
+  def update(id, attributes)
+    super(id, attributes)
+    # binding.pry
+    @elements[id].attributes[:merchant_id] = attributes[:merchant_id] if attributes[:merchant_id]
+  end
 end

@@ -89,6 +89,9 @@ module Repository
     element.attributes[:name] = attributes[:name] if attributes[:name]
     element.attributes[:description] = attributes[:description] if attributes[:description]
     element.attributes[:unit_price] = attributes[:unit_price] * 100 if attributes[:unit_price]
+    element.attributes[:customer_id] = attributes[:customer_id] if attributes[:customer_id]
+    # element.attributes[:merchant_id] = attributes[:merchant_id] if attributes[:merchant_id]
+    element.attributes[:status] = attributes[:status] if attributes[:status]
     element.attributes[:updated_at] = Time.now if element
   end
 
