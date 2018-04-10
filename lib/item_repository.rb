@@ -63,7 +63,6 @@ class ItemRepository
     @items << Item.new(attributes)
   end
 
-
   def delete(id)
     to_delete = find_by_id(id)
     @items.delete(to_delete)
