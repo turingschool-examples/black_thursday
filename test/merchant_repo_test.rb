@@ -66,8 +66,10 @@ class MerchantRepoTest < Minitest::Test
   end
 
   def test_it_can_delete_a_merchant
-    skip
-    assert_equal "", mr.delete("12334146")
-
+    attrs_1 = {name: 'BreadCo'}
+    merchant = mr.create(attrs_1).last
+    id = merchant.id
+    mr.delete(id)
+    refute mr.all.include?(merchant)
   end
 end

@@ -55,8 +55,7 @@ class MerchantRepo
   end
 
   def delete(id)
-
-    # require "pry"; binding.pry
-    all.find { |merchant| merchant.pop(id)}
+    merchant = find_by_id(id)
+    all.delete(merchant)
   end
 end
