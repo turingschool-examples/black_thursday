@@ -13,19 +13,18 @@ class SalesAnalyst
   end
 
   def items_per_merchant
-    items_by_merch = @engine.items.all.group_by do |item|
-      item.merchant_id
-    end
+    items_by_merch = @engine.items.all.group_by(&:merchant_id)
 
     items_by_merch.each_key do |key|
       items_by_merch[key] = items_by_merch[key].length
-    end.values.sort
+    end
   end
 
   def average_items_per_merchant_standard_deviation
+    ipm = items_per_merchant.values.sort
     avg = average_items_per_merchant
-    array = items_per_merchant.map do |items_per_merch|
-      (items_per_merch - avg) ** 2
+    array = ipm.map do |items_per_merch|
+      (items_per_merch - avg)**2
     end
 
     variance = array.inject(0) do |sum, num|
@@ -34,5 +33,16 @@ class SalesAnalyst
 
     std_dev = variance / (array.count - 1)
     Math.sqrt(std_dev).to_f.round(2)
+  end
+
+  def merchants_with_high_item_count
+    std_dev = average_items_per_merchant_standard_deviation
+    avg = average_items_per_merchant
+    items_per_merchant.map do |id, num_of_items|
+      if num_of_items >= avg + std_dev
+        result = @engine.merchants.find_by_id(id)
+      end
+      result
+    end.compact
   end
 end
