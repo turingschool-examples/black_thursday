@@ -1,5 +1,6 @@
 require_relative 'test_helper'
 require_relative '../lib/sales_analyst'
+require_relative '../lib/sales_engine'
 
 class SalesAnalystTest < Minitest::Test
   def setup
@@ -116,5 +117,9 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 29.55, @sa.invoice_status(:pending)
     assert_equal 56.95, @sa.invoice_status(:shipped)
     assert_equal 13.5, @sa.invoice_status(:returned)
+  end
+
+  def test_invoice_by_day_standard_deviation
+    assert_equal 18.07, @sa.invoice_by_day_standard_deviation
   end
 end
