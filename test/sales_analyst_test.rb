@@ -17,18 +17,56 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_items_per_merchant
-    assert_equal 2.00, @sales_analyst.average_items_per_merchant
+    assert_equal 2.80, @sales_analyst.average_items_per_merchant
     assert_instance_of Float, @sales_analyst.average_items_per_merchant
   end
 
   def test_average_items_per_merchant_std_dev
-    skip
-    # assert_equal 2.00, @sales_analyst.average_items_per_merchant_standard_deviation
-    assert_instance_of Float, @sales_analyst.average_items_per_merchant_standard_deviation
+    result = @sales_analyst.average_items_per_merchant_standard_deviation
+    assert_equal 2.49, result
+    assert_instance_of Float, result
   end
 
-  def tests_items_per_merchant
-    expected = {12334185 => 3, 12334213 => 2, 12334315 => 1}
+  def test_items_per_merchant
+    expected = { 12334185 => 3,
+                 12334213 => 2,
+                 12334195 => 7,
+                 12334315 => 1,
+                 12334499 => 1 }
     assert_equal expected, @sales_analyst.items_per_merchant
+  end
+
+  def test_merchants_with_high_item_count
+    result = @sales_analyst.merchants_with_high_item_count
+    assert_instance_of Merchant, result[0]
+    assert_equal ['FlavienCouche'], result.map(&:name)
+  end
+
+  def test_average_item_price_for_merchant
+    result = @sales_analyst.average_item_price_for_merchant(12334185)
+    assert_instance_of BigDecimal, result
+    assert_equal 11.17, result.to_f.round(2)
+  end
+
+  def test_average_average_price_per_merchant
+    result = @sales_analyst.average_average_price_per_merchant
+    assert_instance_of BigDecimal, result
+    assert_equal 20092.68, result.to_f.round(2)
+  end
+
+  def test_average_item_price
+    assert_equal 7357.66, @sales_analyst.average_item_price.to_f.round(2)
+  end
+
+  def test_average_item_price_standard_deviation
+    result = @sales_analyst.average_item_price_standard_deviation
+    assert_equal 26665.15, result
+    assert_instance_of Float, result
+  end
+
+  def test_golden_items
+    result = @sales_analyst.golden_items
+    assert_equal ['Test listing'], result.map(&:name)
+    assert_instance_of Item, result[0]
   end
 end
