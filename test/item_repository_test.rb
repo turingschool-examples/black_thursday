@@ -4,12 +4,16 @@ require 'time'
 require 'timecop'
 require_relative 'test_helper'
 require './lib/item_repository'
+require './lib/sales_engine'
 require 'pry'
 
 # This is an ItemRepository Class
 class ItemRepositoryTest < Minitest::Test
   def setup
-    @ir = ItemRepository.new('./test/fixtures/items_truncated.csv')
+    @se = SalesEngine.from_csv( { :items     => './test/fixtures/items_truncated.csv',
+                                  :merchants => './test/fixtures/merchants_truncated.csv',
+                                } )
+    @ir = @se.items
   end
 
   def test_it_exists
@@ -69,24 +73,17 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_create_item
-    skip
-    Timecop.freeze
-    time = Time.now.to_s
     assert_equal 263_396_210, @ir.create_new_id
 
     @ir.create({
                   :name        => 'Pencil',
                   :description => 'You can use it to write things',
                   :unit_price  => BigDecimal(10.99, 4),
-                  :created_at  => '1995-03-19 10:02:43 UTC',
-                  :updated_at  => '1995-03-19 10:02:43 UTC',
                 })
 
     assert_equal 263_396_210, @ir.items.last.id
     assert_equal 'Pencil', @ir.items.last.name
     assert_equal 'You can use it to write things', @ir.items.last.description
-    assert_equal time, @ir.items.last.created_at
-    Timecop.return
   end
 
   def test_update_item

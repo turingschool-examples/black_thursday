@@ -6,17 +6,8 @@ class MerchantRepository
   attr_reader :path,
               :merchants
 
-  def initialize(path)
+  def initialize
     @merchants = []
-    @path      = path
-    @time      = Time.new
-    pack_merchants(path)
-  end
-
-  def pack_merchants(path)
-    CSV.foreach(path, headers: true, header_converters: :symbol) do |merchant|
-    merchants << Merchant.new(merchant)
-    end
   end
 
   def all
@@ -45,9 +36,7 @@ class MerchantRepository
   end
 
   def find_highest_id
-    merchants.map do |merchant|
-      merchant.id
-    end.max
+    merchants.map { |merchant| merchant.id }.max
   end
 
   def create_new_id
@@ -62,7 +51,7 @@ class MerchantRepository
   def update(id, attributes)
     delete(id)
     attributes[:id] = id
-      merchants << Merchant.new(attributes)
+    merchants << Merchant.new(attributes)
   end
 
   def delete(id)
