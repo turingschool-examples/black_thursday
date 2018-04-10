@@ -5,4 +5,8 @@ class SalesAnalyst
   def initialize(engine)
     @engine = engine
   end
+
+  def avg_items_per_merchant
+    
+  end
 end

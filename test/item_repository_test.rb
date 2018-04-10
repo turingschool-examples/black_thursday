@@ -7,7 +7,7 @@ require_relative '../lib/fileio'
 # Test for Item Repository class
 class ItemRepositoryTest < Minitest::Test
   def setup
-    file_path = FileIO.load('./test/fixtures/test_items.csv')
+    file_path = FileIO.load('./test/fixtures/test_items0.csv')
     @i_repo = ItemRepository.new(file_path)
     @time = Time.now
     @actual_jude = @i_repo.create(

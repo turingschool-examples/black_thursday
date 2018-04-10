@@ -5,7 +5,7 @@ require_relative '../lib/fileio'
 # merchant repository class
 class MerchantRepositoryTest < Minitest::Test
   def setup
-    file_path = FileIO.load('./test/fixtures/test_merchants.csv')
+    file_path = FileIO.load('./test/fixtures/test_merchants0.csv')
     @m_repo = MerchantRepository.new(file_path)
   end
 

@@ -9,7 +9,7 @@ class FileIOTest < Minitest::Test
   end
 
   def test_it_gives_array
-    assert_instance_of Array, FileIO.load('./test/fixtures/test_merchants.csv')
+    assert_instance_of Array, FileIO.load('./test/fixtures/test_merchants0.csv')
   end
 
   def test_it_returns_correct_info
