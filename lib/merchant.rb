@@ -1,4 +1,7 @@
-class Merchant 
+# frozen_string_literal: true
+
+# merchant has attributes which contain id and name in a hash
+class Merchant
   attr_reader :attributes
 
   def initialize(attributes)
@@ -7,9 +10,9 @@ class Merchant
 
   def id
     attributes[:id]
-  end 
+  end
 
   def name
     attributes[:name]
-  end 
+  end
 end

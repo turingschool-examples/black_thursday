@@ -5,7 +5,6 @@ require './lib/merchant'
 SimpleCov.start
 require './lib/merchant_repository'
 class MerchantRepositoryTest < Minitest::Test
-
   def setup
     @turing = Merchant.new(id: 1, name: 'Turing School')
     @candisart = Merchant.new(id: 2, name: 'Candisart')
@@ -13,10 +12,10 @@ class MerchantRepositoryTest < Minitest::Test
     @bowlsbychris = Merchant.new(id: 4, name: 'bowlsbychris')
     @urcase17 = Merchant.new(id: 5, name: 'urcase17')
     @merchants_obj = [@turing,
-                     @candisart,
-                     @miniaturebikez,
-                     @bowlsbychris,
-                     @urcase17]
+                      @candisart,
+                      @miniaturebikez,
+                      @bowlsbychris,
+                      @urcase17]
 
     @merchants = [['id:1', 'name:Turing School'],
                   ['id:2', 'name:Candisart'],
