@@ -17,7 +17,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_items_per_merchant
-    assert_equal 3.00, @sales_analyst.average_items_per_merchant
+    assert_equal 2.00, @sales_analyst.average_items_per_merchant
     assert_instance_of Float, @sales_analyst.average_items_per_merchant
   end
 
@@ -31,7 +31,8 @@ class SalesAnalystTest < Minitest::Test
     expected = { 12334185 => 3,
                  12334213 => 2,
                  12334195 => 7,
-                 12334315 => 1 }
+                 12334315 => 1,
+                 12334499 => 1 }
     assert_equal expected, @sales_analyst.items_per_merchant
   end
 
@@ -50,27 +51,22 @@ class SalesAnalystTest < Minitest::Test
   def test_average_average_price_per_merchant
     result = @sales_analyst.average_average_price_per_merchant
     assert_instance_of BigDecimal, result
-    assert_equal 116.10, result.to_f.round(2)
+    assert_equal 20092.68, result.to_f.round(2)
   end
 
   def test_average_item_price
-    assert_equal 231.40, @sales_analyst.average_item_price
+    assert_equal 7357.66, @sales_analyst.average_item_price.to_f.round(2)
   end
 
   def test_average_item_price_standard_deviation
-    result = @sales_analyst. average_item_price_standard_deviation
-    assert_equal 256.05, result
+    result = @sales_analyst.average_item_price_standard_deviation
+    assert_equal 26665.15, result
     assert_instance_of Float, result
   end
 
   def test_golden_items
-    skip
     result = @sales_analyst.golden_items
-    assert_equal ['Course contre la montre',
-                  'Introspection virginalle',
-                  'La prière',
-                  'Le câlin',
-                  'Le corps et la chauffeuse'], result.map(&:name)
+    assert_equal ['Test listing'], result.map(&:name)
     assert_instance_of Item, result[0]
   end
 end

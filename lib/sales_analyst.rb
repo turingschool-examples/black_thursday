@@ -73,7 +73,12 @@ class SalesAnalyst
     std_dev = variance / (array.count - 1)
     Math.sqrt(std_dev).to_f.round(2)
   end
-
+  
   def golden_items
+    items = @engine.items.all
+    # array = @engine.items.items.values.map(&:unit_price).sort
+    golden = items.map do |item|
+      item if item.unit_price >= average_item_price + (average_item_price_standard_deviation * 2)
+    end.compact
   end
 end
