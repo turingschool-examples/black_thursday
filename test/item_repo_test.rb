@@ -58,4 +58,15 @@ class ItemRepoTest < Minitest::Test
                       263395721, 263395239, 
                       263395619, 263395729], items_array
     end
+
+    def test_it_finds_all_items_with_merchant_id
+        id = 12334185
+        items = item_repo.find_all_by_merchant_id(id)
+
+        items_array = items.map { |item| item.id }
+
+        assert_equal [263395617, 263395721, 
+                      263396013, 263395619, 
+                      263395729, 263396011], items_array
+    end
 end
