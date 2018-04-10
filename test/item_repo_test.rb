@@ -48,4 +48,14 @@ class ItemRepoTest < Minitest::Test
         assert_equal [263395721, 263395729], items_array
     end
 
+    def test_find_all_with_price_in_range
+        price_range = Range.new(10, 30)
+        items = item_repo.find_all_with_price_in_range(price_range)
+
+        items_array = items.map { |item| item.id }
+
+        assert_equal [263395237, 263395617, 
+                      263395721, 263395239, 
+                      263395619, 263395729], items_array
+    end
 end
