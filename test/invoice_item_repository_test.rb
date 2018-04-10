@@ -39,6 +39,9 @@ class InvoiceItemRepositorytest < Minitest::Test
     assert_equal 263519844, expected.item_id
   end
 
-  def test_it_finds_invoice_item_by_item_id
+  def test_it_returns_empty_array_for_invalid_invoice_item_by_item_id
+    expected = invoice_items.find_all_by_item_id(22334455)
+
+    assert_equal [], expected
   end
 end
