@@ -21,6 +21,6 @@ class FileIOTest < Minitest::Test
                 %w[12334123 Keckenbauer 2010-07-15 2012-07-25],
                 %w[12334132 perlesemoi 2009-03-21 2014-05-19],
                 %w[12334135 GoldenRayPress 2011-12-13 2012-04-16]]
-    assert_equal expected, FileIO.load('./test/fixtures/test_merchants.csv')
+    assert_equal expected, FileIO.load('./test/fixtures/test_merchants0.csv')
   end
 end
