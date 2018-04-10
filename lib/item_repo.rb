@@ -13,4 +13,25 @@ class ItemRepo
         @parent = parent
     end
 
+    def all
+        @repository
+    end
+
+    def find_by_id(id)
+        repository.find do |child|
+            child.id == id
+        end
+    end
+
+    def find_by_name(name)
+        repository.find do |child|
+            child.name.downcase == name.downcase
+        end
+    end
+    
+    def find_all_with_description(description)
+    end
+
+
+
 end
