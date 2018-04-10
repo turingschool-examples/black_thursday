@@ -2,7 +2,7 @@ require 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/item'
-require 'BigDecimal'
+require 'bigdecimal'
 require 'simplecov'
 SimpleCov.start
 require './lib/item_repository'
@@ -14,7 +14,7 @@ class ItemRepositoryTest < Minitest::Test
       id: 263395237,
       name: "RealPush Icon Set",
       description: "It writes things.",
-      unit_price: BigDecimal.new("12.00", "4"),
+      unit_price: BigDecimal.new(12.00, 4),
       merchant_id: 12334141,
       created_at: Time.now,
       updated_at: Time.now
@@ -23,7 +23,7 @@ class ItemRepositoryTest < Minitest::Test
       id: 263395617,
       name: "Glitter Scrabble Frames",
       description: "Any colour glitter.",
-      unit_price: BigDecimal.new("13.00", "4"),
+      unit_price: BigDecimal.new(13.00, 4),
       merchant_id: 12334185,
       created_at: Time.now,
       updated_at: Time.now
@@ -32,7 +32,7 @@ class ItemRepositoryTest < Minitest::Test
       id: 263396013,
       name: "Free Standing Wooden Letters",
       description: "Free standing wooden letters, 15cm, any color.",
-      unit_price: BigDecimal.new("700", "3"),
+      unit_price: BigDecimal.new(700, 3),
       merchant_id: 12334105,
       created_at: Time.now,
       updated_at: Time.now

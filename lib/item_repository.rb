@@ -1,4 +1,4 @@
-require 'BigDecimal'
+require 'bigdecimal'
 
 class ItemRepository
   attr_reader       :item_details
