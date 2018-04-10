@@ -1,10 +1,14 @@
 require_relative 'test_helper'
 require './lib/item_repository'
+require './lib/sales_engine'
 require 'pry'
 
 class ItemRepositoryTest < Minitest::Test
   def setup
-    @ir = ItemRepository.new
+    @se = SalesEngine.from_csv( { :items     => './test/fixtures/items_truncated.csv',
+                                  :merchants => './test/fixtures/merchants_truncated.csv',
+                                } )
+    @ir = @se.item_repository
   end
 
   def test_it_exists

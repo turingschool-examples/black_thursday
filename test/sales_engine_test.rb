@@ -13,18 +13,15 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_exists
     assert_instance_of SalesEngine, @se
-    binding.pry
   end
 
   def test_it_loads_csv_data
-    skip
     assert_instance_of ItemRepository, @se.item_repository
     # assert_instance_of MerchantRepository, @se.merchants
   end
 
   def test_it_can_access_items
-    skip
     assert_instance_of Item, @se.item_repository.find_by_name('Disney scrabble frames')
-    assert_instance_of Merchant, @se.merchants_repository.find_by_name('HeadyMamaCreations')
+    assert_instance_of Merchant, @se.merchant_repository.find_by_name('HeadyMamaCreations')
   end
 end
