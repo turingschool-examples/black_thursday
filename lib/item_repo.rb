@@ -23,7 +23,7 @@ class ItemRepo
         end
     end
 
-    def find_by_name(item)
+    def find_by_name(name)
         repository.find do |item|
             item.name.downcase == name.downcase
         end

@@ -24,4 +24,9 @@ class ItemRepoTest < Minitest::Test
         item = item_repo.find_by_id(263396013)
         assert_equal 263396013, item.id
     end
+
+    def test_it_can_find_by_name
+        item = item_repo.find_by_name("Glitter scrabble frames")
+        assert_equal "Glitter scrabble frames", item.name
+    end
 end
