@@ -27,8 +27,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_finds_item_by_id
-    id = 263399187
-    expected = items.find_by_id(id)
+    expected = items.find_by_id(263399187)
 
     assert_equal 263399187, expected.id
     assert_equal "Spalted Maple Heart Box", expected.name
