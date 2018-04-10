@@ -2,23 +2,49 @@
 
 # class item takes a hash and has attribute readers for :name, :description, :unit_price, :created_at, :updated_at
 class Item
-  attr_reader :id,
-              :name,
-              :description,
-              :unit_price,
-              :merchant_id,
-              :created_at,
-              :updated_at
+  attr_reader :attributes
 
   def initialize(data)
-    @id = data[:id].to_i
-    @name = data[:name]
-    @description = data[:description]
-    @merchant_id = data[:merchant_id].to_i
-    @unit_price = BigDecimal.new(data[:unit_price])/100
-    @created_at = Time.parse(data[:created_at])
-    @updated_at = Time.parse(data[:updated_at])
-    @unit_price_to_dollars = @unit_price.to_f
+    data[:id] = data[:id].to_i
+    data[:merchant_id] = data[:merchant_id].to_i
+    data[:unit_price] = BigDecimal.new(data[:unit_price])/100
+    data[:created_at] = Time.parse(data[:created_at])
+    data[:updated_at] = Time.parse(data[:updated_at])
+    data[:unit_price_to_dollars] = data[:unit_price].to_f
+    @attributes = data
   end
+
+  def id
+    @attributes[:id]
+  end
+
+  def name
+    @attributes[:name]
+  end
+
+  def description
+    @attributes[:description]
+  end
+
+  def merchant_id
+    @attributes[:merchant_id]
+  end
+
+  def unit_price
+    @attributes[:unit_price]
+  end
+
+  def created_at
+    @attributes[:created_at]
+  end
+
+  def updated_at
+    @attributes[:updated_at]
+  end
+
+  def unit_price_to_dollars
+    @attributes[:unit_price]
+  end
+
 
 end
