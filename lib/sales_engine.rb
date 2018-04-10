@@ -3,15 +3,24 @@ require './lib/merchant_repository'
 
 class SalesEngine
 
-  attr_reader :items,
-              :merchants
+  attr_reader :path
 
   def initialize(path)
-    @items = ItemRepository.new(path[:items], self)
-    @merchants = MerchantRepository.new(path[:merchants], self)
+    @path = path
+  end
+
+  def items
+    @items ||= ItemRepository.new(path[:items], self)
+  end
+
+  def merchants
+    @merchants ||= MerchantRepository.new(path[:merchants], self)
   end
 
   def self.from_csv(path)
     se = SalesEngine.new(path)
   end
 end
+
+#memoization
+#This operator only sets the variable if the variable is false or Nil.

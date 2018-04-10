@@ -1,22 +1,19 @@
-# frozen_string_literal: true
-#need to finish adding remaining spec methods
-
 require 'CSV'
-# Merchant Repository Class
+
 class MerchantRepository
   attr_reader :contents,
               :parent
 
   def initialize(path, parent)
-    @parent = parent
     @contents = []
+    @parent = parent
     load_path(path)
   end
 
   def load_path(path)
-    # CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
-    #   @contents << Merchant.new(row, self)
-    # end
+    CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
+      @contents << Merchant.new(row, self)
+    end
   end
 
   def all

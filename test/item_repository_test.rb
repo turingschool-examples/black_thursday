@@ -1,14 +1,10 @@
-# frozen_string_literal: true
-
 require './test/test_helper'
 require './lib/item_repository'
+require './lib/item'
 
 class ItemRepositoryTest < Minitest::Test
-  def setup
-    @item_repo = ItemRepository.new
-  end
-
   def test_it_exists
-    assert_instance_of ItemRepository, @item_repo
+    ir = ItemRepository.new('./test/fixtures/item_fixture.csv', self)
+    assert_instance_of ItemRepository, ir
   end
 end
