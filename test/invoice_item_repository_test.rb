@@ -75,4 +75,16 @@ class InvoiceItemRepositorytest < Minitest::Test
     assert_equal 4, expected.last.id
     assert_equal 4, invoice_items.all.length
   end
+
+  def test_it_can_update_id_and_attributes
+    expected = invoice_items.update(1, {quantity: 10})
+
+    assert_equal 10, expected[:quantity]
+  end
+
+  def test_it_can_delete_by_id
+    invoice_items.delete(1)
+
+    assert_equal nil, invoice_items.find_by_id(1)
+  end
 end

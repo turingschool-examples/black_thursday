@@ -42,4 +42,21 @@ class InvoiceItemRepository
     attributes[:id] = new_id.to_s
     @repository << InvoiceItem.new(attributes, self)
   end
+
+  def update(id, attributes)
+    invoice_item = find_by_id(id)
+    unchangeable_keys = [:id, :item_id, :created_at]
+    attributes.each do |key, value|
+      next if (attributes.keys & unchangeable_keys).any?
+      if invoice_item.invoice_items_specs.keys.include?(key)
+        invoice_item.invoice_items_specs[key] = value
+        invoice_item.invoice_items_specs[:updated_at] = Time.now
+      end
+    end
+  end
+
+  def delete(id)
+    item_to_delete = find_by_id(id)
+    @repository.delete(item_to_delete)
+  end
 end
