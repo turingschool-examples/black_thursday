@@ -2,7 +2,6 @@ require 'csv'
 require 'time'
 require_relative 'merchant'
 
-
 class MerchantRepo
   attr_reader :all
 
