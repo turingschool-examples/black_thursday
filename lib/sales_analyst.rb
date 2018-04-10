@@ -71,7 +71,7 @@ class SalesAnalyst
   def standard_deviation(elements, average, decider)
     deviation_sum = 0
     elements.each do |element|
-      deviation_sum += (element.value(decider).to_f - average).abs ** 2
+      deviation_sum += (element.round(decider).to_f - average).abs ** 2
     end
     divided_deviation = deviation_sum / (elements.count - 1)
     Math.sqrt(divided_deviation).round(2).to_f
@@ -105,5 +105,45 @@ class SalesAnalyst
       merch_count = @engine.invoices.find_all_by_merchant_id(merchant.id).count
       merch_count < threshold
     end
+  end
+
+  def top_days_by_invoice_count
+    days = generate_day
+    average = average_days(days)
+    stnd_dev = standard_deviation(days.values, average, 0)
+    threshold = average + (stnd_dev * 1)
+    top_day_numbers = top_days(days, threshold)
+    top_day_numbers.map do |day|
+      Date::DAYNAMES[day]
+    end
+  end
+
+  def top_days(days, threshold)
+    days.find_all do |day|
+      day[1] > threshold
+    end.map do |day|
+      day[0]
+    end
+  end
+
+  def average_days(days)
+    days.values.reduce(0) do |sum, num|
+      sum + num
+    end / 7
+  end
+
+  def generate_day
+    days = @engine.invoices.all.group_by do |invoice|
+      invoice.created_at.wday
+    end
+    days.map do |day, invoices|
+      [day, invoices.count]
+    end.to_h
+  end
+
+  def invoice_by_day_standard_deviation
+    days = generate_day
+    average = average_days(days)
+    standard_deviation(days.values, average, 0)
   end
 end

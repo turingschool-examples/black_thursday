@@ -97,4 +97,18 @@ class SalesAnalystTest < Minitest::Test
     refute lowest_sellers.include?(@sa.engine.merchants.find_by_id(12334141))
     assert lowest_sellers.include?(@sa.engine.merchants.find_by_id(12334235))
   end
+
+  def test_average_days
+    days = {6=>729, 5=>701, 3=>741, 1=>696, 0=>708, 2=>692, 4=>718}
+    assert_equal 712, @sa.average_days(days)
+  end
+
+  def test_generate_day
+    days = {6=>729, 5=>701, 3=>741, 1=>696, 0=>708, 2=>692, 4=>718}
+    assert_equal days, @sa.generate_day
+  end
+
+  def test_top_days_by_invoice_count
+    assert_equal ['Wednesday'], @sa.top_days_by_invoice_count
+  end
 end
