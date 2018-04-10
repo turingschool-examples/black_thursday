@@ -16,7 +16,7 @@ class ItemTest < Minitest::Test
       :updated_at  => @time,
     })
 
-    assert_instance_of Iterm, item
+    assert_instance_of Item, item
   end 
   def test_it_has_attributes
     item = Item.new({
