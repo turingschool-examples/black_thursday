@@ -11,4 +11,12 @@ class InvoiceItemRepository
     @repository = invoice_items.map { |invoice_item| InvoiceItem.new(invoice_item, self)}
     @parent = parent
   end
+
+  def all
+    @repository
+  end
+
+  def find_by_id(id)
+    @repository.find { |invoice_item| invoice_item.id == id }
+  end
 end

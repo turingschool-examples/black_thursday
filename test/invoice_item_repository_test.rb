@@ -21,4 +21,24 @@ class InvoiceItemRepositorytest < Minitest::Test
   def test_invoice_item_repo_exists
     assert_instance_of InvoiceItemRepository, invoice_items
   end
+
+  def test_it_can_find_all
+    assert_equal 3, invoice_items.all.length
+  end
+
+  def test_it_returns_nil_for_invalid_id
+    expected = invoice_items.find_by_id(5)
+
+    assert_nil expected
+  end
+
+  def test_it_returns_nil_or_instance_of_invoice_item_by_id
+    expected = invoice_items.find_by_id(1)
+
+    assert_equal 1, expected.id
+    assert_equal 263519844, expected.item_id
+  end
+
+  def test_it_finds_invoice_item_by_item_id
+  end
 end
