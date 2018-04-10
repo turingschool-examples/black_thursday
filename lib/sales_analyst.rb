@@ -11,6 +11,11 @@ class SalesAnalyst
     item_count = @engine.items.all.count
     (item_count / merch_count).to_f.round(2)
   end
+  
+  def items_per_merchant
+    
+    @engine.merchants.keys
+  end
 
   def average_items_per_merchant_standard_deviation
   def std_dev(ary)
