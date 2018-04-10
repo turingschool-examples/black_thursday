@@ -58,7 +58,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_method_find_by_name
-    mr = MerchantRepository.new(@merchants)
+    
     mr = MerchantRepository.new(@merchants)
     expected = @turing.name
     actual = mr.find_by_name(expected).name

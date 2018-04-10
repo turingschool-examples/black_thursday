@@ -49,7 +49,7 @@ class MerchantRepository
 
   def update(id, attributes)
     attributes[:id] = id
-    @merchants[id] = Merchant.new(attributes)
+    @merchants[id] = Merchant.new(attributes) 
   end
 
   def delete(id)
