@@ -46,4 +46,10 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of BigDecimal, result
     assert_equal 11.17, result.to_f.round(2)
   end
+
+  def test_average_average_price_per_merchant
+    result = @sales_analyst.average_average_price_per_merchant
+    assert_instance_of BigDecimal, result
+    assert_equal 116.10, result.to_f.round(2)
+  end
 end

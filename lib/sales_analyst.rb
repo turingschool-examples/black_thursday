@@ -54,4 +54,12 @@ class SalesAnalyst
     end
     sum_of_prices / total
   end
+
+  def average_average_price_per_merchant
+    all_merchants = @engine.merchants.all
+    all_averages = all_merchants.map do |merchant|
+      average_item_price_for_merchant(merchant.id)
+    end
+    all_averages.inject(:+) / all_averages.count
+  end
 end
