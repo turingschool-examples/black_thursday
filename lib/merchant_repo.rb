@@ -42,6 +42,5 @@ class MerchantRepo
     attrs[:id] = find_max_id.to_s
     new_merchant = Merchant.new(attrs)
     all << new_merchant
-  end
-
+  en
 end
