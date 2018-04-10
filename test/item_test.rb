@@ -11,10 +11,10 @@ class TestItem < Minitest::Test
       :id => 12394049,
       :name => "Pencil",
       :description => "Writes stuff",
-      :unit_price => 10.99,
+      :unit_price => BigDecimal(10.99, 4),
       :created_at => Time.now,
       :updated_at => Time.now
-      })
+      }, nil)
 
       assert_instance_of Item, item
   end
@@ -24,10 +24,10 @@ class TestItem < Minitest::Test
       :id => 12394049,
       :name => "Pencil",
       :description => "Writes stuff",
-      :unit_price => 10.99,
+      :unit_price => BigDecimal(10.99, 4),
       :created_at => Time.now,
       :updated_at => Time.now
-      })
+      }, nil)
 
     assert_equal 12394049, item.id
     assert_equal "Pencil", item.name
