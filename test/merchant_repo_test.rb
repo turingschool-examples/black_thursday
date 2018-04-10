@@ -52,18 +52,14 @@ class MerchantRepoTest < Minitest::Test
     assert_equal 'BreadCo', actual.name
   end
 
+  def test_it_can_update_a_merchant
 
 
+  end
 
+  def test_it_can_delete_a_merchant
+    skip
+    assert_equal "", mr.delete("12334146")
 
-
-  # def test_it_can_create_a_new_merchant_with_attributes
-  #   assert_equal 475, all.count
-  #
-  #   new_merchant = mr.create(attrs)
-  #
-  #   assert_instance_of Merchant, new_merchant
-  #   assert_equal 476, all.count
-  #   assert_equal new_mechant.id,
-  # end
+  end
 end

@@ -36,11 +36,24 @@ class MerchantRepo
   def find_max_id
     max = all.max_by { |merchant| merchant.id }
     max.id.to_i + 1
+
   end
 
   def create(attrs)
     attrs[:id] = find_max_id.to_s
     new_merchant = Merchant.new(attrs)
     all << new_merchant
-  en
+  end
+
+  def update
+    skip
+    #use find enum
+
+  end
+
+  def delete(id)
+    skip
+    # require "pry"; binding.pry
+    all.find { |merchant| merchant.pop(id)}
+  end
 end
