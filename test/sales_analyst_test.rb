@@ -167,6 +167,19 @@ class SalesAnalystTest < Minitest::Test
                               })
       sales_analyst = SalesAnalyst.new(se)
 
-      assert_equal 3.29, sales_analyst.top_merchants_by_invoice_count
+      assert_equal 12, sales_analyst.top_merchants_by_invoice_count.count
+    end
+
+    def test_it_can_calculate_bottom_merchants_by_invoice_count
+      se = SalesEngine.new( { :items => './test/items.csv',
+                              :merchants => './test/merchants.csv',
+                              :invoices => './test/invoices.csv',
+                              })
+      sales_analyst = SalesAnalyst.new(se)
+
+      assert_equal 4, sales_analyst.bottom_merchants_by_invoice_count.count
+      assert_equal 7, sales_analyst.organize_invoices_by_days_of_the_week.count
+      assert_equal 18.06, sales_analyst.standard_deviation_for_invoices
+      assert_equal [], sales_analyst.top_days_by_invoice_count
     end
 end
