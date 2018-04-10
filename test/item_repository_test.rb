@@ -31,7 +31,7 @@ class ItemRepositoryTest < Minitest::Test
     @wooden_letters = [
       "id: 263396013",
       "name: Free Standing Wooden Letters",
-      "description: Free standing wooden letters, 15cm, any color.",
+      "description: Free standing wooden letters, 15cm, any colour.",
       "unit_price: 700",
       "merchant_id: 12334105",
       "created_at: 2016-01-11 11:51:36 UTC",
@@ -54,46 +54,50 @@ class ItemRepositoryTest < Minitest::Test
     end
   end
 
-  def test_unit_price_to_dollars
+  def test_can_find_all
     ir = ItemRepository.new(@items)
 
-    assert_equal [12.00, 13.00, 7.00], @items.unit_price_to_dollars
+    ir.all.all? do |item|
+      assert_instance_of Item, item
+    end
   end
 
   def test_can_find_by_id
-    skip
     ir = ItemRepository.new(@items)
 
-    assert_equal @icons, ir.find_by_id(263395237)
-    assert_equal @glitter_frames, ir.find_by_id(12334185)
-    assert_equal @wooden_letters, ir.find_by_id(12334105)
-    assert_equal nil, ir.find_by_id(444444444)
+    assert_equal 263395237, ir.find_by_id(263395237).id
+    assert_equal "RealPush Icon Set", ir.find_by_id(263395237).name
+    assert_equal "It writes things.", ir.find_by_id(263395237).description
+    assert_equal 263395617, ir.find_by_id(263395617).id
+    assert_equal "2016-01-11 11:51:37 UTC", ir.find_by_id(263395617).created_at
+    assert_equal 12334105, ir.find_by_id(263396013).merchant_id
+    assert_nil ir.find_by_id(444444444)
   end
 
   def test_can_find_by_name
-    skip
     ir = ItemRepository.new(@items)
 
-    assert_equal @icons, ir.find_by_name("RealPush Icon Set")
-    assert_equal @glitter_frames, ir.find_by_name("Any colour glitter.")
-    assert_equal @wooden_letters, ir.find_by_name("Free Standing Wooden Letters")
-    assert_equal nil, ir.find_by_name("My Little Pony")
+    assert_equal "RealPush Icon Set", ir.find_by_name("RealPush Icon Set").name
+    assert_equal "2016-01-11 11:51:37 UTC", ir.find_by_name("Glitter Scrabble Frames").created_at
+    assert_equal "Free standing wooden letters, 15cm, any colour.", ir.find_by_name("Free Standing Wooden Letters").description
+    assert_nil ir.find_by_name("My Little Pony")
   end
 
-  def test_can_find_by_description
-    skip
+  def test_can_find_all_with_description
     ir = ItemRepository.new(@items)
 
-    assert_equal [@glitter_frames, @wooden_letters], ir.find_all_by_name("tt")
-    assert_equal [@icons], ir.find_all_by_name("ico")
-    assert_equal [], ir.find_all_by_name("akira")
+    assert_instance_of Array, ir.find_all_with_description("tt")
+    assert_equal [], ir.find_all_with_description("akira")
+    assert_instance_of Item, ir.find_all_with_description("wri")[0]
+    assert_equal "RealPush Icon Set", ir.find_all_with_description("wri")[0].name
+    assert_equal 12334185, ir.find_all_with_description("olour")[0].merchant_id
+    assert_equal 12334105, ir.find_all_with_description("olour")[1].merchant_id
   end
 
   def test_can_find_by_price
-    skip
     ir = ItemRepository.new(@items)
 
-    assert_equal [@icons], ir.find_all_by_price(9)
+    assert_equal "RealPush Icon Set", ir.find_all_by_price(700).name
   end
 
   def test_item_can_be_found_with_merchant_id
