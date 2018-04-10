@@ -7,12 +7,16 @@ class MerchantRepository
   attr_reader :contents,
               :parent
 
-  def initialize(path, parent = nil)
-    @contents = []
+  def initialize(path, parent)
     @parent = parent
-    CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
-      @contents << Merchant.new(row, self)
-    end
+    @contents = []
+    load_path(path)
+  end
+
+  def load_path(path)
+    # CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
+    #   @contents << Merchant.new(row, self)
+    # end
   end
 
   def all
