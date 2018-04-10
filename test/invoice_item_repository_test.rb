@@ -14,8 +14,8 @@ class InvoiceItemRepositorytest < Minitest::Test
   attr_reader :invoice_items
 
   def setup
-    se = SalesEngine.from_csv({:items => './fixtures/invoice_item_repo_test.csv'})
-    @invoice_items = se.invoices
+    se = SalesEngine.from_csv({:invoice_items => './fixtures/invoice_items_test.csv'})
+    @invoice_items = se.invoice_items
   end
 
   def test_invoice_item_repo_exists
