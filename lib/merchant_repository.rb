@@ -3,15 +3,14 @@ require_relative 'merchant'
 require 'pry'
 
 class MerchantRepository
-  attr_reader :path,
-              :merchants
+  attr_reader :merchants
 
   def initialize
     @merchants = []
   end
 
   def all
-    merchants
+    @merchants
   end
 
   def find_by_id(id)

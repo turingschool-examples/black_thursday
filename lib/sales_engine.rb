@@ -11,7 +11,7 @@ class SalesEngine
 
   def initialize(path)
     @items ||= ItemRepository.new
-    @merchants||= MerchantRepository.new
+    @merchants ||= MerchantRepository.new
     load_data(path)
   end
 
@@ -35,6 +35,7 @@ class SalesEngine
     CSV.foreach(path[:items], headers: true, header_converters: :symbol) do |data|
       @items.items << Item.new(data)
     end
+  end
 
   def load_merchants(path = filepath)
     CSV.foreach(path[:merchants], headers: true, header_converters: :symbol) do |merchant|
