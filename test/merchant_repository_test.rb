@@ -5,7 +5,6 @@ require './lib/merchant'
 SimpleCov.start
 require './lib/merchant_repository'
 class MerchantRepositoryTest < Minitest::Test
-
   def setup
     @turing = Merchant.new(id: 1, name: 'Turing School')
     @candisart = Merchant.new(id: 2, name: 'Candisart')
