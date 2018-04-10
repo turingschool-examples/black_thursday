@@ -3,9 +3,11 @@ require_relative 'invoice'
 
 class InvoiceRepository
   attr_reader :path,
-              :invoices
+              :invoices,
+              :sales_engine
 
   def initialize(path, sales_engine)
+    @sales_engine ||= sales_engine
     @path = path
     @invoices = []
     load_path(path)

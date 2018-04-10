@@ -65,4 +65,28 @@ class SalesAnalyst
       item if item.unit_price > two_standard_deviation
     end.compact
   end
+
+  def average_invoices_per_merchant
+    numbers_of_invoices = @invoice_repo.invoices.count
+    numbers_of_merchants = @invoice_repo.invoices.map do |invoice|
+      invoice.merchant_id
+    end.uniq.count
+    (numbers_of_invoices.to_f / numbers_of_merchants).round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    a = average_invoices_per_merchant
+    numbers_of_merchants = @merchant_repo.merchants.count
+    a = @merchant_repo.merchants.reduce(0) do |sum, merchant|
+      sum + (merchant.invoices.count - a) ** 2
+    end / (numbers_of_merchants - 1)
+    Math.sqrt(a).round(2)
+  end
+
+  def top_merchants_by_invoice_count
+    two_standard_deviation = (average_invoices_per_merchant + average_invoices_per_merchant_standard_deviation) * 2
+    @merchant_repo.merchants.map do |merchant|
+      merchant if merchant.invoices.count > two_standard_deviation
+    end.compact
+  end
 end

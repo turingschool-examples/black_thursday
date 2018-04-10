@@ -10,10 +10,9 @@ class SalesEngine
               :invoices
 
   def initialize(path)
-    @items ||= ItemRepository.new(path[:items], self)
+    @items     ||= ItemRepository.new(path[:items], self)
     @merchants ||= MerchantRepository.new(path[:merchants], self)
-    @invoices ||= InvoiceRepository.new(path[:invoices], self)
-
+    @invoices  ||= InvoiceRepository.new(path[:invoices], self)
   end
 
   def self.from_csv(path)

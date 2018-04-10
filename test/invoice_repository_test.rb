@@ -99,6 +99,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_it_can_create_new_invoice_id
     ir = InvoiceRepository.new('./test/invoices.csv', nil)
+    assert_equal 4985, ir.invoices.count
 
     assert_equal 4986, ir.create_new_id
   end
@@ -120,12 +121,21 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 12335938, result.merchant_id
     assert_equal 1, result.customer_id
 
-
     ir.update(1,{:status => "shipped", :merchant_id => 4, :customer_id => 7})
     result1 = ir.find_by_id(1)
     assert_equal :shipped, result1.status
     assert_equal 4, result1.merchant_id
     assert_equal 7, result1.customer_id
+  end
+
+  def test_returns_nil_it_tried_to_update_invalid_invoice
+    ir = InvoiceRepository.new('./test/invoices.csv', nil)
+
+    assert_nil ir.find_by_id(4986)
+
+    result = ir.update(4986,{:status => "shipped", :merchant_id => 4, :customer_id => 7})
+
+    assert_nil result
   end
 
   def test_it_can_delete_invoices_from_item_repo

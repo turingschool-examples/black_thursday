@@ -18,4 +18,8 @@ class Invoice
     @created_at = Time.parse(data[:created_at])
     @updated_at = Time.parse(data[:updated_at])
   end
+
+  def merchant
+    invoice_repo.sales_engine.merchants.find_by_id(merchant_id)
+  end
 end
