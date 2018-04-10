@@ -60,13 +60,20 @@ class ItemRepoTest < Minitest::Test
     end
 
     def test_it_finds_all_items_with_merchant_id
-        id = 12334185
-        items = item_repo.find_all_by_merchant_id(id)
+        merchant_id = 12334185
+        items = item_repo.find_all_by_merchant_id(merchant_id)
 
         items_array = items.map { |item| item.id }
 
         assert_equal [263395617, 263395721, 
                       263396013, 263395619, 
                       263395729, 263396011], items_array
+    end
+
+    def test_it_finds_merchant_by_merchant_id
+        merchant_id = 263395617
+        parent.expect(:find_merchant_by_merchant_id, "merchant", [263395617])
+        merchant = item_repo.find_merchant_by_merchant_id(merchant_id)
+        assert_equal "merchant", merchant
     end
 end
