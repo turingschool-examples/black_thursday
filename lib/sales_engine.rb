@@ -66,4 +66,8 @@ class SalesEngine
       load_file(load_path[:customers]), self
     )
   end
+
+  def invoice_items
+    @items ||= InvoiceItemRepository.new(load_file(load_path[:invoice_items]), self)
+  end
 end
