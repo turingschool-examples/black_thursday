@@ -180,6 +180,28 @@ class SalesAnalystTest < Minitest::Test
       assert_equal 4, sales_analyst.bottom_merchants_by_invoice_count.count
       assert_equal 7, sales_analyst.organize_invoices_by_days_of_the_week.count
       assert_equal 18.06, sales_analyst.standard_deviation_for_invoices
-      assert_equal [], sales_analyst.top_days_by_invoice_count
+    end
+
+    def test_it_can_find_top_days_by_invoice_count
+      se = SalesEngine.new( { :items => './test/items.csv',
+                              :merchants => './test/merchants.csv',
+                              :invoices => './test/invoices.csv',
+                              })
+        sales_analyst = SalesAnalyst.new(se)
+
+        assert_equal "Wednesday", sales_analyst.top_days_by_invoice_count.first
+    end
+
+    def test_it_can_find_percentage_of_each_status
+      se = SalesEngine.new( { :items => './test/items.csv',
+                              :merchants => './test/merchants.csv',
+                              :invoices => './test/invoices.csv',
+                              })
+      sales_analyst = SalesAnalyst.new(se)
+
+      assert_equal 29.55, sales_analyst.invoice_status(:pending)
+      assert_equal 56.95, sales_analyst.invoice_status(:shipped)
+      assert_equal 13.5, sales_analyst.invoice_status(:returned)
+
     end
 end

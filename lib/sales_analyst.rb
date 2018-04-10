@@ -116,10 +116,16 @@ class SalesAnalyst
 
   def top_days_by_invoice_count
     one_stddv = average_number_of_invoices_per_day + standard_deviation_for_invoices
-    organize_invoices_by_days_of_the_week.each_pair.map do |key, value|
+    a = organize_invoices_by_days_of_the_week.each_pair.map do |key, value|
       key if value.count > one_stddv
-    end.compact
+    end.compact.sort.reverse
   end
 
-
+  def invoice_status(status)
+    total_invoices = @invoice_repo.invoices.count
+    a = @invoice_repo.invoices.map do |invoice|
+      invoice if invoice.status == status
+    end.compact.count
+    ((a.to_f / total_invoices) * 100).round(2)
+  end
 end
