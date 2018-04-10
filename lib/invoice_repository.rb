@@ -18,4 +18,22 @@ class InvoiceRepository < Repository
     @invoices = create_index(Invoice, attributes)
     super(invoices, Invoice)
   end
+
+  def find_all_by_customer_id(customer_id)
+    @invoices.values.map do |invoice|
+      invoice if invoice.customer_id == customer_id
+    end.compact
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    @invoices.values.map do |invoice|
+      invoice if invoice.merchant_id == merchant_id
+    end.compact
+  end
+
+  def find_all_by_status(req_status)
+    @invoices.values.map do |invoice|
+      invoice if invoice.status.casecmp(req_status).zero?
+    end.compact
+  end
 end
