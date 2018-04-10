@@ -14,7 +14,7 @@ class Merchant
     @name = name
   end
 
-  def update_updated_at(updated_at)
-    @updated_at = updated_at 
+  def change_updated_at
+    @updated_at = Time.now
   end
 end
