@@ -1,5 +1,4 @@
 require_relative '../lib/item'
-require_relative '../lib/repo'
 
 class ItemRepo
   attr_reader :items,
@@ -7,11 +6,11 @@ class ItemRepo
               :parent,
               :repository
 
-def initialize(data, parent)
-    @repository = data.map do |row| 
-      Item.new(row, self)
+    def initialize(data, parent)
+        @repository = data.map do |row| 
+        Item.new(row, self)
+        end
+        @parent = parent
     end
-    @parent = parent
-  end
 
 end
