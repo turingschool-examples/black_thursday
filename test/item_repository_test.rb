@@ -116,9 +116,8 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_item_can_be_created
-    skip
+
     ir = ItemRepository.new(@items)
-    assert_instance_of @items, ir.all
 
     ir.create({
       # id: 263395238,
@@ -129,7 +128,7 @@ class ItemRepositoryTest < Minitest::Test
       created_at: Time.now,
       updated_at: Time.now
     })
-    assert_equal @items.find_by_id(263395238).name, "Bootees"
+    assert_instance_of Item, ir.find_by_id(263396014)
   end
 
   def test_find_highest_id

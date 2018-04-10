@@ -65,10 +65,13 @@ class ItemRepository
     @items.max_by(&:id).id
   end
 
-  # def create(attributes)
-  #
-  #   item = Item.new
-  # end
+  def create(attributes)
+    attributes[:id] = (find_highest_id+1)
+    attributes[:created_at] = attributes[:created_at].to_s
+    attributes[:updated_at] = attributes[:updated_at].to_s
+    item = Item.new(attributes)
+    @items << item
+  end
 
 
 
