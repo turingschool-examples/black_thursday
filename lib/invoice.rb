@@ -4,7 +4,8 @@ require_relative 'element'
 class Invoice
   include Element
 
-  def initialize(attributes)
+  def initialize(attributes, engine = nil)
     @attributes = attributes
+    @engine = engine
   end
 end

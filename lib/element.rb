@@ -53,9 +53,10 @@ module Element
     @attributes[:status].to_sym
   end
 
-  def merchant #return the merchant object of an invoice - spec harness
+  def merchant
+    @engine.merchants.find_by_id(merchant_id)
   end
 
   def invoices #return the [invoices] of a merchant
-  end 
+  end
 end

@@ -9,11 +9,11 @@ class SalesEngine
               :invoices
 
   def initialize(attributes)
-    @items = ItemRepository.new
+    @items = ItemRepository.new(self)
     @items.from_csv(attributes[:items]) if attributes[:items]
-    @merchants = MerchantRepository.new
+    @merchants = MerchantRepository.new(self)
     @merchants.from_csv(attributes[:merchants]) if attributes[:merchants]
-    @invoices = InvoiceRepository.new
+    @invoices = InvoiceRepository.new(self)
     @invoices.from_csv(attributes[:invoices]) if attributes[:invoices]
   end
 

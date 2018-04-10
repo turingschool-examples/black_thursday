@@ -5,7 +5,8 @@ require_relative 'repository'
 # This class is a repo for items
 class ItemRepository
   include Repository
-  def initialize
+  def initialize(engine = nil)
+    @engine = engine
     @elements = {}
   end
 

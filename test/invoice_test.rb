@@ -1,5 +1,6 @@
 require_relative 'test_helper'
 require_relative '../lib/invoice'
+require_relative '../lib/sales_engine'
 
 class InvoiceTest < Minitest::Test
 
@@ -26,5 +27,16 @@ class InvoiceTest < Minitest::Test
     assert_equal :pending, @inv.status
     assert_equal @time, @inv.created_at
     assert_equal @time, @inv.updated_at
+  end
+
+  def test_it_returns_merchant
+    se = SalesEngine.from_csv({
+                              :items      => './data/items.csv',
+                              :merchants  => './data/merchants.csv',
+                              :invoices => "./data/invoices.csv"
+                              })
+    invoice = se.invoices.find_by_id(68)
+    assert_instance_of Merchant, invoice.merchant
+    assert_equal 12335598, invoice.merchant.id
   end
 end
