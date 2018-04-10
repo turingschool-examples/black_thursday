@@ -93,8 +93,7 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal [], invoices3
   end
 
-  def test_find_all_by_status #case_sensitive
-    # skip
+  def test_find_all_by_status
     @invr.from_csv('./data/invoices.csv')
     invoices = @invr.find_all_by_status('shipped')
     assert_instance_of Array, invoices
@@ -116,7 +115,6 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_create_a_new_invoice
-    # skip
     assert_equal 0, @invr.all.count
     time = Time.now
     @invr.create({

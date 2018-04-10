@@ -1,6 +1,6 @@
 require 'bigdecimal'
 class SalesAnalyst
-attr_reader :engine
+  attr_reader :engine
 
   def initialize(sales_engine)
     @engine = sales_engine
@@ -13,21 +13,14 @@ attr_reader :engine
   end
 
   def average_items_per_merchant_standard_deviation
-    merchants = @engine.merchants.elements
-    items = @engine.items
+    merchants = @engine.merchants.all
     average = average_items_per_merchant
-    deviation_sum = 0
-    merchants.keys.each do |merchant_id|
-      item_count = items.find_all_by_merchant_id(merchant_id).count
-      deviation_sum += (item_count.to_f - average).abs ** 2
-    end
-    divided_deviation = deviation_sum / (merchants.count - 1)
-    Math.sqrt(divided_deviation).round(2)
+    standard_deviation(merchants, average)
   end
 
   def merchants_with_high_item_count
     threshold = average_items_per_merchant +
-      (average_items_per_merchant_standard_deviation * 1)
+                (average_items_per_merchant_standard_deviation * 1)
     @engine.merchants.all.find_all do |merchant|
       merch_count = @engine.items.find_all_by_merchant_id(merchant.id).count
       merch_count > threshold
@@ -63,20 +56,24 @@ attr_reader :engine
 
   def golden_items
     threshold = average_item_cost +
-      (standard_deviation * 2)
+                (item_unit_price_standard_deviation * 2)
     @engine.items.all.find_all do |item|
       item.unit_price > threshold
     end
   end
 
-  def standard_deviation
+  def item_unit_price_standard_deviation
     items = @engine.items.all
-    deviation_sum = 0
     average = average_item_cost
-    items.each do |item|
-      deviation_sum += (item.unit_price - average).abs ** 2
+    standard_deviation(items, average)
+  end
+
+  def standard_deviation(elements, average)
+    deviation_sum = 0
+    elements.each do |element|
+      deviation_sum += (element.value.to_f - average).abs ** 2
     end
-    divided_deviation = deviation_sum / (items.count - 1)
+    divided_deviation = deviation_sum / (elements.count - 1)
     Math.sqrt(divided_deviation).round(2).to_f
   end
 end

@@ -50,8 +50,8 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 251.06, @sa.average_item_cost
   end
 
-  def test_standard_deviation
-    assert_equal 2900.99, @sa.standard_deviation
+  def test_unit_price_standard_deviation
+    assert_equal 2900.99, @sa.item_unit_price_standard_deviation
   end
 
   def test_golden_items

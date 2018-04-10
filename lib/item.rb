@@ -7,4 +7,8 @@ class Item
   def initialize(attributes)
     @attributes = attributes
   end
+
+  def value
+    unit_price
+  end
 end

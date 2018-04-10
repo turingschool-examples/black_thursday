@@ -8,4 +8,8 @@ class Merchant
     @attributes = attributes
     @engine = engine
   end
+
+  def value
+    @engine.items.find_all_by_merchant_id(id).count
+  end
 end
