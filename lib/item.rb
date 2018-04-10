@@ -11,13 +11,14 @@ class Item
               :updated_at
 
   def initialize(data)
-    @created_at = data[:created_at]
-    @description = data[:description]
-    @id = data[:id]
+    @id = data[:id].to_i
     @name = data[:name]
-    @merchant_id = data[:merchant_id]
-    @unit_price = data[:unit_price]
-    @updated_at = data[:updated_at]
+    @description = data[:description]
+    @merchant_id = data[:merchant_id].to_i
+    @unit_price = BigDecimal.new(data[:unit_price])/100
+    @created_at = Time.parse(data[:created_at])
+    @updated_at = Time.parse(data[:updated_at])
+    @unit_price_to_dollars = @unit_price.to_f
   end
 
 end

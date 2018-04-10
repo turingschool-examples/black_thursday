@@ -18,9 +18,6 @@ class ItemRepository
       item_hash[pair[0].to_sym] = pair[1]
       item_hash
     end
-    item_hash[:id] = item_hash[:id].to_i
-    item_hash[:unit_price] = item_hash[:unit_price].to_i
-    item_hash[:merchant_id] = item_hash[:merchant_id].to_i
     item_hash
   end
 
@@ -46,8 +43,38 @@ class ItemRepository
     end
   end
 
-  def unit_price_to_dollars
-    @items
+  def find_all_by_price(price)
+    @items.find_all do |item|
+      item.unit_price == price
+    end
   end
+
+  def find_all_by_price_in_range(range)
+    @items.find_all do |item|
+      range.include?(item.unit_price)
+    end
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    @items.find_all do |item|
+      item.merchant_id == merchant_id
+    end
+  end
+
+  def find_highest_id
+    @items.max_by(&:id).id
+  end
+
+  # def create(attributes)
+  #
+  #   item = Item.new
+  # end
+
+
+
+
+  # def unit_price_to_dollars
+  #   @items
+  # end
 
 end
