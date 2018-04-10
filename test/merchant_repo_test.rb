@@ -46,14 +46,22 @@ class MerchantRepoTest < Minitest::Test
   def test_it_can_create
     attrs = {name: 'BreadCo'}
 
-    actual =  mr.create(attrs).last
-
-    assert_instance_of Merchant, actual
-    assert_equal 'BreadCo', actual.name
+    merchant =  mr.create(attrs).last
+    assert_instance_of Merchant, merchant
+    assert_equal 'BreadCo', merchant.name
+    assert_instance_of Time, merchant.created_at
+    assert_instance_of Time, merchant.updated_at
   end
 
   def test_it_can_update_a_merchant
+    attrs_1 = {name: 'BreadCo'}
+    merchant = mr.create(attrs_1).last
+    attrs_2 = {name: 'Bread Shop'}
+    id = merchant.id
+    mr.update(id, attrs_2)
 
+    assert_equal 'Bread Shop', merchant.name
+    assert_equal "2018-04-10", merchant.updated_at
 
   end
 

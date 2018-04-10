@@ -1,5 +1,7 @@
 require 'csv'
+require 'time'
 require_relative 'merchant'
+
 
 class MerchantRepo
   attr_reader :all
@@ -36,23 +38,24 @@ class MerchantRepo
   def find_max_id
     max = all.max_by { |merchant| merchant.id }
     max.id.to_i + 1
-
   end
 
   def create(attrs)
     attrs[:id] = find_max_id.to_s
     new_merchant = Merchant.new(attrs)
+    new_merchant.created_at = Time.now
+    new_merchant.updated_at = Time.now
     all << new_merchant
   end
 
-  def update
-    skip
-    #use find enum
-
+  def update(id, attrs)
+    merchant = find_by_id(id)
+    merchant.name = attrs[:name]
+    merchant.updated_at = Time.now.strftime("%Y-%m-%d")
   end
 
   def delete(id)
-    skip
+
     # require "pry"; binding.pry
     all.find { |merchant| merchant.pop(id)}
   end
