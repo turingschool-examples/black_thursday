@@ -37,10 +37,10 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_name
-    
+
     assert_equal [], @mr.find_all_by_name('Buffalo Bill')
-    assert_equal ['HeadyMamaCreations'], @mr.find_all_by_name('headyMamacreations')
-    assert_equal ['CJsDecor', 'CJsDecorTEST'], @mr.find_all_by_name('cj')
+    assert_equal 'HeadyMamaCreations', @mr.find_all_by_name('headyMamacreations')[0].name
+    assert_equal 2, @mr.find_all_by_name('cj').count
   end
 
   def test_find_highest_id
