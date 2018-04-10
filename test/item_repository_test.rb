@@ -60,24 +60,21 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_create_new_id
-    binding.pry
     assert_equal 263396210, @ir.create_new_id
   end
 
   def test_create
-    time = Time.now
     @ir.create({
                   :name        => 'Pencil',
                   :description => 'You can use it to write things',
                   :unit_price  => BigDecimal.new(10.99,4),
-                  :created_at  => Time.parse.now,
-                  :updated_at  => Time.parse.now,
+                  :created_at  => '1995-03-19 10:02:43 UTC',
+                  :updated_at  => '1995-03-19 10:02:43 UTC',
                 })
 
-    assert_equal 7, @ir.items.last.id
-    assert_equal 'Pencil', @ir.items.name
-    assert_equal 'You can use it to write things', @ir.items.description
-    assert_equal time, @ir.created_at
+    assert_equal 263396210, @ir.items.last.id
+    assert_equal 'Pencil', @ir.items.last.name
+    assert_equal 'You can use it to write things', @ir.items.last.description
   end
 
   def test_update_item
