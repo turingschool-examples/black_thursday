@@ -38,4 +38,14 @@ class ItemRepoTest < Minitest::Test
 
         assert_equal [263396013, 263396011], items_array
     end
+
+    def test_it_can_find_all_by_price
+        price = "13.50"
+        items = item_repo.find_all_with_price(price)
+
+        items_array = items.map { |item| item.id }
+
+        assert_equal [263395721, 263395729], items_array
+    end
+
 end

@@ -35,13 +35,13 @@ class ItemRepo
         end
     end
 
-    def find_all_by_price(price)
+    def find_all_with_price(price)
         repository.find_all do |item|
-            item.price == BigDecimal.new(price)
+            item.unit_price == BigDecimal.new(price)
         end
     end
 
-   def find_all_by_price_in_range(price_range)
+   def find_all_with_price_in_range(price_range)
     repository.find_all do |item|
       price_range.include?(item.unit_price)
     end
