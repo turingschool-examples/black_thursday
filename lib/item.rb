@@ -50,6 +50,4 @@ class Item
   def unit_price_to_dollars
     @attributes[:unit_price]
   end
-
-
 end
