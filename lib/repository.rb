@@ -38,9 +38,16 @@ module Repository
     end
   end
 
+
   def find_all_by_name(name)
     all.find_all do |element|
       element.name.downcase.include?(name.downcase)
+    end
+  end
+
+  def find_all_by_status(status)
+    all.find_all do |element|
+      element.status.casecmp(status).zero?
     end
   end
 
@@ -60,6 +67,12 @@ module Repository
   def find_all_by_merchant_id(merch_id)
     all.find_all do |element|
       element.merchant_id == merch_id
+    end
+  end
+
+  def find_all_by_customer_id(cust_id)
+    all.find_all do |element|
+      element.customer_id == cust_id
     end
   end
 

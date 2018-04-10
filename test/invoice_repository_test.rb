@@ -51,39 +51,40 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_customer_id
-    skip
+    # skip
     @invr.from_csv('./data/invoices.csv')
-    invoices = @invr.find_all_by_merchant_id(12334257)
+    invoices = @invr.find_all_by_customer_id(2)
     assert_instance_of Array, invoices
-    find = @invr.find_by_id(263397843)
+    assert_instance_of Invoice, invoices[0]
+    find = @invr.find_by_id(10)
     assert invoices.include?(find)
+    assert_equal 4, invoices.count
 
-    invoices2 = @invr.find_all_by_merchant_id(12334185)
+    invoices2 = @invr.find_all_by_customer_id(255)
     assert_instance_of Array, invoices2
-    find = @invr.find_by_id(263395617)
-    find2 = @invr.find_by_id(263395721)
-    find3 = @invr.find_by_id(263397201)
+    find = @invr.find_by_id(1308)
+    find2 = @invr.find_by_id(1315)
+    find3 = @invr.find_by_id(1316)
     assert invoices2.include?(find)
     assert invoices2.include?(find2)
     refute invoices2.include?(find3)
 
-    invoices3 = @invr.find_all_by_merchant_id(9999999999)
+    invoices3 = @invr.find_all_by_customer_id(9999999999)
     assert_equal [], invoices3
   end
 
   def test_find_all_by_merchant_id
-    skip
     @invr.from_csv('./data/invoices.csv')
-    invoices = @invr.find_all_by_merchant_id(12334257)
+    invoices = @invr.find_all_by_merchant_id(12334434)
     assert_instance_of Array, invoices
-    find = @invr.find_by_id(263397843)
+    find = @invr.find_by_id(1303)
     assert invoices.include?(find)
 
-    invoices2 = @invr.find_all_by_merchant_id(12334185)
+    invoices2 = @invr.find_all_by_merchant_id(12334499)
     assert_instance_of Array, invoices2
-    find = @invr.find_by_id(263395617)
-    find2 = @invr.find_by_id(263395721)
-    find3 = @invr.find_by_id(263397201)
+    find = @invr.find_by_id(1351)
+    find2 = @invr.find_by_id(400)
+    find3 = @invr.find_by_id(485)
     assert invoices2.include?(find)
     assert invoices2.include?(find2)
     refute invoices2.include?(find3)
@@ -93,24 +94,24 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_status_not_case_sensitive
-    skip
+    # skip
     @invr.from_csv('./data/invoices.csv')
-    invoices = @invr.find_all_with_description('will fit newborn')
+    invoices = @invr.find_all_by_status('shIppeD')
     assert_instance_of Array, invoices
-    find = @invr.find_by_id(263551162)
+    find = @invr.find_by_id(492)
     assert invoices.include?(find)
 
-    invoices2 = @invr.find_all_with_description('Handmade in Germany')
+    invoices2 = @invr.find_all_by_status('reTurNed')
     assert_instance_of Array, invoices2
-    find = @invr.find_by_id(263396279)
-    find2 = @invr.find_by_id(263396463)
-    find3 = @invr.find_by_id(263396255)
+    find = @invr.find_by_id(500)
+    find2 = @invr.find_by_id(445)
+    find3 = @invr.find_by_id(418)
 
     assert invoices2.include?(find)
     assert invoices2.include?(find2)
     refute invoices2.include?(find3)
 
-    invoices3 = @invr.find_all_with_description('random gibberish')
+    invoices3 = @invr.find_all_by_status('random gibberish')
     assert_equal [], invoices3
   end
 
