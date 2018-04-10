@@ -23,4 +23,8 @@ class SalesEngineTest < Minitest::Test
   def test_sales_engine_merchants_is_merchant_repo
     assert_instance_of MerchantRepository, @sales_engine.merchants
   end
+
+  def test_sales_analyst_is_self_referential_analyst
+    assert_instance_of SalesAnalyst, @sales_engine.analyst
+  end
 end

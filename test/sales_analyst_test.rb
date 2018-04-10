@@ -1,11 +1,11 @@
 require_relative 'test_helper'
 require_relative '../lib/sales_analyst'
-require_relative '../lib/sales_engline'
+require_relative '../lib/sales_engine'
 
 # Test for the SalesAnalyst class
 class SalesAnalystTest < Minitest::Test
   def setup
-    @sales_analyst = SalesAnalyst.new
+    @sales_analyst = SalesAnalyst.new(@engine)
   end
 
   def test_sales_analyst_exists

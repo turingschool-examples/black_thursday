@@ -9,11 +9,13 @@ require_relative 'sales_analyst'
 # Sales Engine class for managing data
 class SalesEngine
   attr_reader :items,
-              :merchants
+              :merchants,
+              :analyst
 
   def initialize(item_repo, merchant_repo)
     @items = item_repo
     @merchants = merchant_repo
+    @analyst = SalesAnalyst.new(self)
   end
 
   def self.from_csv(items_and_merchants)
