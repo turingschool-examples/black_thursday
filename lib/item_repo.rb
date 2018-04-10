@@ -1,5 +1,5 @@
 require_relative '../lib/item'
-
+require_relative '../lib/load_file'
 class ItemRepo
   attr_reader :items,
               :contents,
@@ -8,7 +8,7 @@ class ItemRepo
 
     def initialize(data, parent)
         @repository = data.map do |row| 
-        Item.new(row, self)
+             Item.new(row, self)
         end
         @parent = parent
     end
@@ -18,13 +18,13 @@ class ItemRepo
     end
 
     def find_by_id(id)
-        repository.find do |item
+        repository.find do |item|
             item.id == id
         end
     end
 
     def find_by_name(item)
-        repository.find do |child|
+        repository.find do |item|
             item.name.downcase == name.downcase
         end
     end
@@ -52,5 +52,11 @@ class ItemRepo
         item.merchant_id == id
     end
   end
+
+  def find_merchant_by_merchant_id(merchant_id)
+    parent.find_merchant_by_merchant_id(merchant_id)
+  end
+
+
 
 end
