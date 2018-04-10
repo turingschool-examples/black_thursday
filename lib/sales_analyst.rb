@@ -45,4 +45,13 @@ class SalesAnalyst
       result
     end.compact
   end
+
+  def average_item_price_for_merchant(merchant_id)
+    total = items_per_merchant[merchant_id]
+    items_by_merch = @engine.items.all.group_by(&:merchant_id)
+    sum_of_prices = items_by_merch[merchant_id].inject(0) do |sum, item|
+      sum + item.unit_price
+    end
+    sum_of_prices / total
+  end
 end

@@ -40,4 +40,10 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Merchant, result[0]
     assert_equal ['FlavienCouche'], result.map(&:name)
   end
+
+  def test_average_item_price_for_merchant
+    result = @sales_analyst.average_item_price_for_merchant(12334185)
+    assert_instance_of BigDecimal, result
+    assert_equal 11.17, result.to_f.round(2)
+  end
 end
