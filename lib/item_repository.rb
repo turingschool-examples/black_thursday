@@ -73,13 +73,17 @@ class ItemRepository
     @items << item
   end
 
-  # def update(id, attributes)
+  def update(id, attributes)
+    item = find_by_id(id)
+    pairs = attributes.keys.zip(attributes.values)
+    pairs.each do |pair|
+      item.attributes[pair[0].to_sym] = pair[1]
+    end
+  end
 
-
-
-
-  # def unit_price_to_dollars
-  #   @items
-  # end
+  def delete(id)
+    item = find_by_id(id)
+    @items.delete(item)
+  end
 
 end

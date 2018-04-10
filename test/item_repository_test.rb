@@ -138,28 +138,29 @@ class ItemRepositoryTest < Minitest::Test
 
 
   def test_item_can_be_updated
-    skip
+
     ir = ItemRepository.new(@items)
-    assert_instance_of @items, ir.all
-    assert_equal @icons, @items.find_by_id(263395237)
-    ir.update ({
-      id: 263395237,
-      name: "RealPush Icon Set",
-      description: "It writes things.",
-      unit_price: BigDecimal.new(12.00, 4),
-      merchant_id: 12334141,
-      created_at: Time.now,
-      updated_at: Time.now
-    })
+    assert_instance_of Item, ir.all[0]
+    assert_instance_of Item, ir.find_by_id(263395237)
+    attributes = {name: "RealPush Icon Set",
+    description: "It writes things.",
+    unit_price: BigDecimal.new(12.00, 4),
+    merchant_id: 12334141,
+    created_at: Time.now,
+    updated_at: Time.now}
+    ir.update(263395237, attributes)
+    assert_equal "It writes things.", ir.find_by_id(263395237).description
+    assert_equal "RealPush Icon Set", ir.find_by_id(263395237).name
+    assert_equal 12334141, ir.find_by_id(263395237).merchant_id
+
   end
 
   def test_it_can_be_deleted
-    skip
     ir = ItemRepository.new(@items)
-    assert_instance_of @items, ir.all
-    assert_equal ir.find_by_id(263395237), @icons
+    assert_equal "RealPush Icon Set", ir.find_by_id(263395237).name
+    assert_equal 3, ir.all.count
     ir.delete(263395237)
-    assert_equal 2, @items.count
+    assert_equal 2, ir.all.count
   end
 
 end
