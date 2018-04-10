@@ -1,42 +1,32 @@
 # Sales Engine
 class SalesEngine
+  attr_reader :data,
+              :merchant_repo,
+              :item_repo
+
+  def initialize(data)
+    @data = data
+  end
+
   def self.from_csv(data)
-    se = new
+    se = new(data)
+    se.parse_data
+    se # has access to the repos
+  end
+
+  def parse_data
     data.each do |model, file_path|
-      binding.pry
-      repo = se.create_repository_for(model)
-      CSV.foreach(file_path, headers: true) do |row|
-        repo.collection << create_model_for(model, row)
+      if model == :item
+        @item_repo = ItemRepository.new(file_path, self)
+      elsif model == :merchant
+        @merchant_repo = MerchantRepository.new(file_path, self)
+      else
+        nil
       end
     end
-    se
-  end
-
-  def create_repository_for(model)
-    key = convert_model_key_to_repo_key(model)
-    repo = create_model_from_symbol(key).new
-    instance_variable_set(key.to_s, repo)
-  end
-
-  def create_model_for(model, row)
-    create_model_from_symbol(model).new(row)
-  end
-
-  def create_model_from_symbol(model)
-    {
-      item: Item,
-      merchant: Merchant,
-      item_repository: ItemRepository,
-      merchant_repository: MerchantRepository,
-      transacton_repository: TransactionRepository,
-      transaction: Transaction
-      }[model]
-  end
-
-  def convert_model_key_to_repo_key(model)
-    (model.to_s + '_repository').to_sym
   end
 end
+
 # se = SalesEngine.from_csv(
 # data = {
 #   :items     => "./data/items.csv",

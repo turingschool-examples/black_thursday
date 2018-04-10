@@ -6,10 +6,10 @@ class MerchantRepository
   attr_reader :contents,
               :parent
 
-  def initialize(path, parent = nil)
+  def initialize(file_path, parent = nil)
     @contents = []
     @parent = parent
-    CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
+    CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
       @contents << Merchant.new(row, self)
     end
   end
@@ -30,10 +30,11 @@ class MerchantRepository
     end
   end
 
-  # def find_all_by_name(name)
-  #   @contet.find_all do |row|
-  #
-  # end
+  def find_all_by_name(name)
+    @contet.find_all do |row|
+      row.downcase == name.downcase
+    end
+  end
 end
 
 #
