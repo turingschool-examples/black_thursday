@@ -55,8 +55,7 @@ class TransactionRepository
 
   def delete(id)
     transaction_to_delete = find_by_id(id)
-    require "pry"; binding.pry
-    @respository.delete(transaction_to_delete)
+    @repository.delete(transaction_to_delete)
   end
 
   def inspect
