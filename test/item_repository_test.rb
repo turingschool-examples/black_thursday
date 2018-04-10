@@ -1,8 +1,13 @@
+# frozen_string_literal: true
+
+require 'time'
+require 'timecop'
 require_relative 'test_helper'
 require './lib/item_repository'
 require './lib/sales_engine'
 require 'pry'
 
+# This is an ItemRepository Class
 class ItemRepositoryTest < Minitest::Test
   def setup
     @se = SalesEngine.from_csv( { :items     => './test/fixtures/items_truncated.csv',
@@ -51,7 +56,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_find_all_by_price_in_range
     assert_equal [], @ir.find_all_by_price_in_range((0..1))
     assert_instance_of Item, @ir.find_all_by_price_in_range((1..15))[0]
-    assert_equal 5, @ir.find_all_by_price_in_range((1..10000)).count
+    assert_equal 5, @ir.find_all_by_price_in_range((1..100_00)).count
   end
 
   def test_find_all_by_merchant_id
@@ -59,12 +64,53 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of Item, @ir.find_all_by_merchant_id(2)[0]
   end
 
-  def test_create_item_attributes
+  def test_find_highest_id
+    assert_equal 263_396_209, @ir.find_highest_id
+  end
 
+  def test_create_new_id
+    assert_equal 263_396_210, @ir.create_new_id
+  end
+
+  def test_create_item
+    skip
+    Timecop.freeze
+    time = Time.now.to_s
+    assert_equal 263_396_210, @ir.create_new_id
+
+    @ir.create({
+                  :name        => 'Pencil',
+                  :description => 'You can use it to write things',
+                  :unit_price  => BigDecimal(10.99, 4),
+                  :created_at  => '1995-03-19 10:02:43 UTC',
+                  :updated_at  => '1995-03-19 10:02:43 UTC',
+                })
+
+    assert_equal 263_396_210, @ir.items.last.id
+    assert_equal 'Pencil', @ir.items.last.name
+    assert_equal 'You can use it to write things', @ir.items.last.description
+    assert_equal time, @ir.items.last.created_at
+    Timecop.return
   end
 
   def test_update_item
+    attributes = ({
+                    :name        => 'Pencil',
+                    :description => 'You can use it to write things',
+                    :unit_price  => BigDecimal(10.99,4),
+                    :created_at  => '1995-03-19 10:02:43 UTC',
+                    :updated_at  => '1995-03-19 10:02:43 UTC',
+                  })
 
+    to_update = @ir.find_by_id(263_396_209)
+
+    assert_equal 'Vogue Paris Original Givenchy 2307', to_update.name
+    assert_equal 29.99, to_update.unit_price
+
+    @ir.update(263_396_209, attributes)
+
+    assert_equal 'Pencil', to_update.name
+    assert_equal 10.99, to_update.unit_price
   end
 
   def test_delete_item
@@ -72,6 +118,7 @@ class ItemRepositoryTest < Minitest::Test
 
     @ir.delete(1)
 
+    assert_nil @ir.find_by_id(1)
     assert_equal 4, @ir.items.count
   end
 end

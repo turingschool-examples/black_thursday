@@ -5,8 +5,22 @@ class MerchantRepository
   attr_reader :path,
               :merchants
 
+<<<<<<< HEAD
   def initialize
     @merchants = []
+=======
+  def initialize(path)
+    @merchants = []
+    @path      = path
+    @time      = Time.new
+    pack_merchants(path)
+  end
+
+  def pack_merchants(path)
+    CSV.foreach(path, headers: true, header_converters: :symbol) do |merchant|
+    merchants << Merchant.new(merchant)
+    end
+>>>>>>> 928bc9d8a654d179c3b485c15b80461fcba49580
   end
 
   def all
@@ -34,6 +48,36 @@ class MerchantRepository
     found.compact
   end
 
+<<<<<<< HEAD
+=======
+  def find_highest_id
+    merchants.map do |merchant|
+      merchant.id
+    end.max
+  end
+
+  def create_new_id
+    find_highest_id + 1
+  end
+
+  def create(attributes)
+    attributes[:id] = create_new_id
+    merchants << Merchant.new(attributes)
+  end
+
+  def update(id, attributes)
+    delete(id)
+    attributes[:id] = id
+      merchants << Merchant.new(attributes)
+  end
+
+  def delete(id)
+    merchants.delete_if do |merchant|
+      merchant.id == id
+    end
+  end
+
+>>>>>>> 928bc9d8a654d179c3b485c15b80461fcba49580
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end

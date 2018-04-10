@@ -5,6 +5,7 @@ require 'pry'
 
 class SalesEngine
 
+<<<<<<< HEAD
   attr_reader :item_repository, :merchant_repository
   def initialize(path)
     @item_repository ||= ItemRepository.new
@@ -39,4 +40,15 @@ class SalesEngine
       @merchant_repository.merchants << Merchant.new(merchant)
     end
   end
+=======
+  attr_reader :items, :merchants
+  def initialize(data)
+     @items ||= ItemRepository.new(data[:items])
+     @merchants = MerchantRepository.new(data[:merchants])
+  end
+
+  def self.from_csv(data)
+    new(data)
+  end
+>>>>>>> 928bc9d8a654d179c3b485c15b80461fcba49580
 end
