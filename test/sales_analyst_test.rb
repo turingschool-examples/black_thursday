@@ -21,14 +21,14 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Float, @sales_analyst.average_items_per_merchant
   end
 
+  def test_items_per_merchant
+    expected = { 12334185 => 3, 12334213 => 2, 12334315 => 1 }
+    assert_equal expected, @sales_analyst.items_per_merchant
+  end
+
   def test_average_items_per_merchant_std_dev
     skip
     # assert_equal 2.00, @sales_analyst.average_items_per_merchant_standard_deviation
     assert_instance_of Float, @sales_analyst.average_items_per_merchant_standard_deviation
-  end
-
-  def tests_items_per_merchant
-    expected = {12334185 => 3, 12334213 => 2, 12334315 => 1}
-    assert_equal expected, @sales_analyst.items_per_merchant
   end
 end

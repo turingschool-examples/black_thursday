@@ -13,8 +13,13 @@ class SalesAnalyst
   end
 
   def items_per_merchant
+    items_by_merch = @engine.items.all.group_by do |item|
+      item.merchant_id
+    end
 
-    @engine.merchants.keys
+    items_by_merch.each_key do |key|
+      items_by_merch[key] = items_by_merch[key].length
+    end
   end
 
   def average_items_per_merchant_standard_deviation
