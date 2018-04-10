@@ -44,4 +44,13 @@ class Invoice
   def merchant
     @parent.find_merchant_by_merchant_id(merchant_id)
   end
+
+  def is_paid_in_full?
+    transactions = self.transaction
+    transactions.any? { |transaction| transaction.result == 'success' }
+  end
+
+  def transaction
+    @parent.find_transaction_by_invoice_id(id)
+  end
 end

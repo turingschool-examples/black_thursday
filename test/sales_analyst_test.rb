@@ -13,7 +13,10 @@ class SalesAnalystTest < MiniTest::Test
   def setup
     @se = SalesEngine.from_csv(
       items:      './data/items.csv',
-      merchants:  './data/merchants.csv'
+      merchants:  './data/merchants.csv',
+      invoices:   './data/invoices.csv',
+      customers:  './data/customers.csv',
+      transactions: './data/transactions.csv'
     )
     @s = SalesAnalyst.new(@se)
   end
@@ -60,6 +63,21 @@ class SalesAnalystTest < MiniTest::Test
   def test_it_can_find_the_golden_items
     expected = 5
     actual = @s.golden_items.length
+
+    assert_equal expected, actual
+  end
+
+  def test_it_can_find_one_time_buyers
+    skip
+    expected = 5
+    actual = @s.one_time_buyers
+
+    assert_equal expected, actual
+  end
+
+  def test_it_can_return_paid_in_full_invoice
+    expected = true
+    actual = @s.invoice_paid_in_full?(16)
 
     assert_equal expected, actual
   end
