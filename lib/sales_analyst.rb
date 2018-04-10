@@ -8,6 +8,7 @@ class SalesAnalyst
   def initialize(sales_engine)
     @merchant_repo = sales_engine.merchants
     @item_repo = sales_engine.items
+    @invoice_repo = sales_engine.invoices
   end
 
   def average_items_per_merchant
