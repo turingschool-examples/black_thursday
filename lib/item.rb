@@ -28,4 +28,20 @@ class Item
   def merchant
     item_repo.sales_engine.merchants.find_by_id(merchant_id)
   end
+
+  def update_updated_at
+    @updated_at = Time.now
+  end
+
+  def update_name(name)
+    @name = name
+  end
+
+  def update_description(description)
+    @description = description
+  end
+
+  def update_unit_price(price)
+    @unit_price = price
+  end
 end

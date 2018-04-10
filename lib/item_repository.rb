@@ -74,10 +74,11 @@ class ItemRepository
 
   def update(id, attributes)
     return nil if find_by_id(id).nil?
-    find_by_id(id).updated_at = Time.now
-    find_by_id(id).name = attributes[:name] if attributes.keys.include?(:name)
-    find_by_id(id).description = attributes[:description]
-    find_by_id(id).unit_price = attributes[:unit_price]
+    to_update = find_by_id(id)
+    to_update.update_updated_at
+    to_update.update_name(attributes[:name]) if attributes.keys.include?(:name)
+    to_update.update_description(attributes[:description]) if attributes.keys.include?(:description)
+    to_update.update_unit_price(attributes[:unit_price]) if attributes.keys.include?(:unit_price)
   end
 
   def delete(id)

@@ -20,4 +20,12 @@ class Merchant
   def invoices
     merchant_repo.sales_engine.invoices.find_all_by_merchant_id(id)
   end
+
+  def change_update_time
+    @updated_at = Time.now.strftime('%F')
+  end
+
+  def change_name(name)
+    @name  = name
+  end
 end
