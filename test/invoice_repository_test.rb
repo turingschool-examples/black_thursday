@@ -18,7 +18,7 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_instance_of Invoice, @invr.elements[328]
     assert_equal 66, @invr.elements[328].customer_id
     assert_instance_of Invoice, @invr.elements[141]
-    assert_equal 'shipped', @invr.elements[141].status
+    assert_equal :shipped, @invr.elements[141].status
     assert_equal 12334361, @invr.elements[237].merchant_id
 
     assert_nil @invr.elements['id']
@@ -93,15 +93,15 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal [], invoices3
   end
 
-  def test_find_all_by_status_not_case_sensitive
+  def test_find_all_by_status #case_sensitive
     # skip
     @invr.from_csv('./data/invoices.csv')
-    invoices = @invr.find_all_by_status('shIppeD')
+    invoices = @invr.find_all_by_status('shipped')
     assert_instance_of Array, invoices
     find = @invr.find_by_id(492)
     assert invoices.include?(find)
 
-    invoices2 = @invr.find_all_by_status('reTurNed')
+    invoices2 = @invr.find_all_by_status('returned')
     assert_instance_of Array, invoices2
     find = @invr.find_by_id(500)
     find2 = @invr.find_by_id(445)
@@ -127,7 +127,7 @@ class InvoiceRepositoryTest < Minitest::Test
                 :updated_at  => time
                 })
     assert_equal 1, @invr.all.count
-    assert_equal 'pending', @invr.find_by_id(1).status
+    assert_equal :pending, @invr.find_by_id(1).status
     assert_equal time, @invr.find_by_id(1).updated_at
 
     @invr.create({
@@ -153,7 +153,7 @@ class InvoiceRepositoryTest < Minitest::Test
                   :updated_at  => time
                   })
     assert_equal 1, @invr.all.count
-    assert_equal 'pending', @invr.find_by_id(1).status
+    assert_equal :pending, @invr.find_by_id(1).status
     assert_equal 8, @invr.find_by_id(1).merchant_id
 
     @invr.update(1, {
@@ -162,7 +162,7 @@ class InvoiceRepositoryTest < Minitest::Test
                   :status      => "shipping",
                   })
     assert_equal 1, @invr.all.count
-    assert_equal 'shipping', @invr.find_by_id(1).status
+    assert_equal :shipping, @invr.find_by_id(1).status
     assert_equal 18, @invr.find_by_id(1).merchant_id
     assert_equal 9, @invr.find_by_id(1).customer_id
     assert time < @invr.find_by_id(1).updated_at

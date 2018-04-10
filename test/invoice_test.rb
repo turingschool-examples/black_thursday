@@ -23,7 +23,7 @@ class InvoiceTest < Minitest::Test
     assert_equal 3, @inv.id
     assert_equal 7, @inv.customer_id
     assert_equal 8, @inv.merchant_id
-    assert_equal "pending", @inv.status
+    assert_equal :pending, @inv.status
     assert_equal @time, @inv.created_at
     assert_equal @time, @inv.updated_at
   end

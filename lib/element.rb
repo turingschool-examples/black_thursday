@@ -50,6 +50,12 @@ module Element
   end
 
   def status
-    @attributes[:status]
+    @attributes[:status].to_sym
   end
+
+  def merchant #return the merchant object of an invoice - spec harness
+  end
+
+  def invoices #return the [invoices] of a merchant
+  end 
 end
