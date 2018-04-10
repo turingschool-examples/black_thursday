@@ -15,7 +15,7 @@ class SalesAnalyst
   def average_items_per_merchant_standard_deviation
     merchants = @engine.merchants.all
     average = average_items_per_merchant
-    standard_deviation(merchants, average)
+    standard_deviation(merchants, average, 'item')
   end
 
   def merchants_with_high_item_count
@@ -65,15 +65,45 @@ class SalesAnalyst
   def item_unit_price_standard_deviation
     items = @engine.items.all
     average = average_item_cost
-    standard_deviation(items, average)
+    standard_deviation(items, average, 'item')
   end
 
-  def standard_deviation(elements, average)
+  def standard_deviation(elements, average, decider)
     deviation_sum = 0
     elements.each do |element|
-      deviation_sum += (element.value.to_f - average).abs ** 2
+      deviation_sum += (element.value(decider).to_f - average).abs ** 2
     end
     divided_deviation = deviation_sum / (elements.count - 1)
     Math.sqrt(divided_deviation).round(2).to_f
+  end
+
+  def average_invoices_per_merchant
+    invoices = @engine.invoices.elements.count.to_f
+    merchants = @engine.merchants.elements.count.to_f
+    (invoices / merchants).round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    merchants = @engine.merchants.all
+    average = average_invoices_per_merchant
+    standard_deviation(merchants, average, 'invoice')
+  end
+
+  def top_merchants_by_invoice_count
+    threshold = average_invoices_per_merchant +
+                (average_invoices_per_merchant_standard_deviation * 2)
+    @engine.merchants.all.find_all do |merchant|
+      merch_count = @engine.invoices.find_all_by_merchant_id(merchant.id).count
+      merch_count > threshold
+    end
+  end
+
+  def bottom_merchants_by_invoice_count
+    threshold = average_invoices_per_merchant -
+                (average_invoices_per_merchant_standard_deviation * 2)
+    @engine.merchants.all.find_all do |merchant|
+      merch_count = @engine.invoices.find_all_by_merchant_id(merchant.id).count
+      merch_count < threshold
+    end
   end
 end

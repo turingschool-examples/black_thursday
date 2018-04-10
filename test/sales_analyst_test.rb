@@ -5,6 +5,7 @@ class SalesAnalystTest < Minitest::Test
   def setup
     se = SalesEngine.from_csv({
       :items      => './data/items.csv',
+      :invoices   => './data/invoices.csv',
       :merchants  => './data/merchants.csv'
       })
     @sa = se.analyst
@@ -61,5 +62,39 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Item, golden[-1]
     assert golden.include?(@sa.engine.items.find_by_id(263554072))
     refute golden.include?(@sa.engine.items.find_by_id(263529916))
+  end
+
+  def test_it_returns_average_invoices_per_merchant
+    assert_equal 10.49, @sa.average_invoices_per_merchant
+  end
+
+  def test_average_invoices_per_merchant_standard_deviation
+    assert_equal 3.29, @sa.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_top_merchants_by_invoice_count
+    top_sellers = @sa.top_merchants_by_invoice_count
+    assert_instance_of Array, top_sellers
+    m1 = top_sellers[0]
+    assert_instance_of Merchant, m1
+    m1_invoices = @sa.engine.invoices.find_all_by_merchant_id(m1.id)
+    assert m1_invoices.count > (10.49 + (3.29 * 2))
+    assert_instance_of Merchant, top_sellers[5]
+    assert_instance_of Merchant, top_sellers[-1]
+    refute top_sellers.include?(@sa.engine.merchants.find_by_id(12334213))
+    assert top_sellers.include?(@sa.engine.merchants.find_by_id(12334141))
+  end
+
+  def test_bottom_merchants_by_invoice_count
+    lowest_sellers = @sa.bottom_merchants_by_invoice_count
+    assert_instance_of Array, lowest_sellers
+    m1 = lowest_sellers[0]
+    assert_instance_of Merchant, m1
+    m1_invoices = @sa.engine.invoices.find_all_by_merchant_id(m1.id)
+    assert m1_invoices.count < (10.49 - (3.29 * 2))
+    assert_instance_of Merchant, lowest_sellers[0]
+    assert_instance_of Merchant, lowest_sellers[-1]
+    refute lowest_sellers.include?(@sa.engine.merchants.find_by_id(12334141))
+    assert lowest_sellers.include?(@sa.engine.merchants.find_by_id(12334235))
   end
 end

@@ -26,7 +26,6 @@ class InvoiceRepository
 
   def update(id, attributes)
     super(id, attributes)
-    # binding.pry
     @elements[id].attributes[:merchant_id] = attributes[:merchant_id] if attributes[:merchant_id]
   end
 end

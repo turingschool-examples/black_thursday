@@ -51,7 +51,6 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_customer_id
-    # skip
     @invr.from_csv('./data/invoices.csv')
     invoices = @invr.find_all_by_customer_id(2)
     assert_instance_of Array, invoices
@@ -140,7 +139,6 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_update_an_existing_invoice
-    # skip
     assert_equal 0, @invr.all.count
     time = Time.now - 1
     @invr.create({
@@ -167,7 +165,6 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_delete_an_existing_invoice
-    # skip
     assert_equal 0, @invr.all.count
     time = Time.now
     @invr.create({

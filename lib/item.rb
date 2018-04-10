@@ -8,7 +8,7 @@ class Item
     @attributes = attributes
   end
 
-  def value
+  def value(decider)
     unit_price
   end
 end
