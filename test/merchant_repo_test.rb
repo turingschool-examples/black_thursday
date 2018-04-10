@@ -39,10 +39,24 @@ class MerchantRepoTest < Minitest::Test
     assert_equal 1, mr.find_all_by_name("Shopin1901").count
   end
 
-  def test_it_can_create_a_new_merchant_with_attributes
-    assert_equal 475, mr.all.length
-    attrs = {name: 'BreadCo'}
-    mr.create(attrs)
-    assert_equal 476, mr.all.length
+  def test_find_max_id
+    assert_equal 12337412, mr.find_max_id
   end
+
+
+
+
+
+
+
+  # def test_it_can_create_a_new_merchant_with_attributes
+  #   attrs = {name: 'BreadCo'}
+  #   assert_equal 475, all.count
+  #
+  #   new_merchant = mr.create(attrs)
+  #
+  #   assert_instance_of Merchant, new_merchant
+  #   assert_equal 476, all.count
+  #   assert_equal new_mechant.id,
+  # end
 end

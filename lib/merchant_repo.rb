@@ -33,8 +33,15 @@ class MerchantRepo
     end
   end
 
+  def find_max_id
+    max = all.max_by { |merchant| merchant.id }
+    max.id.to_i + 1
+  end
+
   def create(attrs)
-    all << Merchant.new(attrs)
+    attrs[:id] = find_max_id.to_s
+    new_merchant = Merchant.new(attrs)
+    all << new_merchant
   end
 
 end
