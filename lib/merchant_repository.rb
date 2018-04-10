@@ -1,15 +1,17 @@
-# frozen_string_literal: true
-
 require 'CSV'
-# Merchant Repository Class
+
 class MerchantRepository
   attr_reader :contents,
               :parent
 
-  def initialize(file_path, parent = nil)
+  def initialize(path, parent)
     @contents = []
     @parent = parent
-    CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
+    load_path(path)
+  end
+
+  def load_path(path)
+    CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
       @contents << Merchant.new(row, self)
     end
   end
@@ -31,18 +33,8 @@ class MerchantRepository
   end
 
   def find_all_by_name(name)
-    @contet.find_all do |row|
+    @contents.find_all do |row|
       row.downcase == name.downcase
     end
   end
 end
-
-#
-# def create(attributes)
-# end
-#
-# def update(id, attributes)
-# end
-#
-# def delete(id)
-# end

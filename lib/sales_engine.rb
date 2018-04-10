@@ -1,38 +1,26 @@
-# Sales Engine
+require './lib/item_repository'
+require './lib/merchant_repository'
+
 class SalesEngine
-  attr_reader :data,
-              :merchant_repo,
-              :item_repo
 
-  def initialize(data)
-    @data = data
+  attr_reader :path
+
+  def initialize(path)
+    @path = path
   end
 
-  def self.from_csv(data)
-    se = new(data)
-    se.parse_data
-    se # has access to the repos
+  def items
+    @items ||= ItemRepository.new(path[:items], self)
   end
 
-  def parse_data
-    data.each do |model, file_path|
-      if model == :item
-        @item_repo = ItemRepository.new(file_path, self)
-      elsif model == :merchant
-        @merchant_repo = MerchantRepository.new(file_path, self)
-      else
-        nil
-      end
-    end
+  def merchants
+    @merchants ||= MerchantRepository.new(path[:merchants], self)
+  end
+
+  def self.from_csv(path)
+    se = SalesEngine.new(path)
   end
 end
 
-# se = SalesEngine.from_csv(
-# data = {
-#   :items     => "./data/items.csv",
-#   :merchants => "./data/merchants.csv",
-# })
-#
-# mr = se.merchants
-# merchant = mr.find_by_name("CJsDecor")
-# # => <Merchant>
+#memoization
+#This operator only sets the variable if the variable is false or Nil.
