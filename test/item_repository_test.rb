@@ -166,4 +166,9 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 3, @i_repo.items.count
     assert_nil @i_repo.items[263567475]
   end
+
+  def test_magic_spec_harness_method_works
+    expected = "#<ItemRepository #{@i_repo.items.size} rows>"
+    assert_equal expected, @i_repo.inspect
+  end
 end

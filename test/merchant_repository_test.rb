@@ -114,4 +114,9 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 6, @m_repo.merchants.count
     assert_nil @m_repo.merchants[12334135]
   end
+
+  def test_magic_spec_harness_method_works
+    expected = "#<MerchantRepository #{@m_repo.merchants.size} rows>"
+    assert_equal expected, @m_repo.inspect
+  end
 end
