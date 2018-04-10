@@ -1,4 +1,4 @@
-# Item 
+# Item
 class Item
   attr_reader :id,
               :name,
@@ -7,12 +7,12 @@ class Item
               :created_at,
               :updated_at
 
-  def initialize(data)
-    @id = data[:id].to_i
-    @name = data[:name]
-    @description = data[:description]
-    @unit_price = data[:unit_price].to_f
-    @created_at = data[:created_at]
-    @updated_at = data[:updated_at]
+  def initialize(item, parent = nil)
+    @id = item[:id]
+    @name = item[:name]
+    @description = item[:description]
+    @unit_price = item[:unit_price].to_f
+    @created_at = item[:created_at]
+    @updated_at = item[:updated_at]
   end
 end
