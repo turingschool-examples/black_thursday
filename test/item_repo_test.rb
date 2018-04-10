@@ -21,8 +21,7 @@ class ItemRepoTest < Minitest::Test
     end
 
     def test_it_can_find_item_by_id
-        assert
-
+        item = item_repo.find_by_id(263396013)
+        assert_equal 263396013, item.id
     end
-
 end
