@@ -55,8 +55,29 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of Item, @ir.find_all_by_merchant_id(2)[0]
   end
 
-  def test_create_item_attributes
+  def test_find_highest_id
+    assert_equal 263396209, @ir.find_highest_id
+  end
 
+  def test_create_new_id
+    binding.pry
+    assert_equal 263396210, @ir.create_new_id
+  end
+
+  def test_create
+    time = Time.now
+    @ir.create({
+                  :name        => 'Pencil',
+                  :description => 'You can use it to write things',
+                  :unit_price  => BigDecimal.new(10.99,4),
+                  :created_at  => Time.parse.now,
+                  :updated_at  => Time.parse.now,
+                })
+
+    assert_equal 7, @ir.items.last.id
+    assert_equal 'Pencil', @ir.items.name
+    assert_equal 'You can use it to write things', @ir.items.description
+    assert_equal time, @ir.created_at
   end
 
   def test_update_item
