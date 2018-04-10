@@ -85,6 +85,6 @@ class InvoiceItemRepositorytest < Minitest::Test
   def test_it_can_delete_by_id
     invoice_items.delete(1)
 
-    assert_equal nil, invoice_items.find_by_id(1)
+    assert_nil invoice_items.find_by_id(1)
   end
 end
