@@ -25,8 +25,17 @@ class ItemRepoTest < Minitest::Test
         assert_equal 263396013, item.id
     end
 
-    def test_it_can_find_by_name
+    def test_it_can_find_item_by_name
         item = item_repo.find_by_name("Glitter scrabble frames")
         assert_equal "Glitter scrabble frames", item.name
+    end
+
+    def test_it_can_find_all_items_with_description
+        description = "Free standing wooden letters"
+        items = item_repo.find_all_with_description(description)
+
+        items_array = items.map { |item| item.id }
+
+        assert_equal [263396013, 263396011], items_array
     end
 end
