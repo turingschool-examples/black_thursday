@@ -12,5 +12,5 @@ class Item
     @unit_price = data[:unit_price]
     @updated_at = data[:updated_at]
   end
-  
+
 end

@@ -10,33 +10,33 @@ require './lib/item_repository'
 class ItemRepositoryTest < Minitest::Test
 
   def setup
-    @icons = Item.new({
-      id: 263395237,
-      name: "RealPush Icon Set",
-      description: "It writes things.",
-      unit_price: BigDecimal.new(12.00, 4),
-      merchant_id: 12334141,
-      created_at: Time.now,
-      updated_at: Time.now
-      })
-    @glitter_frames = Item.new({
-      id: 263395617,
-      name: "Glitter Scrabble Frames",
-      description: "Any colour glitter.",
-      unit_price: BigDecimal.new(13.00, 4),
-      merchant_id: 12334185,
-      created_at: Time.now,
-      updated_at: Time.now
-      })
-    @wooden_letters = Item.new({
-      id: 263396013,
-      name: "Free Standing Wooden Letters",
-      description: "Free standing wooden letters, 15cm, any color.",
-      unit_price: BigDecimal.new(700, 3),
-      merchant_id: 12334105,
-      created_at: Time.now,
-      updated_at: Time.now
-      })
+    @icons = [
+      "id: 263395237",
+      "name: RealPush Icon Set",
+      "description: It writes things.",
+      "unit_price: 1200",
+      "merchant_id: 12334141",
+      "created_at: 2016-01-11 09:34:06 UTC",
+      "updated_at: 2007-06-04 21:35:10 UTC"
+    ]
+    @glitter_frames = [
+      "id: 263395617",
+      "name: Glitter Scrabble Frames",
+      "description: Any colour glitter.",
+      "unit_price: 1300",
+      "merchant_id: 12334185",
+      "created_at: 2016-01-11 11:51:37 UTC",
+      "updated_at: 1993-09-29 11:56:40 UTC"
+    ]
+    @wooden_letters = [
+      "id: 263396013",
+      "name: Free Standing Wooden Letters",
+      "description: Free standing wooden letters, 15cm, any color.",
+      "unit_price: 700",
+      "merchant_id: 12334105",
+      "created_at: 2016-01-11 11:51:36 UTC",
+      "updated_at: 2001-09-17 15:28:43 UTC"
+    ]
       @items = [@icons, @glitter_frames, @wooden_letters]
     end
 
@@ -49,17 +49,15 @@ class ItemRepositoryTest < Minitest::Test
   def test_repo_holds_items
     ir = ItemRepository.new(@items)
 
-    ir.all? do |item|
+    ir.items.all? do |item|
       assert_instance_of Item, item
     end
-    assert_equal @items, ir.all
   end
 
-  def test_converts_price_to_dollars
-    skip
+  def test_unit_price_to_dollars
     ir = ItemRepository.new(@items)
 
-    assert_equal [12.00, 13.00, 7.00], @items.convert_to_dollars
+    assert_equal [12.00, 13.00, 7.00], @items.unit_price_to_dollars
   end
 
   def test_can_find_by_id
@@ -135,7 +133,7 @@ class ItemRepositoryTest < Minitest::Test
       merchant_id: 12334141,
       created_at: Time.now,
       updated_at: Time.now
-      })
+    })
   end
 
   def test_it_can_be_deleted
