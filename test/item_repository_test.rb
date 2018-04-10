@@ -64,6 +64,8 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_create
+    assert_equal 263396210, @ir.create_new_id
+
     @ir.create({
                   :name        => 'Pencil',
                   :description => 'You can use it to write things',
@@ -78,10 +80,11 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_update_item
-
+    
   end
 
   def test_delete_item
+    binding.pry
     assert_equal 5, @ir.items.count
 
     @ir.delete(1)

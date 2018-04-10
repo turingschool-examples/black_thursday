@@ -60,7 +60,18 @@ class ItemRepository
 
   def create(attributes)
     attributes[:id] = create_new_id
+    attributes[:created_at] = Time.now.to_s
+    attributes[:updated_at] = Time.now.to_s
     @items << Item.new(attributes)
+  end
+
+  def update(id, attributes)
+    return nil if find_by_id(id).nil?
+    to_update = find_by_id(id)
+    to_update.name = attributes[:name]
+    to_update.description = attributes[:description]
+    to_update.unit_price = attributes[:unit_price]
+    to_update.updated_at = Time.now.to_s
   end
 
   def delete(id)
