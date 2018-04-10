@@ -7,10 +7,10 @@ require 'pry'
 
 # This is a SalesEngine Class
 class SalesEngine
-  attr_reader :item_repository, :merchant_repository
+  attr_reader :items, :merchants
   def initialize(path)
-    @item_repository ||= ItemRepository.new
-    @merchant_repository ||= MerchantRepository.new
+    @items ||= ItemRepository.new
+    @merchants||= MerchantRepository.new
     load_data(path)
   end
 
@@ -32,13 +32,13 @@ class SalesEngine
 
   def load_items(path = filepath)
     CSV.foreach(path[:items], headers: true, header_converters: :symbol) do |data|
-      @item_repository.items << Item.new(data)
+      @items.items << Item.new(data)
     end
   end
 
   def load_merchants(path = filepath)
     CSV.foreach(path[:merchants], headers: true, header_converters: :symbol) do |merchant|
-      @merchant_repository.merchants << Merchant.new(merchant)
+      @merchants.merchants << Merchant.new(merchant)
     end
   end
 end

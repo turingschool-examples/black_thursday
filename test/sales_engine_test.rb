@@ -17,12 +17,12 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_loads_csv_data
-    assert_instance_of ItemRepository, @se.item_repository
-    assert_instance_of MerchantRepository, @se.merchant_repository
+    assert_instance_of ItemRepository, @se.items
+    assert_instance_of MerchantRepository, @se.merchants
   end
 
   def test_it_can_access_items
-    assert_instance_of Item, @se.item_repository.find_by_name('Disney scrabble frames')
-    assert_instance_of Merchant, @se.merchant_repository.find_by_name('HeadyMamaCreations')
+    assert_instance_of Item, @se.items.find_by_name('Disney scrabble frames')
+    assert_instance_of Merchant, @se.merchants.find_by_name('HeadyMamaCreations')
   end
 end

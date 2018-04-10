@@ -11,7 +11,7 @@ class MerchantRepositoryTest < Minitest::Test
     @se = SalesEngine.from_csv( { :items     => './test/fixtures/items_truncated.csv',
                                   :merchants => './test/fixtures/merchants_truncated.csv',
                                 } )
-    @mr = @se.merchant_repository
+    @mr = @se.merchants
   end
 
   def test_merchant_repository_exists
