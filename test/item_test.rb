@@ -53,5 +53,6 @@ class ItemTest < Minitest::Test
   def test_it_can_set_unit_price_to_dollars
     assert_instance_of BigDecimal, @item.unit_price
     assert_equal 10.99, @item.unit_price
+    assert_instance_of Float, @item.unit_price_to_dollars
   end
 end

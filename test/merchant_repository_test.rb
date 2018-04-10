@@ -5,7 +5,7 @@ require_relative '../lib/fileio'
 # merchant repository class
 class MerchantRepositoryTest < Minitest::Test
   def setup
-    file_path = FileIO.load('./test/fixtures/test_merchants.csv')
+    file_path = FileIO.load('./test/fixtures/test_merchants0.csv')
     @m_repo = MerchantRepository.new(file_path)
   end
 
@@ -113,5 +113,10 @@ class MerchantRepositoryTest < Minitest::Test
     @m_repo.delete(12334135)
     assert_equal 6, @m_repo.merchants.count
     assert_nil @m_repo.merchants[12334135]
+  end
+
+  def test_magic_spec_harness_method_works
+    expected = "#<MerchantRepository #{@m_repo.merchants.size} rows>"
+    assert_equal expected, @m_repo.inspect
   end
 end

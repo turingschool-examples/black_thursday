@@ -5,6 +5,7 @@ require_relative 'fileio'
 require_relative 'item_repository'
 require_relative 'merchant_repository'
 require_relative 'repository'
+require_relative 'sales_analyst'
 # Sales Engine class for managing data
 class SalesEngine
   attr_reader :items,
@@ -21,5 +22,9 @@ class SalesEngine
     merchants_file_path = FileIO.load(items_and_merchants[:merchants])
     merchants_repo = MerchantRepository.new(merchants_file_path)
     new(items_repo, merchants_repo)
+  end
+
+  def analyst
+    SalesAnalyst.new(self)
   end
 end

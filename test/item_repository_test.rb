@@ -7,7 +7,7 @@ require_relative '../lib/fileio'
 # Test for Item Repository class
 class ItemRepositoryTest < Minitest::Test
   def setup
-    file_path = FileIO.load('./test/fixtures/test_items.csv')
+    file_path = FileIO.load('./test/fixtures/test_items0.csv')
     @i_repo = ItemRepository.new(file_path)
     @time = Time.now
     @actual_jude = @i_repo.create(
@@ -165,5 +165,10 @@ class ItemRepositoryTest < Minitest::Test
     @i_repo.delete(263567475)
     assert_equal 3, @i_repo.items.count
     assert_nil @i_repo.items[263567475]
+  end
+
+  def test_magic_spec_harness_method_works
+    expected = "#<ItemRepository #{@i_repo.items.size} rows>"
+    assert_equal expected, @i_repo.inspect
   end
 end
