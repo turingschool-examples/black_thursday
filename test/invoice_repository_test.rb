@@ -38,7 +38,7 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_instance_of Invoice, result
     assert_equal 12335938, result.merchant_id
     assert_equal 1, result.customer_id
-    assert_equal "pending", result.status
+    assert_equal :pending, result.status
   end
 
   def test_returns_nil_if_invoice_id_not_matched
@@ -84,7 +84,7 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_it_can_find_all_invoices_by_status
     ir = InvoiceRepository.new('./test/invoices.csv', nil)
 
-    result = ir.find_all_by_status("pending")
+    result = ir.find_all_by_status(:pending)
 
     assert_equal 1473, result.count
   end
@@ -109,7 +109,35 @@ class InvoiceRepositoryTest < Minitest::Test
 
     result = ir.create({:customer_id => 2, :merchant_id => 3, :status =>  "pending"})
     assert_equal 4986, result.last.id
-    assert_equal "pending", result.last.status
+    assert_equal :pending, result.last.status
   end
 
+  def test_it_can_update_a_invoice
+    ir = InvoiceRepository.new('./test/invoices.csv', nil)
+
+    result = ir.find_by_id(1)
+    assert_equal :pending, result.status
+    assert_equal 12335938, result.merchant_id
+    assert_equal 1, result.customer_id
+
+
+    ir.update(1,{:status => "shipped", :merchant_id => 4, :customer_id => 7})
+    result1 = ir.find_by_id(1)
+    assert_equal :shipped, result1.status
+    assert_equal 4, result1.merchant_id
+    assert_equal 7, result1.customer_id
+  end
+
+  def test_it_can_delete_invoices_from_item_repo
+    ir = InvoiceRepository.new('./test/invoices.csv', nil)
+    result = ir.find_by_id(1)
+
+    assert_equal :pending, result.status
+    assert_equal 12335938, result.merchant_id
+    assert_equal 1, result.customer_id
+
+    ir.delete(1)
+
+    assert_nil ir.find_by_id(1)
+  end
 end
