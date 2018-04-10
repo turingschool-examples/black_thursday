@@ -17,13 +17,13 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_items_per_merchant
-    assert_equal 2.00, @sales_analyst.average_items_per_merchant
+    assert_equal 2.80, @sales_analyst.average_items_per_merchant
     assert_instance_of Float, @sales_analyst.average_items_per_merchant
   end
 
   def test_average_items_per_merchant_std_dev
     result = @sales_analyst.average_items_per_merchant_standard_deviation
-    assert_equal 2.65, result
+    assert_equal 2.49, result
     assert_instance_of Float, result
   end
 
