@@ -25,4 +25,16 @@ class Item
   def unit_price_to_dollars
     @unit_price.to_f
   end
+
+  def change_name(name)
+    @name = name
+  end
+
+  def change_description(description)
+    @description = description
+  end
+
+  def change_unit_price
+    @unit_price = unit_price
+  end
 end

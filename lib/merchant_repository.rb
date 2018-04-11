@@ -1,28 +1,14 @@
 require 'csv'
 require_relative 'merchant'
 
-class MerchantRepository
-  attr_reader :path,
-              :merchants
+class MerchantRepository < BaseRepository
 
-  def initialize
-    @merchants = []
+  def merchants
+    @models
   end
 
-  def all
-    merchants
-  end
-
-  def find_by_id(id)
-    merchants.find do |merchant|
-      merchant.id == id
-    end
-  end
-
-  def find_by_name(name)
-    merchants.find do |merchant|
-      merchant.name.downcase == name.downcase
-    end
+  def populate
+    @models ||= raw_data.map { |attribute_hash| Merchant.new(attribute_hash)}
   end
 
   def find_all_by_name(name)
@@ -48,18 +34,9 @@ class MerchantRepository
   end
 
   def update(id, attributes)
-    delete(id)
-    attributes[:id] = id
-    merchants << Merchant.new(attributes)
-  end
-
-  def delete(id)
-    merchants.delete_if do |merchant|
-      merchant.id == id
-    end
-  end
-
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    return nil if find_by_id(id).nil?
+    found = find_by_id(id)
+    found.change_name(attributes[:name])
+    found.change_updated_at
   end
 end
