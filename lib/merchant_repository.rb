@@ -1,8 +1,8 @@
 require 'csv'
 require_relative 'merchant'
+require 'pry'
 
 class MerchantRepository < BaseRepository
-
   def merchants
     @models
   end
@@ -14,7 +14,7 @@ class MerchantRepository < BaseRepository
   def find_all_by_name(name)
     found = merchants.map do |merchant|
       if merchant.name.downcase.include?(name.downcase)
-        merchant.name
+       merchant
       end
     end
     found.compact
