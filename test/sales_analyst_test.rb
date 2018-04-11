@@ -110,6 +110,7 @@ class SalesAnalystTest < Minitest::Test
     sales_analyst = sales_engine.analyst
     result = sales_analyst.top_merchant_by_invoice_count
     assert_instance_of Merchant, result[0]
-    assert_equal [12334873], result.map(&:name)
+    assert_equal [12334873], result.map(&:id)
+    
   end
 end

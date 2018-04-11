@@ -110,9 +110,10 @@ class SalesAnalyst
       invoices_per_merchant[invoice.merchant_id] = invoice_count(invoice.merchant_id)
     end
     top = invoices_per_merchant.map do |id, count|
-      require 'pry';binding.pry
-      @engine.merchants.find_by_id(id) if count >= average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2)
+      if count >= average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2)
+        @engine.merchants.find_by_id(id)
+      end
     end
+    top.compact
   end
-
 end
