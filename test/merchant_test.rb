@@ -26,11 +26,11 @@ class MerchantTest < Minitest::Test
   def test_it_returns_an_array_of_invoices
     se = SalesEngine.from_csv(
                               items:      './data/items.csv',
-                              merchants:  './data/merchants.csv',
-                              invoices:   './data/invoices.csv'
+                              merchants:  './test/fixtures/merchants_fixtures.csv',
+                              invoices:   './test/fixtures/invoices_fixtures.csv'
                               )
-    invoice = se.invoices.find_by_id(170)
-    merchant = se.merchants.find_by_id(12334135)
+    invoice = se.invoices.find_by_id(18)
+    merchant = se.merchants.find_by_id(12334839)
     invoices = merchant.invoices
     assert_instance_of Array, invoices
     assert_instance_of Invoice, invoices[0]

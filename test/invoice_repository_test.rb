@@ -12,46 +12,45 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_create_invoices_from_csv
-    @invr.from_csv('./data/invoices.csv')
-    # ('./test/fixtures/invoice_fixtures.csv')
-    assert_equal 4985, @invr.elements.count
-    assert_instance_of Invoice, @invr.elements[328]
-    assert_equal 66, @invr.elements[328].customer_id
-    assert_instance_of Invoice, @invr.elements[141]
-    assert_equal :shipped, @invr.elements[141].status
-    assert_equal 12334361, @invr.elements[237].merchant_id
+    @invr.from_csv('./test/fixtures/invoices_fixtures.csv')
+    assert_equal 50, @invr.elements.count
+    assert_instance_of Invoice, @invr.elements[32]
+    assert_equal 7, @invr.elements[32].customer_id
+    assert_instance_of Invoice, @invr.elements[40]
+    assert_equal :pending, @invr.elements[48].status
+    assert_equal 12336299, @invr.elements[50].merchant_id
 
     assert_nil @invr.elements['id']
     assert_nil @invr.elements[999999999]
     assert_nil @invr.elements[0]
-    assert_instance_of Time, @invr.elements[346].created_at
-    assert_instance_of Time, @invr.elements[989].updated_at
+    assert_instance_of Time, @invr.elements[34].created_at
+    assert_instance_of Time, @invr.elements[9].updated_at
   end
 
   def test_all_method
-    @invr.from_csv('./data/invoices.csv')
+    @invr.from_csv('./test/fixtures/invoices_fixtures.csv')
     all_invoices = @invr.all
-    assert_equal 4985, all_invoices.count
+    assert_equal 50, all_invoices.count
     assert_instance_of Invoice, all_invoices[0]
-    assert_instance_of Invoice, all_invoices[800]
+    assert_instance_of Invoice, all_invoices[8]
     assert_instance_of Invoice, all_invoices[-1]
     assert_instance_of Array, all_invoices
   end
 
   def test_find_by_id
-    @invr.from_csv('./data/invoices.csv')
-    invoice = @invr.find_by_id(308)
+    @invr.from_csv('./test/fixtures/invoices_fixtures.csv')
+    invoice = @invr.find_by_id(38)
     assert_instance_of Invoice, invoice
-    assert_equal 60, invoice.customer_id
+    assert_equal 9, invoice.customer_id
 
-    invoice2 = @invr.find_by_id(1114)
+    invoice2 = @invr.find_by_id(14)
     assert_instance_of Invoice, invoice2
-    assert_equal 12335677, invoice2.merchant_id
+    assert_equal 12335150, invoice2.merchant_id
     assert_nil @invr.find_by_id(12345678901234567890)
   end
 
   def test_find_all_by_customer_id
-    @invr.from_csv('./data/invoices.csv')
+    @invr.from_csv('./test/fixtures/invoices_fixtures.csv')
     invoices = @invr.find_all_by_customer_id(2)
     assert_instance_of Array, invoices
     assert_instance_of Invoice, invoices[0]
@@ -59,11 +58,11 @@ class InvoiceRepositoryTest < Minitest::Test
     assert invoices.include?(find)
     assert_equal 4, invoices.count
 
-    invoices2 = @invr.find_all_by_customer_id(255)
+    invoices2 = @invr.find_all_by_customer_id(7)
     assert_instance_of Array, invoices2
-    find = @invr.find_by_id(1308)
-    find2 = @invr.find_by_id(1315)
-    find3 = @invr.find_by_id(1316)
+    find = @invr.find_by_id(29)
+    find2 = @invr.find_by_id(32)
+    find3 = @invr.find_by_id(33)
     assert invoices2.include?(find)
     assert invoices2.include?(find2)
     refute invoices2.include?(find3)
@@ -73,17 +72,17 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_merchant_id
-    @invr.from_csv('./data/invoices.csv')
-    invoices = @invr.find_all_by_merchant_id(12334434)
+    @invr.from_csv('./test/fixtures/invoices_fixtures.csv')
+    invoices = @invr.find_all_by_merchant_id(12334488)
     assert_instance_of Array, invoices
-    find = @invr.find_by_id(1303)
+    find = @invr.find_by_id(40)
     assert invoices.include?(find)
 
-    invoices2 = @invr.find_all_by_merchant_id(12334499)
+    invoices2 = @invr.find_all_by_merchant_id(12335955)
     assert_instance_of Array, invoices2
-    find = @invr.find_by_id(1351)
-    find2 = @invr.find_by_id(400)
-    find3 = @invr.find_by_id(485)
+    find = @invr.find_by_id(3)
+    find2 = @invr.find_by_id(13)
+    find3 = @invr.find_by_id(40)
     assert invoices2.include?(find)
     assert invoices2.include?(find2)
     refute invoices2.include?(find3)
@@ -93,17 +92,17 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_status
-    @invr.from_csv('./data/invoices.csv')
+    @invr.from_csv('./test/fixtures/invoices_fixtures.csv')
     invoices = @invr.find_all_by_status('shipped')
     assert_instance_of Array, invoices
-    find = @invr.find_by_id(492)
+    find = @invr.find_by_id(29)
     assert invoices.include?(find)
 
     invoices2 = @invr.find_all_by_status('returned')
     assert_instance_of Array, invoices2
-    find = @invr.find_by_id(500)
-    find2 = @invr.find_by_id(445)
-    find3 = @invr.find_by_id(418)
+    find = @invr.find_by_id(49)
+    find2 = @invr.find_by_id(37)
+    find3 = @invr.find_by_id(29)
 
     assert invoices2.include?(find)
     assert invoices2.include?(find2)

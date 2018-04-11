@@ -33,11 +33,11 @@ class InvoiceTest < Minitest::Test
   def test_it_returns_merchant
     se = SalesEngine.from_csv(
                               items:      './data/items.csv',
-                              merchants:  './data/merchants.csv',
-                              invoices:   './data/invoices.csv'
+                              merchants:  './test/fixtures/merchants_fixtures.csv',
+                              invoices:   './test/fixtures/invoices_fixtures.csv'
                               )
-    invoice = se.invoices.find_by_id(68)
+    invoice = se.invoices.find_by_id(18)
     assert_instance_of Merchant, invoice.merchant
-    assert_equal 12335598, invoice.merchant.id
+    assert_equal 12334839, invoice.merchant.id
   end
 end

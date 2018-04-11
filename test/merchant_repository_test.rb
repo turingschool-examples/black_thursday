@@ -13,9 +13,8 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_create_merchants_from_csv
-    @merch.from_csv('./data/merchants.csv')
-    # ('./test/fixtures/merchant_fixtures.csv')
-    assert_equal 475, @merch.elements.count
+    @merch.from_csv('./test/fixtures/merchants_fixtures.csv')
+    assert_equal 49, @merch.elements.count
     assert_instance_of Merchant, @merch.elements[12334115]
     assert_equal 'LolaMarleys', @merch.elements[12334115].name
     assert_instance_of Merchant, @merch.elements[12334189]
@@ -27,17 +26,17 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_all_method
-    @merch.from_csv('./data/merchants.csv')
+    @merch.from_csv('./test/fixtures/merchants_fixtures.csv')
     all_merchants = @merch.all
-    assert_equal 475, all_merchants.count
+    assert_equal 49, all_merchants.count
     assert_instance_of Merchant, all_merchants[0]
-    assert_instance_of Merchant, all_merchants[400]
+    assert_instance_of Merchant, all_merchants[40]
     assert_instance_of Merchant, all_merchants[-1]
     assert_instance_of Array, all_merchants
   end
 
   def test_find_by_id
-    @merch.from_csv('./data/merchants.csv')
+    @merch.from_csv('./test/fixtures/merchants_fixtures.csv')
     merchant = @merch.find_by_id(12334202)
     assert_instance_of Merchant, merchant
     assert_equal 'VectorCoast', merchant.name
@@ -49,7 +48,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_by_name_not_case_sensitive
-    @merch.from_csv('./data/merchants.csv')
+    @merch.from_csv('./test/fixtures/merchants_fixtures.csv')
     merchant = @merch.find_by_name('snewzy')
     assert_instance_of Merchant, merchant
     assert_equal 12334223, merchant.id
@@ -61,7 +60,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_name
-    @merch.from_csv('./data/merchants.csv')
+    @merch.from_csv('./test/fixtures/merchants_fixtures.csv')
     merchants = @merch.find_all_by_name('Snewzy')
     assert_instance_of Array, merchants
     find = @merch.find_by_id(12334223)
@@ -69,9 +68,9 @@ class MerchantRepositoryTest < Minitest::Test
 
     merchants2 = @merch.find_all_by_name('tt')
     assert_instance_of Array, merchants2
-    find = @merch.find_by_id(12334301)
-    find2 = @merch.find_by_id(12334302)
-    find3 = @merch.find_by_id(12334281)
+    find = @merch.find_by_id(12334185)
+    find2 = @merch.find_by_id(12334213)
+    find3 = @merch.find_by_id(12334202)
     assert merchants2.include?(find)
     assert merchants2.include?(find2)
     refute merchants2.include?(find3)
