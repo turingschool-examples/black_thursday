@@ -178,4 +178,7 @@ class SalesAnalyst
     transactions1 = invoice.transactions
     transactions1.any? { |transaction| transaction.result == 'success' }
   end
+# Justine start work on iteration 4
+  def total_revenue_by_date
+#Justine end work on iteration 4
 end

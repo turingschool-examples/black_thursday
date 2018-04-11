@@ -88,6 +88,10 @@ class SalesAnalystTest < MiniTest::Test
 
     assert_equal expected, actual
   end
-
-
+# Justine start work on iteration 4
+  def test_it_can_return_total_revenue_by_date
+    date = Time.parse("2012-03-27")
+    assert_equal 5570.75, @s.total_revenue_by_date(date)
+  end
+#Justine end work on iteration 4
 end
