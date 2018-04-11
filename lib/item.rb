@@ -13,8 +13,8 @@ class Item
     data[:id] = data[:id].to_i
     data[:merchant_id] = data[:merchant_id].to_i
     data[:unit_price] = BigDecimal.new(data[:unit_price])/100
-    data[:created_at] = Time.parse(data[:created_at])
-    data[:updated_at] = Time.parse(data[:updated_at])
+    data[:created_at] = data[:created_at]
+    data[:updated_at] = data[:updated_at]
     data[:unit_price_to_dollars] = data[:unit_price].to_f
     data
   end

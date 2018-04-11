@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+require_relative './merchant'
 # holds, and provides methods for finding, merchants
 class MerchantRepository
   def initialize(merchants)
@@ -11,14 +11,18 @@ class MerchantRepository
   def input_to_hash(merchants)
     merchants.each do |merchant|
       attributes = {}
-      attributes[merchant[0].split(':')[0].to_sym] = merchant[0].split(':')[1].to_i
-      attributes[merchant[1].split(':')[0].to_sym] = merchant[1].split(':')[1]
-      @merchants[merchant[0].split(':')[1].to_i] = Merchant.new(attributes)
+      attributes[merchant[0]] = merchant[0].to_i
+      attributes[merchant[1]] = merchant[1]
+      @merchants[merchant[0].to_i] = Merchant.new(attributes)
     end
   end
 
   def all
     @merchants.values
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 
   def find_by_id(id)

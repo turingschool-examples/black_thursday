@@ -16,7 +16,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_exists
-    assert_instance_of SalesEngine, @se.items
+    assert_instance_of SalesEngine, @se
   end
 
   def test_it_contains_repositories

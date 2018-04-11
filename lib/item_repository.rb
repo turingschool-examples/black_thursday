@@ -8,17 +8,20 @@ class ItemRepository
 
   def initialize(items)
     @items = []
+
     items.each {|item| @items << Item.new(to_item(item))}
   end
 
   def to_item(item)
     item_hash = Hash.new
     item.each do |line|
-      pair = line.split(": ")
-      item_hash[pair[0].to_sym] = pair[1]
-      item_hash
+      item_hash[line[0]] = line[1]
     end
     item_hash
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 
   def all
