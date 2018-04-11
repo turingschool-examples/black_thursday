@@ -4,9 +4,11 @@ require_relative '../lib/sales_analyst'
 
 class SalesAnalystTest < Minitest::Test
   def test_exists
-    se = SalesEngine.new( {:items => './test/items.csv',
-                            :merchants => './test/merchants.csv',
-                            :invoices => './test/invoices.csv',
+    se = SalesEngine.new( {:items => './test/fixtures/items.csv',
+                            :merchants => './test/fixtures/merchants.csv',
+                            :invoices => './test/fixtures/invoices.csv',
+                            :invoice_items => './test/fixtures/invoice_items.csv',
+                            :transactions => './test/fixtures/transactions.csv'
                             })
 
     sales_analyst = SalesAnalyst.new(se)
@@ -15,9 +17,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_if_it_has_merchant_repo
-    se = SalesEngine.new( { :items => './test/items.csv',
-                            :merchants => './test/merchants.csv',
-                            :invoices => './test/invoices.csv',
+    se = SalesEngine.new( { :items => './test/fixtures/items.csv',
+                            :merchants => './test/fixtures/merchants.csv',
+                            :invoices => './test/fixtures/invoices.csv',
+                            :invoice_items => './test/fixtures/invoice_items.csv',
+                            :transactions => './test/fixtures/transactions.csv'
                             })
 
     sales_analyst = SalesAnalyst.new(se)
@@ -27,9 +31,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_if_it_has_items_repo
-    se = SalesEngine.new( { :items => './test/items.csv',
-                            :merchants => './test/merchants.csv',
-                            :invoices => './test/invoices.csv',
+    se = SalesEngine.new( { :items => './test/fixtures/items.csv',
+                            :merchants => './test/fixtures/merchants.csv',
+                            :invoices => './test/fixtures/invoices.csv',
+                            :invoice_items => './test/fixtures/invoice_items.csv',
+                            :transactions => './test/fixtures/transactions.csv'
                             })
 
     sales_analyst = SalesAnalyst.new(se)
@@ -39,9 +45,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_sales_analyst_can_find_total_no_of_items_in_item_repo
-    se = SalesEngine.new( { :items => './test/items.csv',
-                            :merchants => './test/merchants.csv',
-                            :invoices => './test/invoices.csv',
+    se = SalesEngine.new( { :items => './test/fixtures/items.csv',
+                            :merchants => './test/fixtures/merchants.csv',
+                            :invoices => './test/fixtures/invoices.csv',
+                            :invoice_items => './test/fixtures/invoice_items.csv',
+                            :transactions => './test/fixtures/transactions.csv'
                             })
     sales_analyst = SalesAnalyst.new(se)
 
@@ -49,9 +57,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_sales_analyst_can_find_total_no_of_items_in_item_repo
-    se = SalesEngine.new( { :items => './test/items.csv',
-                            :merchants => './test/merchants.csv',
-                            :invoices => './test/invoices.csv',
+    se = SalesEngine.new( { :items => './test/fixtures/items.csv',
+                            :merchants => './test/fixtures/merchants.csv',
+                            :invoices => './test/fixtures/invoices.csv',
+                            :invoice_items => './test/fixtures/invoice_items.csv',
+                            :transactions => './test/fixtures/transactions.csv'
                             })
     sales_analyst = SalesAnalyst.new(se)
 
@@ -59,9 +69,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_average_items_per_merchants
-    se = SalesEngine.new( { :items => './test/items.csv',
-                            :merchants => './test/merchants.csv',
-                            :invoices => './test/invoices.csv',
+    se = SalesEngine.new( { :items => './test/fixtures/items.csv',
+                            :merchants => './test/fixtures/merchants.csv',
+                            :invoices => './test/fixtures/invoices.csv',
+                            :invoice_items => './test/fixtures/invoice_items.csv',
+                            :transactions => './test/fixtures/transactions.csv'
                             })
     sales_analyst = SalesAnalyst.new(se)
 
@@ -69,9 +81,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_count_calculate_average_items_per_merchant_standard_deviation
-    se = SalesEngine.new( { :items => './test/items.csv',
-                            :merchants => './test/merchants.csv',
-                            :invoices => './test/invoices.csv',
+    se = SalesEngine.new( { :items => './test/fixtures/items.csv',
+                            :merchants => './test/fixtures/merchants.csv',
+                            :invoices => './test/fixtures/invoices.csv',
+                            :invoice_items => './test/fixtures/invoice_items.csv',
+                            :transactions => './test/fixtures/transactions.csv'
                             })
     sales_analyst = SalesAnalyst.new(se)
 
@@ -79,9 +93,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_calculate_merchants_with_high_item_count
-    se = SalesEngine.new( { :items => './test/items.csv',
-                            :merchants => './test/merchants.csv',
-                            :invoices => './test/invoices.csv',
+    se = SalesEngine.new( { :items => './test/fixtures/items.csv',
+                            :merchants => './test/fixtures/merchants.csv',
+                            :invoices => './test/fixtures/invoices.csv',
+                            :invoice_items => './test/fixtures/invoice_items.csv',
+                            :transactions => './test/fixtures/transactions.csv'
                             })
     sales_analyst = SalesAnalyst.new(se)
 
@@ -89,9 +105,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_calculate_average_item_price_for_merchant
-    se = SalesEngine.new( { :items => './test/items.csv',
-                            :merchants => './test/merchants.csv',
-                            :invoices => './test/invoices.csv',
+    se = SalesEngine.new( { :items => './test/fixtures/items.csv',
+                            :merchants => './test/fixtures/merchants.csv',
+                            :invoices => './test/fixtures/invoices.csv',
+                            :invoice_items => './test/fixtures/invoice_items.csv',
+                            :transactions => './test/fixtures/transactions.csv'
                             })
     sales_analyst = SalesAnalyst.new(se)
 
@@ -99,9 +117,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_calculate_average_average_price_per_merchant
-    se = SalesEngine.new( { :items => './test/items.csv',
-                            :merchants => './test/merchants.csv',
-                            :invoices => './test/invoices.csv',
+    se = SalesEngine.new( { :items => './test/fixtures/items.csv',
+                            :merchants => './test/fixtures/merchants.csv',
+                            :invoices => './test/fixtures/invoices.csv',
+                            :invoice_items => './test/fixtures/invoice_items.csv',
+                            :transactions => './test/fixtures/transactions.csv'
                             })
     sales_analyst = SalesAnalyst.new(se)
 
@@ -109,9 +129,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_average_price_of_items
-    se = SalesEngine.new( { :items => './test/items.csv',
-                            :merchants => './test/merchants.csv',
-                            :invoices => './test/invoices.csv',
+    se = SalesEngine.new( { :items => './test/fixtures/items.csv',
+                            :merchants => './test/fixtures/merchants.csv',
+                            :invoices => './test/fixtures/invoices.csv',
+                            :invoice_items => './test/fixtures/invoice_items.csv',
+                            :transactions => './test/fixtures/transactions.csv'
                             })
     sales_analyst = SalesAnalyst.new(se)
 
@@ -119,9 +141,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_standard_deviation_for_item_price
-    se = SalesEngine.new( { :items => './test/items.csv',
-                            :merchants => './test/merchants.csv',
-                            :invoices => './test/invoices.csv',
+    se = SalesEngine.new( { :items => './test/fixtures/items.csv',
+                            :merchants => './test/fixtures/merchants.csv',
+                            :invoices => './test/fixtures/invoices.csv',
+                            :invoice_items => './test/fixtures/invoice_items.csv',
+                            :transactions => './test/fixtures/transactions.csv'
                             })
     sales_analyst = SalesAnalyst.new(se)
 
@@ -129,9 +153,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_golden_items
-    se = SalesEngine.new( { :items => './test/items.csv',
-                            :merchants => './test/merchants.csv',
-                            :invoices => './test/invoices.csv',
+    se = SalesEngine.new( { :items => './test/fixtures/items.csv',
+                            :merchants => './test/fixtures/merchants.csv',
+                            :invoices => './test/fixtures/invoices.csv',
+                            :invoice_items => './test/fixtures/invoice_items.csv',
+                            :transactions => './test/fixtures/transactions.csv'
                             })
     sales_analyst = SalesAnalyst.new(se)
 
@@ -140,9 +166,11 @@ class SalesAnalystTest < Minitest::Test
 
 
     def test_it_can_calculate_average_invoices_per_merchant
-      se = SalesEngine.new( {:items => './test/items.csv',
-                             :merchants => './test/merchants.csv',
-                             :invoices => './test/invoices.csv',
+      se = SalesEngine.new( {:items => './test/fixtures/items.csv',
+                             :merchants => './test/fixtures/merchants.csv',
+                             :invoices => './test/fixtures/invoices.csv',
+                             :invoice_items => './test/fixtures/invoice_items.csv',
+                             :transactions => './test/fixtures/transactions.csv'
                              })
 
       sales_analyst = SalesAnalyst.new(se)
@@ -151,9 +179,11 @@ class SalesAnalystTest < Minitest::Test
     end
 
     def test_it_can_calculate_average_invoices_per_merchant_standard_deviation
-      se = SalesEngine.new( { :items => './test/items.csv',
-                              :merchants => './test/merchants.csv',
-                              :invoices => './test/invoices.csv',
+      se = SalesEngine.new( { :items => './test/fixtures/items.csv',
+                              :merchants => './test/fixtures/merchants.csv',
+                              :invoices => './test/fixtures/invoices.csv',
+                              :invoice_items => './test/fixtures/invoice_items.csv',
+                              :transactions => './test/fixtures/transactions.csv'
                               })
       sales_analyst = SalesAnalyst.new(se)
 
@@ -161,9 +191,11 @@ class SalesAnalystTest < Minitest::Test
     end
 
     def test_it_can_calculate_top_merchants_by_invoice_count
-      se = SalesEngine.new( { :items => './test/items.csv',
-                              :merchants => './test/merchants.csv',
-                              :invoices => './test/invoices.csv',
+      se = SalesEngine.new( { :items => './test/fixtures/items.csv',
+                              :merchants => './test/fixtures/merchants.csv',
+                              :invoices => './test/fixtures/invoices.csv',
+                              :invoice_items => './test/fixtures/invoice_items.csv',
+                              :transactions => './test/fixtures/transactions.csv'
                               })
       sales_analyst = SalesAnalyst.new(se)
 
@@ -171,9 +203,11 @@ class SalesAnalystTest < Minitest::Test
     end
 
     def test_it_can_calculate_bottom_merchants_by_invoice_count
-      se = SalesEngine.new( { :items => './test/items.csv',
-                              :merchants => './test/merchants.csv',
-                              :invoices => './test/invoices.csv',
+      se = SalesEngine.new( { :items => './test/fixtures/items.csv',
+                              :merchants => './test/fixtures/merchants.csv',
+                              :invoices => './test/fixtures/invoices.csv',
+                              :invoice_items => './test/fixtures/invoice_items.csv',
+                              :transactions => './test/fixtures/transactions.csv'
                               })
       sales_analyst = SalesAnalyst.new(se)
 
@@ -183,9 +217,11 @@ class SalesAnalystTest < Minitest::Test
     end
 
     def test_it_can_find_top_days_by_invoice_count
-      se = SalesEngine.new( { :items => './test/items.csv',
-                              :merchants => './test/merchants.csv',
-                              :invoices => './test/invoices.csv',
+      se = SalesEngine.new( { :items => './test/fixtures/items.csv',
+                              :merchants => './test/fixtures/merchants.csv',
+                              :invoices => './test/fixtures/invoices.csv',
+                              :invoice_items => './test/fixtures/invoice_items.csv',
+                              :transactions => './test/fixtures/transactions.csv'
                               })
         sales_analyst = SalesAnalyst.new(se)
 
@@ -193,9 +229,11 @@ class SalesAnalystTest < Minitest::Test
     end
 
     def test_it_can_find_percentage_of_each_status
-      se = SalesEngine.new( { :items => './test/items.csv',
-                              :merchants => './test/merchants.csv',
-                              :invoices => './test/invoices.csv',
+      se = SalesEngine.new( { :items => './test/fixtures/items.csv',
+                              :merchants => './test/fixtures/merchants.csv',
+                              :invoices => './test/fixtures/invoices.csv',
+                              :invoice_items => './test/fixtures/invoice_items.csv',
+                              :transactions => './test/fixtures/transactions.csv'
                               })
       sales_analyst = SalesAnalyst.new(se)
 

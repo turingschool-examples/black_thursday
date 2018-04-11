@@ -14,7 +14,7 @@ class TransactionTest < Minitest::Test
                           :result => "success",
                           :created_at => Time.now.to_s,
                           :updated_at => Time.now.to_s
-                          })
+                          }, nil)
     assert_instance_of Transaction, transaction
   end
 
@@ -26,7 +26,7 @@ class TransactionTest < Minitest::Test
                           :result => "success",
                           :created_at => Time.now.to_s,
                           :updated_at => Time.now.to_s
-                          })
+                          }, nil)
     assert_equal 6, transaction.id
     assert_equal 8, transaction.invoice_id
     assert_equal 4242424242424242, transaction.credit_card_number

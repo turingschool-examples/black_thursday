@@ -13,7 +13,7 @@ class InvoiceTest < Minitest::Test
                             :status      => "pending",
                             :created_at  => Time.now.to_s,
                             :updated_at  => Time.now.to_s
-                            },nil)
+                            }, nil)
 
     assert_instance_of Invoice, invoice
   end
@@ -26,7 +26,7 @@ class InvoiceTest < Minitest::Test
                             :status      => "pending",
                             :created_at  => Time.now,
                             :updated_at  => Time.now
-                            },nil)
+                            }, nil)
 
       assert_equal 6, invoice.id
       assert_equal 7, invoice.customer_id
