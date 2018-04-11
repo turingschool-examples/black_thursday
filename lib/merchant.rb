@@ -1,6 +1,6 @@
 require_relative 'element'
 
-# This class defines items
+# This class defines merchants
 class Merchant
   include Element
 
