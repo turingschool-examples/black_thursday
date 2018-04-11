@@ -11,13 +11,15 @@ class MerchantRepository
   def input_to_hash(merchants)
     merchants.each do |merchant|
       attributes = {}
-      attributes[merchant[0]] = merchant[0].to_i
-      attributes[merchant[1]] = merchant[1]
+      # binding.pry
+      attributes[:id] = merchant[0].to_i
+      attributes[:name] = merchant[1]
       @merchants[merchant[0].to_i] = Merchant.new(attributes)
     end
   end
 
   def all
+    # binding.pry
     @merchants.values
   end
 
@@ -30,6 +32,7 @@ class MerchantRepository
   end
 
   def find_by_name(merchant_name)
+    # binding.pry
     @merchants.values.find do |merchant|
       merchant.name.casecmp(merchant_name).zero?
     end

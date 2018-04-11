@@ -6,13 +6,15 @@ class Merchant
 
   def initialize(attributes)
     @attributes = attributes
+    @id = attributes[:id]
+    @name = attributes[:name]
   end
 
   def id
-    attributes[:id]
+    @attributes[:id]
   end
 
   def name
-    attributes[:name]
+    @attributes[:name]
   end
 end
