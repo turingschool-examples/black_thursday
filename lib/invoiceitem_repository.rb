@@ -35,6 +35,7 @@ class InvoiceItemRepository < Repository
   def update(id, attributes)
     if @invoice_items[id]
       @invoice_items[id].quantity = attributes[:quantity] if attributes[:quantity]
+      @invoice_items[id].unit_price = attributes[:unit_price] if attributes[:unit_price]
       @invoice_items[id].updated_at = Time.now
     end
   end

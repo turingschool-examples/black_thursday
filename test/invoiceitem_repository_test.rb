@@ -84,6 +84,8 @@ class InvoiceItemRepositoryTest < Minitest::Test
   def test_invoice_item_can_be_updated
     @inv_i_repo.update(15, quantity: 52)
     assert_equal 52, @inv_i_repo.invoice_items[15].quantity
+    @inv_i_repo.update(15, unit_price: 332.45)
+    assert_equal 332.45, @inv_i_repo.invoice_items[15].unit_price
   end
 
   def test_invoice_item_can_be_deleted
