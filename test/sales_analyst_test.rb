@@ -8,7 +8,8 @@ class SalesAnalystTest < Minitest::Test
                             :merchants => './test/fixtures/merchants.csv',
                             :invoices => './test/fixtures/invoices.csv',
                             :invoice_items => './test/fixtures/invoice_items.csv',
-                            :transactions => './test/fixtures/transactions.csv'
+                            :transactions => './test/fixtures/transactions.csv',
+                            :customers => './test/fixtures/customers.csv'
                             })
 
     sales_analyst = SalesAnalyst.new(se)
@@ -21,7 +22,8 @@ class SalesAnalystTest < Minitest::Test
                             :merchants => './test/fixtures/merchants.csv',
                             :invoices => './test/fixtures/invoices.csv',
                             :invoice_items => './test/fixtures/invoice_items.csv',
-                            :transactions => './test/fixtures/transactions.csv'
+                            :transactions => './test/fixtures/transactions.csv',
+                            :customers => './test/fixtures/customers.csv'
                             })
 
     sales_analyst = SalesAnalyst.new(se)
@@ -35,7 +37,8 @@ class SalesAnalystTest < Minitest::Test
                             :merchants => './test/fixtures/merchants.csv',
                             :invoices => './test/fixtures/invoices.csv',
                             :invoice_items => './test/fixtures/invoice_items.csv',
-                            :transactions => './test/fixtures/transactions.csv'
+                            :transactions => './test/fixtures/transactions.csv',
+                            :customers => './test/fixtures/customers.csv'
                             })
 
     sales_analyst = SalesAnalyst.new(se)
@@ -49,7 +52,8 @@ class SalesAnalystTest < Minitest::Test
                             :merchants => './test/fixtures/merchants.csv',
                             :invoices => './test/fixtures/invoices.csv',
                             :invoice_items => './test/fixtures/invoice_items.csv',
-                            :transactions => './test/fixtures/transactions.csv'
+                            :transactions => './test/fixtures/transactions.csv',
+                            :customers => './test/fixtures/customers.csv'
                             })
     sales_analyst = SalesAnalyst.new(se)
 
@@ -61,7 +65,8 @@ class SalesAnalystTest < Minitest::Test
                             :merchants => './test/fixtures/merchants.csv',
                             :invoices => './test/fixtures/invoices.csv',
                             :invoice_items => './test/fixtures/invoice_items.csv',
-                            :transactions => './test/fixtures/transactions.csv'
+                            :transactions => './test/fixtures/transactions.csv',
+                            :customers => './test/fixtures/customers.csv'
                             })
     sales_analyst = SalesAnalyst.new(se)
 
@@ -73,7 +78,8 @@ class SalesAnalystTest < Minitest::Test
                             :merchants => './test/fixtures/merchants.csv',
                             :invoices => './test/fixtures/invoices.csv',
                             :invoice_items => './test/fixtures/invoice_items.csv',
-                            :transactions => './test/fixtures/transactions.csv'
+                            :transactions => './test/fixtures/transactions.csv',
+                            :customers => './test/fixtures/customers.csv'
                             })
     sales_analyst = SalesAnalyst.new(se)
 
@@ -85,7 +91,8 @@ class SalesAnalystTest < Minitest::Test
                             :merchants => './test/fixtures/merchants.csv',
                             :invoices => './test/fixtures/invoices.csv',
                             :invoice_items => './test/fixtures/invoice_items.csv',
-                            :transactions => './test/fixtures/transactions.csv'
+                            :transactions => './test/fixtures/transactions.csv',
+                            :customers => './test/fixtures/customers.csv'
                             })
     sales_analyst = SalesAnalyst.new(se)
 
@@ -97,7 +104,8 @@ class SalesAnalystTest < Minitest::Test
                             :merchants => './test/fixtures/merchants.csv',
                             :invoices => './test/fixtures/invoices.csv',
                             :invoice_items => './test/fixtures/invoice_items.csv',
-                            :transactions => './test/fixtures/transactions.csv'
+                            :transactions => './test/fixtures/transactions.csv',
+                            :customers => './test/fixtures/customers.csv'
                             })
     sales_analyst = SalesAnalyst.new(se)
 
@@ -109,7 +117,8 @@ class SalesAnalystTest < Minitest::Test
                             :merchants => './test/fixtures/merchants.csv',
                             :invoices => './test/fixtures/invoices.csv',
                             :invoice_items => './test/fixtures/invoice_items.csv',
-                            :transactions => './test/fixtures/transactions.csv'
+                            :transactions => './test/fixtures/transactions.csv',
+                            :customers => './test/fixtures/customers.csv'
                             })
     sales_analyst = SalesAnalyst.new(se)
 
@@ -121,7 +130,8 @@ class SalesAnalystTest < Minitest::Test
                             :merchants => './test/fixtures/merchants.csv',
                             :invoices => './test/fixtures/invoices.csv',
                             :invoice_items => './test/fixtures/invoice_items.csv',
-                            :transactions => './test/fixtures/transactions.csv'
+                            :transactions => './test/fixtures/transactions.csv',
+                            :customers => './test/fixtures/customers.csv'
                             })
     sales_analyst = SalesAnalyst.new(se)
 
@@ -133,7 +143,8 @@ class SalesAnalystTest < Minitest::Test
                             :merchants => './test/fixtures/merchants.csv',
                             :invoices => './test/fixtures/invoices.csv',
                             :invoice_items => './test/fixtures/invoice_items.csv',
-                            :transactions => './test/fixtures/transactions.csv'
+                            :transactions => './test/fixtures/transactions.csv',
+                            :customers => './test/fixtures/customers.csv'
                             })
     sales_analyst = SalesAnalyst.new(se)
 
@@ -145,7 +156,8 @@ class SalesAnalystTest < Minitest::Test
                             :merchants => './test/fixtures/merchants.csv',
                             :invoices => './test/fixtures/invoices.csv',
                             :invoice_items => './test/fixtures/invoice_items.csv',
-                            :transactions => './test/fixtures/transactions.csv'
+                            :transactions => './test/fixtures/transactions.csv',
+                            :customers => './test/fixtures/customers.csv'
                             })
     sales_analyst = SalesAnalyst.new(se)
 
@@ -157,7 +169,8 @@ class SalesAnalystTest < Minitest::Test
                             :merchants => './test/fixtures/merchants.csv',
                             :invoices => './test/fixtures/invoices.csv',
                             :invoice_items => './test/fixtures/invoice_items.csv',
-                            :transactions => './test/fixtures/transactions.csv'
+                            :transactions => './test/fixtures/transactions.csv',
+                            :customers => './test/fixtures/customers.csv'
                             })
     sales_analyst = SalesAnalyst.new(se)
 
@@ -170,7 +183,8 @@ class SalesAnalystTest < Minitest::Test
                              :merchants => './test/fixtures/merchants.csv',
                              :invoices => './test/fixtures/invoices.csv',
                              :invoice_items => './test/fixtures/invoice_items.csv',
-                             :transactions => './test/fixtures/transactions.csv'
+                             :transactions => './test/fixtures/transactions.csv',
+                             :customers => './test/fixtures/customers.csv'
                              })
 
       sales_analyst = SalesAnalyst.new(se)
@@ -183,7 +197,8 @@ class SalesAnalystTest < Minitest::Test
                               :merchants => './test/fixtures/merchants.csv',
                               :invoices => './test/fixtures/invoices.csv',
                               :invoice_items => './test/fixtures/invoice_items.csv',
-                              :transactions => './test/fixtures/transactions.csv'
+                              :transactions => './test/fixtures/transactions.csv',
+                              :customers => './test/fixtures/customers.csv'
                               })
       sales_analyst = SalesAnalyst.new(se)
 
@@ -195,7 +210,8 @@ class SalesAnalystTest < Minitest::Test
                               :merchants => './test/fixtures/merchants.csv',
                               :invoices => './test/fixtures/invoices.csv',
                               :invoice_items => './test/fixtures/invoice_items.csv',
-                              :transactions => './test/fixtures/transactions.csv'
+                              :transactions => './test/fixtures/transactions.csv',
+                              :customers => './test/fixtures/customers.csv'
                               })
       sales_analyst = SalesAnalyst.new(se)
 
@@ -207,7 +223,8 @@ class SalesAnalystTest < Minitest::Test
                               :merchants => './test/fixtures/merchants.csv',
                               :invoices => './test/fixtures/invoices.csv',
                               :invoice_items => './test/fixtures/invoice_items.csv',
-                              :transactions => './test/fixtures/transactions.csv'
+                              :transactions => './test/fixtures/transactions.csv',
+                              :customers => './test/fixtures/customers.csv'
                               })
       sales_analyst = SalesAnalyst.new(se)
 
@@ -221,7 +238,8 @@ class SalesAnalystTest < Minitest::Test
                               :merchants => './test/fixtures/merchants.csv',
                               :invoices => './test/fixtures/invoices.csv',
                               :invoice_items => './test/fixtures/invoice_items.csv',
-                              :transactions => './test/fixtures/transactions.csv'
+                              :transactions => './test/fixtures/transactions.csv',
+                              :customers => './test/fixtures/customers.csv'
                               })
         sales_analyst = SalesAnalyst.new(se)
 
@@ -233,13 +251,52 @@ class SalesAnalystTest < Minitest::Test
                               :merchants => './test/fixtures/merchants.csv',
                               :invoices => './test/fixtures/invoices.csv',
                               :invoice_items => './test/fixtures/invoice_items.csv',
-                              :transactions => './test/fixtures/transactions.csv'
+                              :transactions => './test/fixtures/transactions.csv',
+                              :customers => './test/fixtures/customers.csv'
                               })
       sales_analyst = SalesAnalyst.new(se)
 
       assert_equal 29.55, sales_analyst.invoice_status(:pending)
       assert_equal 56.95, sales_analyst.invoice_status(:shipped)
       assert_equal 13.5, sales_analyst.invoice_status(:returned)
+    end
 
+    def test_if_it_can_check_if_invoice_paid_in_full
+      se = SalesEngine.new( { :items => './test/fixtures/items.csv',
+                              :merchants => './test/fixtures/merchants.csv',
+                              :invoices => './test/fixtures/invoices.csv',
+                              :invoice_items => './test/fixtures/invoice_items.csv',
+                              :transactions => './test/fixtures/transactions.csv',
+                              :customers => './test/fixtures/customers.csv'
+                              })
+      sales_analyst = SalesAnalyst.new(se)
+
+      assert_equal true, sales_analyst.invoice_paid_in_full?(2179)
+    end
+
+    def test_if_it_can_check_if_invoice_not_paid_in_full
+      se = SalesEngine.new( { :items => './test/fixtures/items.csv',
+                              :merchants => './test/fixtures/merchants.csv',
+                              :invoices => './test/fixtures/invoices.csv',
+                              :invoice_items => './test/fixtures/invoice_items.csv',
+                              :transactions => './test/fixtures/transactions.csv',
+                              :customers => './test/fixtures/customers.csv'
+                              })
+      sales_analyst = SalesAnalyst.new(se)
+
+      assert_equal false, sales_analyst.invoice_paid_in_full?(4702)
+    end
+
+    def test_if_invoice_id_returns_invoice_total
+      se = SalesEngine.new( { :items => './test/fixtures/items.csv',
+                              :merchants => './test/fixtures/merchants.csv',
+                              :invoices => './test/fixtures/invoices.csv',
+                              :invoice_items => './test/fixtures/invoice_items.csv',
+                              :transactions => './test/fixtures/transactions.csv',
+                              :customers => './test/fixtures/customers.csv'
+                              })
+      sales_analyst = SalesAnalyst.new(se)
+
+      assert_equal 1234, sales_analyst.invoice_total(1)
     end
 end
