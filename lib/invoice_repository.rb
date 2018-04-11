@@ -31,6 +31,19 @@ class InvoiceRepository < Repository
     end.compact
   end
 
+  def find_all_by_created_date(created_date)
+    @invoices.values.map do |invoice|
+      invoice if invoice.created_at == created_date
+    end.compact
+  end
+
+  def find_all_by_day_of_week(weekday)
+    weekday = Date.parse(weekday).cwday
+    @invoices.values.map do |invoice|
+      invoice if Date.parse(invoice.created_at).cwday == weekday
+    end.compact
+  end
+
   def find_all_by_status(req_status)
     @invoices.values.map do |invoice|
       invoice if invoice.status.casecmp(req_status).zero?
