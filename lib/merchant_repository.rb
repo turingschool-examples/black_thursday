@@ -48,10 +48,6 @@ class MerchantRepository
     merchants << Merchant.new(attributes)
   end
 
-  def change_name(name)
-    @name = name
-  end
-
   def update(id, attributes)
     return nil if find_by_id(id).nil?
     found = find_by_id(id)

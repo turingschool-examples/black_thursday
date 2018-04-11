@@ -60,7 +60,7 @@ class ItemRepository
     @items << Item.new(attributes)
   end
 
-  def update(id, attributes)
+  def update(i)
     return nil if find_by_id(id).nil?
     to_update = find_by_id(id)
     to_update.name = attributes[:name] if attributes[:name]

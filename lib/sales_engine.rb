@@ -12,7 +12,6 @@ class SalesEngine
   def initialize(path)
     @items ||= ItemRepository.new
     @merchants||= MerchantRepository.new
-
     load_data(path)
   end
 
