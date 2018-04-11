@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'time'
 # Sales analyst class to perform analysis.
 class SalesAnalyst
   attr_reader :sales_engine
@@ -180,7 +181,13 @@ class SalesAnalyst
   end
 # Justine start work on iteration 4
   def total_revenue_by_date(date)
-    
+    date1 = date.to_date
+    transactions = @sales_engine.transactions.all
+    dated = transactions.find_all do |transaction|
+      transaction.created_at.to_date == date1
+    end
+    successes = dated.find_all { |transaction| transaction.result == 'success' }
+    binding.pry
   end
 #Justine end work on iteration 4
 end

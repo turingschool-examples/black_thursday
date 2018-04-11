@@ -8,6 +8,7 @@ require 'minitest/emoji'
 require 'minitest/autorun'
 require './lib/sales_engine.rb'
 require './lib/sales_analyst.rb'
+require 'pry'
 
 class SalesAnalystTest < MiniTest::Test
   def setup
@@ -16,7 +17,7 @@ class SalesAnalystTest < MiniTest::Test
       merchants:  './data/merchants.csv',
       invoices:   './data/invoices.csv',
       customers:  './data/customers.csv',
-      transactions: './data/transactions.csv',
+      transactions: './fixtures/transactions_test.csv',
       invoice_items: './data/invoice_items.csv'
     )
     @s = SalesAnalyst.new(@se)
@@ -76,7 +77,7 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_it_can_return_paid_in_full_invoice
-    expected = true
+    expected = false
     actual = @s.invoice_paid_in_full?(16)
 
     assert_equal expected, actual
