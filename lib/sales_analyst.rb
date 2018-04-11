@@ -168,6 +168,9 @@ class SalesAnalyst
   def one_time_buyers_item
   end
 
+  def top_buyers(num_of_customers)
+    
+
   def invoice_total(invoice_id)
     all_items = @sales_engine.invoice_items.find_all_by_invoice_id(invoice_id)
     all_items.map(&:unit_price).inject(:+)
