@@ -104,9 +104,20 @@ class ItemRepoTest < Minitest::Test
         assert_equal 7.00, item.unit_price
 
         item_repo.update(id, attrs)
-        
+
         assert_equal "Disney scrabble frames", item.name
         assert item.description.include?("Disney glitter frames")
         assert_equal 13.50, item.unit_price
+    end
+
+    def test_it_can_delete
+        id = 263396013
+        item_to_delete = item_repo.find_by_id(id)
+
+        assert item_repo.repository.include?(item_to_delete)
+
+        item_repo.delete(id)
+
+        refute item_repo.repository.include?(item_to_delete)
     end
 end
