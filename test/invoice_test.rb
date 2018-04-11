@@ -85,7 +85,7 @@ class InvoiceTest < Minitest::Test
 
   def test_merchant_returns_by_merchant_id
     expected = invoice.merchant
-
+    
     assert_equal 12334753, expected.merchant_id
   end
 

@@ -16,7 +16,8 @@ class SalesAnalystTest < MiniTest::Test
       merchants:  './data/merchants.csv',
       invoices:   './data/invoices.csv',
       customers:  './data/customers.csv',
-      transactions: './data/transactions.csv'
+      transactions: './data/transactions.csv',
+      invoice_items: './data/invoice_items.csv'
     )
     @s = SalesAnalyst.new(@se)
   end
@@ -80,4 +81,13 @@ class SalesAnalystTest < MiniTest::Test
 
     assert_equal expected, actual
   end
+
+  def test_it_can_find_the_invoice_total
+    expected = 3489.56
+    actual = @s.invoice_total(1).to_f.round(2)
+
+    assert_equal expected, actual
+  end
+
+
 end
