@@ -124,8 +124,8 @@ class InvoiceRepositoryTest < Minitest::Test
     ir.update(1,{:status => "shipped", :merchant_id => 4, :customer_id => 7})
     result1 = ir.find_by_id(1)
     assert_equal :shipped, result1.status
-    assert_equal 4, result1.merchant_id
-    assert_equal 7, result1.customer_id
+    assert_equal 12335938, result1.merchant_id
+    assert_equal 1, result1.customer_id
   end
 
   def test_returns_nil_it_tried_to_update_invalid_invoice
