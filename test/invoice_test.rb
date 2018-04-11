@@ -13,8 +13,20 @@ require 'pry'
 
 # Provides an API of the item repo for testings invoice class.
 class MockInvoiceRepository
-  def transaction
+  def find_merchant_by_merchant_id(_merchant_id)
+    OpenStruct.new(merchant_id: 12334753)
+  end
+
+  def find_transaction_by_transaction_id(_id)
     OpenStruct.new(id: 2)
+  end
+
+  def find_customer_by_customer_id(_invoice_specs)
+    OpenStruct.new(customer_id: 1)
+  end
+
+  def find_all_items_by_merchant_id(_invoice_specs)
+    OpenStruct.new(merchant_id: 12334753)
   end
 end
 
@@ -63,5 +75,9 @@ class InvoiceTest < Minitest::Test
   def test_it_returns_an_updated_date
     expected = Time.parse('2013-04-14')
     assert_equal expected, invoice.updated_at
+  end
+
+  def test_merchant_returns_by_merchant_id
+    assert_equal 12334753, invoice.merchant
   end
 end

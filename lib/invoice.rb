@@ -58,7 +58,6 @@ class Invoice
   end
 
   def items
-    require "pry"; binding.pry
     @parent.find_all_items_by_merchant_id(@invoice_specs[:merchant_id])
   end
 end

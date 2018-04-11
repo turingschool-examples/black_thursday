@@ -19,7 +19,7 @@ class MockMerchantRepository
   end
 
   def find_invoices_by_merchant_id(_id)
-    OpenStruct.new(id: 1, merchant_id:12335938)
+    OpenStruct.new(id: 1, merchant_id: 12335938)
   end
 end
 # Tests Merchant class and functionality of methods.
