@@ -35,6 +35,4 @@ class MerchantRepositoryTest < Minitest::Test
 
     assert_equal 'Candisart', mr.find_by_name('Candisart').name
   end
-
-  
 end

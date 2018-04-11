@@ -39,22 +39,4 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 'Box', ir.find_all_with_description('Brown')[0].name
     assert_equal [], ir.find_all_with_description('Emmie')
   end
-
-  def test_find_all_by_price
-    ir = ItemRepository.new('./test/fixtures/item_fixture.csv', self)
-
-    assert_instance_of Item, ir.find_all_by_price('4800')[0]
-    assert_instance_of Array, ir.find_all_by_price('4800')
-    assert_equal 'Box', ir.find_all_by_price('4800')[0].name
-    assert_equal [], ir.find_all_by_price('12')
-  end
-
-  def test_find_all_by_price_in_range
-    ir = ItemRepository.new('./test/fixtures/item_fixture.csv', self)
-    range = (10..9999)
-    assert_instance_of Item, ir.find_all_by_price_in_range('4800')[0]
-    assert_instance_of Array, ir.find_all_by_price_in_range('4800')
-    assert_equal true, ir.find_all_by_price_in_range(4800.0)
-  end
-
 end

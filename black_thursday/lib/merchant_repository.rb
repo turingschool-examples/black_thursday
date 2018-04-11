@@ -22,18 +22,15 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    @contents.find do |row|
+    @contents.find do |row|   #merchant instead of row
       row.id == id
     end
   end
 
   def find_by_name(name)
-    @contents.find do |row|
+    @contents.find do |row|   #merchant instead of row
       row.name == name
     end
-  end
-
-  def find_all_by_name()
   end
 
   def create(attributes)
