@@ -1,6 +1,7 @@
 require_relative 'test_helper'
 require_relative '../lib/merchant_repository'
 
+# Test class MerchantRepository
 class MerchantRepositoryTest < Minitest::Test
   def setup
     @merch = MerchantRepository.new
@@ -81,29 +82,29 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_can_create_a_new_merchant
     assert_equal 0, @merch.all.count
-    @merch.create(:name => 'PenCo')
+    @merch.create(name: 'PenCo')
     assert_equal 1, @merch.all.count
     assert_equal 'PenCo', @merch.find_by_id(1).name
 
-    @merch.create(:name => 'Pens')
+    @merch.create(name: 'Pens')
     assert_equal 2, @merch.all.count
     assert_equal 'Pens', @merch.find_by_id(2).name
   end
 
   def test_it_can_update_an_existing_merchant
     assert_equal 0, @merch.all.count
-    @merch.create(:name => 'PenCo')
+    @merch.create(name: 'PenCo')
     assert_equal 1, @merch.all.count
     assert_equal 'PenCo', @merch.find_by_id(1).name
-    
-    @merch.update(1, {:name => 'Pen'})
+
+    @merch.update(1, {name: 'Pen'})
     assert_equal 1, @merch.all.count
     assert_equal 'Pen', @merch.find_by_id(1).name
   end
 
   def test_it_can_delete_an_existing_merchant
     assert_equal 0, @merch.all.count
-    @merch.create(:name => 'PenCo')
+    @merch.create(name: 'PenCo')
     assert_equal 1, @merch.all.count
     assert_equal 'PenCo', @merch.find_by_id(1).name
 

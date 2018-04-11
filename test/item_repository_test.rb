@@ -1,6 +1,7 @@
 require_relative 'test_helper'
 require_relative '../lib/item_repository'
 
+# Test ItemRepository class
 class ItemRepositoryTest < Minitest::Test
   def setup
     @ir = ItemRepository.new
@@ -74,7 +75,6 @@ class ItemRepositoryTest < Minitest::Test
     find = @ir.find_by_id(263396279)
     find2 = @ir.find_by_id(263396463)
     find3 = @ir.find_by_id(263396255)
-    # binding.pry
 
     assert items2.include?(find)
     assert items2.include?(find2)
@@ -149,26 +149,26 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_create_a_new_item
     assert_equal 0, @ir.all.count
     time = Time.now
-    @ir.create({
-                :name        => "Pencil",
-                :description => "You can use it to write things",
-                :unit_price  => BigDecimal.new(10.99,4),
-                :created_at  => time,
-                :updated_at  => time,
-                :merchant_id => 7
-                })
+    @ir.create(
+                name:        'Pencil',
+                description: 'You can use it to write things',
+                unit_price:  BigDecimal.new(10.99, 4),
+                created_at:  time,
+                updated_at:  time,
+                merchant_id: 7
+              )
     assert_equal 1, @ir.all.count
     assert_equal 'Pencil', @ir.find_by_id(1).name
     assert_equal time, @ir.find_by_id(1).updated_at
 
-    @ir.create({
-                :name        => "Pen",
-                :description => "NASA's response to Russian",
-                :unit_price  => BigDecimal.new(0.02,4),
-                :created_at  => time,
-                :updated_at  => time,
-                :merchant_id => 8
-                })
+    @ir.create(
+                name:        'Pen',
+                description: "NASA's response to Russian",
+                unit_price:  BigDecimal.new(0.02, 4),
+                created_at:  time,
+                updated_at:  time,
+                merchant_id: 8
+                )
     assert_equal 2, @ir.all.count
     assert_equal 'Pen', @ir.find_by_id(2).name
   end
@@ -176,25 +176,25 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_update_an_existing_item
     assert_equal 0, @ir.all.count
     time = Time.now - 1
-    @ir.create({
-                :name        => "Pencil",
-                :description => "You can use it to write things",
-                :unit_price  => BigDecimal.new(10.99,4),
-                :created_at  => time,
-                :updated_at  => time,
-                :merchant_id => 7
-                })
+    @ir.create(
+                name:        'Pencil',
+                description: 'You can use it to write things',
+                unit_price:  BigDecimal.new(10.99, 4),
+                created_at:  time,
+                updated_at:  time,
+                merchant_id: 7
+                )
     assert_equal 1, @ir.all.count
     assert_equal 'Pencil', @ir.find_by_id(1).name
     assert_equal 7, @ir.find_by_id(1).merchant_id
 
     @ir.update(1, {
-                    :name        => "Pen",
-                    :description => "NASA's response to Russian",
-                    :unit_price  => BigDecimal.new(0.02,4),
-                    :created_at  => time,
-                    :updated_at  => time,
-                    :merchant_id => 8
+                    name:        'Pen',
+                    description: "NASA's response to Russian",
+                    unit_price:  BigDecimal.new(0.02, 4),
+                    created_at:  time,
+                    updated_at:  time,
+                    merchant_id: 8
                     })
     assert_equal 1, @ir.all.count
     assert_equal 'Pen', @ir.find_by_id(1).name
@@ -206,14 +206,14 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_delete_an_existing_item
     assert_equal 0, @ir.all.count
     time = Time.now
-    @ir.create({
-                :name        => "Pencil",
-                :description => "You can use it to write things",
-                :unit_price  => BigDecimal.new(10.99,4),
-                :created_at  => time,
-                :updated_at  => time,
-                :merchant_id => 7
-                })
+    @ir.create(
+                name:        'Pencil',
+                description: 'You can use it to write things',
+                unit_price:  BigDecimal.new(10.99, 4),
+                created_at:  time,
+                updated_at:  time,
+                merchant_id: 7
+                )
     assert_equal 1, @ir.all.count
     assert_equal 'Pencil', @ir.find_by_id(1).name
 

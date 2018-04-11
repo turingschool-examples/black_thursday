@@ -1,4 +1,5 @@
 require 'bigdecimal'
+# Class that analyzes sales data
 class SalesAnalyst
   attr_reader :engine
 
@@ -71,7 +72,7 @@ class SalesAnalyst
   def standard_deviation(elements, average, decider)
     deviation_sum = 0
     elements.each do |element|
-      deviation_sum += (element.round(decider).to_f - average).abs ** 2
+      deviation_sum += (element.round(decider).to_f - average).abs**2
     end
     divided_deviation = deviation_sum / (elements.count - 1)
     Math.sqrt(divided_deviation).round(2).to_f
@@ -119,9 +120,10 @@ class SalesAnalyst
   end
 
   def top_days(days, threshold)
-    days.find_all do |day|
+    top_days = days.find_all do |day|
       day[1] > threshold
-    end.map do |day|
+    end
+    top_days.map do |day|
       day[0]
     end
   end
@@ -148,12 +150,11 @@ class SalesAnalyst
   end
 
   def invoice_status(status)
-    statuses = @engine.invoices.all.group_by do |invoice|
-      invoice.status
-    end
+    statuses = @engine.invoices.all.group_by(&:status)
     mapped_statuses = statuses.map do |status, invoices|
       [status, invoices.count]
     end.to_h
-    ((mapped_statuses[status].to_f / @engine.invoices.all.count.to_f) * 100).round(2)
+    final = mapped_statuses[status].to_f / @engine.invoices.all.count.to_f
+    (final * 100).round(2)
   end
 end

@@ -26,6 +26,7 @@ class InvoiceRepository
 
   def update(id, attributes)
     super(id, attributes)
-    @elements[id].attributes[:merchant_id] = attributes[:merchant_id] if attributes[:merchant_id]
+    attribute = attributes[:merchant_id]
+    @elements[id].attributes[:merchant_id] = attribute if attribute
   end
 end
