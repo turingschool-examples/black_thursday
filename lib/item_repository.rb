@@ -1,5 +1,6 @@
 require 'pry'
 require 'bigdecimal'
+require 'time'
 require_relative 'item'
 
 class ItemRepository
@@ -28,11 +29,13 @@ class ItemRepository
     @items
   end
 
-  def find_by_id(number)
-    @items.find do |item|
-      item.id == number
+
+  def find_by_id(input_id)
+    return @items.find do |item|
+      item.id == input_id
     end
   end
+
 
   def find_by_name(name)
     @items.find do |item|
@@ -42,7 +45,7 @@ class ItemRepository
 
   def find_all_with_description(letters)
     @items.find_all do |item|
-      item.description.include?(letters)
+      item.description.downcase.include?(letters.downcase)
     end
   end
 
@@ -70,18 +73,24 @@ class ItemRepository
 
   def create(attributes)
     attributes[:id] = (find_highest_id+1)
-    attributes[:created_at] = attributes[:created_at].to_s
-    attributes[:updated_at] = attributes[:updated_at].to_s
+    attributes[:created_at] = Time.now
+    attributes[:updated_at] = Time.now
     item = Item.new(attributes)
     @items << item
   end
 
   def update(id, attributes)
     item = find_by_id(id)
+    # binding.pry
+    attributes[:id] = item.attributes[:id]
+    attributes[:merchant_id] = item.attributes[:merchant_id]
+    attributes[:created_at] = item.attributes[:created_at]
     pairs = attributes.keys.zip(attributes.values)
     pairs.each do |pair|
-      item.attributes[pair[0].to_sym] = pair[1]
+      item.attributes[pair[0]] = pair[1]
     end
+    sleep(2)
+    item.attributes[:updated_at] = Time.now
   end
 
   def delete(id)

@@ -2,9 +2,11 @@
 require_relative './merchant'
 # holds, and provides methods for finding, merchants
 class MerchantRepository
+  attr_reader :all
   def initialize(merchants)
     @merchants = {}
     input_to_hash(merchants)
+    @all = @merchants.values
   end
 
   # expects an array of arrays, containing strings, 1 id, 2 name
@@ -18,10 +20,10 @@ class MerchantRepository
     end
   end
 
-  def all
-    # binding.pry
-    @merchants.values
-  end
+  # def all
+  #   # binding.pry
+  #   @merchants.values
+  # end
 
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
