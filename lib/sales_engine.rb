@@ -7,39 +7,39 @@ require 'pry'
 
 # This is a SalesEngine Class
 class SalesEngine
-  attr_reader :items, :merchants, :path
-
-  def initialize(path)
-    @items ||= ItemRepository.new
-    @merchants ||= MerchantRepository.new
-    load_data(path)
-  end
-
   def self.from_csv(path)
-    new(path)
+    new(path).tap(&:populate_repositories)
   end
 
-  def load_data(path)
-    load_items(path)
-    load_merchants(path)
+  def initialize(path = nil)
+    @path = path
+  end
+
+  def populate_repositories
+    items.populate
+    merchants.populate
+  end
+
+  def items
+    @items ||= ItemRepository.new(data_for(:items))
+  end
+
+  def merchants
+    @merchants ||= MerchantRepository.new(data_for(:merchants))
+  end
+
+  def path
+    @path || filepath
   end
 
   def filepath
     {
-      :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
+      items: "./data/items.csv",
+      merchants: "./data/merchants.csv",
     }
   end
 
-  def load_items(path = filepath)
-    CSV.foreach(path[:items], headers: true, header_converters: :symbol) do |data|
-      @items.items << Item.new(data)
-    end
-  end
-
-  def load_merchants(path = filepath)
-    CSV.foreach(path[:merchants], headers: true, header_converters: :symbol) do |merchant|
-      @merchants.merchants << Merchant.new(merchant)
-    end
+  def data_for(type)
+    CSV.read(path.fetch(type), headers: true, header_converters: :symbol)
   end
 end

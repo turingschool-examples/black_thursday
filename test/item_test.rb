@@ -51,19 +51,19 @@ class ItemTest < Minitest::Test
     assert_equal 2, item.merchant_id
   end
 
-  def test_it_has_created_at
-    skip
-    item = Item.new(@data)
-
-    # assert_equal 2016-01-11 11:51:37 UTC, item.created_at
-  end
-
-  def test_it_has_updated_at
-    skip
-    item = Item.new(@data)
-
-    # assert_equal 2016-01-11 11:51:37 UTC, item.updated_at
-  end
+  # def test_it_has_created_at
+  #   skip
+  #   item = Item.new(@data)
+  #
+  #   # assert_equal 2016-01-11 11:51:37 UTC, item.created_at
+  # end
+  #
+  # def test_it_has_updated_at
+  #   skip
+  #   item = Item.new(@data)
+  #
+  #   # assert_equal 2016-01-11 11:51:37 UTC, item.updated_at
+  # end
 
   def test_unit_price_to_dollars
     item = Item.new(@data)
