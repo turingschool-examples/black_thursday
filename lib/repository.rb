@@ -94,6 +94,9 @@ module Repository
     element.attributes[:invoice_id] = attributes[:invoice_id] if attributes[:invoice_id]
     element.attributes[:item_id] = attributes[:item_id] if attributes[:item_id]
     element.attributes[:quantity] = attributes[:quantity] if attributes[:quantity]
+    element.attributes[:credit_card_number] = attributes[:credit_card_number] if attributes[:credit_card_number]
+    element.attributes[:credit_card_expiration_date] = attributes[:credit_card_expiration_date] if attributes[:credit_card_expiration_date]
+    element.attributes[:result] = attributes[:result] if attributes[:result]
   end
 
   def delete(id)
@@ -109,6 +112,18 @@ module Repository
   def find_all_by_invoice_id(invoice_id)
     all.find_all do |element|
       element.invoice_id == invoice_id
+    end
+  end
+
+  def find_all_by_credit_card_number(credit_card_number)
+    all.find_all do |element|
+      element.credit_card_number == credit_card_number
+    end
+  end
+
+  def find_all_by_result(result)
+    all.find_all do |element|
+      element.result == result
     end
   end
 end

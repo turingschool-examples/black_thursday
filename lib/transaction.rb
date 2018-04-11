@@ -4,7 +4,7 @@ require_relative 'element'
 class Transaction
   include Element
 
-  def initialize(attributes)
+  def initialize(attributes, engine = nil)
     @attributes = attributes
   end
 end
