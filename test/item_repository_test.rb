@@ -46,6 +46,12 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 263399263, expected.id
   end
 
+  def test_it_returns_empty_array_when_description_has_no_match
+    expected = items.find_all_with_description('weasel watch')
+
+    assert_equal [], expected
+  end
+
   def test_it_finds_item_by_description
     expected = items.find_all_with_description('badass batman themed watch')
 
@@ -66,6 +72,7 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of Array, expected
     assert_equal 4, expected.length
   end
+
 
   def test_find_all_merchant_items_by_id
     expected = items.find_all_by_merchant_id(92929)
