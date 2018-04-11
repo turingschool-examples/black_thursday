@@ -73,4 +73,16 @@ module Element
   def quantity
     @attributes[:quantity].to_i
   end
+
+  def credit_card_number
+    @attributes[:credit_card_number]
+  end
+
+  def credit_card_expiration_date
+    @attributes[:credit_card_expiration_date]
+  end
+
+  def result
+    @attributes[:result]
+  end
 end
