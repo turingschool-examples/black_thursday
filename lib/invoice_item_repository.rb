@@ -4,7 +4,8 @@ require_relative 'invoice_item'
 class InvoiceItemRepository
   attr_reader :invoice_items
 
-  def initialize(path)
+  def initialize(path, sales_engine)
+    @sales_engine = sales_engine
     @invoice_items = []
     load_path(path)
   end
@@ -63,4 +64,7 @@ class InvoiceItemRepository
     @invoice_items.delete(find_by_id(id))
   end
 
+  def inspect
+   "#<#{self.class} #{@invoice_items.size} rows>"
+ end
 end
