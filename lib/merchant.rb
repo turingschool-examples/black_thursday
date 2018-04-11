@@ -1,8 +1,11 @@
 class Merchant
-  attr_reader :name, :id
+  attr_reader :id
+  attr_accessor :name, :created_at, :updated_at
 
   def initialize(params)
-    @id = params[:id]
+    @id = params[:id].to_i
     @name = params[:name]
+    @created_at = params[:created_at]
+    @updated_at = params[:updated_at]
   end
 end
