@@ -7,9 +7,7 @@ class ItemRepo
               :repository
 
     def initialize(data, parent)
-        @repository = data.map do |row| 
-             Item.new(row, self)
-        end
+        @repository = data.map {|row| Item.new(row, self)}
         @parent = parent
     end
 
