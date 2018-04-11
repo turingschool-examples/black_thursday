@@ -4,7 +4,6 @@ require 'simplecov'
 SimpleCov.start
 require './lib/file_loader.rb'
 require './lib/item.rb'
-require './lib/item_repository.rb'
 require 'minitest'
 require 'minitest/autorun'
 require 'minitest/emoji'
