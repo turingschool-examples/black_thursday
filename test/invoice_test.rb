@@ -42,4 +42,26 @@ class InvoiceTest < Minitest::Test
   def test_it_has_an_integer_id
     assert_equal 2, invoice.id
   end
+
+  def test_it_has_customer_id
+    assert_equal 1, invoice.customer_id
+  end
+
+  def test_it_returns_merchants_id
+    assert_equal 12334753, invoice.merchant_id
+  end
+
+  def test_it_returns_a_status
+    assert_equal :shipped, invoice.status
+  end
+
+  def test_it_returns_a_created_date
+    expected = Time.parse('2012-11-23')
+    assert_equal expected, invoice.created_at
+  end
+
+  def test_it_returns_an_updated_date
+    expected = Time.parse('2013-04-14')
+    assert_equal expected, invoice.updated_at
+  end
 end
