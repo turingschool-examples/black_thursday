@@ -5,19 +5,20 @@
         1,
         1,
         1,
+        1,
+        null,
         null,
         1,
         1,
         null,
+        null,
         1,
+        88,
         11,
-        11,
         null,
         null,
         1,
-        11,
-        77,
-        null,
+        19,
         null,
         null,
         1,
@@ -80,10 +81,20 @@
         80,
         80,
         80,
+        80,
+        null,
+        null
+      ],
+      "/Users/janeekim12/turing/mod_one/projects/black_thursday/black_thursday/lib/load_file.rb": [
+        1,
+        null,
+        1,
+        1,
+        11,
         null,
         null
       ]
     },
-    "timestamp": 1523476992
+    "timestamp": 1523481972
   }
 }
