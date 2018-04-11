@@ -3,14 +3,14 @@ require 'bigdecimal'
 class Item
 
     attr_reader :id,
-                :name,
-                :description,
-                :unit_price,
                 :merchant_id,
                 :parent,
                 :downcased_description
     attr_accessor :created_at,
-                  :updated_at
+                  :updated_at,
+                  :name,
+                  :description,
+                  :unit_price
 
     def initialize(data, parent)
         @id = data[:id].to_i

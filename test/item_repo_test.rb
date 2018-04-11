@@ -95,5 +95,18 @@ class ItemRepoTest < Minitest::Test
         assert_instance_of Item, new_item
     end
 
+    def test_it_can_update
+        id = 263396013
+        item = item_repo.find_by_id(id)
 
+        assert_equal "Free standing Woden letters", item.name
+        assert item.description.include?("Free standing wooden letters")
+        assert_equal 7.00, item.unit_price
+
+        item_repo.update(id, attrs)
+        
+        assert_equal "Disney scrabble frames", item.name
+        assert item.description.include?("Disney glitter frames")
+        assert_equal 13.50, item.unit_price
+    end
 end

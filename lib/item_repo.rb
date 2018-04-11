@@ -72,5 +72,15 @@ def find_max_id
    return new_merchant
  end
 
+ def update(id, attrs)
+    item_to_update = find_by_id(id)
+    item_to_update.name = attrs[:name]
+    item_to_update.description = attrs[:description]
+    item_to_update.unit_price = BigDecimal.new(attrs[:unit_price])/100
+    item_to_update.updated_at = Time.now
+ end
+
+
+
 
 end
