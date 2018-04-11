@@ -78,7 +78,7 @@ class SalesAnalystTest < Minitest::Test
       merchants: './test/fixtures/test_merchants2.csv'
     )
     sales_analyst = sales_engine.analyst
-    assert_equal 1.25, sales_analyst.average_invoices_per_merchant
+    assert_equal 1.15, sales_analyst.average_invoices_per_merchant
   end
 
   def test_average_invoices_per_merchant_standard_deviation
@@ -88,7 +88,7 @@ class SalesAnalystTest < Minitest::Test
       merchants: './test/fixtures/test_merchants2.csv'
     )
     sales_analyst = sales_engine.analyst
-    assert_equal 1.46, sales_analyst.average_invoices_per_merchant_standard_deviation
+    assert_equal 0.63, sales_analyst.average_invoices_per_merchant_standard_deviation
   end
 
   def test_getting_invoice_count
@@ -108,9 +108,8 @@ class SalesAnalystTest < Minitest::Test
       merchants: './test/fixtures/test_merchants2.csv'
     )
     sales_analyst = sales_engine.analyst
-    result = sales_analyst.top_merchant_by_invoice_count
+    result = sales_analyst.top_merchants_by_invoice_count
     assert_instance_of Merchant, result[0]
-    assert_equal [12334873], result.map(&:id)
-    
+    assert_equal [12334874], result.map(&:id)
   end
 end
