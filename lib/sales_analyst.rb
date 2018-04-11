@@ -1,3 +1,4 @@
+require 'date'
 # Sales Analyst class for analyzing data
 class SalesAnalyst
   attr_reader :engine
@@ -102,8 +103,33 @@ class SalesAnalyst
     Math.sqrt(step3).round(2)
   end
 
+  def average_invoices_per_day
+    (BigDecimal(@engine.invoices.all.count) / BigDecimal(@engine.invoices.all.map(&:created_at).uniq.count)).round(2).to_f
+  end
+
+  def average_invoices_per_day_standard_deviation
+    unique_days = @engine.invoices.all.map(&:created_at).uniq
+    set = unique_days.map do |date|
+      @engine.invoices.find_all_by_created_date(date).count
+    end
+    step1 = set.map do |number_of_invoices|
+      (number_of_invoices - average_invoices_per_day) ** 2
+    end
+    # Sum those together
+    step2 = step1.reduce(:+)
+    # Divide the sum by the total number in set - 1
+    step3 = (step2 / (set.count - 1))
+    # Take the square root of this number
+    Math.sqrt(step3)
+    # require 'pry';binding.pry
+  end
+
   def invoice_count(merchant_id)
     @engine.invoices.find_all_by_merchant_id(merchant_id).count
+  end
+
+  def invoice_count_by_created_date(created_date)
+    @engine.invoices.find_all_by_created_date(created_date).count
   end
 
   def top_merchants_by_invoice_count
@@ -117,5 +143,22 @@ class SalesAnalyst
       end
     end
     top.compact
+  end
+
+  def bottom_merchants_by_invoice_count
+    invoices_per_merchant = {}
+    @engine.invoices.all.each do |invoice|
+      invoices_per_merchant[invoice.merchant_id] = invoice_count(invoice.merchant_id)
+    end
+    top = invoices_per_merchant.map do |id, count|
+      if count <= average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2)
+        @engine.merchants.find_by_id(id)
+      end
+    end
+    top.compact
+  end
+
+  def top_days_by_invoice_count
+
   end
 end

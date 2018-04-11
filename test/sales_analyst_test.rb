@@ -101,7 +101,7 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 2, sales_analyst.invoice_count(12334264)
   end
 
-  def test_top_merchants
+  def test_top_merchants_by_invoice_count
     sales_engine = SalesEngine.from_csv(
       invoices: './test/fixtures/test_invoices2_b.csv',
       items: './test/fixtures/test_items1.csv',
@@ -110,6 +110,45 @@ class SalesAnalystTest < Minitest::Test
     sales_analyst = sales_engine.analyst
     result = sales_analyst.top_merchants_by_invoice_count
     assert_instance_of Merchant, result[0]
-    assert_equal [12334874], result.map(&:id)
+    assert_equal [12334873], result.map(&:id)
   end
+
+  def test_bottom_merchants_by_invoice_count
+    sales_engine = SalesEngine.from_csv(
+      invoices: './test/fixtures/test_invoices2_b.csv',
+      items: './test/fixtures/test_items1.csv',
+      merchants: './test/fixtures/test_merchants2.csv'
+    )
+    sales_analyst = sales_engine.analyst
+    result = sales_analyst.bottom_merchants_by_invoice_count
+    assert(result.all? { |each_result| each_result.class == Merchant })
+    assert_equal [12335938, 12334753, 12335955,
+                  12334269, 12335311, 12334389,
+                  12335009, 12337139, 12336965,
+                  12334839, 12334264], result.map(&:id)
+  end
+
+  def test_average_number_of_invoices_per_day
+    sales_engine = SalesEngine.from_csv(
+      invoices: './test/fixtures/test_invoices2_b.csv',
+      items: './test/fixtures/test_items1.csv',
+      merchants: './test/fixtures/test_merchants2.csv'
+    )
+    sales_analyst = sales_engine.analyst
+    assert_equal 1, sales_analyst.average_invoices_per_day
+  end
+
+  def test_average_invoices_per_day_standard_deviation
+    sales_engine = SalesEngine.from_csv(
+      invoices: './test/fixtures/test_invoices2_b.csv',
+      items: './test/fixtures/test_items1.csv',
+      merchants: './test/fixtures/test_merchants2.csv'
+    )
+    sales_analyst = sales_engine.analyst
+    result = sales_analyst.average_invoices_per_day_standard_deviation
+  end
+
+  # def test_top_days_by_invoice_count
+  #   result = @sales_analyst.top_days_by_invoice_count
+  # end
 end
