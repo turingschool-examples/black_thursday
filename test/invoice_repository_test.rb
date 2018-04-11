@@ -11,7 +11,7 @@ require './lib/sales_engine.rb'
 # Tests the functionality of the customer repository.
 class InvoiceRepositoryTest < MiniTest::Test
   def setup
-    se = SalesEngine.from_csv({:invoices => './fixtures/invoice_test.csv',
+    se = SalesEngine.from_csv({:invoices => './fixtures/invoices_test.csv',
                                :merchants => './fixtures/merchants_test.csv',
                                :items => './fixtures/items_test.csv',
                                :customers => './fixtures/customers_test.csv',

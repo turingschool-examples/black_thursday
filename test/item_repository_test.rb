@@ -68,7 +68,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_merchant_items_by_id
-    expected = @items_list.find_all_by_merchant_id(92929)
+    expected = items.find_all_by_merchant_id(92929)
 
     assert_instance_of Array, expected
     assert_equal 2, expected.length
@@ -91,6 +91,6 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_can_delete_item_by_id
     items.delete(92929)
 
-    assert_equal 4, items.all.length
+    assert_equal 5, items.all.length
   end
 end

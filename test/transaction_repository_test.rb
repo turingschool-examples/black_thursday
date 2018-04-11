@@ -14,7 +14,7 @@ class TransactionRepositoryTest < Minitest::Test
 
   def setup
     se = SalesEngine.from_csv({:transactions => './fixtures/transactions_test.csv',
-                               :invoices     => './fixtures/invoice_test.csv'
+                               :invoices     => './fixtures/invoices_test.csv'
       })
     @t = se.transactions
   end
