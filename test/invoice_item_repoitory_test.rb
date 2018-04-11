@@ -5,13 +5,13 @@ require 'time'
 
 class InvoiceItemRepositoryTest < Minitest::Test
   def test_exists
-    iir = InvoiceItemRepository.new ('./test/invoice_items.csv')
+    iir = InvoiceItemRepository.new ('./test/fixtures/invoice_items.csv')
 
     assert_instance_of InvoiceItemRepository, iir
   end
 
   def test_it_can_load_all_invoice_items
-    iir = InvoiceItemRepository.new ('./test/invoice_items.csv')
+    iir = InvoiceItemRepository.new ('./test/fixtures/invoice_items.csv')
 
     assert_equal 199, iir.all.count
     assert_equal 1, iir.all.first.id
@@ -24,7 +24,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_by_id
-    iir = InvoiceItemRepository.new ('./test/invoice_items.csv')
+    iir = InvoiceItemRepository.new ('./test/fixtures/invoice_items.csv')
 
     result = iir.find_by_id(5)
 
@@ -35,7 +35,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_by_returns_nil_for_invalid_id
-    iir = InvoiceItemRepository.new ('./test/invoice_items.csv')
+    iir = InvoiceItemRepository.new ('./test/fixtures/invoice_items.csv')
 
     result = iir.find_by_id(000000)
 
@@ -43,7 +43,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_item_id
-    iir = InvoiceItemRepository.new ('./test/invoice_items.csv')
+    iir = InvoiceItemRepository.new ('./test/fixtures/invoice_items.csv')
 
 
     result =  iir.find_all_by_item_id(263515158)
@@ -54,7 +54,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_returns_empty_array_for_invalid_item_id
-    iir = InvoiceItemRepository.new ('./test/invoice_items.csv')
+    iir = InvoiceItemRepository.new ('./test/fixtures/invoice_items.csv')
 
 
     result =  iir.find_all_by_item_id(00000000)
@@ -62,7 +62,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_invoice_id
-    iir = InvoiceItemRepository.new ('./test/invoice_items.csv')
+    iir = InvoiceItemRepository.new ('./test/fixtures/invoice_items.csv')
 
 
     result =  iir.find_all_by_invoice_id(1)
@@ -74,7 +74,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_returns_empty_array_for_invalid_invoice_id
-    iir = InvoiceItemRepository.new ('./test/invoice_items.csv')
+    iir = InvoiceItemRepository.new ('./test/fixtures/invoice_items.csv')
 
 
     result =  iir.find_all_by_invoice_id(00000)
@@ -82,13 +82,13 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_create_new_id
-    iir = InvoiceItemRepository.new ('./test/invoice_items.csv')
+    iir = InvoiceItemRepository.new ('./test/fixtures/invoice_items.csv')
 
     assert_equal 200, iir.create_new_id
   end
 
   def test_it_Can_create_new_invoice_item
-    iir = InvoiceItemRepository.new ('./test/invoice_items.csv')
+    iir = InvoiceItemRepository.new ('./test/fixtures/invoice_items.csv')
 
     assert_equal 200, iir.create_new_id
 
@@ -107,7 +107,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_Can_update_invoice_item
-    iir = InvoiceItemRepository.new ('./test/invoice_items.csv')
+    iir = InvoiceItemRepository.new ('./test/fixtures/invoice_items.csv')
 
     result = iir.find_by_id(6)
 
@@ -131,7 +131,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
 
   def test_it_can_delete_item_invoice
-    iir = InvoiceItemRepository.new ('./test/invoice_items.csv')
+    iir = InvoiceItemRepository.new ('./test/fixtures/invoice_items.csv')
     result = iir.find_by_id(6)
 
     assert_equal 263539664, result.item_id

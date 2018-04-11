@@ -71,7 +71,7 @@ class MerchantRepositoryTest< MiniTest::Test
   end
 
   def test_it_gives_all_names_matched_with_find_all
-    merchant_repo = MerchantRepository.new('./test/merchants.csv')
+    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv')
 
     result = merchant_repo.find_all_by_name("Walmart")
 
@@ -82,7 +82,7 @@ class MerchantRepositoryTest< MiniTest::Test
 
   def test_it_can_create_a_new_merchant
 
-    merchant_repo = MerchantRepository.new('./test/merchants.csv')
+    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv')
 
     merchant_repo.create({:name => "manoj"})
     assert_equal "manoj", merchant_repo.merchants.last.name
@@ -99,7 +99,7 @@ class MerchantRepositoryTest< MiniTest::Test
 
   def test_it_can_create_a_new_merchant_for_next_one
 
-    merchant_repo = MerchantRepository.new('./test/merchants.csv')
+    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv')
 
     result = merchant_repo.create({:name => "tylor"})
     assert_equal "tylor", merchant_repo.merchants.last.name
@@ -107,7 +107,7 @@ class MerchantRepositoryTest< MiniTest::Test
   end
 
   def test_it_can_update_merchant_with_attributes
-    merchant_repo = MerchantRepository.new('./test/merchants.csv')
+    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv')
     result1 =  merchant_repo.find_by_id(12334141)
     assert_equal "jejum", result1.name
 
@@ -119,7 +119,7 @@ class MerchantRepositoryTest< MiniTest::Test
   end
 
   def test_it_can_update_merchant_with_attributes_for_diff_merchant
-    merchant_repo = MerchantRepository.new('./test/merchants.csv')
+    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv')
     result1 =  merchant_repo.find_by_id(12334132)
     assert_equal "perlesemoi", result1.name
 
@@ -131,7 +131,7 @@ class MerchantRepositoryTest< MiniTest::Test
   end
 
   def test_it_can_delete_merchants_from_the_list
-    merchant_repo = MerchantRepository.new('./test/merchants.csv')
+    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv')
     assert_equal 8, merchant_repo.merchants.count
 
     result1 =  merchant_repo.delete(12334132)
@@ -141,7 +141,7 @@ class MerchantRepositoryTest< MiniTest::Test
   end
 
   def test_it_can_delete_merchants_from_the_list_for_diff_id
-    merchant_repo = MerchantRepository.new('./test/merchants.csv')
+    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv')
     assert_equal 8, merchant_repo.merchants.count
 
     result1 =  merchant_repo.delete(12334141)
