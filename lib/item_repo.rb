@@ -41,11 +41,11 @@ class ItemRepo
         end
     end
 
-   def find_all_with_price_in_range(price_range)
-    repository.find_all do |item|
-      price_range.include?(item.unit_price)
+    def find_all_with_price_in_range(price_range)
+        repository.find_all do |item|
+        price_range.include?(item.unit_price)
+        end
     end
-  end
 
   def find_all_by_merchant_id(id)
     repository.find_all do |item| 
@@ -57,30 +57,33 @@ class ItemRepo
     parent.find_merchant_by_merchant_id(merchant_id)
   end
 
-def find_max_id
-   max = repository.max_by { |item| item.id }
-   max.id.to_i
- end
+    def find_max_id
+    max = repository.max_by { |item| item.id }
+    max.id.to_i
+    end
 
- def create(attrs)
-   new_id = find_max_id + 1
-   attrs[:id] = new_id.to_s
-   new_merchant = Item.new(attrs, self)
-   new_merchant.created_at = Time.now
-   new_merchant.updated_at = Time.now
-   repository << new_merchant
-   return new_merchant
- end
+    def create(attrs)
+    new_id = find_max_id + 1
+    attrs[:id] = new_id.to_s
+    new_merchant = Item.new(attrs, self)
+    new_merchant.created_at = Time.now
+    new_merchant.updated_at = Time.now
+    repository << new_merchant
+    return new_merchant
+    end
 
- def update(id, attrs)
-    item_to_update = find_by_id(id)
-    item_to_update.name = attrs[:name]
-    item_to_update.description = attrs[:description]
-    item_to_update.unit_price = BigDecimal.new(attrs[:unit_price])/100
-    item_to_update.updated_at = Time.now
- end
+    def update(id, attrs)
+        item_to_update = find_by_id(id)
+        item_to_update.name = attrs[:name]
+        item_to_update.description = attrs[:description]
+        item_to_update.unit_price = BigDecimal.new(attrs[:unit_price])/100
+        item_to_update.updated_at = Time.now
+    end
 
-
+    def delete(id)
+        item_to_delete = find_by_id(id)
+        repository.delete(item_to_delete)
+    end
 
 
 end
