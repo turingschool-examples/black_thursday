@@ -7,7 +7,7 @@ require 'pry'
 
 # This is a SalesEngine Class
 class SalesEngine
-  attr_reader :items, :merchants
+  attr_reader :items, :merchants, :path
 
   def initialize(path)
     @items ||= ItemRepository.new
