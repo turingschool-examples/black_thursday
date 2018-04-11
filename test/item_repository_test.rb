@@ -90,7 +90,7 @@ class ItemRepositoryTest < Minitest::Test
     attributes = ({
                     :name        => 'Pencil',
                     :description => 'You can use it to write things',
-                    :unit_price  => BigDecimal(10.99,4),
+                    :unit_price  => BigDecimal(10.99, 4),
                     :created_at  => '1995-03-19 10:02:43 UTC',
                     :updated_at  => '1995-03-19 10:02:43 UTC',
                   })

@@ -21,25 +21,25 @@ class MerchantRepositoryTest < Minitest::Test
   def test_returns_all_instances
     refute @mr.merchants.empty?, @mr.merchants
     assert_equal 6, @mr.all.count
-    assert_equal 'HeadyMamaCreations', @mr.all[0].name
+    assert_equal 'Heiline', @mr.all[0].name
   end
 
   def test_find_by_id
     assert_nil @mr.find_by_id(7834)
-    assert_instance_of Merchant, @mr.find_by_id(1)
+    assert_instance_of Merchant, @mr.find_by_id(5)
   end
 
   def test_find_by_name
     assert_nil @mr.find_by_name('Buffalo Bill')
 
-    assert_equal 'HeadyMamaCreations', @mr.find_by_name('HeadyMamaCreations').name
-    assert_equal 'HeadyMamaCreations', @mr.find_by_name('headyMAMACreations').name
+    assert_equal 'LovesVariety', @mr.find_by_name('lovesVARIety').name
+    assert_equal 'LovesVariety', @mr.find_by_name('LovesVariety').name
   end
 
   def test_find_all_by_name
 
     assert_equal [], @mr.find_all_by_name('Buffalo Bill')
-    assert_equal 'HeadyMamaCreations', @mr.find_all_by_name('headyMamacreations')[0].name
+    assert_equal 'LovesVariety', @mr.find_all_by_name('lovesVARIety')[0].name
     assert_equal 2, @mr.find_all_by_name('cj').count
   end
 
@@ -54,16 +54,20 @@ class MerchantRepositoryTest < Minitest::Test
   def test_create
     @mr.create({:id => 600, :name => 'Turing School'})
     assert_equal 7, @mr.all.last.id
-    assert_equal 'Turing School', @mr.all[6].name
+    assert_equal 'Turing School', @mr.all.last.name
   end
 
   def test_update
-    found = @mr.find_by_id(1)
-    assert_equal 'HeadyMamaCreations', found.name
-    assert_equal 1, found.id
-    @mr.update(1, {:name => 'FuzzysBuzzMachine'})
-    assert_equal 'FuzzysBuzzMachine', found.name
-    assert_equal 1, found.id
+    found = @mr.find_by_id(5)
+
+    assert_equal 'CJsDecor', found.name
+    assert_equal 5, found.id
+
+    @mr.update(5, {:name => 'Awesomeness'})
+
+    assert_equal 'Awesomeness', found.name
+    assert_equal 5, found.id
+
     assert_nil @mr.update(64, {:name => "felbert"})
   end
 

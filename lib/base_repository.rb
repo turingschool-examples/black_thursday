@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# this is a BaseRepository Baseclass
 class BaseRepository
   attr_reader :raw_data, :models
 

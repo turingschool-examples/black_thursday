@@ -49,12 +49,12 @@ class ItemRepository < BaseRepository
     items << Item.new(attributes)
   end
 
-  def update(i)
+  def update(id, attributes)
     return nil if find_by_id(id).nil?
     to_update = find_by_id(id)
-    to_update.name = attributes[:name] if attributes[:name]
-    to_update.description = attributes[:description]
-    to_update.unit_price = attributes[:unit_price]
-    to_update.updated_at = Time.now.to_s
+    to_update.change_name(attributes[:name]) if attributes[:name]
+    to_update.change_description(attributes[:description])
+    to_update.change_updated_at
+    to_update.change_unit_price(attributes[:unit_price])
   end
 end

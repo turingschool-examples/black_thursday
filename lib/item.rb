@@ -7,11 +7,12 @@ require 'bigdecimal'
 class Item
   attr_reader :id,
               :merchant_id,
-              :created_at
-  attr_accessor :name,
-                :description,
-                :unit_price,
-                :updated_at
+              :created_at,
+              :name,
+              :description,
+              :unit_price,
+              :updated_at
+
   def initialize(data)
     @id          = data[:id].to_i
     @name        = data[:name]
@@ -34,7 +35,11 @@ class Item
     @description = description
   end
 
-  def change_unit_price
+  def change_updated_at
+    @updated_at = Time.now
+  end
+
+  def change_unit_price(unit_price)
     @unit_price = unit_price
   end
 end

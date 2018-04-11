@@ -1,5 +1,6 @@
 require 'csv'
 require_relative 'merchant'
+require_relative 'base_repository'
 require 'pry'
 
 class MerchantRepository < BaseRepository
@@ -14,7 +15,7 @@ class MerchantRepository < BaseRepository
   def find_all_by_name(name)
     found = merchants.map do |merchant|
       if merchant.name.downcase.include?(name.downcase)
-       merchant
+        merchant
       end
     end
     found.compact
@@ -30,6 +31,8 @@ class MerchantRepository < BaseRepository
 
   def create(attributes)
     attributes[:id] = create_new_id
+    attributes[:created_at] = Time.now
+    attributes[:updated_at] = Time.now
     merchants << Merchant.new(attributes)
   end
 
