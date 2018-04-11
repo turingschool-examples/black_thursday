@@ -26,8 +26,8 @@ class InvoiceRepository
     end
   end
 
-  def find_all_by_merchant_id(id)
-    @invoice_list.find_all { |invoice| invoice.merchant_id == id }
+  def find_all_by_merchant_id(merchant_id)
+    @invoice_list.find_all { |invoice| invoice.merchant_id == merchant_id }
   end
 
   def create(attributes)
@@ -60,6 +60,14 @@ class InvoiceRepository
 
   def find_transaction_by_invoice_id(invoice_id)
     @parent.find_transaction_by_invoice_id(invoice_id)
+  end
+
+  def find_all_items_by_merchant_id(merchant_id)
+    @parent.find_all_items_by_merchant_id(merchant_id)
+  end
+
+  def find_customer_by_customer_id(customer_id)
+    @parent.find_customer_by_customer_id(customer_id)
   end
 
   def inspect
