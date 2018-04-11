@@ -12,7 +12,7 @@ class InvoiceItemTest < Minitest::Test
                           :unit_price => 13635,
                           :created_at => Time.now.to_s,
                           :updated_at => Time.now.to_s
-                          })
+                          },nil)
     assert_instance_of InvoiceItem, ii
   end
 
@@ -24,7 +24,7 @@ class InvoiceItemTest < Minitest::Test
                           :unit_price => 13635,
                           :created_at => Time.now.to_s,
                           :updated_at => Time.now.to_s
-                          })
+                          },nil)
     assert_equal 1, ii.id
     assert_equal 2, ii.item_id
     assert_equal 4, ii.invoice_id
