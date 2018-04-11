@@ -3,7 +3,8 @@ require_relative 'transaction'
 
 class TransactionRepository
   attr_reader :transactions,
-              :path
+              :path,
+              :sales_engine
 
   def initialize(path, sales_engine)
     @path = path

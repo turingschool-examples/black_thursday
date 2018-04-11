@@ -40,4 +40,25 @@ class Invoice
     @customer_id = id
   end
 
+  def items
+    array = @invoice_repo.sales_engine.invoice_items.find_all_by_invoice_id(id)
+    array.map do |invoice_item|
+      @invoice_repo.sales_engine.items.find_by_id(invoice_item.item_id)
+    end.uniq
+  end
+
+  def transactions
+    @invoice_repo.sales_engine.transactions.find_all_by_invoice_id(id)
+  end
+
+  def customer
+    @invoice_repo.sales_engine.customers.find_by_id(customer_id)
+  end
+
+  def is_paid_in_full?
+    a = @invoice_repo.sales_engine.transactions.find_all_by_invoice_id(id)
+    a.any? do |transaction|
+      transaction.result == "success"
+    end
+  end
 end

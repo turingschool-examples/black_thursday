@@ -41,4 +41,8 @@ class Transaction
   def update_result(result)
     @result = result
   end
+
+  def invoice
+    @transaction_repo.sales_engine.invoices.find_by_id(invoice_id)
+  end
 end
