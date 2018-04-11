@@ -13,7 +13,9 @@ class TransactionRepositoryTest < Minitest::Test
   attr_reader :transaction
 
   def setup
-    se = SalesEngine.from_csv({:transactions => './fixtures/transactions_test.csv'})
+    se = SalesEngine.from_csv({:transactions => './fixtures/transactions_test.csv',
+                               :invoices     => './fixtures/invoice_test.csv'
+      })
     @t = se.transactions
   end
 
@@ -78,4 +80,13 @@ class TransactionRepositoryTest < Minitest::Test
 
     assert_nil actual
   end
+
+  def test_it_can_find_invoice_by_invoice_id
+    expected = 1
+    actual = @t.find_invoice_by_invoice_id(2).customer_id
+
+    assert_equal expected, actual
+  end
+
+
 end
