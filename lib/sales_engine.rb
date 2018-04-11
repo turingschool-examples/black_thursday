@@ -21,7 +21,7 @@ class SalesEngine
 
   def self.from_csv(items_merchants_invoices)
     invoices_file_path = FileIO.load(items_merchants_invoices[:invoices])
-    invoices_repo = InvoicesRepository.new(invoices_file_path)
+    invoices_repo = InvoiceRepository.new(invoices_file_path)
     items_file_path = FileIO.load(items_merchants_invoices[:items])
     items_repo = ItemRepository.new(items_file_path)
     merchants_file_path = FileIO.load(items_merchants_invoices[:merchants])
