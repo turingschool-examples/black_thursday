@@ -80,4 +80,39 @@ class SalesAnalyst
       item if item.unit_price >= deviation
     end.compact
   end
+
+  def average_invoices_per_merchant
+    (BigDecimal(@engine.invoices.all.count) / BigDecimal(@engine.merchants.all.count)).round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    # Get a set
+    all_merchants = @engine.invoices.all.map(&:merchant_id).uniq
+    number_of_invoices_per_merchant = all_merchants.map do |merchant_id|
+      invoice_count(merchant_id)
+    end
+    # Sum all number in that set - average, squared
+    deviate_sum = number_of_invoices_per_merchant.inject(0) do |sum, number_of_invoices|
+      sum + ((number_of_invoices - average_invoices_per_merchant) ** 2)
+    end
+    # Divide that sum by two
+    # Get the sqrt of that quotient
+    Math.sqrt(deviate_sum / 2).round(2)
+  end
+
+  def invoice_count(merchant_id)
+    @engine.invoices.find_all_by_merchant_id(merchant_id).count
+  end
+
+  def top_merchant_by_invoice_count
+    invoices_per_merchant = {}
+    @engine.invoices.all.each do |invoice|
+      invoices_per_merchant[invoice.merchant_id] = invoice_count(invoice.merchant_id)
+    end
+    top = invoices_per_merchant.map do |id, count|
+      require 'pry';binding.pry
+      @engine.merchants.find_by_id(id) if count >= average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2)
+    end
+  end
+
 end

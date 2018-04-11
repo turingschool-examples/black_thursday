@@ -70,4 +70,46 @@ class SalesAnalystTest < Minitest::Test
     assert_equal ['Test listing'], result.map(&:name)
     assert_instance_of Item, result[0]
   end
+
+  def test_average_invoices_per_merchant
+    sales_engine = SalesEngine.from_csv(
+      invoices: './test/fixtures/test_invoices2.csv',
+      items: './test/fixtures/test_items1.csv',
+      merchants: './test/fixtures/test_merchants2.csv'
+    )
+    sales_analyst = sales_engine.analyst
+    assert_equal 1.25, sales_analyst.average_invoices_per_merchant
+  end
+
+  def test_average_invoices_per_merchant_standard_deviation
+    sales_engine = SalesEngine.from_csv(
+      invoices: './test/fixtures/test_invoices2.csv',
+      items: './test/fixtures/test_items1.csv',
+      merchants: './test/fixtures/test_merchants2.csv'
+    )
+    sales_analyst = sales_engine.analyst
+    assert_equal 1.46, sales_analyst.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_getting_invoice_count
+    sales_engine = SalesEngine.from_csv(
+      invoices: './test/fixtures/test_invoices2.csv',
+      items: './test/fixtures/test_items1.csv',
+      merchants: './test/fixtures/test_merchants2.csv'
+    )
+    sales_analyst = sales_engine.analyst
+    assert_equal 2, sales_analyst.invoice_count(12334264)
+  end
+
+  def test_top_merchants
+    sales_engine = SalesEngine.from_csv(
+      invoices: './test/fixtures/test_invoices2_b.csv',
+      items: './test/fixtures/test_items1.csv',
+      merchants: './test/fixtures/test_merchants2.csv'
+    )
+    sales_analyst = sales_engine.analyst
+    result = sales_analyst.top_merchant_by_invoice_count
+    assert_instance_of Merchant, result[0]
+    assert_equal [12334873], result.map(&:name)
+  end
 end
