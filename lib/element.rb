@@ -1,4 +1,5 @@
 require 'time'
+# Element module for object type classes
 module Element
   attr_accessor :attributes
 
@@ -16,7 +17,7 @@ module Element
 
   def unit_price
     price = @attributes[:unit_price].to_i
-    BigDecimal.new(price)/100
+    BigDecimal.new(price) / 100
   end
 
   def created_at
@@ -42,7 +43,7 @@ module Element
   end
 
   def unit_price_to_dollars
-    @attributes[:unit_price].to_f/100
+    @attributes[:unit_price].to_f / 100
   end
 
   def customer_id

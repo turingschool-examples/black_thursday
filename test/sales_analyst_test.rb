@@ -2,13 +2,14 @@ require_relative 'test_helper'
 require_relative '../lib/sales_analyst'
 require_relative '../lib/sales_engine'
 
+# Test class SalesAnalyst
 class SalesAnalystTest < Minitest::Test
   def setup
-    se = SalesEngine.from_csv({
-      :items      => './data/items.csv',
-      :invoices   => './data/invoices.csv',
-      :merchants  => './data/merchants.csv'
-      })
+    se = SalesEngine.from_csv(
+                              items:      './data/items.csv',
+                              invoices:   './data/invoices.csv',
+                              merchants:  './data/merchants.csv'
+                              )
     @sa = se.analyst
   end
 
@@ -100,12 +101,14 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_days
-    days = {6=>729, 5=>701, 3=>741, 1=>696, 0=>708, 2=>692, 4=>718}
+    days = { 6 => 729, 5 => 701, 3 => 741, 1 => 696, 0 => 708, 2 => 692,
+             4 => 718 }
     assert_equal 712, @sa.average_days(days)
   end
 
   def test_generate_day
-    days = {6=>729, 5=>701, 3=>741, 1=>696, 0=>708, 2=>692, 4=>718}
+    days = { 6 => 729, 5 => 701, 3 => 741, 1 => 696, 0 => 708, 2 => 692,
+             4 => 718 }
     assert_equal days, @sa.generate_day
   end
 

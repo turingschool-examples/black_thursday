@@ -4,7 +4,7 @@ module Repository
     "#<#{self.class} #{@merchants.size} rows>"
   end
 
-  def from_csv(csv) # module
+  def from_csv(csv)
     records = CSV.read(csv, headers: true)
     elements = (0..(records.count - 1)).to_a.map do |index|
       set_element_hash(records, index)
@@ -37,7 +37,6 @@ module Repository
       element.description.downcase.include?(text.downcase)
     end
   end
-
 
   def find_all_by_name(name)
     all.find_all do |element|

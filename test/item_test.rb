@@ -1,19 +1,20 @@
 require_relative 'test_helper'
 require_relative '../lib/item'
 
+# Test class Item
 class ItemTest < Minitest::Test
 
   def setup
     @time = Time.now
-    @i = Item.new({
-      :id          => 3,
-      :name        => "Pencil",
-      :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(1099),
-      :created_at  => @time,
-      :updated_at  => @time,
-      :merchant_id => 7
-      })
+    @i = Item.new(
+                  id:          3,
+                  name:        'Pencil',
+                  description: 'You can use it to write things',
+                  unit_price:  BigDecimal.new(1099),
+                  created_at:  @time,
+                  updated_at:  @time,
+                  merchant_id: 7
+                  )
   end
 
   def test_it_exists
@@ -22,8 +23,8 @@ class ItemTest < Minitest::Test
 
   def test_it_has_attributes
     assert_equal 3, @i.id
-    assert_equal "Pencil", @i.name
-    assert_equal "You can use it to write things", @i.description
+    assert_equal 'Pencil', @i.name
+    assert_equal 'You can use it to write things', @i.description
     assert_equal 10.99, @i.unit_price
     assert_equal @time, @i.created_at
     assert_equal @time, @i.updated_at

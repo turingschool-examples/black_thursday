@@ -1,13 +1,14 @@
 require_relative 'test_helper'
 require_relative '../lib/sales_engine'
 
+# Test class SalesEngine
 class SalesEngineTest < Minitest::Test
   def setup
-    @se = SalesEngine.from_csv({
-      :items      => './data/items.csv',
-      :merchants  => './data/merchants.csv',
-      :invoices => "./data/invoices.csv"
-      })
+    @se = SalesEngine.from_csv(
+                              items:      './data/items.csv',
+                              merchants:  './data/merchants.csv',
+                              invoices:   './data/invoices.csv'
+                              )
   end
 
   def test_it_returns_repositories
