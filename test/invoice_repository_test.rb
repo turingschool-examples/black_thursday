@@ -7,7 +7,6 @@ require_relative '../lib/invoice_repository'
 # Test for the InvoiceRepository class
 class InvoiceRepositoryTest < Minitest::Test
   def setup
-    time = Time.now
     file_path = FileIO.load('./test/fixtures/test_invoices.csv')
     @inv_repo = InvoiceRepository.new(file_path)
     @new_invoice = @inv_repo.create(
@@ -109,20 +108,14 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_invoice_can_be_updated
-    skip
-    @inv_repo.update(263567475, name: 'Roly Poly Coley',
-                              description: 'Best toy ever.',
-                              unit_price: 15.00,
-                              merchant_id: 12334135,
-                              created_at: '2009-12-09 12:08:04 UTC',
-                              updated_at: @time)
-    assert_equal 'Roly Poly Coley', @inv_repo.invoices[263567475].name
+    @inv_repo.update(38, status: :shipped)
+    assert_equal :shipped, @inv_repo.invoices[38].status
+    # assert_equal Time.now, @inv_repo.invoices[38].updated_at
   end
 
   def test_invoice_can_be_deleted
-    skip
-    @inv_repo.delete(263567475)
-    assert_equal 3, @inv_repo.invoices.count
-    assert_nil @inv_repo.invoices[263567475]
+    @inv_repo.delete(38)
+    assert_equal 12, @inv_repo.invoices.count
+    assert_nil @inv_repo.invoices[38]
   end
 end

@@ -39,8 +39,7 @@ class InvoiceRepository < Repository
 
   def update(id, attributes)
     if @invoices[id]
-      @invoices[id].name = attributes[:name] if attributes[:name]
-      @invoices[id].description = attributes[:description] if attributes[:description]
+      @invoices[id].status = attributes[:status] if attributes[:status]
       @invoices[id].updated_at = Time.now
     end
   end
