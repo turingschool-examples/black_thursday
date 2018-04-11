@@ -158,16 +158,20 @@ class SalesAnalyst
 
   def one_time_buyers
     all_customer_ids = @sales_engine.invoices.all.map(&:customer_id)
-    group = all_customer_ids.group_by { |id| id }
-    single_invoice_customer_ids = group.select { |_, value| value.length == 1 }
+    group = all_customer_ids.group_by { |customer_id| customer_id }
+    single_invoice_customer_ids = group.keep_if { |_, value| value.length == 1 }
     single_invoice_customer_ids.keys.map do |id|
       @sales_engine.customers.find_by_id(id)
     end
   end
 
+  def one_time_buyers_item
+  end
+
   def invoice_paid_in_full?(invoice_id)
     invoice = @sales_engine.invoices.find_by_id(invoice_id)
-    transactions = invoice.transaction
-    transactions.any? { |transaction| transaction.result == 'success' }
+    transactions1 = invoice.transactions
+    transactions1.any? { |transaction| transaction.result == 'success' }
+    require "pry"; binding.pry
   end
 end

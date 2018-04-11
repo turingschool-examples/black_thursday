@@ -68,9 +68,8 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_it_can_find_one_time_buyers
-    skip
     expected = 5
-    actual = @s.one_time_buyers
+    actual = @s.one_time_buyers.length
 
     assert_equal expected, actual
   end
