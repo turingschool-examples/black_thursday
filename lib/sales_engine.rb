@@ -1,7 +1,6 @@
 require_relative 'merchant_repo'
 require_relative 'item_repo'
 
-
 class SalesEngine
   attr_accessor :items, :merchants
 
@@ -10,7 +9,7 @@ class SalesEngine
   end
 
   def initialize(hash)
-    @items = ItemRepo.new
+    # @items = ItemRepo.new
     @merchants = MerchantRepo.new(hash[:merchants])
 
   end

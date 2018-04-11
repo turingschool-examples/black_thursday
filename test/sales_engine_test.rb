@@ -1,5 +1,7 @@
 require 'csv'
 require './lib/sales_engine'
+require_relative '../lib/item_repo'
+
 
 class SalesEngineTest < Minitest::Test
   attr_reader :se
@@ -12,6 +14,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_exists
+    
     assert_instance_of SalesEngine, se
   end
 end

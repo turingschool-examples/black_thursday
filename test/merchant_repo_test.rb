@@ -61,7 +61,7 @@ class MerchantRepoTest < Minitest::Test
     mr.update(id, attrs_2)
 
     assert_equal 'Bread Shop', merchant.name
-    assert_equal "2018-04-10", merchant.updated_at
+    assert_equal "2018-04-11", merchant.updated_at
 
   end
 
