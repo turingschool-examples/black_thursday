@@ -73,8 +73,9 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 4, expected.length
   end
 
-  def test_find_all_items_by_merchant_id
-    expected = @items.find_all_by_merchant_id(92929)
+
+  def test_find_all_merchant_items_by_id
+    expected = items.find_all_by_merchant_id(92929)
 
     assert_instance_of Array, expected
     assert_equal 2, expected.length
