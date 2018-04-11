@@ -61,7 +61,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
     end
     assert result
     ids = actual.map(&:id)
-    assert_equal [1, 2, 3], ids
+    assert_equal [1, 2, 3, 15], ids
   end
 
   def test_it_can_generate_next_invoice_item_id
@@ -82,21 +82,14 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_invoice_item_can_be_updated
-    skip
-    @inv_i_repo.update(263567475, name: 'Roly Poly Coley',
-                              description: 'Best toy ever.',
-                              unit_price: 15.00,
-                              merchant_id: 12334135,
-                              created_at: '2009-12-09 12:08:04 UTC',
-                              updated_at: '2010-12-09 12:08:04 UTC')
-    assert_equal 'Roly Poly Coley', @inv_i_repo.items[263567475].name
+    @inv_i_repo.update(15, quantity: 52)
+    assert_equal 52, @inv_i_repo.invoice_items[15].quantity
   end
 
   def test_invoice_item_can_be_deleted
-    skip
-    @inv_i_repo.delete(263567475)
-    assert_equal 3, @inv_i_repo.items.count
-    assert_nil @inv_i_repo.items[263567475]
+    @inv_i_repo.delete(15)
+    assert_equal 7, @inv_i_repo.invoice_items.count
+    assert_nil @inv_i_repo.invoice_items[15]
   end
 
   def test_magic_spec_harness_method_works

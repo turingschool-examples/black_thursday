@@ -3,11 +3,11 @@ class InvoiceItem
   attr_reader :id,
               :item_id,
               :invoice_id,
-              :quantity,
               :unit_price,
               :created_at
 
-  attr_accessor :updated_at
+  attr_accessor :updated_at,
+                :quantity
 
   def initialize(invoice_item_hash = Hash.new(0))
     sigdigits    = invoice_item_hash[:unit_price].to_s.length - 1

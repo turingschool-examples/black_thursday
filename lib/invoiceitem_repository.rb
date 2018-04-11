@@ -21,14 +21,21 @@ class InvoiceItemRepository < Repository
   end
 
   def find_all_by_item_id(item_id)
-    @invoices.values.map do |invoice|
-      invoice if invoice.item_id == item_id
+    @invoice_items.values.map do |invoice_item|
+      invoice_item if invoice_item.item_id == item_id
     end.compact
   end
 
   def find_all_by_invoice_id(invoice_id)
-    @invoices.values.map do |invoice|
-      invoice if invoice.invoice_id == invoice_id
+    @invoice_items.values.map do |invoice_item|
+      invoice_item if invoice_item.invoice_id == invoice_id
     end.compact
+  end
+
+  def update(id, attributes)
+    if @invoice_items[id]
+      @invoice_items[id].quantity = attributes[:quantity] if attributes[:quantity]
+      @invoice_items[id].updated_at = Time.now
+    end
   end
 end
