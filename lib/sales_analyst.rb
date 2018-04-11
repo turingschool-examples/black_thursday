@@ -172,6 +172,5 @@ class SalesAnalyst
     invoice = @sales_engine.invoices.find_by_id(invoice_id)
     transactions1 = invoice.transactions
     transactions1.any? { |transaction| transaction.result == 'success' }
-    require "pry"; binding.pry
   end
 end
