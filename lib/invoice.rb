@@ -3,7 +3,7 @@
 require 'time'
 # This class holds the data for each invoice.
 class Invoice
-  attr_reader :invoice_list,
+  attr_reader :invoice_specs,
               :parent
   def initialize(invoices_data, parent)
     @invoice_specs = {
@@ -46,11 +46,19 @@ class Invoice
   end
 
   def is_paid_in_full?
-    transactions = self.transaction
     transactions.any? { |transaction| transaction.result == 'success' }
   end
 
-  def transaction
+  def transactions
     @parent.find_transaction_by_invoice_id(id)
+  end
+
+  def customer
+    @parent.find_customer_by_customer_id(@invoice_specs[:customer_id])
+  end
+
+  def items
+    require "pry"; binding.pry
+    @parent.find_all_items_by_merchant_id(@invoice_specs[:merchant_id])
   end
 end
