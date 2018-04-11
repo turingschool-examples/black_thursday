@@ -86,5 +86,59 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
     assert_equal 200, iir.create_new_id
   end
-  
+
+  def test_it_Can_create_new_invoice_item
+    iir = InvoiceItemRepository.new ('./test/invoice_items.csv')
+
+    assert_equal 200, iir.create_new_id
+
+    iir.create({:item_id => 2,
+                :invoice_id => 1000,
+                :quantity => 4,
+                :unit_price => 1600,
+                })
+
+    result = iir.find_by_id(200)
+
+    assert_equal 2, result.item_id
+    assert_equal 1000, result.invoice_id
+    assert_equal 4, result.quantity
+    assert_equal 1600 / 100.0, result.unit_price
+  end
+
+  def test_it_Can_update_invoice_item
+    iir = InvoiceItemRepository.new ('./test/invoice_items.csv')
+
+    result = iir.find_by_id(6)
+
+    assert_equal 263539664, result.item_id
+    assert_equal 1, result.invoice_id
+    assert_equal 5, result.quantity
+    assert_equal 52100 / 100.0, result.unit_price
+
+    iir.update(6,{:item_id => 2,
+                  :invoice_id => 1000,
+                  :quantity => 4,
+                  :unit_price => 1600,
+                  })
+
+
+    assert_equal 2, result.item_id
+    assert_equal 1000, result.invoice_id
+    assert_equal 4, result.quantity
+    assert_equal 1600, result.unit_price
+  end
+
+
+  def test_it_can_delete_item_invoice
+    iir = InvoiceItemRepository.new ('./test/invoice_items.csv')
+    result = iir.find_by_id(6)
+
+    assert_equal 263539664, result.item_id
+
+    iir.delete(6)
+
+    assert_nil iir.find_by_id(6)
+  end
+
 end

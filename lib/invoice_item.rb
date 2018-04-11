@@ -26,6 +26,23 @@ class InvoiceItem
     @unit_price.to_f
   end
 
-  
+  def update_item_id(id)
+    @item_id = id
+  end
 
+  def update_updated_at
+    @updated_at = Time.now.to_s
+  end
+
+  def update_invoice_id(id)
+    @invoice_id = id
+  end
+
+  def update_unit_price(price)
+    @unit_price = price
+  end
+
+  def update_quantity(quantity)
+    @quantity = quantity
+  end
 end
