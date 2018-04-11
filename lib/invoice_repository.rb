@@ -44,7 +44,7 @@ class InvoiceRepository
 
   def update(id, attributes)
     invoice = find_by_id(id)
-    unchangeable_keys = [:id, :created_at]
+    unchangeable_keys = %i[id created_at]
     attributes.each do |key, value|
       next if (attributes.keys & unchangeable_keys).any?
       if invoice.invoice_specs.keys.include?(key)
@@ -68,6 +68,14 @@ class InvoiceRepository
 
   def find_customer_by_customer_id(customer_id)
     @parent.find_customer_by_customer_id(customer_id)
+  end
+
+  def find_all_items_by_invoice_id(invoice_id)
+    @parent.find_all_items_by_invoice_id(invoice_id)
+  end
+
+  def find_all_invoice_items_by_invoice_id(id)
+    @parent.find_all_invoice_items_by_invoice_id(id)
   end
 
   def inspect

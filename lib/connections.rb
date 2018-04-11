@@ -32,4 +32,13 @@ module Connections
   def find_customer_by_customer_id(customer_id)
     customers.find_by_id(customer_id)
   end
+
+  def find_all_items_by_invoice_id(invoice_id)
+    all_items = invoice_items.find_all_by_invoice_id(invoice_id).map(&:item_id)
+    all_items.map { |item_id| items.find_by_id(item_id) }
+  end
+
+  def find_all_invoice_items_by_invoice_id(invoice_id)
+    invoice_items.find_all_by_invoice_id(invoice_id)
+  end
 end

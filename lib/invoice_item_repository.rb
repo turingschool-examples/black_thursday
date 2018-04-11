@@ -8,7 +8,9 @@ class InvoiceItemRepository
               :parent
 
   def initialize(invoice_items, parent)
-    @repository = invoice_items.map { |invoice_item| InvoiceItem.new(invoice_item, self)}
+    @repository = invoice_items.map do |invoice_item|
+      InvoiceItem.new(invoice_item, self)
+    end
     @parent = parent
   end
 
@@ -25,7 +27,9 @@ class InvoiceItemRepository
   end
 
   def find_all_by_invoice_id(invoice_id)
-    @repository.find_all { |invoice_item| invoice_item.invoice_id == invoice_id }
+    @repository.find_all do |invoice_item|
+      invoice_item.invoice_id == invoice_id
+    end
   end
 
   def create(attributes)
@@ -50,5 +54,9 @@ class InvoiceItemRepository
   def delete(id)
     item_to_delete = find_by_id(id)
     @repository.delete(item_to_delete)
+  end
+
+  def inspect
+    "<#{self.class} #{@repository.size} rows>"
   end
 end

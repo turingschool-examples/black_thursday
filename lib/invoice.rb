@@ -58,6 +58,13 @@ class Invoice
   end
 
   def items
-    @parent.find_all_items_by_merchant_id(@invoice_specs[:merchant_id])
+    @parent.find_all_items_by_invoice_id(id)
+  end
+
+  def total
+    all_items = @parent.find_all_invoice_items_by_invoice_id(id)
+    all_items.map do |invoice_item|
+      invoice_item.quantity * invoice_item.unit_price
+    end.inject(:+).round(2)
   end
 end

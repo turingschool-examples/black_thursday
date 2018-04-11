@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
 require_relative 'file_loader.rb'
+require_relative 'sales_analyst.rb'
 require_relative 'item_repository.rb'
 require_relative 'merchant_repository.rb'
-require_relative 'merchant.rb'
-require_relative 'item.rb'
 require_relative 'connections.rb'
 require_relative 'invoice_repository.rb'
-require_relative 'invoice.rb'
+require_relative 'invoice_item_repository.rb'
 require_relative 'transaction_repository.rb'
 require_relative 'customer_repository.rb'
 # require_relative '../data/items.csv'
@@ -25,8 +24,8 @@ class SalesEngine
     @load_path = load_path
   end
 
-  def analyst
-    SaleAnalyst.new(self)
+  def sales_analyst
+    SalesAnalyst.new(self)
   end
 
   # Here we create a new SalesEngine object with the load paths specified in the
@@ -68,6 +67,8 @@ class SalesEngine
   end
 
   def invoice_items
-    @items ||= InvoiceItemRepository.new(load_file(load_path[:invoice_items]), self)
+    @invoice_items ||= InvoiceItemRepository.new(
+      load_file(load_path[:invoice_items]), self
+    )
   end
 end

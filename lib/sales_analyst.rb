@@ -168,6 +168,11 @@ class SalesAnalyst
   def one_time_buyers_item
   end
 
+  def invoice_total(invoice_id)
+    all_items = @sales_engine.invoice_items.find_all_by_invoice_id(invoice_id)
+    all_items.map(&:unit_price).inject(:+)
+  end
+
   def invoice_paid_in_full?(invoice_id)
     invoice = @sales_engine.invoices.find_by_id(invoice_id)
     transactions1 = invoice.transactions

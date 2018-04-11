@@ -55,7 +55,9 @@ class MerchantRepository
 
   def update(id, attributes)
     merchant = find_by_id(id)
+    unchangeable_keys = %i[id created_at]
     attributes.each do |key, value|
+      next if (attributes.keys & unchangeable_keys).any?
       if merchant.merchant_specs.keys.include?(key)
         merchant.merchant_specs[key] = value
         merchant.merchant_specs[:updated_at] = Time.now
