@@ -157,7 +157,7 @@ class ItemRepositoryTest < Minitest::Test
                               unit_price: 15.00,
                               merchant_id: 12334135,
                               created_at: '2009-12-09 12:08:04 UTC',
-                              updated_at: @time)
+                              updated_at: '2010-12-09 12:08:04 UTC')
     assert_equal 'Roly Poly Coley', @i_repo.items[263567475].name
   end
 

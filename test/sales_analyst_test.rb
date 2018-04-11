@@ -6,6 +6,7 @@ require_relative '../lib/sales_engine'
 class SalesAnalystTest < Minitest::Test
   def setup
     sales_engine = SalesEngine.from_csv(
+      invoices: './test/fixtures/test_invoices.csv',
       items: './test/fixtures/test_items1.csv',
       merchants: './test/fixtures/test_merchants1.csv'
     )

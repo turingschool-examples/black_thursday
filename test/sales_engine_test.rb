@@ -1,5 +1,6 @@
 require_relative 'test_helper'
 require_relative '../lib/sales_engine'
+require_relative '../lib/invoice_repository'
 require_relative '../lib/item_repository'
 require_relative '../lib/merchant_repository'
 
@@ -7,6 +8,7 @@ require_relative '../lib/merchant_repository'
 class SalesEngineTest < Minitest::Test
   def setup
     @sales_engine = SalesEngine.from_csv(
+      invoices: './test/fixtures/test_invoices.csv',
       items: './test/fixtures/test_items0.csv',
       merchants: './test/fixtures/test_merchants0.csv'
     )
