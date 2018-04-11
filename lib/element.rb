@@ -61,4 +61,16 @@ module Element
   def invoices
     @engine.invoices.find_all_by_merchant_id(id)
   end
+
+  def item_id
+    @attributes[:item_id].to_i
+  end
+
+  def invoice_id
+    @attributes[:invoice_id].to_i
+  end
+
+  def quantity
+    @attributes[:quantity].to_i
+  end
 end

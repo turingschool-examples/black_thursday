@@ -89,12 +89,26 @@ module Repository
     element.attributes[:description] = attributes[:description] if attributes[:description]
     element.attributes[:unit_price] = attributes[:unit_price] * 100 if attributes[:unit_price]
     element.attributes[:customer_id] = attributes[:customer_id] if attributes[:customer_id]
-    # element.attributes[:merchant_id] = attributes[:merchant_id] if attributes[:merchant_id]
     element.attributes[:status] = attributes[:status] if attributes[:status]
     element.attributes[:updated_at] = Time.now if element
+    element.attributes[:invoice_id] = attributes[:invoice_id] if attributes[:invoice_id]
+    element.attributes[:item_id] = attributes[:item_id] if attributes[:item_id]
+    element.attributes[:quantity] = attributes[:quantity] if attributes[:quantity]
   end
 
   def delete(id)
     @elements.delete(id)
+  end
+
+  def find_all_by_item_id(item_id)
+    all.find_all do |element|
+      element.item_id == item_id
+    end
+  end
+
+  def find_all_by_invoice_id(invoice_id)
+    all.find_all do |element|
+      element.invoice_id == invoice_id
+    end
   end
 end
