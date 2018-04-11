@@ -32,4 +32,9 @@ class MerchantRepository
     end
   end
 
+  def find_all_by_name(name)
+    @contents.find_all do |row|
+      row.downcase == name.downcase
+    end
+  end
 end
