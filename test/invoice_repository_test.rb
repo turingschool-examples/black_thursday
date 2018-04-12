@@ -117,4 +117,16 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 12, @inv_repo.invoices.count
     assert_nil @inv_repo.invoices[38]
   end
+
+  def test_find_all_by_crewated_date
+    result = @inv_repo.find_all_by_created_date("2012-11-23")
+    assert(result.all?{ |each_result| each_result.class == Invoice })
+    assert_equal [12334753], result.map(&:merchant_id)
+  end
+
+  def test_find_all_by_day_of_week
+    result = @inv_repo.find_all_by_day_of_week("saturday")
+    assert(result.all?{ |each_result| each_result.class == Invoice })
+    assert_equal [12335938, 12335311], result.map(&:merchant_id)
+  end
 end
