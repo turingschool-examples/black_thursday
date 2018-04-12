@@ -189,8 +189,14 @@ class SalesAnalyst
     end
   end
 
+  def successful_transactions
+    @sales_engine.transactions.find_all do |transaction|
+      transaction.result == 'success'
+    end
+  end
+
   # def total_revenue_by_date(date)
-  #   successes = dated.find_all { |transaction| transaction.result == 'success' }
+  #
   #   binding.pry
   # end
 #Justine end work on iteration 4

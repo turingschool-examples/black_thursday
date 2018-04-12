@@ -97,6 +97,12 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 3, expected.length
   end
 
+  def test_it_can_return_all_transactions
+    expected = @s.transactions
+
+    assert_equal 13, expected.length
+  end
+
   def test_it_can_return_successful_transactions
     expected = @s.successful_transactions
 
