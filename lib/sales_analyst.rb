@@ -4,6 +4,7 @@ class SalesAnalyst
 
   def initialize(sales_engine)
     @sales_engine = sales_engine
+    @all_items_per_merchant = all_items_per_merchant
   end
 
   def all_items_per_merchant
@@ -11,9 +12,9 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    item_count = all_items_per_merchant.values.map{|merch_items| merch_items.count}
+    item_count = @all_items_per_merchant.values.map{|merch_items| merch_items.count}
     item_sum = item_count.inject(0){|sum, number| sum + number}
-    (item_sum.to_f / all_items_per_merchant.values.count).round(2)
+    (item_sum.to_f / @all_items_per_merchant.values.count).round(2)
   end
 
 
