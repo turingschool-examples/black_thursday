@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
+require_relative 'math_helper.rb'
 # Sales analyst class to perform analysis.
 class SalesAnalyst
+  include MathHelper
   attr_reader :sales_engine
   def initialize(sales_engine)
     @sales_engine = sales_engine
@@ -15,11 +17,7 @@ class SalesAnalyst
   def average_items_per_merchant_standard_deviation
     all_items = list_of_number_of_items_per_merchant
     average_items = average_items_per_merchant
-    squared_num_items = all_items.map do |num_of_items|
-      (num_of_items - average_items)**2
-    end
-    math = squared_num_items.inject(:+) / (all_items.length - 1)
-    Math.sqrt(math).round(2)
+    standard_deviation(all_items, average_items)
   end
 
   def list_of_number_of_items_per_merchant
@@ -31,10 +29,7 @@ class SalesAnalyst
   def standard_deviation_of_item_price
     average_price = average_average_price_per_merchant
     list_of_prices = @sales_engine.items.all.map(&:unit_price)
-    squared_num_items = list_of_prices.map do |price|
-      (price.to_f - average_price.to_f)**2
-    end
-    Math.sqrt(squared_num_items.inject(:+) / (list_of_prices.length - 1))
+    standard_deviation(list_of_prices, average_price)
   end
 
   def golden_items
@@ -90,11 +85,12 @@ class SalesAnalyst
   def average_invoices_per_merchant_standard_deviation
     average_num_of_invoices = average_invoices_per_merchant
     list_of_invoices = total_number_of_invoices_for_all_merchants
-    squared_num_items = list_of_invoices.map do |invoices|
-      (invoices.to_f - average_num_of_invoices.to_f)**2
-    end
-    calculation = squared_num_items.inject(:+) / (list_of_invoices.length - 1)
-    Math.sqrt(calculation).round(2)
+    standard_deviation(list_of_invoices, average_num_of_invoices)
+    # squared_num_items = list_of_invoices.map do |invoices|
+    #   (invoices.to_f - average_num_of_invoices.to_f)**2
+    # end
+    # calculation = squared_num_items.inject(:+) / (list_of_invoices.length - 1)
+    # Math.sqrt(calculation).round(2)
   end
 
   def top_merchants_by_invoice_count
@@ -168,8 +164,27 @@ class SalesAnalyst
   def one_time_buyers_item
   end
 
-  def top_buyers(num_of_customers)
-    
+  def top_buyers(num_of_customers = 20)
+    top_customers = @sales_engine.customers.top_spenders
+    sorted_customers = top_customers.sort_by { |_, value| value || 0 }.reverse
+    customer_array = []
+    sorted_customers.each { |customer| customer_array << customer[0] }
+    customer_array.take(num_of_customers)
+  end
+
+  def top_merchant_for_customer(customer_id)
+    invoices = @sales_engine.invoices.find_all_by_customer_id(customer_id)
+    invoice_hashes = invoices.map do |invoice|
+      @sales_engine.invoice_items.group_by_number_of_items.select do |key, _|
+        key == invoice.id
+      end
+    end
+    invoice_hashes.sort! { |first, second| first.values <=> second.values }
+    top_invoice = invoices.find do |invoice|
+      invoice.id == invoice_hashes.last.keys[0]
+    end
+    @sales_engine.merchants.find_by_id(top_invoice.merchant_id)
+  end
 
   def invoice_total(invoice_id)
     all_items = @sales_engine.invoice_items.find_all_by_invoice_id(invoice_id)

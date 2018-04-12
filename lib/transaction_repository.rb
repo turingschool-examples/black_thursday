@@ -58,6 +58,10 @@ class TransactionRepository
     @repository.delete(transaction_to_delete)
   end
 
+  def group_transactions
+    @repository.group_by(&:result)
+  end
+
   def find_invoice_by_invoice_id(invoice_id)
     @parent.find_invoice_by_invoice_id(invoice_id)
   end

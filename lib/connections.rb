@@ -41,4 +41,12 @@ module Connections
   def find_all_invoice_items_by_invoice_id(invoice_id)
     invoice_items.find_all_by_invoice_id(invoice_id)
   end
+
+  def find_all_invoices_by_customer_id(customer_id)
+    invoices.find_all_by_customer_id(customer_id)
+  end
+
+  def find_all_transactions_by_invoice_id(invoice_id)
+    transactions.find_all_by_invoice_id(invoice_id)
+  end
 end

@@ -24,7 +24,7 @@ class SalesEngine
     @load_path = load_path
   end
 
-  def sales_analyst
+  def analyst
     SalesAnalyst.new(self)
   end
 
