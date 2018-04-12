@@ -1,9 +1,10 @@
 # frozen_string_literal: true
+
 require_relative './merchant'
 # holds, and provides methods for finding, merchants
 class MerchantRepository
   attr_reader :all
-  def initialize(merchants) 
+  def initialize(merchants)
     @merchants = {}
     input_to_hash(merchants)
     @all = @merchants.values
@@ -58,7 +59,7 @@ class MerchantRepository
 
   def update(id, attributes)
     attributes[:id] = id
-    @merchants[id] = Merchant.new(attributes) 
+    @merchants[id] = Merchant.new(attributes)
   end
 
   def delete(id)

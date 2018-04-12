@@ -4,6 +4,7 @@ require_relative './item_repository'
 require_relative './merchant_repository'
 require_relative './fileio'
 
+# allows creation and access to items and merchants
 class SalesEngine
   attr_reader :items,
               :merchants

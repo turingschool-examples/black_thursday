@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'pry'
 require 'bigdecimal'
 require 'time'
 require_relative 'item'
-
+# stores items and gives methods for item search
 class ItemRepository
   attr_reader :items
   def initialize(items)
@@ -14,7 +16,7 @@ class ItemRepository
 
   def to_item(item)
     # binding.pry
-    item_hash = Hash.new
+    item_hash = {}
     item.each do |line|
       item_hash[line[0]] = line[1]
     end
@@ -30,13 +32,11 @@ class ItemRepository
     @items
   end
 
-
   def find_by_id(input_id)
-    return @items.find do |item|
+    @items.find do |item|
       item.id == input_id
     end
   end
-
 
   def find_by_name(name)
     @items.find do |item|
@@ -74,10 +74,10 @@ class ItemRepository
 
   def create(attributes)
     # binding.pry
-    attributes[:id] = (find_highest_id+1)
+    attributes[:id] = (find_highest_id + 1)
     if attributes[:created_at].nil?
       attributes[:created_at] = Time.now.to_s
-    else 
+    else
       attributes[:created_at] = attributes[:created_at].to_s
     end
     # binding.pry
@@ -89,11 +89,9 @@ class ItemRepository
 
   def update(id, attributes)
     item = find_by_id(id)
-    unless item.nil?
-      temp_attr = attributes.dup
-      temp_attr[:id] = item.attributes[:id]
-      temp_attr[:merchant_id] = item.attributes[:merchant_id]
-      temp_attr[:created_at] = item.attributes[:created_at]
+    if item.nil?
+    else
+      temp_attr = sterilize_attributes(attributes, item)
       pairs = attributes.keys.zip(temp_attr.values)
       pairs.each do |pair|
         item.attributes[pair[0]] = pair[1]
@@ -102,9 +100,16 @@ class ItemRepository
     end
   end
 
+  def sterilize_attributes(attributes, item)
+    temp_attr = attributes.dup
+    temp_attr[:id] = item.attributes[:id]
+    temp_attr[:merchant_id] = item.attributes[:merchant_id]
+    temp_attr[:created_at] = item.attributes[:created_at]
+    temp_attr
+  end
+
   def delete(id)
     item = find_by_id(id)
     @items.delete(item)
   end
-
 end
