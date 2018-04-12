@@ -3,12 +3,19 @@ require_relative 'sales_engine'
 class SalesAnalyst
 
   attr_reader :merchant_repo,
-              :item_repo
+              :item_repo,
+              :invoice_repo,
+              :invoice_item_repo,
+              :transaction_repo,
+              :customer_repo
 
   def initialize(sales_engine)
     @merchant_repo = sales_engine.merchants
     @item_repo = sales_engine.items
     @invoice_repo = sales_engine.invoices
+    @invoice_item_repo = sales_engine.invoice_items
+    @transaction_repo = sales_engine.transactions
+    @customer_repo = sales_engine.customers
   end
 
   def average_items_per_merchant
@@ -127,5 +134,17 @@ class SalesAnalyst
       invoice if invoice.status == status
     end.compact.count
     ((a.to_f / total_invoices) * 100).round(2)
+  end
+
+  def invoice_paid_in_full?(invoice_id)
+    @transaction_repo.find_all_by_invoice_id(invoice_id).all? do|transaction|
+      transaction.result == "success"
+    end
+  end
+
+  def invoice_total(invoice_id)
+    @invoice_item_repo.find_all_by_invoice_id(invoice_id).reduce(0) do|sum,invoice_item|
+      sum + (invoice_item.quantity * invoice_item.unit_price)
+    end
   end
 end

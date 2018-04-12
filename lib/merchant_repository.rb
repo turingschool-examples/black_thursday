@@ -52,8 +52,8 @@ class MerchantRepository
 
   def create(attribute)
     attribute[:id] = create_new_id
-    attribute[:created_at] = Time.now.strftime('%F')
-    attribute[:updated_at] = Time.now.strftime('%F')
+    attribute[:created_at] = Time.now
+    attribute[:updated_at] = Time.now
     @merchants << Merchant.new(attribute, self)
   end
 
@@ -61,7 +61,7 @@ class MerchantRepository
     return nil if find_by_id(id).nil?
     to_update = find_by_id(id)
     to_update.change_update_time
-    to_update.change_name(attribute[:name]) if attribute.keys.include?(:name)
+    to_update.change_name(attribute[:name]) if attribute[:name]
   end
 
   def delete(id)

@@ -4,12 +4,12 @@ require 'minitest/pride'
 
 class MerchantRepositoryTest< MiniTest::Test
   def test_it_exists
-    merchant_repo = MerchantRepository.new('./data/merchants.csv')
+    merchant_repo = MerchantRepository.new('./data/merchants.csv', nil)
     assert_instance_of MerchantRepository, merchant_repo
   end
 
   def test_it_can_load_all_data
-    merchant_repo = MerchantRepository.new('./data/merchants.csv')
+    merchant_repo = MerchantRepository.new('./data/merchants.csv', nil)
     assert_equal 475, merchant_repo.all.count
     assert merchant_repo.all.all? {|merchant|merchant.kind_of?(Merchant)}
     assert_equal 'Shopin1901', merchant_repo.all.first.name
@@ -17,7 +17,7 @@ class MerchantRepositoryTest< MiniTest::Test
   end
 
   def test_it_can_load_all_data
-    merchant_repo = MerchantRepository.new('./data/merchants.csv')
+    merchant_repo = MerchantRepository.new('./data/merchants.csv', nil)
     assert_equal 475, merchant_repo.all.count
     assert merchant_repo.all.all? {|merchant|merchant.kind_of?(Merchant)}
     assert_equal 'Shopin1901', merchant_repo.all.first.name
@@ -25,7 +25,7 @@ class MerchantRepositoryTest< MiniTest::Test
   end
 
   def test_it_can_find_by_id
-    merchant_repo = MerchantRepository.new('./data/merchants.csv')
+    merchant_repo = MerchantRepository.new('./data/merchants.csv', nil)
 
     result = merchant_repo.find_by_id(12334145)
 
@@ -35,7 +35,7 @@ class MerchantRepositoryTest< MiniTest::Test
   end
 
   def test_it_can_find_by_id_for_different_id
-    merchant_repo = MerchantRepository.new('./data/merchants.csv')
+    merchant_repo = MerchantRepository.new('./data/merchants.csv', nil)
 
     result = merchant_repo.find_by_id(12334159)
 
@@ -45,7 +45,7 @@ class MerchantRepositoryTest< MiniTest::Test
   end
 
   def test_it_gives_a_nil_value_when_no_id_matched
-    merchant_repo = MerchantRepository.new('./data/merchants.csv')
+    merchant_repo = MerchantRepository.new('./data/merchants.csv', nil)
 
     result = merchant_repo.find_by_id(00000000)
 
@@ -53,7 +53,7 @@ class MerchantRepositoryTest< MiniTest::Test
   end
 
   def test_we_can_find_by_name
-    merchant_repo = MerchantRepository.new('./data/merchants.csv')
+    merchant_repo = MerchantRepository.new('./data/merchants.csv', nil)
 
     result = merchant_repo.find_by_name("princessfrankknits")
 
@@ -63,7 +63,7 @@ class MerchantRepositoryTest< MiniTest::Test
   end
 
   def test_it_gives_a_nil_value_when_no_name_matched
-    merchant_repo = MerchantRepository.new('./data/merchants.csv')
+    merchant_repo = MerchantRepository.new('./data/merchants.csv', nil)
 
     result = merchant_repo.find_by_id("manoj")
 
@@ -71,7 +71,7 @@ class MerchantRepositoryTest< MiniTest::Test
   end
 
   def test_it_gives_all_names_matched_with_find_all
-    merchant_repo = MerchantRepository.new('./test/merchants.csv')
+    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv', nil)
 
     result = merchant_repo.find_all_by_name("Walmart")
 
@@ -82,7 +82,7 @@ class MerchantRepositoryTest< MiniTest::Test
 
   def test_it_can_create_a_new_merchant
 
-    merchant_repo = MerchantRepository.new('./test/merchants.csv')
+    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv', nil)
 
     merchant_repo.create({:name => "manoj"})
     assert_equal "manoj", merchant_repo.merchants.last.name
@@ -99,15 +99,15 @@ class MerchantRepositoryTest< MiniTest::Test
 
   def test_it_can_create_a_new_merchant_for_next_one
 
-    merchant_repo = MerchantRepository.new('./test/merchants.csv')
+    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv', nil)
 
     result = merchant_repo.create({:name => "tylor"})
     assert_equal "tylor", merchant_repo.merchants.last.name
-    assert_equal 12334142, merchant_repo.merchants.last.id
+    assert_equal 12337412, merchant_repo.merchants.last.id
   end
 
   def test_it_can_update_merchant_with_attributes
-    merchant_repo = MerchantRepository.new('./test/merchants.csv')
+    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv', nil)
     result1 =  merchant_repo.find_by_id(12334141)
     assert_equal "jejum", result1.name
 
@@ -119,20 +119,19 @@ class MerchantRepositoryTest< MiniTest::Test
   end
 
   def test_it_can_update_merchant_with_attributes_for_diff_merchant
-    merchant_repo = MerchantRepository.new('./test/merchants.csv')
+    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv', nil)
     result1 =  merchant_repo.find_by_id(12334132)
     assert_equal "perlesemoi", result1.name
 
     merchant_repo.update(12334132, {name: "kingsooper"})
     result = merchant_repo.find_by_id(12334132)
 
-    assert_equal "2018-04-08", result.updated_at
     assert_equal "kingsooper", result.name
   end
 
   def test_it_can_delete_merchants_from_the_list
-    merchant_repo = MerchantRepository.new('./test/merchants.csv')
-    assert_equal 8, merchant_repo.merchants.count
+    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv', nil)
+    assert_equal 475, merchant_repo.merchants.count
 
     result1 =  merchant_repo.delete(12334132)
     assert_equal "perlesemoi", result1.name
@@ -141,7 +140,7 @@ class MerchantRepositoryTest< MiniTest::Test
   end
 
   def test_it_can_delete_merchants_from_the_list_for_diff_id
-    merchant_repo = MerchantRepository.new('./test/merchants.csv')
+    merchant_repo = MerchantRepository.new('./test/fixtures/merchants.csv', nil)
     assert_equal 8, merchant_repo.merchants.count
 
     result1 =  merchant_repo.delete(12334141)
