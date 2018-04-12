@@ -108,6 +108,7 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 2, sales_analyst.invoice_count(12334264)
   end
 
+
   def test_top_merchants_by_invoice_count
     sales_engine = SalesEngine.from_csv(
       invoices: './test/fixtures/test_invoices2_b.csv',
