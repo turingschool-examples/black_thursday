@@ -204,6 +204,8 @@ class SalesAnalyst
     matches = dated & successful_transactions
   end
 
+  def successful_dated_invoice_items
+  end
   # def total_revenue_by_date(date)
   # end
 

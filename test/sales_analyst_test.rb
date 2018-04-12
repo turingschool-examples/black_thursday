@@ -115,6 +115,12 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 2, expected.length
   end
 
+  def test_it_can_return_all_invoice_items_on_invoices
+    expected = @s.successful_dated_invoice_items
+
+    assert_equal 2, expected.length
+  end
+
   def test_it_can_return_total_revenue_by_date
     skip
     date = Time.parse("2012-03-27")
