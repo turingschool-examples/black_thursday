@@ -11,8 +11,8 @@ class InvoiceRepository < Repository
         customer_id: invoice[1].to_i,
         merchant_id: invoice[2].to_i,
         status: invoice[3].to_sym,
-        created_at: invoice[4],
-        updated_at: invoice[5] }
+        created_at: Time.parse(invoice[4]),
+        updated_at: Time.parse(invoice[5]) }
     end
     @invoices = create_index(Invoice, attributes)
     super(invoices, Invoice)

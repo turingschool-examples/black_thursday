@@ -3,7 +3,7 @@ require_relative 'analyzer'
 # Sales Analyst class for analyzing data
 class SalesAnalyst
   include Analyzer
-  
+
   attr_reader :engine
   def initialize(sales_engine)
     @engine = sales_engine
@@ -91,27 +91,13 @@ class SalesAnalyst
   def average_invoices_per_day
     average(@invoice_repo.all.count, @invoice_repo.all.map(&:created_at).uniq.count).to_f
   end
-
-  # =================================================
-  # This is where tests stop and TDD should be 
-  # re-established before continuing
-  # =================================================
-  
+####
   def average_invoices_per_day_standard_deviation
     unique_days = @invoice_repo.all.map(&:created_at).uniq
     set = unique_days.map do |date|
       @invoice_repo.find_all_by_created_date(date).count
     end
-    step1 = set.map do |number_of_invoices|
-      (number_of_invoices - average_invoices_per_day) ** 2
-    end
-    # Sum those together
-    step2 = step1.reduce(:+)
-    # Divide the sum by the total number in set - 1
-    step3 = (step2 / (set.count - 1))
-    # Take the square root of this number
-    Math.sqrt(step3)
-    # require 'pry';binding.pry
+    standard_deviation(set, average_invoices_per_day)
   end
 
   def invoice_count(merchant_id)
@@ -123,32 +109,34 @@ class SalesAnalyst
   end
 
   def top_merchants_by_invoice_count
-    invoices_per_merchant = {}
-    @invoice_repo.all.each do |invoice|
-      invoices_per_merchant[invoice.merchant_id] = invoice_count(invoice.merchant_id)
-    end
-    top = invoices_per_merchant.map do |id, count|
-      if count >= average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2)
-        @merchant_repo.find_by_id(id)
-      end
-    end
-    top.compact
+    1
+    # invoices_per_merchant = {}
+    # @invoice_repo.all.each do |invoice|
+    #   invoices_per_merchant[invoice.merchant_id] = invoice_count(invoice.merchant_id)
+    # end
+    # top = invoices_per_merchant.map do |id, count|
+    #   if count >= average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2)
+    #     @merchant_repo.find_by_id(id)
+    #   end
+    # end
+    # top.compact
   end
 
   def bottom_merchants_by_invoice_count
-    invoices_per_merchant = {}
-    @invoice_repo.all.each do |invoice|
-      invoices_per_merchant[invoice.merchant_id] = invoice_count(invoice.merchant_id)
-    end
-    top = invoices_per_merchant.map do |id, count|
-      if count <= average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2)
-        @merchant_repo.find_by_id(id)
-      end
-    end
-    top.compact
+    1
+    # invoices_per_merchant = {}
+    # @invoice_repo.all.each do |invoice|
+    #   invoices_per_merchant[invoice.merchant_id] = invoice_count(invoice.merchant_id)
+    # end
+    # top = invoices_per_merchant.map do |id, count|
+    #   if count <= average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2)
+    #     @merchant_repo.find_by_id(id)
+    #   end
+    # end
+    # top.compact
   end
 
   def top_days_by_invoice_count
-
+    1
   end
 end
