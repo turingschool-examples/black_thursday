@@ -4,20 +4,20 @@ require 'time'
 require_relative 'item'
 
 class ItemRepository
-  attr_reader       :items
-
-
+  attr_reader :items
   def initialize(items)
     @items = []
-
-    items.each {|item| @items << Item.new(to_item(item))}
+    items.each { |item| @items << Item.new(to_item(item))}
+    # binding.pry
   end
 
   def to_item(item)
+    # binding.pry
     item_hash = Hash.new
     item.each do |line|
       item_hash[line[0]] = line[1]
     end
+    # binding.pry
     item_hash
   end
 
@@ -72,25 +72,33 @@ class ItemRepository
   end
 
   def create(attributes)
+    # binding.pry
     attributes[:id] = (find_highest_id+1)
-    attributes[:created_at] = Time.now
-    attributes[:updated_at] = Time.now
+    if attributes[:created_at].nil?
+      attributes[:created_at] = Time.now.to_s
+    else 
+      attributes[:created_at] = attributes[:created_at].to_s
+    end
+    # binding.pry
+    attributes[:updated_at] = attributes[:updated_at].to_s
     item = Item.new(attributes)
     @items << item
+    # binding.pry
   end
 
   def update(id, attributes)
     item = find_by_id(id)
-    # binding.pry
-    attributes[:id] = item.attributes[:id]
-    attributes[:merchant_id] = item.attributes[:merchant_id]
-    attributes[:created_at] = item.attributes[:created_at]
-    pairs = attributes.keys.zip(attributes.values)
-    pairs.each do |pair|
-      item.attributes[pair[0]] = pair[1]
+    unless item.nil?
+      temp_attr = attributes.dup
+      temp_attr[:id] = item.attributes[:id]
+      temp_attr[:merchant_id] = item.attributes[:merchant_id]
+      temp_attr[:created_at] = item.attributes[:created_at]
+      pairs = attributes.keys.zip(temp_attr.values)
+      pairs.each do |pair|
+        item.attributes[pair[0]] = pair[1]
+      end
+      item.attributes[:updated_at] = Time.now
     end
-    sleep(2)
-    item.attributes[:updated_at] = Time.now
   end
 
   def delete(id)

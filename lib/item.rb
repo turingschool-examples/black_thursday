@@ -5,17 +5,20 @@ class Item
   attr_accessor :attributes
 
   def initialize(data)
+    # binding.pry
     modify(data)
     @attributes = data
   end
 
   def modify(data)
+    # binding.pry
     data[:id] = data[:id].to_i
     data[:merchant_id] = data[:merchant_id].to_i
     data[:unit_price] = BigDecimal.new(data[:unit_price])/100
-    data[:created_at] = Time.now
-    data[:updated_at] = data[:updated_at]
+    data[:created_at] = Time.parse(data[:created_at])
+    data[:updated_at] = Time.parse(data[:updated_at])
     data[:unit_price_to_dollars] = data[:unit_price].to_f
+    # binding.pry
     data
   end
 
@@ -48,6 +51,6 @@ class Item
   end
 
   def unit_price_to_dollars
-    @attributes[:unit_price]
+    @attributes[:unit_price].to_f
   end
 end
