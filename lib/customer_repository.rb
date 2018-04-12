@@ -4,8 +4,6 @@ require 'date'
 require_relative 'customer'
 
 class CustomerRepository
-  include Update
-
   attr_reader :path,
               :customers,
               :sales_engine
