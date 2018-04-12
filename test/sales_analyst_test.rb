@@ -121,7 +121,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_bottom_merchants_by_invoice_count
-    skip
     sales_engine = SalesEngine.from_csv(
       invoices: './test/fixtures/test_invoices2_b.csv',
       items: './test/fixtures/test_items1.csv',
@@ -130,10 +129,7 @@ class SalesAnalystTest < Minitest::Test
     sales_analyst = sales_engine.analyst
     result = sales_analyst.bottom_merchants_by_invoice_count
     assert(result.all? { |each_result| each_result.class == Merchant })
-    assert_equal [12335938, 12334753, 12335955,
-                  12334269, 12335311, 12334389,
-                  12335009, 12337139, 12336965,
-                  12334839, 12334264], result.map(&:id)
+    assert_equal [], result.map(&:id)
   end
 
   def test_average_number_of_invoices_per_day
@@ -155,6 +151,64 @@ class SalesAnalystTest < Minitest::Test
     sales_analyst = sales_engine.analyst
     result = sales_analyst.average_invoices_per_day_standard_deviation
     assert_equal 0, result
+  end
+
+  def test_number_of_invoices_per_merchant
+    sales_engine = SalesEngine.from_csv(
+      invoices: './test/fixtures/test_invoices2_b.csv',
+      items: './test/fixtures/test_items1.csv',
+      merchants: './test/fixtures/test_merchants2.csv'
+    )
+    sales_analyst = sales_engine.analyst
+    expected = {1=>[12335938, 12334753, 12334269, 12335311, 12334389, 12335009, 12337139, 12336965, 12334839],
+      2=>[12335955, 12334264],
+      5=>[12334873]}
+      expected = {
+        12335938=>1,
+        12334753=>1,
+        12334269=>1,
+        12335311=>1,
+        12334389=>1,
+        12335009=>1,
+        12337139=>1,
+        12336965=>1,
+        12334839=>1,
+        12335955=>2,
+        12334264=>2,
+        12334873=>5
+      }
+    assert_equal expected, sales_analyst.number_of_invoices_per_merchant
+  end
+
+  def test_merchants_per_count
+    sales_engine = SalesEngine.from_csv(
+      invoices: './test/fixtures/test_invoices2_b.csv',
+      items: './test/fixtures/test_items1.csv',
+      merchants: './test/fixtures/test_merchants2.csv'
+    )
+    sales_analyst = sales_engine.analyst
+    expected = {1=>[12335938, 12334753, 12334269, 12335311, 12334389, 12335009, 12337139, 12336965, 12334839], 2=>[12335955, 12334264], 5=>[12334873]}
+    assert_equal expected, sales_analyst.merchants_per_count
+  end
+
+  def test_average_invoices_per_merchant_plus_two_standard_deviations
+    sales_engine = SalesEngine.from_csv(
+      invoices: './test/fixtures/test_invoices2_b.csv',
+      items: './test/fixtures/test_items1.csv',
+      merchants: './test/fixtures/test_merchants2.csv'
+    )
+    sales_analyst = sales_engine.analyst
+    assert_equal 3.72, sales_analyst.average_invoices_per_merchant_plus_two_standard_deviations
+  end
+
+  def test_average_invoices_per_merchant_minus_two_standard_deviations
+    sales_engine = SalesEngine.from_csv(
+      invoices: './test/fixtures/test_invoices2_b.csv',
+      items: './test/fixtures/test_items1.csv',
+      merchants: './test/fixtures/test_merchants2.csv'
+    )
+    sales_analyst = sales_engine.analyst
+    assert_equal -0.96, sales_analyst.average_invoices_per_merchant_minus_two_standard_deviations
   end
 
   # def test_top_days_by_invoice_count

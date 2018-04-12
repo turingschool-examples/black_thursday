@@ -107,45 +107,57 @@ class SalesAnalyst
   def invoice_count_by_created_date(created_date)
     @invoice_repo.find_all_by_created_date(created_date).count
   end
+# ++++++++++++============
+  def invoices_per_merchant
+    @invoice_repo.all.group_by(&:merchant_id)
+  end
 
-  def top_merchants_by_invoice_count
-    invoices_per_merchant = {}
-    @invoice_repo.all.each do |invoice|
-      if invoices_per_merchant[invoice_count(invoice.merchant_id)]
-        invoices_per_merchant[invoice_count(invoice.merchant_id)] << invoice.merchant_id
+  def number_of_invoices_per_merchant
+    number_of_invoices_per_merchant = invoices_per_merchant
+    number_of_invoices_per_merchant.each do |id, invoices|
+      number_of_invoices_per_merchant[id] = invoices.length
+    end
+    number_of_invoices_per_merchant
+  end
+
+  def merchants_per_count
+    merchants_per_count = {}
+    number_of_invoices_per_merchant.each do |id, count|
+      if merchants_per_count[count]
+        merchants_per_count[count] << id
       else
-        invoices_per_merchant[invoice_count(invoice.merchant_id)] = [] << invoice.merchant_id
+        merchants_per_count[count] = [] << id
       end
     end
-    top_merchants = invoices_per_merchant.find_all do |count, id|
-      id if count >= average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation*2)
-    end
-    binding.pry
+    merchants_per_count
+  end
 
-    top_merchants.map do |merchant|
-      @merchant_repo.find_by_id(merchant[0])
-    end
+  def average_invoices_per_merchant_plus_two_standard_deviations
+    (average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation*2)).round(2)
+  end
 
-    # top = invoices_per_merchant.map do |id, count|
-    #   if count >= average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2)
-    #     @merchant_repo.find_by_id(id)
-    #   end
-    # end
-    # top.compact
+  def average_invoices_per_merchant_minus_two_standard_deviations
+    (average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation*2)).round(2)
+  end
+
+  def top_merchants_by_invoice_count
+    top_merchant_ids = merchants_per_count.map do |count, merchant_ids|
+      merchant_ids if count >= average_invoices_per_merchant_plus_two_standard_deviations
+    end.flatten.compact
+
+    top_merchant_ids.map do |merchant_id|
+      @merchant_repo.find_by_id(merchant_id)
+    end
   end
 
   def bottom_merchants_by_invoice_count
-    1
-    # invoices_per_merchant = {}
-    # @invoice_repo.all.each do |invoice|
-    #   invoices_per_merchant[invoice.merchant_id] = invoice_count(invoice.merchant_id)
-    # end
-    # top = invoices_per_merchant.map do |id, count|
-    #   if count <= average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2)
-    #     @merchant_repo.find_by_id(id)
-    #   end
-    # end
-    # top.compact
+    top_merchant_ids = merchants_per_count.map do |count, merchant_ids|
+      merchant_ids if count <= average_invoices_per_merchant_minus_two_standard_deviations
+    end.flatten.compact
+
+    top_merchant_ids.map do |merchant_id|
+      @merchant_repo.find_by_id(merchant_id)
+    end
   end
 
   def top_days_by_invoice_count
