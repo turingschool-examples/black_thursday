@@ -31,4 +31,12 @@ class InvoiceTest < Minitest::Test
     assert_equal "pending", invoice.status
   end
 
+  def test_it_has_created_at
+    assert_equal "2018-04-10", invoice.created_at
+  end
+
+  def test_it_has_updated_at
+    assert_equal "2018-04-10", invoice.updated_at
+  end
+
 end

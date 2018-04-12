@@ -11,6 +11,8 @@ class Invoice
     @id = data[:id].to_i
     @customer_id = data[:customer_id].to_i
     @status = data[:status]
+    @created_at = data[:created_at]
+    @updated_at =  data[:updated_at]
   end
 
 end
