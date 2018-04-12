@@ -142,25 +142,10 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 3471.59, @s.quantity_by_unit_price(result)
   end
 
-  # def test_it_returns_successful_invoices_by_date_ids
-  #   sid = successful_invoices_by_date(Time.parse("2012-03-27"))
-  #   expected = @s.successful_invoices_by_date_ids(sid)
-  #
-  #   assert_equal 2, expected.length
-  #   assert_instance_of Array, expected.class
-  # end
-
-  # def test_it_can_return_all_invoice_items_on_invoices
-  #   expected = @s.successful_dated_invoice_items
-  #
-  #   assert_equal 2, expected.length
-  # end
-
   def test_it_can_return_total_revenue_by_date
     date = Time.parse("2012-03-27")
 
     assert_equal 3471.59, @s.total_revenue_by_date(date)
   end
-
 # Justine end work on iteration 4
 end
