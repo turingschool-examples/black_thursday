@@ -9,6 +9,13 @@
         1,
         null,
         1,
+        1,
+        null,
+        null,
+        1,
+        11,
+        1,
+        null,
         null
       ],
       "/Users/janeekim12/turing/mod_one/projects/black_thursday/black_thursday/lib/invoice.rb": [
@@ -22,11 +29,11 @@
         null,
         null,
         1,
-        0,
-        0,
-        0,
-        0,
-        0,
+        10,
+        10,
+        10,
+        10,
+        10,
         null,
         null
       ],
@@ -40,6 +47,6 @@
         null
       ]
     },
-    "timestamp": 1523501807
+    "timestamp": 1523502395
   }
 }
