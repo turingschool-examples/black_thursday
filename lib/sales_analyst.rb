@@ -1,6 +1,4 @@
-require_relative "../lib/sales_engine"
-require_relative "../lib/calculator"
-require_relative "../lib/"
+require_relative "sales_engine"
 
  def item_counts_for_all_merchants
     merchants.repository.map { |merchant| merchant.items.length }

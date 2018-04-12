@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 require_relative '../lib/item'
-require_relative '../lib/item_repo'
+require './lib/item_repo'
 
 class ItemRepoTest < Minitest::Test
     attr_reader :parent, :item_repo, :attrs
@@ -114,10 +114,10 @@ class ItemRepoTest < Minitest::Test
         id = 263396013
         item_to_delete = item_repo.find_by_id(id)
 
-        assert item_repo.repository.include?(item_to_delete)
+        assert item_repo.items.include?(item_to_delete)
 
         item_repo.delete(id)
 
-        refute item_repo.repository.include?(item_to_delete)
+        refute item_repo.items.include?(item_to_delete)
     end
 end

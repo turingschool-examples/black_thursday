@@ -1,19 +1,20 @@
 require 'csv'
 require 'time'
 require_relative 'merchant'
+require_relative '../lib/load_file'
+
 
 class MerchantRepo
-  attr_reader :all
+  attr_reader :merchants,
+              :parent
 
-  def initialize(csv_file)
-    @all = []
-    open_file(csv_file)
+  def initialize(data, parent)
+    @merchants = data.map {|row| Merchant.new(row, self)}
+    @parent = parent
   end
 
-  def open_file(file)
-    CSV.foreach(file, headers: true, header_converters: :symbol) do |row|
-      all << Merchant.new(row)
-    end
+  def all
+    merchants
   end
 
   def find_by_id(id)
@@ -41,7 +42,7 @@ class MerchantRepo
 
   def create(attrs)
     attrs[:id] = find_max_id.to_s
-    new_merchant = Merchant.new(attrs)
+    new_merchant = Merchant.new(attrs, self)
     new_merchant.created_at = Time.now
     new_merchant.updated_at = Time.now
     all << new_merchant
