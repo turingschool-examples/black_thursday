@@ -2,10 +2,13 @@ require_relative 'test_helper'
 require_relative '../lib/merchant_repo'
 
 class MerchantRepoTest < Minitest::Test
-  attr_reader :mr
+  attr_reader :mr,
+              :parent
 
   def setup
-    @mr = MerchantRepo.new("./data/merchants.csv")
+    data = LoadFile.load('./test/fixture_data/merchant_repo_fixture.csv')
+    @parent = Minitest::Mock.new
+    @mr = MerchantRepo.new(data, parent)
   end
 
   def test_it_exists
@@ -13,7 +16,7 @@ class MerchantRepoTest < Minitest::Test
   end
 
   def test_it_returns_all
-    assert_equal 475, mr.all.count
+    assert_equal 7, mr.all.count
     assert_instance_of Array, mr.all
     assert_instance_of Merchant, mr.all.sample
   end
@@ -23,8 +26,8 @@ class MerchantRepoTest < Minitest::Test
   end
 
   def test_it_finds_merchant_by_id
-    expected = "TheCullenChronicles"
-    assert_equal expected, mr.find_by_id(12336927).name
+    expected = "Shopin1901"
+    assert_equal expected, mr.find_by_id(12334105).name
   end
 
   def test_it_returns_nil_without_name
@@ -40,7 +43,7 @@ class MerchantRepoTest < Minitest::Test
   end
 
   def test_find_max_id
-    assert_equal 12337412, mr.find_max_id
+    assert_equal 12334136, mr.find_max_id
   end
 
   def test_it_can_create

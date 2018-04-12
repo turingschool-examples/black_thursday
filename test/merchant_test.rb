@@ -23,7 +23,7 @@ class MerchantTest < Minitest::Test
   def test_it_has_created_at
     assert_equal "2018-04-10", m.created_at
   end
-  def test_it_has_ipdated_at
+  def test_it_has_updated_at
     assert_equal "2018-04-10", m.updated_at
   end
 end
