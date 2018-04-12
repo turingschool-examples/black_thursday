@@ -1,12 +1,12 @@
 class SalesAnalyst
   attr_reader :engine
-  
+
   def initialize(engine)
     @engine = engine
   end
 
   def average_items_per_merchant
-    (total_items_per_merchant.reduce(:+) / total_merchants.to_f).round(2)
+    (total_items_per_merchant.inject(:+) / total_merchants.to_f).round(2)
   end
 
   private
