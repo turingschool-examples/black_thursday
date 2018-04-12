@@ -3,16 +3,21 @@
 require 'csv'
 require_relative 'merchant_repository'
 require_relative 'item_repository'
+require_relative 'sales_analyst'
 require 'pry'
 
 # This is a SalesEngine Class
 class SalesEngine
-  def self.from_csv(path)
+  def self.from_csv(path = nil)
     new(path).tap(&:populate_repositories)
   end
 
-  def initialize(path = nil)
+  def initialize(path)
     @path = path
+  end
+
+  def analyst
+    SalesAnalyst.new(self)
   end
 
   def populate_repositories
@@ -21,11 +26,11 @@ class SalesEngine
   end
 
   def items
-    @items ||= ItemRepository.new(data_for(:items))
+    @items ||= ItemRepository.new(data_for(:items), self)
   end
 
   def merchants
-    @merchants ||= MerchantRepository.new(data_for(:merchants))
+    @merchants ||= MerchantRepository.new(data_for(:merchants), self)
   end
 
   def path

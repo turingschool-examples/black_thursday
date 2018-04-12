@@ -25,4 +25,8 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of Item, @se.items.find_by_name('Disney scrabble frames')
     assert_instance_of Merchant, @se.merchants.find_by_name('HeadyMamaCreations')
   end
+
+  def test_sales_engine_can_return_an_analyst
+    assert_instance_of SalesAnalyst, @se.analyst
+  end
 end

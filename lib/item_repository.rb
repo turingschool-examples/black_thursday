@@ -9,7 +9,7 @@ class ItemRepository < BaseRepository
   end
 
   def populate
-    @models ||= raw_data.map { |attribute_hash| Item.new(attribute_hash) }
+    @models ||= raw_data.map { |attribute_hash| Item.new(attribute_hash, self) }
   end
 
   def find_all_with_description(item_description)
