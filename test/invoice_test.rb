@@ -26,5 +26,9 @@ class InvoiceTest < Minitest::Test
   def test_it_returns_a_customer_id
     assert_equal 6, invoice.customer_id
   end
-  
+
+  def test_it_returns_the_status
+    assert_equal "pending", invoice.status
+  end
+
 end
