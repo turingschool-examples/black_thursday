@@ -82,29 +82,31 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
-    (BigDecimal(@engine.invoices.all.count) / BigDecimal(@engine.merchants.all.count)).round(2)
+    (BigDecimal(@engine.invoices.all.count) / BigDecimal(@engine.merchants.all.count)).round(2).to_f
   end
 
   def average_invoices_per_merchant_standard_deviation
-    # Get a set
-    all_merchants = @engine.invoices.all.map(&:merchant_id).uniq
-    number_of_invoices_per_merchant = all_merchants.map do |merchant_id|
+    unique_merchants = @engine.invoices.all.map(&:merchant_id).uniq
+    set = unique_merchants.map do |merchant_id|
       invoice_count(merchant_id)
     end
-    # Sum all number in that set - average, squared
-    deviate_sum = number_of_invoices_per_merchant.inject(0) do |sum, number_of_invoices|
-      sum + ((number_of_invoices - average_invoices_per_merchant) ** 2)
+    # Take the difference between each number and square it
+    step1 = set.map do |number_of_invoices|
+      (number_of_invoices - average_invoices_per_merchant) ** 2
     end
-    # Divide that sum by two
-    # Get the sqrt of that quotient
-    Math.sqrt(deviate_sum / 2).round(2)
+    # Sum those together
+    step2 = step1.reduce(:+)
+    # Divide the sum by the total number in set - 1
+    step3 = (step2 / (set.count - 1))
+    # Take the square root of this number
+    Math.sqrt(step3).round(2)
   end
 
   def invoice_count(merchant_id)
     @engine.invoices.find_all_by_merchant_id(merchant_id).count
   end
 
-  def top_merchant_by_invoice_count
+  def top_merchants_by_invoice_count
     invoices_per_merchant = {}
     @engine.invoices.all.each do |invoice|
       invoices_per_merchant[invoice.merchant_id] = invoice_count(invoice.merchant_id)
