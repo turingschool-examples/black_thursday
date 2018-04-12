@@ -3,50 +3,49 @@ require_relative '../lib/load_file'
 class ItemRepo
   attr_reader :items,
               :contents,
-              :parent,
-              :repository
+              :parent
 
     def initialize(data, parent)
-        @repository = data.map {|row| Item.new(row, self)}
+        @items = data.map {|row| Item.new(row, self)}
         @parent = parent
     end
 
     def all
-        repository
+        items
     end
 
     def find_by_id(id)
-        repository.find do |item|
+        items.find do |item|
             item.id == id
         end
     end
 
     def find_by_name(name)
-        repository.find do |item|
+        items.find do |item|
             item.name.downcase == name.downcase
         end
     end
     
     def find_all_with_description(description)
-        repository.find_all do |item|
+        items.find_all do |item|
             item.description.downcase.include?(description.downcase)
         end
     end
 
     def find_all_with_price(price)
-        repository.find_all do |item|
+        items.find_all do |item|
             item.unit_price == BigDecimal.new(price)
         end
     end
 
     def find_all_with_price_in_range(price_range)
-        repository.find_all do |item|
+        items.find_all do |item|
         price_range.include?(item.unit_price)
         end
     end
 
   def find_all_by_merchant_id(id)
-    repository.find_all do |item| 
+    items.find_all do |item| 
         item.merchant_id == id
     end
   end
@@ -56,18 +55,18 @@ class ItemRepo
   end
 
     def find_max_id
-    max = repository.max_by { |item| item.id }
-    max.id.to_i
+        max = items.max_by { |item| item.id }
+        max.id.to_i
     end
 
     def create(attrs)
-    new_id = find_max_id + 1
-    attrs[:id] = new_id.to_s
-    new_merchant = Item.new(attrs, self)
-    new_merchant.created_at = Time.now
-    new_merchant.updated_at = Time.now
-    repository << new_merchant
-    return new_merchant
+        new_id = find_max_id + 1
+        attrs[:id] = new_id.to_s
+        new_merchant = Item.new(attrs, self)
+        new_merchant.created_at = Time.now
+        new_merchant.updated_at = Time.now
+        items << new_merchant
+        return new_merchant
     end
 
     def update(id, attrs)
@@ -80,7 +79,7 @@ class ItemRepo
 
     def delete(id)
         item_to_delete = find_by_id(id)
-        repository.delete(item_to_delete)
+        items.delete(item_to_delete)
     end
 
 
