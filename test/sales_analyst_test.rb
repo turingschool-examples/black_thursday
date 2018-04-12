@@ -6,10 +6,12 @@ require_relative '../lib/sales_engine'
 class SalesAnalystTest < Minitest::Test
   def setup
     se = SalesEngine.from_csv(
-                              items:      './data/items.csv',
-                              merchants:  './test/fixtures/merchants_fixtures.csv',
-                              invoices:   './test/fixtures/invoices_fixtures.csv'
-                              )
+      items:          './data/items.csv',
+      merchants:      './test/fixtures/merchants_fixtures.csv',
+      invoices:       './test/fixtures/invoices_fixtures.csv',
+      invoice_items:  './test/fixtures/invoice_items_fixtures.csv',
+      transactions:   './test/fixtures/transactions_fixtures.csv'
+      )
     @sa = se.analyst
   end
 
@@ -77,7 +79,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_invoices_per_merchant_standard_deviation
-    assert_equal 0.99, @sa.average_invoices_per_merchant_standard_deviation
+    assert_equal 0.98, @sa.average_invoices_per_merchant_standard_deviation
   end
 
   def test_top_merchants_by_invoice_count

@@ -101,7 +101,7 @@ class TransactionRepositoryTest < Minitest::Test
     assert_instance_of Transaction, invoices[0]
     find = @trans.find_by_id(1)
     assert invoices.include?(find)
-    assert_equal 39, invoices.count
+    assert_equal 38, invoices.count
 
     invoices2 = @trans.find_all_by_result('failed')
     assert_instance_of Array, invoices2

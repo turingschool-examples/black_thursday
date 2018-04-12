@@ -40,4 +40,28 @@ class InvoiceTest < Minitest::Test
     assert_instance_of Merchant, invoice.merchant
     assert_equal 12334839, invoice.merchant.id
   end
+
+  def test_it_can_check_if_invoice_paid_in_full
+    se = SalesEngine.from_csv(
+                              items:      './data/items.csv',
+                              merchants:  './test/fixtures/merchants_fixtures.csv',
+                              transactions:  './test/fixtures/transactions_fixtures.csv',
+                              invoices:   './test/fixtures/invoices_fixtures.csv'
+                              )
+    invoice = se.invoices.find_by_id(46)
+    assert invoice.is_paid_in_full?
+    invoice = se.invoices.find_by_id(40)
+    refute invoice.is_paid_in_full?
+  end
+
+  def test_it_can_return_invoice_total
+    se = SalesEngine.from_csv(
+                              items:      './data/items.csv',
+                              merchants:  './test/fixtures/merchants_fixtures.csv',
+                              invoice_items:  './test/fixtures/invoice_items_fixtures.csv',
+                              invoices:   './test/fixtures/invoices_fixtures.csv'
+                              )
+    invoice = se.invoices.find_by_id(1)
+    assert_equal 21067.77, invoice.total
+  end
 end

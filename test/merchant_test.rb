@@ -36,4 +36,18 @@ class MerchantTest < Minitest::Test
     assert_instance_of Invoice, invoices[0]
     assert invoices.include?(invoice)
   end
+
+  def test_it_can_return_customers
+    se = SalesEngine.from_csv(
+                              items:      './data/items.csv',
+                              merchants:  './test/fixtures/merchants_fixtures.csv',
+                              customers:  './test/fixtures/customers_fixtures.csv',
+                              invoices:   './test/fixtures/invoices_fixtures.csv'
+                              )
+    merchant = se.merchants.find_by_id(12334146)
+    customer = se.customers.find_by_id(10)
+    assert_instance_of Array, merchant.customers
+    assert_instance_of Customer, merchant.customers[0]
+    assert merchant.customers.include?(customer)
+  end
 end
