@@ -6,13 +6,21 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    (total_items_per_merchant.inject(:+) / total_merchants.to_f).round(2)
+    (total_items_per_merchant.reduce(:+) / total_merchants.to_f).round(2)
+  end
+
+  def average_items_per_merchant_standard_deviation
+    result = total_items_per_merchant.map do |items|
+      (items - average_items_per_merchant) ** 2
+    end
+    calculated = result.reduce(:+).to_f / (total_items_per_merchant.length - 1)
+    Math.sqrt(calculated).round(2)
   end
 
   private
 
   def total_items_per_merchant
-    @engine.merchants.all.map do |merchant|
+    @total ||= @engine.merchants.all.map do |merchant|
       @engine.items.find_all_by_merchant_id(merchant.id).count
     end
   end
