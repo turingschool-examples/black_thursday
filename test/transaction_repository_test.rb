@@ -35,97 +35,81 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_all_returns_correct_ids
-    skip
     all_transactions = @t_repo.all
     actual_all_ids = all_transactions.map(&:id)
-    expected = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 25, 37, 38]
+    expected = [1, 2, 3, 4, 5]
     assert_equal expected, actual_all_ids
   end
 
-  def test_all_returns_correct_customer_ids
-    skip
-    all_transactions = @t_repo.all
-    actual_all_cust_ids = all_transactions.map(&:customer_id)
-    expected = [1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 6, 9, 7]
-    assert_equal expected, actual_all_cust_ids
-  end
-
   def test_can_find_by_id
-    skip
     actual_one = @t_repo.find_by_id(1)
     actual_two = @t_repo.find_by_id(2)
     assert_instance_of Transaction, actual_one
     assert_instance_of Transaction, actual_two
-    assert_equal '2009-02-07', actual_one.created_at
-    assert_equal '2012-11-23', actual_two.created_at
+    assert_equal 2179, actual_one.invoice_id
+    assert_equal 46, actual_two.invoice_id
   end
 
-  def test_can_find_all_by_customer_id
-    skip
-    actual = @t_repo.find_all_by_customer_id(2)
+  def test_can_find_all_by_invoice_id
+    actual = @t_repo.find_all_by_invoice_id(750)
     result = actual.all? do |transaction|
       transaction.class == Transaction
     end
     assert result
     ids = actual.map(&:id)
-    assert_equal [9, 10], ids
+    assert_equal [3, 4], ids
   end
 
-  def test_can_find_all_by_merchant_id
-    skip
-    actual = @t_repo.find_all_by_merchant_id(12335938)
+  def test_can_find_all_by_credit_card_number
+    actual = @t_repo.find_all_by_credit_card_number(4271805778010747)
     result = actual.all? do |transaction|
       transaction.class == Transaction
     end
     assert result
     ids = actual.map(&:id)
-    assert_equal [1], ids
+    assert_equal [3, 4, 5], ids
   end
 
-  def test_can_find_all_by_status
-    skip
-    actual_pending = @t_repo.find_all_by_status(:pending)
-    actual_shipped = @t_repo.find_all_by_status(:shipped)
-    actual_returned = @t_repo.find_all_by_status(:returned)
-    assert_instance_of Transaction, actual_pending[0]
-    assert_instance_of Transaction, actual_shipped[0]
-    assert_instance_of Transaction, actual_returned[0]
-    pending_ids = actual_pending.map(&:id)
-    assert_equal [1, 4, 5, 6, 7, 10, 38], pending_ids
-    shipped_ids = actual_shipped.map(&:id)
-    assert_equal [2, 3, 8, 9], shipped_ids
-    returned_ids = actual_returned.map(&:id)
-    assert_equal [25, 37], returned_ids
+  def test_can_find_all_by_result
+    actual_success = @t_repo.find_all_by_result('success')
+    actual_failed = @t_repo.find_all_by_result('failed')
+    assert_instance_of Transaction, actual_success[0]
+    assert_instance_of Transaction, actual_failed[0]
+    success_ids = actual_success.map(&:id)
+    assert_equal [1, 2, 3, 5], success_ids
+    failed_ids = actual_failed.map(&:id)
+    assert_equal [4], failed_ids
   end
 
   def test_it_can_generate_next_transaction_id
-    skip
-    expected = 39
+    expected = 6
     actual = @t_repo.create_new_id
     assert_equal expected, actual
   end
 
   def test_can_create_new_transaction
-    skip
     assert_instance_of Transaction, @new_transaction
-    assert_equal 13, @t_repo.transactions.count
-    assert_equal 7, @t_repo.transactions[38].customer_id
-    assert_equal 12334105, @t_repo.transactions[38].merchant_id
-    assert_equal :pending, @t_repo.transactions[38].status
-    assert_equal '2009-12-09 12:08:04 UTC', @t_repo.transactions[38].created_at
-    assert_equal '2010-12-09 12:08:04 UTC', @t_repo.transactions[38].updated_at
+    assert_equal 5, @t_repo.transactions.count
+    assert_equal 621, @t_repo.transactions[5].invoice_id
+    assert_equal 4271805778010747, @t_repo.transactions[5].credit_card_number
+    assert_equal '0209', @t_repo.transactions[5].credit_card_expiration_date
+    assert_equal 'success', @t_repo.transactions[5].result
+    assert_equal '2009-12-09 12:08:04 UTC', @t_repo.transactions[5].created_at
+    assert_equal '2010-12-09 12:08:04 UTC', @t_repo.transactions[5].updated_at
   end
 
   def test_transaction_can_be_updated
-    skip
-    @t_repo.update(38, status: :shipped)
-    assert_equal :shipped, @t_repo.transactions[38].status
+    @t_repo.update(5, credit_card_number: 4271805778010748)
+    assert_equal 4271805778010748, @t_repo.transactions[5].credit_card_number
+    @t_repo.update(5, credit_card_expiration_date: '0210')
+    assert_equal '0210', @t_repo.transactions[5].credit_card_expiration_date
+    @t_repo.update(5, result: 'failed')
+    assert_equal 'failed', @t_repo.transactions[5].result
   end
 
   def test_transaction_can_be_deleted
-    skip
-    @t_repo.delete(38)
-    assert_equal 12, @t_repo.transactions.count
-    assert_nil @t_repo.transactions[38]
+    @t_repo.delete(5)
+    assert_equal 4, @t_repo.transactions.count
+    assert_nil @t_repo.transactions[5]
   end
 end
