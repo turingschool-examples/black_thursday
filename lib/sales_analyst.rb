@@ -180,22 +180,18 @@ class SalesAnalyst
     transactions1.any? { |transaction| transaction.result == 'success' }
   end
 # Justine start work on iteration 4
-  def total_revenue_by_date(date)
+  def transactions_by_date(date)
     date1 = date.to_date
-    successful(by_date(@sales_engine.transations.all, date1))
+    transactions = @sales_engine.transactions.all
     transactions = @sales_engine.transactions.all
     dated = transactions.find_all do |transaction|
       transaction.created_at.to_date == date1
     end
-    successes = dated.find_all { |transaction| transaction.result == 'success' }
-    binding.pry
   end
-#Justine end work on iteration 4
-  def by_date(list, date)
-    list.keep_if {|l| date == l.created_at.to_date}
-  end
-   def successful(list)
-     list.keep_if { |l| l.result == "success"}
-   end
 
+  # def total_revenue_by_date(date)
+  #   successes = dated.find_all { |transaction| transaction.result == 'success' }
+  #   binding.pry
+  # end
+#Justine end work on iteration 4
 end
