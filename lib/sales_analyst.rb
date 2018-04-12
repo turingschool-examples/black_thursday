@@ -202,22 +202,19 @@ class SalesAnalyst
   def successful_invoices_by_date(date)
     dated = transactions_by_date(date)
     matches = dated & successful_transactions
-    ids = successful_invoices_by_date_ids(matches)
-    successful_dated_invoice_ids(ids)
+    ids = successful_invoices_by_date_ids(matches).uniq
+    invoice_items = successful_dated_invoice_ids(ids).flatten
+    # binding.pry
   end
 
   def successful_invoices_by_date_ids(matches)
     matches.map do |transaction|
-      transaction.id
+      transaction.invoice_id
     end
   end
 
   def successful_dated_invoice_ids(ids)
-    invoice_items = []
-    ids.map do |id|
-      if id == @se.invoice_items.invoice_items_specs[:invoice_id]
-        invoice_items << @se.invoice_items.invoice_items_specs
-    end
+    ids.map { |id| @sales_engine.invoice_items.find_all_by_invoice_id(id) }
   end
 
   def total_revenue_by_date(date)

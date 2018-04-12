@@ -18,7 +18,7 @@ class SalesAnalystTest < MiniTest::Test
       invoices:   './data/invoices.csv',
       customers:  './data/customers.csv',
       transactions: './fixtures/transactions_test.csv',
-      invoice_items: './data/invoice_items.csv'
+      invoice_items: './fixtures/invoice_items_test.csv'
     )
     @s = SalesAnalyst.new(@se)
   end
@@ -84,7 +84,7 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_it_can_find_the_invoice_total
-    expected = 3489.56
+    expected = 485.08
     actual = @s.invoice_total(1).to_f.round(2)
 
     assert_equal expected, actual
@@ -112,7 +112,15 @@ class SalesAnalystTest < MiniTest::Test
   def test_it_can_return_successful_invoices_by_date
     expected = @s.successful_invoices_by_date(Time.parse("2012-03-27"))
 
+    assert_equal Array, expected.class
     assert_equal 2, expected.length
+  end
+
+  def test_it_can_multiply_quantity_and_unit_price
+    invoice_items = @s.successful_invoices_by_date(Time.parse("2012-03-27"))
+    expected = quantity_by_unit_price(invoice_items)
+
+    assert_equal
   end
 
   # def test_it_returns_successful_invoices_by_date_ids
