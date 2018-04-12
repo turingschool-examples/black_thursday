@@ -11,33 +11,34 @@ class ItemRepositoryTest < Minitest::Test
 
   def setup
     @icons = [
-      "id: 263395237",
-      "name: RealPush Icon Set",
-      "description: It writes things.",
-      "unit_price: 1200",
-      "merchant_id: 12334141",
-      "created_at: 2016-01-11 09:34:06 UTC",
-      "updated_at: 2007-06-04 21:35:10 UTC"
+      [:id, '263395237'],
+      [:name, 'RealPush Icon Set'],
+      [:description, 'It writes things.'],
+      [:unit_price, '1200'],
+      [:merchant_id, '12334141'],
+      [:created_at, '2016-01-11 09:34:06 UTC'],
+      [:updated_at, '2007-06-04 21:35:10 UTC']
     ]
     @glitter_frames = [
-      "id: 263395617",
-      "name: Glitter Scrabble Frames",
-      "description: Any colour glitter.",
-      "unit_price: 1300",
-      "merchant_id: 12334185",
-      "created_at: 2016-01-11 11:51:37 UTC",
-      "updated_at: 1993-09-29 11:56:40 UTC"
+      [:id, '263395617'],
+      [:name, 'Glitter Scrabble Frames'],
+      [:description, 'Any colour glitter.'],
+      [:unit_price, '1300'],
+      [:merchant_id, '12334185'],
+      [:created_at, '2016-01-11 11:51:37 UTC'],
+      [:updated_at, '1993-09-29 11:56:40 UTC']
     ]
     @wooden_letters = [
-      "id: 263396013",
-      "name: Free Standing Wooden Letters",
-      "description: Free standing wooden letters, 15cm, any colour.",
-      "unit_price: 700",
-      "merchant_id: 12334105",
-      "created_at: 2016-01-11 11:51:36 UTC",
-      "updated_at: 2001-09-17 15:28:43 UTC"
+      [:id, '263396013'],
+      [:name, 'Free Standing Wooden Letters'],
+      [:description, 'Free standing wooden letters, 15cm, any colour.'],
+      [:unit_price, '700'],
+      [:merchant_id, '12334105'],
+      [:created_at, '2016-01-11 11:51:36 UTC'],
+      [:updated_at, '2001-09-17 15:28:43 UTC']
     ]
       @items = [@icons, @glitter_frames, @wooden_letters]
+      @items.each
     end
 
   def test_it_exists

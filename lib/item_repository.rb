@@ -6,6 +6,7 @@ require_relative 'item'
 class ItemRepository
   attr_reader :items
   def initialize(items)
+    # binding.pry
     @items = []
     items.each { |item| @items << Item.new(to_item(item))}
     # binding.pry
@@ -17,8 +18,8 @@ class ItemRepository
     item.each do |line|
       item_hash[line[0]] = line[1]
     end
-    # binding.pry
     item_hash
+    # binding.pry
   end
 
   def inspect
