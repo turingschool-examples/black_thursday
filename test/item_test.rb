@@ -14,7 +14,7 @@ class ItemTest < Minitest::Test
       name:         'Pencil',
       description:  'You can use it to write things',
       unit_price:   1099,
-      merchant_id:  12334141,
+      merchant_id:  12_334_141,
       created_at:   @time,
       updated_at:   @time
     )
@@ -26,7 +26,7 @@ class ItemTest < Minitest::Test
       id:          44444,
       name:        'Pencil',
       description: 'You can use it to write things',
-      merchant_id:  12334141,
+      merchant_id:  12_334_141,
       unit_price:  1099,
       created_at:  @time,
       updated_at:  @time
@@ -46,13 +46,13 @@ class ItemTest < Minitest::Test
     item = Item.new(name:         'Pencil',
                     description:  'You can use it to write things',
                     unit_price:   1099,
-                    merchant_id:  12334141,
+                    merchant_id:  12_334_141,
                     created_at:   @time,
                     updated_at:   @time)
     data = { name:        'Pencil',
              description: 'You can use it to write things',
              unit_price:   1099,
-             merchant_id:  12334141,
+             merchant_id:  12_334_141,
              created_at:   @time,
              updated_at:   @time }
     actual = item.modify(data)
