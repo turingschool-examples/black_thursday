@@ -113,7 +113,7 @@ class SalesAnalystTest < MiniTest::Test
     expected = @s.successful_invoices_by_date(Time.parse("2012-03-27"))
 
     assert_equal Array, expected.class
-    assert_equal 1, expected.length
+    assert_equal 2, expected.length
   end
 
   def test_it_can_get_unique_ids_of_successful_transactions_on_date
@@ -123,11 +123,23 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 1, expected.length
   end
 
-  def test_it_can_multiply_quantity_and_unit_price
-    skip
-    expected = @s.successful_invoices_by_date(Time.parse("2012-03-27"))
+  def test_it_can_pull_invoice_items_of_ids_for_successful_dated
+    dated_success = @s.successful_invoices_by_date(Time.parse("2012-03-27"))
+    ids = @s.ids_of_successful_invoices_by_date(dated_success)
+    invoice_items = @s.successful_dated_invoice_ids(ids)
+    expected = invoice_items.flatten
 
-    assert_equal 3471.59, expected
+    assert_instance_of InvoiceItem, expected[0]
+    assert_equal 2, expected.length
+  end
+
+  def test_it_can_multiply_quantity_and_unit_price
+    dated_success = @s.successful_invoices_by_date(Time.parse("2012-03-27"))
+    ids = @s.ids_of_successful_invoices_by_date(dated_success)
+    invoice_items = @s.successful_dated_invoice_ids(ids)
+    result = invoice_items.flatten
+
+    assert_equal 3471.59, @s.quantity_by_unit_price(result)
   end
 
   # def test_it_returns_successful_invoices_by_date_ids
@@ -145,7 +157,6 @@ class SalesAnalystTest < MiniTest::Test
   # end
 
   def test_it_can_return_total_revenue_by_date
-    skip
     date = Time.parse("2012-03-27")
 
     assert_equal 3471.59, @s.total_revenue_by_date(date)
