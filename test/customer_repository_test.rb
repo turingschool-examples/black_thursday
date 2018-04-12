@@ -13,14 +13,12 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_it_can_create_customers_from_csv
-    skip
     @cust_repo.from_csv('./test/fixtures/customers_fixtures.csv')
-    assert_equal 50, @cust_repo.elements.count
+    assert_equal 49, @cust_repo.elements.count
     assert_instance_of Customer, @cust_repo.elements[32]
-    assert_equal 6, @cust_repo.elements[32].invoice_id
+    assert_equal "Pasquale", @cust_repo.elements[32].first_name
     assert_instance_of Customer, @cust_repo.elements[14]
-    assert_equal 7, @cust_repo.elements[14].quantity
-    assert_equal 664.12, @cust_repo.elements[23].unit_price
+    assert_equal "Hettinger", @cust_repo.elements[14].last_name
 
     assert_nil @cust_repo.elements['id']
     assert_nil @cust_repo.elements[999999999]
@@ -30,10 +28,10 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_all_method
-    skip
+    # skip
     @cust_repo.from_csv('./test/fixtures/customers_fixtures.csv')
     all_invoices = @cust_repo.all
-    assert_equal 50, all_invoices.count
+    assert_equal 49, all_invoices.count
     assert_instance_of Customer, all_invoices[0]
     assert_instance_of Customer, all_invoices[20]
     assert_instance_of Customer, all_invoices[-1]
@@ -41,38 +39,61 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_find_by_id
-    skip
+    # skip
     @cust_repo.from_csv('./test/fixtures/customers_fixtures.csv')
     customer = @cust_repo.find_by_id(37)
     assert_instance_of Customer, customer
-    assert_equal 7, customer.invoice_id
+    assert_equal "Maryam", customer.first_name
 
     invoice2 = @cust_repo.find_by_id(14)
     assert_instance_of Customer, invoice2
-    assert_equal 7, invoice2.quantity
+    assert_equal "Casimer", invoice2.first_name
     assert_nil @cust_repo.find_by_id(12345678901234567890)
   end
 
-  def test_find_all_by_item_id
-    skip
+  def test_find_all_by_first_name
+    # skip
     @cust_repo.from_csv('./test/fixtures/customers_fixtures.csv')
-    invoices = @cust_repo.find_all_by_item_id(263515158)
+    invoices = @cust_repo.find_all_by_first_name("Leanne")
     assert_instance_of Array, invoices
     assert_instance_of Customer, invoices[0]
-    find = @cust_repo.find_by_id(5)
+    find = @cust_repo.find_by_id(4)
     assert invoices.include?(find)
     assert_equal 1, invoices.count
 
-    invoices2 = @cust_repo.find_all_by_item_id(263533436)
+    invoices2 = @cust_repo.find_all_by_first_name("Macie")
     assert_instance_of Array, invoices2
-    find = @cust_repo.find_by_id(32)
-    find2 = @cust_repo.find_by_id(33)
-    find3 = @cust_repo.find_by_id(34)
+    find = @cust_repo.find_by_id(26)
+    find2 = @cust_repo.find_by_id(29)
+    find3 = @cust_repo.find_by_id(27)
     assert invoices2.include?(find)
     assert invoices2.include?(find2)
     refute invoices2.include?(find3)
 
-    invoices3 = @cust_repo.find_all_by_item_id(9999999999)
+    invoices3 = @cust_repo.find_all_by_first_name("gibberish")
+    assert_equal [], invoices3
+  end
+
+  def test_find_all_by_last_name
+    # skip
+    @cust_repo.from_csv('./test/fixtures/customers_fixtures.csv')
+    invoices = @cust_repo.find_all_by_last_name("Hoppe")
+    assert_instance_of Array, invoices
+    assert_instance_of Customer, invoices[0]
+    find = @cust_repo.find_by_id(16)
+    assert invoices.include?(find)
+    assert_equal 1, invoices.count
+
+    invoices2 = @cust_repo.find_all_by_last_name("Ward")
+    assert_instance_of Array, invoices2
+    find = @cust_repo.find_by_id(18)
+    find2 = @cust_repo.find_by_id(20)
+    find3 = @cust_repo.find_by_id(19)
+    assert invoices2.include?(find)
+    assert invoices2.include?(find2)
+    refute invoices2.include?(find3)
+
+    invoices3 = @cust_repo.find_all_by_last_name("gibberish")
     assert_equal [], invoices3
   end
 
