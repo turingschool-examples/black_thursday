@@ -1,11 +1,11 @@
 require_relative 'merchant_repo'
 require_relative 'item_repo'
-require_relative 'class_relationships'
+require_relative 'sales_relationships'
+require_relative 'load_file'
 
 class SalesEngine
-  include sales_relationships
-  attr_accessor :items, :merchants
-
+  include SalesRelationships
+  attr_reader :path
   def initialize(path)
     @path = path
   end
@@ -14,11 +14,11 @@ class SalesEngine
     SalesEngine.new(path)
   end
 
-  def items
-    @items ||= ItemRepository.new(File.load(path[:items]), self)
+  def item_repo
+    @item_repo ||= ItemRepo.new(LoadFile.load(path[:item_data]), self)
   end
 
-  def merchants
-    @merchants ||= MerchantRepository.new(File.load(path[:merchants]), self)
+  def merchant_repo
+    @merchant_repo ||= MerchantRepo.new(LoadFile.load(path[:merchant_data]), self)
   end
 end

@@ -5,16 +5,16 @@ require_relative '../lib/load_file'
 
 
 class MerchantRepo
-  attr_reader :repository,
+  attr_reader :merchants,
               :parent
 
   def initialize(data, parent)
-    @repository = data.map {|row| Merchant.new(row, self)}
+    @merchants = data.map {|row| Merchant.new(row, self)}
     @parent = parent
   end
 
   def all
-    repository
+    merchants
   end
 
   def find_by_id(id)
