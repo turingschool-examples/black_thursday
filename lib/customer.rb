@@ -45,4 +45,10 @@ class Customer
   def invoices
     @parent.find_all_invoices_by_customer_id(id)
   end
+
+  def fully_paid_invoices
+    invoices.map do |invoice|
+      invoice unless invoice.total_successful_invoices.nil?
+    end
+  end
 end

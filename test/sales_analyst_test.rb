@@ -81,7 +81,6 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_it_can_return_paid_in_full_invoice
-    skip
     expected = true
     actual = @s.invoice_paid_in_full?(16)
 
@@ -106,10 +105,10 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_invoice_items_can_be_grouped_by_id_and_item_quantity
+    skip
     expected = ''
     actual = @se.invoice_items.group_invoice_items_by_number_of_items_and_invoice_id
 
     assert_equal expected, actual
   end
-
 end

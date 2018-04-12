@@ -59,7 +59,6 @@ class CustomerRepository
   def top_spenders
     @repository.map do |customer|
       totals = customer.invoices.map(&:total_successful_invoices)
-      next if totals == nil
       [customer, totals.flatten.compact.uniq.inject(:+)]
     end
   end

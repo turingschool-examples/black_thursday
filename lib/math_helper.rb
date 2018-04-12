@@ -17,4 +17,8 @@ module MathHelper
     all_items = merchant.items.map(&:unit_price)
     (all_items.inject(:+) / all_items.length).round(2)
   end
+
+  # def two_standard_deviations_above(average, std_dev)
+  #   average + (2 * std_dev)
+  # end
 end
