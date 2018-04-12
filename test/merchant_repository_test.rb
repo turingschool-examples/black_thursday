@@ -17,11 +17,11 @@ class MerchantRepositoryTest < Minitest::Test
                       @bowlsbychris,
                       @urcase17]
 
-    @merchants = [['id:1', 'name:Turing School'],
-                  ['id:2', 'name:Candisart'],
-                  ['id:3', 'name:MiniatureBikez'],
-                  ['id:4', 'name:bowlsbychris'],
-                  ['id:5', 'name:urcase17']]
+    @merchants = [['1','Turing School'],
+                  ['2', 'Candisart'],
+                  ['3', 'MiniatureBikez'],
+                  ['4', 'bowlsbychris'],
+                  ['5', 'urcase17']]
   end
 
   def test_it_exists
