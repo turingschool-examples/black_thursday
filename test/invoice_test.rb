@@ -6,9 +6,9 @@ class InvoiceTest < Minitest::Test
 
   def setup
     @invoice = Invoice.new({ :id => 5,
-                              :customer_id =>6,
-                              :merchant_id =>7,
-                              :status =>"pending",
+                              :customer_id => 6,
+                              :merchant_id => 7,
+                              :status => "pending",
                               :created_at => "2018-04-10",
                               :updated_at => "2018-04-10"
                                 }, self)
@@ -22,4 +22,9 @@ class InvoiceTest < Minitest::Test
   def test_it_retunrs_the_integer_id
     assert_equal 5, invoice.id
   end
+
+  def test_it_returns_a_customer_id
+    assert_equal 6, invoice.customer_id
+  end
+  
 end

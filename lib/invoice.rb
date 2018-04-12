@@ -9,6 +9,7 @@ class Invoice
 
   def initialize(data, parent)
     @id = data[:id].to_i
+    @customer_id = data[:customer_id].to_i
   end
 
 end
