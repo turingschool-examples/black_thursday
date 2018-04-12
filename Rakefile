@@ -1,3 +1,9 @@
+my_files = FileList['test/**/*.rb']
+runner = FileList['lib/runner.rb']
+my_files.each do |file|
+  ruby file
+end
+
 namespace :sanitation do
   desc "Check line lengths & whitespace with Cane"
   task :lines do
@@ -20,3 +26,5 @@ namespace :sanitation do
   desc "Check both line length and method length"
   task :all => [:lines, :methods]
 end
+
+task default: :test
