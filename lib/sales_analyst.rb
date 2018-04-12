@@ -180,9 +180,6 @@ class SalesAnalyst
     transactions1.any? { |transaction| transaction.result == 'success' }
   end
 # Justine start work on iteration 4
-  # def all_transactions
-  #   @sales_engine.transactions.all
-  # end
 
   def transactions_by_date(date)
     date1 = date.to_date
