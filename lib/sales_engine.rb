@@ -15,10 +15,10 @@ class SalesEngine
   end
 
   def item_repo
-    @item_repo ||= ItemRepo.new(LoadFile.load(path[:items]), self)
+    @item_repo ||= ItemRepo.new(LoadFile.load(path[:item_data]), self)
   end
 
   def merchant_repo
-    @merchant_repo ||= MerchantRepo.new(LoadFile.load(path[:merchants]), self)
+    @merchant_repo ||= MerchantRepo.new(LoadFile.load(path[:merchant_data]), self)
   end
 end

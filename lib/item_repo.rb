@@ -3,7 +3,7 @@ require_relative '../lib/load_file'
 class ItemRepo
   attr_reader :items,
               :contents,
-              :parent,
+              :parent
 
     def initialize(data, parent)
         @items = data.map {|row| Item.new(row, self)}

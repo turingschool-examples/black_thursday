@@ -10,22 +10,20 @@ class SalesEngineTest < Minitest::Test
   def setup
     item_path = "./test/fixture_data/item_repo_fixture.csv"
     merchant_path = "./test/fixture_data/merchant_repo_fixture.csv"
-    path = {items: item_path, merchants: merchant_path}
+    path = {item_data: item_path, merchant_data: merchant_path}
 
     @sales_engine = SalesEngine.from_csv(path)
   end
 
   def test_it_exists
     assert_instance_of SalesEngine, sales_engine
-    binding.pry
-    merchants = sales_engine.merchants
   end
 
   def test_access_to_merchants
-    assert_instance_of MerchantRepo, sales_engine.merchants
+    assert_instance_of MerchantRepo, sales_engine.merchant_repo
   end
 
-  def test_access_to_itmes
-    assert_instance_of ItemRepo, sales_engine.items
+  def test_access_to_items
+    assert_instance_of ItemRepo, sales_engine.item_repo
   end
 end
