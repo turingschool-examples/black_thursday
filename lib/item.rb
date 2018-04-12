@@ -44,4 +44,8 @@ class Item
   def change_unit_price(unit_price)
     @unit_price = unit_price
   end
+
+  def merchant
+    @parent.pass_merchant_id_to_sales_engine(@merchan_id)
+  end
 end

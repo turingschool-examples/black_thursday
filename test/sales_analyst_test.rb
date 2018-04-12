@@ -11,6 +11,7 @@ class SalesAnalystTest < Minitest::Test
   def setup
     @se = SalesEngine.from_csv
     @sa = SalesAnalyst.new(@se)
+    # binding.pry
   end
 
   def test_it_exists
@@ -28,9 +29,16 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_merchants_with_high_item_count
-    high_item_count = @sa.merchants_with_high_item_count
+    high_item_merchants = @sa.merchants_with_high_item_count
 
-    assert_instance_of Array, high_item_count
-    assert_instance_of Merchant, high_item_count[0]
+    assert_instance_of Array, high_item_merchants
+    assert_instance_of Merchant, high_item_merchants[0]
+    assert_equal 52, high_item_merchants.count
+  end
+
+  def test_average_item_price_for_merchant
+    actual = @sa.average_item_price_for_merchant(12334105)
+    assert_instance_of BigDecimal, actual
+    assert_equal 16.66, actual.to_f
   end
 end

@@ -3,6 +3,7 @@ class SalesAnalyst
 
   def initialize(engine)
     @engine = engine
+    # binding.pry
   end
 
   def merchants
@@ -14,14 +15,14 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    (total_items_per_merchant.reduce(:+) / total_merchants.to_f).round(2)
+    (total_number_of_merchants.reduce(:+) / total_merchants.to_f).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
-    @result ||= total_items_per_merchant.map do |items|
+    @result ||= total_number_of_merchants.map do |items|
       (items - average_items_per_merchant) ** 2
     end
-    calculated = @result.reduce(:+).to_f / (total_items_per_merchant.length - 1)
+    calculated = @result.reduce(:+).to_f / (total_number_of_merchants.length - 1)
     Math.sqrt(calculated).round(2)
   end
 
@@ -40,15 +41,26 @@ class SalesAnalyst
     end.compact
   end
 
+  def average_item_price_for_merchant(id)
+    merchants_items = items.map do |item|
+      item if item.merchant_id == (id)
+    end.compact
+    binding.pry
+    averages = merchants_items.map do |item|
+      item.unit_price
+    end.reduce(:+) / merchants_items.length
+    averages.round(2)
+  end
+
   private
 
-  def total_items_per_merchant
+  def total_number_of_merchants
     @total ||= merchants.map do |merchant|
       @engine.items.find_all_by_merchant_id(merchant.id).count
     end
   end
 
   def total_merchants
-    @engine.merchants.all.length
+    merchants.length
   end
 end

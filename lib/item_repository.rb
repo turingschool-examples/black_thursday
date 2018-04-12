@@ -57,4 +57,8 @@ class ItemRepository < BaseRepository
     to_update.change_updated_at
     to_update.change_unit_price(attributes[:unit_price])
   end
+
+  def pass_merchant_id_to_merchant_repo(merchant_id)
+    @parent.pass_merchant_id_to_merchant_repo(merchant_id)
+  end
 end
