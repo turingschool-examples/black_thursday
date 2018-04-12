@@ -29,12 +29,19 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_items_per_merchant
+    result = @sales_analyst.items_per_merchant
+    assert(result.all? { |id, items| items.class == Array })
+    assert_instance_of Item, result.values[0][0]
+    assert_instance_of Item, result.values[-1][-1]
+  end
+
+  def test_number_of_items_per_merchant
     expected = { 12334185 => 3,
                  12334213 => 2,
                  12334195 => 7,
                  12334315 => 1,
                  12334499 => 1 }
-    assert_equal expected, @sales_analyst.items_per_merchant
+    assert_equal expected, @sales_analyst.number_of_items_per_merchant
   end
 
   def test_merchants_with_high_item_count
@@ -146,6 +153,7 @@ class SalesAnalystTest < Minitest::Test
     )
     sales_analyst = sales_engine.analyst
     result = sales_analyst.average_invoices_per_day_standard_deviation
+    # Incomplete test
   end
 
   # def test_top_days_by_invoice_count

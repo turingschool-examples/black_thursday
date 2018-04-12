@@ -1,53 +1,51 @@
 require 'date'
+require_relative 'analyzer'
 # Sales Analyst class for analyzing data
 class SalesAnalyst
+  include Analyzer
+  
   attr_reader :engine
   def initialize(sales_engine)
     @engine = sales_engine
   end
 
   def average_items_per_merchant
-    merch_count = @engine.merchants.all.count
-    item_count = @engine.items.all.count
-    (BigDecimal(item_count) / BigDecimal(merch_count)).round(2).to_f
+    number_of_merchants = @engine.merchants.all.count
+    number_of_items = @engine.items.all.count
+    average(number_of_items, number_of_merchants)
   end
 
+  # Needs a test
   def items_per_merchant
-    items_by_merch = @engine.items.all.group_by(&:merchant_id)
+    @engine.items.all.group_by(&:merchant_id)
+  end
 
-    items_by_merch.each_key do |key|
-      items_by_merch[key] = items_by_merch[key].length
+  def number_of_items_per_merchant
+    number_of_items_per_merchant = items_per_merchant
+    number_of_items_per_merchant.each do |id, items|
+      number_of_items_per_merchant[id] = items.length
     end
+    number_of_items_per_merchant
   end
 
   def average_items_per_merchant_standard_deviation
-    ipm = items_per_merchant.values.sort
-    array = ipm.map do |items_per_merch|
-      (items_per_merch - average_items_per_merchant)**2
-    end
-
-    variance = array.inject(0) do |sum, num|
-      sum + num
-    end
-
-    std_dev = variance / (array.count - 1)
-    Math.sqrt(std_dev).to_f.round(2)
+    standard_deviation(number_of_items_per_merchant.values, average_items_per_merchant)
   end
 
   def merchants_with_high_item_count
     std_dev = average_items_per_merchant_standard_deviation
     avg = average_items_per_merchant
-    items_per_merchant.map do |id, num_of_items|
+    number_of_items_per_merchant.map do |id, num_of_items|
       @engine.merchants.find_by_id(id) if num_of_items >= avg + std_dev
     end.compact
   end
 
   def average_item_price_for_merchant(merchant_id)
-    total = items_per_merchant[merchant_id]
-    items_by_merch = @engine.items.all.group_by(&:merchant_id)
-    sum_of_prices = items_by_merch[merchant_id].inject(0) do |sum, item|
+    total = number_of_items_per_merchant[merchant_id]
+    sum_of_prices = items_per_merchant[merchant_id].inject(0) do |sum, item|
       sum + item.unit_price
     end
+    # require 'pry';binding.pry
     (sum_of_prices / total).round(2)
   end
 
