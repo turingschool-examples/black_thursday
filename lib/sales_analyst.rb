@@ -180,13 +180,9 @@ class SalesAnalyst
     transactions1.any? { |transaction| transaction.result == 'success' }
   end
 # Justine start work on iteration 4
-  def all_transactions
-    @sales_engine.transactions.all
-  end
 
   def transactions_by_date(date)
     date1 = date.to_date
-    transactions = @sales_engine.transactions.all
     transactions = @sales_engine.transactions.all
     dated = transactions.find_all do |transaction|
       transaction.created_at.to_date == date1
@@ -204,8 +200,30 @@ class SalesAnalyst
     matches = dated & successful_transactions
   end
 
-  # def total_revenue_by_date(date)
-  # end
+  def ids_of_successful_invoices_by_date(matches)
+    matches.map do |transaction|
+      transaction.invoice_id
+    end.uniq
+  end
 
+  def successful_dated_invoice_ids(ids)
+    ids.map { |id| @sales_engine.invoice_items.find_all_by_invoice_id(id) }
+  end
+
+  def quantity_by_unit_price(invoice_items)
+    result = invoice_items.map do |invoice_item|
+      quantity = invoice_item.quantity.to_s
+      unit_price = invoice_item.unit_price.to_s
+      quantity.to_f * unit_price.to_f
+    end
+    result.reduce(:+)
+  end
+
+  def total_revenue_by_date(date)
+    invoices = successful_invoices_by_date(date)
+    ids = ids_of_successful_invoices_by_date(invoices).uniq
+    invoice_items = successful_dated_invoice_ids(ids).flatten
+    quantity_by_unit_price(invoice_items)
+  end
 #Justine end work on iteration 4
 end
