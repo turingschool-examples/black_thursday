@@ -64,7 +64,7 @@ class InvoiceRepository
     return nil if find_by_id(id).nil?
     to_update = find_by_id(id)
     to_update.update_updated_time
-    to_update.update_status(attributes[:status].to_sym) if attributes.keys.include?(:status)
+    to_update.update_status(attributes[:status].to_sym) if attributes[:status]
   end
 
   def delete(id)

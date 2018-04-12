@@ -1,5 +1,4 @@
 require 'time'
-
 class Invoice
   attr_reader :id,
               :customer_id,
@@ -63,11 +62,8 @@ class Invoice
   end
 
   def total
-    if is_paid_in_full?
-      @invoice_repo.sales_engine.invoice_items.find_all_by_invoice_id(id).reduce(0) do |sum, invoice_item|
-        sum + (invoice_item.quantity * invoice_item.unit_price)
-      end
-    else
+    @invoice_repo.sales_engine.invoice_items.find_all_by_invoice_id(id).reduce(0) do |sum, invoice_item|
+      sum + (invoice_item.quantity * invoice_item.unit_price) if is_paid_in_full?
     end
   end
 end

@@ -63,10 +63,10 @@ class TransactionRepository
   def update(id, attributes)
     to_update = find_by_id(id)
     to_update.update_updated_at
-    to_update.update_invoice_id(attributes[:invoice_id]) if attributes.keys.include?(:invoice_id)
-    to_update.update_credit_card_number(attributes[:credit_card_number]) if attributes.keys.include?(:credit_card_number)
-    to_update.update_credit_card_expiration_date(attributes[:credit_card_expiration_date]) if attributes.keys.include?(:credit_card_expiration_date)
-    to_update.update_result(attributes[:result]) if attributes.keys.include?(:result)
+    to_update.update_invoice_id(attributes[:invoice_id]) if attributes[:invoice_id]
+    to_update.update_credit_card_number(attributes[:credit_card_number]) if attributes[:credit_card_number]
+    to_update.update_credit_card_expiration_date(attributes[:credit_card_expiration_date]) if attributes[:credit_card_expiration_date]
+    to_update.update_result(attributes[:result]) if attributes[:result]
   end
 
   def delete(id)
@@ -74,6 +74,6 @@ class TransactionRepository
   end
 
   def inspect
-   "#<#{self.class} #{@transactions.size} rows>"
- end
+    "#<#{self.class} #{@transactions.size} rows>"
+  end
 end

@@ -126,7 +126,6 @@ class MerchantRepositoryTest< MiniTest::Test
     merchant_repo.update(12334132, {name: "kingsooper"})
     result = merchant_repo.find_by_id(12334132)
 
-    # assert_equal "2018-04-08", result.updated_at
     assert_equal "kingsooper", result.name
   end
 

@@ -1,6 +1,5 @@
 require 'time'
 require 'bigdecimal'
-
 class Transaction
   attr_reader :id,
               :invoice_id,

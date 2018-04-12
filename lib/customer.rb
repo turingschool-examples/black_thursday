@@ -1,5 +1,4 @@
 require 'time'
-
 class Customer
   attr_reader :id,
               :first_name,
@@ -15,10 +14,6 @@ class Customer
     @created_at = Time.parse(data[:created_at])
     @updated_at = Time.parse(data[:updated_at])
   end
-
-  # def merchant
-  #   invoice_repo.sales_engine.merchants.find_by_id(merchant_id)
-  # end
 
   def update_updated_time
     @updated_time = Time.now.strftime('%F')

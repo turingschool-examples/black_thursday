@@ -31,8 +31,9 @@ class InvoiceItem
   end
 
   def update_updated_at
-    @updated_at = Time.now.to_s
+    @updated_at = Time.now
   end
+
 
   def update_invoice_id(id)
     @invoice_id = id

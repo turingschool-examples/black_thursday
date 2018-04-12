@@ -4,6 +4,7 @@ require 'date'
 require_relative 'customer'
 
 class CustomerRepository
+  include Update
 
   attr_reader :path,
               :customers,
@@ -61,8 +62,8 @@ class CustomerRepository
     return nil if find_by_id(id).nil?
     to_update = find_by_id(id)
     to_update.update_updated_time
-    to_update.update_first_name(attribute[:first_name]) if attribute.keys.include?(:first_name)
-    to_update.update_last_name(attribute[:last_name]) if attribute.keys.include?(:last_name)
+    to_update.update_first_name(attribute[:first_name]) if attribute[:first_name]
+    to_update.update_last_name(attribute[:last_name]) if attribute[:last_name]
   end
 
   def delete(id)
