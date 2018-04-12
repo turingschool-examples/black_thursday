@@ -98,7 +98,7 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_it_can_return_all_transactions
-    expected = @s.transactions
+    expected = @s.all_transactions
 
     assert_equal 13, expected.length
   end
@@ -109,26 +109,17 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal 11, expected.length
   end
 
+  def test_it_can_return_successful_invoices_by_date
+    expected = @s.successful_invoices_by_date(Time.parse("2012-03-27"))
+
+    assert_equal 2, expected.length
+  end
+
   def test_it_can_return_total_revenue_by_date
     skip
     date = Time.parse("2012-03-27")
     assert_equal 3471.59, @s.total_revenue_by_date(date)
   end
-#   def total_revenue_by_date(date)
-#     date1 = date.to_date
-#     successful(by_date(@sales_engine.transations.all, date1))
-#     transactions = @sales_engine.transactions.all
-#     dated = transactions.find_all do |transaction|
-#       transaction.created_at.to_date == date1
-#     end
-#     successes = dated.find_all { |transaction| transaction.result == 'success' }
-#     binding.pry
-#   end
-#   def by_date(list, date)
-#     list.keep_if {|l| date == l.created_at.to_date}
-#   end
-#    def successful(list)
-#      list.keep_if { |l| l.result == "success"}
-#    end
+
 # Justine end work on iteration 4
 end

@@ -180,6 +180,10 @@ class SalesAnalyst
     transactions1.any? { |transaction| transaction.result == 'success' }
   end
 # Justine start work on iteration 4
+  def all_transactions
+    @sales_engine.transactions.all
+  end
+
   def transactions_by_date(date)
     date1 = date.to_date
     transactions = @sales_engine.transactions.all
@@ -190,14 +194,18 @@ class SalesAnalyst
   end
 
   def successful_transactions
-    @sales_engine.transactions.find_all do |transaction|
+    @sales_engine.transactions.all.find_all do |transaction|
       transaction.result == 'success'
     end
   end
 
+  def successful_invoices_by_date(date)
+    dated = transactions_by_date(date)
+    matches = dated & successful_transactions
+  end
+
   # def total_revenue_by_date(date)
-  #
-  #   binding.pry
   # end
+
 #Justine end work on iteration 4
 end
