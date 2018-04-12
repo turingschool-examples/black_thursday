@@ -118,9 +118,8 @@ class SalesAnalystTest < MiniTest::Test
 
   def test_it_can_multiply_quantity_and_unit_price
     invoice_items = @s.successful_invoices_by_date(Time.parse("2012-03-27"))
-    expected = quantity_by_unit_price(invoice_items)
 
-    assert_equal
+    assert_equal 3472.49, @s.quantity_by_unit_price(invoice_items)
   end
 
   # def test_it_returns_successful_invoices_by_date_ids

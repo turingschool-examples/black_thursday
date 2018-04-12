@@ -204,7 +204,7 @@ class SalesAnalyst
     matches = dated & successful_transactions
     ids = successful_invoices_by_date_ids(matches).uniq
     invoice_items = successful_dated_invoice_ids(ids).flatten
-    # binding.pry
+    result = quantity_by_unit_price(invoice_items)
   end
 
   def successful_invoices_by_date_ids(matches)
@@ -215,6 +215,15 @@ class SalesAnalyst
 
   def successful_dated_invoice_ids(ids)
     ids.map { |id| @sales_engine.invoice_items.find_all_by_invoice_id(id) }
+  end
+
+  def quantity_by_unit_price(invoice_items)
+    result = invoice_items.map do |invoice_item|
+      quantity = invoice_item.quantity
+      unit_price = invoice_item.unit_price
+      quantity * unit_price
+    end
+    result.reduce
   end
 
   def total_revenue_by_date(date)
