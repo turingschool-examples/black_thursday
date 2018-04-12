@@ -59,6 +59,7 @@ class SalesAnalyst
     to_average.round(2)
   end
 
+
   private
 
   def total_number_of_items_per_merchant
