@@ -53,10 +53,9 @@ class InvoiceItemRepository
 
   def group_by_number_of_items
     @repository.map do |invoice_item|
-      [invoice_item.id, invoice_item.quantity]
-    end.to_h
+      [invoice_item.invoice_id, invoice_item.quantity]
+    end
   end
-
 
   def delete(id)
     item_to_delete = find_by_id(id)

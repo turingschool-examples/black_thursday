@@ -76,6 +76,6 @@ class Invoice
     all_items = @parent.find_all_invoice_items_by_invoice_id(id)
     all_items.map do |invoice_item|
       invoice_item.quantity * invoice_item.unit_price
-    end.inject(:+).to_f.round(2)
+    end.inject(:+)
   end
 end

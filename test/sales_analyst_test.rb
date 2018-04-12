@@ -42,10 +42,18 @@ class SalesAnalystTest < MiniTest::Test
     assert_equal expected, actual
   end
 
+  def test_it_returns_a_list_of_items_per_merchant
+    expected = 25
+    actual = @s.list_of_number_of_items_per_merchant[4]
+
+    assert_equal expected, actual
+  end
+
+
   # Need to create mocks for testing
   def test_it_can_calculate_merchants_with_high_item_counts
-    actual = @s.merchants_with_high_item_count.first.name
     expected = 'Keckenbauer'
+    actual = @s.merchants_with_high_item_count.first.name
     assert_equal expected, actual
   end
 
@@ -96,10 +104,9 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_invoices_can_return_successful_transactions
-    skip
-    expected = ''
+    expected = true
     invoice = @se.invoices.find_by_id(14)
-    actual = invoice.successful?
+    actual = invoice.is_paid_in_full?
 
     assert_equal expected, actual
   end

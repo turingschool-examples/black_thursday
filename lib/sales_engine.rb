@@ -52,6 +52,7 @@ class SalesEngine
 
   def invoices
     @invoices ||= InvoiceRepository.new(load_file(load_path[:invoices]), self)
+    require "pry"; binding.pry
   end
 
   def transactions

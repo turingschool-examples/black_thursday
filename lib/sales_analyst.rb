@@ -141,43 +141,45 @@ class SalesAnalyst
     group.each { |key, value| group[key] = value.length }
   end
 
-  # def one_time_buyers
-  #   @sales_engine.customers.all.map do |customer|
-  #     next if customer.fully_paid_invoices.nil?
-  #     customer if customer.fully_paid_invoices.length == 1
-  #   end
-  #   require "pry"; binding.pry
-    # all_customer_ids = @sales_engine.invoices.map(&:customer_id)
-    # group = all_customer_ids.group_by { |customer_id| customer_id }
-    # single_invoice_customer_ids = group.keep_if { |_, value| value.length == 1 }
-    # single_invoice_customer_ids.keys.map do |id|
-    #   @sales_engine.customers.find_by_id(id)
-    # end
-  # end
+  def one_time_buyers
+    @sales_engine.customers.all.map do |customer|
+      next if customer.fully_paid_invoices.nil?
+      customer if customer.fully_paid_invoices.length == 1
+    end
+    all_customer_ids = @sales_engine.invoices.map(&:customer_id)
+    group = all_customer_ids.group_by { |customer_id| customer_id }
+    single_invoice_customer_ids = group.keep_if { |_, value| value.length == 1 }
+    single_invoice_customer_ids.keys.map do |id|
+      @sales_engine.customers.find_by_id(id)
+    end
+  end
 
   def one_time_buyers_top_item
   end
 
-  # def top_buyers(num_of_customers = 20)
-  #   top_customers = @sales_engine.customers.top_spenders
-  #   sorted_customers = top_customers.sort_by { |_, value| value || 0 }.reverse
-  #   customer_array = []
-  #   sorted_customers.each { |customer| customer_array << customer[0] }
-  #   customer_array.take(num_of_customers)
-  # end
+  def top_buyers(num_of_customers = 20)
+    top_customers = @sales_engine.customers.top_spenders
+    sorted_customers = top_customers.sort_by { |_, value| value || 0 }.reverse
+    customer_array = []
+    sorted_customers.each { |customer| customer_array << customer[0] }
+    customer_array.take(num_of_customers)
+  end
+
+  def invoices_by_customer_id(customer_id)
+    @sales_engine.invoices.find_all_by_customer_id(customer_id)
+  end
 
   def top_merchant_for_customer(customer_id)
-    invoices = @sales_engine.invoices.find_all_by_customer_id(customer_id)
-    invoice_hashes = invoices.map do |invoice|
-      @sales_engine.invoice_items.group_by_number_of_items.select do |key, _|
-        key == invoice.id
+    invoice_totals = invoices_by_customer_id(customer_id).map do |invoice|
+      storage = []
+      @sales_engine.invoice_items.group_by_number_of_items.each do |element|
+        storage << element [1] if element[0] == invoice.id
       end
-    end
-    invoice_hashes.sort! { |first, second| first.values <=> second.values }
-    top_invoice = invoices.find do |invoice|
-      invoice.id == invoice_hashes.last.keys[0]
-    end
-    @sales_engine.merchants.find_by_id(top_invoice.merchant_id)
+      [invoice.id, storage.inject(:+)]
+    end.sort_by(&:last).reverse
+    top_invoice_id = invoice_totals.first.first
+    merchant_id = @sales_engine.invoices.find_by_id(top_invoice_id).merchant_id
+    @sales_engine.merchants.find_by_id(merchant_id)
   end
 
   def invoice_total(invoice_id)
@@ -192,8 +194,10 @@ class SalesAnalyst
   end
 
   def best_invoice_by_quantity
-    sorted_items_list = @sales_engine.invoices.all.map do |invoice|
-      [invoice, invoice.invoice_items.map(&:quantity).inject(:+)]
-    end.sort.reverse
+    x = @sales_engine.invoices.all.map do |invoice|
+      if invoice.is_paid_in_full?
+        [invoice, invoice.invoice_items.map(&:quantity).inject(:+)]
+      end
+    end.sort_by { |_, value| value || 0 }.reverse
   end
 end
