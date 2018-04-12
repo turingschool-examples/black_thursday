@@ -46,7 +46,7 @@ class ItemRepository < BaseRepository
     attributes[:id] = create_new_id
     attributes[:created_at] = Time.now.to_s
     attributes[:updated_at] = Time.now.to_s
-    items << Item.new(attributes)
+    items << Item.new(attributes, 'parent')
   end
 
   def update(id, attributes)

@@ -26,4 +26,11 @@ class SalesAnalystTest < Minitest::Test
     actual = @sa.average_items_per_merchant_standard_deviation
     assert_equal 3.26, actual
   end
+
+  def test_merchants_with_high_item_count
+    high_item_count = @sa.merchants_with_high_item_count
+
+    assert_instance_of Array, high_item_count
+    assert_instance_of Merchant, high_item_count[0]
+  end
 end

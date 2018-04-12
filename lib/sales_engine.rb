@@ -47,4 +47,8 @@ class SalesEngine
   def data_for(type)
     CSV.read(path.fetch(type), headers: true, header_converters: :symbol)
   end
+
+  def pass_item_id_to_item_repo(id)
+    @items.find_all_by_merchant_id(id)
+  end
 end

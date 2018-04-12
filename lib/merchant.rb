@@ -20,4 +20,8 @@ class Merchant
   def change_updated_at
     @updated_at = Time.now
   end
+
+  def items
+    @parent.pass_item_id_to_sales_engine(@id)
+  end
 end
