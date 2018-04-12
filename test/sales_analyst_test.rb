@@ -121,6 +121,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_bottom_merchants_by_invoice_count
+    skip
     sales_engine = SalesEngine.from_csv(
       invoices: './test/fixtures/test_invoices2_b.csv',
       items: './test/fixtures/test_items1.csv',

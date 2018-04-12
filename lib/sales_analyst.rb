@@ -109,11 +109,23 @@ class SalesAnalyst
   end
 
   def top_merchants_by_invoice_count
-    1
-    # invoices_per_merchant = {}
-    # @invoice_repo.all.each do |invoice|
-    #   invoices_per_merchant[invoice.merchant_id] = invoice_count(invoice.merchant_id)
-    # end
+    invoices_per_merchant = {}
+    @invoice_repo.all.each do |invoice|
+      if invoices_per_merchant[invoice_count(invoice.merchant_id)]
+        invoices_per_merchant[invoice_count(invoice.merchant_id)] << invoice.merchant_id
+      else
+        invoices_per_merchant[invoice_count(invoice.merchant_id)] = [] << invoice.merchant_id
+      end
+    end
+    top_merchants = invoices_per_merchant.find_all do |count, id|
+      id if count >= average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation*2)
+    end
+    binding.pry
+
+    top_merchants.map do |merchant|
+      @merchant_repo.find_by_id(merchant[0])
+    end
+
     # top = invoices_per_merchant.map do |id, count|
     #   if count >= average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2)
     #     @merchant_repo.find_by_id(id)
