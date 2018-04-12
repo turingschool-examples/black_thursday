@@ -97,6 +97,8 @@ module Repository
     element.attributes[:credit_card_number] = attributes[:credit_card_number] if attributes[:credit_card_number]
     element.attributes[:credit_card_expiration_date] = attributes[:credit_card_expiration_date] if attributes[:credit_card_expiration_date]
     element.attributes[:result] = attributes[:result] if attributes[:result]
+    element.attributes[:first_name] = attributes[:first_name] if attributes[:first_name]
+    element.attributes[:last_name] = attributes[:last_name] if attributes[:last_name]
   end
 
   def delete(id)
@@ -129,13 +131,13 @@ module Repository
 
   def find_all_by_first_name(first_name)
     all.find_all do |element|
-      element.first_name == first_name
+      element.first_name.downcase.include?(first_name.downcase)
     end
   end
 
   def find_all_by_last_name(last_name)
     all.find_all do |element|
-      element.last_name == last_name
+      element.last_name.downcase.include?(last_name.downcase)
     end
   end
 end

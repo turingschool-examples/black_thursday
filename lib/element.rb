@@ -75,7 +75,7 @@ module Element
   end
 
   def credit_card_number
-    @attributes[:credit_card_number]
+    @attributes[:credit_card_number].to_i
   end
 
   def credit_card_expiration_date

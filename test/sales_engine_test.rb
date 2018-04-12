@@ -20,6 +20,7 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of InvoiceItemRepository, @se.invoice_items
     assert_instance_of TransactionRepository, @se.transactions
     assert_instance_of SalesEngine, @se
+    assert_instance_of CustomerRepository, @se.customers
   end
 
   def test_it_returns_a_sales_analyst
