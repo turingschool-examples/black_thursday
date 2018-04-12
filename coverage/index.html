@@ -14,7 +14,7 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2018-04-11T15:26:12-06:00">2018-04-11T15:26:12-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2018-04-12T11:41:41-06:00">2018-04-12T11:41:41-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -33,8 +33,8 @@
   <a name="AllFiles"></a>
   <div>
     <b>3</b> files in total.
-    <b>51</b> relevant lines. 
-    <span class="green"><b>51</b> lines covered</span> and
+    <b>21</b> relevant lines. 
+    <span class="green"><b>21</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed </span>
 
   </div>
@@ -53,33 +53,33 @@
     <tbody>
       
       <tr>
+        <td class="strong"><a href="#0c2637dc3601f662aafcf3ebc7b09f5433bed603" class="src_link" title="lib/invoice.rb">lib/invoice.rb</a></td>
+        <td class="green strong">100.0 %</td>
+        <td>17</td>
+        <td>8</td>
+        <td>8</td>
+        <td>0</td>
+        <td>6.6</td>
+      </tr>
+      
+      <tr>
+        <td class="strong"><a href="#2fd62eccfbc8c4a5e11a640e8aad1390079a8f4c" class="src_link" title="lib/invoice_repo.rb">lib/invoice_repo.rb</a></td>
+        <td class="green strong">100.0 %</td>
+        <td>15</td>
+        <td>9</td>
+        <td>9</td>
+        <td>0</td>
+        <td>2.1</td>
+      </tr>
+      
+      <tr>
         <td class="strong"><a href="#86beee019b9f0b5449320d8ce1dbacc431116efa" class="src_link" title="lib/load_file.rb">lib/load_file.rb</a></td>
         <td class="green strong">100.0 %</td>
         <td>7</td>
         <td>4</td>
         <td>4</td>
         <td>0</td>
-        <td>3.5</td>
-      </tr>
-      
-      <tr>
-        <td class="strong"><a href="#1fe066023481f4288d43f6fbfbec3838fdbaa058" class="src_link" title="lib/merchant.rb">lib/merchant.rb</a></td>
-        <td class="green strong">100.0 %</td>
-        <td>12</td>
-        <td>9</td>
-        <td>9</td>
-        <td>0</td>
-        <td>44.9</td>
-      </tr>
-      
-      <tr>
-        <td class="strong"><a href="#d76c66d2769b01ddf69118d277e55168831f255e" class="src_link" title="lib/merchant_repo.rb">lib/merchant_repo.rb</a></td>
-        <td class="green strong">100.0 %</td>
-        <td>68</td>
-        <td>38</td>
-        <td>38</td>
-        <td>0</td>
-        <td>6.2</td>
+        <td>1.0</td>
       </tr>
       
       <tr>
@@ -128,13 +128,13 @@
     
       <div class="source_files">
       
-        <div class="source_table" id="86beee019b9f0b5449320d8ce1dbacc431116efa">
+        <div class="source_table" id="0c2637dc3601f662aafcf3ebc7b09f5433bed603">
   <div class="header">
-    <h3>lib/load_file.rb</h3>
+    <h3>lib/invoice.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>4</b> relevant lines. 
-      <span class="green"><b>4</b> lines covered</span> and
+      <b>8</b> relevant lines. 
+      <span class="green"><b>8</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -145,89 +145,58 @@
         <li class="covered" data-hits="1" data-linenumber="1">
           <span class="hits">1</span>
           
-          <code class="ruby">require &#39;csv&#39;</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="2">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="3">
-          <span class="hits">1</span>
-          
-          <code class="ruby">class LoadFile</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="4">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  def self.load(file_name)</code>
-        </li>
-      
-        <li class="covered" data-hits="11" data-linenumber="5">
-          <span class="hits">11</span>
-          
-          <code class="ruby">    CSV.open file_name, headers: true, header_converters: :symbol</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="6">
-          
-          
-          <code class="ruby">  end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="7">
-          
-          
-          <code class="ruby">end</code>
-        </li>
-      
-    </ol>
-  </pre>
-</div>
-
-      
-        <div class="source_table" id="1fe066023481f4288d43f6fbfbec3838fdbaa058">
-  <div class="header">
-    <h3>lib/merchant.rb</h3>
-    <h4><span class="green">100.0 %</span> covered</h4>
-    <div>
-      <b>9</b> relevant lines. 
-      <span class="green"><b>9</b> lines covered</span> and
-      <span class="red"><b>0</b> lines missed.</span>
-    </div>
-  </div>
-  
-  <pre>
-    <ol>
-      
-        <li class="covered" data-hits="1" data-linenumber="1">
-          <span class="hits">1</span>
-          
-          <code class="ruby">class Merchant</code>
+          <code class="ruby">class Invoice</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="2">
           <span class="hits">1</span>
           
-          <code class="ruby">  attr_reader :id, :parent</code>
+          <code class="ruby">  attr_reader :id,</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="3">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="3">
           
-          <code class="ruby">  attr_accessor :name, :created_at, :updated_at</code>
+          
+          <code class="ruby">              :customer_id,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="4">
           
           
+          <code class="ruby">              :merchant_id,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="5">
+          
+          
+          <code class="ruby">              :status,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="6">
+          
+          
+          <code class="ruby">              :created_at,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="7">
+          
+          
+          <code class="ruby">              :updated_at,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="8">
+          
+          
+          <code class="ruby">              :parent</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="9">
+          
+          
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="5">
+        <li class="covered" data-hits="1" data-linenumber="10">
           <span class="hits">1</span>
           
 
@@ -238,40 +207,40 @@
           <span class="hits">80</span>
 
           
-          <code class="ruby">    @id = params[:id].to_i</code>
+          <code class="ruby">    @id = data[:id].to_i</code>
         </li>
       
-        <li class="covered" data-hits="80" data-linenumber="7">
-          <span class="hits">80</span>
+        <li class="covered" data-hits="10" data-linenumber="12">
+          <span class="hits">10</span>
           
-          <code class="ruby">    @name = params[:name]</code>
+          <code class="ruby">    @customer_id = data[:customer_id].to_i</code>
         </li>
       
-        <li class="covered" data-hits="80" data-linenumber="8">
-          <span class="hits">80</span>
+        <li class="covered" data-hits="10" data-linenumber="13">
+          <span class="hits">10</span>
           
-          <code class="ruby">    @created_at = params[:created_at]</code>
+          <code class="ruby">    @status = data[:status]</code>
         </li>
       
-        <li class="covered" data-hits="80" data-linenumber="9">
-          <span class="hits">80</span>
+        <li class="covered" data-hits="10" data-linenumber="14">
+          <span class="hits">10</span>
           
-          <code class="ruby">    @updated_at = params[:updated_at]</code>
+          <code class="ruby">    @created_at = data[:created_at]</code>
         </li>
       
-        <li class="covered" data-hits="80" data-linenumber="10">
-          <span class="hits">80</span>
+        <li class="covered" data-hits="10" data-linenumber="15">
+          <span class="hits">10</span>
           
-          <code class="ruby">    @parent = parent</code>
+          <code class="ruby">    @updated_at =  data[:updated_at]</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="11">
+        <li class="never" data-hits="" data-linenumber="16">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="12">
+        <li class="never" data-hits="" data-linenumber="17">
           
           
           <code class="ruby">end</code>
@@ -282,14 +251,14 @@
 </div>
 
       
-        <div class="source_table" id="d76c66d2769b01ddf69118d277e55168831f255e">
+        <div class="source_table" id="2fd62eccfbc8c4a5e11a640e8aad1390079a8f4c">
   <div class="header">
 
     <h3>lib/merchant_repo.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>38</b> relevant lines. 
-      <span class="green"><b>38</b> lines covered</span> and
+      <b>9</b> relevant lines. 
+      <span class="green"><b>9</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
 
     </div>
@@ -298,34 +267,34 @@
   <pre>
     <ol>
       
-        <li class="covered" data-hits="1" data-linenumber="1">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="1">
           
-          <code class="ruby">require &#39;csv&#39;</code>
+          
+          <code class="ruby"></code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="2">
           <span class="hits">1</span>
           
-          <code class="ruby">require &#39;time&#39;</code>
+          <code class="ruby">require &#39;csv&#39;</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="3">
           <span class="hits">1</span>
           
-          <code class="ruby">require_relative &#39;merchant&#39;</code>
+          <code class="ruby">require &#39;time&#39;</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="4">
           <span class="hits">1</span>
           
-          <code class="ruby">require_relative &#39;../lib/load_file&#39;</code>
+          <code class="ruby">require_relative &#39;invoice&#39;</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="5">
+        <li class="covered" data-hits="1" data-linenumber="5">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby"></code>
+          <code class="ruby">require_relative &#39;../lib/load_file&#39;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="6">
@@ -337,7 +306,7 @@
         <li class="covered" data-hits="1" data-linenumber="7">
           <span class="hits">1</span>
           
-          <code class="ruby">class MerchantRepo</code>
+          <code class="ruby">class InvoiceRepo</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="8">
@@ -364,14 +333,14 @@
           <code class="ruby">  def initialize(data, parent)</code>
         </li>
       
-        <li class="covered" data-hits="88" data-linenumber="12">
-          <span class="hits">88</span>
+        <li class="covered" data-hits="11" data-linenumber="12">
+          <span class="hits">11</span>
           
-          <code class="ruby">    @repository = data.map {|row| Merchant.new(row, self)}</code>
+          <code class="ruby">    @repository = data.map {|row| Invoice.new(row, self)}</code>
         </li>
       
-        <li class="covered" data-hits="11" data-linenumber="13">
-          <span class="hits">11</span>
+        <li class="covered" data-hits="1" data-linenumber="13">
+          <span class="hits">1</span>
           
           <code class="ruby">    @parent = parent</code>
         </li>
@@ -638,67 +607,62 @@
           <code class="ruby">      return nil</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="58">
-          
-          
-          <code class="ruby">    else</code>
-        </li>
+    </ol>
+  </pre>
+</div>
+
       
-        <li class="covered" data-hits="1" data-linenumber="59">
+        <div class="source_table" id="86beee019b9f0b5449320d8ce1dbacc431116efa">
+  <div class="header">
+    <h3>lib/load_file.rb</h3>
+    <h4><span class="green">100.0 %</span> covered</h4>
+    <div>
+      <b>4</b> relevant lines. 
+      <span class="green"><b>4</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
+    </div>
+  </div>
+  
+  <pre>
+    <ol>
+      
+        <li class="covered" data-hits="1" data-linenumber="1">
           <span class="hits">1</span>
           
-          <code class="ruby">      merchant.name = attrs[:name]</code>
+          <code class="ruby">require &#39;csv&#39;</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="60">
-          <span class="hits">1</span>
-          
-          <code class="ruby">      merchant.updated_at = Time.now.strftime(&quot;%Y-%m-%d&quot;)</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="61">
-          
-          
-          <code class="ruby">    end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="62">
-          
-          
-          <code class="ruby">  end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="63">
+        <li class="never" data-hits="" data-linenumber="2">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="64">
+        <li class="covered" data-hits="1" data-linenumber="3">
           <span class="hits">1</span>
           
-          <code class="ruby">  def delete(id)</code>
+          <code class="ruby">class LoadFile</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="65">
+        <li class="covered" data-hits="1" data-linenumber="4">
           <span class="hits">1</span>
           
-          <code class="ruby">    merchant = find_by_id(id)</code>
+          <code class="ruby">  def self.load(file_name)</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="66">
+        <li class="covered" data-hits="1" data-linenumber="5">
           <span class="hits">1</span>
           
-          <code class="ruby">    all.delete(merchant)</code>
+          <code class="ruby">    CSV.open file_name, headers: true, header_converters: :symbol</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="67">
+        <li class="never" data-hits="" data-linenumber="6">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="68">
+        <li class="never" data-hits="" data-linenumber="7">
           
           
           <code class="ruby">end</code>

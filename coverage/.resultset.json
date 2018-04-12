@@ -18,13 +18,7 @@
         1,
 
         1,
-        null,
-        null,
         1,
-        88,
-        11,
-        null,
-        null,
         1,
         19,
         null,
@@ -45,15 +39,10 @@
         1,
 
         1,
-        7,
-        null,
         null,
         null,
         1,
-        32,
-        4,
-        null,
-        null,
+        11,
         1,
         3,
         3,
@@ -177,11 +166,11 @@
       ],
       "/Users/jlivingston1/Turing/1module/black_thursday_final_project/black_thursday/lib/sales_relationships.rb": [
         1,
-        11,
+        1,
         null,
         null
       ]
     },
-    "timestamp": 1523481972
+    "timestamp": 1523554901
   }
 }
