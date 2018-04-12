@@ -61,9 +61,9 @@ class TransactionRepository
   end
 
   def update(id, attributes)
+    return nil if find_by_id(id).nil?
     to_update = find_by_id(id)
     to_update.update_updated_at
-    to_update.update_invoice_id(attributes[:invoice_id]) if attributes[:invoice_id]
     to_update.update_credit_card_number(attributes[:credit_card_number]) if attributes[:credit_card_number]
     to_update.update_credit_card_expiration_date(attributes[:credit_card_expiration_date]) if attributes[:credit_card_expiration_date]
     to_update.update_result(attributes[:result]) if attributes[:result]

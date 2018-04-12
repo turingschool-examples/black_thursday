@@ -137,13 +137,13 @@ class SalesAnalyst
   end
 
   def invoice_paid_in_full?(invoice_id)
-    @transaction_repo.find_all_by_invoice_id(invoice_id).all? do|transaction|
-      transaction.result == "success"
+    @transaction_repo.find_all_by_invoice_id(invoice_id).any? do |transaction|
+      transaction.result == :success
     end
   end
 
   def invoice_total(invoice_id)
-    @invoice_item_repo.find_all_by_invoice_id(invoice_id).reduce(0) do|sum,invoice_item|
+    @invoice_item_repo.find_all_by_invoice_id(invoice_id).reduce(0) do |sum,invoice_item|
       sum + (invoice_item.quantity * invoice_item.unit_price)
     end
   end

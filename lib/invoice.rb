@@ -57,7 +57,7 @@ class Invoice
   def is_paid_in_full?
     a = @invoice_repo.sales_engine.transactions.find_all_by_invoice_id(id)
     a.any? do |transaction|
-      transaction.result == "success"
+      transaction.result == :success
     end
   end
 

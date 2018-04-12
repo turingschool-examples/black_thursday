@@ -16,7 +16,7 @@ class Customer
   end
 
   def update_updated_time
-    @updated_time = Time.now.strftime('%F')
+    @updated_at = Time.now
   end
 
   def update_first_name(first_name)
