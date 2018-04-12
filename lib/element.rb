@@ -111,13 +111,8 @@ module Element
   end
 
   def customers
-    map = invoices.map do |invoice|
-      if invoice.is_paid_in_full?
+    invoices.map do |invoice|
         @engine.customers.find_by_id(invoice.customer_id)
-      else
-        nil
-      end
-    end.compact
-    # require 'pry'; binding.pry
+    end.uniq
   end
 end
