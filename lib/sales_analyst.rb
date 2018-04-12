@@ -91,7 +91,7 @@ class SalesAnalyst
   def average_invoices_per_day
     average(@invoice_repo.all.count, @invoice_repo.all.map(&:created_at).uniq.count).to_f
   end
-####
+
   def average_invoices_per_day_standard_deviation
     unique_days = @invoice_repo.all.map(&:created_at).uniq
     set = unique_days.map do |date|
@@ -107,7 +107,7 @@ class SalesAnalyst
   def invoice_count_by_created_date(created_date)
     @invoice_repo.find_all_by_created_date(created_date).count
   end
-# ++++++++++++============
+
   def invoices_per_merchant
     @invoice_repo.all.group_by(&:merchant_id)
   end
@@ -160,6 +160,7 @@ class SalesAnalyst
     end
   end
 
+  # Left off here
   def top_days_by_invoice_count
     1
   end

@@ -122,14 +122,14 @@ class SalesAnalystTest < Minitest::Test
 
   def test_bottom_merchants_by_invoice_count
     sales_engine = SalesEngine.from_csv(
-      invoices: './test/fixtures/test_invoices2_b.csv',
+      invoices: './test/fixtures/test_invoices2_c.csv',
       items: './test/fixtures/test_items1.csv',
       merchants: './test/fixtures/test_merchants2.csv'
     )
     sales_analyst = sales_engine.analyst
     result = sales_analyst.bottom_merchants_by_invoice_count
     assert(result.all? { |each_result| each_result.class == Merchant })
-    assert_equal [], result.map(&:id)
+    assert_equal [12335938], result.map(&:id)
   end
 
   def test_average_number_of_invoices_per_day
@@ -203,7 +203,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_average_invoices_per_merchant_minus_two_standard_deviations
     sales_engine = SalesEngine.from_csv(
-      invoices: './test/fixtures/test_invoices2_b.csv',
+      invoices: './test/fixtures/test_invoices2_c.csv',
       items: './test/fixtures/test_items1.csv',
       merchants: './test/fixtures/test_merchants2.csv'
     )
