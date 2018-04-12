@@ -1,5 +1,6 @@
 require 'bigdecimal'
 
+# Analyzer module
 module Analyzer
   def average(sum, total_elements)
     (BigDecimal(sum) / BigDecimal(total_elements)).round(2)

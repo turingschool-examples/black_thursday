@@ -6,7 +6,6 @@ class TransactionRepository < Repository
   attr_reader :transactions
 
   def initialize(csv_parsed_array)
-    csv_parsed_array.shift
     attributes = csv_parsed_array.map do |transaction|
       { id: transaction[0].to_i,
         invoice_id: transaction[1].to_i,
@@ -21,35 +20,34 @@ class TransactionRepository < Repository
   end
 
   def find_all_by_invoice_id(invoice_id)
-    @transactions.values.map do |transaction|
-      transaction if transaction.invoice_id == invoice_id
-    end.compact
+    @transactions.values.find_all do |transaction|
+      transaction.invoice_id == invoice_id
+    end
   end
 
   def find_all_by_credit_card_number(credit_card_number)
-    @transactions.values.map do |transaction|
-      transaction if transaction.credit_card_number == credit_card_number
-    end.compact
+    @transactions.values.find_all do |transaction|
+      transaction.credit_card_number == credit_card_number
+    end
   end
 
   def find_all_by_credit_card_expiration_date(date)
-    @transactions.values.map do |transaction|
-      transaction if transaction.credit_card_expiration_date.casecmp(date).zero?
-    end.compact
+    @transactions.values.find_all do |transaction|
+      transaction.credit_card_expiration_date.casecmp(date).zero?
+    end
   end
 
   def find_all_by_result(req_result)
-    @transactions.values.map do |transaction|
-      transaction if transaction.result.casecmp(req_result).zero?
-    end.compact
+    @transactions.values.find_all do |transaction|
+      transaction.result.casecmp(req_result).zero?
+    end
   end
 
-  def update(id, attributes)
-    if @transactions[id]
-      @transactions[id].credit_card_number = attributes[:credit_card_number] if attributes[:credit_card_number]
-      @transactions[id].credit_card_expiration_date = attributes[:credit_card_expiration_date] if attributes[:credit_card_expiration_date]
-      @transactions[id].result = attributes[:result] if attributes[:result]
-      @transactions[id].updated_at = Time.now
-    end
+  def update(id, attrs)
+    return unless @transactions[id]
+    @transactions[id].credit_card_number = attrs[:credit_card_number] if attrs[:credit_card_number]
+    @transactions[id].credit_card_expiration_date = attrs[:credit_card_expiration_date] if attrs[:credit_card_expiration_date]
+    @transactions[id].result = attrs[:result] if attrs[:result]
+    @transactions[id].updated_at = Time.now
   end
 end

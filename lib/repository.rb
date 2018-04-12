@@ -22,17 +22,15 @@ class Repository
   end
 
   def find_by_name(name)
-    result = nil
-    @collection.values.each do |thing|
-      result = thing if thing.name.casecmp(name).zero?
+    @collection.values.find do |thing|
+      thing.name.casecmp(name).zero?
     end
-    result
   end
 
   def find_all_by_name(fragment)
-    @collection.values.map do |thing|
-      thing if thing.name.downcase.include?(fragment.downcase)
-    end.compact
+    @collection.values.find_all do |thing|
+      thing.name.downcase.include?(fragment.downcase)
+    end
   end
 
   def create_new_id

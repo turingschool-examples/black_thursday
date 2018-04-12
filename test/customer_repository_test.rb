@@ -77,10 +77,7 @@ class CustomerRepositoryTest < Minitest::Test
   def test_can_create_new_customer
     assert_instance_of Customer, @new_customer
     assert_equal 6, @c_repo.customers.count
-    assert_equal 'Cole', @c_repo.customers[6].first_name
-    assert_equal 'Hart', @c_repo.customers[6].last_name
-    assert_equal '2009-12-09 12:08:04 UTC', @c_repo.customers[6].created_at
-    assert_equal '2010-12-09 12:08:04 UTC', @c_repo.customers[6].updated_at
+    assert_equal @new_customer, @c_repo.customers[6]
   end
 
   def test_customer_can_be_updated

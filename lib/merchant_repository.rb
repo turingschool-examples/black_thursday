@@ -6,7 +6,6 @@ class MerchantRepository < Repository
   attr_reader :merchants
 
   def initialize(csv_parsed_array)
-    csv_parsed_array.shift
     attributes = csv_parsed_array.map do |merchant|
       { id: merchant[0].to_i, name: merchant[1] }
     end

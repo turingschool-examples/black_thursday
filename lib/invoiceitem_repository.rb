@@ -6,7 +6,6 @@ class InvoiceItemRepository < Repository
   attr_reader :invoice_items
 
   def initialize(csv_parsed_array)
-    csv_parsed_array.shift
     attributes = csv_parsed_array.map do |invoice_item|
       { id: invoice_item[0].to_i,
         item_id: invoice_item[1].to_i,
@@ -21,22 +20,21 @@ class InvoiceItemRepository < Repository
   end
 
   def find_all_by_item_id(item_id)
-    @invoice_items.values.map do |invoice_item|
-      invoice_item if invoice_item.item_id == item_id
-    end.compact
+    @invoice_items.values.find_all do |invoice_item|
+      invoice_item.item_id == item_id
+    end
   end
 
   def find_all_by_invoice_id(invoice_id)
-    @invoice_items.values.map do |invoice_item|
-      invoice_item if invoice_item.invoice_id == invoice_id
-    end.compact
+    @invoice_items.values.find_all do |invoice_item|
+      invoice_item.invoice_id == invoice_id
+    end
   end
 
-  def update(id, attributes)
-    if @invoice_items[id]
-      @invoice_items[id].quantity = attributes[:quantity] if attributes[:quantity]
-      @invoice_items[id].unit_price = attributes[:unit_price] if attributes[:unit_price]
-      @invoice_items[id].updated_at = Time.now
-    end
+  def update(id, attrs)
+    return unless @invoice_items[id]
+    @invoice_items[id].quantity = attrs[:quantity] if attrs[:quantity]
+    @invoice_items[id].unit_price = attrs[:unit_price] if attrs[:unit_price]
+    @invoice_items[id].updated_at = Time.now
   end
 end
