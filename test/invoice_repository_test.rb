@@ -110,7 +110,6 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_invoice_can_be_updated
     @inv_repo.update(38, status: :shipped)
     assert_equal :shipped, @inv_repo.invoices[38].status
-    # assert_equal Time.now, @inv_repo.invoices[38].updated_at
   end
 
   def test_invoice_can_be_deleted
