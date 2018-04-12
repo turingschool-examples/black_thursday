@@ -34,7 +34,6 @@ class InvoiceItem
     @updated_at = Time.now
   end
 
-
   def update_invoice_id(id)
     @invoice_id = id
   end
