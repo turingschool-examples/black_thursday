@@ -41,16 +41,6 @@ class SalesAnalyst
     end.compact
   end
 
-  # def average_item_price_for_merchant(id)
-  #   merchants_items = items.map do |item|
-  #     item if item.merchant_id == (id)
-  #   end.compact
-  #   averages = merchants_items.map do |item|
-  #     item.unit_price
-  #   end.reduce(:+) / merchants_items.length
-  #   averages.round(2)
-  # end
-
   def average_item_price_for_merchant(id)
     found ||= @engine.items.find_all_by_merchant_id(id)
     to_average = found.map do |item|
