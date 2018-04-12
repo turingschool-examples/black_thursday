@@ -10,14 +10,11 @@ class ItemRepositoryTest < Minitest::Test
     file_path = FileIO.load('./test/fixtures/test_items0.csv')
     @i_repo = ItemRepository.new(file_path)
     @time = Time.now
-    @actual_jude = @i_repo.create(
-      name: 'St. Jude Action Figure',
-      description: 'Worst toy ever.',
-      unit_price: 300,
-      merchant_id: 12334135,
-      created_at: '2009-12-09 12:08:04 UTC',
-      updated_at: '2010-12-09 12:08:04 UTC'
-    )
+    @actual_jude = @i_repo.create(name: 'St. Jude Action Figure',
+                                  description: 'Worst toy ever.',
+                                  unit_price: 300, merchant_id: 12334135,
+                                  created_at: '2009-12-09 12:08:04 UTC',
+                                  updated_at: '2010-12-09 12:08:04 UTC')
   end
 
   def test_item_repository_exists
@@ -87,19 +84,12 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_can_find_all_by_price
-    @i_repo.create(
-      name: '25 Dollars',
-      description: 'Worst toy ever.',
-      unit_price: 2500,
-      merchant_id: 12334135,
-      created_at: '2009-12-09 12:08:04 UTC',
-      updated_at: '2010-12-09 12:08:04 UTC'
-    )
+    @i_repo.create(name: '25 Dollars', description: 'Worst toy ever.',
+                   unit_price: 2500, merchant_id: 12334135,
+                   created_at: '2009-12-09 12:08:04 UTC', 
+                   updated_at: '2010-12-09 12:08:04 UTC')
     actual = @i_repo.find_all_by_price(BigDecimal(25))
-    result = actual.all? do |item|
-      item.class == Item
-    end
-    assert result
+    assert(actual.all? { |item| item.class == Item })
     names = actual.map(&:name)
     assert_equal ['25 Dollars'], names
   end
@@ -143,12 +133,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_can_create_new_item
     assert_instance_of Item, @actual_jude
     assert_equal 4, @i_repo.items.count
-    assert_equal 'St. Jude Action Figure', @i_repo.items[263567475].name
-    assert_equal 'Worst toy ever.', @i_repo.items[263567475].description
-    assert_equal 3.00, @i_repo.items[263567475].unit_price
-    assert_equal 12334135, @i_repo.items[263567475].merchant_id
-    assert_equal '2009-12-09 12:08:04 UTC', @i_repo.items[263567475].created_at
-    assert_equal '2010-12-09 12:08:04 UTC', @i_repo.items[263567475].updated_at
+    assert_equal @actual_jude, @i_repo.items[263567475]
   end
 
   def test_item_can_be_updated

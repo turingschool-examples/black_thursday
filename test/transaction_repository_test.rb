@@ -90,12 +90,7 @@ class TransactionRepositoryTest < Minitest::Test
   def test_can_create_new_transaction
     assert_instance_of Transaction, @new_transaction
     assert_equal 5, @t_repo.transactions.count
-    assert_equal 621, @t_repo.transactions[5].invoice_id
-    assert_equal 4271805778010747, @t_repo.transactions[5].credit_card_number
-    assert_equal '0209', @t_repo.transactions[5].credit_card_expiration_date
-    assert_equal 'success', @t_repo.transactions[5].result
-    assert_equal '2009-12-09 12:08:04 UTC', @t_repo.transactions[5].created_at
-    assert_equal '2010-12-09 12:08:04 UTC', @t_repo.transactions[5].updated_at
+    assert_equal @new_transaction, @t_repo.transactions[5]
   end
 
   def test_transaction_can_be_updated

@@ -79,16 +79,12 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_can_find_all_by_status
     actual_pending = @inv_repo.find_all_by_status(:pending)
     actual_shipped = @inv_repo.find_all_by_status(:shipped)
-    actual_returned = @inv_repo.find_all_by_status(:returned)
     assert_instance_of Invoice, actual_pending[0]
     assert_instance_of Invoice, actual_shipped[0]
-    assert_instance_of Invoice, actual_returned[0]
     pending_ids = actual_pending.map(&:id)
     assert_equal [1, 4, 5, 6, 7, 10, 38], pending_ids
     shipped_ids = actual_shipped.map(&:id)
     assert_equal [2, 3, 8, 9], shipped_ids
-    returned_ids = actual_returned.map(&:id)
-    assert_equal [25, 37], returned_ids
   end
 
   def test_it_can_generate_next_invoice_id
@@ -98,13 +94,9 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_can_create_new_invoice
-    assert_instance_of Invoice, @new_invoice
     assert_equal 13, @inv_repo.invoices.count
-    assert_equal 7, @inv_repo.invoices[38].customer_id
-    assert_equal 12334105, @inv_repo.invoices[38].merchant_id
-    assert_equal :pending, @inv_repo.invoices[38].status
-    assert_equal '2009-12-09 12:08:04 UTC', @inv_repo.invoices[38].created_at
-    assert_equal '2010-12-09 12:08:04 UTC', @inv_repo.invoices[38].updated_at
+    assert_instance_of Invoice, @new_invoice
+    assert_equal @new_invoice, @inv_repo.invoices[38]
   end
 
   def test_invoice_can_be_updated
@@ -118,15 +110,15 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_nil @inv_repo.invoices[38]
   end
 
-  def test_find_all_by_crewated_date
-    result = @inv_repo.find_all_by_created_date("2012-11-23")
-    assert(result.all?{ |each_result| each_result.class == Invoice })
+  def test_find_all_by_created_date
+    result = @inv_repo.find_all_by_created_date('2012-11-23')
+    assert(result.all? { |each_result| each_result.class == Invoice })
     assert_equal [12334753], result.map(&:merchant_id)
   end
 
   def test_find_all_by_day_of_week
-    result = @inv_repo.find_all_by_day_of_week("saturday")
-    assert(result.all?{ |each_result| each_result.class == Invoice })
+    result = @inv_repo.find_all_by_day_of_week('saturday')
+    assert(result.all? { |each_result| each_result.class == Invoice })
     assert_equal [12335938, 12335311], result.map(&:merchant_id)
   end
 end
