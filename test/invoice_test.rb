@@ -14,7 +14,6 @@ class InvoiceTest < Minitest::Test
                                 }, self)
   end
 
-
   def test_it_exists
     assert_instance_of Invoice, invoice
   end
@@ -38,5 +37,4 @@ class InvoiceTest < Minitest::Test
   def test_it_has_updated_at
     assert_equal "2018-04-10", invoice.updated_at
   end
-
 end
