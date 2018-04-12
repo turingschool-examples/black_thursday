@@ -182,6 +182,7 @@ class SalesAnalyst
 # Justine start work on iteration 4
   def total_revenue_by_date(date)
     date1 = date.to_date
+    successful(by_date(@sales_engine.transations.all, date1))
     transactions = @sales_engine.transactions.all
     dated = transactions.find_all do |transaction|
       transaction.created_at.to_date == date1
@@ -190,4 +191,11 @@ class SalesAnalyst
     binding.pry
   end
 #Justine end work on iteration 4
+  def by_date(list, date)
+    list.keep_if {|l| date == l.created_at.to_date}
+  end
+   def successful(list)
+     list.keep_if { |l| l.result == "success"}
+   end
+
 end
