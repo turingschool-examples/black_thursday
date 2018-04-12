@@ -96,6 +96,7 @@ class SalesAnalyst
   # This is where tests stop and TDD should be 
   # re-established before continuing
   # =================================================
+  
   def average_invoices_per_day_standard_deviation
     unique_days = @invoice_repo.all.map(&:created_at).uniq
     set = unique_days.map do |date|
