@@ -1,3 +1,4 @@
+require 'date'
 require_relative '../lib/invoice'
 require_relative 'repository'
 
@@ -37,9 +38,9 @@ class InvoiceRepository < Repository
   end
 
   def find_all_by_day_of_week(weekday)
-    weekday = Date.parse(weekday).cwday
+    day = Date.parse(weekday).cwday
     @invoices.values.find_all do |invoice|
-      Date.parse(invoice.created_at).cwday == weekday
+      Date.parse(invoice.created_at).cwday == day
     end
   end
 
