@@ -8,6 +8,7 @@ require 'minitest/emoji'
 require 'minitest/autorun'
 require './lib/sales_engine.rb'
 require './lib/sales_analyst.rb'
+require 'pry'
 
 class SalesAnalystTest < MiniTest::Test
   def setup
@@ -16,7 +17,7 @@ class SalesAnalystTest < MiniTest::Test
       merchants:  './data/merchants.csv',
       invoices:   './data/invoices.csv',
       customers:  './data/customers.csv',
-      transactions: './data/transactions.csv',
+      transactions: './fixtures/transactions_test.csv',
       invoice_items: './data/invoice_items.csv'
     )
     @s = SalesAnalyst.new(@se)
@@ -76,7 +77,7 @@ class SalesAnalystTest < MiniTest::Test
   end
 
   def test_it_can_return_paid_in_full_invoice
-    expected = true
+    expected = false
     actual = @s.invoice_paid_in_full?(16)
 
     assert_equal expected, actual
@@ -88,6 +89,37 @@ class SalesAnalystTest < MiniTest::Test
 
     assert_equal expected, actual
   end
+# Justine start work on iteration 4
+  def test_it_can_find_transactions_by_date
+    date = Time.parse("2012-03-27")
+    expected = @s.transactions_by_date(date)
 
+    assert_equal 3, expected.length
+  end
 
+  def test_it_can_return_all_transactions
+    expected = @s.all_transactions
+
+    assert_equal 13, expected.length
+  end
+
+  def test_it_can_return_successful_transactions
+    expected = @s.successful_transactions
+
+    assert_equal 11, expected.length
+  end
+
+  def test_it_can_return_successful_invoices_by_date
+    expected = @s.successful_invoices_by_date(Time.parse("2012-03-27"))
+
+    assert_equal 2, expected.length
+  end
+
+  def test_it_can_return_total_revenue_by_date
+    skip
+    date = Time.parse("2012-03-27")
+    assert_equal 3471.59, @s.total_revenue_by_date(date)
+  end
+
+# Justine end work on iteration 4
 end

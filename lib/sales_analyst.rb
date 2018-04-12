@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'time'
 # Sales analyst class to perform analysis.
 class SalesAnalyst
   attr_reader :sales_engine
@@ -178,4 +179,33 @@ class SalesAnalyst
     transactions1 = invoice.transactions
     transactions1.any? { |transaction| transaction.result == 'success' }
   end
+# Justine start work on iteration 4
+  def all_transactions
+    @sales_engine.transactions.all
+  end
+
+  def transactions_by_date(date)
+    date1 = date.to_date
+    transactions = @sales_engine.transactions.all
+    transactions = @sales_engine.transactions.all
+    dated = transactions.find_all do |transaction|
+      transaction.created_at.to_date == date1
+    end
+  end
+
+  def successful_transactions
+    @sales_engine.transactions.all.find_all do |transaction|
+      transaction.result == 'success'
+    end
+  end
+
+  def successful_invoices_by_date(date)
+    dated = transactions_by_date(date)
+    matches = dated & successful_transactions
+  end
+
+  # def total_revenue_by_date(date)
+  # end
+
+#Justine end work on iteration 4
 end
