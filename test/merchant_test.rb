@@ -1,7 +1,5 @@
 # frozen_string_literal: true
-
 require './test/test_helper'
-SimpleCov.start
 require './lib/merchant'
 
 class MerchantTest < Minitest::Test

@@ -1,10 +1,6 @@
-require 'minitest'
-require 'minitest/autorun'
-require 'minitest/pride'
 require './lib/item'
 require 'bigdecimal'
-require 'simplecov'
-SimpleCov.start
+require './test/test_helper'
 require './lib/item_repository'
 
 class ItemRepositoryTest < Minitest::Test
