@@ -10,8 +10,8 @@ class CustomerRepository < Repository
       { id: customer[0].to_i,
         first_name: customer[1],
         last_name: customer[2],
-        created_at: customer[3],
-        updated_at: customer[4] }
+        created_at: Time.parse(customer[3]),
+        updated_at: Time.parse(customer[4]) }
     end
     @customers = create_index(Customer, attributes)
     super(customers, Customer)

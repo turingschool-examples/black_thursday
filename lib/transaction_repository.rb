@@ -12,8 +12,8 @@ class TransactionRepository < Repository
         credit_card_number: transaction[2].to_i,
         credit_card_expiration_date: transaction[3],
         result: transaction[4],
-        created_at: transaction[4],
-        updated_at: transaction[5] }
+        created_at: Time.parse(transaction[5]),
+        updated_at: Time.parse(transaction[6]) }
     end
     @transactions = create_index(Transaction, attributes)
     super(transactions, Transaction)

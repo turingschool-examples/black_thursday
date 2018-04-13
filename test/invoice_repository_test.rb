@@ -12,7 +12,7 @@ class InvoiceRepositoryTest < Minitest::Test
     @new_invoice = @inv_repo.create(
       customer_id: '7',
       merchant_id: '12334105',
-      status: :pending,
+      status: 'pending',
       created_at: '2009-12-09 12:08:04 UTC',
       updated_at: '2010-12-09 12:08:04 UTC'
     )
@@ -52,8 +52,8 @@ class InvoiceRepositoryTest < Minitest::Test
     actual_two = @inv_repo.find_by_id(2)
     assert_instance_of Invoice, actual_one
     assert_instance_of Invoice, actual_two
-    assert_equal '2009-02-07', actual_one.created_at
-    assert_equal '2012-11-23', actual_two.created_at
+    assert_equal Time.parse('2009-02-07'), actual_one.created_at
+    assert_equal Time.parse('2012-11-23'), actual_two.created_at
   end
 
   def test_can_find_all_by_customer_id
@@ -100,7 +100,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_invoice_can_be_updated
-    @inv_repo.update(38, status: :shipped)
+    @inv_repo.update(38, status: 'shipped')
     assert_equal :shipped, @inv_repo.invoices[38].status
   end
 
@@ -111,14 +111,8 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_created_date
-    result = @inv_repo.find_all_by_created_date('2012-11-23')
+    result = @inv_repo.find_all_by_created_date(Time.parse('2012-11-23'))
     assert(result.all? { |each_result| each_result.class == Invoice })
     assert_equal [12334753], result.map(&:merchant_id)
-  end
-
-  def test_find_all_by_day_of_week
-    result = @inv_repo.find_all_by_day_of_week('saturday')
-    assert(result.all? { |each_result| each_result.class == Invoice })
-    assert_equal [12335938, 12335311], result.map(&:merchant_id)
   end
 end
