@@ -6,5 +6,6 @@ class Transaction
 
   def initialize(attributes, engine = nil)
     @attributes = attributes
+    @engine = engine
   end
 end

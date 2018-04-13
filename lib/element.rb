@@ -112,7 +112,26 @@ module Element
 
   def customers
     invoices.map do |invoice|
-        @engine.customers.find_by_id(invoice.customer_id)
+      @engine.customers.find_by_id(invoice.customer_id)
     end.uniq
+  end
+
+  def items
+    invoice_items = @engine.invoice_items.find_all_by_invoice_id(id)
+    invoice_items.map do |invoice_item|
+      @engine.items.find_by_id(invoice_item.item_id)
+    end.uniq
+  end
+
+  def transactions
+    @engine.transactions.find_all_by_invoice_id(id)
+  end
+
+  def customer
+    @engine.customers.find_by_id(customer_id)
+  end
+
+  def invoice
+    @engine.invoices.find_by_id(invoice_id)
   end
 end

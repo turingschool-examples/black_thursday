@@ -30,4 +30,15 @@ class TransactionTest < Minitest::Test
     assert_equal @time, @trans.created_at
     assert_equal @time, @trans.updated_at
   end
+
+  def test_it_can_return_invoice
+    se = SalesEngine.from_csv(
+          transactions: './test/fixtures/transactions_fixtures.csv',
+          invoices:     './test/fixtures/invoices_fixtures.csv'
+          )
+    transaction = se.transactions.find_by_id(40)
+    invoice = se.invoices.find_by_id(14)
+    assert_instance_of Invoice, transaction.invoice
+    assert_equal invoice, transaction.invoice
+  end
 end

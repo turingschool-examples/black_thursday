@@ -64,4 +64,40 @@ class InvoiceTest < Minitest::Test
     invoice = se.invoices.find_by_id(1)
     assert_equal 21067.77, invoice.total
   end
+
+  def test_it_can_return_items
+    se = SalesEngine.from_csv(
+          items:      './data/items.csv',
+          invoice_items:  './test/fixtures/invoice_items_fixtures.csv',
+          invoices:   './test/fixtures/invoices_fixtures.csv'
+          )
+    invoice = se.invoices.find_by_id(8)
+    item = se.items.find_by_id(263415153)
+    assert_instance_of Array, invoice.items
+    assert_instance_of Item, invoice.items[0]
+    assert invoice.items.include?(item)
+  end
+
+  def test_it_can_return_transactions
+    se = SalesEngine.from_csv(
+          transactions:  './test/fixtures/transactions_fixtures.csv',
+          invoices:   './test/fixtures/invoices_fixtures.csv'
+          )
+    invoice = se.invoices.find_by_id(46)
+    transaction = se.transactions.find_by_id(2)
+    assert_instance_of Array, invoice.transactions
+    assert_instance_of Transaction, invoice.transactions[0]
+    assert invoice.transactions.include?(transaction)
+  end
+
+  def test_it_can_return_customer
+    se = SalesEngine.from_csv(
+          customers:  './test/fixtures/customers_fixtures.csv',
+          invoices:   './test/fixtures/invoices_fixtures.csv'
+          )
+    invoice = se.invoices.find_by_id(21)
+    customer = se.customers.find_by_id(5)
+    assert_instance_of Customer, invoice.customer
+    assert_equal customer, invoice.customer
+  end
 end
