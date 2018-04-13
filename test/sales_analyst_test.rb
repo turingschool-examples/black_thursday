@@ -212,7 +212,26 @@ class SalesAnalystTest < Minitest::Test
     assert_equal -0.96, sales_analyst.average_invoices_per_merchant_minus_two_standard_deviations
   end
 
-  # def test_top_days_by_invoice_count
-  #   result = @sales_analyst.top_days_by_invoice_count
-  # end
+  def test_all_invoices_by_date
+    sales_engine = SalesEngine.from_csv(
+      invoices: './test/fixtures/test_invoices2_c.csv',
+      items: './test/fixtures/test_items1.csv',
+      merchants: './test/fixtures/test_merchants2.csv'
+    )
+    sales_analyst = sales_engine.analyst
+    result = sales_analyst.all_invoices_by_date
+    assert_equal 18, result.length
+  end
+
+  def test_all_invoices_by_weekday
+    sales_engine = SalesEngine.from_csv(
+      invoices: './test/fixtures/test_invoices2_c.csv',
+      items: './test/fixtures/test_items1.csv',
+      merchants: './test/fixtures/test_merchants2.csv'
+    )
+    sales_analyst = sales_engine.analyst
+    result = sales_analyst.all_invoices_by_weekday
+    weekdays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
+    assert_equal weekdays, result.keys
+  end
 end

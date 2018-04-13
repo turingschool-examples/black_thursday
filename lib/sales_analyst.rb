@@ -96,8 +96,52 @@ class SalesAnalyst < Analyzer
     end
   end
 
-  # Left off here
   def top_days_by_invoice_count
-    1
+    # return array of weekdays that are days on which number of invoices created is more than one standard_deviation above mean
+
+    #need all weekdays for each invoice in data
+    # group by key: weekday_name value: all invoice_ids
+    #then can count values and compare to standard deviation
+
+    # all invoices by day
   end
+
+  def all_invoices_by_date
+    all_inv = Hash.new(0)
+    @invoice_repo.all.each do |invoice|
+      if all_inv[invoice.created_at]
+        all_inv[invoice.created_at] += 1
+      else
+        all_inv[invoice.created_at] = 1
+      end
+    end
+    all_inv
+  end
+
+  def all_invoices_by_weekday
+    weekdays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
+    weekday_keys = Hash.new(0)
+    weekday_keys = all_invoices_by_date.group_by do |date|
+      binding.pry
+      weekdays[date.wday]
+    end
+    weekday_keys
+  end
+
+  # def sum_weekday_invoice_counts
+  #   # should return hash of weekdays and value of array of individual count
+  #   all_invoices_by_weekday.values.inject(:+)
+  # end
+
+  # def average_invoices_per_day
+  #   average(@invoice_repo.all.count, @invoice_repo.all.map(&:created_at).uniq.count).to_f
+  # end
+  #
+  # def average_invoices_per_day_standard_deviation
+  #   unique_days = @invoice_repo.all.map(&:created_at).uniq
+  #   set = unique_days.map do |date|
+  #     @invoice_repo.find_all_by_created_date(date).count
+  #   end
+  #   standard_deviation(set, average_invoices_per_day)
+  # end
 end
