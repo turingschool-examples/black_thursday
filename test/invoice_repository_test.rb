@@ -150,4 +150,13 @@ class InvoiceRepositoryTest < Minitest::Test
 
     assert_nil ir.find_by_id(1)
   end
+
+  def test_it_can_find_all_invoices_for_a_day
+    ir = InvoiceRepository.new('./test/fixtures/invoices.csv', nil)
+
+    assert_equal 2, ir.total_invoices_for_a_date("2014-03-15").count
+
+
+  end
+
 end

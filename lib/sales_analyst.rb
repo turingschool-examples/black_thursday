@@ -147,4 +147,40 @@ class SalesAnalyst
       sum + (invoice_item.quantity * invoice_item.unit_price)
     end
   end
+
+  def total_revenue_by_date(date)
+    invoices = invoice_repo.total_invoices_for_a_date(date)
+    invoices.reduce(0) do |total, invoice|
+      total + invoice_total(invoice.id)
+    end
+  end
+
+  def merchants_ranked_by_revenue
+    merchant_repo.merchants.sort_by do |merchant|
+      merchant.revenue
+    end.reverse
+  end
+
+  def top_revenue_earners(number = 20)
+    merchants_ranked_by_revenue[0..(number - 1)]
+  end
 end
+# merchant_repo.all.sort_by do |merchant|
+#   merchant.revenue
+# end.reverse
+
+# end
+
+# def merchants_ranked_by_revenue
+#     new_hash = {}
+#     merchant = group_merchants_by_invoices.keys
+#     group_merchants_by_invoices.each_pair do |merchant, invoices|
+#       revenue = invoices.map do |invoice|
+#         invoice.invoice_total(invoice.id) if invoice.is_paid_in_full?
+#       end.compact.reduce(0, :+).to_f
+#       new_hash[merchant] = revenue
+#     end
+#     new_hash.sort_by do |key, value|
+#       value
+#     end.reverse.to_h.keys
+# end

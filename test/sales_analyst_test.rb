@@ -189,7 +189,7 @@ class SalesAnalystTest < Minitest::Test
 
       sales_analyst = SalesAnalyst.new(se)
 
-      assert_equal 10.49, sales_analyst.average_invoices_per_merchant
+      assert_equal 1.11, sales_analyst.average_invoices_per_merchant
     end
 
     def test_it_can_calculate_average_invoices_per_merchant_standard_deviation
@@ -202,7 +202,7 @@ class SalesAnalystTest < Minitest::Test
                               })
       sales_analyst = SalesAnalyst.new(se)
 
-      assert_equal 3.29, sales_analyst.average_invoices_per_merchant_standard_deviation
+      assert_equal 1.09, sales_analyst.average_invoices_per_merchant_standard_deviation
     end
 
     def test_it_can_calculate_top_merchants_by_invoice_count
@@ -215,7 +215,7 @@ class SalesAnalystTest < Minitest::Test
                               })
       sales_analyst = SalesAnalyst.new(se)
 
-      assert_equal 12, sales_analyst.top_merchants_by_invoice_count.count
+      assert_equal 0, sales_analyst.top_merchants_by_invoice_count.count
     end
 
     def test_it_can_calculate_bottom_merchants_by_invoice_count
@@ -228,9 +228,9 @@ class SalesAnalystTest < Minitest::Test
                               })
       sales_analyst = SalesAnalyst.new(se)
 
-      assert_equal 4, sales_analyst.bottom_merchants_by_invoice_count.count
+      assert_equal 0, sales_analyst.bottom_merchants_by_invoice_count.count
       assert_equal 7, sales_analyst.organize_invoices_by_days_of_the_week.count
-      assert_equal 18.06, sales_analyst.standard_deviation_for_invoices
+      assert_equal 2.24, sales_analyst.standard_deviation_for_invoices
     end
 
     def test_it_can_find_top_days_by_invoice_count
@@ -243,7 +243,7 @@ class SalesAnalystTest < Minitest::Test
                               })
         sales_analyst = SalesAnalyst.new(se)
 
-        assert_equal "Wednesday", sales_analyst.top_days_by_invoice_count.first
+        assert_equal "Saturday", sales_analyst.top_days_by_invoice_count.first
     end
 
     def test_it_can_find_percentage_of_each_status
@@ -256,9 +256,9 @@ class SalesAnalystTest < Minitest::Test
                               })
       sales_analyst = SalesAnalyst.new(se)
 
-      assert_equal 29.55, sales_analyst.invoice_status(:pending)
-      assert_equal 56.95, sales_analyst.invoice_status(:shipped)
-      assert_equal 13.5, sales_analyst.invoice_status(:returned)
+      assert_equal 45.0, sales_analyst.invoice_status(:pending)
+      assert_equal 55.0, sales_analyst.invoice_status(:shipped)
+      assert_equal 0.0, sales_analyst.invoice_status(:returned)
     end
 
     def test_if_it_can_check_if_invoice_paid_in_full
@@ -297,6 +297,32 @@ class SalesAnalystTest < Minitest::Test
                               })
       sales_analyst = SalesAnalyst.new(se)
 
-      assert_equal 1234, sales_analyst.invoice_total(1)
+      assert_equal 21067.77, sales_analyst.invoice_total(1)
+    end
+
+    def test_it_can_calculate_total_revenue_by_date
+      se = SalesEngine.new( { :items => './test/fixtures/items.csv',
+        :merchants => './test/fixtures/merchants.csv',
+        :invoices => './test/fixtures/invoices.csv',
+        :invoice_items => './test/fixtures/invoice_items.csv',
+        :transactions => './test/fixtures/transactions.csv',
+        :customers => './test/fixtures/customers.csv'
+        })
+      sales_analyst = SalesAnalyst.new(se)
+      assert_equal 21067.77, sales_analyst.total_revenue_by_date(Time.parse("2009-02-07"))
+
+    end
+
+    def test_returns_top_revenue_earner_merchants
+      se = SalesEngine.new( { :items => './test/fixtures/items.csv',
+        :merchants => './test/fixtures/merchants.csv',
+        :invoices => './test/fixtures/invoices.csv',
+        :invoice_items => './test/fixtures/invoice_items.csv',
+        :transactions => './test/fixtures/transactions.csv',
+        :customers => './test/fixtures/customers.csv'
+        })
+      sales_analyst = SalesAnalyst.new(se)
+
+      assert_equal [], sales_analyst.top_revenue_earners(10)
     end
 end

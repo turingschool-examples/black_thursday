@@ -1,5 +1,6 @@
 require 'csv'
 require_relative 'invoice'
+require 'time'
 
 class InvoiceRepository
   attr_reader :path,
@@ -69,6 +70,12 @@ class InvoiceRepository
 
   def delete(id)
     @invoices.delete(find_by_id(id))
+  end
+
+  def total_invoices_for_a_date(date)
+    @invoices.map do |invoice|
+      invoice if invoice.created_at == date
+    end.compact
   end
 
   def inspect
