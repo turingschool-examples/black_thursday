@@ -11,4 +11,13 @@ class Item
   def round(decider)
     unit_price
   end
+
+  def description
+    @attributes[:description]
+  end
+
+  def update(states)
+    super(states)
+    attributes[:description] = states[:description] if states[:description]
+  end
 end

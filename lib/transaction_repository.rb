@@ -17,16 +17,22 @@ class TransactionRepository
     end
   end
 
+  def find_all_by_credit_card_number(credit_card_number)
+    all.find_all do |element|
+      element.credit_card_number == credit_card_number
+    end
+  end
+
+  def find_all_by_result(result)
+    all.find_all do |element|
+      element.result == result
+    end
+  end
+
   def create(attributes)
     create_id_number
     attributes[:id] = create_id_number
     transaction = Transaction.new(attributes, @engine)
     @elements[create_id_number] = transaction
   end
-
-  # def update(id, attributes)
-  #   super(id, attributes)
-  #   attribute = attributes[:merchant_id]
-  #   @elements[id].attributes[:merchant_id] = attribute if attribute
-  # end
 end

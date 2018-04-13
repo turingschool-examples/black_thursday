@@ -17,16 +17,16 @@ class InvoiceItemRepository
     end
   end
 
+  def find_all_by_item_id(item_id)
+    all.find_all do |element|
+      element.item_id == item_id
+    end
+  end
+
   def create(attributes)
     create_id_number
     attributes[:id] = create_id_number
     invoice_item = InvoiceItem.new(attributes, @engine)
     @elements[create_id_number] = invoice_item
   end
-
-  # def update(id, attributes)
-  #   super(id, attributes)
-  #   attribute = attributes[:merchant_id]
-  #   @elements[id].attributes[:merchant_id] = attribute if attribute
-  # end
 end

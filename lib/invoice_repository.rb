@@ -17,6 +17,18 @@ class InvoiceRepository
     end
   end
 
+  def find_all_by_status(status)
+    all.find_all do |element|
+      element.status == status.to_sym
+    end
+  end
+
+  def find_all_by_customer_id(cust_id)
+    all.find_all do |element|
+      element.customer_id == cust_id
+    end
+  end
+
   def create(attributes)
     create_id_number
     attributes[:id] = create_id_number

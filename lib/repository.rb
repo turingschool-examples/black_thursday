@@ -1,5 +1,6 @@
 module Repository
   attr_reader :elements
+
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
@@ -32,21 +33,9 @@ module Repository
     end
   end
 
-  def find_all_with_description(text)
-    all.find_all do |element|
-      element.description.downcase.include?(text.downcase)
-    end
-  end
-
   def find_all_by_name(name)
     all.find_all do |element|
       element.name.downcase.include?(name.downcase)
-    end
-  end
-
-  def find_all_by_status(status)
-    all.find_all do |element|
-      element.status == status.to_sym
     end
   end
 
@@ -69,12 +58,6 @@ module Repository
     end
   end
 
-  def find_all_by_customer_id(cust_id)
-    all.find_all do |element|
-      element.customer_id == cust_id
-    end
-  end
-
   def create_id_number
     if @elements.empty?
       1
@@ -85,59 +68,17 @@ module Repository
 
   def update(id, attributes)
     element = find_by_id(id)
-    element.attributes[:name] = attributes[:name] if attributes[:name]
-    element.attributes[:description] = attributes[:description] if attributes[:description]
-    element.attributes[:unit_price] = attributes[:unit_price] * 100 if attributes[:unit_price]
-    element.attributes[:customer_id] = attributes[:customer_id] if attributes[:customer_id]
-    element.attributes[:status] = attributes[:status] if attributes[:status]
-    element.attributes[:updated_at] = Time.now if element
-    element.attributes[:invoice_id] = attributes[:invoice_id] if attributes[:invoice_id]
-    element.attributes[:item_id] = attributes[:item_id] if attributes[:item_id]
-    element.attributes[:quantity] = attributes[:quantity] if attributes[:quantity]
-    element.attributes[:credit_card_number] = attributes[:credit_card_number] if attributes[:credit_card_number]
-    element.attributes[:credit_card_expiration_date] = attributes[:credit_card_expiration_date] if attributes[:credit_card_expiration_date]
-    element.attributes[:result] = attributes[:result] if attributes[:result]
-    element.attributes[:first_name] = attributes[:first_name] if attributes[:first_name]
-    element.attributes[:last_name] = attributes[:last_name] if attributes[:last_name]
+    return if element.nil?
+    element.update(attributes)
   end
 
   def delete(id)
     @elements.delete(id)
   end
 
-  def find_all_by_item_id(item_id)
-    all.find_all do |element|
-      element.item_id == item_id
-    end
-  end
-
   def find_all_by_invoice_id(invoice_id)
     all.find_all do |element|
       element.invoice_id == invoice_id
-    end
-  end
-
-  def find_all_by_credit_card_number(credit_card_number)
-    all.find_all do |element|
-      element.credit_card_number == credit_card_number
-    end
-  end
-
-  def find_all_by_result(result)
-    all.find_all do |element|
-      element.result == result
-    end
-  end
-
-  def find_all_by_first_name(first_name)
-    all.find_all do |element|
-      element.first_name.downcase.include?(first_name.downcase)
-    end
-  end
-
-  def find_all_by_last_name(last_name)
-    all.find_all do |element|
-      element.last_name.downcase.include?(last_name.downcase)
     end
   end
 end

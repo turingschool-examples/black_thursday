@@ -1,7 +1,7 @@
 require 'time'
 # Element module for object type classes
 module Element
-  attr_accessor :attributes
+  attr_reader :attributes
 
   def id
     @attributes[:id].to_i
@@ -9,10 +9,6 @@ module Element
 
   def name
     @attributes[:name]
-  end
-
-  def description
-    @attributes[:description]
   end
 
   def unit_price
@@ -46,14 +42,6 @@ module Element
     @attributes[:unit_price].to_f / 100
   end
 
-  def customer_id
-    @attributes[:customer_id].to_i
-  end
-
-  def status
-    @attributes[:status].to_sym
-  end
-
   def merchant
     @engine.merchants.find_by_id(merchant_id)
   end
@@ -62,52 +50,8 @@ module Element
     @engine.invoices.find_all_by_merchant_id(id)
   end
 
-  def item_id
-    @attributes[:item_id].to_i
-  end
-
   def invoice_id
     @attributes[:invoice_id].to_i
-  end
-
-  def quantity
-    @attributes[:quantity].to_i
-  end
-
-  def credit_card_number
-    @attributes[:credit_card_number].to_i
-  end
-
-  def credit_card_expiration_date
-    @attributes[:credit_card_expiration_date]
-  end
-
-  def result
-    @attributes[:result]
-  end
-
-  def first_name
-    @attributes[:first_name]
-  end
-
-  def last_name
-    @attributes[:last_name]
-  end
-
-  def is_paid_in_full?
-    transactions = @engine.transactions.find_all_by_invoice_id(id)
-    transactions.any? do |transaction|
-      transaction.result == 'success'
-    end
-  end
-
-  def total
-    invoice_items = @engine.invoice_items.find_all_by_invoice_id(id)
-    total = 0
-    invoice_items.each do |invoice_item|
-      total += invoice_item.unit_price * invoice_item.quantity
-    end
-    total
   end
 
   def customers
@@ -127,11 +71,14 @@ module Element
     @engine.transactions.find_all_by_invoice_id(id)
   end
 
-  def customer
-    @engine.customers.find_by_id(customer_id)
-  end
-
   def invoice
     @engine.invoices.find_by_id(invoice_id)
+  end
+
+  def update(states)
+    attributes[:name] = states[:name] if states[:name]
+    attributes[:unit_price] = states[:unit_price] * 100 if states[:unit_price]
+    attributes[:updated_at] = Time.now
+    attributes[:invoice_id] = states[:invoice_id] if states[:invoice_id]
   end
 end

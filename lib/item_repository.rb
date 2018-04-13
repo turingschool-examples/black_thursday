@@ -17,6 +17,12 @@ class ItemRepository
     end
   end
 
+  def find_all_with_description(text)
+    all.find_all do |element|
+      element.description.downcase.include?(text.downcase)
+    end
+  end
+
   def create(attributes)
     create_id_number
     attributes[:id] = create_id_number
