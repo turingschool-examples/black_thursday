@@ -1,0 +1,4 @@
+id,customer_id,merchant_id,status,created_at,updated_at
+2179,433,12334633,returned,2008-03-04,2014-11-04
+46,10,12336837,shipped,2005-11-11,2015-05-03
+750,144,12334299,shipped,2010-12-11,2014-12-24
