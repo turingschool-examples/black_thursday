@@ -287,42 +287,55 @@ class SalesAnalystTest < Minitest::Test
       assert_equal false, sales_analyst.invoice_paid_in_full?(4702)
     end
 
-    def test_if_invoice_id_returns_invoice_total
-      se = SalesEngine.new( { :items => './test/fixtures/items.csv',
-                              :merchants => './test/fixtures/merchants.csv',
-                              :invoices => './test/fixtures/invoices.csv',
-                              :invoice_items => './test/fixtures/invoice_items.csv',
-                              :transactions => './test/fixtures/transactions.csv',
-                              :customers => './test/fixtures/customers.csv'
-                              })
-      sales_analyst = SalesAnalyst.new(se)
+  def test_if_invoice_id_returns_invoice_total
+    se = SalesEngine.new( { :items => './test/fixtures/items.csv',
+                            :merchants => './test/fixtures/merchants.csv',
+                            :invoices => './test/fixtures/invoices.csv',
+                            :invoice_items => './test/fixtures/invoice_items.csv',
+                            :transactions => './test/fixtures/transactions.csv',
+                            :customers => './test/fixtures/customers.csv'
+                            })
+    sales_analyst = SalesAnalyst.new(se)
 
-      assert_equal 21067.77, sales_analyst.invoice_total(1)
-    end
+    assert_equal 21067.77, sales_analyst.invoice_total(1)
+  end
 
-    def test_it_can_calculate_total_revenue_by_date
-      se = SalesEngine.new( { :items => './test/fixtures/items.csv',
-        :merchants => './test/fixtures/merchants.csv',
-        :invoices => './test/fixtures/invoices.csv',
-        :invoice_items => './test/fixtures/invoice_items.csv',
-        :transactions => './test/fixtures/transactions.csv',
-        :customers => './test/fixtures/customers.csv'
-        })
-      sales_analyst = SalesAnalyst.new(se)
-      assert_equal 21067.77, sales_analyst.total_revenue_by_date(Time.parse("2009-02-07"))
+  def test_it_can_calculate_total_revenue_by_date
+    se = SalesEngine.new( { :items => './test/fixtures/items.csv',
+      :merchants => './test/fixtures/merchants.csv',
+      :invoices => './test/fixtures/invoices.csv',
+      :invoice_items => './test/fixtures/invoice_items.csv',
+      :transactions => './test/fixtures/transactions.csv',
+      :customers => './test/fixtures/customers.csv'
+      })
+    sales_analyst = SalesAnalyst.new(se)
+    assert_equal 21067.77, sales_analyst.total_revenue_by_date(Time.parse("2009-02-07"))
 
-    end
+  end
 
-    def test_returns_top_revenue_earner_merchants
-      se = SalesEngine.new( { :items => './test/fixtures/items.csv',
-        :merchants => './test/fixtures/merchants.csv',
-        :invoices => './test/fixtures/invoices.csv',
-        :invoice_items => './test/fixtures/invoice_items.csv',
-        :transactions => './test/fixtures/transactions.csv',
-        :customers => './test/fixtures/customers.csv'
-        })
-      sales_analyst = SalesAnalyst.new(se)
+  def test_returns_top_revenue_earner_merchants
+    se = SalesEngine.new( { :items => './test/fixtures/items.csv',
+      :merchants => './test/fixtures/merchants.csv',
+      :invoices => './test/fixtures/invoices.csv',
+      :invoice_items => './test/fixtures/invoice_items.csv',
+      :transactions => './test/fixtures/transactions.csv',
+      :customers => './test/fixtures/customers.csv'
+      })
+    sales_analyst = SalesAnalyst.new(se)
 
-      assert_equal [], sales_analyst.top_revenue_earners(10)
-    end
+    assert_equal 10, sales_analyst.top_revenue_earners(10).count
+  end
+
+  def test_it_can_return_merchants_with_pending_invoices
+    se = SalesEngine.new( { :items => './test/fixtures/items.csv',
+      :merchants => './test/fixtures/merchants.csv',
+      :invoices => './test/fixtures/invoices.csv',
+      :invoice_items => './test/fixtures/invoice_items.csv',
+      :transactions => './test/fixtures/transactions.csv',
+      :customers => './test/fixtures/customers.csv'
+      })
+    sales_analyst = SalesAnalyst.new(se)
+
+    assert_equal 13423, sales_analyst.merchants_with_pending_invoices
+  end
 end

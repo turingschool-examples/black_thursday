@@ -5,16 +5,19 @@ require 'time'
 
 class InvoiceRepositoryTest < Minitest::Test
   def test_exists
+    skip
     ir = InvoiceRepository.new('./test/fixtures/invoices.csv', nil)
     assert_instance_of InvoiceRepository, ir
   end
   def test_it_can_have_path
+    skip
     ir = InvoiceRepository.new('./test/fixtures/invoices.csv', nil)
 
     assert_equal './test/fixtures/invoices.csv',ir.path
   end
 
   def test_it_can_load_invoices_from_path_given
+    skip
     ir = InvoiceRepository.new('./test/fixtures/invoices.csv', nil)
 
     assert_equal 4985, ir.invoices.count
@@ -24,6 +27,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_all_method_returns_all_invpoices
+    skip
     ir = InvoiceRepository.new('./test/fixtures/invoices.csv', nil)
 
     assert_instance_of Array, ir.invoices
@@ -31,6 +35,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_find_by_id_returns_invoice
+    skip
     ir = InvoiceRepository.new('./test/fixtures/invoices.csv', nil)
 
     result = ir.find_by_id(1)
@@ -42,6 +47,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_returns_nil_if_invoice_id_not_matched
+    skip
     ir = InvoiceRepository.new('./test/fixtures/invoices.csv', nil)
 
     result = ir.find_by_id(0)
@@ -50,6 +56,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_invoices_by_customer_id
+    skip
     ir = InvoiceRepository.new('./test/fixtures/invoices.csv', nil)
 
     result = ir.find_all_by_customer_id(1)
@@ -58,6 +65,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_returns_empty_array_for_invalid_customer_id
+    skip
     ir = InvoiceRepository.new('./test/fixtures/invoices.csv', nil)
 
     result = ir.find_all_by_customer_id(0)
@@ -66,6 +74,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_invoices_by_merchant_id
+    skip
     ir = InvoiceRepository.new('./test/fixtures/invoices.csv', nil)
 
     result = ir.find_all_by_merchant_id(12335938)
@@ -74,6 +83,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_returns_empty_array_for_invalid_merchant_id
+    skip
     ir = InvoiceRepository.new('./test/fixtures/invoices.csv', nil)
 
     result = ir.find_all_by_merchant_id(0)
@@ -82,6 +92,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_invoices_by_status
+    skip
     ir = InvoiceRepository.new('./test/fixtures/invoices.csv', nil)
 
     result = ir.find_all_by_status(:pending)
@@ -90,6 +101,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_returns_empty_array_for_invalid_status
+    skip
     ir = InvoiceRepository.new('./test/fixtures/invoices.csv', nil)
 
     result = ir.find_all_by_status("0")
@@ -98,6 +110,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_create_new_invoice_id
+    skip
     ir = InvoiceRepository.new('./test/fixtures/invoices.csv', nil)
     assert_equal 4985, ir.invoices.count
 
@@ -105,6 +118,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_create_new_invoice_object
+    skip
     ir = InvoiceRepository.new('./test/fixtures/invoices.csv', nil)
     assert_equal 4986, ir.create_new_id
 
@@ -114,6 +128,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_update_a_invoice
+    skip
     ir = InvoiceRepository.new('./test/fixtures/invoices.csv', nil)
 
     result = ir.find_by_id(1)
@@ -129,7 +144,9 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_returns_nil_it_tried_to_update_invalid_invoice
+    skip
     ir = InvoiceRepository.new('./test/fixtures/invoices.csv', nil)
+    skip
 
     assert_nil ir.find_by_id(4986)
 
@@ -152,6 +169,16 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_invoices_for_a_day
+    skip
+    ir = InvoiceRepository.new('./test/fixtures/invoices.csv', nil)
+
+    assert_equal 2, ir.total_invoices_for_a_date("2014-03-15").count
+
+
+  end
+
+  def test_it_can_find_all_invoices_for_a_day
+    skip
     ir = InvoiceRepository.new('./test/fixtures/invoices.csv', nil)
 
     assert_equal 2, ir.total_invoices_for_a_date("2014-03-15").count

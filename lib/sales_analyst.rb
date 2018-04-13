@@ -60,7 +60,7 @@ class SalesAnalyst
 
   def standard_deviation_for_item_price
     average_price = average_price_of_items
-    a = @item_repo.items.reduce(0) do |sum , item|
+    a = @item_repo.items.reduce(0) do |sum, item|
       sum + (item.unit_price - average_price) ** 2
     end / (@item_repo.items.count - 1)
     Math.sqrt(a).round(2)
@@ -164,23 +164,11 @@ class SalesAnalyst
   def top_revenue_earners(number = 20)
     merchants_ranked_by_revenue[0..(number - 1)]
   end
+
+  def merchants_with_pending_invoices
+    invoice_repo.invoices_with_pending_status.map do |invoice|
+      merchant_repo.find_by_id(invoice.merchant_id)
+    end
+
+  end
 end
-# merchant_repo.all.sort_by do |merchant|
-#   merchant.revenue
-# end.reverse
-
-# end
-
-# def merchants_ranked_by_revenue
-#     new_hash = {}
-#     merchant = group_merchants_by_invoices.keys
-#     group_merchants_by_invoices.each_pair do |merchant, invoices|
-#       revenue = invoices.map do |invoice|
-#         invoice.invoice_total(invoice.id) if invoice.is_paid_in_full?
-#       end.compact.reduce(0, :+).to_f
-#       new_hash[merchant] = revenue
-#     end
-#     new_hash.sort_by do |key, value|
-#       value
-#     end.reverse.to_h.keys
-# end

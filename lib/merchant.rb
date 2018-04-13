@@ -17,7 +17,7 @@ class Merchant
   end
 
   def invoices
-    @merchant_repo.sales_engine.invoices.find_all_by_merchant_id(id)
+    @merchant_repo.invoices_for_merchant(id)
   end
 
   def change_update_time

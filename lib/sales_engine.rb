@@ -31,4 +31,8 @@ class SalesEngine
   def analyst
     SalesAnalyst.new(self)
   end
+
+  def invoices_for_merchant(id)
+    invoices.find_all_by_merchant_id(id)
+  end
 end
