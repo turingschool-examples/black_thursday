@@ -94,4 +94,11 @@ class ItemRepositoryTest < Minitest::Test
 
     assert_equal 'Capita Defenders of Awesome 2018', ir.update(id, attributes[:name])
   end
+
+  def test_it_can_delete_an_item
+    ir = ItemRepository.new('./test/fixtures/item_fixture.csv', self)
+
+    assert_instance_of Item, ir.delete('263399187')
+    assert_equal 2, ir.all.count
+  end
 end

@@ -77,6 +77,10 @@ class ItemRepository
     @contents[id] = attributes
   end
 
+  def delete(id)
+    @contents.delete(id)
+  end
+
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
