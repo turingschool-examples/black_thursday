@@ -6,8 +6,9 @@ class Item
                 :unit_price_to_dollars,
                 :created_at,
                 :updated_at,
-                :merchant_id
-                
+                :merchant_id,
+                :parent
+
   attr_accessor :name,
                 :description,
                 :unit_price
@@ -21,5 +22,6 @@ class Item
     @created_at = item[:created_at]
     @updated_at = item[:updated_at]
     @merchant_id = item[:merchant_id].to_i
+    @parent = parent
   end
 end

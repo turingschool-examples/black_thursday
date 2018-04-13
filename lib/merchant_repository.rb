@@ -4,7 +4,7 @@ class MerchantRepository
   attr_reader :contents,
               :parent
 
-  def initialize(path, parent)
+  def initialize(path, parent = nil)
     @contents = {}
     @parent = parent
     load_path(path)
@@ -13,6 +13,7 @@ class MerchantRepository
   def load_path(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
       @contents[row[:id]] = Merchant.new(row, self)
+      # binding.pry
     end
   end
 
@@ -25,16 +26,16 @@ class MerchantRepository
   end
 
   def find_by_name(name)
-    @contents.each do |_, merchant|
-      # binding.pry
-      return merchant if merchant.name.casecmp == name.casecmp
-    end
-    nil
+    all.find {|merchant| merchant.name.downcase == name.downcase}
+    # @contents.each do |key, merchant|
+    #   return merchant if merchant.name.casecmp == name.casecmp
+    # end
+    # nil
   end
 
   def find_all_by_name(name)
     @contents.find_all do |row|
-      row.downcase == name.downcase
+      row.downc ase == name.downcase
     end
   end
 

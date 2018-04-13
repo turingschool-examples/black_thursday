@@ -25,10 +25,7 @@ class ItemRepository
   end
 
   def find_by_name(name)
-    @contents.each do |_, item|
-      return item if name.casecmp == item.name.casecmp
-    end
-    nil
+    all.find {|merchant| merchant.name.downcase == name.downcase}
   end
 
   def find_all_with_description(description)
