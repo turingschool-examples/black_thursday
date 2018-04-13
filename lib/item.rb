@@ -46,6 +46,6 @@ class Item
   end
 
   def merchant
-    @parent.pass_merchant_id_to_sales_engine(@merchan_id)
+    @parent.pass_merchant_id_to_sales_engine(@merchant_id)
   end
 end
