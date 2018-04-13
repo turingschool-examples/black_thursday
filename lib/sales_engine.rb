@@ -16,6 +16,10 @@ class SalesEngine
     @analyst = SalesAnalyst.new(self)
   end
 
+  def all_items_per_merchant
+    @items.all.group_by(&:merchant_id)
+  end
+
   def self.from_csv(path)
     SalesEngine.new(path)
   end

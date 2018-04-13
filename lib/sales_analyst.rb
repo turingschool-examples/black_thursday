@@ -1,59 +1,64 @@
 # frozen_string_literal: true
-class SalesAnalyst
 
+class SalesAnalyst
   def initialize(sales_engine)
     @sales_engine = sales_engine
     @all_items_per_merchant = all_items_per_merchant
-    @number_of_items_per_merchant = @all_items_per_merchant.values.map {|value| value.count}
-  end
-
-  def all_items_per_merchant
-    @sales_engine.items.all.group_by{|item| item.merchant_id}
+    @number_of_items_per_merchant = @all_items_per_merchant.values.map(&:count)
   end
 
   def average_items_per_merchant
-    item_count = @all_items_per_merchant.values.map{|merch_items| merch_items.count}
+    item_count = @all_items_per_merchant.values.map(&:count)
     item_sum = find_sum(item_count)
     (item_sum.to_f / @all_items_per_merchant.values.count).round(2)
   end
 
+  def all_items_per_merchant
+    @sales_engine.all_items_per_merchant
+  end
+
   def find_sum(numbers)
-    numbers.reduce(0){|sum, number| sum + number}.to_f
+    numbers.inject(0) { |sum, number| sum + number }.to_f
   end
 
   def find_mean(numbers)
-    find_sum(numbers) / numbers.count
+    sum = find_sum(numbers)
+    sum / numbers.count
   end
 
-  def find_standard_deviation(numbers)
+  def standard_deviation(numbers)
     mean = find_mean(numbers)
-    number_array = numbers.map {|numbers| mean - numbers}
-    number_squared = number_array.map{|subtracted| subtracted ** 2}
-    Math.sqrt(find_sum(number_squared) / (numbers.count - 1)).round(2)
+    diff_from_mean = numbers.map do |number|
+      mean - number
+    end
+    squared = diff_from_mean.map do |number|
+      number**2
+    end
+    sum = find_sum(squared)
+    sum_over_count = sum / (numbers.count - 1)
+    Math.sqrt(sum_over_count).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
-    find_standard_deviation(@number_of_items_per_merchant)
+    standard_deviation(@number_of_items_per_merchant).round(2)
   end
 
-  def standard_deviation_above_mean(data_point, mean, standard_deviation)
-    ((data_point - mean) / standard_deviation).round(2)
+  def std_dev_above_mean(data_point, mean, standard_deviation)
+    std_dev = standard_deviation
+    diff_from_mean = data_point - mean
+    (diff_from_mean / std_dev).round(2)
   end
 
   def merchants_with_high_item_count
-    merchants_with_high_item_count = []
-    mean = find_mean(@number_of_items_per_merchant)
-    standard_deviation = find_standard_deviation(@number_of_items_per_merchant)
-    merchants_with_high_item_count = []
-    @all_items_per_merchant.each do |key, value|
-      if value.count > (mean + standard_deviation)
-        merchants_with_high_item_count << @sales_engine.merchants.find_by_id(key)
+    std_dev = average_items_per_merchant_standard_deviation
+    item_num_mean = find_mean(@number_of_items_per_merchant)
+    high_item_count_merchants = []
+    @all_items_per_merchant.each_pair do |merchant,items|
+      if std_dev_above_mean(items.count, item_num_mean, std_dev) >= 1
+        high_item_count_merchants << @sales_engine.merchants.find_by_id(merchant)
       end
     end
-    merchants_with_high_item_count
+    high_item_count_merchants
   end
-
-
-
 
 end

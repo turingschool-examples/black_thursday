@@ -31,7 +31,6 @@ class SalesAnalystTest < Minitest::Test
 
   def test_can_find_sum
     sa = SalesAnalyst.new(@sales_engine_full)
-
     sa.find_sum([3, 4])
     assert_equal 7, sa.find_sum([3, 4])
   end
@@ -45,8 +44,8 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_find_standard_deviation
     sa = SalesAnalyst.new(@sales_engine_full)
-    sa.find_standard_deviation([10, 15, 20])
-    assert_equal 5, sa.find_standard_deviation([10, 15, 20])
+    sa.standard_deviation([10, 15, 20])
+    assert_equal 5, sa.standard_deviation([10, 15, 20])
   end
 
   def test_it_can_return_standard_deviation_of_average_items_per_merchant
@@ -61,7 +60,7 @@ class SalesAnalystTest < Minitest::Test
     standard_deviation = 3.26
     mean = 2.88
     data_point = 20
-    expected = sa.standard_deviation_above_mean(data_point, mean, standard_deviation)
+    expected = sa.std_dev_above_mean(data_point, mean, standard_deviation)
     assert_equal 5.25, expected
   end
 
