@@ -11,9 +11,9 @@ class TransactionRepositoryTest < Minitest::Test
     @t_repo = TransactionRepository.new(file_path)
     @new_transaction = @t_repo.create(
       invoice_id: 621,
-      credit_card_number: 4271805778010747,
+      credit_card_number: '4271805778010747',
       credit_card_expiration_date: '0209',
-      result: 'success',
+      result: :success,
       created_at: '2009-12-09 12:08:04 UTC',
       updated_at: '2010-12-09 12:08:04 UTC'
     )
@@ -61,7 +61,7 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_can_find_all_by_credit_card_number
-    actual = @t_repo.find_all_by_credit_card_number(4271805778010747)
+    actual = @t_repo.find_all_by_credit_card_number('4271805778010747')
     result = actual.all? do |transaction|
       transaction.class == Transaction
     end
@@ -71,8 +71,8 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_can_find_all_by_result
-    actual_success = @t_repo.find_all_by_result('success')
-    actual_failed = @t_repo.find_all_by_result('failed')
+    actual_success = @t_repo.find_all_by_result(:success)
+    actual_failed = @t_repo.find_all_by_result(:failed)
     assert_instance_of Transaction, actual_success[0]
     assert_instance_of Transaction, actual_failed[0]
     success_ids = actual_success.map(&:id)
@@ -99,7 +99,7 @@ class TransactionRepositoryTest < Minitest::Test
     @t_repo.update(5, credit_card_expiration_date: '0210')
     assert_equal '0210', @t_repo.transactions[5].credit_card_expiration_date
     @t_repo.update(5, result: 'failed')
-    assert_equal 'failed', @t_repo.transactions[5].result
+    assert_equal :failed, @t_repo.transactions[5].result
   end
 
   def test_transaction_can_be_deleted

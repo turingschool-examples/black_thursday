@@ -9,9 +9,9 @@ class TransactionRepository < Repository
     attributes = csv_parsed_array.map do |transaction|
       { id: transaction[0].to_i,
         invoice_id: transaction[1].to_i,
-        credit_card_number: transaction[2].to_i,
+        credit_card_number: transaction[2],
         credit_card_expiration_date: transaction[3],
-        result: transaction[4],
+        result: transaction[4].to_sym,
         created_at: Time.parse(transaction[5]),
         updated_at: Time.parse(transaction[6]) }
     end
@@ -39,7 +39,8 @@ class TransactionRepository < Repository
 
   def find_all_by_result(req_result)
     @transactions.values.find_all do |transaction|
-      transaction.result.casecmp(req_result).zero?
+      # transaction.result.casecmp(req_result).zero?
+      transaction.result == req_result
     end
   end
 
@@ -47,7 +48,7 @@ class TransactionRepository < Repository
     return unless @transactions[id]
     @transactions[id].credit_card_number = attrs[:credit_card_number] if attrs[:credit_card_number]
     @transactions[id].credit_card_expiration_date = attrs[:credit_card_expiration_date] if attrs[:credit_card_expiration_date]
-    @transactions[id].result = attrs[:result] if attrs[:result]
+    @transactions[id].result = attrs[:result].to_sym if attrs[:result]
     @transactions[id].updated_at = Time.now
   end
 end
