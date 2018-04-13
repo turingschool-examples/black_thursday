@@ -17,8 +17,8 @@ class Item
       description:            items[:description],
       unit_price:             BigDecimal(items[:unit_price]) / 100,
       merchant_id:            items[:merchant_id].to_i,
-      created_at:             items[:created_at],
-      updated_at:             items[:updated_at]
+      created_at:             Time.parse(items[:created_at].to_s),
+      updated_at:             Time.parse(items[:updated_at].to_s)
     }
     @parent = parent
   end
@@ -56,7 +56,7 @@ class Item
   end
 
   def created_at
-    Time.parse(@item_specs[:created_at].to_s)
+    @item_specs[:created_at]
   end
 
   def updated_at

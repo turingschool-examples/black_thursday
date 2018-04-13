@@ -40,15 +40,21 @@ class ItemRepository
   end
 
   def find_by_name(name)
-    @name[name].first
+    @name[name].first unless @name[name].nil?
   end
 
   def find_all_with_description(item_description)
-    @description[item_description]
+    @repository.find_all do |item|
+      item.searchable_desc == item_description.downcase
+    end
   end
 
   def find_all_by_price(price)
-    @unit_price[price]
+    if @unit_price[price].nil?
+      return []
+    else
+      @unit_price[price]
+    end
   end
 
   def find_all_by_price_in_range(price_range)
