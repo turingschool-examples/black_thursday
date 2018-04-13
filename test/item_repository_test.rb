@@ -8,7 +8,7 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of ItemRepository, ir
   end
 
-  def test_values
+  def test_it_returns_all_items
     ir = ItemRepository.new('./test/fixtures/item_fixture.csv', self)
 
     assert_equal 3, ir.all.count

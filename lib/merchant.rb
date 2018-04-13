@@ -4,7 +4,7 @@ class Merchant
               :name
 
   def initialize(merchant, parent = nil)
-    @id = merchant[:id]
+    @id = merchant[:id].to_i
     @name = merchant[:name]
     @parent = parent
   end

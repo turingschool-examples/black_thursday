@@ -2,7 +2,7 @@ require 'CSV'
 
 class ItemRepository
   attr_reader :contents,
-  :parent
+              :parent
 
   def initialize(path, parent)
     @contents = {}
@@ -26,7 +26,7 @@ class ItemRepository
 
   def find_by_name(name)
     @contents.each do |_, item|
-      return item if name.downcase == item.name.downcase
+      return item if name.casecmp == item.name.casecmp
     end
     nil
   end
@@ -65,7 +65,7 @@ class ItemRepository
 
 
   def create(attributes)
-    max_id = @contents.max_by do |key, item|
+    max_id = @contents.max_by do |key, _|
       key
     end
       max = max_id[0].to_i + 1
