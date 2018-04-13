@@ -263,6 +263,6 @@ class SalesAnalystTest < Minitest::Test
       merchants: './test/fixtures/test_merchants2.csv'
     )
     sales_analyst = sales_engine.analyst
-    assert_equal %w[friday], sales_analyst.top_days_by_invoice_count
+    assert_equal %w[Friday], sales_analyst.top_days_by_invoice_count
   end
 end

@@ -97,7 +97,7 @@ class SalesAnalyst < Analyzer
   def top_days_by_invoice_count
     threshold = average_invoices_per_weekday_plus_one_standard_deviation
     number_of_invoices_by_weekday.map do |weekday, number|
-      weekday if number > threshold
+      weekday.capitalize if number > threshold
     end.compact
   end
 end

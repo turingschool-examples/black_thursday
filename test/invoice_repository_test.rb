@@ -100,8 +100,8 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_invoice_can_be_updated
-    @inv_repo.update(38, status: :shipped)
-    assert_equal :shipped, @inv_repo.invoices[38].status
+    @inv_repo.update(38, status: 'shipped')
+    assert_equal 'shipped', @inv_repo.invoices[38].status
   end
 
   def test_invoice_can_be_deleted
