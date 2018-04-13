@@ -18,15 +18,22 @@ class SalesAnalyst
   end
 
   def find_sum(numbers)
-    numbers.inject(0){|sum, number| sum + number}.to_f
+    numbers.reduce(0){|sum, number| sum + number}.to_f
   end
 
   def find_mean(numbers)
     find_sum(numbers) / numbers.count
   end
 
-  def standard_deviation
-    
+  def find_standard_deviation(numbers)
+    mean = find_mean(numbers)
+    number_array = numbers.map {|numbers| mean - numbers}
+    number_squared = number_array.map{|subtracted| subtracted ** 2}
+    Math.sqrt(find_sum(number_squared) / (numbers.count - 1)).round(2)
+  end
+
+  def average_items_per_merchant_standard_deviation
+    find_standard_deviation(@number_of_items_per_merchant)
   end
 
 
@@ -36,20 +43,6 @@ class SalesAnalyst
   #divide sum by (@number_of_items_per_merchant.count - 1)
   #find square root of result
   #rounded to two digits
-
-
-  # def subtract_mean(numbers)
-  #   numbers.map do |number|
-  #     number - @average_items_per_merchant
-  #   end
-  # end
-
-  def find_mean_of_new_numbers
-
-    new_item_count = square_all_items_minus_mean.reduce(0){|sum, number| sum + number}
-  end
-
-
 
 
   # def average_items_per_merchant_standard_deviation

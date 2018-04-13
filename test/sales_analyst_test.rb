@@ -42,12 +42,15 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 4, sa.find_mean([4, 4])
   end
 
-  # def test_can_find
-
-  def test_it_can_give_standard_deviation
-    skip
+  def test_it_can_find_standard_deviation
     sa = SalesAnalyst.new(@sales_engine_full)
-    expected = average_items_per_merchant_standard_deviation
+    sa.find_standard_deviation([10, 15, 20])
+    assert_equal 5, sa.find_standard_deviation([10, 15, 20])
+  end
+
+  def test_it_can_return_standard_deviation_of_average_items_per_merchant
+    sa = SalesAnalyst.new(@sales_engine_full)
+    expected = sa.average_items_per_merchant_standard_deviation
     assert_equal 3.26, expected
     assert_equal Float, expected.class
   end
