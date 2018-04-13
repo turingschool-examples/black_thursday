@@ -5,6 +5,7 @@ class SalesAnalyst
     @sales_engine = sales_engine
     @all_items_per_merchant = all_items_per_merchant
     @number_of_items_per_merchant = @all_items_per_merchant.values.map {|value| value.count}
+    binding.pry
   end
 
   def all_items_per_merchant
@@ -36,21 +37,7 @@ class SalesAnalyst
     find_standard_deviation(@number_of_items_per_merchant)
   end
 
-
-  #subtract each number(array) from mean
-  #take results and square each
-  #find the sum of squared results
-  #divide sum by (@number_of_items_per_merchant.count - 1)
-  #find square root of result
-  #rounded to two digits
-
-
-  # def average_items_per_merchant_standard_deviation
-  # end
-
-
-
-
+  
 
 
 end

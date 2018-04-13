@@ -55,5 +55,13 @@ class SalesAnalystTest < Minitest::Test
     assert_equal Float, expected.class
   end
 
+  def test_find_std_dev_above_mean
+    sa = SalesAnalyst.new(@sales_engine_full)
+    standard_deviation = 3.26
+    mean = 2.88
+    data_point = 20
+    expected = sa.standard_deviation_above_mean(data_point, mean, standard_deviation)
+    assert_equal 5.25, expected
+  end
 
 end
