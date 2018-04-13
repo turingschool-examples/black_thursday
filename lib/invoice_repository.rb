@@ -4,42 +4,68 @@ require_relative 'invoice.rb'
 # This is the invoice repository.
 class InvoiceRepository
   def initialize(invoices, parent)
-    @invoice_list = invoices.map { |invoice| Invoice.new(invoice, self) }
+    @repository = invoices.map { |invoice| Invoice.new(invoice, self) }
     @parent = parent
+    build_hash_table
+    build_status_hash_table
+  end
+
+  def build_hash_table
+    @id = @repository.group_by(&:id)
+    @customer_id = @repository.group_by(&:customer_id)
+    @merchant_id = @repository.group_by(&:merchant_id)
+    @created_at = @repository.group_by(&:created_at)
+    @updated_at = @repository.group_by(&:updated_at)
+  end
+
+  def build_status_hash_table
+    @successful_status = @repository.group_by(&:is_paid_in_full?)
+    @failed_status = @repository.group_by do |invoice|
+      !invoice.is_paid_in_full?
+    end
   end
 
   def find_by_id(id)
-    @invoice_list.find { |invoice| invoice.id == id }
+    @id[id].first unless @id[id].nil?
   end
 
   def find_all_by_customer_id(cust_id)
-    @invoice_list.find_all { |invoice| invoice.customer_id == cust_id }
+    @customer_id[cust_id]
+  end
+
+  def find_by_created_at(date)
+    @created_at[date].first
+  end
+
+  def find_all_by_created_at(date)
+    @created_at[date]
   end
 
   def all
-    @invoice_list
+    @repository
   end
 
   def find_all_by_status(invoice_status)
-    @invoice_list.find_all do |invoice|
+    @repository.find_all do |invoice|
       invoice.status == invoice_status
     end
   end
 
   def find_all_by_merchant_id(merchant_id)
-    @invoice_list.find_all { |invoice| invoice.merchant_id == merchant_id }
+    @merchant_id[merchant_id]
   end
 
   def create(attributes)
-    id_array = @invoice_list.map(&:id)
-    new_id = id_array.max + 1
+    new_id = @id.keys.last + 1
     attributes[:id] = new_id.to_s
-    @invoice_list << Invoice.new(attributes, self)
+    @repository << Invoice.new(attributes, self)
+    build_hash_table
   end
 
   def delete(id)
     invoice_to_delete = find_by_id(id)
-    @invoice_list.delete(invoice_to_delete)
+    @repository.delete(invoice_to_delete)
+    build_hash_table
   end
 
   def update(id, attributes)
@@ -55,7 +81,7 @@ class InvoiceRepository
   end
 
   def sort_by_invoice_totals
-    @invoice_list.sort_by { |invoice| invoice.total }
+    @repository.sort_by { |invoice| invoice.total }
   end
 
   def find_merchant_by_merchant_id(merchant_id)
@@ -87,6 +113,6 @@ class InvoiceRepository
   end
 
   def inspect
-    "<#{self.class} #{@invoice_list.size} rows>"
+    "<#{self.class} #{@repository.size} rows>"
   end
 end
