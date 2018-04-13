@@ -54,6 +54,10 @@ class InvoiceRepository
     end
   end
 
+  def sort_by_invoice_totals
+    @invoice_list.sort_by { |invoice| invoice.total }
+  end
+
   def find_merchant_by_merchant_id(merchant_id)
     @parent.find_merchant_by_merchant_id(merchant_id)
   end
@@ -76,6 +80,10 @@ class InvoiceRepository
 
   def find_all_invoice_items_by_invoice_id(id)
     @parent.find_all_invoice_items_by_invoice_id(id)
+  end
+
+  def find_all_transactions_by_invoice_id(invoice_id)
+    @parent.find_all_transactions_by_invoice_id(invoice_id)
   end
 
   def inspect

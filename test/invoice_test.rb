@@ -32,9 +32,13 @@ class MockInvoiceRepository
   def find_all_items_by_merchant_id(_invoice_specs)
     OpenStruct.new(merchant_id: 12334753)
   end
+
+  def find_all_items_by_invoice_id(_invoice_id)
+    OpenStruct.new(id: 2)
+  end
 end
 
-#
+# Invoice tests.
 class InvoiceTest < Minitest::Test
   INVOICE_BODY = {
     id: '2',
@@ -85,7 +89,7 @@ class InvoiceTest < Minitest::Test
 
   def test_merchant_returns_by_merchant_id
     expected = invoice.merchant
-    
+
     assert_equal 12334753, expected.merchant_id
   end
 
@@ -108,6 +112,6 @@ class InvoiceTest < Minitest::Test
   def test_it_returns_items
     expected = invoice.items
 
-    assert_equal 12334753, expected.merchant_id
+    assert_equal 2, expected.id
   end
 end

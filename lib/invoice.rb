@@ -34,11 +34,11 @@ class Invoice
   end
 
   def created_at
-    Time.parse(@invoice_specs[:created_at])
+    Time.parse(@invoice_specs[:created_at].to_s)
   end
 
   def updated_at
-    Time.parse(@invoice_specs[:updated_at])
+    Time.parse(@invoice_specs[:updated_at].to_s)
   end
 
   def merchant
@@ -61,10 +61,21 @@ class Invoice
     @parent.find_all_items_by_invoice_id(id)
   end
 
+  def invoice_items
+    @parent.find_all_invoice_items_by_invoice_id(id)
+  end
+
+  def total_successful_invoices
+    transactions = @parent.find_all_transactions_by_invoice_id(id)
+    transactions.map do |transaction|
+      total if transaction.result.include?('success')
+    end
+  end
+
   def total
     all_items = @parent.find_all_invoice_items_by_invoice_id(id)
     all_items.map do |invoice_item|
       invoice_item.quantity * invoice_item.unit_price
-    end.inject(:+).round(2)
+    end.inject(:+)
   end
 end

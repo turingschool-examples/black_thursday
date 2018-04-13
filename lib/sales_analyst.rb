@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
+require_relative 'math_helper.rb'
 require 'time'
+
 # Sales analyst class to perform analysis.
 class SalesAnalyst
+  include MathHelper
   attr_reader :sales_engine
   def initialize(sales_engine)
     @sales_engine = sales_engine
@@ -16,11 +19,7 @@ class SalesAnalyst
   def average_items_per_merchant_standard_deviation
     all_items = list_of_number_of_items_per_merchant
     average_items = average_items_per_merchant
-    squared_num_items = all_items.map do |num_of_items|
-      (num_of_items - average_items)**2
-    end
-    math = squared_num_items.inject(:+) / (all_items.length - 1)
-    Math.sqrt(math).round(2)
+    standard_deviation(all_items, average_items)
   end
 
   def list_of_number_of_items_per_merchant
@@ -32,10 +31,7 @@ class SalesAnalyst
   def standard_deviation_of_item_price
     average_price = average_average_price_per_merchant
     list_of_prices = @sales_engine.items.all.map(&:unit_price)
-    squared_num_items = list_of_prices.map do |price|
-      (price.to_f - average_price.to_f)**2
-    end
-    Math.sqrt(squared_num_items.inject(:+) / (list_of_prices.length - 1))
+    standard_deviation(list_of_prices, average_price)
   end
 
   def golden_items
@@ -44,12 +40,6 @@ class SalesAnalyst
     price_of_item = average + (2 * std_dev)
     price_range = price_of_item.to_i..find_max_price
     @sales_engine.items.find_all_by_price_in_range(price_range)
-  end
-
-  def average_item_price_for_merchant(merchant_id)
-    merchant = @sales_engine.merchants.find_by_id(merchant_id)
-    all_items = merchant.items.map(&:unit_price)
-    (all_items.inject(:+) / all_items.length).round(2)
   end
 
   def merchants_with_high_item_count
@@ -91,11 +81,7 @@ class SalesAnalyst
   def average_invoices_per_merchant_standard_deviation
     average_num_of_invoices = average_invoices_per_merchant
     list_of_invoices = total_number_of_invoices_for_all_merchants
-    squared_num_items = list_of_invoices.map do |invoices|
-      (invoices.to_f - average_num_of_invoices.to_f)**2
-    end
-    calculation = squared_num_items.inject(:+) / (list_of_invoices.length - 1)
-    Math.sqrt(calculation).round(2)
+    standard_deviation(list_of_invoices, average_num_of_invoices)
   end
 
   def top_merchants_by_invoice_count
@@ -158,7 +144,11 @@ class SalesAnalyst
   end
 
   def one_time_buyers
-    all_customer_ids = @sales_engine.invoices.all.map(&:customer_id)
+    @sales_engine.customers.all.map do |customer|
+      next if customer.fully_paid_invoices.nil?
+      customer if customer.fully_paid_invoices.length == 1
+    end
+    all_customer_ids = @sales_engine.invoices.map(&:customer_id)
     group = all_customer_ids.group_by { |customer_id| customer_id }
     single_invoice_customer_ids = group.keep_if { |_, value| value.length == 1 }
     single_invoice_customer_ids.keys.map do |id|
@@ -166,7 +156,32 @@ class SalesAnalyst
     end
   end
 
-  def one_time_buyers_item
+  def one_time_buyers_top_item
+  end
+
+  def top_buyers(num_of_customers = 20)
+    top_customers = @sales_engine.customers.top_spenders
+    sorted_customers = top_customers.sort_by { |_, value| value || 0 }.reverse
+    customer_array = []
+    sorted_customers.each { |customer| customer_array << customer[0] }
+    customer_array.take(num_of_customers)
+  end
+
+  def invoices_by_customer_id(customer_id)
+    @sales_engine.invoices.find_all_by_customer_id(customer_id)
+  end
+
+  def top_merchant_for_customer(customer_id)
+    invoice_totals = invoices_by_customer_id(customer_id).map do |invoice|
+      storage = []
+      @sales_engine.invoice_items.group_by_number_of_items.each do |element|
+        storage << element [1] if element[0] == invoice.id
+      end
+      [invoice.id, storage.inject(:+)]
+    end.sort_by(&:last).reverse
+    top_invoice_id = invoice_totals.first.first
+    merchant_id = @sales_engine.invoices.find_by_id(top_invoice_id).merchant_id
+    @sales_engine.merchants.find_by_id(merchant_id)
   end
 
   def invoice_total(invoice_id)
@@ -176,8 +191,16 @@ class SalesAnalyst
 
   def invoice_paid_in_full?(invoice_id)
     invoice = @sales_engine.invoices.find_by_id(invoice_id)
-    transactions1 = invoice.transactions
-    transactions1.any? { |transaction| transaction.result == 'success' }
+    transactions = invoice.transactions
+    transactions.any? { |transaction| transaction.result == 'success' }
+  end
+
+  def best_invoice_by_quantity
+    x = @sales_engine.invoices.all.map do |invoice|
+      if invoice.is_paid_in_full?
+        [invoice, invoice.invoice_items.map(&:quantity).inject(:+)]
+      end
+    end.sort_by { |_, value| value || 0 }.reverse
   end
 # Justine start work on iteration 4
 

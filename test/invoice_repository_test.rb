@@ -15,7 +15,8 @@ class InvoiceRepositoryTest < MiniTest::Test
                                :merchants => './fixtures/merchants_test.csv',
                                :items => './fixtures/items_test.csv',
                                :customers => './fixtures/customers_test.csv',
-                               :transactions => './fixtures/transactions_test.csv'
+                               :transactions => './fixtures/transactions_test.csv',
+                               :invoice_items => './fixtures/invoice_items_test.csv'
       })
     @i = se.invoices
   end
@@ -98,6 +99,13 @@ class InvoiceRepositoryTest < MiniTest::Test
   def test_it_can_find_customer_by_customer_id
     expected = 'Joey'
     actual = @i.find_customer_by_customer_id(1).first_name
+
+    assert_equal expected, actual
+  end
+
+  def test_it_can_sort_by_total
+    expected = ''
+    actual = @i.sort_by_invoice_totals
 
     assert_equal expected, actual
   end

@@ -87,4 +87,11 @@ class InvoiceItemRepositorytest < Minitest::Test
 
     assert_nil invoice_items.find_by_id(1)
   end
+
+  def test_it_can_group_invoice_items
+    expected = ''
+    actual = @invoice_items.group_invoice_items_by_number_of_items_and_invoice_id
+
+    assert_equal expected, actual
+  end
 end

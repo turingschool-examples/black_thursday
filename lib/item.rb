@@ -60,7 +60,8 @@ class Item
   end
 
   def updated_at
-    Time.parse(@item_specs[:updated_at].to_s)
+    # Time.parse(@item_specs[:updated_at].to_s)
+    @item_specs[:updated_at]
   end
 
   def merchant

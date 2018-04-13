@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'bigdecimal'
+require 'time'
 require_relative 'item.rb'
 # require './lib/search.rb'
 # require './lib/change_module.rb'
