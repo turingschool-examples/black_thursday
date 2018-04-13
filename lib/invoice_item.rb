@@ -16,8 +16,8 @@ class InvoiceItem
       invoice_id:             invoice_items[:invoice_id].to_i,
       quantity:               invoice_items[:quantity].to_i,
       unit_price:             BigDecimal(invoice_items[:unit_price]) / 100,
-      created_at:             invoice_items[:created_at],
-      updated_at:             invoice_items[:updated_at]
+      created_at:             Time.parse(invoice_items[:created_at].to_s),
+      updated_at:             Time.parse(invoice_items[:updated_at].to_s)
     }
     @parent = parent
   end
@@ -43,11 +43,11 @@ class InvoiceItem
   end
 
   def created_at
-    Time.parse(invoice_items_specs[:created_at])
+    invoice_items_specs[:created_at]
   end
 
   def updated_at
-    Time.parse(invoice_items_specs[:updated_at])
+    invoice_items_specs[:updated_at]
   end
 
   def unit_price_to_dollars

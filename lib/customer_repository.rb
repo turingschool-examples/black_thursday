@@ -1,23 +1,31 @@
 # frozen_string_literal: true
 
 require_relative 'customer'
+require_relative 'repository_helper'
 # This class holds our transactions and gives us methods to interact with them.
 class CustomerRepository
+  include RepositoryHelper
   attr_reader :repository,
-              :parent
+              :parent,
+              :id,
+              :first_name,
+              :last_name,
+              :created_at,
+              :updated_at
   def initialize(customers, parent)
     @repository = customers.map do |customer|
       Customer.new(customer, parent)
     end
     @parent = parent
+    build_hash_tables
   end
 
-  def all
-    @repository
-  end
-
-  def find_by_id(id)
-    @repository.find { |customer| customer.id == id }
+  def build_hash_tables
+    @id = @repository.group_by(&:id)
+    @first_name = @repository.group_by(&:first_name)
+    @last_name = @repository.group_by(&:last_name)
+    @created_at = @repository.group_by(&:created_at)
+    @updated_at = @repository.group_by(&:updated_at)
   end
 
   def find_all_by_first_name(name)
@@ -33,20 +41,20 @@ class CustomerRepository
   end
 
   def create(attributes)
-    id_array = @repository.map(&:id)
-    new_id = id_array.max + 1
-    attributes[:id] = new_id.to_s
+    attributes[:id] = (@id.keys.sort.last + 1)
     @repository << Customer.new(attributes, self)
+    build_hash_tables
   end
 
   def delete(id)
     customer_to_delete = find_by_id(id)
     @repository.delete(customer_to_delete)
+    build_hash_tables
   end
 
   def update(id, attributes)
     customer = find_by_id(id)
-    unchangeable_keys = [:id, :created_at]
+    unchangeable_keys = %i[id created_at]
     attributes.each do |key, value|
       next if (attributes.keys & unchangeable_keys).any?
       if customer.customer_specs.keys.include?(key)
@@ -54,6 +62,7 @@ class CustomerRepository
         customer.customer_specs[:updated_at] = Time.now
       end
     end
+    build_hash_tables
   end
 
   def top_spenders
