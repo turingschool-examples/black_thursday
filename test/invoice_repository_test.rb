@@ -116,23 +116,23 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 0, @invr.all.count
     time = Time.now
     @invr.create(
-                  customer_id:  7,
-                  merchant_id:  8,
-                  status:       'pending',
-                  created_at:   time,
-                  updated_at:   time
-                )
+      customer_id:  7,
+      merchant_id:  8,
+      status:       'pending',
+      created_at:   time,
+      updated_at:   time
+    )
     assert_equal 1, @invr.all.count
     assert_equal :pending, @invr.find_by_id(1).status
     assert_equal time, @invr.find_by_id(1).updated_at
 
     @invr.create(
-                  customer_id:  9,
-                  merchant_id:  18,
-                  status:       'shipping',
-                  created_at:   time,
-                  updated_at:   time
-                )
+      customer_id:  9,
+      merchant_id:  18,
+      status:       'shipping',
+      created_at:   time,
+      updated_at:   time
+    )
     assert_equal 2, @invr.all.count
     assert_equal 18, @invr.find_by_id(2).merchant_id
   end
@@ -141,42 +141,42 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 0, @invr.all.count
     time = Time.now - 1
     @invr.create(
-                  customer_id:  7,
-                  merchant_id:  8,
-                  status:       'pending',
-                  created_at:   time,
-                  updated_at:   time
-                )
+      customer_id:  7,
+      merchant_id:  8,
+      status:       'pending',
+      created_at:   time,
+      updated_at:   time
+    )
     assert_equal 1, @invr.all.count
     assert_equal :pending, @invr.find_by_id(1).status
     assert_equal 8, @invr.find_by_id(1).merchant_id
 
     @invr.update(1, {
-                      customer_id:  9,
-                      merchant_id:  18,
-                      status:       'shipping'
-                    })
-    assert_equal 1, @invr.all.count
-    assert_equal :shipping, @invr.find_by_id(1).status
-    assert_equal 18, @invr.find_by_id(1).merchant_id
-    assert_equal 9, @invr.find_by_id(1).customer_id
-    assert time < @invr.find_by_id(1).updated_at
-  end
+      customer_id:  9,
+      merchant_id:  18,
+      status:       'shipping'
+      })
+      assert_equal 1, @invr.all.count
+      assert_equal :shipping, @invr.find_by_id(1).status
+      assert_equal 18, @invr.find_by_id(1).merchant_id
+      assert_equal 9, @invr.find_by_id(1).customer_id
+      assert time < @invr.find_by_id(1).updated_at
+    end
 
-  def test_it_can_delete_an_existing_invoice
-    assert_equal 0, @invr.all.count
-    time = Time.now
-    @invr.create(
-                  customer_id:  7,
-                  merchant_id:  8,
-                  status:       'pending',
-                  created_at:   time,
-                  updated_at:   time
-                )
-    assert_equal 1, @invr.all.count
-    assert_equal 7, @invr.find_by_id(1).customer_id
+    def test_it_can_delete_an_existing_invoice
+      assert_equal 0, @invr.all.count
+      time = Time.now
+      @invr.create(
+        customer_id:  7,
+        merchant_id:  8,
+        status:       'pending',
+        created_at:   time,
+        updated_at:   time
+      )
+      assert_equal 1, @invr.all.count
+      assert_equal 7, @invr.find_by_id(1).customer_id
 
-    @invr.delete(1)
-    assert_equal 0, @invr.all.count
+      @invr.delete(1)
+      assert_equal 0, @invr.all.count
+    end
   end
-end
