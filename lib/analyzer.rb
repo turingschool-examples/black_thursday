@@ -29,6 +29,10 @@ class Analyzer
     @item_repo.all.count
   end
 
+  def number_of_invoices
+    @invoice_repo.all.count
+  end
+
   def items_per_merchant
     @item_repo.all.group_by(&:merchant_id)
   end
@@ -79,11 +83,53 @@ class Analyzer
     merchants_per_count
   end
 
+  def sum_of_item_price_for_merchant(merchant_id)
+    items_per_merchant[merchant_id].inject(0) do |sum, item|
+      sum + item.unit_price
+    end
+  end
+
+  def average_items_per_merchant_plus_one_standard_deviation
+    average_items_per_merchant + average_items_per_merchant_standard_deviation
+  end
+
+  def all_invoice_created_dates
+    @invoice_repo.all.map(&:created_at)
+  end
+
   def average_invoices_per_merchant_plus_two_standard_deviations
     (average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation*2)).round(2)
   end
 
   def average_invoices_per_merchant_minus_two_standard_deviations
     (average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation*2)).round(2)
+  end
+
+  def number_of_invoices_per_weekday
+    number_of_invoices_by_weekday.values
+  end
+
+  def average_invoices_per_weekday
+    average_invoices_per_weekday = average(number_of_invoices_per_weekday.inject(:+),
+                                           number_of_invoices_per_weekday.count)
+  end
+
+  def number_of_invoices_by_weekday
+    weekdays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
+    all_days = @invoice_repo.all.map(&:created_at)
+    by_dates = all_days.group_by do |date|
+      weekdays[date.wday]
+    end
+    by_dates.each_key do |id|
+      by_dates[id] = by_dates[id].count
+    end
+  end
+
+  def average_invoices_per_weekday_standard_deviation
+    standard_deviation(number_of_invoices_per_weekday, average_invoices_per_weekday)
+  end
+
+  def average_invoices_per_weekday_plus_one_standard_deviation
+    average_invoices_per_weekday + average_invoices_per_weekday_standard_deviation
   end
 end

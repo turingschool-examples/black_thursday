@@ -209,29 +209,60 @@ class SalesAnalystTest < Minitest::Test
       merchants: './test/fixtures/test_merchants2.csv'
     )
     sales_analyst = sales_engine.analyst
-    assert_equal -0.96, sales_analyst.average_invoices_per_merchant_minus_two_standard_deviations
+    assert_equal -1.44, sales_analyst.average_invoices_per_merchant_minus_two_standard_deviations
   end
 
-  def test_all_invoices_by_date
+  def test_number_of_invoices_by_weekday
     sales_engine = SalesEngine.from_csv(
       invoices: './test/fixtures/test_invoices2_c.csv',
       items: './test/fixtures/test_items1.csv',
       merchants: './test/fixtures/test_merchants2.csv'
     )
     sales_analyst = sales_engine.analyst
-    result = sales_analyst.all_invoices_by_date
-    assert_equal 18, result.length
+    result = sales_analyst.number_of_invoices_by_weekday
+    assert_equal 6, result.length
+    assert_equal %w[saturday friday wednesday monday sunday thursday], result.keys
+    assert_equal [4, 6, 2, 5, 1, 1], result.values
+    # assert(result.values.flatten.all? { |date| date.class == Time })
   end
 
-  def test_all_invoices_by_weekday
+  def test_average_invoices_per_weekday
     sales_engine = SalesEngine.from_csv(
       invoices: './test/fixtures/test_invoices2_c.csv',
       items: './test/fixtures/test_items1.csv',
       merchants: './test/fixtures/test_merchants2.csv'
     )
     sales_analyst = sales_engine.analyst
-    result = sales_analyst.all_invoices_by_weekday
-    weekdays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
-    assert_equal weekdays, result.keys
+    assert_equal 3.17, sales_analyst.average_invoices_per_weekday.to_f
+  end
+
+  def test_average_invoices_per_weekday_standard_deviation
+    sales_engine = SalesEngine.from_csv(
+      invoices: './test/fixtures/test_invoices2_c.csv',
+      items: './test/fixtures/test_items1.csv',
+      merchants: './test/fixtures/test_merchants2.csv'
+    )
+    sales_analyst = sales_engine.analyst
+    assert_equal 2.14, sales_analyst.average_invoices_per_weekday_standard_deviation
+  end
+
+  def test_average_invoices_per_weekday_plus_one_standard_deviation
+    sales_engine = SalesEngine.from_csv(
+      invoices: './test/fixtures/test_invoices2_c.csv',
+      items: './test/fixtures/test_items1.csv',
+      merchants: './test/fixtures/test_merchants2.csv'
+    )
+    sales_analyst = sales_engine.analyst
+    assert_equal 5.31, sales_analyst.average_invoices_per_weekday_plus_one_standard_deviation.to_f
+  end
+
+  def test_top_days_by_invoice_count
+    sales_engine = SalesEngine.from_csv(
+      invoices: './test/fixtures/test_invoices2_c.csv',
+      items: './test/fixtures/test_items1.csv',
+      merchants: './test/fixtures/test_merchants2.csv'
+    )
+    sales_analyst = sales_engine.analyst
+    assert_equal %w[friday], sales_analyst.top_days_by_invoice_count
   end
 end
