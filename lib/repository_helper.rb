@@ -7,10 +7,22 @@ module RepositoryHelper
   end
 
   def find_by_id(id)
-    @repository[id]
+    @id[id].first unless @id[id].first.nil?
   end
 
   def find_all_by_merchant_id(merchant_id)
     @merchant_id[merchant_id]
+  end
+
+  def find_all_by_customer_id(cust_id)
+    @customer_id[cust_id]
+  end
+
+  def find_all_by_created_at(date)
+    @created_at[date]
+  end
+
+  def find_by_created_at(date)
+    @created_at[date].first unless @created_at[date].first.nil?
   end
 end

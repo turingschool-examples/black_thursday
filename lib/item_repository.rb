@@ -60,11 +60,13 @@ class ItemRepository
   def create(attributes)
     attributes[:id] = (@id.keys.last + 1)
     @repository << Item.new(attributes, self)
+    build_hash_table
   end
 
   def delete(id)
     item_to_delete = find_by_id(id)
     @repository.delete(item_to_delete)
+    build_hash_table
   end
 
   def update(id, attributes)
@@ -77,6 +79,7 @@ class ItemRepository
         item.item_specs[:updated_at] = Time.now
       end
     end
+    build_hash_table
   end
 
   def find_merchant_by_merchant_id(merchant_id)
