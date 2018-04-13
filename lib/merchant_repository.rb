@@ -37,4 +37,5 @@ class MerchantRepository
       row.downcase == name.downcase
     end
   end
+
 end
