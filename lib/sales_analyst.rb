@@ -5,7 +5,6 @@ class SalesAnalyst
     @sales_engine = sales_engine
     @all_items_per_merchant = all_items_per_merchant
     @number_of_items_per_merchant = @all_items_per_merchant.values.map {|value| value.count}
-    binding.pry
   end
 
   def all_items_per_merchant
@@ -37,7 +36,24 @@ class SalesAnalyst
     find_standard_deviation(@number_of_items_per_merchant)
   end
 
-  
+  def standard_deviation_above_mean(data_point, mean, standard_deviation)
+    ((data_point - mean) / standard_deviation).round(2)
+  end
+
+  def merchants_with_high_item_count
+    merchants_with_high_item_count = []
+    mean = find_mean(@number_of_items_per_merchant)
+    standard_deviation = find_standard_deviation(@number_of_items_per_merchant)
+    merchants_with_high_item_count = []
+    @all_items_per_merchant.each do |key, value|
+      if value.count > (mean + standard_deviation)
+        merchants_with_high_item_count << @sales_engine.merchants.find_by_id(key)
+      end
+    end
+    merchants_with_high_item_count
+  end
+
+
 
 
 end

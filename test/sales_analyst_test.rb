@@ -3,6 +3,7 @@
 require './lib/sales_engine'
 require './test/test_helper'
 require './lib/sales_analyst'
+require './lib/merchant_repository'
 require 'pry'
 # tests sales analyst
 class SalesAnalystTest < Minitest::Test
@@ -62,6 +63,13 @@ class SalesAnalystTest < Minitest::Test
     data_point = 20
     expected = sa.standard_deviation_above_mean(data_point, mean, standard_deviation)
     assert_equal 5.25, expected
+  end
+
+  def test_high_merchant_item_count
+    sa = SalesAnalyst.new(@sales_engine_full)
+    expected = sa.merchants_with_high_item_count
+    assert_equal 52, expected.count
+    assert_instance_of Merchant, expected[0]
   end
 
 end
