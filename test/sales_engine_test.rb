@@ -3,14 +3,20 @@ require_relative '../lib/sales_engine'
 require_relative '../lib/invoice_repository'
 require_relative '../lib/item_repository'
 require_relative '../lib/merchant_repository'
+require_relative '../lib/customer_repository'
+require_relative '../lib/invoiceitem_repository'
+require_relative '../lib/transaction_repository'
 
 # Test for the SalesEngine class
 class SalesEngineTest < Minitest::Test
   def setup
     @sales_engine = SalesEngine.from_csv(
+      customers: './test/fixtures/test_customers.csv',
       invoices: './test/fixtures/test_invoices.csv',
+      invoice_items: './test/fixtures/test_invoice_items.csv',
       items: './test/fixtures/test_items0.csv',
-      merchants: './test/fixtures/test_merchants0.csv'
+      merchants: './test/fixtures/test_merchants0.csv',
+      transactions: './test/fixtures/test_transactions.csv'
     )
   end
 

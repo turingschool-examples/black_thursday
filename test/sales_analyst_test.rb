@@ -6,9 +6,12 @@ require_relative '../lib/sales_engine'
 class SalesAnalystTest < Minitest::Test
   def setup
     sales_engine = SalesEngine.from_csv(
+      customers: './test/fixtures/test_customers.csv',
       invoices: './test/fixtures/test_invoices.csv',
+      invoice_items: './test/fixtures/test_invoice_items.csv',
       items: './test/fixtures/test_items1.csv',
-      merchants: './test/fixtures/test_merchants1.csv'
+      merchants: './test/fixtures/test_merchants1.csv',
+      transactions: './test/fixtures/test_transactions.csv'
     )
     @sales_analyst = SalesAnalyst.new(sales_engine)
   end
@@ -209,27 +212,36 @@ class SalesAnalystTest < Minitest::Test
 
   def new_sales_analyst_c
     sales_engine = SalesEngine.from_csv(
+      customers: './test/fixtures/test_customers.csv',
       invoices: './test/fixtures/test_invoices2_c.csv',
+      invoice_items: './test/fixtures/test_invoice_items.csv',
       items: './test/fixtures/test_items1.csv',
-      merchants: './test/fixtures/test_merchants2.csv'
+      merchants: './test/fixtures/test_merchants2.csv',
+      transactions: './test/fixtures/test_transactions.csv'
     )
     sales_engine.analyst
   end
 
   def new_sales_analyst_b
     sales_engine = SalesEngine.from_csv(
+      customers: './test/fixtures/test_customers.csv',
       invoices: './test/fixtures/test_invoices2_b.csv',
+      invoice_items: './test/fixtures/test_invoice_items.csv',
       items: './test/fixtures/test_items1.csv',
-      merchants: './test/fixtures/test_merchants2.csv'
+      merchants: './test/fixtures/test_merchants2.csv',
+      transactions: './test/fixtures/test_transactions.csv'
     )
     sales_engine.analyst
   end
 
   def new_sales_analyst_invoices_2
     sales_engine = SalesEngine.from_csv(
+      customers: './test/fixtures/test_customers.csv',
       invoices: './test/fixtures/test_invoices2.csv',
+      invoice_items: './test/fixtures/test_invoice_items.csv',
       items: './test/fixtures/test_items1.csv',
-      merchants: './test/fixtures/test_merchants2.csv'
+      merchants: './test/fixtures/test_merchants2.csv',
+      transactions: './test/fixtures/test_transactions.csv'
     )
     sales_engine.analyst
   end

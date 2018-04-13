@@ -4,12 +4,15 @@ require_relative '../lib/sales_engine'
 
 # Analyzer Test class
 class AnalyzerTest < Minitest::Test
-  
+
   def setup
     sales_engine = SalesEngine.from_csv(
+      customers: './test/fixtures/test_customers.csv',
       invoices: './test/fixtures/test_invoices.csv',
+      invoice_items: './test/fixtures/test_invoice_items.csv',
       items: './test/fixtures/test_items1.csv',
-      merchants: './test/fixtures/test_merchants1.csv'
+      merchants: './test/fixtures/test_merchants1.csv',
+      transactions: './test/fixtures/test_transactions.csv'
     )
     @analyzer = Analyzer.new(sales_engine)
   end
