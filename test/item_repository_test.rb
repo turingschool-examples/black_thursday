@@ -49,7 +49,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_returns_empty_array_when_description_has_no_match
     expected = items.find_all_with_description('weasel watch')
 
-    assert_equal [], expected
+    assert_nil expected
   end
 
   def test_it_finds_item_by_description
@@ -60,7 +60,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_finds_all_matching_items_by_price
-    expected = items.find_all_by_price(600.00)
+    expected = items.find_all_by_price(BigDecimal(600))
 
     assert_instance_of Array, expected
     assert_equal 1, expected.length
@@ -91,7 +91,7 @@ class ItemRepositoryTest < Minitest::Test
       created_at: '2016-01-11 11:51:37 UTC',
       updated_at: '2008-04-02 13:48:57 UTC' })
 
-    assert_instance_of Array, expected
+    assert_instance_of Hash, expected
     assert_equal 6, items.all.length
   end
 

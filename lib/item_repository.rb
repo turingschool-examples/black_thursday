@@ -40,7 +40,7 @@ class ItemRepository
   end
 
   def find_by_name(name)
-    @name[name]
+    @name[name].first
   end
 
   def find_all_with_description(item_description)

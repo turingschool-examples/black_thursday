@@ -7,7 +7,7 @@ module RepositoryHelper
   end
 
   def find_by_id(id)
-    @id[id].first unless @id[id].first.nil?
+    @id[id].first unless @id[id].nil?
   end
 
   def find_all_by_merchant_id(merchant_id)
@@ -23,6 +23,6 @@ module RepositoryHelper
   end
 
   def find_by_created_at(date)
-    @created_at[date].first unless @created_at[date].first.nil?
+    @created_at[date].first unless @created_at[date].nil?
   end
 end
