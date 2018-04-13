@@ -15,12 +15,13 @@ class SalesAnalyst
   end
 
   # this method returns an array of all merchants whose
-  # total item count - average items per all merchants
-  # is greater than one standard deviation
+  #   total item count - average items per all merchants
+  #   is greater than one standard deviation
+  #
   # iterate over merchant objects, for each object subtract
-  # average items per all merchants from total items per merchant
-  # in the loop. return the merchant object in the array if
-  # the difference is greater than one standard deviation
+  #   average items per all merchants from total items per merchant
+  #   in the loop. return the merchant object in the array if
+  #   the difference is greater than one standard deviation
 
   def merchants_with_high_item_count
     merchants.map do |merchant|
