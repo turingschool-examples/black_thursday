@@ -8,6 +8,9 @@ class Analyzer
     @merchant_repo = @engine.merchants
     @item_repo = @engine.items
     @invoice_repo = @engine.invoices
+    @customer_repo = @engine.customers
+    @transaction_repo = @engine.transactions
+    @invoice_item_repo = @engine.invoice_items
   end
 
   def average(sum, total_elements)

@@ -254,4 +254,33 @@ class SalesAnalystTest < Minitest::Test
     )
     sales_engine.analyst
   end
+
+  def test_invoice_paid_in_full
+    sales_engine = SalesEngine.from_csv(
+      customers: './test/fixtures/test_customers.csv',
+      invoices: './test/fixtures/test_invoices_transactions.csv',
+      invoice_items: './test/fixtures/test_invoice_items.csv',
+      items: './test/fixtures/test_items1.csv',
+      merchants: './test/fixtures/test_merchants2.csv',
+      transactions: './test/fixtures/test_transactions.csv'
+    )
+    sales_analyst = sales_engine.analyst
+
+    assert sales_analyst.invoice_paid_in_full?(750)
+    refute sales_analyst.invoice_paid_in_full?(751)
+  end
+
+  def test_total_of_invoice_paid_in_full
+    sales_engine = SalesEngine.from_csv(
+      customers: './test/fixtures/test_customers.csv',
+      invoices: './test/fixtures/test_invoices_transactions.csv',
+      invoice_items: './test/fixtures/test_invoice_items.csv',
+      items: './test/fixtures/test_items1.csv',
+      merchants: './test/fixtures/test_merchants2.csv',
+      transactions: './test/fixtures/test_transactions.csv'
+    )
+    sales_analyst = sales_engine.analyst
+
+    assert_equal 5570.75, sales_analyst.invoice_total(1)
+  end
 end

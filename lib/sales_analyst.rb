@@ -100,4 +100,19 @@ class SalesAnalyst < Analyzer
       weekday.capitalize if number > threshold
     end.compact
   end
+
+  def invoice_paid_in_full?(invoice_id)
+    transactions = @transaction_repo.find_all_by_invoice_id(invoice_id)
+    return false if transactions.empty?
+    transactions.any? do |transaction|
+      transaction.result == :success
+    end
+  end
+
+  def invoice_total(invoice_id)
+    invoice_items = @invoice_item_repo.find_all_by_invoice_id(invoice_id)
+    total = invoice_items.map do |invoice_item|
+      invoice_item.quantity * invoice_item.unit_price
+    end.reduce(:+)
+  end
 end

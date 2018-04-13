@@ -39,7 +39,6 @@ class TransactionRepository < Repository
 
   def find_all_by_result(req_result)
     @transactions.values.find_all do |transaction|
-      # transaction.result.casecmp(req_result).zero?
       transaction.result == req_result
     end
   end
