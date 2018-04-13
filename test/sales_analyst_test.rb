@@ -107,7 +107,6 @@ class SalesAnalystTest < Minitest::Test
     sales_analyst = new_sales_analyst_c
     result = sales_analyst.bottom_merchants_by_invoice_count
     assert(result.all? { |each_result| each_result.class == Merchant })
-    # assert_equal [12335938], result.map(&:id)
     assert_equal [], result.map(&:id)
   end
 
@@ -175,7 +174,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 6, result.length
     assert_equal %w[saturday friday wednesday monday sunday thursday], result.keys
     assert_equal [4, 6, 2, 5, 1, 1], result.values
-    # assert(result.values.flatten.all? { |date| date.class == Time })
   end
 
   def test_average_invoices_per_weekday
@@ -280,7 +278,6 @@ class SalesAnalystTest < Minitest::Test
       transactions: './test/fixtures/test_transactions.csv'
     )
     sales_analyst = sales_engine.analyst
-
     assert_equal 5570.75, sales_analyst.invoice_total(1)
   end
 end

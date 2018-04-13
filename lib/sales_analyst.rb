@@ -111,7 +111,7 @@ class SalesAnalyst < Analyzer
 
   def invoice_total(invoice_id)
     invoice_items = @invoice_item_repo.find_all_by_invoice_id(invoice_id)
-    total = invoice_items.map do |invoice_item|
+    invoice_items.map do |invoice_item|
       invoice_item.quantity * invoice_item.unit_price
     end.reduce(:+)
   end

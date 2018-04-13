@@ -39,7 +39,7 @@ class SalesEngineTest < Minitest::Test
   def test_sales_engine_invoice_item_is_invoice_item_repo
     assert_instance_of InvoiceItemRepository, @sales_engine.invoice_items
   end
-  
+
   def test_sales_engine_transaction_is_transactions_repo
     assert_instance_of TransactionRepository, @sales_engine.transactions
   end
