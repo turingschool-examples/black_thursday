@@ -33,6 +33,10 @@ class SalesEngine
     @merchants ||= MerchantRepository.new(data_for(:merchants), self)
   end
 
+  def invoices
+    @invoices ||= InvoiceRepository.new(data_for(:invoices), self)
+  end
+
   def path
     @path || filepath
   end
@@ -41,6 +45,7 @@ class SalesEngine
     {
       items: "./data/items.csv",
       merchants: "./data/merchants.csv",
+      invoices: "./data/invoices.csv"
     }
   end
 
