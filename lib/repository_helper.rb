@@ -25,4 +25,8 @@ module RepositoryHelper
   def find_by_created_at(date)
     @created_at[date].first unless @created_at[date].nil?
   end
+
+  def find_all_by_invoice_id(invoice_id)
+    @invoice_id[invoice_id]
+  end
 end

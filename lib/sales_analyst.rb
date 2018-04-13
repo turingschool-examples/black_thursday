@@ -196,7 +196,7 @@ class SalesAnalyst
   end
 
   def best_invoice_by_quantity
-    x = @sales_engine.invoices.all.map do |invoice|
+    @sales_engine.invoices.all.map do |invoice|
       if invoice.is_paid_in_full?
         [invoice, invoice.invoice_items.map(&:quantity).inject(:+)]
       end
