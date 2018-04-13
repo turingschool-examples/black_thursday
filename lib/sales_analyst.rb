@@ -3,27 +3,15 @@ class SalesAnalyst
 
   def initialize(engine)
     @engine = engine
-    # binding.pry
-  end
-
-  def merchants
-    @engine.merchants.all
-  end
-
-  def items
-    @engine.items.all
   end
 
   def average_items_per_merchant
-    (total_number_of_items_per_merchant.reduce(:+) / total_merchants.to_f).round(2)
+    (total_items_per_merchant.reduce(:+) / total_merchants.to_f).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
-    @result ||= total_number_of_items_per_merchant.map do |items|
-      (items - average_items_per_merchant) ** 2
-    end
-    calculated = @result.reduce(:+).to_f / (total_number_of_items_per_merchant.length - 1)
-    Math.sqrt(calculated).round(2)
+    total = total_items_per_merchant
+    standard_deviation(total, average_items_per_merchant).round(2)
   end
 
   # this method returns an array of all merchants whose
@@ -50,11 +38,38 @@ class SalesAnalyst
   end
 
   def average_average_price_per_merchant
-    summed = sum_of_average_item_price_for_each_merchant
-    (summed / total_merchants).round(2)
+    @summed ||= sum_of_average_item_price_for_each_merchant
+    (@summed / total_merchants).round(2)
+  end
+
+  def golden_items
+    items.map do |item|
+      difference = (item.unit_price - average_average_price_per_merchant)
+      item if difference > average_item_price_standard_deviation * 2
+    end.compact
   end
 
   private
+
+  def merchants
+    @engine.merchants.all
+  end
+
+  def items
+    @engine.items.all
+  end
+
+  def average_item_price_standard_deviation
+    unit_prices = unit_price_of_all_items
+    standard_deviation(unit_prices, average_average_price_per_merchant)
+  end
+
+  def standard_deviation(data, average)
+    @calculated ||= data.map do |item|
+      (item - average)**2
+    end.reduce(:+) / (data.length - 1)
+    Math.sqrt(@calculated)
+  end
 
   def sum_of_average_item_price_for_each_merchant
     merchants.reduce(0) do |sum, merchant|
@@ -62,13 +77,17 @@ class SalesAnalyst
     end
   end
 
-  def total_number_of_items_per_merchant
+  def total_items_per_merchant
     @_total ||= merchants.map do |merchant|
-      @engine.items.find_all_by_merchant_id(merchant.id).count
+      merchant.items.length
     end
   end
 
   def total_merchants
     merchants.length
+  end
+
+  def unit_price_of_all_items
+    items.map(&:unit_price)
   end
 end
