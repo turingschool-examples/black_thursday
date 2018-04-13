@@ -30,28 +30,4 @@ class AnalyzerTest < Minitest::Test
   def test_number_of_items
     assert_equal 14, @analyzer.number_of_items
   end
-
-  def test_number_of_items_per_merchant
-    skip
-    expected = { 12335938=>1,
-                 12334753=>1,
-                 12335955=>1,
-                 12334269=>1,
-                 12335311=>1,
-                 12334389=>1,
-                 12335009=>1,
-                 12337139=>1,
-                 12336965=>1,
-                 12334839=>1,
-                 12334264=>1,
-                 12334873=>1 }
-    assert_equal expected, @analyzer.items_per_merchant
-  end
-
-  def test_items_per_merchant
-    result = @analyzer.items_per_merchant
-    assert(result.all? { |_id, items| items.class == Array })
-    assert_instance_of Item, result.values[0][0]
-    assert_instance_of Item, result.values[-1][-1]
-  end
 end

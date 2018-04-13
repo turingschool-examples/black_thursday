@@ -12,7 +12,7 @@ class InvoiceRepositoryTest < Minitest::Test
     @new_invoice = @inv_repo.create(
       customer_id: '7',
       merchant_id: '12334105',
-      status: :pending,
+      status: 'pending',
       created_at: '2009-12-09 12:08:04 UTC',
       updated_at: '2010-12-09 12:08:04 UTC'
     )
@@ -101,7 +101,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_invoice_can_be_updated
     @inv_repo.update(38, status: 'shipped')
-    assert_equal 'shipped', @inv_repo.invoices[38].status
+    assert_equal :shipped, @inv_repo.invoices[38].status
   end
 
   def test_invoice_can_be_deleted
@@ -114,12 +114,5 @@ class InvoiceRepositoryTest < Minitest::Test
     result = @inv_repo.find_all_by_created_date(Time.parse('2012-11-23'))
     assert(result.all? { |each_result| each_result.class == Invoice })
     assert_equal [12334753], result.map(&:merchant_id)
-  end
-
-  def test_find_all_by_day_of_week
-    skip
-    result = @inv_repo.find_all_by_day_of_week('saturday')
-    assert(result.all? { |each_result| each_result.class == Invoice })
-    assert_equal [12335938, 12335311], result.map(&:merchant_id)
   end
 end

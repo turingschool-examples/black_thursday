@@ -132,4 +132,16 @@ class Analyzer
   def average_invoices_per_weekday_plus_one_standard_deviation
     average_invoices_per_weekday + average_invoices_per_weekday_standard_deviation
   end
+
+  def number_of_invoices_by_status(status_to_find)
+    @invoice_repo.all.map(&:status).find_all do |invoice_status|
+      invoice_status == status_to_find
+    end
+  end
+
+  def invoice_status(status_to_check)
+    total = number_of_invoices.to_f
+    total_at_status = number_of_invoices_by_status(status_to_check).length.to_f
+    ((total_at_status / total)*100).round(2)
+  end
 end
