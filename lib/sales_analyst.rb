@@ -186,7 +186,7 @@ class SalesAnalyst
     total
   end
 
-  def top_revenue_earners(num)
+  def top_revenue_earners(num = 20)
     # all merchants sort_by / Array.new(num) ... smart shovel?
     time = Time.now
     tops = @engine.merchants.all.sort_by do |merchant|
