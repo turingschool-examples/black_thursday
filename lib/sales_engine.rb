@@ -20,6 +20,14 @@ class SalesEngine
     @items.all.group_by(&:merchant_id)
   end
 
+  def all_item_prices_per_item
+    item_price_per_item = {}
+    @items.all.each do |item|
+      item_price_per_item[item] = item.unit_price
+    end
+    item_price_per_item
+  end
+
   def self.from_csv(path)
     SalesEngine.new(path)
   end
