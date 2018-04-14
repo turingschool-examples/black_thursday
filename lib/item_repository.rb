@@ -8,20 +8,16 @@ require_relative 'item'
 class ItemRepository
   attr_reader :items
   def initialize(items)
-    # binding.pry
     @items = []
     items.each { |item| @items << Item.new(to_item(item))}
-    # binding.pry
   end
 
   def to_item(item)
-    # binding.pry
     item_hash = {}
     item.each do |line|
       item_hash[line[0]] = line[1]
     end
     item_hash
-    # binding.pry
   end
 
   def inspect
@@ -73,18 +69,15 @@ class ItemRepository
   end
 
   def create(attributes)
-    # binding.pry
     attributes[:id] = (find_highest_id + 1)
     if attributes[:created_at].nil?
       attributes[:created_at] = Time.now.to_s
     else
       attributes[:created_at] = attributes[:created_at].to_s
     end
-    # binding.pry
     attributes[:updated_at] = attributes[:updated_at].to_s
     item = Item.new(attributes)
     @items << item
-    # binding.pry
   end
 
   def update(id, attributes)
