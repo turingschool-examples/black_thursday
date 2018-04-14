@@ -82,6 +82,14 @@ class SalesAnalystTest < Minitest::Test
     assert_equal BigDecimal, expected.class
   end
 
+  def test_can_find_average_price_of_all_merchant_items
+    sa = SalesAnalyst.new(@sales_engine_full)
+    expected = sa.average_average_price_per_merchant
+
+    assert_equal 350.29, expected
+    assert_equal BigDecimal, expected.class
+  end
+
 
 
 end

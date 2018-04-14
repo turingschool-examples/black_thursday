@@ -77,6 +77,13 @@ class SalesAnalyst
     sum / numbers.count
   end
 
+  def average_average_price_per_merchant
+    all_unit_prices= []
+    all_values = @all_items_per_merchant.values
+    all_values 
+    (find_mean2(all_unit_prices)).round(2)
+  end
+
 
 
 end
