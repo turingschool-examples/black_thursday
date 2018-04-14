@@ -166,9 +166,15 @@ class SalesAnalyst
   end
 
   def merchants_with_pending_invoices
-    invoice_repo.invoices_with_pending_status.map do |invoice|
-      merchant_repo.find_by_id(invoice.merchant_id)
-    end
+    invoice_repo.invoices.map do |invoice|
+      merchant_repo.find_by_id(invoice.merchant_id) if !invoice.is_paid_in_full?
+    end.compact.uniq
+  end
+
+  def merchant_with_only_one_item
+
+
 
   end
+
 end

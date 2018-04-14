@@ -78,13 +78,6 @@ class InvoiceRepository
     end.compact
   end
 
-  def invoices_with_pending_status
-    a = @invoices.map do |invoice|
-      invoice if invoice.status == :pending
-    end.compact
-    # require 'pry'; binding.pry
-  end
-
   def inspect
     "#<#{self.class} #{@invoices.size} rows>"
   end

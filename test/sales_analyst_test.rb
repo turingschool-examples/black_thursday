@@ -336,6 +336,18 @@ class SalesAnalystTest < Minitest::Test
       })
     sales_analyst = SalesAnalyst.new(se)
 
-    assert_equal 13423, sales_analyst.merchants_with_pending_invoices
+    assert_equal 17, sales_analyst.merchants_with_pending_invoices.count
+  end
+
+  def test_it_can_find_merchant_with_ony_one_item
+    se = SalesEngine.new( { :items => './test/fixtures/items.csv',
+      :merchants => './test/fixtures/merchants.csv',
+      :invoices => './test/fixtures/invoices.csv',
+      :invoice_items => './test/fixtures/invoice_items.csv',
+      :transactions => './test/fixtures/transactions.csv',
+      :customers => './test/fixtures/customers.csv'
+      })
+    sales_analyst = SalesAnalyst.new(se)
+    assert_equal 12, sales_analyst.merchant_with_only_one_item
   end
 end
