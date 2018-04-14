@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
-require './lib/merchant_repository'
 require './lib/sales_engine'
 require './test/test_helper'
 require './lib/sales_analyst'
+require './lib/merchant_repository'
+require 'pry'
 # tests sales analyst
 class SalesAnalystTest < Minitest::Test
   def setup
@@ -16,6 +17,8 @@ class SalesAnalystTest < Minitest::Test
 
     assert_instance_of SalesAnalyst, sa
   end
+
+  
 
   def test_average_items_per_merchant
     sa = SalesAnalyst.new(@sales_engine_full)
@@ -84,9 +87,12 @@ class SalesAnalystTest < Minitest::Test
 
   def test_can_find_golden_items
     sa = SalesAnalyst.new(@sales_engine_full)
-    actual = sa.golden_items
+    actual =  sa.golden_items
 
     assert_equal 5, actual.count
     assert_instance_of Item, actual.first
   end
+
+
+
 end
