@@ -53,6 +53,32 @@ class SalesAnalyst
     end.compact
   end
 
+  def average_invoices_per_merchant
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+  end
+
+  def top_merchants_by_invoice_count
+  end
+
+  def bottom_merchants_by_invoice_count
+  end
+
+  def top_days_by_invoice_count
+  end
+
+  def invoice_status
+  end
+
+  # sales_analyst.average_invoices_per_merchant # => 10.49
+  # sales_analyst.average_invoices_per_merchant_standard_deviation # => 3.29
+  # sales_analyst.top_merchants_by_invoice_count # => [merchant, merchant, merchant]
+  # sales_analyst.bottom_merchants_by_invoice_count # => [merchant, merchant, merchant]
+  # sales_analyst.top_days_by_invoice_count # => ["Sunday", "Saturday"]
+  # sales_analyst.invoice_status(:pending) # => 29.55
+  # sales_analyst.invoice_status(:shipped) # => 56.95
+  # sales_analyst.invoice_status(:returned) # => 13.5
   private
 
   def merchants

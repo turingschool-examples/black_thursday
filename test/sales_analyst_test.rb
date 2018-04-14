@@ -56,4 +56,22 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 5, actual.length
     assert_instance_of Item, actual[0]
   end
+
+  def test_average_invoices_per_merchant
+  end
+
+  def test_average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_top_merchants_by_invoice_count
+  end
+
+  def test_bottom_merchants_by_invoice_count
+  end
+
+  def test_top_days_by_invoice_count
+  end
+
+  def test_invoice_status
+  end
 end
