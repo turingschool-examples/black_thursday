@@ -19,7 +19,7 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal 419, @trans.elements[12].invoice_id
     assert_instance_of Transaction, @trans.elements[14]
     assert_equal '1020', @trans.elements[14].credit_card_expiration_date
-    assert_equal 'success', @trans.elements[23].result
+    assert_equal :success, @trans.elements[23].result
 
     assert_nil @trans.elements['id']
     assert_nil @trans.elements[999999999]
@@ -46,7 +46,7 @@ class TransactionRepositoryTest < Minitest::Test
 
     invoice2 = @trans.find_by_id(37)
     assert_instance_of Transaction, invoice2
-    assert_equal 'failed', invoice2.result
+    assert_equal :failed, invoice2.result
     assert_nil @trans.find_by_id(12345678901234567890)
   end
 
@@ -96,14 +96,14 @@ class TransactionRepositoryTest < Minitest::Test
 
   def test_find_all_by_result
     @trans.from_csv('./test/fixtures/transactions_fixtures.csv')
-    invoices = @trans.find_all_by_result('success')
+    invoices = @trans.find_all_by_result(:success)
     assert_instance_of Array, invoices
     assert_instance_of Transaction, invoices[0]
     find = @trans.find_by_id(1)
     assert invoices.include?(find)
     assert_equal 38, invoices.count
 
-    invoices2 = @trans.find_all_by_result('failed')
+    invoices2 = @trans.find_all_by_result(:failed)
     assert_instance_of Array, invoices2
     find = @trans.find_by_id(21)
     find2 = @trans.find_by_id(26)
@@ -168,7 +168,7 @@ class TransactionRepositoryTest < Minitest::Test
                     })
     assert_equal 1, @trans.all.count
     assert_equal 8, @trans.find_by_id(1).invoice_id
-    assert_equal 'failed', @trans.find_by_id(1).result
+    assert_equal :failed, @trans.find_by_id(1).result
     assert_equal '1234567890123456', @trans.find_by_id(1).credit_card_number
     assert_equal '0318', @trans.find_by_id(1).credit_card_expiration_date
     assert time < @trans.find_by_id(1).updated_at

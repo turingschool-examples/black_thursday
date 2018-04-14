@@ -144,4 +144,14 @@ class SalesAnalystTest < Minitest::Test
   def test_invoice_by_day_standard_deviation
     assert_equal 3.49, @sa.invoice_by_day_standard_deviation
   end
+  def test_it_can_check_if_invoice_paid_in_full
+    assert @sa.invoice_paid_in_full?(46)
+    refute @sa.invoice_paid_in_full?(40)
+  end
+
+  def test_it_can_return_invoice_total
+    actual = @sa.invoice_total(1)
+    assert_equal 21067.77, actual
+    assert_instance_of BigDecimal, actual
+  end
 end
