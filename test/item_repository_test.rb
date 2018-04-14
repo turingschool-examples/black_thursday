@@ -23,8 +23,8 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_by_id
-    assert_instance_of Item, se.items.find_by_id('263399187')
-    assert_equal 'Box', se.items.find_by_id('263399187').name
+    assert_instance_of Item, se.items.find_by_id(263_399_187)
+    assert_equal 'Box', se.items.find_by_id(263_399_187).name
   end
 
   def test_find_by_name
@@ -86,7 +86,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_delete_an_item
-    assert_instance_of Item, se.items.delete('263399187')
+    assert_instance_of Item, se.items.delete(263_399_187)
     assert_equal 2, se.items.all.count
   end
 end

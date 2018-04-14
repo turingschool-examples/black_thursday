@@ -15,7 +15,7 @@ class ItemRepository
 
   def load_path(path)
     CSV.foreach path, headers: true, header_converters: :symbol do |row|
-      items[row[:id].to_i] = Item.new(row, self)
+      @contents[row[:id].to_i] = Item.new(row, self)
     end
   end
 
@@ -54,11 +54,8 @@ class ItemRepository
   end
 
   def create(attributes)
-    max_id = @contents.max_by do |key, _|
-      key
-    end
-    max = max_id[0].to_i + 1
-    attributes[:id] = max
+    max_id = @contents.keys.max + 1
+    attributes[:id] = max_id
     @contents[:max] = Item.new(attributes, self)
   end
 
