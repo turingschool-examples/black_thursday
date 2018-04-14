@@ -84,12 +84,10 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_delete_invoice
     assert_equal 9, @ir.invoices.count
 
-    actual = @ir.find_by_id(8)
-
     @ir.delete(8)
 
-    assert_equal 8, @ir.invoices.count
     assert_nil @ir.find_by_id(8)
+    assert_equal 8, @ir.invoices.count
   end
 
 
