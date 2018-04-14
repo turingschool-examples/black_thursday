@@ -20,15 +20,15 @@ class Invoice
     @parent      = parent
   end
 
-  def merchant
-    @parent.pass_merchant_id_to_engine_from_invoice(@merchant_id)
-  end
-
   def change_shipping_status(shipping_status)
     @status = shipping_status.to_sym
   end
 
   def change_updated_at
     @updated_at = Time.now
+  end
+
+  def merchant
+    @parent.pass_merchant_id_to_engine_from_invoice(@merchant_id)
   end
 end

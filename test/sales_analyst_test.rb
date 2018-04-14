@@ -65,7 +65,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_invoices_per_merchant_standard_deviation
-    skip
     actual = @sa.average_invoices_per_merchant_standard_deviation
 
     assert_equal 3.29, actual
