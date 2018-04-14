@@ -16,7 +16,7 @@ class Item
                 :description,
                 :unit_price
 
-  def initialize(item, parent = nil)
+  def initialize(item, parent)
     @id = item[:id].to_i
     @name = item[:name]
     @description = item[:description]
