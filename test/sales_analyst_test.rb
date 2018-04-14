@@ -31,6 +31,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_can_find_sum
     sa = SalesAnalyst.new(@sales_engine_full)
+
     sa.find_sum([3, 4])
     assert_equal 7, sa.find_sum([3, 4])
   end
@@ -70,5 +71,17 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 52, expected.count
     assert_instance_of Merchant, expected[0]
   end
+
+  def test_can_call_item_price_by_merchant
+    sa = SalesAnalyst.new(@sales_engine_full)
+    sa.merchants_with_high_item_count
+    merchant_id = 12334105
+    expected = sa.average_item_price_for_merchant(merchant_id)
+
+    assert_equal 16.66, expected
+    # assert_equal BigDecimal, expected.class
+  end
+
+
 
 end

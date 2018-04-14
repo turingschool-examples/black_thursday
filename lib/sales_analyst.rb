@@ -61,4 +61,13 @@ class SalesAnalyst
     high_item_count_merchants
   end
 
+  def average_item_price_for_merchant(merchant_id)
+    unit_prices= []
+    new_key = @all_items_per_merchant.select{|key, hash| key == merchant_id}
+    new_key.values.flatten.map{|value| unit_prices << value.unit_price}
+    (find_mean(unit_prices)).round(2)
+  end
+
+
+
 end
