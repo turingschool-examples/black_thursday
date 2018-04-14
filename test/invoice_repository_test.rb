@@ -54,22 +54,34 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_create_invoice
-    # create(attributes) - create a new Invoice instance
-    # with the provided attributes. The new Invoice’s id
-    #should be the current highest Invoice id plus 1.
+    assert_equal 9, @ir.all.last.id
 
-    attributes = ({
-                    :id          => '123',
-                    :merchant_id => '456',
-                    :customer_id => '789',
-                    :status      => 'shipped',
-                    :created_at  => '1995-03-19 10:02:43 UTC',
-                    :updated_at  => '1995-03-19 10:02:43 UTC',
-                  })
-    assert_equal 
+    @ir.create({
+      :merchant_id => 456,
+      :customer_id => 789,
+      :status      => 'shipped',
+      :created_at  => '1995-03-19 10:02:43 UTC',
+      :updated_at  => '1995-03-19 10:02:43 UTC',
+                })
+
+    actual = @ir.all.last
+
+    assert_equal 10, actual.id
+    assert_equal 456, actual.merchant_id
+    assert_equal 789, actual.customer_id
+    assert_equal :shipped, actual.status
   end
 
   def test_update_invoice
+    skip
+    attributes = ({
+      :id          => '123',
+      :merchant_id => '456',
+      :customer_id => '789',
+      :status      => 'shipped',
+      :created_at  => '1995-03-19 10:02:43 UTC',
+      :updated_at  => '1995-03-19 10:02:43 UTC',
+      })
     # update(id, attribute) - update the Invoice instance with the corresponding id with the provided attributes. Only the invoice’s status can be updated. This method will also change the invoice’s updated_at attribute to the current time.
   end
 
