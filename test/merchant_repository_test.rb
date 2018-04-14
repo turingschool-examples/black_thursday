@@ -1,6 +1,8 @@
+# Frozen_string_literal: true
+
 require './test/test_helper'
 require './lib/sales_engine'
-
+# Merchant Repository
 class MerchantRepositoryTest < Minitest::Test
   attr_reader :se
   def setup

@@ -1,5 +1,8 @@
+# Frozen_string_literal: true
+
 require 'CSV'
 require_relative 'merchant'
+# Merchant Repository
 class MerchantRepository
   attr_reader :contents,
               :parent

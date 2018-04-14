@@ -1,5 +1,8 @@
-require 'CSV'
+# Frozen_string_literal: true
 
+require 'CSV'
+require_relative 'item'
+# Item Repository
 class ItemRepository
   attr_reader :contents,
               :parent
@@ -50,7 +53,6 @@ class ItemRepository
     all.find_all { |item| item if item.merchant_id == merchant_id }
   end
 
-
   def create(attributes)
     max_id = @contents.max_by do |key, _|
       key
@@ -69,6 +71,6 @@ class ItemRepository
   end
 
   def inspect
-   "#<#{self.class} #{@merchants.size} rows>"
+  "#<#{self.class} #{@merchants.size} rows>"
   end
 end
