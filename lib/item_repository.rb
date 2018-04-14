@@ -2,14 +2,14 @@
 require_relative 'base_repository'
 require_relative 'item'
 
-# This is an ItemRepositoryTest class
+# item repo
 class ItemRepository < BaseRepository
   def items
     @models
   end
 
   def populate
-    @models ||= raw_data.map { |attribute_hash| Item.new(attribute_hash, self) }
+    @models ||= csv_table_data.map { |attribute_hash| Item.new(attribute_hash, self) }
   end
 
   def find_all_with_description(item_description)

@@ -1,8 +1,8 @@
-require 'csv'
+# frozen_string_literal: true
 require_relative 'merchant'
 require_relative 'base_repository'
-require 'pry'
 
+# merchant repo
 class MerchantRepository < BaseRepository
   def merchants
     @models

@@ -3,10 +3,11 @@
 require 'csv'
 require_relative 'merchant_repository'
 require_relative 'item_repository'
+require_relative 'invoice_repository'
 require_relative 'sales_analyst'
 require 'pry'
 
-# This is a SalesEngine Class
+# sales engine
 class SalesEngine
   def self.from_csv(path = nil)
     new(path).tap(&:populate_repositories)
@@ -23,6 +24,7 @@ class SalesEngine
   def populate_repositories
     items.populate
     merchants.populate
+    invoices.populate
   end
 
   def items
@@ -43,9 +45,9 @@ class SalesEngine
 
   def filepath
     {
-      items: "./data/items.csv",
-      merchants: "./data/merchants.csv",
-      invoices: "./data/invoices.csv"
+      items:     './data/items.csv',
+      merchants: './data/merchants.csv',
+      invoices:  './data/invoices.csv',
     }
   end
 

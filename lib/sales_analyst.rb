@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# sales analyst
 class SalesAnalyst
   attr_reader :engine
 

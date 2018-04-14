@@ -3,7 +3,7 @@
 require 'time'
 require 'bigdecimal'
 
-# This is an Item Class
+# item
 class Item
   attr_reader :id,
               :merchant_id,

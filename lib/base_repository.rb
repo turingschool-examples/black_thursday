@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-# this is a BaseRepository Baseclass
+# base repo
 class BaseRepository
   attr_reader :raw_data, :models
 
   def initialize(raw_data, parent)
     @parent = parent
-    @raw_data = raw_data
+    @csv_table_data = csv_table_data
   end
 
   def all
