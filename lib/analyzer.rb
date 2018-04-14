@@ -90,26 +90,6 @@ class Analyzer
     @invoice_repo.all.group_by(&:customer_id)
   end
 
-  def number_of_invoices_per_customer
-    number_of_invoices_per_customer = invoices_per_customer
-    number_of_invoices_per_customer.each do |id, invoices|
-      number_of_invoices_per_customer[id] = invoices.length
-    end
-    number_of_invoices_per_customer
-  end
-
-  def customers_per_invoice_count
-    customers_per_count = {}
-    number_of_invoices_per_merchant.each do |id, count|
-      if customers_per_count[count]
-        customers_per_count[count] << id
-      else
-        customers_per_count[count] = [] << id
-      end
-    end
-    customers_per_count
-  end
-
   def sum_of_item_price_for_merchant(merchant_id)
     items_per_merchant[merchant_id].inject(0) do |sum, item|
       sum + item.unit_price

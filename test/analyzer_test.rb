@@ -37,39 +37,4 @@ class AnalyzerTest < Minitest::Test
     result = @analyzer.invoices_per_customer
     assert_instance_of Hash, result
   end
-
-  def test_number_of_invoices_per_customer
-    expected = {
-      12335938 => 1,
-      12334753 => 1,
-      12334269 => 1,
-      12335311 => 1,
-      12334389 => 1,
-      12335009 => 1,
-      12337139 => 1,
-      12336965 => 1,
-      12334839 => 1,
-      12335955 => 2,
-      12334264 => 2,
-      12334873 => 5
-    }
-    assert_equal expected, @analyzer.number_of_invoices_per_customer
-  end
-
-  def test_customers_per_count
-    expected = {
-      1 => [12335938,
-            12334753,
-            12334269,
-            12335311,
-            12334389,
-            12335009,
-            12337139,
-            12336965,
-            12334839],
-      2 => [12335955, 12334264],
-      5 => [12334873]
-    }
-    assert_equal expected, @analyzer.customers_per_count
-  end
 end
