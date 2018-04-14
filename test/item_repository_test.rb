@@ -32,7 +32,6 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_by_description
-
     ir = ItemRepository.new('./test/fixtures/item_fixture.csv', self)
 
     assert_instance_of Array, ir.find_all_with_description('Brown')
@@ -41,25 +40,22 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_price
-
     ir = ItemRepository.new('./test/fixtures/item_fixture.csv', self)
 
     assert_instance_of Array, ir.find_all_by_price('Box')
     assert_equal 263_399_188, ir.find_all_by_price(2400.0)[0].id
-    # assert_equal [], ir.find_all_by_price('12')
+    assert_equal [], ir.find_all_by_price('12')
   end
 
   def test_find_all_by_price_in_range
-skip
     ir = ItemRepository.new('./test/fixtures/item_fixture.csv', self)
     range = (10..9999)
 
-
     assert_instance_of Array, ir.find_all_by_price_in_range(range)
+    assert_equal 263_399_188, ir.find_all_by_price(2400.0)[0].id
   end
 
   def test_find_by_merchant_id
-skip
     ir = ItemRepository.new('./test/fixtures/item_fixture.csv', self)
 
     assert_instance_of Item, ir.find_all_by_merchant_id(12334365)[0]
@@ -68,7 +64,6 @@ skip
   end
 
   def test_create_new_item_with_attributes
-skip
     ir = ItemRepository.new('./test/fixtures/item_fixture.csv', self)
     attributes = {
         name: 'Capita Defenders of Awesome 2018',
@@ -76,14 +71,12 @@ skip
         unit_price: BigDecimal(399.99, 5),
         created_at: Time.now,
         updated_at: Time.now,
-        merchant_id: 25
-      }
+        merchant_id: 25}
 
     assert_equal 263399189, ir.create(attributes).id
   end
 
   def test_it_can_update_an_item
-skip
     # this needs refactoring
     ir = ItemRepository.new('./test/fixtures/item_fixture.csv', self)
     decimal = BigDecimal(399.99, 5)
@@ -100,7 +93,6 @@ skip
   end
 
   def test_it_can_delete_an_item
-skip
     ir = ItemRepository.new('./test/fixtures/item_fixture.csv', self)
 
     assert_instance_of Item, ir.delete('263399187')

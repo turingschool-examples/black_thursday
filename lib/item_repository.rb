@@ -41,19 +41,13 @@ class ItemRepository
   end
 
   def find_all_by_price_in_range(range)
-    items = []
-    @contents.each do |_, item|
-      items << item if range.include?(item.unit_price.to_f)
+    all.find_all do |item|
+      range.include?(item.unit_price_to_dollars)
     end
-    items
   end
 
   def find_all_by_merchant_id(merchant_id)
-    items = []
-    @contents.each do |_, item|
-      items << item if item.merchant_id == merchant_id
-    end
-    items
+    all.find_all { |item| item if item.merchant_id == merchant_id }
   end
 
 
@@ -61,9 +55,9 @@ class ItemRepository
     max_id = @contents.max_by do |key, _|
       key
     end
-      max = max_id[0].to_i + 1
-      attributes[:id] = max
-      @contents[:max] = Item.new(attributes, self)
+    max = max_id[0].to_i + 1
+    attributes[:id] = max
+    @contents[:max] = Item.new(attributes, self)
   end
 
   def update(id, attributes)
