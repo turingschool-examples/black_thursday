@@ -113,8 +113,7 @@ class Analyzer
   end
 
   def average_invoices_per_weekday
-    average_invoices_per_weekday = average(number_of_invoices_per_weekday.inject(:+),
-                                           number_of_invoices_per_weekday.count)
+    average(number_of_invoices_per_weekday.inject(:+), number_of_invoices_per_weekday.count)
   end
 
   def number_of_invoices_by_weekday

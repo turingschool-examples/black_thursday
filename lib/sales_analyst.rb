@@ -115,4 +115,13 @@ class SalesAnalyst < Analyzer
       invoice_item.quantity * invoice_item.unit_price
     end.reduce(:+)
   end
+
+  def top_buyers(list_length = 20)
+    # match customers to invoice totals.
+    # - match customer id to invoice, shovel in instances of invoices to a []
+    # -- if invoice_paid_in_full?
+    # --- invoice_total, add total to customer total.
+    # Sum the totals and compare to each other.
+    # sort by max
+  end
 end
