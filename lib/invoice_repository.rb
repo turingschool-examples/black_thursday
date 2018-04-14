@@ -33,6 +33,12 @@ class InvoiceRepository < BaseRepository
     invoices << Invoice.new(attributes, 'parent')
   end
 
+  def update(id, attributes)
+    to_update = find_by_id(id)
+    to_update.change_shipping_status(attributes[:status])
+    to_update.change_updated_at
+  end
+
   def pass_merchant_id_to_engine_from_invoice(merchant_id)
     @parent.pass_merchant_id_to_merchant_repo(merchant_id)
   end

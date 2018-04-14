@@ -73,16 +73,13 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_update_invoice
-    skip
-    attributes = ({
-      :id          => '123',
-      :merchant_id => '456',
-      :customer_id => '789',
-      :status      => 'shipped',
-      :created_at  => '1995-03-19 10:02:43 UTC',
-      :updated_at  => '1995-03-19 10:02:43 UTC',
-      })
-    # update(id, attribute) - update the Invoice instance with the corresponding id with the provided attributes. Only the invoice’s status can be updated. This method will also change the invoice’s updated_at attribute to the current time.
+    actual = @ir.find_by_id(8)
+    assert_equal :shipped, actual.status
+
+    attributes = ({:status => 'pending'})
+    @ir.update(8, attributes)
+
+    assert_equal :pending, actual.status
   end
 
   def test_delete_invoice
