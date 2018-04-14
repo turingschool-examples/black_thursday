@@ -50,4 +50,8 @@ class MerchantTest < Minitest::Test
     assert_instance_of Customer, merchant.customers[0]
     assert merchant.customers.include?(customer)
   end
+
+  def test_it_returns_total_revenue
+
+  end 
 end

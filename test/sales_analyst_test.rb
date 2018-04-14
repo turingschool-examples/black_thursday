@@ -169,7 +169,8 @@ class SalesAnalystTest < Minitest::Test
     se = SalesEngine.from_csv(
                               invoices:   './data/invoices.csv',
                               invoice_items: './data/invoice_items.csv',
-                              merchants: './data/merchants.csv'
+                              merchants: './data/merchants.csv',
+                              transactions: './data/transactions.csv'
                               )
     actual = se.analyst.top_revenue_earners(10)
     assert_instance_of Array, actual
@@ -177,6 +178,6 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Merchant, actual[0]
     assert_equal 12334634, actual[0].id
     assert_instance_of Merchant, actual[-1]
-    assert_equal 12335747, actual[-1]
+    assert_equal 12335747, actual[-1].id
   end
 end

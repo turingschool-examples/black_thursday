@@ -2,7 +2,7 @@ module Repository
   attr_reader :elements
 
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{@elements.size} rows>"
   end
 
   def from_csv(csv)
