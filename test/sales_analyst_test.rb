@@ -154,4 +154,29 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 21067.77, actual
     assert_instance_of BigDecimal, actual
   end
+
+  def test_it_can_return_total_revenue_by_date
+    se = SalesEngine.from_csv(
+                              invoices:   './data/invoices.csv',
+                              invoice_items: './data/invoice_items.csv'
+                              )
+    actual = se.analyst.total_revenue_by_date(Time.parse('2009-02-07'))
+    assert_equal 21067.77, actual
+    assert_instance_of BigDecimal, actual
+  end
+
+  def test_it_returns_top_merchants_by_revenue
+    se = SalesEngine.from_csv(
+                              invoices:   './data/invoices.csv',
+                              invoice_items: './data/invoice_items.csv',
+                              merchants: './data/merchants.csv'
+                              )
+    actual = se.analyst.top_revenue_earners(10)
+    assert_instance_of Array, actual
+    assert_equal 10, actual.length
+    assert_instance_of Merchant, actual[0]
+    assert_equal 12334634, actual[0].id
+    assert_instance_of Merchant, actual[-1]
+    assert_equal 12335747, actual[-1]
+  end
 end

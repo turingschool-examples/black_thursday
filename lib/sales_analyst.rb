@@ -173,4 +173,19 @@ class SalesAnalyst
     end
     total
   end
+
+  def total_revenue_by_date(date)
+    invoices = @engine.invoices.all.find_all do |invoice|
+      invoice.created_at == date
+    end
+    total = 0
+    invoices.each do |invoice|
+      total += invoice_total(invoice.id)
+    end
+    total
+  end
+
+  def top_revenue_earners(num)
+  end 
+
 end
