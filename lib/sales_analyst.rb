@@ -6,6 +6,7 @@ class SalesAnalyst
 
   def initialize(engine)
     @engine = engine
+    binding.pry
   end
 
   def average_items_per_merchant
