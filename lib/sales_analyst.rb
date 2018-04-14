@@ -187,22 +187,35 @@ class SalesAnalyst
   end
 
   def top_revenue_earners(num)
+    # tops = Array.new(num, [0, 0])
+    # tops_min = 0
+    # puts tops
     # all merchants sort_by / Array.new(num) ... smart shovel?
-    tops = @engine.merchants.all.sort_by do |merchant|
+    tops = @engine.merchants.all.sort_by do |merchant| #all.sort_by
       # revenue per merchant :
-      # invoices = @engine.invoices.find_all_by_merchant_id(merchant.id)
-      # # all invoices with that merchant id
-      # total = 0
-      # invoices.each do |invoice|
-      #   total += invoice_total(invoice.id)
+      invoices = @engine.invoices.find_all_by_merchant_id(merchant.id)
+      # all invoices with that merchant id
+      total = 0
+      invoices.each do |invoice|
+        total += invoice_total(invoice.id)
+      end
+      # total = merchant.total
+      # if total > tops_min
+      #   lowest = tops.min_by do |merch|
+      #     merch[0]
+      #   end
+      #   tops_min = lowest[0]
+      #   index = tops.find_index(lowest)
+      #   tops[index] = [total, merchant]
       # end
-      merchant.total
-      # total
+      total
       # invoice total for that invoice
       # return top num of sorted array
     end.reverse[0..num-1]
     # binding.pry
-    tops
+    # tops.map do |top|
+    #   top[1]
+    # end
   end
 
 end
