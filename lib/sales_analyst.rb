@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
+# analyses various aspects of sales engine
 class SalesAnalyst
   def initialize(sales_engine)
     @sales_engine = sales_engine
-    @all_items_per_merchant = all_items_per_merchant
+    @all_items_per_merchant = @sales_engine.all_items_per_merchant
     @number_of_items_per_merchant = @all_items_per_merchant.values.map(&:count)
   end
 
@@ -13,17 +14,13 @@ class SalesAnalyst
     (item_sum.to_f / @all_items_per_merchant.values.count).round(2)
   end
 
-  def all_items_per_merchant
-    @sales_engine.all_items_per_merchant
-  end
-
   def find_sum(numbers)
-    numbers.inject(0) { |sum, number| sum + number }.to_f
+    numbers.inject(0) { |sum, number| sum + number }
   end
 
   def find_mean(numbers)
     sum = find_sum(numbers)
-    sum / numbers.count
+    sum / numbers.count.to_f
   end
 
   def standard_deviation(numbers)
@@ -35,8 +32,8 @@ class SalesAnalyst
       number**2
     end
     sum = find_sum(squared)
-    sum_over_count = sum / (numbers.count - 1)
-    Math.sqrt(sum_over_count).round(2)
+    sum_over_count = (sum / (numbers.count - 1))
+    Math.sqrt(sum_over_count)
   end
 
   def average_items_per_merchant_standard_deviation
@@ -62,28 +59,33 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(merchant_id)
-    unit_prices= []
-    new_key = @all_items_per_merchant.select{|key, hash| key == merchant_id}
-    new_key.values.flatten.map{|value| unit_prices << value.unit_price}
-    (find_mean2(unit_prices)).round(2)
+    item_prices = @all_items_per_merchant[merchant_id].map(&:unit_price)
+    BigDecimal.new((find_sum(item_prices)/item_prices.count)).round(2)
   end
 
-  def find_sum2(numbers)
-    numbers.inject(0) { |sum, number| sum + number }
-  end
-
-  def find_mean2(numbers)
-    sum = find_sum2(numbers)
-    sum / numbers.count
+  def merchant_price_averages
+    merchant_price_averages = []
+    @all_items_per_merchant.each_key do |merchant_id|
+      merchant_price_averages << average_item_price_for_merchant(merchant_id)
+    end
+    merchant_price_averages
   end
 
   def average_average_price_per_merchant
-    all_unit_prices= []
-    all_values = @all_items_per_merchant.values
-    all_values 
-    (find_mean2(all_unit_prices)).round(2)
+    merchant_price_averages
+    find_mean(merchant_price_averages).round(2)
   end
 
-
+  def golden_items
+    std_dev = standard_deviation(@sales_engine.all_item_prices_per_item.values)
+    mean = find_mean(@sales_engine.all_item_prices_per_item.values)
+    high_price_items = []
+    @sales_engine.all_item_prices_per_item.each_pair do |item, price|
+      if std_dev_above_mean(price, mean, std_dev) >= 2
+        high_price_items << item
+      end
+    end
+    high_price_items
+  end
 
 end
