@@ -2,14 +2,14 @@
 require_relative 'base_repository'
 require_relative 'item'
 
-# This is an ItemRepositoryTest class
+# item repo
 class ItemRepository < BaseRepository
   def items
     @models
   end
 
   def populate
-    @models ||= raw_data.map { |attribute_hash| Item.new(attribute_hash) }
+    @models ||= csv_table_data.map { |attribute_hash| Item.new(attribute_hash, self) }
   end
 
   def find_all_with_description(item_description)
@@ -46,7 +46,7 @@ class ItemRepository < BaseRepository
     attributes[:id] = create_new_id
     attributes[:created_at] = Time.now.to_s
     attributes[:updated_at] = Time.now.to_s
-    items << Item.new(attributes)
+    items << Item.new(attributes, 'parent')
   end
 
   def update(id, attributes)
@@ -56,5 +56,9 @@ class ItemRepository < BaseRepository
     to_update.change_description(attributes[:description])
     to_update.change_updated_at
     to_update.change_unit_price(attributes[:unit_price])
+  end
+
+  def pass_merchant_id_to_merchant_repo(merchant_id)
+    @parent.pass_merchant_id_to_merchant_repo(merchant_id)
   end
 end

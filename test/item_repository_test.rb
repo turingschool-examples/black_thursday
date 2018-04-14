@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'time'
-require 'timecop'
 require_relative 'test_helper'
 require './lib/item_repository'
 require './lib/sales_engine'
@@ -12,6 +11,7 @@ class ItemRepositoryTest < Minitest::Test
   def setup
     @se = SalesEngine.from_csv( { :items     => './test/fixtures/items_truncated.csv',
                                   :merchants => './test/fixtures/merchants_truncated.csv',
+                                  :invoices  => './test/fixtures/invoices_truncated.csv'
                                 } )
     @ir = @se.items
   end
@@ -23,7 +23,6 @@ class ItemRepositoryTest < Minitest::Test
   def test_it_has_items
     assert_equal 5, @ir.all.count
     assert_instance_of Array, @ir.all
-    assert(@ir.all.all?) { |item| item.is_a?(Item) }
   end
 
   def test_find_items_by_id

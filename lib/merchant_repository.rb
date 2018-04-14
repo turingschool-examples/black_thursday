@@ -1,15 +1,15 @@
-require 'csv'
+# frozen_string_literal: true
 require_relative 'merchant'
 require_relative 'base_repository'
-require 'pry'
 
+# merchant repo
 class MerchantRepository < BaseRepository
   def merchants
     @models
   end
 
   def populate
-    @models ||= raw_data.map { |attribute_hash| Merchant.new(attribute_hash)}
+    @models ||= csv_table_data.map { |attribute_hash| Merchant.new(attribute_hash, self)}
   end
 
   def find_all_by_name(name)
@@ -33,7 +33,7 @@ class MerchantRepository < BaseRepository
     attributes[:id] = create_new_id
     attributes[:created_at] = Time.now
     attributes[:updated_at] = Time.now
-    merchants << Merchant.new(attributes)
+    merchants << Merchant.new(attributes, 'parent')
   end
 
   def update(id, attributes)
@@ -41,5 +41,9 @@ class MerchantRepository < BaseRepository
     found = find_by_id(id)
     found.change_name(attributes[:name])
     found.change_updated_at
+  end
+
+  def pass_item_id_to_sales_engine(id)
+    @parent.pass_item_id_to_item_repo(id)
   end
 end
