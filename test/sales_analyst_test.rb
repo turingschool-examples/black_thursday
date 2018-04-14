@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
+require './lib/merchant_repository'
 require './lib/sales_engine'
 require './test/test_helper'
 require './lib/sales_analyst'
-require './lib/merchant_repository'
-require 'pry'
 # tests sales analyst
 class SalesAnalystTest < Minitest::Test
   def setup
@@ -14,13 +13,8 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_exists
     sa = SalesAnalyst.new(@sales_engine_full)
-    assert_instance_of SalesAnalyst, sa
-  end
 
-  def test_all_items_per_by_merchant
-    sa = SalesAnalyst.new(@sales_engine_full)
-    assert_equal 475, sa.all_items_per_merchant.keys.count
-    assert_equal 1367, sa.all_items_per_merchant.values.flatten.count
+    assert_instance_of SalesAnalyst, sa
   end
 
   def test_average_items_per_merchant
@@ -45,6 +39,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_find_standard_deviation
     sa = SalesAnalyst.new(@sales_engine_full)
+
     sa.standard_deviation([10, 15, 20])
     assert_equal 5, sa.standard_deviation([10, 15, 20])
   end
@@ -72,24 +67,26 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Merchant, expected[0]
   end
 
-  def test_can_call_item_price_by_merchant
+  def test_can_find_average_item_price_by_merchant
     sa = SalesAnalyst.new(@sales_engine_full)
-    sa.merchants_with_high_item_count
     merchant_id = 12334105
     expected = sa.average_item_price_for_merchant(merchant_id)
-
     assert_equal 16.66, expected
-    assert_equal BigDecimal, expected.class
+    assert_instance_of BigDecimal, expected
   end
 
   def test_can_find_average_price_of_all_merchant_items
     sa = SalesAnalyst.new(@sales_engine_full)
     expected = sa.average_average_price_per_merchant
-
     assert_equal 350.29, expected
-    assert_equal BigDecimal, expected.class
+    assert_instance_of BigDecimal, expected
   end
 
+  def test_can_find_golden_items
+    sa = SalesAnalyst.new(@sales_engine_full)
+    actual = sa.golden_items
 
-
+    assert_equal 5, actual.count
+    assert_instance_of Item, actual.first
+  end
 end
