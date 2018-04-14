@@ -348,6 +348,45 @@ class SalesAnalystTest < Minitest::Test
       :customers => './test/fixtures/customers.csv'
       })
     sales_analyst = SalesAnalyst.new(se)
-    assert_equal 12, sales_analyst.merchant_with_only_one_item
+    assert_equal 243, sales_analyst.merchants_with_only_one_item.length
+  end
+
+  def test_it_can_find_merchants_with_only_one_item_registered_in_month
+    skip
+    se = SalesEngine.new( { :items => './test/fixtures/items.csv',
+      :merchants => './test/fixtures/merchants.csv',
+      :invoices => './test/fixtures/invoices.csv',
+      :invoice_items => './test/fixtures/invoice_items.csv',
+      :transactions => './test/fixtures/transactions.csv',
+      :customers => './test/fixtures/customers.csv'
+      })
+    sales_analyst = SalesAnalyst.new(se)
+    result = sales_analyst.merchants_with_only_one_item_registered_in_month
+
+    assert_equal [], result
+  end
+
+  def test_it_can_calculate_total_revenue_for_a_merchant
+    se = SalesEngine.new( { :items => './test/fixtures/items.csv',
+      :merchants => './test/fixtures/merchants.csv',
+      :invoices => './test/fixtures/invoices.csv',
+      :invoice_items => './test/fixtures/invoice_items.csv',
+      :transactions => './test/fixtures/transactions.csv',
+      :customers => './test/fixtures/customers.csv'
+      })
+    sales_analyst = SalesAnalyst.new(se)
+    assert_equal 0, sales_analyst.revenue_by_merchant(12334194)
+  end
+
+  def test_it_can_return_most_sold_item_for_merchant
+    se = SalesEngine.new( { :items => './test/fixtures/items.csv',
+      :merchants => './test/fixtures/merchants.csv',
+      :invoices => './test/fixtures/invoices.csv',
+      :invoice_items => './test/fixtures/invoice_items.csv',
+      :transactions => './test/fixtures/transactions.csv',
+      :customers => './test/fixtures/customers.csv'
+      })
+    sales_analyst = SalesAnalyst.new(se)
+    assert_equal 123, sales_analyst.most_sold_item_for_merchant(12334105)
   end
 end

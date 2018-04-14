@@ -31,7 +31,7 @@ class Merchant
   def revenue
     invoices.map do |invoice|
       invoice.invoice_total(invoice.id)
-    end.compact.reduce(0, :+).to_f
+    end.compact.reduce(0, :+)
   end
 
   def customers

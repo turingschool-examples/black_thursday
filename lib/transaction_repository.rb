@@ -8,8 +8,8 @@ class TransactionRepository
 
   def initialize(path, sales_engine)
     @path = path
-    @sales_engine = sales_engine
-    @transactions = []
+    @sales_engine ||= sales_engine
+    @transactions ||= []
     load_path(path)
   end
 

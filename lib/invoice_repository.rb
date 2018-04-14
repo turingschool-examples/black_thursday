@@ -10,7 +10,7 @@ class InvoiceRepository
   def initialize(path, sales_engine)
     @sales_engine ||= sales_engine
     @path = path
-    @invoices = []
+    @invoices ||= []
     load_path(path)
   end
 

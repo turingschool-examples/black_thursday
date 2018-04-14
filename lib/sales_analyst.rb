@@ -171,10 +171,15 @@ class SalesAnalyst
     end.compact.uniq
   end
 
-  def merchant_with_only_one_item
-
-
-
+  def merchants_with_only_one_item
+    merchant_repo.merchants.map do |merchant|
+      merchant if merchant.items.count == 1
+    end.compact
   end
 
+  def revenue_by_merchant(merchant_id)
+    merchant_repo.find_by_id(merchant_id).revenue
+  end
+
+  def most_sold
 end

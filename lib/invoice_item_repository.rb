@@ -5,8 +5,8 @@ class InvoiceItemRepository
   attr_reader :invoice_items
 
   def initialize(path, sales_engine)
-    @sales_engine = sales_engine
-    @invoice_items = []
+    @sales_engine ||= sales_engine
+    @invoice_items ||= []
     load_path(path)
   end
 
@@ -67,5 +67,5 @@ class InvoiceItemRepository
    "#<#{self.class} #{@invoice_items.size} rows>"
   end
 
-  
+
 end
