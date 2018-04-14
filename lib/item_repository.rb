@@ -14,8 +14,8 @@ class ItemRepository
   end
 
   def load_path(path)
-    CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
-      @contents[row[:id]] = Item.new(row, self)
+    CSV.foreach path, headers: true, header_converters: :symbol do |row|
+      items[row[:id].to_i] = Item.new(row, self)
     end
   end
 

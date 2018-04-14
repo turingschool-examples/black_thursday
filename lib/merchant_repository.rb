@@ -15,7 +15,7 @@ class MerchantRepository
 
   def load_path(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
-      @contents[row[:id]] = Merchant.new(row, self)
+      @contents[row[:id].to_i] = Merchant.new(row, self)
     end
   end
 
@@ -39,7 +39,7 @@ class MerchantRepository
     max_id = @contents.max_by do |key|
       key
     end
-    max = max_id[0].to_i + 1
+    max = max_id[0] + 1
     attributes[:id] = max
     @contents[:max] = Merchant.new(attributes, self)
   end
