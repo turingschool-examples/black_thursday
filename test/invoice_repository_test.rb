@@ -1,35 +1,35 @@
 require_relative 'test_helper'
+require './lib/invoice'
 require './lib/invoice_repository'
 require 'pry'
 
 class InvoiceRepositoryTest < Minitest::Test
 
   def setup
-    @now = Time.now
-    @invoice1 = Invoice.new({
-        :id          => 6,
-        :customer_id => 7,
-        :merchant_id => 8,
-        :status      => "pending",
-        :created_at  => @now,
-        :updated_at  => @now,
-        })
-    @invoice2 = Invoice.new({
-      :id            => 7,
-      :customer_id   => 8,
-      :merchant_id   => 9,
-      :status        => "success",
-      :created_at    => @now,
-      :updated_at    => @now
-      })
-    @invoice3 = Invoice.new({
-      :id            => 8,
-      :customer_id   => 9,
-      :merchant_id   => 10,
-      :status        => "processing",
-      :created_at    => @now,
-      :updated_at    => @now
-      })
+    @invoice1 = [
+      [:id, '2'],
+      [:customer_id, '1'],
+      [:merchant_id, '12334753'],
+      [:status, 'shipped'],
+      [:created_at, '2012-11-23'],
+      [:updated_at, '2013-04-14']
+      ]
+    @invoice2 = [
+      [:id, '11'],
+      [:customer_id, '2'],
+      [:merchant_id, '12334771'],
+      [:status, 'pending'],
+      [:created_at, '2008-01-07']
+      [:updated_at, '2014-05-30']
+      ]
+    @invoice3 = [
+      [:id, '27'],
+      [:customer_id, '6'],
+      [:merchant_id, '12335319'],
+      [:status, 'shipped'],
+      [:created_at, '2011-06-21'],
+      [:updated_at, '2013-07-22']
+      ]
     @invoices = [@invoice1, @invoice2, @invoice3]
     @ir = InvoiceRepository.new(@invoices)
   end
@@ -39,12 +39,20 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_instance_of InvoiceRepository, @ir
   end
 
-  def test_can_find_by_id
-    expected = @ir.find_by_id(6)
-    assert_equal "pending", expected.status
-    expected = @ir.find_by_id(7)
-    assert_equal 8, expected.merchant_id
+  def test_it_holds_invoices
+    @ir.invoices.all? do |invoice|
+      assert_instance_of Invoice, invoice
+    end
+    assert_instance_of Invoice, @ir.invoices[0]
+    assert_instance_of Invoice, @ir.invoices[1]
   end
+
+  # def test_can_find_by_id
+  #   expected = @ir.find_by_id(6)
+  #   assert_equal "pending", expected.status
+  #   expected = @ir.find_by_id(7)
+  #   assert_equal 8, expected.merchant_id
+  # end
 
   # def test_it_can_update_an_invoice
   #   @se
