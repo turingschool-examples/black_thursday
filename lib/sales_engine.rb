@@ -9,10 +9,12 @@ require_relative './fileio'
 class SalesEngine
   attr_reader :items,
               :merchants,
-              :analyst
+              :analyst,
+              :invoices
   def initialize(paths)
     @items = ItemRepository.new(FileIo.load(paths[:items]))
     @merchants = MerchantRepository.new(FileIo.load(paths[:merchants]))
+    @invoices = InvoiceRepository.new(FileIo.load(paths[:invoices]))
     @analyst = SalesAnalyst.new(self)
   end
 
