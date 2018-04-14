@@ -1,7 +1,6 @@
 # SalesAnalyst
 require_relative 'sales_engine'
 class SalesAnalyst
-
   attr_reader :merchant_repo,
               :item_repo,
               :invoice_repo,
@@ -181,5 +180,14 @@ class SalesAnalyst
     merchant_repo.find_by_id(merchant_id).revenue
   end
 
-  def most_sold
+  def most_sold_item_for_merchant(merchant_id)
+    array = merchant_repo.find_by_id(merchant_id).invoices
+    array.map do |invoice|
+      invoice_item_repo.find_all_by_invoice_id(invoice.id)
+    end.group_by do |iI|
+      iI.item_id
+    end
+  end
+
+
 end

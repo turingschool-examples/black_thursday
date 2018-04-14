@@ -75,4 +75,10 @@ class MerchantRepository
   def invoices_for_merchant(id)
     sales_engine.invoices_for_merchant(id)
   end
+
+  def items_for_a_merchant(merchant_id)
+    sales_engine.items_for_a_merchant(merchant_id)
+  end
+
+
 end

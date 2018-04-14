@@ -387,6 +387,6 @@ class SalesAnalystTest < Minitest::Test
       :customers => './test/fixtures/customers.csv'
       })
     sales_analyst = SalesAnalyst.new(se)
-    assert_equal 123, sales_analyst.most_sold_item_for_merchant(12334105)
+    assert_equal 123, sales_analyst.most_sold_item_for_merchant(12334132)
   end
 end
