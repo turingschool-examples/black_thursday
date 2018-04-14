@@ -11,7 +11,6 @@ class SalesAnalystTest < Minitest::Test
   def setup
     @se = SalesEngine.from_csv
     @sa = SalesAnalyst.new(@se)
-    # binding.pry
   end
 
   def test_it_exists
@@ -72,6 +71,9 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_merchants_by_invoice_count
+    actual = @sa.top_merchants_by_invoice_count
+
+    assert_equal 12, actual.length
   end
 
   def test_bottom_merchants_by_invoice_count
