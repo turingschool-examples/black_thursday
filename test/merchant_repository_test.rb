@@ -1,41 +1,61 @@
 require './test/test_helper'
-require './lib/merchant_repository'
-require './lib/merchant'
+require './lib/sales_engine'
 
 class MerchantRepositoryTest < Minitest::Test
+  attr_reader :se
+  def setup
+    @se = SalesEngine.from_csv(
+  :items     => './test/fixtures/item_fixture.csv',
+  :merchants => './test/fixtures/merchant_fixture.csv'
+  )
+  end
+
   def test_it_exists
-    mr = MerchantRepository.new('./test/fixtures/merchant_fixture.csv', self)
-    assert_instance_of MerchantRepository, mr
+    assert_instance_of MerchantRepository, se.merchants
   end
 
   def test_it_returns_all_merchants
-    mr = MerchantRepository.new('./test/fixtures/merchant_fixture.csv', self)
-
-    assert_equal 5, mr.all.count
-    assert_instance_of Array, mr.all
-    assert_instance_of Merchant, mr.all[0]
+    assert_equal 5, se.merchants.all.count
+    assert_instance_of Array, se.merchants.all
+    assert_instance_of Merchant, se.merchants.all[0]
   end
 
   def test_it_has_id
-    mr = MerchantRepository.new('./test/fixtures/merchant_fixture.csv', self)
-
-    assert_nil mr.find_by_id(20)
-    assert_instance_of Merchant, mr.find_by_id('12334105')
-    assert_equal 'Shopin1901', mr.find_by_id('12334105').name
+    assert_nil se.merchants.find_by_id(20)
+    assert_instance_of Merchant, se.merchants.find_by_id('12334105')
+    assert_equal 'Shopin1901', se.merchants.find_by_id('12334105').name
   end
 
   def test_find_by_name
-    mr = MerchantRepository.new('./test/fixtures/merchant_fixture.csv', self)
-
-    assert_equal 'Shopin1901', mr.find_by_name('Shopin1901').name
-    assert_nil mr.find_by_name('morty')
+    assert_equal 'Shopin1901', se.merchants.find_by_name('Shopin1901').name
+    assert_nil se.merchants.find_by_name('morty')
   end
 
   def test_find_all_by_name
-    mr = MerchantRepository.new('./test/fixtures/merchant_fixture.csv', self)
+    assert_instance_of Merchant, se.merchants.find_by_name('Candisart')
+    assert_equal 12_334_112, se.merchants.find_by_name('Candisart').id
+  end
 
+  def test_create_new_merchants_with_attributes
+    attributes = {
+        name: "Turing School of Software and Design"
+      }
 
-    assert_instance_of Merchant, mr.find_by_name('Candisart')
-    assert_equal 12_334_112, mr.find_by_name('Candisart').id
+    assert_equal 12_334_124, se.merchants.create(attributes).id
+  end
+
+  def test_it_can_update_an_merchant
+    # this needs refactoring
+    attributes = {
+        name: 'Turing School of Software and Design'
+      }
+    id = '263399188'
+
+    assert_equal 'Turing School of Software and Design', se.merchants.update(id, attributes[:name])
+  end
+
+  def test_it_can_delete_an_merchant
+    assert_instance_of Merchant, se.merchants.delete('12334112')
+    assert_equal 4, se.merchants.all.count
   end
 end
