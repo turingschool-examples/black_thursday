@@ -89,10 +89,4 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_nil @ir.find_by_id(8)
     assert_equal 8, @ir.invoices.count
   end
-
-
-
-
-#   all - returns an array of all known Invoice instances
-
 end

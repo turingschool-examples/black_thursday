@@ -29,6 +29,6 @@ class Invoice
   end
 
   def change_updated_at
-    @updated_at = Time.now.to_s
+    @updated_at = Time.now
   end
 end
