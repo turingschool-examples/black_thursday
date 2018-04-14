@@ -123,5 +123,17 @@ class SalesAnalyst < Analyzer
     # --- invoice_total, add total to customer total.
     # Sum the totals and compare to each other.
     # sort by max
+    top_customer_ids = merchants_per_count.map do |count, merchant_ids|
+      merchant_ids if count >= average_invoices_per_merchant_plus_two_standard_deviations
+    end.flatten.compact
+
+    top_merchant_ids.map do |merchant_id|
+      @merchant_repo.find_by_id(merchant_id)
+    end
+  end
+
+  def best_invoice_by_quantity
+    highest_quantity = invoice_items.map(&:quantity).reduce(:+)
+    # best_invoice = highest_quantity.each
   end
 end
