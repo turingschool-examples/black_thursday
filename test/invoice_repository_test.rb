@@ -39,6 +39,13 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_instance_of InvoiceRepository, @ir
   end
 
+  def test_can_find_by_id
+    expected = @ir.find_by_id(6)
+    assert_equal "pending", expected.status
+    expected = @ir.find_by_id(7)
+    assert_equal 8, expected.merchant_id
+  end
+
   # def test_it_can_update_an_invoice
   #   @se
   #   original_time = engine.invoices.find_by_id(6).status

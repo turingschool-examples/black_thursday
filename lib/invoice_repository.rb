@@ -4,7 +4,7 @@ class InvoiceRepository
 
   def initialize(invoices)
     @invoices = []
-    # invoices.each { |invoice| @invoices << Invoice.new(to_invoice(invoice))}
+    invoices.each {|invoice| @invoices << Invoice.new(to_invoice(invoice))}
   end
 
 
