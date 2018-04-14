@@ -2,7 +2,6 @@
 
 require_relative 'base_repository'
 require_relative 'invoice'
-require 'pry'
 
 # invoice repo
 class InvoiceRepository < BaseRepository
