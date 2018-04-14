@@ -2,9 +2,9 @@
 
 # base repo
 class BaseRepository
-  attr_reader :raw_data, :models
+  attr_reader :csv_table_data, :models
 
-  def initialize(raw_data, parent)
+  def initialize(csv_table_data, parent)
     @parent = parent
     @csv_table_data = csv_table_data
   end

@@ -9,7 +9,7 @@ class MerchantRepository < BaseRepository
   end
 
   def populate
-    @models ||= raw_data.map { |attribute_hash| Merchant.new(attribute_hash, self)}
+    @models ||= csv_table_data.map { |attribute_hash| Merchant.new(attribute_hash, self)}
   end
 
   def find_all_by_name(name)

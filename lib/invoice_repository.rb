@@ -10,6 +10,6 @@ class InvoiceRepository < BaseRepository
   end
 
   def populate
-    @models ||= raw_data.map { |attribute_hash| Invoice.new(attribute_hash, self) }
+    @models ||= csv_table_data.map { |attribute_hash| Invoice.new(attribute_hash, self) }
   end
 end
