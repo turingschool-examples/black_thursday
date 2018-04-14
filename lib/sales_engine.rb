@@ -38,7 +38,7 @@ class SalesEngine
     transactions_file_path = FileIO.load(data[:transactions])
     attrs = {
       customer_repo: CustomerRepository.new(customers_file_path),
-      invoice_items_repo: InvoiceItemRepository.new(invoice_items_file_path),
+      invoice_item_repo: InvoiceItemRepository.new(invoice_items_file_path),
       invoice_repo: InvoiceRepository.new(invoices_file_path),
       item_repo: ItemRepository.new(items_file_path),
       merchant_repo: MerchantRepository.new(merchants_file_path),

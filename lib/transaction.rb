@@ -12,7 +12,7 @@ class Transaction
   def initialize(transact_hash = Hash.new(0))
     @id = transact_hash[:id].to_i
     @invoice_id = transact_hash[:invoice_id].to_i
-    @credit_card_number = transact_hash[:credit_card_number].to_i
+    @credit_card_number = transact_hash[:credit_card_number]
     @credit_card_expiration_date = transact_hash[:credit_card_expiration_date]
     @result      = transact_hash[:result]
     @created_at  = transact_hash[:created_at]
