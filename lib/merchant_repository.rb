@@ -36,11 +36,8 @@ class MerchantRepository
   end
 
   def create(attributes)
-    max_id = @contents.max_by do |key|
-      key
-    end
-    max = max_id[0] + 1
-    attributes[:id] = max
+    max_id = @contents.keys.max + 1
+    attributes[:id] = max_id
     @contents[:max] = Merchant.new(attributes, self)
   end
 
