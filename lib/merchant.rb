@@ -9,6 +9,7 @@ class Merchant
     @engine = engine
   end
 
+  #shouldn't use engine
   def round(decider)
     if decider == 'item'
       @engine.items.find_all_by_merchant_id(id).count
