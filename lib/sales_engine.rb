@@ -3,6 +3,7 @@
 require_relative './item_repository'
 require_relative './merchant_repository'
 require_relative './sales_analyst'
+require_relative './invoice_repository'
 require_relative './fileio'
 
 # allows creation and access to items and merchants
