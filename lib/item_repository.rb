@@ -34,7 +34,6 @@ class ItemRepository < BaseRepository
     items.find_all { |item| item.merchant_id == id }
   end
 
-
   def create(attributes)
     attributes[:id] = create_new_id
     attributes[:created_at] = Time.now.to_s
@@ -51,12 +50,17 @@ class ItemRepository < BaseRepository
     to_update.change_unit_price(attributes[:unit_price])
   end
 
+  def delete(id)
+    to_delete = find_by_id(id)
+    items.delete(to_delete)
+  end
+
   def pass_merchant_id_to_merchant_repo(merchant_id)
     @parent.pass_merchant_id_to_merchant_repo(merchant_id)
   end
 
   private
-  
+
   def find_highest_id
     items.map(&:id).max
   end

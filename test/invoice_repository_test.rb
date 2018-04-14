@@ -78,12 +78,18 @@ class InvoiceRepositoryTest < Minitest::Test
 
     attributes = ({:status => 'pending'})
     @ir.update(8, attributes)
-
     assert_equal :pending, actual.status
   end
 
   def test_delete_invoice
-    # delete(id) - delete the Invoice instance with the corresponding id
+    assert_equal 9, @ir.invoices.count
+
+    actual = @ir.find_by_id(8)
+
+    @ir.delete(8)
+
+    assert_equal 8, @ir.invoices.count
+    assert_nil @ir.find_by_id(8)
   end
 
 
