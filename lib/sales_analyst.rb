@@ -6,6 +6,7 @@ class SalesAnalyst
 
   def initialize(engine)
     @engine = engine
+    # binding.pry
   end
 
   def average_items_per_merchant
@@ -54,6 +55,7 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant
+    (invoices.length / total_merchants.to_f).round(2)
   end
 
   def average_invoices_per_merchant_standard_deviation
@@ -89,6 +91,10 @@ class SalesAnalyst
     @engine.items.all
   end
 
+  def invoices
+    @engine.invoices.all
+  end
+
   def average_item_price_standard_deviation
     unit_prices = unit_price_of_all_items
     standard_deviation(unit_prices, average_average_price_per_merchant)
@@ -108,7 +114,7 @@ class SalesAnalyst
   end
 
   def total_items_per_merchant
-    @_total ||= merchants.map do |merchant|
+    @_items ||= merchants.map do |merchant|
       merchant.items.length
     end
   end

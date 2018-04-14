@@ -58,9 +58,18 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_invoices_per_merchant
+    actual = @sa.average_invoices_per_merchant
+
+    assert_equal 10.49, actual
+    assert_instance_of Float, actual
   end
 
   def test_average_invoices_per_merchant_standard_deviation
+    skip
+    actual = @sa.average_invoices_per_merchant_standard_deviation
+
+    assert_equal 3.29, actual
+    assert_instance_of Float, actual
   end
 
   def test_top_merchants_by_invoice_count
