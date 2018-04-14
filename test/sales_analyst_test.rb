@@ -79,7 +79,7 @@ class SalesAnalystTest < Minitest::Test
     expected = sa.average_item_price_for_merchant(merchant_id)
 
     assert_equal 16.66, expected
-    # assert_equal BigDecimal, expected.class
+    assert_equal BigDecimal, expected.class
   end
 
 

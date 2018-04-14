@@ -65,7 +65,16 @@ class SalesAnalyst
     unit_prices= []
     new_key = @all_items_per_merchant.select{|key, hash| key == merchant_id}
     new_key.values.flatten.map{|value| unit_prices << value.unit_price}
-    (find_mean(unit_prices)).round(2)
+    (find_mean2(unit_prices)).round(2)
+  end
+
+  def find_sum2(numbers)
+    numbers.inject(0) { |sum, number| sum + number }
+  end
+
+  def find_mean2(numbers)
+    sum = find_sum2(numbers)
+    sum / numbers.count
   end
 
 
