@@ -42,6 +42,7 @@ class MerchantRepository
     max_id = @merchants.keys.max + 1
     attributes[:id] = max_id
     @merchants[:max] = Merchant.new(attributes, self)
+
   end
 
   def update(id, attributes)

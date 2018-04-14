@@ -41,6 +41,7 @@ class ItemRepository
   def create(attributes)
     max_id = @contents.keys.max + 1
     attributes[:id] = max_id
+    attributes[:created_at] = Time.now
     @contents[:max] = Item.new(attributes, self)
   end
 
