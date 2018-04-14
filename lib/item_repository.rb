@@ -55,8 +55,8 @@ class ItemRepository < BaseRepository
     items.delete(to_delete)
   end
 
-  def pass_merchant_id_to_merchant_repo(merchant_id)
-    @parent.pass_merchant_id_to_merchant_repo(merchant_id)
+  def pass_merchant_id_to_merchant_repo(id)
+    @parent.pass_merchant_id_to_merchant_repo(id)
   end
 
   private

@@ -48,7 +48,11 @@ class MerchantRepository < BaseRepository
     merchants.delete(to_delete)
   end
 
-  def pass_item_id_to_sales_engine(id)
+  def pass_item_id_to_engine(id)
     @parent.pass_item_id_to_item_repo(id)
+  end
+
+  def pass_item_id_to_engine_for_invoice(id)
+    @parent.pass_item_id_to_invoice_repo(id)
   end
 end

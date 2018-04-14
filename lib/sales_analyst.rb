@@ -6,7 +6,6 @@ class SalesAnalyst
 
   def initialize(engine)
     @engine = engine
-    # binding.pry
   end
 
   def average_items_per_merchant
@@ -116,6 +115,12 @@ class SalesAnalyst
   def total_items_per_merchant
     @_items ||= merchants.map do |merchant|
       merchant.items.length
+    end
+  end
+
+  def total_invoices_per_merchant
+    @_invoices ||= merchants.map do |merchant|
+      merchant.invoices.length
     end
   end
 

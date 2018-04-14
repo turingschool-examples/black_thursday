@@ -44,8 +44,8 @@ class InvoiceRepository < BaseRepository
     invoices.delete(to_delete)
   end
 
-  def pass_merchant_id_to_engine_from_invoice(merchant_id)
-    @parent.pass_merchant_id_to_merchant_repo(merchant_id)
+  def pass_merchant_id_to_engine_from_invoice(id)
+    @parent.pass_merchant_id_to_merchant_repo(id)
   end
 
   private
