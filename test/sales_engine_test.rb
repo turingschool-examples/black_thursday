@@ -14,6 +14,16 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of SalesEngine, @se
   end
 
+  def test_all_items_per_by_merchant
+    assert_equal 475, @se.all_items_per_merchant.keys.count
+    assert_equal 1367, @se.all_items_per_merchant.values.flatten.count
+  end
+
+  def test_all_items_prices_per_item
+    assert_equal 1367, @se.all_item_prices_per_item.keys.count
+    assert_equal 1367,  @se.all_item_prices_per_item.values.flatten.count
+  end
+
   def test_it_contains_repositories
     assert_instance_of ItemRepository, @se.items
     assert_instance_of MerchantRepository, @se.merchants
