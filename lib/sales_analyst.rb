@@ -186,11 +186,15 @@ class SalesAnalyst
   end
 
   def top_revenue_earners(num = 20)
+    merchants_ranked_by_revenue[0..num-1]
+  end
+
+  def merchants_ranked_by_revenue
     time = Time.now
     tops = @engine.merchants.all.sort_by do |merchant|
       merchant.total
-    end.reverse[0..num-1]
-    puts (Time.now - time).round
+    end.reverse
+    puts (Time.now - time).round(2)
     tops
   end
 end
