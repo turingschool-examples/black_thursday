@@ -47,15 +47,26 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_it_can_find_all_by_status
     actual = @ir.find_all_by_status(:pending)
-binding.pry
+
     assert_instance_of Array, actual
     assert_instance_of Invoice, actual[0]
     assert_equal 5, actual.length
   end
 
   def test_create_invoice
-    # create(attributes) - create a new Invoice instance with the provided attributes. The new Invoice’s id should be the current highest Invoice id plus 1.
+    # create(attributes) - create a new Invoice instance
+    # with the provided attributes. The new Invoice’s id
+    #should be the current highest Invoice id plus 1.
 
+    attributes = ({
+                    :id          => '123',
+                    :merchant_id => '456',
+                    :customer_id => '789',
+                    :status      => 'shipped',
+                    :created_at  => '1995-03-19 10:02:43 UTC',
+                    :updated_at  => '1995-03-19 10:02:43 UTC',
+                  })
+    assert_equal 
   end
 
   def test_update_invoice

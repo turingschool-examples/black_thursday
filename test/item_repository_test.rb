@@ -63,16 +63,12 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of Item, @ir.find_all_by_merchant_id(2)[0]
   end
 
-  def test_find_highest_id
-    assert_equal 263_396_209, @ir.find_highest_id
-  end
-
-  def test_create_new_id
-    assert_equal 263_396_210, @ir.create_new_id
-  end
+  # def test_create_new_id
+  #   assert_equal 263_396_210, @ir.create_new_id
+  # end
 
   def test_create_item
-    assert_equal 263_396_210, @ir.create_new_id
+    # assert_equal 263_396_210, @ir.create_new_id
 
     @ir.create({
                   :name        => 'Pencil',

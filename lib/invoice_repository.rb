@@ -26,10 +26,27 @@ class InvoiceRepository < BaseRepository
     invoices.select { |invoice| invoice.status == shipping_status }
   end
 
+  def create(attributes)
+    attributes[:id] = create_new_id
+    attributes[:created_at] = Time.now.to_s
+    attributes[:updated_at] = Time.now.to_s
+    invoices << Invoice.new(attributes, 'parent')
+  end
 
   def pass_merchant_id_to_engine_from_invoice(merchant_id)
     @parent.pass_merchant_id_to_merchant_repo(merchant_id)
   end
+
+  private
+
+  def find_highest_id
+    invoices.map(&:id).max
+  end
+
+  def create_new_id
+    find_highest_id + 1
+  end
+
 
   # all - returns an array of all known Invoice instances
   # find_by_id - returns either nil or an instance of Invoice with a matching ID

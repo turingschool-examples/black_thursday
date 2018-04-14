@@ -34,13 +34,6 @@ class ItemRepository < BaseRepository
     items.find_all { |item| item.merchant_id == id }
   end
 
-  def find_highest_id
-    items.map(&:id).max
-  end
-
-  def create_new_id
-    find_highest_id + 1
-  end
 
   def create(attributes)
     attributes[:id] = create_new_id
@@ -60,5 +53,15 @@ class ItemRepository < BaseRepository
 
   def pass_merchant_id_to_merchant_repo(merchant_id)
     @parent.pass_merchant_id_to_merchant_repo(merchant_id)
+  end
+
+  private
+  
+  def find_highest_id
+    items.map(&:id).max
+  end
+
+  def create_new_id
+    find_highest_id + 1
   end
 end
