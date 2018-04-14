@@ -77,6 +77,9 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_bottom_merchants_by_invoice_count
+    actual = @sa.bottom_merchants_by_invoice_count
+
+    assert_equal 4, actual.length
   end
 
   def test_top_days_by_invoice_count

@@ -6,7 +6,6 @@ class SalesAnalyst
 
   def initialize(engine)
     @engine = engine
-    binding.pry
   end
 
   def average_items_per_merchant
@@ -73,6 +72,12 @@ class SalesAnalyst
   end
 
   def bottom_merchants_by_invoice_count
+    avg_std_dev = average_invoices_per_merchant_standard_deviation
+    avg = average_invoices_per_merchant
+    merchants.map do |merchant|
+      diff = (merchant.invoices.length - avg).to_f
+      merchant if diff.abs > avg_std_dev * 2 && merchant.invoices.length < avg
+    end.compact
   end
 
   def top_days_by_invoice_count
