@@ -8,12 +8,16 @@ class ItemRepository
   def initialize(engine = nil)
     @engine = engine
     @elements = {}
+    @merchant_ids = Hash.new{ |h, k| h[k] = [] }
+
   end
 
   def build_elements_hash(elements)
     elements.each do |element|
       item = Item.new(element)
       @elements[item.id] = item
+      @merchant_ids[item.merchant_id] << item
+
     end
   end
 

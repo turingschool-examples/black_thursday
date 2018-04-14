@@ -8,12 +8,15 @@ class InvoiceItemRepository
   def initialize(engine = nil)
     @engine = engine
     @elements = {}
+    @invoice_ids = Hash.new{ |h, k| h[k] = [] }
   end
 
   def build_elements_hash(elements)
     elements.each do |element|
       invoice_item = InvoiceItem.new(element, @engine)
       @elements[invoice_item.id] = invoice_item
+      @invoice_ids[invoice_item.invoice_id] << invoice_item
+
     end
   end
 

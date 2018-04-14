@@ -8,12 +8,16 @@ class TransactionRepository
   def initialize(engine = nil)
     @engine = engine
     @elements = {}
+    @invoice_ids = Hash.new{ |h, k| h[k] = [] }
+
   end
 
   def build_elements_hash(elements)
     elements.each do |element|
       transaction = Transaction.new(element, @engine)
       @elements[transaction.id] = transaction
+      @invoice_ids[transaction.invoice_id] << transaction
+
     end
   end
 

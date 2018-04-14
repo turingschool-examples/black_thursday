@@ -166,7 +166,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_top_merchants_by_revenue
-    skip
+    # skip
     se = SalesEngine.from_csv(
                               invoices:   './data/invoices.csv',
                               invoice_items: './data/invoice_items.csv',
@@ -183,6 +183,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_ranks_merchants
+    # skip
     se = SalesEngine.from_csv(
                               invoices:   './data/invoices.csv',
                               invoice_items: './data/invoice_items.csv',

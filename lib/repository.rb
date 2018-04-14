@@ -53,9 +53,10 @@ module Repository
   end
 
   def find_all_by_merchant_id(merch_id)
-    all.find_all do |element|
-      element.merchant_id == merch_id
-    end
+    # all.find_all do |element|
+    #   element.merchant_id == merch_id
+    # end
+    @merchant_ids[merch_id]
   end
 
   def create_id_number
@@ -77,8 +78,9 @@ module Repository
   end
 
   def find_all_by_invoice_id(invoice_id)
-    all.find_all do |element|
-      element.invoice_id == invoice_id
-    end
+    # all.find_all do |element|
+    #   element.invoice_id == invoice_id
+    # end
+    @invoice_ids[invoice_id]
   end
 end

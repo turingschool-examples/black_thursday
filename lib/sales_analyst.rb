@@ -190,11 +190,11 @@ class SalesAnalyst
   end
 
   def merchants_ranked_by_revenue
-    # time = Time.now
+    time = Time.now
     tops = @engine.merchants.all.sort_by do |merchant|
       merchant.total
     end.reverse
-    # puts (Time.now - time).round(2)
+    puts (Time.now - time).round(2)
     tops
   end
 end

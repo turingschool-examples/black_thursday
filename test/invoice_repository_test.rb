@@ -85,6 +85,7 @@ class InvoiceRepositoryTest < Minitest::Test
     find3 = @invr.find_by_id(40)
     assert invoices2.include?(find)
     assert invoices2.include?(find2)
+    # binding.pry
     refute invoices2.include?(find3)
 
     invoices3 = @invr.find_all_by_merchant_id(9999999999)
