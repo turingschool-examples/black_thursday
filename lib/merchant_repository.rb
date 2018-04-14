@@ -26,17 +26,10 @@ class MerchantRepository
   end
 
   def find_by_name(name)
-    all.find {|merchant| merchant.name.downcase == name.downcase}
-    # @contents.each do |key, merchant|
-    #   return merchant if merchant.name.casecmp == name.casecmp
-    # end
-    # nil
+    all.find { |row| row.name.downcase == name.downcase }
   end
 
   def find_all_by_name(name)
-    @contents.find_all do |row|
-      row.downc ase == name.downcase
-    end
+    all.find_all { |row| row.downcase == name.downcase }
   end
-
 end

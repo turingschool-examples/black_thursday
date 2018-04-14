@@ -25,23 +25,19 @@ class ItemRepository
   end
 
   def find_by_name(name)
-    all.find {|merchant| merchant.name.downcase == name.downcase}
+    all.find { |item| item.name.downcase == name.downcase }
   end
 
   def find_all_with_description(description)
-    items = []
-    @contents.each do |_, item|
-      items << item  if item.description == description
+    all.find_all do |item|
+      item.description.downcase.include?(description.downcase)
     end
-    items
   end
 
   def find_all_by_price(price)
-    items = []
-    @contents.each do |_, item|
-      items << item if item.unit_price == price.to_i
+    all.find_all do |item|
+      item.unit_price_to_dollars == price
     end
-    items
   end
 
   def find_all_by_price_in_range(range)
@@ -76,9 +72,5 @@ class ItemRepository
 
   def delete(id)
     @contents.delete(id)
-  end
-
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
   end
 end

@@ -32,23 +32,21 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_by_description
-skip
+
     ir = ItemRepository.new('./test/fixtures/item_fixture.csv', self)
 
-    assert_instance_of Item, ir.find_all_with_description('Brown')[0]
     assert_instance_of Array, ir.find_all_with_description('Brown')
-    assert_equal 'Box', ir.find_all_with_description('Brown')[0].name
+    assert_equal 263_399_187, ir.find_all_with_description('Brown')[0].id
     assert_equal [], ir.find_all_with_description('Emmie')
   end
 
   def test_find_all_by_price
-skip
+
     ir = ItemRepository.new('./test/fixtures/item_fixture.csv', self)
 
-    assert_instance_of Item, ir.find_all_by_price('4800')[0]
-    assert_instance_of Array, ir.find_all_by_price('4800')
-    assert_equal 'Box', ir.find_all_by_price('4800')[0].name
-    assert_equal [], ir.find_all_by_price('12')
+    assert_instance_of Array, ir.find_all_by_price('Box')
+    assert_equal 263_399_188, ir.find_all_by_price(2400.0)[0].id
+    # assert_equal [], ir.find_all_by_price('12')
   end
 
   def test_find_all_by_price_in_range
