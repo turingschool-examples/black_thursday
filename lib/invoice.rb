@@ -39,7 +39,6 @@ class Invoice
 
   def update(states)
     super(states)
-    attributes[:customer_id] = states[:customer_id] if states[:customer_id]
     attributes[:status] = states[:status] if states[:status]
   end
 end

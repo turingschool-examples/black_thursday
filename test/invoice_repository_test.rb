@@ -159,7 +159,7 @@ class InvoiceRepositoryTest < Minitest::Test
       assert_equal 1, @invr.all.count
       assert_equal :shipping, @invr.find_by_id(1).status
       assert_equal 18, @invr.find_by_id(1).merchant_id
-      assert_equal 9, @invr.find_by_id(1).customer_id
+      assert_equal 7, @invr.find_by_id(1).customer_id
       assert time < @invr.find_by_id(1).updated_at
     end
 

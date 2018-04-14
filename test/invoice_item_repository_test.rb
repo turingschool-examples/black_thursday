@@ -143,8 +143,8 @@ class InvoiceItemRepositoryTest < Minitest::Test
       updated_at: @time
                     })
     assert_equal 1, @inv_itr.all.count
-    assert_equal 10, @inv_itr.find_by_id(1).invoice_id
-    assert_equal 8, @inv_itr.find_by_id(1).item_id
+    assert_equal 8, @inv_itr.find_by_id(1).invoice_id
+    assert_equal 7, @inv_itr.find_by_id(1).item_id
     assert_equal 3, @inv_itr.find_by_id(1).quantity
     assert time < @inv_itr.find_by_id(1).updated_at
   end

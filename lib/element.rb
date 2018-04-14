@@ -79,6 +79,5 @@ module Element
     attributes[:name] = states[:name] if states[:name]
     attributes[:unit_price] = states[:unit_price] * 100 if states[:unit_price]
     attributes[:updated_at] = Time.now
-    attributes[:invoice_id] = states[:invoice_id] if states[:invoice_id]
   end
 end

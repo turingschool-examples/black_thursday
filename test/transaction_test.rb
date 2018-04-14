@@ -24,7 +24,7 @@ class TransactionTest < Minitest::Test
   def test_it_has_attributes
     assert_equal 3, @trans.id
     assert_equal 8, @trans.invoice_id
-    assert_equal 1234567890123456, @trans.credit_card_number
+    assert_equal '1234567890123456', @trans.credit_card_number
     assert_equal '0518', @trans.credit_card_expiration_date
     assert_equal 'success', @trans.result
     assert_equal @time, @trans.created_at

@@ -74,14 +74,14 @@ class TransactionRepositoryTest < Minitest::Test
 
   def test_find_all_by_credit_card_number
     @trans.from_csv('./test/fixtures/transactions_fixtures.csv')
-    invoices = @trans.find_all_by_credit_card_number(4055813232766404)
+    invoices = @trans.find_all_by_credit_card_number('4055813232766404')
     assert_instance_of Array, invoices
     assert_instance_of Transaction, invoices[0]
     find = @trans.find_by_id(18)
     assert invoices.include?(find)
     assert_equal 1, invoices.count
 
-    invoices2 = @trans.find_all_by_credit_card_number(4586019638473066)
+    invoices2 = @trans.find_all_by_credit_card_number('4586019638473066')
     assert_instance_of Array, invoices2
     find = @trans.find_by_id(37)
     find2 = @trans.find_by_id(38)
@@ -167,9 +167,9 @@ class TransactionRepositoryTest < Minitest::Test
       updated_at:                   time
                     })
     assert_equal 1, @trans.all.count
-    assert_equal 10, @trans.find_by_id(1).invoice_id
+    assert_equal 8, @trans.find_by_id(1).invoice_id
     assert_equal 'failed', @trans.find_by_id(1).result
-    assert_equal 1234567890123456, @trans.find_by_id(1).credit_card_number
+    assert_equal '1234567890123456', @trans.find_by_id(1).credit_card_number
     assert_equal '0318', @trans.find_by_id(1).credit_card_expiration_date
     assert time < @trans.find_by_id(1).updated_at
   end

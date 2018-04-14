@@ -19,7 +19,6 @@ class InvoiceItem
 
   def update(states)
     super(states)
-    attributes[:item_id] = states[:item_id] if states[:item_id]
     attributes[:quantity] = states[:quantity] if states[:quantity]
   end
 end

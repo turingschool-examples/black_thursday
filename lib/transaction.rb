@@ -10,7 +10,7 @@ class Transaction
   end
 
   def credit_card_number
-    @attributes[:credit_card_number].to_i
+    @attributes[:credit_card_number]
   end
 
   def credit_card_expiration_date
@@ -18,7 +18,7 @@ class Transaction
   end
 
   def result
-    @attributes[:result]
+    @attributes[:result].to_sym
   end
 
   def update(states)
