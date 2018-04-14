@@ -1,8 +1,10 @@
-require_relative './invoice'
+require_relative 'invoice'
+require 'time'
+require 'pry'
 
 class InvoiceRepository
   attr_reader :invoices
-  
+
   def initialize(invoices)
     @invoices = []
     invoices.each {|invoice| @invoices << Invoice.new(to_invoice(invoice))}
@@ -10,7 +12,7 @@ class InvoiceRepository
 
   def to_invoice(invoice)
     invoice_hash = {}
-    invoices.each do |line|
+    invoice.each do |line|
       invoice_hash[line[0]] = line[1]
     end
     invoice_hash

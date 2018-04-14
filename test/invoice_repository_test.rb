@@ -19,7 +19,7 @@ class InvoiceRepositoryTest < Minitest::Test
       [:customer_id, '2'],
       [:merchant_id, '12334771'],
       [:status, 'pending'],
-      [:created_at, '2008-01-07']
+      [:created_at, '2008-01-07'],
       [:updated_at, '2014-05-30']
       ]
     @invoice3 = [
@@ -45,6 +45,13 @@ class InvoiceRepositoryTest < Minitest::Test
     end
     assert_instance_of Invoice, @ir.invoices[0]
     assert_instance_of Invoice, @ir.invoices[1]
+  end
+
+  def test_it_can_find_all
+    binding.pry
+    @ir.all.all? do |invoice|
+      assert_instance_of Invoice, invoice
+    end
   end
 
   # def test_can_find_by_id
