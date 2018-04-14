@@ -16,34 +16,26 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_has_invoices
-    skip
     assert_equal 9, @ir.all.count
     assert_instance_of Array, @ir.all
   end
 
   def test_all
-    skip
-# all - returns an array of all known Invoice instances
     assert_instance_of Array, @ir.all
   end
 
   def test_find_by_id
-    skip
-    # find_by_id - returns either nil or an instance of Invoice with a matching ID
     assert_nil @ir.find_by_id(777)
     assert_instance_of Invoice, @ir.find_by_id(1)
   end
 
   def test_find_all_by_customer_id
-    skip
-    # find_all_by_customer_id - returns either [] or one or more matches which have a matching customer ID
-    assert_instance_of Array, @ir.find_by_id(777)
-    assert_instance_of Array, @ir.find_by_id(1)
-    assert_instance_of Invoice, @ir.find_by_id(1)
+    assert_instance_of Array, @ir.find_all_by_customer_id(777)
+    assert_instance_of Invoice, @ir.find_all_by_customer_id(1)[0]
+    assert_equal 8, @ir.find_all_by_customer_id(1).count
   end
 
   def test_find_all_by_merchant_id
-    skip
     # find_all_by_merchant_id - returns either [] or one or more matches which have a matching merchant ID
     assert_instance_of Array, @ir.find_by_id(777)
     assert_instance_of Array, @ir.find_by_id(1)
