@@ -36,15 +36,21 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_merchant_id
-    # find_all_by_merchant_id - returns either [] or one or more matches which have a matching merchant ID
-    assert_instance_of Array, @ir.find_by_id(777)
-    assert_instance_of Array, @ir.find_by_id(1)
-    assert_instance_of Invoice, @ir.find_by_id(1)
+    assert_instance_of Array, @ir.find_all_by_merchant_id(777)
+
+    actual = @ir.find_all_by_merchant_id(4)
+
+    assert_instance_of Array, actual
+    assert_instance_of Invoice, actual[0]
+    assert_equal 4, actual.count
   end
 
-  def test_find_all_by_status
-    # find_all_by_status - returns either [] or one or more matches which have a matching status
-
+  def test_it_can_find_all_by_status
+    actual = @ir.find_all_by_status(:pending)
+binding.pry
+    assert_instance_of Array, actual
+    assert_instance_of Invoice, actual[0]
+    assert_equal 5, actual.length
   end
 
   def test_create_invoice

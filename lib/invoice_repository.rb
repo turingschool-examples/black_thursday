@@ -19,6 +19,16 @@ class InvoiceRepository < BaseRepository
   end
 
   def find_all_by_merchant_id(merchant_id)
+    invoices.select { |invoice| invoice.merchant_id == merchant_id }
+  end
+
+  def find_all_by_status(shipping_status)
+    invoices.select { |invoice| invoice.status == shipping_status }
+  end
+
+
+  def pass_merchant_id_to_engine_from_invoice(merchant_id)
+    @parent.pass_merchant_id_to_merchant_repo(merchant_id)
   end
 
   # all - returns an array of all known Invoice instances
