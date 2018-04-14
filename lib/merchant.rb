@@ -17,9 +17,9 @@ class Merchant
     end
   end
 
-  def total # tight coupling
+  # shouldn't use engine
+  def total
     invoices = @engine.invoices.find_all_by_merchant_id(id)
-    # all invoices with that merchant id
     total = 0
     invoices.each do |invoice|
       sa = @engine.analyst

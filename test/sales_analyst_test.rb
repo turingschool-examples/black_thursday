@@ -166,6 +166,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_top_merchants_by_revenue
+    skip
     se = SalesEngine.from_csv(
                               invoices:   './data/invoices.csv',
                               invoice_items: './data/invoice_items.csv',
@@ -179,5 +180,20 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 12334634, actual[0].id
     assert_instance_of Merchant, actual[-1]
     assert_equal 12335747, actual[-1].id
+  end
+
+  def test_it_ranks_merchants
+    se = SalesEngine.from_csv(
+                              invoices:   './data/invoices.csv',
+                              invoice_items: './data/invoice_items.csv',
+                              merchants: './data/merchants.csv',
+                              transactions: './data/transactions.csv'
+                              )
+    actual = se.analyst.merchants_ranked_by_revenue
+    assert_instance_of Array, actual
+    assert_instance_of Merchant, actual[0]
+    assert_equal 12334634, actual[0].id
+    assert_instance_of Merchant, actual[-1]
+    assert_equal 12336175, actual[-1].id
   end
 end

@@ -21,4 +21,8 @@ class InvoiceItem
     super(states)
     attributes[:quantity] = states[:quantity] if states[:quantity]
   end
+
+  # def amount_paid
+  #   unit_price * quantity
+  # end
 end
