@@ -40,8 +40,8 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_price
-    assert_instance_of Array, se.items.find_all_by_price('Box')
-    assert_equal 263_399_188, se.items.find_all_by_price(2400.0)[0].id
+    assert_instance_of Array, se.items.find_all_by_price(24.0)
+    assert_equal 263_399_188, se.items.find_all_by_price(24.0)[0].id
     assert_equal [], se.items.find_all_by_price('12')
   end
 
@@ -49,7 +49,7 @@ class ItemRepositoryTest < Minitest::Test
     range = (10..9999)
 
     assert_instance_of Array, se.items.find_all_by_price_in_range(range)
-    assert_equal 263_399_188, se.items.find_all_by_price(2400.0)[0].id
+    assert_equal 3, se.items.find_all_by_price_in_range(range).count
   end
 
   def test_find_by_merchant_id

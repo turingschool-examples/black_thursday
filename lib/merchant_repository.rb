@@ -2,29 +2,30 @@
 
 require 'CSV'
 require_relative 'merchant'
+require_relative 'repository'
 # Merchant Repository
 class MerchantRepository
-  attr_reader :contents,
+  attr_reader :merchants,
               :parent
-
+  include Repository
   def initialize(path, parent)
-    @contents = {}
+    @merchants = {}
     @parent = parent
     load_path(path)
   end
 
   def load_path(path)
     CSV.foreach(path, headers: true, header_converters: :symbol) do |row|
-      @contents[row[:id].to_i] = Merchant.new(row, self)
+      @merchants[row[:id].to_i] = Merchant.new(row, self)
     end
   end
 
   def all
-    @contents.values
+    @merchants.values
   end
 
   def find_by_id(id)
-    @contents[id]
+    @merchants[id]
   end
 
   def find_by_name(name)
@@ -32,21 +33,23 @@ class MerchantRepository
   end
 
   def find_all_by_name(name)
-    all.find_all { |merchant| merchant.downcase == name.downcase }
+    all.find_all do |merchant|
+      merchant.name.downcase.include?(name.downcase)
+    end
   end
 
   def create(attributes)
-    max_id = @contents.keys.max + 1
+    max_id = @merchants.keys.max + 1
     attributes[:id] = max_id
-    @contents[:max] = Merchant.new(attributes, self)
+    @merchants[:max] = Merchant.new(attributes, self)
   end
 
   def update(id, attributes)
-    @contents[id] = attributes
+    @merchants[id] = attributes
   end
 
   def delete(id)
-    @contents.delete(id)
+    @merchants.delete(id)
   end
 
   def inspect

@@ -34,8 +34,10 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_name
-    assert_instance_of Merchant, se.merchants.find_by_name('Candisart')
-    assert_equal 12_334_112, se.merchants.find_by_name('Candisart').id
+    assert_instance_of Array, se.merchants.find_all_by_name('Candisart')
+    assert_instance_of Merchant, se.merchants.find_all_by_name('Can')[0]
+    assert_equal 2, se.merchants.find_all_by_name('Can').count
+    assert_equal 12_334_112, se.merchants.find_all_by_name('Candisart')[0].id
   end
 
   def test_create_new_merchants_with_attributes
