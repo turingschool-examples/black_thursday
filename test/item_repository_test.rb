@@ -35,7 +35,6 @@ class ItemRepositoryTest < Minitest::Test
       [:updated_at, '2001-09-17 15:28:43 UTC']
     ]
       @items = [@icons, @glitter_frames, @wooden_letters]
-      @items.each
     end
 
   def test_it_exists
