@@ -188,6 +188,7 @@ class SalesAnalyst
 
   def top_revenue_earners(num)
     # all merchants sort_by / Array.new(num) ... smart shovel?
+    time = Time.now
     tops = @engine.merchants.all.sort_by do |merchant|
       # revenue per merchant :
       # invoices = @engine.invoices.find_all_by_merchant_id(merchant.id)
@@ -201,6 +202,7 @@ class SalesAnalyst
       # invoice total for that invoice
       # return top num of sorted array
     end.reverse[0..num-1]
+    puts (Time.now - time).round
     # binding.pry
     tops
   end
