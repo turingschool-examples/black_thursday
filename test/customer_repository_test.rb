@@ -1,4 +1,5 @@
 require 'time'
+require 'csv'
 require_relative 'test_helper'
 require_relative '../lib/fileio'
 require_relative '../lib/customer'
@@ -7,8 +8,16 @@ require_relative '../lib/customer_repository'
 # Test for the CustomerRepository class
 class CustomerRepositoryTest < Minitest::Test
   def setup
-    file_path = FileIO.load('./test/fixtures/test_customers.csv')
-    @c_repo = CustomerRepository.new(file_path)
+    data = %(id,first_name,last_name,created_at,updated_at
+             1,Joey,Ondricka,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC
+             2,Cecelia,Ondricka,2012-03-27 14:54:10 UTC,2012-03-27 14:54:10 UTC
+             3,Mariah,Toy,2012-03-27 14:54:10 UTC,2012-03-27 14:54:10 UTC
+             4,Leanne,Braun,2012-03-27 14:54:10 UTC,2012-03-27 14:54:10 UTC
+             5,Mariah,Braun,2012-03-27 14:54:10 UTC,2012-03-27 14:54:10 UTC)
+    # @customer_1 = Customer.new()
+    # file_path = FileIO.load('./test/fixtures/test_customers.csv')
+    csv = CSV.parse(data, {headers: true, header_converters: :symbol})
+    @c_repo = CustomerRepository.new(csv)
     @new_customer = @c_repo.create(
       first_name: 'Cole',
       last_name: 'Hart',
@@ -30,6 +39,7 @@ class CustomerRepositoryTest < Minitest::Test
 
   def test_all_returns_an_array_of_all_customer_instances
     assert_instance_of Array, @c_repo.all
+    assert_equal 6, @c_repo.all.length
   end
 
   def test_all_returns_correct_ids

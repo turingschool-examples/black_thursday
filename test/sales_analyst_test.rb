@@ -282,6 +282,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_grabs_top_buyers
+    skip
     sales_engine = SalesEngine.from_csv(
       customers: './test/fixtures/test_customers5.csv',
       invoices: './test/fixtures/test_invoices5.csv',

@@ -150,7 +150,7 @@ class SalesAnalyst < Analyzer
     # Sum the totals and compare to each other.
     # sort by max
     result = invoice_totals_by_customer
-    require 'pry';binding.pry
+    # require 'pry';binding.pry
   
     # top_customer_ids.map do |customer_id|
     #   @customer_repo.find_by_id(customer_id)
