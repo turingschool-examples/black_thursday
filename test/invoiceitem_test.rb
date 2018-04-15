@@ -43,7 +43,7 @@ class InvoiceItemTest < Minitest::Test
   end
 
   def test_it_has_created_at
-    assert_equal '2012-03-27 14:54:09 UTC', @invoice_item.created_at
+    assert_equal Time.parse('2012-03-27 14:54:09 UTC'), @invoice_item.created_at
   end
 
   def test_it_has_updated_at

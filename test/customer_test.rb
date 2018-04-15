@@ -5,7 +5,7 @@ require_relative '../lib/customer'
 # customer class
 class CustomerTest < Minitest::Test
   def setup
-    @time = Time.now
+    @time = Time.now.to_s
     @customer = Customer.new(id: 5,
                              first_name: 'Cole',
                              last_name: 'Hart',
@@ -30,10 +30,10 @@ class CustomerTest < Minitest::Test
   end
 
   def test_it_has_created_at
-    assert_equal @time, @customer.created_at
+    assert_equal Time.parse(@time), @customer.created_at
   end
 
   def test_it_has_updated_at
-    assert_equal @time, @customer.updated_at
+    assert_equal Time.parse(@time), @customer.updated_at
   end
 end

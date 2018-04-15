@@ -86,6 +86,10 @@ class Analyzer
     merchants_per_count
   end
 
+  def invoices_per_customer
+    @invoice_repo.all.group_by(&:customer_id)
+  end
+
   def sum_of_item_price_for_merchant(merchant_id)
     items_per_merchant[merchant_id].inject(0) do |sum, item|
       sum + item.unit_price
