@@ -63,7 +63,27 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 2, expected.customer_id
   end
 
-  def test_can_find_by_customer_id
+  def test_can_find_all_by_customer_id
+    expected = @ir.find_all_by_customer_id(6)
+    assert_equal 27, expected[0].id
+
+    expected = @ir.find_all_by_customer_id(2)
+    assert_equal 12334771, expected[0].merchant_id
+
+    expected = @ir.find_all_by_customer_id(1)
+    assert_equal 'shipped', expected[0].status
+  end
+
+  def test_can_find_all_by_merchant_id
+    expected = @ir.find_all_by_merchant_id(12334771)
+    assert_equal 11, expected[0].id
+
+    expected = @ir.find_all_by_merchant_id(12334753)
+    assert_equal 1, expected[0].customer_id
+
+    expected = @ir.find_all_by_merchant_id(12335319)
+    assert_equal 'shipped', expected[0].status
+  end
 
   # def test_it_can_update_an_invoice
   #   @se
