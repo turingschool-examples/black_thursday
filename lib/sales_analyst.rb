@@ -6,6 +6,7 @@ class SalesAnalyst
 
   def initialize(engine)
     @engine = engine
+    binding.pry
   end
 
   def average_items_per_merchant
@@ -82,9 +83,9 @@ class SalesAnalyst
 
   def top_days_by_invoice_count
     grouped = invoices.group_by { |invoice| invoice.created_at.wday }
+    binding.pry
     day_num = grouped.max_by { |key, value| value.size }.first
     day = Date::DAYNAMES[num]
-    binding.pry
   end
 
   def invoice_status
