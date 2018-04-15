@@ -101,6 +101,22 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 27, actual
   end 
 
+  def test_ir_can_create_new_invoice
+    actual = @ir.find_highest_id
+    assert_equal 27, actual
+    assert_equal :shipped, @ir.find_by_id(27).status
+    attributes = {:customer_id => 7,
+                  :merchant_id => 8,
+                  :status      => "pending",
+                  :created_at  => Time.now,
+                  :updated_at  => Time.now}
+    @ir.create(attributes)
+    assert_equal 28, @ir.find_highest_id
+    actual = @ir.find_by_id(28)
+    assert_equal 8, actual.merchant_id
+    assert_equal 'pending', actual.status
+  end
+
   # def test_it_can_update_an_invoice
   #   @se
   #   original_time = engine.invoices.find_by_id(6).status
