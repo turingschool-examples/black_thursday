@@ -35,7 +35,7 @@ class Merchant
   end
 
   def customers
-    invoices = @merchant_repo.sales_engine.invoices.find_all_by_merchant_id(id)
+    invoices = invoices
     invoices.map do |invoice|
       @merchant_repo.sales_engine.customers.find_by_id(invoice.customer_id)
     end.uniq
