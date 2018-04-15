@@ -116,22 +116,42 @@ class SalesAnalyst < Analyzer
     end.reduce(:+)
   end
 
+
+  def paid_invoice_filter
+    customer_invoice_ids = invoices_per_customer
+    paid_invoices_by_customer = {}
+    customer_invoice_ids.each do |customer_id, invoices|
+      paid_invoices = invoices.find_all do |invoice|
+        invoice if invoice_paid_in_full?(invoice.id)
+      end
+      paid_invoices_by_customer[customer_id] = paid_invoices
+    end
+
+    paid_invoices_by_customer.delete_if do |customer_id, invoice_results|
+      invoice_results.empty?
+    end
+    paid_invoices_by_customer
+  end
+
+  def invoice_totals_by_customer
+    paid_invoices = paid_invoice_filter
+    invoice_totals_by_customer = {}
+    paid_invoices.each do |customer_id, invoices|
+      invoice_totals = invoices.map do |invoice|
+        invoice_total(invoice.id)
+      end
+      invoice_totals_by_customer[customer_id] = invoice_totals.reduce(:+)
+    end
+    invoice_totals_by_customer
+  end
+  
   def top_buyers(list_length = 20)
-    # match customers to invoice totals.
-    # - match customer id to invoice, shovel in instances of invoices to a []
-    # -- if invoice_paid_in_full?
     # --- invoice_total, add total to customer total.
     # Sum the totals and compare to each other.
     # sort by max
-    customer_invoice_ids = invoices_per_customer
-    require "pry";binding.pry
-    
-    paid_invoices = {}
-    # customer_invoice_ids.each do |customer_id, invoice_ids_obj|
-    #   # paid_invoices[customer_id] = invoice_ids_obj.id
-    #   # if invoice_paid_in_full?(invoice_ids_obj.id)
-    # end
-
+    result = invoice_totals_by_customer
+    require 'pry';binding.pry
+  
     # top_customer_ids.map do |customer_id|
     #   @customer_repo.find_by_id(customer_id)
     # end
