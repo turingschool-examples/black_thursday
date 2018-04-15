@@ -54,7 +54,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_can_find_by_id
     expected = @ir.find_by_id(2)
-    assert_equal 'shipped', expected.status
+    assert_equal :shipped, expected.status
 
     expected = @ir.find_by_id(27)
     assert_equal 12335319, expected.merchant_id
@@ -71,7 +71,7 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 12334771, expected[0].merchant_id
 
     expected = @ir.find_all_by_customer_id(1)
-    assert_equal 'shipped', expected[0].status
+    assert_equal :shipped, expected[0].status
   end
 
   def test_can_find_all_by_merchant_id
@@ -82,17 +82,17 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 1, expected[0].customer_id
 
     expected = @ir.find_all_by_merchant_id(12335319)
-    assert_equal 'shipped', expected[0].status
+    assert_equal :shipped, expected[0].status
   end
 
   def test_can_find_all_by_status
-    expected = @ir.find_all_by_status('shipped')
+    expected = @ir.find_all_by_status(:shipped)
     assert_equal 27, expected[1].id
 
-    expected = @ir.find_all_by_status('shipped')
+    expected = @ir.find_all_by_status(:shipped)
     assert_equal 1, expected[0].customer_id
 
-    expected = @ir.find_all_by_status('pending')
+    expected = @ir.find_all_by_status(:pending)
     assert_equal 12334771, expected[0].merchant_id
   end
 

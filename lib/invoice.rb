@@ -10,7 +10,7 @@ class Invoice
     data[:id] = data[:id].to_i
     data[:customer_id] = data[:customer_id].to_i
     data[:merchant_id] = data[:merchant_id].to_i
-    data[:status] = data[:status]
+    data[:status] = data[:status].to_sym
     data[:created_at] = data[:created_at]
     data[:updated_at] = data[:updated_at]
     data
