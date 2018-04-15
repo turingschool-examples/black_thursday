@@ -291,6 +291,6 @@ class SalesAnalystTest < Minitest::Test
       transactions: './test/fixtures/test_transactions5.csv'
     )
     sales_analyst = sales_engine.analyst
-    assert_equal [], sales_analyst.top_buyers(5)
+    assert_equal [], sales_analyst.top_buyers(3)
   end
 end

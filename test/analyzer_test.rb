@@ -33,8 +33,8 @@ class AnalyzerTest < Minitest::Test
     assert_equal 14, @analyzer.number_of_items
   end
 
-  def test_invoices_per_customer
-    result = @analyzer.invoices_per_customer
+  def test_invoice_totals_by_customer
+    result = @analyzer.invoice_totals_by_customer
     assert_instance_of Hash, result
   end
 end

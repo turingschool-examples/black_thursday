@@ -144,17 +144,16 @@ class SalesAnalyst < Analyzer
     end
     invoice_totals_by_customer
   end
-  
+
   def top_buyers(list_length = 20)
-    # --- invoice_total, add total to customer total.
-    # Sum the totals and compare to each other.
-    # sort by max
-    result = invoice_totals_by_customer
-    require 'pry';binding.pry
-  
-    # top_customer_ids.map do |customer_id|
-    #   @customer_repo.find_by_id(customer_id)
-    # end
+    results = invoice_totals_by_customer
+    top_buyers = results.map do |customer_id, total|
+      result.key(result.values.max)
+    end
+    require "pry";binding.pry
+    top_customer_ids.map do |customer_id|
+      @customer_repo.find_by_id(customer_id)
+    end
   end
 
   # def best_invoice_by_quantity
