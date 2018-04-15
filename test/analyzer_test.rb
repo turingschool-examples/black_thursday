@@ -32,4 +32,8 @@ class AnalyzerTest < Minitest::Test
   def test_number_of_items
     assert_equal 14, @analyzer.number_of_items
   end
+
+  def test_can_count_by_invoice_created_date
+    assert_equal 1, @analyzer.invoice_count_by_created_date(Time.parse('2009-02-07'))
+  end
 end
