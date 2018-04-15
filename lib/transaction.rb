@@ -1,5 +1,9 @@
+require_relative 'elementals'
+
 # transaction class
 class Transaction
+  include Elementals
+
   attr_reader :id,
               :invoice_id,
               :created_at
@@ -9,13 +13,13 @@ class Transaction
                 :result,
                 :updated_at
 
-  def initialize(transact_hash = Hash.new(0))
-    @id = transact_hash[:id].to_i
-    @invoice_id = transact_hash[:invoice_id].to_i
-    @credit_card_number = transact_hash[:credit_card_number]
-    @credit_card_expiration_date = transact_hash[:credit_card_expiration_date]
-    @result      = transact_hash[:result]
-    @created_at  = transact_hash[:created_at]
-    @updated_at  = transact_hash[:updated_at]
+  def initialize(attrs)
+    @id = attrs[:id].to_i
+    @invoice_id = attrs[:invoice_id].to_i
+    @credit_card_number = attrs[:credit_card_number]
+    @credit_card_expiration_date = attrs[:credit_card_expiration_date]
+    @result      = attrs[:result].to_sym
+    @created_at  = format_time(attrs[:created_at])
+    @updated_at  = format_time(attrs[:updated_at])
   end
 end
