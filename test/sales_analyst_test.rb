@@ -83,6 +83,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_days_by_invoice_count
+    actual = @sa.top_
   end
 
   def test_invoice_status

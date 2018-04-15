@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+require 'time'
 # sales analyst
 class SalesAnalyst
   attr_reader :engine
@@ -81,15 +81,14 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
+    grouped = invoices.group_by { |invoice| invoice.created_at.wday }
+    day_num = grouped.max_by { |key, value| value.size }.first
+    day = Date::DAYNAMES[num]
+    binding.pry
   end
 
   def invoice_status
   end
-
-  # sales_analyst.average_invoices_per_merchant # => 10.49
-  # sales_analyst.average_invoices_per_merchant_standard_deviation # => 3.29
-  # sales_analyst.top_merchants_by_invoice_count # => [merchant, merchant, merchant]
-  # sales_analyst.bottom_merchants_by_invoice_count # => [merchant, merchant, merchant]
   # sales_analyst.top_days_by_invoice_count # => ["Sunday", "Saturday"]
   # sales_analyst.invoice_status(:pending) # => 29.55
   # sales_analyst.invoice_status(:shipped) # => 56.95
