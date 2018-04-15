@@ -144,20 +144,22 @@ class SalesAnalyst < Analyzer
     invoice_totals_by_customer
   end
 
-  def top_buyers(amount_of_buyers = 20)
+  def sort_totals
     results = invoice_totals_by_customer
     sorted_totals = results.sort_by do |customer_id, total|
       total
-    end
+    end.reverse
+    sorted_totals
+  end
 
+  def top_buyers(amount_of_buyers = 20)
     top_buyers_by_id = []
+    totals = sort_totals
     amount_of_buyers.times do
-      top_buyers_by_id << sorted_totals.pop
+      top_buyers_by_id << totals.shift.shift
     end
 
-    top_buyers_by_id.each(&:pop)
-
-    top_buyers = top_buyers_by_id.flatten.sort.map do |buyer|
+    top_buyers = top_buyers_by_id.map do |buyer|
       @customer_repo.find_by_id(buyer)
     end
 

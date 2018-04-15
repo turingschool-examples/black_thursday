@@ -303,7 +303,7 @@ class SalesAnalystTest < Minitest::Test
     sales_analyst = new_sales_analyst_5
     result = sales_analyst.top_buyers(3)
     assert_equal 1, result.first.id
-    assert_equal 5, result.last.id
+    assert_equal 3, result.last.id
     assert_instance_of Customer, result.first
   end
 
