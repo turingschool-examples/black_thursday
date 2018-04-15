@@ -146,18 +146,22 @@ class SalesAnalyst < Analyzer
 
   def top_buyers(amount_of_buyers = 20)
     results = invoice_totals_by_customer
-    top_buyer = results.key(results.values.max)
     sorted_totals = results.sort_by do |customer_id, total|
       total
     end
-    require "pry";binding.pry # what is sorted_totals returning
 
-    top_buyer_by_id = results.map do |customer_id, total|
-      customer_id if total # within top amount_of_buyers indexes of sorted_totals
+    top_buyers_by_id = []
+    amount_of_buyers.times do
+      top_buyers_by_id << sorted_totals.pop
     end
-    top_customer_ids.map do |customer_id|
-      @customer_repo.find_by_id(customer_id)
+
+    top_buyers_by_id.each(&:pop)
+
+    top_buyers = top_buyers_by_id.flatten.sort.map do |buyer|
+      @customer_repo.find_by_id(buyer)
     end
+
+    top_buyers
   end
 
   # def best_invoice_by_quantity

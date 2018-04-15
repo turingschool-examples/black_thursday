@@ -281,6 +281,21 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 5570.75, sales_analyst.invoice_total(1)
   end
 
+  def test_invoice_totals_by_customer
+    sales_engine = SalesEngine.from_csv(
+      customers: './test/fixtures/test_customers5.csv',
+      invoices: './test/fixtures/test_invoices5.csv',
+      invoice_items: './test/fixtures/test_invoice_items5.csv',
+      items: './test/fixtures/test_items1.csv',
+      merchants: './test/fixtures/test_merchants2.csv',
+      transactions: './test/fixtures/test_transactions5.csv'
+    )
+    sales_analyst = sales_engine.analyst
+
+    result = sales_analyst.invoice_totals_by_customer
+    assert_instance_of Hash, result
+  end
+
   def test_it_grabs_top_buyers
     sales_engine = SalesEngine.from_csv(
       customers: './test/fixtures/test_customers5.csv',
@@ -291,6 +306,9 @@ class SalesAnalystTest < Minitest::Test
       transactions: './test/fixtures/test_transactions5.csv'
     )
     sales_analyst = sales_engine.analyst
-    assert_equal [], sales_analyst.top_buyers(3)
+    result = sales_analyst.top_buyers(3)
+    assert_equal 1, result.first.id
+    assert_equal 5, result.last.id
+    assert_instance_of Customer, result.first
   end
 end
