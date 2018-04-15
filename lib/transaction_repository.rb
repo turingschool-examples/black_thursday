@@ -17,7 +17,6 @@ class TransactionRepository
       transaction = Transaction.new(element, @engine)
       @elements[transaction.id] = transaction
       @invoice_ids[transaction.invoice_id] << transaction
-
     end
   end
 

@@ -17,10 +17,6 @@ class Invoice
     @attributes[:status].to_sym
   end
 
-  def customer
-    @engine.customers.find_by_id(customer_id)
-  end
-
   def update(states)
     super(states)
     attributes[:status] = states[:status] if states[:status]

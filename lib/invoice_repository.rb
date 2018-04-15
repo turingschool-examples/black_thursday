@@ -15,7 +15,6 @@ class InvoiceRepository
     elements.each do |element|
       invoice = Invoice.new(element, @engine)
       @elements[invoice.id] = invoice
-      # binding.pry
       @merchant_ids[invoice.merchant_id] << invoice
     end
   end
