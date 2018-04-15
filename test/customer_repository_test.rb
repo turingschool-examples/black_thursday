@@ -14,22 +14,13 @@ class CustomerRepositoryTest < Minitest::Test
              3,Mariah,Toy,2012-03-27 14:54:10 UTC,2012-03-27 14:54:10 UTC
              4,Leanne,Braun,2012-03-27 14:54:10 UTC,2012-03-27 14:54:10 UTC
              5,Mariah,Braun,2012-03-27 14:54:10 UTC,2012-03-27 14:54:10 UTC)
-    # @customer_1 = Customer.new()
-    # file_path = FileIO.load('./test/fixtures/test_customers.csv')
-    csv = CSV.parse(data, {headers: true, header_converters: :symbol})
+    csv = CSV.parse(data, headers: true, header_converters: :symbol)
     @c_repo = CustomerRepository.new(csv)
-    # @new_customer = @c_repo.create(
-    #   first_name: 'Cole',
-    #   last_name: 'Hart',
-    #   created_at: '2009-12-09 12:08:04 UTC',
-    #   updated_at: '2010-12-09 12:08:04 UTC'
-    # )
     @customer1 = @c_repo.customers[1]
     @customer2 = @c_repo.customers[2]
     @customer3 = @c_repo.customers[3]
     @customer4 = @c_repo.customers[4]
     @customer5 = @c_repo.customers[5]
-    # @customer6 = @c_repo.customers[6]
   end
 
   def test_it_exists
@@ -46,8 +37,6 @@ class CustomerRepositoryTest < Minitest::Test
     end)
   end
 
-  # Use the customer_repo strcutured in setup as expected values
-  # in order to explicitly test
   def test_all_returns_an_array_of_all_customer_instances
     result = @c_repo.all
     assert_equal [@customer1, @customer2,
@@ -91,9 +80,6 @@ class CustomerRepositoryTest < Minitest::Test
       created_at: '2009-12-09 12:08:04 UTC',
       updated_at: '2010-12-09 12:08:04 UTC'
     )
-    # assert_instance_of Customer, @new_customer
-    # assert_equal 6, @c_repo.customers.count
-    # assert_equal @new_customer, @c_repo.customers[6]
     assert_equal new_customer, @c_repo.customers[6]
   end
 
@@ -109,5 +95,9 @@ class CustomerRepositoryTest < Minitest::Test
     expected = { 1 => @customer1, 2 => @customer2,
                  3 => @customer3, 4 => @customer4 }
     assert_equal expected, @c_repo.customers
+  end
+
+  def test_custom_inspect_returns_correct_value
+    assert_equal '#<CustomerRepository 5 rows>', @c_repo.inspect
   end
 end
