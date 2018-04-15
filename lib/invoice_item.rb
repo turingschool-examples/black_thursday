@@ -4,9 +4,8 @@ require_relative 'element'
 class InvoiceItem
   include Element
 
-  def initialize(attributes, engine = nil)
+  def initialize(attributes)
     @attributes = attributes
-    @engine = engine
   end
 
   def item_id
@@ -21,8 +20,4 @@ class InvoiceItem
     super(states)
     attributes[:quantity] = states[:quantity] if states[:quantity]
   end
-
-  # def amount_paid
-  #   unit_price * quantity
-  # end
 end

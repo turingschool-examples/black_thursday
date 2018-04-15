@@ -5,8 +5,7 @@ require_relative 'repository'
 # This class is a repo for items
 class ItemRepository
   include Repository
-  def initialize(engine = nil)
-    @engine = engine
+  def initialize
     @elements = {}
     @merchant_ids = Hash.new{ |h, k| h[k] = [] }
 

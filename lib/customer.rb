@@ -4,9 +4,8 @@ require_relative 'element'
 class Customer
   include Element
 
-  def initialize(attributes, engine = nil)
+  def initialize(attributes)
     @attributes = attributes
-    @engine = engine
   end
 
   def first_name

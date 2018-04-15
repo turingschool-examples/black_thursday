@@ -5,14 +5,13 @@ require_relative 'repository'
 # This class is a repo for customers
 class CustomerRepository
   include Repository
-  def initialize(engine = nil)
-    @engine = engine
+  def initialize
     @elements = {}
   end
 
   def build_elements_hash(elements)
     elements.each do |element|
-      customer = Customer.new(element, @engine)
+      customer = Customer.new(element)
       @elements[customer.id] = customer
     end
   end
@@ -32,7 +31,7 @@ class CustomerRepository
   def create(attributes)
     create_id_number
     attributes[:id] = create_id_number
-    customer = Customer.new(attributes, @engine)
+    customer = Customer.new(attributes)
     @elements[create_id_number] = customer
   end
 end

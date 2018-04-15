@@ -8,10 +8,6 @@ class Item
     @attributes = attributes
   end
 
-  def round(decider)
-    unit_price
-  end
-
   def description
     @attributes[:description]
   end

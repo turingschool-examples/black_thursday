@@ -14,9 +14,11 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    merchants = @engine.merchants.all
+    merchants = @engine.merchants.all.map do |merchant|
+      @engine.items.find_all_by_merchant_id(merchant.id).count
+    end
     average = average_items_per_merchant
-    standard_deviation(merchants, average, 'item')
+    standard_deviation(merchants, average)
   end
 
   def merchants_with_high_item_count
@@ -64,15 +66,17 @@ class SalesAnalyst
   end
 
   def item_unit_price_standard_deviation
-    items = @engine.items.all
+    items = @engine.items.all.map do |item|
+      item.unit_price
+    end
     average = average_item_cost
-    standard_deviation(items, average, 'item')
+    standard_deviation(items, average)
   end
 
-  def standard_deviation(elements, average, decider)
+  def standard_deviation(elements, average)
     deviation_sum = 0
     elements.each do |element|
-      deviation_sum += (element.round(decider).to_f - average).abs**2
+      deviation_sum += (element.to_f - average).abs**2
     end
     divided_deviation = deviation_sum / (elements.count - 1)
     Math.sqrt(divided_deviation).round(2).to_f
@@ -85,9 +89,11 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant_standard_deviation
-    merchants = @engine.merchants.all
+    merchants = @engine.merchants.all.map do |merchant|
+      @engine.invoices.find_all_by_merchant_id(merchant.id).count
+    end
     average = average_invoices_per_merchant
-    standard_deviation(merchants, average, 'invoice')
+    standard_deviation(merchants, average)
   end
 
   def top_merchants_by_invoice_count
@@ -111,7 +117,7 @@ class SalesAnalyst
   def top_days_by_invoice_count
     days = generate_day
     average = average_days(days)
-    stnd_dev = standard_deviation(days.values, average, 0)
+    stnd_dev = standard_deviation(days.values, average)
     threshold = average + (stnd_dev * 1)
     top_day_numbers = top_days(days, threshold)
     top_day_numbers.map do |day|
@@ -146,7 +152,7 @@ class SalesAnalyst
   def invoice_by_day_standard_deviation
     days = generate_day
     average = average_days(days)
-    standard_deviation(days.values, average, 0)
+    standard_deviation(days.values, average)
   end
 
   def invoice_status(status)
@@ -190,11 +196,15 @@ class SalesAnalyst
   end
 
   def merchants_ranked_by_revenue
-    # time = Time.now
     tops = @engine.merchants.all.sort_by do |merchant|
-      merchant.total
+      invoices = @engine.invoices.find_all_by_merchant_id(merchant.id)
+      invoices.reduce(0, &method(:revenue_for_invoice))
     end.reverse
-    # puts (Time.now - time).round(2)
     tops
+  end
+
+  def revenue_for_invoice(total, invoice)
+    return total unless invoice_paid_in_full?(invoice.id)
+    total + invoice_total(invoice.id)
   end
 end

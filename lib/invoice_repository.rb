@@ -5,15 +5,14 @@ require_relative 'repository'
 # This class is a repo for invoices
 class InvoiceRepository
   include Repository
-  def initialize(engine = nil)
-    @engine = engine
+  def initialize
     @elements = {}
     @merchant_ids = Hash.new{ |h, k| h[k] = [] }
   end
 
   def build_elements_hash(elements)
     elements.each do |element|
-      invoice = Invoice.new(element, @engine)
+      invoice = Invoice.new(element)
       @elements[invoice.id] = invoice
       @merchant_ids[invoice.merchant_id] << invoice
     end
@@ -34,7 +33,7 @@ class InvoiceRepository
   def create(attributes)
     create_id_number
     attributes[:id] = create_id_number
-    invoice = Invoice.new(attributes, @engine)
+    invoice = Invoice.new(attributes)
     @elements[create_id_number] = invoice
   end
 

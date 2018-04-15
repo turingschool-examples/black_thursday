@@ -22,8 +22,4 @@ class MerchantTest < Minitest::Test
     assert_equal 3, @merch.id
     assert_equal "Bill's Pencil Company", @merch.name
   end
-
-  # def test_it_returns_total_revenue
-  #
-  # end
 end
