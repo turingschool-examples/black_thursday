@@ -21,6 +21,14 @@ class SalesEngine
   def self.from_csv(path)
     new(path)
   end
+  #
+  # def all_items
+  #
+  # end
+  #
+  # def all_merchants
+  #
+  # end
 end
 
 #memoization
