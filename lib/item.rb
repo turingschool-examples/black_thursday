@@ -2,7 +2,7 @@
 
 # class item takes a hash and has attribute readers for :name, :description, :unit_price, :created_at, :updated_at
 class Item
-  attr_accessor :attributes
+  attr_reader :attributes
 
   def initialize(data)
     modify(data)
@@ -48,6 +48,6 @@ class Item
   end
 
   def unit_price_to_dollars
-    @attributes[:unit_price].to_f
+    @attributes[:unit_price_to_dollars]
   end
 end
