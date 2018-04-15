@@ -18,12 +18,18 @@ class CustomerRepositoryTest < Minitest::Test
     # file_path = FileIO.load('./test/fixtures/test_customers.csv')
     csv = CSV.parse(data, {headers: true, header_converters: :symbol})
     @c_repo = CustomerRepository.new(csv)
-    @new_customer = @c_repo.create(
-      first_name: 'Cole',
-      last_name: 'Hart',
-      created_at: '2009-12-09 12:08:04 UTC',
-      updated_at: '2010-12-09 12:08:04 UTC'
-    )
+    # @new_customer = @c_repo.create(
+    #   first_name: 'Cole',
+    #   last_name: 'Hart',
+    #   created_at: '2009-12-09 12:08:04 UTC',
+    #   updated_at: '2010-12-09 12:08:04 UTC'
+    # )
+    @customer1 = @c_repo.customers[1]
+    @customer2 = @c_repo.customers[2]
+    @customer3 = @c_repo.customers[3]
+    @customer4 = @c_repo.customers[4]
+    @customer5 = @c_repo.customers[5]
+    # @customer6 = @c_repo.customers[6]
   end
 
   def test_it_exists
@@ -32,74 +38,76 @@ class CustomerRepositoryTest < Minitest::Test
 
   def test_creating_an_index_of_customers_from_data
     assert_instance_of Hash, @c_repo.customers
-    assert_instance_of Customer, @c_repo.customers[1]
-    assert_instance_of Customer, @c_repo.customers[2]
-    assert_instance_of Customer, @c_repo.customers[3]
+    assert(@c_repo.customers.keys.all? do |customer_id|
+      customer_id.class == Fixnum
+    end)
+    assert(@c_repo.customers.values.all? do |customer|
+      customer.class == Customer
+    end)
   end
 
+  # Use the customer_repo strcutured in setup as expected values
+  # in order to explicitly test
   def test_all_returns_an_array_of_all_customer_instances
-    assert_instance_of Array, @c_repo.all
-    assert_equal 6, @c_repo.all.length
+    result = @c_repo.all
+    assert_equal [@customer1, @customer2,
+                  @customer3, @customer4,
+                  @customer5], result
   end
 
   def test_all_returns_correct_ids
     all_customers = @c_repo.all
     actual_all_ids = all_customers.map(&:id)
-    expected = [1, 2, 3, 4, 5, 6]
+    expected = [1, 2, 3, 4, 5]
     assert_equal expected, actual_all_ids
   end
 
   def test_can_find_by_id
-    actual_one = @c_repo.find_by_id(1)
-    actual_two = @c_repo.find_by_id(2)
-    assert_instance_of Customer, actual_one
-    assert_instance_of Customer, actual_two
-    assert_equal 'Joey', actual_one.first_name
-    assert_equal 'Cecelia', actual_two.first_name
+    assert_equal @customer1, @c_repo.find_by_id(1)
+    assert_equal @customer2, @c_repo.find_by_id(2)
+    assert_equal @customer3, @c_repo.find_by_id(3)
+    assert_equal @customer4, @c_repo.find_by_id(4)
+    assert_equal @customer5, @c_repo.find_by_id(5)
   end
 
   def test_can_find_all_by_first_name
     actual = @c_repo.find_all_by_first_name('Mariah')
-    result = actual.all? do |customer|
-      customer.class == Customer
-    end
-    assert result
-    ids = actual.map(&:id)
-    assert_equal [3, 5], ids
+    assert_equal [@customer3, @customer5], actual
   end
 
   def test_can_find_all_by_last_name
     actual = @c_repo.find_all_by_last_name('Ondricka')
-    result = actual.all? do |customer|
-      customer.class == Customer
-    end
-    assert result
-    ids = actual.map(&:id)
-    assert_equal [1, 2], ids
+    assert_equal [@customer1, @customer2], actual
   end
 
   def test_it_can_generate_next_customer_id
-    expected = 7
-    actual = @c_repo.create_new_id
-    assert_equal expected, actual
+    assert_equal 6, @c_repo.create_new_id
   end
 
   def test_can_create_new_customer
-    assert_instance_of Customer, @new_customer
-    assert_equal 6, @c_repo.customers.count
-    assert_equal @new_customer, @c_repo.customers[6]
+    new_customer = @c_repo.create(
+      first_name: 'Cole',
+      last_name: 'Hart',
+      created_at: '2009-12-09 12:08:04 UTC',
+      updated_at: '2010-12-09 12:08:04 UTC'
+    )
+    # assert_instance_of Customer, @new_customer
+    # assert_equal 6, @c_repo.customers.count
+    # assert_equal @new_customer, @c_repo.customers[6]
+    assert_equal new_customer, @c_repo.customers[6]
   end
 
   def test_customer_can_be_updated
-    @c_repo.update(6, first_name: 'Jude')
-    assert_equal 'Jude', @c_repo.customers[6].first_name
-    @c_repo.update(6, last_name: 'Dutton')
-    assert_equal 'Dutton', @c_repo.customers[6].last_name
+    @c_repo.update(5, first_name: 'Jude')
+    assert_equal 'Jude', @c_repo.customers[5].first_name
+    @c_repo.update(5, last_name: 'Dutton')
+    assert_equal 'Dutton', @c_repo.customers[5].last_name
   end
 
   def test_customer_can_be_deleted
-    @c_repo.delete(6)
-    assert_equal 5, @c_repo.customers.count
-    assert_nil @c_repo.customers[6]
+    @c_repo.delete(5)
+    expected = { 1 => @customer1, 2 => @customer2,
+                 3 => @customer3, 4 => @customer4 }
+    assert_equal expected, @c_repo.customers
   end
 end
