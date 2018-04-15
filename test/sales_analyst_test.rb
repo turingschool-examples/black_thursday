@@ -207,4 +207,32 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Merchant, actual[0]
     assert_equal 467, actual.count
   end
+
+  def test_it_returns_merchants_with_only_one_item
+    se = SalesEngine.from_csv(
+      items:      './data/items.csv',
+      merchants: './data/merchants.csv'
+    )
+    actual = se.analyst.merchants_with_only_one_item
+    assert_instance_of Array, actual
+    assert_instance_of Merchant, actual[0]
+    assert_equal 243, actual.count
+  end
+
+  def test_it_returns_merchants_with_only_one_item_registered_in_month
+    se = SalesEngine.from_csv(
+      items:      './data/items.csv',
+      invoices:   './data/invoices.csv',
+      merchants: './data/merchants.csv'
+      )
+    actual1 = se.analyst.merchants_with_only_one_item_registered_in_month('March')
+    assert_instance_of Array, actual1
+    assert_instance_of Merchant, actual1[0]
+    assert_equal 21, actual1.count
+
+    actual2 = se.analyst.merchants_with_only_one_item_registered_in_month('June')
+    assert_instance_of Array, actual2
+    assert_instance_of Merchant, actual2[0]
+    assert_equal 18, actual2.count
+  end
 end

@@ -227,4 +227,17 @@ class SalesAnalyst
       transaction.result != :success
     end
   end
+
+  def merchants_with_only_one_item
+    @engine.merchants.all.find_all do |merchant|
+      @engine.items.find_all_by_merchant_id(merchant.id).count == 1
+    end
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    merchants_by_month = merchants_with_only_one_item.group_by do |merchant|
+      merchant.created_at.strftime('%B')
+    end
+    merchants_by_month[month]
+  end
 end
