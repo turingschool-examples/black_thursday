@@ -1,3 +1,5 @@
+require_relative 'elementals'
+
 # invoice class
 class Invoice
   include Elementals

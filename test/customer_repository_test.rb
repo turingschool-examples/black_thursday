@@ -28,13 +28,9 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_creating_an_index_of_customers_from_data
-    assert_instance_of Hash, @c_repo.customers
-    assert(@c_repo.customers.keys.all? do |customer_id|
-      customer_id.class == Fixnum
-    end)
-    assert(@c_repo.customers.values.all? do |customer|
-      customer.class == Customer
-    end)
+    assert_equal ({ 1 => @customer1, 2 => @customer2,
+                    3 => @customer3, 4 => @customer4,
+                    5 => @customer5 }), @c_repo.customers
   end
 
   def test_all_returns_an_array_of_all_customer_instances
