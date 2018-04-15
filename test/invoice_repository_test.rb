@@ -85,6 +85,17 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 'shipped', expected[0].status
   end
 
+  def test_can_find_all_by_status
+    expected = @ir.find_all_by_status('shipped')
+    assert_equal [2, 27], expected.id
+
+    expected = @ir.find_all_by_status('shippped')
+    assert_equal [1 ,6], expected.customer_id
+
+    expected = @ir.find_all_by_status('pending')
+    assert_equal 12334771, expected[0].merchant_id
+  end
+
   # def test_it_can_update_an_invoice
   #   @se
   #   original_time = engine.invoices.find_by_id(6).status
