@@ -86,7 +86,7 @@ class InvoiceRepository
     temp_attr[:id] = invoice.attributes[:id]
     unless temp_attr[:status].nil?
       temp_attr[:status] = temp_attr[:status].to_sym
-    end 
+    end
     temp_attr[:customer_id] = invoice.attributes[:customer_id]
     temp_attr[:merchant_id] = invoice.attributes[:merchant_id]
     temp_attr[:created_at] = invoice.attributes[:created_at]

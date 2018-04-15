@@ -130,4 +130,10 @@ class InvoiceRepositoryTest < Minitest::Test
     invoice = @ir.find_by_id(27)
     assert_equal :pending, invoice.status
   end
+
+  def test_it_can_be_deleted
+    invoice = @ir.find_by_id(27)
+    assert_equal :shipped, invoice.status
+    @ir.delete(27)
+    assert_nil @ir.find_by_id(27)
 end
