@@ -281,7 +281,7 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 5570.75, sales_analyst.invoice_total(1)
   end
 
-  def test_invoice_totals_by_customer
+  def new_sales_analyst_5
     sales_engine = SalesEngine.from_csv(
       customers: './test/fixtures/test_customers5.csv',
       invoices: './test/fixtures/test_invoices5.csv',
@@ -290,25 +290,39 @@ class SalesAnalystTest < Minitest::Test
       merchants: './test/fixtures/test_merchants2.csv',
       transactions: './test/fixtures/test_transactions5.csv'
     )
-    sales_analyst = sales_engine.analyst
+    sales_engine.analyst
+  end
 
+  def test_invoice_totals_by_customer
+    sales_analyst = new_sales_analyst_5
     result = sales_analyst.invoice_totals_by_customer
     assert_instance_of Hash, result
   end
 
   def test_it_grabs_top_buyers
-    sales_engine = SalesEngine.from_csv(
-      customers: './test/fixtures/test_customers5.csv',
-      invoices: './test/fixtures/test_invoices5.csv',
-      invoice_items: './test/fixtures/test_invoice_items5.csv',
-      items: './test/fixtures/test_items1.csv',
-      merchants: './test/fixtures/test_merchants2.csv',
-      transactions: './test/fixtures/test_transactions5.csv'
-    )
-    sales_analyst = sales_engine.analyst
+    sales_analyst = new_sales_analyst_5
     result = sales_analyst.top_buyers(3)
     assert_equal 1, result.first.id
     assert_equal 5, result.last.id
     assert_instance_of Customer, result.first
+  end
+
+  def test_it_finds_total_invoice_items
+    sales_analyst = new_sales_analyst_5
+    result = sales_analyst.total_invoice_items(1)
+    assert_equal 47, result
+  end
+
+  def test_invoice_items_by_quantity
+    sales_analyst = new_sales_analyst_5
+    result = sales_analyst.invoices_by_quantity
+    assert_equal 52, result.keys.max
+  end
+
+  def test_it_finds_best_invoice_by_quantity
+    sales_analyst = new_sales_analyst_5
+    result = sales_analyst.best_invoice_by_quantity
+    assert_equal 3, result.id
+    assert_instance_of Invoice, result
   end
 end

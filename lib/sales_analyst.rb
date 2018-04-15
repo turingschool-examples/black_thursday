@@ -164,8 +164,23 @@ class SalesAnalyst < Analyzer
     top_buyers
   end
 
-  # def best_invoice_by_quantity
-  #   highest_quantity = invoice_items.map(&:quantity).reduce(:+)
-  #   # best_invoice = highest_quantity.each
-  # end
+  def total_invoice_items(invoice_id)
+    invoice_items = @invoice_item_repo.find_all_by_invoice_id(invoice_id)
+    invoice_items.map(&:quantity).reduce(:+)
+  end
+
+  def invoices_by_quantity
+    invoices = @invoice_repo.all
+    results = invoices.group_by do |invoice|
+      total_invoice_items(invoice.id)
+    end
+
+    results.delete_if do |key, value|
+      key.nil?
+    end
+  end
+
+  def best_invoice_by_quantity
+    invoices_by_quantity.values_at(invoices_by_quantity.keys.max).flatten.shift
+  end
 end
