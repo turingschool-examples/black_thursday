@@ -6,15 +6,6 @@ class TransactionRepository < Repository
   attr_reader :transactions
 
   def initialize(transactions_data)
-    # attributes = csv_parsed_array.map do |transaction|
-    #   { id: transaction[0].to_i,
-    #     invoice_id: transaction[1].to_i,
-    #     credit_card_number: transaction[2],
-    #     credit_card_expiration_date: transaction[3],
-    #     result: transaction[4].to_sym,
-    #     created_at: Time.parse(transaction[5]),
-    #     updated_at: Time.parse(transaction[6]) }
-    # end
     @transactions = create_index(Transaction, transactions_data)
     super(transactions, Transaction)
   end

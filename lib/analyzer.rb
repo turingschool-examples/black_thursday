@@ -2,7 +2,6 @@ require 'bigdecimal'
 
 # Analyzer module
 class Analyzer
-
   def initialize(sales_engine)
     @engine = sales_engine
     @merchant_repo = @engine.merchants
@@ -121,7 +120,7 @@ class Analyzer
   end
 
   def number_of_invoices_by_weekday
-    weekdays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
+    weekdays = %w[sunday monday tuesday wednesday thursday friday saturday]
     all_days = @invoice_repo.all.map(&:created_at)
     by_dates = all_days.group_by do |date|
       weekdays[date.wday]
@@ -148,6 +147,6 @@ class Analyzer
   def invoice_status(status_to_check)
     total = number_of_invoices.to_f
     total_at_status = number_of_invoices_by_status(status_to_check).length.to_f
-    ((total_at_status / total)*100).round(2)
+    ((total_at_status / total) * 100).round(2)
   end
 end

@@ -6,15 +6,6 @@ class InvoiceItemRepository < Repository
   attr_reader :invoice_items
 
   def initialize(invoice_items_data)
-    # attributes = csv_parsed_array.map do |invoice_item|
-    #   { id: invoice_item[0].to_i,
-    #     item_id: invoice_item[1].to_i,
-    #     invoice_id: invoice_item[2].to_i,
-    #     quantity: invoice_item[3].to_i,
-    #     unit_price: invoice_item[4],
-    #     created_at: Time.parse(invoice_item[5]),
-    #     updated_at: Time.parse(invoice_item[6]) }
-    # end
     @invoice_items = create_index(InvoiceItem, invoice_items_data)
     super(invoice_items, InvoiceItem)
   end
