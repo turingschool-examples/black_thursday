@@ -6,7 +6,7 @@ class SalesAnalyst
 
   def initialize(engine)
     @engine = engine
-    binding.pry
+    # binding.pry
   end
 
   def average_items_per_merchant
@@ -82,10 +82,14 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
+    hash = {}
     grouped = invoices.group_by { |invoice| invoice.created_at.wday }
-    binding.pry
-    day_num = grouped.max_by { |key, value| value.size }.first
-    day = Date::DAYNAMES[num]
+    grouped.each { |key, value| hash[key] = value.size }
+    mean = hash.values.reduce(:+) / 7
+    std_dev = standard_deviation(hash.values, mean) + mean
+    day_nums = hash.select { |k,v| v > std_dev }.keys
+    days = day_nums.map { |num| Date::DAYNAMES[num] }
+    days
   end
 
   def invoice_status
