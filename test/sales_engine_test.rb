@@ -33,4 +33,9 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of SalesAnalyst, @se.analyst
     assert_instance_of InvoiceRepository, @se.invoices
   end
+
+  def test_all_invoices_per_merchant
+    assert_equal 475, @se.all_invoices_per_merchant.keys.count
+    assert_equal 1367, @se.all_invoices_per_merchant.values.flatten.count
+  end
 end
