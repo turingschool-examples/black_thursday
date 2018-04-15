@@ -121,7 +121,7 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_ir_can_update_an_invoice
     invoice = @ir.find_by_id(27)
     assert_equal :shipped, invoice.status
-    assert_equal Time.parse('2011-06-21'), invoice.updated_at
+    assert_equal Time.parse('2011-06-21'), invoice.created_at
     assert_equal Time.parse('2013-07-22'), invoice.updated_at
     attributes = {
           status: "pending"

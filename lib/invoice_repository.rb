@@ -67,4 +67,26 @@ class InvoiceRepository
     invoice = Invoice.new(attributes)
     @invoices << invoice
   end
+
+  def update(id, attributes)
+    invoice = find_by_id(id)
+    if invoice.nil?
+    else
+      temp_attr = sterilize_attributes(attributes, invoice)
+      pairs = attributes.keys.zip(temp_attr.values)
+      pairs.each do |pair|
+        invoice.attributes[pair[0]] = pair[1]
+      end
+      invoice.attributes[:updated_at] = Time.now
+    end
+  end
+
+  def sterilize_attributes(attributes, invoice)
+    temp_attr = attributes.dup
+    temp_attr[:id] = invoice.attributes[:id]
+    temp_attr[:status] = temp_attr[:status].to_sym
+    temp_attr[:merchant_id] = invoice.attributes[:merchant_id]
+    temp_attr[:created_at] = invoice.attributes[:created_at]
+    temp_attr
+  end
 end
