@@ -21,8 +21,15 @@ class Customer
     @id = attrs[:id].to_i
     @first_name = attrs[:first_name]
     @last_name = attrs[:last_name]
-    # require 'pry';binding.pry
-    @created_at  = Time.parse(attrs[:created_at])
-    @updated_at  = Time.parse(attrs[:updated_at])
+    @created_at  = format_time(attrs[:created_at])
+    @updated_at  = format_time(attrs[:updated_at])
+  end
+  
+  def format_time(time_value)
+    if time_value.class == Time
+      return time_value
+    else
+      return Time.parse(time_value)
+    end
   end
 end
