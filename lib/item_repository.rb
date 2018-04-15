@@ -7,9 +7,10 @@ require_relative 'item'
 # stores items and gives methods for item search
 class ItemRepository
   attr_reader :items
+
   def initialize(items)
     @items = []
-    items.each { |item| @items << Item.new(to_item(item))}
+    items.each {|item| @items << Item.new(to_item(item))}
   end
 
   def to_item(item)

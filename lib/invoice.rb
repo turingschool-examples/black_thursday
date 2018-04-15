@@ -1,18 +1,45 @@
+require 'time'
 class Invoice
-  attr_reader :id,
-              :customer_id,
-              :merchant_id,
-              :status,
-              :created_at,
-              :updated_at
+  attr_accessor :attributes
 
-  def initialize(invoice_info)
-    @id = invoice_info[:id]
-    @customer_id = invoice_info[:customer_id]
-    @merchant_id = invoice_info[:merchant_id]
-    @status = invoice_info[:status]
-    @created_at = invoice_info[:created_at]
-    @updated_at = invoice_info[:updated_at]
+  def initialize(data)
+    modify(data)
+    @attributes = data
   end
+
+  def modify(data)
+    data[:id] = data[:id].to_i
+    data[:customer_id] = data[:customer_id].to_i
+    data[:merchant_id] = data[:merchant_id].to_i
+    data[:status] = data[:status].to_sym
+    data[:created_at] = Time.parse(data[:created_at])
+    data[:updated_at] = Time.parse(data[:updated_at])
+    data
+  end
+
+  def id
+    @attributes[:id]
+  end
+
+  def customer_id
+    @attributes[:customer_id]
+  end
+
+  def merchant_id
+    @attributes[:merchant_id]
+  end
+
+  def status
+    @attributes[:status]
+  end
+
+  def created_at
+    @attributes[:created_at]
+  end
+
+  def updated_at
+    @attributes[:updated_at]
+  end
+
 
 end
