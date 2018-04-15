@@ -7,7 +7,7 @@ class InvoiceRepository
     invoices.each {|invoice| @invoices << Invoice.new(to_invoice(invoice))}
   end
 
-
+  # def update(id, attributes)
 
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"

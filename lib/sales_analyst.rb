@@ -87,5 +87,4 @@ class SalesAnalyst
     end
     high_price_items
   end
-
 end
