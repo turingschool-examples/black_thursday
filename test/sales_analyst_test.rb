@@ -11,7 +11,7 @@ class SalesAnalystTest < Minitest::Test
       invoices:       './test/fixtures/invoices_fixtures.csv',
       invoice_items:  './test/fixtures/invoice_items_fixtures.csv',
       transactions:   './test/fixtures/transactions_fixtures.csv'
-      )
+    )
     @sa = se.analyst
   end
 
@@ -29,10 +29,10 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_return_merchants_with_high_item_count
     se = SalesEngine.from_csv(
-                              items:      './data/items.csv',
-                              merchants:  './data/merchants.csv',
-                              invoices:   './data/invoices.csv'
-                              )
+      items:      './data/items.csv',
+      merchants:  './data/merchants.csv',
+      invoices:   './data/invoices.csv'
+    )
     sa = se.analyst
     top_sellers = sa.merchants_with_high_item_count
     assert_instance_of Array, top_sellers
@@ -84,10 +84,10 @@ class SalesAnalystTest < Minitest::Test
 
   def test_top_merchants_by_invoice_count
     se = SalesEngine.from_csv(
-                              items:      './data/items.csv',
-                              merchants:  './data/merchants.csv',
-                              invoices:   './data/invoices.csv'
-                              )
+      items:      './data/items.csv',
+      merchants:  './data/merchants.csv',
+      invoices:   './data/invoices.csv'
+    )
     sa = se.analyst
     top_sellers = sa.top_merchants_by_invoice_count
     assert_instance_of Array, top_sellers
@@ -103,10 +103,10 @@ class SalesAnalystTest < Minitest::Test
 
   def test_bottom_merchants_by_invoice_count
     se = SalesEngine.from_csv(
-                              items:      './data/items.csv',
-                              merchants:  './data/merchants.csv',
-                              invoices:   './data/invoices.csv'
-                              )
+      items:      './data/items.csv',
+      merchants:  './data/merchants.csv',
+      invoices:   './data/invoices.csv'
+    )
     sa = se.analyst
     lowest_sellers = sa.bottom_merchants_by_invoice_count
     assert_instance_of Array, lowest_sellers
@@ -157,9 +157,9 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_can_return_total_revenue_by_date
     se = SalesEngine.from_csv(
-                              invoices:   './data/invoices.csv',
-                              invoice_items: './data/invoice_items.csv'
-                              )
+      invoices:   './data/invoices.csv',
+      invoice_items: './data/invoice_items.csv'
+    )
     actual = se.analyst.total_revenue_by_date(Time.parse('2009-02-07'))
     assert_equal 21067.77, actual
     assert_instance_of BigDecimal, actual
@@ -167,11 +167,11 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_returns_top_merchants_by_revenue
     se = SalesEngine.from_csv(
-                              invoices:   './data/invoices.csv',
-                              invoice_items: './data/invoice_items.csv',
-                              merchants: './data/merchants.csv',
-                              transactions: './data/transactions.csv'
-                              )
+      invoices:   './data/invoices.csv',
+      invoice_items: './data/invoice_items.csv',
+      merchants: './data/merchants.csv',
+      transactions: './data/transactions.csv'
+    )
     actual = se.analyst.top_revenue_earners(10)
     assert_instance_of Array, actual
     assert_equal 10, actual.length
@@ -183,16 +183,28 @@ class SalesAnalystTest < Minitest::Test
 
   def test_it_ranks_merchants
     se = SalesEngine.from_csv(
-                              invoices:   './data/invoices.csv',
-                              invoice_items: './data/invoice_items.csv',
-                              merchants: './data/merchants.csv',
-                              transactions: './data/transactions.csv'
-                              )
+      invoices:   './data/invoices.csv',
+      invoice_items: './data/invoice_items.csv',
+      merchants: './data/merchants.csv',
+      transactions: './data/transactions.csv'
+    )
     actual = se.analyst.merchants_ranked_by_revenue
     assert_instance_of Array, actual
     assert_instance_of Merchant, actual[0]
     assert_equal 12334634, actual[0].id
     assert_instance_of Merchant, actual[-1]
     assert_equal 12336175, actual[-1].id
+  end
+
+  def test_it_returns_merchants_with_pending_invoices
+    se = SalesEngine.from_csv(
+      invoices:   './data/invoices.csv',
+      merchants: './data/merchants.csv',
+      transactions: './data/transactions.csv'
+    )
+    actual = se.analyst.merchants_with_pending_invoices
+    assert_instance_of Array, actual
+    assert_instance_of Merchant, actual[0]
+    assert_equal 467, actual.count
   end
 end

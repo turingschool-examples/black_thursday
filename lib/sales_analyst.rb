@@ -157,8 +157,8 @@ class SalesAnalyst
 
   def invoice_status(status)
     statuses = @engine.invoices.all.group_by(&:status)
-    mapped_statuses = statuses.map do |status, invoices|
-      [status, invoices.count]
+    mapped_statuses = statuses.map do |new_status, invoices|
+      [new_status, invoices.count]
     end.to_h
     final = mapped_statuses[status].to_f / @engine.invoices.all.count.to_f
     (final * 100).round(2)
@@ -192,7 +192,7 @@ class SalesAnalyst
   end
 
   def top_revenue_earners(num = 20)
-    merchants_ranked_by_revenue[0..num-1]
+    merchants_ranked_by_revenue[0..num - 1]
   end
 
   def merchants_ranked_by_revenue
@@ -206,5 +206,25 @@ class SalesAnalyst
   def revenue_for_invoice(total, invoice)
     return total unless invoice_paid_in_full?(invoice.id)
     total + invoice_total(invoice.id)
+  end
+
+  def merchants_with_pending_invoices
+    @engine.merchants.all.find_all do |merchant|
+      merchant_has_pending_invoice?(merchant)
+    end
+  end
+
+  def merchant_has_pending_invoice?(merchant)
+    invoices = @engine.invoices.find_all_by_merchant_id(merchant.id)
+    invoices.any? do |invoice|
+      invoice_is_pending?(invoice)
+    end
+  end
+
+  def invoice_is_pending?(invoice)
+    transactions = @engine.transactions.find_all_by_invoice_id(invoice.id)
+    transactions.all? do |transaction|
+      transaction.result != :success
+    end
   end
 end
