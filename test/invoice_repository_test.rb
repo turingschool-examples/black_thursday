@@ -35,7 +35,6 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_exists
-    @ir
     assert_instance_of InvoiceRepository, @ir
   end
 
@@ -48,18 +47,23 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all
-    binding.pry
     @ir.all.all? do |invoice|
       assert_instance_of Invoice, invoice
     end
   end
 
-  # def test_can_find_by_id
-  #   expected = @ir.find_by_id(6)
-  #   assert_equal "pending", expected.status
-  #   expected = @ir.find_by_id(7)
-  #   assert_equal 8, expected.merchant_id
-  # end
+  def test_can_find_by_id
+    expected = @ir.find_by_id(2)
+    assert_equal 'shipped', expected.status
+
+    expected = @ir.find_by_id(27)
+    assert_equal 12335319, expected.merchant_id
+
+    expected = @ir.find_by_id(11)
+    assert_equal 2, expected.customer_id
+  end
+
+  def test_can_find_by_customer_id
 
   # def test_it_can_update_an_invoice
   #   @se

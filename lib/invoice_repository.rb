@@ -18,10 +18,21 @@ class InvoiceRepository
     invoice_hash
   end
 
-
-
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
+
+  def all
+    @invoices
+  end
+
+
+  def find_by_id(input_id)
+    @invoices.find do |invoice|
+      invoice.id == input_id
+    end
+  end
+
+
 
 end
