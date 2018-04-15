@@ -53,48 +53,53 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_can_find_by_id
-    expected = @ir.find_by_id(2)
-    assert_equal :shipped, expected.status
+    actual = @ir.find_by_id(2)
+    assert_equal :shipped, actual.status
 
-    expected = @ir.find_by_id(27)
-    assert_equal 12335319, expected.merchant_id
+    actual = @ir.find_by_id(27)
+    assert_equal 12335319, actual.merchant_id
 
-    expected = @ir.find_by_id(11)
-    assert_equal 2, expected.customer_id
+    actual = @ir.find_by_id(11)
+    assert_equal 2, actual.customer_id
   end
 
   def test_can_find_all_by_customer_id
-    expected = @ir.find_all_by_customer_id(6)
-    assert_equal 27, expected[0].id
+    actual = @ir.find_all_by_customer_id(6)
+    assert_equal 27, actual[0].id
 
-    expected = @ir.find_all_by_customer_id(2)
-    assert_equal 12334771, expected[0].merchant_id
+    actual = @ir.find_all_by_customer_id(2)
+    assert_equal 12334771, actual[0].merchant_id
 
-    expected = @ir.find_all_by_customer_id(1)
-    assert_equal :shipped, expected[0].status
+    actual = @ir.find_all_by_customer_id(1)
+    assert_equal :shipped, actual[0].status
   end
 
   def test_can_find_all_by_merchant_id
-    expected = @ir.find_all_by_merchant_id(12334771)
-    assert_equal 11, expected[0].id
+    actual = @ir.find_all_by_merchant_id(12334771)
+    assert_equal 11, actual[0].id
 
-    expected = @ir.find_all_by_merchant_id(12334753)
-    assert_equal 1, expected[0].customer_id
+    actual = @ir.find_all_by_merchant_id(12334753)
+    assert_equal 1, actual[0].customer_id
 
-    expected = @ir.find_all_by_merchant_id(12335319)
-    assert_equal :shipped, expected[0].status
+    actual = @ir.find_all_by_merchant_id(12335319)
+    assert_equal :shipped, actual[0].status
   end
 
   def test_can_find_all_by_status
-    expected = @ir.find_all_by_status(:shipped)
-    assert_equal 27, expected[1].id
+    actual = @ir.find_all_by_status(:shipped)
+    assert_equal 27, actual[1].id
 
-    expected = @ir.find_all_by_status(:shipped)
-    assert_equal 1, expected[0].customer_id
+    actual = @ir.find_all_by_status(:shipped)
+    assert_equal 1, actual[0].customer_id
 
-    expected = @ir.find_all_by_status(:pending)
-    assert_equal 12334771, expected[0].merchant_id
+    actual = @ir.find_all_by_status(:pending)
+    assert_equal 12334771, actual[0].merchant_id
   end
+
+  def test_can_find_highest_id
+    actual = @ir.find_highest_id
+    assert_equal 27, actual
+  end 
 
   # def test_it_can_update_an_invoice
   #   @se
