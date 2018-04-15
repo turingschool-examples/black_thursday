@@ -1,4 +1,4 @@
-require_relative 'invoice'
+require_relative './invoice'
 require 'time'
 require 'pry'
 
@@ -56,4 +56,15 @@ class InvoiceRepository
     @invoices.max_by(&:id).id
   end
 
+  def create(attributes)
+    attributes[:id] = (find_highest_id + 1)
+    if attributes[:created_at].nil?
+      attributes[:created_at] = Time.now.to_s
+    else
+      attributes[:created_at] = attributes[:created_at].to_s
+    end
+    attributes[:updated_at] = attributes[:updated_at].to_s
+    invoice = Invoice.new(attributes)
+    @invoices << invoice
+  end
 end

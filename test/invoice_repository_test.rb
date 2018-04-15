@@ -1,5 +1,5 @@
-require_relative 'test_helper'
 require './lib/invoice'
+require_relative 'test_helper'
 require './lib/invoice_repository'
 require 'pry'
 
@@ -114,7 +114,7 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 28, @ir.find_highest_id
     actual = @ir.find_by_id(28)
     assert_equal 8, actual.merchant_id
-    assert_equal 'pending', actual.status
+    assert_equal :pending, actual.status
   end
 
   # def test_it_can_update_an_invoice
