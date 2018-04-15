@@ -35,13 +35,6 @@ class InvoiceRepositoryTest < Minitest::Test
     @invoice10 = @inv_repo.invoices[10]
     @invoice25 = @inv_repo.invoices[25]
     @invoice37 = @inv_repo.invoices[37]
-    # @new_invoice = @inv_repo.create(
-    #   customer_id: '7',
-    #   merchant_id: '12334105',
-    #   status: 'pending',
-    #   created_at: '2009-12-09 12:08:04 UTC',
-    #   updated_at: '2010-12-09 12:08:04 UTC'
-    # )
   end
 
   def test_it_exists
@@ -67,24 +60,7 @@ class InvoiceRepositoryTest < Minitest::Test
                 @invoice4, @invoice5, @invoice6,
                 @invoice7, @invoice8, @invoice9,
                 @invoice10, @invoice25, @invoice37]
-    assert_instance_of expected, @inv_repo.all
-  end
-
-  # Left off here
-  # =============
-
-  def test_all_returns_correct_ids
-    all_invoices = @inv_repo.all
-    actual_all_ids = all_invoices.map(&:id)
-    expected = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 25, 37, 38]
-    assert_equal expected, actual_all_ids
-  end
-
-  def test_all_returns_correct_customer_ids
-    all_invoices = @inv_repo.all
-    actual_all_cust_ids = all_invoices.map(&:customer_id)
-    expected = [1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 6, 9, 7]
-    assert_equal expected, actual_all_cust_ids
+    assert_equal expected, @inv_repo.all
   end
 
   def test_can_find_by_id
@@ -122,29 +98,31 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_instance_of Invoice, actual_pending[0]
     assert_instance_of Invoice, actual_shipped[0]
     pending_ids = actual_pending.map(&:id)
-    assert_equal [1, 4, 5, 6, 7, 10, 38], pending_ids
+    assert_equal [1, 4, 5, 6, 7, 10], pending_ids
     shipped_ids = actual_shipped.map(&:id)
     assert_equal [2, 3, 8, 9], shipped_ids
   end
 
   def test_it_can_generate_next_invoice_id
-    expected = 39
+    expected = 38
     actual = @inv_repo.create_new_id
     assert_equal expected, actual
   end
 
   def test_can_create_new_invoice
+    a_new_invoice = new_invoice
     assert_equal 13, @inv_repo.invoices.count
-    assert_instance_of Invoice, @new_invoice
-    assert_equal @new_invoice, @inv_repo.invoices[38]
+    assert_equal a_new_invoice, @inv_repo.invoices[38]
   end
 
   def test_invoice_can_be_updated
+    new_invoice
     @inv_repo.update(38, status: 'shipped')
     assert_equal :shipped, @inv_repo.invoices[38].status
   end
 
   def test_invoice_can_be_deleted
+    new_invoice
     @inv_repo.delete(38)
     assert_equal 12, @inv_repo.invoices.count
     assert_nil @inv_repo.invoices[38]
@@ -154,5 +132,15 @@ class InvoiceRepositoryTest < Minitest::Test
     result = @inv_repo.find_all_by_created_date(Time.parse('2012-11-23'))
     assert(result.all? { |each_result| each_result.class == Invoice })
     assert_equal [12334753], result.map(&:merchant_id)
+  end
+
+  def new_invoice
+    @inv_repo.create(
+      customer_id: '7',
+      merchant_id: '12334105',
+      status: 'pending',
+      created_at: '2009-12-09 12:08:04 UTC',
+      updated_at: '2010-12-09 12:08:04 UTC'
+    )
   end
 end
