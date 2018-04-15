@@ -12,7 +12,7 @@ class ItemRepository
 
   def initialize(items)
     item_array = []
-    @repository = {}
+    @repository = { }
     items.each {|item| item_array << Item.new(to_item(item))}
     item_array.each do |item|
       unless item.nil?

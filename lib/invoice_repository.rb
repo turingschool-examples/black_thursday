@@ -6,11 +6,17 @@ require 'pry'
 class InvoiceRepository
   include Repository
 
-  attr_reader :invoices
+  attr_reader :repository
 
   def initialize(invoices)
-    @repository = []
-    invoices.each {|invoice| @repository << Invoice.new(to_invoice(invoice))}
+    invoice_array = []
+    @repository = { }
+    invoices.each {|invoice| invoice_array << Invoice.new(to_invoice(invoice))}
+    invoice_array.each do |invoice|
+      unless invoice.nil?
+        @repository[invoice.id] = invoice
+      end
+    end
   end
 
   def to_invoice(invoice)
@@ -22,13 +28,13 @@ class InvoiceRepository
   end
 
   def find_all_by_customer_id(input)
-    @repository.find_all do |invoice|
+    @repository.values.find_all do |invoice|
       invoice.customer_id == input
     end
   end
 
   def find_all_by_status(input)
-    @repository.find_all do |invoice|
+    @repository.values.find_all do |invoice|
       invoice.status == input
     end
   end
@@ -42,6 +48,6 @@ class InvoiceRepository
     end
     attributes[:updated_at] = attributes[:updated_at].to_s
     invoice = Invoice.new(attributes)
-    @repository << invoice
+    @repository[invoice.id] = invoice
   end
 end
