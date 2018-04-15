@@ -27,21 +27,27 @@ class InvoiceRepository
   end
 
 
-  def find_by_id(input_id)
+  def find_by_id(input)
     @invoices.find do |invoice|
-      invoice.id == input_id
+      invoice.id == input
     end
   end
 
-  def find_all_by_customer_id(input_id)
+  def find_all_by_customer_id(input)
     @invoices.find_all do |invoice|
-      invoice.customer_id == input_id
+      invoice.customer_id == input
     end
   end
 
-  def find_all_by_merchant_id(input_id)
+  def find_all_by_merchant_id(input)
     @invoices.find_all do |invoice|
-      invoice.merchant_id == input_id
+      invoice.merchant_id == input
+    end
+  end
+
+  def find_all_by_status(input)
+    @invoices.find_all do |invoice|
+      invoice.status == input
     end
   end
 

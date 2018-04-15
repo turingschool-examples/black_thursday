@@ -87,10 +87,10 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_can_find_all_by_status
     expected = @ir.find_all_by_status('shipped')
-    assert_equal [2, 27], expected.id
+    assert_equal 27, expected[1].id
 
-    expected = @ir.find_all_by_status('shippped')
-    assert_equal [1 ,6], expected.customer_id
+    expected = @ir.find_all_by_status('shipped')
+    assert_equal 1, expected[0].customer_id
 
     expected = @ir.find_all_by_status('pending')
     assert_equal 12334771, expected[0].merchant_id
