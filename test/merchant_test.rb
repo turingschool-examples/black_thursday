@@ -1,6 +1,5 @@
+require_relative 'test_helper'
 require './lib/merchant'
-require 'minitest/autorun'
-require 'minitest/pride'
 
 class MerchantTest< MiniTest::Test
   def test_it_exists

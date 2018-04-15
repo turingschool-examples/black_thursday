@@ -1,7 +1,5 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require_relative 'test_helper'
 require './lib/customer_repository'
-require 'time'
 
 class TransactionRepositoryTest < Minitest::Test
   def test_exists

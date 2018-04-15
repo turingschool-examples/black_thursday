@@ -40,5 +40,10 @@ class SalesEngine
     items.find_all_by_merchant_id(merchant_id)
   end
 
+  def find_customers_for_a_merchant(customer_id)
+    customers.find_by_id(customer_id)
+  end
+
+
 
 end

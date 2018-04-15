@@ -1,8 +1,5 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require_relative 'test_helper'
 require './lib/invoice'
-require 'time'
-
 class InvoiceTest < Minitest::Test
 
   def test_exists

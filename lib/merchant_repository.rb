@@ -80,5 +80,7 @@ class MerchantRepository
     sales_engine.items_for_a_merchant(merchant_id)
   end
 
-
+  def find_customers_for_a_merchant(customer_id)
+    sales_engine.find_customers_for_a_merchant(customer_id)
+  end
 end
