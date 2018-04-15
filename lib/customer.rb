@@ -1,7 +1,9 @@
 require 'time'
+require_relative 'elementals'
 
 # customer class
 class Customer
+  include Elementals
   attr_reader :id,
               :created_at
 
@@ -23,13 +25,5 @@ class Customer
     @last_name = attrs[:last_name]
     @created_at  = format_time(attrs[:created_at])
     @updated_at  = format_time(attrs[:updated_at])
-  end
-  
-  def format_time(time_value)
-    if time_value.class == Time
-      return time_value
-    else
-      return Time.parse(time_value)
-    end
   end
 end
