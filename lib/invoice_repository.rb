@@ -52,4 +52,8 @@ class InvoiceRepository
     end
   end
 
+  def find_highest_id
+    @invoices.max_by(&:id).id
+  end
+
 end
