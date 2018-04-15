@@ -1,4 +1,5 @@
 require './lib/invoice'
+require 'time'
 require_relative 'test_helper'
 require './lib/invoice_repository'
 require 'pry'
@@ -117,18 +118,16 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal :pending, actual.status
   end
 
-  # def test_it_can_update_an_invoice
-  #   @se
-  #   original_time = engine.invoices.find_by_id(6).status
-  #   attributes = {
-  #     status: "pending"
-  #   }
-  #   engine.invoices.update(4986, attributes)
-  #   expected = engine.invoices.find_by_id(4986)
-  #   expect(expected.status).to eq :success
-  #   expect(expected.customer_id).to eq 7
-  #   expect(expected.updated_at).to be > original_time
-  # end
-
-
+  def test_ir_can_update_an_invoice
+    invoice = @ir.find_by_id(27)
+    assert_equal :shipped, invoice.status
+    assert_equal Time.parse('2011-06-21'), invoice.updated_at
+    assert_equal Time.parse('2013-07-22'), invoice.updated_at
+    attributes = {
+          status: "pending"
+        }
+    @ir.update(27, attributes)
+    invoice = @ir.find_by_id(27)
+    assert_equal :pending, invoice.status
+  end
 end
