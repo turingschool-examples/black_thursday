@@ -92,4 +92,10 @@ class InvoiceRepository
     temp_attr[:created_at] = invoice.attributes[:created_at]
     temp_attr
   end
+  
+  def delete(id)
+    invoice = find_by_id(id)
+    @invoices.delete(invoice)
+  end
+  
 end

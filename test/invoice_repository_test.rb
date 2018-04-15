@@ -136,4 +136,5 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal :shipped, invoice.status
     @ir.delete(27)
     assert_nil @ir.find_by_id(27)
+  end
 end
