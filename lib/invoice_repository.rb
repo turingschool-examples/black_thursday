@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require_relative './invoice'
 require_relative './repository'
 require 'time'
@@ -13,10 +11,11 @@ class InvoiceRepository
 
   def initialize(invoices)
     invoice_array = []
-    @repository = { }
-    invoices.each {|invoice| invoice_array << Invoice.new(to_invoice(invoice))}
+    @repository = {}
+    invoices.each { |invoice| invoice_array << Invoice.new(to_invoice(invoice))}
     invoice_array.each do |invoice|
-      unless invoice.nil?
+      if invoice.nil?
+      else
         @repository[invoice.id] = invoice
       end
     end
@@ -44,8 +43,7 @@ class InvoiceRepository
 
   def create(attributes)
     attributes[:id] = (find_highest_id + 1)
-    if attributes[:created_at].nil?
-      attributes[:created_at] = Time.now.to_s
+    if (attributes[:created_at] = Time.now.to_s)
     else
       attributes[:created_at] = attributes[:created_at].to_s
     end

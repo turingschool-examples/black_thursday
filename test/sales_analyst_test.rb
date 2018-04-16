@@ -4,7 +4,6 @@ require './lib/sales_engine'
 require './test/test_helper'
 require './lib/sales_analyst'
 require './lib/merchant_repository'
-require 'pry'
 # tests sales analyst
 class SalesAnalystTest < Minitest::Test
   def setup

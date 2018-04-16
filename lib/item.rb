@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# class item takes a hash and has attribute readers for :name, :description, :unit_price, :created_at, :updated_at
+# class item takes a hash and creates item objects
 class Item
   attr_reader :attributes
 

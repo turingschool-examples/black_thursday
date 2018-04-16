@@ -1,4 +1,6 @@
-# frozen_string_literal: true
+# frozen_string_literal: true`. (convention:Style/FrozenStringLiteralComment)
+
+# helper module for all repositories
 module Repository
   def inspect
     "#<#{self.class} #{@repository.size} rows>"
@@ -48,17 +50,9 @@ module Repository
     end
   end
 
-  def find_all_by_merchant_id(input)
-    @repository.values.find_all do |invoice|
-      invoice.merchant_id == input
-    end
-  end
-
   def find_highest_id
     @repository.keys.max
   end
-
-  
 
   def update(id, attributes)
     invoice = find_by_id(id)
