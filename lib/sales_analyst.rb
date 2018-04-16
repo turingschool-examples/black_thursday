@@ -252,7 +252,7 @@ class SalesAnalyst
     #returns all invoice items associated with the merchant:
     invoice_items = invoices.map do |invoice|
       if !invoice_is_pending?(invoice)
-      @engine.invoice_items.find_all_by_invoice_id(invoice.id)
+        @engine.invoice_items.find_all_by_invoice_id(invoice.id)
       end
     end.flatten.compact
 
