@@ -77,5 +77,15 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal :success, actual[0].result
   end
 
+  def test_it_can_find_all_by_credit_card_number
+    actual = @tr.find_all_by_credit_card_number('4068631943231473')
+    assert_equal :success, actual[0].result
+
+    actual = @tr.find_all_by_credit_card_number('4253041019870013')
+    assert_equal 3560, actual[0].invoice_id
+
+    actual = @tr.find_all_by_credit_card_number('4068631943231473')
+    assert_equal '0217', actual[0].credit_card_expiration_date
+  end
 
 end
