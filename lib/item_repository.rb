@@ -6,15 +6,6 @@ class ItemRepository < Repository
   attr_reader :items
 
   def initialize(items_data)
-    # attributes = csv_parsed_array.map do |item|
-    #   { id: item[0].to_i,
-    #     name: item[1],
-    #     description: item[2],
-    #     unit_price: item[3],
-    #     merchant_id: item[4],
-    #     created_at: Time.parse(item[5]),
-    #     updated_at: Time.parse(item[6]) }
-    # end
     @items = create_index(Item, items_data)
     super(items, Item)
   end

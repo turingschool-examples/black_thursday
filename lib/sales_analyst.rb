@@ -143,7 +143,7 @@ class SalesAnalyst < Analyzer
     end
     invoice_totals_by_customer
   end
-
+  
   def sort_totals
     results = invoice_totals_by_customer
     sorted_totals = results.sort_by do |customer_id, total|

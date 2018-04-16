@@ -1,10 +1,10 @@
 require_relative 'test_helper'
 require_relative '../lib/sales_engine'
+require_relative '../lib/customer_repository'
+require_relative '../lib/invoice_item_repository'
 require_relative '../lib/invoice_repository'
 require_relative '../lib/item_repository'
 require_relative '../lib/merchant_repository'
-require_relative '../lib/customer_repository'
-require_relative '../lib/invoiceitem_repository'
 require_relative '../lib/transaction_repository'
 
 # Test for the SalesEngine class
@@ -24,20 +24,24 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of SalesEngine, @sales_engine
   end
 
+  def test_sales_engine_customer_is_customer_repo
+    assert_instance_of CustomerRepository, @sales_engine.customers
+  end
+
+  def test_sales_engine_invoices_is_invoice_repo
+    assert_instance_of InvoiceRepository, @sales_engine.invoices
+  end
+
+  def test_sales_engine_invoice_item_is_invoice_item_repo
+    assert_instance_of InvoiceItemRepository, @sales_engine.invoice_items
+  end
+
   def test_sales_engine_items_is_item_repo
     assert_instance_of ItemRepository, @sales_engine.items
   end
 
   def test_sales_engine_merchants_is_merchant_repo
     assert_instance_of MerchantRepository, @sales_engine.merchants
-  end
-
-  def test_sales_engine_customer_is_customer_repo
-    assert_instance_of CustomerRepository, @sales_engine.customers
-  end
-
-  def test_sales_engine_invoice_item_is_invoice_item_repo
-    assert_instance_of InvoiceItemRepository, @sales_engine.invoice_items
   end
 
   def test_sales_engine_transaction_is_transactions_repo
