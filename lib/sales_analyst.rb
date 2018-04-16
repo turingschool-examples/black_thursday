@@ -1,51 +1,56 @@
 require 'date'
 require_relative 'analyzer'
+require_relative 'merchant_analytics'
+require_relative 'item_analytics'
+
 
 # Sales Analyst class for analyzing data
 class SalesAnalyst < Analyzer
+  include MerchantAnalytics
+  include ItemAnalytics
 
   attr_reader :engine
   def initialize(sales_engine)
     super(sales_engine)
   end
 
-  def average_items_per_merchant
-    average(number_of_items, number_of_merchants).to_f
-  end
+  # def average_items_per_merchant
+  #   average(number_of_items, number_of_merchants).to_f
+  # end
 
-  def average_items_per_merchant_standard_deviation
-    standard_deviation(number_of_items_per_merchant.values, average_items_per_merchant)
-  end
+  # def average_items_per_merchant_standard_deviation
+  #   standard_deviation(number_of_items_per_merchant.values, average_items_per_merchant)
+  # end
 
-  def merchants_with_high_item_count
-    threshold = average_items_per_merchant_plus_one_standard_deviation
-    number_of_items_per_merchant.map do |id, num_of_items|
-      @merchant_repo.find_by_id(id) if num_of_items >= threshold
-    end.compact
-  end
+  # def merchants_with_high_item_count
+  #   threshold = average_items_per_merchant_plus_one_standard_deviation
+  #   number_of_items_per_merchant.map do |id, num_of_items|
+  #     @merchant_repo.find_by_id(id) if num_of_items >= threshold
+  #   end.compact
+  # end
 
-  def average_item_price_for_merchant(merchant_id)
-    average(sum_of_item_price_for_merchant(merchant_id),
-            number_of_items_per_merchant[merchant_id])
-  end
+  # def average_item_price_for_merchant(merchant_id)
+  #   average(sum_of_item_price_for_merchant(merchant_id),
+  #           number_of_items_per_merchant[merchant_id])
+  # end
 
-  def average_average_price_per_merchant
-    all_averages = @merchant_repo.all.map do |merchant|
-      average_item_price_for_merchant(merchant.id)
-    end
-    average(all_averages.inject(:+), number_of_merchants)
-  end
+  # def average_average_price_per_merchant
+  #   all_averages = @merchant_repo.all.map do |merchant|
+  #     average_item_price_for_merchant(merchant.id)
+  #   end
+  #   average(all_averages.inject(:+), number_of_merchants)
+  # end
 
-  def average_item_price_standard_deviation
-    standard_deviation(@item_repo.items.values.map(&:unit_price).sort, average_item_price)
-  end
+  # def average_item_price_standard_deviation
+  #   standard_deviation(@item_repo.items.values.map(&:unit_price).sort, average_item_price)
+  # end
 
-  def golden_items
-    threshold = average_item_price + (average_item_price_standard_deviation * 2)
-    @item_repo.all.map do |item|
-      item if item.unit_price >= threshold
-    end.compact
-  end
+  # def golden_items
+  #   threshold = average_item_price + (average_item_price_standard_deviation * 2)
+  #   @item_repo.all.map do |item|
+  #     item if item.unit_price >= threshold
+  #   end.compact
+  # end
 
   def average_invoices_per_merchant
     average(number_of_invoices, number_of_merchants).to_f
@@ -74,25 +79,25 @@ class SalesAnalyst < Analyzer
                        average_invoices_per_day)
   end
 
-  def top_merchants_by_invoice_count
-    top_merchant_ids = merchants_per_count.map do |count, merchant_ids|
-      merchant_ids if count >= average_invoices_per_merchant_plus_two_standard_deviations
-    end.flatten.compact
+  # def top_merchants_by_invoice_count
+  #   top_merchant_ids = merchants_per_count.map do |count, merchant_ids|
+  #     merchant_ids if count >= average_invoices_per_merchant_plus_two_standard_deviations
+  #   end.flatten.compact
 
-    top_merchant_ids.map do |merchant_id|
-      @merchant_repo.find_by_id(merchant_id)
-    end
-  end
+  #   top_merchant_ids.map do |merchant_id|
+  #     @merchant_repo.find_by_id(merchant_id)
+  #   end
+  # end
 
-  def bottom_merchants_by_invoice_count
-    top_merchant_ids = merchants_per_count.map do |count, merchant_ids|
-      merchant_ids if count <= average_invoices_per_merchant_minus_two_standard_deviations
-    end.flatten.compact
+  # def bottom_merchants_by_invoice_count
+  #   top_merchant_ids = merchants_per_count.map do |count, merchant_ids|
+  #     merchant_ids if count <= average_invoices_per_merchant_minus_two_standard_deviations
+  #   end.flatten.compact
 
-    top_merchant_ids.map do |merchant_id|
-      @merchant_repo.find_by_id(merchant_id)
-    end
-  end
+  #   top_merchant_ids.map do |merchant_id|
+  #     @merchant_repo.find_by_id(merchant_id)
+  #   end
+  # end
 
   def top_days_by_invoice_count
     threshold = average_invoices_per_weekday_plus_one_standard_deviation
