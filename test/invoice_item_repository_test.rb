@@ -112,7 +112,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal 26, actual
     assert_equal 263543136, @iir.find_by_id(26).item_id
     attributes =  {
-                  :id => 26,
+                  :id          => 26,
                   :item_id     => 444444444,
                   :invoice_id  => 7,
                   :quantity    => 15,
@@ -127,6 +127,20 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal 444444444, actual.item_id
   end
 
+  def test_it_can_update_invoice_item
+    actual = @iir.find_by_id(26)
+    assert_equal 263543136, actual.item_id
+    assert_equal Time.parse('2012-03-27 14:54:10 UTC'), actual.created_at
+    assert_equal Time.parse('2012-03-27 14:54:10 UTC'), actual.updated_at
+    attributes = {
+      unit_price: BigDecimal.new(33.33, 4)
+    }
+    @iir.update(26, attributes)
+    invoice_item = @iir.find_by_id(26)
+    assert_equal BigDecimal.new(33.33, 4), invoice_item.unit_price
+  end
+
+  
 
 
 
