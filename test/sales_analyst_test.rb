@@ -139,4 +139,14 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 718, actual.last
   end
 
+  def test_percent_of_total_per_status
+    sa = SalesAnalyst.new(@sales_engine_full)
+    actual = sa.percent_of_total_invoices_per_status
+
+    assert_equal 3, actual.keys.count
+    assert_equal 29.55, actual[:pending]
+    assert_equal 56.95, actual[:shipped]
+    assert_equal 13.5, actual[:returned]
+  end
+
 end
