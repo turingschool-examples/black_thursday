@@ -44,4 +44,16 @@ class TransactionRepository
     end
   end
 
+  def create(attributes)
+    attributes[:id] = (find_highest_id + 1)
+    if attributes[:created_at].nil?
+      attributes[:created_at] = Time.now.to_s
+    else
+      attributes[:created_at] = attributes[:created_at].to_s
+    end
+    attributes[:updated_at] = attributes[:updated_at].to_s
+    transaction = Transaction.new(attributes)
+    @repository[transaction.id] = transaction
+  end
+
 end

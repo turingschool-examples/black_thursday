@@ -102,4 +102,36 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal 56, actual
   end
 
+  def test_it_can_create_a_new_transaction
+    actual = @tr.find_highest_id
+    assert_equal 56, actual
+    assert_equal :success, @tr.find_by_id(56).result
+    attributes =  {
+                  :invoice_id                   => 2124,
+                  :credit_card_number           => '4840021010919095',
+                  :credit_card_expiration_date  => '1219',
+                  :result                       => :success,
+                  :created_at                   => Time.now,
+                  :updated_at                   => Time.now
+                  }
+    @tr.create(attributes)
+    assert_equal 57, @tr.find_highest_id
+    actual = @tr.find_by_id(57)
+    assert_equal 2124, actual.invoice_id
+    assert_equal '4840021010919095', actual.credit_card_number
+  end
+
+  def test_it_can_update_invoice_item
+    actual = @iir.find_by_id(26)
+    assert_equal 263543136, actual.item_id
+    assert_equal Time.parse('2012-03-27 14:54:10 UTC'), actual.created_at
+    assert_equal Time.parse('2012-03-27 14:54:10 UTC'), actual.updated_at
+    attributes = {
+      unit_price: BigDecimal.new(0.01, 3)
+    }
+    @iir.update(26, attributes)
+    invoice_item = @iir.find_by_id(26)
+    assert_equal BigDecimal.new(0.01, 3), invoice_item.unit_price
+  end
+
 end
