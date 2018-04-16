@@ -12,4 +12,30 @@ class InvoiceItemRepository < BaseRepository
   def populate
     @models ||= csv_table_data.map { |attribute_hash| InvoiceItem.new(attribute_hash, self) }
   end
+
+  def find_all_by_item_id(id)
+    invoice_items.select { |invoice_item| invoice_item.item_id == id }
+  end
+
+  def find_all_by_invoice_id(id)
+    invoice_items.select { |invoice_item| invoice_item.invoice_id == id }
+  end
+
+  def create(attributes)
+    attributes[:id] = create_new_id
+    attributes[:created_at] = Time.now.to_s
+    attributes[:updated_at] = Time.now.to_s
+    invoice_items << InvoiceItem.new(attributes, 'parent')
+  end
+
+  private
+
+  def find_highest_id
+    invoice_items.map(&:id).max
+  end
+
+  def create_new_id
+    find_highest_id + 1
+  end
+
 end

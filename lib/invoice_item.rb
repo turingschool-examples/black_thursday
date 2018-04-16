@@ -16,8 +16,8 @@ class InvoiceItem
 
   def initialize(data, parent)
     @id          = data[:id].to_i
-    @item_id     = data[:item_id]
-    @invoice_id  = data[:invoice_id]
+    @item_id     = data[:item_id].to_i
+    @invoice_id  = data[:invoice_id].to_i
     @quantity    = data[:quantity]
     @unit_price  = BigDecimal(data[:unit_price]) / 100.0
     @created_at  = Time.parse(data[:created_at])

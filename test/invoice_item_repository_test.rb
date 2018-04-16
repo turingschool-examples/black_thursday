@@ -1,0 +1,105 @@
+require 'time'
+require_relative 'test_helper'
+require './lib/invoice_item_repository'
+require './lib/sales_engine'
+require 'pry'
+
+# This is an ItemRepository Class
+class InvoiceItemRepositoryTest < Minitest::Test
+  def setup
+    @se = SalesEngine.from_csv(
+      {
+        items:         './test/fixtures/items_truncated.csv',
+        merchants:     './test/fixtures/merchants_truncated.csv',
+        invoices:      './test/fixtures/invoices_truncated.csv',
+        invoice_items: './test/fixtures/invoice_items_truncated.csv'
+      } )
+
+    @ir = @se.invoice_items
+  end
+
+  def test_it_exists
+    assert_instance_of InvoiceItemRepository, @ir
+  end
+
+  def test_it_has_items
+    assert_equal 10, @ir.all.count
+    assert_instance_of Array, @ir.all
+  end
+
+  def test_find_by_id
+    assert_instance_of InvoiceItem, @ir.find_by_id(1)
+  end
+
+  def test_find_invoice_items_by_id
+    assert_nil @ir.find_by_id(777)
+    assert_instance_of InvoiceItem, @ir.find_by_id(1)
+  end
+
+  def test_find_all_by_item_id
+    actual = @ir.find_all_by_item_id(1)
+
+    assert_instance_of Array, actual
+    assert_equal 4, actual.count
+  end
+
+  def test_find_all_by_invoice_id
+    actual = @ir.find_all_by_invoice_id(1)
+
+    assert_instance_of Array, actual
+    assert_equal 8, actual.count
+  end
+
+  def test_create_invoice_item
+    assert_equal 10, @ir.items.last.id
+
+    actual = @ir.items.last
+
+    @ir.create({
+                :item_id => 11,
+                :invoice_id => 12,
+                :quantity => 13,
+                :unit_price => BigDecimal.new(10.99, 4),
+                :created_at => Time.now,
+                :updated_at => Time.now
+              })
+
+    assert_equal 11, actual.id
+    assert_equal 12, actual.item_id
+    assert_equal 13, actual.quantity
+    assert_equal 1, actua.unit_price
+  end
+
+  def test_update_item
+    skip
+    attributes = ({
+                    :id => 6,
+                    :item_id => 7,
+                    :invoice_id => 8,
+                    :quantity => 1,
+                    :unit_price => BigDecimal.new(10.99, 4),
+                    :created_at => Time.now,
+                    :updated_at => Time.now
+                   })
+
+    to_update = @ir.find_by_id(10)
+
+    assert_equal 'Vogue Paris Original Givenchy 2307', to_update.name
+    assert_equal 29.99, to_update.unit_price
+
+    @ir.update(263_396_209, attributes)
+
+    assert_equal 'Pencil', to_update.name
+    assert_equal 10.99, to_update.unit_price
+  end
+
+  def test_delete_item
+    skip
+    assert_equal 5, @ir.items.count
+
+    @ir.delete(1)
+
+    assert_nil @ir.find_by_id(1)
+    assert_equal 4, @ir.items.count
+  end
+end
