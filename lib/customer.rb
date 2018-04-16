@@ -10,13 +10,31 @@ class Customer
 
   def modify(data)
     data[:id] = data[:id].to_i
-    data[:invoice_id] = data[:invoice_id].to_i
-    data[:credit_card_number] = data[:credit_card_number]
-    data[:credit_card_expiration_date] = data[:credit_card_expiration_date]
-    data[:result] = data[:result].to_sym
+    data[:first_name] = data[:first_name]
+    data[:last_name] = data[:last_name]
     data[:created_at] = Time.parse(data[:created_at])
     data[:updated_at] = Time.parse(data[:updated_at])
     data
+  end
+
+  def id
+    @attributes[:id]
+  end
+
+  def first_name
+    @attributes[:first_name]
+  end
+
+  def last_name
+    @attributes[:last_name]
+  end
+
+  def created_at
+    @attributes[:created_at]
+  end
+
+  def updated_at
+    @attributes[:updated_at]
   end
 
 
