@@ -11,7 +11,7 @@ class SalesAnalystTest < Minitest::Test
       items:     './data/items.csv',
       merchants: './data/merchants.csv',
       invoices: './data/invoices.csv'
-      })
+                              })
   end
 
   def test_it_exists
