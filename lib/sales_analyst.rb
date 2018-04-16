@@ -171,6 +171,16 @@ class SalesAnalyst < Analyzer
     invoice_items.map(&:quantity).reduce(:+)
   end
 
+  def top_merchant_for_customer(customer_id)
+    invoices = invoices_per_customer[customer_id]
+    invoices_by_total_items = invoices.group_by do |invoice|
+      total_invoice_items(invoice.id)
+    end
+    most_items = invoices_by_total_items.keys.max
+    top_invoice = invoices_by_total_items.values_at(most_items).flatten.shift
+    @merchant_repo.find_by_id(top_invoice.merchant_id)
+  end
+
   def invoices_by_quantity
     invoices = @invoice_repo.all
     results = invoices.group_by do |invoice|

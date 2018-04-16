@@ -307,6 +307,13 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Customer, result.first
   end
 
+  def test_it_finds_top_merchant_for_customer
+    sales_analyst = new_sales_analyst_5
+    result = sales_analyst.top_merchant_for_customer(1)
+    assert_instance_of Merchant, result
+    assert_equal 12335955, result.id
+  end
+
   def test_it_finds_total_invoice_items
     sales_analyst = new_sales_analyst_5
     result = sales_analyst.total_invoice_items(1)
