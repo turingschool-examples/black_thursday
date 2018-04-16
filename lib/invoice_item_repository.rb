@@ -27,7 +27,8 @@ class InvoiceItemRepository
     invoice_item_hash
   end
 
-  
+  def find_all_by_invoice_id
+    
 
 
 

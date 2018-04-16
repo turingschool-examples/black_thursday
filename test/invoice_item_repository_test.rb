@@ -80,6 +80,17 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal 5, actual[0].invoice_id
   end
 
+  def test_it_can_find_all_by_invoice_id
+      actual = @iir.find_all_by_invoice_id(263519844)
+      assert_equal 1, actual[0].id
+
+      actual = @iir.find_all_by_invoice_id(263529264)
+      assert_equal 6, actual[0].quantity
+
+      actual = @iir.find_all_by_invoice_id(1)
+      assert_equal BigDecimal.new(323.46, 5), actual[0].unit_price
+  end
+
 
 
 
