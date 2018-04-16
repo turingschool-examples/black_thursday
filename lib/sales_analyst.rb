@@ -137,6 +137,15 @@ class SalesAnalyst
     high_price_items
   end
 
-
-
+  def top_days_by_invoice_count
+    std_dev = standard_deviation(number_of_invoices_per_day)
+    mean = find_mean(number_of_invoices_per_day)
+    high_traffic_days = []
+    @all_invoices_per_day.each_pair do |day, invoices|
+      if std_dev_above_mean(invoices.count, mean, std_dev) >= 1
+        high_traffic_days << day
+      end 
+    end 
+    high_traffic_days
+  end 
 end
