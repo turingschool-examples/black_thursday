@@ -286,7 +286,7 @@ class SalesAnalystTest < Minitest::Test
       customers: './test/fixtures/test_customers5.csv',
       invoices: './test/fixtures/test_invoices5.csv',
       invoice_items: './test/fixtures/test_invoice_items5.csv',
-      items: './test/fixtures/test_items1.csv',
+      items: './test/fixtures/test_items5.csv',
       merchants: './test/fixtures/test_merchants2.csv',
       transactions: './test/fixtures/test_transactions5.csv'
     )
@@ -318,6 +318,21 @@ class SalesAnalystTest < Minitest::Test
     sales_analyst = new_sales_analyst_5
     result = sales_analyst.total_invoice_items(1)
     assert_equal 47, result
+  end
+
+  def test_it_finds_one_time_buyers
+    sales_analyst = new_sales_analyst_5
+    result = sales_analyst.one_time_buyers
+    assert_equal 3, result.length
+    assert_instance_of Customer, result.first
+    assert_equal [4, 19, 20], result.map(&:id)
+  end
+
+  def test_it_finds_one_time_buyers_top_items
+    sales_analyst = new_sales_analyst_5
+    result = sales_analyst.one_time_buyers_top_items
+    assert_equal 8, result.length
+    assert_instance_of Item, result.first
   end
 
   def test_invoice_items_by_quantity

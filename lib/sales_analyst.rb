@@ -186,9 +186,31 @@ class SalesAnalyst < Analyzer
     results = invoices.group_by do |invoice|
       total_invoice_items(invoice.id)
     end
+    results.delete_if do |total, invoice|
+      total.nil?
+    end
+  end
 
-    results.delete_if do |key, value|
-      key.nil?
+  def one_time_buyers
+    single_invoices = invoices_per_customer.select do |customer_id, invoices|
+      invoices.length == 1
+    end
+    customer_ids = single_invoices.keys
+    customer_ids.map do |id|
+      @customer_repo.find_by_id(id)
+    end
+  end
+
+  def one_time_buyers_top_items
+    single_invoices = invoices_per_customer.select do |customer_id, invoices|
+      invoices.length == 1
+    end
+    invoices = single_invoices.values.flatten
+    invoice_items = invoices.flat_map do |invoice|
+      @invoice_item_repo.find_all_by_invoice_id(invoice.id)
+    end
+    invoice_items.map do |invoice_item|
+      @item_repo.find_by_id(invoice_item.item_id)
     end
   end
 
