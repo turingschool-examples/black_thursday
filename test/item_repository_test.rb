@@ -56,7 +56,6 @@ class ItemRepositoryTest < Minitest::Test
 
     ir.all.all? do |item|
       assert_instance_of Item, item
-      binding.pry
     end
   end
 
