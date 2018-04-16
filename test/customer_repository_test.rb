@@ -72,5 +72,16 @@ class CustomerRepositoryTest < Minitest::Test
     assert_instance_of Time, actual[0].updated_at
   end
 
+  def test_can_find_all_by_last_name
+    actual = @cr.find_all_by_last_name('Gulgowski')
+    assert_equal 35, actual[0].id
+
+    actual = @cr.find_all_by_last_name('Crist')
+    assert_equal 'Vladimir', actual[0].first_name
+
+    actual = @cr.find_all_by_last_name('Braun')
+    assert_instance_of Time, actual[0].created_at
+  end
+
 
 end

@@ -32,8 +32,12 @@ class CustomerRepository
       customer.first_name == name
     end
   end
-  
 
+  def find_all_by_last_name(name)
+    @repository.values.find_all do |customer|
+      customer.last_name == name
+    end
+  end
 
 
 
