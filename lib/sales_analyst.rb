@@ -14,6 +14,10 @@ class SalesAnalyst
     @all_items_per_merchant.values.map(&:count)
   end
 
+  def number_of_invoices_per_merchant
+    @all_invoices_per_merchant.values.map(&:count)
+  end
+
   def average_items_per_merchant
     item_count = @all_items_per_merchant.values.map(&:count)
     item_sum = find_sum(item_count)
@@ -51,7 +55,11 @@ class SalesAnalyst
     standard_deviation(number_of_items_per_merchant).round(2)
   end
 
-  
+  def average_invoices_per_merchant_standard_deviation
+    standard_deviation(number_of_invoices_per_merchant).round(2)
+  end
+
+
   def std_dev_above_mean(data_point, mean, standard_deviation)
     std_dev = standard_deviation
     diff_from_mean = data_point - mean
