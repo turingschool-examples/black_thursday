@@ -348,6 +348,13 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 25, result.length
   end
 
+  def test_it_finds_best_invoice_by_revenue
+    sales_analyst = new_sales_analyst_5
+    result = sales_analyst.best_invoice_by_revenue
+    assert_equal 15, result.id
+    assert_instance_of Invoice, result
+  end
+
   def test_it_finds_best_invoice_by_quantity
     sales_analyst = new_sales_analyst_5
     result = sales_analyst.best_invoice_by_quantity

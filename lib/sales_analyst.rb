@@ -234,6 +234,21 @@ class SalesAnalyst < Analyzer
     end
   end
 
+  def invoices_by_revenue
+    invoices = @invoice_repo.all
+    results = invoices.group_by do |invoice|
+      invoice_total(invoice.id)
+    end
+    results.delete_if do |total, invoice|
+      total.nil?
+    end
+  end
+
+  def best_invoice_by_revenue
+    invoices = invoices_by_revenue
+    invoices.values_at(invoices.keys.max).flatten.shift
+  end
+
   def best_invoice_by_quantity
     invoices_by_quantity.values_at(invoices_by_quantity.keys.max).flatten.shift
   end
