@@ -46,7 +46,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_repo_holds_items
     ir = ItemRepository.new(@items)
 
-    ir.items.all? do |item|
+    ir.repository.values.all? do |item|
       assert_instance_of Item, item
     end
   end

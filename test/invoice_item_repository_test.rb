@@ -2,6 +2,8 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/invoice_item_repository'
 
+require 'pry'
+
 
 class InvoiceItemRepositoryTest < Minitest::Test
 
@@ -13,7 +15,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
       [:quantity, '5'],
       [:unit_price, '13635'],
       [:created_at, '2012-03-27 14:54:09 UTC'],
-      [:updated_at, '2012-03-27 14:54:09 UTC'],
+      [:updated_at, '2012-03-27 14:54:09 UTC']
       ]
     @invoice_item2 = [
       [:id, '9'],
@@ -22,7 +24,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
       [:quantity, '6'],
       [:unit_price, '29973'],
       [:created_at, '2012-03-27 14:54:09 UTC'],
-      [:updated_at, '2012-03-27 14:54:09 UTC'],
+      [:updated_at, '2012-03-27 14:54:09 UTC']
       ]
     @invoice_item3 = [
       [:id, '26'],
@@ -31,10 +33,10 @@ class InvoiceItemRepositoryTest < Minitest::Test
       [:quantity, '9'],
       [:unit_price, '32346'],
       [:created_at, '2012-03-27 14:54:10 UTC'],
-      [:updated_at, '2012-03-27 14:54:10 UTC'],
+      [:updated_at, '2012-03-27 14:54:10 UTC']
       ]
-      @invoice_items = [@invoice_item1, @invoice_item2, @invoice_item3]
-      @iir = InvoiceItemRepository.new(@invoice_items)
+    @invoice_items = [@invoice_item1, @invoice_item2, @invoice_item3]
+    @iir = InvoiceItemRepository.new(@invoice_items)
   end
 
 
@@ -43,11 +45,11 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_holds_invoice_items
-    @iir.invoice_items.all? do |invoice_item|
+    @iir.repository.values.all? do |invoice_item|
       assert_instance_of InvoiceItem, invoice_item
     end
-    assert_instance_of InvoiceItem, @iir.invoice_items[0]
-    assert_instance_of InvoiceItem, @ir.invoice_items[1]
+    assert_instance_of InvoiceItem, @iir.repository.values[0]
+    assert_instance_of InvoiceItem, @iir.repository.values[1]
   end
 
 end

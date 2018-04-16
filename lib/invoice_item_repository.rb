@@ -1,17 +1,15 @@
 require_relative './repository'
 require_relative './invoice_item'
-require 'pry'
 require 'bigdecimal'
 require 'time'
 
 class InvoiceItemRepository
   include Repository
-  attr_reader   :invoice_items
+  attr_reader   :repository
 
   def initialize(invoice_items)
     invoice_item_array = []
     @repository = {}
-    binding.pry
     invoice_items.each { |invoice_item| invoice_item_array << InvoiceItem.new(to_invoice_item(invoice_item))}
     invoice_item_array.each do |invoice_item|
       if invoice_item.nil?
