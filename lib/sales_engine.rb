@@ -21,7 +21,7 @@ class SalesEngine
     @merchants = MerchantRepository.new(FileIo.load(paths[:merchants]))
     @invoices = InvoiceRepository.new(FileIo.load(paths[:invoices]))
     @invoice_items = InvoiceItemRepository.new(FileIo.load(paths[:invoice_items]))
-    @transactions = Transaction.new(FileIo.load(paths[:transactions]))
+    @transactions = TransactionRepository.new(FileIo.load(paths[:transactions]))
     @analyst = SalesAnalyst.new(self)
   end
 
