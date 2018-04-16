@@ -19,8 +19,12 @@ class TransactionRepository < BaseRepository
 
   def find_all_by_credit_card_number(card_number)
     transactions.select do |transaction|
-      transaction.find_all_by_credit_card_number == card_number
+      transaction.credit_card_number == card_number
     end
+  end
+
+  def find_all_by_result(result)
+    transactions.select { |transaction| transaction.result == result }
   end
 
   def create(attributes)
@@ -34,8 +38,8 @@ class TransactionRepository < BaseRepository
     return nil if find_by_id(id).nil?
     to_update = find_by_id(id)
     to_update.change_updated_at
-    to_update.change_unit_price(attributes[:unit_price])
-    to_update.change_quantity(attributes[:quantity])
+    to_update.change_credit_card_number(attributes[:credit_card_number])
+    to_update.change_expiration_date(attributes[:credit_card_expiration_date])
   end
 
   def delete(id)
@@ -52,5 +56,4 @@ class TransactionRepository < BaseRepository
   def create_new_id
     find_highest_id + 1
   end
-
 end

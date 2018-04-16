@@ -53,7 +53,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_can_access_transactions
-    assert_instance_of Transactions, @se.invoice_items.find_by_id(6)
+    assert_instance_of Transaction, @se.transactions.find_by_id(6)
   end
 
   def test_sales_engine_can_return_an_analyst

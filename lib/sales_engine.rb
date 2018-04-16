@@ -28,6 +28,7 @@ class SalesEngine
     merchants.populate
     invoices.populate
     invoice_items.populate
+    transactions.populate
   end
 
   def items
