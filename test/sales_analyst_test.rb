@@ -262,6 +262,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_best_item_for_merchant
+    skip
     se = SalesEngine.from_csv(
       invoices:         './data/invoices.csv',
       items:            './data/items.csv',

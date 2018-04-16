@@ -247,14 +247,16 @@ class SalesAnalyst
   end
 
   def most_sold_item_for_merchant(merchant_id)
-    invoice_items = @engine.invoice_items.find_all_by_merchant_id(merchant_id)
-    quantities = invoice_items.group_by do |item|
-      items = @engine.invoice_items.find_all_by_item_id(item.id)
-      items.reduce(0) do |sum, invoice_item|
-        sum + invoice_item.quantity
-      end
+    invoices = @engine.invoices.find_all_by_merchant_id(merchant_id)
+    invoice_items = invoices.map do |invoice|
+      @engine.invoice_items.find_all_by_invoice_id(invoice.id)
+    end.flatten
+    quantities = invoice_items.group_by do |invoice_item|
+      invoice_item.quantity
     end
     max = quantities.keys.max
-    quantities[max]
+    quantities[max].map do |invoice_item|
+      @engine.items.find_by_id(invoice_item.item_id)
+    end
   end
 end
