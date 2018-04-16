@@ -1,4 +1,4 @@
-require_relative '../customer'
+require_relative '../elementals/customer'
 require_relative 'repository'
 
 # customer_repository class

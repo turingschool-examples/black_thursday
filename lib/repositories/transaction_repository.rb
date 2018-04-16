@@ -1,4 +1,4 @@
-require_relative '../transaction'
+require_relative '../elementals/transaction'
 require_relative 'repository'
 
 # transaction_repository class

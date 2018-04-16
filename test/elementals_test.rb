@@ -1,6 +1,6 @@
 require 'time'
 require_relative 'test_helper'
-require_relative '../lib/elementals'
+require_relative '../lib/elementals/elementals'
 
 class ElementalsTest < Minitest::Test
   include Elementals

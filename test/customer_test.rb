@@ -1,6 +1,6 @@
 require 'time'
 require_relative 'test_helper'
-require_relative '../lib/customer'
+require_relative '../lib/elementals/customer'
 
 # customer class
 class CustomerTest < Minitest::Test

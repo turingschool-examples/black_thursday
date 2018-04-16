@@ -2,7 +2,7 @@ require 'bigdecimal'
 require 'csv'
 require_relative 'test_helper'
 require_relative '../lib/repositories/item_repository'
-require_relative '../lib/fileio'
+require_relative '../lib/file_io'
 
 # Test for Item Repository class
 class ItemRepositoryTest < Minitest::Test

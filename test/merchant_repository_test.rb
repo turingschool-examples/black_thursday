@@ -1,7 +1,7 @@
 require 'time'
 require_relative 'test_helper'
 require_relative '../lib/repositories/merchant_repository'
-require_relative '../lib/fileio'
+require_relative '../lib/file_io'
 
 # merchant repository class
 class MerchantRepositoryTest < Minitest::Test

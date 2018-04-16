@@ -1,5 +1,5 @@
 require_relative 'test_helper'
-require_relative '../lib/merchant'
+require_relative '../lib/elementals/merchant'
 
 # merchant class
 class MerchantTest < Minitest::Test

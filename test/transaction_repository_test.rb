@@ -1,7 +1,7 @@
 require 'time'
 require_relative 'test_helper'
-require_relative '../lib/fileio'
-require_relative '../lib/transaction'
+require_relative '../lib/file_io'
+require_relative '../lib/elementals/transaction'
 require_relative '../lib/repositories/transaction_repository'
 
 # Test for the TransactionRepository class

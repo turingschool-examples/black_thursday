@@ -1,8 +1,8 @@
 require 'time'
 require 'csv'
 require_relative 'test_helper'
-require_relative '../lib/fileio'
-require_relative '../lib/customer'
+require_relative '../lib/file_io'
+require_relative '../lib/elementals/customer'
 require_relative '../lib/repositories/customer_repository'
 
 # Test for the CustomerRepository class

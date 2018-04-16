@@ -1,11 +1,11 @@
 require_relative 'test_helper'
-require_relative '../lib/fileio'
+require_relative '../lib/file_io'
 
 # Test for file io class
 class FileIOTest < Minitest::Test
   def test_it_exists
-    fileio = FileIO.new
-    assert_instance_of FileIO, fileio
+    file_io = FileIO.new
+    assert_instance_of FileIO, file_io
   end
 
   def test_it_gives_table

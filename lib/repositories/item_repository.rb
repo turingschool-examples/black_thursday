@@ -1,4 +1,4 @@
-require_relative '../item'
+require_relative '../elementals/item'
 require_relative 'repository'
 
 # item repo class

@@ -1,7 +1,7 @@
 require 'bigdecimal'
 require 'time'
 require_relative 'test_helper'
-require_relative '../lib/item'
+require_relative '../lib/elementals/item'
 
 # item minitest
 class ItemTest < Minitest::Test
