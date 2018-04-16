@@ -28,10 +28,16 @@ class SalesAnalyst
         average = (num_per_merchant.inject(:+) / num_per_merchant.length)
     end
 
-    def top_selling_merchants
+    def average_items_per_merchant_standard_deviation
         items = items_per_merchant
         average = average_items_per_merchant
-        std = standard_deviation
+        standard_deviation(items, average)
+    end
+
+    def merchants_with_high_item_count
+        items = items_per_merchant
+        average = average_items_per_merchant
+        std = standard_deviation(items, average)
         
         merchants.all.find_all do |merchant|
             merchant.items.count > (average + std)
@@ -53,8 +59,10 @@ class SalesAnalyst
         average(merchants_average)
     end
 
-
-
-
-
+    def golden_items
+        a = items.all.sort_by do |item|
+            item.price
+        end
+        binding.pry
+    end
 end

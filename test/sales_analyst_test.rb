@@ -25,7 +25,7 @@ class SalesAnalystTest < Minitest::Test
     end
 
     def test_it_can_find_standard_deviation
-        assert_equal 3.74, @sales_analyst.standard_deviation
+        assert_equal 3.74, @sales_analyst.average_items_per_merchant_standard_deviation
     end
 
     def test_it_can_find_top_selling_merchants
@@ -47,4 +47,10 @@ class SalesAnalystTest < Minitest::Test
     def test_it_can_find_average_average_price_per_merchant
         assert_equal 54.425, @sales_analyst.average_average_price_per_merchant
     end
+
+    def test_it_can_find_golden_items
+        assert_instance_of Array, @sales_analyst.golden_items
+        assert_instance_of Item, @sales_analyst.golden_items[0]
+    end
+
 end

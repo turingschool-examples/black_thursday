@@ -1,8 +1,6 @@
 module Calculator
-    def standard_deviation
-        items = items_per_merchant
-        average = average_items_per_merchant
-        difference = difference(items, average)
+    def standard_deviation(numbers, average)
+        difference = difference(numbers, average)
         squared = square(difference)
         sum = squared.sum
         num_minus_one = squared.length - 1
