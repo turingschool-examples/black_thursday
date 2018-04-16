@@ -29,4 +29,8 @@ module Calculator
     def divide(difference)
         num_minus_one = difference.length - 1
     end
+    
+    def by_deviation(number, average, std, num_of_deviations)
+        number > (average + (std * num_of_deviations))
+    end
 end
