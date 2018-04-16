@@ -235,4 +235,40 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Merchant, actual2[0]
     assert_equal 18, actual2.count
   end
+
+  def test_it_returns_revenue_by_merchant
+    se = SalesEngine.from_csv(
+      invoices:   './data/invoices.csv',
+      merchants: './data/merchants.csv'
+    )
+    actual = se.analyst.revenue_by_merchant(12334194)
+    assert_instance_of BigDecimal, actual
+  end
+
+  def test_it_returns_most_sold_item_for_a_merchant
+    se = SalesEngine.from_csv(
+      invoices:         './data/invoices.csv',
+      items:            './data/items.csv',
+      invoice_items:    './data/invoice_items.csv',
+      merchants:        './data/merchants.csv'
+    )
+    actual = se.analyst.most_sold_item_for_merchant(12334189)
+    # actual = se.analyst.most_sold_item_for_merchant(12334234)
+    assert_instance_of Array, actual
+    item = se.items.find_by_id(263524984)
+    # item = se.items.find_by_id(263527404)
+    assert actual.include?(item)
+    assert_instance_of Item, actual.first
+  end
+
+  def test_it_returns_best_item_for_merchant
+    se = SalesEngine.from_csv(
+      invoices:         './data/invoices.csv',
+      items:            './data/items.csv',
+      invoice_items:    './data/invoice_items.csv',
+      merchants:        './data/merchants.csv'
+    )
+    actual = se.analyst.best_item_for_merchant(12334189)
+
+  end
 end
