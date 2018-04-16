@@ -50,5 +50,16 @@ class CustomerRepositoryTest < Minitest::Test
     end
   end
 
+  def test_can_find_by_id
+    actual = @cr.find_by_id(4)
+    assert_equal 'Braun', actual.last_name
+
+    actual = @cr.find_by_id(35)
+    assert_equal 'Pamela', actual.first_name
+
+    actual = @cr.find_by_id(140)
+    assert_instance_of Time, actual.created_at
+  end
+
 
 end
