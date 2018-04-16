@@ -63,18 +63,18 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal '1214', actual.credit_card_expiration_date
 
     actual = @tr.find_by_id(56)
-    assert_equal 4068631943231473, actual.credit_card_number
+    assert_equal '4068631943231473', actual.credit_card_number
   end
 
   def test_it_can_find_all_by_invoice_id
-    actual = @iir.find_all_by_invoice_id(1)
-    assert_equal 263519844, actual[0].item_id
+    actual = @tr.find_all_by_invoice_id(2179)
+    assert_equal 1, actual[0].id
 
-    actual = @iir.find_all_by_invoice_id(2)
-    assert_equal 6, actual[0].quantity
+    actual = @tr.find_all_by_invoice_id(3560)
+    assert_equal '4253041019870013', actual[0].credit_card_number
 
-    actual = @iir.find_all_by_invoice_id(5)
-    assert_equal BigDecimal.new(323.46, 5), actual[0].unit_price
+    actual = @tr.find_all_by_invoice_id(1496)
+    assert_equal :success, actual[0].result
   end
 
 

@@ -26,4 +26,10 @@ class TransactionRepository
     transaction_hash
   end
 
+  def find_all_by_invoice_id(tr)
+    @repository.values.find_all do |transaction|
+      transaction.invoice_id == tr
+    end
+  end
+
 end
