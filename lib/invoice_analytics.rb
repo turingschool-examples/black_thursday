@@ -26,4 +26,20 @@ module InvoiceAnalytics
     standard_deviation(number_of_invoices_per_day,
                        average_invoices_per_day)
   end
+
+  def top_days_by_invoice_count
+    threshold = average_invoices_per_weekday_plus_one_standard_deviation
+    number_of_invoices_by_weekday.map do |weekday, number|
+      weekday.capitalize if number > threshold
+    end.compact
+  end
+
+  def best_invoice_by_revenue
+    invoices = invoices_by_revenue
+    invoices.values_at(invoices.keys.max).flatten.shift
+  end
+
+  def best_invoice_by_quantity
+    invoices_by_quantity.values_at(invoices_by_quantity.keys.max).flatten.shift
+  end
 end

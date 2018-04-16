@@ -149,4 +149,91 @@ class Analyzer
     total_at_status = number_of_invoices_by_status(status_to_check).length.to_f
     ((total_at_status / total) * 100).round(2)
   end
+
+  def invoice_paid_in_full?(invoice_id)
+    transactions = @transaction_repo.find_all_by_invoice_id(invoice_id)
+    return false if transactions.empty?
+    transactions.any? do |transaction|
+      transaction.result == :success
+    end
+  end
+
+  def invoice_total(invoice_id)
+    invoice_items = @invoice_item_repo.find_all_by_invoice_id(invoice_id)
+    invoice_items.map do |invoice_item|
+      invoice_item.quantity * invoice_item.unit_price
+    end.reduce(:+)
+  end
+
+  def paid_invoice_filter
+    customer_invoice_ids = invoices_per_customer
+    paid_invoices_by_customer = {}
+    customer_invoice_ids.each do |customer_id, invoices|
+      paid_invoices = invoices.find_all do |invoice|
+        invoice if invoice_paid_in_full?(invoice.id)
+      end
+      paid_invoices_by_customer[customer_id] = paid_invoices
+    end
+
+    paid_invoices_by_customer.delete_if do |customer_id, invoice_results|
+      invoice_results.empty?
+    end
+    paid_invoices_by_customer
+  end
+
+  def invoice_totals_by_customer
+    paid_invoices = paid_invoice_filter
+    invoice_totals_by_customer = {}
+    paid_invoices.each do |customer_id, invoices|
+      invoice_totals = invoices.map do |invoice|
+        invoice_total(invoice.id)
+      end
+      invoice_totals_by_customer[customer_id] = invoice_totals.reduce(:+)
+    end
+    invoice_totals_by_customer
+  end
+
+  def sort_totals
+    results = invoice_totals_by_customer
+    sorted_totals = results.sort_by do |customer_id, total|
+      total
+    end.reverse
+    sorted_totals
+  end
+
+  def total_invoice_items(invoice_id)
+    invoice_items = @invoice_item_repo.find_all_by_invoice_id(invoice_id)
+    invoice_items.map(&:quantity).reduce(:+)
+  end
+
+  def invoices_by_quantity
+    invoices = @invoice_repo.all
+    results = invoices.group_by do |invoice|
+      total_invoice_items(invoice.id)
+    end
+    results.delete_if do |total, invoice|
+      total.nil?
+    end
+  end
+
+  def one_time_buyers
+    single_invoices = invoices_per_customer.select do |customer_id, invoices|
+      invoices.length == 1
+    end
+    customer_ids = single_invoices.keys
+    customer_ids.map do |id|
+      @customer_repo.find_by_id(id)
+    end
+  end
+
+  def invoices_by_revenue
+    invoices = @invoice_repo.all
+    results = invoices.group_by do |invoice|
+      invoice_total(invoice.id)
+    end
+
+    results.delete_if do |total, invoice|
+      total.nil?
+    end
+  end
 end
