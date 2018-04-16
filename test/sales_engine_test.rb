@@ -38,4 +38,14 @@ class SalesEngineTest < Minitest::Test
     assert_equal 475, @se.all_invoices_per_merchant.keys.count
     assert_equal 4985, @se.all_invoices_per_merchant.values.flatten.count
   end
+
+  def test_test_all_invoices_per_day
+    assert_equal 7, se.test_test_all_invoices_per_day.keys.count
+    assert_equal 4985, se.all_invoices_per_day.values.flatten.count
+    assert_equal 2, se.all_invoices_per_day[1]
+    assert_equal 3, se.all_invoices_per_day[2]
+  end
+
+
+
 end

@@ -131,4 +131,14 @@ class SalesAnalyst
     end
     high_price_items
   end
+
+  def top_days_by_invoice_count
+    
+  end
+
+
+
+
+
+
 end

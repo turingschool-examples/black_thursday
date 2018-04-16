@@ -38,4 +38,10 @@ class SalesEngine
   def self.from_csv(path)
     SalesEngine.new(path)
   end
+
+  def all_invoices_per_day
+    @invoices.all.group_by(&:created_at.wday)
+  end
+
+
 end
