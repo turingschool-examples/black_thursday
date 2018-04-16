@@ -97,4 +97,9 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal '4068631943231473', actual[1].credit_card_number
   end
 
+  def test_it_can_find_highest_id
+    actual = @tr.find_highest_id
+    assert_equal 56, actual
+  end
+
 end
