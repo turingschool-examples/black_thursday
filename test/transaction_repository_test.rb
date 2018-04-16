@@ -49,6 +49,12 @@ class TransactionRepositoryTest < Minitest::Test
     assert_instance_of Transaction, @tr.repository.values[1]
   end
 
+  def test_it_can_find_all
+    @tr.all.all? do |transaction|
+      assert_instance_of Transaction, transaction
+    end
+  end
+
 
 
 end
