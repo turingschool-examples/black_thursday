@@ -15,6 +15,10 @@ class SalesAnalyst
     @all_items_per_merchant.values.map(&:count)
   end
 
+  def number_of_invoices_per_day
+    @all_invoices_per_day.values.map(&:count)
+  end
+
   def number_of_invoices_per_merchant
     @all_invoices_per_merchant.values.map(&:count)
   end
@@ -132,5 +136,7 @@ class SalesAnalyst
     end
     high_price_items
   end
+
+
 
 end

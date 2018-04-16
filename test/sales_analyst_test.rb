@@ -134,8 +134,9 @@ class SalesAnalystTest < Minitest::Test
 
   def test_number_of_invoices_per_day
     sa = SalesAnalyst.new(@sales_engine_full)
-    actual = sa.top_days_by_invoice_count
-
-    assert_equal 
+    actual = sa.number_of_invoices_per_day
+    assert_equal 729, actual.first
+    assert_equal 718, actual.last
+  end
 
 end
