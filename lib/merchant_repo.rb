@@ -65,4 +65,8 @@ class MerchantRepo
     merchant = find_by_id(id)
     all.delete(merchant)
   end
+
+  def find_all_items_by_merchant_id(merchant_id)
+    parent.find_all_items_by_merchant_id(merchant_id)
+  end
 end

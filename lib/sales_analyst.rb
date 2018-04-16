@@ -8,6 +8,14 @@ class SalesAnalyst
         @sales_engine = sales_engine
     end
 
+    def items
+        @sales_engine.item_repo
+    end
+
+    def merchants
+        @sales_engine.merchant_repo
+    end
+
     def items_per_merchant
        @sales_engine.merchant_repo.merchants.map do |merchant|
             id = merchant.id
@@ -21,7 +29,17 @@ class SalesAnalyst
     end
 
     def top_selling_merchants
+        items = items_per_merchant
+        average = average_items_per_merchant
+        std = standard_deviation
         
+        merchants.all.find_all do |merchant|
+            merchant.items.count > (average + std)
+        end
     end
+
+    
+
+
 
 end

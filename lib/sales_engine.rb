@@ -18,6 +18,10 @@ class SalesEngine
     @item_repo ||= ItemRepo.new(LoadFile.load(path[:item_data]), self)
   end
 
+  def find_all_items_by_merchant_id(merchant_id)
+    item_repo.find_all_by_merchant_id(merchant_id)
+  end
+
   def merchant_repo
     @merchant_repo ||= MerchantRepo.new(LoadFile.load(path[:merchant_data]), self)
   end

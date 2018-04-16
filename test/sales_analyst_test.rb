@@ -25,6 +25,17 @@ class SalesAnalystTest < Minitest::Test
     end
 
     def test_it_can_find_standard_deviation
-        assert_equal 3.74, @sales_analyst.standard_deviation(@items_per_merchant, @average)
+        assert_equal 3.74, @sales_analyst.standard_deviation
+    end
+
+    def test_it_can_find_top_selling_merchants
+        merchants = @sales_analyst.top_selling_merchants
+        # sorted_merchants = merchants.sort_by do |merchant|
+        #     merchant.items
+        # end
+        # sorted_merchants.map do |merchant|
+
+        # end
+        assert_equal [], @sales_analyst.top_selling_merchants
     end
 end

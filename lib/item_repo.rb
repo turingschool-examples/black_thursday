@@ -51,6 +51,7 @@ class ItemRepo
   end
 
   def find_merchant_by_merchant_id(merchant_id)
+    binding.pry
     parent.find_merchant_by_merchant_id(merchant_id)
   end
 

@@ -12,4 +12,9 @@ class Merchant
     @updated_at = params[:updated_at]
     @parent     = parent
   end
+
+  def items
+    parent.find_all_items_by_merchant_id(id)
+  end
+
 end
