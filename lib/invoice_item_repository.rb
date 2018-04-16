@@ -27,8 +27,11 @@ class InvoiceItemRepository
     invoice_item_hash
   end
 
-  def find_all_by_invoice_id
-    
+  def find_all_by_invoice_id(ii)
+    @repository.values.find_all do |invoice_item|
+      invoice_item.invoice_id == ii
+    end
+  end
 
 
 
