@@ -46,14 +46,6 @@ class Repository
   def delete(id)
     @collection.delete(id)
   end
-  # This should be removed
-  def format_time(time_value)
-    if time_value.class == Time
-      return time_value
-    else
-      return Time.parse(time_value)
-    end
-  end
 
   def inspect
     "#<#{self.class} #{@collection.size} rows>"

@@ -27,4 +27,21 @@ class ItemAnalyticsTest < Minitest::Test
     assert_equal ['Test listing'], result.map(&:name)
     assert_instance_of Item, result[0]
   end
+
+  def test_items_bought_in_year
+    skip
+    sales_engine = SalesEngine.from_csv(
+      customers: './test/fixtures/test_customers.csv',
+      invoices: './test/fixtures/test_invoices.csv',
+      invoice_items: './test/fixtures/test_invoice_items.csv',
+      items: './test/fixtures/test_items1.csv',
+      merchants: './test/fixtures/test_merchants1.csv',
+      transactions: './test/fixtures/test_transactions.csv'
+    )
+    sales_analyst = SalesAnalyst.new(sales_engine)
+    result = sales_analyst.items_bought_in_year(1, 2009)
+    assert_instance_of Item, result[0]
+    assert_instance_of Item, result[1]
+    assert_equal [263519844, 263451719], result.map(&:id)
+  end
 end

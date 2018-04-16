@@ -261,6 +261,6 @@ class SalesAnalystTest < Minitest::Test
   def test_invoice_items_by_quantity
     sales_analyst = new_sales_analyst_5
     result = sales_analyst.invoices_by_quantity
-    assert_equal 52, result.keys.max
+    assert_equal 47, result.keys.max
   end
 end

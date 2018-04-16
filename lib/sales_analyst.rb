@@ -216,18 +216,8 @@ class SalesAnalyst
     invoice_items.map(&:quantity).reduce(:+)
   end
 
-  def invoices_by_quantity
-    invoices = @invoice_repo.all
-    results = invoices.group_by do |invoice|
-      total_invoice_items(invoice.id)
-    end
-    results.delete_if do |total, invoice|
-      total.nil?
-    end
-  end
-
   def one_time_buyers
-    single_invoices = invoices_per_customer.select do |customer_id, invoices|
+    single_invoices = invoices_per_customer.select do |_customer_id, invoices|
       invoices.length == 1
     end
     customer_ids = single_invoices.keys
@@ -237,11 +227,26 @@ class SalesAnalyst
   end
 
   def invoices_by_revenue
-    invoices = @invoice_repo.all
+    successful_transactions = @transaction_repo.find_all_by_result(:success)
+    invoices = successful_transactions.map do |transaction|
+      @invoice_repo.find_by_id(transaction.invoice_id)
+    end.compact
     results = invoices.group_by do |invoice|
       invoice_total(invoice.id)
     end
-
+    results.delete_if do |total, invoice|
+      total.nil?
+    end
+  end
+ 
+  def invoices_by_quantity
+    successful_transactions = @transaction_repo.find_all_by_result(:success)
+    invoices = successful_transactions.map do |transaction|
+      @invoice_repo.find_by_id(transaction.invoice_id)
+    end.compact
+    results = invoices.group_by do |invoice|
+      total_invoice_items(invoice.id)
+    end
     results.delete_if do |total, invoice|
       total.nil?
     end
