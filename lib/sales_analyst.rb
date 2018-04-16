@@ -92,12 +92,11 @@ class SalesAnalyst
     days
   end
 
-  def invoice_status
+  def invoice_status(status)
+    found = invoices.select { |invoice| invoice.status == status }
+    (found.length.to_f / invoices.length.to_f * 100).round(2)
   end
-  # sales_analyst.top_days_by_invoice_count # => ["Sunday", "Saturday"]
-  # sales_analyst.invoice_status(:pending) # => 29.55
-  # sales_analyst.invoice_status(:shipped) # => 56.95
-  # sales_analyst.invoice_status(:returned) # => 13.5
+
   private
 
   def merchants

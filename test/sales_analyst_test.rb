@@ -89,5 +89,12 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_invoice_status
+    actual   = @sa.invoice_status(:pending)
+    actual_1 = @sa.invoice_status(:shipped)
+    actual_2 = @sa.invoice_status(:returned)
+
+    assert_equal 29.55, actual
+    assert_equal 56.95, actual_1
+    assert_equal 13.5, actual_2
   end
 end
