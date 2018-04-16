@@ -1,15 +1,23 @@
 require_relative './invoice'
+require_relative './repository'
 require 'time'
 require 'pry'
 
 class InvoiceRepository
-  attr_reader :invoices
+  include Repository
+
+  attr_reader :repository
 
   def initialize(invoices)
-    @invoices = []
-    invoices.each {|invoice| @invoices << Invoice.new(to_invoice(invoice))}
+    invoice_array = []
+    @repository = { }
+    invoices.each {|invoice| invoice_array << Invoice.new(to_invoice(invoice))}
+    invoice_array.each do |invoice|
+      unless invoice.nil?
+        @repository[invoice.id] = invoice
+      end
+    end
   end
-
 
   def to_invoice(invoice)
     invoice_hash = {}
@@ -19,41 +27,16 @@ class InvoiceRepository
     invoice_hash
   end
 
-  def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
-  end
-
-  def all
-    @invoices
-  end
-
-
-  def find_by_id(input)
-    @invoices.find do |invoice|
-      invoice.id == input
-    end
-  end
-
   def find_all_by_customer_id(input)
-    @invoices.find_all do |invoice|
+    @repository.values.find_all do |invoice|
       invoice.customer_id == input
     end
   end
 
-  def find_all_by_merchant_id(input)
-    @invoices.find_all do |invoice|
-      invoice.merchant_id == input
-    end
-  end
-
   def find_all_by_status(input)
-    @invoices.find_all do |invoice|
+    @repository.values.find_all do |invoice|
       invoice.status == input
     end
-  end
-
-  def find_highest_id
-    @invoices.max_by(&:id).id
   end
 
   def create(attributes)
@@ -65,37 +48,6 @@ class InvoiceRepository
     end
     attributes[:updated_at] = attributes[:updated_at].to_s
     invoice = Invoice.new(attributes)
-    @invoices << invoice
+    @repository[invoice.id] = invoice
   end
-
-  def update(id, attributes)
-    invoice = find_by_id(id)
-    if invoice.nil?
-    else
-      temp_attr = sterilize_attributes(attributes, invoice)
-      pairs = attributes.keys.zip(temp_attr.values)
-      pairs.each do |pair|
-        invoice.attributes[pair[0]] = pair[1]
-      end
-      invoice.attributes[:updated_at] = Time.now
-    end
-  end
-
-  def sterilize_attributes(attributes, invoice)
-    temp_attr = attributes.dup
-    temp_attr[:id] = invoice.attributes[:id]
-    unless temp_attr[:status].nil?
-      temp_attr[:status] = temp_attr[:status].to_sym
-    end
-    temp_attr[:customer_id] = invoice.attributes[:customer_id]
-    temp_attr[:merchant_id] = invoice.attributes[:merchant_id]
-    temp_attr[:created_at] = invoice.attributes[:created_at]
-    temp_attr
-  end
-  
-  def delete(id)
-    invoice = find_by_id(id)
-    @invoices.delete(invoice)
-  end
-  
 end

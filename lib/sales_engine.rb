@@ -31,6 +31,10 @@ class SalesEngine
     item_price_per_item
   end
 
+  def all_invoices_per_merchant
+    @invoices.all.group_by(&:merchant_id)
+  end
+
   def self.from_csv(path)
     SalesEngine.new(path)
   end
