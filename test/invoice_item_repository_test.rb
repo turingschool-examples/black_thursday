@@ -34,16 +34,20 @@ class InvoiceItemRepositoryTest < Minitest::Test
       [updated_at: '2012-03-27 14:54:10 UTC'],
       ])
       @invoice_items = [@invoice_item1, @invoice_item2, @invoice_item3]
+      @iir = InvoiceItemRepository.new(@invoice_items)
   end
 
 
   def test_it_exists
-    @iir = InvoiceItemRepository.new
-
     assert_instance_of InvoiceItemRepository, @iir
   end
 
-
-  def test_it
+  def test_it_holds_invoice_items
+    @iir.invoice_items.all? do |invoice_item|
+      assert_instance_of InvoiceItem, invoice_item
+    end
+    assert_instance_of InvoiceItem, @iir.invoice_items[0]
+    assert_instance_of InvoiceItem, @ir.invoice_items[1]
   end
+
 end
