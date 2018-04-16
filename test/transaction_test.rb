@@ -1,5 +1,4 @@
 require 'minitest/autorun'
-require 'bigdecimal'
 require 'time'
 require 'minitest/pride'
 require './lib/transaction'
