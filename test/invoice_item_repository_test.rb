@@ -51,23 +51,21 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_create_invoice_item
-    assert_equal 10, @ir.items.last.id
-
-    actual = @ir.items.last
+    assert_equal 10, @ir.invoice_items.last.id
 
     @ir.create({
                 :item_id => 11,
                 :invoice_id => 12,
                 :quantity => 13,
-                :unit_price => BigDecimal.new(10.99, 4),
-                :created_at => Time.now,
-                :updated_at => Time.now
+                :unit_price => BigDecimal(10.99, 4),
               })
 
+    actual = @ir.invoice_items.last
+
     assert_equal 11, actual.id
-    assert_equal 12, actual.item_id
+    assert_equal 11, actual.item_id
     assert_equal 13, actual.quantity
-    assert_equal 1, actua.unit_price
+    assert_equal 0.1099e0, actual.unit_price
   end
 
   def test_update_item
