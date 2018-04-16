@@ -4,8 +4,8 @@ require 'pry'
 class SalesAnalystTest < Minitest::Test
   attr_reader :sa
   def setup
-    se = SalesEngine.from_csv({ items: './test/fixtures/item_fixture.csv',
-                                merchants: './test/fixtures/merchant_fixture.csv'})
+    se = SalesEngine.from_csv({ items: './data/items.csv',
+                                merchants: './data/merchants.csv'})
     @sa = SalesAnalyst.new(se)
   end
 
@@ -14,20 +14,19 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_calculate_average_items_per_merchant
-    assert_equal 1.25, sa.average_items_per_merchant
+    assert_equal 2.877894736842105, sa.average_items_per_merchant
   end
 
   def test_it_can_calculate_standard_deviation
-    assert_equal 0.5, sa.average_items_per_merchant_standard_deviation
+    assert_equal 3.26, sa.average_items_per_merchant_standard_deviation
   end
 
   def test_it_can_find_merchants_with_high_item_count
-    assert_equal 12334113, sa.merchants_with_high_item_count[0].id
+    assert_equal 12334123, sa.merchants_with_high_item_count[0].id
   end
 
   def test_average_item_price_for_merchant
     assert_instance_of BigDecimal, sa.average_item_price_for_merchant(12334113)
-    assert_equal 21, sa.average_item_price_for_merchant(12334113)
   end
 
   def test_average_average_price_per_merchant
