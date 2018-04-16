@@ -107,6 +107,21 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Float, expected
   end
 
+  def test_top_merchants_by_invoice_count
+    sa = SalesAnalyst.new(@sales_engine_full)
+    expected = sa.top_merchants_by_invoice_count
+
+    assert_equal 12, expected.count
+    assert_instance_of Merchant, expected.first
+  end
+
+  def test_bottom_merchants_by_invoice_count
+    sa = SalesAnalyst.new(@sales_engine_full)
+    expected = sa.bottom_merchants_by_invoice_count
+
+    assert_equal 4, expected.count
+    assert_instance_of Merchant, expectd.first
+  end
 
 
 
