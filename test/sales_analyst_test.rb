@@ -22,6 +22,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_merchants_with_high_item_count
-    assert_equal 0, sa.merchants_with_high_item_count
+    assert_equal [], sa.merchants_with_high_item_count
+  end
+
+  def test_average_item_price_for_merchant
+    assert_instance_of BigDecimal, sa.average_item_price_for_merchant(12334113)
+    assert_equal 21, sa.average_item_price_for_merchant(12334113)
   end
 end

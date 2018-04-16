@@ -1,4 +1,5 @@
 require_relative 'sales_engine'
+require 'bigdecimal'
 
 class SalesAnalyst
   attr_reader :sales_engine
@@ -28,6 +29,17 @@ class SalesAnalyst
       merch_count = @sales_engine.items.find_all_by_merchant_id(merchant.id).count
       merch_count > (std_dev + mean)
     end
+  end
+
+  def average_item_price_for_merchant(id)
+    @sales_engine.merchants.find_by_id(id)
+    merchant_items = items.values.find_all do |item|
+      item.merchant_id == id
+    end
+     prices = merchant_items.map do |item|
+      item.unit_price_to_dollars
+    end
+    BigDecimal(prices.reduce(:+) / prices.count, 2)
   end
 
   private
