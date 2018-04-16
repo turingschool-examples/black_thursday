@@ -1,7 +1,7 @@
 require 'bigdecimal'
 require 'csv'
 require_relative 'test_helper'
-require_relative '../lib/item_repository'
+require_relative '../lib/repositories/item_repository'
 require_relative '../lib/fileio'
 
 # Test for Item Repository class
@@ -15,18 +15,18 @@ class ItemRepositoryTest < Minitest::Test
                    Price: $81
                    MORE AVAILABLE",6100,12336050,2016-01-11 20:57:28 UTC,2006-09-08 18:17:01 UTC
                    263567376,"The Gold Coast, Chicago, Illinois","The Gold Coast of Chicago, Illinois 2013
-                   
+
                    Taken and Edited by rakimagery
-                   
+
                    This listing is for a canvas print that is gallery-wrapped around a 1.5” wooden stretcher frame. It arrives ready-to-hang right out of the box.
-                   
-                   
+
+
                    Perfect for home or office!",25000,12336622,2016-01-11 20:57:57 UTC,2011-12-20 13:29:36 UTC
                    263567474,Minty Green Knit Crochet Infinity Scarf,"- Super Chunky knit infinity scarf
                    - Soft mixture of 97% Acrylic and 3% Viscose
                    - Beautiful, Warm, and Stylish
                    - Very easy to care for
-                   
+
                    Hand wash with cold water and lay flat to dry",3800,12334871,2016-01-11 20:59:20 UTC,2009-12-09 12:08:04 UTC)
     csv = CSV.parse(items_data, headers: :true, header_converters: :symbol)
     @i_repo = ItemRepository.new(csv)
@@ -80,7 +80,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_can_find_all_by_price
     item263567474 = @i_repo.create(name: '25 Dollars', description: 'Worst toy ever.',
                    unit_price: 2500, merchant_id: 12334135,
-                   created_at: '2009-12-09 12:08:04 UTC', 
+                   created_at: '2009-12-09 12:08:04 UTC',
                    updated_at: '2010-12-09 12:08:04 UTC')
     actual = @i_repo.find_all_by_price(BigDecimal(25))
     assert_equal [item263567474], actual

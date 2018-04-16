@@ -1,4 +1,4 @@
-require_relative '../lib/merchant'
+require_relative '../merchant'
 require_relative 'repository'
 
 # A class for containing all Merchant objects

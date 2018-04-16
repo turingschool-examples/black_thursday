@@ -1,8 +1,8 @@
 require 'date'
-require_relative 'merchant_analytics'
-require_relative 'item_analytics'
-require_relative 'invoice_analytics'
-require_relative 'customer_analytics'
+require_relative 'analytics/customer_analytics'
+require_relative 'analytics/invoice_analytics'
+require_relative 'analytics/item_analytics'
+require_relative 'analytics/merchant_analytics'
 
 # Sales Analyst class for analyzing data
 class SalesAnalyst

@@ -3,7 +3,7 @@ require 'csv'
 require_relative 'test_helper'
 require_relative '../lib/fileio'
 require_relative '../lib/customer'
-require_relative '../lib/customer_repository'
+require_relative '../lib/repositories/customer_repository'
 
 # Test for the CustomerRepository class
 class CustomerRepositoryTest < Minitest::Test

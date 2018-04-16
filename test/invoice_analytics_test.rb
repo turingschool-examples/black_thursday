@@ -1,7 +1,7 @@
 require_relative '../test/test_helper'
 require_relative '../lib/sales_engine'
 require_relative '../lib/sales_analyst'
-require_relative '../lib/invoice_analytics'
+require_relative '../lib/analytics/invoice_analytics'
 
 class InvoiceAnalyticsTest < Minitest::Test
   def setup

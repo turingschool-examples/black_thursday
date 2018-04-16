@@ -1,5 +1,5 @@
 require 'date'
-require_relative '../lib/invoice'
+require_relative '../invoice'
 require_relative 'repository'
 
 # invoice_repository class

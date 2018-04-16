@@ -22,15 +22,6 @@ module CustomerAnalytics
     @merchant_repo.find_by_id(top_invoice.merchant_id)
   end
 
-  def one_time_buyers_item
-    items = one_time_buyers_top_items
-    popular_items = items.group_by(&:id)
-    top_hits = popular_items.map do |id, items|
-      items.length
-    end
-    top_item = popular_items.fetch_values(top_item_key)
-  end
-
   def one_time_buyers_top_items
     single_invoices = invoices_per_customer.select do |customer_id, invoices|
       invoices.length == 1
@@ -44,7 +35,16 @@ module CustomerAnalytics
     end
   end
 
-  def customers_with_unpaid_invoices #paid_invoices_filter with unless/unpaid
+  def one_time_buyers_item
+    # tops = one_time_buyers_top_items
+    # popular_items = tops.group_by(&:id)
+    # top_hits = popular_items.map do |id, items|
+    #   items.length
+    # end
+    # top_item = popular_items.fetch_values(top_item_key)
+  end
+
+  def customers_with_unpaid_invoices
     customer_invoice_ids = invoices_per_customer
     unpaid_invoices_by_customer = {}
     customer_invoice_ids.each do |customer_id, invoices|

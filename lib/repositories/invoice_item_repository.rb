@@ -1,4 +1,4 @@
-require_relative '../lib/invoice_item'
+require_relative '../invoice_item'
 require_relative 'repository'
 
 # Invoiceitem repo class

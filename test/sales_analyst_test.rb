@@ -110,7 +110,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_average_invoices_per_merchant_minus_two_standard_deviations
     sales_analyst = new_sales_analyst_c
-    assert_equal -1.44, sales_analyst.average_invoices_per_merchant_minus_two_standard_deviations
+    assert_equal (-1.44), sales_analyst.average_invoices_per_merchant_minus_two_standard_deviations
   end
 
   def test_number_of_invoices_by_weekday

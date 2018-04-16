@@ -2,7 +2,7 @@ require 'time'
 require_relative 'test_helper'
 require_relative '../lib/fileio'
 require_relative '../lib/invoice'
-require_relative '../lib/invoice_repository'
+require_relative '../lib/repositories/invoice_repository'
 
 # Test for the InvoiceRepository class
 class InvoiceRepositoryTest < Minitest::Test

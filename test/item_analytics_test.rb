@@ -1,7 +1,7 @@
 require_relative '../test/test_helper'
 require_relative '../lib/sales_engine'
 require_relative '../lib/sales_analyst'
-require_relative '../lib/item_analytics'
+require_relative '../lib/analytics/item_analytics'
 
 class ItemAnalyticsTest < Minitest::Test
   def setup

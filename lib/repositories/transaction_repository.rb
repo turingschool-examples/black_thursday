@@ -1,4 +1,4 @@
-require_relative '../lib/transaction'
+require_relative '../transaction'
 require_relative 'repository'
 
 # transaction_repository class
