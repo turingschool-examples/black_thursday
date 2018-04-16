@@ -33,8 +33,7 @@ class AnalyzerTest < Minitest::Test
     assert_equal 14, @analyzer.number_of_items
   end
 
-  def test_invoices_per_customer
-    result = @analyzer.invoices_per_customer
-    assert_instance_of Hash, result
+  def test_can_count_by_invoice_created_date
+    assert_equal 1, @analyzer.invoice_count_by_created_date(Time.parse('2009-02-07'))
   end
 end

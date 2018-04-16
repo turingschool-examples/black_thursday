@@ -116,7 +116,6 @@ class SalesAnalyst < Analyzer
     end.reduce(:+)
   end
 
-
   def paid_invoice_filter
     customer_invoice_ids = invoices_per_customer
     paid_invoices_by_customer = {}
@@ -144,21 +143,113 @@ class SalesAnalyst < Analyzer
     end
     invoice_totals_by_customer
   end
-
-  def top_buyers(list_length = 20)
-    # --- invoice_total, add total to customer total.
-    # Sum the totals and compare to each other.
-    # sort by max
-    #result = invoice_totals_by_customer
-    # require 'pry';binding.pry
-
-    # top_customer_ids.map do |customer_id|
-    #   @customer_repo.find_by_id(customer_id)
-    # end
+  
+  def sort_totals
+    results = invoice_totals_by_customer
+    sorted_totals = results.sort_by do |customer_id, total|
+      total
+    end.reverse
+    sorted_totals
   end
 
-  # def best_invoice_by_quantity
-  #   highest_quantity = invoice_items.map(&:quantity).reduce(:+)
-  #   # best_invoice = highest_quantity.each
-  # end
+  def top_buyers(amount_of_buyers = 20)
+    top_buyers_by_id = []
+    totals = sort_totals
+    amount_of_buyers.times do
+      top_buyers_by_id << totals.shift.shift
+    end
+
+    top_buyers = top_buyers_by_id.map do |buyer|
+      @customer_repo.find_by_id(buyer)
+    end
+
+    top_buyers
+  end
+
+  def total_invoice_items(invoice_id)
+    invoice_items = @invoice_item_repo.find_all_by_invoice_id(invoice_id)
+    invoice_items.map(&:quantity).reduce(:+)
+  end
+
+  def top_merchant_for_customer(customer_id)
+    invoices = invoices_per_customer[customer_id]
+    invoices_by_total_items = invoices.group_by do |invoice|
+      total_invoice_items(invoice.id)
+    end
+    most_items = invoices_by_total_items.keys.max
+    top_invoice = invoices_by_total_items.values_at(most_items).flatten.shift
+    @merchant_repo.find_by_id(top_invoice.merchant_id)
+  end
+
+  def invoices_by_quantity
+    invoices = @invoice_repo.all
+    results = invoices.group_by do |invoice|
+      total_invoice_items(invoice.id)
+    end
+    results.delete_if do |total, invoice|
+      total.nil?
+    end
+  end
+
+  def one_time_buyers
+    single_invoices = invoices_per_customer.select do |customer_id, invoices|
+      invoices.length == 1
+    end
+    customer_ids = single_invoices.keys
+    customer_ids.map do |id|
+      @customer_repo.find_by_id(id)
+    end
+  end
+
+  def one_time_buyers_top_items
+    single_invoices = invoices_per_customer.select do |customer_id, invoices|
+      invoices.length == 1
+    end
+    invoices = single_invoices.values.flatten
+    invoice_items = invoices.flat_map do |invoice|
+      @invoice_item_repo.find_all_by_invoice_id(invoice.id)
+    end
+    invoice_items.map do |invoice_item|
+      @item_repo.find_by_id(invoice_item.item_id)
+    end
+  end
+
+  def customers_with_unpaid_invoices #paid_invoices_filter with unless/unpaid
+    customer_invoice_ids = invoices_per_customer
+    unpaid_invoices_by_customer = {}
+    customer_invoice_ids.each do |customer_id, invoices|
+      unpaid_invoices = invoices.find_all do |invoice|
+        invoice unless invoice_paid_in_full?(invoice.id)
+      end
+      unpaid_invoices_by_customer[customer_id] = unpaid_invoices
+    end
+
+    unpaid_invoices_by_customer.delete_if do |customer_id, invoice_results|
+      invoice_results.empty?
+    end
+
+    customer_ids = unpaid_invoices_by_customer.keys
+    customer_ids.map do |id|
+      @customer_repo.find_by_id(id)
+    end
+  end
+
+  def invoices_by_revenue
+    invoices = @invoice_repo.all
+    results = invoices.group_by do |invoice|
+      invoice_total(invoice.id)
+    end
+    results.delete_if do |total, invoice|
+      total.nil?
+    end
+  end
+
+  def best_invoice_by_revenue
+    invoices = invoices_by_revenue
+    invoices.values_at(invoices.keys.max).flatten.shift
+  end
+
+  def best_invoice_by_quantity
+    invoices_by_quantity.values_at(invoices_by_quantity.keys.max).flatten.shift
+  end
 end

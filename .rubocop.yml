@@ -3,3 +3,6 @@ Style/NumericLiterals:
 
 Style/FrozenStringLiteralComment:
   Enabled: false
+
+Lint/UnifiedInteger:
+  Enabled: false

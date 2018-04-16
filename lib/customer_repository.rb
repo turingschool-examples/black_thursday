@@ -28,4 +28,8 @@ class CustomerRepository < Repository
     @customers[id].last_name = attrs[:last_name] if attrs[:last_name]
     @customers[id].updated_at = Time.now
   end
+
+  def inspect
+    "#<#{self.class} #{@collection.size} rows>"
+  end
 end
