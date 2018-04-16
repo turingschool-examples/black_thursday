@@ -8,6 +8,7 @@ class SalesAnalyst
     @sales_engine = sales_engine
     @all_items_per_merchant = @sales_engine.all_items_per_merchant
     @all_invoices_per_merchant = @sales_engine.all_invoices_per_merchant
+    @all_invoices_per_day = @sales_engine.all_invoices_per_day
   end
 
   def number_of_items_per_merchant
@@ -131,14 +132,6 @@ class SalesAnalyst
     end
     high_price_items
   end
-
-  def top_days_by_invoice_count
-    
-  end
-
-
-
-
 
 
 end

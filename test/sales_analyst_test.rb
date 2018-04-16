@@ -124,17 +124,12 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_top_days_by_invoice_count
-    skip
     sa = SalesAnalyst.new(@sales_engine_full)
     expected = sa.top_days_by_invoice_count
 
-    # assert_equal 1, expected.length
+    assert_equal 1, expected.length
     assert_equal "Wednesday", expected.first
     assert_instance_of String, expected.first
   end
-
-
-
-
 
 end

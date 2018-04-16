@@ -40,8 +40,6 @@ class SalesEngine
   end
 
   def all_invoices_per_day
-    @invoices.all.group_by(&:created_at.wday)
+    @invoices.all.group_by { |invoice| invoice.created_at.strftime('%A') }
   end
-
-
 end
