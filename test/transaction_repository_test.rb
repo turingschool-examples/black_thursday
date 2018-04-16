@@ -12,7 +12,7 @@ class TransactionRepositoryTest < Minitest::Test
     @new_transaction = @t_repo.create(
       invoice_id: 621,
       credit_card_number: '4271805778010747',
-      credit_card_expiration_date: '0209',
+      credit_card_expiration_date: '0217',
       result: :success,
       created_at: '2009-12-09 12:08:04 UTC',
       updated_at: '2010-12-09 12:08:04 UTC'
@@ -68,6 +68,16 @@ class TransactionRepositoryTest < Minitest::Test
     assert result
     ids = actual.map(&:id)
     assert_equal [3, 4, 5], ids
+  end
+
+  def test_can_find_all_by_credit_card_exp_date
+    actual = @t_repo.find_all_by_credit_card_expiration_date('0217')
+    result = actual.all? do |transaction|
+      transaction.class == Transaction
+    end
+    assert result
+    ids = actual.map(&:id)
+    assert_equal [1, 5], ids
   end
 
   def test_can_find_all_by_result

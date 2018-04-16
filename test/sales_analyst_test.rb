@@ -281,17 +281,84 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 5570.75, sales_analyst.invoice_total(1)
   end
 
-  def test_it_grabs_top_buyers
-    skip
+  def new_sales_analyst_5
     sales_engine = SalesEngine.from_csv(
       customers: './test/fixtures/test_customers5.csv',
       invoices: './test/fixtures/test_invoices5.csv',
       invoice_items: './test/fixtures/test_invoice_items5.csv',
-      items: './test/fixtures/test_items1.csv',
+      items: './test/fixtures/test_items5.csv',
       merchants: './test/fixtures/test_merchants2.csv',
       transactions: './test/fixtures/test_transactions5.csv'
     )
-    sales_analyst = sales_engine.analyst
-    assert_equal [], sales_analyst.top_buyers(5)
+    sales_engine.analyst
+  end
+
+  def test_invoice_totals_by_customer
+    sales_analyst = new_sales_analyst_5
+    result = sales_analyst.invoice_totals_by_customer
+    assert_instance_of Hash, result
+  end
+
+  def test_it_grabs_top_buyers
+    sales_analyst = new_sales_analyst_5
+    result = sales_analyst.top_buyers(3)
+    assert_equal 1, result.first.id
+    assert_equal 3, result.last.id
+    assert_instance_of Customer, result.first
+  end
+
+  def test_it_finds_top_merchant_for_customer
+    sales_analyst = new_sales_analyst_5
+    result = sales_analyst.top_merchant_for_customer(1)
+    assert_instance_of Merchant, result
+    assert_equal 12335955, result.id
+  end
+
+  def test_it_finds_total_invoice_items
+    sales_analyst = new_sales_analyst_5
+    result = sales_analyst.total_invoice_items(1)
+    assert_equal 47, result
+  end
+
+  def test_it_finds_one_time_buyers
+    sales_analyst = new_sales_analyst_5
+    result = sales_analyst.one_time_buyers
+    assert_equal 3, result.length
+    assert_instance_of Customer, result.first
+    assert_equal [4, 19, 20], result.map(&:id)
+  end
+
+  def test_it_finds_one_time_buyers_top_items
+    sales_analyst = new_sales_analyst_5
+    result = sales_analyst.one_time_buyers_top_items
+    assert_equal 8, result.length
+    assert_instance_of Item, result.first
+  end
+
+  def test_invoice_items_by_quantity
+    sales_analyst = new_sales_analyst_5
+    result = sales_analyst.invoices_by_quantity
+    assert_equal 52, result.keys.max
+  end
+
+  def test_customers_with_unpaid_invoices
+    sales_analyst = new_sales_analyst_5
+    result = sales_analyst.customers_with_unpaid_invoices
+    assert_instance_of Customer, result.first
+    assert_equal 25, result.length
+  end
+
+  def test_it_finds_best_invoice_by_revenue
+    sales_analyst = new_sales_analyst_5
+    result = sales_analyst.best_invoice_by_revenue
+    assert_equal 15, result.id
+    assert_instance_of Invoice, result
+  end
+
+  def test_it_finds_best_invoice_by_quantity
+    sales_analyst = new_sales_analyst_5
+    result = sales_analyst.best_invoice_by_quantity
+    assert_equal 3, result.id
+    assert_instance_of Invoice, result
   end
 end
