@@ -87,7 +87,7 @@ class SalesAnalyst
     grouped.each { |key, value| hash[key] = value.size }
     mean = hash.values.reduce(:+) / 7
     std_dev = standard_deviation(hash.values, mean) + mean
-    day_nums = hash.select { |k,v| v > std_dev }.keys
+    day_nums = hash.select { |_, v| v > std_dev }.keys
     days = day_nums.map { |num| Date::DAYNAMES[num] }
     days
   end
@@ -130,7 +130,7 @@ class SalesAnalyst
   end
 
   def total_items_per_merchant
-    @_items ||= merchants.map do |merchant|
+    @_total ||= merchants.map do |merchant|
       merchant.items.length
     end
   end
