@@ -15,7 +15,6 @@ class InvoiceItemRepositoryTest < Minitest::Test
                           12,263438971,2,8,31099,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC
                           13,263553176,3,4,78660,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC
                           14,263438971,4,12,31099,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC)
-    # file_path = FileIO.load('./test/fixtures/test_invoice_items.csv')
     csv = CSV.parse(invoice_item_data, headers: :true, header_converters: :symbol)
     @inv_i_repo = InvoiceItemRepository.new(csv)
     @time = Time.now
