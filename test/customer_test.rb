@@ -16,4 +16,16 @@ class CustomerTest < Minitest::Test
     })
   end
 
-end 
+  def test_it_exists
+    assert_instance_of Customer, @customer
+  end
+
+  def test_it_has_attributes
+    assert_equal 1, @customer.id
+    assert_equal "Joey", @customer.first_name
+    assert_equal "Ondricka", @customer.last_name
+    assert_equal @time, @customer.created_at
+    assert_equal @time, @customer.updated_at
+  end
+
+end
