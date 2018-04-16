@@ -147,5 +147,16 @@ class SalesAnalyst
       end 
     end 
     high_traffic_days
-  end 
+  end
+
+  def percent_of_total_invoices_per_status
+    all_invoices = @all_invoices_per_day.values.flatten
+    total = all_invoices.count
+    grouped_by_status = all_invoices.group_by(&:status)
+    grouped_by_status.each do |status,invoices|
+      percent = (invoices.count / total.to_f)*100
+      grouped_by_status[status] = percent.round(2)
+    end
+    grouped_by_status
+  end
 end
