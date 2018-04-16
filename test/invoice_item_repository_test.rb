@@ -52,4 +52,16 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_instance_of InvoiceItem, @iir.repository.values[1]
   end
 
+  def test_can_find_by_id
+    actual = @iir.find_by_id(1)
+    assert_equal 263519844, actual.item_id
+
+    actual = @iir.find_by_id(9)
+    assert_equal 2, actual.invoice_id
+
+    actual = @iir.find_by_id(26)
+    assert_equal 9, actual.quantity
+  end
+
+
 end
