@@ -4,6 +4,7 @@ require 'csv'
 require_relative 'merchant_repository'
 require_relative 'item_repository'
 require_relative 'invoice_repository'
+require_relative 'invoice_item_repository'
 require_relative 'sales_analyst'
 require 'pry'
 
@@ -25,6 +26,7 @@ class SalesEngine
     items.populate
     merchants.populate
     invoices.populate
+    invoice_items.populate
   end
 
   def items
@@ -39,6 +41,10 @@ class SalesEngine
     @invoices ||= InvoiceRepository.new(data_for(:invoices), self)
   end
 
+  def invoice_items
+    @invoice_items ||= InvoiceItemRepository.new(data_for(:invoice_items), self)
+  end
+
   def path
     @path || filepath
   end
@@ -48,6 +54,7 @@ class SalesEngine
       items:     './data/items.csv',
       merchants: './data/merchants.csv',
       invoices:  './data/invoices.csv',
+      invoice_items: './data/invoice_items.csv',
     }
   end
 
