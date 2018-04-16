@@ -73,10 +73,11 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_delete
-    @mr.create({:id => 5, :name => 'Turing School'})
+    assert_equal 6, @mr.merchants.count
 
-    assert_equal 7, @mr.all.last.id
-    @mr.delete(7)
-    refute_equal 7, @mr.all.last.id
+    @mr.delete(1)
+
+    assert_nil @mr.find_by_id(1)
+    assert_equal 5, @mr.merchants.count
   end
 end

@@ -11,7 +11,6 @@ class SalesAnalystTest < Minitest::Test
   def setup
     @se = SalesEngine.from_csv
     @sa = SalesAnalyst.new(@se)
-    # binding.pry
   end
 
   def test_it_exists
@@ -55,5 +54,47 @@ class SalesAnalystTest < Minitest::Test
 
     assert_equal 5, actual.length
     assert_instance_of Item, actual[0]
+  end
+
+  def test_average_invoices_per_merchant
+    actual = @sa.average_invoices_per_merchant
+
+    assert_equal 10.49, actual
+    assert_instance_of Float, actual
+  end
+
+  def test_average_invoices_per_merchant_standard_deviation
+    actual = @sa.average_invoices_per_merchant_standard_deviation
+
+    assert_equal 3.29, actual
+    assert_instance_of Float, actual
+  end
+
+  def test_top_merchants_by_invoice_count
+    actual = @sa.top_merchants_by_invoice_count
+
+    assert_equal 12, actual.length
+  end
+
+  def test_bottom_merchants_by_invoice_count
+    actual = @sa.bottom_merchants_by_invoice_count
+
+    assert_equal 4, actual.length
+  end
+
+  def test_top_days_by_invoice_count
+    actual = @sa.top_days_by_invoice_count
+
+    assert_equal ["Wednesday"], actual
+  end
+
+  def test_invoice_status
+    actual   = @sa.invoice_status(:pending)
+    actual_1 = @sa.invoice_status(:shipped)
+    actual_2 = @sa.invoice_status(:returned)
+
+    assert_equal 29.55, actual
+    assert_equal 56.95, actual_1
+    assert_equal 13.5, actual_2
   end
 end

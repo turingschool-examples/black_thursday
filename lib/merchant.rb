@@ -25,6 +25,10 @@ class Merchant
   end
 
   def items
-    @parent.pass_item_id_to_sales_engine(@id)
+    @parent.pass_item_id_to_engine(@id)
+  end
+
+  def invoices
+    @parent.pass_item_id_to_engine_for_invoice(@id)
   end
 end

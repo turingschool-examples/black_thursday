@@ -1,11 +1,12 @@
 # frozen_string_literal: true
-
+require 'time'
 # sales analyst
 class SalesAnalyst
   attr_reader :engine
 
   def initialize(engine)
     @engine = engine
+    # binding.pry
   end
 
   def average_items_per_merchant
@@ -53,6 +54,49 @@ class SalesAnalyst
     end.compact
   end
 
+  def average_invoices_per_merchant
+    (invoices.length / total_merchants.to_f).round(2)
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    total_invoices = total_invoices_per_merchant
+    standard_deviation(total_invoices, average_invoices_per_merchant).round(2)
+  end
+
+  def top_merchants_by_invoice_count
+    avg_std_dev = average_invoices_per_merchant_standard_deviation
+    avg = average_invoices_per_merchant
+    merchants.map do |merchant|
+      diff = (merchant.invoices.length - avg).to_f
+      merchant if diff.abs > avg_std_dev * 2 && merchant.invoices.length > avg
+    end.compact
+  end
+
+  def bottom_merchants_by_invoice_count
+    avg_std_dev = average_invoices_per_merchant_standard_deviation
+    avg = average_invoices_per_merchant
+    merchants.map do |merchant|
+      diff = (merchant.invoices.length - avg).to_f
+      merchant if diff.abs > avg_std_dev * 2 && merchant.invoices.length < avg
+    end.compact
+  end
+
+  def top_days_by_invoice_count
+    hash = {}
+    grouped = invoices.group_by { |invoice| invoice.created_at.wday }
+    grouped.each { |key, value| hash[key] = value.size }
+    mean = hash.values.reduce(:+) / 7
+    std_dev = standard_deviation(hash.values, mean) + mean
+    day_nums = hash.select { |k,v| v > std_dev }.keys
+    days = day_nums.map { |num| Date::DAYNAMES[num] }
+    days
+  end
+
+  def invoice_status(status)
+    found = invoices.select { |invoice| invoice.status == status }
+    (found.length.to_f / invoices.length.to_f * 100).round(2)
+  end
+
   private
 
   def merchants
@@ -61,6 +105,10 @@ class SalesAnalyst
 
   def items
     @engine.items.all
+  end
+
+  def invoices
+    @engine.invoices.all
   end
 
   def average_item_price_standard_deviation
@@ -82,8 +130,14 @@ class SalesAnalyst
   end
 
   def total_items_per_merchant
-    @_total ||= merchants.map do |merchant|
+    @_items ||= merchants.map do |merchant|
       merchant.items.length
+    end
+  end
+
+  def total_invoices_per_merchant
+    @_invoices ||= merchants.map do |merchant|
+      merchant.invoices.length
     end
   end
 
