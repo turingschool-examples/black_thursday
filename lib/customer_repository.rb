@@ -27,6 +27,13 @@ class CustomerRepository
     customer_hash
   end
 
+  def find_all_by_first_name(name)
+    @repository.values.find_all do |customer|
+      customer.first_name == name
+    end
+  end
+  
+
 
 
 
