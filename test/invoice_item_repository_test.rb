@@ -65,39 +65,34 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal 11, actual.id
     assert_equal 11, actual.item_id
     assert_equal 13, actual.quantity
-    assert_equal 0.1099e0, actual.unit_price
+    assert_equal 10.99, actual.unit_price
   end
 
   def test_update_item
-    skip
     attributes = ({
-                    :id => 6,
-                    :item_id => 7,
-                    :invoice_id => 8,
-                    :quantity => 1,
+                    :quantity => 7,
                     :unit_price => BigDecimal.new(10.99, 4),
-                    :created_at => Time.now,
-                    :updated_at => Time.now
                    })
 
     to_update = @ir.find_by_id(10)
 
-    assert_equal 'Vogue Paris Original Givenchy 2307', to_update.name
-    assert_equal 29.99, to_update.unit_price
+    assert_equal 4, to_update.quantity
+    assert_equal 1859.0, to_update.unit_price
 
-    @ir.update(263_396_209, attributes)
+    @ir.update(10, attributes)
 
-    assert_equal 'Pencil', to_update.name
+    assert_equal 7, to_update.quantity
     assert_equal 10.99, to_update.unit_price
   end
 
   def test_delete_item
-    skip
-    assert_equal 5, @ir.items.count
+    actual = @ir.invoice_items
+    
+    assert_equal 10, actual.count
 
     @ir.delete(1)
 
     assert_nil @ir.find_by_id(1)
-    assert_equal 4, @ir.items.count
+    assert_equal 9, actual.count
   end
 end

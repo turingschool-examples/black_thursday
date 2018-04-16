@@ -28,6 +28,19 @@ class InvoiceItemRepository < BaseRepository
     invoice_items << InvoiceItem.new(attributes, 'parent')
   end
 
+  def update(id, attributes)
+    return nil if find_by_id(id).nil?
+    to_update = find_by_id(id)
+    to_update.change_updated_at
+    to_update.change_unit_price(attributes[:unit_price])
+    to_update.change_quantity(attributes[:quantity])
+  end
+
+  def delete(id)
+    to_delete = find_by_id(id)
+    invoice_items.delete(to_delete)
+  end
+
   private
 
   def find_highest_id
