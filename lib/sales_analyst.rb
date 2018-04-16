@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # analyses various aspects of sales engine
+# allows for analysis of different sales engine respoitories
 class SalesAnalyst
   attr_reader :all_items_per_merchant,
               :all_invoices_per_merchant
@@ -101,7 +102,8 @@ class SalesAnalyst
     low_invoice_count_merchants = []
     @all_invoices_per_merchant.each_pair do |merchant, invoices|
       if std_dev_above_mean(invoices.count, invoice_num_mean, std_dev) <= -2
-        low_invoice_count_merchants << @sales_engine.merchants.find_by_id(merchant)
+        merchants = @sales_engine.merchants.find_by_id(merchant)
+        low_invoice_count_merchants << merchants
       end
     end
     low_invoice_count_merchants
@@ -109,7 +111,7 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(merchant_id)
     item_prices = @all_items_per_merchant[merchant_id].map(&:unit_price)
-    BigDecimal.new((find_sum(item_prices)/item_prices.count)).round(2)
+    BigDecimal((find_sum(item_prices)/item_prices.count)).round(2)
   end
 
   def merchant_price_averages
@@ -144,8 +146,8 @@ class SalesAnalyst
     @all_invoices_per_day.each_pair do |day, invoices|
       if std_dev_above_mean(invoices.count, mean, std_dev) >= 1
         high_traffic_days << day
-      end 
-    end 
+      end
+    end
     high_traffic_days
   end
 
@@ -154,7 +156,7 @@ class SalesAnalyst
     total = all_invoices.count
     grouped_by_status = all_invoices.group_by(&:status)
     grouped_by_status.each do |status,invoices|
-      percent = (invoices.count / total.to_f)*100
+      percent = (invoices.count / total.to_f) * 100
       grouped_by_status[status] = percent.round(2)
     end
     grouped_by_status

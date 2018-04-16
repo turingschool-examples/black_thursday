@@ -1,4 +1,4 @@
-# helper module for all repositories
+# frozen_string_literal: true
 module Repository
   def inspect
     "#<#{self.class} #{@repository.size} rows>"

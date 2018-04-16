@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
 require_relative './invoice'
 require_relative './repository'
 require 'time'
 require 'pry'
 
+# holds invoices and allows for basic invoice creation and retrieval
 class InvoiceRepository
   include Repository
 
