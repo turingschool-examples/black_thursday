@@ -20,16 +20,26 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of SalesAnalyst, @sales_analyst
   end
 
-  # def test_average_items_per_merchant
-  #   assert_equal 2.80, @sales_analyst.average_items_per_merchant
-  #   assert_instance_of Float, @sales_analyst.average_items_per_merchant
-  # end
+  def test_average
+    assert_equal 2, @sales_analyst.average(4, 2)
+  end
 
-  # def test_average_items_per_merchant_std_dev
-  #   result = @sales_analyst.average_items_per_merchant_standard_deviation
-  #   assert_equal 2.49, result
-  #   assert_instance_of Float, result
-  # end
+  def test_standard_deviation
+    set = [3, 4, 5]
+    assert_equal 1, @sales_analyst.standard_deviation(set, @sales_analyst.average(set.reduce(:+), set.count))
+  end
+
+  def test_number_of_merchants
+    assert_equal 5, @sales_analyst.number_of_merchants
+  end
+
+  def test_number_of_items
+    assert_equal 14, @sales_analyst.number_of_items
+  end
+
+  def test_can_count_by_invoice_created_date
+    assert_equal 1, @sales_analyst.invoice_count_by_created_date(Time.parse('2009-02-07'))
+  end
 
   def test_items_per_merchant
     result = @sales_analyst.items_per_merchant
@@ -47,79 +57,14 @@ class SalesAnalystTest < Minitest::Test
     assert_equal expected, @sales_analyst.number_of_items_per_merchant
   end
 
-  # def test_merchants_with_high_item_count
-  #   result = @sales_analyst.merchants_with_high_item_count
-  #   assert_instance_of Merchant, result[0]
-  #   assert_equal ['FlavienCouche'], result.map(&:name)
-  # end
-
-  # def test_average_item_price_for_merchant
-  #   result = @sales_analyst.average_item_price_for_merchant(12334185)
-  #   assert_instance_of BigDecimal, result
-  #   assert_equal 11.17, result.to_f.round(2)
-  # end
-
-  # def test_average_average_price_per_merchant
-  #   result = @sales_analyst.average_average_price_per_merchant
-  #   assert_instance_of BigDecimal, result
-  #   assert_equal 20092.68, result.to_f.round(2)
-  # end
-
   def test_average_item_price
     assert_equal 7357.66, @sales_analyst.average_item_price.to_f.round(2)
   end
-
-  # def test_average_item_price_standard_deviation
-  #   result = @sales_analyst.average_item_price_standard_deviation
-  #   assert_equal 26665.15, result
-  #   assert_instance_of Float, result
-  # end
-
-  # def test_golden_items
-  #   result = @sales_analyst.golden_items
-  #   assert_equal ['Test listing'], result.map(&:name)
-  #   assert_instance_of Item, result[0]
-  # end
-
-  # def test_average_invoices_per_merchant
-  #   sales_analyst = new_sales_analyst_invoices_2
-  #   assert_equal 1.15, sales_analyst.average_invoices_per_merchant
-  # end
-
-  # def test_average_invoices_per_merchant_standard_deviation
-  #   sales_analyst = new_sales_analyst_invoices_2
-  #   assert_equal 0.63, sales_analyst.average_invoices_per_merchant_standard_deviation
-  # end
 
   def test_getting_invoice_count
     sales_analyst = new_sales_analyst_invoices_2
     assert_equal 2, sales_analyst.invoice_count(12334264)
   end
-
-  # def test_top_merchants_by_invoice_count
-  #   sales_analyst = new_sales_analyst_b
-  #   result = sales_analyst.top_merchants_by_invoice_count
-  #   assert_instance_of Merchant, result[0]
-  #   assert_equal [12334873], result.map(&:id)
-  # end
-
-  # def test_bottom_merchants_by_invoice_count
-  #   sales_analyst = new_sales_analyst_c
-  #   result = sales_analyst.bottom_merchants_by_invoice_count
-  #   assert(result.all? { |each_result| each_result.class == Merchant })
-  #   assert_equal [], result.map(&:id)
-  # end
-
-  # def test_average_number_of_invoices_per_day
-  #   sales_analyst = new_sales_analyst_b
-  #   assert_equal 1, sales_analyst.average_invoices_per_day
-  # end
-
-  # def test_average_invoices_per_day_standard_deviation
-  #   sales_analyst = new_sales_analyst_b
-  #   result = sales_analyst.average_invoices_per_day_standard_deviation
-  #   assert_equal 0, result
-  # end
 
   def test_number_of_invoices_per_merchant
     sales_analyst = new_sales_analyst_b
@@ -299,41 +244,11 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Hash, result
   end
 
-  # def test_it_grabs_top_buyers
-  #   sales_analyst = new_sales_analyst_5
-  #   result = sales_analyst.top_buyers(3)
-  #   assert_equal 1, result.first.id
-  #   assert_equal 3, result.last.id
-  #   assert_instance_of Customer, result.first
-  # end
-
-  # def test_it_finds_top_merchant_for_customer
-  #   sales_analyst = new_sales_analyst_5
-  #   result = sales_analyst.top_merchant_for_customer(1)
-  #   assert_instance_of Merchant, result
-  #   assert_equal 12335955, result.id
-  # end
-
   def test_it_finds_total_invoice_items
     sales_analyst = new_sales_analyst_5
     result = sales_analyst.total_invoice_items(1)
     assert_equal 47, result
   end
-
-  # def test_it_finds_one_time_buyers
-  #   sales_analyst = new_sales_analyst_5
-  #   result = sales_analyst.one_time_buyers
-  #   assert_equal 3, result.length
-  #   assert_instance_of Customer, result.first
-  #   assert_equal [4, 19, 20], result.map(&:id)
-  # end
-
-  # def test_it_finds_one_time_buyers_top_items
-  #   sales_analyst = new_sales_analyst_5
-  #   result = sales_analyst.one_time_buyers_top_items
-  #   assert_equal 8, result.length
-  #   assert_instance_of Item, result.first
-  # end
 
   def test_it_finds_one_time_buyers_item
     skip
@@ -348,25 +263,4 @@ class SalesAnalystTest < Minitest::Test
     result = sales_analyst.invoices_by_quantity
     assert_equal 52, result.keys.max
   end
-
-  # def test_customers_with_unpaid_invoices
-  #   sales_analyst = new_sales_analyst_5
-  #   result = sales_analyst.customers_with_unpaid_invoices
-  #   assert_instance_of Customer, result.first
-  #   assert_equal 25, result.length
-  # end
-
-  # def test_it_finds_best_invoice_by_revenue
-  #   sales_analyst = new_sales_analyst_5
-  #   result = sales_analyst.best_invoice_by_revenue
-  #   assert_equal 15, result.id
-  #   assert_instance_of Invoice, result
-  # end
-
-  # def test_it_finds_best_invoice_by_quantity
-  #   sales_analyst = new_sales_analyst_5
-  #   result = sales_analyst.best_invoice_by_quantity
-  #   assert_equal 3, result.id
-  #   assert_instance_of Invoice, result
-  # end
 end
