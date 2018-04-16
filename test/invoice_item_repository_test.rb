@@ -69,7 +69,16 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal 9, actual.quantity
   end
 
-  
+  def test_can_find_all_by_id
+    actual = @iir.find_all_by_id(1)
+    assert_equal 263519844, actual[0].item_id
+
+    actual = @iir.find_all_by_id(9)
+    assert_equal 6, actual[0].quantity
+
+    actual = @iir.find_all_by_id(26)
+    assert_equal 5, actual[0].invoice_id
+  end
 
 
 

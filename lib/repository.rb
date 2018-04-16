@@ -14,6 +14,12 @@ module Repository
     @repository[id]
   end
 
+  def find_all_by_id(id)
+    @repository.values.find_all do |thing|
+      thing.id == id
+    end 
+  end
+
   def find_all_by_price(price)
     @repository.values.find_all do |item|
       item.unit_price == price
