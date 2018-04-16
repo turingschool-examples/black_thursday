@@ -42,6 +42,13 @@ class SalesAnalyst
     BigDecimal(prices.reduce(:+) / prices.count, 2)
   end
 
+  def average_average_price_per_merchant
+    merchant_averages = merchants.values.map do |merchant|
+      average_item_price_for_merchant(merchant.id)
+    end
+    (merchant_averages.reduce(:+) / merchant_averages.count)
+  end
+
   private
 
   def items
