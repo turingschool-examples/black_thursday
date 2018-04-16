@@ -88,4 +88,13 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal '0217', actual[0].credit_card_expiration_date
   end
 
+  def test_it_can_find_all_by_result
+    actual = @tr.find_all_by_result(:failed)
+    assert_equal 14, actual[0].id
+
+    actual = @tr.find_all_by_result(:success)
+    assert_equal '0217', actual[0].credit_card_expiration_date
+    assert_equal '4068631943231473', actual[1].credit_card_number
+  end
+
 end
