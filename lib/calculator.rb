@@ -16,6 +16,12 @@ module Calculator
         end
     end
 
+    def average(array_of_numbers)
+        return 0 if array_of_numbers.empty?
+        sum = array_of_numbers.sum
+        average = sum / array_of_numbers.length
+    end
+
     def square(difference)
         difference.map do |index|
             (index ** 2)

@@ -5,7 +5,8 @@ class Item
     attr_reader :id,
                 :merchant_id,
                 :parent,
-                :downcased_description
+                :downcased_description,
+                :price
     attr_accessor :created_at,
                   :updated_at,
                   :name,
@@ -18,6 +19,7 @@ class Item
         @description = data[:description]
         @downcased_description = description.downcase
         @unit_price = BigDecimal.new(data[:unit_price])/100
+        @price = unit_price.to_f
         @merchant_id = data[:merchant_id].to_i
         @created_at = Time.parse(data[:created_at])
         @updated_at = Time.parse(data[:updated_at])

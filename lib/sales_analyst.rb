@@ -38,7 +38,22 @@ class SalesAnalyst
         end
     end
 
-    
+    def average_item_price_for_merchant(merchant_id)
+       merchant = merchants.find_by_id(merchant_id)
+       item_prices = merchant.items.map do |item|
+            item.price.round(1)
+       end
+       average(item_prices)
+    end
+
+    def average_average_price_per_merchant
+        merchants_average = merchants.all.map do |merchant|
+            average_item_price_for_merchant(merchant.id)
+        end
+        average(merchants_average)
+    end
+
+
 
 
 
