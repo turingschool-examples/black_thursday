@@ -214,6 +214,26 @@ class SalesAnalyst < Analyzer
     end
   end
 
+  def customers_with_unpaid_invoices #paid_invoices_filter with unless/unpaid
+    customer_invoice_ids = invoices_per_customer
+    unpaid_invoices_by_customer = {}
+    customer_invoice_ids.each do |customer_id, invoices|
+      unpaid_invoices = invoices.find_all do |invoice|
+        invoice unless invoice_paid_in_full?(invoice.id)
+      end
+      unpaid_invoices_by_customer[customer_id] = unpaid_invoices
+    end
+
+    unpaid_invoices_by_customer.delete_if do |customer_id, invoice_results|
+      invoice_results.empty?
+    end
+
+    customer_ids = unpaid_invoices_by_customer.keys
+    customer_ids.map do |id|
+      @customer_repo.find_by_id(id)
+    end
+  end
+
   def best_invoice_by_quantity
     invoices_by_quantity.values_at(invoices_by_quantity.keys.max).flatten.shift
   end
