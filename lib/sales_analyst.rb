@@ -159,4 +159,9 @@ class SalesAnalyst
     end
     grouped_by_status
   end
+
+  def invoice_status(status)
+    percent_of_total_invoices_per_status[status]
+  end
+
 end
