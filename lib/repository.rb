@@ -14,6 +14,12 @@ module Repository
     @repository[id]
   end
 
+  def find_all_by_id(id)
+    @repository.values.find_all do |thing|
+      thing.id == id
+    end
+  end
+
   def find_all_by_price(price)
     @repository.values.find_all do |item|
       item.unit_price == price
@@ -72,6 +78,10 @@ module Repository
     temp_attr[:id] = invoice.attributes[:id]
     unless temp_attr[:status].nil?
       temp_attr[:status] = temp_attr[:status].to_sym
+    end
+    if temp_attr[:item_id] = invoice.attributes[:item_id]
+    end
+    if temp_attr[:invoice_id] = invoice.attributes[:invoice_id]
     end
     temp_attr[:customer_id] = invoice.attributes[:customer_id]
     temp_attr[:merchant_id] = invoice.attributes[:merchant_id]

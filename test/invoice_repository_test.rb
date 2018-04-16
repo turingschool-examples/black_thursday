@@ -40,11 +40,11 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_holds_invoices
-    @ir.invoices.all? do |invoice|
+    @ir.repository.values.all? do |invoice|
       assert_instance_of Invoice, invoice
     end
-    assert_instance_of Invoice, @ir.invoices[0]
-    assert_instance_of Invoice, @ir.invoices[1]
+    assert_instance_of Invoice, @ir.repository.values[0]
+    assert_instance_of Invoice, @ir.repository.values[1]
   end
 
   def test_it_can_find_all
@@ -100,7 +100,7 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_can_find_highest_id
     actual = @ir.find_highest_id
     assert_equal 27, actual
-  end 
+  end
 
   def test_ir_can_create_new_invoice
     actual = @ir.find_highest_id
