@@ -57,7 +57,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
                 :item_id => 11,
                 :invoice_id => 12,
                 :quantity => 13,
-                :unit_price => BigDecimal(10.99, 4),
+                :unit_price => 10
               })
 
     actual = @ir.invoice_items.last
@@ -65,29 +65,29 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal 11, actual.id
     assert_equal 11, actual.item_id
     assert_equal 13, actual.quantity
-    assert_equal 10.99, actual.unit_price
+    assert_equal 0.1, actual.unit_price
   end
 
   def test_update_item
     attributes = ({
                     :quantity => 7,
-                    :unit_price => BigDecimal.new(10.99, 4),
+                    :unit_price => 15
                    })
 
     to_update = @ir.find_by_id(10)
 
     assert_equal 4, to_update.quantity
-    assert_equal 1859.0, to_update.unit_price
+    assert_equal 18.59, to_update.unit_price
 
     @ir.update(10, attributes)
 
     assert_equal 7, to_update.quantity
-    assert_equal 10.99, to_update.unit_price
+    assert_equal 15, to_update.unit_price
   end
 
   def test_delete_item
     actual = @ir.invoice_items
-    
+
     assert_equal 10, actual.count
 
     @ir.delete(1)

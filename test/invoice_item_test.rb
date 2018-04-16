@@ -4,15 +4,15 @@ require './test/test_helper'
 require './lib/invoice_item'
 require './lib/sales_engine'
 
-# invoice test
-class InvoiceTest < Minitest::Test
+# invoice item test
+class InvoiceItemTest < Minitest::Test
   def setup
     @i = InvoiceItem.new({
       :id          => 6,
       :item_id     => 7,
       :invoice_id  => 8,
       :quantity    => 9,
-      :unit_price  => 123456,
+      :unit_price  => 123_456,
       :created_at  => Time.now.to_s,
       :updated_at  => Time.now.to_s,
     }, 'parent')
