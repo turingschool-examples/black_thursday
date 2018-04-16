@@ -134,4 +134,11 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal :failed, transaction.result
   end
 
+  def test_it_can_be_deleted
+    transaction = @tr.find_by_id(56)
+    assert_equal 1496, transaction.invoice_id
+    @tr.delete(56)
+    assert_nil @tr.find_by_id(56)
+  end
+
 end
