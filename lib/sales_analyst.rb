@@ -2,12 +2,15 @@ require 'date'
 require_relative 'analyzer'
 require_relative 'merchant_analytics'
 require_relative 'item_analytics'
+require_relative 'invoice_analytics'
+
 
 
 # Sales Analyst class for analyzing data
 class SalesAnalyst < Analyzer
   include MerchantAnalytics
   include ItemAnalytics
+  include InvoiceAnalytics
 
   attr_reader :engine
   def initialize(sales_engine)
@@ -52,23 +55,23 @@ class SalesAnalyst < Analyzer
   #   end.compact
   # end
 
-  def average_invoices_per_merchant
-    average(number_of_invoices, number_of_merchants).to_f
-  end
+  # def average_invoices_per_merchant
+  #   average(number_of_invoices, number_of_merchants).to_f
+  # end
 
-  def average_invoices_per_merchant_standard_deviation
-    unique_merchants = @invoice_repo.all.map(&:merchant_id).uniq
-    number_of_invoices_for_each_merchant = unique_merchants.map do |merchant_id|
-      invoice_count(merchant_id)
-    end
-    standard_deviation(number_of_invoices_for_each_merchant,
-                       average_invoices_per_merchant)
-  end
+  # def average_invoices_per_merchant_standard_deviation
+  #   unique_merchants = @invoice_repo.all.map(&:merchant_id).uniq
+  #   number_of_invoices_for_each_merchant = unique_merchants.map do |merchant_id|
+  #     invoice_count(merchant_id)
+  #   end
+  #   standard_deviation(number_of_invoices_for_each_merchant,
+  #                      average_invoices_per_merchant)
+  # end
 
-  def average_invoices_per_day
-    average(@invoice_repo.all.count,
-            all_invoice_created_dates.uniq.count).to_f
-  end
+  # def average_invoices_per_day
+  #   average(@invoice_repo.all.count,
+  #           all_invoice_created_dates.uniq.count).to_f
+  # end
 
   def average_invoices_per_day_standard_deviation
     unique_days = @invoice_repo.all.map(&:created_at).uniq

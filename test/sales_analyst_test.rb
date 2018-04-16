@@ -81,10 +81,10 @@ class SalesAnalystTest < Minitest::Test
   #   assert_instance_of Item, result[0]
   # end
 
-  def test_average_invoices_per_merchant
-    sales_analyst = new_sales_analyst_invoices_2
-    assert_equal 1.15, sales_analyst.average_invoices_per_merchant
-  end
+  # def test_average_invoices_per_merchant
+  #   sales_analyst = new_sales_analyst_invoices_2
+  #   assert_equal 1.15, sales_analyst.average_invoices_per_merchant
+  # end
 
   def test_average_invoices_per_merchant_standard_deviation
     sales_analyst = new_sales_analyst_invoices_2
@@ -110,16 +110,16 @@ class SalesAnalystTest < Minitest::Test
   #   assert_equal [], result.map(&:id)
   # end
 
-  def test_average_number_of_invoices_per_day
-    sales_analyst = new_sales_analyst_b
-    assert_equal 1, sales_analyst.average_invoices_per_day
-  end
+  # def test_average_number_of_invoices_per_day
+  #   sales_analyst = new_sales_analyst_b
+  #   assert_equal 1, sales_analyst.average_invoices_per_day
+  # end
 
-  def test_average_invoices_per_day_standard_deviation
-    sales_analyst = new_sales_analyst_b
-    result = sales_analyst.average_invoices_per_day_standard_deviation
-    assert_equal 0, result
-  end
+  # def test_average_invoices_per_day_standard_deviation
+  #   sales_analyst = new_sales_analyst_b
+  #   result = sales_analyst.average_invoices_per_day_standard_deviation
+  #   assert_equal 0, result
+  # end
 
   def test_number_of_invoices_per_merchant
     sales_analyst = new_sales_analyst_b
