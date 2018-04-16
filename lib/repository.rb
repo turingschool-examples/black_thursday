@@ -1,4 +1,4 @@
-# frozen_string_literal: true`. (convention:Style/FrozenStringLiteralComment)
+# frozen_string_literal: true`.
 
 # helper module for all repositories
 module Repository

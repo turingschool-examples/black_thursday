@@ -5,6 +5,7 @@
 class SalesAnalyst
   attr_reader :all_items_per_merchant,
               :all_invoices_per_merchant
+
   def initialize(sales_engine)
     @sales_engine = sales_engine
     @all_items_per_merchant = @sales_engine.all_items_per_merchant
