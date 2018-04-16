@@ -5,6 +5,7 @@ require_relative 'merchant_repository'
 require_relative 'item_repository'
 require_relative 'invoice_repository'
 require_relative 'invoice_item_repository'
+require_relative 'transaction_repository'
 require_relative 'sales_analyst'
 require 'pry'
 
@@ -45,16 +46,21 @@ class SalesEngine
     @invoice_items ||= InvoiceItemRepository.new(data_for(:invoice_items), self)
   end
 
+  def transactions
+    @transactions ||= TransactionRepository.new(data_for(:transactions), self)
+  end
+
   def path
     @path || filepath
   end
 
   def filepath
     {
-      items:     './data/items.csv',
-      merchants: './data/merchants.csv',
-      invoices:  './data/invoices.csv',
+      items:         './data/items.csv',
+      merchants:     './data/merchants.csv',
+      invoices:      './data/invoices.csv',
       invoice_items: './data/invoice_items.csv',
+      transactions:  './data/transactions.csv',
     }
   end
 

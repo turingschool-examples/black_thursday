@@ -12,13 +12,15 @@ class SalesEngineTest < Minitest::Test
         items:         './test/fixtures/items_truncated.csv',
         merchants:     './test/fixtures/merchants_truncated.csv',
         invoices:      './test/fixtures/invoices_truncated.csv',
-        invoice_items: './test/fixtures/invoice_items_truncated.csv'
+        invoice_items: './test/fixtures/invoice_items_truncated.csv',
+        transactions:  './test/fixtures/transactions_truncated.csv',
       } )
       # {
       #   items:         './data/items.csv',
       #   merchants:     './data/merchants.csv',
       #   invoices:      './data/invoices.csv',
-      #   invoice_items: './data/invoice_items.csv'
+      #   invoice_items: './data/invoice_items.csv',
+      #   transactions:  './data/transactions.csv',
       # } )
   end
 
@@ -31,6 +33,7 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of MerchantRepository, @se.merchants
     assert_instance_of InvoiceRepository, @se.invoices
     assert_instance_of InvoiceItemRepository, @se.invoice_items
+    assert_instance_of TransactionRepository, @se.transactions
   end
 
   def test_it_can_access_items
@@ -47,6 +50,10 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_can_access_invoice_items
     assert_instance_of InvoiceItem, @se.invoice_items.find_by_id(6)
+  end
+
+  def test_it_can_access_transactions
+    assert_instance_of Transactions, @se.invoice_items.find_by_id(6)
   end
 
   def test_sales_engine_can_return_an_analyst
