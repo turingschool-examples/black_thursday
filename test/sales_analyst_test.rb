@@ -27,6 +27,12 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 1367, @sa.all_items_per_merchant.values.flatten.count
   end
 
+  def test_all_invoices_per_by_merchant
+    @sa = SalesAnalyst.new(@sales_engine_full)
+    assert_equal 475, @sa.all_items_per_merchant.keys.count
+    assert_equal 4985, @sa.all_items_per_merchant.values.flatten.count
+  end
+
   def test_average_items_per_merchant
     @sa = SalesAnalyst.new(@sales_engine_full)
 
