@@ -102,6 +102,29 @@ class InvoiceItemRepositoryTest < Minitest::Test
       assert_equal BigDecimal.new(323.46, 5), actual[0].unit_price
   end
 
+  
+
+  def test_it_can_create_a_new_invoice_item
+    actual = @iir.find_highest_id
+    assert_equal 26, actual
+    assert_equal 263543136, @ir.find_by_id(26).item_id
+    attributes =  {
+                  :id => 26,
+                  :item_id     => 444444444,
+                  :invoice_id  => 7,
+                  :quantity    => 15,
+                  :unit_price  => BigDecimal.new(444.44, 5),
+                  :created_at  => Time.now,
+                  :updated_at  => Time.now
+                  }
+    @iir.create(attributes)
+    assert_equal 27, @iir.find_highest_id
+    actual = @iir.find_by_id(27)
+    assert_equal 15, actual.quantity
+    assert_equal 444444444, actual.item_id
+    end
+  end
+
 
 
 
