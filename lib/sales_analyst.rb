@@ -133,5 +133,4 @@ class SalesAnalyst
     high_price_items
   end
 
-
 end
