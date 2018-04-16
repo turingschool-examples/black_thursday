@@ -133,14 +133,19 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal Time.parse('2012-03-27 14:54:10 UTC'), actual.created_at
     assert_equal Time.parse('2012-03-27 14:54:10 UTC'), actual.updated_at
     attributes = {
-      unit_price: BigDecimal.new(33.33, 4)
+      unit_price: BigDecimal.new(0.01, 3)
     }
     @iir.update(26, attributes)
     invoice_item = @iir.find_by_id(26)
-    assert_equal BigDecimal.new(33.33, 4), invoice_item.unit_price
+    assert_equal BigDecimal.new(0.01, 3), invoice_item.unit_price
   end
 
-  
+  def test_it_can_be_deleted
+    invoice_item = @iir.find_by_id(26)
+    assert_equal 263543136, invoice_item.item_id
+    @iir.delete(26)
+    assert_nil @iir.find_by_id(26)
+  end
 
 
 
