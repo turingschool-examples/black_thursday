@@ -36,5 +36,13 @@ class CustomerRepositoryTest < Minitest::Test
       assert_instance_of CustomerRepository, @cr
   end
 
+  def test_it_holds_customers
+    @cr.repository.values.all? do |customer|
+      assert_instance_of Customer, customer
+    end
+    assert_instance_of Customer, @cr.repository.values[0]
+    assert_instance_of Customer, @cr.repository.values[1]
+  end
+
 
 end

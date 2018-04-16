@@ -42,7 +42,7 @@ class TransactionRepositoryTest < Minitest::Test
       assert_instance_of TransactionRepository, @tr
   end
 
-  def test_it_holds_invoice_items
+  def test_it_holds_transactions
     @tr.repository.values.all? do |transaction|
       assert_instance_of Transaction, transaction
     end
