@@ -30,19 +30,19 @@ class SalesEngine
   end
 
   def self.from_csv(data = Hash.new(0))
-    customers_file_path = FileIO.load(data[:customers])
-    invoices_file_path = FileIO.load(data[:invoices])
-    invoice_items_file_path = FileIO.load(data[:invoice_items])
-    items_file_path = FileIO.load(data[:items])
-    merchants_file_path = FileIO.load(data[:merchants])
-    transactions_file_path = FileIO.load(data[:transactions])
+    customers_data = FileIO.load(data[:customers])
+    invoices_data = FileIO.load(data[:invoices])
+    invoice_items_data = FileIO.load(data[:invoice_items])
+    items_data = FileIO.load(data[:items])
+    merchants_data = FileIO.load(data[:merchants])
+    transactions_data = FileIO.load(data[:transactions])
     attrs = {
-      customer_repo: CustomerRepository.new(customers_file_path),
-      invoice_item_repo: InvoiceItemRepository.new(invoice_items_file_path),
-      invoice_repo: InvoiceRepository.new(invoices_file_path),
-      item_repo: ItemRepository.new(items_file_path),
-      merchant_repo: MerchantRepository.new(merchants_file_path),
-      transaction_repo: TransactionRepository.new(transactions_file_path)
+      customer_repo: CustomerRepository.new(customers_data),
+      invoice_item_repo: InvoiceItemRepository.new(invoice_items_data),
+      invoice_repo: InvoiceRepository.new(invoices_data),
+      item_repo: ItemRepository.new(items_data),
+      merchant_repo: MerchantRepository.new(merchants_data),
+      transaction_repo: TransactionRepository.new(transactions_data)
     }
     new(attrs)
   end

@@ -5,15 +5,15 @@ require_relative 'repository'
 class CustomerRepository < Repository
   attr_reader :customers
 
-  def initialize(csv_parsed_array)
-    attributes = csv_parsed_array.map do |customer|
-      { id: customer[0].to_i,
-        first_name: customer[1],
-        last_name: customer[2],
-        created_at: Time.parse(customer[3]),
-        updated_at: Time.parse(customer[4]) }
-    end
-    @customers = create_index(Customer, attributes)
+  def initialize(customers_data)
+    # attributes = customers_data.map do |customer|
+    #   { id: customer[0].to_i,
+    #     first_name: customer[1],
+    #     last_name: customer[2],
+    #     created_at: Time.parse(customer[3]),
+    #     updated_at: Time.parse(customer[4]) }
+    # end
+    @customers = create_index(Customer, customers_data)
     super(customers, Customer)
   end
 
@@ -34,5 +34,9 @@ class CustomerRepository < Repository
     @customers[id].first_name = attrs[:first_name] if attrs[:first_name]
     @customers[id].last_name = attrs[:last_name] if attrs[:last_name]
     @customers[id].updated_at = Time.now
+  end
+
+  def inspect
+    "#<#{self.class} #{@collection.size} rows>"
   end
 end

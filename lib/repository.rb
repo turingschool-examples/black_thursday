@@ -8,7 +8,7 @@ class Repository
   def create_index(data_type, attributes)
     data = {}
     attributes.each do |attribute_set|
-      data[attribute_set[:id]] = data_type.new(attribute_set)
+      data[attribute_set[:id].to_i] = data_type.new(attribute_set)
     end
     data
   end
@@ -45,6 +45,14 @@ class Repository
 
   def delete(id)
     @collection.delete(id)
+  end
+
+  def format_time(time_value)
+    if time_value.class == Time
+      return time_value
+    else
+      return Time.parse(time_value)
+    end
   end
 
   def inspect

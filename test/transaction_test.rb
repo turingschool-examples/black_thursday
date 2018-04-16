@@ -37,7 +37,7 @@ class TransactionTest < Minitest::Test
   end
 
   def test_it_has_result
-    assert_equal 'success', @transaction.result
+    assert_equal :success, @transaction.result
   end
 
   def test_it_has_created_at
