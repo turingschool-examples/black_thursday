@@ -143,7 +143,7 @@ class SalesAnalyst < Analyzer
     end
     invoice_totals_by_customer
   end
-  
+
   def sort_totals
     results = invoice_totals_by_customer
     sorted_totals = results.sort_by do |customer_id, total|
@@ -214,6 +214,16 @@ class SalesAnalyst < Analyzer
     end
   end
 
+  def one_time_buyers_item
+    items = one_time_buyers_top_items
+    popular_items = items.group_by(&:id)
+    require "pry";binding.pry
+    top_hits = popular_items.map do |id, items|
+      items.length
+    end
+    top_item = popular_items.fetch_values(top_item_key)
+  end
+
   def customers_with_unpaid_invoices #paid_invoices_filter with unless/unpaid
     customer_invoice_ids = invoices_per_customer
     unpaid_invoices_by_customer = {}
@@ -239,6 +249,7 @@ class SalesAnalyst < Analyzer
     results = invoices.group_by do |invoice|
       invoice_total(invoice.id)
     end
+
     results.delete_if do |total, invoice|
       total.nil?
     end

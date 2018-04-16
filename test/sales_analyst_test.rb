@@ -335,6 +335,13 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Item, result.first
   end
 
+  def test_it_finds_one_time_buyers_item
+    sales_analyst = new_sales_analyst_5
+    result = sales_analyst.one_time_buyers_item
+    assert_equal 1, result.length
+    assert_instance_of Item, result.first
+  end
+
   def test_invoice_items_by_quantity
     sales_analyst = new_sales_analyst_5
     result = sales_analyst.invoices_by_quantity
