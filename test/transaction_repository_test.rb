@@ -122,16 +122,16 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_it_can_update_invoice_item
-    actual = @iir.find_by_id(26)
-    assert_equal 263543136, actual.item_id
-    assert_equal Time.parse('2012-03-27 14:54:10 UTC'), actual.created_at
-    assert_equal Time.parse('2012-03-27 14:54:10 UTC'), actual.updated_at
+    actual = @tr.find_by_id(56)
+    assert_equal '4068631943231473', actual.credit_card_number
+    assert_equal Time.parse('2012-02-26 20:56:58 UTC'), actual.created_at
+    assert_equal Time.parse('2012-02-26 20:56:58 UTC'), actual.updated_at
     attributes = {
-      unit_price: BigDecimal.new(0.01, 3)
+      result: :failed
     }
-    @iir.update(26, attributes)
-    invoice_item = @iir.find_by_id(26)
-    assert_equal BigDecimal.new(0.01, 3), invoice_item.unit_price
+    @tr.update(56, attributes)
+    transaction = @tr.find_by_id(56)
+    assert_equal :failed, transaction.result
   end
 
 end
