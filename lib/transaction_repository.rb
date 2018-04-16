@@ -1,5 +1,6 @@
 require_relative './repository'
 require_relative './transaction'
+require 'time'
 
 class TransactionRepository
   include Repository

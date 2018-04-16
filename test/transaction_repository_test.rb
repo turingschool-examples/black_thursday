@@ -2,6 +2,7 @@ require 'minitest/autorun'
 require 'time'
 require 'minitest/pride'
 require './lib/transaction_repository'
+require 'pry'
 
 class TransactionRepositoryTest < Minitest::Test
 
@@ -121,13 +122,13 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal '4840021010919095', actual.credit_card_number
   end
 
-  def test_it_can_update_invoice_item
+  def test_it_can_update_transaction
     actual = @tr.find_by_id(56)
     assert_equal '4068631943231473', actual.credit_card_number
     assert_equal Time.parse('2012-02-26 20:56:58 UTC'), actual.created_at
     assert_equal Time.parse('2012-02-26 20:56:58 UTC'), actual.updated_at
     attributes = {
-      result: :failed
+      :result => :failed
     }
     @tr.update(56, attributes)
     transaction = @tr.find_by_id(56)

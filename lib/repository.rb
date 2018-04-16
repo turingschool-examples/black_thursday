@@ -79,6 +79,9 @@ module Repository
     unless temp_attr[:status].nil?
       temp_attr[:status] = temp_attr[:status].to_sym
     end
+    unless temp_attr[:result].nil?
+      temp_attr[:result] = temp_attr[:result].to_sym
+    end
     if temp_attr[:item_id] = invoice.attributes[:item_id]
     end
     if temp_attr[:invoice_id] = invoice.attributes[:invoice_id]
