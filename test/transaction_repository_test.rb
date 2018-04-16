@@ -41,6 +41,14 @@ class TransactionRepositoryTest < Minitest::Test
       assert_instance_of TransactionRepository, @tr
   end
 
+  def test_it_holds_invoice_items
+    @tr.repository.values.all? do |transaction|
+      assert_instance_of Transaction, transaction
+    end
+    assert_instance_of Transaction, @tr.repository.values[0]
+    assert_instance_of Transaction, @tr.repository.values[1]
+  end
+
 
 
 end
