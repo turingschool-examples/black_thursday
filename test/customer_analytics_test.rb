@@ -80,7 +80,6 @@ class CustomerAnalyticsTest < Minitest::Test
     assert_equal 25, result.length
   end
 
-  def 
 
   def new_sales_analyst_5
     sales_engine = SalesEngine.from_csv(

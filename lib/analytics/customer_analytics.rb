@@ -23,31 +23,37 @@ module CustomerAnalytics
   end
 
   def one_time_buyers_invoice_items
-    single_invoices = invoices_per_customer.select do |customer_id, invoices|
+    single_invoices = invoices_per_customer.select do |_customer_id, invoices|
       invoices.length == 1
     end
     invoices = single_invoices.values.flatten
-    result = invoices.flat_map do |invoice|
+    invoices.flat_map do |invoice|
       @invoice_item_repo.find_all_by_invoice_id(invoice.id)
     end
   end
 
-  def one_time_buyers_top_item_quantity
+  def one_time_buyers_quantities_by_item_id
     invoice_items = one_time_buyers_invoice_items
-    item_id_by_inv_items = invoice_items.group_by(&:item_id)
-    item_id_by_inv_items.values.map do |value|
-      value.map(&:quantity).reduce(:+)
+    invoice_items_by_item_id = invoice_items.group_by(&:item_id)
+    invoice_items_sum_quantities_by_item_id = {}
+    invoice_items_by_item_id.each do |item_id, invoice_items|
+      invoice_items_sum_quantities_by_item_id[item_id] = invoice_items.reduce(0) do |sum, invoice_item|
+        sum + invoice_item.quantity
+      end
     end
+    invoice_items_sum_quantities_by_item_id
+    # require 'pry'; binding.pry
   end
 
-  # Mike said skip this for now because correct value is probably 263505548 (20 total) not 263396463 (18 total)
+  # Mike said skip this for now because correct value is probably 
+  # 263505548 (20 total) not 263396463 (18 total)
   # pry it to see it
   def one_time_buyers_top_item
-    item_ids = one_time_buyers_invoice_items.group_by(&:item_id).keys
-    quantities = one_time_buyers_top_item_quantity
-    item_ids_with_quantities = item_ids.zip(quantities)
-    the_max = item_ids_with_quantities.max_by { |quantity_set| quantity_set[1] }
+    the_max = one_time_buyers_quantities_by_item_id.max_by do |quantity_set|
+       quantity_set[1]
+    end
     @item_repo.find_by_id(the_max[0])
+    require 'pry';binding.pry
   end
 
   def customers_with_unpaid_invoices
