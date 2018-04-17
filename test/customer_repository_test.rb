@@ -8,15 +8,14 @@ require 'pry'
 # This is a MerchantRepositoryTest Class
 class MerchantRepositoryTest < Minitest::Test
   def setup
-    @se = SalesEngine.from_csv(
-      {
-        items:         './test/fixtures/items_truncated.csv',
-        merchants:     './test/fixtures/merchants_truncated.csv',
-        invoices:      './test/fixtures/invoices_truncated.csv',
-        invoice_items: './test/fixtures/invoice_items_truncated.csv',
-        transactions:  './test/fixtures/transactions_truncated.csv',
-        customers:     './test/fixtures/customers_truncated.csv'
-      } )
+    @se = SalesEngine.from_csv({
+      items:         './test/fixtures/items_truncated.csv',
+      merchants:     './test/fixtures/merchants_truncated.csv',
+      invoices:      './test/fixtures/invoices_truncated.csv',
+      invoice_items: './test/fixtures/invoice_items_truncated.csv',
+      transactions:  './test/fixtures/transactions_truncated.csv',
+      customers:     './test/fixtures/customers_truncated.csv'
+    })
 
     @cr = @se.customers
   end
@@ -87,10 +86,9 @@ class MerchantRepositoryTest < Minitest::Test
 
     assert_equal 'Dejon', actual.first_name
     assert_equal 'Fadel', actual.last_name
-    attributes = ({
-      :first_name => "Joan",
-      :last_name => "Clarke",
-                 })
+    
+    attributes = ({ first_name: "Joan",
+                    last_name:  "Clarke", })
 
     @cr.update(9, attributes)
 
