@@ -25,6 +25,7 @@ module ItemAnalytics
     by_year = by_customer.find_all do |invoice|
       invoice.created_at.year == year
     end
+    require "pry";binding.pry
     by_year.map do |invoice|
       id = @invoice_item_repo.find_by_id(invoice.id).item_id
       @item_repo.find_by_id(id)

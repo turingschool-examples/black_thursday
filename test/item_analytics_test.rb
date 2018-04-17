@@ -36,7 +36,21 @@ class ItemAnalyticsTest < Minitest::Test
   end
 
   def test_items_bought_in_year
-    assert_equal [@item1], @sales_analyst.items_bought_in_year(1, 2011)
+    sales_engine = SalesEngine.from_csv(
+      customers: './data/customers.csv',
+      invoices: './data/invoices.csv',
+      invoice_items: './data/invoice_items.csv',
+      items: './data/items.csv',
+      merchants: './data/merchants.csv',
+      transactions: './data/transactions.csv'
+    )
+    sales_analyst = sales_engine.analyst
+    result = sales_analyst.items_bought_in_year(400, 2002)
+    assert_instance_of Array, result
+    assert_equal 2, result.length
+    assert_equal 0, result.first.id
+    assert_equal 'Necklace', result.first.name
+    assert_instance_of Item, result.first
   end
 
   def items_csv
