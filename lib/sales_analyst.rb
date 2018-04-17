@@ -6,7 +6,6 @@ class SalesAnalyst
 
   def initialize(engine)
     @engine = engine
-    binding.pry
   end
 
   def average_items_per_merchant
@@ -95,6 +94,13 @@ class SalesAnalyst
   def invoice_status(status)
     found = invoices.select { |invoice| invoice.status == status }
     (found.length.to_f / invoices.length.to_f * 100).round(2)
+  end
+
+  def invoice_paid_in_full?(invoice_id)
+    return false if @engine.transactions.find_all_by_invoice_id(invoice_id).nil?
+    @engine.transactions.find_all_by_invoice_id(invoice_id).all? do |transaction|
+      transaction.result == :success
+    end
   end
 
   private
