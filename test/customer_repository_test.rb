@@ -83,6 +83,17 @@ class CustomerRepositoryTest < Minitest::Test
     assert_instance_of Time, actual[0].created_at
   end
 
+  def test_can_return_case_insensitive_fragmented_results
+    actual = @cr.find_all_by_last_name('BraUN')
+    assert_equal Time.parse('2012-03-27 14:54:10 UTC'), actual[0].created_at
+
+    actual = @cr.find_all_by_last_name('gulGOwsKI')
+    assert_equal 35, actual[0].id
+
+    actual = @cr.find_all_by_last_name('Cri')
+    assert_equal 'Vladimir', actual[0].first_name
+  end
+
   def test_it_can_find_highest_id
     actual = @cr.find_highest_id
     assert_equal 140, actual
