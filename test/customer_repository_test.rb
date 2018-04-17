@@ -83,17 +83,19 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_update
     actual = @cr.find_by_id(9)
+    initial_updated_at = actual.updated_at
 
     assert_equal 'Dejon', actual.first_name
     assert_equal 'Fadel', actual.last_name
-    
+
     attributes = ({ first_name: "Joan",
-                    last_name:  "Clarke", })
+                    last_name:  "Clarke" })
 
     @cr.update(9, attributes)
 
     assert_equal 'Joan', actual.first_name
     assert_equal 'Clarke', actual.last_name
+    refute_equal initial_updated_at, actual.updated_at
   end
 
   def test_delete

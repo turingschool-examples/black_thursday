@@ -81,9 +81,8 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-    hash = {}
     grouped = invoices.group_by { |invoice| invoice.created_at.wday }
-    grouped.each { |key, value| hash[key] = value.size }
+    hash = grouped.each_with_object({}) { |(key, value), hash| hash[key] = value.size }
     mean = hash.values.reduce(:+) / 7
     std_dev = standard_deviation(hash.values, mean) + mean
     day_nums = hash.select { |_, v| v > std_dev }.keys
