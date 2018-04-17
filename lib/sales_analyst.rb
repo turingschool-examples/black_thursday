@@ -36,17 +36,15 @@ class SalesAnalyst
     merchant_items = items.values.find_all do |item|
       item.merchant_id == id
     end
-    prices = merchant_items.map do |item|
-      item.unit_price_to_dollars
-    end
-    BigDecimal(prices.reduce(:+) / prices.count, 2)
+    prices = merchant_items.map(&:unit_price)
+    (prices.reduce(:+) / prices.count).round(2)
   end
 
   def average_average_price_per_merchant
     merchant_averages = merchants.values.map do |merchant|
       average_item_price_for_merchant(merchant.id)
     end
-    merchant_averages.reduce(:+) / merchant_averages.count
+    (merchant_averages.reduce(:+) / merchant_averages.count).round(2)
   end
 
   def average_item_cost
