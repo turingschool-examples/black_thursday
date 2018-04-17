@@ -13,23 +13,23 @@ module ItemAnalytics
   def golden_items
     threshold = average_item_price + (average_item_price_standard_deviation * 2)
     @item_repo.all.map do |item|
-      require 'pry';binding.pry
+      # require 'pry';binding.pry
       item if item.unit_price >= threshold
     end.compact
   end
 
+  # If this returns an array with the length of one in the spec harness when 400 is passed
+  # in as the customer_id and 2002 as the year, it is correct. Customer 400 only has one invoice
+  # attached to their ID for 2002
   def items_bought_in_year(customer_id, year)
     # invoices = @invoice_repo.all
-    # by_customer = invoices.find_all do |invoice|
-    #   invoice.customer_id == customer_id
-    # end
-    # by_year = by_customer.find_all do |invoice|
-    #   invoice.created_at.year == year
-    # end
-    # items = by_year.map do |invoice|
-    #   require 'pry';binding.pry
-    #   id = @invoice_item_repo.find_by_id(invoice.id).item_id
-    #   @item_repo.find_by_id(item_id)
-    # end
+    by_customer = @invoice_repo.find_all_by_customer_id(customer_id)
+    by_year = by_customer.find_all do |invoice|
+      invoice.created_at.year == year
+    end
+    by_year.map do |invoice|
+      id = @invoice_item_repo.find_by_id(invoice.id).item_id
+      @item_repo.find_by_id(id)
+    end
   end
 end
