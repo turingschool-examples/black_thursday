@@ -92,6 +92,20 @@ module Repository
     end
   end
 
+  def general_create(attributes, object_type)
+    attributes[:id] = (find_highest_id + 1)
+    if attributes[:created_at] = Time.now.to_s
+    else
+      attributes[:created_at] = attributes[:created_at].to_s
+    end
+    if attributes[:updated_at] = Time.now.to_s
+    else
+      attributes[:updated_at] = attributes[:updated_at].to_s
+    end
+    object = object_type.new(attributes)
+    @repository[object.id] = object
+  end
+
   def sterilize_attributes(attributes, invoice)
     temp_attr = attributes.dup
     temp_attr[:id] = invoice.attributes[:id]

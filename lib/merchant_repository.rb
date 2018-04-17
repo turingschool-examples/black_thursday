@@ -69,17 +69,20 @@ class MerchantRepository
     end
   end
 
+
   def create(attributes)
-    attributes[:id] = (find_highest_id + 1)
-    if attributes[:created_at] = Time.now.to_s
-    else
-      attributes[:created_at] = attributes[:created_at].to_s
-    end
-    if attributes[:updated_at] = Time.now.to_s
-    else
-      attributes[:updated_at] = attributes[:updated_at].to_s
-    end
-    merchant = Merchant.new(attributes)
-    @repository[merchant.id] = merchant
+    general_create(attributes, Merchant)
   end
+  #   attributes[:id] = (find_highest_id + 1)
+  #   if attributes[:created_at] = Time.now.to_s
+  #   else
+  #     attributes[:created_at] = attributes[:created_at].to_s
+  #   end
+  #   if attributes[:updated_at] = Time.now.to_s
+  #   else
+  #     attributes[:updated_at] = attributes[:updated_at].to_s
+  #   end
+  #   merchant = Merchant.new(attributes)
+  #   @repository[merchant.id] = merchant
+  # end
 end
