@@ -18,8 +18,12 @@ class Customer
     @parent     = parent
   end
 
-  def change_name(name)
-    @name = name
+  def change_first_name(name)
+    @first_name = name
+  end
+
+  def change_last_name(name)
+    @last_name = name
   end
 
   def change_updated_at

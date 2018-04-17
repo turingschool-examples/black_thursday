@@ -40,8 +40,13 @@ class CustomerRepository < BaseRepository
   def update(id, attributes)
     return nil if find_by_id(id).nil?
     found = find_by_id(id)
-    found.change_name(attributes[:name])
+    if attributes[:first_name]
+      found.change_first_name(attributes[:first_name])
+    end
+    if attributes[:last_name]
+      found.change_last_name(attributes[:last_name])
     found.change_updated_at
+    end
   end
 
   private

@@ -83,17 +83,19 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_update
-    found = @cr.find_by_id(5)
+    actual = @cr.find_by_id(9)
 
-    assert_equal 'CJsDecor', found.name
-    assert_equal 5, found.id
+    assert_equal 'Dejon', actual.first_name
+    assert_equal 'Fadel', actual.last_name
+    attributes = ({
+      :first_name => "Joan",
+      :last_name => "Clarke",
+                 })
 
-    @cr.update(5, {:name => 'Awesomeness'})
+    @cr.update(9, attributes)
 
-    assert_equal 'Awesomeness', found.name
-    assert_equal 5, found.id
-
-    assert_nil @cr.update(64, {:name => "felbert"})
+    assert_equal 'Joan', actual.first_name
+    assert_equal 'Clarke', actual.last_name
   end
 
   def test_delete
