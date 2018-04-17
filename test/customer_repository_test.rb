@@ -18,64 +18,68 @@ class MerchantRepositoryTest < Minitest::Test
         customers:     './test/fixtures/customers_truncated.csv'
       } )
 
-    @mr = @se.merchants
+    @cr = @se.customers
   end
 
-  def test_merchant_repository_exists
-    assert_instance_of MerchantRepository, @mr
+  def test_it_exists
+    assert_instance_of CustomerRepository, @cr
   end
 
   def test_returns_all_instances
-    refute @mr.merchants.empty?, @mr.merchants
-    assert_equal 6, @mr.all.count
-    assert_equal 'Heiline', @mr.all[0].name
+    refute @cr.customers.empty?, @cr.customers
+    assert_equal 10, @cr.all.count
+    assert_equal 'Joey', @cr.all[0].first_name
   end
 
   def test_find_by_id
-    assert_nil @mr.find_by_id(7834)
-    assert_instance_of Merchant, @mr.find_by_id(5)
+    assert_nil @cr.find_by_id(7834)
+    assert_instance_of Customer, @cr.find_by_id(5)
   end
 
   def test_find_by_name
-    assert_nil @mr.find_by_name('Buffalo Bill')
+    assert_nil @cr.find_by_first_name('Buffalo Bill')
 
-    assert_equal 'LovesVariety', @mr.find_by_name('lovesVARIety').name
-    assert_equal 'LovesVariety', @mr.find_by_name('LovesVariety').name
+    assert_equal 'LovesVariety', @cr.find_by_name('lovesVARIety').name
+    assert_equal 'LovesVariety', @cr.find_by_name('LovesVariety').name
   end
 
   def test_find_all_by_name
+    skip
 
-    assert_equal [], @mr.find_all_by_name('Buffalo Bill')
-    assert_equal 'LovesVariety', @mr.find_all_by_name('lovesVARIety')[0].name
-    assert_equal 2, @mr.find_all_by_name('cj').count
+    assert_equal [], @cr.find_all_by_name('Buffalo Bill')
+    assert_equal 'LovesVariety', @cr.find_all_by_name('lovesVARIety')[0].name
+    assert_equal 2, @cr.find_all_by_name('cj').count
   end
 
   def test_create
-    @mr.create({:id => 600, :name => 'Turing School'})
-    assert_equal 7, @mr.all.last.id
-    assert_equal 'Turing School', @mr.all.last.name
+    skip
+    @cr.create({:id => 600, :name => 'Turing School'})
+    assert_equal 7, @cr.all.last.id
+    assert_equal 'Turing School', @cr.all.last.name
   end
 
   def test_update
-    found = @mr.find_by_id(5)
+    skip
+    found = @cr.find_by_id(5)
 
     assert_equal 'CJsDecor', found.name
     assert_equal 5, found.id
 
-    @mr.update(5, {:name => 'Awesomeness'})
+    @cr.update(5, {:name => 'Awesomeness'})
 
     assert_equal 'Awesomeness', found.name
     assert_equal 5, found.id
 
-    assert_nil @mr.update(64, {:name => "felbert"})
+    assert_nil @cr.update(64, {:name => "felbert"})
   end
 
   def test_delete
-    assert_equal 6, @mr.merchants.count
+    skip
+    assert_equal 6, @cr.customers.count
 
-    @mr.delete(1)
+    @cr.delete(1)
 
-    assert_nil @mr.find_by_id(1)
-    assert_equal 5, @mr.merchants.count
+    assert_nil @cr.find_by_id(1)
+    assert_equal 5, @cr.customers.count
   end
 end
