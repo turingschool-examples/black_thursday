@@ -49,6 +49,37 @@ class SalesAnalyst
     (merchant_averages.reduce(:+) / merchant_averages.count)
   end
 
+  def average_item_cost
+    total_cost = 0.0
+    items.values.each do |item|
+      total_cost += item.unit_price_to_dollars
+    end
+    (total_cost / items.count).round(2)
+  end
+
+  def average_price_per_merchant_standard_deviation
+    average = average_average_price_per_merchant
+    times = price_count.map do |price|
+      (price - average) ** 2
+    end
+    deviation(times)
+  end
+
+  def deviation(numbers)
+    Math.sqrt(numbers.reduce(:+) / (numbers.count - 1)).round(2)
+  end
+
+  def price_count
+    items.values.map(&:unit_price_to_dollars)
+  end
+
+  def golden_items
+    average = average_price_per_merchant_standard_deviation
+    items.values.map do |item|
+      item if item.unit_price_to_dollars >= ((average * 2) + average_price)
+    end
+  end
+
   private
 
   def items
@@ -62,7 +93,4 @@ class SalesAnalyst
   def items_per_merchant
     @items_per_merchant ||= items.values.group_by(&:merchant_id).values.map(&:count)
   end
-
-  # average_item_price_for_merchant(12334159)
-  # golden_items
 end
