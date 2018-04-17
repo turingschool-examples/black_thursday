@@ -250,14 +250,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 47, result
   end
 
-  def test_it_finds_one_time_buyers_top_item
-    skip
-    sales_analyst = new_sales_analyst_5
-    result = sales_analyst.one_time_buyers_top_item
-    assert_equal 263396463, result.id
-    assert_instance_of Item, result
-  end
-
   def test_invoice_items_by_quantity
     sales_analyst = new_sales_analyst_5
     result = sales_analyst.invoices_by_quantity

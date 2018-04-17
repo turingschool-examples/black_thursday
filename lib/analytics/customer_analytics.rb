@@ -42,14 +42,15 @@ module CustomerAnalytics
   end
 
   def one_time_buyers_top_item
-    # invoice_items = one_time_buyers_invoice_items
-    # item_ids = invoice_items.map(&:item_id).uniq
-    # top_quantity = one_time_buyers_top_item_quantity
-    # require "pry";binding.pry
-    #
-    # top_items.map do |invoice_item|
-    #   @item_repo.find_by_id(invoice_item.item_id)
-    # end
+    invoice_items = one_time_buyers_invoice_items
+    require "pry";binding.pry
+
+    item_ids = invoice_items.map(&:item_id).uniq
+    top_quantity = one_time_buyers_top_item_quantity
+
+    top_items.map do |invoice_item|
+      @item_repo.find_by_id(invoice_item.item_id)
+    end
   end
 
   def customers_with_unpaid_invoices
