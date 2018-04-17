@@ -9,4 +9,8 @@ class Merchant
     @name = merchant[:name]
     @parent = parent
   end
+
+  def items
+    parent.collect_id_for_items(id)
+  end
 end

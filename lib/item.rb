@@ -27,4 +27,8 @@ class Item
     @merchant_id = item[:merchant_id].to_i
     @parent = parent
   end
+
+  def merchant
+    parent.merchant_item(merchant_id)
+  end
 end

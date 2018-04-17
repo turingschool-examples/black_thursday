@@ -47,19 +47,4 @@ class MerchantRepositoryTest < Minitest::Test
 
     assert_equal 12_334_124, se.merchants.create(attributes).id
   end
-
-  # def test_it_can_update_an_merchant
-  #   # this needs refactoring
-  #   attributes = {
-  #       name: 'Turing School of Software and Design'
-  #     }
-  #   id = '263399188'
-  #
-  #   assert_equal 'Turing School of Software and Design', se.merchants.update(id, attributes[:name])
-  # end
-
-  # def test_it_can_delete_an_merchant
-  #   assert_instance_of Merchant, se.merchants.delete('12334112')
-  #   assert_equal 4, se.merchants.all.count
-  # end
 end

@@ -53,6 +53,10 @@ class MerchantRepository
     @merchants.delete(id)
   end
 
+  def collect_id_for_items(id)
+    parent.collect_items_by_merchant_id(id)
+  end
+
   def inspect
    "#<#{self.class} #{@merchants.size} rows>"
   end

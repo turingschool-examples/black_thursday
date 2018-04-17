@@ -53,6 +53,10 @@ class ItemRepository
     @contents.delete(id)
   end
 
+  def merchant_item(id)
+    parent.merchant_item(id)
+  end
+
   def inspect
   "#<#{self.class} #{@contents.size} rows>"
   end

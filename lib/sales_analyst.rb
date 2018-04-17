@@ -89,14 +89,6 @@ class SalesAnalyst
     item_array.find_all { |item| item.unit_price > ((std_dev * 2) + mean) }
   end
 
-  def items
-    @items
-  end
-
-  def merchant
-    @merchants
-  end
-
   private
 
   def items
