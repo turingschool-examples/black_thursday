@@ -34,7 +34,7 @@ class CustomerRepository < BaseRepository
     attributes[:id] = create_new_id
     attributes[:created_at] = Time.now
     attributes[:updated_at] = Time.now
-    merchants << Merchant.new(attributes, 'parent')
+    customers << Customer.new(attributes, 'parent')
   end
 
   def update(id, attributes)

@@ -37,25 +37,49 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_by_name
-    assert_nil @cr.find_by_first_name('Buffalo Bill')
+    actual = @cr.find_all_by_first_name('jo')
 
-    assert_equal 'LovesVariety', @cr.find_by_name('lovesVARIety').name
-    assert_equal 'LovesVariety', @cr.find_by_name('LovesVariety').name
+    assert_instance_of Customer, actual.first
+    assert_instance_of Array, actual
+    assert_equal 3, actual.count
+
+    actual = @cr.find_all_by_first_name('343e4343')
+
+    assert_equal [], actual
   end
 
-  def test_find_all_by_name
-    skip
+  def test_find_all_by_last_name
+    actual = @cr.find_all_by_last_name('ON')
 
-    assert_equal [], @cr.find_all_by_name('Buffalo Bill')
-    assert_equal 'LovesVariety', @cr.find_all_by_name('lovesVARIety')[0].name
-    assert_equal 2, @cr.find_all_by_name('cj').count
+    assert_instance_of Customer, actual.first
+    assert_instance_of Array, actual
+    assert_equal 3, actual.count
+
+    actual = @cr.find_all_by_first_name('343e4343')
+
+    assert_equal [], actual
   end
 
   def test_create
-    skip
-    @cr.create({:id => 600, :name => 'Turing School'})
-    assert_equal 7, @cr.all.last.id
-    assert_equal 'Turing School', @cr.all.last.name
+    assert_equal 10, @cr.all.count
+    assert_equal 10, @cr.all.last.id
+
+    attributes = ({
+      :id => 6,
+      :first_name => "Joan",
+      :last_name => "Clarke",
+      :created_at => Time.now.to_s,
+      :updated_at => Time.now.to_s
+                   })
+
+    @cr.create(attributes)
+
+    actual = @cr.all.last
+
+    assert_equal 11, actual.id
+    assert_equal 'Joan', actual.first_name
+    assert_equal 'Clarke', actual.last_name
+    assert_equal 11, @cr.all.count
   end
 
   def test_update
@@ -74,12 +98,11 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_delete
-    skip
-    assert_equal 6, @cr.customers.count
+    assert_equal 10, @cr.customers.count
 
     @cr.delete(1)
 
     assert_nil @cr.find_by_id(1)
-    assert_equal 5, @cr.customers.count
+    assert_equal 9, @cr.customers.count
   end
 end
