@@ -11,22 +11,7 @@ class ItemRepository
   attr_reader :repository
 
   def initialize(items)
-    item_array = []
-    @repository = { }
-    items.each {|item| item_array << Item.new(to_item(item))}
-    item_array.each do |item|
-      unless item.nil?
-        @repository[item.id] = item
-      end
-    end
-  end
-
-  def to_item(item)
-    item_hash = {}
-    item.each do |line|
-      item_hash[line[0].to_sym] = line[1]
-    end
-    item_hash
+    create_repository(items, Item)
   end
 
   def create(attributes)

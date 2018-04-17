@@ -6,6 +6,25 @@ module Repository
     "#<#{self.class} #{@repository.size} rows>"
   end
 
+  def create_repository(objects, object_type)
+    object_array = []
+    @repository = {}
+    objects.each {|object| object_array << object_type.new(to_object(object))}
+    object_array.each do |object|
+      unless object.nil?
+        @repository[object.id] = object
+      end
+    end
+  end
+
+  def to_object(object_lines)
+    object_attributes = {}
+    object_lines.each do |line|
+      object_attributes[line[0].to_sym] = line[1]
+    end
+    object_attributes
+  end
+
   def all
     @repository.values.compact
   end
