@@ -29,13 +29,13 @@ class SalesEngine
     @transactions = attrs[:transaction_repo]
   end
 
-  def self.from_csv(data = Hash.new(0))
-    customers_data = FileIO.load(data[:customers])
-    invoices_data = FileIO.load(data[:invoices])
-    invoice_items_data = FileIO.load(data[:invoice_items])
-    items_data = FileIO.load(data[:items])
-    merchants_data = FileIO.load(data[:merchants])
-    transactions_data = FileIO.load(data[:transactions])
+  def self.from_csv(file = Hash.new(0))
+    customers_data = FileIO.load(file[:customers])
+    invoices_data = FileIO.load(file[:invoices])
+    invoice_items_data = FileIO.load(file[:invoice_items])
+    items_data = FileIO.load(file[:items])
+    merchants_data = FileIO.load(file[:merchants])
+    transactions_data = FileIO.load(file[:transactions])
     attrs = {
       customer_repo: CustomerRepository.new(customers_data),
       invoice_item_repo: InvoiceItemRepository.new(invoice_items_data),

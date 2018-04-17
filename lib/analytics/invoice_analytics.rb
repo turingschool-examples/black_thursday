@@ -1,7 +1,7 @@
 # Module for methods concerning invoice analytics
 module InvoiceAnalytics
   def average_invoices_per_merchant
-    average(number_of_invoices, number_of_merchants).to_f
+    average(number_of(:invoices), number_of(:merchants)).to_f
   end
 
   def average_invoices_per_merchant_standard_deviation

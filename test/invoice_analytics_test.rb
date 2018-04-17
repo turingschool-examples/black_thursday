@@ -45,14 +45,14 @@ class InvoiceAnalyticsTest < Minitest::Test
   def test_it_finds_best_invoice_by_revenue
     sales_analyst = new_sales_analyst_5
     result = sales_analyst.best_invoice_by_revenue
-    assert_equal 15, result.id
+    assert_equal 18, result.id
     assert_instance_of Invoice, result
   end
 
   def test_it_finds_best_invoice_by_quantity
     sales_analyst = new_sales_analyst_5
     result = sales_analyst.best_invoice_by_quantity
-    assert_equal 3, result.id
+    assert_equal 1, result.id
     assert_instance_of Invoice, result
   end
 

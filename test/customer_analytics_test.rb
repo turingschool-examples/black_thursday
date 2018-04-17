@@ -39,11 +39,11 @@ class CustomerAnalyticsTest < Minitest::Test
     assert_equal [4, 19, 20], result.map(&:id)
   end
 
-  def test_it_finds_one_time_buyers_top_items
+  def test_it_finds_one_time_buyers_invoice_items
     sales_analyst = new_sales_analyst_5
-    result = sales_analyst.one_time_buyers_top_items
+    result = sales_analyst.one_time_buyers_invoice_items
     assert_equal 8, result.length
-    assert_instance_of Item, result.first
+    assert_instance_of InvoiceItem, result.first
   end
 
   def test_customers_with_unpaid_invoices
