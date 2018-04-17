@@ -1,30 +1,28 @@
 # frozen_string_literal: true
 
 require './test/test_helper'
-require './lib/invoice'
+require './lib/customer'
 require './lib/sales_engine'
 
 # invoice test
-class InvoiceTest < Minitest::Test
+class CustomerTest < Minitest::Test
   def setup
-    @i = Invoice.new({
+    @c = Customer.new({
       :id          => 6,
-      :customer_id => 7,
-      :merchant_id => 8,
-      :status      => "pending",
+      :first_name  => 'Mike',
+      :last_name   => 'Dao',
       :created_at  => Time.now.to_s,
       :updated_at  => Time.now.to_s,
     }, 'parent')
   end
 
   def test_it_exists
-    assert_instance_of Invoice, @i
+    assert_instance_of Customer, @c
   end
 
   def test_attributes
-    assert_equal 6, @i.id
-    assert_equal 7, @i.customer_id
-    assert_equal 8, @i.merchant_id
-    assert_equal :pending, @i.status
+    assert_equal 6, @c.id
+    assert_equal 'Mike', @c.first_name
+    assert_equal 'Dao', @c.last_name
   end
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# merchant repo
+# merchant 
 class Merchant
   attr_reader :id,
               :name,
