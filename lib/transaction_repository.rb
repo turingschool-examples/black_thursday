@@ -37,9 +37,12 @@ class TransactionRepository < BaseRepository
   def update(id, attributes)
     return nil if find_by_id(id).nil?
     to_update = find_by_id(id)
+    to_update.change_result(attributes[:result]) if attributes[:result]
     to_update.change_updated_at
     to_update.change_credit_card_number(attributes[:credit_card_number])
-    to_update.change_expiration_date(attributes[:credit_card_expiration_date])
+    if attributes[:credit_card_expiration_date]
+      to_update.change_expiration_date(attributes[:credit_card_expiration_date])
+    end
   end
 
   def delete(id)

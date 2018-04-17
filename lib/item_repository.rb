@@ -51,11 +51,6 @@ class ItemRepository < BaseRepository
     to_update.change_unit_price(attributes[:unit_price])
   end
 
-  def delete(id)
-    to_delete = find_by_id(id)
-    items.delete(to_delete)
-  end
-
   def pass_merchant_id_to_merchant_repo(id)
     @parent.pass_merchant_id_to_merchant_repo(id)
   end

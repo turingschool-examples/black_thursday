@@ -36,11 +36,6 @@ class InvoiceItemRepository < BaseRepository
     to_update.change_quantity(attributes[:quantity])
   end
 
-  def delete(id)
-    to_delete = find_by_id(id)
-    invoice_items.delete(to_delete)
-  end
-
   private
 
   def find_highest_id

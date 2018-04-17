@@ -13,7 +13,7 @@ class TransactionRepositoryTest < Minitest::Test
         merchants:     './test/fixtures/merchants_truncated.csv',
         invoices:      './test/fixtures/invoices_truncated.csv',
         invoice_items: './test/fixtures/invoice_items_truncated.csv',
-        transactions:  './data/transactions.csv'
+        transactions:  './test/fixtures/transactions_truncated.csv'
       } )
 
     @t = @se.transactions
@@ -45,7 +45,7 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_result
-    actual = @t.find_all_by_result('success')
+    actual = @t.find_all_by_result(:success)
 
     assert_instance_of Array, actual
     assert_equal 9, actual.count
@@ -55,13 +55,13 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal 10, @t.transactions.last.id
 
     attributes = ({
-        :id => 6,
-        :invoice_id => 8,
-        :credit_card_number => "4242424242424242",
-        :credit_card_expiration_date => "0220",
-        :result => "success",
-        :created_at => Time.now,
-        :updated_at => Time.now
+      :id => 6,
+      :invoice_id => 8,
+      :credit_card_number => '4242424242424242',
+      :credit_card_expiration_date => "0220",
+      :result => 'success',
+      :created_at => Time.now,
+      :updated_at => Time.now
       })
 
     @t.create(attributes)
@@ -70,31 +70,37 @@ class TransactionRepositoryTest < Minitest::Test
 
     assert_equal 11, actual.id
     assert_equal 8, actual.invoice_id
-    assert_equal "4242424242424242", actual.credit_card_number
-    assert_equal "success", actual.result
+    assert_equal '4242424242424242', actual.credit_card_number
+    assert_equal :success, actual.result
   end
 
-  def test_update_item
-    skip
+  def test_update_transaction
     attributes = ({
-                    :quantity => 7,
-                    :unit_price => 15
+      :id => 6,
+      :invoice_id => 8,
+      :credit_card_number => '4242424242424242',
+      :credit_card_expiration_date => '0220',
+      :result => 'failed',
+      :created_at => Time.now,
+      :updated_at => Time.now
+
                    })
 
     to_update = @t.find_by_id(10)
 
-    assert_equal 4, to_update.quantity
-    assert_equal 18.59, to_update.unit_price
+    assert_equal '4149654190362629', to_update.credit_card_number
+    assert_equal '0420', to_update.credit_card_expiration_date
+    assert_equal :success, to_update.result
 
     @t.update(10, attributes)
 
-    assert_equal 7, to_update.quantity
-    assert_equal 15, to_update.unit_price
+    assert_equal '4242424242424242', to_update.credit_card_number
+    assert_equal '0220', to_update.credit_card_expiration_date
+    assert_equal :failed, to_update.result
   end
 
   def test_delete_item
-    skip
-    actual = @t.invoice_items
+    actual = @t.transactions
 
     assert_equal 10, actual.count
 

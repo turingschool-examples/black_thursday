@@ -39,11 +39,6 @@ class InvoiceRepository < BaseRepository
     to_update.change_updated_at
   end
 
-  def delete(id)
-    to_delete = find_by_id(id)
-    invoices.delete(to_delete)
-  end
-
   def pass_merchant_id_to_engine_from_invoice(id)
     @parent.pass_merchant_id_to_merchant_repo(id)
   end

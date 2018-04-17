@@ -43,11 +43,6 @@ class MerchantRepository < BaseRepository
     found.change_updated_at
   end
 
-  def delete(id)
-    to_delete = find_by_id(id)
-    merchants.delete(to_delete)
-  end
-
   def pass_item_id_to_engine(id)
     @parent.pass_item_id_to_item_repo(id)
   end

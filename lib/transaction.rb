@@ -34,6 +34,10 @@ class Transaction
   end
 
   def change_expiration_date(date)
-    @credit_card_expiration_date = date
+    @credit_card_expiration_date = date.to_s
+  end
+
+  def change_result(result)
+    @result = result.to_sym
   end
 end
