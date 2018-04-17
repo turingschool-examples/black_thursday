@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+require_relative './analyst_helper/helper'
 # analyses various aspects of sales engine
 # allows for analysis of different sales engine respoitories
 class SalesAnalyst
+  include AnalystHelper
   attr_reader :all_items_per_merchant,
               :all_invoices_per_merchant
 
@@ -13,9 +15,9 @@ class SalesAnalyst
     @all_invoices_per_day = @sales_engine.all_invoices_per_day
   end
 
-  def number_of_items_per_merchant
-    @all_items_per_merchant.values.map(&:count)
-  end
+  # def number_of_items_per_merchant
+  #   @all_items_per_merchant.values.map(&:count)
+  # end
 
   def number_of_invoices_per_day
     @all_invoices_per_day.values.map(&:count)
@@ -25,11 +27,11 @@ class SalesAnalyst
     @all_invoices_per_merchant.values.map(&:count)
   end
 
-  def average_items_per_merchant
-    item_count = @all_items_per_merchant.values.map(&:count)
-    item_sum = find_sum(item_count)
-    (item_sum.to_f / @all_items_per_merchant.values.count).round(2)
-  end
+  # def average_items_per_merchant
+  #   item_count = @all_items_per_merchant.values.map(&:count)
+  #   item_sum = find_sum(item_count)
+  #   (item_sum.to_f / @all_items_per_merchant.values.count).round(2)
+  # end
 
   def average_invoices_per_merchant
     invoice_count = @all_invoices_per_merchant.values.map(&:count)
@@ -58,9 +60,9 @@ class SalesAnalyst
     Math.sqrt(sum_over_count)
   end
 
-  def average_items_per_merchant_standard_deviation
-    standard_deviation(number_of_items_per_merchant).round(2)
-  end
+  # def average_items_per_merchant_standard_deviation
+  #   standard_deviation(number_of_items_per_merchant).round(2)
+  # end
 
   def average_invoices_per_merchant_standard_deviation
     standard_deviation(number_of_invoices_per_merchant).round(2)
@@ -110,10 +112,10 @@ class SalesAnalyst
     low_invoice_count_merchants
   end
 
-  def average_item_price_for_merchant(merchant_id)
-    item_prices = @all_items_per_merchant[merchant_id].map(&:unit_price)
-    BigDecimal((find_sum(item_prices)/item_prices.count)).round(2)
-  end
+  # def average_item_price_for_merchant(merchant_id)
+  #   item_prices = @all_items_per_merchant[merchant_id].map(&:unit_price)
+  #   BigDecimal((find_sum(item_prices)/item_prices.count)).round(2)
+  # end
 
   def merchant_price_averages
     merchant_price_averages = []
@@ -128,17 +130,17 @@ class SalesAnalyst
     find_mean(merchant_price_averages).round(2)
   end
 
-  def golden_items
-    std_dev = standard_deviation(@sales_engine.all_item_prices_per_item.values)
-    mean = find_mean(@sales_engine.all_item_prices_per_item.values)
-    high_price_items = []
-    @sales_engine.all_item_prices_per_item.each_pair do |item, price|
-      if std_dev_above_mean(price, mean, std_dev) >= 2
-        high_price_items << item
-      end
-    end
-    high_price_items
-  end
+  # def golden_items
+  #   std_dev = standard_deviation(@sales_engine.all_item_prices_per_item.values)
+  #   mean = find_mean(@sales_engine.all_item_prices_per_item.values)
+  #   high_price_items = []
+  #   @sales_engine.all_item_prices_per_item.each_pair do |item, price|
+  #     if std_dev_above_mean(price, mean, std_dev) >= 2
+  #       high_price_items << item
+  #     end
+  #   end
+  #   high_price_items
+  # end
 
   def top_days_by_invoice_count
     std_dev = standard_deviation(number_of_invoices_per_day)
