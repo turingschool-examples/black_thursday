@@ -105,5 +105,18 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal 'Ever', actual.last_name
   end
 
+  def test_it_can_be_updated
+    actual = @cr.find_by_id(35)
+    assert_equal 'Gulgowski', actual.last_name
+    assert_equal Time.parse('2012-03-27 14:54:18 UTC'), actual.created_at
+    assert_equal Time.parse('2012-03-27 14:54:18 UTC'), actual.updated_at
+    attributes = {
+      :first_name => 'Vladimir'
+    }
+    @cr.update(35, attributes)
+    customer = @cr.find_by_id(35)
+    assert_equal 'Vladimir', customer.first_name
+  end
+
 
 end
