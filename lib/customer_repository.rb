@@ -9,7 +9,7 @@ class CustomerRepository < BaseRepository
   end
 
   def populate
-    @models ||= csv_table_data.map { |attribute_hash| Merchant.new(attribute_hash, self)}
+    @models ||= csv_table_data.map { |attribute_hash| Customer.new(attribute_hash, self)}
   end
 
   def find_all_by_first_name(name)
@@ -30,14 +30,6 @@ class CustomerRepository < BaseRepository
     found.compact
   end
 
-  def find_highest_id
-    merchants.map { |merchant| merchant.id }.max
-  end
-
-  def create_new_id
-    find_highest_id + 1
-  end
-
   def create(attributes)
     attributes[:id] = create_new_id
     attributes[:created_at] = Time.now
@@ -51,3 +43,14 @@ class CustomerRepository < BaseRepository
     found.change_name(attributes[:name])
     found.change_updated_at
   end
+
+  private
+
+  def find_highest_id
+    customers.map(&:id).max
+  end
+
+  def create_new_id
+    find_highest_id + 1
+  end
+end

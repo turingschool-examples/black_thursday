@@ -14,7 +14,8 @@ class MerchantRepositoryTest < Minitest::Test
         merchants:     './test/fixtures/merchants_truncated.csv',
         invoices:      './test/fixtures/invoices_truncated.csv',
         invoice_items: './test/fixtures/invoice_items_truncated.csv',
-        transactions:   './test/fixtures/transactions_truncated.csv'
+        transactions:   './test/fixtures/transactions_truncated.csv',
+        customers:     './test/fixtures/customers_truncated.csv'
       } )
 
     @mr = @se.merchants
@@ -47,14 +48,6 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal [], @mr.find_all_by_name('Buffalo Bill')
     assert_equal 'LovesVariety', @mr.find_all_by_name('lovesVARIety')[0].name
     assert_equal 2, @mr.find_all_by_name('cj').count
-  end
-
-  def test_find_highest_id
-    assert_equal 6, @mr.find_highest_id
-  end
-
-  def test_create_new_id
-    assert_equal 7, @mr.create_new_id
   end
 
   def test_create

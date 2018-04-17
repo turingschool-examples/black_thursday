@@ -14,6 +14,7 @@ class SalesEngineTest < Minitest::Test
         invoices:      './test/fixtures/invoices_truncated.csv',
         invoice_items: './test/fixtures/invoice_items_truncated.csv',
         transactions:  './test/fixtures/transactions_truncated.csv',
+        customers:     './test/fixtures/customers_truncated.csv'
       } )
       # {
       #   items:         './data/items.csv',
@@ -34,6 +35,7 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of InvoiceRepository, @se.invoices
     assert_instance_of InvoiceItemRepository, @se.invoice_items
     assert_instance_of TransactionRepository, @se.transactions
+    assert_instance_of CustomerRepository, @se.customers
   end
 
   def test_it_can_access_items
@@ -54,6 +56,10 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_can_access_transactions
     assert_instance_of Transaction, @se.transactions.find_by_id(6)
+  end
+
+  def test_it_can_access_customers
+    assert_instance_of Customer, @se.customers.find_by_id(6)
   end
 
   def test_sales_engine_can_return_an_analyst

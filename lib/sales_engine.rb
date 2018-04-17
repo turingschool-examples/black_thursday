@@ -6,6 +6,7 @@ require_relative 'item_repository'
 require_relative 'invoice_repository'
 require_relative 'invoice_item_repository'
 require_relative 'transaction_repository'
+require_relative 'customer_repository'
 require_relative 'sales_analyst'
 require 'pry'
 
@@ -29,6 +30,7 @@ class SalesEngine
     invoices.populate
     invoice_items.populate
     transactions.populate
+    customers.populate
   end
 
   def items
@@ -51,6 +53,10 @@ class SalesEngine
     @transactions ||= TransactionRepository.new(data_for(:transactions), self)
   end
 
+  def customers
+    @customers ||= CustomerRepository.new(data_for(:customers), self)
+  end
+
   def path
     @path || filepath
   end
@@ -62,6 +68,7 @@ class SalesEngine
       invoices:      './data/invoices.csv',
       invoice_items: './data/invoice_items.csv',
       transactions:  './data/transactions.csv',
+      customers:     './data/customers.csv'
     }
   end
 
