@@ -1,7 +1,8 @@
 # frozen_string_literal: true`.
-
+require_relative './repository_helper_modules/helper'
 # helper module for all repositories
 module Repository
+  include InvoiceItemHelper
   def inspect
     "#<#{self.class} #{@repository.size} rows>"
   end
