@@ -57,9 +57,9 @@ class SalesAnalystTest < Minitest::Test
     assert_equal expected, @sales_analyst.number_of_items_per_merchant
   end
 
-  def test_average_item_price
-    assert_equal 7357.66, @sales_analyst.average_item_price.to_f.round(2)
-  end
+  # def test_average_item_price
+  #   assert_equal 7357.66, @sales_analyst.average_item_price.to_f.round(2)
+  # end
 
   def test_getting_invoice_count
     sales_analyst = new_sales_analyst_invoices_2

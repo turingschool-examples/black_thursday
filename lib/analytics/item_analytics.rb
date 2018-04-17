@@ -1,5 +1,11 @@
 # Module to contain analytic methods for items
 module ItemAnalytics
+  def average_item_price
+    total_items = @item_repo.all.count
+    all_item_prices = @item_repo.all.map(&:unit_price)
+    average(all_item_prices.inject(:+), total_items)
+  end
+
   def average_item_price_standard_deviation
     standard_deviation(@item_repo.items.values.map(&:unit_price).sort, average_item_price)
   end
@@ -7,6 +13,7 @@ module ItemAnalytics
   def golden_items
     threshold = average_item_price + (average_item_price_standard_deviation * 2)
     @item_repo.all.map do |item|
+      require 'pry';binding.pry
       item if item.unit_price >= threshold
     end.compact
   end

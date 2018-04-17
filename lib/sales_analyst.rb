@@ -57,11 +57,11 @@ class SalesAnalyst
     number_of_items_per_merchant
   end
 
-  def average_item_price
-    total_items = @item_repo.all.count
-    all_item_prices = @item_repo.all.map(&:unit_price)
-    average(all_item_prices.inject(:+), total_items)
-  end
+  # def average_item_price
+  #   total_items = @item_repo.all.count
+  #   all_item_prices = @item_repo.all.map(&:unit_price)
+  #   average(all_item_prices.inject(:+), total_items)
+  # end
 
   def invoice_count(merchant_id)
     @invoice_repo.find_all_by_merchant_id(merchant_id).count
