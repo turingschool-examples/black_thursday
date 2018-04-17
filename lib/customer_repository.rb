@@ -32,8 +32,8 @@ class CustomerRepository < BaseRepository
 
   def create(attributes)
     attributes[:id] = create_new_id
-    attributes[:created_at] = Time.now
-    attributes[:updated_at] = Time.now
+    attributes[:created_at] = Time.now.to_s
+    attributes[:updated_at] = Time.now.to_s
     customers << Customer.new(attributes, 'parent')
   end
 

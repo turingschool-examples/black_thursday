@@ -83,7 +83,6 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_update
-    skip
     found = @cr.find_by_id(5)
 
     assert_equal 'CJsDecor', found.name
