@@ -33,28 +33,36 @@ class SalesAnalyst
     Math.sqrt(mean_difference_squared / (set.count - 1)).round(2)
   end
 
-  def number_of_merchants
-    @merchant_repo.all.count
+  def number_of(collection)
+    repos = {
+      merchants: @merchant_repo,
+      items: @item_repo,
+      invoices: @invoice_repo,
+    }
+    repos[collection].all.count
   end
 
-  def number_of_items
-    @item_repo.all.count
+  def number_of_elements_per_collection(element, collection)
   end
-
-  def number_of_invoices
-    @invoice_repo.all.count
-  end
-
-  def items_per_merchant
-    @item_repo.all.group_by(&:merchant_id)
-  end
-
+  
   def number_of_items_per_merchant
     number_of_items_per_merchant = items_per_merchant
     number_of_items_per_merchant.each do |id, items|
       number_of_items_per_merchant[id] = items.length
     end
     number_of_items_per_merchant
+  end
+  
+  def number_of_invoices_per_merchant
+    number_of_invoices_per_merchant = invoices_per_merchant
+    number_of_invoices_per_merchant.each do |id, invoices|
+      number_of_invoices_per_merchant[id] = invoices.length
+    end
+    number_of_invoices_per_merchant
+  end
+  
+  def items_per_merchant
+    @item_repo.all.group_by(&:merchant_id)
   end
 
   def invoice_count(merchant_id)
@@ -69,13 +77,6 @@ class SalesAnalyst
     @invoice_repo.all.group_by(&:merchant_id)
   end
 
-  def number_of_invoices_per_merchant
-    number_of_invoices_per_merchant = invoices_per_merchant
-    number_of_invoices_per_merchant.each do |id, invoices|
-      number_of_invoices_per_merchant[id] = invoices.length
-    end
-    number_of_invoices_per_merchant
-  end
 
   def merchants_per_count
     merchants_per_count = {}
@@ -149,7 +150,7 @@ class SalesAnalyst
   end
 
   def invoice_status(status_to_check)
-    total = number_of_invoices.to_f
+    total = number_of(:invoices).to_f
     total_at_status = number_of_invoices_by_status(status_to_check).length.to_f
     ((total_at_status / total) * 100).round(2)
   end

@@ -1,7 +1,7 @@
 # Merchant Analytics module for compartmentalizing merchant analysis methods
 module MerchantAnalytics
   def average_items_per_merchant
-    average(number_of_items, number_of_merchants).to_f
+    average(number_of(:items), number_of(:merchants)).to_f
   end
 
   def average_items_per_merchant_standard_deviation
@@ -24,7 +24,7 @@ module MerchantAnalytics
     all_averages = @merchant_repo.all.map do |merchant|
       average_item_price_for_merchant(merchant.id)
     end
-    average(all_averages.inject(:+), number_of_merchants)
+    average(all_averages.inject(:+), number_of(:merchants))
   end
 
   def top_merchants_by_invoice_count

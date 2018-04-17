@@ -30,11 +30,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_number_of_merchants
-    assert_equal 5, @sales_analyst.number_of_merchants
+    assert_equal 5, @sales_analyst.number_of(:merchants)
   end
 
   def test_number_of_items
-    assert_equal 14, @sales_analyst.number_of_items
+    assert_equal 14, @sales_analyst.number_of(:items)
   end
 
   def test_can_count_by_invoice_created_date
