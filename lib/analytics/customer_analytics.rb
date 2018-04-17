@@ -27,9 +27,10 @@ module CustomerAnalytics
       invoices.length == 1
     end
     invoices = single_invoices.values.flatten
-    invoices.flat_map do |invoice|
+    result = invoices.flat_map do |invoice|
       @invoice_item_repo.find_all_by_invoice_id(invoice.id)
     end
+    # require 'pry';binding.pry
   end
 
   def one_time_buyers_top_item_quantity
@@ -43,14 +44,22 @@ module CustomerAnalytics
 
   def one_time_buyers_top_item
     invoice_items = one_time_buyers_invoice_items
-    require "pry";binding.pry
-
-    item_ids = invoice_items.map(&:item_id).uniq
-    top_quantity = one_time_buyers_top_item_quantity
-
-    top_items.map do |invoice_item|
-      @item_repo.find_by_id(invoice_item.item_id)
+    
+    by_item_id = invoice_items.group_by(&:item_id)
+    by_count = {}
+    by_item_id.each do |item_id, array_of_invoice_items|
+      by_count[array_of_invoice_items.length] = item_id
     end
+    one_time_bought_item_bought_most_set = by_count.max_by { |key, _value| key }
+    result = []
+    result << @item_repo.find_by_id(one_time_bought_item_bought_most_set[1])
+    result
+    # item_ids = invoice_items.map(&:item_id).uniq
+    # top_quantity = one_time_buyers_top_item_quantity
+
+    # top_items.map do |invoice_item|
+    #   @item_repo.find_by_id(invoice_item.item_id)
+    # end
   end
 
   def customers_with_unpaid_invoices

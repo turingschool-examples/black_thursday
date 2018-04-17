@@ -48,22 +48,30 @@ class CustomerAnalyticsTest < Minitest::Test
 
   def test_it_finds_one_time_buyers_top_item
     invoices_csv = %(id,customer_id,merchant_id,status,created_at,updated_at
-      1,1,123,shipped,2011-08-08,2011-08-08
-      2,1,124,pending,2013-09-21,2013-09-21
-      3,2,125,shipped,2014-02-14,2014-02-14
-      4,1,126,returned,2014-02-14,2014-02-14)
+                     1,1,123,shipped,2011-08-08,2011-08-08
+                     2,1,124,pending,2013-09-21,2013-09-21
+                     3,2x,125,shipped,2014-02-14,2014-02-14
+                     4,1,126,returned,2014-02-14,2014-02-14
+                     5,3x,126,returned,2014-02-14,2014-02-14
+                     6,4x,126,returned,2014-02-14,2014-02-14)
+    # invoice_items_csv = %(id,item_id,invoice_id,quantity,unit_price,created_at,updated_at
+    #                       1,1,3,4,100,2011-08-08,2011-08-08
+    #                       2,2,3,1,200,2012-04-03,2012-04-03
+    #                       3,3,1,4,800,2012-04-12,2012-04-12
+    #                       4,4,1,1,200,2012-03-21,2012-03-21
+    #                       5,5,6,1,200,2012-03-21,2012-03-21
+    #                       6,2,5,1,200,2012-03-21,2012-03-21)
     invoice_items_csv = %(id,item_id,invoice_id,quantity,unit_price,created_at,updated_at
-      1,1,123,4,100,2011-08-08,2011-08-08
-      2,2,124,1,200,2012-04-03,2012-04-03
-      3,3,125,4,800,2012-04-12,2012-04-12
-      4,4,126,1,200,2012-03-21,2012-03-21)
+                          1,3601,3,4,100,2011-08-08,2011-08-08
+                          2,1234,3,1,200,2012-04-03,2012-04-03
+                          3,3600,1,4,800,2012-04-12,2012-04-12
+                          6,1234,5,1,200,2012-03-21,2012-03-21
+                          5,2347,6,1,200,2012-03-21,2012-03-21)
     items_csv = %(id,name,description,unit_price,merchant_id,created_at,updated_at
-      1,Item One,This is item one,100,123,2010-10-24,2010-10-24
-      2,Item Two,This is item two,200,456,2011-12-10,2012-10-04
-      3,Item Three,This is item three,800,456,2011-12-10,2012-10-04
-      4,Item Four,This is item four,200,456,2011-12-10,2012-10-04
-      5,Item Five,This is item five,100,456,2011-12-10,2012-10-04
-      6,Golden Item,This is a golden item,5300,789,2010-04-08,2010-04-08)
+      3600,Item One,This is item one,100,123,2010-10-24,2010-10-24
+      3601,Item Two,This is item two,200,456,2011-12-10,2012-10-04
+      1234,Item Three,This is item three,800,456,2011-12-10,2012-10-04
+      2347,Item Four,This is item four,200,456,2011-12-10,2012-10-04)
     invoice_items_data = parse_data(invoice_items_csv)
     items_data = parse_data(items_csv)
     invoice_data = parse_data(invoices_csv)
@@ -71,8 +79,9 @@ class CustomerAnalyticsTest < Minitest::Test
     invoice_repo: InvoiceRepository.new(invoice_data)}
     sales_engine = SalesEngine.new(attrs)
     sales_analyst = sales_engine.analyst
-    the_item = attrs[:item_repo].items[3]
-    assert_equal the_item, sales_analyst.one_time_buyers_top_item
+    # require 'pry';binding.pry
+    the_item = attrs[:item_repo].items[1234]
+    assert_equal [the_item], sales_analyst.one_time_buyers_top_item
     # sales_analyst = new_sales_analyst_5
     # result = sales_analyst.one_time_buyers_top_item
     # assert_equal 263396463, result.id
