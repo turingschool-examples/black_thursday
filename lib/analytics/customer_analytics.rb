@@ -42,8 +42,7 @@ module CustomerAnalytics
     quantities.sort.last
   end
 
-  def one_time_buyers_top_item
-    
+  def one_time_buyers_top_item    
     by_item_id = one_time_buyers_invoice_items.group_by(&:item_id)
     by_count = {}
     by_item_id.each do |item_id, array_of_invoice_items|
