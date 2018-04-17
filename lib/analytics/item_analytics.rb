@@ -25,9 +25,11 @@ module ItemAnalytics
     by_year = by_customer.find_all do |invoice|
       invoice.created_at.year == year
     end
-    by_year.map do |invoice|
-      id = @invoice_item_repo.find_by_id(invoice.id).item_id
-      @item_repo.find_by_id(id)
+    invoice_items = by_year.flat_map do |invoice|
+      @invoice_item_repo.find_all_by_invoice_id(invoice.id)
+    end
+    invoice_items.map do |invoice_item|
+      @item_repo.find_by_id(invoice_item.item_id)
     end
   end
 end
