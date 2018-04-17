@@ -43,7 +43,6 @@ module CustomerAnalytics
 
   def one_time_buyers_top_item
     invoice_items = one_time_buyers_invoice_items
-    require "pry";binding.pry
 
     item_ids = invoice_items.map(&:item_id).uniq
     top_quantity = one_time_buyers_top_item_quantity
