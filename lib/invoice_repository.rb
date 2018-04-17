@@ -9,23 +9,7 @@ class InvoiceRepository
   attr_reader :repository
 
   def initialize(invoices)
-    invoice_array = []
-    @repository = {}
-    invoices.each { |invoice| invoice_array << Invoice.new(to_invoice(invoice))}
-    invoice_array.each do |invoice|
-      if invoice.nil?
-      else
-        @repository[invoice.id] = invoice
-      end
-    end
-  end
-
-  def to_invoice(invoice)
-    invoice_hash = {}
-    invoice.each do |line|
-      invoice_hash[line[0]] = line[1]
-    end
-    invoice_hash
+    create_repository(invoices, Invoice)
   end
 
   def find_all_by_customer_id(input)

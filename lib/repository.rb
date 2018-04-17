@@ -34,8 +34,8 @@ module Repository
   end
 
   def find_all_by_id(id)
-    @repository.values.find_all do |thing|
-      thing.id == id
+    @repository.values.find_all do |object|
+      object.id == id
     end
   end
 
