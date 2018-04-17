@@ -112,7 +112,6 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal 26, actual
     assert_equal 263543136, @iir.find_by_id(26).item_id
     attributes =  {
-                  :id          => 26,
                   :item_id     => 444444444,
                   :invoice_id  => 7,
                   :quantity    => 15,

@@ -5,6 +5,8 @@ require_relative './merchant_repository'
 require_relative './sales_analyst'
 require_relative './invoice_repository'
 require_relative './invoice_item_repository'
+require_relative './transaction_repository'
+require_relative './customer_repository'
 require_relative './fileio'
 
 # allows creation and access to items and merchants
@@ -13,12 +15,16 @@ class SalesEngine
               :merchants,
               :analyst,
               :invoices,
-              :invoice_items
+              :invoice_items,
+              :transactions,
+              :customers
   def initialize(paths)
     @items = ItemRepository.new(FileIo.load(paths[:items]))
     @merchants = MerchantRepository.new(FileIo.load(paths[:merchants]))
     @invoices = InvoiceRepository.new(FileIo.load(paths[:invoices]))
     @invoice_items = InvoiceItemRepository.new(FileIo.load(paths[:invoice_items]))
+    @transactions = TransactionRepository.new(FileIo.load(paths[:transactions]))
+    @customers = CustomerRepository.new(FileIo.load(paths[:customers]))
     @analyst = SalesAnalyst.new(self)
   end
 
