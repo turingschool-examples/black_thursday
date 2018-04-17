@@ -25,13 +25,7 @@ class InvoiceRepository
   end
 
   def create(attributes)
-    attributes[:id] = (find_highest_id + 1)
-    if (attributes[:created_at] = Time.now.to_s)
-    else
-      attributes[:created_at] = attributes[:created_at].to_s
-    end
-    attributes[:updated_at] = attributes[:updated_at].to_s
-    invoice = Invoice.new(attributes)
-    @repository[invoice.id] = invoice
+    general_create(attributes, Invoice)
+
   end
 end
