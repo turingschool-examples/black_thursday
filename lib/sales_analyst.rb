@@ -6,7 +6,6 @@ class SalesAnalyst
 
   def initialize(engine)
     @engine = engine
-    # binding.pry
   end
 
   def average_items_per_merchant
@@ -101,6 +100,9 @@ class SalesAnalyst
     found = @engine.transactions.find_all_by_invoice_id(invoice_id)
     return false if found.empty?
     found.all? { |transaction| transaction.result == :success }
+  end
+
+  def invoice_total(invoice_id)
   end
 
   private

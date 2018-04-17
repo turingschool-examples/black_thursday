@@ -97,4 +97,10 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 56.95, actual_1
     assert_equal 13.5, actual_2
   end
+
+  def test_invoice_paid_in_full
+    assert_equal true, @sa.invoice_paid_in_full?(1)
+    assert_equal false, @sa.invoice_paid_in_full?(204)
+    assert_equal false, @sa.invoice_paid_in_full?(203)
+  end
 end

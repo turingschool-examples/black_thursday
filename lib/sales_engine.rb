@@ -12,12 +12,12 @@ require 'pry'
 
 # sales engine
 class SalesEngine
-  def self.from_csv(path = nil)
-    new(path).tap(&:populate_repositories)
+  def self.from_csv(paths = nil)
+    new(paths).tap(&:populate_repositories)
   end
 
-  def initialize(path)
-    @path = path
+  def initialize(paths = nil)
+    @paths = paths
   end
 
   def analyst
@@ -57,11 +57,11 @@ class SalesEngine
     @customers ||= CustomerRepository.new(data_for(:customers), self)
   end
 
-  def path
-    @path || filepath
+  def paths
+    @paths || filepaths
   end
 
-  def filepath
+  def filepaths
     {
       items:         './data/items.csv',
       merchants:     './data/merchants.csv',
@@ -73,7 +73,7 @@ class SalesEngine
   end
 
   def data_for(type)
-    CSV.read(path.fetch(type), headers: true, header_converters: :symbol)
+    CSV.read(paths.fetch(type), headers: true, header_converters: :symbol)
   end
 
   def pass_item_id_to_item_repo(id)
