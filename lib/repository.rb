@@ -4,7 +4,7 @@ require 'time'
 require_relative './repository_helper_modules/helper'
 # helper module for all repositories
 module Repository
-  include Helper
+  include RepositoryHelper
   def inspect
     "#<#{self.class} #{@repository.size} rows>"
   end
