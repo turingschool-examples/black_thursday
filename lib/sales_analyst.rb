@@ -42,9 +42,17 @@ class SalesAnalyst
     repos[collection].all.count
   end
 
-  def number_of_elements_per_collection(element, collection)
+  # def number_of_elements_per_collection(element, collection)
+  # end
+
+  def number_of_items_per_merchant
+    number_of_items_per_merchant = items_per_merchant
+    number_of_items_per_merchant.each do |id, items|
+      number_of_items_per_merchant[id] = items.length
+    end
+    number_of_items_per_merchant
   end
-  
+
   def number_of_items_per_merchant
     number_of_items_per_merchant = items_per_merchant
     number_of_items_per_merchant.each do |id, items|
