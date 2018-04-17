@@ -5,9 +5,10 @@ class Merchant
   attr_reader :attributes
 
   def initialize(attributes)
+    attributes[:id] = attributes[:id].to_i
+    attributes[:created_at] = Time.parse(attributes[:created_at])
+    attributes[:updated_at] = Time.parse(attributes[:updated_at])
     @attributes = attributes
-    @id = attributes[:id]
-    @name = attributes[:name]
   end
 
   def id
