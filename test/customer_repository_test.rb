@@ -118,5 +118,12 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal 'Vladimir', customer.first_name
   end
 
+  def test_customer_can_be_deleted
+    customer = @cr.find_by_id(4)
+    assert_equal 'Leanne', customer.first_name
+    @cr.delete(4)
+    assert_nil @cr.find_by_id(4)
+  end
+
 
 end
