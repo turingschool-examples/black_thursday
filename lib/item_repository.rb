@@ -1,10 +1,7 @@
 # frozen_string_literal: true
 
 require_relative './repository'
-require 'pry'
-require 'bigdecimal'
-require 'time'
-require_relative 'item'
+require_relative './item'
 # stores items and gives methods for item search
 class ItemRepository
   include Repository

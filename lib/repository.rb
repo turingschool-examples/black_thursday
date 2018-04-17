@@ -1,4 +1,6 @@
 # frozen_string_literal: true`.
+require 'bigdecimal'
+require 'time'
 require_relative './repository_helper_modules/helper'
 # helper module for all repositories
 module Repository
@@ -81,15 +83,15 @@ module Repository
   end
 
   def update(id, attributes)
-    invoice = find_by_id(id)
-    if invoice.nil?
+    object = find_by_id(id)
+    if object.nil?
     else
-      temp_attr = sterilize_attributes(attributes, invoice)
+      temp_attr = sterilize_attributes(attributes, object)
       pairs = attributes.keys.zip(temp_attr.values)
       pairs.each do |pair|
-        invoice.attributes[pair[0]] = pair[1]
+        object.attributes[pair[0]] = pair[1]
       end
-      invoice.attributes[:updated_at] = Time.now
+      object.attributes[:updated_at] = Time.now
     end
   end
 

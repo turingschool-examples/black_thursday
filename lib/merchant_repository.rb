@@ -5,6 +5,8 @@ require_relative './merchant'
 # holds, and provides methods for finding, merchants
 class MerchantRepository
   include Repository
+  attr_reader :repository
+  
   def initialize(merchants)
     create_repository(merchants, Merchant)
   end
