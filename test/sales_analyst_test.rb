@@ -38,6 +38,8 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_golden_items
-    assert_equal 0, sa.golden_items
+    assert_instance_of Array, sa.golden_items
+    assert_instance_of Item, sa.golden_items[0]
+    assert 263410685, sa.golden_items[0].id
   end
 end

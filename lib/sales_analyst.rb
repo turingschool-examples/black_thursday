@@ -36,7 +36,7 @@ class SalesAnalyst
     merchant_items = items.values.find_all do |item|
       item.merchant_id == id
     end
-     prices = merchant_items.map do |item|
+    prices = merchant_items.map do |item|
       item.unit_price_to_dollars
     end
     BigDecimal(prices.reduce(:+) / prices.count, 2)
@@ -65,19 +65,28 @@ class SalesAnalyst
     deviation(times)
   end
 
-  def deviation(numbers)
-    Math.sqrt(numbers.reduce(:+) / (numbers.count - 1)).round(2)
+  def mean_finder(item_array)
+    mean = 0.0
+    item_array.each { |count| mean += count }
+    return 0 if item_array.length.zero?
+    mean / item_array.length
   end
 
-  def price_count
-    items.values.map(&:unit_price_to_dollars)
+  def standard_devation(mean, item_array)
+    std_dev = 0.0
+    item_array.each do |item|
+      std_dev += (item.unit_price_to_dollars - mean)**2
+    end
+    std_dev /= item_array.length - 1
+    Math.sqrt(std_dev)
   end
 
   def golden_items
-    average = average_price_per_merchant_standard_deviation
-    items.values.map do |item|
-      item if item.unit_price_to_dollars >= ((average * 2) + average_price)
-    end
+    item_array = items.values
+    price_array = item_array.map(&:unit_price)
+    mean = mean_finder(price_array)
+    std_dev = standard_devation(mean, item_array)
+    item_array.find_all { |item| item.unit_price > ((std_dev * 2) + mean) }
   end
 
   private
