@@ -6,7 +6,7 @@ class SalesAnalyst
 
   def initialize(engine)
     @engine = engine
-    # binding.pry
+    binding.pry
   end
 
   def average_items_per_merchant
@@ -109,6 +109,18 @@ class SalesAnalyst
 
   def invoices
     @engine.invoices.all
+  end
+
+  def invoice_items
+    @engine.invoice_items.all
+  end
+
+  def transactions
+    @engine.transactions.all
+  end
+
+  def customers
+    @engine.customers.all
   end
 
   def average_item_price_standard_deviation
