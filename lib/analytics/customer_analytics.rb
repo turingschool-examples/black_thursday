@@ -32,14 +32,24 @@ module CustomerAnalytics
     end
   end
 
-  def one_time_buyers_item
+  def one_time_buyers_top_item_quantity
     invoice_items = one_time_buyers_invoice_items
-    inv_items_by_qty = invoice_items.group_by(&:quantity)
-    top_key = inv_items_by_qty.keys.max
-    top_items = inv_items_by_qty.values_at(top_key).flatten
-    top_items.map do |invoice_item|
-      @item_repo.find_by_id(invoice_item.item_id)
+    item_id_by_inv_items = invoice_items.group_by(&:item_id)
+    quantities = item_id_by_inv_items.values.map do |value|
+      value.map(&:quantity).reduce(:+)
     end
+    quantities.sort.last
+  end
+
+  def one_time_buyers_top_item
+    # invoice_items = one_time_buyers_invoice_items
+    # item_ids = invoice_items.map(&:item_id).uniq
+    # top_quantity = one_time_buyers_top_item_quantity
+    # require "pry";binding.pry
+    #
+    # top_items.map do |invoice_item|
+    #   @item_repo.find_by_id(invoice_item.item_id)
+    # end
   end
 
   def customers_with_unpaid_invoices

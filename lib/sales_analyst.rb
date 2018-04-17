@@ -241,7 +241,7 @@ class SalesAnalyst
       total.nil?
     end
   end
- 
+
   def invoices_by_quantity
     successful_transactions = @transaction_repo.find_all_by_result(:success)
     invoices = successful_transactions.map do |transaction|
