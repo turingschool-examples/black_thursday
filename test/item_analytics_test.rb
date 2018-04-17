@@ -48,8 +48,8 @@ class ItemAnalyticsTest < Minitest::Test
     result = sales_analyst.items_bought_in_year(400, 2002)
     assert_instance_of Array, result
     assert_equal 2, result.length
-    assert_equal 0, result.first.id
-    assert_equal 'Necklace', result.first.name
+    assert_equal 263549742, result.first.id
+    assert_equal 'Necklace: V Tube', result.first.name
     assert_instance_of Item, result.first
   end
 
