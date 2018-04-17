@@ -10,7 +10,7 @@ class SalesAnalyst
 
   def average_items_per_merchant
     sum = items_per_merchant.reduce(:+)
-    sum.to_f / items_per_merchant.count
+    (sum.to_f / items_per_merchant.count).round(2)
   end
 
   def average_items_per_merchant_standard_deviation
@@ -46,7 +46,7 @@ class SalesAnalyst
     merchant_averages = merchants.values.map do |merchant|
       average_item_price_for_merchant(merchant.id)
     end
-    (merchant_averages.reduce(:+) / merchant_averages.count)
+    merchant_averages.reduce(:+) / merchant_averages.count
   end
 
   def average_item_cost
@@ -87,6 +87,14 @@ class SalesAnalyst
     mean = mean_finder(price_array)
     std_dev = standard_devation(mean, item_array)
     item_array.find_all { |item| item.unit_price > ((std_dev * 2) + mean) }
+  end
+
+  def items
+    @items
+  end
+
+  def merchant
+    @merchants
   end
 
   private
