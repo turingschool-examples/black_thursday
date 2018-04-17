@@ -83,5 +83,27 @@ class CustomerRepositoryTest < Minitest::Test
     assert_instance_of Time, actual[0].created_at
   end
 
+  def test_it_can_find_highest_id
+    actual = @cr.find_highest_id
+    assert_equal 140, actual
+  end
+
+  def test_it_can_create_a_new_customer_file
+    actual = @cr.find_highest_id
+    assert_equal 140, actual
+    assert_equal 'Vladimir', @cr.find_by_id(140).first_name
+    attributes =  {
+                  :last_name                   => 'Ever',
+                  :first_name                  => 'Greatest',
+                  :created_at                  => Time.now,
+                  :updated_at                  => Time.now
+                  }
+    @cr.create(attributes)
+    assert_equal 141, @cr.find_highest_id
+    actual = @cr.find_by_id(141)
+    assert_equal 'Greatest', actual.first_name
+    assert_equal 'Ever', actual.last_name
+  end
+
 
 end
