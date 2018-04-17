@@ -30,31 +30,24 @@ module CustomerAnalytics
     result = invoices.flat_map do |invoice|
       @invoice_item_repo.find_all_by_invoice_id(invoice.id)
     end
-    # require 'pry';binding.pry
   end
 
   def one_time_buyers_top_item_quantity
     invoice_items = one_time_buyers_invoice_items
     item_id_by_inv_items = invoice_items.group_by(&:item_id)
-    quantities = item_id_by_inv_items.values.map do |value|
+    item_id_by_inv_items.values.map do |value|
       value.map(&:quantity).reduce(:+)
     end
-    quantities.sort.last
   end
 
-  def one_time_buyers_top_item    
-    by_item_id = one_time_buyers_invoice_items.group_by(&:item_id)
-    by_count = {}
-    by_item_id.each do |item_id, array_of_invoice_items|
-      if by_count[array_of_invoice_items.length]
-         by_count[array_of_invoice_items.length] << item_id
-      else
-        by_count[array_of_invoice_items.length] = [] << item_id
-      end
-    end
-    one_time_bought_item_bought_most_set = by_count.max_by { |key, _value| key }
-    # require 'pry';binding.pry
-    @item_repo.find_by_id(one_time_bought_item_bought_most_set[1])
+  # Mike said skip this for now because correct value is probably 263505548 (20 total) not 263396463 (18 total)
+  # pry it to see it
+  def one_time_buyers_top_item
+    item_ids = one_time_buyers_invoice_items.group_by(&:item_id).keys
+    quantities = one_time_buyers_top_item_quantity
+    item_ids_with_quantities = item_ids.zip(quantities)
+    the_max = item_ids_with_quantities.max_by { |quantity_set| quantity_set[1] }
+    @item_repo.find_by_id(the_max[0])
   end
 
   def customers_with_unpaid_invoices
