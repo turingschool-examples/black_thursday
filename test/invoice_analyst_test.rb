@@ -31,6 +31,10 @@ class InvoiceAnalystTest < Minitest::Test
         assert_equal 12334115, @sales_analyst.bottom_merchants_by_invoice_count[0].id
     end
 
+    def test_it_can_find_top_days_by_invoice_count
+        assert_equal 3, @sales_analyst.top_days_by_invoice_count
+    end
+
 
 
 end
