@@ -36,24 +36,53 @@ module CustomerAnalytics
     invoice_items = one_time_buyers_invoice_items
     invoice_items_by_item_id = invoice_items.group_by(&:item_id)
     invoice_items_sum_quantities_by_item_id = {}
+    invoice_items_by_item_id.each do |item_id, inv_items|
+      invoice_items_sum_quantities_by_item_id[item_id] = inv_items.reduce(0) do |sum, inv_item|
+        sum + inv_item.quantity
+      end
+    end
+    invoice_items_sum_quantities_by_item_id
+  end
+
+  # Mike said skip this for now because correct value is probably
+  # 263505548 (20 total) not 263396463 (18 total)
+  # pry it to see it
+  def one_time_buyers_top_item
+    the_max = one_time_buyers_quantities_by_item_id.max_by do |quantity_set|
+      quantity_set[1]
+    end
+    @item_repo.find_by_id(the_max[0])
+  end
+
+  def invoice_item_quantities(customer_id)
+    invoices = invoices_per_customer[customer_id]
+    all_invoice_items = invoices.flat_map do |invoice|
+      @invoice_item_repo.find_all_by_invoice_id(invoice.id)
+    end
+    invoice_items_by_item_id = all_invoice_items.group_by(&:item_id)
+    invoice_items_sum_quantities_by_item_id = {}
     invoice_items_by_item_id.each do |item_id, invoice_items|
       invoice_items_sum_quantities_by_item_id[item_id] = invoice_items.reduce(0) do |sum, invoice_item|
         sum + invoice_item.quantity
       end
     end
     invoice_items_sum_quantities_by_item_id
-    # require 'pry'; binding.pry
   end
 
-  # Mike said skip this for now because correct value is probably 
-  # 263505548 (20 total) not 263396463 (18 total)
-  # pry it to see it
-  def one_time_buyers_top_item
-    the_max = one_time_buyers_quantities_by_item_id.max_by do |quantity_set|
-       quantity_set[1]
+  def highest_volume_items(customer_id)
+    quantities = invoice_item_quantities(customer_id)
+    max = quantities.values.max
+    by_count = {}
+    quantities.each do |item_id, count|
+      if by_count[count]
+        by_count[count] << item_id
+      else
+        by_count[count] = [] << item_id
+      end
     end
-    @item_repo.find_by_id(the_max[0])
-    require 'pry';binding.pry
+    by_count[max].map do |item_id|
+      @item_repo.find_by_id(item_id)
+    end
   end
 
   def customers_with_unpaid_invoices

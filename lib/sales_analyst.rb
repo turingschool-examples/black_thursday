@@ -53,14 +53,6 @@ class SalesAnalyst
     number_of_items_per_merchant
   end
 
-  def number_of_items_per_merchant
-    number_of_items_per_merchant = items_per_merchant
-    number_of_items_per_merchant.each do |id, items|
-      number_of_items_per_merchant[id] = items.length
-    end
-    number_of_items_per_merchant
-  end
-  
   def number_of_invoices_per_merchant
     number_of_invoices_per_merchant = invoices_per_merchant
     number_of_invoices_per_merchant.each do |id, invoices|
@@ -68,7 +60,7 @@ class SalesAnalyst
     end
     number_of_invoices_per_merchant
   end
-  
+
   def items_per_merchant
     @item_repo.all.group_by(&:merchant_id)
   end

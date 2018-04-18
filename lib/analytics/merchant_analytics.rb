@@ -14,7 +14,7 @@ module MerchantAnalytics
       @merchant_repo.find_by_id(id) if num_of_items >= threshold
     end.compact
   end
-  
+
   def average_item_price_for_merchant(merchant_id)
     average(sum_of_item_price_for_merchant(merchant_id),
             number_of_items_per_merchant[merchant_id])
@@ -36,13 +36,13 @@ module MerchantAnalytics
       @merchant_repo.find_by_id(merchant_id)
     end
   end
-  
+
   def bottom_merchants_by_invoice_count
-    top_merchant_ids = merchants_per_count.map do |count, merchant_ids|
+    bottom_merchant_ids = merchants_per_count.map do |count, merchant_ids|
       merchant_ids if count <= average_invoices_per_merchant_minus_two_standard_deviations
     end.flatten.compact
 
-    top_merchant_ids.map do |merchant_id|
+    bottom_merchant_ids.map do |merchant_id|
       @merchant_repo.find_by_id(merchant_id)
     end
   end
