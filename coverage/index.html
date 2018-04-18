@@ -14,7 +14,7 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2018-04-17T19:17:53-06:00">2018-04-17T19:17:53-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2018-04-17T19:37:47-06:00">2018-04-17T19:37:47-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -25,7 +25,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         112.07
+         167.92
        </span>
     </span> hits/line)
   </h2>
@@ -57,7 +57,7 @@
         <td>24</td>
         <td>22</td>
         <td>2</td>
-        <td>2.6</td>
+        <td>4.7</td>
       </tr>
       
       <tr>
@@ -77,7 +77,7 @@
         <td>17</td>
         <td>17</td>
         <td>0</td>
-        <td>3.5</td>
+        <td>5.5</td>
       </tr>
       
       <tr>
@@ -87,7 +87,7 @@
         <td>31</td>
         <td>18</td>
         <td>13</td>
-        <td>702.9</td>
+        <td>1220.5</td>
       </tr>
       
       <tr>
@@ -137,7 +137,7 @@
         <td>15</td>
         <td>13</td>
         <td>2</td>
-        <td>9.8</td>
+        <td>11.7</td>
       </tr>
       
       <tr>
@@ -157,7 +157,7 @@
         <td>42</td>
         <td>21</td>
         <td>21</td>
-        <td>2.0</td>
+        <td>2.8</td>
       </tr>
       
       <tr>
@@ -167,7 +167,7 @@
         <td>19</td>
         <td>17</td>
         <td>2</td>
-        <td>1.3</td>
+        <td>1.4</td>
       </tr>
       
       <tr>
@@ -177,7 +177,7 @@
         <td>20</td>
         <td>19</td>
         <td>1</td>
-        <td>3.2</td>
+        <td>4.8</td>
       </tr>
       
       <tr>
@@ -187,7 +187,7 @@
         <td>5</td>
         <td>4</td>
         <td>1</td>
-        <td>7.6</td>
+        <td>13.2</td>
       </tr>
       
     </tbody>
@@ -232,38 +232,38 @@
           <code class="ruby">    def standard_deviation(numbers, average)</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="3">
-          <span class="hits">2</span>
+        <li class="covered" data-hits="3" data-linenumber="3">
+          <span class="hits">3</span>
           
           <code class="ruby">        difference = difference(numbers, average)</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="4">
-          <span class="hits">2</span>
+        <li class="covered" data-hits="3" data-linenumber="4">
+          <span class="hits">3</span>
           
           <code class="ruby">        squared = square(difference)</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="5">
-          <span class="hits">2</span>
+        <li class="covered" data-hits="3" data-linenumber="5">
+          <span class="hits">3</span>
           
           <code class="ruby">        sum = squared.sum</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="6">
-          <span class="hits">2</span>
+        <li class="covered" data-hits="3" data-linenumber="6">
+          <span class="hits">3</span>
           
           <code class="ruby">        num_minus_one = squared.length - 1</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="7">
-          <span class="hits">2</span>
+        <li class="covered" data-hits="3" data-linenumber="7">
+          <span class="hits">3</span>
           
           <code class="ruby">        variance = sum / num_minus_one</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="8">
-          <span class="hits">2</span>
+        <li class="covered" data-hits="3" data-linenumber="8">
+          <span class="hits">3</span>
           
           <code class="ruby">        Math.sqrt(variance).round(2)</code>
         </li>
@@ -286,14 +286,14 @@
           <code class="ruby">    def difference(items_per_merchant, average)</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="12">
-          <span class="hits">2</span>
+        <li class="covered" data-hits="3" data-linenumber="12">
+          <span class="hits">3</span>
           
           <code class="ruby">        items_per_merchant.map do |item|</code>
         </li>
       
-        <li class="covered" data-hits="14" data-linenumber="13">
-          <span class="hits">14</span>
+        <li class="covered" data-hits="21" data-linenumber="13">
+          <span class="hits">21</span>
           
           <code class="ruby">            item - average</code>
         </li>
@@ -322,20 +322,20 @@
           <code class="ruby">    def average(array_of_numbers)</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="18">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="4" data-linenumber="18">
+          <span class="hits">4</span>
           
           <code class="ruby">        return 0 if array_of_numbers.empty?</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="19">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="4" data-linenumber="19">
+          <span class="hits">4</span>
           
           <code class="ruby">        sum = array_of_numbers.sum</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="20">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="4" data-linenumber="20">
+          <span class="hits">4</span>
           
           <code class="ruby">        average = sum / array_of_numbers.length</code>
         </li>
@@ -358,14 +358,14 @@
           <code class="ruby">    def square(difference)</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="24">
-          <span class="hits">2</span>
+        <li class="covered" data-hits="3" data-linenumber="24">
+          <span class="hits">3</span>
           
           <code class="ruby">        difference.map do |index|</code>
         </li>
       
-        <li class="covered" data-hits="14" data-linenumber="25">
-          <span class="hits">14</span>
+        <li class="covered" data-hits="21" data-linenumber="25">
+          <span class="hits">21</span>
           
           <code class="ruby">            (index ** 2)</code>
         </li>
@@ -418,8 +418,8 @@
           <code class="ruby">    def by_deviation(number, average, std, deviations)</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="34">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="14" data-linenumber="34">
+          <span class="hits">14</span>
           
           <code class="ruby">        if deviations &lt; 0</code>
         </li>
@@ -436,8 +436,8 @@
           <code class="ruby">        else</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="37">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="14" data-linenumber="37">
+          <span class="hits">14</span>
           
           <code class="ruby">            number &gt; (average + (std * deviations))</code>
         </li>
@@ -672,14 +672,14 @@
           <code class="ruby">    def invoices_per_merchant</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="3">
-          <span class="hits">5</span>
+        <li class="covered" data-hits="7" data-linenumber="3">
+          <span class="hits">7</span>
           
           <code class="ruby">        invoices = merchants.all.map do |merchant|</code>
         </li>
       
-        <li class="covered" data-hits="35" data-linenumber="4">
-          <span class="hits">35</span>
+        <li class="covered" data-hits="49" data-linenumber="4">
+          <span class="hits">49</span>
           
           <code class="ruby">            merchant.invoices.length</code>
         </li>
@@ -708,14 +708,14 @@
           <code class="ruby">    def average_invoices_per_merchant</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="9">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="4" data-linenumber="9">
+          <span class="hits">4</span>
           
           <code class="ruby">        invoices = invoices_per_merchant</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="10">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="4" data-linenumber="10">
+          <span class="hits">4</span>
           
           <code class="ruby">        average(invoices)</code>
         </li>
@@ -774,34 +774,34 @@
           <code class="ruby">    def top_merchants_by_invoice_count</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="20">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="2" data-linenumber="20">
+          <span class="hits">2</span>
           
           <code class="ruby">        invoices = invoices_per_merchant</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="21">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="2" data-linenumber="21">
+          <span class="hits">2</span>
           
           <code class="ruby">        average = average_invoices_per_merchant</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="22">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="2" data-linenumber="22">
+          <span class="hits">2</span>
           
           <code class="ruby">        std = standard_deviation(invoices, average)</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="23">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="2" data-linenumber="23">
+          <span class="hits">2</span>
           
           <code class="ruby">        merchants.all.find_all do |merchant|</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="24">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="14" data-linenumber="24">
+          <span class="hits">14</span>
           
-          <code class="ruby">            by_deviation(invoices, average, std, 2)</code>
+          <code class="ruby">            by_deviation(merchant.invoices.length, average, std, 2)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="25">
@@ -1033,14 +1033,14 @@
           <code class="ruby">  def find_all_by_merchant_id(merch_id)</code>
         </li>
       
-        <li class="covered" data-hits="35" data-linenumber="33">
-          <span class="hits">35</span>
+        <li class="covered" data-hits="63" data-linenumber="33">
+          <span class="hits">63</span>
           
           <code class="ruby">    invoices.find_all do |invoice|</code>
         </li>
       
-        <li class="covered" data-hits="20020" data-linenumber="34">
-          <span class="hits">20020</span>
+        <li class="covered" data-hits="36036" data-linenumber="34">
+          <span class="hits">36036</span>
           
           <code class="ruby">      invoice.merchant_id == merch_id</code>
         </li>
@@ -2202,8 +2202,8 @@
           <code class="ruby">  def invoices</code>
         </li>
       
-        <li class="covered" data-hits="35" data-linenumber="21">
-          <span class="hits">35</span>
+        <li class="covered" data-hits="63" data-linenumber="21">
+          <span class="hits">63</span>
           
           <code class="ruby">    parent.find_all_invoices_by_merchant_id(id)</code>
         </li>
@@ -2648,8 +2648,8 @@
           <code class="ruby">  def all</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="17">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="9" data-linenumber="17">
+          <span class="hits">9</span>
           
           <code class="ruby">    merchants</code>
         </li>
@@ -2990,8 +2990,8 @@
           <code class="ruby">  def find_all_invoices_by_merchant_id(merchant_id)</code>
         </li>
       
-        <li class="covered" data-hits="35" data-linenumber="74">
-          <span class="hits">35</span>
+        <li class="covered" data-hits="63" data-linenumber="74">
+          <span class="hits">63</span>
           
           <code class="ruby">    parent.find_all_invoices_by_merchant_id(merchant_id)</code>
         </li>
@@ -3165,8 +3165,8 @@
           <code class="ruby">    def merchants</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="24">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="9" data-linenumber="24">
+          <span class="hits">9</span>
           
           <code class="ruby">        @sales_engine.merchant_repo</code>
         </li>
@@ -3382,8 +3382,8 @@
           <code class="ruby">  def merchant_repo</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="27">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="9" data-linenumber="27">
+          <span class="hits">9</span>
           
           <code class="ruby">    @merchant_repo ||= MerchantRepo.new(LoadFile.load(path[:merchant_data]), self)</code>
         </li>
@@ -3406,8 +3406,8 @@
           <code class="ruby">  def invoice_repo</code>
         </li>
       
-        <li class="covered" data-hits="35" data-linenumber="31">
-          <span class="hits">35</span>
+        <li class="covered" data-hits="63" data-linenumber="31">
+          <span class="hits">63</span>
           
           <code class="ruby">    @invoice_repo ||= InvoiceRepo.new(LoadFile.load(path[:invoice_data]),self)</code>
         </li>
@@ -3479,8 +3479,8 @@
           <code class="ruby">    def find_all_invoices_by_merchant_id(merchant_id)</code>
         </li>
       
-        <li class="covered" data-hits="35" data-linenumber="7">
-          <span class="hits">35</span>
+        <li class="covered" data-hits="63" data-linenumber="7">
+          <span class="hits">63</span>
           
           <code class="ruby">        invoice_repo.find_all_by_merchant_id(merchant_id)</code>
         </li>

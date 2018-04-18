@@ -21,7 +21,7 @@ module InvoiceAnalyst
         average = average_invoices_per_merchant
         std = standard_deviation(invoices, average)
         merchants.all.find_all do |merchant|
-            by_deviation(invoices, average, std, 2)
+            by_deviation(merchant.invoices.length, average, std, 2)
         end
     end
 end
