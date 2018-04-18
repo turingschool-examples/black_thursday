@@ -22,12 +22,12 @@ class SalesAnalyst
   def merchants_with_high_item_count
     merchants.map do |merchant|
       difference = merchant.items.length - average_items_per_merchant
-      merchant if difference > average_items_per_merchant_standard_deviation
+      merchant if difference.abs > average_items_per_merchant_standard_deviation
     end.compact
   end
 
   def average_item_price_for_merchant(id)
-    found ||= @engine.items.find_all_by_merchant_id(id)
+    found = @engine.items.find_all_by_merchant_id(id)
     to_average = found.map(&:unit_price).reduce(:+) / found.length
     to_average.round(2)
   end

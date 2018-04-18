@@ -76,7 +76,7 @@ class SalesEngine
     CSV.read(paths.fetch(type), headers: true, header_converters: :symbol)
   end
 
-  def pass_item_id_to_item_repo(id)
+  def pass_merchant_id_to_item_repo(id)
     @items.find_all_by_merchant_id(id)
   end
 
@@ -84,7 +84,7 @@ class SalesEngine
     @merchants.find_by_id(id)
   end
 
-  def pass_item_id_to_invoice_repo(id)
+  def pass_merchant_id_to_invoice_repo(id)
     @invoices.find_all_by_merchant_id(id)
   end
 end

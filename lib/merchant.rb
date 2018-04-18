@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
-# merchant 
+# merchant
 class Merchant
   attr_reader :id,
               :name,
               :created_at,
               :updated_at,
-              :parent
+              :merchant_repository
 
   def initialize(data, parent)
-    @id         = data[:id].to_i
-    @name       = data[:name]
-    @created_at = data[:created_at]
-    @updated_at = data[:updated_at]
-    @parent     = parent
+    @id                  = data[:id].to_i
+    @name                = data[:name]
+    @created_at          = data[:created_at]
+    @updated_at          = data[:updated_at]
+    @merchant_repository = parent
   end
 
   def change_name(name)
@@ -25,10 +25,10 @@ class Merchant
   end
 
   def items
-    @parent.pass_item_id_to_engine(@id)
+    @merchant_repository.pass_merchant_id_to_engine(@id)
   end
 
   def invoices
-    @parent.pass_item_id_to_engine_for_invoice(@id)
+    @merchant_repository.pass_merchant_id_to_engine_for_invoice(@id)
   end
 end
