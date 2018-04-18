@@ -12,13 +12,13 @@ class CustomerRepository < BaseRepository
     @models ||= csv_table_data.map { |attribute_hash| Customer.new(attribute_hash, self)}
   end
 
-  def find_all_by_first_name(name) #select
+  def find_all_by_first_name(name)
     customers.select do |customer|
       customer.first_name.downcase.include?(name.downcase)
     end
   end
 
-  def find_all_by_last_name(name) #select
+  def find_all_by_last_name(name)
     customers.select do |customer|
       customer.last_name.downcase.include?(name.downcase)
     end
