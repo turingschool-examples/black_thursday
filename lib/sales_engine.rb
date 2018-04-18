@@ -17,6 +17,10 @@ class SalesEngine
     @merchants ||= MerchantRepository.new(path[:merchants], self)
   end
 
+  def invoices
+    @invoices ||= InvoiceRepository.new(path[:invoices], self)
+  end
+
   def self.from_csv(path)
     new(path)
   end
