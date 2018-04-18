@@ -13,12 +13,9 @@ class MerchantRepository < BaseRepository
   end
 
   def find_all_by_name(name)
-    found = merchants.map do |merchant|
-      if merchant.name.downcase.include?(name.downcase)
-        merchant
-      end
+    merchants.select do |merchant|
+      merchant.name.downcase.include?(name.downcase)
     end
-    found.compact
   end
 
   def create(attributes)
