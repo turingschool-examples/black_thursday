@@ -15,5 +15,7 @@ get '/dashboard' do
     transactions: './data/transactions.csv'
   )
   analyst = engine.analyst
-  haml :dashboard, :locals
+  top_buyers = analyst.top_buyers.map(&:first_name)
+  haml :dashboard, :locals => {
+    :top_customers => top_buyers }
 end
