@@ -7,13 +7,12 @@ require './lib/sales_engine'
 # merchant test
 class MerchantTest < Minitest::Test
   def test_merchant_exists
-    merchant = Merchant.new(
-      {
-        id: 5,
-        name: 'Turing School',
-        created_at: 11/11/11,
-        updated_at: 12/21/12,
-      }, 'parent')
+    merchant = Merchant.new({
+      id: 5,
+      name: 'Turing School',
+      created_at: 11/11/11,
+      updated_at: 12/21/12,
+    }, 'parent')
 
     assert_instance_of Merchant, merchant
   end

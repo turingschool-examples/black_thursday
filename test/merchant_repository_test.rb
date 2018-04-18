@@ -44,14 +44,13 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_name
-
     assert_equal [], @mr.find_all_by_name('Buffalo Bill')
     assert_equal 'LovesVariety', @mr.find_all_by_name('lovesVARIety')[0].name
     assert_equal 2, @mr.find_all_by_name('cj').count
   end
 
   def test_create
-    @mr.create({:id => 600, :name => 'Turing School'})
+    @mr.create(id: 600, name: 'Turing School')
     assert_equal 7, @mr.all.last.id
     assert_equal 'Turing School', @mr.all.last.name
   end
@@ -62,12 +61,12 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 'CJsDecor', found.name
     assert_equal 5, found.id
 
-    @mr.update(5, {:name => 'Awesomeness'})
+    @mr.update(5, name: 'Awesomeness')
 
     assert_equal 'Awesomeness', found.name
     assert_equal 5, found.id
 
-    assert_nil @mr.update(64, {:name => "felbert"})
+    assert_nil @mr.update(64, name: 'felbert')
   end
 
   def test_delete
