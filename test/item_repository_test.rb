@@ -73,9 +73,9 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 263_396_209, @ir.items.last.id
 
     @ir.create({
-                  :name        => 'Pencil',
-                  :description => 'You can use it to write things',
-                  :unit_price  => BigDecimal(10.99, 4),
+                  name:         'Pencil',
+                  description:  'You can use it to write things',
+                  unit_price:   BigDecimal(10.99, 4),
                 })
 
     assert_equal 263_396_210, @ir.items.last.id
@@ -85,11 +85,11 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_update_item
     attributes = ({
-                    :name        => 'Pencil',
-                    :description => 'You can use it to write things',
-                    :unit_price  => BigDecimal(10.99, 4),
-                    :created_at  => '1995-03-19 10:02:43 UTC',
-                    :updated_at  => '1995-03-19 10:02:43 UTC',
+                    name:         'Pencil',
+                    description:  'You can use it to write things',
+                    unit_price:   BigDecimal(10.99, 4),
+                    created_at:   '1995-03-19 10:02:43 UTC',
+                    updated_at:   '1995-03-19 10:02:43 UTC',
                   })
 
     to_update = @ir.find_by_id(263_396_209)

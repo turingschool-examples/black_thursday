@@ -124,7 +124,7 @@ class SalesAnalyst
 
   def average_item_price_standard_deviation
     unit_prices = unit_price_of_all_items
-    standard_deviation(unit_prices, average_average_price_per_merchant)
+    standard_deviation(unit_prices, average_average_price_per_merchant).round(2)
   end
 
   def standard_deviation(data, average)
