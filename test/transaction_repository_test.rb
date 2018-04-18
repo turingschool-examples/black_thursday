@@ -56,14 +56,14 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal 10, @t.transactions.last.id
 
     attributes = ({
-      :id => 6,
-      :invoice_id => 8,
-      :credit_card_number => '4242424242424242',
-      :credit_card_expiration_date => "0220",
-      :result => 'success',
-      :created_at => Time.now,
-      :updated_at => Time.now
-      })
+      id:  6,
+      invoice_id:  8,
+      credit_card_number:  '4242424242424242',
+      credit_card_expiration_date:  "0220",
+      result:  'success',
+      created_at:  Time.now,
+      updated_at:  Time.now
+                  })
 
     @t.create(attributes)
 
@@ -77,13 +77,13 @@ class TransactionRepositoryTest < Minitest::Test
 
   def test_update_transaction
     attributes = ({
-      :id => 6,
-      :invoice_id => 8,
-      :credit_card_number => '4242424242424242',
-      :credit_card_expiration_date => '0220',
-      :result => 'failed',
-      :created_at => Time.now,
-      :updated_at => Time.now
+      id: 6,
+      invoice_id: 8,
+      credit_card_number: '4242424242424242',
+      credit_card_expiration_date: '0220',
+      result: 'failed',
+      created_at: Time.now,
+      updated_at: Time.now
 
                    })
 
