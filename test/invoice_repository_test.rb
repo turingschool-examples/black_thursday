@@ -43,13 +43,30 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_create_new_invoices_with_attributes
     attributes = {
-  :customer_id => 7,
-  :merchant_id => 8,
-  :status      => "pending",
-  :created_at  => Time.now,
-  :updated_at  => Time.now,
-  }
+                :customer_id => 7,
+                :merchant_id => 8,
+                :status      => "pending",
+                :created_at  => Time.now,
+                :updated_at  => Time.now,
+                }
 
     assert_equal 4986, se.invoices.create(attributes).id
+  end
+
+  def test_it_can_update
+    attributes = {
+                :customer_id => 2,
+                :merchant_id => 2,
+                :status      => 'success',
+                :created_at  => Time.now,
+                :updated_at  => Time.now,
+                }
+    id = '2'
+    assert_equal 'success', se.invoices.update(id, attributes[:status])
+  end
+
+  def test_it_can_delete_an_invoice
+    assert_instance_of Invoice, se.invoices.delete(1)
+    assert_equal 4984, se.invoices.all.count
   end
 end
