@@ -21,7 +21,10 @@ class InvoiceAnalystTest < Minitest::Test
         assert_equal 9.11, @sales_analyst.average_invoices_per_merchant_standard_deviation
     end
 
-    def
-       assert_instance_of Array, sales_analyst.top_merchants_by_invoice_count
-       assert_instance_of Merchant, sales_analyst.top_merchants_by_invoice_count[0]
+    def test_it_can_find_the_top_merchants
+       assert_instance_of Array, @sales_analyst.top_merchants_by_invoice_count
+       assert_instance_of Merchant, @sales_analyst.top_merchants_by_invoice_count[0]
+    end
+
+
 end
