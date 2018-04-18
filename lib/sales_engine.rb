@@ -26,12 +26,16 @@ class SalesEngine
     new(path)
   end
 
-  def collect_items_by_merchant_id(id)
-    items.find_all_by_merchant_id(id)
+  def analyst
+    @analyst ||= SalesAnalyst.new(self)
   end
 
-  def merchant_item(id)
-    merchants.find_by_id(id)
+  def collect_invoices_by_merchant_id(id)
+    invoices.find_all_by_merchant_id(id)
+  end
+
+  def collect_items_by_merchant_id(id)
+    items.find_all_by_merchant_id(id)
   end
 end
 

@@ -57,6 +57,10 @@ class MerchantRepository
     parent.collect_items_by_merchant_id(id)
   end
 
+  def collect_id_for_invoices(id)
+    parent.collect_invoices_by_merchant_id(id)
+  end
+
   def inspect
    "#<#{self.class} #{@merchants.size} rows>"
   end

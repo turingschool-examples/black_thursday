@@ -87,7 +87,19 @@ class SalesAnalyst
     item_array.find_all { |item| item.unit_price > ((std_dev * 2) + mean) }
   end
 
-  private
+  def average_invoices_per_merchant
+    invoices = @sales_engine.invoices.contents.count.to_f
+    merchants = @sales_engine.merchants.merchants.count.to_f
+    (invoices / merchants).round(2)
+  end
+
+  def average_items_price_standard_deviation
+    standard_deviation(all_item_prices, average_average_price_per_merchant)
+  end
+
+  def invoices
+    sales_engine.invoices.all
+  end
 
   def items
     @items ||= @sales_engine.items.contents
@@ -96,6 +108,8 @@ class SalesAnalyst
   def merchants
     @merchants ||= @sales_engine.merchants.merchants
   end
+
+  private
 
   def items_per_merchant
     @items_per_merchant ||= items.values.group_by(&:merchant_id).values.map(&:count)
