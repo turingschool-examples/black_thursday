@@ -42,14 +42,4 @@ class InvoiceRepository < BaseRepository
   def pass_merchant_id_to_engine_from_invoice(id)
     @parent.pass_merchant_id_to_merchant_repo(id)
   end
-
-  private
-
-  def find_highest_id
-    invoices.map(&:id).max
-  end
-
-  def create_new_id
-    find_highest_id + 1
-  end
 end

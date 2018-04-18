@@ -44,19 +44,4 @@ class TransactionRepository < BaseRepository
       to_update.change_expiration_date(attributes[:credit_card_expiration_date])
     end
   end
-
-  def delete(id)
-    to_delete = find_by_id(id)
-    transactions.delete(to_delete)
-  end
-
-  private
-
-  def find_highest_id
-    transactions.map(&:id).max
-  end
-
-  def create_new_id
-    find_highest_id + 1
-  end
 end

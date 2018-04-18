@@ -43,14 +43,4 @@ class CustomerRepository < BaseRepository
     found.change_updated_at
     end
   end
-
-  private
-
-  def find_highest_id
-    customers.map(&:id).max
-  end
-
-  def create_new_id
-    find_highest_id + 1
-  end
 end

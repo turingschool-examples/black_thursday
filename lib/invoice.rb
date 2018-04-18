@@ -1,4 +1,4 @@
-# frozen_sting_literal: true
+# frozen_string_literal: true
 
 # invoice
 class Invoice

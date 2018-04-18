@@ -35,15 +35,4 @@ class InvoiceItemRepository < BaseRepository
     to_update.change_unit_price(attributes[:unit_price])
     to_update.change_quantity(attributes[:quantity])
   end
-
-  private
-
-  def find_highest_id
-    invoice_items.map(&:id).max
-  end
-
-  def create_new_id
-    find_highest_id + 1
-  end
-
 end
