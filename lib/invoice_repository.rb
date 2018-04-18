@@ -38,8 +38,4 @@ class InvoiceRepository < BaseRepository
     to_update.change_shipping_status(attributes[:status]) if attributes[:status]
     to_update.change_updated_at
   end
-
-  def pass_merchant_id_to_engine_from_invoice(id)
-    @parent.pass_merchant_id_to_merchant_repo(id)
-  end
 end

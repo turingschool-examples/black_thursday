@@ -33,10 +33,10 @@ class MerchantRepository < BaseRepository
   end
 
   def pass_merchant_id_to_engine(id)
-    @parent.pass_merchant_id_to_item_repo(id)
+    @engine.pass_merchant_id_to_item_repo(id)
   end
 
   def pass_merchant_id_to_engine_for_invoice(id)
-    @parent.pass_merchant_id_to_invoice_repo(id)
+    @engine.pass_merchant_id_to_invoice_repo(id)
   end
 end

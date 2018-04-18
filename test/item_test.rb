@@ -68,4 +68,34 @@ class ItemTest < Minitest::Test
 
     assert_equal Time.parse('2016-01-11 11:51:37 UTC'),item.updated_at
   end
+
+  def test_change_name
+    item = Item.new(@data, 'parent')
+
+    assert_equal 'Pencil', item.name
+
+    item.change_name('Not Pencil')
+
+    assert_equal 'Not Pencil', item.name
+  end
+
+  def test_change_description
+    item = Item.new(@data, 'parent')
+
+    assert_equal 'You can use it to write things', item.description
+
+    item.change_description('New Description')
+
+    assert_equal 'New Description', item.description
+  end
+
+  def test_change_unit_price
+    item = Item.new(@data, 'parent')
+
+    assert_equal 0.12e2, item.unit_price
+
+    item.change_unit_price(1)
+
+    assert_equal 1, item.unit_price
+  end
 end

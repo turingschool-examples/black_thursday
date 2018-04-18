@@ -34,4 +34,15 @@ class CustomerTest < Minitest::Test
     assert_equal Time.now.to_s, @c.created_at.to_s
     assert_equal Time.now.to_s, @c.updated_at.to_s
   end
+
+  def test_change_attributes
+    assert_equal 'Mike', @c.first_name
+    assert_equal 'Dao', @c.last_name
+
+    @c.change_first_name('Matt')
+    @c.change_last_name('Bricker')
+
+    assert_equal 'Matt', @c.first_name
+    assert_equal 'Bricker', @c.last_name
+  end
 end

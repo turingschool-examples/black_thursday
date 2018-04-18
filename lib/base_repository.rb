@@ -5,7 +5,7 @@ class BaseRepository
   attr_reader :csv_table_data, :models
 
   def initialize(csv_table_data, parent)
-    @parent = parent
+    @engine = parent
     @csv_table_data = csv_table_data
   end
 

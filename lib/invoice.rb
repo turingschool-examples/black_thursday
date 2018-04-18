@@ -27,8 +27,4 @@ class Invoice
   def change_updated_at
     @updated_at = Time.now
   end
-
-  def merchant
-    @invoice_repository.pass_merchant_id_to_engine_from_invoice(@merchant_id)
-  end
 end

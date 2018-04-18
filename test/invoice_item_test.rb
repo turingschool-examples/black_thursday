@@ -42,4 +42,15 @@ class InvoiceItemTest < Minitest::Test
   def test_unit_price_to_dollars
     assert_equal 1234.56, @i.unit_price_to_dollars
   end
+
+  def test_change_attributes
+    assert_equal 0.123456e4, @i.unit_price
+    assert_equal 9, @i.quantity
+
+    @i.change_unit_price(1)
+    @i.change_quantity(1)
+
+    assert_equal 1, @i.unit_price
+    assert_equal 1, @i.quantity
+  end
 end

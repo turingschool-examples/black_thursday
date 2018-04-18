@@ -36,4 +36,12 @@ class InvoiceTest < Minitest::Test
     assert_equal Time.now.to_s, @i.created_at.to_s
     assert_equal Time.now.to_s, @i.updated_at.to_s
   end
+
+  def test_change_attributes
+    assert_equal :pending, @i.status
+
+    @i.change_shipping_status('shipped')
+
+    assert_equal :shipped, @i.status
+  end
 end
