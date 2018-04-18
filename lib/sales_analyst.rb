@@ -42,19 +42,6 @@ class SalesAnalyst
     repos[collection].all.count
   end
 
-  # def number_of_elements_per_collection(element, collection)
-  # end
-
-  # Enum ideas
-  # :evaluate = reset hash values based on given block
-  # :gather = shovel in values to hash value arrays based on block
-
-  # def evaluate(original_hash,)
-
-  def number_of_elements_per_collection(element, collection)
-    
-  end
-
   def number_of_items_per_merchant
     number_of_items_per_merchant = items_per_merchant
     number_of_items_per_merchant.each do |id, items|
