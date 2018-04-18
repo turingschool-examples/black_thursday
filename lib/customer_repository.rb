@@ -13,21 +13,15 @@ class CustomerRepository < BaseRepository
   end
 
   def find_all_by_first_name(name) #select
-    found = customers.map do |customer|
-      if customer.first_name.downcase.include?(name.downcase)
-        customer
-      end
+    customers.select do |customer|
+      customer.first_name.downcase.include?(name.downcase)
     end
-    found.compact
   end
 
   def find_all_by_last_name(name) #select
-    found = customers.map do |customer|
-      if customer.last_name.downcase.include?(name.downcase)
-        customer
-      end
+    customers.select do |customer|
+      customer.last_name.downcase.include?(name.downcase)
     end
-    found.compact
   end
 
   def create(attributes)
