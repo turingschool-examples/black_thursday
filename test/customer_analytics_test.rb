@@ -54,11 +54,6 @@ class CustomerAnalyticsTest < Minitest::Test
     assert_equal the_item, sales_analyst.one_time_buyers_top_item
   end
 
-  def test_highest_volume_items
-    sales_analyst = new_sales_analyst_5a
-    assert_instance_of Item, sales_analyst.highest_volume_items(1).first
-  end
-
   def test_customers_with_unpaid_invoices
     sales_analyst = new_sales_analyst_5
     result = sales_analyst.customers_with_unpaid_invoices
@@ -88,21 +83,5 @@ class CustomerAnalyticsTest < Minitest::Test
       transactions: './test/fixtures/test_transactions5.csv'
     )
     sales_engine.analyst
-  end
-
-  def new_sales_analyst_5a
-    sales_engine = SalesEngine.from_csv(
-      customers: './test/fixtures/test_customers5.csv',
-      invoices: './test/fixtures/test_invoices5.csv',
-      invoice_items: './test/fixtures/test_invoice_items5.csv',
-      items: './test/fixtures/test_items5a.csv',
-      merchants: './test/fixtures/test_merchants2.csv',
-      transactions: './test/fixtures/test_transactions5.csv'
-    )
-    sales_engine.analyst
-  end
-
-  def parse_data(data)
-    CSV.parse(data, headers: :true, header_converters: :symbol)
   end
 end

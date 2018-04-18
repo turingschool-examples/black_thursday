@@ -42,8 +42,9 @@ class SalesAnalyst
     repos[collection].all.count
   end
 
-  # def number_of_elements_per_collection(element, collection)
-  # end
+  def items_per_merchant
+    @item_repo.all.group_by(&:merchant_id)
+  end
 
   def number_of_items_per_merchant
     number_of_items_per_merchant = items_per_merchant
@@ -61,22 +62,6 @@ class SalesAnalyst
     number_of_invoices_per_merchant
   end
 
-  def items_per_merchant
-    @item_repo.all.group_by(&:merchant_id)
-  end
-
-  def invoice_count(merchant_id)
-    @invoice_repo.find_all_by_merchant_id(merchant_id).count
-  end
-
-  def invoice_count_by_created_date(created_date)
-    @invoice_repo.find_all_by_created_date(created_date).count
-  end
-
-  def invoices_per_merchant
-    @invoice_repo.all.group_by(&:merchant_id)
-  end
-
   def merchants_per_count
     merchants_per_count = {}
     number_of_invoices_per_merchant.each do |id, count|
@@ -89,8 +74,17 @@ class SalesAnalyst
     merchants_per_count
   end
 
-  def invoices_per_customer
-    @invoice_repo.all.group_by(&:customer_id)
+  def average_invoices_per_merchant
+    average(number_of(:invoices), number_of(:merchants)).to_f
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    unique_merchants = @invoice_repo.all.map(&:merchant_id).uniq
+    number_of_invoices_for_each_merchant = unique_merchants.map do |merchant_id|
+      invoice_count(merchant_id)
+    end
+    standard_deviation(number_of_invoices_for_each_merchant,
+                       average_invoices_per_merchant)
   end
 
   def sum_of_item_price_for_merchant(merchant_id)
@@ -103,10 +97,6 @@ class SalesAnalyst
     average_items_per_merchant + average_items_per_merchant_standard_deviation
   end
 
-  def all_invoice_created_dates
-    @invoice_repo.all.map(&:created_at)
-  end
-
   def average_invoices_per_merchant_plus_two_standard_deviations
     (average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2)).round(2)
   end
@@ -115,58 +105,12 @@ class SalesAnalyst
     (average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2)).round(2)
   end
 
-  def number_of_invoices_per_weekday
-    number_of_invoices_by_weekday.values
-  end
-
-  def average_invoices_per_weekday
-    average(number_of_invoices_per_weekday.inject(:+), number_of_invoices_per_weekday.count)
-  end
-
-  def number_of_invoices_by_weekday
-    weekdays = %w[sunday monday tuesday wednesday thursday friday saturday]
-    all_days = @invoice_repo.all.map(&:created_at)
-    by_dates = all_days.group_by do |date|
-      weekdays[date.wday]
-    end
-    by_dates.each_key do |id|
-      by_dates[id] = by_dates[id].count
-    end
-  end
-
-  def average_invoices_per_weekday_standard_deviation
-    standard_deviation(number_of_invoices_per_weekday, average_invoices_per_weekday)
-  end
-
-  def average_invoices_per_weekday_plus_one_standard_deviation
-    average_invoices_per_weekday + average_invoices_per_weekday_standard_deviation
-  end
-
-  def number_of_invoices_by_status(status_to_find)
-    @invoice_repo.all.map(&:status).find_all do |invoice_status|
-      invoice_status == status_to_find
-    end
-  end
-
-  def invoice_status(status_to_check)
-    total = number_of(:invoices).to_f
-    total_at_status = number_of_invoices_by_status(status_to_check).length.to_f
-    ((total_at_status / total) * 100).round(2)
-  end
-
   def invoice_paid_in_full?(invoice_id)
     transactions = @transaction_repo.find_all_by_invoice_id(invoice_id)
     return false if transactions.empty?
     transactions.any? do |transaction|
       transaction.result == :success
     end
-  end
-
-  def invoice_total(invoice_id)
-    invoice_items = @invoice_item_repo.find_all_by_invoice_id(invoice_id)
-    invoice_items.map do |invoice_item|
-      invoice_item.quantity * invoice_item.unit_price
-    end.reduce(:+)
   end
 
   def paid_invoice_filter
@@ -205,44 +149,14 @@ class SalesAnalyst
     sorted_totals
   end
 
+  def invoice_status(status_to_check)
+    total = number_of(:invoices).to_f
+    total_at_status = number_of_invoices_by_status(status_to_check).length.to_f
+    ((total_at_status / total) * 100).round(2)
+  end
+
   def total_invoice_items(invoice_id)
     invoice_items = @invoice_item_repo.find_all_by_invoice_id(invoice_id)
     invoice_items.map(&:quantity).reduce(:+)
-  end
-
-  def one_time_buyers
-    single_invoices = invoices_per_customer.select do |_customer_id, invoices|
-      invoices.length == 1
-    end
-    customer_ids = single_invoices.keys
-    customer_ids.map do |id|
-      @customer_repo.find_by_id(id)
-    end
-  end
-
-  def invoices_by_revenue
-    successful_transactions = @transaction_repo.find_all_by_result(:success)
-    invoices = successful_transactions.map do |transaction|
-      @invoice_repo.find_by_id(transaction.invoice_id)
-    end.compact
-    results = invoices.group_by do |invoice|
-      invoice_total(invoice.id)
-    end
-    results.delete_if do |total, _invoice|
-      total.nil?
-    end
-  end
-
-  def invoices_by_quantity
-    successful_transactions = @transaction_repo.find_all_by_result(:success)
-    invoices = successful_transactions.map do |transaction|
-      @invoice_repo.find_by_id(transaction.invoice_id)
-    end.compact
-    results = invoices.group_by do |invoice|
-      total_invoice_items(invoice.id)
-    end
-    results.delete_if do |total, _invoice|
-      total.nil?
-    end
   end
 end
