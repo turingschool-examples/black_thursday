@@ -6,6 +6,7 @@ class SalesAnalyst
 
   def initialize(engine)
     @engine = engine
+    # binding.pry
   end
 
   def average_items_per_merchant
@@ -102,6 +103,8 @@ class SalesAnalyst
   end
 
   def invoice_total(invoice_id)
+    found = @engine.invoice_items.find_all_by_invoice_id(invoice_id)
+    found.map { |ii| ii.unit_price * ii.quantity }.reduce(:+)
   end
 
   private

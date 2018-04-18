@@ -5,8 +5,8 @@ require './lib/merchant_repository'
 require './lib/sales_engine'
 require 'pry'
 
-# This is a MerchantRepositoryTest Class
-class MerchantRepositoryTest < Minitest::Test
+# This is a CustomerRepositoryTest Class
+class CustomerRepositoryTest < Minitest::Test
   def setup
     @se = SalesEngine.from_csv({
       items:         './test/fixtures/items_truncated.csv',
