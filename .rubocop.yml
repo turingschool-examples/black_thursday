@@ -6,3 +6,9 @@ Style/FrozenStringLiteralComment:
 
 Lint/UnifiedInteger:
   Enabled: false
+
+Lint/BooleanSymbol:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false

@@ -37,7 +37,7 @@ class SalesAnalyst
     repos = {
       merchants: @merchant_repo,
       items: @item_repo,
-      invoices: @invoice_repo,
+      invoices: @invoice_repo
     }
     repos[collection].all.count
   end
@@ -77,7 +77,6 @@ class SalesAnalyst
     @invoice_repo.all.group_by(&:merchant_id)
   end
 
-
   def merchants_per_count
     merchants_per_count = {}
     number_of_invoices_per_merchant.each do |id, count|
@@ -109,11 +108,11 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant_plus_two_standard_deviations
-    (average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation*2)).round(2)
+    (average_invoices_per_merchant + (average_invoices_per_merchant_standard_deviation * 2)).round(2)
   end
 
   def average_invoices_per_merchant_minus_two_standard_deviations
-    (average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation*2)).round(2)
+    (average_invoices_per_merchant - (average_invoices_per_merchant_standard_deviation * 2)).round(2)
   end
 
   def number_of_invoices_per_weekday
@@ -180,7 +179,7 @@ class SalesAnalyst
       paid_invoices_by_customer[customer_id] = paid_invoices
     end
 
-    paid_invoices_by_customer.delete_if do |customer_id, invoice_results|
+    paid_invoices_by_customer.delete_if do |_customer_id, invoice_results|
       invoice_results.empty?
     end
     paid_invoices_by_customer
@@ -200,7 +199,7 @@ class SalesAnalyst
 
   def sort_totals
     results = invoice_totals_by_customer
-    sorted_totals = results.sort_by do |customer_id, total|
+    sorted_totals = results.sort_by do |_customer_id, total|
       total
     end.reverse
     sorted_totals
@@ -229,7 +228,7 @@ class SalesAnalyst
     results = invoices.group_by do |invoice|
       invoice_total(invoice.id)
     end
-    results.delete_if do |total, invoice|
+    results.delete_if do |total, _invoice|
       total.nil?
     end
   end
@@ -242,7 +241,7 @@ class SalesAnalyst
     results = invoices.group_by do |invoice|
       total_invoice_items(invoice.id)
     end
-    results.delete_if do |total, invoice|
+    results.delete_if do |total, _invoice|
       total.nil?
     end
   end

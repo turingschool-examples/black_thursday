@@ -33,15 +33,15 @@ module CustomerAnalytics
   end
 
   def one_time_buyers_quantities_by_item_id
-    invoice_items = one_time_buyers_invoice_items
-    invoice_items_by_item_id = invoice_items.group_by(&:item_id)
-    invoice_items_sum_quantities_by_item_id = {}
-    invoice_items_by_item_id.each do |item_id, inv_items|
-      invoice_items_sum_quantities_by_item_id[item_id] = inv_items.reduce(0) do |sum, inv_item|
-        sum + inv_item.quantity
+    inv_items = one_time_buyers_invoice_items
+    inv_items_by_item_id = inv_items.group_by(&:item_id)
+    sum_quantities = {}
+    inv_items_by_item_id.each do |item_id, i_items|
+      sum_quantities[item_id] = i_items.reduce(0) do |sum, invoice_item|
+        sum + invoice_item.quantity
       end
     end
-    invoice_items_sum_quantities_by_item_id
+    sum_quantities
   end
 
   # Mike said skip this for now because correct value is probably
@@ -60,13 +60,13 @@ module CustomerAnalytics
       @invoice_item_repo.find_all_by_invoice_id(invoice.id)
     end
     invoice_items_by_item_id = all_invoice_items.group_by(&:item_id)
-    invoice_items_sum_quantities_by_item_id = {}
+    sum_quantities = {}
     invoice_items_by_item_id.each do |item_id, invoice_items|
-      invoice_items_sum_quantities_by_item_id[item_id] = invoice_items.reduce(0) do |sum, invoice_item|
+      sum_quantities[item_id] = invoice_items.reduce(0) do |sum, invoice_item|
         sum + invoice_item.quantity
       end
     end
-    invoice_items_sum_quantities_by_item_id
+    sum_quantities
   end
 
   def highest_volume_items(customer_id)
@@ -74,11 +74,7 @@ module CustomerAnalytics
     max = quantities.values.max
     by_count = {}
     quantities.each do |item_id, count|
-      if by_count[count]
-        by_count[count] << item_id
-      else
-        by_count[count] = [] << item_id
-      end
+      by_count[count] ? by_count[count] << item_id : by_count[count] = [] << item_id
     end
     by_count[max].map do |item_id|
       @item_repo.find_by_id(item_id)
@@ -95,7 +91,7 @@ module CustomerAnalytics
       unpaid_invoices_by_customer[customer_id] = unpaid_invoices
     end
 
-    unpaid_invoices_by_customer.delete_if do |customer_id, invoice_results|
+    unpaid_invoices_by_customer.delete_if do |_customer_id, invoice_results|
       invoice_results.empty?
     end
 

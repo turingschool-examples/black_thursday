@@ -97,6 +97,6 @@ class CustomerAnalyticsTest < Minitest::Test
   end
 
   def parse_data(csv)
-   CSV.parse(csv, headers: :true, header_converters: :symbol)
+    CSV.parse(csv, headers: :true, header_converters: :symbol)
   end
 end
