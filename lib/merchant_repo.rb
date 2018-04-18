@@ -70,7 +70,7 @@ class MerchantRepo
     parent.find_all_items_by_merchant_id(merchant_id)
   end
 
-  def fin_all_invoices_by_merchant_id(merchant_id)
+  def find_all_invoices_by_merchant_id(merchant_id)
     parent.find_all_invoices_by_merchant_id(merchant_id)
   end
 end
