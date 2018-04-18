@@ -35,10 +35,13 @@ class TransactionRepository < Repository
   end
 
   def update(id, attrs)
-    return unless @transactions[id]
-    @transactions[id].credit_card_number = attrs[:credit_card_number] if attrs[:credit_card_number]
-    @transactions[id].credit_card_expiration_date = attrs[:credit_card_expiration_date] if attrs[:credit_card_expiration_date]
-    @transactions[id].result = attrs[:result].to_sym if attrs[:result]
-    @transactions[id].updated_at = Time.now
+    t = @transactions
+    ccn = :credit_card_number
+    exp_date = :credit_card_expiration_date
+    return unless t[id]
+    t[id].credit_card_number = attrs[ccn] if attrs[ccn]
+    t[id].credit_card_expiration_date = attrs[exp_date] if attrs[exp_date]
+    t[id].result = attrs[:result].to_sym if attrs[:result]
+    t[id].updated_at = Time.now
   end
 end

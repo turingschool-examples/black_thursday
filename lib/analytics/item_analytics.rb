@@ -7,7 +7,8 @@ module ItemAnalytics
   end
 
   def average_item_price_standard_deviation
-    standard_deviation(@item_repo.items.values.map(&:unit_price).sort, average_item_price)
+    sorted_unit_prices = @item_repo.items.values.map(&:unit_price).sort
+    standard_deviation(sorted_unit_prices, average_item_price)
   end
 
   def golden_items

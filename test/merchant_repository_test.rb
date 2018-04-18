@@ -6,15 +6,7 @@ require_relative '../lib/file_io'
 # merchant repository class
 class MerchantRepositoryTest < Minitest::Test
   def setup
-    merchants_data = %(id,name,created_at,updated_at
-                       12334105,Shopin1901,2010-12-10,2011-12-04
-                       12334112,Candisart,2009-05-30,2010-08-29
-                       12334113,MiniatureBikez,2010-03-30,2013-01-21
-                       12334115,LolaMarleys,2008-06-09,2015-04-16
-                       12334123,Keckenbauer,2010-07-15,2012-07-25
-                       12334132,perlesemoi,2009-03-21,2014-05-19
-                       12334135,GoldenRayPress,2011-12-13,2012-04-16)
-    csv = CSV.parse(merchants_data, headers: :true, header_converters: :symbol)
+    csv = parse_data(merchants)
     @time = Time.now
     @m_repo = MerchantRepository.new(csv)
     @merchant12334105 = @m_repo.merchants[12334105]
@@ -109,7 +101,22 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_magic_spec_harness_method_works
-    expected = "#<MerchantRepository 7 rows>"
+    expected = '#<MerchantRepository 7 rows>'
     assert_equal expected, @m_repo.inspect
+  end
+
+  def merchants
+    %(id,name,created_at,updated_at
+      12334105,Shopin1901,2010-12-10,2011-12-04
+      12334112,Candisart,2009-05-30,2010-08-29
+      12334113,MiniatureBikez,2010-03-30,2013-01-21
+      12334115,LolaMarleys,2008-06-09,2015-04-16
+      12334123,Keckenbauer,2010-07-15,2012-07-25
+      12334132,perlesemoi,2009-03-21,2014-05-19
+      12334135,GoldenRayPress,2011-12-13,2012-04-16)
+  end
+
+  def parse_data(data)
+    CSV.parse(data, headers: :true, header_converters: :symbol)
   end
 end

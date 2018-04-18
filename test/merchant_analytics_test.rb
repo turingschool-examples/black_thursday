@@ -1,11 +1,10 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require_relative 'test_helper'
 require_relative '../lib/sales_engine'
 require_relative '../lib/sales_analyst'
 require_relative '../lib/analytics/merchant_analytics.rb'
 
+# Merchant Analytics test
 class MerchantAnalyticsTest < Minitest::Test
-
   def setup
     sales_engine = SalesEngine.from_csv(
       customers: './test/fixtures/test_customers.csv',

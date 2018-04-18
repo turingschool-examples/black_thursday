@@ -7,20 +7,8 @@ require_relative '../lib/repositories/invoice_repository'
 # Test for the InvoiceRepository class
 class InvoiceRepositoryTest < Minitest::Test
   def setup
-    invoice_data = %(id,customer_id,merchant_id,status,created_at,updated_at
-      1,1,12335938,pending,2009-02-07,2014-03-15
-      2,1,12334753,shipped,2012-11-23,2013-04-14
-      3,1,12335955,shipped,2009-12-09,2010-07-10
-      4,1,12334269,pending,2013-08-05,2014-06-06
-      5,1,12335311,pending,2014-02-08,2014-07-22
-      6,1,12334389,pending,2015-03-13,2015-04-05
-      7,1,12335009,pending,2006-10-16,2013-12-24
-      8,1,12337139,shipped,2003-11-07,2004-07-31
-      9,2,12336965,shipped,2003-03-07,2008-10-09
-      10,2,12334839,pending,2014-04-13,2015-01-20
-      25,6,12334264,returned,2011-08-08,2015-07-21
-      37,9,12334873,returned,2009-08-31,2015-01-01)
-    csv = CSV.parse(invoice_data, headers: :true, header_converters: :symbol)
+    invoice_data = invoices
+    csv = parse_data(invoice_data)
     @inv_repo = InvoiceRepository.new(csv)
     @invoice1 = @inv_repo.invoices[1]
     @invoice2 = @inv_repo.invoices[2]
@@ -121,5 +109,25 @@ class InvoiceRepositoryTest < Minitest::Test
       created_at: '2009-12-09 12:08:04 UTC',
       updated_at: '2010-12-09 12:08:04 UTC'
     )
+  end
+
+  def invoices
+    %(id,customer_id,merchant_id,status,created_at,updated_at
+      1,1,12335938,pending,2009-02-07,2014-03-15
+      2,1,12334753,shipped,2012-11-23,2013-04-14
+      3,1,12335955,shipped,2009-12-09,2010-07-10
+      4,1,12334269,pending,2013-08-05,2014-06-06
+      5,1,12335311,pending,2014-02-08,2014-07-22
+      6,1,12334389,pending,2015-03-13,2015-04-05
+      7,1,12335009,pending,2006-10-16,2013-12-24
+      8,1,12337139,shipped,2003-11-07,2004-07-31
+      9,2,12336965,shipped,2003-03-07,2008-10-09
+      10,2,12334839,pending,2014-04-13,2015-01-20
+      25,6,12334264,returned,2011-08-08,2015-07-21
+      37,9,12334873,returned,2009-08-31,2015-01-01)
+  end
+
+  def parse_data(data)
+    CSV.parse(data, headers: :true, header_converters: :symbol)
   end
 end

@@ -5,7 +5,8 @@ module MerchantAnalytics
   end
 
   def average_items_per_merchant_standard_deviation
-    standard_deviation(number_of_items_per_merchant.values, average_items_per_merchant)
+    items = number_of_items_per_merchant.values
+    standard_deviation(items, average_items_per_merchant)
   end
 
   def merchants_with_high_item_count
@@ -28,8 +29,9 @@ module MerchantAnalytics
   end
 
   def top_merchants_by_invoice_count
+    plus2_std_dev = average_invoices_per_merchant_plus_two_standard_deviations
     top_merchant_ids = merchants_per_count.map do |count, merchant_ids|
-      merchant_ids if count >= average_invoices_per_merchant_plus_two_standard_deviations
+      merchant_ids if count >= plus2_std_dev
     end.flatten.compact
 
     top_merchant_ids.map do |merchant_id|
@@ -38,8 +40,9 @@ module MerchantAnalytics
   end
 
   def bottom_merchants_by_invoice_count
+    minus2_std_dev = average_invoices_per_merchant_minus_two_standard_deviations
     bottom_merchant_ids = merchants_per_count.map do |count, merchant_ids|
-      merchant_ids if count <= average_invoices_per_merchant_minus_two_standard_deviations
+      merchant_ids if count <= minus2_std_dev
     end.flatten.compact
 
     bottom_merchant_ids.map do |merchant_id|

@@ -7,28 +7,7 @@ require_relative '../lib/file_io'
 # Test for Item Repository class
 class ItemRepositoryTest < Minitest::Test
   def setup
-    items_data = %(id,name,description,unit_price,merchant_id,created_at,updated_at
-                   263567292,Intricate Sunset,"&quot;Intricate Sunset&quot; Original by CarolinaLou at Divine Designs by Caroline
-                   Size: 7.5x10.5in
-                   Materials: acrylic, canvas board
-                   Ships from: USA
-                   Price: $81
-                   MORE AVAILABLE",6100,12336050,2016-01-11 20:57:28 UTC,2006-09-08 18:17:01 UTC
-                   263567376,"The Gold Coast, Chicago, Illinois","The Gold Coast of Chicago, Illinois 2013
-
-                   Taken and Edited by rakimagery
-
-                   This listing is for a canvas print that is gallery-wrapped around a 1.5” wooden stretcher frame. It arrives ready-to-hang right out of the box.
-
-
-                   Perfect for home or office!",25000,12336622,2016-01-11 20:57:57 UTC,2011-12-20 13:29:36 UTC
-                   263567474,Minty Green Knit Crochet Infinity Scarf,"- Super Chunky knit infinity scarf
-                   - Soft mixture of 97% Acrylic and 3% Viscose
-                   - Beautiful, Warm, and Stylish
-                   - Very easy to care for
-
-                   Hand wash with cold water and lay flat to dry",3800,12334871,2016-01-11 20:59:20 UTC,2009-12-09 12:08:04 UTC)
-    csv = CSV.parse(items_data, headers: :true, header_converters: :symbol)
+    csv = parse_data(items)
     @i_repo = ItemRepository.new(csv)
     @time = Time.now
     @item263567292 = @i_repo.items[263567292]
@@ -78,10 +57,11 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_can_find_all_by_price
-    item263567474 = @i_repo.create(name: '25 Dollars', description: 'Worst toy ever.',
-                   unit_price: 2500, merchant_id: 12334135,
-                   created_at: '2009-12-09 12:08:04 UTC',
-                   updated_at: '2010-12-09 12:08:04 UTC')
+    item263567474 = @i_repo.create(name: '25 Dollars',
+                                   description: 'Worst toy ever.',
+                                   unit_price: 2500, merchant_id: 12334135,
+                                   created_at: '2009-12-09 12:08:04 UTC',
+                                   updated_at: '2010-12-09 12:08:04 UTC')
     actual = @i_repo.find_all_by_price(BigDecimal(25))
     assert_equal [item263567474], actual
   end
@@ -140,5 +120,16 @@ class ItemRepositoryTest < Minitest::Test
                    unit_price: 300, merchant_id: 12334135,
                    created_at: '2009-12-09 12:08:04 UTC',
                    updated_at: '2010-12-09 12:08:04 UTC')
+  end
+
+  def items
+    %(id,name,description,unit_price,merchant_id,created_at,updated_at
+     263567292,Intricate Sunset,"acrylic paint",6100,12336050,2016-01-11 20:57:28 UTC,2006-09-08 18:17:01 UTC
+     263567376,"The Gold Coast, Chicago, Illinois","Description2",25000,12336622,2016-01-11 20:57:57 UTC,2011-12-20 13:29:36 UTC
+     263567474,Minty Green Knit Crochet Infinity Scarf,"acrylic yarn",3800,12334871,2016-01-11 20:59:20 UTC,2009-12-09 12:08:04 UTC)
+  end
+
+  def parse_data(data)
+    CSV.parse(data, headers: :true, header_converters: :symbol)
   end
 end

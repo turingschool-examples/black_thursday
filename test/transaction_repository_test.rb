@@ -7,12 +7,7 @@ require_relative '../lib/repositories/transaction_repository'
 # Test for the TransactionRepository class
 class TransactionRepositoryTest < Minitest::Test
   def setup
-    transactions_data = %(id,invoice_id,credit_card_number,credit_card_expiration_date,result,created_at,updated_at
-                          1,2179,4068631943231473,0217,success,2012-02-26 20:56:56 UTC,2012-02-26 20:56:56 UTC
-                          2,46,4177816490204479,0813,success,2012-02-26 20:56:56 UTC,2012-02-26 20:56:56 UTC
-                          3,750,4271805778010747,1220,success,2012-02-26 20:56:56 UTC,2012-02-26 20:56:56 UTC
-                          4,750,4271805778010747,0124,failed,2012-02-26 20:56:56 UTC,2012-02-26 20:56:56 UTC)
-    csv = CSV.parse(transactions_data, headers: :true, header_converters: :symbol)
+    csv = parse_data(transactions)
     @t_repo = TransactionRepository.new(csv)
     @transaction1 = @t_repo.transactions[1]
     @transaction2 = @t_repo.transactions[2]
@@ -97,5 +92,17 @@ class TransactionRepositoryTest < Minitest::Test
       created_at: '2009-12-09 12:08:04 UTC',
       updated_at: '2010-12-09 12:08:04 UTC'
     )
+  end
+
+  def transactions
+    %(id,invoice_id,credit_card_number,credit_card_expiration_date,result,created_at,updated_at
+    1,2179,4068631943231473,0217,success,2012-02-26 20:56:56 UTC,2012-02-26 20:56:56 UTC
+    2,46,4177816490204479,0813,success,2012-02-26 20:56:56 UTC,2012-02-26 20:56:56 UTC
+    3,750,4271805778010747,1220,success,2012-02-26 20:56:56 UTC,2012-02-26 20:56:56 UTC
+    4,750,4271805778010747,0124,failed,2012-02-26 20:56:56 UTC,2012-02-26 20:56:56 UTC)
+  end
+
+  def parse_data(data)
+    CSV.parse(data, headers: :true, header_converters: :symbol)
   end
 end

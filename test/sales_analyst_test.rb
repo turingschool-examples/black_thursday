@@ -52,17 +52,10 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_number_of_items_per_merchant
-    expected = { 12334185 => 3,
-                 12334213 => 2,
-                 12334195 => 7,
-                 12334315 => 1,
-                 12334499 => 1 }
+    expected = { 12334185 => 3, 12334213 => 2, 12334195 => 7,
+                 12334315 => 1, 12334499 => 1 }
     assert_equal expected, @sales_analyst.number_of_items_per_merchant
   end
-
-  # def test_average_item_price
-  #   assert_equal 7357.66, @sales_analyst.average_item_price.to_f.round(2)
-  # end
 
   def test_getting_invoice_count
     sales_analyst = new_sales_analyst_invoices_2
@@ -89,14 +82,14 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_invoices_per_merchant_plus_two_standard_deviations
-    sales_analyst = new_sales_analyst_b
-    actual = sales_analyst.average_invoices_per_merchant_plus_two_standard_deviations
+    analyst = new_sales_analyst_b
+    actual = analyst.average_invoices_per_merchant_plus_two_standard_deviations
     assert_equal 3.72, actual
   end
 
   def test_average_invoices_per_merchant_minus_two_standard_deviations
-    sales_analyst = new_sales_analyst_c
-    actual = sales_analyst.average_invoices_per_merchant_minus_two_standard_deviations
+    analyst = new_sales_analyst_c
+    actual = analyst.average_invoices_per_merchant_minus_two_standard_deviations
     assert_equal (-1.44), actual
   end
 
@@ -116,12 +109,14 @@ class SalesAnalystTest < Minitest::Test
 
   def test_average_invoices_per_weekday_standard_deviation
     sales_analyst = new_sales_analyst_c
-    assert_equal 2.14, sales_analyst.average_invoices_per_weekday_standard_deviation
+    actual = sales_analyst.average_invoices_per_weekday_standard_deviation
+    assert_equal 2.14, actual
   end
 
   def test_average_invoices_per_weekday_plus_one_standard_deviation
     sales_analyst = new_sales_analyst_c
-    assert_equal 5.31, sales_analyst.average_invoices_per_weekday_plus_one_standard_deviation.to_f
+    axl = sales_analyst.average_invoices_per_weekday_plus_one_standard_deviation
+    assert_equal 5.31, axl.to_f
   end
 
   def test_top_days_by_invoice_count
@@ -150,10 +145,39 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 10.53, sales_analyst.invoice_status(:returned)
   end
 
-  def new_sales_analyst_c
+  def test_invoice_paid_in_full
+    sales_analyst = new_sales_analyst_inv_paid
+    assert sales_analyst.invoice_paid_in_full?(750)
+    refute sales_analyst.invoice_paid_in_full?(751)
+  end
+
+  def test_total_of_invoice_paid_in_full
+    sales_analyst = new_sales_analyst_inv_paid
+    assert_equal 5570.75, sales_analyst.invoice_total(1)
+  end
+
+  def test_invoice_totals_by_customer
+    sales_analyst = new_sales_analyst_5
+    result = sales_analyst.invoice_totals_by_customer
+    assert_instance_of Hash, result
+  end
+
+  def test_it_finds_total_invoice_items
+    sales_analyst = new_sales_analyst_5
+    result = sales_analyst.total_invoice_items(1)
+    assert_equal 47, result
+  end
+
+  def test_invoice_items_by_quantity
+    sales_analyst = new_sales_analyst_5
+    result = sales_analyst.invoices_by_quantity
+    assert_equal 47, result.keys.max
+  end
+
+  def new_sales_analyst_b
     sales_engine = SalesEngine.from_csv(
       customers: './test/fixtures/test_customers.csv',
-      invoices: './test/fixtures/test_invoices2_c.csv',
+      invoices: './test/fixtures/test_invoices2_b.csv',
       invoice_items: './test/fixtures/test_invoice_items.csv',
       items: './test/fixtures/test_items1.csv',
       merchants: './test/fixtures/test_merchants2.csv',
@@ -162,10 +186,10 @@ class SalesAnalystTest < Minitest::Test
     sales_engine.analyst
   end
 
-  def new_sales_analyst_b
+  def new_sales_analyst_c
     sales_engine = SalesEngine.from_csv(
       customers: './test/fixtures/test_customers.csv',
-      invoices: './test/fixtures/test_invoices2_b.csv',
+      invoices: './test/fixtures/test_invoices2_c.csv',
       invoice_items: './test/fixtures/test_invoice_items.csv',
       items: './test/fixtures/test_items1.csv',
       merchants: './test/fixtures/test_merchants2.csv',
@@ -186,30 +210,6 @@ class SalesAnalystTest < Minitest::Test
     sales_engine.analyst
   end
 
-  def new_sales_analyst_inv_paid
-    sales_engine = SalesEngine.from_csv(
-      customers: './test/fixtures/test_customers.csv',
-      invoices: './test/fixtures/test_invoices_transactions.csv',
-      invoice_items: './test/fixtures/test_invoice_items.csv',
-      items: './test/fixtures/test_items1.csv',
-      merchants: './test/fixtures/test_merchants2.csv',
-      transactions: './test/fixtures/test_transactions.csv'
-    )
-    sales_engine.analyst
-  end
-
-  def test_invoice_paid_in_full
-    sales_analyst = new_sales_analyst_inv_paid
-
-    assert sales_analyst.invoice_paid_in_full?(750)
-    refute sales_analyst.invoice_paid_in_full?(751)
-  end
-
-  def test_total_of_invoice_paid_in_full
-    sales_analyst = new_sales_analyst_inv_paid
-    assert_equal 5570.75, sales_analyst.invoice_total(1)
-  end
-
   def new_sales_analyst_5
     sales_engine = SalesEngine.from_csv(
       customers: './test/fixtures/test_customers5.csv',
@@ -222,21 +222,15 @@ class SalesAnalystTest < Minitest::Test
     sales_engine.analyst
   end
 
-  def test_invoice_totals_by_customer
-    sales_analyst = new_sales_analyst_5
-    result = sales_analyst.invoice_totals_by_customer
-    assert_instance_of Hash, result
-  end
-
-  def test_it_finds_total_invoice_items
-    sales_analyst = new_sales_analyst_5
-    result = sales_analyst.total_invoice_items(1)
-    assert_equal 47, result
-  end
-
-  def test_invoice_items_by_quantity
-    sales_analyst = new_sales_analyst_5
-    result = sales_analyst.invoices_by_quantity
-    assert_equal 47, result.keys.max
+  def new_sales_analyst_inv_paid
+    sales_engine = SalesEngine.from_csv(
+      customers: './test/fixtures/test_customers.csv',
+      invoices: './test/fixtures/test_invoices_transactions.csv',
+      invoice_items: './test/fixtures/test_invoice_items.csv',
+      items: './test/fixtures/test_items1.csv',
+      merchants: './test/fixtures/test_merchants2.csv',
+      transactions: './test/fixtures/test_transactions.csv'
+    )
+    sales_engine.analyst
   end
 end

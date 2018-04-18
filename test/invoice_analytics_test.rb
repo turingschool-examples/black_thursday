@@ -1,8 +1,9 @@
-require_relative '../test/test_helper'
+require_relative 'test_helper'
 require_relative '../lib/sales_engine'
 require_relative '../lib/sales_analyst'
 require_relative '../lib/analytics/invoice_analytics'
 
+# Invoice Analytics test
 class InvoiceAnalyticsTest < Minitest::Test
   def setup
     sales_engine = SalesEngine.from_csv(
@@ -29,7 +30,8 @@ class InvoiceAnalyticsTest < Minitest::Test
 
   def test_average_invoices_per_merchant_standard_deviation
     sales_analyst = new_sales_analyst_invoices_2
-    assert_equal 0.63, sales_analyst.average_invoices_per_merchant_standard_deviation
+    actual = sales_analyst.average_invoices_per_merchant_standard_deviation
+    assert_equal 0.63, actual
   end
 
   def test_average_number_of_invoices_per_day

@@ -7,15 +7,8 @@ require_relative '../lib/file_io'
 # Test for InvoiceItem Repository class
 class InvoiceItemRepositoryTest < Minitest::Test
   def setup
-    invoice_item_data = %(id,item_id,invoice_id,quantity,unit_price,created_at,updated_at
-                          1,263519844,1,5,13635,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC
-                          2,263454779,1,9,23324,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC
-                          3,263451719,1,8,34873,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC
-                          11,263532898,2,3,30949,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC
-                          12,263438971,2,8,31099,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC
-                          13,263553176,3,4,78660,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC
-                          14,263438971,4,12,31099,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC)
-    csv = CSV.parse(invoice_item_data, headers: :true, header_converters: :symbol)
+    invoice_item_data = invoice_items
+    csv = parse_data(invoice_item_data)
     @inv_i_repo = InvoiceItemRepository.new(csv)
     @time = Time.now
     @invoice_item1 = @inv_i_repo.invoice_items[1]
@@ -98,5 +91,20 @@ class InvoiceItemRepositoryTest < Minitest::Test
                        unit_price: '23324',
                        created_at: '2012-03-27 14:54:09 UTC',
                        updated_at: '2014-03-27 14:54:09 UTC')
+  end
+
+  def invoice_items
+    %(id,item_id,invoice_id,quantity,unit_price,created_at,updated_at
+    1,263519844,1,5,13635,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC
+    2,263454779,1,9,23324,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC
+    3,263451719,1,8,34873,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC
+    11,263532898,2,3,30949,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC
+    12,263438971,2,8,31099,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC
+    13,263553176,3,4,78660,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC
+    14,263438971,4,12,31099,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC)
+  end
+
+  def parse_data(data)
+    CSV.parse(data, headers: :true, header_converters: :symbol)
   end
 end

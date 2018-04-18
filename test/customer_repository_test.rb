@@ -8,13 +8,7 @@ require_relative '../lib/repositories/customer_repository'
 # Test for the CustomerRepository class
 class CustomerRepositoryTest < Minitest::Test
   def setup
-    data = %(id,first_name,last_name,created_at,updated_at
-             1,Joey,Ondricka,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC
-             2,Cecelia,Ondricka,2012-03-27 14:54:10 UTC,2012-03-27 14:54:10 UTC
-             3,Mariah,Toy,2012-03-27 14:54:10 UTC,2012-03-27 14:54:10 UTC
-             4,Leanne,Braun,2012-03-27 14:54:10 UTC,2012-03-27 14:54:10 UTC
-             5,Mariah,Braun,2012-03-27 14:54:10 UTC,2012-03-27 14:54:10 UTC)
-    csv = CSV.parse(data, headers: true, header_converters: :symbol)
+    csv = parse_data(customers)
     @c_repo = CustomerRepository.new(csv)
     @customer1 = @c_repo.customers[1]
     @customer2 = @c_repo.customers[2]
@@ -95,5 +89,18 @@ class CustomerRepositoryTest < Minitest::Test
 
   def test_custom_inspect_returns_correct_value
     assert_equal '#<CustomerRepository 5 rows>', @c_repo.inspect
+  end
+
+  def customers
+    %(id,first_name,last_name,created_at,updated_at
+     1,Joey,Ondricka,2012-03-27 14:54:09 UTC,2012-03-27 14:54:09 UTC
+     2,Cecelia,Ondricka,2012-03-27 14:54:10 UTC,2012-03-27 14:54:10 UTC
+     3,Mariah,Toy,2012-03-27 14:54:10 UTC,2012-03-27 14:54:10 UTC
+     4,Leanne,Braun,2012-03-27 14:54:10 UTC,2012-03-27 14:54:10 UTC
+     5,Mariah,Braun,2012-03-27 14:54:10 UTC,2012-03-27 14:54:10 UTC)
+  end
+
+  def parse_data(data)
+    CSV.parse(data, headers: :true, header_converters: :symbol)
   end
 end

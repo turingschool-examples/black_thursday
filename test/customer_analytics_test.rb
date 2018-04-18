@@ -1,8 +1,9 @@
-require_relative '../test/test_helper'
+require_relative 'test_helper'
 require_relative '../lib/sales_engine'
 require_relative '../lib/sales_analyst'
 require_relative '../lib/analytics/customer_analytics'
 
+# Customer Analytics test
 class CustomerAnalyticsTest < Minitest::Test
   def setup
     sales_engine = SalesEngine.from_csv(
@@ -47,16 +48,9 @@ class CustomerAnalyticsTest < Minitest::Test
   end
 
   def test_it_finds_one_time_buyers_top_item
-    sales_engine = SalesEngine.from_csv(
-      customers: './data/customers.csv',
-      invoices: './data/invoices.csv',
-      invoice_items: './data/invoice_items.csv',
-      items: './data/items.csv',
-      merchants: './test/fixtures/test_merchants2.csv',
-      transactions: './test/fixtures/test_transactions5.csv'
-    )
-    sales_analyst = sales_engine.analyst
-    the_item = sales_engine.items.items[263505548]
+    utilities = one_time_buyers_analyst
+    sales_analyst = utilities[0]
+    the_item = utilities[1].items.items[263505548]
     assert_equal the_item, sales_analyst.one_time_buyers_top_item
   end
 
@@ -70,6 +64,18 @@ class CustomerAnalyticsTest < Minitest::Test
     result = sales_analyst.customers_with_unpaid_invoices
     assert_instance_of Customer, result.first
     assert_equal 25, result.length
+  end
+
+  def one_time_buyers_analyst
+    sales_engine = SalesEngine.from_csv(
+      customers: './data/customers.csv',
+      invoices: './data/invoices.csv',
+      invoice_items: './data/invoice_items.csv',
+      items: './data/items.csv',
+      merchants: './test/fixtures/test_merchants2.csv',
+      transactions: './test/fixtures/test_transactions5.csv'
+    )
+    [sales_engine.analyst, sales_engine]
   end
 
   def new_sales_analyst_5
@@ -96,7 +102,7 @@ class CustomerAnalyticsTest < Minitest::Test
     sales_engine.analyst
   end
 
-  def parse_data(csv)
-    CSV.parse(csv, headers: :true, header_converters: :symbol)
+  def parse_data(data)
+    CSV.parse(data, headers: :true, header_converters: :symbol)
   end
 end
