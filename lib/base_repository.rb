@@ -26,6 +26,14 @@ class BaseRepository
     models.delete(to_delete)
   end
 
+  def find_highest_id
+    models.map(&:id).max
+  end
+
+  def create_new_id
+    find_highest_id + 1
+  end
+
   def inspect
     "#<#{self.class} #{models.size} rows>"
   end
