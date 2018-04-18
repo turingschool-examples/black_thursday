@@ -46,6 +46,11 @@ class ItemAnalyticsTest < Minitest::Test
     assert_instance_of Item, result.first
   end
 
+  def test_highest_volume_items
+    sales_analyst = new_sales_analyst_5a
+    assert_instance_of Item, sales_analyst.highest_volume_items(1).first
+  end
+
   def real_data
     sales_engine = SalesEngine.from_csv(
       customers: './data/customers.csv',
@@ -82,6 +87,18 @@ class ItemAnalyticsTest < Minitest::Test
       2,2,124,1,200,2012-04-03,2012-04-03
       3,3,125,4,800,2012-04-12,2012-04-12
       4,4,126,1,200,2012-03-21,2012-03-21)
+  end
+
+  def new_sales_analyst_5a
+    sales_engine = SalesEngine.from_csv(
+      customers: './test/fixtures/test_customers5.csv',
+      invoices: './test/fixtures/test_invoices5.csv',
+      invoice_items: './test/fixtures/test_invoice_items5.csv',
+      items: './test/fixtures/test_items5a.csv',
+      merchants: './test/fixtures/test_merchants2.csv',
+      transactions: './test/fixtures/test_transactions5.csv'
+    )
+    sales_engine.analyst
   end
 
   def parse_data(data)

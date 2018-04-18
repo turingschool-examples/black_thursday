@@ -38,12 +38,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 14, @sales_analyst.number_of(:items)
   end
 
-  def test_can_count_by_invoice_created_date
-    exp_time = Time.parse('2009-02-07')
-    actual = @sales_analyst.invoice_count_by_created_date(exp_time)
-    assert_equal 1, actual
-  end
-
   def test_items_per_merchant
     result = @sales_analyst.items_per_merchant
     assert(result.all? { |_id, items| items.class == Array })
@@ -55,11 +49,6 @@ class SalesAnalystTest < Minitest::Test
     expected = { 12334185 => 3, 12334213 => 2, 12334195 => 7,
                  12334315 => 1, 12334499 => 1 }
     assert_equal expected, @sales_analyst.number_of_items_per_merchant
-  end
-
-  def test_getting_invoice_count
-    sales_analyst = new_sales_analyst_invoices_2
-    assert_equal 2, sales_analyst.invoice_count(12334264)
   end
 
   def test_number_of_invoices_per_merchant
@@ -81,6 +70,17 @@ class SalesAnalystTest < Minitest::Test
     assert_equal expected, sales_analyst.merchants_per_count
   end
 
+  def test_average_invoices_per_merchant
+    sales_analyst = new_sales_analyst_invoices_2
+    assert_equal 1.15, sales_analyst.average_invoices_per_merchant
+  end
+
+  def test_average_invoices_per_merchant_standard_deviation
+    sales_analyst = new_sales_analyst_invoices_2
+    actual = sales_analyst.average_invoices_per_merchant_standard_deviation
+    assert_equal 0.63, actual
+  end
+
   def test_average_invoices_per_merchant_plus_two_standard_deviations
     analyst = new_sales_analyst_b
     actual = analyst.average_invoices_per_merchant_plus_two_standard_deviations
@@ -91,43 +91,6 @@ class SalesAnalystTest < Minitest::Test
     analyst = new_sales_analyst_c
     actual = analyst.average_invoices_per_merchant_minus_two_standard_deviations
     assert_equal (-1.44), actual
-  end
-
-  def test_number_of_invoices_by_weekday
-    sales_analyst = new_sales_analyst_c
-    result = sales_analyst.number_of_invoices_by_weekday
-    assert_equal 6, result.length
-    expected = %w[saturday friday wednesday monday sunday thursday]
-    assert_equal expected, result.keys
-    assert_equal [4, 6, 2, 5, 1, 1], result.values
-  end
-
-  def test_average_invoices_per_weekday
-    sales_analyst = new_sales_analyst_c
-    assert_equal 3.17, sales_analyst.average_invoices_per_weekday.to_f
-  end
-
-  def test_average_invoices_per_weekday_standard_deviation
-    sales_analyst = new_sales_analyst_c
-    actual = sales_analyst.average_invoices_per_weekday_standard_deviation
-    assert_equal 2.14, actual
-  end
-
-  def test_average_invoices_per_weekday_plus_one_standard_deviation
-    sales_analyst = new_sales_analyst_c
-    axl = sales_analyst.average_invoices_per_weekday_plus_one_standard_deviation
-    assert_equal 5.31, axl.to_f
-  end
-
-  def test_top_days_by_invoice_count
-    sales_analyst = new_sales_analyst_c
-    assert_equal %w[Friday], sales_analyst.top_days_by_invoice_count
-  end
-
-  def test_number_of_invoices_by_status
-    sales_analyst = new_sales_analyst_c
-    result = sales_analyst.number_of_invoices_by_status(:returned)
-    assert_equal 2, result.length
   end
 
   def test_percentage_of_invoices_pending
@@ -151,11 +114,6 @@ class SalesAnalystTest < Minitest::Test
     refute sales_analyst.invoice_paid_in_full?(751)
   end
 
-  def test_total_of_invoice_paid_in_full
-    sales_analyst = new_sales_analyst_inv_paid
-    assert_equal 5570.75, sales_analyst.invoice_total(1)
-  end
-
   def test_invoice_totals_by_customer
     sales_analyst = new_sales_analyst_5
     result = sales_analyst.invoice_totals_by_customer
@@ -166,12 +124,6 @@ class SalesAnalystTest < Minitest::Test
     sales_analyst = new_sales_analyst_5
     result = sales_analyst.total_invoice_items(1)
     assert_equal 47, result
-  end
-
-  def test_invoice_items_by_quantity
-    sales_analyst = new_sales_analyst_5
-    result = sales_analyst.invoices_by_quantity
-    assert_equal 47, result.keys.max
   end
 
   def new_sales_analyst_b
