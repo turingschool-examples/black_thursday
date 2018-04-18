@@ -18,15 +18,6 @@ class SalesAnalyst
     standard_deviation(total, average_items_per_merchant).round(2)
   end
 
-  # this method returns an array of all merchants whose
-  #   total item count - average items per all merchants
-  #   is greater than one standard deviation
-  #
-  # iterate over merchant objects, for each object subtract
-  #   average items per all merchants from total items per merchant
-  #   in the loop. return the merchant object in the array if
-  #   the difference is greater than one standard deviation
-
   def merchants_with_high_item_count
     merchants.map do |merchant|
       difference = merchant.items.length - average_items_per_merchant
