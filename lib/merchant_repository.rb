@@ -2,7 +2,7 @@
 
 require 'CSV'
 require_relative 'merchant'
-require_relative 'repository'
+
 # Merchant Repository
 class MerchantRepository
   attr_reader :merchants,
