@@ -26,25 +26,30 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_nil se.invoices.find_by_id(4989)
   end
 
-  def test_find_by_name
-    assert_equal 1, se.invoices.find_all_by_customer_id('1').id
-    assert_nil se.invoices.find_all_by_customer_id('morty')
+  def test_find_by_customer_id
+    assert_equal '1', se.invoices.find_all_by_customer_id(1)[0].customer_id
   end
 
-  def test_find_all_by_name
-skip
-    assert_instance_of Array, se.invoices.find_all_by_name('Candisart')
-    assert_instance_of Invoice, se.invoices.find_all_by_name('Can')[0]
-    assert_equal 2, se.invoices.find_all_by_name('Can').count
-    assert_equal 12_334_112, se.invoices.find_all_by_name('Candisart')[0].id
+  def test_find_all_by_id
+    assert_instance_of Array, se.invoices.find_all_by_merchant_id(12335938)
+    assert_instance_of Invoice, se.invoices.find_all_by_merchant_id(12335938)[0]
+    assert_equal '1', se.invoices.find_all_by_merchant_id(12335938)[0].customer_id
+  end
+
+  def test_it_can_find_status
+    assert_equal 1, se.invoices.find_all_by_status("pending")[0].id
+    assert_equal 2, se.invoices.find_all_by_status("shipped")[0].id
   end
 
   def test_create_new_invoices_with_attributes
-skip
     attributes = {
-        name: "Turing School of Software and Design"
-      }
+  :customer_id => 7,
+  :merchant_id => 8,
+  :status      => "pending",
+  :created_at  => Time.now,
+  :updated_at  => Time.now,
+  }
 
-    assert_equal 12_334_124, se.invoices.create(attributes).id
+    assert_equal 4986, se.invoices.create(attributes).id
   end
 end
