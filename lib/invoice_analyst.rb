@@ -24,4 +24,13 @@ module InvoiceAnalyst
             by_deviation(merchant.invoices.length, average, std, 2)
         end
     end
+
+    def bottom_merchants_by_invoice_count
+        invoices = invoices_per_merchant
+        average = average_invoices_per_merchant
+        std = standard_deviation(invoices, average)
+        merchants.all.find_all do |merchant|
+            by_deviation(merchant.invoices.length, average, std, -2)
+        end
+    end
 end
