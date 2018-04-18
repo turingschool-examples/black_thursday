@@ -1,5 +1,7 @@
 # frozen_string_literal: true
+
 require 'time'
+
 # sales analyst
 class SalesAnalyst
   attr_reader :engine
