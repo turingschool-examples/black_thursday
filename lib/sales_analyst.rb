@@ -27,9 +27,7 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(id)
     found ||= @engine.items.find_all_by_merchant_id(id)
-    to_average = found.map do |item|
-      item.unit_price
-    end.reduce(:+) / found.length
+    to_average = found.map(&:unit_price).reduce(:+) / found.length
     to_average.round(2)
   end
 
@@ -73,13 +71,12 @@ class SalesAnalyst
   end
 
   def top_days_by_invoice_count
-    grouped = invoices.group_by { |invoice| invoice.created_at.wday }
-    hash = grouped.each_with_object({}) { |(key, value), hash| hash[key] = value.size }
+    grouped = group_invoices_by_days_of_the_week
+    hash = grouped.each_with_object({}) { |(k, v), hash| hash[k] = v.size }
     mean = hash.values.reduce(:+) / 7
     std_dev = standard_deviation(hash.values, mean) + mean
     day_nums = hash.select { |_, v| v > std_dev }.keys
-    days = day_nums.map { |num| Date::DAYNAMES[num] }
-    days
+    day_nums.map { |num| Date::DAYNAMES[num] }
   end
 
   def invoice_status(status)
@@ -160,5 +157,9 @@ class SalesAnalyst
 
   def unit_price_of_all_items
     items.map(&:unit_price)
+  end
+
+  def group_invoices_by_days_of_the_week
+    invoices.group_by { |invoice| invoice.created_at.wday }
   end
 end

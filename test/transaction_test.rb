@@ -7,13 +7,13 @@ require './lib/transaction'
 class TransactionTest < Minitest::Test
   def setup
     @t = Transaction.new({
-      :id => 6,
-      :invoice_id => 8,
-      :credit_card_number => '4242424242424242',
-      :credit_card_expiration_date => '0220',
-      :result => 'success',
-      :created_at => Time.now.to_s,
-      :updated_at => Time.now.to_s,
+      id:  6,
+      invoice_id:  8,
+      credit_card_number:  '4242424242424242',
+      credit_card_expiration_date:  '0220',
+      result:  'success',
+      created_at:  Time.now.to_s,
+      updated_at:  Time.now.to_s,
     }, 'parent' )
   end
 
