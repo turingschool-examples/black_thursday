@@ -1,0 +1,39 @@
+%link(rel="stylesheet" type="text/css" href="main.css")
+%link(href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet")
+%strong= "Black Thursday Analytics!"
+/ Averages
+%div(class="averages-container")
+  %div(class="value-container")
+    %h3= "Average Item Price"
+    %p= avg_item_price.to_i
+  %div(class="value-container")
+    %h3= "Average Invoices Per Day"
+    %p= avg_invoices_per_day
+  %div(class="value-container")
+    %h3= "Average Items per Merchant"
+    %p= avg_items_per_merchant
+/ Items
+%h3= "Golden Items"
+- golden_items.each do |name|
+  %p= name
+/ Customers
+%h2= "Customers"
+%h3= "One Time Buyers"
+-one_time_buyers.each do |name|
+  %p= name
+%h3= "Top Items Bought Once"
+%p= top_item_bought_once
+/ Invoices
+%h2= "Invoices"
+%h3= "Top Days by Invoice Count"
+-top_days_by_invoice_count.each do |day|
+  %p= day
+/ Merchants
+%h2= "Merchants"
+%h3= "Top Merchants"
+-top_merchants.each do |name|
+  %p= name
+%h3= "Bottom Merchants"
+-bottom_merchants.each do |name|
+  %p= name
+
