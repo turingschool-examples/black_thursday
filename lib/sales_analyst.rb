@@ -1,8 +1,8 @@
-require "./lib/sales_engine"
-require "./lib/calculator"
-require "./lib/merchant_analyst"
-require "./lib/item_analyst"
-require "./lib/invoice_analyst"
+require_relative "sales_engine"
+require_relative "calculator"
+require_relative "merchant_analyst"
+require_relative "item_analyst"
+require_relative "invoice_analyst"
 
 class SalesAnalyst
     include Calculator
@@ -17,14 +17,14 @@ class SalesAnalyst
     end
 
     def items
-        @sales_engine.item_repo
+        @sales_engine.items
     end
 
     def merchants
-        @sales_engine.merchant_repo
+        @sales_engine.merchants
     end
 
     def invoices
-        @sales_engine.invoice_repo
+        @sales_engine.invoices
     end
 end

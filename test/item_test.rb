@@ -38,8 +38,7 @@ class ItemTest < Minitest::Test
     assert_equal ItemRepo, item.parent.class
   end
 
-  def test_item_knows_its_merchant
-    skip
+  def test_item_it_returns_price_as_float
+    assert_equal 13.50, @item.price
   end
-  
 end

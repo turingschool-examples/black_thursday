@@ -49,7 +49,7 @@ class ItemRepoTest < Minitest::Test
 
     def test_it_can_find_all_by_price
         price = "13.50"
-        items = item_repo.find_all_with_price(price)
+        items = item_repo.find_all_by_price(price)
 
         items_array = items.map { |item| item.id }
 
@@ -58,7 +58,7 @@ class ItemRepoTest < Minitest::Test
 
     def test_find_all_with_price_in_range
         price_range = Range.new(10, 30)
-        items = item_repo.find_all_with_price_in_range(price_range)
+        items = item_repo.find_all_by_price_in_range(price_range)
 
         items_array = items.map { |item| item.id }
 

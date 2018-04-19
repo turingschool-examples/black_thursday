@@ -1,5 +1,6 @@
 require_relative '../lib/item'
 require_relative '../lib/load_file'
+require 'pry'
 class ItemRepo
   attr_reader :items,
               :contents,
@@ -32,13 +33,13 @@ class ItemRepo
         end
     end
 
-    def find_all_with_price(price)
+    def find_all_by_price(price)
         items.find_all do |item|
             item.unit_price == BigDecimal.new(price)
         end
     end
 
-    def find_all_with_price_in_range(price_range)
+    def find_all_by_price_in_range(price_range)
         items.find_all do |item|
         price_range.include?(item.unit_price)
         end
@@ -51,7 +52,6 @@ class ItemRepo
   end
 
   def find_merchant_by_merchant_id(merchant_id)
-    binding.pry
     parent.find_merchant_by_merchant_id(merchant_id)
   end
 
@@ -63,19 +63,19 @@ class ItemRepo
     def create(attrs)
         new_id = find_max_id + 1
         attrs[:id] = new_id.to_s
-        new_merchant = Item.new(attrs, self)
-        new_merchant.created_at = Time.now
-        new_merchant.updated_at = Time.now
-        items << new_merchant
-        return new_merchant
+        attrs[:created_at] = Time.now
+        attrs[:updated_at] = Time.now
+        new_item = Item.new(attrs, self)
+        items << new_item
+        return new_item
     end
 
     def update(id, attrs)
         item_to_update = find_by_id(id)
-        item_to_update.name = attrs[:name]
-        item_to_update.description = attrs[:description]
-        item_to_update.unit_price = BigDecimal.new(attrs[:unit_price])/100
-        item_to_update.updated_at = Time.now
+        item_to_update.name = attrs[:name] unless attrs[:name].nil?
+        item_to_update.description = attrs[:description] unless attrs[:description].nil?
+        item_to_update.unit_price = BigDecimal.new(attrs[:unit_price]) unless attrs[:unit_price].nil?
+        item_to_update.updated_at = Time.now unless item_to_update.nil?
     end
 
     def delete(id)

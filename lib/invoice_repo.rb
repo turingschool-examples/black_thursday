@@ -20,7 +20,6 @@ class InvoiceRepo
     invoices.find do |invoice|
       invoice.id == id
     end
-    nil
   end
 
   def find_all_by_customer_id(cust_id)
@@ -49,9 +48,20 @@ class InvoiceRepo
   def create(attrs)
         attrs[:id] = find_max_id.to_s
         new_invoice = Invoice.new(attrs, self)
-        # new_invoice.created_at = Time.now
-        # new_invoice.updated_at = Time.now
+        new_invoice.created_at = Time.now
+        new_invoice.updated_at = Time.now
         invoices << new_invoice
         return new_invoice
   end
+
+  def update(id, attrs)
+        invoice_to_update = find_by_id(id)
+        invoice_to_update.status = attrs[:status].to_sym unless attrs[:status].nil?
+        invoice_to_update.updated_at = Time.now unless invoice_to_update.nil?
+    end
+
+    def delete(id)
+        invoice_to_delete = find_by_id(id)
+        invoices.delete(invoice_to_delete)
+    end
 end

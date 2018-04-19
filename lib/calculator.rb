@@ -17,7 +17,9 @@ module Calculator
     def average(array_of_numbers)
         return 0 if array_of_numbers.empty?
         sum = array_of_numbers.sum
-        average = sum / array_of_numbers.length
+        sum = BigDecimal(sum)
+        length = BigDecimal(array_of_numbers.length)
+        BigDecimal(sum / length)
     end
 
     def square(difference)

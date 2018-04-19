@@ -1,14 +1,14 @@
 module MerchantAnalyst
     def items_per_merchant
-       @sales_engine.merchant_repo.merchants.map do |merchant|
+       merchants.merchants.map do |merchant|
             id = merchant.id
-            @sales_engine.item_repo.find_all_by_merchant_id(id).length
+            @sales_engine.items.find_all_by_merchant_id(id).length
         end
     end
 
     def average_items_per_merchant
         num_per_merchant = items_per_merchant
-        average = (num_per_merchant.inject(:+) / num_per_merchant.length)
+        average = ((num_per_merchant.inject(:+).to_f / num_per_merchant.length.to_f)).round(2)
     end
 
     def average_items_per_merchant_standard_deviation
@@ -30,15 +30,15 @@ module MerchantAnalyst
     def average_item_price_for_merchant(merchant_id)
        merchant = merchants.find_by_id(merchant_id)
        item_prices = merchant.items.map do |item|
-            item.price.round(1)
+            item.unit_price
        end
-       average(item_prices)
+        average(item_prices).round(2)
     end
 
     def average_average_price_per_merchant
         merchants_average = merchants.all.map do |merchant|
             average_item_price_for_merchant(merchant.id)
         end
-        average(merchants_average)
+        average(merchants_average).round(2)
     end
 end

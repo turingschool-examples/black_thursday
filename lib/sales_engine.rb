@@ -1,8 +1,8 @@
-require './lib/merchant_repo'
-require './lib/item_repo'
-require './lib/invoice_repo'
-require './lib/sales_relationships'
-require './lib/load_file'
+require_relative 'merchant_repo'
+require_relative 'item_repo'
+require_relative 'invoice_repo'
+require_relative 'sales_relationships'
+require_relative 'load_file'
 
 class SalesEngine
   include SalesRelationships
@@ -19,15 +19,15 @@ class SalesEngine
     SalesAnalyst.new(self)
   end
 
-  def item_repo
-    @item_repo ||= ItemRepo.new(LoadFile.load(path[:item_data]), self)
+  def items
+    @items ||= ItemRepo.new(LoadFile.load(@path[:items]), self)
   end
 
-  def merchant_repo
-    @merchant_repo ||= MerchantRepo.new(LoadFile.load(path[:merchant_data]), self)
+  def merchants
+    @merchants ||= MerchantRepo.new(LoadFile.load(@path[:merchants]), self)
   end
 
-  def invoice_repo
-    @invoice_repo ||= InvoiceRepo.new(LoadFile.load(path[:invoice_data]),self)
+  def invoices
+    @invoices ||= InvoiceRepo.new(LoadFile.load(@path[:invoices]),self)
   end
 end

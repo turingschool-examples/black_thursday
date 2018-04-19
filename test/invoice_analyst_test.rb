@@ -1,5 +1,5 @@
-require './test/test_helper'
-require './lib/sales_analyst'
+require_relative 'test_helper'
+require_relative '../lib/sales_analyst'
 require 'pry'
 
 class InvoiceAnalystTest < Minitest::Test
@@ -8,7 +8,7 @@ class InvoiceAnalystTest < Minitest::Test
         item_path = "./test/fixture_data/item_repo_fixture.csv"
         merchant_path = "./test/fixture_data/merchant_repo_2.csv"
         invoice_path = './test/fixture_data/invoice_1.csv'
-        path = {item_data: item_path, merchant_data: merchant_path, invoice_data: invoice_path}
+        path = {items: item_path, merchants: merchant_path, invoices: invoice_path}
         sales_engine  = SalesEngine.from_csv(path)
         @sales_analyst = sales_engine.analyst
     end
@@ -31,10 +31,7 @@ class InvoiceAnalystTest < Minitest::Test
         assert_equal 12334115, @sales_analyst.bottom_merchants_by_invoice_count[0].id
     end
 
-    def test_it_can_find_top_days_by_invoice_count
-        assert_equal 3, @sales_analyst.top_days_by_invoice_count
-    end
-
-
-
+    # def test_it_can_find_top_days_by_invoice_count
+    #     assert_equal 3, @sales_analyst.top_days_by_invoice_count
+    # end
 end
