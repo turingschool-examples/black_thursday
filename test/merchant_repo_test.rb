@@ -59,19 +59,19 @@ class MerchantRepoTest < Minitest::Test
   end
 
   def test_it_can_update_a_merchant
-    attrs_1 = { name: 'BreadCo' }
-    merchant = mr.create(attrs_1).last
-    attrs_2 = { name: 'Bread Shop' }
+    attrs1 = { name: 'BreadCo' }
+    merchant = mr.create(attrs1).last
+    attrs2 = { name: 'Bread Shop' }
     id = merchant.id
-    mr.update(id, attrs_2)
+    mr.update(id, attrs2)
 
     assert_equal 'Bread Shop', merchant.name
     assert_equal '2018-04-11', merchant.updated_at
   end
 
   def test_it_can_delete_a_merchant
-    attrs_1 = { name: 'BreadCo' }
-    merchant = mr.create(attrs_1).last
+    attrs1 = { name: 'BreadCo' }
+    merchant = mr.create(attrs1).last
     id = merchant.id
     mr.delete(id)
     refute mr.all.include?(merchant)
