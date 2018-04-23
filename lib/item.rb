@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'pry'
 require 'bigdecimal'
+# creates items
 class Item
-
   attr_reader   :id,
                 :merchant_id,
                 :parent,
@@ -18,7 +20,7 @@ class Item
     @name = data[:name]
     @description = data[:description]
     @downcased_description = description.downcase
-    @unit_price = BigDecimal.new(data[:unit_price])/100
+    @unit_price = BigDecimal(data[:unit_price]) / 100
     @unit_price_to_dollars = unit_price.to_f
     @merchant_id = data[:merchant_id].to_i
     @created_at = Time.parse(data[:created_at].to_s)

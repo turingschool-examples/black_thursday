@@ -1,9 +1,11 @@
-require_relative "sales_engine"
-require_relative "calculator"
-require_relative "merchant_analyst"
-require_relative "item_analyst"
-require_relative "invoice_analyst"
+# frozen_string_literal: true
 
+require_relative 'sales_engine'
+require_relative 'calculator'
+require_relative 'merchant_analyst'
+require_relative 'item_analyst'
+require_relative 'invoice_analyst'
+# analyzes business data
 class SalesAnalyst
   include Calculator
   include MerchantAnalyst

@@ -1,9 +1,12 @@
+# frozen_string_literal: true
+
 require_relative 'merchant_repo'
 require_relative 'item_repo'
 require_relative 'invoice_repo'
 require_relative 'sales_relationships'
 require_relative 'load_file'
 
+# ties together all repos
 class SalesEngine
   include SalesRelationships
   attr_reader :path
@@ -11,7 +14,7 @@ class SalesEngine
     @path = path
   end
 
-   def self.from_csv(path)
+  def self.from_csv(path)
     SalesEngine.new(path)
   end
 
@@ -28,6 +31,6 @@ class SalesEngine
   end
 
   def invoices
-    @invoices ||= InvoiceRepo.new(LoadFile.load(@path[:invoices]),self)
+    @invoices ||= InvoiceRepo.new(LoadFile.load(@path[:invoices]), self)
   end
 end

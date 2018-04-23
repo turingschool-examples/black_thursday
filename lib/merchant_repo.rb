@@ -1,16 +1,18 @@
+# frozen_string_literal: true
+
 require 'csv'
 require 'time'
 require_relative 'merchant'
 require_relative '../lib/load_file'
-
-
+# creates merchants and merchant behaviors
 class MerchantRepo
   attr_reader :merchants,
               :parent
 
   def initialize(data, parent)
-    @merchants = data.map {|row| 
-      Merchant.new(row, self)}
+    @merchants = data.map do |row|
+      Merchant.new(row, self)
+    end
     @parent = parent
   end
 
@@ -26,7 +28,7 @@ class MerchantRepo
 
   def find_by_name(name)
     all.find do |merchant|
-      merchant.name.downcase == name.downcase
+      merchant.name.casecmp(name).zero?
     end
   end
 
@@ -37,7 +39,7 @@ class MerchantRepo
   end
 
   def find_max_id
-    max = all.max_by { |merchant| merchant.id }
+    max = all.max_by(&:id)
     max.id.to_i + 1
   end
 
@@ -51,15 +53,10 @@ class MerchantRepo
 
   def update(id, attrs)
     merchant = find_by_id(id)
-    if merchant == nil
-      return nil
-      # this elsif block may be unnecessary may be able to use original update
-    elsif attrs.key?(:id) == true
-      return nil
-    else
-      merchant.name = attrs[:name]
-      merchant.updated_at = Time.now.strftime("%Y-%m-%d")
-    end
+    return nil if merchant.nil?
+    return nil if attrs.key?(:id) == true
+    merchant.name = attrs[:name]
+    merchant.updated_at = Time.now.strftime('%Y-%m-%d')
   end
 
   def delete(id)

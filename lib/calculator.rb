@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# business calculations
 module Calculator
   def standard_deviation(numbers, average)
     difference = difference(numbers, average)
@@ -24,16 +27,12 @@ module Calculator
 
   def square(difference)
     difference.map do |index|
-      (index ** 2)
+      (index**2)
     end
   end
 
-  def divide(difference)
-    num_minus_one = difference.length - 1
-  end
-    
   def by_deviation(number, average, std, deviations)
-    if deviations < 0
+    if deviations.negative?
       number < (average + (std * deviations))
     else
       number > (average + (std * deviations))

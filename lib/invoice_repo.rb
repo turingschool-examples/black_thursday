@@ -1,14 +1,16 @@
+# frozen_string_literal: true
+
 require 'csv'
 require 'time'
 require_relative 'invoice'
 require_relative '../lib/load_file'
-
+# creates invoices and searches
 class InvoiceRepo
   attr_reader :invoices,
               :parent
 
   def initialize(data, parent)
-    @invoices = data.map {|row| Invoice.new(row, self)}
+    @invoices = data.map { |row| Invoice.new(row, self) }
     @parent = parent
   end
 
@@ -41,8 +43,8 @@ class InvoiceRepo
   end
 
   def find_max_id
-    max = invoices.max_by { |invoice| invoice.id }
-      max.id.to_i + 1
+    max = invoices.max_by(&:id)
+    max.id.to_i + 1
   end
 
   def create(attrs)
@@ -51,7 +53,7 @@ class InvoiceRepo
     new_invoice.created_at = Time.now
     new_invoice.updated_at = Time.now
     invoices << new_invoice
-    return new_invoice
+    new_invoice
   end
 
   def update(id, attrs)

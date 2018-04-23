@@ -1,6 +1,7 @@
-# documentation
-class Merchant
 # frozen_string_literal: true
+
+# This shiny device polishes bared foos
+class Merchant
   attr_reader :id,
               :parent
   attr_accessor :name,

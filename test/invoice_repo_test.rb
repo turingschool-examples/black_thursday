@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'test_helper'
 require_relative '../lib/invoice_repo'
 
@@ -7,13 +9,12 @@ class InvoiceRepoTest < Minitest::Test
               :attrs
 
   def setup
-    @attrs = {
-        :id          => 5,
-        :customer_id => 1,
-        :merchant_id =>12335938,
-        :status      => 'pending',
-        :created_at  => '2018-04-10',
-        :updated_at  => '2018-04-10'}
+    @attrs = { id: 5,
+               customer_id: 1,
+               merchant_id: 12_335_938,
+               status: 'pending',
+               created_at: '2018-04-10',
+               updated_at: '2018-04-10' }
     data = LoadFile.load('./test/fixture_data/invoice_1.csv')
     @parent = Minitest::Mock.new
     @invoice_repo = InvoiceRepo.new(data, parent)
@@ -38,31 +39,31 @@ class InvoiceRepoTest < Minitest::Test
   end
 
   def test_it_returns_array_if_no_valid_cust_id
-    assert_equal [], invoice_repo.find_all_by_customer_id(0000000)
+    assert_equal [], invoice_repo.find_all_by_customer_id(0o000000)
   end
 
   def test_it_can_find_all_by_merchant_id
-    assert_equal 1, invoice_repo.find_all_by_merchant_id(12334269).count
+    assert_equal 1, invoice_repo.find_all_by_merchant_id(12_334_269).count
   end
 
   def test_it_returns_empty_array_if_no_valid_merchant_id
-    assert_equal [], invoice_repo.find_all_by_merchant_id(0000000)
+    assert_equal [], invoice_repo.find_all_by_merchant_id(0o000000)
   end
 
   def test_it_can_find_all_by_pending_status
-    assert_equal 10, invoice_repo.find_all_by_status("pending").count
+    assert_equal 10, invoice_repo.find_all_by_status('pending').count
   end
 
   def test_it_can_find_all_by_shipped_status
-    assert_equal 14, invoice_repo.find_all_by_status("shipped").count
+    assert_equal 14, invoice_repo.find_all_by_status('shipped').count
   end
 
   def test_it_can_find_all_by_returned_status
-    assert_equal 1, invoice_repo.find_all_by_status("returned").count
+    assert_equal 1, invoice_repo.find_all_by_status('returned').count
   end
 
   def test_returns_empty_array_if_no_valid_statuses
-    assert_equal [], invoice_repo.find_all_by_status("hello")
+    assert_equal [], invoice_repo.find_all_by_status('hello')
   end
 
   def test_it_can_find_max_id
@@ -70,6 +71,6 @@ class InvoiceRepoTest < Minitest::Test
   end
 
   def test_it_can_create_a_new_invoice
-      assert_instance_of Invoice, invoice_repo.create(attrs)
+    assert_instance_of Invoice, invoice_repo.create(attrs)
   end
 end

@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# creates invoices
 class Invoice
   attr_reader   :customer_id,
                 :merchant_id,
@@ -7,7 +10,7 @@ class Invoice
                 :status,
                 :id
 
-  def initialize(data, parent)
+  def initialize(data, _parent)
     @id = data[:id].to_i
     @customer_id = data[:customer_id].to_i
     @merchant_id = data[:merchant_id].to_i

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'test_helper'
 require_relative '../lib/invoice'
 
@@ -5,14 +7,12 @@ class InvoiceTest < Minitest::Test
   attr_reader :invoice
 
   def setup
-    data = {
-            :id => 5,
-            :customer_id => 1,
-            :merchant_id => 12335938,
-            :status => 'pending',
-            :created_at => '2018-04-10',
-            :updated_at => '2018-04-10'
-           }
+    data = { id: 5,
+             customer_id: 1,
+             merchant_id: 12_335_938,
+             status: 'pending',
+             created_at: '2018-04-10',
+             updated_at: '2018-04-10' }
     @invoice = Invoice.new(data, self)
   end
 
@@ -29,7 +29,7 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_it_returns_the_status
-    assert_equal "pending", invoice.status
+    assert_equal 'pending', invoice.status
   end
 
   def test_it_has_created_at

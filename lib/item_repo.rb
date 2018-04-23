@@ -1,13 +1,16 @@
+# frozen_string_literal: true
+
 require_relative '../lib/item'
 require_relative '../lib/load_file'
 require 'pry'
+# item repository
 class ItemRepo
   attr_reader :items,
               :contents,
               :parent
 
   def initialize(data, parent)
-    @items = data.map {|row| Item.new(row, self)}
+    @items = data.map { |row| Item.new(row, self) }
     @parent = parent
   end
 
@@ -23,10 +26,10 @@ class ItemRepo
 
   def find_by_name(name)
     items.find do |item|
-      item.name.downcase == name.downcase
+      item.name.casecmp(name).zero?
     end
   end
-    
+
   def find_all_with_description(description)
     items.find_all do |item|
       item.description.downcase.include?(description.downcase)
@@ -35,18 +38,18 @@ class ItemRepo
 
   def find_all_by_price(price)
     items.find_all do |item|
-      item.unit_price == BigDecimal.new(price)
+      item.unit_price == BigDecimal(price)
     end
   end
 
   def find_all_by_price_in_range(price_range)
     items.find_all do |item|
-    price_range.include?(item.unit_price)
+      price_range.include?(item.unit_price)
     end
   end
 
   def find_all_by_merchant_id(id)
-    items.find_all do |item| 
+    items.find_all do |item|
       item.merchant_id == id
     end
   end
@@ -56,7 +59,7 @@ class ItemRepo
   end
 
   def find_max_id
-    max = items.max_by { |item| item.id }
+    max = items.max_by(&:id)
     max.id.to_i
   end
 
@@ -67,15 +70,16 @@ class ItemRepo
     attrs[:updated_at] = Time.now
     new_item = Item.new(attrs, self)
     items << new_item
-    return new_item
-     end
+    new_item
+  end
 
   def update(id, attrs)
-    item_to_update = find_by_id(id)
-    item_to_update.name = attrs[:name] unless attrs[:name].nil?
-    item_to_update.description = attrs[:description] unless attrs[:description].nil?
-    item_to_update.unit_price = BigDecimal.new(attrs[:unit_price]) unless attrs[:unit_price].nil?
-    item_to_update.updated_at = Time.now unless item_to_update.nil?
+    item = find_by_id(id)
+    item.name = attrs[:name] unless attrs[:name].nil?
+    item.description = attrs[:description] unless attrs[:description].nil?
+    price = BigDecimal(attrs[:unit_price])
+    item.unit_price = price unless attrs[:unit_price].nil?
+    item.updated_at = Time.now unless item_to_update.nil?
   end
 
   def delete(id)
