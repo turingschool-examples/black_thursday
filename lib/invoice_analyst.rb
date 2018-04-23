@@ -1,66 +1,54 @@
 module InvoiceAnalyst
-    def invoices_per_merchant
-        invoices = merchants.all.map do |merchant|
-            merchant.invoices.length
-        end
+  def invoices_per_merchant
+    invoices = merchants.all.map do |merchant|
+      merchant.invoices.length
     end
+  end
 
-    def average_invoices_per_merchant
-        invoices = invoices_per_merchant
-        average(invoices).round(2).to_f
+  def average_invoices_per_merchant
+    invoices = invoices_per_merchant
+    average(invoices).round(2).to_f
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    invoices = invoices_per_merchant
+    average = average_invoices_per_merchant
+    standard_deviation(invoices, average)
+  end
+
+  def top_merchants_by_invoice_count
+    invoices = invoices_per_merchant
+    average = average_invoices_per_merchant
+    std = standard_deviation(invoices, average)
+    merchants.all.find_all do |merchant|
+      by_deviation(merchant.invoices.length, average, std, 2)
     end
+  end
 
-    def average_invoices_per_merchant_standard_deviation
-        invoices = invoices_per_merchant
-        average = average_invoices_per_merchant
-        standard_deviation(invoices, average)
+  def bottom_merchants_by_invoice_count
+    invoices = invoices_per_merchant
+    average = average_invoices_per_merchant
+    std = standard_deviation(invoices, average)
+    merchants.all.find_all do |merchant|
+      by_deviation(merchant.invoices.length, average, std, -2)
     end
+  end
 
-    def top_merchants_by_invoice_count
-        invoices = invoices_per_merchant
-        average = average_invoices_per_merchant
-        std = standard_deviation(invoices, average)
-        merchants.all.find_all do |merchant|
-            by_deviation(merchant.invoices.length, average, std, 2)
-        end
-    end
+  def top_days_by_invoice_count
+    days = invoices.all.map {|invoice| invoice.created_at.wday}
+    group = days.group_by {|day| day}
+    group.each {|key, value| group[key] = value.length}
+    average = average(group.values)
+    std = standard_deviation(group.values, average)
+    day_and_invoice_num = group.select {|_, value| (value > (average + std))}
+    day_and_invoice_num.keys.map {|day| Date::DAYNAMES[day]}
+  end
 
-    def bottom_merchants_by_invoice_count
-        invoices = invoices_per_merchant
-        average = average_invoices_per_merchant
-        std = standard_deviation(invoices, average)
-        merchants.all.find_all do |merchant|
-            by_deviation(merchant.invoices.length, average, std, -2)
-        end
-    end
-
-    def find_all_invoices_by_date
-        invoice_dates = invoices.all map do |invoice|
-            invoice.created_at
-        end
-
-        invoice_dates.map do |invoice_date|
-            invoice_dates.count(invoice_date)
-            by_deviation()
-        end
-
-        
-    end
-
-    # def top_days_by_invoice_count
-    #     invoice_dates = invoices.all.map do |invoice|
-    #         invoice.created_at
-    #     end
-    #     binding.pry
-    #     average = average(invoice_dates)
-    #     std = standard_deviation(invoice_date, average)
-
-    #     a = invoice_dates.map do |invoice_date|
-    #         invoices_per_day = invoice_dates.count(invoice_date)
-    #         by_deviation(invoices_per_day, average, std, 1)
-    #     end
-    #     binding.pry
-    #     return a
-    # end
-
+  def invoice_status(status)
+    invoice_status = invoices.all.map {|invoice| invoice.status}
+    group = invoice_status.group_by {|status| status}
+    group.each {|key, value| group[key] = value.length}
+    invoice_status_percentage = (BigDecimal(group[status]) / BigDecimal(invoices.all.length)) * 100
+    invoice_status_percentage.to_f.round(2)
+  end
 end

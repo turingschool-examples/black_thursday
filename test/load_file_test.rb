@@ -12,5 +12,4 @@ class LoadFileTest < Minitest::Test
     actual = LoadFile.load(file_name)
     assert_instance_of CSV, actual
   end
-
 end

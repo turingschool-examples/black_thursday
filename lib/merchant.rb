@@ -1,6 +1,8 @@
+# documentation
 class Merchant
+# frozen_string_literal: true
   attr_reader :id,
-              :parent            
+              :parent
   attr_accessor :name,
                 :created_at,
                 :updated_at
@@ -24,5 +26,4 @@ class Merchant
   def customers
     parent.find_customers_of_merchant_id(id)
   end
-
 end
