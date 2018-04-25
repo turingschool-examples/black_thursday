@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'pry'
 require 'etsy'
-Etsy.protocol   = "https"
-Etsy.api_key    = "rfbxa70abkze5b6u9jm1kh6k"
-Etsy.api_secret = "oh27n3yw8u"
+Etsy.protocol   = 'https'
+Etsy.api_key    = 'rfbxa70abkze5b6u9jm1kh6k'
+Etsy.api_secret = 'oh27n3yw8u'
 request         = Etsy.request_token
 puts "Go here: #{Etsy.verification_url}"
 
@@ -18,10 +20,7 @@ me     = Etsy.myself(access.token, access.secret)
     File.write shop_path, shop.result.to_json
     shop.listings.each do |listing|
       listing_path = "tmp/listing-#{listing.id}.json"
-      File.write listing_path, listing.result.merge("shop_id" => shop.id).to_json
+      File.write listing_path, listing.result.merge('shop_id' => shop.id).to_json
     end
   end
 end
-
-require "pry"
-binding.pry
