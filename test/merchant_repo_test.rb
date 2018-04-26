@@ -66,7 +66,7 @@ class MerchantRepoTest < Minitest::Test
     mr.update(id, attrs2)
 
     assert_equal 'Bread Shop', merchant.name
-    assert_equal '2018-04-11', merchant.updated_at
+    assert_equal '2018-04-26', merchant.updated_at
   end
 
   def test_it_can_delete_a_merchant

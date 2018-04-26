@@ -108,7 +108,7 @@ class ItemRepoTest < Minitest::Test
 
     assert_equal 'Disney scrabble frames', item.name
     assert item.description.include?('Disney glitter frames')
-    assert_equal 13.50, item.unit_price
+    assert_equal 7.0, item.unit_price_to_dollars
   end
 
   def test_it_can_delete

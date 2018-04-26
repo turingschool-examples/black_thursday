@@ -19,7 +19,7 @@ class ItemAnalystTest < Minitest::Test
     assert_instance_of Array, @sales_analyst.golden_items
     assert_instance_of Item, @sales_analyst.golden_items[0]
     sorted_golden_items = @sales_analyst.golden_items
-    actual_1 = sorted_golden_items.map(&:price)
+    actual_1 = sorted_golden_items.map(&:unit_price_to_dollars)
     expected_1 = [650.0, 650.0, 600.0,
                   600.0, 600.0, 600.0,
                   600.0, 600.0, 600.0,

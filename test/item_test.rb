@@ -40,6 +40,6 @@ class ItemTest < Minitest::Test
   end
 
   def test_item_it_returns_price_as_float
-    assert_equal 13.50, @item.price
+    assert_equal 13.50, @item.unit_price_to_dollars
   end
 end

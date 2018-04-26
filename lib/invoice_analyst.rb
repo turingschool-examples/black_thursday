@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
+# invoice analyst
 module InvoiceAnalyst
   def invoices_per_merchant
-    invoices = merchants.all.map do |merchant|
+    merchants.all.map do |merchant|
       merchant.invoices.length
     end
   end

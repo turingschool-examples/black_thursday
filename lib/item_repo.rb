@@ -77,9 +77,9 @@ class ItemRepo
     item = find_by_id(id)
     item.name = attrs[:name] unless attrs[:name].nil?
     item.description = attrs[:description] unless attrs[:description].nil?
-    price = BigDecimal(attrs[:unit_price])
+    price = BigDecimal(attrs[:unit_price]) unless attrs[:unit_price].nil?
     item.unit_price = price unless attrs[:unit_price].nil?
-    item.updated_at = Time.now unless item_to_update.nil?
+    item.updated_at = Time.now unless item.nil?
   end
 
   def delete(id)

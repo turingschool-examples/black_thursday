@@ -25,13 +25,13 @@ class InvoiceRepoTest < Minitest::Test
   end
 
   def test_it_returns_am_array_of_all_invoices
-    assert_equal 25, invoice_repo.all.count
+    assert_equal 201, invoice_repo.all.count
     assert_instance_of Array, invoice_repo.all
     assert_instance_of Invoice, invoice_repo.all.sample
   end
 
   def test_it_returns_nil_if_there_is_no_id
-    assert_nil invoice_repo.find_by_id(2)
+    assert_nil invoice_repo.find_by_id(21341242135123)
   end
 
   def test_it_can_find_all_customers
@@ -43,7 +43,7 @@ class InvoiceRepoTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_merchant_id
-    assert_equal 1, invoice_repo.find_all_by_merchant_id(12_334_269).count
+    assert_equal 10, invoice_repo.find_all_by_merchant_id(12335938).count
   end
 
   def test_it_returns_empty_array_if_no_valid_merchant_id
@@ -51,15 +51,15 @@ class InvoiceRepoTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_pending_status
-    assert_equal 10, invoice_repo.find_all_by_status('pending').count
+    assert_equal 58, invoice_repo.find_all_by_status(:pending).count
   end
 
   def test_it_can_find_all_by_shipped_status
-    assert_equal 14, invoice_repo.find_all_by_status('shipped').count
+    assert_equal 120, invoice_repo.find_all_by_status(:shipped).count
   end
 
   def test_it_can_find_all_by_returned_status
-    assert_equal 1, invoice_repo.find_all_by_status('returned').count
+    assert_equal 23, invoice_repo.find_all_by_status(:returned).count
   end
 
   def test_returns_empty_array_if_no_valid_statuses
@@ -67,7 +67,7 @@ class InvoiceRepoTest < Minitest::Test
   end
 
   def test_it_can_find_max_id
-    assert_equal 26, invoice_repo.find_max_id
+    assert_equal 202, invoice_repo.find_max_id
   end
 
   def test_it_can_create_a_new_invoice
