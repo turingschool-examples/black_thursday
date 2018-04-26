@@ -50,7 +50,7 @@ module InvoiceAnalyst
     invoice_status = invoices.all.map(&:status)
     group = invoice_status.group_by { |status| status }
     group.each { |key, value| group[key] = value.length }
-    a = BigDecimal(group[status]
+    a = BigDecimal(group[status])
     b = BigDecimal(invoices.all.length)
     invoice_status_percentage = a / b * 100
     invoice_status_percentage.to_f.round(2)
