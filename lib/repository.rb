@@ -49,4 +49,10 @@ class Repository
     end
     @members.delete_at(i)
   end
+
+  def update(id, attributes)
+    @members.each do | member |
+      member.name = attributes[:name]
+    end
+  end
 end
