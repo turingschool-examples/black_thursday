@@ -5,14 +5,14 @@ require 'pry'
 
 class SalesEngineTest < Minitest::Test
   def test_it_exists
-    se = SalesEngine.new
+    se = SalesEngine.new("something")
     assert_instance_of(SalesEngine, se)
   end
 
   def test_from_csv_creates_merchant_repository
-    se = SalesEngine.new
     merchants_hash = {:merchants => "./data/merchants.csv"}
-    se.from_csv(merchants_hash)
+    se = SalesEngine.from_csv(merchants_hash)
+    binding.pry
     assert_equal MerchantRepository, se.merchants.class
   end
 end

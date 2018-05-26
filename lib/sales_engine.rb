@@ -3,19 +3,23 @@ require_relative 'merchant_repository'
 require 'pry'
 
 class SalesEngine
-  def initialize
+  attr_reader :file_path
+
+  def initialize(file_path)
     @csv_parser = CsvParser.new
+    @file_path = file_path
   end
 
-  def from_csv(file_path)
-    @merchants ||= MerchantRepository.new([:merchants] = merchants)
+  def self.from_csv(file_path)
+    SalesEngine.new(file_path)
   end
 
   def merchants
-    @csv_parser.load_csv('./data/merchants.csv')
+    binding.pry
+    @merchants ||= MerchantRepository.new(@csv_parser.load_csv(file_path[:merchants]))
   end
 
-  def items
-    #instantiiates the items repository.
-  end
+  # def items
+  #   #instantiiates the items repository.
+  # end
 end
