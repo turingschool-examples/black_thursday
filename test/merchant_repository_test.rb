@@ -1,6 +1,6 @@
 require './test/test_helper'
 require './lib/merchant'
-require './lib/merchant_repository.rb'
+require './lib/merchant_repository'
 
 class MerchantRepositoryTest < Minitest::Test
   def setup
