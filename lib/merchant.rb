@@ -7,4 +7,7 @@ class Merchant
     @name = attributes[:name]
   end
 
+  def update_name(attributes)
+    @name = attributes[:name]
+  end
 end

@@ -1,17 +1,22 @@
 class MerchantRepository
   def initialize
     @merchants = []
-
-  end
-
-  def all
-    @merchants
   end
 
   def create(attributes)
     new_merchant = Merchant.new(attributes)
     @merchants << new_merchant
     new_merchant
+  end
+
+  def update(current_id, new_attributes)
+    merchant = find_by_id(current_id)
+    merchant.update_name(new_attributes)
+  end
+
+  def delete(id)
+    merchant = find_by_id(id)
+    @merchants.delete(merchant)
   end
 
   def find_by_id(id)
@@ -34,6 +39,10 @@ class MerchantRepository
       end
     end
     return matches
+  end
+
+  def all
+    @merchants
   end
 
 end

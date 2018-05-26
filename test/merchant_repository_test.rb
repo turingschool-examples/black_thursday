@@ -90,4 +90,43 @@ class MerchantRepositoryTest < MiniTest::Test
     assert_equal [merchant_3], mr.find_all_by_name('ros')
     assert_equal [], mr.find_all_by_name('Galvanize')
   end
+
+  def test_merchant_name_can_be_updated
+    mr = MerchantRepository.new
+    attributes_1 = {:id => 5, :name => 'Turing School'}
+    merchant_1 = mr.create(attributes_1)
+    attributes_2 = {:id => 8, :name => 'Apple'}
+    merchant_2 = mr.create(attributes_2)
+    attributes_3 = {:id => 4, :name => 'Microsoft'}
+    merchant_3 = mr.create(attributes_3)
+    new_attributes_1 = {:name => 'The Basement'}
+    new_attributes_2 = {:name => 'Samsung'}
+    new_attributes_3 = {:name => 'Xbox'}
+    mr.update(5, new_attributes_1)
+    mr.update(8, new_attributes_2)
+    mr.update(4, new_attributes_3)
+
+    assert_equal 'The Basement', merchant_1.name
+    assert_equal 'Samsung', merchant_2.name
+    assert_equal 'Xbox', merchant_3.name
+    assert_equal 5, merchant_1.id
+    assert_equal 8, merchant_2.id
+    assert_equal 4, merchant_3.id
+  end
+
+  def test_merchant_can_be_deleted_by_id
+    mr = MerchantRepository.new
+    attributes_1 = {:id => 5, :name => 'Turing School'}
+    merchant_1 = mr.create(attributes_1)
+    attributes_2 = {:id => 8, :name => 'Apple'}
+    merchant_2 = mr.create(attributes_2)
+    attributes_3 = {:id => 4, :name => 'Microsoft'}
+    merchant_3 = mr.create(attributes_3)
+
+    assert_equal [merchant_1, merchant_2, merchant_3], mr.all
+
+    mr.delete(8)
+
+    assert_equal [merchant_1, merchant_3], mr.all
+  end
 end
