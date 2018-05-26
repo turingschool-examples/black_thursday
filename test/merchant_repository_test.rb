@@ -76,4 +76,18 @@ class MerchantRepositoryTest < MiniTest::Test
 
     assert_nil mr.find_by_name('Google')
   end
+
+  def test_it_returns_array_of_merchants_by_their_name
+    mr = MerchantRepository.new
+    attributes_1 = {:id => 5, :name => 'Turing School'}
+    merchant_1 = mr.create(attributes_1)
+    attributes_2 = {:id => 8, :name => 'Apple School'}
+    merchant_2 = mr.create(attributes_2)
+    attributes_3 = {:id => 4, :name => 'Microsoft'}
+    merchant_3 = mr.create(attributes_3)
+
+    assert_equal [merchant_1, merchant_2], mr.find_all_by_name('Sch')
+    assert_equal [merchant_3], mr.find_all_by_name('ros')
+    assert_equal [], mr.find_all_by_name('Galvanize')
+  end
 end
