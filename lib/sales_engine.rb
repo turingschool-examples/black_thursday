@@ -2,7 +2,6 @@ require_relative 'file_loader'
 
 class SalesEngine
   include FileLoader
-  attr_reader :file_paths
 
   def initialize(file_paths)
     @file_paths = file_paths
@@ -12,8 +11,8 @@ class SalesEngine
     new(file_hash)
   end
 
-  def merchant_file
-    @merchants ||= MerchantRepository.new(load_file(file_paths[:merchants], self)
+  def merchants
+    @merchants ||= MerchantRepository.new(load_file(file_paths[:merchants]), self)
   end
 end
 
@@ -21,4 +20,3 @@ end
   # :items     => "./data/items.csv",
   :merchants => "./data/merchants.csv"
 })
-puts se.merchant_file
