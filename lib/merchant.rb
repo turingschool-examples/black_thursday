@@ -1,5 +1,5 @@
 class Merchant
-  #id,name,created_at,updated_at
+  # id,name,created_at,updated_at
   attr_reader :id, :name
 
   def initialize(args)
