@@ -40,4 +40,13 @@ class Repository
     return {id: id, name: name}
   end
 
+  def delete(id)
+    i = nil
+    @members.each_with_index do | member, index |
+      if member.id == id
+        i = index
+      end
+    end
+    @members.delete_at(i)
+  end
 end
