@@ -49,5 +49,4 @@ class Repository
     end
     @members.delete_at(i)
   end
-x
 end
