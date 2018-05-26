@@ -70,4 +70,12 @@ class MerchantRepositoryTest < Minitest::Test
 
     assert_equal [], @mr.members
   end
+
+  def test_merch_repo_can_update_attributes_of_items
+    @mr.create({name: "Billy Dee Williams"})
+
+    @mr.update(0, {name: "Charles deGaulle"})
+
+    assert_equal "Charles deGaulle", @mr.members[0].name
+  end
 end
