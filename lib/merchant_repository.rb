@@ -6,7 +6,6 @@ class MerchantRepository < Repository
   end
 
   def find_all_by_name(name)
-
     names = @members.map do |member|
       if member.name.downcase.include?(name.downcase)
         member

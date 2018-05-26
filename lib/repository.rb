@@ -1,4 +1,5 @@
 class Repository
+  attr_reader   :members
 
   def initialize
     @members = []
@@ -26,10 +27,17 @@ class Repository
 
   def create(attributes)
     name = attributes[:name]
-    id = @members.sort_by do | member |
-      member.id
-    end.last + 1
+    id = nil
+    if @members.length == 0
+      id = 0
+    else
+      ids = @members.sort_by do | member |
+        member.id
+      end
+      id = ids.last.id + 1
+    end
 
     return {id: id, name: name}
   end
+
 end
