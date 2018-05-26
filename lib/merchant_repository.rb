@@ -9,10 +9,14 @@ class MerchantRepository
   end
 
   def create(attributes)
-    @merchants << Merchant.new(attributes)
+    new_merchant = Merchant.new(attributes)
+    @merchants << new_merchant
+    new_merchant
   end
-  
-  def find_by_id(id)
 
+  def find_by_id(id)
+    @merchants.detect do |merchant|
+      merchant.id == id
+    end
   end
 end
