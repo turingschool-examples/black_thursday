@@ -12,7 +12,6 @@ class SalesEngineTest < Minitest::Test
   def test_from_csv_creates_merchant_repository
     merchants_hash = {:merchants => "./data/merchants.csv"}
     se = SalesEngine.from_csv(merchants_hash)
-    binding.pry
     assert_equal MerchantRepository, se.merchants.class
   end
 end

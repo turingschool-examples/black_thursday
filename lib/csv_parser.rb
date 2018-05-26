@@ -10,6 +10,7 @@ class CsvParser
   end
 
   def load_csv(csv_file)
-    @csv_file = CSV.read("#{csv_file}", { encoding: "UTF-8", headers: true, header_converters: :symbol, converters: :all})
+    data = CSV.foreach(csv_file, headers: true, header_converters: :symbol, converters: :all).map { |row| row.to_h }
+    return data
   end
 end

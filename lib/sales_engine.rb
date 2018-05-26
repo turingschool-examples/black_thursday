@@ -15,11 +15,6 @@ class SalesEngine
   end
 
   def merchants
-    binding.pry
     @merchants ||= MerchantRepository.new(@csv_parser.load_csv(file_path[:merchants]))
   end
-
-  # def items
-  #   #instantiiates the items repository.
-  # end
 end
