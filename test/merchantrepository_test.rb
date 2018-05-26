@@ -12,7 +12,7 @@ class MerchantRepositoryTest < Minitest::Test
   def test_merchant_has_attributes
     mr = MerchantRepository.new
     merchant = mr.create({:id => 5, :name => "Turing School"})
-    assert_equal 5 , merchant.id
+    assert_equal 5, merchant.id
     assert_equal "Turing School", merchant.name
   end
 
@@ -50,7 +50,7 @@ class MerchantRepositoryTest < Minitest::Test
     assert mr.find_by_id("12334105")
     mr.delete("12334105")
     refute mr.find_by_id("12334105")
-  end 
+  end
 
 
 

@@ -1,4 +1,3 @@
-require 'pry'
 class MerchantRepository
   attr_reader :merchants
 
@@ -54,9 +53,9 @@ class MerchantRepository
   end
 
   def delete(id)
-    find_by_id(id) = nil
-    @merchants.compact
-  end 
+    deleted_merchant = find_by_id(id)
+    @merchants.delete(deleted_merchant)
+  end
 
 
 end
