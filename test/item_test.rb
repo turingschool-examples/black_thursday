@@ -4,17 +4,41 @@ require 'bigdecimal'
 
 class ItemTest < Minitest::Test
 
-  def test_it_exits
-    args = {
-            :name        => "Pencil",
-            :description => "You can use it to write things",
-            :unit_price  => BigDecimal.new(10.99,4),
-            :created_at  => Time.now,
-            :updated_at  => Time.now,
-            }
-    item = Item.new(args)
-    assert_instance_of Item, item
+  def setup
+    @args = {
+      :id          => '1234',
+      :name        => 'Pencil',
+      :description => 'You can use it to write things',
+      :unit_price  => '1099',
+      :created_at  => '2016-01-11 09:34:06 UTC',
+      :updated_at  => '2007-06-04 21:35:10 UTC'
+      }
+    @item = Item.new(@args)
   end
 
+  def test_it_exits
+    assert_instance_of Item, @item
+  end
 
+  def test_it_has_attributes
+    assert_equal 1234, @item.id
+    assert_equal 'Pencil', @item.name
+    assert_equal 'You can use it to write things', @item.description
+    assert_instance_of BigDecimal, @item.unit_price
+  end
+
+  def test_time_attributes
+    assert_instance_of Time, @item.created_at
+    assert_equal 2016, @item.created_at.year
+    assert_equal 34, @item.created_at.min
+
+    assert_instance_of Time, @item.updated_at
+    assert_equal 06, @item.updated_at.mon
+    assert_equal 21, @item.updated_at.hour  
+  end
+
+  def test_unit_price_to_dollars
+   assert_instance_of Float, @item.unit_price_to_dollars
+  assert_equal 10.99, @item.unit_price_to_dollars
+  end
 end
