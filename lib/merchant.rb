@@ -1,4 +1,9 @@
 class Merchant
+  attr_reader :id,
+              :name,
+              :created_at,
+              :updated_at,
+              :parent
 
   def initialize(data, parent)
     @id = data[:id].to_i

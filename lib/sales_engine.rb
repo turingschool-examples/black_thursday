@@ -13,7 +13,7 @@ class SalesEngine
   end
 
   def merchant_file
-    load_file(file_paths[:merchants])
+    @merchants ||= MerchantRepository.new(load_file(file_paths[:merchants], self)
   end
 end
 
