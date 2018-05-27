@@ -77,4 +77,11 @@ class ItemRepository
     return matching_merchants
   end
 
+  def update(id, attributes)
+    updated_item = find_by_id(id)
+    updated_item.name = attributes[:name]
+    updated_item.description = attributes[:description]
+    updated_item.unit_price = attributes[:unit_price]
+    updated_item.updated_time = Time.now 
+  end
 end
