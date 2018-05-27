@@ -41,4 +41,13 @@ class ItemRepository < Repository
     super
     @members.push(Item.new(attributes))
   end
+
+  def update(attributes)
+    super
+    @members.each do | member |
+      member.description = attributes[:description]
+      member.unit_price = attributes[:unit_price]
+    end
+    member.updated_at = Time.now
+  end
 end
