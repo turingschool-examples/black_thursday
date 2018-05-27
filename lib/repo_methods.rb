@@ -8,7 +8,6 @@ module RepoMethods
   def create(attributes)
     attributes[:id] = new_id
     @collection[new_id] = Merchant.new(attributes)
-    # binding.pry
   end
 
   def new_id
@@ -28,9 +27,7 @@ module RepoMethods
   end
 
   def find_by_id(id)
-    @collection.detect do |merchant|
-      merchant.id == id
-    end
+    @collection[id]
   end
 
   def find_by_name(name)

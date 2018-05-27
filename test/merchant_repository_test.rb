@@ -25,25 +25,22 @@ class MerchantRepositoryTest < MiniTest::Test
     mr = MerchantRepository.new(data_from_file)
     attributes = {:name => 'Turing School', :created_at => "2018-04-25", :updated_at => "2018-05-25"}
     mr.create(attributes)
-    
+
     assert_equal 12334123, mr.all[-2].id
     assert_equal 12334124, mr.all[-1].id
     assert_equal 'Turing School', mr.all.last.name
   end
 
   def test_it_can_return_merchant_by_its_id
-    skip
-    mr = MerchantRepository.new
-    attributes_1 = {:id => 5, :name => 'Turing School'}
+    data_from_file = load('./data/merchant_sample.csv')
+    mr = MerchantRepository.new(data_from_file)
+    attributes_1 = {:name => 'Turing School', :created_at => '2018-04-25', :updated_at => '2018-05-25'}
     merchant_1 = mr.create(attributes_1)
-    attributes_2 = {:id => 8, :name => 'Apple'}
+    attributes_2 = {:id => 8, :name => 'Apple', :created_at => '2018-04-25', :updated_at => '2018-05-25'}
     merchant_2 = mr.create(attributes_2)
-    attributes_3 = {:id => 4, :name => 'Microsoft'}
-    merchant_3 = mr.create(attributes_3)
 
-    assert_equal merchant_1, mr.find_by_id(5)
-    assert_equal merchant_2, mr.find_by_id(8)
-    assert_equal merchant_3, mr.find_by_id(4)
+    assert_equal merchant_1, mr.find_by_id(12334124)
+    assert_equal merchant_2, mr.find_by_id(12334125)
   end
 
   def test_it_returns_nil_if_merchant_id_is_not_present
