@@ -1,10 +1,9 @@
 require_relative 'test_helper.rb'
-require_relative '../lib/salesengine.rb'
+require_relative '../lib/sales_engine.rb'
 require_relative '../lib/merchantrepository'
 require_relative '../lib/merchant'
 require_relative '../lib/item_repository.rb'
-require 'minitest/autorun'
-require 'minitest/pride'
+
 require 'csv'
 class ItemRepositoryTest < Minitest::Test
   def test_it_exists
@@ -67,5 +66,5 @@ class ItemRepositoryTest < Minitest::Test
     ir.delete("12336622")
     refute ir.find_by_id("12336622")
   end
-  
+
 end

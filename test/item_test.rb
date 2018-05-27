@@ -1,12 +1,11 @@
 require_relative 'test_helper.rb'
-require_relative '../lib/salesengine.rb'
+require_relative '../lib/sales_engine.rb'
 require_relative '../lib/merchantrepository'
 require_relative '../lib/merchant'
 require_relative '../lib/item_repository.rb'
 require_relative '../lib/item'
 require 'bigdecimal'
-require 'minitest/autorun'
-require 'minitest/pride'
+
 require 'csv'
 class ItemTest < Minitest::Test
   def test_it_exists
@@ -107,7 +106,7 @@ class ItemTest < Minitest::Test
                 })
   assert_equal 10.99, i.unit_price_to_dollars
   end
-    
+
 
 
 

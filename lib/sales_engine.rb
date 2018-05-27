@@ -9,18 +9,12 @@ class SalesEngine
               :merchant_data,
               :item_data
 
-  def initialize
-    @items
-    @merchants
-    @merchant_data
-    @item_data
-  end
-
   def self.from_csv(sales_data)
     @merchant_data = CSV.open(sales_data[:merchants], headers: true, header_converters: :symbol)
     @item_data = CSV.open(sales_data[:items], headers: true, header_converters: :symbol)
-    SalesEngine.new.create_merchant_repo(@merchant_data)
-    SalesEngine.new.create_item_repo(@item_data)
+    se = SalesEngine.new
+    se.create_merchant_repo(@merchant_data)
+    se.create_item_repo(@item_data)
   end
 
   def create_merchant_repo(merchant_data)
@@ -40,7 +34,7 @@ class SalesEngine
                         updated_at: item[:updated_at],
                         merchant_id: item[:merchant_id]})
       end
-      binding.pry
+    
     end
 
 
