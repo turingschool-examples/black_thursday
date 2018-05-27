@@ -17,8 +17,8 @@ module RepoMethods
   end
 
   def update(current_id, new_attributes)
-    merchant = find_by_id(current_id)
-    merchant.update_name(new_attributes)
+    @collection[current_id].updated_at = Date.today.strftime("%Y-%m-%e")
+    @collection[current_id].update_name(new_attributes)
   end
 
   def delete(id)
@@ -31,14 +31,14 @@ module RepoMethods
   end
 
   def find_by_name(name)
-    @collection.detect do |merchant|
+    all.detect do |merchant|
       merchant.name == name
     end
   end
 
   def find_all_by_name(name_fragment)
     matches = []
-    @collection.each do |merchant|
+    all.each do |merchant|
       if merchant.name.include?(name_fragment)
         matches << merchant
       end

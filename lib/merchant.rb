@@ -1,6 +1,7 @@
 class Merchant
   attr_reader :id,
               :name
+  attr_accessor :updated_at
 
   def initialize(attributes)
     @id = attributes[:id].to_i
