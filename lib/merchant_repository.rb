@@ -14,7 +14,34 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    @merchant_repo.find {|merchant| merchant.id == id}
+    all.find {|merchant| merchant.id == id}
   end
 
+  def find_by_name(name)
+    all.find {|merchant| merchant.name.downcase == name.downcase}
+  end
+
+  def find_all_by_name(fragment)
+    all.find_all {|merchant| merchant.name.downcase.include?(fragment.downcase)}
+  end
+
+  def create(attributes)
+    name = attributes[:name]
+    highest = all.max_by {|merchant| merchant.id.to_i}
+    merchant = {name: name, id: (highest.id + 1), created_at: Date.today}
+    @merchant_repo.push(Merchant.new(merchant, self))
+  end
+
+  def update(id_num, attributes)
+    merchant = find_by_id(id_num)
+    new_name = attributes[:name] if attributes[:name] != nil
+    merchant.update_name(new_name)
+    merchant
+  end
+
+  def delete(id_num)
+    merchant = find_by_id(id_num)
+    @merchant_repo.delete_if {|merchant| merchant.id == id_num}
+    merchant
+  end
 end
