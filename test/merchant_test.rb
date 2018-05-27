@@ -25,8 +25,8 @@ class MerchantTest < Minitest::Test
 
     assert_equal 12334105, merchant.id
     assert_equal "Shopin1901", merchant.name
-    assert_equal "2010-12-10", merchant.created_at
-    assert_equal "2011-12-04", merchant.updated_at
+    assert_instance_of Time, merchant.created_at
+    assert_instance_of Time, merchant.updated_at
     assert_equal mock_parent, merchant.parent
   end
 end
