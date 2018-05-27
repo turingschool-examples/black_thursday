@@ -7,7 +7,7 @@ class ItemRepository < Repository
 
   def find_all_with_description(fragment)
     @members.map do | member |
-      if member.description.include?(fragment)
+      if member.description.downcase.include?(fragment.downcase)
         member
       end
     end
