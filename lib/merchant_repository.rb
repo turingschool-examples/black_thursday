@@ -1,4 +1,5 @@
 require_relative 'merchant'
+require 'date'
 
 class MerchantRepository
   attr_reader :merchant_repo,
@@ -28,7 +29,10 @@ class MerchantRepository
   def create(attributes)
     name = attributes[:name]
     highest = all.max_by {|merchant| merchant.id.to_i}
-    merchant = {name: name, id: (highest.id + 1), created_at: Date.today}
+    merchant = {name: name, 
+                id: (highest.id + 1),
+                created_at: Date.today.to_s,
+                updated_at: Date.today.to_s}
     @merchant_repo.push(Merchant.new(merchant, self))
   end
 
