@@ -22,8 +22,7 @@ module RepoMethods
   end
 
   def delete(id)
-    merchant = find_by_id(id)
-    @collection.delete(merchant)
+    @collection.delete(id)
   end
 
   def find_by_id(id)
@@ -31,16 +30,16 @@ module RepoMethods
   end
 
   def find_by_name(name)
-    all.detect do |merchant|
-      merchant.name == name
+    all.detect do |element|
+      element.name == name
     end
   end
 
   def find_all_by_name(name_fragment)
     matches = []
-    all.each do |merchant|
-      if merchant.name.include?(name_fragment)
-        matches << merchant
+    all.each do |element|
+      if element.name.include?(name_fragment)
+        matches << element
       end
     end
     return matches

@@ -112,19 +112,15 @@ class MerchantRepositoryTest < MiniTest::Test
   end
 
   def test_merchant_can_be_deleted_by_id
-    skip
-    mr = MerchantRepository.new
-    attributes_1 = {:id => 5, :name => 'Turing School'}
+    data_from_file = load('./data/merchant_sample.csv')
+    mr = MerchantRepository.new(data_from_file)
+    attributes_1 = {:name => 'Turing School', :created_at => '2018-04-25', :updated_at => '2018-05-25'}
     merchant_1 = mr.create(attributes_1)
-    attributes_2 = {:id => 8, :name => 'Apple'}
-    merchant_2 = mr.create(attributes_2)
-    attributes_3 = {:id => 4, :name => 'Microsoft'}
-    merchant_3 = mr.create(attributes_3)
 
-    assert_equal [merchant_1, merchant_2, merchant_3], mr.all
+    assert_equal merchant_1, mr.find_by_id(12334124)
 
-    mr.delete(8)
-
-    assert_equal [merchant_1, merchant_3], mr.all
+    mr.delete(12334124)
+    
+    assert_nil mr.find_by_id(12334124)
   end
 end
