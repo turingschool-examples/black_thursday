@@ -67,4 +67,52 @@ class ItemRepositoryTest < Minitest::Test
     price = BigDecimal.new(20000)
     assert_equal 0, @se.items.find_all_by_price(price).length
   end
+
+  def test_it_returns_array_of_items_priced_within_givin_range
+    range = (1000.00..1500.00)
+    items = @se.items.find_all_by_price_in_range(range)
+
+    assert_equal 19, items.length
+
+    range = (10.00..150.00)
+    items = @se.items.find_all_by_price_in_range(range)
+
+    assert_equal 910, items.length
+
+    range = (10.00..15.00)
+    items = @se.items.find_all_by_price_in_range(range)
+
+    assert_equal 205, items.length
+
+    range = (0..10.0)
+    items = @se.items.find_all_by_price_in_range(range)
+
+    assert_equal 302, items.length
+  end
+
+  def test_it_returns_an_array_of_items_associated_with_given_merchant_id
+    merchant_id = 12334326
+    items = @se.items.find_all_by_merchant_id(merchant_id)
+
+    assert_equal 6, items.length
+
+    merchant_id = 12336020
+    items = @se.items.find_all_by_merchant_id(merchant_id)
+
+    assert_equal 2, items.length
+  end
+
+  def test_it_creates_a_new_item_instance
+    attributes = {
+      name: "Capita Defenders of Awesome 2018",
+      description: "This board both rips and shreds",
+      unit_price: BigDecimal.new(399.99, 5),
+      created_at: Time.now,
+      updated_at: Time.now,
+      merchant_id: 25
+    }
+    @se.items.create(attributes)
+    item = @se.items.find_by_id(263567475)
+    assert_equal "Capita Defenders of Awesome 2018", item.name
+  end
 end
