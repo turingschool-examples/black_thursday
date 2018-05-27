@@ -1,3 +1,4 @@
 require 'simplecov'
 SimpleCov.start
-require './lib/salesengine'
+require 'minitest/autorun'
+require 'minitest/pride'

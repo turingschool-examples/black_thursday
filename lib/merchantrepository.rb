@@ -1,3 +1,4 @@
+require_relative '../lib/merchant'
 class MerchantRepository
   attr_reader :merchants
 
@@ -6,8 +7,7 @@ class MerchantRepository
   end
 
   def create(attributes)
-    new_id = @merchants[-1].id.to_i + 1
-    new_merchant = Merchant.new({id: new_id.to_s, name: attributes[:name]})
+    new_merchant = Merchant.new({id: attributes[:id], name: attributes[:name], created_at: attributes[:created_at], updated_at: attributes[:updated_at]})
     @merchants << new_merchant
     return new_merchant
   end

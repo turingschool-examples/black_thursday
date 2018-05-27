@@ -1,9 +1,9 @@
-require_relative '../lib/salesengine.rb'
+require_relative 'test_helper.rb'
+require_relative '../lib/sales_engine.rb'
 require_relative '../lib/merchantrepository'
 require_relative '../lib/merchant'
 require_relative '../lib/item_repository.rb'
-require 'minitest/autorun'
-require 'minitest/pride'
+
 require 'csv'
 class ItemRepositoryTest < Minitest::Test
   def test_it_exists
@@ -51,6 +51,20 @@ class ItemRepositoryTest < Minitest::Test
     ir.create({name: 'Teddy Bear', description: 'fluffy', unit_price: 10})
   end
 
+  def test_update
+    ir = ItemRepository.new
+    original_item = ir.create({name: 'Teddy Bear', description: 'fluffy', unit_price: 10})
+    updated_item = ir.update('12336623',{name: 'Pokemon', description: 'powerful', unit_price: 15})
+    assert_equal 'Pokemon',updated_item.name
+    assert_equal 'powerful', updated_item.description
+    assert_equal '15', updated_item.unit_price
+  end
 
+  def test_delete_merchant
+    ir = ItemRepository.new
+    assert ir.find_by_id("12336622")
+    ir.delete("12336622")
+    refute ir.find_by_id("12336622")
+  end
 
 end

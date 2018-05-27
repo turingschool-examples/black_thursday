@@ -1,3 +1,4 @@
+require_relative '../lib/item'
 class ItemRepository
 
   def initialize
@@ -5,10 +6,14 @@ class ItemRepository
   end
 
   def create(attributes)
-    new_id = @merchants[-1].id.to_i + 1
-    new_merchant = Merchant.new({id: new_id.to_s, name: attributes[:name]})
-    @merchants << new_merchant
-    return new_merchant
+    new_item = Item.new({id: attributes[:id], name: attributes[:name],
+                                  description: attributes[:description],
+                                  unit_price: attributes[:unit_price],
+                                  created_at: attributes[:created_at],
+                                  updated_at: attributes[:updated_at],
+                                  merchant_id: attributes[:merchant_id]})
+    @items << new_item
+    return new_item
   end
 
   def all
@@ -77,4 +82,16 @@ class ItemRepository
     return matching_merchants
   end
 
+  def update(id, attributes)
+    updated_item = find_by_id(id)
+    updated_item.name = attributes[:name]
+    updated_item.description = attributes[:description]
+    updated_item.unit_price = attributes[:unit_price]
+    updated_item.updated_time = Time.now
+  end
+
+  def delete(id)
+    deleted_item = find_by_id(id)
+    @items.delete(deleted_item)
+  end
 end
