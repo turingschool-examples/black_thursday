@@ -16,4 +16,8 @@ class SalesEngine
   def merchants
     @merchants ||= MerchantRepository.new(load_file(file_paths[:merchants]), self)
   end
+
+  def items
+    @items ||= ItemRepository.new(load_file(file_paths[:items]), self)
+  end
 end
