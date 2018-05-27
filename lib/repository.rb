@@ -51,7 +51,9 @@ class Repository
 
   def update(id, attributes)
     @members.each do | member |
-      member.name = attributes[:name]
+      if member.id == id
+        member.name = attributes[:name]
+      end
     end
   end
 end

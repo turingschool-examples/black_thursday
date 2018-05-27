@@ -45,9 +45,11 @@ class ItemRepository < Repository
   def update(id, attributes)
     super
     @members.each do | member |
-      member.description = attributes[:description]
-      member.unit_price = attributes[:unit_price]
+      if member.id == id
+        member.description = attributes[:description]
+        member.unit_price = attributes[:unit_price]
+        member.updated_at = Time.now
+      end
     end
-    member.updated_at = Time.now
   end
 end
