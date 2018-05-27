@@ -1,5 +1,6 @@
 require './lib/file_loader.rb'
 require './lib/merchant_repository.rb'
+require './lib/item_repository.rb'
 
 class SalesEngine
   include FileLoader
@@ -12,6 +13,10 @@ class SalesEngine
 
   def self.from_csv(content)
     new(content)
+  end
+
+  def items
+    @items = ItemRepository.new(load_file(content[:items]))
   end
 
   def merchants

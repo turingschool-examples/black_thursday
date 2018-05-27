@@ -5,11 +5,13 @@ require './lib/merchant_repository.rb'
 class MerchantRepositoryTest < Minitest::Test
 
   def test_it_exists
+    skip
     mr = MerchantRepository.new("array")
     assert_instance_of MerchantRepository, mr
   end
 
   def test_it_makes_array_of_merchants
+    skip
     mr = MerchantRepository.new("tom", "bill", "angela")
     assert_equal ["tom", "bill", "angela"], mr.repository
   end

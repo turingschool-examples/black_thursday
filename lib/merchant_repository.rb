@@ -1,5 +1,5 @@
 class MerchantRepository
-  attr_reader :array, :repository
+  attr_reader :merchants, :repository
   def initialize(merchants)
     @merchants = merchants
     @repository = make_repository
