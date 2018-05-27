@@ -52,6 +52,4 @@ class MerchantRepositoryTest < Minitest::Test
     refute mr.find_by_id("12334105")
   end
 
-
-
 end
