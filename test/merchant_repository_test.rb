@@ -97,4 +97,12 @@ class MerchantRepositoryTest < Minitest::Test
     assert_nil @se.merchants.delete(12337412)
   end
 
+  def test_it_can_return_merchant_id
+    assert 12334105, @se.merchants.all.first.id
+  end
+
+  def test_it_can_return_merchant_name
+    assert_equal "Shopin1901", @se.merchants.all.first.name
+    assert_equal "CJsDecor", @se.merchants.all.last.name
+  end
 end
