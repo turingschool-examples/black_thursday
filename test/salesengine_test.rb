@@ -9,7 +9,12 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_from_csv
-    se = SalesEngine.new.from_csv({items: "./data/items.csv", merchants: "./data/merchants.csv"})
+    se = SalesEngine.from_csv({items: "./data/items.csv", merchants: "./data/merchants.csv"})
     assert_instance_of Hash, se.from_csv
+  end
+
+  def test_create_merchant_repo
+    se = SalesEngine.from_csv({items: "./data/items.csv", merchants: "./data/merchants.csv"})
+    assert_equal @merchants, se.create_merchant_repo
   end
 end
