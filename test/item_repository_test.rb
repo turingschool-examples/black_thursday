@@ -53,13 +53,19 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_update
-      ir = ItemRepository.new
-      original_item = ir.create({name: 'Teddy Bear', description: 'fluffy', unit_price: 10})
-      updated_item = ir.update('12336623',{name: 'Pokemon', description: 'powerful', unit_price: 15})
-      assert_equal 'Pokemon',updated_item.name
-      assert_equal 'powerful', updated_item.description
-      assert_equal '15', updated_item.unit_price
+    ir = ItemRepository.new
+    original_item = ir.create({name: 'Teddy Bear', description: 'fluffy', unit_price: 10})
+    updated_item = ir.update('12336623',{name: 'Pokemon', description: 'powerful', unit_price: 15})
+    assert_equal 'Pokemon',updated_item.name
+    assert_equal 'powerful', updated_item.description
+    assert_equal '15', updated_item.unit_price
   end
 
-
+  def test_delete_merchant
+    ir = ItemRepository.new
+    assert ir.find_by_id("12336622")
+    ir.delete("12336622")
+    refute ir.find_by_id("12336622")
+  end
+  
 end
