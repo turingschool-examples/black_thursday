@@ -1,4 +1,5 @@
 module RepoMethods
+
   def get_data_from_csv(data_from_csv)
     data_from_csv.map do |line|
       [line[:id].to_i, Merchant.new(line)]
@@ -48,4 +49,5 @@ module RepoMethods
   def all
     @collection.values
   end
+  
 end
