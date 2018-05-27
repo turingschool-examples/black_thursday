@@ -26,7 +26,6 @@ class Repository
   end
 
   def create(attributes)
-    name = attributes[:name]
     id = nil
     if @members.length == 0
       id = 0
@@ -36,8 +35,8 @@ class Repository
       end
       id = ids.last.id + 1
     end
-
-    return {id: id, name: name}
+    attributes[:id] = id
+    return attributes
   end
 
   def delete(id)
