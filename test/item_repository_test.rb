@@ -36,4 +36,23 @@ class ItemRepositoryTest < Minitest::Test
 
     assert_nil @se.items.find_by_name("Sales Engine")
   end
+
+  def test_it_finds_all_items_matching_given_description
+    description = "A large Yeti of sorts, casually devours a cow as the others watch numbly."
+    items = @se.items.find_all_with_description(description)
+
+    assert_equal 263550472, items.first.id
+    assert_equal description, items.first.description
+
+    description = "A LARGE yeti of SOrtS, casually devoURS a COw as the OTHERS WaTch NUmbly."
+    items = @se.items.find_all_with_description(description)
+
+    assert_equal 263550472, items.first.id
+
+
+    description = "Sales Engine is a relational database"
+    items = @se.items.find_all_with_description(description)
+
+    assert_equal 0, items.length
+  end
 end
