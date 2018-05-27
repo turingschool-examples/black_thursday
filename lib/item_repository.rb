@@ -13,5 +13,12 @@ class ItemRepository
     @item_repo
   end
 
-  
+  def find_by_id(id_num)
+    item_repo.find {|item| item.id == id_num}
+  end
+
+  def find_by_name(name)
+    item_repo.find {|item| item.name == name}
+  end
+
 end

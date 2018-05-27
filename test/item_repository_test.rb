@@ -20,5 +20,20 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_finds_an_item_by_id
+    item = @se.items.find_by_id(263538760)
 
+    assert_equal 263538760, item.id
+    assert_equal "Puppy blankie", item.name
+
+    assert_nil @se.items.find_by_id(1)
+  end
+
+  def test_it_finds_an_item_by_name
+    item = @se.items.find_by_name("Puppy blankie")
+
+    assert_equal "Puppy blankie", item.name
+    assert_equal 263538760, item.id
+
+    assert_nil @se.items.find_by_name("Sales Engine")
+  end
 end
