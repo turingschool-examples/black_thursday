@@ -27,7 +27,7 @@ class SalesEngineTest < Minitest::Test
       :merchants => "./data/merchants.csv",
       })
       binding.pry
-    assert_equal 475, se.merchants.count
+    assert_equal 475, se.merchants.repository.count
   end
 
 end
