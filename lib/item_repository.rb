@@ -42,7 +42,7 @@ class ItemRepository < Repository
     @members.push(Item.new(attributes))
   end
 
-  def update(attributes)
+  def update(id, attributes)
     super
     @members.each do | member |
       member.description = attributes[:description]
