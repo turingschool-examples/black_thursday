@@ -21,10 +21,31 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 475, @se.merchants.all.count
   end
 
-  def test_it_finds_merchant_by_id
+  def test_it_finds_merchant_by_id_or_nil
     merchant = @se.merchants.find_by_id(12335971)
 
     assert_equal 12335971, merchant.id
     assert_equal "ivegreenleaves", merchant.name
+
+    assert_nil @se.merchants.find_by_id(2)
   end
+
+  def test_it_finds_the_first_matching_merchant_by_name_case_insensitive
+    merchant_1 = @se.merchants.find_by_name("leaburrot")
+    merchant_2 = @se.merchants.find_by_name("LEABURROT")
+    merchant_3 = @se.merchants.find_by_name("Turing School of Software and Design")
+
+
+    assert_equal 12334411, merchant_1.id
+    assert_equal 12334411, merchant_2.id
+    assert_nil merchant_3
+  end
+
+  def test_it_finds_all_merchants_matching_given_fragment
+    expected = engine.merchants.find_all_by_name("style")
+
+    assert expected.map(&:name).include?("justMstyle")
+    assert expected.map(&:id).include?(12337211)
+  end
+
 end
