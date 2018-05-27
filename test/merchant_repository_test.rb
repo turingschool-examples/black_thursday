@@ -12,7 +12,6 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_exists
-
     assert_instance_of MerchantRepository, @se.merchants
   end
 
@@ -84,6 +83,7 @@ class MerchantRepositoryTest < Minitest::Test
     @se.merchants.update(12337412, attributes)
 
     assert_nil @se.merchants.find_by_id(13000000)
+    assert_nil @se.merchants.update(13000000, {})
   end
 
   def test_delete_deletes_specific_merchant
