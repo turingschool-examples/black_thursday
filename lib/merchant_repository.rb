@@ -35,13 +35,17 @@ class MerchantRepository
   def update(id_num, attributes)
     merchant = find_by_id(id_num)
     new_name = attributes[:name] if attributes[:name] != nil
+    return merchant if merchant == nil
     merchant.update_name(new_name)
-    merchant
   end
 
   def delete(id_num)
     merchant = find_by_id(id_num)
     @merchant_repo.delete_if {|merchant| merchant.id == id_num}
     merchant
+  end
+
+  def inspect
+   "#{self.class} #{@merchant_repo.size} rows"
   end
 end
