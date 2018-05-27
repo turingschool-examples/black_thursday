@@ -50,4 +50,13 @@ class MerchantRepositoryTest < Minitest::Test
     assert expected_1.map(&:id).include?(12337211)
     assert_equal [], expected_2
   end
+
+  def test_creates_a_new_merchant_instance
+    attributes = {name: "Turing School of Software and Design"}
+    @se.merchants.create(attributes)
+    merchant = @se.merchants.find_by_id(12337412)
+    expected = "Turing School of Software and Design"
+
+    assert_equal expected, merchant.name
+  end
 end

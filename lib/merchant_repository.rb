@@ -22,6 +22,13 @@ class MerchantRepository
   end
 
   def find_all_by_name(fragment)
-    all.select {|merchant| merchant.name.downcase.include?(fragment.downcase)}
+    all.find_all {|merchant| merchant.name.downcase.include?(fragment.downcase)}
+  end
+
+  def create(attributes)
+    name = attributes[:name]
+    highest = all.max_by {|merchant| merchant.id.to_i}
+    merchant = {name: name, id: (highest.id + 1), created_at: Date.today}
+    @merchant_repo.push(Merchant.new(merchant, self))
   end
 end
