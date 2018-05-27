@@ -59,4 +59,42 @@ class MerchantRepositoryTest < Minitest::Test
 
     assert_equal expected, merchant.name
   end
+
+  def test_it_updates_a_merchant
+    attributes = {name: "Turing School of Software and Design"}
+    @se.merchants.create(attributes)
+
+    attributes = {name: "TSSD"}
+    @se.merchants.update(12337412, attributes)
+    merchant = @se.merchants.find_by_id(12337412)
+    expected = "TSSD"
+
+    assert_equal expected, merchant.name
+    assert_nil @se.merchants.find_by_name("Turing School of Software and Design")
+  end
+
+  def test_it_can_not_update_id
+    attributes = {name: "Turing School of Software and Design"}
+    @se.merchants.create(attributes)
+
+    attributes = {name: "TSSD"}
+    @se.merchants.update(12337412, attributes)
+
+    attributes = {id: 13000000}
+    @se.merchants.update(12337412, attributes)
+
+    assert_nil @se.merchants.find_by_id(13000000)
+  end
+
+  def test_delete_deletes_specific_merchant
+    attributes = {name: "Turing School of Software and Design"}
+    @se.merchants.create(attributes)
+
+    @se.merchants.delete(12337412)
+    merchant = @se.merchants.find_by_id(12337412)
+    assert_nil merchant
+
+    assert_nil @se.merchants.delete(12337412)
+  end
+
 end

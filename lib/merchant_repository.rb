@@ -31,4 +31,17 @@ class MerchantRepository
     merchant = {name: name, id: (highest.id + 1), created_at: Date.today}
     @merchant_repo.push(Merchant.new(merchant, self))
   end
+
+  def update(id_num, attributes)
+    merchant = find_by_id(id_num)
+    new_name = attributes[:name] if attributes[:name] != nil
+    merchant.update_name(new_name)
+    merchant
+  end
+
+  def delete(id_num)
+    merchant = find_by_id(id_num)
+    @merchant_repo.delete_if {|merchant| merchant.id == id_num}
+    merchant
+  end
 end

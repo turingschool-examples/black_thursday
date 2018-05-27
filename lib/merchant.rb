@@ -12,4 +12,8 @@ class Merchant
     @updated_at = data[:updated_at]
     @parent = parent
   end
+
+  def update_name(new_name)
+    @name = new_name
+  end
 end
