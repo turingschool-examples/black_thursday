@@ -9,7 +9,7 @@ class SalesEngine
   def initialize(file_paths)
     @file_paths = file_paths
     @merchants ||= MerchantRepository.new(load(file_paths[:merchants]))
-    @items = nil
+    @items ||= ItemRepository.new(load(file_paths[:items]))
   end
   def self.from_csv(file_paths)
     SalesEngine.new(file_paths)
