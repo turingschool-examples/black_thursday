@@ -14,10 +14,14 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    @merchant_repo.find {|merchant| merchant.id == id}
+    all.find {|merchant| merchant.id == id}
   end
 
   def find_by_name(name)
-    @merchant_repo.find {|merchant| merchant.name.downcase == name.downcase}
+    all.find {|merchant| merchant.name.downcase == name.downcase}
+  end
+
+  def find_all_by_name(fragment)
+    all.select {|merchant| merchant.name.downcase.include?(fragment.downcase)}
   end
 end

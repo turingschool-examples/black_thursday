@@ -42,10 +42,12 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_finds_all_merchants_matching_given_fragment
-    expected = engine.merchants.find_all_by_name("style")
+    expected_1 = @se.merchants.find_all_by_name("style")
+    expected_2 = @se.merchants.find_all_by_name("Turing School of Software and Design")
 
-    assert expected.map(&:name).include?("justMstyle")
-    assert expected.map(&:id).include?(12337211)
+    assert_equal 3, expected_1.length
+    assert expected_1.map(&:name).include?("justMstyle")
+    assert expected_1.map(&:id).include?(12337211)
+    assert_equal [], expected_2
   end
-
 end
