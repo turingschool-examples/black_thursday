@@ -1,6 +1,6 @@
 class Merchant
-  attr_reader :id,
-              :name
+  attr_accessor :name
+  attr_reader :id
 
   def initialize(merchant)
     @id = merchant[:id]
