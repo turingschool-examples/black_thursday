@@ -15,13 +15,24 @@ class ItemsRepositoryTest < Minitest::Test
   end
 
   def test_it_initializes_empty
-    assert_equal [], @ir.items
+    assert_equal [], @ir.all
   end
 
   def test_it_can_load_items
     csv = @ir.items_csv
     @ir.load_items(csv)
 
-    assert_equal 5, @ir.items.length
+    assert_equal 5, @ir.all.length
+  end
+
+  def test_find_by_id
+    csv = @ir.items_csv
+    @ir.load_items(csv)
+
+    nil_id = 1984
+    assert_nil @ir.find_by_id(nil_id)
+
+    real_id = 263395237
+    assert_instance_of Item, @ir.find_by_id(real_id)
   end
 end
