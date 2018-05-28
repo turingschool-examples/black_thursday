@@ -35,4 +35,26 @@ class ItemsRepositoryTest < Minitest::Test
     real_id = 263395237
     assert_instance_of Item, @ir.find_by_id(real_id)
   end
+
+  def test_find_by_name
+    csv = @ir.items_csv
+    @ir.load_items(csv)
+
+    nil_name = "Powell's Magic Shop"
+    assert_nil @ir.find_by_id(nil_name)
+
+    real_name = 'Glitter scrabble frames'
+    assert_instance_of Item, @ir.find_by_name(real_name)
+  end
+
+  def test_find_all_with_description
+    csv = @ir.items_csv
+    @ir.load_items(csv)
+
+    desc_1 = 'Bob Dobbs'
+    assert_equal [], @ir.find_all_with_description(desc_1)
+
+    desc_2 = 'Givenchy'
+    assert_equal 1, @ir.find_all_with_description(desc_2).length
+  end
 end

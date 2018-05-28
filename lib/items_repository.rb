@@ -20,4 +20,16 @@ class ItemsRepository
       item.id.to_i == item_id
     end
   end
+
+  def find_by_name(item_name)
+    @all.find do |item|
+      item.name.downcase == item_name.downcase
+    end
+  end
+
+  def find_all_with_description(desc)
+    @all.find_all do |item|
+      item.description.downcase.include?(desc.downcase)
+    end
+  end
 end
