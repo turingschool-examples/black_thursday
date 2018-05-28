@@ -4,18 +4,13 @@ require_relative 'item_repository'
 
 
 class SalesEngine
-  # def initialize(file_paths)
-  #   @merchants = merchants(file_paths)
-  #   @items     = items(file_paths)
-  # end
-  #
-  # def merchants(file_paths)
-  #   MerchantRepository.new(from_csv(file_paths)[:merchants])
-  # end
-  #
-  # def items(file_paths)
-  #   ItemRepository.new(from_csv(file_paths)[:items])
-  # end
+  attr_reader :merchants, :items
+
+  def initialize(file_paths)
+    # @merchants = MerchantRepository.new(from_csv(file_paths)[:merchants])
+    # @items     = ItemRepository.new(from_csv(file_paths)[:items])
+  end
+
 
   def from_csv(file_paths)
     repositories = Hash.new
@@ -38,17 +33,3 @@ class SalesEngine
     repository
   end
 end
-
-
-
-
-se = SalesEngine.new
-
-puts se.from_csv({
-  :items     => './data/items.csv',
-  :merchants => './data/merchants.csv',
-})[:items].length
-
-
-#
-# mr = se.merchants
