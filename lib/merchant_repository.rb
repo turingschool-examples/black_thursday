@@ -1,4 +1,5 @@
 require './lib/repository'
+require './lib/merchant'
 
 class MerchantRepository < Repository
   def initialize
