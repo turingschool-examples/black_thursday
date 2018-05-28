@@ -1,4 +1,5 @@
 require_relative 'item'
+require 'bigdecimal'
 
 class ItemsRepository
   attr_reader :items_csv,
@@ -43,5 +44,20 @@ class ItemsRepository
     @all.find_all do |item|
       range.include?(item.unit_price.to_i)
     end
+  end
+
+  def find_all_by_merchant_id(id)
+    @all.find_all do |item|
+      item.merchant_id == id.to_s
+    end
+  end
+
+  def create(attributes)
+    attributes[:id] = @all.map do |item|
+                        item.id.to_i
+                      end.max + 1
+    attributes[:unit_price] = (attributes[:unit_price].to_f * 100).to_i
+    item = Item.new(attributes)
+    @all.push(item)
   end
 end

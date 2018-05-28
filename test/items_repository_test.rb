@@ -79,4 +79,33 @@ class ItemsRepositoryTest < Minitest::Test
     range_2 = (0..1500)
     assert_equal 4, @ir.find_all_by_price_in_range(range_2).length
   end
+
+  def test_find_all_by_merchant_id
+    csv = @ir.items_csv
+    @ir.load_items(csv)
+
+    id_1 = 1984
+    assert_equal [], @ir.find_all_by_merchant_id(id_1)
+
+    id_2 = 12334185
+    assert_instance_of Item, @ir.find_all_by_merchant_id(id_2)[0]
+    assert_instance_of Item, @ir.find_all_by_merchant_id(id_2)[1]
+    assert_instance_of Item, @ir.find_all_by_merchant_id(id_2)[2]
+  end
+
+  def test_create
+    csv = @ir.items_csv
+    @ir.load_items(csv)
+    attributes = ({:id          => nil,
+                   :name        => 'Pencil',
+                   :description => 'You can use it to write things',
+                   :unit_price  => BigDecimal.new(10.99,4),
+                   :created_at  => Time.now,
+                   :updated_at  => Time.now
+                    })
+    @ir.create(attributes)
+    assert_equal 'Pencil', @ir.all.last.name
+    assert_equal 1099, @ir.all.last.unit_price
+    assert_equal 263396210, @ir.all.last.id
+  end
 end

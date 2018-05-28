@@ -1,5 +1,7 @@
 require_relative 'test_helper'
 require './lib/item.rb'
+require 'bigdecimal'
+require 'time'
 
 class ItemTest < Minitest::Test
   def setup
