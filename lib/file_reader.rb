@@ -1,9 +1,7 @@
 require 'csv'
 require 'pry'
 
-
-class FileReader
-
+module FileReader
   def from_csv(path)
     merchants = Hash.new
     CSV.foreach(path, headers:true, header_converters: :symbol) do |row|
@@ -18,7 +16,7 @@ class FileReader
   end
 end
 
-#x = FileReader.new
-#puts x.from_csv('./data/merchants.csv')
+# x = FileReader.new
+# puts x.from_csv('./data/merchants.csv')
 #ENDING DAY 1.  Able to read in the CSV data for merchants and output the data
 #to the terminal where the id is the key and the value is the bject transformed into a hash using the headers as keys and row data as values.

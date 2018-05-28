@@ -1,11 +1,20 @@
+require_relative 'sales_engine'
+
 class MerchantRepository
+attr_reader :merchants
 # The MerchantRepository is responsible for holding and searching our Merchant instances.
 
-  def initialize(hash) #takes in hash
+  def initialize(merchants)
+    @merchants = merchants
+     #takes in hash
   end
 
   def all
-    # returns an array of all known Merchant instances
+    merchant_objects = []
+    @merchants.each do |merchant|
+      merchant_objects << Merchant.new(merchant)
+    end
+    merchant_objects
   end
 
   def find_by_id(id)
@@ -31,4 +40,17 @@ class MerchantRepository
   def delete(id)
     # delete the Merchant instance with the corresponding id. The data can be found in data/merchants.csv so the instance is created and used like this:
   end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 end
+
+
+# '12334105,Shopin1901,2010-12-10,2011-12-04'
+#
+# {12334105: {id:'12334105',
+#             name:'Shopin1901',
+#             created_at:'2010-12-10',
+#             updated_at:'2011-12-04'}
+# }
