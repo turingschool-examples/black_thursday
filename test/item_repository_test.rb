@@ -115,4 +115,25 @@ class ItemRepositoryTest < Minitest::Test
     item = @se.items.find_by_id(263567475)
     assert_equal "Capita Defenders of Awesome 2018", item.name
   end
+
+  def test_it_can_update_item
+    attributes = {
+      name: "Capita Defenders of Awesome 2018",
+      description: "This board both rips and shreds",
+      unit_price: BigDecimal.new(399.99, 5),
+      created_at: Time.now,
+      updated_at: Time.now,
+      merchant_id: 25
+    }
+    @se.items.create(attributes)
+    original_time = @se.items.find_by_id(263567475).updated_at
+    attributes = {
+      unit_price: BigDecimal.new(379.99, 5)
+    }
+    @se.items.update(263567475, attributes)
+    item = @se.items.find_by_id(263567475)
+    assert_equal 379.99, item.unit_price
+    assert_equal "Capita Defenders of Awesome 2018", item.name
+    assert item.updated_at > original_time
+  end
 end
