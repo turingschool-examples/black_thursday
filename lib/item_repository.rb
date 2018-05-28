@@ -61,4 +61,8 @@ class ItemRepository
     @repository.delete(item)
   end
 
+  def inspect
+    "#<#{self.class} #{@repository.size} rows>"
+  end
+
 end

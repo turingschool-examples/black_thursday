@@ -8,7 +8,6 @@ class SalesEngine
 
   def initialize(content)
     @content = content
-    # @merchants = nil
   end
 
   def self.from_csv(content)
