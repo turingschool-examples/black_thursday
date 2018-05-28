@@ -68,4 +68,15 @@ class ItemsRepositoryTest < Minitest::Test
     price_2 = 1350
     assert_equal 1, @ir.find_all_by_price(price_2).length
   end
+
+  def test_find_all_by_price_in_range
+    csv = @ir.items_csv
+    @ir.load_items(csv)
+
+    range_1 = (-50..0)
+    assert_equal [], @ir.find_all_by_price_in_range(range_1)
+
+    range_2 = (0..1500)
+    assert_equal 4, @ir.find_all_by_price_in_range(range_2).length
+  end
 end

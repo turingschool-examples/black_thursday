@@ -38,4 +38,10 @@ class ItemsRepository
       item.unit_price == value.to_s
     end
   end
+
+  def find_all_by_price_in_range(range)
+    @all.find_all do |item|
+      range.include?(item.unit_price.to_i)
+    end
+  end
 end
