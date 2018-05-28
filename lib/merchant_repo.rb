@@ -31,7 +31,7 @@ class MerchantRepo
     output = @all.find_all do |merchant|
       merchant.name.downcase == merchant_name.downcase
     end
-    output || []
+    output
   end
 
   def create(attributes)
