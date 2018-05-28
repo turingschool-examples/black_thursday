@@ -1,6 +1,5 @@
 require 'csv'
 require 'pry'
-
 require_relative '../lib/merchantrepository'
 require_relative '../lib/item_repository'
 class SalesEngine
@@ -15,6 +14,7 @@ class SalesEngine
     se = SalesEngine.new
     se.create_merchant_repo(@merchant_data)
     se.create_item_repo(@item_data)
+    se
   end
 
   def create_merchant_repo(merchant_data)
@@ -33,14 +33,6 @@ class SalesEngine
                         created_at: item[:created_at],
                         updated_at: item[:updated_at],
                         merchant_id: item[:merchant_id]})
-      end
-    
     end
-
-
-
-
-
-
-
+  end
 end

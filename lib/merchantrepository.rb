@@ -1,4 +1,5 @@
 require_relative '../lib/merchant'
+require 'pry'
 class MerchantRepository
   attr_reader :merchants
 
@@ -6,8 +7,17 @@ class MerchantRepository
     @merchants = []
   end
 
+  def inspect
+   “#<#{self.class} #{@items.size} rows>”
+  end
+
   def create(attributes)
-    new_merchant = Merchant.new({id: attributes[:id], name: attributes[:name], created_at: attributes[:created_at], updated_at: attributes[:updated_at]})
+    if attributes[:id].nil?
+      id = @merchants[-1].id + 1
+    else
+      id = attributes[:id]
+    end
+    new_merchant = Merchant.new({id: id, name: attributes[:name], created_at: attributes[:created_at], updated_at: attributes[:updated_at]})
     @merchants << new_merchant
     return new_merchant
   end
@@ -17,31 +27,31 @@ class MerchantRepository
   end
 
   def find_by_id(id)
+    matching_merchant = nil
     @merchants.each do |merchant|
       if merchant.id == id
-        return merchant
-        break
-      else
-        return nil
+        matching_merchant = merchant
       end
     end
+    return matching_merchant
   end
 
   def find_by_name(name)
+    matching_merchant = nil
     @merchants.each do |merchant|
-      if merchant.name == name
-        return merchant
-        break
-      else
-        return nil
+      # require 'pry' ; binding.pry
+      if merchant.name.downcase == name.downcase
+        matching_merchant = merchant
       end
     end
+    return matching_merchant
   end
 
   def find_all_by_name(name)
     matching_merchants = []
     @merchants.each do |merchant|
-      if merchant.name.include?(name)
+      # binding.pry
+      if merchant.name.downcase.include?(name.downcase)
         matching_merchants << merchant
       end
     end
@@ -49,7 +59,12 @@ class MerchantRepository
   end
 
   def update(id, attributes)
-    find_by_id(id).name = attributes
+    updated_merchant = find_by_id(id)
+    if updated_merchant.nil?
+      return
+    else
+      updated_merchant.name = attributes[:name]
+    end
   end
 
   def delete(id)

@@ -5,6 +5,10 @@ class ItemRepository
     @items = []
   end
 
+  def inspect
+   “#<#{self.class} #{@items.size} rows>”
+  end
+
   def create(attributes)
     new_item = Item.new({id: attributes[:id], name: attributes[:name],
                                   description: attributes[:description],
