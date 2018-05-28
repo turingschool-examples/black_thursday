@@ -21,7 +21,6 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_merchants_creates_array_of_merchants
-    skip
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
