@@ -1,6 +1,6 @@
 require_relative 'sales_engine'
 require_relative 'merchant'
-
+require 'pry'
 class MerchantRepository
 # Responsible for holding and searching our Merchant instances.
 
@@ -32,15 +32,21 @@ attr_reader :merchants
   end
 
   def find_by_id(id)
-    # returns either nil or an instance of Merchant with a matching ID
+    all.find do |merchant|
+      id == merchant.id
+    end
   end
 
   def find_by_name(name)
-    # returns either nil or instance of Merchant having done a case insensitive search
+    all.find do |merchant|
+      name == merchant.name
+    end
   end
 
   def find_all_by_name(name)
-    # returns either [] or one or more matches which contain the supplied name fragment, case insensitive
+    all.find_all do |merchant|
+      merchant.name.include?(name)
+    end
   end
 
   def create(attributes)
@@ -59,12 +65,3 @@ attr_reader :merchants
     "#<#{self.class} #{@merchants.size} rows>"
   end
 end
-
-
-# '12334105,Shopin1901,2010-12-10,2011-12-04'
-#
-# {12334105: {id:'12334105',
-#             name:'Shopin1901',
-#             created_at:'2010-12-10',
-#             updated_at:'2011-12-04'}
-# }
