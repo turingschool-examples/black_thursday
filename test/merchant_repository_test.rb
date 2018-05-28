@@ -2,27 +2,37 @@ require './test_helper'
 require './lib/merchant'
 require './lib/merchant_repository'
 require './lib/file_loader'
+require './lib/sales_engine'
 require 'pry'
 
 class MerchantRepositoryTest < MiniTest::Test
   include FileLoader
   def test_it_exists
-    data_from_file = load('./data/merchant_sample.csv')
-    mr = MerchantRepository.new(data_from_file)
+    se = SalesEngine.from_csv({
+       :items => "./data/item_sample.csv",
+       :merchants => "./data/merchant_sample.csv"
+     })
+    mr = se.merchants
 
     assert_instance_of MerchantRepository, mr
   end
 
   def test_merchants_starts_as_an_empty_array
-    data_from_file = load('./data/merchant_sample.csv')
-    mr = MerchantRepository.new(data_from_file)
+    se = SalesEngine.from_csv({
+       :items => "./data/item_sample.csv",
+       :merchants => "./data/merchant_sample.csv"
+     })
+    mr = se.merchants
 
     assert_instance_of Array, mr.all
   end
 
   def test_it_can_create_merchants
-    data_from_file = load('./data/merchant_sample.csv')
-    mr = MerchantRepository.new(data_from_file)
+    se = SalesEngine.from_csv({
+       :items => "./data/item_sample.csv",
+       :merchants => "./data/merchant_sample.csv"
+     })
+    mr = se.merchants
     attributes = {:name => 'Turing School', :created_at => "2018-04-25", :updated_at => "2018-05-25"}
     mr.create(attributes)
 
@@ -32,8 +42,11 @@ class MerchantRepositoryTest < MiniTest::Test
   end
 
   def test_it_can_return_merchant_by_its_id
-    data_from_file = load('./data/merchant_sample.csv')
-    mr = MerchantRepository.new(data_from_file)
+    se = SalesEngine.from_csv({
+       :items => "./data/item_sample.csv",
+       :merchants => "./data/merchant_sample.csv"
+     })
+    mr = se.merchants
     attributes_1 = {:name => 'Turing School', :created_at => '2018-04-25', :updated_at => '2018-05-25'}
     merchant_1 = mr.create(attributes_1)
     attributes_2 = {:id => 8, :name => 'Apple', :created_at => '2018-04-25', :updated_at => '2018-05-25'}
@@ -44,8 +57,11 @@ class MerchantRepositoryTest < MiniTest::Test
   end
 
   def test_it_returns_nil_if_merchant_id_is_not_present
-    data_from_file = load('./data/merchant_sample.csv')
-    mr = MerchantRepository.new(data_from_file)
+    se = SalesEngine.from_csv({
+       :items => "./data/item_sample.csv",
+       :merchants => "./data/merchant_sample.csv"
+     })
+    mr = se.merchants
     attributes_1 = {:name => 'Turing School', :created_at => '2018-04-25', :updated_at => '2018-05-25'}
     merchant_1 = mr.create(attributes_1)
     attributes_2 = {:id => 8, :name => 'Apple', :created_at => '2018-04-25', :updated_at => '2018-05-25'}
@@ -55,8 +71,11 @@ class MerchantRepositoryTest < MiniTest::Test
   end
 
   def test_it_can_return_merchant_by_its_name
-    data_from_file = load('./data/merchant_sample.csv')
-    mr = MerchantRepository.new(data_from_file)
+    se = SalesEngine.from_csv({
+       :items => "./data/item_sample.csv",
+       :merchants => "./data/merchant_sample.csv"
+     })
+    mr = se.merchants
     attributes_1 = {:name => 'Turing School', :created_at => '2018-04-25', :updated_at => '2018-05-25'}
     merchant_1 = mr.create(attributes_1)
     attributes_2 = {:id => 8, :name => 'Apple', :created_at => '2018-04-25', :updated_at => '2018-05-25'}
@@ -67,8 +86,11 @@ class MerchantRepositoryTest < MiniTest::Test
   end
 
   def test_it_returns_nil_if_merchant_name_is_not_present
-    data_from_file = load('./data/merchant_sample.csv')
-    mr = MerchantRepository.new(data_from_file)
+    se = SalesEngine.from_csv({
+       :items => "./data/item_sample.csv",
+       :merchants => "./data/merchant_sample.csv"
+     })
+    mr = se.merchants
     attributes_1 = {:name => 'Turing School', :created_at => '2018-04-25', :updated_at => '2018-05-25'}
     merchant_1 = mr.create(attributes_1)
     attributes_2 = {:id => 8, :name => 'Apple', :created_at => '2018-04-25', :updated_at => '2018-05-25'}
@@ -78,8 +100,11 @@ class MerchantRepositoryTest < MiniTest::Test
   end
 
   def test_it_returns_array_of_merchants_by_their_name
-    data_from_file = load('./data/merchant_sample.csv')
-    mr = MerchantRepository.new(data_from_file)
+    se = SalesEngine.from_csv({
+       :items => "./data/item_sample.csv",
+       :merchants => "./data/merchant_sample.csv"
+     })
+    mr = se.merchants
     attributes_1 = {:name => 'Turing School', :created_at => '2018-04-25', :updated_at => '2018-05-25'}
     merchant_1 = mr.create(attributes_1)
     attributes_2 = {:id => 8, :name => 'Apple School', :created_at => '2018-04-25', :updated_at => '2018-05-25'}
@@ -93,8 +118,11 @@ class MerchantRepositoryTest < MiniTest::Test
   end
 
   def test_merchant_name_can_be_updated_and_records_date_of_update
-    data_from_file = load('./data/merchant_sample.csv')
-    mr = MerchantRepository.new(data_from_file)
+    se = SalesEngine.from_csv({
+       :items => "./data/item_sample.csv",
+       :merchants => "./data/merchant_sample.csv"
+     })
+    mr = se.merchants
     new_attributes_1 = {:name => 'The Basement'}
     new_attributes_2 = {:name => 'Samsung'}
     new_attributes_3 = {:name => 'Xbox'}
@@ -112,15 +140,18 @@ class MerchantRepositoryTest < MiniTest::Test
   end
 
   def test_merchant_can_be_deleted_by_id
-    data_from_file = load('./data/merchant_sample.csv')
-    mr = MerchantRepository.new(data_from_file)
+    se = SalesEngine.from_csv({
+       :items => "./data/item_sample.csv",
+       :merchants => "./data/merchant_sample.csv"
+     })
+    mr = se.merchants
     attributes_1 = {:name => 'Turing School', :created_at => '2018-04-25', :updated_at => '2018-05-25'}
     merchant_1 = mr.create(attributes_1)
 
     assert_equal merchant_1, mr.find_by_id(12334124)
 
     mr.delete(12334124)
-    
+
     assert_nil mr.find_by_id(12334124)
   end
 end
