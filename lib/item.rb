@@ -21,4 +21,20 @@ class Item
     @parent = parent
     @unit_price = BigDecimal.new(data[:unit_price]) / 100
   end
+
+  def update_name(name)
+    @name = name
+  end
+
+  def update_unit_price(price)
+    @unit_price = price
+  end
+
+  def update_description(description)
+    @description = description
+  end
+
+  def new_update_time(time)
+    @updated_at = time
+  end
 end
