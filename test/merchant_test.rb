@@ -1,19 +1,17 @@
 require './test/test_helper.rb'
-# require 'minitest/autorun'
-# require 'minitest/pride'
 require './lib/merchant.rb'
 require './lib/merchant_repository.rb'
-require './lib/sales_engine.rb'
 require 'pry'
 
 class MerchantTest < Minitest::Test
 
   def setup
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      })
-    @merchant_1 = se.merchants.repository[0].merchant
+    @merchant_1 = {
+                   id: 12334105,
+                   name: 'Shopin1901',
+                   created_at: '2010-12-10',
+                   updated_at: '2011-12-04'
+                  }
   end
 
   def test_it_exists

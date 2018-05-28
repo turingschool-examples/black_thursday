@@ -16,13 +16,6 @@ class Item
       updated_at:   item[:updated_at].to_s,
       merchant_id:  item[:merchant_id].to_i
     }
-    # @id = @specs[:id]
-    # @name = @specs[:name]
-    # @description = @specs[:description]
-    # @unit_price = @specs[:unit_price]
-    # @created_at = @specs[:created_at]
-    # @updated_at = @specs[:updated_at]
-    # @merchant_id = @specs[:merchant_id]
   end
 
   def id
@@ -51,6 +44,10 @@ class Item
 
   def merchant_id
     @specs[:merchant_id]
+  end
+
+  def unit_price_to_dollars
+    unit_price.to_f
   end
 
 end
