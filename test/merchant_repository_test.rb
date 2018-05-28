@@ -1,5 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require './test/test_helper.rb'
 require './lib/sales_engine.rb'
 require './lib/merchant_repository.rb'
 require 'pry'
