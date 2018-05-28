@@ -15,25 +15,6 @@ class MerchantRepositoryTest < Minitest::Test
     assert_instance_of MerchantRepository, @merchant_repository
   end
 
-  def test_it_can_convert_CSV_table_to_hash
-    assert_instance_of Hash, @merchant_repository.parse_csv
-  end
-
-  def test_parse_csv_returns_hash_keys_that_are_ids
-    assert_equal '12334105', @merchant_repository.parse_csv.keys[0]
-  end
-
-  def test_parse_csv_returns_entire_file_contents
-    assert_equal 475, @merchant_repository.parse_csv.length
-  end
-
-  def test_id_key_matches_values_id
-    merchants = @merchant_repository.parse_csv
-    assert merchants.all? do |merch|
-      merch.keys[0] == merch[:id]
-    end
-  end
-
   def test_merchant_repo_holds_all_instances_of_merchants
     assert_equal 475, @merchant_repository.all.length
   end
@@ -66,9 +47,22 @@ class MerchantRepositoryTest < Minitest::Test
     # assert_equal [], @merchant_repository.find_all_by_name('art')
   end
 
+  def test_it_can_create_a_new_merchant_object
+    refute @merchant_repository.find_by_id('12337412')
+    @merchant_repository.create({name: 'test_store',
+                                created_at: '2018-28-05',
+                                updated_at: '2018-28-05'})
+    assert_equal 'test_store', @merchant_repository.find_by_id('12337412').name
+  end
 
+  def test_it_can_update_a_name
+    
+  end
 
-
-
+  def test_it_can_delete_a_merchant_object
+    assert @merchant_repository.find_by_id("12337411")
+    @merchant_repository.delete("12337411")
+    refute @merchant_repository.find_by_id("12337411")
+  end
 
 end
