@@ -27,4 +27,6 @@ class SalesEngineTest < Minitest::Test
     })
     assert_instance_of MerchantRepository, @se.merchants
   end
+
+  
 end

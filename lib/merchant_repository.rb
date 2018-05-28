@@ -1,9 +1,13 @@
-require './lib/repository'
-require './lib/merchant'
+require 'repository'
+require 'merchant'
 
 class MerchantRepository < Repository
   def initialize
     super
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 
   def find_all_by_name(name)

@@ -1,9 +1,14 @@
-require './lib/item'
+require_relative 'item'
+require_relative 'repository'
 require 'bigdecimal'
 
 class ItemRepository < Repository
   def initialize
     super
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 
   def find_all_with_description(fragment)

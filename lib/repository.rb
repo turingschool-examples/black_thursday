@@ -5,6 +5,10 @@ class Repository
     @members = []
   end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
   def all
     return @members
   end
