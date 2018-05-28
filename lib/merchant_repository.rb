@@ -38,9 +38,8 @@ class MerchantRepository
 
   def update(id_num, attributes)
     merchant = find_by_id(id_num)
-    new_name = attributes[:name] if attributes[:name] != nil
     return merchant if merchant == nil
-    merchant.update_name(new_name)
+    merchant.update_name(attributes[:name]) if attributes[:name] != nil
   end
 
   def delete(id_num)
