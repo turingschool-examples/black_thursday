@@ -28,7 +28,7 @@ class SalesEngineTest < Minitest::Test
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       })
-    assert_equal 475, se.merchants.count
+    assert_equal 475, se.merchants.repository.count
   end
 
   def test_items_creates_repository_of_items
