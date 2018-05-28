@@ -18,25 +18,25 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    found = @repository.select { |merchant| merchant.id == id }
-    found[0]
+    @repository.find { |merchant| merchant.id == id }
   end
 
   def find_by_name(name)
-    found = @repository.select { |merchant| merchant.name == name }
-    found[0]
+    @repository.find { |merchant| merchant.name.downcase == name.downcase }
   end
 
   def find_all_by_name(name)
-    found = @repository.select { |merchant| merchant.name.include?(name) }
+    @repository.select do |merchant|
+      merchant.name.downcase.include?(name.downcase)
+    end
   end
 
-  def create(name)
+  def create(attributes)
     max_id = @repository.sort_by{ |merchant| merchant.id }.last.id
     new_id = max_id + 1
     new_merchant = Merchant.new({
                     id: new_id.to_s,
-                    name: name,
+                    name: attributes[:name],
                     created_at: Time.now,
                     updated_at: Time.now
                     })
@@ -45,10 +45,13 @@ class MerchantRepository
   end
 
   def update(id, attributes)
-    new_name = attributes
+    new_name = attributes[:name]
     merchant = find_by_id(id)
-    merchant.name = new_name
-    merchant
+    if !merchant.nil?
+      merchant.updated_at = Time.now
+      merchant.name = new_name
+      merchant
+    end
   end
 
   def delete(id)
