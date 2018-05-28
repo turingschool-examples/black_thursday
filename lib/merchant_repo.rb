@@ -4,8 +4,8 @@ class MerchantRepo
   attr_reader :merchants_csv,
               :all
 
-  def initialize(merchants_csv)
-    @merchants_csv = merchants_csv
+  def initialize
+    # @merchants_csv = merchants_csv
     @all = []
   end
 
@@ -51,6 +51,10 @@ class MerchantRepo
     @all.delete_if do |merchant|
       merchant.id.to_i == id
     end
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 
 end
