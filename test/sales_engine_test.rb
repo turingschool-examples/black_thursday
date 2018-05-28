@@ -13,7 +13,6 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_can_return_an_instance_of_item_repository
-    skip
     @se.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -22,6 +21,10 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_can_return_an_instance_of_mrechant_repository
+    @se.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+    })
     assert_instance_of MerchantRepository, @se.merchants
   end
 end
