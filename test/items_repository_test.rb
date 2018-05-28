@@ -57,4 +57,15 @@ class ItemsRepositoryTest < Minitest::Test
     desc_2 = 'Givenchy'
     assert_equal 1, @ir.find_all_with_description(desc_2).length
   end
+
+  def test_find_all_by_price
+    csv = @ir.items_csv
+    @ir.load_items(csv)
+
+    price_1 = 1_000_000_000
+    assert_equal [], @ir.find_all_by_price(price_1)
+
+    price_2 = 1350
+    assert_equal 1, @ir.find_all_by_price(price_2).length
+  end
 end

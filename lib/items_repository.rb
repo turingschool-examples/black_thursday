@@ -32,4 +32,10 @@ class ItemsRepository
       item.description.downcase.include?(desc.downcase)
     end
   end
+
+  def find_all_by_price(value)
+    @all.find_all do |item|
+      item.unit_price == value.to_s
+    end
+  end
 end
