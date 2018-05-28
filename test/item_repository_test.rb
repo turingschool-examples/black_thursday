@@ -87,8 +87,8 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_item_repo_can_find_all_items_within_a_price_range
-    assert_equal 3, @ir.find_all_by_price_in_range(10 - 13)
-    assert_equal "Pencil", @ir.find_all_by_price_in_range(10 - 13)[0].name
+    assert_equal 3, @ir.find_all_by_price_in_range(10..13).count
+    assert_equal "Pencil", @ir.find_all_by_price_in_range(10..13)[0].name
   end
 
   def test_item_repo_can_create_new_items
