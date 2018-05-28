@@ -24,12 +24,25 @@ class ItemTest < Minitest::Test
         :created_at  => 600,
         :updated_at  => 600,
     })
-    # assert_equal 123456, i.id
+    assert_equal 123456, i.id
     assert_equal "Pencil", i.name
     assert_equal "You can use it to write things", i.description
     assert_equal 10.99, i.unit_price
     assert_equal "600", i.created_at
     assert_equal "600", i.updated_at
+  end
+
+  def test_change_unit_price_to_dollars
+    i = Item.new({
+        :id          => "123456",
+        :name        => "Pencil",
+        :description => "You can use it to write things",
+        :unit_price  => BigDecimal.new(10.99,4),
+        :created_at  => 600,
+        :updated_at  => 600,
+    })
+    refute_equal i.unit_price.inspect, '10.99'
+    assert_equal i.unit_price_to_dollars.inspect, (10.99).inspect
   end
 
 end
