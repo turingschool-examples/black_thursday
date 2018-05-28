@@ -1,4 +1,5 @@
 require './lib/item'
+require 'bigdecimal'
 
 class ItemRepository < Repository
   def initialize
@@ -6,24 +7,26 @@ class ItemRepository < Repository
   end
 
   def find_all_with_description(fragment)
-    @members.map do | member |
+    desc = @members.map do | member |
       if member.description.downcase.include?(fragment.downcase)
         member
       end
     end
+    desc.compact
   end
 
   def find_all_by_price(price)
-    @members.map do | member |
-      if member.price == price
+    by_price = @members.map do | member |
+      if member.unit_price == price
         member
       end
     end
+    by_price.compact
   end
 
   def find_all_by_price_in_range(range)
     @members.map do | member |
-      if range.include?(member.price)
+      if range.include?(member.unit_price)
         member
       end
     end
