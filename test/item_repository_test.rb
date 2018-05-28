@@ -68,6 +68,7 @@ class ItemRepositoryTest < Minitest::Test
     ir.create(attributes)
     sorted = ir.repository.sort_by { |item| item.id }
     assert_equal ir.find_by_id(263567475), sorted.last
+    assert_equal ir.find_by_id(263567475).name, 'Pencil'
   end
 
   def test_it_can_update
