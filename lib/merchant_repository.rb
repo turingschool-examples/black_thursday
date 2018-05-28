@@ -1,12 +1,26 @@
 require_relative 'sales_engine'
+require_relative 'merchant'
 
 class MerchantRepository
+# Responsible for holding and searching our Merchant instances.
+
 attr_reader :merchants
-# The MerchantRepository is responsible for holding and searching our Merchant instances.
 
   def initialize(merchants)
     @merchants = merchants
-     #takes in hash
+  end
+
+  def parse_csv
+    repository = {}
+    @merchants.each do |row|
+      repository[row[0]] = {
+                    row.headers[0] => row[0],
+                    row.headers[1] => row[1],
+                    row.headers[2] => row[2],
+                    row.headers[3] => row[3]
+                   }
+    end
+    repository
   end
 
   def all
@@ -22,7 +36,7 @@ attr_reader :merchants
   end
 
   def find_by_name(name)
-    # returns either nil or an instance of Merchant having done a case insensitive search
+    # returns either nil or instance of Merchant having done a case insensitive search
   end
 
   def find_all_by_name(name)
