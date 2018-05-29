@@ -1,6 +1,7 @@
 require_relative 'test_helper'
 require 'bigdecimal'
 require './lib/item'
+require './lib/sales_engine'
 
 class MockItemRepo
 end
@@ -35,5 +36,15 @@ class ItemTest < Minitest::Test
     assert_instance_of Time, item.created_at
     assert_instance_of Time, item.updated_at
     assert_equal item_repo, item.parent
+  end
+
+  def test_returns_price_as_float
+    @se = SalesEngine.new({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      })
+    item = @se.items.find_by_id(263397059)
+    assert_equal 130.0, item.unit_price_to_dollars
+    assert_equal Float, item.unit_price_to_dollars.class
   end
 end
