@@ -8,11 +8,11 @@ class Item
               :updated_at
 
   def initialize(item)
-    @id = item[:id]
+    @id = item[:id].to_i
     @name = item[:name]
     @description = item[:description]
-    @unit_price = item[:unit_price]
-    @merchant_id = item[:merchant_id]
+    @unit_price = BigDecimal(item[:unit_price]).to_f / 100
+    @merchant_id = item[:merchant_id].to_i
     @created_at = item[:created_at]
     @updated_at = item[:updated_at]
   end
@@ -27,5 +27,9 @@ class Item
 
   def update_unit_price(new_price)
     @unit_price = new_price
+  end
+
+  def update_updated_at(new_time)
+    @updated_at = new_time
   end
 end

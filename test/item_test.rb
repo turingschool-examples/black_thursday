@@ -5,11 +5,11 @@ require 'time'
 
 class ItemTest < Minitest::Test
   def setup
-    item = { id: '263396209',
+    item = { id: 263396209,
              name: 'Vogue Paris Original Givenchy 2307',
              description: 'Vogue Paris Original 2307; ca. 1980; Givenchy Dress',
-             unit_price: '2999',
-             merchant_id: '12334105',
+             unit_price: 2999,
+             merchant_id: 12334105,
              created_at: '2016-01-11 10:37:09 UTC',
              updated_at: '1995-03-19 10:02:43 UTC' }
     @test_item = Item.new(item)
@@ -20,11 +20,11 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_has_attributes
-    assert_equal '263396209', @test_item.id
+    assert_equal 263396209, @test_item.id
     assert_equal 'Vogue Paris Original Givenchy 2307', @test_item.name
     assert_equal 'Vogue Paris Original 2307; ca. 1980; Givenchy Dress', @test_item.description
-    assert_equal '2999', @test_item.unit_price
-    assert_equal '12334105', @test_item.merchant_id
+    assert_equal 2999, @test_item.unit_price
+    assert_equal 12334105, @test_item.merchant_id
     assert_equal '2016-01-11 10:37:09 UTC', @test_item.created_at
     assert_equal '1995-03-19 10:02:43 UTC', @test_item.updated_at
   end
@@ -42,8 +42,14 @@ class ItemTest < Minitest::Test
   end
 
   def test_update_unit_price
-    assert_equal '2999', @test_item.unit_price
-    @test_item.update_unit_price('1200')
-    assert_equal '1200', @test_item.unit_price
+    assert_equal 2999, @test_item.unit_price
+    @test_item.update_unit_price(1200)
+    assert_equal 1200, @test_item.unit_price
+  end
+
+  def test_update_updated_at
+    time_1 = @test_item.update_updated_at(Time.now)
+    time_2 = @test_item.update_updated_at(Time.now)
+    refute time_1 == time_2
   end
 end

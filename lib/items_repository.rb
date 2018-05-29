@@ -1,5 +1,6 @@
 require_relative 'item'
 require 'bigdecimal'
+require 'pry'
 
 class ItemsRepository
   attr_reader :items_csv,
@@ -24,7 +25,7 @@ class ItemsRepository
 
   def find_by_name(item_name)
     @all.find do |item|
-      item.name.casecmp(item_name)
+      item.name.downcase == item_name.downcase
     end
   end
 
@@ -36,23 +37,25 @@ class ItemsRepository
 
   def find_all_by_price(value)
     @all.find_all do |item|
-      item.unit_price == value.to_s
+      item.unit_price == (value.to_f * 100).to_i
     end
   end
 
   def find_all_by_price_in_range(range)
     @all.find_all do |item|
-      range.include?(item.unit_price.to_i)
+      range_1 = (BigDecimal("#{range.first}").to_f * 100).to_i
+      range_2 = (BigDecimal("#{range.last}").to_f * 100).to_i
+      (range_1..range_2).include? item.unit_price
     end
   end
 
   def inspect
       "#<#{self.class} #{@items.size} rows>"
-    end
+  end
 
   def find_all_by_merchant_id(id)
     @all.find_all do |item|
-      item.merchant_id == id.to_s
+      item.merchant_id == id
     end
   end
 
@@ -68,9 +71,10 @@ class ItemsRepository
   def update(id, attributes)
     @all.find do |item|
       if item.id.to_i == id
-        item.update_name(attributes[:name])
-        item.update_description(attributes[:description])
-        item.update_unit_price((attributes[:unit_price].to_f * 100).to_i)
+        item.update_name(attributes[:name]) if attributes[:name] != nil
+        item.update_description(attributes[:description]) if attributes[:description] != nil
+        item.update_unit_price(attributes[:unit_price].to_f) if attributes[:unit_price] != nil
+        item.update_updated_at(Time.now)
       end
     end
   end
