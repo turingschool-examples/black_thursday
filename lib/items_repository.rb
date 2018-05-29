@@ -62,7 +62,7 @@ class ItemsRepository
   end
 
   def update(id, attributes)
-    @all.each do |item|
+    @all.find do |item|
       if item.id.to_i == id
         item.update_name(attributes[:name])
         item.update_description(attributes[:description])
@@ -72,7 +72,7 @@ class ItemsRepository
   end
 
   def delete(id)
-    @all.each do |item|
+    @all.find do |item|
       if item.id.to_i == id
         @all.delete(item)
       end
