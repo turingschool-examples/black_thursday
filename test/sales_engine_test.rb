@@ -36,23 +36,11 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of ItemRepository, se.items
   end
 
-  def test_it_can_create_a_new_entry
+  def test_it_can_create_an_analyst
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
       })
-    ir = se.items
-    attributes = {
-      :name        => "Pencil",
-      :description => "You can use it to write things",
-      :unit_price  => BigDecimal.new(10.99,4),
-      :created_at  => Time.now,
-      :updated_at  => Time.now,
-    }
-    ir.create(attributes)
-    sorted = ir.repository.sort_by { |item| item.id }
-    assert_equal ir.find_by_id(263567475), sorted.last
-    assert_equal ir.find_by_id(263567475).name, 'Pencil'
+    assert_instance_of SalesAnalyst, se.analyst
   end
-
 end
