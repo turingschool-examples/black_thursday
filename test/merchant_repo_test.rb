@@ -36,7 +36,7 @@ class MerchantRepoTest < Minitest::Test
     @mr.load_merchants(@merchants)
 
     assert_instance_of Merchant, @mr.find_by_name("Shopin1901")
-    assert_equal "12334105", @mr.find_by_name("shopin1901").id
+    assert_equal 12334105, @mr.find_by_name("shopin1901").id
   end
 
   def test_it_can_find_all_by_name
@@ -56,7 +56,7 @@ class MerchantRepoTest < Minitest::Test
 
   def test_it_can_update_merchant_name
     @mr.load_merchants(@merchants)
-    @mr.update(12334105, "changed merch name")
+    @mr.update(12334105, {:name => "changed merch name")
 
     assert_equal "changed merch name", @mr.find_by_id(12334105).name
   end

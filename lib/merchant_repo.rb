@@ -29,7 +29,7 @@ class MerchantRepo
 
   def find_all_by_name(merchant_name)
     output = @all.find_all do |merchant|
-      merchant.name.downcase == merchant_name.downcase
+      merchant.name.downcase.include? merchant_name.downcase
     end
     output
   end
@@ -42,9 +42,9 @@ class MerchantRepo
     @all << Merchant.new(attributes)
   end
 
-  def update(id, new_name)
+  def update(id, attributes)
     merchant = self.find_by_id(id)
-    merchant.name = new_name
+    merchant.name = attributes[:name] if attributes[:name]
   end
 
   def delete(id)
