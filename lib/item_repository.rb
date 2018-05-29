@@ -47,18 +47,26 @@ class ItemRepository
 
   def update(id, attributes)
     item = find_by_id(id)
-    attributes.each do |key, value|
-      if item.specs[key] != attributes[key]
-        item.specs[key] = value
+    if !item.nil?
+      attributes.each do |key, value|
+        if item.specs[key] != attributes[key]
+          next if (key == :id) || (key == :created_at) || (key == :merchant_id)
+          item.specs[key] = value
+          item.specs[:updated_at] = (Time.now).to_s
+          if key == :unit_price then item.specs[key] *= 100 end
+
+        end
       end
     end
-    item.specs[:updated_at] = Time.now
-    item
   end
 
   def delete(id)
     item = find_by_id(id)
     @repository.delete(item)
+  end
+
+  def inspect
+    "#<#{self.class} #{@repository.size} rows>"
   end
 
 end
