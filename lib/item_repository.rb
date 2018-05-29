@@ -1,9 +1,12 @@
 require_relative '../lib/item'
+require_relative '../lib/sales_engine'
 require 'pry'
+require 'time'
 class ItemRepository
 
   def initialize
     @items = []
+
   end
 
   def inspect
@@ -11,13 +14,20 @@ class ItemRepository
   end
 
   def create(attributes)
-    new_item = Item.new({id: attributes[:id], name: attributes[:name],
+    if attributes[:id].nil?
+      id = @items[-1].id + 1
+    else
+      id = attributes[:id]
+    end
+    new_item = Item.new({id: id, name: attributes[:name],
                                   description: attributes[:description],
                                   unit_price: attributes[:unit_price],
-                                  created_at: attributes[:created_at],
-                                  updated_at: attributes[:updated_at],
+                                  created_at: attributes[:created_at].to_s,
+                                  updated_at: attributes[:updated_at].to_s,
                                   merchant_id: attributes[:merchant_id]})
     @items << new_item
+    
+
     return new_item
   end
 
@@ -63,11 +73,16 @@ class ItemRepository
   end
 
   def update(id, attributes)
-    updated_item = find_by_id(id)
-    updated_item.name = attributes[:name]
-    updated_item.description = attributes[:description]
+    if find_by_id(id).nil?
+      return
+    else
+      updated_item = find_by_id(id)
+    end
+    updated_item.name ||= attributes[:name]
+    updated_item.description ||= attributes[:description]
     updated_item.unit_price = attributes[:unit_price]
-    updated_item.updated_time = Time.now
+    updated_item.updated_at = Time.now
+
   end
 
   def delete(id)

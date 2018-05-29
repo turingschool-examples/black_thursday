@@ -54,6 +54,7 @@ class ItemRepositoryTest < Minitest::Test
     expected = engine.items.find_by_id(263567475)
     expected.name = engine.items.find_by_name('Capita Defenders of Awesome 2018')
     assert_equal 'Capita Defenders of Awesome 2018', expected.name
+    assert_equal [], item.create
   end
 
   def test_update
