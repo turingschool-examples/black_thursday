@@ -1,6 +1,7 @@
 require './test/test_helper.rb'
 require './lib/item_repository.rb'
 require './lib/file_loader.rb'
+require 'pry'
 
 class ItemRepositoryTest < Minitest::Test
   include FileLoader
@@ -43,12 +44,12 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_can_find_all_items_at_a_price
     ir = ItemRepository.new(load_file("./data/items.csv"))
-    assert_equal 58, ir.find_all_by_price(1500).count
+    assert_equal 58, ir.find_all_by_price(15).count
   end
 
   def test_it_can_find_all_items_within_a_price_range
     ir = ItemRepository.new(load_file("./data/items.csv"))
-    assert_equal 66, ir.find_all_by_price_in_range(1000..1100).count
+    assert_equal 66, ir.find_all_by_price_in_range(10..11).count
   end
 
   def test_it_can_find_items_with_the_same_merchant_id
@@ -81,6 +82,7 @@ class ItemRepositoryTest < Minitest::Test
       :updated_at  => Time.now,
     }
     ir.create(attributes)
+    original_time = ir.find_by_id(263567475).updated_at
     new_attributes = {
       :name => "Pen",
       :description => "Now in ink",
@@ -89,6 +91,24 @@ class ItemRepositoryTest < Minitest::Test
     id = 263567475
     ir.update(id, new_attributes)
     assert_equal "Pen", ir.find_by_id(263567475).name
+    assert_equal 11, ir.find_by_id(263567475).unit_price
+  end
+
+  def test_it_can_update_just_one_thing
+    ir = ItemRepository.new(load_file("./data/items.csv"))
+    attributes = {
+      :name        => "Pencil",
+      :description => "You can use it to write things",
+      :unit_price  => BigDecimal.new(10.99,4),
+      :created_at  => Time.now,
+      :updated_at  => Time.now,
+    }
+    ir.create(attributes)
+    new_attributes = {
+      unit_price: BigDecimal.new(379.99, 5)
+    }
+    ir.update(263567475, new_attributes)
+    assert_equal 379.99, ir.find_by_id(263567475).unit_price
   end
 
   def test_it_can_delete_an_entry

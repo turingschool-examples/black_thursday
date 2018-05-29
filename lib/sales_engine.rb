@@ -8,7 +8,6 @@ class SalesEngine
 
   def initialize(content)
     @content = content
-    # @merchants = nil
   end
 
   def self.from_csv(content)
@@ -16,10 +15,10 @@ class SalesEngine
   end
 
   def items
-    @items = ItemRepository.new(load_file(content[:items]))
+    @items ||= ItemRepository.new(load_file(content[:items]))
   end
 
   def merchants
-    @merchants = MerchantRepository.new(load_file(content[:merchants]))
+    @merchants ||= MerchantRepository.new(load_file(content[:merchants]))
   end
 end
