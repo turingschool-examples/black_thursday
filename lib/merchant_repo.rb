@@ -1,4 +1,4 @@
-require './lib/merchant'
+require_relative 'merchant'
 
 class MerchantRepo
   attr_reader :merchants_csv,
@@ -58,9 +58,3 @@ class MerchantRepo
   end
 
 end
-
-
-
-
-
-
