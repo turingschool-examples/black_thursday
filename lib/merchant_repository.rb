@@ -19,7 +19,7 @@ class MerchantRepository < Repository
   end
 
   def create(attributes)
-    base_attributes = super
-    @members.push(Merchant.new(base_attributes))
+    super
+    @members.push(Merchant.new(attributes))
   end
 end
