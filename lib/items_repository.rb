@@ -24,7 +24,7 @@ class ItemsRepository
 
   def find_by_name(item_name)
     @all.find do |item|
-      item.name.downcase == item_name.downcase
+      item.name.casecmp(item_name)
     end
   end
 
@@ -54,8 +54,8 @@ class ItemsRepository
 
   def create(attributes)
     attributes[:id] = @all.map do |item|
-                        item.id.to_i
-                      end.max + 1
+      item.id.to_i
+    end.max + 1
     attributes[:unit_price] = (attributes[:unit_price].to_f * 100).to_i
     item = Item.new(attributes)
     @all.push(item)
