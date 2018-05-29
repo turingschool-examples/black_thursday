@@ -8,7 +8,7 @@ class SalesEngine
                 :merchants
 
   def csv_to_hash(path)
-    raw_input = CSV.open(path, headers: true, header_converters: :symbol)
+    raw_input = CSV.open(path, headers: true, header_converters: :symbol, converters: :all)
     raw_input.map do | pre_hash |
       pre_hash.to_h
     end

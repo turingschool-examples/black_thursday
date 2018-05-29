@@ -14,12 +14,19 @@ class MerchantRepository < Repository
     names = @members.map do |member|
       if member.name.downcase.include?(name.downcase)
         member
+      else
+        nil
       end
     end
+    names.compact
   end
 
   def create(attributes)
-    super
-    @members.push(Merchant.new(attributes))
+    if attributes[:id] == nil
+      attributes[:id] = find_next_id
+    end
+    new_member = Merchant.new(attributes)
+    @members.push(new_member)
+    new_member
   end
 end

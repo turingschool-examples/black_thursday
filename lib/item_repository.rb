@@ -1,6 +1,7 @@
 require_relative 'item'
 require_relative 'repository'
 require 'bigdecimal'
+require 'pry'
 
 class ItemRepository < Repository
   def initialize
@@ -17,47 +18,51 @@ class ItemRepository < Repository
         member
       end
     end
-    desc.compact
+    desc = desc.compact
   end
 
   def find_all_by_price(price)
-    by_price = @members.map do | member |
-      if member.unit_price == price
-        member
-      end
+    @members.find_all do | member |
+      member.unit_price == price
     end
-    by_price.compact
   end
 
   def find_all_by_price_in_range(range)
-    @members.map do | member |
-      if range.include?(member.unit_price)
-        member
-      end
+      @members.find_all do | member |
+      range.include?(member.unit_price)
     end
   end
 
   def find_all_by_merchant_id(id)
-    @members.map do | member |
+    by_merchant_id = @members.map do | member |
       if member.merchant_id == id
         member
       end
     end
+    by_merchant_id = by_merchant_id.compact
+  end
+
+
+  def update(id, attributes)
+    member = find_by_id(id)
+    if member != nil
+      if attributes[:name] != nil
+        member.name = attributes[:name]
+      end
+      if attributes[:description] != nil
+        member.description = attributes[:description]
+      end
+      if attributes[:unit_price] != nil
+        member.unit_price = attributes[:unit_price]
+      end
+      member.updated_at = Time.new
+    end
   end
 
   def create(attributes)
-    super
-    @members.push(Item.new(attributes))
-  end
-
-  def update(id, attributes)
-    super
-    @members.each do | member |
-      if member.id == id
-        member.description = attributes[:description]
-        member.unit_price = attributes[:unit_price]
-        member.updated_at = Time.now
-      end
+    if attributes[:id] == nil
+      attributes[:id] = find_next_id
     end
+    @members.push(Item.new(attributes))
   end
 end
