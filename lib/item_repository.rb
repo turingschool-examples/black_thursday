@@ -1,6 +1,7 @@
 require_relative 'item'
 require_relative 'repository'
 require 'bigdecimal'
+require 'pry'
 
 class ItemRepository < Repository
   def initialize
