@@ -305,7 +305,7 @@ class ItemRepositoryTest < MiniTest::Test
     }
     item_2 = ir.create(attributes_2)
 
-    assert_equal [item_1], ir.find_all_by_merchant_id(12334140)
-    assert_equal [item_2], ir.find_all_by_merchant_id(12334141)
+    assert_equal [item_1], ir.find_all_by_merchant_id(263395240)
+    assert_equal [item_2], ir.find_all_by_merchant_id(263395241)
   end
 end
