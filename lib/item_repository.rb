@@ -1,5 +1,6 @@
-require_relative 'repo_methods.rb'
-require_relative 'item.rb'
+require_relative 'repo_methods'
+require_relative 'item'
+require 'bigdecimal'
 
 class ItemRepository
   include RepoMethods
@@ -9,4 +10,8 @@ class ItemRepository
     @collection = get_data_from_csv(data_from_csv)
   end
 
+  def create(attributes)
+    attributes[:id] = new_id
+    @collection[new_id] = Item.new(attributes)
+  end
 end
