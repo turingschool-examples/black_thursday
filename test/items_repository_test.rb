@@ -103,9 +103,58 @@ class ItemsRepositoryTest < Minitest::Test
                    :created_at  => Time.now,
                    :updated_at  => Time.now
                     })
+
     @ir.create(attributes)
     assert_equal 'Pencil', @ir.all.last.name
     assert_equal 1099, @ir.all.last.unit_price
     assert_equal 263396210, @ir.all.last.id
+    assert_equal Time.now.hour, @ir.all.last.created_at.hour
+  end
+
+  def test_update
+    csv = @ir.items_csv
+    @ir.load_items(csv)
+    attributes = ({:id          => nil,
+                   :name        => 'Pencil',
+                   :description => 'You can use it to write things',
+                   :unit_price  => BigDecimal.new(10.99,4),
+                   :created_at  => Time.now,
+                   :updated_at  => Time.now
+                    })
+
+    @ir.create(attributes)
+
+    item_id = 263396210
+    updated_attributes = ({:name        => 'Broken Pencil',
+                           :description => 'Useless',
+                           :unit_price  => BigDecimal.new(50.50, 4)})
+    @ir.update(item_id, updated_attributes)
+
+    assert_equal 'Broken Pencil', @ir.find_by_id(item_id).name
+    assert_equal 'Useless', @ir.find_by_id(item_id).description
+    assert_equal 5050, @ir.find_by_id(item_id).unit_price
+  end
+
+  def test_delete
+    csv = @ir.items_csv
+    @ir.load_items(csv)
+
+    attributes = ({:id          => nil,
+                   :name        => 'Pencil',
+                   :description => 'You can use it to write things',
+                   :unit_price  => BigDecimal.new(10.99,4),
+                   :created_at  => Time.now,
+                   :updated_at  => Time.now
+                    })
+
+    @ir.create(attributes)
+
+    assert_equal 6, @ir.all.length
+
+    item_id = 263396210
+
+    @ir.delete(item_id)
+
+    assert_equal 5, @ir.all.length
   end
 end

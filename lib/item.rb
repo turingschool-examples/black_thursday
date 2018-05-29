@@ -16,4 +16,16 @@ class Item
     @created_at = item[:created_at]
     @updated_at = item[:updated_at]
   end
+
+  def update_name(name)
+    @name = name
+  end
+
+  def update_description(description)
+    @description = description
+  end
+
+  def update_unit_price(new_price)
+    @unit_price = new_price
+  end
 end

@@ -60,4 +60,22 @@ class ItemsRepository
     item = Item.new(attributes)
     @all.push(item)
   end
+
+  def update(id, attributes)
+    @all.each do |item|
+      if item.id.to_i == id
+        item.update_name(attributes[:name])
+        item.update_description(attributes[:description])
+        item.update_unit_price((attributes[:unit_price].to_f * 100).to_i)
+      end
+    end
+  end
+
+  def delete(id)
+    @all.each do |item|
+      if item.id.to_i == id
+        @all.delete(item)
+      end
+    end
+  end
 end
