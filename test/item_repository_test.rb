@@ -1,10 +1,11 @@
 require_relative 'test_helper'
+require './lib/sales_engine'
 require './lib/item_repository'
 require './lib/item'
 
 class ItemsRepositoryTest < Minitest::Test
   def setup
-    @se = SalesEngine.new({
+    @se = SalesEngine.from_csv({
       :items     => './data/items.csv',
       :merchants => './data/merchants.csv'
     })
@@ -47,6 +48,7 @@ class ItemsRepositoryTest < Minitest::Test
   def test_find_all_by_name_fragment
     assert_instance_of Array, @item_repository.find_all_by_name('art')
     assert_equal 73, @item_repository.find_all_by_name('art').length
+    # assert_equal 73, @item_repository.find_all_by_name('style').length
     assert_equal [], @item_repository.find_all_by_name('asdgihweogdv')
     # assert_equal [], @item_repository.find_all_by_name('art')
   end
