@@ -45,9 +45,50 @@ module RepoMethods
     end
     return matches
   end
+  #
+  # def find_all_with_description(description)
+  #   matches = []
+  #   all.each do |element|
+  #     if element.description.include?(description)
+  #       matches << element
+  #     end
+  #   end
+  #   return matches
+  # end
+  #
+  # def find_all_by_price(price)
+  #   matches = []
+  #   all.each do |element|
+  #     if element.unit_price.include?(unit_price)
+  #       matches << element
+  #     end
+  #   end
+  #   return matches
+  # end
+
+  # def find_all_by_price_in_range(range)
+  #   matches = []
+  #   all.each do |element|
+  # next line needs rewrite
+      # if element.unit_price.include?(**)
+  #       matches << element
+  #     end
+  #   end
+  #   return matches
+  # end
+
+  # def find_all_by_merchant_id
+  #   matches = []
+  #   all.each do |element|
+  #     if element.merchant_id.include?(merchant_id)
+  #       matches << element
+  #     end
+  #   end
+  #   return matches
+  # end
 
   def all
     @collection.values
   end
-  
+
 end
