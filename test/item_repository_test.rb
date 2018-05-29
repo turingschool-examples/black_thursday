@@ -136,4 +136,24 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal "Capita Defenders of Awesome 2018", item.name
     assert item.updated_at > original_time
   end
+
+  def test_it_deletes_an_item
+    attributes = {
+      name: "Capita Defenders of Awesome 2018",
+      description: "This board both rips and shreds",
+      unit_price: BigDecimal.new(399.99, 5),
+      created_at: Time.now,
+      updated_at: Time.now,
+      merchant_id: 25
+    }
+    @se.items.create(attributes)
+    item = @se.items.find_by_id(263567475)
+    assert_equal 263567475, item.id
+
+    @se.items.delete(263567475)
+
+    assert_nil @se.items.find_by_id(263567475)
+
+    assert_nil @se.items.delete(270000000)
+  end
 end

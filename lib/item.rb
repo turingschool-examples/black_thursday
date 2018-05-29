@@ -37,4 +37,8 @@ class Item
   def new_update_time(time)
     @updated_at = time
   end
+
+  def unit_price_to_dollars
+    @unit_price.to_f
+  end
 end
