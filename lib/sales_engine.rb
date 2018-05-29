@@ -2,7 +2,6 @@ require_relative 'merchant_repository'
 require_relative 'item_repository'
 require_relative 'file_reader'
 require 'csv'
-require 'pry'
 
 class SalesEngine
   include FileReader
@@ -11,6 +10,6 @@ class SalesEngine
 
   def initialize(file_path)
     @merchants = MerchantRepository.new(FileReader.load(file_path[:merchants]))
-    # @items = ItemRepository.new(FileReader.load(file_path[:items]))
+    @items = ItemRepository.new(FileReader.load(file_path[:items]))
   end
 end

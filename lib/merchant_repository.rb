@@ -1,49 +1,48 @@
 require_relative 'sales_engine'
 require_relative 'merchant'
-require 'pry'
-class MerchantRepository
-# Responsible for holding and searching our Merchant instances.
 
-attr_reader :merchants, :merchant_objects
+class MerchantRepository
+  # Responsible for holding and searching our Merchant instances.
+  attr_reader :merchants
 
   def initialize(merchants)
     @merchants = merchants
-    @merchant_objects = []
-    create_all
+    @merchant_repository = []
+    create_all_merchants
   end
 
-  def create_all
+  def create_all_merchants
     @merchants.each do |merchant|
-      @merchant_objects << Merchant.new(merchant)
+      @merchant_repository << Merchant.new(merchant)
     end
   end
 
   def all
-    @merchant_objects
+    @merchant_repository
   end
 
   def find_by_id(id)
-    @merchant_objects.find do |merchant|
+    @merchant_repository.find do |merchant|
       id == merchant.id
     end
   end
 
   def find_by_name(name)
-    @merchant_objects.find do |merchant|
+    @merchant_repository.find do |merchant|
       name == merchant.name
     end
   end
 
   def find_all_by_name(name)
-    @merchant_objects.find_all do |merchant|
+    @merchant_repository.find_all do |merchant|
       merchant.name.include?(name)
     end
   end
 
   def create(attributes)
-    highest_id = @merchant_objects.max_by { |merchant| (merchant.id).to_i }
+    highest_id = @merchant_repository.max_by { |merchant| (merchant.id).to_i }
     attributes[:id] = (((highest_id.id).to_i) + 1).to_s
-    @merchant_objects << Merchant.new(attributes)
+    @merchant_repository << Merchant.new(attributes)
   end
 
   def update(id, attributes)
@@ -54,7 +53,7 @@ attr_reader :merchants, :merchant_objects
 
   def delete(id)
     merchant = find_by_id(id)
-    @merchant_objects.delete(merchant)
+    @merchant_repository.delete(merchant)
   end
 
   def inspect
