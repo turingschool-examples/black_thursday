@@ -11,8 +11,8 @@ class Merchant
   def initialize(data, parent)
     @id = data[:id].to_i
     @name = data[:name]
-    @created_at = Time.parse(data[:created_at])
-    @updated_at = Time.parse(data[:updated_at])
+    @created_at = Time.parse(data[:created_at].to_s)
+    @updated_at = Time.parse(data[:updated_at].to_s)
     @parent = parent
   end
 

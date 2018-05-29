@@ -29,18 +29,17 @@ class MerchantRepository
   def create(attributes)
     name = attributes[:name]
     highest = all.max_by {|merchant| merchant.id.to_i}
-    merchant = {name: name, 
+    merchant = {name: name,
                 id: (highest.id + 1),
-                created_at: Date.today.to_s,
-                updated_at: Date.today.to_s}
+                created_at: Date.today,
+                updated_at: Date.today}
     @merchant_repo.push(Merchant.new(merchant, self))
   end
 
   def update(id_num, attributes)
     merchant = find_by_id(id_num)
-    new_name = attributes[:name] if attributes[:name] != nil
     return merchant if merchant == nil
-    merchant.update_name(new_name)
+    merchant.update_name(attributes[:name]) if attributes[:name] != nil
   end
 
   def delete(id_num)

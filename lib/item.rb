@@ -15,10 +15,26 @@ class Item
     @id = data[:id].to_i
     @name = data[:name]
     @description = data[:description]
-    @unit_price = BigDecimal.new(data[:unit_price]) / 100
     @merchant_id = data[:merchant_id].to_i
-    @created_at = Time.parse(data[:created_at])
-    @updated_at = Time.parse(data[:updated_at])
+    @created_at = Time.parse(data[:created_at].to_s)
+    @updated_at = Time.parse(data[:updated_at].to_s)
     @parent = parent
+    @unit_price = BigDecimal.new(data[:unit_price]) / 100
+  end
+
+  def update_name(name)
+    @name = name
+  end
+
+  def update_unit_price(price)
+    @unit_price = price
+  end
+
+  def update_description(description)
+    @description = description
+  end
+
+  def new_update_time(time)
+    @updated_at = time
   end
 end
