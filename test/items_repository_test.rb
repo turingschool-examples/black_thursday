@@ -4,10 +4,10 @@ require 'csv'
 
 class ItemsRepositoryTest < Minitest::Test
   def setup
-    items = CSV.open './data/test_items.csv',
+    @items = CSV.open './data/test_items.csv',
                      headers: true,
                      header_converters: :symbol
-    @ir = ItemsRepository.new(items)
+    @ir = ItemsRepository.new
   end
 
   def test_items_repo_exists
@@ -19,15 +19,13 @@ class ItemsRepositoryTest < Minitest::Test
   end
 
   def test_it_can_load_items
-    csv = @ir.items_csv
-    @ir.load_items(csv)
+    @ir.load_items(@items)
 
     assert_equal 5, @ir.all.length
   end
 
   def test_find_by_id
-    csv = @ir.items_csv
-    @ir.load_items(csv)
+    @ir.load_items(@items)
 
     nil_id = 1984
     assert_nil @ir.find_by_id(nil_id)
@@ -37,8 +35,7 @@ class ItemsRepositoryTest < Minitest::Test
   end
 
   def test_find_by_name
-    csv = @ir.items_csv
-    @ir.load_items(csv)
+    @ir.load_items(@items)
 
     nil_name = "Powell's Magic Shop"
     assert_nil @ir.find_by_id(nil_name)
@@ -48,8 +45,7 @@ class ItemsRepositoryTest < Minitest::Test
   end
 
   def test_find_all_with_description
-    csv = @ir.items_csv
-    @ir.load_items(csv)
+    @ir.load_items(@items)
 
     desc_one = 'Bob Dobbs'
     assert_equal [], @ir.find_all_with_description(desc_one)
@@ -59,8 +55,7 @@ class ItemsRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_price
-    csv = @ir.items_csv
-    @ir.load_items(csv)
+    @ir.load_items(@items)
 
     price_one = 1_000_000_000
     assert_equal [], @ir.find_all_by_price(price_one)
@@ -70,8 +65,7 @@ class ItemsRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_price_in_range
-    csv = @ir.items_csv
-    @ir.load_items(csv)
+    @ir.load_items(@items)
 
     range_one = (-50..0)
     assert_equal [], @ir.find_all_by_price_in_range(range_one)
@@ -81,8 +75,7 @@ class ItemsRepositoryTest < Minitest::Test
   end
 
   def test_find_all_by_merchant_id
-    csv = @ir.items_csv
-    @ir.load_items(csv)
+    @ir.load_items(@items)
 
     id_one = 1984
     assert_equal [], @ir.find_all_by_merchant_id(id_one)
@@ -94,8 +87,7 @@ class ItemsRepositoryTest < Minitest::Test
   end
 
   def test_create
-    csv = @ir.items_csv
-    @ir.load_items(csv)
+    @ir.load_items(@items)
     attributes = { id: nil,
                    name: 'Pencil',
                    description: 'You can use it to write things',
@@ -111,8 +103,7 @@ class ItemsRepositoryTest < Minitest::Test
   end
 
   def test_update
-    csv = @ir.items_csv
-    @ir.load_items(csv)
+    @ir.load_items(@items)
     attributes = { id: nil,
                    name: 'Pencil',
                    description: 'You can use it to write things',
@@ -134,8 +125,7 @@ class ItemsRepositoryTest < Minitest::Test
   end
 
   def test_delete
-    csv = @ir.items_csv
-    @ir.load_items(csv)
+    @ir.load_items(@items)
 
     attributes = { id: nil,
                    name: 'Pencil',
