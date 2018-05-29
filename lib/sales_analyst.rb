@@ -27,8 +27,8 @@ class SalesAnalyst
   def merchants_with_high_item_count
     one_sd_above = average_items_per_merchant + average_items_per_merchant_standard_deviation
     merchant_ids = items_by_merchant_id.map do |merch_id, items|
-                    merch_id if items.count > one_sd_above
-                  end.compact
+      merch_id if items.count > one_sd_above
+    end.compact
     merchant_ids.map {|id| @parent.merchants.find_by_id(id)}
   end
 end
