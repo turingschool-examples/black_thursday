@@ -42,14 +42,14 @@ class ItemRepository
     highest = all.max_by {|item| item.id.to_i }
     item = {name: attributes[:name],
             description: attributes[:description],
-            unit_price: (attributes[:unit_price]*100).to_i,
+            unit_price: (attributes[:unit_price]*100),
             id: (highest.id + 1),
             created_at: attributes[:created_at],
             updated_at: attributes[:updated_at],
             merchant_id: attributes[:merchant_id]}
     @item_repo.push(Item.new(item, self))
   end
-
+#ask if attributes > 0 is necessary for update time
   def update(id, attributes)
     item = find_by_id(id)
     return item if item == nil
