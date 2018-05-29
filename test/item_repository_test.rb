@@ -159,24 +159,45 @@ class ItemRepositoryTest < MiniTest::Test
       :items => "./data/item_sample.csv",
       :merchants => "./data/merchant_sample.csv"
     })
-    ir = se.items 
-    new_attributes_1 = {:name => 'item4'}
-    new_attributes_2 = {:name => 'item5'}
-    new_attributes_3 = {:name => 'item6'}
+    ir = se.items
+    new_attributes_1 = {:name => 'item_4'}
+    new_attributes_2 = {:name => 'item_5'}
+    new_attributes_3 = {:name => 'item_6'}
     ir.update(263395237, new_attributes_1)
     ir.update(263395238, new_attributes_2)
     ir.update(263395239, new_attributes_3)
     todays_date = Date.today.strftime("%Y-%m-%e")
 
-    assert_equal 'item4', ir.collection[263395237].name
-    assert_equal 'item5', ir.collection[263395238].name
-    assert_equal 'item6', ir.collection[263395239].name
+    assert_equal 'item_4', ir.collection[263395237].name
+    assert_equal 'item_5', ir.collection[263395238].name
+    assert_equal 'item_6', ir.collection[263395239].name
     assert_equal todays_date, ir.collection[263395237].updated_at
     assert_equal todays_date, ir.collection[263395238].updated_at
     assert_equal todays_date, ir.collection[263395239].updated_at
   end
-end
 
+  def test_item_can_be_deleted_by_id
+    se = SalesEngine.from_csv({
+      :items => "./data/item_sample.csv",
+      :merchants => "./data/merchant_sample.csv"
+    })
+    ir = se.items
+    attributes_1 = {
+      :name        => "Pencil",
+      :description => "You can use it to write things",
+      :unit_price  => BigDecimal.new(10.99,4),
+      :created_at  => Time.now,
+      :updated_at  => Time.now
+    }
+    item_1 = ir.create(attributes_1)
+
+    assert_equal item_1, ir.find_by_id(263395240)
+
+    ir.delete(263395240)
+
+    assert_nil ir.find_by_id(263395240)
+  end
+  #
   # def test_find_all_with_description
   #   se = SalesEngine.from_csv({
   #     :items => "./data/item_sample.csv",
@@ -200,10 +221,10 @@ end
   #   }
   #   item_2 = ir.create(attributes_2)
   #
-  #   assert_equal item_1, ir.find_all_with_description
-  #   assert_equal item_2, ir.find_all_with_description
+  #   assert_equal [item_1, item_2], ir.find_all_with_description('things')
+  #   assert_equal [item2], ir.find_all_with_description('other')
   # end
-  #
+
   # def test_find_all_by_price
   #   se = SalesEngine.from_csv({
   #     :items => "./data/item_sample.csv",
@@ -221,17 +242,17 @@ end
   #   attributes_2 = {
   #     :name        => "Pen",
   #     :description => "You can use it to write other things",
-  #     :unit_price  => BigDecimal.new(10.99,4),
+  #     :unit_price  => BigDecimal.new(11.99,4),
   #     :created_at  => Time.now,
   #     :updated_at  => Time.now
   #   }
   #   item_2 = ir.create(attributes_2)
   #
-  #   assert_equal item_1, ir.find_by_name('Pencil')
-  #   assert_equal item_2, ir.find_by_name('Pen')
+  #   assert_equal [item_1], ir.find_all_by_price(10.99)
+  #   assert_equal [item_2], ir.find_all_by_price(11.99)
   # end
-  #
-  # def test_find_all_by_price_range
+
+  # def test_find_all_by_price_in_range
   #   se = SalesEngine.from_csv({
   #     :items => "./data/item_sample.csv",
   #     :merchants => "./data/merchant_sample.csv"
@@ -248,39 +269,25 @@ end
   #   attributes_2 = {
   #     :name        => "Pen",
   #     :description => "You can use it to write other things",
-  #     :unit_price  => BigDecimal.new(10.99,4),
+  #     :unit_price  => BigDecimal.new(11.99,4),
   #     :created_at  => Time.now,
   #     :updated_at  => Time.now
   #   }
   #   item_2 = ir.create(attributes_2)
   #
-  #   assert_equal item_1, ir.find_by_name('Pencil')
-  #   assert_equal item_2, ir.find_by_name('Pen')
+  #   assert_equal [item_1, item_2], ir.find_all_by_price_in_range(range)
+  #   assert_equal [item_2], ir.find_all_by_price_in_range(range)
   # end
-  #
+
   # def test_find_all_by_merchant_id
   #   se = SalesEngine.from_csv({
   #     :items => "./data/item_sample.csv",
   #     :merchants => "./data/merchant_sample.csv"
   #   })
   #   ir = se.items
-  #   attributes_1 = {
-  #     :name        => "Pencil",
-  #     :description => "You can use it to write things",
-  #     :unit_price  => BigDecimal.new(10.99,4),
-  #     :created_at  => Time.now,
-  #     :updated_at  => Time.now
-  #   }
-  #   item_1 = ir.create(attributes_1)
-  #   attributes_2 = {
-  #     :name        => "Pen",
-  #     :description => "You can use it to write other things",
-  #     :unit_price  => BigDecimal.new(10.99,4),
-  #     :created_at  => Time.now,
-  #     :updated_at  => Time.now
-  #   }
-  #   item_2 = ir.create(attributes_2)
   #
-  #   assert_equal item_1, ir.find_by_name('Pencil')
-  #   assert_equal item_2, ir.find_by_name('Pen')
+  #
+  #   assert_equal [item_1], ir.find_all_by_merchant_id(12334130)
+  #   assert_equal [item_2], ir.find_all_by_merchant_ide(12334131)
   # end
+end
