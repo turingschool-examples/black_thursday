@@ -1,4 +1,5 @@
 require "bigdecimal"
+require 'time'
 
 class Item
   attr_accessor :specs
@@ -28,15 +29,15 @@ class Item
   end
 
   def unit_price
-    @specs[:unit_price]
+    @specs[:unit_price] / 100
   end
 
   def created_at
-    @specs[:created_at]
+    Time.parse(@specs[:created_at])
   end
 
   def updated_at
-    @specs[:updated_at]
+    Time.parse(@specs[:updated_at])
   end
 
   def merchant_id
