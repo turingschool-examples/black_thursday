@@ -5,8 +5,8 @@ class ItemsRepository
   attr_reader :items_csv,
               :all
 
-  def initialize(items_csv)
-    @items_csv = items_csv
+  def initialize
+    # @items_csv = items_csv
     @all = []
   end
 
@@ -45,6 +45,10 @@ class ItemsRepository
       range.include?(item.unit_price.to_i)
     end
   end
+
+  def inspect
+      "#<#{self.class} #{@items.size} rows>"
+    end
 
   def find_all_by_merchant_id(id)
     @all.find_all do |item|
