@@ -154,9 +154,27 @@ class ItemRepositoryTest < MiniTest::Test
     assert_nil ir.find_by_name('Marker')
   end
 
+  def test_item_name_can_be_updated_and_records_date_of_update
+    se = SalesEngine.from_csv({
+      :items => "./data/item_sample.csv",
+      :merchants => "./data/merchant_sample.csv"
+    })
+    ir = se.items 
+    new_attributes_1 = {:name => 'item4'}
+    new_attributes_2 = {:name => 'item5'}
+    new_attributes_3 = {:name => 'item6'}
+    ir.update(263395237, new_attributes_1)
+    ir.update(263395238, new_attributes_2)
+    ir.update(263395239, new_attributes_3)
+    todays_date = Date.today.strftime("%Y-%m-%e")
 
-
-
+    assert_equal 'item4', ir.collection[263395237].name
+    assert_equal 'item5', ir.collection[263395238].name
+    assert_equal 'item6', ir.collection[263395239].name
+    assert_equal todays_date, ir.collection[263395237].updated_at
+    assert_equal todays_date, ir.collection[263395238].updated_at
+    assert_equal todays_date, ir.collection[263395239].updated_at
+  end
 end
 
   # def test_find_all_with_description
