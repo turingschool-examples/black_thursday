@@ -40,7 +40,6 @@ class Repository
       id = ids.last.id + 1
     end
     attributes[:id] = id
-    return attributes
   end
 
   def delete(id)
