@@ -45,10 +45,6 @@ class ItemRepository < Repository
     end
   end
 
-  def create(attributes)
-    super
-    @members.push(Item.new(attributes))
-  end
 
   def update(id, attributes)
     super
@@ -59,5 +55,12 @@ class ItemRepository < Repository
         member.updated_at = Time.now
       end
     end
+  end
+
+  def create(attributes)
+    if attributes[:id] == nil
+      attributes[:id] = find_next_id
+    end
+    @members.push(Item.new(attributes))
   end
 end

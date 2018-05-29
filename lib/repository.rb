@@ -19,27 +19,16 @@ class Repository
         return member
       end
     end
+    nil
   end
 
   def find_by_name(name)
     @members.each do |member|
-      if member.name == name
+      if member.name.downcase == name.downcase
         return member
       end
     end
-  end
-
-  def create(attributes)
-    id = nil
-    if @members.length == 0
-      id = 0
-    else
-      ids = @members.sort_by do | member |
-        member.id
-      end
-      id = ids.last.id + 1
-    end
-    attributes[:id] = id
+    nil
   end
 
   def delete(id)
@@ -49,7 +38,9 @@ class Repository
         i = index
       end
     end
-    @members.delete_at(i)
+    if i !=nil
+      @members.delete_at(i)
+    end
   end
 
   def update(id, attributes)
@@ -58,5 +49,15 @@ class Repository
         member.name = attributes[:name]
       end
     end
+  end
+
+  def find_next_id
+    id = 0
+    @members.each do | member |
+      if member.id > id
+        id = member.id
+      end
+    end
+    return id + 1
   end
 end

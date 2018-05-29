@@ -8,7 +8,7 @@ class Item
                     :unit_price_to_dollars
 
   def initialize(item_attributes)
-    @id = item_attributes[:id]
+    @id = item_attributes[:id].to_i
     @name = item_attributes[:name]
     @description = item_attributes[:description]
     @unit_price = item_attributes[:unit_price]
