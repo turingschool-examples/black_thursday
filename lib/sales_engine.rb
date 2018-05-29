@@ -15,5 +15,4 @@ class SalesEngine
   def self.from_csv(file_paths)
     SalesEngine.new(file_paths)
   end
-
 end
