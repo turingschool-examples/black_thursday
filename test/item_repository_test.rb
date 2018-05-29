@@ -8,22 +8,25 @@ require 'pry'
 class ItemRepositoryTest < Minitest::Test
   def setup
     pencil = {
-        :name                     => "Pencil",
-        :description              => "You can use it to write things",
-        :unit_price               => BigDecimal.new(10.99, 4),
-        :created_at               => Time.now,
-        :updated_at               => Time.now,
-        :unit_price_to_dollars    => 10.99
-      }
+      :merchant_id                 => 4977,
+      :name                        => "Pencil",
+      :description                 => "You can use it to write things",
+      :unit_price                  => BigDecimal.new(10.99, 4),
+      :created_at                  => Time.now,
+      :updated_at                  => Time.now,
+      :unit_price_to_dollars       => 10.99
+    }
     stencil = {
-        :name                      => "Stencil",
-        :description               => "It rhymes with pencil",
-        :unit_price                => BigDecimal.new(11.99, 4),
-        :created_at                => Time.now,
-        :updated_at                => Time.now,
-        :unit_price_to_dollars     => 11.99
-      }
+      :merchant_id                 => 4978,
+      :name                        => "Stencil",
+      :description                 => "It rhymes with pencil",
+      :unit_price                  => BigDecimal.new(11.99, 4),
+      :created_at                  => Time.now,
+      :updated_at                  => Time.now,
+      :unit_price_to_dollars       => 11.99
+    }
     board = {
+      :merchant_id                 => 4979,
       :name                        => "Board",
       :description                 => "It sounds like 'bored'",
       :unit_price                  => BigDecimal.new(12.99, 4),
@@ -60,7 +63,12 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_item_repo_can_find_by_id
     assert_instance_of Item, @ir.find_by_id(0)
-    assert_equal "Pencil", @ir.find_by_id(0).name
+    assert_equal "Stencil", @ir.find_by_id(0).name
+  end
+
+  def test_item_repo_can_find_by_merchant_id
+    assert_instance_of Item, @ir.find_all_by_merchant_id(4978)
+    assert_equal "Pencil", @ir.find_all_by_merchant_id(4978).name
   end
 
   def test_item_repo_can_find_item_by_name
@@ -82,6 +90,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_item_repo_can_find_all_with_price
+    binding.pry
     assert_equal 1, @ir.find_all_by_price(10.99).count
     assert_equal "Pencil", @ir.find_all_by_price(10.99)[0].name
   end

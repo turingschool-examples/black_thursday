@@ -2,6 +2,7 @@ require 'bigdecimal'
 
 class Item
   attr_accessor     :id,
+                    :merchant_id,
                     :name,
                     :description,
                     :unit_price,
@@ -11,9 +12,10 @@ class Item
 
   def initialize(item_attributes)
     @id = item_attributes[:id].to_i
+    @merchant_id = item_attributes[:merchant_id].to_i
     @name = item_attributes[:name]
     @description = item_attributes[:description]
-    @unit_price = BigDecimal.new(item_attributes[:unit_price].to_i/100)
+    @unit_price = BigDecimal.new(item_attributes[:unit_price].to_i / 100)
     @created_at = item_attributes[:created_at]
     @updated_at = item_attributes[:updated_at]
   end

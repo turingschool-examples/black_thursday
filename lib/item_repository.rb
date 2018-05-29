@@ -18,20 +18,20 @@ class ItemRepository < Repository
         member
       end
     end
-    desc.compact
+    desc = desc.compact
   end
 
   def find_all_by_price(price)
-    by_price = @members.map do | member |
+    by_price = @members.find_all do | member |
       if member.unit_price == price
         member
       end
     end
-    by_price.compact
+    by_price = by_price.compact
   end
 
   def find_all_by_price_in_range(range)
-    @members.map do | member |
+    sammo = @members.map do | member |
       if range.include?(member.unit_price)
         member
       end
@@ -39,11 +39,12 @@ class ItemRepository < Repository
   end
 
   def find_all_by_merchant_id(id)
-    @members.map do | member |
+    by_merchant_id = @members.map do | member |
       if member.merchant_id == id
         member
       end
     end
+    by_merchant_id = by_merchant_id.compact
   end
 
 
