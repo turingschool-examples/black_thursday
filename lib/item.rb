@@ -8,11 +8,11 @@ class Item
               :updated_at
 
   def initialize(item)
-    @id = item[:id]
+    @id = item[:id].to_i
     @name = item[:name]
     @description = item[:description]
-    @unit_price = item[:unit_price]
-    @merchant_id = item[:merchant_id]
+    @unit_price = item[:unit_price].to_i
+    @merchant_id = item[:merchant_id].to_i
     @created_at = item[:created_at]
     @updated_at = item[:updated_at]
   end

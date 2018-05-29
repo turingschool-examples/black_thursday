@@ -41,7 +41,8 @@ class ItemsRepositoryTest < Minitest::Test
     assert_nil @ir.find_by_id(nil_name)
 
     real_name = 'Glitter scrabble frames'
-    assert_instance_of Item, @ir.find_by_name(real_name)
+
+    assert_equal @ir.all[1], @ir.find_by_name(real_name)
   end
 
   def test_find_all_with_description
@@ -57,20 +58,20 @@ class ItemsRepositoryTest < Minitest::Test
   def test_find_all_by_price
     @ir.load_items(@items)
 
-    price_one = 1_000_000_000
+    price_one = BigDecimal('1_000_000_000')
     assert_equal [], @ir.find_all_by_price(price_one)
 
-    price_two = 1350
+    price_two = BigDecimal('13.5')
     assert_equal 1, @ir.find_all_by_price(price_two).length
   end
 
   def test_find_all_by_price_in_range
     @ir.load_items(@items)
 
-    range_one = (-50..0)
+    range_one = (-50.00 ..0)
     assert_equal [], @ir.find_all_by_price_in_range(range_one)
 
-    range_two = (0..1500)
+    range_two = (0..15.00)
     assert_equal 4, @ir.find_all_by_price_in_range(range_two).length
   end
 
