@@ -28,7 +28,6 @@ class SalesEngine
     merchant_hashes = csv_to_hash(paths[:merchants])
     @merchants = MerchantRepository.new
     hashes_to_repos(merchant_hashes, @merchants)
-    binding.pry
   end
 
   def self.from_csv(paths)
