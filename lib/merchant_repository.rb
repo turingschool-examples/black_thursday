@@ -8,4 +8,10 @@ class MerchantRepository
   def initialize(data_from_csv)
     @collection = get_data_from_csv(data_from_csv)
   end
+
+  def create(attributes)
+    attributes[:id] = new_id
+    @collection[new_id] = Merchant.new(attributes)
+  end
+  
 end
