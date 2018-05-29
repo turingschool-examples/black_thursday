@@ -9,7 +9,7 @@ class SalesAnalyst
     @id_counts = {}
     @average_items = average_items_per_merchant
     @items_standard_deviation = average_items_per_merchant_standard_deviation
-    @average_price = average_average_price_per_merchant
+    @average_price = average_total_item_price
     @price_standard_deviation = item_price_standard_deviation
   end
 
@@ -84,7 +84,21 @@ class SalesAnalyst
   end
 
   def item_price_standard_deviation
-    standard_deviation(average_item_prices_for_each_merchant, @average_price)
+    standard_deviation(all_item_prices, @average_price).round(2)
+  end
+
+  def all_item_prices
+    @items.all.map do |item|
+      item = (item.unit_price / 100)
+    end
+  end
+
+  def average_total_item_price
+    sum = 0.00
+    @items.all.map do |item|
+      sum += (item.unit_price / 100)
+    end
+    sum / @items.all.count
   end
 
   def golden_items
