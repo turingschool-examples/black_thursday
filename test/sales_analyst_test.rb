@@ -20,4 +20,9 @@ class SalesAnalystTest < Minitest::Test
     assert_equal Float, @sa.average_items_per_merchant.class
   end
 
+  def test_it_returns_the_standard_deviation
+    assert_equal 3.26, @sa.average_items_per_merchant_standard_deviation
+    assert_equal Float, @sa.average_items_per_merchant_standard_deviation.class
+  end
+
 end
