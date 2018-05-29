@@ -42,10 +42,9 @@ class MerchantRepository
     merchant.update_name(attributes[:name]) if attributes[:name] != nil
   end
 
-  def delete(id_num)
-    merchant = find_by_id(id_num)
-    @merchant_repo.delete_if {|merchant| merchant.id == id_num}
-    merchant
+  def delete(id)
+    merchant = find_by_id(id)
+    @merchant_repo.delete(merchant)
   end
 
   def inspect
