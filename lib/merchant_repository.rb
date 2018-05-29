@@ -1,4 +1,5 @@
 require_relative 'merchant.rb'
+require 'pry'
 
 class MerchantRepository
   attr_reader :merchants, :repository
@@ -58,7 +59,7 @@ class MerchantRepository
     merchant = find_by_id(id)
     @repository.delete(merchant)
   end
-  
+
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end

@@ -52,7 +52,9 @@ class ItemRepository
         if item.specs[key] != attributes[key]
           next if (key == :id) || (key == :created_at) || (key == :merchant_id)
           item.specs[key] = value
-          item.specs[:updated_at] = Time.now
+          item.specs[:updated_at] = (Time.now).to_s
+          if key == :unit_price then item.specs[key] *= 100 end
+
         end
       end
     end
