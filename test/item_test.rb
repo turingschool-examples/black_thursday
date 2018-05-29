@@ -47,4 +47,19 @@ class ItemTest < Minitest::Test
     assert_equal 130.0, item.unit_price_to_dollars
     assert_equal Float, item.unit_price_to_dollars.class
   end
+
+  def test_update_name_description_time
+    item_repo = MockItemRepo.new
+    item = Item.new(ITEM_DATA, item_repo)
+
+    item.update_name('bottle')
+    assert_equal 'bottle', item.name
+
+    item.update_description('its a bottle')
+    assert_equal 'its a bottle', item.description
+
+    time = Time.now.utc
+    item.new_update_time(time)
+    assert_equal time, item.updated_at
+  end
 end
