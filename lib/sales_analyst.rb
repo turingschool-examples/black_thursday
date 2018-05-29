@@ -6,6 +6,7 @@ class SalesAnalyst
   def initialize(item_repository, merchant_repository)
     @items = item_repository
     @merchants = merchant_repository
+    @items_grouped_by_merchant = items_grouped_by_merchant
     @id_counts = {}
     @average_items = average_items_per_merchant
     @items_standard_deviation = average_items_per_merchant_standard_deviation
@@ -33,6 +34,19 @@ class SalesAnalyst
     end
     standard_deviation = ((sum / count_less_one) ** (1.0/2)).round(2)
   end
+
+  def items_grouped_by_merchant
+    @items.all.group_by do |item|
+      item.merchant_id
+    end
+  end
+
+  # def items_per_merchant
+  #   array_of_arrays_of_items_per_merchant = @items_grouped_by_merchant.values
+  #   array_of_arrays_of_items_per_merchant.map do |array|
+  #     array = array.count
+  #   end
+  # end
 
   def items_per_merchant
     unique_ids = merchant_ids.uniq
@@ -65,7 +79,7 @@ class SalesAnalyst
     items.each do |item|
       sum += item.unit_price
     end
-    (((sum / 100)) / items.count).to_f.round(2)
+    (sum / items.count).to_f.round(2)
   end
 
 
@@ -89,14 +103,14 @@ class SalesAnalyst
 
   def all_item_prices
     @items.all.map do |item|
-      item = (item.unit_price / 100)
+      item = item.unit_price
     end
   end
 
   def average_total_item_price
     sum = 0.00
     @items.all.map do |item|
-      sum += (item.unit_price / 100)
+      sum += item.unit_price
     end
     sum / @items.all.count
   end
@@ -104,7 +118,7 @@ class SalesAnalyst
   def golden_items
     golden_items = []
     @items.all.map do |item|
-      if (item.unit_price / 100) >= (@average_price + (@price_standard_deviation * 2))
+      if item.unit_price >= (@average_price + (@price_standard_deviation * 2))
         golden_items << item
       end
     end
