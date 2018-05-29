@@ -46,4 +46,10 @@ class ItemTest < Minitest::Test
     @test_item.update_unit_price(1200)
     assert_equal 1200, @test_item.unit_price
   end
+
+  def test_update_updated_at
+    time_1 = @test_item.update_updated_at(Time.now)
+    time_2 = @test_item.update_updated_at(Time.now)
+    refute time_1 == time_2
+  end
 end

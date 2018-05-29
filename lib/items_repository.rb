@@ -72,9 +72,10 @@ class ItemsRepository
   def update(id, attributes)
     @all.find do |item|
       if item.id.to_i == id
-        item.update_name(attributes[:name])
-        item.update_description(attributes[:description])
-        item.update_unit_price((attributes[:unit_price].to_f * 100).to_i)
+        item.update_name(attributes[:name]) if attributes[:name] != nil
+        item.update_description(attributes[:description]) if attributes[:description] != nil
+        item.update_unit_price(attributes[:unit_price].to_f) if attributes[:unit_price] != nil
+        item.update_updated_at(Time.now)
       end
     end
   end

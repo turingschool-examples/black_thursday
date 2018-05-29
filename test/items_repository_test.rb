@@ -122,7 +122,8 @@ class ItemsRepositoryTest < Minitest::Test
 
     assert_equal 'Broken Pencil', @ir.find_by_id(item_id).name
     assert_equal 'Useless', @ir.find_by_id(item_id).description
-    assert_equal 5050, @ir.find_by_id(item_id).unit_price
+    assert_equal 50.5, @ir.find_by_id(item_id).unit_price
+    refute @ir.find_by_id(item_id).created_at == @ir.find_by_id(item_id).updated_at
   end
 
   def test_delete

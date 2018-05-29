@@ -28,4 +28,8 @@ class Item
   def update_unit_price(new_price)
     @unit_price = new_price
   end
+
+  def update_updated_at(new_time)
+    @updated_at = new_time
+  end
 end
