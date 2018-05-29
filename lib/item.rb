@@ -7,15 +7,16 @@ class Item
                     :unit_price,
                     :created_at,
                     :updated_at,
-                    :unit_price_to_dollars
+                    :unit_price_to_dollars,
+                    :merchant_id
 
   def initialize(item_attributes)
     @id = item_attributes[:id].to_i
     @name = item_attributes[:name]
     @description = item_attributes[:description]
     @unit_price = BigDecimal.new(item_attributes[:unit_price].to_i/100)
-    @created_at = item_attributes[:created_at]
-    @updated_at = item_attributes[:updated_at]
+    @created_at = Time.now
+    @updated_at = Time.now
   end
 
   def unit_price_to_dollars
