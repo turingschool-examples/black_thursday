@@ -1,4 +1,5 @@
 require_relative 'item'
+require 'bigdecimal'
 
 class ItemsRepository
   attr_reader :items_csv,
@@ -23,7 +24,7 @@ class ItemsRepository
 
   def find_by_name(item_name)
     @all.find do |item|
-      item.name.downcase == item_name.downcase
+      item.name.casecmp(item_name)
     end
   end
 
@@ -48,4 +49,37 @@ class ItemsRepository
   def inspect
       "#<#{self.class} #{@items.size} rows>"
     end
+
+  def find_all_by_merchant_id(id)
+    @all.find_all do |item|
+      item.merchant_id == id.to_s
+    end
+  end
+
+  def create(attributes)
+    attributes[:id] = @all.map do |item|
+      item.id.to_i
+    end.max + 1
+    attributes[:unit_price] = (attributes[:unit_price].to_f * 100).to_i
+    item = Item.new(attributes)
+    @all.push(item)
+  end
+
+  def update(id, attributes)
+    @all.find do |item|
+      if item.id.to_i == id
+        item.update_name(attributes[:name])
+        item.update_description(attributes[:description])
+        item.update_unit_price((attributes[:unit_price].to_f * 100).to_i)
+      end
+    end
+  end
+
+  def delete(id)
+    @all.find do |item|
+      if item.id.to_i == id
+        @all.delete(item)
+      end
+    end
+  end
 end
