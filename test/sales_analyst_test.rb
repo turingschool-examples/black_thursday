@@ -25,4 +25,9 @@ class SalesAnalystTest < Minitest::Test
     assert_equal Float, @sa.average_items_per_merchant_standard_deviation.class
   end
 
+  def test_returns_merchants_more_than_one_standard_deviation_above_the_average_number_of_products_offered
+     assert_equal 52, @sa.merchants_with_high_item_count.length
+     assert_equal Merchant, @sa.merchants_with_high_item_count.first.class
+  end
+
 end
