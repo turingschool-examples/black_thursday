@@ -27,35 +27,21 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    matching_merchant = nil
-    @merchants.each do |merchant|
-      if merchant.id == id
-        matching_merchant = merchant
-      end
+    @merchants.find do |merchant|
+      merchant.id == id
     end
-    return matching_merchant
   end
 
   def find_by_name(name)
-    matching_merchant = nil
-    @merchants.each do |merchant|
-      # require 'pry' ; binding.pry
-      if merchant.name.downcase == name.downcase
-        matching_merchant = merchant
-      end
+    @merchants.find do |merchant|
+      merchant.name.downcase == name.downcase
     end
-    return matching_merchant
   end
 
   def find_all_by_name(name)
-    matching_merchants = []
-    @merchants.each do |merchant|
-      # binding.pry
-      if merchant.name.downcase.include?(name.downcase)
-        matching_merchants << merchant
-      end
+    @merchants.find_all do |merchant|
+      merchant.name.downcase.include?(name.downcase)
     end
-    return matching_merchants
   end
 
   def update(id, attributes)

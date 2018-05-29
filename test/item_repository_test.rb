@@ -32,8 +32,10 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def find_all_by_price
-    ir = ItemRepository.new
-    assert_equal [], ir.find_all_with_price('1200')
+    engine = SalesEngine.new
+    price = BigDecimal.new(25)
+    expected = engine.items.find_all_by_price(price)
+    assert_equal 79, expected.length
   end
 
   def find_all_by_price_in_range
@@ -47,8 +49,11 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_create
-    ir = ItemRepository.new
-    ir.create({name: 'Teddy Bear', description: 'fluffy', unit_price: 10})
+    engine = SalesEngine.new
+    engine.items.create(attributes)
+    expected = engine.items.find_by_id(263567475)
+    expected.name = engine.items.find_by_name('Capita Defenders of Awesome 2018')
+    assert_equal 'Capita Defenders of Awesome 2018', expected.name
   end
 
   def test_update
@@ -62,9 +67,9 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_delete_merchant
     ir = ItemRepository.new
-    assert ir.find_by_id("12336622")
-    ir.delete("12336622")
-    refute ir.find_by_id("12336622")
+    assert ir.find_by_id('12336622')
+    ir.delete('12336622')
+    refute ir.find_by_id('12336622')
   end
 
 end
