@@ -9,9 +9,15 @@ class MerchantRepository
     @collection = get_data_from_csv(data_from_csv)
   end
 
+  def get_data_from_csv(data_from_csv)
+    data_from_csv.map do |line|
+      [line[:id].to_i, Merchant.new(line)]
+    end.to_h
+  end
+  
   def create(attributes)
     attributes[:id] = new_id
     @collection[new_id] = Merchant.new(attributes)
   end
-  
+
 end

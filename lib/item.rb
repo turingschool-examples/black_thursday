@@ -20,4 +20,9 @@ class Item
   def unit_price_to_dollars
     @unit_price.to_f
   end
+
+  def update_name(attributes)
+    @name = attributes[:name]
+  end
+  
 end

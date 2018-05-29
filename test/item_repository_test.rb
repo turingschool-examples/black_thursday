@@ -197,7 +197,7 @@ class ItemRepositoryTest < MiniTest::Test
 
     assert_nil ir.find_by_id(263395240)
   end
-  
+
   def test_find_all_with_description
     se = SalesEngine.from_csv({
       :items => "./data/item_sample.csv",
@@ -222,72 +222,90 @@ class ItemRepositoryTest < MiniTest::Test
     item_2 = ir.create(attributes_2)
 
     assert_equal [item_1, item_2], ir.find_all_with_description('things')
-    assert_equal [item2], ir.find_all_with_description('other')
+    assert_equal [item_2], ir.find_all_with_description('other')
   end
 
-  # def test_find_all_by_price
-  #   se = SalesEngine.from_csv({
-  #     :items => "./data/item_sample.csv",
-  #     :merchants => "./data/merchant_sample.csv"
-  #   })
-  #   ir = se.items
-  #   attributes_1 = {
-  #     :name        => "Pencil",
-  #     :description => "You can use it to write things",
-  #     :unit_price  => BigDecimal.new(10.99,4),
-  #     :created_at  => Time.now,
-  #     :updated_at  => Time.now
-  #   }
-  #   item_1 = ir.create(attributes_1)
-  #   attributes_2 = {
-  #     :name        => "Pen",
-  #     :description => "You can use it to write other things",
-  #     :unit_price  => BigDecimal.new(11.99,4),
-  #     :created_at  => Time.now,
-  #     :updated_at  => Time.now
-  #   }
-  #   item_2 = ir.create(attributes_2)
-  #
-  #   assert_equal [item_1], ir.find_all_by_price(10.99)
-  #   assert_equal [item_2], ir.find_all_by_price(11.99)
-  # end
+  def test_find_all_by_price
+    se = SalesEngine.from_csv({
+      :items => "./data/item_sample.csv",
+      :merchants => "./data/merchant_sample.csv"
+    })
+    ir = se.items
+    attributes_1 = {
+      :name        => "Pencil",
+      :description => "You can use it to write things",
+      :unit_price  => BigDecimal.new(10.99,4),
+      :created_at  => Time.now,
+      :updated_at  => Time.now
+    }
+    item_1 = ir.create(attributes_1)
+    attributes_2 = {
+      :name        => "Pen",
+      :description => "You can use it to write other things",
+      :unit_price  => BigDecimal.new(11.99,4),
+      :created_at  => Time.now,
+      :updated_at  => Time.now
+    }
+    item_2 = ir.create(attributes_2)
 
-  # def test_find_all_by_price_in_range
-  #   se = SalesEngine.from_csv({
-  #     :items => "./data/item_sample.csv",
-  #     :merchants => "./data/merchant_sample.csv"
-  #   })
-  #   ir = se.items
-  #   attributes_1 = {
-  #     :name        => "Pencil",
-  #     :description => "You can use it to write things",
-  #     :unit_price  => BigDecimal.new(10.99,4),
-  #     :created_at  => Time.now,
-  #     :updated_at  => Time.now
-  #   }
-  #   item_1 = ir.create(attributes_1)
-  #   attributes_2 = {
-  #     :name        => "Pen",
-  #     :description => "You can use it to write other things",
-  #     :unit_price  => BigDecimal.new(11.99,4),
-  #     :created_at  => Time.now,
-  #     :updated_at  => Time.now
-  #   }
-  #   item_2 = ir.create(attributes_2)
-  #
-  #   assert_equal [item_1, item_2], ir.find_all_by_price_in_range(range)
-  #   assert_equal [item_2], ir.find_all_by_price_in_range(range)
-  # end
+    price_1 = BigDecimal.new(10.99,4)
+    price_2 = BigDecimal.new(11.99,4)
 
-  # def test_find_all_by_merchant_id
-  #   se = SalesEngine.from_csv({
-  #     :items => "./data/item_sample.csv",
-  #     :merchants => "./data/merchant_sample.csv"
-  #   })
-  #   ir = se.items
-  #
-  #
-  #   assert_equal [item_1], ir.find_all_by_merchant_id(12334130)
-  #   assert_equal [item_2], ir.find_all_by_merchant_ide(12334131)
-  # end
+    assert_equal [item_1], ir.find_all_by_price(price_1)
+    assert_equal [item_2], ir.find_all_by_price(price_2)
+  end
+
+  def test_find_all_by_price_in_range
+    se = SalesEngine.from_csv({
+      :items => "./data/item_sample.csv",
+      :merchants => "./data/merchant_sample.csv"
+    })
+    ir = se.items
+    attributes_1 = {
+      :name        => "Pencil",
+      :description => "You can use it to write things",
+      :unit_price  => BigDecimal.new(10.99,4),
+      :created_at  => Time.now,
+      :updated_at  => Time.now
+    }
+    item_1 = ir.create(attributes_1)
+    attributes_2 = {
+      :name        => "Pen",
+      :description => "You can use it to write other things",
+      :unit_price  => BigDecimal.new(11.99,4),
+      :created_at  => Time.now,
+      :updated_at  => Time.now
+    }
+    item_2 = ir.create(attributes_2)
+
+    assert_equal [item_1, item_2], ir.find_all_by_price_in_range(0..100)
+    assert_equal [item_2], ir.find_all_by_price_in_range(11.00..15.00)
+  end
+
+  def test_find_all_by_merchant_id
+    se = SalesEngine.from_csv({
+      :items => "./data/item_sample.csv",
+      :merchants => "./data/merchant_sample.csv"
+    })
+    ir = se.items
+    attributes_1 = {
+      :name        => "Pencil",
+      :description => "You can use it to write things",
+      :unit_price  => BigDecimal.new(10.99,4),
+      :created_at  => Time.now,
+      :updated_at  => Time.now
+    }
+    item_1 = ir.create(attributes_1)
+    attributes_2 = {
+      :name        => "Pen",
+      :description => "You can use it to write other things",
+      :unit_price  => BigDecimal.new(11.99,4),
+      :created_at  => Time.now,
+      :updated_at  => Time.now
+    }
+    item_2 = ir.create(attributes_2)
+
+    assert_equal [item_1], ir.find_all_by_merchant_id(12334140)
+    assert_equal [item_2], ir.find_all_by_merchant_id(12334141)
+  end
 end
