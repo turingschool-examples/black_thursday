@@ -1,5 +1,5 @@
-require 'repository'
-require 'merchant'
+require_relative 'repository'
+require_relative 'merchant'
 
 class MerchantRepository < Repository
   def initialize
