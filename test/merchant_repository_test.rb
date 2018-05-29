@@ -58,16 +58,11 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_update_a_merchants_name
-    @merchant_repository.create({name: 'test_store',
-                                created_at: '2018-28-05',
-                                updated_at: '2018-28-05'})
+    @merchant_repository.create({name: 'test_store'})
     assert @merchant_repository.find_by_name('test_store')
     refute @merchant_repository.find_by_name('test_store_new')
 
-    @merchant_repository.update(12337412,{name: 'test_store_new',
-                                            created_at: '2018-28-05',
-                                            updated_at: '2018-28-05'} )
-
+    @merchant_repository.update(12337412,{name: 'test_store_new'} )
     refute @merchant_repository.find_by_name('test_store')
     assert @merchant_repository.find_by_name('test_store_new')
   end

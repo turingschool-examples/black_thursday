@@ -48,9 +48,7 @@ class ItemsRepositoryTest < Minitest::Test
   def test_find_all_by_name_fragment
     assert_instance_of Array, @item_repository.find_all_by_name('art')
     assert_equal 73, @item_repository.find_all_by_name('art').length
-    # assert_equal 73, @item_repository.find_all_by_name('style').length
     assert_equal [], @item_repository.find_all_by_name('asdgihweogdv')
-    # assert_equal [], @item_repository.find_all_by_name('art')
   end
 
   def test_it_can_create_a_new_merchant_object
@@ -59,25 +57,31 @@ class ItemsRepositoryTest < Minitest::Test
                             description: 'this is a test item',
                             unit_price: '1200',
                             merchant_id: '456782345',
-                            created_at: '1983-12-31 13:20:23 UTC',
-                            updated_at: '1983-12-31 13:20:23 UTC'})
+                            created_at: Time.now,
+                            updated_at: Time.now})
     assert_equal 'test_item', @item_repository.find_by_id(263567475).name
   end
-  # REWRITE THIS TEST TO FIT ITEM UPDATE METHOD
-  # def test_it_can_update_a_merchants_name
-  #   @item_repository.create({name: 'test_store',
-  #                               created_at: '2018-28-05',
-  #                               updated_at: '2018-28-05'})
-  #   assert @item_repository.find_by_name('test_store')
-  #   refute @item_repository.find_by_name('test_store_new')
-  #
-  #   @item_repository.update('12337412',{name: 'test_store_new',
-  #                                           created_at: '2018-28-05',
-  #                                           updated_at: '2018-28-05'} )
-  #
-  #   refute @item_repository.find_by_name('test_store')
-  #   assert @item_repository.find_by_name('test_store_new')
-  # end
+
+  def test_it_can_update_item_name
+    @item_repository.create({name: 'test_item',
+                            description: 'this is a test item',
+                            unit_price: '1200',
+                            merchant_id: '456782345',
+                            created_at: Time.now,
+                            updated_at: Time.now})
+    assert @item_repository.find_by_name('test_item')
+    refute @item_repository.find_by_name('test_item_new')
+
+    @item_repository.update(263567475,{name: 'test_item_new',
+                                        description: 'This is a test.',
+                                        unit_price: BigDecimal.new(500.01, 5),
+                                        created_at: Time.now,
+                                        updated_at: Time.now,
+                                        merchant_id: 100} )
+
+    refute @item_repository.find_by_name('test_item')
+    assert @item_repository.find_by_name('test_item_new')
+  end
 
   def test_it_can_delete_a_merchant_object
     assert @item_repository.find_by_id(263567474)
