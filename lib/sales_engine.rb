@@ -21,4 +21,9 @@ class SalesEngine
   def items
     @items ||= ItemRepository.new(load_file(file_paths[:items]), self)
   end
+
+  def analyst
+    @analyst ||= SalesAnalyst.new(self)
+  end
+
 end
